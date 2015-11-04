@@ -87,14 +87,13 @@ function read_microprg ( context )
 	       if (! isToken(context, "(") )
 	       {
 	           // match mandatory LABEL
-		   for(var labelNameAux in context.etiquetas)
+		   var newLabelName = getToken(context) ;
+		   for (var contadorMCAux in context.etiquetas)
 		   {
-			if(context.etiquetas[labelNameAux]==getToken(context))
-			{
-				return firmwareError(context, "Label '" + getToken(context) + "' repeated");
-			}
+			if (context.etiquetas[contadorMCAux] == newLabelName)
+			    return firmwareError(context, "Label '" + getToken(context) + "' is repeated");
 		   }
-		   context.etiquetas[context.contadorMC] = getToken(context) ; 
+		   context.etiquetas[context.contadorMC] = newLabelName ; 
 
                    // semantic check: valid token
                    if (context.tokens[context.i].match("[a-zA-Z_0-9]*")[0] != getToken(context) )
@@ -200,7 +199,7 @@ function read_microprg ( context )
            return microprograma ;
 }
 
-function load_firmware (text)
+function loadFirmware (text)
 {
            var context = new Object() ;
 	   context.line           	= 1 ;
@@ -217,7 +216,7 @@ function load_firmware (text)
 	   context.t              	= 0 ;
 	   context.newlines       	= new Array() ;
 	   context.pseudoInstructions	= new Array();
-	   context.stackRegister	= null;
+	   context.stackRegister	= null ;
 
            nextToken(context) ;
            while (context.t < context.text.length)
@@ -247,24 +246,23 @@ function load_firmware (text)
 
                            nextToken(context) ;
                            context.registers[nombre_reg] = getToken(context) ;
-			   nextToken(context) ;
-			   if(isToken(context, "("))
+
+                           nextToken(context) ;
+			   if (isToken(context, "("))
 			   {
-				if(context.stackRegister!=null)
-				{
-					return firmwareError(context, "Duplicate definition of stack pointer");
-				}
+				if (context.stackRegister != null)
+				    return firmwareError(context, "Duplicate definition of stack pointer");
+
 				nextToken(context);
-				if(! isToken(context, "stack_pointer"))
-				{
-					return firmwareError(context, "Expected define of stack pointer not found");
-				}
-				context.stackRegister=nombre_reg;
+				if (! isToken(context, "stack_pointer"))
+				    return firmwareError(context, "Expected stack_pointer token not found");
+
+				context.stackRegister = nombre_reg;
+
 				nextToken(context);
-				if(! isToken(context, ")"))
-				{
-					return firmwareError(context, "Expected ')' not found");
-				}
+				if (! isToken(context, ")"))
+				    return firmwareError(context, "Expected ')' not found");
+
 				nextToken(context);
 			   }
 			
@@ -684,14 +682,15 @@ function load_firmware (text)
 	   }
 
            var ret = new Object();
-           ret.error     = null;
-           ret.firmware  = context.instrucciones ;
-           ret.labels    = context.etiquetas;
-           ret.mp        = new Object();
-           ret.seg       = new Object();
-           ret.registers = context.registers ;
+           ret.error              = null;
+           ret.firmware           = context.instrucciones ;
+           ret.labels             = context.etiquetas;
+           ret.mp                 = new Object();
+           ret.seg                = new Object();
+           ret.registers          = context.registers ;
            ret.pseudoInstructions = context.pseudoInstructions ;
-	   ret.stackRegister	=context.stackRegister;
+	   ret.stackRegister	  = context.stackRegister;
+
            return ret ;
 }
 
@@ -721,11 +720,12 @@ function saveFirmware ( SIMWARE )
 		{
 			file = file + '\t' +"co=" + SIMWARE.firmware[i].co + "," + '\n';
 		}
-		
+
 		if (typeof SIMWARE.firmware[i].cop != "undefined")
 		{
 			file = file + '\t' +"cop=" + SIMWARE.firmware[i].cop + "," + '\n';
 		}
+
 		if (typeof SIMWARE.firmware[i].nwords != "undefined")
 		{
 			file = file + '\t' + "nwords=" + SIMWARE.firmware[i].nwords + "," + '\n'; 
@@ -782,27 +782,23 @@ function saveFirmware ( SIMWARE )
 			file = file.substr(0,file.length-1);
 			if (SIMWARE.firmware[i].name!="fetch")
 			{
-				file = file + '\n' + '\t' + "}";
+				file = file + '\n\t}';
 			}
 		}
-		file = file + '\n' + "}" + '\n' + '\n';
+		file = file + '\n}\n\n';
 	}	
 
 	if ( (typeof SIMWARE.registers != "undefined") && (SIMWARE.registers.length > 0) )
 	{
-		file = file + "registers" + '\n' + '{' + '\n';
+		file = file + 'registers' + '\n{\n';
 		for (var i = 0; i< SIMWARE.registers.length; i++)
 		{
-		     if(SIMWARE.stackRegister==i)
-                     {
-		     	file = file + '\t' + "$" + i + "=" + SIMWARE.registers[i] + " (stack_pointer)," + '\n';
-		     }else
-		     {
-		    	file = file + '\t' + "$" + i + "=" + SIMWARE.registers[i] + "," + '\n';
-		     }	
+		     if (SIMWARE.stackRegister == i)
+		     	  file = file + '\t' + "$" + i + "=" + SIMWARE.registers[i] + " (stack_pointer)," + '\n';
+                     else file = file + '\t' + "$" + i + "=" + SIMWARE.registers[i] + "," + '\n';
 		}
 		file = file.substr(0, file.length-2);
-		file = file + '\n' + '}' + '\n';
+		file = file + '\n}\n';
 	}
 
 	return file;

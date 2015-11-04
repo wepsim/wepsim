@@ -73,7 +73,7 @@
                                                    {
                                                       var bus_ab = sim_states[s_expr[1]].value ;
                                                       var bus_db = sim_states[s_expr[2]].value ;
-                                                      var clk    = sim_states[s_expr[5]].value ;
+                                                      var clk    = sim_states[s_expr[5]].value() ;
 
                                                       if (bus_ab != DDR_ID) {
                                                           return;

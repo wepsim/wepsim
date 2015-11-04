@@ -372,6 +372,9 @@
             // 2.- display the information holders
             init_states("#states_ALL") ; 
             init_rf("#states_BR") ; 
+
+            init_stats("#stats_ALL") ; 
+            init_io("#io_ALL") ; 
         }
 
         function init_eventlistener ()

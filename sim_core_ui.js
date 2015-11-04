@@ -37,6 +37,7 @@
                 FIRMWARE['pseudoInstructions'] = new Object() ;
 		FIRMWARE['stackRegister']      = new Object() ;
             }
+
             return FIRMWARE ;
 	}
  
@@ -244,6 +245,96 @@
         function show_states ( ) 
         {
             return show_eltos(sim_states, filter_states) ;
+        }
+
+        function init_stats ( jqdiv )
+        {
+            if (jqdiv == "")
+            {       // without ui
+		    sim_states['CLK'].value = ko.observable(sim_states['CLK'].value);
+		    sim_states['DECO_INS'].value = ko.observable(sim_states['DECO_INS'].value);
+		    for (var i=0; i<IO_INT_FACTORY.length; i++)
+			 IO_INT_FACTORY[i].accumulated = ko.observable(IO_INT_FACTORY[i].accumulated) ;
+                    return ;
+            }
+
+            // stats holder
+            var o1 = "<center>" ;
+            o1 += "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6'>Instructions</div>" +
+                  "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' id='ins_context'>" +
+                  "<span data-bind='text: value'>&nbsp;</span>" + 
+                  "</div>" ;
+            o1 += "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6'>CLK ticks</div>" +
+                  "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' id='clk_context'>" +
+                  "<span data-bind='text: value'>&nbsp;</span>" + 
+                  "</div>" ;
+            o1 += "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>&nbsp;</div>" ;
+            for (var i=0; i<IO_INT_FACTORY.length; i++)
+            {
+               o1 += "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6'>Interrupt " + i + "</div>" +
+                     "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' id='int" + i + "_context'>" +
+                     "<span data-bind='text: accumulated'>&nbsp;</span>" + 
+                     "</div>" ;
+            }
+            o1 += "</center>" ;
+            $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
+
+            // knockout binding
+            sim_states['CLK'].value = ko.observable(sim_states['CLK'].value);
+            var ko_context = document.getElementById('clk_context');
+            ko.applyBindings(sim_states['CLK'], ko_context);
+
+            sim_states['DECO_INS'].value = ko.observable(sim_states['DECO_INS'].value);
+            var ko_context = document.getElementById('ins_context');
+            ko.applyBindings(sim_states['DECO_INS'], ko_context);
+
+            for (var i=0; i<IO_INT_FACTORY.length; i++)
+            {
+                 IO_INT_FACTORY[i].accumulated = ko.observable(IO_INT_FACTORY[i].accumulated) ;
+                 var ko_context = document.getElementById('int' + i + '_context');
+                 ko.applyBindings(IO_INT_FACTORY[i], ko_context);
+            }
+        }
+
+        function init_io ( jqdiv )
+        {
+            if (jqdiv == "")
+            {       // without ui
+		    for (var i=0; i<IO_INT_FACTORY.length; i++) {
+			 IO_INT_FACTORY[i].period = ko.observable(IO_INT_FACTORY[i].period) ;
+			 IO_INT_FACTORY[i].probability = ko.observable(IO_INT_FACTORY[i].probability) ;
+		    }
+                    return ;
+            }
+
+            // io holder
+            var o1 = "<center>" ;
+            for (var i=0; i<8; i++)
+            {
+               o1 += "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4' style='padding: 15 5 0 10;'>" + 
+                     "Interrupt " + i + 
+                     "</div>" +
+                     "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4' style='padding: 0 5 0 10;' id='int" + i + "_per'>" +
+                     "<input type=number data-bind='value: period'>" + 
+                     "</div>" +
+                     "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4' style='padding: 0 5 0 10;' id='int" + i + "_pro'>" +
+                     "<input type=number data-bind='value: probability' min='0' max='1' step='.1'>" + 
+                     "</div>" ;
+            }
+            o1 += "</center>" ;
+            $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
+
+            // knockout binding
+            for (var i=0; i<IO_INT_FACTORY.length; i++)
+            {
+                 IO_INT_FACTORY[i].period = ko.observable(IO_INT_FACTORY[i].period) ;
+                 var ko_context = document.getElementById('int' + i + '_per');
+                 ko.applyBindings(IO_INT_FACTORY[i], ko_context);
+
+                 IO_INT_FACTORY[i].probability = ko.observable(IO_INT_FACTORY[i].probability) ;
+                 var ko_context = document.getElementById('int' + i + '_pro');
+                 ko.applyBindings(IO_INT_FACTORY[i], ko_context);
+            }
         }
 
 
@@ -476,11 +567,7 @@
 		     var clabel = "" ;
 		     var wadd   = "" ;
 
-                     wadd = "0x" + (parseInt(c)+3).toString(16);
-		     if (typeof slebal[wadd] != "undefined") 
-                          clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
-                     else clabel = clabel + "&nbsp;" ;
-                     wadd = "0x" + (parseInt(c)+2).toString(16);
+                     wadd = "0x" + (parseInt(c)+0).toString(16);
 		     if (typeof slebal[wadd] != "undefined") 
                           clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
                      else clabel = clabel + "&nbsp;" ;
@@ -488,7 +575,11 @@
 		     if (typeof slebal[wadd] != "undefined") 
                           clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
                      else clabel = clabel + "&nbsp;" ;
-                     wadd = "0x" + (parseInt(c)+0).toString(16);
+                     wadd = "0x" + (parseInt(c)+2).toString(16);
+		     if (typeof slebal[wadd] != "undefined") 
+                          clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
+                     else clabel = clabel + "&nbsp;" ;
+                     wadd = "0x" + (parseInt(c)+3).toString(16);
 		     if (typeof slebal[wadd] != "undefined") 
                           clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
                      else clabel = clabel + "&nbsp;" ;
@@ -501,10 +592,7 @@
                          "<tr>" +
 		         "<td align=right  style='border-style: solid; border-width:0px;'>" + clabel + "</td>" +
 			 "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c + "</td>" +
-			 "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + mp[c].substr(0,8)  + "    "
-														  + mp[c].substr(8,8)  + "    "
-														  + mp[c].substr(16,8) + "    "
-														  + mp[c].substr(24,8) + "</td>" +
+			 "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + mp[c] + "</td>" +
 			 "</tr>" ;
 		}
 		o = o + "</table>" +
@@ -648,7 +736,7 @@
                     o1.innerHTML = '&nbsp;' ;
 	        } else {
 	 	    bp_state = true ;
-                    o1.innerHTML = '<img height=15 src="images/stop.png">' ;
+                    o1.innerHTML = '<img height=22 src="images/stop.png">' ;
 	        }
 
                 SIMWARE.assembly[hexaddr].breakpoint = bp_state ;

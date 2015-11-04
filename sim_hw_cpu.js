@@ -910,7 +910,8 @@
 					     operation: function(s_expr) 
 							{
 							    // 0.- Update counter
-							    sim_states["CLK"].value = sim_states["CLK"].value + 1 ;
+							    var val = sim_states["CLK"].value() ;
+							    sim_states["CLK"].value(val + 1);
 
 							    // 1.- To treat the (Falling) Edge signals
 							    for (var key in sim_signals) 
@@ -975,21 +976,29 @@
 								      sim_states[key].value = Object.create(sim_states[key].default_value) ;
 								 else sim_states[key].value = sim_states[key].default_value ;
 							    }
-							    for(var key=0;key<sim_states["BR"].length;key++)
+
+							    for(var key=0; key<sim_states["BR"].length; key++)
 							    {
-								sim_states["BR"][key]=0;
-								/*TO-DO--> IF REGISTER==SP, NOT RESET VALUE*/
+								sim_states["BR"][key] = 0;
 							    }
+
 							    // 1.b.- reset events to empty
 							    sim_events["screen"] = new Object() ;
 							    sim_events["keybd"]  = new Object() ;
 							    sim_events["io"]     = new Object() ;
 
-							    // 2.a.- show states & register file
+							    // 2.- reset the I/O factory
+							    for (var i=0; i<IO_INT_FACTORY.length; i++)
+							    {
+								IO_INT_FACTORY[i].accumulated(0) ;
+								IO_INT_FACTORY[i].active = false ;
+							    }
+
+							    // 3.a.- show states & register file
 							    show_states() ;
 							    show_rf() ;
 
-							    // 2.b.- show memories 
+							    // 3.b.- show memories 
 							    show_memories('MP',  MP,  1) ;
 							    show_memories('MC',  MC,  1) ;
 							}
