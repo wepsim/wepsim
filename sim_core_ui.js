@@ -1,0 +1,709 @@
+/*      
+ *  Copyright 2015 Javier Prieto Cepeda, Felix Garcia Carballeira, Alejandro Calderon Mateos
+ *
+ *  This file is part of WepSIM.
+ * 
+ *  WepSIM is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  WepSIM is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+
+        /*
+         *  get/set simware
+         */
+
+        function get_simware ( )
+        {
+	    if (typeof FIRMWARE['firmware'] == "undefined") 
+            {
+                FIRMWARE['firmware']           = new Array() ;
+                FIRMWARE['mp']                 = new Object() ;
+                FIRMWARE['seg']                = new Object() ;
+                FIRMWARE['assembly']           = new Object() ;
+                FIRMWARE['labels']             = new Object() ;
+                FIRMWARE['registers']          = new Object() ;
+                FIRMWARE['cihash']             = new Object() ;
+                FIRMWARE['pseudoInstructions'] = new Object() ;
+		FIRMWARE['stackRegister']      = new Object() ;
+            }
+            return FIRMWARE ;
+	}
+ 
+        function set_simware ( preSIMWARE )
+        {
+	    if (typeof preSIMWARE['firmware'] != "undefined") 
+                FIRMWARE['firmware'] = preSIMWARE['firmware'] ;
+	    if (typeof preSIMWARE['mp'] != "undefined") 
+                FIRMWARE['mp'] = preSIMWARE['mp'] ;
+	    if (typeof preSIMWARE['seg'] != "undefined") 
+                FIRMWARE['seg'] = preSIMWARE['seg'] ;
+	    if (typeof preSIMWARE['assembly'] != "undefined") 
+                FIRMWARE['assembly'] = preSIMWARE['assembly'] ;
+	    if (typeof preSIMWARE['labels'] != "undefined") 
+                FIRMWARE['labels'] = preSIMWARE['labels'] ;
+	    if (typeof preSIMWARE['registers'] != "undefined") 
+                FIRMWARE['registers'] = preSIMWARE['registers'] ;
+	    if (typeof preSIMWARE['cihash'] != "undefined") 
+                FIRMWARE['cihash'] = preSIMWARE['cihash'] ;
+	    if (typeof preSIMWARE['pseudoInstructions'] != "undefined") 
+                FIRMWARE['pseudoInstructions'] = preSIMWARE['pseudoInstructions'] ;
+	    if (typeof preSIMWARE['stackRegister'] != "undefined")
+		FIRMWARE['stackRegister'] = preSIMWARE['stackRegister'] ;
+	}
+ 
+
+        /*
+         *  draw
+         */
+
+	function obj_draw ( obj_name, active, color_active, color_inactive, size_active, size_inactive )
+        {
+	   var r = obj_name.split(':') ;
+
+	   var o = document.getElementById(r[0]) ;
+           if (o == null) return;
+
+	   o = o.contentDocument;
+           if (o == null) return;
+
+	   o = o.getElementById(r[1]);
+           if (o == null) return;
+
+           if (active)
+           {
+               o.style.setProperty("stroke",       color_active, "");
+               o.style.setProperty("fill",         color_active, "");
+               o.style.setProperty("stroke-width", size_active,  "");
+           }
+           else
+           {
+               if (o.style.getPropertyValue("stroke") == color_inactive)
+                   return;
+
+               o.style.setProperty("stroke",       color_inactive, "");
+               o.style.setProperty("fill",         color_inactive, "");
+               o.style.setProperty("stroke-width", size_inactive,  "");
+           }
+        }
+
+	function update_draw ( obj, value )
+        {
+	    if (obj.draw_data.length > 1)
+	    // (different draws)
+	    {
+		    for (var i=0; i<obj.draw_data.length; i++)
+		    for (var j=0; j<obj.draw_data[i].length; j++) {
+	                   obj_draw(obj.draw_data[i][j], (i==value), color_data_active, color_data_inactive, size_active, size_inactive);
+		    }
+
+		    for (var i=0; i<obj.draw_name.length; i++)
+		    for (var j=0; j<obj.draw_name[i].length; j++) {
+	                   obj_draw(obj.draw_name[i][j], (i==value), color_name_active, color_name_inactive, size_active, size_inactive);
+		    }
+	    }
+	    else if (obj.nbits == 1)
+	    // (same draw) && (nbits == 1)
+	    {
+		    for (var j=0; j<obj.draw_data[0].length; j++) {
+	                   obj_draw(obj.draw_data[0][j], (0!=value), color_data_active, color_data_inactive, size_active, size_inactive);
+		    }
+
+		    for (var j=0; j<obj.draw_name[0].length; j++) {
+	                   obj_draw(obj.draw_name[0][j], (0!=value), color_name_active, color_name_inactive, size_active, size_inactive);
+		    }
+	    }
+	    else if (obj.draw_data.length == 1)
+	    // (same draw) && (nbits > 1)
+	    {
+		    for (var j=0; j<obj.draw_data[0].length; j++) {
+	                   obj_draw(obj.draw_data[0][j], true, color_data_active, color_data_inactive, size_active, size_inactive);
+		    }
+
+		    for (var j=0; j<obj.draw_name[0].length; j++) {
+	                   obj_draw(obj.draw_name[0][j], true, color_name_active, color_name_inactive, size_active, size_inactive);
+		    }
+	    }
+	}
+ 
+        function refresh()
+        {
+	    for (var key in sim_signals)
+	    {
+		 update_draw(sim_signals[key], sim_signals[key].value) ;
+	    }
+        }
+
+
+        /*
+         *  init_x & show_x
+         */
+
+        function init_rf ( jqdiv )
+        {
+            if (jqdiv == "")
+            {   // without ui
+                return ;
+            }
+
+            var o1_rf = "" ;
+
+	    for (var index=0; index < sim_states['BR'].length; index++) 
+            {
+		 o1_rf += "<div class='col-xs-2 col-sm-1 col-md-2 col-lg-1' id='name_RF" + index + "' style='padding: 0 15 0 5;'>" +
+                          "R" + index + "</div>" + 
+                          "<div class='col-xs-4 col-sm-3 col-md-4 col-lg-3' id='tbl_RF"  + index + "' style='padding: 0 5 0 35;'>" +
+                          sim_states['BR'][index] + "</div>" ; 
+	    }
+
+            $(jqdiv).html("<div class='row-fluid'>" + o1_rf + "</div>");
+        }
+
+        function show_rf ( ) 
+        {
+            var SIMWARE = get_simware() ;
+
+	    for (var index=0; index < sim_states['BR'].length; index++) 
+            {
+		 var obj = document.getElementById("tbl_RF" + index);
+		 if (obj != null)
+		     obj.innerHTML = sim_states['BR'][index].toString(16) ;
+
+		 var obj = document.getElementById("name_RF" + index);
+		 if (obj != null)
+                     if (typeof SIMWARE['registers'][index] != "undefined")
+		         obj.innerHTML = index + "=" + SIMWARE['registers'][index] ;
+	    }
+        }
+
+
+        var filter_states = [ "REG_IR_DECO,1",   
+                              "REG_PC,0",        "REG_MAR,0", "REG_MBR,0",    "REG_IR,0", 
+                              "REG_RT1,0",       "REG_RT2,0", "REG_RT3,0",    "REG_SR,0", 
+                              "FLAG_O,0",        "FLAG_N,0",  "FLAG_Z,0",     "FLAG_I,0",    "FLAG_U,0", 
+                              "REG_MICROADDR,0", "REG_IR,0" ] ;
+
+        var divclasses = [ "col-xs-3 col-sm-3 col-md-3 col-lg-2",
+                           "col-xs-6 col-sm-6 col-md-6 col-lg-6" ] ;
+
+        function init_eltos ( jqdiv, sim_eltos, filter, divclasses ) 
+        {
+            if (jqdiv == "")
+            {   // without ui
+                return ;
+            }
+
+            var o1 = "" ;
+            for (var i=0; i<filter.length; i++)
+            {
+                var s = filter[i].split(",")[0] ;
+
+                var showkey = sim_eltos[s].name;
+                if (showkey.length > 7)
+                    showkey = showkey.substring(0,7) + "..." ;
+
+                var b = filter[i].split(",")[1] ;
+                var divclass = divclasses[b] ;
+
+                o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" + showkey + "</div>" +
+                      "<div class='" + divclass + "' id='tbl_" + s + "' style='padding: 0 5 0 0;'>" +
+                      sim_eltos[s].value.toString(16) +
+                      "</div>" ;
+            }
+
+            $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
+        }
+
+        function show_eltos ( sim_eltos, filter ) 
+        {
+            for (var i=0; i<filter.length; i++)
+            {
+                var key = filter[i].split(",")[0] ;
+
+		var obj = document.getElementById("tbl_" + key);
+		if (obj != null)
+                    obj.innerHTML = sim_eltos[key].value.toString(16) ;
+            }
+        }
+
+        function init_states ( jqdiv ) 
+        {
+            return init_eltos(jqdiv, sim_states, filter_states, divclasses ) ;
+        }
+
+        function show_states ( ) 
+        {
+            return show_eltos(sim_states, filter_states) ;
+        }
+
+
+        /*
+         *  show_memories
+         */
+
+        function show_memories ( name, memory, index ) 
+        {
+	    var o1 = "" ;
+            var value = "" ;
+
+            for (var key in memory)
+            {
+                 if (typeof memory[key] == "object") 
+                 {
+                        value = "" ;
+                        for (var ks in memory[key])
+                        {
+                             if (memory[key][ks] == 1)
+                                  value += ks + " ";
+                             else value += ks + "=" + memory[key][ks] + " ";
+                        }
+
+			if (key == index)
+			     o1 += "<tr>" + 
+                                   "<td width=15%>" + "0x" + parseInt(key).toString(16) + "</td>" + 
+                                   "<td><b><div style='color: blue'>" + value + "</div></b></td></tr>";
+			else o1 += "<tr>" + 
+                                   "<td width=15%><small>" + "0x" + parseInt(key).toString(16) + "</small></td>" + 
+                                   "<td          ><div><small>" + value + "</small></div></td></tr>";
+		 }
+                 else 
+                 {
+                        value  = memory[key].toString(16) ;
+                        value  = "00000000".substring(0, 8 - value.length) + value ;
+                        value2 = value[0] + value[1] + ' ' +
+                                 value[2] + value[3] + ' ' +
+                                 value[4] + value[5] + ' ' +
+                                 value[6] + value[7] ;
+
+                        key2 = parseInt(key).toString(16) ;
+                        key2 = "00000000".substring(0, 8 - key2.length) + key2 ;
+
+                        for (skey in segments) {
+                             if (parseInt(segments[skey].begin) == parseInt(key))
+			         o1 += "</tbody>" + "<tbody id=begin_" + skey + ">";
+                        }
+
+			if (key == index)
+			     o1 += "<tr>" +
+                                   "<td width=15%><font color=blue><b>" + "0x" + key2 + "</b></font></td>" + 
+                                   "<td          ><font color=blue><b>" + value2      + "</b></font></td></tr>";
+			else o1 += "<tr>" +
+                                   "<td width=15%><small>" + "0x" + key2 + "</small></td>" + 
+                                   "<td          ><small>" + value2      + "</small></td></tr>";
+		 }
+            }
+
+	    if (typeof memory[index] == "undefined")
+		o1 += "<tr>" + 
+		      "<td width=15%><font color=blue>0x" + parseInt(index).toString(16) + "</font></td>" + 
+		      "<td><font color=blue><b>&nbsp;</b></font></td></tr>";
+
+            $("#memory_" + name).html("<center><table class='table table-hover table-condensed table-responsive'>" + 
+                                      "<tbody id=none>" + o1 + "</tbody>" +
+                                      "</table></center>");
+        }
+
+	function show_asmdbg_pc ( )
+	{
+                var SIMWARE  = get_simware() ;
+                var o1 = null ;
+
+                for (l in SIMWARE.assembly)
+                {
+                     o1 = $("#asmdbg" + l) ;
+                     o1.css('background-color', SIMWARE.assembly[l].bgcolor);
+                }
+
+                var reg_pc     = sim_states["REG_PC"].value ;
+                var curr_addr  = "0x" + reg_pc.toString(16) ;
+
+                o1 = $("#asmdbg" + curr_addr) ;
+                o1.css('background-color', '#00EE88');
+	}
+
+
+        /*
+         *  obj2html
+         */
+
+	function firmware2html ( fir, showBinary ) 
+	{
+		var filter =  [ "A0,0",   "B,0",    "C,0",   "SELA,5", "SELB,5", "SELE,2", "MR,0",  "MC,0",
+				"C0,0",   "C1,0",   "C2,0",  "C3,0",   "C4,0",   "C5,0",   "C6,0",  "C7,0",
+				"T1,0",   "T2,0",   "T3,0",  "T4,0",   "T5,0",   "T6,0",   "T7,0",  "T8,0",  "T9,0",  "T10,0",
+				"M1,0",   "M2,0",   "M7,0",  "MA,0",   "MB,0",  
+                                "SELP,0", "LE,0",   "SE,0",  "SIZE,0", "OFFSET,0",
+                                "BW,0",   "R,0",    "W,0",   "TA,0",   "TD,0",   "IOR,0",  "IOW,0",  
+                                "I,0",    "U,0",    "COP,0" ] ;
+
+		var h = "<tr bgcolor=#FF9900>" + 
+                        "<td bgcolor=white     style='border-style: solid; border-width:0px;'></td>" + 
+                        "<td bgcolor=lightblue style='border-style: solid; border-width:1px;'>co</td>" + 
+                        "<td align=center style='border-style: solid; border-width:1px;'><small><b>&#181;dir</b></small></td>";
+		var contSignals=1;
+		for (var i=0; i<filter.length; i++) {
+                     var s = filter[i].split(",")[0] ;
+		     h = h + "<td align=center style='border-style: solid; border-width:1px;'><small><b>" + 
+                             sim_signals[s].name + 
+                             "</b></small></td>";
+		     contSignals++;
+		}
+		h = h + "</tr>" ; 
+		
+		var o = "<center>";
+		o = o + "<table style='table-layout:auto; border-style: solid: border-width:0px; border-collapse:collapse;'>";
+
+                var l = 0;
+		for (var i=0; i<fir.length; i++)
+		{
+		    var mstart = fir[i]["mc-start"];
+		    var mcode  = fir[i].microcode;
+		    for (j=0; j<mcode.length; j++)
+		    {
+                         if (++l % 10 == 1)
+		             o = o + h ;
+ 
+			 var ico = "";
+			 if (typeof fir[i].co != "undefined")
+			     ico = parseInt(fir[i].co, 2) ;
+                         var isignature = fir[i].signature.split(',')[0] ;
+
+                         var line = "";
+                         if (j==0)
+                              line = line + "<td style='border-style: solid; border-width:0px;'>" + 
+                                            "<span class='badge'>" + isignature + "</span>" + "&nbsp;" +
+                                            "</td>" +
+                                            "<td style='border-style: solid; border-width:1px;'>" + ico + "</td>" ;
+                         else line = line + "<td style='border-style: solid; border-width:0px;'>&nbsp;</td>" +
+                                            "<td style='border-style: solid; border-width:1px;'>&nbsp;</td>" ;
+
+                         if (showBinary) 
+                              var madd = "0x" + (mstart + j).toString(16) ;
+                         else var madd = mstart + j ;
+
+			 line = line + "<td align=center style='border-style: solid; border-width:1px;' bgcolor=#FFCC00>" + 
+                                       madd +
+                                       "</td>";
+			 var mins = mcode[j] ;
+		         for (var k=0; k<filter.length; k++)
+			 {
+                              var s = filter[k].split(",")[0] ;
+
+			      var svalue = parseInt(sim_signals[s].default_value);
+                              var newval = false;
+			      if ( (typeof mins[s] != "undefined") && (!isNaN(parseInt(mins[s]))) ) 
+                              {
+				   svalue = parseInt(mins[s]);
+                                   newval = true;
+                              }
+
+			      if ( (s == "SELA" || s == "SELB" || s == "SELE") &&
+                                   (typeof mins["MADDR"] != "undefined") && (!isNaN(parseInt(mins["MADDR"]))) ) 
+                              {
+				   var fragment = parseInt(mins["MADDR"]).toString(2) ;
+                                   fragment = "000000000000".substring(0, 12 - fragment.length) + fragment + "000" ;
+                                   if (s == "SELA") {
+                                       svalue = parseInt(fragment.substring(0,   5), 2);
+                                       newval = true;
+                                   }
+                                   if (s == "SELB") {
+                                       svalue = parseInt(fragment.substring(5,  10), 2);
+                                       newval = true;
+                                   }
+                                   if (s == "SELE") {
+                                       svalue = parseInt(fragment.substring(10, 15), 2);
+                                       newval = true;
+                                   }
+                              }
+
+                              if (showBinary) 
+                              {
+			          var fragment = svalue.toString(2) ;
+			          var nbits    = parseInt(sim_signals[s].nbits);
+			          svalue = "00000000000000000000000000000000".substring(0, nbits - fragment.length) + fragment;
+
+                                  var ngreen = filter[k].split(",")[1] ;
+                                  var part1  = svalue.substring(0, ngreen);
+                                  var part2  = svalue.substring(ngreen);
+                                  svalue     = "<font color=green>" + part1 + "</font>" + part2 ;
+                              }
+
+			      if (newval)
+			           line = line + "<td align=center style='border-style: solid; border-width:1px;'>" + 
+  					         "<b>" + svalue + "</b>" + 
+                                                 "</td>";
+			      else line = line + "<td align=center style='border-style: solid; border-width:1px;'>" + 
+                                                 "<font color='grey'>" + svalue + "</font>" + 
+                                                 "</td>";
+			 }
+
+			 o = o + "<tr>" + line + "</tr>" ;
+		    }
+		}
+
+		o = o + "</table></center>";
+		return o;
+	}
+
+	function mp2html ( mp, labels, seg )
+	{
+                var slebal = new Object();
+                for (l in labels)
+                     slebal[labels[l]] = l;
+
+		var o = "";
+		o = o + "<center>" +
+			"<table style='table-layout:auto; border-style: solid; border-width:0px;'>" +
+			"<tr>" +
+			"<th>&nbsp;</th>" +
+			"<th style='border-style: solid; border-width:1px;'>address</th>" +
+			"<th style='border-style: solid; border-width:1px;'><center>content (bin)</center></th>" +
+			"</tr>" ;
+
+	   	var color="white";
+		for (c in mp)
+		{
+		     var clabel = "" ;
+		     var wadd   = "" ;
+
+                     wadd = "0x" + (parseInt(c)+3).toString(16);
+		     if (typeof slebal[wadd] != "undefined") 
+                          clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
+                     else clabel = clabel + "&nbsp;" ;
+                     wadd = "0x" + (parseInt(c)+2).toString(16);
+		     if (typeof slebal[wadd] != "undefined") 
+                          clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
+                     else clabel = clabel + "&nbsp;" ;
+                     wadd = "0x" + (parseInt(c)+1).toString(16);
+		     if (typeof slebal[wadd] != "undefined") 
+                          clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
+                     else clabel = clabel + "&nbsp;" ;
+                     wadd = "0x" + (parseInt(c)+0).toString(16);
+		     if (typeof slebal[wadd] != "undefined") 
+                          clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
+                     else clabel = clabel + "&nbsp;" ;
+
+		     for(var k in seg)
+		     if (parseInt(c)==seg[k].begin)
+		         color=seg[k].color;
+
+		     o = o + 
+                         "<tr>" +
+		         "<td align=right  style='border-style: solid; border-width:0px;'>" + clabel + "</td>" +
+			 "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c + "</td>" +
+			 "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + mp[c].substr(0,8)  + "    "
+														  + mp[c].substr(8,8)  + "    "
+														  + mp[c].substr(16,8) + "    "
+														  + mp[c].substr(24,8) + "</td>" +
+			 "</tr>" ;
+		}
+		o = o + "</table>" +
+			"</center>" ;
+
+		return o;
+	}
+
+        function segments2html ( segments )
+        {
+	   var o1 = "<br>" ;
+
+	   o1 += " <center>" + 
+                 " <table height=400px>" +
+	         " <tr>" +
+	         " <td>" +
+	         "<table style='border-style: solid' border=1 width=100% height=100%>" ;
+	   for (skey in segments) 
+	   {
+	        if (segments[skey].name != "stack")
+	   	    o1 += "<tr><td valign=middle align=center bgcolor=" + segments[skey].color + ">" + 
+                                segments[skey].name + "</td></tr>" +
+	   	          "<tr><td valign=middle align=center height=25px>...</td></tr>" ;
+	   }
+	   o1 += "<tr><td valign=middle align=center bgcolor=" + segments['stack'].color + 
+	         ">" + segments['stack'].name + "</td></tr>" +
+	         "</table>" +
+	         " </td>" +
+	         " <td width=20px>&nbsp;</td>" +
+	         " <td>" +
+	         " <table style='border-style: solid; border-width:0px; width:100%; height:100%'>" ;
+
+           var offset = 0 ;
+	   for (skey in segments) 
+	   {
+               offset += 1 ;
+	       if (segments[skey].name != "stack")
+	   	 o1 += "<tr>" +
+	   	       "    <td valign=middle align=center style='display: block; position: absolute;'>" +
+	   	       "    <div id='compile_begin_" + segments[skey].name + "' " + 
+                       "         style='position:relative; bottom:" + (3*offset) + "px;'>" + segments[skey].begin + "</div>" +
+	   	       "    </td>" +
+	   	       " </tr>" +
+	   	       " <tr>" +
+	   	       "    <td valign=middle align=center style='display: block; position: absolute;'>" +
+	   	       "    <div id='compile_end_"   + segments[skey].name + "' " + 
+                       "         style='position:relative; bottom:" + (2*offset) + "px;'>" + segments[skey].end + "</div>" +
+	   	       "    </td>" +
+	   	       " </tr>" ;
+	   }
+	   o1 += "  <tr>" +
+	         "  <td valign=middle align=center style='display: block; position: absolute;'>" +
+	         "<div id='compile_end_"  + segments['stack'].name + "' style='position:relative;bottom:25px;'>[SP_n]</div>"+
+	         "<div id='compile_begin_" + segments['stack'].name + "' style='position:relative;bottom:-20px;'>[SP_0]</div>"+
+	         "  </td>" +
+	         "  </tr>" +
+	         " </table>" +
+	         " </td>" +
+	         " </tr>" +
+	         " </table>" +
+	         " </center>" ;
+
+	   return o1 ;
+        }
+
+	function assembly2html ( mp, labels, seg, asm )
+	{
+                var s1_label = "" ;
+                var s1_instr = "" ;
+                var s2_label = "" ;
+                var s2_instr = "" ;
+                var bgc = "#F0F0F0" ;
+                var o = "" ;
+
+                o = o + "<center><table data-role=table class='table ui-responsive'><tbody>" ;
+                for (l in asm)
+                {
+                     if  (bgc == "#F0F0F0")
+                          bgc = "#F8F8F8" ;
+                     else bgc = "#F0F0F0" ;
+
+                     asm[l].bgcolor = bgc ;
+
+                     // without pseudo
+                     r = asm[l].source.split(":") ;
+                     if (r.length > 1) 
+                     {
+                         s1_label = r[0] + ":" ;
+                         s1_instr = r[1] ;
+                     }
+                     else
+                     {
+                         s1_label = "&nbsp;" ;
+                         s1_instr = r[0] ;
+                     }
+
+                     // with pseudo
+                     r = asm[l].source_original.split(":") ;
+                     if (r.length > 1) 
+                     {
+                         s2_label = r[0] + ":" ;
+                         s2_instr = r[1] ;
+                     }
+                     else
+                     {
+                         s2_label = "&nbsp;" ;
+                         s2_instr = r[0] ;
+                     }
+
+                     // join the pieces...
+                     o = o + "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'>" +
+                             "<td style='line-height:0.9;' width='10%' id='bp" + l + "' " + 
+                             "    onclick='asmdbg_set_breakpoint(" + l + "); if(event.stopPropagation) event.stopPropagation();'>&nbsp;</td>" +
+                             "<td style='line-height:0.9;' width='15%'>" + l + "</td>" +
+                             "<td style='line-height:0.9;' width='12%' align=right>" + s1_label               + "</td>" +
+                             "<td style='line-height:0.9;' width='25%' align=left>"  + s1_instr               + "</td>" +
+                             "<td style='line-height:0.9;' width='12%' align=right>" + s2_label               + "</td>" +
+                             "<td style='line-height:0.9;' width='25%' align=left>"  + s2_instr               + "</td>" +
+                             "</tr>" ;
+                }
+                o = o + "</tbody></table></center>" ;
+
+                return o ;
+	}
+
+
+        /*
+         *  play/stop
+         */
+
+	function asmdbg_set_breakpoint ( addr )
+	{
+                var SIMWARE  = get_simware() ;
+                var hexaddr  = "0x" + addr.toString(16) ;
+
+                var o1       = document.getElementById("bp"+hexaddr) ;
+                var bp_state = SIMWARE.assembly[hexaddr].breakpoint ;
+
+                if (bp_state === true) {
+		    bp_state = false ;
+                    o1.innerHTML = '&nbsp;' ;
+	        } else {
+	 	    bp_state = true ;
+                    o1.innerHTML = '<img height=15 src="images/stop.png">' ;
+	        }
+
+                SIMWARE.assembly[hexaddr].breakpoint = bp_state ;
+	}
+
+        var DBG_stop  = true ;
+        var DBG_delay = 300 ;
+        var DBG_level = "instruction" ;
+
+	function asmdbg_stop ( btn1 )
+	{
+                $(btn1).text("Run") ;
+                $(btn1).removeClass("ui-icon-minus") ;
+                $(btn1).addClass("ui-icon-carat-r") ;
+                $(btn1).css("backgroundColor", "#313131") ;
+
+                DBG_stop = true;
+	}
+
+	function asmdbg_play ( btn1 )
+	{
+                $(btn1).css("backgroundColor", 'rgb(51, 136, 204)') ;
+                $(btn1).text("Stop") ;
+                $(btn1).removeClass("ui-icon-carat-r") ;
+                $(btn1).addClass("ui-icon-minus") ;
+
+                if (DBG_stop) 
+                {
+	            asmdbg_stop(btn1) ;
+                    return ;
+                }
+
+                var ret = false ;
+	        if (DBG_level == "instruction")
+                     ret = execute_instruction() ;
+                else ret = execute_microinstruction() ;
+
+                if (ret === false) 
+                {
+	            asmdbg_stop(btn1) ;
+                    return ;
+                }
+
+                var SIMWARE = get_simware() ;
+                reg_pc      = sim_states["REG_PC"].value ;
+                curr_addr   = "0x" + reg_pc.toString(16) ;
+
+                if ( (typeof SIMWARE.assembly[curr_addr] != "undefined") && (SIMWARE.assembly[curr_addr].breakpoint) ) 
+                {
+	            asmdbg_stop(btn1) ;
+                    alert("Breakpoint @ " + curr_addr + ":\n" + 
+                          "Instruction at " + curr_addr + " is going to be fetched.") ;
+                    return ;
+                }
+
+                setTimeout(asmdbg_play, DBG_delay, btn1) ;
+	}
+

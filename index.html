@@ -1,0 +1,792 @@
+<meta http-equiv="cache-control" content="max-age=0" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+<meta http-equiv="pragma" content="no-cache" />
+
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>(ARCOS) WepSIM</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script src="jquery.min.js"></script>
+    <script src="jquery-ui.min.js"></script>
+    <script>
+        $(document).bind("mobileinit", function() {
+            $.mobile.defaultPageTransition = "none";
+            $.mobile.defaultDialogTransition = "none";
+        });
+    </script>
+    <script src="jquery.mobile-1.4.5.min.js"></script>
+
+    <link rel="stylesheet" href="jquery.mobile-1.4.5.min.css">
+    <style>
+    .ui-panel-inner {
+        position: absolute;
+        top: 1px;
+        left: 0;
+        right: 0;
+        bottom: 0px;
+        overflow: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    textarea.ui-input-text { 
+        height: inherit !important
+    }
+
+    .ui-icon-reset:after {
+	background-image: url("images/reset.svg");
+        background-repeat: no-repeat;
+        background-size: 15px 15px;
+    }
+    </style>
+
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap-theme.min.css">
+    <script src="bootstrap.min.js"></script>
+
+    <script src="sim_hw_board.js"></script>
+    <script src="sim_hw_cpu.js"></script>
+    <script src="sim_hw_mem.js"></script>
+    <script src="sim_hw_io.js"></script>
+    <script src="sim_hw_kbd.js"></script>
+    <script src="sim_hw_scr.js"></script>
+    <script src="sim_cfg.js"></script>
+    <script src="sim_core_ui.js"></script>
+    <script src="sim_core_ctrl.js"></script>
+    <script src="sim_lang.js"></script>
+    <script src="sim_lang_firm.js"></script>
+    <script src="sim_lang_asm.js"></script>
+
+    <script>
+    //
+    // Assembly
+    //
+
+    function compileAssembly() 
+    {
+        // get Assembly
+        var textToConvert = document.getElementById("inputAssembly").value;
+            textToConvert = textToConvert.toLowerCase();
+
+        // get SIMWARE.firmware
+        var SIMWARE = get_simware() ;
+	if (SIMWARE.firmware.length == 0) {
+            alert('WARNING: please load firmware first.');
+            $.mobile.pageContainer.pagecontainer('change','#main3');
+            return;
+	} 
+
+        // compile Assembly, update memory and segments
+        var SIMWAREaddon = simlang_compile(textToConvert, SIMWARE);
+        if (SIMWAREaddon.error != null) {
+            alert(SIMWAREaddon.error);
+            return ;
+        }
+
+        set_simware(SIMWAREaddon) ;
+	update_memories(SIMWARE);
+
+        // update UI 
+        $("#compile_mm").html(segments2html(SIMWAREaddon.seg));
+        $("#compile_mp").html(mp2html(SIMWAREaddon.mp, SIMWAREaddon.labels2, SIMWAREaddon.seg));
+        for (skey in SIMWARE.seg) {
+             $("#compile_begin_" + skey).html("0x" + SIMWARE.seg[skey].begin.toString(16));
+             $("#compile_end_"   + skey).html("0x" + SIMWARE.seg[skey].end.toString(16));
+        }
+        $("#asm_debugger").html(assembly2html(SIMWAREaddon.mp, 
+                                              SIMWAREaddon.labels2, 
+                                              SIMWAREaddon.seg, 
+                                              SIMWAREaddon.assembly));
+
+        // reset
+	if (confirm('Do you want me to reset the CPU?')) {
+	    reset();
+	} 
+    }
+
+    function load_assembly_from_file() 
+    {
+        var fileToLoad = document.getElementById("fileToLoad2").files[0];
+        var fileReader = new FileReader();
+        fileReader.onload = function (fileLoadedEvent) {
+                                            var textFromFileLoaded = fileLoadedEvent.target.result;
+                                            document.getElementById("inputAssembly").value = textFromFileLoaded;
+					    $("#inputAssembly").css({width:"100%",height:"inherit"})
+                            };
+        fileReader.readAsText(fileToLoad, "UTF-8");
+    }
+
+    function load_assembly_from_example ( )
+    {
+	var xmlhttp = new XMLHttpRequest();
+	var url = "examples/exampleCode2.txt" ;
+
+	xmlhttp.onreadystatechange=function() {
+					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+					{
+                                            var textFromFileLoaded = xmlhttp.responseText ;
+					    document.getElementById("inputAssembly").value = textFromFileLoaded;
+					    $("#inputAssembly").css({width:"100%",height:"inherit"})
+					}
+				   }
+	xmlhttp.open("GET", url, true);
+	xmlhttp.send();
+    }
+
+
+    //
+    // Firmware
+    //
+
+    function compileFirmware () 
+    {
+        var textFromFileLoaded = document.getElementById("inputFirmware").value ;
+
+	var preSM = load_firmware(textFromFileLoaded) ;
+	if (preSM.error != null) {
+            alert(preSM.error);
+            return ;
+        }
+	update_memories(preSM);
+        var SIMWARE = get_simware() ;
+        $("#ucompile").html(firmware2html(SIMWARE.firmware, true));
+	$("#ucompile").css({width:"100%",height:"inherit !important"});
+        $('#tab32').trigger('click');
+
+	reset() ;
+    }
+
+    function load_firmware_from_file ( )
+    {
+        var fileToLoad = document.getElementById("fileToLoad").files[0];
+        var fileReader = new FileReader();
+        fileReader.onload = function (fileLoadedEvent) {
+                                            var textFromFileLoaded = fileLoadedEvent.target.result;
+				            document.getElementById("inputFirmware").value = textFromFileLoaded;
+					    $("#inputFirmware").css({width:"100%",height:"inherit"})
+                                };
+        fileReader.readAsText(fileToLoad, "UTF-8");
+    }
+
+    function load_firmware_from_example ( )
+    {
+	var xmlhttp = new XMLHttpRequest();
+	var url = "examples/exampleFirmware5.txt" ;
+
+	xmlhttp.onreadystatechange=function() {
+					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+					{
+                                            var textFromFileLoaded = xmlhttp.responseText ;
+					    document.getElementById("inputFirmware").value = textFromFileLoaded;
+					    $("#inputFirmware").css({width:"100%",height:"inherit"})
+					}
+				   }
+	xmlhttp.open("GET", url, true);
+	xmlhttp.send();
+    }
+
+
+    //
+    // UI
+    //
+
+    function save_as_file ( contentInputName, filenameInputName )
+    {
+            var textToWrite = document.getElementById(contentInputName).value;
+            var textFileAsBlob = new Blob([textToWrite], { type: 'text/plain' });
+            var fileNameToSaveAs = document.getElementById(filenameInputName).value;
+
+            var downloadLink = document.createElement("a");
+            downloadLink.download = fileNameToSaveAs;
+            downloadLink.innerHTML = "Download File";
+            if (window.webkitURL != null) {
+                // Chrome allows the link to be clicked
+                // without actually adding it to the DOM.
+                downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+            }
+            else {
+                // Firefox requires the link to be added to the DOM
+                // before it can be clicked.
+                downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+                downloadLink.onclick = function ( event ) {
+                                            document.body.removeChild(event.target);
+                                       };
+                downloadLink.style.display = "none";
+                document.body.appendChild(downloadLink);
+            }
+
+            downloadLink.click();
+    }
+
+    function toggle_im ( btn1 )
+    {
+       var o1 = document.getElementById(btn1);
+
+       if (get_interactive_mode() == true) {
+           set_interactive_mode(false);
+           o1.style.backgroundColor = '#B22222';
+       } else {
+           set_interactive_mode(true);
+           o1.style.backgroundColor = '#228B22';
+       }
+    }
+
+    function toggle_play ( btn1 )
+    {
+        if (DBG_stop == false) {
+            DBG_stop = true ;
+        } else {
+            DBG_stop = false ;
+            asmdbg_play(btn1) ;
+        }
+    }
+
+    function sim_init ( )
+    {
+	    var ref_p = document.getElementById('svg_p').contentDocument ;
+	    if (ref_p != null)
+            {
+                var o  = ref_p.getElementById('text3495');
+	        if (o != null) o.addEventListener('click', 
+                                                  function() { 
+                                                     $('#tab11').trigger('click');
+                                                  }, false);
+	        var o  = ref_p.getElementById('text3029');
+	        if (o != null) o.addEventListener('click', 
+                                                  function() { 
+                                                     $('#tab11').trigger('click');
+                                                  }, false);
+	        var o  = ref_p.getElementById('text3031');
+	        if (o != null) o.addEventListener('click', 
+                                                  function() { 
+                                                     $('#tab11').trigger('click');
+                                                  }, false);
+	        var o  = ref_p.getElementById('text3001');
+	        if (o != null) o.addEventListener('click', 
+                                                  function() { 
+                                                     $('#tab14').trigger('click');
+                                                  }, false);
+	        var o  = ref_p.getElementById('text3183');
+	        if (o != null) o.addEventListener('click', 
+                                                  function() { 
+                                                     $('#tab23').trigger('click');
+                                                  }, false);
+	        var o  = ref_p.getElementById('text3775');
+	        if (o != null) o.addEventListener('click', 
+                                                  function() { 
+                                                     $('#tab15').trigger('click');
+                                                  }, false);
+	        var o  = ref_p.getElementById('text3829');
+	        if (o != null) o.addEventListener('click', 
+                                                  function() { 
+                                                     $('#tab12').trigger('click');
+                                                  }, false);
+	        var o  = ref_p.getElementById('text3845');
+	        if (o != null) o.addEventListener('click', 
+                                                  function() { 
+                                                     $('#tab12').trigger('click');
+                                                  }, false);
+                var o  = ref_p.getElementById('text3459-7');
+                if (o != null) o.addEventListener('click', 
+                                                  function() { 
+                                                     execute_microinstruction(); 
+                                                  }, false);
+            }
+
+	    var ref_cu = document.getElementById('svg_cu').contentDocument ;
+	    if (ref_cu != null)
+            {
+	        var o  = ref_cu.getElementById('text3010');
+	        if (o != null) o.addEventListener('click', 
+                                                  function() { 
+                                                     $('#tab16').trigger('click');
+                                                  }, false);
+	        var o  = ref_cu.getElementById('text3072');
+	        if (o != null) o.addEventListener('click', 
+                                                  function() { 
+                                                     $('#tab13').trigger('click');
+                                                  }, false);
+                var o  = ref_cu.getElementById('text3346-5');
+                if (o != null) o.addEventListener('click', 
+                                                  function() { 
+                                                     $('#tab22').trigger('click');
+                                                  }, false);
+                var o  = ref_cu.getElementById('text4138');
+                if (o != null) o.addEventListener('click', 
+                                                  function() { 
+                                                     execute_microinstruction(); 
+                                                  }, false);
+            }
+    }
+    </script>
+
+</head>
+
+
+<body>
+
+
+<div data-role="page" id="main1">
+
+	<div data-role="header" data-disable-page-zoom="false" data-theme="a">
+		<div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
+                    <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
+		</div>
+	        <span class="ui-title"><b>WepSIM</b> <span class="badge">5.7c</span> </span>
+		<div id="version_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
+                    <a href="#popupmenu1" 
+                           data-rel="popup" data-transition="pop"
+                           class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b ui-icon-gear ui-btn-icon-left">Menu</a>
+		</div>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+
+            <br>
+
+            <div class="row">
+                <div class="col-md-8" style="padding: 0 0px 0 20px;">
+		    <div data-role="tabs" id="tabs2">
+    		      <div data-role="navbar" id="tabsnav2" class="ui-responsive">
+		        <ul>
+		          <li style="clear:none;width:33% !important"><a id="tab22" href="#eltos_p"  class="ui-btn-active">CPU</a></li>
+		          <li style="clear:none;width:33% !important"><a id="tab23" href="#eltos_cu"   >Control Unit</a></li>
+		          <li style="clear:none;width:33% !important"><a id="tab24" href="#eltos_dbg"  >Assembly Debugger</a></li>
+		        </ul>
+		      </div>
+		      <div id="eltos_p"  class="ui-body-d ui-content">
+			    <object id="svg_p" data="images/imagenProcesador2.svg" type="image/svg+xml">
+				Your browser doesn't support SVG
+			    </object>
+                            <img id=busfire src="images/fire.gif" height=50 style="position:absolute; top:55%; left:8%; display:none;">
+		      </div>
+		      <div id="eltos_cu"  class="ui-body-d ui-content">
+			    <object id="svg_cu" data="images/imagenUnidadControl2.svg" type="image/svg+xml">
+				Your browser doesn't support SVG
+			    </object>
+		      </div>
+		      <div id="eltos_dbg"  class="ui-body-d ui-content">
+			   <center>
+		   	   <table class='table ui-responsive ui-table' style="margin-bottom: 0px;">
+		   	   <thead>
+			   <tr>
+                           <th width=10%>breakpoints</th>
+                           <th width=15%>address</th>
+                           <th width=12%>&nbsp;</th>
+                           <th width=25%>assembly</th>
+                           <th width=12%>&nbsp;</th>
+                           <th width=25%>pseudo-instructions</th>
+			   </tr>
+			   </thead>
+			   </table>
+			   </center>
+
+		           <div style="overflow-y:auto; overflow-x:auto; height:70% !important;">
+                                <div id="asm_debugger">&nbsp;</div>
+		           </div>
+		      </div>
+	    	    </div>
+                </div>
+
+                <div class="col-md-4" style="padding: 0 15px 0 15px;">
+		    <div data-role="tabs" id="tabs1">
+    		      <div data-role="navbar" id="tabsnav1" class="ui-responsive">
+		        <ul>
+		          <li style="clear:none;width:33% !important"><a id="tab14" href="#mp" class="ui-btn-active">Memory</a></li>
+		          <li style="clear:none;width:33% !important"><a id="tab15" href="#io">I/O</a></li>
+		          <li style="clear:none;width:33% !important"><a id="tab12" href="#con">Console</a></li>
+                          <br>
+		          <li style="           width:33% !important"><a id="tab11" href="#all">Registers</a></li>
+		          <li style="clear:none;width:33% !important"><a id="tab16" href="#mc">Control Memory</a></li>
+		          <li style="clear:none;width:33% !important"><a id="tab13" href="#stats">Configuration</a></li>
+		        </ul>
+		      </div>
+		      <div id="all"  class="ui-body-d ui-content" style="padding: 15 0px 0 0px;">
+		         <div id="states_ALL"          style="width: inherit; overflow-y: auto;"></div>
+			 <br style="height:0; width:100%; font-size:0; margin:5; padding:0; border:0; display:block;">
+		         <div id="states_BR"           style="width: inherit; overflow-y: auto;"></div>
+		      </div>
+	    	      <div id="stats"  class="ui-body-d ui-content">
+			 <div class="panel panel-default">
+			      <div class="panel-heading">
+				<h3 class="panel-title">Configuration</h3>
+			      </div>
+			      <div class="panel-body">
+				 <ul class="list-group">
+				    <li class="list-group-item">
+					 Speed-up
+					 <input type="range"
+						name="slider1" id="slider1" 
+                                                min="1" max="10" value="5" step=1      
+                                                onchange="DBG_delay = 1000 / this.value;">
+				    </li>
+				 </ul>
+			      </div>
+			 </div>
+		      </div>
+		      <div id="mp"   class="ui-body-d ui-content">
+		         <div id="memory_MP"           style="height:70vh; width: inherit; overflow-y: scroll;"></div>
+		      </div>
+		      <div id="mc"   class="ui-body-d ui-content">
+		         <div id="memory_MC"           style="height:70vh; width: inherit; overflow-y: scroll;"></div>
+		      </div>
+		      <div id="con"  class="ui-body-d ui-content">
+                         <img height=55 src="images/monitor2.png">
+		         <textarea style="min-width:90%; overflow-y:auto;" placeholder="ARCOS" id="kdb_con" rows=10></textarea>
+                         <img height=35 src="images/keyboard1.png">
+		         <textarea style="min-width:90%; overflow-y:auto;" placeholder="ARCOS" id="kdb_key" rows=2></textarea>
+		      </div>
+		      <div id="io"  class="ui-body-d ui-content">
+		         <div id="io_ALL"              style="width: inherit; overflow-y: auto;"></div>
+		      </div>
+	    	    </div>
+                </div>
+            </div>
+
+	</div><!-- /content -->
+
+        <div data-role="footer" data-position="fixed" data-disable-page-zoom="false" data-fullscreen="true" data-theme="a">
+                <div data-role="navbar">
+                <ul>
+                    <li><button id="qbr" 
+                                class="ui-btn ui-btn-b ui-icon-reset   ui-btn-icon-top" 
+                                onclick="reset();">Reset</button></li>
+                    <li><button id="qbemi" 
+                                class="ui-btn ui-btn-b ui-icon-arrow-r ui-btn-icon-top" 
+                                 onclick="execute_microinstruction();">&#181;<b>Instruction</b></button></li>
+                    <li><button id="qbei" 
+                                class="ui-btn ui-btn-b ui-icon-arrow-r ui-btn-icon-top" 
+                                onclick="execute_instruction();"><b>Instruction</b></button></li>
+                    <li><button id="qbp"  
+                                class="ui-btn ui-btn-b ui-icon-carat-r ui-btn-icon-top"
+                                onclick='toggle_play("#qbp");'>Run</button></li>
+                    <li><button id="ib1"  
+                                class="ui-btn ui-btn-b ui-icon-arrow-u ui-btn-icon-top"
+                                onclick='toggle_im("ib1");' style="background-color:B22222;">Interactive</button></li>
+                </ul>
+                </div><!-- /navbar -->
+        </div><!-- /footer -->
+
+</div><!-- /page -->
+
+
+<div data-role="page" id="main3">
+
+	<div data-role="header" data-position="fixed" data-disable-page-zoom="false" data-theme="a">
+		<div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
+                    <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
+		</div>
+	        <span class="ui-title"><b>WepSIM</b> <span class="badge">5.7c</span> </span>
+		<div id="version_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
+                    <a href="#popupmenu1" 
+                           data-rel="popup" data-transition="pop"
+                           class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b ui-icon-gear ui-btn-icon-left">Menu</a>
+		</div>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+
+		<div id="lsload" 
+                     data-role="popup" data-overlay-theme="a" data-theme="a" data-dismissible="false">
+		    <div data-role="header" data-theme="a">
+		    <h1>Firmware</h1>
+		    </div>
+		    <div role="main" class="ui-content">
+			<h3>Please select the file to be loaded:</h3>
+			<p><input type="file" id="fileToLoad" /></p>
+			<center>
+			<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
+                        <button class="ui-btn ui-btn-b ui-btn-inline" 
+                                onclick="load_firmware_from_file();
+                                         $('#lsload').popup('close');">Load from File</button>
+                        </center>
+		    </div>
+		</div>
+
+		<div id="lssave" 
+                     data-role="popup" data-overlay-theme="a" data-theme="a" data-dismissible="false">
+		    <div data-role="header" data-theme="a">
+		    <h1>Save Page</h1>
+		    </div>
+		    <div role="main" class="ui-content">
+			<h2>Please write the file name where firmware will be saved:</h2>
+			<p><input id="inputFileNameToSaveAs" style="min-width: 90%;"/></p>
+			<center>
+			<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
+                        <button class="ui-btn ui-btn-b ui-btn-inline" 
+                                onclick="var SIMWARE = get_simware() ;
+                                         document.getElementById('inputFirmware').value = saveFirmware(SIMWARE);
+                                         save_as_file('inputFirmware','inputFileNameToSaveAs');">Save to File</button>
+                        </center>
+		    </div>
+		</div>
+
+                <br>
+
+		<div data-role="tabs" id="tabs3">
+    		      <div data-role="navbar" id="tabsnav3" class="ui-responsive">
+		        <ul>
+		          <li style="width:50% !important"><a id="tab31" href="#t3_firm" class="ui-btn-active">Firmware loaded</a></li>
+		          <li style="width:50% !important"><a id="tab32" href="#t3_bin">&#181;compile result</a></li>
+		        </ul>
+		      </div>
+		      <div id="t3_firm"  class="ui-body-d ui-content">
+		        <textarea style="min-width:90%; overflow-y:auto;"
+                                  placeholder="Please select 'Example' or 'Load' first in order to have an initial firmware."
+                                  id="inputFirmware" rows=20></textarea>
+		      </div>
+		      <div id="t3_bin"   class="ui-body-d ui-content" style="overflow-y:scroll; overflow-x:scroll; height:80%;">
+		        <div style="min-width:90%; overflow-y:auto; overflow-x:auto;" id="ucompile">
+                            <center>Please select &#181;compile to compile and load the firmware.</center>
+                        </div>
+		      </div>
+		</div>
+
+	</div><!-- /content -->
+
+	<div data-role="footer" data-position="fixed" data-fullscreen="true" data-theme="a">
+		<div data-role="navbar">
+		<ul>
+		    <li><a href="#lssave" 
+                           class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b ui-icon-forward ui-btn-icon-top"
+                           data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Save</a></li>
+		    <li><a href="#lsload" 
+                           class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b ui-icon-back    ui-btn-icon-top"
+                           data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Load</a></li>
+		    <li><a href="#" onclick="load_firmware_from_example(); $('#tab31').trigger('click');"
+                           class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b ui-icon-bars    ui-btn-icon-top"
+                           data-inline="true">Example</a></li>
+		    <li><a href="#" onclick="compileFirmware();"
+                           class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b ui-icon-refresh ui-btn-icon-top"
+                           data-inline="true">&#181;compile</a></li>
+                    <li><a href="#main4" 
+                           class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b ui-icon-gear    ui-btn-icon-top"
+                           data-inline="false">Assembly</a></li>
+		</ul>
+		</div><!-- /navbar -->
+	</div><!-- /footer -->
+
+</div><!-- /page -->
+
+
+<div data-role="page" id="main4">
+
+	<div data-role="header" data-position="fixed" data-disable-page-zoom="false" data-theme="a">
+		<div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
+                    <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
+		</div>
+	        <span class="ui-title"><b>WepSIM</b> <span class="badge">5.7c</span> </span>
+		<div id="version_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
+                    <a href="#popupmenu1" 
+                           data-rel="popup" data-transition="pop"
+                           class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b ui-icon-gear ui-btn-icon-left">Menu</a>
+		</div>
+	</div><!-- /header -->
+
+	<div role="main" class="ui-content">
+
+		<div id="lsload2" 
+                     data-role="popup" data-overlay-theme="a" data-theme="a" data-dismissible="false">
+		    <div data-role="header" data-theme="a">
+		    <h1>Assembler</h1>
+		    </div>
+		    <div role="main" class="ui-content">
+			<h3>Please select the file to be assembled:</h3>
+			<p><input type="file" id="fileToLoad2" /></p>
+			<center>
+			<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
+                        <button class="ui-btn ui-btn-b ui-btn-inline" 
+                                onclick="load_assembly_from_file();
+                                         $('#lsload2').popup('close');">Load from File</button>
+                        </center>
+		    </div>
+		</div>
+
+		<div id="lssave2" 
+                     data-role="popup" data-overlay-theme="a" data-theme="a" data-dismissible="false">
+		    <div data-role="header" data-theme="a">
+		    <h1>Save Page</h1>
+		    </div>
+		    <div role="main" class="ui-content">
+			<h2>Please write the file name where assembly will be saved:</h2>
+			<p><input id="inputFileNameToSaveAs2" style="min-width: 90%;"/></p>
+			<center>
+			<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
+                        <button class="ui-btn ui-btn-b ui-btn-inline" 
+                                onclick="save_as_file('inputAssembly','inputFileNameToSaveAs2');">Save to File</button>
+                        </center>
+		    </div>
+		</div>
+
+                <br>
+
+		<div data-role="tabs" id="tabs4">
+    		      <div data-role="navbar" id="tabsnav4" class="ui-responsive">
+		        <ul>
+		          <li style="width:50% !important"><a id="tab41" href="#t4_asm" class="ui-btn-active">Assembly loaded</a></li>
+		          <li style="width:50% !important"><a id="tab42" href="#t4_bin">Compilation result</a></li>
+		        </ul>
+		      </div>
+		      <div id="t4_asm"   class="ui-body-d ui-content">
+		        <textarea style="min-width:90%; overflow-y:auto;"
+                                  placeholder="Please select 'Load' first to have the assembly code to work with."
+			          id="inputAssembly" rows="20"></textarea>
+		      </div>
+		      <div id="t4_bin"   class="ui-body-d ui-content" style="padding: 0 0px 0 0px;">
+
+                        <div class="row">
+                        <div class="col-xs-3 col-sm-3">
+			<center><h3>Memory map</h3></center>
+		        <div id="cc_map" style="overflow-y:scroll; overflow-x:auto; height:70% !important;">
+                           <div id="compile_mm"></div>
+		        </div>
+		        </div>
+                        <div class="col-xs-9 col-sm-9">
+			<center><h3>Main memory</h3></center>
+		        <div id="cc_bin" style="overflow-y:scroll; overflow-x:auto; height:70% !important;">
+                           <div id="compile_mp">
+                              <center>Please select 'Compile' secondly to have the associated binary code.</center>
+		           </div>
+		        </div>
+		        </div>
+		        </div>
+
+		      </div>
+		</div>
+
+	</div><!-- /content -->
+
+        <div data-role="footer" data-position="fixed" data-disable-page-zoom="false" data-fullscreen="true" data-theme="a">
+                <div data-role="navbar">
+                <ul>
+		    <li><a href="#lssave2" 
+                           class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b ui-icon-forward ui-btn-icon-top"
+                           data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Save</a></li>
+		    <li><a href="#lsload2" 
+                           class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b ui-icon-back    ui-btn-icon-top"
+                           data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Load</a></li>
+		    <li><a href="#" onclick="load_assembly_from_example(); $('#tab41').trigger('click');"
+                           class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b ui-icon-bars    ui-btn-icon-top"
+                           data-inline="true">Example</a></li>
+                    <li><button id="emp" 
+                                class="ui-btn ui-btn-b ui-icon-refresh ui-btn-icon-top" 
+                                onclick="compileAssembly(); $('#tab42').trigger('click');">Compile</button></li>
+                    <li><a href="#main1" 
+                           class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b ui-icon-gear    ui-btn-icon-top"
+                           data-inline="false">Simulator</a></li>
+                </ul>
+                </div><!-- /navbar -->
+        </div><!-- /footer -->
+
+</div><!-- /page -->
+
+
+<div data-role="popup" id="about1" 
+     data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
+
+   <div data-role="header" data-theme="a">
+   <h1><b>Web elemental processor SIMulator</b> <span class="badge btn-success">5.7c</span> </h1>
+   </div>
+   <div role="main" class="ui-content">
+
+        <div style="font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 16px; line-height: 24px; padding-bottom: 6.4px; padding-left: 8px; padding-right: 8px; padding-top: 6.4px;">
+        <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            Copyright &copy; 2015 Javier Prieto Cepeda, F&eacute;lix Garc&iacute;a Carballeira, and Alejandro Calder&oacute;n Mateos
+            <p>
+
+        </div>
+        <div class="col-xs-12 col-sm-12">
+	    <b>WebSIM</b> is free software: you can redistribute it and/or modify
+	    it under the terms of the GNU Lesser General Public License as published by
+	    the Free Software Foundation, either version 3 of the License, or
+	    (at your option) any later version.
+            See <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.
+            <p>
+        </div>
+        <div class="col-xs-12 col-sm-12">
+            More information: <a href="http://www.arcos.inf.uc3m.es/~ec-2ed/">http://www.arcos.inf.uc3m.es/~ec-2ed/</a><br>
+            <p>
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <img height=55 src="images/arcos.svg">
+        </div>
+        <div class="col-xs-6 col-sm-6">
+            <center><a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">OK</a></center>
+        </div>
+        </div>
+        </div>
+
+   </div>
+
+</div><!-- /popup -->
+
+
+<div data-role="popup" id="popupmenu1" data-position="right" data-display="overlay" data-theme="b">
+      <ul id="listview_1" data-role="listview" data-inset="true">
+	  <li><a id="tab21" href="#" 
+		 onclick="$.mobile.pageContainer.pagecontainer('change','#main3');">
+		     <h2>Firmware</h2><p>microcode</p></a></li>
+	  <li><a id="tab24" href="#" 
+		 onclick="$.mobile.pageContainer.pagecontainer('change','#main4');">
+		     <h2>Assembly</h2><p>code & data</p></a></li>
+	  <li><a id="tab25" href="#" 
+		 onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">
+		     <h2>Simulator</h2><p>run simulation</p></a></li>
+      </ul>
+</div>
+
+
+<script>
+    $(document).ready(function()
+    {
+            jQuery.fx.off = true;
+
+            $("#about1").enhanceWithin().popup();
+
+	    $("#popupmenu1").popup();
+            $("#listview_1").listview();
+
+            $("#tabsnav1").navbar();
+            $("#tabsnav2").navbar();
+            $("#tabsnav3").navbar();
+            $("#tabsnav4").navbar();
+
+            $("#tabs1").tabs();
+            $("#tabs2").tabs();
+            $("#tabs3").tabs();
+            $("#tabs4").tabs();
+
+            var a = document.getElementById("svg_p");
+            a.addEventListener("load",function() {
+                sim_init();
+                init_eventlistener();
+                refresh();
+            }, false);
+
+            var a = document.getElementById("svg_cu");
+            a.addEventListener("load",function() {
+                sim_init();
+                init_eventlistener();
+                refresh();
+            }, false);
+
+            $.mobile.pageContainer.pagecontainer('change','#main1');
+            $('#tab11').trigger('click');
+            $('#tab22').trigger('click');
+    }) ;
+
+    init(); 
+    reset(); 
+</script>
+
+</body>
+
+</html>
