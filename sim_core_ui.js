@@ -386,11 +386,11 @@
 
 			if (key == index)
 			     o1 += "<tr>" +
-                                   "<td width=15%><font color=blue><b>" + "0x" + key2 + "</b></font></td>" + 
-                                   "<td          ><font color=blue><b>" + value2      + "</b></font></td></tr>";
+                                   "<td width=25%><font color=blue><b>" + value2      + "</b></font></td>" +
+                                   "<td          ><font color=blue><b>" + "0x" + key2 + "</b></font></td></tr>" ;
 			else o1 += "<tr>" +
-                                   "<td width=15%><small>" + "0x" + key2 + "</small></td>" + 
-                                   "<td          ><small>" + value2      + "</small></td></tr>";
+                                   "<td width=25%><small>" + value2      + "</small></td>" +
+                                   "<td          ><small>" + "0x" + key2 + "</small></td></tr>" ;
 		 }
             }
 
@@ -592,7 +592,10 @@
                          "<tr>" +
 		         "<td align=right  style='border-style: solid; border-width:0px;'>" + clabel + "</td>" +
 			 "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c + "</td>" +
-			 "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + mp[c] + "</td>" +
+                         "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + mp[c].substr(0,8)  + "&nbsp;"
+                                                                                                                  + mp[c].substr(8,8)  + "&nbsp;"
+                                                                                                                  + mp[c].substr(16,8) + "&nbsp;"
+                                                                                                                  + mp[c].substr(24,8) + "</td>" +
 			 "</tr>" ;
 		}
 		o = o + "</table>" +
