@@ -49,20 +49,10 @@
 
     <link rel="stylesheet" href="bootstrap.min.css">
     <link rel="stylesheet" href="bootstrap-theme.min.css">
-    <script src="bootstrap.min.js"></script>
 
-    <script src="sim_hw_board.js"></script>
-    <script src="sim_hw_cpu.js"></script>
-    <script src="sim_hw_mem.js"></script>
-    <script src="sim_hw_io.js"></script>
-    <script src="sim_hw_kbd.js"></script>
-    <script src="sim_hw_scr.js"></script>
-    <script src="sim_cfg.js"></script>
-    <script src="sim_core_ui.js"></script>
-    <script src="sim_core_ctrl.js"></script>
-    <script src="sim_lang.js"></script>
-    <script src="sim_lang_firm.js"></script>
-    <script src="sim_lang_asm.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="knockout-3.3.0.js"></script>
+    <script src="sim_all.min.js"></script>
 
     <script>
     //
@@ -115,11 +105,14 @@
     {
         var fileToLoad = document.getElementById("fileToLoad2").files[0];
         var fileReader = new FileReader();
-        fileReader.onload = function (fileLoadedEvent) {
+        fileReader.onload  = function (fileLoadedEvent) {
                                             var textFromFileLoaded = fileLoadedEvent.target.result;
                                             document.getElementById("inputAssembly").value = textFromFileLoaded;
 					    $("#inputAssembly").css({width:"100%",height:"inherit"})
-                            };
+                             };
+	fileReader.onerror = function(e) {
+			        console.error("File could not be read! Code " + e.target.error.code);
+			     };
         fileReader.readAsText(fileToLoad, "UTF-8");
     }
 
@@ -154,7 +147,7 @@
             alert(preSM.error);
             return ;
         }
-	update_memories(preSM);
+
         var SIMWARE = get_simware() ;
         $("#ucompile").html(firmware2html(SIMWARE.firmware, true));
 	$("#ucompile").css({width:"100%",height:"inherit !important"});
@@ -172,6 +165,9 @@
 				            document.getElementById("inputFirmware").value = textFromFileLoaded;
 					    $("#inputFirmware").css({width:"100%",height:"inherit"})
                                 };
+	fileReader.onerror = function(e) {
+			        console.error("File could not be read! Code " + e.target.error.code);
+			     };
         fileReader.readAsText(fileToLoad, "UTF-8");
     }
 
@@ -339,7 +335,7 @@
 		<div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
                     <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
 		</div>
-	        <span class="ui-title"><b>WepSIM</b> <span class="badge">1.0.0</span> </span>
+	        <span class="ui-title"><b>WepSIM</b> <span class="badge">1.0.1</span> </span>
 		<div id="version_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a href="#popupmenu1" 
                            data-rel="popup" data-transition="pop"
@@ -356,8 +352,8 @@
 		    <div data-role="tabs" id="tabs2">
     		      <div data-role="navbar" id="tabsnav2" class="ui-responsive">
 		        <ul>
-		          <li style="clear:none;width:33% !important"><a id="tab22" href="#eltos_p"  class="ui-btn-active">CPU</a></li>
 		          <li style="clear:none;width:33% !important"><a id="tab23" href="#eltos_cu"   >Control Unit</a></li>
+		          <li style="clear:none;width:33% !important"><a id="tab22" href="#eltos_p"  class="ui-btn-active ui-state-persist">CPU</a></li>
 		          <li style="clear:none;width:33% !important"><a id="tab24" href="#eltos_dbg"  >Assembly Debugger</a></li>
 		        </ul>
 		      </div>
@@ -377,8 +373,8 @@
 		   	   <table class='table ui-responsive ui-table' style="margin-bottom: 0px;">
 		   	   <thead>
 			   <tr>
-                           <th width=10%>breakpoints</th>
-                           <th width=15%>address</th>
+			   <th width=10%>breakpoints</th>
+			   <th width=15%>address</th>
                            <th width=12%>&nbsp;</th>
                            <th width=25%>assembly</th>
                            <th width=12%>&nbsp;</th>
@@ -405,7 +401,7 @@
                           <br>
 		          <li style="           width:33% !important"><a id="tab11" href="#all">Registers</a></li>
 		          <li style="clear:none;width:33% !important"><a id="tab16" href="#mc">Control Memory</a></li>
-		          <li style="clear:none;width:33% !important"><a id="tab13" href="#stats">Configuration</a></li>
+		          <li style="clear:none;width:33% !important"><a id="tab13" href="#stats">Stats & Config</a></li>
 		        </ul>
 		      </div>
 		      <div id="all"  class="ui-body-d ui-content" style="padding: 15 0px 0 0px;">
@@ -416,16 +412,39 @@
 	    	      <div id="stats"  class="ui-body-d ui-content">
 			 <div class="panel panel-default">
 			      <div class="panel-heading">
+				<h3 class="panel-title">Statistics</h3>
+			      </div>
+			      <div class="panel-body">
+		              <div id="stats_ALL"           style="width: inherit; overflow-y: auto;"></div>
+			      </div>
+			 </div>
+
+			 <br style="height:0; width:100%; font-size:0; margin:5; padding:0; border:0; display:block;">
+
+			 <div class="panel panel-default">
+			      <div class="panel-heading">
 				<h3 class="panel-title">Configuration</h3>
 			      </div>
 			      <div class="panel-body">
 				 <ul class="list-group">
 				    <li class="list-group-item">
-					 Speed-up
-					 <input type="range"
-						name="slider1" id="slider1" 
-                                                min="1" max="10" value="5" step=1      
+                                         Speed-up
+                                         <input type="range"
+                                                name="slider1" id="slider1"
+                                                min="1" max="10" value="5" step=1
                                                 onchange="DBG_delay = 1000 / this.value;">
+				    </li>
+				    <li class="list-group-item">
+					 <fieldset data-role="controlgroup" data-type="horizontal">
+					     <input name="radio-choice-h-2" id="radio-choice-h-2a" data-mini="false"
+						    onclick="DBG_level = 'instruction';"
+						    value="on" checked="checked" type="radio">
+					     <label for="radio-choice-h-2a">instruction</label>
+					     <input name="radio-choice-h-2" id="radio-choice-h-2b" data-mini="false"
+						    onclick="DBG_level = 'microinstruction';"
+						    value="off" type="radio">
+					     <label for="radio-choice-h-2b">microinstruction</label>
+					 </fieldset>
 				    </li>
 				 </ul>
 			      </div>
@@ -483,7 +502,7 @@
 		<div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
                     <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
 		</div>
-	        <span class="ui-title"><b>WepSIM</b> <span class="badge">1.0.0</span> </span>
+	        <span class="ui-title"><b>WepSIM</b> <span class="badge">1.0.1</span> </span>
 		<div id="version_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a href="#popupmenu1" 
                            data-rel="popup" data-transition="pop"
@@ -582,7 +601,7 @@
 		<div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
                     <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
 		</div>
-	        <span class="ui-title"><b>WepSIM</b> <span class="badge">1.0.0</span> </span>
+	        <span class="ui-title"><b>WepSIM</b> <span class="badge">1.0.1</span> </span>
 		<div id="version_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a href="#popupmenu1" 
                            data-rel="popup" data-transition="pop"
@@ -692,7 +711,7 @@
      data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
 
    <div data-role="header" data-theme="a">
-   <h1><b>Web elemental processor SIMulator</b> <span class="badge btn-success">1.0.0</span> </h1>
+   <h1><b>Web elemental processor SIMulator</b> <span class="badge btn-success">1.0.1</span> </h1>
    </div>
    <div role="main" class="ui-content">
 

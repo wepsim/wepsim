@@ -51,7 +51,7 @@
                                         operation: function (s_expr) 
                                                    {
                                                       var bus_ab = sim_states[s_expr[1]].value ;
-                                                      var clk    = sim_states[s_expr[5]].value ;
+                                                      var clk    = sim_states[s_expr[5]].value() ;
 
                                                       if ( (bus_ab != KBDR_ID) && (bus_ab != KBSR_ID) ) {
                                                               return; 
