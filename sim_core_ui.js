@@ -377,7 +377,10 @@
                                  value[6] + value[7] ;
 
                         key2 = parseInt(key).toString(16) ;
-                        key2 = "00000000".substring(0, 8 - key2.length) + key2 ;
+                      //key2 = "00000000".substring(0, 8 - key2.length) + key2 ;
+
+                        key3 = (parseInt(key) + 3).toString(16) ;
+                      //key3 = "00000000".substring(0, 8 - key3.length) + key3 ;
 
                         for (skey in segments) {
                              if (parseInt(segments[skey].begin) == parseInt(key))
@@ -386,11 +389,11 @@
 
 			if (key == index)
 			     o1 += "<tr>" +
-                                   "<td width=25%><font color=blue><b>" + value2      + "</b></font></td>" +
-                                   "<td          ><font color=blue><b>" + "0x" + key2 + "</b></font></td></tr>" ;
+                                   "<td width=50%><font color=blue><b>" + "0x" + key3 + "-" + key2 + "</b></font></td>" +
+                                   "<td          ><font color=blue><b>" +                   value2 + "</b></font></td></tr>" ;
 			else o1 += "<tr>" +
-                                   "<td width=25%><small>" + value2      + "</small></td>" +
-                                   "<td          ><small>" + "0x" + key2 + "</small></td></tr>" ;
+                                   "<td width=50%><small>"              + "0x" + key3 + "-" + key2 + "</small></td>" +
+                                   "<td          ><small>"              + value2                   + "</small></td></tr>" ;
 		 }
             }
 
