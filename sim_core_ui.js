@@ -354,9 +354,11 @@
                         value = "" ;
                         for (var ks in memory[key])
                         {
-                             if (memory[key][ks] == 1)
-                                  value += ks + " ";
-                             else value += ks + "=" + memory[key][ks] + " ";
+                                  if (ks == "MADDR")
+			              value += ks + "=0x" + parseInt(memory[key][ks]).toString(16) + " ";
+                             else if (memory[key][ks] == 1)
+                                      value += ks + " ";
+                             else     value += ks + "="   + memory[key][ks] + " ";
                         }
 
 			if (key == index)
