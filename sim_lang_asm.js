@@ -1265,8 +1265,8 @@ function simlang_compile (text, datosCU)
 	var ret = new Object();
 	ret.seg = {
                     "system": { "name":"system", "begin":0x0000, "end":0x0200, "color": "#A9D0F5" },
-                    "code":   { "name":"code",   "begin":0x8000, "end":0xFFFF, "color": "#BEF781" },
                     "data":   { "name":"data",   "begin":0x1000, "end":0xFFFF, "color": "#FACC2E" },
+                    "code":   { "name":"code",   "begin":0x8000, "end":0xFFFF, "color": "#BEF781" },
                     "stack":  { "name":"stack",  "begin":0xFFFF, "end":0xFFFF, "color": "#F1F2A3" }
                   };
 
