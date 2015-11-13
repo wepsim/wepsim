@@ -36,13 +36,13 @@
 
         sim_signals["R"]     = { name: "R", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		                 behavior: ["NOP", "MEM_READ BUS_AB BUS_DB; MOVE_BITS RWBWA 5 1 R; FIRE RWBWA"],
-                                 fire_name: ['svg_p:text3533-5-2'], 
+                                 fire_name: ['svg_p:text3533-5-2','svg_p:text3713'], 
                                  draw_data: [[], ['svg_p:path3557', 'svg_p:path3571']], 
                                  draw_name: [[], []]};
 
         sim_signals["W"]     = { name: "W", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		                 behavior: ["NOP", "MOVE_BITS RWBWA 4 1 W; FIRE RWBWA; MEM_WRITE BUS_AB BUS_DB"],
-                                 fire_name: ['svg_p:text3533-5-08'], 
+                                 fire_name: ['svg_p:text3533-5-08','svg_p:text3527'], 
                                  draw_data: [[], ['svg_p:path3559', 'svg_p:path3575']], 
                                  draw_name: [[], []] };
 

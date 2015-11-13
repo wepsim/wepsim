@@ -53,13 +53,13 @@
 
         sim_signals["IO_IOR"]  = { name: "IO_IOR", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                    behavior: ["NOP", "IO_IOR BUS_AB BUS_DB IOSR IOCR IODR CLK; FIRE SBWA"],
-                                   fire_name: ['svg_p:tspan4173'], 
+                                   fire_name: ['svg_p:tspan4173','svg_p:text3715'], 
                                    draw_data: [[], ['svg_p:path3795', 'svg_p:path3733']], 
                                    draw_name: [[], []]};
 
         sim_signals["IO_IOW"]  = { name: "IO_IOW", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                    behavior: ["NOP", "IO_IOW BUS_AB BUS_DB IOSR IOCR IODR CLK; FIRE SBWA"],
-                                   fire_name: ['svg_p:text3785-0-6-0-5-5'], 
+                                   fire_name: ['svg_p:text3785-0-6-0-5-5','svg_p:text3717'], 
                                    draw_data: [[], ['svg_p:path3805', 'svg_p:path3733']], 
                                    draw_name: [[], []]};
 
