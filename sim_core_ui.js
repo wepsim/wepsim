@@ -311,8 +311,13 @@
             var o1 = "<center>" ;
             for (var i=0; i<8; i++)
             {
+               if (4==i)
+               o1 += "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4'>Interrupt</div>" +
+                     "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4'>Period</div>" +
+                     "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4'>Probability</div>" ;
+
                o1 += "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4' style='padding: 15 5 0 10;'>" + 
-                     "Interrupt " + i + 
+                     i + 
                      "</div>" +
                      "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4' style='padding: 0 5 0 10;' id='int" + i + "_per'>" +
                      "<input type=number data-bind='value: period'>" + 
