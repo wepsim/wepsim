@@ -541,8 +541,15 @@
 			<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
                         <button class="ui-btn ui-btn-b ui-btn-inline" 
                                 onclick="var SIMWARE = get_simware() ;
-                                         document.getElementById('inputFirmware').value = saveFirmware(SIMWARE);
-                                         save_as_file('inputFirmware','inputFileNameToSaveAs');">Save to File</button>
+                                         var simware_as_text = saveFirmware(SIMWARE);
+                                         if (trim(simware_as_text) == "") {
+					     alert("The firmware loaded in memory is empty!\n" + 
+                                                   "Please load a firmware first in memory in order to save it.");
+					 }
+					 else {
+                                             document.getElementById('inputFirmware').value = simware_as_text ;
+                                             save_as_file('inputFirmware','inputFileNameToSaveAs');
+					 }">Save to File</button>
                         </center>
 		    </div>
 		</div>
