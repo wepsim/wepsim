@@ -542,9 +542,9 @@
                         <button class="ui-btn ui-btn-b ui-btn-inline" 
                                 onclick="var SIMWARE = get_simware() ;
                                          var simware_as_text = saveFirmware(SIMWARE);
-                                         if (trim(simware_as_text) == "") {
-					     alert("The firmware loaded in memory is empty!\n" + 
-                                                   "Please load a firmware first in memory in order to save it.");
+                                         if (simware_as_text.trim() == '' {
+					     alert('The firmware loaded in memory is empty!\n' + 
+                                                   'Please load a firmware first in memory in order to save it.');
 					 }
 					 else {
                                              document.getElementById('inputFirmware').value = simware_as_text ;
