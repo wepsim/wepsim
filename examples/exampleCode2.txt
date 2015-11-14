@@ -111,5 +111,5 @@ error:  li  $7 101
           add $7 $7 $1
           out $7 0x1000
 
-fin:      nop
+fin:      li $1 0
 
