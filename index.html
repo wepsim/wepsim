@@ -84,7 +84,6 @@
 	update_memories(SIMWARE);
 
         // update UI 
-        $("#compile_mm").html(segments2html(SIMWAREaddon.seg));
         $("#compile_mp").html(mp2html(SIMWAREaddon.mp, SIMWAREaddon.labels2, SIMWAREaddon.seg));
         for (skey in SIMWARE.seg) {
              $("#compile_begin_" + skey).html("0x" + SIMWARE.seg[skey].begin.toString(16));
@@ -335,7 +334,7 @@
 		<div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
                     <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
 		</div>
-	        <span class="ui-title"><b>WepSIM</b> <span class="badge">1.0.2</span> </span>
+	        <span class="ui-title"><b>WepSIM</b> <span class="badge">1.0.3</span> </span>
 		<div id="version_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a href="#popupmenu1" 
                            data-rel="popup" data-transition="pop"
@@ -502,7 +501,7 @@
 		<div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
                     <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
 		</div>
-	        <span class="ui-title"><b>WepSIM</b> <span class="badge">1.0.2</span> </span>
+	        <span class="ui-title"><b>WepSIM</b> <span class="badge">1.0.3</span> </span>
 		<div id="version_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a href="#popupmenu1" 
                            data-rel="popup" data-transition="pop"
@@ -608,7 +607,7 @@
 		<div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
                     <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
 		</div>
-	        <span class="ui-title"><b>WepSIM</b> <span class="badge">1.0.2</span> </span>
+	        <span class="ui-title"><b>WepSIM</b> <span class="badge">1.0.3</span> </span>
 		<div id="version_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a href="#popupmenu1" 
                            data-rel="popup" data-transition="pop"
@@ -656,7 +655,7 @@
 		<div data-role="tabs" id="tabs4">
     		      <div data-role="navbar" id="tabsnav4" class="ui-responsive">
 		        <ul>
-		          <li style="width:50% !important"><a id="tab41" href="#t4_asm" class="ui-btn-active">Assembly loaded</a></li>
+		          <li style="width:50% !important"><a id="tab41" href="#t4_asm" class="ui-btn-active">Assembly code</a></li>
 		          <li style="width:50% !important"><a id="tab42" href="#t4_bin">Compilation result</a></li>
 		        </ul>
 		      </div>
@@ -668,13 +667,7 @@
 		      <div id="t4_bin"   class="ui-body-d ui-content" style="padding: 0 0px 0 0px;">
 
                         <div class="row">
-                        <div class="col-xs-3 col-sm-3">
-			<center><h3>Memory map</h3></center>
-		        <div id="cc_map" style="overflow-y:scroll; overflow-x:auto; height:70% !important;">
-                           <div id="compile_mm"></div>
-		        </div>
-		        </div>
-                        <div class="col-xs-9 col-sm-9">
+                        <div class="col-xs-12 col-sm-12">
 			<center><h3>Main memory</h3></center>
 		        <div id="cc_bin" style="overflow-y:scroll; overflow-x:auto; height:70% !important;">
                            <div id="compile_mp">
@@ -718,7 +711,7 @@
      data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
 
    <div data-role="header" data-theme="a">
-   <h1><b>Web elemental processor SIMulator</b> <span class="badge btn-success">1.0.2</span> </h1>
+   <h1><b>Web elemental processor SIMulator</b> <span class="badge btn-success">1.0.3</span> </h1>
    </div>
    <div role="main" class="ui-content">
 
