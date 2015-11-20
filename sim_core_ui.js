@@ -448,9 +448,10 @@
                                 "I,0",    "U,0",    "COP,0" ] ;
 
 		var h = "<tr bgcolor=#FF9900>" + 
-                        "<td bgcolor=white     style='border-style: solid; border-width:0px;'></td>" + 
-                        "<td bgcolor=lightblue style='border-style: solid; border-width:1px;'>co</td>" + 
-                        "<td align=center style='border-style: solid; border-width:1px;'><small><b>&#181;dir</b></small></td>";
+                        "<td bgcolor=white     style='border-style: solid; border-width:0px; border-color:lightgray;'></td>" + 
+                        "<td bgcolor=lightblue style='border-style: solid; border-width:1px; border-color:lightgray;'>co</td>" + 
+                        "<td bgcolor=#FFCC00   style='border-style: solid; border-width:1px; border-color:lightgray;' align=center><small><b>&#181;dir</b></small></td>" +
+                        "<td bgcolor=white     style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;&nbsp;</td>" ;
 		var contSignals=1;
 		for (var i=0; i<filter.length; i++) {
                      var s = filter[i].split(",")[0] ;
@@ -481,20 +482,21 @@
 
                          var line = "";
                          if (j==0)
-                              line = line + "<td style='border-style: solid; border-width:0px;'>" + 
+                              line = line + "<td style='border-style: solid; border-width:0px; border-color:lightgray;'>" + 
                                             "<span class='badge'>" + isignature + "</span>" + "&nbsp;" +
                                             "</td>" +
-                                            "<td style='border-style: solid; border-width:1px;'>" + ico + "</td>" ;
-                         else line = line + "<td style='border-style: solid; border-width:0px;'>&nbsp;</td>" +
-                                            "<td style='border-style: solid; border-width:1px;'>&nbsp;</td>" ;
+                                            "<td style='border-style: solid; border-width:1px; border-color:lightgray;'>" + ico + "</td>" ;
+                         else line = line + "<td style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;</td>" +
+                                            "<td style='border-style: solid; border-width:1px; border-color:lightgray;'>&nbsp;</td>" ;
 
                          if (showBinary) 
                               var madd = "0x" + (mstart + j).toString(16) ;
                          else var madd = mstart + j ;
 
-			 line = line + "<td align=center style='border-style: solid; border-width:1px;' bgcolor=#FFCC00>" + 
+			 line = line + "<td align=center  style='border-style: solid; border-width:1px; border-color:lightgray;' bgcolor=white>" + 
                                        madd +
-                                       "</td>";
+                                       "</td>" +
+                                       "<td bgcolor=white style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;</td>" ;
 			 var mins = mcode[j] ;
 		         for (var k=0; k<filter.length; k++)
 			 {
