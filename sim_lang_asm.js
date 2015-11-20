@@ -56,10 +56,10 @@ function dataSegment(tokens,dataSegment)
             {
                 if (parteInicial[0].trim() == "#") 
                 {
-                    console.log("COMENTARIO");
+                    // console.log("COMENTARIO");
                 } else 
                 {
-                    console.log("LINEA EN BLANCO");
+                    // console.log("LINEA EN BLANCO");
                 }
             } else 
             {
@@ -77,7 +77,7 @@ function dataSegment(tokens,dataSegment)
                 switch (parteInicial[j].trim()) 
                 {
                     case ".ascii":
-                        console.log("TIPO: " + parteInicial[j].trim());
+                        // console.log("TIPO: " + parteInicial[j].trim());
 			defaultAlign=0;
 		        if(defaultAlign>alineacion) 
 		        {
@@ -136,7 +136,7 @@ function dataSegment(tokens,dataSegment)
                         }
                         /**/
                         tamVar = traduction.length;
-                        console.log("BYTES VARIABLE:" + tamVar);
+                        // console.log("BYTES VARIABLE:" + tamVar);
                         dataObject["contenido"] = texto;
                         dataObject["longitud"] = tamVar;
                         dataObject["traduccion"]= traduction;
@@ -159,7 +159,7 @@ function dataSegment(tokens,dataSegment)
                         alineacion=0;
 			break;
                     case ".asciiz":
-                        console.log("TIPO: " + parteInicial[j]);
+                        // console.log("TIPO: " + parteInicial[j]);
 			defaultAlign=0;
                         dataObject["tipo"] = parteInicial[j].trim();
 		        if(defaultAlign>alineacion) 
@@ -225,7 +225,7 @@ function dataSegment(tokens,dataSegment)
                         /**/
                         tamVar = traduction.length;
                         texto = texto + '\0';
-                        console.log("BYTES VARIABLE:" + tamVar);
+                        // console.log("BYTES VARIABLE:" + tamVar);
                         dataObject["contenido"] = texto;
                         dataObject["traduccion"]= traduction;
                         dataObject["longitud"] = tamVar;
@@ -252,9 +252,9 @@ function dataSegment(tokens,dataSegment)
 			return assemblyError("Error, type of variable incorrect: ", linea[0], j);
 			break;	
                 }
-                console.log(dataObject);
+                // console.log(dataObject);
                 segmentData.push(dataObject);
-                console.log(segmentData);
+                // console.log(segmentData);
             }
         } else
         {
@@ -271,10 +271,10 @@ function dataSegment(tokens,dataSegment)
             if (linea[j]== "#" || linea[j].trim() == "") 
             {
                 if (linea[j] == "#") {
-                    console.log("COMENTARIO");
+                    // console.log("COMENTARIO");
                 } else 
                 {
-                    console.log("LINEA EN BLANCO");
+                    // console.log("LINEA EN BLANCO");
                 }
             }
             else
@@ -283,7 +283,7 @@ function dataSegment(tokens,dataSegment)
                 {
                     if (linea[j].trim() == ".text") {
                         /*FIN DEL .DATA*/
-                        console.log("FIN DE .DATA");
+                        // console.log("FIN DE .DATA");
                         break;
                     } else 
                     {
@@ -291,7 +291,7 @@ function dataSegment(tokens,dataSegment)
                         /*igualamos el valor de alineacion a este valor y comprobamos que se encuentra en el rango permitido*/
                         j++;
                         alineacion = parseInt(linea[j].trim());
-                        console.log("ALIGN: " + alineacion);
+                        // console.log("ALIGN: " + alineacion);
                      }
                 } else 
                 {
@@ -312,7 +312,7 @@ function dataSegment(tokens,dataSegment)
                     switch (linea[j].trim()) 
                     {
                         case ".byte":
-                            console.log("TIPO: " + linea[j]);
+                            // console.log("TIPO: " + linea[j]);
 			    defaultAlign=0;
 			    if(defaultAlign>alineacion) 
 			    {
@@ -427,7 +427,7 @@ function dataSegment(tokens,dataSegment)
                                 texto = parseInt(texto).toString(2);
                                 if(texto.length>8)
                                 {
-                                	console.log("En la linea i, el tipo byte sera truncado."); /*WARNING*/
+                                	// console.log("En la linea i, el tipo byte sera truncado."); /*WARNING*/
                                 }
                                 var n2 = "00000000000000000000000000000000".substring(0, 32 - texto.length) + texto ;
                                 texto=n2.substr(24,8);
@@ -457,7 +457,7 @@ function dataSegment(tokens,dataSegment)
                             alineacion=0;
 			    break;
                         case ".half":
-                            console.log("TIPO: " + linea[j]);
+                            // console.log("TIPO: " + linea[j]);
 			    defaultAlign=1;
 			    if(defaultAlign>alineacion) 
 			    {
@@ -502,7 +502,7 @@ function dataSegment(tokens,dataSegment)
                                 texto = parseInt(texto).toString(2);
                                 if(texto.length>16)
                                 {
-                                	console.log("En la linea i, el tipo half sera truncado.");  /*WARNING*/
+                                	// console.log("En la linea i, el tipo half sera truncado.");  /*WARNING*/
                                 }
                                 var n2 = "00000000000000000000000000000000".substring(0, 32 - texto.length) + texto ;
                                 texto=n2.substr(16,16);
@@ -535,7 +535,7 @@ function dataSegment(tokens,dataSegment)
                             alineacion=0;
 			    break;
                         case ".word":
-                            console.log("TIPO: " + linea[j]);
+                            // console.log("TIPO: " + linea[j]);
 			    defaultAlign=2;
 			    if(defaultAlign>alineacion) 
 			    {
@@ -580,7 +580,7 @@ function dataSegment(tokens,dataSegment)
                                 texto = parseInt(texto).toString(2);
                                 if(texto.length>32)
                                 {
-                                	console.log("En la linea i, el tipo word sera truncado.");   /*WARNING*/
+                                	// console.log("En la linea i, el tipo word sera truncado.");   /*WARNING*/
                                 }
                                 var n2 = "00000000000000000000000000000000".substring(0, 32 - texto.length) + texto ;
                                 texto=n2;
@@ -619,7 +619,7 @@ function dataSegment(tokens,dataSegment)
 		            alineacion=0;
                             break;
                         case ".space":
-                            console.log("TIPO: " + linea[j]);
+                            // console.log("TIPO: " + linea[j]);
 			    defaultAlign=0;
 			    if(defaultAlign>alineacion) 
 			    {
@@ -661,14 +661,14 @@ function dataSegment(tokens,dataSegment)
 			    return assemblyError("Error, type of variable incorrect: ", linea, j);
 			    break;
                     }
-                    console.log(dataObject);
+                    // console.log(dataObject);
                     segmentData.push(dataObject);
-                    console.log(tokens[i]);
+                    // console.log(tokens[i]);
                 }
             }  
         }
     }
-    console.log(segmentData);
+    // console.log(segmentData);
     compileSegmentDataWordLevel["0x" + wordCounter.toString(16)]="";
     for(z=parseInt(dataSegment.begin);z<byteCounter;z++)
     {
@@ -694,7 +694,7 @@ function dataSegment(tokens,dataSegment)
     dataSegment.end=parseInt(wordCounter.toString(16),16);
     resultDataSegment.segmentData=segmentData;
     resultDataSegment.compileSegmentData=compileSegmentDataWordLevel;
-    console.log(compileSegmentDataWordLevel);
+    // console.log(compileSegmentDataWordLevel);
     return resultDataSegment;
 }
 
@@ -1018,7 +1018,7 @@ function textSegment(tokens, datosCU, objText)
 						j++;
 					}else
 					{
-						console.log("ERROR EN FORMATO HEXADECIMAL");
+						// console.log("ERROR EN FORMATO HEXADECIMAL");
 					}
 			}else
 			{
@@ -1151,7 +1151,7 @@ function textSegment(tokens, datosCU, objText)
 						camposInsertar= (rel >>> 0).toString(2);
      					}else
 					{
-						console.log("DIRECCIONAMIENTO NO ACEPTADO");
+						// console.log("DIRECCIONAMIENTO NO ACEPTADO");
 					}
 				}
                                 break;
@@ -1233,12 +1233,12 @@ function textSegment(tokens, datosCU, objText)
                 }
             }
 
-            console.log("Ensamblador");
-            console.log(arrayLinea);
-            console.log("Firma");
-            console.log(firmaAssembly);
-            console.log("Linea compilada");
-            console.log(lineaAssembly);
+            // console.log("Ensamblador");
+            // console.log(arrayLinea);
+            // console.log("Firma");
+            // console.log(firmaAssembly);
+            // console.log("Linea compilada");
+            // console.log(lineaAssembly);
             //firma generada --> reemplazo
         }
 
@@ -1339,7 +1339,7 @@ function simlang_compile (text, datosCU)
     	}
 	var dataSegmentData=resultSegmentData.segmentData;
 	var binarySegmentData=resultSegmentData.compileSegmentData;
-	console.log(dataSegmentData);
+	// console.log(dataSegmentData);
 	/*generamos array de etiquetas*/
 	var etiquetas = new Object;
 	for(i=0;i<dataSegmentData.length;i++)
@@ -1363,8 +1363,8 @@ function simlang_compile (text, datosCU)
 		return ret;
 	}
 	var dataSegmentText=compilationSegmentText.binaryCode;
-	console.log(dataSegmentData);
-	console.log(dataSegmentText);
+	// console.log(dataSegmentData);
+	// console.log(dataSegmentText);
 	for(x in compilationSegmentText.etiquetas)
 	{
 		etiquetas[x]="0x" + compilationSegmentText.etiquetas[x];
