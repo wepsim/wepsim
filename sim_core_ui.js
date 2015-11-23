@@ -596,7 +596,7 @@
 			"<th style='border-style: solid; border-width:0px;'>labels</th>" +
 			"<th style='border-style: solid; border-width:1px;'>address</th>" +
 			"<th style='border-style: solid; border-width:1px;'><center>content (binary)</center></th>" +
-			"<th style='border-style: solid; border-width:0px;' align=right>&nbsp;&nbsp;segments</th>" +
+			"<th style='border-style: solid; border-width:0px;' align=right>&nbsp;&nbsp;segment</th>" +
 			"</tr>" ;
 
 	   	var color="white";
@@ -605,7 +605,7 @@
                      c_begin =  parseInt(seg[skey].begin) ;
                      c_end   =  parseInt(seg[skey].end) ;
 		     color   =  seg[skey].color;
-                     rows    =  1 ;
+                     rows    =  0 ;
                      var x   =  "" ;
 
 		     for (var i = c_begin; i<c_end; i++)
@@ -615,7 +615,7 @@
                                  continue;
                              }
 
-                             if (1 == rows) {
+                             if (0 == rows) {
 			         o = o + 
 				     "<tr>" +
 				     "<td align=right  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
@@ -640,7 +640,7 @@
                              rows++;
 	             }
 
-		     if (1 == rows) {
+		     if (0 == rows) {
 			 o = o + 
 			     "<tr>" +
 			     "<td>&nbsp;</td>" +
