@@ -15,7 +15,7 @@
    preserveAspectRatio="xMinYMin meet"
    id="svg2985"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="imagenProcesador1.svg">
+   sodipodi:docname="imagenProcesador2.svg">
   <metadata
      id="metadata3937">
     <rdf:RDF>
@@ -24,7 +24,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -37,15 +37,15 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1680"
-     inkscape:window-height="987"
+     inkscape:window-width="2293"
+     inkscape:window-height="897"
      id="namedview3935"
      showgrid="false"
      inkscape:zoom="1.3233333"
-     inkscape:cx="500"
+     inkscape:cx="405.91939"
      inkscape:cy="300"
-     inkscape:window-x="-9"
-     inkscape:window-y="-9"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg2985"
      inkscape:snap-center="true" />
@@ -2984,4 +2984,15 @@
        id="tspan3891"
        x="729.21619"
        y="543.75031">U</tspan></text>
+  <text
+     id="text3039-8"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.5px;line-height:125%;font-family:Arial;-inkscape-font-specification:'Arial, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000"
+     y="219.44113"
+     x="594.98254"
+     xml:space="preserve"
+     sodipodi:linespacing="125%"><tspan
+       sodipodi:role="line"
+       id="tspan3899"
+       x="588.0"
+       y="219.44113">                  </tspan></text>
 </svg>
