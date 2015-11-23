@@ -595,7 +595,10 @@
 			"<tr>" +
 			"<th style='border-style: solid; border-width:0px;'>labels</th>" +
 			"<th style='border-style: solid; border-width:1px;'>address</th>" +
-			"<th style='border-style: solid; border-width:1px;'><center>content (binary)</center></th>" +
+			"<th style='border-style: solid; border-width:1px;'>" + 
+                        "<table border=0 width=100%><tr>" + 
+                        "<td width=20% align=left>&nbsp;<sub>31</sub></td><td width=60% align=center>content (binary)</td><td width=20% align=right><sub>0</sub>&nbsp;</td>" +
+                        "</tr></table>" +
 			"<th style='border-style: solid; border-width:0px;' align=right>&nbsp;&nbsp;segment</th>" +
 			"</tr>" ;
 
@@ -617,23 +620,19 @@
 
                              if (0 == rows) {
 			         o = o + 
-				     "<tr>" +
+				     "<tr style='font-family:verdana; font-size:12pt;'>" +
 				     "<td align=right  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
 				     "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c + "</td>" +
-				     "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + mp[c].substr(0,8)  + "&nbsp;"
-															      + mp[c].substr(8,8)  + "&nbsp;"
-															      + mp[c].substr(16,8) + "&nbsp;"
-															      + mp[c].substr(24,8) + "</td>" +
+				     "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + 
+                                      mp[c].substr(0,8)  + "&nbsp;" + mp[c].substr(8,8)  + "&nbsp;" + mp[c].substr(16,8) + "&nbsp;" + mp[c].substr(24,8) + "</td>" +
 				     "<td rowspan=" ;
                              } else {
 			         x = x + 
-				     "<tr>" +
+				     "<tr style='font-family:verdana; font-size:12pt;'>" +
 				     "<td align=right  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
 				     "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c + "</td>" +
-				     "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + mp[c].substr(0,8)  + "&nbsp;"
-															      + mp[c].substr(8,8)  + "&nbsp;"
-															      + mp[c].substr(16,8) + "&nbsp;"
-															      + mp[c].substr(24,8) + "</td>" +
+				     "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + 
+                                     mp[c].substr(0,8)  + "&nbsp;" + mp[c].substr(8,8)  + "&nbsp;" + mp[c].substr(16,8) + "&nbsp;" + mp[c].substr(24,8) + "</td>" +
 				     "</tr>" ;
                              }
 
@@ -642,13 +641,13 @@
 
 		     if (0 == rows) {
 			 o = o + 
-			     "<tr>" +
+			     "<tr style='font-family:verdana; font-size:12pt;'>" +
 			     "<td>&nbsp;</td>" +
 			     "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">0x" + parseInt(seg[skey].begin).toString(16) + "</td>" +
 			     "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">&nbsp;</td>" +
 			     "<td rowspan=" ;
 			 x = x + 
-			     "<tr>" +
+			     "<tr style='font-family:verdana; font-size:12pt;'>" +
 			     "<td>&nbsp;</td>" +
 			     "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">0x" + parseInt(seg[skey].end).toString(16) + "</td>" +
 			     "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">&nbsp;</td>" +
@@ -661,7 +660,7 @@
 
 	             if (seg[skey].name != "stack") {
 		         o = o + 
-                             "<tr>" + 
+                             "<tr style='font-family:verdana; font-size:12pt;'>" + 
                              "<td>&nbsp;</td>" + 
                              "<td valign=middle align=center height=25px>...</td>" + 
                              "<td valign=middle align=center height=25px>...</td>" + 
@@ -671,7 +670,7 @@
 	        }
 
 		o = o + "</table>" +
-			"</center>" ;
+			"</center><br>" ;
 
 		return o;
 	}
