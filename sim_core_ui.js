@@ -315,6 +315,7 @@
                o1 += "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4'>Interrupt</div>" +
                      "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4'>Period</div>" +
                      "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4'>Probability</div>" ;
+
                o1 += "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4' style='padding: 15 5 0 10;'>" + 
                      i + 
                      "</div>" +
@@ -447,9 +448,10 @@
                                 "I,0",    "U,0",    "COP,0" ] ;
 
 		var h = "<tr bgcolor=#FF9900>" + 
-                        "<td bgcolor=white     style='border-style: solid; border-width:0px;'></td>" + 
-                        "<td bgcolor=lightblue style='border-style: solid; border-width:1px;'>co</td>" + 
-                        "<td align=center style='border-style: solid; border-width:1px;'><small><b>&#181;dir</b></small></td>";
+                        "<td bgcolor=white     style='border-style: solid; border-width:0px; border-color:lightgray;'></td>" + 
+                        "<td bgcolor=lightblue style='border-style: solid; border-width:1px; border-color:lightgray;'>co</td>" + 
+                        "<td bgcolor=#FFCC00   style='border-style: solid; border-width:1px; border-color:lightgray;' align=center><small><b>&#181;dir</b></small></td>" +
+                        "<td bgcolor=white     style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;&nbsp;</td>" ;
 		var contSignals=1;
 		for (var i=0; i<filter.length; i++) {
                      var s = filter[i].split(",")[0] ;
@@ -480,20 +482,21 @@
 
                          var line = "";
                          if (j==0)
-                              line = line + "<td style='border-style: solid; border-width:0px;'>" + 
+                              line = line + "<td style='border-style: solid; border-width:0px; border-color:lightgray;'>" + 
                                             "<span class='badge'>" + isignature + "</span>" + "&nbsp;" +
                                             "</td>" +
-                                            "<td style='border-style: solid; border-width:1px;'>" + ico + "</td>" ;
-                         else line = line + "<td style='border-style: solid; border-width:0px;'>&nbsp;</td>" +
-                                            "<td style='border-style: solid; border-width:1px;'>&nbsp;</td>" ;
+                                            "<td style='border-style: solid; border-width:1px; border-color:lightgray;'>" + ico + "</td>" ;
+                         else line = line + "<td style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;</td>" +
+                                            "<td style='border-style: solid; border-width:1px; border-color:lightgray;'>&nbsp;</td>" ;
 
                          if (showBinary) 
                               var madd = "0x" + (mstart + j).toString(16) ;
                          else var madd = mstart + j ;
 
-			 line = line + "<td align=center style='border-style: solid; border-width:1px;' bgcolor=#FFCC00>" + 
+			 line = line + "<td align=center  style='border-style: solid; border-width:1px; border-color:lightgray;' bgcolor=white>" + 
                                        madd +
-                                       "</td>";
+                                       "</td>" +
+                                       "<td bgcolor=white style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;</td>" ;
 			 var mins = mcode[j] ;
 		         for (var k=0; k<filter.length; k++)
 			 {
@@ -555,6 +558,31 @@
 		return o;
 	}
 
+	function labels2html_aux ( slebal, c )
+	{
+	     var clabel = "" ;
+	     var wadd   = "" ;
+
+	     wadd = "0x" + (parseInt(c)+0).toString(16);
+	     if (typeof slebal[wadd] != "undefined") 
+		  clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
+	     else clabel = clabel + "&nbsp;" ;
+	     wadd = "0x" + (parseInt(c)+1).toString(16);
+	     if (typeof slebal[wadd] != "undefined") 
+		  clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
+	     else clabel = clabel + "&nbsp;" ;
+	     wadd = "0x" + (parseInt(c)+2).toString(16);
+	     if (typeof slebal[wadd] != "undefined") 
+		  clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
+	     else clabel = clabel + "&nbsp;" ;
+	     wadd = "0x" + (parseInt(c)+3).toString(16);
+	     if (typeof slebal[wadd] != "undefined") 
+		  clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
+	     else clabel = clabel + "&nbsp;" ;
+
+	     return clabel ;
+	}
+
 	function mp2html ( mp, labels, seg )
 	{
                 var slebal = new Object();
@@ -565,48 +593,83 @@
 		o = o + "<center>" +
 			"<table style='table-layout:auto; border-style: solid; border-width:0px;'>" +
 			"<tr>" +
-			"<th>&nbsp;</th>" +
+			"<th style='border-style: solid; border-width:0px;'>labels</th>" +
 			"<th style='border-style: solid; border-width:1px;'>address</th>" +
-			"<th style='border-style: solid; border-width:1px;'><center>content (bin)</center></th>" +
+			"<th style='border-style: solid; border-width:1px;'><center>content (binary)</center></th>" +
+			"<th style='border-style: solid; border-width:0px;' align=right>&nbsp;&nbsp;segment</th>" +
 			"</tr>" ;
 
 	   	var color="white";
-		for (c in mp)
-		{
-		     var clabel = "" ;
-		     var wadd   = "" ;
+	        for (skey in seg) 
+	        {
+                     c_begin =  parseInt(seg[skey].begin) ;
+                     c_end   =  parseInt(seg[skey].end) ;
+		     color   =  seg[skey].color;
+                     rows    =  0 ;
+                     var x   =  "" ;
 
-                     wadd = "0x" + (parseInt(c)+0).toString(16);
-		     if (typeof slebal[wadd] != "undefined") 
-                          clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
-                     else clabel = clabel + "&nbsp;" ;
-                     wadd = "0x" + (parseInt(c)+1).toString(16);
-		     if (typeof slebal[wadd] != "undefined") 
-                          clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
-                     else clabel = clabel + "&nbsp;" ;
-                     wadd = "0x" + (parseInt(c)+2).toString(16);
-		     if (typeof slebal[wadd] != "undefined") 
-                          clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
-                     else clabel = clabel + "&nbsp;" ;
-                     wadd = "0x" + (parseInt(c)+3).toString(16);
-		     if (typeof slebal[wadd] != "undefined") 
-                          clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
-                     else clabel = clabel + "&nbsp;" ;
+		     for (var i = c_begin; i<c_end; i++)
+		     {
+                             c = "0x" + i.toString(16) ;
+                             if (typeof mp[c] == "undefined") {
+                                 continue;
+                             }
 
-		     for(var k in seg)
-		     if (parseInt(c)==seg[k].begin)
-		         color=seg[k].color;
+                             if (0 == rows) {
+			         o = o + 
+				     "<tr>" +
+				     "<td align=right  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
+				     "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c + "</td>" +
+				     "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + mp[c].substr(0,8)  + "&nbsp;"
+															      + mp[c].substr(8,8)  + "&nbsp;"
+															      + mp[c].substr(16,8) + "&nbsp;"
+															      + mp[c].substr(24,8) + "</td>" +
+				     "<td rowspan=" ;
+                             } else {
+			         x = x + 
+				     "<tr>" +
+				     "<td align=right  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
+				     "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c + "</td>" +
+				     "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + mp[c].substr(0,8)  + "&nbsp;"
+															      + mp[c].substr(8,8)  + "&nbsp;"
+															      + mp[c].substr(16,8) + "&nbsp;"
+															      + mp[c].substr(24,8) + "</td>" +
+				     "</tr>" ;
+                             }
 
-		     o = o + 
-                         "<tr>" +
-		         "<td align=right  style='border-style: solid; border-width:0px;'>" + clabel + "</td>" +
-			 "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c + "</td>" +
-                         "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + mp[c].substr(0,8)  + "&nbsp;"
-                                                                                                                  + mp[c].substr(8,8)  + "&nbsp;"
-                                                                                                                  + mp[c].substr(16,8) + "&nbsp;"
-                                                                                                                  + mp[c].substr(24,8) + "</td>" +
-			 "</tr>" ;
-		}
+                             rows++;
+	             }
+
+		     if (0 == rows) {
+			 o = o + 
+			     "<tr>" +
+			     "<td>&nbsp;</td>" +
+			     "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">0x" + parseInt(seg[skey].begin).toString(16) + "</td>" +
+			     "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">&nbsp;</td>" +
+			     "<td rowspan=" ;
+			 x = x + 
+			     "<tr>" +
+			     "<td>&nbsp;</td>" +
+			     "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">0x" + parseInt(seg[skey].end).toString(16) + "</td>" +
+			     "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">&nbsp;</td>" +
+			     "<td>&nbsp;</td>" +
+			     "</tr>" ;
+                        rows=2 ;
+		     } 
+
+                     o = o + rows + " align=right>" + seg[skey].name + "&nbsp;</td></tr>" + x ;
+
+	             if (seg[skey].name != "stack") {
+		         o = o + 
+                             "<tr>" + 
+                             "<td>&nbsp;</td>" + 
+                             "<td valign=middle align=center height=25px>...</td>" + 
+                             "<td valign=middle align=center height=25px>...</td>" + 
+                             "<td>&nbsp;</td>" + 
+                             "</tr>" ;
+	             }
+	        }
+
 		o = o + "</table>" +
 			"</center>" ;
 
