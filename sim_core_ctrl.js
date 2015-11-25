@@ -247,7 +247,7 @@
                         {
                             var input_help = "";
                             var nvalues = Math.pow(2, sim_signals[key].nbits) ;
-                            if (sim_signals[key].behavior.length == (nvalues - 1))
+                            if (sim_signals[key].behavior.length == nvalues)
                             {
                                 for (var k = 0; k < sim_signals[key].behavior.length; k++) {
                                      input_help = input_help + "\n  " + k.toString(10) ;
