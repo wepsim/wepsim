@@ -172,13 +172,15 @@
 
         function show_rf ( ) 
         {
+            // (x >>> 0): http://stackoverflow.com/questions/16155592/negative-numbers-to-binary-string
+
             var SIMWARE = get_simware() ;
 
 	    for (var index=0; index < sim_states['BR'].length; index++) 
             {
 		 var obj = document.getElementById("tbl_RF" + index);
 		 if (obj != null)
-		     obj.innerHTML = sim_states['BR'][index].toString(16) ;
+		     obj.innerHTML = (sim_states['BR'][index] >>> 0).toString(16) ;
 
 		 var obj = document.getElementById("name_RF" + index);
 		 if (obj != null)
