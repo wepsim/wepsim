@@ -306,6 +306,7 @@
 					  "RR ALU_C6 MA_ALU; FIRE T6; FIRE SELP",
 					  "RL ALU_C6 MA_ALU; FIRE T6; FIRE SELP",
 					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE T6; FIRE SELP",
+                                          "NOP",
 					  "SUB ALU_C6 MA_ALU MB_ALU; FIRE T6; FIRE SELP",
 					  "MUL ALU_C6 MA_ALU MB_ALU; FIRE T6; FIRE SELP",
 					  "DIV ALU_C6 MA_ALU MB_ALU; FIRE T6; FIRE SELP",
