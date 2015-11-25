@@ -399,6 +399,8 @@ function loadFirmware (text)
 		   firma = firma + getToken(context)  + ',';
 		   nextToken(context);
 	       }
+	       if(instruccionAux["name"] == "nop" )
+		alert(firma);
 
 	       firma = firma.substr(0, firma.length-1);
 	       instruccionAux["signature"] = firma;
