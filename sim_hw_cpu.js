@@ -612,7 +612,7 @@
 	syntax_behavior["RR"]    = { nparameters: 3, 
 				     types: ["E", "E"],      
 				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value =  ((sim_states[s_expr[2]].value) >>> 1) || 
+						   sim_states[s_expr[1]].value =  ((sim_states[s_expr[2]].value) >>> 1) | 
 										 (((sim_states[s_expr[2]].value) & 1) << 31); 
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
@@ -621,7 +621,7 @@
 	syntax_behavior["RL"]    = { nparameters: 3, 
 				     types: ["E", "E"],      
 				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value =  ((sim_states[s_expr[2]].value) << 1) || 
+						   sim_states[s_expr[1]].value =  ((sim_states[s_expr[2]].value) << 1) | 
 										 (((sim_states[s_expr[2]].value) & 0X80000000) >>> 31); 
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
