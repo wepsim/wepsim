@@ -630,8 +630,8 @@
 	syntax_behavior["ADD"]   = { nparameters: 4, 
 				     types: ["E", "E", "E"], 
 				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value) + 
-										 (sim_states[s_expr[3]].value) ;
+						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value << 0) + 
+										 (sim_states[s_expr[3]].value << 0) ;
 						   sim_states[s_expr[1]].value = sim_states[s_expr[1]].value & 0xFFFFFFFF ;
 
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
@@ -647,8 +647,8 @@
 	syntax_behavior["SUB"]   = { nparameters: 4, 
 				     types: ["E", "E", "E"], 
 				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value) - 
-										 (sim_states[s_expr[3]].value); 
+						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value << 0) - 
+										 (sim_states[s_expr[3]].value << 0); 
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
 
@@ -662,8 +662,8 @@
 	syntax_behavior["MUL"]   = { nparameters: 4, 
 				     types: ["E", "E", "E"], 
 				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value) * 
-										 (sim_states[s_expr[3]].value); 
+						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value << 0) * 
+										 (sim_states[s_expr[3]].value << 0); 
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
 
@@ -677,8 +677,8 @@
 	syntax_behavior["DIV"]   = { nparameters: 4, 
 				     types: ["E", "E", "E"], 
 				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value) / 
-										 (sim_states[s_expr[3]].value); 
+						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value << 0) / 
+										 (sim_states[s_expr[3]].value << 0); 
 						   sim_states[s_expr[1]].value = Math.floor(sim_states[s_expr[1]].value) ;
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
@@ -687,8 +687,8 @@
 	syntax_behavior["MOD"]   = { nparameters: 4, 
 				     types: ["E", "E", "E"], 
 				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value) % 
-										 (sim_states[s_expr[3]].value); 
+						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value << 0) % 
+										 (sim_states[s_expr[3]].value << 0); 
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
 						}  
