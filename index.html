@@ -94,6 +94,7 @@
                                               SIMWAREaddon.labels2, 
                                               SIMWAREaddon.seg, 
                                               SIMWAREaddon.assembly));
+        $('#tab42').trigger('click');
 
         // reset
 	if (confirm('Do you want me to reset the CPU?')) {
@@ -697,7 +698,7 @@
                            data-inline="true">Example</a></li>
                     <li><button id="emp" 
                                 class="ui-btn ui-btn-b ui-icon-refresh ui-btn-icon-top" 
-                                onclick="compileAssembly(); $('#tab42').trigger('click');">Compile</button></li>
+                                onclick="compileAssembly();">Compile</button></li>
                     <li><a href="#main1" 
                            class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b ui-icon-gear    ui-btn-icon-top"
                            data-inline="false">Simulator</a></li>
