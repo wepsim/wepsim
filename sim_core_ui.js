@@ -176,9 +176,12 @@
 
 	    for (var index=0; index < sim_states['BR'].length; index++) 
             {
-		 var obj = document.getElementById("tbl_RF" + index);
-		 if (obj != null)
-		     obj.innerHTML = (sim_states['BR'][index] >>> 0).toString(16) ;
+                 var br_value = (sim_states['BR'][index] >>> 0).toString(16).toUpperCase() ;
+                     br_value = "00000000".substring(0, 8 - br_value.length) + br_value ;
+
+                 var obj = document.getElementById("tbl_RF" + index);
+                 if (obj != null)
+                     obj.innerHTML = br_value ;
 
 		 var obj = document.getElementById("name_RF" + index);
 		 if (obj != null)
