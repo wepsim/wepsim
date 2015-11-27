@@ -375,8 +375,8 @@ function loadFirmware (text)
 	       var campos = new Array();
 
 	       firma = firma + getToken(context)  + ',';
-
 	       nextToken(context);
+
                // match optional ,
 	       while (isToken(context, ',')) 
 	    	      nextToken(context);
@@ -394,14 +394,52 @@ function loadFirmware (text)
 		       campoAux["name"] = getToken(context) ;
 		       campos.push(campoAux);
 		       numeroCampos++;
+		       firma = firma + getToken(context)  ;
+		       nextToken(context);
 		   } 
 
-		   firma = firma + getToken(context)  + ',';
-		   nextToken(context);
+                   // match optional "(" FIELD ")"
+		   if (isToken(context, "(")) 
+                   {
+		           firma = firma + '(';
+		           nextToken(context);
+
+			   if ( !isToken(context, ",") && !isToken(context, "(") && !isToken(context, ")") )
+			   {
+			       var campoAux = new Object();
+			       campoAux["name"] = getToken(context) ;
+			       campos.push(campoAux);
+			       numeroCampos++;
+
+			       firma = firma + getToken(context) ;
+			       nextToken(context);
+			   }
+			   else
+		           {
+			       return firmwareError(context,
+			    			    "'token' is missing after '(' on: " + 
+                                                    context.co_cop[instruccionAux.co].signature) ;
+		           }
+
+			   if (isToken(context,")"))
+			   {
+				firma = firma + ')';
+  				nextToken(context);
+			   }
+			   else
+		           {
+			       return firmwareError(context,
+			    			    "')' is missing on: " + 
+                                                    context.co_cop[instruccionAux.co].signature) ;
+		           }
+                   }
+
+	           firma = firma + ',';
 	       }
 
 	       firma = firma.substr(0, firma.length-1);
 	       instruccionAux["signature"] = firma;
+               instruccionAux["signatureGlobal"] = firma;
 
 // li reg val {
 //             *co=000000,*
