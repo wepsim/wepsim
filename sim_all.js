@@ -616,8 +616,10 @@
 				     operation: function(s_expr) { 
 						   sim_states[s_expr[1]].value = sim_states[s_expr[2]].value & 
 										 sim_states[s_expr[3]].value;
+
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
+						   sim_states["FLAG_O"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["OR"]    = { nparameters: 4, 
@@ -625,16 +627,20 @@
 				     operation: function(s_expr) { 
 						   sim_states[s_expr[1]].value = sim_states[s_expr[2]].value | 
 										 sim_states[s_expr[3]].value; 
+
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
+						   sim_states["FLAG_O"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["NOT"]   = { nparameters: 3, 
 				     types: ["E", "E"],      
 				     operation: function(s_expr) { 
 						   sim_states[s_expr[1]].value = ~(sim_states[s_expr[2]].value) ; 
+
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
+						   sim_states["FLAG_O"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["XOR"]   = { nparameters: 4, 
@@ -642,57 +648,69 @@
 				     operation: function(s_expr) { 
 						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value) ^ 
 										 (sim_states[s_expr[3]].value);
+
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
+						   sim_states["FLAG_O"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["SRL"]   = { nparameters: 3, 
 				     types: ["E", "E"],      
 				     operation: function(s_expr) { 
 						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value) >>> 1; 
+
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
+						   sim_states["FLAG_O"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["SRA"]   = { nparameters: 3, 
 				     types: ["E", "E"],      
 				     operation: function(s_expr) { 
 						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value) >> 1; 
+
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
+						   sim_states["FLAG_O"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["SL"]    = { nparameters: 3, 
 				     types: ["E", "E"],      
 				     operation: function(s_expr) { 
 						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value) << 1; 
+
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
+						   sim_states["FLAG_O"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["RR"]    = { nparameters: 3, 
 				     types: ["E", "E"],      
 				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value =  ((sim_states[s_expr[2]].value) >>> 1) || 
+						   sim_states[s_expr[1]].value =  ((sim_states[s_expr[2]].value) >>> 1) |
 										 (((sim_states[s_expr[2]].value) & 1) << 31); 
+
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
+						   sim_states["FLAG_O"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["RL"]    = { nparameters: 3, 
 				     types: ["E", "E"],      
 				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value =  ((sim_states[s_expr[2]].value) << 1) || 
+						   sim_states[s_expr[1]].value =  ((sim_states[s_expr[2]].value) << 1) | 
 										 (((sim_states[s_expr[2]].value) & 0X80000000) >>> 31); 
+
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
+						   sim_states["FLAG_O"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["ADD"]   = { nparameters: 4, 
 				     types: ["E", "E", "E"], 
 				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value) + 
-										 (sim_states[s_expr[3]].value) ;
+						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value << 0) + 
+										 (sim_states[s_expr[3]].value << 0) ;
 						   sim_states[s_expr[1]].value = sim_states[s_expr[1]].value & 0xFFFFFFFF ;
 
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
@@ -708,8 +726,9 @@
 	syntax_behavior["SUB"]   = { nparameters: 4, 
 				     types: ["E", "E", "E"], 
 				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value) - 
-										 (sim_states[s_expr[3]].value); 
+						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value << 0) - 
+										 (sim_states[s_expr[3]].value << 0); 
+
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
 
@@ -723,8 +742,9 @@
 	syntax_behavior["MUL"]   = { nparameters: 4, 
 				     types: ["E", "E", "E"], 
 				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value) * 
-										 (sim_states[s_expr[3]].value); 
+						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value << 0) * 
+										 (sim_states[s_expr[3]].value << 0); 
+
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
 
@@ -738,26 +758,34 @@
 	syntax_behavior["DIV"]   = { nparameters: 4, 
 				     types: ["E", "E", "E"], 
 				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value) / 
-										 (sim_states[s_expr[3]].value); 
+						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value << 0) / 
+										 (sim_states[s_expr[3]].value << 0); 
 						   sim_states[s_expr[1]].value = Math.floor(sim_states[s_expr[1]].value) ;
+
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
+						   sim_states["FLAG_O"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["MOD"]   = { nparameters: 4, 
 				     types: ["E", "E", "E"], 
 				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value) % 
-										 (sim_states[s_expr[3]].value); 
+						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value << 0) % 
+										 (sim_states[s_expr[3]].value << 0); 
+
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
+						   sim_states["FLAG_O"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["LUI"]   = { nparameters: 3, 
 				     types: ["E", "E"],      
 				     operation: function(s_expr) { 
 						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value) << 16; 
+
+						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
+						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
+						   sim_states["FLAG_O"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["MBIT_I"] = { nparameters: 5, 
@@ -1809,9 +1837,12 @@
 
 	    for (var index=0; index < sim_states['BR'].length; index++) 
             {
-		 var obj = document.getElementById("tbl_RF" + index);
-		 if (obj != null)
-		     obj.innerHTML = (sim_states['BR'][index] >>> 0).toString(16) ;
+                 var br_value = (sim_states['BR'][index] >>> 0).toString(16).toUpperCase() ;
+                     br_value = "00000000".substring(0, 8 - br_value.length) + br_value ;
+
+                 var obj = document.getElementById("tbl_RF" + index);
+                 if (obj != null)
+                     obj.innerHTML = br_value ;
 
 		 var obj = document.getElementById("name_RF" + index);
 		 if (obj != null)
@@ -3479,8 +3510,8 @@ function loadFirmware (text)
 	       var campos = new Array();
 
 	       firma = firma + getToken(context)  + ',';
-
 	       nextToken(context);
+
                // match optional ,
 	       while (isToken(context, ',')) 
 	    	      nextToken(context);
@@ -3498,16 +3529,52 @@ function loadFirmware (text)
 		       campoAux["name"] = getToken(context) ;
 		       campos.push(campoAux);
 		       numeroCampos++;
+		       firma = firma + getToken(context)  ;
+		       nextToken(context);
 		   } 
 
-		   firma = firma + getToken(context)  + ',';
-		   nextToken(context);
+                   // match optional "(" FIELD ")"
+		   if (isToken(context, "(")) 
+                   {
+		           firma = firma + '(';
+		           nextToken(context);
+
+			   if ( !isToken(context, ",") && !isToken(context, "(") && !isToken(context, ")") )
+			   {
+			       var campoAux = new Object();
+			       campoAux["name"] = getToken(context) ;
+			       campos.push(campoAux);
+			       numeroCampos++;
+
+			       firma = firma + getToken(context) ;
+			       nextToken(context);
+			   }
+			   else
+		           {
+			       return firmwareError(context,
+			    			    "'token' is missing after '(' on: " + 
+                                                    context.co_cop[instruccionAux.co].signature) ;
+		           }
+
+			   if (isToken(context,")"))
+			   {
+				firma = firma + ')';
+  				nextToken(context);
+			   }
+			   else
+		           {
+			       return firmwareError(context,
+			    			    "')' is missing on: " + 
+                                                    context.co_cop[instruccionAux.co].signature) ;
+		           }
+                   }
+
+	           firma = firma + ',';
 	       }
-	       if(instruccionAux["name"] == "nop" )
-		alert(firma);
 
 	       firma = firma.substr(0, firma.length-1);
 	       instruccionAux["signature"] = firma;
+               instruccionAux["signatureGlobal"] = firma;
 
 // li reg val {
 //             *co=000000,*

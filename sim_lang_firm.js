@@ -366,79 +366,79 @@ function loadFirmware (text)
 // }
 
                var instruccionAux = new Object();
-               instruccionAux["name"]     = getToken(context) ;
-               instruccionAux["mc-start"] = context.contadorMC ;
+	       instruccionAux["name"]     = getToken(context) ;
+	       instruccionAux["mc-start"] = context.contadorMC ;
 
-               var firma = "";
-               var firmaGlobal= "";
-               var numeroCampos = 0;
-               var campos = new Array();
+	       var firma = "";
+	       var firmaGlobal= "";
+	       var numeroCampos = 0;
+	       var campos = new Array();
 
-               firma = firma + getToken(context)  + ',';
-               nextToken(context);
+	       firma = firma + getToken(context)  + ',';
+	       nextToken(context);
 
                // match optional ,
-               while (isToken(context, ','))
-                      nextToken(context);
+	       while (isToken(context, ',')) 
+	    	      nextToken(context);
 
-               while (! isToken(context,"{"))
-               {
+	       while (! isToken(context,"{"))
+	       {
                    // match optional ,
-                   while (isToken(context, ','))
-                          nextToken(context);
+	           while (isToken(context, ',')) 
+			  nextToken(context);
 
                    // match optional FIELD
-                   if ( !isToken(context, ",") && !isToken(context, "(") && !isToken(context, ")") )
+		   if ( !isToken(context, ",") && !isToken(context, "(") && !isToken(context, ")") )
                    {
-                       var campoAux = new Object();
-                       campoAux["name"] = getToken(context) ;
-                       campos.push(campoAux);
-                       numeroCampos++;
-                       firma = firma + getToken(context)  ;
-                       nextToken(context);
+		       var campoAux = new Object();
+		       campoAux["name"] = getToken(context) ;
+		       campos.push(campoAux);
+		       numeroCampos++;
+		       firma = firma + getToken(context)  ;
+		       nextToken(context);
+		   } 
+
+                   // match optional "(" FIELD ")"
+		   if (isToken(context, "(")) 
+                   {
+		           firma = firma + '(';
+		           nextToken(context);
+
+			   if ( !isToken(context, ",") && !isToken(context, "(") && !isToken(context, ")") )
+			   {
+			       var campoAux = new Object();
+			       campoAux["name"] = getToken(context) ;
+			       campos.push(campoAux);
+			       numeroCampos++;
+
+			       firma = firma + getToken(context) ;
+			       nextToken(context);
+			   }
+			   else
+		           {
+			       return firmwareError(context,
+			    			    "'token' is missing after '(' on: " + 
+                                                    context.co_cop[instruccionAux.co].signature) ;
+		           }
+
+			   if (isToken(context,")"))
+			   {
+				firma = firma + ')';
+  				nextToken(context);
+			   }
+			   else
+		           {
+			       return firmwareError(context,
+			    			    "')' is missing on: " + 
+                                                    context.co_cop[instruccionAux.co].signature) ;
+		           }
                    }
 
-                  // match optional "(" FIELD ")"
-                   if (isToken(context, "("))
-                   {
-                           firma = firma + '(';
-                           nextToken(context);
+	           firma = firma + ',';
+	       }
 
-                           if ( !isToken(context, ",") && !isToken(context, "(") && !isToken(context, ")") )
-                           {
-                               var campoAux = new Object();
-                               campoAux["name"] = getToken(context) ;
-                               campos.push(campoAux);
-                               numeroCampos++;
-
-                               firma = firma + getToken(context) ;
-                               nextToken(context);
-                           }
-                           else
-                           {
-                               return firmwareError(context,
-                                                    "'token' is missing after '(' on: " +
-                                                    context.co_cop[instruccionAux.co].signature) ;
-                           }
-
-                           if (isToken(context,")"))
-                           {
-                                firma = firma + ')';
-                                nextToken(context);
-                           }
-                           else
-                           {
-                               return firmwareError(context,
-                                                    "')' is missing on: " +
-                                                    context.co_cop[instruccionAux.co].signature) ;
-                           }
-                   }
-
-                   firma = firma + ',';
-               }
-
-               firma = firma.substr(0, firma.length-1);
-               instruccionAux["signature"] = firma;
+	       firma = firma.substr(0, firma.length-1);
+	       instruccionAux["signature"] = firma;
                instruccionAux["signatureGlobal"] = firma;
 
 // li reg val {
