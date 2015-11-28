@@ -555,8 +555,10 @@
 				     operation: function(s_expr) { 
 						   sim_states[s_expr[1]].value = sim_states[s_expr[2]].value & 
 										 sim_states[s_expr[3]].value;
+
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
+						   sim_states["FLAG_O"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["OR"]    = { nparameters: 4, 
@@ -564,16 +566,20 @@
 				     operation: function(s_expr) { 
 						   sim_states[s_expr[1]].value = sim_states[s_expr[2]].value | 
 										 sim_states[s_expr[3]].value; 
+
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
+						   sim_states["FLAG_O"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["NOT"]   = { nparameters: 3, 
 				     types: ["E", "E"],      
 				     operation: function(s_expr) { 
 						   sim_states[s_expr[1]].value = ~(sim_states[s_expr[2]].value) ; 
+
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
+						   sim_states["FLAG_O"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["XOR"]   = { nparameters: 4, 
@@ -581,32 +587,40 @@
 				     operation: function(s_expr) { 
 						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value) ^ 
 										 (sim_states[s_expr[3]].value);
+
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
+						   sim_states["FLAG_O"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["SRL"]   = { nparameters: 3, 
 				     types: ["E", "E"],      
 				     operation: function(s_expr) { 
 						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value) >>> 1; 
+
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
+						   sim_states["FLAG_O"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["SRA"]   = { nparameters: 3, 
 				     types: ["E", "E"],      
 				     operation: function(s_expr) { 
 						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value) >> 1; 
+
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
+						   sim_states["FLAG_O"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["SL"]    = { nparameters: 3, 
 				     types: ["E", "E"],      
 				     operation: function(s_expr) { 
 						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value) << 1; 
+
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
+						   sim_states["FLAG_O"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["RR"]    = { nparameters: 3, 
@@ -614,8 +628,10 @@
 				     operation: function(s_expr) { 
 						   sim_states[s_expr[1]].value =  ((sim_states[s_expr[2]].value) >>> 1) |
 										 (((sim_states[s_expr[2]].value) & 1) << 31); 
+
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
+						   sim_states["FLAG_O"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["RL"]    = { nparameters: 3, 
@@ -623,8 +639,10 @@
 				     operation: function(s_expr) { 
 						   sim_states[s_expr[1]].value =  ((sim_states[s_expr[2]].value) << 1) | 
 										 (((sim_states[s_expr[2]].value) & 0X80000000) >>> 31); 
+
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
+						   sim_states["FLAG_O"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["ADD"]   = { nparameters: 4, 
@@ -649,6 +667,7 @@
 				     operation: function(s_expr) { 
 						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value << 0) - 
 										 (sim_states[s_expr[3]].value << 0); 
+
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
 
@@ -664,6 +683,7 @@
 				     operation: function(s_expr) { 
 						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value << 0) * 
 										 (sim_states[s_expr[3]].value << 0); 
+
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
 
@@ -680,8 +700,10 @@
 						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value << 0) / 
 										 (sim_states[s_expr[3]].value << 0); 
 						   sim_states[s_expr[1]].value = Math.floor(sim_states[s_expr[1]].value) ;
+
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
+						   sim_states["FLAG_O"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["MOD"]   = { nparameters: 4, 
@@ -689,14 +711,20 @@
 				     operation: function(s_expr) { 
 						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value << 0) % 
 										 (sim_states[s_expr[3]].value << 0); 
+
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
+						   sim_states["FLAG_O"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["LUI"]   = { nparameters: 3, 
 				     types: ["E", "E"],      
 				     operation: function(s_expr) { 
 						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value) << 16; 
+
+						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
+						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
+						   sim_states["FLAG_O"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["MBIT_I"] = { nparameters: 5, 

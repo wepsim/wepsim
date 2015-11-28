@@ -56,7 +56,7 @@ main:   li $1 0
            # test 07
            #li $1 7
            #lui $2 0x0000 0001                   
-           #li   $4 0x00010000                   
+           #li  $4 0x00010000                   
            #bne $2 $4 error   
 
            # test 08
@@ -88,7 +88,7 @@ main:   li $1 0
 
            b fin
 
-error:  li  $7 101
+error:    li  $7 101
           out $7 0x1000
           li  $7 114
           out $7 0x1000
@@ -111,5 +111,5 @@ error:  li  $7 101
           add $7 $7 $1
           out $7 0x1000
 
-fin:      li $1 0
+fin:      nop
 
