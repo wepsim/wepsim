@@ -4021,13 +4021,24 @@ function show_decode_instruction ( oinstruction, binstruction )
 
     var sinstruction = oinstruction.name + " " ;
     var split_ins    = oinstruction.signature.split(",") ;
+    var sinstruction_length = parseInt(oinstruction.nwords) * 32; /* nbits of instruction */
     for (var i=1; i < split_ins.length; i++)
     {
-	 var binvalue = binstruction.substring(32 - oinstruction.fields[i-1].startbit - 1,
-					       32 - oinstruction.fields[i-1].stopbit) ;
-	 if (split_ins[i] == "reg")
-	      sinstruction +=  "$" + parseInt(binvalue,2) + " ";
-	 else sinstruction += "0x" + parseInt(binvalue,2).toString(16) + " ";
+	 if (
+              ( (oinstruction.fields[i-1].stopbit) < (sinstruction_length - 1     ) ) && 
+              ( (oinstruction.fields[i-1].stopbit) > (sinstruction_length - 1 - 32) )
+         )
+	 {
+	 	var binvalue = binstruction.substring(sinstruction_length - oinstruction.fields[i-1].startbit - 1,
+					       	      sinstruction_length - oinstruction.fields[i-1].stopbit) ;
+	 	if (split_ins[i] == "reg")
+	      	     sinstruction +=  "$" + parseInt(binvalue,2) + " ";
+	 	else sinstruction += "0x" + parseInt(binvalue,2).toString(16) + " ";
+    	}
+	else
+	{
+		sinstruction += "... ";
+	}
     }
 
     return sinstruction ;
@@ -4909,11 +4920,14 @@ function textSegment(tokens, datosCU, objText)
         j = 0;
         var linea2 = tokens[i].trim().toString().split(" ");
         var firmaAssembly2 = "";
-        if (linea2[1 + j] == ":") 
-        {
-            etiquetas[linea2[j].trim()] = offset.toString(16);
-            j += 2
-        }
+	if(linea2.length>1)
+	{
+        	if (linea2[1 + j] == ":") 
+        	{
+            		etiquetas[linea2[j].trim()] = offset.toString(16);
+            		j += 2
+        	}
+	}
         firmaAssembly2 += linea2[j].trim();
         j++;
         while (j < linea2.length) 
@@ -5034,10 +5048,13 @@ function textSegment(tokens, datosCU, objText)
         j = 0;
         var linea = tokens[i].trim().toString().split(" ");
         var firmaAssembly = "";
-        if (linea[1 + j].trim() == ":") 
-        {
-            j+=2
-        }
+        if(linea.length>1)
+	{
+        	if (linea[1 + j].trim() == ":") 
+        	{
+            		j+=2
+        	}
+	}
         firmaAssembly += linea[j].trim();
         arrayLinea.push(linea[j].trim());
         j++;
