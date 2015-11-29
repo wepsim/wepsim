@@ -861,11 +861,14 @@ function textSegment(tokens, datosCU, objText)
         j = 0;
         var linea2 = tokens[i].trim().toString().split(" ");
         var firmaAssembly2 = "";
-        if (linea2[1 + j] == ":") 
-        {
-            etiquetas[linea2[j].trim()] = offset.toString(16);
-            j += 2
-        }
+	if(linea2.length>1)
+	{
+        	if (linea2[1 + j] == ":") 
+        	{
+            		etiquetas[linea2[j].trim()] = offset.toString(16);
+            		j += 2
+        	}
+	}
         firmaAssembly2 += linea2[j].trim();
         j++;
         while (j < linea2.length) 
@@ -986,10 +989,13 @@ function textSegment(tokens, datosCU, objText)
         j = 0;
         var linea = tokens[i].trim().toString().split(" ");
         var firmaAssembly = "";
-        if (linea[1 + j].trim() == ":") 
-        {
-            j+=2
-        }
+        if(linea.length>1)
+	{
+        	if (linea[1 + j].trim() == ":") 
+        	{
+            		j+=2
+        	}
+	}
         firmaAssembly += linea[j].trim();
         arrayLinea.push(linea[j].trim());
         j++;
