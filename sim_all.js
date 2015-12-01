@@ -5018,7 +5018,9 @@ function textSegment(tokens, datosCU, objText)
     {
         for (i = 0; i < tokens.length; i++) 
         {
-           tokens[i]=tokens[i].trim().replace(" " +x," 0x" + etiquetas[x]);
+	   tokens[i]=tokens[i] + " ";
+           tokens[i]=tokens[i].replace(" " + x + " ", " 0x" + etiquetas[x] + " ");
+           tokens[i]=tokens[i].trim();
         }
     }
     //REEMPLAZO DE SEL EN PSEUDOINSTRUCCIONES
@@ -5260,6 +5262,10 @@ function textSegment(tokens, datosCU, objText)
 			{
 				return assemblyError("Error, number out of range (>32 bits)", arrayLinea, z+1);
 			}
+			if(camposInsertar.length > (Math.abs(bf-bi)+1))
+			{
+				return assemblyError("Error, number out of range (>" + (Math.abs(bf-bi)+1)+ " bits)",arrayLinea, z+1);
+			}
 			camposInsertar = padding + camposInsertar;
                         camposInsertar = camposInsertar.substr((camposInsertar.length - 1) - (bf - bi), (bf - bi) + 1);
                         //convertir bf
@@ -5416,7 +5422,9 @@ function simlang_compile (text, datosCU)
 	{
 		for (i = 0; i < textSegmentText.length; i++) 
 		{
-			textSegmentText[i]=textSegmentText[i].replace(" "+ x, " " + etiquetas[x].toString(16));
+ 			textSegmentText[i]=textSegmentText[i] + " ";
+ 			textSegmentText[i]=textSegmentText[i].replace(" "+ x + " ", " " + etiquetas[x].toString(16) + " ");
+			textSegmentText[i]=textSegmentText[i].trim();
 		}
 	}
 	var compilationSegmentText=textSegment(textSegmentText, datosCU, ret.seg["code"]);
