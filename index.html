@@ -53,7 +53,7 @@
     <script src="bootstrap.min.js"></script>
     <script src="knockout-3.3.0.js"></script>
 
-    <script src="sim_all.min"></script>
+    <script src="sim_all.min?2015120101"></script>
 
     <script>
     //
@@ -120,7 +120,7 @@
     function load_assembly_from_example ( )
     {
 	var xmlhttp = new XMLHttpRequest();
-	var url = "examples/exampleCode2.txt" ;
+	var url = "examples/exampleCode2.txt?2015120101" ;
 
 	xmlhttp.onreadystatechange=function() {
 					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
@@ -175,7 +175,7 @@
     function load_firmware_from_example ( )
     {
 	var xmlhttp = new XMLHttpRequest();
-	var url = "examples/exampleFirmware5.txt" ;
+	var url = "examples/exampleFirmware5.txt?2015120101" ;
 
 	xmlhttp.onreadystatechange=function() {
 					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
