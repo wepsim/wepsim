@@ -738,35 +738,35 @@ function loadFirmware (text)
 
 function saveFirmware ( SIMWARE )
 {
-	var file ="";
+	var file = "";
 	for (var i=0; i<SIMWARE.firmware.length; i++)
 	{
-		file = file + SIMWARE.firmware[i].name;
+		file += SIMWARE.firmware[i].name;
 		if (typeof SIMWARE.firmware[i].fields != "undefined")
 		{
 			if (SIMWARE.firmware[i].fields.length>0)
 			{
 				for (var j=0; j<SIMWARE.firmware[i].fields.length; j++)
 				{
-					file = file + " " + SIMWARE.firmware[i].fields[j].name;
+					file += " " + SIMWARE.firmware[i].fields[j].name;
 				}
 			}
 		}
 
-		file = file + " {" + '\n';
+		file += " {" + '\n';
 		if (typeof SIMWARE.firmware[i].co != "undefined")
 		{
-			file = file + '\t' +"co=" + SIMWARE.firmware[i].co + "," + '\n';
+			file += '\t' +"co=" + SIMWARE.firmware[i].co + "," + '\n';
 		}
 
 		if (typeof SIMWARE.firmware[i].cop != "undefined")
 		{
-			file = file + '\t' +"cop=" + SIMWARE.firmware[i].cop + "," + '\n';
+			file += '\t' +"cop=" + SIMWARE.firmware[i].cop + "," + '\n';
 		}
 
 		if (typeof SIMWARE.firmware[i].nwords != "undefined")
 		{
-			file = file + '\t' + "nwords=" + SIMWARE.firmware[i].nwords + "," + '\n'; 
+			file += '\t' + "nwords=" + SIMWARE.firmware[i].nwords + "," + '\n'; 
 		}
 
 		if (typeof SIMWARE.firmware[i].fields != "undefined")
@@ -775,13 +775,13 @@ function saveFirmware ( SIMWARE )
 			{
 				for (var j=0;j<SIMWARE.firmware[i].fields.length;j++)
 				{
-					file = file + '\t' + SIMWARE.firmware[i].fields[j].name + " = " + SIMWARE.firmware[i].fields[j].type;
-					file = file + " (" + SIMWARE.firmware[i].fields[j].startbit + "," + SIMWARE.firmware[i].fields[j].stopbit + ")";					
+					file += '\t' + SIMWARE.firmware[i].fields[j].name + " = " + SIMWARE.firmware[i].fields[j].type;
+					file += " (" + SIMWARE.firmware[i].fields[j].startbit + "," + SIMWARE.firmware[i].fields[j].stopbit + ")";					
 					if (SIMWARE.firmware[i].fields[j].type == "address")
 					{
-						file = file + SIMWARE.firmware[i].fields[j].address_type;
+						file += SIMWARE.firmware[i].fields[j].address_type;
 					}
-					file = file + "," + '\n'; 
+					file += "," + '\n'; 
 				}
 			}
 		}
@@ -791,52 +791,55 @@ function saveFirmware ( SIMWARE )
 			var addr=SIMWARE.firmware[i]["mc-start"];
 			if (SIMWARE.firmware[i].name!="fetch")
 			{
-				file = file + '\t' + "{";
+				file += '\t' + "{";
 			}
+
 			for (var j=0; j<SIMWARE.firmware[i].microcode.length; j++)
 			{
-				file = file + '\n' + '\t' + '\t';
+				file += '\n' + '\t' + '\t';
 				if (typeof SIMWARE.labels[addr] != "undefined")
 				{
-					file = file + SIMWARE.labels[addr] + " : "; 
+					file += SIMWARE.labels[addr] + " : "; 
 				}
 
-				file = file + "( ";
+				file += "( ";
 				var anySignal=0;
 				for (var k in SIMWARE.firmware[i].microcode[j])
 				{
 					if (k!="MADDR")
-					     file = file + k + "=" + SIMWARE.firmware[i].microcode[j][k].toString(2) + " ,";
-                                        else file = file + k + "=" + SIMWARE.labels[SIMWARE.firmware[i].microcode[j][k]] + " ,";
+					     file += k + "=" + SIMWARE.firmware[i].microcode[j][k].toString(2) + ", ";
+                                        else file += k + "=" + SIMWARE.labels[SIMWARE.firmware[i].microcode[j][k]] + ", ";
 					anySignal=1;
 				}
 				if (anySignal==1)
 				{
-					file = file.substr(0,file.length-1);
+					file = file.substr(0, file.length-1);
 				}
-				file = file + "),";
+				file += "),";
 				addr++;
 			}
-			file = file.substr(0,file.length-1);
+
+			file = file.substr(0, file.length-1);
 			if (SIMWARE.firmware[i].name!="fetch")
 			{
-				file = file + '\n\t}';
+				file += '\n\t}';
 			}
 		}
-		file = file + '\n}\n\n';
+
+		file += '\n}\n\n';
 	}	
 
 	if ( (typeof SIMWARE.registers != "undefined") && (SIMWARE.registers.length > 0) )
 	{
-		file = file + 'registers' + '\n{\n';
+		file += 'registers' + '\n{\n';
 		for (var i = 0; i< SIMWARE.registers.length; i++)
 		{
 		     if (SIMWARE.stackRegister == i)
-		     	  file = file + '\t' + "$" + i + "=" + SIMWARE.registers[i] + " (stack_pointer)," + '\n';
-                     else file = file + '\t' + "$" + i + "=" + SIMWARE.registers[i] + "," + '\n';
+		     	  file += '\t' + "$" + i + "=" + SIMWARE.registers[i] + " (stack_pointer)," + '\n';
+                     else file += '\t' + "$" + i + "=" + SIMWARE.registers[i] + "," + '\n';
 		}
-		file = file.substr(0, file.length-2);
-		file = file + '\n}\n';
+		file  = file.substr(0, file.length-2);
+		file += '\n}\n';
 	}
 
 	return file;
@@ -916,7 +919,7 @@ function decode_ram ( )
     {
         var binstruction = MP[address].toString(2) ;
             binstruction = "00000000000000000000000000000000".substring(0, 32 - binstruction.length) + binstruction ;
-        sram = sram + "0x" + parseInt(address).toString(16) + ":" + decode_instruction(binstruction) + "\n" ;
+        sram += "0x" + parseInt(address).toString(16) + ":" + decode_instruction(binstruction) + "\n" ;
     }
 
     return sram ;
