@@ -458,17 +458,18 @@
 		var contSignals=1;
 		for (var i=0; i<filter.length; i++) {
                      var s = filter[i].split(",")[0] ;
-		     h = h + "<td align=center style='border-style: solid; border-width:1px;'><small><b>" + 
-                             sim_signals[s].name + 
-                             "</b></small></td>";
+		     h += "<td align=center style='border-style: solid; border-width:1px;'><small><b>" + sim_signals[s].name + "</b></small></td>";
 		     contSignals++;
 		}
-		h = h + "</tr>" ; 
+		h += "</tr>" ; 
 		
-		var o = "<center>";
-		o = o + "<table style='table-layout:auto; border-style: solid: border-width:0px; border-collapse:collapse;'>";
+		var o  = "<center>";
+		    o += "<table style='table-layout:auto; border-style: solid: border-width:0px; border-collapse:collapse;'>";
 
                 var l = 0;
+                var line = "";
+		var ico  = "";
+		var madd = "";
 		for (var i=0; i<fir.length; i++)
 		{
 		    var mstart = fir[i]["mc-start"];
@@ -478,28 +479,24 @@
                          if (++l % 10 == 1)
 		             o = o + h ;
  
-			 var ico = "";
+			 ico = "";
 			 if (typeof fir[i].co != "undefined")
 			     ico = parseInt(fir[i].co, 2) ;
                          var isignature = fir[i].signature.split(',')[0] ;
 
-                         var line = "";
+                         line = "";
                          if (j==0)
-                              line = line + "<td style='border-style: solid; border-width:0px; border-color:lightgray;'>" + 
-                                            "<span class='badge'>" + isignature + "</span>" + "&nbsp;" +
-                                            "</td>" +
-                                            "<td style='border-style: solid; border-width:1px; border-color:lightgray;'>" + ico + "</td>" ;
-                         else line = line + "<td style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;</td>" +
-                                            "<td style='border-style: solid; border-width:1px; border-color:lightgray;'>&nbsp;</td>" ;
+                              line += "<td style='border-style: solid; border-width:0px; border-color:lightgray;'><span class='badge'>" + isignature + "</span>&nbsp;</td>" +
+                                      "<td style='border-style: solid; border-width:1px; border-color:lightgray;'>" + ico + "</td>" ;
+                         else line += "<td style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;</td>" +
+                                      "<td style='border-style: solid; border-width:1px; border-color:lightgray;'>&nbsp;</td>" ;
 
                          if (showBinary) 
-                              var madd = "0x" + (mstart + j).toString(16) ;
-                         else var madd = mstart + j ;
+                              madd = "0x" + (mstart + j).toString(16) ;
+                         else madd = mstart + j ;
 
-			 line = line + "<td align=center  style='border-style: solid; border-width:1px; border-color:lightgray;' bgcolor=white>" + 
-                                       madd +
-                                       "</td>" +
-                                       "<td bgcolor=white style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;</td>" ;
+			 line += "<td align=center  style='border-style: solid; border-width:1px; border-color:lightgray;' bgcolor=white>" + madd + "</td>" +
+                                 "<td bgcolor=white style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;</td>" ;
 			 var mins = mcode[j] ;
 		         for (var k=0; k<filter.length; k++)
 			 {
@@ -545,19 +542,15 @@
                               }
 
 			      if (newval)
-			           line = line + "<td align=center style='border-style: solid; border-width:1px;'>" + 
-  					         "<b>" + svalue + "</b>" + 
-                                                 "</td>";
-			      else line = line + "<td align=center style='border-style: solid; border-width:1px;'>" + 
-                                                 "<font color='grey'>" + svalue + "</font>" + 
-                                                 "</td>";
+			           line += "<td align=center style='border-style: solid; border-width:1px;'><b>" + svalue + "</b></td>";
+			      else line += "<td align=center style='border-style: solid; border-width:1px;'><font color='grey'>" + svalue + "</font></td>";
 			 }
 
-			 o = o + "<tr>" + line + "</tr>" ;
+			 o += "<tr>" + line + "</tr>" ;
 		    }
 		}
 
-		o = o + "</table></center>";
+		o += "</table></center>";
 		return o;
 	}
 
@@ -592,18 +585,18 @@
                 for (l in labels)
                      slebal[labels[l]] = l;
 
-		var o = "";
-		o = o + "<center>" +
-			"<table style='table-layout:auto; border-style: solid; border-width:0px;'>" +
-			"<tr>" +
-			"<th style='border-style: solid; border-width:0px;'>labels</th>" +
-			"<th style='border-style: solid; border-width:1px;'>address</th>" +
-			"<th style='border-style: solid; border-width:1px;'>" + 
-                        "<table border=0 width=100%><tr>" + 
-                        "<td width=20% align=left>&nbsp;<sub>31</sub></td><td width=60% align=center>content (binary)</td><td width=20% align=right><sub>0</sub>&nbsp;</td>" +
-                        "</tr></table>" +
-			"<th style='border-style: solid; border-width:0px;' align=right>&nbsp;&nbsp;segment</th>" +
-			"</tr>" ;
+		var o  = "";
+		    o += "<center>" +
+		 	 "<table style='table-layout:auto; border-style: solid; border-width:0px;'>" +
+			 "<tr>" +
+			 "<th style='border-style: solid; border-width:0px;'>labels</th>" +
+			 "<th style='border-style: solid; border-width:1px;'>address</th>" +
+			 "<th style='border-style: solid; border-width:1px;'>" + 
+                         "<table border=0 width=100%><tr>" + 
+                         "<td width=20% align=left>&nbsp;<sub>31</sub></td><td width=60% align=center>content (binary)</td><td width=20% align=right><sub>0</sub>&nbsp;</td>" +
+                         "</tr></table>" +
+			 "<th style='border-style: solid; border-width:0px;' align=right>&nbsp;&nbsp;segment</th>" +
+			 "</tr>" ;
 
 	   	var color="white";
 	        for (skey in seg) 
@@ -622,58 +615,53 @@
                              }
 
                              if (0 == rows) {
-			         o = o + 
-				     "<tr style='font-family:verdana; font-size:12pt;'>" +
-				     "<td align=right  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
-				     "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c + "</td>" +
-				     "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + 
-                                      mp[c].substr(0,8)  + "&nbsp;" + mp[c].substr(8,8)  + "&nbsp;" + mp[c].substr(16,8) + "&nbsp;" + mp[c].substr(24,8) + "</td>" +
-				     "<td rowspan=" ;
+			         o += "<tr style='font-family:verdana; font-size:12pt;'>" +
+				      "<td align=right  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
+				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c + "</td>" +
+				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + 
+                                       mp[c].substr(0,8)  + "&nbsp;" + mp[c].substr(8,8)  + "&nbsp;" + mp[c].substr(16,8) + "&nbsp;" + mp[c].substr(24,8) + "</td>" +
+				      "<td rowspan=" ;
                              } else {
-			         x = x + 
-				     "<tr style='font-family:verdana; font-size:12pt;'>" +
-				     "<td align=right  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
-				     "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c + "</td>" +
-				     "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + 
-                                     mp[c].substr(0,8)  + "&nbsp;" + mp[c].substr(8,8)  + "&nbsp;" + mp[c].substr(16,8) + "&nbsp;" + mp[c].substr(24,8) + "</td>" +
-				     "</tr>" ;
+			         x += "<tr style='font-family:verdana; font-size:12pt;'>" +
+				      "<td align=right  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
+				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c + "</td>" +
+				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + 
+                                      mp[c].substr(0,8)  + "&nbsp;" + mp[c].substr(8,8)  + "&nbsp;" + mp[c].substr(16,8) + "&nbsp;" + mp[c].substr(24,8) + "</td>" +
+				      "</tr>" ;
                              }
 
                              rows++;
 	             }
 
 		     if (0 == rows) {
-			 o = o + 
-			     "<tr style='font-family:verdana; font-size:12pt;'>" +
-			     "<td>&nbsp;</td>" +
-			     "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">0x" + parseInt(seg[skey].begin).toString(16) + "</td>" +
-			     "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">&nbsp;</td>" +
-			     "<td rowspan=" ;
-			 x = x + 
-			     "<tr style='font-family:verdana; font-size:12pt;'>" +
-			     "<td>&nbsp;</td>" +
-			     "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">0x" + parseInt(seg[skey].end).toString(16) + "</td>" +
-			     "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">&nbsp;</td>" +
-			     "<td>&nbsp;</td>" +
-			     "</tr>" ;
-                        rows=2 ;
+			 o += "<tr style='font-family:verdana; font-size:12pt;'>" +
+			      "<td>&nbsp;</td>" +
+			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">0x" + parseInt(seg[skey].begin).toString(16) + "</td>" +
+			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">&nbsp;</td>" +
+			      "<td rowspan=" ;
+			 x += "<tr style='font-family:verdana; font-size:12pt;'>" +
+			      "<td>&nbsp;</td>" +
+			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">0x" + parseInt(seg[skey].end).toString(16) + "</td>" +
+			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">&nbsp;</td>" +
+			      "<td>&nbsp;</td>" +
+			      "</tr>" ;
+                        rows = 2 ;
 		     } 
 
-                     o = o + rows + " align=right>" + seg[skey].name + "&nbsp;</td></tr>" + x ;
+                     o += rows + " align=right>" + seg[skey].name + "&nbsp;</td></tr>" + x ;
 
 	             if (seg[skey].name != "stack") {
-		         o = o + 
-                             "<tr style='font-family:verdana; font-size:12pt;'>" + 
-                             "<td>&nbsp;</td>" + 
-                             "<td valign=middle align=center height=25px>...</td>" + 
-                             "<td valign=middle align=center height=25px>...</td>" + 
-                             "<td>&nbsp;</td>" + 
-                             "</tr>" ;
+		         o += "<tr style='font-family:verdana; font-size:12pt;'>" + 
+                              "<td>&nbsp;</td>" + 
+                              "<td valign=middle align=center height=25px>...</td>" + 
+                              "<td valign=middle align=center height=25px>...</td>" + 
+                              "<td>&nbsp;</td>" + 
+                              "</tr>" ;
 	             }
 	        }
 
-		o = o + "</table>" +
-			"</center><br>" ;
+		o += "</table>" +
+		     "</center><br>" ;
 
 		return o;
 	}
@@ -744,7 +732,7 @@
                 var bgc = "#F0F0F0" ;
                 var o = "" ;
 
-                o = o + "<center><table data-role=table class='table ui-responsive'><tbody>" ;
+                o += "<center><table data-role=table class='table ui-responsive'><tbody>" ;
                 for (l in asm)
                 {
                      if  (bgc == "#F0F0F0")
@@ -780,17 +768,17 @@
                      }
 
                      // join the pieces...
-                     o = o + "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'>" +
-                             "<td style='line-height:0.9;' width='10%' id='bp" + l + "' " + 
-                             "    onclick='asmdbg_set_breakpoint(" + l + "); if(event.stopPropagation) event.stopPropagation();'>&nbsp;</td>" +
-                             "<td style='line-height:0.9;' width='15%'>" + l + "</td>" +
-                             "<td style='line-height:0.9;' width='12%' align=right>" + s1_label               + "</td>" +
-                             "<td style='line-height:0.9;' width='25%' align=left>"  + s1_instr               + "</td>" +
-                             "<td style='line-height:0.9;' width='12%' align=right>" + s2_label               + "</td>" +
-                             "<td style='line-height:0.9;' width='25%' align=left>"  + s2_instr               + "</td>" +
-                             "</tr>" ;
+                     o +=  "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'>" +
+                           "<td style='line-height:0.9;' width='10%' id='bp" + l + "' " + 
+                           "    onclick='asmdbg_set_breakpoint(" + l + "); if(event.stopPropagation) event.stopPropagation();'>&nbsp;</td>" +
+                           "<td style='line-height:0.9;' width='15%'>" + l + "</td>" +
+                           "<td style='line-height:0.9;' width='12%' align=right>" + s1_label               + "</td>" +
+                           "<td style='line-height:0.9;' width='25%' align=left>"  + s1_instr               + "</td>" +
+                           "<td style='line-height:0.9;' width='12%' align=right>" + s2_label               + "</td>" +
+                           "<td style='line-height:0.9;' width='25%' align=left>"  + s2_instr               + "</td>" +
+                           "</tr>" ;
                 }
-                o = o + "</tbody></table></center>" ;
+                o += "</tbody></table></center>" ;
 
                 return o ;
 	}
