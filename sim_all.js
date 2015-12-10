@@ -1858,7 +1858,7 @@
                               "REG_PC,0",        "REG_MAR,0", "REG_MBR,0",    "REG_IR,0", 
                               "REG_RT1,0",       "REG_RT2,0", "REG_RT3,0",    "REG_SR,0", 
                               "FLAG_O,0",        "FLAG_N,0",  "FLAG_Z,0",     "FLAG_I,0",    "FLAG_U,0", 
-                              "REG_MICROADDR,0", "REG_IR,0" ] ;
+                              "REG_MICROADDR,0" ] ;
 
         var divclasses = [ "col-xs-3 col-sm-3 col-md-3 col-lg-2",
                            "col-xs-6 col-sm-6 col-md-6 col-lg-6" ] ;
@@ -2121,17 +2121,18 @@
 		var contSignals=1;
 		for (var i=0; i<filter.length; i++) {
                      var s = filter[i].split(",")[0] ;
-		     h = h + "<td align=center style='border-style: solid; border-width:1px;'><small><b>" + 
-                             sim_signals[s].name + 
-                             "</b></small></td>";
+		     h += "<td align=center style='border-style: solid; border-width:1px;'><small><b>" + sim_signals[s].name + "</b></small></td>";
 		     contSignals++;
 		}
-		h = h + "</tr>" ; 
+		h += "</tr>" ; 
 		
-		var o = "<center>";
-		o = o + "<table style='table-layout:auto; border-style: solid: border-width:0px; border-collapse:collapse;'>";
+		var o  = "<center>";
+		    o += "<table style='table-layout:auto; border-style: solid: border-width:0px; border-collapse:collapse;'>";
 
                 var l = 0;
+                var line = "";
+		var ico  = "";
+		var madd = "";
 		for (var i=0; i<fir.length; i++)
 		{
 		    var mstart = fir[i]["mc-start"];
@@ -2141,28 +2142,24 @@
                          if (++l % 10 == 1)
 		             o = o + h ;
  
-			 var ico = "";
+			 ico = "";
 			 if (typeof fir[i].co != "undefined")
 			     ico = parseInt(fir[i].co, 2) ;
                          var isignature = fir[i].signature.split(',')[0] ;
 
-                         var line = "";
+                         line = "";
                          if (j==0)
-                              line = line + "<td style='border-style: solid; border-width:0px; border-color:lightgray;'>" + 
-                                            "<span class='badge'>" + isignature + "</span>" + "&nbsp;" +
-                                            "</td>" +
-                                            "<td style='border-style: solid; border-width:1px; border-color:lightgray;'>" + ico + "</td>" ;
-                         else line = line + "<td style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;</td>" +
-                                            "<td style='border-style: solid; border-width:1px; border-color:lightgray;'>&nbsp;</td>" ;
+                              line += "<td style='border-style: solid; border-width:0px; border-color:lightgray;'><span class='badge'>" + isignature + "</span>&nbsp;</td>" +
+                                      "<td style='border-style: solid; border-width:1px; border-color:lightgray;'>" + ico + "</td>" ;
+                         else line += "<td style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;</td>" +
+                                      "<td style='border-style: solid; border-width:1px; border-color:lightgray;'>&nbsp;</td>" ;
 
                          if (showBinary) 
-                              var madd = "0x" + (mstart + j).toString(16) ;
-                         else var madd = mstart + j ;
+                              madd = "0x" + (mstart + j).toString(16) ;
+                         else madd = mstart + j ;
 
-			 line = line + "<td align=center  style='border-style: solid; border-width:1px; border-color:lightgray;' bgcolor=white>" + 
-                                       madd +
-                                       "</td>" +
-                                       "<td bgcolor=white style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;</td>" ;
+			 line += "<td align=center  style='border-style: solid; border-width:1px; border-color:lightgray;' bgcolor=white>" + madd + "</td>" +
+                                 "<td bgcolor=white style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;</td>" ;
 			 var mins = mcode[j] ;
 		         for (var k=0; k<filter.length; k++)
 			 {
@@ -2208,19 +2205,15 @@
                               }
 
 			      if (newval)
-			           line = line + "<td align=center style='border-style: solid; border-width:1px;'>" + 
-  					         "<b>" + svalue + "</b>" + 
-                                                 "</td>";
-			      else line = line + "<td align=center style='border-style: solid; border-width:1px;'>" + 
-                                                 "<font color='grey'>" + svalue + "</font>" + 
-                                                 "</td>";
+			           line += "<td align=center style='border-style: solid; border-width:1px;'><b>" + svalue + "</b></td>";
+			      else line += "<td align=center style='border-style: solid; border-width:1px;'><font color='grey'>" + svalue + "</font></td>";
 			 }
 
-			 o = o + "<tr>" + line + "</tr>" ;
+			 o += "<tr>" + line + "</tr>" ;
 		    }
 		}
 
-		o = o + "</table></center>";
+		o += "</table></center>";
 		return o;
 	}
 
@@ -2255,18 +2248,18 @@
                 for (l in labels)
                      slebal[labels[l]] = l;
 
-		var o = "";
-		o = o + "<center>" +
-			"<table style='table-layout:auto; border-style: solid; border-width:0px;'>" +
-			"<tr>" +
-			"<th style='border-style: solid; border-width:0px;'>labels</th>" +
-			"<th style='border-style: solid; border-width:1px;'>address</th>" +
-			"<th style='border-style: solid; border-width:1px;'>" + 
-                        "<table border=0 width=100%><tr>" + 
-                        "<td width=20% align=left>&nbsp;<sub>31</sub></td><td width=60% align=center>content (binary)</td><td width=20% align=right><sub>0</sub>&nbsp;</td>" +
-                        "</tr></table>" +
-			"<th style='border-style: solid; border-width:0px;' align=right>&nbsp;&nbsp;segment</th>" +
-			"</tr>" ;
+		var o  = "";
+		    o += "<center>" +
+		 	 "<table style='table-layout:auto; border-style: solid; border-width:0px;'>" +
+			 "<tr>" +
+			 "<th style='border-style: solid; border-width:0px;'>labels</th>" +
+			 "<th style='border-style: solid; border-width:1px;'>address</th>" +
+			 "<th style='border-style: solid; border-width:1px;'>" + 
+                         "<table border=0 width=100%><tr>" + 
+                         "<td width=20% align=left>&nbsp;<sub>31</sub></td><td width=60% align=center>content (binary)</td><td width=20% align=right><sub>0</sub>&nbsp;</td>" +
+                         "</tr></table>" +
+			 "<th style='border-style: solid; border-width:0px;' align=right>&nbsp;&nbsp;segment</th>" +
+			 "</tr>" ;
 
 	   	var color="white";
 	        for (skey in seg) 
@@ -2285,58 +2278,53 @@
                              }
 
                              if (0 == rows) {
-			         o = o + 
-				     "<tr style='font-family:verdana; font-size:12pt;'>" +
-				     "<td align=right  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
-				     "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c + "</td>" +
-				     "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + 
-                                      mp[c].substr(0,8)  + "&nbsp;" + mp[c].substr(8,8)  + "&nbsp;" + mp[c].substr(16,8) + "&nbsp;" + mp[c].substr(24,8) + "</td>" +
-				     "<td rowspan=" ;
+			         o += "<tr style='font-family:verdana; font-size:12pt;'>" +
+				      "<td align=right  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
+				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c + "</td>" +
+				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + 
+                                       mp[c].substr(0,8)  + "&nbsp;" + mp[c].substr(8,8)  + "&nbsp;" + mp[c].substr(16,8) + "&nbsp;" + mp[c].substr(24,8) + "</td>" +
+				      "<td rowspan=" ;
                              } else {
-			         x = x + 
-				     "<tr style='font-family:verdana; font-size:12pt;'>" +
-				     "<td align=right  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
-				     "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c + "</td>" +
-				     "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + 
-                                     mp[c].substr(0,8)  + "&nbsp;" + mp[c].substr(8,8)  + "&nbsp;" + mp[c].substr(16,8) + "&nbsp;" + mp[c].substr(24,8) + "</td>" +
-				     "</tr>" ;
+			         x += "<tr style='font-family:verdana; font-size:12pt;'>" +
+				      "<td align=right  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
+				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c + "</td>" +
+				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + 
+                                      mp[c].substr(0,8)  + "&nbsp;" + mp[c].substr(8,8)  + "&nbsp;" + mp[c].substr(16,8) + "&nbsp;" + mp[c].substr(24,8) + "</td>" +
+				      "</tr>" ;
                              }
 
                              rows++;
 	             }
 
 		     if (0 == rows) {
-			 o = o + 
-			     "<tr style='font-family:verdana; font-size:12pt;'>" +
-			     "<td>&nbsp;</td>" +
-			     "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">0x" + parseInt(seg[skey].begin).toString(16) + "</td>" +
-			     "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">&nbsp;</td>" +
-			     "<td rowspan=" ;
-			 x = x + 
-			     "<tr style='font-family:verdana; font-size:12pt;'>" +
-			     "<td>&nbsp;</td>" +
-			     "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">0x" + parseInt(seg[skey].end).toString(16) + "</td>" +
-			     "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">&nbsp;</td>" +
-			     "<td>&nbsp;</td>" +
-			     "</tr>" ;
-                        rows=2 ;
+			 o += "<tr style='font-family:verdana; font-size:12pt;'>" +
+			      "<td>&nbsp;</td>" +
+			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">0x" + parseInt(seg[skey].begin).toString(16) + "</td>" +
+			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">&nbsp;</td>" +
+			      "<td rowspan=" ;
+			 x += "<tr style='font-family:verdana; font-size:12pt;'>" +
+			      "<td>&nbsp;</td>" +
+			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">0x" + parseInt(seg[skey].end).toString(16) + "</td>" +
+			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">&nbsp;</td>" +
+			      "<td>&nbsp;</td>" +
+			      "</tr>" ;
+                        rows = 2 ;
 		     } 
 
-                     o = o + rows + " align=right>" + seg[skey].name + "&nbsp;</td></tr>" + x ;
+                     o += rows + " align=right>" + seg[skey].name + "&nbsp;</td></tr>" + x ;
 
 	             if (seg[skey].name != "stack") {
-		         o = o + 
-                             "<tr style='font-family:verdana; font-size:12pt;'>" + 
-                             "<td>&nbsp;</td>" + 
-                             "<td valign=middle align=center height=25px>...</td>" + 
-                             "<td valign=middle align=center height=25px>...</td>" + 
-                             "<td>&nbsp;</td>" + 
-                             "</tr>" ;
+		         o += "<tr style='font-family:verdana; font-size:12pt;'>" + 
+                              "<td>&nbsp;</td>" + 
+                              "<td valign=middle align=center height=25px>...</td>" + 
+                              "<td valign=middle align=center height=25px>...</td>" + 
+                              "<td>&nbsp;</td>" + 
+                              "</tr>" ;
 	             }
 	        }
 
-		o = o + "</table>" +
-			"</center><br>" ;
+		o += "</table>" +
+		     "</center><br>" ;
 
 		return o;
 	}
@@ -2407,7 +2395,7 @@
                 var bgc = "#F0F0F0" ;
                 var o = "" ;
 
-                o = o + "<center><table data-role=table class='table ui-responsive'><tbody>" ;
+                o += "<center><table data-role=table class='table ui-responsive'><tbody>" ;
                 for (l in asm)
                 {
                      if  (bgc == "#F0F0F0")
@@ -2443,17 +2431,17 @@
                      }
 
                      // join the pieces...
-                     o = o + "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'>" +
-                             "<td style='line-height:0.9;' width='10%' id='bp" + l + "' " + 
-                             "    onclick='asmdbg_set_breakpoint(" + l + "); if(event.stopPropagation) event.stopPropagation();'>&nbsp;</td>" +
-                             "<td style='line-height:0.9;' width='15%'>" + l + "</td>" +
-                             "<td style='line-height:0.9;' width='12%' align=right>" + s1_label               + "</td>" +
-                             "<td style='line-height:0.9;' width='25%' align=left>"  + s1_instr               + "</td>" +
-                             "<td style='line-height:0.9;' width='12%' align=right>" + s2_label               + "</td>" +
-                             "<td style='line-height:0.9;' width='25%' align=left>"  + s2_instr               + "</td>" +
-                             "</tr>" ;
+                     o +=  "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'>" +
+                           "<td style='line-height:0.9;' width='10%' id='bp" + l + "' " + 
+                           "    onclick='asmdbg_set_breakpoint(" + l + "); if(event.stopPropagation) event.stopPropagation();'>&nbsp;</td>" +
+                           "<td style='line-height:0.9;' width='15%'>" + l + "</td>" +
+                           "<td style='line-height:0.9;' width='12%' align=right>" + s1_label               + "</td>" +
+                           "<td style='line-height:0.9;' width='25%' align=left>"  + s1_instr               + "</td>" +
+                           "<td style='line-height:0.9;' width='12%' align=right>" + s2_label               + "</td>" +
+                           "<td style='line-height:0.9;' width='25%' align=left>"  + s2_instr               + "</td>" +
+                           "</tr>" ;
                 }
-                o = o + "</tbody></table></center>" ;
+                o += "</tbody></table></center>" ;
 
                 return o ;
 	}
@@ -3721,7 +3709,11 @@ function loadFirmware (text)
 		        return firmwareError(context, "Incorrect type of field (reg, inm or address)") ;
 
 	           campos[camposInsertados]["type"] = getToken(context) ;
-	           firma = firma.replace(campos[camposInsertados]["name"], campos[camposInsertados]["type"]);
+	           firma = firma.replace("," + campos[camposInsertados]["name"], "," + campos[camposInsertados]["type"]);
+	           firma = firma.replace("(" + campos[camposInsertados]["name"], "(" + campos[camposInsertados]["type"]);
+	           firma = firma.replace(")" + campos[camposInsertados]["name"], ")" + campos[camposInsertados]["type"]);
+                   
+                   
 	           instruccionAux["signature"] = firma;
 	           firmaGlobal = firma.replace("address","num");
 	           firmaGlobal = firmaGlobal.replace("inm" , "num");
@@ -3875,35 +3867,35 @@ function loadFirmware (text)
 
 function saveFirmware ( SIMWARE )
 {
-	var file ="";
+	var file = "";
 	for (var i=0; i<SIMWARE.firmware.length; i++)
 	{
-		file = file + SIMWARE.firmware[i].name;
+		file += SIMWARE.firmware[i].name;
 		if (typeof SIMWARE.firmware[i].fields != "undefined")
 		{
 			if (SIMWARE.firmware[i].fields.length>0)
 			{
 				for (var j=0; j<SIMWARE.firmware[i].fields.length; j++)
 				{
-					file = file + " " + SIMWARE.firmware[i].fields[j].name;
+					file += " " + SIMWARE.firmware[i].fields[j].name;
 				}
 			}
 		}
 
-		file = file + " {" + '\n';
+		file += " {" + '\n';
 		if (typeof SIMWARE.firmware[i].co != "undefined")
 		{
-			file = file + '\t' +"co=" + SIMWARE.firmware[i].co + "," + '\n';
+			file += '\t' +"co=" + SIMWARE.firmware[i].co + "," + '\n';
 		}
 
 		if (typeof SIMWARE.firmware[i].cop != "undefined")
 		{
-			file = file + '\t' +"cop=" + SIMWARE.firmware[i].cop + "," + '\n';
+			file += '\t' +"cop=" + SIMWARE.firmware[i].cop + "," + '\n';
 		}
 
 		if (typeof SIMWARE.firmware[i].nwords != "undefined")
 		{
-			file = file + '\t' + "nwords=" + SIMWARE.firmware[i].nwords + "," + '\n'; 
+			file += '\t' + "nwords=" + SIMWARE.firmware[i].nwords + "," + '\n'; 
 		}
 
 		if (typeof SIMWARE.firmware[i].fields != "undefined")
@@ -3912,13 +3904,13 @@ function saveFirmware ( SIMWARE )
 			{
 				for (var j=0;j<SIMWARE.firmware[i].fields.length;j++)
 				{
-					file = file + '\t' + SIMWARE.firmware[i].fields[j].name + " = " + SIMWARE.firmware[i].fields[j].type;
-					file = file + " (" + SIMWARE.firmware[i].fields[j].startbit + "," + SIMWARE.firmware[i].fields[j].stopbit + ")";					
+					file += '\t' + SIMWARE.firmware[i].fields[j].name + " = " + SIMWARE.firmware[i].fields[j].type;
+					file += " (" + SIMWARE.firmware[i].fields[j].startbit + "," + SIMWARE.firmware[i].fields[j].stopbit + ")";					
 					if (SIMWARE.firmware[i].fields[j].type == "address")
 					{
-						file = file + SIMWARE.firmware[i].fields[j].address_type;
+						file += SIMWARE.firmware[i].fields[j].address_type;
 					}
-					file = file + "," + '\n'; 
+					file += "," + '\n'; 
 				}
 			}
 		}
@@ -3928,52 +3920,55 @@ function saveFirmware ( SIMWARE )
 			var addr=SIMWARE.firmware[i]["mc-start"];
 			if (SIMWARE.firmware[i].name!="fetch")
 			{
-				file = file + '\t' + "{";
+				file += '\t' + "{";
 			}
+
 			for (var j=0; j<SIMWARE.firmware[i].microcode.length; j++)
 			{
-				file = file + '\n' + '\t' + '\t';
+				file += '\n' + '\t' + '\t';
 				if (typeof SIMWARE.labels[addr] != "undefined")
 				{
-					file = file + SIMWARE.labels[addr] + " : "; 
+					file += SIMWARE.labels[addr] + " : "; 
 				}
 
-				file = file + "( ";
+				file += "( ";
 				var anySignal=0;
 				for (var k in SIMWARE.firmware[i].microcode[j])
 				{
 					if (k!="MADDR")
-					     file = file + k + "=" + SIMWARE.firmware[i].microcode[j][k].toString(2) + " ,";
-                                        else file = file + k + "=" + SIMWARE.labels[SIMWARE.firmware[i].microcode[j][k]] + " ,";
+					     file += k + "=" + SIMWARE.firmware[i].microcode[j][k].toString(2) + ", ";
+                                        else file += k + "=" + SIMWARE.labels[SIMWARE.firmware[i].microcode[j][k]] + ", ";
 					anySignal=1;
 				}
 				if (anySignal==1)
 				{
-					file = file.substr(0,file.length-1);
+					file = file.substr(0, file.length-1);
 				}
-				file = file + "),";
+				file += "),";
 				addr++;
 			}
-			file = file.substr(0,file.length-1);
+
+			file = file.substr(0, file.length-1);
 			if (SIMWARE.firmware[i].name!="fetch")
 			{
-				file = file + '\n\t}';
+				file += '\n\t}';
 			}
 		}
-		file = file + '\n}\n\n';
+
+		file += '\n}\n\n';
 	}	
 
 	if ( (typeof SIMWARE.registers != "undefined") && (SIMWARE.registers.length > 0) )
 	{
-		file = file + 'registers' + '\n{\n';
+		file += 'registers' + '\n{\n';
 		for (var i = 0; i< SIMWARE.registers.length; i++)
 		{
 		     if (SIMWARE.stackRegister == i)
-		     	  file = file + '\t' + "$" + i + "=" + SIMWARE.registers[i] + " (stack_pointer)," + '\n';
-                     else file = file + '\t' + "$" + i + "=" + SIMWARE.registers[i] + "," + '\n';
+		     	  file += '\t' + "$" + i + "=" + SIMWARE.registers[i] + " (stack_pointer)," + '\n';
+                     else file += '\t' + "$" + i + "=" + SIMWARE.registers[i] + "," + '\n';
 		}
-		file = file.substr(0, file.length-2);
-		file = file + '\n}\n';
+		file  = file.substr(0, file.length-2);
+		file += '\n}\n';
 	}
 
 	return file;
@@ -4053,7 +4048,7 @@ function decode_ram ( )
     {
         var binstruction = MP[address].toString(2) ;
             binstruction = "00000000000000000000000000000000".substring(0, 32 - binstruction.length) + binstruction ;
-        sram = sram + "0x" + parseInt(address).toString(16) + ":" + decode_instruction(binstruction) + "\n" ;
+        sram += "0x" + parseInt(address).toString(16) + ":" + decode_instruction(binstruction) + "\n" ;
     }
 
     return sram ;

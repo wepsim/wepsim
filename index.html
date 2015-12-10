@@ -52,8 +52,7 @@
 
     <script src="bootstrap.min.js"></script>
     <script src="knockout-3.3.0.js"></script>
-
-    <script src="sim_all.min?2015120101"></script>
+    <script src="sim_all.min.js?2015120101"></script>
 
     <script>
     //
@@ -149,12 +148,28 @@
             return ;
         }
 
-        var SIMWARE = get_simware() ;
-        $("#ucompile").html(firmware2html(SIMWARE.firmware, true));
-	$("#ucompile").css({width:"100%",height:"inherit !important"});
+	if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) 
+        {
+           $("#ucompile").html("<center><a onclick='showCompiledFirmware();'>" + 
+                               "<br>Firware was compiled. " + 
+                               "<br>Click here in order to show the control memory in binary." + 
+                               "<br>Warning: it could be slow on a mobile device...</a></center>");
+	   $("#ucompile").css({width:"100%",height:"inherit !important"});
+	}
+        else
+        {
+             showCompiledFirmware(); 
+        }
         $('#tab32').trigger('click');
 
 	reset() ;
+    }
+
+    function showCompiledFirmware () 
+    {
+        var SIMWARE = get_simware() ;
+        $("#ucompile").html(firmware2html(SIMWARE.firmware, true));
+	$("#ucompile").css({width:"100%",height:"inherit !important"});
     }
 
     function load_firmware_from_file ( )
@@ -336,7 +351,7 @@
 		<div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
                     <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
 		</div>
-	        <span class="ui-title"><b>WepSIM</b> <span class="badge">1.0.12</span> </span>
+	        <span class="ui-title"><b>WepSIM</b> <span class="badge">1.0.15</span> </span>
 		<div id="version_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a href="#popupmenu1" 
                            data-rel="popup" data-transition="pop"
@@ -359,13 +374,13 @@
 		        </ul>
 		      </div>
 		      <div id="eltos_p"  class="ui-body-d ui-content">
-			    <object id="svg_p" data="images/imagenProcesador2.svg" type="image/svg+xml">
+			    <object id="svg_p" data="images/imagenProcesador2.svg?2015120101" type="image/svg+xml">
 				Your browser doesn't support SVG
 			    </object>
                             <img id=busfire src="images/fire.gif" height=50 style="position:absolute; top:55%; left:8%; display:none;">
 		      </div>
 		      <div id="eltos_cu"  class="ui-body-d ui-content">
-			    <object id="svg_cu" data="images/imagenUnidadControl2.svg" type="image/svg+xml">
+			    <object id="svg_cu" data="images/imagenUnidadControl2.svg?2015120101" type="image/svg+xml">
 				Your browser doesn't support SVG
 			    </object>
 		      </div>
@@ -421,16 +436,16 @@
                                          Speed-up
                                          <input type="range"
                                                 name="slider1" id="slider1"
-                                                min="1" max="12" value="5" step=1
+                                                min="1" max="20" value="5" step=1
                                                 onchange="DBG_delay = 1000 / this.value;">
 				    </li>
 				    <li class="list-group-item">
 					 <fieldset data-role="controlgroup" data-type="horizontal">
-					     <input name="radio-choice-h-2" id="radio-choice-h-2a" data-mini="false"
+					     <input name="radio-choice-h-2" id="radio-choice-h-2a" data-mini="true"
 						    onclick="DBG_level = 'instruction';"
 						    value="on" checked="checked" type="radio">
 					     <label for="radio-choice-h-2a">instruction</label>
-					     <input name="radio-choice-h-2" id="radio-choice-h-2b" data-mini="false"
+					     <input name="radio-choice-h-2" id="radio-choice-h-2b" data-mini="true"
 						    onclick="DBG_level = 'microinstruction';"
 						    value="off" type="radio">
 					     <label for="radio-choice-h-2b">&#181;instruction</label>
@@ -503,7 +518,7 @@
 		<div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
                     <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
 		</div>
-	        <span class="ui-title"><b>WepSIM</b> <span class="badge">1.0.12</span> </span>
+	        <span class="ui-title"><b>WepSIM</b> <span class="badge">1.0.15</span> </span>
 		<div id="version_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a href="#popupmenu1" 
                            data-rel="popup" data-transition="pop"
@@ -609,7 +624,7 @@
 		<div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
                     <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
 		</div>
-	        <span class="ui-title"><b>WepSIM</b> <span class="badge">1.0.12</span> </span>
+	        <span class="ui-title"><b>WepSIM</b> <span class="badge">1.0.15</span> </span>
 		<div id="version_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a href="#popupmenu1" 
                            data-rel="popup" data-transition="pop"
@@ -713,7 +728,7 @@
      data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
 
    <div data-role="header" data-theme="a">
-   <h1><b>Web elemental processor SIMulator</b> <span class="badge btn-success">1.0.12</span> </h1>
+   <h1><b>Web elemental processor SIMulator</b> <span class="badge btn-success">1.0.15</span> </h1>
    </div>
    <div role="main" class="ui-content">
 
