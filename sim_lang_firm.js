@@ -584,7 +584,11 @@ function loadFirmware (text)
 		        return firmwareError(context, "Incorrect type of field (reg, inm or address)") ;
 
 	           campos[camposInsertados]["type"] = getToken(context) ;
-	           firma = firma.replace(campos[camposInsertados]["name"], campos[camposInsertados]["type"]);
+	           firma = firma.replace("," + campos[camposInsertados]["name"], "," + campos[camposInsertados]["type"]);
+	           firma = firma.replace("(" + campos[camposInsertados]["name"], "(" + campos[camposInsertados]["type"]);
+	           firma = firma.replace(")" + campos[camposInsertados]["name"], ")" + campos[camposInsertados]["type"]);
+                   
+                   
 	           instruccionAux["signature"] = firma;
 	           firmaGlobal = firma.replace("address","num");
 	           firmaGlobal = firmaGlobal.replace("inm" , "num");
