@@ -148,12 +148,28 @@
             return ;
         }
 
-        var SIMWARE = get_simware() ;
-        $("#ucompile").html(firmware2html(SIMWARE.firmware, true));
-	$("#ucompile").css({width:"100%",height:"inherit !important"});
+	if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) 
+        {
+           $("#ucompile").html("<center><a onclick='showCompiledFirmware();'>" + 
+                               "<br>Firware was compiled. " + 
+                               "<br>Click here in order to show the control memory in binary." + 
+                               "<br>Warning: it could be slow on a mobile device...</a></center>");
+	   $("#ucompile").css({width:"100%",height:"inherit !important"});
+	}
+        else
+        {
+             showCompiledFirmware(); 
+        }
         $('#tab32').trigger('click');
 
 	reset() ;
+    }
+
+    function showCompiledFirmware () 
+    {
+        var SIMWARE = get_simware() ;
+        $("#ucompile").html(firmware2html(SIMWARE.firmware, true));
+	$("#ucompile").css({width:"100%",height:"inherit !important"});
     }
 
     function load_firmware_from_file ( )
