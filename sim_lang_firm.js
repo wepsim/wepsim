@@ -584,7 +584,11 @@ function loadFirmware (text)
 		        return firmwareError(context, "Incorrect type of field (reg, inm or address)") ;
 
 	           campos[camposInsertados]["type"] = getToken(context) ;
-	           firma = firma.replace(campos[camposInsertados]["name"], campos[camposInsertados]["type"]);
+	           firma = firma.replace("," + campos[camposInsertados]["name"], "," + campos[camposInsertados]["type"]);
+	           firma = firma.replace("(" + campos[camposInsertados]["name"], "(" + campos[camposInsertados]["type"]);
+	           firma = firma.replace(")" + campos[camposInsertados]["name"], ")" + campos[camposInsertados]["type"]);
+                   
+                   
 	           instruccionAux["signature"] = firma;
 	           firmaGlobal = firma.replace("address","num");
 	           firmaGlobal = firmaGlobal.replace("inm" , "num");
@@ -886,23 +890,20 @@ function show_decode_instruction ( oinstruction, binstruction )
 
     var sinstruction = oinstruction.name + " " ;
     var split_ins    = oinstruction.signature.split(",") ;
-    var sinstruction_length = parseInt(oinstruction.nwords) * 32; /* nbits of instruction */
+    var sinstruction_length = parseInt(oinstruction.nwords)*32; /*nbits of instruction*/
     for (var i=1; i < split_ins.length; i++)
     {
-	 if (
-              ( (oinstruction.fields[i-1].stopbit) < (sinstruction_length - 1     ) ) && 
-              ( (oinstruction.fields[i-1].stopbit) > (sinstruction_length - 1 - 32) )
-         )
+	 if((oinstruction.fields[i-1].stopbit) < (sinstruction_length-1) && (oinstruction.fields[i-1].stopbit > sinstruction_length-1-32))
 	 {
 	 	var binvalue = binstruction.substring(sinstruction_length - oinstruction.fields[i-1].startbit - 1,
 					       	      sinstruction_length - oinstruction.fields[i-1].stopbit) ;
 	 	if (split_ins[i] == "reg")
-	      	     sinstruction +=  "$" + parseInt(binvalue,2) + " ";
+	      	   sinstruction +=  "$" + parseInt(binvalue,2) + " ";
 	 	else sinstruction += "0x" + parseInt(binvalue,2).toString(16) + " ";
     	}
 	else
 	{
-		sinstruction += "... ";
+		sinstruction += "...";
 	}
     }
 
