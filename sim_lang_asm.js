@@ -1221,7 +1221,7 @@ function textSegment(tokens, datosCU, objText)
 			    if ( (k==0) && (typeof datosCU.firmware[j].cop != "undefined") )
 			    {
 				var auxLineaAssemblyCop=lineaAssembly.substr(0,32-4);
-				lineaAssembly=lineaAssembly.substr(31,lineaAssembly.length-32);
+				lineaAssembly=lineaAssembly.substr(32,lineaAssembly.length-32);
 				auxLineaAssemblyCop=auxLineaAssemblyCop + datosCU.firmware[j].cop;
 				lineaAssembly=auxLineaAssemblyCop + lineaAssembly;
 			    }
