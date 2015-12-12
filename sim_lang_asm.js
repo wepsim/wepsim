@@ -1199,6 +1199,7 @@ function textSegment(tokens, datosCU, objText)
                         var bi = ((longitud*32) - 1) - parseInt(datosCU.firmware[j].fields[z].startbit);
                         var bf = ((longitud*32) - 1) - parseInt(datosCU.firmware[j].fields[z].stopbit);
                         var padding = "00000000000000000000000000000000";
+/*
                         if(camposInsertar.length>32)
 			{
 				return assemblyError("Error, number out of range (>32 bits)", arrayLinea, z+1);
@@ -1207,6 +1208,7 @@ function textSegment(tokens, datosCU, objText)
 			{
 				return assemblyError("Error, number out of range (>" + (Math.abs(bf-bi)+1)+ " bits)",arrayLinea, z+1);
 			}
+*/
 			camposInsertar = padding + camposInsertar;
                         camposInsertar = camposInsertar.substr((camposInsertar.length - 1) - (bf - bi), (bf - bi) + 1);
                         //convertir bf
@@ -1219,7 +1221,7 @@ function textSegment(tokens, datosCU, objText)
 			    if ( (k==0) && (typeof datosCU.firmware[j].cop != "undefined") )
 			    {
 				var auxLineaAssemblyCop=lineaAssembly.substr(0,32-4);
-				lineaAssembly=lineaAssembly.substr(31,lineaAssembly.length-32);
+				lineaAssembly=lineaAssembly.substr(32,lineaAssembly.length-32);
 				auxLineaAssemblyCop=auxLineaAssemblyCop + datosCU.firmware[j].cop;
 				lineaAssembly=auxLineaAssemblyCop + lineaAssembly;
 			    }
