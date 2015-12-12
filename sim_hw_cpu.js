@@ -388,7 +388,7 @@
 			       draw_name: [[]] };
 
 	sim_signals["MC"]  = { name: "MC", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-			       behavior: ['MV_ES COP REG_IR/COP; FIRE COP', 
+			       behavior: ['MBIT_S COP REG_IR 0 4; FIRE COP', 
 					  'MV_ES COP REG_MICROINS/COP; FIRE COP'],
 			       fire_name: ['svg_cu:text3322'],
 			       draw_data: [['svg_cu:path3320', 'svg_cu:path3142'],['svg_cu:path3318']],
@@ -742,6 +742,19 @@
 						   sim_states[s_expr[1]].value = parseInt(n2, 2) ;
 						}  
 				   };
+        syntax_behavior["MBIT_S"] = { nparameters: 5,
+                                     types: ["S", "E", "I", "I"],
+                                     operation: function (s_expr) {
+                                                   var offset = parseInt(s_expr[3]) ;
+                                                   var size   = parseInt(s_expr[4]) ;
+
+                                                   var n1 = sim_states[s_expr[2]].value.toString(2); // to binary
+                                                   var n2 = "00000000000000000000000000000000".substring(0, 32-n1.length) + n1;
+                                                   n2 = n2.substr(31 - (offset + size - 1), size);
+
+                                                   sim_signals[s_expr[1]].value = parseInt(n2, 2) ;
+                                                }
+                                   };
 	syntax_behavior["MBIT_SN"] = { nparameters: 5, 
 				     types: ["S", "E", "E", "I"],
 				     operation: function (s_expr) {
