@@ -32,6 +32,7 @@
                 FIRMWARE['seg']                = new Object() ;
                 FIRMWARE['assembly']           = new Object() ;
                 FIRMWARE['labels']             = new Object() ;
+                FIRMWARE['labels2']            = new Object() ;
                 FIRMWARE['registers']          = new Object() ;
                 FIRMWARE['cihash']             = new Object() ;
                 FIRMWARE['pseudoInstructions'] = new Object() ;
@@ -47,18 +48,21 @@
                 FIRMWARE['firmware'] = preSIMWARE['firmware'] ;
 	    if (typeof preSIMWARE['mp'] != "undefined") 
                 FIRMWARE['mp'] = preSIMWARE['mp'] ;
-	    if (typeof preSIMWARE['seg'] != "undefined") 
-                FIRMWARE['seg'] = preSIMWARE['seg'] ;
-	    if (typeof preSIMWARE['assembly'] != "undefined") 
-                FIRMWARE['assembly'] = preSIMWARE['assembly'] ;
-	    if (typeof preSIMWARE['labels'] != "undefined") 
-                FIRMWARE['labels'] = preSIMWARE['labels'] ;
 	    if (typeof preSIMWARE['registers'] != "undefined") 
                 FIRMWARE['registers'] = preSIMWARE['registers'] ;
 	    if (typeof preSIMWARE['cihash'] != "undefined") 
                 FIRMWARE['cihash'] = preSIMWARE['cihash'] ;
+	    if (typeof preSIMWARE['assembly'] != "undefined") 
+                FIRMWARE['assembly'] = preSIMWARE['assembly'] ;
 	    if (typeof preSIMWARE['pseudoInstructions'] != "undefined") 
                 FIRMWARE['pseudoInstructions'] = preSIMWARE['pseudoInstructions'] ;
+
+	    if (typeof preSIMWARE['seg'] != "undefined") 
+                FIRMWARE['seg'] = preSIMWARE['seg'] ;
+	    if (typeof preSIMWARE['labels'] != "undefined") 
+                FIRMWARE['labels'] = preSIMWARE['labels'] ;
+	    if (typeof preSIMWARE['labels2'] != "undefined") 
+                FIRMWARE['labels2'] = preSIMWARE['labels2'] ;
 	    if (typeof preSIMWARE['stackRegister'] != "undefined")
 		FIRMWARE['stackRegister'] = preSIMWARE['stackRegister'] ;
 	}
@@ -435,6 +439,12 @@
                 o1.css('background-color', '#00EE88');
 	}
 
+	function show_dbg_mpc ( )
+	{
+	        if (DBG_level == "microinstruction")
+                    show_memories('MC', MC, sim_states['REG_MICROADDR'].value) ;
+	}
+
 
         /*
          *  obj2html
@@ -788,6 +798,10 @@
          *  play/stop
          */
 
+        var DBG_stop  = true ;
+        var DBG_delay = 300 ;
+        var DBG_level = "instruction" ;
+
 	function asmdbg_set_breakpoint ( addr )
 	{
                 var SIMWARE  = get_simware() ;
@@ -807,24 +821,22 @@
                 SIMWARE.assembly[hexaddr].breakpoint = bp_state ;
 	}
 
-        var DBG_stop  = true ;
-        var DBG_delay = 300 ;
-        var DBG_level = "instruction" ;
-
 	function asmdbg_stop ( btn1 )
 	{
-                $(btn1).text("Run") ;
+                $(btn1).html("Run") ;
                 $(btn1).removeClass("ui-icon-minus") ;
                 $(btn1).addClass("ui-icon-carat-r") ;
-                $(btn1).css("backgroundColor", "#313131") ;
+                $(btn1).css("backgroundColor", "#f6f6f6") ;
 
                 DBG_stop = true;
+
+                show_memories('MC', MC, sim_states['REG_MICROADDR'].value) ;
 	}
 
 	function asmdbg_play ( btn1 )
 	{
                 $(btn1).css("backgroundColor", 'rgb(51, 136, 204)') ;
-                $(btn1).text("Stop") ;
+                $(btn1).html("Stop") ;
                 $(btn1).removeClass("ui-icon-carat-r") ;
                 $(btn1).addClass("ui-icon-minus") ;
 

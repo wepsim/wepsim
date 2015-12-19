@@ -967,8 +967,6 @@
 								     update_state(key) ;
 								 }
 							    }
-							    //show_states();
-							    //show_rf();
 
 							    // 2.- The special (Falling) Edge part of the Control Unit...
 						            sim_states["REG_MICROINS"].value = Object.create(sim_states["REG_MICROINS"].default_value);
@@ -983,7 +981,7 @@
 							    }
 
                                                             // 2.a.- update interface...
-							    show_memories('MC', MC, sim_states['REG_MICROADDR'].value) ;
+							    show_dbg_mpc();
 							    show_asmdbg_pc();
 
                                                             // 2.b.- update signals
