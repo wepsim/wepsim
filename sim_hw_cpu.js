@@ -1003,8 +1003,6 @@
 								     update_state(key) ;
 								 }
 							    }
-							    show_states();
-							    show_rf();
 							}
 					   };
 

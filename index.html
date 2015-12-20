@@ -14,17 +14,17 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script src="jquery.min.js"></script>
-    <script src="jquery-ui.min.js"></script>
+    <script src="external/jquery.min.js"></script>
+    <script src="external/jquery-ui.min.js"></script>
     <script>
         $(document).bind("mobileinit", function() {
             $.mobile.defaultPageTransition = "none";
             $.mobile.defaultDialogTransition = "none";
         });
     </script>
-    <script src="jquery.mobile-1.4.5.min.js"></script>
+    <script src="external/jquery.mobile-1.4.5.min.js"></script>
 
-    <link rel="stylesheet" href="jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="external/jquery.mobile-1.4.5.min.css">
     <style>
     .ui-panel-inner {
         position: absolute;
@@ -64,12 +64,12 @@
     }
     </style>
 
-    <link rel="stylesheet" href="bootstrap.min.css">
-    <link rel="stylesheet" href="bootstrap-theme.min.css">
+    <link rel="stylesheet" href="external/bootstrap.min.css">
+    <link rel="stylesheet" href="external/bootstrap-theme.min.css">
 
-    <script src="bootstrap.min.js"></script>
-    <script src="knockout-3.3.0.js"></script>
-    <script src='tinymce.min.js'></script>
+    <script src="external/bootstrap.min.js"></script>
+    <script src="external/knockout-3.3.0.js"></script>
+    <script src='external/tinymce.min.js'></script>
 
     <script src="sim_all.min.js"></script>
 
@@ -590,16 +590,6 @@
 
                 <div class="btn-toolbar" role="toolbar">
 			<div data-role="controlgroup" data-type="horizontal" class="btn-group">
-				<a id=btn31 href="#" 
-				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-active ui-mini btn-responsive"
-				   onclick="$('#tab31').trigger('click'); $('#btn32').removeClass('ui-btn-active'); $('#btn31').addClass('ui-btn-active');"
-				   >Firmware Specification</a>
-				<a id=btn32 href="#"  
-				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-mini btn-responsive"
-				   onclick="$('#tab32').trigger('click'); $('#btn31').removeClass('ui-btn-active'); $('#btn32').addClass('ui-btn-active');"
-				   >co2&#181;addr + control memory</a>
-			</div>
-			<div data-role="controlgroup" data-type="horizontal" class="btn-group">
 				<a href="#lssave"
 				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-top ui-mini btn-responsive"
 				   data-rel="popup" data-position-to="window" data-transition="pop">Save</a>
@@ -623,6 +613,16 @@
 				<a href="#"
 				   onclick="$('#iframe_help1').load('sim_help_firmware.html', function(){$('#help1').trigger('updatelayout'); $('#help1').popup('open');});"
 				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-info    ui-btn-icon-top ui-mini btn-responsive">Help</a>
+			</div>
+			<div data-role="controlgroup" data-type="horizontal" class="btn-group">
+				<a id=btn31 href="#" 
+				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-active ui-mini btn-responsive"
+				   onclick="$('#tab31').trigger('click'); $('#btn32').removeClass('ui-btn-active'); $('#btn31').addClass('ui-btn-active');"
+				   >Firmware Specification</a>
+				<a id=btn32 href="#"  
+				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-mini btn-responsive"
+				   onclick="$('#tab32').trigger('click'); $('#btn31').removeClass('ui-btn-active'); $('#btn32').addClass('ui-btn-active');"
+				   >co2&#181;addr + control memory</a>
 			</div>
 		</div>
 
@@ -704,16 +704,6 @@
 
                 <div class="btn-toolbar" role="toolbar">
                           <div data-role="controlgroup" data-type="horizontal" class="btn-group">
-				<a id=btn41 href="#" 
-				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-active ui-mini btn-responsive"
-				   onclick="$('#tab41').trigger('click'); $('#btn42').removeClass('ui-btn-active'); $('#btn41').addClass('ui-btn-active');"
-				   >Assembly Code</a>
-				<a id=btn42 href="#"  
-				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-mini btn-responsive"
-				   onclick="$('#tab42').trigger('click'); $('#btn41').removeClass('ui-btn-active'); $('#btn42').addClass('ui-btn-active');"
-				   >Main Memory</a>
-                          </div>
-                          <div data-role="controlgroup" data-type="horizontal" class="btn-group">
 				<a href="#lssave2"
 				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-top ui-mini btn-responsive"
 				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Save</a>
@@ -738,6 +728,16 @@
 				   onclick="$('#iframe_help1').load('sim_help_assembly.html', function(){$('#iframe_help1').trigger('create'); $('#help1').popup('open');});"
 				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-info    ui-btn-icon-top ui-mini btn-responsive">Help</a>
                           </div>
+                          <div data-role="controlgroup" data-type="horizontal" class="btn-group">
+				<a id=btn41 href="#" 
+				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-active ui-mini btn-responsive"
+				   onclick="$('#tab41').trigger('click'); $('#btn42').removeClass('ui-btn-active'); $('#btn41').addClass('ui-btn-active');"
+				   >Assembly Code</a>
+				<a id=btn42 href="#"  
+				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-mini btn-responsive"
+				   onclick="$('#tab42').trigger('click'); $('#btn41').removeClass('ui-btn-active'); $('#btn42').addClass('ui-btn-active');"
+				   >Main Memory</a>
+                          </div>
 		</div>
 
 		<div data-role="tabs" id="tabs4">
@@ -759,7 +759,10 @@
 		        <div id="cc_bin" style="overflow-y:scroll; overflow-x:auto; height:70% !important;">
                            <br>
                            <div id="compile_mp">
-                              <center>Please select 'Compile' secondly to have the associated binary code.</center>
+                              <center>
+                              Please load the assembly and then compile it. <br>
+                              In this way the binary will be created and loaded into main memory.
+                              </center>
 		           </div>
 		        </div>
 		        </div>
@@ -794,7 +797,7 @@
 		 <input type="range"
 			data-show-value="false"
 			name="slider1" id="slider1"
-			min="1" max="50" value="5" step=1
+			min="1" max="100" value="10" step=1
 			onchange="DBG_delay = 1000 / this.value;">
 	    </li>
 	    <li class="list-group-item">

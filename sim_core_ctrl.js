@@ -447,6 +447,9 @@
                 }
 
                 compute_behavior("CLOCK") ;
+
+		show_states();
+		show_rf();
         }
 
         function execute_microprogram ()
@@ -460,6 +463,9 @@
                          (0 != sim_states["REG_MICROADDR"].value) && 
                          (typeof MC[sim_states["REG_MICROADDR"].value] != "undefined") 
                       );
+
+		show_states();
+		show_rf();
         }
 
         function execute_instruction ()
