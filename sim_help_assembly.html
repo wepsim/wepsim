@@ -1,897 +1,277 @@
-<html>
-
-<head>
-<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
-<meta name=Generator content="Microsoft Word 15 (filtered)">
-<style>
-<!--
- /* Font Definitions */
- @font-face
-	{font-family:Wingdings;
-	panose-1:5 0 0 0 0 0 0 0 0 0;}
-@font-face
-	{font-family:"Cambria Math";
-	panose-1:2 4 5 3 5 4 6 3 2 4;}
-@font-face
-	{font-family:Tahoma;
-	panose-1:2 11 6 4 3 5 4 4 2 4;}
- /* Style Definitions */
- p.MsoNormal, li.MsoNormal, div.MsoNormal
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;
-	color:black;
-	layout-grid-mode:line;}
-h1
-	{mso-style-link:"Título 1 Car";
-	margin-top:12.0pt;
-	margin-right:0cm;
-	margin-bottom:3.0pt;
-	margin-left:21.6pt;
-	text-indent:-21.6pt;
-	page-break-after:avoid;
-	font-size:16.0pt;
-	font-family:"Arial",sans-serif;
-	color:black;
-	layout-grid-mode:line;
-	font-weight:bold;}
-h2
-	{mso-style-link:"Título 2 Car";
-	margin-top:2.0pt;
-	margin-right:0cm;
-	margin-bottom:0cm;
-	margin-left:0cm;
-	margin-bottom:.0001pt;
-	page-break-after:avoid;
-	font-size:15.0pt;
-	font-family:"Arial",sans-serif;
-	layout-grid-mode:line;
-	font-weight:bold;}
-h3
-	{mso-style-link:"Título 3 Car";
-	margin-top:2.0pt;
-	margin-right:0cm;
-	margin-bottom:0cm;
-	margin-left:36.0pt;
-	margin-bottom:.0001pt;
-	text-indent:-36.0pt;
-	page-break-after:avoid;
-	font-size:12.0pt;
-	font-family:"Arial",sans-serif;
-	color:black;
-	layout-grid-mode:line;
-	font-weight:bold;}
-h4
-	{mso-style-link:"Título 4 Car";
-	margin-top:2.0pt;
-	margin-right:0cm;
-	margin-bottom:0cm;
-	margin-left:43.2pt;
-	margin-bottom:.0001pt;
-	text-indent:-43.2pt;
-	page-break-after:avoid;
-	font-size:12.0pt;
-	font-family:"Calibri Light",sans-serif;
-	color:#2E74B5;
-	layout-grid-mode:line;
-	font-weight:normal;
-	font-style:italic;}
-h5
-	{mso-style-link:"Título 5 Car";
-	margin-top:2.0pt;
-	margin-right:0cm;
-	margin-bottom:0cm;
-	margin-left:50.4pt;
-	margin-bottom:.0001pt;
-	text-indent:-50.4pt;
-	page-break-after:avoid;
-	font-size:12.0pt;
-	font-family:"Calibri Light",sans-serif;
-	color:#2E74B5;
-	layout-grid-mode:line;
-	font-weight:normal;}
-h6
-	{mso-style-link:"Título 6 Car";
-	margin-top:2.0pt;
-	margin-right:0cm;
-	margin-bottom:0cm;
-	margin-left:57.6pt;
-	margin-bottom:.0001pt;
-	text-indent:-57.6pt;
-	page-break-after:avoid;
-	font-size:12.0pt;
-	font-family:"Calibri Light",sans-serif;
-	color:#1F4D78;
-	layout-grid-mode:line;
-	font-weight:normal;}
-p.MsoHeading7, li.MsoHeading7, div.MsoHeading7
-	{mso-style-link:"Título 7 Car";
-	margin-top:2.0pt;
-	margin-right:0cm;
-	margin-bottom:0cm;
-	margin-left:64.8pt;
-	margin-bottom:.0001pt;
-	text-indent:-64.8pt;
-	page-break-after:avoid;
-	font-size:12.0pt;
-	font-family:"Calibri Light",sans-serif;
-	color:#1F4D78;
-	layout-grid-mode:line;
-	font-style:italic;}
-p.MsoHeading8, li.MsoHeading8, div.MsoHeading8
-	{mso-style-link:"Título 8 Car";
-	margin-top:2.0pt;
-	margin-right:0cm;
-	margin-bottom:0cm;
-	margin-left:72.0pt;
-	margin-bottom:.0001pt;
-	text-indent:-72.0pt;
-	page-break-after:avoid;
-	font-size:10.5pt;
-	font-family:"Calibri Light",sans-serif;
-	color:#272727;
-	layout-grid-mode:line;}
-p.MsoHeading9, li.MsoHeading9, div.MsoHeading9
-	{mso-style-link:"Título 9 Car";
-	margin-top:2.0pt;
-	margin-right:0cm;
-	margin-bottom:0cm;
-	margin-left:79.2pt;
-	margin-bottom:.0001pt;
-	text-indent:-79.2pt;
-	page-break-after:avoid;
-	font-size:10.5pt;
-	font-family:"Calibri Light",sans-serif;
-	color:#272727;
-	layout-grid-mode:line;
-	font-style:italic;}
-p.MsoToc1, li.MsoToc1, div.MsoToc1
-	{margin-top:0cm;
-	margin-right:0cm;
-	margin-bottom:5.0pt;
-	margin-left:0cm;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;
-	color:black;
-	layout-grid-mode:line;}
-p.MsoToc2, li.MsoToc2, div.MsoToc2
-	{margin-top:0cm;
-	margin-right:0cm;
-	margin-bottom:5.0pt;
-	margin-left:12.0pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;
-	color:black;
-	layout-grid-mode:line;}
-p.MsoToc3, li.MsoToc3, div.MsoToc3
-	{margin-top:0cm;
-	margin-right:0cm;
-	margin-bottom:5.0pt;
-	margin-left:24.0pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;
-	color:black;
-	layout-grid-mode:line;}
-p.MsoHeader, li.MsoHeader, div.MsoHeader
-	{mso-style-link:"Encabezado Car";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;
-	color:black;
-	layout-grid-mode:line;}
-p.MsoFooter, li.MsoFooter, div.MsoFooter
-	{mso-style-link:"Pie de página Car";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;
-	color:black;
-	layout-grid-mode:line;}
-p.MsoCaption, li.MsoCaption, div.MsoCaption
-	{margin-top:0cm;
-	margin-right:0cm;
-	margin-bottom:10.0pt;
-	margin-left:0cm;
-	font-size:9.0pt;
-	font-family:"Times New Roman",serif;
-	color:#44546A;
-	layout-grid-mode:line;
-	font-style:italic;}
-p.MsoTof, li.MsoTof, div.MsoTof
-	{margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;
-	color:black;
-	layout-grid-mode:line;}
-p.MsoBodyText, li.MsoBodyText, div.MsoBodyText
-	{mso-style-link:"Texto independiente Car";
-	margin-top:0cm;
-	margin-right:0cm;
-	margin-bottom:8.0pt;
-	margin-left:0cm;
-	text-align:justify;
-	font-size:12.0pt;
-	font-family:"Arial",sans-serif;}
-p.MsoBodyText2, li.MsoBodyText2, div.MsoBodyText2
-	{mso-style-link:"Texto independiente 2 Car";
-	margin-top:0cm;
-	margin-right:0cm;
-	margin-bottom:6.0pt;
-	margin-left:0cm;
-	line-height:200%;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;
-	color:black;
-	layout-grid-mode:line;}
-p.MsoBodyText3, li.MsoBodyText3, div.MsoBodyText3
-	{mso-style-link:"Texto independiente 3 Car";
-	margin-top:0cm;
-	margin-right:0cm;
-	margin-bottom:8.0pt;
-	margin-left:18.0pt;
-	text-align:justify;
-	font-size:12.0pt;
-	font-family:"Arial",sans-serif;}
-a:link, span.MsoHyperlink
-	{color:#0563C1;
-	text-decoration:underline;}
-a:visited, span.MsoHyperlinkFollowed
-	{color:#954F72;
-	text-decoration:underline;}
-p
-	{margin-right:0cm;
-	margin-left:0cm;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;}
-p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
-	{mso-style-link:"Texto de globo Car";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:8.0pt;
-	font-family:"Tahoma",sans-serif;
-	color:black;
-	layout-grid-mode:line;}
-span.MsoPlaceholderText
-	{color:gray;}
-p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
-	{margin-top:0cm;
-	margin-right:0cm;
-	margin-bottom:0cm;
-	margin-left:36.0pt;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;
-	color:black;
-	layout-grid-mode:line;}
-p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphCxSpFirst
-	{margin-top:0cm;
-	margin-right:0cm;
-	margin-bottom:0cm;
-	margin-left:36.0pt;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;
-	color:black;
-	layout-grid-mode:line;}
-p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagraphCxSpMiddle
-	{margin-top:0cm;
-	margin-right:0cm;
-	margin-bottom:0cm;
-	margin-left:36.0pt;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;
-	color:black;
-	layout-grid-mode:line;}
-p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxSpLast
-	{margin-top:0cm;
-	margin-right:0cm;
-	margin-bottom:0cm;
-	margin-left:36.0pt;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;
-	color:black;
-	layout-grid-mode:line;}
-p.MsoTocHeading, li.MsoTocHeading, div.MsoTocHeading
-	{margin-top:12.0pt;
-	margin-right:0cm;
-	margin-bottom:0cm;
-	margin-left:0cm;
-	margin-bottom:.0001pt;
-	line-height:107%;
-	page-break-after:avoid;
-	font-size:16.0pt;
-	font-family:"Calibri Light",sans-serif;
-	color:#2E74B5;}
-span.Ttulo1Car
-	{mso-style-name:"Título 1 Car";
-	mso-style-link:"Título 1";
-	font-family:"Arial",sans-serif;
-	color:black;
-	layout-grid-mode:both;
-	font-weight:bold;}
-span.EncabezadoCar
-	{mso-style-name:"Encabezado Car";
-	mso-style-link:Encabezado;
-	font-family:"Times New Roman",serif;
-	color:black;
-	layout-grid-mode:both;}
-span.PiedepginaCar
-	{mso-style-name:"Pie de página Car";
-	mso-style-link:"Pie de página";
-	font-family:"Times New Roman",serif;
-	color:black;
-	layout-grid-mode:both;}
-p.H1, li.H1, div.H1
-	{mso-style-name:H1;
-	margin-top:24.0pt;
-	margin-right:0cm;
-	margin-bottom:0cm;
-	margin-left:0cm;
-	margin-bottom:.0001pt;
-	page-break-before:always;
-	page-break-after:avoid;
-	font-size:24.0pt;
-	font-family:"Times New Roman",serif;
-	font-weight:bold;}
-span.Ttulo2Car
-	{mso-style-name:"Título 2 Car";
-	mso-style-link:"Título 2";
-	font-family:"Arial",sans-serif;
-	layout-grid-mode:both;
-	font-weight:bold;}
-span.Ttulo3Car
-	{mso-style-name:"Título 3 Car";
-	mso-style-link:"Título 3";
-	font-family:"Arial",sans-serif;
-	color:black;
-	layout-grid-mode:both;
-	font-weight:bold;}
-span.Ttulo4Car
-	{mso-style-name:"Título 4 Car";
-	mso-style-link:"Título 4";
-	font-family:"Calibri Light",sans-serif;
-	color:#2E74B5;
-	layout-grid-mode:both;
-	font-style:italic;}
-span.Ttulo5Car
-	{mso-style-name:"Título 5 Car";
-	mso-style-link:"Título 5";
-	font-family:"Calibri Light",sans-serif;
-	color:#2E74B5;
-	layout-grid-mode:both;}
-span.Ttulo6Car
-	{mso-style-name:"Título 6 Car";
-	mso-style-link:"Título 6";
-	font-family:"Calibri Light",sans-serif;
-	color:#1F4D78;
-	layout-grid-mode:both;}
-span.Ttulo7Car
-	{mso-style-name:"Título 7 Car";
-	mso-style-link:"Título 7";
-	font-family:"Calibri Light",sans-serif;
-	color:#1F4D78;
-	layout-grid-mode:both;
-	font-style:italic;}
-span.Ttulo8Car
-	{mso-style-name:"Título 8 Car";
-	mso-style-link:"Título 8";
-	font-family:"Calibri Light",sans-serif;
-	color:#272727;
-	layout-grid-mode:both;}
-span.Ttulo9Car
-	{mso-style-name:"Título 9 Car";
-	mso-style-link:"Título 9";
-	font-family:"Calibri Light",sans-serif;
-	color:#272727;
-	layout-grid-mode:both;
-	font-style:italic;}
-span.badge
-	{mso-style-name:badge;}
-p.bul2, li.bul2, div.bul2
-	{mso-style-name:bul2;
-	margin-top:0cm;
-	margin-right:0cm;
-	margin-bottom:6.0pt;
-	margin-left:18.0pt;
-	text-indent:-18.0pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;
-	color:black;
-	layout-grid-mode:line;}
-p.DefinitionTerm, li.DefinitionTerm, div.DefinitionTerm
-	{mso-style-name:"Definition Term";
-	margin:0cm;
-	margin-bottom:.0001pt;
-	font-size:12.0pt;
-	font-family:"Times New Roman",serif;
-	layout-grid-mode:line;}
-span.TextodegloboCar
-	{mso-style-name:"Texto de globo Car";
-	mso-style-link:"Texto de globo";
-	font-family:"Tahoma",sans-serif;
-	color:black;
-	layout-grid-mode:both;}
-span.TextoindependienteCar
-	{mso-style-name:"Texto independiente Car";
-	mso-style-link:"Texto independiente";
-	font-family:"Arial",sans-serif;}
-p.Portadadesubttulo, li.Portadadesubttulo, div.Portadadesubttulo
-	{mso-style-name:"Portada de subtítulo";
-	margin-top:12.0pt;
-	margin-right:0cm;
-	margin-bottom:8.0pt;
-	margin-left:0cm;
-	text-align:center;
-	page-break-after:avoid;
-	font-size:18.0pt;
-	font-family:"Arial",sans-serif;
-	font-style:italic;}
-span.Textoindependiente3Car
-	{mso-style-name:"Texto independiente 3 Car";
-	mso-style-link:"Texto independiente 3";
-	font-family:"Arial",sans-serif;}
-span.Textoindependiente2Car
-	{mso-style-name:"Texto independiente 2 Car";
-	mso-style-link:"Texto independiente 2";
-	font-family:"Times New Roman",serif;
-	color:black;
-	layout-grid-mode:both;}
-.MsoChpDefault
-	{font-family:"Calibri",sans-serif;}
-.MsoPapDefault
-	{margin-bottom:8.0pt;
-	line-height:107%;}
- /* Page Definitions */
- @page WordSection1
-	{size:595.3pt 841.9pt;
-	margin:70.85pt 63.7pt 70.85pt 3.0cm;}
-div.WordSection1
-	{page:WordSection1;}
- /* List Definitions */
- ol
-	{margin-bottom:0cm;}
-ul
-	{margin-bottom:0cm;}
--->
-</style>
-
-</head>
-
-<body lang=EN-GB link="#0563C1" vlink="#954F72">
-
-<div class=WordSection1>
-
-<h2><a name="_Toc438322851"><span lang=ES-TRAD>Ensamblador en WepSIM</span></a></h2>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;line-height:115%'><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;text-align:justify;line-height:
-115%'><span lang=ES-TRAD style='font-family:"Arial",sans-serif'>El código en
-ensamblador se describe en un fichero de texto con una primera sección de datos
-(.data) y una segunda sección para el código (.text)<br>
-<br>
-En la sección de datos es posible definir las variables y constantes que se
-alojarán en el segmento de datos de la memoria principal. Dicha sección
-comienza con la directiva <i>.data</i>. Las directivas que permiten especificar
-los distintos tipos de datos que pueden definirse son:</span></p>
-
-<p class=MsoListParagraphCxSpFirst style='margin-bottom:10.0pt;text-align:justify;
-text-indent:-18.0pt;line-height:115%'><span lang=ES-TRAD style='font-family:
-Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><b><span lang=ES-TRAD style='font-family:"Arial",sans-serif'>.ascii:</span></b><span
-lang=ES-TRAD style='font-size:13.5pt;line-height:115%;font-family:"Arial",sans-serif;
-background:white'> </span><span lang=ES-TRAD style='font-family:"Arial",sans-serif'>va
-seguida de la cadena de caracteres, instruyendo al ensamblador para crear una
-zona de memoria con datos, y almacenar en ella la cadena que se indique.</span></p>
-
-<p class=MsoListParagraphCxSpMiddle style='margin-bottom:10.0pt;text-align:
-justify;text-indent:-18.0pt;line-height:115%'><span lang=ES-TRAD
-style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><b><span lang=ES-TRAD style='font-family:"Arial",sans-serif'>.asciiz:</span></b><span
-lang=ES-TRAD style='font-size:13.5pt;line-height:115%;font-family:"Arial",sans-serif;
-background:white'> </span><span lang=ES-TRAD style='font-family:"Arial",sans-serif'>va
-seguida de la cadena de caracteres, instruyendo al ensamblador para crear una
-zona de memoria con datos, y almacenar en ella la cadena que se muestra terminado
-por un byte con valor cero.</span></p>
-
-<p class=MsoListParagraphCxSpMiddle style='margin-bottom:10.0pt;text-align:
-justify;text-indent:-18.0pt;line-height:115%'><span lang=ES-TRAD
-style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><b><span lang=ES-TRAD style='font-family:"Arial",sans-serif'>.byte:</span></b><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'> va seguida de uno o más
-valores que formarán parte del valor de la variable. En caso de varios valores,
-dichos valores se separarán por coma. Para los valores se puede usar: <b>carácter,
-octal, hexadecimal y decimal</b>.</span></p>
-
-<p class=MsoListParagraphCxSpMiddle style='margin-bottom:10.0pt;text-align:
-justify;text-indent:-18.0pt;line-height:115%'><span lang=ES-TRAD
-style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><b><span lang=ES-TRAD style='font-family:"Arial",sans-serif'>.half:
-</span></b><span lang=ES-TRAD style='font-family:"Arial",sans-serif'>va seguida
-de uno o más valores que formarán parte del valor de la variable. En caso de varios
-valores, dichos valores se separarán por coma. <br>
-Para los valores se puede usar: <b>octal, hexadecimal y decimal.</b></span></p>
-
-<p class=MsoListParagraphCxSpMiddle style='margin-bottom:10.0pt;text-align:
-justify;text-indent:-18.0pt;line-height:115%'><span lang=ES-TRAD
-style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><b><span lang=ES-TRAD style='font-family:"Arial",sans-serif'>.word:
-</span></b><span lang=ES-TRAD style='font-family:"Arial",sans-serif'>va seguida
-de uno o más valores que formarán parte del valor de la variable. En caso de varios
-valores, dichos valores se separarán por coma. <br>
-Para los valores se puede usar: <b>octal, hexadecimal y decimal.</b></span></p>
-
-<p class=MsoListParagraphCxSpLast style='margin-bottom:10.0pt;text-align:justify;
-text-indent:-18.0pt;line-height:115%'><span lang=ES-TRAD style='font-family:
-Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><b><span lang=ES-TRAD style='font-family:"Arial",sans-serif'>.space:</span></b><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'> va seguida del número de
-bytes, en formato decimal, que el usuario desea reservar en memoria.</span></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;line-height:107%'><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>El formato de un valor de los
-tipos de datos comentados es:</span></p>
-
-<p class=MsoListParagraphCxSpFirst style='margin-bottom:10.0pt;text-indent:
--18.0pt;line-height:115%'><span lang=ES-TRAD style='font-family:Symbol'>·<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>Cadena de caracteres: </span></b><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>secuencia de caracteres
-entre comillas dobles. <br>
-Por ejemplo: “hola 123\n”</span></p>
-
-<p class=MsoListParagraphCxSpMiddle style='margin-bottom:10.0pt;text-indent:
--18.0pt;line-height:115%'><span lang=ES-TRAD style='font-family:Symbol'>·<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>Carácter:</span></b><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'> carácter entre comillas
-simples. <br>
-Por ejemplo: ‘c’.</span></p>
-
-<p class=MsoListParagraphCxSpMiddle style='margin-bottom:10.0pt;text-indent:
--18.0pt;line-height:115%'><span lang=ES-TRAD style='font-family:Symbol'>·<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>Octal: </span></b><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>un número que comienza por
-cero y sus dígitos son menores que ocho. Por ejemplo: 012.</span></p>
-
-<p class=MsoListParagraphCxSpMiddle style='margin-bottom:10.0pt;text-indent:
--18.0pt;line-height:115%'><span lang=ES-TRAD style='font-family:Symbol'>·<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>Hexadecimal: </span></b><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>un número que comienza por
-el prefijo 0x y sus dígitos son del cero al nueve y las letras a, b, c, d, e y
-f.<br>
-Por ejemplo: 0x12.</span></p>
-
-<p class=MsoListParagraphCxSpLast style='margin-bottom:10.0pt;text-indent:-18.0pt;
-line-height:115%'><span lang=ES-TRAD style='font-family:Symbol'>·<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><b><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>Decimal:</span></b><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'> un número que no está en
-formato octal o hexadecimal con dígitos comprendidos entre el cero y el nueve
-(ambos incluidos).<br>
-Por ejemplo: 12.</span></p>
-
-<p class=MsoNormal style='text-align:justify;line-height:115%'><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>En la sección de código es
-posible definir las subrutinas que se alojarán en el segmento de código de la
-memoria principal. Dicha sección comienza con la directiva <i>.text</i>. </span></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;line-height:107%'><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;text-align:justify;line-height:
-107%'><span lang=ES-TRAD style='font-family:"Arial",sans-serif'>Es posible usar
-comentarios de línea usando el carácter #<br>
-Todo lo que hay a continuación de este carácter hasta el final de línea será
-ignorado por el ensamblador.</span></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;line-height:107%'><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>Un ejemplo programa sería:</span></p>
-
-<p class=MsoNormal style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;
-margin-left:72.0pt;line-height:80%'><span lang=ES style='font-family:"Arial",sans-serif'>.data</span></p>
-
-<p class=MsoNormal style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;
-margin-left:72.0pt;line-height:80%'><span lang=ES style='font-family:"Arial",sans-serif'>          age1:   
-.word   0x12345678, 20      </span></p>
-
-<p class=MsoNormal style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;
-margin-left:72.0pt;line-height:80%'><span lang=ES style='font-family:"Arial",sans-serif'>          </span><span
-style='font-family:"Arial",sans-serif'>age2:    .word   20 , 10</span></p>
-
-<p class=MsoNormal style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;
-margin-left:72.0pt;line-height:80%'><span style='font-family:"Arial",sans-serif'>          resultado:
-.word 0</span></p>
-
-<p class=MsoNormal style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;
-margin-left:72.0pt;line-height:80%'><span style='font-family:"Arial",sans-serif'>          #
-32-bit word initialized with decimal</span></p>
-
-<p class=MsoNormal style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;
-margin-left:72.0pt;line-height:80%'><span style='font-family:"Arial",sans-serif'>          </span><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>texto: .ascii
-&quot;Hola\t&quot;</span></p>
-
-<p class=MsoNormal style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;
-margin-left:72.0pt;line-height:80%'><span lang=ES-TRAD style='font-family:"Arial",sans-serif'>          texto2:
-.asciiz &quot;Hola\t&quot;</span></p>
-
-<p class=MsoNormal style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;
-margin-left:72.0pt;line-height:80%'><span lang=ES-TRAD style='font-family:"Arial",sans-serif'>          </span><span
-style='font-family:"Arial",sans-serif'>hueco: .space 16</span></p>
-
-<p class=MsoNormal style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;
-margin-left:72.0pt;line-height:80%'><span style='font-family:"Arial",sans-serif'>.text</span></p>
-
-<p class=MsoNormal style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;
-margin-left:72.0pt;line-height:80%'><span style='font-family:"Arial",sans-serif'>.globl
-main</span></p>
-
-<p class=MsoNormal style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;
-margin-left:72.0pt;line-height:80%'><span style='font-family:"Arial",sans-serif'>main: 
-li $3 2</span></p>
-
-<p class=MsoNormal style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;
-margin-left:72.0pt;line-height:80%'><span style='font-family:"Arial",sans-serif'>          
-</span><span lang=ES style='font-family:"Arial",sans-serif'>li $4 1</span></p>
-
-<p class=MsoNormal style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;
-margin-left:72.0pt;line-height:80%'><span lang=ES style='font-family:"Arial",sans-serif'>          
-li $5 0<br>
-<br>
-</span></p>
-
-<p class=MsoCaption align=center style='text-align:center'><a
-name="_Toc438322908"><b><span lang=ES-TRAD style='font-size:11.0pt;font-style:
-normal'>Figura </span></b></a><b><span
-lang=ES-TRAD style='font-size:11.0pt;font-style:normal'>19</span></b><b><span
-lang=ES-TRAD style='font-size:11.0pt;font-style:normal'> Ejemplo de secciones
-de dato y código en ensamblador para probar microcódigos</span></b><b><span
-lang=ES-TRAD style='font-size:11.0pt;font-style:normal'><br>
-<br>
-</span></b></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;text-align:justify;line-height:
-107%'><span lang=ES style='font-family:"Arial",sans-serif'>Un fichero de texto
-con las dos secciones antes comentadas (datos y código) se carga en la pantalla
-de Ensamblador. Para acceder a dicha pantalla se ha de ir al menú (parte
-superior derecha) e indicar la opción Assembly (véase la </span><b><i><span lang=ES-TRAD style='font-size:11.0pt;line-height:107%'>Figura 16</span></i></b><span
-lang=ES style='font-family:"Arial",sans-serif'>)<br>
-<br>
-</span></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;line-height:80%'><span
-style='position:absolute;z-index:251656192;margin-left:815px;margin-top:957px;
-width:92px;height:50px'><img width=92 height=50
-src="sim_help_assembly_archivos/image001.png"></span><span style='layout-grid-mode:
-both'><img width=893 height=467 id="Imagen 3"
-src="sim_help_assembly_archivos/image002.jpg"></span></p>
-
-<p class=MsoCaption align=center style='text-align:center'><a
-name="_Toc438322909"></a><a name="_Toc434155501"><b><span lang=ES-TRAD
-style='font-size:11.0pt;font-style:normal'>Figura </span></b></a><b><span lang=ES-TRAD style='font-size:11.0pt;font-style:normal'>20</span></b><b><span
-lang=ES-TRAD style='font-size:11.0pt;font-style:normal'> </span></b><b><span
-lang=ES-TRAD style='font-size:11.0pt;font-style:normal'>Pantalla principal:
-opción de carga de código ensamblador</span></b></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;text-align:justify;line-height:
-107%'><span lang=ES-TRAD style='font-family:"Arial",sans-serif'>A continuación
-aparecerá una pantalla con un cuadro de texto que permite indicar el código en
-ensamblador. Es posible cargar un código existente usando el botón “Load” de la
-barra inferior, modificar un código anteriormente cargado o salvar el código
-actualmente en cargado con el botón “Save” de la barra inferior. </span></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;text-align:justify;line-height:
-107%'><span lang=ES-TRAD style='font-family:"Arial",sans-serif'>Una vez se
-indique el código es preciso hacer clic en el botón “Compile” para pasar a
-binario y cargar en la memoria de principal el binario resultante, tal y como
-se muestra en la </span><b><i><span
-lang=ES-TRAD style='font-size:11.0pt;line-height:107%'>Figura 21</span></i></b><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>. Si todo va bien
-preguntará si se desea reiniciar la CPU (véase la </span><b><i><span lang=ES-TRAD style='font-size:11.0pt;line-height:107%'>Figura 22</span></i></b><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>)</span></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;line-height:80%'><span lang=ES
-style='font-family:"Arial",sans-serif'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;line-height:80%'><span
-style='layout-grid-mode:both'><img width=892 height=468 id="Imagen 28"
-src="sim_help_assembly_archivos/image003.jpg"></span><span style='position:
-absolute;z-index:251660288;margin-left:594px;margin-top:1618px;width:92px;
-height:50px'><img width=92 height=50
-src="sim_help_assembly_archivos/image001.png"></span></p>
-
-<p class=MsoCaption align=center style='text-align:center'><a
-name="_Toc438322910"></a><a name="_Ref434192102"><b><span lang=ES-TRAD
-style='font-size:11.0pt;font-style:normal'>Figura </span></b></a><b><span lang=ES-TRAD style='font-size:11.0pt;font-style:normal'>21</span></b><b><span
-lang=ES-TRAD style='font-size:11.0pt;font-style:normal'> Pantalla ensamblador:
-cuadro de texto con ensamblador a cargar</span></b><b><span lang=ES-TRAD
-style='font-size:11.0pt;font-style:normal'><br>
-<br>
-</span></b></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;line-height:107%'><span
-style='layout-grid-mode:both'><img width=893 height=465 id="Imagen 29"
-src="sim_help_assembly_archivos/image004.jpg"></span></p>
-
-<p class=MsoCaption align=center style='text-align:center'><a
-name="_Toc438322911"></a><a name="_Ref434192270"><b><span lang=ES-TRAD
-style='font-size:11.0pt;font-style:normal'>Figura </span></b></a><b><span lang=ES-TRAD style='font-size:11.0pt;font-style:normal'>22</span></b><b><span
-lang=ES-TRAD style='font-size:11.0pt;font-style:normal'> Pantalla ensamblador:
-opción de reiniciar la CPU</span></b></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;text-align:justify;line-height:
-107%'><span lang=ES-TRAD style='font-family:"Arial",sans-serif'>Una vez
-indicado que si se quiere resetear la CPU (salvo en algún extraño caso en el
-que se intente ejecutar un código modificado con el estado actual de la CPU
-definido por los valores en curso de los registros), se pasará a la pantalla
-indicada en la </span><b><i><span
-lang=ES-TRAD style='font-size:11.0pt;line-height:107%'>Figura 23</span></i></b><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>, donde se mostrará el
-contenido de la memoria principal en binario.</span></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;line-height:107%'><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;line-height:107%'><span
-style='layout-grid-mode:both'><img width=892 height=466 id="Imagen 30"
-src="sim_help_assembly_archivos/image005.jpg"></span></p>
-
-<p class=MsoCaption align=center style='text-align:center'><a
-name="_Toc438322912"></a><a name="_Ref434192450"><b><span lang=ES-TRAD
-style='font-size:11.0pt;font-style:normal'>Figura </span></b></a><b><span lang=ES-TRAD style='font-size:11.0pt;font-style:normal'>23</span></b><b><span
-lang=ES-TRAD style='font-size:11.0pt;font-style:normal'> Pantalla ensamblador: código
-finalmente compilado</span></b></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;text-align:justify;line-height:
-107%'><span lang=ES-TRAD style='font-family:"Arial",sans-serif'><br>
-El siguiente paso es ir a la pantalla principal para ejecutar la combinación de
-<i>firmware</i> y ensamblador cargado, para lo que ha de pulsar el botón “Simulador”
-de la barra inferior.</span></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;line-height:80%'><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>&nbsp;</span></p>
-
-<h2><a name="_Toc438322852"><span lang=ES-TRAD>Ejecución en WepSIM</span></a></h2>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;line-height:107%'><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;text-align:justify;line-height:
-107%'><span lang=ES-TRAD style='font-family:"Arial",sans-serif'>Estando en la
-pantalla principal es posible visualizar:</span></p>
-
-<p class=MsoListParagraphCxSpFirst style='margin-bottom:8.0pt;text-align:justify;
-text-indent:-18.0pt;line-height:107%'><span lang=ES-TRAD style='font-family:
-Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span lang=ES-TRAD style='font-family:"Arial",sans-serif'>El
-contenido de la memoria de control (véase la </span><b><span lang=ES-TRAD style='font-size:11.0pt;line-height:107%'>Figura <i>24</i></span></b><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>), con las señales que
-están asociadas a cada ciclo. Para ello ha de pulsar el botón “Control Memory” en
-la barra de botones situada en la parte superior derecha de la pantalla
-principal.<br>
-Se destaca las señales que en el presente ciclo de reloj están activadas en
-azul con letra algo más grande.<br>
-Se dispone de una barra de desplazamiento para poder inspeccionar todo el
-contenido de la memoria de control.</span></p>
-
-<p class=MsoListParagraphCxSpLast style='margin-bottom:8.0pt;text-align:justify;
-text-indent:-18.0pt;line-height:107%'><span lang=ES-TRAD style='font-family:
-Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</span></span><span lang=ES-TRAD style='font-family:"Arial",sans-serif'>El
-contenido de la memoria principal (véase la </span><b><i><span lang=ES-TRAD style='font-size:11.0pt;line-height:107%'>Figura 25</span></i></b><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>), con las instrucciones en
-ensamblador a ejecutar. Para estas, es posible establecer un punto de ruptura
-haciendo clic en la columna <i>breakpoints</i>. Al establecer un punto de
-ruptura aparecerá un icono en dicha columna.</span></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;line-height:107%'><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;line-height:80%'><span
-style='layout-grid-mode:both'><img width=893 height=468 id="Imagen 31"
-src="sim_help_assembly_archivos/image006.jpg"></span></p>
-
-<p class=MsoCaption align=center style='text-align:center'><a
-name="_Toc438322913"></a><a name="_Ref434192973"><b><span lang=ES-TRAD
-style='font-size:11.0pt;font-style:normal'>Figura </span></b></a><b><span lang=ES-TRAD style='font-size:11.0pt;font-style:normal'>24</span></b><b><span
-lang=ES-TRAD style='font-size:11.0pt;font-style:normal'> Pantalla principal:
-visualización de la memoria de control</span></b></p>
-
-<p class=MsoNormal><span lang=ES-TRAD>&nbsp;</span></p>
-
-<p class=MsoNormal><span lang=ES-TRAD>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;line-height:80%'><span
-style='layout-grid-mode:both'><img width=892 height=467 id="Imagen 33"
-src="sim_help_assembly_archivos/image007.jpg"></span></p>
-
-<p class=MsoCaption align=center style='text-align:center'><a
-name="_Toc438322914"></a><a name="_Ref434193222"><b><span lang=ES-TRAD
-style='font-size:11.0pt;font-style:normal'>Figura </span></b></a><b><span lang=ES-TRAD style='font-size:11.0pt;font-style:normal'>25</span></b><b><span
-lang=ES-TRAD style='font-size:11.0pt;font-style:normal'> Pantalla principal:
-visualización del código en la memoria principal</span></b></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;line-height:80%'><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;line-height:107%'><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>Estando en la pantalla
-principal es posible ejecutar:</span></p>
-
-<p class=MsoListParagraphCxSpFirst style='margin-bottom:8.0pt;text-indent:-18.0pt;
-line-height:107%'><span lang=ES-TRAD style='font-family:Symbol'>·<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>Microinstrucción a
-microinstrucción pulsando el botón “µInstrucción” (véase la </span><b><i><span lang=ES-TRAD style='font-size:11.0pt;line-height:107%'>Figura 26</span></i></b><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>), de forma que se pasará
-al siguiente ciclo de reloj y se generarán las señales de control asociadas.</span></p>
-
-<p class=MsoListParagraphCxSpLast style='margin-bottom:8.0pt;text-indent:-18.0pt;
-line-height:107%'><span lang=ES-TRAD style='font-family:Symbol'>·<span
-style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span></span><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>Instrucción a instrucción
-pulsando el botón “Instrucción” (véase la </span><b><i><span lang=ES-TRAD style='font-size:11.0pt;line-height:107%'>Figura 26</span></i></b><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>) de forma que se generarán
-todos los ciclos de reloj asociados al microprograma de la instrucción, parando
-al principio del <i>fetch</i>.</span></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;line-height:80%'><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;line-height:80%'><span
-style='layout-grid-mode:both'><img width=894 height=468 id="Imagen 35"
-src="sim_help_assembly_archivos/image008.jpg"></span></p>
-
-<p class=MsoCaption align=center style='text-align:center'><a
-name="_Toc438322915"></a><a name="_Ref434193775"><b><span lang=ES-TRAD
-style='font-size:11.0pt;font-style:normal'>Figura </span></b></a><b><span lang=ES-TRAD style='font-size:11.0pt;font-style:normal'>26</span></b><b><span
-lang=ES-TRAD style='font-size:11.0pt;font-style:normal'> Pantalla principal:
-opciones para la ejecución</span></b></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;line-height:107%'><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'><br>
-Dando al botón “Registers” en la barra de botones situada en la parte superior
-derecha de la pantalla principal (véase la </span><b><i><span lang=ES-TRAD style='font-size:11.0pt;line-height:107%'>Figura 26</span></i></b><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>) es posible ver cómo los
-valores de los registros son modificados durante la ejecución.</span></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;line-height:107%'><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>Es posible visualizar
-también la unidad de control como se muestra en la </span><b><i><span lang=ES-TRAD style='font-size:11.0pt;line-height:107%'>Figura 27</span></i></b><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>.</span></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;line-height:107%'><span
-style='layout-grid-mode:both'><img width=893 height=467 id="Imagen 36"
-src="sim_help_assembly_archivos/image009.jpg"></span></p>
-
-<p class=MsoCaption align=center style='text-align:center'><a
-name="_Toc438322916"></a><a name="_Ref434194139"><b><span lang=ES-TRAD
-style='font-size:11.0pt;font-style:normal'>Figura </span></b></a><b><span lang=ES-TRAD style='font-size:11.0pt;font-style:normal'>27</span></b><b><span
-lang=ES-TRAD style='font-size:11.0pt;font-style:normal'> Pantalla principal:
-visualización de la unidad de control</span></b></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;line-height:107%'><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>Así como también es posible
-reiniciar la ejecución haciendo clic al botón “Reset” situado en la barra de
-botones que aparece en la parte inferior de la pantalla.</span></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;line-height:107%'><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>&nbsp;</span></p>
-
-<p class=MsoNormal style='margin-bottom:8.0pt;line-height:107%'><span
-lang=ES-TRAD style='font-family:"Arial",sans-serif'>&nbsp;</span></p>
-
-</div>
-
-</body>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title></title>
+    <style type="text/css">
+/*<![CDATA[*/
+    :link { color: #0563C1 }
+    :visited { color: #954F72 }
+    b.cleanuphtml-3 {font-style: italic}
+    p.cleanuphtml-2 {text-align: center}
+    a.cleanuphtml-1 {font-weight: bold}
+    /*]]>*/
+    </style>
+  <!-- Clean HTML generated by http://www.cleanuphtml.com/ -->
+	<meta name="Generator" content="Cleanup HTML"></head>
+  <body>
+    <div class="WordSection1">
+      <h2>
+        <a name="_Toc438322851">Ensamblador en WepSIM</a>
+      </h2>
+      <p>
+         
+      </p>
+      <p>
+        El código en ensamblador se describe en un fichero de texto con una primera sección de datos (.data) y una segunda sección para el código (.text)<br />
+        <br />
+        En la sección de datos es posible definir las variables y constantes que se alojarán en el segmento de datos de la memoria principal. Dicha sección comienza con la directiva <i>.data</i>. Las
+        directivas que permiten especificar los distintos tipos de datos que pueden definirse son:
+      </p>
+      <p>
+        ·       <b>.ascii:</b> va seguida de la cadena de caracteres, instruyendo al ensamblador para crear una zona de memoria con datos, y almacenar en ella la cadena que se indique.
+      </p>
+      <p>
+        ·       <b>.asciiz:</b> va seguida de la cadena de caracteres, instruyendo al ensamblador para crear una zona de memoria con datos, y almacenar en ella la cadena que se muestra terminado por
+        un byte con valor cero.
+      </p>
+      <p>
+        ·       <b>.byte:</b> va seguida de uno o más valores que formarán parte del valor de la variable. En caso de varios valores, dichos valores se separarán por coma. Para los valores se puede
+        usar: <b>carácter, octal, hexadecimal y decimal</b>.
+      </p>
+      <p>
+        ·       <b>.half:</b> va seguida de uno o más valores que formarán parte del valor de la variable. En caso de varios valores, dichos valores se separarán por coma.<br />
+        Para los valores se puede usar: <b>octal, hexadecimal y decimal.</b>
+      </p>
+      <p>
+        ·       <b>.word:</b> va seguida de uno o más valores que formarán parte del valor de la variable. En caso de varios valores, dichos valores se separarán por coma.<br />
+        Para los valores se puede usar: <b>octal, hexadecimal y decimal.</b>
+      </p>
+      <p>
+        ·       <b>.space:</b> va seguida del número de bytes, en formato decimal, que el usuario desea reservar en memoria.
+      </p>
+      <p>
+        El formato de un valor de los tipos de datos comentados es:
+      </p>
+      <p>
+        ·       <b>Cadena de caracteres:</b> secuencia de caracteres entre comillas dobles.<br />
+        Por ejemplo: "hola 123\n"
+      </p>
+      <p>
+        ·       <b>Carácter:</b> carácter entre comillas simples.<br />
+        Por ejemplo: 'c'.
+      </p>
+      <p>
+        ·       <b>Octal:</b> un número que comienza por cero y sus dígitos son menores que ocho. Por ejemplo: 012.
+      </p>
+      <p>
+        ·       <b>Hexadecimal:</b> un número que comienza por el prefijo 0x y sus dígitos son del cero al nueve y las letras a, b, c, d, e y f.<br />
+        Por ejemplo: 0x12.
+      </p>
+      <p>
+        ·       <b>Decimal:</b> un número que no está en formato octal o hexadecimal con dígitos comprendidos entre el cero y el nueve (ambos incluidos).<br />
+        Por ejemplo: 12.
+      </p>
+      <p>
+        En la sección de código es posible definir las subrutinas que se alojarán en el segmento de código de la memoria principal. Dicha sección comienza con la directiva <i>.text</i>.
+      </p>
+      <p>
+         
+      </p>
+      <p>
+        Es posible usar comentarios de línea usando el carácter #<br />
+        Todo lo que hay a continuación de este carácter hasta el final de línea será ignorado por el ensamblador.
+      </p>
+      <p>
+        Un ejemplo programa sería:
+      </p>
+      <p>
+        .data
+      </p>
+      <p>
+                  age1:    .word   0x12345678, 20     
+      </p>
+      <p>
+                  age2:    .word   20 , 10
+      </p>
+      <p>
+                  resultado: .word 0
+      </p>
+      <p>
+                  # 32-bit word initialized with decimal
+      </p>
+      <p>
+                  texto: .ascii "Hola\t"
+      </p>
+      <p>
+                  texto2: .asciiz "Hola\t"
+      </p>
+      <p>
+                  hueco: .space 16
+      </p>
+      <p>
+        .text
+      </p>
+      <p>
+        .globl main
+      </p>
+      <p>
+        main:  li $3 2
+      </p>
+      <p>
+                   li $4 1
+      </p>
+      <p>
+                   li $5 0<br />
+        <br />
+      </p>
+      <p class="cleanuphtml-2">
+        <a class="cleanuphtml-1" name="_Toc438322908">Figura</a> <b>19</b> <b>Ejemplo de secciones de dato y código en ensamblador para probar microcódigos</b><b><br />
+        <br /></b>
+      </p>
+      <p>
+        Un fichero de texto con las dos secciones antes comentadas (datos y código) se carga en la pantalla de Ensamblador. Para acceder a dicha pantalla se ha de ir al menú (parte superior derecha)
+        e indicar la opción Assembly (véase la <b class="cleanuphtml-3">Figura 16</b>)<br />
+        <br />
+      </p>
+      <p>
+        <img src="sim_help_assembly_archivos/image001.png" height="50" width="92" alt="" /><img id="Imagen 3" src="sim_help_assembly_archivos/image002.jpg" height="467" width="893" alt="" name=
+        "Imagen 3" />
+      </p>
+      <p class="cleanuphtml-2">
+        <a name="_Toc438322909"></a><a class="cleanuphtml-1" name="_Toc434155501">Figura</a> <b>20</b> <b>Pantalla principal: opción de carga de código ensamblador</b>
+      </p>
+      <p>
+        A continuación aparecerá una pantalla con un cuadro de texto que permite indicar el código en ensamblador. Es posible cargar un código existente usando el botón "Load" de la barra inferior,
+        modificar un código anteriormente cargado o salvar el código actualmente en cargado con el botón "Save" de la barra inferior.
+      </p>
+      <p>
+        Una vez se indique el código es preciso hacer clic en el botón "Compile" para pasar a binario y cargar en la memoria de principal el binario resultante, tal y como se muestra en la <b class=
+        "cleanuphtml-3">Figura 21</b>. Si todo va bien preguntará si se desea reiniciar la CPU (véase la <b class="cleanuphtml-3">Figura 22</b>)
+      </p>
+      <p>
+         
+      </p>
+      <p>
+        <img id="Imagen 28" src="sim_help_assembly_archivos/image003.jpg" height="468" width="892" alt="" name="Imagen 28" /><img src="sim_help_assembly_archivos/image001.png" height="50" width="92" alt=
+        "" />
+      </p>
+      <p class="cleanuphtml-2">
+        <a name="_Toc438322910"></a><a class="cleanuphtml-1" name="_Ref434192102">Figura</a> <b>21</b> <b>Pantalla ensamblador: cuadro de texto con ensamblador a cargar</b><b><br />
+        <br /></b>
+      </p>
+      <p>
+        <img id="Imagen 29" src="sim_help_assembly_archivos/image004.jpg" height="465" width="893" alt="" name="Imagen 29" />
+      </p>
+      <p class="cleanuphtml-2">
+        <a name="_Toc438322911"></a><a class="cleanuphtml-1" name="_Ref434192270">Figura</a> <b>22</b> <b>Pantalla ensamblador: opción de reiniciar la CPU</b>
+      </p>
+      <p>
+        Una vez indicado que si se quiere resetear la CPU (salvo en algún extraño caso en el que se intente ejecutar un código modificado con el estado actual de la CPU definido por los valores en
+        curso de los registros), se pasará a la pantalla indicada en la <b class="cleanuphtml-3">Figura 23</b>, donde se mostrará el contenido de la memoria principal en binario.
+      </p>
+      <p>
+         
+      </p>
+      <p>
+        <img id="Imagen 30" src="sim_help_assembly_archivos/image005.jpg" height="466" width="892" alt="" name="Imagen 30" />
+      </p>
+      <p class="cleanuphtml-2">
+        <a name="_Toc438322912"></a><a class="cleanuphtml-1" name="_Ref434192450">Figura</a> <b>23</b> <b>Pantalla ensamblador: código finalmente compilado</b>
+      </p>
+      <p>
+        <br />
+        El siguiente paso es ir a la pantalla principal para ejecutar la combinación de <i>firmware</i> y ensamblador cargado, para lo que ha de pulsar el botón "Simulador" de la barra inferior.
+      </p>
+      <p>
+         
+      </p>
+      <h2>
+        <a name="_Toc438322852">Ejecución en WepSIM</a>
+      </h2>
+      <p>
+         
+      </p>
+      <p>
+        Estando en la pantalla principal es posible visualizar:
+      </p>
+      <p>
+        ·       El contenido de la memoria de control (véase la <b>Figura <i>24</i></b>), con las señales que están asociadas a cada ciclo. Para ello ha de pulsar el botón "Control Memory" en la
+        barra de botones situada en la parte superior derecha de la pantalla principal.<br />
+        Se destaca las señales que en el presente ciclo de reloj están activadas en azul con letra algo más grande.<br />
+        Se dispone de una barra de desplazamiento para poder inspeccionar todo el contenido de la memoria de control.
+      </p>
+      <p>
+        ·       El contenido de la memoria principal (véase la <b class="cleanuphtml-3">Figura 25</b>), con las instrucciones en ensamblador a ejecutar. Para estas, es posible establecer un punto de
+        ruptura haciendo clic en la columna <i>breakpoints</i>. Al establecer un punto de ruptura aparecerá un icono en dicha columna.
+      </p>
+      <p>
+         
+      </p>
+      <p>
+        <img id="Imagen 31" src="sim_help_assembly_archivos/image006.jpg" height="468" width="893" alt="" name="Imagen 31" />
+      </p>
+      <p class="cleanuphtml-2">
+        <a name="_Toc438322913"></a><a class="cleanuphtml-1" name="_Ref434192973">Figura</a> <b>24</b> <b>Pantalla principal: visualización de la memoria de control</b>
+      </p>
+      <p>
+         
+      </p>
+      <p>
+         
+      </p>
+      <p>
+        <img id="Imagen 33" src="sim_help_assembly_archivos/image007.jpg" height="467" width="892" alt="" name="Imagen 33" />
+      </p>
+      <p class="cleanuphtml-2">
+        <a name="_Toc438322914"></a><a class="cleanuphtml-1" name="_Ref434193222">Figura</a> <b>25</b> <b>Pantalla principal: visualización del código en la memoria principal</b>
+      </p>
+      <p>
+         
+      </p>
+      <p>
+        Estando en la pantalla principal es posible ejecutar:
+      </p>
+      <p>
+        ·       Microinstrucción a microinstrucción pulsando el botón "µInstrucción" (véase la <b class="cleanuphtml-3">Figura 26</b>), de forma que se pasará al siguiente ciclo de reloj y se
+        generarán las señales de control asociadas.
+      </p>
+      <p>
+        ·       Instrucción a instrucción pulsando el botón "Instrucción" (véase la <b class="cleanuphtml-3">Figura 26</b>) de forma que se generarán todos los ciclos de reloj asociados al
+        microprograma de la instrucción, parando al principio del <i>fetch</i>.
+      </p>
+      <p>
+         
+      </p>
+      <p>
+        <img id="Imagen 35" src="sim_help_assembly_archivos/image008.jpg" height="468" width="894" alt="" name="Imagen 35" />
+      </p>
+      <p class="cleanuphtml-2">
+        <a name="_Toc438322915"></a><a class="cleanuphtml-1" name="_Ref434193775">Figura</a> <b>26</b> <b>Pantalla principal: opciones para la ejecución</b>
+      </p>
+      <p>
+        <br />
+        Dando al botón "Registers" en la barra de botones situada en la parte superior derecha de la pantalla principal (véase la <b class="cleanuphtml-3">Figura 26</b>) es posible ver cómo los
+        valores de los registros son modificados durante la ejecución.
+      </p>
+      <p>
+        Es posible visualizar también la unidad de control como se muestra en la <b class="cleanuphtml-3">Figura 27</b>.
+      </p>
+      <p>
+        <img id="Imagen 36" src="sim_help_assembly_archivos/image009.jpg" height="467" width="893" alt="" name="Imagen 36" />
+      </p>
+      <p class="cleanuphtml-2">
+        <a name="_Toc438322916"></a><a class="cleanuphtml-1" name="_Ref434194139">Figura</a> <b>27</b> <b>Pantalla principal: visualización de la unidad de control</b>
+      </p>
+      <p>
+        Así como también es posible reiniciar la ejecución haciendo clic al botón "Reset" situado en la barra de botones que aparece en la parte inferior de la pantalla.
+      </p>
+      <p>
+         
+      </p>
+      <p>
+         
+      </p>
+    </div>
+  </body>
 </html>
