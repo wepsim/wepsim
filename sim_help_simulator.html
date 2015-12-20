@@ -27,7 +27,7 @@
          
       </p>
       <p>
-        El sistema completo simulado (véase la <b class="cleanuphtml-1">Figura 1</b>) incluye además del procesador, una memoria de 1 MB (direccionada por bytes), un teclado y una pantalla.
+        El sistema completo simulado (v&eacute;ase la <b class="cleanuphtml-1">Figura 1</b>) incluye adem&aacute;s del procesador, una memoria de 1 MB (direccionada por bytes), un teclado y una pantalla.
       </p>
       <p>
          
@@ -42,8 +42,8 @@
          
       </p>
       <p>
-        El procesador (véase la <b class="cleanuphtml-1">Figura 2</b>) es de 32 bits, trabaja con hasta 64 instrucciones definibles por el usuario (estilo MIPS, ARM, etc.), dispone de un banco de
-        registros de 32 registros donde el registro cero está cableado a cero y usa un mapa de E/S separado.
+        El procesador (v&eacute;ase la <b class="cleanuphtml-1">Figura 2</b>) es de 32 bits, trabaja con hasta 64 instrucciones definibles por el usuario (estilo MIPS, ARM, etc.), dispone de un banco de
+        registros de 32 registros donde el registro cero est&aacute; cableado a cero y usa un mapa de E/S separado.
       </p>
       <p>
          
@@ -65,13 +65,13 @@
          
       </p>
       <p>
-        El procesador espera un ciclo para que la memoria realice la operación de lectura (activada con la señal R) o bien la operación de escritura (activada con la señal W).
+        El procesador espera un ciclo para que la memoria realice la operaci&oacute;n de lectura (activada con la se&ntilde;al R) o bien la operaci&oacute;n de escritura (activada con la se&ntilde;al W).
       </p>
       <p>
          
       </p>
       <p>
-        La memoria usa una configuración <i>Little-Endian</i> tal y como se muestra en <b class="cleanuphtml-1">Figura 3</b>.
+        La memoria usa una configuraci&oacute;n <i>Little-Endian</i> tal y como se muestra en <b class="cleanuphtml-1">Figura 3</b>.
       </p>
       <p>
          
@@ -83,13 +83,13 @@
          
       </p>
       <p class="cleanuphtml-3">
-        <a name="_Toc438322892"></a><a class="cleanuphtml-2" name="_Ref434149687">Figura</a> <b>3</b> <b>Ordenación de bytes en memoria</b>
+        <a name="_Toc438322892"></a><a class="cleanuphtml-2" name="_Ref434149687">Figura</a> <b>3</b> <b>Ordenaci&oacute;n de bytes en memoria</b>
       </p>
       <p>
          
       </p>
       <p>
-        Por tanto el byte menos significativo está en la dirección más baja de memoria.
+        Por tanto el byte menos significativo est&aacute; en la direcci&oacute;n m&aacute;s baja de memoria.
       </p>
       <p>
          
@@ -98,8 +98,8 @@
         El acceso a la memoria se realiza a nivel de byte.
       </p>
       <p>
-        Para la selección del byte se precisa indicar por un lado la dirección de la palabra donde se encuentra (A<sub>31</sub>…A<sub>2</sub>00), y por otro lado el byte dentro de esa palabra al que
-        se desea acceder (BE<sub>3</sub>…BE<sub>0</sub>).
+        Para la selecci&oacute;n del byte se precisa indicar por un lado la direcci&oacute;n de la palabra donde se encuentra (A<sub>31</sub>Â…A<sub>2</sub>00), y por otro lado el byte dentro de esa palabra al que
+        se desea acceder (BE<sub>3</sub>Â…BE<sub>0</sub>).
       </p>
       <p>
          
@@ -108,25 +108,25 @@
         <img width="445" height="215" id="Imagen 24" src="sim_help_simulator_archivos/image004.jpg" alt="" name="Imagen 24" />
       </p>
       <p class="cleanuphtml-3">
-        <a name="_Toc438322893"></a><a class="cleanuphtml-2" name="_Ref434150369">Figura</a> <b>4</b> <b>Módulo de memoria</b>
+        <a name="_Toc438322893"></a><a class="cleanuphtml-2" name="_Ref434150369">Figura</a> <b>4</b> <b>M&oacute;dulo de memoria</b>
       </p>
       <p>
          
       </p>
       <p>
-        La <b class="cleanuphtml-1">Figura 4</b> muestra estas entradas/salidas comentadas, a las que hay que unir las señales R y W para la petición de lectura y escritura respectivamente.
+        La <b class="cleanuphtml-1">Figura 4</b> muestra estas entradas/salidas comentadas, a las que hay que unir las se&ntilde;ales R y W para la petici&oacute;n de lectura y escritura respectivamente.
       </p><br clear="all" />
       <p>
          
       </p>
       <h2>
-        <a name="_Toc438325788">Organización interna: señales de control</a>
+        <a name="_Toc438325788">Organizaci&oacute;n interna: se&ntilde;ales de control</a>
       </h2>
       <p>
          
       </p>
       <p>
-        La unidad de control en WepSIM es microprogramable. Su memoria de control consta de 4096 micropalabras de 76 bits cada una (véase <b class="cleanuphtml-1">Figura 5</b>).
+        La unidad de control en WepSIM es microprogramable. Su memoria de control consta de 4096 micropalabras de 76 bits cada una (v&eacute;ase <b class="cleanuphtml-1">Figura 5</b>).
       </p>
       <p class="cleanuphtml-3">
         <img width="809" height="524" id="Imagen 12" src="sim_help_simulator_archivos/image005.jpg" alt="" name="Imagen 12" />
@@ -135,33 +135,33 @@
     <div class="WordSection2"></div><br clear="all" />
     <div class="WordSection3">
       <p class="cleanuphtml-3">
-        <a name="_Toc438322894"></a><a class="cleanuphtml-2" name="_Ref434141431">Figura</a> <b>5</b> <b>Formato de microinstrucción</b>
+        <a name="_Toc438322894"></a><a class="cleanuphtml-2" name="_Ref434141431">Figura</a> <b>5</b> <b>Formato de microinstrucci&oacute;n</b>
       </p>
       <p>
-        La nomenclatura general usada para el nombre las señales de control es la siguiente:
+        La nomenclatura general usada para el nombre las se&ntilde;ales de control es la siguiente:
       </p>
       <p>
-        ·       Cx: señal de carga de registro x
+        &middot;       Cx: se&ntilde;al de carga de registro x
       </p>
       <p>
-        ·       Tx: señal de activación triestado x
+        &middot;       Tx: se&ntilde;al de activaci&oacute;n triestado x
       </p>
       <p>
-        ·       Ry: identificador de registro para el punto de salida de valor y
+        &middot;       Ry: identificador de registro para el punto de salida de valor y
       </p>
       <p>
-        ·       Mx: selección en multiplexor x
+        &middot;       Mx: selecci&oacute;n en multiplexor x
       </p>
       <p>
-        Adicionalmente la señal LE indica la escritura en el banco de registros, Cop indica la operación a realizar en la ALU, SelP selecciona qué bits actualizar en el registro de estado (SR), A1A0
-        son los dos bits menos significativos de una dirección de memoria y BW permite especificar el tamaño del dato al que se accede en memoria: una palabra completa, media palabra o un byte.
+        Adicionalmente la se&ntilde;al LE indica la escritura en el banco de registros, Cop indica la operaci&oacute;n a realizar en la ALU, SelP selecciona qu&eacute; bits actualizar en el registro de estado (SR), A1A0
+        son los dos bits menos significativos de una direcci&oacute;n de memoria y BW permite especificar el tama&ntilde;o del dato al que se accede en memoria: una palabra completa, media palabra o un byte.
       </p>
       <p>
          
       </p>
       <p>
-        El procesador (véase la figura <b class="cleanuphtml-1">Figura 6</b>) puede considerarse dividido en 7 partes: acceso a memoria (MAR, MBR, etc.), gestión del registro contador de programa
-        (PC, etc.), gestión del registro de instrucción (IR, etc.), unidad de control (<i>Control Unit</i>), banco de registros (<i>Register File</i>), ALU y gestión del registro de estado (SR,
+        El procesador (v&eacute;ase la figura <b class="cleanuphtml-1">Figura 6</b>) puede considerarse dividido en 7 partes: acceso a memoria (MAR, MBR, etc.), gesti&oacute;n del registro contador de programa
+        (PC, etc.), gesti&oacute;n del registro de instrucci&oacute;n (IR, etc.), unidad de control (<i>Control Unit</i>), banco de registros (<i>Register File</i>), ALU y gesti&oacute;n del registro de estado (SR,
         etc.).
       </p>
       <p>
@@ -172,9 +172,9 @@
       </p>
       <p>
         <br />
-        La unidad de control (véase la figura <b class="cleanuphtml-1">Figura 7</b>) a su vez está dividida en 5 partes: el control de la siguiente microdirección (MUX A, etc.), la transformación del
-        código de operación a la microdirección correspondiente (co2uAddr), el control de la condición de selección de microdirección (MUX B, MUX C, etc.), la memoria de control junto con el registro
-        de microinstrucción y por último los selectores de RA, RB, RE y Cop.
+        La unidad de control (v&eacute;ase la figura <b class="cleanuphtml-1">Figura 7</b>) a su vez est&aacute; dividida en 5 partes: el control de la siguiente microdirecci&oacute;n (MUX A, etc.), la transformaci&oacute;n del
+        c&oacute;digo de operaci&oacute;n a la microdirecci&oacute;n correspondiente (co2uAddr), el control de la condici&oacute;n de selecci&oacute;n de microdirecci&oacute;n (MUX B, MUX C, etc.), la memoria de control junto con el registro
+        de microinstrucci&oacute;n y por &uacute;ltimo los selectores de RA, RB, RE y Cop.
       </p>
       <p>
         <img width="893" height="541" id="Imagen 7" src="sim_help_simulator_archivos/image007.jpg" alt="" name="Imagen 7" />
@@ -183,9 +183,9 @@
         <a name="_Toc438322896"></a><a class="cleanuphtml-2" name="_Ref434141950">Figura</a> <b>7</b> <b>Detalle de la unidad de control</b>
       </p>
       <p>
-        Para direccionar la memoria de control se precisa direcciones de 12 bits usándose secuenciamiento implícito. Es posible indicar como microdirección de memoria de control (véase <b class=
-        "cleanuphtml-1">Figura 8</b>) la siguiente posición, usar parte de la microinstrucción, usar la salida de una ROM con la microdirección de comienzo asociada a un código de operación o bien la
-        microdirección cero (0) a partir de la cual comienza el <i>fetch</i>.
+        Para direccionar la memoria de control se precisa direcciones de 12 bits us&aacute;ndose secuenciamiento impl&iacute;cito. Es posible indicar como microdirecci&oacute;n de memoria de control (v&eacute;ase <b class=
+        "cleanuphtml-1">Figura 8</b>) la siguiente posici&oacute;n, usar parte de la microinstrucci&oacute;n, usar la salida de una ROM con la microdirecci&oacute;n de comienzo asociada a un c&oacute;digo de operaci&oacute;n o bien la
+        microdirecci&oacute;n cero (0) a partir de la cual comienza el <i>fetch</i>.
       </p>
       <p class="cleanuphtml-3">
         <img width="801" height="595" id="Imagen 11" src="sim_help_simulator_archivos/image008.jpg" alt="" name="Imagen 11" />
@@ -203,7 +203,7 @@
         <b>MUXA           </b> 2 bits               <b class="cleanuphtml-1">Figura 6</b>
       </p>
       <p>
-        Selecciona la microdirección para cargar en el registro de microdirección:
+        Selecciona la microdirecci&oacute;n para cargar en el registro de microdirecci&oacute;n:
       </p>
       <p class="cleanuphtml-4">
          
@@ -301,7 +301,7 @@
          
       </p>
       <p>
-        En la <b class="cleanuphtml-1">Figura</b> <b class="cleanuphtml-1">6</b> se muestra con más detalle la procedencia de cada una de las salidas seleccionadas.
+        En la <b class="cleanuphtml-1">Figura</b> <b class="cleanuphtml-1">6</b> se muestra con m&aacute;s detalle la procedencia de cada una de las salidas seleccionadas.
       </p>
       <p class="cleanuphtml-4">
          
@@ -316,7 +316,7 @@
         <b>MUXB           </b> 1 bits               <b class="cleanuphtml-1">Figura 6</b>
       </p>
       <p>
-        Selecciona la condición o condición negada como valor de entrada para A1:
+        Selecciona la condici&oacute;n o condici&oacute;n negada como valor de entrada para A1:
       </p>
       <p class="cleanuphtml-4">
          
@@ -374,7 +374,7 @@
         <b>MUXC           </b> 4 bits               <b class="cleanuphtml-1">Figura 6</b>
       </p>
       <p>
-        Selecciona la microdirección para cargar en el registro de microdirección:
+        Selecciona la microdirecci&oacute;n para cargar en el registro de microdirecci&oacute;n:
       </p>
       <p class="cleanuphtml-4">
          
@@ -501,7 +501,7 @@
         <b>COP   </b>             4 bits               <b class="cleanuphtml-1">Figura 6</b>
       </p>
       <p>
-        Selecciona la operación que se realiza en la ALU:
+        Selecciona la operaci&oacute;n que se realiza en la ALU:
       </p>
       <p>
          
@@ -516,7 +516,7 @@
             </td>
             <td valign="top">
               <p class="cleanuphtml-4">
-                Operación
+                Operaci&oacute;n
               </p>
             </td>
           </tr>
@@ -711,7 +711,7 @@
             </td>
             <td valign="top">
               <p>
-                (A &lt;&lt; 16) &amp; 0xFFFF0000
+                (A &amp;lt;&amp;lt; 16) &amp; 0xFFFF0000
               </p>
             </td>
           </tr>
@@ -724,7 +724,7 @@
         <b>O N Z</b>             1 bit /cada       <b class="cleanuphtml-1">Figura 6</b>
       </p>
       <p>
-        Valores de biestables generados por la última operación que se realiza en la ALU:
+        Valores de biestables generados por la &uacute;ltima operaci&oacute;n que se realiza en la ALU:
       </p>
       <p>
          
@@ -825,7 +825,7 @@
           <tr>
             <td valign="top">
               <p>
-                Desbordamiento de la operación
+                Desbordamiento de la operaci&oacute;n
               </p>
             </td>
             <td valign="top">
@@ -847,7 +847,7 @@
           <tr>
             <td valign="top">
               <p>
-                División por cero
+                Divisi&oacute;n por cero
               </p>
             </td>
             <td valign="top">
@@ -875,7 +875,7 @@
         <b>SelP   </b>             2 bits               <b class="cleanuphtml-1">Figura 6</b>
       </p>
       <p>
-        Selecciona qué bits serán actualizados en el registro de estado:
+        Selecciona qu&eacute; bits ser&aacute;n actualizados en el registro de estado:
       </p>
       <p>
          
@@ -890,7 +890,7 @@
             </td>
             <td valign="top">
               <p class="cleanuphtml-4">
-                Selección
+                Selecci&oacute;n
               </p>
             </td>
           </tr>
@@ -914,7 +914,7 @@
             </td>
             <td valign="top">
               <p>
-                O  N  Z   I   <b>U'</b>
+                O  N  Z   I   <b>U&apos;</b>
               </p>
             </td>
           </tr>
@@ -926,7 +926,7 @@
             </td>
             <td valign="top">
               <p>
-                O  N  Z   <b>I'</b>  U
+                O  N  Z   <b>I&apos;</b>  U
               </p>
             </td>
           </tr>
@@ -938,7 +938,7 @@
             </td>
             <td valign="top">
               <p>
-                <b>O' N' Z'</b> I   U
+                <b>O&apos; N&apos; Z&apos;</b> I   U
               </p>
             </td>
           </tr>
@@ -963,7 +963,7 @@
         <b>M7     </b>             1 bits               <b class="cleanuphtml-1">Figura 6</b>
       </p>
       <p>
-        Selecciona qué valor se carga en el registro de estado:
+        Selecciona qu&eacute; valor se carga en el registro de estado:
       </p>
       <p>
          
@@ -978,7 +978,7 @@
             </td>
             <td valign="top">
               <p class="cleanuphtml-4">
-                Selección
+                Selecci&oacute;n
               </p>
             </td>
           </tr>
@@ -1018,7 +1018,7 @@
         <b>MA    </b>             1 bits               <b class="cleanuphtml-1">Figura 6</b>
       </p>
       <p>
-        Selecciona qué valor se usará como operador A en la ALU:
+        Selecciona qu&eacute; valor se usar&aacute; como operador A en la ALU:
       </p>
       <p>
          
@@ -1033,7 +1033,7 @@
             </td>
             <td valign="top">
               <p class="cleanuphtml-4">
-                Selección
+                Selecci&oacute;n
               </p>
             </td>
           </tr>
@@ -1045,7 +1045,7 @@
             </td>
             <td valign="top">
               <p>
-                Selección dada por señal RA
+                Selecci&oacute;n dada por se&ntilde;al RA
               </p>
             </td>
           </tr>
@@ -1073,7 +1073,7 @@
         <b>MB     </b>             2 bits               <b class="cleanuphtml-1">Figura 6</b>
       </p>
       <p>
-        Selecciona qué valor se usará como operador B en la ALU:
+        Selecciona qu&eacute; valor se usar&aacute; como operador B en la ALU:
       </p>
       <p>
          
@@ -1088,7 +1088,7 @@
             </td>
             <td valign="top">
               <p class="cleanuphtml-4">
-                Selección
+                Selecci&oacute;n
               </p>
             </td>
           </tr>
@@ -1100,7 +1100,7 @@
             </td>
             <td valign="top">
               <p>
-                Selección dada por señal RB
+                Selecci&oacute;n dada por se&ntilde;al RB
               </p>
             </td>
           </tr>
@@ -1158,7 +1158,7 @@
         <b>SHIFT           </b> 5 bits               <b class="cleanuphtml-1">Figura 6</b>
       </p>
       <p>
-        Permiten seleccionar una sección de los bits contenidos en el registro de instrucción, para su volcado al bus interno del procesador.
+        Permiten seleccionar una secci&oacute;n de los bits contenidos en el registro de instrucci&oacute;n, para su volcado al bus interno del procesador.
       </p>
       <p>
          
@@ -1305,7 +1305,7 @@
         <b>BE      </b> 4 bits               <b class="cleanuphtml-1">Figura 6</b>
       </p>
       <p>
-        Señales de entrada a la memoria.
+        Se&ntilde;ales de entrada a la memoria.
       </p>
       <p>
         BE3=BW1,    BE2=BW0,    BE1=A1,       BE0=A0
@@ -1314,7 +1314,7 @@
          
       </p>
       <p>
-        BE permite seleccionar el/los byte/s dentro de una palabra a leer y dónde situarlos en el bus:
+        BE permite seleccionar el/los byte/s dentro de una palabra a leer y d&oacute;nde situarlos en el bus:
       </p>
       <p class="cleanuphtml-4">
          
@@ -1328,7 +1328,7 @@
           </td>
           <td colspan="4" valign="top">
             <p>
-              Selección de bytes
+              Selecci&oacute;n de bytes
             </p>
           </td>
           <td colspan="4" valign="top">
@@ -1841,7 +1841,7 @@
          
       </p>
       <p>
-        Así como seleccionar el/los byte/s dentro de una palabra a escribir y dónde siautarlos en memoria:
+        As&iacute; como seleccionar el/los byte/s dentro de una palabra a escribir y d&oacute;nde siautarlos en memoria:
       </p>
       <p>
          
@@ -1859,7 +1859,7 @@
             </td>
             <td colspan="4" valign="top">
               <p>
-                Selección de bytes
+                Selecci&oacute;n de bytes
               </p>
             </td>
             <td colspan="4" valign="top">
@@ -2376,7 +2376,7 @@
         <b>BW+A1A0    </b> 4 bits               <b class="cleanuphtml-1">Figura 6</b>
       </p>
       <p>
-        Señales de entrada a W-Byte Selector y R-Byte Selector.
+        Se&ntilde;ales de entrada a W-Byte Selector y R-Byte Selector.
       </p>
       <p>
          
@@ -2394,7 +2394,7 @@
             </td>
             <td colspan="4" valign="top">
               <p>
-                Selección de bytes
+                Selecci&oacute;n de bytes
               </p>
             </td>
             <td colspan="4" valign="top">
@@ -2920,7 +2920,7 @@
             </td>
             <td colspan="4" valign="top">
               <p>
-                Selección de bytes
+                Selecci&oacute;n de bytes
               </p>
             </td>
             <td colspan="4" valign="top">
@@ -3446,7 +3446,7 @@
             </td>
             <td colspan="4" valign="top">
               <p>
-                Selección de bytes
+                Selecci&oacute;n de bytes
               </p>
             </td>
             <td colspan="4" valign="top">
@@ -3975,8 +3975,8 @@
         <b>LE                  </b> 1 bits               <b class="cleanuphtml-1">Figura 6</b>
       </p>
       <p>
-        Permiten seleccionar un registro para que su valor salga por A (RA) o por B B (RB) o para actualizar el valor del registro seleccionado (RE). En el caso de actualizar el registro, además de
-        usar la señal RE hay que usar la señal LE con valor a 1.
+        Permiten seleccionar un registro para que su valor salga por A (RA) o por B B (RB) o para actualizar el valor del registro seleccionado (RE). En el caso de actualizar el registro, adem&aacute;s de
+        usar la se&ntilde;al RE hay que usar la se&ntilde;al LE con valor a 1.
       </p>
       <p>
          
@@ -3994,7 +3994,7 @@
         <b>M2     </b>             1 bits               <b class="cleanuphtml-1">Figura 6</b>
       </p>
       <p>
-        Permiten seleccionar con qué valor se puede actualizar el registro contador de programa (PC): sumando el contenido actual el valor de cuatro o con el valor que proviene del bus interno de
+        Permiten seleccionar con qu&eacute; valor se puede actualizar el registro contador de programa (PC): sumando el contenido actual el valor de cuatro o con el valor que proviene del bus interno de
         datos (<i>Internal bus</i>).
       </p>
       <p>
@@ -4004,7 +4004,7 @@
         <img width="310" height="260" id="Imagen 82" src="sim_help_simulator_archivos/image015.jpg" alt="" name="Imagen 82" />
       </p>
       <p class="cleanuphtml-3">
-        <a class="cleanuphtml-2" name="_Toc438322899">Figura</a> <b>10</b> <b>Detalle de la gestión del registro PC</b>
+        <a class="cleanuphtml-2" name="_Toc438322899">Figura</a> <b>10</b> <b>Detalle de la gesti&oacute;n del registro PC</b>
       </p>
       <p>
          
@@ -4013,7 +4013,7 @@
          
       </p>
       <h2>
-        <a name="_Toc438325789">Ejecución en WepSIM</a>
+        <a name="_Toc438325789">Ejecuci&oacute;n en WepSIM</a>
       </h2>
       <p>
          
@@ -4022,14 +4022,14 @@
         Estando en la pantalla principal es posible visualizar:
       </p>
       <p>
-        ·       El contenido de la memoria de control (véase la <b>Figura <i>24</i></b>), con las señales que están asociadas a cada ciclo. Para ello ha de pulsar el botón "Control Memory" en la
+        &middot;       El contenido de la memoria de control (v&eacute;ase la <b>Figura <i>24</i></b>), con las se&ntilde;ales que est&aacute;n asociadas a cada ciclo. Para ello ha de pulsar el bot&oacute;n "Control Memory" en la
         barra de botones situada en la parte superior derecha de la pantalla principal.<br />
-        Se destaca las señales que en el presente ciclo de reloj están activadas en azul con letra algo más grande.<br />
+        Se destaca las se&ntilde;ales que en el presente ciclo de reloj est&aacute;n activadas en azul con letra algo m&aacute;s grande.<br />
         Se dispone de una barra de desplazamiento para poder inspeccionar todo el contenido de la memoria de control.
       </p>
       <p>
-        ·       El contenido de la memoria principal (véase la <b class="cleanuphtml-1">Figura 25</b>), con las instrucciones en ensamblador a ejecutar. Para estas, es posible establecer un punto de
-        ruptura haciendo clic en la columna <i>breakpoints</i>. Al establecer un punto de ruptura aparecerá un icono en dicha columna.
+        &middot;       El contenido de la memoria principal (v&eacute;ase la <b class="cleanuphtml-1">Figura 25</b>), con las instrucciones en ensamblador a ejecutar. Para estas, es posible establecer un punto de
+        ruptura haciendo clic en la columna <i>breakpoints</i>. Al establecer un punto de ruptura aparecer&aacute; un icono en dicha columna.
       </p>
       <p>
          
@@ -4038,7 +4038,7 @@
         <img width="893" height="468" id="Imagen 31" src="sim_help_simulator_archivos/image016.jpg" alt="" name="Imagen 31" />
       </p>
       <p class="cleanuphtml-3">
-        <a name="_Toc438322913"></a><a class="cleanuphtml-2" name="_Ref434192973">Figura</a> <b>24</b> <b>Pantalla principal: visualización de la memoria de control</b>
+        <a name="_Toc438322913"></a><a class="cleanuphtml-2" name="_Ref434192973">Figura</a> <b>24</b> <b>Pantalla principal: visualizaci&oacute;n de la memoria de control</b>
       </p>
       <p>
          
@@ -4050,7 +4050,7 @@
         <img width="892" height="467" id="Imagen 33" src="sim_help_simulator_archivos/image017.jpg" alt="" name="Imagen 33" />
       </p>
       <p class="cleanuphtml-3">
-        <a name="_Toc438322914"></a><a class="cleanuphtml-2" name="_Ref434193222">Figura</a> <b>25</b> <b>Pantalla principal: visualización del código en la memoria principal</b>
+        <a name="_Toc438322914"></a><a class="cleanuphtml-2" name="_Ref434193222">Figura</a> <b>25</b> <b>Pantalla principal: visualizaci&oacute;n del c&oacute;digo en la memoria principal</b>
       </p>
       <p>
          
@@ -4059,12 +4059,12 @@
         Estando en la pantalla principal es posible ejecutar:
       </p>
       <p>
-        ·       Microinstrucción a microinstrucción pulsando el botón "µInstrucción" (véase la <b class="cleanuphtml-1">Figura 26</b>), de forma que se pasará al siguiente ciclo de reloj y se
-        generarán las señales de control asociadas.
+        &middot;       Microinstrucci&oacute;n a microinstrucci&oacute;n pulsando el bot&oacute;n "&micro;Instrucci&oacute;n" (v&eacute;ase la <b class="cleanuphtml-1">Figura 26</b>), de forma que se pasar&aacute; al siguiente ciclo de reloj y se
+        generar&aacute;n las se&ntilde;ales de control asociadas.
       </p>
       <p>
-        ·       Instrucción a instrucción pulsando el botón "Instrucción" (véase la <b class="cleanuphtml-1">Figura 26</b>) de forma que se generarán todos los ciclos de reloj asociados al
-        microprograma de la instrucción, parando al principio del <i>fetch</i>.
+        &middot;       Instrucci&oacute;n a instrucci&oacute;n pulsando el bot&oacute;n "Instrucci&oacute;n" (v&eacute;ase la <b class="cleanuphtml-1">Figura 26</b>) de forma que se generar&aacute;n todos los ciclos de reloj asociados al
+        microprograma de la instrucci&oacute;n, parando al principio del <i>fetch</i>.
       </p>
       <p>
          
@@ -4073,24 +4073,24 @@
         <img width="894" height="468" id="Imagen 35" src="sim_help_simulator_archivos/image018.jpg" alt="" name="Imagen 35" />
       </p>
       <p class="cleanuphtml-3">
-        <a name="_Toc438322915"></a><a class="cleanuphtml-2" name="_Ref434193775">Figura</a> <b>26</b> <b>Pantalla principal: opciones para la ejecución</b>
+        <a name="_Toc438322915"></a><a class="cleanuphtml-2" name="_Ref434193775">Figura</a> <b>26</b> <b>Pantalla principal: opciones para la ejecuci&oacute;n</b>
       </p>
       <p>
         <br />
-        Dando al botón "Registers" en la barra de botones situada en la parte superior derecha de la pantalla principal (véase la <b class="cleanuphtml-1">Figura 26</b>) es posible ver cómo los
-        valores de los registros son modificados durante la ejecución.
+        Dando al bot&oacute;n "Registers" en la barra de botones situada en la parte superior derecha de la pantalla principal (v&eacute;ase la <b class="cleanuphtml-1">Figura 26</b>) es posible ver c&oacute;mo los
+        valores de los registros son modificados durante la ejecuci&oacute;n.
       </p>
       <p>
-        Es posible visualizar también la unidad de control como se muestra en la <b class="cleanuphtml-1">Figura 27</b>.
+        Es posible visualizar tambi&eacute;n la unidad de control como se muestra en la <b class="cleanuphtml-1">Figura 27</b>.
       </p>
       <p>
         <img width="893" height="467" id="Imagen 36" src="sim_help_simulator_archivos/image019.jpg" alt="" name="Imagen 36" />
       </p>
       <p class="cleanuphtml-3">
-        <a name="_Toc438322916"></a><a class="cleanuphtml-2" name="_Ref434194139">Figura</a> <b>27</b> <b>Pantalla principal: visualización de la unidad de control</b>
+        <a name="_Toc438322916"></a><a class="cleanuphtml-2" name="_Ref434194139">Figura</a> <b>27</b> <b>Pantalla principal: visualizaci&oacute;n de la unidad de control</b>
       </p>
       <p>
-        Así como también es posible reiniciar la ejecución haciendo clic al botón "Reset" situado en la barra de botones que aparece en la parte inferior de la pantalla.
+        As&iacute; como tambi&eacute;n es posible reiniciar la ejecuci&oacute;n haciendo clic al bot&oacute;n "Reset" situado en la barra de botones que aparece en la parte inferior de la pantalla.
       </p>
       <p>
          

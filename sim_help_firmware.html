@@ -20,13 +20,13 @@
   <body>
     <div class="WordSection1">
       <h1>
-        <a name="_Toc438322850">Microcódigo en WepSIM</a>
+        <a name="_Toc438322850">Microc&oacute;digo en WepSIM</a>
       </h1>
       <p>
          
       </p>
       <p>
-        El microcódigo se carga a través de un fichero de texto que tiene tres secciones:
+        El microc&oacute;digo se carga a trav&eacute;s de un fichero de texto que tiene tres secciones:
       </p>
       <p>
         1.    Lista de microprogramas
@@ -38,8 +38,8 @@
         3.    Pseudo-instrucciones
       </p>
       <p>
-        La lista de microprogramas comienza con el código del <i>fetch</i>.<br />
-        Un ejemplo de microprograma de <b>fetch</b> básico sería:
+        La lista de microprogramas comienza con el c&oacute;digo del <i>fetch</i>.<br />
+        Un ejemplo de microprograma de <b>fetch</b> b&aacute;sico ser&iacute;a:
       </p>
       <p>
         fetch
@@ -63,17 +63,17 @@
         }
       </p>
       <p class="cleanuphtml-2">
-        <a class="cleanuphtml-1" name="_Toc438322900">Figura</a> <b>11</b> <b>Ejemplo de descripción para</b> <b>fetch</b>
+        <a class="cleanuphtml-1" name="_Toc438322900">Figura</a> <b>11</b> <b>Ejemplo de descripci&oacute;n para</b> <b>fetch</b>
       </p>
       <p>
-        Las señales de control situadas entre  ( y ) se corresponden con las señales a activar en un ciclo de reloj. Así el fetch necesita cuatro, el último se corresponde con la decodificación
+        Las se&ntilde;ales de control situadas entre  ( y ) se corresponden con las se&ntilde;ales a activar en un ciclo de reloj. As&iacute; el fetch necesita cuatro, el &uacute;ltimo se corresponde con la decodificaci&oacute;n
         (incluida en dentro del fetch).
       </p>
       <p>
-        A continuación se encuentran el resto de microprogramas asociados a cada instrucción. Cada microprograma sigue el siguiente formato:
+        A continuaci&oacute;n se encuentran el resto de microprogramas asociados a cada instrucci&oacute;n. Cada microprograma sigue el siguiente formato:
       </p>
       <p>
-        inst1 Parámetro1 Parámetro2 …
+        inst1 Par&aacute;metro1 Par&aacute;metro2 …
       </p>
       <p>
         {
@@ -112,24 +112,24 @@
         }
       </p>
       <p class="cleanuphtml-2">
-        <a class="cleanuphtml-1" name="_Toc438322901">Figura</a> <b>12</b> <b>Ejemplo de formato de descripción de una instrucción</b>
+        <a class="cleanuphtml-1" name="_Toc438322901">Figura</a> <b>12</b> <b>Ejemplo de formato de descripci&oacute;n de una instrucci&oacute;n</b>
       </p>
       <p>
          
       </p>
       <p>
-        Donde la primera línea describe el nombre de la instrucción (inst1) y los parámetros que tiene (registros, valores inmediatos, etc.). A continuación se abre un bloque con llaves para
-        describir dicha instrucción.
+        Donde la primera l&iacute;nea describe el nombre de la instrucci&oacute;n (inst1) y los par&aacute;metros que tiene (registros, valores inmediatos, etc.). A continuaci&oacute;n se abre un bloque con llaves para
+        describir dicha instrucci&oacute;n.
       </p>
       <p>
-        El primer campo del ejemplo (co) que indica los 6 bits que identifica unívocamente la instrucción. Esto no es cierto para las instrucciones aritmético-lógicas que comparten el mismo código de
-        operación y según el valor del campo cop se diferencian. Un ejemplo de este caso sería:
+        El primer campo del ejemplo (co) que indica los 6 bits que identifica un&iacute;vocamente la instrucci&oacute;n. Esto no es cierto para las instrucciones aritm&eacute;tico-l&oacute;gicas que comparten el mismo c&oacute;digo de
+        operaci&oacute;n y seg&uacute;n el valor del campo cop se diferencian. Un ejemplo de este caso ser&iacute;a:
       </p>
       <p>
          
       </p>
       <p>
-        inst1 Parámetro1 Parámetro2 …
+        inst1 Par&aacute;metro1 Par&aacute;metro2 …
       </p>
       <p>
         {
@@ -171,36 +171,36 @@
         }
       </p>
       <p class="cleanuphtml-2">
-        <a class="cleanuphtml-1" name="_Toc438322902">Figura</a> <b>13</b> <b>Detalle en la descripción de una instrucción: campo cop</b>
+        <a class="cleanuphtml-1" name="_Toc438322902">Figura</a> <b>13</b> <b>Detalle en la descripci&oacute;n de una instrucci&oacute;n: campo cop</b>
       </p>
       <p>
         <br />
-        Los siguientes campos indican para cada uno de los parámetros qué tipo es (registro, inmediato o dirección) así como el bit de inicio y final entre los cuales está el valor de dicho
-        parámetro.
+        Los siguientes campos indican para cada uno de los par&aacute;metros qu&eacute; tipo es (registro, inmediato o direcci&oacute;n) as&iacute; como el bit de inicio y final entre los cuales est&aacute; el valor de dicho
+        par&aacute;metro.
       </p>
       <p>
-        El tipo de parámetro se indica con:
+        El tipo de par&aacute;metro se indica con:
       </p>
       <p>
-        ·       parametro1 = reg(bit-inicio, bit-final): para un registro.
+        &middot;       parametro1 = reg(bit-inicio, bit-final): para un registro.
       </p>
       <p>
-        ·       parametro1 = inm(bit-inicio, bit-final): para un valor inmediato.
+        &middot;       parametro1 = inm(bit-inicio, bit-final): para un valor inmediato.
       </p>
       <p>
-        ·       parametro1 = addr(bit-inicio, bit-final)rel: para una dirección relativa.
+        &middot;       parametro1 = addr(bit-inicio, bit-final)rel: para una direcci&oacute;n relativa.
       </p>
       <p>
-        ·       parametro1 = addr(bit-inicio, bit-final)abs: para una dirección absoluta.
+        &middot;       parametro1 = addr(bit-inicio, bit-final)abs: para una direcci&oacute;n absoluta.
       </p>
       <p>
-        A continuación se abre un bloque donde se indicará el microprograma correspondiente a la instrucción. Las señales de cada ciclo están entre paréntesis y se separan dichos ciclos por coma. Si
-        solo hay un ciclo no es necesario la coma. Dentro de los paréntesis se indicarán las señales y el valor correspondiente. Si es una señal de un bit, con solo poner el nombre de la señal se
-        entenderá que su valor es uno. El valor de la señal se ha de indicar en binario, usando tantos bits como tenga asociado la señal. Las señales y su valor correspondientes se separan usando una
+        A continuaci&oacute;n se abre un bloque donde se indicar&aacute; el microprograma correspondiente a la instrucci&oacute;n. Las se&ntilde;ales de cada ciclo est&aacute;n entre par&eacute;ntesis y se separan dichos ciclos por coma. Si
+        solo hay un ciclo no es necesario la coma. Dentro de los par&eacute;ntesis se indicar&aacute;n las se&ntilde;ales y el valor correspondiente. Si es una se&ntilde;al de un bit, con solo poner el nombre de la se&ntilde;al se
+        entender&aacute; que su valor es uno. El valor de la se&ntilde;al se ha de indicar en binario, usando tantos bits como tenga asociado la se&ntilde;al. Las se&ntilde;ales y su valor correspondientes se separan usando una
         coma.
       </p>
       <p>
-        Para el nombrado de registros se precisa indicar la etiqueta que se usará para cada uno de los 32 registros del banco de registros. Un ejemplo de esta sección es:<br />
+        Para el nombrado de registros se precisa indicar la etiqueta que se usar&aacute; para cada uno de los 32 registros del banco de registros. Un ejemplo de esta secci&oacute;n es:<br />
         <br />
       </p>
       <p>
@@ -274,18 +274,18 @@
       </p>
       <p>
         <br />
-        En la que se indican los nombres usados en la arquitectura MIPS32. En este ejemplo el registro 29 etiquetado con $sp tiene el atributo "(stack_pointer)" para indicar que será usado como
+        En la que se indican los nombres usados en la arquitectura MIPS32. En este ejemplo el registro 29 etiquetado con $sp tiene el atributo "(stack_pointer)" para indicar que ser&aacute; usado como
         puntero de pila.
       </p>
       <p>
-        Por último es posible definir pseudo-instrucciones.<br />
+        Por &uacute;ltimo es posible definir pseudo-instrucciones.<br />
         <br />
       </p><br clear="all" />
       <p>
          
       </p>
       <p>
-        Un ejemplo de pseudoinstrucción sería:
+        Un ejemplo de pseudoinstrucci&oacute;n ser&iacute;a:
       </p>
       <p>
         Pseudoinstructions<br />
@@ -301,31 +301,31 @@
          
       </p>
       <p class="cleanuphtml-2">
-        <a class="cleanuphtml-1" name="_Toc438322904">Figura</a> <b>15</b> <b>Ejemplo de pseudo-instrucción (sección opcional)</b>
+        <a class="cleanuphtml-1" name="_Toc438322904">Figura</a> <b>15</b> <b>Ejemplo de pseudo-instrucci&oacute;n (secci&oacute;n opcional)</b>
       </p>
       <p>
         <br />
-        Donde el operador "sel(bit-inicio, bit-final, campo)" permite seleccionar una serie de bits de uno de los campos de la pseudo-instrucción.
+        Donde el operador "sel(bit-inicio, bit-final, campo)" permite seleccionar una serie de bits de uno de los campos de la pseudo-instrucci&oacute;n.
       </p>
       <p>
          
       </p>
       <p>
-        Un fichero de texto con las tres secciones antes comentadas (microcódigo, nombrado de registro y definición de pseudo-instrucciones) se carga en la pantalla de Firmware. Para acceder a dicha
-        pantalla se ha de ir al menú (parte superior derecha) e indicar la opción <i>Firmware</i> (véase la <b class="cleanuphtml-4">Figura 16</b>)
+        Un fichero de texto con las tres secciones antes comentadas (microc&oacute;digo, nombrado de registro y definici&oacute;n de pseudo-instrucciones) se carga en la pantalla de Firmware. Para acceder a dicha
+        pantalla se ha de ir al men&uacute; (parte superior derecha) e indicar la opci&oacute;n <i>Firmware</i> (v&eacute;ase la <b class="cleanuphtml-4">Figura 16</b>)
       </p>
       <p>
         <img width="92" height="50" src="sim_help_firmware_archivos/image001.png" alt="" /><img width="893" height="467" id="Imagen 6" src="sim_help_firmware_archivos/image002.jpg" alt="" name=
         "Imagen 6" />
       </p>
       <p class="cleanuphtml-2">
-        <a name="_Ref434190846"></a><a name="_Toc438322905"></a><a class="cleanuphtml-1" name="_Ref434190877">Figura</a> <b>16</b> <b>Pantalla principal: opción de carga de firmware</b>
+        <a name="_Ref434190846"></a><a name="_Toc438322905"></a><a class="cleanuphtml-1" name="_Ref434190877">Figura</a> <b>16</b> <b>Pantalla principal: opci&oacute;n de carga de firmware</b>
       </p>
       <p>
         <br />
-        A continuación aparecerá una pantalla con un cuadro de texto que permite indicar el <i>firmware</i> (las tres secciones antes comentadas). Es posible cargar un <i>firmware</i> existente
-        usando el botón "Load" de la barra inferior, modificar un <i>firmware</i> anteriormente cargado o salvar el firmware en curso con el botón "Save" de la barra inferior. Una vez se indique el
-        firmware es preciso hacer clic en el botón "µcompile" para pasar a binario y cargar en la memoria de control dicho firmware, como se muestra en la <b class="cleanuphtml-4">Figura 17</b>.
+        A continuaci&oacute;n aparecer&aacute; una pantalla con un cuadro de texto que permite indicar el <i>firmware</i> (las tres secciones antes comentadas). Es posible cargar un <i>firmware</i> existente
+        usando el bot&oacute;n "Load" de la barra inferior, modificar un <i>firmware</i> anteriormente cargado o salvar el firmware en curso con el bot&oacute;n "Save" de la barra inferior. Una vez se indique el
+        firmware es preciso hacer clic en el bot&oacute;n "&micro;compile" para pasar a binario y cargar en la memoria de control dicho firmware, como se muestra en la <b class="cleanuphtml-4">Figura 17</b>.
       </p>
       <p>
          
@@ -339,7 +339,7 @@
       </p>
       <p>
         <br />
-        Una vez cargado el nuevo <i>firmware</i> correctamente aparecerá la pantalla mostrada en la <b class="cleanuphtml-4">Figura 18</b> en la que se muestra la memoria de control con los valores
+        Una vez cargado el nuevo <i>firmware</i> correctamente aparecer&aacute; la pantalla mostrada en la <b class="cleanuphtml-4">Figura 18</b> en la que se muestra la memoria de control con los valores
         que almacena.
       </p>
       <p>
@@ -353,7 +353,7 @@
       </p>
       <p>
         <br />
-        El siguiente paso es la carga del programa ensamblador que permita probar este <i>firmware</i>, para ello podemos pulsar el botón "Assembly" de la barra inferior.
+        El siguiente paso es la carga del programa ensamblador que permita probar este <i>firmware</i>, para ello podemos pulsar el bot&oacute;n "Assembly" de la barra inferior.
       </p>
       <p>
          
@@ -361,3 +361,4 @@
     </div>
   </body>
 </html>
+
