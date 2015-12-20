@@ -915,8 +915,10 @@
 						    // 3.-  Decoded instruction
 						    sim_states['REG_IR_DECO'].value = "<font color=blue>" + show_decode_instruction(oi,bits) + "</font>";
 						    sim_states['DECO_INS'].value = sim_states['DECO_INS'].value + 1 ;
+
                                                     // F'elix request:
-						    var o = document.getElementById('svg_p').contentDocument.getElementById('tspan3899'); 
+						    var o = document.getElementById('svg_p');
+						    if (o != null) o = o.contentDocument.getElementById('tspan3899'); 
 						    if (o != null) o.innerHTML = show_decode_instruction(oi,bits);
 
 						    // 4.- ROM[rom_addr] -> mc-start -> ROM_MUXA
