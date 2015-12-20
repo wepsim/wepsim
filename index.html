@@ -45,23 +45,6 @@
         background-repeat: no-repeat;
         background-size: 15px 15px;
     }
-
-    @media (max-width: 768px) {
-      .btn-responsive {
-        padding:2px 4px;
-        font-size:80%;
-        line-height: 3;
-        border-radius:3px;
-      }
-    }
-
-    @media (min-width: 769px) and (max-width: 992px) {
-      .btn-responsive {
-        padding:4px 9px;
-        font-size:90%;
-        line-height: 2;
-      }
-    }
     </style>
 
     <link rel="stylesheet" href="external/bootstrap.min.css">
@@ -459,27 +442,26 @@
                 <div class="col-md-4" style="padding: 0 12px 0 12px;">
 
                     <div class="btn-toolbar" role="toolbar" style="padding: 0 0px 10px 0px;">
-			<div data-role="controlgroup" data-type="horizontal" class="btn-group" style="margin-top:2;">
+			<div class="btn-group btn-group-justified" role="group">
 			    <a href="#"
-			       class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-reset   ui-btn-icon-top ui-mini btn-responsive"
+			       class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-reset   ui-btn-icon-top ui-mini"
 			       onclick="reset();">Reset</a>
 			    <a href="#"
-			       class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini btn-responsive"
+			       class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini"
 			       onclick="execute_microinstruction();">&#181;Instruction</a>
 			    <a href="#"
-			       class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini btn-responsive"
+			       class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini"
 			       onclick="execute_instruction();">Instruction</a>
 			    <a id="qbp" href="#"
-			       class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-carat-r ui-btn-icon-top ui-mini btn-responsive"
+			       class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-carat-r ui-btn-icon-top ui-mini"
 			       onclick="toggle_play('#qbp'); return false;">Run</a>
-                        </div>
-			<div data-role="controlgroup" data-type="horizontal" class="btn-group" style="margin-top:2;">
+
 			    <a id="ib1" href="#"
-			       class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-arrow-u ui-btn-icon-top ui-mini btn-responsive"
+			       class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-arrow-u ui-btn-icon-top ui-mini"
 			       onclick="toggle_im('ib1');">Non-Interactive</a>
 			    <a href="#"
 			       onclick="$('#iframe_help1').load('sim_help_simulator.html', function(){$('#help1').trigger('updatelayout'); $('#help1').popup('open');});"
-			       class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-info    ui-btn-icon-top ui-mini btn-responsive">Help</a>
+			       class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-info    ui-btn-icon-top ui-mini">Help</a>
                         </div>
                     </div>
 
@@ -589,38 +571,36 @@
 		</div>
 
                 <div class="btn-toolbar" role="toolbar">
-			<div data-role="controlgroup" data-type="horizontal" class="btn-group">
+                        <div class="btn-group btn-group-justified" role="group">
 				<a href="#lssave"
-				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-top ui-mini btn-responsive"
+				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-top ui-mini"
 				   data-rel="popup" data-position-to="window" data-transition="pop">Save</a>
 				<a href="#lsload"
-				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-back    ui-btn-icon-top ui-mini btn-responsive"
+				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-back    ui-btn-icon-top ui-mini"
 				   data-rel="popup" data-position-to="window" data-transition="pop">Load</a>
 				<a href="#" 
 				   onclick="load_firmware_from_example(); $('#btn31').trigger('click');"
-				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-bars    ui-btn-icon-top ui-mini btn-responsive">Example</a>
+				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-bars    ui-btn-icon-top ui-mini">Example</a>
 				<a href="#" 
 				   onclick="compileFirmware();            $('#btn32').trigger('click');"
-				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-top ui-mini btn-responsive">&#181;compile</a>
-			</div>
-			<div data-role="controlgroup" data-type="horizontal" class="btn-group">
+				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-top ui-mini">&#181;compile</a>
+
 			        <a id="tab24" href="#"
-				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear    ui-btn-icon-top ui-mini btn-responsive"
+				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear    ui-btn-icon-top ui-mini"
 				   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');">Assembly</a>
 			        <a id="tab25" href="#"
-				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear    ui-btn-icon-top ui-mini btn-responsive"
+				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear    ui-btn-icon-top ui-mini"
 				   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a>
 				<a href="#"
 				   onclick="$('#iframe_help1').load('sim_help_firmware.html', function(){$('#help1').trigger('updatelayout'); $('#help1').popup('open');});"
-				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-info    ui-btn-icon-top ui-mini btn-responsive">Help</a>
-			</div>
-			<div data-role="controlgroup" data-type="horizontal" class="btn-group">
+				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-info    ui-btn-icon-top ui-mini">Help</a>
+
 				<a id=btn31 href="#" 
-				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-active ui-mini btn-responsive"
+				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-active ui-mini"
 				   onclick="$('#tab31').trigger('click'); $('#btn32').removeClass('ui-btn-active'); $('#btn31').addClass('ui-btn-active');"
 				   >Firmware Specification</a>
 				<a id=btn32 href="#"  
-				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-mini btn-responsive"
+				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-mini"
 				   onclick="$('#tab32').trigger('click'); $('#btn31').removeClass('ui-btn-active'); $('#btn32').addClass('ui-btn-active');"
 				   >co2&#181;addr + control memory</a>
 			</div>
@@ -703,38 +683,36 @@
 		</div>
 
                 <div class="btn-toolbar" role="toolbar">
-                          <div data-role="controlgroup" data-type="horizontal" class="btn-group">
+                        <div class="btn-group btn-group-justified" role="group">
 				<a href="#lssave2"
-				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-top ui-mini btn-responsive"
+				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-top ui-mini"
 				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Save</a>
 				<a href="#lsload2"
-				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-back    ui-btn-icon-top ui-mini btn-responsive"
+				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-back    ui-btn-icon-top ui-mini"
 				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Load</a>
 				<a href="#" onclick="load_assembly_from_example(); $('#btn41').trigger('click');"
-				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-bars     ui-btn-icon-top ui-mini btn-responsive"
+				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-bars     ui-btn-icon-top ui-mini"
 				   data-inline="true">Example</a>
 				<a href="#" onclick="compileAssembly(); $('#btn42').trigger('click');" id="emp"
-				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-top ui-mini btn-responsive"
+				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-top ui-mini"
 				   data-inline="true">Compile</a>
-                          </div>
-                          <div data-role="controlgroup" data-type="horizontal" class="btn-group">
+
                                 <a id="tab25" href="#"
-                                   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear    ui-btn-icon-top ui-mini btn-responsive"
+                                   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear    ui-btn-icon-top ui-mini"
                                    onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a>
                                 <a id="tab24" href="#"
-                                   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear    ui-btn-icon-top ui-mini btn-responsive"
+                                   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear    ui-btn-icon-top ui-mini"
                                    onclick="$.mobile.pageContainer.pagecontainer('change','#main3');">Firmware</a>
 				<a href="#"
 				   onclick="$('#iframe_help1').load('sim_help_assembly.html', function(){$('#iframe_help1').trigger('create'); $('#help1').popup('open');});"
-				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-info    ui-btn-icon-top ui-mini btn-responsive">Help</a>
-                          </div>
-                          <div data-role="controlgroup" data-type="horizontal" class="btn-group">
+				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-info    ui-btn-icon-top ui-mini">Help</a>
+
 				<a id=btn41 href="#" 
-				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-active ui-mini btn-responsive"
+				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-active ui-mini"
 				   onclick="$('#tab41').trigger('click'); $('#btn42').removeClass('ui-btn-active'); $('#btn41').addClass('ui-btn-active');"
 				   >Assembly Code</a>
 				<a id=btn42 href="#"  
-				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-mini btn-responsive"
+				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-mini"
 				   onclick="$('#tab42').trigger('click'); $('#btn41').removeClass('ui-btn-active'); $('#btn42').addClass('ui-btn-active');"
 				   >Main Memory</a>
                           </div>
