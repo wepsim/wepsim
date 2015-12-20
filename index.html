@@ -69,7 +69,7 @@
 
     <script src="bootstrap.min.js"></script>
     <script src="knockout-3.3.0.js"></script>
-    <script src='//cdn.tinymce.com/4/tinymce.min.js'></script>
+    <script src='tinymce.min.js'></script>
 
     <script src="sim_all.min.js"></script>
 
@@ -456,10 +456,10 @@
 	    	    </div>
                 </div>
 
-                <div class="col-md-4" style="padding: 0 15px 0 15px;">
+                <div class="col-md-4" style="padding: 0 12px 0 12px;">
 
-                    <div class="btn-toolbar" role="toolbar">
-			<div data-role="controlgroup" data-type="horizontal" class="btn-group">
+                    <div class="btn-toolbar" role="toolbar" style="padding: 0 0px 10px 0px;">
+			<div data-role="controlgroup" data-type="horizontal" class="btn-group" style="margin-top:2;">
 			    <a href="#"
 			       class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-reset   ui-btn-icon-top ui-mini btn-responsive"
 			       onclick="reset();">Reset</a>
@@ -473,12 +473,12 @@
 			       class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-carat-r ui-btn-icon-top ui-mini btn-responsive"
 			       onclick="toggle_play('#qbp'); return false;">Run</a>
                         </div>
-			<div data-role="controlgroup" data-type="horizontal" class="btn-group">
+			<div data-role="controlgroup" data-type="horizontal" class="btn-group" style="margin-top:2;">
 			    <a id="ib1" href="#"
 			       class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-arrow-u ui-btn-icon-top ui-mini btn-responsive"
 			       onclick="toggle_im('ib1');">Non-Interactive</a>
 			    <a href="#"
-			       onclick="$('#iframe_help1').load('sim_help_simulator.html', function(){$('#iframe_help1').trigger('create'); $('#help1').popup('open');});"
+			       onclick="$('#iframe_help1').load('sim_help_simulator.html', function(){$('#help1').trigger('updatelayout'); $('#help1').popup('open');});"
 			       class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-info    ui-btn-icon-top ui-mini btn-responsive">Help</a>
                         </div>
                     </div>
@@ -508,10 +508,10 @@
 			 </div>
 		      </div>
 		      <div id="mp"   class="ui-body-d ui-content">
-		         <div id="memory_MP"           style="height:50vh; width: inherit; overflow-y: scroll;"></div>
+		         <div id="memory_MP"           style="height:60vh; width: inherit; overflow-y: scroll;"></div>
 		      </div>
 		      <div id="mc"   class="ui-body-d ui-content">
-		         <div id="memory_MC"           style="height:50vh; width: inherit; overflow-y: scroll;"></div>
+		         <div id="memory_MC"           style="height:60vh; width: inherit; overflow-y: scroll;"></div>
 		      </div>
 		      <div id="con"  class="ui-body-d ui-content">
                          <img height=55 src="images/monitor2.png">
@@ -621,7 +621,7 @@
 				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear    ui-btn-icon-top ui-mini btn-responsive"
 				   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a>
 				<a href="#"
-				   onclick="$('#iframe_help1').load('sim_help_firmware.html', function(){$('#iframe_help1').trigger('create'); $('#help1').popup('open');});"
+				   onclick="$('#iframe_help1').load('sim_help_firmware.html', function(){$('#help1').trigger('updatelayout'); $('#help1').popup('open');});"
 				   class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-info    ui-btn-icon-top ui-mini btn-responsive">Help</a>
 			</div>
 		</div>
@@ -776,24 +776,21 @@
 <div data-role="panel" id="actions_panel" 
      data-display="overlay" data-position="right" data-theme="a">
 
-        <a href="#" data-rel="close" 
-           class="ui-btn ui-btn-inline ui-shadow ui-corner-all ui-btn-a ui-icon-delete ui-btn-icon-right ui-mini">Close</a>
-
 	<ul id="listview_1" data-role="listview" data-inset="true" data-theme="a" data-divider-theme="b">
 	    <li data-role="list-divider">WorkSpaces</li>
 	    <li><a id="tab21" href="#"
 		   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');">
-		     <h2>Firmware</h2><p>microcode</p></a></li>
+		     <h2>Firmware</h2></a></li>
 	    <li><a id="tab24" href="#"
 		   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');">
-		     <h2>Assembly</h2><p>code & data</p></a></li>
+		     <h2>Assembly</h2></a></li>
 	    <li><a id="tab25" href="#"
 		   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">
-		     <h2>Simulator</h2><p>run simulation</p></a></li>
+		     <h2>Simulator</h2></a></li>
 
 	    <li data-role="list-divider">Configuration</li>
 	    <li class="list-group-item">
-		 Speed-up (slower - faster)
+		 Speed-up (slower - faster):
 		 <input type="range"
 			data-show-value="false"
 			name="slider1" id="slider1"
@@ -802,15 +799,21 @@
 	    </li>
 	    <li class="list-group-item">
 		 <fieldset data-role="controlgroup" data-type="vertical">
-		 Single step element
+		 Single step element:
+                 <ul>
+                 <li>
 		     <input name="radio-choice-h-2" id="radio-choice-h-2a" data-mini="true"
 			    onclick="DBG_level='instruction';"
 			    value="on" checked="checked" type="radio">
 		     <label for="radio-choice-h-2a">instruction</label>
+                 </li>
+                 <li>
 		     <input name="radio-choice-h-2" id="radio-choice-h-2b" data-mini="true"
 			    onclick="DBG_level='microinstruction';"
 			    value="off" type="radio">
 		     <label for="radio-choice-h-2b">&#181;instruction</label>
+                 </li>
+                 </ul>
 		 </fieldset>
 	    </li>
 	</ul>
@@ -889,7 +892,6 @@
             $("#actions_panel").panel().enhanceWithin();
 	    $(".ui-slider-input").hide();
             $("#listview_1").listview();
-            $("#actions_panel").trigger('refresh');
 
             $("#tabsnav1").navbar();
             $("#tabsnav2").navbar();

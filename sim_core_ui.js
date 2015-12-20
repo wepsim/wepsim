@@ -196,10 +196,11 @@
 
 
         var filter_states = [ "REG_IR_DECO,1",   
-                              "REG_PC,0",        "REG_MAR,0", "REG_MBR,0",    "REG_IR,0", 
-                              "REG_RT1,0",       "REG_RT2,0", "REG_RT3,0",    "REG_SR,0", 
-                              "FLAG_O,0",        "FLAG_N,0",  "FLAG_Z,0",     "FLAG_I,0",    "FLAG_U,0", 
-                              "REG_MICROADDR,0" ] ;
+                              "REG_IR,0",  "REG_PC,0",  "REG_SR,0", 
+                              "REG_RT1,0", "REG_RT2,0", "REG_RT3,0",    
+                              "REG_MAR,0", "REG_MBR,0", "REG_MICROADDR,0",
+                              "FLAG_O,0",  "FLAG_N,0",  "FLAG_Z,0",     
+                              "FLAG_I,0",  "FLAG_U,0" ] ;
 
         var divclasses = [ "col-xs-3 col-sm-3 col-md-3 col-lg-2",
                            "col-xs-6 col-sm-6 col-md-6 col-lg-6" ] ;
