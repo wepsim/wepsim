@@ -459,9 +459,6 @@
 			    <a id="ib1" href="#"
 			       class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-arrow-u ui-btn-icon-top ui-mini"
 			       onclick="toggle_im('ib1');">Non-Interactive</a>
-			    <a href="#"
-			       onclick="$('#iframe_help1').load('sim_help_simulator.html', function(){$('#help1').trigger('updatelayout'); $('#help1').popup('open');});"
-			       class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-info    ui-btn-icon-top ui-mini">Help</a>
                         </div>
                     </div>
 
@@ -591,9 +588,6 @@
 			        <a id="tab25" href="#"
 				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear    ui-btn-icon-top ui-mini"
 				   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a>
-				<a href="#"
-				   onclick="$('#iframe_help1').load('sim_help_firmware.html', function(){$('#help1').trigger('updatelayout'); $('#help1').popup('open');});"
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-info    ui-btn-icon-top ui-mini">Help</a>
 
 				<a id=btn31 href="#" 
 				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-active ui-mini"
@@ -703,9 +697,6 @@
                                 <a id="tab24" href="#"
                                    class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear    ui-btn-icon-top ui-mini"
                                    onclick="$.mobile.pageContainer.pagecontainer('change','#main3');">Firmware</a>
-				<a href="#"
-				   onclick="$('#iframe_help1').load('sim_help_assembly.html', function(){$('#iframe_help1').trigger('create'); $('#help1').popup('open');});"
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-info    ui-btn-icon-top ui-mini">Help</a>
 
 				<a id=btn41 href="#" 
 				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-active ui-mini"
@@ -761,13 +752,25 @@
 	    <li data-role="list-divider">WorkSpaces</li>
 	    <li><a id="tab21" href="#"
 		   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');">
-		     <h2>Firmware</h2></a></li>
+		     <h2>Firmware</h2></a>
+	        <a href="#"
+	           onclick="$('#iframe_help1').load('sim_help_firmware.html', function(){$('#help1').trigger('updatelayout');
+                            $('#help1').popup('open');});"
+	           class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-info ui-mini"></a></li>
 	    <li><a id="tab24" href="#"
 		   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');">
-		     <h2>Assembly</h2></a></li>
+		     <h2>Assembly</h2></a>
+	        <a href="#"
+	           onclick="$('#iframe_help1').load('sim_help_assembly.html', function(){$('#help1').trigger('updatelayout');
+                            $('#help1').popup('open');});"
+	           class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-info ui-mini"></a></li>
 	    <li><a id="tab25" href="#"
 		   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">
-		     <h2>Simulator</h2></a></li>
+		   <h2>Simulator</h2></a>
+	        <a href="#"
+	           onclick="$('#iframe_help1').load('sim_help_simulator.html', function(){$('#help1').trigger('updatelayout');
+                            $('#help1').popup('open');});"
+	           class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-info ui-mini"></a></li>
 
 	    <li data-role="list-divider">Configuration</li>
 	    <li class="list-group-item">
@@ -852,7 +855,9 @@
 
       <div data-role="header" data-theme="b" class="ui-corner-top">
            <h1>Help</h1>
-           <a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+           <a href="#" 
+              data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" 
+              class="ui-btn-right">Close</a>
       </div>
 
       <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
