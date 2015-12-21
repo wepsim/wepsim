@@ -455,7 +455,6 @@
 			    <a id="qbp" href="#"
 			       class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-carat-r ui-btn-icon-top ui-mini"
 			       onclick="toggle_play('#qbp'); return false;">Run</a>
-
 			    <a id="ib1" href="#"
 			       class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-arrow-u ui-btn-icon-top ui-mini"
 			       onclick="toggle_im('ib1');">Non-Interactive</a>
@@ -567,38 +566,36 @@
 		    </div>
 		</div>
 
-                <div class="btn-toolbar" role="toolbar">
-                        <div class="btn-group btn-group-justified" role="group">
-				<a href="#lssave"
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-top ui-mini"
-				   data-rel="popup" data-position-to="window" data-transition="pop">Save</a>
-				<a href="#lsload"
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-back    ui-btn-icon-top ui-mini"
-				   data-rel="popup" data-position-to="window" data-transition="pop">Load</a>
-				<a href="#" 
+                <ul class="nav nav-justified">
+		            <li><a href="#lssave"
+				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-top ui-mini"
+				   data-rel="popup" data-position-to="window" data-transition="pop">Save</a></li>
+		            <li><a href="#lsload"
+				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-back    ui-btn-icon-top ui-mini"
+				   data-rel="popup" data-position-to="window" data-transition="pop">Load</a></li>
+		            <li><a href="#" 
 				   onclick="load_firmware_from_example(); $('#btn31').trigger('click');"
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-bars    ui-btn-icon-top ui-mini">Example</a>
-				<a href="#" 
+				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-bars    ui-btn-icon-top ui-mini">Example</a></li>
+		            <li><a href="#" 
 				   onclick="compileFirmware();            $('#btn32').trigger('click');"
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-top ui-mini">&#181;compile</a>
+				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-top ui-mini">&#181;compile</a></li>
 
-			        <a id="tab24" href="#"
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear    ui-btn-icon-top ui-mini"
-				   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');">Assembly</a>
-			        <a id="tab25" href="#"
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear    ui-btn-icon-top ui-mini"
-				   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a>
+			    <li><a id="tab24" href="#"
+				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear    ui-btn-icon-top ui-mini"
+				   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');">Assembly</a></li>
+                            <li><a id="tab25" href="#"
+                                   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear    ui-btn-icon-top ui-mini"
+                                   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a></li>
 
-				<a id=btn31 href="#" 
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-active ui-mini"
+		            <li><a id=btn31 href="#" 
+				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-active ui-mini"
 				   onclick="$('#tab31').trigger('click'); $('#btn32').removeClass('ui-btn-active'); $('#btn31').addClass('ui-btn-active');"
-				   >Firmware Specification</a>
-				<a id=btn32 href="#"  
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-mini"
+				   >Firmware Specification</a></li>
+		            <li><a id=btn32 href="#"  
+				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-mini"
 				   onclick="$('#tab32').trigger('click'); $('#btn31').removeClass('ui-btn-active'); $('#btn32').addClass('ui-btn-active');"
-				   >co2&#181;addr + control memory</a>
-			</div>
-		</div>
+				   >co2&#181;addr + control memory</a></li>
+		</ul>
 
 		<div data-role="tabs" id="tabs3">
 		      <div data-role="navbar" style="visibility:hidden; position:absolute;">
@@ -676,38 +673,36 @@
 		    </div>
 		</div>
 
-                <div class="btn-toolbar" role="toolbar">
-                        <div class="btn-group btn-group-justified" role="group">
-				<a href="#lssave2"
+                <ul class="nav nav-justified">
+		            <li><a href="#lssave2"
 				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-top ui-mini"
-				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Save</a>
-				<a href="#lsload2"
+				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Save</a></li>
+		            <li><a href="#lsload2"
 				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-back    ui-btn-icon-top ui-mini"
-				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Load</a>
-				<a href="#" onclick="load_assembly_from_example(); $('#btn41').trigger('click');"
+				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Load</a></li>
+		            <li><a href="#" onclick="load_assembly_from_example(); $('#btn41').trigger('click');"
 				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-bars     ui-btn-icon-top ui-mini"
-				   data-inline="true">Example</a>
-				<a href="#" onclick="compileAssembly(); $('#btn42').trigger('click');" id="emp"
+				   data-inline="true">Example</a></li>
+		            <li><a href="#" onclick="compileAssembly(); $('#btn42').trigger('click');" id="emp"
 				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-top ui-mini"
-				   data-inline="true">Compile</a>
+				   data-inline="true">Compile</a></li>
 
-                                <a id="tab25" href="#"
+                            <li><a id="tab25" href="#"
                                    class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear    ui-btn-icon-top ui-mini"
-                                   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a>
-                                <a id="tab24" href="#"
+                                   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a></li>
+                            <li><a id="tab24" href="#"
                                    class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear    ui-btn-icon-top ui-mini"
-                                   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');">Firmware</a>
+                                   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');">Firmware</a></li>
 
-				<a id=btn41 href="#" 
+		            <li><a id=btn41 href="#" 
 				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-active ui-mini"
 				   onclick="$('#tab41').trigger('click'); $('#btn42').removeClass('ui-btn-active'); $('#btn41').addClass('ui-btn-active');"
-				   >Assembly Code</a>
-				<a id=btn42 href="#"  
+				   >Assembly Code</a></li>
+		            <li><a id=btn42 href="#"  
 				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-mini"
 				   onclick="$('#tab42').trigger('click'); $('#btn41').removeClass('ui-btn-active'); $('#btn42').addClass('ui-btn-active');"
-				   >Main Memory</a>
-                          </div>
-		</div>
+				   >Main Memory</a></li>
+		</ul>
 
 		<div data-role="tabs" id="tabs4">
 		      <div data-role="navbar" id="tabsnav4" style="visibility:hidden; position:absolute;">
@@ -809,7 +804,7 @@
      data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
 
    <div data-role="header" data-theme="a">
-   <h1><b>Web elemental processor SIMulator</b> <span class="badge btn-success">1.2.1</span> </h1>
+   <h1><b>Web elemental processor SIMulator</b> <span class="badge btn-success">1.2.0</span> </h1>
    </div>
    <div role="main" class="ui-content">
 
@@ -829,7 +824,11 @@
             <p>
         </div>
         <div class="col-xs-12 col-sm-12">
-	    <b>WepSIM</b> includes the <a rel="external" href="https://www.tinymce.com/">tinymce</a> Editor (Community version).
+	    <b>WepSIM</b> uses different technologies such as
+            <a rel="external" href="https://jquerymobile.com/">Jquery Mobile</a>,
+            <a rel="external" href="http://knockoutjs.com/">Knockout</a>,
+            <a rel="external" href="http://getbootstrap.com/">Bootstrap</a>,
+            and the <a rel="external" href="https://www.tinymce.com/">tinymce</a> Editor (Community version).
             <p>
         </div>
         <div class="col-xs-12 col-sm-12">
