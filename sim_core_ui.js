@@ -790,13 +790,13 @@
 
                      // join the pieces...
                      o +=  "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'>" +
-                           "<td style='line-height:0.9;' width='10%' id='bp" + l + "' " + 
-                           "    onclick='asmdbg_set_breakpoint(" + l + "); if(event.stopPropagation) event.stopPropagation();'>&nbsp;</td>" +
-                           "<td style='line-height:0.9;' width='15%'>" + l + "</td>" +
-                           "<td style='line-height:0.9;' width='12%' align=right>" + s1_label               + "</td>" +
-                           "<td style='line-height:0.9;' width='25%' align=left>"  + s1_instr               + "</td>" +
-                           "<td style='line-height:0.9;' width='12%' align=right>" + s2_label               + "</td>" +
-                           "<td style='line-height:0.9;' width='25%' align=left>"  + s2_instr               + "</td>" +
+                           "<td                   style='line-height:0.9;' width='10%' id='bp" + l + "' " + 
+                           "                      onclick='asmdbg_set_breakpoint(" + l + "); if(event.stopPropagation) event.stopPropagation();'>&nbsp;</td>" +
+                           "<td                   style='line-height:0.9;' width='15%'>" + l + "</td>" +
+                           "<td                   style='line-height:0.9;' width='12%' align=right>" + s1_label               + "</td>" +
+                           "<td                   style='line-height:0.9;' width='25%' align=left>"  + s1_instr               + "</td>" +
+                           "<td class='hidden-xs' style='line-height:0.9;' width='12%' align=right>" + s2_label               + "</td>" +
+                           "<td class='hidden-xs' style='line-height:0.9;' width='25%' align=left>"  + s2_instr               + "</td>" +
                            "</tr>" ;
                 }
                 o += "</tbody></table></center>" ;
