@@ -397,11 +397,6 @@
         {
             // 1.- set the global variable of in which mode we are
 	    is_interactive = interactive ;
-
-            // // 2.- be sure of starting on mc=1
-            // if (0 == sim_states["REG_MICROADDR"].value) {
-            //     compute_behavior("CLOCK") ;
-            // }
         }
 
         function get_interactive_mode()
@@ -420,11 +415,18 @@
                 sim_states["REG_PC"].value = parseInt(segments['code'].begin) ;
                 show_asmdbg_pc() ;
             }
+
 	    if (typeof segments['stack']!= "undefined")
 	    {
 		sim_states["BR"][FIRMWARE.stackRegister] = parseInt(segments['stack'].begin);
 	    }
+
             compute_behavior("CLOCK") ;
+
+	    show_states() ;
+	    show_rf() ;
+	    show_memories('MP',  MP,  0) ;
+	    show_memories('MC',  MC,  0) ;
         }
 
         function execute_microinstruction ()
@@ -447,6 +449,10 @@
                 }
 
                 compute_behavior("CLOCK") ;
+
+		show_states();
+		show_rf();
+                show_dbg_mpc();
         }
 
         function execute_microprogram ()
@@ -460,6 +466,11 @@
                          (0 != sim_states["REG_MICROADDR"].value) && 
                          (typeof MC[sim_states["REG_MICROADDR"].value] != "undefined") 
                       );
+
+		show_states();
+		show_rf();
+                if (DBG_level == "microinstruction")
+                    show_dbg_mpc();
         }
 
         function execute_instruction ()

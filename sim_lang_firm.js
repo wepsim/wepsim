@@ -396,6 +396,9 @@ function loadFirmware (text)
 		       numeroCampos++;
 		       firma = firma + getToken(context)  ;
 		       nextToken(context);
+
+		       if (numeroCampos > 100)
+			   return firmwareError(context, "more than 100 fields in a single instruction.") ;
 		   } 
 
                    // match optional "(" FIELD ")"

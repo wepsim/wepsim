@@ -839,10 +839,10 @@
     <text
        sodipodi:linespacing="125%"
        xml:space="preserve"
-       x="831.36597"
+       x="815.36597"
        y="349.42462"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:13.75px;line-height:125%;font-family:Arial;-inkscape-font-specification:'Arial, Normal';text-align:start;writing-mode:lr-tb;text-anchor:start;fill:#000000"
-       id="text3312">Cop</text>
+       id="text3312">SelCop</text>
     <path
        style="fill:#000000;fill-opacity:1;fill-rule:evenodd;stroke:none"
        d="m 737.25082,449.57196 c 0,-1.05257 0.78942,-1.91718 1.8044,-1.91718 0.97739,0 1.76682,0.86461 1.76682,1.91718 0,1.05257 -0.78943,1.87959 -1.76682,1.87959 -1.01498,0 -1.8044,-0.82702 -1.8044,-1.87959"

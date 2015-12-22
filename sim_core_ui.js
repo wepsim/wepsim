@@ -32,6 +32,7 @@
                 FIRMWARE['seg']                = new Object() ;
                 FIRMWARE['assembly']           = new Object() ;
                 FIRMWARE['labels']             = new Object() ;
+                FIRMWARE['labels2']            = new Object() ;
                 FIRMWARE['registers']          = new Object() ;
                 FIRMWARE['cihash']             = new Object() ;
                 FIRMWARE['pseudoInstructions'] = new Object() ;
@@ -47,18 +48,21 @@
                 FIRMWARE['firmware'] = preSIMWARE['firmware'] ;
 	    if (typeof preSIMWARE['mp'] != "undefined") 
                 FIRMWARE['mp'] = preSIMWARE['mp'] ;
-	    if (typeof preSIMWARE['seg'] != "undefined") 
-                FIRMWARE['seg'] = preSIMWARE['seg'] ;
-	    if (typeof preSIMWARE['assembly'] != "undefined") 
-                FIRMWARE['assembly'] = preSIMWARE['assembly'] ;
-	    if (typeof preSIMWARE['labels'] != "undefined") 
-                FIRMWARE['labels'] = preSIMWARE['labels'] ;
 	    if (typeof preSIMWARE['registers'] != "undefined") 
                 FIRMWARE['registers'] = preSIMWARE['registers'] ;
 	    if (typeof preSIMWARE['cihash'] != "undefined") 
                 FIRMWARE['cihash'] = preSIMWARE['cihash'] ;
+	    if (typeof preSIMWARE['assembly'] != "undefined") 
+                FIRMWARE['assembly'] = preSIMWARE['assembly'] ;
 	    if (typeof preSIMWARE['pseudoInstructions'] != "undefined") 
                 FIRMWARE['pseudoInstructions'] = preSIMWARE['pseudoInstructions'] ;
+
+	    if (typeof preSIMWARE['seg'] != "undefined") 
+                FIRMWARE['seg'] = preSIMWARE['seg'] ;
+	    if (typeof preSIMWARE['labels'] != "undefined") 
+                FIRMWARE['labels'] = preSIMWARE['labels'] ;
+	    if (typeof preSIMWARE['labels2'] != "undefined") 
+                FIRMWARE['labels2'] = preSIMWARE['labels2'] ;
 	    if (typeof preSIMWARE['stackRegister'] != "undefined")
 		FIRMWARE['stackRegister'] = preSIMWARE['stackRegister'] ;
 	}
@@ -172,8 +176,6 @@
 
         function show_rf ( ) 
         {
-            // (x >>> 0): http://stackoverflow.com/questions/16155592/negative-numbers-to-binary-string
-
             var SIMWARE = get_simware() ;
 
 	    for (var index=0; index < sim_states['BR'].length; index++) 
@@ -194,10 +196,11 @@
 
 
         var filter_states = [ "REG_IR_DECO,1",   
-                              "REG_PC,0",        "REG_MAR,0", "REG_MBR,0",    "REG_IR,0", 
-                              "REG_RT1,0",       "REG_RT2,0", "REG_RT3,0",    "REG_SR,0", 
-                              "FLAG_O,0",        "FLAG_N,0",  "FLAG_Z,0",     "FLAG_I,0",    "FLAG_U,0", 
-                              "REG_MICROADDR,0" ] ;
+                              "REG_IR,0",  "REG_PC,0",  "REG_SR,0", 
+                              "REG_RT1,0", "REG_RT2,0", "REG_RT3,0",    
+                              "REG_MAR,0", "REG_MBR,0", "REG_MICROADDR,0",
+                              "FLAG_O,0",  "FLAG_N,0",  "FLAG_Z,0",     
+                              "FLAG_I,0",  "FLAG_U,0" ] ;
 
         var divclasses = [ "col-xs-3 col-sm-3 col-md-3 col-lg-2",
                            "col-xs-6 col-sm-6 col-md-6 col-lg-6" ] ;
@@ -437,6 +440,11 @@
                 o1.css('background-color', '#00EE88');
 	}
 
+	function show_dbg_mpc ( )
+	{
+                show_memories('MC', MC, sim_states['REG_MICROADDR'].value) ;
+	}
+
 
         /*
          *  obj2html
@@ -444,13 +452,13 @@
 
 	function firmware2html ( fir, showBinary ) 
 	{
-		var filter =  [ "A0,0",   "B,0",    "C,0",   "SELA,5", "SELB,5", "SELE,2", "MR,0",  "MC,0",
-				"C0,0",   "C1,0",   "C2,0",  "C3,0",   "C4,0",   "C5,0",   "C6,0",  "C7,0",
-				"T1,0",   "T2,0",   "T3,0",  "T4,0",   "T5,0",   "T6,0",   "T7,0",  "T8,0",  "T9,0",  "T10,0",
+		var filter =  [ "A0,0",   "B,0",    "C,0",   "SELA,5", "SELB,5", "SELE,2", "SELCOP,0",  "MR,0",  "MC,0",
+				"C0,0",   "C1,0",   "C2,0",  "C3,0",   "C4,0",   "C5,0",   "C6,0",      "C7,0",
+				"T1,0",   "T2,0",   "T3,0",  "T4,0",   "T5,0",   "T6,0",   "T7,0",      "T8,0",  "T9,0",  "T10,0",
 				"M1,0",   "M2,0",   "M7,0",  "MA,0",   "MB,0",  
                                 "SELP,0", "LE,0",   "SE,0",  "SIZE,0", "OFFSET,0",
                                 "BW,0",   "R,0",    "W,0",   "TA,0",   "TD,0",   "IOR,0",  "IOW,0",  
-                                "I,0",    "U,0",    "COP,0" ] ;
+                                "I,0",    "U,0"  ] ;
 
 		var h = "<tr bgcolor=#FF9900>" + 
                         "<td bgcolor=white     style='border-style: solid; border-width:0px; border-color:lightgray;'></td>" + 
@@ -790,6 +798,10 @@
          *  play/stop
          */
 
+        var DBG_stop  = true ;
+        var DBG_delay = 300 ;
+        var DBG_level = "instruction" ;
+
 	function asmdbg_set_breakpoint ( addr )
 	{
                 var SIMWARE  = get_simware() ;
@@ -809,16 +821,12 @@
                 SIMWARE.assembly[hexaddr].breakpoint = bp_state ;
 	}
 
-        var DBG_stop  = true ;
-        var DBG_delay = 300 ;
-        var DBG_level = "instruction" ;
-
 	function asmdbg_stop ( btn1 )
 	{
-                $(btn1).text("Run") ;
+                $(btn1).html("Run") ;
                 $(btn1).removeClass("ui-icon-minus") ;
                 $(btn1).addClass("ui-icon-carat-r") ;
-                $(btn1).css("backgroundColor", "#313131") ;
+                $(btn1).css("backgroundColor", "#f6f6f6") ;
 
                 DBG_stop = true;
 	}
@@ -826,7 +834,7 @@
 	function asmdbg_play ( btn1 )
 	{
                 $(btn1).css("backgroundColor", 'rgb(51, 136, 204)') ;
-                $(btn1).text("Stop") ;
+                $(btn1).html("Stop") ;
                 $(btn1).removeClass("ui-icon-carat-r") ;
                 $(btn1).addClass("ui-icon-minus") ;
 

@@ -175,7 +175,7 @@
 			       draw_data: [['svg_p:path3055']], 
 			       draw_name: [['svg_p:path3073']] };
 	sim_signals["C2"] = { name: "C2", visible: true, type: "E", value: 0, default_value:0, nbits: "1", 
-			       behavior: ["NOP", "MV REG_PC M2_C2"],     
+			       behavior: ["NOP", "MV REG_PC M2_C2; UPDATEDPC"],
 			       fire_name: ['svg_p:text3179'], 
 			       draw_data: [['svg_p:path3485']], 
 			       draw_name: [['svg_p:path3177']] };
@@ -349,6 +349,11 @@
 			        fire_name: [], 
 			        draw_data: [[]],                         
 			        draw_name: [[]] };
+	sim_signals["SELCOP"] = { name: "SELCOP", visible: true, type: "L", value: 0, default_value:0, nbits: "5", 
+			        behavior: ["FIRE MC"],  
+			        fire_name: [], 
+			        draw_data: [[]], 
+			        draw_name: [[]] };
 
 	sim_signals["RA"]  = { name: "RA", visible: true, type: "L", value: 0, default_value:0, nbits: "5", 
 			       behavior: ["GET RA_T9 BR RA; FIRE T9; FIRE MA;"],  
@@ -389,7 +394,7 @@
 
 	sim_signals["MC"]  = { name: "MC", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 			       behavior: ['MBIT_S COP REG_IR 0 4; FIRE COP', 
-					  'MV_ES COP REG_MICROINS/COP; FIRE COP'],
+					  'MV_ES COP REG_MICROINS/SELCOP; FIRE COP'],
 			       fire_name: ['svg_cu:text3322'],
 			       draw_data: [['svg_cu:path3320', 'svg_cu:path3142'],['svg_cu:path3318']],
 			       draw_name: [[],['svg_cu:path3306']] }; /*path3210 print red color line of rest of control signals*/
@@ -742,19 +747,19 @@
 						   sim_states[s_expr[1]].value = parseInt(n2, 2) ;
 						}  
 				   };
-        syntax_behavior["MBIT_S"] = { nparameters: 5,
-                                     types: ["S", "E", "I", "I"],
-                                     operation: function (s_expr) {
-                                                   var offset = parseInt(s_expr[3]) ;
-                                                   var size   = parseInt(s_expr[4]) ;
+	syntax_behavior["MBIT_S"] = { nparameters: 5, 
+				     types: ["S", "E", "I", "I"],
+				     operation: function (s_expr) { 
+						   var offset = parseInt(s_expr[3]) ;
+						   var size   = parseInt(s_expr[4]) ;
 
-                                                   var n1 = sim_states[s_expr[2]].value.toString(2); // to binary
-                                                   var n2 = "00000000000000000000000000000000".substring(0, 32-n1.length) + n1;
-                                                   n2 = n2.substr(31 - (offset + size - 1), size);
+						   var n1 = sim_states[s_expr[2]].value.toString(2); // to binary
+						   var n2 = "00000000000000000000000000000000".substring(0, 32-n1.length) + n1;
+						   n2 = n2.substr(31 - (offset + size - 1), size);
 
-                                                   sim_signals[s_expr[1]].value = parseInt(n2, 2) ;
-                                                }
-                                   };
+						   sim_signals[s_expr[1]].value = parseInt(n2, 2) ;
+						}  
+				   };
 	syntax_behavior["MBIT_SN"] = { nparameters: 5, 
 				     types: ["S", "E", "E", "I"],
 				     operation: function (s_expr) {
@@ -915,8 +920,10 @@
 						    // 3.-  Decoded instruction
 						    sim_states['REG_IR_DECO'].value = "<font color=blue>" + show_decode_instruction(oi,bits) + "</font>";
 						    sim_states['DECO_INS'].value = sim_states['DECO_INS'].value + 1 ;
+
                                                     // F'elix request:
-						    var o = document.getElementById('svg_p').contentDocument.getElementById('tspan3899'); 
+						    var o = document.getElementById('svg_p');
+						    if (o != null) o = o.contentDocument.getElementById('tspan3899'); 
 						    if (o != null) o.innerHTML = show_decode_instruction(oi,bits);
 
 						    // 4.- ROM[rom_addr] -> mc-start -> ROM_MUXA
@@ -942,8 +949,6 @@
 							    if ("L" == sim_signals[s_expr[1]].type)
 							    {
 								update_state(s_expr[1]) ;
-								//show_states();
-								//show_rf();
 							    }
 
 							    fire_stack.pop(s_expr[1]) ;
@@ -967,8 +972,6 @@
 								     update_state(key) ;
 								 }
 							    }
-							    //show_states();
-							    //show_rf();
 
 							    // 2.- The special (Falling) Edge part of the Control Unit...
 						            sim_states["REG_MICROINS"].value = Object.create(sim_states["REG_MICROINS"].default_value);
@@ -982,11 +985,7 @@
 								}
 							    }
 
-                                                            // 2.a.- update interface...
-							    show_memories('MC', MC, sim_states['REG_MICROADDR'].value) ;
-							    show_asmdbg_pc();
-
-                                                            // 2.b.- update signals
+                                                            // 3.- update signals
 							    for (var key in sim_signals)
 							    {
 								 sim_signals[key].value = sim_signals[key].default_value;
@@ -996,7 +995,7 @@
 								 }
 							    }
 
-							    // 3.- Finally, 'fire' the (High) Level signals
+							    // 4.- Finally, 'fire' the (High) Level signals
 							    for (var key in sim_signals) 
 							    {
 								 update_draw(sim_signals[key], sim_signals[key].value) ;
@@ -1005,8 +1004,6 @@
 								     update_state(key) ;
 								 }
 							    }
-							    show_states();
-							    show_rf();
 							}
 					   };
 
@@ -1040,14 +1037,13 @@
 								IO_INT_FACTORY[i].accumulated(0) ;
 								IO_INT_FACTORY[i].active = false ;
 							    }
+							}
+					   };
 
-							    // 3.a.- show states & register file
-							    show_states() ;
-							    show_rf() ;
-
-							    // 3.b.- show memories 
-							    show_memories('MP',  MP,  1) ;
-							    show_memories('MC',  MC,  1) ;
+	syntax_behavior["UPDATEDPC"]     = { nparameters: 1,                         
+				             operation: function(s_expr)
+							{
+                                                            show_asmdbg_pc();
 							}
 					   };
 

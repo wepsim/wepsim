@@ -5,5 +5,5 @@ cat sim_hw_board.js sim_hw_cpu.js sim_hw_mem.js sim_hw_io.js sim_hw_kbd.js sim_h
 
 /usr/bin/yui-compressor -o sim_all.min.js sim_all.js
 
-#rm -fr sim_all.js
+rm -fr sim_all.js
 
