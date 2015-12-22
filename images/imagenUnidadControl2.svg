@@ -13,7 +13,7 @@
    viewBox="20 0 930 590"
    preserveAspectRatio="xMinYMin meet"
    id="svg2996"
-   inkscape:version="0.48.5 r10040"
+   inkscape:version="0.91 r13725"
    sodipodi:docname="imagenUnidadControl2.svg">
   <metadata
      id="metadata3508">
@@ -36,20 +36,29 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="1280"
-     inkscape:window-height="751"
+     inkscape:window-width="2293"
+     inkscape:window-height="897"
      id="namedview3506"
      showgrid="false"
-     inkscape:zoom="0.92372881"
-     inkscape:cx="465"
-     inkscape:cy="295"
-     inkscape:window-x="3"
-     inkscape:window-y="0"
-     inkscape:window-maximized="0"
+     inkscape:zoom="1.1494624"
+     inkscape:cx="289.36221"
+     inkscape:cy="306.04711"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
      inkscape:current-layer="g3589"
-     inkscape:snap-text-baseline="false" />
+     inkscape:snap-text-baseline="false"
+     showguides="false" />
   <defs
-     id="defs2998" />
+     id="defs2998">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 295 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="930 : 295 : 1"
+       inkscape:persp3d-origin="465 : 196.66667 : 1"
+       id="perspective3609" />
+  </defs>
   <g
      id="g3589"
      transform="matrix(1.1380246,0,0,1.07755,-91.7433,-49.657673)">
@@ -78,13 +87,13 @@
        inkscape:connector-curvature="0" />
     <path
        style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.03759181px;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
-       d="m 777.84697,270.48383 -19.77329,14.09693 0.56387,0.75183 19.7357,-14.05933 z"
+       d="m 776.31805,271.29119 -19.77329,14.09693 0.56387,0.75183 19.7357,-14.05933 z"
        id="path3016"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
-       x="742.2594"
-       y="278.93973"
+       x="747.30322"
+       y="278.69843"
        style="font-style:normal;font-weight:normal;font-size:11.27754211px;font-family:Arial;text-align:start;text-anchor:start;fill:#000000"
        id="text3018">76</text>
     <path
@@ -132,14 +141,14 @@
        id="text3034">CO</text>
     <text
        xml:space="preserve"
-       x="131.45174"
-       y="382.46057"
+       x="134.5096"
+       y="378.42371"
        style="font-style:normal;font-weight:normal;font-size:15.03672314px;font-family:Arial;text-align:start;text-anchor:start;fill:#000000"
        id="text3036">IR</text>
     <text
        xml:space="preserve"
-       x="124.48804"
-       y="545.32776"
+       x="127.00993"
+       y="539.75952"
        style="font-style:normal;font-weight:normal;font-size:15.03672314px;font-family:Arial;text-align:start;text-anchor:start;fill:#000000"
        id="text3038">SR</text>
     <path
@@ -232,7 +241,7 @@
        id="text3072">µInstruction</text>
     <text
        xml:space="preserve"
-       x="549.6366"
+       x="539.09192"
        y="262.75717"
        style="font-style:normal;font-weight:normal;font-size:15.03672314px;font-family:Arial;text-align:start;text-anchor:start;fill:#000000"
        id="text3076">MADDR</text>
@@ -323,13 +332,13 @@
        id="text3112">4</text>
     <path
        style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.0187959px;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
-       d="m 517.39484,265.99905 -7.18003,9.22879 0.73304,0.58267 7.18003,-9.22879 z"
+       d="m 510.36512,264.38433 -7.18003,9.22879 0.73304,0.58267 7.18003,-9.22879 z"
        id="path3120"
        inkscape:connector-curvature="0" />
     <text
        xml:space="preserve"
-       x="508.66537"
-       y="264.10406"
+       x="501.63559"
+       y="262.48932"
        style="font-style:normal;font-weight:normal;font-size:10.07460403px;font-family:Arial;text-align:start;text-anchor:start;fill:#000000"
        id="text3122">12</text>
     <path
@@ -434,8 +443,8 @@
        style="font-style:normal;font-weight:normal;font-size:12.48048019px;font-family:Arial;text-align:start;text-anchor:start;fill:#000000"
        id="text3160">RE</text>
     <path
-       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.03711499px;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
-       d="m 684.13307,331.89726 c 0,-0.33833 0.2565,-0.63907 0.62294,-0.63907 l 141.95724,0 c 0.32979,0 0.5863,0.30074 0.5863,0.63907 l 0,26.20195 c 0,0.33833 -0.25651,0.63907 -0.5863,0.63907 l -141.95724,0 c -0.36644,0 -0.62294,-0.30074 -0.62294,-0.63907 z m 1.20924,26.20195 -0.5863,-0.63907 141.95724,0 -0.62294,0.63907 0,-26.20195 0.62294,0.63907 -141.95724,0 0.5863,-0.63907 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.0351534px;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="m 684.13206,331.8963 c 0,-0.33836 0.23009,-0.63912 0.5588,-0.63912 l 127.33908,0 c 0.29583,0 0.52593,0.30076 0.52593,0.63912 l 0,26.20387 c 0,0.33836 -0.2301,0.63912 -0.52593,0.63912 l -127.33908,0 c -0.32871,0 -0.5588,-0.30076 -0.5588,-0.63912 z m 1.08472,26.20387 -0.52592,-0.63912 127.33908,0 -0.55879,0.63912 0,-26.20387 0.55879,0.63912 -127.33908,0 0.52592,-0.63912 z"
        id="path3162"
        inkscape:connector-curvature="0" />
     <text
@@ -832,10 +841,11 @@
        id="path3308"
        inkscape:connector-curvature="0" />
     <path
-       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.03759181px;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
-       d="m 826.47821,331.89749 c 0,-0.33833 0.26314,-0.63906 0.60147,-0.63906 l 35.52426,0 c 0.33833,0 0.63906,0.30073 0.63906,0.63906 l 0,26.20149 c 0,0.33833 -0.30073,0.63906 -0.63906,0.63906 l -35.52426,0 c -0.33833,0 -0.60147,-0.30073 -0.60147,-0.63906 z m 1.24053,26.20149 -0.63906,-0.63906 35.52426,0 -0.60147,0.63906 0,-26.20149 0.60147,0.63906 -35.52426,0 0.63906,-0.63906 z"
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.04455965px;stroke-linecap:butt;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="m 811.56895,331.90091 c 0,-0.33824 0.36983,-0.6389 0.84533,-0.6389 l 49.92697,0 c 0.4755,0 0.89815,0.30066 0.89815,0.6389 l 0,26.19465 c 0,0.33824 -0.42265,0.6389 -0.89815,0.6389 l -49.92697,0 c -0.4755,0 -0.84533,-0.30066 -0.84533,-0.6389 z m 1.28104,26.23905 -0.43571,-0.68328 49.92697,0 -0.84533,0.63888 0,-26.19465 0.84533,0.63888 -49.92697,0 0.47775,-0.55008 z"
        id="path3310"
-       inkscape:connector-curvature="0" />
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="sssssssssscccccccs" />
     <text
        sodipodi:linespacing="125%"
        xml:space="preserve"
@@ -1539,5 +1549,17 @@
          id="tspan4140"
          x="430.11722"
          y="253.78328">CLK</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:12.0;line-height:125%;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="198.65758"
+       y="358.60107"
+       id="text3611"
+       sodipodi:linespacing="125%"
+       transform="scale(0.97306734,1.0276781)"><tspan
+         sodipodi:role="line"
+         id="tspan3615"
+         x="198.65758"
+         y="358.60107">                     </tspan></text>
   </g>
 </svg>
