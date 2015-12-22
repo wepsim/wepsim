@@ -746,22 +746,19 @@
 	<ul id="listview_1" data-role="listview" data-inset="true" data-theme="a" data-divider-theme="b">
 	    <li data-role="list-divider">WorkSpaces</li>
 	    <li><a id="tab21" href="#"
-		   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');">
-		     <h2>Firmware</h2></a>
+		   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"><h2>Firmware</h2></a>
 	        <a href="#"
 	           onclick="$('#iframe_help1').load('sim_help_firmware.html', function(){$('#help1').trigger('updatelayout');
                             $('#help1').popup('open');});"
 	           class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-info ui-mini"></a></li>
 	    <li><a id="tab24" href="#"
-		   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');">
-		     <h2>Assembly</h2></a>
+		   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');"><h2>Assembly</h2></a>
 	        <a href="#"
 	           onclick="$('#iframe_help1').load('sim_help_assembly.html', function(){$('#help1').trigger('updatelayout');
                             $('#help1').popup('open');});"
 	           class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-info ui-mini"></a></li>
 	    <li><a id="tab25" href="#"
-		   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">
-		   <h2>Simulator</h2></a>
+		   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');"><h2>Simulator</h2></a>
 	        <a href="#"
 	           onclick="$('#iframe_help1').load('sim_help_simulator.html', function(){$('#help1').trigger('updatelayout');
                             $('#help1').popup('open');});"
@@ -850,7 +847,7 @@
 
 
 <div data-role="popup" id="help1" 
-     data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b" style="width:90%; height:90%">
+     data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
 
       <div data-role="header" data-theme="b" class="ui-corner-top">
            <h1>Help</h1>
