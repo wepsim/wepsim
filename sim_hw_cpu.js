@@ -917,17 +917,16 @@
 							 return -1;
 						    }
 
-						    // 3.-  Decoded instruction
-						    sim_states['REG_IR_DECO'].value = "<font color=blue>" + show_decode_instruction(oi,bits) + "</font>";
+						    // 3.- ROM[rom_addr] -> mc-start -> ROM_MUXA
+						    sim_states['ROM_MUXA'].value = ROM[rom_addr] ;
+
+						    // 4.-  Statistics
 						    sim_states['DECO_INS'].value = sim_states['DECO_INS'].value + 1 ;
 
-                                                    // F'elix request:
-						    var o = document.getElementById('svg_p');
-						    if (o != null) o = o.contentDocument.getElementById('tspan3899'); 
-						    if (o != null) o.innerHTML = show_decode_instruction(oi,bits);
-
-						    // 4.- ROM[rom_addr] -> mc-start -> ROM_MUXA
-						    sim_states['ROM_MUXA'].value = ROM[rom_addr] ;
+                                                    // 5.- Update UI
+						    var decins = show_decode_instruction(oi,bits) ;
+						    sim_states['REG_IR_DECO'].value = "<font color=blue>" + decins + "</font>";
+                                                    show_dbg_ir(decins);
 						}
 				   };
 

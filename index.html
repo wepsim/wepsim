@@ -105,7 +105,7 @@
                                               SIMWAREaddon.seg, 
                                               SIMWAREaddon.assembly));
 
-        $('#tab42').trigger('click');
+        $('#btn42').trigger('click');
 	reset();
     }
 
@@ -188,7 +188,7 @@
              showCompiledFirmware();
         }
 
-        $('#tab32').trigger('click');
+	$('#btn32').trigger('click');
 	reset() ;
     }
 
@@ -577,7 +577,7 @@
 				   onclick="load_firmware_from_example(); $('#btn31').trigger('click');"
 				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-bars    ui-btn-icon-top ui-mini">Example</a></li>
 		            <li><a href="#" 
-				   onclick="compileFirmware();            $('#btn32').trigger('click');"
+				   onclick="compileFirmware();"
 				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-top ui-mini">&#181;compile</a></li>
 
 			    <li><a id="tab24" href="#"
@@ -683,7 +683,7 @@
 		            <li><a href="#" onclick="load_assembly_from_example(); $('#btn41').trigger('click');"
 				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-bars     ui-btn-icon-top ui-mini"
 				   data-inline="true">Example</a></li>
-		            <li><a href="#" onclick="compileAssembly(); $('#btn42').trigger('click');" id="emp"
+		            <li><a href="#" onclick="compileAssembly();" id="emp"
 				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-top ui-mini"
 				   data-inline="true">Compile</a></li>
 
@@ -770,7 +770,7 @@
 		 <input type="range"
 			data-show-value="false"
 			name="slider1" id="slider1"
-			min="1" max="100" value="10" step=1
+			min="1" max="100" value="50" step=1
 			onchange="DBG_delay = 1000 / this.value;">
 	    </li>
 	    <li class="list-group-item">
