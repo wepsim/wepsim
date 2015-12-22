@@ -397,11 +397,6 @@
         {
             // 1.- set the global variable of in which mode we are
 	    is_interactive = interactive ;
-
-            // // 2.- be sure of starting on mc=1
-            // if (0 == sim_states["REG_MICROADDR"].value) {
-            //     compute_behavior("CLOCK") ;
-            // }
         }
 
         function get_interactive_mode()
@@ -415,11 +410,6 @@
         {
             compute_behavior("RESET") ;
 
-	    show_states() ;
-	    show_rf() ;
-	    show_memories('MP',  MP,  0) ;
-	    show_memories('MC',  MC,  0) ;
-
             if (typeof segments['code'] != "undefined") 
             {
                 sim_states["REG_PC"].value = parseInt(segments['code'].begin) ;
@@ -432,6 +422,11 @@
 	    }
 
             compute_behavior("CLOCK") ;
+
+	    show_states() ;
+	    show_rf() ;
+	    show_memories('MP',  MP,  0) ;
+	    show_memories('MC',  MC,  0) ;
         }
 
         function execute_microinstruction ()
