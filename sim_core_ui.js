@@ -442,8 +442,7 @@
 
 	function show_dbg_mpc ( )
 	{
-	        if (DBG_level == "microinstruction")
-                    show_memories('MC', MC, sim_states['REG_MICROADDR'].value) ;
+                show_memories('MC', MC, sim_states['REG_MICROADDR'].value) ;
 	}
 
 
@@ -453,13 +452,13 @@
 
 	function firmware2html ( fir, showBinary ) 
 	{
-		var filter =  [ "A0,0",   "B,0",    "C,0",   "SELA,5", "SELB,5", "SELE,2", "MR,0",  "MC,0",
-				"C0,0",   "C1,0",   "C2,0",  "C3,0",   "C4,0",   "C5,0",   "C6,0",  "C7,0",
-				"T1,0",   "T2,0",   "T3,0",  "T4,0",   "T5,0",   "T6,0",   "T7,0",  "T8,0",  "T9,0",  "T10,0",
+		var filter =  [ "A0,0",   "B,0",    "C,0",   "SELA,5", "SELB,5", "SELE,2", "SELCOP,0",  "MR,0",  "MC,0",
+				"C0,0",   "C1,0",   "C2,0",  "C3,0",   "C4,0",   "C5,0",   "C6,0",      "C7,0",
+				"T1,0",   "T2,0",   "T3,0",  "T4,0",   "T5,0",   "T6,0",   "T7,0",      "T8,0",  "T9,0",  "T10,0",
 				"M1,0",   "M2,0",   "M7,0",  "MA,0",   "MB,0",  
                                 "SELP,0", "LE,0",   "SE,0",  "SIZE,0", "OFFSET,0",
                                 "BW,0",   "R,0",    "W,0",   "TA,0",   "TD,0",   "IOR,0",  "IOW,0",  
-                                "I,0",    "U,0",    "COP,0" ] ;
+                                "I,0",    "U,0"  ] ;
 
 		var h = "<tr bgcolor=#FF9900>" + 
                         "<td bgcolor=white     style='border-style: solid; border-width:0px; border-color:lightgray;'></td>" + 
@@ -830,8 +829,6 @@
                 $(btn1).css("backgroundColor", "#f6f6f6") ;
 
                 DBG_stop = true;
-
-                show_memories('MC', MC, sim_states['REG_MICROADDR'].value) ;
 	}
 
 	function asmdbg_play ( btn1 )

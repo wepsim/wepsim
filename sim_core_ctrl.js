@@ -415,15 +415,22 @@
         {
             compute_behavior("RESET") ;
 
+	    show_states() ;
+	    show_rf() ;
+	    show_memories('MP',  MP,  0) ;
+	    show_memories('MC',  MC,  0) ;
+
             if (typeof segments['code'] != "undefined") 
             {
                 sim_states["REG_PC"].value = parseInt(segments['code'].begin) ;
                 show_asmdbg_pc() ;
             }
+
 	    if (typeof segments['stack']!= "undefined")
 	    {
 		sim_states["BR"][FIRMWARE.stackRegister] = parseInt(segments['stack'].begin);
 	    }
+
             compute_behavior("CLOCK") ;
         }
 
@@ -450,6 +457,7 @@
 
 		show_states();
 		show_rf();
+                show_dbg_mpc();
         }
 
         function execute_microprogram ()
@@ -466,6 +474,8 @@
 
 		show_states();
 		show_rf();
+                if (DBG_level == "microinstruction")
+                    show_dbg_mpc();
         }
 
         function execute_instruction ()
