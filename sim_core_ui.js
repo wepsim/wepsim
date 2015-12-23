@@ -104,6 +104,12 @@
 
 	function update_draw ( obj, value )
         {
+            /* TODO: trick to speed-up, find a way to do better */
+	    var o1 = document.getElementById('svg_p') ;
+	    var o2 = document.getElementById('svg_cu') ;
+            if ( (null == o1) && (null == o2) ) return;
+            /* /TODO: trick to speed-up, find a way to do better */
+
 	    if (obj.draw_data.length > 1)
 	    // (different draws)
 	    {
