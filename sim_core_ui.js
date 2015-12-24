@@ -828,7 +828,7 @@
          */
 
         var DBG_stop  = true ;
-        var DBG_delay = 200 ;
+        var DBG_delay = 10 ;
         var DBG_level = "instruction" ;
 
 	function asmdbg_set_breakpoint ( addr )
