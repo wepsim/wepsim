@@ -400,10 +400,20 @@
 		    <div data-role="tabs" id="tabs2">
     		      <div data-role="navbar" id="tabsnav2" class="ui-responsive">
 		        <ul>
-		          <li style="clear:none;width:33% !important"><a id="tab23" href="#eltos_cu"   >Control Unit</a></li>
-		          <li style="clear:none;width:33% !important"><a id="tab22" href="#eltos_p"  class="ui-btn-active ui-state-persist">CPU</a></li>
-		          <li style="clear:none;width:33% !important"><a id="tab24" href="#eltos_dbg"  >Assembly Debugger</a></li>
+                         <li style="clear:none;width:33% !important">
+                               <a id="tab23" href="#eltos_cu"   
+                                  onclick="start_drawing(); refresh();">Control Unit</a>
+                         </li>
+                         <li style="clear:none;width:33% !important">
+                               <a id="tab22" href="#eltos_p"   class="ui-btn-active"
+                                 onclick="start_drawing(); refresh();">CPU</a>
+                         </li>
+                         <li style="clear:none;width:33% !important">
+                               <a id="tab24" href="#eltos_dbg"  
+                                  onclick="stop_drawing();">Assembly Debugger</a>
+                         </li>
 		        </ul>
+
 		      </div>
 		      <div id="eltos_p"  class="ui-body-d ui-content">
 			    <object id="svg_p" data="images/imagenProcesador2.svg" type="image/svg+xml">
