@@ -102,8 +102,26 @@
            }
         }
 
+        /*
+         *  Drawing part
+         */
+        var DRAW_stop = false ;
+
+	function start_drawing ( )
+        {
+            DRAW_stop = false ;
+        }
+
+	function stop_drawing ( )
+        {
+            DRAW_stop = true ;
+        }
+
 	function update_draw ( obj, value )
         {
+            if (true == DRAW_stop)
+                return ;
+
 	    if (obj.draw_data.length > 1)
 	    // (different draws)
 	    {
