@@ -53,7 +53,7 @@
     <link rel="stylesheet" href="external/bootstrap-theme.min.css">
 
     <script src="external/bootstrap.min.js"></script>
-    <script src="external/knockout-3.3.0.js"></script>
+    <script src="external/knockout-3.4.0.js"></script>
     <script src='external/tinymce.min.js'></script>
 
     <script src="sim_all.min.js"></script>
@@ -280,7 +280,7 @@
        if (get_interactive_mode() == true) {
            set_interactive_mode(false);
            o1.innerHTML = "Non-Interactive" ;
-           o1.style.backgroundColor = '#F6F6F6';
+           o1.style.backgroundColor = '#CCCCCC';
        } else {
            set_interactive_mode(true);
            o1.innerHTML = "Interactive" ;
@@ -432,7 +432,7 @@
 		   	   <table class='table ui-responsive ui-table' style="margin-bottom: 0px;">
 		   	   <thead>
 			   <tr>
-			   <th width=10%>breakpoints</th>
+			   <th width=10%>break<span class="hidden-xs">points</span></th>
 			   <th width=15%>address</th>
                            <th width=12%>&nbsp;</th>
                            <th width=25%>assembly</th>
@@ -579,31 +579,31 @@
 
                 <ul class="nav nav-justified">
 		            <li><a href="#lssave" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-left ui-mini col-xs-6 col-sm-12 col-md-12"
+				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
 				   data-rel="popup" data-position-to="window" data-transition="pop">Save</a></li>
 		            <li><a href="#lsload" style="background-color: #CCCCCC"
 				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-back    ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
 				   data-rel="popup" data-position-to="window" data-transition="pop">Load</a></li>
 		            <li><a href="#"       style="background-color: #CCCCCC" 
 				   onclick="load_firmware_from_example(); $('#btn31').trigger('click');"
-				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-bars    ui-btn-icon-left ui-mini col-xs-6 col-sm-12 col-md-12">Example</a></li>
+				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-bars    ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12">Example</a></li>
 		            <li><a href="#"       style="background-color: #CCCCCC" 
 				   onclick="compileFirmware();"
 				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12">&#181;compile</a></li>
 
 			    <li><a id="tab24" href="#" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear    ui-btn-icon-left ui-mini col-xs-6 col-sm-12 col-md-12"
+				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear    ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
 				   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');">Assembly</a></li>
                             <li><a id="tab25" href="#" style="background-color: #CCCCCC"
                                    class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear     ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
                                    onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a></li>
 
 		            <li><a id=btn31 href="#" 
-				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-active   ui-mini col-xs-12"
+				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-active   ui-mini col-xs-12 col-sm-12 col-md-12"
 				   onclick="$('#tab31').trigger('click'); $('#btn32').removeClass('ui-btn-active'); $('#btn31').addClass('ui-btn-active');"
 				   >Firmware Specification</a></li>
 		            <li><a id=btn32 href="#"  
-				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-mini col-xs-12"
+				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a                 ui-mini col-xs-12 col-sm-12 col-md-12"
 				   onclick="$('#tab32').trigger('click'); $('#btn31').removeClass('ui-btn-active'); $('#btn32').addClass('ui-btn-active');"
 				   >co2&#181;addr + control memory</a></li>
 		</ul>
@@ -624,6 +624,7 @@
 
 		      <div id="t3_bin"   class="ui-body-d ui-content" style="overflow-y:scroll; overflow-x:scroll; height:75%; position:relative;">
 		        <div style="min-width:90%; overflow-y:auto; overflow-x:auto;" id="ucompile">
+                            <br>
                             <center>
                             Please load the firmware specification and then &#181;compile it. <br>
                             In this way the binary will be created and loaded into control memory.
@@ -686,10 +687,10 @@
 
                 <ul class="nav nav-justified">
 		            <li><a href="#lssave2" style="background-color: #CCCCCC"
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-left ui-mini col-xs-6 col-sm-12 col-md-12"
+				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-forward  ui-btn-icon-left ui-mini col-xs-6 col-sm-12 col-md-12"
 				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Save</a></li>
 		            <li><a href="#lsload2" style="background-color: #CCCCCC"
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-back     ui-btn-icon-left ui-mini col-xs-6 col-sm-12 col-md-12"
+				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-back     ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
 				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Load</a></li>
 		            <li><a href="#" style="background-color: #CCCCCC"
                                    onclick="load_assembly_from_example(); $('#btn41').trigger('click');"
@@ -697,22 +698,22 @@
 				   data-inline="true">Example</a></li>
 		            <li><a href="#" style="background-color: #CCCCCC"
                                    onclick="compileAssembly();" id="emp"
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-6 col-sm-12 col-md-12"
+				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
 				   data-inline="true">Compile</a></li>
 
                             <li><a id="tab25" href="#" style="background-color: #CCCCCC"
                                    class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear     ui-btn-icon-left ui-mini col-xs-6 col-sm-12 col-md-12"
                                    onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a></li>
                             <li><a id="tab24" href="#" style="background-color: #CCCCCC"
-                                   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear     ui-btn-icon-left ui-mini col-xs-6 col-sm-12 col-md-12"
+                                   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear     ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
                                    onclick="$.mobile.pageContainer.pagecontainer('change','#main3');">Firmware</a></li>
 
 		            <li><a id=btn41 href="#" 
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-active ui-mini col-xs-12"
+				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-active ui-mini col-xs-12 col-sm-12 col-md-12"
 				   onclick="$('#tab41').trigger('click'); $('#btn42').removeClass('ui-btn-active'); $('#btn41').addClass('ui-btn-active');"
 				   >Assembly Code</a></li>
 		            <li><a id=btn42 href="#"  
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a               ui-mini col-xs-12"
+				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a               ui-mini col-xs-12 col-sm-12 col-md-12"
 				   onclick="$('#tab42').trigger('click'); $('#btn41').removeClass('ui-btn-active'); $('#btn42').addClass('ui-btn-active');"
 				   >Main Memory</a></li>
 		</ul>
@@ -736,6 +737,7 @@
 		        <div id="cc_bin" style="overflow-y:scroll; overflow-x:auto; height:70% !important;">
                            <br>
                            <div id="compile_mp">
+                              <br>
                               <center>
                               Please load the assembly and then compile it. <br>
                               In this way the binary will be created and loaded into main memory.
@@ -779,7 +781,7 @@
 
 	    <li data-role="list-divider">Configuration</li>
 	    <li class="list-group-item">
-		 Speed-up (slower - faster):
+		 Speed-up (slow - fast):
 		 <input type="range"
 			data-show-value="false"
 			name="slider1" id="slider1"

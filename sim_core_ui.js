@@ -855,7 +855,7 @@
                 $(btn1).html("Run") ;
                 $(btn1).removeClass("ui-icon-minus") ;
                 $(btn1).addClass("ui-icon-carat-r") ;
-                $(btn1).css("backgroundColor", "#f6f6f6") ;
+                $(btn1).css("backgroundColor", "#CCCCCC") ;
 
                 DBG_stop = true;
 	}
