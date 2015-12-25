@@ -53,6 +53,7 @@
     <link rel="stylesheet" href="external/bootstrap-theme.min.css">
 
     <script src="external/bootstrap.min.js"></script>
+    <script src="external/bootbox.min.js"></script>
     <script src="external/knockout-3.4.0.js"></script>
     <script src='external/tinymce.min.js'></script>
 
@@ -321,7 +322,7 @@
 	        var o  = ref_p.getElementById('text3001');
 	        if (o != null) o.addEventListener('click', 
                                                   function() { 
-                                                     $.mobile.pageContainer.pagecontainer('change','#main4');
+                                                     $('#tab14').trigger('click');
                                                   }, false);
 	        var o  = ref_p.getElementById('text3183');
 	        if (o != null) o.addEventListener('click', 
@@ -356,12 +357,7 @@
 	        var o  = ref_cu.getElementById('text3010');
 	        if (o != null) o.addEventListener('click', 
                                                   function() { 
-                                                     $.mobile.pageContainer.pagecontainer('change','#main3');
-                                                  }, false);
-	        var o  = ref_cu.getElementById('text3072');
-	        if (o != null) o.addEventListener('click', 
-                                                  function() { 
-                                                     $('#tab13').trigger('click');
+                                                     $('#tab16').trigger('click');
                                                   }, false);
                 var o  = ref_cu.getElementById('text3346-5');
                 if (o != null) o.addEventListener('click', 

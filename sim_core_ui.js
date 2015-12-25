@@ -475,11 +475,13 @@
 	function show_dbg_ir ( decins )
 	{
 	        var o = document.getElementById('svg_p');
-	        if (o != null) o = o.contentDocument.getElementById('tspan3899');
+	        if (o != null) o = o.contentDocument;
+	        if (o != null) o = o.getElementById('tspan3899');
 	        if (o != null) o.innerHTML = decins ;
 
 	        var o = document.getElementById('svg_cu');
-	        if (o != null) o = o.contentDocument.getElementById('text3611');
+	        if (o != null) o = o.contentDocument;
+	        if (o != null) o = o.getElementById('text3611');
 	        if (o != null) o.innerHTML = decins ;
 	}
 
