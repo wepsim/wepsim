@@ -924,9 +924,9 @@
 						    sim_states['DECO_INS'].value = sim_states['DECO_INS'].value + 1 ;
 
                                                     // 5.- Update UI
-						    var decins = show_decode_instruction(oi,bits) ;
-						    sim_states['REG_IR_DECO'].value = "<font color=blue>" + decins + "</font>";
-                                                    show_dbg_ir(decins);
+						    var decins = show_decode_instruction(oi, bits) ;
+						    sim_states['REG_IR_DECO'].value = decins ;
+                                                    show_dbg_ir(sim_states['REG_IR_DECO'].value);
 						}
 				   };
 

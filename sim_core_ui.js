@@ -165,6 +165,8 @@
 	    {
 		 update_draw(sim_signals[key], sim_signals[key].value) ;
 	    }
+
+	    show_dbg_ir(sim_states['REG_IR_DECO'].value) ;
         }
 
 
