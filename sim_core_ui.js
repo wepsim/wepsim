@@ -199,7 +199,7 @@
 	    for (var index=0; index < sim_states['BR'].length; index++) 
             {
                  var br_value = (sim_states['BR'][index] >>> 0).toString(16).toUpperCase() ;
-                     br_value = "00000000".substring(0, 8 - br_value.length) + br_value ;
+                     br_value = "<font color=gray>" + "00000000".substring(0, 8 - br_value.length) + "</font>" + br_value ;
 
                  var obj = document.getElementById("tbl_RF" + index);
                  if (obj != null)
@@ -255,11 +255,18 @@
         {
             for (var i=0; i<filter.length; i++)
             {
-                var key = filter[i].split(",")[0] ;
+                var r = filter[i].split(",") ;
+                var key = r[0] ;
+                var value = sim_eltos[key].value.toString(16) ;
+
+                if (sim_eltos[key].nbits > 1) {
+                    value = (sim_states[key].value >>> 0).toString(16).toUpperCase() ;
+                    value = "<font color=gray>" + "00000000".substring(0, 8 - value.length) + "</font>" + value ;
+                }
 
 		var obj = document.getElementById("tbl_" + key);
 		if (obj != null)
-                    obj.innerHTML = sim_eltos[key].value.toString(16) ;
+                    obj.innerHTML = value ;
             }
         }
 
