@@ -66,11 +66,11 @@
 	sim_states["MA_ALU"]         = {name:"MA_ALU",          visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim_states["MB_ALU"]         = {name:"MB_ALU",          visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
-	sim_states["FLAG_O"]         = { name: "FLAG_O",        visible:true, nbits: "32", value: 0, default_value:0, draw_data: [] };
-	sim_states["FLAG_N"]         = { name: "FLAG_N",        visible:true, nbits: "32", value: 0, default_value:0, draw_data: [] };
-	sim_states["FLAG_Z"]         = { name: "FLAG_Z",        visible:true, nbits: "32", value: 0, default_value:0, draw_data: [] };
-	sim_states["FLAG_I"]         = { name: "FLAG_I",        visible:true, nbits: "32", value: 0, default_value:0, draw_data: [] };
-	sim_states["FLAG_U"]         = { name: "FLAG_U",        visible:true, nbits: "32", value: 0, default_value:0, draw_data: [] };
+	sim_states["FLAG_O"]         = { name: "FLAG_O",        visible:true, nbits: "1", value: 0, default_value:0, draw_data: [] };
+	sim_states["FLAG_N"]         = { name: "FLAG_N",        visible:true, nbits: "1", value: 0, default_value:0, draw_data: [] };
+	sim_states["FLAG_Z"]         = { name: "FLAG_Z",        visible:true, nbits: "1", value: 0, default_value:0, draw_data: [] };
+	sim_states["FLAG_I"]         = { name: "FLAG_I",        visible:true, nbits: "1", value: 0, default_value:0, draw_data: [] };
+	sim_states["FLAG_U"]         = { name: "FLAG_U",        visible:true, nbits: "1", value: 0, default_value:0, draw_data: [] };
 
 	/*UNIDAD CONTROL*/
 	sim_states["REG_MICROADDR"]  = { name: "µADDR",  visible:true, nbits: "12", value:0,  default_value:0, draw_data: ['svg_cu:text4667']};
@@ -101,7 +101,7 @@
 	sim_states["VAL_FOUR"]       = { name: "VAL_FOUR",       visible:false, nbits: "32", value: 4, default_value:4, draw_data: [] };
 
 	/* VIRTUAL */
-	sim_states["REG_IR_DECO"]    = {name:"IR_DECO",     visible:true,  nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["REG_IR_DECO"]    = {name:"IR_DECO",     visible:true,  nbits:"0",  value:0,  default_value:0, draw_data: [] };
 	sim_states["DECO_INS"]       = {name:"DECO_INS",    visible:true,  nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim_states["CLK"]            = {name:"CLK",         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
