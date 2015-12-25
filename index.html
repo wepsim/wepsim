@@ -578,23 +578,23 @@
 
                 <ul class="nav nav-justified">
 		            <li><a href="#lssave"
-				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-top ui-mini"
+				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-left ui-mini"
 				   data-rel="popup" data-position-to="window" data-transition="pop">Save</a></li>
 		            <li><a href="#lsload"
-				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-back    ui-btn-icon-top ui-mini"
+				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-back    ui-btn-icon-left ui-mini"
 				   data-rel="popup" data-position-to="window" data-transition="pop">Load</a></li>
 		            <li><a href="#" 
 				   onclick="load_firmware_from_example(); $('#btn31').trigger('click');"
-				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-bars    ui-btn-icon-top ui-mini">Example</a></li>
+				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-bars    ui-btn-icon-left ui-mini">Example</a></li>
 		            <li><a href="#" 
 				   onclick="compileFirmware();"
-				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-top ui-mini">&#181;compile</a></li>
+				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini">&#181;compile</a></li>
 
 			    <li><a id="tab24" href="#"
-				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear    ui-btn-icon-top ui-mini"
+				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear    ui-btn-icon-left ui-mini"
 				   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');">Assembly</a></li>
                             <li><a id="tab25" href="#"
-                                   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear    ui-btn-icon-top ui-mini"
+                                   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear     ui-btn-icon-left ui-mini"
                                    onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a></li>
 
 		            <li><a id=btn31 href="#" 
@@ -685,23 +685,23 @@
 
                 <ul class="nav nav-justified">
 		            <li><a href="#lssave2"
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-top ui-mini"
+				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-left ui-mini"
 				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Save</a></li>
 		            <li><a href="#lsload2"
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-back    ui-btn-icon-top ui-mini"
+				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-back     ui-btn-icon-left ui-mini"
 				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Load</a></li>
 		            <li><a href="#" onclick="load_assembly_from_example(); $('#btn41').trigger('click');"
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-bars     ui-btn-icon-top ui-mini"
+				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-bars     ui-btn-icon-left ui-mini"
 				   data-inline="true">Example</a></li>
 		            <li><a href="#" onclick="compileAssembly();" id="emp"
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-top ui-mini"
+				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini"
 				   data-inline="true">Compile</a></li>
 
                             <li><a id="tab25" href="#"
-                                   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear    ui-btn-icon-top ui-mini"
+                                   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear     ui-btn-icon-left ui-mini"
                                    onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a></li>
                             <li><a id="tab24" href="#"
-                                   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear    ui-btn-icon-top ui-mini"
+                                   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear     ui-btn-icon-left ui-mini"
                                    onclick="$.mobile.pageContainer.pagecontainer('change','#main3');">Firmware</a></li>
 
 		            <li><a id=btn41 href="#" 
@@ -776,11 +776,11 @@
 
 	    <li data-role="list-divider">Configuration</li>
 	    <li class="list-group-item">
-		 Speed-up (slower - faster):
+		 Speed-up (slow - fast):
 		 <input type="range"
 			data-show-value="false"
 			name="slider1" id="slider1"
-			min="1" max="100" value="50" step=1
+			min="1" max="100" value="100" step=1
 			onchange="DBG_delay = 1000 / this.value;">
 	    </li>
 	    <li class="list-group-item">
@@ -791,7 +791,7 @@
 		     <input name="radio-choice-h-2" id="radio-choice-h-2a" data-mini="true"
 			    onclick="DBG_level='instruction';"
 			    value="on" checked="checked" type="radio">
-		     <label for="radio-choice-h-2a">instruction</label>
+		     <label for="radio-choice-h-2a">Instruction</label>
                  </li>
                  <li>
 		     <input name="radio-choice-h-2" id="radio-choice-h-2b" data-mini="true"
