@@ -229,8 +229,6 @@
 	    if (false === is_interactive)
                 return;
 
-            var user_input = null ;
-
             for (var key in sim_signals)
             {
                 for (var j=0; j<sim_signals[key].fire_name.length; j++)
@@ -238,62 +236,84 @@
 	            var r = sim_signals[key].fire_name[j].split(':') ;
                     if (r[1] == event.currentTarget.id)
                     {
-                        if (sim_signals[key].nbits == 1)
-                        {
-                            sim_signals[key].value = (sim_signals[key].value + 1) % 2;
-                        }
+                        var nextvalue = 0;
+                        if (sim_signals[key].nbits == 1) 
+                            nextvalue = ((sim_signals[key].value >>> 0) + 1) % 2;
 
-                        if (sim_signals[key].nbits > 1)
+                        var str_checked = "";
+                        var input_help  = "";
+
+                        var nvalues = Math.pow(2, sim_signals[key].nbits) ;
+                        if (sim_signals[key].behavior.length == nvalues)
                         {
-                            var input_help = "";
-                            var nvalues = Math.pow(2, sim_signals[key].nbits) ;
-                            if (sim_signals[key].behavior.length == nvalues)
+                            for (var k = 0; k < sim_signals[key].behavior.length; k++) 
                             {
-                                for (var k = 0; k < sim_signals[key].behavior.length; k++) {
-                                     input_help = input_help + "\n  " + k.toString(10) ;
-                                     input_help = input_help + ": " + sim_signals[key].behavior[k].split(";")[0];
-                                }
-                            }
-                            else {
-                                input_help = input_help + "\n  " + "0 - " + (nvalues - 1);
-                            }
+                                 if (k == nextvalue)
+                                      str_checked = ' checked="checked" ' ;
+                                 else str_checked = ' ' ;
 
-                           if (user_input == null)
-                           {
-                                user_input = prompt("Decimal values for " + key + ": " + input_help + "\n", 
-                                                    sim_signals[key].value) ;
-                           }
-                           if (user_input != null)
-                           {
-                                sim_signals[key].value = user_input ;
-                           }
+				 input_help += '<div class="radio">' + 
+                                               '<label><input type="radio" name="ask_svalue" ' + ' value="' + k.toString(10) + '" ' + str_checked + ' />' + "&nbsp;" + k.toString(10) + "&nbsp;" +
+                                               sim_signals[key].behavior[k].split(";") + '</label>' +
+                                               '</div>\n' ;
+                            }
+                        }
+                        else {
+				 input_help += '<div>' + 
+                                               '<label><input type="text" name="ask_svalue" ' + ' value="0"/>' + '&nbsp;' + '0 - ' + (nvalues - 1) + '</label>' +
+                                               '</div>\n' ;
                         }
 
-	                if (true === is_interactive) 
-                        {
-			    // update REG_MICROINS
-			    sim_states["REG_MICROINS"].value[key] = sim_signals[key].value ;
+			bootbox.dialog({
+			       title:   'Decimal values for ' + key + ': ',
+			       message: '<form class="form-horizontal">' + 
+					'<input id="ask_skey"   name="ask_skey"   type="hidden" value="' + key + '" class="form-control input-md"> ' +
+                                        input_help +
+					'</form>' + 
+					'\n',
+			       value:   sim_signals[key].value,
+			       buttons: {
+					    success: {
+						label: "Save",
+						className: "btn-success",
+						callback: function () 
+							  {
+							     key        = $('#ask_skey').val();
+							     user_input = $("input[name='ask_svalue']:checked").val();
+                                                             if (typeof user_input == "undefined")
+							         user_input = $("input[name='ask_svalue']").val();
 
-			    // update MC[uADDR]
-			    if (typeof MC[sim_states["REG_MICROADDR"].value] == "undefined") {
-				MC[sim_states["REG_MICROADDR"].value] = new Object() ;
-			    }
-			    MC[sim_states["REG_MICROADDR"].value][key] = sim_signals[key].value ;
+							     sim_signals[key].value = user_input ;
 
-	                    // update ROM[..]
-                            update_signal_firmware(key) ;
+							     if (true === is_interactive) 
+							     {
+								 // update REG_MICROINS
+								 sim_states["REG_MICROINS"].value[key] = sim_signals[key].value ;
 
-			    // update save-as...
-                            var SIMWARE = get_simware() ;
-			    document.getElementById("inputFirmware").value = saveFirmware(SIMWARE) ;
-			}
-			
-                        // fire signal
-                        compute_behavior('FIRE ' + key) ;
-                    }
+								 // update MC[uADDR]
+								 if (typeof MC[sim_states["REG_MICROADDR"].value] == "undefined") {
+								     MC[sim_states["REG_MICROADDR"].value] = new Object() ;
+								 }
+								 MC[sim_states["REG_MICROADDR"].value][key] = sim_signals[key].value ;
 
-                }
-            }
+								 // update ROM[..]
+								 update_signal_firmware(key) ;
+
+								 // update save-as...
+								 var SIMWARE = get_simware() ;
+								 document.getElementById("inputFirmware").value = saveFirmware(SIMWARE) ;
+							     }
+							
+							     // fire signal
+							     compute_behavior('FIRE ' + key) ;
+							  }
+					    }
+					}
+			});
+
+                    } // if (event.name == signals.firename.name)
+                } // for all signals.firename...
+            } // for all signals
 
 	    show_states();
 	    show_rf();
