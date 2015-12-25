@@ -891,7 +891,7 @@ function show_decode_instruction ( oinstruction, binstruction )
 {
     // if found, show its information. In other case, show error
     if (null == oinstruction) {
-        return "ERROR: instruction " + co + " not found" ;
+        return "ERROR: instruction " + binstruction + " not found" ;
     }
 
     var sinstruction = oinstruction.name + " " ;
