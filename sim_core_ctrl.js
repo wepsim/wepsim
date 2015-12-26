@@ -252,27 +252,37 @@
                                       str_checked = ' checked="checked" ' ;
                                  else str_checked = ' ' ;
 
-				 input_help += '<div class="radio">' + 
-                                               '<label><input type="radio" name="ask_svalue" ' + ' value="' + k.toString(10) + '" ' + str_checked + ' />' + "&nbsp;" + k.toString(10) + "&nbsp;" +
-                                               sim_signals[key].behavior[k].split(";") + '</label>' +
-                                               '</div>\n' ;
+				 input_help += '<li>' + 
+                                               '<input type="radio" name="ask_svalue" ' + ' value="' + k.toString(10) + '" ' + str_checked + ' />' + 
+                                               '&nbsp;' + sim_signals[key].behavior[k].split(";") + '</li>' ;
                             }
                         }
                         else {
 				 input_help += '<div>' + 
-                                               '<label><input type="text" name="ask_svalue" ' + ' value="0"/>' + '&nbsp;' + '0 - ' + (nvalues - 1) + '</label>' +
+                                               '<label><input type="text" name="ask_svalue" ' + ' value="0"/>' + '&nbsp;&nbsp;' + ' 0 - ' + (nvalues - 1) + '</label>' +
                                                '</div>\n' ;
                         }
 
 			bootbox.dialog({
 			       title:   'Decimal values for ' + key + ': ',
-			       message: '<form class="form-horizontal">' + 
+			       message: '<div id=help2>No more details available for this signal.</div>' + '\n' +
+                                        '<form class="form-horizontal">' + 
 					'<input id="ask_skey"   name="ask_skey"   type="hidden" value="' + key + '" class="form-control input-md"> ' +
+                                        '<ol>' +
                                         input_help +
-					'</form>' + 
-					'\n',
+                                        '</ol>' +
+					'</form>',
 			       value:   sim_signals[key].value,
 			       buttons: {
+					    help: {
+						label: "Help",
+						className: "btn-primary",
+						callback: function () {
+							     key = $('#ask_skey').val();
+							     $('#help2').load('sim_help_signals.html #' + key, function () { $('#help2').trigger('create'); });
+                                                             return false;
+							  }
+					    },
 					    success: {
 						label: "Save",
 						className: "btn-success",
