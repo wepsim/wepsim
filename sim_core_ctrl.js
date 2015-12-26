@@ -223,6 +223,18 @@
             show_memories('MP',  MP,  sim_states['REG_PC'].value) ;
             show_memories('MC',  MC,  sim_states['REG_MICROADDR'].value) ;
 	}
+
+
+        function update_signal_loadhelp ( helpdiv, key )
+        {
+	     $(helpdiv).collapse('toggle');
+	     $(helpdiv).load('sim_help_signals.html #' + key, 
+			      function(response, status, xhr) { 
+				  if ( $(helpdiv).html() == "" ) 
+				       $(helpdiv).html('<br>Sorry, No more details available for this signal.<p>\n'); 
+				  $(helpdiv).trigger('create'); 
+			      });
+	}
  
         function update_signal (event)
         {
@@ -252,9 +264,9 @@
                                       str_checked = ' checked="checked" ' ;
                                  else str_checked = ' ' ;
 
-				 input_help += '<li>' + 
+				 input_help += '<li><label>' + 
                                                '<input type="radio" name="ask_svalue" ' + ' value="' + k.toString(10) + '" ' + str_checked + ' />' + 
-                                               '&nbsp;' + sim_signals[key].behavior[k].split(";")[0] + ', ...</li>' ;
+                                               '&nbsp;' + sim_signals[key].behavior[k].split(";")[0] + ', ...</label></li>' ;
                             }
                         }
                         else {
@@ -265,7 +277,12 @@
 
 			bootbox.dialog({
 			       title:   'Decimal values for ' + key + ': ',
-			       message: '<div id=help2 style="height:inherit; width: inherit; overflow-x: scroll">Press help to search additional details.<p></div>' + '\n' +
+			       message: '<div class="panel panel-default">' +
+                                        '  <div class="panel-heading">' + 
+                                        '      <div onclick=\'update_signal_loadhelp("#help2",$("#ask_skey").val());\'>Press here to search additional details...</div>' + 
+                                        '  </div>' +
+                                        '  <div id=help2 class="panel-collapse collapse" style="height:inherit; width: inherit; overflow-x: auto">Loading...</div>' + 
+                                        '</div>' +
                                         '<form class="form-horizontal">' + 
 					'<input id="ask_skey"   name="ask_skey"   type="hidden" value="' + key + '" class="form-control input-md"> ' +
                                         '<ol start="0">' +
@@ -273,26 +290,12 @@
                                         '</ol>' +
 					'</form>',
 			       value:   sim_signals[key].value,
+                               animate: false,
 			       buttons: {
 					    close: {
 						label: "Close",
 						className: "btn-danger",
 						callback: function() { }
-					    },
-					    help: {
-						label: "Help",
-						className: "btn-primary",
-						callback: function () 
-                                                          {
-							     key = $('#ask_skey').val();
-							     $('#help2').load('sim_help_signals.html #' + key, 
-                                                                              function(response, status, xhr) { 
-                                                                                  if ( $('#help2').html() == "" ) 
-                                                                                       $('#help2').html('Sorry, No more details available for this signal.<p>\n'); 
-                                                                                  $('#help2').trigger('create'); 
-                                                                              });
-                                                             return false;
-							  }
 					    },
 					    success: {
 						label: "Save",
