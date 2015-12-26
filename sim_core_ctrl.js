@@ -265,7 +265,7 @@
 
 			bootbox.dialog({
 			       title:   'Decimal values for ' + key + ': ',
-			       message: '<div id=help2>Press help to search additional details.<p></div>' + '\n' +
+			       message: '<div id=help2 style="height:inherit; width: inherit; overflow-x: scroll">Press help to search additional details.<p></div>' + '\n' +
                                         '<form class="form-horizontal">' + 
 					'<input id="ask_skey"   name="ask_skey"   type="hidden" value="' + key + '" class="form-control input-md"> ' +
                                         '<ol start="0">' +
@@ -274,10 +274,16 @@
 					'</form>',
 			       value:   sim_signals[key].value,
 			       buttons: {
+					    close: {
+						label: "Close",
+						className: "btn-danger",
+						callback: function() { }
+					    },
 					    help: {
 						label: "Help",
 						className: "btn-primary",
-						callback: function () {
+						callback: function () 
+                                                          {
 							     key = $('#ask_skey').val();
 							     $('#help2').load('sim_help_signals.html #' + key, 
                                                                               function(response, status, xhr) { 
