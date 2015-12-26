@@ -254,7 +254,7 @@
 
 				 input_help += '<li>' + 
                                                '<input type="radio" name="ask_svalue" ' + ' value="' + k.toString(10) + '" ' + str_checked + ' />' + 
-                                               '&nbsp;' + sim_signals[key].behavior[k].split(";") + '</li>' ;
+                                               '&nbsp;' + sim_signals[key].behavior[k].split(";")[0] + ', ...</li>' ;
                             }
                         }
                         else {
@@ -268,7 +268,7 @@
 			       message: '<div id=help2>No more details available for this signal.</div>' + '\n' +
                                         '<form class="form-horizontal">' + 
 					'<input id="ask_skey"   name="ask_skey"   type="hidden" value="' + key + '" class="form-control input-md"> ' +
-                                        '<ol>' +
+                                        '<ol start="0">' +
                                         input_help +
                                         '</ol>' +
 					'</form>',
