@@ -1,14 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html lang=es xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title></title>
-	<meta charset="UTF-8">
-	<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
     <style type="text/css">
 /*<![CDATA[*/
     :link { color: #0563C1 }
     :visited { color: #954F72 }
+    p.cleanuphtml-5 {margin-bottom:8.0pt;line-height:80%}
     b.cleanuphtml-4 {font-style: italic}
     p.cleanuphtml-3 {font-weight: bold}
     p.cleanuphtml-2 {text-align: center}
@@ -57,7 +56,7 @@
                              (M2, C2, T1, C3),
       </p>
       <p>
-                              (A0, B=0, C=0000)
+                             (A0, B=0, C=0000)
       </p>
       <p>
         }
@@ -66,8 +65,8 @@
         <a class="cleanuphtml-1" name="_Toc438322900">Figura</a> <b>11</b> <b>Ejemplo de descripci&oacute;n para</b> <b>fetch</b>
       </p>
       <p>
-        Las se&ntilde;ales de control situadas entre  ( y ) se corresponden con las se&ntilde;ales a activar en un ciclo de reloj. As&iacute; el fetch necesita cuatro, el &uacute;ltimo se corresponde con la decodificaci&oacute;n
-        (incluida en dentro del fetch).
+        Las se&nacute;ales de control situadas entre los par&eacute;ntesis ( y ) se corresponden con las se&nacute;ales a activar en un ciclo de reloj. As&iacute; el fetch necesita cuatro ciclos de reloj, el &uacute;ltimo se
+        corresponde con la decodificaci&oacute;n (incluida en dentro del fetch).
       </p>
       <p>
         A continuaci&oacute;n se encuentran el resto de microprogramas asociados a cada instrucci&oacute;n. Cada microprograma sigue el siguiente formato:
@@ -122,8 +121,8 @@
         describir dicha instrucci&oacute;n.
       </p>
       <p>
-        El primer campo del ejemplo (co) que indica los 6 bits que identifica un&iacute;vocamente la instrucci&oacute;n. Esto no es cierto para las instrucciones aritm&eacute;tico-l&oacute;gicas que comparten el mismo c&oacute;digo de
-        operaci&oacute;n y seg&uacute;n el valor del campo cop se diferencian. Un ejemplo de este caso ser&iacute;a:
+        El primer campo del ejemplo mostrado (co) indica los 6 bits que identifica un&iacute;vocamente la instrucci&oacute;n. Esto no es del todo cierto para las instrucciones aritm&eacute;tico-l&oacute;gicas puesto que es
+        posible compartir el mismo c&oacute;digo de operaci&oacute;n y seg&uacute;n el valor del campo cop diferenciarse. Un ejemplo de este caso ser&iacute;a:
       </p>
       <p>
          
@@ -182,21 +181,21 @@
         El tipo de par&aacute;metro se indica con:
       </p>
       <p>
-        &middot;       parametro1 = reg(bit-inicio, bit-final): para un registro.
+        ·       parametro1 = reg(bit-inicio, bit-final): para un registro.
       </p>
       <p>
-        &middot;       parametro1 = inm(bit-inicio, bit-final): para un valor inmediato.
+        ·       parametro1 = inm(bit-inicio, bit-final): para un valor inmediato.
       </p>
       <p>
-        &middot;       parametro1 = addr(bit-inicio, bit-final)rel: para una direcci&oacute;n relativa.
+        ·       parametro1 = addr(bit-inicio, bit-final)rel: para una direcci&oacute;n relativa.
       </p>
       <p>
-        &middot;       parametro1 = addr(bit-inicio, bit-final)abs: para una direcci&oacute;n absoluta.
+        ·       parametro1 = addr(bit-inicio, bit-final)abs: para una direcci&oacute;n absoluta.
       </p>
       <p>
-        A continuaci&oacute;n se abre un bloque donde se indicar&aacute; el microprograma correspondiente a la instrucci&oacute;n. Las se&ntilde;ales de cada ciclo est&aacute;n entre par&eacute;ntesis y se separan dichos ciclos por coma. Si
-        solo hay un ciclo no es necesario la coma. Dentro de los par&eacute;ntesis se indicar&aacute;n las se&ntilde;ales y el valor correspondiente. Si es una se&ntilde;al de un bit, con solo poner el nombre de la se&ntilde;al se
-        entender&aacute; que su valor es uno. El valor de la se&ntilde;al se ha de indicar en binario, usando tantos bits como tenga asociado la se&ntilde;al. Las se&ntilde;ales y su valor correspondientes se separan usando una
+        A continuaci&oacute;n se abre un bloque donde se indicar&aacute; el microprograma correspondiente a la instrucci&oacute;n. Las se&nacute;ales de cada ciclo est&aacute;n entre par&eacute;ntesis y se separan dichos ciclos por coma. Si
+        solo hay un ciclo no es necesario la coma. Dentro de los par&eacute;ntesis se indicar&aacute;n las se&nacute;ales y el valor correspondiente. Si es una se&nacute;al de un bit, con solo poner el nombre de la se&nacute;al se
+        entender&aacute; que su valor es uno. El valor de la se&nacute;al se ha de indicar en binario, usando tantos bits como tenga asociado la se&nacute;al. Las se&nacute;ales y su valor correspondientes se separan usando una
         coma.
       </p>
       <p>
@@ -278,13 +277,10 @@
         puntero de pila.
       </p>
       <p>
-        Por &uacute;ltimo es posible definir pseudo-instrucciones.<br />
-        <br />
-      </p><br clear="all" />
-      <p>
          
       </p>
       <p>
+        Por &uacute;ltimo es posible definir pseudo-instrucciones.<br />
         Un ejemplo de pseudoinstrucci&oacute;n ser&iacute;a:
       </p>
       <p>
@@ -315,8 +311,10 @@
         pantalla se ha de ir al men&uacute; (parte superior derecha) e indicar la opci&oacute;n <i>Firmware</i> (v&eacute;ase la <b class="cleanuphtml-4">Figura 16</b>)
       </p>
       <p>
-        <img width="92" height="50" src="sim_help_firmware_archivos/image001.png" alt="" /><img width="893" height="467" id="Imagen 6" src="sim_help_firmware_archivos/image002.jpg" alt="" name=
-        "Imagen 6" />
+         
+      </p>
+      <p>
+        <img width="1164" height="550" id="Imagen 1" src="sim_help_firmware_archivos/image001.jpg" alt="" name="Imagen 1" />
       </p>
       <p class="cleanuphtml-2">
         <a name="_Ref434190846"></a><a name="_Toc438322905"></a><a class="cleanuphtml-1" name="_Ref434190877">Figura</a> <b>16</b> <b>Pantalla principal: opci&oacute;n de carga de firmware</b>
@@ -325,15 +323,14 @@
         <br />
         A continuaci&oacute;n aparecer&aacute; una pantalla con un cuadro de texto que permite indicar el <i>firmware</i> (las tres secciones antes comentadas). Es posible cargar un <i>firmware</i> existente
         usando el bot&oacute;n "Load" de la barra inferior, modificar un <i>firmware</i> anteriormente cargado o salvar el firmware en curso con el bot&oacute;n "Save" de la barra inferior. Una vez se indique el
-        firmware es preciso hacer clic en el bot&oacute;n "&micro;compile" para pasar a binario y cargar en la memoria de control dicho firmware, como se muestra en la <b class="cleanuphtml-4">Figura 17</b>.
+        firmware es preciso hacer clic en el bot&oacute;n "µcompile" para pasar a binario y cargar en la memoria de control dicho firmware, como se muestra en la <b class="cleanuphtml-4">Figura 17</b>.
       </p>
       <p>
-         
+        <img width="1237" height="497" id="Imagen 2" src="sim_help_firmware_archivos/image002.jpg" alt="" name="Imagen 2" />
       </p>
-      <p>
-        <img width="92" height="50" src="sim_help_firmware_archivos/image001.png" alt="" /><img width="893" height="466" id="Imagen 13" src="sim_help_firmware_archivos/image003.jpg" alt="" name=
-        "Imagen 13" />
-      </p>
+      <p class="MsoNormal cleanuphtml-5"></p>
+      <table cellpadding="0" cellspacing="0" align="left">
+      </table> <br clear="all" />
       <p class="cleanuphtml-2">
         <a name="_Toc438322906"></a><a class="cleanuphtml-1" name="_Ref434191423">Figura</a> <b>17</b> <b>Pantalla firmware: cuadro de texto con firmware a cargar</b>
       </p>
@@ -343,17 +340,14 @@
         que almacena.
       </p>
       <p>
-         
-      </p>
-      <p>
-        <img width="893" height="466" id="Imagen 21" src="sim_help_firmware_archivos/image004.jpg" alt="" name="Imagen 21" />
+        <img width="999" height="434" id="Imagen 3" src="sim_help_firmware_archivos/image004.jpg" alt="" name="Imagen 3" />
       </p>
       <p class="cleanuphtml-2">
         <a name="_Toc438322907"></a><a class="cleanuphtml-1" name="_Ref434191551">Figura</a> <b>18</b> <b>Pantalla firmware: firmware finalmente compilado</b>
       </p>
       <p>
         <br />
-        El siguiente paso es la carga del programa ensamblador que permita probar este <i>firmware</i>, para ello podemos pulsar el bot&oacute;n "Assembly" de la barra inferior.
+        El siguiente paso es la carga del programa ensamblador que permita probar este <i>firmware</i>, para ello podemos pulsar el bot&oacute;n "<i>Assembly</i>" de la barra inferior.
       </p>
       <p>
          
@@ -361,4 +355,3 @@
     </div>
   </body>
 </html>
-

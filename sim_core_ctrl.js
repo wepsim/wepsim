@@ -265,7 +265,7 @@
 
 			bootbox.dialog({
 			       title:   'Decimal values for ' + key + ': ',
-			       message: '<div id=help2>No more details available for this signal.</div>' + '\n' +
+			       message: '<div id=help2>Press help to search additional details.<p></div>' + '\n' +
                                         '<form class="form-horizontal">' + 
 					'<input id="ask_skey"   name="ask_skey"   type="hidden" value="' + key + '" class="form-control input-md"> ' +
                                         '<ol start="0">' +
@@ -279,7 +279,12 @@
 						className: "btn-primary",
 						callback: function () {
 							     key = $('#ask_skey').val();
-							     $('#help2').load('sim_help_signals.html #' + key, function () { $('#help2').trigger('create'); });
+							     $('#help2').load('sim_help_signals.html #' + key, 
+                                                                              function(response, status, xhr) { 
+                                                                                  if ( $('#help2').html() == "" ) 
+                                                                                       $('#help2').html('Sorry, No more details available for this signal.<p>\n'); 
+                                                                                  $('#help2').trigger('create'); 
+                                                                              });
                                                              return false;
 							  }
 					    },
