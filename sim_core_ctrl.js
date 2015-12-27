@@ -271,7 +271,7 @@
                         }
                         else {
 				 input_help += '<div>' + 
-                                               '<label><input type="text" name="ask_svalue" ' + ' value="0"/>' + '&nbsp;&nbsp;' + ' 0 - ' + (nvalues - 1) + '</label>' +
+                                               '<label><input type="number" size="4" name="ask_svalue" ' + ' value="0"/>' + '&nbsp;&nbsp;' + ' 0 - ' + (nvalues - 1) + '</label>' +
                                                '</div>\n' ;
                         }
 
