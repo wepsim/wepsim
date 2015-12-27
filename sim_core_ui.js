@@ -201,7 +201,7 @@
 	    for (var index=0; index < sim_states['BR'].length; index++) 
             {
                  var br_value = (sim_states['BR'][index] >>> 0).toString(16).toUpperCase() ;
-                     br_value = "<font color=gray>" + "00000000".substring(0, 8 - br_value.length) + "</font>" + br_value ;
+                     br_value = "00000000".substring(0, 8 - br_value.length) + br_value ;
 
                  var obj = document.getElementById("tbl_RF" + index);
                  if (obj != null)
@@ -475,11 +475,13 @@
 	function show_dbg_ir ( decins )
 	{
 	        var o = document.getElementById('svg_p');
-	        if (o != null) o = o.contentDocument.getElementById('tspan3899');
+	        if (o != null) o = o.contentDocument;
+	        if (o != null) o = o.getElementById('tspan3899');
 	        if (o != null) o.innerHTML = decins ;
 
 	        var o = document.getElementById('svg_cu');
-	        if (o != null) o = o.contentDocument.getElementById('text3611');
+	        if (o != null) o = o.contentDocument;
+	        if (o != null) o = o.getElementById('text3611');
 	        if (o != null) o.innerHTML = decins ;
 	}
 
