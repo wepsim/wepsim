@@ -223,13 +223,23 @@
             show_memories('MP',  MP,  sim_states['REG_PC'].value) ;
             show_memories('MC',  MC,  sim_states['REG_MICROADDR'].value) ;
 	}
+
+
+        function update_signal_loadhelp ( helpdiv, key )
+        {
+	     $(helpdiv).collapse('toggle');
+	     $(helpdiv).load('sim_help_signals.html #' + key, 
+			      function(response, status, xhr) { 
+				  if ( $(helpdiv).html() == "" ) 
+				       $(helpdiv).html('<br>Sorry, No more details available for this signal.<p>\n'); 
+				  $(helpdiv).trigger('create'); 
+			      });
+	}
  
         function update_signal (event)
         {
 	    if (false === is_interactive)
                 return;
-
-            var user_input = null ;
 
             for (var key in sim_signals)
             {
@@ -238,62 +248,97 @@
 	            var r = sim_signals[key].fire_name[j].split(':') ;
                     if (r[1] == event.currentTarget.id)
                     {
-                        if (sim_signals[key].nbits == 1)
-                        {
-                            sim_signals[key].value = (sim_signals[key].value + 1) % 2;
-                        }
+                        var nextvalue = 0;
+                        if (sim_signals[key].nbits == 1) 
+                            nextvalue = ((sim_signals[key].value >>> 0) + 1) % 2;
 
-                        if (sim_signals[key].nbits > 1)
+                        var str_checked = "";
+                        var input_help  = "";
+
+                        var nvalues = Math.pow(2, sim_signals[key].nbits) ;
+                        if (sim_signals[key].behavior.length == nvalues)
                         {
-                            var input_help = "";
-                            var nvalues = Math.pow(2, sim_signals[key].nbits) ;
-                            if (sim_signals[key].behavior.length == nvalues)
+                            for (var k = 0; k < sim_signals[key].behavior.length; k++) 
                             {
-                                for (var k = 0; k < sim_signals[key].behavior.length; k++) {
-                                     input_help = input_help + "\n  " + k.toString(10) ;
-                                     input_help = input_help + ": " + sim_signals[key].behavior[k].split(";")[0];
-                                }
-                            }
-                            else {
-                                input_help = input_help + "\n  " + "0 - " + (nvalues - 1);
-                            }
+                                 if (k == nextvalue)
+                                      str_checked = ' checked="checked" ' ;
+                                 else str_checked = ' ' ;
 
-                           if (user_input == null)
-                           {
-                                user_input = prompt("Decimal values for " + key + ": " + input_help + "\n", 
-                                                    sim_signals[key].value) ;
-                           }
-                           if (user_input != null)
-                           {
-                                sim_signals[key].value = user_input ;
-                           }
+				 input_help += '<li><label>' + 
+                                               '<input type="radio" name="ask_svalue" ' + ' value="' + k.toString(10) + '" ' + str_checked + ' />' + 
+                                               '&nbsp;' + sim_signals[key].behavior[k].split(";")[0] + ', ...</label></li>' ;
+                            }
+                        }
+                        else {
+				 input_help += '<div><label>' + 
+                                               '<input type="number" size=4 name="ask_svalue" ' + 
+                                               '       value="' + sim_signals[key].value + '"/>' + '&nbsp;&nbsp;' + ' 0 - ' + (nvalues - 1) +
+                                               '</label></div>\n' ;
                         }
 
-	                if (true === is_interactive) 
-                        {
-			    // update REG_MICROINS
-			    sim_states["REG_MICROINS"].value[key] = sim_signals[key].value ;
+			bootbox.dialog({
+			       title:   'Decimal values for ' + key + ': ',
+			       message: '<div class="panel panel-default">' +
+                                        '  <div class="panel-heading">' + 
+                                        '      <div onclick=\'update_signal_loadhelp("#help2",$("#ask_skey").val());\'><b>Press here to search additional details or close details...</b></div>' + 
+                                        '  </div>' +
+                                        '  <div id=help2 class="panel-collapse collapse" style="height:inherit; width: inherit; overflow-x: auto">Loading...</div>' + 
+                                        '</div>' +
+                                        '<form class="form-horizontal">' + 
+					'<input id="ask_skey"   name="ask_skey"   type="hidden" value="' + key + '" class="form-control input-md"> ' +
+                                        '<ol start="0">' +
+                                        input_help +
+                                        '</ol>' +
+					'</form>',
+			       value:   sim_signals[key].value,
+                               animate: false,
+			       buttons: {
+					    close: {
+						label: "Close",
+						className: "btn-danger",
+						callback: function() { }
+					    },
+					    success: {
+						label: "Save",
+						className: "btn-success",
+						callback: function () 
+							  {
+							     key        = $('#ask_skey').val();
+							     user_input = $("input[name='ask_svalue']:checked").val();
+                                                             if (typeof user_input == "undefined")
+							         user_input = $("input[name='ask_svalue']").val();
 
-			    // update MC[uADDR]
-			    if (typeof MC[sim_states["REG_MICROADDR"].value] == "undefined") {
-				MC[sim_states["REG_MICROADDR"].value] = new Object() ;
-			    }
-			    MC[sim_states["REG_MICROADDR"].value][key] = sim_signals[key].value ;
+							     sim_signals[key].value = user_input ;
 
-	                    // update ROM[..]
-                            update_signal_firmware(key) ;
+							     if (true === is_interactive) 
+							     {
+								 // update REG_MICROINS
+								 sim_states["REG_MICROINS"].value[key] = sim_signals[key].value ;
 
-			    // update save-as...
-                            var SIMWARE = get_simware() ;
-			    document.getElementById("inputFirmware").value = saveFirmware(SIMWARE) ;
-			}
-			
-                        // fire signal
-                        compute_behavior('FIRE ' + key) ;
-                    }
+								 // update MC[uADDR]
+								 if (typeof MC[sim_states["REG_MICROADDR"].value] == "undefined") {
+								     MC[sim_states["REG_MICROADDR"].value] = new Object() ;
+								 }
+								 MC[sim_states["REG_MICROADDR"].value][key] = sim_signals[key].value ;
 
-                }
-            }
+								 // update ROM[..]
+								 update_signal_firmware(key) ;
+
+								 // update save-as...
+								 var SIMWARE = get_simware() ;
+								 document.getElementById("inputFirmware").value = saveFirmware(SIMWARE) ;
+							     }
+							
+							     // fire signal
+							     compute_behavior('FIRE ' + key) ;
+							  }
+					    }
+					}
+			});
+
+                    } // if (event.name == signals.firename.name)
+                } // for all signals.firename...
+            } // for all signals
 
 	    show_states();
 	    show_rf();
