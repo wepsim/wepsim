@@ -921,7 +921,8 @@
 						    sim_states['ROM_MUXA'].value = ROM[rom_addr] ;
 
 						    // 4.-  Statistics
-						    sim_states['DECO_INS'].value = sim_states['DECO_INS'].value + 1 ;
+						    var val = sim_states['DECO_INS'].value() ;
+						    sim_states["DECO_INS"].value(val + 1);
 
                                                     // 5.- Update UI
 						    var decins = show_decode_instruction(oi, bits) ;
