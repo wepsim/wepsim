@@ -270,16 +270,17 @@
                             }
                         }
                         else {
-				 input_help += '<div>' + 
-                                               '<label><input type="text" name="ask_svalue" ' + ' value="0"/>' + '&nbsp;&nbsp;' + ' 0 - ' + (nvalues - 1) + '</label>' +
-                                               '</div>\n' ;
+				 input_help += '<div><label>' + 
+                                               '<input type="text" name="ask_svalue" ' + 
+                                               '       value="' + sim_signals[key].value + '"/>' + '&nbsp;&nbsp;' + ' 0 - ' + (nvalues - 1) +
+                                               '</label></div>\n' ;
                         }
 
 			bootbox.dialog({
 			       title:   'Decimal values for ' + key + ': ',
 			       message: '<div class="panel panel-default">' +
                                         '  <div class="panel-heading">' + 
-                                        '      <div onclick=\'update_signal_loadhelp("#help2",$("#ask_skey").val());\'>Press here to search additional details...</div>' + 
+                                        '      <div onclick=\'update_signal_loadhelp("#help2",$("#ask_skey").val());\'><b>Press here to search additional details or close details...</b></div>' + 
                                         '  </div>' +
                                         '  <div id=help2 class="panel-collapse collapse" style="height:inherit; width: inherit; overflow-x: auto">Loading...</div>' + 
                                         '</div>' +
