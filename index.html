@@ -147,7 +147,8 @@
 	var url = "examples/exampleCode2.txt?time=20151212" ;
 
 	xmlhttp.onreadystatechange=function() {
-					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+					// if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+					if ((xmlhttp.readyState == 4) && ((xmlhttp.status == 200) || (xmlhttp.status == 0)))
 					{
                                           //var textFromFileLoaded = xmlhttp.responseText ;
 					  //document.getElementById("inputAssembly").value = textFromFileLoaded;
@@ -226,7 +227,8 @@
 	var url = "examples/exampleFirmware5.txt?time=20151212" ;
 
 	xmlhttp.onreadystatechange=function() {
-					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+					// if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+					if ((xmlhttp.readyState == 4) && ((xmlhttp.status == 200) || (xmlhttp.status == 0)))
 					{
                                           //var textFromFileLoaded = xmlhttp.responseText ;
 					  //document.getElementById("inputFirmware").value = textFromFileLoaded;
