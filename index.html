@@ -14,7 +14,7 @@
     <meta charset="utf-8" />
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
-    <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=2, minimum-scale=1, width=device-width">
+    <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=2.2, minimum-scale=1, width=device-width">
 
     <script src="external/jquery.min.js"></script>
     <script src="external/jquery-ui.min.js"></script>
@@ -396,7 +396,7 @@
 	<div role="main" class="ui-content">
 
             <div class="row">
-                <div class="col-md-8" style="padding: 0 0px 0 20px;">
+                <div class="col-md-8" style="padding: 0 5px 0 5px;">
 		    <div data-role="tabs" id="tabs2">
     		      <div data-role="navbar" id="tabsnav2" class="ui-responsive">
 		        <ul>
@@ -414,7 +414,7 @@
                           </li>
 		        </ul>
 		      </div>
-		      <div id="eltos_p"  class="ui-body-d ui-content">
+		      <div id="eltos_p"  class="ui-body-d ui-content" style="padding:0px;">
 			    <object id="svg_p" data="images/imagenProcesador2.svg" type="image/svg+xml">
 				Your browser doesn't support SVG
 			    </object>
@@ -468,7 +468,7 @@
 
                 <div class="col-md-4" style="padding: 0 12px 0 12px;">
 
-                    <div class="btn-toolbar" role="toolbar" style="padding: 0 0px 10px 0px;">
+                    <div class="btn-toolbar" role="toolbar" id="sim_toolbar" style="padding: 0 0px 10px 0px;">
 			<div class="btn-group btn-group-justified" role="group">
 			    <a          href="#" style="background-color: #CCCCCC"
 			       class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-reset   ui-btn-icon-top ui-mini"
@@ -918,6 +918,8 @@
             $("#tabs2").tabs();
             $("#tabs3").tabs();
             $("#tabs4").tabs();
+
+	    $("#sim_toolbar").draggable();
 
             tinymce.init({ 
                           selector: '#inputFirmware',
