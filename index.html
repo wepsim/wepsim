@@ -774,56 +774,84 @@
 <div data-role="panel" id="actions_panel" 
      data-display="overlay" data-position="right" data-theme="a">
 
-	<ul id="listview_1" data-role="listview" data-inset="true" data-theme="a" data-divider-theme="b">
-	    <li data-role="list-divider">WorkSpaces</li>
-	    <li><a id="tab21" href="#"
-		   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"><h2>Firmware</h2></a>
-	        <a href="#"
-	           onclick="$('#iframe_help1').load('sim_help_firmware.html', function(){$('#help1').trigger('updatelayout');
-                            $('#help1').popup('open');});"
-	           class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-info ui-mini"></a></li>
-	    <li><a id="tab24" href="#"
-		   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');"><h2>Assembly</h2></a>
-	        <a href="#"
-	           onclick="$('#iframe_help1').load('sim_help_assembly.html', function(){$('#help1').trigger('updatelayout');
-                            $('#help1').popup('open');});"
-	           class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-info ui-mini"></a></li>
-	    <li><a id="tab25" href="#"
-		   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');"><h2>Simulator</h2></a>
-	        <a href="#"
-	           onclick="$('#iframe_help1').load('sim_help_simulator.html', function(){$('#help1').trigger('updatelayout');
-                            $('#help1').popup('open');});"
-	           class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-info ui-mini"></a></li>
+	<div data-role="collapsible-set">
+	    <div data-role="collapsible" data-collapsed="false">
+	    <h3>WorkSpaces</h3>
+	    <p>
+	    <ul id="listview_1" data-role="listview" data-inset="false" data-theme="b" data-divider-theme="b">
+		    <li><a id="tab21" href="#"
+			   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"><h2>Firmware</h2></a></li>
+		    <li><a id="tab24" href="#"
+			   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');"><h2>Assembly</h2></a></li>
+		    <li><a id="tab25" href="#"
+			   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');"><h2>Simulator</h2></a></li>
+	    </ul>
+            </p>
+	    </div>
 
-	    <li data-role="list-divider">Configuration</li>
-	    <li class="list-group-item">
-		 Speed-up (slow - fast):
-		 <input type="range"
-			data-show-value="false"
-			name="slider1" id="slider1"
-			min="1" max="100" value="100" step=1
-			onchange="DBG_delay = 1000 / this.value;">
-	    </li>
-	    <li class="list-group-item">
-		 <fieldset data-role="controlgroup" data-type="vertical">
-		 Single step element:
-                 <ul>
-                 <li>
-		     <input name="radio-choice-h-2" id="radio-choice-h-2a" data-mini="true"
-			    onclick="DBG_level='instruction';"
-			    value="on" checked="checked" type="radio">
-		     <label for="radio-choice-h-2a">Instruction</label>
-                 </li>
-                 <li>
-		     <input name="radio-choice-h-2" id="radio-choice-h-2b" data-mini="true"
-			    onclick="DBG_level='microinstruction';"
-			    value="off" type="radio">
-		     <label for="radio-choice-h-2b">&#181;instruction</label>
-                 </li>
-                 </ul>
-		 </fieldset>
-	    </li>
-	</ul>
+	    <div data-role="collapsible">
+	    <h3>Help</h3>
+	    <p>
+	    <ul id="listview_2" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b">
+		    <li><a href="#"
+			   onclick="$('#iframe_help1').load('sim_help.html #help_firmware_format',  function(){$('#help1').trigger('updatelayout');
+				    $('#help1').popup('open');});"><h2>Format of <br>the Firmware</h2></a></li>
+		    <li><a href="#"
+			   onclick="$('#iframe_help1').load('sim_help.html #help_firmware_screens', function(){$('#help1').trigger('updatelayout');
+				    $('#help1').popup('open');});"><h2>Firmware <br>workflow</h2></a></li>
+
+		    <li><a href="#"
+			   onclick="$('#iframe_help1').load('sim_help.html #help_assembly_format',  function(){$('#help1').trigger('updatelayout');
+				    $('#help1').popup('open');});"><h2>Format of <br>the Assembly</h2></a></li>
+		    <li><a href="#"
+			   onclick="$('#iframe_help1').load('sim_help.html #help_assembly_screens', function(){$('#help1').trigger('updatelayout');
+				    $('#help1').popup('open');});"><h2>Assembly <br>workflow</h2></a></li>
+
+		    <li><a href="#"
+			   onclick="$('#iframe_help1').load('sim_help.html #help_simulator_arch',    function(){$('#help1').trigger('updatelayout');
+				    $('#help1').popup('open');});"><h2>Simulator <br>architecture</h2></a></li>
+		    <li><a href="#"
+			   onclick="$('#iframe_help1').load('sim_help.html #help_simulator_screens', function(){$('#help1').trigger('updatelayout');
+				    $('#help1').popup('open');});"><h2>Simulator <br>usage</h2></a></li>
+	    </ul>
+            </p>
+	    </div>
+
+	    <div data-role="collapsible">
+	    <h3>Configuration</h3>
+	    <p>
+	    <ul id="listview_3" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b">
+		    <li class="list-group-item">
+			 Speed-up (slow - fast):
+			 <input type="range"
+				data-show-value="false"
+				name="slider1" id="slider1"
+				min="1" max="100" value="100" step=1
+				onchange="DBG_delay = 1000 / this.value;">
+		    </li>
+		    <li class="list-group-item">
+			 <fieldset data-role="controlgroup" data-type="vertical">
+			 Single step element:
+			 <ul>
+			 <li>
+			     <input name="radio-choice-h-2" id="radio-choice-h-2a" data-mini="true"
+				    onclick="DBG_level='instruction';"
+				    value="on" checked="checked" type="radio">
+			     <label for="radio-choice-h-2a">Instruction</label>
+			 </li>
+			 <li>
+			     <input name="radio-choice-h-2" id="radio-choice-h-2b" data-mini="true"
+				    onclick="DBG_level='microinstruction';"
+				    value="off" type="radio">
+			     <label for="radio-choice-h-2b">&#181;instruction</label>
+			 </li>
+			 </ul>
+			 </fieldset>
+		    </li>
+	    </ul>
+            </p>
+	    </div>
+	</div>
 
 </div><!-- /panel -->
 

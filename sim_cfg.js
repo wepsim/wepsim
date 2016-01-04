@@ -29,8 +29,11 @@
         var color_name_active   = "red" ;
         var color_name_inactive = "rgb(0, 0, 0)" ; // "black"
 
-        var is_interactive      = false;
-
 	var size_active         = 1.22;
 	var size_inactive       = 0.02;
+
+        var is_interactive      = false;
+
+        var DBG_delay = 10 ;
+        var DBG_level = "instruction" ;
 
