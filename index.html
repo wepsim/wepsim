@@ -51,11 +51,13 @@
 
     <link rel="stylesheet" href="external/bootstrap.min.css">
     <link rel="stylesheet" href="external/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="external/spectrum.min.css">
 
     <script src="external/bootstrap.min.js"></script>
     <script src="external/bootbox.min.js"></script>
     <script src="external/knockout-3.4.0.js"></script>
     <script src='external/tinymce.min.js'></script>
+    <script src="external/spectrum.min.js"></script>
 
     <script src="sim_all.min.js"></script>
 
@@ -775,10 +777,10 @@
      data-display="overlay" data-position="right" data-theme="a">
 
 	<div data-role="collapsible-set">
-	    <div data-role="collapsible" data-collapsed="false">
+	    <div data-role="collapsible" data-collapsed="false" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
 	    <h3>WorkSpaces</h3>
 	    <p>
-	    <ul id="listview_1" data-role="listview" data-inset="false" data-theme="b" data-divider-theme="b">
+	    <ul id="listview_1" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b">
 		    <li><a id="tab21" href="#"
 			   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"><h2>Firmware</h2></a></li>
 		    <li><a id="tab24" href="#"
@@ -789,35 +791,7 @@
             </p>
 	    </div>
 
-	    <div data-role="collapsible">
-	    <h3>Help</h3>
-	    <p>
-	    <ul id="listview_2" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b">
-		    <li><a href="#"
-			   onclick="$('#iframe_help1').load('sim_help.html #help_firmware_format',  function(){$('#help1').trigger('updatelayout');
-				    $('#help1').popup('open');});"><h2>Format of <br>the Firmware</h2></a></li>
-		    <li><a href="#"
-			   onclick="$('#iframe_help1').load('sim_help.html #help_firmware_screens', function(){$('#help1').trigger('updatelayout');
-				    $('#help1').popup('open');});"><h2>Firmware <br>workflow</h2></a></li>
-
-		    <li><a href="#"
-			   onclick="$('#iframe_help1').load('sim_help.html #help_assembly_format',  function(){$('#help1').trigger('updatelayout');
-				    $('#help1').popup('open');});"><h2>Format of <br>the Assembly</h2></a></li>
-		    <li><a href="#"
-			   onclick="$('#iframe_help1').load('sim_help.html #help_assembly_screens', function(){$('#help1').trigger('updatelayout');
-				    $('#help1').popup('open');});"><h2>Assembly <br>workflow</h2></a></li>
-
-		    <li><a href="#"
-			   onclick="$('#iframe_help1').load('sim_help.html #help_simulator_arch',    function(){$('#help1').trigger('updatelayout');
-				    $('#help1').popup('open');});"><h2>Simulator <br>architecture</h2></a></li>
-		    <li><a href="#"
-			   onclick="$('#iframe_help1').load('sim_help.html #help_simulator_screens', function(){$('#help1').trigger('updatelayout');
-				    $('#help1').popup('open');});"><h2>Simulator <br>usage</h2></a></li>
-	    </ul>
-            </p>
-	    </div>
-
-	    <div data-role="collapsible">
+	    <div data-role="collapsible" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
 	    <h3>Configuration</h3>
 	    <p>
 	    <ul id="listview_3" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b">
@@ -848,6 +822,73 @@
 			 </ul>
 			 </fieldset>
 		    </li>
+		    <li class="list-group-item">
+			 <fieldset data-role="controlgroup" data-type="vertical">
+			 RF display format:
+			 <ul>
+			 <li>
+			     <input name="radio-choice-h-3" id="radio-choice-h-3a" data-mini="true"
+				    onclick="DBG_display_format=16;"
+				    value="on" checked="checked" type="radio">
+			     <label for="radio-choice-h-3a">Hex.</label>
+			 </li>
+			 <li>
+			     <input name="radio-choice-h-3" id="radio-choice-h-3b" data-mini="true"
+				    onclick="DBG_display_format=10;"
+				    value="off" type="radio">
+			     <label for="radio-choice-h-3b">Dec.</label>
+			 </li>
+			 <li>
+			     <input name="radio-choice-h-3" id="radio-choice-h-3c" data-mini="true"
+				    onclick="DBG_display_format=8;"
+				    value="off" type="radio">
+			     <label for="radio-choice-h-3c">Oct.</label>
+			 </li>
+			 </ul>
+			 </fieldset>
+		    </li>
+		    <li class="list-group-item input-toggles">
+			 Datapath Color:
+			 <input type="color"
+                                id="colorpicker1"
+				data-show-value="false"
+				value="#0066FF"
+				onchange="color_data_active = $('#colorpicker1').spectrum('get');">
+			 Signal Color:
+			 <input type="color"
+                                id="colorpicker2"
+				data-show-value="false"
+				value="red"
+				onchange="color_name_active = $('#colorpicker2').spectrum('get');">
+		    </li>
+	    </ul>
+            </p>
+	    </div>
+
+	    <div data-role="collapsible" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
+	    <h3>Help</h3>
+	    <p>
+	    <ul id="listview_2" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b" data-mini="true">
+		    <li data-icon="false"><a href="#"
+			   onclick="$('#iframe_help1').load('sim_help.html #help_firmware_format',  function(){$('#help1').trigger('updatelayout');
+				    $('#help1').popup('open');});"><h2>Firmware format</h2></a></li>
+		    <li data-icon="false"><a href="#"
+			   onclick="$('#iframe_help1').load('sim_help.html #help_firmware_screens', function(){$('#help1').trigger('updatelayout');
+				    $('#help1').popup('open');});"><h2>Firmware workflow</h2></a></li>
+
+		    <li data-icon="false"><a href="#"
+			   onclick="$('#iframe_help1').load('sim_help.html #help_assembly_format',  function(){$('#help1').trigger('updatelayout');
+				    $('#help1').popup('open');});"><h2>Assembly format</h2></a></li>
+		    <li data-icon="false"><a href="#"
+			   onclick="$('#iframe_help1').load('sim_help.html #help_assembly_screens', function(){$('#help1').trigger('updatelayout');
+				    $('#help1').popup('open');});"><h2>Assembly workflow</h2></a></li>
+
+		    <li data-icon="false"><a href="#"
+			   onclick="$('#iframe_help1').load('sim_help.html #help_simulator_arch',    function(){$('#help1').trigger('updatelayout');
+				    $('#help1').popup('open');});"><h2>Simulator architecture</h2></a></li>
+		    <li data-icon="false"><a href="#"
+			   onclick="$('#iframe_help1').load('sim_help.html #help_simulator_screens', function(){$('#help1').trigger('updatelayout');
+				    $('#help1').popup('open');});"><h2>Simulator usage</h2></a></li>
 	    </ul>
             </p>
 	    </div>
@@ -948,6 +989,8 @@
             $("#tabs4").tabs();
 
 	    $("#sim_toolbar").draggable();
+            $("#colorpicker1").spectrum({ preferredFormat: "hex", color: color_data_active}) ;
+            $("#colorpicker2").spectrum({ preferredFormat: "hex", color: color_name_active}) ;
 
             tinymce.init({ 
                           selector: '#inputFirmware',

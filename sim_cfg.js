@@ -20,7 +20,7 @@
 
 
         /*
-         *  UI configuration
+         *  SVG configuration
          */
 
         var color_data_active   = "#0066FF" ;
@@ -32,8 +32,14 @@
 	var size_active         = 1.22;
 	var size_inactive       = 0.02;
 
-        var is_interactive      = false;
 
-        var DBG_delay = 10 ;
-        var DBG_level = "instruction" ;
+        /*
+         *  UI configuration
+         */
+
+        var DBG_delay          = 10 ;
+        var DBG_level          = "instruction" ;
+
+        var DBG_display_format = 16 ;
+
 

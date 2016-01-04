@@ -238,7 +238,7 @@
  
         function update_signal (event)
         {
-	    if (false === is_interactive)
+	    if (false === get_interactive_mode())
                 return;
 
             for (var key in sim_signals)
@@ -310,7 +310,7 @@
 
 							     sim_signals[key].value = user_input ;
 
-							     if (true === is_interactive) 
+	                                                     if (true === get_interactive_mode())
 							     {
 								 // update REG_MICROINS
 								 sim_states["REG_MICROINS"].value[key] = sim_signals[key].value ;
@@ -438,6 +438,8 @@
         }
 
         /* 2) INTERACTIVE MODE */
+        var is_interactive     = false;
+
         function set_interactive_mode ( interactive )
         {
             // 1.- set the global variable of in which mode we are
@@ -476,7 +478,7 @@
 
         function execute_microinstruction ()
         {
-	        if (false === is_interactive)
+	        if (false === get_interactive_mode())
                 {
 			if (typeof segments['code'] == "undefined")
 			{

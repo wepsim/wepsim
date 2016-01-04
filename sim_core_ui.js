@@ -188,7 +188,7 @@
 		 o1_rf += "<div class='col-xs-2 col-sm-1 col-md-2 col-lg-1' id='name_RF" + index + "' style='padding: 0 15 0 5;'>" +
                           "R" + index + "</div>" + 
                           "<div class='col-xs-4 col-sm-3 col-md-4 col-lg-3' id='tbl_RF"  + index + "' style='padding: 0 5 0 35;'>" +
-                          sim_states['BR'][index] + "</div>" ; 
+                          (sim_states['BR'][index] >>> 0).toString(DBG_display_format).toUpperCase() + "</div>" ; 
 	    }
 
             $(jqdiv).html("<div class='row-fluid'>" + o1_rf + "</div>");
@@ -200,7 +200,8 @@
 
 	    for (var index=0; index < sim_states['BR'].length; index++) 
             {
-                 var br_value = (sim_states['BR'][index] >>> 0).toString(16).toUpperCase() ;
+                 var br_value = (sim_states['BR'][index] >>> 0).toString(DBG_display_format).toUpperCase() ;
+                 if (16 == DBG_display_format)
                      br_value = "00000000".substring(0, 8 - br_value.length) + br_value ;
 
                  var obj = document.getElementById("tbl_RF" + index);
@@ -246,7 +247,7 @@
 
                 o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" + showkey + "</div>" +
                       "<div class='" + divclass + "' id='tbl_" + s + "' style='padding: 0 5 0 0;'>" +
-                      sim_eltos[s].value.toString(16) +
+                      sim_eltos[s].value.toString(DBG_display_format) +
                       "</div>" ;
             }
 
@@ -259,11 +260,12 @@
             {
                 var r = filter[i].split(",") ;
                 var key = r[0] ;
-                var value = sim_eltos[key].value.toString(16) ;
+                var value = sim_eltos[key].value.toString(DBG_display_format) ;
 
                 if (sim_eltos[key].nbits > 1) {
-                    value = (sim_states[key].value >>> 0).toString(16).toUpperCase() ;
-                    value = "<font color=gray>" + "00000000".substring(0, 8 - value.length) + "</font>" + value ;
+                        value = (sim_states[key].value >>> 0).toString(DBG_display_format).toUpperCase() ;
+                    if (16 == DBG_display_format)
+                        value = "<font color=gray>" + "00000000".substring(0, 8 - value.length) + "</font>" + value ;
                 }
 
 		var obj = document.getElementById("tbl_" + key);
