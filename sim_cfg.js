@@ -40,6 +40,7 @@
         var DBG_delay          = 10 ;
         var DBG_level          = "instruction" ;
 
-        var DBG_display_format = 16 ;
+        var RF_display_format = 16 ;
+        var RF_display_name   = 'numerical' ;
 
 

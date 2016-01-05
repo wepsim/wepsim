@@ -188,7 +188,7 @@
 		 o1_rf += "<div class='col-xs-2 col-sm-1 col-md-2 col-lg-1' id='name_RF" + index + "' style='padding: 0 15 0 5;'>" +
                           "R" + index + "</div>" + 
                           "<div class='col-xs-4 col-sm-3 col-md-4 col-lg-3' id='tbl_RF"  + index + "' style='padding: 0 5 0 35;'>" +
-                          (sim_states['BR'][index] >>> 0).toString(DBG_display_format).toUpperCase() + "</div>" ; 
+                          (sim_states['BR'][index] >>> 0).toString(RF_display_format).toUpperCase() + "</div>" ; 
 	    }
 
             $(jqdiv).html("<div class='row-fluid'>" + o1_rf + "</div>");
@@ -200,18 +200,22 @@
 
 	    for (var index=0; index < sim_states['BR'].length; index++) 
             {
-                 var br_value = (sim_states['BR'][index] >>> 0).toString(DBG_display_format).toUpperCase() ;
-                 if (16 == DBG_display_format)
+                 var br_value = (sim_states['BR'][index] >>> 0).toString(RF_display_format).toUpperCase() ;
+                 if (16 == RF_display_format)
                      br_value = "00000000".substring(0, 8 - br_value.length) + br_value ;
 
                  var obj = document.getElementById("tbl_RF" + index);
                  if (obj != null)
                      obj.innerHTML = br_value ;
 
+                 br_value = "R" + index;
+	         if ('logical' == RF_display_name)
+		     if (typeof SIMWARE['registers'][index] != "undefined")
+		         br_value = SIMWARE['registers'][index] ;
+
 		 var obj = document.getElementById("name_RF" + index);
 		 if (obj != null)
-                     if (typeof SIMWARE['registers'][index] != "undefined")
-		         obj.innerHTML = index + "=" + SIMWARE['registers'][index] ;
+		     obj.innerHTML = br_value ;
 	    }
         }
 
@@ -247,7 +251,7 @@
 
                 o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" + showkey + "</div>" +
                       "<div class='" + divclass + "' id='tbl_" + s + "' style='padding: 0 5 0 0;'>" +
-                      sim_eltos[s].value.toString(DBG_display_format) +
+                      sim_eltos[s].value.toString(RF_display_format) +
                       "</div>" ;
             }
 
@@ -260,11 +264,11 @@
             {
                 var r = filter[i].split(",") ;
                 var key = r[0] ;
-                var value = sim_eltos[key].value.toString(DBG_display_format) ;
+                var value = sim_eltos[key].value.toString(RF_display_format) ;
 
                 if (sim_eltos[key].nbits > 1) {
-                        value = (sim_states[key].value >>> 0).toString(DBG_display_format).toUpperCase() ;
-                    if (16 == DBG_display_format)
+                        value = (sim_states[key].value >>> 0).toString(RF_display_format).toUpperCase() ;
+                    if (16 == RF_display_format)
                         value = "<font color=gray>" + "00000000".substring(0, 8 - value.length) + "</font>" + value ;
                 }
 

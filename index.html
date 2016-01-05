@@ -773,8 +773,8 @@
 </div><!-- /page -->
 
 
-<div data-role="panel" id="actions_panel" 
-     data-display="overlay" data-position="right" data-theme="a">
+<div data-role="panel" id="actions_panel" data-display="overlay" data-position="right" data-theme="a" 
+     style="width:20em; min-width:17em;">
 
 	<div data-role="collapsible-set">
 	    <div data-role="collapsible" data-collapsed="false" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
@@ -827,32 +827,48 @@
 			 RF display format:<br>
 			     <input name="radio-choice-h-3" id="radio-choice-h-3a" data-mini="true"
                                     style="margin-top:-8px"
-				    onclick="DBG_display_format=16; show_rf();"
+				    onclick="RF_display_format=16; show_rf();"
 				    value="on" checked="checked" type="radio">
 			     <label for="radio-choice-h-3a">Hex.</label>
 			     <input name="radio-choice-h-3" id="radio-choice-h-3b" data-mini="true"
                                     style="margin-top:-8px"
-				    onclick="DBG_display_format=10; show_rf();"
+				    onclick="RF_display_format=10; show_rf();"
 				    value="off" type="radio">
 			     <label for="radio-choice-h-3b">Dec.</label>
 			     <input name="radio-choice-h-3" id="radio-choice-h-3c" data-mini="true"
                                     style="margin-top:-8px"
-				    onclick="DBG_display_format=8; show_rf();"
+				    onclick="RF_display_format=8; show_rf();"
 				    value="off" type="radio">
 			     <label for="radio-choice-h-3c">Oct.</label>
 			 </fieldset>
+                         <br>
+			 <fieldset data-role="controlgroup" data-type="horizontal">
+			 RF name nomenclature:<br>
+			     <input name="radio-choice-h-4" id="radio-choice-h-4a" data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="RF_display_name='numerical'; show_rf();"
+				    value="on" checked="checked" type="radio">
+			     <label for="radio-choice-h-4a">Numbers</label>
+			     <input name="radio-choice-h-4" id="radio-choice-h-4b" data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="RF_display_name='logical'; show_rf();"
+				    value="off" type="radio">
+			     <label for="radio-choice-h-4b">Labels</label>
+			 </fieldset>
 		    </li>
 		    <li class="list-group-item input-toggles">
-			 Datapath Color:
+			 Data-path Color:
 			 <input type="color"
                                 id="colorpicker1"
 				data-show-value="false"
+                                class="noshadow"
 				value="#0066FF"
 				onchange="color_data_active = $('#colorpicker1').spectrum('get'); refresh();">
 			 Signal Color:
 			 <input type="color"
                                 id="colorpicker2"
 				data-show-value="false"
+                                class="noshadow"
 				value="red"
 				onchange="color_name_active = $('#colorpicker2').spectrum('get'); refresh();">
 		    </li>
@@ -863,17 +879,17 @@
 	    <div data-role="collapsible" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
 	    <h3>Help</h3>
 	    <p>
-	    <ul id="listview_2" data-role="listview" data-inset="false" data-theme="b" data-divider-theme="b" data-mini="true">
-		    <li data-icon="false"><a href="#"
+	    <ul id="listview_2" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b" data-mini="true">
+		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info"
 			   onclick="$('#iframe_help1').load('sim_help.html #help_simulator_screens', function(){$('#help1').trigger('updatelayout');
 				    $('#help1').popup('open');});"><h2>Simulator usage</h2></a></li>
-		    <li data-icon="false"><a href="#"
+		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info"
 			   onclick="$('#iframe_help1').load('sim_help.html #help_firmware_format',  function(){$('#help1').trigger('updatelayout');
 				    $('#help1').popup('open');});"><h2>Firmware format</h2></a></li>
-		    <li data-icon="false"><a href="#"
+		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info"
 			   onclick="$('#iframe_help1').load('sim_help.html #help_assembly_format',  function(){$('#help1').trigger('updatelayout');
 				    $('#help1').popup('open');});"><h2>Assembly format</h2></a></li>
-		    <li data-icon="false"><a href="#"
+		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info"
 			   onclick="$('#iframe_help1').load('sim_help.html #help_simulator_arch',    function(){$('#help1').trigger('updatelayout');
 				    $('#help1').popup('open');});"><h2>Simulator architecture</h2></a></li>
 	    </ul>
