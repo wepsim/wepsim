@@ -792,6 +792,26 @@
 	    </div>
 
 	    <div data-role="collapsible" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
+	    <h3>Help</h3>
+	    <p>
+	    <ul id="listview_2" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b" data-mini="true">
+		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info"
+			   onclick="$('#iframe_help1').load('sim_help.html #help_simulator_screens', function(){$('#help1').trigger('updatelayout');
+				    $('#help1').popup('open');});"><h2>Simulator usage</h2></a></li>
+		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info"
+			   onclick="$('#iframe_help1').load('sim_help.html #help_firmware_format',  function(){$('#help1').trigger('updatelayout');
+				    $('#help1').popup('open');});"><h2>Firmware format</h2></a></li>
+		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info"
+			   onclick="$('#iframe_help1').load('sim_help.html #help_assembly_format',  function(){$('#help1').trigger('updatelayout');
+				    $('#help1').popup('open');});"><h2>Assembly format</h2></a></li>
+		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info"
+			   onclick="$('#iframe_help1').load('sim_help.html #help_simulator_arch',    function(){$('#help1').trigger('updatelayout');
+				    $('#help1').popup('open');});"><h2>Simulator architecture</h2></a></li>
+	    </ul>
+            </p>
+	    </div>
+
+	    <div data-role="collapsible" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
 	    <h3>Configuration</h3>
 	    <p>
 	    <ul id="listview_3" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b">
@@ -841,7 +861,6 @@
 				    value="off" type="radio">
 			     <label for="radio-choice-h-3c">Oct.</label>
 			 </fieldset>
-                         <br>
 			 <fieldset data-role="controlgroup" data-type="horizontal">
 			 RF name nomenclature:<br>
 			     <input name="radio-choice-h-4" id="radio-choice-h-4a" data-mini="true"
@@ -872,26 +891,6 @@
 				value="red"
 				onchange="color_name_active = $('#colorpicker2').spectrum('get'); refresh();">
 		    </li>
-	    </ul>
-            </p>
-	    </div>
-
-	    <div data-role="collapsible" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
-	    <h3>Help</h3>
-	    <p>
-	    <ul id="listview_2" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b" data-mini="true">
-		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info"
-			   onclick="$('#iframe_help1').load('sim_help.html #help_simulator_screens', function(){$('#help1').trigger('updatelayout');
-				    $('#help1').popup('open');});"><h2>Simulator usage</h2></a></li>
-		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info"
-			   onclick="$('#iframe_help1').load('sim_help.html #help_firmware_format',  function(){$('#help1').trigger('updatelayout');
-				    $('#help1').popup('open');});"><h2>Firmware format</h2></a></li>
-		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info"
-			   onclick="$('#iframe_help1').load('sim_help.html #help_assembly_format',  function(){$('#help1').trigger('updatelayout');
-				    $('#help1').popup('open');});"><h2>Assembly format</h2></a></li>
-		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info"
-			   onclick="$('#iframe_help1').load('sim_help.html #help_simulator_arch',    function(){$('#help1').trigger('updatelayout');
-				    $('#help1').popup('open');});"><h2>Simulator architecture</h2></a></li>
 	    </ul>
             </p>
 	    </div>
