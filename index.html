@@ -806,7 +806,7 @@
 				name="slider1" id="slider1"
 				min="1" max="100" value="100" step=1
 				onchange="DBG_delay = 1000 / this.value;">
-			 <fieldset data-role="controlgroup" data-type="vertical">
+			 <fieldset data-role="controlgroup" data-type="horizontal">
 			 Single step element:
 			 <ul>
 			 <li>
@@ -814,14 +814,12 @@
                                     style="margin-top:-8px"
 				    onclick="DBG_level='instruction';"
 				    value="on" checked="checked" type="radio">
-			     <label for="radio-choice-h-2a">Instruction</label>
-			 </li>
-			 <li>
+			     <label for="radio-choice-h-2a">Instruc.</label>
 			     <input name="radio-choice-h-2" id="radio-choice-h-2b" data-mini="true"
                                     style="margin-top:-8px"
 				    onclick="DBG_level='microinstruction';"
 				    value="off" type="radio">
-			     <label for="radio-choice-h-2b">&#181;instruction</label>
+			     <label for="radio-choice-h-2b">&#181;instruc.</label>
 			 </li>
 			 </ul>
 			 </fieldset>
@@ -831,6 +829,8 @@
 <div class="ui-block-a">
 			 <fieldset data-role="controlgroup" data-type="horizontal">
 			 RF display format:<br>
+			 <ul>
+			 <li>
 			     <input name="radio-choice-h-3" id="radio-choice-h-3a" data-mini="true"
                                     style="margin-top:-8px"
 				    onclick="RF_display_format=16; show_rf_values();"
@@ -846,6 +846,8 @@
 				    onclick="RF_display_format=8; show_rf_values();"
 				    value="off" type="radio">
 			     <label for="radio-choice-h-3c">Oct.</label>
+			 </li>
+			 </ul>
 			 </fieldset>
 </div>
 </div>
@@ -853,6 +855,8 @@
 <div class="ui-block-a">
 			 <fieldset data-role="controlgroup" data-type="horizontal">
 			 RF name nomenclature:<br>
+			 <ul>
+			 <li>
 			     <input name="radio-choice-h-4" id="radio-choice-h-4a" data-mini="true"
                                     style="margin-top:-8px"
 				    onclick="RF_display_name='numerical'; show_rf_names();"
@@ -863,25 +867,35 @@
 				    onclick="RF_display_name='logical'; show_rf_names();"
 				    value="off" type="radio">
 			     <label for="radio-choice-h-4b">Labels</label>
+			 </li>
+			 </ul>
 			 </fieldset>
 </div>
 </div>
 		    </li>
 		    <li class="list-group-item input-toggles">
 			 Data-path Color:
+			 <ul>
+			 <li>
 			 <input type="color"
                                 id="colorpicker1"
 				data-show-value="false"
                                 class="noshadow"
 				value="#0066FF"
 				onchange="color_data_active = $('#colorpicker1').spectrum('get'); refresh();">
+			 </li>
+			 </ul>
 			 Signal Color:
+			 <ul>
+			 <li>
 			 <input type="color"
                                 id="colorpicker2"
 				data-show-value="false"
                                 class="noshadow"
 				value="red"
 				onchange="color_name_active = $('#colorpicker2').spectrum('get'); refresh();">
+			 </li>
+			 </ul>
 		    </li>
 	    </ul>
             </p>
