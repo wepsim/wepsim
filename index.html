@@ -375,11 +375,11 @@
                               <a id="tab23" href="#eltos_cu"   
                                  onclick="start_drawing(); refresh();">Control Unit</a>
                           </li>
-		          <li style="clear:none;width:33% !important">
+		          <li style="clear:none;width:27% !important">
                               <a id="tab22" href="#eltos_p"   class="ui-btn-active"
                                  onclick="start_drawing(); refresh();">CPU</a>
                           </li>
-		          <li style="clear:none;width:33% !important">
+		          <li style="clear:none;width:40% !important">
                               <a id="tab24" href="#eltos_dbg"  
                                  onclick="stop_drawing();">Assembly Debugger</a>
                           </li>
@@ -414,7 +414,7 @@
 
 		           <div style="overflow-y:auto; overflow-x:auto; height:70% !important;">
                                 <div id="asm_debugger">
-                                <p>&nbsp;</p>
+                                <br>
                                 <ol>
                                 <li>Load the firmware to be used.</li>
                                     <ul>
@@ -428,7 +428,7 @@
                                 <br>
                                 <li>Come back to the simulator in order to execute step by step the firmware+assembly loaded before.</li>
                                     <ul>
-                                    <li>Each step could be executed a microinstruction or a instruction.</li>
+                                    <li>Each step could be executed at microinstruction or instruction level.</li>
                                     </ul>
                                 </ol>
                                 </div>
@@ -936,29 +936,30 @@
         <div class="col-xs-12 col-sm-12">
             Copyright &copy; 2015-2016 <small>Javier Prieto Cepeda, F&eacute;lix Garc&iacute;a Carballeira, and Alejandro Calder&oacute;n Mateos</small>
             <p>
-
         </div>
-        <div class="col-xs-12 col-sm-12">
-	    <b>WepSIM</b> is free software: you can redistribute it and/or modify
-	    it under the terms of the GNU Lesser General Public License as published by
-	    the Free Software Foundation, either version 3 of the License, or
-	    (at your option) any later version.
-            See <a rel="external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.
-            <p>
-        </div>
-        <div class="col-xs-12 col-sm-12">
-	    <b>WepSIM</b> uses different technologies such as
-            <a rel="external" href="https://jquerymobile.com/">Jquery Mobile</a>,
-            <a rel="external" href="http://knockoutjs.com/">Knockout</a>,
-            <a rel="external" href="http://getbootstrap.com/">Bootstrap</a>,
-            <a rel="external" href="http://bootboxjs.com/">Bootbox</a>,
-            <a rel="external" href="https://www.tinymce.com/">tinymce</a> Editor (Community version),
-            and the <a rel="external" href="https://bgrins.github.io/spectrum/">spectrum</a> ColorPicker.
-            <p>
-        </div>
-        <div class="col-xs-12 col-sm-12">
-            More information: <a rel="external" href="http://www.arcos.inf.uc3m.es/~ec-2ed/">http://www.arcos.inf.uc3m.es/~ec-2ed/</a><br>
-            <p>
+        <div class="col-xs-12 col-sm-12" style="max-height:50vh; overflow-y: scroll;">
+		<div class="col-xs-12 col-sm-12">
+		    <b>WepSIM</b> is free software: you can redistribute it and/or modify
+		    it under the terms of the GNU Lesser General Public License as published by
+		    the Free Software Foundation, either version 3 of the License, or
+		    (at your option) any later version.
+		    See <a rel="external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.
+		    <p>
+		</div>
+		<div class="col-xs-12 col-sm-12">
+		    <b>WepSIM</b> uses different technologies such as
+		    <a rel="external" href="https://jquerymobile.com/">Jquery Mobile</a>,
+		    <a rel="external" href="http://knockoutjs.com/">Knockout</a>,
+		    <a rel="external" href="http://getbootstrap.com/">Bootstrap</a>,
+		    <a rel="external" href="http://bootboxjs.com/">Bootbox</a>,
+		    <a rel="external" href="https://www.tinymce.com/">tinymce</a> Editor (Community version),
+		    and the <a rel="external" href="https://bgrins.github.io/spectrum/">spectrum</a> ColorPicker.
+		    <p>
+		</div>
+		<div class="col-xs-12 col-sm-12">
+		    More information: <a rel="external" href="http://www.arcos.inf.uc3m.es/~ec-2ed/">http://www.arcos.inf.uc3m.es/~ec-2ed/</a><br>
+		    <p>
+		</div>
         </div>
         <div class="col-xs-6 col-sm-6">
             <img height=55 src="images/arcos.svg">

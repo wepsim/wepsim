@@ -471,6 +471,7 @@
 
             compute_behavior("CLOCK") ;
 
+            show_dbg_ir(sim_states['REG_IR_DECO'].value) ;
 	    show_states() ;
 	    show_rf() ;
 	    show_memories('MP',  MP,  0) ;
