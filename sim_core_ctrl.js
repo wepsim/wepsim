@@ -341,7 +341,7 @@
             } // for all signals
 
 	    show_states();
-	    show_rf();
+	    show_rf_values();
         }
 
         function update_memories ( preSIMWARE )
@@ -498,7 +498,7 @@
                 compute_behavior("CLOCK") ;
 
 		show_states();
-		show_rf();
+		show_rf_values();
                 show_dbg_mpc();
         }
 
@@ -515,7 +515,7 @@
                       );
 
 		show_states();
-		show_rf();
+		show_rf_values();
                 if (DBG_level == "microinstruction")
                     show_dbg_mpc();
         }

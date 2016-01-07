@@ -185,9 +185,9 @@
 
 	    for (var index=0; index < sim_states['BR'].length; index++) 
             {
-		 o1_rf += "<div class='col-xs-2 col-sm-1 col-md-2 col-lg-1' id='name_RF" + index + "' style='padding: 0 15 0 5;'>" +
+		 o1_rf += "<div class='col-xs-2 col-sm-1 col-md-1 col-lg-1' id='name_RF" + index + "' style='padding: 0 15 0 5;'>" +
                           "R" + index + "</div>" + 
-                          "<div class='col-xs-4 col-sm-3 col-md-4 col-lg-3' id='tbl_RF"  + index + "' style='padding: 0 5 0 35;'>" +
+                          "<div class='col-xs-4 col-sm-2 col-md-3 col-lg-3' id='tbl_RF"  + index + "' style='padding: 0 5 0 35;'>" +
                           (sim_states['BR'][index] >>> 0).toString(RF_display_format).toUpperCase() + "</div>" ; 
 	    }
 
@@ -209,6 +209,39 @@
                      obj.innerHTML = br_value ;
 
                  br_value = "R" + index;
+	         if ('logical' == RF_display_name)
+		     if (typeof SIMWARE['registers'][index] != "undefined")
+		         br_value = SIMWARE['registers'][index] ;
+
+		 var obj = document.getElementById("name_RF" + index);
+		 if (obj != null)
+		     obj.innerHTML = br_value ;
+	    }
+        }
+
+        function show_rf_values ( ) 
+        {
+            var SIMWARE = get_simware() ;
+
+	    for (var index=0; index < sim_states['BR'].length; index++) 
+            {
+                 var br_value = (sim_states['BR'][index] >>> 0).toString(RF_display_format).toUpperCase() ;
+                 if (16 == RF_display_format)
+                     br_value = "00000000".substring(0, 8 - br_value.length) + br_value ;
+
+                 var obj = document.getElementById("tbl_RF" + index);
+                 if (obj != null)
+                     obj.innerHTML = br_value ;
+	    }
+        }
+
+        function show_rf_names ( ) 
+        {
+            var SIMWARE = get_simware() ;
+
+	    for (var index=0; index < sim_states['BR'].length; index++) 
+            {
+                 var br_value = "R" + index;
 	         if ('logical' == RF_display_name)
 		     if (typeof SIMWARE['registers'][index] != "undefined")
 		         br_value = SIMWARE['registers'][index] ;
