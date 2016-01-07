@@ -262,21 +262,6 @@
             downloadLink.click();
     }
 
-    function toggle_im ( btn1 )
-    {
-       var o1 = document.getElementById(btn1);
-
-       if (get_interactive_mode() == true) {
-           set_interactive_mode(false);
-           o1.innerHTML = "Non-Interactive" ;
-           o1.style.backgroundColor = '#CCCCCC';
-       } else {
-           set_interactive_mode(true);
-           o1.innerHTML = "Interactive" ;
-           o1.style.backgroundColor = '#228B22';
-       }
-    }
-
     function toggle_play ( btn1 )
     {
         if (DBG_stop == false) {
@@ -373,7 +358,7 @@
                 <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
                     <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
                 </div>
-                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.2.0</span> </span>
+                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.2.1</span> </span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a href="#actions_panel" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
@@ -457,20 +442,22 @@
                     <div class="btn-toolbar" role="toolbar" id="sim_toolbar" style="padding: 0 0px 10px 0px;">
 			<div class="btn-group btn-group-justified" role="group">
 			    <a          href="#" style="background-color: #CCCCCC"
-			       class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-reset   ui-btn-icon-top ui-mini"
+			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-reset   ui-btn-icon-top ui-mini"
 			       onclick="reset();">Reset</a>
 			    <a          href="#" style="background-color: #CCCCCC"
-			       class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini"
+			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini"
 			       onclick="execute_microinstruction();">&#181;Instruction</a>
 			    <a          href="#" style="background-color: #CCCCCC"
-			       class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini"
+			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini"
 			       onclick="execute_instruction();">Instruction</a>
 			    <a id="qbp" href="#" style="background-color: #CCCCCC"
-			       class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-carat-r ui-btn-icon-top ui-mini"
+			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-carat-r ui-btn-icon-top ui-mini"
 			       onclick="toggle_play('#qbp'); return false;">Run</a>
-			    <a id="ib1" href="#" style="background-color: #CCCCCC"
-			       class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-arrow-u ui-btn-icon-top ui-mini"
-			       onclick="toggle_im('ib1');">Non-Interactive</a>
+			    <a id="ib1" href="#" style="background-color: #D4DB17; -webkit-text-shadow: none; text-shadow: none;"
+			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-info ui-btn-icon-top ui-mini"
+			       onclick="$('#iframe_help1').load('sim_help.html #help_simulator_screens', 
+                                                                function(){$('#help1').trigger('updatelayout');
+					                        $('#help1').popup('open');});">Help</a>
                         </div>
                     </div>
 
@@ -528,7 +515,7 @@
                 <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
                     <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
                 </div>
-                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.2.0</span> </span>
+                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.2.1</span> </span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a href="#actions_panel" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
@@ -580,26 +567,30 @@
 		</div>
 
                 <ul class="nav nav-justified">
+                <li><ul class="nav nav-justified col-md-5">
 		            <li><a href="#lssave" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
 				   data-rel="popup" data-position-to="window" data-transition="pop">Save</a></li>
 		            <li><a href="#lsload" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-back    ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-back    ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
 				   data-rel="popup" data-position-to="window" data-transition="pop">Load</a></li>
 		            <li><a href="#"       style="background-color: #CCCCCC" 
 				   onclick="load_firmware_from_example(); $('#btn31').trigger('click');"
-				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-bars    ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12">Example</a></li>
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-bars    ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12">Example</a></li>
 		            <li><a href="#"       style="background-color: #CCCCCC" 
 				   onclick="compileFirmware();"
-				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12">&#181;compile</a></li>
-
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12">&#181;compile</a></li>
+		</ul></li>
+                <li><ul class="nav nav-justified col-md-2">
 			    <li><a id="tab24" href="#" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear    ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-left  ui-mini col-xs-5 col-sm-12 col-md-12"
 				   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');">Assembly</a></li>
-                            <li><a id="tab25" href="#" style="background-color: #CCCCCC"
-                                   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear     ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
-                                   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a></li>
-
+                            <li><a id="tab25" href="#" style="background-color: #D4DB17"
+                                   class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-5 col-sm-12 col-md-12"
+				   onclick="$('#iframe_help1').load('sim_help.html #help_firmware_format',  function(){$('#help1').trigger('updatelayout');
+					    $('#help1').popup('open');});">Help</a></li>
+		</ul></li>
+                <li><ul class="nav nav-justified col-md-5">
 		            <li><a id=btn31 href="#" 
 				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-active   ui-mini col-xs-12 col-sm-12 col-md-12"
 				   onclick="$('#tab31').trigger('click'); $('#btn32').removeClass('ui-btn-active'); $('#btn31').addClass('ui-btn-active');"
@@ -608,6 +599,7 @@
 				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a                 ui-mini col-xs-12 col-sm-12 col-md-12"
 				   onclick="$('#tab32').trigger('click'); $('#btn31').removeClass('ui-btn-active'); $('#btn32').addClass('ui-btn-active');"
 				   >co2&#181;addr + control memory</a></li>
+		</ul></li>
 		</ul>
 
 		<div data-role="tabs" id="tabs3">
@@ -646,7 +638,7 @@
                 <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
                     <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
                 </div>
-                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.2.0</span> </span>
+                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.2.1</span> </span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a href="#actions_panel" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
@@ -688,28 +680,32 @@
 		</div>
 
                 <ul class="nav nav-justified">
+                <li><ul class="nav nav-justified col-md-5">
 		            <li><a href="#lssave2" style="background-color: #CCCCCC"
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-forward  ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
+				   class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-forward  ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
 				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Save</a></li>
 		            <li><a href="#lsload2" style="background-color: #CCCCCC"
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-back     ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
+				   class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-back     ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
 				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Load</a></li>
 		            <li><a href="#" style="background-color: #CCCCCC"
                                    onclick="load_assembly_from_example(); $('#btn41').trigger('click');"
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-bars     ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
+				   class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-bars     ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
 				   data-inline="true">Example</a></li>
 		            <li><a href="#" style="background-color: #CCCCCC"
                                    onclick="compileAssembly();" id="emp"
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
+				   class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
 				   data-inline="true">Compile</a></li>
-
+                </ul></li>
+                <li><ul class="nav nav-justified col-md-2">
                             <li><a id="tab25" href="#" style="background-color: #CCCCCC"
-                                   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear     ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
+                                   class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r  ui-btn-icon-left  ui-mini col-xs-5 col-sm-12 col-md-12"
                                    onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a></li>
-                            <li><a id="tab24" href="#" style="background-color: #CCCCCC"
-                                   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear     ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
-                                   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');">Firmware</a></li>
-
+                            <li><a id="tab25" href="#" style="background-color: #D4DB17"
+                                   class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-5 col-sm-12 col-md-12"
+				   onclick="$('#iframe_help1').load('sim_help.html #help_assembly_format',  function(){$('#help1').trigger('updatelayout');
+					    $('#help1').popup('open');});">Help</a></li>
+                </ul></li>
+                <li><ul class="nav nav-justified col-md-5">
 		            <li><a id=btn41 href="#" 
 				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-active ui-mini col-xs-12 col-sm-12 col-md-12"
 				   onclick="$('#tab41').trigger('click'); $('#btn42').removeClass('ui-btn-active'); $('#btn41').addClass('ui-btn-active');"
@@ -718,6 +714,7 @@
 				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a               ui-mini col-xs-12 col-sm-12 col-md-12"
 				   onclick="$('#tab42').trigger('click'); $('#btn41').removeClass('ui-btn-active'); $('#btn42').addClass('ui-btn-active');"
 				   >Main Memory</a></li>
+                </ul></li>
 		</ul>
 
 		<div data-role="tabs" id="tabs4">
@@ -764,12 +761,12 @@
 	    <div data-role="collapsible" data-collapsed="false" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
 	    <h3>WorkSpaces</h3>
 	    <p>
-	    <ul id="listview_1" data-role="listview" data-inset="false" data-theme="b" data-divider-theme="b">
-		    <li><a id="tab21" href="#"
+	    <ul id="listview_1" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b">
+		    <li><a id="tab21" href="#" style="background-color: lightgray"
 			   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"><h2>Firmware</h2></a></li>
-		    <li><a id="tab24" href="#"
+		    <li><a id="tab24" href="#" style="background-color: lightgray"
 			   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');"><h2>Assembly</h2></a></li>
-		    <li><a id="tab25" href="#"
+		    <li><a id="tab25" href="#" style="background-color: lightgray"
 			   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');"><h2>Simulator</h2></a></li>
 	    </ul>
             </p>
@@ -779,16 +776,16 @@
 	    <h3>Help</h3>
 	    <p>
 	    <ul id="listview_2" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b" data-mini="true">
-		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info"
+		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info" style="background-color: #D4DB17;"
 			   onclick="$('#iframe_help1').load('sim_help.html #help_simulator_screens', function(){$('#help1').trigger('updatelayout');
 				    $('#help1').popup('open');});"><h2>Simulator usage</h2></a></li>
-		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info"
+		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info" style="background-color: #D4DB17;"
 			   onclick="$('#iframe_help1').load('sim_help.html #help_firmware_format',  function(){$('#help1').trigger('updatelayout');
 				    $('#help1').popup('open');});"><h2>Firmware format</h2></a></li>
-		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info"
+		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info" style="background-color: #D4DB17;"
 			   onclick="$('#iframe_help1').load('sim_help.html #help_assembly_format',  function(){$('#help1').trigger('updatelayout');
 				    $('#help1').popup('open');});"><h2>Assembly format</h2></a></li>
-		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info"
+		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info" style="background-color: #D4DB17;"
 			   onclick="$('#iframe_help1').load('sim_help.html #help_simulator_arch',    function(){$('#help1').trigger('updatelayout');
 				    $('#help1').popup('open');});"><h2>Simulator architecture</h2></a></li>
 	    </ul>
@@ -896,6 +893,27 @@
 				onchange="color_name_active = $('#colorpicker2').spectrum('get'); refresh();">
 			 </li>
 			 </ul>
+<div class="ui-grid-solo">
+<div class="ui-block-a">
+			 <fieldset data-role="controlgroup" data-type="horizontal">
+			 Interactive Mode:<br>
+			 <ul>
+			 <li>
+			     <input name="radio-choice-h-5" id="radio-choice-h-5a" data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="set_interactive_mode(true);"
+				    value="on" checked="checked" type="radio">
+			     <label for="radio-choice-h-5a">On</label>
+			     <input name="radio-choice-h-5" id="radio-choice-h-5b" data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="set_interactive_mode(false);"
+				    value="off" type="radio">
+			     <label for="radio-choice-h-5b">Off</label>
+			 </li>
+			 </ul>
+			 </fieldset>
+</div>
+</div>
 		    </li>
 	    </ul>
             </p>
@@ -909,7 +927,7 @@
      data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
 
    <div data-role="header" data-theme="a">
-   <h1><b>Web elemental processor SIMulator</b> <span class="badge btn-success">1.2.0</span> </h1>
+   <h1><b>Web elemental processor SIMulator</b> <span class="badge btn-success">1.2.1</span> </h1>
    </div>
    <div role="main" class="ui-content">
 

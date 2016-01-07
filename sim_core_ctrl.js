@@ -279,8 +279,9 @@
 			bootbox.dialog({
 			       title:   'Decimal values for ' + key + ': ',
 			       message: '<div class="panel panel-default">' +
-                                        '  <div class="panel-heading">' + 
-                                        '      <div onclick=\'update_signal_loadhelp("#help2",$("#ask_skey").val());\'><b>Press here to search additional details or close details...</b></div>' + 
+                                        '  <div class="panel-heading"  ' + 
+                                        '      style="background-color: #D4E017; -webkit-text-shadow: none; text-shadow: none; border-color: #D4E017; background-color: #D4E017; background-image: none;" ' +
+                                        '      onclick=\'update_signal_loadhelp("#help2",$("#ask_skey").val());\'><b>Press here to search additional details or close details...</b>' + 
                                         '  </div>' +
                                         '  <div id=help2 class="panel-collapse collapse" style="height:inherit; width: inherit; overflow-x: auto">Loading...</div>' + 
                                         '</div>' +
@@ -438,7 +439,7 @@
         }
 
         /* 2) INTERACTIVE MODE */
-        var is_interactive     = false;
+        var is_interactive = true;
 
         function set_interactive_mode ( interactive )
         {
