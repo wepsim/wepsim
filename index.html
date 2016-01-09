@@ -809,12 +809,12 @@
 			 <li>
 			     <input name="radio-choice-h-2" id="radio-choice-h-2a" data-mini="true"
                                     style="margin-top:-8px"
-				    onclick="DBG_level='instruction';"
+				    onclick="DBG_level='instruction'; save_cfg();"
 				    value="on" checked="checked" type="radio">
 			     <label for="radio-choice-h-2a">Instruc.</label>
 			     <input name="radio-choice-h-2" id="radio-choice-h-2b" data-mini="true"
                                     style="margin-top:-8px"
-				    onclick="DBG_level='microinstruction';"
+				    onclick="DBG_level='microinstruction'; save_cfg();"
 				    value="off" type="radio">
 			     <label for="radio-choice-h-2b">&#181;instruc.</label>
 			 </li>
@@ -830,17 +830,17 @@
 			 <li>
 			     <input name="radio-choice-h-3" id="radio-choice-h-3a" data-mini="true"
                                     style="margin-top:-8px"
-				    onclick="RF_display_format=16; show_rf_values();"
+				    onclick="RF_display_format=16; show_rf_values(); save_cfg();"
 				    value="on" checked="checked" type="radio">
 			     <label for="radio-choice-h-3a">Hex.</label>
 			     <input name="radio-choice-h-3" id="radio-choice-h-3b" data-mini="true"
                                     style="margin-top:-8px"
-				    onclick="RF_display_format=10; show_rf_values();"
+				    onclick="RF_display_format=10; show_rf_values(); save_cfg();"
 				    value="off" type="radio">
 			     <label for="radio-choice-h-3b">Dec.</label>
 			     <input name="radio-choice-h-3" id="radio-choice-h-3c" data-mini="true"
                                     style="margin-top:-8px"
-				    onclick="RF_display_format=8; show_rf_values();"
+				    onclick="RF_display_format=8; show_rf_values(); save_cfg();"
 				    value="off" type="radio">
 			     <label for="radio-choice-h-3c">Oct.</label>
 			 </li>
@@ -856,12 +856,12 @@
 			 <li>
 			     <input name="radio-choice-h-4" id="radio-choice-h-4a" data-mini="true"
                                     style="margin-top:-8px"
-				    onclick="RF_display_name='numerical'; show_rf_names();"
+				    onclick="RF_display_name='numerical'; show_rf_names(); save_cfg();"
 				    value="on" checked="checked" type="radio">
 			     <label for="radio-choice-h-4a">Numbers</label>
 			     <input name="radio-choice-h-4" id="radio-choice-h-4b" data-mini="true"
                                     style="margin-top:-8px"
-				    onclick="RF_display_name='logical'; show_rf_names();"
+				    onclick="RF_display_name='logical'; show_rf_names(); save_cfg();"
 				    value="off" type="radio">
 			     <label for="radio-choice-h-4b">Labels</label>
 			 </li>
@@ -877,8 +877,7 @@
                                 id="colorpicker1"
 				data-show-value="false"
                                 class="noshadow"
-				value="#0066FF"
-				onchange="color_data_active = $('#colorpicker1').spectrum('get'); refresh();">
+				onchange="color_data_active = $('#colorpicker1').spectrum('get'); refresh(); save_cfg();">
 			 </ul>
 			 Signal Color:
 			 <ul>
@@ -886,8 +885,7 @@
                                 id="colorpicker2"
 				data-show-value="false"
                                 class="noshadow"
-				value="red"
-				onchange="color_name_active = $('#colorpicker2').spectrum('get'); refresh();">
+				onchange="color_name_active = $('#colorpicker2').spectrum('get'); refresh(); save_cfg();">
 			 </ul>
 <div class="ui-grid-solo">
 <div class="ui-block-a">
@@ -897,12 +895,12 @@
 			 <li>
 			     <input name="radio-choice-h-5" id="radio-choice-h-5a" data-mini="true"
                                     style="margin-top:-8px"
-				    onclick="set_interactive_mode(true);"
+				    onclick="set_interactive_mode(true); save_cfg();"
 				    value="on" checked="checked" type="radio">
 			     <label for="radio-choice-h-5a">On</label>
 			     <input name="radio-choice-h-5" id="radio-choice-h-5b" data-mini="true"
                                     style="margin-top:-8px"
-				    onclick="set_interactive_mode(false);"
+				    onclick="set_interactive_mode(false); save_cfg();"
 				    value="off" type="radio">
 			     <label for="radio-choice-h-5b">Off</label>
 			 </li>
@@ -992,76 +990,86 @@
 
 
 <script>
-    $(document).ready(function()
+    try 
     {
-            jQuery.fx.off = true;
+	    restore_cfg();
 
-            $("#about1").enhanceWithin().popup();
-            $("#help1").enhanceWithin().popup();
+	    $(document).ready(function()
+	    {
+		    jQuery.fx.off = true;
 
-            $("#actions_panel").panel().enhanceWithin();
-	    $(".ui-slider-input").hide();
-            $("#listview_1").listview();
+		    $("#about1").enhanceWithin().popup();
+		    $("#help1").enhanceWithin().popup();
 
-            $("#tabsnav1").navbar();
-            $("#tabsnav2").navbar();
-            $("#tabsnav4").navbar();
+		    $("#actions_panel").panel().enhanceWithin();
+		    $(".ui-slider-input").hide();
+		    $("#listview_1").listview();
 
-            $("#tabs1").tabs();
-            $("#tabs2").tabs();
-            $("#tabs3").tabs();
-            $("#tabs4").tabs();
+		    $("#tabsnav1").navbar();
+		    $("#tabsnav2").navbar();
+		    $("#tabsnav4").navbar();
 
-	    $("#sim_toolbar").draggable();
-            $("#colorpicker1").spectrum({ preferredFormat: "hex", color: color_data_active}) ;
-            $("#colorpicker2").spectrum({ preferredFormat: "hex", color: color_name_active}) ;
+		    $("#tabs1").tabs();
+		    $("#tabs2").tabs();
+		    $("#tabs3").tabs();
+		    $("#tabs4").tabs();
 
-            tinymce.init({ 
-                          selector: '#inputFirmware',
-		          height:   '50%',
-			  plugins: [
-			    'lists charmap print preview',
-			    'searchreplace wordcount fullscreen',
-			    'contextmenu paste'
-			  ],
-                          menubar: 'file edit view',
-                          toolbar: 'insertfile undo redo | alignleft aligncenter alignright alignjustify | outdent indent'
-                    });
-            tinymce.init({ 
-                          selector: '#inputAssembly',
-		          height:   '50%',
-			  plugins: [
-			    'lists charmap print preview',
-			    'searchreplace wordcount fullscreen',
-			    'contextmenu paste'
-			  ],
-                          menubar: 'file edit view',
-                          toolbar: 'insertfile undo redo | alignleft aligncenter alignright alignjustify | outdent indent'
-                    });
+		    $("#sim_toolbar").draggable();
+		    $("#colorpicker1").spectrum({ preferredFormat: "hex", color: color_data_active}) ;
+		    $("#colorpicker2").spectrum({ preferredFormat: "hex", color: color_name_active}) ;
 
-            var a = document.getElementById("svg_p");
-            a.addEventListener("load",function() {
-                sim_init();
-                init_eventlistener();
-                refresh();
-            }, false);
+		    tinymce.init({ 
+				  selector: '#inputFirmware',
+				  height:   '50%',
+				  plugins: [
+				    'lists charmap print preview',
+				    'searchreplace wordcount fullscreen',
+				    'contextmenu paste'
+				  ],
+				  menubar: 'file edit view',
+				  toolbar: 'insertfile undo redo | alignleft aligncenter alignright alignjustify | outdent indent'
+			    });
+		    tinymce.init({ 
+				  selector: '#inputAssembly',
+				  height:   '50%',
+				  plugins: [
+				    'lists charmap print preview',
+				    'searchreplace wordcount fullscreen',
+				    'contextmenu paste'
+				  ],
+				  menubar: 'file edit view',
+				  toolbar: 'insertfile undo redo | alignleft aligncenter alignright alignjustify | outdent indent'
+			    });
 
-            var a = document.getElementById("svg_cu");
-            a.addEventListener("load",function() {
-                sim_init();
-                init_eventlistener();
-                refresh();
-            }, false);
+		    var a = document.getElementById("svg_p");
+		    a.addEventListener("load",function() {
+			sim_init();
+			init_eventlistener();
+			refresh();
+		    }, false);
 
-            $.mobile.pageContainer.pagecontainer('change','#main1');
-            $('#tab11').trigger('click');
-            $('#tab22').trigger('click');
-    }) ;
+		    var a = document.getElementById("svg_cu");
+		    a.addEventListener("load",function() {
+			sim_init();
+			init_eventlistener();
+			refresh();
+		    }, false);
 
-    init(); 
-    reset(); 
+		    $.mobile.pageContainer.pagecontainer('change','#main1');
+		    $('#tab11').trigger('click');
+		    $('#tab22').trigger('click');
+	    }) ;
+
+	    init(); 
+	    reset(); 
+    }
+    catch(err) 
+    {
+        alert("WepSIM was improperly used:\n" + err.message);
+    }
 </script>
 
 </body>
 
 </html>
+

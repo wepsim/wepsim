@@ -37,10 +37,77 @@
          *  UI configuration
          */
 
-        var DBG_delay          = 10 ;
-        var DBG_level          = "instruction" ;
+        var DBG_delay         = 10 ;
+        var DBG_level         = "instruction" ;
 
         var RF_display_format = 16 ;
         var RF_display_name   = 'numerical' ;
 
+
+        /*
+         *  Persistence
+         */
+
+        function reset_cfg ( )
+        {
+               color_data_active   = "#0066FF" ;
+               color_data_inactive = "rgb(0, 0, 0)" ; // "black"
+               color_name_active   = "red" ;
+               color_name_inactive = "rgb(0, 0, 0)" ; // "black"
+	       size_active         = 1.22;
+	       size_inactive       = 0.02;
+
+               DBG_delay           = 10 ;
+               DBG_level           = "instruction" ;
+               RF_display_format   = 16 ;
+               RF_display_name     = 'numerical' ;
+        }
+
+        function save_cfg ( )
+        {
+           if (typeof localStorage != "undefined")
+           {
+               localStorage.setItem('wepsim_version', '1.2.1');
+
+               localStorage.setItem('wepsim_color_data_active',		color_data_active);
+               localStorage.setItem('wepsim_color_data_inactive',	color_data_inactive);
+               localStorage.setItem('wepsim_color_name_active',		color_name_active);
+               localStorage.setItem('wepsim_color_name_inactive',	color_name_inactive);
+               localStorage.setItem('wepsim_size_active',		size_active);
+               localStorage.setItem('wepsim_size_inactive',		size_inactive);
+
+               localStorage.setItem('wepsim_DBG_delay',			DBG_delay);
+               localStorage.setItem('wepsim_DBG_level',			DBG_level);
+               localStorage.setItem('wepsim_RF_display_format',		RF_display_format);
+               localStorage.setItem('wepsim_RF_display_name',		RF_display_name);
+           }
+        }
+
+        function restore_cfg ( )
+        {
+           if (typeof localStorage != "undefined")
+           {
+                if (localStorage.getItem('wepsim_color_data_active') != null)
+                    color_data_active   = localStorage.getItem('wepsim_color_data_active');
+                if (localStorage.getItem('wepsim_color_data_inactive') != null)
+                    color_data_inactive = localStorage.getItem('wepsim_color_data_inactive');
+                if (localStorage.getItem('wepsim_color_name_active') != null)
+                    color_name_active   = localStorage.getItem('wepsim_color_name_active');
+                if (localStorage.getItem('wepsim_color_name_inactive') != null)
+                    color_name_inactive = localStorage.getItem('wepsim_color_name_inactive');
+                if (localStorage.getItem('wepsim_size_active') != null)
+                    size_active         = localStorage.getItem('wepsim_size_active');
+                if (localStorage.getItem('wepsim_size_inactive') != null)
+                    size_inactive       = localStorage.getItem('wepsim_size_inactive');
+
+                if (localStorage.getItem('wepsim_DBG_delay') != null)
+                    DBG_delay           = localStorage.getItem('wepsim_DBG_delay');
+                if (localStorage.getItem('wepsim_DBG_level') != null)
+                    DBG_level           = localStorage.getItem('wepsim_DBG_level');
+                if (localStorage.getItem('wepsim_RF_display_format') != null)
+                    RF_display_format   = localStorage.getItem('wepsim_RF_display_format');
+                if (localStorage.getItem('wepsim_RF_display_name') != null)
+                    RF_display_name     = localStorage.getItem('wepsim_RF_display_name');
+           }
+        }
 
