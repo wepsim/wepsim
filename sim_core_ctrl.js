@@ -439,8 +439,6 @@
         }
 
         /* 2) INTERACTIVE MODE */
-        var is_interactive = true;
-
         function set_interactive_mode ( interactive )
         {
             // 1.- set the global variable of in which mode we are

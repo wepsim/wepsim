@@ -45,6 +45,13 @@
 
 
         /*
+         *  SIM working
+         */
+
+        var is_interactive = true;
+
+
+        /*
          *  Persistence
          */
 
@@ -61,6 +68,8 @@
                DBG_level           = "instruction" ;
                RF_display_format   = 16 ;
                RF_display_name     = 'numerical' ;
+
+               is_interactive      = true;
         }
 
         function save_cfg ( )
@@ -80,6 +89,8 @@
                localStorage.setItem('wepsim_DBG_level',			DBG_level);
                localStorage.setItem('wepsim_RF_display_format',		RF_display_format);
                localStorage.setItem('wepsim_RF_display_name',		RF_display_name);
+
+               localStorage.setItem('wepsim_is_interactive',		is_interactive);
            }
         }
 
@@ -108,6 +119,9 @@
                     RF_display_format   = localStorage.getItem('wepsim_RF_display_format');
                 if (localStorage.getItem('wepsim_RF_display_name') != null)
                     RF_display_name     = localStorage.getItem('wepsim_RF_display_name');
+
+                if (localStorage.getItem('wepsim_is_interactive') != null)
+                    is_interactive      = localStorage.getItem('wepsim_is_interactive');
            }
         }
 

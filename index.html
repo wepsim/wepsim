@@ -807,16 +807,16 @@
 			 Single step element:
 			 <ul>
 			 <li>
-			     <input name="radio-choice-h-2" id="radio-choice-h-2a" data-mini="true"
+			     <input name="radio1" id="radio1-instruction" data-mini="true"
                                     style="margin-top:-8px"
 				    onclick="DBG_level='instruction'; save_cfg();"
-				    value="on" checked="checked" type="radio">
-			     <label for="radio-choice-h-2a">Instruc.</label>
-			     <input name="radio-choice-h-2" id="radio-choice-h-2b" data-mini="true"
+				    value="on" type="radio">
+			     <label for="radio1-instruction">Instruc.</label>
+			     <input name="radio1" id="radio1-microinstruction" data-mini="true"
                                     style="margin-top:-8px"
 				    onclick="DBG_level='microinstruction'; save_cfg();"
 				    value="off" type="radio">
-			     <label for="radio-choice-h-2b">&#181;instruc.</label>
+			     <label for="radio1-microinstruction">&#181;instruc.</label>
 			 </li>
 			 </ul>
 			 </fieldset>
@@ -828,21 +828,21 @@
 			 RF display format:<br>
 			 <ul>
 			 <li>
-			     <input name="radio-choice-h-3" id="radio-choice-h-3a" data-mini="true"
+			     <input name="radio2" id="radio2-16" data-mini="true"
                                     style="margin-top:-8px"
 				    onclick="RF_display_format=16; show_rf_values(); save_cfg();"
-				    value="on" checked="checked" type="radio">
-			     <label for="radio-choice-h-3a">Hex.</label>
-			     <input name="radio-choice-h-3" id="radio-choice-h-3b" data-mini="true"
+				    value="on" type="radio">
+			     <label for="radio2-16">Hex.</label>
+			     <input name="radio2" id="radio2-10" data-mini="true"
                                     style="margin-top:-8px"
 				    onclick="RF_display_format=10; show_rf_values(); save_cfg();"
 				    value="off" type="radio">
-			     <label for="radio-choice-h-3b">Dec.</label>
-			     <input name="radio-choice-h-3" id="radio-choice-h-3c" data-mini="true"
+			     <label for="radio2-10">Dec.</label>
+			     <input name="radio2" id="radio2-8"  data-mini="true"
                                     style="margin-top:-8px"
 				    onclick="RF_display_format=8; show_rf_values(); save_cfg();"
 				    value="off" type="radio">
-			     <label for="radio-choice-h-3c">Oct.</label>
+			     <label for="radio2-8">Oct.</label>
 			 </li>
 			 </ul>
 			 </fieldset>
@@ -854,16 +854,16 @@
 			 RF name nomenclature:<br>
 			 <ul>
 			 <li>
-			     <input name="radio-choice-h-4" id="radio-choice-h-4a" data-mini="true"
+			     <input name="radio3" id="radio3-numerical" data-mini="true"
                                     style="margin-top:-8px"
 				    onclick="RF_display_name='numerical'; show_rf_names(); save_cfg();"
-				    value="on" checked="checked" type="radio">
-			     <label for="radio-choice-h-4a">Numbers</label>
-			     <input name="radio-choice-h-4" id="radio-choice-h-4b" data-mini="true"
+				    value="on" type="radio">
+			     <label for="radio3-numerical">Numbers</label>
+			     <input name="radio3" id="radio3-logical" data-mini="true"
                                     style="margin-top:-8px"
 				    onclick="RF_display_name='logical'; show_rf_names(); save_cfg();"
 				    value="off" type="radio">
-			     <label for="radio-choice-h-4b">Labels</label>
+			     <label for="radio3-logical">Labels</label>
 			 </li>
 			 </ul>
 			 </fieldset>
@@ -893,16 +893,16 @@
 			 Interactive Mode:<br>
 			 <ul>
 			 <li>
-			     <input name="radio-choice-h-5" id="radio-choice-h-5a" data-mini="true"
+			     <input name="radio5" id="radio5-true" data-mini="true"
                                     style="margin-top:-8px"
 				    onclick="set_interactive_mode(true); save_cfg();"
-				    value="on" checked="checked" type="radio">
-			     <label for="radio-choice-h-5a">On</label>
-			     <input name="radio-choice-h-5" id="radio-choice-h-5b" data-mini="true"
+				    value="on" type="radio">
+			     <label for="radio5-true">On</label>
+			     <input name="radio5" id="radio5-false" data-mini="true"
                                     style="margin-top:-8px"
 				    onclick="set_interactive_mode(false); save_cfg();"
 				    value="off" type="radio">
-			     <label for="radio-choice-h-5b">Off</label>
+			     <label for="radio5-false">Off</label>
 			 </li>
 			 </ul>
 			 </fieldset>
@@ -1015,8 +1015,6 @@
 		    $("#tabs4").tabs();
 
 		    $("#sim_toolbar").draggable();
-		    $("#colorpicker1").spectrum({ preferredFormat: "hex", color: color_data_active}) ;
-		    $("#colorpicker2").spectrum({ preferredFormat: "hex", color: color_name_active}) ;
 
 		    tinymce.init({ 
 				  selector: '#inputFirmware',
@@ -1058,6 +1056,13 @@
 		    $.mobile.pageContainer.pagecontainer('change','#main1');
 		    $('#tab11').trigger('click');
 		    $('#tab22').trigger('click');
+
+		    $("#colorpicker1").spectrum({ preferredFormat: "hex", color: color_data_active}) ;
+		    $("#colorpicker2").spectrum({ preferredFormat: "hex", color: color_name_active}) ;
+		    $("#radio1-" +              DBG_level).prop('checked', true).checkboxradio("refresh") ;
+		    $("#radio2-" +      RF_display_format).prop('checked', true).checkboxradio("refresh") ;
+		    $("#radio3-" +        RF_display_name).prop('checked', true).checkboxradio("refresh") ;
+		    $("#radio5-" + get_interactive_mode()).prop('checked', true).checkboxradio("refresh") ;
 	    }) ;
 
 	    init(); 
