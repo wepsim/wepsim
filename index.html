@@ -78,14 +78,14 @@
 	if (SIMWARE.firmware.length == 0) {
             alert('WARNING: please load firmware first.');
             $.mobile.pageContainer.pagecontainer('change','#main3');
-            return;
+            return false;
 	} 
 
         // compile Assembly, update memory and segments
         var SIMWAREaddon = simlang_compile(textToConvert, SIMWARE);
         if (SIMWAREaddon.error != null) {
             alert(SIMWAREaddon.error);
-            return ;
+            return false;
         }
 
         set_simware(SIMWAREaddon) ;
@@ -112,6 +112,7 @@
 
         $('#btn42').trigger('click');
 	reset();
+        return true;
     }
 
     function showCompiledAssembly () 
@@ -169,7 +170,7 @@
 	var preSM = load_firmware(textFromFileLoaded) ;
 	if (preSM.error != null) {
             alert(preSM.error);
-            return ;
+            return false;
         }
 
         // update UI 
@@ -188,6 +189,7 @@
 
 	$('#btn32').trigger('click');
 	reset() ;
+        return true;
     }
 
     function showCompiledFirmware () 
@@ -358,7 +360,7 @@
                 <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
                     <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
                 </div>
-                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.2.1</span> </span>
+                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.2.2</span> / Simulator</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a href="#actions_panel" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
@@ -515,7 +517,7 @@
                 <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
                     <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
                 </div>
-                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.2.1</span> </span>
+                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.2.2</span> / Firmware</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a href="#actions_panel" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
@@ -566,41 +568,60 @@
 		    </div>
 		</div>
 
-                <ul class="nav nav-justified">
-                <li><ul class="nav nav-justified col-md-5">
-		            <li><a href="#lssave" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
-				   data-rel="popup" data-position-to="window" data-transition="pop">Save</a></li>
-		            <li><a href="#lsload" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-back    ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
-				   data-rel="popup" data-position-to="window" data-transition="pop">Load</a></li>
-		            <li><a href="#"       style="background-color: #CCCCCC" 
+		<div id="popupucompile" 
+                     data-role="popup" data-overlay-theme="b" data-theme="a">
+		     <ul data-role="listview" data-inset="true">
+			<li><a href="#" style="background-color: #CCCCCC"
+			       onclick="var ok = compileFirmware();
+			    	        $('#popupucompile').popup('close');" 
+			       data-inline="true">&#181;compile</a></li>
+			<li><a href="#" style="background-color: #CCCCCC"
+			       onclick="var ok = compileFirmware(); 
+                                        if (true == ok) 
+                                            $.mobile.pageContainer.pagecontainer('change','#main4');
+                                        $('#popupucompile').popup('close');"
+			       data-inline="true">&#181;compile and go assembly</a></li>
+			<li><a href="#" style="background-color: #CCCCCC"
+			       onclick="var ok = compileFirmware(); 
+                                        if (true == ok) 
+			                    ok = compileAssembly();
+                                        if (true == ok) 
+                                            $.mobile.pageContainer.pagecontainer('change','#main1');
+                                        $('#popupucompile').popup('close');"
+			       data-inline="true">&#181;compile, compile and go to simulator</a></li>
+		     </ul>
+		</div>
+
+                <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group btn-group-justified role="group">
+		            <a href="#lssave" style="background-color: #CCCCCC"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
+				   data-rel="popup" data-position-to="window" data-transition="pop">Save</a>
+		            <a href="#lsload" style="background-color: #CCCCCC"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-back    ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
+				   data-rel="popup" data-position-to="window" data-transition="pop">Load</a>
+		            <a href="#"       style="background-color: #CCCCCC" 
 				   onclick="load_firmware_from_example(); $('#btn31').trigger('click');"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-bars    ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12">Example</a></li>
-		            <li><a href="#"       style="background-color: #CCCCCC" 
-				   onclick="compileFirmware();"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12">&#181;compile</a></li>
-		</ul></li>
-                <li><ul class="nav nav-justified col-md-2">
-			    <li><a id="tab24" href="#" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-left  ui-mini col-xs-5 col-sm-12 col-md-12"
-				   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');">Assembly</a></li>
-                            <li><a id="tab25" href="#" style="background-color: #D4DB17"
-                                   class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-5 col-sm-12 col-md-12"
-				   onclick="$('#iframe_help1').load('sim_help.html #help_firmware_format',  function(){$('#help1').trigger('updatelayout');
-					    $('#help1').popup('open');});">Help</a></li>
-		</ul></li>
-                <li><ul class="nav nav-justified col-md-5">
-		            <li><a id=btn31 href="#" 
-				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-active   ui-mini col-xs-12 col-sm-12 col-md-12"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-bars    ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1">Example</a>
+		            <a href="#popupucompile" style="background-color: #CCCCCC"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
+				   data-rel="popup" data-position-to="origin" data-transition="pop" data-inline="true">&#181;compile</a>
+
+		            <a id=btn31 href="#" 
+				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-active   ui-mini col-xs-5 col-md-3 col-lg-3"
 				   onclick="$('#tab31').trigger('click'); $('#btn32').removeClass('ui-btn-active'); $('#btn31').addClass('ui-btn-active');"
-				   >Firmware Specification</a></li>
-		            <li><a id=btn32 href="#"  
-				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a                 ui-mini col-xs-12 col-sm-12 col-md-12"
+				   >Firmware Specification</a>
+		            <a id=btn32 href="#"  
+				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a                 ui-mini col-xs-5 col-md-3 col-lg-3"
 				   onclick="$('#tab32').trigger('click'); $('#btn31').removeClass('ui-btn-active'); $('#btn32').addClass('ui-btn-active');"
-				   >co2&#181;addr + control memory</a></li>
-		</ul></li>
-		</ul>
+				   >co2&#181;addr + control memory</a>
+
+                            <a id="tab25" href="#" style="background-color: #D4DB17"
+                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-5 col-md-1 col-lg-1"
+				   onclick="$('#iframe_help1').load('sim_help.html #help_firmware_format',  function(){$('#help1').trigger('updatelayout');
+					    $('#help1').popup('open');});">Help</a>
+		</div>
+		</div>
 
 		<div data-role="tabs" id="tabs3">
 		      <div data-role="navbar" style="visibility:hidden; position:absolute;">
@@ -638,7 +659,7 @@
                 <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
                     <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
                 </div>
-                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.2.1</span> </span>
+                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.2.2</span> / Assembly</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a href="#actions_panel" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
@@ -679,43 +700,53 @@
 		    </div>
 		</div>
 
-                <ul class="nav nav-justified">
-                <li><ul class="nav nav-justified col-md-5">
-		            <li><a href="#lssave2" style="background-color: #CCCCCC"
-				   class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-forward  ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
-				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Save</a></li>
-		            <li><a href="#lsload2" style="background-color: #CCCCCC"
-				   class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-back     ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
-				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Load</a></li>
-		            <li><a href="#" style="background-color: #CCCCCC"
+		<div id="popupcompile" 
+                     data-role="popup" data-overlay-theme="b" data-theme="a">
+		     <ul data-role="listview" data-inset="true">
+			<li><a href="#" style="background-color: #CCCCCC"
+			       onclick="var ok = compileAssembly();
+				        $('#popupcompile').popup('close');"
+			       data-inline="true">Compile</a></li>
+			<li><a href="#" style="background-color: #CCCCCC"
+			       onclick="var ok = compileAssembly();
+                                        if (true == ok) 
+                                            $.mobile.pageContainer.pagecontainer('change','#main1');
+				        $('#popupcompile').popup('close');"
+			       data-inline="true">Compile and go simulator</a></li>
+		     </ul>
+		</div>
+
+                <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group btn-group-justified role="group">
+		            <a href="#lssave2" style="background-color: #CCCCCC"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-forward  ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
+				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Save</a>
+		            <a href="#lsload2" style="background-color: #CCCCCC"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-back     ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
+				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Load</a>
+		            <a href="#" style="background-color: #CCCCCC"
                                    onclick="load_assembly_from_example(); $('#btn41').trigger('click');"
-				   class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-bars     ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
-				   data-inline="true">Example</a></li>
-		            <li><a href="#" style="background-color: #CCCCCC"
-                                   onclick="compileAssembly();" id="emp"
-				   class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
-				   data-inline="true">Compile</a></li>
-                </ul></li>
-                <li><ul class="nav nav-justified col-md-2">
-                            <li><a id="tab25" href="#" style="background-color: #CCCCCC"
-                                   class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r  ui-btn-icon-left  ui-mini col-xs-5 col-sm-12 col-md-12"
-                                   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a></li>
-                            <li><a id="tab25" href="#" style="background-color: #D4DB17"
-                                   class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-5 col-sm-12 col-md-12"
-				   onclick="$('#iframe_help1').load('sim_help.html #help_assembly_format',  function(){$('#help1').trigger('updatelayout');
-					    $('#help1').popup('open');});">Help</a></li>
-                </ul></li>
-                <li><ul class="nav nav-justified col-md-5">
-		            <li><a id=btn41 href="#" 
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-active ui-mini col-xs-12 col-sm-12 col-md-12"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-bars     ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
+				   data-inline="true">Example</a>
+		            <a href="#popupcompile" style="background-color: #CCCCCC"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
+				   data-rel="popup" data-position-to="origin" data-transition="pop" data-inline="true">Compile</a>
+
+		            <a id=btn41 href="#" 
+				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-active ui-mini col-xs-5 col-md-3 col-lg-3"
 				   onclick="$('#tab41').trigger('click'); $('#btn42').removeClass('ui-btn-active'); $('#btn41').addClass('ui-btn-active');"
-				   >Assembly Code</a></li>
-		            <li><a id=btn42 href="#"  
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a               ui-mini col-xs-12 col-sm-12 col-md-12"
+				   >Assembly Code</a>
+		            <a id=btn42 href="#"  
+				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a               ui-mini col-xs-5 col-md-3 col-lg-3"
 				   onclick="$('#tab42').trigger('click'); $('#btn41').removeClass('ui-btn-active'); $('#btn42').addClass('ui-btn-active');"
-				   >Main Memory</a></li>
-                </ul></li>
-		</ul>
+				   >Main Memory</a>
+
+                            <a id="tab25" href="#" style="background-color: #D4DB17"
+                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-5 col-md-1 col-lg-1"
+				   onclick="$('#iframe_help1').load('sim_help.html #help_assembly_format',  function(){$('#help1').trigger('updatelayout');
+					    $('#help1').popup('open');});">Help</a>
+		</div>
+		</div>
 
 		<div data-role="tabs" id="tabs4">
 		      <div data-role="navbar" id="tabsnav4" style="visibility:hidden; position:absolute;">
@@ -921,7 +952,7 @@
      data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
 
    <div data-role="header" data-theme="a">
-   <h1><b>Web elemental processor SIMulator</b> <span class="badge btn-success">1.2.1</span> </h1>
+   <h1><b>Web elemental processor SIMulator</b> <span class="badge btn-success">1.2.2</span> </h1>
    </div>
    <div role="main" class="ui-content">
 
