@@ -66,7 +66,7 @@
     // Assembly
     //
 
-    function compileAssembly() 
+    function compileAssembly ( show_binary ) 
     {
         // get Assembly
       //var textToConvert = document.getElementById("inputAssembly").value;
@@ -92,12 +92,12 @@
 	update_memories(SIMWARE);
 
         // update UI 
-        if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
+        if (false == show_binary)
         {
            $("#compile_mp").html("<center><a onclick='showCompiledAssembly();'>" + 
                                  "<br>Assembly was compiled. " + 
                                  "<br>Click here in order to show the main memory in binary." + 
-                                 "<br>Warning: it could be slow on a mobile device...</a></center>");
+                                 "<br><br>WARNING: it could be slow on a mobile device.</a></center>");
            $("#compile_mp").css({width:"100%",height:"inherit !important"});
         }
         else
@@ -162,7 +162,7 @@
     // Firmware
     //
 
-    function compileFirmware () 
+    function compileFirmware ( show_binary ) 
     {
       //var textFromFileLoaded = document.getElementById("inputFirmware").value ;
         var textFromFileLoaded = tinymce.get('inputFirmware').getBody().textContent ;
@@ -174,12 +174,12 @@
         }
 
         // update UI 
-        if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
+        if (false == show_binary)
         {
            $("#ucompile").html("<center><a onclick='showCompiledFirmware();'>" +
                                "<br>Firware was compiled. " +
                                "<br>Click here in order to show the control memory in binary." +
-                               "<br>Warning: it could be slow on a mobile device...</a></center>");
+                               "<br><br>WARNING: it could be slow on a mobile device.</a></center>");
            $("#ucompile").css({width:"100%",height:"inherit !important"});
         }
         else
@@ -572,19 +572,23 @@
                      data-role="popup" data-overlay-theme="b" data-theme="a">
 		     <ul data-role="listview" data-inset="true">
 			<li><a href="#" style="background-color: #CCCCCC"
-			       onclick="var ok = compileFirmware();
+			       onclick="var ok = compileFirmware(false);
 			    	        $('#popupucompile').popup('close');" 
 			       data-inline="true">&#181;compile</a></li>
 			<li><a href="#" style="background-color: #CCCCCC"
-			       onclick="var ok = compileFirmware(); 
+			       onclick="var ok = compileFirmware(true);
+			    	        $('#popupucompile').popup('close');" 
+			       data-inline="true">&#181;compile and show the binary</a></li>
+			<li><a href="#" style="background-color: #CCCCCC"
+			       onclick="var ok = compileFirmware(false); 
                                         if (true == ok) 
                                             $.mobile.pageContainer.pagecontainer('change','#main4');
                                         $('#popupucompile').popup('close');"
 			       data-inline="true">&#181;compile and go assembly</a></li>
 			<li><a href="#" style="background-color: #CCCCCC"
-			       onclick="var ok = compileFirmware(); 
+			       onclick="var ok = compileFirmware(false); 
                                         if (true == ok) 
-			                    ok = compileAssembly();
+			                    ok = compileAssembly(false);
                                         if (true == ok) 
                                             $.mobile.pageContainer.pagecontainer('change','#main1');
                                         $('#popupucompile').popup('close');"
@@ -605,7 +609,7 @@
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-bars    ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1">Example</a>
 		            <a href="#popupucompile" style="background-color: #CCCCCC"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
-				   data-rel="popup" data-position-to="origin" data-transition="pop" data-inline="true">&#181;compile</a>
+				   data-rel="popup" data-position-to="origin" data-transition="pop" data-inline="true">&#181;compile...</a>
 
 		            <a id=btn31 href="#" 
 				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-active   ui-mini col-xs-5 col-md-3 col-lg-3"
@@ -704,11 +708,15 @@
                      data-role="popup" data-overlay-theme="b" data-theme="a">
 		     <ul data-role="listview" data-inset="true">
 			<li><a href="#" style="background-color: #CCCCCC"
-			       onclick="var ok = compileAssembly();
+			       onclick="var ok = compileAssembly(false);
 				        $('#popupcompile').popup('close');"
 			       data-inline="true">Compile</a></li>
 			<li><a href="#" style="background-color: #CCCCCC"
-			       onclick="var ok = compileAssembly();
+			       onclick="var ok = compileAssembly(true);
+				        $('#popupcompile').popup('close');"
+			       data-inline="true">Compile and show the binary</a></li>
+			<li><a href="#" style="background-color: #CCCCCC"
+			       onclick="var ok = compileAssembly(false);
                                         if (true == ok) 
                                             $.mobile.pageContainer.pagecontainer('change','#main1');
 				        $('#popupcompile').popup('close');"
@@ -730,7 +738,7 @@
 				   data-inline="true">Example</a>
 		            <a href="#popupcompile" style="background-color: #CCCCCC"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
-				   data-rel="popup" data-position-to="origin" data-transition="pop" data-inline="true">Compile</a>
+				   data-rel="popup" data-position-to="origin" data-transition="pop" data-inline="true">Compile...</a>
 
 		            <a id=btn41 href="#" 
 				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-active ui-mini col-xs-5 col-md-3 col-lg-3"
