@@ -58,6 +58,7 @@
     <script src="external/knockout-3.4.0.js"></script>
     <script src='external/tinymce.min.js'></script>
     <script src="external/spectrum.min.js"></script>
+    <script src="external/bootstrap-notify.min.js"></script>
 
     <script src="sim_all.min.js"></script>
 
@@ -69,7 +70,6 @@
     function compileAssembly ( show_binary ) 
     {
         // get Assembly
-      //var textToConvert = document.getElementById("inputAssembly").value;
         var textToConvert = tinymce.get('inputAssembly').getBody().textContent ;
             textToConvert = textToConvert.toLowerCase();
 
@@ -81,13 +81,23 @@
             return false;
 	} 
 
-        // compile Assembly, update memory and segments
+        // compile Assembly and show message
         var SIMWAREaddon = simlang_compile(textToConvert, SIMWARE);
-        if (SIMWAREaddon.error != null) {
-            alert(SIMWAREaddon.error);
+        if (SIMWAREaddon.error != null) 
+        {
+	    $.notify({ title: '<strong>ERROR</strong>', 
+                       message: '<pre>' + SIMWAREaddon.error + '</pre>' + 
+                                '<br><center><button type="button" class="btn btn-danger" onclick="$.notifyClose();">Close</button></center>' },
+		     { type: 'danger', newest_on_top: true, delay: 0, placement: { from: 'top', align: 'center' } });
+
+            // alert(SIMWAREaddon.error);
             return false;
         }
 
+	$.notify({ title: '<strong>INFO</strong>', message: 'Assembly was compiled and loaded.'},
+		 { type: 'success', newest_on_top: true, delay: 1000, placement: { from: 'top', align: 'center' } });
+
+        // update memory and segments
         set_simware(SIMWAREaddon) ;
 	update_memories(SIMWARE);
 
@@ -102,7 +112,12 @@
         }
         else
         {
-             showCompiledAssembly();
+           $("#compile_mp").html("<center>" +
+                                 "<br>Loading binary, please wait..." +
+                                 "<br><br>WARNING: loading binary might take time on slow mobile devices.</center>");
+           $("#compile_mp").css({width:"100%",height:"inherit !important"});
+
+	   setTimeout(function(){ showCompiledAssembly(); }, 500);
         }
 
         $("#asm_debugger").html(assembly2html(SIMWAREaddon.mp, 
@@ -110,7 +125,6 @@
                                               SIMWAREaddon.seg, 
                                               SIMWAREaddon.assembly));
 
-        $('#btn42').trigger('click');
 	reset();
         return true;
     }
@@ -164,30 +178,42 @@
 
     function compileFirmware ( show_binary ) 
     {
-      //var textFromFileLoaded = document.getElementById("inputFirmware").value ;
         var textFromFileLoaded = tinymce.get('inputFirmware').getBody().textContent ;
 
 	var preSM = load_firmware(textFromFileLoaded) ;
-	if (preSM.error != null) {
-            alert(preSM.error);
+	if (preSM.error != null) 
+        {
+	    $.notify({ title: '<strong>ERROR</strong>', 
+                       message: '<pre>' + preSM.error + '</pre>' + 
+                                '<br><center><button type="button" class="btn btn-danger" onclick="$.notifyClose();">Close</button></center>' },
+		     { type: 'danger', newest_on_top: true, delay: 0, placement: { from: 'top', align: 'center' } });
+
+            // alert(preSM.error);
             return false;
         }
+
+	$.notify({ title: '<strong>INFO</strong>', message: 'Firmware was compiled and loaded.'},
+		 { type: 'success', newest_on_top: true, delay: 3000, placement: { from: 'top', align: 'center' } });
 
         // update UI 
         if (false == show_binary)
         {
            $("#ucompile").html("<center><a onclick='showCompiledFirmware();'>" +
-                               "<br>Firware was compiled. " +
+                               "<br>Firmware was compiled. " +
                                "<br>Click here in order to show the control memory in binary." +
                                "<br><br>WARNING: it could be slow on a mobile device.</a></center>");
            $("#ucompile").css({width:"100%",height:"inherit !important"});
         }
         else
         {
-             showCompiledFirmware();
+           $("#ucompile").html("<center>" +
+                               "<br>Loading binary, please wait..." +
+                               "<br><br>WARNING: loading binary might take time on slow mobile devices.</center>");
+           $("#ucompile").css({width:"100%",height:"inherit !important"});
+
+	   setTimeout(function(){ showCompiledFirmware(); }, 500);
         }
 
-	$('#btn32').trigger('click');
 	reset() ;
         return true;
     }
@@ -572,25 +598,41 @@
                      data-role="popup" data-overlay-theme="b" data-theme="a">
 		     <ul data-role="listview" data-inset="true">
 			<li><a href="#" style="background-color: #CCCCCC"
-			       onclick="var ok = compileFirmware(false);
+			       onclick="// step 1: go firmware-editor + ucompile
+                                        $('#btn31').trigger('click');
+                                        compileFirmware(false);
 			    	        $('#popupucompile').popup('close');" 
 			       data-inline="true">&#181;compile</a></li>
 			<li><a href="#" style="background-color: #CCCCCC"
-			       onclick="var ok = compileFirmware(true);
-			    	        $('#popupucompile').popup('close');" 
-			       data-inline="true">&#181;compile and show the binary</a></li>
-			<li><a href="#" style="background-color: #CCCCCC"
-			       onclick="var ok = compileFirmware(false); 
-                                        if (true == ok) 
-                                            $.mobile.pageContainer.pagecontainer('change','#main4');
+			       onclick="// step 1: go firmware-editor + ucompile
+                                        $('#btn31').trigger('click');
+                                        var ok = compileFirmware(false); 
+                                        if (false == ok) {
+                                            $('#popupucompile').popup('close');
+                                            return;
+                                        }
+                                        // step 2: go assembly
+                                        $.mobile.pageContainer.pagecontainer('change','#main4');
                                         $('#popupucompile').popup('close');"
 			       data-inline="true">&#181;compile and go assembly</a></li>
 			<li><a href="#" style="background-color: #CCCCCC"
-			       onclick="var ok = compileFirmware(false); 
-                                        if (true == ok) 
-			                    ok = compileAssembly(false);
-                                        if (true == ok) 
-                                            $.mobile.pageContainer.pagecontainer('change','#main1');
+			       onclick="// step 1: go firmware-editor + ucompile
+                                        $('#btn31').trigger('click');
+                                        var ok = compileFirmware(false); 
+                                        if (false == ok) {
+                                            $('#popupucompile').popup('close');
+                                            return;
+                                        }
+                                        // step 2: go assembly-editor + compile
+                                        $('#btn41').trigger('click');
+			                ok = compileAssembly(false);
+                                        if (false == ok) {
+                                            $.mobile.pageContainer.pagecontainer('change','#main4');
+                                            $('#popupucompile').popup('close');
+                                            return;
+                                        }
+                                        // step 3: go simulator
+                                        $.mobile.pageContainer.pagecontainer('change','#main1');
                                         $('#popupucompile').popup('close');"
 			       data-inline="true">&#181;compile, compile and go to simulator</a></li>
 		     </ul>
@@ -598,15 +640,12 @@
 
                 <div class="btn-toolbar" role="toolbar">
                 <div class="btn-group btn-group-justified role="group">
-		            <a href="#lssave" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
-				   data-rel="popup" data-position-to="window" data-transition="pop">Save</a>
 		            <a href="#lsload" style="background-color: #CCCCCC"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-back    ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
 				   data-rel="popup" data-position-to="window" data-transition="pop">Load</a>
-		            <a href="#"       style="background-color: #CCCCCC" 
-				   onclick="load_firmware_from_example(); $('#btn31').trigger('click');"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-bars    ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1">Example</a>
+		            <a href="#lssave" style="background-color: #CCCCCC"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
+				   data-rel="popup" data-position-to="window" data-transition="pop">Save</a>
 		            <a href="#popupucompile" style="background-color: #CCCCCC"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
 				   data-rel="popup" data-position-to="origin" data-transition="pop" data-inline="true">&#181;compile...</a>
@@ -617,13 +656,23 @@
 				   >Firmware Specification</a>
 		            <a id=btn32 href="#"  
 				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a                 ui-mini col-xs-5 col-md-3 col-lg-3"
-				   onclick="$('#tab32').trigger('click'); $('#btn31').removeClass('ui-btn-active'); $('#btn32').addClass('ui-btn-active');"
+				   onclick="var ok = compileFirmware(true);
+                                            if (false == ok) {
+                                                $('#btn31').trigger('click');
+                                                return false;
+                                            }
+					    $('#tab32').trigger('click'); 
+                                            $('#btn31').removeClass('ui-btn-active'); 
+                                            $('#btn32').addClass('ui-btn-active');"
 				   >co2&#181;addr + control memory</a>
 
                             <a id="tab25" href="#" style="background-color: #D4DB17"
                                    class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-5 col-md-1 col-lg-1"
 				   onclick="$('#iframe_help1').load('sim_help.html #help_firmware_format',  function(){$('#help1').trigger('updatelayout');
 					    $('#help1').popup('open');});">Help</a>
+		            <a href="#"       style="background-color: #CCCCCC" 
+				   onclick="load_firmware_from_example(); $('#btn31').trigger('click');"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-bars    ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1">Example</a>
 		</div>
 		</div>
 
@@ -645,8 +694,8 @@
 		        <div id="ucompile">
                             <br>
                             <center>
-                            Please load the firmware specification and then &#181;compile it. <br>
-                            In this way the binary will be created and loaded into control memory.
+                            Loading binary, please wait... <br>
+                            WARNING: loading binary might take time on slow mobile devices.
                             </center>
                         </div>
 		      </div>
@@ -708,17 +757,21 @@
                      data-role="popup" data-overlay-theme="b" data-theme="a">
 		     <ul data-role="listview" data-inset="true">
 			<li><a href="#" style="background-color: #CCCCCC"
-			       onclick="var ok = compileAssembly(false);
+			       onclick="// step 1: go assembly-editor + compile
+                                        $('#btn41').trigger('click');
+                                        compileAssembly(false);
 				        $('#popupcompile').popup('close');"
 			       data-inline="true">Compile</a></li>
 			<li><a href="#" style="background-color: #CCCCCC"
-			       onclick="var ok = compileAssembly(true);
-				        $('#popupcompile').popup('close');"
-			       data-inline="true">Compile and show the binary</a></li>
-			<li><a href="#" style="background-color: #CCCCCC"
-			       onclick="var ok = compileAssembly(false);
-                                        if (true == ok) 
-                                            $.mobile.pageContainer.pagecontainer('change','#main1');
+			       onclick="// step 1: go assembly-editor + compile
+                                        $('#btn41').trigger('click');
+                                        var ok = compileAssembly(false);
+                                        if (false == ok) {
+				            $('#popupcompile').popup('close');
+                                            return false;
+                                        }
+                                        // step 2: go simulator
+                                        $.mobile.pageContainer.pagecontainer('change','#main1');
 				        $('#popupcompile').popup('close');"
 			       data-inline="true">Compile and go simulator</a></li>
 		     </ul>
@@ -726,16 +779,12 @@
 
                 <div class="btn-toolbar" role="toolbar">
                 <div class="btn-group btn-group-justified role="group">
-		            <a href="#lssave2" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-forward  ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
-				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Save</a>
 		            <a href="#lsload2" style="background-color: #CCCCCC"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-back     ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
 				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Load</a>
-		            <a href="#" style="background-color: #CCCCCC"
-                                   onclick="load_assembly_from_example(); $('#btn41').trigger('click');"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-bars     ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
-				   data-inline="true">Example</a>
+		            <a href="#lssave2" style="background-color: #CCCCCC"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-forward  ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
+				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Save</a>
 		            <a href="#popupcompile" style="background-color: #CCCCCC"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
 				   data-rel="popup" data-position-to="origin" data-transition="pop" data-inline="true">Compile...</a>
@@ -746,13 +795,24 @@
 				   >Assembly Code</a>
 		            <a id=btn42 href="#"  
 				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a               ui-mini col-xs-5 col-md-3 col-lg-3"
-				   onclick="$('#tab42').trigger('click'); $('#btn41').removeClass('ui-btn-active'); $('#btn42').addClass('ui-btn-active');"
+				   onclick="var ok = compileAssembly(true);
+                                            if (false == ok) {
+                                                $('#btn41').trigger('click');
+                                                return false;
+                                            }
+                                            $('#tab42').trigger('click'); 
+                                            $('#btn41').removeClass('ui-btn-active'); 
+                                            $('#btn42').addClass('ui-btn-active');"
 				   >Main Memory</a>
 
                             <a id="tab25" href="#" style="background-color: #D4DB17"
                                    class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-5 col-md-1 col-lg-1"
 				   onclick="$('#iframe_help1').load('sim_help.html #help_assembly_format',  function(){$('#help1').trigger('updatelayout');
 					    $('#help1').popup('open');});">Help</a>
+		            <a href="#" style="background-color: #CCCCCC"
+                                   onclick="load_assembly_from_example(); $('#btn41').trigger('click');"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-bars     ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
+				   data-inline="true">Example</a>
 		</div>
 		</div>
 
@@ -777,8 +837,8 @@
                            <div id="compile_mp">
                               <br>
                               <center>
-                              Please load the assembly and then compile it. <br>
-                              In this way the binary will be created and loaded into main memory.
+                              Loading binary, please wait... <br>
+                              WARNING: loading binary might take time on slow mobile devices.
                               </center>
 		           </div>
 		        </div>
@@ -986,7 +1046,8 @@
 		    <a rel="external" href="http://getbootstrap.com/">Bootstrap</a>,
 		    <a rel="external" href="http://bootboxjs.com/">Bootbox</a>,
 		    <a rel="external" href="https://www.tinymce.com/">tinymce</a> Editor (Community version),
-		    and the <a rel="external" href="https://bgrins.github.io/spectrum/">spectrum</a> ColorPicker.
+		    <a rel="external" href="https://bgrins.github.io/spectrum/">spectrum</a> ColorPicker,
+		    and the <a rel="external" href="https://github.com/mouse0270/bootstrap-notify">Bootstrap Notify</a>.
 		    <p>
 		</div>
 		<div class="col-xs-12 col-sm-12">
