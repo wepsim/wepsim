@@ -283,7 +283,7 @@
                                         '      style="background-color: #D4E017; -webkit-text-shadow: none; text-shadow: none; border-color: #D4E017; background-color: #D4E017; background-image: none;" ' +
                                         '      onclick=\'update_signal_loadhelp("#help2",$("#ask_skey").val());\'><b>Press here to search additional details or close details...</b>' + 
                                         '  </div>' +
-                                        '  <div id=help2 class="panel-collapse collapse" style="height:inherit; width: inherit; overflow-x: auto">Loading...</div>' + 
+                                        '  <div id=help2 class="panel-collapse collapse" style="max-height:60vh; width: inherit; overflow-x: auto">Loading...</div>' + 
                                         '</div>' +
                                         '<form class="form-horizontal">' + 
 					'<input id="ask_skey"   name="ask_skey"   type="hidden" value="' + key + '" class="form-control input-md"> ' +
