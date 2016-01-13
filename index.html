@@ -85,9 +85,11 @@
         var SIMWAREaddon = simlang_compile(textToConvert, SIMWARE);
         if (SIMWAREaddon.error != null) 
         {
+            var errorMsg = SIMWAREaddon.error.replace(/\t/g,' ').replace(/   /g,' ') ;
+            errorMsg = '<pre style="background-color: inherit !important">' + errorMsg + '</pre>' ;
+
 	    $.notify({ title: '<strong>ERROR</strong>', 
-                       message: '<pre>' + SIMWAREaddon.error + '</pre>' + 
-                                '<br><center><button type="button" class="btn btn-danger" onclick="$.notifyClose();">Close</button></center>' },
+                       message: errorMsg + '<br><center><button type="button" class="btn btn-danger" onclick="$.notifyClose();">Close</button></center>' },
 		     { type: 'danger', newest_on_top: true, delay: 0, placement: { from: 'top', align: 'center' } });
             return false;
         }
@@ -181,9 +183,11 @@
 	var preSM = load_firmware(textFromFileLoaded) ;
 	if (preSM.error != null) 
         {
+            var errorMsg = preSM.error.replace(/\t/g,' ').replace(/   /g,' ') ;
+            errorMsg = '<pre style="background-color: inherit !important">' + errorMsg + '</pre>' ;
+
 	    $.notify({ title: '<strong>ERROR</strong>', 
-                       message: '<pre>' + preSM.error + '</pre>' + 
-                                '<br><center><button type="button" class="btn btn-danger" onclick="$.notifyClose();">Close</button></center>' },
+                       message: errorMsg + '<br><center><button type="button" class="btn btn-danger" onclick="$.notifyClose();">Close</button></center>' },
 		     { type: 'danger', newest_on_top: true, delay: 0, placement: { from: 'top', align: 'center' } });
             return false;
         }
@@ -593,13 +597,14 @@
 		<div id="popupucompile" 
                      data-role="popup" data-overlay-theme="b" data-theme="a">
 		     <ul data-role="listview" data-inset="true">
-			<li><a href="#" style="background-color: #CCCCCC"
+			<li data-role="list-divider" data-theme="b">Select an action:</li>
+			<li><a href="#" 
 			       onclick="// step 1: go firmware-editor + ucompile
                                         $('#btn31').trigger('click');
                                         compileFirmware(false);
 			    	        $('#popupucompile').popup('close');" 
-			       data-inline="true">&#181;compile</a></li>
-			<li><a href="#" style="background-color: #CCCCCC"
+			       data-inline="true"><h2>&#181;compile</h2><p>The default action</p></a></li>
+			<li><a href="#" 
 			       onclick="// step 1: go firmware-editor + ucompile
                                         $('#btn31').trigger('click');
                                         var ok = compileFirmware(false); 
@@ -610,8 +615,8 @@
                                         // step 2: go assembly
                                         $.mobile.pageContainer.pagecontainer('change','#main4');
                                         $('#popupucompile').popup('close');"
-			       data-inline="true">&#181;compile and go assembly</a></li>
-			<li><a href="#" style="background-color: #CCCCCC"
+			       data-inline="true"><h2>&#181;compile and go assembly</h2><p>Recommended if the firmware microcompiles, <br> but it has to be tested</p></a></li>
+			<li><a href="#" 
 			       onclick="// step 1: go firmware-editor + ucompile
                                         $('#btn31').trigger('click');
                                         var ok = compileFirmware(false); 
@@ -630,7 +635,7 @@
                                         // step 3: go simulator
                                         $.mobile.pageContainer.pagecontainer('change','#main1');
                                         $('#popupucompile').popup('close');"
-			       data-inline="true">&#181;compile, compile and go to simulator</a></li>
+			       data-inline="true"><h2>&#181;compile, compile and go to simulator</h2><p>Recommended if a signal value is changed, <br> but the assembly is already compiled</p></a></li>
 		     </ul>
 		</div>
 
@@ -644,7 +649,7 @@
 				   data-rel="popup" data-position-to="window" data-transition="pop">Save</a>
 		            <a href="#popupucompile" style="background-color: #CCCCCC"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-10 col-md-1 col-lg-1"
-				   data-rel="popup" data-position-to="origin" data-transition="pop" data-inline="true">&#181;compile...</a>
+				   data-rel="popup" data-position-to="origin" data-transition="none" data-inline="true">&#181;compile...</a>
 
 		            <a id=btn31 href="#" 
 				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-active   ui-mini col-xs-5 col-md-3 col-lg-3"
@@ -752,13 +757,14 @@
 		<div id="popupcompile" 
                      data-role="popup" data-overlay-theme="b" data-theme="a">
 		     <ul data-role="listview" data-inset="true">
-			<li><a href="#" style="background-color: #CCCCCC"
+			<li data-role="list-divider" data-theme="b">Select an action:</li>
+			<li><a href="#" 
 			       onclick="// step 1: go assembly-editor + compile
                                         $('#btn41').trigger('click');
                                         compileAssembly(false);
 				        $('#popupcompile').popup('close');"
-			       data-inline="true">Compile</a></li>
-			<li><a href="#" style="background-color: #CCCCCC"
+			       data-inline="true"><h2>Compile</h2><p>The default action</p></a></li>
+			<li><a href="#" 
 			       onclick="// step 1: go assembly-editor + compile
                                         $('#btn41').trigger('click');
                                         var ok = compileAssembly(false);
@@ -769,7 +775,7 @@
                                         // step 2: go simulator
                                         $.mobile.pageContainer.pagecontainer('change','#main1');
 				        $('#popupcompile').popup('close');"
-			       data-inline="true">Compile and go simulator</a></li>
+			       data-inline="true"><h2>Compile and go simulator</h2><p>Recommended if the assembly compiles without problems</p></a></li>
 		     </ul>
 		</div>
 
