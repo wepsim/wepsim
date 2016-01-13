@@ -89,13 +89,11 @@
                        message: '<pre>' + SIMWAREaddon.error + '</pre>' + 
                                 '<br><center><button type="button" class="btn btn-danger" onclick="$.notifyClose();">Close</button></center>' },
 		     { type: 'danger', newest_on_top: true, delay: 0, placement: { from: 'top', align: 'center' } });
-
-            // alert(SIMWAREaddon.error);
             return false;
         }
 
 	$.notify({ title: '<strong>INFO</strong>', message: 'Assembly was compiled and loaded.'},
-		 { type: 'success', newest_on_top: true, delay: 1000, placement: { from: 'top', align: 'center' } });
+		 { type: 'success', newest_on_top: true, delay: NOTIF_delay, placement: { from: 'top', align: 'center' } });
 
         // update memory and segments
         set_simware(SIMWAREaddon) ;
@@ -187,13 +185,11 @@
                        message: '<pre>' + preSM.error + '</pre>' + 
                                 '<br><center><button type="button" class="btn btn-danger" onclick="$.notifyClose();">Close</button></center>' },
 		     { type: 'danger', newest_on_top: true, delay: 0, placement: { from: 'top', align: 'center' } });
-
-            // alert(preSM.error);
             return false;
         }
 
 	$.notify({ title: '<strong>INFO</strong>', message: 'Firmware was compiled and loaded.'},
-		 { type: 'success', newest_on_top: true, delay: 3000, placement: { from: 'top', align: 'center' } });
+		 { type: 'success', newest_on_top: true, delay: NOTIF_delay, placement: { from: 'top', align: 'center' } });
 
         // update UI 
         if (false == show_binary)
@@ -647,7 +643,7 @@
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
 				   data-rel="popup" data-position-to="window" data-transition="pop">Save</a>
 		            <a href="#popupucompile" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-10 col-md-1 col-lg-1"
 				   data-rel="popup" data-position-to="origin" data-transition="pop" data-inline="true">&#181;compile...</a>
 
 		            <a id=btn31 href="#" 
@@ -786,7 +782,7 @@
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-forward  ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
 				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Save</a>
 		            <a href="#popupcompile" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-10 col-md-1 col-lg-1"
 				   data-rel="popup" data-position-to="origin" data-transition="pop" data-inline="true">Compile...</a>
 
 		            <a id=btn41 href="#" 
