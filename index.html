@@ -211,8 +211,12 @@
     {
         var SIMWARE = get_simware() ;
         $("#compile_results").html(firmware2html(SIMWARE.firmware, true));
-	$("#compile_results").css({width:"100%",height:"inherit !important"});
+	$("#compile_results").css({width:"inherit !important", height:"inherit !important"});
+
+	$("#bin1").enhanceWithin();
+	$('#bin1').trigger('updatelayout');
         $("#bin1").popup("reposition", {positionTo: 'window'});
+	$('#bin1').trigger('refresh');
     }
 
     function load_firmware_from_file ( )
@@ -609,12 +613,7 @@
 				   onclick="compileFirmware(true);">Show co2&#181;addr + control memory</a>
 
                             <a href="#" style="background-color: #D4DB17"
-                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info    ui-btn-icon-left ui-mini col-xs-2 col-md-1 col-lg-1"
-				   onclick="$('#iframe_help1').load('sim_help.html #help_firmware_format',  
-                                                                     function(){$('#help1').trigger('updatelayout'); $('#help1').popup('open');});"
-                                   >Help</a>
-                            <a href="#" style="background-color: #D4DB17"
-                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-4 col-md-1 col-lg-1"
+                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-5 col-md-1 col-lg-1"
 				   onclick="$('#iframe_help1').html('<object id=svg_p2 style=\'width:90vh\' data=\'images/imagenProcesador2.svg\' type=image/svg+xml>Your browser does not support SVG' + 
                                               '</object>' + 
                                               '<br><br>' + 
@@ -624,6 +623,11 @@
                                             $('#help1').popup('reposition', {positionTo: 'window'});
 					    $('#help1').popup('open');"
                                    >Hardware Summary</a>
+                            <a href="#" style="background-color: #D4DB17"
+                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info    ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
+				   onclick="$('#iframe_help1').load('sim_help.html #help_firmware_format',  
+                                                                     function(){$('#help1').trigger('updatelayout'); $('#help1').popup('open');});"
+                                   >Help</a>
 
 		            <a href="#"       style="background-color: #DDDDDD"
 				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-bars    ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
@@ -715,7 +719,7 @@
 				   onclick="compileAssembly(true);">Show Main Memory</a>
 
                             <a href="#" style="background-color: #D4DB17"
-                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-2 col-md-1 col-lg-1"
+                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-5 col-md-1 col-lg-1"
 				   onclick="$('#iframe_help1').load('sim_help.html #help_assembly_format',  
                                                                     function(){$('#help1').trigger('updatelayout'); $('#help1').popup('open');});">Help</a>
 		            <a href="#" style="background-color: #DDDDDD"
@@ -983,6 +987,7 @@
 
       <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
               <div class="ui-body-d ui-content" style="padding: 2px 2px 2px 2px;">
+                 <div id=iframe_bin1 style="height:80vh; width: inherit; overflow-y: auto;">
 		   <div id="compile_results">
                         <br>
                         <center>
@@ -990,6 +995,7 @@
                         WARNING: loading binary might take time on slow mobile devices.
                         </center>
                    </div>
+                 </div>
               </div>
       </div>
 
