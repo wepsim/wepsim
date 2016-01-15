@@ -609,7 +609,7 @@
                                             }">&#181;compile and go assembly</a>
 
 		            <a href="#" style="background-color: #DDDDDD"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-u ui-btn-icon-left ui-mini col-xs-10 col-md-2 col-lg-2 ui-shadow"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-u ui-btn-icon-left ui-mini col-xs-10 col-md-3 col-lg-3 ui-shadow"
 				   onclick="compileFirmware(true);">Show co2&#181;addr + control memory</a>
 
                             <a href="#" style="background-color: #D4DB17"
@@ -1033,24 +1033,27 @@
 		    tinymce.init({ 
 				  selector: '#inputFirmware',
 				  height:   '50%',
-				  plugins: [
-				    'lists charmap print preview',
-				    'searchreplace wordcount fullscreen',
-				    'contextmenu paste'
-				  ],
+				  plugins:  'lists,charmap,print,preview,searchreplace,wordcount,' + 
+                                            'fullscreen,contextmenu,paste',
 				  menubar: 'file edit view',
-				  toolbar: 'insertfile undo redo | alignleft aligncenter alignright alignjustify | outdent indent'
+				  toolbar:  'insertfile undo redo | ' + 
+                                            'alignleft aligncenter alignright alignjustify | ' + 
+                                            'outdent indent fullscreen',
 			    });
 		    tinymce.init({ 
 				  selector: '#inputAssembly',
 				  height:   '50%',
-				  plugins: [
-				    'lists charmap print preview',
-				    'searchreplace wordcount fullscreen',
-				    'contextmenu paste'
-				  ],
-				  menubar: 'file edit view',
-				  toolbar: 'insertfile undo redo | alignleft aligncenter alignright alignjustify | outdent indent'
+				  plugins:  'lists,charmap,print,preview,searchreplace,wordcount,' + 
+                                            'fullscreen,contextmenu,paste,mention',
+				  menubar:  'file edit view',
+				  toolbar:  'insertfile undo redo | ' + 
+                                            'alignleft aligncenter alignright alignjustify | ' + 
+                                            'outdent indent fullscreen',
+                                  mentions: { 
+                                              delimiter: '!',
+                                              source: function (query, process, delimiter) { return FIRMWARE.firmware; },
+                                              queryBy: 'signature'
+                                            }
 			    });
 
 		    var a = document.getElementById("svg_p");
