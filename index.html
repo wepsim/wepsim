@@ -591,17 +591,17 @@
                 <div class="btn-toolbar" role="toolbar">
                 <div class="btn-group btn-group-justified" role="group">
 		            <a href="#lsload" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-back    ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-back    ui-btn-icon-left ui-mini col-xs-3 col-md-1 col-lg-1"
 				   data-rel="popup" data-position-to="window" data-transition="pop">Load</a>
 		            <a href="#lssave" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-left ui-mini col-xs-3 col-md-1 col-lg-1"
 				   data-rel="popup" data-position-to="window" data-transition="pop">Save</a>
 		            <a href="#"       style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-xs-4 col-md-1 col-lg-1"
 				   data-transition="none" data-inline="true"
 				   onclick="compileFirmware(false);">&#181;compile</a>
 		            <a href="#"       style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-xs-5 col-md-2 col-lg-2"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2"
 				   data-transition="none" data-inline="true"
 				   onclick="var ok = compileFirmware(false);
                                             if (true == ok) {
@@ -609,22 +609,24 @@
                                             }">&#181;compile and go assembly</a>
 
 		            <a href="#" style="background-color: #DDDDDD"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-u ui-btn-icon-left ui-mini col-xs-10 col-md-3 col-lg-3 ui-shadow"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-u ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2 ui-shadow"
 				   onclick="compileFirmware(true);">Show co2&#181;addr + control memory</a>
 
                             <a href="#" style="background-color: #D4DB17"
-                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-5 col-md-1 col-lg-1"
-				   onclick="$('#iframe_help1').html('<object id=svg_p2 style=\'width:90vh\' data=\'images/imagenProcesador2.svg\' type=image/svg+xml>Your browser does not support SVG' + 
-                                              '</object>' + 
-                                              '<br><br>' + 
-                                              '<object id=svg_cu2 style=\'width:90vh\' data=\'images/imagenUnidadControl2.svg\' type=image/svg+xml>Your browser does not support SVG' + 
-                                              '</object>'); 
+                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-6 col-md-1 col-lg-1"
+				   onclick="$('#iframe_help1').html('<div class=row><div class=\'col-xs-10 col-md-6 col-lg-6\'>' +  
+                                                                    '<object id=svg_p2 style=\'width:90vh\' data=\'images/imagenProcesador2.svg\' type=image/svg+xml>Your browser does not support SVG' + 
+                                                                    '</object>' + 
+                                                                    '</div><div class=\'col-xs-10 col-md-6 col-lg-6\'>' + 
+                                                                   '<object id=svg_cu2 style=\'width:90vh\' data=\'images/imagenUnidadControl2.svg\' type=image/svg+xml>Your browser does not support SVG' + 
+                                                                    '</object>' +
+                                                                    '</div></div>'); 
                                             $('#help1').trigger('updatelayout');
                                             $('#help1').popup('reposition', {positionTo: 'window'});
 					    $('#help1').popup('open');"
                                    >Hardware Summary</a>
                             <a href="#" style="background-color: #D4DB17"
-                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info    ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
+                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info    ui-btn-icon-left ui-mini col-xs-4 col-md-1 col-lg-1"
 				   onclick="$('#iframe_help1').load('sim_help.html #help_firmware_format',  
                                                                      function(){$('#help1').trigger('updatelayout'); $('#help1').popup('open');});"
                                    >Help</a>
@@ -697,17 +699,17 @@
                 <div class="btn-toolbar" role="toolbar">
                 <div class="btn-group btn-group-justified" role="group">
 		            <a href="#lsload2" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-back     ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-back     ui-btn-icon-left ui-mini col-xs-3 col-md-1 col-lg-1"
 				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Load</a>
 		            <a href="#lssave2" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-forward  ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-forward  ui-btn-icon-left ui-mini col-xs-3 col-md-1 col-lg-1"
 				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Save</a>
 		            <a href="#" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-4 col-md-1 col-lg-1"
 				   data-transition="none" data-inline="true"
 				   onclick="compileAssembly(false);">Compile</a>
 		            <a href="#" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-xs-5 col-md-2 col-lg-2"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2"
 				   data-transition="none" data-inline="true"
 				   onclick="var ok = compileAssembly(false);
                                             if (true == ok) {
@@ -715,7 +717,7 @@
                                             }">Compile and go simulator</a>
 
 		            <a href="#" style="background-color: #DDDDDD"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-u ui-btn-icon-left ui-mini col-xs-10 col-md-2 col-lg-2 ui-shadow"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-u  ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2 ui-shadow"
 				   onclick="compileAssembly(true);">Show Main Memory</a>
 
                             <a href="#" style="background-color: #D4DB17"
@@ -968,7 +970,7 @@
 
       <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
               <div class="ui-body-d ui-content" style="padding: 2px 2px 2px 2px;">
-                 <div id=iframe_help1 style="height:80vh; width: inherit; overflow-y: auto;"></div>
+                 <div id=iframe_help1 style="height:80vh; width: 80vw; overflow-y: auto;"></div>
               </div>
       </div>
 
@@ -987,7 +989,7 @@
 
       <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
               <div class="ui-body-d ui-content" style="padding: 2px 2px 2px 2px;">
-                 <div id=iframe_bin1 style="height:80vh; width: inherit; overflow-y: auto;">
+                 <div id=iframe_bin1 style="height:80vh; width: 80vw; overflow-y: auto;">
 		   <div id="compile_results">
                         <br>
                         <center>
