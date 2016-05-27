@@ -269,7 +269,7 @@
 	sim_signals["M1"]  = { name: "M1", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",  
 			       behavior: ["MV M1_C1 BUS_IB", "MV M1_C1 BS_M1"], 
 			       fire_name: ['svg_p:text3469'], 
-			       draw_data: [['svg_p:path3063', 'svg_p:path3061', 'svg_p:path3059'], ['svg_p:path3057']], 
+			       draw_data: [['svg_p:path3063', 'svg_p:path3061', 'svg_p:path3059'], ['svg_p:path3057', 'svg_p:path3641', 'svg_p:path3419']], 
 			       draw_name: [[], ['svg_p:path3447']] };
 	sim_signals["M2"]  = { name: "M2", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",  
 			       behavior: ["MV M2_C2 BUS_IB", "ADD M2_C2 REG_PC VAL_FOUR"], 
