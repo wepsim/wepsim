@@ -1,7 +1,7 @@
 fetch
 {
     fetch:          (T2, C0),
-                    (TA, R, BW=11, C1=1),
+                    (TA, R, BW=11, M1=1, C1=1),
                     (M2, C2, T1, C3),
                     (A0, B=0, C=0)
 }
@@ -210,7 +210,7 @@ lw reg addr {
             addr=address(15,0)abs,
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
-                (TA=1, R=1, BW=11, M1=0, C1=1),
+                (TA=1, R=1, BW=11, M1=1, C1=1),
                 (T1=1, LE=1, MR=0, SELE=10101, A0=1, B=1, C=0)
             }
 }
@@ -222,7 +222,7 @@ sw reg addr {
             addr=address(15,0)abs,
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
-                (MR=0, SELA=10101,    T9=1, M1=1, C1=1),
+                (MR=0, SELA=10101,    T9=1, M1=0, C1=1),
                 (BW=11, TA=1, TD=1,     W=1,  A0=1, B=1, C=0)
             }
 }
@@ -234,7 +234,7 @@ lh reg addr {
             addr=address(15,0)abs,
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
-                (TA=1, R=1, BW=1, M1=0, C1=1),
+                (TA=1, R=1, BW=1, M1=1, C1=1),
                 (T1=1, LE=1, MR=0, SELE=10101, A0=1, B=1, C=0)
             }
 }
@@ -246,7 +246,7 @@ sh reg addr {
             addr=address(15,0)abs,
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
-                (MR=0, SELA=10101,    T9=1, M1=1, C1=1),
+                (MR=0, SELA=10101,    T9=1, M1=0, C1=1),
                 (BW=1, TA=1, TD=1,     W=1,  A0=1, B=1, C=0)
             }
 }
@@ -258,7 +258,7 @@ lb reg addr {
             addr=address(15,0)abs,
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
-                (TA=1, R=1, BW=00, M1=0, C1=1),
+                (TA=1, R=1, BW=00, M1=1, C1=1),
                 (T1=1, LE=1, MR=0, SELE=10101, A0=1, B=1, C=0)
             }
 }
@@ -270,7 +270,7 @@ sb reg addr {
             addr=address(15,0)abs,
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
-                (MR=0, SELA=10101,    T9=1, M1=1, C1=1),
+                (MR=0, SELA=10101,    T9=1, M1=0, C1=1),
                 (BW=0, TA=1, TD=1,     W=1,  A0=1, B=1, C=0)
             }
 }
@@ -287,7 +287,7 @@ in reg val {
             val=inm(15,0),
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
-                (TA=1, IOR=1,    M1=0, C1=1),
+                (TA=1, IOR=1,    M1=1, C1=1),
                 (T1=1, LE=1,     MR=0, SELE=10101, A0=1, B=1, C=0)
             }
 }
@@ -299,7 +299,7 @@ out reg val {
             val=inm(15,0),
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
-                (MR=0, SELA=10101, T9=1,    M1=1, C1=1),
+                (MR=0, SELA=10101, T9=1,    M1=0, C1=1),
                 (TA=1, TD=1,     IOW=1,   A0=1, B=1, C=0)
             }
 }
@@ -513,7 +513,7 @@ push reg {
 	reg = reg(25,21),
 	{
                 ( MR=1, SELA=11101, MA=0, MB=10, MC=1, SELCOP=1010, T6=1, SELE=11101, LE=1, C0 ),
-		( MR=0, SELA=10101, T9, M1=1, C1 ),
+		( MR=0, SELA=10101, T9, M1=0, C1 ),
 		( BW=11, TA=1, TD=1, W=1, A0=1, B=1, C=0 )
 	}
 }
@@ -525,7 +525,7 @@ pop reg {
 	{
 		(MR=1, SELA=11101, T9, C0),
                 (MR=1, SELA=11101, MA=0, MB=10, MC=1, SELCOP=1001, T6=1, SELE=11101, LE=1),
-		(TA=1, R=1, BW=11, M1=0, C1),
+		(TA=1, R=1, BW=11, M1=1, C1),
 		(T1=1, LE=1, MR=0, SELE=10101, A0=1 ,B=1 ,C=0)
 	}
 }
@@ -536,7 +536,7 @@ xch reg1 reg2 {
 	reg1 = reg(25,21),
 	reg2 = reg(20,16),
 	{
-		(MR=0, SELA=10000, T9=1, M1, C1)
+		(MR=0, SELA=10000, T9=1, M1=0, C1)
 		(MR=0, SELA=10101, T9=1, SELE=10000, LE=1)
 		(                  T1=1, SELE=10101, LE=1, A0=1, B=1, C=0)
 	}
@@ -567,7 +567,7 @@ lw reg1 (reg2) {
 	reg2 = reg(20,16),
 	{
                 (MR=0, SELA=10000, T9=1, C0),
-		(TA=1, R=1, BW=11, M1=0, C1=1),
+		(TA=1, R=1, BW=11, M1=1, C1=1),
 		(T1=1, LE=1, MR=0, SELE=10101, A0=1, B=1, C=0)
 	}
 }
@@ -580,7 +580,7 @@ lw reg1 reg2(reg3) {
 	reg3 = reg(15,11),
 	{
                 (MR=0, SELA=10000, MA=0, SELB=1011, MB=0, MC=1, SELCOP=1001, T6=1, C0),
-		(TA=1, R=1, BW=11, M1=0, C1=1),
+		(TA=1, R=1, BW=11, M1=1, C1=1),
 		(T1=1, LE=1, MR=0, SELE=10101, A0=1, B=1, C=0)
 	}
 }
@@ -592,7 +592,7 @@ li.w reg val {
 	val = inm(31,0),
 	{
                 (T2, C0, M2=1, C2),
-		(TA=1, R=1, BW=11, M1=0, C1=1),
+		(TA=1, R=1, BW=11, M1=1, C1=1),
 		(T1=1, LE=1, MR=0, SELE=10101, A0=1, B=1, C=0)
 	}
 }
