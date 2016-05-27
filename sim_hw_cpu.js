@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015 Javier Prieto Cepeda, Felix Garcia Carballeira, Alejandro Calderon Mateos
+ *  Copyright 2015-2016 Javier Prieto Cepeda, Felix Garcia Carballeira, Alejandro Calderon Mateos
  *
  *  This file is part of WepSIM.
  * 
@@ -55,10 +55,8 @@
 	sim_states["RA_T9"]          = {name: "RA_T9",          visible:false, nbits: "32", value: 0, default_value:0, draw_data: [] };
 	sim_states["RB_T10"]         = {name: "RB_T10",         visible:false, nbits: "32", value: 0, default_value:0, draw_data: [] };
 
-	/*ESTADOS DE SELEC A*/
+	/*ESTADOS DE SELEC */
 	sim_states["SELEC_T3"]       = { name: "SELEC_T3",      visible:false, nbits: "32", value: 0, default_value:0, draw_data: [] };
-	sim_states["RBS_M1"]         = { name: "RBS_M1",        visible:false, nbits: "32", value: 0, default_value:0, draw_data: [] };
-	sim_states["WBS_TD"]         = { name: "WBS_TD",        visible:false, nbits: "32", value: 0, default_value:0, draw_data: [] };
 	sim_states["SELP_M7"]        = { name: "SELP_M7",       visible:false, nbits: "32", value: 0, default_value:0, draw_data: [] };
 
 	sim_states["SUM4_M2"]        = {name:"SUM4_M2",         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
@@ -85,10 +83,10 @@
 	sim_states["MUXC_MUXB"]      = { name: "MUXC_MUXB",      visible:false, nbits: "1",  value: 0, default_value:0, draw_data: [] };
 
 	/*MEMORIA y DISPOSITIVOS*/
-	sim_states["WBS_TD"]         = { name: "WBS_TD",         visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-	sim_states["RBS_TD"]         = { name: "RBS_TD",         visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+	sim_states["BS_M1"]          = { name: "BS_M1",          visible:false, nbits: "32", value: 0, default_value:0, draw_data: [] };
+	sim_states["BS_TD"]          = { name: "BS_TD",          visible:false, nbits: "32", value: 0, default_value:0, draw_data: [] };
 
-	sim_states["INTV"]           = { name: "INTV",           visible:false, nbits: "8", value: 0, default_value: 0, draw_data: [] };
+	sim_states["INTV"]           = { name: "INTV",           visible:false, nbits: "8",  value: 0, default_value:0, draw_data: [] };
 
 
 	/*ESTADOS DE MUX A*/
@@ -212,9 +210,9 @@
 			       draw_data: [['svg_p:path3089', 'svg_p:path3597', 'svg_p:path3513', 'svg_p:path3601', 'svg_p:path3187', 'svg_p:path3087', 'svg_p:path2995']], 
 			       draw_name: [['svg_p:path3085']] };
 	sim_signals["TD"]  = { name: "TD",  visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-			       behavior: ["NOP", "MV BUS_DB WBS_TD; MOVE_BITSE A1A0 0 2 BUS_AB 0; FIRE A1A0"], 
+			       behavior: ["NOP", "MV BUS_DB BS_TD; MOVE_BITSE A1A0 0 2 BUS_AB 0; FIRE A1A0"], 
 			       fire_name: ['svg_p:text3103'], 
-			       draw_data: [['svg_p:path3101', 'svg_p:path3587', 'svg_p:path3515', 'svg_p:path3505', 'svg_p:path3419', 'svg_p:path3099', 'svg_p:path3097']], 
+			       draw_data: [['svg_p:path3101', 'svg_p:path3587', 'svg_p:path3515', 'svg_p:path3071', 'svg_p:path3419', 'svg_p:path3099', 'svg_p:path3097', 'svg_p:path3559-5', 'svg_p:path3419-1-0', 'svg_p:path3583', 'svg_p:path3419-1']], 
 			       draw_name: [['svg_p:path3095']] };
 	sim_signals["T1"]  = { name: "T1",  visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 			       behavior: ["NOP", "MV BUS_IB REG_MBR; FIRE M7; FIRE M2; FIRE M1"],
@@ -269,9 +267,9 @@
 
 	/*MULTIPLEXORES*/
 	sim_signals["M1"]  = { name: "M1", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",  
-			       behavior: ["MV M1_C1 RBS_M1", "MV M1_C1 BUS_IB"], 
+			       behavior: ["MV M1_C1 BUS_IB", "MV M1_C1 BS_M1"], 
 			       fire_name: ['svg_p:text3469'], 
-			       draw_data: [['svg_p:path3057'], ['svg_p:path3063', 'svg_p:path3061', 'svg_p:path3059']], 
+			       draw_data: [['svg_p:path3063', 'svg_p:path3061', 'svg_p:path3059'], ['svg_p:path3057']], 
 			       draw_name: [[], ['svg_p:path3447']] };
 	sim_signals["M2"]  = { name: "M2", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",  
 			       behavior: ["MV M2_C2 BUS_IB", "ADD M2_C2 REG_PC VAL_FOUR"], 
@@ -416,7 +414,7 @@
 				 'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; MOVE_BITS RWBWA 2 2 BW; FIRE BWA; FIRE SBWA; FIRE RWBWA',
 				 'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; MOVE_BITS RWBWA 2 2 BW; FIRE BWA; FIRE SBWA; FIRE RWBWA',
 				 'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; MOVE_BITS RWBWA 2 2 BW; FIRE BWA; FIRE SBWA; FIRE RWBWA'],
-				fire_name: ['svg_p:text3433','svg_p:text3611'],
+				fire_name: ['svg_p:text3433'],
 				draw_data: [[],[]],
 				draw_name: [[],[]] };
 	sim_signals["A1A0"] = { name: "A1A0", visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
@@ -424,62 +422,62 @@
 					   'MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA',
 					   'MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA',
 					   'MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA'],
-				fire_name: ['svg_p:text3603','svg_p:text3609'],
+				fire_name: ['svg_p:text3603'],
 				draw_data: [[],[]],
 				draw_name: [[],[]] };
 	sim_signals["BWA"] = { name: "BWA", visible: false, type: "L", value: 0, default_value: 0, nbits: "4",
-				behavior: ['BSEL WBS_TD 0 8 REG_MBR 0; FIRE TD', 
-					   'BSEL WBS_TD 8 8 REG_MBR 0; FIRE TD',
-					   'BSEL WBS_TD 16 8 REG_MBR 0; FIRE TD',
-					   'BSEL WBS_TD 24 8 REG_MBR 0; FIRE TD',
-					   'BSEL WBS_TD 0 16 REG_MBR 0; FIRE TD',
-					   'BSEL WBS_TD 0 16 REG_MBR 0; FIRE TD',
-					   'BSEL WBS_TD 0 16 REG_MBR 0; FIRE TD',
-					   'BSEL WBS_TD 0 16 REG_MBR 0; FIRE TD',
-					   'BSEL WBS_TD 16 16 REG_MBR 0; FIRE TD',
-					   'BSEL WBS_TD 16 16 REG_MBR 0; FIRE TD',
-					   'BSEL WBS_TD 16 16 REG_MBR 0; FIRE TD',
-					   'BSEL WBS_TD 16 16 REG_MBR 0; FIRE TD',
-					   'MV WBS_TD REG_MBR; FIRE TD',
-					   'MV WBS_TD REG_MBR; FIRE TD',
-					   'MV WBS_TD REG_MBR; FIRE TD',
-					   'MV WBS_TD REG_MBR; FIRE TD'],
+				behavior: ['BSEL BS_TD 0 8 REG_MBR 0; FIRE TD', 
+					   'BSEL BS_TD 8 8 REG_MBR 0; FIRE TD',
+					   'BSEL BS_TD 16 8 REG_MBR 0; FIRE TD',
+					   'BSEL BS_TD 24 8 REG_MBR 0; FIRE TD',
+					   'BSEL BS_TD 0 16 REG_MBR 0; FIRE TD',
+					   'BSEL BS_TD 0 16 REG_MBR 0; FIRE TD',
+					   'BSEL BS_TD 0 16 REG_MBR 0; FIRE TD',
+					   'BSEL BS_TD 0 16 REG_MBR 0; FIRE TD',
+					   'BSEL BS_TD 16 16 REG_MBR 0; FIRE TD',
+					   'BSEL BS_TD 16 16 REG_MBR 0; FIRE TD',
+					   'BSEL BS_TD 16 16 REG_MBR 0; FIRE TD',
+					   'BSEL BS_TD 16 16 REG_MBR 0; FIRE TD',
+					   'MV BS_TD REG_MBR; FIRE TD',
+					   'MV BS_TD REG_MBR; FIRE TD',
+					   'MV BS_TD REG_MBR; FIRE TD',
+					   'MV BS_TD REG_MBR; FIRE TD'],
 				 fire_name: [],
 				 draw_data: [[],[]],
 				 draw_name: [[],[]] };
 	sim_signals["SBWA"] = { name: "SBWA", visible: false, type: "L", value: 0, default_value: 0, nbits: "5",
-				behavior: ['BSEL RBS_M1 0 8 BUS_DB 0; FIRE M1',
-					   'BSEL RBS_M1 0 8 BUS_DB 8; FIRE M1',
-					   'BSEL RBS_M1 0 8 BUS_DB 16; FIRE M1',
-					   'BSEL RBS_M1 0 8 BUS_DB 24; FIRE M1',
-					   'BSEL RBS_M1 0 16 BUS_DB 0; FIRE M1',
-					   'BSEL RBS_M1 0 16 BUS_DB 0; FIRE M1',
-					   'BSEL RBS_M1 0 16 BUS_DB 0; FIRE M1',
-					   'BSEL RBS_M1 0 16 BUS_DB 0; FIRE M1',
-					   'BSEL RBS_M1 0 16 BUS_DB 16; FIRE M1',
-					   'BSEL RBS_M1 0 16 BUS_DB 16; FIRE M1',
-					   'BSEL RBS_M1 0 16 BUS_DB 16; FIRE M1',
-					   'BSEL RBS_M1 0 16 BUS_DB 16; FIRE M1',
-					   'MV RBS_M1 BUS_DB; FIRE M1',
-					   'MV RBS_M1 BUS_DB; FIRE M1',
-					   'MV RBS_M1 BUS_DB; FIRE M1',
-					   'MV RBS_M1 BUS_DB; FIRE M1',
-					   'BSEL RBS_M1 0 8 BUS_DB 0; EXT_SIG RBS_M1 7; FIRE M1',
-					   'BSEL RBS_M1 0 8 BUS_DB 8; EXT_SIG RBS_M1 7; FIRE M1',
-					   'BSEL RBS_M1 0 8 BUS_DB 16; EXT_SIG RBS_M1 7; FIRE M1',
-					   'BSEL RBS_M1 0 8 BUS_DB 24; EXT_SIG RBS_M1 7; FIRE M1',
-					   'BSEL RBS_M1 0 16 BUS_DB 0; EXT_SIG RBS_M1 15; FIRE M1',
-					   'BSEL RBS_M1 0 16 BUS_DB 0; EXT_SIG RBS_M1 15; FIRE M1',
-					   'BSEL RBS_M1 0 16 BUS_DB 0; EXT_SIG RBS_M1 15; FIRE M1',
-					   'BSEL RBS_M1 0 16 BUS_DB 0; EXT_SIG RBS_M1 15; FIRE M1',
-					   'BSEL RBS_M1 0 16 BUS_DB 16; EXT_SIG RBS_M1 15; FIRE M1',
-					   'BSEL RBS_M1 0 16 BUS_DB 16; EXT_SIG RBS_M1 15; FIRE M1',
-					   'BSEL RBS_M1 0 16 BUS_DB 16; EXT_SIG RBS_M1 15; FIRE M1',
-					   'BSEL RBS_M1 0 16 BUS_DB 16; EXT_SIG RBS_M1 15; FIRE M1',
-					   'MV RBS_M1 BUS_DB; FIRE M1',
-					   'MV RBS_M1 BUS_DB; FIRE M1',
-					   'MV RBS_M1 BUS_DB; FIRE M1',
-					   'MV RBS_M1 BUS_DB; FIRE M1'],
+				behavior: ['BSEL BS_M1 0 8 BUS_DB 0; FIRE M1',
+					   'BSEL BS_M1 0 8 BUS_DB 8; FIRE M1',
+					   'BSEL BS_M1 0 8 BUS_DB 16; FIRE M1',
+					   'BSEL BS_M1 0 8 BUS_DB 24; FIRE M1',
+					   'BSEL BS_M1 0 16 BUS_DB 0; FIRE M1',
+					   'BSEL BS_M1 0 16 BUS_DB 0; FIRE M1',
+					   'BSEL BS_M1 0 16 BUS_DB 0; FIRE M1',
+					   'BSEL BS_M1 0 16 BUS_DB 0; FIRE M1',
+					   'BSEL BS_M1 0 16 BUS_DB 16; FIRE M1',
+					   'BSEL BS_M1 0 16 BUS_DB 16; FIRE M1',
+					   'BSEL BS_M1 0 16 BUS_DB 16; FIRE M1',
+					   'BSEL BS_M1 0 16 BUS_DB 16; FIRE M1',
+					   'MV BS_M1 BUS_DB; FIRE M1',
+					   'MV BS_M1 BUS_DB; FIRE M1',
+					   'MV BS_M1 BUS_DB; FIRE M1',
+					   'MV BS_M1 BUS_DB; FIRE M1',
+					   'BSEL BS_M1 0 8 BUS_DB 0; EXT_SIG BS_M1 7; FIRE M1',
+					   'BSEL BS_M1 0 8 BUS_DB 8; EXT_SIG BS_M1 7; FIRE M1',
+					   'BSEL BS_M1 0 8 BUS_DB 16; EXT_SIG BS_M1 7; FIRE M1',
+					   'BSEL BS_M1 0 8 BUS_DB 24; EXT_SIG BS_M1 7; FIRE M1',
+					   'BSEL BS_M1 0 16 BUS_DB 0; EXT_SIG BS_M1 15; FIRE M1',
+					   'BSEL BS_M1 0 16 BUS_DB 0; EXT_SIG BS_M1 15; FIRE M1',
+					   'BSEL BS_M1 0 16 BUS_DB 0; EXT_SIG BS_M1 15; FIRE M1',
+					   'BSEL BS_M1 0 16 BUS_DB 0; EXT_SIG BS_M1 15; FIRE M1',
+					   'BSEL BS_M1 0 16 BUS_DB 16; EXT_SIG BS_M1 15; FIRE M1',
+					   'BSEL BS_M1 0 16 BUS_DB 16; EXT_SIG BS_M1 15; FIRE M1',
+					   'BSEL BS_M1 0 16 BUS_DB 16; EXT_SIG BS_M1 15; FIRE M1',
+					   'BSEL BS_M1 0 16 BUS_DB 16; EXT_SIG BS_M1 15; FIRE M1',
+					   'MV BS_M1 BUS_DB; FIRE M1',
+					   'MV BS_M1 BUS_DB; FIRE M1',
+					   'MV BS_M1 BUS_DB; FIRE M1',
+					   'MV BS_M1 BUS_DB; FIRE M1'],
 				fire_name: [],
 				draw_data: [[],[]],
 				draw_name: [[],[]] };
