@@ -114,16 +114,16 @@
                     size_inactive       = localStorage.getItem('wepsim_size_inactive');
 
                 if (localStorage.getItem('wepsim_DBG_delay') != null)
-                    DBG_delay           = localStorage.getItem('wepsim_DBG_delay');
+                    DBG_delay           = JSON.parse(localStorage.getItem('wepsim_DBG_delay'));
                 if (localStorage.getItem('wepsim_DBG_level') != null)
                     DBG_level           = localStorage.getItem('wepsim_DBG_level');
                 if (localStorage.getItem('wepsim_RF_display_format') != null)
-                    RF_display_format   = localStorage.getItem('wepsim_RF_display_format');
+                    RF_display_format   = JSON.parse(localStorage.getItem('wepsim_RF_display_format'));
                 if (localStorage.getItem('wepsim_RF_display_name') != null)
                     RF_display_name     = localStorage.getItem('wepsim_RF_display_name');
 
                 if (localStorage.getItem('wepsim_is_interactive') != null)
-                    is_interactive      = localStorage.getItem('wepsim_is_interactive');
+                    is_interactive      = JSON.parse(localStorage.getItem('wepsim_is_interactive'));
            }
         }
 
