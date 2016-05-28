@@ -328,36 +328,37 @@
                 The format of a value of the former data types is:
 	      </p>
 	      <p>
-	        &middot;       <b>Cadena de caracteres:</b> secuencia de caracteres entre comillas dobles.<br />
-	        Por ejemplo: "hola 123\n"
+	        &middot;       <b>String:</b> character sequence enclosed in double quotes.<br />
+	        For example: "hola 123\n"
 	      </p>
 	      <p>
-	        &middot;       <b>Car&aacute;cter:</b> car&aacute;cter entre comillas simples.<br />
-	        Por ejemplo: &apos;c&apos;.
+	        &middot;       <b>Character:</b> character surrounded by simple quotes.<br />
+	        For example: &apos;c&apos;.
 	      </p>
 	      <p>
-	        &middot;       <b>Octal:</b> un n&uacute;mero que comienza por cero y sus d&iacute;gitos son menores que ocho. Por ejemplo: 012.
+	        &middot;       <b>Octal:</b> a number starting with zero and its digits are lower than eight. 
+               For example: 012.
 	      </p>
 	      <p>
-	        &middot;       <b>Hexadecimal:</b> un n&uacute;mero que comienza por el prefijo 0x y sus d&iacute;gitos son del cero al nueve y las letras a, b, c, d, e y f.<br />
-	        Por ejemplo: 0x12.
+	        &middot;       <b>Hexadecimal:</b> a number that begins with the 0x prefix and its digits are zero through nine and the letters a, b, c, d, e, and f.<br />
+	        For example: 0x12.
 	      </p>
 	      <p>
-	        &middot;       <b>Decimal:</b> un n&uacute;mero que no est&aacute; en formato octal o hexadecimal con d&iacute;gitos comprendidos entre el cero y el nueve (ambos incluidos).<br />
-	        Por ejemplo: 12.
+	        &middot;       <b>Decimal:</b> a number that is not in octal or hexadecimal, and its digits fall between zero and nine (inclusive).<br />
+	        For example: 12.
 	      </p>
 	      <p>
-	        En la secci&oacute;n de c&oacute;digo es posible definir las subrutinas que se alojar&aacute;n en el segmento de c&oacute;digo de la memoria principal. Dicha secci&oacute;n comienza con la directiva <i>.text</i>.
+		In the code section you can define subroutines staying in the code segment of main memory. The section begins with <i>.text<i> directive.
 	      </p>
 	      <p>
 	         
 	      </p>
 	      <p>
-	        Es posible usar comentarios de l&iacute;nea usando el car&aacute;cter #<br />
-	        Todo lo que hay a continuaci&oacute;n de este car&aacute;cter hasta el final de l&iacute;nea ser&aacute; ignorado por el ensamblador.
+		You can use line comments using the # character.<br />
+		Everything that follows this character to the end of line will be ignored by the assembler.
 	      </p>
 	      <p>
-	        Un ejemplo programa ser&iacute;a:
+	        An example program would be:
 	      </p>
 	      <ul>
 	      <p>
@@ -402,7 +403,7 @@
 	      </p>
 	      </ul>
 	      <p class="cleanuphtml-2">
-	        <a class="cleanuphtml-1" name="_Toc438322908">Figura</a> <b>19</b> <b>Ejemplo de secciones de dato y c&oacute;digo en ensamblador para probar microc&oacute;digos</b><b><br />
+	        <a class="cleanuphtml-1" name="_Toc438322908">Figure</a> <b>19</b> <b>Example of data and code sections to test micro-aassemblies. </b><b><br />
 	        <br /></b>
 	      </p>
 
@@ -410,12 +411,11 @@
 
 
       <div id="help_simulator_arch">
-      <h1>La arquitectura de WepSIM</h1>
+      <h1>WepSIM architecture</h1>
 
 	      <p> </p>
 	      <p>
-	        El sistema completo simulado (v&eacute;ase la <b class="cleanuphtml-1">Figura 1</b>) incluye adem&aacute;s del procesador, una memoria de 1 MB (direccionada por bytes), un teclado, una pantalla y un
-	        dispositivo de entrada y salida capaz de generar interrupciones.
+ 	        The whole simulated system (see <b class="cleanuphtml-1">Figure 1</b>) includes the processor, a 1 MB memory module (addressed at byte level), a keyboard, a display, and a I/O devices that can generate interruptions.
 	      </p>
 	      <p>
 	      </p>
@@ -423,13 +423,12 @@
 	        <img max-width="90%" width="90%" id="Imagen 2" src="help/simulator/simulator001.jpg" alt="" name="Imagen 2" />
 	      </p>
 	      <p class="cleanuphtml-3">
-	        <a name="_Toc438322890"></a><a class="cleanuphtml-2" name="_Ref434141389">Figura</a> <b>1</b> <b>Sistema Completo</b>
+	        <a name="_Toc438322890"></a><a class="cleanuphtml-2" name="_Ref434141389">Figure</a> <b>1</b> <b>Full system</b>
 	      </p>
 	      <p>
 	      </p>
 	      <p>
-	        El procesador (v&eacute;ase la <b class="cleanuphtml-1">Figura 2</b>) es de 32 bits, trabaja con hasta 64 instrucciones definibles por el usuario (estilo MIPS, ARM, etc.), dispone de un banco de
-	        registros de 32 registros y usa un mapa de E/S separado.
+                The processor (see <b class="cleanuphtml-1">Figure 2</b>) is 32 bits CPU that works with up to 64 definable user instructions (MIPS style, ARM style, etc.), and it has a register file of 32 registers, with port-mapped I/O (isolated I/O).
 	      </p>
 	      <p>
 	      </p>
@@ -437,25 +436,24 @@
 	        <img max-width="90%" width="90%" id="Imagen 9" src="help/simulator/simulator002.jpg" alt="" name="Imagen 9" />
 	      </p>
 	      <p class="cleanuphtml-3">
-	        <a name="_Toc438322891"></a><a class="cleanuphtml-2" name="_Ref434142801">Figura</a> <b>2</b> <b>Procesador  WepSIM</b>
+	        <a name="_Toc438322891"></a><a class="cleanuphtml-2" name="_Ref434142801">Figure</a> <b>2</b> <b>WepSIM processor</b>
 	      </p>
 	      <p>
 	      </p>
 	      <p>
-	        El procesador utiliza direcciones de  32 bits, usando el bus de direcciones (<i>Address Bus</i>) para direcciones y el bus de datos (<i>Data Bus</i>) para enviar/recibir los datos a/desde
-	        memoria.
-	      </p>
-	      <p>
-	         
-	      </p>
-	      <p>
-	        El procesador espera un ciclo para que la memoria realice la operaci&oacute;n de lectura (activada con la se&ntilde;al R) o bien la operaci&oacute;n de escritura (activada con la se&ntilde;al W).
+		The processor uses 32-bit addresses, using the address bus (<i>Address Bus</i>) for address and data bus (<i>Data Bus</i>) to send/receive data to/from memory.
 	      </p>
 	      <p>
 	         
 	      </p>
 	      <p>
-	        La memoria usa una configuraci&oacute;n <i>Little-Endian</i> tal y como se muestra en <b class="cleanuphtml-1">Figura 3</b>.
+		The processor waits for a memory cycle to perform the read operation (activated with the R signal) or the write operation (activated with the W signal).
+	      </p>
+	      <p>
+	         
+	      </p>
+	      <p>
+	        The main memory uses <i>Little-Endian</i> as shown in the <b class="cleanuphtml-1">Figure 3</b>.
 	      </p>
 	      <p>
 	         
@@ -467,22 +465,22 @@
 	         
 	      </p>
 	      <p class="cleanuphtml-3">
-	        <a name="_Toc438322892"></a><a class="cleanuphtml-2" name="_Ref434149687">Figura</a> <b>3</b> <b>Ordenaci&oacute;n de bytes en memoria</b>
+	        <a name="_Toc438322892"></a><a class="cleanuphtml-2" name="_Ref434149687">Figure</a> <b>3</b> <b>Byte arrangement in memory.</b>
 	      </p>
 	      <p>
 	         
 	      </p>
 	      <p>
-	        Por tanto el byte menos significativo est&aacute; en la direcci&oacute;n m&aacute;s baja de memoria.
+                Therefore the least significant byte is at the lowest memory address.
 	      </p>
 	      <p>
 	         
 	      </p>
 	      <p>
-	        El acceso a la memoria se realiza a nivel de byte.
+      		The memory access is performed at byte-level.
 	      </p>
 	      <p>
-	        Para la selecci&oacute;n del byte se precisa indicar por un lado la direcci&oacute;n de la palabra donde se encuentra (A<sub>31</sub>...A<sub>2</sub>00), y por otro lado el byte dentro de esa palabra al que se desea acceder (BE<sub>3</sub>...BE<sub>0</sub>).
+    		For byte selection is required on the one hand indicate the direction of the word where you are (A<sub>31</sub>...A<sub>2</sub>00), and on the other hand the byte within that word that you want to access (BE<sub>3</sub>...BE<sub>0</sub>).
 	      </p>
 	      <p>
 	         
@@ -491,25 +489,25 @@
 	        <img max-width="90%" width="90%" id="Imagen 24" src="help/simulator/simulator004.jpg" alt="" name="Imagen 24" />
 	      </p>
 	      <p class="cleanuphtml-3">
-	        <a name="_Toc438322893"></a><a class="cleanuphtml-2" name="_Ref434150369">Figura</a> <b>4</b> <b>M&oacute;dulo de memoria</b>
+	        <a name="_Toc438322893"></a><a class="cleanuphtml-2" name="_Ref434150369">Figure</a> <b>4</b> <b>Memoria module</b>
 	      </p>
 	      <p>
 	         
 	      </p>
 	      <p>
-	        La <b class="cleanuphtml-1">Figura 4</b> muestra estas entradas/salidas comentadas, a las que hay que unir las se&ntilde;ales R y W para la petici&oacute;n de lectura y escritura respectivamente.
+	        The <b class="cleanuphtml-1">Figure 4</b> shows these inputs/outputs mentioned, which is necessary to join the R and W request signals for read and write respectively.
 	      </p><br clear="all" />
 	      <p>
 	         
 	      </p>
 	      <h2>
-	        <a name="_Toc438325788">Organizaci&oacute;n interna: se&ntilde;ales de control</a>
+	        <a name="_Toc438325788">Internal organization: control signals</a>
 	      </h2>
 	      <p>
 	         
 	      </p>
 	      <p>
-	        La unidad de control en WepSIM es microprogramable. Su memoria de control consta de 4096 micropalabras de 76 bits cada una (v&eacute;ase <b class="cleanuphtml-1">Figura 5</b>).
+		The control unit in WepSIM is a microprogrammable one. The Control Memory has 4096 micro-words with 76 bits each one (see <b class="cleanuphtml-1">Figure 5</b>).
 	      </p>
 	      <p class="cleanuphtml-3">
 	        <img max-width="90%" width="90%" id="Imagen 12" src="help/simulator/simulator005.jpg" alt="" name="Imagen 12" />
@@ -519,63 +517,56 @@
 	    <br clear="all" />
 	    <div class="WordSection3">
 	      <p class="cleanuphtml-3">
-	        <a name="_Toc438322894"></a><a class="cleanuphtml-2" name="_Ref434141431">Figura</a> <b>5</b> <b>Formato de microinstrucci&oacute;n</b>
+	        <a name="_Toc438322894"></a><a class="cleanuphtml-2" name="_Ref434141431">Figure</a> <b>5</b> <b> microinstruction format</b>
 	      </p>
 	      <p>
-	        La nomenclatura general usada para el nombre las se&ntilde;ales de control es la siguiente:
+                The general nomenclature used to name the control signals is:
 	      </p>
 	      <p>
-	        ·       Cx: se&ntilde;al de carga de registro x
+	        ·       Cx: signal for loading data into the register X
 	      </p>
 	      <p>
-	        ·       Tx: se&ntilde;al de activaci&oacute;n triestado x
+	        ·       Tx: tristate activation signal for X
 	      </p>
 	      <p>
-	        ·       Ry: identificador de registro para el punto de salida de valor y
+	        ·       Ry: register identification for the output value in register y
 	      </p>
 	      <p>
-	        ·       Mx: selecci&oacute;n en multiplexor x
+	        ·       Mx: multiplexer X selection value
 	      </p>
 	      <p>
-	        Adicionalmente la se&ntilde;al LE indica la escritura en el banco de registros, Cop indica la operaci&oacute;n a realizar en la ALU, SelP selecciona qu&eacute; bits actualizar en el registro de estado (SR), A1A0
-	        son los dos bits menos significativos de una direcci&oacute;n de memoria y BW permite especificar el tama&ntilde;o del dato al que se accede en memoria: una palabra completa, media palabra o un byte.
+		Additionally, the LE signal indicates updating the register file, Cop indicates the operation to be performed in the ALU, Selp selects which bits will be updated on the status register (SR), A1A0 are the two least significant bits of a memory address, and BW allows us to specify the size of the data that is accessed in memory: a complete word, a half-word, or a byte.
 	      </p>
 	      <p>
 	         
 	      </p>
 	      <p>
-	        El procesador (v&eacute;ase la figura <b class="cleanuphtml-1">Figura 6</b>) puede considerarse dividido en 7 partes: acceso a memoria (MAR, MBR, etc.), gesti&oacute;n del registro contador de programa
-	        (PC, etc.), gesti&oacute;n del registro de instrucci&oacute;n (IR, etc.), unidad de control (<i>Control Unit</i>), banco de registros (<i>Register File</i>), ALU y gesti&oacute;n del registro de estado (SR,
-	        etc.).
+		The processor (see <b class="cleanuphtml-1">Figure 6</b>) can be considered divided into 7 parts: memory access (MAR, MBR, etc.), program counter register management (PC, etc.), instruction register management (IR, etc. .), control unit (control unit), register bank (register File), ALU and management of the status register (SR, etc.).
 	      </p>
 	      <p>
 	        <img max-width="90%" width="90%" id="Imagen 5" src="help/simulator/simulator006.jpg" alt="" name="Imagen 5" />
 	      </p>
 	      <p class="cleanuphtml-3">
-	        <a name="_Toc438322895"></a><a class="cleanuphtml-2" name="_Ref434141629">Figura</a> <b>6</b> <b>Detalle del procesador</b>
+	        <a name="_Toc438322895"></a><a class="cleanuphtml-2" name="_Ref434141629">Figure</a> <b>6</b> <b>Processor in details</b>
 	      </p>
 	      <p>
 	        <br />
-	        La unidad de control (v&eacute;ase la figura <b class="cleanuphtml-1">Figura 7</b>) a su vez est&aacute; dividida en 5 partes: el control de la siguiente microdirecci&oacute;n (MUX A, etc.), la transformaci&oacute;n del
-	        c&oacute;digo de operaci&oacute;n a la microdirecci&oacute;n correspondiente (co2uAddr), el control de la condici&oacute;n de selecci&oacute;n de microdirecci&oacute;n (MUX B, MUX C, etc.), la memoria de control junto con el registro
-	        de microinstrucci&oacute;n y por &uacute;ltimo los selectores de RA, RB, RE y Cop.
+		The control unit (see  <b class="cleanuphtml-1">Figure 7</b>) is divided into five parts: control of the following microaddress (MUX A, etc.), the transformation of the opcode to the corresponding microaddress (co2uAddr), control of the conditional selection of microaddress (MUX B, MUX C, etc.), the control memory with the microinstruction register and finally selectors RA, RB, RE and Cop.
 	      </p>
 	      <p>
 	        <img max-width="90%" width="90%" id="Imagen 7" src="help/simulator/simulator007.jpg" alt="" name="Imagen 7" />
 	      </p>
 	      <p class="cleanuphtml-3">
-	        <a name="_Toc438322896"></a><a class="cleanuphtml-2" name="_Ref434141950">Figura</a> <b>7</b> <b>Detalle de la unidad de control</b>
+	        <a name="_Toc438322896"></a><a class="cleanuphtml-2" name="_Ref434141950">Figure</a> <b>7</b> <b>Control unit details.</b>
 	      </p>
 	      <p>
-	        Para direccionar la memoria de control se precisa direcciones de 12 bits us&aacute;ndose secuenciamiento impl&iacute;cito. Es posible indicar como microdirecci&oacute;n de memoria de control (v&eacute;ase <b class=
-	        "cleanuphtml-1">Figura 8</b>) la siguiente posici&oacute;n, usar parte de la microinstrucci&oacute;n, usar la salida de una ROM con la microdirecci&oacute;n de comienzo asociada a un c&oacute;digo de operaci&oacute;n o bien la
-	        microdirecci&oacute;n cero (0) a partir de la cual comienza el <i>fetch</i>.
+		To address the control memory, 12 bits are required with implicit sequencing. You can specify as control memory microaddress (see <b class= "cleanuphtml-1">Figure 8</b>) the next memory position, or using part of the microinstruction, or use the output of a translation module (with the starting microaddress associated with an operation code), or zero microaddress (0) from where the fetch begins.
 	      </p>
 	      <p class="cleanuphtml-3">
 	        <img max-width="90%" width="90%" id="Imagen 11" src="help/simulator/simulator008.jpg" alt="" name="Imagen 11" />
 	      </p>
 	      <p class="cleanuphtml-3">
-	        <a name="_Toc438322897"></a><a class="cleanuphtml-2" name="_Ref434143860">Figura</a> <b>8</b> <b>Opciones para el MUX A</b>
+	        <a name="_Toc438322897"></a><a class="cleanuphtml-2" name="_Ref434143860">Figure</a> <b>8</b> <b>Options for the MUX A</b>
 	      </p>
 	      <p class="cleanuphtml-4"></p>
 	      <p class="cleanuphtml-4"></p>
@@ -585,7 +576,7 @@
 
 
       <div id="help_simulator_screens">
-      <h1>Ejecuci&oacute;n en WepSIM</h1>
+      <h1>Execution in WepSIM</h1>
 
 	      <p>
 	      </p>
@@ -607,7 +598,7 @@
 	      <p>
 	        Un fichero de texto con las tres secciones antes comentadas
                 (microc&oacute;digo, nombrado de registro y definici&oacute;n de pseudo-instrucciones) se carga en la pantalla de Firmware. Para acceder a dicha
-	        pantalla se ha de ir al men&uacute; (parte superior derecha) e indicar la opci&oacute;n <i>Firmware</i> (v&eacute;ase la <b class="cleanuphtml-4">Figura 16</b>)
+	        pantalla se ha de ir al men&uacute; (parte superior derecha) e indicar la opci&oacute;n <i>Firmware</i> (v&eacute;ase la <b class="cleanuphtml-4">Figure 16</b>)
 	      </p>
 	      <p>
 	         
@@ -616,13 +607,13 @@
 	        <img max-width="90%" width="90%" id="Imagen 1" src="help/simulator/firmware001.jpg" alt="" name="Imagen 1" />
 	      </p>
 	      <p class="cleanuphtml-2">
-	        <a name="_Ref434190846"></a><a name="_Toc438322905"></a><a class="cleanuphtml-1" name="_Ref434190877">Figura</a> <b>16</b> <b>Pantalla principal: opci&oacute;n de carga de firmware</b>
+	        <a name="_Ref434190846"></a><a name="_Toc438322905"></a><a class="cleanuphtml-1" name="_Ref434190877">Figure</a> <b>16</b> <b>Pantalla principal: opci&oacute;n de carga de firmware</b>
 	      </p>
 	      <p>
 	        <br />
 	        A continuaci&oacute;n aparecer&aacute; una pantalla con un cuadro de texto que permite indicar el <i>firmware</i> (las tres secciones antes comentadas). Es posible cargar un <i>firmware</i> existente
 	        usando el bot&oacute;n "Load" de la barra inferior, modificar un <i>firmware</i> anteriormente cargado o salvar el firmware en curso con el bot&oacute;n "Save" de la barra inferior. Una vez se indique el
-	        firmware es preciso hacer clic en el bot&oacute;n "&#181;compile" para pasar a binario y cargar en la memoria de control dicho firmware, como se muestra en la <b class="cleanuphtml-4">Figura 17</b>.
+	        firmware es preciso hacer clic en el bot&oacute;n "&#181;compile" para pasar a binario y cargar en la memoria de control dicho firmware, como se muestra en la <b class="cleanuphtml-4">Figure 17</b>.
 	      </p>
 	      <p>
 	        <img max-width="90%" width="90%" id="Imagen 2" src="help/simulator/firmware002.jpg" alt="" name="Imagen 2" />
@@ -631,18 +622,18 @@
 	      <table cellpadding="0" cellspacing="0" align="left">
 	      </table> <br clear="all" />
 	      <p class="cleanuphtml-2">
-	        <a name="_Toc438322906"></a><a class="cleanuphtml-1" name="_Ref434191423">Figura</a> <b>17</b> <b>Pantalla firmware: cuadro de texto con firmware a cargar</b>
+	        <a name="_Toc438322906"></a><a class="cleanuphtml-1" name="_Ref434191423">Figure</a> <b>17</b> <b>Pantalla firmware: cuadro de texto con firmware a cargar</b>
 	      </p>
 	      <p>
 	        <br />
-	        Una vez cargado el nuevo <i>firmware</i> correctamente aparecer&aacute; la pantalla mostrada en la <b class="cleanuphtml-4">Figura 18</b> en la que se muestra la memoria de control con los valores
+	        Una vez cargado el nuevo <i>firmware</i> correctamente aparecer&aacute; la pantalla mostrada en la <b class="cleanuphtml-4">Figure 18</b> en la que se muestra la memoria de control con los valores
 	        que almacena.
 	      </p>
 	      <p>
 	        <img max-width="90%" width="90%" id="Imagen 3" src="help/simulator/firmware004.jpg" alt="" name="Imagen 3" />
 	      </p>
 	      <p class="cleanuphtml-2">
-	        <a name="_Toc438322907"></a><a class="cleanuphtml-1" name="_Ref434191551">Figura</a> <b>18</b> <b>Pantalla firmware: firmware finalmente compilado</b>
+	        <a name="_Toc438322907"></a><a class="cleanuphtml-1" name="_Ref434191551">Figure</a> <b>18</b> <b>Pantalla firmware: firmware finalmente compilado</b>
 	      </p>
 	      <p>
 	        <br />
@@ -659,14 +650,14 @@
 	      <p>
 	        Un fichero de texto con las dos secciones antes comentadas
                 (datos y c&oacute;digo) se carga en la pantalla de Ensamblador. Para acceder a dicha pantalla se ha de ir al men&uacute; (parte superior derecha)
-	        e indicar la opci&oacute;n Assembly (v&eacute;ase la <b class="cleanuphtml-3">Figura 16</b>)<br />
+	        e indicar la opci&oacute;n Assembly (v&eacute;ase la <b class="cleanuphtml-3">Figure 16</b>)<br />
 	        <br />
 	      </p>
 	      <p>
 	        <img max-width="90%" width="90%" id="Imagen 3" src="help/simulator/assembly002.jpg" alt="" name="Imagen 3" />
 	      </p>
 	      <p class="cleanuphtml-2">
-	        <a name="_Toc438322909"></a><a class="cleanuphtml-1" name="_Toc434155501">Figura</a> <b>20</b> <b>Pantalla principal: opci&oacute;n de carga de c&oacute;digo ensamblador</b>
+	        <a name="_Toc438322909"></a><a class="cleanuphtml-1" name="_Toc434155501">Figure</a> <b>20</b> <b>Pantalla principal: opci&oacute;n de carga de c&oacute;digo ensamblador</b>
 	      </p>
 	      <p>
 	        A continuaci&oacute;n aparecer&aacute; una pantalla con un cuadro de texto que permite indicar el c&oacute;digo en ensamblador. Es posible cargar un c&oacute;digo existente usando el bot&oacute;n "Load" de la barra superior,
@@ -674,7 +665,7 @@
 	      </p>
 	      <p>
 	        Una vez se indique el c&oacute;digo es preciso hacer clic en el bot&oacute;n "Compile" para pasar a binario y cargar en la memoria de principal el binario resultante, 
-		tal y como se muestra en la <b class="cleanuphtml-3">Figura 21</b>. 
+		tal y como se muestra en la <b class="cleanuphtml-3">Figure 21</b>. 
 	      </p>
 	      <p>
 	         
@@ -683,11 +674,11 @@
 	        <img max-width="90%" width="90%" id="Imagen 28" src="help/simulator/assembly003.jpg" alt="" name="Imagen 28" />
 	      </p>
 	      <p class="cleanuphtml-2">
-	        <a name="_Toc438322910"></a><a class="cleanuphtml-1" name="_Ref434192102">Figura</a> <b>21</b> <b>Pantalla ensamblador: cuadro de texto con ensamblador a cargar</b><b><br />
+	        <a name="_Toc438322910"></a><a class="cleanuphtml-1" name="_Ref434192102">Figure</a> <b>21</b> <b>Pantalla ensamblador: cuadro de texto con ensamblador a cargar</b><b><br />
 	        <br /></b>
 	      </p>
 	      <p>
-	        Una vez compilado, se pasar&aacute; a la pantalla indicada en la <b class="cleanuphtml-3">Figura 23</b>, donde se mostrar&aacute; el contenido de la memoria principal en binario.
+	        Una vez compilado, se pasar&aacute; a la pantalla indicada en la <b class="cleanuphtml-3">Figure 23</b>, donde se mostrar&aacute; el contenido de la memoria principal en binario.
 	      </p>
 	      <p>
 	         
@@ -696,7 +687,7 @@
 	        <img max-width="90%" width="90%" id="Imagen 30" src="help/simulator/assembly005.jpg" alt="" name="Imagen 30" />
 	      </p>
 	      <p class="cleanuphtml-2">
-	        <a name="_Toc438322912"></a><a class="cleanuphtml-1" name="_Ref434192450">Figura</a> <b>23</b> <b>Pantalla ensamblador: c&oacute;digo finalmente compilado</b>
+	        <a name="_Toc438322912"></a><a class="cleanuphtml-1" name="_Ref434192450">Figure</a> <b>23</b> <b>Pantalla ensamblador: c&oacute;digo finalmente compilado</b>
 	      </p>
 	      <p>
 	        <br />
@@ -714,13 +705,13 @@
 	      </p>
 	      <ul>
 	      <li>
-	        El contenido de la memoria de control (v&eacute;ase la <b>Figura 24</b>), con las se&ntilde;ales que est&aacute;n asociadas a cada ciclo. Para ello ha de pulsar el bot&oacute;n "<i>Control Memory</i>" en
+	        El contenido de la memoria de control (v&eacute;ase la <b>Figure 24</b>), con las se&ntilde;ales que est&aacute;n asociadas a cada ciclo. Para ello ha de pulsar el bot&oacute;n "<i>Control Memory</i>" en
 	        la barra de botones situada en la parte superior derecha de la pantalla principal.<br />
 	        Se destaca las se&ntilde;ales que en el presente ciclo de reloj est&aacute;n activadas en azul con letra algo m&aacute;s grande.<br />
 	        Se dispone de una barra de desplazamiento para poder inspeccionar todo el contenido de la memoria de control.
 	      </li>
 	      <li>
-	        El contenido de la memoria principal (v&eacute;ase la <b class="cleanuphtml-1">Figura 25</b>), con las instrucciones en ensamblador a ejecutar. Para estas, es posible establecer un punto de
+	        El contenido de la memoria principal (v&eacute;ase la <b class="cleanuphtml-1">Figure 25</b>), con las instrucciones en ensamblador a ejecutar. Para estas, es posible establecer un punto de
 	        ruptura haciendo clic en la columna <i>breakpoints</i>. Al establecer un punto de ruptura aparecer&aacute; un icono en dicha columna.
 	      </li>
 	      </ul>
@@ -728,7 +719,7 @@
 	        <img             id="Imagen 1" src="help/simulator/simulator009.jpg" alt="" name="Imagen 1" />
 	      </p>
 	      <p class="cleanuphtml-3">
-	        <a name="_Toc438322913"></a><a class="cleanuphtml-2" name="_Ref434192973">Figura</a> <b>24</b> <b>Pantalla principal: visualizaci&oacute;n de la memoria de control</b>
+	        <a name="_Toc438322913"></a><a class="cleanuphtml-2" name="_Ref434192973">Figure</a> <b>24</b> <b>Pantalla principal: visualizaci&oacute;n de la memoria de control</b>
 	      </p>
 	      <p>
 	      </p>
@@ -736,7 +727,7 @@
 	        <img             id="Imagen 3" src="help/simulator/simulator010.jpg" alt="" name="Imagen 3" />
 	      </p>
 	      <p class="cleanuphtml-3">
-	        <a name="_Toc438322914"></a><a class="cleanuphtml-2" name="_Ref434193222">Figura</a> <b>25</b> <b>Pantalla principal: visualizaci&oacute;n del c&oacute;digo en la memoria principal</b>
+	        <a name="_Toc438322914"></a><a class="cleanuphtml-2" name="_Ref434193222">Figure</a> <b>25</b> <b>Pantalla principal: visualizaci&oacute;n del c&oacute;digo en la memoria principal</b>
 	      </p>
 	      <p>
 	      </p>
@@ -744,11 +735,11 @@
 	        Estando en la pantalla principal es posible ejecutar:
 	      </p>
 	      <p>
-	        ·       Microinstrucci&oacute;n a microinstrucci&oacute;n pulsando el bot&oacute;n "µInstrucci&oacute;n" (v&eacute;ase la <b class="cleanuphtml-1">Figura 26</b>), de forma que se pasar&aacute; al siguiente ciclo de reloj y se
+	        ·       Microinstrucci&oacute;n a microinstrucci&oacute;n pulsando el bot&oacute;n "µInstrucci&oacute;n" (v&eacute;ase la <b class="cleanuphtml-1">Figure 26</b>), de forma que se pasar&aacute; al siguiente ciclo de reloj y se
 	        generar&aacute;n las se&ntilde;ales de control asociadas.
 	      </p>
 	      <p>
-	        ·       Instrucci&oacute;n a instrucci&oacute;n pulsando el bot&oacute;n "Instrucci&oacute;n" (v&eacute;ase la <b class="cleanuphtml-1">Figura 26</b>) de forma que se generar&aacute;n todos los ciclos de reloj asociados al
+	        ·       Instrucci&oacute;n a instrucci&oacute;n pulsando el bot&oacute;n "Instrucci&oacute;n" (v&eacute;ase la <b class="cleanuphtml-1">Figure 26</b>) de forma que se generar&aacute;n todos los ciclos de reloj asociados al
 	        microprograma de la instrucci&oacute;n, parando al principio del <i>fetch</i>.
 	      </p>
 	      <p>
@@ -757,15 +748,15 @@
 	        <img             id="Imagen 4" src="help/simulator/simulator011.jpg" alt="" name="Imagen 4" />
 	      </p>
 	      <p class="cleanuphtml-3">
-	        <a name="_Toc438322915"></a><a class="cleanuphtml-2" name="_Ref434193775">Figura</a> <b>26</b> <b>Pantalla principal: opciones para la ejecuci&oacute;n</b>
+	        <a name="_Toc438322915"></a><a class="cleanuphtml-2" name="_Ref434193775">Figure</a> <b>26</b> <b>Pantalla principal: opciones para la ejecuci&oacute;n</b>
 	      </p>
 	      <p>
 	        <br />
-	        Dando al bot&oacute;n "<i>Registers</i>" en la barra de botones situada en la parte superior derecha de la pantalla principal (v&eacute;ase la <b class="cleanuphtml-1">Figura 26</b>) es posible ver c&oacute;mo
+	        Dando al bot&oacute;n "<i>Registers</i>" en la barra de botones situada en la parte superior derecha de la pantalla principal (v&eacute;ase la <b class="cleanuphtml-1">Figure 26</b>) es posible ver c&oacute;mo
 	        los valores de los registros son modificados durante la ejecuci&oacute;n.
 	      </p>
 	      <p>
-	        Es posible visualizar tambi&eacute;n la unidad de control como se muestra en la <b class="cleanuphtml-1">Figura 27</b>.
+	        Es posible visualizar tambi&eacute;n la unidad de control como se muestra en la <b class="cleanuphtml-1">Figure 27</b>.
 	      </p>
 	      <p>
 	      </p>
@@ -773,7 +764,7 @@
 	        <img             id="Imagen 8" src="help/simulator/simulator012.jpg" alt="" name="Imagen 8" />
 	      </p>
 	      <p class="cleanuphtml-3">
-	        <a name="_Toc438322916"></a><a class="cleanuphtml-2" name="_Ref434194139">Figura</a> <b>27</b> <b>Pantalla principal: visualizaci&oacute;n de la unidad de control</b>
+	        <a name="_Toc438322916"></a><a class="cleanuphtml-2" name="_Ref434194139">Figure</a> <b>27</b> <b>Pantalla principal: visualizaci&oacute;n de la unidad de control</b>
 	      </p>
 	      <p>
 	        As&iacute; como tambi&eacute;n es posible reiniciar la ejecuci&oacute;n haciendo clic al bot&oacute;n "Reset" situado en la barra de botones que aparece en la parte superior de la pantalla.
