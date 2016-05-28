@@ -52,6 +52,8 @@
 
         var is_interactive = true;
 
+        var ws_idiom       = 'ES';
+
 
         /*
          *  Persistence
@@ -72,13 +74,15 @@
                RF_display_name     = 'numerical' ;
 
                is_interactive      = true;
+
+               ws_idiom            = 'ES';
         }
 
         function save_cfg ( )
         {
            if (typeof localStorage != "undefined")
            {
-               localStorage.setItem('wepsim_version', '1.2.1');
+               localStorage.setItem('wepsim_version', '1.3.0');
 
                localStorage.setItem('wepsim_color_data_active',		color_data_active);
                localStorage.setItem('wepsim_color_data_inactive',	color_data_inactive);
@@ -93,6 +97,8 @@
                localStorage.setItem('wepsim_RF_display_name',		RF_display_name);
 
                localStorage.setItem('wepsim_is_interactive',		is_interactive);
+
+               localStorage.setItem('wepsim_ws_idiom',		        ws_idiom);
            }
         }
 
@@ -124,6 +130,9 @@
 
                 if (localStorage.getItem('wepsim_is_interactive') != null)
                     is_interactive      = JSON.parse(localStorage.getItem('wepsim_is_interactive'));
+
+                if (localStorage.getItem('wepsim_ws_idiom') != null)
+                    ws_idiom            = localStorage.getItem('wepsim_ws_idiom');
            }
         }
 
