@@ -228,7 +228,8 @@
         function update_signal_loadhelp ( helpdiv, key )
         {
 	     $(helpdiv).collapse('toggle');
-	     $(helpdiv).load('signals-' + ws_idiom + '.html #' + key, 
+	     var help_base = 'help/signals-' + ws_idiom + '.html #' + key;
+	     $(helpdiv).load(help_base,
 			      function(response, status, xhr) { 
 				  if ( $(helpdiv).html() == "" ) 
 				       $(helpdiv).html('<br>Sorry, No more details available for this signal.<p>\n'); 
