@@ -52,7 +52,7 @@
 
         var is_interactive = true;
 
-        var ws_idiom       = 'ES';
+        var ws_idiom       = 'es';
 
 
         /*
@@ -75,7 +75,7 @@
 
                is_interactive      = true;
 
-               ws_idiom            = 'ES';
+               ws_idiom            = 'es';
         }
 
         function save_cfg ( )
