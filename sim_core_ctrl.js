@@ -25,6 +25,15 @@
 
         function check_ib ( fired )
         {
+            // TD + R
+            $("#databus_fire").hide();
+            if ( (sim_signals["TD"].value != 0) && (sim_signals["R"].value != 0) )
+            {
+                $("#databus_fire").show();
+                sim_states["BUS_DB"].value = 0xFFFFFFFF;
+            }
+
+            // Ti + Tj
             var tri_name = "";
             var tri_state_names = [ "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10" ] ;
 
@@ -37,7 +46,7 @@
             for (var i=0; i<tri_state_names.length; i++)
             {
                  tri_name = tri_state_names[i] ;
-                 if (sim_signals[tri_name].value !=0)
+                 if (sim_signals[tri_name].value != 0)
 		 {
                      tri_activated ++ ;
 		     tri_activated_name=tri_name;
@@ -51,9 +60,9 @@
                 update_draw(sim_signals[tri_activated_name], 1) ;
 
             // 3.- check if more than one tri-state is active
-            $("#busfire").hide();
+            $("#internalbus_fire").hide();
             if (tri_activated > 1) {
-                $("#busfire").show();
+                $("#internalbus_fire").show();
                 sim_states["BUS_IB"].value = 0xFFFFFFFF;
             }       
         }
@@ -177,6 +186,12 @@
            compute_behavior(input_behavior) ;
         }
 
+        function show_memories_values ( )
+        {
+            show_memories('MP',  MP,  sim_states['REG_PC'].value) ;
+            show_memories('MC',  MC,  sim_states['REG_MICROADDR'].value) ;
+	}
+
         function update_signal_firmware ( key )
         {
             var SIMWARE = get_simware() ;
@@ -220,10 +235,8 @@
 	    bits = "00000000000000000000000000000000".substring(0, 32 - bits.length) + bits ;
 	    //var op_code = parseInt(bits.substr(0, 6), 2) ; // op-code of 6 bits
 
-            show_memories('MP',  MP,  sim_states['REG_PC'].value) ;
-            show_memories('MC',  MC,  sim_states['REG_MICROADDR'].value) ;
+            show_memories_values() ;
 	}
-
 
         function update_signal_loadhelp ( helpdiv, key )
         {

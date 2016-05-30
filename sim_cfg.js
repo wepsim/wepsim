@@ -43,7 +43,7 @@
         var RF_display_format = 16 ;
         var RF_display_name   = 'numerical' ;
 
-        var NOTIF_delay = 2000 ;
+        var NOTIF_delay = 1000 ;
 
 
         /*

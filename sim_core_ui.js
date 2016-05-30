@@ -433,11 +433,22 @@
                         value = "" ;
                         for (var ks in memory[key])
                         {
-                                  if (ks == "MADDR")
-			              value += ks + "=0x" + parseInt(memory[key][ks]).toString(16) + " ";
-                             else if (memory[key][ks] == 1)
-                                      value += ks + " ";
-                             else     value += ks + "="   + memory[key][ks] + " ";
+                             if (1 == memory[key][ks]) {
+                                 value += ks + " ";
+                                 continue;
+                             }
+
+                             value += ks + "=" + parseInt(memory[key][ks]).toString(2) + " ";
+
+                             /* // Future feature: control memory is shown as configured the display format.
+                             var m_key_ks_value = parseInt(memory[key][ks]).toString(RF_display_format) ;
+                             if (16 == RF_display_format)
+                                  value += ks + "=0x" + m_key_ks_value + " ";
+                             else 
+                             if ( (8 == RF_display_format) && (memory[key][ks] != 0) )
+                                  value += ks + "=0"  + m_key_ks_value + " ";
+                             else value += ks + "="   + m_key_ks_value + " ";
+                             */
                         }
 
 			if (key == index)
