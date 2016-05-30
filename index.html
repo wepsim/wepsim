@@ -294,6 +294,19 @@
         }
     }
 
+    function show_help1 ( )
+    {
+        var rel = $('#help1_ref').data('relative') ;
+        if (rel == "")
+            return;
+
+        $('#iframe_help1').load('help/simulator-' + ws_idiom + '.html ' + rel,
+			        function() {
+                                    $('#help1').trigger('updatelayout'); 
+                                    $('#help1').popup('open');
+                                });
+    }
+
     function sim_init ( )
     {
 	    var ref_p = document.getElementById('svg_p').contentDocument ;
@@ -478,9 +491,7 @@
 			       onclick="toggle_play('#qbp'); return false;">Run</a>
 			    <a id="ib1" href="#" style="background-color: #D4DB17; -webkit-text-shadow: none; text-shadow: none;"
 			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-info ui-btn-icon-top ui-mini"
-			       onclick="$('#iframe_help1').load('help/simulator-' + ws_idiom + '.html #help_simulator_screens', 
-                                                                function(){$('#help1').trigger('updatelayout');
-					                        $('#help1').popup('open');});">Help</a>
+			       onclick="$('#help1_ref').data('relative','#help_simulator_screens'); show_help1();">Help</a>
                         </div>
                     </div>
 
@@ -615,11 +626,12 @@
 
                             <a href="#" style="background-color: #D4DB17"
                                    class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-6 col-md-1 col-lg-1"
-				   onclick="$('#iframe_help1').html('<div class=row><div class=\'col-xs-10 col-md-6 col-lg-6\'>' +  
+				   onclick="$('#help1_ref').data('relative','');
+                                            $('#iframe_help1').html('<div class=row><div class=\'col-xs-10 col-md-6 col-lg-6\'>' +  
                                                                     '<object id=svg_p2 style=\'width:90vh\' data=\'images/imagenProcesador3.svg\' type=image/svg+xml>Your browser does not support SVG' + 
                                                                     '</object>' + 
                                                                     '</div><div class=\'col-xs-10 col-md-6 col-lg-6\'>' + 
-                                                                   '<object id=svg_cu2 style=\'width:90vh\' data=\'images/imagenUnidadControl3.svg\' type=image/svg+xml>Your browser does not support SVG' + 
+                                                                    '<object id=svg_cu2 style=\'width:90vh\' data=\'images/imagenUnidadControl3.svg\' type=image/svg+xml>Your browser does not support SVG' + 
                                                                     '</object>' +
                                                                     '</div></div>'); 
                                             $('#help1').trigger('updatelayout');
@@ -628,11 +640,9 @@
                                    >Hardware Summary</a>
                             <a href="#" style="background-color: #D4DB17"
                                    class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info    ui-btn-icon-left ui-mini col-xs-4 col-md-1 col-lg-1"
-				   onclick="$('#iframe_help1').load('help/simulator-' + ws_idiom + '.html #help_firmware_format',  
-                                                                     function(){$('#help1').trigger('updatelayout'); $('#help1').popup('open');});"
+				   onclick="$('#help1_ref').data('relative','#help_firmware_format'); show_help1();"
                                    >Help</a>
-
-		            <a href="#"       style="background-color: #DDDDDD"
+		            <a href="#" style="background-color: #DDDDDD"
 				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-bars    ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
 				   onclick="load_firmware_from_example();"
                                    >Example</a>
@@ -723,8 +733,8 @@
 
                             <a href="#" style="background-color: #D4DB17"
                                    class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-5 col-md-1 col-lg-1"
-				   onclick="$('#iframe_help1').load('help/simulator-' + ws_idiom + '.html #help_assembly_format',  
-                                                                    function(){$('#help1').trigger('updatelayout'); $('#help1').popup('open');});">Help</a>
+				   onclick="$('#help1_ref').data('relative','#help_assembly_format'); show_help1();">Help</a>
+
 		            <a href="#" style="background-color: #DDDDDD"
                                    onclick="load_assembly_from_example();"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-bars     ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1 ui-shadow"
@@ -766,17 +776,17 @@
 	    <p>
 	    <ul id="listview_2" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b" data-mini="true">
 		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info" style="background-color: #D4DB17;"
-			   onclick="$('#iframe_help1').load('help/simulator-' + ws_idiom + '.html #help_simulator_screens', function(){$('#help1').trigger('updatelayout');
-				    $('#help1').popup('open');});"><h2>Simulator usage</h2></a></li>
+			   onclick="$('#help1_ref').data('relative','#help_simulator_screens');
+			            show_help1();"><h2>Simulator usage</h2></a></li>
 		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info" style="background-color: #D4DB17;"
-			   onclick="$('#iframe_help1').load('help/simulator-' + ws_idiom + '.html #help_firmware_format',   function(){$('#help1').trigger('updatelayout');
-				    $('#help1').popup('open');});"><h2>Firmware format</h2></a></li>
+			   onclick="$('#help1_ref').data('relative','#help_firmware_format');
+			            show_help1();"><h2>Firmware format</h2></a></li>
 		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info" style="background-color: #D4DB17;"
-			   onclick="$('#iframe_help1').load('help/simulator-' + ws_idiom + '.html #help_assembly_format',   function(){$('#help1').trigger('updatelayout'); 
-				    $('#help1').popup('open');});"><h2>Assembly format</h2></a></li>
+			   onclick="$('#help1_ref').data('relative','#help_assembly_format');
+			            show_help1();"><h2>Assembly format</h2></a></li>
 		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info" style="background-color: #D4DB17;"
-			   onclick="$('#iframe_help1').load('help/simulator-' + ws_idiom + '.html #help_simulator_arch',    function(){$('#help1').trigger('updatelayout');
-				    $('#help1').popup('open');});"><h2>Simulator architecture</h2></a></li>
+			   onclick="$('#help1_ref').data('relative','#help_simulator_arch');
+			            show_help1();"><h2>Simulator architecture</h2></a></li>
 	    </ul>
             </p>
 	    </div>
@@ -897,27 +907,6 @@
 			 </fieldset>
 </div>
 </div>
-<div class="ui-grid-solo">
-<div class="ui-block-a">
-			 <fieldset data-role="controlgroup" data-type="horizontal">
-			 Help Idiom:<br>
-			 <ul>
-			 <li>
-			     <input name="radio6" id="radio6-es" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="ws_idiom='es'; save_cfg();"
-				    value="ES" type="radio">
-			     <label for="radio6-es">ES</label>
-			     <input name="radio6" id="radio6-en" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="ws_idiom='en'; save_cfg();"
-				    value="EN" type="radio">
-			     <label for="radio6-en">EN</label>
-			 </li>
-			 </ul>
-			 </fieldset>
-</div>
-</div>
 		    </li>
 	    </ul>
             </p>
@@ -984,6 +973,19 @@
      data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
 
       <div data-role="header" data-theme="b" class="ui-corner-top">
+           <div data-type="horizontal" data-role="controlgroup" class="ui-btn-left">  
+             <div id="help1_ref" style="display:none;"></div>
+	     <input name="radio6" id="radio6-es" data-mini="true"
+		    style="margin-top:-8px"
+		    onclick="ws_idiom='es'; save_cfg(); show_help1();"
+		    value="ES" type="radio">
+	     <label for="radio6-es">ES</label>
+	     <input name="radio6" id="radio6-en" data-mini="true"
+		    style="margin-top:-8px"
+		    onclick="ws_idiom='en'; save_cfg(); show_help1();"
+		    value="EN" type="radio">
+	     <label for="radio6-en">EN</label>
+           </div>
            <h1>Help</h1>
            <a href="#" 
               data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" 
