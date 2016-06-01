@@ -437,17 +437,31 @@
             init_io("#io_ALL") ; 
         }
 
-        function init_eventlistener ()
+        function init_eventlistener ( context )
         {
             // 3.- for every signal, set the click event handler
             for (var key in sim_signals) 
             {
                 for (var j=0; j<sim_signals[key].fire_name.length; j++)
                 {
-			   var r  = sim_signals[key].fire_name[j].split(':') ;
-  			   var o  = document.getElementById(r[0]).contentDocument;
-                           if (o != null) 
-  			       o.getElementById(r[1]).addEventListener('click', update_signal, false);
+			   var r = sim_signals[key].fire_name[j].split(':') ;
+			   if (r[0] != context) {
+			       continue;
+                           }
+
+  			   var o = document.getElementById(r[0]).contentDocument ;
+                           if (null == o)  {
+                               console.log('warning: unreferenced graphic element context named "' + r[0] + '".');
+                               continue;
+                           }
+
+  			   var u = o.getElementById(r[1]) ;
+                           if (null == u)  {
+                               console.log('warning: unreferenced graphic element named "' + r[0] + ':' + r[1] + '".');
+                               continue;
+                           }
+
+  			   u.addEventListener('click', update_signal, false);
                 }
             }
         }
