@@ -581,24 +581,21 @@
 	      <p>
 	      </p>
 	      <p>
-	        El ciclo de trabajo supone (normalmente) los siguientes pasos:
+                The usual workflow includes the following steps:
 		<ul>
-                <li>Cargar un firmware de trabajo (ver Gesti&oacute;n de microc&oacute;digo).</li>
-                <li>Cargar un programa en ensamblador que use el firmware de trabajo (ver Gesti&oacute;n del ensamblador).</li>
-		<li>Ir a la pantalla principal (simulador) para ejecutar el programa en ensamblador que use el firmware de trabajo (ver Simulaci&oacute;n en WepSIM).</li>
+                <li>To load a hand-on micro-code (see microcode management).</li>
+                <li>To load an assembler program that uses the hand-on microcode (see assembler management).</li>
+		<li>To go to the main screen (simulator) and to run the assembly program using the hand-on microcode (see Simulation WepSIM).</li>
 		</ul>
 	      </p>
 	      <p>
 	      </p>
 
-
 	      <a name="firmware_screens"></a>
-              <h2>Gesti&oacute;n de microc&oacute;digo en WepSIM</h2>
-
+              <h2>Microcode management in WepSIM</h2>
 	      <p>
-	        Un fichero de texto con las tres secciones antes comentadas
-                (microc&oacute;digo, nombrado de registro y definici&oacute;n de pseudo-instrucciones) se carga en la pantalla de Firmware. Para acceder a dicha
-	        pantalla se ha de ir al men&uacute; (parte superior derecha) e indicar la opci&oacute;n <i>Firmware</i> (v&eacute;ase la <b class="cleanuphtml-4">Figure 16</b>)
+                A text file with all three before commented sections (microcode, register naming, and definition of pseudo-instructions) 
+                is loaded in the Microcode screen. In order to access to this screen you have to use the upper-right Menu button and to select the Firmware menu option (see Figure <b class="cleanuphtml-4">Figure 16</b>)
 	      </p>
 	      <p>
 	         
@@ -607,13 +604,11 @@
 	        <img max-width="90%" width="90%" id="Imagen 1" src="help/simulator/firmware001.jpg" alt="" name="Imagen 1" />
 	      </p>
 	      <p class="cleanuphtml-2">
-	        <a name="_Ref434190846"></a><a name="_Toc438322905"></a><a class="cleanuphtml-1" name="_Ref434190877">Figure</a> <b>16</b> <b>Pantalla principal: opci&oacute;n de carga de firmware</b>
+	        <a name="_Ref434190846"></a><a name="_Toc438322905"></a><a class="cleanuphtml-1" name="_Ref434190877">Figure</a> <b>16</b> <b>Main screen: option for loading microcode.</b>
 	      </p>
 	      <p>
 	        <br />
-	        A continuaci&oacute;n aparecer&aacute; una pantalla con un cuadro de texto que permite indicar el <i>firmware</i> (las tres secciones antes comentadas). Es posible cargar un <i>firmware</i> existente
-	        usando el bot&oacute;n "Load" de la barra inferior, modificar un <i>firmware</i> anteriormente cargado o salvar el firmware en curso con el bot&oacute;n "Save" de la barra inferior. Una vez se indique el
-	        firmware es preciso hacer clic en el bot&oacute;n "&#181;compile" para pasar a binario y cargar en la memoria de control dicho firmware, como se muestra en la <b class="cleanuphtml-4">Figure 17</b>.
+                Then a screen with a text-editor appears where student is able to indicate the microcode (the three sections before commented). You can load an existing microcode by using the "Load" button on the upper bar, modify a previously loaded microcode or save the current microcode with the "Save" button on the upper bar. Once the microcode is ready, click the "μcompile" button to microcompile it and load the resulting binary in the control memory, as shown in <b class="cleanuphtml-4">Figure 17</b>.
 	      </p>
 	      <p>
 	        <img max-width="90%" width="90%" id="Imagen 2" src="help/simulator/firmware002.jpg" alt="" name="Imagen 2" />
@@ -622,22 +617,21 @@
 	      <table cellpadding="0" cellspacing="0" align="left">
 	      </table> <br clear="all" />
 	      <p class="cleanuphtml-2">
-	        <a name="_Toc438322906"></a><a class="cleanuphtml-1" name="_Ref434191423">Figure</a> <b>17</b> <b>Pantalla firmware: cuadro de texto con firmware a cargar</b>
+	        <a name="_Toc438322906"></a><a class="cleanuphtml-1" name="_Ref434191423">Figure</a> <b>17</b> <b>Microcode screen: text box in order to load the firmware.</b>
 	      </p>
 	      <p>
 	        <br />
-	        Una vez cargado el nuevo <i>firmware</i> correctamente aparecer&aacute; la pantalla mostrada en la <b class="cleanuphtml-4">Figure 18</b> en la que se muestra la memoria de control con los valores
-	        que almacena.
+                Once the new microcode is loaded correctly, the button shown in <b class="cleanuphtml-4">Figure 18</b> let students to check the binary loaded into the control memory.
 	      </p>
 	      <p>
 	        <img max-width="90%" width="90%" id="Imagen 3" src="help/simulator/firmware004.jpg" alt="" name="Imagen 3" />
 	      </p>
 	      <p class="cleanuphtml-2">
-	        <a name="_Toc438322907"></a><a class="cleanuphtml-1" name="_Ref434191551">Figure</a> <b>18</b> <b>Pantalla firmware: firmware finalmente compilado</b>
+	        <a name="_Toc438322907"></a><a class="cleanuphtml-1" name="_Ref434191551">Figure</a> <b>18</b> <b>Microcode screen: binary in control memory.</b>
 	      </p>
 	      <p>
 	        <br />
-	        El siguiente paso es la carga del programa ensamblador que permita probar este <i>firmware</i>, para ello podemos pulsar el bot&oacute;n "<i>Assembly</i>" de la barra inferior.
+                The next step is to load the assembler program to test this microcode, and for that you have to click on the "Assembly" button on the upper bar.
 	      </p>
 	      <p>
 	         
@@ -645,27 +639,24 @@
 
 
 	      <a name="assembly_screens"></a>
-              <h2>Gesti&oacute;n del ensamblador en WepSIM</h2>
+              <h2>Assembler management in WepSIM</h2>
 
 	      <p>
-	        Un fichero de texto con las dos secciones antes comentadas
-                (datos y c&oacute;digo) se carga en la pantalla de Ensamblador. Para acceder a dicha pantalla se ha de ir al men&uacute; (parte superior derecha)
-	        e indicar la opci&oacute;n Assembly (v&eacute;ase la <b class="cleanuphtml-3">Figure 16</b>)<br />
+                A text file with the two sections previously commented (data and code) is loaded on the Assembler screen. 
+                To access to this screen the student has select the Assembly menu option (see <b class="cleanuphtml-3">Figure 16</b>) in the upper-right Menu button.
 	        <br />
 	      </p>
 	      <p>
 	        <img max-width="90%" width="90%" id="Imagen 3" src="help/simulator/assembly002.jpg" alt="" name="Imagen 3" />
 	      </p>
 	      <p class="cleanuphtml-2">
-	        <a name="_Toc438322909"></a><a class="cleanuphtml-1" name="_Toc434155501">Figure</a> <b>20</b> <b>Pantalla principal: opci&oacute;n de carga de c&oacute;digo ensamblador</b>
+	        <a name="_Toc438322909"></a><a class="cleanuphtml-1" name="_Toc434155501">Figure</a> <b>20</b> <b>Main screen: assembler code screen.</b>
 	      </p>
 	      <p>
-	        A continuaci&oacute;n aparecer&aacute; una pantalla con un cuadro de texto que permite indicar el c&oacute;digo en ensamblador. Es posible cargar un c&oacute;digo existente usando el bot&oacute;n "Load" de la barra superior,
-	        modificar un c&oacute;digo anteriormente cargado o salvar el c&oacute;digo actualmente en cargado con el bot&oacute;n "Save" de la barra inferior.
+                Then, a text editor appears where the assembly code can be loaded and edited. You can load an existing code using the "Load" button on the top bar, change a code previously loaded or save the code currently loaded with the "Save" button on the top bar.
 	      </p>
 	      <p>
-	        Una vez se indique el c&oacute;digo es preciso hacer clic en el bot&oacute;n "Compile" para pasar a binario y cargar en la memoria de principal el binario resultante, 
-		tal y como se muestra en la <b class="cleanuphtml-3">Figure 21</b>. 
+		Once the code is ready, you have to click on the "Compile" button to compile this code into binary and to load this binary into the main memory, as shown in <b class="cleanuphtml-3">Figure 21</b>.
 	      </p>
 	      <p>
 	         
@@ -674,11 +665,11 @@
 	        <img max-width="90%" width="90%" id="Imagen 28" src="help/simulator/assembly003.jpg" alt="" name="Imagen 28" />
 	      </p>
 	      <p class="cleanuphtml-2">
-	        <a name="_Toc438322910"></a><a class="cleanuphtml-1" name="_Ref434192102">Figure</a> <b>21</b> <b>Pantalla ensamblador: cuadro de texto con ensamblador a cargar</b><b><br />
+	        <a name="_Toc438322910"></a><a class="cleanuphtml-1" name="_Ref434192102">Figure</a> <b>21</b> <b>Assembly screen: text editor for the assembly code.</b><b><br />
 	        <br /></b>
 	      </p>
 	      <p>
-	        Una vez compilado, se pasar&aacute; a la pantalla indicada en la <b class="cleanuphtml-3">Figure 23</b>, donde se mostrar&aacute; el contenido de la memoria principal en binario.
+                Once compiled, it will pass to the screen shown in <b class="cleanuphtml-3">Figure 23</b>, where the content of main memory in binary is displayed.
 	      </p>
 	      <p>
 	         
@@ -687,11 +678,12 @@
 	        <img max-width="90%" width="90%" id="Imagen 30" src="help/simulator/assembly005.jpg" alt="" name="Imagen 30" />
 	      </p>
 	      <p class="cleanuphtml-2">
-	        <a name="_Toc438322912"></a><a class="cleanuphtml-1" name="_Ref434192450">Figure</a> <b>23</b> <b>Pantalla ensamblador: c&oacute;digo finalmente compilado</b>
+	        <a name="_Toc438322912"></a><a class="cleanuphtml-1" name="_Ref434192450">Figure</a> <b>23</b> <b>Assembly screen: binary values.</b>
 	      </p>
 	      <p>
 	        <br />
-	        El siguiente paso es ir a la pantalla principal para ejecutar la combinaci&oacute;n de <i>firmware</i> y ensamblador cargado, para lo que ha de pulsar el bot&oacute;n "Simulador" de la barra inferior.
+                The next step is to come back to the main screen in order to run the loaded microcode and assembly. 
+                To do that, you have to press the "Simulator" button on the upper bar.
 	      </p>
 	      <p>
 	      </p>
@@ -701,25 +693,26 @@
               <h2>Simulaci&oacute;n en WepSIM</h2>
 
 	      <p>
-	        Estando en la pantalla principal es posible visualizar:
+	        In the main screen it is possible to see:
 	      </p>
 	      <ul>
 	      <li>
-	        El contenido de la memoria de control (v&eacute;ase la <b>Figure 24</b>), con las se&ntilde;ales que est&aacute;n asociadas a cada ciclo. Para ello ha de pulsar el bot&oacute;n "<i>Control Memory</i>" en
-	        la barra de botones situada en la parte superior derecha de la pantalla principal.<br />
-	        Se destaca las se&ntilde;ales que en el presente ciclo de reloj est&aacute;n activadas en azul con letra algo m&aacute;s grande.<br />
-	        Se dispone de una barra de desplazamiento para poder inspeccionar todo el contenido de la memoria de control.
+	        The control memory content (see <b>Figure 24</b>), with each cycle control signals.
+                To do that, the student has to use the "<i>Control Memory</i>" button from the upper-right bar of the main screen.<br />
+                In this tab the current cycle signals are highlighted with the blue color (and a little bit bigger font).<br />
+                With the right-hand scroll bar it is possible to inspect the full control memory content.
 	      </li>
 	      <li>
-	        El contenido de la memoria principal (v&eacute;ase la <b class="cleanuphtml-1">Figure 25</b>), con las instrucciones en ensamblador a ejecutar. Para estas, es posible establecer un punto de
-	        ruptura haciendo clic en la columna <i>breakpoints</i>. Al establecer un punto de ruptura aparecer&aacute; un icono en dicha columna.
+                The main memory content (see  <b class="cleanuphtml-1">Figure 25</b>), with the assembly instruction to be executed.
+                It is possible to set a breakpoint by clicking on the <i>breakpoints</i> column.
+                When a breakpoint is set, a "stop" icon will appear in this column.
 	      </li>
 	      </ul>
 	      <p>
 	        <img             id="Imagen 1" src="help/simulator/simulator009.jpg" alt="" name="Imagen 1" />
 	      </p>
 	      <p class="cleanuphtml-3">
-	        <a name="_Toc438322913"></a><a class="cleanuphtml-2" name="_Ref434192973">Figure</a> <b>24</b> <b>Pantalla principal: visualizaci&oacute;n de la memoria de control</b>
+	        <a name="_Toc438322913"></a><a class="cleanuphtml-2" name="_Ref434192973">Figure</a> <b>24</b> <b>Main screen: visualization of the control memory.</b>
 	      </p>
 	      <p>
 	      </p>
@@ -727,20 +720,18 @@
 	        <img             id="Imagen 3" src="help/simulator/simulator010.jpg" alt="" name="Imagen 3" />
 	      </p>
 	      <p class="cleanuphtml-3">
-	        <a name="_Toc438322914"></a><a class="cleanuphtml-2" name="_Ref434193222">Figure</a> <b>25</b> <b>Pantalla principal: visualizaci&oacute;n del c&oacute;digo en la memoria principal</b>
+	        <a name="_Toc438322914"></a><a class="cleanuphtml-2" name="_Ref434193222">Figure</a> <b>25</b> <b>Main screen: visualization of the main memory code.</b>
 	      </p>
 	      <p>
 	      </p>
 	      <p>
-	        Estando en la pantalla principal es posible ejecutar:
+                In the main screen it is possible to execute:
 	      </p>
 	      <p>
-	        ·       Microinstrucci&oacute;n a microinstrucci&oacute;n pulsando el bot&oacute;n "µInstrucci&oacute;n" (v&eacute;ase la <b class="cleanuphtml-1">Figure 26</b>), de forma que se pasar&aacute; al siguiente ciclo de reloj y se
-	        generar&aacute;n las se&ntilde;ales de control asociadas.
+	        ·       Microinstruction by microinstruction by clicking on the "µInstrucci&oacute;n" button (see <b class="cleanuphtml-1">Figure 26</b>), to move forward to the next clock cycle, and to send the associated control signals.
 	      </p>
 	      <p>
-	        ·       Instrucci&oacute;n a instrucci&oacute;n pulsando el bot&oacute;n "Instrucci&oacute;n" (v&eacute;ase la <b class="cleanuphtml-1">Figure 26</b>) de forma que se generar&aacute;n todos los ciclos de reloj asociados al
-	        microprograma de la instrucci&oacute;n, parando al principio del <i>fetch</i>.
+	        ·       Instruction by instruction by clicking on the "Instrucci&oacute;n" button (see <b class="cleanuphtml-1">Figure 26</b>) in order to generate all clock cycles for the microcode of the corresponding instruction, stopping at the beginning of the fetch.
 	      </p>
 	      <p>
 	      </p>
@@ -748,15 +739,14 @@
 	        <img             id="Imagen 4" src="help/simulator/simulator011.jpg" alt="" name="Imagen 4" />
 	      </p>
 	      <p class="cleanuphtml-3">
-	        <a name="_Toc438322915"></a><a class="cleanuphtml-2" name="_Ref434193775">Figure</a> <b>26</b> <b>Pantalla principal: opciones para la ejecuci&oacute;n</b>
+	        <a name="_Toc438322915"></a><a class="cleanuphtml-2" name="_Ref434193775">Figure</a> <b>26</b> <b>Main screen: execution options.</b>
 	      </p>
 	      <p>
 	        <br />
-	        Dando al bot&oacute;n "<i>Registers</i>" en la barra de botones situada en la parte superior derecha de la pantalla principal (v&eacute;ase la <b class="cleanuphtml-1">Figure 26</b>) es posible ver c&oacute;mo
-	        los valores de los registros son modificados durante la ejecuci&oacute;n.
+	        With the "<i>Registers</i>" button on the upper-right bar of the main screen (see <b class="cleanuphtml-1">Figure 26</b>) it is possible to see the values of the processor registers, and how them change during the execution.
 	      </p>
 	      <p>
-	        Es posible visualizar tambi&eacute;n la unidad de control como se muestra en la <b class="cleanuphtml-1">Figure 27</b>.
+                It is also possible to see the control unit, as is shown in <b class="cleanuphtml-1">Figure 27</b>.
 	      </p>
 	      <p>
 	      </p>
@@ -764,10 +754,10 @@
 	        <img             id="Imagen 8" src="help/simulator/simulator012.jpg" alt="" name="Imagen 8" />
 	      </p>
 	      <p class="cleanuphtml-3">
-	        <a name="_Toc438322916"></a><a class="cleanuphtml-2" name="_Ref434194139">Figure</a> <b>27</b> <b>Pantalla principal: visualizaci&oacute;n de la unidad de control</b>
+	        <a name="_Toc438322916"></a><a class="cleanuphtml-2" name="_Ref434194139">Figure</a> <b>27</b> <b>Main screen: control unit visualization.</b>
 	      </p>
 	      <p>
-	        As&iacute; como tambi&eacute;n es posible reiniciar la ejecuci&oacute;n haciendo clic al bot&oacute;n "Reset" situado en la barra de botones que aparece en la parte superior de la pantalla.
+                And it is also possible to reset the execution by clicking on the "Reset" button in the top bar.
 	      </p>
 	      <p>
 	      </p>
