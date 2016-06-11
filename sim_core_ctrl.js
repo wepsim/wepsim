@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015 Javier Prieto Cepeda, Felix Garcia Carballeira, Alejandro Calderon Mateos
+ *  Copyright 2015-2016 Javier Prieto Cepeda, Felix Garcia Carballeira, Alejandro Calderon Mateos
  *
  *  This file is part of WepSIM.
  * 
@@ -25,6 +25,15 @@
 
         function check_ib ( fired )
         {
+            // TD + R
+            $("#databus_fire").hide();
+            if ( (sim_signals["TD"].value != 0) && (sim_signals["R"].value != 0) )
+            {
+                $("#databus_fire").show();
+                sim_states["BUS_DB"].value = 0xFFFFFFFF;
+            }
+
+            // Ti + Tj
             var tri_name = "";
             var tri_state_names = [ "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10" ] ;
 
@@ -37,7 +46,7 @@
             for (var i=0; i<tri_state_names.length; i++)
             {
                  tri_name = tri_state_names[i] ;
-                 if (sim_signals[tri_name].value !=0)
+                 if (sim_signals[tri_name].value != 0)
 		 {
                      tri_activated ++ ;
 		     tri_activated_name=tri_name;
@@ -51,9 +60,9 @@
                 update_draw(sim_signals[tri_activated_name], 1) ;
 
             // 3.- check if more than one tri-state is active
-            $("#busfire").hide();
+            $("#internalbus_fire").hide();
             if (tri_activated > 1) {
-                $("#busfire").show();
+                $("#internalbus_fire").show();
                 sim_states["BUS_IB"].value = 0xFFFFFFFF;
             }       
         }
@@ -177,6 +186,12 @@
            compute_behavior(input_behavior) ;
         }
 
+        function show_memories_values ( )
+        {
+            show_memories('MP',  MP,  sim_states['REG_PC'].value) ;
+            show_memories('MC',  MC,  sim_states['REG_MICROADDR'].value) ;
+	}
+
         function update_signal_firmware ( key )
         {
             var SIMWARE = get_simware() ;
@@ -220,15 +235,14 @@
 	    bits = "00000000000000000000000000000000".substring(0, 32 - bits.length) + bits ;
 	    //var op_code = parseInt(bits.substr(0, 6), 2) ; // op-code of 6 bits
 
-            show_memories('MP',  MP,  sim_states['REG_PC'].value) ;
-            show_memories('MC',  MC,  sim_states['REG_MICROADDR'].value) ;
+            show_memories_values() ;
 	}
-
 
         function update_signal_loadhelp ( helpdiv, key )
         {
 	     $(helpdiv).collapse('toggle');
-	     $(helpdiv).load('sim_help_signals.html #' + key, 
+	     var help_base = 'help/signals-' + ws_idiom + '.html #' + key;
+	     $(helpdiv).load(help_base,
 			      function(response, status, xhr) { 
 				  if ( $(helpdiv).html() == "" ) 
 				       $(helpdiv).html('<br>Sorry, No more details available for this signal.<p>\n'); 
@@ -238,7 +252,7 @@
  
         function update_signal (event)
         {
-	    if (false === is_interactive)
+	    if (false === get_interactive_mode())
                 return;
 
             for (var key in sim_signals)
@@ -279,10 +293,11 @@
 			bootbox.dialog({
 			       title:   'Decimal values for ' + key + ': ',
 			       message: '<div class="panel panel-default">' +
-                                        '  <div class="panel-heading">' + 
-                                        '      <div onclick=\'update_signal_loadhelp("#help2",$("#ask_skey").val());\'><b>Press here to search additional details or close details...</b></div>' + 
+                                        '  <div class="panel-heading"  ' + 
+                                        '      style="background-color: #D4E017; -webkit-text-shadow: none; text-shadow: none; border-color: #D4E017; background-color: #D4E017; background-image: none;" ' +
+                                        '      onclick=\'update_signal_loadhelp("#help2",$("#ask_skey").val());\'><b>Press here to search additional details or close details...</b>' + 
                                         '  </div>' +
-                                        '  <div id=help2 class="panel-collapse collapse" style="height:inherit; width: inherit; overflow-x: auto">Loading...</div>' + 
+                                        '  <div id=help2 class="panel-collapse collapse" style="max-height:60vh; width: inherit; overflow-x: auto">Loading...</div>' + 
                                         '</div>' +
                                         '<form class="form-horizontal">' + 
 					'<input id="ask_skey"   name="ask_skey"   type="hidden" value="' + key + '" class="form-control input-md"> ' +
@@ -310,7 +325,7 @@
 
 							     sim_signals[key].value = user_input ;
 
-							     if (true === is_interactive) 
+	                                                     if (true === get_interactive_mode())
 							     {
 								 // update REG_MICROINS
 								 sim_states["REG_MICROINS"].value[key] = sim_signals[key].value ;
@@ -341,7 +356,7 @@
             } // for all signals
 
 	    show_states();
-	    show_rf();
+	    show_rf_values();
         }
 
         function update_memories ( preSIMWARE )
@@ -422,17 +437,31 @@
             init_io("#io_ALL") ; 
         }
 
-        function init_eventlistener ()
+        function init_eventlistener ( context )
         {
             // 3.- for every signal, set the click event handler
             for (var key in sim_signals) 
             {
                 for (var j=0; j<sim_signals[key].fire_name.length; j++)
                 {
-			   var r  = sim_signals[key].fire_name[j].split(':') ;
-  			   var o  = document.getElementById(r[0]).contentDocument;
-                           if (o != null) 
-  			       o.getElementById(r[1]).addEventListener('click', update_signal, false);
+			   var r = sim_signals[key].fire_name[j].split(':') ;
+			   if (r[0] != context) {
+			       continue;
+                           }
+
+  			   var o = document.getElementById(r[0]).contentDocument ;
+                           if (null == o)  {
+                               console.log('warning: unreferenced graphic element context named "' + r[0] + '".');
+                               continue;
+                           }
+
+  			   var u = o.getElementById(r[1]) ;
+                           if (null == u)  {
+                               console.log('warning: unreferenced graphic element named "' + r[0] + ':' + r[1] + '".');
+                               continue;
+                           }
+
+  			   u.addEventListener('click', update_signal, false);
                 }
             }
         }
@@ -468,6 +497,7 @@
 
             compute_behavior("CLOCK") ;
 
+            show_dbg_ir(sim_states['REG_IR_DECO'].value) ;
 	    show_states() ;
 	    show_rf() ;
 	    show_memories('MP',  MP,  0) ;
@@ -476,7 +506,7 @@
 
         function execute_microinstruction ()
         {
-	        if (false === is_interactive)
+	        if (false === get_interactive_mode())
                 {
 			if (typeof segments['code'] == "undefined")
 			{
@@ -496,7 +526,7 @@
                 compute_behavior("CLOCK") ;
 
 		show_states();
-		show_rf();
+		show_rf_values();
                 show_dbg_mpc();
         }
 
@@ -513,7 +543,7 @@
                       );
 
 		show_states();
-		show_rf();
+		show_rf_values();
                 if (DBG_level == "microinstruction")
                     show_dbg_mpc();
         }

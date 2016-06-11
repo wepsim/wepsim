@@ -12,9 +12,7 @@
     <title>(ARCOS) WepSIM</title>
 
     <meta charset="utf-8" />
-    <meta name="format-detection" content="telephone=no">
-    <meta name="msapplication-tap-highlight" content="no">
-    <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=2, minimum-scale=1, width=device-width">
+    <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=2.2, minimum-scale=1, width=device-width">
 
     <script src="external/jquery.min.js"></script>
     <script src="external/jquery-ui.min.js"></script>
@@ -51,11 +49,14 @@
 
     <link rel="stylesheet" href="external/bootstrap.min.css">
     <link rel="stylesheet" href="external/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="external/spectrum.min.css">
 
     <script src="external/bootstrap.min.js"></script>
     <script src="external/bootbox.min.js"></script>
     <script src="external/knockout-3.4.0.js"></script>
     <script src='external/tinymce.min.js'></script>
+    <script src="external/spectrum.min.js"></script>
+    <script src="external/bootstrap-notify.min.js"></script>
 
     <script src="sim_all.min.js"></script>
 
@@ -64,10 +65,9 @@
     // Assembly
     //
 
-    function compileAssembly() 
+    function compileAssembly ( show_binary ) 
     {
         // get Assembly
-      //var textToConvert = document.getElementById("inputAssembly").value;
         var textToConvert = tinymce.get('inputAssembly').getBody().textContent ;
             textToConvert = textToConvert.toLowerCase();
 
@@ -76,31 +76,39 @@
 	if (SIMWARE.firmware.length == 0) {
             alert('WARNING: please load firmware first.');
             $.mobile.pageContainer.pagecontainer('change','#main3');
-            return;
+            return false;
 	} 
 
-        // compile Assembly, update memory and segments
+        // compile Assembly and show message
         var SIMWAREaddon = simlang_compile(textToConvert, SIMWARE);
-        if (SIMWAREaddon.error != null) {
-            alert(SIMWAREaddon.error);
-            return ;
+        if (SIMWAREaddon.error != null) 
+        {
+            var errorMsg = SIMWAREaddon.error.replace(/\t/g,' ').replace(/   /g,' ') ;
+            errorMsg = '<pre style="background-color: inherit !important">' + errorMsg + '</pre>' ;
+
+	    $.notify({ title: '<strong>ERROR</strong>', 
+                       message: errorMsg + '<br><center><button type="button" class="btn btn-danger" onclick="$.notifyClose();">Close</button></center>' },
+		     { type: 'danger', newest_on_top: true, delay: 0, placement: { from: 'top', align: 'center' } });
+            return false;
         }
 
+	$.notify({ title: '<strong>INFO</strong>', message: 'Assembly was compiled and loaded.'},
+		 { type: 'success', newest_on_top: true, delay: NOTIF_delay, placement: { from: 'top', align: 'center' } });
+
+        // update memory and segments
         set_simware(SIMWAREaddon) ;
 	update_memories(SIMWARE);
 
         // update UI 
-        if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
+        if (true == show_binary)
         {
-           $("#compile_mp").html("<center><a onclick='showCompiledAssembly();'>" + 
-                                 "<br>Assembly was compiled. " + 
-                                 "<br>Click here in order to show the main memory in binary." + 
-                                 "<br>Warning: it could be slow on a mobile device...</a></center>");
-           $("#compile_mp").css({width:"100%",height:"inherit !important"});
-        }
-        else
-        {
-             showCompiledAssembly();
+           $("#compile_results").html("<center>" +
+                                      "<br>Loading binary, please wait..." +
+                                      "<br><br>WARNING: loading binary might take time on slow mobile devices.</center>");
+           $("#compile_results").css({width:"100%",height:"inherit !important"});
+	   $('#bin1').popup('open');
+
+	   setTimeout(function(){ showCompiledAssembly(); }, 500);
         }
 
         $("#asm_debugger").html(assembly2html(SIMWAREaddon.mp, 
@@ -108,15 +116,17 @@
                                               SIMWAREaddon.seg, 
                                               SIMWAREaddon.assembly));
 
-        $('#btn42').trigger('click');
 	reset();
+        return true;
     }
 
     function showCompiledAssembly () 
     {
         var SIMWARE = get_simware() ;
 
-        $("#compile_mp").html(mp2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg));
+        $("#compile_results").html(mp2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg));
+        $("#bin1").popup("reposition", {positionTo: 'window'});
+
         for (skey in SIMWARE.seg) {
              $("#compile_begin_" + skey).html("0x" + SIMWARE.seg[skey].begin.toString(16));
              $("#compile_end_"   + skey).html("0x" + SIMWARE.seg[skey].end.toString(16));
@@ -128,10 +138,6 @@
         var fileToLoad = document.getElementById("fileToLoad2").files[0];
         var fileReader = new FileReader();
         fileReader.onload  = function (fileLoadedEvent) {
-                                          //var textFromFileLoaded = fileLoadedEvent.target.result;
-                                          //document.getElementById("inputAssembly").value = textFromFileLoaded;
-					  //$("#inputAssembly").css({width:"100%",height:"inherit"})
-
                                             var textFromFileLoaded = fileLoadedEvent.target.result;
 					    tinymce.get('inputAssembly').getBody().innerHTML = "<pre>" + textFromFileLoaded + "</pre>";
                              };
@@ -144,15 +150,12 @@
     function load_assembly_from_example ( )
     {
 	var xmlhttp = new XMLHttpRequest();
-	var url = "examples/exampleCode2.txt?time=20151212" ;
+	var url = "examples/exampleCode2.txt?time=20160528" ;
 
 	xmlhttp.onreadystatechange=function() {
-					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+					// if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+					if ((xmlhttp.readyState == 4) && ((xmlhttp.status == 200) || (xmlhttp.status == 0)))
 					{
-                                          //var textFromFileLoaded = xmlhttp.responseText ;
-					  //document.getElementById("inputAssembly").value = textFromFileLoaded;
-					  //$("#inputAssembly").css({width:"100%",height:"inherit"})
-
                                             var textFromFileLoaded = xmlhttp.responseText ;
 					    tinymce.get('inputAssembly').getBody().innerHTML = "<pre>" + textFromFileLoaded + "</pre>";
 					}
@@ -166,40 +169,52 @@
     // Firmware
     //
 
-    function compileFirmware () 
+    function compileFirmware ( show_binary ) 
     {
-      //var textFromFileLoaded = document.getElementById("inputFirmware").value ;
         var textFromFileLoaded = tinymce.get('inputFirmware').getBody().textContent ;
 
 	var preSM = load_firmware(textFromFileLoaded) ;
-	if (preSM.error != null) {
-            alert(preSM.error);
-            return ;
+	if (preSM.error != null) 
+        {
+            var errorMsg = preSM.error.replace(/\t/g,' ').replace(/   /g,' ') ;
+            errorMsg = '<pre style="background-color: inherit !important">' + errorMsg + '</pre>' ;
+
+	    $.notify({ title: '<strong>ERROR</strong>', 
+                       message: errorMsg + '<br><center><button type="button" class="btn btn-danger" onclick="$.notifyClose();">Close</button></center>' },
+		     { type: 'danger', newest_on_top: true, delay: 0, placement: { from: 'top', align: 'center' } });
+
+            return false;
         }
+
+	$.notify({ title: '<strong>INFO</strong>', message: 'Firmware was compiled and loaded.'},
+		 { type: 'success', newest_on_top: true, delay: NOTIF_delay, placement: { from: 'top', align: 'center' } });
 
         // update UI 
-        if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
+        if (true == show_binary)
         {
-           $("#ucompile").html("<center><a onclick='showCompiledFirmware();'>" +
-                               "<br>Firware was compiled. " +
-                               "<br>Click here in order to show the control memory in binary." +
-                               "<br>Warning: it could be slow on a mobile device...</a></center>");
-           $("#ucompile").css({width:"100%",height:"inherit !important"});
-        }
-        else
-        {
-             showCompiledFirmware();
+           $("#compile_results").html("<center>" +
+                               "<br>Loading binary, please wait..." +
+                               "<br><br>WARNING: loading binary might take time on slow mobile devices.</center>");
+           $("#compile_results").css({width:"100%",height:"inherit !important"});
+	   $('#bin1').popup('open');
+
+	   setTimeout(function(){ showCompiledFirmware(); }, 500);
         }
 
-	$('#btn32').trigger('click');
 	reset() ;
+        return true;
     }
 
     function showCompiledFirmware () 
     {
         var SIMWARE = get_simware() ;
-        $("#ucompile").html(firmware2html(SIMWARE.firmware, true));
-	$("#ucompile").css({width:"100%",height:"inherit !important"});
+        $("#compile_results").html(firmware2html(SIMWARE.firmware, true));
+	$("#compile_results").css({width:"inherit !important", height:"inherit !important"});
+
+	$("#bin1").enhanceWithin();
+	$('#bin1').trigger('updatelayout');
+        $("#bin1").popup("reposition", {positionTo: 'window'});
+	$('#bin1').trigger('refresh');
     }
 
     function load_firmware_from_file ( )
@@ -207,10 +222,6 @@
         var fileToLoad = document.getElementById("fileToLoad").files[0];
         var fileReader = new FileReader();
         fileReader.onload = function (fileLoadedEvent) {
-                                          //var textFromFileLoaded = fileLoadedEvent.target.result;
-				          //document.getElementById("inputFirmware").value = textFromFileLoaded;
-					  //$("#inputFirmware").css({width:"100%",height:"inherit"})
-
                                             var textFromFileLoaded = fileLoadedEvent.target.result;
 					    tinymce.get('inputFirmware').getBody().innerHTML = "<pre>" + textFromFileLoaded + "</pre>";
                                 };
@@ -223,15 +234,12 @@
     function load_firmware_from_example ( )
     {
 	var xmlhttp = new XMLHttpRequest();
-	var url = "examples/exampleFirmware5.txt?time=20151212" ;
+	var url = "examples/exampleFirmware5.txt?time=20160528" ;
 
 	xmlhttp.onreadystatechange=function() {
-					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+					// if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
+					if ((xmlhttp.readyState == 4) && ((xmlhttp.status == 200) || (xmlhttp.status == 0)))
 					{
-                                          //var textFromFileLoaded = xmlhttp.responseText ;
-					  //document.getElementById("inputFirmware").value = textFromFileLoaded;
-					  //$("#inputFirmware").css({width:"100%",height:"inherit"})
-
                                             var textFromFileLoaded = xmlhttp.responseText ;
 					    tinymce.get('inputFirmware').getBody().innerHTML = "<pre>" + textFromFileLoaded + "</pre>";
 					}
@@ -274,21 +282,6 @@
             downloadLink.click();
     }
 
-    function toggle_im ( btn1 )
-    {
-       var o1 = document.getElementById(btn1);
-
-       if (get_interactive_mode() == true) {
-           set_interactive_mode(false);
-           o1.innerHTML = "Non-Interactive" ;
-           o1.style.backgroundColor = '#CCCCCC';
-       } else {
-           set_interactive_mode(true);
-           o1.innerHTML = "Interactive" ;
-           o1.style.backgroundColor = '#228B22';
-       }
-    }
-
     function toggle_play ( btn1 )
     {
         if (DBG_stop == false) {
@@ -297,6 +290,19 @@
             DBG_stop = false ;
             asmdbg_play(btn1) ;
         }
+    }
+
+    function show_help1 ( )
+    {
+        var rel = $('#help1_ref').data('relative') ;
+        if (rel == "")
+            return;
+
+        $('#iframe_help1').load('help/simulator-' + ws_idiom + '.html ' + rel,
+			        function() {
+                                    $('#help1').trigger('updatelayout'); 
+                                    $('#help1').popup('open');
+                                });
     }
 
     function sim_init ( )
@@ -385,7 +391,7 @@
                 <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
                     <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
                 </div>
-                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.2.0</span> </span>
+                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.3.0</span> / Simulator</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a href="#actions_panel" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
@@ -402,25 +408,25 @@
                               <a id="tab23" href="#eltos_cu"   
                                  onclick="start_drawing(); refresh();">Control Unit</a>
                           </li>
-		          <li style="clear:none;width:33% !important">
+		          <li style="clear:none;width:27% !important">
                               <a id="tab22" href="#eltos_p"   class="ui-btn-active"
                                  onclick="start_drawing(); refresh();">CPU</a>
                           </li>
-		          <li style="clear:none;width:33% !important">
+		          <li style="clear:none;width:40% !important">
                               <a id="tab24" href="#eltos_dbg"  
                                  onclick="stop_drawing();">Assembly Debugger</a>
                           </li>
 		        </ul>
-
 		      </div>
-		      <div id="eltos_p"  class="ui-body-d ui-content" style="padding: 15px 0 15px 0;">
-			    <object id="svg_p" data="images/imagenProcesador2.svg" type="image/svg+xml">
+		      <div id="eltos_p"  class="ui-body-d ui-content" style="padding: 5px 0 5px 0;">
+			    <object id="svg_p" data="images/imagenProcesador3.svg" type="image/svg+xml">
 				Your browser doesn't support SVG
 			    </object>
-                            <img id=busfire src="images/fire.gif" height=50 style="position:absolute; top:55%; left:8%; display:none;">
+                            <img id="internalbus_fire" src="images/fire.gif" height=50 style="position:absolute; top:57%; left:8%;  display:none;">
+                            <img id="databus_fire"     src="images/fire.gif" height=50 style="position:absolute; top:23%; left:25%; display:none;">
 		      </div>
 		      <div id="eltos_cu"  class="ui-body-d ui-content">
-			    <object id="svg_cu" data="images/imagenUnidadControl2.svg" type="image/svg+xml">
+			    <object id="svg_cu" data="images/imagenUnidadControl3.svg" type="image/svg+xml">
 				Your browser doesn't support SVG
 			    </object>
 		      </div>
@@ -441,7 +447,25 @@
 			   </center>
 
 		           <div style="overflow-y:auto; overflow-x:auto; height:70% !important;">
-                                <div id="asm_debugger">&nbsp;</div>
+                                <div id="asm_debugger">
+                                <br>
+                                <ol>
+                                <li>Load the firmware to be used.</li>
+                                    <ul>
+                                    <li>You can use the default firmware example, load it from a file or you can edit one.</li>
+                                    </ul>
+                                <br>
+                                <li>Load the assembly to be used.</li>
+                                    <ul>
+                                    <li>You can use the default assembly example, load it from a file or you can edit one.</li>
+                                    </ul>
+                                <br>
+                                <li>Come back to the simulator in order to execute step by step the firmware+assembly loaded before.</li>
+                                    <ul>
+                                    <li>Each step could be executed at microinstruction or instruction level.</li>
+                                    </ul>
+                                </ol>
+                                </div>
 		           </div>
 		      </div>
 	    	    </div>
@@ -449,23 +473,23 @@
 
                 <div class="col-md-4" style="padding: 0 12px 0 12px;">
 
-                    <div class="btn-toolbar" role="toolbar" style="padding: 0 0px 10px 0px;">
+                    <div class="btn-toolbar" role="toolbar" id="sim_toolbar" style="padding: 0 0px 10px 0px;">
 			<div class="btn-group btn-group-justified" role="group">
 			    <a          href="#" style="background-color: #CCCCCC"
-			       class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-reset   ui-btn-icon-top ui-mini"
+			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-reset   ui-btn-icon-top ui-mini"
 			       onclick="reset();">Reset</a>
 			    <a          href="#" style="background-color: #CCCCCC"
-			       class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini"
+			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini"
 			       onclick="execute_microinstruction();">&#181;Instruction</a>
 			    <a          href="#" style="background-color: #CCCCCC"
-			       class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini"
+			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini"
 			       onclick="execute_instruction();">Instruction</a>
 			    <a id="qbp" href="#" style="background-color: #CCCCCC"
-			       class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-carat-r ui-btn-icon-top ui-mini"
+			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-carat-r ui-btn-icon-top ui-mini"
 			       onclick="toggle_play('#qbp'); return false;">Run</a>
-			    <a id="ib1" href="#" style="background-color: #CCCCCC"
-			       class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-arrow-u ui-btn-icon-top ui-mini"
-			       onclick="toggle_im('ib1');">Non-Interactive</a>
+			    <a id="ib1" href="#" style="background-color: #D4DB17; -webkit-text-shadow: none; text-shadow: none;"
+			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-info ui-btn-icon-top ui-mini"
+			       onclick="$('#help1_ref').data('relative','#help_simulator_screens'); show_help1();">Help</a>
                         </div>
                     </div>
 
@@ -474,7 +498,7 @@
 		        <ul>
 		          <li style="clear:none;width:33% !important"><a id="tab14" href="#mp" class="ui-btn-active">Memory</a></li>
 		          <li style="clear:none;width:33% !important"><a id="tab15" href="#io">I/O</a></li>
-		          <li style="clear:none;width:33% !important"><a id="tab12" href="#con">Console</a></li>
+		          <li class="ui-block-a" style="clear:none;width:33% !important;border:1px solid #ddd;"><a id="tab12" href="#con">Console</a></li>
                           <br>
 		          <li style="           width:33% !important"><a id="tab11" href="#all">Registers</a></li>
 		          <li style="clear:none;width:33% !important"><a id="tab16" href="#mc">Control Memory</a></li>
@@ -523,7 +547,7 @@
                 <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
                     <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
                 </div>
-                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.2.0</span> </span>
+                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.3.0</span> / Firmware</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a href="#actions_panel" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
@@ -574,60 +598,59 @@
 		    </div>
 		</div>
 
-                <ul class="nav nav-justified">
-		            <li><a href="#lssave" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
-				   data-rel="popup" data-position-to="window" data-transition="pop">Save</a></li>
-		            <li><a href="#lsload" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-back    ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
-				   data-rel="popup" data-position-to="window" data-transition="pop">Load</a></li>
-		            <li><a href="#"       style="background-color: #CCCCCC" 
-				   onclick="load_firmware_from_example(); $('#btn31').trigger('click');"
-				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-bars    ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12">Example</a></li>
-		            <li><a href="#"       style="background-color: #CCCCCC" 
-				   onclick="compileFirmware();"
-				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12">&#181;compile</a></li>
+                <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group btn-group-justified" role="group">
+		            <a href="#lsload" style="background-color: #CCCCCC"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-back    ui-btn-icon-left ui-mini col-xs-3 col-md-1 col-lg-1"
+				   data-rel="popup" data-position-to="window" data-transition="pop">Load</a>
+		            <a href="#lssave" style="background-color: #CCCCCC"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-left ui-mini col-xs-3 col-md-1 col-lg-1"
+				   data-rel="popup" data-position-to="window" data-transition="pop">Save</a>
+		            <a href="#"       style="background-color: #CCCCCC"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-xs-4 col-md-1 col-lg-1"
+				   data-transition="none" data-inline="true"
+				   onclick="compileFirmware(false);">&#181;compile</a>
+		            <a href="#"       style="background-color: #CCCCCC"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2"
+				   data-transition="none" data-inline="true"
+				   onclick="var ok = compileFirmware(false);
+                                            if (true == ok) {
+                                                $.mobile.pageContainer.pagecontainer('change','#main4');
+                                            }">&#181;compile and go assembly</a>
 
-			    <li><a id="tab24" href="#" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear    ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
-				   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');">Assembly</a></li>
-                            <li><a id="tab25" href="#" style="background-color: #CCCCCC"
-                                   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear     ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
-                                   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a></li>
+		            <a href="#" style="background-color: #DDDDDD"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-u ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2 ui-shadow"
+				   onclick="compileFirmware(true);">Show co2&#181;addr + control memory</a>
 
-		            <li><a id=btn31 href="#" 
-				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-active   ui-mini col-xs-12 col-sm-12 col-md-12"
-				   onclick="$('#tab31').trigger('click'); $('#btn32').removeClass('ui-btn-active'); $('#btn31').addClass('ui-btn-active');"
-				   >Firmware Specification</a></li>
-		            <li><a id=btn32 href="#"  
-				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a                 ui-mini col-xs-12 col-sm-12 col-md-12"
-				   onclick="$('#tab32').trigger('click'); $('#btn31').removeClass('ui-btn-active'); $('#btn32').addClass('ui-btn-active');"
-				   >co2&#181;addr + control memory</a></li>
-		</ul>
+                            <a href="#" style="background-color: #D4DB17"
+                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-6 col-md-1 col-lg-1"
+				   onclick="$('#help1_ref').data('relative','');
+                                            $('#iframe_help1').html('<div class=row><div class=\'col-xs-10 col-md-6 col-lg-6\'>' +  
+                                                                    '<object id=svg_p2 style=\'width:90vh\' data=\'images/imagenProcesador3.svg\' type=image/svg+xml>Your browser does not support SVG' + 
+                                                                    '</object>' + 
+                                                                    '</div><div class=\'col-xs-10 col-md-6 col-lg-6\'>' + 
+                                                                    '<object id=svg_cu2 style=\'width:90vh\' data=\'images/imagenUnidadControl3.svg\' type=image/svg+xml>Your browser does not support SVG' + 
+                                                                    '</object>' +
+                                                                    '</div></div>'); 
+                                            $('#help1').trigger('updatelayout');
+                                            $('#help1').popup('reposition', {positionTo: 'window'});
+					    $('#help1').popup('open');"
+                                   >Hardware Summary</a>
+                            <a href="#" style="background-color: #D4DB17"
+                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info    ui-btn-icon-left ui-mini col-xs-4 col-md-1 col-lg-1"
+				   onclick="$('#help1_ref').data('relative','#help_firmware_format'); show_help1();"
+                                   >Help</a>
+		            <a href="#" style="background-color: #DDDDDD"
+				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-bars    ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1"
+				   onclick="load_firmware_from_example();"
+                                   >Example</a>
+		</div>
+		</div>
 
-		<div data-role="tabs" id="tabs3">
-		      <div data-role="navbar" style="visibility:hidden; position:absolute;">
-		        <ul>
-		          <li><a id=tab31 href="#t3_firm" data-ajax="false">Firmware</a></li>
-		          <li><a id=tab32 href="#t3_bin"  data-ajax="false">Binary</a></li>
-		        </ul>
-		      </div>
-
-		      <div id="t3_firm"  class="ui-body-d ui-content" style="position:relative;">
-		        <textarea style="min-width:90%; overflow-y:auto;"
-                                  placeholder="Please select 'Example' or 'Load' first in order to have an initial firmware."
-                                  id="inputFirmware" rows=20></textarea>
-		      </div>
-
-		      <div id="t3_bin"   class="ui-body-d ui-content" style="overflow-y:scroll; overflow-x:scroll; height:75%; position:relative;">
-		        <div style="min-width:90%; overflow-y:auto; overflow-x:auto;" id="ucompile">
-                            <br>
-                            <center>
-                            Please load the firmware specification and then &#181;compile it. <br>
-                            In this way the binary will be created and loaded into control memory.
-                            </center>
-                        </div>
-		      </div>
+		<div id="t3_firm"  class="ui-body-d ui-content" style="position:relative;">
+		     <textarea style="min-width:90%; overflow-y:auto;"
+                               placeholder="Please select 'Example' or 'Load' first in order to have an initial firmware."
+                               id="inputFirmware" rows=20></textarea>
 		</div>
 
 	</div><!-- /content -->
@@ -641,7 +664,7 @@
                 <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
                     <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
                 </div>
-                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.2.0</span> </span>
+                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.3.0</span> / Assembly</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a href="#actions_panel" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
@@ -682,69 +705,45 @@
 		    </div>
 		</div>
 
-                <ul class="nav nav-justified">
-		            <li><a href="#lssave2" style="background-color: #CCCCCC"
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-forward  ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
-				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Save</a></li>
-		            <li><a href="#lsload2" style="background-color: #CCCCCC"
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-back     ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
-				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Load</a></li>
-		            <li><a href="#" style="background-color: #CCCCCC"
-                                   onclick="load_assembly_from_example(); $('#btn41').trigger('click');"
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-bars     ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
-				   data-inline="true">Example</a></li>
-		            <li><a href="#" style="background-color: #CCCCCC"
-                                   onclick="compileAssembly();" id="emp"
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
-				   data-inline="true">Compile</a></li>
+                <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group btn-group-justified" role="group">
+		            <a href="#lsload2" style="background-color: #CCCCCC"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-back     ui-btn-icon-left ui-mini col-xs-3 col-md-1 col-lg-1"
+				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Load</a>
+		            <a href="#lssave2" style="background-color: #CCCCCC"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-forward  ui-btn-icon-left ui-mini col-xs-3 col-md-1 col-lg-1"
+				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Save</a>
+		            <a href="#" style="background-color: #CCCCCC"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-4 col-md-1 col-lg-1"
+				   data-transition="none" data-inline="true"
+				   onclick="compileAssembly(false);">Compile</a>
+		            <a href="#" style="background-color: #CCCCCC"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2"
+				   data-transition="none" data-inline="true"
+				   onclick="var ok = compileAssembly(false);
+                                            if (true == ok) {
+                                                $.mobile.pageContainer.pagecontainer('change','#main1');
+                                            }">Compile and go simulator</a>
 
-                            <li><a id="tab25" href="#" style="background-color: #CCCCCC"
-                                   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear     ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
-                                   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a></li>
-                            <li><a id="tab24" href="#" style="background-color: #CCCCCC"
-                                   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-gear     ui-btn-icon-left ui-mini col-xs-5 col-sm-12 col-md-12"
-                                   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');">Firmware</a></li>
+		            <a href="#" style="background-color: #DDDDDD"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-u  ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2 ui-shadow"
+				   onclick="compileAssembly(true);">Show Main Memory</a>
 
-		            <li><a id=btn41 href="#" 
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-btn-active ui-mini col-xs-12 col-sm-12 col-md-12"
-				   onclick="$('#tab41').trigger('click'); $('#btn42').removeClass('ui-btn-active'); $('#btn41').addClass('ui-btn-active');"
-				   >Assembly Code</a></li>
-		            <li><a id=btn42 href="#"  
-				   class="ui-btn btn-group ui-corner-all ui-shadow ui-btn-inline ui-btn-a               ui-mini col-xs-12 col-sm-12 col-md-12"
-				   onclick="$('#tab42').trigger('click'); $('#btn41').removeClass('ui-btn-active'); $('#btn42').addClass('ui-btn-active');"
-				   >Main Memory</a></li>
-		</ul>
+                            <a href="#" style="background-color: #D4DB17"
+                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-5 col-md-1 col-lg-1"
+				   onclick="$('#help1_ref').data('relative','#help_assembly_format'); show_help1();">Help</a>
 
-		<div data-role="tabs" id="tabs4">
-		      <div data-role="navbar" id="tabsnav4" style="visibility:hidden; position:absolute;">
-		        <ul>
-		          <li style="width:50% !important"><a id="tab41" href="#t4_asm" class="ui-btn-active">Assembly code</a></li>
-		          <li style="width:50% !important"><a id="tab42" href="#t4_bin">Compilation result (main memory)</a></li>
-		        </ul>
-		      </div>
-		      <div id="t4_asm"   class="ui-body-d ui-content">
+		            <a href="#" style="background-color: #DDDDDD"
+                                   onclick="load_assembly_from_example();"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-bars     ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1 ui-shadow"
+				   data-inline="true">Example</a>
+		</div>
+		</div>
+
+		<div id="t4_asm"   class="ui-body-d ui-content">
 		        <textarea style="min-width:90%; overflow-y:auto;"
                                   placeholder="Please select 'Load' first to have the assembly code to work with."
 			          id="inputAssembly" rows="20"></textarea>
-		      </div>
-		      <div id="t4_bin"   class="ui-body-d ui-content" style="padding: 0 0px 0 0px;">
-
-                        <div class="row">
-                        <div class="col-xs-12 col-sm-12">
-		        <div id="cc_bin" style="overflow-y:scroll; overflow-x:auto; height:70% !important;">
-                           <br>
-                           <div id="compile_mp">
-                              <br>
-                              <center>
-                              Please load the assembly and then compile it. <br>
-                              In this way the binary will be created and loaded into main memory.
-                              </center>
-		           </div>
-		        </div>
-		        </div>
-		        </div>
-
-		      </div>
 		</div>
 
 	</div><!-- /content -->
@@ -752,59 +751,165 @@
 </div><!-- /page -->
 
 
-<div data-role="panel" id="actions_panel" 
-     data-display="overlay" data-position="right" data-theme="a">
+<div data-role="panel" id="actions_panel" data-display="overlay" data-position="right" data-theme="a" 
+     style="width:20em; min-width:17em;">
 
-	<ul id="listview_1" data-role="listview" data-inset="true" data-theme="a" data-divider-theme="b">
-	    <li data-role="list-divider">WorkSpaces</li>
-	    <li><a id="tab21" href="#"
-		   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"><h2>Firmware</h2></a>
-	        <a href="#"
-	           onclick="$('#iframe_help1').load('sim_help_firmware.html', function(){$('#help1').trigger('updatelayout');
-                            $('#help1').popup('open');});"
-	           class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-info ui-mini"></a></li>
-	    <li><a id="tab24" href="#"
-		   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');"><h2>Assembly</h2></a>
-	        <a href="#"
-	           onclick="$('#iframe_help1').load('sim_help_assembly.html', function(){$('#help1').trigger('updatelayout');
-                            $('#help1').popup('open');});"
-	           class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-info ui-mini"></a></li>
-	    <li><a id="tab25" href="#"
-		   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');"><h2>Simulator</h2></a>
-	        <a href="#"
-	           onclick="$('#iframe_help1').load('sim_help_simulator.html', function(){$('#help1').trigger('updatelayout');
-                            $('#help1').popup('open');});"
-	           class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-info ui-mini"></a></li>
+	<div data-role="collapsible-set">
+	    <div data-role="collapsible" data-collapsed="false" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
+	    <h3>WorkSpaces</h3>
+	    <p>
+	    <ul id="listview_1" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b">
+		    <li><a id="tab21" href="#" style="background-color: lightgray"
+			   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"><h2>Firmware</h2></a></li>
+		    <li><a id="tab24" href="#" style="background-color: lightgray"
+			   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');"><h2>Assembly</h2></a></li>
+		    <li><a id="tab25" href="#" style="background-color: lightgray"
+			   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');"><h2>Simulator</h2></a></li>
+	    </ul>
+            </p>
+	    </div>
 
-	    <li data-role="list-divider">Configuration</li>
-	    <li class="list-group-item">
-		 Speed-up (slow - fast):
-		 <input type="range"
-			data-show-value="false"
-			name="slider1" id="slider1"
-			min="1" max="100" value="100" step=1
-			onchange="DBG_delay = 1000 / this.value;">
-	    </li>
-	    <li class="list-group-item">
-		 <fieldset data-role="controlgroup" data-type="vertical">
-		 Single step element:
-                 <ul>
-                 <li>
-		     <input name="radio-choice-h-2" id="radio-choice-h-2a" data-mini="true"
-			    onclick="DBG_level='instruction';"
-			    value="on" checked="checked" type="radio">
-		     <label for="radio-choice-h-2a">Instruction</label>
-                 </li>
-                 <li>
-		     <input name="radio-choice-h-2" id="radio-choice-h-2b" data-mini="true"
-			    onclick="DBG_level='microinstruction';"
-			    value="off" type="radio">
-		     <label for="radio-choice-h-2b">&#181;instruction</label>
-                 </li>
-                 </ul>
-		 </fieldset>
-	    </li>
-	</ul>
+	    <div data-role="collapsible" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
+	    <h3>Help</h3>
+	    <p>
+	    <ul id="listview_2" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b" data-mini="true">
+		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info" style="background-color: #D4DB17;"
+			   onclick="$('#help1_ref').data('relative','#help_simulator_screens');
+			            show_help1();"><h2>Simulator usage</h2></a></li>
+		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info" style="background-color: #D4DB17;"
+			   onclick="$('#help1_ref').data('relative','#help_firmware_format');
+			            show_help1();"><h2>Firmware format</h2></a></li>
+		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info" style="background-color: #D4DB17;"
+			   onclick="$('#help1_ref').data('relative','#help_assembly_format');
+			            show_help1();"><h2>Assembly format</h2></a></li>
+		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info" style="background-color: #D4DB17;"
+			   onclick="$('#help1_ref').data('relative','#help_simulator_arch');
+			            show_help1();"><h2>Simulator architecture</h2></a></li>
+	    </ul>
+            </p>
+	    </div>
+
+	    <div data-role="collapsible" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
+	    <h3>Configuration</h3>
+	    <p>
+	    <ul id="listview_3" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b">
+		    <li class="list-group-item">
+			 Speed-up (slow - fast):
+			 <input type="range"
+				data-show-value="false"
+				name="slider1" id="slider1"
+				min="1" max="100" value="100" step=1
+				onchange="DBG_delay = 1000 / this.value;">
+			 <fieldset data-role="controlgroup" data-type="horizontal">
+			 Single step element:
+			 <ul>
+			 <li>
+			     <input name="radio1" id="radio1-instruction" data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="DBG_level='instruction'; save_cfg();"
+				    value="on" type="radio">
+			     <label for="radio1-instruction">Instruc.</label>
+			     <input name="radio1" id="radio1-microinstruction" data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="DBG_level='microinstruction'; save_cfg();"
+				    value="off" type="radio">
+			     <label for="radio1-microinstruction">&#181;instruc.</label>
+			 </li>
+			 </ul>
+			 </fieldset>
+		    </li>
+		    <li class="list-group-item">
+<div class="ui-grid-solo">
+<div class="ui-block-a">
+			 <fieldset data-role="controlgroup" data-type="horizontal">
+			 RF display format:<br>
+			 <ul>
+			 <li>
+			     <input name="radio2" id="radio2-16" data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="RF_display_format=16; show_rf_values(); show_memories_values(); save_cfg();"
+				    value="on" type="radio">
+			     <label for="radio2-16">Hex.</label>
+			     <input name="radio2" id="radio2-10" data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="RF_display_format=10; show_rf_values(); show_memories_values(); save_cfg();"
+				    value="off" type="radio">
+			     <label for="radio2-10">Dec.</label>
+			     <input name="radio2" id="radio2-8"  data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="RF_display_format=8; show_rf_values(); show_memories_values(); save_cfg();"
+				    value="off" type="radio">
+			     <label for="radio2-8">Oct.</label>
+			 </li>
+			 </ul>
+			 </fieldset>
+</div>
+</div>
+<div class="ui-grid-solo">
+<div class="ui-block-a">
+			 <fieldset data-role="controlgroup" data-type="horizontal">
+			 RF name nomenclature:<br>
+			 <ul>
+			 <li>
+			     <input name="radio3" id="radio3-numerical" data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="RF_display_name='numerical'; show_rf_names(); save_cfg();"
+				    value="on" type="radio">
+			     <label for="radio3-numerical">Numbers</label>
+			     <input name="radio3" id="radio3-logical" data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="RF_display_name='logical'; show_rf_names(); save_cfg();"
+				    value="off" type="radio">
+			     <label for="radio3-logical">Labels</label>
+			 </li>
+			 </ul>
+			 </fieldset>
+</div>
+</div>
+		    </li>
+		    <li class="list-group-item input-toggles">
+			 Data-path Color:
+			 <ul>
+			 <input type="color"
+                                id="colorpicker1"
+				data-show-value="false"
+                                class="noshadow"
+				onchange="color_data_active = $('#colorpicker1').spectrum('get'); refresh(); save_cfg();">
+			 </ul>
+			 Signal Color:
+			 <ul>
+			 <input type="color"
+                                id="colorpicker2"
+				data-show-value="false"
+                                class="noshadow"
+				onchange="color_name_active = $('#colorpicker2').spectrum('get'); refresh(); save_cfg();">
+			 </ul>
+<div class="ui-grid-solo">
+<div class="ui-block-a">
+			 <fieldset data-role="controlgroup" data-type="horizontal">
+			 Interactive Mode:<br>
+			 <ul>
+			 <li>
+			     <input name="radio5" id="radio5-true" data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="set_interactive_mode(true); save_cfg();"
+				    value="on" type="radio">
+			     <label for="radio5-true">On</label>
+			     <input name="radio5" id="radio5-false" data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="set_interactive_mode(false); save_cfg();"
+				    value="off" type="radio">
+			     <label for="radio5-false">Off</label>
+			 </li>
+			 </ul>
+			 </fieldset>
+</div>
+</div>
+		    </li>
+	    </ul>
+            </p>
+	    </div>
+	</div>
 
 </div><!-- /panel -->
 
@@ -813,37 +918,40 @@
      data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
 
    <div data-role="header" data-theme="a">
-   <h1><b>Web elemental processor SIMulator</b> <span class="badge btn-success">1.2.0</span> </h1>
+   <h1><b>Web elemental processor SIMulator</b> <span class="badge btn-success">1.3.0</span> </h1>
    </div>
    <div role="main" class="ui-content">
 
         <div style="font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 16px; line-height: 24px; padding-bottom: 6.4px; padding-left: 8px; padding-right: 8px; padding-top: 6.4px;">
         <div class="row">
         <div class="col-xs-12 col-sm-12">
-            Copyright &copy; 2015 <small>Javier Prieto Cepeda, F&eacute;lix Garc&iacute;a Carballeira, and Alejandro Calder&oacute;n Mateos</small>
-            <p>
-
-        </div>
-        <div class="col-xs-12 col-sm-12">
-	    <b>WepSIM</b> is free software: you can redistribute it and/or modify
-	    it under the terms of the GNU Lesser General Public License as published by
-	    the Free Software Foundation, either version 3 of the License, or
-	    (at your option) any later version.
-            See <a rel="external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.
+            Copyright &copy; 2015-2016 <small>Javier Prieto Cepeda, F&eacute;lix Garc&iacute;a Carballeira, and Alejandro Calder&oacute;n Mateos</small>
             <p>
         </div>
-        <div class="col-xs-12 col-sm-12">
-	    <b>WepSIM</b> uses different technologies such as
-            <a rel="external" href="https://jquerymobile.com/">Jquery Mobile</a>,
-            <a rel="external" href="http://knockoutjs.com/">Knockout</a>,
-            <a rel="external" href="http://getbootstrap.com/">Bootstrap</a>,
-            <a rel="external" href="http://bootboxjs.com/">Bootbox</a>,
-            and the <a rel="external" href="https://www.tinymce.com/">tinymce</a> Editor (Community version).
-            <p>
-        </div>
-        <div class="col-xs-12 col-sm-12">
-            More information: <a rel="external" href="http://www.arcos.inf.uc3m.es/~ec-2ed/">http://www.arcos.inf.uc3m.es/~ec-2ed/</a><br>
-            <p>
+        <div class="col-xs-12 col-sm-12" style="max-height:50vh; overflow-y: scroll;">
+		<div class="col-xs-12 col-sm-12">
+		    <b>WepSIM</b> is free software: you can redistribute it and/or modify
+		    it under the terms of the GNU Lesser General Public License as published by
+		    the Free Software Foundation, either version 3 of the License, or
+		    (at your option) any later version.
+		    See <a rel="external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.
+		    <p>
+		</div>
+		<div class="col-xs-12 col-sm-12">
+		    <b>WepSIM</b> uses different technologies such as
+		    <a rel="external" href="https://jquerymobile.com/">Jquery Mobile</a>,
+		    <a rel="external" href="http://knockoutjs.com/">Knockout</a>,
+		    <a rel="external" href="http://getbootstrap.com/">Bootstrap</a>,
+		    <a rel="external" href="http://bootboxjs.com/">Bootbox</a>,
+		    <a rel="external" href="https://www.tinymce.com/">tinymce</a> Editor (Community version),
+		    <a rel="external" href="https://bgrins.github.io/spectrum/">spectrum</a> ColorPicker,
+		    and the <a rel="external" href="https://github.com/mouse0270/bootstrap-notify">Bootstrap Notify</a>.
+		    <p>
+		</div>
+		<div class="col-xs-12 col-sm-12">
+		    More information: <a rel="external" href="http://www.arcos.inf.uc3m.es/~ec-2ed/">http://www.arcos.inf.uc3m.es/~ec-2ed/</a><br>
+		    <p>
+		</div>
         </div>
         <div class="col-xs-6 col-sm-6">
             <img height=55 src="images/arcos.svg">
@@ -863,6 +971,19 @@
      data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
 
       <div data-role="header" data-theme="b" class="ui-corner-top">
+           <div data-type="horizontal" data-role="controlgroup" class="ui-btn-left">  
+             <div id="help1_ref" style="display:none;"></div>
+	     <input name="radio6" id="radio6-es" data-mini="true"
+		    style="margin-top:-8px"
+		    onclick="ws_idiom='es'; save_cfg(); show_help1();"
+		    value="ES" type="radio">
+	     <label for="radio6-es">ES</label>
+	     <input name="radio6" id="radio6-en" data-mini="true"
+		    style="margin-top:-8px"
+		    onclick="ws_idiom='en'; save_cfg(); show_help1();"
+		    value="EN" type="radio">
+	     <label for="radio6-en">EN</label>
+           </div>
            <h1>Help</h1>
            <a href="#" 
               data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" 
@@ -870,8 +991,35 @@
       </div>
 
       <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
-              <div class="ui-body-d ui-content">
-                 <div id=iframe_help1 style="height:80vh; width: inherit; overflow-y: auto;"></div>
+              <div class="ui-body-d ui-content" style="padding: 2px 2px 2px 2px;">
+                 <div id=iframe_help1 style="height:80vh; width: 80vw; overflow-y: auto;"></div>
+              </div>
+      </div>
+
+</div><!-- /panel -->
+
+
+<div data-role="popup" id="bin1" 
+     data-theme="a" data-dismissible="true" data-animate="false" data-overlay-theme="a">
+
+      <div data-role="header" data-theme="b" class="ui-corner-top">
+           <h1>Binary</h1>
+           <a href="#" 
+              data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" 
+              class="ui-btn-right">Close</a>
+      </div>
+
+      <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
+              <div class="ui-body-d ui-content" style="padding: 2px 2px 2px 2px;">
+                 <div id=iframe_bin1 style="height:80vh; width: 80vw; overflow-y: auto;">
+		   <div id="compile_results">
+                        <br>
+                        <center>
+                        Loading binary, please wait... <br>
+                        WARNING: loading binary might take time on slow mobile devices.
+                        </center>
+                   </div>
+                 </div>
               </div>
       </div>
 
@@ -879,72 +1027,96 @@
 
 
 <script>
-    $(document).ready(function()
+    try 
     {
-            jQuery.fx.off = true;
+	    restore_cfg();
 
-            $("#about1").enhanceWithin().popup();
-            $("#help1").enhanceWithin().popup();
+	    $(document).ready(function()
+	    {
+		    jQuery.fx.off = true;
 
-            $("#actions_panel").panel().enhanceWithin();
-	    $(".ui-slider-input").hide();
-            $("#listview_1").listview();
+		    $("#about1").enhanceWithin().popup();
+		    $("#help1").enhanceWithin().popup();
+		    $("#bin1").enhanceWithin().popup();
 
-            $("#tabsnav1").navbar();
-            $("#tabsnav2").navbar();
-            $("#tabsnav4").navbar();
+		    $("#actions_panel").panel().enhanceWithin();
+		    $(".ui-slider-input").hide();
+		    $("#listview_1").listview();
 
-            $("#tabs1").tabs();
-            $("#tabs2").tabs();
-            $("#tabs3").tabs();
-            $("#tabs4").tabs();
+		    $("#tabsnav1").navbar();
+		    $("#tabsnav2").navbar();
+		    $("#tabsnav4").navbar();
 
-            tinymce.init({ 
-                          selector: '#inputFirmware',
-		          height:   '50%',
-			  plugins: [
-			    'lists charmap print preview',
-			    'searchreplace wordcount fullscreen',
-			    'contextmenu paste'
-			  ],
-                          menubar: 'file edit view',
-                          toolbar: 'insertfile undo redo | alignleft aligncenter alignright alignjustify | outdent indent'
-                    });
-            tinymce.init({ 
-                          selector: '#inputAssembly',
-		          height:   '50%',
-			  plugins: [
-			    'lists charmap print preview',
-			    'searchreplace wordcount fullscreen',
-			    'contextmenu paste'
-			  ],
-                          menubar: 'file edit view',
-                          toolbar: 'insertfile undo redo | alignleft aligncenter alignright alignjustify | outdent indent'
-                    });
+		    $("#tabs1").tabs();
+		    $("#tabs2").tabs();
+		    $("#tabs3").tabs();
+		    $("#tabs4").tabs();
 
-            var a = document.getElementById("svg_p");
-            a.addEventListener("load",function() {
-                sim_init();
-                init_eventlistener();
-                refresh();
-            }, false);
+		    $("#sim_toolbar").draggable();
 
-            var a = document.getElementById("svg_cu");
-            a.addEventListener("load",function() {
-                sim_init();
-                init_eventlistener();
-                refresh();
-            }, false);
+		    tinymce.init({ 
+				  selector: '#inputFirmware',
+				  height:   '50%',
+				  plugins:  'lists,charmap,print,preview,searchreplace,wordcount,' + 
+                                            'fullscreen,contextmenu,paste',
+				  menubar: 'file edit view',
+				  toolbar:  'insertfile undo redo | ' + 
+                                            'alignleft aligncenter alignright alignjustify | ' + 
+                                            'outdent indent fullscreen',
+			    });
+		    tinymce.init({ 
+				  selector: '#inputAssembly',
+				  height:   '50%',
+				  plugins:  'lists,charmap,print,preview,searchreplace,wordcount,' + 
+                                            'fullscreen,contextmenu,paste,mention',
+				  menubar:  'file edit view',
+				  toolbar:  'insertfile undo redo | ' + 
+                                            'alignleft aligncenter alignright alignjustify | ' + 
+                                            'outdent indent fullscreen',
+                                  mentions: { 
+                                              delimiter: '!',
+                                              source: function (query, process, delimiter) { return FIRMWARE.firmware; },
+                                              queryBy: 'signature'
+                                            }
+			    });
 
-            $.mobile.pageContainer.pagecontainer('change','#main1');
-            $('#tab11').trigger('click');
-            $('#tab22').trigger('click');
-    }) ;
+		    var a = document.getElementById("svg_p");
+		    a.addEventListener("load",function() {
+			sim_init();
+			init_eventlistener("svg_p");
+			refresh();
+		    }, false);
 
-    init(); 
-    reset(); 
+		    var a = document.getElementById("svg_cu");
+		    a.addEventListener("load",function() {
+			sim_init();
+			init_eventlistener("svg_cu");
+			refresh();
+		    }, false);
+
+		    $.mobile.pageContainer.pagecontainer('change','#main1');
+		    $('#tab11').trigger('click');
+		    $('#tab22').trigger('click');
+
+		    $("#colorpicker1").spectrum({ preferredFormat: "hex", color: color_data_active}) ;
+		    $("#colorpicker2").spectrum({ preferredFormat: "hex", color: color_name_active}) ;
+		    $("#radio1-" +              DBG_level).prop('checked', true).checkboxradio("refresh") ;
+		    $("#radio2-" +      RF_display_format).prop('checked', true).checkboxradio("refresh") ;
+		    $("#radio3-" +        RF_display_name).prop('checked', true).checkboxradio("refresh") ;
+		    $("#radio5-" + get_interactive_mode()).prop('checked', true).checkboxradio("refresh") ;
+		    $("#radio6-" +               ws_idiom).prop('checked', true).checkboxradio("refresh") ;
+	    }) ;
+
+	    init(); 
+	    reset(); 
+    }
+    catch(err) 
+    {
+        alert("WepSIM was improperly used:\n" + err.message);
+    }
 </script>
 
 </body>
 
 </html>
+

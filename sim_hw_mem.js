@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015 Javier Prieto Cepeda, Felix Garcia Carballeira, Alejandro Calderon Mateos
+ *  Copyright 2015-2016 Javier Prieto Cepeda, Felix Garcia Carballeira, Alejandro Calderon Mateos
  *
  *  This file is part of WepSIM.
  * 
@@ -42,7 +42,7 @@
 
         sim_signals["W"]     = { name: "W", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		                 behavior: ["NOP", "MOVE_BITS RWBWA 4 1 W; FIRE RWBWA; MEM_WRITE BUS_AB BUS_DB"],
-                                 fire_name: ['svg_p:text3533-5-08','svg_p:text3527'], 
+                                 fire_name: ['svg_p:text3533-5-08','svg_p:text3527','svg_p:text3431-7'], 
                                  draw_data: [[], ['svg_p:path3559', 'svg_p:path3575']], 
                                  draw_name: [[], []] };
 

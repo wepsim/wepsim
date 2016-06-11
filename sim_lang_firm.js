@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015 Javier Prieto Cepeda, Felix Garcia Carballeira, Alejandro Calderon Mateos
+ *  Copyright 2015-2016 Javier Prieto Cepeda, Felix Garcia Carballeira, Alejandro Calderon Mateos
  *
  *  This file is part of WepSIM.
  * 
@@ -399,6 +399,10 @@ function loadFirmware (text)
 
 		       if (numeroCampos > 100)
 			   return firmwareError(context, "more than 100 fields in a single instruction.") ;
+		       if (getToken(context) == "co")
+			   return firmwareError(context, "instruction field has 'co' as name.") ;
+		       if (getToken(context) == "nwords")
+			   return firmwareError(context, "instruction field has 'nwords' as name.") ;
 		   } 
 
                    // match optional "(" FIELD ")"
@@ -574,7 +578,9 @@ function loadFirmware (text)
 	       while (camposInsertados < numeroCampos)
 	       {
 	           // match mandatory FIELD
-	           campos[camposInsertados]["name"] = getToken(context) ;
+	           var tmp_name = getToken(context) ;
+	           if (campos[camposInsertados]["name"] != tmp_name)
+		       return firmwareError(context, "Unexpected field '" + tmp_name + "' found") ;
 
 	           nextToken(context);
 	           // match mandatory =

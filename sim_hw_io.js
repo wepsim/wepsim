@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015 Alejandro Calderon Mateos, Felix Garcia Carballeira, Javier Prieto Cepeda
+ *  Copyright 2015-2016 Alejandro Calderon Mateos, Felix Garcia Carballeira, Javier Prieto Cepeda
  *
  *  This file is part of WepSIM.
  * 
@@ -69,7 +69,7 @@
                                     draw_data: [[], []], 
                                     draw_name: [[], []] };
 
-        sim_signals["INTA"]     = { name: "INTA",    visible: true, type: "L", value: 1, default_value: 1, nbits: "1", 
+        sim_signals["INTA"]     = { name: "INTA",    visible: true, type: "L", value: 1, default_value: 0, nbits: "1", 
                                     behavior: ["NOP", "INTA CLK INT INTA BUS_DB INTV"],
                                     fire_name: ['svg_p:text3785-0-6-0-5-5-1-1'], 
                                     draw_data: [[], ['svg_p:path3807', 'svg_p:path3737']], 
