@@ -1,4 +1,4 @@
-# WepSIM: Simulator of Elemental Processor (Wep Tool)
+# WepSIM: Simulator of Elemental Processor 
 Quick Start
 
 + WepSIM Simulator:
