@@ -12,6 +12,10 @@ Quick Start
    * Version for Windows 10: https://www.microsoft.com/es-es/store/apps/wepsim-w10/9nblggh5k4l4
    * Version for Windows Phone 8.1: https://www.microsoft.com/es-es/store/apps/wepsim-wp8/9nblggh5jqsr
 
-+ WepSIM source code available at: https://github.com/wepsim/wepsim
++ WepSIM source code available at: 
 
       https://github.com/wepsim/wepsim
+
++ WepSIM help is available within the simulator.
+
+
