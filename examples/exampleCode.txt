@@ -38,50 +38,27 @@ main:      li $1 0
            bne $5 $4 error   
 
            # test 05
-           li  $1 5
-           li  $2 5                   
-           li  $3 3                  
-           li  $4 2                   
-           mod $5 $2 $3       
+           li $1 6
+           li $2 5                   
+           li $3 3                  
+           li $4 3                   
+           mv $5 $3       
            bne $5 $4 error   
 
            # test 06
-           li  $1 6
-           li  $2 5                   
-           li  $3 3                  
-           li  $4 3                   
-           mv  $5 $3       
-           bne $5 $4 error   
-
-           # test 07
-           #li  $1 7
-           #lui $2 0x0000 0001                   
-           #li  $4 0x00010000                   
-           #bne $2 $4 error   
-
-           # test 08
-           li  $1 8
-           li  $2 0x01020304
-           sw  $2 w1
-           li  $2 0
+           li $1 8
+           li $2  0x01020304
+           sw $2 w1
+           li    $2 0
            lw  $2 w1
            li  $4 0x01020304
            bne $2 $4 error   
 
-           # test 09
-           li  $1 9
-           li  $2 0x01020304
-           sh  $2 w1
-           li  $2 0
-           lh  $2 w1
-           li  $4 0x00000304
-           bne $2 $4 error   
-
-           # test 10
-           li  $1 10
-           li  $2 0x01020304
-           sb  $2 w1
-           li  $2 0
+           # test 07
+           li $1 10
+           li $2  0x01020304
+           sb $2 w1
+           li   $2 0
            lb  $2 w1
            li  $4 0x00000004
            bne $2 $4 error   

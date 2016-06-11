@@ -149,12 +149,22 @@
 	    else if (obj.draw_data.length == 1)
 	    // (same draw) && (nbits > 1)
 	    {
+		    var drawit = false;
+		    for (var k=0; k<obj.explicit.length; k++) {
+		         if (typeof sim_states["REG_MICROINS"].value[obj.explicit[k]] != "undefined") {
+			     drawit = true;
+		    	     break;
+		         }
+		    }
+
+                    // console.log('value:' + value + ' / obj:' + obj.name + ' / drawit:' + drawit);
+
 		    for (var j=0; j<obj.draw_data[0].length; j++) {
-	                   obj_draw(obj.draw_data[0][j], true, color_data_active, color_data_inactive, size_active, size_inactive);
+	                   obj_draw(obj.draw_data[0][j], drawit, color_data_active, color_data_inactive, size_active, size_inactive);
 		    }
 
 		    for (var j=0; j<obj.draw_name[0].length; j++) {
-	                   obj_draw(obj.draw_name[0][j], true, color_name_active, color_name_inactive, size_active, size_inactive);
+	                   obj_draw(obj.draw_name[0][j], drawit, color_name_active, color_name_inactive, size_active, size_inactive);
 		    }
 	    }
 	}
@@ -542,7 +552,7 @@
 
 	function firmware2html ( fir, showBinary ) 
 	{
-		var filter =  [ "A0,0",   "B,0",    "C,0",   "SELA,5", "SELB,5", "SELE,2", "SELCOP,0",  "MR,0",  "MC,0",
+		var filter =  [ "A0,0",   "B,0",    "C,0",   "SELA,5", "SELB,5", "SELC,2", "SELCOP,0",  "MR,0",  "MC,0",
 				"C0,0",   "C1,0",   "C2,0",  "C3,0",   "C4,0",   "C5,0",   "C6,0",      "C7,0",
 				"T1,0",   "T2,0",   "T3,0",  "T4,0",   "T5,0",   "T6,0",   "T7,0",      "T8,0",  "T9,0",  "T10,0",
 				"M1,0",   "M2,0",   "M7,0",  "MA,0",   "MB,0",  
@@ -610,7 +620,7 @@
                                    newval = true;
                               }
 
-			      if ( (s == "SELA" || s == "SELB" || s == "SELE") &&
+			      if ( (s == "SELA" || s == "SELB" || s == "SELC") &&
                                    (typeof mins["MADDR"] != "undefined") && (!isNaN(parseInt(mins["MADDR"]))) ) 
                               {
 				   var fragment = parseInt(mins["MADDR"]).toString(2) ;
@@ -623,7 +633,7 @@
                                        svalue = parseInt(fragment.substring(5,  10), 2);
                                        newval = true;
                                    }
-                                   if (s == "SELE") {
+                                   if (s == "SELC") {
                                        svalue = parseInt(fragment.substring(10, 15), 2);
                                        newval = true;
                                    }
