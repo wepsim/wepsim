@@ -1,4 +1,4 @@
-# wepsim: WepSIM: Simulator of Elemental Processor (Wep Tool)
+# WepSIM: Simulator of Elemental Processor (Wep Tool)
 Quick Start
 
 + WepSIM Simulator:
@@ -14,4 +14,4 @@ Quick Start
 
 + WepSIM source code available at: https://github.com/wepsim/wepsim
 
-    https://github.com/wepsim/wepsim
+      https://github.com/wepsim/wepsim
