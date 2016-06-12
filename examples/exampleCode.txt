@@ -3,7 +3,8 @@
 	w1:  .word   0   
 
 .text
-main:   li $1 0
+main:   
+           li $1 0
 
             # test 01
            li $1 1
@@ -65,7 +66,8 @@ main:   li $1 0
 
            b fin
 
-error:    li  $7 101
+error:    
+          li  $7 101
           out $7 0x1000
           li  $7 114
           out $7 0x1000

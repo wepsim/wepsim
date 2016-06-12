@@ -308,7 +308,7 @@
 					  "DIV ALU_C6 MA_ALU MB_ALU; FIRE T6; FIRE SELP",
 					  "MOD ALU_C6 MA_ALU MB_ALU; FIRE T6; FIRE SELP",
 					  "LUI ALU_C6 MA_ALU; FIRE T6; FIRE SELP"],
-                               explicit: ["COP","SELCOP"],
+                               depends_on: ["SELCOP"],
 			       fire_name: ['svg_p:text3303'], 
 			       draw_data: [['svg_p:path3237', 'svg_p:path3239']], 
 			       draw_name: [['svg_p:path3009', 'svg_p:path3301']] };
@@ -333,44 +333,44 @@
 
 	sim_signals["SELA"] = { name: "SELA", visible: true, type: "L", value: 0, default_value:0, nbits: "5", 
 			        behavior: ["FIRE MR"],  
-                                explicit: ["RA","SELA"],
+                                depends_on: ["RA"],
 			        fire_name: [], 
 			        draw_data: [[]], 
 			        draw_name: [[]] };
 	sim_signals["SELB"] = { name: "SELB", visible: true, type: "L", value: 0, default_value:0, nbits: "5", 
 			        behavior: ["FIRE MR"], 
-                                explicit: ["RB","SELB"],
+                                depends_on: ["RB"],
 			        fire_name: [], 
 			        draw_data: [[]], /**/ 
 			        draw_name: [[]] };
 	sim_signals["SELC"] = { name: "SELC", visible: true, type: "L", value: 0, default_value:0, nbits: "5", 
 			        behavior: ["FIRE MR"],              
-                                explicit: ["RC","SELC"],
+                                depends_on: ["RC"],
 			        fire_name: [], 
 			        draw_data: [[]],                         
 			        draw_name: [[]] };
 	sim_signals["SELCOP"] = { name: "SELCOP", visible: true, type: "L", value: 0, default_value:0, nbits: "5", 
 			        behavior: ["FIRE MC"],  
-                                explicit: ["COP","SELCOP"],
+                                depends_on: ["COP"],
 			        fire_name: [], 
 			        draw_data: [[]], 
 			        draw_name: [[]] };
 
 	sim_signals["RA"]  = { name: "RA", visible: true, type: "L", value: 0, default_value:0, nbits: "5", 
 			       behavior: ["GET RA_T9 BR RA; FIRE T9; FIRE MA;"],  
-                               explicit: ["RA","SELA"],
+                               depends_on: ["SELA"],
 			       fire_name: ['svg_p:text3107'], 
 			       draw_data: [[]], 
 			       draw_name: [['svg_p:path3109']] };
 	sim_signals["RB"]  = { name: "RB", visible: true, type: "L", value: 0, default_value:0, nbits: "5", 
 			       behavior: ["GET RB_T10 BR RB; FIRE T10; FIRE MB;"], 
-                               explicit: ["RB","SELB"],
+                               depends_on: ["SELB"],
 			       fire_name: ['svg_p:text3123'], 
 			       draw_data: [[]],
 			       draw_name: [['svg_p:path3113']] };
 	sim_signals["RC"]  = { name: "RC", visible: true, type: "L", value: 0, default_value:0, nbits: "5", 
 			       behavior: ["FIRE LC"],              
-                               explicit: ["RC","SELC"],
+                               depends_on: ["SELC"],
 			       fire_name: ['svg_p:text3125'], 
 			       draw_data: [[]],                         
 			       draw_name: [['svg_p:path3117']] };
@@ -387,13 +387,11 @@
 			       draw_name: [['svg_p:path3591']] };
 	sim_signals["SIZE"]   = { name: "SIZE",   visible: true, type: "L", value: 0, default_value:0, nbits: "5", 
 			       behavior: ['MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3'], 
-                               explicit: ["SIZE"],
 			       fire_name: ['svg_p:text3363'], 
 			       draw_data: [[]], 
 			       draw_name: [[]] };
 	sim_signals["OFFSET"] = { name: "OFFSET", visible: true, type: "L", value: 0, default_value:0, nbits: "5", 
 			       behavior: ['MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3'], 
-                               explicit: ["OFFSET"],
 			       fire_name: ['svg_p:text3707'], 
 			       draw_data: [[]], 
 			       draw_name: [[]] };

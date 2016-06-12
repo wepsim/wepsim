@@ -122,49 +122,56 @@
             if (true == DRAW_stop)
                 return ;
 
+	    var draw_it = false;
+	    if (typeof sim_states["REG_MICROINS"].value[obj.name] != "undefined") {
+		draw_it = true;
+	    }
+	    if ( (false == draw_it) && (typeof obj.depends_on != "undefined") )
+	    {
+		for (var k=0; k<obj.depends_on.length; k++) 
+		{
+		     if (typeof sim_states["REG_MICROINS"].value[obj.depends_on[k]] != "undefined") {
+			     draw_it = true;
+			     break;
+		     }
+		}
+	    }
+
 	    if (obj.draw_data.length > 1)
 	    // (different draws)
 	    {
 		    for (var i=0; i<obj.draw_data.length; i++)
 		    for (var j=0; j<obj.draw_data[i].length; j++) {
-	                   obj_draw(obj.draw_data[i][j], (i==value), color_data_active, color_data_inactive, size_active, size_inactive);
+	                   obj_draw(obj.draw_data[i][j], (i==value) && draw_it, color_data_active, color_data_inactive, size_active, size_inactive);
 		    }
 
 		    for (var i=0; i<obj.draw_name.length; i++)
 		    for (var j=0; j<obj.draw_name[i].length; j++) {
-	                   obj_draw(obj.draw_name[i][j], (i==value), color_name_active, color_name_inactive, size_active, size_inactive);
+	                   obj_draw(obj.draw_name[i][j], (i==value) && draw_it, color_name_active, color_name_inactive, size_active, size_inactive);
 		    }
 	    }
 	    else if (obj.nbits == 1)
 	    // (same draw) && (nbits == 1)
 	    {
 		    for (var j=0; j<obj.draw_data[0].length; j++) {
-	                   obj_draw(obj.draw_data[0][j], (0!=value), color_data_active, color_data_inactive, size_active, size_inactive);
+	                   obj_draw(obj.draw_data[0][j], (0!=value) && draw_it, color_data_active, color_data_inactive, size_active, size_inactive);
 		    }
 
 		    for (var j=0; j<obj.draw_name[0].length; j++) {
-	                   obj_draw(obj.draw_name[0][j], (0!=value), color_name_active, color_name_inactive, size_active, size_inactive);
+	                   obj_draw(obj.draw_name[0][j], (0!=value) && draw_it, color_name_active, color_name_inactive, size_active, size_inactive);
 		    }
 	    }
 	    else if (obj.draw_data.length == 1)
 	    // (same draw) && (nbits > 1)
 	    {
-		    var drawit = false;
-		    for (var k=0; k<obj.explicit.length; k++) {
-		         if (typeof sim_states["REG_MICROINS"].value[obj.explicit[k]] != "undefined") {
-			     drawit = true;
-		    	     break;
-		         }
-		    }
-
-                    // console.log('value:' + value + ' / obj:' + obj.name + ' / drawit:' + drawit);
+                    // console.log('value:' + value + ' / obj:' + obj.name + ' / draw_it:' + draw_it);
 
 		    for (var j=0; j<obj.draw_data[0].length; j++) {
-	                   obj_draw(obj.draw_data[0][j], drawit, color_data_active, color_data_inactive, size_active, size_inactive);
+	                   obj_draw(obj.draw_data[0][j], draw_it, color_data_active, color_data_inactive, size_active, size_inactive);
 		    }
 
 		    for (var j=0; j<obj.draw_name[0].length; j++) {
-	                   obj_draw(obj.draw_name[0][j], drawit, color_name_active, color_name_inactive, size_active, size_inactive);
+	                   obj_draw(obj.draw_name[0][j], draw_it, color_name_active, color_name_inactive, size_active, size_inactive);
 		    }
 	    }
 	}
