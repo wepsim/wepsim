@@ -122,7 +122,7 @@
             if (true == DRAW_stop)
                 return ;
 
-	    var draw_it = false;
+	    var draw_it = is_byvalue; // is_byvalue belongs to the sim_cfg.js
 	    if (typeof sim_states["REG_MICROINS"].value[obj.name] != "undefined") {
 		draw_it = true;
 	    }
@@ -164,8 +164,6 @@
 	    else if (obj.draw_data.length == 1)
 	    // (same draw) && (nbits > 1)
 	    {
-                    // console.log('value:' + value + ' / obj:' + obj.name + ' / draw_it:' + draw_it);
-
 		    for (var j=0; j<obj.draw_data[0].length; j++) {
 	                   obj_draw(obj.draw_data[0][j], draw_it, color_data_active, color_data_inactive, size_active, size_inactive);
 		    }
@@ -563,7 +561,7 @@
 				"C0,0",   "C1,0",   "C2,0",  "C3,0",   "C4,0",   "C5,0",   "C6,0",      "C7,0",
 				"T1,0",   "T2,0",   "T3,0",  "T4,0",   "T5,0",   "T6,0",   "T7,0",      "T8,0",  "T9,0",  "T10,0",
 				"M1,0",   "M2,0",   "M7,0",  "MA,0",   "MB,0",  
-                                "SELP,0", "LE,0",   "SE,0",  "SIZE,0", "OFFSET,0",
+                                "SELP,0", "LC,0",   "SE,0",  "SIZE,0", "OFFSET,0",
                                 "BW,0",   "R,0",    "W,0",   "TA,0",   "TD,0",   "IOR,0",  "IOW,0",  
                                 "I,0",    "U,0"  ] ;
 
