@@ -1,9 +1,9 @@
-
 .data
-	w1:  .word   0   
+       w1: .word   0   
 
 .text
-main:      li $1 0
+main:      liu $0 rti
+           li  $1 0
 
             # test 01
            li $1 1
@@ -64,6 +64,10 @@ main:      li $1 0
            bne $2 $4 error   
 
            b fin
+
+rti:      li $1 1
+          add $30 $30 $1
+          reti
 
 error:    li  $7 101
           out $7 0x1000
