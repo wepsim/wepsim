@@ -356,9 +356,14 @@
 			        fire_name: [], 
 			        draw_data: [[]],                         
 			        draw_name: [[]] };
-	sim_signals["SELCOP"] = { name: "SELCOP", visible: true, type: "L", value: 0, default_value:0, nbits: "5", 
+	sim_signals["SELCOP"] = { name: "SELCOP", visible: true, type: "L", value: 0, default_value:0, nbits: "4", 
 			        behavior: ["FIRE MC"],  
                                 depends_on: ["COP"],
+			        fire_name: [], 
+			        draw_data: [[]], 
+			        draw_name: [[]] };
+	sim_signals["INM"] = {  name: "INM", visible: true, type: "L", value: 0, default_value:0, nbits: "4", 
+			        behavior: ["FIRE T11"],  
 			        fire_name: [], 
 			        draw_data: [[]], 
 			        draw_name: [[]] };
