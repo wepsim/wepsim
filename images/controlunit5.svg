@@ -522,15 +522,7 @@
        x="501.87918"
        xml:space="preserve"
        sodipodi:linespacing="125%"
-       style="font-size:14.35485458px;line-height:125%;font-family:Arial;fill:#000000">Sel</text>
-    <text
-       id="text3166"
-       xml:space="preserve"
-       transform="scale(1.0170935,0.98319377)"
-       font-size="14.325px"
-       y="323.17996"
-       x="524.32776"
-       style="font-size:13.0287838px;font-family:Arial;fill:#000000">A</text>
+       style="font-size:14.35485458px;line-height:125%;font-family:Arial;fill:#000000">Sel A</text>
     <text
        id="text3168"
        transform="scale(1.0170935,0.98319377)"
@@ -540,15 +532,7 @@
        x="552.38147"
        xml:space="preserve"
        sodipodi:linespacing="125%"
-       style="font-size:14.35485458px;line-height:125%;font-family:Arial;fill:#000000">Sel</text>
-    <text
-       id="text3170"
-       xml:space="preserve"
-       transform="scale(1.0170935,0.98319377)"
-       font-size="14.325px"
-       y="323.17996"
-       x="574.82996"
-       style="font-size:13.0287838px;font-family:Arial;fill:#000000">B</text>
+       style="font-size:14.35485458px;line-height:125%;font-family:Arial;fill:#000000">Sel B</text>
     <text
        id="text3172"
        transform="scale(1.0170935,0.98319377)"
@@ -558,15 +542,7 @@
        x="605.85242"
        xml:space="preserve"
        sodipodi:linespacing="125%"
-       style="font-size:14.35485458px;line-height:125%;font-family:Arial;fill:#000000">Sel</text>
-    <text
-       id="text3174"
-       xml:space="preserve"
-       transform="scale(1.0170935,0.98319377)"
-       font-size="14.325px"
-       y="323.17996"
-       x="628.30096"
-       style="font-size:13.0287838px;font-family:Arial;fill:#000000">C</text>
+       style="font-size:14.35485458px;line-height:125%;font-family:Arial;fill:#000000">Sel C</text>
     <path
        id="path3176"
        d="m 498.47587,300.54401 c 0,-0.34727 0.29938,-0.63667 0.65862,-0.63667 l 51.85138,0 c 0.35924,0 0.65862,0.2894 0.65862,0.63667 l 0,26.91342 c 0,0.34728 -0.29938,0.63667 -0.65862,0.63667 l -51.85138,0 c -0.35924,0 -0.65862,-0.28939 -0.65862,-0.63667 z m 1.31716,26.91342 -0.65862,-0.65597 51.85138,0 -0.67857,0.65597 0,-26.91342 0.67857,0.65596 -51.85138,0 0.65862,-0.65596 z"

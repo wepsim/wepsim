@@ -346,30 +346,30 @@
 	sim_signals["SELA"] = { name: "SELA", visible: true, type: "L", value: 0, default_value:0, nbits: "5", 
 			        behavior: ["FIRE MR"],  
                                 depends_on: ["RA"],
-			        fire_name: [], 
+			        fire_name: ['svg_cu:text3164'], 
 			        draw_data: [[]], 
 			        draw_name: [[]] };
 	sim_signals["SELB"] = { name: "SELB", visible: true, type: "L", value: 0, default_value:0, nbits: "5", 
 			        behavior: ["FIRE MR"], 
                                 depends_on: ["RB"],
-			        fire_name: [], 
-			        draw_data: [[]], /**/ 
+			        fire_name: ['svg_cu:text3168'], 
+			        draw_data: [[]], 
 			        draw_name: [[]] };
 	sim_signals["SELC"] = { name: "SELC", visible: true, type: "L", value: 0, default_value:0, nbits: "5", 
 			        behavior: ["FIRE MR"],              
                                 depends_on: ["RC"],
-			        fire_name: [], 
+			        fire_name: ['svg_cu:text3172'], 
 			        draw_data: [[]],                         
 			        draw_name: [[]] };
 	sim_signals["SELCOP"] = { name: "SELCOP", visible: true, type: "L", value: 0, default_value:0, nbits: "4", 
 			        behavior: ["FIRE MC"],  
                                 depends_on: ["COP"],
-			        fire_name: [], 
+			        fire_name: ['svg_cu:text3312'], 
 			        draw_data: [[]], 
 			        draw_name: [[]] };
 	sim_signals["EXCODE"] = { name: "EXCODE", visible: true, type: "L", value: 0, default_value:0, nbits: "4", 
 			        behavior: ["FIRE T11"],  
-			        fire_name: [], 
+			        fire_name: ['svg_cu:text3312-6'], 
 			        draw_data: [[]], 
 			        draw_name: [[]] };
 
