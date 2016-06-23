@@ -271,9 +271,9 @@
 			       draw_name: [['svg_p:path3137']] };
 	sim_signals["T11"] = { name: "T11", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 			       behavior: ["NOP", "MV_EE BUS_IB REG_MICROINS/INM; FIRE M7; FIRE M2; FIRE M1"],
-			       fire_name: ['svg_p:text3147-5'], 
-			       draw_data: [['svg_p:path3145', 'svg_p:path3081-3','svg_p:path3139-7']], 
-			       draw_name: [['svg_p:path3133-6']] };
+			       fire_name: ['svg_cu:text3147-5'], 
+			       draw_data: [['svg_p:path3145', 'svg_p:path3081-3','svg_p:path3139-7','svg_cu:path3081-3','svg_cu:path3139-7']], 
+			       draw_name: [['svg_p:path3133-6','svg_cu:path3133-6']] };
 
 	/* MUX. */
 	sim_signals["M1"]  = { name: "M1", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",  
