@@ -82,6 +82,10 @@
 			    var behavior_i = behaviors[i].trim();
 			    var behavior_k = behavior_i.split(" ") ;
 
+			    if ("" == behavior_i)  {
+                                continue;
+			    }
+
 			    if (typeof (syntax_behavior[behavior_k[0]]) == "undefined")
 			    {
 				alert("ALERT: Unknown operation -> " + behavior_k[0] + " (" + behavior_i + ")");
@@ -94,11 +98,11 @@
 				return;
 			    }
 
-			    for (var i=1; i<behavior_k.length; i++) 
+			    for (var j=1; j<behavior_k.length; j++) 
 			    {
-				if ("E" == syntax_behavior[behavior_k[0]].types[i-1])
+				if ("E" == syntax_behavior[behavior_k[0]].types[j-1])
 				{
-				     var s = behavior_k[i].split('/') ;
+				     var s = behavior_k[j].split('/') ;
 
 				     if (typeof (sim_states[s[0]]) == "undefined") 
 				     {
@@ -106,9 +110,9 @@
 					 return;
 				     }
 				}
-				else if ("S" == syntax_behavior[behavior_k[0]].types[i-1])
+				else if ("S" == syntax_behavior[behavior_k[0]].types[j-1])
 				{
-				     var s = behavior_k[i].split('/') ;
+				     var s = behavior_k[j].split('/') ;
 
 				     if (typeof (sim_signals[s[0]]) == "undefined")
 				     {
