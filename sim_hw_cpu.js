@@ -939,11 +939,13 @@
 						    var cop_code = parseInt(bits.substr(28, 4), 2) ; // cop-code of 4 bits
 
 						    // 1.- IR -> oi
+						    sim_states['INEX'].value = 0 ;
 						    var oi = decode_instruction(bits) ;
 						    if (null == oi)
                                                     {
 							 alert('ERROR: undefined instruction code ' + op_code + '/' + cop_code + ' in firmware') ;
 							 sim_states['ROM_MUXA'].value = 0 ;
+							 sim_states['INEX'].value = 1 ;
 							 return -1;
 						    }
 
