@@ -35,7 +35,7 @@
 
             // Ti + Tj
             var tri_name = "";
-            var tri_state_names = [ "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10" ] ;
+            var tri_state_names = [ "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11" ] ;
 
             if (tri_state_names.indexOf(fired) == -1)
                 return; 
