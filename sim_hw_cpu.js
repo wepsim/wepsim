@@ -270,7 +270,7 @@
 			       draw_data: [['svg_p:path3145', 'svg_p:path3141','svg_p:path3049']], 
 			       draw_name: [['svg_p:path3137']] };
 	sim_signals["T11"] = { name: "T11", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-			       behavior: ["NOP", "MV_EE BUS_IB REG_MICROINS/INM; FIRE M7; FIRE M2; FIRE M1"],
+			       behavior: ["NOP", "MV_EE BUS_IB REG_MICROINS/EXCODE; FIRE M7; FIRE M2; FIRE M1"],
 			       fire_name: ['svg_p:text3147-5'], 
 			       draw_data: [['svg_p:path3145', 'svg_p:path3081-3','svg_p:path3139-7','svg_cu:path3081-3','svg_cu:path3139-7']], 
 			       draw_name: [['svg_p:path3133-6','svg_cu:path3133-6']] };
@@ -364,6 +364,11 @@
 	sim_signals["SELCOP"] = { name: "SELCOP", visible: true, type: "L", value: 0, default_value:0, nbits: "4", 
 			        behavior: ["FIRE MC"],  
                                 depends_on: ["COP"],
+			        fire_name: [], 
+			        draw_data: [[]], 
+			        draw_name: [[]] };
+	sim_signals["EXCODE"] = { name: "EXCODE", visible: true, type: "L", value: 0, default_value:0, nbits: "4", 
+			        behavior: ["FIRE T11"],  
 			        fire_name: [], 
 			        draw_data: [[]], 
 			        draw_name: [[]] };
