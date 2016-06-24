@@ -32,7 +32,7 @@
 	 *  States
 	 */
 
-	/*ESTADOS DE REGISTROS*/
+	/* REGISTER FILE STATES */
 	sim_states["BR"] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 	sim_states["REG_PC"]         = {name:"PC",          visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
@@ -44,18 +44,20 @@
 	sim_states["REG_RT3"]        = {name:"RT3",         visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim_states["REG_SR"]         = {name:"SR",          visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };        
 
-	/*BUSES*/
+	/* BUSES */
 	sim_states["BUS_IB"]         = {name:"I_BUS",          visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim_states["BUS_AB"]         = {name:"A_BUS",          visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim_states["BUS_CB"]         = {name:"C_BUS",          visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim_states["BUS_DB"]         = {name:"D_BUS",          visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
-	/*ESTADOS DE REGISTRO A*/
+	/* REGISTER PC (RELATED) STATES */
 	sim_states["C2_T2"]          = {name: "C2_T2",          visible:false, nbits: "32", value: 0, default_value:0, draw_data: [] };
+
+	/* REGISTER FILE (RELATED) STATES */
 	sim_states["RA_T9"]          = {name: "RA_T9",          visible:false, nbits: "32", value: 0, default_value:0, draw_data: [] };
 	sim_states["RB_T10"]         = {name: "RB_T10",         visible:false, nbits: "32", value: 0, default_value:0, draw_data: [] };
 
-	/*ESTADOS DE SELEC */
+	/* (RELATED) SELEC STATES */
 	sim_states["SELEC_T3"]       = { name: "SELEC_T3",      visible:false, nbits: "32", value: 0, default_value:0, draw_data: [] };
 	sim_states["SELP_M7"]        = { name: "SELP_M7",       visible:false, nbits: "32", value: 0, default_value:0, draw_data: [] };
 
@@ -64,13 +66,14 @@
 	sim_states["MA_ALU"]         = {name:"MA_ALU",          visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim_states["MB_ALU"]         = {name:"MB_ALU",          visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
-	sim_states["FLAG_O"]         = { name: "FLAG_O",        visible:true, nbits: "1", value: 0, default_value:0, draw_data: [] };
+	sim_states["FLAG_C"]         = { name: "FLAG_C",        visible:true, nbits: "1", value: 0, default_value:0, draw_data: [] };
+	sim_states["FLAG_V"]         = { name: "FLAG_V",        visible:true, nbits: "1", value: 0, default_value:0, draw_data: [] };
 	sim_states["FLAG_N"]         = { name: "FLAG_N",        visible:true, nbits: "1", value: 0, default_value:0, draw_data: [] };
 	sim_states["FLAG_Z"]         = { name: "FLAG_Z",        visible:true, nbits: "1", value: 0, default_value:0, draw_data: [] };
 	sim_states["FLAG_I"]         = { name: "FLAG_I",        visible:true, nbits: "1", value: 0, default_value:0, draw_data: [] };
 	sim_states["FLAG_U"]         = { name: "FLAG_U",        visible:true, nbits: "1", value: 0, default_value:0, draw_data: [] };
 
-	/*UNIDAD CONTROL*/
+	/* CONTROL UNIT */
 	sim_states["REG_MICROADDR"]  = { name: "µADDR",  visible:true, nbits: "12", value:0,  default_value:0,  draw_data: ['svg_cu:text4667']};
 	sim_states["REG_MICROINS"]   = { name: "µINS",   visible:true, nbits: "77", value:{}, default_value:{}, draw_data: [] };
 
@@ -78,19 +81,21 @@
 	sim_states["ROM_MUXA"]       = { name: "ROM_MUXA",       visible:false, nbits: "12", value: 0, default_value:0, draw_data: [] };
 	sim_states["SUM_ONE"]        = { name: "SUM_ONE",        visible:false, nbits: "12", value: 1, default_value:1, draw_data: [] };
 	sim_states["MUXA_MICROADDR"] = { name: "MUXA_MICROADDR", visible:false, nbits: "12", value: 0, default_value:0, draw_data: [] };
-	sim_states["MUXC_MUXB"]      = { name: "MUXC_MUXB",      visible:false, nbits: "1",  value: 0, default_value:0, draw_data: [] };
 
-	/*MEMORIA y DISPOSITIVOS*/
+	sim_states["MUXC_MUXB"]      = { name: "MUXC_MUXB",      visible:false, nbits: "1",  value: 0, default_value:0, draw_data: [] };
+	sim_states["INEX"]           = { name: "INEX",           visible:false, nbits: "1",  value: 0, default_value:0, draw_data: [] };
+
+	/* DEVICES AND MEMORY */
 	sim_states["BS_M1"]          = { name: "BS_M1",          visible:false, nbits: "32", value: 0, default_value:0, draw_data: [] };
 	sim_states["BS_TD"]          = { name: "BS_TD",          visible:false, nbits: "32", value: 0, default_value:0, draw_data: [] };
 
 	sim_states["INTV"]           = { name: "INTV",           visible:false, nbits: "8",  value: 0, default_value:0, draw_data: [] };
 
 
-	/*ESTADOS DE MUX A*/
-	sim_states["M2_C2"]          = {name:"M2_C2",            visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["M1_C1"]          = {name:"M1_C1",            visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["M7_C7"]          = {name:"M7_C7",            visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	/* MUX A (RELATED) STATES */
+	sim_states["M2_C2"]          = { name:"M2_C2",           visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["M1_C1"]          = { name:"M1_C1",           visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["M7_C7"]          = { name:"M7_C7",           visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
 	sim_states["VAL_ZERO"]       = { name: "VAL_ZERO",       visible:false, nbits: "1",  value: 0, default_value:0, draw_data: [] };
 	sim_states["VAL_ONE"]        = { name: "VAL_ONE",        visible:false, nbits: "32", value: 1, default_value:1, draw_data: [] };
@@ -106,7 +111,7 @@
 	 *  Signals
 	 */
 
-	/*CONTROL UNIT*/
+	/* CONTROL UNIT */
 	sim_signals["C"]    = { name: "C",    visible: true, type: "L", value: 0, default_value: 0, nbits: "4", 
 				behavior: ["MV MUXC_MUXB VAL_ZERO; FIRE B", 
 					   "MV MUXC_MUXB INT; FIRE B", 
@@ -114,9 +119,11 @@
 					   "MV MUXC_MUXB MRDY; FIRE B", 
 					   "MBIT_I MUXC_MUXB REG_SR 0 1; FIRE B",
 					   "MBIT_I MUXC_MUXB REG_SR 1 1; FIRE B", 
+					   "MBIT_I MUXC_MUXB REG_SR 28 1; FIRE B", 
 					   "MBIT_I MUXC_MUXB REG_SR 29 1; FIRE B", 
 					   "MBIT_I MUXC_MUXB REG_SR 30 1; FIRE B", 
-					   "MBIT_I MUXC_MUXB REG_SR 31 1; FIRE B"],
+					   "MBIT_I MUXC_MUXB REG_SR 31 1; FIRE B", 
+					   "MV MUXC_MUXB INEX; FIRE B"],
 				fire_name: ['svg_cu:text3410'],
 				draw_data: [['svg_cu:path3108'], 
 					    ['svg_cu:path3062'], 
@@ -159,7 +166,7 @@
 					    ['svg_cu:path3124']], 
 				draw_name: [[]] };
 
-	/*CARGA EN REGISTROS*/
+	/* REGISTER LOAD */
 	sim_signals["C0"] = { name: "C0", visible: true, type: "E", value: 0, default_value:0, nbits: "1", 
 			       behavior: ["NOP", "MV REG_MAR BUS_IB"],   
 			       fire_name: ['svg_p:text3077'], 
@@ -201,7 +208,7 @@
 			       draw_data: [['svg_p:path3651-9']], 
 			       draw_name: [['svg_p:path3681']] };
 
-	/*TRIESTADOS*/
+	/* TRI-STATES */
 	sim_signals["TA"]  = { name: "TA",  visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 			       behavior: ["NOP", "MV BUS_AB REG_MAR"],           
 			       fire_name: ['svg_p:text3091'], 
@@ -262,8 +269,13 @@
 			       fire_name: ['svg_p:text3149'], 
 			       draw_data: [['svg_p:path3145', 'svg_p:path3141','svg_p:path3049']], 
 			       draw_name: [['svg_p:path3137']] };
+	sim_signals["T11"] = { name: "T11", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+			       behavior: ["NOP", "MV_EE BUS_IB REG_MICROINS/EXCODE; FIRE M7; FIRE M2; FIRE M1"],
+			       fire_name: ['svg_p:text3147-5'], 
+			       draw_data: [['svg_p:path3145', 'svg_p:path3081-3','svg_p:path3139-7','svg_p:path3049','svg_cu:path3081-3','svg_cu:path3139-7']], 
+			       draw_name: [['svg_p:path3133-6','svg_cu:path3133-6']] };
 
-	/*MULTIPLEXORES*/
+	/* MUX. */
 	sim_signals["M1"]  = { name: "M1", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",  
 			       behavior: ["MV M1_C1 BUS_IB", "MV M1_C1 BS_M1"], 
 			       fire_name: ['svg_p:text3469'], 
@@ -316,7 +328,7 @@
 				behavior: ['NOP',
 				     'MV SELP_M7 REG_SR; SBIT_E SELP_M7 FLAG_U 0; FIRE M7',
 				     'MV SELP_M7 REG_SR; SBIT_E SELP_M7 FLAG_I 1; FIRE M7',
-				     'MV SELP_M7 REG_SR; SBIT_E SELP_M7 FLAG_O 31; SBIT_E SELP_M7 FLAG_N 30; SBIT_E SELP_M7 FLAG_Z 29; FIRE M7'],
+				     'MV SELP_M7 REG_SR; SBIT_E SELP_M7 FLAG_C 31; SBIT_E SELP_M7 FLAG_V 30; SBIT_E SELP_M7 FLAG_N 29; SBIT_E SELP_M7 FLAG_Z 28; FIRE M7'],
 				fire_name: ['svg_p:text3703'], 
 				draw_data: [[],['svg_p:path3643'],['svg_p:path3705'],['svg_p:path3675', 'svg_p:path3331']], 
 				draw_name: [[]]};
@@ -334,36 +346,41 @@
 	sim_signals["SELA"] = { name: "SELA", visible: true, type: "L", value: 0, default_value:0, nbits: "5", 
 			        behavior: ["FIRE MR"],  
                                 depends_on: ["RA"],
-			        fire_name: [], 
+			        fire_name: ['svg_cu:text3164'], 
 			        draw_data: [[]], 
 			        draw_name: [[]] };
 	sim_signals["SELB"] = { name: "SELB", visible: true, type: "L", value: 0, default_value:0, nbits: "5", 
 			        behavior: ["FIRE MR"], 
                                 depends_on: ["RB"],
-			        fire_name: [], 
-			        draw_data: [[]], /**/ 
+			        fire_name: ['svg_cu:text3168'], 
+			        draw_data: [[]], 
 			        draw_name: [[]] };
 	sim_signals["SELC"] = { name: "SELC", visible: true, type: "L", value: 0, default_value:0, nbits: "5", 
 			        behavior: ["FIRE MR"],              
                                 depends_on: ["RC"],
-			        fire_name: [], 
+			        fire_name: ['svg_cu:text3172'], 
 			        draw_data: [[]],                         
 			        draw_name: [[]] };
-	sim_signals["SELCOP"] = { name: "SELCOP", visible: true, type: "L", value: 0, default_value:0, nbits: "5", 
+	sim_signals["SELCOP"] = { name: "SELCOP", visible: true, type: "L", value: 0, default_value:0, nbits: "4", 
 			        behavior: ["FIRE MC"],  
                                 depends_on: ["COP"],
-			        fire_name: [], 
+			        fire_name: ['svg_cu:text3312'], 
+			        draw_data: [[]], 
+			        draw_name: [[]] };
+	sim_signals["EXCODE"] = { name: "EXCODE", visible: true, type: "L", value: 0, default_value:0, nbits: "4", 
+			        behavior: ["FIRE T11"],  
+			        fire_name: ['svg_cu:text3312-6'], 
 			        draw_data: [[]], 
 			        draw_name: [[]] };
 
 	sim_signals["RA"]  = { name: "RA", visible: true, type: "L", value: 0, default_value:0, nbits: "5", 
-			       behavior: ["GET RA_T9 BR RA; FIRE T9; FIRE MA;"],  
+			       behavior: ["GET RA_T9 BR RA; FIRE T9; FIRE MA"],  
                                depends_on: ["SELA"],
 			       fire_name: ['svg_p:text3107'], 
 			       draw_data: [[]], 
 			       draw_name: [['svg_p:path3109']] };
 	sim_signals["RB"]  = { name: "RB", visible: true, type: "L", value: 0, default_value:0, nbits: "5", 
-			       behavior: ["GET RB_T10 BR RB; FIRE T10; FIRE MB;"], 
+			       behavior: ["GET RB_T10 BR RB; FIRE T10; FIRE MB"], 
                                depends_on: ["SELB"],
 			       fire_name: ['svg_p:text3123'], 
 			       draw_data: [[]],
@@ -414,7 +431,7 @@
 					    'svg_cu:path3294', 'svg_cu:path3292', 'svg_cu:path3288', 'svg_cu:path3232', 'svg_cu:path3280']],
 			       draw_name: [[],['svg_cu:path3220','svg_cu:path3240','svg_cu:path3252']] };
 
-	// W-Byte & R-Byte Selector
+	/* W-Byte & R-Byte Selector */
 	sim_signals["BW"] =  { name: "BW", visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
 		      behavior: ['MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; MOVE_BITS RWBWA 2 2 BW; FIRE BWA; FIRE SBWA; FIRE RWBWA',
 				 'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; MOVE_BITS RWBWA 2 2 BW; FIRE BWA; FIRE SBWA; FIRE RWBWA',
@@ -488,7 +505,7 @@
 				draw_data: [[],[]],
 				draw_name: [[],[]] };
 
-	// I/O Devices
+	/* I/O Devices */
 	sim_signals["IOR"]   = { name: "IOR", visible: true, type: "L", value: 0, default_value:0, nbits: "1",  
 				 behavior: ["NOP", "MOVE_BITS KBD_IOR 0 1 IOR; MOVE_BITS SCR_IOR 0 1 IOR; FIRE KBD_IOR; FIRE SCR_IOR"],
 				 fire_name: ['svg_p:text3715'],  
@@ -569,7 +586,8 @@
 
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
-						   sim_states["FLAG_O"].value = 0 ;
+						   sim_states["FLAG_V"].value = 0 ;
+						   sim_states["FLAG_C"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["OR"]    = { nparameters: 4, 
@@ -580,7 +598,8 @@
 
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
-						   sim_states["FLAG_O"].value = 0 ;
+						   sim_states["FLAG_V"].value = 0 ;
+						   sim_states["FLAG_C"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["NOT"]   = { nparameters: 3, 
@@ -590,7 +609,8 @@
 
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
-						   sim_states["FLAG_O"].value = 0 ;
+						   sim_states["FLAG_V"].value = 0 ;
+						   sim_states["FLAG_C"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["XOR"]   = { nparameters: 4, 
@@ -601,7 +621,8 @@
 
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
-						   sim_states["FLAG_O"].value = 0 ;
+						   sim_states["FLAG_V"].value = 0 ;
+						   sim_states["FLAG_C"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["SRL"]   = { nparameters: 3, 
@@ -611,7 +632,8 @@
 
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
-						   sim_states["FLAG_O"].value = 0 ;
+						   sim_states["FLAG_V"].value = 0 ;
+						   sim_states["FLAG_C"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["SRA"]   = { nparameters: 3, 
@@ -621,7 +643,8 @@
 
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
-						   sim_states["FLAG_O"].value = 0 ;
+						   sim_states["FLAG_V"].value = 0 ;
+						   sim_states["FLAG_C"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["SL"]    = { nparameters: 3, 
@@ -631,7 +654,8 @@
 
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
-						   sim_states["FLAG_O"].value = 0 ;
+						   sim_states["FLAG_V"].value = 0 ;
+						   sim_states["FLAG_C"].value = (sim_states[s_expr[2]].value) >> 31 ;
 						}  
 				   };
 	syntax_behavior["RR"]    = { nparameters: 3, 
@@ -642,7 +666,8 @@
 
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
-						   sim_states["FLAG_O"].value = 0 ;
+						   sim_states["FLAG_V"].value = 0 ;
+						   sim_states["FLAG_C"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["RL"]    = { nparameters: 3, 
@@ -653,7 +678,8 @@
 
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
-						   sim_states["FLAG_O"].value = 0 ;
+						   sim_states["FLAG_V"].value = 0 ;
+						   sim_states["FLAG_C"].value = (sim_states[s_expr[2]].value) >> 31 ;
 						}  
 				   };
 	syntax_behavior["ADD"]   = { nparameters: 4, 
@@ -669,8 +695,11 @@
 						   if ( (sim_states[s_expr[1]].value < 0) && 
 							(sim_states[s_expr[2]].value >= 0) && 
 							(sim_states[s_expr[3]].value >= 0) )
-							sim_states["FLAG_O"].value = 1 ;
-						   else sim_states["FLAG_O"].value = 0 ;
+							sim_states["FLAG_V"].value = 1 ;
+						   else sim_states["FLAG_V"].value = 0 ;
+
+						   sim_states["FLAG_C"].value = ((sim_states[s_expr[2]].value) >> 31) &&
+						                                ((sim_states[s_expr[3]].value) >> 31) ;
 						}  
 				   };
 	syntax_behavior["SUB"]   = { nparameters: 4, 
@@ -685,8 +714,11 @@
 						   if ( (sim_states[s_expr[1]].value < 0) && 
 							(sim_states[s_expr[2]].value >= 0) && 
 							(sim_states[s_expr[3]].value >= 0) )
-							sim_states["FLAG_O"].value = 1 ;
-						   else sim_states["FLAG_O"].value = 0 ;
+							sim_states["FLAG_V"].value = 1 ;
+						   else sim_states["FLAG_V"].value = 0 ;
+
+						   sim_states["FLAG_C"].value = ((sim_states[s_expr[2]].value) >> 31) &&
+						                                ((sim_states[s_expr[3]].value) >> 31) ;
 						}  
 				   };
 	syntax_behavior["MUL"]   = { nparameters: 4, 
@@ -701,8 +733,10 @@
 						   if ( (sim_states[s_expr[1]].value < 0) && 
 							(sim_states[s_expr[2]].value >= 0) && 
 							(sim_states[s_expr[3]].value >= 0) )
-							sim_states["FLAG_O"].value = 1 ;
-						   else sim_states["FLAG_O"].value = 0 ;
+							sim_states["FLAG_V"].value = 1 ;
+						   else sim_states["FLAG_V"].value = 0 ;
+
+						   sim_states["FLAG_C"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["DIV"]   = { nparameters: 4, 
@@ -714,7 +748,8 @@
 
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
-						   sim_states["FLAG_O"].value = 0 ;
+						   sim_states["FLAG_V"].value = 0 ;
+						   sim_states["FLAG_C"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["MOD"]   = { nparameters: 4, 
@@ -725,7 +760,8 @@
 
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
-						   sim_states["FLAG_O"].value = 0 ;
+						   sim_states["FLAG_V"].value = 0 ;
+						   sim_states["FLAG_C"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["LUI"]   = { nparameters: 3, 
@@ -735,7 +771,8 @@
 
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
-						   sim_states["FLAG_O"].value = 0 ;
+						   sim_states["FLAG_V"].value = 0 ;
+						   sim_states["FLAG_C"].value = 0 ;
 						}  
 				   };
 	syntax_behavior["MBIT_I"] = { nparameters: 5, 
@@ -907,11 +944,13 @@
 						    var cop_code = parseInt(bits.substr(28, 4), 2) ; // cop-code of 4 bits
 
 						    // 1.- IR -> oi
+						    sim_states['INEX'].value = 0 ;
 						    var oi = decode_instruction(bits) ;
 						    if (null == oi)
                                                     {
 							 alert('ERROR: undefined instruction code ' + op_code + '/' + cop_code + ' in firmware') ;
 							 sim_states['ROM_MUXA'].value = 0 ;
+							 sim_states['INEX'].value = 1 ;
 							 return -1;
 						    }
 
