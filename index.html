@@ -402,19 +402,19 @@
 	<div role="main" class="ui-content">
 
             <div class="row">
-                <div class="col-md-8" style="padding: 0 2px 0 2px;">
+                <div class="col-md-8" style="padding: 0 2px 0 5px;">
 		    <div data-role="tabs" id="tabs2">
     		      <div data-role="navbar" id="tabsnav2" class="ui-responsive">
 		        <ul>
-		          <li style="clear:none;width:33% !important">
+		          <li style="clear:none;width:30% !important">
                               <a id="tab23" href="#eltos_cu"   
                                  onclick="start_drawing(); refresh();">Control Unit</a>
                           </li>
-		          <li style="clear:none;width:27% !important">
+		          <li style="clear:none;width:20% !important">
                               <a id="tab22" href="#eltos_p"   class="ui-btn-active"
                                  onclick="start_drawing(); refresh();">CPU</a>
                           </li>
-		          <li style="clear:none;width:40% !important">
+		          <li style="clear:none;width:49% !important">
                               <a id="tab24" href="#eltos_dbg"  
                                  onclick="stop_drawing();">Assembly Debugger</a>
                           </li>
@@ -473,7 +473,7 @@
 	    	    </div>
                 </div>
 
-                <div class="col-md-4" style="padding: 0 12px 0 12px;">
+                <div class="col-md-4" style="padding: 0 8px 0 0px;">
 
                     <div class="btn-toolbar" role="toolbar" id="sim_toolbar" style="padding: 0 0px 10px 0px;">
 			<div class="btn-group btn-group-justified" role="group">
@@ -625,7 +625,7 @@
 				   onclick="compileFirmware(true);">Show co2&#181;addr + control memory</a>
 
                             <a href="#" style="background-color: #D4DB17"
-                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-5 col-md-1 col-lg-1"
+                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-3 col-md-1 col-lg-1"
 				   onclick="$('#help1_ref').data('relative','');
                                             $('#iframe_help1').html('<div class=row><div class=\'col-xs-10 col-md-7 col-lg-6\'>' +  
                                                                     '<object id=svg_p2 style=\'width:90vh\' data=\'images/processor5.svg\' type=image/svg+xml>Your browser does not support SVG' + 
@@ -643,7 +643,7 @@
 				   onclick="$('#help1_ref').data('relative','#help_firmware_format'); show_help1();"
                                    >Help</a>
 		            <a href="#" style="background-color: #DDDDDD"
-				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-bars    ui-btn-icon-left ui-mini col-xs-3 col-md-1 col-lg-1"
+				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-bars    ui-btn-icon-left ui-mini col-xs-4 col-md-1 col-lg-1"
 				   onclick="load_firmware_from_example();"
                                    >Example</a>
 		</div>
