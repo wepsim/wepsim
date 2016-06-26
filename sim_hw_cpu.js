@@ -742,10 +742,17 @@
 	syntax_behavior["DIV"]   = { nparameters: 4, 
 				     types: ["E", "E", "E"], 
 				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value << 0) / 
-										 (sim_states[s_expr[3]].value << 0); 
-						   sim_states[s_expr[1]].value = Math.floor(sim_states[s_expr[1]].value) ;
+						   var a = (sim_states[s_expr[2]].value << 0) ;
+						   var b = (sim_states[s_expr[3]].value << 0) ;
 
+						   if (0 == b) {
+						       sim_states[s_expr[1]].value = 0 ;
+						       sim_states["FLAG_Z"].value = 1 ;
+						       sim_states["FLAG_V"].value = 1 ;
+                                                       return ;
+                                                   }
+
+						   sim_states[s_expr[1]].value = Math.floor(a / b) ;
 						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
 						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
 						   sim_states["FLAG_V"].value = 0 ;
