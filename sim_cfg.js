@@ -50,7 +50,8 @@
          *  SIM working
          */
 
-        var is_interactive = true;
+        var is_interactive  = true;
+        var is_byvalue      = false; // by value or by activation
 
         var ws_idiom       = 'es';
 
@@ -74,6 +75,7 @@
                RF_display_name     = 'numerical' ;
 
                is_interactive      = true;
+               is_byvalue          = false;
 
                ws_idiom            = 'es';
         }
@@ -97,6 +99,7 @@
                localStorage.setItem('wepsim_RF_display_name',		RF_display_name);
 
                localStorage.setItem('wepsim_is_interactive',		is_interactive);
+               localStorage.setItem('wepsim_is_byvalue',		is_byvalue);
 
                localStorage.setItem('wepsim_ws_idiom',		        ws_idiom);
            }
@@ -130,6 +133,8 @@
 
                 if (localStorage.getItem('wepsim_is_interactive') != null)
                     is_interactive      = JSON.parse(localStorage.getItem('wepsim_is_interactive'));
+                if (localStorage.getItem('wepsim_is_byvalue') != null)
+                    is_byvalue          = JSON.parse(localStorage.getItem('wepsim_is_byvalue'));
 
                 if (localStorage.getItem('wepsim_ws_idiom') != null)
                     ws_idiom            = localStorage.getItem('wepsim_ws_idiom');
