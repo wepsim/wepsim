@@ -33,63 +33,95 @@
 	 */
 
 	/* REGISTER FILE STATES */
-	sim_states["BR"] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+	sim_states["BR"] = new Array() ;
+	sim_states["BR"][0]          = {name:"R0",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][1]          = {name:"R1",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][2]          = {name:"R2",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][3]          = {name:"R3",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][4]          = {name:"R4",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][5]          = {name:"R5",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][6]          = {name:"R6",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][7]          = {name:"R7",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][8]          = {name:"R8",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][9]          = {name:"R9",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][10]         = {name:"R10",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][11]         = {name:"R11",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][12]         = {name:"R12",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][13]         = {name:"R13",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][14]         = {name:"R14",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][15]         = {name:"R15",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][16]         = {name:"R16",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][17]         = {name:"R17",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][18]         = {name:"R18",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][19]         = {name:"R19",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][20]         = {name:"R20",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][21]         = {name:"R21",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][22]         = {name:"R22",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][23]         = {name:"R23",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][24]         = {name:"R24",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][25]         = {name:"R25",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][26]         = {name:"R26",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][27]         = {name:"R27",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][28]         = {name:"R28",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][29]         = {name:"R29",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][30]         = {name:"R30",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BR"][31]         = {name:"R31",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
-	sim_states["REG_PC"]         = {name:"PC",          visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["REG_MAR"]        = {name:"MAR",         visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["REG_MBR"]        = {name:"MBR",         visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["REG_IR"]         = {name:"IR",          visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["REG_RT1"]        = {name:"RT1",         visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["REG_RT2"]        = {name:"RT2",         visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["REG_RT3"]        = {name:"RT3",         visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["REG_SR"]         = {name:"SR",          visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };        
+	sim_states["REG_PC"]         = {name:"PC",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["REG_MAR"]        = {name:"MAR",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["REG_MBR"]        = {name:"MBR",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["REG_IR"]         = {name:"IR",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["REG_RT1"]        = {name:"RT1",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["REG_RT2"]        = {name:"RT2",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["REG_RT3"]        = {name:"RT3",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["REG_SR"]         = {name:"SR",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };        
 
 	/* BUSES */
-	sim_states["BUS_IB"]         = {name:"I_BUS",          visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BUS_AB"]         = {name:"A_BUS",          visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BUS_CB"]         = {name:"C_BUS",          visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BUS_DB"]         = {name:"D_BUS",          visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BUS_IB"]         = {name:"I_BUS",            visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BUS_AB"]         = {name:"A_BUS",            visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BUS_CB"]         = {name:"C_BUS",            visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["BUS_DB"]         = {name:"D_BUS",            visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
 	/* REGISTER PC (RELATED) STATES */
-	sim_states["C2_T2"]          = {name: "C2_T2",          visible:false, nbits: "32", value: 0, default_value:0, draw_data: [] };
+	sim_states["C2_T2"]          = {name: "C2_T2",           visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
 	/* REGISTER FILE (RELATED) STATES */
-	sim_states["RA_T9"]          = {name: "RA_T9",          visible:false, nbits: "32", value: 0, default_value:0, draw_data: [] };
-	sim_states["RB_T10"]         = {name: "RB_T10",         visible:false, nbits: "32", value: 0, default_value:0, draw_data: [] };
+	sim_states["RA_T9"]          = {name: "RA_T9",           visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+	sim_states["RB_T10"]         = {name: "RB_T10",          visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
 	/* (RELATED) SELEC STATES */
-	sim_states["SELEC_T3"]       = { name: "SELEC_T3",      visible:false, nbits: "32", value: 0, default_value:0, draw_data: [] };
-	sim_states["SELP_M7"]        = { name: "SELP_M7",       visible:false, nbits: "32", value: 0, default_value:0, draw_data: [] };
+	sim_states["SELEC_T3"]       = { name: "SELEC_T3",       visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+	sim_states["SELP_M7"]        = { name: "SELP_M7",        visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
-	sim_states["SUM4_M2"]        = {name:"SUM4_M2",         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["ALU_C6"]         = {name:"ALU_C6",          visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["MA_ALU"]         = {name:"MA_ALU",          visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["MB_ALU"]         = {name:"MB_ALU",          visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["SUM4_M2"]        = {name:"SUM4_M2",          visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["ALU_C6"]         = {name:"ALU_C6",           visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["MA_ALU"]         = {name:"MA_ALU",           visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["MB_ALU"]         = {name:"MB_ALU",           visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
-	sim_states["FLAG_C"]         = { name: "FLAG_C",        visible:true, nbits: "1", value: 0, default_value:0, draw_data: [] };
-	sim_states["FLAG_V"]         = { name: "FLAG_V",        visible:true, nbits: "1", value: 0, default_value:0, draw_data: [] };
-	sim_states["FLAG_N"]         = { name: "FLAG_N",        visible:true, nbits: "1", value: 0, default_value:0, draw_data: [] };
-	sim_states["FLAG_Z"]         = { name: "FLAG_Z",        visible:true, nbits: "1", value: 0, default_value:0, draw_data: [] };
-	sim_states["FLAG_I"]         = { name: "FLAG_I",        visible:true, nbits: "1", value: 0, default_value:0, draw_data: [] };
-	sim_states["FLAG_U"]         = { name: "FLAG_U",        visible:true, nbits: "1", value: 0, default_value:0, draw_data: [] };
+	sim_states["FLAG_C"]         = { name: "FLAG_C",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+	sim_states["FLAG_V"]         = { name: "FLAG_V",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+	sim_states["FLAG_N"]         = { name: "FLAG_N",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+	sim_states["FLAG_Z"]         = { name: "FLAG_Z",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+	sim_states["FLAG_I"]         = { name: "FLAG_I",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+	sim_states["FLAG_U"]         = { name: "FLAG_U",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
 
 	/* CONTROL UNIT */
-	sim_states["REG_MICROADDR"]  = { name: "µADDR",  visible:true, nbits: "12", value:0,  default_value:0,  draw_data: ['svg_cu:text4667']};
-	sim_states["REG_MICROINS"]   = { name: "µINS",   visible:true, nbits: "77", value:{}, default_value:{}, draw_data: [] };
+	sim_states["REG_MICROADDR"]  = { name: "µADDR",          visible:true, nbits: "12", value:0,  default_value:0,  draw_data: ['svg_cu:text4667']};
+	sim_states["REG_MICROINS"]   = { name: "µINS",           visible:true, nbits: "77", value:{}, default_value:{}, draw_data: [] };
 
-	sim_states["FETCH"]          = { name: "FETCH",          visible:false, nbits: "12", value: 0, default_value:0, draw_data: [] };
-	sim_states["ROM_MUXA"]       = { name: "ROM_MUXA",       visible:false, nbits: "12", value: 0, default_value:0, draw_data: [] };
-	sim_states["SUM_ONE"]        = { name: "SUM_ONE",        visible:false, nbits: "12", value: 1, default_value:1, draw_data: [] };
-	sim_states["MUXA_MICROADDR"] = { name: "MUXA_MICROADDR", visible:false, nbits: "12", value: 0, default_value:0, draw_data: [] };
+	sim_states["FETCH"]          = { name: "FETCH",          visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
+	sim_states["ROM_MUXA"]       = { name: "ROM_MUXA",       visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
+	sim_states["SUM_ONE"]        = { name: "SUM_ONE",        visible:false, nbits: "12", value:1, default_value:1, draw_data: [] };
+	sim_states["MUXA_MICROADDR"] = { name: "MUXA_MICROADDR", visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
 
-	sim_states["MUXC_MUXB"]      = { name: "MUXC_MUXB",      visible:false, nbits: "1",  value: 0, default_value:0, draw_data: [] };
-	sim_states["INEX"]           = { name: "INEX",           visible:false, nbits: "1",  value: 0, default_value:0, draw_data: [] };
+	sim_states["MUXC_MUXB"]      = { name: "MUXC_MUXB",      visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
+	sim_states["INEX"]           = { name: "INEX",           visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
 
 	/* DEVICES AND MEMORY */
-	sim_states["BS_M1"]          = { name: "BS_M1",          visible:false, nbits: "32", value: 0, default_value:0, draw_data: [] };
-	sim_states["BS_TD"]          = { name: "BS_TD",          visible:false, nbits: "32", value: 0, default_value:0, draw_data: [] };
+	sim_states["BS_M1"]          = { name: "BS_M1",          visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+	sim_states["BS_TD"]          = { name: "BS_TD",          visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
-	sim_states["INTV"]           = { name: "INTV",           visible:false, nbits: "8",  value: 0, default_value:0, draw_data: [] };
+	sim_states["INTV"]           = { name: "INTV",           visible:false, nbits: "8",  value:0, default_value:0, draw_data: [] };
 
 
 	/* MUX A (RELATED) STATES */
@@ -97,14 +129,14 @@
 	sim_states["M1_C1"]          = { name:"M1_C1",           visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim_states["M7_C7"]          = { name:"M7_C7",           visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
-	sim_states["VAL_ZERO"]       = { name: "VAL_ZERO",       visible:false, nbits: "1",  value: 0, default_value:0, draw_data: [] };
-	sim_states["VAL_ONE"]        = { name: "VAL_ONE",        visible:false, nbits: "32", value: 1, default_value:1, draw_data: [] };
-	sim_states["VAL_FOUR"]       = { name: "VAL_FOUR",       visible:false, nbits: "32", value: 4, default_value:4, draw_data: [] };
+	sim_states["VAL_ZERO"]       = { name: "VAL_ZERO",       visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
+	sim_states["VAL_ONE"]        = { name: "VAL_ONE",        visible:false, nbits: "32", value:1, default_value:1, draw_data: [] };
+	sim_states["VAL_FOUR"]       = { name: "VAL_FOUR",       visible:false, nbits: "32", value:4, default_value:4, draw_data: [] };
 
 	/* VIRTUAL */
-	sim_states["REG_IR_DECO"]    = {name:"IR_DECO",     visible:true,  nbits:"0",  value:0,  default_value:0, draw_data: [] };
-	sim_states["DECO_INS"]       = {name:"DECO_INS",    visible:true,  nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["CLK"]            = {name:"CLK",         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["REG_IR_DECO"]    = {name:"IR_DECO",          visible:true,  nbits:"0",  value:0,  default_value:0, draw_data: [] };
+	sim_states["DECO_INS"]       = {name:"DECO_INS",         visible:true,  nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states["CLK"]            = {name:"CLK",              visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
 
 	/*
@@ -530,8 +562,8 @@
 				     operation: function(s_expr) { 
 						   var r = s_expr[2].split('/');
 						   if (1 == r.length)
-							sim_states[s_expr[1]].value = sim_states[s_expr[2]].value; 
-						   else sim_states[s_expr[1]].value = sim_states[r[0]].value[r[1]]; 
+							set_value(sim_states[s_expr[1]], get_value(sim_states[s_expr[2]])); 
+						   else set_value(sim_states[s_expr[1]], sim_states[r[0]].value[r[1]]); 
 						}  
 				   };
 	syntax_behavior["MV_ES"] = { nparameters: 3, 
@@ -539,7 +571,7 @@
 				     operation: function(s_expr) { 
 						   var r = s_expr[2].split('/');
 						   if (1 == r.length) {
-						       sim_signals[s_expr[1]].value = sim_states[s_expr[2]].value; 
+						       sim_signals[s_expr[1]].value = get_value(sim_states[s_expr[2]]);
 						       return;
 						   }
 
@@ -552,234 +584,223 @@
 				     operation: function(s_expr) { 
 						   var r = s_expr[2].split('/');
 						   if (1 == r.length) {
-						       sim_states[s_expr[1]].value = parseInt(sim_states[s_expr[2]].value);
+						       set_value(sim_states[s_expr[1]], parseInt(get_value(sim_states[s_expr[2]])));
 						       return;
 						   }
 
 						   if (typeof sim_states[r[0]].value[r[1]] != "undefined")
-							sim_states[s_expr[1]].value = parseInt(sim_states[r[0]].value[r[1]]);
+						       set_value(sim_states[s_expr[1]], parseInt(sim_states[r[0]].value[r[1]]));
 						}  
 				   };
 	syntax_behavior["NOT_ES"] = { nparameters: 3, 
 				     types: ["S", "E"],
 				     operation: function (s_expr) {
-						   sim_signals[s_expr[1]].value = Math.abs(sim_states[s_expr[2]].value - 1); 
+						   sim_signals[s_expr[1]].value = Math.abs(get_value(sim_states[s_expr[2]]) - 1); 
 						} 
 				   };
 	syntax_behavior["GET"]   = { nparameters: 4, 
 				     types: ["E", "E", "S"], 
 				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value = sim_states[s_expr[2]][sim_signals[s_expr[3]].value]; 
+						   set_value(sim_states[s_expr[1]], get_value(sim_states[s_expr[2]][sim_signals[s_expr[3]].value])); 
 						}  
 				   };
 	syntax_behavior["SET"]   = { nparameters: 4, 
 				     types: ["E", "S", "E"], 
 				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]][sim_signals[s_expr[2]].value] = sim_states[s_expr[3]].value; 
+						   set_value(sim_states[s_expr[1]][sim_signals[s_expr[2]].value], get_value(sim_states[s_expr[3]]));
 						}  
 				   };
 	syntax_behavior["AND"]   = { nparameters: 4, 
 				     types: ["E", "E", "E"], 
 				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value = sim_states[s_expr[2]].value & 
-										 sim_states[s_expr[3]].value;
+						   set_value(sim_states[s_expr[1]], get_value(sim_states[s_expr[2]]) & get_value(sim_states[s_expr[3]]));
 
-						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
-						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
-						   sim_states["FLAG_V"].value = 0 ;
-						   sim_states["FLAG_C"].value = 0 ;
+						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_V"], 0) ;
+						   set_value(sim_states["FLAG_C"], 0) ;
 						}  
 				   };
 	syntax_behavior["OR"]    = { nparameters: 4, 
 				     types: ["E", "E", "E"], 
-				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value = sim_states[s_expr[2]].value | 
-										 sim_states[s_expr[3]].value; 
+				     operation: function(s_expr) {
+						   set_value(sim_states[s_expr[1]], get_value(sim_states[s_expr[2]]) | get_value(sim_states[s_expr[3]])); 
 
-						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
-						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
-						   sim_states["FLAG_V"].value = 0 ;
-						   sim_states["FLAG_C"].value = 0 ;
+						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_V"], 0) ;
+						   set_value(sim_states["FLAG_C"], 0) ;
 						}  
 				   };
 	syntax_behavior["NOT"]   = { nparameters: 3, 
 				     types: ["E", "E"],      
-				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value = ~(sim_states[s_expr[2]].value) ; 
+				     operation: function(s_expr) {
+						   set_value(sim_states[s_expr[1]], ~(get_value(sim_states[s_expr[2]]))) ; 
 
-						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
-						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
-						   sim_states["FLAG_V"].value = 0 ;
-						   sim_states["FLAG_C"].value = 0 ;
+						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_V"], 0) ;
+						   set_value(sim_states["FLAG_C"], 0) ;
 						}  
 				   };
 	syntax_behavior["XOR"]   = { nparameters: 4, 
 				     types: ["E", "E", "E"], 
-				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value) ^ 
-										 (sim_states[s_expr[3]].value);
+				     operation: function(s_expr) {
+						   set_value(sim_states[s_expr[1]], (get_value(sim_states[s_expr[2]])) ^ (get_value(sim_states[s_expr[3]])));
 
-						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
-						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
-						   sim_states["FLAG_V"].value = 0 ;
-						   sim_states["FLAG_C"].value = 0 ;
+						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_V"], 0) ;
+						   set_value(sim_states["FLAG_C"], 0) ;
 						}  
 				   };
 	syntax_behavior["SRL"]   = { nparameters: 3, 
 				     types: ["E", "E"],      
-				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value) >>> 1; 
+				     operation: function(s_expr) {
+						   set_value(sim_states[s_expr[1]], (get_value(sim_states[s_expr[2]])) >>> 1);
 
-						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
-						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
-						   sim_states["FLAG_V"].value = 0 ;
-						   sim_states["FLAG_C"].value = 0 ;
+						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_V"], 0) ;
+						   set_value(sim_states["FLAG_C"], 0) ;
 						}  
 				   };
 	syntax_behavior["SRA"]   = { nparameters: 3, 
 				     types: ["E", "E"],      
 				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value) >> 1; 
+						   set_value(sim_states[s_expr[1]], (get_value(sim_states[s_expr[2]])) >> 1);
 
-						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
-						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
-						   sim_states["FLAG_V"].value = 0 ;
-						   sim_states["FLAG_C"].value = 0 ;
+						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_V"], 0) ;
+						   set_value(sim_states["FLAG_C"], 0) ;
 						}  
 				   };
 	syntax_behavior["SL"]    = { nparameters: 3, 
 				     types: ["E", "E"],      
 				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value) << 1; 
+						   set_value(sim_states[s_expr[1]], (get_value(sim_states[s_expr[2]])) << 1);
 
-						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
-						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
-						   sim_states["FLAG_V"].value = 0 ;
-						   sim_states["FLAG_C"].value = (sim_states[s_expr[2]].value) >> 31 ;
+						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_V"], 0) ;
+						   set_value(sim_states["FLAG_C"], (get_value(sim_states[s_expr[2]])) >> 31) ;
 						}  
 				   };
 	syntax_behavior["RR"]    = { nparameters: 3, 
 				     types: ["E", "E"],      
 				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value =  ((sim_states[s_expr[2]].value) >>> 1) |
-										 (((sim_states[s_expr[2]].value) & 1) << 31); 
+						   set_value(sim_states[s_expr[1]],  ((get_value(sim_states[s_expr[2]])) >>> 1) | (((get_value(sim_states[s_expr[2]])) & 1) << 31));
 
-						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
-						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
-						   sim_states["FLAG_V"].value = 0 ;
-						   sim_states["FLAG_C"].value = 0 ;
+						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_V"], 0) ;
+						   set_value(sim_states["FLAG_C"], 0) ;
 						}  
 				   };
 	syntax_behavior["RL"]    = { nparameters: 3, 
 				     types: ["E", "E"],      
 				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value =  ((sim_states[s_expr[2]].value) << 1) | 
-										 (((sim_states[s_expr[2]].value) & 0X80000000) >>> 31); 
+						   set_value(sim_states[s_expr[1]], ((get_value(sim_states[s_expr[2]])) << 1) | (((get_value(sim_states[s_expr[2]])) & 0X80000000) >>> 31));
 
-						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
-						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
-						   sim_states["FLAG_V"].value = 0 ;
-						   sim_states["FLAG_C"].value = (sim_states[s_expr[2]].value) >> 31 ;
+						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_V"], 0) ;
+						   set_value(sim_states["FLAG_C"], (get_value(sim_states[s_expr[2]])) >> 31) ;
 						}  
 				   };
 	syntax_behavior["ADD"]   = { nparameters: 4, 
 				     types: ["E", "E", "E"], 
 				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value << 0) + 
-										 (sim_states[s_expr[3]].value << 0) ;
-						   sim_states[s_expr[1]].value = sim_states[s_expr[1]].value & 0xFFFFFFFF ;
+						   set_value(sim_states[s_expr[1]], (get_value(sim_states[s_expr[2]]) << 0) + (get_value(sim_states[s_expr[3]]) << 0) );
+						   set_value(sim_states[s_expr[1]],  get_value(sim_states[s_expr[1]]) & 0xFFFFFFFF) ;
 
-						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
-						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
+						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
 
-						   if ( (sim_states[s_expr[1]].value < 0) && 
-							(sim_states[s_expr[2]].value >= 0) && 
-							(sim_states[s_expr[3]].value >= 0) )
-							sim_states["FLAG_V"].value = 1 ;
-						   else sim_states["FLAG_V"].value = 0 ;
+						   if ( (get_value(sim_states[s_expr[1]]) < 0) && 
+							(get_value(sim_states[s_expr[2]]) >= 0) && 
+							(get_value(sim_states[s_expr[3]]) >= 0) )
+							set_value(sim_states["FLAG_V"], 1) ;
+						   else set_value(sim_states["FLAG_V"], 0) ;
 
-						   sim_states["FLAG_C"].value = ((sim_states[s_expr[2]].value) >> 31) &&
-						                                ((sim_states[s_expr[3]].value) >> 31) ;
+						   set_value(sim_states["FLAG_C"], ((get_value(sim_states[s_expr[2]])) >> 31) && ((get_value(sim_states[s_expr[3]])) >> 31)) ;
 						}  
 				   };
 	syntax_behavior["SUB"]   = { nparameters: 4, 
 				     types: ["E", "E", "E"], 
 				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value << 0) - 
-										 (sim_states[s_expr[3]].value << 0); 
+						   set_value(sim_states[s_expr[1]], (get_value(sim_states[s_expr[2]]) << 0) - (get_value(sim_states[s_expr[3]]) << 0));
 
-						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
-						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
+						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
 
-						   if ( (sim_states[s_expr[1]].value < 0) && 
-							(sim_states[s_expr[2]].value >= 0) && 
-							(sim_states[s_expr[3]].value >= 0) )
-							sim_states["FLAG_V"].value = 1 ;
-						   else sim_states["FLAG_V"].value = 0 ;
+						   if ( (get_value(sim_states[s_expr[1]]) < 0) && 
+							(get_value(sim_states[s_expr[2]]) >= 0) && 
+							(get_value(sim_states[s_expr[3]]) >= 0) )
+							set_value(sim_states["FLAG_V"], 1) ;
+						   else set_value(sim_states["FLAG_V"], 0) ;
 
-						   sim_states["FLAG_C"].value = ((sim_states[s_expr[2]].value) >> 31) &&
-						                                ((sim_states[s_expr[3]].value) >> 31) ;
+						   set_value(sim_states["FLAG_C"], ((get_value(sim_states[s_expr[2]])) >> 31) && ((get_value(sim_states[s_expr[3]])) >> 31)) ;
 						}  
 				   };
 	syntax_behavior["MUL"]   = { nparameters: 4, 
 				     types: ["E", "E", "E"], 
 				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value << 0) * 
-										 (sim_states[s_expr[3]].value << 0); 
+						   set_value(sim_states[s_expr[1]], (get_value(sim_states[s_expr[2]]) << 0) * (get_value(sim_states[s_expr[3]]) << 0)); 
 
-						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
-						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
+						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
 
-						   if ( (sim_states[s_expr[1]].value < 0) && 
-							(sim_states[s_expr[2]].value >= 0) && 
-							(sim_states[s_expr[3]].value >= 0) )
-							sim_states["FLAG_V"].value = 1 ;
-						   else sim_states["FLAG_V"].value = 0 ;
+						   if ( (get_value(sim_states[s_expr[1]]) < 0) && 
+							(get_value(sim_states[s_expr[2]]) >= 0) && 
+							(get_value(sim_states[s_expr[3]]) >= 0) )
+							set_value(sim_states["FLAG_V"], 1) ;
+						   else set_value(sim_states["FLAG_V"], 0) ;
 
-						   sim_states["FLAG_C"].value = 0 ;
+						   set_value(sim_states["FLAG_C"], 0) ;
 						}  
 				   };
 	syntax_behavior["DIV"]   = { nparameters: 4, 
 				     types: ["E", "E", "E"], 
 				     operation: function(s_expr) { 
-						   var a = (sim_states[s_expr[2]].value << 0) ;
-						   var b = (sim_states[s_expr[3]].value << 0) ;
+						   var a = (get_value(sim_states[s_expr[2]]) << 0) ;
+						   var b = (get_value(sim_states[s_expr[3]]) << 0) ;
 
 						   if (0 == b) {
-						       sim_states[s_expr[1]].value = 0 ;
-						       sim_states["FLAG_Z"].value = 1 ;
-						       sim_states["FLAG_V"].value = 1 ;
+						       set_value(sim_states[s_expr[1]], 0) ;
+						       set_value(sim_states["FLAG_Z"], 1) ;
+						       set_value(sim_states["FLAG_V"], 1) ;
                                                        return ;
                                                    }
 
-						   sim_states[s_expr[1]].value = Math.floor(a / b) ;
-						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
-						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
-						   sim_states["FLAG_V"].value = 0 ;
-						   sim_states["FLAG_C"].value = 0 ;
+						   set_value(sim_states[s_expr[1]], Math.floor(a / b)) ;
+						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_V"], 0) ;
+						   set_value(sim_states["FLAG_C"], 0) ;
 						}  
 				   };
 	syntax_behavior["MOD"]   = { nparameters: 4, 
 				     types: ["E", "E", "E"], 
 				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value << 0) % 
-										 (sim_states[s_expr[3]].value << 0); 
+						   set_value(sim_states[s_expr[1]], (get_value(sim_states[s_expr[2]]) << 0) % (get_value(sim_states[s_expr[3]]) << 0)); 
 
-						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
-						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
-						   sim_states["FLAG_V"].value = 0 ;
-						   sim_states["FLAG_C"].value = 0 ;
+						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_V"], 0) ;
+						   set_value(sim_states["FLAG_C"], 0) ;
 						}  
 				   };
 	syntax_behavior["LUI"]   = { nparameters: 3, 
 				     types: ["E", "E"],      
 				     operation: function(s_expr) { 
-						   sim_states[s_expr[1]].value = (sim_states[s_expr[2]].value) << 16; 
+						   set_value(sim_states[s_expr[1]], (get_value(sim_states[s_expr[2]])) << 16);
 
-						   sim_states["FLAG_N"].value = (sim_states[s_expr[1]].value  < 0) ? 1 : 0 ;
-						   sim_states["FLAG_Z"].value = (sim_states[s_expr[1]].value == 0) ? 1 : 0 ;
-						   sim_states["FLAG_V"].value = 0 ;
-						   sim_states["FLAG_C"].value = 0 ;
+						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_V"], 0) ;
+						   set_value(sim_states["FLAG_C"], 0) ;
 						}  
 				   };
 	syntax_behavior["MBIT_I"] = { nparameters: 5, 
@@ -788,11 +809,11 @@
 						   var offset = parseInt(s_expr[3]) ;
 						   var size   = parseInt(s_expr[4]) ;
 
-						   var n1 = sim_states[s_expr[2]].value.toString(2); // to binary
+						   var n1 = get_value(sim_states[s_expr[2]]).toString(2); // to binary
 						   var n2 = "00000000000000000000000000000000".substring(0, 32-n1.length) + n1;
 						   n2 = n2.substr(31 - (offset + size - 1), size);
 
-						   sim_states[s_expr[1]].value = parseInt(n2, 2) ;
+						   set_value(sim_states[s_expr[1]], parseInt(n2, 2)) ;
 						}  
 				   };
 	syntax_behavior["MBIT_S"] = { nparameters: 5, 
@@ -801,7 +822,7 @@
 						   var offset = parseInt(s_expr[3]) ;
 						   var size   = parseInt(s_expr[4]) ;
 
-						   var n1 = sim_states[s_expr[2]].value.toString(2); // to binary
+						   var n1 = get_value(sim_states[s_expr[2]]).toString(2); // to binary
 						   var n2 = "00000000000000000000000000000000".substring(0, 32-n1.length) + n1;
 						   n2 = n2.substr(31 - (offset + size - 1), size);
 
@@ -814,7 +835,7 @@
 						   var base = 0;
 						   var r = s_expr[3].split('/');
 						   if (1 == r.length) 
-							base = sim_states[s_expr[3]].value; 
+							base = get_value(sim_states[s_expr[3]]); 
 						   else
 						   if (typeof  sim_states[r[0]].value[r[1]] != "undefined")
 							base = sim_states[r[0]].value[r[1]]; 
@@ -828,7 +849,7 @@
 
 						   var offset = parseInt(s_expr[4]) ;
 
-						   var n1 = sim_states[s_expr[2]].value.toString(2); // to binary
+						   var n1 = get_value(sim_states[s_expr[2]]).toString(2); // to binary
 						   var n2 = "00000000000000000000000000000000".substring(0, 32 - n1.length) + n1 ;
 						   var n3 = n2.substr(31 - (base + offset - 1), offset) ;
 
@@ -838,8 +859,7 @@
 	syntax_behavior["SBIT_E"] = { nparameters: 4, 
 				     types: ["E", "E", "I"],
 				     operation: function (s_expr) { 
-						   sim_states[s_expr[1]].value = (sim_states[s_expr[1]].value & ~(1 << s_expr[3])) | 
-										 (sim_states[s_expr[2]].value << s_expr[3]) ;
+						   set_value(sim_states[s_expr[1]], (get_value(sim_states[s_expr[1]]) & ~(1 << s_expr[3])) | (get_value(sim_states[s_expr[2]]) << s_expr[3]) );
 						}  
 				   };
 	syntax_behavior["SBIT_S"] = { nparameters: 4, 
@@ -858,7 +878,7 @@
 						   var offset = parseInt(sim_signals[s_expr[4]].value) ;
 						   var size   = parseInt(sim_signals[s_expr[5]].value) ;
 
-						   var n1 = sim_states[s_expr[3]].value.toString(2); // to binary
+						   var n1 = get_value(sim_states[s_expr[3]]).toString(2); // to binary
 						   var n2 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1) ;
 						       n2 = n2.substr(31 - (offset + size - 1), size);
 
@@ -868,7 +888,7 @@
 							n3 = "11111111111111111111111111111111".substring(0, 32 - n2.length) + n2;
 						   }
 
-						   sim_states[s_expr[1]].value = parseInt(n3, 2);
+						   set_value(sim_states[s_expr[1]], parseInt(n3, 2));
 						}  
 				   };
 
@@ -879,26 +899,27 @@
 						   var poso = parseInt(s_expr[5]) ;
 						   var len  = parseInt(s_expr[3]) ;
 
-						   var n1 = sim_states[s_expr[4]].value.toString(2); // to binary
+						   var n1 = get_value(sim_states[s_expr[4]]).toString(2); // to binary
 						   var n2 = "00000000000000000000000000000000".substring(0, 32 - n1.length) + n1 ;
 						       n2 = n2.substr(31 - (poso + len) + 1, len);
 						   var n3 = "00000000000000000000000000000000".substring(0, 32 - n2.length) + n2;
 						   var n4 = "00000000000000000000000000000000".substr(0, posd);
 						   n3 = n3 + n4;
-						   sim_states[s_expr[1]].value = parseInt(n3, 2);
+
+						   set_value(sim_states[s_expr[1]], parseInt(n3, 2));
 						}
 				   };
 	syntax_behavior["EXT_SIG"] =  { nparameters: 3, 
 				     types: ["E", "I"],
 				     operation: function (s_expr) {
-						   var n1 = sim_states[s_expr[1]].value.toString(2); // to binary
+						   var n1 = get_value(sim_states[s_expr[1]]).toString(2); // to binary
 						   var n2 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1) ;
 						   var n3 = n2.substr(31 - s_expr[2], 31);
 						   var n4 = n3;
 						   if ("1" == n2[31 - s_expr[2]]) {  // check signed-extension
 						       n4 = "11111111111111111111111111111111".substring(0, 32 - n3.length) + n4;
 						   }
-						   sim_states[s_expr[1]].value = parseInt(n4, 2);
+						   set_value(sim_states[s_expr[1]], parseInt(n4, 2));
 						}
 				   };
 	syntax_behavior["MOVE_BITS"] =  { nparameters: 5, 
@@ -929,7 +950,7 @@
 						   var poso = parseInt(s_expr[5]) ;
 						   var len  = parseInt(s_expr[3]) ;
 
-						   var n1 =  sim_states[s_expr[4]].value.toString(2); // to binary signal origin
+						   var n1 =  get_value(sim_states[s_expr[4]]).toString(2); // to binary signal origin
 						   n1 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1);
 						   n1 = n1.substr(31 - poso - len + 1, len);
 
@@ -945,7 +966,7 @@
 	syntax_behavior["DECO"] = { nparameters: 1,                         
 				     operation: function(s_expr) 
 						{
-						    var bits = sim_states['REG_IR'].value.toString(2) ;
+						    var bits = get_value(sim_states['REG_IR']).toString(2) ;
 						        bits = "00000000000000000000000000000000".substring(0, 32 - bits.length) + bits ;
 						    var  op_code = parseInt(bits.substr(0,  6), 2) ; //  op-code of 6 bits
 						    var cop_code = parseInt(bits.substr(28, 4), 2) ; // cop-code of 4 bits
@@ -978,13 +999,13 @@
 						    sim_states['ROM_MUXA'].value = ROM[rom_addr] ;
 
 						    // 4.-  Statistics
-						    var val = sim_states['DECO_INS'].value() ;
-						    sim_states["DECO_INS"].value(val + 1);
+						    var val = get_value(sim_states['DECO_INS']) ;
+						    set_value(sim_states["DECO_INS"], val + 1);
 
                                                     // 5.- Update UI
 						    var decins = show_decode_instruction(oi, bits) ;
-						    sim_states['REG_IR_DECO'].value = decins ;
-                                                    show_dbg_ir(sim_states['REG_IR_DECO'].value);
+						    set_value(sim_states['REG_IR_DECO'], decins) ;
+                                                    show_dbg_ir(get_value(sim_states['REG_IR_DECO']));
 						}
 				   };
 
@@ -1019,8 +1040,8 @@
 					     operation: function(s_expr) 
 							{
 							    // 0.- Update counter
-							    var val = sim_states["CLK"].value() ;
-							    sim_states["CLK"].value(val + 1);
+							    var val = get_value(sim_states["CLK"]) ;
+							    set_value(sim_states["CLK"], val + 1);
 
 							    // 1.- To treat the (Falling) Edge signals
 							    for (var key in sim_signals) 
@@ -1033,10 +1054,10 @@
 							    // 2.- The special (Falling) Edge part of the Control Unit...
 						            sim_states["REG_MICROINS"].value = Object.create(sim_states["REG_MICROINS"].default_value);
 
-							    sim_states["REG_MICROADDR"].value = sim_states["MUXA_MICROADDR"].value ;
-							    if (typeof MC[sim_states["REG_MICROADDR"].value] != "undefined") 
+							    set_value(sim_states["REG_MICROADDR"], get_value(sim_states["MUXA_MICROADDR"])) ;
+							    if (typeof MC[get_value(sim_states["REG_MICROADDR"])] != "undefined") 
 							    {
-								var mc_line = MC[sim_states["REG_MICROADDR"].value] ;
+								var mc_line = MC[get_value(sim_states["REG_MICROADDR"])] ;
 								for (var k in mc_line) {
 								     sim_states["REG_MICROINS"].value[k] = mc_line[k];
 								}
@@ -1069,19 +1090,7 @@
 							{
 							    // 1.a.- set states to the default state
 							    for (var key in sim_states) 
-							    {
-								 if (typeof sim_states[key].value == "function")
-						                     sim_states[key].value(sim_states[key].default_value) ;
-
-								 else if (typeof sim_states[key].default_value == "object")
-								      sim_states[key].value = Object.create(sim_states[key].default_value) ;
-								 else sim_states[key].value = sim_states[key].default_value ;
-							    }
-
-							    for(var key=0; key<sim_states["BR"].length; key++)
-							    {
-								sim_states["BR"][key] = 0;
-							    }
+								 reset_value(sim_states[key]) ;
 
 							    // 1.b.- reset events to empty
 							    sim_events["screen"] = new Object() ;
