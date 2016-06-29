@@ -76,7 +76,7 @@
         // get SIMWARE.firmware
         var SIMWARE = get_simware() ;
 	if (SIMWARE.firmware.length == 0) {
-            alert('WARNING: please load firmware first.');
+            alert('WARNING: please load the microcode first.');
             $.mobile.pageContainer.pagecontainer('change','#main3');
             return false;
 	} 
@@ -188,7 +188,7 @@
             return false;
         }
 
-	$.notify({ title: '<strong>INFO</strong>', message: 'Firmware was compiled and loaded.'},
+	$.notify({ title: '<strong>INFO</strong>', message: 'Microcode was compiled and loaded.'},
 		 { type: 'success', newest_on_top: true, delay: WSCFG['NOTIF_delay'], placement: { from: 'top', align: 'center' } });
 
         // update UI 
@@ -236,7 +236,7 @@
     function load_firmware_from_example ( )
     {
 	var xmlhttp = new XMLHttpRequest();
-	var url = "examples/exampleFirmware.txt?time=20160611" ;
+	var url = "examples/exampleMicrocode.txt?time=20160611" ;
 
 	xmlhttp.onreadystatechange=function() {
 					// if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
@@ -393,7 +393,7 @@
                 <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
                     <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
                 </div>
-                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.3.3</span> / Simulator</span>
+                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.3.5</span> / Simulator</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a href="#actions_panel" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
@@ -452,9 +452,9 @@
                                 <div id="asm_debugger">
                                 <br>
                                 <ol>
-                                <li>Load the firmware to be used.</li>
+                                <li>Load the microcode to be used.</li>
                                     <ul>
-                                    <li>You can use the default firmware example, load it from a file or you can edit one.</li>
+                                    <li>You can use the default example of microcode, load it from a file or you can edit one.</li>
                                     </ul>
                                 <br>
                                 <li>Load the assembly to be used.</li>
@@ -462,7 +462,7 @@
                                     <li>You can use the default assembly example, load it from a file or you can edit one.</li>
                                     </ul>
                                 <br>
-                                <li>Come back to the simulator in order to execute step by step the firmware+assembly loaded before.</li>
+                                <li>Come back to the simulator in order to execute step by step the microcode+assembly loaded before.</li>
                                     <ul>
                                     <li>Each step could be executed at microinstruction or instruction level.</li>
                                     </ul>
@@ -549,7 +549,7 @@
                 <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
                     <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
                 </div>
-                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.3.3</span> / Firmware</span>
+                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.3.5</span> / Microcode</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a href="#actions_panel" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
@@ -560,7 +560,7 @@
 		<div id="lsload" 
                      data-role="popup" data-overlay-theme="a" data-theme="a" data-dismissible="false">
 		    <div data-role="header" data-theme="a">
-		    <h1>Firmware</h1>
+		    <h1>Microcode</h1>
 		    </div>
 		    <div role="main" class="ui-content">
 			<h3>Please select the file to be loaded:</h3>
@@ -580,7 +580,7 @@
 		    <h1>Save Page</h1>
 		    </div>
 		    <div role="main" class="ui-content">
-			<h2>Please write the file name where firmware will be saved:</h2>
+			<h2>Please write the file name where Microcode will be saved:</h2>
 			<p><input id="inputFileNameToSaveAs" style="min-width: 90%;"/></p>
 			<center>
 			<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
@@ -588,8 +588,8 @@
                                 onclick="var SIMWARE = get_simware() ;
                                          var simware_as_text = saveFirmware(SIMWARE);
                                          if (simware_as_text.trim() == '') {
-					     alert('The firmware loaded in memory is empty!\n' + 
-                                                   'Please load a firmware first in memory in order to save it.');
+					     alert('The Microcode loaded in memory is empty!\n' + 
+                                                   'Please load a Microcode first in memory in order to save it.');
 					 }
 					 else {
                                            //document.getElementById('inputFirmware').value = simware_as_text ;
@@ -651,7 +651,7 @@
 
 		<div id="t3_firm"  class="ui-body-d ui-content" style="position:relative;">
 		     <textarea style="min-width:90%; overflow-y:auto;"
-                               placeholder="Please select 'Example' or 'Load' first in order to have an initial firmware."
+                               placeholder="Please select 'Example' or 'Load' first in order to have an initial Microcode."
                                id="inputFirmware" rows=20></textarea>
 		</div>
 
@@ -666,7 +666,7 @@
                 <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
                     <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
                 </div>
-                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.3.3</span> / Assembly</span>
+                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.3.5</span> / Assembly</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a href="#actions_panel" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
@@ -762,7 +762,7 @@
 	    <p>
 	    <ul id="listview_1" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b">
 		    <li><a id="tab21" href="#" style="background-color: lightgray"
-			   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"><h2>Firmware</h2></a></li>
+			   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"><h2>Microcode</h2></a></li>
 		    <li><a id="tab24" href="#" style="background-color: lightgray"
 			   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');"><h2>Assembly</h2></a></li>
 		    <li><a id="tab25" href="#" style="background-color: lightgray"
@@ -780,7 +780,7 @@
 			            show_help1();"><h2>Simulator usage</h2></a></li>
 		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info" style="background-color: #D4DB17;"
 			   onclick="$('#help1_ref').data('relative','#help_firmware_format');
-			            show_help1();"><h2>Firmware format</h2></a></li>
+			            show_help1();"><h2>Microcode format</h2></a></li>
 		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info" style="background-color: #D4DB17;"
 			   onclick="$('#help1_ref').data('relative','#help_assembly_format');
 			            show_help1();"><h2>Assembly format</h2></a></li>
@@ -920,7 +920,7 @@
      data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
 
    <div data-role="header" data-theme="a">
-   <h1><b>Web elemental processor SIMulator</b> <span class="badge btn-success">1.3.3</span> </h1>
+   <h1><b>Web elemental processor SIMulator</b> <span class="badge btn-success">1.3.5</span> </h1>
    </div>
    <div role="main" class="ui-content">
 

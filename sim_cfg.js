@@ -20,7 +20,7 @@
 
 
         var WSCFG = new Object() ;
-        WSCFG['version'] = "1.3.3" ;
+        WSCFG['version'] = "1.3.5" ;
 
         /*
          *  SVG configuration
@@ -65,7 +65,7 @@
 
         function reset_cfg ( )
         {
-               WSCFG['version']             = "1.3.3" ;
+               WSCFG['version']             = "1.3.5" ;
 
                WSCFG['color_data_active']   = "#0066FF" ;
                WSCFG['color_data_inactive'] = "rgb(0, 0, 0)" ; // "black"
