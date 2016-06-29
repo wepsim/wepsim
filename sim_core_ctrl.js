@@ -190,10 +190,52 @@
            compute_behavior(input_behavior) ;
         }
 
+
+        function get_value ( sim_obj )
+        {
+	   if (typeof sim_obj.value == "function")
+	       return sim_obj.value() ;
+
+	   else if (typeof sim_obj.default_value == "object")
+	       return sim_obj.value ;
+
+	   else
+	       return sim_obj.value ;
+        }
+
+        function set_value ( sim_obj, value )
+        {
+	   if (typeof sim_obj.value == "function")
+	       sim_obj.value(value) ;
+
+	   else if (typeof sim_obj.default_value == "object")
+	       sim_obj.value = value ;
+
+	   else
+	       sim_obj.value = value ;
+        }
+
+        function reset_value ( sim_obj )
+        {
+           if (typeof sim_obj.value == "function")
+	        sim_obj.value(sim_obj.default_value) ;
+
+	   else if (typeof sim_obj.default_value == "object")
+	        sim_obj.value = Object.create(sim_obj.default_value) ;
+
+	   else if (typeof sim_obj == "array")
+	        for(var i=0; i<sim_obj.length; i++)
+	  	    sim_obj[i].value(sim_obj[i].default_value) ;
+
+	   else
+	        sim_obj.value = sim_obj.default_value ;
+        }
+
+
         function show_memories_values ( )
         {
-            show_memories('MP',  MP,  sim_states['REG_PC'].value) ;
-            show_memories('MC',  MC,  sim_states['REG_MICROADDR'].value) ;
+            show_memories('MP',  MP,  get_value(sim_states['REG_PC'])) ;
+            show_memories('MC',  MC,  get_value(sim_states['REG_MICROADDR'])) ;
 	}
 
         function update_signal_firmware ( key )
@@ -202,7 +244,7 @@
 
 	    var assoc_i = -1;
             for (var i=0; i<SIMWARE['firmware'].length; i++) {
-		 if (parseInt(SIMWARE['firmware'][i]["mc-start"]) > sim_states["REG_MICROADDR"].value) { break; }
+		 if (parseInt(SIMWARE['firmware'][i]["mc-start"]) > get_value(sim_states["REG_MICROADDR"])) { break; }
 		 assoc_i = i ;
             }
 
@@ -225,7 +267,7 @@
                 assoc_i = SIMWARE['firmware'].length - 1 ;
             }
 
-	    var pos = sim_states["REG_MICROADDR"].value - parseInt(SIMWARE['firmware'][assoc_i]["mc-start"]) ;
+	    var pos = get_value(sim_states["REG_MICROADDR"]) - parseInt(SIMWARE['firmware'][assoc_i]["mc-start"]) ;
 	    if (typeof SIMWARE['firmware'][assoc_i]["microcode"][pos] == "undefined") {
 		SIMWARE['firmware'][assoc_i]["microcode"][pos] = new Object() ;
 	    }
@@ -235,7 +277,7 @@
 	        delete SIMWARE['firmware'][assoc_i]["microcode"][pos][key] ;
 
 	    // show memories...
-	    var bits = sim_states['REG_IR'].value.toString(2) ;
+	    var bits = get_value(sim_states['REG_IR']).toString(2) ;
 	    bits = "00000000000000000000000000000000".substring(0, 32 - bits.length) + bits ;
 	    //var op_code = parseInt(bits.substr(0, 6), 2) ; // op-code of 6 bits
 
@@ -245,7 +287,7 @@
         function update_signal_loadhelp ( helpdiv, key )
         {
 	     $(helpdiv).collapse('toggle');
-	     var help_base = 'help/signals-' + ws_idiom + '.html #' + key;
+	     var help_base = 'help/signals-' + WSCFG['ws_idiom'] + '.html #' + key;
 	     $(helpdiv).load(help_base,
 			      function(response, status, xhr) { 
 				  if ( $(helpdiv).html() == "" ) 
@@ -335,10 +377,10 @@
 								 sim_states["REG_MICROINS"].value[key] = sim_signals[key].value ;
 
 								 // update MC[uADDR]
-								 if (typeof MC[sim_states["REG_MICROADDR"].value] == "undefined") {
-								     MC[sim_states["REG_MICROADDR"].value] = new Object() ;
+								 if (typeof MC[get_value(sim_states["REG_MICROADDR"])] == "undefined") {
+								     MC[get_value(sim_states["REG_MICROADDR"])] = new Object() ;
 								 }
-								 MC[sim_states["REG_MICROADDR"].value][key] = sim_signals[key].value ;
+								 MC[get_value(sim_states["REG_MICROADDR"])][key] = sim_signals[key].value ;
 
 								 // update ROM[..]
 								 update_signal_firmware(key) ;
@@ -474,13 +516,13 @@
         function set_interactive_mode ( interactive )
         {
             // 1.- set the global variable of in which mode we are
-	    is_interactive = interactive ;
+	    WSCFG['is_interactive'] = interactive ;
         }
 
         function get_interactive_mode()
         {
             // 1.- get the global variable of in which mode we are
-	    return is_interactive ;
+	    return WSCFG['is_interactive'] ;
         }
 
         /* 3) EXECUTION */
@@ -490,20 +532,21 @@
 
             if (typeof segments['code'] != "undefined") 
             {
-                sim_states["REG_PC"].value = parseInt(segments['code'].begin) ;
+                set_value(sim_states["REG_PC"], parseInt(segments['code'].begin));
                 show_asmdbg_pc() ;
             }
 
 	    if (typeof segments['stack']!= "undefined")
 	    {
-		sim_states["BR"][FIRMWARE.stackRegister] = parseInt(segments['stack'].begin);
+		set_value(sim_states["BR"][FIRMWARE.stackRegister], parseInt(segments['stack'].begin));
 	    }
 
             compute_behavior("CLOCK") ;
 
-            show_dbg_ir(sim_states['REG_IR_DECO'].value) ;
+            show_dbg_ir(get_value(sim_states['REG_IR_DECO'])) ;
 	    show_states() ;
-	    show_rf() ;
+            show_rf_values();
+            show_rf_names();
 	    show_memories('MP',  MP,  0) ;
 	    show_memories('MC',  MC,  0) ;
         }
@@ -518,9 +561,9 @@
 			    return false;
 			}
 
-			if (  (parseInt(sim_states["REG_MICROADDR"].value) == 0) &&
-                             ((parseInt(sim_states["REG_PC"].value) >= parseInt(segments['code'].end)) || 
-                              (parseInt(sim_states["REG_PC"].value) <  parseInt(segments['code'].begin))) )
+			if (  (parseInt(get_value(sim_states["REG_MICROADDR"])) == 0) &&
+                             ((parseInt(get_value(sim_states["REG_PC"])) >= parseInt(segments['code'].end)) || 
+                              (parseInt(get_value(sim_states["REG_PC"])) <  parseInt(segments['code'].begin))) )
 			{
 			    alert('PC register points outside the code segment!');
 			    return false;
@@ -542,13 +585,13 @@
                 	compute_behavior("CLOCK") ;
             	}
 		while (
-                         (0 != sim_states["REG_MICROADDR"].value) && 
-                         (typeof MC[sim_states["REG_MICROADDR"].value] != "undefined") 
+                         (0 != get_value(sim_states["REG_MICROADDR"])) && 
+                         (typeof MC[get_value(sim_states["REG_MICROADDR"])] != "undefined") 
                       );
 
 		show_states();
 		show_rf_values();
-                if (DBG_level == "microinstruction")
+                if (WSCFG['DBG_level'] == "microinstruction")
                     show_dbg_mpc();
         }
 
@@ -560,9 +603,9 @@
                     return false;
                 }
 
-		if (  (parseInt(sim_states["REG_MICROADDR"].value) == 0) &&
-		     ((parseInt(sim_states["REG_PC"].value) >= parseInt(segments['code'].end)) || 
-		      (parseInt(sim_states["REG_PC"].value) <  parseInt(segments['code'].begin))) )
+		if (  (parseInt(get_value(sim_states["REG_MICROADDR"])) == 0) &&
+		     ((parseInt(get_value(sim_states["REG_PC"])) >= parseInt(segments['code'].end)) || 
+		      (parseInt(get_value(sim_states["REG_PC"])) <  parseInt(segments['code'].begin))) )
                 {
                     alert('PC register points outside the code segment!');
                     return false;

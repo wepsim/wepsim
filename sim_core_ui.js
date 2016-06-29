@@ -122,7 +122,7 @@
             if (true == DRAW_stop)
                 return ;
 
-	    var draw_it = is_byvalue; // is_byvalue belongs to the sim_cfg.js
+	    var draw_it = WSCFG['is_byvalue']; // WSCFG['is_byvalue'] belongs to the sim_cfg.js
 	    if (typeof sim_states["REG_MICROINS"].value[obj.name] != "undefined") {
 		draw_it = true;
 	    }
@@ -142,34 +142,34 @@
 	    {
 		    for (var i=0; i<obj.draw_data.length; i++)
 		    for (var j=0; j<obj.draw_data[i].length; j++) {
-	                   obj_draw(obj.draw_data[i][j], (i==value) && draw_it, color_data_active, color_data_inactive, size_active, size_inactive);
+	                   obj_draw(obj.draw_data[i][j], (i==value) && draw_it, WSCFG['color_data_active'], WSCFG['color_data_inactive'], WSCFG['size_active'], WSCFG['size_inactive']);
 		    }
 
 		    for (var i=0; i<obj.draw_name.length; i++)
 		    for (var j=0; j<obj.draw_name[i].length; j++) {
-	                   obj_draw(obj.draw_name[i][j], (i==value) && draw_it, color_name_active, color_name_inactive, size_active, size_inactive);
+	                   obj_draw(obj.draw_name[i][j], (i==value) && draw_it, WSCFG['color_name_active'], WSCFG['color_name_inactive'], WSCFG['size_active'], WSCFG['size_inactive']);
 		    }
 	    }
 	    else if (obj.nbits == 1)
 	    // (same draw) && (nbits == 1)
 	    {
 		    for (var j=0; j<obj.draw_data[0].length; j++) {
-	                   obj_draw(obj.draw_data[0][j], (0!=value) && draw_it, color_data_active, color_data_inactive, size_active, size_inactive);
+	                   obj_draw(obj.draw_data[0][j], (0!=value) && draw_it, WSCFG['color_data_active'], WSCFG['color_data_inactive'], WSCFG['size_active'], WSCFG['size_inactive']);
 		    }
 
 		    for (var j=0; j<obj.draw_name[0].length; j++) {
-	                   obj_draw(obj.draw_name[0][j], (0!=value) && draw_it, color_name_active, color_name_inactive, size_active, size_inactive);
+	                   obj_draw(obj.draw_name[0][j], (0!=value) && draw_it, WSCFG['color_name_active'], WSCFG['color_name_inactive'], WSCFG['size_active'], WSCFG['size_inactive']);
 		    }
 	    }
 	    else if (obj.draw_data.length == 1)
 	    // (same draw) && (nbits > 1)
 	    {
 		    for (var j=0; j<obj.draw_data[0].length; j++) {
-	                   obj_draw(obj.draw_data[0][j], draw_it, color_data_active, color_data_inactive, size_active, size_inactive);
+	                   obj_draw(obj.draw_data[0][j], draw_it, WSCFG['color_data_active'], WSCFG['color_data_inactive'], WSCFG['size_active'], WSCFG['size_inactive']);
 		    }
 
 		    for (var j=0; j<obj.draw_name[0].length; j++) {
-	                   obj_draw(obj.draw_name[0][j], draw_it, color_name_active, color_name_inactive, size_active, size_inactive);
+	                   obj_draw(obj.draw_name[0][j], draw_it, WSCFG['color_name_active'], WSCFG['color_name_inactive'], WSCFG['size_active'], WSCFG['size_inactive']);
 		    }
 	    }
 	}
@@ -181,7 +181,7 @@
 		 update_draw(sim_signals[key], sim_signals[key].value) ;
 	    }
 
-	    show_dbg_ir(sim_states['REG_IR_DECO'].value) ;
+	    show_dbg_ir(get_value(sim_states['REG_IR_DECO'])) ;
         }
 
 
@@ -200,10 +200,10 @@
 
 	    for (var index=0; index < sim_states['BR'].length; index++) 
             {
-		 o1_rf += "<div class='col-xs-2 col-sm-1 col-md-1 col-lg-1' id='name_RF" + index + "' style='padding: 0 15 0 5;'>" +
+		 o1_rf += "<div class='col-xs-2 col-sm-1 col-md-2 col-lg-1' id='name_RF" + index + "' style='padding: 0 15 0 5;'>" +
                           "R" + index + "</div>" + 
-                          "<div class='col-xs-4 col-sm-2 col-md-3 col-lg-3' id='tbl_RF"  + index + "' style='padding: 0 5 0 35;'>" +
-                          (sim_states['BR'][index] >>> 0).toString(RF_display_format).toUpperCase() + "</div>" ; 
+                          "<div class='col-xs-4 col-sm-2 col-md-4 col-lg-3' id='tbl_RF"  + index + "' style='padding: 0 5 0 35;'>" +
+                          (get_value(sim_states['BR'][index]) >>> 0).toString(WSCFG['RF_display_format']).toUpperCase() + "</div>" ; 
 	    }
 
             $(jqdiv).html("<div class='row-fluid'>" + o1_rf + "</div>");
@@ -215,8 +215,8 @@
 
 	    for (var index=0; index < sim_states['BR'].length; index++) 
             {
-                 var br_value = (sim_states['BR'][index] >>> 0).toString(RF_display_format).toUpperCase() ;
-                 if (16 == RF_display_format)
+                 var br_value = (get_value(sim_states['BR'][index]) >>> 0).toString(WSCFG['RF_display_format']).toUpperCase() ;
+                 if (16 == WSCFG['RF_display_format'])
                      br_value = "00000000".substring(0, 8 - br_value.length) + br_value ;
 
                  var obj = document.getElementById("tbl_RF" + index);
@@ -224,7 +224,7 @@
                      obj.innerHTML = br_value ;
 
                  br_value = "R" + index;
-	         if ('logical' == RF_display_name)
+	         if ('logical' == WSCFG['RF_display_name'])
 		     if (typeof SIMWARE['registers'][index] != "undefined")
 		         br_value = SIMWARE['registers'][index] ;
 
@@ -240,8 +240,8 @@
 
 	    for (var index=0; index < sim_states['BR'].length; index++) 
             {
-                 var br_value = (sim_states['BR'][index] >>> 0).toString(RF_display_format).toUpperCase() ;
-                 if (16 == RF_display_format)
+                 var br_value = (get_value(sim_states['BR'][index]) >>> 0).toString(WSCFG['RF_display_format']).toUpperCase() ;
+                 if (16 == WSCFG['RF_display_format'])
                      br_value = "00000000".substring(0, 8 - br_value.length) + br_value ;
 
                  var obj = document.getElementById("tbl_RF" + index);
@@ -257,7 +257,7 @@
 	    for (var index=0; index < sim_states['BR'].length; index++) 
             {
                  var br_value = "R" + index;
-	         if ('logical' == RF_display_name)
+	         if ('logical' == WSCFG['RF_display_name'])
 		     if (typeof SIMWARE['registers'][index] != "undefined")
 		         br_value = SIMWARE['registers'][index] ;
 
@@ -267,16 +267,6 @@
 	    }
         }
 
-
-        var filter_states = [ "REG_IR_DECO,1",   
-                              "REG_IR,0",  "REG_PC,0",  "REG_SR,0", 
-                              "REG_RT1,0", "REG_RT2,0", "REG_RT3,0",    
-                              "REG_MAR,0", "REG_MBR,0", "REG_MICROADDR,0",
-                              "FLAG_C,0",  "FLAG_V,0",  "FLAG_N,0",  "FLAG_Z,0",     
-                              "FLAG_I,0",  "FLAG_U,0" ] ;
-
-        var divclasses = [ "col-xs-3 col-sm-3 col-md-3 col-lg-2",
-                           "col-xs-6 col-sm-6 col-md-6 col-lg-6" ] ;
 
         function init_eltos ( jqdiv, sim_eltos, filter, divclasses ) 
         {
@@ -299,12 +289,13 @@
 
                 o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" + showkey + "</div>" +
                       "<div class='" + divclass + "' id='tbl_" + s + "' style='padding: 0 5 0 0;'>" +
-                      sim_eltos[s].value.toString(RF_display_format) +
+                      sim_eltos[s].value.toString(WSCFG['RF_display_format']) +
                       "</div>" ;
             }
 
             $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
         }
+
 
         function show_eltos ( sim_eltos, filter ) 
         {
@@ -312,11 +303,11 @@
             {
                 var r = filter[i].split(",") ;
                 var key = r[0] ;
-                var value = sim_eltos[key].value.toString(RF_display_format) ;
+                var value = sim_eltos[key].value.toString(WSCFG['RF_display_format']) ;
 
                 if (sim_eltos[key].nbits > 1) {
-                        value = (sim_states[key].value >>> 0).toString(RF_display_format).toUpperCase() ;
-                    if (16 == RF_display_format)
+                        value = (sim_states[key].value >>> 0).toString(WSCFG['RF_display_format']).toUpperCase() ;
+                    if (16 == WSCFG['RF_display_format'])
                         value = "<font color=gray>" + "00000000".substring(0, 8 - value.length) + "</font>" + value ;
                 }
 
@@ -325,6 +316,16 @@
                     obj.innerHTML = value ;
             }
         }
+
+        var filter_states = [ "REG_IR_DECO,1",   
+                              "REG_IR,0",  "REG_PC,0",  "REG_SR,0", 
+                              "REG_RT1,0", "REG_RT2,0", "REG_RT3,0",    
+                              "REG_MAR,0", "REG_MBR,0", "REG_MICROADDR,0",
+                              "FLAG_C,0",  "FLAG_V,0",  "FLAG_N,0",  "FLAG_Z,0",     
+                              "FLAG_I,0",  "FLAG_U,0" ] ;
+
+        var divclasses = [ "col-xs-3 col-sm-3 col-md-3 col-lg-2",
+                           "col-xs-6 col-sm-6 col-md-6 col-lg-6" ] ;
 
         function init_states ( jqdiv ) 
         {
@@ -456,11 +457,11 @@
                              value += ks + "=" + parseInt(memory[key][ks]).toString(2) + " ";
 
                              /* // Future feature: control memory is shown as configured the display format.
-                             var m_key_ks_value = parseInt(memory[key][ks]).toString(RF_display_format) ;
-                             if (16 == RF_display_format)
+                             var m_key_ks_value = parseInt(memory[key][ks]).toString(WSCFG['RF_display_format']) ;
+                             if (16 == WSCFG['RF_display_format'])
                                   value += ks + "=0x" + m_key_ks_value + " ";
                              else 
-                             if ( (8 == RF_display_format) && (memory[key][ks] != 0) )
+                             if ( (8 == WSCFG['RF_display_format']) && (memory[key][ks] != 0) )
                                   value += ks + "=0"  + m_key_ks_value + " ";
                              else value += ks + "="   + m_key_ks_value + " ";
                              */
@@ -525,7 +526,7 @@
                      o1.css('background-color', SIMWARE.assembly[l].bgcolor);
                 }
 
-                var reg_pc     = sim_states["REG_PC"].value ;
+                var reg_pc     = get_value(sim_states["REG_PC"]) ;
                 var curr_addr  = "0x" + reg_pc.toString(16) ;
 
                 o1 = $("#asmdbg" + curr_addr) ;
@@ -534,7 +535,7 @@
 
 	function show_dbg_mpc ( )
 	{
-                show_memories('MC', MC, sim_states['REG_MICROADDR'].value) ;
+                show_memories('MC', MC, get_value(sim_states['REG_MICROADDR'])) ;
 	}
 
 	function show_dbg_ir ( decins )
@@ -948,7 +949,7 @@
                 }
 
                 var ret = false ;
-	        if (DBG_level == "instruction")
+	        if (WSCFG['DBG_level'] == "instruction")
                      ret = execute_instruction() ;
                 else ret = execute_microinstruction() ;
 
@@ -959,7 +960,7 @@
                 }
 
                 var SIMWARE = get_simware() ;
-                reg_pc      = sim_states["REG_PC"].value ;
+                reg_pc      = get_value(sim_states["REG_PC"]) ;
                 curr_addr   = "0x" + reg_pc.toString(16) ;
 
                 if ( (typeof SIMWARE.assembly[curr_addr] != "undefined") && (SIMWARE.assembly[curr_addr].breakpoint) ) 
@@ -970,6 +971,6 @@
                     return ;
                 }
 
-                setTimeout(asmdbg_play, DBG_delay, btn1) ;
+                setTimeout(asmdbg_play, WSCFG['DBG_delay'], btn1) ;
 	}
 
