@@ -90,8 +90,9 @@
 
            var cfg_tobetransformed = [ "DBG_delay", "RF_display_format", "is_interactive", "is_byvalue" ] ;
 
-           for (var item in cfg_tobetransformed) 
+           for (var index in cfg_tobetransformed) 
            {
+                item = cfg_tobetransformed[index] ;
                 if (typeof WSCFG[item] == "string") {
                     WSCFG[item] = JSON.parse(WSCFG[item]);
                 }
