@@ -393,7 +393,7 @@
                 <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
                     <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
                 </div>
-                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.3.5</span> / Simulator</span>
+                <span class="ui-title"><b>WepSIM</b> <span class="badge"><div class="wsversion">X</div></span> / Simulator</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a href="#actions_panel" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
@@ -549,7 +549,7 @@
                 <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
                     <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
                 </div>
-                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.3.5</span> / Microcode</span>
+                <span class="ui-title"><b>WepSIM</b> <span class="badge"><div class="wsversion">X</div></span> / Microcode</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a href="#actions_panel" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
@@ -666,7 +666,7 @@
                 <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
                     <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
                 </div>
-                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.3.5</span> / Assembly</span>
+                <span class="ui-title"><b>WepSIM</b> <span class="badge"><div class="wsversion">X</div></span> / Assembly</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a href="#actions_panel" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
@@ -920,7 +920,7 @@
      data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
 
    <div data-role="header" data-theme="a">
-   <h1><b>Web elemental processor SIMulator</b> <span class="badge btn-success">1.3.5</span> </h1>
+   <h1><b>Web elemental processor SIMulator</b> <span class="badge btn-success"><div class="wsversion">X</div></span> </h1>
    </div>
    <div role="main" class="ui-content">
 
@@ -1108,6 +1108,8 @@
 		    $("#radio5-" +     get_interactive_mode()).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio6-" +          WSCFG['ws_idiom']).prop('checked', true).checkboxradio("refresh") ;
 	    }) ;
+
+            $("div.wsversion").replaceWith(WSCFG['version']);
 
 	    init(); 
 	    reset(); 

@@ -22,68 +22,46 @@
         var WSCFG = new Object() ;
         WSCFG['version'] = "1.3.5" ;
 
-        /*
-         *  SVG configuration
-         */
-
-        WSCFG['color_data_active']   = "#0066FF" ;
-        WSCFG['color_data_inactive'] = "rgb(0, 0, 0)" ; // "black"
-
-        WSCFG['color_name_active']   = "red" ;
-        WSCFG['color_name_inactive'] = "rgb(0, 0, 0)" ; // "black"
-
-	WSCFG['size_active']         = 1.22;
-	WSCFG['size_inactive']       = 0.02;
-
-
-        /*
-         *  UI configuration
-         */
-
-        WSCFG['DBG_delay']         = 10 ;
-        WSCFG['DBG_level']         = "instruction" ;
-
-        WSCFG['RF_display_format'] = 16 ;
-        WSCFG['RF_display_name']   = 'numerical' ;
-
-        WSCFG['NOTIF_delay']       = 500 ;
-
-
-        /*
-         *  SIM working
-         */
-
-        WSCFG['is_interactive']  = true;
-        WSCFG['is_byvalue']      = false; // by value or by activation
-
-        WSCFG['ws_idiom']        = 'es';
-
-
-        /*
-         *  Persistence
-         */
-
         function reset_cfg ( )
         {
-               WSCFG['version']             = "1.3.5" ;
+		/*
+		 *  SVG configuration
+		 */
 
                WSCFG['color_data_active']   = "#0066FF" ;
                WSCFG['color_data_inactive'] = "rgb(0, 0, 0)" ; // "black"
+
                WSCFG['color_name_active']   = "red" ;
                WSCFG['color_name_inactive'] = "rgb(0, 0, 0)" ; // "black"
+
 	       WSCFG['size_active']         = 1.22;
 	       WSCFG['size_inactive']       = 0.02;
 
+		/*
+		 *  UI configuration
+		 */
                WSCFG['DBG_delay']           = 10 ;
                WSCFG['DBG_level']           = "instruction" ;
+
                WSCFG['RF_display_format']   = 16 ;
                WSCFG['RF_display_name']     = 'numerical' ;
+
+               WSCFG['NOTIF_delay']         = 500 ;
+
+		/*
+		 *  SIM working
+		 */
 
                WSCFG['is_interactive']      = true;
                WSCFG['is_byvalue']          = false;
 
                WSCFG['ws_idiom']            = 'es';
         }
+
+
+        /*
+         *  Persistence
+         */
 
         function save_cfg ( )
         {
@@ -96,21 +74,27 @@
 
         function restore_cfg ( )
         {
+           reset_cfg() ;
+
            if (typeof localStorage == "undefined")
                return ;
 
            for (var item in WSCFG) 
+           {
+                if (item == 'version')
+                    continue;
+
                 if (localStorage.getItem('wepsim_' + item) != null)
                     WSCFG[item] = localStorage.getItem('wepsim_' + item);
+           }
 
-           if (localStorage.getItem('wepsim_DBG_delay') != null)
-               DBG_delay           = JSON.parse(localStorage.getItem('wepsim_DBG_delay'));
-           if (localStorage.getItem('wepsim_RF_display_format') != null)
-               RF_display_format   = JSON.parse(localStorage.getItem('wepsim_RF_display_format'));
+           var cfg_tobetransformed = [ "DBG_delay", "RF_display_format", "is_interactive", "is_byvalue" ] ;
 
-           if (localStorage.getItem('wepsim_is_interactive') != null)
-               is_interactive      = JSON.parse(localStorage.getItem('wepsim_is_interactive'));
-           if (localStorage.getItem('wepsim_is_byvalue') != null)
-               is_byvalue          = JSON.parse(localStorage.getItem('wepsim_is_byvalue'));
+           for (var item in cfg_tobetransformed) 
+           {
+                if (typeof WSCFG[item] == "string") {
+                    WSCFG[item] = JSON.parse(WSCFG[item]);
+                }
+           }
         }
 
