@@ -54,6 +54,7 @@
 
                WSCFG['is_interactive']      = true;
                WSCFG['is_byvalue']          = false;
+               WSCFG['is_editable']         = false;
 
                WSCFG['ws_idiom']            = 'es';
         }
@@ -88,7 +89,7 @@
                     WSCFG[item] = localStorage.getItem('wepsim_' + item);
            }
 
-           var cfg_tobetransformed = [ "DBG_delay", "RF_display_format", "is_interactive", "is_byvalue" ] ;
+           var cfg_tobetransformed = [ "DBG_delay", "RF_display_format", "is_interactive", "is_byvalue", "is_editable" ] ;
 
            for (var index in cfg_tobetransformed) 
            {
