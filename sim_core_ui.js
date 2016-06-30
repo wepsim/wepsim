@@ -196,10 +196,20 @@
                 return ;
             }
 
-            var o1_rf = "" ;
+            if (WSCFG['is_editable'] == true)
+	    for (var index=0; index < sim_states['BR'].length; index++)
+                 sim_states['BR'][index].value = ko.observable(sim_states['BR'][index].default_value);
 
+            var o1_rf = "" ;
 	    for (var index=0; index < sim_states['BR'].length; index++) 
             {
+                 if (WSCFG['is_editable'] == true)
+		 o1_rf += "<div class='col-xs-2 col-sm-1 col-md-2 col-lg-1' id='name_RF" + index + "' style='padding: 0 15 0 5;'>" +
+                          "R" + index + "</div>" + 
+                          "<div class='col-xs-4 col-sm-2 col-md-4 col-lg-3' id='tbl_RF"  + index + "' style='padding: 0 5 0 35;'>" +
+                          "<input size=10 data-role=none data-bind='value:value'>" +
+                          "</div>" ;
+                 else
 		 o1_rf += "<div class='col-xs-2 col-sm-1 col-md-2 col-lg-1' id='name_RF" + index + "' style='padding: 0 15 0 5;'>" +
                           "R" + index + "</div>" + 
                           "<div class='col-xs-4 col-sm-2 col-md-4 col-lg-3' id='tbl_RF"  + index + "' style='padding: 0 5 0 35;'>" +
@@ -207,35 +217,24 @@
 	    }
 
             $(jqdiv).html("<div class='row-fluid'>" + o1_rf + "</div>");
-        }
 
-        function show_rf ( ) 
-        {
-            var SIMWARE = get_simware() ;
-
-	    for (var index=0; index < sim_states['BR'].length; index++) 
+            // knockout binding
+            if (WSCFG['is_editable'] == true)
+            for (var index=0; index < sim_states['BR'].length; index++)
             {
-                 var br_value = (get_value(sim_states['BR'][index]) >>> 0).toString(WSCFG['RF_display_format']).toUpperCase() ;
-                 if (16 == WSCFG['RF_display_format'])
-                     br_value = "00000000".substring(0, 8 - br_value.length) + br_value ;
-
-                 var obj = document.getElementById("tbl_RF" + index);
-                 if (obj != null)
-                     obj.innerHTML = br_value ;
-
-                 br_value = "R" + index;
-	         if ('logical' == WSCFG['RF_display_name'])
-		     if (typeof SIMWARE['registers'][index] != "undefined")
-		         br_value = SIMWARE['registers'][index] ;
-
-		 var obj = document.getElementById("name_RF" + index);
-		 if (obj != null)
-		     obj.innerHTML = br_value ;
-	    }
+                 var ko_context = document.getElementById('tbl_RF' + index);
+                 ko.applyBindings(sim_states['BR'][index], ko_context);
+                 sim_states['BR'][index].value.subscribe(function(newValue) {
+                                                              // this.ia("0x" + parseInt(newValue).toString(RF_display_format).toUpperCase());
+                                                         });
+            }
         }
 
         function show_rf_values ( ) 
         {
+            if (WSCFG['is_editable'] == true)
+                return;
+
             var SIMWARE = get_simware() ;
 
 	    for (var index=0; index < sim_states['BR'].length; index++) 
@@ -275,6 +274,13 @@
                 return ;
             }
 
+            if (WSCFG['is_editable'] == true)
+            for (var i=0; i<filter.length; i++)
+            {
+                 var s = filter[i].split(",")[0] ;
+                 sim_eltos[s].value = ko.observable(sim_eltos[s].default_value) ;
+            }
+
             var o1 = "" ;
             for (var i=0; i<filter.length; i++)
             {
@@ -287,6 +293,12 @@
                 var b = filter[i].split(",")[1] ;
                 var divclass = divclasses[b] ;
 
+                if (WSCFG['is_editable'] == true)
+                o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" + showkey + "</div>" +
+                      "<div class='" + divclass + "' id='tbl_" + s + "' style='padding: 0 5 0 0;'>" +
+                      "<input size=10 data-role=none data-bind='value:value'>" +
+                      "</div>" ;
+                else
                 o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" + showkey + "</div>" +
                       "<div class='" + divclass + "' id='tbl_" + s + "' style='padding: 0 5 0 0;'>" +
                       sim_eltos[s].value.toString(WSCFG['RF_display_format']) +
@@ -294,11 +306,25 @@
             }
 
             $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
-        }
 
+            // knockout binding
+            if (WSCFG['is_editable'] == true)
+            for (var i=0; i<filter.length; i++)
+            {
+                 var s = filter[i].split(",")[0] ;
+                 var ko_context = document.getElementById('tbl_' + s);
+                 ko.applyBindings(sim_eltos[s], ko_context);
+                 sim_eltos[s].value.subscribe(function(newValue) {
+                                                              // this.ia("0x" + parseInt(newValue).toString(RF_display_format).toUpperCase());
+                                                         });
+            }
+        }
 
         function show_eltos ( sim_eltos, filter ) 
         {
+            if (WSCFG['is_editable'] == true)
+                return;
+
             for (var i=0; i<filter.length; i++)
             {
                 var r = filter[i].split(",") ;
@@ -316,6 +342,7 @@
                     obj.innerHTML = value ;
             }
         }
+
 
         var filter_states = [ "REG_IR_DECO,1",   
                               "REG_IR,0",  "REG_PC,0",  "REG_SR,0", 
