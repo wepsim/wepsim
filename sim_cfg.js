@@ -43,19 +43,19 @@
                WSCFG['color_name_active']   = { value:"red",              type:"string"} ;
                WSCFG['color_name_inactive'] = { value:"rgb(0, 0, 0)",     type:"string"} ; // "black"
 
-	       WSCFG['size_active']         = { value:1.22,               type:"float"};
-	       WSCFG['size_inactive']       = { value:0.02,               type:"float"};
+	       WSCFG['size_active']         = { value:1.22,               type:"float"} ;
+	       WSCFG['size_inactive']       = { value:0.02,               type:"float"} ;
 
 		/*
 		 *  UI configuration
 		 */
-               WSCFG['DBG_delay']           = { value:10,               type:"int"} ;
-               WSCFG['DBG_level']           = { value:"instruction",    type:"string"} ;
+               WSCFG['DBG_delay']           = { value:10,                 type:"int"} ;
+               WSCFG['DBG_level']           = { value:"instruction",      type:"string"} ;
 
-               WSCFG['RF_display_format']   = { value:16,               type:"int"} ;
-               WSCFG['RF_display_name']     = { value:'numerical',      type:"string"} ;
+               WSCFG['RF_display_format']   = { value:16,                 type:"int"} ;
+               WSCFG['RF_display_name']     = { value:'numerical',        type:"string"} ;
 
-               WSCFG['NOTIF_delay']         = { value:500,              type:"int"} ;
+               WSCFG['NOTIF_delay']         = { value:500,                type:"int"} ;
 
 		/*
 		 *  SIM working
@@ -75,31 +75,35 @@
 
         function save_cfg ( )
         {
-           if (typeof localStorage == "undefined")
-               return ;
-
-           for (var item in WSCFG) 
-                localStorage.setItem('wepsim_' + item, WSCFG[item].value);
+	   try 
+	   {
+                for (var item in WSCFG) 
+                     localStorage.setItem('wepsim_' + item, WSCFG[item].value);
+	   }
+           catch(err) {
+                console.log("WepSIM can not save the configuration in a persistent way on this web browser, found error: \n" + err.message);
+	   }
         }
 
         function restore_cfg ( )
         {
            reset_cfg() ;
 
-           if (typeof localStorage == "undefined")
-               return;
-
            for (var item in WSCFG) 
            {
                 if (item == 'version')
                     continue;
 
-                if (localStorage.getItem('wepsim_' + item) != null)
+                try 
                 {
-                    WSCFG[item].value = localStorage.getItem('wepsim_' + item);
-
-                    if (WSCFG[item].type != "string")
-                        WSCFG[item].value = JSON.parse(WSCFG[item].value);
+                   WSCFG[item].value = localStorage.getItem('wepsim_' + item) ;
+                   if (WSCFG[item].type != "string")
+                       WSCFG[item].value = JSON.parse(WSCFG[item].value);
+                }
+                catch(err) {
+                   console.log("WepSIM can not restore the configuration on this web browser, found error: \n" + err.message);
+                   reset_cfg() ;
+                   return;
                 }
            }
         }
