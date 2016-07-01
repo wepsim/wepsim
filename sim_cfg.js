@@ -65,7 +65,7 @@
                WSCFG['is_byvalue']          = { value:false,        type:"boolean"};
                WSCFG['is_editable']         = { value:false,        type:"boolean"};
 
-               WSCFG['ws_idiom']            = { value:'es',         type:"boolean"};
+               WSCFG['ws_idiom']            = { value:'es',         type:"string"};
         }
 
 
