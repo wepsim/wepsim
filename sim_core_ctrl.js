@@ -287,7 +287,7 @@
         function update_signal_loadhelp ( helpdiv, key )
         {
 	     $(helpdiv).collapse('toggle');
-	     var help_base = 'help/signals-' + WSCFG['ws_idiom'] + '.html #' + key;
+	     var help_base = 'help/signals-' + get_cfg('ws_idiom') + '.html #' + key;
 	     $(helpdiv).load(help_base,
 			      function(response, status, xhr) { 
 				  if ( $(helpdiv).html() == "" ) 
@@ -298,7 +298,7 @@
  
         function update_signal (event)
         {
-	    if (false === get_interactive_mode())
+	    if (false === get_cfg('is_interactive'))
                 return;
 
             for (var key in sim_signals)
@@ -371,7 +371,7 @@
 
 							     sim_signals[key].value = user_input ;
 
-	                                                     if (true === get_interactive_mode())
+	                                                     if (true === get_cfg('is_interactive'))
 							     {
 								 // update REG_MICROINS
 								 sim_states["REG_MICROINS"].value[key] = sim_signals[key].value ;
@@ -512,20 +512,7 @@
             }
         }
 
-        /* 2) INTERACTIVE MODE */
-        function set_interactive_mode ( interactive )
-        {
-            // 1.- set the global variable of in which mode we are
-	    WSCFG['is_interactive'] = interactive ;
-        }
-
-        function get_interactive_mode()
-        {
-            // 1.- get the global variable of in which mode we are
-	    return WSCFG['is_interactive'] ;
-        }
-
-        /* 3) EXECUTION */
+        /* 2) EXECUTION */
         function reset()
         {
             compute_behavior("RESET") ;
@@ -553,7 +540,7 @@
 
         function execute_microinstruction ()
         {
-	        if (false === get_interactive_mode())
+	        if (false === get_cfg('is_interactive'))
                 {
 			if (typeof segments['code'] == "undefined")
 			{
@@ -591,7 +578,7 @@
 
 		show_states();
 		show_rf_values();
-                if (WSCFG['DBG_level'] == "microinstruction")
+                if (get_cfg('DBG_level') == "microinstruction")
                     show_dbg_mpc();
         }
 
@@ -615,7 +602,7 @@
                 return true;
         }
 
-        /* 5) LOAD/SAVE */
+        /* 3) LOAD/SAVE */
         function load_firmware ( textFromFileLoaded )
         {
                 if ("" == textFromFileLoaded.trim())

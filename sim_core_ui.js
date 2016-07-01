@@ -122,7 +122,7 @@
             if (true == DRAW_stop)
                 return ;
 
-	    var draw_it = WSCFG['is_byvalue']; // WSCFG['is_byvalue'] belongs to the sim_cfg.js
+	    var draw_it = get_cfg('is_byvalue'); // 'is_byvalue' belongs to the sim_cfg.js
 	    if (typeof sim_states["REG_MICROINS"].value[obj.name] != "undefined") {
 		draw_it = true;
 	    }
@@ -142,34 +142,34 @@
 	    {
 		    for (var i=0; i<obj.draw_data.length; i++)
 		    for (var j=0; j<obj.draw_data[i].length; j++) {
-	                   obj_draw(obj.draw_data[i][j], (i==value) && draw_it, WSCFG['color_data_active'], WSCFG['color_data_inactive'], WSCFG['size_active'], WSCFG['size_inactive']);
+	                   obj_draw(obj.draw_data[i][j], (i==value) && draw_it, get_cfg('color_data_active'), get_cfg('color_data_inactive'), get_cfg('size_active'), get_cfg('size_inactive'));
 		    }
 
 		    for (var i=0; i<obj.draw_name.length; i++)
 		    for (var j=0; j<obj.draw_name[i].length; j++) {
-	                   obj_draw(obj.draw_name[i][j], (i==value) && draw_it, WSCFG['color_name_active'], WSCFG['color_name_inactive'], WSCFG['size_active'], WSCFG['size_inactive']);
+	                   obj_draw(obj.draw_name[i][j], (i==value) && draw_it, get_cfg('color_name_active'), get_cfg('color_name_inactive'), get_cfg('size_active'), get_cfg('size_inactive'));
 		    }
 	    }
 	    else if (obj.nbits == 1)
 	    // (same draw) && (nbits == 1)
 	    {
 		    for (var j=0; j<obj.draw_data[0].length; j++) {
-	                   obj_draw(obj.draw_data[0][j], (0!=value) && draw_it, WSCFG['color_data_active'], WSCFG['color_data_inactive'], WSCFG['size_active'], WSCFG['size_inactive']);
+	                   obj_draw(obj.draw_data[0][j], (0!=value) && draw_it, get_cfg('color_data_active'), get_cfg('color_data_inactive'), get_cfg('size_active'), get_cfg('size_inactive'));
 		    }
 
 		    for (var j=0; j<obj.draw_name[0].length; j++) {
-	                   obj_draw(obj.draw_name[0][j], (0!=value) && draw_it, WSCFG['color_name_active'], WSCFG['color_name_inactive'], WSCFG['size_active'], WSCFG['size_inactive']);
+	                   obj_draw(obj.draw_name[0][j], (0!=value) && draw_it, get_cfg('color_name_active'), get_cfg('color_name_inactive'), get_cfg('size_active'), get_cfg('size_inactive'));
 		    }
 	    }
 	    else if (obj.draw_data.length == 1)
 	    // (same draw) && (nbits > 1)
 	    {
 		    for (var j=0; j<obj.draw_data[0].length; j++) {
-	                   obj_draw(obj.draw_data[0][j], draw_it, WSCFG['color_data_active'], WSCFG['color_data_inactive'], WSCFG['size_active'], WSCFG['size_inactive']);
+	                   obj_draw(obj.draw_data[0][j], draw_it, get_cfg('color_data_active'), get_cfg('color_data_inactive'), get_cfg('size_active'), get_cfg('size_inactive'));
 		    }
 
 		    for (var j=0; j<obj.draw_name[0].length; j++) {
-	                   obj_draw(obj.draw_name[0][j], draw_it, WSCFG['color_name_active'], WSCFG['color_name_inactive'], WSCFG['size_active'], WSCFG['size_inactive']);
+	                   obj_draw(obj.draw_name[0][j], draw_it, get_cfg('color_name_active'), get_cfg('color_name_inactive'), get_cfg('size_active'), get_cfg('size_inactive'));
 		    }
 	    }
 	}
@@ -196,14 +196,14 @@
                 return ;
             }
 
-            if (WSCFG['is_editable'] == true)
+            if (get_cfg('is_editable') == true)
 	    for (var index=0; index < sim_states['BR'].length; index++)
                  sim_states['BR'][index].value = ko.observable(sim_states['BR'][index].default_value);
 
             var o1_rf = "" ;
 	    for (var index=0; index < sim_states['BR'].length; index++) 
             {
-                 if (WSCFG['is_editable'] == true)
+                 if (get_cfg('is_editable') == true)
 		 o1_rf += "<div class='col-xs-2 col-sm-1 col-md-2 col-lg-1' id='name_RF" + index + "' style='padding: 0 15 0 5;'>" +
                           "R" + index + "</div>" + 
                           "<div class='col-xs-4 col-sm-2 col-md-4 col-lg-3' id='tbl_RF"  + index + "' style='padding: 0 5 0 35;'>" +
@@ -213,13 +213,13 @@
 		 o1_rf += "<div class='col-xs-2 col-sm-1 col-md-2 col-lg-1' id='name_RF" + index + "' style='padding: 0 15 0 5;'>" +
                           "R" + index + "</div>" + 
                           "<div class='col-xs-4 col-sm-2 col-md-4 col-lg-3' id='tbl_RF"  + index + "' style='padding: 0 5 0 35;'>" +
-                          (get_value(sim_states['BR'][index]) >>> 0).toString(WSCFG['RF_display_format']).toUpperCase() + "</div>" ; 
+                          (get_value(sim_states['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() + "</div>" ; 
 	    }
 
             $(jqdiv).html("<div class='row-fluid'>" + o1_rf + "</div>");
 
             // knockout binding
-            if (WSCFG['is_editable'] == true)
+            if (get_cfg('is_editable') == true)
             for (var index=0; index < sim_states['BR'].length; index++)
             {
                  var ko_context = document.getElementById('tbl_RF' + index);
@@ -232,15 +232,15 @@
 
         function show_rf_values ( ) 
         {
-            if (WSCFG['is_editable'] == true)
+            if (get_cfg('is_editable') == true)
                 return;
 
             var SIMWARE = get_simware() ;
 
 	    for (var index=0; index < sim_states['BR'].length; index++) 
             {
-                 var br_value = (get_value(sim_states['BR'][index]) >>> 0).toString(WSCFG['RF_display_format']).toUpperCase() ;
-                 if (16 == WSCFG['RF_display_format'])
+                 var br_value = (get_value(sim_states['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() ;
+                 if (16 == get_cfg('RF_display_format'))
                      br_value = "00000000".substring(0, 8 - br_value.length) + br_value ;
 
                  var obj = document.getElementById("tbl_RF" + index);
@@ -256,7 +256,7 @@
 	    for (var index=0; index < sim_states['BR'].length; index++) 
             {
                  var br_value = "R" + index;
-	         if ('logical' == WSCFG['RF_display_name'])
+	         if ('logical' == get_cfg('RF_display_name'))
 		     if (typeof SIMWARE['registers'][index] != "undefined")
 		         br_value = SIMWARE['registers'][index] ;
 
@@ -274,7 +274,7 @@
                 return ;
             }
 
-            if (WSCFG['is_editable'] == true)
+            if (get_cfg('is_editable') == true)
             for (var i=0; i<filter.length; i++)
             {
                  var s = filter[i].split(",")[0] ;
@@ -293,7 +293,7 @@
                 var b = filter[i].split(",")[1] ;
                 var divclass = divclasses[b] ;
 
-                if (WSCFG['is_editable'] == true)
+                if (get_cfg('is_editable') == true)
                 o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" + showkey + "</div>" +
                       "<div class='" + divclass + "' id='tbl_" + s + "' style='padding: 0 5 0 0;'>" +
                       "<input size=10 data-role=none data-bind='value:value'>" +
@@ -301,14 +301,14 @@
                 else
                 o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" + showkey + "</div>" +
                       "<div class='" + divclass + "' id='tbl_" + s + "' style='padding: 0 5 0 0;'>" +
-                      sim_eltos[s].value.toString(WSCFG['RF_display_format']) +
+                      sim_eltos[s].value.toString(get_cfg('RF_display_format')) +
                       "</div>" ;
             }
 
             $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
 
             // knockout binding
-            if (WSCFG['is_editable'] == true)
+            if (get_cfg('is_editable') == true)
             for (var i=0; i<filter.length; i++)
             {
                  var s = filter[i].split(",")[0] ;
@@ -322,18 +322,18 @@
 
         function show_eltos ( sim_eltos, filter ) 
         {
-            if (WSCFG['is_editable'] == true)
+            if (get_cfg('is_editable') == true)
                 return;
 
             for (var i=0; i<filter.length; i++)
             {
                 var r = filter[i].split(",") ;
                 var key = r[0] ;
-                var value = sim_eltos[key].value.toString(WSCFG['RF_display_format']) ;
+                var value = sim_eltos[key].value.toString(get_cfg('RF_display_format')) ;
 
                 if (sim_eltos[key].nbits > 1) {
-                        value = (sim_states[key].value >>> 0).toString(WSCFG['RF_display_format']).toUpperCase() ;
-                    if (16 == WSCFG['RF_display_format'])
+                        value = (sim_states[key].value >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() ;
+                    if (16 == get_cfg('RF_display_format'))
                         value = "<font color=gray>" + "00000000".substring(0, 8 - value.length) + "</font>" + value ;
                 }
 
@@ -484,11 +484,11 @@
                              value += ks + "=" + parseInt(memory[key][ks]).toString(2) + " ";
 
                              /* // Future feature: control memory is shown as configured the display format.
-                             var m_key_ks_value = parseInt(memory[key][ks]).toString(WSCFG['RF_display_format']) ;
-                             if (16 == WSCFG['RF_display_format'])
+                             var m_key_ks_value = parseInt(memory[key][ks]).toString(get_cfg('RF_display_format')) ;
+                             if (16 == get_cfg('RF_display_format'))
                                   value += ks + "=0x" + m_key_ks_value + " ";
                              else 
-                             if ( (8 == WSCFG['RF_display_format']) && (memory[key][ks] != 0) )
+                             if ( (8 == get_cfg('RF_display_format')) && (memory[key][ks] != 0) )
                                   value += ks + "=0"  + m_key_ks_value + " ";
                              else value += ks + "="   + m_key_ks_value + " ";
                              */
@@ -976,7 +976,7 @@
                 }
 
                 var ret = false ;
-	        if (WSCFG['DBG_level'] == "instruction")
+	        if (get_cfg('DBG_level') == "instruction")
                      ret = execute_instruction() ;
                 else ret = execute_microinstruction() ;
 
@@ -998,6 +998,6 @@
                     return ;
                 }
 
-                setTimeout(asmdbg_play, WSCFG['DBG_delay'], btn1) ;
+                setTimeout(asmdbg_play, get_cfg('DBG_delay'), btn1) ;
 	}
 
