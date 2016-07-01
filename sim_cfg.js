@@ -20,7 +20,17 @@
 
 
         var WSCFG = new Object() ;
-        WSCFG['version'] = "1.3.5" ;
+        WSCFG['version'] = "1.3.6" ;
+
+        function get_cfg ( field )
+        {
+               return WSCFG[field] ;
+        }
+
+        function set_cfg ( field, value )
+        {
+               WSCFG[field] = value ;
+        }
 
         function reset_cfg ( )
         {
