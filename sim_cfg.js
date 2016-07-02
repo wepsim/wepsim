@@ -78,7 +78,7 @@
 	   try 
 	   {
                 for (var item in WSCFG) 
-                     localStorage.setItem('wepsim_' + item, WSCFG[item].value);
+                     localStorage.setItem('wepsim_' + item, get_cfg(item));
 	   }
            catch(err) {
                 console.log("WepSIM can not save the configuration in a persistent way on this web browser, found error: \n" + err.message);
@@ -96,9 +96,11 @@
 
                 try 
                 {
-                   WSCFG[item].value = localStorage.getItem('wepsim_' + item) ;
+                   set_cfg(item, localStorage.getItem('wepsim_' + item)) ;
                    if (WSCFG[item].type != "string")
-                       WSCFG[item].value = JSON.parse(WSCFG[item].value);
+                       set_cfg(item, JSON.parse(get_cfg(item)));
+                   if (get_cfg(item) == null)
+                       throw "null values discarted";
                 }
                 catch(err) {
                    console.log("WepSIM can not restore the configuration on this web browser, found error: \n" + err.message);
