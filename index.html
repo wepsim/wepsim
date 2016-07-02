@@ -74,7 +74,7 @@
         // get SIMWARE.firmware
         var SIMWARE = get_simware() ;
 	if (SIMWARE.firmware.length == 0) {
-            alert('WARNING: please load firmware first.');
+            alert('WARNING: please load the microcode first.');
             $.mobile.pageContainer.pagecontainer('change','#main3');
             return false;
 	} 
@@ -93,7 +93,7 @@
         }
 
 	$.notify({ title: '<strong>INFO</strong>', message: 'Assembly was compiled and loaded.'},
-		 { type: 'success', newest_on_top: true, delay: NOTIF_delay, placement: { from: 'top', align: 'center' } });
+		 { type: 'success', newest_on_top: true, delay: get_cfg('NOTIF_delay'), placement: { from: 'top', align: 'center' } });
 
         // update memory and segments
         set_simware(SIMWAREaddon) ;
@@ -186,8 +186,8 @@
             return false;
         }
 
-	$.notify({ title: '<strong>INFO</strong>', message: 'Firmware was compiled and loaded.'},
-		 { type: 'success', newest_on_top: true, delay: NOTIF_delay, placement: { from: 'top', align: 'center' } });
+	$.notify({ title: '<strong>INFO</strong>', message: 'Microcode was compiled and loaded.'},
+		 { type: 'success', newest_on_top: true, delay: get_cfg('NOTIF_delay'), placement: { from: 'top', align: 'center' } });
 
         // update UI 
         if (true == show_binary)
@@ -234,7 +234,7 @@
     function load_firmware_from_example ( )
     {
 	var xmlhttp = new XMLHttpRequest();
-	var url = "examples/exampleFirmware.txt?time=20160611" ;
+	var url = "examples/exampleMicrocode.txt?time=20160611" ;
 
 	xmlhttp.onreadystatechange=function() {
 					// if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
@@ -298,7 +298,7 @@
         if (rel == "")
             return;
 
-        $('#iframe_help1').load('help/simulator-' + ws_idiom + '.html ' + rel,
+        $('#iframe_help1').load('help/simulator-' + get_cfg('ws_idiom') + '.html ' + rel,
 			        function() {
                                     $('#help1').trigger('updatelayout'); 
                                     $('#help1').popup('open');
@@ -391,7 +391,7 @@
                 <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
                     <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
                 </div>
-                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.3.2</span> / Simulator</span>
+                <span class="ui-title"><b>WepSIM</b> <span class="badge"><div class="wsversion">X</div></span> / Simulator</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a href="#actions_panel" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
@@ -400,19 +400,19 @@
 	<div role="main" class="ui-content">
 
             <div class="row">
-                <div class="col-md-8" style="padding: 0 2px 0 2px;">
+                <div class="col-md-8" style="padding: 0 2px 0 5px;">
 		    <div data-role="tabs" id="tabs2">
     		      <div data-role="navbar" id="tabsnav2" class="ui-responsive">
 		        <ul>
-		          <li style="clear:none;width:33% !important">
+		          <li style="clear:none;width:30% !important">
                               <a id="tab23" href="#eltos_cu"   
                                  onclick="start_drawing(); refresh();">Control Unit</a>
                           </li>
-		          <li style="clear:none;width:27% !important">
+		          <li style="clear:none;width:20% !important">
                               <a id="tab22" href="#eltos_p"   class="ui-btn-active"
                                  onclick="start_drawing(); refresh();">CPU</a>
                           </li>
-		          <li style="clear:none;width:40% !important">
+		          <li style="clear:none;width:49% !important">
                               <a id="tab24" href="#eltos_dbg"  
                                  onclick="stop_drawing();">Assembly Debugger</a>
                           </li>
@@ -450,9 +450,9 @@
                                 <div id="asm_debugger">
                                 <br>
                                 <ol>
-                                <li>Load the firmware to be used.</li>
+                                <li>Load the microcode to be used.</li>
                                     <ul>
-                                    <li>You can use the default firmware example, load it from a file or you can edit one.</li>
+                                    <li>You can use the default example of microcode, load it from a file or you can edit one.</li>
                                     </ul>
                                 <br>
                                 <li>Load the assembly to be used.</li>
@@ -460,7 +460,7 @@
                                     <li>You can use the default assembly example, load it from a file or you can edit one.</li>
                                     </ul>
                                 <br>
-                                <li>Come back to the simulator in order to execute step by step the firmware+assembly loaded before.</li>
+                                <li>Come back to the simulator in order to execute step by step the microcode+assembly loaded before.</li>
                                     <ul>
                                     <li>Each step could be executed at microinstruction or instruction level.</li>
                                     </ul>
@@ -471,7 +471,7 @@
 	    	    </div>
                 </div>
 
-                <div class="col-md-4" style="padding: 0 12px 0 12px;">
+                <div class="col-md-4" style="padding: 0 8px 0 0px;">
 
                     <div class="btn-toolbar" role="toolbar" id="sim_toolbar" style="padding: 0 0px 10px 0px;">
 			<div class="btn-group btn-group-justified" role="group">
@@ -547,7 +547,7 @@
                 <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
                     <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
                 </div>
-                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.3.2</span> / Firmware</span>
+                <span class="ui-title"><b>WepSIM</b> <span class="badge"><div class="wsversion">X</div></span> / Microcode</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a href="#actions_panel" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
@@ -558,7 +558,7 @@
 		<div id="lsload" 
                      data-role="popup" data-overlay-theme="a" data-theme="a" data-dismissible="false">
 		    <div data-role="header" data-theme="a">
-		    <h1>Firmware</h1>
+		    <h1>Microcode</h1>
 		    </div>
 		    <div role="main" class="ui-content">
 			<h3>Please select the file to be loaded:</h3>
@@ -578,7 +578,7 @@
 		    <h1>Save Page</h1>
 		    </div>
 		    <div role="main" class="ui-content">
-			<h2>Please write the file name where firmware will be saved:</h2>
+			<h2>Please write the file name where Microcode will be saved:</h2>
 			<p><input id="inputFileNameToSaveAs" style="min-width: 90%;"/></p>
 			<center>
 			<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
@@ -586,8 +586,8 @@
                                 onclick="var SIMWARE = get_simware() ;
                                          var simware_as_text = saveFirmware(SIMWARE);
                                          if (simware_as_text.trim() == '') {
-					     alert('The firmware loaded in memory is empty!\n' + 
-                                                   'Please load a firmware first in memory in order to save it.');
+					     alert('The Microcode loaded in memory is empty!\n' + 
+                                                   'Please load a Microcode first in memory in order to save it.');
 					 }
 					 else {
                                            //document.getElementById('inputFirmware').value = simware_as_text ;
@@ -623,7 +623,7 @@
 				   onclick="compileFirmware(true);">Show co2&#181;addr + control memory</a>
 
                             <a href="#" style="background-color: #D4DB17"
-                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-5 col-md-1 col-lg-1"
+                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-3 col-md-1 col-lg-1"
 				   onclick="$('#help1_ref').data('relative','');
                                             $('#iframe_help1').html('<div class=row><div class=\'col-xs-10 col-md-7 col-lg-6\'>' +  
                                                                     '<object id=svg_p2 style=\'width:90vh\' data=\'images/processor5.svg\' type=image/svg+xml>Your browser does not support SVG' + 
@@ -641,7 +641,7 @@
 				   onclick="$('#help1_ref').data('relative','#help_firmware_format'); show_help1();"
                                    >Help</a>
 		            <a href="#" style="background-color: #DDDDDD"
-				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-bars    ui-btn-icon-left ui-mini col-xs-3 col-md-1 col-lg-1"
+				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-bars    ui-btn-icon-left ui-mini col-xs-4 col-md-1 col-lg-1"
 				   onclick="load_firmware_from_example();"
                                    >Example</a>
 		</div>
@@ -649,7 +649,7 @@
 
 		<div id="t3_firm"  class="ui-body-d ui-content" style="position:relative;">
 		     <textarea style="min-width:90%; overflow-y:auto;"
-                               placeholder="Please select 'Example' or 'Load' first in order to have an initial firmware."
+                               placeholder="Please select 'Example' or 'Load' first in order to have an initial Microcode."
                                id="inputFirmware" rows=20></textarea>
 		</div>
 
@@ -664,7 +664,7 @@
                 <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
                     <a href="#about1" data-rel="popup" data-position-to="window"><img src="images/arcos.svg" height="40"></a>
                 </div>
-                <span class="ui-title"><b>WepSIM</b> <span class="badge">1.3.2</span> / Assembly</span>
+                <span class="ui-title"><b>WepSIM</b> <span class="badge"><div class="wsversion">X</div></span> / Assembly</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a href="#actions_panel" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
@@ -760,7 +760,7 @@
 	    <p>
 	    <ul id="listview_1" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b">
 		    <li><a id="tab21" href="#" style="background-color: lightgray"
-			   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"><h2>Firmware</h2></a></li>
+			   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"><h2>Microcode</h2></a></li>
 		    <li><a id="tab24" href="#" style="background-color: lightgray"
 			   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');"><h2>Assembly</h2></a></li>
 		    <li><a id="tab25" href="#" style="background-color: lightgray"
@@ -778,7 +778,7 @@
 			            show_help1();"><h2>Simulator usage</h2></a></li>
 		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info" style="background-color: #D4DB17;"
 			   onclick="$('#help1_ref').data('relative','#help_firmware_format');
-			            show_help1();"><h2>Firmware format</h2></a></li>
+			            show_help1();"><h2>Microcode format</h2></a></li>
 		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info" style="background-color: #D4DB17;"
 			   onclick="$('#help1_ref').data('relative','#help_assembly_format');
 			            show_help1();"><h2>Assembly format</h2></a></li>
@@ -799,19 +799,19 @@
 				data-show-value="false"
 				name="slider1" id="slider1"
 				min="1" max="100" value="100" step=1
-				onchange="DBG_delay = 1000 / this.value;">
+				onchange="set_cfg('DBG_delay', 1000 / this.value); save_cfg();">
 			 <fieldset data-role="controlgroup" data-type="horizontal">
 			 Single step element:
 			 <ul>
 			 <li>
 			     <input name="radio1" id="radio1-instruction" data-mini="true"
                                     style="margin-top:-8px"
-				    onclick="DBG_level='instruction'; save_cfg();"
+				    onclick="set_cfg('DBG_level','instruction'); save_cfg();"
 				    value="on" type="radio">
 			     <label for="radio1-instruction">Instruc.</label>
 			     <input name="radio1" id="radio1-microinstruction" data-mini="true"
                                     style="margin-top:-8px"
-				    onclick="DBG_level='microinstruction'; save_cfg();"
+				    onclick="set_cfg('DBG_level','microinstruction'); save_cfg();"
 				    value="off" type="radio">
 			     <label for="radio1-microinstruction">&#181;instruc.</label>
 			 </li>
@@ -827,17 +827,17 @@
 			 <li>
 			     <input name="radio2" id="radio2-16" data-mini="true"
                                     style="margin-top:-8px"
-				    onclick="RF_display_format=16; show_rf_values(); show_memories_values(); save_cfg();"
+				    onclick="set_cfg('RF_display_format',16); show_rf_values(); show_memories_values(); save_cfg();"
 				    value="on" type="radio">
 			     <label for="radio2-16">Hex.</label>
 			     <input name="radio2" id="radio2-10" data-mini="true"
                                     style="margin-top:-8px"
-				    onclick="RF_display_format=10; show_rf_values(); show_memories_values(); save_cfg();"
+				    onclick="set_cfg('RF_display_format',10); show_rf_values(); show_memories_values(); save_cfg();"
 				    value="off" type="radio">
 			     <label for="radio2-10">Dec.</label>
 			     <input name="radio2" id="radio2-8"  data-mini="true"
                                     style="margin-top:-8px"
-				    onclick="RF_display_format=8; show_rf_values(); show_memories_values(); save_cfg();"
+				    onclick="set_cfg('RF_display_format',8); show_rf_values(); show_memories_values(); save_cfg();"
 				    value="off" type="radio">
 			     <label for="radio2-8">Oct.</label>
 			 </li>
@@ -853,12 +853,12 @@
 			 <li>
 			     <input name="radio3" id="radio3-numerical" data-mini="true"
                                     style="margin-top:-8px"
-				    onclick="RF_display_name='numerical'; show_rf_names(); save_cfg();"
+				    onclick="set_cfg('RF_display_name','numerical'); show_rf_names(); save_cfg();"
 				    value="on" type="radio">
 			     <label for="radio3-numerical">Numbers</label>
 			     <input name="radio3" id="radio3-logical" data-mini="true"
                                     style="margin-top:-8px"
-				    onclick="RF_display_name='logical'; show_rf_names(); save_cfg();"
+				    onclick="set_cfg('RF_display_name','logical'); show_rf_names(); save_cfg();"
 				    value="off" type="radio">
 			     <label for="radio3-logical">Labels</label>
 			 </li>
@@ -874,7 +874,7 @@
                                 id="colorpicker1"
 				data-show-value="false"
                                 class="noshadow"
-				onchange="color_data_active = $('#colorpicker1').spectrum('get'); refresh(); save_cfg();">
+				onchange="set_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh(); save_cfg();">
 			 </ul>
 			 Signal Color:
 			 <ul>
@@ -882,7 +882,7 @@
                                 id="colorpicker2"
 				data-show-value="false"
                                 class="noshadow"
-				onchange="color_name_active = $('#colorpicker2').spectrum('get'); refresh(); save_cfg();">
+				onchange="set_cfg('color_name_active', $('#colorpicker2').spectrum('get')); refresh(); save_cfg();">
 			 </ul>
 <div class="ui-grid-solo">
 <div class="ui-block-a">
@@ -892,12 +892,12 @@
 			 <li>
 			     <input name="radio5" id="radio5-true" data-mini="true"
                                     style="margin-top:-8px"
-				    onclick="set_interactive_mode(true); save_cfg();"
+				    onclick="set_cfg('is_interactive',true); save_cfg();"
 				    value="on" type="radio">
 			     <label for="radio5-true">On</label>
 			     <input name="radio5" id="radio5-false" data-mini="true"
                                     style="margin-top:-8px"
-				    onclick="set_interactive_mode(false); save_cfg();"
+				    onclick="set_cfg('is_interactive',false); save_cfg();"
 				    value="off" type="radio">
 			     <label for="radio5-false">Off</label>
 			 </li>
@@ -918,14 +918,14 @@
      data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
 
    <div data-role="header" data-theme="a">
-   <h1><b>Web elemental processor SIMulator</b> <span class="badge btn-success">1.3.2</span> </h1>
+   <h1><b>Web elemental processor SIMulator</b> <span class="badge btn-success"><div class="wsversion">X</div></span> </h1>
    </div>
    <div role="main" class="ui-content">
 
         <div style="font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 16px; line-height: 24px; padding-bottom: 6.4px; padding-left: 8px; padding-right: 8px; padding-top: 6.4px;">
         <div class="row">
         <div class="col-xs-12 col-sm-12">
-            Copyright &copy; 2015-2016 <small>Javier Prieto Cepeda, F&eacute;lix Garc&iacute;a Carballeira, and Alejandro Calder&oacute;n Mateos</small>
+            Copyright &copy; 2015-2016 <small>Javier Prieto Cepeda, Sa&uacute;l Alonso Monsalve, F&eacute;lix Garc&iacute;a Carballeira, and Alejandro Calder&oacute;n Mateos</small>
             <p>
         </div>
         <div class="col-xs-12 col-sm-12" style="max-height:50vh; overflow-y: scroll;">
@@ -975,12 +975,12 @@
              <div id="help1_ref" style="display:none;"></div>
 	     <input name="radio6" id="radio6-es" data-mini="true"
 		    style="margin-top:-8px"
-		    onclick="ws_idiom='es'; save_cfg(); show_help1();"
+		    onclick="set_cfg('ws_idiom','es'); save_cfg(); show_help1();"
 		    value="ES" type="radio">
 	     <label for="radio6-es">ES</label>
 	     <input name="radio6" id="radio6-en" data-mini="true"
 		    style="margin-top:-8px"
-		    onclick="ws_idiom='en'; save_cfg(); show_help1();"
+		    onclick="set_cfg('ws_idiom','en'); save_cfg(); show_help1();"
 		    value="EN" type="radio">
 	     <label for="radio6-en">EN</label>
            </div>
@@ -1098,14 +1098,16 @@
 		    $('#tab11').trigger('click');
 		    $('#tab22').trigger('click');
 
-		    $("#colorpicker1").spectrum({ preferredFormat: "hex", color: color_data_active}) ;
-		    $("#colorpicker2").spectrum({ preferredFormat: "hex", color: color_name_active}) ;
-		    $("#radio1-" +              DBG_level).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio2-" +      RF_display_format).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio3-" +        RF_display_name).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio5-" + get_interactive_mode()).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio6-" +               ws_idiom).prop('checked', true).checkboxradio("refresh") ;
+		    $("#colorpicker1").spectrum({ preferredFormat: "hex", color: get_cfg('color_data_active')}) ;
+		    $("#colorpicker2").spectrum({ preferredFormat: "hex", color: get_cfg('color_name_active')}) ;
+		    $("#radio1-" +         get_cfg('DBG_level')).prop('checked', true).checkboxradio("refresh") ;
+		    $("#radio2-" + get_cfg('RF_display_format')).prop('checked', true).checkboxradio("refresh") ;
+		    $("#radio3-" +   get_cfg('RF_display_name')).prop('checked', true).checkboxradio("refresh") ;
+		    $("#radio5-" +    get_cfg('is_interactive')).prop('checked', true).checkboxradio("refresh") ;
+		    $("#radio6-" +          get_cfg('ws_idiom')).prop('checked', true).checkboxradio("refresh") ;
 	    }) ;
+
+            $("div.wsversion").replaceWith(get_cfg('version'));
 
 	    init(); 
 	    reset(); 
