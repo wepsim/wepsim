@@ -63,7 +63,7 @@
     function compileAssembly ( show_binary ) 
     {
         // get Assembly
-        var textToConvert = tinymce.get('inputAssembly').getBody().textContent ;
+        var textToConvert = inputfirm.getValue() ;
             textToConvert = textToConvert.toLowerCase();
 
         // get SIMWARE.firmware
@@ -134,7 +134,7 @@
         var fileReader = new FileReader();
         fileReader.onload  = function (fileLoadedEvent) {
                                             var textFromFileLoaded = fileLoadedEvent.target.result;
-					    tinymce.get('inputAssembly').getBody().innerHTML = "<pre>" + textFromFileLoaded + "</pre>";
+					    inputasm.setValue(textFromFileLoaded);
                              };
 	fileReader.onerror = function(e) {
 			        console.error("File could not be read! Code " + e.target.error.code);
@@ -152,7 +152,7 @@
 					if ((xmlhttp.readyState == 4) && ((xmlhttp.status == 200) || (xmlhttp.status == 0)))
 					{
                                             var textFromFileLoaded = xmlhttp.responseText ;
-					    tinymce.get('inputAssembly').getBody().innerHTML = "<pre>" + textFromFileLoaded + "</pre>";
+					    inputasm.setValue(textFromFileLoaded);
 					}
 				   }
 	xmlhttp.open("GET", url, true);
@@ -166,7 +166,7 @@
 
     function compileFirmware ( show_binary ) 
     {
-        var textFromFileLoaded = tinymce.get('inputFirmware').getBody().textContent ;
+        var textFromFileLoaded = inputfirm.getValue() ;
 
 	var preSM = load_firmware(textFromFileLoaded) ;
 	if (preSM.error != null) 
@@ -218,7 +218,7 @@
         var fileReader = new FileReader();
         fileReader.onload = function (fileLoadedEvent) {
                                             var textFromFileLoaded = fileLoadedEvent.target.result;
-					    tinymce.get('inputFirmware').getBody().innerHTML = "<pre>" + textFromFileLoaded + "</pre>";
+					    inputfirm.setValue(textFromFileLoaded);
                                 };
 	fileReader.onerror = function(e) {
 			        console.error("File could not be read! Code " + e.target.error.code);
@@ -236,7 +236,7 @@
 					if ((xmlhttp.readyState == 4) && ((xmlhttp.status == 200) || (xmlhttp.status == 0)))
 					{
                                             var textFromFileLoaded = xmlhttp.responseText ;
-					    tinymce.get('inputFirmware').getBody().innerHTML = "<pre>" + textFromFileLoaded + "</pre>";
+					    inputfirm.setValue(textFromFileLoaded);
 					}
 				   }
 	xmlhttp.open("GET", url, true);
@@ -251,7 +251,7 @@
     function save_as_file ( contentInputName, filenameInputName )
     {
           //var textToWrite = document.getElementById(contentInputName).value;
-            var textToWrite = tinymce.get(contentInputName).getBody().textContent ;
+            var textToWrite = contentInputName.getValue();
             var textFileAsBlob = new Blob([textToWrite], { type: 'text/plain' });
             var fileNameToSaveAs = document.getElementById(filenameInputName).value;
 
@@ -586,8 +586,8 @@
 					 }
 					 else {
                                            //document.getElementById('inputFirmware').value = simware_as_text ;
-					     tinymce.get('inputFirmware').getBody().innerHTML = '<pre>' + simware_as_text + '</pre>' ;
-                                             save_as_file('inputFirmware', 'inputFileNameToSaveAs');
+					     inputfirm.setValue(simware_as_text);
+                                             save_as_file(inputfirm, 'inputFileNameToSaveAs');
 					 }">Save to File</button>
                         </center>
 		    </div>
@@ -689,7 +689,7 @@
 			<center>
 			<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
                         <button class="ui-btn ui-btn-b ui-btn-inline" 
-                                onclick="save_as_file('inputAssembly','inputFileNameToSaveAs2');">Save to File</button>
+                                onclick="save_as_file(inputasm,'inputFileNameToSaveAs2');">Save to File</button>
                         </center>
 		    </div>
 		</div>
@@ -932,7 +932,7 @@
 		    <a rel="external" href="http://knockoutjs.com/">Knockout</a>,
 		    <a rel="external" href="http://getbootstrap.com/">Bootstrap</a>,
 		    <a rel="external" href="http://bootboxjs.com/">Bootbox</a>,
-		    <a rel="external" href="https://www.tinymce.com/">tinymce</a> Editor (Community version),
+		    <a rel="external" href="http://codemirror.net/index.html">CodeMirror</a> Editor,
 		    <a rel="external" href="https://bgrins.github.io/spectrum/">spectrum</a> ColorPicker,
 		    and the <a rel="external" href="https://github.com/mouse0270/bootstrap-notify">Bootstrap Notify</a>.
 		    <p>
@@ -1043,31 +1043,21 @@
 
 		    $("#sim_toolbar").draggable();
 
-		    tinymce.init({ 
-				  selector: '#inputFirmware',
-				  height:   '50%',
-				  plugins:  'lists,charmap,print,preview,searchreplace,wordcount,' + 
-                                            'fullscreen,contextmenu,paste',
-				  menubar: 'file edit view',
-				  toolbar:  'insertfile undo redo | ' + 
-                                            'alignleft aligncenter alignright alignjustify | ' + 
-                                            'outdent indent fullscreen',
-			    });
-		    tinymce.init({ 
-				  selector: '#inputAssembly',
-				  height:   '50%',
-				  plugins:  'lists,charmap,print,preview,searchreplace,wordcount,' + 
-                                            'fullscreen,contextmenu,paste,mention',
-				  menubar:  'file edit view',
-				  toolbar:  'insertfile undo redo | ' + 
-                                            'alignleft aligncenter alignright alignjustify | ' + 
-                                            'outdent indent fullscreen',
-                                  mentions: { 
-                                              delimiter: '!',
-                                              source: function (query, process, delimiter) { return FIRMWARE.firmware; },
-                                              queryBy: 'signature'
-                                            }
-			    });
+		    inputfirm  = CodeMirror.fromTextArea(document.getElementById("inputFirmware"), {
+								value: "",
+								lineNumbers: true,
+								matchBrackets: true,
+								mode: "text/x-csrc"
+						         });
+                    inputfirm.setValue("\n\n\n\n\n\n\n\n\n");
+
+		    inputasm   = CodeMirror.fromTextArea(document.getElementById("inputAssembly"), {
+								value: "",
+								lineNumbers: true,
+								matchBrackets: true,
+								mode: "text/x-csrc"
+						         });
+                    inputasm.setValue("\n\n\n\n\n\n\n\n\n");
 
 		    var a = document.getElementById("svg_p");
 		    a.addEventListener("load",function() {
