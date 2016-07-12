@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015-2016 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda
+ *  Copyright 2015-2016 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  * 
@@ -49,28 +49,75 @@ function nextToken ( context )
                var tok = context.text[context.t] ;
                context.t++ ;
                context.tokens.push(tok) ;
+               context.token_types.push("TOKEN") ;
                context.i = context.tokens.length - 1 ;
                return context ;
           }
 
-          // read until whitespaces
-          var first = context.t ;
-          while ( ("{},()=:# \t\n\r".indexOf(context.text[context.t]) == -1) && (context.t < context.text.length) ) {
-		 context.t++;
+          // read string "...." or token
+          if ("\"" == context.text[context.t])
+          {
+		  // read until "
+		  var first = context.t ;
+                  context.t++ ;
+		  while ( ("\"".indexOf(context.text[context.t]) == -1) && (context.t < context.text.length) ) {
+			 context.t++;
+		  }
+		  context.t++ ;
+		  var last = context.t ;
+
+	          var token_type = "STRING" ;
+          }
+          else
+          {
+		  // read until whitespaces
+		  var first = context.t ;
+		  while ( ("{},()=:# \t\n\r".indexOf(context.text[context.t]) == -1) && (context.t < context.text.length) ) {
+			 context.t++;
+		  }
+		  var last = context.t ;
+
+	          var token_type = "TOKEN" ;
+          }
+
+          // try to explore if a ":" is near...
+          var tmp_context = context.t ;
+          while ( ("# \t\n\r".indexOf(context.text[tmp_context]) != -1) && (tmp_context < context.text.length) )
+	  {
+			 if (context.text[tmp_context] == '#') {
+			     while ( ("\n".indexOf(context.text[tmp_context]) == -1) && (tmp_context < context.text.length) ) {
+				      tmp_context++;
+			     }
+			 }
+			 tmp_context++;
 	  }
-          var last = context.t ;
+	  if (":" == context.text[tmp_context]) 
+             {
+		 token_type = "TAG" ;
+                 context.t = tmp_context + 1 ;
+             }
 
           // insert token
           var tok  = context.text.substring(first, last) ;
-	  tok = tok.toLowerCase().trim() ;
+	  tok = tok.trim() ;
+          if ("TAG" == token_type)
+              tok = tok + ":" ;
+
           context.tokens.push(tok) ;
+          context.token_types.push(token_type) ;
           context.i = context.tokens.length - 1 ;
+
           return context ;
 }
 
 function getToken ( context )
 {
 	 return context.tokens[context.i] ;
+}
+
+function getTokenType ( context )
+{
+	 return context.token_types[context.i] ;
 }
 
 function isToken ( context, text )
