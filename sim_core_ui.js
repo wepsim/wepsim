@@ -224,9 +224,9 @@
             {
                  var ko_context = document.getElementById('tbl_RF' + index);
                  ko.applyBindings(sim_states['BR'][index], ko_context);
-                 // sim_states['BR'][index].value.subscribe(function(newValue) {
-                 //                                              this.ia("0x" + parseInt(newValue).toString(RF_display_format).toUpperCase());
-                 //                                         });
+                 sim_states['BR'][index].value.subscribe(function(newValue) {
+                                                              // this.ia("0x" + parseInt(newValue).toString(RF_display_format).toUpperCase());
+                                                         });
             }
         }
 
@@ -314,9 +314,9 @@
                  var s = filter[i].split(",")[0] ;
                  var ko_context = document.getElementById('tbl_' + s);
                  ko.applyBindings(sim_eltos[s], ko_context);
-                 // sim_eltos[s].value.subscribe(function(newValue) {
-                 //                                             this.ia("0x" + parseInt(newValue).toString(RF_display_format).toUpperCase());
-                 //                                        });
+                 sim_eltos[s].value.subscribe(function(newValue) {
+                                                              // this.ia("0x" + parseInt(newValue).toString(RF_display_format).toUpperCase());
+                                                         });
             }
         }
 
