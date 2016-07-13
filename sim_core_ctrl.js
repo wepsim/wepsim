@@ -517,15 +517,15 @@
         {
             compute_behavior("RESET") ;
 
-            if (typeof segments['code'] != "undefined") 
+            if (typeof segments['.text'] != "undefined") 
             {
-                set_value(sim_states["REG_PC"], parseInt(segments['code'].begin));
+                set_value(sim_states["REG_PC"], parseInt(segments['.text'].begin));
                 show_asmdbg_pc() ;
             }
 
-	    if (typeof segments['stack']!= "undefined")
+	    if (typeof segments['.stack']!= "undefined")
 	    {
-		set_value(sim_states["BR"][FIRMWARE.stackRegister], parseInt(segments['stack'].begin));
+		set_value(sim_states["BR"][FIRMWARE.stackRegister], parseInt(segments['.stack'].begin));
 	    }
 
             compute_behavior("CLOCK") ;
@@ -542,15 +542,15 @@
         {
 	        if (false === get_cfg('is_interactive'))
                 {
-			if (typeof segments['code'] == "undefined")
+			if (typeof segments['.text'] == "undefined")
 			{
 			    alert('code segment does not exist!');
 			    return false;
 			}
 
 			if (  (parseInt(get_value(sim_states["REG_MICROADDR"])) == 0) &&
-                             ((parseInt(get_value(sim_states["REG_PC"])) >= parseInt(segments['code'].end)) || 
-                              (parseInt(get_value(sim_states["REG_PC"])) <  parseInt(segments['code'].begin))) )
+                             ((parseInt(get_value(sim_states["REG_PC"])) >= parseInt(segments['.text'].end)) || 
+                              (parseInt(get_value(sim_states["REG_PC"])) <  parseInt(segments['.text'].begin))) )
 			{
 			    alert('PC register points outside the code segment!');
 			    return false;
@@ -584,15 +584,15 @@
 
         function execute_instruction ()
         {
-                if (typeof segments['code'] == "undefined")
+                if (typeof segments['.text'] == "undefined")
                 {
                     alert('code segment does not exist!');
                     return false;
                 }
 
 		if (  (parseInt(get_value(sim_states["REG_MICROADDR"])) == 0) &&
-		     ((parseInt(get_value(sim_states["REG_PC"])) >= parseInt(segments['code'].end)) || 
-		      (parseInt(get_value(sim_states["REG_PC"])) <  parseInt(segments['code'].begin))) )
+		     ((parseInt(get_value(sim_states["REG_PC"])) >= parseInt(segments['.text'].end)) || 
+		      (parseInt(get_value(sim_states["REG_PC"])) <  parseInt(segments['.text'].begin))) )
                 {
                     alert('PC register points outside the code segment!');
                     return false;

@@ -88,6 +88,13 @@ function read_microprg ( context )
 	       {
 	           // match mandatory LABEL
 		   var newLabelName = getToken(context) ;
+                       newLabelName = newLabelName.substring(0, newLabelName.length-1) ; // remove the ending ':'
+
+		   if ("TAG" != getTokenType(context))
+		        return firmwareError(context, 
+                                            "Expected '<label>:' not found but '" + newLabelName + "'.");
+
+	           // semantic check: existing LABEL
 		   for (var contadorMCAux in context.etiquetas)
 		   {
 			if (context.etiquetas[contadorMCAux] == newLabelName)
@@ -96,17 +103,12 @@ function read_microprg ( context )
 		   context.etiquetas[context.contadorMC] = newLabelName ; 
 
                    // semantic check: valid token
-                   if (context.tokens[context.i].match("[a-zA-Z_0-9]*")[0] != getToken(context) )
+                   if (newLabelName.match("[a-zA-Z_0-9]*")[0] != newLabelName )
 		       return firmwareError(context, "Label '" + getToken(context)  + "' not valid") ;
 
                    nextToken(context) ;
-	           // match mandatory :
-		   if (! isToken(context, ":") )
-		       return firmwareError(context, 
-                                           "Expected ':' for label '" + context.etiquetas[context.contadorMC] + "' not found");
-
-                   nextToken(context) ;
 	       }
+
 	       // match mandatory (
 	       if (! isToken(context, "(") )
 		     return firmwareError(context, "Expected '(' not found") ;
@@ -213,6 +215,7 @@ function loadFirmware (text)
 	   context.registers      	= new Array() ;
            context.text           	= text ;
 	   context.tokens         	= new Array() ;
+	   context.token_types         	= new Array() ;
 	   context.t              	= 0 ;
 	   context.newlines       	= new Array() ;
 	   context.pseudoInstructions	= new Array();
