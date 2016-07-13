@@ -5,35 +5,35 @@
 main:      liu $0 rti
            li  $1 0
 
-           # test 01
-           li  $1 1
-           li  $2 2                   
-           li  $3 1                   
-           li  $4 3                   
+            # test 01
+           li $1 1
+           li $2 2                   
+           li $3 1                   
+           li $4 3                   
            add $5 $2 $3       
            bne $5 $4 error   
 
-           # test 02
-           li  $1 2
-           li  $2 2                   
-           li  $3 1                   
-           li  $4 1                   
+            # test 02
+           li $1 2
+           li $2 2                   
+           li $3 1                   
+           li $4 1                   
            sub $5 $2 $3       
            bne $5 $4 error   
 
-           # test 03
-           li  $1 3
-           li  $2 2                   
-           li  $3 3                  
-           li  $4 6                   
+            # test 03
+           li $1 3
+           li $2 2                   
+           li $3 3                  
+           li $4 6                   
            mul $5 $2 $3       
            bne $5 $4 error   
 
-           # test 04
-           li  $1 4
-           li  $2 6                   
-           li  $3 3                  
-           li  $4 2                   
+            # test 04
+           li $1 4
+           li $2 6                   
+           li $3 3                  
+           li $4 2                   
            div $5 $2 $3       
            bne $5 $4 error   
 
@@ -51,7 +51,7 @@ main:      liu $0 rti
            sw $2 w1
            li    $2 0
            lw  $2 w1
-           li  $4 0x01020304
+           li $4  0x01020304
            bne $2 $4 error   
 
            # test 07
@@ -60,7 +60,7 @@ main:      liu $0 rti
            sb $2 w1
            li   $2 0
            lb  $2 w1
-           li  $4 0x00000004
+           li $4  0x00000004
            bne $2 $4 error   
 
            b fin
