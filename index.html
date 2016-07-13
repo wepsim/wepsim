@@ -12,6 +12,8 @@
     <title>(ARCOS) WepSIM</title>
 
     <meta charset="utf-8" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=2.2, minimum-scale=1, width=device-width">
 
     <script src="external/jquery.min.js"></script>
@@ -50,18 +52,8 @@
     <link  href="external/external.min.css" rel="stylesheet">
     <script src="external/external.min.js"></script>
 
-     <script src="sim_cfg.js"></script>
-     <script src="sim_core_ctrl.js"></script>
-     <script src="sim_core_ui.js"></script>
-     <script src="sim_hw_board.js"></script>
-     <script src="sim_hw_cpu.js"></script>
-     <script src="sim_hw_io.js"></script>
-     <script src="sim_hw_kbd.js"></script>
-     <script src="sim_hw_mem.js"></script>
-     <script src="sim_hw_scr.js"></script>
-     <script src="sim_lang.js"></script>
-     <script src="sim_lang_firm.js"></script>
-     <script src="sim_lang_asm.js"></script>
+    <script src="min.sim_hw.js"></script>
+    <script src="min.sim_all.js"></script>
 
     <script>
     //
@@ -72,7 +64,6 @@
     {
         // get Assembly
         var textToConvert = inputasm.getValue() ;
-          //textToConvert = textToConvert.toLowerCase();
 
         // get SIMWARE.firmware
         var SIMWARE = get_simware() ;
@@ -153,7 +144,7 @@
     function load_assembly_from_example ( )
     {
 	var xmlhttp = new XMLHttpRequest();
-	var url = "examples/exampleCode.txt?time=20160712" ;
+	var url = "examples/exampleCode.txt?time=20160611" ;
 
 	xmlhttp.onreadystatechange=function() {
 					// if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
@@ -237,7 +228,7 @@
     function load_firmware_from_example ( )
     {
 	var xmlhttp = new XMLHttpRequest();
-	var url = "examples/exampleMicrocode.txt?time=20160711" ;
+	var url = "examples/exampleMicrocode.txt?time=20160611" ;
 
 	xmlhttp.onreadystatechange=function() {
 					// if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
