@@ -617,12 +617,24 @@ function read_text ( context, datosCU, ret )
                         {
 				// 0xFFFF...
 				case "address":
-					if(isHex(value) !== false)
+					if(isHex(value) !== false){
 						var num_bits = isHex(value).toString(2);
-					else if(isDecimal(value) !== false)
+						if("rel" == field.address_type){
+						    num_bits = isHex(value) - seg_ptr - 4;	
+                                                    num_bits = (num_bits >>> 0).toString(2) ;
+                                                    // TODO: comprobar que num_bits cabe en field.startbit - field.stopbit ...
+						}
+					}
+					else if(isDecimal(value) !== false){
 						var num_bits = isDecimal(value).toString(2);
+						if("rel" == field.address_type){
+						    num_bits = isDecimal(value) - seg_ptr - 4;	
+                                                    num_bits = (num_bits >>> 0).toString(2) ;
+                                                    // TODO: comprobar que num_bits cabe en field.startbit - field.stopbit ...
+						}
+					}
 					else{
-						ret.labels["0x" + seg_ptr.toString(16)] = { name:value, addr:("0x" + seg_ptr.toString(16)), startbit:field.startbit, stopbit:field.stopbit };
+						ret.labels["0x" + seg_ptr.toString(16)] = { name:value, addr:("0x" + seg_ptr.toString(16)), startbit:field.startbit, stopbit:field.stopbit, rel:field.address_type };
 						continue;
 					}  	
 					//return asmError(context, "Expected address (0x012...) but found '" + value + "' as address");	
@@ -770,18 +782,38 @@ function simlang_compile (text, datosCU)
 		// TODO: consider two words instruction 
 
 		// Translate the address into bits	
+/*
 		if(isHex(value) !== false)
 			var num_bits = isHex(value).toString(2);
 		else if(isDecimal(value) !== false)
 			var num_bits = isDecimal(value).toString(2);
  		else
 			return asmError(context, "Unexpected error (54)");
+*/
+
+		if(isHex(value) !== false){
+			var num_bits = isHex(value).toString(2);
+			if ("rel" == ret.labels[i].rel){
+			    num_bits = isHex(value) - ret.labels[i].addr - 4;	
+			    num_bits = (num_bits >>> 0).toString(2) ;
+			    // TODO: comprobar que num_bits cabe en field.startbit - field.stopbit ...
+			}
+		}
+		else if(isDecimal(value) !== false){
+			var num_bits = isDecimal(value).toString(2);
+			if ("rel" == ret.labels[i].rel){
+			    num_bits = isDecimal(value) - ret.labels[i].addr - 4;	
+			    num_bits = (num_bits >>> 0).toString(2) ;
+			    // TODO: comprobar que num_bits cabe en field.startbit - field.stopbit ...
+			}
+		}
+ 		else return asmError(context, "Unexpected error (54)");
 
 		// calculate free space in the instruction after including the field
 		var num_bits_free_space = ret.labels[i].startbit-ret.labels[i].stopbit+1 - num_bits.length;
 
 		// check size
-		if(num_bits_free_space < 0)
+		if (num_bits_free_space < 0)
 			return asmError(context, "'" + value + "' needs " + num_bits.length + " bits but there is space for only " + field.startbit-field.stopbit+1 + " bits");
 			
 		// Store field in machine code

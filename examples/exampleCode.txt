@@ -55,6 +55,8 @@ main:      liu $0 rti
            li $1 8
            sw $2 w1
            li    $2 0
+
+           b fin
           
 rti:      li $1 1
           add $30 $30 $1
@@ -63,4 +65,6 @@ rti:      li $1 1
 error:    li  $7 101
           out $7 0x1000
           li  $7 114
+
+fin:      nop
 
