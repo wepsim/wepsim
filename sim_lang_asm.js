@@ -383,8 +383,6 @@ function read_data ( context, datosCU, ret )
 					}	
 			}
 
-     		//seg_ptr = seg_ptr + align_offset - (seg_ptr % align_offset)
-
 			nextToken(context) ;
                    }
 
@@ -505,11 +503,11 @@ function read_data ( context, datosCU, ret )
 		        return asmError(context, "UnExpected datatype name '" + possible_datatype + "'.");
 		   }
 		   
-		   if(context.t >= context.text.length) break;
+		   if (context.t >= context.text.length) break;
            }
 
 	   // Fill memory
-	   if(byteWord > 0){
+	   if (byteWord > 0) {
 		ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
                 seg_ptr = seg_ptr + 4 ;
 	   }		
@@ -537,12 +535,12 @@ function read_text ( context, datosCU, ret )
 	   	if (typeof firmware[datosCU.firmware[i].name] == "undefined")
 	   	    firmware[datosCU.firmware[i].name] = new Array();
 
-	   	firmware[datosCU.firmware[i].name].push({ 	name:aux.name,
-							nwords:parseInt(aux.nwords), 
-							co:(typeof aux.co != "undefined" ? aux.co : false),
-							cop:(typeof aux.cop != "undefined" ? aux.cop : false),
-							nfields:(typeof aux.fields != "undefined" ? aux.fields.length : 0),			
-							fields:(typeof aux.fields != "undefined" ? aux.fields : false)  });
+	   	firmware[datosCU.firmware[i].name].push({ name:aux.name,
+							  nwords:parseInt(aux.nwords), 
+							  co:(typeof aux.co != "undefined" ? aux.co : false),
+							  cop:(typeof aux.cop != "undefined" ? aux.cop : false),
+							  nfields:(typeof aux.fields != "undefined" ? aux.fields.length : 0),			
+							  fields:(typeof aux.fields != "undefined" ? aux.fields : false)  });
 	   }
 
 	   // Fill register names
@@ -564,13 +562,10 @@ function read_text ( context, datosCU, ret )
                 {
 			var possible_tag = getToken(context);
 			
-		        if ("TAG" == getTokenType(context)) 
-                        {
-                                ret.labels2[possible_tag.substring(0, possible_tag.length-1)] = "0x" + seg_ptr.toString(16);
-			}
-			else {
-				return asmError(context, "Undefined instruction " + possible_tag ); 
-			}
+		        if ("TAG" != getTokenType(context)) 
+			     return asmError(context, "Undefined instruction " + possible_tag ); 
+
+                        ret.labels2[possible_tag.substring(0, possible_tag.length-1)] = "0x" + seg_ptr.toString(16);
 			nextToken(context);
 		}
 
@@ -579,7 +574,7 @@ function read_text ( context, datosCU, ret )
 		// Machine code (e.g. one word [ 31, 30, 29, ... , 2, 1, 0 ])
 		var machineCode = "";
 		for (i=0; i<firmware[instruction][0].nwords; i++) // TODO: [0] -> bucle
-		     machineCode+="00000000000000000000000000000000";		
+		     machineCode += "00000000000000000000000000000000";		
 
 		// Generate code (co and cop)	
 		if (firmware[instruction][0].co !== false) // TODO: [0] -> bucle
@@ -627,6 +622,7 @@ function read_text ( context, datosCU, ret )
 					}  	
 					//return asmError(context, "Expected address (0x012...) but found '" + value + "' as address");	
 					break;
+
 				// 23, 'b', ...
 				case "inm":
 					if(isOctal(value) !== false)
@@ -656,6 +652,7 @@ function read_text ( context, datosCU, ret )
 					}
 					//return asmError(context, "Expected immediate number (12, 'a', ...) but found '" + value + "' as immediate");	
 					break;
+
 				// $1...
 				case "reg":
 					if(typeof registers[value] == "undefined")	
@@ -688,7 +685,8 @@ function read_text ( context, datosCU, ret )
 
 		nextToken(context);
 
-		if(context.t >= context.text.length) break;
+		if (context.t >= context.text.length) 
+                    break;
            }
 
            ret.seg[seg_name].end = seg_ptr ;  // end of segment is just last pointer value...
@@ -720,11 +718,11 @@ function simlang_compile (text, datosCU)
 
            var ret = new Object(); 
            ret.seg = {
-                       ".ktext": { name:".ktext",  begin:0x0000, end:0x0100, color: "#A9D0F5" },
-                       ".kdata": { name:".kdata",  begin:0x0100, end:0x0FFF, color: "#FACC00" },
-                       ".data":  { name:".data",   begin:0x1000, end:0x7FFF, color: "#FACC2E" },
-                       ".text":  { name:".text",   begin:0x8000, end:0xFF00, color: "#BEF781" },
-                       ".stack": { name:".stack",  begin:0xFFFF, end:0xFFFF, color: "#F1F2A3" }
+                       ".ktext": { name:".ktext",  begin:0x0000, end:0x0100, color: "#A9D0F5", kindof:"text" },
+                       ".kdata": { name:".kdata",  begin:0x0100, end:0x0FFF, color: "#FACC00", kindof:"data" },
+                       ".data":  { name:".data",   begin:0x1000, end:0x7FFF, color: "#FACC2E", kindof:"data" },
+                       ".text":  { name:".text",   begin:0x8000, end:0xFF00, color: "#BEF781", kindof:"text" },
+                       ".stack": { name:".stack",  begin:0xFFFF, end:0xFFFF, color: "#F1F2A3", kindof:"stack" }
                      };
           ret.mp           = new Object() ;
 	  ret.labels	   = new Object() ; // [addr] = {name, addr, startbit, stopbit}
@@ -738,19 +736,21 @@ function simlang_compile (text, datosCU)
           nextToken(context) ;
           while (context.t < context.text.length)
           {
-               if (isToken(context,".kdata"))
-                       read_data(context, datosCU, ret) ;
-               else if (isToken(context,".ktext"))
-                       read_text(context, datosCU, ret) ;
-               else if (isToken(context,".data"))
-                       read_data(context, datosCU, ret) ;
-               else if (isToken(context,".text"))
-                       read_text(context, datosCU, ret) ;
-               else
-                       return asmError(context, "Expected .data/.text/... segment but found '" + getToken(context) + "' as segment") ;
+               var segname = getToken(context) ;
+
+               if (typeof ret.seg[segname] == "undefined") 
+                   return asmError(context, "Expected .data/.text/... segment but found '" + getToken(context) + "' as segment") ;
+
+               if ("data" == ret.seg[segname].kindof)
+                    read_data(context, datosCU, ret) ;
+               if ("text" == ret.seg[segname].kindof)
+                    read_text(context, datosCU, ret) ;
 
 	       // Check errors
-	       if (context.error != null) break;
+	       if (context.error != null) {
+                   ret.error = context.error ;
+                   return ret;
+               }
 	 }
 
 	 // Check thath all used labels are defined in the text
@@ -760,9 +760,8 @@ function simlang_compile (text, datosCU)
 		var value = ret.labels2[ret.labels[i].name];
 
 		// Check if the label exists
-		if(typeof value === "undefined"){
-			return asmError(context, "Label '" + ret.labels[i].name + "' used but not defined in the assembly code");
-		}	
+		if (typeof value === "undefined")
+		    return asmError(context, "Label '" + ret.labels[i].name + "' used but not defined in the assembly code");
 
 		// Get the word in memory where the label is used
 		var machineCode = ret.mp[ret.labels[i].addr];	
@@ -781,8 +780,8 @@ function simlang_compile (text, datosCU)
 		var num_bits_free_space = ret.labels[i].startbit-ret.labels[i].stopbit+1 - num_bits.length;
 
 		// check size
-		if(num_bits_free_space < 0)
-			return asmError(context, "'" + value + "' needs " + num_bits.length + " bits but there is space for only " + field.startbit-field.stopbit+1 + " bits");
+		if (num_bits_free_space < 0)
+	  	    return asmError(context, "'" + value + "' needs " + num_bits.length + " bits but there is space for only " + field.startbit-field.stopbit+1 + " bits");
 			
 		// Store field in machine code
 		var machineCodeAux = machineCode.substring(0, machineCode.length-1-ret.labels[i].startbit+num_bits_free_space);
@@ -791,8 +790,6 @@ function simlang_compile (text, datosCU)
 		// Update the machineCode
 		ret.mp[ret.labels[i].addr] = machineCode; 
 	 }	 
-
-         ret.error = context.error ;
 
 	 return ret;
 }
