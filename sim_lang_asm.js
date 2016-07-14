@@ -165,6 +165,7 @@ function read_data ( context, datosCU, ret )
 
            nextToken(context) ;
 
+	   var first = true;
 	   var byteWord = 0;
 	   var machineCode = "00000000000000000000000000000000";
 
@@ -248,12 +249,14 @@ function read_data ( context, datosCU, ret )
 				}
 
 				// Word filled
-				if(byteWord+size >= 4){
+				if(byteWord+size >= 4 && !first){
 					ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
                 			seg_ptr = seg_ptr + 4 ;
 					byteWord = 0;
 					machineCode = "00000000000000000000000000000000";	
 				}
+
+				first = false;
 
 				// Store field in machine code
 				var machineCodeAux = machineCode.substring(0, machineCode.length- 8*(size+byteWord) +num_bits_free_space);
@@ -261,14 +264,6 @@ function read_data ( context, datosCU, ret )
 			
 				byteWord+=size;
 
-				/* Word filled
-				if(byteWord >= 4){
-					ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
-                			seg_ptr = seg_ptr + 4 ;
-					machineCode = "00000000000000000000000000000000";
-					byteWord = 0;
-				}*/		
-	
 				// optional ','
 				nextToken(context);
 				if ("," == getToken(context))
