@@ -10,7 +10,7 @@ fetch
                     (T8=1, M1=1, C1),
                     (BW=11, TA=1, TD=1, W=1),
                     # PC <- BR[0]
-                    (MR=1, SELA=0, SELB=0, MA=0, MB=0, MC=1, SELCOP=1, T6=1, M2=0, C2),
+                    (MR=1, SELA=0, SELB=0, MA=0, MB=0, MC=1, SELCOP=1, T6=1, M2=0, C2, INTA),
     fetch:          (T2, C0),
                     (TA, R, BW=11, M1=1, C1=1),
                     (M2, C2, T1, C3),

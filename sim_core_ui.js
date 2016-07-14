@@ -702,11 +702,7 @@
 	     var clabel = "" ;
 	     var wadd   = "" ;
 
-	     wadd = "0x" + (parseInt(c)+0).toString(16);
-	     if (typeof slebal[wadd] != "undefined") 
-		  clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
-	     else clabel = clabel + "&nbsp;" ;
-	     wadd = "0x" + (parseInt(c)+1).toString(16);
+	     wadd = "0x" + (parseInt(c)+3).toString(16);
 	     if (typeof slebal[wadd] != "undefined") 
 		  clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
 	     else clabel = clabel + "&nbsp;" ;
@@ -714,7 +710,11 @@
 	     if (typeof slebal[wadd] != "undefined") 
 		  clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
 	     else clabel = clabel + "&nbsp;" ;
-	     wadd = "0x" + (parseInt(c)+3).toString(16);
+	     wadd = "0x" + (parseInt(c)+1).toString(16);
+	     if (typeof slebal[wadd] != "undefined") 
+		  clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
+	     else clabel = clabel + "&nbsp;" ;
+	     wadd = "0x" + (parseInt(c)+0).toString(16);
 	     if (typeof slebal[wadd] != "undefined") 
 		  clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
 	     else clabel = clabel + "&nbsp;" ;
@@ -735,9 +735,21 @@
 			 "<th style='border-style: solid; border-width:0px;'>labels</th>" +
 			 "<th style='border-style: solid; border-width:1px;'>address</th>" +
 			 "<th style='border-style: solid; border-width:1px;'>" + 
-                         "<table border=0 width=100%><tr>" + 
-                         "<td width=20% align=left>&nbsp;<sub>31</sub></td><td width=60% align=center>content (binary)</td><td width=20% align=right><sub>0</sub>&nbsp;</td>" +
-                         "</tr></table>" +
+                         "<table border=0 width=100%>" + 
+                       //"<tr><td colspan=8 align=center>content </td></tr>" + 
+                         "<tr align=center>" + 
+                         "  <td width=25% align=center><small><b>byte 3</b></small></td>" +
+                         "  <td width=25% align=center><small><b>byte 2</b></small></td>" +
+                         "  <td width=25% align=center><small><b>byte 1</b></small></td>" +
+                         "  <td width=25% align=center><small><b>byte 0</b></small></td>" +
+                         "</tr>" + 
+                         "<tr>" + 
+                         "  <td width=12% align=center >&nbsp;<sup>24&nbsp;&nbsp;......&nbsp;&nbsp;31</sup>&nbsp;</td>" +
+                         "  <td width=12% align=center >&nbsp;<sup>16&nbsp;&nbsp;......&nbsp;&nbsp;23</sup>&nbsp;</td>" +
+                         "  <td width=12% align=center >&nbsp;<sup>8&nbsp;&nbsp;......&nbsp;&nbsp;15</sup>&nbsp;</td>" +
+                         "  <td width=12% align=center >&nbsp;<sup>0&nbsp;&nbsp;......&nbsp;&nbsp;7</sup>&nbsp;</td>" +
+                         "</tr>" + 
+                         "</table>" +
 			 "<th style='border-style: solid; border-width:0px;' align=right>&nbsp;&nbsp;segment</th>" +
 			 "</tr>" ;
 
@@ -758,16 +770,16 @@
                              }
 
                              if (0 == rows) {
-			         o += "<tr style='font-family:verdana; font-size:12pt;'>" +
+			         o += "<tr style='font-family:\'Times New Roman\'; font-size:11pt;'>" +
 				      "<td align=right  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
-				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c + "</td>" +
+				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c.toUpperCase() + "</td>" +
 				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + 
                                        mp[c].substr(0,8)  + "&nbsp;" + mp[c].substr(8,8)  + "&nbsp;" + mp[c].substr(16,8) + "&nbsp;" + mp[c].substr(24,8) + "</td>" +
 				      "<td rowspan=" ;
                              } else {
-			         x += "<tr style='font-family:verdana; font-size:12pt;'>" +
+			         x += "<tr style='font-family:\'Times New Roman\'; font-size:11pt;'>" +
 				      "<td align=right  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
-				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c + "</td>" +
+				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c.toUpperCase() + "</td>" +
 				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + 
                                       mp[c].substr(0,8)  + "&nbsp;" + mp[c].substr(8,8)  + "&nbsp;" + mp[c].substr(16,8) + "&nbsp;" + mp[c].substr(24,8) + "</td>" +
 				      "</tr>" ;
@@ -777,14 +789,14 @@
 	             }
 
 		     if (0 == rows) {
-			 o += "<tr style='font-family:verdana; font-size:12pt;'>" +
+			 o += "<tr style='font-family:\'Times New Roman\'; font-size:12pt;'>" +
 			      "<td>&nbsp;</td>" +
-			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">0x" + parseInt(seg[skey].begin).toString(16) + "</td>" +
+			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">0x" + parseInt(seg[skey].begin).toString(16).toUpperCase() + "</td>" +
 			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">&nbsp;</td>" +
 			      "<td rowspan=" ;
-			 x += "<tr style='font-family:verdana; font-size:12pt;'>" +
+			 x += "<tr style='font-family:\'Times New Roman\'; font-size:12pt;'>" +
 			      "<td>&nbsp;</td>" +
-			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">0x" + parseInt(seg[skey].end).toString(16) + "</td>" +
+			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">0x" + parseInt(seg[skey].end).toString(16).toUpperCase() + "</td>" +
 			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">&nbsp;</td>" +
 			      "<td>&nbsp;</td>" +
 			      "</tr>" ;
@@ -794,7 +806,7 @@
                      o += rows + " align=right>" + seg[skey].name + "&nbsp;</td></tr>" + x ;
 
 	             if (seg[skey].name != "stack") {
-		         o += "<tr style='font-family:verdana; font-size:12pt;'>" + 
+		         o += "<tr style='font-family:\'Times New Roman\'; font-size:12pt;'>" + 
                               "<td>&nbsp;</td>" + 
                               "<td valign=middle align=center height=25px>...</td>" + 
                               "<td valign=middle align=center height=25px>...</td>" + 
