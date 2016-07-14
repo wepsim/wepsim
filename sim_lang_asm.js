@@ -176,11 +176,12 @@ function read_data ( context, datosCU, ret )
 		   //  * etiq1: * 
 		   //  * etiq2: *  .word 2, 4
 		   // 
-
+	
+		   var possible_tag = "" ;
 		   while (!is_directive_datatype(getToken(context))) 
 		   {
                       // tagX
-		      var possible_tag = getToken(context) ;
+		      possible_tag = getToken(context) ;
 
                       // :
 		      if ("TAG" != getTokenType(context))
@@ -281,6 +282,12 @@ function read_data ( context, datosCU, ret )
 					}
 				}	
 	
+		                // Store tag
+                                if ("" != possible_tag){
+		                    ret.labels2[possible_tag.substring(0, possible_tag.length-1)] = "0x" + (seg_ptr+byteWord).toString(16);
+				    possible_tag = "";
+				}
+
 				// Store field in machine code
 				var machineCodeAux = machineCode.substring(0, machineCode.length- 8*(size+byteWord) +num_bits_free_space);
 				machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length - 8*(byteWord));
@@ -526,12 +533,16 @@ function read_text ( context, datosCU, ret )
 	   for (i=0; i<datosCU.firmware.length; i++)
            {
 		var aux = datosCU.firmware[i];
-	   	firmware[datosCU.firmware[i].name] = { 	name:aux.name,
+
+	   	if (typeof firmware[datosCU.firmware[i].name] == "undefined")
+	   	    firmware[datosCU.firmware[i].name] = new Array();
+
+	   	firmware[datosCU.firmware[i].name].push({ 	name:aux.name,
 							nwords:parseInt(aux.nwords), 
 							co:(typeof aux.co != "undefined" ? aux.co : false),
 							cop:(typeof aux.cop != "undefined" ? aux.cop : false),
 							nfields:(typeof aux.fields != "undefined" ? aux.fields.length : 0),			
-							fields:(typeof aux.fields != "undefined" ? aux.fields : false)  };
+							fields:(typeof aux.fields != "undefined" ? aux.fields : false)  });
 	   }
 
 	   // Fill register names
@@ -549,7 +560,7 @@ function read_text ( context, datosCU, ret )
 	   while (!is_directive_segment(getToken(context))) 
            {
 		// check tag or error
-		while(typeof firmware[getToken(context)] == "undefined")
+		while (typeof firmware[getToken(context)] == "undefined") 
                 {
 			var possible_tag = getToken(context);
 			
@@ -567,18 +578,18 @@ function read_text ( context, datosCU, ret )
 
 		// Machine code (e.g. one word [ 31, 30, 29, ... , 2, 1, 0 ])
 		var machineCode = "";
-		for (i=0; i<firmware[instruction].nwords; i++)
+		for (i=0; i<firmware[instruction][0].nwords; i++) // TODO: [0] -> bucle
 		     machineCode+="00000000000000000000000000000000";		
 
 		// Generate code (co and cop)	
-		if (firmware[instruction].co !== false)
+		if (firmware[instruction][0].co !== false) // TODO: [0] -> bucle
                 {
-			machineCode = firmware[instruction].co + machineCode.substring(6);
-			if (firmware[instruction].cop !== false) 
+			machineCode = firmware[instruction][0].co + machineCode.substring(6); // TODO: [0] -> bucle
+			if (firmware[instruction][0].cop !== false)  // TODO: [0] -> bucle
                         {
 				var machineCodeAux = machineCode.substring(0,28);
 				machineCode = machineCode.substring(32);
-				machineCodeAux = machineCodeAux + firmware[instruction].cop;
+				machineCodeAux = machineCodeAux + firmware[instruction][0].cop; // TODO: [0] -> bucle
 				machineCode = machineCodeAux + machineCode;
 			}
 		}
@@ -589,14 +600,15 @@ function read_text ( context, datosCU, ret )
 
 		// Iterate over nfields
                 var s = instruction + " ";
-		for (i=0; i<firmware[instruction].nfields; i++)
+                var candidate = 0;
+		for (i=0; i<firmware[instruction][candidate].nfields; i++) // TODO: [0] -> bucle?
                 {
                         // optional ','
 			nextToken(context);
 			if ("," == getToken(context))
 			    nextToken(context);
 
-			var field = firmware[instruction].fields[i];
+			var field = firmware[instruction][candidate].fields[i]; // TODO: [0] -> bucle?
 			var value = getToken(context);	
                         s = s + value + " " ;
 			
@@ -667,7 +679,7 @@ function read_text ( context, datosCU, ret )
 		}
 
 		// process machine code with several words...
-		for(i=0; i<firmware[instruction].nwords; i++) 
+		for(i=0; i<firmware[instruction][candidate].nwords; i++)  // TODO: [0] -> bucle?
                 {
 			ret.assembly["0x" + seg_ptr.toString(16)] = { breakpoint:false, binary:machineCode.substring(i*32, (i+1)*32), source:s, source_original:s } ; 
 			ret.mp["0x" + seg_ptr.toString(16)] = machineCode.substring(i*32, (i+1)*32) ;
