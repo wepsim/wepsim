@@ -328,12 +328,47 @@ function read_data ( context, datosCU, ret )
                         var possible_value = getToken(context) ;
 
 			// Check if number
-			if (!isDecimal(possible_value))
-			     return asmError(context, "Expected the align parameter as number but found '" + possible_value + "'. Remember that number is the power of two for alignment, see MIPS documentation..");
+			if (!isDecimal(possible_value) && possible_value >=0 )
+			     return asmError(context, "Expected the align parameter as positive number but found '" + possible_value + "'. Remember that number is the power of two for alignment, see MIPS documentation..");
+
+			// Word filled
+			if(byteWord >= 4){
+				ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
+                		seg_ptr = seg_ptr + 4 ;
+				byteWord = 0;
+				machineCode = "00000000000000000000000000000000";	
+			}
 
 			// Calculate offset
                         var align_offset = Math.pow(2,parseInt(possible_value)) ;
-                        //seg_ptr = seg_ptr + align_offset - (seg_ptr % align_offset)
+                   
+			switch(align_offset){
+				case 1:
+					break;
+				case 2:
+					if(byteWord%2==1)
+						byteWord++;
+					break;
+				default:
+					// Fill with spaces
+					while(true){
+		
+						// Word filled
+						if(byteWord >= 4){
+							ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
+                					seg_ptr = seg_ptr + 4 ;
+							byteWord = 0;
+							machineCode = "00000000000000000000000000000000";	
+						}
+
+						if(seg_ptr%align_offset == 0 && byteWord == 0)
+							break;	
+
+						byteWord++;
+					}	
+			}
+
+     //seg_ptr = seg_ptr + align_offset - (seg_ptr % align_offset)
 
 			nextToken(context) ;
                    }
@@ -348,6 +383,14 @@ function read_data ( context, datosCU, ret )
 
 			while (!is_directive(getToken(context)))
                         {
+				// Word filled
+				if(byteWord >= 4){
+					ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
+                			seg_ptr = seg_ptr + 4 ;
+					byteWord = 0;
+					machineCode = "00000000000000000000000000000000";	
+				}
+
 				// string
 		                if ("STRING" != getTokenType(context))
 				    return asmError(context, "Expected string value but found '" + possible_value + "' as string");
