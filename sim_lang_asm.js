@@ -260,19 +260,27 @@ function read_data ( context, datosCU, ret )
 				}
 
 
-				// New .half
-				if(size==2 && byteWord == 1){
-					byteWord++;
-				}
-
 				// Word filled
 				if(byteWord >= 4){
 					ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
-                			seg_ptr = seg_ptr + 4 ;
+               				seg_ptr = seg_ptr + 4 ;
 					byteWord = 0;
 					machineCode = "00000000000000000000000000000000";	
 				}
 
+				// Align to size
+				while(((seg_ptr+byteWord)%size) != 0){
+					byteWord++;
+					
+					// Word filled
+					if(byteWord >= 4){
+						ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
+        	        			seg_ptr = seg_ptr + 4 ;
+						byteWord = 0;
+						machineCode = "00000000000000000000000000000000";	
+					}
+				}	
+	
 				// Store field in machine code
 				var machineCodeAux = machineCode.substring(0, machineCode.length- 8*(size+byteWord) +num_bits_free_space);
 				machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length - 8*(byteWord));
@@ -368,7 +376,7 @@ function read_data ( context, datosCU, ret )
 					}	
 			}
 
-     //seg_ptr = seg_ptr + align_offset - (seg_ptr % align_offset)
+     		//seg_ptr = seg_ptr + align_offset - (seg_ptr % align_offset)
 
 			nextToken(context) ;
                    }
@@ -395,10 +403,83 @@ function read_data ( context, datosCU, ret )
 		                if ("STRING" != getTokenType(context))
 				    return asmError(context, "Expected string value but found '" + possible_value + "' as string");
 
-				//// TODO: process possible_value
-                                //seg_ptr = seg_ptr + possible_value.length ;
-                                //if (".asciiz" == possible_datatype)
-                                //    seg_ptr++;
+				// process characters of the string
+				for(i=0; i<possible_value.length; i++){
+					
+					// Word filled
+					if(byteWord >= 4){
+						ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
+                				seg_ptr = seg_ptr + 4 ;
+						byteWord = 0;
+						machineCode = "00000000000000000000000000000000";	
+					}
+				
+					switch(possible_value[i]){
+						case "\"":
+							break;
+						case "\\":
+							switch(possible_value[i+1]){
+							
+								case "n":
+									num_bits = "\n".charCodeAt(0).toString(2);
+									i++;
+									break;
+								case "t":
+									num_bits = "\t".charCodeAt(0).toString(2);
+									i++;
+									break;
+								case "0":
+									num_bits = "\0".charCodeAt(0).toString(2);
+									i++;
+									break;
+								default:	
+									num_bits = possible_value.charCodeAt(i).toString(2);
+									break;
+							}
+							
+							// calculate free space after including the value
+							var num_bits_free_space = 8 - num_bits.length;
+	
+							// Store field in machine code
+							var machineCodeAux = machineCode.substring(0, machineCode.length- 8*(1+byteWord) + num_bits_free_space );
+							machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length - 8*(byteWord));	
+								
+							byteWord++;
+							
+							break;
+						default:
+							num_bits = possible_value.charCodeAt(i).toString(2);
+	
+							// calculate free space after including the value
+							var num_bits_free_space = 8 - num_bits.length;
+
+							// Store field in machine code
+							var machineCodeAux = machineCode.substring(0, machineCode.length- 8*(1+byteWord) + num_bits_free_space );
+							machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length - 8*(byteWord));	
+							
+							byteWord++;
+					}	
+				}
+
+                                if (".asciiz" == possible_datatype){
+                                	// Word filled
+					if(byteWord >= 4){
+						ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
+                				seg_ptr = seg_ptr + 4 ;
+						byteWord = 0;
+						machineCode = "00000000000000000000000000000000";	
+					}
+					
+					num_bits = "\0".charCodeAt(0).toString(2);
+			
+					// calculate free space after including the value
+					var num_bits_free_space = 8 - num_bits.length;
+
+					// Store field in machine code
+					var machineCodeAux = machineCode.substring(0, machineCode.length- 8*(1+byteWord) + num_bits_free_space );
+					machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length - 8*(byteWord));	
+					byteWord++;
+				}
 
 				// optional ','
 				nextToken(context);
