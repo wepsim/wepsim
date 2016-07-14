@@ -519,9 +519,9 @@ function read_text ( context, datosCU, ret )
            var seg_name = getToken(context) ;
            var seg_ptr  = ret.seg[seg_name].begin ;
 
-	   // Fill firmware structure [name, nfields, ...]
-
            // TODO: what happens when several instructions like lw R1 (R2), lw R1 address, ...
+
+	   // Fill firmware structure
 	   var firmware = new Object() ;
 	   for (i=0; i<datosCU.firmware.length; i++)
            {
@@ -719,56 +719,31 @@ function simlang_compile (text, datosCU)
           ret.labels2      = new Object() ;
           ret.assembly     = new Object() ; // This is for the Assembly Debugger...
 
+          // 
+          // .segment
+          // ...
+          // 
           nextToken(context) ;
           while (context.t < context.text.length)
           {
-	       // 
-	       // .kdata
-               // ...
-	       // 
                if (isToken(context,".kdata"))
-               {
                        read_data(context, datosCU, ret) ;
-               }
-
-	       // 
-	       // .ktext
-               // ...
-	       // 
                else if (isToken(context,".ktext"))
-               {
                        read_text(context, datosCU, ret) ;
-               }
-
-	       // 
-	       // .data
-               // ...
-	       // 
                else if (isToken(context,".data"))
-               {
                        read_data(context, datosCU, ret) ;
-               }
-
-	       // 
-	       // .text
-               // ...
-	       // 
                else if (isToken(context,".text"))
-               {
                        read_text(context, datosCU, ret) ;
-	       }
-
                else
-               {
                        return asmError(context, "Expected .data/.text/... segment but found '" + getToken(context) + "' as segment") ;
-               }
 
 	       // Check errors
 	       if (context.error != null) break;
 	 }
 
 	 // Check thath all used labels are defined in the text
-         for (i in ret.labels){
+         for (i in ret.labels)
+         {
 		// Get label value (address number)
 		var value = ret.labels2[ret.labels[i].name];
 
@@ -779,6 +754,8 @@ function simlang_compile (text, datosCU)
 
 		// Get the word in memory where the label is used
 		var machineCode = ret.mp[ret.labels[i].addr];	
+
+		// TODO: consider two words instruction 
 
 		// Translate the address into bits	
 		if(isHex(value) !== false)
