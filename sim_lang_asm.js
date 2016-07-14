@@ -166,7 +166,6 @@ function read_data ( context, datosCU, ret )
 
            nextToken(context) ;
 
-	   var first = true;
 	   var byteWord = 0;
 	   var machineCode = "00000000000000000000000000000000";
 
@@ -233,7 +232,7 @@ function read_data ( context, datosCU, ret )
 				// Get value size in bytes
 				var size = get_datatype_size(possible_datatype);
 
-				// Get value in bits TODO: allow negative numbers
+				// Get value in bits (negative / positive)
 				if(number < 0){
 					var aux = number*-1;
 					var num_bits = aux.toString(2);
@@ -267,14 +266,12 @@ function read_data ( context, datosCU, ret )
 				}
 
 				// Word filled
-				if(byteWord+size >= 4 && !first){
+				if(byteWord >= 4){
 					ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
                 			seg_ptr = seg_ptr + 4 ;
 					byteWord = 0;
 					machineCode = "00000000000000000000000000000000";	
 				}
-
-				first = false;
 
 				// Store field in machine code
 				var machineCodeAux = machineCode.substring(0, machineCode.length- 8*(size+byteWord) +num_bits_free_space);
@@ -306,8 +303,19 @@ function read_data ( context, datosCU, ret )
 			if (!isDecimal(possible_value))
 			     return asmError(context, "Expected number of bytes to reserve in .space but found '" + possible_value + "' as number");
 
-                        ////TODO: rellenar 'possible_value' bytes a cero -> ret.mp["0x" + seg_ptr.toString(16)] = 0000000... ;
-                        //seg_ptr = seg_ptr + parseInt(possible_value) ;
+			// Fill with spaces
+			for (i=0; i<possible_value; i++){
+			
+				// Word filled
+				if(byteWord >= 4){
+					ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
+                			seg_ptr = seg_ptr + 4 ;
+					byteWord = 0;
+					machineCode = "00000000000000000000000000000000";	
+				}
+
+				byteWord++;
+			}
 
 			nextToken(context) ;
                    }
@@ -323,7 +331,8 @@ function read_data ( context, datosCU, ret )
 			if (!isDecimal(possible_value))
 			     return asmError(context, "Expected the align parameter as number but found '" + possible_value + "'. Remember that number is the power of two for alignment, see MIPS documentation..");
 
-                        //var align_offset = Math.pow(2,parseInt(possible_value)) ;
+			// Calculate offset
+                        var align_offset = Math.pow(2,parseInt(possible_value)) ;
                         //seg_ptr = seg_ptr + align_offset - (seg_ptr % align_offset)
 
 			nextToken(context) ;
@@ -533,7 +542,7 @@ function read_text ( context, datosCU, ret )
 			machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length-field.stopbit);
 		}
 
-		// TODO: process machine code with several words...
+		// process machine code with several words...
 		for(i=0; i<firmware[instruction].nwords; i++) 
                 {
 			ret.assembly["0x" + seg_ptr.toString(16)] = { breakpoint:false, binary:machineCode.substring(i*32, (i+1)*32), source:s, source_original:s } ; 
