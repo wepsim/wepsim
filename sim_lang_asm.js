@@ -119,6 +119,7 @@ function is_directive_datatype ( text )
 
 function isDecimal ( n )
 {
+	if(n.length > 1 && n[0] == "0") return false;
         return (!isNaN(parseFloat(n)) && isFinite(n)) ? parseInt(n) : false;
 }
 
@@ -184,7 +185,6 @@ function read_data ( context, datosCU, ret )
                       // :
 		      if ("TAG" != getTokenType(context))
 			  return asmError(context, "Expected tag but found '" + possible_tag + "'.") ;
-
 		      
 		      // Store tag
 		      ret.labels2[possible_tag.substring(0, possible_tag.length-1)] = "0x" + (seg_ptr+byteWord).toString(16);
@@ -232,43 +232,61 @@ function read_data ( context, datosCU, ret )
 				// Get value size in bytes
 				var size = get_datatype_size(possible_datatype);
 
-				// Get value in bits TODO: allow negative numbers
-				var num_bits = number.toString(2);
-			
-				// calculate free space after including the value
-				var num_bits_free_space = size*8 - num_bits.length;
+				// Get value in bits (negative / positive)
+				if(number < 0){
+					var aux = number*-1;
+					var num_bits = aux.toString(2);
+				
+					// calculate free space after including the value
+					var num_bits_free_space = size*8 - num_bits.length;
+					if(num_bits_free_space > 0)
+						var num_bits_free_space = 0;				
+				}
+				else{
+					var num_bits = number.toString(2);
+				
+					// calculate free space after including the value
+					var num_bits_free_space = size*8 - num_bits.length;
+				}
 
 				// Check size
 				if(num_bits_free_space < 0)
 					return asmError(context, "Expected value that fits in a '" + possible_datatype + "' (" + size*8 + " bits), but inserted '" + possible_value + "' (" + num_bits.length + " bits) instead");
 
-				// New .half
-				if(size==2 && byteWord == 1){
-					byteWord++;
+				// Negative number --> Ca2	
+				if(number < 0){
+					var num_bits = (number>>>0).toString(2);
+					var num_bits = num_bits.substring(num_bits.length-size*8); 
 				}
 
+
 				// Word filled
-				if(byteWord+size >= 4){
+				if(byteWord >= 4){
 					ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
-                			seg_ptr = seg_ptr + 4 ;
+               				seg_ptr = seg_ptr + 4 ;
 					byteWord = 0;
 					machineCode = "00000000000000000000000000000000";	
 				}
 
+				// Align to size
+				while(((seg_ptr+byteWord)%size) != 0){
+					byteWord++;
+					
+					// Word filled
+					if(byteWord >= 4){
+						ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
+        	        			seg_ptr = seg_ptr + 4 ;
+						byteWord = 0;
+						machineCode = "00000000000000000000000000000000";	
+					}
+				}	
+	
 				// Store field in machine code
 				var machineCodeAux = machineCode.substring(0, machineCode.length- 8*(size+byteWord) +num_bits_free_space);
 				machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length - 8*(byteWord));
 			
 				byteWord+=size;
 
-				/* Word filled
-				if(byteWord >= 4){
-					ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
-                			seg_ptr = seg_ptr + 4 ;
-					machineCode = "00000000000000000000000000000000";
-					byteWord = 0;
-				}*/		
-	
 				// optional ','
 				nextToken(context);
 				if ("," == getToken(context))
@@ -293,8 +311,19 @@ function read_data ( context, datosCU, ret )
 			if (!isDecimal(possible_value))
 			     return asmError(context, "Expected number of bytes to reserve in .space but found '" + possible_value + "' as number");
 
-                        ////TODO: rellenar 'possible_value' bytes a cero -> ret.mp["0x" + seg_ptr.toString(16)] = 0000000... ;
-                        seg_ptr = seg_ptr + parseInt(possible_value) ;
+			// Fill with spaces
+			for (i=0; i<possible_value; i++){
+			
+				// Word filled
+				if(byteWord >= 4){
+					ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
+                			seg_ptr = seg_ptr + 4 ;
+					byteWord = 0;
+					machineCode = "00000000000000000000000000000000";	
+				}
+
+				byteWord++;
+			}
 
 			nextToken(context) ;
                    }
@@ -307,11 +336,47 @@ function read_data ( context, datosCU, ret )
                         var possible_value = getToken(context) ;
 
 			// Check if number
-			if (!isDecimal(possible_value))
-			     return asmError(context, "Expected the align parameter as number but found '" + possible_value + "'. Remember that number is the power of two for alignment, see MIPS documentation..");
+			if (!isDecimal(possible_value) && possible_value >=0 )
+			     return asmError(context, "Expected the align parameter as positive number but found '" + possible_value + "'. Remember that number is the power of two for alignment, see MIPS documentation..");
 
+			// Word filled
+			if(byteWord >= 4){
+				ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
+                		seg_ptr = seg_ptr + 4 ;
+				byteWord = 0;
+				machineCode = "00000000000000000000000000000000";	
+			}
+
+			// Calculate offset
                         var align_offset = Math.pow(2,parseInt(possible_value)) ;
-                        seg_ptr = seg_ptr + align_offset - (seg_ptr % align_offset)
+                   
+			switch(align_offset){
+				case 1:
+					break;
+				case 2:
+					if(byteWord%2==1)
+						byteWord++;
+					break;
+				default:
+					// Fill with spaces
+					while(true){
+		
+						// Word filled
+						if(byteWord >= 4){
+							ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
+                					seg_ptr = seg_ptr + 4 ;
+							byteWord = 0;
+							machineCode = "00000000000000000000000000000000";	
+						}
+
+						if(seg_ptr%align_offset == 0 && byteWord == 0)
+							break;	
+
+						byteWord++;
+					}	
+			}
+
+     		//seg_ptr = seg_ptr + align_offset - (seg_ptr % align_offset)
 
 			nextToken(context) ;
                    }
@@ -326,14 +391,95 @@ function read_data ( context, datosCU, ret )
 
 			while (!is_directive(getToken(context)))
                         {
+				// Word filled
+				if(byteWord >= 4){
+					ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
+                			seg_ptr = seg_ptr + 4 ;
+					byteWord = 0;
+					machineCode = "00000000000000000000000000000000";	
+				}
+
 				// string
 		                if ("STRING" != getTokenType(context))
 				    return asmError(context, "Expected string value but found '" + possible_value + "' as string");
 
-				//// TODO: process possible_value
-                                seg_ptr = seg_ptr + possible_value.length ;
-                                if (".asciiz" == possible_datatype)
-                                    seg_ptr++;
+				// process characters of the string
+				for(i=0; i<possible_value.length; i++){
+					
+					// Word filled
+					if(byteWord >= 4){
+						ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
+                				seg_ptr = seg_ptr + 4 ;
+						byteWord = 0;
+						machineCode = "00000000000000000000000000000000";	
+					}
+				
+					switch(possible_value[i]){
+						case "\"":
+							break;
+						case "\\":
+							switch(possible_value[i+1]){
+							
+								case "n":
+									num_bits = "\n".charCodeAt(0).toString(2);
+									i++;
+									break;
+								case "t":
+									num_bits = "\t".charCodeAt(0).toString(2);
+									i++;
+									break;
+								case "0":
+									num_bits = "\0".charCodeAt(0).toString(2);
+									i++;
+									break;
+								default:	
+									num_bits = possible_value.charCodeAt(i).toString(2);
+									break;
+							}
+							
+							// calculate free space after including the value
+							var num_bits_free_space = 8 - num_bits.length;
+	
+							// Store field in machine code
+							var machineCodeAux = machineCode.substring(0, machineCode.length- 8*(1+byteWord) + num_bits_free_space );
+							machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length - 8*(byteWord));	
+								
+							byteWord++;
+							
+							break;
+						default:
+							num_bits = possible_value.charCodeAt(i).toString(2);
+	
+							// calculate free space after including the value
+							var num_bits_free_space = 8 - num_bits.length;
+
+							// Store field in machine code
+							var machineCodeAux = machineCode.substring(0, machineCode.length- 8*(1+byteWord) + num_bits_free_space );
+							machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length - 8*(byteWord));	
+							
+							byteWord++;
+					}	
+				}
+
+                                if (".asciiz" == possible_datatype){
+                                	// Word filled
+					if(byteWord >= 4){
+						ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
+                				seg_ptr = seg_ptr + 4 ;
+						byteWord = 0;
+						machineCode = "00000000000000000000000000000000";	
+					}
+					
+					num_bits = "\0".charCodeAt(0).toString(2);
+			
+					// calculate free space after including the value
+					var num_bits_free_space = 8 - num_bits.length;
+
+					// Store field in machine code
+					var machineCodeAux = machineCode.substring(0, machineCode.length- 8*(1+byteWord) + num_bits_free_space );
+					machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length - 8*(byteWord));	
+					byteWord++;
+				}
 
 				// optional ','
 				nextToken(context);
@@ -373,9 +519,9 @@ function read_text ( context, datosCU, ret )
            var seg_name = getToken(context) ;
            var seg_ptr  = ret.seg[seg_name].begin ;
 
-	   // Fill firmware structure [name, nfields, ...]
-
            // TODO: what happens when several instructions like lw R1 (R2), lw R1 address, ...
+
+	   // Fill firmware structure
 	   var firmware = new Object() ;
 	   for (i=0; i<datosCU.firmware.length; i++)
            {
@@ -463,7 +609,11 @@ function read_text ( context, datosCU, ret )
 						var num_bits = isHex(value).toString(2);
 					else if(isDecimal(value) !== false)
 						var num_bits = isDecimal(value).toString(2);
-					else return asmError(context, "Expected address (0x012...) but found '" + value + "' as address");	
+					else{
+						ret.labels["0x" + seg_ptr.toString(16)] = { name:value, addr:("0x" + seg_ptr.toString(16)), startbit:field.startbit, stopbit:field.stopbit };
+						continue;
+					}  	
+					//return asmError(context, "Expected address (0x012...) but found '" + value + "' as address");	
 					break;
 				// 23, 'b', ...
 				case "inm":
@@ -471,11 +621,28 @@ function read_text ( context, datosCU, ret )
 						var num_bits = isOctal(value).toString(2);
 					else if(isHex(value) !== false)
 						var num_bits = isHex(value).toString(2);
-					else if(isDecimal(value) !== false)
-						var num_bits = isDecimal(value).toString(2);
+					else if(isDecimal(value) !== false){
+						var number = isDecimal(value);
+
+						if(number < 0){
+							var aux = number*-1;
+							var num_bits = aux.toString(2);
+							var length = num_bits.length;
+							if(length<(field.startbit-field.stopbit+1)){
+								length = field.startbit-field.stopbit+1;
+								var num_bits = (number >>> 0).toString(2);
+								var num_bits = num_bits.substring(num_bits.length-length);
+							}
+						}
+						else var num_bits = number.toString(2);
+					}
 					else if (isChar(value) !== false)
 						var num_bits = isDecimal(value).toString(2);
-					else return asmError(context, "Expected immediate number (12, 'a', ...) but found '" + value + "' as immediate");	
+					else{
+						ret.labels["0x" + seg_ptr.toString(16)] = { name:value, addr:("0x" + seg_ptr.toString(16)), startbit:field.startbit, stopbit:field.stopbit };
+						continue;
+					}
+					//return asmError(context, "Expected immediate number (12, 'a', ...) but found '" + value + "' as immediate");	
 					break;
 				// $1...
 				case "reg":
@@ -499,7 +666,7 @@ function read_text ( context, datosCU, ret )
 			machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length-field.stopbit);
 		}
 
-		// TODO: process machine code with several words...
+		// process machine code with several words...
 		for(i=0; i<firmware[instruction].nwords; i++) 
                 {
 			ret.assembly["0x" + seg_ptr.toString(16)] = { breakpoint:false, binary:machineCode.substring(i*32, (i+1)*32), source:s, source_original:s } ; 
@@ -539,7 +706,6 @@ function simlang_compile (text, datosCU)
 	   context.pseudoInstructions	= new Array();
 	   context.stackRegister	= null ;
 
-           // ASK....
            var ret = new Object(); 
            ret.seg = {
                        ".ktext": { name:".ktext",  begin:0x0000, end:0x0100, color: "#A9D0F5" },
@@ -549,61 +715,73 @@ function simlang_compile (text, datosCU)
                        ".stack": { name:".stack",  begin:0xFFFF, end:0xFFFF, color: "#F1F2A3" }
                      };
           ret.mp           = new Object() ;
-	  ret.labels	   = []; 	    // [name, verified]
+	  ret.labels	   = new Object() ; // [addr] = {name, addr, startbit, stopbit}
           ret.labels2      = new Object() ;
           ret.assembly     = new Object() ; // This is for the Assembly Debugger...
 
+          // 
+          // .segment
+          // ...
+          // 
           nextToken(context) ;
           while (context.t < context.text.length)
           {
-	       // 
-	       // .kdata
-               // ...
-	       // 
                if (isToken(context,".kdata"))
-               {
                        read_data(context, datosCU, ret) ;
-               }
-
-	       // 
-	       // .ktext
-               // ...
-	       // 
                else if (isToken(context,".ktext"))
-               {
                        read_text(context, datosCU, ret) ;
-               }
-
-	       // 
-	       // .data
-               // ...
-	       // 
                else if (isToken(context,".data"))
-               {
                        read_data(context, datosCU, ret) ;
-               }
-
-	       // 
-	       // .text
-               // ...
-	       // 
                else if (isToken(context,".text"))
-               {
                        read_text(context, datosCU, ret) ;
-	       }
-
                else
-               {
                        return asmError(context, "Expected .data/.text/... segment but found '" + getToken(context) + "' as segment") ;
-               }
 
 	       // Check errors
 	       if (context.error != null) break;
 	 }
 
-         // TODO: to resolv the labels: tabla de definición de etiquetas (label2) y otra tabla de dónde se usan (pc, bitinicio,bitfin, ...)
+	 // Check thath all used labels are defined in the text
+         for (i in ret.labels)
+         {
+		// Get label value (address number)
+		var value = ret.labels2[ret.labels[i].name];
 
-         ret.error = context.error ;  // ???
+		// Check if the label exists
+		if(typeof value === "undefined"){
+			return asmError(context, "Label '" + ret.labels[i].name + "' used but not defined in the assembly code");
+		}	
+
+		// Get the word in memory where the label is used
+		var machineCode = ret.mp[ret.labels[i].addr];	
+
+		// TODO: consider two words instruction 
+
+		// Translate the address into bits	
+		if(isHex(value) !== false)
+			var num_bits = isHex(value).toString(2);
+		else if(isDecimal(value) !== false)
+			var num_bits = isDecimal(value).toString(2);
+ 		else
+			return asmError(context, "Unexpected error (54)");
+
+		// calculate free space in the instruction after including the field
+		var num_bits_free_space = ret.labels[i].startbit-ret.labels[i].stopbit+1 - num_bits.length;
+
+		// check size
+		if(num_bits_free_space < 0)
+			return asmError(context, "'" + value + "' needs " + num_bits.length + " bits but there is space for only " + field.startbit-field.stopbit+1 + " bits");
+			
+		// Store field in machine code
+		var machineCodeAux = machineCode.substring(0, machineCode.length-1-ret.labels[i].startbit+num_bits_free_space);
+		machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length-ret.labels[i].stopbit);
+
+		// Update the machineCode
+		ret.mp[ret.labels[i].addr] = machineCode; 
+	 }	 
+
+         ret.error = context.error ;
+
 	 return ret;
 }
 
