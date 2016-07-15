@@ -150,6 +150,38 @@ function isChar( n )
 	return false;
 }
 
+function decimal2binary(number, size){
+	if(number < 0){
+		var aux = number*-1;
+		var num_bits = aux.toString(2);
+
+		// calculate free space after including the value
+		var num_bits_free_space = size - num_bits.length;
+		if(num_bits_free_space > 0)
+			var num_bits_free_space = 0;				
+	}
+	else{
+		var num_bits = number.toString(2);
+			
+		// calculate free space after including the value
+		var num_bits_free_space = size - num_bits.length;
+	}
+	
+	// Check errors
+	if(num_bits_free_space < 0)
+		return [num_bits, num_bits_free_space];
+
+	// Negative number --> Ca2	
+	if(number < 0){
+		var num_bits = (number>>>0).toString(2);
+		var num_bits = num_bits.substring(num_bits.length-size); 
+	}
+
+	return [num_bits, num_bits_free_space];
+}
+
+
+
 /*
  *   Load segments
  */
@@ -233,33 +265,14 @@ function read_data ( context, datosCU, ret )
 				// Get value size in bytes
 				var size = get_datatype_size(possible_datatype);
 
-				// Get value in bits (negative / positive)
-				if(number < 0){
-					var aux = number*-1;
-					var num_bits = aux.toString(2);
-				
-					// calculate free space after including the value
-					var num_bits_free_space = size*8 - num_bits.length;
-					if(num_bits_free_space > 0)
-						var num_bits_free_space = 0;				
-				}
-				else{
-					var num_bits = number.toString(2);
-				
-					// calculate free space after including the value
-					var num_bits_free_space = size*8 - num_bits.length;
-				}
+				// Decimal --> binary	
+			        var res = decimal2binary(number, size*8);
+				num_bits = res[0];
+				num_bits_free_space = res[1];
 
 				// Check size
 				if(num_bits_free_space < 0)
 					return asmError(context, "Expected value that fits in a '" + possible_datatype + "' (" + size*8 + " bits), but inserted '" + possible_value + "' (" + num_bits.length + " bits) instead");
-
-				// Negative number --> Ca2	
-				if(number < 0){
-					var num_bits = (number>>>0).toString(2);
-					var num_bits = num_bits.substring(num_bits.length-size*8); 
-				}
-
 
 				// Word filled
 				if(byteWord >= 4){
@@ -612,25 +625,33 @@ function read_text ( context, datosCU, ret )
 			var value = getToken(context);	
                         s = s + value + " " ;
 			
+			var size = field.startbit-field.stopbit+1;
+
 			// check field	
 			switch(field.type)
-                        {
+                        {	
 				// 0xFFFF...
 				case "address":
 					if(isHex(value) !== false){
-						var num_bits = isHex(value).toString(2);
+						var res = decimal2binary(isHex(value), size);
+						var num_bits = res[0];
+						var num_bits_free_space = res[1];
 						if("rel" == field.address_type){
 						    num_bits = isHex(value) - seg_ptr - 4;	
-                                                    num_bits = (num_bits >>> 0).toString(2) ;
-                                                    // TODO: comprobar que num_bits cabe en field.startbit - field.stopbit ...
+                                                    res = decimal2binary(num_bits, size) ;
+						    num_bits = res[0];
+						    num_bits_free_space = res[1];
 						}
 					}
 					else if(isDecimal(value) !== false){
-						var num_bits = isDecimal(value).toString(2);
+						var res = decimal2binary(isDecimal(value), size);
+						var num_bits = res[0];
+						var num_bits_free_space = res[1];
 						if("rel" == field.address_type){
 						    num_bits = isDecimal(value) - seg_ptr - 4;	
-                                                    num_bits = (num_bits >>> 0).toString(2) ;
-                                                    // TODO: comprobar que num_bits cabe en field.startbit - field.stopbit ...
+                                                    res = decimal2binary(num_bits, size) ;
+						    num_bits = res[0];
+						    num_bits_free_space = res[1];
 						}
 					}
 					else{
@@ -679,7 +700,7 @@ function read_text ( context, datosCU, ret )
 			}
 
 			// calculate free space in the instruction after including the field
-			var num_bits_free_space = field.startbit-field.stopbit+1 - num_bits.length;
+			var num_bits_free_space = size - num_bits.length;
 
 			// check size
 			if(num_bits_free_space < 0)
@@ -783,31 +804,36 @@ function simlang_compile (text, datosCU)
 
 		// TODO: consider two words instruction 
 
+		var size = ret.labels[i].startbit-ret.labels[i].stopbit+1;
+
 		// Translate the address into bits	
 		if(isHex(value) !== false){
-			var num_bits = isHex(value).toString(2);
+			var res = decimal2binary(isHex(value), size);
+			var num_bits = res[0];
+			var num_bits_free_space = res[1];
 			if ("rel" == ret.labels[i].rel){
 			    num_bits = isHex(value) - ret.labels[i].addr - 4;	
-			    num_bits = (num_bits >>> 0).toString(2) ;
-			    // TODO: comprobar que num_bits cabe en field.startbit - field.stopbit ...
+			    res = decimal2binary(num_bits, size);
+			    num_bits = res[0];
+			    num_bits_free_space = res[1];	    
 			}
 		}
 		else if(isDecimal(value) !== false){
-			var num_bits = isDecimal(value).toString(2);
+			var res = decimal2binary(isDecimal(value), size);
+			var num_bits = res[0];
+			var num_bits_free_space = res[1];
 			if ("rel" == ret.labels[i].rel){
 			    num_bits = isDecimal(value) - ret.labels[i].addr - 4;	
-			    num_bits = (num_bits >>> 0).toString(2) ;
-			    // TODO: comprobar que num_bits cabe en field.startbit - field.stopbit ...
-			}
+			    res = decimal2binary(num_bits, size);
+			    num_bits = res[0];
+			    num_bits_free_space = res[1];	    
+			}	
 		}
  		else return asmError(context, "Unexpected error (54)");
 
-		// calculate free space in the instruction after including the field
-		var num_bits_free_space = ret.labels[i].startbit-ret.labels[i].stopbit+1 - num_bits.length;
-
 		// check size
 		if (num_bits_free_space < 0)
-			return asmError(context, "'" + value + "' needs " + num_bits.length + " bits but there is space for only " + field.startbit-field.stopbit+1 + " bits");
+			return asmError(context, "'" + value + "' needs " + num_bits.length + " bits but there is space for only " + size + " bits");
 			
 		// Store field in machine code
 		var machineCodeAux = machineCode.substring(0, machineCode.length-1-ret.labels[i].startbit+num_bits_free_space);
