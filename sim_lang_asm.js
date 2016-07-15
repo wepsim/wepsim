@@ -185,7 +185,7 @@ function read_data ( context, datosCU, ret )
 
                       // :
 		      if ("TAG" != getTokenType(context))
-			  return asmError(context, "Expected tag but found '" + possible_tag + "'.") ;
+			  return asmError(context, "Expected tag or directive but found '" + possible_tag + "'" ) ;
 		      
 		      // Store tag
 		      ret.labels2[possible_tag.substring(0, possible_tag.length-1)] = "0x" + (seg_ptr+byteWord).toString(16);
@@ -502,7 +502,7 @@ function read_data ( context, datosCU, ret )
 		   }
 		   else
 		   {
-		        return asmError(context, "UnExpected datatype name '" + possible_datatype + "'.");
+		        return asmError(context, "UnExpected datatype name '" + possible_datatype );
 		   }
 		   
 		   if(context.t >= context.text.length) break;
@@ -732,11 +732,11 @@ function simlang_compile (text, datosCU)
 
            var ret = new Object(); 
            ret.seg = {
-                       ".ktext": { name:".ktext",  begin:0x0000, end:0x0100, color: "#A9D0F5" },
-                       ".kdata": { name:".kdata",  begin:0x0100, end:0x0FFF, color: "#FACC00" },
-                       ".data":  { name:".data",   begin:0x1000, end:0x7FFF, color: "#FACC2E" },
-                       ".text":  { name:".text",   begin:0x8000, end:0xFF00, color: "#BEF781" },
-                       ".stack": { name:".stack",  begin:0xFFFF, end:0xFFFF, color: "#F1F2A3" }
+                       ".ktext": { name:".ktext",  begin:0x0000, end:0x0100, color: "#A9D0F5", kindof:"text" },
+                       ".kdata": { name:".kdata",  begin:0x0100, end:0x0FFF, color: "#FF99CC", kindof:"data" },
+                       ".data":  { name:".data",   begin:0x1000, end:0x7FFF, color: "#FACC2E", kindof:"data" },
+                       ".text":  { name:".text",   begin:0x8000, end:0xFF00, color: "#BEF781", kindof:"text" },
+                       ".stack": { name:".stack",  begin:0xFFFF, end:0xFFFF, color: "#F1F2A3", kindof:"stack" }
                      };
           ret.mp           = new Object() ;
 	  ret.labels	   = new Object() ; // [addr] = {name, addr, startbit, stopbit}
@@ -750,19 +750,21 @@ function simlang_compile (text, datosCU)
           nextToken(context) ;
           while (context.t < context.text.length)
           {
-               if (isToken(context,".kdata"))
-                       read_data(context, datosCU, ret) ;
-               else if (isToken(context,".ktext"))
-                       read_text(context, datosCU, ret) ;
-               else if (isToken(context,".data"))
-                       read_data(context, datosCU, ret) ;
-               else if (isToken(context,".text"))
-                       read_text(context, datosCU, ret) ;
-               else
-                       return asmError(context, "Expected .data/.text/... segment but found '" + getToken(context) + "' as segment") ;
+	       var segname = getToken(context);
+
+	       if(typeof ret.seg[segname] == "undefined")
+			return asmError(context, "Expected .data/.text/... segment but found '" + segname + "' as segment");
+
+	       if("data" == ret.seg[segname].kindof)
+			read_data(context, datosCU, ret);
+	       if("text" == ret.seg[segname].kindof)
+			read_text(context, datosCU, ret);
 
 	       // Check errors
-	       if (context.error != null) break;
+	       if(context.error != null){
+	       	       ret.error = context.error;
+		       return ret;
+	       }
 	 }
 
 	 // Check thath all used labels are defined in the text
@@ -782,15 +784,6 @@ function simlang_compile (text, datosCU)
 		// TODO: consider two words instruction 
 
 		// Translate the address into bits	
-/*
-		if(isHex(value) !== false)
-			var num_bits = isHex(value).toString(2);
-		else if(isDecimal(value) !== false)
-			var num_bits = isDecimal(value).toString(2);
- 		else
-			return asmError(context, "Unexpected error (54)");
-*/
-
 		if(isHex(value) !== false){
 			var num_bits = isHex(value).toString(2);
 			if ("rel" == ret.labels[i].rel){
@@ -823,8 +816,6 @@ function simlang_compile (text, datosCU)
 		// Update the machineCode
 		ret.mp[ret.labels[i].addr] = machineCode; 
 	 }	 
-
-         ret.error = context.error ;
 
 	 return ret;
 }
