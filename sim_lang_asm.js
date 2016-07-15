@@ -700,8 +700,8 @@ function simlang_compile (text, datosCU)
 
            var ret = new Object(); 
            ret.seg = {
-                       ".ktext": { name:".ktext",  begin:0x0000, end:0x0100, color: "#A9D0F5", kindof:"text" },
-                       ".kdata": { name:".kdata",  begin:0x0100, end:0x0FFF, color: "#FF99CC", kindof:"data" },
+                       ".kdata": { name:".kdata",  begin:0x0000, end:0x00FF, color: "#FF99CC", kindof:"data" },
+                       ".ktext": { name:".ktext",  begin:0x0100, end:0x0FFF, color: "#A9D0F5", kindof:"text" },
                        ".data":  { name:".data",   begin:0x1000, end:0x7FFF, color: "#FACC2E", kindof:"data" },
                        ".text":  { name:".text",   begin:0x8000, end:0xFF00, color: "#BEF781", kindof:"text" },
                        ".stack": { name:".stack",  begin:0xFFFF, end:0xFFFF, color: "#F1F2A3", kindof:"stack" }
