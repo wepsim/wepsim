@@ -817,18 +817,7 @@ function simlang_compile (text, datosCU)
 			    num_bits = res[0];
 			    num_bits_free_space = res[1];	    
 			}
-		}
-		else if(isDecimal(value) !== false){
-			var res = decimal2binary(isDecimal(value), size);
-			var num_bits = res[0];
-			var num_bits_free_space = res[1];
-			if ("rel" == ret.labels[i].rel){
-			    num_bits = isDecimal(value) - ret.labels[i].addr - 4;	
-			    res = decimal2binary(num_bits, size);
-			    num_bits = res[0];
-			    num_bits_free_space = res[1];	    
-			}	
-		}
+		}	
  		else return asmError(context, "Unexpected error (54)");
 
 		// check size
