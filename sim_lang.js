@@ -143,7 +143,7 @@ function langError ( context, msgError )
 
         var lowI = line1 ;
 
-        var highI = context.t - 1;
+        var highI = Math.min(context.t - 1, line2+32);
         for (; (typeof context.text[highI+1] != "undefined") && (context.text[highI+1] != '\n'); highI++) ;
         var line3 = highI + 2 ;
 
