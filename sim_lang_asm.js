@@ -563,7 +563,7 @@ function read_text ( context, datosCU, ret )
 	   for (i=0; i<datosCU.registers.length; i++)
 	   {
 		var aux = "$" + i;
-		registers[aux] = i.toString(2);
+		registers[aux] = i;
 		registers[datosCU.registers[i]] = registers[aux];
 	   }
 
@@ -635,76 +635,64 @@ function read_text ( context, datosCU, ret )
 					if(isHex(value) !== false){
 						var res = decimal2binary(isHex(value), size);
 						var num_bits = res[0];
-						var num_bits_free_space = res[1];
 						if("rel" == field.address_type){
 						    num_bits = isHex(value) - seg_ptr - 4;	
                                                     res = decimal2binary(num_bits, size) ;
 						    num_bits = res[0];
-						    num_bits_free_space = res[1];
 						}
 					}
 					else if(isDecimal(value) !== false){
 						var res = decimal2binary(isDecimal(value), size);
 						var num_bits = res[0];
-						var num_bits_free_space = res[1];
 						if("rel" == field.address_type){
 						    num_bits = isDecimal(value) - seg_ptr - 4;	
                                                     res = decimal2binary(num_bits, size) ;
 						    num_bits = res[0];
-						    num_bits_free_space = res[1];
 						}
 					}
 					else{
 						ret.labels["0x" + seg_ptr.toString(16)] = { name:value, addr:("0x" + seg_ptr.toString(16)), startbit:field.startbit, stopbit:field.stopbit, rel:field.address_type };
 						continue;
 					}  	
-					//return asmError(context, "Expected address (0x012...) but found '" + value + "' as address");	
 					break;
 				// 23, 'b', ...
 				case "inm":
-					if(isOctal(value) !== false)
-						var num_bits = isOctal(value).toString(2);
-					else if(isHex(value) !== false)
-						var num_bits = isHex(value).toString(2);
-					else if(isDecimal(value) !== false){
-						var number = isDecimal(value);
-
-						if(number < 0){
-							var aux = number*-1;
-							var num_bits = aux.toString(2);
-							var length = num_bits.length;
-							if(length<(field.startbit-field.stopbit+1)){
-								length = field.startbit-field.stopbit+1;
-								var num_bits = (number >>> 0).toString(2);
-								var num_bits = num_bits.substring(num_bits.length-length);
-							}
-						}
-						else var num_bits = number.toString(2);
+					if(isOctal(value) !== false){
+						var res = decimal2binary(isOctal(value), size);
+						var num_bits = res[0];
 					}
-					else if (isChar(value) !== false)
-						var num_bits = isDecimal(value).toString(2);
+					else if(isHex(value) !== false){
+						var res = decimal2binary(isHex(value), size);	
+						var num_bits = res[0];
+					}
+					else if(isDecimal(value) !== false){
+						var res = decimal2binary(isDecimal(value), size);
+						var num_bits = res[0];
+					}
+					else if (isChar(value) !== false){
+						var res = decimal2binary(isChar(value), size);
+						var num_bits = res[0];
+					}
 					else{
 						ret.labels["0x" + seg_ptr.toString(16)] = { name:value, addr:("0x" + seg_ptr.toString(16)), startbit:field.startbit, stopbit:field.stopbit };
 						continue;
 					}
-					//return asmError(context, "Expected immediate number (12, 'a', ...) but found '" + value + "' as immediate");	
 					break;
 				// $1...
 				case "reg":
 					if(typeof registers[value] == "undefined")	
 						return asmError(context, "Expected register ($1, ...) but found '" + value + "' as register");
-					var num_bits = registers[value];
+					var res = decimal2binary(isDecimal(registers[value]), size);
+					var num_bits = res[0];
 					break;
 				default:
 					return asmError(context, "An unknown error ocurred (53)");	
 			}
 
-			// calculate free space in the instruction after including the field
-			var num_bits_free_space = size - num_bits.length;
-
-			// check size
+			// Check size
+			var num_bits_free_space = res[1];
 			if(num_bits_free_space < 0)
-				return asmError(context, "'" + value + "' needs " + num_bits.length + " bits but there is space for only " + field.startbit-field.stopbit+1 + " bits");
+				return asmError(context, "'" + value + "' needs " + num_bits.length + " bits but there is space for only " + size + " bits");
 			
 			// Store field in machine code
 			var machineCodeAux = machineCode.substring(0, machineCode.length-1-field.startbit+num_bits_free_space);
@@ -788,7 +776,7 @@ function simlang_compile (text, datosCU)
 	       }
 	 }
 
-	 // Check thath all used labels are defined in the text
+	 // Check that all used labels are defined in the text
          for (i in ret.labels)
          {
 		// Get label value (address number)
