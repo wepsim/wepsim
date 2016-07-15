@@ -507,14 +507,6 @@ function read_text ( context, datosCU, ret )
 	   	if (typeof firmware[datosCU.firmware[i].name] == "undefined")
 	   	    firmware[datosCU.firmware[i].name] = new Array();
 
-<<<<<<< HEAD
-	   	firmware[datosCU.firmware[i].name].push({ name:aux.name,
-							  nwords:parseInt(aux.nwords), 
-							  co:(typeof aux.co != "undefined" ? aux.co : false),
-							  cop:(typeof aux.cop != "undefined" ? aux.cop : false),
-							  nfields:(typeof aux.fields != "undefined" ? aux.fields.length : 0),			
-							  fields:(typeof aux.fields != "undefined" ? aux.fields : false)  });
-=======
 	   	firmware[datosCU.firmware[i].name].push({ 	name:aux.name,
 							nwords:parseInt(aux.nwords), 
 							co:(typeof aux.co != "undefined" ? aux.co : false),
@@ -522,7 +514,6 @@ function read_text ( context, datosCU, ret )
 							nfields:(typeof aux.fields != "undefined" ? aux.fields.length : 0),			
 							fields:(typeof aux.fields != "undefined" ? aux.fields : false),
 							signature:aux.signature });
->>>>>>> upstream/master
 	   }
 
 	   // Fill register names
@@ -544,20 +535,11 @@ function read_text ( context, datosCU, ret )
                 {
 			var possible_tag = getToken(context);
 			
-<<<<<<< HEAD
 		        if ("TAG" != getTokenType(context)) 
-			     return asmError(context, "Undefined instruction " + possible_tag ); 
+			     return langError(context, "Undefined instruction " + possible_tag ); 
 
                         ret.labels2[possible_tag.substring(0, possible_tag.length-1)] = "0x" + seg_ptr.toString(16);
-=======
-		        if ("TAG" == getTokenType(context)) 
-                        {
-                                ret.labels2[possible_tag.substring(0, possible_tag.length-1)] = "0x" + seg_ptr.toString(16);
-			}
-			else {
-				return langError(context, "Undefined instruction " + possible_tag ); 
-			}
->>>>>>> upstream/master
+
 			nextToken(context);
 		}
 
@@ -729,13 +711,8 @@ function simlang_compile (text, datosCU)
 
            var ret = new Object(); 
            ret.seg = {
-<<<<<<< HEAD
-                       ".ktext": { name:".ktext",  begin:0x0000, end:0x0100, color: "#A9D0F5", kindof:"text" },
-                       ".kdata": { name:".kdata",  begin:0x0100, end:0x0FFF, color: "#FACC00", kindof:"data" },
-=======
                        ".kdata": { name:".kdata",  begin:0x0000, end:0x00FF, color: "#FF99CC", kindof:"data" },
                        ".ktext": { name:".ktext",  begin:0x0100, end:0x0FFF, color: "#A9D0F5", kindof:"text" },
->>>>>>> upstream/master
                        ".data":  { name:".data",   begin:0x1000, end:0x7FFF, color: "#FACC2E", kindof:"data" },
                        ".text":  { name:".text",   begin:0x8000, end:0xFF00, color: "#BEF781", kindof:"text" },
                        ".stack": { name:".stack",  begin:0xFFFF, end:0xFFFF, color: "#F1F2A3", kindof:"stack" }
@@ -752,11 +729,10 @@ function simlang_compile (text, datosCU)
           nextToken(context) ;
           while (context.t < context.text.length)
           {
-<<<<<<< HEAD
                var segname = getToken(context) ;
 
                if (typeof ret.seg[segname] == "undefined") 
-                   return asmError(context, "Expected .data/.text/... segment but found '" + getToken(context) + "' as segment") ;
+                   return langError(context, "Expected .data/.text/... segment but found '" + getToken(context) + "' as segment") ;
 
                if ("data" == ret.seg[segname].kindof)
                     read_data(context, datosCU, ret) ;
@@ -768,23 +744,6 @@ function simlang_compile (text, datosCU)
                    ret.error = context.error ;
                    return ret;
                }
-=======
-	       var segname = getToken(context);
-
-	       if(typeof ret.seg[segname] == "undefined")
-			return langError(context, "Expected .data/.text/... segment but found '" + segname + "' as segment");
-
-	       if("data" == ret.seg[segname].kindof)
-			read_data(context, datosCU, ret);
-	       if("text" == ret.seg[segname].kindof)
-			read_text(context, datosCU, ret);
-
-	       // Check errors
-	       if(context.error != null){
-	       	       ret.error = context.error;
-		       return ret;
-	       }
->>>>>>> upstream/master
 	 }
 
 	 // Check that all used labels are defined in the text
@@ -794,14 +753,8 @@ function simlang_compile (text, datosCU)
 		var value = ret.labels2[ret.labels[i].name];
 
 		// Check if the label exists
-<<<<<<< HEAD
 		if (typeof value === "undefined")
-		    return asmError(context, "Label '" + ret.labels[i].name + "' used but not defined in the assembly code");
-=======
-		if(typeof value === "undefined"){
-			return langError(context, "Label '" + ret.labels[i].name + "' used but not defined in the assembly code");
-		}	
->>>>>>> upstream/master
+		    return langError(context, "Label '" + ret.labels[i].name + "' used but not defined in the assembly code");
 
 		// Get the word in memory where the label is used
 		var machineCode = ret.mp[ret.labels[i].addr];	
@@ -826,11 +779,7 @@ function simlang_compile (text, datosCU)
 
 		// check size
 		if (num_bits_free_space < 0)
-<<<<<<< HEAD
-	  	    return asmError(context, "'" + value + "' needs " + num_bits.length + " bits but there is space for only " + field.startbit-field.stopbit+1 + " bits");
-=======
-			return langError(context, "'" + value + "' needs " + num_bits.length + " bits but there is space for only " + size + " bits");
->>>>>>> upstream/master
+		    return langError(context, "'" + value + "' needs " + num_bits.length + " bits but there is space for only " + size + " bits");
 			
 		// Store field in machine code
 		var machineCodeAux = machineCode.substring(0, machineCode.length-1-ret.labels[i].startbit+num_bits_free_space);
