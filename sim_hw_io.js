@@ -180,7 +180,7 @@
                                                               }
                                                               sim_events["io"][clk].push(i) ;
 
-                                                              sim_states[s_expr[2]].value = 1 ; // ['INT']=1
+                                                              sim_states[s_expr[2]].value = 0 ; // ['INT']=0
                                                            }
                                                       }
                                                    }
