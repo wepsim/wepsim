@@ -227,7 +227,7 @@
     function load_firmware_from_example ( )
     {
 	var xmlhttp = new XMLHttpRequest();
-	var url = "examples/exampleMicrocode.txt?time=20160714" ;
+	var url = "examples/exampleMicrocode.txt?time=20160715" ;
 
 	xmlhttp.onreadystatechange=function() {
 					// if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
@@ -1038,8 +1038,6 @@
 		    $("#tabs2").tabs();
 		    $("#tabs3").tabs();
 		    $("#tabs4").tabs();
-
-		    $("#sim_toolbar").draggable();
 
 		    inputfirm  = CodeMirror.fromTextArea(document.getElementById("inputFirmware"), {
 								value: "",

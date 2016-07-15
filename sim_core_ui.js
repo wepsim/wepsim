@@ -744,10 +744,10 @@
                          "  <td width=25% align=center><small><b>byte 0</b></small></td>" +
                          "</tr>" + 
                          "<tr>" + 
-                         "  <td width=12% align=center >&nbsp;<sup>24&nbsp;&nbsp;......&nbsp;&nbsp;31</sup>&nbsp;</td>" +
-                         "  <td width=12% align=center >&nbsp;<sup>16&nbsp;&nbsp;......&nbsp;&nbsp;23</sup>&nbsp;</td>" +
-                         "  <td width=12% align=center >&nbsp;<sup>8&nbsp;&nbsp;......&nbsp;&nbsp;15</sup>&nbsp;</td>" +
-                         "  <td width=12% align=center >&nbsp;<sup>0&nbsp;&nbsp;......&nbsp;&nbsp;7</sup>&nbsp;</td>" +
+                         "  <td width=12% align=center >&nbsp;<sup>31&nbsp;&nbsp;......&nbsp;&nbsp;24</sup>&nbsp;</td>" +
+                         "  <td width=12% align=center >&nbsp;<sup>23&nbsp;&nbsp;......&nbsp;&nbsp;16</sup>&nbsp;</td>" +
+                         "  <td width=12% align=center >&nbsp;<sup>15&nbsp;&nbsp;......&nbsp;&nbsp;8</sup>&nbsp;</td>" +
+                         "  <td width=12% align=center >&nbsp;<sup>7&nbsp;&nbsp;......&nbsp;&nbsp;0</sup>&nbsp;</td>" +
                          "</tr>" + 
                          "</table>" +
 			 "<th style='border-style: solid; border-width:0px;' align=right>&nbsp;&nbsp;segment</th>" +
