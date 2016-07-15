@@ -78,7 +78,6 @@
         if (SIMWAREaddon.error != null) 
         {
             var errorMsg = SIMWAREaddon.error.replace(/\t/g,' ').replace(/   /g,' ') ;
-            errorMsg = '<pre style="background-color: inherit !important">' + errorMsg + '</pre>' ;
 
 	    $.notify({ title: '<strong>ERROR</strong>', 
                        message: errorMsg + '<br><center><button type="button" class="btn btn-danger" onclick="$.notifyClose();">Close</button></center>' },
@@ -170,7 +169,6 @@
 	if (preSM.error != null) 
         {
             var errorMsg = preSM.error.replace(/\t/g,' ').replace(/   /g,' ') ;
-            errorMsg = '<pre style="background-color: inherit !important">' + errorMsg + '</pre>' ;
 
 	    $.notify({ title: '<strong>ERROR</strong>', 
                        message: errorMsg + '<br><center><button type="button" class="btn btn-danger" onclick="$.notifyClose();">Close</button></center>' },

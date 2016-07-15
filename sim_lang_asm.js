@@ -255,7 +255,7 @@ function read_data ( context, datosCU, ret )
 				}	
 	
 		                // Store tag
-                                if ("" != possible_tag){
+                                if ("" != possible_tag) {
 		                    ret.labels2[possible_tag.substring(0, possible_tag.length-1)] = "0x" + (seg_ptr+byteWord).toString(16);
 				    possible_tag = "";
 				}
@@ -764,18 +764,19 @@ function simlang_compile (text, datosCU)
 		var size = ret.labels[i].startbit-ret.labels[i].stopbit+1;
 
 		// Translate the address into bits	
-		if(isHex(value) !== false){
-			var res = decimal2binary(isHex(value), size);
-			var num_bits = res[0];
-			var num_bits_free_space = res[1];
-			if ("rel" == ret.labels[i].rel){
-			    num_bits = isHex(value) - ret.labels[i].addr - 4;	
-			    res = decimal2binary(num_bits, size);
-			    num_bits = res[0];
-			    num_bits_free_space = res[1];	    
-			}
-		}	
- 		else return langError(context, "Unexpected error (54)");
+		if (isHex(value) === false)
+ 		    return langError(context, "Label has not a valid hex value");
+
+		var res = decimal2binary(isHex(value), size);
+		var num_bits = res[0];
+		var num_bits_free_space = res[1];
+
+		if ("rel" == ret.labels[i].rel){
+		    num_bits = isHex(value) - ret.labels[i].addr - 4;	
+		    res = decimal2binary(num_bits, size);
+		    num_bits = res[0];
+		    num_bits_free_space = res[1];	    
+		}
 
 		// check size
 		if (num_bits_free_space < 0)
