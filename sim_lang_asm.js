@@ -754,7 +754,7 @@ function simlang_compile (text, datosCU)
 
 		// Check if the label exists
 		if (typeof value === "undefined")
-		    return langError(context, "Label '" + ret.labels[i].name + "' used but not defined in the assembly code");
+		    return langError(context, "Label '" + ret.labels[i].name + "' used but is wasn't defined in the assembly code");
 
 		// Get the word in memory where the label is used
 		var machineCode = ret.mp[ret.labels[i].addr];	

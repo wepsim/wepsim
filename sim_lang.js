@@ -143,12 +143,13 @@ function langError ( context, msgError )
 
         var lowI = line1 ;
 
-        var highI = context.t;
+        var highI = context.t - 1;
         for (; (typeof context.text[highI+1] != "undefined") && (context.text[highI+1] != '\n'); highI++) ;
         var line3 = highI + 2 ;
 
         highI++;
         for (; (typeof context.text[highI+1] != "undefined") && (context.text[highI+1] != '\n'); highI++) ;
+        highI++;
 
         // print lines
         context.error = "<pre style='background-color: inherit !important'>...\n" ;
@@ -158,7 +159,9 @@ function langError ( context, msgError )
              if (i == line2) context.error += "*" +  context.line    + "\t" ;
              if (i == line3) context.error += " " + (context.line+1) + "\t" ;
 
-             context.error += context.text[i];
+             if (typeof context.text[i] != "undefined")
+                  context.error += context.text[i];
+             else context.error += "&lt;EOF&gt;";
         }
         context.error += "\n...\n</pre>" +
                          "(*) Problem around line " + context.line + ":<br>" + msgError + ".<br>" ;
