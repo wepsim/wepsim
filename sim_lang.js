@@ -125,3 +125,44 @@ function isToken ( context, text )
          return (getToken(context) == text.trim()) ;
 }
 
+
+/*
+ *  Error handler
+ */
+
+function langError ( context, msgError )
+{
+        // detect lines
+	var line2 = 0 ;
+        if (context.newlines.length > 0)
+            line2 = context.newlines[context.newlines.length - 1] + 1;
+
+	var line1 = 0 ;
+        if (context.newlines.length > 1)
+            line1 = context.newlines[context.newlines.length - 2] + 1;
+
+        var lowI = line1 ;
+
+        var highI = context.t;
+        for (; (typeof context.text[highI+1] != "undefined") && (context.text[highI+1] != '\n'); highI++) ;
+        var line3 = highI + 2 ;
+
+        highI++;
+        for (; (typeof context.text[highI+1] != "undefined") && (context.text[highI+1] != '\n'); highI++) ;
+
+        // print lines
+        context.error = "...\n" ;
+        for (var i=lowI; i<highI; i++) 
+        {
+             if (i == line1) context.error += " " + (context.line-1) + "\t" ;
+             if (i == line2) context.error += "*" + context.line     + "\t" ;
+             if (i == line3) context.error += " " + (context.line+1) + "\t" ;
+
+             context.error += context.text[i];
+        }
+        context.error += "\n...\n\n" +
+                         "(*) Problem around line " + context.line + ": " + msgError + ".\n" ;
+
+        return context;
+}
+

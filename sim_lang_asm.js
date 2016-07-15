@@ -20,47 +20,6 @@
 
 
 /*
- *  Error handler
- */
-
-function asmError ( context, msgError )
-{
-        // detect lines
-	var line2 = 0 ;
-        if (context.newlines.length > 0)
-            line2 = context.newlines[context.newlines.length - 1] + 1;
-
-	var line1 = 0 ;
-        if (context.newlines.length > 1)
-            line1 = context.newlines[context.newlines.length - 2] + 1;
-
-        var lowI = line1 ;
-
-        var highI = context.t;
-        for (; (typeof context.text[highI+1] != "undefined") && (context.text[highI+1] != '\n'); highI++) ;
-        var line3 = highI + 2 ;
-
-        highI++;
-        for (; (typeof context.text[highI+1] != "undefined") && (context.text[highI+1] != '\n'); highI++) ;
-
-        // print lines
-        context.error = "...\n" ;
-        for (var i=lowI; i<highI; i++) 
-        {
-             if (i == line1) context.error += " " + (context.line-1) + "\t" ;
-             if (i == line2) context.error += "*" + context.line     + "\t" ;
-             if (i == line3) context.error += " " + (context.line+1) + "\t" ;
-
-             context.error += context.text[i];
-        }
-        context.error += "\n...\n\n" +
-                         "(*) Problem around line " + context.line + ": " + msgError + ".\n" ;
-
-        return context;
-}
-
-
-/*
  *   Directives 
  */
 
@@ -217,7 +176,7 @@ function read_data ( context, datosCU, ret )
 
                       // :
 		      if ("TAG" != getTokenType(context))
-			  return asmError(context, "Expected tag or directive but found '" + possible_tag + "'" ) ;
+			  return langError(context, "Expected tag or directive but found '" + possible_tag + "'" ) ;
 		      
 		      // Store tag
 		      ret.labels2[possible_tag.substring(0, possible_tag.length-1)] = "0x" + (seg_ptr+byteWord).toString(16);
@@ -260,7 +219,7 @@ function read_data ( context, datosCU, ret )
 				else if((number=isChar(possible_value)) !== false);		
 
 				// Error	
-				else return asmError(context, "Expected number value for numeric datatype but found '" + possible_value + "' as number");
+				else return langError(context, "Expected number value for numeric datatype but found '" + possible_value + "' as number");
 
 				// Get value size in bytes
 				var size = get_datatype_size(possible_datatype);
@@ -272,7 +231,7 @@ function read_data ( context, datosCU, ret )
 
 				// Check size
 				if(num_bits_free_space < 0)
-					return asmError(context, "Expected value that fits in a '" + possible_datatype + "' (" + size*8 + " bits), but inserted '" + possible_value + "' (" + num_bits.length + " bits) instead");
+					return langError(context, "Expected value that fits in a '" + possible_datatype + "' (" + size*8 + " bits), but inserted '" + possible_value + "' (" + num_bits.length + " bits) instead");
 
 				// Word filled
 				if(byteWord >= 4){
@@ -329,7 +288,7 @@ function read_data ( context, datosCU, ret )
 
 			// Check if number
 			if (!isDecimal(possible_value))
-			     return asmError(context, "Expected number of bytes to reserve in .space but found '" + possible_value + "' as number");
+			     return langError(context, "Expected number of bytes to reserve in .space but found '" + possible_value + "' as number");
 
 			// Fill with spaces
 			for (i=0; i<possible_value; i++){
@@ -357,7 +316,7 @@ function read_data ( context, datosCU, ret )
 
 			// Check if number
 			if (!isDecimal(possible_value) && possible_value >=0 )
-			     return asmError(context, "Expected the align parameter as positive number but found '" + possible_value + "'. Remember that number is the power of two for alignment, see MIPS documentation..");
+			     return langError(context, "Expected the align parameter as positive number but found '" + possible_value + "'. Remember that number is the power of two for alignment, see MIPS documentation..");
 
 			// Word filled
 			if(byteWord >= 4){
@@ -421,7 +380,7 @@ function read_data ( context, datosCU, ret )
 
 				// string
 		                if ("STRING" != getTokenType(context))
-				    return asmError(context, "Expected string value but found '" + possible_value + "' as string");
+				    return langError(context, "Expected string value but found '" + possible_value + "' as string");
 
 				// process characters of the string
 				for(i=0; i<possible_value.length; i++){
@@ -515,7 +474,7 @@ function read_data ( context, datosCU, ret )
 		   }
 		   else
 		   {
-		        return asmError(context, "UnExpected datatype name '" + possible_datatype );
+		        return langError(context, "UnExpected datatype name '" + possible_datatype );
 		   }
 		   
 		   if(context.t >= context.text.length) break;
@@ -582,7 +541,7 @@ function read_text ( context, datosCU, ret )
                                 ret.labels2[possible_tag.substring(0, possible_tag.length-1)] = "0x" + seg_ptr.toString(16);
 			}
 			else {
-				return asmError(context, "Undefined instruction " + possible_tag ); 
+				return langError(context, "Undefined instruction " + possible_tag ); 
 			}
 			nextToken(context);
 		}
@@ -681,18 +640,18 @@ function read_text ( context, datosCU, ret )
 				// $1...
 				case "reg":
 					if(typeof registers[value] == "undefined")	
-						return asmError(context, "Expected register ($1, ...) but found '" + value + "' as register");
+						return langError(context, "Expected register ($1, ...) but found '" + value + "' as register");
 					var res = decimal2binary(isDecimal(registers[value]), size);
 					var num_bits = res[0];
 					break;
 				default:
-					return asmError(context, "An unknown error ocurred (53)");	
+					return langError(context, "An unknown error ocurred (53)");	
 			}
 
 			// Check size
 			var num_bits_free_space = res[1];
 			if(num_bits_free_space < 0)
-				return asmError(context, "'" + value + "' needs " + num_bits.length + " bits but there is space for only " + size + " bits");
+				return langError(context, "'" + value + "' needs " + num_bits.length + " bits but there is space for only " + size + " bits");
 			
 			// Store field in machine code
 			var machineCodeAux = machineCode.substring(0, machineCode.length-1-field.startbit+num_bits_free_space);
@@ -762,7 +721,7 @@ function simlang_compile (text, datosCU)
 	       var segname = getToken(context);
 
 	       if(typeof ret.seg[segname] == "undefined")
-			return asmError(context, "Expected .data/.text/... segment but found '" + segname + "' as segment");
+			return langError(context, "Expected .data/.text/... segment but found '" + segname + "' as segment");
 
 	       if("data" == ret.seg[segname].kindof)
 			read_data(context, datosCU, ret);
@@ -784,7 +743,7 @@ function simlang_compile (text, datosCU)
 
 		// Check if the label exists
 		if(typeof value === "undefined"){
-			return asmError(context, "Label '" + ret.labels[i].name + "' used but not defined in the assembly code");
+			return langError(context, "Label '" + ret.labels[i].name + "' used but not defined in the assembly code");
 		}	
 
 		// Get the word in memory where the label is used
@@ -806,11 +765,11 @@ function simlang_compile (text, datosCU)
 			    num_bits_free_space = res[1];	    
 			}
 		}	
- 		else return asmError(context, "Unexpected error (54)");
+ 		else return langError(context, "Unexpected error (54)");
 
 		// check size
 		if (num_bits_free_space < 0)
-			return asmError(context, "'" + value + "' needs " + num_bits.length + " bits but there is space for only " + size + " bits");
+			return langError(context, "'" + value + "' needs " + num_bits.length + " bits but there is space for only " + size + " bits");
 			
 		// Store field in machine code
 		var machineCodeAux = machineCode.substring(0, machineCode.length-1-ret.labels[i].startbit+num_bits_free_space);
