@@ -514,7 +514,8 @@ function read_text ( context, datosCU, ret )
 							co:(typeof aux.co != "undefined" ? aux.co : false),
 							cop:(typeof aux.cop != "undefined" ? aux.cop : false),
 							nfields:(typeof aux.fields != "undefined" ? aux.fields.length : 0),			
-							fields:(typeof aux.fields != "undefined" ? aux.fields : false)  });
+							fields:(typeof aux.fields != "undefined" ? aux.fields : false),
+							signature:aux.signature });
 	   }
 
 	   // Fill register names
@@ -639,8 +640,19 @@ function read_text ( context, datosCU, ret )
 					break;
 				// $1...
 				case "reg":
+					var aux = false;
+					if("(" == value){
+						nextToken(context);
+						value = getToken(context);
+						aux = true;
+					}
 					if(typeof registers[value] == "undefined")	
 						return langError(context, "Expected register ($1, ...) but found '" + value + "' as register");
+					if(aux){
+						nextToken(context);
+						if(")" != getToken(context))
+							return langError(context, "String without ')'");
+					}
 					var res = decimal2binary(isDecimal(registers[value]), size);
 					var num_bits = res[0];
 					break;

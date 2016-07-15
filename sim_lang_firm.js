@@ -356,7 +356,7 @@ function loadFirmware (text)
 		       campoAux["name"] = getToken(context) ;
 		       campos.push(campoAux);
 		       numeroCampos++;
-		       firma = firma + getToken(context)  ;
+		       firma = firma + getToken(context) ;
 		       nextToken(context);
 
 		       if (numeroCampos > 100)
@@ -370,7 +370,7 @@ function loadFirmware (text)
                    // match optional "(" FIELD ")"
 		   if (isToken(context, "(")) 
                    {
-		           firma = firma + '(';
+		           firma = firma + ',(';
 		           nextToken(context);
 
 			   if ( !isToken(context, ",") && !isToken(context, "(") && !isToken(context, ")") )
