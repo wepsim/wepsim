@@ -60,6 +60,30 @@
     // Assembly
     //
 
+    function showError ( Msg ) 
+    {
+            var errorMsg = Msg.replace(/\t/g,' ').replace(/   /g,' ');
+
+            var pos = errorMsg.match(/Problem around line \d+/);
+            var lineMsg = '' ;
+            if (null != pos) {
+                pos = parseInt(pos[0].match(/\d+/)[0]);
+                lineMsg += '<button type="button" class="btn btn-danger" ' + 
+                           '        onclick="$.notifyClose();' +
+		           '		     var t = inputasm.charCoords({line: ' + pos + ', ch: 0}, \'local\').top;' +
+		           '		     var middleHeight = inputasm.getScrollerElement().offsetHeight / 2;' +
+		           '		     inputasm.scrollTo(null, t - middleHeight - 5);">Go line ' + pos + '</button>&nbsp;' ;
+            }
+
+	    $.notify({ title: '<strong>ERROR</strong>', 
+                       message: errorMsg + '<br>' + 
+                                '<center>' +  
+                                lineMsg + 
+                                '<button type="button" class="btn btn-danger" onclick="$.notifyClose();">Close</button>' + 
+                                '</center>' },
+		     { type: 'danger', newest_on_top: true, delay: 0, placement: { from: 'top', align: 'center' } });
+    }
+
     function compileAssembly ( show_binary ) 
     {
         // get Assembly
@@ -75,13 +99,8 @@
 
         // compile Assembly and show message
         var SIMWAREaddon = simlang_compile(textToConvert, SIMWARE);
-        if (SIMWAREaddon.error != null) 
-        {
-            var errorMsg = SIMWAREaddon.error.replace(/\t/g,' ').replace(/   /g,' ') ;
-
-	    $.notify({ title: '<strong>ERROR</strong>', 
-                       message: errorMsg + '<br><center><button type="button" class="btn btn-danger" onclick="$.notifyClose();">Close</button></center>' },
-		     { type: 'danger', newest_on_top: true, delay: 0, placement: { from: 'top', align: 'center' } });
+        if (SIMWAREaddon.error != null) {
+            showError(SIMWAREaddon.error) ;
             return false;
         }
 
@@ -166,14 +185,8 @@
         var textFromFileLoaded = inputfirm.getValue() ;
 
 	var preSM = load_firmware(textFromFileLoaded) ;
-	if (preSM.error != null) 
-        {
-            var errorMsg = preSM.error.replace(/\t/g,' ').replace(/   /g,' ') ;
-
-	    $.notify({ title: '<strong>ERROR</strong>', 
-                       message: errorMsg + '<br><center><button type="button" class="btn btn-danger" onclick="$.notifyClose();">Close</button></center>' },
-		     { type: 'danger', newest_on_top: true, delay: 0, placement: { from: 'top', align: 'center' } });
-
+	if (preSM.error != null) {
+            showError(preSM.error) ;
             return false;
         }
 
