@@ -555,12 +555,7 @@ function read_text ( context, datosCU, ret )
 		}
 
 		var instruction = getToken(context);
-
-		// Machine code (e.g. one word [ 31, 30, 29, ... , 2, 1, 0 ])
-		var machineCode = "";
-		for (i=0; i<firmware[instruction][0].nwords; i++) // TODO: [0] -> bucle
-		     machineCode+="00000000000000000000000000000000";		
-
+		
                 //
                 // *li, $1*, 1
                 //
@@ -698,8 +693,7 @@ function read_text ( context, datosCU, ret )
 				// store field
 				if(advance[j] == 1)	
 					binaryAux[j][i] = {num_bits:(label_found ? false : res[0]), num_bits_free_space:(label_found ? false : res[1]), startbit:field.startbit, stopbit:field.stopbit, rel:(label_found ? field.address_type : false), islabel:label_found, field_name: value };
-			}
-	
+			}	
 		}
 
 		// check solution
@@ -711,6 +705,11 @@ function read_text ( context, datosCU, ret )
 		var candidate;
 		for(i=0; i<advance.length; i++)
 			if(advance[i] == 1) candidate = i;
+
+		// Machine code (e.g. one word [ 31, 30, 29, ... , 2, 1, 0 ])
+		var machineCode = "";
+		for (i=0; i<firmware[instruction][0].nwords; i++)
+		     machineCode+="00000000000000000000000000000000";		
 
 		// Generate code (co and cop)	
 		if (firmware[instruction][candidate].co !== false)
@@ -874,4 +873,3 @@ function simlang_compile (text, datosCU)
 
 	 return ret;
 }
-
