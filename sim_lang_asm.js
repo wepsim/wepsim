@@ -590,7 +590,8 @@ function read_text ( context, datosCU, ret )
 			    nextToken(context);
 
 			var value = getToken(context);	
-                        s = s + value + " " ;
+                        
+			if("TAG" != getTokenType(context) && !firmware[value]) s = s + value + " " ;
 				
 			// vertical search (different signatures)
 			for(j=0; j<advance.length; j++){
@@ -665,13 +666,22 @@ function read_text ( context, datosCU, ret )
 							value = getToken(context);
 							aux = true;
 						}
+						else{
+							if("(reg)" == signature_fields[j][i]){
+								advance[j] = 0;
+								break;
+							}
+						}
 						if(typeof registers[value] == "undefined"){	
 							//return langError(context, "Expected register ($1, ...) but found '" + value + "' as register");
 							advance[j] = 0;
 							break;
 						}
 						if(aux){
-							s = s.substring(0,s.length-3) + "(" + value + ")" ;
+							if(signature_fields[j][i-1] == "inm" && signature_fields[j][i] == "(reg)")
+								s = s.substring(0,s.length-3) + "(" + value + ")" ;
+							else
+								s = s.substring(0,s.length-1) + value + ")";
 							nextToken(context);
 							if(")" != getToken(context)){
 								//return langError(context, "String without ')'");
