@@ -139,7 +139,15 @@ function decimal2binary(number, size){
 	return [num_bits, num_bits_free_space];
 }
 
+function max( a, b )
+{
+	return a > b ? a : b;
+}
 
+function sum_array( a )
+{
+	return a.reduce(function(a, b) { return a + b; }, 0);
+}
 
 /*
  *   Load segments
@@ -177,7 +185,10 @@ function read_data ( context, datosCU, ret )
                       // :
 		      if ("TAG" != getTokenType(context))
 			  return langError(context, "Expected tag or directive but found '" + possible_tag + "'" ) ;
-		      
+		   
+   		      if(possible_tag[0] == "$" || possible_tag[0] == "." || isDecimal(possible_tag[0]))
+			  return langError(context, "Tag must not start with '.', special character, or number");
+
 		      // Store tag
 		      ret.labels2[possible_tag.substring(0, possible_tag.length-1)] = "0x" + (seg_ptr+byteWord).toString(16);
 
@@ -286,9 +297,11 @@ function read_data ( context, datosCU, ret )
 		        nextToken(context) ;
                         var possible_value = getToken(context) ;
 
-			// Check if number
+			// Check
 			if (!isDecimal(possible_value))
 			     return langError(context, "Expected number of bytes to reserve in .space but found '" + possible_value + "' as number");
+			if(possible_value < 0)
+			     return langError(context, "Expected positive number but found '" + possible_value + "' as positive number");
 
 			// Fill with spaces
 			for (i=0; i<possible_value; i++){
@@ -498,8 +511,6 @@ function read_text ( context, datosCU, ret )
            var seg_name = getToken(context) ;
            var seg_ptr  = ret.seg[seg_name].begin ;
 
-           // TODO: what happens when several instructions like lw R1 (R2), lw R1 address, ...
-
 	   // Fill firmware structure
 	   var firmware = new Object() ;
 	   for (i=0; i<datosCU.firmware.length; i++)
@@ -513,7 +524,6 @@ function read_text ( context, datosCU, ret )
 							nwords:parseInt(aux.nwords), 
 							co:(typeof aux.co != "undefined" ? aux.co : false),
 							cop:(typeof aux.cop != "undefined" ? aux.cop : false),
-							nfields:(typeof aux.fields != "undefined" ? aux.fields.length : 0),			
 							fields:(typeof aux.fields != "undefined" ? aux.fields : false),
 							signature:aux.signature });
 	   }
@@ -544,141 +554,219 @@ function read_text ( context, datosCU, ret )
 			else {
 				return langError(context, "Undefined instruction " + possible_tag ); 
 			}
+			if(possible_tag[0] == "$" || possible_tag[0] == "." || isDecimal(possible_tag[0]) || firmware[possible_tag.substring(0,possible_tag.length-1)])
+		  		return langError(context, "Tag must not start with '.', special character, or number and must not have the name of an instruction");
+
 			nextToken(context);
 		}
 
 		var instruction = getToken(context);
-
-		// Machine code (e.g. one word [ 31, 30, 29, ... , 2, 1, 0 ])
-		var machineCode = "";
-		for (i=0; i<firmware[instruction][0].nwords; i++) // TODO: [0] -> bucle
-		     machineCode+="00000000000000000000000000000000";		
-
-		// Generate code (co and cop)	
-		if (firmware[instruction][0].co !== false) // TODO: [0] -> bucle
-                {
-			machineCode = firmware[instruction][0].co + machineCode.substring(6); // TODO: [0] -> bucle
-			if (firmware[instruction][0].cop !== false)  // TODO: [0] -> bucle
-                        {
-				var machineCodeAux = machineCode.substring(0,28);
-				machineCode = machineCode.substring(32);
-				machineCodeAux = machineCodeAux + firmware[instruction][0].cop; // TODO: [0] -> bucle
-				machineCode = machineCodeAux + machineCode;
-			}
-		}
-
+		
                 //
                 // *li, $1*, 1
                 //
 
-		// Iterate over nfields
+		var signature_fields = [];		// e.g. [[reg,reg], [reg,inm], [reg,addr,inm]]
+		var advance = [];			// array that indicates wheather each signature can be considered or not
+		var binaryAux = [];			// necessary parameters of the fields of each signature
+		var max_length = 0;			// max number of parameters of the signatures
+
+		// Fill parameters
+		for(i=0; i<firmware[instruction].length; i++)
+		{
+			signature_fields[i] = firmware[instruction][i].signature.split(",");
+			signature_fields[i].shift();
+			advance[i] = 1;
+			binaryAux[i] = [];
+			max_length = max(max_length, signature_fields[i].length);
+		}
+
+		// Iterate over fields
                 var s = instruction + " ";
-                var candidate = 0;
-		for (i=0; i<firmware[instruction][candidate].nfields; i++) // TODO: [0] -> bucle?
+		for (i=0; i<max_length; i++)
                 {
                         // optional ','
 			nextToken(context);
 			if ("," == getToken(context))
 			    nextToken(context);
 
-			var field = firmware[instruction][candidate].fields[i]; // TODO: [0] -> bucle?
 			var value = getToken(context);	
-                        s = s + value + " " ;
-			
-			var size = field.startbit-field.stopbit+1;
 
-			// check field	
-			switch(field.type)
-                        {	
-				// 0xFFFF...
-				case "address":
-					if(isHex(value) !== false){
-						var res = decimal2binary(isHex(value), size);
-						var num_bits = res[0];
-						if("rel" == field.address_type){
-						    num_bits = isHex(value) - seg_ptr - 4;	
-                                                    res = decimal2binary(num_bits, size) ;
-						    num_bits = res[0];
+			if("TAG" != getTokenType(context) && !firmware[value]) s = s + value + " " ;
+				
+			// vertical search (different signatures)
+			for(j=0; j<advance.length; j++){
+
+				// check whether explore this alternative 
+				if(advance[j] == 0)
+					continue;
+				if(i >= signature_fields[j].length){
+					// if next token is not instruction or tag
+					if("TAG" != getTokenType(context) && !firmware[value])
+						advance[j] = 0;
+					continue;
+				}
+
+				// get field information
+				var field = firmware[instruction][j].fields[i];		
+				var size = field.startbit-field.stopbit+1;
+
+				var label_found = false;
+
+				// check field	
+				switch(field.type)
+                	        {	
+					// 0xFFFF...
+					case "address":
+						if(isHex(value) !== false){
+							var res = decimal2binary(isHex(value), size);
+							if("rel" == field.address_type){
+							    var aux = isHex(value) - seg_ptr - 4;	
+                                                	    res = decimal2binary(aux, size) ;
+							}
 						}
-					}
-					else if(isDecimal(value) !== false){
-						var res = decimal2binary(isDecimal(value), size);
-						var num_bits = res[0];
-						if("rel" == field.address_type){
-						    num_bits = isDecimal(value) - seg_ptr - 4;	
-                                                    res = decimal2binary(num_bits, size) ;
-						    num_bits = res[0];
+						else if(isDecimal(value) !== false){
+							var res = decimal2binary(isDecimal(value), size);
+							if("rel" == field.address_type){
+							    var aux = isDecimal(value) - seg_ptr - 4;	
+                                        	            res = decimal2binary(aux, size) ;
+							}
 						}
-					}
-					else{
-						ret.labels["0x" + seg_ptr.toString(16)] = { name:value, addr:("0x" + seg_ptr.toString(16)), startbit:field.startbit, stopbit:field.stopbit, rel:field.address_type };
-						continue;
-					}  	
-					break;
-				// 23, 'b', ...
-				case "inm":
-					if(isOctal(value) !== false){
-						var res = decimal2binary(isOctal(value), size);
-						var num_bits = res[0];
-					}
-					else if(isHex(value) !== false){
-						var res = decimal2binary(isHex(value), size);	
-						var num_bits = res[0];
-					}
-					else if(isDecimal(value) !== false){
-						var res = decimal2binary(isDecimal(value), size);
-						var num_bits = res[0];
-					}
-					else if (isChar(value) !== false){
-						var res = decimal2binary(isChar(value), size);
-						var num_bits = res[0];
-					}
-					else{
-						ret.labels["0x" + seg_ptr.toString(16)] = { name:value, addr:("0x" + seg_ptr.toString(16)), startbit:field.startbit, stopbit:field.stopbit };
-						continue;
-					}
-					break;
-				// $1...
-				case "reg":
-					var aux = false;
-					if("(" == value){
-						nextToken(context);
-						value = getToken(context);
-						aux = true;
-					}
-					if(typeof registers[value] == "undefined")	
-						return langError(context, "Expected register ($1, ...) but found '" + value + "' as register");
-					if(aux){
-						nextToken(context);
-						if(")" != getToken(context))
-							return langError(context, "String without ')'");
-					}
-					var res = decimal2binary(isDecimal(registers[value]), size);
-					var num_bits = res[0];
-					break;
-				default:
-					return langError(context, "An unknown error ocurred (53)");	
+						else{
+							if(value[0] == "$" || value[0] == "." || isDecimal(value[0]) || registers[value] || firmware[value]){
+								advance[j] = 0;
+								break;
+							}
+							label_found = true;
+						}  	
+						break;
+					// 23, 'b', ...
+					case "inm":
+						if(isOctal(value) !== false) var res = decimal2binary(isOctal(value), size);
+						else if(isHex(value) !== false) var res = decimal2binary(isHex(value), size);	
+						else if(isDecimal(value) !== false) var res = decimal2binary(isDecimal(value), size);
+						else if (isChar(value) !== false) var res = decimal2binary(isChar(value), size);
+						else{
+							if(value[0] == "$" || value[0] == "." || isDecimal(value[0]) || registers[value] || firmware[value]){
+								advance[j] = 0;
+								break;
+							}
+							label_found = true;
+						}
+						break;
+					// $1...
+					case "reg":
+						var aux = false;
+						if("(" == value){
+							if("(reg)" != signature_fields[j][i]){
+								//return langError(context, "Expected register but found register beween parenthesis");
+								advance[j] = 0;
+								break;
+							}
+							nextToken(context);
+							value = getToken(context);
+							aux = true;
+						}
+						else{
+							if("(reg)" == signature_fields[j][i]){
+								advance[j] = 0;
+								break;
+							}
+						}
+						if(typeof registers[value] == "undefined"){	
+							//return langError(context, "Expected register ($1, ...) but found '" + value + "' as register");
+							advance[j] = 0;
+							break;
+						}
+						if(aux){
+							if(signature_fields[j][i-1] == "inm" && signature_fields[j][i] == "(reg)")
+								s = s.substring(0,s.length-3) + "(" + value + ")" ;
+							else
+								s = s.substring(0,s.length-1) + value + ")";
+							nextToken(context);
+							if(")" != getToken(context)){
+								//return langError(context, "String without ')'");
+								advance[j] = 0;
+								break;
+							}
+						}
+						var res = decimal2binary(isDecimal(registers[value]), size);
+						break;
+					default:
+						return langError(context, "An unknown error ocurred (53)");	
+				}
+
+				// store field
+				if(advance[j] == 1)	
+					binaryAux[j][i] = {num_bits:(label_found ? false : res[0]), num_bits_free_space:(label_found ? false : res[1]), startbit:field.startbit, stopbit:field.stopbit, rel:(label_found ? field.address_type : false), islabel:label_found, field_name: value };
 			}
 
-			// Check size
-			var num_bits_free_space = res[1];
-			if(num_bits_free_space < 0)
-				return langError(context, "'" + value + "' needs " + num_bits.length + " bits but there is space for only " + size + " bits");
+			if("TAG" == getTokenType(context) || firmware[value]) break;	
+		}
+
+		// check solution
+		var sum_res = sum_array(advance);	
+		if(sum_res == 0) return langError(context, "Instruction and fields don't match with microprogram");
+		if(sum_res > 1) return langError(context, "Instruction and fields match with more than one microprogram");
+
+		// Get candidate
+		var candidate;
+		for(i=0; i<advance.length; i++)
+			if(advance[i] == 1) candidate = i;
+
+		// Machine code (e.g. one word [ 31, 30, 29, ... , 2, 1, 0 ])
+		var machineCode = "";
+		for (i=0; i<firmware[instruction][0].nwords; i++)
+		     machineCode+="00000000000000000000000000000000";		
+
+		// Generate code (co and cop)	
+		if (firmware[instruction][candidate].co !== false)
+                {
+			machineCode = firmware[instruction][candidate].co + machineCode.substring(6);
+			if (firmware[instruction][candidate].cop !== false)
+                        {
+				var machineCodeAux = machineCode.substring(0,28);
+				machineCode = machineCode.substring(32);
+				machineCodeAux = machineCodeAux + firmware[instruction][candidate].cop;
+				machineCode = machineCodeAux + machineCode;
+			}
+		}
+
+		// Store candidate fields in machine code
+		for(i=0; i<binaryAux[candidate].length; i++){
+			// tag
+			if(binaryAux[candidate][i].islabel){
+				ret.labels["0x" + seg_ptr.toString(16)] = { name:binaryAux[candidate][i].field_name, addr:("0x" + seg_ptr.toString(16)), startbit:binaryAux[candidate][i].startbit, stopbit:binaryAux[candidate][i].stopbit, rel:binaryAux[candidate][i].rel };
+			}
+
+			// reg, addr, inm
+			else{
+				// check size
+				var bstartbit = binaryAux[candidate][i].startbit;
+				var bstopbit = binaryAux[candidate][i].stopbit;
+				var size = bstartbit - bstopbit + 1;
+				var bnum_bits = binaryAux[candidate][i].num_bits ; 
+				var bnum_bits_free_space = binaryAux[candidate][i].num_bits_free_space;
+				var value = binaryAux[candidate][i].field_name;
+				if(bnum_bits_free_space < 0)
+					return langError(context, "'" + value + "' needs " + num_bits.length + " bits but there is space for only " + size + " bits");
 			
-			// Store field in machine code
-			var machineCodeAux = machineCode.substring(0, machineCode.length-1-field.startbit+num_bits_free_space);
-			machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length-field.stopbit);
+				// store field in machine code
+				var machineCodeAux = machineCode.substring(0, machineCode.length-1-bstartbit+bnum_bits_free_space);
+				machineCode = machineCodeAux + bnum_bits + machineCode.substring(machineCode.length-bstopbit);	
+			}
 		}
 
 		// process machine code with several words...
-		for(i=0; i<firmware[instruction][candidate].nwords; i++)  // TODO: [0] -> bucle?
+		for(i=0; i<firmware[instruction][candidate].nwords; i++)
                 {
 			ret.assembly["0x" + seg_ptr.toString(16)] = { breakpoint:false, binary:machineCode.substring(i*32, (i+1)*32), source:s, source_original:s } ; 
 			ret.mp["0x" + seg_ptr.toString(16)] = machineCode.substring(i*32, (i+1)*32) ;
                 	seg_ptr = seg_ptr + 4 ;
 		}
 
-		nextToken(context);
+		if (max_length == signature_fields[candidate].length)
+			nextToken(context);
 
 		if(context.t >= context.text.length) break;
            }
@@ -793,4 +881,3 @@ function simlang_compile (text, datosCU)
 
 	 return ret;
 }
-
