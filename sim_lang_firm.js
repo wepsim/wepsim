@@ -20,47 +20,6 @@
 
 
 /*
- *  Error handler
- */
-
-function firmwareError ( context, msgError )
-{
-        // detect lines
-	var line2 = 0 ;
-        if (context.newlines.length > 0)
-            line2 = context.newlines[context.newlines.length - 1] + 1;
-
-	var line1 = 0 ;
-        if (context.newlines.length > 1)
-            line1 = context.newlines[context.newlines.length - 2] + 1;
-
-        var lowI = line1 ;
-
-        var highI = context.t;
-        for (; (typeof context.text[highI+1] != "undefined") && (context.text[highI+1] != '\n'); highI++) ;
-        var line3 = highI + 2 ;
-
-        highI++;
-        for (; (typeof context.text[highI+1] != "undefined") && (context.text[highI+1] != '\n'); highI++) ;
-
-        // print lines
-        context.error = "...\n" ;
-        for (var i=lowI; i<highI; i++) 
-        {
-             if (i == line1) context.error += " " + (context.line-1) + "\t" ;
-             if (i == line2) context.error += "*" + context.line     + "\t" ;
-             if (i == line3) context.error += " " + (context.line+1) + "\t" ;
-
-             context.error += context.text[i];
-        }
-        context.error += "\n...\n\n" +
-                         "(*) Problem around line " + context.line + ": " + msgError + ".\n" ;
-
-        return context;
-}
-
-
-/*
  *  Load Firmware
  */
 
@@ -76,7 +35,7 @@ function read_microprg ( context )
 
 	   // match mandatory {
 	   if (! isToken(context, "{") )
-	         return firmwareError(context, "Expected '{' not found") ;
+	         return langError(context, "Expected '{' not found") ;
 
            nextToken(context) ;
 	   while (! isToken(context, "}") )
@@ -91,27 +50,27 @@ function read_microprg ( context )
                        newLabelName = newLabelName.substring(0, newLabelName.length-1) ; // remove the ending ':'
 
 		   if ("TAG" != getTokenType(context))
-		        return firmwareError(context, 
+		        return langError(context, 
                                             "Expected '<label>:' not found but '" + newLabelName + "'.");
 
 	           // semantic check: existing LABEL
 		   for (var contadorMCAux in context.etiquetas)
 		   {
 			if (context.etiquetas[contadorMCAux] == newLabelName)
-			    return firmwareError(context, "Label '" + getToken(context) + "' is repeated");
+			    return langError(context, "Label '" + getToken(context) + "' is repeated");
 		   }
 		   context.etiquetas[context.contadorMC] = newLabelName ; 
 
                    // semantic check: valid token
                    if (newLabelName.match("[a-zA-Z_0-9]*")[0] != newLabelName )
-		       return firmwareError(context, "Label '" + getToken(context)  + "' not valid") ;
+		       return langError(context, "Label '" + getToken(context)  + "' not valid") ;
 
                    nextToken(context) ;
 	       }
 
 	       // match mandatory (
 	       if (! isToken(context, "(") )
-		     return firmwareError(context, "Expected '(' not found") ;
+		     return langError(context, "Expected '(' not found") ;
 
                nextToken(context) ;
 	       while (! isToken(context, ")") )
@@ -124,7 +83,7 @@ function read_microprg ( context )
                         nextToken(context) ;
 			// match mandatory =
 			if (! isToken(context, "=") )
-			    return firmwareError(context, "Expected '=' not found") ;
+			    return langError(context, "Expected '=' not found") ;
 
                         nextToken(context) ;
 			// match mandatory VALUE
@@ -159,7 +118,7 @@ function read_microprg ( context )
 
                    // semantic check: valid signal id
 		   if (typeof sim_signals[nombre_tok] == "undefined")
-		       return firmwareError(context, "Signal '" + nombre_tok + "' does not exists") ;
+		       return langError(context, "Signal '" + nombre_tok + "' does not exists") ;
 
 		   microInstruccionAux[nombre_tok] = 1; // signal is active so far...
 
@@ -173,11 +132,11 @@ function read_microprg ( context )
 
                         // semantic check: valid value
                         if (getToken(context).match("[01]*")[0] != getToken(context))
-			    return firmwareError(context, "Incorrect binary format: " + getToken(context)) ;
+			    return langError(context, "Incorrect binary format: " + getToken(context)) ;
 
                         // semantic check: value within range
 		        if (microInstruccionAux[nombre_tok] >= Math.pow(2, sim_signals[nombre_tok].nbits))
-		            return firmwareError(context, "Value out of range: " + getToken(context)) ;
+		            return langError(context, "Value out of range: " + getToken(context)) ;
 
                         nextToken(context) ;
 		   }
@@ -236,7 +195,7 @@ function loadFirmware (text)
                {
                        nextToken(context) ;
                        if (! isToken(context, "{")) 
-                             return firmwareError(context, "Expected '{' not found") ;
+                             return langError(context, "Expected '{' not found") ;
 
                        nextToken(context) ;
                        while (! isToken(context, "}"))
@@ -245,7 +204,7 @@ function loadFirmware (text)
 
                            nextToken(context) ;
                            if (! isToken(context, "=")) 
-				 return firmwareError(context, "Expected '=' not found") ;
+				 return langError(context, "Expected '=' not found") ;
 
                            nextToken(context) ;
                            context.registers[nombre_reg] = getToken(context) ;
@@ -254,17 +213,17 @@ function loadFirmware (text)
 			   if (isToken(context, "("))
 			   {
 				if (context.stackRegister != null)
-				    return firmwareError(context, "Duplicate definition of stack pointer");
+				    return langError(context, "Duplicate definition of stack pointer");
 
 				nextToken(context);
 				if (! isToken(context, "stack_pointer"))
-				    return firmwareError(context, "Expected stack_pointer token not found");
+				    return langError(context, "Expected stack_pointer token not found");
 
 				context.stackRegister = nombre_reg;
 
 				nextToken(context);
 				if (! isToken(context, ")"))
-				    return firmwareError(context, "Expected ')' not found");
+				    return langError(context, "Expected ')' not found");
 
 				nextToken(context);
 			   }
@@ -288,7 +247,7 @@ function loadFirmware (text)
 	       {
 			nextToken(context);
 			if(! isToken(context, "{"))
-			     return firmwareError(context, "Expected '{' not found");
+			     return langError(context, "Expected '{' not found");
 
 			nextToken(context);
 			while (! isToken(context, "}"))
@@ -397,21 +356,21 @@ function loadFirmware (text)
 		       campoAux["name"] = getToken(context) ;
 		       campos.push(campoAux);
 		       numeroCampos++;
-		       firma = firma + getToken(context)  ;
+		       firma = firma + getToken(context) ;
 		       nextToken(context);
 
 		       if (numeroCampos > 100)
-			   return firmwareError(context, "more than 100 fields in a single instruction.") ;
+			   return langError(context, "more than 100 fields in a single instruction.") ;
 		       if (getToken(context) == "co")
-			   return firmwareError(context, "instruction field has 'co' as name.") ;
+			   return langError(context, "instruction field has 'co' as name.") ;
 		       if (getToken(context) == "nwords")
-			   return firmwareError(context, "instruction field has 'nwords' as name.") ;
+			   return langError(context, "instruction field has 'nwords' as name.") ;
 		   } 
 
                    // match optional "(" FIELD ")"
 		   if (isToken(context, "(")) 
                    {
-		           firma = firma + '(';
+		           firma = firma + ',(';
 		           nextToken(context);
 
 			   if ( !isToken(context, ",") && !isToken(context, "(") && !isToken(context, ")") )
@@ -426,7 +385,7 @@ function loadFirmware (text)
 			   }
 			   else
 		           {
-			       return firmwareError(context,
+			       return langError(context,
 			    			    "'token' is missing after '(' on: " + 
                                                     context.co_cop[instruccionAux.co].signature) ;
 		           }
@@ -438,7 +397,7 @@ function loadFirmware (text)
 			   }
 			   else
 		           {
-			       return firmwareError(context,
+			       return langError(context,
 			    			    "')' is missing on: " + 
                                                     context.co_cop[instruccionAux.co].signature) ;
 		           }
@@ -464,12 +423,12 @@ function loadFirmware (text)
 	       nextToken(context);
 	       // match mandatory co
 	       if (! isToken(context,"co"))
-		     return firmwareError(context, "Expected keyword 'co' not found") ;
+		     return langError(context, "Expected keyword 'co' not found") ;
 
 	       nextToken(context);
 	       // match mandatory =
 	       if (! isToken(context,"="))
-	    	     return firmwareError(context, "Expected '=' not found") ;
+	    	     return langError(context, "Expected '=' not found") ;
 
 	       nextToken(context);
 	       // match mandatory CO
@@ -477,13 +436,13 @@ function loadFirmware (text)
 
 	       // semantic check: valid value
 	       if ( (getToken(context).match("[01]*")[0] != getToken(context)) || (getToken(context).length != 6) )
-	             return firmwareError(context, "Incorrect binary format on 'co': " + getToken(context)) ;
+	             return langError(context, "Incorrect binary format on 'co': " + getToken(context)) ;
 
 	       // semantic check: 'co' is not already used
 	       if ( (typeof context.co_cop[instruccionAux["co"]] != "undefined") &&
 	                   (context.co_cop[instruccionAux["co"]].cop == null) )
 	       {
-	   	   return firmwareError(context,
+	   	   return langError(context,
 				        "'co' is already been used by: " + context.co_cop[instruccionAux.co].signature) ;
 	       }
 	       context.co_cop[instruccionAux.co] = new Object() ;
@@ -512,7 +471,7 @@ function loadFirmware (text)
 		       nextToken(context);
 		       // match mandatory =
 		       if (! isToken(context,"="))
-			     return firmwareError(context, "Expected '=' not found") ;
+			     return langError(context, "Expected '=' not found") ;
 
 		       nextToken(context);
 		       // match mandatory CO
@@ -520,13 +479,13 @@ function loadFirmware (text)
 
 		       // semantic check: valid value
 		       if ( (getToken(context).match("[01]*")[0] != getToken(context)) || (getToken(context).length != 4) )
-			     return firmwareError(context, "Incorrect binary format on 'cop': " + getToken(context)) ;
+			     return langError(context, "Incorrect binary format on 'cop': " + getToken(context)) ;
 
 		       // semantic check: 'co+cop' is not already used
 	               if (        (context.co_cop[instruccionAux.co].cop != null) &&
 	                    (typeof context.co_cop[instruccionAux.co].cop[instruccionAux.cop] != "undefined") )
 		       {
-		   	   return firmwareError(context,
+		   	   return langError(context,
 			     "'co+cop' is already been used by: " + context.co_cop[instruccionAux.co].cop[instruccionAux.cop]);
 		       }
 	               if (context.co_cop[instruccionAux.co].cop == null)
@@ -551,12 +510,12 @@ function loadFirmware (text)
 
 	       // match mandatory nwords
 	       if (! isToken(context,"nwords")) 
-		   return firmwareError(context, "Expected keyword 'nwords' not found") ;
+		   return langError(context, "Expected keyword 'nwords' not found") ;
 
 	       nextToken(context);
 	       // match mandatory =
 	       if (! isToken(context,"=")) 
-		   return firmwareError(context, "Expected '=' not found") ;
+		   return langError(context, "Expected '=' not found") ;
 
 	       nextToken(context);
 	       // match mandatory NWORDS
@@ -583,17 +542,17 @@ function loadFirmware (text)
 	           // match mandatory FIELD
 	           var tmp_name = getToken(context) ;
 	           if (campos[camposInsertados]["name"] != tmp_name)
-		       return firmwareError(context, "Unexpected field '" + tmp_name + "' found") ;
+		       return langError(context, "Unexpected field '" + tmp_name + "' found") ;
 
 	           nextToken(context);
 	           // match mandatory =
 	           if (! isToken(context,"=")) 
-		       return firmwareError(context, "Expected '=' not found") ;
+		       return langError(context, "Expected '=' not found") ;
 
 	           nextToken(context);
 	           // match mandatory reg|inm|address
 	           if ( !isToken(context, "reg") && !isToken(context, "inm") && !isToken(context, "address") )
-		        return firmwareError(context, "Incorrect type of field (reg, inm or address)") ;
+		        return langError(context, "Incorrect type of field (reg, inm or address)") ;
 
 	           campos[camposInsertados]["type"] = getToken(context) ;
 	           firma = firma.replace("," + campos[camposInsertados]["name"], "," + campos[camposInsertados]["type"]);
@@ -609,7 +568,7 @@ function loadFirmware (text)
 	           nextToken(context);
 	           // match mandatory (
 	           if (! isToken(context,"(")) 
-		       return firmwareError(context, "Expected '(' not found") ;
+		       return langError(context, "Expected '(' not found") ;
 
 	           nextToken(context);
 	           // match mandatory START_BIT
@@ -617,12 +576,12 @@ function loadFirmware (text)
 
                    // check startbit range
                    if (parseInt(campos[camposInsertados]["startbit"]) > 32*parseInt(instruccionAux["nwords"]))
-		       return firmwareError(context, "startbit out of range: " + getToken(context)) ;
+		       return langError(context, "startbit out of range: " + getToken(context)) ;
 
 	           nextToken(context);
 	           // match mandatory ,
 	           if (! isToken(context,","))
-		       return firmwareError(context, "Expected ',' not found") ;
+		       return langError(context, "Expected ',' not found") ;
 
 	           nextToken(context);
 	           // match mandatory STOP_BIT
@@ -630,19 +589,19 @@ function loadFirmware (text)
 
                    // check stopbit range
                    if (parseInt(campos[camposInsertados]["stopbit"]) > 32*parseInt(instruccionAux["nwords"]))
-		       return firmwareError(context, "stopbit out of range: " + getToken(context)) ;
+		       return langError(context, "stopbit out of range: " + getToken(context)) ;
 
 	           nextToken(context);
 	           // match mandatory )
 	           if (! isToken(context,")"))
-		       return firmwareError(context, "Expected ')' not found") ;
+		       return langError(context, "Expected ')' not found") ;
 
 	           nextToken(context);
 	           if (campos[camposInsertados]["type"] == "address")
 	           {
 	               // match mandatory abs|rel
 		       if (getToken(context) !="abs" && getToken(context) !="rel")
-		    	   return firmwareError(context, "Type of addressing incorrect (abs or rel)") ;
+		    	   return langError(context, "Type of addressing incorrect (abs or rel)") ;
 
 	               // match mandatory ADDRESS_TYPE
 		       campos[camposInsertados]["address_type"] = getToken(context) ;
@@ -688,7 +647,7 @@ function loadFirmware (text)
 // *}*
 
                if (! isToken(context,"}")) 
-                   return firmwareError(context, "Expected '}' not found") ;
+                   return langError(context, "Expected '}' not found") ;
 
                nextToken(context);
            }
@@ -706,11 +665,11 @@ function loadFirmware (text)
                          }
                     }
 		    if (found === false)
-		        return firmwareError(context, "label 'fetch' not defined") ;
+		        return langError(context, "label 'fetch' not defined") ;
                 }
            }
            if (found === false)
-	       return firmwareError(context, "'fetch' not found") ;
+	       return langError(context, "'fetch' not found") ;
 
            // TO RESOLVE labels
 	   var labelsFounded=0;
@@ -730,7 +689,7 @@ function loadFirmware (text)
 			if (labelsFounded == 0)
 			{
                                 // CHECK: label is defined
-				return firmwareError(context, "MADDR label not found : " + context.labelsNotFound[i].nombre) ;
+				return langError(context, "MADDR label not found : " + context.labelsNotFound[i].nombre) ;
 			}
 		}
 	   }

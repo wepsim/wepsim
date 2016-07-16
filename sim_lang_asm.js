@@ -20,47 +20,6 @@
 
 
 /*
- *  Error handler
- */
-
-function asmError ( context, msgError )
-{
-        // detect lines
-	var line2 = 0 ;
-        if (context.newlines.length > 0)
-            line2 = context.newlines[context.newlines.length - 1] + 1;
-
-	var line1 = 0 ;
-        if (context.newlines.length > 1)
-            line1 = context.newlines[context.newlines.length - 2] + 1;
-
-        var lowI = line1 ;
-
-        var highI = context.t;
-        for (; (typeof context.text[highI+1] != "undefined") && (context.text[highI+1] != '\n'); highI++) ;
-        var line3 = highI + 2 ;
-
-        highI++;
-        for (; (typeof context.text[highI+1] != "undefined") && (context.text[highI+1] != '\n'); highI++) ;
-
-        // print lines
-        context.error = "...\n" ;
-        for (var i=lowI; i<highI; i++) 
-        {
-             if (i == line1) context.error += " " + (context.line-1) + "\t" ;
-             if (i == line2) context.error += "*" + context.line     + "\t" ;
-             if (i == line3) context.error += " " + (context.line+1) + "\t" ;
-
-             context.error += context.text[i];
-        }
-        context.error += "\n...\n\n" +
-                         "(*) Problem around line " + context.line + ": " + msgError + ".\n" ;
-
-        return context;
-}
-
-
-/*
  *   Directives 
  */
 
@@ -150,6 +109,46 @@ function isChar( n )
 	return false;
 }
 
+function decimal2binary(number, size){
+	if(number < 0){
+		var aux = number*-1;
+		var num_bits = aux.toString(2);
+
+		// calculate free space after including the value
+		var num_bits_free_space = size - num_bits.length;
+		if(num_bits_free_space > 0)
+			var num_bits_free_space = 0;				
+	}
+	else{
+		var num_bits = number.toString(2);
+			
+		// calculate free space after including the value
+		var num_bits_free_space = size - num_bits.length;
+	}
+	
+	// Check errors
+	if(num_bits_free_space < 0)
+		return [num_bits, num_bits_free_space];
+
+	// Negative number --> Ca2	
+	if(number < 0){
+		var num_bits = (number>>>0).toString(2);
+		var num_bits = num_bits.substring(num_bits.length-size); 
+	}
+
+	return [num_bits, num_bits_free_space];
+}
+
+function max( a, b )
+{
+	return a > b ? a : b;
+}
+
+function sum_array( a )
+{
+	return a.reduce(function(a, b) { return a + b; }, 0);
+}
+
 /*
  *   Load segments
  */
@@ -185,8 +184,11 @@ function read_data ( context, datosCU, ret )
 
                       // :
 		      if ("TAG" != getTokenType(context))
-			  return asmError(context, "Expected tag but found '" + possible_tag + "'.") ;
-		      
+			  return langError(context, "Expected tag or directive but found '" + possible_tag + "'" ) ;
+		   
+   		      if(possible_tag[0] == "$" || possible_tag[0] == "." || isDecimal(possible_tag[0]))
+			  return langError(context, "Tag must not start with '.', special character, or number");
+
 		      // Store tag
 		      ret.labels2[possible_tag.substring(0, possible_tag.length-1)] = "0x" + (seg_ptr+byteWord).toString(16);
 
@@ -228,38 +230,19 @@ function read_data ( context, datosCU, ret )
 				else if((number=isChar(possible_value)) !== false);		
 
 				// Error	
-				else return asmError(context, "Expected number value for numeric datatype but found '" + possible_value + "' as number");
+				else return langError(context, "Expected number value for numeric datatype but found '" + possible_value + "' as number");
 
 				// Get value size in bytes
 				var size = get_datatype_size(possible_datatype);
 
-				// Get value in bits (negative / positive)
-				if(number < 0){
-					var aux = number*-1;
-					var num_bits = aux.toString(2);
-				
-					// calculate free space after including the value
-					var num_bits_free_space = size*8 - num_bits.length;
-					if(num_bits_free_space > 0)
-						var num_bits_free_space = 0;				
-				}
-				else{
-					var num_bits = number.toString(2);
-				
-					// calculate free space after including the value
-					var num_bits_free_space = size*8 - num_bits.length;
-				}
+				// Decimal --> binary	
+			        var res = decimal2binary(number, size*8);
+				num_bits = res[0];
+				num_bits_free_space = res[1];
 
 				// Check size
 				if(num_bits_free_space < 0)
-					return asmError(context, "Expected value that fits in a '" + possible_datatype + "' (" + size*8 + " bits), but inserted '" + possible_value + "' (" + num_bits.length + " bits) instead");
-
-				// Negative number --> Ca2	
-				if(number < 0){
-					var num_bits = (number>>>0).toString(2);
-					var num_bits = num_bits.substring(num_bits.length-size*8); 
-				}
-
+					return langError(context, "Expected value that fits in a '" + possible_datatype + "' (" + size*8 + " bits), but inserted '" + possible_value + "' (" + num_bits.length + " bits) instead");
 
 				// Word filled
 				if(byteWord >= 4){
@@ -314,9 +297,11 @@ function read_data ( context, datosCU, ret )
 		        nextToken(context) ;
                         var possible_value = getToken(context) ;
 
-			// Check if number
+			// Check
 			if (!isDecimal(possible_value))
-			     return asmError(context, "Expected number of bytes to reserve in .space but found '" + possible_value + "' as number");
+			     return langError(context, "Expected number of bytes to reserve in .space but found '" + possible_value + "' as number");
+			if(possible_value < 0)
+			     return langError(context, "Expected positive number but found '" + possible_value + "' as positive number");
 
 			// Fill with spaces
 			for (i=0; i<possible_value; i++){
@@ -344,7 +329,7 @@ function read_data ( context, datosCU, ret )
 
 			// Check if number
 			if (!isDecimal(possible_value) && possible_value >=0 )
-			     return asmError(context, "Expected the align parameter as positive number but found '" + possible_value + "'. Remember that number is the power of two for alignment, see MIPS documentation..");
+			     return langError(context, "Expected the align parameter as positive number but found '" + possible_value + "'. Remember that number is the power of two for alignment, see MIPS documentation..");
 
 			// Word filled
 			if(byteWord >= 4){
@@ -408,7 +393,7 @@ function read_data ( context, datosCU, ret )
 
 				// string
 		                if ("STRING" != getTokenType(context))
-				    return asmError(context, "Expected string value but found '" + possible_value + "' as string");
+				    return langError(context, "Expected string value but found '" + possible_value + "' as string");
 
 				// process characters of the string
 				for(i=0; i<possible_value.length; i++){
@@ -502,7 +487,7 @@ function read_data ( context, datosCU, ret )
 		   }
 		   else
 		   {
-		        return asmError(context, "UnExpected datatype name '" + possible_datatype + "'.");
+		        return langError(context, "UnExpected datatype name '" + possible_datatype );
 		   }
 		   
 		   if(context.t >= context.text.length) break;
@@ -526,8 +511,6 @@ function read_text ( context, datosCU, ret )
            var seg_name = getToken(context) ;
            var seg_ptr  = ret.seg[seg_name].begin ;
 
-           // TODO: what happens when several instructions like lw R1 (R2), lw R1 address, ...
-
 	   // Fill firmware structure
 	   var firmware = new Object() ;
 	   for (i=0; i<datosCU.firmware.length; i++)
@@ -541,8 +524,8 @@ function read_text ( context, datosCU, ret )
 							nwords:parseInt(aux.nwords), 
 							co:(typeof aux.co != "undefined" ? aux.co : false),
 							cop:(typeof aux.cop != "undefined" ? aux.cop : false),
-							nfields:(typeof aux.fields != "undefined" ? aux.fields.length : 0),			
-							fields:(typeof aux.fields != "undefined" ? aux.fields : false)  });
+							fields:(typeof aux.fields != "undefined" ? aux.fields : false),
+							signature:aux.signature });
 	   }
 
 	   // Fill register names
@@ -550,7 +533,7 @@ function read_text ( context, datosCU, ret )
 	   for (i=0; i<datosCU.registers.length; i++)
 	   {
 		var aux = "$" + i;
-		registers[aux] = i.toString(2);
+		registers[aux] = i;
 		registers[datosCU.registers[i]] = registers[aux];
 	   }
 
@@ -569,124 +552,221 @@ function read_text ( context, datosCU, ret )
                                 ret.labels2[possible_tag.substring(0, possible_tag.length-1)] = "0x" + seg_ptr.toString(16);
 			}
 			else {
-				return asmError(context, "Undefined instruction " + possible_tag ); 
+				return langError(context, "Undefined instruction " + possible_tag ); 
 			}
+			if(possible_tag[0] == "$" || possible_tag[0] == "." || isDecimal(possible_tag[0]) || firmware[possible_tag.substring(0,possible_tag.length-1)])
+		  		return langError(context, "Tag must not start with '.', special character, or number and must not have the name of an instruction");
+
 			nextToken(context);
 		}
 
 		var instruction = getToken(context);
-
-		// Machine code (e.g. one word [ 31, 30, 29, ... , 2, 1, 0 ])
-		var machineCode = "";
-		for (i=0; i<firmware[instruction][0].nwords; i++) // TODO: [0] -> bucle
-		     machineCode+="00000000000000000000000000000000";		
-
-		// Generate code (co and cop)	
-		if (firmware[instruction][0].co !== false) // TODO: [0] -> bucle
-                {
-			machineCode = firmware[instruction][0].co + machineCode.substring(6); // TODO: [0] -> bucle
-			if (firmware[instruction][0].cop !== false)  // TODO: [0] -> bucle
-                        {
-				var machineCodeAux = machineCode.substring(0,28);
-				machineCode = machineCode.substring(32);
-				machineCodeAux = machineCodeAux + firmware[instruction][0].cop; // TODO: [0] -> bucle
-				machineCode = machineCodeAux + machineCode;
-			}
-		}
-
+		
                 //
                 // *li, $1*, 1
                 //
 
-		// Iterate over nfields
+		var signature_fields = [];		// e.g. [[reg,reg], [reg,inm], [reg,addr,inm]]
+		var advance = [];			// array that indicates wheather each signature can be considered or not
+		var binaryAux = [];			// necessary parameters of the fields of each signature
+		var max_length = 0;			// max number of parameters of the signatures
+
+		// Fill parameters
+		for(i=0; i<firmware[instruction].length; i++)
+		{
+			signature_fields[i] = firmware[instruction][i].signature.split(",");
+			signature_fields[i].shift();
+			advance[i] = 1;
+			binaryAux[i] = [];
+			max_length = max(max_length, signature_fields[i].length);
+		}
+
+		// Iterate over fields
                 var s = instruction + " ";
-                var candidate = 0;
-		for (i=0; i<firmware[instruction][candidate].nfields; i++) // TODO: [0] -> bucle?
+		for (i=0; i<max_length; i++)
                 {
                         // optional ','
 			nextToken(context);
 			if ("," == getToken(context))
 			    nextToken(context);
 
-			var field = firmware[instruction][candidate].fields[i]; // TODO: [0] -> bucle?
 			var value = getToken(context);	
-                        s = s + value + " " ;
-			
-			// check field	
-			switch(field.type)
-                        {
-				// 0xFFFF...
-				case "address":
-					if(isHex(value) !== false)
-						var num_bits = isHex(value).toString(2);
-					else if(isDecimal(value) !== false)
-						var num_bits = isDecimal(value).toString(2);
-					else{
-						ret.labels["0x" + seg_ptr.toString(16)] = { name:value, addr:("0x" + seg_ptr.toString(16)), startbit:field.startbit, stopbit:field.stopbit };
-						continue;
-					}  	
-					//return asmError(context, "Expected address (0x012...) but found '" + value + "' as address");	
-					break;
-				// 23, 'b', ...
-				case "inm":
-					if(isOctal(value) !== false)
-						var num_bits = isOctal(value).toString(2);
-					else if(isHex(value) !== false)
-						var num_bits = isHex(value).toString(2);
-					else if(isDecimal(value) !== false){
-						var number = isDecimal(value);
 
-						if(number < 0){
-							var aux = number*-1;
-							var num_bits = aux.toString(2);
-							var length = num_bits.length;
-							if(length<(field.startbit-field.stopbit+1)){
-								length = field.startbit-field.stopbit+1;
-								var num_bits = (number >>> 0).toString(2);
-								var num_bits = num_bits.substring(num_bits.length-length);
+			if("TAG" != getTokenType(context) && !firmware[value]) s = s + value + " " ;
+				
+			// vertical search (different signatures)
+			for(j=0; j<advance.length; j++){
+
+				// check whether explore this alternative 
+				if(advance[j] == 0)
+					continue;
+				if(i >= signature_fields[j].length){
+					// if next token is not instruction or tag
+					if("TAG" != getTokenType(context) && !firmware[value])
+						advance[j] = 0;
+					continue;
+				}
+
+				// get field information
+				var field = firmware[instruction][j].fields[i];		
+				var size = field.startbit-field.stopbit+1;
+
+				var label_found = false;
+
+				// check field	
+				switch(field.type)
+                	        {	
+					// 0xFFFF...
+					case "address":
+						if(isHex(value) !== false){
+							var res = decimal2binary(isHex(value), size);
+							if("rel" == field.address_type){
+							    var aux = isHex(value) - seg_ptr - 4;	
+                                                	    res = decimal2binary(aux, size) ;
 							}
 						}
-						else var num_bits = number.toString(2);
-					}
-					else if (isChar(value) !== false)
-						var num_bits = isDecimal(value).toString(2);
-					else{
-						ret.labels["0x" + seg_ptr.toString(16)] = { name:value, addr:("0x" + seg_ptr.toString(16)), startbit:field.startbit, stopbit:field.stopbit };
-						continue;
-					}
-					//return asmError(context, "Expected immediate number (12, 'a', ...) but found '" + value + "' as immediate");	
-					break;
-				// $1...
-				case "reg":
-					if(typeof registers[value] == "undefined")	
-						return asmError(context, "Expected register ($1, ...) but found '" + value + "' as register");
-					var num_bits = registers[value];
-					break;
-				default:
-					return asmError(context, "An unknown error ocurred (53)");	
+						else if(isDecimal(value) !== false){
+							var res = decimal2binary(isDecimal(value), size);
+							if("rel" == field.address_type){
+							    var aux = isDecimal(value) - seg_ptr - 4;	
+                                        	            res = decimal2binary(aux, size) ;
+							}
+						}
+						else{
+							if(value[0] == "$" || value[0] == "." || isDecimal(value[0]) || registers[value] || firmware[value]){
+								advance[j] = 0;
+								break;
+							}
+							label_found = true;
+						}  	
+						break;
+					// 23, 'b', ...
+					case "inm":
+						if(isOctal(value) !== false) var res = decimal2binary(isOctal(value), size);
+						else if(isHex(value) !== false) var res = decimal2binary(isHex(value), size);	
+						else if(isDecimal(value) !== false) var res = decimal2binary(isDecimal(value), size);
+						else if (isChar(value) !== false) var res = decimal2binary(isChar(value), size);
+						else{
+							if(value[0] == "$" || value[0] == "." || isDecimal(value[0]) || registers[value] || firmware[value]){
+								advance[j] = 0;
+								break;
+							}
+							label_found = true;
+						}
+						break;
+					// $1...
+					case "reg":
+						var aux = false;
+						if("(" == value){
+							if("(reg)" != signature_fields[j][i]){
+								//return langError(context, "Expected register but found register beween parenthesis");
+								advance[j] = 0;
+								break;
+							}
+							nextToken(context);
+							value = getToken(context);
+							aux = true;
+						}
+						else{
+							if("(reg)" == signature_fields[j][i]){
+								advance[j] = 0;
+								break;
+							}
+						}
+						if(typeof registers[value] == "undefined"){	
+							//return langError(context, "Expected register ($1, ...) but found '" + value + "' as register");
+							advance[j] = 0;
+							break;
+						}
+						if(aux){
+							if(signature_fields[j][i-1] == "inm" && signature_fields[j][i] == "(reg)")
+								s = s.substring(0,s.length-3) + "(" + value + ")" ;
+							else
+								s = s.substring(0,s.length-1) + value + ")";
+							nextToken(context);
+							if(")" != getToken(context)){
+								//return langError(context, "String without ')'");
+								advance[j] = 0;
+								break;
+							}
+						}
+						var res = decimal2binary(isDecimal(registers[value]), size);
+						break;
+					default:
+						return langError(context, "An unknown error ocurred (53)");	
+				}
+
+				// store field
+				if(advance[j] == 1)	
+					binaryAux[j][i] = {num_bits:(label_found ? false : res[0]), num_bits_free_space:(label_found ? false : res[1]), startbit:field.startbit, stopbit:field.stopbit, rel:(label_found ? field.address_type : false), islabel:label_found, field_name: value };
 			}
 
-			// calculate free space in the instruction after including the field
-			var num_bits_free_space = field.startbit-field.stopbit+1 - num_bits.length;
+			if("TAG" == getTokenType(context) || firmware[value]) break;	
+		}
 
-			// check size
-			if(num_bits_free_space < 0)
-				return asmError(context, "'" + value + "' needs " + num_bits.length + " bits but there is space for only " + field.startbit-field.stopbit+1 + " bits");
+		// check solution
+		var sum_res = sum_array(advance);	
+		if(sum_res == 0) return langError(context, "Instruction and fields don't match with microprogram");
+		if(sum_res > 1) return langError(context, "Instruction and fields match with more than one microprogram");
+
+		// Get candidate
+		var candidate;
+		for(i=0; i<advance.length; i++)
+			if(advance[i] == 1) candidate = i;
+
+		// Machine code (e.g. one word [ 31, 30, 29, ... , 2, 1, 0 ])
+		var machineCode = "";
+		for (i=0; i<firmware[instruction][0].nwords; i++)
+		     machineCode+="00000000000000000000000000000000";		
+
+		// Generate code (co and cop)	
+		if (firmware[instruction][candidate].co !== false)
+                {
+			machineCode = firmware[instruction][candidate].co + machineCode.substring(6);
+			if (firmware[instruction][candidate].cop !== false)
+                        {
+				var machineCodeAux = machineCode.substring(0,28);
+				machineCode = machineCode.substring(32);
+				machineCodeAux = machineCodeAux + firmware[instruction][candidate].cop;
+				machineCode = machineCodeAux + machineCode;
+			}
+		}
+
+		// Store candidate fields in machine code
+		for(i=0; i<binaryAux[candidate].length; i++){
+			// tag
+			if(binaryAux[candidate][i].islabel){
+				ret.labels["0x" + seg_ptr.toString(16)] = { name:binaryAux[candidate][i].field_name, addr:("0x" + seg_ptr.toString(16)), startbit:binaryAux[candidate][i].startbit, stopbit:binaryAux[candidate][i].stopbit, rel:binaryAux[candidate][i].rel };
+			}
+
+			// reg, addr, inm
+			else{
+				// check size
+				var bstartbit = binaryAux[candidate][i].startbit;
+				var bstopbit = binaryAux[candidate][i].stopbit;
+				var size = bstartbit - bstopbit + 1;
+				var bnum_bits = binaryAux[candidate][i].num_bits ; 
+				var bnum_bits_free_space = binaryAux[candidate][i].num_bits_free_space;
+				var value = binaryAux[candidate][i].field_name;
+				if(bnum_bits_free_space < 0)
+					return langError(context, "'" + value + "' needs " + num_bits.length + " bits but there is space for only " + size + " bits");
 			
-			// Store field in machine code
-			var machineCodeAux = machineCode.substring(0, machineCode.length-1-field.startbit+num_bits_free_space);
-			machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length-field.stopbit);
+				// store field in machine code
+				var machineCodeAux = machineCode.substring(0, machineCode.length-1-bstartbit+bnum_bits_free_space);
+				machineCode = machineCodeAux + bnum_bits + machineCode.substring(machineCode.length-bstopbit);	
+			}
 		}
 
 		// process machine code with several words...
-		for(i=0; i<firmware[instruction][candidate].nwords; i++)  // TODO: [0] -> bucle?
+		for(i=0; i<firmware[instruction][candidate].nwords; i++)
                 {
 			ret.assembly["0x" + seg_ptr.toString(16)] = { breakpoint:false, binary:machineCode.substring(i*32, (i+1)*32), source:s, source_original:s } ; 
 			ret.mp["0x" + seg_ptr.toString(16)] = machineCode.substring(i*32, (i+1)*32) ;
                 	seg_ptr = seg_ptr + 4 ;
 		}
 
-		nextToken(context);
+		if (max_length == signature_fields[candidate].length)
+			nextToken(context);
 
 		if(context.t >= context.text.length) break;
            }
@@ -720,11 +800,11 @@ function simlang_compile (text, datosCU)
 
            var ret = new Object(); 
            ret.seg = {
-                       ".ktext": { name:".ktext",  begin:0x0000, end:0x0100, color: "#A9D0F5" },
-                       ".kdata": { name:".kdata",  begin:0x0100, end:0x0FFF, color: "#FACC00" },
-                       ".data":  { name:".data",   begin:0x1000, end:0x7FFF, color: "#FACC2E" },
-                       ".text":  { name:".text",   begin:0x8000, end:0xFF00, color: "#BEF781" },
-                       ".stack": { name:".stack",  begin:0xFFFF, end:0xFFFF, color: "#F1F2A3" }
+                       ".kdata": { name:".kdata",  begin:0x0000, end:0x00FF, color: "#FF99CC", kindof:"data" },
+                       ".ktext": { name:".ktext",  begin:0x0100, end:0x0FFF, color: "#A9D0F5", kindof:"text" },
+                       ".data":  { name:".data",   begin:0x1000, end:0x7FFF, color: "#FACC2E", kindof:"data" },
+                       ".text":  { name:".text",   begin:0x8000, end:0xFF00, color: "#BEF781", kindof:"text" },
+                       ".stack": { name:".stack",  begin:0xFFFF, end:0xFFFF, color: "#F1F2A3", kindof:"stack" }
                      };
           ret.mp           = new Object() ;
 	  ret.labels	   = new Object() ; // [addr] = {name, addr, startbit, stopbit}
@@ -738,22 +818,24 @@ function simlang_compile (text, datosCU)
           nextToken(context) ;
           while (context.t < context.text.length)
           {
-               if (isToken(context,".kdata"))
-                       read_data(context, datosCU, ret) ;
-               else if (isToken(context,".ktext"))
-                       read_text(context, datosCU, ret) ;
-               else if (isToken(context,".data"))
-                       read_data(context, datosCU, ret) ;
-               else if (isToken(context,".text"))
-                       read_text(context, datosCU, ret) ;
-               else
-                       return asmError(context, "Expected .data/.text/... segment but found '" + getToken(context) + "' as segment") ;
+	       var segname = getToken(context);
+
+	       if(typeof ret.seg[segname] == "undefined")
+			return langError(context, "Expected .data/.text/... segment but found '" + segname + "' as segment");
+
+	       if("data" == ret.seg[segname].kindof)
+			read_data(context, datosCU, ret);
+	       if("text" == ret.seg[segname].kindof)
+			read_text(context, datosCU, ret);
 
 	       // Check errors
-	       if (context.error != null) break;
+	       if(context.error != null){
+	       	       ret.error = context.error;
+		       return ret;
+	       }
 	 }
 
-	 // Check thath all used labels are defined in the text
+	 // Check that all used labels are defined in the text
          for (i in ret.labels)
          {
 		// Get label value (address number)
@@ -761,7 +843,7 @@ function simlang_compile (text, datosCU)
 
 		// Check if the label exists
 		if(typeof value === "undefined"){
-			return asmError(context, "Label '" + ret.labels[i].name + "' used but not defined in the assembly code");
+			return langError(context, "Label '" + ret.labels[i].name + "' used but not defined in the assembly code");
 		}	
 
 		// Get the word in memory where the label is used
@@ -769,20 +851,25 @@ function simlang_compile (text, datosCU)
 
 		// TODO: consider two words instruction 
 
-		// Translate the address into bits	
-		if(isHex(value) !== false)
-			var num_bits = isHex(value).toString(2);
-		else if(isDecimal(value) !== false)
-			var num_bits = isDecimal(value).toString(2);
- 		else
-			return asmError(context, "Unexpected error (54)");
+		var size = ret.labels[i].startbit-ret.labels[i].stopbit+1;
 
-		// calculate free space in the instruction after including the field
-		var num_bits_free_space = ret.labels[i].startbit-ret.labels[i].stopbit+1 - num_bits.length;
+		// Translate the address into bits	
+		if(isHex(value) !== false){
+			var res = decimal2binary(isHex(value), size);
+			var num_bits = res[0];
+			var num_bits_free_space = res[1];
+			if ("rel" == ret.labels[i].rel){
+			    num_bits = isHex(value) - ret.labels[i].addr - 4;	
+			    res = decimal2binary(num_bits, size);
+			    num_bits = res[0];
+			    num_bits_free_space = res[1];	    
+			}
+		}	
+ 		else return langError(context, "Unexpected error (54)");
 
 		// check size
-		if(num_bits_free_space < 0)
-			return asmError(context, "'" + value + "' needs " + num_bits.length + " bits but there is space for only " + field.startbit-field.stopbit+1 + " bits");
+		if (num_bits_free_space < 0)
+			return langError(context, "'" + value + "' needs " + num_bits.length + " bits but there is space for only " + size + " bits");
 			
 		// Store field in machine code
 		var machineCodeAux = machineCode.substring(0, machineCode.length-1-ret.labels[i].startbit+num_bits_free_space);
@@ -792,8 +879,5 @@ function simlang_compile (text, datosCU)
 		ret.mp[ret.labels[i].addr] = machineCode; 
 	 }	 
 
-         ret.error = context.error ;
-
 	 return ret;
 }
-

@@ -18,6 +18,6 @@ rm -fr sim_all.js
 # 
 #  external
 # 
-cat external/bootstrap.min.js external/bootbox.min.js external/knockout-3.4.0.js external/codemirror.js external/codemirror.javascript.js external/spectrum.min.js external/bootstrap-notify.min.js > external/external.min.js
-cat external/bootstrap.min.css external/bootstrap-theme.min.css external/spectrum.min.css external/codemirror.css > external/external.min.css
+cat external/bootstrap.min.js external/bootbox.min.js external/knockout-3.4.0.js external/codemirror.js external/codemirror.javascript.js external/spectrum.min.js external/bootstrap-notify.min.js external/codemirror.show-hint.js > external/external.min.js
+cat external/bootstrap.min.css external/bootstrap-theme.min.css external/spectrum.min.css external/codemirror.css external/codemirror.show-hint.css > external/external.min.css
 
