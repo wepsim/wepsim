@@ -1049,6 +1049,18 @@
 								value: "",
 								lineNumbers: true,
 								matchBrackets: true,
+								extraKeys: {
+								  "Ctrl-Space": function(cm) {
+								      CodeMirror.showHint(cm, function(cm, options) {
+										      var simware = get_simware();
+										      var cur = cm.getCursor();
+										      var result = new Array();
+										      for (var i=0; i<simware.firmware.length; i++)
+											   result.push(simware.firmware[i].signature);
+										      return { list: result, from: cur, to: cur };
+										    });
+								  }
+								},
 								mode: "text/x-csrc"
 						         });
                     inputasm.setValue("\n\n\n\n\n\n\n\n\n");
