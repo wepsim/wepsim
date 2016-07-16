@@ -585,7 +585,7 @@ function read_text ( context, datosCU, ret )
 			    nextToken(context);
 
 			var value = getToken(context);	
-                        
+
 			if("TAG" != getTokenType(context) && !firmware[value]) s = s + value + " " ;
 				
 			// vertical search (different signatures)
@@ -693,7 +693,9 @@ function read_text ( context, datosCU, ret )
 				// store field
 				if(advance[j] == 1)	
 					binaryAux[j][i] = {num_bits:(label_found ? false : res[0]), num_bits_free_space:(label_found ? false : res[1]), startbit:field.startbit, stopbit:field.stopbit, rel:(label_found ? field.address_type : false), islabel:label_found, field_name: value };
-			}	
+			}
+
+			if("TAG" == getTokenType(context) || firmware[value]) break;	
 		}
 
 		// check solution
