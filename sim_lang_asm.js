@@ -185,7 +185,10 @@ function read_data ( context, datosCU, ret )
                       // :
 		      if ("TAG" != getTokenType(context))
 			  return langError(context, "Expected tag or directive but found '" + possible_tag + "'" ) ;
-		      
+		   
+   		      if(possible_tag[0] == "$" || possible_tag[0] == "." || isDecimal(possible_tag[0]))
+			  return langError(context, "Tag must not start with '.', special character, or number");
+
 		      // Store tag
 		      ret.labels2[possible_tag.substring(0, possible_tag.length-1)] = "0x" + (seg_ptr+byteWord).toString(16);
 
@@ -551,6 +554,9 @@ function read_text ( context, datosCU, ret )
 			else {
 				return langError(context, "Undefined instruction " + possible_tag ); 
 			}
+			if(possible_tag[0] == "$" || possible_tag[0] == "." || isDecimal(possible_tag[0]) || firmware[possible_tag.substring(0,possible_tag.length-1)])
+		  		return langError(context, "Tag must not start with '.', special character, or number and must not have the name of an instruction");
+
 			nextToken(context);
 		}
 
