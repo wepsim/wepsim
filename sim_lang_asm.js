@@ -286,9 +286,11 @@ function read_data ( context, datosCU, ret )
 		        nextToken(context) ;
                         var possible_value = getToken(context) ;
 
-			// Check if number
+			// Check
 			if (!isDecimal(possible_value))
 			     return langError(context, "Expected number of bytes to reserve in .space but found '" + possible_value + "' as number");
+			if(possible_value < 0)
+			     return langError(context, "Expected positive number but found '" + possible_value + "' as positive number");
 
 			// Fill with spaces
 			for (i=0; i<possible_value; i++){
@@ -571,6 +573,14 @@ function read_text ( context, datosCU, ret )
                 // *li, $1*, 1
                 //
 
+		var signature_fields = [];
+
+		for(i=0; i<firmware[instruction].length; i++)
+		{
+			signature_fields[i] = firmware[instruction][i].signature.split(",");
+			signature_fields[i].shift();
+		}
+
 		// Iterate over nfields
                 var s = instruction + " ";
                 var candidate = 0;
@@ -642,6 +652,8 @@ function read_text ( context, datosCU, ret )
 				case "reg":
 					var aux = false;
 					if("(" == value){
+						if("(reg)" != signature_fields[0][i])
+							return langError(context, "Expected register but found register beween parenthesis");
 						nextToken(context);
 						value = getToken(context);
 						aux = true;
