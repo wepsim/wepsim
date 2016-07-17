@@ -517,13 +517,18 @@
         {
             compute_behavior("RESET") ;
 
-            if (typeof segments['.text'] != "undefined") 
+            if (typeof segments['.ktext'] != "undefined") 
+            {
+                set_value(sim_states["REG_PC"], parseInt(segments['.ktext'].begin));
+                show_asmdbg_pc() ;
+            }
+            else if (typeof segments['.text'] != "undefined") 
             {
                 set_value(sim_states["REG_PC"], parseInt(segments['.text'].begin));
                 show_asmdbg_pc() ;
             }
 
-	    if (typeof segments['.stack']!= "undefined")
+	    if (typeof segments['.stack'] != "undefined")
 	    {
 		set_value(sim_states["BR"][FIRMWARE.stackRegister], parseInt(segments['.stack'].begin));
 	    }
@@ -542,17 +547,21 @@
         {
 	        if (false === get_cfg('is_interactive'))
                 {
-			if (typeof segments['.text'] == "undefined")
+			if ( (typeof segments['.ktext'] == "undefined") &&
+			     (typeof segments['.text']  == "undefined") )
 			{
-			    alert('code segment does not exist!');
+			    alert('code segment .ktext/.text does not exist!');
 			    return false;
 			}
 
-			if (  (parseInt(get_value(sim_states["REG_MICROADDR"])) == 0) &&
-                             ((parseInt(get_value(sim_states["REG_PC"])) >= parseInt(segments['.text'].end)) || 
-                              (parseInt(get_value(sim_states["REG_PC"])) <  parseInt(segments['.text'].begin))) )
+                        var reg_pc = parseInt(get_value(sim_states["REG_PC"]));
+			if (  
+                             (parseInt(get_value(sim_states["REG_MICROADDR"])) == 0) &&
+                             ((reg_pc >= parseInt(segments['.ktext'].end)) || (reg_pc < parseInt(segments['.ktext'].begin))) &&
+                             ((reg_pc >= parseInt(segments['.text'].end))  || (reg_pc < parseInt(segments['.text'].begin))) 
+                           )
 			{
-			    alert('PC register points outside the code segment!');
+			    alert('PC register points outside .ktext/.text code segments!');
 			    return false;
 			}
                 }
@@ -584,17 +593,21 @@
 
         function execute_instruction ()
         {
-                if (typeof segments['.text'] == "undefined")
+                if ( (typeof segments['.ktext'] == "undefined") &&
+                     (typeof segments['.text']  == "undefined") )
                 {
-                    alert('code segment does not exist!');
+                    alert('code segment .ktext/.text does not exist!');
                     return false;
                 }
 
-		if (  (parseInt(get_value(sim_states["REG_MICROADDR"])) == 0) &&
-		     ((parseInt(get_value(sim_states["REG_PC"])) >= parseInt(segments['.text'].end)) || 
-		      (parseInt(get_value(sim_states["REG_PC"])) <  parseInt(segments['.text'].begin))) )
+                var reg_pc = parseInt(get_value(sim_states["REG_PC"]));
+		if ( 
+                      (parseInt(get_value(sim_states["REG_MICROADDR"])) == 0) &&
+		     ((reg_pc >= parseInt(segments['.ktext'].end)) || (reg_pc < parseInt(segments['.ktext'].begin))) &&
+		     ((reg_pc >= parseInt(segments['.text'].end))  || (reg_pc < parseInt(segments['.text'].begin))) 
+                   )
                 {
-                    alert('PC register points outside the code segment!');
+		    alert('PC register points outside .ktext/.text code segments!');
                     return false;
                 }
 
