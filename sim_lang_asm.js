@@ -96,7 +96,8 @@ function isHex( n )
 {
         if(n.substring(0,2).toLowerCase() == "0x"){
 		var hex = n.substring(2).toLowerCase().replace(/\b0+/g, '');
-                var aux = parseInt(hex,16);
+                if(hex == "") hex = "0";
+		var aux = parseInt(hex,16);
                 return (aux.toString(16) === hex) ? aux : false;
         }
         return false;
@@ -908,6 +909,7 @@ function simlang_compile (text, datosCU)
 
 		// Check if the label exists
 		if(typeof value === "undefined"){
+			context.t = 20;
 			return langError(context, "Label '" + ret.labels[i].name + "' used but not defined in the assembly code");
 		}	
 
