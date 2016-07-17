@@ -226,6 +226,7 @@ function read_data ( context, datosCU, ret )
 			while (!is_directive(getToken(context)))
                         {
 				var number;
+				var label_found = false;
 		
 				// Octal value 072
 				if((number=isOctal(possible_value)) !== false);
@@ -240,7 +241,17 @@ function read_data ( context, datosCU, ret )
 				else if((number=isChar(possible_value)) !== false);		
 
 				// Error	
-				else return langError(context, "Expected value for numeric datatype but found '" + possible_value + "' instead");
+				else{
+					if(".word" == possible_datatype){
+						if(!isValidTag(possible_value))
+							return langError(context, "A tag must follow an alphanumeric format (starting with a letter) but found '" + possible_value + "' instead");
+						if(context.firmware[possible_value])
+							return langError(context, "A tag can not have the same name as an instruction (" + possible_value + ")");
+						number = 0;
+						label_found = true;	
+					}
+					else return langError(context, "Expected value for numeric datatype but found '" + possible_value + "' instead");
+				}
 
 				// Get value size in bytes
 				var size = get_datatype_size(possible_datatype);
@@ -280,7 +291,11 @@ function read_data ( context, datosCU, ret )
 		                    ret.labels2[possible_tag.substring(0, possible_tag.length-1)] = "0x" + (seg_ptr+byteWord).toString(16);
 				    possible_tag = "";
 				}
-
+				
+				// Label as number (later translation)
+				if(label_found)
+					ret.labels["0x" + seg_ptr.toString(16)] = { name:possible_value, addr:("0x" + seg_ptr.toString(16)), startbit:31, stopbit:0, rel:undefined };
+					
 				// Store field in machine code
 				var machineCodeAux = machineCode.substring(0, machineCode.length- 8*(size+byteWord) +num_bits_free_space);
 				machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length - 8*(byteWord));
@@ -401,9 +416,11 @@ function read_data ( context, datosCU, ret )
 					machineCode = "00000000000000000000000000000000";	
 				}
 
-				// string
+				// check string
+				if("" == possible_value)
+					return langError(context, "String is not closed (forgot to end it with quotation marks)")
 		                if ("STRING" != getTokenType(context))
-				    return langError(context, "Expected string value but found '" + possible_value + "' as string");
+				    	return langError(context, "Expected string between quotation marks but found '" + possible_value + "' instead");
 
 				// process characters of the string
 				for(i=0; i<possible_value.length; i++){
