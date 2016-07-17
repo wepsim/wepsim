@@ -196,7 +196,9 @@ function read_data ( context, datosCU, ret )
 		      var tag = possible_tag.substring(0, possible_tag.length-1); 
    		      if(!isValidTag(tag))
 			  return langError(context, "A tag must follow an alphanumeric format (starting with a letter) but found '" + tag + "' instead");
-
+		      if(context.firmware[tag])
+			  return langError(context, "A tag can not have the same name as an instruction (" + tag + ")");
+	
 		      // Store tag
 		      ret.labels2[tag] = "0x" + (seg_ptr+byteWord).toString(16);
 
@@ -519,23 +521,9 @@ function read_text ( context, datosCU, ret )
            var seg_name = getToken(context) ;
            var seg_ptr  = ret.seg[seg_name].begin ;
 
-	   // Fill firmware structure
-	   var firmware = new Object() ;
-	   for (i=0; i<datosCU.firmware.length; i++)
-           {
-		var aux = datosCU.firmware[i];
-
-	   	if (typeof firmware[datosCU.firmware[i].name] == "undefined")
-	   	    firmware[datosCU.firmware[i].name] = new Array();
-
-	   	firmware[datosCU.firmware[i].name].push({ 	name:aux.name,
-							nwords:parseInt(aux.nwords), 
-							co:(typeof aux.co != "undefined" ? aux.co : false),
-							cop:(typeof aux.cop != "undefined" ? aux.cop : false),
-							fields:(typeof aux.fields != "undefined" ? aux.fields : false),
-							signature:aux.signature });
-	   }
-
+	   // get firmware
+	   var firmware = context.firmware;
+	   
 	   // Fill register names
 	   var registers = new Object() ;
 	   for (i=0; i<datosCU.registers.length; i++)
@@ -840,6 +828,23 @@ function simlang_compile (text, datosCU)
 	   context.newlines       	= new Array() ;
 	   context.pseudoInstructions	= new Array();
 	   context.stackRegister	= null ;
+	   context.firmware = new Object() ;
+	   
+	   // fill firmware
+	   for (i=0; i<datosCU.firmware.length; i++)
+           {
+		var aux = datosCU.firmware[i];
+
+	   	if (typeof context.firmware[datosCU.firmware[i].name] == "undefined")
+	   	    context.firmware[datosCU.firmware[i].name] = new Array();
+
+	   	context.firmware[datosCU.firmware[i].name].push({ name:aux.name,
+							  nwords:parseInt(aux.nwords), 
+							  co:(typeof aux.co != "undefined" ? aux.co : false),
+							  cop:(typeof aux.cop != "undefined" ? aux.cop : false),
+							  fields:(typeof aux.fields != "undefined" ? aux.fields : false),
+							  signature:aux.signature });
+	   }
 
            var ret = new Object(); 
            ret.seg = {
