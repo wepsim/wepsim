@@ -55,7 +55,6 @@ main:      liu $0 rti
            li $1 8
            sw $2 w1
            li    $2 0
-
            b fin
           
 rti:      li $1 1
