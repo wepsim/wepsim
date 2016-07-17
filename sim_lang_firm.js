@@ -57,13 +57,13 @@ function read_microprg ( context )
 		   for (var contadorMCAux in context.etiquetas)
 		   {
 			if (context.etiquetas[contadorMCAux] == newLabelName)
-			    return langError(context, "Label '" + getToken(context) + "' is repeated");
+			    return langError(context, "Label is repeated: " + getToken(context));
 		   }
 		   context.etiquetas[context.contadorMC] = newLabelName ; 
 
                    // semantic check: valid token
                    if (newLabelName.match("[a-zA-Z_0-9]*")[0] != newLabelName )
-		       return langError(context, "Label '" + getToken(context)  + "' not valid") ;
+		       return langError(context, "Label format is not valid for '" + getToken(context)  + "'") ;
 
                    nextToken(context) ;
 	       }
@@ -118,7 +118,7 @@ function read_microprg ( context )
 
                    // semantic check: valid signal id
 		   if (typeof sim_signals[nombre_tok] == "undefined")
-		       return langError(context, "Signal '" + nombre_tok + "' does not exists") ;
+		       return langError(context, "Signal does not exists: '" + nombre_tok + "'") ;
 
 		   microInstruccionAux[nombre_tok] = 1; // signal is active so far...
 
@@ -542,7 +542,7 @@ function loadFirmware (text)
 	           // match mandatory FIELD
 	           var tmp_name = getToken(context) ;
 	           if (campos[camposInsertados]["name"] != tmp_name)
-		       return langError(context, "Unexpected field '" + tmp_name + "' found") ;
+		       return langError(context, "Unexpected field found: '" + tmp_name + "'") ;
 
 	           nextToken(context);
 	           // match mandatory =
