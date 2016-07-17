@@ -1,3 +1,43 @@
+.kdata
+   vector:  .word rti0
+            .word rti1
+            .word rtinEx
+
+   msgi0:   .asciiz "Interruption 0."
+   msgi1:   .asciiz "Interruption 1."
+   msginEx: .asciiz "Bad instruction code."
+   msgEnd:  .asciiz "End of execution."
+
+.ktext
+            b kmain  # TODO: from start of ktext to kmain
+
+  print3:
+     loop1: lb   $27 ($26)
+            li   $1 0
+            beq  $27 $1 fin1
+            out  $27 0x1000
+            li   $1 1
+            add  $26 $26 $1
+            b loop1
+      fin1: jr   $ra
+
+  rti0:     la   $26 msgi0
+            jal  print3
+            reti
+
+  rti1:     la   $26 msgi1
+            jal  print3
+            reti
+
+  rtinEx:   la   $26 msginEx
+            jal  print3
+            reti
+
+  kmain:    jal  main
+            la   $26 msgEnd
+            jal  print3
+
+
 .data
        w1: .word -1,2,3
        w2: .byte 1,2
@@ -5,10 +45,9 @@
            .ascii "hello world"
        w4: .space 4
            .half 034
-           
 
 .text
-main:      liu $0 rti
+main:      la $0 rti  # TODO: microprogram cri
            li  $1 0
 
             # test 01
@@ -53,10 +92,24 @@ main:      liu $0 rti
 
            # test 06
            li $1 8
+           li $2  0x0304
            sw $2 w1
            li    $2 0
+           lw  $2 w1
+           li $4  0x0304
+           bne $2 $4 error   
+
+           # test 07
+           li $1 10
+           li $2  0x0304
+           sb $2 w1
+           li   $2 0
+           lb  $2 w1
+           li $4  0x0004
+           bne $2 $4 error   
+
            b fin
-          
+
 rti:      li $1 1
           add $30 $30 $1
           reti
@@ -64,6 +117,25 @@ rti:      li $1 1
 error:    li  $7 101
           out $7 0x1000
           li  $7 114
+          out $7 0x1000
+          out $7 0x1000
+          li  $7 111
+          out $7 0x1000
+          li  $7 114
+          out $7 0x1000
+          li  $7 32
+          out $7 0x1000
+          li  $7 101
+          out $7 0x1000
+          li  $7 110
+          out $7 0x1000
+          li  $7 58
+          out $7 0x1000
+          li  $7 32
+          out $7 0x1000
+          li  $7 48
+          add $7 $7 $1
+          out $7 0x1000
 
-fin:      nop
+fin:      jr $ra
 
