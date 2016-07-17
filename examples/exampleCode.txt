@@ -1,11 +1,5 @@
 .data
-       w1: .word -1,2,3
-       w2: .byte 1,2
-       w3: .byte 3
-           .ascii "hello world"
-       w4: .space 4
-           .half 034
-           
+       w1: .word   0   
 
 .text
 main:      liu $0 rti
@@ -53,10 +47,24 @@ main:      liu $0 rti
 
            # test 06
            li $1 8
+           li $2  0x0304
            sw $2 w1
            li    $2 0
+           lw  $2 w1
+           li $4  0x0304
+           bne $2 $4 error   
+
+           # test 07
+           li $1 10
+           li $2  0x0304
+           sb $2 w1
+           li   $2 0
+           lb  $2 w1
+           li $4  0x0004
+           bne $2 $4 error   
+
            b fin
-          
+
 rti:      li $1 1
           add $30 $30 $1
           reti
@@ -64,6 +72,25 @@ rti:      li $1 1
 error:    li  $7 101
           out $7 0x1000
           li  $7 114
+          out $7 0x1000
+          out $7 0x1000
+          li  $7 111
+          out $7 0x1000
+          li  $7 114
+          out $7 0x1000
+          li  $7 32
+          out $7 0x1000
+          li  $7 101
+          out $7 0x1000
+          li  $7 110
+          out $7 0x1000
+          li  $7 58
+          out $7 0x1000
+          li  $7 32
+          out $7 0x1000
+          li  $7 48
+          add $7 $7 $1
+          out $7 0x1000
 
 fin:      nop
 

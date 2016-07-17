@@ -186,29 +186,29 @@ lw reg addr {
 }
 
 lw reg1 (reg2) {
-    co=100101,
-    nwords=1,
-    reg1 = reg(25,21),
-    reg2 = reg(20,16),
-    {
+            co=100101,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            {
                 (MR=0, SELA=10000, T9=1, C0),
-        (TA=1, R=1, BW=11, M1=0, C1=1),
-        (T1=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
-    }
+                (TA=1, R=1, BW=11, M1=0, C1=1),
+                (T1=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
+            }
 }
 
 lw reg1 reg2(reg3)
 {
-    co=100000,
-    nwords=1,
-    reg1 = reg(25,21),
-    reg2 = reg(20,16),
-    reg3 = reg(15,11),
-    {
+            co=100000,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            reg3 = reg(15,11),
+            {
                 (MR=0, SELA=10000, MA=0, SELB=1011, MB=0, MC=1, COP=1001, T6=1, C0),
                 (TA=1, R=1, BW=11, M1=0, C1=1),
                 (T1=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
-    }
+            }
 }
 
 sw reg addr {
