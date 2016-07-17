@@ -52,6 +52,7 @@
     <link  href="external/external.min.css" rel="stylesheet">
     <script src="external/external.min.js"></script>
 
+<<<<<<< HEAD
     <!--<script src="min.sim_all.js"></script>
     <script src="min.sim_hw.js"></script>-->
 
@@ -67,6 +68,10 @@
     <script src="sim_lang_asm.js"></script>
     <script src="sim_lang_firm.js"></script>
     <script src="sim_lang.js"></script>
+=======
+    <script src="min.sim_all.js"></script>
+    <script src="min.sim_hw.js"></script>
+>>>>>>> cd464f19149957164b92ed355632381b57a84114
 
     <script>
     //
@@ -175,7 +180,7 @@
     function load_assembly_from_example ( )
     {
 	var xmlhttp = new XMLHttpRequest();
-	var url = "examples/exampleCode.txt?time=20160715" ;
+	var url = "examples/exampleCode.txt?time=20160717c" ;
 
 	xmlhttp.onreadystatechange=function() {
 					if ((xmlhttp.readyState == 4) && ((xmlhttp.status == 200) || (xmlhttp.status == 0)))
@@ -251,7 +256,7 @@
     function load_firmware_from_example ( )
     {
 	var xmlhttp = new XMLHttpRequest();
-	var url = "examples/exampleMicrocode.txt?time=20160717" ;
+	var url = "examples/exampleMicrocode.txt?time=20160717c" ;
 
 	xmlhttp.onreadystatechange=function() {
 					// if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
@@ -396,6 +401,16 @@
     }
     </script>
 
+    <!-- Google Analytics -->
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-80849772-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+    <!-- End Google Analytics -->
 </head>
 
 
@@ -642,7 +657,7 @@
                             <a href="#" style="background-color: #D4DB17"
                                    class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-3 col-md-1 col-lg-1"
 				   onclick="$('#help1_ref').data('relative','');
-                                            $('#iframe_help1').html('<object id=svg_p2 data=\'images/cpu5.svg?time=20160715\' type=image/svg+xml>Your browser does not support SVG</object>');
+                                            $('#iframe_help1').html('<object id=svg_p2 data=\'images/cpu5.svg?time=20160717c\' type=image/svg+xml>Your browser does not support SVG</object>');
                                             $('#help1').trigger('updatelayout');
                                             $('#help1').popup('reposition', {positionTo: 'window'});
 					    $('#help1').popup('open');"
