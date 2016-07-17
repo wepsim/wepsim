@@ -758,7 +758,7 @@ function read_text ( context, datosCU, ret )
 		}
 		if(sum_res > 1) return langError(context, "Instruction and fields match with more than one microprogram");
 
-		// Get candidate
+		// get candidate
 		var candidate;
 		for(i=0; i<advance.length; i++)
 			if(advance[i] == 1) candidate = i;
