@@ -139,6 +139,13 @@ function decimal2binary(number, size){
 	return [num_bits, num_bits_free_space];
 }
 
+function isValidTag(tag){
+	if(isDecimal(tag[0]))
+		return false;
+	var myRegEx  = /[^a-z\d]/i;
+	return !(myRegEx.test(tag));
+}
+
 function max( a, b )
 {
 	return a > b ? a : b;
@@ -182,15 +189,16 @@ function read_data ( context, datosCU, ret )
                       // tagX
 		      possible_tag = getToken(context) ;
 
-                      // :
+                      // check tag
 		      if ("TAG" != getTokenType(context))
-			  return langError(context, "Expected tag or directive but found '" + possible_tag + "'" ) ;
-		   
-   		      if(possible_tag[0] == "$" || possible_tag[0] == "." || isDecimal(possible_tag[0]))
-			  return langError(context, "Tag must not start with '.', special character, or number");
+			  return langError(context, "Expected tag or directive but found '" + possible_tag + "' instead" ) ;
+		  
+		      var tag = possible_tag.substring(0, possible_tag.length-1); 
+   		      if(!isValidTag(tag))
+			  return langError(context, "A tag must follow an alphanumeric format (starting with a letter) but found '" + tag + "' instead");
 
 		      // Store tag
-		      ret.labels2[possible_tag.substring(0, possible_tag.length-1)] = "0x" + (seg_ptr+byteWord).toString(16);
+		      ret.labels2[tag] = "0x" + (seg_ptr+byteWord).toString(16);
 
 		      // .<datatype> | tagX+1
 		      nextToken(context) ;
@@ -230,7 +238,7 @@ function read_data ( context, datosCU, ret )
 				else if((number=isChar(possible_value)) !== false);		
 
 				// Error	
-				else return langError(context, "Expected number value for numeric datatype but found '" + possible_value + "' as number");
+				else return langError(context, "Expected value for numeric datatype but found '" + possible_value + "' instead");
 
 				// Get value size in bytes
 				var size = get_datatype_size(possible_datatype);
@@ -282,7 +290,7 @@ function read_data ( context, datosCU, ret )
 				if ("," == getToken(context))
 				    nextToken(context);
 
-			        if ( is_directive(getToken(context)) || ("TAG" == getTokenType(context)) )
+			        if ( is_directive(getToken(context)) || ("TAG" == getTokenType(context)) || "." == getToken(context)[0] )
 				    break ; // end loop, already read token (tag/directive)
 
                                 // <value> | .<directive>
@@ -478,7 +486,7 @@ function read_data ( context, datosCU, ret )
 				if ("," == getToken(context))
 				    nextToken(context);
 
-			        if ( is_directive(getToken(context)) || ("TAG" == getTokenType(context)) )
+			        if ( is_directive(getToken(context)) || ("TAG" == getTokenType(context)) || "." == getToken(context)[0] )
 				     break ; // end loop, already read token (tag/directive)
 
                                 // <value> | .<directive>
@@ -546,16 +554,16 @@ function read_text ( context, datosCU, ret )
 		while (typeof firmware[getToken(context)] == "undefined") 
                 {
 			var possible_tag = getToken(context);
-			
-		        if ("TAG" == getTokenType(context)) 
-                        {
-                                ret.labels2[possible_tag.substring(0, possible_tag.length-1)] = "0x" + seg_ptr.toString(16);
-			}
-			else {
-				return langError(context, "Undefined instruction " + possible_tag ); 
-			}
-			if(possible_tag[0] == "$" || possible_tag[0] == "." || isDecimal(possible_tag[0]) || firmware[possible_tag.substring(0,possible_tag.length-1)])
-		  		return langError(context, "Tag must not start with '.', special character, or number and must not have the name of an instruction");
+	
+			// check tag		
+		        if ("TAG" != getTokenType(context)) 
+				return langError(context, "Expected tag or instruction but found '" + possible_tag + "' instead" ); 
+	
+		        var tag = possible_tag.substring(0, possible_tag.length-1); 
+   		        if(!isValidTag(tag))
+				return langError(context, "A tag must follow an alphanumeric format (starting with a letter) but found '" + tag + "' instead");
+			// store tag
+			ret.labels2[tag] = "0x" + seg_ptr.toString(16);
 
 			nextToken(context);
 		}
@@ -618,7 +626,14 @@ function read_text ( context, datosCU, ret )
                 	        {	
 					// 0xFFFF...
 					case "address":
-						if(isHex(value) !== false){
+						if(isOctal(value) !== false){
+							var res = decimal2binary(isOctal(value), size);
+							if("rel" == field.address_type){
+							    var aux = isOctal(value) - seg_ptr - 4;	
+                                                	    res = decimal2binary(aux, size) ;
+							}
+						}
+						else if(isHex(value) !== false){
 							var res = decimal2binary(isHex(value), size);
 							if("rel" == field.address_type){
 							    var aux = isHex(value) - seg_ptr - 4;	
@@ -629,6 +644,13 @@ function read_text ( context, datosCU, ret )
 							var res = decimal2binary(isDecimal(value), size);
 							if("rel" == field.address_type){
 							    var aux = isDecimal(value) - seg_ptr - 4;	
+                                        	            res = decimal2binary(aux, size) ;
+							}
+						}
+						else if(isChar(value) !== false){
+							var res = decimal2binary(isChar(value), size);
+							if("rel" == field.address_type){
+							    var aux = isChar(value) - seg_ptr - 4;	
                                         	            res = decimal2binary(aux, size) ;
 							}
 						}
@@ -671,13 +693,13 @@ function read_text ( context, datosCU, ret )
 						}
 						else{
 							if("(reg)" == signature_fields[j][i]){
-								var error = "Expected register between parenthesis but found '" + value + "'";
+								var error = "Expected register between parenthesis but found '" + value + "' instead";
 								advance[j] = 0;
 								break;
 							}
 						}
 						if(typeof registers[value] == "undefined"){	
-							var error = "Expected register ($1, ...) but found '" + value + "' as register";
+							var error = "Expected register ($1, ...) but found '" + value + "' instead";
 							advance[j] = 0;
 							break;
 						}
