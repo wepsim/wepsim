@@ -798,7 +798,7 @@ function read_text ( context, datosCU, ret )
 				var bnum_bits_free_space = binaryAux[candidate][i].num_bits_free_space;
 				var value = binaryAux[candidate][i].field_name;
 				if(bnum_bits_free_space < 0)
-					return langError(context, "'" + value + "' needs " + num_bits.length + " bits but there is space for only " + size + " bits");
+					return langError(context, "'" + value + "' needs " + bnum_bits.length + " bits but there is space for only " + size + " bits");
 			
 				// store field in machine code
 				var machineCodeAux = machineCode.substring(0, machineCode.length-1-bstartbit+bnum_bits_free_space);
@@ -909,7 +909,6 @@ function simlang_compile (text, datosCU)
 
 		// Check if the label exists
 		if(typeof value === "undefined"){
-			context.t = 20;
 			return langError(context, "Label '" + ret.labels[i].name + "' used but not defined in the assembly code");
 		}	
 
