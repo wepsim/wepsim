@@ -633,7 +633,7 @@ function read_text ( context, datosCU, ret )
 							}
 						}
 						else{
-							if(value[0] == "$" || value[0] == "." || isDecimal(value[0]) || registers[value] || firmware[value]){
+							if(value[0] == "(" || value[0] == "$" || value[0] == "." || isDecimal(value[0]) || registers[value] || firmware[value]){
 								advance[j] = 0;
 								break;
 							}
@@ -647,7 +647,7 @@ function read_text ( context, datosCU, ret )
 						else if(isDecimal(value) !== false) var res = decimal2binary(isDecimal(value), size);
 						else if (isChar(value) !== false) var res = decimal2binary(isChar(value), size);
 						else{
-							if(value[0] == "$" || value[0] == "." || isDecimal(value[0]) || registers[value] || firmware[value]){
+							if(value[0] == "(" || value[0] == "$" || value[0] == "." || isDecimal(value[0]) || registers[value] || firmware[value]){
 								advance[j] = 0;
 								break;
 							}
