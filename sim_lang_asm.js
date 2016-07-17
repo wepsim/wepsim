@@ -562,6 +562,8 @@ function read_text ( context, datosCU, ret )
 		        var tag = possible_tag.substring(0, possible_tag.length-1); 
    		        if(!isValidTag(tag))
 				return langError(context, "A tag must follow an alphanumeric format (starting with a letter) but found '" + tag + "' instead");
+			if(firmware[tag])
+				return langError(context, "A tag can not have the same name as an instruction (" + tag + ")");
 			// store tag
 			ret.labels2[tag] = "0x" + seg_ptr.toString(16);
 
@@ -655,8 +657,13 @@ function read_text ( context, datosCU, ret )
 							}
 						}
 						else{
-							if(value[0] == "(" || value[0] == "$" || value[0] == "." || isDecimal(value[0]) || registers[value] || firmware[value]){
-								var error = "Tag must not start with a number or an special character";
+							if(!isValidTag(value)){
+								var error = "A tag must follow an alphanumeric format (starting with a letter) but found '" + value + "' instead";
+								advance[j] = 0;
+								break;
+							}
+							if(firmware[value]){
+								var error = "A tag can not have the same name as an instruction (" + value + ")";
 								advance[j] = 0;
 								break;
 							}
@@ -670,8 +677,13 @@ function read_text ( context, datosCU, ret )
 						else if(isDecimal(value) !== false) var res = decimal2binary(isDecimal(value), size);
 						else if (isChar(value) !== false) var res = decimal2binary(isChar(value), size);
 						else{
-							if(value[0] == "(" || value[0] == "$" || value[0] == "." || isDecimal(value[0]) || registers[value] || firmware[value]){
-								var error = "Tag must not start with a number or an special character";
+							if(!isValidTag(value)){
+								var error = "A tag must follow an alphanumeric format (starting with a letter) but found '" + value + "' instead";
+								advance[j] = 0;
+								break;
+							}
+							if(firmware[value]){
+								var error = "A tag can not have the same name as an instruction (" + value + ")";
 								advance[j] = 0;
 								break;
 							}
