@@ -634,6 +634,7 @@ function read_text ( context, datosCU, ret )
 						}
 						else{
 							if(value[0] == "(" || value[0] == "$" || value[0] == "." || isDecimal(value[0]) || registers[value] || firmware[value]){
+								var error = "Tag must not start with a number or an special character";
 								advance[j] = 0;
 								break;
 							}
@@ -648,6 +649,7 @@ function read_text ( context, datosCU, ret )
 						else if (isChar(value) !== false) var res = decimal2binary(isChar(value), size);
 						else{
 							if(value[0] == "(" || value[0] == "$" || value[0] == "." || isDecimal(value[0]) || registers[value] || firmware[value]){
+								var error = "Tag must not start with a number or an special character";
 								advance[j] = 0;
 								break;
 							}
@@ -659,7 +661,7 @@ function read_text ( context, datosCU, ret )
 						var aux = false;
 						if("(" == value){
 							if("(reg)" != signature_fields[j][i]){
-								//return langError(context, "Expected register but found register beween parenthesis");
+								var error = "Expected register but found register beween parenthesis";
 								advance[j] = 0;
 								break;
 							}
@@ -669,12 +671,13 @@ function read_text ( context, datosCU, ret )
 						}
 						else{
 							if("(reg)" == signature_fields[j][i]){
+								var error = "Expected register between parenthesis but found '" + value + "'";
 								advance[j] = 0;
 								break;
 							}
 						}
 						if(typeof registers[value] == "undefined"){	
-							//return langError(context, "Expected register ($1, ...) but found '" + value + "' as register");
+							var error = "Expected register ($1, ...) but found '" + value + "' as register";
 							advance[j] = 0;
 							break;
 						}
@@ -685,7 +688,7 @@ function read_text ( context, datosCU, ret )
 								s = s.substring(0,s.length-1) + value + ")";
 							nextToken(context);
 							if(")" != getToken(context)){
-								//return langError(context, "String without ')'");
+								var error = "String without end parenthesis ')'";
 								advance[j] = 0;
 								break;
 							}
@@ -700,13 +703,19 @@ function read_text ( context, datosCU, ret )
 				if(advance[j] == 1)	
 					binaryAux[j][i] = {num_bits:(label_found ? false : res[0]), num_bits_free_space:(label_found ? false : res[1]), startbit:field.startbit, stopbit:field.stopbit, rel:(label_found ? field.address_type : false), islabel:label_found, field_name: value };
 			}
+		
+			if(sum_array(advance) == 0) break;
 
 			if("TAG" == getTokenType(context) || firmware[value]) break;	
 		}
 
 		// check solution
 		var sum_res = sum_array(advance);	
-		if(sum_res == 0) return langError(context, "Instruction and fields don't match with microprogram");
+		if(sum_res == 0){
+			if(advance.length == 1)
+				return langError(context, error); 
+			return langError(context, "Instruction and fields don't match with microprogram");
+		}
 		if(sum_res > 1) return langError(context, "Instruction and fields match with more than one microprogram");
 
 		// Get candidate
