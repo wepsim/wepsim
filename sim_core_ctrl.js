@@ -428,7 +428,7 @@
             ROM = new Object() ;
             for (var i=0; i<SIMWARE['firmware'].length; i++)
 	    {
-               if ("fetch" == SIMWARE['firmware'][i]['name']) {
+               if ("begin" == SIMWARE['firmware'][i]['name']) {
                    continue ;
                }
 

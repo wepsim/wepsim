@@ -6,7 +6,6 @@
    msgi0:   .asciiz "Interruption 0."
    msgi1:   .asciiz "Interruption 1."
    msginEx: .asciiz "Bad instruction code."
-   msgEnd:  .asciiz "End of execution."
 
 .ktext
             b kmain  # TODO: from start of ktext to kmain
@@ -19,23 +18,18 @@
             li   $1 1
             add  $26 $26 $1
             b loop1
-      fin1: jr   $ra
+      fin1: reti
 
   rti0:     la   $26 msgi0
-            jal  print3
-            reti
+            b    print3
 
   rti1:     la   $26 msgi1
-            jal  print3
-            reti
+            b    print3
 
   rtinEx:   la   $26 msginEx
-            jal  print3
-            reti
+            b    print3
 
   kmain:    jal  main
-            la   $26 msgEnd
-            jal  print3
 
 
 .data
@@ -47,8 +41,7 @@
            .half 034
 
 .text
-main:      la $0 rti  # TODO: microprogram cri
-           li  $1 0
+main:      li  $1 0
 
             # test 01
            li $1 1
