@@ -152,9 +152,41 @@ function max( a, b )
 	return a > b ? a : b;
 }
 
+function min( a, b )
+{
+	return a < b ? a : b;
+}
+
 function sum_array( a )
 {
 	return a.reduce(function(a, b) { return a + b; }, 0);
+}
+
+function get_candidate(advance, instruction){
+	var candidate = false;
+	var candidates = new Object();
+	var signatures = new Object();
+	for(i=0; i<advance.length; i++){
+		if(advance[i]){
+			candidates[i] = instruction[i].nwords;
+			signatures[instruction[i].signature] = 0;
+		}
+	}
+	if(Object.keys(signatures).length == 1){
+		var min = false;
+		for(i in candidates){
+			if(min == false){
+				min = candidates[i];
+				candidate = i;
+			}
+			else if(min == candidates[i]) candidate = false;
+			else if(min > candidates[i]){
+				min = candidates[i];
+				candidate = i;
+			} 
+		}	
+	}
+	return parseInt(candidate);
 }
 
 /*
@@ -295,7 +327,7 @@ function read_data ( context, datosCU, ret )
 				
 				// Label as number (later translation)
 				if(label_found)
-					ret.labels["0x" + seg_ptr.toString(16)] = { name:possible_value, addr:("0x" + seg_ptr.toString(16)), startbit:31, stopbit:0, rel:undefined };
+					ret.labels["0x" + seg_ptr.toString(16)] = { name:possible_value, addr:seg_ptr, startbit:31, stopbit:0, rel:undefined, nwords:1 };
 					
 				// Store field in machine code
 				var machineCodeAux = machineCode.substring(0, machineCode.length- 8*(size+byteWord) +num_bits_free_space);
@@ -739,6 +771,14 @@ function read_text ( context, datosCU, ret )
 						return langError(context, "An unknown error ocurred (53)");	
 				}
 
+				// check if bits fit in the space
+				if(advance[j] == 1 && !label_found){
+					if(res[1] < 0){
+					 	var error = "'" + value + "' needs " + res[0].length + " bits but there is space for only " + size + " bits";
+						advance[j] = 0;						
+					}
+				}	
+
 				// store field
 				if(advance[j] == 1)	
 					binaryAux[j][i] = {num_bits:(label_found ? false : res[0]), num_bits_free_space:(label_found ? false : res[1]), startbit:field.startbit, stopbit:field.stopbit, rel:(label_found ? field.address_type : false), islabel:label_found, field_name: value };
@@ -749,35 +789,39 @@ function read_text ( context, datosCU, ret )
 			if("TAG" == getTokenType(context) || firmware[value]) break;	
 		}
 
-		// check solution
-		var sum_res = sum_array(advance);	
-		if(sum_res == 0){
-			if(advance.length == 1)
-				return langError(context, error); 
-			return langError(context, "Instruction and fields don't match with microprogram");
-		}
-		if(sum_res > 1) return langError(context, "Instruction and fields match with more than one microprogram");
-
 		// get candidate
 		var candidate;
 		for(i=0; i<advance.length; i++)
 			if(advance[i] == 1) candidate = i;
 
+		// check solution
+		var sum_res = sum_array(advance);	
+		if(sum_res == 0){
+			// No candidate
+			if(advance.length == 1)
+				return langError(context, error); 
+			return langError(context, "Instruction and fields don't match with microprogram");
+		}
+		if(sum_res > 1){
+			// Multiple candidates
+			candidate = get_candidate(advance, firmware[instruction]);
+			if(candidate === false) return langError(context, "Instruction and fields match with more than one microprogram. Please check the microcode");
+		}
+	
 		// Machine code (e.g. one word [ 31, 30, 29, ... , 2, 1, 0 ])
 		var machineCode = "";
-		for (i=0; i<firmware[instruction][0].nwords; i++)
+		for (i=0; i<firmware[instruction][candidate].nwords; i++)
 		     machineCode+="00000000000000000000000000000000";		
 
 		// Generate code (co and cop)	
 		if (firmware[instruction][candidate].co !== false)
                 {
-			machineCode = firmware[instruction][candidate].co + machineCode.substring(6);
+			var machineCodeAux = machineCode.substring(0, machineCode.length - 32);
+			machineCode = machineCodeAux + firmware[instruction][candidate].co + machineCode.substring(machineCode.length-26);
 			if (firmware[instruction][candidate].cop !== false)
                         {
-				var machineCodeAux = machineCode.substring(0,28);
-				machineCode = machineCode.substring(32);
-				machineCodeAux = machineCodeAux + firmware[instruction][candidate].cop;
-				machineCode = machineCodeAux + machineCode;
+				var machineCodeAux = machineCode.substring(0, machineCode.length - 4);
+				machineCode = machineCodeAux + firmware[instruction][candidate].cop;
 			}
 		}
 
@@ -785,7 +829,7 @@ function read_text ( context, datosCU, ret )
 		for(i=0; i<binaryAux[candidate].length; i++){
 			// tag
 			if(binaryAux[candidate][i].islabel){
-				ret.labels["0x" + seg_ptr.toString(16)] = { name:binaryAux[candidate][i].field_name, addr:("0x" + seg_ptr.toString(16)), startbit:binaryAux[candidate][i].startbit, stopbit:binaryAux[candidate][i].stopbit, rel:binaryAux[candidate][i].rel };
+				ret.labels["0x" + seg_ptr.toString(16)] = { name:binaryAux[candidate][i].field_name, addr:seg_ptr, startbit:binaryAux[candidate][i].startbit, stopbit:binaryAux[candidate][i].stopbit, rel:binaryAux[candidate][i].rel, nwords:firmware[instruction][candidate].nwords };
 			}
 
 			// reg, addr, inm
@@ -793,12 +837,8 @@ function read_text ( context, datosCU, ret )
 				// check size
 				var bstartbit = binaryAux[candidate][i].startbit;
 				var bstopbit = binaryAux[candidate][i].stopbit;
-				var size = bstartbit - bstopbit + 1;
 				var bnum_bits = binaryAux[candidate][i].num_bits ; 
 				var bnum_bits_free_space = binaryAux[candidate][i].num_bits_free_space;
-				var value = binaryAux[candidate][i].field_name;
-				if(bnum_bits_free_space < 0)
-					return langError(context, "'" + value + "' needs " + bnum_bits.length + " bits but there is space for only " + size + " bits");
 			
 				// store field in machine code
 				var machineCodeAux = machineCode.substring(0, machineCode.length-1-bstartbit+bnum_bits_free_space);
@@ -807,7 +847,7 @@ function read_text ( context, datosCU, ret )
 		}
 
 		// process machine code with several words...
-		for(i=0; i<firmware[instruction][candidate].nwords; i++)
+		for(i=firmware[instruction][candidate].nwords-1; i>=0; i--)
                 {
 			ret.assembly["0x" + seg_ptr.toString(16)] = { breakpoint:false, binary:machineCode.substring(i*32, (i+1)*32), source:s, source_original:s } ; 
 			ret.mp["0x" + seg_ptr.toString(16)] = machineCode.substring(i*32, (i+1)*32) ;
@@ -913,10 +953,13 @@ function simlang_compile (text, datosCU)
 			return langError(context, "Label '" + ret.labels[i].name + "' used but not defined in the assembly code");
 		}	
 
-		// Get the word in memory where the label is used
-		var machineCode = ret.mp[ret.labels[i].addr];	
-
-		// TODO: consider two words instruction 
+		// Get the words in memory (machine code) where the label is used
+		var machineCode = "";
+		var auxAddr = ret.labels[i].addr;		
+		for(j=0; j<ret.labels[i].nwords; j++){
+			machineCode = ret.mp["0x" + auxAddr.toString(16)] + machineCode;
+			auxAddr += 4;
+		}
 
 		var size = ret.labels[i].startbit-ret.labels[i].stopbit+1;
 
@@ -942,8 +985,13 @@ function simlang_compile (text, datosCU)
 		var machineCodeAux = machineCode.substring(0, machineCode.length-1-ret.labels[i].startbit+num_bits_free_space);
 		machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length-ret.labels[i].stopbit);
 
-		// Update the machineCode
-		ret.mp[ret.labels[i].addr] = machineCode; 
+		// process machine code with several words...
+		auxAddr = ret.labels[i].addr;
+		for(j=ret.labels[i].nwords-1; j>=0; j--)
+                {
+			ret.mp["0x" + auxAddr.toString(16)] = machineCode.substring(j*32, (j+1)*32) ;
+                	auxAddr += 4 ;
+		}
 	 }	 
 
 	 return ret;

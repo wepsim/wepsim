@@ -251,7 +251,7 @@
     function load_firmware_from_example ( )
     {
 	var xmlhttp = new XMLHttpRequest();
-	var url = "examples/exampleMicrocode.txt?time=20160717c" ;
+	var url = "examples/exampleMicrocode.txt?time=20160718c" ;
 
 	xmlhttp.onreadystatechange=function() {
 					// if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
@@ -1092,7 +1092,7 @@
 										      var cur = cm.getCursor();
 										      var result = new Array();
 										      for (var i=0; i<simware.firmware.length; i++)
-											   result.push(simware.firmware[i].signature);
+											   result.push(simware.firmware[i].signature); // TODO: signature user
 										      return { list: result, from: cur, to: cur };
 										    });
 								  }
