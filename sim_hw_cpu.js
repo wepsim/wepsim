@@ -242,7 +242,7 @@
 
 	/* TRI-STATES */
 	sim_signals["TA"]  = { name: "TA",  visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-			       behavior: ["NOP", "MV BUS_AB REG_MAR"],           
+			       behavior: ["NOP", "MV BUS_AB REG_MAR; MOVE_BITSE A1A0 0 2 BUS_AB 0; FIRE A1A0"],
 			       fire_name: ['svg_p:text3091'], 
 			       draw_data: [['svg_p:path3089', 'svg_p:path3597', 'svg_p:path3513', 'svg_p:path3601', 'svg_p:path3187', 'svg_p:path3087', 'svg_p:path2995']], 
 			       draw_name: [['svg_p:path3085']] };

@@ -126,6 +126,7 @@
                                                    {
 						      var value   = 0;
 						      var address = sim_states[s_expr[1]].value ;
+                                                          address = address & 0xFFFFFFFC;
 						      if (typeof MP[address] != "undefined") {
 						   	  value = MP[address];
 						      }
@@ -139,6 +140,7 @@
                                          operation: function (s_expr) {
 						      var value   = sim_states[s_expr[2]].value ;
 						      var address = sim_states[s_expr[1]].value ;
+                                                          address = address & 0xFFFFFFFC;
 						      MP[address] = value ;
 				                      show_memories('MP', MP, address) ;
                                                     }
