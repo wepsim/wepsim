@@ -333,10 +333,12 @@ function loadFirmware (text)
 
 	       var firma = "";
 	       var firmaGlobal= "";
+	       var firmaUsuario= "";
 	       var numeroCampos = 0;
 	       var campos = new Array();
 
 	       firma = firma + getToken(context)  + ',';
+	       firmaUsuario = getToken(context) + " ";
 	       nextToken(context);
 
                // match optional ,
@@ -407,8 +409,10 @@ function loadFirmware (text)
 	       }
 
 	       firma = firma.substr(0, firma.length-1);
+	       firmaUsuario = firmaUsuario.substr(0, firmaUsuario.length-1);
 	       instruccionAux["signature"] = firma;
                instruccionAux["signatureGlobal"] = firma;
+	       instruccionAux["signatureUser"] = firmaUsuario;
 
 // li reg val {
 //             *co=000000,*
