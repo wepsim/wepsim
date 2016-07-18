@@ -64,13 +64,13 @@
                                    draw_name: [[], []]};
 
         sim_signals["IO_IE"]    = { name: "IO_IE",    visible: true, type: "L", value: 1, default_value: 1, nbits: "1", 
-                                    behavior: ["NOP", "IO_CHK_I CLK INT INTA"],
+                                    behavior: ["NOP", "IO_CHK_I CLK INT INTV"],
                                     fire_name: [], 
                                     draw_data: [[], []], 
                                     draw_name: [[], []] };
 
         sim_signals["INTA"]     = { name: "INTA",    visible: true, type: "L", value: 1, default_value: 0, nbits: "1", 
-                                    behavior: ["NOP", "INTA CLK INT INTA BUS_DB INTV"],
+                                    behavior: ["NOP", "INTA CLK INT INTA BUS_DB INTV; FIRE BW"],
                                     fire_name: ['svg_p:text3785-0-6-0-5-5-1-1'], 
                                     draw_data: [[], ['svg_p:path3807', 'svg_p:path3737']], 
                                     draw_name: [[], []] };
@@ -122,12 +122,12 @@
                                       };
 
         syntax_behavior["IO_CHK_I"] = { nparameters: 4, 
-                                        types: ["E", "E", "S"],
+                                        types: ["E", "E", "E"],
                                         operation: function (s_expr) 
                                                    {
                                                       var clk = sim_states[s_expr[1]].value() ;
 
-						      for (var i=0; i<IO_INT_FACTORY.length; i++)
+						      for (var i=IO_INT_FACTORY.length-1; i>=0; i--)
                                                       {
                                                            if (IO_INT_FACTORY[i].period() == 0)
  							       continue;
@@ -145,6 +145,7 @@
                                                               sim_events["io"][clk].push(i) ;
 
                                                               sim_states[s_expr[2]].value = 1 ; // ['INT']=1
+                                                              sim_states[s_expr[3]].value = i ; // ['INTV']=i
                                                            }
                                                       }
                                                    }
@@ -156,31 +157,28 @@
                                                    {
                                                       var clk = sim_states[s_expr[1]].value() ;
                                                       if (typeof sim_events["io"][clk] != "undefined") 
-						      {
-                                                          sim_states[s_expr[4]].value = sim_states[s_expr[5]].value ;
+                                                      {
+                                                          sim_states[s_expr[4]].value = sim_events["io"][clk][0]; // ['BUS_DB'] = i
   							  return ;
                                                       }
 
-                                                      var found = false ;
-						      for (var i=0; i<IO_INT_FACTORY.length; i++)
+						      sim_states[s_expr[2]].value = 0 ; // ['INT']  = 0
+						      sim_states[s_expr[5]].value = 0 ; // ['INTV'] = 0
+
+						      for (var i=0; i<IO_INT_FACTORY.length; i++) 
                                                       {
                                                            if (IO_INT_FACTORY[i].active)
                                                            {
-                                                              if (!found)
-                                                              {
-                                                                  IO_INT_FACTORY[i].active = false ;
-                                                                  sim_states[s_expr[2]].value = 0 ; // ['INT']    = 0
-                                                                  sim_states[s_expr[4]].value = i ; // ['BUS_DB'] = i
-                                                                  sim_states[s_expr[5]].value = i ; // ['INTV']   = i
-                                                                  continue ;
-                                                              }
+                                                               sim_states[s_expr[2]].value = 0;  // ['INT']  = 1
+                                                               sim_states[s_expr[5]].value = i;  // ['INTV'] = i
+							       sim_states[s_expr[4]].value = i ; // ['BUS_DB'] = i
 
-                                                              if (typeof sim_events["io"][clk] == "undefined") {
-                                                                  sim_events["io"][clk] = new Array() ;
-                                                              }
-                                                              sim_events["io"][clk].push(i) ;
+                                                               if (typeof sim_events["io"][clk] == "undefined") 
+                                                                   sim_events["io"][clk] = new Array() ;
+                                                               sim_events["io"][clk].push(i) ;
 
-                                                              sim_states[s_expr[2]].value = 1 ; // ['INT']=1 ... 0?
+							       IO_INT_FACTORY[i].active = false ;
+                                                               break; // stop at first INT
                                                            }
                                                       }
                                                    }
