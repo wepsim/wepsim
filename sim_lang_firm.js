@@ -291,13 +291,13 @@ function loadFirmware (text)
 			continue ;
 		}
 
-// *fetch {
+// *begin {
 //            (XX, Y, BW=11),
 //     fetch: (X2, X0),
 //            (A0, B=0, C=0)
 // }*
 
-               if (isToken(context,"fetch"))
+               if (isToken(context,"begin"))
                {
                    var instruccionAux = new Object();
                    instruccionAux["name"]     = getToken(context) ;
@@ -308,8 +308,8 @@ function loadFirmware (text)
                    if (typeof ret.error != "undefined")
                        return ret ;
 
-                   instruccionAux["signature"]       = "fetch" ;
-		   instruccionAux["signatureGlobal"] = "fetch" ;
+                   instruccionAux["signature"]       = "begin" ;
+		   instruccionAux["signatureGlobal"] = "begin" ;
                    instruccionAux["microcode"]       = ret ;
 		   context.instrucciones.push(instruccionAux);
 
@@ -660,7 +660,7 @@ function loadFirmware (text)
            var found = false ;
            for (var i=0; i<context.instrucciones.length; i++)
            {
-                if (context.instrucciones[i].name == "fetch")
+                if (context.instrucciones[i].name == "begin")
                 {
                     for (var j=0; j<context.instrucciones[i].microcode.length; j++)
                     {
@@ -673,7 +673,7 @@ function loadFirmware (text)
                 }
            }
            if (found === false)
-	       return langError(context, "'fetch' not found") ;
+	       return langError(context, "'begin' not found") ;
 
            // TO RESOLVE labels
 	   var labelsFounded=0;
@@ -768,7 +768,7 @@ function saveFirmware ( SIMWARE )
 		if (typeof SIMWARE.firmware[i].microcode != "undefined")
 		{
 			var addr=SIMWARE.firmware[i]["mc-start"];
-			if (SIMWARE.firmware[i].name!="fetch")
+			if (SIMWARE.firmware[i].name!="begin")
 			{
 				file += '\t' + "{";
 			}
@@ -799,7 +799,7 @@ function saveFirmware ( SIMWARE )
 			}
 
 			file = file.substr(0, file.length-1);
-			if (SIMWARE.firmware[i].name!="fetch")
+			if (SIMWARE.firmware[i].name!="begin")
 			{
 				file += '\n\t}';
 			}
@@ -838,7 +838,7 @@ function decode_instruction ( binstruction )
     var oinstruction = null ;
     for (var fi in FIRMWARE['firmware'])
     {
-         if (FIRMWARE.firmware[fi].name == "fetch") 
+         if (FIRMWARE.firmware[fi].name == "begin") 
          {
              continue ;
          }

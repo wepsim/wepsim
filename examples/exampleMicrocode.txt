@@ -1,4 +1,4 @@
-fetch
+begin
 {
                     (A0=0, B=1, C=1, MADDR=fetch),
                     # push PC
