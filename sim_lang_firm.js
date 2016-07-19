@@ -271,6 +271,7 @@ function loadFirmware (text)
 						nextToken(context);
 				}
 			 	nextToken(context);
+				pseudoInitial.signature = pseudoInitial.signature.substr(0, pseudoInitial.signature.length-1); 
 				pseudoInstructionAux["initial"]=pseudoInitial;	
 				var contPseudoFinish=0;
 

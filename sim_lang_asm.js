@@ -915,16 +915,17 @@ function simlang_compile (text, datosCU)
 	   context.pseudoInstructions	= new Array();
 	   context.stackRegister	= null ;
 	   context.firmware = new Object() ;
+	   context.pseudoInstructions = new Object();
 	   
 	   // fill firmware
 	   for (i=0; i<datosCU.firmware.length; i++)
            {
 		var aux = datosCU.firmware[i];
 
-	   	if (typeof context.firmware[datosCU.firmware[i].name] == "undefined")
-	   	    context.firmware[datosCU.firmware[i].name] = new Array();
+	   	if (typeof context.firmware[aux.name] == "undefined")
+	   	    context.firmware[aux.name] = new Array();
 
-	   	context.firmware[datosCU.firmware[i].name].push({ name:aux.name,
+	   	context.firmware[aux.name].push({ name:aux.name,
 							  nwords:parseInt(aux.nwords), 
 							  co:(typeof aux.co != "undefined" ? aux.co : false),
 							  cop:(typeof aux.cop != "undefined" ? aux.cop : false),
@@ -932,6 +933,17 @@ function simlang_compile (text, datosCU)
 							  signature:aux.signature,
 							  signatureGlobal:aux.signatureGlobal,
 							  signatureUser:(typeof aux.signatureUser != "undefined" ? aux.signatureUser : aux.name )  });
+	   }
+	
+	   // fill pseudoinstructions
+	   for (i=0; i<datosCU.pseudoInstructions.length; i++)
+	   {
+		var aux = datosCU.pseudoInstructions[i];
+
+		if (typeof context.pseudoInstructions[aux.initial.name] == "undefined")
+		    context.pseudoInstructions[aux.initial.name] = new Array();
+
+                context.pseudoInstructions[aux.initial.name].push({ name:aux.initial.name });
 	   }
 
            var ret = new Object(); 
