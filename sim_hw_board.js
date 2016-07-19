@@ -46,7 +46,7 @@
                                        types: ["S"],
                                        operation: function(s_expr)
                                                   {
-                                                      console.log(s_expr[1] + ': ' + sim_signals[s_expr[1]].value);
+                                                      console.log(s_expr[1] + ': 0x' + sim_signals[s_expr[1]].value.toString(16));
                                                   }
                                      };
 
@@ -55,7 +55,7 @@
                                        types: ["E"],
                                        operation: function(s_expr)
                                                   {
-                                                      console.log(s_expr[1] + ': ' + sim_states[s_expr[1]].value);
+                                                      console.log(s_expr[1] + ': 0x' + sim_states[s_expr[1]].value.toString(16));
                                                   }
                                      };
 

@@ -215,7 +215,7 @@ lb reg1 (reg2) {
             }
 }
 
-lw reg1 reg2(reg3)
+lw reg1 reg2+(reg3)
 {
             co=100000,
             nwords=1,
