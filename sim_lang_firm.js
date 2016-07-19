@@ -351,21 +351,31 @@ function loadFirmware (text)
 	           while (isToken(context, ',')) 
 			  nextToken(context);
 
+		   var plus_found = false;
+
                    // match optional FIELD
 		   if ( !isToken(context, ",") && !isToken(context, "(") && !isToken(context, ")") )
                    {
 		       var campoAux = new Object();
-		       campoAux["name"] = getToken(context) ;
+		       var auxValue = getToken(context);
+		       
+		       if(auxValue[auxValue.length-1] == "+"){
+				auxValue = auxValue.substring(0,auxValue.length-1);
+				plus_found = true;
+		       }
+
+		       campoAux["name"] = auxValue ;
 		       campos.push(campoAux);
 		       numeroCampos++;
-		       firma = firma + getToken(context) ;
+		       firma = firma + auxValue ;
+		       firmaUsuario = firmaUsuario + auxValue;
 		       nextToken(context);
 
 		       if (numeroCampos > 100)
 			   return langError(context, "more than 100 fields in a single instruction.") ;
-		       if (getToken(context) == "co")
+		       if (auxValue == "co")
 			   return langError(context, "instruction field has 'co' as name.") ;
-		       if (getToken(context) == "nwords")
+		       if (auxValue == "nwords")
 			   return langError(context, "instruction field has 'nwords' as name.") ;
 		   } 
 
@@ -373,6 +383,10 @@ function loadFirmware (text)
 		   if (isToken(context, "(")) 
                    {
 		           firma = firma + ',(';
+
+			   if(plus_found) firmaUsuario = firmaUsuario + '(';
+			   else	firmaUsuario = firmaUsuario + ' (';
+
 		           nextToken(context);
 
 			   if ( !isToken(context, ",") && !isToken(context, "(") && !isToken(context, ")") )
@@ -383,6 +397,8 @@ function loadFirmware (text)
 			       numeroCampos++;
 
 			       firma = firma + getToken(context) ;
+			       firmaUsuario = firmaUsuario + getToken(context);			       
+
 			       nextToken(context);
 			   }
 			   else
@@ -395,6 +411,8 @@ function loadFirmware (text)
 			   if (isToken(context,")"))
 			   {
 				firma = firma + ')';
+				firmaUsuario = firmaUsuario + ')';
+
   				nextToken(context);
 			   }
 			   else
@@ -406,6 +424,7 @@ function loadFirmware (text)
                    }
 
 	           firma = firma + ',';
+		   firmaUsuario = firmaUsuario + ' ';
 	       }
 
 	       firma = firma.substr(0, firma.length-1);
