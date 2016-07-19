@@ -8,8 +8,6 @@
    msginEx: .asciiz "Bad instruction code."
 
 .ktext
-            b kmain  # TODO: from start of ktext to kmain
-
   print3:
      loop1: lb   $27 ($26)
             li   $1 0
@@ -28,9 +26,6 @@
 
   rtinEx:   la   $26 msginEx
             b    print3
-
-  kmain:    jal  main
-
 
 .data
        w1: .word -1,2,3

@@ -186,7 +186,7 @@ function get_candidate(advance, instruction){
 			} 
 		}	
 	}
-	return parseInt(candidate);
+	return candidate ? parseInt(candidate) : candidate;
 }
 
 /*
@@ -229,7 +229,7 @@ function read_data ( context, datosCU, ret )
 		      var tag = possible_tag.substring(0, possible_tag.length-1); 
    		      if(!isValidTag(tag))
 			  return langError(context, "A tag must follow an alphanumeric format (starting with a letter) but found '" + tag + "' instead");
-		      if(context.firmware[tag])
+		      if(context.firmware[tag] || context.pseudoInstructions[tag])
 			  return langError(context, "A tag can not have the same name as an instruction (" + tag + ")");
 	
 		      // Store tag
@@ -278,7 +278,7 @@ function read_data ( context, datosCU, ret )
 					if(".word" == possible_datatype){
 						if(!isValidTag(possible_value))
 							return langError(context, "A tag must follow an alphanumeric format (starting with a letter) but found '" + possible_value + "' instead");
-						if(context.firmware[possible_value])
+						if(context.firmware[possible_value] || context.pseudoInstructions[possible_value])
 							return langError(context, "A tag can not have the same name as an instruction (" + possible_value + ")");
 						number = 0;
 						label_found = true;	
@@ -571,9 +571,10 @@ function read_text ( context, datosCU, ret )
            var seg_name = getToken(context) ;
            var seg_ptr  = ret.seg[seg_name].begin ;
 
-	   // get firmware
+	   // get firmware and pseudoinstructions
 	   var firmware = context.firmware;
-	   
+	   var pseudoInstructions = context.pseudoInstructions;  
+ 
 	   // Fill register names
 	   var registers = new Object() ;
 	   for (i=0; i<datosCU.registers.length; i++)
@@ -589,7 +590,7 @@ function read_text ( context, datosCU, ret )
 	   while (!is_directive_segment(getToken(context))) 
            {
 		// check tag or error
-		while (typeof firmware[getToken(context)] == "undefined") 
+		while (typeof firmware[getToken(context)] == "undefined" && typeof pseudoInstructions[getToken(context)] == "undefined") 
                 {
 			var possible_tag = getToken(context);
 	
@@ -600,7 +601,7 @@ function read_text ( context, datosCU, ret )
 		        var tag = possible_tag.substring(0, possible_tag.length-1); 
    		        if(!isValidTag(tag))
 				return langError(context, "A tag must follow an alphanumeric format (starting with a letter) but found '" + tag + "' instead");
-			if(firmware[tag])
+			if(firmware[tag] || pseudoInstructions[tag])
 				return langError(context, "A tag can not have the same name as an instruction (" + tag + ")");
 			// store tag
 			ret.labels2[tag] = "0x" + seg_ptr.toString(16);
@@ -615,6 +616,7 @@ function read_text ( context, datosCU, ret )
                 //
 
 		var signature_fields = [];		// e.g. [[reg,reg], [reg,inm], [reg,addr,inm]]
+		var signature_user_fields = [];		// signature user fields
 		var advance = [];			// array that indicates wheather each signature can be considered or not
 		var binaryAux = [];			// necessary parameters of the fields of each signature
 		var max_length = 0;			// max number of parameters of the signatures
@@ -623,14 +625,17 @@ function read_text ( context, datosCU, ret )
 		for(i=0; i<firmware[instruction].length; i++)
 		{
 			signature_fields[i] = firmware[instruction][i].signature.split(",");
+			signature_user_fields[i] = firmware[instruction][i].signatureUser.split(" ");
 			signature_fields[i].shift();
+			signature_user_fields[i].shift();
 			advance[i] = 1;
 			binaryAux[i] = [];
 			max_length = max(max_length, signature_fields[i].length);
 		}
 
 		// Iterate over fields
-                var s = instruction + " ";
+		var s = [];
+                s[0] = instruction;
 		for (i=0; i<max_length; i++)
                 {
                         // optional ','
@@ -640,7 +645,7 @@ function read_text ( context, datosCU, ret )
 
 			var value = getToken(context);	
 
-			if("TAG" != getTokenType(context) && !firmware[value]) s = s + value + " " ;
+			if("TAG" != getTokenType(context) && !firmware[value]) s[i+1] = value ;
 				
 			// vertical search (different signatures)
 			for(j=0; j<advance.length; j++){
@@ -650,7 +655,7 @@ function read_text ( context, datosCU, ret )
 					continue;
 				if(i >= signature_fields[j].length){
 					// if next token is not instruction or tag
-					if("TAG" != getTokenType(context) && !firmware[value])
+					if("TAG" != getTokenType(context) && !firmware[value] && !pseudoInstructions[value])
 						advance[j] = 0;
 					continue;
 				}
@@ -663,7 +668,7 @@ function read_text ( context, datosCU, ret )
 
 				// check field	
 				switch(field.type)
-                	        {	
+                	        {
 					// 0xFFFF...
 					case "address":
 						if(isOctal(value) !== false){
@@ -700,7 +705,7 @@ function read_text ( context, datosCU, ret )
 								advance[j] = 0;
 								break;
 							}
-							if(firmware[value]){
+							if(firmware[value] || pseudoInstructions[value]){
 								var error = "A tag can not have the same name as an instruction (" + value + ")";
 								advance[j] = 0;
 								break;
@@ -720,7 +725,7 @@ function read_text ( context, datosCU, ret )
 								advance[j] = 0;
 								break;
 							}
-							if(firmware[value]){
+							if(firmware[value] || pseudoInstructions[value]){
 								var error = "A tag can not have the same name as an instruction (" + value + ")";
 								advance[j] = 0;
 								break;
@@ -754,10 +759,7 @@ function read_text ( context, datosCU, ret )
 							break;
 						}
 						if(aux){
-							if(signature_fields[j][i-1] == "inm" && signature_fields[j][i] == "(reg)")
-								s = s.substring(0,s.length-3) + "(" + value + ")" ;
-							else
-								s = s.substring(0,s.length-1) + value + ")";
+							s[i+1] = "(" + value + ")";
 							nextToken(context);
 							if(")" != getToken(context)){
 								var error = "String without end parenthesis ')'";
@@ -786,7 +788,7 @@ function read_text ( context, datosCU, ret )
 		
 			if(sum_array(advance) == 0) break;
 
-			if("TAG" == getTokenType(context) || firmware[value]) break;	
+			if("TAG" == getTokenType(context) || firmware[value] || pseudoInstructions[value]) break;	
 		}
 
 		// get candidate
@@ -794,18 +796,28 @@ function read_text ( context, datosCU, ret )
 		for(i=0; i<advance.length; i++)
 			if(advance[i] == 1) candidate = i;
 
+		// instruction format
+		var format = "";
+		for(i=0; i<firmware[instruction].length; i++){
+			if(i>0 && i<firmware[instruction].length-1)
+				format += ", ";
+			if(i>0 && i==firmware[instruction].length-1)
+				format += " or ";
+			format += "'" + firmware[instruction][i].signatureUser + "'";
+		} 
+
 		// check solution
 		var sum_res = sum_array(advance);	
 		if(sum_res == 0){
 			// No candidate
 			if(advance.length == 1)
-				return langError(context, error); 
-			return langError(context, "Instruction and fields don't match with microprogram");
+				return langError(context, error);	
+			return langError(context, "Instruction and fields don't match with microprogram. Remember that the instruction format should be: " + format);
 		}
 		if(sum_res > 1){
 			// Multiple candidates
 			candidate = get_candidate(advance, firmware[instruction]);
-			if(candidate === false) return langError(context, "Instruction and fields match with more than one microprogram. Please check the microcode");
+			if(candidate === false) return langError(context, "Instruction and fields match with more than one microprogram. Please check the microcode. Currently, the instruction format can be: " + format);
 		}
 	
 		// Machine code (e.g. one word [ 31, 30, 29, ... , 2, 1, 0 ])
@@ -846,10 +858,27 @@ function read_text ( context, datosCU, ret )
 			}
 		}
 
+		// fix instruction format
+		s_def = s[0];
+		for(i=0, j=1; i<signature_user_fields[candidate].length; i++, j++){
+			switch(signature_user_fields[candidate][i]){
+				case "address":
+				case "inm":
+				case "reg":
+				case "(reg)":
+					s_def = s_def + " " + s[j];
+					break;
+				default:
+					s_def = s_def + " " + s[j] + s[j+1];
+					j++;
+			}		
+		}
+
 		// process machine code with several words...
 		for(i=firmware[instruction][candidate].nwords-1; i>=0; i--)
                 {
-			ret.assembly["0x" + seg_ptr.toString(16)] = { breakpoint:false, binary:machineCode.substring(i*32, (i+1)*32), source:s, source_original:s } ; 
+			if(i<firmware[instruction][candidate].nwords-1) s="---";
+			ret.assembly["0x" + seg_ptr.toString(16)] = { breakpoint:false, binary:machineCode.substring(i*32, (i+1)*32), source:s_def, source_original:s_def } ; 
 			ret.mp["0x" + seg_ptr.toString(16)] = machineCode.substring(i*32, (i+1)*32) ;
                 	seg_ptr = seg_ptr + 4 ;
 		}
@@ -887,21 +916,39 @@ function simlang_compile (text, datosCU)
 	   context.pseudoInstructions	= new Array();
 	   context.stackRegister	= null ;
 	   context.firmware = new Object() ;
+	   context.pseudoInstructions = new Object();
 	   
 	   // fill firmware
 	   for (i=0; i<datosCU.firmware.length; i++)
            {
 		var aux = datosCU.firmware[i];
 
-	   	if (typeof context.firmware[datosCU.firmware[i].name] == "undefined")
-	   	    context.firmware[datosCU.firmware[i].name] = new Array();
+	   	if (typeof context.firmware[aux.name] == "undefined")
+	   	    context.firmware[aux.name] = new Array();
 
-	   	context.firmware[datosCU.firmware[i].name].push({ name:aux.name,
+	   	context.firmware[aux.name].push({ name:aux.name,
 							  nwords:parseInt(aux.nwords), 
 							  co:(typeof aux.co != "undefined" ? aux.co : false),
 							  cop:(typeof aux.cop != "undefined" ? aux.cop : false),
 							  fields:(typeof aux.fields != "undefined" ? aux.fields : false),
-							  signature:aux.signature });
+							  signature:aux.signature,
+							  signatureGlobal:aux.signatureGlobal,
+							  signatureUser:(typeof aux.signatureUser != "undefined" ? aux.signatureUser : aux.name )  });
+	   }
+	
+	   // fill pseudoinstructions
+	   for (i=0; i<datosCU.pseudoInstructions.length; i++)
+	   {
+		var initial = datosCU.pseudoInstructions[i].initial;
+		var finish = datosCU.pseudoInstructions[i].finish;	
+
+		if (typeof context.pseudoInstructions[initial.name] == "undefined")
+		    context.pseudoInstructions[initial.name] = new Array();
+
+                context.pseudoInstructions[initial.name].push({ name:initial.name, 
+								fields:(typeof initial.fields != "undefined" ? initial.fields : false),
+								signature:initial.signature,
+								finish:finish.signature });
 	   }
 
            var ret = new Object(); 
@@ -949,7 +996,6 @@ function simlang_compile (text, datosCU)
 
 		// Check if the label exists
 		if(typeof value === "undefined"){
-			context.t = 20;
 			return langError(context, "Label '" + ret.labels[i].name + "' used but not defined in the assembly code");
 		}	
 
