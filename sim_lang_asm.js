@@ -610,14 +610,22 @@ function read_text ( context, datosCU, ret )
 		}
 
 		var instruction = getToken(context);
-		
+		var isPseudo = false;	
+
+		var signature_fields = [];		// e.g. [[reg,reg], [reg,inm], [reg,addr,inm]]
+		var advance = [];			// array that indicates wheather each signature can be considered or not
+	
+		// check if pseudoinstruction
+		if(pseudoInstructions[instruction]){
+			signature_fields[i] = pseudoInstructions[instruction][i].signature.split(",");
+			isPseudo = true;
+		}
+	
                 //
                 // *li, $1*, 1
                 //
 
-		var signature_fields = [];		// e.g. [[reg,reg], [reg,inm], [reg,addr,inm]]
 		var signature_user_fields = [];		// signature user fields
-		var advance = [];			// array that indicates wheather each signature can be considered or not
 		var binaryAux = [];			// necessary parameters of the fields of each signature
 		var max_length = 0;			// max number of parameters of the signatures
 
@@ -811,8 +819,8 @@ function read_text ( context, datosCU, ret )
 		if(sum_res == 0){
 			// No candidate
 			if(advance.length == 1)
-				return langError(context, error);	
-			return langError(context, "Instruction and fields don't match with microprogram. Remember that the instruction format should be: " + format);
+				return langError(context, error + ". Remember that the instruction format has been defined as: " + format);	
+			return langError(context, "Instruction and fields don't match with microprogram. Remember that the instruction formats have been defined as: " + format);
 		}
 		if(sum_res > 1){
 			// Multiple candidates
@@ -877,7 +885,7 @@ function read_text ( context, datosCU, ret )
 		// process machine code with several words...
 		for(i=firmware[instruction][candidate].nwords-1; i>=0; i--)
                 {
-			if(i<firmware[instruction][candidate].nwords-1) s="---";
+			if(i<firmware[instruction][candidate].nwords-1) s_def="---";
 			ret.assembly["0x" + seg_ptr.toString(16)] = { breakpoint:false, binary:machineCode.substring(i*32, (i+1)*32), source:s_def, source_original:s_def } ; 
 			ret.mp["0x" + seg_ptr.toString(16)] = machineCode.substring(i*32, (i+1)*32) ;
                 	seg_ptr = seg_ptr + 4 ;
