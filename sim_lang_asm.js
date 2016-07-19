@@ -186,7 +186,7 @@ function get_candidate(advance, instruction){
 			} 
 		}	
 	}
-	return parseInt(candidate);
+	return candidate ? parseInt(candidate) : candidate;
 }
 
 /*
@@ -633,7 +633,8 @@ function read_text ( context, datosCU, ret )
 		}
 
 		// Iterate over fields
-                var s = instruction + " ";
+		var s = [];
+                s[0] = instruction;
 		for (i=0; i<max_length; i++)
                 {
                         // optional ','
@@ -643,7 +644,7 @@ function read_text ( context, datosCU, ret )
 
 			var value = getToken(context);	
 
-			if("TAG" != getTokenType(context) && !firmware[value]) s = s + value + " " ;
+			if("TAG" != getTokenType(context) && !firmware[value]) s[i+1] = value ;
 				
 			// vertical search (different signatures)
 			for(j=0; j<advance.length; j++){
@@ -666,7 +667,7 @@ function read_text ( context, datosCU, ret )
 
 				// check field	
 				switch(field.type)
-                	        {	
+                	        {
 					// 0xFFFF...
 					case "address":
 						if(isOctal(value) !== false){
@@ -757,10 +758,7 @@ function read_text ( context, datosCU, ret )
 							break;
 						}
 						if(aux){
-							if(signature_fields[j][i-1] == "inm" && signature_fields[j][i] == "(reg)")
-								s = s.substring(0,s.length-3) + "(" + value + ")" ;
-							else
-								s = s.substring(0,s.length-1) + value + ")";
+							s[i+1] = "(" + value + ")";
 							nextToken(context);
 							if(")" != getToken(context)){
 								var error = "String without end parenthesis ')'";
@@ -797,18 +795,28 @@ function read_text ( context, datosCU, ret )
 		for(i=0; i<advance.length; i++)
 			if(advance[i] == 1) candidate = i;
 
+		// instruction format
+		var format = "";
+		for(i=0; i<firmware[instruction].length; i++){
+			if(i>0 && i<firmware[instruction].length-1)
+				format += ", ";
+			if(i>0 && i==firmware[instruction].length-1)
+				format += " or ";
+			format += "'" + firmware[instruction][i].signatureUser + "'";
+		} 
+
 		// check solution
 		var sum_res = sum_array(advance);	
 		if(sum_res == 0){
 			// No candidate
 			if(advance.length == 1)
-				return langError(context, error); 
-			return langError(context, "Instruction and fields don't match with microprogram");
+				return langError(context, error);	
+			return langError(context, "Instruction and fields don't match with microprogram. Remember that the instruction format should be: " + format);
 		}
 		if(sum_res > 1){
 			// Multiple candidates
 			candidate = get_candidate(advance, firmware[instruction]);
-			if(candidate === false) return langError(context, "Instruction and fields match with more than one microprogram. Please check the microcode");
+			if(candidate === false) return langError(context, "Instruction and fields match with more than one microprogram. Please check the microcode. Currently, the instruction format can be: " + format);
 		}
 	
 		// Machine code (e.g. one word [ 31, 30, 29, ... , 2, 1, 0 ])
@@ -849,10 +857,27 @@ function read_text ( context, datosCU, ret )
 			}
 		}
 
+		// fix instruction format
+		s_def = s[0];
+		for(i=0, j=1; i<signature_user_fields[candidate].length; i++, j++){
+			switch(signature_user_fields[candidate][i]){
+				case "address":
+				case "inm":
+				case "reg":
+				case "(reg)":
+					s_def = s_def + " " + s[j];
+					break;
+				default:
+					s_def = s_def + " " + s[j] + s[j+1];
+					j++;
+			}		
+		}
+
 		// process machine code with several words...
 		for(i=firmware[instruction][candidate].nwords-1; i>=0; i--)
                 {
-			ret.assembly["0x" + seg_ptr.toString(16)] = { breakpoint:false, binary:machineCode.substring(i*32, (i+1)*32), source:s, source_original:s } ; 
+			if(i<firmware[instruction][candidate].nwords-1) s="---";
+			ret.assembly["0x" + seg_ptr.toString(16)] = { breakpoint:false, binary:machineCode.substring(i*32, (i+1)*32), source:s_def, source_original:s_def } ; 
 			ret.mp["0x" + seg_ptr.toString(16)] = machineCode.substring(i*32, (i+1)*32) ;
                 	seg_ptr = seg_ptr + 4 ;
 		}
