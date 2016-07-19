@@ -949,7 +949,6 @@ function simlang_compile (text, datosCU)
 
 		// Check if the label exists
 		if(typeof value === "undefined"){
-			context.t = 20;
 			return langError(context, "Label '" + ret.labels[i].name + "' used but not defined in the assembly code");
 		}	
 

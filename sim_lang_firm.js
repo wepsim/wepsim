@@ -580,10 +580,11 @@ function loadFirmware (text)
 	           campos[camposInsertados]["type"] = getToken(context) ;
 	           firma = firma.replace("," + campos[camposInsertados]["name"], "," + campos[camposInsertados]["type"]);
 	           firma = firma.replace("(" + campos[camposInsertados]["name"], "(" + campos[camposInsertados]["type"]);
-	           firma = firma.replace(")" + campos[camposInsertados]["name"], ")" + campos[camposInsertados]["type"]);
-                   
-                   
+	           firma = firma.replace(")" + campos[camposInsertados]["name"], ")" + campos[camposInsertados]["type"]); 
+		   firmaUsuario = firmaUsuario.replace(campos[camposInsertados]["name"], campos[camposInsertados]["type"]);                  
+ 
 	           instruccionAux["signature"] = firma;
+		   instruccionAux["signatureUser"] = firmaUsuario;
 	           firmaGlobal = firma.replace("address","num");
 	           firmaGlobal = firmaGlobal.replace("inm" , "num");
 	           instruccionAux["signatureGlobal"] = firmaGlobal;
