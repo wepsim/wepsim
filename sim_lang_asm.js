@@ -229,7 +229,7 @@ function read_data ( context, datosCU, ret )
 		      var tag = possible_tag.substring(0, possible_tag.length-1); 
    		      if(!isValidTag(tag))
 			  return langError(context, "A tag must follow an alphanumeric format (starting with a letter) but found '" + tag + "' instead");
-		      if(context.firmware[tag])
+		      if(context.firmware[tag] || context.pseudoInstructions[tag])
 			  return langError(context, "A tag can not have the same name as an instruction (" + tag + ")");
 	
 		      // Store tag
@@ -278,7 +278,7 @@ function read_data ( context, datosCU, ret )
 					if(".word" == possible_datatype){
 						if(!isValidTag(possible_value))
 							return langError(context, "A tag must follow an alphanumeric format (starting with a letter) but found '" + possible_value + "' instead");
-						if(context.firmware[possible_value])
+						if(context.firmware[possible_value] || context.pseudoInstructions[possible_value])
 							return langError(context, "A tag can not have the same name as an instruction (" + possible_value + ")");
 						number = 0;
 						label_found = true;	
@@ -571,9 +571,10 @@ function read_text ( context, datosCU, ret )
            var seg_name = getToken(context) ;
            var seg_ptr  = ret.seg[seg_name].begin ;
 
-	   // get firmware
+	   // get firmware and pseudoinstructions
 	   var firmware = context.firmware;
-	   
+	   var pseudoInstructions = context.pseudoInstructions;  
+ 
 	   // Fill register names
 	   var registers = new Object() ;
 	   for (i=0; i<datosCU.registers.length; i++)
@@ -589,7 +590,7 @@ function read_text ( context, datosCU, ret )
 	   while (!is_directive_segment(getToken(context))) 
            {
 		// check tag or error
-		while (typeof firmware[getToken(context)] == "undefined") 
+		while (typeof firmware[getToken(context)] == "undefined" && typeof pseudoInstructions[getToken(context)] == "undefined") 
                 {
 			var possible_tag = getToken(context);
 	
@@ -600,7 +601,7 @@ function read_text ( context, datosCU, ret )
 		        var tag = possible_tag.substring(0, possible_tag.length-1); 
    		        if(!isValidTag(tag))
 				return langError(context, "A tag must follow an alphanumeric format (starting with a letter) but found '" + tag + "' instead");
-			if(firmware[tag])
+			if(firmware[tag] || pseudoInstructions[tag])
 				return langError(context, "A tag can not have the same name as an instruction (" + tag + ")");
 			// store tag
 			ret.labels2[tag] = "0x" + seg_ptr.toString(16);
@@ -654,7 +655,7 @@ function read_text ( context, datosCU, ret )
 					continue;
 				if(i >= signature_fields[j].length){
 					// if next token is not instruction or tag
-					if("TAG" != getTokenType(context) && !firmware[value])
+					if("TAG" != getTokenType(context) && !firmware[value] && !pseudoInstructions[value])
 						advance[j] = 0;
 					continue;
 				}
@@ -704,7 +705,7 @@ function read_text ( context, datosCU, ret )
 								advance[j] = 0;
 								break;
 							}
-							if(firmware[value]){
+							if(firmware[value] || pseudoInstructions[value]){
 								var error = "A tag can not have the same name as an instruction (" + value + ")";
 								advance[j] = 0;
 								break;
@@ -724,7 +725,7 @@ function read_text ( context, datosCU, ret )
 								advance[j] = 0;
 								break;
 							}
-							if(firmware[value]){
+							if(firmware[value] || pseudoInstructions[value]){
 								var error = "A tag can not have the same name as an instruction (" + value + ")";
 								advance[j] = 0;
 								break;
@@ -787,7 +788,7 @@ function read_text ( context, datosCU, ret )
 		
 			if(sum_array(advance) == 0) break;
 
-			if("TAG" == getTokenType(context) || firmware[value]) break;	
+			if("TAG" == getTokenType(context) || firmware[value] || pseudoInstructions[value]) break;	
 		}
 
 		// get candidate
@@ -938,12 +939,16 @@ function simlang_compile (text, datosCU)
 	   // fill pseudoinstructions
 	   for (i=0; i<datosCU.pseudoInstructions.length; i++)
 	   {
-		var aux = datosCU.pseudoInstructions[i];
+		var initial = datosCU.pseudoInstructions[i].initial;
+		var finish = datosCU.pseudoInstructions[i].finish;	
 
-		if (typeof context.pseudoInstructions[aux.initial.name] == "undefined")
-		    context.pseudoInstructions[aux.initial.name] = new Array();
+		if (typeof context.pseudoInstructions[initial.name] == "undefined")
+		    context.pseudoInstructions[initial.name] = new Array();
 
-                context.pseudoInstructions[aux.initial.name].push({ name:aux.initial.name });
+                context.pseudoInstructions[initial.name].push({ name:initial.name, 
+								fields:(typeof initial.fields != "undefined" ? initial.fields : false),
+								signature:initial.signature,
+								finish:finish.signature });
 	   }
 
            var ret = new Object(); 
