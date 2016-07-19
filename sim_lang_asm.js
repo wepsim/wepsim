@@ -615,6 +615,7 @@ function read_text ( context, datosCU, ret )
                 //
 
 		var signature_fields = [];		// e.g. [[reg,reg], [reg,inm], [reg,addr,inm]]
+		var signature_user_fields = [];		// signature user fields
 		var advance = [];			// array that indicates wheather each signature can be considered or not
 		var binaryAux = [];			// necessary parameters of the fields of each signature
 		var max_length = 0;			// max number of parameters of the signatures
@@ -623,7 +624,9 @@ function read_text ( context, datosCU, ret )
 		for(i=0; i<firmware[instruction].length; i++)
 		{
 			signature_fields[i] = firmware[instruction][i].signature.split(",");
+			signature_user_fields[i] = firmware[instruction][i].signatureUser.split(" ");
 			signature_fields[i].shift();
+			signature_user_fields[i].shift();
 			advance[i] = 1;
 			binaryAux[i] = [];
 			max_length = max(max_length, signature_fields[i].length);
@@ -901,7 +904,9 @@ function simlang_compile (text, datosCU)
 							  co:(typeof aux.co != "undefined" ? aux.co : false),
 							  cop:(typeof aux.cop != "undefined" ? aux.cop : false),
 							  fields:(typeof aux.fields != "undefined" ? aux.fields : false),
-							  signature:aux.signature });
+							  signature:aux.signature,
+							  signatureGlobal:aux.signatureGlobal,
+							  signatureUser:(typeof aux.signatureUser != "undefined" ? aux.signatureUser : aux.name )  });
 	   }
 
            var ret = new Object(); 
