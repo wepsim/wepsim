@@ -271,6 +271,7 @@ function loadFirmware (text)
 						nextToken(context);
 				}
 			 	nextToken(context);
+				pseudoInitial.signature = pseudoInitial.signature.substr(0, pseudoInitial.signature.length-1); 
 				pseudoInstructionAux["initial"]=pseudoInitial;	
 				var contPseudoFinish=0;
 
@@ -291,13 +292,13 @@ function loadFirmware (text)
 			continue ;
 		}
 
-// *fetch {
+// *begin {
 //            (XX, Y, BW=11),
 //     fetch: (X2, X0),
 //            (A0, B=0, C=0)
 // }*
 
-               if (isToken(context,"fetch"))
+               if (isToken(context,"begin"))
                {
                    var instruccionAux = new Object();
                    instruccionAux["name"]     = getToken(context) ;
@@ -308,8 +309,8 @@ function loadFirmware (text)
                    if (typeof ret.error != "undefined")
                        return ret ;
 
-                   instruccionAux["signature"]       = "fetch" ;
-		   instruccionAux["signatureGlobal"] = "fetch" ;
+                   instruccionAux["signature"]       = "begin" ;
+		   instruccionAux["signatureGlobal"] = "begin" ;
                    instruccionAux["microcode"]       = ret ;
 		   context.instrucciones.push(instruccionAux);
 
@@ -333,10 +334,12 @@ function loadFirmware (text)
 
 	       var firma = "";
 	       var firmaGlobal= "";
+	       var firmaUsuario= "";
 	       var numeroCampos = 0;
 	       var campos = new Array();
 
 	       firma = firma + getToken(context)  + ',';
+	       firmaUsuario = getToken(context) + " ";
 	       nextToken(context);
 
                // match optional ,
@@ -349,21 +352,31 @@ function loadFirmware (text)
 	           while (isToken(context, ',')) 
 			  nextToken(context);
 
+		   var plus_found = false;
+
                    // match optional FIELD
 		   if ( !isToken(context, ",") && !isToken(context, "(") && !isToken(context, ")") )
                    {
 		       var campoAux = new Object();
-		       campoAux["name"] = getToken(context) ;
+		       var auxValue = getToken(context);
+		       
+		       if(auxValue[auxValue.length-1] == "+"){
+				auxValue = auxValue.substring(0,auxValue.length-1);
+				plus_found = true;
+		       }
+
+		       campoAux["name"] = auxValue ;
 		       campos.push(campoAux);
 		       numeroCampos++;
-		       firma = firma + getToken(context) ;
+		       firma = firma + auxValue ;
+		       firmaUsuario = firmaUsuario + auxValue;
 		       nextToken(context);
 
 		       if (numeroCampos > 100)
 			   return langError(context, "more than 100 fields in a single instruction.") ;
-		       if (getToken(context) == "co")
+		       if (auxValue == "co")
 			   return langError(context, "instruction field has 'co' as name.") ;
-		       if (getToken(context) == "nwords")
+		       if (auxValue == "nwords")
 			   return langError(context, "instruction field has 'nwords' as name.") ;
 		   } 
 
@@ -371,6 +384,10 @@ function loadFirmware (text)
 		   if (isToken(context, "(")) 
                    {
 		           firma = firma + ',(';
+
+			   if(plus_found) firmaUsuario = firmaUsuario + '(';
+			   else	firmaUsuario = firmaUsuario + ' (';
+
 		           nextToken(context);
 
 			   if ( !isToken(context, ",") && !isToken(context, "(") && !isToken(context, ")") )
@@ -381,6 +398,8 @@ function loadFirmware (text)
 			       numeroCampos++;
 
 			       firma = firma + getToken(context) ;
+			       firmaUsuario = firmaUsuario + getToken(context);			       
+
 			       nextToken(context);
 			   }
 			   else
@@ -393,6 +412,8 @@ function loadFirmware (text)
 			   if (isToken(context,")"))
 			   {
 				firma = firma + ')';
+				firmaUsuario = firmaUsuario + ')';
+
   				nextToken(context);
 			   }
 			   else
@@ -404,11 +425,14 @@ function loadFirmware (text)
                    }
 
 	           firma = firma + ',';
+		   firmaUsuario = firmaUsuario + ' ';
 	       }
 
 	       firma = firma.substr(0, firma.length-1);
+	       firmaUsuario = firmaUsuario.substr(0, firmaUsuario.length-1);
 	       instruccionAux["signature"] = firma;
                instruccionAux["signatureGlobal"] = firma;
+	       instruccionAux["signatureUser"] = firmaUsuario;
 
 // li reg val {
 //             *co=000000,*
@@ -557,10 +581,11 @@ function loadFirmware (text)
 	           campos[camposInsertados]["type"] = getToken(context) ;
 	           firma = firma.replace("," + campos[camposInsertados]["name"], "," + campos[camposInsertados]["type"]);
 	           firma = firma.replace("(" + campos[camposInsertados]["name"], "(" + campos[camposInsertados]["type"]);
-	           firma = firma.replace(")" + campos[camposInsertados]["name"], ")" + campos[camposInsertados]["type"]);
-                   
-                   
+	           firma = firma.replace(")" + campos[camposInsertados]["name"], ")" + campos[camposInsertados]["type"]); 
+		   firmaUsuario = firmaUsuario.replace(campos[camposInsertados]["name"], campos[camposInsertados]["type"]);                  
+ 
 	           instruccionAux["signature"] = firma;
+		   instruccionAux["signatureUser"] = firmaUsuario;
 	           firmaGlobal = firma.replace("address","num");
 	           firmaGlobal = firmaGlobal.replace("inm" , "num");
 	           instruccionAux["signatureGlobal"] = firmaGlobal;
@@ -656,7 +681,7 @@ function loadFirmware (text)
            var found = false ;
            for (var i=0; i<context.instrucciones.length; i++)
            {
-                if (context.instrucciones[i].name == "fetch")
+                if (context.instrucciones[i].name == "begin")
                 {
                     for (var j=0; j<context.instrucciones[i].microcode.length; j++)
                     {
@@ -669,7 +694,7 @@ function loadFirmware (text)
                 }
            }
            if (found === false)
-	       return langError(context, "'fetch' not found") ;
+	       return langError(context, "'begin' not found") ;
 
            // TO RESOLVE labels
 	   var labelsFounded=0;
@@ -764,7 +789,7 @@ function saveFirmware ( SIMWARE )
 		if (typeof SIMWARE.firmware[i].microcode != "undefined")
 		{
 			var addr=SIMWARE.firmware[i]["mc-start"];
-			if (SIMWARE.firmware[i].name!="fetch")
+			if (SIMWARE.firmware[i].name!="begin")
 			{
 				file += '\t' + "{";
 			}
@@ -795,7 +820,7 @@ function saveFirmware ( SIMWARE )
 			}
 
 			file = file.substr(0, file.length-1);
-			if (SIMWARE.firmware[i].name!="fetch")
+			if (SIMWARE.firmware[i].name!="begin")
 			{
 				file += '\n\t}';
 			}
@@ -834,7 +859,7 @@ function decode_instruction ( binstruction )
     var oinstruction = null ;
     for (var fi in FIRMWARE['firmware'])
     {
-         if (FIRMWARE.firmware[fi].name == "fetch") 
+         if (FIRMWARE.firmware[fi].name == "begin") 
          {
              continue ;
          }

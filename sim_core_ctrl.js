@@ -428,7 +428,7 @@
             ROM = new Object() ;
             for (var i=0; i<SIMWARE['firmware'].length; i++)
 	    {
-               if ("fetch" == SIMWARE['firmware'][i]['name']) {
+               if ("begin" == SIMWARE['firmware'][i]['name']) {
                    continue ;
                }
 
@@ -515,18 +515,17 @@
         /* 2) EXECUTION */
         function reset()
         {
+	    var SIMWARE = get_simware() ;
             compute_behavior("RESET") ;
 
-            if (typeof segments['.ktext'] != "undefined") 
-            {
-                set_value(sim_states["REG_PC"], parseInt(segments['.ktext'].begin));
-                show_asmdbg_pc() ;
-            }
-            else if (typeof segments['.text'] != "undefined") 
-            {
-                set_value(sim_states["REG_PC"], parseInt(segments['.text'].begin));
-                show_asmdbg_pc() ;
-            }
+            if ((typeof segments['.ktext'] != "undefined") && (SIMWARE.labels2["kmain"])){
+                    set_value(sim_states["REG_PC"], parseInt(SIMWARE.labels2["kmain"])); 
+                    show_asmdbg_pc() ;
+	    }
+            else if ((typeof segments['.text'] != "undefined") && (SIMWARE.labels2["main"])){
+                    set_value(sim_states["REG_PC"], parseInt(SIMWARE.labels2["main"])); 
+                    show_asmdbg_pc() ;
+	    }
 
 	    if (typeof segments['.stack'] != "undefined")
 	    {
@@ -593,6 +592,18 @@
 
         function execute_instruction ()
         {
+	    var SIMWARE = get_simware();
+
+               if ( 
+                  (! ((typeof segments['.ktext'] != "undefined") && (SIMWARE.labels2["kmain"])) ) &&
+                  (! ((typeof segments['.text'] != "undefined") && (SIMWARE.labels2["main"]))   )
+                )
+                {
+		    alert("labels 'kmain' (in .ktext) or 'main' (in .text) do no exist!");
+                    return false;
+	        }
+
+
                 if ( (typeof segments['.ktext'] == "undefined") &&
                      (typeof segments['.text']  == "undefined") )
                 {

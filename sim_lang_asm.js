@@ -152,9 +152,41 @@ function max( a, b )
 	return a > b ? a : b;
 }
 
+function min( a, b )
+{
+	return a < b ? a : b;
+}
+
 function sum_array( a )
 {
 	return a.reduce(function(a, b) { return a + b; }, 0);
+}
+
+function get_candidate(advance, instruction){
+	var candidate = false;
+	var candidates = new Object();
+	var signatures = new Object();
+	for(i=0; i<advance.length; i++){
+		if(advance[i]){
+			candidates[i] = instruction[i].nwords;
+			signatures[instruction[i].signature] = 0;
+		}
+	}
+	if(Object.keys(signatures).length == 1){
+		var min = false;
+		for(i in candidates){
+			if(min == false){
+				min = candidates[i];
+				candidate = i;
+			}
+			else if(min == candidates[i]) candidate = false;
+			else if(min > candidates[i]){
+				min = candidates[i];
+				candidate = i;
+			} 
+		}	
+	}
+	return candidate ? parseInt(candidate) : candidate;
 }
 
 /*
@@ -197,7 +229,7 @@ function read_data ( context, datosCU, ret )
 		      var tag = possible_tag.substring(0, possible_tag.length-1); 
    		      if(!isValidTag(tag))
 			  return langError(context, "A tag must follow an alphanumeric format (starting with a letter) but found '" + tag + "' instead");
-		      if(context.firmware[tag])
+		      if(context.firmware[tag] || context.pseudoInstructions[tag])
 			  return langError(context, "A tag can not have the same name as an instruction (" + tag + ")");
 	
 		      // Store tag
@@ -246,7 +278,7 @@ function read_data ( context, datosCU, ret )
 					if(".word" == possible_datatype){
 						if(!isValidTag(possible_value))
 							return langError(context, "A tag must follow an alphanumeric format (starting with a letter) but found '" + possible_value + "' instead");
-						if(context.firmware[possible_value])
+						if(context.firmware[possible_value] || context.pseudoInstructions[possible_value])
 							return langError(context, "A tag can not have the same name as an instruction (" + possible_value + ")");
 						number = 0;
 						label_found = true;	
@@ -295,7 +327,7 @@ function read_data ( context, datosCU, ret )
 				
 				// Label as number (later translation)
 				if(label_found)
-					ret.labels["0x" + seg_ptr.toString(16)] = { name:possible_value, addr:("0x" + seg_ptr.toString(16)), startbit:31, stopbit:0, rel:undefined };
+					ret.labels["0x" + seg_ptr.toString(16)] = { name:possible_value, addr:seg_ptr, startbit:31, stopbit:0, rel:undefined, nwords:1 };
 					
 				// Store field in machine code
 				var machineCodeAux = machineCode.substring(0, machineCode.length- 8*(size+byteWord) +num_bits_free_space);
@@ -539,9 +571,10 @@ function read_text ( context, datosCU, ret )
            var seg_name = getToken(context) ;
            var seg_ptr  = ret.seg[seg_name].begin ;
 
-	   // get firmware
+	   // get firmware and pseudoinstructions
 	   var firmware = context.firmware;
-	   
+	   var pseudoInstructions = context.pseudoInstructions;  
+ 
 	   // Fill register names
 	   var registers = new Object() ;
 	   for (i=0; i<datosCU.registers.length; i++)
@@ -557,7 +590,7 @@ function read_text ( context, datosCU, ret )
 	   while (!is_directive_segment(getToken(context))) 
            {
 		// check tag or error
-		while (typeof firmware[getToken(context)] == "undefined") 
+		while (typeof firmware[getToken(context)] == "undefined" && typeof pseudoInstructions[getToken(context)] == "undefined") 
                 {
 			var possible_tag = getToken(context);
 	
@@ -568,7 +601,7 @@ function read_text ( context, datosCU, ret )
 		        var tag = possible_tag.substring(0, possible_tag.length-1); 
    		        if(!isValidTag(tag))
 				return langError(context, "A tag must follow an alphanumeric format (starting with a letter) but found '" + tag + "' instead");
-			if(firmware[tag])
+			if(firmware[tag] || pseudoInstructions[tag])
 				return langError(context, "A tag can not have the same name as an instruction (" + tag + ")");
 			// store tag
 			ret.labels2[tag] = "0x" + seg_ptr.toString(16);
@@ -577,13 +610,22 @@ function read_text ( context, datosCU, ret )
 		}
 
 		var instruction = getToken(context);
-		
+		var isPseudo = false;	
+
+		var signature_fields = [];		// e.g. [[reg,reg], [reg,inm], [reg,addr,inm]]
+		var advance = [];			// array that indicates wheather each signature can be considered or not
+	
+		// check if pseudoinstruction
+		if(pseudoInstructions[instruction]){
+			signature_fields[i] = pseudoInstructions[instruction][i].signature.split(",");
+			isPseudo = true;
+		}
+	
                 //
                 // *li, $1*, 1
                 //
 
-		var signature_fields = [];		// e.g. [[reg,reg], [reg,inm], [reg,addr,inm]]
-		var advance = [];			// array that indicates wheather each signature can be considered or not
+		var signature_user_fields = [];		// signature user fields
 		var binaryAux = [];			// necessary parameters of the fields of each signature
 		var max_length = 0;			// max number of parameters of the signatures
 
@@ -591,14 +633,17 @@ function read_text ( context, datosCU, ret )
 		for(i=0; i<firmware[instruction].length; i++)
 		{
 			signature_fields[i] = firmware[instruction][i].signature.split(",");
+			signature_user_fields[i] = firmware[instruction][i].signatureUser.split(" ");
 			signature_fields[i].shift();
+			signature_user_fields[i].shift();
 			advance[i] = 1;
 			binaryAux[i] = [];
 			max_length = max(max_length, signature_fields[i].length);
 		}
 
 		// Iterate over fields
-                var s = instruction + " ";
+		var s = [];
+                s[0] = instruction;
 		for (i=0; i<max_length; i++)
                 {
                         // optional ','
@@ -608,7 +653,7 @@ function read_text ( context, datosCU, ret )
 
 			var value = getToken(context);	
 
-			if("TAG" != getTokenType(context) && !firmware[value]) s = s + value + " " ;
+			if("TAG" != getTokenType(context) && !firmware[value]) s[i+1] = value ;
 				
 			// vertical search (different signatures)
 			for(j=0; j<advance.length; j++){
@@ -618,7 +663,7 @@ function read_text ( context, datosCU, ret )
 					continue;
 				if(i >= signature_fields[j].length){
 					// if next token is not instruction or tag
-					if("TAG" != getTokenType(context) && !firmware[value])
+					if("TAG" != getTokenType(context) && !firmware[value] && !pseudoInstructions[value])
 						advance[j] = 0;
 					continue;
 				}
@@ -631,7 +676,7 @@ function read_text ( context, datosCU, ret )
 
 				// check field	
 				switch(field.type)
-                	        {	
+                	        {
 					// 0xFFFF...
 					case "address":
 						if(isOctal(value) !== false){
@@ -668,7 +713,7 @@ function read_text ( context, datosCU, ret )
 								advance[j] = 0;
 								break;
 							}
-							if(firmware[value]){
+							if(firmware[value] || pseudoInstructions[value]){
 								var error = "A tag can not have the same name as an instruction (" + value + ")";
 								advance[j] = 0;
 								break;
@@ -688,7 +733,7 @@ function read_text ( context, datosCU, ret )
 								advance[j] = 0;
 								break;
 							}
-							if(firmware[value]){
+							if(firmware[value] || pseudoInstructions[value]){
 								var error = "A tag can not have the same name as an instruction (" + value + ")";
 								advance[j] = 0;
 								break;
@@ -722,10 +767,7 @@ function read_text ( context, datosCU, ret )
 							break;
 						}
 						if(aux){
-							if(signature_fields[j][i-1] == "inm" && signature_fields[j][i] == "(reg)")
-								s = s.substring(0,s.length-3) + "(" + value + ")" ;
-							else
-								s = s.substring(0,s.length-1) + value + ")";
+							s[i+1] = "(" + value + ")";
 							nextToken(context);
 							if(")" != getToken(context)){
 								var error = "String without end parenthesis ')'";
@@ -739,6 +781,14 @@ function read_text ( context, datosCU, ret )
 						return langError(context, "An unknown error ocurred (53)");	
 				}
 
+				// check if bits fit in the space
+				if(advance[j] == 1 && !label_found){
+					if(res[1] < 0){
+					 	var error = "'" + value + "' needs " + res[0].length + " bits but there is space for only " + size + " bits";
+						advance[j] = 0;						
+					}
+				}	
+
 				// store field
 				if(advance[j] == 1)	
 					binaryAux[j][i] = {num_bits:(label_found ? false : res[0]), num_bits_free_space:(label_found ? false : res[1]), startbit:field.startbit, stopbit:field.stopbit, rel:(label_found ? field.address_type : false), islabel:label_found, field_name: value };
@@ -746,38 +796,52 @@ function read_text ( context, datosCU, ret )
 		
 			if(sum_array(advance) == 0) break;
 
-			if("TAG" == getTokenType(context) || firmware[value]) break;	
+			if("TAG" == getTokenType(context) || firmware[value] || pseudoInstructions[value]) break;	
 		}
 
-		// check solution
-		var sum_res = sum_array(advance);	
-		if(sum_res == 0){
-			if(advance.length == 1)
-				return langError(context, error); 
-			return langError(context, "Instruction and fields don't match with microprogram");
-		}
-		if(sum_res > 1) return langError(context, "Instruction and fields match with more than one microprogram");
-
-		// Get candidate
+		// get candidate
 		var candidate;
 		for(i=0; i<advance.length; i++)
 			if(advance[i] == 1) candidate = i;
 
+		// instruction format
+		var format = "";
+		for(i=0; i<firmware[instruction].length; i++){
+			if(i>0 && i<firmware[instruction].length-1)
+				format += ", ";
+			if(i>0 && i==firmware[instruction].length-1)
+				format += " or ";
+			format += "'" + firmware[instruction][i].signatureUser + "'";
+		} 
+
+		// check solution
+		var sum_res = sum_array(advance);	
+		if(sum_res == 0){
+			// No candidate
+			if(advance.length == 1)
+				return langError(context, error + ". Remember that the instruction format has been defined as: " + format);	
+			return langError(context, "Instruction and fields don't match with microprogram. Remember that the instruction formats have been defined as: " + format);
+		}
+		if(sum_res > 1){
+			// Multiple candidates
+			candidate = get_candidate(advance, firmware[instruction]);
+			if(candidate === false) return langError(context, "Instruction and fields match with more than one microprogram. Please check the microcode. Currently, the instruction format can be: " + format);
+		}
+	
 		// Machine code (e.g. one word [ 31, 30, 29, ... , 2, 1, 0 ])
 		var machineCode = "";
-		for (i=0; i<firmware[instruction][0].nwords; i++)
+		for (i=0; i<firmware[instruction][candidate].nwords; i++)
 		     machineCode+="00000000000000000000000000000000";		
 
 		// Generate code (co and cop)	
 		if (firmware[instruction][candidate].co !== false)
                 {
-			machineCode = firmware[instruction][candidate].co + machineCode.substring(6);
+			var machineCodeAux = machineCode.substring(0, machineCode.length - 32);
+			machineCode = machineCodeAux + firmware[instruction][candidate].co + machineCode.substring(machineCode.length-26);
 			if (firmware[instruction][candidate].cop !== false)
                         {
-				var machineCodeAux = machineCode.substring(0,28);
-				machineCode = machineCode.substring(32);
-				machineCodeAux = machineCodeAux + firmware[instruction][candidate].cop;
-				machineCode = machineCodeAux + machineCode;
+				var machineCodeAux = machineCode.substring(0, machineCode.length - 4);
+				machineCode = machineCodeAux + firmware[instruction][candidate].cop;
 			}
 		}
 
@@ -785,7 +849,7 @@ function read_text ( context, datosCU, ret )
 		for(i=0; i<binaryAux[candidate].length; i++){
 			// tag
 			if(binaryAux[candidate][i].islabel){
-				ret.labels["0x" + seg_ptr.toString(16)] = { name:binaryAux[candidate][i].field_name, addr:("0x" + seg_ptr.toString(16)), startbit:binaryAux[candidate][i].startbit, stopbit:binaryAux[candidate][i].stopbit, rel:binaryAux[candidate][i].rel };
+				ret.labels["0x" + seg_ptr.toString(16)] = { name:binaryAux[candidate][i].field_name, addr:seg_ptr, startbit:binaryAux[candidate][i].startbit, stopbit:binaryAux[candidate][i].stopbit, rel:binaryAux[candidate][i].rel, nwords:firmware[instruction][candidate].nwords };
 			}
 
 			// reg, addr, inm
@@ -793,12 +857,8 @@ function read_text ( context, datosCU, ret )
 				// check size
 				var bstartbit = binaryAux[candidate][i].startbit;
 				var bstopbit = binaryAux[candidate][i].stopbit;
-				var size = bstartbit - bstopbit + 1;
 				var bnum_bits = binaryAux[candidate][i].num_bits ; 
 				var bnum_bits_free_space = binaryAux[candidate][i].num_bits_free_space;
-				var value = binaryAux[candidate][i].field_name;
-				if(bnum_bits_free_space < 0)
-					return langError(context, "'" + value + "' needs " + num_bits.length + " bits but there is space for only " + size + " bits");
 			
 				// store field in machine code
 				var machineCodeAux = machineCode.substring(0, machineCode.length-1-bstartbit+bnum_bits_free_space);
@@ -806,10 +866,27 @@ function read_text ( context, datosCU, ret )
 			}
 		}
 
+		// fix instruction format
+		s_def = s[0];
+		for(i=0, j=1; i<signature_user_fields[candidate].length; i++, j++){
+			switch(signature_user_fields[candidate][i]){
+				case "address":
+				case "inm":
+				case "reg":
+				case "(reg)":
+					s_def = s_def + " " + s[j];
+					break;
+				default:
+					s_def = s_def + " " + s[j] + s[j+1];
+					j++;
+			}		
+		}
+
 		// process machine code with several words...
-		for(i=0; i<firmware[instruction][candidate].nwords; i++)
+		for(i=firmware[instruction][candidate].nwords-1; i>=0; i--)
                 {
-			ret.assembly["0x" + seg_ptr.toString(16)] = { breakpoint:false, binary:machineCode.substring(i*32, (i+1)*32), source:s, source_original:s } ; 
+			if(i<firmware[instruction][candidate].nwords-1) s_def="---";
+			ret.assembly["0x" + seg_ptr.toString(16)] = { breakpoint:false, binary:machineCode.substring(i*32, (i+1)*32), source:s_def, source_original:s_def } ; 
 			ret.mp["0x" + seg_ptr.toString(16)] = machineCode.substring(i*32, (i+1)*32) ;
                 	seg_ptr = seg_ptr + 4 ;
 		}
@@ -847,21 +924,39 @@ function simlang_compile (text, datosCU)
 	   context.pseudoInstructions	= new Array();
 	   context.stackRegister	= null ;
 	   context.firmware = new Object() ;
+	   context.pseudoInstructions = new Object();
 	   
 	   // fill firmware
 	   for (i=0; i<datosCU.firmware.length; i++)
            {
 		var aux = datosCU.firmware[i];
 
-	   	if (typeof context.firmware[datosCU.firmware[i].name] == "undefined")
-	   	    context.firmware[datosCU.firmware[i].name] = new Array();
+	   	if (typeof context.firmware[aux.name] == "undefined")
+	   	    context.firmware[aux.name] = new Array();
 
-	   	context.firmware[datosCU.firmware[i].name].push({ name:aux.name,
+	   	context.firmware[aux.name].push({ name:aux.name,
 							  nwords:parseInt(aux.nwords), 
 							  co:(typeof aux.co != "undefined" ? aux.co : false),
 							  cop:(typeof aux.cop != "undefined" ? aux.cop : false),
 							  fields:(typeof aux.fields != "undefined" ? aux.fields : false),
-							  signature:aux.signature });
+							  signature:aux.signature,
+							  signatureGlobal:aux.signatureGlobal,
+							  signatureUser:(typeof aux.signatureUser != "undefined" ? aux.signatureUser : aux.name )  });
+	   }
+	
+	   // fill pseudoinstructions
+	   for (i=0; i<datosCU.pseudoInstructions.length; i++)
+	   {
+		var initial = datosCU.pseudoInstructions[i].initial;
+		var finish = datosCU.pseudoInstructions[i].finish;	
+
+		if (typeof context.pseudoInstructions[initial.name] == "undefined")
+		    context.pseudoInstructions[initial.name] = new Array();
+
+                context.pseudoInstructions[initial.name].push({ name:initial.name, 
+								fields:(typeof initial.fields != "undefined" ? initial.fields : false),
+								signature:initial.signature,
+								finish:finish.signature });
 	   }
 
            var ret = new Object(); 
@@ -909,14 +1004,16 @@ function simlang_compile (text, datosCU)
 
 		// Check if the label exists
 		if(typeof value === "undefined"){
-			context.t = 20;
 			return langError(context, "Label '" + ret.labels[i].name + "' used but not defined in the assembly code");
 		}	
 
-		// Get the word in memory where the label is used
-		var machineCode = ret.mp[ret.labels[i].addr];	
-
-		// TODO: consider two words instruction 
+		// Get the words in memory (machine code) where the label is used
+		var machineCode = "";
+		var auxAddr = ret.labels[i].addr;		
+		for(j=0; j<ret.labels[i].nwords; j++){
+			machineCode = ret.mp["0x" + auxAddr.toString(16)] + machineCode;
+			auxAddr += 4;
+		}
 
 		var size = ret.labels[i].startbit-ret.labels[i].stopbit+1;
 
@@ -942,8 +1039,13 @@ function simlang_compile (text, datosCU)
 		var machineCodeAux = machineCode.substring(0, machineCode.length-1-ret.labels[i].startbit+num_bits_free_space);
 		machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length-ret.labels[i].stopbit);
 
-		// Update the machineCode
-		ret.mp[ret.labels[i].addr] = machineCode; 
+		// process machine code with several words...
+		auxAddr = ret.labels[i].addr;
+		for(j=ret.labels[i].nwords-1; j>=0; j--)
+                {
+			ret.mp["0x" + auxAddr.toString(16)] = machineCode.substring(j*32, (j+1)*32) ;
+                	auxAddr += 4 ;
+		}
 	 }	 
 
 	 return ret;
