@@ -473,10 +473,10 @@
 				draw_data: [[],[]],
 				draw_name: [[],[]] };
 	sim_signals["A1A0"] = { name: "A1A0", visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
-				behavior: ['MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA',
-					   'MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA',
-					   'MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA',
-					   'MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA'],
+				behavior: ['MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; MOVE_BITS RWBWA 0 2 A1A0; FIRE BWA; FIRE SBWA; FIRE RWBWA',
+					   'MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; MOVE_BITS RWBWA 0 2 A1A0; FIRE BWA; FIRE SBWA; FIRE RWBWA',
+					   'MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; MOVE_BITS RWBWA 0 2 A1A0; FIRE BWA; FIRE SBWA; FIRE RWBWA',
+					   'MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; MOVE_BITS RWBWA 0 2 A1A0; FIRE BWA; FIRE SBWA; FIRE RWBWA'],
 				fire_name: ['svg_p:text3603'],
 				draw_data: [[],[]],
 				draw_name: [[],[]] };
