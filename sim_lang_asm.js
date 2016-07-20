@@ -110,34 +110,18 @@ function isChar( n )
 	return false;
 }
 
-function decimal2binary(number, size){
-	if(number < 0){
-		var aux = number*-1;
-		var num_bits = aux.toString(2);
+function decimal2binary(number, size)
+{
+	var num_bits = (number >>> 0).toString(2);
 
-		// calculate free space after including the value
-		var num_bits_free_space = size - num_bits.length;
-		if(num_bits_free_space > 0)
-			var num_bits_free_space = 0;				
-	}
-	else{
-		var num_bits = number.toString(2);
-			
-		// calculate free space after including the value
-		var num_bits_free_space = size - num_bits.length;
-	}
-	
-	// Check errors
-	if(num_bits_free_space < 0)
-		return [num_bits, num_bits_free_space];
+	if (number >= 0)
+            return [num_bits, size-num_bits.length];
 
-	// Negative number --> Ca2	
-	if(number < 0){
-		var num_bits = (number>>>0).toString(2);
-		var num_bits = num_bits.substring(num_bits.length-size); 
-	}
-
-	return [num_bits, num_bits_free_space];
+	num_bits = "1" + num_bits.replace(/^[1]+/g, "");
+	if (num_bits.length>size)
+	    return [num_bits, size-num_bits.length];
+	num_bits = "1".repeat(size-num_bits.length) + num_bits;
+	return [num_bits, size-num_bits.length];
 }
 
 function isValidTag(tag){
@@ -261,17 +245,10 @@ function read_data ( context, datosCU, ret )
 				var number;
 				var label_found = false;
 		
-				// Octal value 072
-				if((number=isOctal(possible_value)) !== false);
-	
-				// Hex value 0xF12
-				else if((number=isHex(possible_value)) !== false);				
-	
-				// Decimal value 634
-				else if((number=isDecimal(possible_value)) !== false);
-
-				// Char value 'a'
-				else if((number=isChar(possible_value)) !== false);		
+				if((number=isOctal(possible_value)) !== false); // Octal value 072
+				else if((number=isHex(possible_value)) !== false); // Hex value 0xF12
+				else if((number=isDecimal(possible_value)) !== false); // Decimal value 634
+				else if((number=isChar(possible_value)) !== false); // Char value 'a'
 
 				// Error	
 				else{
@@ -404,7 +381,7 @@ function read_data ( context, datosCU, ret )
 				case 1:
 					break;
 				case 2:
-					if(byteWord%2==1)
+					if(byteWord & 1 == 1)
 						byteWord++;
 					break;
 				default:
@@ -613,12 +590,19 @@ function read_text ( context, datosCU, ret )
 		var isPseudo = false;	
 
 		var signature_fields = [];		// e.g. [[reg,reg], [reg,inm], [reg,addr,inm]]
+		var finish = [];
 		var advance = [];			// array that indicates wheather each signature can be considered or not
-	
+		var max_length = 0;			// max number of parameters of the signatures
+
 		// check if pseudoinstruction
 		if(pseudoInstructions[instruction]){
-			signature_fields[i] = pseudoInstructions[instruction][i].signature.split(",");
-			isPseudo = true;
+			for(i=0; i<pseudoInstructions[instruction].length; i++){
+				signature_fields[i] = pseudoInstructions[instruction][i].signature.split(",");	
+				advance[i] = 1;
+				isPseudo = true;
+				max_length = max(max_length, signature_fields[i].length);
+			}
+			return langError(context, "Pseudoinstructions are not implemented");
 		}
 	
                 //
@@ -626,8 +610,7 @@ function read_text ( context, datosCU, ret )
                 //
 
 		var signature_user_fields = [];		// signature user fields
-		var binaryAux = [];			// necessary parameters of the fields of each signature
-		var max_length = 0;			// max number of parameters of the signatures
+		var binaryAux = [];			// necessary parameters of the fields of each signature		
 
 		// Fill parameters
 		for(i=0; i<firmware[instruction].length; i++)
@@ -652,6 +635,7 @@ function read_text ( context, datosCU, ret )
 			    nextToken(context);
 
 			var value = getToken(context);	
+			var converted;
 
 			if("TAG" != getTokenType(context) && !firmware[value]) s[i+1] = value ;
 				
@@ -676,57 +660,14 @@ function read_text ( context, datosCU, ret )
 
 				// check field	
 				switch(field.type)
-                	        {
-					// 0xFFFF...
+                	        {	
+					// 0xFFFFF,... | 23, 'b', ...
 					case "address":
-						if(isOctal(value) !== false){
-							var res = decimal2binary(isOctal(value), size);
-							if("rel" == field.address_type){
-							    var aux = isOctal(value) - seg_ptr - 4;	
-                                                	    res = decimal2binary(aux, size) ;
-							}
-						}
-						else if(isHex(value) !== false){
-							var res = decimal2binary(isHex(value), size);
-							if("rel" == field.address_type){
-							    var aux = isHex(value) - seg_ptr - 4;	
-                                                	    res = decimal2binary(aux, size) ;
-							}
-						}
-						else if(isDecimal(value) !== false){
-							var res = decimal2binary(isDecimal(value), size);
-							if("rel" == field.address_type){
-							    var aux = isDecimal(value) - seg_ptr - 4;	
-                                        	            res = decimal2binary(aux, size) ;
-							}
-						}
-						else if(isChar(value) !== false){
-							var res = decimal2binary(isChar(value), size);
-							if("rel" == field.address_type){
-							    var aux = isChar(value) - seg_ptr - 4;	
-                                        	            res = decimal2binary(aux, size) ;
-							}
-						}
-						else{
-							if(!isValidTag(value)){
-								var error = "A tag must follow an alphanumeric format (starting with a letter) but found '" + value + "' instead";
-								advance[j] = 0;
-								break;
-							}
-							if(firmware[value] || pseudoInstructions[value]){
-								var error = "A tag can not have the same name as an instruction (" + value + ")";
-								advance[j] = 0;
-								break;
-							}
-							label_found = true;
-						}  	
-						break;
-					// 23, 'b', ...
 					case "inm":
-						if(isOctal(value) !== false) var res = decimal2binary(isOctal(value), size);
-						else if(isHex(value) !== false) var res = decimal2binary(isHex(value), size);	
-						else if(isDecimal(value) !== false) var res = decimal2binary(isDecimal(value), size);
-						else if (isChar(value) !== false) var res = decimal2binary(isChar(value), size);
+						if((converted = isOctal(value)) !== false);
+						else if((converted = isHex(value)) !== false);	
+						else if((converted = isDecimal(value)) !== false);
+						else if((converted = isChar(value)) !== false);
 						else{
 							if(!isValidTag(value)){
 								var error = "A tag must follow an alphanumeric format (starting with a letter) but found '" + value + "' instead";
@@ -740,6 +681,13 @@ function read_text ( context, datosCU, ret )
 							}
 							label_found = true;
 						}
+
+						if(!label_found){
+							var res = decimal2binary(converted, size);
+							if(field.type == "address" && "rel" == field.address_type)
+								res = decimal2binary(converted - seg_ptr - 4, size);	
+						}
+						
 						break;
 					// $1...
 					case "reg":
@@ -784,7 +732,9 @@ function read_text ( context, datosCU, ret )
 				// check if bits fit in the space
 				if(advance[j] == 1 && !label_found){
 					if(res[1] < 0){
-					 	var error = "'" + value + "' needs " + res[0].length + " bits but there is space for only " + size + " bits";
+						if(field.type == "address" && "rel" == field.address_type)
+							error = "Relative value (" + (converted - seg_ptr - 4) + " in decimal) needs " + res[0].length + " bits but there is space for only " + size + " bits";
+						else var error = "'" + value + "' needs " + res[0].length + " bits but there is space for only " + size + " bits";
 						advance[j] = 0;						
 					}
 				}	
@@ -820,7 +770,7 @@ function read_text ( context, datosCU, ret )
 			// No candidate
 			if(advance.length == 1)
 				return langError(context, error + ". Remember that the instruction format has been defined as: " + format);	
-			return langError(context, "Instruction and fields don't match with microprogram. Remember that the instruction formats have been defined as: " + format);
+			return langError(context, "Instruction and fields don't match with microprogram. Remember that the instruction formats have been defined as: " + format + ". Please check the microcode. Probably you forgot to add a field, a number does not fit in its space, or you just used a wrong instruction");
 		}
 		if(sum_res > 1){
 			// Multiple candidates
@@ -1016,28 +966,25 @@ function simlang_compile (text, datosCU)
 		}
 
 		var size = ret.labels[i].startbit-ret.labels[i].stopbit+1;
+		var converted;
 
 		// Translate the address into bits	
-		if(isHex(value) !== false){
-			var res = decimal2binary(isHex(value), size);
-			var num_bits = res[0];
-			var num_bits_free_space = res[1];
+		if((converted = isHex(value)) !== false){
+			var res = decimal2binary(converted, size); // res[0] == num_bits | res[1] == num_bits_free_space
+			var error = "'" + ret.labels[i].name + "' needs " + res[0].length + " bits but there is space for only " + size + " bits";
 			if ("rel" == ret.labels[i].rel){
-			    num_bits = isHex(value) - ret.labels[i].addr - 4;	
-			    res = decimal2binary(num_bits, size);
-			    num_bits = res[0];
-			    num_bits_free_space = res[1];	    
+			    res = decimal2binary(converted - ret.labels[i].addr - 4, size);
+			    error = "Relative value (" + (converted - ret.labels[i].addr - 4) + " in decimal) needs " + res[0].length + " bits but there is space for only " + size + " bits";
 			}
 		}	
  		else return langError(context, "Unexpected error (54)");
 
 		// check size
-		if (num_bits_free_space < 0)
-			return langError(context, "'" + value + "' needs " + num_bits.length + " bits but there is space for only " + size + " bits");
+		if (res[1] < 0) return langError(context, error);
 			
 		// Store field in machine code
-		var machineCodeAux = machineCode.substring(0, machineCode.length-1-ret.labels[i].startbit+num_bits_free_space);
-		machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length-ret.labels[i].stopbit);
+		var machineCodeAux = machineCode.substring(0, machineCode.length-1-ret.labels[i].startbit+res[1]);
+		machineCode = machineCodeAux + res[0] + machineCode.substring(machineCode.length-ret.labels[i].stopbit);
 
 		// process machine code with several words...
 		auxAddr = ret.labels[i].addr;
@@ -1047,6 +994,6 @@ function simlang_compile (text, datosCU)
                 	auxAddr += 4 ;
 		}
 	 }	 
-
+	
 	 return ret;
 }

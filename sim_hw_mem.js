@@ -75,7 +75,7 @@
                                                       }
 						      if (typeof sim_events["mem"][clk] == "undefined")
                                                       {
-						          var remain = MP_wc.value();
+						          var remain = MP_wc();
 						          sim_events["mem"][clk] = remain; 
                                                           if (remain > 0)
                                                               return;
@@ -139,7 +139,7 @@
                                                       }
 						      if (typeof sim_events["mem"][clk] == "undefined")
                                                       {
-						          var remain = MP_wc.value();
+						          var remain = MP_wc();
 						          sim_events["mem"][clk] = remain; 
                                                           if (remain > 0)
                                                               return;
