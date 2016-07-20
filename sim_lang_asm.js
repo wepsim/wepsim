@@ -729,7 +729,9 @@ function read_text ( context, datosCU, ret )
 				// check if bits fit in the space
 				if(advance[j] == 1 && !label_found){
 					if(res[1] < 0){
-					 	var error = "'" + value + "' needs " + res[0].length + " bits but there is space for only " + size + " bits";
+						if(field.type == "address" && "rel" == field.address_type)
+							error = "Relative value (" + (converted - seg_ptr - 4) + " in decimal) needs " + res[0].length + " bits but there is space for only " + size + " bits";
+						else var error = "'" + value + "' needs " + res[0].length + " bits but there is space for only " + size + " bits";
 						advance[j] = 0;						
 					}
 				}	
@@ -765,7 +767,7 @@ function read_text ( context, datosCU, ret )
 			// No candidate
 			if(advance.length == 1)
 				return langError(context, error + ". Remember that the instruction format has been defined as: " + format);	
-			return langError(context, "Instruction and fields don't match with microprogram. Remember that the instruction formats have been defined as: " + format);
+			return langError(context, "Instruction and fields don't match with microprogram. Remember that the instruction formats have been defined as: " + format + ". Please check the microcode. Probably you forgot to add a field, a number does not fit in its space, or you just used a wrong instruction");
 		}
 		if(sum_res > 1){
 			// Multiple candidates
@@ -966,10 +968,10 @@ function simlang_compile (text, datosCU)
 		// Translate the address into bits	
 		if((converted = isHex(value)) !== false){
 			var res = decimal2binary(converted, size); // res[0] == num_bits | res[1] == num_bits_free_space
-			var error = "'" + value + "' needs " + res[0].length + " bits but there is space for only " + size + " bits";
+			var error = "'" + ret.labels[i].name + "' needs " + res[0].length + " bits but there is space for only " + size + " bits";
 			if ("rel" == ret.labels[i].rel){
 			    res = decimal2binary(converted - ret.labels[i].addr - 4, size);
-			    error = "Relative value ('" + res[0] + "' in binary) needs " + res[0].length + " bits but there is space for only " + size + " bits";
+			    error = "Relative value (" + (converted - ret.labels[i].addr - 4) + " in decimal) needs " + res[0].length + " bits but there is space for only " + size + " bits";
 			}
 		}	
  		else return langError(context, "Unexpected error (54)");
