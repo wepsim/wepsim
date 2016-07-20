@@ -21,6 +21,7 @@
 
         var MP       = new Object();
         var segments = new Object();
+        var MP_wc    = 1;
 
 
         /*
@@ -74,7 +75,7 @@
                                                       }
 						      if (typeof sim_events["mem"][clk] == "undefined")
                                                       {
-						          var remain = 1;  // 1 -> rand()...
+						          var remain = MP_wc.value();
 						          sim_events["mem"][clk] = remain; 
                                                           if (remain > 0)
                                                               return;
@@ -138,7 +139,7 @@
                                                       }
 						      if (typeof sim_events["mem"][clk] == "undefined")
                                                       {
-						          var remain = 1;  // 1 -> rand()...
+						          var remain = MP_wc.value();
 						          sim_events["mem"][clk] = remain; 
                                                           if (remain > 0)
                                                               return;
