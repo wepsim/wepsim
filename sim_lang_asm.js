@@ -590,15 +590,19 @@ function read_text ( context, datosCU, ret )
 		var isPseudo = false;	
 
 		var signature_fields = [];		// e.g. [[reg,reg], [reg,inm], [reg,addr,inm]]
+		var finish = [];
 		var advance = [];			// array that indicates wheather each signature can be considered or not
-	
+		var max_length = 0;			// max number of parameters of the signatures
+
 		// check if pseudoinstruction
 		if(pseudoInstructions[instruction]){
 			for(i=0; i<pseudoInstructions[instruction].length; i++){
-				signature_fields[i] = pseudoInstructions[instruction][i].signature.split(",");
+				signature_fields[i] = pseudoInstructions[instruction][i].signature.split(",");	
 				advance[i] = 1;
 				isPseudo = true;
+				max_length = max(max_length, signature_fields[i].length);
 			}
+			return langError(context, "Pseudoinstructions are not implemented");
 		}
 	
                 //
@@ -606,8 +610,7 @@ function read_text ( context, datosCU, ret )
                 //
 
 		var signature_user_fields = [];		// signature user fields
-		var binaryAux = [];			// necessary parameters of the fields of each signature
-		var max_length = 0;			// max number of parameters of the signatures
+		var binaryAux = [];			// necessary parameters of the fields of each signature		
 
 		// Fill parameters
 		for(i=0; i<firmware[instruction].length; i++)
@@ -991,6 +994,6 @@ function simlang_compile (text, datosCU)
                 	auxAddr += 4 ;
 		}
 	 }	 
-
+	
 	 return ret;
 }
