@@ -415,12 +415,14 @@
 
         function init_config ( jqdiv )
         {
+            // without ui
             if (jqdiv == "")
-            {       // without ui
+            {
 		    for (var i=0; i<IO_INT_FACTORY.length; i++) {
 			 IO_INT_FACTORY[i].period = ko.observable(IO_INT_FACTORY[i].period) ;
 			 IO_INT_FACTORY[i].probability = ko.observable(IO_INT_FACTORY[i].probability) ;
 		    }
+
 		    MP_wc = ko.observable(MP_wc) ;
                     return ;
             }
@@ -454,6 +456,7 @@
                   "  </div>" +
                   "</div>" +
                   "</div>" ;
+
             o1 += "<div class='panel panel-default'>" + 
                   "<div class='panel-heading'>" +
                   "  <h3 class='panel-title'>Memory</h3>" +
@@ -461,8 +464,8 @@
                   "<div class='panel-body'>" +
                   "  <div class='row-fluid'>" +
                   "  <center>" +
-                  "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6'>Memory wait cycles</div>" +
-                  "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' id='mp_wc'><input type=number data-bind='value: MP_wc' min=1 max=1></div>" +
+                  "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' style='padding: 15 5 0 10;'>Memory wait cycles</div>" +
+                  "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' id='mp_wc'><input type=number data-bind='value: MP_wc' min=1></div>" +
                   "  </center>" + 
                   "  </div>" +
                   "</div>" +
