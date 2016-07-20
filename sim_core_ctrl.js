@@ -331,7 +331,7 @@
                         }
                         else {
 				 input_help += '<div><label>' + 
-                                               '<input type="number" size=4 name="ask_svalue" ' + 
+                                               '<input type="number" size=4 min=0 max=' + (nvalues - 1) + ' name="ask_svalue" ' + 
                                                '       value="' + sim_signals[key].value + '"/>' + '&nbsp;&nbsp;' + ' 0 - ' + (nvalues - 1) +
                                                '</label></div>\n' ;
                         }
@@ -479,8 +479,8 @@
             init_states("#states_ALL") ; 
             init_rf("#states_BR") ; 
 
-            init_stats("#stats_ALL") ; 
             init_io("#io_ALL") ; 
+            init_config("#config_ALL") ; 
         }
 
         function init_eventlistener ( context )

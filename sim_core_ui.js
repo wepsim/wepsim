@@ -364,7 +364,7 @@
             return show_eltos(sim_states, filter_states) ;
         }
 
-        function init_stats ( jqdiv )
+        function init_io ( jqdiv )
         {
             if (jqdiv == "")
             {       // without ui
@@ -413,38 +413,65 @@
             }
         }
 
-        function init_io ( jqdiv )
+        function init_config ( jqdiv )
         {
+            // without ui
             if (jqdiv == "")
-            {       // without ui
+            {
 		    for (var i=0; i<IO_INT_FACTORY.length; i++) {
 			 IO_INT_FACTORY[i].period = ko.observable(IO_INT_FACTORY[i].period) ;
 			 IO_INT_FACTORY[i].probability = ko.observable(IO_INT_FACTORY[i].probability) ;
 		    }
+
+		    MP_wc = ko.observable(MP_wc) ;
                     return ;
             }
 
-            // io holder
-            var o1 = "<center>" ;
+            // html holder
+            var o1 = "<div class='panel panel-default'>" + 
+                     "<div class='panel-heading'>" +
+                     "  <h3 class='panel-title'>I/O</h3>" +
+                     "</div>" +
+                     "<div class='panel-body'>" +
+                     "  <div class='row-fluid'>" +
+                     "  <center>" ;
             for (var i=0; i<8; i++)
             {
-               if (4==i)
-               o1 += "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4'>Interrupt</div>" +
-                     "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4'>Period</div>" +
-                     "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4'>Probability</div>" ;
+               if (0==i)
+               o1 += "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4'>Interrupt Id.</div>" +
+                     "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4'>CLK tick period</div>" +
+                     "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4'>Probability (0.0-1.0)</div>" ;
 
                o1 += "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4' style='padding: 15 5 0 10;'>" + 
                      i + 
                      "</div>" +
                      "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4' style='padding: 0 5 0 10;' id='int" + i + "_per'>" +
-                     "<input type=number data-bind='value: period'>" + 
+                     "<input type=number data-bind='value: period' min='0'>" + 
                      "</div>" +
                      "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4' style='padding: 0 5 0 10;' id='int" + i + "_pro'>" +
                      "<input type=number data-bind='value: probability' min='0' max='1' step='.1'>" + 
                      "</div>" ;
             }
-            o1 += "</center>" ;
-            $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
+            o1 += "  </center>" +
+                  "  </div>" +
+                  "</div>" +
+                  "</div>" ;
+
+            o1 += "<div class='panel panel-default'>" + 
+                  "<div class='panel-heading'>" +
+                  "  <h3 class='panel-title'>Memory</h3>" +
+                  "</div>" +
+                  "<div class='panel-body'>" +
+                  "  <div class='row-fluid'>" +
+                  "  <center>" +
+                  "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' style='padding: 15 5 0 10;'>Memory wait cycles</div>" +
+                  "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' id='mp_wc'><input type=number data-bind='value: MP_wc' min=1></div>" +
+                  "  </center>" + 
+                  "  </div>" +
+                  "</div>" +
+                  "</div>" ;
+          
+            $(jqdiv).html(o1);
 
             // knockout binding
             for (var i=0; i<IO_INT_FACTORY.length; i++)
@@ -457,6 +484,10 @@
                  var ko_context = document.getElementById('int' + i + '_pro');
                  ko.applyBindings(IO_INT_FACTORY[i], ko_context);
             }
+
+	    MP_wc = ko.observable(MP_wc) ;
+            var ko_context = document.getElementById('mp_wc');
+            ko.applyBindings(MP_wc, ko_context);
         }
 
 
