@@ -381,7 +381,7 @@ function read_data ( context, datosCU, ret )
 				case 1:
 					break;
 				case 2:
-					if(byteWord%2==1)
+					if(byteWord & 1 == 1)
 						byteWord++;
 					break;
 				default:
