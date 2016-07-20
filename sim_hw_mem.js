@@ -51,7 +51,7 @@
          *  Syntax of behaviors
          */
 
-        syntax_behavior["MEM_READ"] = { nparameters: 5, 
+        syntax_behavior["MEM_READ"] = { nparameters: 6, 
                                         types: ["E", "E", "S", "E"],
                                         operation: function (s_expr) 
                                                    {
@@ -61,7 +61,6 @@
                                                       var clk     = sim_states[s_expr[5]].value() ;
 
                                                       sim_states[s_expr[4]].value = 0;
-/*
 						      if (typeof sim_events["mem"][clk-1] != "undefined")
                                                       {
 						          var remain = sim_events["mem"][clk-1];
@@ -80,7 +79,6 @@
                                                           if (remain > 0)
                                                               return;
                                                       }
-*/
 
 						      var value   = 0;
                                                       address = address & 0xFFFFFFFC;
@@ -117,7 +115,7 @@
                                                    }
                                    };
 
-        syntax_behavior["MEM_WRITE"] = { nparameters: 5, 
+        syntax_behavior["MEM_WRITE"] = { nparameters: 6, 
                                          types: ["E", "E", "S", "E"],
                                          operation: function (s_expr) 
                                                     {
@@ -127,7 +125,6 @@
                                                       var clk     = sim_states[s_expr[5]].value() ;
 
                                                       sim_states[s_expr[4]].value = 0;
-/*
 						      if (typeof sim_events["mem"][clk-1] != "undefined")
                                                       {
 						          var remain = sim_events["mem"][clk-1];
@@ -146,7 +143,6 @@
                                                           if (remain > 0)
                                                               return;
                                                       }
-*/
 
 						      var value   = 0;
                                                       address = address & 0xFFFFFFFC;
