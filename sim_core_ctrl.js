@@ -331,7 +331,7 @@
                         }
                         else {
 				 input_help += '<div><label>' + 
-                                               '<input type="number" size=4 min=0 name="ask_svalue" ' + 
+                                               '<input type="number" size=4 min=0 max=' + (nvalues - 1) + ' name="ask_svalue" ' + 
                                                '       value="' + sim_signals[key].value + '"/>' + '&nbsp;&nbsp;' + ' 0 - ' + (nvalues - 1) +
                                                '</label></div>\n' ;
                         }
