@@ -599,7 +599,7 @@
                   (! ((typeof segments['.text'] != "undefined") && (SIMWARE.labels2["main"]))   )
                 )
                 {
-		    alert("labels 'kmain' (in .ktext) or 'main' (in .text) do no exist!");
+		    alert("labels 'kmain' (in .ktext) or 'main' (in .text) do not exist!");
                     return false;
 	        }
 
