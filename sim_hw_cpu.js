@@ -1096,6 +1096,7 @@
 							    sim_events["screen"] = new Object() ;
 							    sim_events["keybd"]  = new Object() ;
 							    sim_events["io"]     = new Object() ;
+							    sim_events["mem"]    = new Object() ;
 
 							    // 2.- reset the I/O factory
 							    for (var i=0; i<IO_INT_FACTORY.length; i++)
