@@ -177,8 +177,10 @@ function reset_machine_code(nwords){
 	return "00000000000000000000000000000000".repeat(nwords);		
 }
 
-function assembly_replacement(code, text, startbit, stopbit){
-	return code; 
+function assembly_replacement(machineCode, num_bits, startbit, stopbit){
+	var machineCodeAux = machineCode.substring(0, machineCode.length-1-startbit);
+	machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length-stopbit);	
+	return machineCode; 
 }
 
 
@@ -808,7 +810,7 @@ function read_text ( context, datosCU, ret )
 		for(i=0; i<binaryAux[candidate].length; i++){
 			// tag
 			if(binaryAux[candidate][i].islabel){
-				ret.labels["0x" + seg_ptr.toString(16)] = { name:binaryAux[candidate][i].field_name, addr:seg_ptr, startbit:binaryAux[candidate][i].startbit, stopbit:binaryAux[candidate][i].stopbit, rel:binaryAux[candidate][i].rel, nwords:firmware[instruction][candidate].nwords };
+				ret.labels["0x" + seg_ptr.toString(16)] = { name:binaryAux[candidate][i].field_name, addr:seg_ptr, startbit:binaryAux[candidate][i].startbit, stopbit:binaryAux[candidate][i].stopbit, rel:binaryAux[candidate][i].rel, nwords:firmware[instruction][candidate].nwords, labelContext:getLabelContext(context) };
 			}
 
 			// reg, addr, inm
@@ -966,6 +968,7 @@ function simlang_compile (text, datosCU)
 
 		// Check if the label exists
 		if(typeof value === "undefined"){
+			setLabelContext(context, ret.labels[i].labelContext);
 			return langError(context, "Label '" + ret.labels[i].name + "' used but not defined in the assembly code");
 		}	
 
@@ -992,7 +995,10 @@ function simlang_compile (text, datosCU)
  		else return langError(context, "Unexpected error (54)");
 
 		// check size
-		if (res[1] < 0) return langError(context, error);
+		if (res[1] < 0) {
+		    setLabelContext(context, ret.labels[i].labelContext);
+                    return langError(context, error);
+                }
 			
 		// Store field in machine code
 		var machineCodeAux = machineCode.substring(0, machineCode.length-1-ret.labels[i].startbit+res[1]);
