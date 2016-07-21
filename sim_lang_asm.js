@@ -79,7 +79,14 @@ function is_directive_datatype ( text )
 function isDecimal ( n )
 {
 	if(n.length > 1 && n[0] == "0") return false;
-        return (!isNaN(parseFloat(n)) && isFinite(n)) ? parseInt(n) : false;
+        
+	if( !isNaN(parseFloat(n)) && isFinite(n) ){
+		var res = parseInt(n);
+		if(typeof n == "string" && n.includes(".")) 
+			alert("Truncating conversion has occurred: " + n + " became " + res);
+		return res;
+	}
+	return false;
 }
 
 function isOctal( n )
@@ -173,6 +180,17 @@ function get_candidate(advance, instruction){
 	return candidate ? parseInt(candidate) : candidate;
 }
 
+function reset_machine_code(nwords){
+	return "00000000000000000000000000000000".repeat(nwords);		
+}
+
+function assembly_replacement(machineCode, num_bits, startbit, stopbit){
+	var machineCodeAux = machineCode.substring(0, machineCode.length-1-startbit);
+	machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length-stopbit);	
+	return machineCode; 
+}
+
+
 /*
  *   Load segments
  */
@@ -190,7 +208,7 @@ function read_data ( context, datosCU, ret )
            nextToken(context) ;
 
 	   var byteWord = 0;
-	   var machineCode = "00000000000000000000000000000000";
+	   var machineCode = reset_machine_code(1);
 
 	   // Loop while token read is not a segment directive (.text/.data/...)
 	   while (!is_directive_segment(getToken(context))) 
@@ -215,7 +233,9 @@ function read_data ( context, datosCU, ret )
 			  return langError(context, "A tag must follow an alphanumeric format (starting with a letter) but found '" + tag + "' instead");
 		      if(context.firmware[tag] || context.pseudoInstructions[tag])
 			  return langError(context, "A tag can not have the same name as an instruction (" + tag + ")");
-	
+		      if(ret.labels2[tag])
+			  return langError(context, "Repeated tag: '" + tag + "'");
+
 		      // Store tag
 		      ret.labels2[tag] = "0x" + (seg_ptr+byteWord).toString(16);
 
@@ -280,7 +300,7 @@ function read_data ( context, datosCU, ret )
 					ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
                				seg_ptr = seg_ptr + 4 ;
 					byteWord = 0;
-					machineCode = "00000000000000000000000000000000";	
+					machineCode = reset_machine_code(1);	
 				}
 
 				// Align to size
@@ -292,7 +312,7 @@ function read_data ( context, datosCU, ret )
 						ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
         	        			seg_ptr = seg_ptr + 4 ;
 						byteWord = 0;
-						machineCode = "00000000000000000000000000000000";	
+						machineCode = reset_machine_code(1);	
 					}
 				}	
 	
@@ -346,7 +366,7 @@ function read_data ( context, datosCU, ret )
 					ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
                 			seg_ptr = seg_ptr + 4 ;
 					byteWord = 0;
-					machineCode = "00000000000000000000000000000000";	
+					machineCode = reset_machine_code(1);	
 				}
 
 				byteWord++;
@@ -371,7 +391,7 @@ function read_data ( context, datosCU, ret )
 				ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
                 		seg_ptr = seg_ptr + 4 ;
 				byteWord = 0;
-				machineCode = "00000000000000000000000000000000";	
+				machineCode = reset_machine_code(1);	
 			}
 
 			// Calculate offset
@@ -393,7 +413,7 @@ function read_data ( context, datosCU, ret )
 							ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
                 					seg_ptr = seg_ptr + 4 ;
 							byteWord = 0;
-							machineCode = "00000000000000000000000000000000";	
+							machineCode = reset_machine_code(1);	
 						}
 
 						if(seg_ptr%align_offset == 0 && byteWord == 0)
@@ -423,7 +443,7 @@ function read_data ( context, datosCU, ret )
 					ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
                 			seg_ptr = seg_ptr + 4 ;
 					byteWord = 0;
-					machineCode = "00000000000000000000000000000000";	
+					machineCode = reset_machine_code(1);	
 				}
 
 				// check string
@@ -440,7 +460,7 @@ function read_data ( context, datosCU, ret )
 						ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
                 				seg_ptr = seg_ptr + 4 ;
 						byteWord = 0;
-						machineCode = "00000000000000000000000000000000";	
+						machineCode = reset_machine_code(1);	
 					}
 				
 					switch(possible_value[i]){
@@ -496,7 +516,7 @@ function read_data ( context, datosCU, ret )
 						ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
                 				seg_ptr = seg_ptr + 4 ;
 						byteWord = 0;
-						machineCode = "00000000000000000000000000000000";	
+						machineCode = reset_machine_code(1);	
 					}
 					
 					num_bits = "\0".charCodeAt(0).toString(2);
@@ -580,10 +600,16 @@ function read_text ( context, datosCU, ret )
 				return langError(context, "A tag must follow an alphanumeric format (starting with a letter) but found '" + tag + "' instead");
 			if(firmware[tag] || pseudoInstructions[tag])
 				return langError(context, "A tag can not have the same name as an instruction (" + tag + ")");
+			if(ret.labels2[tag])
+				return langError(context, "Repeated tag: '" + tag + "'");
+
 			// store tag
 			ret.labels2[tag] = "0x" + seg_ptr.toString(16);
 
 			nextToken(context);
+
+			if (context.t >= context.text.length) 
+                            return langError(context, "Unexpected end of file");
 		}
 
 		var instruction = getToken(context);
@@ -778,10 +804,7 @@ function read_text ( context, datosCU, ret )
 			if(candidate === false) return langError(context, "Instruction and fields match with more than one microprogram. Please check the microcode. Currently, the instruction format can be: " + format);
 		}
 	
-		// Machine code (e.g. one word [ 31, 30, 29, ... , 2, 1, 0 ])
-		var machineCode = "";
-		for (i=0; i<firmware[instruction][candidate].nwords; i++)
-		     machineCode+="00000000000000000000000000000000";		
+		var machineCode = reset_machine_code(firmware[instruction][candidate].nwords);
 
 		// Generate code (co and cop)	
 		if (firmware[instruction][candidate].co !== false)
@@ -799,7 +822,7 @@ function read_text ( context, datosCU, ret )
 		for(i=0; i<binaryAux[candidate].length; i++){
 			// tag
 			if(binaryAux[candidate][i].islabel){
-				ret.labels["0x" + seg_ptr.toString(16)] = { name:binaryAux[candidate][i].field_name, addr:seg_ptr, startbit:binaryAux[candidate][i].startbit, stopbit:binaryAux[candidate][i].stopbit, rel:binaryAux[candidate][i].rel, nwords:firmware[instruction][candidate].nwords };
+				ret.labels["0x" + seg_ptr.toString(16)] = { name:binaryAux[candidate][i].field_name, addr:seg_ptr, startbit:binaryAux[candidate][i].startbit, stopbit:binaryAux[candidate][i].stopbit, rel:binaryAux[candidate][i].rel, nwords:firmware[instruction][candidate].nwords, labelContext:getLabelContext(context) };
 			}
 
 			// reg, addr, inm
@@ -832,11 +855,14 @@ function read_text ( context, datosCU, ret )
 			}		
 		}
 
+		// original instruction (important for pseudoinstructions)
+		var s_ori = s_def;
+
 		// process machine code with several words...
 		for(i=firmware[instruction][candidate].nwords-1; i>=0; i--)
                 {
 			if(i<firmware[instruction][candidate].nwords-1) s_def="---";
-			ret.assembly["0x" + seg_ptr.toString(16)] = { breakpoint:false, binary:machineCode.substring(i*32, (i+1)*32), source:s_def, source_original:s_def } ; 
+			ret.assembly["0x" + seg_ptr.toString(16)] = { breakpoint:false, binary:machineCode.substring(i*32, (i+1)*32), source:s_def, source_original:s_ori } ; 
 			ret.mp["0x" + seg_ptr.toString(16)] = machineCode.substring(i*32, (i+1)*32) ;
                 	seg_ptr = seg_ptr + 4 ;
 		}
@@ -954,6 +980,7 @@ function simlang_compile (text, datosCU)
 
 		// Check if the label exists
 		if(typeof value === "undefined"){
+			setLabelContext(context, ret.labels[i].labelContext);
 			return langError(context, "Label '" + ret.labels[i].name + "' used but not defined in the assembly code");
 		}	
 
@@ -980,7 +1007,10 @@ function simlang_compile (text, datosCU)
  		else return langError(context, "Unexpected error (54)");
 
 		// check size
-		if (res[1] < 0) return langError(context, error);
+		if (res[1] < 0) {
+		    setLabelContext(context, ret.labels[i].labelContext);
+                    return langError(context, error);
+                }
 			
 		// Store field in machine code
 		var machineCodeAux = machineCode.substring(0, machineCode.length-1-ret.labels[i].startbit+res[1]);

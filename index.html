@@ -70,8 +70,8 @@
                 pos = parseInt(pos[0].match(/\d+/)[0]);
                 lineMsg += '<button type="button" class="btn btn-danger" ' + 
                            '        onclick="$.notifyClose();' +
-                           '                            var marked = inputasm.addLineClass(' + (pos-1) + ', \'background\', \'CodeMirror-selected\');' +
-                           '                 setTimeout(function() { inputasm.removeLineClass(marked, \'background\', \'CodeMirror-selected\'); }, 2000);' +
+                           '                      var marked = inputasm.addLineClass(' + (pos-1) + ', \'background\', \'CodeMirror-selected\');' +
+                           '                 setTimeout(function() { inputasm.removeLineClass(marked, \'background\', \'CodeMirror-selected\'); }, 3000);' +
 		           '		     var t = inputasm.charCoords({line: ' + pos + ', ch: 0}, \'local\').top;' +
 		           '		     var middleHeight = inputasm.getScrollerElement().offsetHeight / 2;' +
 		           '		     inputasm.scrollTo(null, t - middleHeight - 5);">Go line ' + pos + '</button>&nbsp;' ;
@@ -453,9 +453,9 @@
 			   <tr>
 			   <th width=10%>break<span class="hidden-xs">points</span></th>
 			   <th width=15%>address</th>
-                           <th width=12%>&nbsp;</th>
-                           <th width=25%>assembly</th>
-                           <th width=12% class='hidden-xs'>&nbsp;</th>
+                           <th width=10%>&nbsp;</th>
+                           <th width=29%>assembly</th>
+                           <th width=10% class='hidden-xs'>&nbsp;</th>
                            <th width=25% class='hidden-xs'>pseudo-instructions</th>
 			   </tr>
 			   </thead>
