@@ -30,7 +30,7 @@
 .data
        w1: .word -1,2,3
        w2: .byte 1,2
-       w3: .byte 3
+       w3: .byte -128
            .ascii "hello world"
        w4: .space 4
            .half 034
@@ -39,6 +39,7 @@
 .text
 main:      
            # test lb
+           lb  $3 w3
            li  $3 1
            la  $1 w5
            lb  $2 ($1)
