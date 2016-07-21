@@ -79,7 +79,14 @@ function is_directive_datatype ( text )
 function isDecimal ( n )
 {
 	if(n.length > 1 && n[0] == "0") return false;
-        return (!isNaN(parseFloat(n)) && isFinite(n)) ? parseInt(n) : false;
+        
+	if( !isNaN(parseFloat(n)) && isFinite(n) ){
+		var res = parseInt(n);
+		if(typeof n == "string" && n.includes(".")) 
+			alert("Truncating conversion has occurred: " + n + " became " + res);
+		return res;
+	}
+	return false;
 }
 
 function isOctal( n )
@@ -226,7 +233,9 @@ function read_data ( context, datosCU, ret )
 			  return langError(context, "A tag must follow an alphanumeric format (starting with a letter) but found '" + tag + "' instead");
 		      if(context.firmware[tag] || context.pseudoInstructions[tag])
 			  return langError(context, "A tag can not have the same name as an instruction (" + tag + ")");
-	
+		      if(ret.labels2[tag])
+			  return langError(context, "Repeated tag: '" + tag + "'");
+
 		      // Store tag
 		      ret.labels2[tag] = "0x" + (seg_ptr+byteWord).toString(16);
 
@@ -591,6 +600,9 @@ function read_text ( context, datosCU, ret )
 				return langError(context, "A tag must follow an alphanumeric format (starting with a letter) but found '" + tag + "' instead");
 			if(firmware[tag] || pseudoInstructions[tag])
 				return langError(context, "A tag can not have the same name as an instruction (" + tag + ")");
+			if(ret.labels2[tag])
+				return langError(context, "Repeated tag: '" + tag + "'");
+
 			// store tag
 			ret.labels2[tag] = "0x" + seg_ptr.toString(16);
 
