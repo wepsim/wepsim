@@ -195,6 +195,15 @@ function assembly_replacement(machineCode, num_bits, startbit, stopbit, free_spa
 	return machineCode; 
 }
 
+function assembly_co_cop(machineCode, co, cop){		
+	if (co !== false){
+		machineCode = assembly_replacement(machineCode, co, 32, 26, 0); 	
+		if (cop !== false)
+			machineCode = assembly_replacement(machineCode, cop, 4, 0, 0);
+	}
+	return machineCode;
+}
+
 function writememory_and_reset ( seg_ptr, nwords, machineCode, mp )
 {
 	mp["0x" + seg_ptr.toString(16)] = machineCode ;               			
@@ -307,12 +316,8 @@ function read_data ( context, datosCU, ret )
 					return langError(context, "Expected value that fits in a '" + possible_datatype + "' (" + size*BYTE_LENGTH + " bits), but inserted '" + possible_value + "' (" + num_bits.length + " bits) instead");
 
 				// Word filled
-				if(byteWord >= 4){
-					ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
-               				seg_ptr = seg_ptr + 4 ;
-					byteWord = 0;
-					machineCode = reset_assembly(1);	
-				}
+				if(byteWord >= 4)
+                                	var [ seg_ptr, byteWord, machineCode ] = writememory_and_reset(seg_ptr,1,machineCode,ret.mp) ;
 
 				// Align to size
 				while(((seg_ptr+byteWord)%size) != 0){
@@ -775,33 +780,27 @@ function read_text ( context, datosCU, ret )
 	
 		var machineCode = reset_assembly(firmware[instruction][candidate].nwords);
 
-		// Generate code (co and cop)	
-		if (firmware[instruction][candidate].co !== false)
-                {
-			machineCode = assembly_replacement(machineCode, firmware[instruction][candidate].co, 32, 26, 0); 	
-			if (firmware[instruction][candidate].cop !== false)
-			    machineCode = assembly_replacement(machineCode, firmware[instruction][candidate].cop, 4, 0, 0);
-		}
-
-		// Store candidate fields in machine code
+		// replace CO and COP in machine code
+		machineCode = assembly_co_cop(machineCode, firmware[instruction][candidate].co, firmware[instruction][candidate].cop);
+	
+		// store candidate fields in machine code
 		for(i=0; i<binaryAux[candidate].length; i++){
 			// tag
-			if(binaryAux[candidate][i].islabel){
-				ret.labels["0x" + seg_ptr.toString(16)] = { name:binaryAux[candidate][i].field_name, addr:seg_ptr, startbit:binaryAux[candidate][i].startbit, stopbit:binaryAux[candidate][i].stopbit, rel:binaryAux[candidate][i].rel, nwords:firmware[instruction][candidate].nwords, labelContext:getLabelContext(context) };
-			}
-
-			// reg, addr, inm
-			else{
-				// check size
-				var bstartbit = binaryAux[candidate][i].startbit;
-				var bstopbit = binaryAux[candidate][i].stopbit;
-				var bnum_bits = binaryAux[candidate][i].num_bits ; 
-				var bnum_bits_free_space = binaryAux[candidate][i].num_bits_free_space;
-			
-				// store field in machine code
-				var machineCodeAux = machineCode.substring(0, machineCode.length-1-bstartbit+bnum_bits_free_space);
-				machineCode = machineCodeAux + bnum_bits + machineCode.substring(machineCode.length-bstopbit);	
-			}
+			if(binaryAux[candidate][i].islabel)
+				ret.labels["0x" + seg_ptr.toString(16)] = { 	name:binaryAux[candidate][i].field_name, 
+										addr:seg_ptr,
+										startbit:binaryAux[candidate][i].startbit,
+										stopbit:binaryAux[candidate][i].stopbit,
+										rel:binaryAux[candidate][i].rel,
+										nwords:firmware[instruction][candidate].nwords,
+										labelContext:getLabelContext(context) };
+			// replace instruction and fields in machine code
+			else
+				machineCode = assembly_replacement(	machineCode,
+									binaryAux[candidate][i].num_bits,
+									binaryAux[candidate][i].startbit-(-1), 
+									binaryAux[candidate][i].stopbit,
+									binaryAux[candidate][i].num_bits_free_space);	
 		}
 
 		// fix instruction format
