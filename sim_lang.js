@@ -171,3 +171,15 @@ function langError ( context, msgError )
         return context;
 }
 
+function getLabelContext ( context )
+{
+        return { t: context.t, line: context.line, newlines: context.newlines.slice() } ;
+}
+
+function setLabelContext ( context, labelContext )
+{
+        context.t = labelContext.t ;
+        context.line = labelContext.line ;
+        context.newlines = labelContext.newlines ;
+}
+
