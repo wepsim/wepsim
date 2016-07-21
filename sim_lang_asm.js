@@ -961,24 +961,23 @@ function simlang_compile (text, datosCU)
 
 		// Translate the address into bits	
 		if((converted = isHex(value)) !== false){
-			var res = decimal2binary(converted, size); // res[0] == num_bits | res[1] == num_bits_free_space
-			var error = "'" + ret.labels[i].name + "' needs " + res[0].length + " bits but there is space for only " + size + " bits";
+			var [num_bits,free_space] = decimal2binary(converted, size);
+			var error = "'" + ret.labels[i].name + "' needs " + num_bits.length + " bits but there is space for only " + size + " bits";
 			if ("rel" == ret.labels[i].rel){
-			    res = decimal2binary(converted - ret.labels[i].addr - 4, size);
-			    error = "Relative value (" + (converted - ret.labels[i].addr - 4) + " in decimal) needs " + res[0].length + " bits but there is space for only " + size + " bits";
+			    var [num_bits,free_space] = decimal2binary(converted - ret.labels[i].addr - 4, size);
+			    error = "Relative value (" + (converted - ret.labels[i].addr - 4) + " in decimal) needs " + num_bits.length + " bits but there is space for only " + size + " bits";
 			}
 		}	
  		else return langError(context, "Unexpected error (54)");
 
 		// check size
-		if (res[1] < 0) {
+		if (free_space < 0) {
 		    setLabelContext(context, ret.labels[i].labelContext);
                     return langError(context, error);
                 }
 			
 		// Store field in machine code
-		var machineCodeAux = machineCode.substring(0, machineCode.length-1-ret.labels[i].startbit+res[1]);
-		machineCode = machineCodeAux + res[0] + machineCode.substring(machineCode.length-ret.labels[i].stopbit);
+		machineCode = assembly_replacement(machineCode, num_bits, ret.labels[i].startbit-(-1), ret.labels[i].stopbit, free_space);
 
 		// process machine code with several words...
 		auxAddr = ret.labels[i].addr;
@@ -989,6 +988,7 @@ function simlang_compile (text, datosCU)
 		}
 	 }	 
 
+	 // check if main or kmain in assembly code
 	 if ( (typeof ret.labels2["main"] == "undefined" ) && (typeof ret.labels2["kmain"] == "undefined" ) )
 		return langError(context, "Tags 'main' or 'kmain' are not defined in the assembly code");
 	
