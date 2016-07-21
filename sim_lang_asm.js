@@ -703,7 +703,8 @@ function read_text ( context, datosCU, ret )
 								break;
 							}
 						}
-						var res = decimal2binary(isDecimal(registers[value]), size);
+						converted = isDecimal(registers[value]);
+						var res = decimal2binary(converted, size);
 						break;
 					default:
 						return langError(context, "An unknown error ocurred (53)");	
@@ -720,8 +721,11 @@ function read_text ( context, datosCU, ret )
 				}	
 
 				// store field
-				if(advance[j] == 1)	
-					binaryAux[j][i] = {
+				if(advance[j] == 1){	
+					if(isPseudo){
+					}
+					else{
+						binaryAux[j][i] = {
                                                             num_bits:(label_found ? false : res[0]), 
                                                             free_space:(label_found ? false : res[1]), 
                                                             startbit:field.startbit, 
@@ -730,12 +734,17 @@ function read_text ( context, datosCU, ret )
                                                             islabel:label_found, 
 							    field_name: value 
                                                           };
+					}
+				}
 			}
 		
 			if(sum_array(advance) == 0) break;
 
 			if("TAG" == getTokenType(context) || firmware[value] || pseudoInstructions[value]) break;	
 		}
+
+		if(isPseudo && counter==-1)
+			var s_ori = s;
 
 		// get candidate
 		var candidate;
