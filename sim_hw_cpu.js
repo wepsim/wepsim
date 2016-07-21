@@ -430,7 +430,7 @@
 			       draw_name: [['svg_p:path3121']] };
 
 	sim_signals["SE"]  = { name: "SE",     visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-			       behavior: ['MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3'], 
+			       behavior: ['MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE SBWA'], 
 			       fire_name: ['svg_p:text3593', 'svg_p:text3431'], 
 			       draw_data: [[]], 
 			       draw_name: [['svg_p:path3591']] };
