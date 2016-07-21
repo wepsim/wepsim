@@ -307,12 +307,10 @@ function read_data ( context, datosCU, ret )
 				var size = get_datatype_size(possible_datatype);
 
 				// Decimal --> binary	
-			        var res = decimal2binary(number, size*BYTE_LENGTH);
-				num_bits = res[0];
-				num_bits_free_space = res[1];
+			        var [num_bits, free_space] = decimal2binary(number, size*BYTE_LENGTH);
 
 				// Check size
-				if(num_bits_free_space < 0)
+				if(free_space < 0)
 					return langError(context, "Expected value that fits in a '" + possible_datatype + "' (" + size*BYTE_LENGTH + " bits), but inserted '" + possible_value + "' (" + num_bits.length + " bits) instead");
 
 				// Word filled
@@ -339,8 +337,7 @@ function read_data ( context, datosCU, ret )
 					ret.labels["0x" + seg_ptr.toString(16)] = { name:possible_value, addr:seg_ptr, startbit:31, stopbit:0, rel:undefined, nwords:1 };
 					
 				// Store number in machine code
-				machineCode = assembly_replacement(machineCode, num_bits, BYTE_LENGTH*(size+byteWord), BYTE_LENGTH*byteWord, num_bits_free_space); 
-				
+				machineCode = assembly_replacement(machineCode, num_bits, BYTE_LENGTH*(size+byteWord), BYTE_LENGTH*byteWord, free_space); 		
 				byteWord+=size;
 
 				// optional ','
@@ -510,7 +507,7 @@ function read_data ( context, datosCU, ret )
 		   }
 		   else
 		   {
-		        return langError(context, "UnExpected datatype name '" + possible_datatype );
+		        return langError(context, "Unexpected datatype name '" + possible_datatype );
 		   }
 		   
 		   if(context.t >= context.text.length) break;
@@ -581,28 +578,12 @@ function read_text ( context, datosCU, ret )
 
 		var instruction = getToken(context);
 		var isPseudo = false;	
-
 		var signature_fields = [];		// e.g. [[reg,reg], [reg,inm], [reg,addr,inm]]
-		var finish = [];
+		var signature_user_fields = [];		// signature user fields
+		var finish = [];			// instructions of pseudoinstruction
 		var advance = [];			// array that indicates wheather each signature can be considered or not
 		var max_length = 0;			// max number of parameters of the signatures
-
-		// check if pseudoinstruction
-		if(pseudoInstructions[instruction]){
-			for(i=0; i<pseudoInstructions[instruction].length; i++){
-				signature_fields[i] = pseudoInstructions[instruction][i].signature.split(",");	
-				advance[i] = 1;
-				isPseudo = true;
-				max_length = max(max_length, signature_fields[i].length);
-			}
-			return langError(context, "Pseudoinstructions are not implemented");
-		}
-	
-                //
-                // *li, $1*, 1
-                //
-
-		var signature_user_fields = [];		// signature user fields
+		var counter = -1;			// counter for pseudoinstruction fields
 		var binaryAux = [];			// necessary parameters of the fields of each signature		
 
 		// Fill parameters
@@ -615,6 +596,12 @@ function read_text ( context, datosCU, ret )
 			advance[i] = 1;
 			binaryAux[i] = [];
 			max_length = max(max_length, signature_fields[i].length);
+
+			if(pseudoInstructions[instruction]){
+				finish[i] = firmware[instruction][i].finish.replace(/ ,/g,"").split(" ");
+				finish[i].pop();
+				isPseudo = true;
+			}
 		}
 
 		// Iterate over fields
@@ -736,11 +723,12 @@ function read_text ( context, datosCU, ret )
 				if(advance[j] == 1)	
 					binaryAux[j][i] = {
                                                             num_bits:(label_found ? false : res[0]), 
-                                                            num_bits_free_space:(label_found ? false : res[1]), 
+                                                            free_space:(label_found ? false : res[1]), 
                                                             startbit:field.startbit, 
                                                             stopbit:field.stopbit, 
                                                             rel:(label_found ? field.address_type : false), 
-                                                            islabel:label_found, field_name: value 
+                                                            islabel:label_found, 
+							    field_name: value 
                                                           };
 			}
 		
@@ -800,7 +788,7 @@ function read_text ( context, datosCU, ret )
 									binaryAux[candidate][i].num_bits,
 									binaryAux[candidate][i].startbit-(-1), 
 									binaryAux[candidate][i].stopbit,
-									binaryAux[candidate][i].num_bits_free_space);	
+									binaryAux[candidate][i].free_space);	
 		}
 
 		// fix instruction format
@@ -880,8 +868,8 @@ function simlang_compile (text, datosCU)
 							  cop:(typeof aux.cop != "undefined" ? aux.cop : false),
 							  fields:(typeof aux.fields != "undefined" ? aux.fields : false),
 							  signature:aux.signature,
-							  signatureGlobal:aux.signatureGlobal,
-							  signatureUser:(typeof aux.signatureUser != "undefined" ? aux.signatureUser : aux.name )  });
+							  signatureUser:(typeof aux.signatureUser != "undefined" ? aux.signatureUser : aux.name ),
+							  isPseudoinstruction:false  });
 	   }
 	
 	   // fill pseudoinstructions
@@ -890,13 +878,18 @@ function simlang_compile (text, datosCU)
 		var initial = datosCU.pseudoInstructions[i].initial;
 		var finish = datosCU.pseudoInstructions[i].finish;	
 
-		if (typeof context.pseudoInstructions[initial.name] == "undefined")
-		    context.pseudoInstructions[initial.name] = new Array();
+		if (typeof context.pseudoInstructions[initial.name] == "undefined"){
+		    context.pseudoInstructions[initial.name] = 0;
+		    context.firmware[initial.name] = new Array();
+		}
 
-                context.pseudoInstructions[initial.name].push({ name:initial.name, 
-								fields:(typeof initial.fields != "undefined" ? initial.fields : false),
-								signature:initial.signature,
-								finish:finish.signature });
+		context.pseudoInstructions[initial.name]++;
+                context.firmware[initial.name].push({ 	name:initial.name, 
+							fields:(typeof initial.fields != "undefined" ? initial.fields : false),
+							signature:initial.signature,
+							signatureUser:initial.signature.replace(/,/g," "),
+							finish:finish.signature,
+							isPseudoinstruction:true });
 	   }
 
            var ret = new Object(); 

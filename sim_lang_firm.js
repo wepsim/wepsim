@@ -264,6 +264,7 @@ function loadFirmware (text)
 				{
 					var pseudoFieldAux	  = new Object();
 					pseudoFieldAux.name	  = getToken(context);
+					pseudoFieldAux.type	  = getToken(context).replace("num", "inm");
 					pseudoInitial.fields.push(pseudoFieldAux);
 					pseudoInitial.signature = pseudoInitial.signature + getToken(context) + ",";
 					nextToken(context);
@@ -271,7 +272,7 @@ function loadFirmware (text)
 						nextToken(context);
 				}
 			 	nextToken(context);
-				pseudoInitial.signature = pseudoInitial.signature.substr(0, pseudoInitial.signature.length-1); 
+				pseudoInitial.signature = pseudoInitial.signature.substr(0, pseudoInitial.signature.length-1).replace(/num/g,"inm"); 
 				pseudoInstructionAux["initial"]=pseudoInitial;	
 				var contPseudoFinish=0;
 
