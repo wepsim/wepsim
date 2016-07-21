@@ -880,38 +880,6 @@ function decode_instruction ( binstruction )
     return oinstruction ;
 }
 
-function show_decode_instruction ( oinstruction, binstruction )
-{
-    // if found, show its information. In other case, show error
-    if (null == oinstruction) {
-        return "ERROR: instruction " + binstruction + " not found" ;
-    }
-
-    var sinstruction = oinstruction.name + " " ;
-    var split_ins    = oinstruction.signature.split(",") ;
-    var sinstruction_length = parseInt(oinstruction.nwords) * 32; /* nbits of instruction */
-    for (var i=1; i < split_ins.length; i++)
-    {
-	 if (
-              ( (oinstruction.fields[i-1].stopbit) < (sinstruction_length - 1     ) ) && 
-              ( (oinstruction.fields[i-1].stopbit) > (sinstruction_length - 1 - 32) )
-         )
-	 {
-	 	var binvalue = binstruction.substring(sinstruction_length - oinstruction.fields[i-1].startbit - 1,
-					       	      sinstruction_length - oinstruction.fields[i-1].stopbit) ;
-	 	if (split_ins[i] == "reg")
-	      	     sinstruction +=  "$" + parseInt(binvalue,2) + " ";
-	 	else sinstruction += "0x" + parseInt(binvalue,2).toString(16) + " ";
-    	}
-	else
-	{
-		sinstruction += "... ";
-	}
-    }
-
-    return sinstruction ;
-}
-
 function decode_ram ( )
 {
     var sram = "\n" ;

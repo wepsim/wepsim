@@ -18,6 +18,11 @@
  *
  */
 
+/*
+ *   Constants
+ */
+
+	const BYTE_LENGTH = 8;
 
 /*
  *   Directives 
@@ -79,7 +84,14 @@ function is_directive_datatype ( text )
 function isDecimal ( n )
 {
 	if(n.length > 1 && n[0] == "0") return false;
-        return (!isNaN(parseFloat(n)) && isFinite(n)) ? parseInt(n) : false;
+        
+	if( !isNaN(parseFloat(n)) && isFinite(n) ){
+		var res = parseInt(n);
+		if(typeof n == "string" && n.includes(".")) 
+			alert("Truncating conversion has occurred: " + n + " became " + res);
+		return res;
+	}
+	return false;
 }
 
 function isOctal( n )
@@ -125,7 +137,7 @@ function decimal2binary(number, size)
 }
 
 function isValidTag(tag){
-	if(isDecimal(tag[0]))
+	if(isDecimal(tag[0]) === 0)
 		return false;
 	var myRegEx  = /[^a-z\d]/i;
 	return !(myRegEx.test(tag));
@@ -173,6 +185,23 @@ function get_candidate(advance, instruction){
 	return candidate ? parseInt(candidate) : candidate;
 }
 
+function reset_assembly(nwords){
+	return "00000000000000000000000000000000".repeat(nwords);		
+}
+
+function assembly_replacement(machineCode, num_bits, startbit, stopbit, free_space){
+	var machineCodeAux = machineCode.substring(0, machineCode.length-startbit+free_space);
+	machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length-stopbit);	
+	return machineCode; 
+}
+
+function writememory_and_reset ( seg_ptr, nwords, machineCode, mp )
+{
+	mp["0x" + seg_ptr.toString(16)] = machineCode ;               			
+	return [ seg_ptr + 4, 0, reset_assembly(nwords) ] ;
+}
+
+
 /*
  *   Load segments
  */
@@ -190,7 +219,7 @@ function read_data ( context, datosCU, ret )
            nextToken(context) ;
 
 	   var byteWord = 0;
-	   var machineCode = "00000000000000000000000000000000";
+	   var machineCode = reset_assembly(1);
 
 	   // Loop while token read is not a segment directive (.text/.data/...)
 	   while (!is_directive_segment(getToken(context))) 
@@ -215,7 +244,9 @@ function read_data ( context, datosCU, ret )
 			  return langError(context, "A tag must follow an alphanumeric format (starting with a letter) but found '" + tag + "' instead");
 		      if(context.firmware[tag] || context.pseudoInstructions[tag])
 			  return langError(context, "A tag can not have the same name as an instruction (" + tag + ")");
-	
+		      if(ret.labels2[tag])
+			  return langError(context, "Repeated tag: '" + tag + "'");
+
 		      // Store tag
 		      ret.labels2[tag] = "0x" + (seg_ptr+byteWord).toString(16);
 
@@ -267,20 +298,20 @@ function read_data ( context, datosCU, ret )
 				var size = get_datatype_size(possible_datatype);
 
 				// Decimal --> binary	
-			        var res = decimal2binary(number, size*8);
+			        var res = decimal2binary(number, size*BYTE_LENGTH);
 				num_bits = res[0];
 				num_bits_free_space = res[1];
 
 				// Check size
 				if(num_bits_free_space < 0)
-					return langError(context, "Expected value that fits in a '" + possible_datatype + "' (" + size*8 + " bits), but inserted '" + possible_value + "' (" + num_bits.length + " bits) instead");
+					return langError(context, "Expected value that fits in a '" + possible_datatype + "' (" + size*BYTE_LENGTH + " bits), but inserted '" + possible_value + "' (" + num_bits.length + " bits) instead");
 
 				// Word filled
 				if(byteWord >= 4){
 					ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
                				seg_ptr = seg_ptr + 4 ;
 					byteWord = 0;
-					machineCode = "00000000000000000000000000000000";	
+					machineCode = reset_assembly(1);	
 				}
 
 				// Align to size
@@ -288,12 +319,8 @@ function read_data ( context, datosCU, ret )
 					byteWord++;
 					
 					// Word filled
-					if(byteWord >= 4){
-						ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
-        	        			seg_ptr = seg_ptr + 4 ;
-						byteWord = 0;
-						machineCode = "00000000000000000000000000000000";	
-					}
+					if (byteWord >= 4)
+                                            var [ seg_ptr, byteWord, machineCode ] = writememory_and_reset(seg_ptr,1,machineCode,ret.mp) ;
 				}	
 	
 		                // Store tag
@@ -306,10 +333,9 @@ function read_data ( context, datosCU, ret )
 				if(label_found)
 					ret.labels["0x" + seg_ptr.toString(16)] = { name:possible_value, addr:seg_ptr, startbit:31, stopbit:0, rel:undefined, nwords:1 };
 					
-				// Store field in machine code
-				var machineCodeAux = machineCode.substring(0, machineCode.length- 8*(size+byteWord) +num_bits_free_space);
-				machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length - 8*(byteWord));
-			
+				// Store number in machine code
+				machineCode = assembly_replacement(machineCode, num_bits, BYTE_LENGTH*(size+byteWord), BYTE_LENGTH*byteWord, num_bits_free_space); 
+				
 				byteWord+=size;
 
 				// optional ','
@@ -342,12 +368,8 @@ function read_data ( context, datosCU, ret )
 			for (i=0; i<possible_value; i++){
 			
 				// Word filled
-				if(byteWord >= 4){
-					ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
-                			seg_ptr = seg_ptr + 4 ;
-					byteWord = 0;
-					machineCode = "00000000000000000000000000000000";	
-				}
+				if(byteWord >= 4)
+                                        var [ seg_ptr, byteWord, machineCode ] = writememory_and_reset(seg_ptr,1,machineCode,ret.mp) ;
 
 				byteWord++;
 			}
@@ -367,12 +389,8 @@ function read_data ( context, datosCU, ret )
 			     return langError(context, "Expected the align parameter as positive number but found '" + possible_value + "'. Remember that number is the power of two for alignment, see MIPS documentation..");
 
 			// Word filled
-			if(byteWord >= 4){
-				ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
-                		seg_ptr = seg_ptr + 4 ;
-				byteWord = 0;
-				machineCode = "00000000000000000000000000000000";	
-			}
+			if (byteWord >= 4)
+                            var [ seg_ptr, byteWord, machineCode ] = writememory_and_reset(seg_ptr,1,machineCode,ret.mp) ;
 
 			// Calculate offset
                         var align_offset = Math.pow(2,parseInt(possible_value)) ;
@@ -389,12 +407,8 @@ function read_data ( context, datosCU, ret )
 					while(true){
 		
 						// Word filled
-						if(byteWord >= 4){
-							ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
-                					seg_ptr = seg_ptr + 4 ;
-							byteWord = 0;
-							machineCode = "00000000000000000000000000000000";	
-						}
+						if (byteWord >= 4)
+                                                    var [ seg_ptr, byteWord, machineCode ] = writememory_and_reset(seg_ptr,1,machineCode,ret.mp) ;
 
 						if(seg_ptr%align_offset == 0 && byteWord == 0)
 							break;	
@@ -402,8 +416,6 @@ function read_data ( context, datosCU, ret )
 						byteWord++;
 					}	
 			}
-
-     		//seg_ptr = seg_ptr + align_offset - (seg_ptr % align_offset)
 
 			nextToken(context) ;
                    }
@@ -419,12 +431,8 @@ function read_data ( context, datosCU, ret )
 			while (!is_directive(getToken(context)))
                         {
 				// Word filled
-				if(byteWord >= 4){
-					ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
-                			seg_ptr = seg_ptr + 4 ;
-					byteWord = 0;
-					machineCode = "00000000000000000000000000000000";	
-				}
+				if (byteWord >= 4)
+                                    var [ seg_ptr, byteWord, machineCode ] = writememory_and_reset(seg_ptr,1,machineCode,ret.mp) ;
 
 				// check string
 				if("" == possible_value)
@@ -436,16 +444,12 @@ function read_data ( context, datosCU, ret )
 				for(i=0; i<possible_value.length; i++){
 					
 					// Word filled
-					if(byteWord >= 4){
-						ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
-                				seg_ptr = seg_ptr + 4 ;
-						byteWord = 0;
-						machineCode = "00000000000000000000000000000000";	
-					}
-				
+					if (byteWord >= 4)
+                                            var [ seg_ptr, byteWord, machineCode ] = writememory_and_reset(seg_ptr,1,machineCode,ret.mp) ;
+
+					if(possible_value[i] == "\"") continue;			
+	
 					switch(possible_value[i]){
-						case "\"":
-							break;
 						case "\\":
 							switch(possible_value[i+1]){
 							
@@ -465,48 +469,25 @@ function read_data ( context, datosCU, ret )
 									num_bits = possible_value.charCodeAt(i).toString(2);
 									break;
 							}
-							
-							// calculate free space after including the value
-							var num_bits_free_space = 8 - num_bits.length;
-	
-							// Store field in machine code
-							var machineCodeAux = machineCode.substring(0, machineCode.length- 8*(1+byteWord) + num_bits_free_space );
-							machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length - 8*(byteWord));	
-								
-							byteWord++;
-							
-							break;
 						default:
 							num_bits = possible_value.charCodeAt(i).toString(2);
-	
-							// calculate free space after including the value
-							var num_bits_free_space = 8 - num_bits.length;
-
-							// Store field in machine code
-							var machineCodeAux = machineCode.substring(0, machineCode.length- 8*(1+byteWord) + num_bits_free_space );
-							machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length - 8*(byteWord));	
-							
-							byteWord++;
 					}	
+	
+					// Store character in machine code
+					machineCode = assembly_replacement(machineCode, num_bits, BYTE_LENGTH*(1+byteWord), BYTE_LENGTH*byteWord, BYTE_LENGTH-num_bits.length); 	
+					byteWord++;
+
 				}
 
                                 if (".asciiz" == possible_datatype){
                                 	// Word filled
-					if(byteWord >= 4){
-						ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
-                				seg_ptr = seg_ptr + 4 ;
-						byteWord = 0;
-						machineCode = "00000000000000000000000000000000";	
-					}
+					if (byteWord >= 4)
+                                            var [ seg_ptr, byteWord, machineCode ] = writememory_and_reset(seg_ptr,1,machineCode,ret.mp) ;
 					
 					num_bits = "\0".charCodeAt(0).toString(2);
 			
-					// calculate free space after including the value
-					var num_bits_free_space = 8 - num_bits.length;
-
 					// Store field in machine code
-					var machineCodeAux = machineCode.substring(0, machineCode.length- 8*(1+byteWord) + num_bits_free_space );
-					machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length - 8*(byteWord));	
+					machineCode = assembly_replacement(machineCode, num_bits, BYTE_LENGTH*(1+byteWord), BYTE_LENGTH*byteWord, BYTE_LENGTH-num_bits.length); 	
 					byteWord++;
 				}
 
@@ -534,6 +515,7 @@ function read_data ( context, datosCU, ret )
 	   if(byteWord > 0){
 		ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
                 seg_ptr = seg_ptr + 4 ;
+                // var [ seg_ptr, byteWord, machineCode ] = writememory_and_reset(seg_ptr,1,machineCode,ret.mp) ;
 	   }		
 
            ret.seg[seg_name].end = seg_ptr ;  // end of segment is just last pointer value...
@@ -580,10 +562,16 @@ function read_text ( context, datosCU, ret )
 				return langError(context, "A tag must follow an alphanumeric format (starting with a letter) but found '" + tag + "' instead");
 			if(firmware[tag] || pseudoInstructions[tag])
 				return langError(context, "A tag can not have the same name as an instruction (" + tag + ")");
+			if(ret.labels2[tag])
+				return langError(context, "Repeated tag: '" + tag + "'");
+
 			// store tag
 			ret.labels2[tag] = "0x" + seg_ptr.toString(16);
 
 			nextToken(context);
+
+			if (context.t >= context.text.length) 
+                            return langError(context, "Unexpected end of file");
 		}
 
 		var instruction = getToken(context);
@@ -741,7 +729,14 @@ function read_text ( context, datosCU, ret )
 
 				// store field
 				if(advance[j] == 1)	
-					binaryAux[j][i] = {num_bits:(label_found ? false : res[0]), num_bits_free_space:(label_found ? false : res[1]), startbit:field.startbit, stopbit:field.stopbit, rel:(label_found ? field.address_type : false), islabel:label_found, field_name: value };
+					binaryAux[j][i] = {
+                                                            num_bits:(label_found ? false : res[0]), 
+                                                            num_bits_free_space:(label_found ? false : res[1]), 
+                                                            startbit:field.startbit, 
+                                                            stopbit:field.stopbit, 
+                                                            rel:(label_found ? field.address_type : false), 
+                                                            islabel:label_found, field_name: value 
+                                                          };
 			}
 		
 			if(sum_array(advance) == 0) break;
@@ -778,28 +773,21 @@ function read_text ( context, datosCU, ret )
 			if(candidate === false) return langError(context, "Instruction and fields match with more than one microprogram. Please check the microcode. Currently, the instruction format can be: " + format);
 		}
 	
-		// Machine code (e.g. one word [ 31, 30, 29, ... , 2, 1, 0 ])
-		var machineCode = "";
-		for (i=0; i<firmware[instruction][candidate].nwords; i++)
-		     machineCode+="00000000000000000000000000000000";		
+		var machineCode = reset_assembly(firmware[instruction][candidate].nwords);
 
 		// Generate code (co and cop)	
 		if (firmware[instruction][candidate].co !== false)
                 {
-			var machineCodeAux = machineCode.substring(0, machineCode.length - 32);
-			machineCode = machineCodeAux + firmware[instruction][candidate].co + machineCode.substring(machineCode.length-26);
+			machineCode = assembly_replacement(machineCode, firmware[instruction][candidate].co, 32, 26, 0); 	
 			if (firmware[instruction][candidate].cop !== false)
-                        {
-				var machineCodeAux = machineCode.substring(0, machineCode.length - 4);
-				machineCode = machineCodeAux + firmware[instruction][candidate].cop;
-			}
+			    machineCode = assembly_replacement(machineCode, firmware[instruction][candidate].cop, 4, 0, 0);
 		}
 
 		// Store candidate fields in machine code
 		for(i=0; i<binaryAux[candidate].length; i++){
 			// tag
 			if(binaryAux[candidate][i].islabel){
-				ret.labels["0x" + seg_ptr.toString(16)] = { name:binaryAux[candidate][i].field_name, addr:seg_ptr, startbit:binaryAux[candidate][i].startbit, stopbit:binaryAux[candidate][i].stopbit, rel:binaryAux[candidate][i].rel, nwords:firmware[instruction][candidate].nwords };
+				ret.labels["0x" + seg_ptr.toString(16)] = { name:binaryAux[candidate][i].field_name, addr:seg_ptr, startbit:binaryAux[candidate][i].startbit, stopbit:binaryAux[candidate][i].stopbit, rel:binaryAux[candidate][i].rel, nwords:firmware[instruction][candidate].nwords, labelContext:getLabelContext(context) };
 			}
 
 			// reg, addr, inm
@@ -832,11 +820,14 @@ function read_text ( context, datosCU, ret )
 			}		
 		}
 
+		// original instruction (important for pseudoinstructions)
+		var s_ori = s_def;
+
 		// process machine code with several words...
 		for(i=firmware[instruction][candidate].nwords-1; i>=0; i--)
                 {
 			if(i<firmware[instruction][candidate].nwords-1) s_def="---";
-			ret.assembly["0x" + seg_ptr.toString(16)] = { breakpoint:false, binary:machineCode.substring(i*32, (i+1)*32), source:s_def, source_original:s_def } ; 
+			ret.assembly["0x" + seg_ptr.toString(16)] = { breakpoint:false, binary:machineCode.substring(i*32, (i+1)*32), source:s_def, source_original:s_ori } ; 
 			ret.mp["0x" + seg_ptr.toString(16)] = machineCode.substring(i*32, (i+1)*32) ;
                 	seg_ptr = seg_ptr + 4 ;
 		}
@@ -954,6 +945,7 @@ function simlang_compile (text, datosCU)
 
 		// Check if the label exists
 		if(typeof value === "undefined"){
+			setLabelContext(context, ret.labels[i].labelContext);
 			return langError(context, "Label '" + ret.labels[i].name + "' used but not defined in the assembly code");
 		}	
 
@@ -980,7 +972,10 @@ function simlang_compile (text, datosCU)
  		else return langError(context, "Unexpected error (54)");
 
 		// check size
-		if (res[1] < 0) return langError(context, error);
+		if (res[1] < 0) {
+		    setLabelContext(context, ret.labels[i].labelContext);
+                    return langError(context, error);
+                }
 			
 		// Store field in machine code
 		var machineCodeAux = machineCode.substring(0, machineCode.length-1-ret.labels[i].startbit+res[1]);
@@ -994,6 +989,9 @@ function simlang_compile (text, datosCU)
                 	auxAddr += 4 ;
 		}
 	 }	 
+
+	 if ( (typeof ret.labels2["main"] == "undefined" ) && (typeof ret.labels2["kmain"] == "undefined" ) )
+		return langError(context, "Tags 'main' or 'kmain' are not defined in the assembly code");
 	
 	 return ret;
 }
