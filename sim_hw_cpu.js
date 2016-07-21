@@ -1003,7 +1003,8 @@
 						    set_value(sim_states["DECO_INS"], val + 1);
 
                                                     // 5.- Update UI
-						    var decins = show_decode_instruction(oi, bits) ;
+						    var pc = get_value(sim_states['REG_PC']) - 4 ;
+                                                    var decins = get_deco_from_pc(pc) ;
 						    set_value(sim_states['REG_IR_DECO'], decins) ;
                                                     show_dbg_ir(get_value(sim_states['REG_IR_DECO']));
 						}

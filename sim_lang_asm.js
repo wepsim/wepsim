@@ -173,6 +173,15 @@ function get_candidate(advance, instruction){
 	return candidate ? parseInt(candidate) : candidate;
 }
 
+function reset_machine_code(nwords){
+	return "00000000000000000000000000000000".repeat(nwords);		
+}
+
+function assembly_replacement(code, text, startbit, stopbit){
+	return code; 
+}
+
+
 /*
  *   Load segments
  */
@@ -190,7 +199,7 @@ function read_data ( context, datosCU, ret )
            nextToken(context) ;
 
 	   var byteWord = 0;
-	   var machineCode = "00000000000000000000000000000000";
+	   var machineCode = reset_machine_code(1);
 
 	   // Loop while token read is not a segment directive (.text/.data/...)
 	   while (!is_directive_segment(getToken(context))) 
@@ -280,7 +289,7 @@ function read_data ( context, datosCU, ret )
 					ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
                				seg_ptr = seg_ptr + 4 ;
 					byteWord = 0;
-					machineCode = "00000000000000000000000000000000";	
+					machineCode = reset_machine_code(1);	
 				}
 
 				// Align to size
@@ -292,7 +301,7 @@ function read_data ( context, datosCU, ret )
 						ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
         	        			seg_ptr = seg_ptr + 4 ;
 						byteWord = 0;
-						machineCode = "00000000000000000000000000000000";	
+						machineCode = reset_machine_code(1);	
 					}
 				}	
 	
@@ -346,7 +355,7 @@ function read_data ( context, datosCU, ret )
 					ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
                 			seg_ptr = seg_ptr + 4 ;
 					byteWord = 0;
-					machineCode = "00000000000000000000000000000000";	
+					machineCode = reset_machine_code(1);	
 				}
 
 				byteWord++;
@@ -371,7 +380,7 @@ function read_data ( context, datosCU, ret )
 				ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
                 		seg_ptr = seg_ptr + 4 ;
 				byteWord = 0;
-				machineCode = "00000000000000000000000000000000";	
+				machineCode = reset_machine_code(1);	
 			}
 
 			// Calculate offset
@@ -393,7 +402,7 @@ function read_data ( context, datosCU, ret )
 							ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
                 					seg_ptr = seg_ptr + 4 ;
 							byteWord = 0;
-							machineCode = "00000000000000000000000000000000";	
+							machineCode = reset_machine_code(1);	
 						}
 
 						if(seg_ptr%align_offset == 0 && byteWord == 0)
@@ -423,7 +432,7 @@ function read_data ( context, datosCU, ret )
 					ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
                 			seg_ptr = seg_ptr + 4 ;
 					byteWord = 0;
-					machineCode = "00000000000000000000000000000000";	
+					machineCode = reset_machine_code(1);	
 				}
 
 				// check string
@@ -440,7 +449,7 @@ function read_data ( context, datosCU, ret )
 						ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
                 				seg_ptr = seg_ptr + 4 ;
 						byteWord = 0;
-						machineCode = "00000000000000000000000000000000";	
+						machineCode = reset_machine_code(1);	
 					}
 				
 					switch(possible_value[i]){
@@ -496,7 +505,7 @@ function read_data ( context, datosCU, ret )
 						ret.mp["0x" + seg_ptr.toString(16)] = machineCode ;
                 				seg_ptr = seg_ptr + 4 ;
 						byteWord = 0;
-						machineCode = "00000000000000000000000000000000";	
+						machineCode = reset_machine_code(1);	
 					}
 					
 					num_bits = "\0".charCodeAt(0).toString(2);
@@ -584,6 +593,9 @@ function read_text ( context, datosCU, ret )
 			ret.labels2[tag] = "0x" + seg_ptr.toString(16);
 
 			nextToken(context);
+
+			if (context.t >= context.text.length) 
+                            return langError(context, "Unexpected end of file");
 		}
 
 		var instruction = getToken(context);
@@ -778,10 +790,7 @@ function read_text ( context, datosCU, ret )
 			if(candidate === false) return langError(context, "Instruction and fields match with more than one microprogram. Please check the microcode. Currently, the instruction format can be: " + format);
 		}
 	
-		// Machine code (e.g. one word [ 31, 30, 29, ... , 2, 1, 0 ])
-		var machineCode = "";
-		for (i=0; i<firmware[instruction][candidate].nwords; i++)
-		     machineCode+="00000000000000000000000000000000";		
+		var machineCode = reset_machine_code(firmware[instruction][candidate].nwords);
 
 		// Generate code (co and cop)	
 		if (firmware[instruction][candidate].co !== false)
@@ -832,11 +841,14 @@ function read_text ( context, datosCU, ret )
 			}		
 		}
 
+		// original instruction (important for pseudoinstructions)
+		var s_ori = s_def;
+
 		// process machine code with several words...
 		for(i=firmware[instruction][candidate].nwords-1; i>=0; i--)
                 {
 			if(i<firmware[instruction][candidate].nwords-1) s_def="---";
-			ret.assembly["0x" + seg_ptr.toString(16)] = { breakpoint:false, binary:machineCode.substring(i*32, (i+1)*32), source:s_def, source_original:s_def } ; 
+			ret.assembly["0x" + seg_ptr.toString(16)] = { breakpoint:false, binary:machineCode.substring(i*32, (i+1)*32), source:s_def, source_original:s_ori } ; 
 			ret.mp["0x" + seg_ptr.toString(16)] = machineCode.substring(i*32, (i+1)*32) ;
                 	seg_ptr = seg_ptr + 4 ;
 		}
