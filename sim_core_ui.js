@@ -573,6 +573,16 @@
                                       "</table></center>");
         }
 
+	function get_deco_from_pc ( pc )
+	{
+                var decoded = "" ;
+	        var hexstrpc = "0x" + pc.toString(16) ;
+	        if (typeof FIRMWARE.assembly[hexstrpc].source != "undefined") 
+	            decoded = FIRMWARE.assembly[hexstrpc].source ;
+
+                return decoded ;
+        }
+
 	function show_asmdbg_pc ( )
 	{
                 var SIMWARE  = get_simware() ;
