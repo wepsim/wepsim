@@ -643,10 +643,10 @@ function read_text ( context, datosCU, ret )
 			}	
 			else{
 				var aux_fields = finish[candidate][counter++];
-				if(aux_fields == "sel")
-					var value = aux_fields;
+				if(pseudo_fields[aux_fields])
+					var value = pseudo_fields[aux_fields];
 				else
-			 		var value = pseudo_fields[aux_fields];
+					var value = aux_fields;
 			}
 
 			var converted;
@@ -667,7 +667,7 @@ function read_text ( context, datosCU, ret )
 				}
 
 				// get field information
-				var field = firmware[instruction][j].fields[i];		
+				var field = firmware[instruction][j].fields[i];
 				var size = field.startbit-field.stopbit+1;
 
 				var label_found = false;
@@ -709,7 +709,7 @@ function read_text ( context, datosCU, ret )
 						if(sel_found){							
 							res = decimal2binary(converted, 32);
 							if(res[1] < 0)
-								return langError(context, "no cabe!!");
+								return langError(context, "'" + value + "' is bigger than 32 bits");
 							converted = "0".repeat(res[1]) + res[0];	
 							converted = converted.substring(32-start-1, 32-stop);
 							converted = parseInt(converted, 2);
@@ -732,8 +732,13 @@ function read_text ( context, datosCU, ret )
 								advance[j] = 0;
 								break;
 							}
-							nextToken(context);
-							value = getToken(context);
+
+ 							if(counter == -1){
+								nextToken(context);
+								value = getToken(context);
+							}
+							else
+                                        			value = pseudo_fields[finish[candidate][counter++]];
 							aux = true;
 						}
 						else{
@@ -750,8 +755,15 @@ function read_text ( context, datosCU, ret )
 						}
 						if (aux){
 							s[i+1] = "(" + value + ")";
-							nextToken(context);
-							if (")" != getToken(context)){
+							
+							if(counter == -1){
+								nextToken(context);
+								aux = getToken(context);
+							}
+							else
+								aux = pseudo_fields[finish[candidate][counter++]];
+
+							if (")" != aux){
 								var error = "String without end parenthesis ')'";
 								advance[j] = 0;
 								break;
@@ -775,20 +787,16 @@ function read_text ( context, datosCU, ret )
 				}	
 
 				// store field
-				if (advance[j] == 1){	
-					if (isPseudo && counter == -1){
-					}
-					else{
-						binaryAux[j][i] = {
-                                                            num_bits:(label_found ? false : res[0]), 
-                                                            free_space:(label_found ? false : res[1]), 
-                                                            startbit:field.startbit, 
-                                                            stopbit:field.stopbit, 
-                                                            rel:(label_found ? field.address_type : false), 
-                                                            islabel:label_found, 
-							    field_name: value 
-                                                          };
-					}
+				if (advance[j] == 1 && (!(isPseudo && counter == -1))){
+					binaryAux[j][i] = {
+                                                num_bits:(label_found ? false : res[0]), 
+                                                free_space:(label_found ? false : res[1]), 
+                                                startbit:field.startbit, 
+                                                stopbit:field.stopbit, 
+                                                rel:(label_found ? field.address_type : false), 
+                                                islabel:label_found, 
+						field_name: value 
+                                	};
 				}
 			}
 		
@@ -887,7 +895,6 @@ function read_text ( context, datosCU, ret )
 			}		
 		}
 
-		// original instruction (important for pseudoinstructions)
 		if(!isPseudo)
 			var s_ori = s_def;
 
