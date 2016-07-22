@@ -124,7 +124,12 @@ function isChar( n )
 
 function decimal2binary(number, size)
 {
-	var num_bits = (number >>> 0).toString(2);
+	
+	var num_bits = number.toString(2);
+	if(num_bits.length > 32)
+		return [num_bits, size-num_bits.length];		
+
+	num_bits = (number >>> 0).toString(2);
 
 	if (number >= 0)
             return [num_bits, size-num_bits.length];
@@ -193,7 +198,7 @@ function get_candidate(advance, instruction)
 
 function reset_assembly(nwords)
 {
-	return "00000000000000000000000000000000".repeat(nwords);		
+	return "0".repeat(32*nwords);		
 }
 
 function assembly_replacement(machineCode, num_bits, startbit, stopbit, free_space)
@@ -546,7 +551,9 @@ function read_text ( context, datosCU, ret )
 	   // get firmware and pseudoinstructions
 	   var firmware = context.firmware;
 	   var pseudoInstructions = context.pseudoInstructions;  
- 
+	   var isPseudo = false;
+	   var counter = -1; 
+
 	   // Fill register names
 	   var registers = new Object() ;
 	   for (i=0; i<datosCU.registers.length; i++)
@@ -557,12 +564,12 @@ function read_text ( context, datosCU, ret )
 	   }
 
            nextToken(context) ;
-
+		
 	   // Loop while token read is not a segment directive (.text/.data/...)
 	   while (!is_directive_segment(getToken(context))) 
            {
 		// check tag or error
-		while (typeof firmware[getToken(context)] == "undefined" && typeof pseudoInstructions[getToken(context)] == "undefined") 
+		while (isPseudo===false && typeof firmware[getToken(context)] == "undefined" && typeof pseudoInstructions[getToken(context)] == "undefined") 
                 {
 			var possible_tag = getToken(context);
 	
@@ -587,14 +594,17 @@ function read_text ( context, datosCU, ret )
                             return langError(context, "Unexpected end of file");
 		}
 
-		var instruction = getToken(context);
-		var isPseudo = false;	
+		// get instruction
+		if(isPseudo === false)
+			var instruction = getToken(context);
+		else
+			var instruction = finish[candidate][counter++]; 
+
 		var signature_fields = [];		// e.g. [[reg,reg], [reg,inm], [reg,addr,inm]]
 		var signature_user_fields = [];		// signature user fields
 		var finish = [];			// instructions of pseudoinstruction
 		var advance = [];			// array that indicates wheather each signature can be considered or not
 		var max_length = 0;			// max number of parameters of the signatures
-		var counter = -1;			// counter for pseudoinstruction fields
 		var binaryAux = [];			// necessary parameters of the fields of each signature		
 
 		// Fill parameters
@@ -612,6 +622,7 @@ function read_text ( context, datosCU, ret )
 				finish[i] = firmware[instruction][i].finish.replace(/ ,/g,"").split(" ");
 				finish[i].pop();
 				isPseudo = true;
+				var pseudo_fields = new Object;
 			}
 		}
 
@@ -620,12 +631,18 @@ function read_text ( context, datosCU, ret )
                 s[0] = instruction;
 		for (i=0; i<max_length; i++)
                 {
-                        // optional ','
-			nextToken(context);
-			if ("," == getToken(context))
-			    nextToken(context);
+                        // get next field
+			if(isPseudo === false){
+				// optional ','
+				nextToken(context);
+				if ("," == getToken(context))
+				    nextToken(context);
+			}	
 
-			var value = getToken(context);	
+			if(!(isPseudo === false) && (counter>=0))
+				var value = finish[candidate][counter++];
+			else	var value = getToken(context);
+			
 			var converted;
 
 			if ("TAG" != getTokenType(context) && !firmware[value]) s[i+1] = value ;
@@ -754,9 +771,6 @@ function read_text ( context, datosCU, ret )
 			if ("TAG" == getTokenType(context) || firmware[value] || pseudoInstructions[value]) break;	
 		}
 
-		if (isPseudo && counter==-1)
-			var s_ori = s;
-
 		// get candidate
 		var candidate;
 		for (i=0; i<advance.length; i++)
@@ -785,7 +799,19 @@ function read_text ( context, datosCU, ret )
 			candidate = get_candidate(advance, firmware[instruction]);
 			if (candidate === false) return langError(context, "Instruction and fields match with more than one microprogram. Please check the microcode. Currently, the instruction format can be: " + format);
 		}
-	
+
+		// store pseudo_fields[field]=value, and continue 
+		if (!(isPseudo === false)){
+			var s_ori = s;
+			if(counter == -1){
+				for(i=0; i<signature_fields[candidate].length; i++){
+					pseudo_fields[signature_fields[candidate][i]] = s[i+1];
+				}
+			}
+			counter++;
+			continue;
+		}
+
 		var machineCode = reset_assembly(firmware[instruction][candidate].nwords);
 
 		// replace CO and COP in machine code
