@@ -569,7 +569,7 @@ function read_text ( context, datosCU, ret )
 	   while (!is_directive_segment(getToken(context))) 
            {
 		// check tag or error
-		while (isPseudo===false && typeof firmware[getToken(context)] == "undefined" && typeof pseudoInstructions[getToken(context)] == "undefined") 
+		while (!isPseudo && typeof firmware[getToken(context)] == "undefined" && typeof pseudoInstructions[getToken(context)] == "undefined") 
                 {
 			var possible_tag = getToken(context);
 	
@@ -595,7 +595,7 @@ function read_text ( context, datosCU, ret )
 		}
 
 		// get instruction
-		if(isPseudo === false){
+		if(!isPseudo){
 			var instruction = getToken(context);
 			var finish = [];
 		}
@@ -761,7 +761,7 @@ function read_text ( context, datosCU, ret )
 								aux = getToken(context);
 							}
 							else
-								aux = pseudo_fields[finish[candidate][counter++]];
+								aux = finish[candidate][counter++];
 
 							if (")" != aux){
 								var error = "String without end parenthesis ')'";
