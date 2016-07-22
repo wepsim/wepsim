@@ -595,14 +595,15 @@ function read_text ( context, datosCU, ret )
 		}
 
 		// get instruction
-		if(isPseudo === false)
+		if(isPseudo === false){
 			var instruction = getToken(context);
+			var finish = [];
+		}
 		else
 			var instruction = finish[candidate][counter++]; 
 
 		var signature_fields = [];		// e.g. [[reg,reg], [reg,inm], [reg,addr,inm]]
 		var signature_user_fields = [];		// signature user fields
-		var finish = [];			// instructions of pseudoinstruction
 		var advance = [];			// array that indicates wheather each signature can be considered or not
 		var max_length = 0;			// max number of parameters of the signatures
 		var binaryAux = [];			// necessary parameters of the fields of each signature		
@@ -619,9 +620,10 @@ function read_text ( context, datosCU, ret )
 			max_length = max(max_length, signature_fields[i].length);
 
 			if (pseudoInstructions[instruction]){
-				finish[i] = firmware[instruction][i].finish.replace(/ ,/g,"").split(" ");
+				finish[i] = firmware[instruction][i].finish.replace(/ ,/g,"").replace(/num/g,"inm").split(" ");
 				finish[i].pop();
 				isPseudo = true;
+				var npseudoInstructions = 0;
 				var pseudo_fields = new Object;
 			}
 		}
@@ -632,17 +634,21 @@ function read_text ( context, datosCU, ret )
 		for (i=0; i<max_length; i++)
                 {
                         // get next field
-			if(isPseudo === false){
+			if(counter == -1){
 				// optional ','
 				nextToken(context);
 				if ("," == getToken(context))
 				    nextToken(context);
+				var value = getToken(context);
 			}	
+			else{
+				var aux_fields = finish[candidate][counter++];
+				if(aux_fields == "sel")
+					var value = aux_fields;
+				else
+			 		var value = pseudo_fields[aux_fields];
+			}
 
-			if(!(isPseudo === false) && (counter>=0))
-				var value = finish[candidate][counter++];
-			else	var value = getToken(context);
-			
 			var converted;
 
 			if ("TAG" != getTokenType(context) && !firmware[value]) s[i+1] = value ;
@@ -665,6 +671,7 @@ function read_text ( context, datosCU, ret )
 				var size = field.startbit-field.stopbit+1;
 
 				var label_found = false;
+				var sel_found = false;
 
 				// check field	
 				switch(field.type)
@@ -672,6 +679,15 @@ function read_text ( context, datosCU, ret )
 					// 0xFFFFF,... | 23, 'b', ...
 					case "address":
 					case "inm":
+						if (isPseudo && "sel" == value){
+							counter++;
+							var start = finish[candidate][counter++];
+							var stop = finish[candidate][counter++];
+			 				var value = pseudo_fields[finish[candidate][counter++]];
+							counter++;
+							sel_found = true;
+						}
+		
 						if ((converted = isOctal(value)) !== false);
 						else if ((converted = isHex(value)) !== false);	
 						else if ((converted = isDecimal(value)) !== false);
@@ -688,6 +704,16 @@ function read_text ( context, datosCU, ret )
 								break;
 							}
 							label_found = true;
+						}
+				
+						if(sel_found){							
+							res = decimal2binary(converted, 32);
+							if(res[1] < 0)
+								return langError(context, "no cabe!!");
+							converted = "0".repeat(res[1]) + res[0];	
+							converted = converted.substring(32-start-1, 32-stop);
+							converted = parseInt(converted, 2);
+							s[i+1] = converted;
 						}
 
 						if (!label_found){
@@ -750,7 +776,7 @@ function read_text ( context, datosCU, ret )
 
 				// store field
 				if (advance[j] == 1){	
-					if (isPseudo){
+					if (isPseudo && counter == -1){
 					}
 					else{
 						binaryAux[j][i] = {
@@ -801,15 +827,23 @@ function read_text ( context, datosCU, ret )
 		}
 
 		// store pseudo_fields[field]=value, and continue 
-		if (!(isPseudo === false)){
-			var s_ori = s;
+		if (isPseudo){
 			if(counter == -1){
+				var s_ori = "";
+				for (i=0; i<s.length; i++)
+					s_ori = s_ori + s[i] + " " ;
+				s_ori = s_ori.substring(0,s_ori.length-1);	 
 				for(i=0; i<signature_fields[candidate].length; i++){
 					pseudo_fields[signature_fields[candidate][i]] = s[i+1];
 				}
+				counter++;
+				continue;
 			}
-			counter++;
-			continue;
+			else npseudoInstructions++;
+			if(npseudoInstructions > 1) 
+				s_ori = "---"; 
+			if(finish[candidate][counter] == "\n")
+				counter++;
 		}
 
 		var machineCode = reset_assembly(firmware[instruction][candidate].nwords);
@@ -854,7 +888,8 @@ function read_text ( context, datosCU, ret )
 		}
 
 		// original instruction (important for pseudoinstructions)
-		var s_ori = s_def;
+		if(!isPseudo)
+			var s_ori = s_def;
 
 		// process machine code with several words...
 		for (i=firmware[instruction][candidate].nwords-1; i>=0; i--)
@@ -864,9 +899,17 @@ function read_text ( context, datosCU, ret )
 			ret.mp["0x" + seg_ptr.toString(16)] = machineCode.substring(i*32, (i+1)*32) ;
                 	seg_ptr = seg_ptr + 4 ;
 		}
-
-		if (max_length == signature_fields[candidate].length)
+	
+		if (!isPseudo && max_length == signature_fields[candidate].length)
 			nextToken(context);
+
+		// pseudoinstruction finished
+		if(isPseudo && counter == finish[candidate].length){
+			counter = -1;
+			npseudoInstructions = 0;
+			isPseudo = false;
+			nextToken(context);
+		}
 
 		if (context.t >= context.text.length) break;
            }
