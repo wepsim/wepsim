@@ -274,7 +274,7 @@ function read_data ( context, datosCU, ret )
 
    		      if (!isValidTag(tag))
 			  return langError(context, "A tag must follow an alphanumeric format (starting with a letter) but found '" + tag + "' instead");
-		      if (context.firmware[tag] || context.pseudoInstructions[tag])
+		      if (context.firmware[tag])
 			  return langError(context, "A tag can not have the same name as an instruction (" + tag + ")");
 		      if (ret.labels2[tag])
 			  return langError(context, "Repeated tag: '" + tag + "'");
@@ -318,7 +318,7 @@ function read_data ( context, datosCU, ret )
 					if (".word" == possible_datatype){
 						if (!isValidTag(possible_value))
 							return langError(context, "A tag must follow an alphanumeric format (starting with a letter) but found '" + possible_value + "' instead");
-						if (context.firmware[possible_value] || context.pseudoInstructions[possible_value])
+						if (context.firmware[possible_value])
 							return langError(context, "A tag can not have the same name as an instruction (" + possible_value + ")");
 						number = 0;
 						label_found = true;	
@@ -569,7 +569,7 @@ function read_text ( context, datosCU, ret )
 	   while (!is_directive_segment(getToken(context))) 
            {
 		// check tag or error
-		while (!isPseudo && typeof firmware[getToken(context)] == "undefined" && typeof pseudoInstructions[getToken(context)] == "undefined") 
+		while (!isPseudo && typeof firmware[getToken(context)] == "undefined") 
                 {
 			var possible_tag = getToken(context);
 	
@@ -580,7 +580,7 @@ function read_text ( context, datosCU, ret )
 		        var tag = possible_tag.substring(0, possible_tag.length-1); 
    		        if (!isValidTag(tag))
 				return langError(context, "A tag must follow an alphanumeric format (starting with a letter) but found '" + tag + "' instead");
-			if (firmware[tag] || pseudoInstructions[tag])
+			if (firmware[tag])
 				return langError(context, "A tag can not have the same name as an instruction (" + tag + ")");
 			if (ret.labels2[tag])
 				return langError(context, "Repeated tag: '" + tag + "'");
@@ -600,7 +600,7 @@ function read_text ( context, datosCU, ret )
 			var finish = [];
 		}
 		else
-			var instruction = finish[candidate][counter++]; 
+			var instruction = finish[candidate][counter++];
 
 		var signature_fields = [];		// e.g. [[reg,reg], [reg,inm], [reg,addr,inm]]
 		var signature_user_fields = [];		// signature user fields
@@ -619,6 +619,7 @@ function read_text ( context, datosCU, ret )
 			binaryAux[i] = [];
 			max_length = max(max_length, signature_fields[i].length);
 
+			// pseudoinstruction
 			if (pseudoInstructions[instruction]){
 				finish[i] = firmware[instruction][i].finish.replace(/ ,/g,"").replace(/num/g,"inm").split(" ");
 				finish[i].pop();
@@ -661,7 +662,7 @@ function read_text ( context, datosCU, ret )
 					continue;
 				if (i >= signature_fields[j].length){
 					// if next token is not instruction or tag
-					if ("TAG" != getTokenType(context) && !firmware[value] && !pseudoInstructions[value])
+					if ("TAG" != getTokenType(context) && !firmware[value])
 						advance[j] = 0;
 					continue;
 				}
@@ -698,7 +699,7 @@ function read_text ( context, datosCU, ret )
 								advance[j] = 0;
 								break;
 							}
-							if (firmware[value] || pseudoInstructions[value]){
+							if (firmware[value]){
 								var error = "A tag can not have the same name as an instruction (" + value + ")";
 								advance[j] = 0;
 								break;
@@ -713,7 +714,7 @@ function read_text ( context, datosCU, ret )
 							converted = "0".repeat(res[1]) + res[0];	
 							converted = converted.substring(32-start-1, 32-stop);
 							converted = parseInt(converted, 2);
-							s[i+1] = converted;
+							s[i+1] = "0x" + converted.toString(16);
 						}
 
 						if (!label_found){
@@ -802,7 +803,7 @@ function read_text ( context, datosCU, ret )
 		
 			if (sum_array(advance) == 0) break;
 
-			if ("TAG" == getTokenType(context) || firmware[value] || pseudoInstructions[value]) break;	
+			if ("TAG" == getTokenType(context) || firmware[value]) break;	
 		}
 
 		// get candidate
