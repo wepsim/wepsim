@@ -842,7 +842,7 @@ function read_text ( context, datosCU, ret )
 			}
 			else npseudoInstructions++;
 			if(npseudoInstructions > 1) 
-				s_ori = "---"; 
+				s_ori = "&nbsp;"; // s_ori = "---"; 
 			if(finish[candidate][counter] == "\n")
 				counter++;
 		}
