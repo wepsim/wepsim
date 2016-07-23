@@ -23,10 +23,14 @@
          *  checking & updating
          */
 
+        var tri_state_names = [ "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11" ] ;
+
         function check_ib ( fired )
         {
             // TD + R
-            $("#databus_fire").hide();
+            if ($("#databus_fire").is(":visible")) {
+                $("#databus_fire").hide();
+            }
             if ( (sim_signals["TD"].value != 0) && (sim_signals["R"].value != 0) )
             {
                 $("#databus_fire").show();
@@ -34,13 +38,11 @@
             }
 
             // Ti + Tj
-            var tri_name = "";
-            var tri_state_names = [ "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11" ] ;
-
             if (tri_state_names.indexOf(fired) == -1)
                 return; 
 
             // 1.- counting the number of active tri-states 
+            var tri_name = "";
             var tri_activated = 0;
 	    var tri_activated_name = "";
             for (var i=0; i<tri_state_names.length; i++)
@@ -60,7 +62,9 @@
                 update_draw(sim_signals[tri_activated_name], 1) ;
 
             // 3.- check if more than one tri-state is active
-            $("#internalbus_fire").hide();
+            if ($("#internalbus_fire").is(":visible")) {
+                $("#internalbus_fire").hide();
+            }
             if (tri_activated > 1) {
                 $("#internalbus_fire").show();
                 sim_states["BUS_IB"].value = 0xFFFFFFFF;
