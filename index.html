@@ -164,7 +164,7 @@
     function load_assembly_from_example ( )
     {
 	var xmlhttp = new XMLHttpRequest();
-	var url = "examples/exampleCode.txt?time=20160721c" ;
+	var url = "examples/exampleCode.txt?time=20160722a" ;
 
 	xmlhttp.onreadystatechange=function() {
 					if ((xmlhttp.readyState == 4) && ((xmlhttp.status == 200) || (xmlhttp.status == 0)))
@@ -240,7 +240,7 @@
     function load_firmware_from_example ( )
     {
 	var xmlhttp = new XMLHttpRequest();
-	var url = "examples/exampleMicrocode.txt?time=20160721c" ;
+	var url = "examples/exampleMicrocode.txt?time=20160721a" ;
 
 	xmlhttp.onreadystatechange=function() {
 					// if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
@@ -637,7 +637,7 @@
                             <a href="#" style="background-color: #D4DB17"
                                    class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-3 col-md-1 col-lg-1"
 				   onclick="$('#help1_ref').data('relative','');
-                                            $('#iframe_help1').html('<object id=svg_p2 data=\'images/cpu5.svg?time=20160721c\' type=image/svg+xml>Your browser does not support SVG</object>');
+                                            $('#iframe_help1').html('<object id=svg_p2 data=\'images/cpu5.svg?time=20160718d\' type=image/svg+xml>Your browser does not support SVG</object>');
                                             $('#help1').trigger('updatelayout');
                                             $('#help1').popup('reposition', {positionTo: 'window'});
 					    $('#help1').popup('open');"
@@ -928,7 +928,7 @@
    </div>
    <div role="main" class="ui-content">
 
-        <div style="font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 16px; line-height: 24px; padding-bottom: 6.4px; padding-left: 8px; padding-right: 8px; padding-top: 6.4px;">
+        <div style="font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 16px; line-height: 24px; padding-bottom: 6.4px; padding-left: 8px; padding-right: 8px; padding-top: 6.4px; max-width: 555px;">
         <div class="row">
         <div class="col-xs-12 col-sm-12">
             Copyright &copy; 2015-2016 <small>Javier Prieto Cepeda, Sa&uacute;l Alonso Monsalve, F&eacute;lix Garc&iacute;a Carballeira, and Alejandro Calder&oacute;n Mateos</small>
@@ -960,9 +960,11 @@
 		</div>
         </div>
         <div class="col-xs-6 col-sm-6">
+            <br>
             <img height=55 src="images/arcos.svg">
         </div>
         <div class="col-xs-6 col-sm-6">
+            <br>
             <center><a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">OK</a></center>
         </div>
         </div>

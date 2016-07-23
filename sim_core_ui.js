@@ -430,9 +430,9 @@
             // html holder
             var o1 = "<div class='panel panel-default'>" + 
                      "<div class='panel-heading'>" +
-                     "  <h3 class='panel-title'>I/O</h3>" +
+                     " <a href='#iopanel' data-toggle='collapse'><h3 class='panel-title'>I/O</h3></a>" +
                      "</div>" +
-                     "<div class='panel-body'>" +
+                     "<div class='panel-body panel-collapse' id='iopanel'>" +
                      "  <div class='row-fluid'>" +
                      "  <center>" ;
             for (var i=0; i<8; i++)
@@ -449,7 +449,7 @@
                      "<input type=number data-bind='value: period' min='0'>" + 
                      "</div>" +
                      "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4' style='padding: 0 5 0 10;' id='int" + i + "_pro'>" +
-                     "<input type=number data-bind='value: probability' min='0' max='1' step='.1'>" + 
+                     "<input type=number data-bind='value: probability' min='0' max='1' step='.05'>" + 
                      "</div>" ;
             }
             o1 += "  </center>" +
@@ -459,9 +459,9 @@
 
             o1 += "<div class='panel panel-default'>" + 
                   "<div class='panel-heading'>" +
-                  "  <h3 class='panel-title'>Memory</h3>" +
+                  " <a href='#mempanel' data-toggle='collapse'><h3 class='panel-title'>Memory</h3></a>" +
                   "</div>" +
-                  "<div class='panel-body'>" +
+                  "<div class='panel-body panel-collapse' id='mempanel'>" +
                   "  <div class='row-fluid'>" +
                   "  <center>" +
                   "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' style='padding: 15 5 0 10;'>Memory wait cycles</div>" +
@@ -575,12 +575,16 @@
 
 	function get_deco_from_pc ( pc )
 	{
-                var decoded = "" ;
 	        var hexstrpc = "0x" + pc.toString(16) ;
-	        if (typeof FIRMWARE.assembly[hexstrpc].source != "undefined") 
-	            decoded = FIRMWARE.assembly[hexstrpc].source ;
 
-                return decoded ;
+	        if ( (typeof FIRMWARE.assembly                  == "undefined") ||
+	             (typeof FIRMWARE.assembly[hexstrpc]        == "undefined") ||
+	             (typeof FIRMWARE.assembly[hexstrpc].source == "undefined") )
+                {
+                      return "";
+                }
+
+                return FIRMWARE.assembly[hexstrpc].source ;
         }
 
 	function show_asmdbg_pc ( )
