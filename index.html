@@ -451,25 +451,23 @@
 		   	   <table class='table ui-responsive ui-table' style="margin-bottom: 0px;">
 		   	   <thead>
 			   <tr>
+		   <th width=5%>
+		   <a href="#checkboxespopup" data-rel="popup">+/-</a>
+		   <div data-role="popup" id="checkboxespopup">
+		       <label><input type="checkbox" value="1" id="asm_break"  name="asm_break" checked="checked"><span>breakpoints</span></label>
+		       <label><input type="checkbox" value="1" id="asm_addr"   name="asm_addr"  checked="checked"><span>address</span></label>
+		       <label><input type="checkbox" value="1" id="asm_label1" name="asm_label1" checked="checked"><span>labels</span></label>
+		       <label><input type="checkbox" value="1" id="asm_ins"    name="asm_ins"   checked="checked"><span>assembly</span></label>
+		       <label><input type="checkbox" value="1" id="asm_label2" name="asm_label2" checked="checked"><span>labels</span></label>
+		       <label><input type="checkbox" value="1" id="asm_pins"   name="asm_pins"  checked="checked"><span>pseudo</span><span class="hidden-xs">-instructions</span></label>
+		   </div>
+		   </th>
 			   <th width=10% class="asm_break"><span>break</span><span class="hidden-xs">points</span></th>
 			   <th width=15% class="asm_addr"><span>address</span></th>
                            <th width=10% class="asm_label1"><span>labels</span></th>
                            <th width=25% class="asm_ins"><span>assembly</span></th>
                            <th width=10% class="asm_label2"><span>labels</span></th>
                            <th width=20% class="asm_pins"><span>pseudo</span><span class="hidden-xs">-instructions</span></th>
-                           <th width=5%>
-			   <a href="#checkboxespopup" data-rel="popup">+/-</a>
-			   <div data-role="popup" id="checkboxespopup">
-
-                               <label><input type="checkbox" value="1" id="asm_break"  name="asm_break" checked="checked"><span>breakpoints</span></label>
-                               <label><input type="checkbox" value="1" id="asm_addr"   name="asm_addr"  checked="checked"><span>address</span></label>
-                               <label><input type="checkbox" value="1" id="asm_label1" name="asm_label1" checked="checked"><span>labels</span></label>
-                               <label><input type="checkbox" value="1" id="asm_ins"    name="asm_ins"   checked="checked"><span>assembly</span></label>
-                               <label><input type="checkbox" value="1" id="asm_label2" name="asm_label2" checked="checked"><span>labels</span></label>
-                               <label><input type="checkbox" value="1" id="asm_pins"   name="asm_pins"  checked="checked"><span>pseudo</span><span class="hidden-xs">-instructions</span></label>
-
-			   </div>
-                           </th>
 			   </tr>
 			   </thead>
 			   </table>
