@@ -932,6 +932,10 @@
                 var bgc = "#F0F0F0" ;
                 var o = "" ;
 
+                var a2l = new Object();
+                for (l in labels)
+                     a2l[labels[l]] = l;
+
                 o += "<center><table data-role=table class='table ui-responsive'><tbody>" ;
                 for (l in asm)
                 {
@@ -941,41 +945,24 @@
 
                      asm[l].bgcolor = bgc ;
 
-                     // without pseudo
-                     r = asm[l].source.split(":") ;
-                     if (r.length > 1) 
-                     {
-                         s1_label = r[0] + ":" ;
-                         s1_instr = r[1] ;
-                     }
-                     else
-                     {
-                         s1_label = "&nbsp;" ;
-                         s1_instr = r[0] ;
-                     }
+                     // instruction
+                     s1_instr = asm[l].source ;
+                     s2_instr = asm[l].source_original ;
 
-                     // with pseudo
-                     r = asm[l].source_original.split(":") ;
-                     if (r.length > 1) 
-                     {
-                         s2_label = r[0] + ":" ;
-                         s2_instr = r[1] ;
-                     }
-                     else
-                     {
-                         s2_label = "&nbsp;" ;
-                         s2_instr = r[0] ;
-                     }
+                     // labels
+                     s1_label = s2_label = "&nbsp;" ;
+                     if (typeof a2l[l] != "undefined") 
+                         s1_label = s2_label = "<span class='label label-info'>" + a2l[l] + "</span>" ;
 
                      // join the pieces...
                      o +=  "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'>" +
-                           "<td                   style='line-height:0.9;' width='10%' id='bp" + l + "' " + 
+                           "<td class='asm_break' style='line-height:0.9;' width='10%' id='bp" + l + "' " + 
                            "                      onclick='asmdbg_set_breakpoint(" + l + "); if(event.stopPropagation) event.stopPropagation();'>&nbsp;</td>" +
-                           "<td                   style='line-height:0.9;' width='15%'>" + l + "</td>" +
-                           "<td                   style='line-height:0.9;' width='10%' align=right>" + s1_label               + "</td>" +
-                           "<td                   style='line-height:0.9;' width='29%' align=left>"  + s1_instr               + "</td>" +
-                           "<td class='hidden-xs' style='line-height:0.9;' width='10%' align=right>" + s2_label               + "</td>" +
-                           "<td class='hidden-xs' style='line-height:0.9;' width='25%' align=left>"  + s2_instr               + "</td>" +
+                           "<td class='asm_addr'            style='line-height:0.9;' width='15%'>" + l + "</td>" +
+                           "<td class='asm_label asm_ins'   style='line-height:0.9;' width='12%' align=right>" + s1_label + "</td>" +
+                           "<td class='asm_ins'             style='line-height:0.9;' width='25%' align=left>"  + s1_instr + "</td>" +
+                           "<td class='asm_label asm_pins'  style='line-height:0.9;' width='12%' align=right>" + s2_label + "</td>" +
+                           "<td class='asm_pins'            style='line-height:0.9;' width='25%' align=left>"  + s2_instr + "</td>" +
                            "</tr>" ;
                 }
                 o += "</tbody></table></center>" ;
