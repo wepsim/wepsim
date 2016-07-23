@@ -52,18 +52,8 @@
     <link  href="external/external.min.css" rel="stylesheet">
     <script src="external/external.min.js"></script>
 
-    <script src="sim_cfg.js"></script>
-    <script src="sim_core_ctrl.js"></script>
-    <script src="sim_core_ui.js"></script>
-    <script src="sim_hw_board.js"></script>
-    <script src="sim_hw_cpu.js"></script>
-    <script src="sim_hw_io.js"></script>
-    <script src="sim_hw_kbd.js"></script>
-    <script src="sim_hw_mem.js"></script>
-    <script src="sim_hw_scr.js"></script>
-    <script src="sim_lang_asm.js"></script>
-    <script src="sim_lang_firm.js"></script>
-    <script src="sim_lang.js"></script>
+    <script src="min.sim_all.js"></script>
+    <script src="min.sim_hw.js"></script>
 
     <script>
     //
@@ -463,9 +453,9 @@
 			   <tr>
 			   <th width=10%>break<span class="hidden-xs">points</span></th>
 			   <th width=15%>address</th>
-                           <th width=12%>&nbsp;</th>
-                           <th width=25%>assembly</th>
-                           <th width=12% class='hidden-xs'>&nbsp;</th>
+                           <th width=10%>&nbsp;</th>
+                           <th width=29%>assembly</th>
+                           <th width=10% class='hidden-xs'>&nbsp;</th>
                            <th width=25% class='hidden-xs'>pseudo-instructions</th>
 			   </tr>
 			   </thead>
@@ -938,7 +928,7 @@
    </div>
    <div role="main" class="ui-content">
 
-        <div style="font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 16px; line-height: 24px; padding-bottom: 6.4px; padding-left: 8px; padding-right: 8px; padding-top: 6.4px;">
+        <div style="font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 16px; line-height: 24px; padding-bottom: 6.4px; padding-left: 8px; padding-right: 8px; padding-top: 6.4px; max-width: 555px;">
         <div class="row">
         <div class="col-xs-12 col-sm-12">
             Copyright &copy; 2015-2016 <small>Javier Prieto Cepeda, Sa&uacute;l Alonso Monsalve, F&eacute;lix Garc&iacute;a Carballeira, and Alejandro Calder&oacute;n Mateos</small>
@@ -970,9 +960,11 @@
 		</div>
         </div>
         <div class="col-xs-6 col-sm-6">
+            <br>
             <img height=55 src="images/arcos.svg">
         </div>
         <div class="col-xs-6 col-sm-6">
+            <br>
             <center><a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">OK</a></center>
         </div>
         </div>

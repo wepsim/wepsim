@@ -83,7 +83,8 @@ function is_directive_datatype ( text )
 
 function isDecimal ( n )
 {
-	if (n.length > 1 && n[0] == "0") return false;
+	if (n.length > 1 && n[0] == "0") 
+            return false;
         
 	if ( !isNaN(parseFloat(n)) && isFinite(n) ){
 		var res = parseInt(n);
@@ -91,20 +92,22 @@ function isDecimal ( n )
 			alert("Truncating conversion has occurred: " + n + " became " + res);
 		return res;
 	}
+
 	return false;
 }
 
-function isOctal( n )
+function isOctal ( n )
 {
 	if (n.substring(0,1) == "0"){
 		var octal = n.substring(1).replace(/\b0+/g, '');
                 var aux = parseInt(octal,8);
                 return (aux.toString(8) === octal) ? aux : false;
         }
+
         return false;
 }
 
-function isHex( n )
+function isHex ( n )
 {
         if (n.substring(0,2).toLowerCase() == "0x"){
 		var hex = n.substring(2).toLowerCase().replace(/\b0+/g, '');
@@ -112,36 +115,36 @@ function isHex( n )
 		var aux = parseInt(hex,16);
                 return (aux.toString(16) === hex) ? aux : false;
         }
+
         return false;
 }
 
-function isChar( n )
+function isChar ( n )
 {
 	if (n[0] == "'" && n[2] == "'")
-		return n.charCodeAt(1);
+	    return n.charCodeAt(1);
 	return false;
 }
 
 function decimal2binary(number, size)
 {
-	
 	var num_bits = number.toString(2);
 	if(num_bits.length > 32)
 		return [num_bits, size-num_bits.length];		
 
 	num_bits = (number >>> 0).toString(2);
-
 	if (number >= 0)
             return [num_bits, size-num_bits.length];
 
 	num_bits = "1" + num_bits.replace(/^[1]+/g, "");
 	if (num_bits.length>size)
 	    return [num_bits, size-num_bits.length];
+
 	num_bits = "1".repeat(size-num_bits.length) + num_bits;
 	return [num_bits, size-num_bits.length];
 }
 
-function isValidTag(tag)
+function isValidTag ( tag )
 {
 	if (isDecimal(tag[0]) === 0)
 		return false;
@@ -150,22 +153,12 @@ function isValidTag(tag)
 	return !(myRegEx.test(tag));
 }
 
-function max( a, b )
-{
-	return a > b ? a : b;
-}
-
-function min( a, b )
-{
-	return a < b ? a : b;
-}
-
-function sum_array( a )
+function sum_array ( a )
 {
 	return a.reduce(function(a, b) { return a + b; }, 0);
 }
 
-function get_candidate(advance, instruction)
+function get_candidate ( advance, instruction )
 {
 	var candidate = false;
 	var candidates = new Object();
@@ -205,6 +198,7 @@ function assembly_replacement(machineCode, num_bits, startbit, stopbit, free_spa
 {
 	var machineCodeAux = machineCode.substring(0, machineCode.length-startbit+free_space);
 	machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length-stopbit);	
+
 	return machineCode; 
 }
 
@@ -417,7 +411,7 @@ function read_data ( context, datosCU, ret )
 			// Calculate offset
                         var align_offset = Math.pow(2,parseInt(possible_value)) ;
                    
-			switch(align_offset){
+			switch (align_offset) {
 				case 1:
 					break;
 				case 2:
@@ -426,14 +420,12 @@ function read_data ( context, datosCU, ret )
 					break;
 				default:
 					// Fill with spaces
-					while(true)
+					while (true)
                                         {
 						// Word filled
                                                 writememory_and_reset(ret.mp, gen, 1) ;
-
 						if (gen.seg_ptr%align_offset == 0 && gen.byteWord == 0)
 							break;	
-
 						gen.byteWord++;
 					}	
 			}
@@ -468,10 +460,11 @@ function read_data ( context, datosCU, ret )
 
 					if (possible_value[i] == "\"") continue;			
 	
-					switch(possible_value[i]){
+					switch (possible_value[i])
+                                        {
 						case "\\":
-							switch(possible_value[i+1]){
-							
+							switch (possible_value[i+1])
+                                                        {
 								case "n":
 									num_bits = "\n".charCodeAt(0).toString(2);
 									i++;
@@ -495,7 +488,6 @@ function read_data ( context, datosCU, ret )
 					// Store character in machine code
 					gen.machineCode = assembly_replacement(gen.machineCode, num_bits, BYTE_LENGTH*(1+gen.byteWord), BYTE_LENGTH*gen.byteWord, BYTE_LENGTH-num_bits.length); 	
 					gen.byteWord++;
-
 				}
 
                                 if (".asciiz" == possible_datatype)
@@ -617,7 +609,7 @@ function read_text ( context, datosCU, ret )
 			signature_user_fields[i].shift();
 			advance[i] = 1;
 			binaryAux[i] = [];
-			max_length = max(max_length, signature_fields[i].length);
+			max_length = Math.max(max_length, signature_fields[i].length);
 
 			// pseudoinstruction
 			if (pseudoInstructions[instruction]){
@@ -850,7 +842,7 @@ function read_text ( context, datosCU, ret )
 			}
 			else npseudoInstructions++;
 			if(npseudoInstructions > 1) 
-				s_ori = "---"; 
+				s_ori = "&nbsp;"; // s_ori = "---"; 
 			if(finish[candidate][counter] == "\n")
 				counter++;
 		}
@@ -1088,3 +1080,4 @@ function simlang_compile (text, datosCU)
 	
 	 return ret;
 }
+

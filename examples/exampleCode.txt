@@ -8,138 +8,127 @@
    msginEx: .asciiz "Bad instruction code."
 
 .ktext
-  print3:
-     loop1: lb   $27 ($26)
+printStr:   lb   $27 ($26)
             li   $1 0
             beq  $27 $1 fin1
             out  $27 0x1000
             li   $1 1
             add  $26 $26 $1
-            b loop1
+            b  printStr
       fin1: reti
 
   rti0:     la   $26 msgi0
-            b    print3
+            b    printStr
 
   rti1:     la   $26 msgi1
-            b    print3
+            b    printStr
 
   rtinEx:   la   $26 msginEx
-            b    print3
+            b    printStr
+
 
 .data
-       w1: .word -1,2,3
-       w2: .byte 1,2
-       w3: .byte -128
-           .ascii "hello world"
-       w4: .space 4
-           .half 034
-       w5: .word 0x12345678
+         w1: .byte 1, -1, 07, 0xa, 'a'
+             .half 1, -1, 07, 0xa, 'a'
+             .word 1, -1, 07, 0x12345678, 'a'
+         w2: .ascii  "hello"
+             .asciiz "world"
+         w3: .space 5
+
+    errorLb: .asciiz "Error in lb."
+       tlb1: .word 0x12345678
+    errorLi: .asciiz "Error in li."
+       tli1: .word -128
+    errorLw: .asciiz "Error in lw."
+       tlw1: .word 0x00000000
+   errorAdd: .asciiz "Error in add."
+   errorSub: .asciiz "Error in sub."
+   errorMul: .asciiz "Error in mul."
+   errorDiv: .asciiz "Error in div."
 
 .text
-main:      
-           # test lb
+printError: lb   $27 ($26)
+             li   $1 0
+             beq  $27 $1 fin2
+             out  $27 0x1000
+             li   $1 1
+             add  $26 $26 $1
+             b printError
+       fin2: jr   $ra
+
+main:
+            # test lii
            lii $1 0x12345678
-           lb  $3 w3
+
+            # test lb
+           la  $26 errorLb
+           la  $1 tlb1
+           lb  $2 ($1)
+           li  $4 0x78
+           bne $2 $4 printError
+
            li  $3 1
-           la  $1 w5
-           lb  $2 ($1)
            add $1 $1 $3
            lb  $2 ($1)
+           li  $4 0x56
+           bne $2 $4 printError
+
            add $1 $1 $3
            lb  $2 ($1)
+           li  $4 0x34
+           bne $2 $4 printError
+
            add $1 $1 $3
            lb  $2 ($1)
-           add $1 $1 $3
+           li  $4 0x12
+           bne $2 $4 printError
 
-           li  $1 0
+            # test li
+           la  $26 errorLi
+           li  $2 -128
+           lw  $4 tli1
+           bne $2 $4 printError
 
-            # test 01
-           li $1 1
-           li $2 2                   
-           li $3 1                   
-           li $4 3                   
-           add $5 $2 $3       
-           bne $5 $4 error   
+            # test lw
+           la  $26 errorLw
+           li  $2 0x1234
+           sw  $2 tlw1
+           li  $4 0
+           lw  $4 tlw1
+           bne $2 $4 printError
 
-            # test 02
-           li $1 2
-           li $2 2                   
-           li $3 1                   
-           li $4 1                   
-           sub $5 $2 $3       
-           bne $5 $4 error   
+            # test add
+           la  $26 errorAdd
+           li  $2 2
+           li  $3 1
+           add $5 $2 $3
+           li  $4 3
+           bne $5 $4 printError
 
-            # test 03
-           li $1 3
-           li $2 2                   
-           li $3 3                  
-           li $4 6                   
-           mul $5 $2 $3       
-           bne $5 $4 error   
+            # test sub
+           la  $26 errorSub
+           li  $2 2
+           li  $3 1
+           sub $5 $2 $3
+           li  $4 1
+           bne $5 $4 printError
 
-            # test 04
-           li $1 4
-           li $2 6                   
-           li $3 3                  
-           li $4 2                   
-           div $5 $2 $3       
-           bne $5 $4 error   
+            # test mul
+           la  $26 errorMul
+           li $2 2
+           li $3 3
+           li $4 6
+           mul $5 $2 $3
+           bne $5 $4 printError
 
-           # test 05
-           li $1 6
-           li $2 5                   
-           li $3 3                  
-           li $4 3                   
-           mv $5 $3       
-           bne $5 $4 error   
+            # test div
+           la  $26 errorDiv
+           li $2 6
+           li $3 3
+           li $4 2
+           div $5 $2 $3
+           bne $5 $4 printError
 
-           # test 06
-           li $1 8
-           li $2  0x0304
-           sw $2 w1
-           li    $2 0
-           lw  $2 w1
-           li $4  0x0304
-           bne $2 $4 error   
-
-           # test 07
-           li $1 10
-           li $2  0x0304
-           sb $2 w1
-           li   $2 0
-           lb  $2 w1
-           li $4  0x0004
-           bne $2 $4 error   
-
-           b fin
-
-rti:      li $1 1
-          add $30 $30 $1
-          reti
-
-error:    li  $7 101
-          out $7 0x1000
-          li  $7 114
-          out $7 0x1000
-          out $7 0x1000
-          li  $7 111
-          out $7 0x1000
-          li  $7 114
-          out $7 0x1000
-          li  $7 32
-          out $7 0x1000
-          li  $7 101
-          out $7 0x1000
-          li  $7 110
-          out $7 0x1000
-          li  $7 58
-          out $7 0x1000
-          li  $7 32
-          out $7 0x1000
-          li  $7 48
-          add $7 $7 $1
-          out $7 0x1000
-
-fin:      jr $ra
+            # the end
+           jr $ra
 
