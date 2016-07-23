@@ -165,7 +165,9 @@
 					    ['svg_cu:path3480'],
 					    ['svg_cu:path3488'],
 					    ['svg_cu:path3486'],
-					    ['svg_cu:path3484']], 
+					    ['svg_cu:path3484'],
+					    ['svg_cu:path3484-9'],
+					    ['svg_cu:path3108-3','svg_cu:path3260-3-8-6','svg_cu:path3260-3-8','svg_cu:path3260-3']],
 				draw_name: [[]] };
 	sim_signals["B"]   = { name: "B", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 			       behavior: ["MV_ES A1 MUXC_MUXB; FIRE A1", 
@@ -254,7 +256,7 @@
 	sim_signals["T1"]  = { name: "T1",  visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 			       behavior: ["NOP", "MV BUS_IB REG_MBR; FIRE M7; FIRE M2; FIRE M1"],
 			       fire_name: ['svg_p:text3105'], 
-			       draw_data: [['svg_p:path3071', 'svg_p:path3069','svg_p:path3049']], 
+			       draw_data: [['svg_p:path3071', 'svg_p:path3069','svg_p:path3049','svg_p:path3063-9']], 
 			       draw_name: [['svg_p:path3067']] };
 	sim_signals["T2"]  = { name: "T2",  visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 			       behavior: ["NOP", "MV BUS_IB REG_PC; FIRE M7; FIRE M2; FIRE M1"],
@@ -430,10 +432,11 @@
 			       draw_name: [['svg_p:path3121']] };
 
 	sim_signals["SE"]  = { name: "SE",     visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-			       behavior: ['MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE SBWA'], 
+			       behavior: ["MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE SBWA",
+			                  "MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE SBWA"], 
 			       fire_name: ['svg_p:text3593', 'svg_p:text3431'], 
 			       draw_data: [[]], 
-			       draw_name: [['svg_p:path3591']] };
+			       draw_name: [['svg_p:path3591','svg_p:path3447-7-7']] };
 	sim_signals["SIZE"]   = { name: "SIZE",   visible: true, type: "L", value: 0, default_value:0, nbits: "5", 
 			       behavior: ['MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3'], 
 			       fire_name: ['svg_p:text3363'], 
@@ -449,7 +452,7 @@
 			       behavior: ['MBIT_S COP REG_IR 0 4; FIRE COP', 
 					  'MV_ES COP REG_MICROINS/SELCOP; FIRE COP'],
 			       fire_name: ['svg_cu:text3322'],
-			       draw_data: [['svg_cu:path3320', 'svg_cu:path3142'],['svg_cu:path3318']],
+			       draw_data: [['svg_cu:path3320', 'svg_cu:path3142'],['svg_cu:path3318', 'svg_cu:path3502-6', 'svg_cu:path3232-6']],
 			       draw_name: [[],['svg_cu:path3306']] }; /*path3210 print red color line of rest of control signals*/
 
 	sim_signals["MR"]  = { name: "MR", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
