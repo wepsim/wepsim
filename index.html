@@ -451,16 +451,26 @@
 		   	   <table class='table ui-responsive ui-table' style="margin-bottom: 0px;">
 		   	   <thead>
 			   <tr>
-			   <th width=10%>break<span class="hidden-xs">points</span></th>
-			   <th width=15%>address</th>
-                           <th width=10%>&nbsp;</th>
-                           <th width=29%>assembly</th>
-                           <th width=10% class='hidden-xs'>&nbsp;</th>
-                           <th width=25% class='hidden-xs'>pseudo-instructions</th>
+			   <th width=10%>
+                               <label style="padding: 35 0 0 0"><input type="checkbox" value="1" id="asm_break" name="asm_break" checked="checked"><span>break</span><span class="hidden-xs">points</span></label>
+                           </th>
+			   <th width=15%>
+                               <label style="padding: 35 0 0 0"><input type="checkbox" value="1" id="asm_addr"  name="asm_addr"  checked="checked"><span>address</span></label>
+                           </th>
+                           <th width=10%>
+                               <label style="padding: 35 0 0 0"><input type="checkbox" value="1" id="asm_label" name="asm_label" checked="checked"><span>labels</span></label>
+                           </th>
+                           <th width=29%>
+                               <label style="padding: 35 0 0 0"><input type="checkbox" value="1" id="asm_ins"   name="asm_ins"   checked="checked"><span>assembly</span></label>
+                           </th>
+                           <th width=35%>
+                               <label style="padding: 35 0 0 0"><input type="checkbox" value="1" id="asm_pins"  name="asm_pins"  checked="checked"><span>pseudo-instructions</span></label>
+                           </th>
 			   </tr>
 			   </thead>
 			   </table>
 			   </center>
+
 
 		           <div style="overflow-y:auto; overflow-x:auto; height:70% !important;">
                                 <div id="asm_debugger">
@@ -1114,6 +1124,18 @@
 		    $("#radio3-" +   get_cfg('RF_display_name')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio5-" +    get_cfg('is_interactive')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio6-" +          get_cfg('ws_idiom')).prop('checked', true).checkboxradio("refresh") ;
+
+		    $("input:checkbox:not(:checked)").each(function() {
+		        var column = "table ." + $(this).attr("name");
+		        $(column).hide();
+		    });
+		    $("input:checkbox").click(function(){
+		        var name = $(this).attr("name") ;
+		        var column = "table ." + name ;
+                        if (!$("#" + name).is(':checked'))
+		             $(column).hide() ;
+		        else $(column).show() ;
+		    });
 	    }) ;
 
             $("div.wsversion").replaceWith(get_cfg('version'));
