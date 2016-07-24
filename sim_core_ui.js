@@ -464,7 +464,7 @@
                   "<div class='panel-body panel-collapse' id='mempanel'>" +
                   "  <div class='row-fluid'>" +
                   "  <center>" +
-                  "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' style='padding: 15 5 0 10;'>Memory wait cycles</div>" +
+                  "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' style='padding: 15 5 0 10;'>Wait cycles</div>" +
                   "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' id='mp_wc'><input type=number data-bind='value: MP_wc' min=1></div>" +
                   "  </center>" + 
                   "  </div>" +
@@ -925,9 +925,8 @@
 
 	function assembly2html ( mp, labels, seg, asm )
 	{
-                var s1_label = "" ;
+                var  s_label = "" ;
                 var s1_instr = "" ;
-                var s2_label = "" ;
                 var s2_instr = "" ;
                 var bgc = "#F0F0F0" ;
                 var o = "" ;
@@ -950,19 +949,19 @@
                      s2_instr = asm[l].source_original ;
 
                      // labels
-                     s1_label = s2_label = "&nbsp;" ;
+                     s_label = "&nbsp;" ;
                      if (typeof a2l[l] != "undefined") 
-                         s1_label = s2_label = "<span class='label label-info'>" + a2l[l] + "</span>" ;
+                         s_label = "<span class='label label-info'>" + a2l[l] + "</span>" ;
 
                      // join the pieces...
                      o +=  "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'>" +
                            "<td class='asm_break' style='line-height:0.9;' width='10%' id='bp" + l + "' " + 
                            "                      onclick='asmdbg_set_breakpoint(" + l + "); if(event.stopPropagation) event.stopPropagation();'>&nbsp;</td>" +
-                           "<td class='asm_addr'            style='line-height:0.9;' width='15%'>" + l + "</td>" +
-                           "<td class='asm_label asm_ins'   style='line-height:0.9;' width='12%' align=right>" + s1_label + "</td>" +
-                           "<td class='asm_ins'             style='line-height:0.9;' width='25%' align=left>"  + s1_instr + "</td>" +
-                           "<td class='asm_label asm_pins'  style='line-height:0.9;' width='12%' align=right>" + s2_label + "</td>" +
-                           "<td class='asm_pins'            style='line-height:0.9;' width='25%' align=left>"  + s2_instr + "</td>" +
+                           "<td class='asm_addr'   style='line-height:0.9;' width='15%'>" + l + "</td>" +
+                           "<td class='asm_label1' style='line-height:0.9;' width='12%' align=right>" + s_label + "</td>" +
+                           "<td class='asm_ins'    style='line-height:0.9;' width='25%' align=left>"  + s1_instr + "</td>" +
+                           "<td class='asm_label2' style='line-height:0.9;' width='12%' align=right>" + s_label + "</td>" +
+                           "<td class='asm_pins'   style='line-height:0.9;' width='25%' align=left>"  + s2_instr + "</td>" +
                            "</tr>" ;
                 }
                 o += "</tbody></table></center>" ;
