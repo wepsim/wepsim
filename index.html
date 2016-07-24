@@ -86,6 +86,18 @@
 		     { type: 'danger', newest_on_top: true, delay: 0, placement: { from: 'top', align: 'center' } });
     }
 
+    function showhide_asm_elements ( ) 
+    {
+	$("input:checkbox:checked").each(function() {
+		var column = "table ." + $(this).attr("name");
+		$(column).show();
+	});
+	$("input:checkbox:not(:checked)").each(function() {
+		var column = "table ." + $(this).attr("name");
+		$(column).hide();
+	});
+    }
+
     function compileAssembly ( show_binary ) 
     {
         // get Assembly
@@ -129,6 +141,7 @@
                                               SIMWAREaddon.labels2, 
                                               SIMWAREaddon.seg, 
                                               SIMWAREaddon.assembly));
+        showhide_asm_elements();
 
 	reset();
         return true;
@@ -451,26 +464,27 @@
 		   	   <table class='table ui-responsive ui-table' style="margin-bottom: 0px;">
 		   	   <thead>
 			   <tr>
-			   <th width=10%>
-                               <label style="padding: 35 0 0 0"><input type="checkbox" value="1" id="asm_break" name="asm_break" checked="checked"><span>break</span><span class="hidden-xs">points</span></label>
-                           </th>
-			   <th width=15%>
-                               <label style="padding: 35 0 0 0"><input type="checkbox" value="1" id="asm_addr"  name="asm_addr"  checked="checked"><span>address</span></label>
-                           </th>
-                           <th width=10%>
-                               <label style="padding: 35 0 0 0"><input type="checkbox" value="1" id="asm_label" name="asm_label" checked="checked"><span>labels</span></label>
-                           </th>
-                           <th width=29%>
-                               <label style="padding: 35 0 0 0"><input type="checkbox" value="1" id="asm_ins"   name="asm_ins"   checked="checked"><span>assembly</span></label>
-                           </th>
-                           <th width=35%>
-                               <label style="padding: 35 0 0 0"><input type="checkbox" value="1" id="asm_pins"  name="asm_pins"  checked="checked"><span>pseudo-instructions</span></label>
-                           </th>
+		   <th width=5%>
+		   <a href="#checkboxespopup" data-rel="popup">+/-</a>
+		   <div data-role="popup" id="checkboxespopup">
+		       <label><input type="checkbox" value="1" id="asm_break"  name="asm_break" checked="checked"><span>breakpoints</span></label>
+		       <label><input type="checkbox" value="1" id="asm_addr"   name="asm_addr"  checked="checked"><span>address</span></label>
+		       <label><input type="checkbox" value="1" id="asm_label1" name="asm_label1" checked="checked"><span>labels</span></label>
+		       <label><input type="checkbox" value="1" id="asm_ins"    name="asm_ins"   checked="checked"><span>assembly</span></label>
+		       <label><input type="checkbox" value="1" id="asm_label2" name="asm_label2" checked="checked"><span>labels</span></label>
+		       <label><input type="checkbox" value="1" id="asm_pins"   name="asm_pins"  checked="checked"><span>pseudo</span><span class="hidden-xs">-instructions</span></label>
+		   </div>
+		   </th>
+			   <th width=10% class="asm_break"><span>break</span><span class="hidden-xs">points</span></th>
+			   <th width=15% class="asm_addr"><span>addr</span><span class="hidden-xs">ess</span></th>
+                           <th width=10% class="asm_label1"><span>labels</span></th>
+                           <th width=25% class="asm_ins"><span>assembly</span></th>
+                           <th width=10% class="asm_label2"><span>labels</span></th>
+                           <th width=20% class="asm_pins"><span>pseudo</span><span class="hidden-xs">-instructions</span></th>
 			   </tr>
 			   </thead>
 			   </table>
 			   </center>
-
 
 		           <div style="overflow-y:auto; overflow-x:auto; height:70% !important;">
                                 <div id="asm_debugger">
@@ -1125,10 +1139,7 @@
 		    $("#radio5-" +    get_cfg('is_interactive')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio6-" +          get_cfg('ws_idiom')).prop('checked', true).checkboxradio("refresh") ;
 
-		    $("input:checkbox:not(:checked)").each(function() {
-		        var column = "table ." + $(this).attr("name");
-		        $(column).hide();
-		    });
+                    showhide_asm_elements();
 		    $("input:checkbox").click(function(){
 		        var name = $(this).attr("name") ;
 		        var column = "table ." + name ;
