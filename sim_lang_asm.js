@@ -146,7 +146,7 @@ function decimal2binary(number, size)
 
 function isValidTag ( tag )
 {
-	if (isDecimal(tag[0]) === false)
+	if (!(isDecimal(tag[0]) === false))
 		return false;
 
 	var myRegEx  = /[^a-z\d]/i;
