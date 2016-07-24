@@ -1088,7 +1088,11 @@
 								value: "",
 								lineNumbers: true,
 								matchBrackets: true,
-								mode: "text/x-csrc"
+								mode: "text/x-csrc",
+								foldGutter: {
+									rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.brace, CodeMirror.fold.comment)
+								},
+								gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
 						         });
                     inputfirm.setValue("\n\n\n\n\n\n\n\n\n");
 
