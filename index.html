@@ -935,6 +935,60 @@
 			 </fieldset>
 </div>
 </div>
+<div class="ui-grid-solo">
+<div class="ui-block-a">
+			 <fieldset data-role="controlgroup" data-type="horizontal">
+			 Editor theme:<br>
+			 <ul>
+			 <li>
+			     <input name="radio7" id="radio7-default" data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="set_cfg('editor_theme','default'); save_cfg();
+                                             inputfirm.getWrapperElement().style['font-weight'] = 'bold';
+					     inputfirm.setOption('theme','default');
+                                             inputasm.getWrapperElement().style['font-weight'] = 'bold';
+					     inputasm.setOption('theme','default');"
+				    value="default" type="radio">
+			     <label for="radio7-default">Light</label>
+			     <input name="radio7" id="radio7-blackboard" data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="set_cfg('editor_theme','blackboard'); save_cfg();
+                                             inputfirm.getWrapperElement().style['font-weight'] = 'normal';
+					     inputfirm.setOption('theme','blackboard');
+                                             inputasm.getWrapperElement().style['font-weight'] = 'normal';
+					     inputasm.setOption('theme','blackboard');"
+				    value="blackboard" type="radio">
+			     <label for="radio7-blackboard">Dark</label>
+			 </li>
+			 </ul>
+			 </fieldset>
+</div>
+</div>
+<div class="ui-grid-solo">
+<div class="ui-block-a">
+			 <fieldset data-role="controlgroup" data-type="horizontal">
+			 Editor vim mode:<br>
+			 <ul>
+			 <li>
+			     <input name="radio8" id="radio8-vim" data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="set_cfg('editor_vimmode','vim'); save_cfg();
+                                             inputfirm.setOption('keyMap','vim');
+                                             inputasm.setOption('keyMap','vim');"
+				    value="vim" type="radio">
+			     <label for="radio8-vim">On</label>
+			     <input name="radio8" id="radio8-default" data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="set_cfg('editor_vimmode','default'); save_cfg();
+                                             inputfirm.setOption('keyMap','default');
+                                             inputasm.setOption('keyMap','default');"
+				    value="default" type="radio">
+			     <label for="radio8-default">Off</label>
+			 </li>
+			 </ul>
+			 </fieldset>
+</div>
+</div>
 		    </li>
 	    </ul>
             </p>
@@ -1090,13 +1144,19 @@
 								lineNumbers: true,
 								matchBrackets: true,
 								mode: "text/x-csrc",
-							        keyMap: "vim",
 								foldGutter: {
 									rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.brace, CodeMirror.fold.comment)
 								},
 								gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
 						         });
                     inputfirm.setValue("\n\n\n\n\n\n\n\n\n");
+                    inputfirm.getWrapperElement().style['text-shadow'] = '0.0em 0.0em'; 
+		    if (get_cfg('editor_theme') == 'blackboard') {
+			inputfirm.getWrapperElement().style['font-weight'] = 'normal';
+			inputfirm.setOption('theme','blackboard');
+		    }
+		    if (get_cfg('editor_vimmode') == 'vim') 
+                        inputfirm.setOption('keyMap','vim');
 
 		    inputasm   = CodeMirror.fromTextArea(document.getElementById("inputAssembly"), {
 								value: "",
@@ -1118,6 +1178,13 @@
 								mode: "text/x-csrc"
 						         });
                     inputasm.setValue("\n\n\n\n\n\n\n\n\n");
+                    inputasm.getWrapperElement().style['text-shadow'] = '0.0em 0.0em'; 
+		    if (get_cfg('editor_theme') == 'blackboard') {
+			inputasm.getWrapperElement().style['font-weight'] = 'normal';
+			inputasm.setOption('theme','blackboard');
+		    }
+		    if (get_cfg('editor_vimmode') == 'vim') 
+                        inputasm.setOption('keyMap','vim');
 
 		    var a = document.getElementById("svg_p");
 		    a.addEventListener("load",function() {
@@ -1144,6 +1211,8 @@
 		    $("#radio3-" +   get_cfg('RF_display_name')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio5-" +    get_cfg('is_interactive')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio6-" +          get_cfg('ws_idiom')).prop('checked', true).checkboxradio("refresh") ;
+		    $("#radio7-" +      get_cfg('editor_theme')).prop('checked', true).checkboxradio("refresh") ;
+		    $("#radio8-" +    get_cfg('editor_vimmode')).prop('checked', true).checkboxradio("refresh") ;
 
                     showhide_asm_elements();
 		    $("input:checkbox").click(function(){

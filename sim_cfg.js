@@ -61,11 +61,18 @@
 		 *  SIM working
 		 */
 
-               WSCFG['is_interactive']      = { value:true,         type:"boolean"};
-               WSCFG['is_byvalue']          = { value:false,        type:"boolean"};
-               WSCFG['is_editable']         = { value:false,        type:"boolean"};
+               WSCFG['is_interactive']      = { value:true,               type:"boolean"};
+               WSCFG['is_byvalue']          = { value:false,              type:"boolean"};
+               WSCFG['is_editable']         = { value:false,              type:"boolean"};
 
-               WSCFG['ws_idiom']            = { value:'es',         type:"string"};
+               WSCFG['ws_idiom']            = { value:'es',               type:"string"};
+
+		/*
+		 *  editor configuration
+		 */
+
+               WSCFG['editor_theme']        = { value:'default',          type:"string"};
+               WSCFG['editor_vimmode']      = { value:'default',          type:"string"};
         }
 
 

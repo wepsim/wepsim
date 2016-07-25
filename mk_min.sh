@@ -50,6 +50,7 @@ cat external/bootstrap.min.css \
     external/bootstrap-theme.min.css \
     external/spectrum.min.css \
     external/codemirror.css \
+    external/codemirror.theme/blackboard.css \
     external/codemirror.fold/foldgutter.css \
     external/codemirror.show-hint/codemirror.show-hint.css > external/external.min.css
 
