@@ -146,8 +146,8 @@ function decimal2binary(number, size)
 
 function isValidTag ( tag )
 {
-	if (isDecimal(tag[0]) === 0)
-		return false;
+        if (!(isDecimal(tag[0]) === false))
+	      return false;
 
 	var myRegEx  = /[^a-z\d]/i;
 	return !(myRegEx.test(tag));
@@ -164,22 +164,27 @@ function get_candidate ( advance, instruction )
 	var candidates = new Object();
 	var signatures = new Object();
 
-	for (i=0; i<advance.length; i++){
-		if (advance[i]){
+	for (i=0; i<advance.length; i++)
+        {
+		if (advance[i]) {
 			candidates[i] = instruction[i].nwords;
 			signatures[instruction[i].signature] = 0;
 		}
 	}
 
-	if (Object.keys(signatures).length == 1){
+	if (Object.keys(signatures).length == 1)
+        {
 		var min = false;
-		for (i in candidates){
-			if (min == false){
+		for (i in candidates)
+                {
+			if (min == false) {
 				min = candidates[i];
 				candidate = i;
 			}
-			else if (min == candidates[i]) candidate = false;
-			else if (min > candidates[i]){
+			else if (min == candidates[i]) {
+                                 candidate = false;
+			}
+			else if (min > candidates[i]) {
 				min = candidates[i];
 				candidate = i;
 			} 
@@ -204,11 +209,10 @@ function assembly_replacement(machineCode, num_bits, startbit, stopbit, free_spa
 
 function assembly_co_cop(machineCode, co, cop)
 {		
-	if (co !== false){
-		machineCode = assembly_replacement(machineCode, co, 32, 26, 0); 	
-		if (cop !== false)
-			machineCode = assembly_replacement(machineCode, cop, 4, 0, 0);
-	}
+	if (co !== false) 
+	    machineCode = assembly_replacement(machineCode, co, 32, 26, 0); 	
+	if (cop !== false)
+	    machineCode = assembly_replacement(machineCode, cop, 4, 0, 0);
 
 	return machineCode;
 }
