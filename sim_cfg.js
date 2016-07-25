@@ -20,7 +20,7 @@
 
 
         var WSCFG = new Object() ;
-        WSCFG['version'] = { value:"1.5.5", type:"string"} ;
+        WSCFG['version'] = { value:"1.5.6", type:"string"} ;
 
         function get_cfg ( field )
         {
@@ -72,7 +72,7 @@
 		 */
 
                WSCFG['editor_theme']        = { value:'default',          type:"string"};
-               WSCFG['editor_vimmode']      = { value:'default',          type:"string"};
+               WSCFG['editor_mode']         = { value:'default',          type:"string"};
         }
 
 
