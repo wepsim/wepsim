@@ -412,8 +412,13 @@
 		editor.setOption('theme','blackboard');
 	    }
 
-	    if (get_cfg('editor_vimmode') == 'vim') 
+	    var edt_mode = get_cfg('editor_mode');
+	    if (edt_mode == 'vim') 
 		editor.setOption('keyMap','vim');
+	    if (edt_mode == 'emacs') 
+		editor.setOption('keyMap','emacs');
+	    if (edt_mode == 'sublime') 
+		editor.setOption('keyMap','sublime');
     }
     </script>
 
@@ -801,7 +806,7 @@
 
 
 <div data-role="panel" id="actions_panel" data-display="overlay" data-position="right" data-theme="a" 
-     style="width:20em; min-width:17em;">
+     style="width:21em; min-width:17em;">
 
 	<div data-role="collapsible-set">
 	    <div data-role="collapsible" data-collapsed="false" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
@@ -841,6 +846,7 @@
 	    <div data-role="collapsible" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
 	    <h3>Configuration</h3>
 	    <p>
+            <div id="cfgbase" style="height:70vh; width: inherit; overflow-y: scroll;">
 	    <ul id="listview_3" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b">
 		    <li class="list-group-item">
 			 Speed-up (slow - fast):
@@ -993,14 +999,28 @@
 			 <li>
 			     <input name="radio8" id="radio8-vim" data-mini="true"
                                     style="margin-top:-8px"
-				    onclick="set_cfg('editor_vimmode','vim'); save_cfg();
+				    onclick="set_cfg('editor_mode','vim'); save_cfg();
                                              inputfirm.setOption('keyMap','vim');
                                              inputasm.setOption('keyMap','vim');"
 				    value="vim" type="radio">
 			     <label for="radio8-vim">vim</label>
+			     <input name="radio8" id="radio8-emacs" data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="set_cfg('editor_mode','emacs'); save_cfg();
+                                             inputfirm.setOption('keyMap','emacs');
+                                             inputasm.setOption('keyMap','emacs');"
+				    value="emacs" type="radio">
+			     <label for="radio8-emacs">emacs</label>
+			     <input name="radio8" id="radio8-sublime" data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="set_cfg('editor_mode','sublime'); save_cfg();
+                                             inputfirm.setOption('keyMap','sublime');
+                                             inputasm.setOption('keyMap','sublime');"
+				    value="sublime" type="radio">
+			     <label for="radio8-sublime">sublime</label>
 			     <input name="radio8" id="radio8-default" data-mini="true"
                                     style="margin-top:-8px"
-				    onclick="set_cfg('editor_vimmode','default'); save_cfg();
+				    onclick="set_cfg('editor_mode','default'); save_cfg();
                                              inputfirm.setOption('keyMap','default');
                                              inputasm.setOption('keyMap','default');"
 				    value="default" type="radio">
@@ -1012,6 +1032,7 @@
 </div>
 		    </li>
 	    </ul>
+            </div>
             </p>
 	    </div>
 	</div>
@@ -1221,7 +1242,7 @@
 		    $("#radio5-" +    get_cfg('is_interactive')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio6-" +          get_cfg('ws_idiom')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio7-" +      get_cfg('editor_theme')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio8-" +    get_cfg('editor_vimmode')).prop('checked', true).checkboxradio("refresh") ;
+		    $("#radio8-" +       get_cfg('editor_mode')).prop('checked', true).checkboxradio("refresh") ;
 
                     showhide_asm_elements();
 		    $("input:checkbox").click(function(){

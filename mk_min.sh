@@ -35,6 +35,8 @@ cat external/bootstrap.min.js \
     external/spectrum.min.js \
     external/codemirror.js \
     external/codemirror.javascript.js \
+    external/codemirror.keymap/sublime.js \
+    external/codemirror.keymap/emacs.js \
     external/codemirror.keymap/vim.js \
     external/codemirror.edit/matchbrackets.js \
     external/codemirror.fold/foldcode.js \
