@@ -60,7 +60,7 @@
     // Assembly
     //
 
-    function showError ( Msg ) 
+    function showError ( Msg, editor ) 
     {
             var errorMsg = Msg.replace(/\t/g,' ').replace(/   /g,' ');
 
@@ -70,11 +70,11 @@
                 pos = parseInt(pos[0].match(/\d+/)[0]);
                 lineMsg += '<button type="button" class="btn btn-danger" ' + 
                            '        onclick="$.notifyClose();' +
-                           '                      var marked = inputasm.addLineClass(' + (pos-1) + ', \'background\', \'CodeMirror-selected\');' +
-                           '                 setTimeout(function() { inputasm.removeLineClass(marked, \'background\', \'CodeMirror-selected\'); }, 3000);' +
-		           '		     var t = inputasm.charCoords({line: ' + pos + ', ch: 0}, \'local\').top;' +
-		           '		     var middleHeight = inputasm.getScrollerElement().offsetHeight / 2;' +
-		           '		     inputasm.scrollTo(null, t - middleHeight - 5);">Go line ' + pos + '</button>&nbsp;' ;
+                           '                      var marked = ' + editor + '.addLineClass(' + (pos-1) + ', \'background\', \'CodeMirror-selected\');' +
+                           '                 setTimeout(function() { ' + editor + '.removeLineClass(marked, \'background\', \'CodeMirror-selected\'); }, 3000);' +
+		           '		     var t = ' + editor + '.charCoords({line: ' + pos + ', ch: 0}, \'local\').top;' +
+		           '		     var middleHeight = ' + editor + '.getScrollerElement().offsetHeight / 2;' +
+		           '		     ' + editor + '.scrollTo(null, t - middleHeight - 5);">Go line ' + pos + '</button>&nbsp;' ;
             }
 
 	    $.notify({ title: '<strong>ERROR</strong>', 
@@ -84,18 +84,6 @@
                                 '<button type="button" class="btn btn-danger" onclick="$.notifyClose();">Close</button>' + 
                                 '</center>' },
 		     { type: 'danger', newest_on_top: true, delay: 0, placement: { from: 'top', align: 'center' } });
-    }
-
-    function showhide_asm_elements ( ) 
-    {
-	$("input:checkbox:checked").each(function() {
-		var column = "table ." + $(this).attr("name");
-		$(column).show();
-	});
-	$("input:checkbox:not(:checked)").each(function() {
-		var column = "table ." + $(this).attr("name");
-		$(column).hide();
-	});
     }
 
     function compileAssembly ( show_binary ) 
@@ -114,7 +102,7 @@
         // compile Assembly and show message
         var SIMWAREaddon = simlang_compile(textToConvert, SIMWARE);
         if (SIMWAREaddon.error != null) {
-            showError(SIMWAREaddon.error) ;
+            showError(SIMWAREaddon.error, "inputasm") ;
             return false;
         }
 
@@ -201,7 +189,7 @@
 
 	var preSM = load_firmware(textFromFileLoaded) ;
 	if (preSM.error != null) {
-            showError(preSM.error) ;
+            showError(preSM.error, "inputfirm") ;
             return false;
         }
 
@@ -395,6 +383,42 @@
                                                      execute_microinstruction(); 
                                                   }, false);
             }
+    }
+
+    //
+    // UI (auxiliar)
+    //
+
+    function showhide_asm_elements ( ) 
+    {
+	$("input:checkbox:checked").each(function() {
+		var column = "table ." + $(this).attr("name");
+		$(column).show();
+	});
+
+	$("input:checkbox:not(:checked)").each(function() {
+		var column = "table ." + $(this).attr("name");
+		$(column).hide();
+	});
+    }
+
+    function sim_prepare_editor ( editor )
+    {
+	    editor.setValue("\n\n\n\n\n\n\n\n\n");
+	    editor.getWrapperElement().style['text-shadow'] = '0.0em 0.0em'; 
+
+	    if (get_cfg('editor_theme') == 'blackboard') {
+		editor.getWrapperElement().style['font-weight'] = 'normal';
+		editor.setOption('theme','blackboard');
+	    }
+
+	    var edt_mode = get_cfg('editor_mode');
+	    if (edt_mode == 'vim') 
+		editor.setOption('keyMap','vim');
+	    if (edt_mode == 'emacs') 
+		editor.setOption('keyMap','emacs');
+	    if (edt_mode == 'sublime') 
+		editor.setOption('keyMap','sublime');
     }
     </script>
 
@@ -782,7 +806,7 @@
 
 
 <div data-role="panel" id="actions_panel" data-display="overlay" data-position="right" data-theme="a" 
-     style="width:20em; min-width:17em;">
+     style="width:21em; min-width:17em;">
 
 	<div data-role="collapsible-set">
 	    <div data-role="collapsible" data-collapsed="false" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
@@ -822,6 +846,7 @@
 	    <div data-role="collapsible" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
 	    <h3>Configuration</h3>
 	    <p>
+            <div id="cfgbase" style="height:70vh; width: inherit; overflow-y: scroll;">
 	    <ul id="listview_3" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b">
 		    <li class="list-group-item">
 			 Speed-up (slow - fast):
@@ -935,6 +960,8 @@
 			 </fieldset>
 </div>
 </div>
+		    </li>
+		    <li class="list-group-item">
 <div class="ui-grid-solo">
 <div class="ui-block-a">
 			 <fieldset data-role="controlgroup" data-type="horizontal">
@@ -967,23 +994,37 @@
 <div class="ui-grid-solo">
 <div class="ui-block-a">
 			 <fieldset data-role="controlgroup" data-type="horizontal">
-			 Editor vim mode:<br>
+			 Editor mode:<br>
 			 <ul>
 			 <li>
 			     <input name="radio8" id="radio8-vim" data-mini="true"
                                     style="margin-top:-8px"
-				    onclick="set_cfg('editor_vimmode','vim'); save_cfg();
+				    onclick="set_cfg('editor_mode','vim'); save_cfg();
                                              inputfirm.setOption('keyMap','vim');
                                              inputasm.setOption('keyMap','vim');"
 				    value="vim" type="radio">
-			     <label for="radio8-vim">On</label>
+			     <label for="radio8-vim">vim</label>
+			     <input name="radio8" id="radio8-emacs" data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="set_cfg('editor_mode','emacs'); save_cfg();
+                                             inputfirm.setOption('keyMap','emacs');
+                                             inputasm.setOption('keyMap','emacs');"
+				    value="emacs" type="radio">
+			     <label for="radio8-emacs">emacs</label>
+			     <input name="radio8" id="radio8-sublime" data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="set_cfg('editor_mode','sublime'); save_cfg();
+                                             inputfirm.setOption('keyMap','sublime');
+                                             inputasm.setOption('keyMap','sublime');"
+				    value="sublime" type="radio">
+			     <label for="radio8-sublime">sublime</label>
 			     <input name="radio8" id="radio8-default" data-mini="true"
                                     style="margin-top:-8px"
-				    onclick="set_cfg('editor_vimmode','default'); save_cfg();
+				    onclick="set_cfg('editor_mode','default'); save_cfg();
                                              inputfirm.setOption('keyMap','default');
                                              inputasm.setOption('keyMap','default');"
 				    value="default" type="radio">
-			     <label for="radio8-default">Off</label>
+			     <label for="radio8-default">default</label>
 			 </li>
 			 </ul>
 			 </fieldset>
@@ -991,6 +1032,7 @@
 </div>
 		    </li>
 	    </ul>
+            </div>
             </p>
 	    </div>
 	</div>
@@ -1139,52 +1181,40 @@
 		    $("#tabs3").tabs();
 		    $("#tabs4").tabs();
 
-		    inputfirm  = CodeMirror.fromTextArea(document.getElementById("inputFirmware"), {
-								value: "",
-								lineNumbers: true,
-								matchBrackets: true,
-								mode: "text/x-csrc",
-								foldGutter: {
-									rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.brace, CodeMirror.fold.comment)
-								},
-								gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
-						         });
-                    inputfirm.setValue("\n\n\n\n\n\n\n\n\n");
-                    inputfirm.getWrapperElement().style['text-shadow'] = '0.0em 0.0em'; 
-		    if (get_cfg('editor_theme') == 'blackboard') {
-			inputfirm.getWrapperElement().style['font-weight'] = 'normal';
-			inputfirm.setOption('theme','blackboard');
-		    }
-		    if (get_cfg('editor_vimmode') == 'vim') 
-                        inputfirm.setOption('keyMap','vim');
+		    inputfirm = CodeMirror.fromTextArea(document.getElementById("inputFirmware"), 
+                                    {
+					value: "",
+					lineNumbers: true,
+					matchBrackets: true,
+					mode: "text/x-csrc",
+					foldGutter: {
+						rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.brace, CodeMirror.fold.comment)
+					},
+					gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
+				    });
+                    sim_prepare_editor(inputfirm) ;
 
-		    inputasm   = CodeMirror.fromTextArea(document.getElementById("inputAssembly"), {
-								value: "",
-								lineNumbers: true,
-								matchBrackets: true,
-								extraKeys: {
-								  "Ctrl-Space": function(cm) {
-								      CodeMirror.showHint(cm, function(cm, options) {
-										      var simware = get_simware();
-										      var cur = cm.getCursor();
-										      var result = new Array();
-										      for (var i=0; i<simware.firmware.length; i++)
-											   if(simware.firmware[i].name != "begin")
-											   	result.push(simware.firmware[i].signatureUser); // TODO: signature user
-										      return { list: result, from: cur, to: cur };
-										    });
-								  }
-								},
-								mode: "text/x-csrc"
-						         });
-                    inputasm.setValue("\n\n\n\n\n\n\n\n\n");
-                    inputasm.getWrapperElement().style['text-shadow'] = '0.0em 0.0em'; 
-		    if (get_cfg('editor_theme') == 'blackboard') {
-			inputasm.getWrapperElement().style['font-weight'] = 'normal';
-			inputasm.setOption('theme','blackboard');
-		    }
-		    if (get_cfg('editor_vimmode') == 'vim') 
-                        inputasm.setOption('keyMap','vim');
+		    inputasm = CodeMirror.fromTextArea(document.getElementById("inputAssembly"), 
+                                    {
+					value: "",
+					lineNumbers: true,
+					matchBrackets: true,
+					extraKeys: {
+					  "Ctrl-Space": function(cm) {
+					      CodeMirror.showHint(cm, function(cm, options) {
+						      var simware = get_simware();
+						      var cur = cm.getCursor();
+						      var result = new Array();
+						      for (var i=0; i<simware.firmware.length; i++)
+							   if(simware.firmware[i].name != "begin")
+								result.push(simware.firmware[i].signatureUser);
+						      return { list: result, from: cur, to: cur };
+					      });
+					  }
+					},
+					mode: "text/x-csrc"
+				    });
+                    sim_prepare_editor(inputasm) ;
 
 		    var a = document.getElementById("svg_p");
 		    a.addEventListener("load",function() {
@@ -1212,7 +1242,7 @@
 		    $("#radio5-" +    get_cfg('is_interactive')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio6-" +          get_cfg('ws_idiom')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio7-" +      get_cfg('editor_theme')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio8-" +    get_cfg('editor_vimmode')).prop('checked', true).checkboxradio("refresh") ;
+		    $("#radio8-" +       get_cfg('editor_mode')).prop('checked', true).checkboxradio("refresh") ;
 
                     showhide_asm_elements();
 		    $("input:checkbox").click(function(){
