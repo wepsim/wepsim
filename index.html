@@ -843,11 +843,29 @@
             </p>
 	    </div>
 
-	    <div data-role="collapsible" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
-	    <h3>Configuration</h3>
-	    <p>
-            <div id="cfgbase" style="height:70vh; width: inherit; overflow-y: scroll;">
-	    <ul id="listview_3" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b">
+            <a href="#config1" data-rel="popup" data-position-to="window" style="text-align:left"
+               class="ui-btn ui-btn-icon-left ui-icon-gear">Configuration</a>
+	</div>
+
+</div><!-- /panel -->
+
+
+<div data-role="popup" id="config1" 
+     data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b"
+     style="width:75vw">
+
+   <div data-role="header" data-theme="a">
+        <h1><b>WepSIM</b> <span class="badge btn-success"><div class="wsversion">X</div></span> Configuration</h1>
+
+        <a href="#" 
+           data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" 
+           class="ui-btn-right">Close</a>
+   </div>
+   <div role="main" class="ui-content">
+
+	<div class="row">
+	  <div class="col-sm-6">
+		  <ul class="list-group">
 		    <li class="list-group-item">
 			 Speed-up (slow - fast):
 			 <input type="range"
@@ -855,6 +873,8 @@
 				name="slider1" id="slider1"
 				min="1" max="100" value="100" step=1
 				onchange="set_cfg('DBG_delay', 1000 / this.value); save_cfg();">
+		    </li>
+		    <li class="list-group-item">
 			 <fieldset data-role="controlgroup" data-type="horizontal">
 			 Single step element:
 			 <ul>
@@ -873,9 +893,11 @@
 			 </ul>
 			 </fieldset>
 		    </li>
+		  </ul>
+          </div>
+	  <div class="col-sm-6">
+		  <ul class="list-group">
 		    <li class="list-group-item">
-<div class="ui-grid-solo">
-<div class="ui-block-a">
 			 <fieldset data-role="controlgroup" data-type="horizontal">
 			 RF display format:<br>
 			 <ul>
@@ -898,10 +920,8 @@
 			 </li>
 			 </ul>
 			 </fieldset>
-</div>
-</div>
-<div class="ui-grid-solo">
-<div class="ui-block-a">
+		    </li>
+		    <li class="list-group-item">
 			 <fieldset data-role="controlgroup" data-type="horizontal">
 			 RF name nomenclature:<br>
 			 <ul>
@@ -919,10 +939,15 @@
 			 </li>
 			 </ul>
 			 </fieldset>
-</div>
-</div>
 		    </li>
-		    <li class="list-group-item input-toggles">
+		  </ul>
+          </div>
+	</div>
+
+	<div class="row">
+	  <div class="col-sm-3">
+		  <ul class="list-group">
+		    <li class="list-group-item">
 			 Data-path Color:
 			 <ul>
 			 <input type="color"
@@ -931,6 +956,8 @@
                                 class="noshadow"
 				onchange="set_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh(); save_cfg();">
 			 </ul>
+		    </li>
+		    <li class="list-group-item">
 			 Signal Color:
 			 <ul>
 			 <input type="color"
@@ -939,8 +966,12 @@
                                 class="noshadow"
 				onchange="set_cfg('color_name_active', $('#colorpicker2').spectrum('get')); refresh(); save_cfg();">
 			 </ul>
-<div class="ui-grid-solo">
-<div class="ui-block-a">
+		    </li>
+		  </ul>
+          </div>
+	  <div class="col-sm-3">
+		  <ul class="list-group">
+		    <li class="list-group-item">
 			 <fieldset data-role="controlgroup" data-type="horizontal">
 			 Interactive Mode:<br>
 			 <ul>
@@ -958,12 +989,12 @@
 			 </li>
 			 </ul>
 			 </fieldset>
-</div>
-</div>
 		    </li>
+		  </ul>
+          </div>
+	  <div class="col-sm-6">
+		  <ul class="list-group">
 		    <li class="list-group-item">
-<div class="ui-grid-solo">
-<div class="ui-block-a">
 			 <fieldset data-role="controlgroup" data-type="horizontal">
 			 Editor theme:<br>
 			 <ul>
@@ -989,10 +1020,8 @@
 			 </li>
 			 </ul>
 			 </fieldset>
-</div>
-</div>
-<div class="ui-grid-solo">
-<div class="ui-block-a">
+		    </li>
+		    <li class="list-group-item">
 			 <fieldset data-role="controlgroup" data-type="horizontal">
 			 Editor mode:<br>
 			 <ul>
@@ -1028,16 +1057,14 @@
 			 </li>
 			 </ul>
 			 </fieldset>
-</div>
-</div>
 		    </li>
-	    </ul>
-            </div>
-            </p>
-	    </div>
+		  </ul>
+          </div>
 	</div>
 
-</div><!-- /panel -->
+   </div>
+
+</div><!-- /popup -->
 
 
 <div data-role="popup" id="about1" 
@@ -1164,6 +1191,7 @@
 	    {
 		    jQuery.fx.off = true;
 
+		    $("#config1").enhanceWithin().popup();
 		    $("#about1").enhanceWithin().popup();
 		    $("#help1").enhanceWithin().popup().draggable().resizable();
 		    $("#bin1").enhanceWithin().popup();
