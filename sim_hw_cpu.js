@@ -1036,7 +1036,7 @@
 							    fire_stack.pop(s_expr[1]) ;
 
 							    // 3.- check conflicts
-                                                            check_ib(s_expr[1]);
+                                                            check_buses(s_expr[1]);
 							}  
 					   };
 

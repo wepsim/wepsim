@@ -112,7 +112,7 @@
 
                                                       sim_states[s_expr[2]].value = (dbvalue >>> 0);
                                                       sim_states[s_expr[4]].value = 1;
-				                      show_memories('MP', MP, address) ;
+				                      show_memories('MP', MP, address, false) ;
                                                    }
                                    };
 
@@ -176,7 +176,7 @@
 
 						      MP[address] = (value >>> 0);
                                                       sim_states[s_expr[4]].value = 1;
-				                      show_memories('MP', MP, address) ;
+				                      show_memories('MP', MP, address, false) ;
                                                     }
                                    };
 
