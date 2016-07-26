@@ -495,8 +495,11 @@
          *  show_memories
          */
 
-        function show_memories ( name, memory, index ) 
+        function show_memories ( name, memory, index, redraw ) 
         {
+            if ( (redraw == false) && ($("#memory_" + name).is(":visible") == false) )
+                  return;
+
 	    var o1 = "" ;
             var value = "" ;
 
@@ -587,19 +590,28 @@
                 return FIRMWARE.assembly[hexstrpc].source ;
         }
 
+        var old_addr = 0;
+
 	function show_asmdbg_pc ( )
 	{
-                var SIMWARE  = get_simware() ;
                 var o1 = null ;
+                var reg_pc    = get_value(sim_states["REG_PC"]) ;
+                var curr_addr = "0x" + reg_pc.toString(16) ;
 
-                for (l in SIMWARE.assembly)
+                if (typeof FIRMWARE.assembly[old_addr] != "undefined")
                 {
-                     o1 = $("#asmdbg" + l) ;
-                     o1.css('background-color', SIMWARE.assembly[l].bgcolor);
+                     o1 = $("#asmdbg" + old_addr) ;
+                     o1.css('background-color', FIRMWARE.assembly[old_addr].bgcolor);
                 }
-
-                var reg_pc     = get_value(sim_states["REG_PC"]) ;
-                var curr_addr  = "0x" + reg_pc.toString(16) ;
+                else
+                {
+                     for (l in FIRMWARE.assembly)
+                     {
+                          o1 = $("#asmdbg" + l) ;
+                          o1.css('background-color', FIRMWARE.assembly[l].bgcolor);
+                     }
+                }
+                old_addr = curr_addr ;
 
                 o1 = $("#asmdbg" + curr_addr) ;
                 o1.css('background-color', '#00EE88');
@@ -607,7 +619,7 @@
 
 	function show_dbg_mpc ( )
 	{
-                show_memories('MC', MC, get_value(sim_states['REG_MICROADDR'])) ;
+                show_memories('MC', MC, get_value(sim_states['REG_MICROADDR']), false) ;
 	}
 
 	function show_dbg_ir ( decins )
@@ -979,11 +991,10 @@
 
 	function asmdbg_set_breakpoint ( addr )
 	{
-                var SIMWARE  = get_simware() ;
                 var hexaddr  = "0x" + addr.toString(16) ;
 
                 var o1       = document.getElementById("bp"+hexaddr) ;
-                var bp_state = SIMWARE.assembly[hexaddr].breakpoint ;
+                var bp_state = FIRMWARE.assembly[hexaddr].breakpoint ;
 
                 if (bp_state === true) {
 		    bp_state = false ;
@@ -993,7 +1004,7 @@
                     o1.innerHTML = '<img height=22 src="images/stop.png">' ;
 	        }
 
-                SIMWARE.assembly[hexaddr].breakpoint = bp_state ;
+                FIRMWARE.assembly[hexaddr].breakpoint = bp_state ;
 	}
 
 	function asmdbg_stop ( btn1 )
@@ -1030,11 +1041,10 @@
                     return ;
                 }
 
-                var SIMWARE = get_simware() ;
                 reg_pc      = get_value(sim_states["REG_PC"]) ;
                 curr_addr   = "0x" + reg_pc.toString(16) ;
 
-                if ( (typeof SIMWARE.assembly[curr_addr] != "undefined") && (SIMWARE.assembly[curr_addr].breakpoint) ) 
+                if ( (typeof FIRMWARE.assembly[curr_addr] != "undefined") && (FIRMWARE.assembly[curr_addr].breakpoint) ) 
                 {
 	            asmdbg_stop(btn1) ;
                     alert("Breakpoint @ " + curr_addr + ":\n" + 

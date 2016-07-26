@@ -25,7 +25,7 @@
 
         var tri_state_names = [ "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11" ] ;
 
-        function check_ib ( fired )
+        function check_buses ( fired )
         {
             // TD + R
             if ($("#databus_fire").is(":visible")) {
@@ -171,7 +171,7 @@
            var signal_value = 0;
            var input_behavior = "";
 
-           switch(sim_signals[key].behavior.length)
+           switch (sim_signals[key].behavior.length)
            {
                 case 0:
                      return; // Cuando behavior no tiene comportamiento, no hacemos nada en actualizacion de estado
@@ -184,8 +184,8 @@
 
                 default:
                      signal_value = sim_signals[key].value ;
-                     if (signal_value < sim_signals[key].behavior.length)
-                          input_behavior = sim_signals[key].behavior[signal_value] ;
+                     if (signal_value   < sim_signals[key].behavior.length)
+                         input_behavior = sim_signals[key].behavior[signal_value] ;
                      else alert('ALERT: there are more signals values than behaviors defined!!!!\n' +
                                 'key: ' + key + ' and signal value: ' + signal_value);
                      break;
@@ -238,8 +238,8 @@
 
         function show_memories_values ( )
         {
-            show_memories('MP',  MP,  get_value(sim_states['REG_PC'])) ;
-            show_memories('MC',  MC,  get_value(sim_states['REG_MICROADDR'])) ;
+            show_memories('MP', MP, get_value(sim_states['REG_PC']),        true) ;
+            show_memories('MC', MC, get_value(sim_states['REG_MICROADDR']), true) ;
 	}
 
         function update_signal_firmware ( key )
@@ -464,8 +464,8 @@
 	    }
 
 	    // 6.- show memories...
-            show_memories('MP',  MP,  1) ;
-            show_memories('MC',  MC,  1) ;
+            show_memories('MP',  MP,  1, false) ;
+            show_memories('MC',  MC,  1, false) ;
 	}
  
 
@@ -542,8 +542,8 @@
 	    show_states() ;
             show_rf_values();
             show_rf_names();
-	    show_memories('MP',  MP,  0) ;
-	    show_memories('MC',  MC,  0) ;
+	    show_memories('MP',  MP,  0, false) ;
+	    show_memories('MC',  MC,  0, false) ;
         }
 
         function execute_microinstruction ()
