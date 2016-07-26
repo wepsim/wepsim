@@ -940,8 +940,12 @@
                 var o = "" ;
 
                 var a2l = new Object();
-                for (l in labels)
-                     a2l[labels[l]] = l;
+                for (l in labels) 
+                {
+                     if (typeof a2l[labels[l]] == "undefined")
+                         a2l[labels[l]] = new Array();
+                     a2l[labels[l]].push(l);
+                }
 
                 o += "<center><table data-role=table class='table ui-responsive'><tbody>" ;
                 for (l in asm)
@@ -959,7 +963,8 @@
                      // labels
                      s_label = "&nbsp;" ;
                      if (typeof a2l[l] != "undefined") 
-                         s_label = "<span class='label label-info'>" + a2l[l] + "</span>" ;
+                         for (var i=0; i<a2l[l].length; i++)
+                              s_label = s_label + "<span class='label label-info'>" + a2l[l][i] + "</span>" ;
 
                      // join the pieces...
                      o +=  "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'>" +
