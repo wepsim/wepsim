@@ -759,22 +759,14 @@
 	     var clabel = "" ;
 	     var wadd   = "" ;
 
-	     wadd = "0x" + (parseInt(c)+3).toString(16);
-	     if (typeof slebal[wadd] != "undefined") 
-		  clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
-	     else clabel = clabel + "&nbsp;" ;
-	     wadd = "0x" + (parseInt(c)+2).toString(16);
-	     if (typeof slebal[wadd] != "undefined") 
-		  clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
-	     else clabel = clabel + "&nbsp;" ;
-	     wadd = "0x" + (parseInt(c)+1).toString(16);
-	     if (typeof slebal[wadd] != "undefined") 
-		  clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
-	     else clabel = clabel + "&nbsp;" ;
-	     wadd = "0x" + (parseInt(c)+0).toString(16);
-	     if (typeof slebal[wadd] != "undefined") 
-		  clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
-	     else clabel = clabel + "&nbsp;" ;
+             for (var j=3; j>=0; j--)
+             {
+	          wadd = "0x" + (parseInt(c)+j).toString(16);
+	          if (typeof slebal[wadd] != "undefined") 
+                       for (var i=0; i<slebal[wadd].length; i++)
+		            clabel = clabel + "<span class='badge'>" + slebal[wadd][i] + "</span>" ;
+	          else clabel = clabel + "&nbsp;" ;
+             }
 
 	     return clabel ;
 	}
@@ -782,8 +774,12 @@
 	function mp2html ( mp, labels, seg )
 	{
                 var slebal = new Object();
-                for (l in labels)
-                     slebal[labels[l]] = l;
+                for (l in labels) 
+                {
+                     if (typeof slebal[labels[l]] == "undefined")
+                         slebal[labels[l]] = new Array();
+                     slebal[labels[l]].push(l);
+                }
 
 		var o  = "";
 		    o += "<center>" +
@@ -862,7 +858,7 @@
 
                      o += rows + " align=right>" + seg[skey].name + "&nbsp;</td></tr>" + x ;
 
-	             if (seg[skey].name != "stack") {
+	             if (seg[skey].name != ".stack") {
 		         o += "<tr style='font-family:\'Consolas\'; font-size:12pt;'>" + 
                               "<td>&nbsp;</td>" + 
                               "<td valign=middle align=center height=25px>...</td>" + 
@@ -944,8 +940,12 @@
                 var o = "" ;
 
                 var a2l = new Object();
-                for (l in labels)
-                     a2l[labels[l]] = l;
+                for (l in labels) 
+                {
+                     if (typeof a2l[labels[l]] == "undefined")
+                         a2l[labels[l]] = new Array();
+                     a2l[labels[l]].push(l);
+                }
 
                 o += "<center><table data-role=table class='table ui-responsive'><tbody>" ;
                 for (l in asm)
@@ -963,7 +963,8 @@
                      // labels
                      s_label = "&nbsp;" ;
                      if (typeof a2l[l] != "undefined") 
-                         s_label = "<span class='label label-info'>" + a2l[l] + "</span>" ;
+                         for (var i=0; i<a2l[l].length; i++)
+                              s_label = s_label + "<span class='label label-info'>" + a2l[l][i] + "</span>" ;
 
                      // join the pieces...
                      o +=  "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'>" +
