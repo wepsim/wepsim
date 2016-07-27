@@ -562,6 +562,7 @@ function loadFirmware (text)
 // }
 
 	       var camposInsertados = 0;
+               var overlapping = new Object();
 	       while (camposInsertados < numeroCampos)
 	       {
 	           // match mandatory FIELD
@@ -601,7 +602,8 @@ function loadFirmware (text)
 	           campos[camposInsertados]["startbit"] = getToken(context) ;
 
                    // check startbit range
-                   if (parseInt(campos[camposInsertados]["startbit"]) > 32*parseInt(instruccionAux["nwords"]))
+                   var start = parseInt(campos[camposInsertados]["startbit"]);
+                   if (start > 32*parseInt(instruccionAux["nwords"]))
 		       return langError(context, "startbit out of range: " + getToken(context)) ;
 
 	           nextToken(context);
@@ -614,8 +616,17 @@ function loadFirmware (text)
 	           campos[camposInsertados]["stopbit"] = getToken(context) ;
 
                    // check stopbit range
-                   if (parseInt(campos[camposInsertados]["stopbit"]) > 32*parseInt(instruccionAux["nwords"]))
+                   var stop  = parseInt(campos[camposInsertados]["stopbit"]);
+                   if (stop > 32*parseInt(instruccionAux["nwords"]))
 		       return langError(context, "stopbit out of range: " + getToken(context)) ;
+
+                   // check overlapping
+                   for (var i=stop; i<=start; i++) 
+                   {
+                        if (typeof overlapping[i] != "undefined")
+		            return langError(context, "overlapping field: " + campos[camposInsertados]["name"]);
+                        overlapping[i] = 1;
+                   }
 
 	           nextToken(context);
 	           // match mandatory )
