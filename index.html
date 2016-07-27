@@ -851,8 +851,7 @@
 
 
 <div data-role="popup" id="config1" 
-     data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b"
-     style="width:82vw">
+     data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
 
    <div data-role="header" data-theme="a">
         <h1><b>WepSIM</b> <span class="badge btn-success"><div class="wsversion">X</div></span> / Configuration</h1>
@@ -1032,12 +1031,12 @@
                                     style="margin-top:-8px"
 				    onclick="set_cfg('DBG_level','instruction'); save_cfg();"
 				    value="on" type="radio">
-			     <label for="radio1-instruction">Instruc.</label>
+			     <label for="radio1-instruction">Instruc<span class="hidden-xs">tions</span>.</label>
 			     <input name="radio1" id="radio1-microinstruction" data-mini="true"
                                     style="margin-top:-8px"
 				    onclick="set_cfg('DBG_level','microinstruction'); save_cfg();"
 				    value="off" type="radio">
-			     <label for="radio1-microinstruction">&#181;instruc.</label>
+			     <label for="radio1-microinstruction">&#181;instruc<span class="hidden-xs">tions</span>.</label>
 			 </li>
 			 </ul>
 			 </fieldset>
