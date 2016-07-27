@@ -643,17 +643,16 @@
 			<center>
 			<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
                         <button class="ui-btn ui-btn-b ui-btn-inline" 
-                                onclick="var SIMWARE = get_simware() ;
-                                         var simware_as_text = saveFirmware(SIMWARE);
-                                         if (simware_as_text.trim() == '') {
-					     alert('The Microcode loaded in memory is empty!\n' + 
-                                                   'Please load a Microcode first in memory in order to save it.');
-					 }
-					 else {
-                                           //document.getElementById('inputFirmware').value = simware_as_text ;
-					     inputfirm.setValue(simware_as_text);
-                                             save_as_file(inputfirm, 'inputFileNameToSaveAs');
-					 }">Save to File</button>
+                                onclick="if (confirm('Do you want me to save the current Control Memory contents rather than the editor content?'))
+                                         {
+					     var SIMWARE = get_simware() ;
+					     var simware_as_text = saveFirmware(SIMWARE);
+					     if (simware_as_text.trim() == '')
+						  alert('The Microcode loaded in memory is empty!\n' + 
+							'Please load a Microcode first in memory in order to save it.');
+					     else inputfirm.setValue(simware_as_text);
+					 } 
+                                         save_as_file(inputfirm, 'inputFileNameToSaveAs');">Save to File</button>
                         </center>
 		    </div>
 		</div>
@@ -806,7 +805,7 @@
 
 
 <div data-role="panel" id="actions_panel" data-display="overlay" data-position="right" data-theme="a" 
-     style="width:21em; min-width:17em;">
+     style="width:20em; min-width:17em;">
 
 	<div data-role="collapsible-set">
 	    <div data-role="collapsible" data-collapsed="false" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
@@ -851,8 +850,7 @@
 
 
 <div data-role="popup" id="config1" 
-     data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b"
-     style="width:75vw">
+     data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
 
    <div data-role="header" data-theme="a">
         <h1><b>WepSIM</b> <span class="badge btn-success"><div class="wsversion">X</div></span> / Configuration</h1>
@@ -861,11 +859,14 @@
            data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" 
            class="ui-btn-right">Close</a>
    </div>
-   <div role="main" class="ui-content">
+   <div role="main" class="ui-content" style="padding: 8px 8px 8px 8px">
 
-        <div class="container-fluid" style="overflow-y:auto; overflow-x:hidden; max-height:80vh; max-width:70vw;">
+        <div class="container-fluid" style="overflow-y:auto; overflow-x:hidden; max-height:80vh; max-width:85vw;">
 	<div class="row">
-	  <div class="col-sm-3">
+	  <div class="col-xs-4 col-sm-2">
+             <img src="images/cfg-colors.gif" width="100%">
+          </div>
+	  <div class="col-xs-8 col-sm-3">
 		  <ul class="container-fluid list-group">
 		    <li class="list-group-item">
 			 Data-path Color:
@@ -889,7 +890,10 @@
 		    </li>
 		  </ul>
           </div>
-	  <div class="col-sm-4">
+	  <div class="col-xs-4 col-sm-2">
+             <img src="images/cfg-rf.gif" width="100%">
+          </div>
+	  <div class="col-xs-8 col-sm-4">
 		  <ul class="container-fluid list-group">
 		    <li class="list-group-item">
 			 <fieldset data-role="controlgroup" data-type="horizontal">
@@ -936,6 +940,9 @@
 		    </li>
 		  </ul>
           </div>
+	</div>
+
+	<div class="row">
 	  <div class="col-sm-5">
 		  <ul class="container-fluid list-group">
 		    <li class="list-group-item">
@@ -1004,12 +1011,7 @@
 		    </li>
 		  </ul>
           </div>
-	</div>
-
-	<div class="row">
-	  <div class="col-sm-1">
-          </div>
-	  <div class="col-sm-6">
+	  <div class="col-sm-4">
 		  <ul class="container-fluid list-group">
 		    <li class="list-group-item">
 			 Speed-up (slow - fast):
@@ -1028,19 +1030,19 @@
                                     style="margin-top:-8px"
 				    onclick="set_cfg('DBG_level','instruction'); save_cfg();"
 				    value="on" type="radio">
-			     <label for="radio1-instruction">Instruc.</label>
+			     <label for="radio1-instruction">Instruc<span class="hidden-xs">tions</span>.</label>
 			     <input name="radio1" id="radio1-microinstruction" data-mini="true"
                                     style="margin-top:-8px"
 				    onclick="set_cfg('DBG_level','microinstruction'); save_cfg();"
 				    value="off" type="radio">
-			     <label for="radio1-microinstruction">&#181;instruc.</label>
+			     <label for="radio1-microinstruction">&#181;instruc<span class="hidden-xs">tions</span>.</label>
 			 </li>
 			 </ul>
 			 </fieldset>
 		    </li>
 		  </ul>
           </div>
-	  <div class="col-sm-4">
+	  <div class="col-sm-3">
 		  <ul class="container-fluid list-group">
 		    <li class="list-group-item">
 			 <fieldset data-role="controlgroup" data-type="horizontal">
@@ -1062,8 +1064,6 @@
 			 </fieldset>
 		    </li>
 		  </ul>
-          </div>
-	  <div class="col-sm-1">
           </div>
 	</div>
         </div><!-- scrolling -->
@@ -1173,8 +1173,8 @@
 
       <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
               <div class="ui-body-d ui-content" style="padding: 2px 2px 2px 2px;">
-                 <div id=iframe_bin1 style="height:80vh; width: 80vw; overflow-y: auto;">
-		   <div id="compile_results">
+                 <div id=iframe_bin1 style="height:80vh; max-width: 80vw; overflow-y: auto;">
+		   <div id="compile_results" style="padding: 16px 16px 16px 16px;">
                         <br>
                         <center>
                         Loading binary, please wait... <br>
