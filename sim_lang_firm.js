@@ -689,6 +689,10 @@ function loadFirmware (text)
                nextToken(context);
            }
 
+           // CHECK: stack_pointer exists
+	   if (context.stackRegister == null)
+	       return langError(context, "Stack pointer register was not defined");
+
            // CHECK: fetch exists + fetch label
            var found = false ;
            for (var i=0; i<context.instrucciones.length; i++)
