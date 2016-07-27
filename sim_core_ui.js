@@ -940,11 +940,16 @@
                 var o = "" ;
 
                 var a2l = new Object();
-                for (l in labels) 
-                {
+                for (l in labels) {
                      if (typeof a2l[labels[l]] == "undefined")
                          a2l[labels[l]] = new Array();
                      a2l[labels[l]].push(l);
+                }
+
+                var a2s = new Object();
+                for (l in seg) {
+                     laddr = "0x" + seg[l].begin.toString(16) ;
+                     a2s[laddr] = l;
                 }
 
                 o += "<center><table data-role=table class='table ui-responsive'><tbody>" ;
@@ -962,11 +967,18 @@
 
                      // labels
                      s_label = "&nbsp;" ;
-                     if (typeof a2l[l] != "undefined") 
-                         for (var i=0; i<a2l[l].length; i++)
+                     if (typeof a2l[l] != "undefined") {
+                         for (var i=0; i<a2l[l].length; i++) {
                               s_label = s_label + "<span class='label label-info'>" + a2l[l][i] + "</span>" ;
+                         }
+                     }
 
                      // join the pieces...
+                     if (typeof a2s[l] != "undefined")
+                         o += "<tr bgcolor='#FEFEFE'>" + 
+                              "<td colspan='7' style='line-height:0.3;' align=left><small><font color=gray>" + a2s[l] + "</font></small></td>"
+                              "</tr>" ;
+
                      o +=  "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'>" +
                            "<td                                             width='2%'></td>" +
                            "<td class='asm_break'  style='line-height:0.9;' width='10%' id='bp" + l + "' " + 
