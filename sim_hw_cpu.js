@@ -146,9 +146,9 @@
 	/* CONTROL UNIT */
 	sim_signals["C"]    = { name: "C",    visible: true, type: "L", value: 0, default_value: 0, nbits: "4", 
 				behavior: ["MV MUXC_MUXB VAL_ZERO; FIRE B", 
-					   "MV MUXC_MUXB INT; FIRE B", 
-					   "MV MUXC_MUXB IORDY; FIRE B", 
-					   "MV MUXC_MUXB MRDY; FIRE B", 
+					   "SBIT_S MUXC_MUXB INT 0; FIRE B",
+					   "SBIT_S MUXC_MUXB IORDY 0; FIRE B",
+					   "SBIT_S MUXC_MUXB MRDY 0; FIRE B",
 					   "MBIT_I MUXC_MUXB REG_SR 0 1; FIRE B",
 					   "MBIT_I MUXC_MUXB REG_SR 1 1; FIRE B", 
 					   "MBIT_I MUXC_MUXB REG_SR 28 1; FIRE B", 

@@ -25,24 +25,23 @@
 
 
         /*
-         *  States
-         */
-
-        sim_states["MRDY"]   = { name: "MRDY", visible:false, nbits: "1", value: 0, default_value: 0, draw_data: [] };
-
-
-        /*
          *  Signals
          */
 
+        sim_signals["MRDY"]  = { name: "MRDY", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+		                 behavior: ["FIRE C", "FIRE C"],
+                                 fire_name: ['svg_p:tspan3916'], 
+                                 draw_data: [[], ['svg_p:path3895']], 
+                                 draw_name: [[], []]};
+
         sim_signals["R"]     = { name: "R", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-		                 behavior: ["NOP", "MEM_READ BUS_AB BUS_DB BWA MRDY CLK"],
+		                 behavior: ["NOP", "MEM_READ BUS_AB BUS_DB BWA MRDY CLK; FIRE MRDY"],
                                  fire_name: ['svg_p:text3533-5-2','svg_p:text3713'], 
                                  draw_data: [[], ['svg_p:path3557', 'svg_p:path3571']], 
                                  draw_name: [[], []]};
 
         sim_signals["W"]     = { name: "W", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-		                 behavior: ["NOP", "MEM_WRITE BUS_AB BUS_DB BWA MRDY CLK"],
+		                 behavior: ["NOP", "MEM_WRITE BUS_AB BUS_DB BWA MRDY CLK; FIRE MRDY"],
                                  fire_name: ['svg_p:text3533-5-08','svg_p:text3527','svg_p:text3431-7'], 
                                  draw_data: [[], ['svg_p:path3559', 'svg_p:path3575','svg_p:path3447-7']], 
                                  draw_name: [[], []] };
@@ -53,7 +52,7 @@
          */
 
         syntax_behavior["MEM_READ"] = { nparameters: 6, 
-                                        types: ["E", "E", "S", "E"],
+                                        types: ["E", "E", "S", "S", "E"],
                                         operation: function (s_expr) 
                                                    {
 						      var address = sim_states[s_expr[1]].value;
@@ -61,7 +60,7 @@
                                                       var bw      = sim_signals[s_expr[3]].value;
                                                       var clk     = sim_states[s_expr[5]].value() ;
 
-                                                      sim_states[s_expr[4]].value = 0;
+                                                      sim_signals[s_expr[4]].value = 0;
 						      if (typeof sim_events["mem"][clk-1] != "undefined")
                                                       {
 						          var remain = sim_events["mem"][clk-1];
@@ -111,13 +110,13 @@
                                                       }
 
                                                       sim_states[s_expr[2]].value = (dbvalue >>> 0);
-                                                      sim_states[s_expr[4]].value = 1;
+                                                     sim_signals[s_expr[4]].value = 1;
 				                      show_memories('MP', MP, address, false) ;
                                                    }
                                    };
 
         syntax_behavior["MEM_WRITE"] = { nparameters: 6, 
-                                         types: ["E", "E", "S", "E"],
+                                         types: ["E", "E", "S", "S", "E"],
                                          operation: function (s_expr) 
                                                     {
 						      var address = sim_states[s_expr[1]].value;
@@ -125,7 +124,7 @@
                                                       var bw      = sim_signals[s_expr[3]].value;
                                                       var clk     = sim_states[s_expr[5]].value() ;
 
-                                                      sim_states[s_expr[4]].value = 0;
+                                                      sim_signals[s_expr[4]].value = 0;
 						      if (typeof sim_events["mem"][clk-1] != "undefined")
                                                       {
 						          var remain = sim_events["mem"][clk-1];
@@ -175,7 +174,7 @@
                                                       }
 
 						      MP[address] = (value >>> 0);
-                                                      sim_states[s_expr[4]].value = 1;
+                                                      sim_signals[s_expr[4]].value = 1;
 				                      show_memories('MP', MP, address, false) ;
                                                     }
                                    };

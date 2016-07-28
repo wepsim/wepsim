@@ -43,13 +43,22 @@
         sim_states["IOCR"]   = { name: "IOCR",    visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
         sim_states["IODR"]   = { name: "IODR",    visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
 
-        sim_states["INT"]    = { name: "INT",     visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-        sim_states["IORDY"]  = { name: "IORDY",   visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-
 
         /*
          *  Signals
          */
+
+        sim_signals["INT"]     = { name: "INT", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+                                   behavior: ["FIRE C", "FIRE C"],
+                                   fire_name: ['svg_p:tspan4199'], 
+                                   draw_data: [[], ['svg_p:path3809']], 
+                                   draw_name: [[], []]};
+
+        sim_signals["IORDY"]   = { name: "IORDY", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+                                   behavior: ["FIRE C", "FIRE C"],
+                                   fire_name: ['svg_p:tspan4089'], 
+                                   draw_data: [[], ['svg_p:path3897']], 
+                                   draw_name: [[], []]};
 
         sim_signals["IO_IOR"]  = { name: "IO_IOR", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                    behavior: ["NOP", "IO_IOR BUS_AB BUS_DB IOSR IOCR IODR CLK; FIRE SBWA"],
@@ -122,7 +131,7 @@
                                       };
 
         syntax_behavior["IO_CHK_I"] = { nparameters: 4, 
-                                        types: ["E", "E", "E"],
+                                        types: ["E", "S", "E"],
                                         operation: function (s_expr) 
                                                    {
                                                       var clk = sim_states[s_expr[1]].value() ;
@@ -144,7 +153,7 @@
                                                                   sim_events["io"][clk] = new Array() ;
                                                               sim_events["io"][clk].push(i) ;
 
-                                                              sim_states[s_expr[2]].value = 1 ; // ['INT']=1
+                                                             sim_signals[s_expr[2]].value = 1 ; // ['INT']=1
                                                               sim_states[s_expr[3]].value = i ; // ['INTV']=i
                                                            }
                                                       }
@@ -162,14 +171,14 @@
   							  return ;
                                                       }
 
-						      sim_states[s_expr[2]].value = 0 ; // ['INT']  = 0
+						     sim_signals[s_expr[2]].value = 0 ; // ['INT']  = 0
 						      sim_states[s_expr[5]].value = 0 ; // ['INTV'] = 0
 
 						      for (var i=0; i<IO_INT_FACTORY.length; i++) 
                                                       {
                                                            if (IO_INT_FACTORY[i].active)
                                                            {
-                                                               sim_states[s_expr[2]].value = 0;  // ['INT']  = 1
+                                                              sim_signals[s_expr[2]].value = 0;  // ['INT']  = 1
                                                                sim_states[s_expr[5]].value = i;  // ['INTV'] = i
 							       sim_states[s_expr[4]].value = i ; // ['BUS_DB'] = i
 
