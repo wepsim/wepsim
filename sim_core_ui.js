@@ -127,7 +127,7 @@
 		draw_it = true;
 	    }
 	    if (value != obj.default_value) {
-		draw_it = true; // Otherwise MRDY/IORDY/etc. are not shown because are not used-set in the microinstruction, are set dynamically by hardware
+		draw_it = true; // Otherwise MRDY/IORDY/etc. are not shown because are not user-set in the microinstruction, are set dynamically by hardware
 	    }
 	    if ( (false == draw_it) && (typeof obj.depends_on != "undefined") )
 	    {
