@@ -217,7 +217,7 @@
 			       draw_data: [['svg_p:path3485']], 
 			       draw_name: [['svg_p:path3177']] };
 	sim_signals["C3"] = { name: "C3", visible: true, type: "E", value: 0, default_value:0, nbits: "1", 
-			       behavior: ["NOP", "MV REG_IR BUS_IB; DECO"],
+			       behavior: ["NOP", "MV REG_IR BUS_IB; DECO; FIRE_IFSET C 10"],
 			       fire_name: ['svg_p:text3439'], 
 			       draw_data: [['svg_p:path3339']], 
 			       draw_name: [['svg_p:path3337']] };
@@ -1050,6 +1050,18 @@
 
 							    // 3.- check conflicts
                                                             check_buses(s_expr[1]);
+							}  
+					   };
+
+		syntax_behavior["FIRE_IFSET"] = { nparameters: 3, 
+					     types: ["S", "I"],
+					     operation: function (s_expr) 
+							{ 
+                                                            if (get_value(sim_signals[s_expr[1]]) != parseInt(s_expr[2])) {
+                                                                return ;
+                                                            }
+
+                                                            syntax_behavior["FIRE"].operation(s_expr) ;
 							}  
 					   };
 
