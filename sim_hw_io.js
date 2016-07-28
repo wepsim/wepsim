@@ -56,7 +56,7 @@
 
         sim_signals["IORDY"]   = { name: "IORDY", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                    behavior: ["FIRE C", "FIRE C"],
-                                   fire_name: ['svg_p:tspan4089'], 
+                                   fire_name: ['svg_p:tspan4089','svg_p:path3793'], 
                                    draw_data: [[], ['svg_p:path3897']], 
                                    draw_name: [[], []]};
 
