@@ -146,9 +146,9 @@
 	/* CONTROL UNIT */
 	sim_signals["C"]    = { name: "C",    visible: true, type: "L", value: 0, default_value: 0, nbits: "4", 
 				behavior: ["MV MUXC_MUXB VAL_ZERO; FIRE B", 
-					   "SBIT_S MUXC_MUXB INT 0; FIRE B",
-					   "SBIT_S MUXC_MUXB IORDY 0; FIRE B",
-					   "SBIT_S MUXC_MUXB MRDY 0; FIRE B",
+					   "MBIT_E MUXC_MUXB INT 0 1; FIRE B",
+					   "MBIT_E MUXC_MUXB IORDY 0 1; FIRE B",
+					   "MBIT_E MUXC_MUXB MRDY 0 1; FIRE B",
 					   "MBIT_I MUXC_MUXB REG_SR 0 1; FIRE B",
 					   "MBIT_I MUXC_MUXB REG_SR 1 1; FIRE B", 
 					   "MBIT_I MUXC_MUXB REG_SR 28 1; FIRE B", 
@@ -829,8 +829,21 @@
 						   var n2 = "00000000000000000000000000000000".substring(0, 32-n1.length) + n1;
 						   n2 = n2.substr(31 - (offset + size - 1), size);
 
-						   sim_signals[s_expr[1]].value = parseInt(n2, 2) ;
-						}  
+						   set_value(sim_signals[s_expr[1]], parseInt(n2, 2));
+						}
+				   };
+	syntax_behavior["MBIT_E"] = { nparameters: 5, 
+				     types: ["E", "S", "I", "I"],
+				     operation: function (s_expr) { 
+						   var offset = parseInt(s_expr[3]) ;
+						   var size   = parseInt(s_expr[4]) ;
+
+						   var n1 = get_value(sim_signals[s_expr[2]]).toString(2); // to binary
+						   var n2 = "00000000000000000000000000000000".substring(0, 32-n1.length) + n1;
+						   n2 = n2.substr(31 - (offset + size - 1), size);
+
+						   set_value(sim_states[s_expr[1]], parseInt(n2, 2));
+						}
 				   };
 	syntax_behavior["MBIT_SN"] = { nparameters: 5, 
 				     types: ["S", "E", "E", "I"],
@@ -953,7 +966,7 @@
 						   var poso = parseInt(s_expr[5]) ;
 						   var len  = parseInt(s_expr[3]) ;
 
-						   var n1 =  get_value(sim_states[s_expr[4]]).toString(2); // to binary signal origin
+						   var n1 =  get_value(sim_states[s_expr[4]]).toString(2); // to state signal origin
 						   n1 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1);
 						   n1 = n1.substr(31 - poso - len + 1, len);
 

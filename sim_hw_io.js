@@ -161,7 +161,7 @@
                                       };
 
         syntax_behavior["INTA"]     = { nparameters: 6, 
-                                        types: ["E", "E", "S", "E", "E"],
+                                        types: ["E", "S", "S", "E", "E"],
                                         operation: function (s_expr) 
                                                    {
                                                       var clk = sim_states[s_expr[1]].value() ;
