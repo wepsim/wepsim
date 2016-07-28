@@ -30,8 +30,8 @@
 
         sim_signals["MRDY"]  = { name: "MRDY", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		                 behavior: ["FIRE C", "FIRE C"],
-                                 fire_name: ['svg_p:tspan3916','svg_p:path3419'], 
-                                 draw_data: [[], ['svg_p:path3895']], 
+                                 fire_name: ['svg_p:tspan3916'], 
+                                 draw_data: [[], ['svg_p:path3895', 'svg_p:path3541']], 
                                  draw_name: [[], []]};
 
         sim_signals["R"]     = { name: "R", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
