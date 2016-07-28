@@ -408,13 +408,13 @@
 			        draw_name: [[]] };
 
 	sim_signals["RA"]  = { name: "RA", visible: true, type: "L", value: 0, default_value:0, nbits: "5", 
-			       behavior: ["GET RA_T9 BR RA; FIRE T9; FIRE MA"],  
+			       behavior: ["GET RA_T9 BR RA; FIRE_IFSET T9 1; FIRE_IFSET MA 0"],  
                                depends_on: ["SELA"],
 			       fire_name: ['svg_p:text3107'], 
 			       draw_data: [[]], 
 			       draw_name: [['svg_p:path3109']] };
 	sim_signals["RB"]  = { name: "RB", visible: true, type: "L", value: 0, default_value:0, nbits: "5", 
-			       behavior: ["GET RB_T10 BR RB; FIRE T10; FIRE MB"], 
+			       behavior: ["GET RB_T10 BR RB; FIRE_IFSET T10 1; FIRE_IFSET MB 0"], 
                                depends_on: ["SELB"],
 			       fire_name: ['svg_p:text3123'], 
 			       draw_data: [[]],
