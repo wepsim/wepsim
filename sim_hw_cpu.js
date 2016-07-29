@@ -146,9 +146,9 @@
 	/* CONTROL UNIT */
 	sim_signals["C"]    = { name: "C",    visible: true, type: "L", value: 0, default_value: 0, nbits: "4", 
 				behavior: ["MV MUXC_MUXB VAL_ZERO; FIRE B", 
-					   "MV MUXC_MUXB INT; FIRE B", 
-					   "MV MUXC_MUXB IORDY; FIRE B", 
-					   "MV MUXC_MUXB MRDY; FIRE B", 
+					   "MBIT_E MUXC_MUXB INT 0 1; FIRE B",
+					   "MBIT_E MUXC_MUXB IORDY 0 1; FIRE B",
+					   "MBIT_E MUXC_MUXB MRDY 0 1; FIRE B",
 					   "MBIT_I MUXC_MUXB REG_SR 0 1; FIRE B",
 					   "MBIT_I MUXC_MUXB REG_SR 1 1; FIRE B", 
 					   "MBIT_I MUXC_MUXB REG_SR 28 1; FIRE B", 
@@ -217,7 +217,7 @@
 			       draw_data: [['svg_p:path3485']], 
 			       draw_name: [['svg_p:path3177']] };
 	sim_signals["C3"] = { name: "C3", visible: true, type: "E", value: 0, default_value:0, nbits: "1", 
-			       behavior: ["NOP", "MV REG_IR BUS_IB; DECO"],
+			       behavior: ["NOP", "MV REG_IR BUS_IB; DECO; FIRE_IFSET C 10"],
 			       fire_name: ['svg_p:text3439'], 
 			       draw_data: [['svg_p:path3339']], 
 			       draw_name: [['svg_p:path3337']] };
@@ -339,21 +339,21 @@
 			       draw_name: [[], ['svg_p:path3425', 'svg_p:path3427']] };
 	sim_signals["COP"] = { name: "COP", visible: true, type: "L", value: 0, default_value:0, nbits: "4",  
 			       behavior: ["NOP",
-                                          "AND ALU_C6 MA_ALU MB_ALU; FIRE T6; FIRE SELP",
-					  "OR ALU_C6 MA_ALU MB_ALU; FIRE T6; FIRE SELP",
-					  "NOT ALU_C6 MA_ALU; FIRE T6; FIRE SELP",
-					  "XOR ALU_C6 MA_ALU MB_ALU; FIRE T6; FIRE SELP",
-					  "SRL ALU_C6 MA_ALU; FIRE T6; FIRE SELP",
-					  "SRA ALU_C6 MA_ALU; FIRE T6; FIRE SELP",
-					  "SL ALU_C6 MA_ALU; FIRE T6; FIRE SELP",
-					  "RR ALU_C6 MA_ALU; FIRE T6; FIRE SELP",
-					  "RL ALU_C6 MA_ALU; FIRE T6; FIRE SELP",
-					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE T6; FIRE SELP",
-					  "SUB ALU_C6 MA_ALU MB_ALU; FIRE T6; FIRE SELP",
-					  "MUL ALU_C6 MA_ALU MB_ALU; FIRE T6; FIRE SELP",
-					  "DIV ALU_C6 MA_ALU MB_ALU; FIRE T6; FIRE SELP",
-					  "MOD ALU_C6 MA_ALU MB_ALU; FIRE T6; FIRE SELP",
-					  "LUI ALU_C6 MA_ALU; FIRE T6; FIRE SELP"],
+                                          "AND ALU_C6 MA_ALU MB_ALU; FIRE T6; FIRE_IFSET SELP 3",
+					  "OR ALU_C6 MA_ALU MB_ALU; FIRE T6; FIRE_IFSET SELP 3",
+					  "NOT ALU_C6 MA_ALU; FIRE T6; FIRE_IFSET SELP 3",
+					  "XOR ALU_C6 MA_ALU MB_ALU; FIRE T6; FIRE_IFSET SELP 3",
+					  "SRL ALU_C6 MA_ALU; FIRE T6; FIRE_IFSET SELP 3",
+					  "SRA ALU_C6 MA_ALU; FIRE T6; FIRE_IFSET SELP 3",
+					  "SL ALU_C6 MA_ALU; FIRE T6; FIRE_IFSET SELP 3",
+					  "RR ALU_C6 MA_ALU; FIRE T6; FIRE_IFSET SELP 3",
+					  "RL ALU_C6 MA_ALU; FIRE T6; FIRE_IFSET SELP 3",
+					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE T6; FIRE_IFSET SELP 3",
+					  "SUB ALU_C6 MA_ALU MB_ALU; FIRE T6; FIRE_IFSET SELP 3",
+					  "MUL ALU_C6 MA_ALU MB_ALU; FIRE T6; FIRE_IFSET SELP 3",
+					  "DIV ALU_C6 MA_ALU MB_ALU; FIRE T6; FIRE_IFSET SELP 3",
+					  "MOD ALU_C6 MA_ALU MB_ALU; FIRE T6; FIRE_IFSET SELP 3",
+					  "LUI ALU_C6 MA_ALU; FIRE T6; FIRE_IFSET SELP 3"],
                                depends_on: ["SELCOP"],
 			       fire_name: ['svg_p:text3303'], 
 			       draw_data: [['svg_p:path3237', 'svg_p:path3239']], 
@@ -367,12 +367,12 @@
 				draw_data: [[],['svg_p:path3643'],['svg_p:path3705'],['svg_p:path3675', 'svg_p:path3331']], 
 				draw_name: [[]]};
 	sim_signals["I"]    = { name: "I", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-			        behavior: ["MV FLAG_I VAL_ZERO; FIRE SELP", "MV FLAG_I VAL_ONE; FIRE SELP"],
+			        behavior: ["MV FLAG_I VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_I VAL_ONE; FIRE_IFSET SELP 2"],
 			        fire_name: ['svg_p:tspan3894'], 
 			        draw_data: [['svg_p:path3705']], 
 			        draw_name: [[]] };
 	sim_signals["U"]    = { name: "U", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-			        behavior: ["MV FLAG_U VAL_ZERO; FIRE SELP", "MV FLAG_U VAL_ONE; FIRE SELP"],
+			        behavior: ["MV FLAG_U VAL_ZERO; FIRE_IFSET SELP 1", "MV FLAG_U VAL_ONE; FIRE_IFSET SELP 1"],
 			        fire_name: ['svg_p:tspan3891'], 
 			        draw_data: [['svg_p:path3643']], 
 			        draw_name: [[]] };
@@ -408,13 +408,13 @@
 			        draw_name: [[]] };
 
 	sim_signals["RA"]  = { name: "RA", visible: true, type: "L", value: 0, default_value:0, nbits: "5", 
-			       behavior: ["GET RA_T9 BR RA; FIRE T9; FIRE MA"],  
+			       behavior: ["GET RA_T9 BR RA; FIRE_IFSET T9 1; FIRE_IFSET MA 0"],  
                                depends_on: ["SELA"],
 			       fire_name: ['svg_p:text3107'], 
 			       draw_data: [[]], 
 			       draw_name: [['svg_p:path3109']] };
 	sim_signals["RB"]  = { name: "RB", visible: true, type: "L", value: 0, default_value:0, nbits: "5", 
-			       behavior: ["GET RB_T10 BR RB; FIRE T10; FIRE MB"], 
+			       behavior: ["GET RB_T10 BR RB; FIRE_IFSET T10 1; FIRE_IFSET MB 0"], 
                                depends_on: ["SELB"],
 			       fire_name: ['svg_p:text3123'], 
 			       draw_data: [[]],
@@ -829,8 +829,21 @@
 						   var n2 = "00000000000000000000000000000000".substring(0, 32-n1.length) + n1;
 						   n2 = n2.substr(31 - (offset + size - 1), size);
 
-						   sim_signals[s_expr[1]].value = parseInt(n2, 2) ;
-						}  
+						   set_value(sim_signals[s_expr[1]], parseInt(n2, 2));
+						}
+				   };
+	syntax_behavior["MBIT_E"] = { nparameters: 5, 
+				     types: ["E", "S", "I", "I"],
+				     operation: function (s_expr) { 
+						   var offset = parseInt(s_expr[3]) ;
+						   var size   = parseInt(s_expr[4]) ;
+
+						   var n1 = get_value(sim_signals[s_expr[2]]).toString(2); // to binary
+						   var n2 = "00000000000000000000000000000000".substring(0, 32-n1.length) + n1;
+						   n2 = n2.substr(31 - (offset + size - 1), size);
+
+						   set_value(sim_states[s_expr[1]], parseInt(n2, 2));
+						}
 				   };
 	syntax_behavior["MBIT_SN"] = { nparameters: 5, 
 				     types: ["S", "E", "E", "I"],
@@ -953,7 +966,7 @@
 						   var poso = parseInt(s_expr[5]) ;
 						   var len  = parseInt(s_expr[3]) ;
 
-						   var n1 =  get_value(sim_states[s_expr[4]]).toString(2); // to binary signal origin
+						   var n1 =  get_value(sim_states[s_expr[4]]).toString(2); // to state signal origin
 						   n1 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1);
 						   n1 = n1.substr(31 - poso - len + 1, len);
 
@@ -1037,6 +1050,18 @@
 
 							    // 3.- check conflicts
                                                             check_buses(s_expr[1]);
+							}  
+					   };
+
+		syntax_behavior["FIRE_IFSET"] = { nparameters: 3, 
+					     types: ["S", "I"],
+					     operation: function (s_expr) 
+							{ 
+                                                            if (get_value(sim_signals[s_expr[1]]) != parseInt(s_expr[2])) {
+                                                                return ;
+                                                            }
+
+                                                            syntax_behavior["FIRE"].operation(s_expr) ;
 							}  
 					   };
 
