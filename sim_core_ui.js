@@ -126,6 +126,9 @@
 	    if (typeof sim_states["REG_MICROINS"].value[obj.name] != "undefined") {
 		draw_it = true;
 	    }
+	    if (value != obj.default_value) {
+		draw_it = true; // Otherwise MRDY/IORDY/etc. are not shown because are not user-set in the microinstruction, are set dynamically by hardware
+	    }
 	    if ( (false == draw_it) && (typeof obj.depends_on != "undefined") )
 	    {
 		for (var k=0; k<obj.depends_on.length; k++) 
@@ -432,7 +435,7 @@
                      "<div class='panel-heading'>" +
                      " <a href='#iopanel' data-toggle='collapse'><h3 class='panel-title'>I/O</h3></a>" +
                      "</div>" +
-                     "<div class='panel-body panel-collapse' id='iopanel'>" +
+                     "<div class='panel-body panel-collapse in' id='iopanel'>" +
                      "  <div class='row-fluid'>" +
                      "  <center>" ;
             for (var i=0; i<8; i++)
@@ -461,7 +464,7 @@
                   "<div class='panel-heading'>" +
                   " <a href='#mempanel' data-toggle='collapse'><h3 class='panel-title'>Memory</h3></a>" +
                   "</div>" +
-                  "<div class='panel-body panel-collapse' id='mempanel'>" +
+                  "<div class='panel-body panel-collapse in' id='mempanel'>" +
                   "  <div class='row-fluid'>" +
                   "  <center>" +
                   "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' style='padding: 15 5 0 10;'>Wait cycles</div>" +
@@ -495,8 +498,11 @@
          *  show_memories
          */
 
-        function show_memories ( name, memory, index ) 
+        function show_memories ( name, memory, index, redraw ) 
         {
+            if ( (redraw == false) && ($("#memory_" + name).is(":visible") == false) )
+                  return;
+
 	    var o1 = "" ;
             var value = "" ;
 
@@ -587,19 +593,28 @@
                 return FIRMWARE.assembly[hexstrpc].source ;
         }
 
+        var old_addr = 0;
+
 	function show_asmdbg_pc ( )
 	{
-                var SIMWARE  = get_simware() ;
                 var o1 = null ;
+                var reg_pc    = get_value(sim_states["REG_PC"]) ;
+                var curr_addr = "0x" + reg_pc.toString(16) ;
 
-                for (l in SIMWARE.assembly)
+                if (typeof FIRMWARE.assembly[old_addr] != "undefined")
                 {
-                     o1 = $("#asmdbg" + l) ;
-                     o1.css('background-color', SIMWARE.assembly[l].bgcolor);
+                     o1 = $("#asmdbg" + old_addr) ;
+                     o1.css('background-color', FIRMWARE.assembly[old_addr].bgcolor);
                 }
-
-                var reg_pc     = get_value(sim_states["REG_PC"]) ;
-                var curr_addr  = "0x" + reg_pc.toString(16) ;
+                else
+                {
+                     for (l in FIRMWARE.assembly)
+                     {
+                          o1 = $("#asmdbg" + l) ;
+                          o1.css('background-color', FIRMWARE.assembly[l].bgcolor);
+                     }
+                }
+                old_addr = curr_addr ;
 
                 o1 = $("#asmdbg" + curr_addr) ;
                 o1.css('background-color', '#00EE88');
@@ -607,7 +622,7 @@
 
 	function show_dbg_mpc ( )
 	{
-                show_memories('MC', MC, get_value(sim_states['REG_MICROADDR'])) ;
+                show_memories('MC', MC, get_value(sim_states['REG_MICROADDR']), false) ;
 	}
 
 	function show_dbg_ir ( decins )
@@ -747,22 +762,14 @@
 	     var clabel = "" ;
 	     var wadd   = "" ;
 
-	     wadd = "0x" + (parseInt(c)+3).toString(16);
-	     if (typeof slebal[wadd] != "undefined") 
-		  clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
-	     else clabel = clabel + "&nbsp;" ;
-	     wadd = "0x" + (parseInt(c)+2).toString(16);
-	     if (typeof slebal[wadd] != "undefined") 
-		  clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
-	     else clabel = clabel + "&nbsp;" ;
-	     wadd = "0x" + (parseInt(c)+1).toString(16);
-	     if (typeof slebal[wadd] != "undefined") 
-		  clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
-	     else clabel = clabel + "&nbsp;" ;
-	     wadd = "0x" + (parseInt(c)+0).toString(16);
-	     if (typeof slebal[wadd] != "undefined") 
-		  clabel = clabel + "<span class='badge'>" + slebal[wadd] + "</span>" ;
-	     else clabel = clabel + "&nbsp;" ;
+             for (var j=3; j>=0; j--)
+             {
+	          wadd = "0x" + (parseInt(c)+j).toString(16);
+	          if (typeof slebal[wadd] != "undefined") 
+                       for (var i=0; i<slebal[wadd].length; i++)
+		            clabel = clabel + "<span class='badge'>" + slebal[wadd][i] + "</span>" ;
+	          else clabel = clabel + "&nbsp;" ;
+             }
 
 	     return clabel ;
 	}
@@ -770,8 +777,12 @@
 	function mp2html ( mp, labels, seg )
 	{
                 var slebal = new Object();
-                for (l in labels)
-                     slebal[labels[l]] = l;
+                for (l in labels) 
+                {
+                     if (typeof slebal[labels[l]] == "undefined")
+                         slebal[labels[l]] = new Array();
+                     slebal[labels[l]].push(l);
+                }
 
 		var o  = "";
 		    o += "<center>" +
@@ -850,7 +861,7 @@
 
                      o += rows + " align=right>" + seg[skey].name + "&nbsp;</td></tr>" + x ;
 
-	             if (seg[skey].name != "stack") {
+	             if (seg[skey].name != ".stack") {
 		         o += "<tr style='font-family:\'Consolas\'; font-size:12pt;'>" + 
                               "<td>&nbsp;</td>" + 
                               "<td valign=middle align=center height=25px>...</td>" + 
@@ -932,8 +943,17 @@
                 var o = "" ;
 
                 var a2l = new Object();
-                for (l in labels)
-                     a2l[labels[l]] = l;
+                for (l in labels) {
+                     if (typeof a2l[labels[l]] == "undefined")
+                         a2l[labels[l]] = new Array();
+                     a2l[labels[l]].push(l);
+                }
+
+                var a2s = new Object();
+                for (l in seg) {
+                     laddr = "0x" + seg[l].begin.toString(16) ;
+                     a2s[laddr] = l;
+                }
 
                 o += "<center><table data-role=table class='table ui-responsive'><tbody>" ;
                 for (l in asm)
@@ -950,18 +970,27 @@
 
                      // labels
                      s_label = "&nbsp;" ;
-                     if (typeof a2l[l] != "undefined") 
-                         s_label = "<span class='label label-info'>" + a2l[l] + "</span>" ;
+                     if (typeof a2l[l] != "undefined") {
+                         for (var i=0; i<a2l[l].length; i++) {
+                              s_label = s_label + "<span class='label label-info'>" + a2l[l][i] + "</span>" ;
+                         }
+                     }
 
                      // join the pieces...
+                     if (typeof a2s[l] != "undefined")
+                         o += "<tr bgcolor='#FEFEFE'>" + 
+                              "<td colspan='7' style='line-height:0.3;' align=left><small><font color=gray>" + a2s[l] + "</font></small></td>"
+                              "</tr>" ;
+
                      o +=  "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'>" +
-                           "<td class='asm_break' style='line-height:0.9;' width='10%' id='bp" + l + "' " + 
-                           "                      onclick='asmdbg_set_breakpoint(" + l + "); if(event.stopPropagation) event.stopPropagation();'>&nbsp;</td>" +
+                           "<td                                             width='2%'></td>" +
+                           "<td class='asm_break'  style='line-height:0.9;' width='10%' id='bp" + l + "' " + 
+                           "                       onclick='asmdbg_set_breakpoint(" + l + "); if(event.stopPropagation) event.stopPropagation();'>&nbsp;</td>" +
                            "<td class='asm_addr'   style='line-height:0.9;' width='15%'>" + l + "</td>" +
-                           "<td class='asm_label1' style='line-height:0.9;' width='12%' align=right>" + s_label + "</td>" +
+                           "<td class='asm_label1' style='line-height:0.9;' width='10%' align=right>" + s_label + "</td>" +
                            "<td class='asm_ins'    style='line-height:0.9;' width='25%' align=left>"  + s1_instr + "</td>" +
-                           "<td class='asm_label2' style='line-height:0.9;' width='12%' align=right>" + s_label + "</td>" +
-                           "<td class='asm_pins'   style='line-height:0.9;' width='25%' align=left>"  + s2_instr + "</td>" +
+                           "<td class='asm_label2' style='line-height:0.9;' width='10%' align=right>" + s_label + "</td>" +
+                           "<td class='asm_pins'   style='line-height:0.9;' width='20%' align=left>"  + s2_instr + "</td>" +
                            "</tr>" ;
                 }
                 o += "</tbody></table></center>" ;
@@ -978,11 +1007,10 @@
 
 	function asmdbg_set_breakpoint ( addr )
 	{
-                var SIMWARE  = get_simware() ;
                 var hexaddr  = "0x" + addr.toString(16) ;
 
                 var o1       = document.getElementById("bp"+hexaddr) ;
-                var bp_state = SIMWARE.assembly[hexaddr].breakpoint ;
+                var bp_state = FIRMWARE.assembly[hexaddr].breakpoint ;
 
                 if (bp_state === true) {
 		    bp_state = false ;
@@ -992,7 +1020,7 @@
                     o1.innerHTML = '<img height=22 src="images/stop.png">' ;
 	        }
 
-                SIMWARE.assembly[hexaddr].breakpoint = bp_state ;
+                FIRMWARE.assembly[hexaddr].breakpoint = bp_state ;
 	}
 
 	function asmdbg_stop ( btn1 )
@@ -1029,11 +1057,10 @@
                     return ;
                 }
 
-                var SIMWARE = get_simware() ;
                 reg_pc      = get_value(sim_states["REG_PC"]) ;
                 curr_addr   = "0x" + reg_pc.toString(16) ;
 
-                if ( (typeof SIMWARE.assembly[curr_addr] != "undefined") && (SIMWARE.assembly[curr_addr].breakpoint) ) 
+                if ( (typeof FIRMWARE.assembly[curr_addr] != "undefined") && (FIRMWARE.assembly[curr_addr].breakpoint) ) 
                 {
 	            asmdbg_stop(btn1) ;
                     alert("Breakpoint @ " + curr_addr + ":\n" + 

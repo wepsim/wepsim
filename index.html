@@ -70,7 +70,7 @@
     // Assembly
     //
 
-    function showError ( Msg ) 
+    function showError ( Msg, editor ) 
     {
             var errorMsg = Msg.replace(/\t/g,' ').replace(/   /g,' ');
 
@@ -80,11 +80,11 @@
                 pos = parseInt(pos[0].match(/\d+/)[0]);
                 lineMsg += '<button type="button" class="btn btn-danger" ' + 
                            '        onclick="$.notifyClose();' +
-                           '                      var marked = inputasm.addLineClass(' + (pos-1) + ', \'background\', \'CodeMirror-selected\');' +
-                           '                 setTimeout(function() { inputasm.removeLineClass(marked, \'background\', \'CodeMirror-selected\'); }, 3000);' +
-		           '		     var t = inputasm.charCoords({line: ' + pos + ', ch: 0}, \'local\').top;' +
-		           '		     var middleHeight = inputasm.getScrollerElement().offsetHeight / 2;' +
-		           '		     inputasm.scrollTo(null, t - middleHeight - 5);">Go line ' + pos + '</button>&nbsp;' ;
+                           '                      var marked = ' + editor + '.addLineClass(' + (pos-1) + ', \'background\', \'CodeMirror-selected\');' +
+                           '                 setTimeout(function() { ' + editor + '.removeLineClass(marked, \'background\', \'CodeMirror-selected\'); }, 3000);' +
+		           '		     var t = ' + editor + '.charCoords({line: ' + pos + ', ch: 0}, \'local\').top;' +
+		           '		     var middleHeight = ' + editor + '.getScrollerElement().offsetHeight / 2;' +
+		           '		     ' + editor + '.scrollTo(null, t - middleHeight - 5);">Go line ' + pos + '</button>&nbsp;' ;
             }
 
 	    $.notify({ title: '<strong>ERROR</strong>', 
@@ -94,18 +94,6 @@
                                 '<button type="button" class="btn btn-danger" onclick="$.notifyClose();">Close</button>' + 
                                 '</center>' },
 		     { type: 'danger', newest_on_top: true, delay: 0, placement: { from: 'top', align: 'center' } });
-    }
-
-    function showhide_asm_elements ( ) 
-    {
-	$("input:checkbox:checked").each(function() {
-		var column = "table ." + $(this).attr("name");
-		$(column).show();
-	});
-	$("input:checkbox:not(:checked)").each(function() {
-		var column = "table ." + $(this).attr("name");
-		$(column).hide();
-	});
     }
 
     function compileAssembly ( show_binary ) 
@@ -124,7 +112,7 @@
         // compile Assembly and show message
         var SIMWAREaddon = simlang_compile(textToConvert, SIMWARE);
         if (SIMWAREaddon.error != null) {
-            showError(SIMWAREaddon.error) ;
+            showError(SIMWAREaddon.error, "inputasm") ;
             return false;
         }
 
@@ -184,10 +172,10 @@
         fileReader.readAsText(fileToLoad, "UTF-8");
     }
 
-    function load_assembly_from_example ( )
+    function load_assembly_from_example ( example_id )
     {
 	var xmlhttp = new XMLHttpRequest();
-	var url = "examples/exampleCode.txt?time=20160722a" ;
+	var url = "examples/exampleCode" + example_id + ".txt?time=20160730a" ;
 
 	xmlhttp.onreadystatechange=function() {
 					if ((xmlhttp.readyState == 4) && ((xmlhttp.status == 200) || (xmlhttp.status == 0)))
@@ -211,7 +199,7 @@
 
 	var preSM = load_firmware(textFromFileLoaded) ;
 	if (preSM.error != null) {
-            showError(preSM.error) ;
+            showError(preSM.error, "inputfirm") ;
             return false;
         }
 
@@ -260,10 +248,10 @@
         fileReader.readAsText(fileToLoad, "UTF-8");
     }
 
-    function load_firmware_from_example ( )
+    function load_firmware_from_example ( example_id )
     {
 	var xmlhttp = new XMLHttpRequest();
-	var url = "examples/exampleMicrocode.txt?time=20160721a" ;
+	var url = "examples/exampleMicrocode" + example_id + ".txt?time=20160730a" ;
 
 	xmlhttp.onreadystatechange=function() {
 					// if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
@@ -406,6 +394,42 @@
                                                   }, false);
             }
     }
+
+    //
+    // UI (auxiliar)
+    //
+
+    function showhide_asm_elements ( ) 
+    {
+	$("input:checkbox:checked").each(function() {
+		var column = "table ." + $(this).attr("name");
+		$(column).show();
+	});
+
+	$("input:checkbox:not(:checked)").each(function() {
+		var column = "table ." + $(this).attr("name");
+		$(column).hide();
+	});
+    }
+
+    function sim_prepare_editor ( editor )
+    {
+	    editor.setValue("\n\n\n\n\n\n\n\n\n");
+	    editor.getWrapperElement().style['text-shadow'] = '0.0em 0.0em'; 
+
+	    if (get_cfg('editor_theme') == 'blackboard') {
+		editor.getWrapperElement().style['font-weight'] = 'normal';
+		editor.setOption('theme','blackboard');
+	    }
+
+	    var edt_mode = get_cfg('editor_mode');
+	    if (edt_mode == 'vim') 
+		editor.setOption('keyMap','vim');
+	    if (edt_mode == 'emacs') 
+		editor.setOption('keyMap','emacs');
+	    if (edt_mode == 'sublime') 
+		editor.setOption('keyMap','sublime');
+    }
     </script>
 
     <!-- Google Analytics -->
@@ -474,8 +498,8 @@
 		   	   <table class='table ui-responsive ui-table' style="margin-bottom: 0px;">
 		   	   <thead>
 			   <tr>
-		   <th width=5%>
-		   <a href="#checkboxespopup" data-rel="popup">+/-</a>
+		   <th width=1%>
+		   <a href="#checkboxespopup" data-rel="popup">&plusmn;</a>
 		   <div data-role="popup" id="checkboxespopup">
 		       <label><input type="checkbox" value="1" id="asm_break"  name="asm_break" checked="checked"><span>breakpoints</span></label>
 		       <label><input type="checkbox" value="1" id="asm_addr"   name="asm_addr"  checked="checked"><span>address</span></label>
@@ -485,12 +509,12 @@
 		       <label><input type="checkbox" value="1" id="asm_pins"   name="asm_pins"  checked="checked"><span>pseudo</span><span class="hidden-xs">-instructions</span></label>
 		   </div>
 		   </th>
-			   <th width=10% class="asm_break"><span>break</span><span class="hidden-xs">points</span></th>
+			   <th width=10% class="asm_break"><span>break</span><span class="hidden-xs"><small>points</small></span></th>
 			   <th width=15% class="asm_addr"><span>addr</span><span class="hidden-xs">ess</span></th>
-                           <th width=10% class="asm_label1"><span>labels</span></th>
-                           <th width=25% class="asm_ins"><span>assembly</span></th>
-                           <th width=10% class="asm_label2"><span>labels</span></th>
-                           <th width=20% class="asm_pins"><span>pseudo</span><span class="hidden-xs">-instructions</span></th>
+                           <th width=10% class="asm_label1" align=right><span>labels</span></th>
+                           <th width=25% class="asm_ins"    align=left><span>assembly</span></th>
+                           <th width=10% class="asm_label2" align=right><span>labels</span></th>
+                           <th width=20% class="asm_pins"   align=left><span>pseudo</span><span class="hidden-xs"><small>instructions</small></span></th>
 			   </tr>
 			   </thead>
 			   </table>
@@ -546,12 +570,12 @@
 		    <div data-role="tabs" id="tabs1">
     		      <div data-role="navbar" id="tabsnav1" class="ui-responsive">
 		        <ul>
-		          <li style="clear:none;width:33% !important"><a id="tab14" href="#mp" class="ui-btn-active">Memory</a></li>
+		          <li style="clear:none;width:33% !important"><a id="tab14" href="#mp" class="ui-btn-active" onclick="show_memories_values();">Memory</a></li>
 		          <li style="clear:none;width:33% !important"><a id="tab15" href="#io">I/O</a></li>
 		          <li class="ui-block-a" style="clear:none;width:33% !important;border:1px solid #ddd;"><a id="tab12" href="#con">Console</a></li>
                           <br>
 		          <li style="           width:33% !important"><a id="tab11" href="#all">Registers</a></li>
-		          <li style="clear:none;width:33% !important"><a id="tab16" href="#mc">Control Memory</a></li>
+		          <li style="clear:none;width:33% !important"><a id="tab16" href="#mc" onclick="show_memories_values();">Control Memory</a></li>
 		          <li style="clear:none;width:33% !important"><a id="tab13" href="#config">Configuration</a></li>
 		        </ul>
 		      </div>
@@ -629,17 +653,16 @@
 			<center>
 			<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
                         <button class="ui-btn ui-btn-b ui-btn-inline" 
-                                onclick="var SIMWARE = get_simware() ;
-                                         var simware_as_text = saveFirmware(SIMWARE);
-                                         if (simware_as_text.trim() == '') {
-					     alert('The Microcode loaded in memory is empty!\n' + 
-                                                   'Please load a Microcode first in memory in order to save it.');
-					 }
-					 else {
-                                           //document.getElementById('inputFirmware').value = simware_as_text ;
-					     inputfirm.setValue(simware_as_text);
-                                             save_as_file(inputfirm, 'inputFileNameToSaveAs');
-					 }">Save to File</button>
+                                onclick="if (confirm('Do you want me to save the current Control Memory contents rather than the editor content?'))
+                                         {
+					     var SIMWARE = get_simware() ;
+					     var simware_as_text = saveFirmware(SIMWARE);
+					     if (simware_as_text.trim() == '')
+						  alert('The Microcode loaded in memory is empty!\n' + 
+							'Please load a Microcode first in memory in order to save it.');
+					     else inputfirm.setValue(simware_as_text);
+					 } 
+                                         save_as_file(inputfirm, 'inputFileNameToSaveAs');">Save to File</button>
                         </center>
 		    </div>
 		</div>
@@ -671,19 +694,43 @@
                             <a href="#" style="background-color: #D4DB17"
                                    class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-3 col-md-1 col-lg-1"
 				   onclick="$('#help1_ref').data('relative','');
-                                            $('#iframe_help1').html('<object id=svg_p2 data=\'images/cpu5.svg?time=20160718d\' type=image/svg+xml>Your browser does not support SVG</object>');
+                                            $('#iframe_help1').html('<object id=svg_p2 data=\'images/cpu5.svg?time=20160730a\' type=image/svg+xml>Your browser does not support SVG</object>');
                                             $('#help1').trigger('updatelayout');
                                             $('#help1').popup('reposition', {positionTo: 'window'});
 					    $('#help1').popup('open');"
                                    >Hardware Summary</a>
+
                             <a href="#" style="background-color: #D4DB17"
                                    class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info    ui-btn-icon-left ui-mini col-xs-3 col-md-1 col-lg-1"
 				   onclick="$('#help1_ref').data('relative','#help_firmware_format'); show_help1();"
                                    >Help</a>
-		            <a href="#" style="background-color: #DDDDDD"
+
+		            <a href="#select-example-firmware" style="background-color: #DDDDDD"
 				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-bars    ui-btn-icon-left ui-mini col-xs-4 col-md-1 col-lg-1"
-				   onclick="load_firmware_from_example();"
-                                   >Example</a>
+                                   data-rel="popup">Examples</a>
+			           <div data-role="popup" id="select-example-firmware">
+                                       Please select an example:<p>
+				       <div class="list-group">
+			       	         <a href="#" onclick="load_firmware_from_example(1); 
+                                                              $('#select-example-firmware').popup('close');" 
+                                            class="list-group-item list-group-item-action">
+				            <h4 class="list-group-item-heading">Simple example</h4>
+				            <p class="list-group-item-text">Initial basic example</p>
+                                         </a>
+				         <a href="#" onclick="load_firmware_from_example(2);
+                                                              $('#select-example-firmware').popup('close');" 
+                                            class="list-group-item list-group-item-action">
+				            <h4 class="list-group-item-heading">Intermediated example</h4>
+				            <p class="list-group-item-text">I/O and jumps added</p>
+                                         </a>
+				         <a href="#" onclick="load_firmware_from_example(3);
+                                                              $('#select-example-firmware').popup('close');" 
+                                            class="list-group-item list-group-item-action">
+				            <h4 class="list-group-item-heading">Advanced example</h4>
+				            <p class="list-group-item-text">Interruptions added</p>
+                                         </a>
+				       </div>
+			           </div>
 		</div>
 		</div>
 
@@ -773,10 +820,32 @@
                                    class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-5 col-md-1 col-lg-1"
 				   onclick="$('#help1_ref').data('relative','#help_assembly_format'); show_help1();">Help</a>
 
-		            <a href="#" style="background-color: #DDDDDD"
-                                   onclick="load_assembly_from_example();"
+		            <a href="#select-example-assembly" style="background-color: #DDDDDD"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-bars     ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1 ui-shadow"
-				   data-inline="true">Example</a>
+                                   data-rel="popup">Examples</a>
+			           <div data-role="popup" id="select-example-assembly">
+                                       Please select an example:<p>
+				       <div class="list-group">
+			       	         <a href="#" onclick="load_assembly_from_example(1); 
+                                                              $('#select-example-assembly').popup('close');" 
+                                            class="list-group-item list-group-item-action">
+				            <h4 class="list-group-item-heading">Simple example</h4>
+				            <p class="list-group-item-text">Initial basic example</p>
+                                         </a>
+				         <a href="#" onclick="load_assembly_from_example(2);
+                                                              $('#select-example-assembly').popup('close');" 
+                                            class="list-group-item list-group-item-action">
+				            <h4 class="list-group-item-heading">Intermediated example</h4>
+				            <p class="list-group-item-text">I/O and jumps added</p>
+                                         </a>
+				         <a href="#" onclick="load_assembly_from_example(3);
+                                                              $('#select-example-assembly').popup('close');" 
+                                            class="list-group-item list-group-item-action">
+				            <h4 class="list-group-item-heading">Advanced example</h4>
+				            <p class="list-group-item-text">Interruptions added</p>
+                                         </a>
+				       </div>
+			           </div>
 		</div>
 		</div>
 
@@ -829,38 +898,60 @@
             </p>
 	    </div>
 
-	    <div data-role="collapsible" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
-	    <h3>Configuration</h3>
-	    <p>
-	    <ul id="listview_3" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b">
+            <a href="#config1" data-rel="popup" data-position-to="window" style="text-align:left"
+               class="ui-btn ui-btn-icon-left ui-icon-gear">Configuration</a>
+	</div>
+
+</div><!-- /panel -->
+
+
+<div data-role="popup" id="config1" 
+     data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
+
+   <div data-role="header" data-theme="a">
+        <h1><b>WepSIM</b> <span class="badge btn-success"><div class="wsversion">X</div></span> / Configuration</h1>
+
+        <a href="#" 
+           data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" 
+           class="ui-btn-right">Close</a>
+   </div>
+   <div role="main" class="ui-content" style="padding: 8px 8px 8px 8px">
+
+        <div class="container-fluid" style="overflow-y:auto; overflow-x:hidden; max-height:80vh; max-width:85vw;">
+	<div class="row">
+	  <div class="col-xs-4 col-sm-2">
+             <img src="images/cfg-colors.gif" width="100%">
+          </div>
+	  <div class="col-xs-8 col-sm-3">
+		  <ul class="container-fluid list-group">
 		    <li class="list-group-item">
-			 Speed-up (slow - fast):
-			 <input type="range"
-				data-show-value="false"
-				name="slider1" id="slider1"
-				min="1" max="100" value="100" step=1
-				onchange="set_cfg('DBG_delay', 1000 / this.value); save_cfg();">
-			 <fieldset data-role="controlgroup" data-type="horizontal">
-			 Single step element:
+			 Data-path Color:
 			 <ul>
-			 <li>
-			     <input name="radio1" id="radio1-instruction" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('DBG_level','instruction'); save_cfg();"
-				    value="on" type="radio">
-			     <label for="radio1-instruction">Instruc.</label>
-			     <input name="radio1" id="radio1-microinstruction" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('DBG_level','microinstruction'); save_cfg();"
-				    value="off" type="radio">
-			     <label for="radio1-microinstruction">&#181;instruc.</label>
-			 </li>
+			 <input type="color"
+                                id="colorpicker1"
+				data-show-value="false"
+                                class="noshadow"
+				onchange="set_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh(); save_cfg();">
 			 </ul>
-			 </fieldset>
 		    </li>
 		    <li class="list-group-item">
-<div class="ui-grid-solo">
-<div class="ui-block-a">
+			 Signal Color:
+			 <ul>
+			 <input type="color"
+                                id="colorpicker2"
+				data-show-value="false"
+                                class="noshadow"
+				onchange="set_cfg('color_name_active', $('#colorpicker2').spectrum('get')); refresh(); save_cfg();">
+			 </ul>
+		    </li>
+		  </ul>
+          </div>
+	  <div class="col-xs-4 col-sm-2">
+             <img src="images/cfg-rf.gif" width="100%">
+          </div>
+	  <div class="col-xs-8 col-sm-4">
+		  <ul class="container-fluid list-group">
+		    <li class="list-group-item">
 			 <fieldset data-role="controlgroup" data-type="horizontal">
 			 RF display format:<br>
 			 <ul>
@@ -883,10 +974,8 @@
 			 </li>
 			 </ul>
 			 </fieldset>
-</div>
-</div>
-<div class="ui-grid-solo">
-<div class="ui-block-a">
+		    </li>
+		    <li class="list-group-item">
 			 <fieldset data-role="controlgroup" data-type="horizontal">
 			 RF name nomenclature:<br>
 			 <ul>
@@ -904,28 +993,114 @@
 			 </li>
 			 </ul>
 			 </fieldset>
-</div>
-</div>
 		    </li>
-		    <li class="list-group-item input-toggles">
-			 Data-path Color:
+		  </ul>
+          </div>
+	</div>
+
+	<div class="row">
+	  <div class="col-sm-5">
+		  <ul class="container-fluid list-group">
+		    <li class="list-group-item">
+			 <fieldset data-role="controlgroup" data-type="horizontal">
+			 Editor theme:<br>
 			 <ul>
-			 <input type="color"
-                                id="colorpicker1"
-				data-show-value="false"
-                                class="noshadow"
-				onchange="set_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh(); save_cfg();">
+			 <li>
+			     <input name="radio7" id="radio7-default" data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="set_cfg('editor_theme','default'); save_cfg();
+                                             inputfirm.getWrapperElement().style['font-weight'] = 'bold';
+					     inputfirm.setOption('theme','default');
+                                             inputasm.getWrapperElement().style['font-weight'] = 'bold';
+					     inputasm.setOption('theme','default');"
+				    value="default" type="radio">
+			     <label for="radio7-default">Light</label>
+			     <input name="radio7" id="radio7-blackboard" data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="set_cfg('editor_theme','blackboard'); save_cfg();
+                                             inputfirm.getWrapperElement().style['font-weight'] = 'normal';
+					     inputfirm.setOption('theme','blackboard');
+                                             inputasm.getWrapperElement().style['font-weight'] = 'normal';
+					     inputasm.setOption('theme','blackboard');"
+				    value="blackboard" type="radio">
+			     <label for="radio7-blackboard">Dark</label>
+			 </li>
 			 </ul>
-			 Signal Color:
+			 </fieldset>
+		    </li>
+		    <li class="list-group-item">
+			 <fieldset data-role="controlgroup" data-type="horizontal">
+			 Editor mode:<br>
 			 <ul>
-			 <input type="color"
-                                id="colorpicker2"
-				data-show-value="false"
-                                class="noshadow"
-				onchange="set_cfg('color_name_active', $('#colorpicker2').spectrum('get')); refresh(); save_cfg();">
+			 <li>
+			     <input name="radio8" id="radio8-vim" data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="set_cfg('editor_mode','vim'); save_cfg();
+                                             inputfirm.setOption('keyMap','vim');
+                                             inputasm.setOption('keyMap','vim');"
+				    value="vim" type="radio">
+			     <label for="radio8-vim">vim</label>
+			     <input name="radio8" id="radio8-emacs" data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="set_cfg('editor_mode','emacs'); save_cfg();
+                                             inputfirm.setOption('keyMap','emacs');
+                                             inputasm.setOption('keyMap','emacs');"
+				    value="emacs" type="radio">
+			     <label for="radio8-emacs">emacs</label>
+			     <input name="radio8" id="radio8-sublime" data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="set_cfg('editor_mode','sublime'); save_cfg();
+                                             inputfirm.setOption('keyMap','sublime');
+                                             inputasm.setOption('keyMap','sublime');"
+				    value="sublime" type="radio">
+			     <label for="radio8-sublime">sublime</label>
+			     <input name="radio8" id="radio8-default" data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="set_cfg('editor_mode','default'); save_cfg();
+                                             inputfirm.setOption('keyMap','default');
+                                             inputasm.setOption('keyMap','default');"
+				    value="default" type="radio">
+			     <label for="radio8-default">default</label>
+			 </li>
 			 </ul>
-<div class="ui-grid-solo">
-<div class="ui-block-a">
+			 </fieldset>
+		    </li>
+		  </ul>
+          </div>
+	  <div class="col-sm-4">
+		  <ul class="container-fluid list-group">
+		    <li class="list-group-item">
+			 Speed-up (slow - fast):
+			 <input type="range"
+				data-show-value="false"
+				name="slider1" id="slider1"
+				min="1" max="100" value="100" step=1
+				onchange="set_cfg('DBG_delay', 1000 / this.value); save_cfg();">
+		    </li>
+		    <li class="list-group-item">
+			 <fieldset data-role="controlgroup" data-type="horizontal">
+			 Single step element in run mode:
+			 <ul>
+			 <li>
+			     <input name="radio1" id="radio1-instruction" data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="set_cfg('DBG_level','instruction'); save_cfg();"
+				    value="on" type="radio">
+			     <label for="radio1-instruction">Instruc<span class="hidden-xs">tions</span>.</label>
+			     <input name="radio1" id="radio1-microinstruction" data-mini="true"
+                                    style="margin-top:-8px"
+				    onclick="set_cfg('DBG_level','microinstruction'); save_cfg();"
+				    value="off" type="radio">
+			     <label for="radio1-microinstruction">&#181;instruc<span class="hidden-xs">tions</span>.</label>
+			 </li>
+			 </ul>
+			 </fieldset>
+		    </li>
+		  </ul>
+          </div>
+	  <div class="col-sm-3">
+		  <ul class="container-fluid list-group">
+		    <li class="list-group-item">
 			 <fieldset data-role="controlgroup" data-type="horizontal">
 			 Interactive Mode:<br>
 			 <ul>
@@ -943,15 +1118,15 @@
 			 </li>
 			 </ul>
 			 </fieldset>
-</div>
-</div>
 		    </li>
-	    </ul>
-            </p>
-	    </div>
+		  </ul>
+          </div>
 	</div>
+        </div><!-- scrolling -->
 
-</div><!-- /panel -->
+   </div>
+
+</div><!-- /popup -->
 
 
 <div data-role="popup" id="about1" 
@@ -983,6 +1158,7 @@
 		    <a rel="external" href="http://knockoutjs.com/">Knockout</a>,
 		    <a rel="external" href="http://getbootstrap.com/">Bootstrap</a>,
 		    <a rel="external" href="http://bootboxjs.com/">Bootbox</a>,
+		    <a rel="external" href="http://glyphicons.com/">glyphicons</a>,
 		    <a rel="external" href="http://codemirror.net/index.html">CodeMirror</a> Editor,
 		    <a rel="external" href="https://bgrins.github.io/spectrum/">spectrum</a> ColorPicker,
 		    and the <a rel="external" href="https://github.com/mouse0270/bootstrap-notify">Bootstrap Notify</a>.
@@ -1053,8 +1229,8 @@
 
       <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
               <div class="ui-body-d ui-content" style="padding: 2px 2px 2px 2px;">
-                 <div id=iframe_bin1 style="height:80vh; width: 80vw; overflow-y: auto;">
-		   <div id="compile_results">
+                 <div id=iframe_bin1 style="height:80vh; max-width: 80vw; overflow-y: auto;">
+		   <div id="compile_results" style="padding: 16px 16px 16px 16px;">
                         <br>
                         <center>
                         Loading binary, please wait... <br>
@@ -1077,6 +1253,7 @@
 	    {
 		    jQuery.fx.off = true;
 
+		    $("#config1").enhanceWithin().popup();
 		    $("#about1").enhanceWithin().popup();
 		    $("#help1").enhanceWithin().popup().draggable().resizable();
 		    $("#bin1").enhanceWithin().popup();
@@ -1094,34 +1271,40 @@
 		    $("#tabs3").tabs();
 		    $("#tabs4").tabs();
 
-		    inputfirm  = CodeMirror.fromTextArea(document.getElementById("inputFirmware"), {
-								value: "",
-								lineNumbers: true,
-								matchBrackets: true,
-								mode: "text/x-csrc"
-						         });
-                    inputfirm.setValue("\n\n\n\n\n\n\n\n\n");
+		    inputfirm = CodeMirror.fromTextArea(document.getElementById("inputFirmware"), 
+                                    {
+					value: "",
+					lineNumbers: true,
+					matchBrackets: true,
+					mode: "text/x-csrc",
+					foldGutter: {
+						rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.brace, CodeMirror.fold.comment)
+					},
+					gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
+				    });
+                    sim_prepare_editor(inputfirm) ;
 
-		    inputasm   = CodeMirror.fromTextArea(document.getElementById("inputAssembly"), {
-								value: "",
-								lineNumbers: true,
-								matchBrackets: true,
-								extraKeys: {
-								  "Ctrl-Space": function(cm) {
-								      CodeMirror.showHint(cm, function(cm, options) {
-										      var simware = get_simware();
-										      var cur = cm.getCursor();
-										      var result = new Array();
-										      for (var i=0; i<simware.firmware.length; i++)
-											   if(simware.firmware[i].name != "begin")
-											   	result.push(simware.firmware[i].signatureUser); // TODO: signature user
-										      return { list: result, from: cur, to: cur };
-										    });
-								  }
-								},
-								mode: "text/x-csrc"
-						         });
-                    inputasm.setValue("\n\n\n\n\n\n\n\n\n");
+		    inputasm = CodeMirror.fromTextArea(document.getElementById("inputAssembly"), 
+                                    {
+					value: "",
+					lineNumbers: true,
+					matchBrackets: true,
+					extraKeys: {
+					  "Ctrl-Space": function(cm) {
+					      CodeMirror.showHint(cm, function(cm, options) {
+						      var simware = get_simware();
+						      var cur = cm.getCursor();
+						      var result = new Array();
+						      for (var i=0; i<simware.firmware.length; i++)
+							   if(simware.firmware[i].name != "begin")
+								result.push(simware.firmware[i].signatureUser);
+						      return { list: result, from: cur, to: cur };
+					      });
+					  }
+					},
+					mode: "text/x-csrc"
+				    });
+                    sim_prepare_editor(inputasm) ;
 
 		    var a = document.getElementById("svg_p");
 		    a.addEventListener("load",function() {
@@ -1148,6 +1331,8 @@
 		    $("#radio3-" +   get_cfg('RF_display_name')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio5-" +    get_cfg('is_interactive')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio6-" +          get_cfg('ws_idiom')).prop('checked', true).checkboxradio("refresh") ;
+		    $("#radio7-" +      get_cfg('editor_theme')).prop('checked', true).checkboxradio("refresh") ;
+		    $("#radio8-" +       get_cfg('editor_mode')).prop('checked', true).checkboxradio("refresh") ;
 
                     showhide_asm_elements();
 		    $("input:checkbox").click(function(){

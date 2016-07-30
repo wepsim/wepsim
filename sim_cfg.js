@@ -20,7 +20,7 @@
 
 
         var WSCFG = new Object() ;
-        WSCFG['version'] = { value:"1.5.5", type:"string"} ;
+        WSCFG['version'] = { value:"1.5.9", type:"string"} ;
 
         function get_cfg ( field )
         {
@@ -61,11 +61,18 @@
 		 *  SIM working
 		 */
 
-               WSCFG['is_interactive']      = { value:true,         type:"boolean"};
-               WSCFG['is_byvalue']          = { value:false,        type:"boolean"};
-               WSCFG['is_editable']         = { value:false,        type:"boolean"};
+               WSCFG['is_interactive']      = { value:true,               type:"boolean"};
+               WSCFG['is_byvalue']          = { value:false,              type:"boolean"};
+               WSCFG['is_editable']         = { value:false,              type:"boolean"};
 
-               WSCFG['ws_idiom']            = { value:'es',         type:"string"};
+               WSCFG['ws_idiom']            = { value:'es',               type:"string"};
+
+		/*
+		 *  editor configuration
+		 */
+
+               WSCFG['editor_theme']        = { value:'default',          type:"string"};
+               WSCFG['editor_mode']         = { value:'default',          type:"string"};
         }
 
 

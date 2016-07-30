@@ -1,0 +1,20 @@
+.data
+         w1: .byte 1, -1, 07, 0xa, 'a'
+             .half 1, -1, 07, 0xa, 'a'
+             .word 1, -1, 07, 0x12345678, 'a'
+         w2: .ascii  "hello"
+             .asciiz "world"
+         w3: .space 5
+
+.text
+main:
+            # test add
+           li  $2 2
+           li  $3 1
+           add $5 $2 $3
+
+            # test sub
+           li  $2 2
+           li  $3 1
+           sub $5 $2 $3
+
