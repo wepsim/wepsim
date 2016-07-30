@@ -435,7 +435,7 @@
                      "<div class='panel-heading'>" +
                      " <a href='#iopanel' data-toggle='collapse'><h3 class='panel-title'>I/O</h3></a>" +
                      "</div>" +
-                     "<div class='panel-body panel-collapse' id='iopanel'>" +
+                     "<div class='panel-body panel-collapse in' id='iopanel'>" +
                      "  <div class='row-fluid'>" +
                      "  <center>" ;
             for (var i=0; i<8; i++)
@@ -464,7 +464,7 @@
                   "<div class='panel-heading'>" +
                   " <a href='#mempanel' data-toggle='collapse'><h3 class='panel-title'>Memory</h3></a>" +
                   "</div>" +
-                  "<div class='panel-body panel-collapse' id='mempanel'>" +
+                  "<div class='panel-body panel-collapse in' id='mempanel'>" +
                   "  <div class='row-fluid'>" +
                   "  <center>" +
                   "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' style='padding: 15 5 0 10;'>Wait cycles</div>" +
