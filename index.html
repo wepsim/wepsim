@@ -162,10 +162,10 @@
         fileReader.readAsText(fileToLoad, "UTF-8");
     }
 
-    function load_assembly_from_example ( )
+    function load_assembly_from_example ( example_id )
     {
 	var xmlhttp = new XMLHttpRequest();
-	var url = "examples/exampleCode.txt?time=20160722a" ;
+	var url = "examples/exampleCode" + example_id + ".txt?time=20160722a" ;
 
 	xmlhttp.onreadystatechange=function() {
 					if ((xmlhttp.readyState == 4) && ((xmlhttp.status == 200) || (xmlhttp.status == 0)))
@@ -238,10 +238,10 @@
         fileReader.readAsText(fileToLoad, "UTF-8");
     }
 
-    function load_firmware_from_example ( )
+    function load_firmware_from_example ( example_id )
     {
 	var xmlhttp = new XMLHttpRequest();
-	var url = "examples/exampleMicrocode.txt?time=20160721a" ;
+	var url = "examples/exampleMicrocode" + example_id + ".txt?time=20160721a" ;
 
 	xmlhttp.onreadystatechange=function() {
 					// if (xmlhttp.readyState == 4 && xmlhttp.status == 200) 
@@ -689,14 +689,29 @@
                                             $('#help1').popup('reposition', {positionTo: 'window'});
 					    $('#help1').popup('open');"
                                    >Hardware Summary</a>
+
                             <a href="#" style="background-color: #D4DB17"
                                    class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info    ui-btn-icon-left ui-mini col-xs-3 col-md-1 col-lg-1"
 				   onclick="$('#help1_ref').data('relative','#help_firmware_format'); show_help1();"
                                    >Help</a>
-		            <a href="#" style="background-color: #DDDDDD"
+
+		            <a href="#select-example-firmware" style="background-color: #DDDDDD"
 				   class="ui-btn navbar-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-a ui-icon-bars    ui-btn-icon-left ui-mini col-xs-4 col-md-1 col-lg-1"
-				   onclick="load_firmware_from_example();"
-                                   >Example</a>
+                                   data-rel="popup">Example</a>
+			           <div data-role="popup" id="select-example-firmware">
+                                       Please select an example:<p>
+				       <div class="list-group">
+			       	         <a href="#" onclick="load_firmware_from_example(1); 
+                                                              $('#select-example-firmware').popup('close');" 
+                                            class="list-group-item list-group-item-action">Simple example</a>
+				         <a href="#" onclick="load_firmware_from_example(2);
+                                                              $('#select-example-firmware').popup('close');" 
+                                            class="list-group-item list-group-item-action">Intermediated example</a>
+				         <a href="#" onclick="load_firmware_from_example(3);
+                                                              $('#select-example-firmware').popup('close');" 
+                                            class="list-group-item list-group-item-action">Complex example</a>
+				       </div>
+			           </div>
 		</div>
 		</div>
 
@@ -786,10 +801,23 @@
                                    class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-5 col-md-1 col-lg-1"
 				   onclick="$('#help1_ref').data('relative','#help_assembly_format'); show_help1();">Help</a>
 
-		            <a href="#" style="background-color: #DDDDDD"
-                                   onclick="load_assembly_from_example();"
+		            <a href="#select-example-assembly" style="background-color: #DDDDDD"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-bars     ui-btn-icon-left ui-mini col-xs-5 col-md-1 col-lg-1 ui-shadow"
-				   data-inline="true">Example</a>
+                                   data-rel="popup">Example</a>
+			           <div data-role="popup" id="select-example-assembly">
+				       <div class="list-group">
+                                       Please select an example:<p>
+			       	         <a href="#" onclick="load_assembly_from_example(1); 
+                                                              $('#select-example-assembly').popup('close');" 
+                                            class="list-group-item list-group-item-action">Simple example</a>
+				         <a href="#" onclick="load_assembly_from_example(2);
+                                                              $('#select-example-assembly').popup('close');" 
+                                            class="list-group-item list-group-item-action">Intermediated example</a>
+				         <a href="#" onclick="load_assembly_from_example(3);
+                                                              $('#select-example-assembly').popup('close');" 
+                                            class="list-group-item list-group-item-action">Complex example</a>
+				       </div>
+			           </div>
 		</div>
 		</div>
 
