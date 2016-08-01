@@ -49,12 +49,14 @@
          */
 
         sim_signals["INT"]     = { name: "INT", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+                                   depends_on: ["CLK"],
                                    behavior: ["FIRE C", "FIRE C"],
                                    fire_name: ['svg_p:tspan4199'], 
                                    draw_data: [[], ['svg_p:path3809']], 
                                    draw_name: [[], []]};
 
         sim_signals["IORDY"]   = { name: "IORDY", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+                                   depends_on: ["CLK"],
                                    behavior: ["FIRE C", "FIRE C"],
                                    fire_name: ['svg_p:tspan4089','svg_p:path3793'], 
                                    draw_data: [[], ['svg_p:path3897']], 
