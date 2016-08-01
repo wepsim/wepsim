@@ -46,7 +46,11 @@
                                 lineMsg + 
                                 '<button type="button" class="btn btn-danger" onclick="$.notifyClose();">Close</button>' + 
                                 '</center>' },
-		     { type: 'danger', newest_on_top: true, delay: 0, placement: { from: 'top', align: 'center' } });
+		     { type: 'danger', 
+                       newest_on_top: true, 
+                       delay: 0, 
+                       placement: { from: 'top', align: 'center' }
+                     });
     }
 
 
