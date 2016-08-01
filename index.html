@@ -315,7 +315,7 @@
 				   onclick="compileFirmware(true);">Show co2&#181;addr + control memory</a>
 
                             <a href="#" style="background-color: #D4DB17"
-                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-5 col-md-2 col-lg-2"
+                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-6 col-md-2 col-lg-2"
 				   onclick="$('#help1_ref').data('relative','');
                                             $('#iframe_help1').html('<object id=svg_p2 data=\'images/cpu5.svg?time=20160730a\' type=image/svg+xml>Your browser does not support SVG</object>');
                                             $('#help1').trigger('updatelayout');
@@ -324,7 +324,7 @@
                                    >Hardware Summary</a>
 
                             <a href="#" style="background-color: #D4DB17"
-                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info    ui-btn-icon-left ui-mini col-xs-3 col-md-1 col-lg-1"
+                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info    ui-btn-icon-left ui-mini col-xs-4 col-md-1 col-lg-1"
 				   onclick="$('#help1_ref').data('relative','#help_firmware_format'); show_help1();"
                                    >Help</a>
 		</div>
@@ -491,7 +491,7 @@
 <div data-role="popup" id="example1" style="background-color: white;">
 
    <div data-role="header" data-theme="a">
-        <h1><b>WepSIM</b> <span class="badge btn-success"><div class="wsversion">X</div></span> / Examples</h1>
+        <h1><b>Examples</b> <span class="badge btn-success"><div class="wsversion">X</div></span></h1>
 
         <a href="#" 
            data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" 
@@ -504,84 +504,62 @@
 
 	<div class="row">
 	  <div class="col-xs-12 col-sm-12">
-             <h4>
              1) Simple:<br>
              Very simple example with fetch, arithmetic instructions, and basic .text/.data segment.
-             </h4>
           </div>
-        </div>
 
-	<div class="row">
-	  <div class="col-xs-4 col-sm-4">
+	  <div class="col-xs-12 col-sm-12">
+	  <fieldset data-role="controlgroup" data-type="horizontal">
 	      <a href="#" onclick="load_from_example_assembly(1,true);"  style="background-color: lightgray;"
 		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-mini">
-		 <b>Load assembly only</b></a>
-          </div>
-	  <div class="col-xs-4 col-sm-4">
+		 <b>Assembly only</b></a>
 	      <a href="#" onclick="load_from_example_firmware(1,false);" style="background-color: lightgray;"
 		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-mini">
-		 <b>Load firmware only</b></a>
-          </div>
-	  <div class="col-xs-4 col-sm-4">
+		 <b>Firmware only</b></a>
 	      <a href="#" onclick="load_from_example_firmware(1,true);"  style="background-color: lightgray;"
 		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-mini">
-		 <b>Load firmware and assembly</b></a>
+		 <b>Both</b></a>
+	  </fieldset>
           </div>
-        </div>
 
-	<div class="row">
 	  <div class="col-xs-12 col-sm-12">
-             <h4>
              2) Intermediated:<br>
              More extended example with more instructions and I/O (keyboard, display).
-             </h4>
           </div>
-        </div>
 
-	<div class="row">
-	  <div class="col-xs-4 col-sm-4">
+	  <div class="col-xs-12 col-sm-12">
+	  <fieldset data-role="controlgroup" data-type="horizontal">
 	      <a href="#" onclick="load_from_example_assembly(2,true);"  style="background-color: lightgray;"
 		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-mini">
-		 <b>Load assembly only</b></a>
-          </div>
-	  <div class="col-xs-4 col-sm-4">
+		 <b>Assembly only</b></a>
 	      <a href="#" onclick="load_from_example_firmware(2,false);" style="background-color: lightgray;"
 		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-mini">
-		 <b>Load firmware only</b></a>
-          </div>
-	  <div class="col-xs-4 col-sm-4">
+		 <b>Firmware only</b></a>
 	      <a href="#" onclick="load_from_example_firmware(2,true);"  style="background-color: lightgray;"
 		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-mini">
-		 <b>Load firmware and assembly</b></a>
+		 <b>Both</b></a>
+	  </fieldset>
           </div>
-        </div>
 
-	<div class="row">
 	  <div class="col-xs-12 col-sm-12">
-             <h4>
              3) Advanced:<br>
              Advanced example with interruptions support: fetch, RETI and .ktext/.data added.
-             </h4>
           </div>
-        </div>
 
-	<div class="row">
-	  <div class="col-xs-4 col-sm-4">
+	  <div class="col-xs-12 col-sm-12">
+	  <fieldset data-role="controlgroup" data-type="horizontal">
 	      <a href="#" onclick="load_from_example_assembly(3,true);"  style="background-color: lightgray;"
 		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-mini">
-		 <b>Load assembly only</b></a>
-          </div>
-	  <div class="col-xs-4 col-sm-4">
+		 <b>Assembly only</b></a>
 	      <a href="#" onclick="load_from_example_firmware(3,false);" style="background-color: lightgray;"
 		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-mini">
-		 <b>Load firmware only</b></a>
-          </div>
-	  <div class="col-xs-4 col-sm-4">
+		 <b>Firmware only</b></a>
 	      <a href="#" onclick="load_from_example_firmware(3,true);"  style="background-color: lightgray;"
 		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-mini">
-		 <b>Load firmware and assembly</b></a>
+		 <b>Both</b></a>
+	  </fieldset>
           </div>
-        </div>
+        </div> <!-- /row -->
 
         </div>
    </div>
@@ -592,7 +570,7 @@
      data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
 
    <div data-role="header" data-theme="a">
-        <h1><b>WepSIM</b> <span class="badge btn-success"><div class="wsversion">X</div></span> / Configuration</h1>
+        <h1><b>Configuration</b> <span class="badge btn-success"><div class="wsversion">X</div></span></h1>
 
         <a href="#" 
            data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" 

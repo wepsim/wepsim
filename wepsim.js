@@ -1,3 +1,23 @@
+/*      
+ *  Copyright 2015-2016 Alejandro Calderon Mateos, Felix Garcia Carballeira
+ *
+ *  This file is part of WepSIM.
+ * 
+ *  WepSIM is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  WepSIM is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 
     //
     // Error dialog
@@ -361,10 +381,20 @@
                     inputasm.refresh();
 	            var ok = compileAssembly(false);
 
-                    if ((true == do_next) && (true == ok))
-                         setTimeout(function(){
+                    if ((true == do_next) && (true == ok)) 
+                    {
+                          setTimeout(function(){
 	                          $.mobile.pageContainer.pagecontainer('change', '#main1');
-                         }, 100);
+                          }, 100);
+
+			  $.notify({ title: '<strong>INFO</strong>', 
+				     message: 'Example ready to be used.'},
+				   { type: 'success', 
+				     newest_on_top: true, 
+				     delay: get_cfg('NOTIF_delay'), 
+				     placement: { from: 'top', align: 'center' } 
+				    });
+                    }
 		}
 	}
 	xmlhttp.open("GET", url, true);
