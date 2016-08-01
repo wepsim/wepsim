@@ -466,7 +466,7 @@
         <td valign=top>
 
 	<div data-role="collapsible-set">
-	    <div data-role="collapsible" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
+	    <div data-role="collapsible" data-collapsed="false" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
 	    <h3>WorkSpaces</h3>
 	    <p>
 	    <ul id="listview_1" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b">
@@ -476,23 +476,6 @@
 			   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');"><h2>Assembly</h2></a></li>
 		    <li><a id="tab25" href="#" style="background-color: lightgray"
 			   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');"><h2>Simulator</h2></a></li>
-	    </ul>
-            </p>
-	    </div>
-
-	    <div data-role="collapsible" data-collapsed="false" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
-	    <h3>WorkSets</h3>
-	    <p>
-	    <ul id="listview_3" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b" data-mini="true">
-		<li><a href="#" onclick="$('#example1').popup('open');" 
-		       class="ui-btn ui-btn-icon-left ui-icon-info" style="background-color: lightgray;">
-		    <h2>Simple example</h2></a></li>
-		<li><a href="#" onclick="$('#example2').popup('open');" 
-		       class="ui-btn ui-btn-icon-left ui-icon-info" style="background-color: lightgray;">
-		    <h2>Intermediated example</h2></a></li>
-		<li><a href="#" onclick="$('#example3').popup('open');" 
-		       class="ui-btn ui-btn-icon-left ui-icon-info" style="background-color: lightgray;">
-		    <h2>Advanced example</h2></a></li>
 	    </ul>
             </p>
 	    </div>
@@ -523,10 +506,10 @@
         </tr>
         <tr>
         <td>
-
-            <a href="#config1" data-rel="popup" data-position-to="window" style="text-align:left"
+            <a href="#example1" data-rel="popup" data-position-to="window" style="text-align:left"
+               class="ui-btn ui-btn-icon-left ui-icon-info">Examples</a>
+            <a href="#config1"  data-rel="popup" data-position-to="window" style="text-align:left"
                class="ui-btn ui-btn-icon-left ui-icon-gear">Configuration</a>
-
         </td>
         </tr>
         </table>
@@ -535,12 +518,28 @@
 
 
 <div data-role="popup" id="example1" style="background-color: white;">
+
+   <div data-role="header" data-theme="a">
+        <h1><b>WepSIM</b> <span class="badge btn-success"><div class="wsversion">X</div></span> / Examples</h1>
+
+        <a href="#" 
+           data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" 
+           class="ui-btn-right">Close</a>
+   </div>
+
+   <div role="main" class="ui-content" style="padding: 8px 8px 8px 8px">
+
         <div class="container-fluid" style="overflow-y:auto; overflow-x:hidden; max-height:80vh; max-width:85vw;">
+
 	<div class="row">
 	  <div class="col-xs-12 col-sm-12">
-             <h4>Very simple example with fetch, arithmetic instructions, and basic .text/.data segment.</h4>
+             <h4>
+             1) Simple:<br>
+             Very simple example with fetch, arithmetic instructions, and basic .text/.data segment.
+             </h4>
           </div>
         </div>
+
 	<div class="row">
 	  <div class="col-xs-4 col-sm-4">
 	      <a href="#" onclick="load_from_example_assembly(1,true);"  style="background-color: lightgray;"
@@ -558,16 +557,16 @@
 		 <b>Load firmware and assembly</b></a>
           </div>
         </div>
-        </div>
-</div>
 
-<div data-role="popup" id="example2" style="background-color: white;">
-        <div class="container-fluid" style="overflow-y:auto; overflow-x:hidden; max-height:80vh; max-width:85vw;">
 	<div class="row">
 	  <div class="col-xs-12 col-sm-12">
-             <h4>More extended example with more instructions and I/O (keyboard, display).</h4>
+             <h4>
+             2) Intermediated:<br>
+             More extended example with more instructions and I/O (keyboard, display).
+             </h4>
           </div>
         </div>
+
 	<div class="row">
 	  <div class="col-xs-4 col-sm-4">
 	      <a href="#" onclick="load_from_example_assembly(2,true);"  style="background-color: lightgray;"
@@ -585,16 +584,16 @@
 		 <b>Load firmware and assembly</b></a>
           </div>
         </div>
-        </div>
-</div>
 
-<div data-role="popup" id="example3" style="background-color: white;">
-        <div class="container-fluid" style="overflow-y:auto; overflow-x:hidden; max-height:80vh; max-width:85vw;">
 	<div class="row">
 	  <div class="col-xs-12 col-sm-12">
-             <h4>Advanced example with interruptions support: fetch, RETI and .ktext/.data added.</h4>
+             <h4>
+             3) Advanced:<br>
+             Advanced example with interruptions support: fetch, RETI and .ktext/.data added.
+             </h4>
           </div>
         </div>
+
 	<div class="row">
 	  <div class="col-xs-4 col-sm-4">
 	      <a href="#" onclick="load_from_example_assembly(3,true);"  style="background-color: lightgray;"
@@ -612,7 +611,9 @@
 		 <b>Load firmware and assembly</b></a>
           </div>
         </div>
+
         </div>
+   </div>
 </div>
 
 
@@ -969,8 +970,6 @@
 		    $("#help1").enhanceWithin().popup().draggable().resizable();
 		    $("#bin1").enhanceWithin().popup();
 		    $("#example1").enhanceWithin().popup();
-		    $("#example2").enhanceWithin().popup();
-		    $("#example3").enhanceWithin().popup();
 
 		    $("#actions_panel").panel().enhanceWithin();
 		    $(".ui-slider-input").hide();
