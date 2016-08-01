@@ -344,7 +344,7 @@
     // Example management
     //
 
-    function load_from_example_assembly ( example_id )
+    function load_from_example_assembly ( example_id, do_next )
     {
 	var xmlhttp = new XMLHttpRequest();
 	var url = "examples/exampleCode" + example_id + ".txt?time=20160730a" ;
@@ -358,17 +358,20 @@
 		{
 		    var textFromFileLoaded = xmlhttp.responseText ;
 		    inputasm.setValue(textFromFileLoaded);
+                    inputasm.refresh();
 	            var ok = compileAssembly(false);
-                    setTimeout(function(){inputasm.refresh();}, 100);
-                    if (true == ok) 
-	                $.mobile.pageContainer.pagecontainer('change', '#main1');
+
+                    if ((true == do_next) && (true == ok))
+                         setTimeout(function(){
+	                          $.mobile.pageContainer.pagecontainer('change', '#main1');
+                         }, 100);
 		}
 	}
 	xmlhttp.open("GET", url, true);
 	xmlhttp.send();
     }
 
-    function load_from_example_firmware ( example_id )
+    function load_from_example_firmware ( example_id, do_next )
     {
 	var xmlhttp = new XMLHttpRequest();
 	var url = "examples/exampleMicrocode" + example_id + ".txt?time=20160730a" ;
@@ -383,18 +386,16 @@
 		{
 		    var textFromFileLoaded = xmlhttp.responseText ;
 		    inputfirm.setValue(textFromFileLoaded);
+                    inputfirm.refresh();
 	            var ok = compileFirmware(false);
-                    setTimeout(function(){inputfirm.refresh();}, 100);
-                    if (true == ok) 
-	                load_from_example_assembly(example_id);
+
+                    if ((true == do_next) && (true == ok))
+                         setTimeout(function(){
+	                          load_from_example_assembly(example_id, do_next);
+                         }, 100);
 		}
 	}
 	xmlhttp.open("GET", url, true);
 	xmlhttp.send();
-    }
-
-    function load_from_example ( example_id )
-    {
-        return load_from_example_firmware(example_id);
     }
 
