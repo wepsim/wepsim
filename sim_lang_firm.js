@@ -812,11 +812,9 @@ function saveFirmware ( SIMWARE )
 
 			for (var j=0; j<SIMWARE.firmware[i].microcode.length; j++)
 			{
-				file += '\n' + '\t' + '\t';
-				if (typeof SIMWARE.labels[addr] != "undefined")
-				{
-					file += SIMWARE.labels[addr] + " : "; 
-				}
+				if (typeof SIMWARE.labels_firm[addr] != "undefined")
+				     file += '\n' + SIMWARE.labels_firm[addr] + ":\t"; 
+				else file += '\n' + '\t' + '\t';
 
 				file += "(";
 				var anySignal=0;
