@@ -389,7 +389,7 @@
                     {
                           setTimeout(function(){
 	                          $.mobile.pageContainer.pagecontainer('change', '#main1');
-                          }, 100);
+                          }, 80);
 
 			  $.notify({ title: '<strong>INFO</strong>', 
 				     message: 'Example ready to be used.'},
@@ -426,7 +426,7 @@
                     if ((true == do_next) && (true == ok))
                          setTimeout(function(){
 	                          load_from_example_assembly(example_id, do_next);
-                         }, 100);
+                         }, 80);
 		}
 	}
 	xmlhttp.open("GET", url, true);
