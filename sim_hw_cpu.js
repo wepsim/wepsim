@@ -23,8 +23,8 @@
 	 *  States - Memories
 	 */
 
-	var MC  = new Object();
-	var ROM = new Object();
+	var MC       = new Object();
+	var ROM      = new Object();
 	var FIRMWARE = new Object();
 
 

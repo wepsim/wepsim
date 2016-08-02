@@ -33,6 +33,7 @@
                 FIRMWARE['assembly']           = new Object() ;
                 FIRMWARE['labels']             = new Object() ;
                 FIRMWARE['labels2']            = new Object() ;
+                FIRMWARE['labels_firm']        = new Object() ;
                 FIRMWARE['registers']          = new Object() ;
                 FIRMWARE['cihash']             = new Object() ;
                 FIRMWARE['pseudoInstructions'] = new Object() ;
@@ -63,6 +64,8 @@
                 FIRMWARE['labels'] = preSIMWARE['labels'] ;
 	    if (typeof preSIMWARE['labels2'] != "undefined") 
                 FIRMWARE['labels2'] = preSIMWARE['labels2'] ;
+	    if (typeof preSIMWARE['labels_firm'] != "undefined") 
+                FIRMWARE['labels_firm'] = preSIMWARE['labels_firm'] ;
 	    if (typeof preSIMWARE['stackRegister'] != "undefined")
 		FIRMWARE['stackRegister'] = preSIMWARE['stackRegister'] ;
 	}
