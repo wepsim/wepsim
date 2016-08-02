@@ -20,7 +20,194 @@
 
 
     //
-    // Error dialog
+    // WepSIM API
+    //
+
+    function wepsim_load_from_file ( fileToLoad, inputEditor )
+    {
+        var fileReader = new FileReader();
+        fileReader.onload  = function (fileLoadedEvent) {
+                                            var textFromFileLoaded = fileLoadedEvent.target.result;
+                                            if (null != inputEditor)
+					        inputEditor.setValue(textFromFileLoaded);
+                             };
+	fileReader.onerror = function(e) {
+			        console.error("File could not be read! Code " + e.target.error.code);
+			     };
+        fileReader.readAsText(fileToLoad, "UTF-8");
+    }
+
+    function wepsim_save_to_file ( inputEditor, fileNameToSaveAs )
+    {
+            var textToWrite = inputEditor.getValue();
+            var textFileAsBlob = new Blob([textToWrite], { type: 'text/plain' });
+
+            var downloadLink = document.createElement("a");
+            downloadLink.download = fileNameToSaveAs;
+            downloadLink.innerHTML = "Download File";
+            if (window.webkitURL != null) {
+                // Chrome allows the link to be clicked
+                // without actually adding it to the DOM.
+                downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
+            }
+            else {
+                // Firefox requires the link to be added to the DOM
+                // before it can be clicked.
+                downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
+                downloadLink.onclick = function ( event ) {
+                                            document.body.removeChild(event.target);
+                                       };
+                downloadLink.style.display = "none";
+                document.body.appendChild(downloadLink);
+            }
+
+            downloadLink.click();
+    }
+
+    function wepsim_load_from_url ( url, do_next )
+    {
+	var xmlhttp = new XMLHttpRequest();
+
+	xmlhttp.onreadystatechange=function() {
+	     // if ((xmlhttp.readyState == 4) &&  (xmlhttp.status == 200))
+		if ((xmlhttp.readyState == 4) && ((xmlhttp.status == 200) || (xmlhttp.status == 0)))
+		{
+		    var textFromFileLoaded = xmlhttp.responseText ;
+                    if (null != do_next)
+                        do_next(textFromFileLoaded);
+		}
+	}
+
+	xmlhttp.open("GET", url, true);
+	xmlhttp.send();
+    }
+
+    function wepsim_compile_assembly ( textToCompile )
+    {
+        return compileAssembly(textToCompile, false);
+    }
+
+    function wepsim_compile_microcode ( textToMCompile )
+    {
+        return compileFirmware(textToMCompile, false);
+    }
+
+
+    //
+    // WepSIM UI
+    //
+
+    function compileAssembly ( textToCompile, with_ui ) 
+    {
+        // get SIMWARE.firmware
+        var SIMWARE = get_simware() ;
+	if (SIMWARE.firmware.length == 0) 
+        {
+            if (with_ui) {
+                alert('WARNING: please load the microcode first.');
+                $.mobile.pageContainer.pagecontainer('change','#main3');
+            }
+            return false;
+	} 
+
+        // compile Assembly and show message
+        var SIMWAREaddon = simlang_compile(textToCompile, SIMWARE);
+        if (SIMWAREaddon.error != null) 
+        {
+            if (with_ui)
+                showError(SIMWAREaddon.error, "inputasm") ;
+            return false;
+        }
+
+        if (with_ui)
+	    $.notify({ title: '<strong>INFO</strong>', message: 'Assembly was compiled and loaded.'},
+		     { type: 'success', 
+                       newest_on_top: true, 
+                       delay: get_cfg('NOTIF_delay'), 
+                       placement: { from: 'top', align: 'center' } });
+
+        // update memory and segments
+        set_simware(SIMWAREaddon) ;
+	update_memories(SIMWARE);
+
+        // update UI 
+        if (with_ui) {
+            $("#asm_debugger").html(assembly2html(SIMWAREaddon.mp, 
+                                                  SIMWAREaddon.labels2, 
+                                                  SIMWAREaddon.seg, 
+                                                  SIMWAREaddon.assembly));
+            showhideAsmElements();
+        }
+
+	reset();
+        return true;
+    }
+
+    function showBinaryCode ( ) 
+    {
+        $("#compile_results").html("<center>" +
+                                   "<br>Loading binary, please wait..." +
+                                   "<br><br>WARNING: loading binary might take time on slow mobile devices.</center>");
+        $("#compile_results").css({width:"100%",height:"inherit !important"});
+	$('#bin1').popup('open');
+
+	setTimeout(function(){ 
+			var SIMWARE = get_simware() ;
+
+			$("#compile_results").html(mp2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg));
+			$("#bin1").popup("reposition", {positionTo: 'window'});
+
+			for (skey in SIMWARE.seg) {
+			     $("#compile_begin_" + skey).html("0x" + SIMWARE.seg[skey].begin.toString(16));
+			     $("#compile_end_"   + skey).html("0x" + SIMWARE.seg[skey].end.toString(16));
+			}
+                   }, 500);
+    }
+
+    function compileFirmware ( textToMCompile, with_ui ) 
+    {
+	var preSM = load_firmware(textToMCompile) ;
+	if (preSM.error != null) {
+            if (with_ui)
+                showError(preSM.error, "inputfirm") ;
+            return false;
+        }
+
+        if (with_ui)
+	    $.notify({ title: '<strong>INFO</strong>', message: 'Microcode was compiled and loaded.'},
+	    	     { type: 'success', 
+                       newest_on_top: true, 
+                       delay: get_cfg('NOTIF_delay'), 
+                       placement: { from: 'top', align: 'center' } });
+
+        // update UI 
+	reset() ;
+        return true;
+    }
+
+    function showBinaryMicrocode ( ) 
+    {
+        $("#compile_results").html("<center>" +
+                               "<br>Loading binary, please wait..." +
+                               "<br><br>WARNING: loading binary might take time on slow mobile devices.</center>");
+        $("#compile_results").css({width:"100%",height:"inherit !important"});
+	$('#bin1').popup('open');
+
+	setTimeout(function(){ 
+			var SIMWARE = get_simware() ;
+			$("#compile_results").html(firmware2html(SIMWARE.firmware, true));
+			$("#compile_results").css({width:"inherit !important", height:"inherit !important"});
+
+			$("#bin1").enhanceWithin();
+			$('#bin1').trigger('updatelayout');
+			$("#bin1").popup("reposition", {positionTo: 'window'});
+			$('#bin1').trigger('refresh');
+                   }, 500);
+    }
+
+
+    //
+    // Auxiliar functions
     //
 
     function showError ( Msg, editor ) 
@@ -53,74 +240,7 @@
                      });
     }
 
-
-    //
-    // Assembly
-    //
-
-    function compileAssembly ( show_binary ) 
-    {
-        // get Assembly
-        var textToConvert = inputasm.getValue() ;
-
-        // get SIMWARE.firmware
-        var SIMWARE = get_simware() ;
-	if (SIMWARE.firmware.length == 0) {
-            alert('WARNING: please load the microcode first.');
-            $.mobile.pageContainer.pagecontainer('change','#main3');
-            return false;
-	} 
-
-        // compile Assembly and show message
-        var SIMWAREaddon = simlang_compile(textToConvert, SIMWARE);
-        if (SIMWAREaddon.error != null) {
-            showError(SIMWAREaddon.error, "inputasm") ;
-            return false;
-        }
-
-	$.notify({ title: '<strong>INFO</strong>', message: 'Assembly was compiled and loaded.'},
-		 { type: 'success', newest_on_top: true, delay: get_cfg('NOTIF_delay'), placement: { from: 'top', align: 'center' } });
-
-        // update memory and segments
-        set_simware(SIMWAREaddon) ;
-	update_memories(SIMWARE);
-
-        // update UI 
-        if (true == show_binary)
-        {
-           $("#compile_results").html("<center>" +
-                                      "<br>Loading binary, please wait..." +
-                                      "<br><br>WARNING: loading binary might take time on slow mobile devices.</center>");
-           $("#compile_results").css({width:"100%",height:"inherit !important"});
-	   $('#bin1').popup('open');
-
-	   setTimeout(function(){ showCompiledAssembly(); }, 500);
-        }
-
-        $("#asm_debugger").html(assembly2html(SIMWAREaddon.mp, 
-                                              SIMWAREaddon.labels2, 
-                                              SIMWAREaddon.seg, 
-                                              SIMWAREaddon.assembly));
-        showhide_asm_elements();
-
-	reset();
-        return true;
-    }
-
-    function showCompiledAssembly () 
-    {
-        var SIMWARE = get_simware() ;
-
-        $("#compile_results").html(mp2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg));
-        $("#bin1").popup("reposition", {positionTo: 'window'});
-
-        for (skey in SIMWARE.seg) {
-             $("#compile_begin_" + skey).html("0x" + SIMWARE.seg[skey].begin.toString(16));
-             $("#compile_end_"   + skey).html("0x" + SIMWARE.seg[skey].end.toString(16));
-        }
-    }
-
-    function showhide_asm_elements ( ) 
+    function showhideAsmElements ( ) 
     {
 	$("input:checkbox:checked").each(function() {
 		var column = "table ." + $(this).attr("name");
@@ -135,115 +255,7 @@
 
 
     //
-    // Firmware
-    //
-
-    function compileFirmware ( show_binary ) 
-    {
-        var textFromFileLoaded = inputfirm.getValue() ;
-
-	var preSM = load_firmware(textFromFileLoaded) ;
-	if (preSM.error != null) {
-            showError(preSM.error, "inputfirm") ;
-            return false;
-        }
-
-	$.notify({ title: '<strong>INFO</strong>', message: 'Microcode was compiled and loaded.'},
-		 { type: 'success', newest_on_top: true, delay: get_cfg('NOTIF_delay'), placement: { from: 'top', align: 'center' } });
-
-        // update UI 
-        if (true == show_binary)
-        {
-           $("#compile_results").html("<center>" +
-                               "<br>Loading binary, please wait..." +
-                               "<br><br>WARNING: loading binary might take time on slow mobile devices.</center>");
-           $("#compile_results").css({width:"100%",height:"inherit !important"});
-	   $('#bin1').popup('open');
-
-	   setTimeout(function(){ showCompiledFirmware(); }, 500);
-        }
-
-	reset() ;
-        return true;
-    }
-
-    function showCompiledFirmware () 
-    {
-        var SIMWARE = get_simware() ;
-        $("#compile_results").html(firmware2html(SIMWARE.firmware, true));
-	$("#compile_results").css({width:"inherit !important", height:"inherit !important"});
-
-	$("#bin1").enhanceWithin();
-	$('#bin1').trigger('updatelayout');
-        $("#bin1").popup("reposition", {positionTo: 'window'});
-	$('#bin1').trigger('refresh');
-    }
-
-
-    //
-    // File management
-    //
-
-    function load_assembly_from_file ( )
-    {
-        var fileToLoad = document.getElementById("fileToLoad2").files[0];
-        var fileReader = new FileReader();
-        fileReader.onload  = function (fileLoadedEvent) {
-                                            var textFromFileLoaded = fileLoadedEvent.target.result;
-					    inputasm.setValue(textFromFileLoaded);
-                             };
-	fileReader.onerror = function(e) {
-			        console.error("File could not be read! Code " + e.target.error.code);
-			     };
-        fileReader.readAsText(fileToLoad, "UTF-8");
-    }
-
-    function load_firmware_from_file ( )
-    {
-        var fileToLoad = document.getElementById("fileToLoad").files[0];
-        var fileReader = new FileReader();
-        fileReader.onload = function (fileLoadedEvent) {
-                                            var textFromFileLoaded = fileLoadedEvent.target.result;
-					    inputfirm.setValue(textFromFileLoaded);
-                                };
-	fileReader.onerror = function(e) {
-			        console.error("File could not be read! Code " + e.target.error.code);
-			     };
-        fileReader.readAsText(fileToLoad, "UTF-8");
-    }
-
-    function save_as_file ( contentInputName, filenameInputName )
-    {
-          //var textToWrite = document.getElementById(contentInputName).value;
-            var textToWrite = contentInputName.getValue();
-            var textFileAsBlob = new Blob([textToWrite], { type: 'text/plain' });
-            var fileNameToSaveAs = document.getElementById(filenameInputName).value;
-
-            var downloadLink = document.createElement("a");
-            downloadLink.download = fileNameToSaveAs;
-            downloadLink.innerHTML = "Download File";
-            if (window.webkitURL != null) {
-                // Chrome allows the link to be clicked
-                // without actually adding it to the DOM.
-                downloadLink.href = window.webkitURL.createObjectURL(textFileAsBlob);
-            }
-            else {
-                // Firefox requires the link to be added to the DOM
-                // before it can be clicked.
-                downloadLink.href = window.URL.createObjectURL(textFileAsBlob);
-                downloadLink.onclick = function ( event ) {
-                                            document.body.removeChild(event.target);
-                                       };
-                downloadLink.style.display = "none";
-                document.body.appendChild(downloadLink);
-            }
-
-            downloadLink.click();
-    }
-
-
-    //
-    // UI
+    // Misc.
     //
 
     function toggle_play ( btn1 )
@@ -268,6 +280,11 @@
                                     $('#help1').popup('open');
                                 });
     }
+
+
+    //
+    // Initialize
+    //
 
     function sim_prepare_editor ( editor )
     {
@@ -368,68 +385,51 @@
     // Example management
     //
 
-    function load_from_example_assembly ( example_id, do_next )
+    function load_from_example_assembly ( example_id )
     {
-	var xmlhttp = new XMLHttpRequest();
-	var url = "examples/exampleCode" + example_id + ".txt?time=20160730a" ;
-
 	$.mobile.pageContainer.pagecontainer('change', '#main4');
 	inputasm.setValue("Please wait...");
 	inputasm.refresh();
 
-	xmlhttp.onreadystatechange=function() {
-		if ((xmlhttp.readyState == 4) && ((xmlhttp.status == 200) || (xmlhttp.status == 0)))
-		{
-		    var textFromFileLoaded = xmlhttp.responseText ;
-		    inputasm.setValue(textFromFileLoaded);
-                    inputasm.refresh();
-	            var ok = compileAssembly(false);
+	var url = "examples/exampleCode" + example_id + ".txt?time=20160730a" ;
+        var do_next = function( mcode ) {
+			    inputasm.setValue(mcode);
+			    inputasm.refresh();
 
-                    if ((true == do_next) && (true == ok)) 
-                    {
-                          setTimeout(function(){
-	                          $.mobile.pageContainer.pagecontainer('change', '#main1');
-                          }, 80);
+                            var ok = compileAssembly(mcode, true);
+			    if (true == ok)
+			    {
+				  setTimeout(function(){
+					  $.mobile.pageContainer.pagecontainer('change', '#main1');
+				  }, 80);
 
-			  $.notify({ title: '<strong>INFO</strong>', 
-				     message: 'Example ready to be used.'},
-				   { type: 'success', 
-				     newest_on_top: true, 
-				     delay: get_cfg('NOTIF_delay'), 
-				     placement: { from: 'top', align: 'center' } 
-				    });
-                    }
-		}
-	}
-	xmlhttp.open("GET", url, true);
-	xmlhttp.send();
+				  $.notify({ title: '<strong>INFO</strong>', 
+					     message: 'Example ready to be used.'},
+					   { type: 'success', 
+					     newest_on_top: true, 
+					     delay: get_cfg('NOTIF_delay'), 
+					     placement: { from: 'top', align: 'center' } 
+					    });
+			    }
+                      };
+        wepsim_load_from_url(url, do_next) ;
     }
 
     function load_from_example_firmware ( example_id, do_next )
     {
-	var xmlhttp = new XMLHttpRequest();
-	var url = "examples/exampleMicrocode" + example_id + ".txt?time=20160730a" ;
-
 	$.mobile.pageContainer.pagecontainer('change', '#main3');
 	inputfirm.setValue("Please wait...");
 	inputfirm.refresh();
 
-	xmlhttp.onreadystatechange=function() {
-	     // if ((xmlhttp.readyState == 4) &&  (xmlhttp.status == 200))
-		if ((xmlhttp.readyState == 4) && ((xmlhttp.status == 200) || (xmlhttp.status == 0)))
-		{
-		    var textFromFileLoaded = xmlhttp.responseText ;
-		    inputfirm.setValue(textFromFileLoaded);
-                    inputfirm.refresh();
-	            var ok = compileFirmware(false);
+	var url     = "examples/exampleMicrocode" + example_id + ".txt?time=20160730a" ;
+        var do_next = function( mcode ) {
+			   inputfirm.setValue(mcode);
+			   inputfirm.refresh();
 
-                    if ((true == do_next) && (true == ok))
-                         setTimeout(function(){
-	                          load_from_example_assembly(example_id, do_next);
-                         }, 80);
-		}
-	}
-	xmlhttp.open("GET", url, true);
-	xmlhttp.send();
+			   var ok = compileFirmware(mcode, true);
+                           if (true == ok)
+                               setTimeout(function() { load_from_example_assembly(example_id); }, 80);
+                      };
+        wepsim_load_from_url(url, do_next) ;
     }
 

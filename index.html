@@ -259,7 +259,8 @@
 			<center>
 			<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
                         <button class="ui-btn ui-btn-b ui-btn-inline" 
-                                onclick="load_firmware_from_file();
+                                onclick="var fileToLoad = document.getElementById('fileToLoad').files[0];
+					 wepsim_load_from_file(fileToLoad, inputfirm);
                                          $('#lsload').popup('close');">Load from File</button>
                         </center>
 		    </div>
@@ -285,7 +286,8 @@
 							'Please load a Microcode first in memory in order to save it.');
 					     else inputfirm.setValue(simware_as_text);
 					 } 
-                                         save_as_file(inputfirm, 'inputFileNameToSaveAs');">Save to File</button>
+                                         var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
+                                         wepsim_save_to_file(inputfirm, fileNameToSaveAs);">Save to File</button>
                         </center>
 		    </div>
 		</div>
@@ -301,18 +303,22 @@
 		            <a href="#"       style="background-color: #CCCCCC"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-xs-4 col-md-1 col-lg-1"
 				   data-transition="none" data-inline="true"
-				   onclick="compileFirmware(false);">&#181;compile</a>
+				   onclick="var textToMCompile = inputfirm.getValue();
+                                            compileFirmware(textToMCompile, true);">&#181;compile</a>
 		            <a href="#"       style="background-color: #CCCCCC"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2"
 				   data-transition="none" data-inline="true"
-				   onclick="var ok = compileFirmware(false);
+				   onclick="var textToMCompile = inputfirm.getValue();
+                                            var ok = compileFirmware(textToMCompile, true);
                                             if (true == ok) {
                                                 $.mobile.pageContainer.pagecontainer('change','#main4');
                                             }">&#181;compile and go assembly</a>
 
 		            <a href="#" style="background-color: #DDDDDD"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-u ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2 ui-shadow"
-				   onclick="compileFirmware(true);">Show co2&#181;addr + control memory</a>
+				   onclick="var textToMCompile = inputfirm.getValue();
+                                            compileFirmware(textToMCompile, true);
+                                            showBinaryMicrocode();">Show co2&#181;addr + control memory</a>
 
                             <a href="#" style="background-color: #D4DB17"
                                    class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-6 col-md-2 col-lg-2"
@@ -366,7 +372,8 @@
 			<center>
 			<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
                         <button class="ui-btn ui-btn-b ui-btn-inline" 
-                                onclick="load_assembly_from_file();
+                                onclick="var fileToLoad = document.getElementById('fileToLoad2').files[0];
+                                         wepsim_load_from_file(fileToLoad,inputasm);
                                          $('#lsload2').popup('close');">Load from File</button>
                         </center>
 		    </div>
@@ -383,7 +390,8 @@
 			<center>
 			<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
                         <button class="ui-btn ui-btn-b ui-btn-inline" 
-                                onclick="save_as_file(inputasm,'inputFileNameToSaveAs2');">Save to File</button>
+                                onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs2').value;
+                                         wepsim_save_to_file(inputasm, fileNameToSaveAs);">Save to File</button>
                         </center>
 		    </div>
 		</div>
@@ -399,19 +407,22 @@
 		            <a href="#" style="background-color: #CCCCCC"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-4 col-md-1 col-lg-1"
 				   data-transition="none" data-inline="true"
-				   onclick="compileAssembly(false);">Compile</a>
+				   onclick="var textToCompile = inputasm.getValue() ;
+                                            var ok = compileAssembly(textToCompile, true);">Compile</a>
 		            <a href="#" style="background-color: #CCCCCC"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2"
 				   data-transition="none" data-inline="true"
-				   onclick="var ok = compileAssembly(false);
+				   onclick="var textToCompile = inputasm.getValue() ;
+                                            var ok = compileAssembly(textToCompile, true);
                                             if (true == ok) {
                                                 $.mobile.pageContainer.pagecontainer('change','#main1');
                                             }">Compile and go simulator</a>
 
 		            <a href="#" style="background-color: #DDDDDD"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-u  ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2 ui-shadow"
-				   onclick="compileAssembly(true);">Show Main Memory</a>
-
+				   onclick="var textToCompile = inputasm.getValue();
+                                            var ok = compileAssembly(textToCompile, true);
+                                            showBinaryCode();">Show Main Memory</a>
                             <a href="#" style="background-color: #D4DB17"
                                    class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-5 col-md-1 col-lg-1"
 				   onclick="$('#help1_ref').data('relative','#help_assembly_format'); show_help1();">Help</a>
@@ -1009,7 +1020,7 @@
 		    $("#radio7-" +      get_cfg('editor_theme')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio8-" +       get_cfg('editor_mode')).prop('checked', true).checkboxradio("refresh") ;
 
-                    showhide_asm_elements();
+                    showhideAsmElements();
 		    $("input:checkbox").click(function(){
 		        var name = $(this).attr("name") ;
 		        var column = "table ." + name ;
