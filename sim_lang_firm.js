@@ -603,7 +603,7 @@ function loadFirmware (text)
 
                    // check startbit range
                    var start = parseInt(campos[camposInsertados]["startbit"]);
-                   if (start > 32*parseInt(instruccionAux["nwords"]))
+                   if (start > 32*parseInt(instruccionAux["nwords"])-1)
 		       return langError(context, "startbit out of range: " + getToken(context)) ;
 
 	           nextToken(context);
