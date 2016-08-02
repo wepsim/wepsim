@@ -33,6 +33,7 @@
                 FIRMWARE['assembly']           = new Object() ;
                 FIRMWARE['labels']             = new Object() ;
                 FIRMWARE['labels2']            = new Object() ;
+                FIRMWARE['labels_firm']        = new Object() ;
                 FIRMWARE['registers']          = new Object() ;
                 FIRMWARE['cihash']             = new Object() ;
                 FIRMWARE['pseudoInstructions'] = new Object() ;
@@ -63,6 +64,8 @@
                 FIRMWARE['labels'] = preSIMWARE['labels'] ;
 	    if (typeof preSIMWARE['labels2'] != "undefined") 
                 FIRMWARE['labels2'] = preSIMWARE['labels2'] ;
+	    if (typeof preSIMWARE['labels_firm'] != "undefined") 
+                FIRMWARE['labels_firm'] = preSIMWARE['labels_firm'] ;
 	    if (typeof preSIMWARE['stackRegister'] != "undefined")
 		FIRMWARE['stackRegister'] = preSIMWARE['stackRegister'] ;
 	}
@@ -126,14 +129,19 @@
 	    if (typeof sim_states["REG_MICROINS"].value[obj.name] != "undefined") {
 		draw_it = true;
 	    }
-	    if (value != obj.default_value) {
-		draw_it = true; // Otherwise MRDY/IORDY/etc. are not shown because are not user-set in the microinstruction, are set dynamically by hardware
-	    }
 	    if ( (false == draw_it) && (typeof obj.depends_on != "undefined") )
 	    {
 		for (var k=0; k<obj.depends_on.length; k++) 
 		{
-		     if (typeof sim_states["REG_MICROINS"].value[obj.depends_on[k]] != "undefined") {
+		     var sname = obj.depends_on[k] ;
+		     if (typeof sim_states["REG_MICROINS"].value[sname] != "undefined") {
+			     draw_it = true;
+			     break;
+		     }
+		     else if ("CLK" == sname) {
+                             // MRdy/IORdy/etc. (related hw. activated signals) relay on this trick.
+                             // Otherwise are not shown because they are not user-set in the microinstruction, 
+                             // but they are set dynamically by hardware
 			     draw_it = true;
 			     break;
 		     }

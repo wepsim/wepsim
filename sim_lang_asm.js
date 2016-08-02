@@ -146,9 +146,8 @@ function decimal2binary(number, size)
 
 function isValidTag ( tag )
 {
-        if (!(isDecimal(tag[0]) === false))
-	      return false;
-
+	if (!(isDecimal(tag[0]) === false))
+		return false;
 	var myRegEx  = /[^a-z\d]/i;
 	return !(myRegEx.test(tag));
 }
@@ -355,7 +354,13 @@ function read_data ( context, datosCU, ret )
 				
 				// Label as number (later translation)
 				if (label_found)
-					ret.labels["0x" + gen.seg_ptr.toString(16)] = { name:possible_value, addr:gen.seg_ptr, startbit:31, stopbit:0, rel:undefined, nwords:1 };
+					ret.labels["0x" + gen.seg_ptr.toString(16)] = { name:possible_value, 
+											addr:gen.seg_ptr, 
+											startbit:31, 
+											stopbit:0, 
+											rel:undefined, 
+											nwords:1, 
+											labelContext:getLabelContext(context) };
 					
 				// Store number in machine code
 				gen.machineCode = assembly_replacement(gen.machineCode, num_bits, BYTE_LENGTH*(size+gen.byteWord), BYTE_LENGTH*gen.byteWord, free_space); 		

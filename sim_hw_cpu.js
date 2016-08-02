@@ -23,8 +23,8 @@
 	 *  States - Memories
 	 */
 
-	var MC  = new Object();
-	var ROM = new Object();
+	var MC       = new Object();
+	var ROM      = new Object();
 	var FIRMWARE = new Object();
 
 
@@ -305,7 +305,7 @@
 			       draw_name: [['svg_p:path3137']] };
 	sim_signals["T11"] = { name: "T11", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 			       behavior: ["NOP", "MV_EE BUS_IB REG_MICROINS/EXCODE; FIRE M7; FIRE M2; FIRE M1"],
-			       fire_name: ['svg_p:text3147-5'], 
+			       fire_name: ['svg_p:text3147-5','svg_cu:tspan4426'], 
 			       draw_data: [['svg_p:path3145', 'svg_p:path3081-3','svg_p:path3139-7','svg_p:path3049','svg_cu:path3081-3','svg_cu:path3139-7']], 
 			       draw_name: [['svg_p:path3133-6','svg_cu:path3133-6']] };
 
@@ -473,7 +473,7 @@
 				 'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE BWA; FIRE SBWA',
 				 'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE BWA; FIRE SBWA'],
 				fire_name: ['svg_p:text3433'],
-				draw_data: [[],[]],
+				draw_data: [['svg_p:path3061-2-6']],
 				draw_name: [[],[]] };
 	sim_signals["A1A0"] = { name: "A1A0", visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
 				behavior: ['MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA',
@@ -481,7 +481,7 @@
 					   'MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA',
 					   'MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA'],
 				fire_name: ['svg_p:text3603'],
-				draw_data: [[],[]],
+				draw_data: [['svg_p:path3061-2']],
 				draw_name: [[],[]] };
 	sim_signals["BWA"] = { name: "BWA", visible: false, type: "L", value: 0, default_value: 0, nbits: "4",
 				behavior: ['BSEL BS_TD 0 8 REG_MBR 0; FIRE TD; FIRE R; FIRE W', 
