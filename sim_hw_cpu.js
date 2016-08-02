@@ -473,7 +473,7 @@
 				 'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE BWA; FIRE SBWA',
 				 'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE BWA; FIRE SBWA'],
 				fire_name: ['svg_p:text3433'],
-				draw_data: [[],[]],
+				draw_data: [['svg_p:path3061-2-6']],
 				draw_name: [[],[]] };
 	sim_signals["A1A0"] = { name: "A1A0", visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
 				behavior: ['MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA',
@@ -481,7 +481,7 @@
 					   'MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA',
 					   'MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA'],
 				fire_name: ['svg_p:text3603'],
-				draw_data: [[],[]],
+				draw_data: [['svg_p:path3061-2']],
 				draw_name: [[],[]] };
 	sim_signals["BWA"] = { name: "BWA", visible: false, type: "L", value: 0, default_value: 0, nbits: "4",
 				behavior: ['BSEL BS_TD 0 8 REG_MBR 0; FIRE TD; FIRE R; FIRE W', 

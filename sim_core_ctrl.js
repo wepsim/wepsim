@@ -316,6 +316,7 @@
                         if (sim_signals[key].nbits == 1) 
                             nextvalue = ((sim_signals[key].value >>> 0) + 1) % 2;
 
+                        var str_bolded = "";
                         var str_checked = "";
                         var input_help  = "";
 
@@ -328,9 +329,12 @@
                                       str_checked = ' checked="checked" ' ;
                                  else str_checked = ' ' ;
 
+                                 if (sim_signals[key].default_value != k)
+                                      str_bolded = '&nbsp;' + sim_signals[key].behavior[k].split(";")[0] + ', ...' ;
+                                 else str_bolded = '&nbsp;<b>' + sim_signals[key].behavior[k].split(";")[0] + '</b>, ...' ;
+
 				 input_help += '<li><label>' + 
-                                               '<input type="radio" name="ask_svalue" ' + ' value="' + k.toString(10) + '" ' + str_checked + ' />' + 
-                                               '&nbsp;' + sim_signals[key].behavior[k].split(";")[0] + ', ...</label></li>' ;
+                                               '<input type="radio" name="ask_svalue" ' + ' value="' + k.toString(10) + '" ' + str_checked + ' />' + str_bolded + '</label></li>' ;
                             }
                         }
                         else {
@@ -378,7 +382,9 @@
 	                                                     if (true === get_cfg('is_interactive'))
 							     {
 								 // update REG_MICROINS
-								 sim_states["REG_MICROINS"].value[key] = sim_signals[key].value ;
+                                                                 if (sim_signals[key].value != sim_signals[key].default_value)
+								      sim_states["REG_MICROINS"].value[key] = sim_signals[key].value ;
+								 else delete(sim_states["REG_MICROINS"].value[key]);
 
 								 // update MC[uADDR]
 								 if (typeof MC[get_value(sim_states["REG_MICROADDR"])] == "undefined") {
