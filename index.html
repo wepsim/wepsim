@@ -121,7 +121,7 @@
 			    <object id="svg_p" data="images/processor5.svg" type="image/svg+xml">
 				Your browser doesn't support SVG
 			    </object>
-                            <img id="internalbus_fire" src="images/fire.gif" height=50 style="position:absolute; top:57%; left:8%;  display:none;">
+                            <img id="internalbus_fire" src="images/fire.gif" height=50 style="position:absolute; top:55%; left:5%;  display:none;">
                             <img id="databus_fire"     src="images/fire.gif" height=50 style="position:absolute; top:23%; left:25%; display:none;">
 		      </div>
 		      <div id="eltos_cu"  class="ui-body-d ui-content">
@@ -289,7 +289,7 @@
 			<center>
 			<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
                         <button class="ui-btn ui-btn-b ui-btn-inline" 
-                                onclick="if (confirm('Do you want me to save the current Control Memory contents rather than the editor content?'))
+                                onclick="if (confirm('Do you want me to save the current Control Memory contents rather than the editor content?.\n\nPlease notice that this action will remove the current editor contents.'))
                                          {
 					     var SIMWARE = get_simware() ;
 					     var simware_as_text = saveFirmware(SIMWARE);
@@ -501,7 +501,8 @@
 </div><!-- /panel -->
 
 
-<div data-role="popup" id="example1" style="background-color: white;">
+<div data-role="popup" id="example1" style="background-color: white;"
+     data-dismissible="false" data-animate="false" data-overlay-theme="b">
 
    <div data-role="header" data-theme="a">
         <h1><b>Examples</b> <span class="badge btn-success"><div class="wsversion">X</div></span></h1>
@@ -513,8 +514,10 @@
 
    <div role="main" class="ui-content" style="padding: 8px 8px 8px 8px">
 
-        <div class="container-fluid" style="overflow-y:auto; overflow-x:auto; max-height:80vh; max-width:55vw;">
+        <div class="container-fluid" style="overflow-y:auto; overflow-x:auto; max-height:80vh; max-width:85vw;">
 
+  <ul class="container-fluid list-group">
+    <li class="list-group-item">
 	<div class="row">
 	  <div class="col-xs-12 col-sm-12">
              1) Simple:<br>
@@ -525,16 +528,20 @@
 	  <fieldset data-role="controlgroup" data-type="horizontal">
 	      <a href="#" onclick="load_from_example_assembly(1,false);"  style="background-color: lightgray;"
 		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
-		 <b>Assembly only</b></a>
+		 <b>Load assembly only</b></a>
 	      <a href="#" onclick="load_from_example_firmware(1,false);" style="background-color: lightgray;"
 		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
-		 <b>Firmware only</b></a>
+		 <b>Load firmware only</b></a>
 	      <a href="#" onclick="load_from_example_firmware(1,true);"  style="background-color: lightgray;"
 		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-primary">
-		 <b>Both</b></a>
+		 <b>Load both</b></a>
 	  </fieldset>
           </div>
+        </div>
+    </li>
 
+    <li class="list-group-item">
+	<div class="row">
 	  <div class="col-xs-12 col-sm-12">
              2) Intermediate:<br>
              More extended example with more instructions and I/O (keyboard, display).
@@ -544,16 +551,20 @@
 	  <fieldset data-role="controlgroup" data-type="horizontal">
 	      <a href="#" onclick="load_from_example_assembly(2,false);"  style="background-color: lightgray;"
 		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
-		 <b>Assembly only</b></a>
+		 <b>Load assembly only</b></a>
 	      <a href="#" onclick="load_from_example_firmware(2,false);" style="background-color: lightgray;"
 		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
-		 <b>Firmware only</b></a>
+		 <b>Load firmware only</b></a>
 	      <a href="#" onclick="load_from_example_firmware(2,true);"  style="background-color: lightgray;"
 		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-primary">
-		 <b>Both</b></a>
+		 <b>Load both</b></a>
 	  </fieldset>
           </div>
+        </div>
+    </li>
 
+    <li class="list-group-item">
+	<div class="row">
 	  <div class="col-xs-12 col-sm-12">
              3) Advanced:<br>
              Advanced example with interruptions support: fetch, RETI and .ktext/.data added.
@@ -563,18 +574,20 @@
 	  <fieldset data-role="controlgroup" data-type="horizontal">
 	      <a href="#" onclick="load_from_example_assembly(3,false);"  style="background-color: lightgray;"
 		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
-		 <b>Assembly only</b></a>
+		 <b>Load assembly only</b></a>
 	      <a href="#" onclick="load_from_example_firmware(3,false);" style="background-color: lightgray;"
 		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
-		 <b>Firmware only</b></a>
+		 <b>Load firmware only</b></a>
 	      <a href="#" onclick="load_from_example_firmware(3,true);"  style="background-color: lightgray;"
 		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-primary">
-		 <b>Both</b></a>
+		 <b>Load both</b></a>
 	  </fieldset>
           </div>
         </div> <!-- /row -->
+    </li>
+  </ul>
 
-        </div>
+        </div> <!-- container-fluid -->
    </div>
 </div>
 
