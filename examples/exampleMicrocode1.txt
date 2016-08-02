@@ -245,122 +245,6 @@ b offset {
             }
 }
 
-beq reg reg offset {
-            co=001101,
-            nwords=1,
-            reg=reg(25,21),
-            reg=reg(20,16),
-            offset=address(15,0)rel,
-            {
-                (T8, C5),
-                (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
-                (A0=0, B=1, C=110, MADDR=bck2ftch),
-                (T5, M7=0, C7),
-                (T2, C4),
-                (SE=1, OFFSET=0, SIZE=10000, T3, C5),
-                (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
-      bck2ftch: (T5, M7=0, C7),
-                (A0=1, B=1, C=0)
-            }
-}
-
-bne reg reg offset {
-            co=001110,
-            nwords=1,
-            reg=reg(25,21),
-            reg=reg(20,16),
-            offset=address(15,0)rel,
-            {
-                (T8, C5),
-                (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
-                (A0=0, B=0, C=110, MADDR=bck3ftch),
-                (T5, M7=0, C7),
-                (T2, C4),
-                (SE=1, OFFSET=0, SIZE=10000, T3, C5),
-                (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
-      bck3ftch: (T5, M7=0, C7),
-                (A0=1, B=1, C=0)
-            }
-}
-
-blt reg reg offset {
-            co=001111,
-            nwords=1,
-            reg=reg(25,21),
-            reg=reg(20,16),
-            offset=address(15,0)rel,
-            {
-                (T8, C5),
-                (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
-                (A0=0, B=0, C=111, MADDR=bck4ftch),
-                (T5, M7=0, C7),
-                (T2, C4),
-                (SE=1, OFFSET=0, SIZE=10000, T3, C5),
-                (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
-      bck4ftch: (T5, M7=0, C7),
-                (A0=1, B=1, C=0)
-            }
-}
-
-bge reg reg offset {
-            co=010000,
-            nwords=1,
-            reg=reg(25,21),
-            reg=reg(20,16),
-            offset=address(15,0)rel,
-            {
-                (T8, C5),
-                (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
-                (A0=0, B=1, C=111, MADDR=bck5ftch),
-                (T5, M7=0, C7),
-                (T2, C4),
-                (SE=1, OFFSET=0, SIZE=10000, T3, C5),
-                (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
-      bck5ftch: (T5, M7=0, C7),
-                (A0=1, B=1, C=0)
-            }
-}
-
-bgt reg reg offset {
-            co=010001,
-            nwords=1,
-            reg=reg(25,21),
-            reg=reg(20,16),
-            offset=address(15,0)rel,
-            {
-                (T8, C5),
-                (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
-                (A0=0, B=0, C=111, MADDR=bck6ftch),
-                (A0=0, B=0, C=110, MADDR=bck6ftch),
-                (T5, M7=0, C7),
-                (T2, C4),
-                (SE=1, OFFSET=0, SIZE=10000, T3, C5),
-                (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
-      bck6ftch: (T5, M7=0, C7),
-                (A0=1, B=1, C=0)
-            }
-}
-
-ble reg reg offset {
-            co=010010,
-            nwords=1,
-            reg=reg(25,21),
-            reg=reg(20,16),
-            offset=address(15,0)rel,
-            {
-                (T8, C5),
-                (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
-                (A0=0, B=0, C=111, MADDR=ble_ys),
-                (A0=0, B=0, C=110, MADDR=ble_ys),
-                (T5, M7=0, C7),
-                (A0=1, B=1, C=0),
-        ble_ys: (T5, M7=0, C7),
-                (T2, C4),
-                (SE=1, OFFSET=0, SIZE=10000, T3, C5),
-                (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0)
-            }
-}
-
 
 #
 # j*
@@ -407,24 +291,6 @@ nop {
         }
 }
 
-savesr reg1 {
-	co=100011,
-	nwords=1,
-	reg1 = reg(25,21),
-	{
-		(T8=1, SELC=10101, LC=1, A0=1, B=1, C=0)
-	}
-}
-
-restoresr reg1 {
-	co=100100,
-	nwords=1,
-	reg1 = reg(25,21),
-	{
-		(MR=0, SELA=10101, T9=1, M7=0, C7, A0=1, B=1, C=0)
-	}
-}
-
 
 registers
 {
@@ -461,15 +327,4 @@ registers
         30=$fp,
         31=$ra
 }
-
-pseudoinstructions
-{
-	lii reg num 
-        {	
-            li reg sel(31,16,num) ; 
-            li reg sel(15,0,num) 
-        }
-
-}
-
 
