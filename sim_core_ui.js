@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015-2016 Javier Prieto Cepeda, Felix Garcia Carballeira, Alejandro Calderon Mateos
+ *  Copyright 2015-2017 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  * 
@@ -998,7 +998,7 @@
                      s_label = "&nbsp;" ;
                      if (typeof a2l[l] != "undefined") {
                          for (var i=0; i<a2l[l].length; i++) {
-                              s_label = s_label + "<span class='label label-info'>" + a2l[l][i] + "</span>" ;
+                              s_label = s_label + "<span class='label label-primary'>" + a2l[l][i] + "</span>" ;
                          }
                      }
 
