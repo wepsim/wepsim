@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015-2016 Alejandro Calderon Mateos, Felix Garcia Carballeira
+ *  Copyright 2015-2016 Alejandro Calderon Mateos, Felix Garcia Carballeira, Saul Alonso Monsalve, Javier Prieto Cepeda
  *
  *  This file is part of WepSIM.
  * 
@@ -22,6 +22,10 @@
     //
     // WepSIM API
     //
+
+    /* 
+     * File/URL  
+     */
 
     function wepsim_load_from_file ( fileToLoad, inputEditor )
     {
@@ -82,6 +86,10 @@
 	xmlhttp.send();
     }
 
+    /* 
+     * Microcompile and compile 
+     */
+
     function wepsim_compile_assembly ( textToCompile )
     {
         return compileAssembly(textToCompile, false);
@@ -90,6 +98,106 @@
     function wepsim_compile_microcode ( textToMCompile )
     {
         return compileFirmware(textToMCompile, false);
+    }
+
+    /* 
+     * Play/stop 
+     */
+
+    function wepsim_execute_reset ( )
+    {
+	return reset() ;
+    }
+
+    function wepsim_execute_instruction ( )
+    {
+	if (check_if_can_execute(true) == false)
+	    return false;
+
+	return execute_microprogram() ;
+    }
+
+    function wepsim_execute_microinstruction ( )
+    {
+	if (check_if_can_execute(true) == false)
+	    return false;
+
+	return execute_microinstruction() ;
+    }
+
+    function wepsim_execute_set_breakpoint ( addr )
+    {
+        return asmdbg_set_breakpoint(addr) ;
+    }
+
+    var DBG_stop  = true ;
+
+    function wepsim_execute_stop ( btn1 )
+    {
+	$(btn1).html("Run") ;
+	$(btn1).removeClass("ui-icon-minus") ;
+	$(btn1).addClass("ui-icon-carat-r") ;
+	$(btn1).css("backgroundColor", "#CCCCCC") ;
+
+	DBG_stop = true;
+    }
+
+    function wepsim_execute_play ( btn1 )
+    {
+	if (check_if_can_execute(true) == false)
+	    return false;
+
+	$(btn1).css("backgroundColor", 'rgb(51, 136, 204)') ;
+	$(btn1).html("Stop") ;
+	$(btn1).removeClass("ui-icon-carat-r") ;
+	$(btn1).addClass("ui-icon-minus") ;
+
+        DBG_stop = false ;
+        wepsim_execute_chainplay(btn1) ;
+    }
+
+    function wepsim_execute_chainplay ( btn1 )
+    {
+	if (DBG_stop) 
+	{
+	    wepsim_execute_stop(btn1) ;
+	    return ;
+	}
+
+	var ret = false ;
+	if (get_cfg('DBG_level') == "instruction")
+	     ret = execute_microprogram() ;
+	else ret = execute_microinstruction() ;
+
+	if (ret === false) 
+	{
+	    wepsim_execute_stop(btn1) ;
+	    return ;
+	}
+
+	reg_pc      = get_value(sim_states["REG_PC"]) ;
+	curr_addr   = "0x" + reg_pc.toString(16) ;
+
+	if ( (typeof FIRMWARE.assembly[curr_addr] != "undefined") && 
+	     (FIRMWARE.assembly[curr_addr].breakpoint) ) 
+	{
+	    wepsim_execute_stop(btn1) ;
+	    alert("Breakpoint @ " + curr_addr + ":\n" + 
+		  "Instruction at " + curr_addr + " is going to be fetched.") ;
+	    return ;
+	}
+
+	setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), btn1) ;
+    }
+
+    function wepsim_execute_toggle_play ( btn1 )
+    {
+        if (DBG_stop == false) {
+            DBG_stop = true ; // will help to execute_play stop playing
+        } else {
+            DBG_stop = false ; 
+            wepsim_execute_play(btn1) ;
+        }
     }
 
 
@@ -163,13 +271,14 @@
 			     $("#compile_begin_" + skey).html("0x" + SIMWARE.seg[skey].begin.toString(16));
 			     $("#compile_end_"   + skey).html("0x" + SIMWARE.seg[skey].end.toString(16));
 			}
-                   }, 500);
+                   }, 300);
     }
 
     function compileFirmware ( textToMCompile, with_ui ) 
     {
 	var preSM = load_firmware(textToMCompile) ;
-	if (preSM.error != null) {
+	if (preSM.error != null) 
+        {
             if (with_ui)
                 showError(preSM.error, "inputfirm") ;
             return false;
@@ -259,18 +368,8 @@
 
 
     //
-    // Misc.
+    // Help management
     //
-
-    function toggle_play ( btn1 )
-    {
-        if (DBG_stop == false) {
-            DBG_stop = true ;
-        } else {
-            DBG_stop = false ;
-            asmdbg_play(btn1) ;
-        }
-    }
 
     function show_help1 ( )
     {
@@ -289,27 +388,6 @@
     //
     // Initialize
     //
-
-    function sim_prepare_editor ( editor )
-    {
-	    editor.setValue("\n\n\n\n\n\n\n\n\n");
-	    editor.getWrapperElement().style['text-shadow'] = '0.0em 0.0em'; 
-
-	    if (get_cfg('editor_theme') == 'blackboard') {
-		editor.getWrapperElement().style['font-weight'] = 'normal';
-		editor.setOption('theme','blackboard');
-	    }
-
-	    var edt_mode = get_cfg('editor_mode');
-	    if (edt_mode == 'vim') 
-		editor.setOption('keyMap','vim');
-	    if (edt_mode == 'emacs') 
-		editor.setOption('keyMap','emacs');
-	    if (edt_mode == 'sublime') 
-		editor.setOption('keyMap','sublime');
-
-	    setTimeout(function(){editor.refresh();}, 100);
-    }
 
     function sim_init ( )
     {
@@ -382,6 +460,27 @@
                                                      execute_microinstruction(); 
                                                   }, false);
             }
+    }
+
+    function sim_prepare_editor ( editor )
+    {
+	    editor.setValue("\n\n\n\n\n\n\n\n\n");
+	    editor.getWrapperElement().style['text-shadow'] = '0.0em 0.0em'; 
+
+	    if (get_cfg('editor_theme') == 'blackboard') {
+		editor.getWrapperElement().style['font-weight'] = 'normal';
+		editor.setOption('theme','blackboard');
+	    }
+
+	    var edt_mode = get_cfg('editor_mode');
+	    if (edt_mode == 'vim') 
+		editor.setOption('keyMap','vim');
+	    if (edt_mode == 'emacs') 
+		editor.setOption('keyMap','emacs');
+	    if (edt_mode == 'sublime') 
+		editor.setOption('keyMap','sublime');
+
+	    setTimeout(function(){editor.refresh();}, 100);
     }
 
 
