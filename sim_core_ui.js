@@ -998,7 +998,7 @@
                      s_label = "&nbsp;" ;
                      if (typeof a2l[l] != "undefined") {
                          for (var i=0; i<a2l[l].length; i++) {
-                              s_label = s_label + "<span class='label label-info'>" + a2l[l][i] + "</span>" ;
+                              s_label = s_label + "<span class='label label-primary'>" + a2l[l][i] + "</span>" ;
                          }
                      }
 
