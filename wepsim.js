@@ -119,15 +119,18 @@
 
     function wepsim_execute_microinstruction ( )
     {
+	if (check_if_can_execute(true) == false)
+	    return false;
+
 	return execute_microinstruction() ;
     }
-
-    var DBG_stop  = true ;
 
     function wepsim_execute_set_breakpoint ( addr )
     {
         return asmdbg_set_breakpoint(addr) ;
     }
+
+    var DBG_stop  = true ;
 
     function wepsim_execute_stop ( btn1 )
     {
@@ -141,11 +144,20 @@
 
     function wepsim_execute_play ( btn1 )
     {
+	if (check_if_can_execute(true) == false)
+	    return false;
+
 	$(btn1).css("backgroundColor", 'rgb(51, 136, 204)') ;
 	$(btn1).html("Stop") ;
 	$(btn1).removeClass("ui-icon-carat-r") ;
 	$(btn1).addClass("ui-icon-minus") ;
 
+        DBG_stop = false ;
+        wepsim_execute_chainplay(btn1) ;
+    }
+
+    function wepsim_execute_chainplay ( btn1 )
+    {
 	if (DBG_stop) 
 	{
 	    wepsim_execute_stop(btn1) ;
@@ -154,8 +166,8 @@
 
 	var ret = false ;
 	if (get_cfg('DBG_level') == "instruction")
-	     ret = wepsim_execute_instruction() ;
-	else ret = wepsim_execute_microinstruction() ;
+	     ret = execute_microprogram() ;
+	else ret = execute_microinstruction() ;
 
 	if (ret === false) 
 	{
@@ -175,15 +187,15 @@
 	    return ;
 	}
 
-	setTimeout(wepsim_execute_play, get_cfg('DBG_delay'), btn1) ;
+	setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), btn1) ;
     }
 
     function wepsim_execute_toggle_play ( btn1 )
     {
         if (DBG_stop == false) {
-            DBG_stop = true ;
+            DBG_stop = true ; // will help to execute_play stop playing
         } else {
-            DBG_stop = false ;
+            DBG_stop = false ; 
             wepsim_execute_play(btn1) ;
         }
     }
