@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015-2016 Javier Prieto Cepeda, Felix Garcia Carballeira, Alejandro Calderon Mateos
+ *  Copyright 2015-2017 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  * 
@@ -628,6 +628,24 @@
                 o1.css('background-color', '#00EE88');
 	}
 
+        function asmdbg_set_breakpoint ( addr )
+        {
+                var hexaddr  = "0x" + addr.toString(16) ;
+
+                var o1       = document.getElementById("bp"+hexaddr) ;
+                var bp_state = FIRMWARE.assembly[hexaddr].breakpoint ;
+
+                if (bp_state === true) {
+                    bp_state = false ;
+                    o1.innerHTML = '&nbsp;' ;
+                } else {
+                    bp_state = true ;
+                    o1.innerHTML = '<img height=22 src="images/stop.png">' ;
+                }
+
+                FIRMWARE.assembly[hexaddr].breakpoint = bp_state ;
+        }
+
 	function show_dbg_mpc ( )
 	{
                 show_memories('MC', MC, get_value(sim_states['REG_MICROADDR']), false) ;
@@ -980,7 +998,7 @@
                      s_label = "&nbsp;" ;
                      if (typeof a2l[l] != "undefined") {
                          for (var i=0; i<a2l[l].length; i++) {
-                              s_label = s_label + "<span class='label label-info'>" + a2l[l][i] + "</span>" ;
+                              s_label = s_label + "<span class='label label-primary'>" + a2l[l][i] + "</span>" ;
                          }
                      }
 
@@ -1004,78 +1022,5 @@
                 o += "</tbody></table></center>" ;
 
                 return o ;
-	}
-
-
-        /*
-         *  play/stop
-         */
-
-        var DBG_stop  = true ;
-
-	function asmdbg_set_breakpoint ( addr )
-	{
-                var hexaddr  = "0x" + addr.toString(16) ;
-
-                var o1       = document.getElementById("bp"+hexaddr) ;
-                var bp_state = FIRMWARE.assembly[hexaddr].breakpoint ;
-
-                if (bp_state === true) {
-		    bp_state = false ;
-                    o1.innerHTML = '&nbsp;' ;
-	        } else {
-	 	    bp_state = true ;
-                    o1.innerHTML = '<img height=22 src="images/stop.png">' ;
-	        }
-
-                FIRMWARE.assembly[hexaddr].breakpoint = bp_state ;
-	}
-
-	function asmdbg_stop ( btn1 )
-	{
-                $(btn1).html("Run") ;
-                $(btn1).removeClass("ui-icon-minus") ;
-                $(btn1).addClass("ui-icon-carat-r") ;
-                $(btn1).css("backgroundColor", "#CCCCCC") ;
-
-                DBG_stop = true;
-	}
-
-	function asmdbg_play ( btn1 )
-	{
-                $(btn1).css("backgroundColor", 'rgb(51, 136, 204)') ;
-                $(btn1).html("Stop") ;
-                $(btn1).removeClass("ui-icon-carat-r") ;
-                $(btn1).addClass("ui-icon-minus") ;
-
-                if (DBG_stop) 
-                {
-	            asmdbg_stop(btn1) ;
-                    return ;
-                }
-
-                var ret = false ;
-	        if (get_cfg('DBG_level') == "instruction")
-                     ret = execute_instruction() ;
-                else ret = execute_microinstruction() ;
-
-                if (ret === false) 
-                {
-	            asmdbg_stop(btn1) ;
-                    return ;
-                }
-
-                reg_pc      = get_value(sim_states["REG_PC"]) ;
-                curr_addr   = "0x" + reg_pc.toString(16) ;
-
-                if ( (typeof FIRMWARE.assembly[curr_addr] != "undefined") && (FIRMWARE.assembly[curr_addr].breakpoint) ) 
-                {
-	            asmdbg_stop(btn1) ;
-                    alert("Breakpoint @ " + curr_addr + ":\n" + 
-                          "Instruction at " + curr_addr + " is going to be fetched.") ;
-                    return ;
-                }
-
-                setTimeout(asmdbg_play, get_cfg('DBG_delay'), btn1) ;
 	}
 
