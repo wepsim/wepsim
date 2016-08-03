@@ -523,6 +523,48 @@
         }
 
         /* 2) EXECUTION */
+        function check_if_can_execute ( with_ui )
+        {
+		if ( (typeof segments['.ktext'] == "undefined") &&
+		     (typeof segments['.text']  == "undefined") )
+		{
+                    if (with_ui)
+		        alert('code segment .ktext/.text does not exist!');
+		    return false;
+		}
+
+	        var SIMWARE = get_simware();
+
+                if ( 
+                     (! ((typeof segments['.ktext'] != "undefined") && (SIMWARE.labels2["kmain"])) ) &&
+                     (! ((typeof segments['.text']  != "undefined") && (SIMWARE.labels2["main"]))   )
+                )
+                {
+                     if (with_ui)
+		         alert("labels 'kmain' (in .ktext) or 'main' (in .text) do not exist!");
+                     return false;
+	        }
+
+                return true;
+        }
+
+        function check_if_can_continue ( with_ui )
+        {
+		var reg_pc = parseInt(get_value(sim_states["REG_PC"]));
+		if (  
+		     (parseInt(get_value(sim_states["REG_MICROADDR"])) == 0) &&
+		     ((reg_pc >= parseInt(segments['.ktext'].end)) || (reg_pc < parseInt(segments['.ktext'].begin))) &&
+		     ((reg_pc >= parseInt(segments['.text'].end))  || (reg_pc < parseInt(segments['.text'].begin))) 
+		   )
+		{
+                    if (with_ui)
+		        alert('PC register points outside .ktext/.text code segments!');
+		    return false;
+		}
+
+                return true;
+        }
+
         function reset()
         {
 	    var SIMWARE = get_simware() ;
@@ -554,37 +596,25 @@
 
         function execute_microinstruction ()
         {
-	        if (false === get_cfg('is_interactive'))
-                {
-			if ( (typeof segments['.ktext'] == "undefined") &&
-			     (typeof segments['.text']  == "undefined") )
-			{
-			    alert('code segment .ktext/.text does not exist!');
-			    return false;
-			}
-
-                        var reg_pc = parseInt(get_value(sim_states["REG_PC"]));
-			if (  
-                             (parseInt(get_value(sim_states["REG_MICROADDR"])) == 0) &&
-                             ((reg_pc >= parseInt(segments['.ktext'].end)) || (reg_pc < parseInt(segments['.ktext'].begin))) &&
-                             ((reg_pc >= parseInt(segments['.text'].end))  || (reg_pc < parseInt(segments['.text'].begin))) 
-                           )
-			{
-			    alert('PC register points outside .ktext/.text code segments!');
-			    return false;
-			}
-                }
+                if (typeof MC[get_value(sim_states["REG_MICROADDR"])] == "undefined") 
+                    return false;
 
                 compute_behavior("CLOCK") ;
 
 		show_states();
 		show_rf_values();
                 show_dbg_mpc();
+
+                return true;
         }
 
         function execute_microprogram ()
         {
-                // 1.- while the microaddress register doesn't store the fetch address (0), execute micro-instructions
+	        if (check_if_can_continue(true) == false)
+		    return false;
+
+                // 1.- while the microaddress register doesn't store the fetch address (0), 
+                //     execute micro-instructions
 		do    
             	{
                 	compute_behavior("CLOCK") ;
@@ -594,45 +624,12 @@
                          (typeof MC[get_value(sim_states["REG_MICROADDR"])] != "undefined") 
                       );
 
+                // 2.- to show states
 		show_states();
 		show_rf_values();
                 if (get_cfg('DBG_level') == "microinstruction")
                     show_dbg_mpc();
-        }
 
-        function execute_instruction ()
-        {
-	    var SIMWARE = get_simware();
-
-               if ( 
-                  (! ((typeof segments['.ktext'] != "undefined") && (SIMWARE.labels2["kmain"])) ) &&
-                  (! ((typeof segments['.text'] != "undefined") && (SIMWARE.labels2["main"]))   )
-                )
-                {
-		    alert("labels 'kmain' (in .ktext) or 'main' (in .text) do not exist!");
-                    return false;
-	        }
-
-
-                if ( (typeof segments['.ktext'] == "undefined") &&
-                     (typeof segments['.text']  == "undefined") )
-                {
-                    alert('code segment .ktext/.text does not exist!');
-                    return false;
-                }
-
-                var reg_pc = parseInt(get_value(sim_states["REG_PC"]));
-		if ( 
-                      (parseInt(get_value(sim_states["REG_MICROADDR"])) == 0) &&
-		     ((reg_pc >= parseInt(segments['.ktext'].end)) || (reg_pc < parseInt(segments['.ktext'].begin))) &&
-		     ((reg_pc >= parseInt(segments['.text'].end))  || (reg_pc < parseInt(segments['.text'].begin))) 
-                   )
-                {
-		    alert('PC register points outside .ktext/.text code segments!');
-                    return false;
-                }
-
-                execute_microprogram() ;
                 return true;
         }
 
