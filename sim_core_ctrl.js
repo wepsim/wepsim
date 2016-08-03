@@ -480,17 +480,17 @@
          */
 
         /* 1) INIT */
-        function init ()
+        function init ( stateall_id, statebr_id, ioall_id, configall_id )
         {
             // 1.- it checks if everything is ok 
             load_check() ;
 
             // 2.- display the information holders
-            init_states("#states_ALL") ; 
-            init_rf("#states_BR") ; 
+            init_states(stateall_id) ; 
+            init_rf(statebr_id) ; 
 
-            init_io("#io_ALL") ; 
-            init_config("#config_ALL") ; 
+            init_io(ioall_id) ; 
+            init_config(configall_id) ; 
         }
 
         function init_eventlistener ( context )

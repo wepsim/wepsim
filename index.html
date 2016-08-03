@@ -318,7 +318,7 @@
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-u ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2 ui-shadow"
 				   onclick="var textToMCompile = inputfirm.getValue();
                                             compileFirmware(textToMCompile, true);
-                                            showBinaryMicrocode();">Show co2&#181;addr + control memory</a>
+                                            showBinaryMicrocode('#bin1','#compile_results');">Show co2&#181;addr + control memory</a>
 
                             <a href="#" style="background-color: #D4DB17"
                                    class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-6 col-md-2 col-lg-2"
@@ -422,7 +422,7 @@
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-u  ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2 ui-shadow"
 				   onclick="var textToCompile = inputasm.getValue();
                                             var ok = compileAssembly(textToCompile, true);
-                                            showBinaryCode();">Show Main Memory</a>
+                                            showBinaryCode('#bin1','#compile_results');">Show Main Memory</a>
                             <a href="#" style="background-color: #D4DB17"
                                    class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-5 col-md-1 col-lg-1"
 				   onclick="$('#help1_ref').data('relative','#help_assembly_format'); show_help1();">Help</a>
@@ -1032,7 +1032,7 @@
 
             $("div.wsversion").replaceWith(get_cfg('version'));
 
-	    init(); 
+	    init("#states_ALL", "#states_BR", "#io_ALL", "#config_ALL"); 
 	    reset(); 
     }
     catch(err) 

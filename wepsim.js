@@ -143,19 +143,21 @@
         return true;
     }
 
-    function showBinaryCode ( ) 
+    function showBinaryCode ( popup_id, popup_content_id ) 
     {
-        $("#compile_results").html("<center>" +
-                                   "<br>Loading binary, please wait..." +
-                                   "<br><br>WARNING: loading binary might take time on slow mobile devices.</center>");
-        $("#compile_results").css({width:"100%",height:"inherit !important"});
-	$('#bin1').popup('open');
+        $(popup_content_id).html("<center>" +
+                                 "<br>Loading binary, please wait..." +
+                                 "<br>" + 
+                                 "<br>WARNING: loading binary might take time on slow mobile devices." + 
+                                 "</center>");
+        $(popup_content_id).css({width:"100%",height:"inherit !important"});
+	$(popup_id).popup('open');
 
 	setTimeout(function(){ 
 			var SIMWARE = get_simware() ;
 
-			$("#compile_results").html(mp2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg));
-			$("#bin1").popup("reposition", {positionTo: 'window'});
+			$(popup_content_id).html(mp2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg));
+			$(popup_id).popup("reposition", {positionTo: 'window'});
 
 			for (skey in SIMWARE.seg) {
 			     $("#compile_begin_" + skey).html("0x" + SIMWARE.seg[skey].begin.toString(16));
@@ -185,24 +187,26 @@
         return true;
     }
 
-    function showBinaryMicrocode ( ) 
+    function showBinaryMicrocode ( popup_id, popup_content_id ) 
     {
-        $("#compile_results").html("<center>" +
-                               "<br>Loading binary, please wait..." +
-                               "<br><br>WARNING: loading binary might take time on slow mobile devices.</center>");
-        $("#compile_results").css({width:"100%",height:"inherit !important"});
-	$('#bin1').popup('open');
+        $(popup_content_id).html("<center>" +
+                                 "<br>Loading binary, please wait..." +
+                                 "<br>" + 
+                                 "<br>WARNING: loading binary might take time on slow mobile devices." + 
+                                 "</center>");
+        $(popup_content_id).css({width:"100%",height:"inherit !important"});
+	$(popup_id).popup('open');
 
-	setTimeout(function(){ 
+	setTimeout(function() {
 			var SIMWARE = get_simware() ;
-			$("#compile_results").html(firmware2html(SIMWARE.firmware, true));
-			$("#compile_results").css({width:"inherit !important", height:"inherit !important"});
+			$(popup_content_id).html(firmware2html(SIMWARE.firmware, true));
+			$(popup_content_id).css({width:"inherit !important", height:"inherit !important"});
 
-			$("#bin1").enhanceWithin();
-			$('#bin1').trigger('updatelayout');
-			$("#bin1").popup("reposition", {positionTo: 'window'});
-			$('#bin1').trigger('refresh');
-                   }, 500);
+			$(popup_id).enhanceWithin();
+			$(popup_id).trigger('updatelayout');
+			$(popup_id).popup("reposition", {positionTo: 'window'});
+			$(popup_id).trigger('refresh');
+                   }, 300);
     }
 
 
