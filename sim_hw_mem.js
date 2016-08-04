@@ -21,7 +21,7 @@
 
         var MP       = new Object();
         var segments = new Object();
-        var MP_wc    = 1;
+        var MP_wc    = 0;
 
 
         /*
