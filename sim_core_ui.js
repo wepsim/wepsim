@@ -540,10 +540,10 @@
                         }
 
 			if (key == index)
-			     o1 += "<tr>" + 
+			     o1 += "<tr id='addr" + key + "'>" + 
                                    "<td width=15%>" + "0x" + parseInt(key).toString(16) + "</td>" + 
                                    "<td><b><div style='color: blue'>" + value + "</div></b></td></tr>";
-			else o1 += "<tr>" + 
+			else o1 += "<tr id='addr" + key + "'>" + 
                                    "<td width=15%><small>" + "0x" + parseInt(key).toString(16) + "</small></td>" + 
                                    "<td          ><div><small>" + value + "</small></div></td></tr>";
 		 }
@@ -568,10 +568,10 @@
                         }
 
 			if (key == index)
-			     o1 += "<tr>" +
+			     o1 += "<tr id='addr" + key + "'>" +
                                    "<td width=50%><font color=blue><b>" + "0x" + key3 + "-" + key2 + "</b></font></td>" +
                                    "<td          ><font color=blue><b>" +                   value2 + "</b></font></td></tr>" ;
-			else o1 += "<tr>" +
+			else o1 += "<tr id='addr" + key + "'>" +
                                    "<td width=50%><small>"              + "0x" + key3 + "-" + key2 + "</small></td>" +
                                    "<td          ><small>"              + value2                   + "</small></td></tr>" ;
 		 }
@@ -585,6 +585,16 @@
             $("#memory_" + name).html("<center><table class='table table-hover table-condensed table-responsive'>" + 
                                       "<tbody id=none>" + o1 + "</tbody>" +
                                       "</table></center>");
+
+            // scroll up/down to index element...
+	    var obj_byid = $('#addr' + index) ;
+	    if ( (redraw) && (obj_byid.length > 0) )
+            {
+	        var topPos = obj_byid[0].offsetTop ;
+	        var obj_byid = $('#memory_' + name) ;
+	        if (obj_byid.length > 0)
+	            obj_byid[0].scrollTop = topPos;
+            }
         }
 
 	function get_deco_from_pc ( pc )

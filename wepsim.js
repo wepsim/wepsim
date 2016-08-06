@@ -503,8 +503,9 @@
 			    if (true == ok)
 			    {
 				  setTimeout(function(){
-					  $.mobile.pageContainer.pagecontainer('change', '#main1');
-				  }, 80);
+					     $.mobile.pageContainer.pagecontainer('change', '#main1');
+                                             show_memories_values();
+				  }, 50);
 
 				  $.notify({ title: '<strong>INFO</strong>', 
 					     message: 'Example ready to be used.'},
@@ -531,7 +532,10 @@
 
 			   var ok = compileFirmware(mcode, true);
                            if (true == ok)
-                               setTimeout(function() { load_from_example_assembly(example_id); }, 80);
+                               setTimeout(function() { 
+                                             load_from_example_assembly(example_id); 
+                                             show_memories_values();
+                                          }, 50);
                       };
         wepsim_load_from_url(url, do_next) ;
     }
