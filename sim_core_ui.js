@@ -924,13 +924,13 @@
 	         "<table style='border-style: solid' border=1 width=100% height=100%>" ;
 	   for (skey in segments) 
 	   {
-	        if (segments[skey].name != "stack")
+	        if (segments[skey].name != ".stack")
 	   	    o1 += "<tr><td valign=middle align=center bgcolor=" + segments[skey].color + ">" + 
                                 segments[skey].name + "</td></tr>" +
 	   	          "<tr><td valign=middle align=center height=25px>...</td></tr>" ;
 	   }
-	   o1 += "<tr><td valign=middle align=center bgcolor=" + segments['stack'].color + 
-	         ">" + segments['stack'].name + "</td></tr>" +
+	   o1 += "<tr><td valign=middle align=center bgcolor=" + segments['.stack'].color + 
+	         ">" + segments['.stack'].name + "</td></tr>" +
 	         "</table>" +
 	         " </td>" +
 	         " <td width=20px>&nbsp;</td>" +
@@ -941,7 +941,7 @@
 	   for (skey in segments) 
 	   {
                offset += 1 ;
-	       if (segments[skey].name != "stack")
+	       if (segments[skey].name != ".stack")
 	   	 o1 += "<tr>" +
 	   	       "    <td valign=middle align=center style='display: block; position: absolute;'>" +
 	   	       "    <div id='compile_begin_" + segments[skey].name + "' " + 
@@ -957,8 +957,8 @@
 	   }
 	   o1 += "  <tr>" +
 	         "  <td valign=middle align=center style='display: block; position: absolute;'>" +
-	         "<div id='compile_end_"  + segments['stack'].name + "' style='position:relative;bottom:25px;'>[SP_n]</div>"+
-	         "<div id='compile_begin_" + segments['stack'].name + "' style='position:relative;bottom:-20px;'>[SP_0]</div>"+
+	         "<div id='compile_end_"  + segments['.stack'].name + "' style='position:relative;bottom:25px;'>[SP_n]</div>"+
+	         "<div id='compile_begin_" + segments['.stack'].name + "' style='position:relative;bottom:-20px;'>[SP_0]</div>"+
 	         "  </td>" +
 	         "  </tr>" +
 	         " </table>" +
