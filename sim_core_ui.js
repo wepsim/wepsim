@@ -925,42 +925,40 @@
 	   for (skey in segments) 
 	   {
 	        if (segments[skey].name != ".stack")
-	   	    o1 += "<tr><td valign=middle align=center bgcolor=" + segments[skey].color + ">" + 
-                                segments[skey].name + "</td></tr>" +
+	   	    o1 += "<tr><td valign=middle align=center height=60px bgcolor=" + segments[skey].color + ">" + 
+                          segments[skey].name + 
+                          "</td></tr>" +
 	   	          "<tr><td valign=middle align=center height=25px>...</td></tr>" ;
 	   }
-	   o1 += "<tr><td valign=middle align=center bgcolor=" + segments['.stack'].color + 
-	         ">" + segments['.stack'].name + "</td></tr>" +
+	   o1 += "<tr><td valign=middle align=center bgcolor=" + segments['.stack'].color + ">" + 
+                 segments['.stack'].name + 
+                 "</td></tr>" +
 	         "</table>" +
 	         " </td>" +
 	         " <td width=20px>&nbsp;</td>" +
 	         " <td>" +
 	         " <table style='border-style: solid; border-width:0px; width:100%; height:100%'>" ;
 
-           var offset = 0 ;
+           var sx = "" ;
+           var sp = "" ;
 	   for (skey in segments) 
 	   {
-               offset += 1 ;
+	       sx = "<tr>" +
+	   	    "    <td valign=top align=left height=30px style=''>" +
+	   	    "    <div id='compile_begin_" + segments[skey].name + "'>" + segments[skey].begin + "</div>" +
+	   	    "    </td>" +
+	   	    " </tr>" +
+	   	    " <tr>" +
+	   	    "    <td valign=bottom align=left height=30px style=''>" +
+	   	    "    <div id='compile_end_"   + segments[skey].name + "'>" + segments[skey].end + "</div>" +
+	   	    "    </td>" +
+	   	    " </tr>" ;
+
 	       if (segments[skey].name != ".stack")
-	   	 o1 += "<tr>" +
-	   	       "    <td valign=middle align=center style='display: block; position: absolute;'>" +
-	   	       "    <div id='compile_begin_" + segments[skey].name + "' " + 
-                       "         style='position:relative; bottom:" + (3*offset) + "px;'>" + segments[skey].begin + "</div>" +
-	   	       "    </td>" +
-	   	       " </tr>" +
-	   	       " <tr>" +
-	   	       "    <td valign=middle align=center style='display: block; position: absolute;'>" +
-	   	       "    <div id='compile_end_"   + segments[skey].name + "' " + 
-                       "         style='position:relative; bottom:" + (2*offset) + "px;'>" + segments[skey].end + "</div>" +
-	   	       "    </td>" +
-	   	       " </tr>" ;
+	   	    o1 += sx + "<tr><td valign=middle align=center height=25px>...</td></tr>" ;
+               else sp  = sx ;
 	   }
-	   o1 += "  <tr>" +
-	         "  <td valign=middle align=center style='display: block; position: absolute;'>" +
-	         "<div id='compile_end_"  + segments['.stack'].name + "' style='position:relative;bottom:25px;'>[SP_n]</div>"+
-	         "<div id='compile_begin_" + segments['.stack'].name + "' style='position:relative;bottom:-20px;'>[SP_0]</div>"+
-	         "  </td>" +
-	         "  </tr>" +
+	   o1 += sp +
 	         " </table>" +
 	         " </td>" +
 	         " </tr>" +
