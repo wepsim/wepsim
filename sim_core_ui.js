@@ -622,20 +622,22 @@
                 if (typeof FIRMWARE.assembly[old_addr] != "undefined")
                 {
                      o1 = $("#asmdbg" + old_addr) ;
-                     o1.css('background-color', FIRMWARE.assembly[old_addr].bgcolor);
+                     o1.css('background-color', FIRMWARE.assembly[old_addr].bgcolor) ;
                 }
                 else
                 {
                      for (l in FIRMWARE.assembly)
                      {
                           o1 = $("#asmdbg" + l) ;
-                          o1.css('background-color', FIRMWARE.assembly[l].bgcolor);
+                          o1.css('background-color', FIRMWARE.assembly[l].bgcolor) ;
                      }
                 }
                 old_addr = curr_addr ;
 
                 o1 = $("#asmdbg" + curr_addr) ;
-                o1.css('background-color', '#00EE88');
+                o1.css('background-color', '#00EE88') ;
+
+                return o1 ;
 	}
 
         function asmdbg_set_breakpoint ( addr )
