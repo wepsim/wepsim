@@ -99,7 +99,10 @@
                           </li>
 		          <li style="clear:none;width:49% !important">
                               <a id="tab24" href="#eltos_dbg"  
-                                 onclick="stop_drawing();">Assembly Debugger</a>
+                                 onclick="stop_drawing(); 
+                                          var o1 = show_asmdbg_pc();
+                                          var obj_byid = $('#asm_debugger_container');
+                                          obj_byid[0].scrollTop = o1[0].offsetTop;">Assembly Debugger</a>
                           </li>
 		        </ul>
 		      </div>
@@ -142,7 +145,8 @@
 			   </table>
 			   </center>
 
-		           <div style="overflow-y:auto; overflow-x:auto; height:70% !important;">
+		           <div id="asm_debugger_container" 
+                                style="overflow-y:auto; overflow-x:auto; height:70% !important;">
                                 <div id="asm_debugger">
                                 <br>
                                 <ol>
