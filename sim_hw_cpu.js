@@ -193,6 +193,7 @@
 					   "MV_EE MUXA_MICROADDR REG_MICROINS/MADDR",
 					   "MV MUXA_MICROADDR ROM_MUXA", 
 					   "MV MUXA_MICROADDR FETCH"],
+                                depends_on: ["A0","A1"],
 				fire_name: [], 
 				draw_data: [['svg_cu:path3102', 'svg_cu:path3100', 'svg_cu:path3098', 'svg_cu:path3100-9', 'svg_cu:path3088'], 
 					    ['svg_cu:path3104', 'svg_cu:path3134', 'svg_cu:path3500', 'svg_cu:path3416'],
