@@ -10,7 +10,7 @@
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    id="svg2985"
    height="100%"
-   viewBox="90 5 785 575"
+   viewBox="90 5 785 585"
    width="100%"
    version="1.0"
    preserveAspectRatio="xMinYMin meet"
@@ -217,6 +217,14 @@
        line-height="125%"
        sodipodi:linespacing="125%"
        style="font-size:9.10039806px;line-height:125%;font-family:Arial;fill:#000000">Bus</text>
+    <text
+       id="text3495x"
+       font-size="12.856px"
+       xml:space="preserve"
+       style="font-size:14.92742157px;font-family:Arial;fill:#000000"
+       transform="scale(0.99152598,1.0085464)"
+       y="590.05505"
+       x="110.16032">http://www.arcos.inf.uc3m.es/~ec-2ed</text>
     <text
        id="text3495"
        font-size="22.856px"
