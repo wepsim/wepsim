@@ -26,6 +26,11 @@ cat sim_cfg.js \
 rm -fr sim_all.js
 
 # 
+#  wepsim engine
+# 
+/usr/bin/yui-compressor -o min.wepsim.js wepsim.js
+
+# 
 #  external
 # 
 cat external/bootstrap.min.js \
