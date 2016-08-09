@@ -102,6 +102,7 @@
                                  onclick="stop_drawing(); 
                                           var o1 = show_asmdbg_pc();
                                           var obj_byid = $('#asm_debugger_container');
+                                          if (typeof o1[0] == 'undefined') return;
                                           obj_byid[0].scrollTop = o1[0].offsetTop;">Assembly Debugger</a>
                           </li>
 		        </ul>
