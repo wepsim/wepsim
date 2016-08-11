@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015-2016 Javier Prieto Cepeda, Felix Garcia Carballeira, Alejandro Calderon Mateos
+ *  Copyright 2015-2017 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  * 
@@ -738,7 +738,7 @@ function loadFirmware (text)
            var ret = new Object();
            ret.error              = null;
            ret.firmware           = context.instrucciones ;
-           ret.labels             = context.etiquetas;
+           ret.labels_firm        = context.etiquetas;
            ret.mp                 = new Object();
            ret.seg                = new Object();
            ret.registers          = context.registers ;
@@ -792,7 +792,7 @@ function saveFirmware ( SIMWARE )
 				for (var j=0;j<SIMWARE.firmware[i].fields.length;j++)
 				{
 					file += '\t' + SIMWARE.firmware[i].fields[j].name + " = " + SIMWARE.firmware[i].fields[j].type;
-					file += " (" + SIMWARE.firmware[i].fields[j].startbit + "," + SIMWARE.firmware[i].fields[j].stopbit + ")";					
+					file += "(" + SIMWARE.firmware[i].fields[j].startbit + "," + SIMWARE.firmware[i].fields[j].stopbit + ")";					
 					if (SIMWARE.firmware[i].fields[j].type == "address")
 					{
 						file += SIMWARE.firmware[i].fields[j].address_type;
@@ -805,37 +805,43 @@ function saveFirmware ( SIMWARE )
 		if (typeof SIMWARE.firmware[i].microcode != "undefined")
 		{
 			var addr=SIMWARE.firmware[i]["mc-start"];
-			if (SIMWARE.firmware[i].name!="begin")
+			if (SIMWARE.firmware[i].name != "begin")
 			{
-				file += '\t' + "{";
+				file += '\t' + '{' ;
 			}
 
 			for (var j=0; j<SIMWARE.firmware[i].microcode.length; j++)
 			{
-				file += '\n' + '\t' + '\t';
-				if (typeof SIMWARE.labels[addr] != "undefined")
-				{
-					file += SIMWARE.labels[addr] + " : "; 
-				}
+				if (typeof SIMWARE.labels_firm[addr] != "undefined")
+				     file += '\n' + SIMWARE.labels_firm[addr] + ":\t"; 
+				else file += '\n' + '\t' + '\t';
 
-				file += "( ";
+				file += "(";
 				var anySignal=0;
 				for (var k in SIMWARE.firmware[i].microcode[j])
 				{
-					if (k!="MADDR")
-					     file += k + "=" + SIMWARE.firmware[i].microcode[j][k].toString(2) + ", ";
-                                        else file += k + "=" + SIMWARE.labels[SIMWARE.firmware[i].microcode[j][k]] + ", ";
+					if ("MADDR" == k)
+                                        {
+                                            var val = SIMWARE.firmware[i].microcode[j][k];
+                                            if (typeof SIMWARE.labels_firm[val] == "undefined")
+                                                 file += k + "=" + val.toString(2) + ", ";
+                                            else file += k + "=" + SIMWARE.labels_firm[val] + ", ";
+                                            continue;
+                                        }
+
+					file += k + "=" + SIMWARE.firmware[i].microcode[j][k].toString(2) + ", ";
+
 					anySignal=1;
 				}
 				if (anySignal==1)
 				{
-					file = file.substr(0, file.length-1);
+					file = file.substr(0, file.length - 2);
 				}
 				file += "),";
 				addr++;
 			}
 
-			file = file.substr(0, file.length-1);
+			file = file.substr(0, file.length - 1);
 			if (SIMWARE.firmware[i].name!="begin")
 			{
 				file += '\n\t}';

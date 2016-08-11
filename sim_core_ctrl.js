@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015-2016 Javier Prieto Cepeda, Felix Garcia Carballeira, Alejandro Calderon Mateos
+ *  Copyright 2015-2017 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  * 
@@ -222,17 +222,17 @@
         function reset_value ( sim_obj )
         {
            if (typeof sim_obj.value == "function")
-	        sim_obj.value(sim_obj.default_value) ;
+	        set_value(sim_obj, sim_obj.default_value) ;
 
 	   else if (typeof sim_obj.default_value == "object")
 	        sim_obj.value = Object.create(sim_obj.default_value) ;
 
-	   else if (typeof sim_obj == "array")
-	        for(var i=0; i<sim_obj.length; i++)
-	  	    sim_obj[i].value(sim_obj[i].default_value) ;
+	   else if (sim_obj instanceof Array)
+	        for (var i=0; i<sim_obj.length; i++)
+	  	     set_value(sim_obj[i], sim_obj[i].default_value) ;
 
 	   else
-	        sim_obj.value = sim_obj.default_value ;
+	        set_value(sim_obj, sim_obj.default_value) ;
         }
 
 
@@ -316,6 +316,7 @@
                         if (sim_signals[key].nbits == 1) 
                             nextvalue = ((sim_signals[key].value >>> 0) + 1) % 2;
 
+                        var str_bolded = "";
                         var str_checked = "";
                         var input_help  = "";
 
@@ -328,9 +329,12 @@
                                       str_checked = ' checked="checked" ' ;
                                  else str_checked = ' ' ;
 
+                                 if (sim_signals[key].default_value != k)
+                                      str_bolded = '&nbsp;' + sim_signals[key].behavior[k].split(";")[0] + ', ...' ;
+                                 else str_bolded = '&nbsp;<b>' + sim_signals[key].behavior[k].split(";")[0] + '</b>, ...' ;
+
 				 input_help += '<li><label>' + 
-                                               '<input type="radio" name="ask_svalue" ' + ' value="' + k.toString(10) + '" ' + str_checked + ' />' + 
-                                               '&nbsp;' + sim_signals[key].behavior[k].split(";")[0] + ', ...</label></li>' ;
+                                               '<input type="radio" name="ask_svalue" ' + ' value="' + k.toString(10) + '" ' + str_checked + ' />' + str_bolded + '</label></li>' ;
                             }
                         }
                         else {
@@ -378,7 +382,9 @@
 	                                                     if (true === get_cfg('is_interactive'))
 							     {
 								 // update REG_MICROINS
-								 sim_states["REG_MICROINS"].value[key] = sim_signals[key].value ;
+                                                                 if (sim_signals[key].value != sim_signals[key].default_value)
+								      sim_states["REG_MICROINS"].value[key] = sim_signals[key].value ;
+								 else delete(sim_states["REG_MICROINS"].value[key]);
 
 								 // update MC[uADDR]
 								 if (typeof MC[get_value(sim_states["REG_MICROADDR"])] == "undefined") {
@@ -474,17 +480,17 @@
          */
 
         /* 1) INIT */
-        function init ()
+        function init ( stateall_id, statebr_id, ioall_id, configall_id )
         {
             // 1.- it checks if everything is ok 
             load_check() ;
 
             // 2.- display the information holders
-            init_states("#states_ALL") ; 
-            init_rf("#states_BR") ; 
+            init_states(stateall_id) ; 
+            init_rf(statebr_id) ; 
 
-            init_io("#io_ALL") ; 
-            init_config("#config_ALL") ; 
+            init_io(ioall_id) ; 
+            init_config(configall_id) ; 
         }
 
         function init_eventlistener ( context )
@@ -517,6 +523,48 @@
         }
 
         /* 2) EXECUTION */
+        function check_if_can_execute ( with_ui )
+        {
+		if ( (typeof segments['.ktext'] == "undefined") &&
+		     (typeof segments['.text']  == "undefined") )
+		{
+                    if (with_ui)
+		        alert('code segment .ktext/.text does not exist!');
+		    return false;
+		}
+
+	        var SIMWARE = get_simware();
+
+                if ( 
+                     (! ((typeof segments['.ktext'] != "undefined") && (SIMWARE.labels2["kmain"])) ) &&
+                     (! ((typeof segments['.text']  != "undefined") && (SIMWARE.labels2["main"]))   )
+                )
+                {
+                     if (with_ui)
+		         alert("labels 'kmain' (in .ktext) or 'main' (in .text) do not exist!");
+                     return false;
+	        }
+
+                return true;
+        }
+
+        function check_if_can_continue ( with_ui )
+        {
+		var reg_pc = parseInt(get_value(sim_states["REG_PC"]));
+		if (  
+		     (parseInt(get_value(sim_states["REG_MICROADDR"])) == 0) &&
+		     ((reg_pc >= parseInt(segments['.ktext'].end)) || (reg_pc < parseInt(segments['.ktext'].begin))) &&
+		     ((reg_pc >= parseInt(segments['.text'].end))  || (reg_pc < parseInt(segments['.text'].begin))) 
+		   )
+		{
+                    if (with_ui)
+		        alert('PC register points outside .ktext/.text code segments!');
+		    return false;
+		}
+
+                return true;
+        }
+
         function reset()
         {
 	    var SIMWARE = get_simware() ;
@@ -548,37 +596,25 @@
 
         function execute_microinstruction ()
         {
-	        if (false === get_cfg('is_interactive'))
-                {
-			if ( (typeof segments['.ktext'] == "undefined") &&
-			     (typeof segments['.text']  == "undefined") )
-			{
-			    alert('code segment .ktext/.text does not exist!');
-			    return false;
-			}
-
-                        var reg_pc = parseInt(get_value(sim_states["REG_PC"]));
-			if (  
-                             (parseInt(get_value(sim_states["REG_MICROADDR"])) == 0) &&
-                             ((reg_pc >= parseInt(segments['.ktext'].end)) || (reg_pc < parseInt(segments['.ktext'].begin))) &&
-                             ((reg_pc >= parseInt(segments['.text'].end))  || (reg_pc < parseInt(segments['.text'].begin))) 
-                           )
-			{
-			    alert('PC register points outside .ktext/.text code segments!');
-			    return false;
-			}
-                }
+                if (typeof MC[get_value(sim_states["REG_MICROADDR"])] == "undefined") 
+                    return false;
 
                 compute_behavior("CLOCK") ;
 
 		show_states();
 		show_rf_values();
                 show_dbg_mpc();
+
+                return true;
         }
 
         function execute_microprogram ()
         {
-                // 1.- while the microaddress register doesn't store the fetch address (0), execute micro-instructions
+	        if (check_if_can_continue(true) == false)
+		    return false;
+
+                // 1.- while the microaddress register doesn't store the fetch address (0), 
+                //     execute micro-instructions
 		do    
             	{
                 	compute_behavior("CLOCK") ;
@@ -588,45 +624,12 @@
                          (typeof MC[get_value(sim_states["REG_MICROADDR"])] != "undefined") 
                       );
 
+                // 2.- to show states
 		show_states();
 		show_rf_values();
                 if (get_cfg('DBG_level') == "microinstruction")
                     show_dbg_mpc();
-        }
 
-        function execute_instruction ()
-        {
-	    var SIMWARE = get_simware();
-
-               if ( 
-                  (! ((typeof segments['.ktext'] != "undefined") && (SIMWARE.labels2["kmain"])) ) &&
-                  (! ((typeof segments['.text'] != "undefined") && (SIMWARE.labels2["main"]))   )
-                )
-                {
-		    alert("labels 'kmain' (in .ktext) or 'main' (in .text) do not exist!");
-                    return false;
-	        }
-
-
-                if ( (typeof segments['.ktext'] == "undefined") &&
-                     (typeof segments['.text']  == "undefined") )
-                {
-                    alert('code segment .ktext/.text does not exist!');
-                    return false;
-                }
-
-                var reg_pc = parseInt(get_value(sim_states["REG_PC"]));
-		if ( 
-                      (parseInt(get_value(sim_states["REG_MICROADDR"])) == 0) &&
-		     ((reg_pc >= parseInt(segments['.ktext'].end)) || (reg_pc < parseInt(segments['.ktext'].begin))) &&
-		     ((reg_pc >= parseInt(segments['.text'].end))  || (reg_pc < parseInt(segments['.text'].begin))) 
-                   )
-                {
-		    alert('PC register points outside .ktext/.text code segments!');
-                    return false;
-                }
-
-                execute_microprogram() ;
                 return true;
         }
 

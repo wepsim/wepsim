@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015-2016 Alejandro Calderon Mateos, Javier Prieto Cepeda, Felix Garcia Carballeira
+ *  Copyright 2015-2017 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  * 
@@ -21,7 +21,7 @@
 
         var MP       = new Object();
         var segments = new Object();
-        var MP_wc    = 1;
+        var MP_wc    = 0;
 
 
         /*
@@ -62,24 +62,16 @@
                                                       var clk     = sim_states[s_expr[5]].value() ;
 
                                                       sim_signals[s_expr[4]].value = 0;
-						      if (typeof sim_events["mem"][clk-1] != "undefined")
-                                                      {
-						          var remain = sim_events["mem"][clk-1];
-                                                          if (remain > 0)
-                                                          {
-                                                              remain--;
-						              sim_events["mem"][clk] = remain;
-                                                              if (remain > 0)
-                                                                  return;
-                                                          }
-                                                      }
-						      if (typeof sim_events["mem"][clk] == "undefined")
-                                                      {
-						          var remain = MP_wc();
-						          sim_events["mem"][clk] = remain; 
-                                                          if (remain > 0)
-                                                              return;
-                                                      }
+						      var remain = MP_wc();
+						      if ( 
+                                                           (typeof sim_events["mem"][clk-1] != "undefined") &&
+						           (sim_events["mem"][clk-1] > 0) 
+                                                         ) {
+						              remain = sim_events["mem"][clk-1] - 1;
+                                                           }
+						      sim_events["mem"][clk] = remain;
+                                                      if (remain > 0)
+                                                          return;
 
 						      var value   = 0;
                                                       address = address & 0xFFFFFFFC;
@@ -126,24 +118,16 @@
                                                       var clk     = sim_states[s_expr[5]].value() ;
 
                                                       sim_signals[s_expr[4]].value = 0;
-						      if (typeof sim_events["mem"][clk-1] != "undefined")
-                                                      {
-						          var remain = sim_events["mem"][clk-1];
-                                                          if (remain > 0)
-                                                          {
-                                                              remain--;
-						              sim_events["mem"][clk] = remain;
-                                                              if (remain > 0)
-                                                                  return;
-                                                          }
-                                                      }
-						      if (typeof sim_events["mem"][clk] == "undefined")
-                                                      {
-						          var remain = MP_wc();
-						          sim_events["mem"][clk] = remain; 
-                                                          if (remain > 0)
-                                                              return;
-                                                      }
+						      var remain = MP_wc();
+						      if ( 
+                                                           (typeof sim_events["mem"][clk-1] != "undefined") &&
+						           (sim_events["mem"][clk-1] > 0) 
+                                                         ) {
+						              remain = sim_events["mem"][clk-1] - 1;
+                                                           }
+						      sim_events["mem"][clk] = remain;
+                                                      if (remain > 0)
+                                                          return;
 
 						      var value   = 0;
                                                       address = address & 0xFFFFFFFC;

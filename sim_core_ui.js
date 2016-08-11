@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015-2016 Javier Prieto Cepeda, Felix Garcia Carballeira, Alejandro Calderon Mateos
+ *  Copyright 2015-2017 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  * 
@@ -33,6 +33,7 @@
                 FIRMWARE['assembly']           = new Object() ;
                 FIRMWARE['labels']             = new Object() ;
                 FIRMWARE['labels2']            = new Object() ;
+                FIRMWARE['labels_firm']        = new Object() ;
                 FIRMWARE['registers']          = new Object() ;
                 FIRMWARE['cihash']             = new Object() ;
                 FIRMWARE['pseudoInstructions'] = new Object() ;
@@ -63,6 +64,8 @@
                 FIRMWARE['labels'] = preSIMWARE['labels'] ;
 	    if (typeof preSIMWARE['labels2'] != "undefined") 
                 FIRMWARE['labels2'] = preSIMWARE['labels2'] ;
+	    if (typeof preSIMWARE['labels_firm'] != "undefined") 
+                FIRMWARE['labels_firm'] = preSIMWARE['labels_firm'] ;
 	    if (typeof preSIMWARE['stackRegister'] != "undefined")
 		FIRMWARE['stackRegister'] = preSIMWARE['stackRegister'] ;
 	}
@@ -537,10 +540,10 @@
                         }
 
 			if (key == index)
-			     o1 += "<tr>" + 
+			     o1 += "<tr id='addr" + key + "'>" + 
                                    "<td width=15%>" + "0x" + parseInt(key).toString(16) + "</td>" + 
                                    "<td><b><div style='color: blue'>" + value + "</div></b></td></tr>";
-			else o1 += "<tr>" + 
+			else o1 += "<tr id='addr" + key + "'>" + 
                                    "<td width=15%><small>" + "0x" + parseInt(key).toString(16) + "</small></td>" + 
                                    "<td          ><div><small>" + value + "</small></div></td></tr>";
 		 }
@@ -565,10 +568,10 @@
                         }
 
 			if (key == index)
-			     o1 += "<tr>" +
+			     o1 += "<tr id='addr" + key + "'>" +
                                    "<td width=50%><font color=blue><b>" + "0x" + key3 + "-" + key2 + "</b></font></td>" +
                                    "<td          ><font color=blue><b>" +                   value2 + "</b></font></td></tr>" ;
-			else o1 += "<tr>" +
+			else o1 += "<tr id='addr" + key + "'>" +
                                    "<td width=50%><small>"              + "0x" + key3 + "-" + key2 + "</small></td>" +
                                    "<td          ><small>"              + value2                   + "</small></td></tr>" ;
 		 }
@@ -582,6 +585,16 @@
             $("#memory_" + name).html("<center><table class='table table-hover table-condensed table-responsive'>" + 
                                       "<tbody id=none>" + o1 + "</tbody>" +
                                       "</table></center>");
+
+            // scroll up/down to index element...
+	    var obj_byid = $('#addr' + index) ;
+	    if ( (redraw) && (obj_byid.length > 0) )
+            {
+	        var topPos = obj_byid[0].offsetTop ;
+	        var obj_byid = $('#memory_' + name) ;
+	        if (obj_byid.length > 0)
+	            obj_byid[0].scrollTop = topPos;
+            }
         }
 
 	function get_deco_from_pc ( pc )
@@ -609,21 +622,41 @@
                 if (typeof FIRMWARE.assembly[old_addr] != "undefined")
                 {
                      o1 = $("#asmdbg" + old_addr) ;
-                     o1.css('background-color', FIRMWARE.assembly[old_addr].bgcolor);
+                     o1.css('background-color', FIRMWARE.assembly[old_addr].bgcolor) ;
                 }
                 else
                 {
                      for (l in FIRMWARE.assembly)
                      {
                           o1 = $("#asmdbg" + l) ;
-                          o1.css('background-color', FIRMWARE.assembly[l].bgcolor);
+                          o1.css('background-color', FIRMWARE.assembly[l].bgcolor) ;
                      }
                 }
                 old_addr = curr_addr ;
 
                 o1 = $("#asmdbg" + curr_addr) ;
-                o1.css('background-color', '#00EE88');
+                o1.css('background-color', '#00EE88') ;
+
+                return o1 ;
 	}
+
+        function asmdbg_set_breakpoint ( addr )
+        {
+                var hexaddr  = "0x" + addr.toString(16) ;
+
+                var o1       = document.getElementById("bp"+hexaddr) ;
+                var bp_state = FIRMWARE.assembly[hexaddr].breakpoint ;
+
+                if (bp_state === true) {
+                    bp_state = false ;
+                    o1.innerHTML = '&nbsp;' ;
+                } else {
+                    bp_state = true ;
+                    o1.innerHTML = '<img height=22 src="images/stop.png">' ;
+                }
+
+                FIRMWARE.assembly[hexaddr].breakpoint = bp_state ;
+        }
 
 	function show_dbg_mpc ( )
 	{
@@ -893,43 +926,41 @@
 	         "<table style='border-style: solid' border=1 width=100% height=100%>" ;
 	   for (skey in segments) 
 	   {
-	        if (segments[skey].name != "stack")
-	   	    o1 += "<tr><td valign=middle align=center bgcolor=" + segments[skey].color + ">" + 
-                                segments[skey].name + "</td></tr>" +
+	        if (segments[skey].name != ".stack")
+	   	    o1 += "<tr><td valign=middle align=center height=60px bgcolor=" + segments[skey].color + ">" + 
+                          segments[skey].name + 
+                          "</td></tr>" +
 	   	          "<tr><td valign=middle align=center height=25px>...</td></tr>" ;
 	   }
-	   o1 += "<tr><td valign=middle align=center bgcolor=" + segments['stack'].color + 
-	         ">" + segments['stack'].name + "</td></tr>" +
+	   o1 += "<tr><td valign=middle align=center bgcolor=" + segments['.stack'].color + ">" + 
+                 segments['.stack'].name + 
+                 "</td></tr>" +
 	         "</table>" +
 	         " </td>" +
 	         " <td width=20px>&nbsp;</td>" +
 	         " <td>" +
 	         " <table style='border-style: solid; border-width:0px; width:100%; height:100%'>" ;
 
-           var offset = 0 ;
+           var sx = "" ;
+           var sp = "" ;
 	   for (skey in segments) 
 	   {
-               offset += 1 ;
-	       if (segments[skey].name != "stack")
-	   	 o1 += "<tr>" +
-	   	       "    <td valign=middle align=center style='display: block; position: absolute;'>" +
-	   	       "    <div id='compile_begin_" + segments[skey].name + "' " + 
-                       "         style='position:relative; bottom:" + (3*offset) + "px;'>" + segments[skey].begin + "</div>" +
-	   	       "    </td>" +
-	   	       " </tr>" +
-	   	       " <tr>" +
-	   	       "    <td valign=middle align=center style='display: block; position: absolute;'>" +
-	   	       "    <div id='compile_end_"   + segments[skey].name + "' " + 
-                       "         style='position:relative; bottom:" + (2*offset) + "px;'>" + segments[skey].end + "</div>" +
-	   	       "    </td>" +
-	   	       " </tr>" ;
+	       sx = "<tr>" +
+	   	    "    <td valign=top align=left height=30px style=''>" +
+	   	    "    <div id='compile_begin_" + segments[skey].name + "'>" + segments[skey].begin + "</div>" +
+	   	    "    </td>" +
+	   	    " </tr>" +
+	   	    " <tr>" +
+	   	    "    <td valign=bottom align=left height=30px style=''>" +
+	   	    "    <div id='compile_end_"   + segments[skey].name + "'>" + segments[skey].end + "</div>" +
+	   	    "    </td>" +
+	   	    " </tr>" ;
+
+	       if (segments[skey].name != ".stack")
+	   	    o1 += sx + "<tr><td valign=middle align=center height=25px>...</td></tr>" ;
+               else sp  = sx ;
 	   }
-	   o1 += "  <tr>" +
-	         "  <td valign=middle align=center style='display: block; position: absolute;'>" +
-	         "<div id='compile_end_"  + segments['stack'].name + "' style='position:relative;bottom:25px;'>[SP_n]</div>"+
-	         "<div id='compile_begin_" + segments['stack'].name + "' style='position:relative;bottom:-20px;'>[SP_0]</div>"+
-	         "  </td>" +
-	         "  </tr>" +
+	   o1 += sp +
 	         " </table>" +
 	         " </td>" +
 	         " </tr>" +
@@ -977,7 +1008,7 @@
                      s_label = "&nbsp;" ;
                      if (typeof a2l[l] != "undefined") {
                          for (var i=0; i<a2l[l].length; i++) {
-                              s_label = s_label + "<span class='label label-info'>" + a2l[l][i] + "</span>" ;
+                              s_label = s_label + "<span class='label label-primary'>" + a2l[l][i] + "</span>" ;
                          }
                      }
 
@@ -1001,78 +1032,5 @@
                 o += "</tbody></table></center>" ;
 
                 return o ;
-	}
-
-
-        /*
-         *  play/stop
-         */
-
-        var DBG_stop  = true ;
-
-	function asmdbg_set_breakpoint ( addr )
-	{
-                var hexaddr  = "0x" + addr.toString(16) ;
-
-                var o1       = document.getElementById("bp"+hexaddr) ;
-                var bp_state = FIRMWARE.assembly[hexaddr].breakpoint ;
-
-                if (bp_state === true) {
-		    bp_state = false ;
-                    o1.innerHTML = '&nbsp;' ;
-	        } else {
-	 	    bp_state = true ;
-                    o1.innerHTML = '<img height=22 src="images/stop.png">' ;
-	        }
-
-                FIRMWARE.assembly[hexaddr].breakpoint = bp_state ;
-	}
-
-	function asmdbg_stop ( btn1 )
-	{
-                $(btn1).html("Run") ;
-                $(btn1).removeClass("ui-icon-minus") ;
-                $(btn1).addClass("ui-icon-carat-r") ;
-                $(btn1).css("backgroundColor", "#CCCCCC") ;
-
-                DBG_stop = true;
-	}
-
-	function asmdbg_play ( btn1 )
-	{
-                $(btn1).css("backgroundColor", 'rgb(51, 136, 204)') ;
-                $(btn1).html("Stop") ;
-                $(btn1).removeClass("ui-icon-carat-r") ;
-                $(btn1).addClass("ui-icon-minus") ;
-
-                if (DBG_stop) 
-                {
-	            asmdbg_stop(btn1) ;
-                    return ;
-                }
-
-                var ret = false ;
-	        if (get_cfg('DBG_level') == "instruction")
-                     ret = execute_instruction() ;
-                else ret = execute_microinstruction() ;
-
-                if (ret === false) 
-                {
-	            asmdbg_stop(btn1) ;
-                    return ;
-                }
-
-                reg_pc      = get_value(sim_states["REG_PC"]) ;
-                curr_addr   = "0x" + reg_pc.toString(16) ;
-
-                if ( (typeof FIRMWARE.assembly[curr_addr] != "undefined") && (FIRMWARE.assembly[curr_addr].breakpoint) ) 
-                {
-	            asmdbg_stop(btn1) ;
-                    alert("Breakpoint @ " + curr_addr + ":\n" + 
-                          "Instruction at " + curr_addr + " is going to be fetched.") ;
-                    return ;
-                }
-
-                setTimeout(asmdbg_play, get_cfg('DBG_delay'), btn1) ;
 	}
 
