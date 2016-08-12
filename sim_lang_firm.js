@@ -265,6 +265,8 @@ function loadFirmware (text)
 					var pseudoFieldAux	  = new Object();
 					pseudoFieldAux.name	  = getToken(context);
 					pseudoFieldAux.type	  = getToken(context).replace("num", "inm");
+					if(pseudoFieldAux.type.substring(0,3) == "reg")
+						pseudoFieldAux.type = "reg";
 					pseudoInitial.fields.push(pseudoFieldAux);
 					pseudoInitial.signature = pseudoInitial.signature + getToken(context) + ",";
 					nextToken(context);

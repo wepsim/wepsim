@@ -43,7 +43,6 @@
 	directives[".asciiz"]  = { name:".asciiz", kindof:"datatype", size:1 };
 	directives[".align"]   = { name:".align",  kindof:"datatype", size:0 };
 
-
 /*
  *   Auxiliary functions
  */
@@ -776,7 +775,7 @@ function read_text ( context, datosCU, ret )
 						var res = decimal2binary(converted, size);
 						break;
 					default:
-						return langError(context, "An unknown error ocurred (53)");	
+						return langError(context, "An unknown error ocurred (1)");	
 				}
 
 				// check if bits fit in the space
@@ -1064,7 +1063,7 @@ function simlang_compile (text, datosCU)
 			    error = "Relative value (" + (converted - ret.labels[i].addr - WORD_BYTES) + " in decimal) needs " + num_bits.length + " bits but there is space for only " + size + " bits";
 			}
 		}	
- 		else return langError(context, "Unexpected error (54)");
+ 		else return langError(context, "Unexpected error (2)");
 
 		// check size
 		if (free_space < 0) {
