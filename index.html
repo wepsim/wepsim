@@ -309,7 +309,8 @@
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-xs-4 col-md-1 col-lg-1"
 				   data-transition="none" data-inline="true"
 				   onclick="var textToMCompile = inputfirm.getValue();
-                                            compileFirmware(textToMCompile, true);">&#181;compile</a>
+                                            compileFirmware(textToMCompile, true);
+                                            $('#asm_debugger').html('<br>After updates on the microcode, assembler has to be compiled against it.');">&#181;compile</a>
 		            <a href="#"       style="background-color: #CCCCCC"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2"
 				   data-transition="none" data-inline="true"

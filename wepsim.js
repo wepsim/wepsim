@@ -488,7 +488,7 @@
     // Example management
     //
 
-    function load_from_example_assembly ( example_id )
+    function load_from_example_assembly ( example_id, chain_next_step )
     {
 	$.mobile.pageContainer.pagecontainer('change', '#main4');
 	inputasm.setValue("Please wait...");
@@ -499,27 +499,32 @@
 			    inputasm.setValue(mcode);
 			    inputasm.refresh();
 
-                            var ok = compileAssembly(mcode, true);
+                            var ok = false ;
+                            var SIMWARE = get_simware() ;
+	                    if (SIMWARE.firmware.length != 0) 
+                                ok = compileAssembly(mcode, true);
+
 			    if (true == ok)
 			    {
-				  setTimeout(function(){
-					     $.mobile.pageContainer.pagecontainer('change', '#main1');
-                                             show_memories_values();
-				  }, 50);
-
-				  $.notify({ title: '<strong>INFO</strong>', 
-					     message: 'Example ready to be used.'},
-					   { type: 'success', 
-					     newest_on_top: true, 
-					     delay: get_cfg('NOTIF_delay'), 
-					     placement: { from: 'top', align: 'center' } 
-					    });
+                                  if (true == chain_next_step)
+				      setTimeout(function(){
+					            $.mobile.pageContainer.pagecontainer('change', '#main1');
+				                 }, 50);
+                                  show_memories_values();
 			    }
+
+			    $.notify({ title: '<strong>INFO</strong>', 
+			  	       message: 'Example ready to be used.'},
+				     { type: 'success', 
+				       newest_on_top: true, 
+				       delay: get_cfg('NOTIF_delay'), 
+				       placement: { from: 'top', align: 'center' } 
+				      });
                       };
         wepsim_load_from_url(url, do_next) ;
     }
 
-    function load_from_example_firmware ( example_id, do_next )
+    function load_from_example_firmware ( example_id, chain_next_step )
     {
 	$.mobile.pageContainer.pagecontainer('change', '#main3');
 	inputfirm.setValue("Please wait...");
@@ -531,11 +536,22 @@
 			   inputfirm.refresh();
 
 			   var ok = compileFirmware(mcode, true);
-                           if (true == ok)
-                               setTimeout(function() { 
-                                             load_from_example_assembly(example_id); 
-                                             show_memories_values();
-                                          }, 50);
+                           if (true == ok) 
+                           {
+                                  if (true == chain_next_step)
+                                       setTimeout(function() { 
+                                                     load_from_example_assembly(example_id, chain_next_step); 
+                                                  }, 50);
+                                  else show_memories_values();
+                           }
+
+			   $.notify({ title: '<strong>INFO</strong>', 
+				      message: 'Example ready to be used.'},
+				    { type: 'success', 
+				      newest_on_top: true, 
+				      delay: get_cfg('NOTIF_delay'), 
+				      placement: { from: 'top', align: 'center' } 
+				     });
                       };
         wepsim_load_from_url(url, do_next) ;
     }
