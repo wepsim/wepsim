@@ -122,7 +122,8 @@
 		      </div>
 		      <div id="eltos_dbg"  class="ui-body-d ui-content">
 			   <center>
-		   	   <table class='table ui-responsive ui-table' style="margin-bottom: 0px;">
+		           <div id="asm_table" style="overflow-x:auto;">
+		   	   <table class='table ui-responsive ui-table' style="margin-bottom:0px; min-width:700px;">
 		   	   <thead>
 			   <tr>
 		   <th width=1%>
@@ -145,11 +146,12 @@
 			   </tr>
 			   </thead>
 			   </table>
+		   	   </div>
 			   </center>
 
 		           <div id="asm_debugger_container" 
                                 style="overflow-y:auto; overflow-x:auto; height:70% !important;">
-                                <div id="asm_debugger">
+                                <div id="asm_debugger" style="min-width:700px;">
                                 <br>
                                 <ol>
                                 <li>Load the microcode to be used.</li>
@@ -1042,6 +1044,11 @@
 	    }) ;
 
             $("div.wsversion").replaceWith(get_cfg('version'));
+
+            var target = $("#asm_table");
+            $("#asm_debugger_container").scroll(function() {
+               target.prop("scrollTop", this.scrollTop).prop("scrollLeft", this.scrollLeft);
+            });
 
 	    init("#states_ALL", "#states_BR", "#io_ALL", "#config_ALL"); 
 	    reset(); 
