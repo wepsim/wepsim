@@ -722,7 +722,7 @@ function read_text ( context, datosCU, ret )
 						if (!label_found){
 							var res = decimal2binary(converted, size);
 							if (field.type == "address" && "rel" == field.address_type)
-								res = decimal2binary(converted - seg_ptr - 4, size);	
+								res = decimal2binary(converted - seg_ptr - WORD_BYTES, size);	
 						}
 						
 						break;
@@ -783,7 +783,7 @@ function read_text ( context, datosCU, ret )
 				if (advance[j] == 1 && !label_found){
 					if (res[1] < 0){
 						if (field.type == "address" && "rel" == field.address_type)
-							error = "Relative value (" + (converted - seg_ptr - 4) + " in decimal) needs " + res[0].length + " bits but there is space for only " + size + " bits";
+							error = "Relative value (" + (converted - seg_ptr - WORD_BYTES) + " in decimal) needs " + res[0].length + " bits but there is space for only " + size + " bits";
 						else var error = "'" + value + "' needs " + res[0].length + " bits but there is space for only " + size + " bits";
 						advance[j] = 0;						
 					}
@@ -907,7 +907,7 @@ function read_text ( context, datosCU, ret )
 			if (i<firmware[instruction][candidate].nwords-1) s_def="---";
 			ret.assembly["0x" + seg_ptr.toString(16)] = { breakpoint:false, binary:machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH), source:s_def, source_original:s_ori } ; 
 			ret.mp["0x" + seg_ptr.toString(16)] = machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH) ;
-                	seg_ptr = seg_ptr + 4 ;
+                	seg_ptr = seg_ptr + WORD_BYTES ;
 		}
 	
 		if (!isPseudo && max_length == signature_fields[candidate].length)
@@ -1045,7 +1045,7 @@ function simlang_compile (text, datosCU)
 		var auxAddr = ret.labels[i].addr;		
 		for (j=0; j<ret.labels[i].nwords; j++){
 			machineCode = ret.mp["0x" + auxAddr.toString(16)] + machineCode;
-			auxAddr += 4;
+			auxAddr += WORD_BYTES;
 		}
 
 		var size = ret.labels[i].startbit-ret.labels[i].stopbit+1;
@@ -1058,10 +1058,10 @@ function simlang_compile (text, datosCU)
                         free_space = a[1] ;
 			var error = "'" + ret.labels[i].name + "' needs " + num_bits.length + " bits but there is space for only " + size + " bits";
 			if ("rel" == ret.labels[i].rel){
-			    var a = decimal2binary(converted - ret.labels[i].addr - 4, size);
+			    var a = decimal2binary(converted - ret.labels[i].addr - WORD_BYTES, size);
 			    num_bits = a[0] ;
                             free_space = a[1] ;
-			    error = "Relative value (" + (converted - ret.labels[i].addr - 4) + " in decimal) needs " + num_bits.length + " bits but there is space for only " + size + " bits";
+			    error = "Relative value (" + (converted - ret.labels[i].addr - WORD_BYTES) + " in decimal) needs " + num_bits.length + " bits but there is space for only " + size + " bits";
 			}
 		}	
  		else return langError(context, "Unexpected error (54)");
@@ -1080,7 +1080,7 @@ function simlang_compile (text, datosCU)
 		for (j=ret.labels[i].nwords-1; j>=0; j--)
                 {
 			ret.mp["0x" + auxAddr.toString(16)] = machineCode.substring(j*WORD_LENGTH, (j+1)*WORD_LENGTH) ;
-                	auxAddr += 4 ;
+                	auxAddr += WORD_BYTES ;
 		}
 	 }	 
 
