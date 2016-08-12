@@ -270,7 +270,7 @@ function read_data ( context, datosCU, ret )
 		      var tag = possible_tag.substring(0, possible_tag.length-1); 
 
    		      if (!isValidTag(tag))
-			  return langError(context, "A tag must follow an alphanumeric format (starting with a letter) but found '" + tag + "' instead");
+			  return langError(context, "A tag must follow an alphanumeric format (starting with a letter or underscore) but found '" + tag + "' instead");
 		      if (context.firmware[tag])
 			  return langError(context, "A tag can not have the same name as an instruction (" + tag + ")");
 		      if (ret.labels2[tag])
@@ -313,7 +313,7 @@ function read_data ( context, datosCU, ret )
 				else{
 					if (".word" == possible_datatype){
 						if (!isValidTag(possible_value))
-							return langError(context, "A tag must follow an alphanumeric format (starting with a letter) but found '" + possible_value + "' instead");
+							return langError(context, "A tag must follow an alphanumeric format (starting with a letter or underscore) but found '" + possible_value + "' instead");
 						if (context.firmware[possible_value])
 							return langError(context, "A tag can not have the same name as an instruction (" + possible_value + ")");
 						number = 0;
@@ -579,7 +579,7 @@ function read_text ( context, datosCU, ret )
 	
 		        var tag = possible_tag.substring(0, possible_tag.length-1); 
    		        if (!isValidTag(tag))
-				return langError(context, "A tag must follow an alphanumeric format (starting with a letter) but found '" + tag + "' instead");
+				return langError(context, "A tag must follow an alphanumeric format (starting with a letter or underscore) but found '" + tag + "' instead");
 			if (firmware[tag])
 				return langError(context, "A tag can not have the same name as an instruction (" + tag + ")");
 			if (ret.labels2[tag])
@@ -695,7 +695,7 @@ function read_text ( context, datosCU, ret )
 						else if ((converted = isChar(value)) !== false);
 						else{
 							if (!isValidTag(value)){
-								var error = "A tag must follow an alphanumeric format (starting with a letter) but found '" + value + "' instead";
+								var error = "A tag must follow an alphanumeric format (starting with a letter or underscore) but found '" + value + "' instead";
 								advance[j] = 0;
 								break;
 							}
