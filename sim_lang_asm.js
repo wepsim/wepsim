@@ -22,7 +22,9 @@
  *   Constants
  */
 
-	const BYTE_LENGTH = 8;
+	const BYTE_LENGTH = 8 ;
+	const WORD_BYTES = 4 ;
+	const WORD_LENGTH = WORD_BYTES * BYTE_LENGTH ;
 
 /*
  *   Directives 
@@ -129,7 +131,7 @@ function isChar ( n )
 function decimal2binary(number, size)
 {
 	var num_bits = number.toString(2);
-	if(num_bits.length > 32)
+	if(num_bits.length > WORD_LENGTH)
 		return [num_bits, size-num_bits.length];		
 
 	num_bits = (number >>> 0).toString(2);
@@ -195,7 +197,7 @@ function get_candidate ( advance, instruction )
 
 function reset_assembly(nwords)
 {
-	return "0".repeat(32*nwords);		
+	return "0".repeat(WORD_LENGTH*nwords);		
 }
 
 function assembly_replacement(machineCode, num_bits, startbit, stopbit, free_space)
@@ -209,7 +211,7 @@ function assembly_replacement(machineCode, num_bits, startbit, stopbit, free_spa
 function assembly_co_cop(machineCode, co, cop)
 {		
 	if (co !== false) 
-	    machineCode = assembly_replacement(machineCode, co, 32, 26, 0); 	
+	    machineCode = assembly_replacement(machineCode, co, WORD_LENGTH, WORD_LENGTH-6, 0); 	
 	if (cop !== false)
 	    machineCode = assembly_replacement(machineCode, cop, 4, 0, 0);
 
@@ -218,11 +220,11 @@ function assembly_co_cop(machineCode, co, cop)
 
 function writememory_and_reset ( mp, gen, nwords )
 {
-	if (gen.byteWord >= 4) 
+	if (gen.byteWord >= WORD_BYTES) 
         {
 	    mp["0x" + gen.seg_ptr.toString(16)] = gen.machineCode ;               			
 
-            gen.seg_ptr     = gen.seg_ptr + 4 ;
+            gen.seg_ptr     = gen.seg_ptr + WORD_BYTES ;
             gen.byteWord    = 0 ;
             gen.machineCode = reset_assembly(nwords) ;
         }
@@ -533,7 +535,7 @@ function read_data ( context, datosCU, ret )
 	   // Fill memory
 	   if (gen.byteWord > 0){
 		ret.mp["0x" + gen.seg_ptr.toString(16)] = gen.machineCode ;
-                gen.seg_ptr = gen.seg_ptr + 4 ;
+                gen.seg_ptr = gen.seg_ptr + WORD_BYTES ;
 	   }		
 
            ret.seg[seg_name].end = gen.seg_ptr ;  // end of segment is just last pointer value...
@@ -708,11 +710,11 @@ function read_text ( context, datosCU, ret )
 						}
 				
 						if(sel_found){							
-							res = decimal2binary(converted, 32);
+							res = decimal2binary(converted, WORD_LENGTH);
 							if(res[1] < 0)
-								return langError(context, "'" + value + "' is bigger than 32 bits");
+								return langError(context, "'" + value + "' is bigger than " + WORD_LENGTH + " bits");
 							converted = "0".repeat(res[1]) + res[0];	
-							converted = converted.substring(32-start-1, 32-stop);
+							converted = converted.substring(WORD_LENGTH-start-1, WORD_LENGTH-stop);
 							converted = parseInt(converted, 2);
 							s[i+1] = "0x" + converted.toString(16);
 						}
@@ -903,8 +905,8 @@ function read_text ( context, datosCU, ret )
 		for (i=firmware[instruction][candidate].nwords-1; i>=0; i--)
                 {
 			if (i<firmware[instruction][candidate].nwords-1) s_def="---";
-			ret.assembly["0x" + seg_ptr.toString(16)] = { breakpoint:false, binary:machineCode.substring(i*32, (i+1)*32), source:s_def, source_original:s_ori } ; 
-			ret.mp["0x" + seg_ptr.toString(16)] = machineCode.substring(i*32, (i+1)*32) ;
+			ret.assembly["0x" + seg_ptr.toString(16)] = { breakpoint:false, binary:machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH), source:s_def, source_original:s_ori } ; 
+			ret.mp["0x" + seg_ptr.toString(16)] = machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH) ;
                 	seg_ptr = seg_ptr + 4 ;
 		}
 	
@@ -1077,7 +1079,7 @@ function simlang_compile (text, datosCU)
 		auxAddr = ret.labels[i].addr;
 		for (j=ret.labels[i].nwords-1; j>=0; j--)
                 {
-			ret.mp["0x" + auxAddr.toString(16)] = machineCode.substring(j*32, (j+1)*32) ;
+			ret.mp["0x" + auxAddr.toString(16)] = machineCode.substring(j*WORD_LENGTH, (j+1)*WORD_LENGTH) ;
                 	auxAddr += 4 ;
 		}
 	 }	 
