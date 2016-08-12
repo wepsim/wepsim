@@ -148,7 +148,7 @@ function isValidTag ( tag )
 {
 	if (!(isDecimal(tag[0]) === false))
 		return false;
-	var myRegEx  = /[^a-z\d]/i;
+	var myRegEx  = /[^a-z,_\d]/i;
 	return !(myRegEx.test(tag));
 }
 
@@ -282,7 +282,6 @@ function read_data ( context, datosCU, ret )
 		      // .<datatype> | tagX+1
 		      nextToken(context) ;
 		   }
-
 
 		   // 
 		   //    etiq1:   
