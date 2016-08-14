@@ -73,17 +73,32 @@
                                                    {
                                                       var bus_ab = sim_states[s_expr[1]].value ;
                                                       var bus_db = sim_states[s_expr[2]].value ;
-                                                      var clk    = sim_states[s_expr[5]].value() ;
+                                                      var clk    = sim_states[s_expr[5]].value();
+                                                      var ch     = String.fromCharCode(bus_db);
 
                                                       if (bus_ab != DDR_ID) {
                                                           return;
                                                       }
 
-                                                      var screen = document.getElementById("kdb_con").value;
-                                                      if (typeof sim_events["screen"][clk] != "undefined") 
-                                                          screen = screen.substr(0, screen.length-1);
-                                                      screen = screen + String.fromCharCode(bus_db);
-                                                      document.getElementById("kdb_con").value = screen;
+                                                      if (ch == '\a') 
+                                                      {
+                                                         // (a) audible
+                                                         var s1 = T("sin", {freq:440, mul:0.5});
+                                                         var s2 = T("sin", {freq:660, mul:0.5});
+                                                         T("perc", {r:500}, s1, s2).on("ended", 
+										        function() {
+										           this.pause(); 
+										        }).bang().play();
+                                                      }
+                                                      else
+                                                      {
+                                                          // (b) visible
+                                                         var screen = document.getElementById("kdb_con").value;
+                                                         if (typeof sim_events["screen"][clk] != "undefined") 
+                                                             screen = screen.substr(0, screen.length-1);
+                                                         screen = screen + String.fromCharCode(bus_db);
+                                                         document.getElementById("kdb_con").value = screen;
+                                                      }
 
                                                       sim_states[s_expr[3]].value = bus_db ;
                                                       sim_states[s_expr[4]].value = 1 ;
