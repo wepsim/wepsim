@@ -38,6 +38,7 @@ cat external/bootstrap.min.js \
     external/knockout-3.4.0.js \
     external/bootbox.min.js \
     external/spectrum.min.js \
+    external/timbre.min.js \
     external/codemirror.js \
     external/codemirror.javascript.js \
     external/codemirror.keymap/sublime.js \
