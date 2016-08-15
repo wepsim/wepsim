@@ -32,6 +32,7 @@ function read_microprg ( context )
 	   // }
 
            var microprograma = new Array();
+           var microcomments = new Array();
 
 	   // match mandatory {
 	   if (! isToken(context, "{") )
@@ -103,15 +104,14 @@ function read_microprg ( context )
 				}
 			}
 
-			if (etiquetaFounded == 0)
-			{
-				context.labelsNotFound.push(labelsNotFoundAux);
+			if (etiquetaFounded == 0) {
+			    context.labelsNotFound.push(labelsNotFoundAux);
 			}
 
                         nextToken(context) ;
 			// match optional ,
 			if ( isToken(context, ",") )
-                            nextToken(context) ;
+                             nextToken(context) ;
 
 			continue ;
 		   }
@@ -146,6 +146,10 @@ function read_microprg ( context )
                         nextToken(context) ;
 	       }
 
+               var acc_cmt = getComments(context) ;
+               microcomments.push(acc_cmt);
+               resetComments(context) ;
+
 	       microprograma.push(microInstruccionAux);
 	       context.contadorMC++;
 
@@ -157,7 +161,8 @@ function read_microprg ( context )
 	   // match mandatory }
            nextToken(context) ;
 
-           return microprograma ;
+           return { 'microprograma': microprograma, 
+                    'microcomments': microcomments } ;
 }
 
 function loadFirmware (text)
@@ -179,6 +184,7 @@ function loadFirmware (text)
 	   context.newlines       	= new Array() ;
 	   context.pseudoInstructions	= new Array();
 	   context.stackRegister	= null ;
+           context.comments             = new Array() ;
 
            nextToken(context) ;
            while (context.t < context.text.length)
@@ -314,7 +320,8 @@ function loadFirmware (text)
 
                    instruccionAux["signature"]       = "begin" ;
 		   instruccionAux["signatureGlobal"] = "begin" ;
-                   instruccionAux["microcode"]       = ret ;
+                   instruccionAux["microcode"]       = ret.microprograma ;
+                   instruccionAux["microcomments"]   = ret.microcomments ;
 		   context.instrucciones.push(instruccionAux);
 
                    context.contadorMC = context.contadorMC + 9; // padding between instrucctions
@@ -670,7 +677,8 @@ function loadFirmware (text)
                if (typeof ret.error != "undefined")
                    return ret ;
 
-               instruccionAux["microcode"] = ret ;
+               instruccionAux["microcode"]     = ret.microprograma ;
+               instruccionAux["microcomments"] = ret.microcomments ;
 	       context.instrucciones.push(instruccionAux);
 
                context.contadorMC = context.contadorMC + 9; // padding between instrucctions
