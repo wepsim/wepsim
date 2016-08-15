@@ -41,7 +41,7 @@ function nextToken ( context )
 		     ///// context.tokens.push(tok) ;
 		     ///// context.token_types.push("COMMENT") ;
                      ///// context.i = context.tokens.length - 1 ;
-                     ///// return;
+                     ///// return context ;
                  }
 
                  if (context.text[context.t] == '\n') {
