@@ -158,7 +158,7 @@
 
     function wepsim_execute_chainplay ( btn1 )
     {
-	if (DBG_stop) 
+	if (DBG_stop)
 	{
 	    wepsim_execute_stop(btn1) ;
 	    return ;
@@ -169,7 +169,7 @@
 	     ret = execute_microprogram() ;
 	else ret = execute_microinstruction() ;
 
-	if (ret === false) 
+	if (ret === false)
 	{
 	    wepsim_execute_stop(btn1) ;
 	    return ;
@@ -178,13 +178,29 @@
 	reg_pc      = get_value(sim_states["REG_PC"]) ;
 	curr_addr   = "0x" + reg_pc.toString(16) ;
 
-	if ( (typeof FIRMWARE.assembly[curr_addr] != "undefined") && 
-	     (FIRMWARE.assembly[curr_addr].breakpoint) ) 
+	if ( (typeof FIRMWARE.assembly[curr_addr] != "undefined") &&
+	     (FIRMWARE.assembly[curr_addr].breakpoint) )
 	{
 	    wepsim_execute_stop(btn1) ;
-	    alert("Breakpoint @ " + curr_addr + ":\n" + 
+	    alert("Breakpoint @ " + curr_addr + ":\n" +
 		  "Instruction at " + curr_addr + " is going to be fetched.") ;
 	    return ;
+	}
+
+	if ( (typeof FIRMWARE.comments != "undefined") &&
+             (typeof FIRMWARE.comments[curr_addr] != "undefined") )
+	{
+            var cmt_str = FIRMWARE.comments[curr_addr] ;
+            var cmt_array = cmt_str.split(":") ;
+            if (cmt_array[0].trim().toLowerCase() == "notify")
+            {
+                var cmt_notify = cmt_array.slice(1, b.length).join(":") ;
+	        var ret = confirm("Notify @ " + curr_addr + ":\n" + cmt_notify) ;
+	        if (ret == true) {
+	            wepsim_execute_stop(btn1) ;
+	            return ;
+	        }
+            }
 	}
 
 	setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), btn1) ;
