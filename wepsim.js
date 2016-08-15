@@ -156,10 +156,40 @@
         wepsim_execute_chainplay(btn1) ;
     }
 
+    function wepsim_check_stopbynotify ( )
+    {
+        var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
+        var cmt_str   = MC_comment[reg_maddr] ;
+
+        if (typeof cmt_str == "undefined")
+            return false ;
+
+        if ("" == cmt_str)
+            return false ;
+
+        if (cmt_str.trim().startsWith("notify"))
+	    return confirm("Notify @ " + reg_maddr + ":\n" + cmt_str) ;
+    }
+
+    function wepsim_check_stopbybreakpoint ( )
+    {
+	var reg_pc    = get_value(sim_states["REG_PC"]) ;
+	var curr_addr = "0x" + reg_pc.toString(16) ;
+
+	if (typeof FIRMWARE.assembly[curr_addr] == "undefined")
+            return false ;
+
+	if (false == FIRMWARE.assembly[curr_addr].breakpoint)
+            return false ;
+
+	alert("Breakpoint @ " + curr_addr + ":\n" +
+	      "Instruction at " + curr_addr + " is going to be fetched.") ;
+	return true ;
+    }
+
     function wepsim_execute_chainplay ( btn1 )
     {
-	if (DBG_stop)
-	{
+	if (DBG_stop) {
 	    wepsim_execute_stop(btn1) ;
 	    return ;
 	}
@@ -169,38 +199,21 @@
 	     ret = execute_microprogram() ;
 	else ret = execute_microinstruction() ;
 
-	if (ret === false)
-	{
+	if (ret === false) {
 	    wepsim_execute_stop(btn1) ;
 	    return ;
 	}
 
-	reg_pc      = get_value(sim_states["REG_PC"]) ;
-	curr_addr   = "0x" + reg_pc.toString(16) ;
-
-	if ( (typeof FIRMWARE.assembly[curr_addr] != "undefined") &&
-	     (FIRMWARE.assembly[curr_addr].breakpoint) )
-	{
+        ret = wepsim_check_stopbybreakpoint() ;
+	if (ret == true) {
 	    wepsim_execute_stop(btn1) ;
-	    alert("Breakpoint @ " + curr_addr + ":\n" +
-		  "Instruction at " + curr_addr + " is going to be fetched.") ;
 	    return ;
 	}
 
-	if ( (typeof FIRMWARE.comments != "undefined") &&
-             (typeof FIRMWARE.comments[curr_addr] != "undefined") )
-	{
-            var cmt_str = FIRMWARE.comments[curr_addr] ;
-            var cmt_array = cmt_str.split(":") ;
-            if (cmt_array[0].trim().toLowerCase() == "notify")
-            {
-                var cmt_notify = cmt_array.slice(1, b.length).join(":") ;
-	        var ret = confirm("Notify @ " + curr_addr + ":\n" + cmt_notify) ;
-	        if (ret == true) {
-	            wepsim_execute_stop(btn1) ;
-	            return ;
-	        }
-            }
+        ret = wepsim_check_stopbynotify() ;
+	if (ret == true) {
+	    wepsim_execute_stop(btn1) ;
+	    return ;
 	}
 
 	setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), btn1) ;
