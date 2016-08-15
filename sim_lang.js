@@ -29,10 +29,19 @@ function nextToken ( context )
           while ( ("# \t\n\r".indexOf(context.text[context.t]) != -1) && (context.t < context.text.length) )
           {
                  // # till end of line
-                 if (context.text[context.t] == '#') {
+                 if (context.text[context.t] == '#') 
+                 {
+		     ///// var first = context.t ;
 		     while ( ("\n".indexOf(context.text[context.t]) == -1) && (context.t < context.text.length) ) {
 		    	      context.t++;
 		     }
+		     ///// var last = context.t ;
+                     ///// var tok  = context.text.substring(first, last) ;
+	             ///// tok = tok.trim() ;
+		     ///// context.tokens.push(tok) ;
+		     ///// context.token_types.push("COMMENT") ;
+                     ///// context.i = context.tokens.length - 1 ;
+                     ///// return;
                  }
 
                  if (context.text[context.t] == '\n') {
