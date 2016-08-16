@@ -322,6 +322,7 @@ function loadFirmware (text)
                    instruccionAux["signature"]       = "begin" ;
 		   instruccionAux["signatureGlobal"] = "begin" ;
 		   instruccionAux["signatureUser"]   = "begin" ;
+		   instruccionAux["signatureRaw"]    = "begin" ;
                    instruccionAux["microcode"]       = ret.microprograma ;
                    instruccionAux["microcomments"]   = ret.microcomments ;
 		   context.instrucciones.push(instruccionAux);
@@ -350,7 +351,7 @@ function loadFirmware (text)
 	       var numeroCampos = 0;
 	       var campos = new Array();
 
-	       firma = firma + getToken(context)  + ',';
+	       firma = getToken(context)  + ',';
 	       firmaUsuario = getToken(context) + " ";
 	       nextToken(context);
 
@@ -399,7 +400,7 @@ function loadFirmware (text)
 		           firma = firma + ',(';
 
 			   if (plus_found) 
-                                // next line need concatenate '+' otherwise saveFirmware is not going to work!
+                                // next line needs concatenate '+' otherwise saveFirmware is not going to work!
                                 firmaUsuario = firmaUsuario + '+('; 
 			   else	firmaUsuario = firmaUsuario + ' (';
 
@@ -445,9 +446,10 @@ function loadFirmware (text)
 
 	       firma = firma.substr(0, firma.length-1);
 	       firmaUsuario = firmaUsuario.substr(0, firmaUsuario.length-1);
-	       instruccionAux["signature"] = firma;
+	       instruccionAux["signature"]       = firma;
                instruccionAux["signatureGlobal"] = firma;
-	       instruccionAux["signatureUser"] = firmaUsuario;
+	       instruccionAux["signatureUser"]   = firmaUsuario;
+	       instruccionAux["signatureRaw"]    = firmaUsuario;
 
 // li reg val {
 //             *co=000000,*
@@ -598,10 +600,9 @@ function loadFirmware (text)
 	           firma = firma.replace("," + campos[camposInsertados]["name"], "," + campos[camposInsertados]["type"]);
 	           firma = firma.replace("(" + campos[camposInsertados]["name"], "(" + campos[camposInsertados]["type"]);
 	           firma = firma.replace(")" + campos[camposInsertados]["name"], ")" + campos[camposInsertados]["type"]); 
-                   // next line is commented, otherwise saveFirmware is not going to work!
-		   //firmaUsuario = firmaUsuario.replace(campos[camposInsertados]["name"], campos[camposInsertados]["type"]);                  
+		   firmaUsuario = firmaUsuario.replace(campos[camposInsertados]["name"], campos[camposInsertados]["type"]);                  
  
-	           instruccionAux["signature"] = firma;
+	           instruccionAux["signature"]     = firma;
 		   instruccionAux["signatureUser"] = firmaUsuario;
 	           firmaGlobal = firma.replace("address","num");
 	           firmaGlobal = firmaGlobal.replace("inm" , "num");
@@ -773,7 +774,7 @@ function saveFirmware ( SIMWARE )
 	var file = "";
 	for (var i=0; i<SIMWARE.firmware.length; i++)
 	{
-		file += SIMWARE.firmware[i].signatureUser;
+		file += SIMWARE.firmware[i].signatureRaw;
 		file += " {" + '\n';
 
 		if (typeof SIMWARE.firmware[i].co != "undefined")
