@@ -949,8 +949,9 @@ function simlang_compile (text, datosCU)
 	   context.newlines       	= new Array() ;
 	   context.pseudoInstructions	= new Array();
 	   context.stackRegister	= null ;
-	   context.firmware = new Object() ;
-	   context.pseudoInstructions = new Object();
+	   context.firmware             = new Object() ;
+	   context.pseudoInstructions   = new Object();
+           context.comments             = new Array() ;
 	   
 	   // fill firmware
 	   for (i=0; i<datosCU.firmware.length; i++)
