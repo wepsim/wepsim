@@ -33,6 +33,7 @@ function read_microprg ( context )
 
            var microprograma = new Array();
            var microcomments = new Array();
+           resetComments(context) ;
 
 	   // match mandatory {
 	   if (! isToken(context, "{") )
@@ -320,6 +321,7 @@ function loadFirmware (text)
 
                    instruccionAux["signature"]       = "begin" ;
 		   instruccionAux["signatureGlobal"] = "begin" ;
+		   instruccionAux["signatureUser"]   = "begin" ;
                    instruccionAux["microcode"]       = ret.microprograma ;
                    instruccionAux["microcomments"]   = ret.microcomments ;
 		   context.instrucciones.push(instruccionAux);
@@ -370,9 +372,10 @@ function loadFirmware (text)
 		       var campoAux = new Object();
 		       var auxValue = getToken(context);
 		       
-		       if(auxValue[auxValue.length-1] == "+"){
-				auxValue = auxValue.substring(0,auxValue.length-1);
-				plus_found = true;
+		       if (auxValue[auxValue.length-1] == "+") 
+                       {
+			   auxValue = auxValue.substring(0,auxValue.length-1);
+			   plus_found = true;
 		       }
 
 		       campoAux["name"] = auxValue ;
@@ -395,7 +398,9 @@ function loadFirmware (text)
                    {
 		           firma = firma + ',(';
 
-			   if(plus_found) firmaUsuario = firmaUsuario + '(';
+			   if (plus_found) 
+                                // next line need concatenate '+' otherwise saveFirmware is not going to work!
+                                firmaUsuario = firmaUsuario + '+('; 
 			   else	firmaUsuario = firmaUsuario + ' (';
 
 		           nextToken(context);
@@ -593,7 +598,8 @@ function loadFirmware (text)
 	           firma = firma.replace("," + campos[camposInsertados]["name"], "," + campos[camposInsertados]["type"]);
 	           firma = firma.replace("(" + campos[camposInsertados]["name"], "(" + campos[camposInsertados]["type"]);
 	           firma = firma.replace(")" + campos[camposInsertados]["name"], ")" + campos[camposInsertados]["type"]); 
-		   firmaUsuario = firmaUsuario.replace(campos[camposInsertados]["name"], campos[camposInsertados]["type"]);                  
+                   // next line is commented, otherwise saveFirmware is not going to work!
+		   //firmaUsuario = firmaUsuario.replace(campos[camposInsertados]["name"], campos[camposInsertados]["type"]);                  
  
 	           instruccionAux["signature"] = firma;
 		   instruccionAux["signatureUser"] = firmaUsuario;
@@ -767,19 +773,9 @@ function saveFirmware ( SIMWARE )
 	var file = "";
 	for (var i=0; i<SIMWARE.firmware.length; i++)
 	{
-		file += SIMWARE.firmware[i].name;
-		if (typeof SIMWARE.firmware[i].fields != "undefined")
-		{
-			if (SIMWARE.firmware[i].fields.length>0)
-			{
-				for (var j=0; j<SIMWARE.firmware[i].fields.length; j++)
-				{
-					file += " " + SIMWARE.firmware[i].fields[j].name;
-				}
-			}
-		}
-
+		file += SIMWARE.firmware[i].signatureUser;
 		file += " {" + '\n';
+
 		if (typeof SIMWARE.firmware[i].co != "undefined")
 		{
 			file += '\t' +"co=" + SIMWARE.firmware[i].co + "," + '\n';
@@ -822,6 +818,9 @@ function saveFirmware ( SIMWARE )
 
 			for (var j=0; j<SIMWARE.firmware[i].microcode.length; j++)
 			{
+			        if ("" != SIMWARE.firmware[i].microcomments[j])
+                                    file += '\n\t\t# ' + SIMWARE.firmware[i].microcomments[j];
+
 				if (typeof SIMWARE.labels_firm[addr] != "undefined")
 				     file += '\n' + SIMWARE.labels_firm[addr] + ":\t"; 
 				else file += '\n' + '\t' + '\t';
