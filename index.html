@@ -284,7 +284,7 @@
 			<center>
 			<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
                         <button class="ui-btn ui-btn-b ui-btn-inline" 
-                                onclick="if (confirm('Do you want me to save the current Control Memory contents rather than the editor content?.\n\nPlease notice that this action will remove the current editor contents.'))
+                                onclick="if (confirm('Do you want me to save the current Control Memory contents rather than the editor content?.\n\nPlease notice that this action will replace the current editor contents,\nAND the comments outside the microcode will be removed.'))
                                          {
 					     var SIMWARE = get_simware() ;
 					     var simware_as_text = saveFirmware(SIMWARE);

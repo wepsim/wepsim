@@ -156,7 +156,7 @@
         wepsim_execute_chainplay(btn1) ;
     }
 
-    function wepsim_check_stopbynotify ( )
+    function wepsim_check_stopbynotify_firm ( )
     {
         var reg_maddr     = get_value(sim_states["REG_MICROADDR"]) ;
         var notifications = MC_dashboard[reg_maddr].notify.length ;
@@ -168,13 +168,24 @@
         var noti = "" ;
         for (var i=1; i<notifications; i++) 
         {
-             var noti = MC_dashboard[reg_maddr].notify[i] ;
-	     ret = confirm("Notify @ " + reg_maddr + ":\n" + noti) ;
+             noti = MC_dashboard[reg_maddr].notify[i] ;
+	     ret  = confirm("Notify @ " + reg_maddr + ":\n" + noti) ;
              if (ret) return true ;
         }
     }
 
-    function wepsim_check_stopbybreakpoint ( )
+    function wepsim_check_stopbybreakpoint_firm ( )
+    {
+        var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
+        if (false == MC_dashboard[reg_maddr].breakpoint)
+            return false ;
+
+	alert("Breakpoint @ " + curr_addr + ":\n" +
+	      "Microinstruction at " + curr_addr + " is going to be issue.") ;
+	return true ;
+    }
+
+    function wepsim_check_stopbybreakpoint_asm ( )
     {
 	var reg_pc    = get_value(sim_states["REG_PC"]) ;
 	var curr_addr = "0x" + reg_pc.toString(16) ;
@@ -207,13 +218,19 @@
 	    return ;
 	}
 
-        ret = wepsim_check_stopbybreakpoint() ;
+        ret = wepsim_check_stopbybreakpoint_asm() ;
 	if (ret == true) {
 	    wepsim_execute_stop(btn1) ;
 	    return ;
 	}
 
-        ret = wepsim_check_stopbynotify() ;
+        ret = wepsim_check_stopbybreakpoint_firm() ;
+	if (ret == true) {
+	    wepsim_execute_stop(btn1) ;
+	    return ;
+	}
+
+        ret = wepsim_check_stopbynotify_firm() ;
 	if (ret == true) {
 	    wepsim_execute_stop(btn1) ;
 	    return ;
