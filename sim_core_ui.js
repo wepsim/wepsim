@@ -565,8 +565,9 @@
 
         function show_control_memory ( memory, memory_dashboard, index, redraw ) 
         {
-            if ( (redraw == false) && ($("#memory_MC").is(":visible") == false) )
+            if ( (redraw == false) && ($("#memory_MC").is(":visible") == false) ) {
                   return;
+            }
 
 	    var o1 = "" ;
             var value = "" ;
@@ -583,7 +584,6 @@
 
 		     value += ks + "=" + parseInt(memory[key][ks]).toString(2) + " ";
 		}
-
 
 		var trpin = "&nbsp;" ;
 		if (true == memory_dashboard[key].breakpoint)
@@ -604,10 +604,11 @@
 			   "<td          ><div><small>" + value + "</small></div></td></tr>";
             }
 
-	    if (typeof memory[index] == "undefined")
+	    if (typeof memory[index] == "undefined") {
 		o1 += "<tr>" + 
 		      "<td width=15%><font color=blue>0x" + parseInt(index).toString(16) + "</font></td>" + 
 		      "<td><font color=blue><b>&nbsp;</b></font></td></tr>";
+            }
 
             $("#memory_MC").html("<center><table class='table table-hover table-condensed table-responsive'>" + 
                                       "<tbody id=none>" + o1 + "</tbody>" +
@@ -1061,10 +1062,11 @@
                               "<td colspan='7' style='line-height:0.3;' align=left><small><font color=gray>" + a2s[l] + "</font></small></td>"
                               "</tr>" ;
 
-                     o +=  "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'>" +
+                     o +=  "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'" + 
+                           "    onclick='asmdbg_set_breakpoint(" + l + "); " + 
+                           "             if (event.stopPropagation) event.stopPropagation();'>" +
                            "<td                                             width='2%'></td>" +
-                           "<td class='asm_break'  style='line-height:0.9;' width='10%' id='bp" + l + "' " + 
-                           "                       onclick='asmdbg_set_breakpoint(" + l + "); if(event.stopPropagation) event.stopPropagation();'>&nbsp;</td>" +
+                           "<td class='asm_break'  style='line-height:0.9;' width='10%' id='bp" + l + "'>&nbsp;</td>" +
                            "<td class='asm_addr'   style='line-height:0.9;' width='15%'>" + l + "</td>" +
                            "<td class='asm_label1' style='line-height:0.9;' width='10%' align=right>" + s_label + "</td>" +
                            "<td class='asm_ins'    style='line-height:0.9;' width='25%' align=left>"  + s1_instr + "</td>" +
