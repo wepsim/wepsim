@@ -584,18 +584,23 @@
 		     value += ks + "=" + parseInt(memory[key][ks]).toString(2) + " ";
 		}
 
-		var trclass = " " ;
+
+		var trpin = "&nbsp;" ;
 		if (true == memory_dashboard[key].breakpoint)
-		    trclass = " class='selected_microbreakpoint' " ;
+		    trpin = "<img height=22 src='images/pushpin.png'>" ;
 
 		if (key == index)
-		     o1 += "<tr id='addr" + key + "' " + trclass + 
-			   "    onclick='dbg_set_breakpoint(" + key + "); return;'>" + 
-			   "<td width=15%>" + "0x" + parseInt(key).toString(16) + "</td>" + 
+		     o1 += "<tr id='addr" + key + "' " +
+			   "    onclick='dbg_set_breakpoint(" + key + "); " + 
+                           "             if (event.stopPropagation) event.stopPropagation();'>" +
+			   "<td width=10% align=right>" + "0x" + parseInt(key).toString(16) + "</td>" +
+			   "<td width=5% id='mcpin" + key + "'>"  + trpin       + "</td>" +
 			   "<td><b><div style='color: blue'>" + value + "</div></b></td></tr>";
-		else o1 += "<tr id='addr" + key + "' " + trclass + 
-			   "    onclick='dbg_set_breakpoint(" + key + "); return;'>" + 
-			   "<td width=15%><small>" + "0x" + parseInt(key).toString(16) + "</small></td>" + 
+		else o1 += "<tr id='addr" + key + "' " +
+			   "    onclick='dbg_set_breakpoint(" + key + "); " + 
+                           "             if (event.stopPropagation) event.stopPropagation();'>" +
+			   "<td width=10% align=right><small>" + "0x" + parseInt(key).toString(16) + "</small></td>" +
+			   "<td width=5% id='mcpin" + key + "'>"  + trpin       + "</td>" +
 			   "<td          ><div><small>" + value + "</small></div></td></tr>";
             }
 
@@ -682,15 +687,15 @@
 
         function dbg_set_breakpoint ( addr )
         {
-                var o1       = $("#addr" + addr) ;
+                var o1       = document.getElementById("mcpin" + addr) ;
                 var bp_state = MC_dashboard[addr].breakpoint ;
 
                 if (bp_state === true) {
                     bp_state = false ;
-                    o1.removeClass('selected_microbreakpoint');
+                    o1.innerHTML = '&nbsp;' ;
                 } else {
                     bp_state = true ;
-                    o1.addClass('selected_microbreakpoint');
+                    o1.innerHTML = '<img height=22 src="images/pushpin.png">' ;
                 }
 
                 MC_dashboard[addr].breakpoint = bp_state ;
