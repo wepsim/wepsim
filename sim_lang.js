@@ -29,13 +29,22 @@ function nextToken ( context )
           while ( ("# \t\n\r".indexOf(context.text[context.t]) != -1) && (context.t < context.text.length) )
           {
                  // # till end of line
-                 if (context.text[context.t] == '#') {
+                 if (context.text[context.t] == '#') 
+                 {
+		     var first = context.t + 1 ;
 		     while ( ("\n".indexOf(context.text[context.t]) == -1) && (context.t < context.text.length) ) {
 		    	      context.t++;
 		     }
+		     var last = context.t ;
+
+                     // store the comment but do not return it as token
+                     var tok  = context.text.substring(first, last) ;
+	             tok = tok.trim() ;
+		     context.comments.push(tok) ;
                  }
 
-                 if (context.text[context.t] == '\n') {
+                 if (context.text[context.t] == '\n') 
+                 {
                      context.line++;
                      context.newlines.push(context.t) ;
                  }
@@ -84,7 +93,8 @@ function nextToken ( context )
           var tmp_context = context.t ;
           while ( ("# \t\n\r".indexOf(context.text[tmp_context]) != -1) && (tmp_context < context.text.length) )
 	  {
-			 if (context.text[tmp_context] == '#') {
+			 if (context.text[tmp_context] == '#') 
+                         {
 			     while ( ("\n".indexOf(context.text[tmp_context]) == -1) && (tmp_context < context.text.length) ) {
 				      tmp_context++;
 			     }
@@ -181,5 +191,15 @@ function setLabelContext ( context, labelContext )
         context.t = labelContext.t ;
         context.line = labelContext.line ;
         context.newlines = labelContext.newlines ;
+}
+
+function getComments ( context )
+{
+        return context.comments.join('\n') ;
+}
+
+function resetComments ( context )
+{
+        context.comments = new Array() ;
 }
 

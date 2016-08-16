@@ -156,10 +156,55 @@
         wepsim_execute_chainplay(btn1) ;
     }
 
+    function wepsim_check_stopbynotify_firm ( )
+    {
+        var reg_maddr     = get_value(sim_states["REG_MICROADDR"]) ;
+        var notifications = MC_dashboard[reg_maddr].notify.length ;
+
+        if (1 == notifications)
+            return false ;
+
+        var ret  = false ;
+        var noti = "" ;
+        for (var i=1; i<notifications; i++) 
+        {
+             noti = MC_dashboard[reg_maddr].notify[i] ;
+	     ret  = confirm("Notify @ " + reg_maddr + ":\n" + noti) ;
+             if (ret) return true ;
+        }
+    }
+
+    function wepsim_check_stopbybreakpoint_firm ( )
+    {
+        var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
+        if (false == MC_dashboard[reg_maddr].breakpoint)
+            return false ;
+
+	var curr_addr = "0x" + reg_maddr.toString(16) ;
+	alert("Breakpoint @ " + curr_addr + ":\n" +
+	      "Microinstruction at " + curr_addr + " is going to be issue.") ;
+	return true ;
+    }
+
+    function wepsim_check_stopbybreakpoint_asm ( )
+    {
+	var reg_pc    = get_value(sim_states["REG_PC"]) ;
+	var curr_addr = "0x" + reg_pc.toString(16) ;
+
+	if (typeof FIRMWARE.assembly[curr_addr] == "undefined")
+            return false ;
+
+	if (false == FIRMWARE.assembly[curr_addr].breakpoint)
+            return false ;
+
+	alert("Breakpoint @ " + curr_addr + ":\n" +
+	      "Instruction at " + curr_addr + " is going to be fetched.") ;
+	return true ;
+    }
+
     function wepsim_execute_chainplay ( btn1 )
     {
-	if (DBG_stop) 
-	{
+	if (DBG_stop) {
 	    wepsim_execute_stop(btn1) ;
 	    return ;
 	}
@@ -169,21 +214,26 @@
 	     ret = execute_microprogram() ;
 	else ret = execute_microinstruction() ;
 
-	if (ret === false) 
-	{
+	if (ret === false) {
 	    wepsim_execute_stop(btn1) ;
 	    return ;
 	}
 
-	reg_pc      = get_value(sim_states["REG_PC"]) ;
-	curr_addr   = "0x" + reg_pc.toString(16) ;
-
-	if ( (typeof FIRMWARE.assembly[curr_addr] != "undefined") && 
-	     (FIRMWARE.assembly[curr_addr].breakpoint) ) 
-	{
+        ret = wepsim_check_stopbybreakpoint_asm() ;
+	if (ret == true) {
 	    wepsim_execute_stop(btn1) ;
-	    alert("Breakpoint @ " + curr_addr + ":\n" + 
-		  "Instruction at " + curr_addr + " is going to be fetched.") ;
+	    return ;
+	}
+
+        ret = wepsim_check_stopbybreakpoint_firm() ;
+	if (ret == true) {
+	    wepsim_execute_stop(btn1) ;
+	    return ;
+	}
+
+        ret = wepsim_check_stopbynotify_firm() ;
+	if (ret == true) {
+	    wepsim_execute_stop(btn1) ;
 	    return ;
 	}
 
@@ -488,7 +538,7 @@
     // Example management
     //
 
-    function load_from_example_assembly ( example_id )
+    function load_from_example_assembly ( example_id, chain_next_step )
     {
 	$.mobile.pageContainer.pagecontainer('change', '#main4');
 	inputasm.setValue("Please wait...");
@@ -499,27 +549,32 @@
 			    inputasm.setValue(mcode);
 			    inputasm.refresh();
 
-                            var ok = compileAssembly(mcode, true);
+                            var ok = false ;
+                            var SIMWARE = get_simware() ;
+	                    if (SIMWARE.firmware.length != 0) 
+                                ok = compileAssembly(mcode, true);
+
 			    if (true == ok)
 			    {
-				  setTimeout(function(){
-					     $.mobile.pageContainer.pagecontainer('change', '#main1');
-                                             show_memories_values();
-				  }, 50);
-
-				  $.notify({ title: '<strong>INFO</strong>', 
-					     message: 'Example ready to be used.'},
-					   { type: 'success', 
-					     newest_on_top: true, 
-					     delay: get_cfg('NOTIF_delay'), 
-					     placement: { from: 'top', align: 'center' } 
-					    });
+                                  if (true == chain_next_step)
+				      setTimeout(function(){
+					            $.mobile.pageContainer.pagecontainer('change', '#main1');
+				                 }, 50);
+                                  show_memories_values();
 			    }
+
+			    $.notify({ title: '<strong>INFO</strong>', 
+			  	       message: 'Example ready to be used.'},
+				     { type: 'success', 
+				       newest_on_top: true, 
+				       delay: get_cfg('NOTIF_delay'), 
+				       placement: { from: 'top', align: 'center' } 
+				      });
                       };
         wepsim_load_from_url(url, do_next) ;
     }
 
-    function load_from_example_firmware ( example_id, do_next )
+    function load_from_example_firmware ( example_id, chain_next_step )
     {
 	$.mobile.pageContainer.pagecontainer('change', '#main3');
 	inputfirm.setValue("Please wait...");
@@ -531,11 +586,22 @@
 			   inputfirm.refresh();
 
 			   var ok = compileFirmware(mcode, true);
-                           if (true == ok)
-                               setTimeout(function() { 
-                                             load_from_example_assembly(example_id); 
-                                             show_memories_values();
-                                          }, 50);
+                           if (true == ok) 
+                           {
+                                  if (true == chain_next_step)
+                                       setTimeout(function() { 
+                                                     load_from_example_assembly(example_id, chain_next_step); 
+                                                  }, 50);
+                                  else show_memories_values();
+                           }
+
+			   $.notify({ title: '<strong>INFO</strong>', 
+				      message: 'Example ready to be used.'},
+				    { type: 'success', 
+				      newest_on_top: true, 
+				      delay: get_cfg('NOTIF_delay'), 
+				      placement: { from: 'top', align: 'center' } 
+				     });
                       };
         wepsim_load_from_url(url, do_next) ;
     }

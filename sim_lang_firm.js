@@ -32,6 +32,8 @@ function read_microprg ( context )
 	   // }
 
            var microprograma = new Array();
+           var microcomments = new Array();
+           resetComments(context) ;
 
 	   // match mandatory {
 	   if (! isToken(context, "{") )
@@ -103,15 +105,14 @@ function read_microprg ( context )
 				}
 			}
 
-			if (etiquetaFounded == 0)
-			{
-				context.labelsNotFound.push(labelsNotFoundAux);
+			if (etiquetaFounded == 0) {
+			    context.labelsNotFound.push(labelsNotFoundAux);
 			}
 
                         nextToken(context) ;
 			// match optional ,
 			if ( isToken(context, ",") )
-                            nextToken(context) ;
+                             nextToken(context) ;
 
 			continue ;
 		   }
@@ -146,6 +147,10 @@ function read_microprg ( context )
                         nextToken(context) ;
 	       }
 
+               var acc_cmt = getComments(context) ;
+               microcomments.push(acc_cmt);
+               resetComments(context) ;
+
 	       microprograma.push(microInstruccionAux);
 	       context.contadorMC++;
 
@@ -157,7 +162,8 @@ function read_microprg ( context )
 	   // match mandatory }
            nextToken(context) ;
 
-           return microprograma ;
+           return { 'microprograma': microprograma, 
+                    'microcomments': microcomments } ;
 }
 
 function loadFirmware (text)
@@ -179,6 +185,7 @@ function loadFirmware (text)
 	   context.newlines       	= new Array() ;
 	   context.pseudoInstructions	= new Array();
 	   context.stackRegister	= null ;
+           context.comments             = new Array() ;
 
            nextToken(context) ;
            while (context.t < context.text.length)
@@ -314,7 +321,10 @@ function loadFirmware (text)
 
                    instruccionAux["signature"]       = "begin" ;
 		   instruccionAux["signatureGlobal"] = "begin" ;
-                   instruccionAux["microcode"]       = ret ;
+		   instruccionAux["signatureUser"]   = "begin" ;
+		   instruccionAux["signatureRaw"]    = "begin" ;
+                   instruccionAux["microcode"]       = ret.microprograma ;
+                   instruccionAux["microcomments"]   = ret.microcomments ;
 		   context.instrucciones.push(instruccionAux);
 
                    context.contadorMC = context.contadorMC + 9; // padding between instrucctions
@@ -341,7 +351,7 @@ function loadFirmware (text)
 	       var numeroCampos = 0;
 	       var campos = new Array();
 
-	       firma = firma + getToken(context)  + ',';
+	       firma = getToken(context)  + ',';
 	       firmaUsuario = getToken(context) + " ";
 	       nextToken(context);
 
@@ -363,9 +373,10 @@ function loadFirmware (text)
 		       var campoAux = new Object();
 		       var auxValue = getToken(context);
 		       
-		       if(auxValue[auxValue.length-1] == "+"){
-				auxValue = auxValue.substring(0,auxValue.length-1);
-				plus_found = true;
+		       if (auxValue[auxValue.length-1] == "+") 
+                       {
+			   auxValue = auxValue.substring(0,auxValue.length-1);
+			   plus_found = true;
 		       }
 
 		       campoAux["name"] = auxValue ;
@@ -388,7 +399,9 @@ function loadFirmware (text)
                    {
 		           firma = firma + ',(';
 
-			   if(plus_found) firmaUsuario = firmaUsuario + '(';
+			   if (plus_found) 
+                                // next line needs concatenate '+' otherwise saveFirmware is not going to work!
+                                firmaUsuario = firmaUsuario + '+('; 
 			   else	firmaUsuario = firmaUsuario + ' (';
 
 		           nextToken(context);
@@ -433,9 +446,10 @@ function loadFirmware (text)
 
 	       firma = firma.substr(0, firma.length-1);
 	       firmaUsuario = firmaUsuario.substr(0, firmaUsuario.length-1);
-	       instruccionAux["signature"] = firma;
+	       instruccionAux["signature"]       = firma;
                instruccionAux["signatureGlobal"] = firma;
-	       instruccionAux["signatureUser"] = firmaUsuario;
+	       instruccionAux["signatureUser"]   = firmaUsuario;
+	       instruccionAux["signatureRaw"]    = firmaUsuario;
 
 // li reg val {
 //             *co=000000,*
@@ -588,7 +602,7 @@ function loadFirmware (text)
 	           firma = firma.replace(")" + campos[camposInsertados]["name"], ")" + campos[camposInsertados]["type"]); 
 		   firmaUsuario = firmaUsuario.replace(campos[camposInsertados]["name"], campos[camposInsertados]["type"]);                  
  
-	           instruccionAux["signature"] = firma;
+	           instruccionAux["signature"]     = firma;
 		   instruccionAux["signatureUser"] = firmaUsuario;
 	           firmaGlobal = firma.replace("address","num");
 	           firmaGlobal = firmaGlobal.replace("inm" , "num");
@@ -670,7 +684,8 @@ function loadFirmware (text)
                if (typeof ret.error != "undefined")
                    return ret ;
 
-               instruccionAux["microcode"] = ret ;
+               instruccionAux["microcode"]     = ret.microprograma ;
+               instruccionAux["microcomments"] = ret.microcomments ;
 	       context.instrucciones.push(instruccionAux);
 
                context.contadorMC = context.contadorMC + 9; // padding between instrucctions
@@ -759,19 +774,9 @@ function saveFirmware ( SIMWARE )
 	var file = "";
 	for (var i=0; i<SIMWARE.firmware.length; i++)
 	{
-		file += SIMWARE.firmware[i].name;
-		if (typeof SIMWARE.firmware[i].fields != "undefined")
-		{
-			if (SIMWARE.firmware[i].fields.length>0)
-			{
-				for (var j=0; j<SIMWARE.firmware[i].fields.length; j++)
-				{
-					file += " " + SIMWARE.firmware[i].fields[j].name;
-				}
-			}
-		}
-
+		file += SIMWARE.firmware[i].signatureRaw;
 		file += " {" + '\n';
+
 		if (typeof SIMWARE.firmware[i].co != "undefined")
 		{
 			file += '\t' +"co=" + SIMWARE.firmware[i].co + "," + '\n';
@@ -814,6 +819,9 @@ function saveFirmware ( SIMWARE )
 
 			for (var j=0; j<SIMWARE.firmware[i].microcode.length; j++)
 			{
+			        if ("" != SIMWARE.firmware[i].microcomments[j])
+                                    file += '\n\t\t# ' + SIMWARE.firmware[i].microcomments[j];
+
 				if (typeof SIMWARE.labels_firm[addr] != "undefined")
 				     file += '\n' + SIMWARE.labels_firm[addr] + ":\t"; 
 				else file += '\n' + '\t' + '\t';

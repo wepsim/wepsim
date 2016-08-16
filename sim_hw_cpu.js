@@ -23,9 +23,10 @@
 	 *  States - Memories
 	 */
 
-	var MC       = new Object();
-	var ROM      = new Object();
-	var FIRMWARE = new Object();
+	var MC           = new Object();
+	var MC_dashboard = new Object();
+	var ROM          = new Object();
+	var FIRMWARE     = new Object();
 
 
 	/*
@@ -1118,9 +1119,11 @@
 		syntax_behavior["RESET"] = { nparameters: 1,                         
 					     operation: function(s_expr) 
 							{
-							    // 1.a.- set states to the default state
+							    // 1.a.- set states/signals to the default state
 							    for (var key in sim_states) 
 								 reset_value(sim_states[key]) ;
+							    for (var key in sim_signals) 
+								 reset_value(sim_signals[key]) ;
 
 							    // 1.b.- reset events to empty
 							    sim_events["screen"] = new Object() ;
