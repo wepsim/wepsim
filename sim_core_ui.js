@@ -506,9 +506,9 @@
          *  show_memories
          */
 
-        function show_memories ( name, memory, index, redraw ) 
+        function show_main_memory ( memory, index, redraw ) 
         {
-            if ( (redraw == false) && ($("#memory_" + name).is(":visible") == false) )
+            if ( (redraw == false) && ($("#memory_MP").is(":visible") == false) )
                   return;
 
 	    var o1 = "" ;
@@ -516,65 +516,31 @@
 
             for (var key in memory)
             {
-                 if (typeof memory[key] == "object") 
-                 {
-                        value = "" ;
-                        for (var ks in memory[key])
-                        {
-                             if (1 == memory[key][ks]) {
-                                 value += ks + " ";
-                                 continue;
-                             }
+		value  = memory[key].toString(16) ;
+		value  = "00000000".substring(0, 8 - value.length) + value ;
+		value2 = value[0] + value[1] + ' ' +
+			 value[2] + value[3] + ' ' +
+			 value[4] + value[5] + ' ' +
+			 value[6] + value[7] ;
 
-                             value += ks + "=" + parseInt(memory[key][ks]).toString(2) + " ";
+		key2 = parseInt(key).toString(16) ;
+	      //key2 = "00000000".substring(0, 8 - key2.length) + key2 ;
 
-                             /* // Future feature: control memory is shown as configured the display format.
-                             var m_key_ks_value = parseInt(memory[key][ks]).toString(get_cfg('RF_display_format')) ;
-                             if (16 == get_cfg('RF_display_format'))
-                                  value += ks + "=0x" + m_key_ks_value + " ";
-                             else 
-                             if ( (8 == get_cfg('RF_display_format')) && (memory[key][ks] != 0) )
-                                  value += ks + "=0"  + m_key_ks_value + " ";
-                             else value += ks + "="   + m_key_ks_value + " ";
-                             */
-                        }
+		key3 = (parseInt(key) + 3).toString(16) ;
+	      //key3 = "00000000".substring(0, 8 - key3.length) + key3 ;
 
-			if (key == index)
-			     o1 += "<tr id='addr" + key + "'>" + 
-                                   "<td width=15%>" + "0x" + parseInt(key).toString(16) + "</td>" + 
-                                   "<td><b><div style='color: blue'>" + value + "</div></b></td></tr>";
-			else o1 += "<tr id='addr" + key + "'>" + 
-                                   "<td width=15%><small>" + "0x" + parseInt(key).toString(16) + "</small></td>" + 
-                                   "<td          ><div><small>" + value + "</small></div></td></tr>";
-		 }
-                 else 
-                 {
-                        value  = memory[key].toString(16) ;
-                        value  = "00000000".substring(0, 8 - value.length) + value ;
-                        value2 = value[0] + value[1] + ' ' +
-                                 value[2] + value[3] + ' ' +
-                                 value[4] + value[5] + ' ' +
-                                 value[6] + value[7] ;
+		for (skey in segments) {
+		     if (parseInt(segments[skey].begin) == parseInt(key))
+			 o1 += "</tbody>" + "<tbody id=begin_" + skey + ">";
+		}
 
-                        key2 = parseInt(key).toString(16) ;
-                      //key2 = "00000000".substring(0, 8 - key2.length) + key2 ;
-
-                        key3 = (parseInt(key) + 3).toString(16) ;
-                      //key3 = "00000000".substring(0, 8 - key3.length) + key3 ;
-
-                        for (skey in segments) {
-                             if (parseInt(segments[skey].begin) == parseInt(key))
-			         o1 += "</tbody>" + "<tbody id=begin_" + skey + ">";
-                        }
-
-			if (key == index)
-			     o1 += "<tr id='addr" + key + "'>" +
-                                   "<td width=50%><font color=blue><b>" + "0x" + key3 + "-" + key2 + "</b></font></td>" +
-                                   "<td          ><font color=blue><b>" +                   value2 + "</b></font></td></tr>" ;
-			else o1 += "<tr id='addr" + key + "'>" +
-                                   "<td width=50%><small>"              + "0x" + key3 + "-" + key2 + "</small></td>" +
-                                   "<td          ><small>"              + value2                   + "</small></td></tr>" ;
-		 }
+		if (key == index)
+		     o1 += "<tr id='addr" + key + "'>" +
+			   "<td width=50%><font color=blue><b>" + "0x" + key3 + "-" + key2 + "</b></font></td>" +
+			   "<td          ><font color=blue><b>" +                   value2 + "</b></font></td></tr>" ;
+		else o1 += "<tr id='addr" + key + "'>" +
+			   "<td width=50%><small>"              + "0x" + key3 + "-" + key2 + "</small></td>" +
+			   "<td          ><small>"              + value2                   + "</small></td></tr>" ;
             }
 
 	    if (typeof memory[index] == "undefined")
@@ -582,7 +548,7 @@
 		      "<td width=15%><font color=blue>0x" + parseInt(index).toString(16) + "</font></td>" + 
 		      "<td><font color=blue><b>&nbsp;</b></font></td></tr>";
 
-            $("#memory_" + name).html("<center><table class='table table-hover table-condensed table-responsive'>" + 
+            $("#memory_MP").html("<center><table class='table table-hover table-condensed table-responsive'>" + 
                                       "<tbody id=none>" + o1 + "</tbody>" +
                                       "</table></center>");
 
@@ -591,7 +557,63 @@
 	    if ( (redraw) && (obj_byid.length > 0) )
             {
 	        var topPos = obj_byid[0].offsetTop ;
-	        var obj_byid = $('#memory_' + name) ;
+	        var obj_byid = $('#memory_MP') ;
+	        if (obj_byid.length > 0)
+	            obj_byid[0].scrollTop = topPos;
+            }
+        }
+
+        function show_control_memory ( memory, memory_dashboard, index, redraw ) 
+        {
+            if ( (redraw == false) && ($("#memory_MC").is(":visible") == false) )
+                  return;
+
+	    var o1 = "" ;
+            var value = "" ;
+
+            for (var key in memory)
+            {
+		value = "" ;
+		for (var ks in memory[key])
+		{
+		     if (1 == memory[key][ks]) {
+			 value += ks + " ";
+			 continue;
+		     }
+
+		     value += ks + "=" + parseInt(memory[key][ks]).toString(2) + " ";
+		}
+
+		var trclass = " " ;
+		if (true == memory_dashboard[key].breakpoint)
+		    trclass = " class='selected_microbreakpoint' " ;
+
+		if (key == index)
+		     o1 += "<tr id='addr" + key + "' " + trclass + 
+			   "    onclick='dbg_set_breakpoint(" + key + "); return;'>" + 
+			   "<td width=15%>" + "0x" + parseInt(key).toString(16) + "</td>" + 
+			   "<td><b><div style='color: blue'>" + value + "</div></b></td></tr>";
+		else o1 += "<tr id='addr" + key + "' " + trclass + 
+			   "    onclick='dbg_set_breakpoint(" + key + "); return;'>" + 
+			   "<td width=15%><small>" + "0x" + parseInt(key).toString(16) + "</small></td>" + 
+			   "<td          ><div><small>" + value + "</small></div></td></tr>";
+            }
+
+	    if (typeof memory[index] == "undefined")
+		o1 += "<tr>" + 
+		      "<td width=15%><font color=blue>0x" + parseInt(index).toString(16) + "</font></td>" + 
+		      "<td><font color=blue><b>&nbsp;</b></font></td></tr>";
+
+            $("#memory_MC").html("<center><table class='table table-hover table-condensed table-responsive'>" + 
+                                      "<tbody id=none>" + o1 + "</tbody>" +
+                                      "</table></center>");
+
+            // scroll up/down to index element...
+	    var obj_byid = $('#addr' + index) ;
+	    if ( (redraw) && (obj_byid.length > 0) )
+            {
+	        var topPos = obj_byid[0].offsetTop ;
+	        var obj_byid = $('#memory_MC') ;
 	        if (obj_byid.length > 0)
 	            obj_byid[0].scrollTop = topPos;
             }
@@ -658,9 +680,25 @@
                 FIRMWARE.assembly[hexaddr].breakpoint = bp_state ;
         }
 
+        function dbg_set_breakpoint ( addr )
+        {
+                var o1       = $("#addr" + addr) ;
+                var bp_state = MC_dashboard[addr].breakpoint ;
+
+                if (bp_state === true) {
+                    bp_state = false ;
+                    o1.removeClass('selected_microbreakpoint');
+                } else {
+                    bp_state = true ;
+                    o1.addClass('selected_microbreakpoint');
+                }
+
+                MC_dashboard[addr].breakpoint = bp_state ;
+        }
+
 	function show_dbg_mpc ( )
 	{
-                show_memories('MC', MC, get_value(sim_states['REG_MICROADDR']), false) ;
+                show_control_memory(MC, MC_dashboard, get_value(sim_states['REG_MICROADDR']), false) ;
 	}
 
 	function show_dbg_ir ( decins )
