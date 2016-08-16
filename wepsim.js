@@ -180,6 +180,7 @@
         if (false == MC_dashboard[reg_maddr].breakpoint)
             return false ;
 
+	var curr_addr = "0x" + reg_maddr.toString(16) ;
 	alert("Breakpoint @ " + curr_addr + ":\n" +
 	      "Microinstruction at " + curr_addr + " is going to be issue.") ;
 	return true ;
