@@ -390,10 +390,10 @@
 								 // update MC[uADDR]
 								 if (typeof MC[get_value(sim_states["REG_MICROADDR"])] == "undefined") {
 								     MC[get_value(sim_states["REG_MICROADDR"])] = new Object() ;
-								     MC_comment[get_value(sim_states["REG_MICROADDR"])] = new Object() ;
+								     MC_dashboard[get_value(sim_states["REG_MICROADDR"])] = new Object() ;
 								 }
 								 MC[get_value(sim_states["REG_MICROADDR"])][key] = sim_signals[key].value ;
-								 MC_comment[get_value(sim_states["REG_MICROADDR"])][key] = "";
+								 MC_dashboard[get_value(sim_states["REG_MICROADDR"])][key] = { comment: "", breakpoint: false, notify: new Array() };
 
 								 // update ROM[..]
 								 update_signal_firmware(key) ;
@@ -425,17 +425,20 @@
             var SIMWARE = get_simware() ;
 
 	    // 2.- load the MC from ROM['firmware']
-            MC         = new Object() ;
-            MC_comment = new Object() ;
+            MC           = new Object() ;
+            MC_dashboard = new Object() ;
             for (var i=0; i<SIMWARE['firmware'].length; i++)
 	    {
 	       var last = SIMWARE['firmware'][i]["microcode"].length ; // mc = microcode
                var mci  = SIMWARE['firmware'][i]["mc-start"] ;
 	       for (var j=0; j<last; j++)
 	       {
-		   MC[mci]         = SIMWARE['firmware'][i]["microcode"][j] ;
-		   MC_comment[mci] = SIMWARE['firmware'][i]["microcomments"][j] ;
-		   mci++;
+		    var comment = SIMWARE['firmware'][i]["microcomments"][j] ;
+		    MC[mci]     = SIMWARE['firmware'][i]["microcode"][j] ;
+		    MC_dashboard[mci] = { comment: comment,
+                                          breakpoint: false,
+                                          notify: comment.trim().split("notify:") } ;
+		    mci++;
 	       }
 	    }
 

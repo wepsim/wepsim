@@ -158,17 +158,20 @@
 
     function wepsim_check_stopbynotify ( )
     {
-        var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
-        var cmt_str   = MC_comment[reg_maddr] ;
+        var reg_maddr     = get_value(sim_states["REG_MICROADDR"]) ;
+        var notifications = MC_dashboard[reg_maddr].notify.length ;
 
-        if (typeof cmt_str == "undefined")
+        if (1 == notifications)
             return false ;
 
-        if ("" == cmt_str)
-            return false ;
-
-        if (cmt_str.trim().startsWith("notify"))
-	    return confirm("Notify @ " + reg_maddr + ":\n" + cmt_str) ;
+        var ret  = false ;
+        var noti = "" ;
+        for (var i=1; i<notifications; i++) 
+        {
+             var noti = MC_dashboard[reg_maddr].notify[i] ;
+	     ret = confirm("Notify @ " + reg_maddr + ":\n" + noti) ;
+             if (ret) return true ;
+        }
     }
 
     function wepsim_check_stopbybreakpoint ( )
