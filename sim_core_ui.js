@@ -571,6 +571,7 @@
 
 	    var o1 = "" ;
             var value = "" ;
+            var icon_theme = get_cfg('ICON_theme') ;
 
             for (var key in memory)
             {
@@ -587,7 +588,7 @@
 
 		var trpin = "&nbsp;" ;
 		if (true == memory_dashboard[key].breakpoint)
-		    trpin = "<img height=22 src='images/pushpin.png'>" ;
+		    trpin = "<img height=22 src='images/stop_" + icon_theme + ".png'>" ;
 
 		if (key == index)
 		     o1 += "<tr id='addr" + key + "' " +
@@ -670,17 +671,18 @@
 
         function asmdbg_set_breakpoint ( addr )
         {
-                var hexaddr  = "0x" + addr.toString(16) ;
+                var icon_theme = get_cfg('ICON_theme') ;
 
+                var hexaddr  = "0x" + addr.toString(16) ;
                 var o1       = document.getElementById("bp"+hexaddr) ;
                 var bp_state = FIRMWARE.assembly[hexaddr].breakpoint ;
 
                 if (bp_state === true) {
                     bp_state = false ;
-                    o1.innerHTML = '&nbsp;' ;
+                    o1.innerHTML = "&nbsp;" ;
                 } else {
                     bp_state = true ;
-                    o1.innerHTML = '<img height=22 src="images/stop.png">' ;
+                    o1.innerHTML = "<img height=22 src='images/stop_" + icon_theme + ".png'>" ;
                 }
 
                 FIRMWARE.assembly[hexaddr].breakpoint = bp_state ;
@@ -688,6 +690,8 @@
 
         function dbg_set_breakpoint ( addr )
         {
+                var icon_theme = get_cfg('ICON_theme') ;
+
                 var o1       = document.getElementById("mcpin" + addr) ;
                 var bp_state = MC_dashboard[addr].breakpoint ;
 
@@ -696,7 +700,7 @@
                     o1.innerHTML = "&nbsp;" ;
                 } else {
                     bp_state = true ;
-                    o1.innerHTML = "<img height='22' src='images/pushpin.png' style='position:relative;left:-5'>" ;
+                    o1.innerHTML = "<img height='22' src='images/stop_" + icon_theme + ".png'>" ;
                 }
 
                 MC_dashboard[addr].breakpoint = bp_state ;
