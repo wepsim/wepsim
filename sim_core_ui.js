@@ -571,6 +571,7 @@
 
 	    var o1 = "" ;
             var value = "" ;
+            var icon_theme = get_cfg('ICON_theme') ;
 
             for (var key in memory)
             {
@@ -587,20 +588,20 @@
 
 		var trpin = "&nbsp;" ;
 		if (true == memory_dashboard[key].breakpoint)
-		    trpin = "<img height=22 src='images/pushpin.png'>" ;
+		    trpin = "<img height=22 src='images/stop_" + icon_theme + ".png'>" ;
 
 		if (key == index)
 		     o1 += "<tr id='addr" + key + "' " +
 			   "    onclick='dbg_set_breakpoint(" + key + "); " + 
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
-			   "<td width=10% align=right>" + "0x" + parseInt(key).toString(16) + "</td>" +
-			   "<td width=5% id='mcpin" + key + "'>"  + trpin       + "</td>" +
+			   "<td width=12% align=right>" + "0x" + parseInt(key).toString(16) + "</td>" +
+			   "<td width=1% id='mcpin" + key + "' style='padding:5 0 0 0;'>" + trpin + "</td>" +
 			   "<td><b><div style='color: blue'>" + value + "</div></b></td></tr>";
 		else o1 += "<tr id='addr" + key + "' " +
 			   "    onclick='dbg_set_breakpoint(" + key + "); " + 
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
-			   "<td width=10% align=right><small>" + "0x" + parseInt(key).toString(16) + "</small></td>" +
-			   "<td width=5% id='mcpin" + key + "'>"  + trpin       + "</td>" +
+			   "<td width=12% align=right><small>" + "0x" + parseInt(key).toString(16) + "</small></td>" +
+			   "<td width=1% id='mcpin" + key + "' style='padding:5 0 0 0;'>" + trpin + "</td>" +
 			   "<td          ><div><small>" + value + "</small></div></td></tr>";
             }
 
@@ -670,17 +671,18 @@
 
         function asmdbg_set_breakpoint ( addr )
         {
-                var hexaddr  = "0x" + addr.toString(16) ;
+                var icon_theme = get_cfg('ICON_theme') ;
 
+                var hexaddr  = "0x" + addr.toString(16) ;
                 var o1       = document.getElementById("bp"+hexaddr) ;
                 var bp_state = FIRMWARE.assembly[hexaddr].breakpoint ;
 
                 if (bp_state === true) {
                     bp_state = false ;
-                    o1.innerHTML = '&nbsp;' ;
+                    o1.innerHTML = "&nbsp;" ;
                 } else {
                     bp_state = true ;
-                    o1.innerHTML = '<img height=22 src="images/stop.png">' ;
+                    o1.innerHTML = "<img height=22 src='images/stop_" + icon_theme + ".png'>" ;
                 }
 
                 FIRMWARE.assembly[hexaddr].breakpoint = bp_state ;
@@ -688,15 +690,17 @@
 
         function dbg_set_breakpoint ( addr )
         {
+                var icon_theme = get_cfg('ICON_theme') ;
+
                 var o1       = document.getElementById("mcpin" + addr) ;
                 var bp_state = MC_dashboard[addr].breakpoint ;
 
                 if (bp_state === true) {
                     bp_state = false ;
-                    o1.innerHTML = '&nbsp;' ;
+                    o1.innerHTML = "&nbsp;" ;
                 } else {
                     bp_state = true ;
-                    o1.innerHTML = '<img height=22 src="images/pushpin.png">' ;
+                    o1.innerHTML = "<img height='22' src='images/stop_" + icon_theme + ".png'>" ;
                 }
 
                 MC_dashboard[addr].breakpoint = bp_state ;
@@ -1066,7 +1070,7 @@
                            "    onclick='asmdbg_set_breakpoint(" + l + "); " + 
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
                            "<td                                             width='2%'></td>" +
-                           "<td class='asm_break'  style='line-height:0.9;' width='10%' id='bp" + l + "'>&nbsp;</td>" +
+                           "<td class='asm_break'  style='line-height:0.9; padding:5 0 0 0;' width='10%' id='bp" + l + "'>&nbsp;</td>" +
                            "<td class='asm_addr'   style='line-height:0.9;' width='15%'>" + l + "</td>" +
                            "<td class='asm_label1' style='line-height:0.9;' width='10%' align=right>" + s_label + "</td>" +
                            "<td class='asm_ins'    style='line-height:0.9;' width='25%' align=left>"  + s1_instr + "</td>" +
