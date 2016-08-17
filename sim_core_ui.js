@@ -593,14 +593,14 @@
 		     o1 += "<tr id='addr" + key + "' " +
 			   "    onclick='dbg_set_breakpoint(" + key + "); " + 
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
-			   "<td width=10% align=right>" + "0x" + parseInt(key).toString(16) + "</td>" +
-			   "<td width=5% id='mcpin" + key + "'>"  + trpin       + "</td>" +
+			   "<td width=12% align=right>" + "0x" + parseInt(key).toString(16) + "</td>" +
+			   "<td width=1% id='mcpin" + key + "' style='padding:5 0 0 0;'>" + trpin + "</td>" +
 			   "<td><b><div style='color: blue'>" + value + "</div></b></td></tr>";
 		else o1 += "<tr id='addr" + key + "' " +
 			   "    onclick='dbg_set_breakpoint(" + key + "); " + 
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
-			   "<td width=10% align=right><small>" + "0x" + parseInt(key).toString(16) + "</small></td>" +
-			   "<td width=5% id='mcpin" + key + "'>"  + trpin       + "</td>" +
+			   "<td width=12% align=right><small>" + "0x" + parseInt(key).toString(16) + "</small></td>" +
+			   "<td width=1% id='mcpin" + key + "' style='padding:5 0 0 0;'>" + trpin + "</td>" +
 			   "<td          ><div><small>" + value + "</small></div></td></tr>";
             }
 
@@ -693,10 +693,10 @@
 
                 if (bp_state === true) {
                     bp_state = false ;
-                    o1.innerHTML = '&nbsp;' ;
+                    o1.innerHTML = "&nbsp;" ;
                 } else {
                     bp_state = true ;
-                    o1.innerHTML = '<img height=22 src="images/pushpin.png">' ;
+                    o1.innerHTML = "<img height='22' src='images/pushpin.png' style='position:relative;left:-5'>" ;
                 }
 
                 MC_dashboard[addr].breakpoint = bp_state ;
@@ -1066,7 +1066,7 @@
                            "    onclick='asmdbg_set_breakpoint(" + l + "); " + 
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
                            "<td                                             width='2%'></td>" +
-                           "<td class='asm_break'  style='line-height:0.9;' width='10%' id='bp" + l + "'>&nbsp;</td>" +
+                           "<td class='asm_break'  style='line-height:0.9; padding:5 0 0 0;' width='10%' id='bp" + l + "'>&nbsp;</td>" +
                            "<td class='asm_addr'   style='line-height:0.9;' width='15%'>" + l + "</td>" +
                            "<td class='asm_label1' style='line-height:0.9;' width='10%' align=right>" + s_label + "</td>" +
                            "<td class='asm_ins'    style='line-height:0.9;' width='25%' align=left>"  + s1_instr + "</td>" +
