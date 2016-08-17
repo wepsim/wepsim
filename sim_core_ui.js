@@ -450,7 +450,7 @@
             {
                if (0==i)
                o1 += "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4'>Interrupt Id.</div>" +
-                     "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4'>CLK tick period</div>" +
+                     "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4'>CLK tick period (0-&infin;)</div>" +
                      "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4'>Probability (0.0-1.0)</div>" ;
 
                o1 += "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4' style='padding: 15 5 0 10;'>" + 
@@ -475,7 +475,7 @@
                   "<div class='panel-body panel-collapse in' id='mempanel'>" +
                   "  <div class='row-fluid'>" +
                   "  <center>" +
-                  "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' style='padding: 15 5 0 10;'>Wait cycles</div>" +
+                  "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' style='padding: 15 5 0 10;'>Wait cycles (0-&infin;)</div>" +
                   "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' id='mp_wc'><input type=number data-bind='value: MP_wc' min=1></div>" +
                   "  </center>" + 
                   "  </div>" +
@@ -1070,7 +1070,7 @@
                            "    onclick='asmdbg_set_breakpoint(" + l + "); " + 
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
                            "<td                                             width='2%'></td>" +
-                           "<td class='asm_break'  style='line-height:0.9; padding:5 0 0 0;' width='10%' id='bp" + l + "'>&nbsp;</td>" +
+                           "<td class='asm_break'  style='line-height:0.9; padding:5 0 0 0;' width='10%' align='center' id='bp" + l + "'>&nbsp;</td>" +
                            "<td class='asm_addr'   style='line-height:0.9;' width='15%'>" + l + "</td>" +
                            "<td class='asm_label1' style='line-height:0.9;' width='10%' align=right>" + s_label + "</td>" +
                            "<td class='asm_ins'    style='line-height:0.9;' width='25%' align=left>"  + s1_instr + "</td>" +
