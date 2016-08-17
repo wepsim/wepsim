@@ -56,6 +56,7 @@
                WSCFG['RF_display_name']     = { value:'numerical',        type:"string"} ;
 
                WSCFG['NOTIF_delay']         = { value:500,                type:"int"} ;
+               WSCFG['ICON_theme']          = { value:'classic',          type:"string"} ;
 
 		/*
 		 *  SIM working
