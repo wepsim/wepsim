@@ -388,18 +388,18 @@
 
             // stats holder
             var o1 = "<center>" ;
-            o1 += "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6'>Instructions</div>" +
+            o1 += "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right'>Instructions</div>" +
                   "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' id='ins_context'>" +
                   "<span data-bind='text: value'>&nbsp;</span>" + 
                   "</div>" ;
-            o1 += "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6'>CLK ticks</div>" +
+            o1 += "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right'>CLK ticks</div>" +
                   "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' id='clk_context'>" +
                   "<span data-bind='text: value'>&nbsp;</span>" + 
                   "</div>" ;
             o1 += "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>&nbsp;</div>" ;
             for (var i=0; i<IO_INT_FACTORY.length; i++)
             {
-               o1 += "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6'>Interrupt " + i + "</div>" +
+               o1 += "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6 text-right'>Interrupt <b>" + i + "</b></div>" +
                      "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' id='int" + i + "_context'>" +
                      "<span data-bind='text: accumulated'>&nbsp;</span>" + 
                      "</div>" ;
@@ -450,8 +450,8 @@
             {
                if (0==i)
                o1 += "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4'>Interrupt Id.</div>" +
-                     "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4'>CLK tick period (0-&infin;)</div>" +
-                     "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4'>Probability (0.0-1.0)</div>" ;
+                     "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4'>CLK tick period (<b>0</b> - &infin;)</div>" +
+                     "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4'>Probability (0.0 - 1.0)</div>" ;
 
                o1 += "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4' style='padding: 15 5 0 10;'>" + 
                      i + 
@@ -475,7 +475,7 @@
                   "<div class='panel-body panel-collapse in' id='mempanel'>" +
                   "  <div class='row-fluid'>" +
                   "  <center>" +
-                  "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' style='padding: 15 5 0 10;'>Wait cycles (0-&infin;)</div>" +
+                  "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' style='padding: 15 5 0 10;'>Wait cycles (<b>0</b> - &infin;)</div>" +
                   "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' id='mp_wc'><input type=number data-bind='value: MP_wc' min=1></div>" +
                   "  </center>" + 
                   "  </div>" +
