@@ -457,18 +457,20 @@
             o1 += "<center>" + 
                   "<table class='table table-hover table-condensed table-bordered table-responsive'>" + 
                   "<tr>" + 
-                  "<td align=center width=33%>Interrupt Id.</td>" + 
+                  "<td align=center width=33%>Interrupt<br>identificator</td>" + 
                   "<td align=center width=33%>CLK tick period<br>(<b>0</b> - &infin;)</td>" + 
                   "<td align=center width=33%>Probability<br>(0.0 - 1.0)</td>" + 
                   "</tr>" ;
             for (var i=0; i<8; i++)
             {
                o1 += "<tr>" +
-                     "<td align=center valign=middle>" + i + "</td>" +
-                     "<td align=center>" + "<div id='int" + i + "_per'>" +
+                     "<td align=center style='padding:0 0 0 0; vertical-align: middle !important'>" + 
+                     i + 
+                     "</td>" +
+                     "<td align=center style='padding:0 0 0 0'>" + "<div id='int" + i + "_per'>" +
                      "<input type=number data-bind='value: period' min='0'>" + 
                      "</div>" + "</td>" +
-                     "<td align=center>" + "<div id='int" + i + "_pro'>" +
+                     "<td align=center style='padding:0 0 0 0'>" + "<div id='int" + i + "_pro'>" +
                      "<input type=number data-bind='value: probability' min='0' max='1' step='.05'>" + 
                      "</div>" + "</td>" +
                      "</tr>" ;
