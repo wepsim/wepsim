@@ -456,6 +456,7 @@
                      "<div class='panel-body panel-collapse in' id='iopanel' style='padding: 0 0 0 0'>" ;
             o1 += "<center>" + 
                   "<table class='table table-hover table-condensed table-bordered table-responsive'>" + 
+                  "<tbody class='ui-mini'>" + 
                   "<tr>" + 
                   "<td align=center width=33%>Interrupt<br>identificator</td>" + 
                   "<td align=center width=33%>CLK tick period<br>(<b>0</b> - &infin;)</td>" + 
@@ -475,7 +476,8 @@
                      "</div>" + "</td>" +
                      "</tr>" ;
             }
-            o1 += "</table>" +
+            o1 += "</tbody>" + 
+                  "</table>" +
                   "</center>" ;
             o1 += "</div>" +
                   "</div>" ;
