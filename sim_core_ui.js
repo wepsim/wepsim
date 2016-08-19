@@ -470,13 +470,15 @@
                      "<span style='padding:0 0 0 0; margin:0 0 0 0'>" + i + "</span>" +  
                      "</td>" +
                      "<td align=center style='padding:0 0 0 0'>" + 
-                     "<div id='int" + i + "_per' style='margin:3 3 3 3'>" +
-                     "<input type=number data-bind='value: period' min='0' style='margin:3 3 3 3'>" + 
+                     "<div id='int" + i + "_per' style='margin:0 3 0 3'>" +
+                     "<input type=number data-bind='value: period' min='0' " + 
+                     "       style='margin:0 0 0 3; padding:0 0 0 5'>" + 
                      "</div>" + 
                      "</td>" +
                      "<td align=center style='padding:0 0 0 0'>" + 
-                     "<div id='int" + i + "_pro' style='margin:3 3 3 3'>" +
-                     "<input type=number data-bind='value: probability' min='0' max='1' step='.05' style='margin:3 3 3 3'>" + 
+                     "<div id='int" + i + "_pro' style='margin:0 3 0 3'>" +
+                     "<input type=number data-bind='value: probability' min='0' max='1' step='.05' " + 
+                     "       style='margin:0 0 0 3; padding:0 0 0 5'>" + 
                      "</div>" + 
                      "</td>" +
                      "</tr>" ;
