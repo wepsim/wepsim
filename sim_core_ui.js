@@ -455,7 +455,8 @@
                      "</div>" +
                      "<div class='panel-body panel-collapse in' id='iopanel' style='padding: 0 0 0 0'>" ;
             o1 += "<center>" + 
-                  "<table class='table table-hover table-condensed table-bordered table-responsive'>" + 
+                  "<table class='table table-hover table-condensed table-bordered table-responsive' " + 
+                  "       style='margin:0'>" + 
                   "<tbody class='ui-mini'>" + 
                   "<tr>" + 
                   "<td align=center width=30%>Interrupt<br>identificator</td>" + 
@@ -466,14 +467,18 @@
             {
                o1 += "<tr>" +
                      "<td align=center style='padding:0 0 0 0; vertical-align: middle !important'>" + 
-                     i + 
+                     "<span style='padding:0 0 0 0; margin:0 0 0 0'>" + i + "</span>" +  
                      "</td>" +
-                     "<td align=center style='padding:0 0 0 0'>" + "<div id='int" + i + "_per'>" +
-                     "<input type=number data-bind='value: period' min='0' class='ui-mini'>" + 
-                     "</div>" + "</td>" +
-                     "<td align=center style='padding:0 0 0 0'>" + "<div id='int" + i + "_pro'>" +
-                     "<input type=number data-bind='value: probability' min='0' max='1' step='.05' class='ui-mini'>" + 
-                     "</div>" + "</td>" +
+                     "<td align=center style='padding:0 0 0 0'>" + 
+                     "<div id='int" + i + "_per' style='margin:3 3 3 3'>" +
+                     "<input type=number data-bind='value: period' min='0' style='margin:3 3 3 3'>" + 
+                     "</div>" + 
+                     "</td>" +
+                     "<td align=center style='padding:0 0 0 0'>" + 
+                     "<div id='int" + i + "_pro' style='margin:3 3 3 3'>" +
+                     "<input type=number data-bind='value: probability' min='0' max='1' step='.05' style='margin:3 3 3 3'>" + 
+                     "</div>" + 
+                     "</td>" +
                      "</tr>" ;
             }
             o1 += "</tbody>" + 
