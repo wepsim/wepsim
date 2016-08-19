@@ -460,7 +460,7 @@
                   "<tr>" + 
                   "<td align=center width=30%>Interrupt<br>identificator</td>" + 
                   "<td align=center width=40%>CLK tick period<br>(<b>0</b> - &infin;)</td>" + 
-                  "<td align=center width=30%>Probability<br>(0.0 - 1.0)</td>" + 
+                  "<td align=center width=30%>Probability<br>(0 - 1)</td>" + 
                   "</tr>" ;
             for (var i=0; i<8; i++)
             {
