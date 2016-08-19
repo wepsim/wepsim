@@ -468,10 +468,10 @@
                      i + 
                      "</td>" +
                      "<td align=center style='padding:0 0 0 0'>" + "<div id='int" + i + "_per'>" +
-                     "<input type=number data-bind='value: period' min='0'>" + 
+                     "<input type=number data-bind='value: period' min='0' class='ui-mini'>" + 
                      "</div>" + "</td>" +
                      "<td align=center style='padding:0 0 0 0'>" + "<div id='int" + i + "_pro'>" +
-                     "<input type=number data-bind='value: probability' min='0' max='1' step='.05'>" + 
+                     "<input type=number data-bind='value: probability' min='0' max='1' step='.05' class='ui-mini'>" + 
                      "</div>" + "</td>" +
                      "</tr>" ;
             }
