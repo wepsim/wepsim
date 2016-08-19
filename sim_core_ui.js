@@ -455,27 +455,36 @@
                      "</div>" +
                      "<div class='panel-body panel-collapse in' id='iopanel' style='padding: 0 0 0 0'>" ;
             o1 += "<center>" + 
-                  "<table class='table table-hover table-condensed table-bordered table-responsive'>" + 
+                  "<table class='table table-hover table-condensed table-bordered table-responsive' " + 
+                  "       style='margin:0'>" + 
+                  "<tbody class='ui-mini'>" + 
                   "<tr>" + 
-                  "<td align=center width=33%>Interrupt<br>identificator</td>" + 
-                  "<td align=center width=33%>CLK tick period<br>(<b>0</b> - &infin;)</td>" + 
-                  "<td align=center width=33%>Probability<br>(0.0 - 1.0)</td>" + 
+                  "<td align=center width=30%>Interrupt<br>identificator</td>" + 
+                  "<td align=center width=40%>CLK tick period<br>(<b>0</b> - &infin;)</td>" + 
+                  "<td align=center width=30%>Probability<br>(0 - 1)</td>" + 
                   "</tr>" ;
             for (var i=0; i<8; i++)
             {
                o1 += "<tr>" +
                      "<td align=center style='padding:0 0 0 0; vertical-align: middle !important'>" + 
-                     i + 
+                     "<span style='padding:0 0 0 0; margin:0 0 0 0'>" + i + "</span>" +  
                      "</td>" +
-                     "<td align=center style='padding:0 0 0 0'>" + "<div id='int" + i + "_per'>" +
-                     "<input type=number data-bind='value: period' min='0'>" + 
-                     "</div>" + "</td>" +
-                     "<td align=center style='padding:0 0 0 0'>" + "<div id='int" + i + "_pro'>" +
-                     "<input type=number data-bind='value: probability' min='0' max='1' step='.05'>" + 
-                     "</div>" + "</td>" +
+                     "<td align=center style='padding:0 0 0 0'>" + 
+                     "<div id='int" + i + "_per' style='margin:0 3 0 3'>" +
+                     "<input type=number data-bind='value: period' min='0' " + 
+                     "       style='margin:0 0 0 3; padding:0 0 0 5'>" + 
+                     "</div>" + 
+                     "</td>" +
+                     "<td align=center style='padding:0 0 0 0'>" + 
+                     "<div id='int" + i + "_pro' style='margin:0 3 0 3'>" +
+                     "<input type=number data-bind='value: probability' min='0' max='1' step='.05' " + 
+                     "       style='margin:0 0 0 3; padding:0 0 0 5'>" + 
+                     "</div>" + 
+                     "</td>" +
                      "</tr>" ;
             }
-            o1 += "</table>" +
+            o1 += "</tbody>" + 
+                  "</table>" +
                   "</center>" ;
             o1 += "</div>" +
                   "</div>" ;
