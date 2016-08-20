@@ -387,24 +387,34 @@
             }
 
             // stats holder
-            var o1 = "<center>" ;
-            o1 += "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6'>Instructions</div>" +
-                  "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' id='ins_context'>" +
-                  "<span data-bind='text: value'>&nbsp;</span>" + 
-                  "</div>" ;
-            o1 += "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6'>CLK ticks</div>" +
-                  "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' id='clk_context'>" +
-                  "<span data-bind='text: value'>&nbsp;</span>" + 
-                  "</div>" ;
-            o1 += "<div class='col-xs-12 col-sm-12 col-md-12 col-lg-12'>&nbsp;</div>" ;
+            var o1 = "<center>" + 
+                     "<table class='table table-hover table-condensed table-bordered table-responsive'>" + 
+                     "<tr>" + 
+                     "<td align=center width=50%>Instructions</td>" + 
+                     "<td align=center width=50%>" + 
+                     "<div id='ins_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
+                     "</td>" + 
+                     "</tr>" + 
+                     "<tr>" + 
+                     "<td align=center width=50%>CLK ticks</td>" + 
+                     "<td align=center width=50%>" + 
+                     "<div id='clk_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
+                     "</td>" + 
+                     "</tr>" ;
+               o1 += "<tr><td colspan=2>&nbsp;</td></tr>" ;
             for (var i=0; i<IO_INT_FACTORY.length; i++)
             {
-               o1 += "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6'>Interrupt " + i + "</div>" +
-                     "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' id='int" + i + "_context'>" +
+               o1 += "<tr>" + 
+                     "<td align=center width=50%>Interrupt " + i + "</td>" + 
+                     "<td align=center width=50%>" + 
+                     "<div id='int" + i + "_context'>" +
                      "<span data-bind='text: accumulated'>&nbsp;</span>" + 
-                     "</div>" ;
+                     "</div>" + 
+                     "</td>" + 
+                     "</tr>" ;
             }
-            o1 += "</center>" ;
+            o1 += "</table>" + 
+                  "</center>" ;
             $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
 
             // knockout binding
@@ -443,29 +453,40 @@
                      "<div class='panel-heading'>" +
                      " <a href='#iopanel' data-toggle='collapse'><h3 class='panel-title'>I/O</h3></a>" +
                      "</div>" +
-                     "<div class='panel-body panel-collapse in' id='iopanel'>" +
-                     "  <div class='row-fluid'>" +
-                     "  <center>" ;
+                     "<div class='panel-body panel-collapse in' id='iopanel' style='padding: 0 0 0 0'>" ;
+            o1 += "<center>" + 
+                  "<table class='table table-hover table-condensed table-bordered table-responsive' " + 
+                  "       style='margin:0'>" + 
+                  "<tbody class='ui-mini'>" + 
+                  "<tr>" + 
+                  "<td align=center width=30%>Interrupt<br>identificator</td>" + 
+                  "<td align=center width=40%>CLK tick period<br>(<b>0</b> - &infin;)</td>" + 
+                  "<td align=center width=30%>Probability<br>(0 - 1)</td>" + 
+                  "</tr>" ;
             for (var i=0; i<8; i++)
             {
-               if (0==i)
-               o1 += "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4'>Interrupt Id.</div>" +
-                     "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4'>CLK tick period</div>" +
-                     "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4'>Probability (0.0-1.0)</div>" ;
-
-               o1 += "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4' style='padding: 15 5 0 10;'>" + 
-                     i + 
-                     "</div>" +
-                     "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4' style='padding: 0 5 0 10;' id='int" + i + "_per'>" +
-                     "<input type=number data-bind='value: period' min='0'>" + 
-                     "</div>" +
-                     "<div class='col-xs-4 col-sm-4 col-md-4 col-lg-4' style='padding: 0 5 0 10;' id='int" + i + "_pro'>" +
-                     "<input type=number data-bind='value: probability' min='0' max='1' step='.05'>" + 
-                     "</div>" ;
+               o1 += "<tr>" +
+                     "<td align=center style='padding:0 0 0 0; vertical-align: middle !important'>" + 
+                     "<span style='padding:0 0 0 0; margin:0 0 0 0'>" + i + "</span>" +  
+                     "</td>" +
+                     "<td align=center style='padding:0 0 0 0'>" + 
+                     "<div id='int" + i + "_per' style='margin:0 3 0 3'>" +
+                     "<input type=number data-bind='value: period' min='0' " + 
+                     "       style='margin:0 0 0 3; padding:0 0 0 5'>" + 
+                     "</div>" + 
+                     "</td>" +
+                     "<td align=center style='padding:0 0 0 0'>" + 
+                     "<div id='int" + i + "_pro' style='margin:0 3 0 3'>" +
+                     "<input type=number data-bind='value: probability' min='0' max='1' step='.05' " + 
+                     "       style='margin:0 0 0 3; padding:0 0 0 5'>" + 
+                     "</div>" + 
+                     "</td>" +
+                     "</tr>" ;
             }
-            o1 += "  </center>" +
-                  "  </div>" +
-                  "</div>" +
+            o1 += "</tbody>" + 
+                  "</table>" +
+                  "</center>" ;
+            o1 += "</div>" +
                   "</div>" ;
 
             o1 += "<div class='panel panel-default'>" + 
@@ -475,7 +496,7 @@
                   "<div class='panel-body panel-collapse in' id='mempanel'>" +
                   "  <div class='row-fluid'>" +
                   "  <center>" +
-                  "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' style='padding: 15 5 0 10;'>Wait cycles</div>" +
+                  "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' style='padding: 15 5 0 10;'>Wait cycles (<b>0</b> - &infin;)</div>" +
                   "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' id='mp_wc'><input type=number data-bind='value: MP_wc' min=1></div>" +
                   "  </center>" + 
                   "  </div>" +
@@ -571,6 +592,7 @@
 
 	    var o1 = "" ;
             var value = "" ;
+            var icon_theme = get_cfg('ICON_theme') ;
 
             for (var key in memory)
             {
@@ -587,20 +609,20 @@
 
 		var trpin = "&nbsp;" ;
 		if (true == memory_dashboard[key].breakpoint)
-		    trpin = "<img height=22 src='images/pushpin.png'>" ;
+		    trpin = "<img height=22 src='images/stop_" + icon_theme + ".png'>" ;
 
 		if (key == index)
 		     o1 += "<tr id='addr" + key + "' " +
 			   "    onclick='dbg_set_breakpoint(" + key + "); " + 
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
-			   "<td width=10% align=right>" + "0x" + parseInt(key).toString(16) + "</td>" +
-			   "<td width=5% id='mcpin" + key + "'>"  + trpin       + "</td>" +
+			   "<td width=12% align=right>" + "0x" + parseInt(key).toString(16) + "</td>" +
+			   "<td width=1% id='mcpin" + key + "' style='padding:5 0 0 0;'>" + trpin + "</td>" +
 			   "<td><b><div style='color: blue'>" + value + "</div></b></td></tr>";
 		else o1 += "<tr id='addr" + key + "' " +
 			   "    onclick='dbg_set_breakpoint(" + key + "); " + 
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
-			   "<td width=10% align=right><small>" + "0x" + parseInt(key).toString(16) + "</small></td>" +
-			   "<td width=5% id='mcpin" + key + "'>"  + trpin       + "</td>" +
+			   "<td width=12% align=right><small>" + "0x" + parseInt(key).toString(16) + "</small></td>" +
+			   "<td width=1% id='mcpin" + key + "' style='padding:5 0 0 0;'>" + trpin + "</td>" +
 			   "<td          ><div><small>" + value + "</small></div></td></tr>";
             }
 
@@ -670,17 +692,18 @@
 
         function asmdbg_set_breakpoint ( addr )
         {
-                var hexaddr  = "0x" + addr.toString(16) ;
+                var icon_theme = get_cfg('ICON_theme') ;
 
+                var hexaddr  = "0x" + addr.toString(16) ;
                 var o1       = document.getElementById("bp"+hexaddr) ;
                 var bp_state = FIRMWARE.assembly[hexaddr].breakpoint ;
 
                 if (bp_state === true) {
                     bp_state = false ;
-                    o1.innerHTML = '&nbsp;' ;
+                    o1.innerHTML = "&nbsp;" ;
                 } else {
                     bp_state = true ;
-                    o1.innerHTML = '<img height=22 src="images/stop.png">' ;
+                    o1.innerHTML = "<img height=22 src='images/stop_" + icon_theme + ".png'>" ;
                 }
 
                 FIRMWARE.assembly[hexaddr].breakpoint = bp_state ;
@@ -688,15 +711,17 @@
 
         function dbg_set_breakpoint ( addr )
         {
+                var icon_theme = get_cfg('ICON_theme') ;
+
                 var o1       = document.getElementById("mcpin" + addr) ;
                 var bp_state = MC_dashboard[addr].breakpoint ;
 
                 if (bp_state === true) {
                     bp_state = false ;
-                    o1.innerHTML = '&nbsp;' ;
+                    o1.innerHTML = "&nbsp;" ;
                 } else {
                     bp_state = true ;
-                    o1.innerHTML = '<img height=22 src="images/pushpin.png">' ;
+                    o1.innerHTML = "<img height='22' src='images/stop_" + icon_theme + ".png'>" ;
                 }
 
                 MC_dashboard[addr].breakpoint = bp_state ;
@@ -1066,7 +1091,7 @@
                            "    onclick='asmdbg_set_breakpoint(" + l + "); " + 
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
                            "<td                                             width='2%'></td>" +
-                           "<td class='asm_break'  style='line-height:0.9;' width='10%' id='bp" + l + "'>&nbsp;</td>" +
+                           "<td class='asm_break'  style='line-height:0.9; padding:5 0 0 0;' width='10%' align='center' id='bp" + l + "'>&nbsp;</td>" +
                            "<td class='asm_addr'   style='line-height:0.9;' width='15%'>" + l + "</td>" +
                            "<td class='asm_label1' style='line-height:0.9;' width='10%' align=right>" + s_label + "</td>" +
                            "<td class='asm_ins'    style='line-height:0.9;' width='25%' align=left>"  + s1_instr + "</td>" +
