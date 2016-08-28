@@ -591,6 +591,9 @@
 
         function refresh_main_memory ( memory, index ) 
         {
+            // if ($("#memory_MP").is(":visible") == false)
+            //     return ;
+
             o1 = $("#addr" + old_main_addr) ;
             o1.css('color', 'black') ;
             o1.css('font-size', 'small') ;
@@ -673,6 +676,9 @@
 
         function refresh_control_memory ( memory, memory_dashboard, index ) 
         {
+            // if ($("#memory_MP").is(":visible") == false)
+            //     return ;
+
             o1 = $("#maddr" + old_mc_addr) ;
             o1.css('color', 'black') ;
             o1.css('font-size', 'small') ;
