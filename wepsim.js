@@ -439,8 +439,13 @@
     // Initialize
     //
 
+    var is_sim_init = false ;
+
     function sim_init ( )
     {
+            if (true == is_sim_init)
+                return ;
+
 	    var ref_p = document.getElementById('svg_p').contentDocument ;
 	    if (ref_p != null)
             {
@@ -510,6 +515,8 @@
                                                      execute_microinstruction(); 
                                                   }, false);
             }
+
+            is_sim_init = true ;
     }
 
     function sim_prepare_editor ( editor )
