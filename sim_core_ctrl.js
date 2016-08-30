@@ -604,8 +604,11 @@
 
         function execute_microinstruction ()
         {
-                if (typeof MC[get_value(sim_states["REG_MICROADDR"])] == "undefined") 
+                var maddr = get_value(sim_states["REG_MICROADDR"]) ;
+                if (typeof MC[maddr] == "undefined") 
                     return false;
+                if ((0 == maddr) && (check_if_can_continue(true) == false))
+		    return false; // when do reset/fetch, check text segment bounds
 
                 compute_behavior("CLOCK") ;
 
