@@ -1033,14 +1033,14 @@
 
 		    var a = document.getElementById("svg_p");
 		    a.addEventListener("load",function() {
-			sim_init();
+			sim_prepare_svg_p();
 			init_eventlistener("svg_p");
 			refresh();
 		    }, false);
 
 		    var a = document.getElementById("svg_cu");
 		    a.addEventListener("load",function() {
-			sim_init();
+			sim_prepare_svg_cu();
 			init_eventlistener("svg_cu");
 			refresh();
 		    }, false);
