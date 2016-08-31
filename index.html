@@ -46,18 +46,16 @@
 	background-image: url("images/reset.svg");
         background-repeat: no-repeat;
         background-size: 15px 15px;
-        }
+    }
 
     /* http://stackoverflow.com/questions/10814178/css-performance-relative-to-translatez0 */
-    /*
-    * {
+    .trick-hwacceleration {
         -webkit-transform: translatez(0);
         -moz-transform: translatez(0);
         -ms-transform: translatez(0);
         -o-transform: translatez(0);
         transform: translatez(0);
     }
-    */
     </style>
 
     <link  href="external/external.min.css" rel="stylesheet">
@@ -119,14 +117,14 @@
                           </li>
 		        </ul>
 		      </div>
-		      <div id="eltos_p"  class="ui-body-d ui-content" style="padding: 5px 0 5px 0;">
+		      <div id="eltos_p"  class="ui-body-d ui-content trick-hwacceleration" style="padding: 5px 0 5px 0;">
 			    <object id="svg_p" data="images/processor5.svg" type="image/svg+xml">
 				Your browser doesn't support SVG
 			    </object>
                             <img id="internalbus_fire" src="images/fire.gif" height=50 style="position:absolute; top:55%; left:5%;  display:none;">
                             <img id="databus_fire"     src="images/fire.gif" height=50 style="position:absolute; top:23%; left:25%; display:none;">
 		      </div>
-		      <div id="eltos_cu"  class="ui-body-d ui-content">
+		      <div id="eltos_cu" class="ui-body-d ui-content trick-hwacceleration">
 			    <object id="svg_cu" data="images/controlunit5.svg" type="image/svg+xml">
 				Your browser doesn't support SVG
 			    </object>
