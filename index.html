@@ -99,13 +99,21 @@
 		    <div data-role="tabs" id="tabs2">
     		      <div data-role="navbar" id="tabsnav2" class="ui-responsive">
 		        <ul>
-		          <li style="clear:none;width:30% !important">
+		          <li style="clear:none;width:30% !important" class="hidden-lg">
                               <a id="tab23" href="#eltos_cu"   
-                                 onclick="start_drawing(); refresh();">Control Unit</a>
+                                 onclick="document.getElementById('eltos_cu').appendChild(document.getElementById('svg_cu'));
+                                          start_drawing(); refresh();">Control Unit</a>
                           </li>
-		          <li style="clear:none;width:20% !important">
+		          <li style="clear:none;width:20% !important" class="hidden-lg">
                               <a id="tab22" href="#eltos_p"   class="ui-btn-active"
-                                 onclick="start_drawing(); refresh();">CPU</a>
+                                 onclick="document.getElementById('eltos_p').appendChild(document.getElementById('svg_p'));
+                                          start_drawing(); refresh();">CPU</a>
+                          </li>
+		          <li style="clear:none;width:50% !important" class="hidden-xs hidden-sm hidden-md">
+                              <a id="tab26" href="#eltos_cpu" class="ui-btn-active"
+                                 onclick="document.getElementById('eltos_cpu_a').appendChild(document.getElementById('svg_p'));
+                                          document.getElementById('eltos_cpu_b').appendChild(document.getElementById('svg_cu'));
+                                          start_drawing(); refresh();">Processor</a>
                           </li>
 		          <li style="clear:none;width:49% !important">
                               <a id="tab24" href="#eltos_dbg"  
@@ -117,17 +125,29 @@
                           </li>
 		        </ul>
 		      </div>
-		      <div id="eltos_p"  class="ui-body-d ui-content trick-hwacceleration" style="padding: 5px 0 5px 0;">
+		      <div id="eltos_p"  
+                           class="ui-body-d ui-content hidden-lg" 
+                           style="padding: 5px 0 5px 0;">
 			    <object id="svg_p" data="images/processor5.svg" type="image/svg+xml">
 				Your browser doesn't support SVG
 			    </object>
                             <img id="internalbus_fire" src="images/fire.gif" height=50 style="position:absolute; top:55%; left:5%;  display:none;">
                             <img id="databus_fire"     src="images/fire.gif" height=50 style="position:absolute; top:23%; left:25%; display:none;">
 		      </div>
-		      <div id="eltos_cu" class="ui-body-d ui-content trick-hwacceleration">
+		      <div id="eltos_cu"  
+                           class="ui-body-d ui-content hidden-lg">
 			    <object id="svg_cu" data="images/controlunit5.svg" type="image/svg+xml">
 				Your browser doesn't support SVG
 			    </object>
+		      </div>
+		      <div id="eltos_cpu"  
+                           class="ui-body-d ui-content hidden-xs hidden-sm hidden-md">
+                           <div class="container-fluid">
+                             <div class="row">
+                               <div id="eltos_cpu_a" class="col-sm-6" style="padding:0 0 0 0"></div>
+                               <div id="eltos_cpu_b" class="col-sm-6" style="padding:0 0 0 0"></div>
+                             </div>
+                           </div>
 		      </div>
 		      <div id="eltos_dbg"  class="ui-body-d ui-content">
 			   <center>
@@ -1027,7 +1047,7 @@
 
 		    $.mobile.pageContainer.pagecontainer('change','#main1');
 		    $('#tab11').trigger('click');
-		    $('#tab22').trigger('click');
+		    $('#tab24').trigger('click');
 
 		    $("#colorpicker1").spectrum({ preferredFormat: "hex", color: get_cfg('color_data_active')}) ;
 		    $("#colorpicker2").spectrum({ preferredFormat: "hex", color: get_cfg('color_name_active')}) ;

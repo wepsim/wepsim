@@ -469,11 +469,6 @@
                                                   function() { 
                                                      $('#tab14').trigger('click');
                                                   }, false);
-	        var o  = ref_p.getElementById('text3183');
-	        if (o != null) o.addEventListener('click', 
-                                                  function() { 
-                                                     $('#tab23').trigger('click');
-                                                  }, false);
 	        var o  = ref_p.getElementById('text3775');
 	        if (o != null) o.addEventListener('click', 
                                                   function() { 
@@ -503,11 +498,6 @@
 	        if (o != null) o.addEventListener('click', 
                                                   function() { 
                                                      $('#tab16').trigger('click');
-                                                  }, false);
-                var o  = ref_cu.getElementById('text3346-5');
-                if (o != null) o.addEventListener('click', 
-                                                  function() { 
-                                                     $('#tab22').trigger('click');
                                                   }, false);
                 var o  = ref_cu.getElementById('text4138');
                 if (o != null) o.addEventListener('click', 
