@@ -272,8 +272,18 @@ function loadFirmware (text)
 					var pseudoFieldAux	  = new Object();
 					pseudoFieldAux.name	  = getToken(context);
 					pseudoFieldAux.type	  = getToken(context).replace("num", "inm");
-					if(pseudoFieldAux.type.substring(0,3) == "reg")
-						pseudoFieldAux.type = "reg";
+					pseudoFieldAux.type       = pseudoFieldAux.type.replace(/[_0-9]+$/, '');
+
+					switch(pseudoFieldAux.type){
+						case "reg":
+						case "inm":
+						case "addr":
+						case "address": 
+							break;
+						default:						
+							return langError(context, "Invalid parameter format. It only allows the following fields: reg, num, inm, addr, address") ;					
+					}
+
 					pseudoInitial.fields.push(pseudoFieldAux);
 					pseudoInitial.signature = pseudoInitial.signature + getToken(context) + ",";
 					nextToken(context);
