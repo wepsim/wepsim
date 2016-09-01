@@ -60,7 +60,7 @@
 
     <link  href="external/external.min.css" rel="stylesheet">
     <script src="external/external.min.js"></script>
-   
+
     <script src="min.sim_all.js"></script>
     <script src="min.sim_hw.js"></script>
     <script src="min.wepsim.js"></script>
@@ -313,7 +313,7 @@
 			<center>
 			<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
                         <button class="ui-btn ui-btn-b ui-btn-inline" 
-                                onclick="if (confirm('Do you want me to save the current Control Memory contents rather than the editor content?.\n\nPlease notice that this action will replace the current editor contents,\nAND the comments outside the microcode will be removed.'))
+                                onclick="if (!confirm('Do you want me to save the editor content rather than the current Control Memory contents?.\n\nPlease notice that saving the current Control Memory will replace the current editor contents,\nAND the comments outside the microcode will be removed.'))
                                          {
 					     var SIMWARE = get_simware() ;
 					     var simware_as_text = saveFirmware(SIMWARE);
