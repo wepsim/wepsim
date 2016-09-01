@@ -144,8 +144,8 @@
                            class="ui-body-d ui-content hidden-xs hidden-sm hidden-md">
                            <div class="container-fluid" style="padding:0 0 0 0">
                              <div class="row">
-                               <div id="eltos_cpu_a" class="col-sm-6" style="padding:0 0 0 0"></div>
-                               <div id="eltos_cpu_b" class="col-sm-6" style="padding:0 0 0 0"></div>
+                               <div id="eltos_cpu_a" class="col-sm-6" style="padding:0 0 0 0; width:52%;"></div>
+                               <div id="eltos_cpu_b" class="col-sm-6" style="padding:0 0 0 0; width:48%;"></div>
                              </div>
                            </div>
 		      </div>
@@ -313,7 +313,9 @@
 			<center>
 			<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
                         <button class="ui-btn ui-btn-b ui-btn-inline" 
-                                onclick="if (!confirm('Do you want me to save the editor content rather than the current Control Memory contents?.\n\nPlease notice that saving the current Control Memory will replace the current editor contents,\nAND the comments outside the microcode will be removed.'))
+                                onclick="if (confirm('Do you want me to save the current Control Memory contents rather than the editor contents?.\n\n' + 
+                                                     'Please notice that saving the current Control Memory will replace the current editor contents,\n' +
+                                                     'AND the comments outside the microcode will be removed.'))
                                          {
 					     var SIMWARE = get_simware() ;
 					     var simware_as_text = saveFirmware(SIMWARE);
@@ -321,9 +323,12 @@
 						  alert('The Microcode loaded in memory is empty!\n' + 
 							'Please load a Microcode first in memory in order to save it.');
 					     else inputfirm.setValue(simware_as_text);
-					 } 
-                                         var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
-                                         wepsim_save_to_file(inputfirm, fileNameToSaveAs);">Save to File</button>
+                                             var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
+                                             wepsim_save_to_file(inputfirm, fileNameToSaveAs);
+					 }">Save control memory to File</button>
+                        <button class="ui-btn ui-btn-b ui-btn-inline" 
+                                onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
+                                         wepsim_save_to_file(inputfirm, fileNameToSaveAs);">Save Editor content to File</button>
                         </center>
 		    </div>
 		</div>
