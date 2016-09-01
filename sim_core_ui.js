@@ -529,8 +529,9 @@
 
         function show_main_memory ( memory, index, redraw ) 
         {
-            if ( (redraw == false) && ($("#memory_MP").is(":visible") == false) )
-                  return;
+            if (redraw == false) {
+                return refresh_main_memory(memory,index);
+            }
 
 	    var o1 = "" ;
             var value = "" ;
@@ -556,12 +557,14 @@
 		}
 
 		if (key == index)
-		     o1 += "<tr id='addr" + key + "'>" +
-			   "<td width=50%><font color=blue><b>" + "0x" + key3 + "-" + key2 + "</b></font></td>" +
-			   "<td          ><font color=blue><b>" +                   value2 + "</b></font></td></tr>" ;
-		else o1 += "<tr id='addr" + key + "'>" +
-			   "<td width=50%><small>"              + "0x" + key3 + "-" + key2 + "</small></td>" +
-			   "<td          ><small>"              + value2                   + "</small></td></tr>" ;
+		     o1 += "<tr id='addr" + key + "'" +
+                           "    style='color:blue; font-size:normal; font-weight:bold'>" +
+			   "<td width=50%>" + "0x" + key3 + "-" + key2 + "</td>" +
+			   "<td          >" +                   value2 + "</td></tr>" ;
+		else o1 += "<tr id='addr" + key + "'" +
+                           "    style='color:black; font-size:small; font-weight:normal'>" +
+			   "<td width=50%>" + "0x" + key3 + "-" + key2 + "</td>" +
+			   "<td          >" + value2                   + "</td></tr>" ;
             }
 
 	    if (typeof memory[index] == "undefined")
@@ -584,10 +587,30 @@
             }
         }
 
+        var old_main_addr = 0;
+
+        function refresh_main_memory ( memory, index ) 
+        {
+            // if ($("#memory_MP").is(":visible") == false)
+            //     return ;
+
+            o1 = $("#addr" + old_main_addr) ;
+            o1.css('color', 'black') ;
+            o1.css('font-size', 'small') ;
+            o1.css('font-weight', 'normal') ;
+
+            old_main_addr = index ;
+
+            o1 = $("#addr" + old_main_addr) ;
+            o1.css('color', 'blue') ;
+            o1.css('font-size', 'initial') ;
+            o1.css('font-weight', 'bold') ;
+        }
+
         function show_control_memory ( memory, memory_dashboard, index, redraw ) 
         {
-            if ( (redraw == false) && ($("#memory_MC").is(":visible") == false) ) {
-                  return;
+            if (false == redraw) {
+                return refresh_control_memory(memory,memory_dashboard,index); 
             }
 
 	    var o1 = "" ;
@@ -612,18 +635,20 @@
 		    trpin = "<img height=22 src='images/stop_" + icon_theme + ".png'>" ;
 
 		if (key == index)
-		     o1 += "<tr id='addr" + key + "' " +
+		     o1 += "<tr id='maddr" + key + "' " +
+                           "    style='color:blue; font-size:normal; font-weight:bold' " +
 			   "    onclick='dbg_set_breakpoint(" + key + "); " + 
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
 			   "<td width=12% align=right>" + "0x" + parseInt(key).toString(16) + "</td>" +
 			   "<td width=1% id='mcpin" + key + "' style='padding:5 0 0 0;'>" + trpin + "</td>" +
-			   "<td><b><div style='color: blue'>" + value + "</div></b></td></tr>";
-		else o1 += "<tr id='addr" + key + "' " +
+			   "<td>" + value + "</td></tr>";
+		else o1 += "<tr id='maddr" + key + "' " +
+                           "    style='color:black; font-size:small; font-weight:normal' " +
 			   "    onclick='dbg_set_breakpoint(" + key + "); " + 
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
-			   "<td width=12% align=right><small>" + "0x" + parseInt(key).toString(16) + "</small></td>" +
+			   "<td width=12% align=right>" + "0x" + parseInt(key).toString(16) + "</td>" +
 			   "<td width=1% id='mcpin" + key + "' style='padding:5 0 0 0;'>" + trpin + "</td>" +
-			   "<td          ><div><small>" + value + "</small></div></td></tr>";
+			   "<td>" + value + "</td></tr>";
             }
 
 	    if (typeof memory[index] == "undefined") {
@@ -637,7 +662,7 @@
                                       "</table></center>");
 
             // scroll up/down to index element...
-	    var obj_byid = $('#addr' + index) ;
+	    var obj_byid = $('#maddr' + index) ;
 	    if ( (redraw) && (obj_byid.length > 0) )
             {
 	        var topPos = obj_byid[0].offsetTop ;
@@ -645,6 +670,26 @@
 	        if (obj_byid.length > 0)
 	            obj_byid[0].scrollTop = topPos;
             }
+        }
+
+        var old_mc_addr = 0;
+
+        function refresh_control_memory ( memory, memory_dashboard, index ) 
+        {
+            // if ($("#memory_MP").is(":visible") == false)
+            //     return ;
+
+            o1 = $("#maddr" + old_mc_addr) ;
+            o1.css('color', 'black') ;
+            o1.css('font-size', 'small') ;
+            o1.css('font-weight', 'normal') ;
+
+            old_mc_addr = index ;
+
+            o1 = $("#maddr" + old_mc_addr) ;
+            o1.css('color', 'blue') ;
+            o1.css('font-size', 'initial') ;
+            o1.css('font-weight', 'bold') ;
         }
 
 	function get_deco_from_pc ( pc )
@@ -725,6 +770,13 @@
                 }
 
                 MC_dashboard[addr].breakpoint = bp_state ;
+
+                if ( bp_state && ('instruction' == get_cfg('DBG_level')) )
+                     $.notify({ title: '<strong>INFO</strong>', message: 'Please remember to change configuration to execute at microinstruction level.'},
+                              { type: 'success',
+                                newest_on_top: true,
+                                delay: get_cfg('NOTIF_delay'),
+                                placement: { from: 'top', align: 'center' } });
         }
 
 	function show_dbg_mpc ( )

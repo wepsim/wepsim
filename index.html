@@ -47,6 +47,15 @@
         background-repeat: no-repeat;
         background-size: 15px 15px;
     }
+
+    /* http://stackoverflow.com/questions/10814178/css-performance-relative-to-translatez0 */
+    .trick-hwacceleration {
+        -webkit-transform: translatez(0);
+        -moz-transform: translatez(0);
+        -ms-transform: translatez(0);
+        -o-transform: translatez(0);
+        transform: translatez(0);
+    }
     </style>
 
     <link  href="external/external.min.css" rel="stylesheet">
@@ -86,17 +95,25 @@
 	<div role="main" class="ui-content">
 
             <div class="row">
-                <div class="col-md-8" style="padding: 0 2px 0 5px;">
+                <div class="col-lg-9 col-md-8" style="padding:0 2px 0 5px;">
 		    <div data-role="tabs" id="tabs2">
     		      <div data-role="navbar" id="tabsnav2" class="ui-responsive">
 		        <ul>
-		          <li style="clear:none;width:30% !important">
+		          <li style="clear:none;width:30% !important" class="hidden-lg">
                               <a id="tab23" href="#eltos_cu"   
-                                 onclick="start_drawing(); refresh();">Control Unit</a>
+                                 onclick="document.getElementById('eltos_cu').appendChild(document.getElementById('svg_cu'));
+                                          start_drawing(); refresh();">Control Unit</a>
                           </li>
-		          <li style="clear:none;width:20% !important">
+		          <li style="clear:none;width:20% !important" class="hidden-lg">
                               <a id="tab22" href="#eltos_p"   class="ui-btn-active"
-                                 onclick="start_drawing(); refresh();">CPU</a>
+                                 onclick="document.getElementById('eltos_p').appendChild(document.getElementById('svg_p'));
+                                          start_drawing(); refresh();">CPU</a>
+                          </li>
+		          <li style="clear:none;width:50% !important" class="hidden-xs hidden-sm hidden-md">
+                              <a id="tab26" href="#eltos_cpu" class="ui-btn-active"
+                                 onclick="document.getElementById('eltos_cpu_a').appendChild(document.getElementById('svg_p'));
+                                          document.getElementById('eltos_cpu_b').appendChild(document.getElementById('svg_cu'));
+                                          start_drawing(); refresh();">Processor</a>
                           </li>
 		          <li style="clear:none;width:49% !important">
                               <a id="tab24" href="#eltos_dbg"  
@@ -108,17 +125,29 @@
                           </li>
 		        </ul>
 		      </div>
-		      <div id="eltos_p"  class="ui-body-d ui-content" style="padding: 5px 0 5px 0;">
+		      <div id="eltos_p"  
+                           class="ui-body-d ui-content hidden-lg" 
+                           style="padding: 5px 0 5px 0;">
 			    <object id="svg_p" data="images/processor5.svg" type="image/svg+xml">
 				Your browser doesn't support SVG
 			    </object>
                             <img id="internalbus_fire" src="images/fire.gif" height=50 style="position:absolute; top:55%; left:5%;  display:none;">
                             <img id="databus_fire"     src="images/fire.gif" height=50 style="position:absolute; top:23%; left:25%; display:none;">
 		      </div>
-		      <div id="eltos_cu"  class="ui-body-d ui-content">
+		      <div id="eltos_cu"  
+                           class="ui-body-d ui-content hidden-lg">
 			    <object id="svg_cu" data="images/controlunit5.svg" type="image/svg+xml">
 				Your browser doesn't support SVG
 			    </object>
+		      </div>
+		      <div id="eltos_cpu"  
+                           class="ui-body-d ui-content hidden-xs hidden-sm hidden-md">
+                           <div class="container-fluid">
+                             <div class="row">
+                               <div id="eltos_cpu_a" class="col-sm-6" style="padding:0 0 0 0"></div>
+                               <div id="eltos_cpu_b" class="col-sm-6" style="padding:0 0 0 0"></div>
+                             </div>
+                           </div>
 		      </div>
 		      <div id="eltos_dbg"  class="ui-body-d ui-content">
 			   <center>
@@ -156,15 +185,15 @@
                                 <ol>
                                 <li>Load the microcode to be used.</li>
                                     <ul>
-                                    <li>You can use the default example of microcode, load it from a file or you can edit one.</li>
+                                    <li>You can use an example of microcode, load it from a file or you can edit one.</li>
                                     </ul>
                                 <br>
                                 <li>Load the assembly to be used.</li>
                                     <ul>
-                                    <li>You can use the default assembly example, load it from a file or you can edit one.</li>
+                                    <li>You can use an assembly example, load it from a file or you can edit one.</li>
                                     </ul>
                                 <br>
-                                <li>Come back to the simulator in order to execute step by step the microcode+assembly loaded before.</li>
+                                <li>Come back to the simulator in order to execute the microcode+assembly loaded before.</li>
                                     <ul>
                                     <li>Each step could be executed at microinstruction or instruction level.</li>
                                     </ul>
@@ -175,7 +204,7 @@
 	    	    </div>
                 </div>
 
-                <div class="col-md-4" style="padding: 0 8px 0 0px;">
+                <div class="col-lg-3 col-md-4" style="padding:0 8px 0 0px;">
 
                     <div class="btn-toolbar" role="toolbar" id="sim_toolbar" style="padding: 0 0px 10px 0px;">
 			<div class="btn-group btn-group-justified" role="group">
@@ -771,7 +800,7 @@
 			 <input type="range"
 				data-show-value="false"
 				name="slider1" id="slider1"
-				min="1" max="100" value="100" step=1
+				min="1" max="200" value="200" step=5
 				onchange="set_cfg('DBG_delay', 1000 / this.value); save_cfg();">
 		    </li>
 		    <li class="list-group-item">
@@ -1004,21 +1033,21 @@
 
 		    var a = document.getElementById("svg_p");
 		    a.addEventListener("load",function() {
-			sim_init();
+			sim_prepare_svg_p();
 			init_eventlistener("svg_p");
 			refresh();
 		    }, false);
 
 		    var a = document.getElementById("svg_cu");
 		    a.addEventListener("load",function() {
-			sim_init();
+			sim_prepare_svg_cu();
 			init_eventlistener("svg_cu");
 			refresh();
 		    }, false);
 
 		    $.mobile.pageContainer.pagecontainer('change','#main1');
 		    $('#tab11').trigger('click');
-		    $('#tab22').trigger('click');
+		    $('#tab24').trigger('click');
 
 		    $("#colorpicker1").spectrum({ preferredFormat: "hex", color: get_cfg('color_data_active')}) ;
 		    $("#colorpicker2").spectrum({ preferredFormat: "hex", color: get_cfg('color_name_active')}) ;

@@ -439,7 +439,7 @@
     // Initialize
     //
 
-    function sim_init ( )
+    function sim_prepare_svg_p ( )
     {
 	    var ref_p = document.getElementById('svg_p').contentDocument ;
 	    if (ref_p != null)
@@ -464,11 +464,6 @@
                                                   function() { 
                                                      $('#tab14').trigger('click');
                                                   }, false);
-	        var o  = ref_p.getElementById('text3183');
-	        if (o != null) o.addEventListener('click', 
-                                                  function() { 
-                                                     $('#tab23').trigger('click');
-                                                  }, false);
 	        var o  = ref_p.getElementById('text3775');
 	        if (o != null) o.addEventListener('click', 
                                                   function() { 
@@ -490,7 +485,10 @@
                                                      execute_microinstruction(); 
                                                   }, false);
             }
+    }
 
+    function sim_prepare_svg_cu ( )
+    {
 	    var ref_cu = document.getElementById('svg_cu').contentDocument ;
 	    if (ref_cu != null)
             {
@@ -498,11 +496,6 @@
 	        if (o != null) o.addEventListener('click', 
                                                   function() { 
                                                      $('#tab16').trigger('click');
-                                                  }, false);
-                var o  = ref_cu.getElementById('text3346-5');
-                if (o != null) o.addEventListener('click', 
-                                                  function() { 
-                                                     $('#tab22').trigger('click');
                                                   }, false);
                 var o  = ref_cu.getElementById('text4138');
                 if (o != null) o.addEventListener('click', 
