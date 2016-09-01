@@ -281,7 +281,7 @@ function loadFirmware (text)
 						case "address": 
 							break;
 						default:						
-							return langError(context, "Invalid parameter format. It only allows the following fields: reg, num, inm, addr, address") ;					
+							return langError(context, "Invalid parameter '" + pseudoFieldAux.type + "'. It only allows the following fields: reg, num, inm, addr, address") ;					
 					}
 
 					pseudoInitial.fields.push(pseudoFieldAux);
@@ -297,8 +297,24 @@ function loadFirmware (text)
 
 				var pseudoFinishAux = new Object();
 				pseudoFinishAux.signature="";
+				
+				var inStart = 0;
+				var cont = false;
+
 				while (! isToken(context, "}"))
 				{
+					if(inStart){
+						for(i=0; i<context.instrucciones.legnth; i++){
+							if(context.instrucciones[i].name == getToken(context)){
+								cont = true;
+								break;
+							}	
+						}
+						if(!cont)
+							return langError(context, "Undefined instruction '" + getToken(context) + "'");
+							inStart++;
+					}
+
 					pseudoFinishAux.signature = pseudoFinishAux.signature + getToken(context) + " ";
 					nextToken(context);
 				}
