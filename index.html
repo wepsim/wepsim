@@ -99,23 +99,23 @@
 		    <div data-role="tabs" id="tabs2">
     		      <div data-role="navbar" id="tabsnav2" class="ui-responsive">
 		        <ul>
-		          <li style="clear:none;width:30% !important" class="hidden-lg">
+		          <li style="clear:none;width:20% !important">
                               <a id="tab23" href="#eltos_cu"   
                                  onclick="document.getElementById('eltos_cu').appendChild(document.getElementById('svg_cu'));
                                           start_drawing(); refresh();">Control Unit</a>
                           </li>
-		          <li style="clear:none;width:20% !important" class="hidden-lg">
+		          <li style="clear:none;width:20% !important">
                               <a id="tab22" href="#eltos_p"   class="ui-btn-active"
                                  onclick="document.getElementById('eltos_p').appendChild(document.getElementById('svg_p'));
                                           start_drawing(); refresh();">CPU</a>
                           </li>
-		          <li style="clear:none;width:50% !important" class="hidden-xs hidden-sm hidden-md">
-                              <a id="tab26" href="#eltos_cpu" class="ui-btn-active"
+		          <li style="clear:none;width:20% !important">
+                              <a id="tab26" href="#eltos_cpu" 
                                  onclick="document.getElementById('eltos_cpu_a').appendChild(document.getElementById('svg_p'));
                                           document.getElementById('eltos_cpu_b').appendChild(document.getElementById('svg_cu'));
-                                          start_drawing(); refresh();">Processor</a>
+                                          start_drawing(); refresh();">CPU+CU</a>
                           </li>
-		          <li style="clear:none;width:49% !important">
+		          <li style="clear:none;width:40% !important">
                               <a id="tab24" href="#eltos_dbg"  
                                  onclick="stop_drawing(); 
                                           var o1 = show_asmdbg_pc();
@@ -126,7 +126,7 @@
 		        </ul>
 		      </div>
 		      <div id="eltos_p"  
-                           class="ui-body-d ui-content hidden-lg" 
+                           class="ui-body-d ui-content" 
                            style="padding: 5px 0 5px 0;">
 			    <object id="svg_p" data="images/processor5.svg" type="image/svg+xml">
 				Your browser doesn't support SVG
@@ -135,13 +135,13 @@
                             <img id="databus_fire"     src="images/fire.gif" height=50 style="position:absolute; top:23%; left:25%; display:none;">
 		      </div>
 		      <div id="eltos_cu"  
-                           class="ui-body-d ui-content hidden-lg">
+                           class="ui-body-d ui-content">
 			    <object id="svg_cu" data="images/controlunit5.svg" type="image/svg+xml">
 				Your browser doesn't support SVG
 			    </object>
 		      </div>
 		      <div id="eltos_cpu"  
-                           class="ui-body-d ui-content hidden-xs hidden-sm hidden-md">
+                           class="ui-body-d ui-content">
                            <div class="container-fluid" style="padding:0 0 0 0">
                              <div class="row">
                                <div id="eltos_cpu_a" class="col-sm-6" style="padding:0 0 0 0; width:52%;"></div>
@@ -229,11 +229,11 @@
 		    <div data-role="tabs" id="tabs1">
     		      <div data-role="navbar" id="tabsnav1" class="ui-responsive">
 		        <ul>
-		          <li style="clear:none;width:33% !important"><a id="tab14" href="#mp" class="ui-btn-active" onclick="show_memories_values();">Memory</a></li>
+		          <li style="clear:none;width:33% !important"><a id="tab14" href="#mp" onclick="show_memories_values();">Memory</a></li>
 		          <li style="clear:none;width:33% !important"><a id="tab15" href="#io">I/O</a></li>
 		          <li class="ui-block-a" style="clear:none;width:33% !important;border:1px solid #ddd;"><a id="tab12" href="#con">Console</a></li>
                           <br>
-		          <li style="           width:33% !important"><a id="tab11" href="#all">Registers</a></li>
+		          <li style="           width:33% !important"><a id="tab11" href="#all" class="ui-btn-active">Registers</a></li>
 		          <li style="clear:none;width:33% !important"><a id="tab16" href="#mc" onclick="show_memories_values();">Control Memory</a></li>
 		          <li style="clear:none;width:33% !important"><a id="tab13" href="#config">Configuration</a></li>
 		        </ul>
@@ -1052,7 +1052,7 @@
 
 		    $.mobile.pageContainer.pagecontainer('change','#main1');
 		    $('#tab11').trigger('click');
-		    $('#tab24').trigger('click');
+		    $('#tab22').trigger('click');
 
 		    $("#colorpicker1").spectrum({ preferredFormat: "hex", color: get_cfg('color_data_active')}) ;
 		    $("#colorpicker2").spectrum({ preferredFormat: "hex", color: get_cfg('color_name_active')}) ;
