@@ -99,23 +99,11 @@
 		    <div data-role="tabs" id="tabs2">
     		      <div data-role="navbar" id="tabsnav2" class="ui-responsive">
 		        <ul>
-		          <li style="clear:none;width:20% !important">
-                              <a id="tab23" href="#eltos_cu"   
-                                 onclick="document.getElementById('eltos_cu').appendChild(document.getElementById('svg_cu'));
-                                          start_drawing(); refresh();">Control Unit</a>
-                          </li>
-		          <li style="clear:none;width:20% !important">
-                              <a id="tab22" href="#eltos_p"   class="ui-btn-active"
-                                 onclick="document.getElementById('eltos_p').appendChild(document.getElementById('svg_p'));
-                                          start_drawing(); refresh();">CPU</a>
-                          </li>
-		          <li style="clear:none;width:20% !important">
+		          <li style="clear:none;width:50% !important">
                               <a id="tab26" href="#eltos_cpu" 
-                                 onclick="document.getElementById('eltos_cpu_a').appendChild(document.getElementById('svg_p'));
-                                          document.getElementById('eltos_cpu_b').appendChild(document.getElementById('svg_cu'));
-                                          start_drawing(); refresh();">CPU+CU</a>
+                                 onclick="start_drawing(); refresh();">Processor</a>
                           </li>
-		          <li style="clear:none;width:40% !important">
+		          <li style="clear:none;width:50% !important">
                               <a id="tab24" href="#eltos_dbg"  
                                  onclick="stop_drawing(); 
                                           var o1 = show_asmdbg_pc();
@@ -125,27 +113,30 @@
                           </li>
 		        </ul>
 		      </div>
-		      <div id="eltos_p"  
-                           class="ui-body-d ui-content" 
-                           style="padding: 5px 0 5px 0;">
-			    <object id="svg_p" data="images/processor5.svg" type="image/svg+xml">
-				Your browser doesn't support SVG
-			    </object>
-                            <img id="internalbus_fire" src="images/fire.gif" height=50 style="position:absolute; top:55%; left:5%;  display:none;">
-                            <img id="databus_fire"     src="images/fire.gif" height=50 style="position:absolute; top:23%; left:25%; display:none;">
-		      </div>
-		      <div id="eltos_cu"  
-                           class="ui-body-d ui-content">
-			    <object id="svg_cu" data="images/controlunit5.svg" type="image/svg+xml">
-				Your browser doesn't support SVG
-			    </object>
-		      </div>
-		      <div id="eltos_cpu"  
-                           class="ui-body-d ui-content">
+		      <div id="eltos_cpu" class="ui-body-d ui-content">
                            <div class="container-fluid" style="padding:0 0 0 0">
+			     <form class="full-width-slider" style="margin:-20 20 20 0">
+				 <input type="range" name="slider-12" id="slider-12" 
+                                        min="0" max="100" value="55" step="10"
+                                        onchange="var a = this.value;
+                                                  var b = 100 - a;
+                                                  $('#eltos_cpu_a').css({width: a+'%'});
+                                                  $('#eltos_cpu_b').css({width: b+'%'});"
+                                        style="display:none;">
+			     </form>
                              <div class="row">
-                               <div id="eltos_cpu_a" class="col-sm-6" style="padding:0 0 0 0; width:52%;"></div>
-                               <div id="eltos_cpu_b" class="col-sm-6" style="padding:0 0 0 0; width:48%;"></div>
+                               <div id="eltos_cpu_a" class="col-sm-6" style="padding:0 0 0 0;">
+				    <object id="svg_p" data="images/processor5.svg" type="image/svg+xml">
+					Your browser doesn't support SVG
+				    </object>
+				    <img id="internalbus_fire" src="images/fire.gif" height=50 style="position:absolute; top:55%; left:5%;  display:none;">
+				    <img id="databus_fire"     src="images/fire.gif" height=50 style="position:absolute; top:23%; left:25%; display:none;">
+                               </div>
+                               <div id="eltos_cpu_b" class="col-sm-6" style="padding:0 0 0 0;">
+				    <object id="svg_cu" data="images/controlunit5.svg" type="image/svg+xml">
+					Your browser doesn't support SVG
+				    </object>
+                               </div>
                              </div>
                            </div>
 		      </div>
@@ -1052,7 +1043,7 @@
 
 		    $.mobile.pageContainer.pagecontainer('change','#main1');
 		    $('#tab11').trigger('click');
-		    $('#tab22').trigger('click');
+		    $('#tab26').trigger('click');
 
 		    $("#colorpicker1").spectrum({ preferredFormat: "hex", color: get_cfg('color_data_active')}) ;
 		    $("#colorpicker2").spectrum({ preferredFormat: "hex", color: get_cfg('color_name_active')}) ;
