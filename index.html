@@ -115,29 +115,30 @@
 		      </div>
 		      <div id="eltos_cpu" class="ui-body-d ui-content">
                            <div class="container-fluid" style="padding:0 0 0 0">
-			     <form class="full-width-slider" style="margin:-20 20 20 0">
+			     <form class="full-width-slider" style="margin:-20 20 20 -35">
 				 <input type="range" name="slider-12" id="slider-12" 
-                                        min="0" max="100" value="55" step="10"
+                                        min="0" max="100" value="60" step="10"
+				        data-show-value="false"
                                         onchange="var a = this.value;
                                                   var b = 100 - a;
                                                   $('#eltos_cpu_a').css({width: a+'%'});
                                                   $('#eltos_cpu_b').css({width: b+'%'});"
                                         style="display:none;">
 			     </form>
-                             <div class="row">
-                               <div id="eltos_cpu_a" class="col-sm-6" style="padding:0 0 0 0;">
+			     <div class="ui-grid-a">
+				<div class="ui-block-a" id="eltos_cpu_a" style="padding:0 0 0 0; width:60%">
 				    <object id="svg_p" data="images/processor5.svg" type="image/svg+xml">
 					Your browser doesn't support SVG
 				    </object>
 				    <img id="internalbus_fire" src="images/fire.gif" height=50 style="position:absolute; top:55%; left:5%;  display:none;">
 				    <img id="databus_fire"     src="images/fire.gif" height=50 style="position:absolute; top:23%; left:25%; display:none;">
-                               </div>
-                               <div id="eltos_cpu_b" class="col-sm-6" style="padding:0 0 0 0;">
+				</div>
+				<div class="ui-block-b" id="eltos_cpu_b" style="padding:0 0 0 0; width:40%">
 				    <object id="svg_cu" data="images/controlunit5.svg" type="image/svg+xml">
 					Your browser doesn't support SVG
 				    </object>
-                               </div>
-                             </div>
+				</div>
+			     </div>
                            </div>
 		      </div>
 		      <div id="eltos_dbg"  class="ui-body-d ui-content">
