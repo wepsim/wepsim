@@ -272,8 +272,18 @@ function loadFirmware (text)
 					var pseudoFieldAux	  = new Object();
 					pseudoFieldAux.name	  = getToken(context);
 					pseudoFieldAux.type	  = getToken(context).replace("num", "inm");
-					if(pseudoFieldAux.type.substring(0,3) == "reg")
-						pseudoFieldAux.type = "reg";
+					pseudoFieldAux.type       = pseudoFieldAux.type.replace(/[_0-9]+$/, '');
+
+					switch(pseudoFieldAux.type){
+						case "reg":
+						case "inm":
+						case "addr":
+						case "address": 
+							break;
+						default:						
+							return langError(context, "Invalid parameter '" + pseudoFieldAux.type + "'. It only allows the following fields: reg, num, inm, addr, address") ;					
+					}
+
 					pseudoInitial.fields.push(pseudoFieldAux);
 					pseudoInitial.signature = pseudoInitial.signature + getToken(context) + ",";
 					nextToken(context);
@@ -287,8 +297,24 @@ function loadFirmware (text)
 
 				var pseudoFinishAux = new Object();
 				pseudoFinishAux.signature="";
+				
+				var inStart = 0;
+				var cont = false;
+
 				while (! isToken(context, "}"))
 				{
+					if(inStart){
+						for(i=0; i<context.instrucciones.legnth; i++){
+							if(context.instrucciones[i].name == getToken(context)){
+								cont = true;
+								break;
+							}	
+						}
+						if(!cont)
+							return langError(context, "Undefined instruction '" + getToken(context) + "'");
+							inStart++;
+					}
+
 					pseudoFinishAux.signature = pseudoFinishAux.signature + getToken(context) + " ";
 					nextToken(context);
 				}
@@ -867,12 +893,14 @@ function saveFirmware ( SIMWARE )
 		for (var i = 0; i< SIMWARE.registers.length; i++)
 		{
 		     if (SIMWARE.stackRegister == i)
-		     	  file += '\t' + "$" + i + "=" + SIMWARE.registers[i] + " (stack_pointer)," + '\n';
-                     else file += '\t' + "$" + i + "=" + SIMWARE.registers[i] + "," + '\n';
+		     	  file += '\t' + i + "=" + SIMWARE.registers[i] + " (stack_pointer)," + '\n';
+                     else file += '\t' + i + "=" + SIMWARE.registers[i] + "," + '\n';
 		}
 		file  = file.substr(0, file.length-2);
 		file += '\n}\n';
 	}
+
+        // TODO: save pseudo-instructions
 
 	return file;
 }

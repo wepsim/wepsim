@@ -60,7 +60,7 @@
 
     <link  href="external/external.min.css" rel="stylesheet">
     <script src="external/external.min.js"></script>
-   
+
     <script src="min.sim_all.js"></script>
     <script src="min.sim_hw.js"></script>
     <script src="min.wepsim.js"></script>
@@ -95,19 +95,15 @@
 	<div role="main" class="ui-content">
 
             <div class="row">
-                <div class="col-md-8" style="padding: 0 2px 0 5px;">
+                <div class="col-md-8" style="padding:0 2px 0 5px;">
 		    <div data-role="tabs" id="tabs2">
     		      <div data-role="navbar" id="tabsnav2" class="ui-responsive">
 		        <ul>
-		          <li style="clear:none;width:30% !important">
-                              <a id="tab23" href="#eltos_cu"   
-                                 onclick="start_drawing(); refresh();">Control Unit</a>
+		          <li style="clear:none;width:50% !important">
+                              <a id="tab26" href="#eltos_cpu" 
+                                 onclick="start_drawing(); refresh();">Processor</a>
                           </li>
-		          <li style="clear:none;width:20% !important">
-                              <a id="tab22" href="#eltos_p"   class="ui-btn-active"
-                                 onclick="start_drawing(); refresh();">CPU</a>
-                          </li>
-		          <li style="clear:none;width:49% !important">
+		          <li style="clear:none;width:50% !important">
                               <a id="tab24" href="#eltos_dbg"  
                                  onclick="stop_drawing(); 
                                           var o1 = show_asmdbg_pc();
@@ -117,17 +113,32 @@
                           </li>
 		        </ul>
 		      </div>
-		      <div id="eltos_p"  class="ui-body-d ui-content trick-hwacceleration" style="padding: 5px 0 5px 0;">
-			    <object id="svg_p" data="images/processor5.svg" type="image/svg+xml">
-				Your browser doesn't support SVG
-			    </object>
-                            <img id="internalbus_fire" src="images/fire.gif" height=50 style="position:absolute; top:55%; left:5%;  display:none;">
-                            <img id="databus_fire"     src="images/fire.gif" height=50 style="position:absolute; top:23%; left:25%; display:none;">
-		      </div>
-		      <div id="eltos_cu" class="ui-body-d ui-content trick-hwacceleration">
-			    <object id="svg_cu" data="images/controlunit5.svg" type="image/svg+xml">
-				Your browser doesn't support SVG
-			    </object>
+		      <div id="eltos_cpu" class="ui-body-d ui-content">
+                           <div class="container-fluid" style="padding:0 0 0 0">
+			     <form class="full-width-slider" style="margin:-20 20 20 0">
+				 <input type="range" name="slider-12" id="slider-12" 
+                                        min="0" max="100" value="55" step="10"
+                                        onchange="var a = this.value;
+                                                  var b = 100 - a;
+                                                  $('#eltos_cpu_a').css({width: a+'%'});
+                                                  $('#eltos_cpu_b').css({width: b+'%'});"
+                                        style="display:none;">
+			     </form>
+                             <div class="row">
+                               <div id="eltos_cpu_a" class="col-sm-6" style="padding:0 0 0 0;">
+				    <object id="svg_p" data="images/processor5.svg" type="image/svg+xml">
+					Your browser doesn't support SVG
+				    </object>
+				    <img id="internalbus_fire" src="images/fire.gif" height=50 style="position:absolute; top:55%; left:5%;  display:none;">
+				    <img id="databus_fire"     src="images/fire.gif" height=50 style="position:absolute; top:23%; left:25%; display:none;">
+                               </div>
+                               <div id="eltos_cpu_b" class="col-sm-6" style="padding:0 0 0 0;">
+				    <object id="svg_cu" data="images/controlunit5.svg" type="image/svg+xml">
+					Your browser doesn't support SVG
+				    </object>
+                               </div>
+                             </div>
+                           </div>
 		      </div>
 		      <div id="eltos_dbg"  class="ui-body-d ui-content">
 			   <center>
@@ -165,15 +176,15 @@
                                 <ol>
                                 <li>Load the microcode to be used.</li>
                                     <ul>
-                                    <li>You can use the default example of microcode, load it from a file or you can edit one.</li>
+                                    <li>You can use an example of microcode, load it from a file or you can edit one.</li>
                                     </ul>
                                 <br>
                                 <li>Load the assembly to be used.</li>
                                     <ul>
-                                    <li>You can use the default assembly example, load it from a file or you can edit one.</li>
+                                    <li>You can use an assembly example, load it from a file or you can edit one.</li>
                                     </ul>
                                 <br>
-                                <li>Come back to the simulator in order to execute step by step the microcode+assembly loaded before.</li>
+                                <li>Come back to the simulator in order to execute the microcode+assembly loaded before.</li>
                                     <ul>
                                     <li>Each step could be executed at microinstruction or instruction level.</li>
                                     </ul>
@@ -184,7 +195,7 @@
 	    	    </div>
                 </div>
 
-                <div class="col-md-4" style="padding: 0 8px 0 0px;">
+                <div class="col-md-4" style="padding:0 8px 0 0px;">
 
                     <div class="btn-toolbar" role="toolbar" id="sim_toolbar" style="padding: 0 0px 10px 0px;">
 			<div class="btn-group btn-group-justified" role="group">
@@ -209,11 +220,11 @@
 		    <div data-role="tabs" id="tabs1">
     		      <div data-role="navbar" id="tabsnav1" class="ui-responsive">
 		        <ul>
-		          <li style="clear:none;width:33% !important"><a id="tab14" href="#mp" class="ui-btn-active" onclick="show_memories_values();">Memory</a></li>
+		          <li style="clear:none;width:33% !important"><a id="tab14" href="#mp" onclick="show_memories_values();">Memory</a></li>
 		          <li style="clear:none;width:33% !important"><a id="tab15" href="#io">I/O</a></li>
 		          <li class="ui-block-a" style="clear:none;width:33% !important;border:1px solid #ddd;"><a id="tab12" href="#con">Console</a></li>
                           <br>
-		          <li style="           width:33% !important"><a id="tab11" href="#all">Registers</a></li>
+		          <li style="           width:33% !important"><a id="tab11" href="#all" class="ui-btn-active">Registers</a></li>
 		          <li style="clear:none;width:33% !important"><a id="tab16" href="#mc" onclick="show_memories_values();">Control Memory</a></li>
 		          <li style="clear:none;width:33% !important"><a id="tab13" href="#config">Configuration</a></li>
 		        </ul>
@@ -293,7 +304,9 @@
 			<center>
 			<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
                         <button class="ui-btn ui-btn-b ui-btn-inline" 
-                                onclick="if (confirm('Do you want me to save the current Control Memory contents rather than the editor content?.\n\nPlease notice that this action will replace the current editor contents,\nAND the comments outside the microcode will be removed.'))
+                                onclick="if (confirm('Do you want me to save the current Control Memory contents rather than the editor contents?.\n\n' + 
+                                                     'Please notice that saving the current Control Memory will replace the current editor contents,\n' +
+                                                     'AND the comments outside the microcode will be removed.'))
                                          {
 					     var SIMWARE = get_simware() ;
 					     var simware_as_text = saveFirmware(SIMWARE);
@@ -301,9 +314,12 @@
 						  alert('The Microcode loaded in memory is empty!\n' + 
 							'Please load a Microcode first in memory in order to save it.');
 					     else inputfirm.setValue(simware_as_text);
-					 } 
-                                         var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
-                                         wepsim_save_to_file(inputfirm, fileNameToSaveAs);">Save to File</button>
+                                             var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
+                                             wepsim_save_to_file(inputfirm, fileNameToSaveAs);
+					 }">Save control memory to File</button>
+                        <button class="ui-btn ui-btn-b ui-btn-inline" 
+                                onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
+                                         wepsim_save_to_file(inputfirm, fileNameToSaveAs);">Save Editor content to File</button>
                         </center>
 		    </div>
 		</div>
@@ -780,7 +796,7 @@
 			 <input type="range"
 				data-show-value="false"
 				name="slider1" id="slider1"
-				min="1" max="100" value="100" step=1
+				min="1" max="200" value="200" step=5
 				onchange="set_cfg('DBG_delay', 1000 / this.value); save_cfg();">
 		    </li>
 		    <li class="list-group-item">
@@ -1013,21 +1029,21 @@
 
 		    var a = document.getElementById("svg_p");
 		    a.addEventListener("load",function() {
-			sim_init();
+			sim_prepare_svg_p();
 			init_eventlistener("svg_p");
 			refresh();
 		    }, false);
 
 		    var a = document.getElementById("svg_cu");
 		    a.addEventListener("load",function() {
-			sim_init();
+			sim_prepare_svg_cu();
 			init_eventlistener("svg_cu");
 			refresh();
 		    }, false);
 
 		    $.mobile.pageContainer.pagecontainer('change','#main1');
 		    $('#tab11').trigger('click');
-		    $('#tab22').trigger('click');
+		    $('#tab26').trigger('click');
 
 		    $("#colorpicker1").spectrum({ preferredFormat: "hex", color: get_cfg('color_data_active')}) ;
 		    $("#colorpicker2").spectrum({ preferredFormat: "hex", color: get_cfg('color_name_active')}) ;
