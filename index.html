@@ -95,7 +95,7 @@
 	<div role="main" class="ui-content">
 
             <div class="row">
-                <div class="col-md-8" style="padding:0 2px 0 5px;">
+                <div class="col-md-8" style="padding:0 0 0 0;">
 		    <div data-role="tabs" id="tabs2">
     		      <div data-role="navbar" id="tabsnav2" class="ui-responsive">
 		        <ul>
@@ -113,7 +113,7 @@
                           </li>
 		        </ul>
 		      </div>
-		      <div id="eltos_cpu" class="ui-body-d ui-content">
+		      <div id="eltos_cpu" class="ui-body-d ui-content" style="padding:10 0 10 0">
                            <div class="container-fluid" style="padding:0 0 0 0">
 			     <form class="full-width-slider" style="margin:-20 20 20 -35">
 				 <input type="range" name="slider-12" id="slider-12" 
@@ -306,8 +306,10 @@
 			<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
                         <button class="ui-btn ui-btn-b ui-btn-inline" 
                                 onclick="if (confirm('Do you want me to save the current Control Memory contents rather than the editor contents?.\n\n' + 
-                                                     'Please notice that saving the current Control Memory will replace the current editor contents,\n' +
-                                                     'AND the comments outside the microcode will be removed.'))
+                                                     'Please notice three things:\n' +
+                                                     '* The current Control Memory will replace the editor contents.\n' +
+                                                     '* The comments outside the microcode will be removed.\n' +
+                                                     '* Pseudo-instructions will be not included.'))
                                          {
 					     var SIMWARE = get_simware() ;
 					     var simware_as_text = saveFirmware(SIMWARE);
