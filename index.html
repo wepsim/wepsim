@@ -101,7 +101,9 @@
 		        <ul>
 		          <li style="clear:none;width:50% !important">
                               <a id="tab26" href="#eltos_cpu" 
-                                 onclick="start_drawing(); refresh();">Processor</a>
+                                 onclick="start_drawing(); refresh(); 
+                                          $('#slider2d').show();
+                                          slider2d_timeout = setTimeout(function(){$('#slider2d').hide('blind',{},500);},5000);">Processor</a>
                           </li>
 		          <li style="clear:none;width:50% !important">
                               <a id="tab24" href="#eltos_dbg"  
@@ -115,16 +117,21 @@
 		      </div>
 		      <div id="eltos_cpu" class="ui-body-d ui-content" style="padding:10 0 10 0">
                            <div class="container-fluid" style="padding:0 0 0 0">
-			     <form class="full-width-slider" style="margin:-20 20 20 -35">
-				 <input type="range" name="slider-12" id="slider-12" 
-                                        min="0" max="100" value="60" step="10"
+			     <div  id="slider2d">
+			     <form id="slider2f" class="full-width-slider" style="margin:-20 20 20 -35">
+				 <input type="range" name="slider2" id="slider2" 
+                                        min="0" max="100" value="55" step="5"
 				        data-show-value="false"
-                                        onchange="var a = this.value;
+                                        onchange="clearTimeout(slider2d_timeout);
+                                                  $('#slider2d').show();
+                                                  slider2d_timeout = setTimeout(function(){$('#slider2d').hide('blind',{},500);},5000);
+                                                  var a = this.value;
                                                   var b = 100 - a;
                                                   $('#eltos_cpu_a').css({width: a+'%'});
                                                   $('#eltos_cpu_b').css({width: b+'%'});"
                                         style="display:none;">
 			     </form>
+			     </div>
 			     <div class="ui-grid-a">
 				<div class="ui-block-a" id="eltos_cpu_a" style="padding:0 0 0 0; width:60%">
 				    <object id="svg_p" data="images/processor5.svg" type="image/svg+xml">
@@ -840,6 +847,28 @@
 				    onclick="set_cfg('is_interactive',false); save_cfg();"
 				    value="off" type="radio">
 			     <label for="radio5-false">Off</label>
+			 </li>
+			 </ul>
+			 </fieldset>
+		    </li>
+		    <li class="list-group-item">
+			 <fieldset data-role="controlgroup" data-type="horizontal">
+			 Breakpoint Icon:<br>
+			 <ul>
+			 <li>
+			    <select name="select1" id="select1" 
+                                    onchange="var optionSelected = $(this).find('option:selected');
+                                              var optValueSelected = optionSelected.val();
+				              set_cfg('ICON_theme',optValueSelected); save_cfg();"
+                                    data-mini="true">
+				<option value="classic">Classic</option>
+				<option value="pushpin">Push Pin</option>
+				<option value="simple">Simple</option>
+				<option value="cat1">Cat</option>
+				<option value="dog1">Dog</option>
+				<option value="r2d2">R2-D2</option>
+				<option value="sw">Death Star</option>
+			    </select>
 			 </li>
 			 </ul>
 			 </fieldset>
