@@ -78,8 +78,6 @@
     <script src="sim_lang_firm.js"></script>
     <script src="sim_lang.js"></script>
  
-    <script src="min.wepsim.js"></script>
-
     <!-- Google Analytics -->
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -110,27 +108,17 @@
 	<div role="main" class="ui-content">
 
             <div class="row">
-                <div class="col-md-8" style="padding:0 2px 0 5px;">
+                <div class="col-md-8" style="padding:0 0 0 0;">
 		    <div data-role="tabs" id="tabs2">
     		      <div data-role="navbar" id="tabsnav2" class="ui-responsive">
 		        <ul>
-		          <li style="clear:none;width:30% !important" class="hidden-lg">
-                              <a id="tab23" href="#eltos_cu"   
-                                 onclick="document.getElementById('eltos_cu').appendChild(document.getElementById('svg_cu'));
-                                          start_drawing(); refresh();">Control Unit</a>
+		          <li style="clear:none;width:50% !important">
+                              <a id="tab26" href="#eltos_cpu" 
+                                 onclick="start_drawing(); refresh(); 
+                                          $('#slider2d').show();
+                                          slider2d_timeout = setTimeout(function(){$('#slider2d').hide('blind',{},500);},5000);">Processor</a>
                           </li>
-		          <li style="clear:none;width:20% !important" class="hidden-lg">
-                              <a id="tab22" href="#eltos_p"   class="ui-btn-active"
-                                 onclick="document.getElementById('eltos_p').appendChild(document.getElementById('svg_p'));
-                                          start_drawing(); refresh();">CPU</a>
-                          </li>
-		          <li style="clear:none;width:50% !important" class="hidden-xs hidden-sm hidden-md">
-                              <a id="tab26" href="#eltos_cpu" class="ui-btn-active"
-                                 onclick="document.getElementById('eltos_cpu_a').appendChild(document.getElementById('svg_p'));
-                                          document.getElementById('eltos_cpu_b').appendChild(document.getElementById('svg_cu'));
-                                          start_drawing(); refresh();">Processor</a>
-                          </li>
-		          <li style="clear:none;width:49% !important">
+		          <li style="clear:none;width:50% !important">
                               <a id="tab24" href="#eltos_dbg"  
                                  onclick="stop_drawing(); 
                                           var o1 = show_asmdbg_pc();
@@ -140,28 +128,37 @@
                           </li>
 		        </ul>
 		      </div>
-		      <div id="eltos_p"  
-                           class="ui-body-d ui-content hidden-lg" 
-                           style="padding: 5px 0 5px 0;">
-			    <object id="svg_p" data="images/processor5.svg" type="image/svg+xml">
-				Your browser doesn't support SVG
-			    </object>
-                            <img id="internalbus_fire" src="images/fire.gif" height=50 style="position:absolute; top:55%; left:5%;  display:none;">
-                            <img id="databus_fire"     src="images/fire.gif" height=50 style="position:absolute; top:23%; left:25%; display:none;">
-		      </div>
-		      <div id="eltos_cu"  
-                           class="ui-body-d ui-content hidden-lg">
-			    <object id="svg_cu" data="images/controlunit5.svg" type="image/svg+xml">
-				Your browser doesn't support SVG
-			    </object>
-		      </div>
-		      <div id="eltos_cpu"  
-                           class="ui-body-d ui-content hidden-xs hidden-sm hidden-md">
+		      <div id="eltos_cpu" class="ui-body-d ui-content" style="padding:10 0 10 0">
                            <div class="container-fluid" style="padding:0 0 0 0">
-                             <div class="row">
-                               <div id="eltos_cpu_a" class="col-sm-6" style="padding:0 0 0 0"></div>
-                               <div id="eltos_cpu_b" class="col-sm-6" style="padding:0 0 0 0"></div>
-                             </div>
+			     <div  id="slider2d">
+			     <form id="slider2f" class="full-width-slider" style="margin:-20 20 20 -35">
+				 <input type="range" name="slider2" id="slider2" 
+                                        min="0" max="100" value="55" step="5"
+				        data-show-value="false"
+                                        onchange="clearTimeout(slider2d_timeout);
+                                                  $('#slider2d').show();
+                                                  slider2d_timeout = setTimeout(function(){$('#slider2d').hide('blind',{},500);},5000);
+                                                  var a = this.value;
+                                                  var b = 100 - a;
+                                                  $('#eltos_cpu_a').css({width: a+'%'});
+                                                  $('#eltos_cpu_b').css({width: b+'%'});"
+                                        style="display:none;">
+			     </form>
+			     </div>
+			     <div class="ui-grid-a">
+				<div class="ui-block-a" id="eltos_cpu_a" style="padding:0 0 0 0; width:60%">
+				    <object id="svg_p" data="images/processor5.svg" type="image/svg+xml">
+					Your browser doesn't support SVG
+				    </object>
+				    <img id="internalbus_fire" src="images/fire.gif" height=50 style="position:absolute; top:55%; left:5%;  display:none;">
+				    <img id="databus_fire"     src="images/fire.gif" height=50 style="position:absolute; top:23%; left:25%; display:none;">
+				</div>
+				<div class="ui-block-b" id="eltos_cpu_b" style="padding:0 0 0 0; width:40%">
+				    <object id="svg_cu" data="images/controlunit5.svg" type="image/svg+xml">
+					Your browser doesn't support SVG
+				    </object>
+				</div>
+			     </div>
                            </div>
 		      </div>
 		      <div id="eltos_dbg"  class="ui-body-d ui-content">
@@ -244,11 +241,11 @@
 		    <div data-role="tabs" id="tabs1">
     		      <div data-role="navbar" id="tabsnav1" class="ui-responsive">
 		        <ul>
-		          <li style="clear:none;width:33% !important"><a id="tab14" href="#mp" class="ui-btn-active" onclick="show_memories_values();">Memory</a></li>
+		          <li style="clear:none;width:33% !important"><a id="tab14" href="#mp" onclick="show_memories_values();">Memory</a></li>
 		          <li style="clear:none;width:33% !important"><a id="tab15" href="#io">I/O</a></li>
 		          <li class="ui-block-a" style="clear:none;width:33% !important;border:1px solid #ddd;"><a id="tab12" href="#con">Console</a></li>
                           <br>
-		          <li style="           width:33% !important"><a id="tab11" href="#all">Registers</a></li>
+		          <li style="           width:33% !important"><a id="tab11" href="#all" class="ui-btn-active">Registers</a></li>
 		          <li style="clear:none;width:33% !important"><a id="tab16" href="#mc" onclick="show_memories_values();">Control Memory</a></li>
 		          <li style="clear:none;width:33% !important"><a id="tab13" href="#config">Configuration</a></li>
 		        </ul>
@@ -328,7 +325,11 @@
 			<center>
 			<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
                         <button class="ui-btn ui-btn-b ui-btn-inline" 
-                                onclick="if (!confirm('Do you want me to save the editor content rather than the current Control Memory contents?.\n\nPlease notice that saving the current Control Memory will replace the current editor contents,\nAND the comments outside the microcode will be removed.'))
+                                onclick="if (confirm('Do you want me to save the current Control Memory contents rather than the editor contents?.\n\n' + 
+                                                     'Please notice three things:\n' +
+                                                     '* The current Control Memory will replace the editor contents.\n' +
+                                                     '* The comments outside the microcode will be removed.\n' +
+                                                     '* Pseudo-instructions will be not included.'))
                                          {
 					     var SIMWARE = get_simware() ;
 					     var simware_as_text = saveFirmware(SIMWARE);
@@ -336,9 +337,12 @@
 						  alert('The Microcode loaded in memory is empty!\n' + 
 							'Please load a Microcode first in memory in order to save it.');
 					     else inputfirm.setValue(simware_as_text);
-					 } 
-                                         var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
-                                         wepsim_save_to_file(inputfirm, fileNameToSaveAs);">Save to File</button>
+                                             var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
+                                             wepsim_save_to_file(inputfirm, fileNameToSaveAs);
+					 }">Save control memory to File</button>
+                        <button class="ui-btn ui-btn-b ui-btn-inline" 
+                                onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
+                                         wepsim_save_to_file(inputfirm, fileNameToSaveAs);">Save Editor content to File</button>
                         </center>
 		    </div>
 		</div>
@@ -860,6 +864,28 @@
 			 </ul>
 			 </fieldset>
 		    </li>
+		    <li class="list-group-item">
+			 <fieldset data-role="controlgroup" data-type="horizontal">
+			 Breakpoint Icon:<br>
+			 <ul>
+			 <li>
+			    <select name="select1" id="select1" 
+                                    onchange="var optionSelected = $(this).find('option:selected');
+                                              var optValueSelected = optionSelected.val();
+				              set_cfg('ICON_theme',optValueSelected); save_cfg();"
+                                    data-mini="true">
+				<option value="classic">Classic</option>
+				<option value="pushpin">Push Pin</option>
+				<option value="simple">Simple</option>
+				<option value="cat1">Cat</option>
+				<option value="dog1">Dog</option>
+				<option value="r2d2">R2-D2</option>
+				<option value="sw">Death Star</option>
+			    </select>
+			 </li>
+			 </ul>
+			 </fieldset>
+		    </li>
 		  </ul>
           </div>
 	</div>
@@ -1062,7 +1088,7 @@
 
 		    $.mobile.pageContainer.pagecontainer('change','#main1');
 		    $('#tab11').trigger('click');
-		    $('#tab24').trigger('click');
+		    $('#tab26').trigger('click');
 
 		    $("#colorpicker1").spectrum({ preferredFormat: "hex", color: get_cfg('color_data_active')}) ;
 		    $("#colorpicker2").spectrum({ preferredFormat: "hex", color: get_cfg('color_name_active')}) ;

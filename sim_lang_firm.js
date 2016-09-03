@@ -893,12 +893,14 @@ function saveFirmware ( SIMWARE )
 		for (var i = 0; i< SIMWARE.registers.length; i++)
 		{
 		     if (SIMWARE.stackRegister == i)
-		     	  file += '\t' + "$" + i + "=" + SIMWARE.registers[i] + " (stack_pointer)," + '\n';
-                     else file += '\t' + "$" + i + "=" + SIMWARE.registers[i] + "," + '\n';
+		     	  file += '\t' + i + "=" + SIMWARE.registers[i] + " (stack_pointer)," + '\n';
+                     else file += '\t' + i + "=" + SIMWARE.registers[i] + "," + '\n';
 		}
 		file  = file.substr(0, file.length-2);
 		file += '\n}\n';
 	}
+
+        // TODO: save pseudo-instructions
 
 	return file;
 }
