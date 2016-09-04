@@ -864,10 +864,13 @@
 			 Breakpoint Icon:<br>
 			 <ul>
 			 <li>
+			    <img id="img_select1" src="images/stop_classic.png" 
+                                 style="position:absolute; left:15px" height="30" width="30">
 			    <select name="select1" id="select1" 
-                                    onchange="var optionSelected = $(this).find('option:selected');
-                                              var optValueSelected = optionSelected.val();
-				              set_cfg('ICON_theme',optValueSelected); save_cfg();"
+                                    onchange="var opt = $(this).find('option:selected');
+                                              var optValue = opt.val();
+                                              $('#img_select1').attr('src','images/stop_' + optValue + '.png');
+				              set_cfg('ICON_theme',optValue); save_cfg();"
                                     data-mini="true">
 				<option value="classic">Classic</option>
 				<option value="pushpin">Push Pin</option>
@@ -1095,6 +1098,7 @@
 		    $("#radio7-" +      get_cfg('editor_theme')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio8-" +       get_cfg('editor_mode')).prop('checked', true).checkboxradio("refresh") ;
                     $("#select1").val(get_cfg('ICON_theme')).selectmenu("refresh");
+                    $("#img_select1").attr("src","images/stop_" + get_cfg('ICON_theme') + ".png");
 
                     showhideAsmElements();
 		    $("input:checkbox").click(function(){
