@@ -103,7 +103,15 @@
                               <a id="tab26" href="#eltos_cpu" 
                                  onclick="start_drawing(); refresh(); 
                                           $('#slider2d').show();
-                                          slider2d_timeout = setTimeout(function(){$('#slider2d').hide('blind',{},500);},5000);">Processor</a>
+                                          slider2d_timeout = setTimeout(function() {
+                                                                           $('#slider2d').hide('blind',{},500);
+									   $.notify({ title: '<strong>INFO</strong>', 
+                                                                                      message: 'Please press the processor tab in order to show the resize bar again.'},
+										    { type: 'success',
+										      newest_on_top: true,
+										      delay: get_cfg('NOTIF_delay'),
+										      placement: { from: 'top', align: 'center' } });
+                                                                        }, 3000);">Processor</a>
                           </li>
 		          <li style="clear:none;width:50% !important">
                               <a id="tab24" href="#eltos_dbg"  
@@ -1086,6 +1094,7 @@
 		    $("#radio6-" +          get_cfg('ws_idiom')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio7-" +      get_cfg('editor_theme')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio8-" +       get_cfg('editor_mode')).prop('checked', true).checkboxradio("refresh") ;
+                    $("#select1").val(get_cfg('ICON_theme')).selectmenu("refresh");
 
                     showhideAsmElements();
 		    $("input:checkbox").click(function(){
