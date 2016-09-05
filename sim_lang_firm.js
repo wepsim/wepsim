@@ -303,8 +303,8 @@ function loadFirmware (text)
 
 				while (! isToken(context, "}"))
 				{
-					if(inStart){
-						for(i=0; i<context.instrucciones.legnth; i++){
+					if(inStart == 0){
+						for(i=0; i<context.instrucciones.length; i++){
 							if(context.instrucciones[i].name == getToken(context)){
 								cont = true;
 								break;
@@ -312,8 +312,12 @@ function loadFirmware (text)
 						}
 						if(!cont)
 							return langError(context, "Undefined instruction '" + getToken(context) + "'");
-							inStart++;
 					}
+
+					if(getToken(context) == ";")
+						inStart = 0;
+					else
+						inStart++;
 
 					pseudoFinishAux.signature = pseudoFinishAux.signature + getToken(context) + " ";
 					nextToken(context);
