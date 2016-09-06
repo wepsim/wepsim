@@ -577,7 +577,7 @@ function read_text ( context, datosCU, ret )
 	   while (!is_directive_segment(getToken(context)) && !is_end_of_file(context)) 
            {
 		// check tag or error
-		while (!isPseudo && typeof firmware[getToken(context)] == "undefined") 
+		while (!isPseudo && typeof firmware[getToken(context)] == "undefined" && !is_end_of_file(context)) 
                 {
 			var possible_tag = getToken(context);
 	
@@ -597,10 +597,11 @@ function read_text ( context, datosCU, ret )
 			ret.labels2[tag] = "0x" + seg_ptr.toString(16);
 
 			nextToken(context);
-
-			if (context.t >= context.text.length) 
-                            return langError(context, "Unexpected end of file");
 		}
+
+		// check if end of file has been reached
+                if(is_end_of_file(context))
+                	break; 
 
 		// get instruction
 		if(!isPseudo){
