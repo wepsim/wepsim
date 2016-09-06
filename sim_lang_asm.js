@@ -790,8 +790,8 @@ function read_text ( context, datosCU, ret )
 				if (advance[j] == 1 && !label_found){
 					if (res[1] < 0){
 						if (field.type == "address" && "rel" == field.address_type)
-							error = "Relative value (" + (converted - seg_ptr - WORD_BYTES) + " in decimal) needs " + res[0].length + " bits but there is space for only " + size + " bits";
-						else var error = "'" + value + "' needs " + res[0].length + " bits but there is space for only " + size + " bits";
+							error = "Relative value (" + (converted - seg_ptr - WORD_BYTES) + " in decimal) needs " + res[0].length + " bits in binary but there is space for only " + size + " bits";
+						else var error = "'" + value + "' needs " + res[0].length + " bits in binary but there is space for only " + size + " bits";
 						advance[j] = 0;						
 					}
 				}	
@@ -1072,12 +1072,12 @@ function simlang_compile (text, datosCU)
 			var a = decimal2binary(converted, size);
 			num_bits = a[0] ;
                         free_space = a[1] ;
-			var error = "'" + ret.labels[i].name + "' needs " + num_bits.length + " bits but there is space for only " + size + " bits";
+			var error = "'" + ret.labels[i].name + "' needs " + num_bits.length + " bits in binary but there is space for only " + size + " bits";
 			if ("rel" == ret.labels[i].rel){
 			    var a = decimal2binary(converted - ret.labels[i].addr - WORD_BYTES, size);
 			    num_bits = a[0] ;
                             free_space = a[1] ;
-			    error = "Relative value (" + (converted - ret.labels[i].addr - WORD_BYTES) + " in decimal) needs " + num_bits.length + " bits but there is space for only " + size + " bits";
+			    error = "Relative value (" + (converted - ret.labels[i].addr - WORD_BYTES) + " in decimal) needs " + num_bits.length + " bits in binary but there is space for only " + size + " bits";
 			}
 		}	
  		else return langError(context, "Unexpected error (2)");
