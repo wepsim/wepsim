@@ -229,6 +229,10 @@ function writememory_and_reset ( mp, gen, nwords )
         }
 }
 
+function is_end_of_file(context)
+{
+	return "" === getToken(context) && context.t >= context.text.length;
+}
 
 /*
  *   Load segments
@@ -251,7 +255,7 @@ function read_data ( context, datosCU, ret )
            nextToken(context) ;
 
 	   // Loop while token read is not a segment directive (.text/.data/...)
-	   while (!is_directive_segment(getToken(context))) 
+	   while (!is_directive_segment(getToken(context)) && !is_end_of_file(context)) 
            {
 		   // 
 		   //  * etiq1: * 
@@ -259,7 +263,7 @@ function read_data ( context, datosCU, ret )
 		   // 
 	
 		   var possible_tag = "" ;
-		   while (!is_directive_datatype(getToken(context))) 
+		   while (!is_directive_datatype(getToken(context)) && !is_end_of_file(context)) 
 		   {
                       // tagX
 		      possible_tag = getToken(context) ;
@@ -284,6 +288,10 @@ function read_data ( context, datosCU, ret )
 		      nextToken(context) ;
 		   }
 
+		   // check if end of file has been reached
+		   if(is_end_of_file(context))
+			break;
+
 		   // 
 		   //    etiq1:   
 		   //    etiq2: *.word* 2, 4
@@ -300,7 +308,7 @@ function read_data ( context, datosCU, ret )
 		        nextToken(context) ;
                         var possible_value = getToken(context) ;
 
-			while (!is_directive(getToken(context)))
+			while (!is_directive(getToken(context)) && !is_end_of_file(context))
                         {
 				var number;
 				var label_found = false;
@@ -450,7 +458,7 @@ function read_data ( context, datosCU, ret )
 		        nextToken(context) ;
                         var possible_value = getToken(context) ;
 
-			while (!is_directive(getToken(context)))
+			while (!is_directive(getToken(context)) && !is_end_of_file(context))
                         {
 				// Word filled
                                 writememory_and_reset(ret.mp, gen, 1) ;
@@ -513,6 +521,7 @@ function read_data ( context, datosCU, ret )
 
 				// optional ','
 				nextToken(context);
+	
 				if ("," == getToken(context))
 				    nextToken(context);
 
@@ -527,8 +536,6 @@ function read_data ( context, datosCU, ret )
 		   {
 		        return langError(context, "Unexpected datatype name '" + possible_datatype );
 		   }
-		   
-		   if (context.t >= context.text.length) break;
            }
 
 	   // Fill memory
@@ -567,7 +574,7 @@ function read_text ( context, datosCU, ret )
            nextToken(context) ;
 		
 	   // Loop while token read is not a segment directive (.text/.data/...)
-	   while (!is_directive_segment(getToken(context))) 
+	   while (!is_directive_segment(getToken(context)) && !is_end_of_file(context)) 
            {
 		// check tag or error
 		while (!isPseudo && typeof firmware[getToken(context)] == "undefined") 
@@ -1004,22 +1011,30 @@ function simlang_compile (text, datosCU)
           ret.labels2      = new Object() ;
           ret.assembly     = new Object() ; // This is for the Assembly Debugger...
 
+	  data_found = false;
+	  text_found = false;
+
           // 
           // .segment
           // ...
           // 
           nextToken(context) ;
-          while (context.t < context.text.length)
+          while (!is_end_of_file(context))
           {
 	       var segname = getToken(context);
 
 	       if (typeof ret.seg[segname] == "undefined")
 			return langError(context, "Expected .data/.text/... segment but found '" + segname + "' as segment");
 
-	       if ("data" == ret.seg[segname].kindof)
+	       if ("data" == ret.seg[segname].kindof){
 			read_data(context, datosCU, ret);
-	       if ("text" == ret.seg[segname].kindof)
+			data_found = true;	       
+	       }
+
+	       if ("text" == ret.seg[segname].kindof){
 			read_text(context, datosCU, ret);
+			text_found = true;
+	       }
 
 	       // Check errors
 	       if (context.error != null){
@@ -1085,9 +1100,11 @@ function simlang_compile (text, datosCU)
 	 }	 
 
 	 // check if main or kmain in assembly code
-	 if ( (typeof ret.labels2["main"] == "undefined" ) && (typeof ret.labels2["kmain"] == "undefined" ) )
-		return langError(context, "Tags 'main' or 'kmain' are not defined in the assembly code");
-	
+	 if(text_found){
+		 if ( (typeof ret.labels2["main"] == "undefined" ) && (typeof ret.labels2["kmain"] == "undefined" ) )
+			return langError(context, "Tags 'main' or 'kmain' are not defined in the text segment(s). It is compulsory to define at least one of those tags in order to execute a program");
+	 }
+
 	 return ret;
 }
 
