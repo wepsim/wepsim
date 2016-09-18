@@ -221,10 +221,14 @@
                           "<input size=10 data-role=none data-bind='value:value'>" +
                           "</div>" ;
                  else
-		 o1_rf += "<div class='col-xs-2 col-sm-1 col-md-2 col-lg-1' id='name_RF" + index + "' style='padding: 0 15 0 5;'>" +
-                          "R" + index + "</div>" + 
-                          "<div class='col-xs-4 col-sm-2 col-md-4 col-lg-3' id='tbl_RF"  + index + "' style='padding: 0 5 0 35;'>" +
-                          (get_value(sim_states['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() + "</div>" ; 
+		 o1_rf += "<div class='col-xs-6 col-sm-4 col-md-4 col-lg-3' style='padding: 0 15 0 5;'>" +
+                          "<button type='button' class='btn btn-outline-primary' style='padding: 0 0 0 0;'>" + 
+                          "  <span id='name_RF" + index + "' style='float:center; padding: 0 10 0 0'>R" + index + "</span>" + 
+                          "  <span class='badge'  style='background-color:#FFEBCD; color:black;'>" + 
+                          "  <div id='tbl_RF"  + index + "'>" + (get_value(sim_states['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() + "</div>" + 
+                          "  </span>" + 
+                          "</button>" +
+                          "</div>" ; 
 	    }
 
             $(jqdiv).html("<div class='row-fluid'>" + o1_rf + "</div>");
@@ -310,9 +314,12 @@
                       "<input size=10 data-role=none data-bind='value:value'>" +
                       "</div>" ;
                 else
-                o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" + showkey + "</div>" +
-                      "<div class='" + divclass + "' id='tbl_" + s + "' style='padding: 0 5 0 0;'>" +
-                      sim_eltos[s].value.toString(get_cfg('RF_display_format')) +
+                o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" + 
+                      "<button type='button' class='btn btn-outline-primary' style='padding: 0 0 0 0;'>" + showkey + 
+                      "  <span class='badge'  style='background-color:#FFEBCD; color:black;'>" +
+                      "  <div id='tbl_"  + s + "'>" + sim_eltos[s].value.toString(get_cfg('RF_display_format')) + "</div>" +
+                      "  </span>" +
+                      "</button>" +
                       "</div>" ;
             }
 
@@ -345,7 +352,7 @@
                 if (sim_eltos[key].nbits > 1) {
                         value = (sim_states[key].value >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() ;
                     if (16 == get_cfg('RF_display_format'))
-                        value = "<font color=gray>" + "00000000".substring(0, 8 - value.length) + "</font>" + value ;
+                        value = "00000000".substring(0, 8 - value.length) + value ;
                 }
 
 		var obj = document.getElementById("tbl_" + key);
@@ -355,15 +362,16 @@
         }
 
 
-        var filter_states = [ "REG_IR_DECO,1",   
-                              "REG_IR,0",  "REG_PC,0",  "REG_SR,0", 
-                              "REG_RT1,0", "REG_RT2,0", "REG_RT3,0",    
-                              "REG_MAR,0", "REG_MBR,0", "REG_MICROADDR,0",
+        var filter_states = [ "REG_IR_DECO,2",
+                              "REG_IR,1",  "REG_PC,1",  "REG_SR,1", 
+                              "REG_RT1,1", "REG_RT2,1", "REG_RT3,1",
+                              "REG_MAR,1", "REG_MBR,1", "REG_MICROADDR,1",
                               "FLAG_C,0",  "FLAG_V,0",  "FLAG_N,0",  "FLAG_Z,0",     
                               "FLAG_I,0",  "FLAG_U,0" ] ;
 
-        var divclasses = [ "col-xs-3 col-sm-3 col-md-3 col-lg-2",
-                           "col-xs-6 col-sm-6 col-md-6 col-lg-6" ] ;
+        var divclasses = [ "col-xs-4 col-sm-3 col-md-3 col-lg-2",
+                           "col-xs-4 col-sm-4 col-md-4 col-lg-3",
+                           "col-xs-9 col-sm-9 col-md-9 col-lg-9" ] ;
 
         function init_states ( jqdiv ) 
         {
