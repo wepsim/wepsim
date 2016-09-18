@@ -215,17 +215,17 @@
 	    for (var index=0; index < sim_states['BR'].length; index++) 
             {
                  if (get_cfg('is_editable') == true)
-		 o1_rf += "<div class='col-xs-2 col-sm-1 col-md-2 col-lg-1' id='name_RF" + index + "' style='padding: 0 15 0 5;'>" +
+		 o1_rf += "<div class='col-xs-2 col-sm-1 col-md-2 col-lg-1' id='name_RF" + index + "' style='padding:0 15 0 5;'>" +
                           "R" + index + "</div>" + 
-                          "<div class='col-xs-4 col-sm-2 col-md-4 col-lg-3' id='tbl_RF"  + index + "' style='padding: 0 5 0 35;'>" +
+                          "<div class='col-xs-4 col-sm-2 col-md-4 col-lg-3' id='tbl_RF"  + index + "' style='padding:0 5 0 35;'>" +
                           "<input size=10 data-role=none data-bind='value:value'>" +
                           "</div>" ;
                  else
-		 o1_rf += "<div class='col-xs-6 col-sm-4 col-md-4 col-lg-3' style='padding: 0 5 0 5;'>" +
-                          "<button type='button' class='btn btn-outline-primary' style='padding: 0 0 0 0; outline:none; box-shadow: none;'>" + 
-                          "  <span id='name_RF" + index + "' style='float:center; padding: 0 0 0 0'>R" + index + "</span>" + 
-                          "  <span class='badge'  style='background-color:#FFEBCD; color:black;'>" + 
-                          "  <div id='tbl_RF"  + index + "'>" + (get_value(sim_states['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() + "</div>" + 
+		 o1_rf += "<div class='col-xs-6 col-sm-4 col-md-4 col-lg-3' style='padding:0 5 0 5;'>" +
+                          "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;'>" + 
+                          "  <span id='name_RF" + index + "' style='float:center; padding:0 0 0 0'>R" + index + "</span>" + 
+                          "  <span class='badge' style='background-color:#FFEBCD; color:black;' id='tbl_RF"  + index + "'>" + 
+                          (get_value(sim_states['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() +
                           "  </span>" + 
                           "</button>" +
                           "</div>" ; 
@@ -309,15 +309,15 @@
                 var divclass = divclasses[b] ;
 
                 if (get_cfg('is_editable') == true)
-                o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" + showkey + "</div>" +
-                      "<div class='" + divclass + "' id='tbl_" + s + "' style='padding: 0 5 0 0;'>" +
+                o1 += "<div class='" + divclass + "' style='padding:0 5 0 5;'>" + showkey + "</div>" +
+                      "<div class='" + divclass + "' id='tbl_" + s + "' style='padding:0 5 0 0;'>" +
                       "<input size=10 data-role=none data-bind='value:value'>" +
                       "</div>" ;
                 else
                 o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" + 
-                      "<button type='button' class='btn btn-outline-primary' style='padding: 0 0 0 0; outline:none; box-shadow:none;'>" + showkey + 
-                      "  <span class='badge'  style='background-color:#FFEBCD; color:black;'>" +
-                      "  <div id='tbl_"  + s + "'>" + sim_eltos[s].value.toString(get_cfg('RF_display_format')) + "</div>" +
+                      "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;'>" + showkey + 
+                      "  <span class='badge' style='background-color:#FFEBCD; color:black;' id='tbl_"  + s + "'>" +
+                      sim_eltos[s].value.toString(get_cfg('RF_display_format')) +
                       "  </span>" +
                       "</button>" +
                       "</div>" ;
