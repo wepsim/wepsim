@@ -221,9 +221,9 @@
                           "<input size=10 data-role=none data-bind='value:value'>" +
                           "</div>" ;
                  else
-		 o1_rf += "<div class='col-xs-6 col-sm-4 col-md-4 col-lg-3' style='padding: 0 15 0 5;'>" +
-                          "<button type='button' class='btn btn-outline-primary' style='padding: 0 0 0 0;'>" + 
-                          "  <span id='name_RF" + index + "' style='float:center; padding: 0 10 0 0'>R" + index + "</span>" + 
+		 o1_rf += "<div class='col-xs-6 col-sm-4 col-md-4 col-lg-3' style='padding: 0 5 0 5;'>" +
+                          "<button type='button' class='btn btn-outline-primary' style='padding: 0 0 0 0; outline:none; box-shadow: none;'>" + 
+                          "  <span id='name_RF" + index + "' style='float:center; padding: 0 0 0 0'>R" + index + "</span>" + 
                           "  <span class='badge'  style='background-color:#FFEBCD; color:black;'>" + 
                           "  <div id='tbl_RF"  + index + "'>" + (get_value(sim_states['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() + "</div>" + 
                           "  </span>" + 
@@ -315,7 +315,7 @@
                       "</div>" ;
                 else
                 o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" + 
-                      "<button type='button' class='btn btn-outline-primary' style='padding: 0 0 0 0;'>" + showkey + 
+                      "<button type='button' class='btn btn-outline-primary' style='padding: 0 0 0 0; outline:none; box-shadow:none;'>" + showkey + 
                       "  <span class='badge'  style='background-color:#FFEBCD; color:black;'>" +
                       "  <div id='tbl_"  + s + "'>" + sim_eltos[s].value.toString(get_cfg('RF_display_format')) + "</div>" +
                       "  </span>" +
@@ -363,11 +363,11 @@
 
 
         var filter_states = [ "REG_IR_DECO,2",
-                              "REG_IR,1",  "REG_PC,1",  "REG_SR,1", 
+                              "REG_IR,1",  "REG_PC,1",  "REG_SR,1",
                               "REG_RT1,1", "REG_RT2,1", "REG_RT3,1",
                               "REG_MAR,1", "REG_MBR,1", "REG_MICROADDR,1",
-                              "FLAG_C,0",  "FLAG_V,0",  "FLAG_N,0",  "FLAG_Z,0",     
-                              "FLAG_I,0",  "FLAG_U,0" ] ;
+                              "FLAG_C,1",  "FLAG_V,1",  "FLAG_N,1",  "FLAG_Z,1",
+                              "FLAG_I,1",  "FLAG_U,1" ] ;
 
         var divclasses = [ "col-xs-4 col-sm-3 col-md-3 col-lg-2",
                            "col-xs-4 col-sm-4 col-md-4 col-lg-3",
