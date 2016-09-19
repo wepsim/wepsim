@@ -211,23 +211,64 @@
 	    for (var index=0; index < sim_states['BR'].length; index++)
                  sim_states['BR'][index].value = ko.observable(sim_states['BR'][index].default_value);
 
-            var o1_rf = "" ;
+            var o1_rf = "<div class='hidden' id='popover_rf'>" +
+                        "  <div class='popover-heading'></div>" +
+                        "  <div class='popover-body'></div>" +
+                        "</div>" ;
 	    for (var index=0; index < sim_states['BR'].length; index++) 
             {
                  if (get_cfg('is_editable') == true)
-		 o1_rf += "<div class='col-xs-2 col-sm-1 col-md-2 col-lg-1' id='name_RF" + index + "' style='padding: 0 15 0 5;'>" +
+		 o1_rf += "<div class='col-xs-2 col-sm-1 col-md-2 col-lg-1' id='name_RF" + index + "' style='padding:0 15 0 5;'>" +
                           "R" + index + "</div>" + 
-                          "<div class='col-xs-4 col-sm-2 col-md-4 col-lg-3' id='tbl_RF"  + index + "' style='padding: 0 5 0 35;'>" +
+                          "<div class='col-xs-4 col-sm-2 col-md-4 col-lg-3' id='tbl_RF"  + index + "' style='padding:0 5 0 35;'>" +
                           "<input size=10 data-role=none data-bind='value:value'>" +
                           "</div>" ;
                  else
-		 o1_rf += "<div class='col-xs-2 col-sm-1 col-md-2 col-lg-1' id='name_RF" + index + "' style='padding: 0 15 0 5;'>" +
-                          "R" + index + "</div>" + 
-                          "<div class='col-xs-4 col-sm-2 col-md-4 col-lg-3' id='tbl_RF"  + index + "' style='padding: 0 5 0 35;'>" +
-                          (get_value(sim_states['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() + "</div>" ; 
+		 o1_rf += "<div class='col-xs-6 col-sm-4 col-md-4 col-lg-3' style='padding:0 5 0 5;'>" +
+                          "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;' " + 
+                          "        data-toggle='popover' data-popover-content='" + index + "' data-container='body' " +
+                          "        id='rf" + index + "'>" +
+                          "  <span id='name_RF" + index + "' style='float:center; padding:0 0 0 0'>R" + index + "</span>" + 
+                          "  <span class='badge' style='background-color:#FFEBCD; color:black;' id='tbl_RF"  + index + "'>" + 
+                          (get_value(sim_states['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() +
+                          "  </span>" + 
+                          "</button>" +
+                          "</div>" ; 
 	    }
 
             $(jqdiv).html("<div class='row-fluid'>" + o1_rf + "</div>");
+
+	    $("[data-toggle=popover]").popover({
+	    	    html: true,
+                    placement: 'top',
+		    content: function() 
+                    {
+		        var index = $(this).attr("data-popover-content");
+
+                        var valuei   = get_value(sim_states['BR'][index])  >> 0;
+                        var valueui  = get_value(sim_states['BR'][index]) >>> 0;
+                        var valuec   = String.fromCharCode(valueui & 0xFF000000, valueui & 0x00FF0000, valueui & 0x0000FF00, valueui & 0x000000FF) ;
+                        // hex to float, thanks to: http://stackoverflow.com/questions/5055723/converting-hexadecimal-to-float-in-javascript
+                        var sign     = (valueui & 0x80000000) ? -1 : 1;
+                        var exponent = ((valueui >> 23) & 0xff) - 127;
+                        var mantissa = 1 + ((valueui & 0x7fffff) / 0x7fffff);
+                        var valuef   = sign * mantissa * Math.pow(2, exponent);
+
+                        var vtable = "<table width='100%' class='table table-bordered table-condensed'>" + 
+                                     "<tr><td><small><b>signed</b></small></td><td><small>"   + valuei  + "</small></td></tr>" + 
+                                     "<tr><td><small><b>unsigned</b></small></td><td><small>" + valueui + "</small></td></tr>" + 
+                                     "<tr><td><small><b>float</b></small></td><td><small>"    + valuef  + "</small></td></tr>" + 
+                                     "<tr><td><small><b>char</b></small></td><td><small>"     + valuec  + "</small></td></tr>" + 
+                                     "</table>" ;
+		        return vtable;
+		    },
+		    title: function() 
+                    {
+		        var index = $(this).attr("data-popover-content");
+		        return '<span class="text-info"><strong>R' + index + '</strong></span>' +
+                               '<button type="button" id="close" class="close" onclick="$(&quot;#rf' + index + '&quot;).click();">&times;</button>';
+		    }
+	    });
 
             // knockout binding
             if (get_cfg('is_editable') == true)
@@ -305,14 +346,17 @@
                 var divclass = divclasses[b] ;
 
                 if (get_cfg('is_editable') == true)
-                o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" + showkey + "</div>" +
-                      "<div class='" + divclass + "' id='tbl_" + s + "' style='padding: 0 5 0 0;'>" +
+                o1 += "<div class='" + divclass + "' style='padding:0 5 0 5;'>" + showkey + "</div>" +
+                      "<div class='" + divclass + "' id='tbl_" + s + "' style='padding:0 5 0 0;'>" +
                       "<input size=10 data-role=none data-bind='value:value'>" +
                       "</div>" ;
                 else
-                o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" + showkey + "</div>" +
-                      "<div class='" + divclass + "' id='tbl_" + s + "' style='padding: 0 5 0 0;'>" +
+                o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" + 
+                      "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;'>" + showkey + 
+                      "  <span class='badge' style='background-color:#FFEBCD; color:black;' id='tbl_"  + s + "'>" +
                       sim_eltos[s].value.toString(get_cfg('RF_display_format')) +
+                      "  </span>" +
+                      "</button>" +
                       "</div>" ;
             }
 
@@ -345,7 +389,7 @@
                 if (sim_eltos[key].nbits > 1) {
                         value = (sim_states[key].value >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() ;
                     if (16 == get_cfg('RF_display_format'))
-                        value = "<font color=gray>" + "00000000".substring(0, 8 - value.length) + "</font>" + value ;
+                        value = "00000000".substring(0, 8 - value.length) + value ;
                 }
 
 		var obj = document.getElementById("tbl_" + key);
@@ -355,15 +399,16 @@
         }
 
 
-        var filter_states = [ "REG_IR_DECO,1",   
-                              "REG_IR,0",  "REG_PC,0",  "REG_SR,0", 
-                              "REG_RT1,0", "REG_RT2,0", "REG_RT3,0",    
-                              "REG_MAR,0", "REG_MBR,0", "REG_MICROADDR,0",
-                              "FLAG_C,0",  "FLAG_V,0",  "FLAG_N,0",  "FLAG_Z,0",     
-                              "FLAG_I,0",  "FLAG_U,0" ] ;
+        var filter_states = [ "REG_IR_DECO,0",
+                              "REG_IR,2",  "REG_PC,2",  "REG_SR,2",
+                              "REG_RT1,2", "REG_RT2,2", "REG_RT3,2",
+                              "REG_MAR,2", "REG_MBR,2", "REG_MICROADDR,2",
+                              "FLAG_C,1",  "FLAG_V,1",  "FLAG_N,1",  "FLAG_Z,1",
+                              "FLAG_I,1",  "FLAG_U,1" ] ;
 
-        var divclasses = [ "col-xs-3 col-sm-3 col-md-3 col-lg-2",
-                           "col-xs-6 col-sm-6 col-md-6 col-lg-6" ] ;
+        var divclasses = [ "col-xs-12 col-sm-12 col-md-12 col-lg-12", 
+                           "col-xs-4 col-sm-3 col-md-3 col-lg-3",
+                           "col-xs-4 col-sm-4 col-md-4 col-lg-4" ] ;
 
         function init_states ( jqdiv ) 
         {
