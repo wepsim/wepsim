@@ -339,8 +339,8 @@
                 var s = filter[i].split(",")[0] ;
 
                 var showkey = sim_eltos[s].name;
-                if (showkey.length > 7)
-                    showkey = showkey.substring(0,7) + "..." ;
+                if (sim_eltos[s].nbits > 1)
+                    showkey = showkey.substring(0,2) + '<span class="hidden-xs">' + showkey.substring(2,showkey.length) + '</span>' ;
 
                 var b = filter[i].split(",")[1] ;
                 var divclass = divclasses[b] ;
@@ -353,9 +353,9 @@
                 else
                 o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" + 
                       "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;'>" + showkey + 
-                      "  <span class='badge' style='background-color:#FFEBCD; color:black;' id='tbl_"  + s + "'>" +
+                      "<span class='badge' style='background-color:#FFEBCD; color:black;' id='tbl_"  + s + "'>" +
                       sim_eltos[s].value.toString(get_cfg('RF_display_format')) +
-                      "  </span>" +
+                      "</span>" +
                       "</button>" +
                       "</div>" ;
             }
