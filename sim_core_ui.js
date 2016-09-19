@@ -226,7 +226,8 @@
                  else
 		 o1_rf += "<div class='col-xs-6 col-sm-4 col-md-4 col-lg-3' style='padding:0 5 0 5;'>" +
                           "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;' " + 
-                          "        data-toggle='popover' data-popover-content='" + index + "' data-container='body'>" +
+                          "        data-toggle='popover' data-popover-content='" + index + "' data-container='body' " +
+                          "        id='rf" + index + "'>" +
                           "  <span id='name_RF" + index + "' style='float:center; padding:0 0 0 0'>R" + index + "</span>" + 
                           "  <span class='badge' style='background-color:#FFEBCD; color:black;' id='tbl_RF"  + index + "'>" + 
                           (get_value(sim_states['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() +
@@ -244,29 +245,28 @@
                     {
 		        var index = $(this).attr("data-popover-content");
 
-                        var valuei = get_value(sim_states['BR'][index]) >>> 0;
+                        var valuei   = get_value(sim_states['BR'][index])  >> 0;
+                        var valueui  = get_value(sim_states['BR'][index]) >>> 0;
+                        var valuec   = String.fromCharCode(valueui & 0xFF000000, valueui & 0x00FF0000, valueui & 0x0000FF00, valueui & 0x000000FF) ;
                         // hex to float, thanks to: http://stackoverflow.com/questions/5055723/converting-hexadecimal-to-float-in-javascript
-                        var sign     = (valuei & 0x80000000) ? -1 : 1;
-                        var exponent = ((valuei >> 23) & 0xff) - 127;
-                        var mantissa = 1 + ((valuei & 0x7fffff) / 0x7fffff);
+                        var sign     = (valueui & 0x80000000) ? -1 : 1;
+                        var exponent = ((valueui >> 23) & 0xff) - 127;
+                        var mantissa = 1 + ((valueui & 0x7fffff) / 0x7fffff);
                         var valuef   = sign * mantissa * Math.pow(2, exponent);
-                        // hex to chars:
-                        var valuec   = String.fromCharCode(valuei & 0xFF000000) + "&nbsp;" +
-                                       String.fromCharCode(valuei & 0x00FF0000) + "&nbsp;" +
-                                       String.fromCharCode(valuei & 0x0000FF00) + "&nbsp;" +
-                                       String.fromCharCode(valuei & 0x000000FF) ;
 
                         var vtable = "<table width='100%' class='table table-bordered table-condensed'>" + 
-                                     "<tr><td><b>int</b></td><td>"   + valuei + "</td></tr>" + 
-                                     "<tr><td><b>float</b></td><td>" + valuef + "</td></tr>" + 
-                                     "<tr><td><b>char</b></td><td>"  + valuec + "</td></tr>" + 
+                                     "<tr><td><small><b>signed</b></small></td><td><small>"   + valuei  + "</small></td></tr>" + 
+                                     "<tr><td><small><b>unsigned</b></small></td><td><small>" + valueui + "</small></td></tr>" + 
+                                     "<tr><td><small><b>float</b></small></td><td><small>"    + valuef  + "</small></td></tr>" + 
+                                     "<tr><td><small><b>char</b></small></td><td><small>"     + valuec  + "</small></td></tr>" + 
                                      "</table>" ;
 		        return vtable;
 		    },
 		    title: function() 
                     {
 		        var index = $(this).attr("data-popover-content");
-		        return "R" + index;
+		        return '<span class="text-info"><strong>R' + index + '</strong></span>' +
+                               '<button type="button" id="close" class="close" onclick="$(&quot;#rf' + index + '&quot;).click();">&times;</button>';
 		    }
 	    });
 
