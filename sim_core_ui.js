@@ -217,13 +217,17 @@
                         "</div>" ;
 	    for (var index=0; index < sim_states['BR'].length; index++) 
             {
+                 var value_render = (get_value(sim_states['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase();
+                 if (get_cfg('is_editable') == true)
+                     value_render = "<span data-role=none data-bind='text:value'></span>" ;
+
 		 o1_rf += "<div class='col-xs-6 col-sm-4 col-md-4 col-lg-3' style='padding:0 5 0 5;'>" +
                           "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;' " + 
                           "        data-toggle='popover' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
                           "  <span id='name_RF" + index + "' style='float:center; padding:0 0 0 0'>R" + index + "</span>" + 
                           "  <span class='badge' style='background-color:#FFEBCD; color:black;' id='tbl_RF"  + index + "'>" + 
-                          (get_value(sim_states['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() +
+                          value_render +
                           "  </span>" + 
                           "</button>" +
                           "</div>" ; 
@@ -249,7 +253,7 @@
 
                         var valuedt = "" ;
                         if (get_cfg('is_editable') == true)
-                            valuedt = "<tr><td><a href='#' onclick='set_rf_value(" + index + ", $(\"#popover1\")[0].value);'>update</a></td>" + 
+                            valuedt = "<tr><td><a onclick='set_value(sim_states[\"BR\"][" + index + "], parseInt($(\"#popover1\")[0].value));'>update</a></td>" + 
                                       "<td><input type='text' id='popover1' value='" + valueui + "' data-mini='true'></td></tr>" ;
 
                         var vtable = "<table width='100%' class='table table-bordered table-condensed'>" + 
@@ -279,19 +283,6 @@
                  //                                              this.ia("0x" + parseInt(newValue).toString(RF_display_format).toUpperCase());
                  //                                         });
             }
-        }
-
-        function set_rf_value ( index, value )
-        {
-                 var valueint = parseInt(value);
-                 var valuestr = valueint.toString(16).toUpperCase();
-
-                 set_value(sim_states["BR"][index], valueint);
-
-                 var obj = document.getElementById("tbl_RF" + index);
-                 if (obj != null) {
-                     obj.innerHTML = "00000000".substring(0, 8 - valuestr.length) + valuestr ;
-                 }
         }
 
         function show_rf_values ( ) 
@@ -357,16 +348,14 @@
                 var b = filter[i].split(",")[1] ;
                 var divclass = divclasses[b] ;
 
+                var value_render = sim_eltos[s].value.toString(get_cfg('RF_display_format'));
                 if (get_cfg('is_editable') == true)
-                o1 += "<div class='" + divclass + "' style='padding:0 5 0 5;'>" + showkey + "</div>" +
-                      "<div class='" + divclass + "' id='tbl_" + s + "' style='padding:0 5 0 0;'>" +
-                      "<input size=10 data-role=none data-bind='value:value'>" +
-                      "</div>" ;
-                else
+                    value_render = "<span data-role=none data-bind='text:value'></span>" ;
+
                 o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" + 
                       "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;'>" + showkey + 
                       "<span class='badge' style='background-color:#FFEBCD; color:black;' id='tbl_"  + s + "'>" +
-                      sim_eltos[s].value.toString(get_cfg('RF_display_format')) +
+                      value_render +
                       "</span>" +
                       "</button>" +
                       "</div>" ;
