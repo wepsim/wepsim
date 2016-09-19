@@ -217,13 +217,6 @@
                         "</div>" ;
 	    for (var index=0; index < sim_states['BR'].length; index++) 
             {
-                 if (get_cfg('is_editable') == true)
-		 o1_rf += "<div class='col-xs-2 col-sm-1 col-md-2 col-lg-1' id='name_RF" + index + "' style='padding:0 15 0 5;'>" +
-                          "R" + index + "</div>" + 
-                          "<div class='col-xs-4 col-sm-2 col-md-4 col-lg-3' id='tbl_RF"  + index + "' style='padding:0 5 0 35;'>" +
-                          "<input size=10 data-role=none data-bind='value:value'>" +
-                          "</div>" ;
-                 else
 		 o1_rf += "<div class='col-xs-6 col-sm-4 col-md-4 col-lg-3' style='padding:0 5 0 5;'>" +
                           "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;' " + 
                           "        data-toggle='popover' data-popover-content='" + index + "' data-container='body' " +
@@ -254,11 +247,17 @@
                         var mantissa = 1 + ((valueui & 0x7fffff) / 0x7fffff);
                         var valuef   = sign * mantissa * Math.pow(2, exponent);
 
+                        var valuedt = "" ;
+                        if (get_cfg('is_editable') == true)
+                            valuedt = "<tr><td><a href='#' onclick='set_rf_value(" + index + ", $(\"#popover1\")[0].value);'>update</a></td>" + 
+                                      "<td><input type='text' id='popover1' value='" + valueui + "' data-mini='true'></td></tr>" ;
+
                         var vtable = "<table width='100%' class='table table-bordered table-condensed'>" + 
                                      "<tr><td><small><b>signed</b></small></td><td><small>"   + valuei  + "</small></td></tr>" + 
                                      "<tr><td><small><b>unsigned</b></small></td><td><small>" + valueui + "</small></td></tr>" + 
                                      "<tr><td><small><b>float</b></small></td><td><small>"    + valuef  + "</small></td></tr>" + 
                                      "<tr><td><small><b>char</b></small></td><td><small>"     + valuec  + "</small></td></tr>" + 
+                                     valuedt + 
                                      "</table>" ;
 		        return vtable;
 		    },
@@ -280,6 +279,19 @@
                  //                                              this.ia("0x" + parseInt(newValue).toString(RF_display_format).toUpperCase());
                  //                                         });
             }
+        }
+
+        function set_rf_value ( index, value )
+        {
+                 var valueint = parseInt(value);
+                 var valuestr = valueint.toString(16).toUpperCase();
+
+                 set_value(sim_states["BR"][index], valueint);
+
+                 var obj = document.getElementById("tbl_RF" + index);
+                 if (obj != null) {
+                     obj.innerHTML = "00000000".substring(0, 8 - valuestr.length) + valuestr ;
+                 }
         }
 
         function show_rf_values ( ) 
