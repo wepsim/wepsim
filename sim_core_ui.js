@@ -207,27 +207,19 @@
                 return ;
             }
 
-            if (get_cfg('is_editable') == true)
-	    for (var index=0; index < sim_states['BR'].length; index++)
-                 sim_states['BR'][index].value = ko.observable(sim_states['BR'][index].default_value);
-
             var o1_rf = "<div class='hidden' id='popover_rf'>" +
                         "  <div class='popover-heading'></div>" +
                         "  <div class='popover-body'></div>" +
                         "</div>" ;
 	    for (var index=0; index < sim_states['BR'].length; index++) 
             {
-                 var value_render = (get_value(sim_states['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase();
-                 if (get_cfg('is_editable') == true)
-                     value_render = "<span data-role=none data-bind='text:value'></span>" ;
-
 		 o1_rf += "<div class='col-xs-6 col-sm-4 col-md-4 col-lg-3' style='padding:0 5 0 5;'>" +
                           "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;' " + 
                           "        data-toggle='popover' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
                           "  <span id='name_RF" + index + "' style='float:center; padding:0 0 0 0'>R" + index + "</span>" + 
                           "  <span class='badge' style='background-color:#FFEBCD; color:black;' id='tbl_RF"  + index + "'>" + 
-                          value_render +
+                          (get_value(sim_states['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() +
                           "  </span>" + 
                           "</button>" +
                           "</div>" ; 
@@ -253,7 +245,7 @@
 
                         var valuedt = "" ;
                         if (get_cfg('is_editable') == true)
-                            valuedt = "<tr><td><a onclick='set_value(sim_states[\"BR\"][" + index + "], parseInt($(\"#popover1\")[0].value));'>update</a></td>" + 
+                            valuedt = "<tr><td><a onclick='set_value(sim_states[\"BR\"][" + index + "],parseInt($(\"#popover1\")[0].value));'>update</a></td>" +
                                       "<td><input type='text' id='popover1' value='" + valueui + "' data-mini='true'></td></tr>" ;
 
                         var vtable = "<table width='100%' class='table table-bordered table-condensed'>" + 
@@ -272,24 +264,10 @@
                                '<button type="button" id="close" class="close" onclick="$(&quot;#rf' + index + '&quot;).click();">&times;</button>';
 		    }
 	    });
-
-            // knockout binding
-            if (get_cfg('is_editable') == true)
-            for (var index=0; index < sim_states['BR'].length; index++)
-            {
-                 var ko_context = document.getElementById('tbl_RF' + index);
-                 ko.applyBindings(sim_states['BR'][index], ko_context);
-                 // sim_states['BR'][index].value.subscribe(function(newValue) {
-                 //                                              this.ia("0x" + parseInt(newValue).toString(RF_display_format).toUpperCase());
-                 //                                         });
-            }
         }
 
-        function show_rf_values ( ) 
+        function fullshow_rf_values ( )
         {
-            if (get_cfg('is_editable') == true)
-                return;
-
             var SIMWARE = get_simware() ;
 
 	    for (var index=0; index < sim_states['BR'].length; index++) 
@@ -298,10 +276,21 @@
                  if (16 == get_cfg('RF_display_format'))
                      br_value = "00000000".substring(0, 8 - br_value.length) + br_value ;
 
-                 var obj = document.getElementById("tbl_RF" + index);
-                 if (obj != null)
-                     obj.innerHTML = br_value ;
+                 $("#tbl_RF" + index).html(br_value);
 	    }
+        }
+
+        var show_rf_values_deffered = null;
+
+        function show_rf_values ( ) 
+        {
+            if (null == show_rf_values_deffered)
+            {
+                show_rf_values_deffered = setTimeout(function() { 
+                                                        fullshow_rf_values();
+                                                        show_rf_values_deffered=null;
+                                                     }, 150);
+            }
         }
 
         function show_rf_names ( ) 
@@ -329,13 +318,6 @@
                 return ;
             }
 
-            if (get_cfg('is_editable') == true)
-            for (var i=0; i<filter.length; i++)
-            {
-                 var s = filter[i].split(",")[0] ;
-                 sim_eltos[s].value = ko.observable(sim_eltos[s].default_value) ;
-            }
-
             var o1 = "" ;
             for (var i=0; i<filter.length; i++)
             {
@@ -348,39 +330,20 @@
                 var b = filter[i].split(",")[1] ;
                 var divclass = divclasses[b] ;
 
-                var value_render = sim_eltos[s].value.toString(get_cfg('RF_display_format'));
-                if (get_cfg('is_editable') == true)
-                    value_render = "<span data-role=none data-bind='text:value'></span>" ;
-
                 o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" + 
                       "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;'>" + showkey + 
                       "<span class='badge' style='background-color:#FFEBCD; color:black;' id='tbl_"  + s + "'>" +
-                      value_render +
+                      sim_eltos[s].value.toString(get_cfg('RF_display_format')) +
                       "</span>" +
                       "</button>" +
                       "</div>" ;
             }
 
             $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
-
-            // knockout binding
-            if (get_cfg('is_editable') == true)
-            for (var i=0; i<filter.length; i++)
-            {
-                 var s = filter[i].split(",")[0] ;
-                 var ko_context = document.getElementById('tbl_' + s);
-                 ko.applyBindings(sim_eltos[s], ko_context);
-                 // sim_eltos[s].value.subscribe(function(newValue) {
-                 //                                             this.ia("0x" + parseInt(newValue).toString(RF_display_format).toUpperCase());
-                 //                                        });
-            }
         }
 
-        function show_eltos ( sim_eltos, filter ) 
+        function fullshow_eltos ( sim_eltos, filter ) 
         {
-            if (get_cfg('is_editable') == true)
-                return;
-
             for (var i=0; i<filter.length; i++)
             {
                 var r = filter[i].split(",") ;
@@ -396,6 +359,19 @@
 		var obj = document.getElementById("tbl_" + key);
 		if (obj != null)
                     obj.innerHTML = value ;
+            }
+        }
+
+        var show_eltos_deffered = null;
+
+        function show_eltos ( sim_eltos, filter ) 
+        {
+            if (null == show_eltos_deffered)
+            {
+                show_eltos_deffered = setTimeout(function() { 
+                                                        fullshow_eltos(sim_eltos, filter);
+                                                        show_eltos_deffered = null;
+                                                 }, 100);
             }
         }
 
