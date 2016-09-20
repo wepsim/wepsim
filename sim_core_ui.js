@@ -218,7 +218,7 @@
                           "        data-toggle='popover' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
                           "  <span id='name_RF" + index + "' style='float:center; padding:0 0 0 0'>R" + index + "</span>" + 
-                          "  <span class='badge' style='background-color:#FFEBCD; color:black;' id='tbl_RF"  + index + "'>" + 
+                          "  <span class='badge' style='background-color:#CEECF5; color:black;' id='tbl_RF"  + index + "'>" + 
                           (get_value(sim_states['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() +
                           "  </span>" + 
                           "</button>" +
@@ -245,8 +245,8 @@
 
                         var valuedt = "" ;
                         if (get_cfg('is_editable') == true)
-                            valuedt = "<tr><td><a onclick='set_value(sim_states[\"BR\"][" + index + "],parseInt($(\"#popover1\")[0].value));'>update</a></td>" +
-                                      "<td><input type='text' id='popover1' value='" + valueui + "' data-mini='true'></td></tr>" ;
+                            valuedt = "<tr><td><a onclick='set_value(sim_states[\"BR\"][" + index + "],parseInt($(\"#popover1\")[0].value));fullshow_rf_values();'>update</a></td>" +
+                                      "<td><input type='text' id='popover1' value='" + valueui + "' data-mini='true' size=10></td></tr>" ;
 
                         var vtable = "<table width='100%' class='table table-bordered table-condensed'>" + 
                                      "<tr><td><small><b>signed</b></small></td><td><small>"   + valuei  + "</small></td></tr>" + 
@@ -332,7 +332,7 @@
 
                 o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" + 
                       "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;'>" + showkey + 
-                      "<span class='badge' style='background-color:#FFEBCD; color:black;' id='tbl_"  + s + "'>" +
+                      "<span class='badge' style='background-color:#CEECF5; color:black;' id='tbl_"  + s + "'>" +
                       sim_eltos[s].value.toString(get_cfg('RF_display_format')) +
                       "</span>" +
                       "</button>" +
