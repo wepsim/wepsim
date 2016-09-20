@@ -242,6 +242,14 @@
                         var exponent = ((valueui >> 23) & 0xff) - 127;
                         var mantissa = 1 + ((valueui & 0x7fffff) / 0x7fffff);
                         var valuef   = sign * mantissa * Math.pow(2, exponent);
+                        if (0 == exponent)
+                            if (0 == mantissa)
+                                 valuef = (sign == 1) ? "+0" : "-0" ;
+                            else valuef = sign * ((valueui & 0x7fffff) / 0x7fffff) * Math.pow(2, 126) ;
+                        if (128 == exponent)
+                            if (0 == mantissa)
+                                 valuef = (sign == 1) ? "+Inf" : "-Inf" ;
+                            else valuef = "NaN" ;
 
                         var valuedt = "" ;
                         if (get_cfg('is_editable') == true)
@@ -289,7 +297,7 @@
                 show_rf_values_deffered = setTimeout(function() { 
                                                         fullshow_rf_values();
                                                         show_rf_values_deffered=null;
-                                                     }, 150);
+                                                     }, 120);
             }
         }
 
@@ -371,7 +379,7 @@
                 show_eltos_deffered = setTimeout(function() { 
                                                         fullshow_eltos(sim_eltos, filter);
                                                         show_eltos_deffered = null;
-                                                 }, 100);
+                                                 }, 130);
             }
         }
 
