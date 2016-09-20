@@ -237,10 +237,9 @@
                         var valuei   = get_value(sim_states['BR'][index])  >> 0;
                         var valueui  = get_value(sim_states['BR'][index]) >>> 0;
                         var valuec   = String.fromCharCode(valueui & 0xFF000000, valueui & 0x00FF0000, valueui & 0x0000FF00, valueui & 0x000000FF) ;
-                        // hex to float, thanks to: http://stackoverflow.com/questions/5055723/converting-hexadecimal-to-float-in-javascript
                         var sign     = (valueui & 0x80000000) ? -1 : 1;
                         var exponent = ((valueui >> 23) & 0xff) - 127;
-                        var mantissa = 1 + ((valueui & 0x7fffff) / 0x7fffff);
+                        var mantissa = 1 + ((valueui & 0x7fffff) / 0x800000);
                         var valuef   = sign * mantissa * Math.pow(2, exponent);
                         if (-127 == exponent)
                             if (1 == mantissa)
@@ -253,8 +252,9 @@
 
                         var valuedt = "" ;
                         if (get_cfg('is_editable') == true)
-                            valuedt = "<tr><td><span class='badge' onclick='set_value(sim_states[\"BR\"][" + index + "],parseInt($(\"#popover1\")[0].value));fullshow_rf_values();'>update</span></td>" +
-                                      "<td><input type='text' id='popover1' value='" + valueui + "' data-mini='true' size=10></td></tr>" ;
+                            valuedt = "<tr><td colspan=2><input type='text' id='popover1' value='" + valueui + "' data-mini='true' size=10>" +
+                                      "<span class='badge' onclick='set_value(sim_states[\"BR\"]["+index+"],parseInt($(\"#popover1\")[0].value));" +
+                                      "                             fullshow_rf_values();'>update</span></td></tr>";
 
                         var vtable = "<table width='100%' class='table table-bordered table-condensed'>" + 
                                      "<tr><td><small><b>signed</b></small></td><td><small>"   + valuei  + "</small></td></tr>" + 
