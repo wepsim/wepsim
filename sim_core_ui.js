@@ -207,45 +207,75 @@
                 return ;
             }
 
-            if (get_cfg('is_editable') == true)
-	    for (var index=0; index < sim_states['BR'].length; index++)
-                 sim_states['BR'][index].value = ko.observable(sim_states['BR'][index].default_value);
-
-            var o1_rf = "" ;
+            var o1_rf = "<div class='hidden' id='popover_rf'>" +
+                        "  <div class='popover-heading'></div>" +
+                        "  <div class='popover-body'></div>" +
+                        "</div>" ;
 	    for (var index=0; index < sim_states['BR'].length; index++) 
             {
-                 if (get_cfg('is_editable') == true)
-		 o1_rf += "<div class='col-xs-2 col-sm-1 col-md-2 col-lg-1' id='name_RF" + index + "' style='padding: 0 15 0 5;'>" +
-                          "R" + index + "</div>" + 
-                          "<div class='col-xs-4 col-sm-2 col-md-4 col-lg-3' id='tbl_RF"  + index + "' style='padding: 0 5 0 35;'>" +
-                          "<input size=10 data-role=none data-bind='value:value'>" +
-                          "</div>" ;
-                 else
-		 o1_rf += "<div class='col-xs-2 col-sm-1 col-md-2 col-lg-1' id='name_RF" + index + "' style='padding: 0 15 0 5;'>" +
-                          "R" + index + "</div>" + 
-                          "<div class='col-xs-4 col-sm-2 col-md-4 col-lg-3' id='tbl_RF"  + index + "' style='padding: 0 5 0 35;'>" +
-                          (get_value(sim_states['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() + "</div>" ; 
+		 o1_rf += "<div class='col-xs-6 col-sm-4 col-md-4 col-lg-3' style='padding:0 5 0 5;'>" +
+                          "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;' " + 
+                          "        data-toggle='popover' data-popover-content='" + index + "' data-container='body' " +
+                          "        id='rf" + index + "'>" +
+                          "  <span id='name_RF" + index + "' style='float:center; padding:0 0 0 0'>R" + index + "</span>" + 
+                          "  <span class='badge' style='background-color:#CEECF5; color:black;' id='tbl_RF"  + index + "'>" + 
+                          (get_value(sim_states['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() +
+                          "  </span>" + 
+                          "</button>" +
+                          "</div>" ; 
 	    }
 
             $(jqdiv).html("<div class='row-fluid'>" + o1_rf + "</div>");
 
-            // knockout binding
-            if (get_cfg('is_editable') == true)
-            for (var index=0; index < sim_states['BR'].length; index++)
-            {
-                 var ko_context = document.getElementById('tbl_RF' + index);
-                 ko.applyBindings(sim_states['BR'][index], ko_context);
-                 // sim_states['BR'][index].value.subscribe(function(newValue) {
-                 //                                              this.ia("0x" + parseInt(newValue).toString(RF_display_format).toUpperCase());
-                 //                                         });
-            }
+	    $("[data-toggle=popover]").popover({
+	    	    html: true,
+                    placement: 'top',
+		    content: function() 
+                    {
+		        var index = $(this).attr("data-popover-content");
+
+                        var valuei   = get_value(sim_states['BR'][index])  >> 0;
+                        var valueui  = get_value(sim_states['BR'][index]) >>> 0;
+                        var valuec   = String.fromCharCode(valueui & 0xFF000000, valueui & 0x00FF0000, valueui & 0x0000FF00, valueui & 0x000000FF) ;
+                        var sign     = (valueui & 0x80000000) ? -1 : 1;
+                        var exponent = ((valueui >> 23) & 0xff) - 127;
+                        var mantissa = 1 + ((valueui & 0x7fffff) / 0x800000);
+                        var valuef   = sign * mantissa * Math.pow(2, exponent);
+                        if (-127 == exponent)
+                            if (1 == mantissa)
+                                 valuef = (sign == 1) ? "+0" : "-0" ;
+                            else valuef = sign * ((valueui & 0x7fffff) / 0x7fffff) * Math.pow(2, 126) ;
+                        if (128 == exponent)
+                            if (1 == mantissa)
+                                 valuef = (sign == 1) ? "+Inf" : "-Inf" ;
+                            else valuef = "NaN" ;
+
+                        var valuedt = "" ;
+                        if (get_cfg('is_editable') == true)
+                            valuedt = "<tr><td colspan=2><input type='text' id='popover1' value='" + valueui + "' data-mini='true' size=10>" +
+                                      "<span class='badge' onclick='set_value(sim_states[\"BR\"]["+index+"],parseInt($(\"#popover1\")[0].value));" +
+                                      "                             fullshow_rf_values();'>update</span></td></tr>";
+
+                        var vtable = "<table width='100%' class='table table-bordered table-condensed'>" + 
+                                     "<tr><td><small><b>signed</b></small></td><td><small>"   + valuei  + "</small></td></tr>" + 
+                                     "<tr><td><small><b>unsigned</b></small></td><td><small>" + valueui + "</small></td></tr>" + 
+                                     "<tr><td><small><b>float</b></small></td><td><small>"    + valuef  + "</small></td></tr>" + 
+                                     "<tr><td><small><b>char</b></small></td><td><small>"     + valuec  + "</small></td></tr>" + 
+                                     valuedt + 
+                                     "</table>" ;
+		        return vtable;
+		    },
+		    title: function() 
+                    {
+		        var index = $(this).attr("data-popover-content");
+		        return '<span class="text-info"><strong>R' + index + '</strong></span>' +
+                               '<button type="button" id="close" class="close" onclick="$(&quot;#rf' + index + '&quot;).click();">&times;</button>';
+		    }
+	    });
         }
 
-        function show_rf_values ( ) 
+        function fullshow_rf_values ( )
         {
-            if (get_cfg('is_editable') == true)
-                return;
-
             var SIMWARE = get_simware() ;
 
 	    for (var index=0; index < sim_states['BR'].length; index++) 
@@ -254,10 +284,21 @@
                  if (16 == get_cfg('RF_display_format'))
                      br_value = "00000000".substring(0, 8 - br_value.length) + br_value ;
 
-                 var obj = document.getElementById("tbl_RF" + index);
-                 if (obj != null)
-                     obj.innerHTML = br_value ;
+                 $("#tbl_RF" + index).html(br_value);
 	    }
+        }
+
+        var show_rf_values_deffered = null;
+
+        function show_rf_values ( ) 
+        {
+            if (null == show_rf_values_deffered)
+            {
+                show_rf_values_deffered = setTimeout(function() { 
+                                                        fullshow_rf_values();
+                                                        show_rf_values_deffered=null;
+                                                     }, 120);
+            }
         }
 
         function show_rf_names ( ) 
@@ -285,57 +326,32 @@
                 return ;
             }
 
-            if (get_cfg('is_editable') == true)
-            for (var i=0; i<filter.length; i++)
-            {
-                 var s = filter[i].split(",")[0] ;
-                 sim_eltos[s].value = ko.observable(sim_eltos[s].default_value) ;
-            }
-
             var o1 = "" ;
             for (var i=0; i<filter.length; i++)
             {
                 var s = filter[i].split(",")[0] ;
 
                 var showkey = sim_eltos[s].name;
-                if (showkey.length > 7)
-                    showkey = showkey.substring(0,7) + "..." ;
+                if (sim_eltos[s].nbits > 1)
+                    showkey = showkey.substring(0,2) + '<span class="hidden-xs">' + showkey.substring(2,showkey.length) + '</span>' ;
 
                 var b = filter[i].split(",")[1] ;
                 var divclass = divclasses[b] ;
 
-                if (get_cfg('is_editable') == true)
-                o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" + showkey + "</div>" +
-                      "<div class='" + divclass + "' id='tbl_" + s + "' style='padding: 0 5 0 0;'>" +
-                      "<input size=10 data-role=none data-bind='value:value'>" +
-                      "</div>" ;
-                else
-                o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" + showkey + "</div>" +
-                      "<div class='" + divclass + "' id='tbl_" + s + "' style='padding: 0 5 0 0;'>" +
+                o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" + 
+                      "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;'>" + showkey + 
+                      "<span class='badge' style='background-color:#CEECF5; color:black;' id='tbl_"  + s + "'>" +
                       sim_eltos[s].value.toString(get_cfg('RF_display_format')) +
+                      "</span>" +
+                      "</button>" +
                       "</div>" ;
             }
 
             $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
-
-            // knockout binding
-            if (get_cfg('is_editable') == true)
-            for (var i=0; i<filter.length; i++)
-            {
-                 var s = filter[i].split(",")[0] ;
-                 var ko_context = document.getElementById('tbl_' + s);
-                 ko.applyBindings(sim_eltos[s], ko_context);
-                 // sim_eltos[s].value.subscribe(function(newValue) {
-                 //                                             this.ia("0x" + parseInt(newValue).toString(RF_display_format).toUpperCase());
-                 //                                        });
-            }
         }
 
-        function show_eltos ( sim_eltos, filter ) 
+        function fullshow_eltos ( sim_eltos, filter ) 
         {
-            if (get_cfg('is_editable') == true)
-                return;
-
             for (var i=0; i<filter.length; i++)
             {
                 var r = filter[i].split(",") ;
@@ -345,7 +361,7 @@
                 if (sim_eltos[key].nbits > 1) {
                         value = (sim_states[key].value >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() ;
                     if (16 == get_cfg('RF_display_format'))
-                        value = "<font color=gray>" + "00000000".substring(0, 8 - value.length) + "</font>" + value ;
+                        value = "00000000".substring(0, 8 - value.length) + value ;
                 }
 
 		var obj = document.getElementById("tbl_" + key);
@@ -354,16 +370,30 @@
             }
         }
 
+        var show_eltos_deffered = null;
 
-        var filter_states = [ "REG_IR_DECO,1",   
-                              "REG_IR,0",  "REG_PC,0",  "REG_SR,0", 
-                              "REG_RT1,0", "REG_RT2,0", "REG_RT3,0",    
-                              "REG_MAR,0", "REG_MBR,0", "REG_MICROADDR,0",
-                              "FLAG_C,0",  "FLAG_V,0",  "FLAG_N,0",  "FLAG_Z,0",     
-                              "FLAG_I,0",  "FLAG_U,0" ] ;
+        function show_eltos ( sim_eltos, filter ) 
+        {
+            if (null == show_eltos_deffered)
+            {
+                show_eltos_deffered = setTimeout(function() { 
+                                                        fullshow_eltos(sim_eltos, filter);
+                                                        show_eltos_deffered = null;
+                                                 }, 130);
+            }
+        }
 
-        var divclasses = [ "col-xs-3 col-sm-3 col-md-3 col-lg-2",
-                           "col-xs-6 col-sm-6 col-md-6 col-lg-6" ] ;
+
+        var filter_states = [ "REG_IR_DECO,0",
+                              "REG_IR,2",  "REG_PC,2",  "REG_SR,2",
+                              "REG_RT1,2", "REG_RT2,2", "REG_RT3,2",
+                              "REG_MAR,2", "REG_MBR,2", "REG_MICROADDR,2",
+                              "FLAG_C,1",  "FLAG_V,1",  "FLAG_N,1",  "FLAG_Z,1",
+                              "FLAG_I,1",  "FLAG_U,1" ] ;
+
+        var divclasses = [ "col-xs-12 col-sm-12 col-md-12 col-lg-12", 
+                           "col-xs-4 col-sm-3 col-md-3 col-lg-3",
+                           "col-xs-4 col-sm-4 col-md-4 col-lg-4" ] ;
 
         function init_states ( jqdiv ) 
         {
