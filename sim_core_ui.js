@@ -242,18 +242,18 @@
                         var exponent = ((valueui >> 23) & 0xff) - 127;
                         var mantissa = 1 + ((valueui & 0x7fffff) / 0x7fffff);
                         var valuef   = sign * mantissa * Math.pow(2, exponent);
-                        if (0 == exponent)
-                            if (0 == mantissa)
+                        if (-127 == exponent)
+                            if (1 == mantissa)
                                  valuef = (sign == 1) ? "+0" : "-0" ;
                             else valuef = sign * ((valueui & 0x7fffff) / 0x7fffff) * Math.pow(2, 126) ;
                         if (128 == exponent)
-                            if (0 == mantissa)
+                            if (1 == mantissa)
                                  valuef = (sign == 1) ? "+Inf" : "-Inf" ;
                             else valuef = "NaN" ;
 
                         var valuedt = "" ;
                         if (get_cfg('is_editable') == true)
-                            valuedt = "<tr><td><a onclick='set_value(sim_states[\"BR\"][" + index + "],parseInt($(\"#popover1\")[0].value));fullshow_rf_values();'>update</a></td>" +
+                            valuedt = "<tr><td><span class='badge' onclick='set_value(sim_states[\"BR\"][" + index + "],parseInt($(\"#popover1\")[0].value));fullshow_rf_values();'>update</span></td>" +
                                       "<td><input type='text' id='popover1' value='" + valueui + "' data-mini='true' size=10></td></tr>" ;
 
                         var vtable = "<table width='100%' class='table table-bordered table-condensed'>" + 
