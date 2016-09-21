@@ -101,17 +101,7 @@
 		        <ul>
 		          <li style="clear:none;width:50% !important">
                               <a id="tab26" href="#eltos_cpu" 
-                                 onclick="start_drawing(); refresh(); 
-                                          $('#slider2d').show();
-                                          slider2d_timeout = setTimeout(function() {
-                                                                           $('#slider2d').hide('blind',{},500);
-									   $.notify({ title: '<strong>INFO</strong>', 
-                                                                                      message: 'Please press the processor tab in order to show the resize bar again.'},
-										    { type: 'success',
-										      newest_on_top: true,
-										      delay: get_cfg('NOTIF_delay'),
-										      placement: { from: 'top', align: 'center' } });
-                                                                        }, 3000);">Processor</a>
+                                 onclick="start_drawing(); refresh();">Processor</a>
                           </li>
 		          <li style="clear:none;width:50% !important">
                               <a id="tab24" href="#eltos_dbg"  
@@ -130,10 +120,7 @@
 				 <input type="range" name="slider2" id="slider2" 
                                         min="0" max="100" value="55" step="5"
 				        data-show-value="false"
-                                        onchange="clearTimeout(slider2d_timeout);
-                                                  $('#slider2d').show();
-                                                  slider2d_timeout = setTimeout(function(){$('#slider2d').hide('blind',{},500);},5000);
-                                                  var a = this.value;
+                                        onchange="var a = this.value;
                                                   var b = 100 - a;
                                                   $('#eltos_cpu_a').css({width: a+'%'});
                                                   $('#eltos_cpu_b').css({width: b+'%'});"
