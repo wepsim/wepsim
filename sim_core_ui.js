@@ -252,7 +252,7 @@
 		if (get_cfg('is_editable') == true)
 		    valuedt = "<tr><td><small><b>float</b></small></td>" + 
                               "    <td colspan=4><small>" + valuef + "</small></td></tr>" + 
-                              "<tr><td colspan=2>" + 
+                              "<tr><td colspan=5>" + 
                               "<input type=text id='popover1' value='" + valueui + "' data-mini='true' size=11>" +
 			      "<span class='badge' onclick='set_value(sim_states[\"BR\"]["+index+"],parseInt($(\"#popover1\")[0].value));fullshow_rf_values();'>update</span></td></tr>";
 
@@ -266,9 +266,9 @@
                              "    <td width=12%><small>" + valuec[1] + "</small></td>" +
                              "    <td width=12%><small>" + valuec[2] + "</small></td>" +
                              "    <td width=12%><small>" + valuec[3] + "</small></td></tr>" + 
-			     "<tr><td><small><b>hexadecimal</b></small></td>" +
+			     "<tr><td><small><b>hex.</b></small></td>" +
                              "    <td colspan=4><small>" + valuehex + "</small></td></tr>" + 
-			     "<tr><td><small><b>binary</b></small></td>" +
+			     "<tr><td><small><b>bin.</b></small></td>" +
                              "    <td colspan=4><small>" + valuebin + "</smallspan></td></tr>" + 
 			     valuedt + 
 			     "</table>" ;
