@@ -231,7 +231,7 @@
                 return valuec ;
         }
 
-        function hex2values ( hexvalue )
+        function hex2values ( hexvalue, index )
         {
 		var valuei  = hexvalue  >> 0;
 		var valueui = hexvalue >>> 0;
@@ -309,7 +309,7 @@
 		    content: function() {
 		        var index    = $(this).attr("data-popover-content");
                         var hexvalue = get_value(sim_states['BR'][index]);
-                        return hex2values(hexvalue) ;
+                        return hex2values(hexvalue,index) ;
 		    },
 		    title: function() {
 		        var index = $(this).attr("data-popover-content");
