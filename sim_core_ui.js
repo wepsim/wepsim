@@ -221,11 +221,17 @@
 
         function hex2char ( hexvalue )
         {
-		var valuec = String.fromCharCode(hexvalue & 0xFF000000, hexvalue & 0x00FF0000, hexvalue & 0x0000FF00, hexvalue & 0x000000FF) ;
+                var valuec = new Array();
+
+		valuec[0] = String.fromCharCode(hexvalue & 0xFF000000) ;
+		valuec[1] = String.fromCharCode(hexvalue & 0x00FF0000) ;
+		valuec[2] = String.fromCharCode(hexvalue & 0x0000FF00) ;
+		valuec[3] = String.fromCharCode(hexvalue & 0x000000FF) ;
+
                 return valuec ;
         }
 
-        function hex2values ( hexvalue )
+        function hex2values ( hexvalue, index )
         {
 		var valuei  = hexvalue  >> 0;
 		var valueui = hexvalue >>> 0;
@@ -234,23 +240,36 @@
 
                 var valuebin = hexvalue.toString(2) ;
                     valuebin = "00000000000000000000000000000000".substring(0, 32 - valuebin.length) + valuebin;
-                    valuebin = valuebin.substring(0,16) + "<br>" + valuebin.substring(16,32) ;
+                    valuebin = valuebin.substring(0,4)   + " " + valuebin.substring(4,8)   + " " +
+                               valuebin.substring(8,12)  + " " + valuebin.substring(12,16) + " " +
+                               valuebin.substring(16,20) + " " + valuebin.substring(20,24) + " " +
+                               valuebin.substring(24,28) + " " + valuebin.substring(28,32) ;
+                    //valuebin = valuebin.replace('0','.') ;
                 var valuehex = hexvalue.toString(16) ;
                     valuehex = "0x" + "00000000".substring(0, 8 - valuehex.length) + valuehex;
 
 		var valuedt = "" ;
 		if (get_cfg('is_editable') == true)
-		    valuedt = "<tr><td colspan=2><input type='text' id='popover1' value='" + valueui + "' data-mini='true' size=11>" +
-			      "<span class='badge' onclick='set_value(sim_states[\"BR\"]["+index+"],parseInt($(\"#popover1\")[0].value));" +
-			      "                             fullshow_rf_values();'>update</span></td></tr>";
+		    valuedt = "<tr><td><small><b>float</b></small></td>" + 
+                              "    <td colspan=4><small>" + valuef + "</small></td></tr>" + 
+                              "<tr><td colspan=5>" + 
+                              "<input type=text id='popover1' value='" + valueui + "' data-mini='true' size=11>" +
+			      "<span class='badge' onclick='set_value(sim_states[\"BR\"]["+index+"],parseInt($(\"#popover1\")[0].value));fullshow_rf_values();'>update</span></td></tr>";
 
 		var vtable = "<table width='100%' class='table table-bordered table-condensed'>" + 
-			     "<tr><td><small><b>signed decimal</b></small></td><td><small>"   + valuei   + "</small></td></tr>" + 
-			     "<tr><td><small><b>unsigned decimal</b></small></td><td><small>" + valueui  + "</small></td></tr>" + 
-			   //"<tr><td><small><b>float</b></small></td><td><small>"            + valuef   + "</small></td></tr>" + 
-			     "<tr><td><small><b>char</b></small></td><td><small>"             + valuec   + "</small></td></tr>" + 
-			     "<tr><td><small><b>hexadecimal</b></small></td><td><small>"      + valuehex + "</small></td></tr>" + 
-			     "<tr><td><small><b>binary</b></small></td><td><small>"           + valuebin + "</smallspan></td></tr>" + 
+			     "<tr><td><small><b>signed</b></small></td>" +
+                             "    <td colspan=4><small>" + valuei   + "</small></td></tr>" + 
+			     "<tr><td><small><b>unsigned</b></small></td>" +
+                             "    <td colspan=4><small>" + valueui  + "</small></td></tr>" + 
+			     "<tr><td width=50%><small><b>char</b></small></td>" +
+                             "    <td width=12%><small>" + valuec[0] + "</small></td>" +
+                             "    <td width=12%><small>" + valuec[1] + "</small></td>" +
+                             "    <td width=12%><small>" + valuec[2] + "</small></td>" +
+                             "    <td width=12%><small>" + valuec[3] + "</small></td></tr>" + 
+			     "<tr><td><small><b>hex.</b></small></td>" +
+                             "    <td colspan=4><small>" + valuehex + "</small></td></tr>" + 
+			     "<tr><td><small><b>bin.</b></small></td>" +
+                             "    <td colspan=4><small>" + valuebin + "</smallspan></td></tr>" + 
 			     valuedt + 
 			     "</table>" ;
 
@@ -290,7 +309,7 @@
 		    content: function() {
 		        var index    = $(this).attr("data-popover-content");
                         var hexvalue = get_value(sim_states['BR'][index]);
-                        return hex2values(hexvalue) ;
+                        return hex2values(hexvalue,index) ;
 		    },
 		    title: function() {
 		        var index = $(this).attr("data-popover-content");
