@@ -254,7 +254,7 @@
                               "    <td colspan=4><small>" + valuef + "</small></td></tr>" + 
                               "<tr><td colspan=5>" + 
                               "<input type=text id='popover1' value='" + valueui + "' data-mini='true' size=11>" +
-			      "<span class='badge' onclick='set_value(sim_states[\"BR\"]["+index+"],parseInt($(\"#popover1\")[0].value));fullshow_rf_values();'>update</span></td></tr>";
+			      "<span class='badge' onclick='set_value(sim_states[\"BR\"]["+index+"],parseInt($(\"#popover1\")[0].value));fullshow_rf_values();$(\"#rf"+index+"\").click();$(\"#rf"+index+"\").click();'>update</span></td></tr>";
 
 		var vtable = "<table width='100%' class='table table-bordered table-condensed'>" + 
 			     "<tr><td><small><b>signed</b></small></td>" +
