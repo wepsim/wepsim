@@ -200,6 +200,81 @@
          *  init_x & show_x
          */
 
+        function hex2float ( hexvalue )
+        {
+		var sign     = (hexvalue & 0x80000000) ? -1 : 1;
+		var exponent = ((hexvalue >> 23) & 0xff) - 127;
+		var mantissa = 1 + ((hexvalue & 0x7fffff) / 0x800000);
+
+		var valuef = sign * mantissa * Math.pow(2, exponent);
+		if (-127 == exponent)
+		    if (1 == mantissa)
+			 valuef = (sign == 1) ? "+0" : "-0" ;
+		    else valuef = sign * ((hexvalue & 0x7fffff) / 0x7fffff) * Math.pow(2, 126) ;
+		if (128 == exponent)
+		    if (1 == mantissa)
+			 valuef = (sign == 1) ? "+Inf" : "-Inf" ;
+		    else valuef = "NaN" ;
+
+		return valuef ;
+        }
+
+        function hex2char ( hexvalue )
+        {
+                var valuec = new Array();
+
+		valuec[0] = String.fromCharCode(hexvalue & 0xFF000000) ;
+		valuec[1] = String.fromCharCode(hexvalue & 0x00FF0000) ;
+		valuec[2] = String.fromCharCode(hexvalue & 0x0000FF00) ;
+		valuec[3] = String.fromCharCode(hexvalue & 0x000000FF) ;
+
+                return valuec ;
+        }
+
+        function hex2values ( hexvalue, index )
+        {
+		var valuei  = hexvalue  >> 0;
+		var valueui = hexvalue >>> 0;
+		var valuec  = hex2char(valueui);
+		var valuef  = hex2float(valueui);
+
+                var valuebin = hexvalue.toString(2) ;
+                    valuebin = "00000000000000000000000000000000".substring(0, 32 - valuebin.length) + valuebin;
+                    valuebin = valuebin.substring(0,4)   + " " + valuebin.substring(4,8)   + " " +
+                               valuebin.substring(8,12)  + " " + valuebin.substring(12,16) + " " +
+                               valuebin.substring(16,20) + " " + valuebin.substring(20,24) + " " +
+                               valuebin.substring(24,28) + " " + valuebin.substring(28,32) ;
+                    //valuebin = valuebin.replace('0','.') ;
+                var valuehex = hexvalue.toString(16) ;
+                    valuehex = "0x" + "00000000".substring(0, 8 - valuehex.length) + valuehex;
+
+		var valuedt = "" ;
+		if (get_cfg('is_editable') == true)
+		    valuedt = "<tr><td><small><b>float</b></small></td>" + 
+                              "    <td colspan=4><small>" + valuef + "</small></td></tr>" + 
+                              "<tr><td colspan=5 align=center><input type=text id='popover1' value='" + valueui + "' data-mini='true' style='width:65%'>&nbsp;" +
+                              "<span class='badge' onclick='set_value(sim_states[\"BR\"]["+index+"],parseInt($(\"#popover1\")[0].value));fullshow_rf_values();$(\"#rf"+index+"\").click();$(\"#rf"+index+"\").click();'>update</span></td></tr>";
+
+		var vtable = "<table width='100%' class='table table-bordered table-condensed'>" + 
+			     "<tr><td><small><b>signed</b></small></td>" +
+                             "    <td colspan=4><small>" + valuei   + "</small></td></tr>" + 
+			     "<tr><td><small><b>unsig.</b></small></td>" +
+                             "    <td colspan=4><small>" + valueui  + "</small></td></tr>" + 
+			     "<tr><td width=30%><small><b>char</b></small></td>" +
+                             "    <td width=15% align=center><small>" + valuec[0] + "</small></td>" +
+                             "    <td width=15% align=center><small>" + valuec[1] + "</small></td>" +
+                             "    <td width=15% align=center><small>" + valuec[2] + "</small></td>" +
+                             "    <td width=15% align=center><small>" + valuec[3] + "</small></td></tr>" + 
+			     "<tr><td><small><b>hex.</b></small></td>" +
+                             "    <td colspan=4><small>" + valuehex + "</small></td></tr>" + 
+			     "<tr><td><small><b>bin.</b></small></td>" +
+                             "    <td colspan=4><small>" + valuebin + "</smallspan></td></tr>" + 
+			     valuedt + 
+			     "</table>" ;
+
+		return vtable;
+        }
+
         function init_rf ( jqdiv )
         {
             if (jqdiv == "")
@@ -230,43 +305,12 @@
 	    $("[data-toggle=popover]").popover({
 	    	    html: true,
                     placement: 'top',
-		    content: function() 
-                    {
-		        var index = $(this).attr("data-popover-content");
-
-                        var valuei   = get_value(sim_states['BR'][index])  >> 0;
-                        var valueui  = get_value(sim_states['BR'][index]) >>> 0;
-                        var valuec   = String.fromCharCode(valueui & 0xFF000000, valueui & 0x00FF0000, valueui & 0x0000FF00, valueui & 0x000000FF) ;
-                        var sign     = (valueui & 0x80000000) ? -1 : 1;
-                        var exponent = ((valueui >> 23) & 0xff) - 127;
-                        var mantissa = 1 + ((valueui & 0x7fffff) / 0x800000);
-                        var valuef   = sign * mantissa * Math.pow(2, exponent);
-                        if (-127 == exponent)
-                            if (1 == mantissa)
-                                 valuef = (sign == 1) ? "+0" : "-0" ;
-                            else valuef = sign * ((valueui & 0x7fffff) / 0x7fffff) * Math.pow(2, 126) ;
-                        if (128 == exponent)
-                            if (1 == mantissa)
-                                 valuef = (sign == 1) ? "+Inf" : "-Inf" ;
-                            else valuef = "NaN" ;
-
-                        var valuedt = "" ;
-                        if (get_cfg('is_editable') == true)
-                            valuedt = "<tr><td colspan=2><input type='text' id='popover1' value='" + valueui + "' data-mini='true' size=10>" +
-                                      "<span class='badge' onclick='set_value(sim_states[\"BR\"]["+index+"],parseInt($(\"#popover1\")[0].value));" +
-                                      "                             fullshow_rf_values();'>update</span></td></tr>";
-
-                        var vtable = "<table width='100%' class='table table-bordered table-condensed'>" + 
-                                     "<tr><td><small><b>signed</b></small></td><td><small>"   + valuei  + "</small></td></tr>" + 
-                                     "<tr><td><small><b>unsigned</b></small></td><td><small>" + valueui + "</small></td></tr>" + 
-                                     "<tr><td><small><b>float</b></small></td><td><small>"    + valuef  + "</small></td></tr>" + 
-                                     "<tr><td><small><b>char</b></small></td><td><small>"     + valuec  + "</small></td></tr>" + 
-                                     valuedt + 
-                                     "</table>" ;
-		        return vtable;
+		    content: function() {
+		        var index    = $(this).attr("data-popover-content");
+                        var hexvalue = get_value(sim_states['BR'][index]);
+                        return hex2values(hexvalue,index) ;
 		    },
-		    title: function() 
-                    {
+		    title: function() {
 		        var index = $(this).attr("data-popover-content");
 		        return '<span class="text-info"><strong>R' + index + '</strong></span>' +
                                '<button type="button" id="close" class="close" onclick="$(&quot;#rf' + index + '&quot;).click();">&times;</button>';
