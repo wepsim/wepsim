@@ -101,7 +101,8 @@
 		        <ul>
 		          <li style="clear:none;width:50% !important">
                               <a id="tab26" href="#eltos_cpu" 
-                                 onclick="start_drawing(); refresh();">Processor</a>
+                                 onclick="$('#slider2d').toggle(); 
+                                          start_drawing(); refresh();">Processor</a>
                           </li>
 		          <li style="clear:none;width:50% !important">
                               <a id="tab24" href="#eltos_dbg"  
@@ -115,7 +116,7 @@
 		      </div>
 		      <div id="eltos_cpu" class="ui-body-d ui-content" style="padding:10 0 10 0">
                            <div class="container-fluid" style="padding:0 0 0 0">
-			     <div  id="slider2d">
+			     <div  id="slider2d" style="display: none;">
 			     <form id="slider2f" class="full-width-slider" style="margin:0 20 20 -35">
 				 <input type="range" name="slider2" id="slider2" 
                                         min="0" max="100" value="55" step="5"
