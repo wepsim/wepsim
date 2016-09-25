@@ -252,20 +252,19 @@
 		if (get_cfg('is_editable') == true)
 		    valuedt = "<tr><td><small><b>float</b></small></td>" + 
                               "    <td colspan=4><small>" + valuef + "</small></td></tr>" + 
-                              "<tr><td colspan=5>" + 
-                              "<input type=text id='popover1' value='" + valueui + "' data-mini='true' size=11>" +
-			      "<span class='badge' onclick='set_value(sim_states[\"BR\"]["+index+"],parseInt($(\"#popover1\")[0].value));fullshow_rf_values();$(\"#rf"+index+"\").click();$(\"#rf"+index+"\").click();'>update</span></td></tr>";
+                              "<tr><td colspan=5 align=center><input type=text id='popover1' value='" + valueui + "' data-mini='true' style='width:65%'>&nbsp;" +
+                              "<span class='badge' onclick='set_value(sim_states[\"BR\"]["+index+"],parseInt($(\"#popover1\")[0].value));fullshow_rf_values();$(\"#rf"+index+"\").click();$(\"#rf"+index+"\").click();'>update</span></td></tr>";
 
 		var vtable = "<table width='100%' class='table table-bordered table-condensed'>" + 
 			     "<tr><td><small><b>signed</b></small></td>" +
                              "    <td colspan=4><small>" + valuei   + "</small></td></tr>" + 
-			     "<tr><td><small><b>unsigned</b></small></td>" +
+			     "<tr><td><small><b>unsig.</b></small></td>" +
                              "    <td colspan=4><small>" + valueui  + "</small></td></tr>" + 
-			     "<tr><td width=50%><small><b>char</b></small></td>" +
-                             "    <td width=12%><small>" + valuec[0] + "</small></td>" +
-                             "    <td width=12%><small>" + valuec[1] + "</small></td>" +
-                             "    <td width=12%><small>" + valuec[2] + "</small></td>" +
-                             "    <td width=12%><small>" + valuec[3] + "</small></td></tr>" + 
+			     "<tr><td width=30%><small><b>char</b></small></td>" +
+                             "    <td width=15% align=center><small>" + valuec[0] + "</small></td>" +
+                             "    <td width=15% align=center><small>" + valuec[1] + "</small></td>" +
+                             "    <td width=15% align=center><small>" + valuec[2] + "</small></td>" +
+                             "    <td width=15% align=center><small>" + valuec[3] + "</small></td></tr>" + 
 			     "<tr><td><small><b>hex.</b></small></td>" +
                              "    <td colspan=4><small>" + valuehex + "</small></td></tr>" + 
 			     "<tr><td><small><b>bin.</b></small></td>" +
