@@ -223,10 +223,10 @@
         {
                 var valuec = new Array();
 
-		valuec[0] = String.fromCharCode(hexvalue & 0xFF000000) ;
-		valuec[1] = String.fromCharCode(hexvalue & 0x00FF0000) ;
-		valuec[2] = String.fromCharCode(hexvalue & 0x0000FF00) ;
-		valuec[3] = String.fromCharCode(hexvalue & 0x000000FF) ;
+		valuec[0] = String.fromCharCode((hexvalue & 0xFF000000) >> 24) ;
+		valuec[1] = String.fromCharCode((hexvalue & 0x00FF0000) >> 16) ;
+		valuec[2] = String.fromCharCode((hexvalue & 0x0000FF00) >>  8) ;
+		valuec[3] = String.fromCharCode((hexvalue & 0x000000FF) >>  0) ;
 
                 return valuec ;
         }
