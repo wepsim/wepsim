@@ -219,56 +219,64 @@
 		return valuef ;
         }
 
-        function hex2char ( hexvalue )
+        function hex2char8 ( hexvalue )
         {
                 var valuec = new Array();
 
-		valuec[0] = String.fromCharCode(hexvalue & 0xFF000000) ;
-		valuec[1] = String.fromCharCode(hexvalue & 0x00FF0000) ;
-		valuec[2] = String.fromCharCode(hexvalue & 0x0000FF00) ;
-		valuec[3] = String.fromCharCode(hexvalue & 0x000000FF) ;
+		valuec[0] = String.fromCharCode((hexvalue & 0xFF000000) >> 24) ;
+		valuec[1] = String.fromCharCode((hexvalue & 0x00FF0000) >> 16) ;
+		valuec[2] = String.fromCharCode((hexvalue & 0x0000FF00) >>  8) ;
+		valuec[3] = String.fromCharCode((hexvalue & 0x000000FF) >>  0) ;
 
                 return valuec ;
         }
 
+        function hex2bin   ( hexvalue )
+        {
+                var valuebin = hexvalue.toString(2) ;
+
+                valuebin = "00000000000000000000000000000000".substring(0, 32 - valuebin.length) + valuebin;
+                valuebin = valuebin.substring(0,4)   + " " + valuebin.substring(4,8)   + " " +
+                           valuebin.substring(8,12)  + " " + valuebin.substring(12,16) + " " +
+                           valuebin.substring(16,20) + " " + valuebin.substring(20,24) + " " +
+                           valuebin.substring(24,28) + " " + valuebin.substring(28,32) ;
+                //valuebin = valuebin.replace('0','.') ;
+
+                return valuebin ;
+        }
+
         function hex2values ( hexvalue, index )
         {
-		var valuei  = hexvalue  >> 0;
-		var valueui = hexvalue >>> 0;
-		var valuec  = hex2char(valueui);
-		var valuef  = hex2float(valueui);
-
-                var valuebin = hexvalue.toString(2) ;
-                    valuebin = "00000000000000000000000000000000".substring(0, 32 - valuebin.length) + valuebin;
-                    valuebin = valuebin.substring(0,4)   + " " + valuebin.substring(4,8)   + " " +
-                               valuebin.substring(8,12)  + " " + valuebin.substring(12,16) + " " +
-                               valuebin.substring(16,20) + " " + valuebin.substring(20,24) + " " +
-                               valuebin.substring(24,28) + " " + valuebin.substring(28,32) ;
-                    //valuebin = valuebin.replace('0','.') ;
-                var valuehex = hexvalue.toString(16) ;
+                var valuebin = hex2bin(hexvalue);
+                var valuehex = hexvalue.toString(16).toUpperCase() ;
                     valuehex = "0x" + "00000000".substring(0, 8 - valuehex.length) + valuehex;
+		var valuei   = hexvalue  >> 0;
+		var valueui  = hexvalue >>> 0;
+		var valuec8  = hex2char8(valueui);
+		var valuef   = hex2float(valueui);
 
 		var valuedt = "" ;
 		if (get_cfg('is_editable') == true)
 		    valuedt = "<tr><td><small><b>float</b></small></td>" + 
-                              "    <td colspan=4><small>" + valuef + "</small></td></tr>" + 
+                              "    <td colspan=4><small><font face='monospace'><b>" + valuef + "</b></font></small></td></tr>" + 
                               "<tr><td colspan=5 align=center><input type=text id='popover1' value='" + valueui + "' data-mini='true' style='width:65%'>&nbsp;" +
-                              "<span class='badge' onclick='set_value(sim_states[\"BR\"]["+index+"],parseInt($(\"#popover1\")[0].value));fullshow_rf_values();$(\"#rf"+index+"\").click();$(\"#rf"+index+"\").click();'>update</span></td></tr>";
+                              "<span class='badge' onclick='set_value(sim_states[\"BR\"]["+index+"],parseInt($(\"#popover1\")[0].value));" + 
+                              "                              fullshow_rf_values();$(\"#rf"+index+"\").click();$(\"#rf"+index+"\").click();'>update</span></td></tr>";
 
 		var vtable = "<table width='100%' class='table table-bordered table-condensed'>" + 
+			     "<tr><td><small><b>hex.</b></small></td>" +
+                             "    <td colspan=4><small>" + valuehex + "</small></td></tr>" + 
+			     "<tr><td><small><b>bin.</b></small></td>" +
+                             "    <td colspan=4><small><font face='monospace'><b>" + valuebin + "</b></font></smallspan></td></tr>" + 
 			     "<tr><td><small><b>signed</b></small></td>" +
                              "    <td colspan=4><small>" + valuei   + "</small></td></tr>" + 
 			     "<tr><td><small><b>unsig.</b></small></td>" +
                              "    <td colspan=4><small>" + valueui  + "</small></td></tr>" + 
 			     "<tr><td width=30%><small><b>char</b></small></td>" +
-                             "    <td width=15% align=center><small>" + valuec[0] + "</small></td>" +
-                             "    <td width=15% align=center><small>" + valuec[1] + "</small></td>" +
-                             "    <td width=15% align=center><small>" + valuec[2] + "</small></td>" +
-                             "    <td width=15% align=center><small>" + valuec[3] + "</small></td></tr>" + 
-			     "<tr><td><small><b>hex.</b></small></td>" +
-                             "    <td colspan=4><small>" + valuehex + "</small></td></tr>" + 
-			     "<tr><td><small><b>bin.</b></small></td>" +
-                             "    <td colspan=4><small>" + valuebin + "</smallspan></td></tr>" + 
+                             "    <td width=15% align=center><small>" + valuec8[0] + "</small></td>" +
+                             "    <td width=15% align=center><small>" + valuec8[1] + "</small></td>" +
+                             "    <td width=15% align=center><small>" + valuec8[2] + "</small></td>" +
+                             "    <td width=15% align=center><small>" + valuec8[3] + "</small></td></tr>" + 
 			     valuedt + 
 			     "</table>" ;
 
