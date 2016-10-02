@@ -555,80 +555,83 @@
 
    <div role="main" class="ui-content" style="padding: 8px 8px 8px 8px">
 
-        <div class="container-fluid" style="overflow-y:auto; overflow-x:auto; max-height:80vh; max-width:85vw;">
+	<div id="owl-example1" class="owl-carousel" style="max-width:880px;">
+	  <div>
+		<div class="row">
+		  <div class="col-xs-12 col-sm-12">
+		     1) Simple:<br>
+		     Very simple example with fetch, arithmetic instructions, and basic .text/.data segment.<br>
+                     Data types included: byte, half, word, ascii, asciiz, .space<br>
+                     Instructions included: li, add, sub
+		  </div>
 
-  <ul class="container-fluid list-group">
-    <li class="list-group-item">
-	<div class="row">
-	  <div class="col-xs-12 col-sm-12">
-             1) Simple:<br>
-             Very simple example with fetch, arithmetic instructions, and basic .text/.data segment.
-          </div>
+		  <div class="col-xs-12 col-sm-12">
+		  <fieldset data-role="controlgroup" data-type="horizontal">
+		      <a href="#" onclick="load_from_example_assembly(1,false);"  style="background-color: lightgray;"
+			 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
+			 <b>Load assembly only</b></a>
+		      <a href="#" onclick="load_from_example_firmware(1,false);" style="background-color: lightgray;"
+			 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
+			 <b>Load firmware only</b></a>
+		      <a href="#" onclick="load_from_example_firmware(1,true);"  style="background-color: lightgray;"
+			 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-primary">
+			 <b>Load both</b></a>
+		  </fieldset>
+		  </div>
+		</div>
+	  </div>
 
-	  <div class="col-xs-12 col-sm-12">
-	  <fieldset data-role="controlgroup" data-type="horizontal">
-	      <a href="#" onclick="load_from_example_assembly(1,false);"  style="background-color: lightgray;"
-		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
-		 <b>Load assembly only</b></a>
-	      <a href="#" onclick="load_from_example_firmware(1,false);" style="background-color: lightgray;"
-		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
-		 <b>Load firmware only</b></a>
-	      <a href="#" onclick="load_from_example_firmware(1,true);"  style="background-color: lightgray;"
-		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-primary">
-		 <b>Load both</b></a>
-	  </fieldset>
-          </div>
-        </div>
-    </li>
+	  <div>
+		<div class="row">
+		  <div class="col-xs-12 col-sm-12">
+		     2) Intermediate:<br>
+		     More extended example with more instructions and I/O (keyboard, display).<br>
+                     Data types included: byte, half, word, ascii, asciiz, .space<br>
+                     Instructions included: li, la, lb, lw, li, b, beq, bne, out, add, jr
+		  </div>
 
-    <li class="list-group-item">
-	<div class="row">
-	  <div class="col-xs-12 col-sm-12">
-             2) Intermediate:<br>
-             More extended example with more instructions and I/O (keyboard, display).
-          </div>
+		  <div class="col-xs-12 col-sm-12">
+		  <fieldset data-role="controlgroup" data-type="horizontal">
+		      <a href="#" onclick="load_from_example_assembly(2,false);"  style="background-color: lightgray;"
+			 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
+			 <b>Load assembly only</b></a>
+		      <a href="#" onclick="load_from_example_firmware(2,false);" style="background-color: lightgray;"
+			 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
+			 <b>Load firmware only</b></a>
+		      <a href="#" onclick="load_from_example_firmware(2,true);"  style="background-color: lightgray;"
+			 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-primary">
+			 <b>Load both</b></a>
+		  </fieldset>
+		  </div>
+		</div>
+	  </div>
 
-	  <div class="col-xs-12 col-sm-12">
-	  <fieldset data-role="controlgroup" data-type="horizontal">
-	      <a href="#" onclick="load_from_example_assembly(2,false);"  style="background-color: lightgray;"
-		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
-		 <b>Load assembly only</b></a>
-	      <a href="#" onclick="load_from_example_firmware(2,false);" style="background-color: lightgray;"
-		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
-		 <b>Load firmware only</b></a>
-	      <a href="#" onclick="load_from_example_firmware(2,true);"  style="background-color: lightgray;"
-		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-primary">
-		 <b>Load both</b></a>
-	  </fieldset>
-          </div>
-        </div>
-    </li>
+	  <div>
+		<div class="row">
+		  <div class="col-xs-12 col-sm-12">
+		     3) Advanced:<br>
+		     Advanced example with interruptions support: fetch, RETI and .ktext/.data added.<br>
+                     Data types included: byte, half, word, ascii, asciiz, .space<br>
+                     Instructions included: li, la, lb, lw, li, b, beq, bne, out, add, jr
+		  </div>
 
-    <li class="list-group-item">
-	<div class="row">
-	  <div class="col-xs-12 col-sm-12">
-             3) Advanced:<br>
-             Advanced example with interruptions support: fetch, RETI and .ktext/.data added.
-          </div>
+		  <div class="col-xs-12 col-sm-12">
+		  <fieldset data-role="controlgroup" data-type="horizontal">
+		      <a href="#" onclick="load_from_example_assembly(3,false);"  style="background-color: lightgray;"
+			 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
+			 <b>Load assembly only</b></a>
+		      <a href="#" onclick="load_from_example_firmware(3,false);" style="background-color: lightgray;"
+			 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
+			 <b>Load firmware only</b></a>
+		      <a href="#" onclick="load_from_example_firmware(3,true);"  style="background-color: lightgray;"
+			 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-primary">
+			 <b>Load both</b></a>
+		  </fieldset>
+		  </div>
+		</div> <!-- /row -->
+	  </div>
+	</div>
 
-	  <div class="col-xs-12 col-sm-12">
-	  <fieldset data-role="controlgroup" data-type="horizontal">
-	      <a href="#" onclick="load_from_example_assembly(3,false);"  style="background-color: lightgray;"
-		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
-		 <b>Load assembly only</b></a>
-	      <a href="#" onclick="load_from_example_firmware(3,false);" style="background-color: lightgray;"
-		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
-		 <b>Load firmware only</b></a>
-	      <a href="#" onclick="load_from_example_firmware(3,true);"  style="background-color: lightgray;"
-		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-primary">
-		 <b>Load both</b></a>
-	  </fieldset>
-          </div>
-        </div> <!-- /row -->
-    </li>
-  </ul>
-
-        </div> <!-- container-fluid -->
    </div>
 </div>
 
@@ -896,16 +899,17 @@
             Copyright &copy; 2015-2017 <small>Javier Prieto Cepeda, Sa&uacute;l Alonso Monsalve, F&eacute;lix Garc&iacute;a Carballeira, and Alejandro Calder&oacute;n Mateos</small>
             <p>
         </div>
-        <div class="col-xs-12 col-sm-12" style="max-height:50vh; overflow-y: scroll;">
-		<div class="col-xs-12 col-sm-12">
+        <div class="col-xs-12 col-sm-12">
+                <div id="owl-about1" class="owl-carousel">
+                  <div>
 		    <b>WepSIM (Web elemental processor SIMulator)</b> is free software: you can redistribute it and/or modify
 		    it under the terms of the GNU Lesser General Public License as published by
 		    the Free Software Foundation, either version 3 of the License, or
 		    (at your option) any later version.
 		    See <a rel="external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.
 		    <p>
-		</div>
-		<div class="col-xs-12 col-sm-12">
+                  </div>
+                  <div>
 		    <b>WepSIM</b> uses different technologies such as
 		    <a rel="external" href="https://jquerymobile.com/">Jquery Mobile</a>,
 		    <a rel="external" href="http://knockoutjs.com/">Knockout</a>,
@@ -915,13 +919,15 @@
 		    <a rel="external" href="http://icon-icons.com/">icon-icons</a>,
 		    <a rel="external" href="http://codemirror.net/index.html">CodeMirror</a> Editor,
 		    <a rel="external" href="https://bgrins.github.io/spectrum/">spectrum</a> ColorPicker,
+		    <a rel="external" href="http://owlgraphic.com/">OWLgraphic</a> Carousel,
 		    and the <a rel="external" href="https://github.com/mouse0270/bootstrap-notify">Bootstrap Notify</a>.
 		    <p>
-		</div>
-		<div class="col-xs-12 col-sm-12">
+                  </div>
+                  <div>
 		    More information: <a rel="external" href="http://www.arcos.inf.uc3m.es/~ec-2ed/">http://www.arcos.inf.uc3m.es/~ec-2ed/</a><br>
 		    <p>
-		</div>
+                  </div>
+                </div>
         </div>
         <div class="col-xs-6 col-sm-6">
             <br>
@@ -1006,6 +1012,25 @@
 	    $(document).ready(function()
 	    {
 		    jQuery.fx.off = true;
+
+                    $("#owl-about1").owlCarousel({ 
+                         items: 1,
+                         singleItem: true,
+                         baseClass:  "owl-carousel",
+                         theme:      "owl-theme",
+                         responsive: true,
+                         responsiveBaseWidth: '#about1',
+                         responsiveRefreshRate: 300
+                    }) ;
+                    $("#owl-example1").owlCarousel({ 
+                         items: 2,
+                         baseClass:  "owl-carousel",
+                         theme:      "owl-theme",
+                         autoWidth:  true,
+                         responsive: true,
+                         responsiveBaseWidth: '#example1',
+                         responsiveRefreshRate: 300
+                    }) ;
 
 		    $("#config1").enhanceWithin().popup();
 		    $("#about1").enhanceWithin().popup();
