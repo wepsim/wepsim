@@ -63,6 +63,6 @@ cat external/bootstrap.min.css \
     external/codemirror.fold/foldgutter.css \
     external/codemirror.show-hint/codemirror.show-hint.css \
     external/owl.carousel.css \
-    external/owl.theme.css \
+    external/owl.theme.default.min.css \
     external/owl.transitions.css > external/external.min.css
 
