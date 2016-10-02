@@ -52,7 +52,8 @@ cat external/bootstrap.min.js \
     external/codemirror.fold/comment-fold.js \
     external/codemirror.fold/indent-fold.js \
     external/codemirror.fold/markdown-fold.js \
-    external/codemirror.show-hint/codemirror.show-hint.js > external/external.min.js
+    external/codemirror.show-hint/codemirror.show-hint.js \
+    external/owl.carousel.min.js > external/external.min.js
 
 cat external/bootstrap.min.css \
     external/bootstrap-theme.min.css \
@@ -60,5 +61,8 @@ cat external/bootstrap.min.css \
     external/codemirror.css \
     external/codemirror.theme/blackboard.css \
     external/codemirror.fold/foldgutter.css \
-    external/codemirror.show-hint/codemirror.show-hint.css > external/external.min.css
+    external/codemirror.show-hint/codemirror.show-hint.css \
+    external/owl.carousel.css \
+    external/owl.theme.default.min.css \
+    external/owl.transitions.css > external/external.min.css
 
