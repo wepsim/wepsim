@@ -648,237 +648,256 @@
    </div>
    <div role="main" class="ui-content" style="padding: 8px 8px 8px 8px">
 
-        <div class="container-fluid" style="overflow-y:auto; overflow-x:hidden; max-height:80vh; max-width:85vw;">
-	<div class="row">
-	  <div class="col-xs-4 col-sm-2">
-             <img src="images/cfg-colors.gif" width="100%">
-          </div>
-	  <div class="col-xs-8 col-sm-3">
-		  <ul class="container-fluid list-group">
-		    <li class="list-group-item">
-			 Data-path Color:
-			 <ul>
-			 <input type="color"
-                                id="colorpicker1"
-				data-show-value="false"
-                                class="noshadow"
-				onchange="set_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh(); save_cfg();">
-			 </ul>
-		    </li>
-		    <li class="list-group-item">
-			 Signal Color:
-			 <ul>
-			 <input type="color"
-                                id="colorpicker2"
-				data-show-value="false"
-                                class="noshadow"
-				onchange="set_cfg('color_name_active', $('#colorpicker2').spectrum('get')); refresh(); save_cfg();">
-			 </ul>
-		    </li>
-		  </ul>
-          </div>
-	  <div class="col-xs-4 col-sm-2">
-             <img src="images/cfg-rf.gif" width="100%">
-          </div>
-	  <div class="col-xs-8 col-sm-4">
-		  <ul class="container-fluid list-group">
-		    <li class="list-group-item">
-			 <fieldset data-role="controlgroup" data-type="horizontal">
-			 RF display format:<br>
-			 <ul>
-			 <li>
-			     <input name="radio2" id="radio2-16" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('RF_display_format',16); show_rf_values(); show_memories_values(); save_cfg();"
-				    value="on" type="radio">
-			     <label for="radio2-16">Hex.</label>
-			     <input name="radio2" id="radio2-10" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('RF_display_format',10); show_rf_values(); show_memories_values(); save_cfg();"
-				    value="off" type="radio">
-			     <label for="radio2-10">Dec.</label>
-			     <input name="radio2" id="radio2-8"  data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('RF_display_format',8); show_rf_values(); show_memories_values(); save_cfg();"
-				    value="off" type="radio">
-			     <label for="radio2-8">Oct.</label>
-			 </li>
-			 </ul>
-			 </fieldset>
-		    </li>
-		    <li class="list-group-item">
-			 <fieldset data-role="controlgroup" data-type="horizontal">
-			 RF name nomenclature:<br>
-			 <ul>
-			 <li>
-			     <input name="radio3" id="radio3-numerical" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('RF_display_name','numerical'); show_rf_names(); save_cfg();"
-				    value="on" type="radio">
-			     <label for="radio3-numerical">Numbers</label>
-			     <input name="radio3" id="radio3-logical" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('RF_display_name','logical'); show_rf_names(); save_cfg();"
-				    value="off" type="radio">
-			     <label for="radio3-logical">Labels</label>
-			 </li>
-			 </ul>
-			 </fieldset>
-		    </li>
-		  </ul>
-          </div>
-	</div>
+	<div id="owl-config1" class="owl-carousel" style="max-width:90%">
+	  <div>
+		<div class="row">
+		  <div class="col-xs-2 col-sm-2 col-md-2">
+		  </div>
+		  <div class="col-xs-8 col-sm-8 col-md-8">
+			  <ul class="container-fluid list-group">
+			    <li class="list-group-item">
+				 Speed-up (slow - fast):
+				 <input type="range"
+					data-show-value="false"
+					name="slider1" id="slider1"
+					min="1" max="200" value="200" step=5
+					onchange="set_cfg('DBG_delay', 1000 / this.value); save_cfg();">
+			    </li>
+			    <li class="list-group-item">
+				 <fieldset data-role="controlgroup" data-type="horizontal">
+				 Single step element in run mode:
+				 <ul>
+				 <li>
+				     <input name="radio1" id="radio1-instruction" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('DBG_level','instruction'); save_cfg();"
+					    value="on" type="radio">
+				     <label for="radio1-instruction">Instruc<span class="hidden-xs">tions</span></label>
+				     <input name="radio1" id="radio1-microinstruction" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('DBG_level','microinstruction'); save_cfg();"
+					    value="off" type="radio">
+				     <label for="radio1-microinstruction">&#181;instruc<span class="hidden-xs">tions</span></label>
+				 </li>
+				 </ul>
+				 </fieldset>
+			    </li>
+			  </ul>
+		  </div>
+		</div>
+		<div class="row">
+		  <div class="col-xs-2 col-sm-2 col-md-2">
+		  </div>
+		  <div class="col-xs-8 col-sm-8 col-md-8">
+			  <ul class="container-fluid list-group">
+			    <li class="list-group-item">
+				 <fieldset data-role="controlgroup" data-type="horizontal">
+				 Interactive Mode:<br>
+				 <ul>
+				 <li>
+				     <input name="radio5" id="radio5-true" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('is_interactive',true); save_cfg();"
+					    value="on" type="radio">
+				     <label for="radio5-true">On</label>
+				     <input name="radio5" id="radio5-false" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('is_interactive',false); save_cfg();"
+					    value="off" type="radio">
+				     <label for="radio5-false">Off</label>
+				 </li>
+				 </ul>
+				 </fieldset>
+			    </li>
+			    <li class="list-group-item">
+				 <fieldset data-role="controlgroup" data-type="horizontal">
+				 Breakpoint Icon:<br>
+				 <ul>
+				 <li>
+				    <img id="img_select1" src="images/stop_classic.png" 
+					 style="position:absolute; left:15px; height:30px !important; width:30px !important;">
+				    <select name="select1" id="select1" 
+					    onchange="var opt = $(this).find('option:selected');
+						      var optValue = opt.val();
+						      $('#img_select1').attr('src','images/stop_' + optValue + '.png');
+						      set_cfg('ICON_theme',optValue); save_cfg();"
+					    data-mini="true" data-native-menu="false">
+					<option value="classic">Classic</option>
+					<option value="pushpin">Push Pin</option>
+					<option value="simple">Simple</option>
+					<option value="cat1">Cat</option>
+					<option value="dog1">Dog</option>
+					<option value="r2d2">R2-D2</option>
+					<option value="sw">Death Star</option>
+				    </select>
+				 </li>
+				 </ul>
+				 </fieldset>
+			    </li>
+			  </ul>
+		  </div>
+		</div>
+	  </div>
 
-	<div class="row">
-	  <div class="col-sm-5">
-		  <ul class="container-fluid list-group">
-		    <li class="list-group-item">
-			 <fieldset data-role="controlgroup" data-type="horizontal">
-			 Editor theme:<br>
-			 <ul>
-			 <li>
-			     <input name="radio7" id="radio7-default" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('editor_theme','default'); save_cfg();
-                                             inputfirm.getWrapperElement().style['font-weight'] = 'bold';
-					     inputfirm.setOption('theme','default');
-                                             inputasm.getWrapperElement().style['font-weight'] = 'bold';
-					     inputasm.setOption('theme','default');"
-				    value="default" type="radio">
-			     <label for="radio7-default">Light</label>
-			     <input name="radio7" id="radio7-blackboard" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('editor_theme','blackboard'); save_cfg();
-                                             inputfirm.getWrapperElement().style['font-weight'] = 'normal';
-					     inputfirm.setOption('theme','blackboard');
-                                             inputasm.getWrapperElement().style['font-weight'] = 'normal';
-					     inputasm.setOption('theme','blackboard');"
-				    value="blackboard" type="radio">
-			     <label for="radio7-blackboard">Dark</label>
-			 </li>
-			 </ul>
-			 </fieldset>
-		    </li>
-		    <li class="list-group-item">
-			 <fieldset data-role="controlgroup" data-type="horizontal">
-			 Editor mode:<br>
-			 <ul>
-			 <li>
-			     <input name="radio8" id="radio8-vim" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('editor_mode','vim'); save_cfg();
-                                             inputfirm.setOption('keyMap','vim');
-                                             inputasm.setOption('keyMap','vim');"
-				    value="vim" type="radio">
-			     <label for="radio8-vim">vim</label>
-			     <input name="radio8" id="radio8-emacs" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('editor_mode','emacs'); save_cfg();
-                                             inputfirm.setOption('keyMap','emacs');
-                                             inputasm.setOption('keyMap','emacs');"
-				    value="emacs" type="radio">
-			     <label for="radio8-emacs">emacs</label>
-			     <input name="radio8" id="radio8-sublime" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('editor_mode','sublime'); save_cfg();
-                                             inputfirm.setOption('keyMap','sublime');
-                                             inputasm.setOption('keyMap','sublime');"
-				    value="sublime" type="radio">
-			     <label for="radio8-sublime">sublime</label>
-			     <input name="radio8" id="radio8-default" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('editor_mode','default'); save_cfg();
-                                             inputfirm.setOption('keyMap','default');
-                                             inputasm.setOption('keyMap','default');"
-				    value="default" type="radio">
-			     <label for="radio8-default">default</label>
-			 </li>
-			 </ul>
-			 </fieldset>
-		    </li>
-		  </ul>
-          </div>
-	  <div class="col-sm-4">
-		  <ul class="container-fluid list-group">
-		    <li class="list-group-item">
-			 Speed-up (slow - fast):
-			 <input type="range"
-				data-show-value="false"
-				name="slider1" id="slider1"
-				min="1" max="200" value="200" step=5
-				onchange="set_cfg('DBG_delay', 1000 / this.value); save_cfg();">
-		    </li>
-		    <li class="list-group-item">
-			 <fieldset data-role="controlgroup" data-type="horizontal">
-			 Single step element in run mode:
-			 <ul>
-			 <li>
-			     <input name="radio1" id="radio1-instruction" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('DBG_level','instruction'); save_cfg();"
-				    value="on" type="radio">
-			     <label for="radio1-instruction">Instruc<span class="hidden-xs">tions</span>.</label>
-			     <input name="radio1" id="radio1-microinstruction" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('DBG_level','microinstruction'); save_cfg();"
-				    value="off" type="radio">
-			     <label for="radio1-microinstruction">&#181;instruc<span class="hidden-xs">tions</span>.</label>
-			 </li>
-			 </ul>
-			 </fieldset>
-		    </li>
-		  </ul>
-          </div>
-	  <div class="col-sm-3">
-		  <ul class="container-fluid list-group">
-		    <li class="list-group-item">
-			 <fieldset data-role="controlgroup" data-type="horizontal">
-			 Interactive Mode:<br>
-			 <ul>
-			 <li>
-			     <input name="radio5" id="radio5-true" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('is_interactive',true); save_cfg();"
-				    value="on" type="radio">
-			     <label for="radio5-true">On</label>
-			     <input name="radio5" id="radio5-false" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('is_interactive',false); save_cfg();"
-				    value="off" type="radio">
-			     <label for="radio5-false">Off</label>
-			 </li>
-			 </ul>
-			 </fieldset>
-		    </li>
-		    <li class="list-group-item">
-			 <fieldset data-role="controlgroup" data-type="horizontal">
-			 Breakpoint Icon:<br>
-			 <ul>
-			 <li>
-			    <img id="img_select1" src="images/stop_classic.png" 
-                                 style="position:absolute; left:15px" height="30" width="30">
-			    <select name="select1" id="select1" 
-                                    onchange="var opt = $(this).find('option:selected');
-                                              var optValue = opt.val();
-                                              $('#img_select1').attr('src','images/stop_' + optValue + '.png');
-				              set_cfg('ICON_theme',optValue); save_cfg();"
-                                    data-mini="true" data-native-menu="false">
-				<option value="classic">Classic</option>
-				<option value="pushpin">Push Pin</option>
-				<option value="simple">Simple</option>
-				<option value="cat1">Cat</option>
-				<option value="dog1">Dog</option>
-				<option value="r2d2">R2-D2</option>
-				<option value="sw">Death Star</option>
-			    </select>
-			 </li>
-			 </ul>
-			 </fieldset>
-		    </li>
-		  </ul>
-          </div>
+	  <div>
+		<div class="row">
+		  <div class="col-xs-4 col-sm-4 col-md-4">
+		     <img src="images/cfg-colors.gif" width="100%">
+		  </div>
+		  <div class="col-xs-7 col-sm-7 col-md-7">
+			  <ul class="container-fluid list-group">
+			    <li class="list-group-item">
+				 Data-path Color:
+				 <ul>
+				 <input type="color"
+					id="colorpicker1"
+					data-show-value="false"
+					class="noshadow"
+					onchange="set_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh(); save_cfg();">
+				 </ul>
+			    </li>
+			    <li class="list-group-item">
+				 Signal Color:
+				 <ul>
+				 <input type="color"
+					id="colorpicker2"
+					data-show-value="false"
+					class="noshadow"
+					onchange="set_cfg('color_name_active', $('#colorpicker2').spectrum('get')); refresh(); save_cfg();">
+				 </ul>
+			    </li>
+			  </ul>
+		  </div>
+		</div>
+		<div class="row">
+		  <div class="col-xs-4 col-sm-4 col-md-4">
+		     <img src="images/cfg-rf.gif" width="100%">
+		  </div>
+		  <div class="col-xs-7 col-sm-7 col-md-7">
+			  <ul class="container-fluid list-group">
+			    <li class="list-group-item">
+				 <fieldset data-role="controlgroup" data-type="horizontal">
+				 RF display format:<br>
+				 <ul>
+				 <li>
+				     <input name="radio2" id="radio2-16" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('RF_display_format',16); show_rf_values(); show_memories_values(); save_cfg();"
+					    value="on" type="radio">
+				     <label for="radio2-16">Hex.</label>
+				     <input name="radio2" id="radio2-10" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('RF_display_format',10); show_rf_values(); show_memories_values(); save_cfg();"
+					    value="off" type="radio">
+				     <label for="radio2-10">Dec.</label>
+				     <input name="radio2" id="radio2-8"  data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('RF_display_format',8); show_rf_values(); show_memories_values(); save_cfg();"
+					    value="off" type="radio">
+				     <label for="radio2-8">Oct.</label>
+				 </li>
+				 </ul>
+				 </fieldset>
+			    </li>
+			    <li class="list-group-item">
+				 <fieldset data-role="controlgroup" data-type="horizontal">
+				 RF name nomenclature:<br>
+				 <ul>
+				 <li>
+				     <input name="radio3" id="radio3-numerical" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('RF_display_name','numerical'); show_rf_names(); save_cfg();"
+					    value="on" type="radio">
+				     <label for="radio3-numerical">Numbers</label>
+				     <input name="radio3" id="radio3-logical" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('RF_display_name','logical'); show_rf_names(); save_cfg();"
+					    value="off" type="radio">
+				     <label for="radio3-logical">Labels</label>
+				 </li>
+				 </ul>
+				 </fieldset>
+			    </li>
+			  </ul>
+		  </div>
+		</div>
+	  </div>
+
+	  <div>
+		<div class="row">
+		  <div class="col-xs-1 col-sm-1 col-md-1">
+		  </div>
+		  <div class="col-xs-8 col-sm-8 col-md-8">
+			  <ul class="container-fluid list-group">
+			    <li class="list-group-item">
+				 <fieldset data-role="controlgroup" data-type="horizontal">
+				 Editor theme:<br>
+				 <ul>
+				 <li>
+				     <input name="radio7" id="radio7-default" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('editor_theme','default'); save_cfg();
+						     inputfirm.getWrapperElement().style['font-weight'] = 'bold';
+						     inputfirm.setOption('theme','default');
+						     inputasm.getWrapperElement().style['font-weight'] = 'bold';
+						     inputasm.setOption('theme','default');"
+					    value="default" type="radio">
+				     <label for="radio7-default">Light</label>
+				     <input name="radio7" id="radio7-blackboard" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('editor_theme','blackboard'); save_cfg();
+						     inputfirm.getWrapperElement().style['font-weight'] = 'normal';
+						     inputfirm.setOption('theme','blackboard');
+						     inputasm.getWrapperElement().style['font-weight'] = 'normal';
+						     inputasm.setOption('theme','blackboard');"
+					    value="blackboard" type="radio">
+				     <label for="radio7-blackboard">Dark</label>
+				 </li>
+				 </ul>
+				 </fieldset>
+			    </li>
+			    <li class="list-group-item">
+				 <fieldset data-role="controlgroup" data-type="horizontal">
+				 Editor mode:<br>
+				 <ul>
+				 <li>
+				     <input name="radio8" id="radio8-vim" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('editor_mode','vim'); save_cfg();
+						     inputfirm.setOption('keyMap','vim');
+						     inputasm.setOption('keyMap','vim');"
+					    value="vim" type="radio">
+				     <label for="radio8-vim">vim</label>
+				     <input name="radio8" id="radio8-emacs" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('editor_mode','emacs'); save_cfg();
+						     inputfirm.setOption('keyMap','emacs');
+						     inputasm.setOption('keyMap','emacs');"
+					    value="emacs" type="radio">
+				     <label for="radio8-emacs">emacs</label>
+				     <input name="radio8" id="radio8-sublime" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('editor_mode','sublime'); save_cfg();
+						     inputfirm.setOption('keyMap','sublime');
+						     inputasm.setOption('keyMap','sublime');"
+					    value="sublime" type="radio">
+				     <label for="radio8-sublime">sublime</label>
+				     <input name="radio8" id="radio8-default" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('editor_mode','default'); save_cfg();
+						     inputfirm.setOption('keyMap','default');
+						     inputasm.setOption('keyMap','default');"
+					    value="default" type="radio">
+				     <label for="radio8-default">default</label>
+				 </li>
+				 </ul>
+				 </fieldset>
+			    </li>
+			  </ul>
+		  </div>
+		</div>
+	  </div>
 	</div>
-        </div><!-- scrolling -->
 
    </div>
 
@@ -1035,7 +1054,6 @@
                          responsiveRefreshRate: 300
                     });
                     $("#owl-example1").owlCarousel({ 
-                         items:  2,
                          dots:   true,
                          baseClass:  "owl-carousel",
                          theme:      "owl-theme",
@@ -1047,6 +1065,27 @@
 			         loop:  true
 			     },
 			     850: {
+			         items: 2,
+			         loop:  false
+			     },
+			     1500: {
+			         items: 3,
+			         loop:  false
+			     }
+			}
+                    }) ;
+                    $("#owl-config1").owlCarousel({ 
+                         dots:   true,
+                         baseClass:  "owl-carousel",
+                         theme:      "owl-theme",
+                         responsiveBaseWidth: "#config1",
+                         responsiveRefreshRate: 300,
+		         responsive: {
+			     0: {
+			         items: 1,
+			         loop:  true
+			     },
+			     950: {
 			         items: 2,
 			         loop:  false
 			     },
