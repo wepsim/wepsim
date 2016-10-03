@@ -1015,14 +1015,29 @@
 
                     $("#owl-about1").owlCarousel({ 
                          items: 1,
-                         dots:   true,
                          center: true,
-                         singleItem: true,
                          baseClass:  "owl-carousel",
                          theme:      "owl-theme",
                          responsiveBaseWidth: "#about1",
-                         responsiveRefreshRate: 300
-                    }) ;
+                         responsiveRefreshRate: 300,
+		         responsive: {
+			     0: {
+			         items: 1,
+                                 dots:  true,
+			         loop:  true
+			     },
+			     600: {
+			         items: 1,
+                                 dots:  true,
+			         loop:  false
+			     },
+			     1000: {
+			         items: 1,
+                                 dots:  true,
+			         loop:  false
+			     }
+			}
+                    });
                     $("#owl-example1").owlCarousel({ 
                          items: 2,
                          dots:   true,
@@ -1033,9 +1048,9 @@
                     }) ;
 
 		    $("#config1").enhanceWithin().popup();
-		    $("#about1").enhanceWithin().popup();
 		    $("#help1").enhanceWithin().popup().resizable();
 		    $("#bin1").enhanceWithin().popup();
+		    $("#about1").enhanceWithin().popup();
 		    $("#example1").enhanceWithin().popup();
 
 		    $("#actions_panel").panel().enhanceWithin();
@@ -1121,6 +1136,9 @@
 		             $(column).hide() ;
 		        else $(column).show() ;
 		    });
+
+		    $("#about1").enhanceWithin();
+		    $("#example1").enhanceWithin();
 	    }) ;
 
             $("div.wsversion").replaceWith(get_cfg('version'));
