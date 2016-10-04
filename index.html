@@ -61,6 +61,18 @@
     <link  href="external/external.min.css" rel="stylesheet">
     <script src="external/external.min.js"></script>
 
+    <style>
+    /* fix from https://github.com/OwlCarousel2/OwlCarousel2/issues/1079 */
+    .owl-carousel  .owl-wrapper,
+    .owl-carousel  .owl-item{
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility:    hidden;
+    -ms-backface-visibility:     hidden;
+    -webkit-transform: translate3d(0,0,0);
+    -moz-transform: translate3d(0,0,0);
+    -ms-transform: translate3d(0,0,0);
+    </style>
+
     <script src="min.sim_all.js"></script>
     <script src="min.sim_hw.js"></script> 
     <script src="min.wepsim.js"></script>
@@ -555,7 +567,7 @@
 
    <div role="main" class="ui-content" style="padding: 8px 8px 8px 8px">
 
-	<div id="owl-example1" class="owl-carousel" style="max-width:90%;">
+	<div id="owl-example1" class="owl-carousel" style="max-width:100%;">
 	  <div>
 		<div class="row">
 		  <div class="col-xs-12 col-sm-12">
@@ -648,11 +660,11 @@
    </div>
    <div role="main" class="ui-content" style="padding: 8px 8px 8px 8px">
 
-	<div id="owl-config1" class="owl-carousel" style="max-width:90%">
+	<div id="owl-config1" class="owl-carousel" style="max-width:95%">
 	  <div>
 		<div class="row">
-		  <div class="col-xs-1  col-sm-2 col-md-2"></div>
-		  <div class="col-xs-11 col-sm-8 col-md-8">
+		  <div class="col-xs-1  col-sm-1 col-md-1"></div>
+		  <div class="col-xs-10 col-sm-10 col-md-10">
 			  <ul class="container-fluid list-group">
 			    <li class="list-group-item">
 				 Speed-up (slow - fast):
@@ -671,12 +683,12 @@
 					    style="margin-top:-8px"
 					    onclick="set_cfg('DBG_level','instruction'); save_cfg();"
 					    value="on" type="radio">
-				     <label for="radio1-instruction">Instruc<span class="hidden-xs">tions</span></label>
+				     <label for="radio1-instruction">Instruc<span class="hidden-xs">tions</span>.</label>
 				     <input name="radio1" id="radio1-microinstruction" data-mini="true"
 					    style="margin-top:-8px"
 					    onclick="set_cfg('DBG_level','microinstruction'); save_cfg();"
 					    value="off" type="radio">
-				     <label for="radio1-microinstruction">&#181;instruc<span class="hidden-xs">tions</span></label>
+				     <label for="radio1-microinstruction">&#181;instruc<span class="hidden-xs">tions</span>.</label>
 				 </li>
 				 </ul>
 				 </fieldset>
@@ -685,8 +697,8 @@
 		  </div>
 		</div>
 		<div class="row">
-		  <div class="col-xs-1  col-sm-2 col-md-2"></div>
-		  <div class="col-xs-11 col-sm-8 col-md-8">
+		  <div class="col-xs-1  col-sm-1 col-md-1"></div>
+		  <div class="col-xs-10 col-sm-10 col-md-10">
 			  <ul class="container-fluid list-group">
 			    <li class="list-group-item">
 				 <fieldset data-role="controlgroup" data-type="horizontal">
@@ -742,7 +754,7 @@
 		  <div class="col-xs-4 col-sm-4 col-md-4 hidden-xs">
 		     <img src="images/cfg-colors.gif" width="100%">
 		  </div>
-		  <div class="col-xs-7 col-sm-7 col-md-7">
+		  <div class="col-xs-10 col-sm-7 col-md-7">
 			  <ul class="container-fluid list-group">
 			    <li class="list-group-item">
 				 Data-path Color:
@@ -771,7 +783,7 @@
 		  <div class="col-xs-4 col-sm-4 col-md-4 hidden-xs">
 		     <img src="images/cfg-rf.gif" width="100%">
 		  </div>
-		  <div class="col-xs-12 col-sm-7 col-md-7">
+		  <div class="col-xs-10 col-sm-7 col-md-7">
 			  <ul class="container-fluid list-group">
 			    <li class="list-group-item">
 				 <fieldset data-role="controlgroup" data-type="horizontal">
@@ -824,7 +836,7 @@
 	  <div>
 		<div class="row">
 		  <div class="col-xs-1 col-sm-1 col-md-1"></div>
-		  <div class="col-xs-11 col-sm-8 col-md-8">
+		  <div class="col-xs-9 col-sm-9 col-md-9">
 			  <ul class="container-fluid list-group">
 			    <li class="list-group-item">
 				 <fieldset data-role="controlgroup" data-type="horizontal">
@@ -1033,6 +1045,13 @@
 
 
 <script>
+    function refresh_owl ( event )
+    {
+	 $("#about1").enhanceWithin();
+	 $("#example1").enhanceWithin();
+	 $("#config1").enhanceWithin();
+    }
+
     try 
     {
 	    restore_cfg();
@@ -1048,10 +1067,11 @@
                          baseClass:  "owl-carousel",
                          theme:      "owl-theme",
                          responsiveBaseWidth: "#about1",
-                         responsiveRefreshRate: 300
+                         responsiveRefreshRate: 300,
+			 onInitialized: refresh_owl,
+			 onResized:     refresh_owl
                     });
                     $("#owl-example1").owlCarousel({ 
-                         dots:   true,
                          baseClass:  "owl-carousel",
                          theme:      "owl-theme",
                          responsiveBaseWidth: "#example1",
@@ -1059,20 +1079,21 @@
 		         responsive: {
 			     0: {
 			         items: 1,
-			         loop:  false
+                                 dots:  true
 			     },
 			     850: {
 			         items: 2,
-			         loop:  false
+                                 dots:  true
 			     },
 			     1500: {
 			         items: 3,
-			         loop:  false
+                                 dots:  false
 			     }
-			}
+			 },
+			 onInitialized: refresh_owl,
+			 onResized:     refresh_owl
                     }) ;
                     $("#owl-config1").owlCarousel({ 
-                         dots:   true,
                          baseClass:  "owl-carousel",
                          theme:      "owl-theme",
                          responsiveBaseWidth: "#config1",
@@ -1080,17 +1101,19 @@
 		         responsive: {
 			     0: {
 			         items: 1,
-			         loop:  false
+                                 dots:  true
 			     },
 			     950: {
 			         items: 2,
-			         loop:  false
+                                 dots:  true
 			     },
 			     1500: {
 			         items: 3,
-			         loop:  false
+                                 dots:  false
 			     }
-			}
+			 },
+			 onInitialized: refresh_owl,
+			 onResized:     refresh_owl
                     }) ;
 
 		    $("#config1").enhanceWithin().popup();
@@ -1182,10 +1205,6 @@
 		             $(column).hide() ;
 		        else $(column).show() ;
 		    });
-
-		    $("#about1").enhanceWithin();
-		    $("#example1").enhanceWithin();
-		    $("#config1").enhanceWithin();
 	    }) ;
 
             $("div.wsversion").replaceWith(get_cfg('version'));
