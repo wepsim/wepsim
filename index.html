@@ -61,21 +61,22 @@
     <link  href="external/external.min.css" rel="stylesheet">
     <script src="external/external.min.js"></script>
 
-    <style>
-    /* fix from https://github.com/OwlCarousel2/OwlCarousel2/issues/1079 */
-    .owl-carousel  .owl-wrapper,
-    .owl-carousel  .owl-item{
-    -webkit-backface-visibility: hidden;
-    -moz-backface-visibility:    hidden;
-    -ms-backface-visibility:     hidden;
-    -webkit-transform: translate3d(0,0,0);
-    -moz-transform: translate3d(0,0,0);
-    -ms-transform: translate3d(0,0,0);
-    </style>
-
     <script src="min.sim_all.js"></script>
     <script src="min.sim_hw.js"></script> 
     <script src="min.wepsim.js"></script>
+
+    <style>
+    /* fix from https://github.com/OwlCarousel2/OwlCarousel2/issues/1079 */
+    .owl-carousel  .owl-wrapper,
+    .owl-carousel  .owl-item {
+      -webkit-backface-visibility: hidden;
+      -moz-backface-visibility:    hidden;
+      -ms-backface-visibility:     hidden;
+      -webkit-transform: translate3d(0,0,0);
+      -moz-transform:    translate3d(0,0,0);
+      -ms-transform:     translate3d(0,0,0);
+    }
+    </style>
 
     <!-- Google Analytics -->
     <script>
@@ -1045,13 +1046,6 @@
 
 
 <script>
-    function refresh_owl ( event )
-    {
-	 $("#about1").enhanceWithin();
-	 $("#example1").enhanceWithin();
-	 $("#config1").enhanceWithin();
-    }
-
     try 
     {
 	    restore_cfg();
@@ -1060,6 +1054,17 @@
 	    {
 		    jQuery.fx.off = true;
 
+/*
+		    $(window).resize(function() { 
+			 $("#about1").enhanceWithin();
+			 $("#example1").enhanceWithin();
+			 $("#config1").enhanceWithin();
+                         $("#owl-about1").trigger('refresh.owl.carousel');
+                         $("#owl-example1").trigger('refresh.owl.carousel');
+                         $("#owl-config1").trigger('refresh.owl.carousel');
+		    });
+*/
+
                     $("#owl-about1").owlCarousel({ 
                          items:  1,
                          dots:   true,
@@ -1067,9 +1072,7 @@
                          baseClass:  "owl-carousel",
                          theme:      "owl-theme",
                          responsiveBaseWidth: "#about1",
-                         responsiveRefreshRate: 300,
-			 onInitialized: refresh_owl,
-			 onResized:     refresh_owl
+                         responsiveRefreshRate: 300
                     });
                     $("#owl-example1").owlCarousel({ 
                          baseClass:  "owl-carousel",
@@ -1089,9 +1092,7 @@
 			         items: 3,
                                  dots:  false
 			     }
-			 },
-			 onInitialized: refresh_owl,
-			 onResized:     refresh_owl
+			 }
                     }) ;
                     $("#owl-config1").owlCarousel({ 
                          baseClass:  "owl-carousel",
@@ -1111,9 +1112,7 @@
 			         items: 3,
                                  dots:  false
 			     }
-			 },
-			 onInitialized: refresh_owl,
-			 onResized:     refresh_owl
+			 }
                     }) ;
 
 		    $("#config1").enhanceWithin().popup();
