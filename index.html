@@ -60,6 +60,7 @@
 
     <link  href="external/external.min.css" rel="stylesheet">
     <script src="external/external.min.js"></script>
+    <script src="examples/examples.js"></script>
 
     <script src="min.sim_all.js"></script>
     <script src="min.sim_hw.js"></script> 
@@ -577,82 +578,7 @@
 
    <div role="main" class="ui-content" style="padding: 8px 8px 8px 8px">
 
-	<div id="owl-example1" class="owl-carousel" style="max-width:100%;">
-	  <div>
-		<div class="row">
-		  <div class="col-xs-12 col-sm-12">
-		     1) Simple:<br>
-		     Very simple example with fetch, arithmetic instructions, and basic .text/.data segment.<br>
-                     Data types included: byte, half, word, ascii, asciiz, .space<br>
-                     Instructions included: li, add, sub
-		  </div>
-
-		  <div class="col-xs-12 col-sm-12">
-		  <fieldset data-role="controlgroup" data-type="horizontal">
-		      <a href="#" onclick="load_from_example_assembly(1,false);"  style="background-color: lightgray;"
-			 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
-			 <b>Load assembly only</b></a>
-		      <a href="#" onclick="load_from_example_firmware(1,false);" style="background-color: lightgray;"
-			 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
-			 <b>Load firmware only</b></a>
-		      <a href="#" onclick="load_from_example_firmware(1,true);"  style="background-color: lightgray;"
-			 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-primary">
-			 <b>Load both</b></a>
-		  </fieldset>
-		  </div>
-		</div>
-	  </div>
-
-	  <div>
-		<div class="row">
-		  <div class="col-xs-12 col-sm-12">
-		     2) Intermediate:<br>
-		     More extended example with more instructions and I/O (keyboard, display).<br>
-                     Data types included: byte, half, word, ascii, asciiz, .space<br>
-                     Instructions included: li, la, lb, lw, li, b, beq, bne, out, add, jr
-		  </div>
-
-		  <div class="col-xs-12 col-sm-12">
-		  <fieldset data-role="controlgroup" data-type="horizontal">
-		      <a href="#" onclick="load_from_example_assembly(2,false);"  style="background-color: lightgray;"
-			 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
-			 <b>Load assembly only</b></a>
-		      <a href="#" onclick="load_from_example_firmware(2,false);" style="background-color: lightgray;"
-			 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
-			 <b>Load firmware only</b></a>
-		      <a href="#" onclick="load_from_example_firmware(2,true);"  style="background-color: lightgray;"
-			 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-primary">
-			 <b>Load both</b></a>
-		  </fieldset>
-		  </div>
-		</div>
-	  </div>
-
-	  <div>
-		<div class="row">
-		  <div class="col-xs-12 col-sm-12">
-		     3) Advanced:<br>
-		     Advanced example with interruptions support: fetch, RETI and .ktext/.data added.<br>
-                     Data types included: byte, half, word, ascii, asciiz, .space<br>
-                     Instructions included: li, la, lb, lw, li, b, beq, bne, out, add, jr
-		  </div>
-
-		  <div class="col-xs-12 col-sm-12">
-		  <fieldset data-role="controlgroup" data-type="horizontal">
-		      <a href="#" onclick="load_from_example_assembly(3,false);"  style="background-color: lightgray;"
-			 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
-			 <b>Load assembly only</b></a>
-		      <a href="#" onclick="load_from_example_firmware(3,false);" style="background-color: lightgray;"
-			 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
-			 <b>Load firmware only</b></a>
-		      <a href="#" onclick="load_from_example_firmware(3,true);"  style="background-color: lightgray;"
-			 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-primary">
-			 <b>Load both</b></a>
-		  </fieldset>
-		  </div>
-		</div> <!-- /row -->
-	  </div>
-	</div>
+	<div id="container-example1" class="container" style="overflow-x:auto;"></div>
 
    </div>
 </div>
@@ -1073,12 +999,7 @@
 	    {
 		    jQuery.fx.off = true;
 
-		    $("#config1").enhanceWithin().popup();
-		    $("#help1").enhanceWithin().popup();
-		    $("#bin1").enhanceWithin().popup();
-		    $("#about1").enhanceWithin().popup();
-		    $("#example1").enhanceWithin().popup();
-
+	            $("#container-example1").html(list_examples_html(examples));
                     $("#bot-about1").on("swipeleft",  function(){ $(this).carousel('next'); });
                     $("#bot-about1").on("swiperight", function(){ $(this).carousel('prev'); });
 
@@ -1091,6 +1012,12 @@
 
 		    $("#tabs1").tabs();
 		    $("#tabs2").tabs();
+
+		    $("#config1").enhanceWithin().popup();
+		    $("#help1").enhanceWithin().popup();
+		    $("#bin1").enhanceWithin().popup();
+		    $("#about1").enhanceWithin().popup();
+		    $("#example1").enhanceWithin().popup();
 
 		    inputfirm = CodeMirror.fromTextArea(document.getElementById("inputFirmware"), 
                                     {

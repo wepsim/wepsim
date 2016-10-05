@@ -599,3 +599,35 @@
         wepsim_load_from_url(url, do_next) ;
     }
 
+    function list_examples_html ( examples )
+    {
+       var o = '<div class="row" style="width:' + (300*examples.length) + 'px;">' ;
+
+       for (var i=0; i<examples.length; i++)
+       {
+          o = o + '  <div class="col-xs-4 col-sm-12">' +
+                  '        <div class="row">' +
+                  '          <div class="col-xs-12 col-sm-12">' +
+                             (i+1) + ') ' + examples[i]['title'] + ':<br>' + 
+                             examples[i]['description'] +
+                  '          </div>' +
+                  '          <div class="col-xs-12 col-sm-12">' +
+                  '          <fieldset data-role="controlgroup" data-type="horizontal">' +
+                  '              <a href="#" onclick="load_from_example_assembly(' + i + ',false);"  style="background-color: lightgray;"' +
+                  '                 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">' +
+                  '                 <b>Load assembly only</b></a>' +
+                  '              <a href="#" onclick="load_from_example_firmware(' + i + ',false);" style="background-color: lightgray;"' +
+                  '                 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">' +
+                  '                 <b>Load firmware only</b></a>' +
+                  '              <a href="#" onclick="load_from_example_firmware(' + i + ',true);"  style="background-color: lightgray;"' +
+                  '                 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-primary">' +
+                  '                 <b>Load both</b></a>' +
+                  '          </fieldset>' +
+                  '          </div>' +
+                  '        </div>' +
+                  '  </div>' ;
+       }
+
+       return o ;
+    }
+
