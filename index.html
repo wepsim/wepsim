@@ -578,7 +578,7 @@
 
    <div role="main" class="ui-content" style="padding: 8px 8px 8px 8px">
 
-	<div id="container-example1" class="container" style="overflow-x:auto;"></div>
+	<div id="container-example1" class="container" style="max-width:70vw; overflow-x:auto;"></div>
 
    </div>
 </div>
@@ -1003,6 +1003,12 @@
                     $("#bot-about1").on("swipeleft",  function(){ $(this).carousel('next'); });
                     $("#bot-about1").on("swiperight", function(){ $(this).carousel('prev'); });
 
+		    $("#config1").enhanceWithin().popup();
+		    $("#help1").enhanceWithin().popup();
+		    $("#bin1").enhanceWithin().popup();
+		    $("#about1").enhanceWithin().popup();
+		    $("#example1").enhanceWithin().popup();
+
 		    $("#actions_panel").panel().enhanceWithin();
 		    $(".ui-slider-input").hide();
 		    $("#listview_1").listview();
@@ -1012,12 +1018,6 @@
 
 		    $("#tabs1").tabs();
 		    $("#tabs2").tabs();
-
-		    $("#config1").enhanceWithin().popup();
-		    $("#help1").enhanceWithin().popup();
-		    $("#bin1").enhanceWithin().popup();
-		    $("#about1").enhanceWithin().popup();
-		    $("#example1").enhanceWithin().popup();
 
 		    inputfirm = CodeMirror.fromTextArea(document.getElementById("inputFirmware"), 
                                     {

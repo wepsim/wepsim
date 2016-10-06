@@ -605,7 +605,7 @@
 
        for (var i=0; i<examples.length; i++)
        {
-          o = o + '  <div class="col-xs-4 col-sm-12">' +
+          o = o + '  <div class="col-xs-4 col-sm-4 col-md-12 col-lg-12">' +
                   '        <div class="row">' +
                   '          <div class="col-xs-12 col-sm-12">' +
                              (i+1) + ') ' + examples[i]['title'] + ':<br>' + 
