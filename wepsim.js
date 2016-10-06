@@ -599,3 +599,39 @@
         wepsim_load_from_url(url, do_next) ;
     }
 
+    function list_examples_html ( examples )
+    {
+       var o = '<div class="row" style="width:' + (300*examples.length) + 'px;">' ;
+
+       for (var i=0; i<examples.length; i++)
+       {
+          o = o + '  <div class="col-xs-4 col-sm-4 col-md-12 col-lg-12">' +
+                  '        <div class="row-fluid">' +
+                  '          <div class="col-xs-12 col-sm-12">' +
+                  '               <div class="panel panel-default">' +
+                  '                 <div class="panel-heading">' +
+                  '                   <h3 class="panel-title">' + (i+1) + ') ' + examples[i]['title'] + '</h3>' +
+                  '                 </div>' +
+                  '                 <div class="panel-body">' +
+                                      examples[i]['description'] +
+                  '                   <fieldset data-role="controlgroup" data-type="horizontal">' +
+                  '                       <a href="#" onclick="load_from_example_assembly(' + i + ',false);"  style="background-color: lightgray;"' +
+                  '                          class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">' +
+                  '                          <b>Load assembly only</b></a>' +
+                  '                       <a href="#" onclick="load_from_example_firmware(' + i + ',false);" style="background-color: lightgray;"' +
+                  '                          class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">' +
+                  '                          <b>Load firmware only</b></a>' +
+                  '                       <a href="#" onclick="load_from_example_firmware(' + i + ',true);"  style="background-color: lightgray;"' +
+                  '                          class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-primary">' +
+                  '                          <b>Load both</b></a>' +
+                  '                   </fieldset>' +
+                  '                 </div>' +
+                  '               </div>' +
+                  '          </div>' +
+                  '        </div>' +
+                  '  </div>' ;
+       }
+
+       return o ;
+    }
+
