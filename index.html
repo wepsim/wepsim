@@ -60,10 +60,33 @@
 
     <link  href="external/external.min.css" rel="stylesheet">
     <script src="external/external.min.js"></script>
+    <script src="examples/examples.js"></script>
 
     <script src="min.sim_all.js"></script>
     <script src="min.sim_hw.js"></script> 
     <script src="min.wepsim.js"></script>
+
+    <style>
+        /* http://stackoverflow.com/questions/26425382/how-to-change-customized-carousel-indicator-background-color/26430452 */
+	.carousel-indicators li {
+	    display: inline-block;
+	    margin: 10px;
+	    text-indent: 0;
+	    cursor: pointer;
+	    border: none;
+	    border-radius: 50%;
+	    border-color:#999;
+	    background-color:#ccc;
+	    box-shadow: inset 1px 1px 1px 1px rgba(0,0,0,0.5);    
+	}
+	.carousel-indicators .active {
+	    margin: 10px;
+	    background-color: #ffff99;
+	}
+	.carousel-indicators {
+	    bottom: 2px;
+	}
+    </style>
 
     <!-- Google Analytics -->
     <script>
@@ -555,80 +578,8 @@
 
    <div role="main" class="ui-content" style="padding: 8px 8px 8px 8px">
 
-        <div class="container-fluid" style="overflow-y:auto; overflow-x:auto; max-height:80vh; max-width:85vw;">
+	<div id="container-example1" class="container" style="max-width:75vw; overflow-x:auto;"></div>
 
-  <ul class="container-fluid list-group">
-    <li class="list-group-item">
-	<div class="row">
-	  <div class="col-xs-12 col-sm-12">
-             1) Simple:<br>
-             Very simple example with fetch, arithmetic instructions, and basic .text/.data segment.
-          </div>
-
-	  <div class="col-xs-12 col-sm-12">
-	  <fieldset data-role="controlgroup" data-type="horizontal">
-	      <a href="#" onclick="load_from_example_assembly(1,false);"  style="background-color: lightgray;"
-		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
-		 <b>Load assembly only</b></a>
-	      <a href="#" onclick="load_from_example_firmware(1,false);" style="background-color: lightgray;"
-		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
-		 <b>Load firmware only</b></a>
-	      <a href="#" onclick="load_from_example_firmware(1,true);"  style="background-color: lightgray;"
-		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-primary">
-		 <b>Load both</b></a>
-	  </fieldset>
-          </div>
-        </div>
-    </li>
-
-    <li class="list-group-item">
-	<div class="row">
-	  <div class="col-xs-12 col-sm-12">
-             2) Intermediate:<br>
-             More extended example with more instructions and I/O (keyboard, display).
-          </div>
-
-	  <div class="col-xs-12 col-sm-12">
-	  <fieldset data-role="controlgroup" data-type="horizontal">
-	      <a href="#" onclick="load_from_example_assembly(2,false);"  style="background-color: lightgray;"
-		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
-		 <b>Load assembly only</b></a>
-	      <a href="#" onclick="load_from_example_firmware(2,false);" style="background-color: lightgray;"
-		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
-		 <b>Load firmware only</b></a>
-	      <a href="#" onclick="load_from_example_firmware(2,true);"  style="background-color: lightgray;"
-		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-primary">
-		 <b>Load both</b></a>
-	  </fieldset>
-          </div>
-        </div>
-    </li>
-
-    <li class="list-group-item">
-	<div class="row">
-	  <div class="col-xs-12 col-sm-12">
-             3) Advanced:<br>
-             Advanced example with interruptions support: fetch, RETI and .ktext/.data added.
-          </div>
-
-	  <div class="col-xs-12 col-sm-12">
-	  <fieldset data-role="controlgroup" data-type="horizontal">
-	      <a href="#" onclick="load_from_example_assembly(3,false);"  style="background-color: lightgray;"
-		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
-		 <b>Load assembly only</b></a>
-	      <a href="#" onclick="load_from_example_firmware(3,false);" style="background-color: lightgray;"
-		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">
-		 <b>Load firmware only</b></a>
-	      <a href="#" onclick="load_from_example_firmware(3,true);"  style="background-color: lightgray;"
-		 class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-primary">
-		 <b>Load both</b></a>
-	  </fieldset>
-          </div>
-        </div> <!-- /row -->
-    </li>
-  </ul>
-
-        </div> <!-- container-fluid -->
    </div>
 </div>
 
@@ -645,237 +596,254 @@
    </div>
    <div role="main" class="ui-content" style="padding: 8px 8px 8px 8px">
 
-        <div class="container-fluid" style="overflow-y:auto; overflow-x:hidden; max-height:80vh; max-width:85vw;">
-	<div class="row">
-	  <div class="col-xs-4 col-sm-2">
-             <img src="images/cfg-colors.gif" width="100%">
-          </div>
-	  <div class="col-xs-8 col-sm-3">
-		  <ul class="container-fluid list-group">
-		    <li class="list-group-item">
-			 Data-path Color:
-			 <ul>
-			 <input type="color"
-                                id="colorpicker1"
-				data-show-value="false"
-                                class="noshadow"
-				onchange="set_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh(); save_cfg();">
-			 </ul>
-		    </li>
-		    <li class="list-group-item">
-			 Signal Color:
-			 <ul>
-			 <input type="color"
-                                id="colorpicker2"
-				data-show-value="false"
-                                class="noshadow"
-				onchange="set_cfg('color_name_active', $('#colorpicker2').spectrum('get')); refresh(); save_cfg();">
-			 </ul>
-		    </li>
-		  </ul>
-          </div>
-	  <div class="col-xs-4 col-sm-2">
-             <img src="images/cfg-rf.gif" width="100%">
-          </div>
-	  <div class="col-xs-8 col-sm-4">
-		  <ul class="container-fluid list-group">
-		    <li class="list-group-item">
-			 <fieldset data-role="controlgroup" data-type="horizontal">
-			 RF display format:<br>
-			 <ul>
-			 <li>
-			     <input name="radio2" id="radio2-16" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('RF_display_format',16); show_rf_values(); show_memories_values(); save_cfg();"
-				    value="on" type="radio">
-			     <label for="radio2-16">Hex.</label>
-			     <input name="radio2" id="radio2-10" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('RF_display_format',10); show_rf_values(); show_memories_values(); save_cfg();"
-				    value="off" type="radio">
-			     <label for="radio2-10">Dec.</label>
-			     <input name="radio2" id="radio2-8"  data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('RF_display_format',8); show_rf_values(); show_memories_values(); save_cfg();"
-				    value="off" type="radio">
-			     <label for="radio2-8">Oct.</label>
-			 </li>
-			 </ul>
-			 </fieldset>
-		    </li>
-		    <li class="list-group-item">
-			 <fieldset data-role="controlgroup" data-type="horizontal">
-			 RF name nomenclature:<br>
-			 <ul>
-			 <li>
-			     <input name="radio3" id="radio3-numerical" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('RF_display_name','numerical'); show_rf_names(); save_cfg();"
-				    value="on" type="radio">
-			     <label for="radio3-numerical">Numbers</label>
-			     <input name="radio3" id="radio3-logical" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('RF_display_name','logical'); show_rf_names(); save_cfg();"
-				    value="off" type="radio">
-			     <label for="radio3-logical">Labels</label>
-			 </li>
-			 </ul>
-			 </fieldset>
-		    </li>
-		  </ul>
-          </div>
-	</div>
+	<div id="bot-config1" style="max-width:80vw; overflow-x:auto;">
+	<div class="container-fluid">
+	<div class="row" style="width:1150px;">
+	  <div class="col-xs-4 col-md-4" style="width:325px;">
+		<div class="row">
+		  <div class="col-xs-12 col-sm-12 col-md-12">
+			  <ul class="container-fluid list-group">
+			    <li class="list-group-item">
+				 Speed-up (slow - fast):
+				 <input type="range"
+					data-show-value="false"
+					name="slider1" id="slider1"
+					min="1" max="200" value="200" step=5
+					onchange="set_cfg('DBG_delay', 1000 / this.value); save_cfg();">
+			    </li>
+			    <li class="list-group-item">
+				 <fieldset data-role="controlgroup" data-type="horizontal">
+				 Single step element in run mode:
+				 <ul>
+				 <li>
+				     <input name="radio1" id="radio1-instruction" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('DBG_level','instruction'); save_cfg();"
+					    value="on" type="radio">
+				     <label for="radio1-instruction">Instruc<span class="hidden-xs">tions</span>.</label>
+				     <input name="radio1" id="radio1-microinstruction" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('DBG_level','microinstruction'); save_cfg();"
+					    value="off" type="radio">
+				     <label for="radio1-microinstruction">&#181;instruc<span class="hidden-xs">tions</span>.</label>
+				 </li>
+				 </ul>
+				 </fieldset>
+			    </li>
+			  </ul>
+		  </div>
+		</div>
+		<div class="row">
+		  <div class="col-xs-12 col-sm-12 col-md-12">
+			  <ul class="container-fluid list-group">
+			    <li class="list-group-item">
+				 <fieldset data-role="controlgroup" data-type="horizontal">
+				 Interactive Mode:<br>
+				 <ul>
+				 <li>
+				     <input name="radio5" id="radio5-true" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('is_interactive',true); save_cfg();"
+					    value="on" type="radio">
+				     <label for="radio5-true">On</label>
+				     <input name="radio5" id="radio5-false" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('is_interactive',false); save_cfg();"
+					    value="off" type="radio">
+				     <label for="radio5-false">Off</label>
+				 </li>
+				 </ul>
+				 </fieldset>
+			    </li>
+			    <li class="list-group-item">
+				 <fieldset data-role="controlgroup" data-type="horizontal">
+				 Breakpoint Icon:<br>
+				 <ul>
+				 <li>
+				    <img id="img_select1" src="images/stop_classic.png" 
+					 style="position:absolute; left:15px; height:30px !important; width:30px !important;">
+				    <select name="select1" id="select1" 
+					    onchange="var opt = $(this).find('option:selected');
+						      var optValue = opt.val();
+						      $('#img_select1').attr('src','images/stop_' + optValue + '.png');
+						      set_cfg('ICON_theme',optValue); save_cfg();"
+					    data-mini="true" data-native-menu="false">
+					<option value="classic">Classic</option>
+					<option value="pushpin">Push Pin</option>
+					<option value="simple">Simple</option>
+					<option value="cat1">Cat</option>
+					<option value="dog1">Dog</option>
+					<option value="r2d2">R2-D2</option>
+					<option value="sw">Death Star</option>
+				    </select>
+				 </li>
+				 </ul>
+				 </fieldset>
+			    </li>
+			  </ul>
+		  </div>
+		</div>
+	  </div>
 
-	<div class="row">
-	  <div class="col-sm-5">
-		  <ul class="container-fluid list-group">
-		    <li class="list-group-item">
-			 <fieldset data-role="controlgroup" data-type="horizontal">
-			 Editor theme:<br>
-			 <ul>
-			 <li>
-			     <input name="radio7" id="radio7-default" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('editor_theme','default'); save_cfg();
-                                             inputfirm.getWrapperElement().style['font-weight'] = 'bold';
-					     inputfirm.setOption('theme','default');
-                                             inputasm.getWrapperElement().style['font-weight'] = 'bold';
-					     inputasm.setOption('theme','default');"
-				    value="default" type="radio">
-			     <label for="radio7-default">Light</label>
-			     <input name="radio7" id="radio7-blackboard" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('editor_theme','blackboard'); save_cfg();
-                                             inputfirm.getWrapperElement().style['font-weight'] = 'normal';
-					     inputfirm.setOption('theme','blackboard');
-                                             inputasm.getWrapperElement().style['font-weight'] = 'normal';
-					     inputasm.setOption('theme','blackboard');"
-				    value="blackboard" type="radio">
-			     <label for="radio7-blackboard">Dark</label>
-			 </li>
-			 </ul>
-			 </fieldset>
-		    </li>
-		    <li class="list-group-item">
-			 <fieldset data-role="controlgroup" data-type="horizontal">
-			 Editor mode:<br>
-			 <ul>
-			 <li>
-			     <input name="radio8" id="radio8-vim" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('editor_mode','vim'); save_cfg();
-                                             inputfirm.setOption('keyMap','vim');
-                                             inputasm.setOption('keyMap','vim');"
-				    value="vim" type="radio">
-			     <label for="radio8-vim">vim</label>
-			     <input name="radio8" id="radio8-emacs" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('editor_mode','emacs'); save_cfg();
-                                             inputfirm.setOption('keyMap','emacs');
-                                             inputasm.setOption('keyMap','emacs');"
-				    value="emacs" type="radio">
-			     <label for="radio8-emacs">emacs</label>
-			     <input name="radio8" id="radio8-sublime" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('editor_mode','sublime'); save_cfg();
-                                             inputfirm.setOption('keyMap','sublime');
-                                             inputasm.setOption('keyMap','sublime');"
-				    value="sublime" type="radio">
-			     <label for="radio8-sublime">sublime</label>
-			     <input name="radio8" id="radio8-default" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('editor_mode','default'); save_cfg();
-                                             inputfirm.setOption('keyMap','default');
-                                             inputasm.setOption('keyMap','default');"
-				    value="default" type="radio">
-			     <label for="radio8-default">default</label>
-			 </li>
-			 </ul>
-			 </fieldset>
-		    </li>
-		  </ul>
-          </div>
-	  <div class="col-sm-4">
-		  <ul class="container-fluid list-group">
-		    <li class="list-group-item">
-			 Speed-up (slow - fast):
-			 <input type="range"
-				data-show-value="false"
-				name="slider1" id="slider1"
-				min="1" max="200" value="200" step=5
-				onchange="set_cfg('DBG_delay', 1000 / this.value); save_cfg();">
-		    </li>
-		    <li class="list-group-item">
-			 <fieldset data-role="controlgroup" data-type="horizontal">
-			 Single step element in run mode:
-			 <ul>
-			 <li>
-			     <input name="radio1" id="radio1-instruction" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('DBG_level','instruction'); save_cfg();"
-				    value="on" type="radio">
-			     <label for="radio1-instruction">Instruc<span class="hidden-xs">tions</span>.</label>
-			     <input name="radio1" id="radio1-microinstruction" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('DBG_level','microinstruction'); save_cfg();"
-				    value="off" type="radio">
-			     <label for="radio1-microinstruction">&#181;instruc<span class="hidden-xs">tions</span>.</label>
-			 </li>
-			 </ul>
-			 </fieldset>
-		    </li>
-		  </ul>
-          </div>
-	  <div class="col-sm-3">
-		  <ul class="container-fluid list-group">
-		    <li class="list-group-item">
-			 <fieldset data-role="controlgroup" data-type="horizontal">
-			 Interactive Mode:<br>
-			 <ul>
-			 <li>
-			     <input name="radio5" id="radio5-true" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('is_interactive',true); save_cfg();"
-				    value="on" type="radio">
-			     <label for="radio5-true">On</label>
-			     <input name="radio5" id="radio5-false" data-mini="true"
-                                    style="margin-top:-8px"
-				    onclick="set_cfg('is_interactive',false); save_cfg();"
-				    value="off" type="radio">
-			     <label for="radio5-false">Off</label>
-			 </li>
-			 </ul>
-			 </fieldset>
-		    </li>
-		    <li class="list-group-item">
-			 <fieldset data-role="controlgroup" data-type="horizontal">
-			 Breakpoint Icon:<br>
-			 <ul>
-			 <li>
-			    <img id="img_select1" src="images/stop_classic.png" 
-                                 style="position:absolute; left:15px" height="30" width="30">
-			    <select name="select1" id="select1" 
-                                    onchange="var opt = $(this).find('option:selected');
-                                              var optValue = opt.val();
-                                              $('#img_select1').attr('src','images/stop_' + optValue + '.png');
-				              set_cfg('ICON_theme',optValue); save_cfg();"
-                                    data-mini="true" data-native-menu="false">
-				<option value="classic">Classic</option>
-				<option value="pushpin">Push Pin</option>
-				<option value="simple">Simple</option>
-				<option value="cat1">Cat</option>
-				<option value="dog1">Dog</option>
-				<option value="r2d2">R2-D2</option>
-				<option value="sw">Death Star</option>
-			    </select>
-			 </li>
-			 </ul>
-			 </fieldset>
-		    </li>
-		  </ul>
-          </div>
+	  <div class="col-xs-4 col-md-4" style="width:450px">
+		<div class="row">
+		  <div class="col-xs-4 col-sm-4 col-md-4">
+		     <img src="images/cfg-colors.gif" width="100%">
+		  </div>
+		  <div class="col-xs-8 col-sm-8 col-md-8">
+			  <ul class="container-fluid list-group">
+			    <li class="list-group-item">
+				 Data-path Color:
+				 <ul>
+				 <input type="color"
+					id="colorpicker1"
+					data-show-value="false"
+					class="noshadow"
+					onchange="set_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh(); save_cfg();">
+				 </ul>
+			    </li>
+			    <li class="list-group-item">
+				 Signal Color:
+				 <ul>
+				 <input type="color"
+					id="colorpicker2"
+					data-show-value="false"
+					class="noshadow"
+					onchange="set_cfg('color_name_active', $('#colorpicker2').spectrum('get')); refresh(); save_cfg();">
+				 </ul>
+			    </li>
+			  </ul>
+		  </div>
+		</div>
+		<div class="row">
+		  <div class="col-xs-4 col-sm-4 col-md-4">
+		     <img src="images/cfg-rf.gif" width="100%">
+		  </div>
+		  <div class="col-xs-8 col-sm-8 col-md-8">
+			  <ul class="container-fluid list-group">
+			    <li class="list-group-item">
+				 <fieldset data-role="controlgroup" data-type="horizontal">
+				 RF display format:<br>
+				 <ul>
+				 <li>
+				     <input name="radio2" id="radio2-16" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('RF_display_format',16); show_rf_values(); show_memories_values(); save_cfg();"
+					    value="on" type="radio">
+				     <label for="radio2-16">Hex.</label>
+				     <input name="radio2" id="radio2-10" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('RF_display_format',10); show_rf_values(); show_memories_values(); save_cfg();"
+					    value="off" type="radio">
+				     <label for="radio2-10">Dec.</label>
+				     <input name="radio2" id="radio2-8"  data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('RF_display_format',8); show_rf_values(); show_memories_values(); save_cfg();"
+					    value="off" type="radio">
+				     <label for="radio2-8">Oct.</label>
+				 </li>
+				 </ul>
+				 </fieldset>
+			    </li>
+			    <li class="list-group-item">
+				 <fieldset data-role="controlgroup" data-type="horizontal">
+				 RF name nomenclature:<br>
+				 <ul>
+				 <li>
+				     <input name="radio3" id="radio3-numerical" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('RF_display_name','numerical'); show_rf_names(); save_cfg();"
+					    value="on" type="radio">
+				     <label for="radio3-numerical">Numbers</label>
+				     <input name="radio3" id="radio3-logical" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('RF_display_name','logical'); show_rf_names(); save_cfg();"
+					    value="off" type="radio">
+				     <label for="radio3-logical">Labels</label>
+				 </li>
+				 </ul>
+				 </fieldset>
+			    </li>
+			  </ul>
+		  </div>
+		</div>
+	  </div>
+
+	  <div class="col-xs-4 col-md-4" style="width:375px">
+		<div class="row">
+		  <div class="col-xs-12 col-sm-12 col-md-12">
+			  <ul class="container-fluid list-group">
+			    <li class="list-group-item">
+				 <fieldset data-role="controlgroup" data-type="horizontal">
+				 Editor theme:<br>
+				 <ul>
+				 <li>
+				     <input name="radio7" id="radio7-default" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('editor_theme','default'); save_cfg();
+						     inputfirm.getWrapperElement().style['font-weight'] = 'bold';
+						     inputfirm.setOption('theme','default');
+						     inputasm.getWrapperElement().style['font-weight'] = 'bold';
+						     inputasm.setOption('theme','default');"
+					    value="default" type="radio">
+				     <label for="radio7-default">Light</label>
+				     <input name="radio7" id="radio7-blackboard" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('editor_theme','blackboard'); save_cfg();
+						     inputfirm.getWrapperElement().style['font-weight'] = 'normal';
+						     inputfirm.setOption('theme','blackboard');
+						     inputasm.getWrapperElement().style['font-weight'] = 'normal';
+						     inputasm.setOption('theme','blackboard');"
+					    value="blackboard" type="radio">
+				     <label for="radio7-blackboard">Dark</label>
+				 </li>
+				 </ul>
+				 </fieldset>
+			    </li>
+			    <li class="list-group-item">
+				 <fieldset data-role="controlgroup" data-type="horizontal">
+				 Editor mode:<br>
+				 <ul>
+				 <li>
+				     <input name="radio8" id="radio8-vim" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('editor_mode','vim'); save_cfg();
+						     inputfirm.setOption('keyMap','vim');
+						     inputasm.setOption('keyMap','vim');"
+					    value="vim" type="radio">
+				     <label for="radio8-vim">vim</label>
+				     <input name="radio8" id="radio8-emacs" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('editor_mode','emacs'); save_cfg();
+						     inputfirm.setOption('keyMap','emacs');
+						     inputasm.setOption('keyMap','emacs');"
+					    value="emacs" type="radio">
+				     <label for="radio8-emacs">emacs</label>
+				     <input name="radio8" id="radio8-sublime" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('editor_mode','sublime'); save_cfg();
+						     inputfirm.setOption('keyMap','sublime');
+						     inputasm.setOption('keyMap','sublime');"
+					    value="sublime" type="radio">
+				     <label for="radio8-sublime">sublime</label>
+				     <input name="radio8" id="radio8-default" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('editor_mode','default'); save_cfg();
+						     inputfirm.setOption('keyMap','default');
+						     inputasm.setOption('keyMap','default');"
+					    value="default" type="radio">
+				     <label for="radio8-default">default</label>
+				 </li>
+				 </ul>
+				 </fieldset>
+			    </li>
+			  </ul>
+		  </div>
+		</div>
+	  </div>
 	</div>
-        </div><!-- scrolling -->
+	</div>
+	</div>
 
    </div>
 
@@ -896,36 +864,60 @@
             Copyright &copy; 2015-2017 <small>Javier Prieto Cepeda, Sa&uacute;l Alonso Monsalve, F&eacute;lix Garc&iacute;a Carballeira, and Alejandro Calder&oacute;n Mateos</small>
             <p>
         </div>
-        <div class="col-xs-12 col-sm-12" style="max-height:50vh; overflow-y: scroll;">
-		<div class="col-xs-12 col-sm-12">
+        <div class="col-xs-12 col-sm-12">
+		<div id="bot-about1" class="carousel slide" data-ride="carousel">
+		  <ol class="carousel-indicators" style="position:relative; margin-bottom:0;">
+		    <li data-target="#bot-about1" data-slide-to="0" class="active"></li>
+		    <li data-target="#bot-about1" data-slide-to="1"></li>
+		    <li data-target="#bot-about1" data-slide-to="2"></li>
+		  </ol>
+		  <div class="carousel-inner" role="listbox">
+		    <div class="item active">
 		    <b>WepSIM (Web elemental processor SIMulator)</b> is free software: you can redistribute it and/or modify
 		    it under the terms of the GNU Lesser General Public License as published by
 		    the Free Software Foundation, either version 3 of the License, or
 		    (at your option) any later version.
 		    See <a rel="external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.
 		    <p>
-		</div>
-		<div class="col-xs-12 col-sm-12">
-		    <b>WepSIM</b> uses different technologies such as
-		    <a rel="external" href="https://jquerymobile.com/">Jquery Mobile</a>,
-		    <a rel="external" href="http://knockoutjs.com/">Knockout</a>,
-		    <a rel="external" href="http://getbootstrap.com/">Bootstrap</a>,
-		    <a rel="external" href="http://bootboxjs.com/">Bootbox</a>,
-		    <a rel="external" href="http://glyphicons.com/">glyphicons</a>,
-		    <a rel="external" href="http://icon-icons.com/">icon-icons</a>,
-		    <a rel="external" href="http://codemirror.net/index.html">CodeMirror</a> Editor,
-		    <a rel="external" href="https://bgrins.github.io/spectrum/">spectrum</a> ColorPicker,
-		    and the <a rel="external" href="https://github.com/mouse0270/bootstrap-notify">Bootstrap Notify</a>.
+		    </div>
+
+		    <div class="item">
+		    <b>WepSIM</b> uses different technologies such as:<br>
+                    <ul>
+                    <li>Frameworks: 
+		        <a rel="external" href="https://jquerymobile.com/">Jquery Mobile</a>,
+		        <a rel="external" href="http://knockoutjs.com/">Knockout</a>,
+		        <a rel="external" href="http://getbootstrap.com/">Bootstrap</a>
+                    </li>
+                    <li>Icons: 
+		        <a rel="external" href="http://glyphicons.com/">glyphicons</a>,
+		        <a rel="external" href="http://icon-icons.com/">icon-icons</a>
+                    </li>
+                    <li>Plug-ins & extensions: 
+		        <a rel="external" href="http://bootboxjs.com/">Bootbox</a>,
+		        <a rel="external" href="http://codemirror.net/index.html">CodeMirror</a> Editor,
+		        <a rel="external" href="https://bgrins.github.io/spectrum/">spectrum</a> ColorPicker,
+		        <a rel="external" href="http://owlgraphic.com/">OWLgraphic</a> Carousel,
+		        <a rel="external" href="https://github.com/mouse0270/bootstrap-notify">Bootstrap Notify</a>
+                    </li>
+                    </ul>
 		    <p>
-		</div>
-		<div class="col-xs-12 col-sm-12">
-		    More information: <a rel="external" href="http://www.arcos.inf.uc3m.es/~ec-2ed/">http://www.arcos.inf.uc3m.es/~ec-2ed/</a><br>
+		    </div>
+
+		    <div class="item">
+                    WepSIM works with the most popular Web Browsers: <br>
+                    Google Chrome 45+, Mozilla Firefox 40+, and Microsoft Edge 25+<br>
+		    It source code is available at <a rel="external" href="https://github.com/wepsim/wepsim">https://github.com/wepsim/wepsim</a><br>
+                    <br>
+		    More information: <a rel="external" href="http://www.arcos.inf.uc3m.es/ec-2ed/">http://www.arcos.inf.uc3m.es/ec-2ed/</a><br>
 		    <p>
+		    </div>
+		  </div>
 		</div>
         </div>
         <div class="col-xs-6 col-sm-6">
             <br>
-            <img height=55 src="images/arcos.svg">
+            <center><img height=55 src="images/arcos.svg"></center>
         </div>
         <div class="col-xs-6 col-sm-6">
             <br>
@@ -1007,10 +999,14 @@
 	    {
 		    jQuery.fx.off = true;
 
+	            $("#container-example1").html(list_examples_html(examples));
+                    $("#bot-about1").on("swipeleft",  function(){ $(this).carousel('next'); });
+                    $("#bot-about1").on("swiperight", function(){ $(this).carousel('prev'); });
+
 		    $("#config1").enhanceWithin().popup();
-		    $("#about1").enhanceWithin().popup();
-		    $("#help1").enhanceWithin().popup().resizable();
+		    $("#help1").enhanceWithin().popup();
 		    $("#bin1").enhanceWithin().popup();
+		    $("#about1").enhanceWithin().popup();
 		    $("#example1").enhanceWithin().popup();
 
 		    $("#actions_panel").panel().enhanceWithin();
