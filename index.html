@@ -602,7 +602,7 @@
 	  <div class="col-xs-4 col-md-4" style="width:335px;">
 		<div class="row">
 		  <div class="col-xs-12 col-sm-12 col-md-12">
-			  <ul class="container-fluid list-group">
+			  <ul class="container-fluid list-group" style="padding:0 0 0 0">
 			    <li class="list-group-item">
 				 Speed-up (slow - fast):
 				 <input type="range"
@@ -620,12 +620,12 @@
 					    style="margin-top:-8px"
 					    onclick="set_cfg('DBG_level','instruction'); save_cfg();"
 					    value="on" type="radio">
-				     <label for="radio1-instruction">Instruc<span class="hidden-xs">tions</span>.</label>
+				     <label for="radio1-instruction"><span class="hidden-xs">Instructions</span><span class="visible-xs">Instruc.</span></label>
 				     <input name="radio1" id="radio1-microinstruction" data-mini="true"
 					    style="margin-top:-8px"
 					    onclick="set_cfg('DBG_level','microinstruction'); save_cfg();"
 					    value="off" type="radio">
-				     <label for="radio1-microinstruction">&#181;instruc<span class="hidden-xs">tions</span>.</label>
+				     <label for="radio1-microinstruction"><span class="hidden-xs">&#181;instructions</span><span class="visible-xs">&#181;instruc.</span></label>
 				 </li>
 				 </ul>
 				 </fieldset>
@@ -635,26 +635,7 @@
 		</div>
 		<div class="row">
 		  <div class="col-xs-12 col-sm-12 col-md-12">
-			  <ul class="container-fluid list-group">
-			    <li class="list-group-item">
-				 <fieldset data-role="controlgroup" data-type="horizontal">
-				 Interactive Mode:<br>
-				 <ul>
-				 <li>
-				     <input name="radio5" id="radio5-true" data-mini="true"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('is_interactive',true); save_cfg();"
-					    value="on" type="radio">
-				     <label for="radio5-true">On</label>
-				     <input name="radio5" id="radio5-false" data-mini="true"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('is_interactive',false); save_cfg();"
-					    value="off" type="radio">
-				     <label for="radio5-false">Off</label>
-				 </li>
-				 </ul>
-				 </fieldset>
-			    </li>
+			  <ul class="container-fluid list-group" style="padding:0 0 0 0">
 			    <li class="list-group-item">
 				 <fieldset data-role="controlgroup" data-type="horizontal">
 				 Breakpoint Icon:<br>
@@ -680,6 +661,25 @@
 				 </ul>
 				 </fieldset>
 			    </li>
+			    <li class="list-group-item">
+				 <fieldset data-role="controlgroup" data-type="horizontal">
+				 Interactive Mode:<br>
+				 <ul>
+				 <li>
+				     <input name="radio5" id="radio5-true" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('is_interactive',true); save_cfg();"
+					    value="on" type="radio">
+				     <label for="radio5-true">On</label>
+				     <input name="radio5" id="radio5-false" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('is_interactive',false); save_cfg();"
+					    value="off" type="radio">
+				     <label for="radio5-false">Off</label>
+				 </li>
+				 </ul>
+				 </fieldset>
+			    </li>
 			  </ul>
 		  </div>
 		</div>
@@ -691,7 +691,7 @@
 		     <img src="images/cfg-colors.gif" width="100%">
 		  </div>
 		  <div class="col-xs-8 col-sm-8 col-md-8">
-			  <ul class="container-fluid list-group">
+			  <ul class="container-fluid list-group" style="padding:0 0 0 0">
 			    <li class="list-group-item">
 				 Data-path Color:
 				 <ul>
@@ -720,7 +720,7 @@
 		     <img src="images/cfg-rf.gif" width="100%">
 		  </div>
 		  <div class="col-xs-8 col-sm-8 col-md-8">
-			  <ul class="container-fluid list-group">
+			  <ul class="container-fluid list-group" style="padding:0 0 0 0">
 			    <li class="list-group-item">
 				 <fieldset data-role="controlgroup" data-type="horizontal">
 				 RF display format:<br>
@@ -772,7 +772,7 @@
 	  <div class="col-xs-4 col-md-4" style="width:375px">
 		<div class="row">
 		  <div class="col-xs-12 col-sm-12 col-md-12">
-			  <ul class="container-fluid list-group">
+			  <ul class="container-fluid list-group" style="padding:0 0 0 0">
 			    <li class="list-group-item">
 				 <fieldset data-role="controlgroup" data-type="horizontal">
 				 Editor theme:<br>
