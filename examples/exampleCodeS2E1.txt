@@ -1,0 +1,16 @@
+.data
+        msg: .asciiz "Hello World..."
+
+.text
+main:
+            # print msg
+            la   $26 msg
+   loop1:   lb   $27 ($26)
+            li   $1 0
+            beq  $27 $1 fin1
+            out  $27 0x1000
+            li   $1 1
+            add  $26 $26 $1
+            b loop1
+      fin1: jr $ra
+
