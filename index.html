@@ -598,8 +598,8 @@
 
 	<div id="bot-config1" style="max-width:85vw; overflow-x:auto;">
 	<div class="container-fluid">
-	<div class="row" style="width:1160px;">
-	  <div class="col-xs-4 col-md-4" style="width:335px;">
+	<div class="row" style="width:1200px;">
+	  <div class="col-xs-4 col-md-4 col-lg-push-4">
 		<div class="row">
 		  <div class="col-xs-12 col-sm-12 col-md-12">
 			  <ul class="container-fluid list-group" style="padding:0 0 0 0">
@@ -661,31 +661,12 @@
 				 </ul>
 				 </fieldset>
 			    </li>
-			    <li class="list-group-item">
-				 <fieldset data-role="controlgroup" data-type="horizontal">
-				 Interactive Mode:<br>
-				 <ul>
-				 <li>
-				     <input name="radio5" id="radio5-true" data-mini="true"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('is_interactive',true); save_cfg();"
-					    value="on" type="radio">
-				     <label for="radio5-true">On</label>
-				     <input name="radio5" id="radio5-false" data-mini="true"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('is_interactive',false); save_cfg();"
-					    value="off" type="radio">
-				     <label for="radio5-false">Off</label>
-				 </li>
-				 </ul>
-				 </fieldset>
-			    </li>
 			  </ul>
 		  </div>
 		</div>
 	  </div>
 
-	  <div class="col-xs-4 col-md-4" style="width:450px">
+	  <div class="col-xs-4 col-md-4 col-lg-pull-4">
 		<div class="row">
 		  <div class="col-xs-4 col-sm-4 col-md-4">
 		     <img src="images/cfg-colors.gif" width="100%">
@@ -769,7 +750,7 @@
 		</div>
 	  </div>
 
-	  <div class="col-xs-4 col-md-4" style="width:375px">
+	  <div class="col-xs-4 col-md-4">
 		<div class="row">
 		  <div class="col-xs-12 col-sm-12 col-md-12">
 			  <ul class="container-fluid list-group" style="padding:0 0 0 0">
@@ -833,6 +814,46 @@
 						     inputasm.setOption('keyMap','default');"
 					    value="default" type="radio">
 				     <label for="radio8-default">default</label>
+				 </li>
+				 </ul>
+				 </fieldset>
+			    </li>
+			  </ul>
+			  <ul class="container-fluid list-group" style="padding:0 0 0 0">
+			    <li class="list-group-item">
+				 <fieldset data-role="controlgroup" data-type="horizontal">
+				 Interactive Mode:<br>
+				 <ul>
+				 <li>
+				     <input name="radio5" id="radio5-true" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('is_interactive',true); save_cfg();"
+					    value="on" type="radio">
+				     <label for="radio5-true">On</label>
+				     <input name="radio5" id="radio5-false" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('is_interactive',false); save_cfg();"
+					    value="off" type="radio">
+				     <label for="radio5-false">Off</label>
+				 </li>
+				 </ul>
+				 </fieldset>
+			    </li>
+			    <li class="list-group-item">
+				 <fieldset data-role="controlgroup" data-type="horizontal">
+				 Register File Edit Mode:<br>
+				 <ul>
+				 <li>
+				     <input name="radio9" id="radio9-true" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('is_editable',true); save_cfg();"
+					    value="on" type="radio">
+				     <label for="radio9-true">On</label>
+				     <input name="radio9" id="radio9-false" data-mini="true"
+					    style="margin-top:-8px"
+					    onclick="set_cfg('is_editable',false); save_cfg();"
+					    value="off" type="radio">
+				     <label for="radio9-false">Off</label>
 				 </li>
 				 </ul>
 				 </fieldset>
@@ -1080,6 +1101,7 @@
 		    $("#radio6-" +          get_cfg('ws_idiom')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio7-" +      get_cfg('editor_theme')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio8-" +       get_cfg('editor_mode')).prop('checked', true).checkboxradio("refresh") ;
+		    $("#radio9-" +       get_cfg('is_editable')).prop('checked', true).checkboxradio("refresh") ;
                     $("#select1").val(get_cfg('ICON_theme')).selectmenu("refresh");
                     $("#img_select1").attr("src","images/stop_" + get_cfg('ICON_theme') + ".png");
 
