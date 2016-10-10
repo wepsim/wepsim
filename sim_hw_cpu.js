@@ -994,7 +994,8 @@
 						    var oi = decode_instruction(bits) ;
 						    if (null == oi)
                                                     {
-							 alert('ERROR: undefined instruction code ' + op_code + '/' + cop_code + ' in firmware') ;
+                                                         alert('ERROR: undefined instruction code in firmware ' + 
+                                                               '(co:' + op_code.toString(2) + ', cop:' + cop_code.toString(2) + ')') ;
 							 sim_states['ROM_MUXA'].value = 0 ;
 							 sim_states['INEX'].value = 1 ;
 							 return -1;

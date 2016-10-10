@@ -604,14 +604,14 @@
        /* based on Jpsi: 
           http://stackoverflow.com/questions/18057270/column-order-manipulation-using-col-lg-push-and-col-lg-pull-in-twitter-bootstrap */
 
-       var o = '<div class="row">' ;
+       var o = '<div class="row" style="width:1200px;">' ;
        for (var i=0; i<((3+examples.length)/4); i++)
        {
-          o = o + '<div class="col-sm-6">' +
+          o = o + '<div class="col-xs-6 col-sm-6">' +
                   '    <div class="row">' ;
           for (var j=0; j<2; j++)
           {
-               o = o + '  <div class="col-md-6">' ;
+               o = o + '  <div class="col-xs-6 col-md-6">' ;
                for (var k=0; k<2; k++)
                {
 		    var m = i*4 + j*2 + k ;
