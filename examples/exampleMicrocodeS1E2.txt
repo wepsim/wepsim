@@ -1,50 +1,9 @@
 begin
 {
-                    (A0=0, B=1, C=1, MADDR=fetch),
-                    # push PC
-                    (MR=1, SELA=11101, MA=0, MB=10, MC=1, SELCOP=1011, T6=1, SELC=11101, LC=1, C0),
-                    (T2=1, M1=0, C1),
-                    (BW=11, TA=1, TD=1, W=1)
-                    # push SR
-                    (MR=1, SELA=11101, MA=0, MB=10, MC=1, SELCOP=1011, T6=1, SELC=11101, LC=1, C0),
-                    (T8=1, M1=0, C1),
-                    (BW=11, TA=1, TD=1, W=1),
-                    # MBR <- DB <- INTV
-                    (INTA, BW=11, M1=1, C1=1),
-                    # RT1 <- MBR
-                    (T1=1, C4=1),
-                    # MAR <- RT1*4
-                    (MA=1, MB=10, MC=1, SELCOP=1100, T6, M2=0, C0),
-                    # MBR <- MP[MAR]
-                    (TA=1, R=1, BW=11, M1=1, C1=1),
-                    # PC <- MAR
-                    (T1, M2=0, C2),
     fetch:          (T2, C0),
                     (TA, R, BW=11, M1=1, C1=1),
                     (M2, C2, T1, C3),
                     (A0, B=0, C=0)
-}
-
-
-#
-# INT
-#
-
-reti {
-        co=111110,
-        nwords=1,
-        {
-              # pop SR
-              (MR=1, SELA=11101, T9, C0),
-              (MR=1, SELA=11101, MA=0, MB=10, MC=1, SELCOP=1010, T6=1, SELC=11101, LC=1),
-              (TA=1, R=1, BW=11, M1=1, C1),
-              (T1=1, M7=0, C7),
-              # pop PC
-              (MR=1, SELA=11101, T9, C0),
-              (MR=1, SELA=11101, MA=0, MB=10, MC=1, SELCOP=1010, T6=1, SELC=11101, LC=1),
-              (TA=1, R=1, BW=11, M1=1, C1),
-              (T1=1, M2=0, C2, A0=1, B=1 ,C=0)
-        }
 }
 
 
@@ -122,30 +81,6 @@ sub reg1 reg2 reg3 {
             }
 }
 
-mul reg1 reg2 reg3 {
-            co=000000,
-            cop=1011,
-            nwords=1,
-            reg1=reg(25,21),
-            reg2=reg(20,16),
-            reg3=reg(15,11),
-            {
-                (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
-            }
-}
-
-div reg1 reg2 reg3 {
-            co=000000,
-            cop=1100,
-            nwords=1,
-            reg1=reg(25,21),
-            reg2=reg(20,16),
-            reg3=reg(15,11),
-            {
-                (MC=1, MR=0, SELB=1011, SELA=10000, MA=0, MB=0, SELCOP=1101, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
-            }
-}
-
 
 #
 # MV/L*
@@ -168,16 +103,6 @@ li reg val {
             val=inm(15,0),
             {
                 (SE=1, OFFSET=0, SIZE=10000, SE=1, T3=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
-            }
-}
-
-liu reg val {
-            co=111100,
-            nwords=1,
-            reg=reg(25,21),
-            val=inm(15,0),
-            {
-                (SE=1, OFFSET=0, SIZE=10000, SE=0, T3=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
             }
 }
 
@@ -222,18 +147,6 @@ lb reg1 (reg2) {
                 (MR=0, SELA=10000, T9=1, C0),
                 (TA=1, R=1, BW=00, M1=1, C1=1),
                 (T1=1, LC=1, MR=0, SELC=10101, SE=1, A0=1, B=1, C=0)
-            }
-}
-
-lbu reg1 (reg2) {
-            co=101111,
-            nwords=1,
-            reg1 = reg(25,21),
-            reg2 = reg(20,16),
-            {
-                (MR=0, SELA=10000, T9=1, C0),
-                (TA=1, R=1, BW=00, M1=1, C1=1),
-                (T1=1, LC=1, MR=0, SELC=10101, SE=0, A0=1, B=1, C=0)
             }
 }
 
@@ -332,122 +245,6 @@ b offset {
             }
 }
 
-beq reg reg offset {
-            co=001101,
-            nwords=1,
-            reg=reg(25,21),
-            reg=reg(20,16),
-            offset=address(15,0)rel,
-            {
-                (T8, C5),
-                (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
-                (A0=0, B=1, C=110, MADDR=bck2ftch),
-                (T5, M7=0, C7),
-                (T2, C4),
-                (SE=1, OFFSET=0, SIZE=10000, T3, C5),
-                (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
-      bck2ftch: (T5, M7=0, C7),
-                (A0=1, B=1, C=0)
-            }
-}
-
-bne reg reg offset {
-            co=001110,
-            nwords=1,
-            reg=reg(25,21),
-            reg=reg(20,16),
-            offset=address(15,0)rel,
-            {
-                (T8, C5),
-                (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
-                (A0=0, B=0, C=110, MADDR=bck3ftch),
-                (T5, M7=0, C7),
-                (T2, C4),
-                (SE=1, OFFSET=0, SIZE=10000, T3, C5),
-                (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
-      bck3ftch: (T5, M7=0, C7),
-                (A0=1, B=1, C=0)
-            }
-}
-
-blt reg reg offset {
-            co=001111,
-            nwords=1,
-            reg=reg(25,21),
-            reg=reg(20,16),
-            offset=address(15,0)rel,
-            {
-                (T8, C5),
-                (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
-                (A0=0, B=0, C=111, MADDR=bck4ftch),
-                (T5, M7=0, C7),
-                (T2, C4),
-                (SE=1, OFFSET=0, SIZE=10000, T3, C5),
-                (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
-      bck4ftch: (T5, M7=0, C7),
-                (A0=1, B=1, C=0)
-            }
-}
-
-bge reg reg offset {
-            co=010000,
-            nwords=1,
-            reg=reg(25,21),
-            reg=reg(20,16),
-            offset=address(15,0)rel,
-            {
-                (T8, C5),
-                (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
-                (A0=0, B=1, C=111, MADDR=bck5ftch),
-                (T5, M7=0, C7),
-                (T2, C4),
-                (SE=1, OFFSET=0, SIZE=10000, T3, C5),
-                (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
-      bck5ftch: (T5, M7=0, C7),
-                (A0=1, B=1, C=0)
-            }
-}
-
-bgt reg reg offset {
-            co=010001,
-            nwords=1,
-            reg=reg(25,21),
-            reg=reg(20,16),
-            offset=address(15,0)rel,
-            {
-                (T8, C5),
-                (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
-                (A0=0, B=0, C=111, MADDR=bck6ftch),
-                (A0=0, B=0, C=110, MADDR=bck6ftch),
-                (T5, M7=0, C7),
-                (T2, C4),
-                (SE=1, OFFSET=0, SIZE=10000, T3, C5),
-                (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
-      bck6ftch: (T5, M7=0, C7),
-                (A0=1, B=1, C=0)
-            }
-}
-
-ble reg reg offset {
-            co=010010,
-            nwords=1,
-            reg=reg(25,21),
-            reg=reg(20,16),
-            offset=address(15,0)rel,
-            {
-                (T8, C5),
-                (SELA=10101, SELB=10000, MC=1, SELCOP=1011, SELP=11, M7, C7),
-                (A0=0, B=0, C=111, MADDR=ble_ys),
-                (A0=0, B=0, C=110, MADDR=ble_ys),
-                (T5, M7=0, C7),
-                (A0=1, B=1, C=0),
-        ble_ys: (T5, M7=0, C7),
-                (T2, C4),
-                (SE=1, OFFSET=0, SIZE=10000, T3, C5),
-                (MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0)
-            }
-}
-
 
 #
 # j*
@@ -494,24 +291,6 @@ nop {
         }
 }
 
-savesr reg1 {
-	co=100011,
-	nwords=1,
-	reg1 = reg(25,21),
-	{
-		(T8=1, SELC=10101, LC=1, A0=1, B=1, C=0)
-	}
-}
-
-restoresr reg1 {
-	co=100100,
-	nwords=1,
-	reg1 = reg(25,21),
-	{
-		(MR=0, SELA=10101, T9=1, M7=0, C7, A0=1, B=1, C=0)
-	}
-}
-
 
 registers
 {
@@ -548,15 +327,4 @@ registers
         30=$fp,
         31=$ra
 }
-
-pseudoinstructions
-{
-	lii reg num 
-        {	
-            li reg sel(31,16,num) ; 
-            li reg sel(15,0,num) 
-        }
-
-}
-
 

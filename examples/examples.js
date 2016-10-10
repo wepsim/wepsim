@@ -2,23 +2,38 @@
     var examples = new Array();
 
     examples.push({ 
-                     title: "Simple",
-                     description: "Very simple example with fetch, arithmetic instructions, and basic .text/.data segment.<br>" +
-                                  "Data types included: byte, half, word, ascii, asciiz, .space<br>" +
-                                  "Instructions included: li, add, sub"
+                     id: 'S1E1',
+                     title: "Initial: instructions",
+                     description: "Very simple example with fetch, arithmetic instructions, and basic .text segment.<br>"
                   });
 
     examples.push({ 
-                     title: "Intermediate",
-                     description: "More extended example with more instructions and I/O (keyboard, display).<br>" +
-                                  "Data types included: byte, half, word, ascii, asciiz, .space<br>" +
-                                  "Instructions included: li, la, lb, lw, li, b, beq, bne, out, add, jr"
+                     id: 'S1E2',
+                     title: "Initial: memory access",
+                     description: "Simple example with fetch, memory access, and basic .text/.data segment.<br>"
                   });
 
     examples.push({ 
-                     title: "Advanced",
-                     description: "Advanced example with interruptions support: fetch, RETI and .ktext/.data added.<br>" +
-                                  "Data types included: byte, half, word, ascii, asciiz, .space<br>" +
-                                  "Instructions included: li, la, lb, lw, li, b, beq, bne, out, add, jr"
+                     id: 'S2E1',
+                     title: "Intermediate: I/O",
+                     description: "Simple example with fetch, in/out access, and basic .text/.data segment.<br>"
+                  });
+
+    examples.push({ 
+                     id: 'S2E2',
+                     title: "Intermediate: subrutines",
+                     description: "More extended example with more instructions and I/O (keyboard, display).<br>" 
+                  });
+
+    examples.push({ 
+                     id: 'S2E3',
+                     title: "Intermediate: Masks & shift",
+                     description: "More extended example with masks, shift, and basic .text/.data segment.<br>"
+                  });
+
+    examples.push({ 
+                     id: 'S3E1',
+                     title: "Advanced: Interruptions",
+                     description: "Advanced example with interruptions support: fetch, RETI and .ktext/.data added.<br>" 
                   });
 

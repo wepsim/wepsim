@@ -601,36 +601,54 @@
 
     function list_examples_html ( examples )
     {
-       var o = '<div class="row" style="width:' + (300*examples.length) + 'px;">' ;
+       /* based on Jpsi: 
+          http://stackoverflow.com/questions/18057270/column-order-manipulation-using-col-lg-push-and-col-lg-pull-in-twitter-bootstrap */
 
-       for (var i=0; i<examples.length; i++)
+       var o = '<div class="row" style="width:1200px;">' ;
+       for (var i=0; i<((3+examples.length)/4); i++)
        {
-          o = o + '  <div class="col-xs-4 col-sm-4 col-md-12 col-lg-12">' +
-                  '        <div class="row-fluid">' +
-                  '          <div class="col-xs-12 col-sm-12">' +
-                  '               <div class="panel panel-default">' +
-                  '                 <div class="panel-heading">' +
-                  '                   <h3 class="panel-title">' + (i+1) + ') ' + examples[i]['title'] + '</h3>' +
-                  '                 </div>' +
-                  '                 <div class="panel-body">' +
-                                      examples[i]['description'] +
-                  '                   <fieldset data-role="controlgroup" data-type="horizontal">' +
-                  '                       <a href="#" onclick="load_from_example_assembly(' + i + ',false);"  style="background-color: lightgray;"' +
-                  '                          class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">' +
-                  '                          <b>Load assembly only</b></a>' +
-                  '                       <a href="#" onclick="load_from_example_firmware(' + i + ',false);" style="background-color: lightgray;"' +
-                  '                          class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">' +
-                  '                          <b>Load firmware only</b></a>' +
-                  '                       <a href="#" onclick="load_from_example_firmware(' + i + ',true);"  style="background-color: lightgray;"' +
-                  '                          class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-primary">' +
-                  '                          <b>Load both</b></a>' +
-                  '                   </fieldset>' +
-                  '                 </div>' +
-                  '               </div>' +
-                  '          </div>' +
-                  '        </div>' +
-                  '  </div>' ;
+          o = o + '<div class="col-xs-6 col-sm-6">' +
+                  '    <div class="row">' ;
+          for (var j=0; j<2; j++)
+          {
+               o = o + '  <div class="col-xs-6 col-md-6">' ;
+               for (var k=0; k<2; k++)
+               {
+		    var m = i*4 + j*2 + k ;
+		    if (m < examples.length)
+                    {
+                       var e_title       = examples[m]['title'] ;
+		       var e_description = examples[m]['description'] ;
+		       var e_id          = examples[m]['id'] ;
+
+		       o = o + '   <p>' +
+			       '   <div class="panel panel-default">' +
+			       '     <div class="panel-heading">' +
+			       '       <h3 class="panel-title">' + (m+1) + ') ' + e_title + '</h3>' +
+			       '     </div>' +
+			       '     <div class="panel-body">' + e_description +
+			       '       <fieldset data-role="controlgroup" data-type="horizontal">' +
+			       '           <a href="#" onclick="load_from_example_assembly(\'' + e_id + '\',false);"  style="background-color: lightgray;"' +
+			       '              class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">' +
+			       '              <b>Load assembly only</b></a>' +
+			       '           <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',false);" style="background-color: lightgray;"' +
+			       '              class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">' +
+			       '              <b>Load firmware only</b></a>' +
+			       '           <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',true);"  style="background-color: lightgray;"' +
+			       '              class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-primary">' +
+			       '              <b>Load both</b></a>' +
+			       '       </fieldset>' +
+			       '     </div>' +
+			       '   </div>' +
+			       '   </p>' ;
+                    }
+               }
+               o = o + '  </div>' ;
+          }
+          o = o + '    </div>' +
+                  '</div>' ;
        }
+       o = o + '</div>' ;
 
        return o ;
     }
