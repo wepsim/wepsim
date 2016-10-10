@@ -14,6 +14,12 @@
                   });
 
     examples.push({ 
+                     id: 'S1E3',
+                     title: "Initial: looping",
+                     description: "Simple example with fetch, branch, and basic .text/.data segment.<br>"
+                  });
+
+    examples.push({ 
                      id: 'S2E1',
                      title: "Intermediate: I/O",
                      description: "Simple example with fetch, in/out access, and basic .text/.data segment.<br>"
