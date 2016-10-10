@@ -10,19 +10,25 @@
     examples.push({ 
                      id: 'S1E2',
                      title: "Initial: memory access",
-                     description: "Very simple example with fetch, memory access, and basic .text/.data segment.<br>"
+                     description: "Simple example with fetch, memory access, and basic .text/.data segment.<br>"
                   });
 
     examples.push({ 
                      id: 'S2E1',
                      title: "Intermediate: I/O",
-                     description: "Very simple example with fetch, in/out access, and basic .text/.data segment.<br>"
+                     description: "Simple example with fetch, in/out access, and basic .text/.data segment.<br>"
                   });
 
     examples.push({ 
                      id: 'S2E2',
                      title: "Intermediate: subrutines",
                      description: "More extended example with more instructions and I/O (keyboard, display).<br>" 
+                  });
+
+    examples.push({ 
+                     id: 'S2E3',
+                     title: "Intermediate: Masks & shift",
+                     description: "More extended example with masks, shift, and basic .text/.data segment.<br>"
                   });
 
     examples.push({ 
