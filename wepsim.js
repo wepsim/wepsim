@@ -531,13 +531,23 @@
     // Example management
     //
 
+    function getURLTimeStamp ( )
+    {
+        var dateObj = new Date();
+        var month   = dateObj.getUTCMonth() + 1;
+        var day     = dateObj.getUTCDate();
+        var year    = dateObj.getUTCFullYear();
+
+        return year + month + day + "a";
+    }
+
     function load_from_example_assembly ( example_id, chain_next_step )
     {
 	$.mobile.pageContainer.pagecontainer('change', '#main4');
 	inputasm.setValue("Please wait...");
 	inputasm.refresh();
 
-	var url = "examples/exampleCode" + example_id + ".txt?time=20160730a" ;
+	var url     = "examples/exampleCode" + example_id + ".txt?time=" + getURLTimeStamp() ;
         var do_next = function( mcode ) {
 			    inputasm.setValue(mcode);
 			    inputasm.refresh();
@@ -573,7 +583,7 @@
 	inputfirm.setValue("Please wait...");
 	inputfirm.refresh();
 
-	var url     = "examples/exampleMicrocode" + example_id + ".txt?time=20160730a" ;
+	var url     = "examples/exampleMicrocode" + example_id + ".txt?time=" + getURLTimeStamp() ;
         var do_next = function( mcode ) {
 			   inputfirm.setValue(mcode);
 			   inputfirm.refresh();
@@ -601,36 +611,54 @@
 
     function list_examples_html ( examples )
     {
-       var o = '<div class="row" style="width:' + (300*examples.length) + 'px;">' ;
+       /* based on Jpsi: 
+          http://stackoverflow.com/questions/18057270/column-order-manipulation-using-col-lg-push-and-col-lg-pull-in-twitter-bootstrap */
 
-       for (var i=0; i<examples.length; i++)
+       var o = '<div class="row" style="width:1200px;">' ;
+       for (var i=0; i<((3+examples.length)/4); i++)
        {
-          o = o + '  <div class="col-xs-4 col-sm-4 col-md-12 col-lg-12">' +
-                  '        <div class="row-fluid">' +
-                  '          <div class="col-xs-12 col-sm-12">' +
-                  '               <div class="panel panel-default">' +
-                  '                 <div class="panel-heading">' +
-                  '                   <h3 class="panel-title">' + (i+1) + ') ' + examples[i]['title'] + '</h3>' +
-                  '                 </div>' +
-                  '                 <div class="panel-body">' +
-                                      examples[i]['description'] +
-                  '                   <fieldset data-role="controlgroup" data-type="horizontal">' +
-                  '                       <a href="#" onclick="load_from_example_assembly(' + i + ',false);"  style="background-color: lightgray;"' +
-                  '                          class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">' +
-                  '                          <b>Load assembly only</b></a>' +
-                  '                       <a href="#" onclick="load_from_example_firmware(' + i + ',false);" style="background-color: lightgray;"' +
-                  '                          class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">' +
-                  '                          <b>Load firmware only</b></a>' +
-                  '                       <a href="#" onclick="load_from_example_firmware(' + i + ',true);"  style="background-color: lightgray;"' +
-                  '                          class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-primary">' +
-                  '                          <b>Load both</b></a>' +
-                  '                   </fieldset>' +
-                  '                 </div>' +
-                  '               </div>' +
-                  '          </div>' +
-                  '        </div>' +
-                  '  </div>' ;
+          o = o + '<div class="col-xs-6 col-sm-6">' +
+                  '    <div class="row">' ;
+          for (var j=0; j<2; j++)
+          {
+               o = o + '  <div class="col-xs-6 col-md-6" style="padding:5 5 5 5;">' ;
+               for (var k=0; k<2; k++)
+               {
+		    var m = i*4 + j*2 + k ;
+		    if (m < examples.length)
+                    {
+                       var e_title       = examples[m]['title'] ;
+		       var e_description = examples[m]['description'] ;
+		       var e_id          = examples[m]['id'] ;
+
+		       o = o + '   <p>' +
+			       '   <div class="panel panel-default">' +
+			       '     <div class="panel-heading">' +
+			       '       <h3 class="panel-title">' + (m+1) + ') ' + e_title + '</h3>' +
+			       '     </div>' +
+			       '     <div class="panel-body">' + e_description + '<br>Load...' +
+			       '       <div class="btn-group btn-group-justified btn-group-md">' +
+			       '           <a href="#" onclick="load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0;"' +
+			       '              class="ui-btn btn btn-group ui-btn-inline btn-default">' +
+			       '              <b>Assembly<br> only</b></a>' +
+			       '           <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',false);" style="padding:0 0 0 0;"' +
+			       '              class="ui-btn btn btn-group ui-btn-inline btn-default">' +
+			       '              <b>Firmware<br> only</b></a>' +
+			       '           <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',true);"  style="padding:0 0 0 0;"' +
+			       '              class="ui-btn btn btn-group ui-btn-inline btn-primary">' +
+			       '              <b>Both</b></a>' +
+			       '       </div>' +
+			       '     </div>' +
+			       '   </div>' +
+			       '   </p>' ;
+                    }
+               }
+               o = o + '  </div>' ;
+          }
+          o = o + '    </div>' +
+                  '</div>' ;
        }
+       o = o + '</div>' ;
 
        return o ;
     }
