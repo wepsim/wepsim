@@ -341,6 +341,7 @@
 			       draw_name: [[], ['svg_p:path3425', 'svg_p:path3427']] };
 	sim_signals["COP"] = { name: "COP", visible: true, type: "L", value: 0, default_value:0, nbits: "4",  
 			       behavior: ["NOP",
+				       // "NOP" -> "ADD ALU_C6 MA_ALU VAL_ZERO; FIRE T6; FIRE_IFSET SELP 3",
                                           "AND ALU_C6 MA_ALU MB_ALU; FIRE T6; FIRE_IFSET SELP 3",
 					  "OR ALU_C6 MA_ALU MB_ALU; FIRE T6; FIRE_IFSET SELP 3",
 					  "NOT ALU_C6 MA_ALU; FIRE T6; FIRE_IFSET SELP 3",
