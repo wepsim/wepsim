@@ -291,7 +291,6 @@
 
         function update_signal_loadhelp ( helpdiv, key )
         {
-	     $(helpdiv).collapse('toggle');
 	     var help_base = 'help/signals-' + get_cfg('ws_idiom') + '.html #' + key;
 	     $(helpdiv).load(help_base,
 			      function(response, status, xhr) { 
@@ -346,20 +345,26 @@
                         }
 
 			bootbox.dialog({
-			       title:   'Decimal values for ' + key + ': ',
-			       message: '<div class="panel panel-default">' +
-                                        '  <div class="panel-heading"  ' + 
-                                        '      style="background-color: #D4E017; -webkit-text-shadow: none; text-shadow: none; border-color: #D4E017; background-color: #D4E017; background-image: none;" ' +
-                                        '      onclick=\'update_signal_loadhelp("#help2",$("#ask_skey").val());\'><b>Press here to search additional details or close details...</b>' + 
+			       title:   'Signal ' + key + ': ' +
+                                        ' <button onclick="$(\'#bot_signal\').carousel(1); update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());" ' + 
+                                        '         type="button" class="btn btn-success">Help</button>' +
+                                        ' <button onclick="$(\'#bot_signal\').carousel(0);" ' + 
+                                        '         type="button" class="btn btn-info">Value</button>',
+                               message: '<div id="bot_signal" class="carousel slide" data-ride="carousel" data-interval="false">' +
+                                        '  <div class="carousel-inner" role="listbox">' +
+                                        '    <div class="item active">' +
+                                        '         <form class="form-horizontal">' +
+                                        '         <input id="ask_skey" name="ask_skey" type="hidden" value="' + key + '" class="form-control input-md"> ' +
+                                        '         <ol start="0">' +
+                                                  input_help +
+                                        '         </ol>' +
+                                        '         </form>' +
+                                        '    </div>' +
+                                        '    <div class="item">' +
+                                        '         <div id=help2 style="max-height:70vh; width:inherit; overflow-x:auto;">Loading...</div>' +
+                                        '    </div>' +
                                         '  </div>' +
-                                        '  <div id=help2 class="panel-collapse collapse" style="max-height:60vh; width: inherit; overflow-x: auto">Loading...</div>' + 
-                                        '</div>' +
-                                        '<form class="form-horizontal">' + 
-					'<input id="ask_skey"   name="ask_skey"   type="hidden" value="' + key + '" class="form-control input-md"> ' +
-                                        '<ol start="0">' +
-                                        input_help +
-                                        '</ol>' +
-					'</form>',
+                                        '</div>',
 			       value:   sim_signals[key].value,
                                animate: false,
 			       buttons: {
@@ -370,7 +375,7 @@
 					    },
 					    success: {
 						label: "Save",
-						className: "btn-success",
+						className: "btn-primary",
 						callback: function () 
 							  {
 							     key        = $('#ask_skey').val();
