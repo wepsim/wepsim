@@ -353,12 +353,14 @@
                                message: '<div id="bot_signal" class="carousel slide" data-ride="carousel" data-interval="false">' +
                                         '  <div class="carousel-inner" role="listbox">' +
                                         '    <div class="item active">' +
+                                        '         <div style="max-height:70vh; width:inherit; overflow:auto;">' + 
                                         '         <form class="form-horizontal">' +
                                         '         <input id="ask_skey" name="ask_skey" type="hidden" value="' + key + '" class="form-control input-md"> ' +
                                         '         <ol start="0">' +
                                                   input_help +
                                         '         </ol>' +
                                         '         </form>' +
+                                        '         </div>' +
                                         '    </div>' +
                                         '    <div class="item">' +
                                         '         <div id=help2 style="max-height:70vh; width:inherit; overflow-x:auto;">Loading...</div>' +
