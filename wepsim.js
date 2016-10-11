@@ -531,13 +531,23 @@
     // Example management
     //
 
+    function getURLTimeStamp ( )
+    {
+        var dateObj = new Date();
+        var month   = dateObj.getUTCMonth() + 1;
+        var day     = dateObj.getUTCDate();
+        var year    = dateObj.getUTCFullYear();
+
+        return year + month + day + "a";
+    }
+
     function load_from_example_assembly ( example_id, chain_next_step )
     {
 	$.mobile.pageContainer.pagecontainer('change', '#main4');
 	inputasm.setValue("Please wait...");
 	inputasm.refresh();
 
-	var url = "examples/exampleCode" + example_id + ".txt?time=20160730a" ;
+	var url     = "examples/exampleCode" + example_id + ".txt?time=" + getURLTimeStamp() ;
         var do_next = function( mcode ) {
 			    inputasm.setValue(mcode);
 			    inputasm.refresh();
@@ -573,7 +583,7 @@
 	inputfirm.setValue("Please wait...");
 	inputfirm.refresh();
 
-	var url     = "examples/exampleMicrocode" + example_id + ".txt?time=20160730a" ;
+	var url     = "examples/exampleMicrocode" + example_id + ".txt?time=" + getURLTimeStamp() ;
         var do_next = function( mcode ) {
 			   inputfirm.setValue(mcode);
 			   inputfirm.refresh();
