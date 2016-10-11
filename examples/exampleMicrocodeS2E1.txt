@@ -329,7 +329,7 @@ bne reg reg offset {
             }
 }
 
-blt reg reg offset {
+bge reg reg offset {
             co=001111,
             nwords=1,
             reg=reg(25,21),
@@ -348,7 +348,7 @@ blt reg reg offset {
             }
 }
 
-bge reg reg offset {
+blt reg reg offset {
             co=010000,
             nwords=1,
             reg=reg(25,21),

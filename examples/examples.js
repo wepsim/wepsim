@@ -4,7 +4,7 @@
     examples.push({ 
                      id: 'S1E1',
                      title: "Initial: instructions",
-                     description: "Very simple example with fetch, arithmetic instructions, and basic .text segment.<br>"
+                     description: "Simple example with fetch, arithmetic instructions, and basic .text segment.<br>"
                   });
 
     examples.push({ 
@@ -33,7 +33,7 @@
 
     examples.push({ 
                      id: 'S2E3',
-                     title: "Intermediate: Masks & shift",
+                     title: "Intermediate: masks & shift",
                      description: "More extended example with masks, shift, and basic .text/.data segment.<br>"
                   });
 
