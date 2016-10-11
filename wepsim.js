@@ -611,7 +611,7 @@
                   '    <div class="row">' ;
           for (var j=0; j<2; j++)
           {
-               o = o + '  <div class="col-xs-6 col-md-6">' ;
+               o = o + '  <div class="col-xs-6 col-md-6" style="padding:5 5 5 5;">' ;
                for (var k=0; k<2; k++)
                {
 		    var m = i*4 + j*2 + k ;
@@ -626,18 +626,18 @@
 			       '     <div class="panel-heading">' +
 			       '       <h3 class="panel-title">' + (m+1) + ') ' + e_title + '</h3>' +
 			       '     </div>' +
-			       '     <div class="panel-body">' + e_description +
-			       '       <fieldset data-role="controlgroup" data-type="horizontal">' +
-			       '           <a href="#" onclick="load_from_example_assembly(\'' + e_id + '\',false);"  style="background-color: lightgray;"' +
-			       '              class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">' +
-			       '              <b>Load assembly only</b></a>' +
-			       '           <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',false);" style="background-color: lightgray;"' +
-			       '              class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-default">' +
-			       '              <b>Load firmware only</b></a>' +
-			       '           <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',true);"  style="background-color: lightgray;"' +
-			       '              class="ui-btn btn-group ui-corner-all ui-btn-inline ui-mini btn-primary">' +
-			       '              <b>Load both</b></a>' +
-			       '       </fieldset>' +
+			       '     <div class="panel-body">' + e_description + '<br>Load...' +
+			       '       <div class="btn-group btn-group-justified btn-group-md">' +
+			       '           <a href="#" onclick="load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0;"' +
+			       '              class="ui-btn btn btn-group ui-btn-inline btn-default">' +
+			       '              <b>Assembly<br> only</b></a>' +
+			       '           <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',false);" style="padding:0 0 0 0;"' +
+			       '              class="ui-btn btn btn-group ui-btn-inline btn-default">' +
+			       '              <b>Firmware<br> only</b></a>' +
+			       '           <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',true);"  style="padding:0 0 0 0;"' +
+			       '              class="ui-btn btn btn-group ui-btn-inline btn-primary">' +
+			       '              <b>Both</b></a>' +
+			       '       </div>' +
 			       '     </div>' +
 			       '   </div>' +
 			       '   </p>' ;
