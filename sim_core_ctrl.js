@@ -316,9 +316,11 @@
                         if (sim_signals[key].nbits == 1) 
                             nextvalue = ((sim_signals[key].value >>> 0) + 1) % 2;
 
-                        var str_bolded = "";
+                        var str_bolded  = "";
                         var str_checked = "";
                         var input_help  = "";
+                        var behav_str   = new Array();
+                        var n = 0;
 
                         var nvalues = Math.pow(2, sim_signals[key].nbits) ;
                         if (sim_signals[key].behavior.length == nvalues)
@@ -329,12 +331,21 @@
                                       str_checked = ' checked="checked" ' ;
                                  else str_checked = ' ' ;
 
+                                 behav_str = sim_signals[key].behavior[k].split(";") ;
                                  if (sim_signals[key].default_value != k)
-                                      str_bolded = '&nbsp;' + sim_signals[key].behavior[k].split(";")[0] + ', ...' ;
-                                 else str_bolded = '&nbsp;<b>' + sim_signals[key].behavior[k].split(";")[0] + '</b>, ...' ;
+                                      str_bolded =         behav_str[0] ;
+                                 else str_bolded = '<b>' + behav_str[0] + '</b>' ;
+ 
+                                 n = sim_signals[key].behavior[k].indexOf(";"); 
+                                 if (-1 == n)
+                                     n = sim_signals[key].behavior[k].length;
+                                 str_bolded = '<span class="visible-xs">&nbsp;' + str_bolded + ', ...</span>'  +
+                                              '<span class="hidden-xs">&nbsp;'  + str_bolded + 
+                                              '<span style="color:#CCCCCC">' + sim_signals[key].behavior[k].substring(n) + '</span></span>' ;
 
 				 input_help += '<li><label>' + 
-                                               '<input type="radio" name="ask_svalue" ' + ' value="' + k.toString(10) + '" ' + str_checked + ' />' + str_bolded + '</label></li>' ;
+                                               '<input type="radio" name="ask_svalue" ' + 
+                                               '       value="' + k.toString(10) + '" ' + str_checked + ' />' + str_bolded + '</label></li>' ;
                             }
                         }
                         else {
@@ -345,15 +356,16 @@
                         }
 
 			bootbox.dialog({
-			       title:   'Signal ' + key + ': ' +
-                                        ' <button onclick="$(\'#bot_signal\').carousel(1); update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());" ' + 
-                                        '         type="button" class="btn btn-success">Help</button>' +
+			       title:   '<center>Signal ' + key + ': ' +
                                         ' <button onclick="$(\'#bot_signal\').carousel(0);" ' + 
-                                        '         type="button" class="btn btn-info">Value</button>',
+                                        '         type="button" class="btn btn-info">Set Value</button>' +
+                                        ' <button onclick="$(\'#bot_signal\').carousel(1); update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());" ' + 
+                                        '         type="button" class="btn btn-success">Get Help</button>' + 
+                                        '</center>',
                                message: '<div id="bot_signal" class="carousel slide" data-ride="carousel" data-interval="false">' +
                                         '  <div class="carousel-inner" role="listbox">' +
                                         '    <div class="item active">' +
-                                        '         <div style="max-height:70vh; width:inherit; overflow:auto;">' + 
+                                        '         <div style="max-height:75vh; width:inherit; overflow:auto;">' + 
                                         '         <form class="form-horizontal">' +
                                         '         <input id="ask_skey" name="ask_skey" type="hidden" value="' + key + '" class="form-control input-md"> ' +
                                         '         <ol start="0">' +
