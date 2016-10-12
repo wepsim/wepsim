@@ -170,7 +170,8 @@
 					    ['svg_cu:path3484'],
 					    ['svg_cu:path3484-9'],
 					    ['svg_cu:path3108-3','svg_cu:path3260-3-8-6','svg_cu:path3260-3-8','svg_cu:path3260-3']],
-				draw_name: [['svg_cu:path3496','svg_cu:path3414','svg_cu:path3138','svg_cu:path3498']] };
+				draw_name: [[],
+                                            ['svg_cu:path3496','svg_cu:path3414','svg_cu:path3138','svg_cu:path3498']] };
 	sim_signals["B"]   = { name: "B", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 			       behavior: ["MV_ES A1 MUXC_MUXB; FIRE A1", 
 					  "NOT_ES A1 MUXC_MUXB; FIRE A1"],
