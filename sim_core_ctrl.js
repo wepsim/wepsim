@@ -339,13 +339,14 @@
                                  n = sim_signals[key].behavior[k].indexOf(";"); 
                                  if (-1 == n)
                                      n = sim_signals[key].behavior[k].length;
-                                 str_bolded = '<span class="visible-xs">&nbsp;' + str_bolded + ', ...</span>'  +
-                                              '<span class="hidden-xs">&nbsp;'  + str_bolded + 
-                                              '<span style="color:#CCCCCC">' + sim_signals[key].behavior[k].substring(n) + '</span></span>' ;
+                                 str_bolded = '&nbsp;' + str_bolded + 
+                                              '<span class="visible-xs" style="display:inline !important;">, ...</span>' +
+                                              '<span class="hidden-xs"><span style="color:#CCCCCC">' + sim_signals[key].behavior[k].substring(n) + '</span></span>' ;
 
 				 input_help += '<li><label>' + 
                                                '<input type="radio" name="ask_svalue" ' + 
-                                               '       value="' + k.toString(10) + '" ' + str_checked + ' />' + str_bolded + '</label></li>' ;
+                                               '       value="' + k.toString(10) + '" ' + str_checked + ' />' + str_bolded + 
+                                               '</label></li>' ;
                             }
                         }
                         else {
@@ -356,17 +357,17 @@
                         }
 
 			bootbox.dialog({
-			       title:   '<center>Signal ' + key + ': ' +
+			       title:   '<center>' + key + ': ' +
                                         ' <button onclick="$(\'#bot_signal\').carousel(0);" ' + 
-                                        '         type="button" class="btn btn-info">Set Value</button>' +
+                                        '         type="button" class="btn btn-info">Value</button>' +
                                         ' <button onclick="$(\'#bot_signal\').carousel(1); update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());" ' + 
-                                        '         type="button" class="btn btn-success">Get Help</button>' + 
+                                        '         type="button" class="btn btn-success">Help</button>' + 
                                         '</center>',
                                message: '<div id="bot_signal" class="carousel slide" data-ride="carousel" data-interval="false">' +
                                         '  <div class="carousel-inner" role="listbox">' +
                                         '    <div class="item active">' +
                                         '         <div style="max-height:75vh; width:inherit; overflow:auto;">' + 
-                                        '         <form class="form-horizontal">' +
+                                        '         <form class="form-horizontal" style="white-space:nowrap;">' +
                                         '         <input id="ask_skey" name="ask_skey" type="hidden" value="' + key + '" class="form-control input-md"> ' +
                                         '         <ol start="0">' +
                                                   input_help +
@@ -375,7 +376,7 @@
                                         '         </div>' +
                                         '    </div>' +
                                         '    <div class="item">' +
-                                        '         <div id=help2 style="max-height:70vh; width:inherit; overflow-x:auto;">Loading...</div>' +
+                                        '         <div id=help2 style="max-height:75vh; width:inherit; overflow-x:auto;">Loading...</div>' +
                                         '    </div>' +
                                         '  </div>' +
                                         '</div>',
