@@ -291,7 +291,6 @@
 
         function update_signal_loadhelp ( helpdiv, key )
         {
-	     $(helpdiv).collapse('toggle');
 	     var help_base = 'help/signals-' + get_cfg('ws_idiom') + '.html #' + key;
 	     $(helpdiv).load(help_base,
 			      function(response, status, xhr) { 
@@ -317,9 +316,11 @@
                         if (sim_signals[key].nbits == 1) 
                             nextvalue = ((sim_signals[key].value >>> 0) + 1) % 2;
 
-                        var str_bolded = "";
+                        var str_bolded  = "";
                         var str_checked = "";
                         var input_help  = "";
+                        var behav_str   = new Array();
+                        var n = 0;
 
                         var nvalues = Math.pow(2, sim_signals[key].nbits) ;
                         if (sim_signals[key].behavior.length == nvalues)
@@ -330,12 +331,21 @@
                                       str_checked = ' checked="checked" ' ;
                                  else str_checked = ' ' ;
 
+                                 behav_str = sim_signals[key].behavior[k].split(";") ;
                                  if (sim_signals[key].default_value != k)
-                                      str_bolded = '&nbsp;' + sim_signals[key].behavior[k].split(";")[0] + ', ...' ;
-                                 else str_bolded = '&nbsp;<b>' + sim_signals[key].behavior[k].split(";")[0] + '</b>, ...' ;
+                                      str_bolded =         behav_str[0] ;
+                                 else str_bolded = '<b>' + behav_str[0] + '</b>' ;
+ 
+                                 n = sim_signals[key].behavior[k].indexOf(";"); 
+                                 if (-1 == n)
+                                     n = sim_signals[key].behavior[k].length;
+                                 str_bolded = '&nbsp;' + str_bolded + 
+                                              '<span style="color:#CCCCCC">' + sim_signals[key].behavior[k].substring(n) + '</span>' ;
 
 				 input_help += '<li><label>' + 
-                                               '<input type="radio" name="ask_svalue" ' + ' value="' + k.toString(10) + '" ' + str_checked + ' />' + str_bolded + '</label></li>' ;
+                                               '<input type="radio" name="ask_svalue" ' + 
+                                               '       value="' + k.toString(10) + '" ' + str_checked + ' />' + str_bolded + 
+                                               '</label></li>' ;
                             }
                         }
                         else {
@@ -346,20 +356,29 @@
                         }
 
 			bootbox.dialog({
-			       title:   'Decimal values for ' + key + ': ',
-			       message: '<div class="panel panel-default">' +
-                                        '  <div class="panel-heading"  ' + 
-                                        '      style="background-color: #D4E017; -webkit-text-shadow: none; text-shadow: none; border-color: #D4E017; background-color: #D4E017; background-image: none;" ' +
-                                        '      onclick=\'update_signal_loadhelp("#help2",$("#ask_skey").val());\'><b>Press here to search additional details or close details...</b>' + 
+			       title:   '<center>' + key + ': ' +
+                                        ' <button onclick="$(\'#bot_signal\').carousel(0);" ' + 
+                                        '         type="button" class="btn btn-info">Value</button>' +
+                                        ' <button onclick="$(\'#bot_signal\').carousel(1); update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());" ' + 
+                                        '         type="button" class="btn btn-success">Help</button>' + 
+                                        '</center>',
+                               message: '<div id="bot_signal" class="carousel slide" data-ride="carousel" data-interval="false">' +
+                                        '  <div class="carousel-inner" role="listbox">' +
+                                        '    <div class="item active">' +
+                                        '         <div style="max-height:75vh; width:inherit; overflow:auto;">' + 
+                                        '         <form class="form-horizontal" style="white-space:nowrap;">' +
+                                        '         <input id="ask_skey" name="ask_skey" type="hidden" value="' + key + '" class="form-control input-md"> ' +
+                                        '         <ol start="0">' +
+                                                  input_help +
+                                        '         </ol>' +
+                                        '         </form>' +
+                                        '         </div>' +
+                                        '    </div>' +
+                                        '    <div class="item">' +
+                                        '         <div id=help2 style="max-height:75vh; width:inherit; overflow:auto;">Loading...</div>' +
+                                        '    </div>' +
                                         '  </div>' +
-                                        '  <div id=help2 class="panel-collapse collapse" style="max-height:60vh; width: inherit; overflow-x: auto">Loading...</div>' + 
-                                        '</div>' +
-                                        '<form class="form-horizontal">' + 
-					'<input id="ask_skey"   name="ask_skey"   type="hidden" value="' + key + '" class="form-control input-md"> ' +
-                                        '<ol start="0">' +
-                                        input_help +
-                                        '</ol>' +
-					'</form>',
+                                        '</div>',
 			       value:   sim_signals[key].value,
                                animate: false,
 			       buttons: {
@@ -370,7 +389,7 @@
 					    },
 					    success: {
 						label: "Save",
-						className: "btn-success",
+						className: "btn-primary",
 						callback: function () 
 							  {
 							     key        = $('#ask_skey').val();
