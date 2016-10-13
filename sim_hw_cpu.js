@@ -146,6 +146,7 @@
 
 	/* CONTROL UNIT */
 	sim_signals["C"]    = { name: "C",    visible: true, type: "L", value: 0, default_value: 0, nbits: "4", 
+                                depends_on: ["CLK"],
 				behavior: ["MV MUXC_MUXB VAL_ZERO; FIRE B", 
 					   "MBIT_E MUXC_MUXB INT 0 1; FIRE B",
 					   "MBIT_E MUXC_MUXB IORDY 0 1; FIRE B",
@@ -169,7 +170,8 @@
 					    ['svg_cu:path3484'],
 					    ['svg_cu:path3484-9'],
 					    ['svg_cu:path3108-3','svg_cu:path3260-3-8-6','svg_cu:path3260-3-8','svg_cu:path3260-3']],
-				draw_name: [[]] };
+				draw_name: [[],
+                                            ['svg_cu:path3496','svg_cu:path3414','svg_cu:path3138','svg_cu:path3498']] };
 	sim_signals["B"]   = { name: "B", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 			       behavior: ["MV_ES A1 MUXC_MUXB; FIRE A1", 
 					  "NOT_ES A1 MUXC_MUXB; FIRE A1"],
@@ -194,7 +196,7 @@
 					   "MV_EE MUXA_MICROADDR REG_MICROINS/MADDR",
 					   "MV MUXA_MICROADDR ROM_MUXA", 
 					   "MV MUXA_MICROADDR FETCH"],
-                                depends_on: ["A0","A1"],
+                                depends_on: ["A0","B","C"],
 				fire_name: [], 
 				draw_data: [['svg_cu:path3102', 'svg_cu:path3100', 'svg_cu:path3098', 'svg_cu:path3100-9', 'svg_cu:path3088'], 
 					    ['svg_cu:path3104', 'svg_cu:path3134', 'svg_cu:path3500', 'svg_cu:path3416'],
@@ -258,7 +260,7 @@
 	sim_signals["T1"]  = { name: "T1",  visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 			       behavior: ["NOP", "MV BUS_IB REG_MBR; FIRE M7; FIRE M2; FIRE M1"],
 			       fire_name: ['svg_p:text3105'], 
-			       draw_data: [['svg_p:path3071', 'svg_p:path3069','svg_p:path3049','svg_p:path3063-9']], 
+			       draw_data: [['svg_p:path3071', 'svg_p:path3069','svg_p:path3049','svg_p:path3063-9', 'svg_p:path3071']], 
 			       draw_name: [['svg_p:path3067']] };
 	sim_signals["T2"]  = { name: "T2",  visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 			       behavior: ["NOP", "MV BUS_IB REG_PC; FIRE M7; FIRE M2; FIRE M1"],
@@ -283,7 +285,7 @@
 	sim_signals["T6"]  = { name: "T6",  visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 			       behavior: ["NOP", "MV BUS_IB ALU_C6; FIRE M7; FIRE M2; FIRE M1"],
 			       fire_name: ['svg_p:text3457'], 
-			       draw_data: [['svg_p:path3589', 'svg_p:path3317', 'svg_p:path3321', 'svg_p:path3901-6', 'svg_p:path3163-2','svg_p:path3049']], 
+			       draw_data: [['svg_p:path3589', 'svg_p:path3317', 'svg_p:path3321', 'svg_p:path3901-6', 'svg_p:path3163-2','svg_p:path3049', 'svg_p:path3261-8']], 
 			       draw_name: [['svg_p:path3319']] };
 	sim_signals["T7"]  = { name: "T7",  visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 			       behavior: ["NOP", "MV BUS_IB REG_RT3; FIRE M7; FIRE M2; FIRE M1"],
@@ -321,7 +323,7 @@
 			       behavior: ["MV M2_C2 BUS_IB", "ADD M2_C2 REG_PC VAL_FOUR"], 
 			       fire_name: ['svg_p:text3471'], 
 			       draw_data: [['svg_p:path3217', 'svg_p:path3215', 'svg_p:path3213'], 
-					   ['svg_p:path3211', 'svg_p:path3209', 'svg_p:path3193', 'svg_p:path3207', 'svg_p:path3197']], 
+					   ['svg_p:path3211', 'svg_p:path3209', 'svg_p:path3193', 'svg_p:path3207', 'svg_p:path3197', 'svg_p:path3201']], 
 			       draw_name: [[], ['svg_p:path3467', 'svg_p:path3467']]};
 	sim_signals["M7"]  = { name: "M7", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",  
 			       behavior: ["MV M7_C7 BUS_IB", "MV M7_C7 SELP_M7"],          
@@ -368,7 +370,7 @@
 				     'MV SELP_M7 REG_SR; SBIT_E SELP_M7 FLAG_C 31; SBIT_E SELP_M7 FLAG_V 30; SBIT_E SELP_M7 FLAG_N 29; SBIT_E SELP_M7 FLAG_Z 28; FIRE M7'],
 				fire_name: ['svg_p:text3703'], 
 				draw_data: [[],['svg_p:path3643'],['svg_p:path3705'],['svg_p:path3675', 'svg_p:path3331']], 
-				draw_name: [[]]};
+				draw_name: [[], ['svg_p:path3697']] };
 	sim_signals["I"]    = { name: "I", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 			        behavior: ["MV FLAG_I VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_I VAL_ONE; FIRE_IFSET SELP 2"],
 			        fire_name: ['svg_p:tspan3894'], 

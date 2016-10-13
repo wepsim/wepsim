@@ -340,8 +340,7 @@
                                  if (-1 == n)
                                      n = sim_signals[key].behavior[k].length;
                                  str_bolded = '&nbsp;' + str_bolded + 
-                                              '<span class="visible-xs" style="display:inline !important;">, ...</span>' +
-                                              '<span class="hidden-xs"><span style="color:#CCCCCC">' + sim_signals[key].behavior[k].substring(n) + '</span></span>' ;
+                                              '<span style="color:#CCCCCC">' + sim_signals[key].behavior[k].substring(n) + '</span>' ;
 
 				 input_help += '<li><label>' + 
                                                '<input type="radio" name="ask_svalue" ' + 
@@ -376,7 +375,7 @@
                                         '         </div>' +
                                         '    </div>' +
                                         '    <div class="item">' +
-                                        '         <div id=help2 style="max-height:75vh; width:inherit; overflow-x:auto;">Loading...</div>' +
+                                        '         <div id=help2 style="max-height:75vh; width:inherit; overflow:auto;">Loading...</div>' +
                                         '    </div>' +
                                         '  </div>' +
                                         '</div>',
