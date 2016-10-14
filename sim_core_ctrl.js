@@ -342,15 +342,16 @@
                                  str_bolded = '&nbsp;' + str_bolded + 
                                               '<span style="color:#CCCCCC">' + sim_signals[key].behavior[k].substring(n) + '</span>' ;
 
+                                 n = k.toString(10) ;
 				 input_help += '<li><label>' + 
-                                               '<input type="radio" name="ask_svalue" ' + 
-                                               '       value="' + k.toString(10) + '" ' + str_checked + ' />' + str_bolded + 
+                                               '<input aria-label="value ' + n + '" type="radio" name="ask_svalue" ' + 
+                                               '       value="' + n + '" ' + str_checked + ' />' + str_bolded + 
                                                '</label></li>' ;
                             }
                         }
                         else {
 				 input_help += '<div><label>' + 
-                                               '<input type="number" size=4 min=0 max=' + (nvalues - 1) + ' name="ask_svalue" ' + 
+                                               '<input aria-label="value for ' + key + '" type="number" size=4 min=0 max=' + (nvalues - 1) + ' name="ask_svalue" ' + 
                                                '       value="' + sim_signals[key].value + '"/>' + '&nbsp;&nbsp;' + ' 0 - ' + (nvalues - 1) +
                                                '</label></div>\n' ;
                         }
@@ -367,7 +368,7 @@
                                         '    <div class="item active">' +
                                         '         <div style="max-height:75vh; width:inherit; overflow:auto;">' + 
                                         '         <form class="form-horizontal" style="white-space:nowrap;">' +
-                                        '         <input id="ask_skey" name="ask_skey" type="hidden" value="' + key + '" class="form-control input-md"> ' +
+                                        '         <input aria-label="value for ' + key + '" id="ask_skey" name="ask_skey" type="hidden" value="' + key + '" class="form-control input-md"> ' +
                                         '         <ol start="0">' +
                                                   input_help +
                                         '         </ol>' +
