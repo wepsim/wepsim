@@ -488,7 +488,7 @@
             {
                o1 += "<tr id='int" + i + "_context'>" +
                      "<td align=center width=50%>" + 
-                     "<span data-bind=\"style: {fontWeight: active() ? 'bold' : ''}\">" + "Interrupt " + i + "</span>" + 
+                     "<span data-bind=\"style: {fontWeight: active() ? 'bold' : ''}\">" + "Interruption " + i + "</span>" + 
                      "</td>" + 
                      "<td align=center width=50%>" + 
                      "<span data-bind='text: accumulated'>&nbsp;</span>" + 
@@ -542,7 +542,7 @@
                   "       style='margin:0'>" + 
                   "<tbody class='ui-mini'>" + 
                   "<tr>" + 
-                  "<td align=center width=30%>Interrupt<br>identificator</td>" + 
+                  "<td align=center width=30%>Interruption<br>identificator</td>" + 
                   "<td align=center width=40%>CLK tick period<br>(<b>0</b> - &infin;)</td>" + 
                   "<td align=center width=30%>Probability<br>(0 - 1)</td>" + 
                   "</tr>" ;
