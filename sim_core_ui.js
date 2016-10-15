@@ -490,7 +490,9 @@
                      "<td align=center width=50%>Interrupt " + i + "</td>" + 
                      "<td align=center width=50%>" + 
                      "<div id='int" + i + "_context'>" +
+                     "<span data-bind=\"style: {fontWeight: active() ? 'bold' : ''}\">" + 
                      "<span data-bind='text: accumulated'>&nbsp;</span>" + 
+                     "</span>" + 
                      "</div>" + 
                      "</td>" + 
                      "</tr>" ;
@@ -511,6 +513,7 @@
             for (var i=0; i<IO_INT_FACTORY.length; i++)
             {
                  IO_INT_FACTORY[i].accumulated = ko.observable(IO_INT_FACTORY[i].accumulated) ;
+                 IO_INT_FACTORY[i].active      = ko.observable(IO_INT_FACTORY[i].active) ;
                  var ko_context = document.getElementById('int' + i + '_context');
                  ko.applyBindings(IO_INT_FACTORY[i], ko_context);
             }
