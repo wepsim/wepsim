@@ -272,9 +272,9 @@
 		      </div>
 		      <div id="con"  class="ui-body-d ui-content">
                          <img alt="monitor" height=55 src="images/monitor2.png">
-		         <textarea style="min-width:90%; overflow-y:auto;" placeholder="ARCOS" id="kdb_con" rows=10></textarea>
+		         <textarea aria-label="monitor" style="min-width:90%; overflow-y:auto;" placeholder="ARCOS" id="kdb_con" rows=10></textarea>
                          <img alt="keyboard" height=35 src="images/keyboard1.png">
-		         <textarea style="min-width:90%; overflow-y:auto;" placeholder="ARCOS" id="kdb_key" rows=2></textarea>
+		         <textarea aria-label="keyboard" style="min-width:90%; overflow-y:auto;" placeholder="ARCOS" id="kdb_key" rows=2></textarea>
 		      </div>
 		      <div id="io"  class="ui-body-d ui-content">
 		         <div id="io_ALL"              style="width: inherit; overflow-y: auto;"></div>
@@ -401,7 +401,7 @@
 		</div>
 
 		<div id="t3_firm"  class="ui-body-d ui-content" style="position:relative;">
-		     <textarea style="min-width:90%; overflow-y:auto;"
+		     <textarea aria-label="microcode" style="min-width:90%; overflow-y:auto;"
                                placeholder="Please select 'Example' or 'Load' first in order to have an initial Microcode."
                                id="inputFirmware" rows=20></textarea>
 		</div>
@@ -496,7 +496,7 @@
 		</div>
 
 		<div id="t4_asm"   class="ui-body-d ui-content">
-		        <textarea style="min-width:90%; overflow-y:auto;"
+		        <textarea aria-label="Assembly" style="min-width:90%; overflow-y:auto;"
                                   placeholder="Please select 'Load' first to have the assembly code to work with."
 			          id="inputAssembly" rows="20"></textarea>
 		</div>
@@ -651,6 +651,7 @@
 				    <img alt="stop icon" id="img_select1" src="images/stop_classic.png" 
 					 style="position:absolute; left:15px; height:30px !important; width:30px !important;">
 				    <select name="select1" id="select1" 
+                                            aria-label="Breakpoint Icon"
 					    onchange="var opt = $(this).find('option:selected');
 						      var optValue = opt.val();
 						      $('#img_select1').attr('src','images/stop_' + optValue + '.png');

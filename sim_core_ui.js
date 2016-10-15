@@ -486,14 +486,12 @@
                o1 += "<tr><td colspan=2>&nbsp;</td></tr>" ;
             for (var i=0; i<IO_INT_FACTORY.length; i++)
             {
-               o1 += "<tr>" + 
-                     "<td align=center width=50%>Interrupt " + i + "</td>" + 
+               o1 += "<tr id='int" + i + "_context'>" +
                      "<td align=center width=50%>" + 
-                     "<div id='int" + i + "_context'>" +
-                     "<span data-bind=\"style: {fontWeight: active() ? 'bold' : ''}\">" + 
+                     "<span data-bind=\"style: {fontWeight: active() ? 'bold' : ''}\">" + "Interrupt " + i + "</span>" + 
+                     "</td>" + 
+                     "<td align=center width=50%>" + 
                      "<span data-bind='text: accumulated'>&nbsp;</span>" + 
-                     "</span>" + 
-                     "</div>" + 
                      "</td>" + 
                      "</tr>" ;
             }
