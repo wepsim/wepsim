@@ -486,12 +486,12 @@
                o1 += "<tr><td colspan=2>&nbsp;</td></tr>" ;
             for (var i=0; i<IO_INT_FACTORY.length; i++)
             {
-               o1 += "<tr>" + 
-                     "<td align=center width=50%>Interrupt " + i + "</td>" + 
+               o1 += "<tr id='int" + i + "_context'>" +
                      "<td align=center width=50%>" + 
-                     "<div id='int" + i + "_context'>" +
+                     "<span data-bind=\"style: {fontWeight: active() ? 'bold' : ''}\">" + "Interrupt " + i + "</span>" + 
+                     "</td>" + 
+                     "<td align=center width=50%>" + 
                      "<span data-bind='text: accumulated'>&nbsp;</span>" + 
-                     "</div>" + 
                      "</td>" + 
                      "</tr>" ;
             }
@@ -511,6 +511,7 @@
             for (var i=0; i<IO_INT_FACTORY.length; i++)
             {
                  IO_INT_FACTORY[i].accumulated = ko.observable(IO_INT_FACTORY[i].accumulated) ;
+                 IO_INT_FACTORY[i].active      = ko.observable(IO_INT_FACTORY[i].active) ;
                  var ko_context = document.getElementById('int' + i + '_context');
                  ko.applyBindings(IO_INT_FACTORY[i], ko_context);
             }
@@ -714,7 +715,7 @@
 
 		var trpin = "&nbsp;" ;
 		if (true == memory_dashboard[key].breakpoint)
-		    trpin = "<img height=22 src='images/stop_" + icon_theme + ".png'>" ;
+		    trpin = "<img alt='stop icon' height=22 src='images/stop_" + icon_theme + ".png'>" ;
 
 		if (key == index)
 		     o1 += "<tr id='maddr" + key + "' " +
@@ -830,7 +831,7 @@
                     o1.innerHTML = "&nbsp;" ;
                 } else {
                     bp_state = true ;
-                    o1.innerHTML = "<img height=22 src='images/stop_" + icon_theme + ".png'>" ;
+                    o1.innerHTML = "<img alt='stop icon' height=22 src='images/stop_" + icon_theme + ".png'>" ;
                 }
 
                 FIRMWARE.assembly[hexaddr].breakpoint = bp_state ;
@@ -848,7 +849,7 @@
                     o1.innerHTML = "&nbsp;" ;
                 } else {
                     bp_state = true ;
-                    o1.innerHTML = "<img height='22' src='images/stop_" + icon_theme + ".png'>" ;
+                    o1.innerHTML = "<img alt='stop icon' height='22' src='images/stop_" + icon_theme + ".png'>" ;
                 }
 
                 MC_dashboard[addr].breakpoint = bp_state ;
