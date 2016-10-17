@@ -486,12 +486,12 @@
                o1 += "<tr><td colspan=2>&nbsp;</td></tr>" ;
             for (var i=0; i<IO_INT_FACTORY.length; i++)
             {
-               o1 += "<tr>" + 
-                     "<td align=center width=50%>Interrupt " + i + "</td>" + 
+               o1 += "<tr id='int" + i + "_context'>" +
                      "<td align=center width=50%>" + 
-                     "<div id='int" + i + "_context'>" +
+                     "<span data-bind=\"style: {fontWeight: active() ? 'bold' : ''}\">" + "Interrupt " + i + "</span>" + 
+                     "</td>" + 
+                     "<td align=center width=50%>" + 
                      "<span data-bind='text: accumulated'>&nbsp;</span>" + 
-                     "</div>" + 
                      "</td>" + 
                      "</tr>" ;
             }
@@ -511,6 +511,7 @@
             for (var i=0; i<IO_INT_FACTORY.length; i++)
             {
                  IO_INT_FACTORY[i].accumulated = ko.observable(IO_INT_FACTORY[i].accumulated) ;
+                 IO_INT_FACTORY[i].active      = ko.observable(IO_INT_FACTORY[i].active) ;
                  var ko_context = document.getElementById('int' + i + '_context');
                  ko.applyBindings(IO_INT_FACTORY[i], ko_context);
             }
@@ -531,20 +532,23 @@
             }
 
             // html holder
-            var o1 = "<div class='panel panel-default'>" + 
+            var o1 = "<div class='container-fluid' style='padding:0 0 0 0; overflow-x:auto'>" +
+                     "<div class='row-fluid' style='min-width:480px'>" +
+                     "<div class='col-xs-6 col-md-6' style='padding:0 0 0 0;'>" +
+                     "<div class='panel panel-default'>" + 
                      "<div class='panel-heading'>" +
-                     " <a href='#iopanel' data-toggle='collapse'><h3 class='panel-title'>I/O</h3></a>" +
+                     " <h3 class='panel-title'>I/O</h3>" +
                      "</div>" +
-                     "<div class='panel-body panel-collapse in' id='iopanel' style='padding: 0 0 0 0'>" ;
-            o1 += "<center>" + 
-                  "<table class='table table-hover table-condensed table-bordered table-responsive' " + 
-                  "       style='margin:0'>" + 
-                  "<tbody class='ui-mini'>" + 
-                  "<tr>" + 
-                  "<td align=center width=30%>Interrupt<br>identificator</td>" + 
-                  "<td align=center width=40%>CLK tick period<br>(<b>0</b> - &infin;)</td>" + 
-                  "<td align=center width=30%>Probability<br>(0 - 1)</td>" + 
-                  "</tr>" ;
+                     "<div class='panel-body' id='iopanel' style='padding: 0 0 0 0'>" ;
+               o1 += "<center>" + 
+                     "<table class='table table-hover table-condensed table-bordered table-responsive' " + 
+                     "       style='margin:0'>" + 
+                     "<tbody class='ui-mini'>" + 
+                     "<tr>" + 
+                     "<td align=center width=30%>Interruption<br>identificator</td>" + 
+                     "<td align=center width=40%>CLK tick period<br>(<b>0</b> - &infin;)</td>" + 
+                     "<td align=center width=30%>Probability<br>(0 - 1)</td>" + 
+                     "</tr>" ;
             for (var i=0; i<8; i++)
             {
                o1 += "<tr>" +
@@ -565,25 +569,30 @@
                      "</td>" +
                      "</tr>" ;
             }
-            o1 += "</tbody>" + 
-                  "</table>" +
-                  "</center>" ;
-            o1 += "</div>" +
-                  "</div>" ;
+               o1 += "</tbody>" + 
+                     "</table>" +
+                     "</center>" ;
+               o1 += "</div>" +
+                     "</div>" +
+                     "</div>" ;
 
-            o1 += "<div class='panel panel-default'>" + 
-                  "<div class='panel-heading'>" +
-                  " <a href='#mempanel' data-toggle='collapse'><h3 class='panel-title'>Memory</h3></a>" +
-                  "</div>" +
-                  "<div class='panel-body panel-collapse in' id='mempanel'>" +
-                  "  <div class='row-fluid'>" +
-                  "  <center>" +
-                  "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' style='padding: 15 5 0 10;'>Wait cycles (<b>0</b> - &infin;)</div>" +
-                  "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' id='mp_wc'><input type=number data-bind='value: MP_wc' min=1></div>" +
-                  "  </center>" + 
-                  "  </div>" +
-                  "</div>" +
-                  "</div>" ;
+               o1 += "<div class='col-xs-6 col-md-6' style='padding:0 0 0 10;'>" +
+                     "<div class='panel panel-default'>" + 
+                     "<div class='panel-heading'>" +
+                     " <h3 class='panel-title'>Memory</h3>" +
+                     "</div>" +
+                     "<div class='panel-body' id='mempanel'>" +
+                     "  <div class='row-fluid'>" +
+                     "  <center>" +
+                     "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' style='padding: 15 5 0 10;'>Wait cycles <br>(<b>0</b> - &infin;)</div>" +
+                     "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' id='mp_wc'><input type=number data-bind='value: MP_wc' min=0></div>" +
+                     "  </center>" + 
+                     "  </div>" +
+                     "</div>" +
+                     "</div>" +
+                     "</div>" +
+                     "</div>" +
+                     "</div>" ;
           
             $(jqdiv).html(o1);
 

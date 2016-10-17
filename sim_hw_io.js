@@ -48,14 +48,14 @@
          *  Signals
          */
 
-        sim_signals["INT"]     = { name: "INT", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+        sim_signals["INT"]     = { name: "INT",    visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                    depends_on: ["CLK"],
                                    behavior: ["FIRE C", "FIRE C"],
                                    fire_name: ['svg_p:tspan4199'], 
                                    draw_data: [[], ['svg_p:path3809']], 
                                    draw_name: [[], []]};
 
-        sim_signals["IORDY"]   = { name: "IORDY", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+        sim_signals["IORDY"]   = { name: "IORDY",  visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                    depends_on: ["CLK"],
                                    behavior: ["FIRE C", "FIRE C"],
                                    fire_name: ['svg_p:tspan4089','svg_p:path3793'], 
@@ -74,14 +74,14 @@
                                    draw_data: [[], ['svg_p:path3805', 'svg_p:path3733']], 
                                    draw_name: [[], []]};
 
-        sim_signals["IO_IE"]    = { name: "IO_IE",    visible: true, type: "L", value: 1, default_value: 1, nbits: "1", 
-                                    behavior: ["NOP", "IO_CHK_I CLK INT INTV"],
+        sim_signals["IO_IE"]    = { name: "IO_IE", visible: true, type: "L", value: 1, default_value: 1, nbits: "1", 
+                                    behavior: ["NOP", "IO_CHK_I CLK INT INTV; FIRE C"],
                                     fire_name: [], 
                                     draw_data: [[], []], 
                                     draw_name: [[], []] };
 
-        sim_signals["INTA"]     = { name: "INTA",    visible: true, type: "L", value: 1, default_value: 0, nbits: "1", 
-                                    behavior: ["NOP", "INTA CLK INT INTA BUS_DB INTV; FIRE BW"],
+        sim_signals["INTA"]     = { name: "INTA",  visible: true, type: "L", value: 1, default_value: 0, nbits: "1", 
+                                    behavior: ["NOP", "INTA CLK INT INTA BUS_DB INTV; FIRE BW; FIRE C"],
                                     fire_name: ['svg_p:text3785-0-6-0-5-5-1-1'], 
                                     draw_data: [[], ['svg_p:path3807', 'svg_p:path3737']], 
                                     draw_name: [[], []] };
@@ -143,13 +143,19 @@
                                                            if (IO_INT_FACTORY[i].period() == 0)
  							       continue;
 
+                                                           if (IO_INT_FACTORY[i].active() == true)
+                                                           {
+                                                               sim_signals[s_expr[2]].value = 1 ; // ['INT']=1
+                                                                sim_states[s_expr[3]].value = i ; // ['INTV']=i
+                                                           }
+
                                                            if ((clk % IO_INT_FACTORY[i].period()) == 0)
                                                            {
                                                               if (Math.random() > IO_INT_FACTORY[i].probability())
                                                                   continue ;
 
                                                               IO_INT_FACTORY[i].accumulated(IO_INT_FACTORY[i].accumulated()+1);
-                                                              IO_INT_FACTORY[i].active = true ;
+                                                              IO_INT_FACTORY[i].active(true) ;
 
                                                               if (typeof sim_events["io"][clk] == "undefined")
                                                                   sim_events["io"][clk] = new Array() ;
@@ -178,7 +184,7 @@
 
 						      for (var i=0; i<IO_INT_FACTORY.length; i++) 
                                                       {
-                                                           if (IO_INT_FACTORY[i].active)
+                                                           if (IO_INT_FACTORY[i].active())
                                                            {
                                                               sim_signals[s_expr[2]].value = 0;  // ['INT']  = 1
                                                                sim_states[s_expr[5]].value = i;  // ['INTV'] = i
@@ -188,7 +194,7 @@
                                                                    sim_events["io"][clk] = new Array() ;
                                                                sim_events["io"][clk].push(i) ;
 
-							       IO_INT_FACTORY[i].active = false ;
+							       IO_INT_FACTORY[i].active(false);
                                                                break; // stop at first INT
                                                            }
                                                       }
