@@ -614,7 +614,7 @@
        /* based on Jpsi: 
           http://stackoverflow.com/questions/18057270/column-order-manipulation-using-col-lg-push-and-col-lg-pull-in-twitter-bootstrap */
 
-       var o = '<div class="row" style="width:1200px;">' ;
+       var o = '<div class="row" style="width:1250px;" data-filter="true" data-children="> p">' ;
        for (var i=0; i<((3+examples.length)/4); i++)
        {
           o = o + '<div class="col-xs-6 col-sm-6">' +
