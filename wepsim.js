@@ -432,6 +432,8 @@
                                     $('#help1').trigger('updatelayout'); 
                                     $('#help1').popup('open');
                                 });
+
+        ga('send', 'event', 'help', 'simulator', rel);
     }
 
 
@@ -575,6 +577,8 @@
 				      });
                       };
         wepsim_load_from_url(url, do_next) ;
+
+        ga('send', 'event', 'example', 'assembly', example_id);
     }
 
     function load_from_example_firmware ( example_id, chain_next_step )
@@ -607,6 +611,8 @@
 				     });
                       };
         wepsim_load_from_url(url, do_next) ;
+
+        ga('send', 'event', 'example', 'firmware', example_id);
     }
 
     function list_examples_html ( examples )
