@@ -16,6 +16,12 @@
     examples.push({ 
                      id: 'S1E3',
                      title: "Initial: looping",
+                     description: "Simple example with fetch, branch, and basic .text segment.<br>"
+                  });
+
+    examples.push({ 
+                     id: 'S1E4',
+                     title: "Initial: vector",
                      description: "Simple example with fetch, branch, and basic .text/.data segment.<br>"
                   });
 

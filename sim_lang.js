@@ -70,6 +70,8 @@ function nextToken ( context )
 		  var first = context.t ;
                   context.t++ ;
 		  while ( ("\"".indexOf(context.text[context.t]) == -1) && (context.t < context.text.length) ) {
+                         if ("\\".indexOf(context.text[context.t]) != -1)
+			     context.t++;
 			 context.t++;
 		  }
 		  context.t++ ;

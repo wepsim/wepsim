@@ -1,13 +1,20 @@
+.data
+           w3: .word 1, 2, 3, 4, 5
+
 .text
 main:
            # loop initialization
            li  $1  0
            li  $2  5
            li  $3  1
+           li  $4  4
+           la  $5  w3
            # loop header
     loop1: beq $1 $2 fin1
            # loop body
+           lw  $6 ($5) 
            add $1 $1 $3
+           add $5 $5 $4
            b loop1
 
      fin1: jr $ra
