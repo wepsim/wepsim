@@ -34,7 +34,7 @@
     examples.push({ 
                      id: 'S2E2',
                      title: "Intermediate: subrutines",
-                     description: "More extended example with more instructions and I/O (keyboard, display).<br>" 
+                     description: "Extended example with more instructions and I/O (keyboard, display).<br>" 
                   });
 
     examples.push({ 
