@@ -1049,6 +1049,12 @@
 		    jQuery.fx.off = true;
 
 	            $("#container-example1").html(list_examples_html(examples));
+	            $('#masonry-grid1').masonry({ columnWidth: 200, 
+                                                  itemSelector: '.grid-item' });
+		    $(document).delegate('input[data-type="search"]',  
+                                         'keyup keydown change',  
+                                         function () { setTimeout($('#masonry-grid1').masonry('layout'),50); });
+
                     $("#bot-about1").on("swipeleft",  function(){ $(this).carousel('next'); });
                     $("#bot-about1").on("swiperight", function(){ $(this).carousel('prev'); });
 
@@ -1079,7 +1085,7 @@
 					},
 					gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
 				    });
-                    sim_prepare_editor(inputfirm) ;
+                    sim_prepare_editor(inputfirm);
 
 		    inputasm = CodeMirror.fromTextArea(document.getElementById("inputAssembly"), 
                                     {
