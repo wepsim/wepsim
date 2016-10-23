@@ -579,7 +579,7 @@
    <div role="main" class="ui-content" style="padding: 8px 8px 8px 8px">
 
 	<div id="container-example1" class="container-fluid" 
-             style="max-width:80vw; max-height:85vh; overflow-x:auto;">
+             style="max-width:85vw; max-height:85vh; overflow-x:auto;">
         </div>
 
    </div>
@@ -1049,10 +1049,8 @@
 		    jQuery.fx.off = true;
 
 	            $("#container-example1").html(list_examples_html(examples));
-	            $('#masonry-grid1').masonry({ columnWidth: 200, 
-                                                  itemSelector: '.grid-item' });
 		    $(document).delegate('input[data-type="search"]',  
-                                         'keyup keydown change',  
+                                         'keyup change',  
                                          function () { setTimeout($('#masonry-grid1').masonry('layout'),50); });
 
                     $("#bot-about1").on("swipeleft",  function(){ $(this).carousel('next'); });
