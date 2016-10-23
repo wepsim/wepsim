@@ -533,7 +533,7 @@
 
             // html holder
             var o1 = "<div class='container-fluid' style='padding:0 0 0 0; overflow-x:auto'>" +
-                     "<div class='row-fluid' style='min-width:420px'>" +
+                     "<div class='row-fluid'>" +
                      "<div class='col-xs-8 col-md-8' style='padding:0 0 0 0;'>" +
                      "<div class='panel panel-default' style='margin:0 0 0 0;'>" + 
                      "<div class='panel-heading'>" +
