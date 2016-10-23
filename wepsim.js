@@ -620,8 +620,8 @@
        /* based on Jpsi: 
           http://stackoverflow.com/questions/18057270/column-order-manipulation-using-col-lg-push-and-col-lg-pull-in-twitter-bootstrap */
 
-       var o = '<div style="width:970px;" data-filter="true" data-children="div > span">' +
-               '<div id="masonry-grid1"   data-masonry=\'{ "columnWidth": 320, "itemSelector": ".grid-item" }\'>' ;
+       var o = '<div style="width:1240px;" data-filter="true" data-children="div > span">' +
+               '<div id="masonry-grid1"    data-masonry=\'{ "columnWidth":310, "itemSelector":".grid-item", "isFitWidth":"true" }\'>' ;
        for (var i=0; i<((3+examples.length)/4); i++)
        {
           for (var j=0; j<2; j++)
@@ -644,10 +644,10 @@
 			       '       <div class="btn-group btn-group-justified btn-group-md">' +
 			       '           <a href="#" onclick="load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0;"' +
 			       '              class="ui-btn btn btn-group ui-btn-inline btn-default">' +
-			       '              <b>Assembly</b></a>' +
+			       '              <b>Assembly<br> only</b></a>' +
 			       '           <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',false);" style="padding:0 0 0 0;"' +
 			       '              class="ui-btn btn btn-group ui-btn-inline btn-default">' +
-			       '              <b>Firmware</b></a>' +
+			       '              <b>Firmware<br> only</b></a>' +
 			       '           <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',true);"  style="padding:0 0 0 0;"' +
 			       '              class="ui-btn btn btn-group ui-btn-inline btn-primary">' +
 			       '              <b>Both</b></a>' +
