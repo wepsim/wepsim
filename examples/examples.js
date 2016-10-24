@@ -16,6 +16,12 @@
     examples.push({ 
                      id: 'S1E3',
                      title: "Initial: looping",
+                     description: "Simple example with fetch, branch, and basic .text segment.<br>"
+                  });
+
+    examples.push({ 
+                     id: 'S1E4',
+                     title: "Initial: vector",
                      description: "Simple example with fetch, branch, and basic .text/.data segment.<br>"
                   });
 
@@ -28,7 +34,7 @@
     examples.push({ 
                      id: 'S2E2',
                      title: "Intermediate: subrutines",
-                     description: "More extended example with more instructions and I/O (keyboard, display).<br>" 
+                     description: "Extended example with more instructions and I/O (keyboard, display).<br>" 
                   });
 
     examples.push({ 

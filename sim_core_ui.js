@@ -533,9 +533,9 @@
 
             // html holder
             var o1 = "<div class='container-fluid' style='padding:0 0 0 0; overflow-x:auto'>" +
-                     "<div class='row-fluid' style='min-width:480px'>" +
-                     "<div class='col-xs-6 col-md-6' style='padding:0 0 0 0;'>" +
-                     "<div class='panel panel-default'>" + 
+                     "<div class='row-fluid' style='min-width:420px'>" +
+                     "<div class='col-xs-8 col-md-8' style='padding:0 0 0 0;'>" +
+                     "<div class='panel panel-default' style='margin:0 0 0 0;'>" + 
                      "<div class='panel-heading'>" +
                      " <h3 class='panel-title'>I/O</h3>" +
                      "</div>" +
@@ -545,9 +545,9 @@
                      "       style='margin:0'>" + 
                      "<tbody class='ui-mini'>" + 
                      "<tr>" + 
-                     "<td align=center width=30%>Interruption<br>identificator</td>" + 
-                     "<td align=center width=40%>CLK tick period<br>(<b>0</b> - &infin;)</td>" + 
-                     "<td align=center width=30%>Probability<br>(0 - 1)</td>" + 
+                     "<td align=center width=33%>Interruption<br>identificator</td>" + 
+                     "<td align=center width=33%>CLK period<br>(<b>0</b> - &infin;)</td>" + 
+                     "<td align=center width=33%>Probability<br>(0 - 1)</td>" + 
                      "</tr>" ;
             for (var i=0; i<8; i++)
             {
@@ -576,16 +576,16 @@
                      "</div>" +
                      "</div>" ;
 
-               o1 += "<div class='col-xs-6 col-md-6' style='padding:0 0 0 10;'>" +
+               o1 += "<div class='col-xs-4 col-md-4' style='padding:0 0 0 10;'>" +
                      "<div class='panel panel-default'>" + 
                      "<div class='panel-heading'>" +
                      " <h3 class='panel-title'>Memory</h3>" +
                      "</div>" +
-                     "<div class='panel-body' id='mempanel'>" +
+                     "<div class='panel-body' id='mempanel' style='padding:0 0 0 0;'>" +
                      "  <div class='row-fluid'>" +
                      "  <center>" +
-                     "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' style='padding: 15 5 0 10;'>Wait cycles <br>(<b>0</b> - &infin;)</div>" +
-                     "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' id='mp_wc'><input type=number data-bind='value: MP_wc' min=0></div>" +
+                     "  <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' style='padding: 0 0 0 0;'>Wait cycles <br>(<b>0</b> - &infin;)</div>" +
+                     "  <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' id='mp_wc'><input type=number data-bind='value: MP_wc' min=0></div>" +
                      "  </center>" + 
                      "  </div>" +
                      "</div>" +

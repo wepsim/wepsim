@@ -62,20 +62,9 @@
     <script src="external/external.min.js"></script>
     <script src="examples/examples.js"></script>
 
-    <script src="sim_cfg.js"></script>
-    <script src="sim_core_ctrl.js"></script>
-    <script src="sim_core_ui.js"></script>
-    <script src="sim_hw_board.js"></script>
-    <script src="sim_hw_cpu.js"></script>
-    <script src="sim_hw_io.js"></script>
-    <script src="sim_hw_kbd.js"></script>
-    <script src="sim_hw_mem.js"></script>
-    <script src="sim_hw_scr.js"></script>
-    <script src="sim_lang_asm.js"></script>
-    <script src="sim_lang_firm.js"></script>
-    <script src="sim_lang.js"></script>
-
-   <script src="min.wepsim.js"></script>
+    <script src="min.sim_all.js"></script>
+    <script src="min.sim_hw.js"></script> 
+    <script src="min.wepsim.js"></script>
 
     <style>
         /* http://stackoverflow.com/questions/26425382/how-to-change-customized-carousel-indicator-background-color/26430452 */
@@ -272,7 +261,7 @@
 			 <br style="height:0; width:100%; font-size:0; margin:5; padding:0; border:0; display:block;">
 		         <div id="states_BR"           style="width: inherit; overflow-y: auto;"></div>
 		      </div>
-	    	      <div id="config"  class="ui-body-d ui-content">
+	    	      <div id="config"  class="ui-body-d ui-content" style="padding:14 14 0 14;">
 		         <div id="config_ALL"          style="width: inherit; overflow-y: auto;"></div>
 		      </div>
 		      <div id="mp"   class="ui-body-d ui-content">
@@ -590,7 +579,7 @@
    <div role="main" class="ui-content" style="padding: 8px 8px 8px 8px">
 
 	<div id="container-example1" class="container-fluid" 
-             style="max-width:80vw; max-height:80vh; overflow-x:auto;">
+             style="max-width:85vw; max-height:85vh; overflow-x:auto;">
         </div>
 
    </div>
@@ -1060,6 +1049,10 @@
 		    jQuery.fx.off = true;
 
 	            $("#container-example1").html(list_examples_html(examples));
+		    $(document).delegate('input[data-type="search"]',  
+                                         'keyup change',  
+                                         function () { setTimeout($('#masonry-grid1').masonry('layout'),50); });
+
                     $("#bot-about1").on("swipeleft",  function(){ $(this).carousel('next'); });
                     $("#bot-about1").on("swiperight", function(){ $(this).carousel('prev'); });
 
@@ -1090,7 +1083,7 @@
 					},
 					gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
 				    });
-                    sim_prepare_editor(inputfirm) ;
+                    sim_prepare_editor(inputfirm);
 
 		    inputasm = CodeMirror.fromTextArea(document.getElementById("inputAssembly"), 
                                     {
