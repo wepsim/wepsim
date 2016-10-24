@@ -579,7 +579,7 @@
    <div role="main" class="ui-content" style="padding: 8px 8px 8px 8px">
 
 	<div id="container-example1" class="container-fluid" 
-             style="max-width:80vw; max-height:80vh; overflow-x:auto;">
+             style="max-width:85vw; max-height:85vh; overflow-x:auto;">
         </div>
 
    </div>
@@ -1049,6 +1049,10 @@
 		    jQuery.fx.off = true;
 
 	            $("#container-example1").html(list_examples_html(examples));
+		    $(document).delegate('input[data-type="search"]',  
+                                         'keyup change',  
+                                         function () { setTimeout($('#masonry-grid1').masonry('layout'),50); });
+
                     $("#bot-about1").on("swipeleft",  function(){ $(this).carousel('next'); });
                     $("#bot-about1").on("swiperight", function(){ $(this).carousel('prev'); });
 
@@ -1079,7 +1083,7 @@
 					},
 					gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
 				    });
-                    sim_prepare_editor(inputfirm) ;
+                    sim_prepare_editor(inputfirm);
 
 		    inputasm = CodeMirror.fromTextArea(document.getElementById("inputAssembly"), 
                                     {

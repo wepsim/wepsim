@@ -620,14 +620,12 @@
        /* based on Jpsi: 
           http://stackoverflow.com/questions/18057270/column-order-manipulation-using-col-lg-push-and-col-lg-pull-in-twitter-bootstrap */
 
-       var o = '<div class="row" style="width:1250px;" data-filter="true" data-children="div > span">' ;
+       var o = '<div style="width:1240px;" data-filter="true" data-children="div > span">' +
+               '<div id="masonry-grid1"    data-masonry=\'{ "columnWidth":310, "itemSelector":".grid-item", "isFitWidth":"true" }\'>' ;
        for (var i=0; i<((3+examples.length)/4); i++)
        {
-          o = o + '<div class="col-xs-6 col-sm-6">' +
-                  '    <div class="row">' ;
           for (var j=0; j<2; j++)
           {
-               o = o + '  <div class="col-xs-6 col-md-6" style="padding:5 5 5 5;">' ;
                for (var k=0; k<2; k++)
                {
 		    var m = i*4 + j*2 + k ;
@@ -637,7 +635,7 @@
 		       var e_description = examples[m]['description'] ;
 		       var e_id          = examples[m]['id'] ;
 
-		       o = o + '   <span>' +
+		       o = o + '   <span class="grid-item" style="max-width:300px;">' +
 			       '   <div class="panel panel-default">' +
 			       '     <div class="panel-heading">' +
 			       '       <h3 class="panel-title">' + (m+1) + ') ' + e_title + '</h3>' +
@@ -659,12 +657,10 @@
 			       '   </span>' ;
                     }
                }
-               o = o + '  </div>' ;
           }
-          o = o + '    </div>' +
-                  '</div>' ;
        }
-       o = o + '</div>' ;
+       o = o + '</div>' +
+               '</div>' ;
 
        return o ;
     }
