@@ -545,7 +545,10 @@
                      "       style='margin:0'>" + 
                      "<tbody class='ui-mini'>" + 
                      "<tr>" + 
-                     "<td align=center width=33%>Interruption<br>identificator</td>" + 
+                     "<td align=center width=33%>" + 
+                     "  <span class='hidden-xs'>Interruption<br>identificator</span>" + 
+                     "  <span class='visible-xs'>Int.<br>Id.</span>" + 
+                     "</td>" + 
                      "<td align=center width=33%>CLK period<br>(<b>0</b> - &infin;)</td>" + 
                      "<td align=center width=33%>Probability<br>(0 - 1)</td>" + 
                      "</tr>" ;
