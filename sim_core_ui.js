@@ -533,7 +533,7 @@
 
             // html holder
             var o1 = "<div class='container-fluid' style='padding:0 0 0 0; overflow-x:auto'>" +
-                     "<div class='row-fluid' style='min-width:420px'>" +
+                     "<div class='row-fluid'>" +
                      "<div class='col-xs-8 col-md-8' style='padding:0 0 0 0;'>" +
                      "<div class='panel panel-default' style='margin:0 0 0 0;'>" + 
                      "<div class='panel-heading'>" +
@@ -545,7 +545,10 @@
                      "       style='margin:0'>" + 
                      "<tbody class='ui-mini'>" + 
                      "<tr>" + 
-                     "<td align=center width=33%>Interruption<br>identificator</td>" + 
+                     "<td align=center width=33%>" + 
+                     "  <span class='hidden-xs'>Interruption<br>identificator</span>" + 
+                     "  <span class='visible-xs'>Int.<br>Id.</span>" + 
+                     "</td>" + 
                      "<td align=center width=33%>CLK period<br>(<b>0</b> - &infin;)</td>" + 
                      "<td align=center width=33%>Probability<br>(0 - 1)</td>" + 
                      "</tr>" ;
