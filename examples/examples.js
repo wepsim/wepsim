@@ -28,12 +28,12 @@
     examples.push({ 
                      id: 'S2E1',
                      title: "Intermediate: I/O",
-                     description: "Simple example with fetch, in/out access, and basic .text/.data segment.<br>"
+                     description: "Example with fetch, in/out access, and basic .text/.data segment.<br>"
                   });
 
     examples.push({ 
                      id: 'S2E2',
-                     title: "Intermediate: subrutines",
+                     title: "Intermediate: subrutine",
                      description: "Extended example with more instructions and I/O (keyboard, display).<br>" 
                   });
 
@@ -44,8 +44,20 @@
                   });
 
     examples.push({ 
+                     id: 'S2E4',
+                     title: "Intermediate: matrix",
+                     description: "Extended example with subrutine and matrix.<br>" 
+                  });
+
+    examples.push({ 
                      id: 'S3E1',
-                     title: "Advanced: Interruptions",
-                     description: "Advanced example with interruptions support: fetch, RETI and .ktext/.data added.<br>" 
+                     title: "Advanced: interruptions",
+                     description: "Advanced example with interruptions support: fetch, RETI, and .ktext/.kdata.<br>" 
+                  });
+
+    examples.push({ 
+                     id: 'S3E2',
+                     title: "Advanced: system call",
+                     description: "Advanced example with system call support.<br>" 
                   });
 

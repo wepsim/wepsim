@@ -433,7 +433,7 @@
                                     $('#help1').popup('open');
                                 });
 
-        ga('send', 'event', 'help', 'simulator', rel);
+        ga('send', 'event', 'help', 'help.simulator', 'help.simulator.' + rel);
     }
 
 
@@ -536,11 +536,13 @@
     function getURLTimeStamp ( )
     {
         var dateObj = new Date();
+        var year    = dateObj.getUTCFullYear();
         var month   = dateObj.getUTCMonth() + 1;
         var day     = dateObj.getUTCDate();
-        var year    = dateObj.getUTCFullYear();
+        var hour    = dateObj.getUTCHours();
+        var minutes = dateObj.getUTCMinutes();
 
-        return year + month + day + "a";
+        return year + month + day + hour + minutes ;
     }
 
     function load_from_example_assembly ( example_id, chain_next_step )
@@ -578,7 +580,7 @@
                       };
         wepsim_load_from_url(url, do_next) ;
 
-        ga('send', 'event', 'example', 'assembly', example_id);
+        ga('send', 'event', 'example', 'example.assembly', 'example.assembly.' + example_id);
     }
 
     function load_from_example_firmware ( example_id, chain_next_step )
@@ -612,52 +614,39 @@
                       };
         wepsim_load_from_url(url, do_next) ;
 
-        ga('send', 'event', 'example', 'firmware', example_id);
+        ga('send', 'event', 'example', 'example.firmware', 'example.firmware.' + example_id);
     }
 
     function list_examples_html ( examples )
     {
-       /* based on Jpsi: 
-          http://stackoverflow.com/questions/18057270/column-order-manipulation-using-col-lg-push-and-col-lg-pull-in-twitter-bootstrap */
-
-       var o = '<div style="width:1240px;" data-filter="true" data-children="div > span">' +
-               '<div id="masonry-grid1"    data-masonry=\'{ "columnWidth":310, "itemSelector":".grid-item", "isFitWidth":"true" }\'>' ;
-       for (var i=0; i<((3+examples.length)/4); i++)
+       var o = '<div style="width:950px;" data-filter="true" data-children="div > span">' +
+               '<div id="masonry-grid1">' ;
+       for (var m=0; m<examples.length; m++)
        {
-          for (var j=0; j<2; j++)
-          {
-               for (var k=0; k<2; k++)
-               {
-		    var m = i*4 + j*2 + k ;
-		    if (m < examples.length)
-                    {
-                       var e_title       = examples[m]['title'] ;
-		       var e_description = examples[m]['description'] ;
-		       var e_id          = examples[m]['id'] ;
+	       var e_title       = examples[m]['title'] ;
+	       var e_description = examples[m]['description'] ;
+	       var e_id          = examples[m]['id'] ;
 
-		       o = o + '   <span class="grid-item" style="max-width:300px;">' +
-			       '   <div class="panel panel-default">' +
-			       '     <div class="panel-heading">' +
-			       '       <h3 class="panel-title">' + (m+1) + ') ' + e_title + '</h3>' +
-			       '     </div>' +
-			       '     <div class="panel-body">' + e_description + '<br>Load...' +
-			       '       <div class="btn-group btn-group-justified btn-group-md">' +
-			       '           <a href="#" onclick="load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0;"' +
-			       '              class="ui-btn btn btn-group ui-btn-inline btn-default">' +
-			       '              <b>Assembly<br> only</b></a>' +
-			       '           <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',false);" style="padding:0 0 0 0;"' +
-			       '              class="ui-btn btn btn-group ui-btn-inline btn-default">' +
-			       '              <b>Firmware<br> only</b></a>' +
-			       '           <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',true);"  style="padding:0 0 0 0;"' +
-			       '              class="ui-btn btn btn-group ui-btn-inline btn-primary">' +
-			       '              <b>Both</b></a>' +
-			       '       </div>' +
-			       '     </div>' +
-			       '   </div>' +
-			       '   </span>' ;
-                    }
-               }
-          }
+	       o = o + '   <span class="grid-item" style="max-width:300px;">' +
+		       '   <div class="panel panel-default">' +
+		       '     <div class="panel-heading">' +
+		       '       <h3 class="panel-title">' + (m+1) + ') ' + e_title + '</h3>' +
+		       '     </div>' +
+		       '     <div class="panel-body">' + e_description + '<br>Load...' +
+		       '       <div class="btn-group btn-group-justified btn-group-md">' +
+		       '           <a href="#" onclick="load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0;"' +
+		       '              class="ui-btn btn btn-group ui-btn-inline btn-default">' +
+		       '              <b>Assembly<br> only</b></a>' +
+		       '           <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',false);" style="padding:0 0 0 0;"' +
+		       '              class="ui-btn btn btn-group ui-btn-inline btn-default">' +
+		       '              <b>Firmware<br> only</b></a>' +
+		       '           <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',true);"  style="padding:0 0 0 0;"' +
+		       '              class="ui-btn btn btn-group ui-btn-inline btn-primary">' +
+		       '              <b>Both</b></a>' +
+		       '       </div>' +
+		       '     </div>' +
+		       '   </div>' +
+		       '   </span>' ;
        }
        o = o + '</div>' +
                '</div>' ;
