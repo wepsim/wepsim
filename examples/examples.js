@@ -52,7 +52,7 @@
     examples.push({ 
                      id: 'S3E1',
                      title: "Advanced: interruptions",
-                     description: "Advanced example with interruptions support: fetch, RETI and .ktext/.data added.<br>" 
+                     description: "Advanced example with interruptions support: fetch, RETI, and .ktext/.kdata.<br>" 
                   });
 
     examples.push({ 

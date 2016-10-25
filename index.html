@@ -1049,9 +1049,17 @@
 		    jQuery.fx.off = true;
 
 	            $("#container-example1").html(list_examples_html(examples));
+	            $("#container-example1").enhanceWithin();
+		    $('#masonry-grid1').masonry({
+		       columnWidth:  310,
+		       itemSelector: '.grid-item',
+		       isFitWidth:   true
+		    });
 		    $(document).delegate('input[data-type="search"]',  
                                          'keyup change',  
-                                         function () { setTimeout($('#masonry-grid1').masonry('layout'),250); });
+                                         function () { 
+                                            setTimeout(function() { $('#masonry-grid1').masonry('layout'); }, 500); 
+                                         });
 
                     $("#bot-about1").on("swipeleft",  function(){ $(this).carousel('next'); });
                     $("#bot-about1").on("swiperight", function(){ $(this).carousel('prev'); });

@@ -619,11 +619,8 @@
 
     function list_examples_html ( examples )
     {
-       /* based on Jpsi: 
-          http://stackoverflow.com/questions/18057270/column-order-manipulation-using-col-lg-push-and-col-lg-pull-in-twitter-bootstrap */
-
        var o = '<div style="width:950px;" data-filter="true" data-children="div > span">' +
-               '<div id="masonry-grid1"   data-masonry=\'{ "columnWidth":310, "itemSelector":".grid-item", "isFitWidth":"true" }\'>' ;
+               '<div id="masonry-grid1">' ;
        for (var m=0; m<examples.length; m++)
        {
 	       var e_title       = examples[m]['title'] ;
