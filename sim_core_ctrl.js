@@ -298,7 +298,7 @@
 				       $(helpdiv).html('<br>Sorry, No more details available for this signal.<p>\n'); 
 				  $(helpdiv).trigger('create'); 
 			      });
-             ga('send', 'event', 'help', 'signal', key);
+             ga('send', 'event', 'help', 'help.signal', 'help.signal.' + key);
 	}
  
         function update_signal (event)

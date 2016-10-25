@@ -1051,7 +1051,7 @@
 	            $("#container-example1").html(list_examples_html(examples));
 		    $(document).delegate('input[data-type="search"]',  
                                          'keyup change',  
-                                         function () { setTimeout($('#masonry-grid1').masonry('layout'),50); });
+                                         function () { setTimeout($('#masonry-grid1').masonry('layout'),250); });
 
                     $("#bot-about1").on("swipeleft",  function(){ $(this).carousel('next'); });
                     $("#bot-about1").on("swiperight", function(){ $(this).carousel('prev'); });
