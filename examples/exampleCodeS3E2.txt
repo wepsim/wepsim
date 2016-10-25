@@ -23,8 +23,8 @@ sys_print:  lb   $27 ($t0)
             b    sys_print
 
   sys:      move $t0 $a0
-            li   $t0 4
-            beq  $v0 $t0 sys_print
+            li   $t1 4
+            beq  $v0 $t1 sys_print
             reti 
 
 
@@ -34,7 +34,7 @@ sys_print:  lb   $27 ($t0)
 .text
     main:  # test lb
            la  $a0 helloworld
-           la  $v0 4
+           li  $v0 4
            syscall
 
            # the end

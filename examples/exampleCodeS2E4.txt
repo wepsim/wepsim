@@ -18,13 +18,13 @@ counting:
        li   $t1 0
    b2: bge  $t1 $a2 f2
 
-       # ($t0*$a2 + $t1) * 4
+       # $t2 = ($t0*$a2 + $t1) * 4
        mul  $t2 $t0 $a2
        add  $t2 $t2 $t1
        li   $t3 4
        mul  $t2 $t2 $t3
 
-       # elto = *( $a0 + (($t0*$a2 + $t1) * 4) ) 
+       # elto = *( $a0 + $t2 ) 
        add  $t2 $a0 $t2
        lw   $t2 ($t2)
 

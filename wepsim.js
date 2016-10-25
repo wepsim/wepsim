@@ -536,11 +536,13 @@
     function getURLTimeStamp ( )
     {
         var dateObj = new Date();
+        var year    = dateObj.getUTCFullYear();
         var month   = dateObj.getUTCMonth() + 1;
         var day     = dateObj.getUTCDate();
-        var year    = dateObj.getUTCFullYear();
+        var hour    = dateObj.getUTCHours();
+        var minutes = dateObj.getUTCMinutes();
 
-        return year + month + day + "a";
+        return year + month + day + hour + minutes ;
     }
 
     function load_from_example_assembly ( example_id, chain_next_step )
@@ -620,7 +622,7 @@
        /* based on Jpsi: 
           http://stackoverflow.com/questions/18057270/column-order-manipulation-using-col-lg-push-and-col-lg-pull-in-twitter-bootstrap */
 
-       var o = '<div style="width:930px;" data-filter="true" data-children="div > span">' +
+       var o = '<div style="width:950px;" data-filter="true" data-children="div > span">' +
                '<div id="masonry-grid1"   data-masonry=\'{ "columnWidth":310, "itemSelector":".grid-item", "isFitWidth":"true" }\'>' ;
        for (var m=0; m<examples.length; m++)
        {
