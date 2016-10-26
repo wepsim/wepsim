@@ -120,6 +120,11 @@
             DRAW_stop = true ;
         }
 
+	function is_drawing ( )
+        {
+            return DRAW_stop ;
+        }
+
 	function update_draw ( obj, value )
         {
             if (true == DRAW_stop)
