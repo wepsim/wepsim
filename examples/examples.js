@@ -61,3 +61,9 @@
                      description: "Advanced example with system call support.<br>" 
                   });
 
+    examples.push({ 
+                     id: 'S3E3',
+                     title: "Advanced: exception",
+                     description: "Advanced example with floating point exception.<br>" 
+                  });
+
