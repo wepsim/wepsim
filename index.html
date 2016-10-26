@@ -124,15 +124,18 @@
 		        <ul>
 		          <li style="clear:none;width:50% !important">
                               <a id="tab26" href="#eltos_cpu" 
-                                 onclick="$('#slider2d').toggle(); 
-                                          start_drawing(); refresh();">Processor</a>
+                                 onclick="if (is_drawing() == false)
+                                              $('#slider2d').toggle(); 
+                                          start_drawing(); 
+                                          refresh();">Processor</a>
                           </li>
 		          <li style="clear:none;width:50% !important">
                               <a id="tab24" href="#eltos_dbg"  
                                  onclick="stop_drawing(); 
                                           var o1 = show_asmdbg_pc();
                                           var obj_byid = $('#asm_debugger_container');
-                                          if (typeof o1[0] == 'undefined') return;
+                                          if (typeof o1[0] == 'undefined') 
+                                              return;
                                           obj_byid[0].scrollTop = o1[0].offsetTop;">Assembly Debugger</a>
                           </li>
 		        </ul>

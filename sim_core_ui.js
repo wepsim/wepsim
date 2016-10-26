@@ -120,6 +120,11 @@
             DRAW_stop = true ;
         }
 
+	function is_drawing ( )
+        {
+            return DRAW_stop ;
+        }
+
 	function update_draw ( obj, value )
         {
             if (true == DRAW_stop)
@@ -257,9 +262,7 @@
 
 		var valuedt = "" ;
 		if (get_cfg('is_editable') == true)
-		    valuedt = "<tr><td><small><b>float</b></small></td>" + 
-                              "    <td colspan=4><small><font face='monospace'><b>" + valuef + "</b></font></small></td></tr>" + 
-                              "<tr><td colspan=5 align=center><input type=text id='popover1' value='" + valueui + "' data-mini='true' style='width:65%'>&nbsp;" +
+		    valuedt = "<tr><td colspan=5 align=center><input type=text id='popover1' value='" + valueui + "' data-mini='true' style='width:65%'>&nbsp;" +
                               "<span class='badge' onclick='set_value(sim_states[\"BR\"]["+index+"],parseInt($(\"#popover1\")[0].value));" + 
                               "                              fullshow_rf_values();$(\"#rf"+index+"\").click();$(\"#rf"+index+"\").click();'>update</span></td></tr>";
 
@@ -277,6 +280,8 @@
                              "    <td width=15% align=center><small>" + valuec8[1] + "</small></td>" +
                              "    <td width=15% align=center><small>" + valuec8[2] + "</small></td>" +
                              "    <td width=15% align=center><small>" + valuec8[3] + "</small></td></tr>" + 
+		             "<tr><td><small><b>float</b></small></td>" + 
+                             "    <td colspan=4><small><font face='monospace'><b>" + valuef + "</b></font></small></td></tr>" + 
 			     valuedt + 
 			     "</table>" ;
 
