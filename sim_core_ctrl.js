@@ -352,8 +352,8 @@
                         }
                         else {
 				 input_help += '<div><label>' + 
-                                               '<input aria-label="value for ' + key + '" type="number" size=4 min=0 max=' + (nvalues - 1) + ' name="ask_svalue" ' + 
-                                               '       value="' + sim_signals[key].value + '"/>' + '&nbsp;&nbsp;' + ' 0 - ' + (nvalues - 1) +
+                                               '<input aria-label="value for ' + key + '" type="number" size=4 min=0 max=' + (nvalues - 1) + ' class=dial ' +
+                                               ' name="ask_svalue" value="' + sim_signals[key].value + '"/>' + '&nbsp;&nbsp;' + ' 0 - ' + (nvalues - 1) +
                                                '</label></div>\n' ;
                         }
 
@@ -430,6 +430,10 @@
 					    }
 					}
 			});
+
+                        $(".dial").knob({ 'min':0, 'max':(nvalues-1) })
+                                  .val(sim_signals[key].value)
+                                  .trigger('change');
 
                     } // if (event.name == signals.firename.name)
                 } // for all signals.firename...
