@@ -86,7 +86,7 @@ sub reg1 reg2 reg3 {
 # MV/L*
 #
 
-mv reg1 reg2 {
+move reg1 reg2 {
             co=000001,
             nwords=1,
             reg1=reg(25,21),

@@ -909,7 +909,7 @@
         <div style="font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 16px; line-height: 24px; padding-bottom: 6.4px; padding-left: 8px; padding-right: 8px; padding-top: 6.4px; max-width: 555px;">
         <div class="row">
         <div class="col-xs-12 col-sm-12">
-            Copyright &copy; 2015-2017 <small>Javier Prieto Cepeda, Sa&uacute;l Alonso Monsalve, F&eacute;lix Garc&iacute;a Carballeira, and Alejandro Calder&oacute;n Mateos</small>
+            Copyright &copy; 2015-2017 <small>F&eacute;lix Garc&iacute;a Carballeira, Alejandro Calder&oacute;n Mateos, Javier Prieto Cepeda, and Sa&uacute;l Alonso Monsalve</small>
             <p>
         </div>
         <div class="col-xs-12 col-sm-12">
@@ -1049,9 +1049,17 @@
 		    jQuery.fx.off = true;
 
 	            $("#container-example1").html(list_examples_html(examples));
+	            $("#container-example1").enhanceWithin();
+		    $('#masonry-grid1').masonry({
+		       columnWidth:  310,
+		       itemSelector: '.grid-item',
+		       isFitWidth:   true
+		    });
 		    $(document).delegate('input[data-type="search"]',  
                                          'keyup change',  
-                                         function () { setTimeout($('#masonry-grid1').masonry('layout'),50); });
+                                         function () { 
+                                            setTimeout(function() { $('#masonry-grid1').masonry('layout'); }, 500); 
+                                         });
 
                     $("#bot-about1").on("swipeleft",  function(){ $(this).carousel('next'); });
                     $("#bot-about1").on("swiperight", function(){ $(this).carousel('prev'); });
