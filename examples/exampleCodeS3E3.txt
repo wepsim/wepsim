@@ -1,10 +1,10 @@
 .kdata
-   vector:  .word rti0
-            .word rti1
-            .word sys
+   vector:  .word rt_i0
+            .word rt_div0
+            .word rt_sys
 
-   msgi0:   .asciiz "Interruption 0."
-   msgi1:   .asciiz "Interruption 1."
+   msgi0:   .asciiz "INT: 0"
+   msgi1:   .asciiz "FPE: _/0"
 
 .ktext
 sys_print:  lb   $27 ($t0)
@@ -16,26 +16,34 @@ sys_print:  lb   $27 ($t0)
             b  sys_print
       fin1: reti
 
-  rti0:     la   $t0 msgi0
+  rt_i0:    # 1.- interruption
+            la   $t0 msgi0
             b    sys_print
 
-  rti1:     la   $t0 msgi1
+  rt_div0:  # 2.- exception
+            la   $t0 msgi1
             b    sys_print
 
-  sys:      move $t0 $a0
+  rt_sys:   # 3.- syscall
+            move $t0 $a0
             li   $t1 4
             beq  $v0 $t1 sys_print
             reti 
 
 
 .data
-    helloworld: .asciiz "hello world..."
+    helloworld: .asciiz "hello world...\n"
 
 .text
     main:  # test syscall
            la  $a0 helloworld
            li  $v0 4
            syscall
+
+           # test div 0/0
+           li  $t0 0
+           li  $t1 0
+           div $t1 $t1 $t0
 
            # the end
            jr $ra

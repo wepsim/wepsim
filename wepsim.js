@@ -619,7 +619,9 @@
 
     function list_examples_html ( examples )
     {
-       var o = '<div style="width:950px;" data-filter="true" data-children="div > span">' +
+       var examples_width = 310 * ((examples.length+1)/2) + 20;
+
+       var o = '<div style="min-width:320px; width:' + examples_width + 'px;" data-filter="true" data-children="div > span">' +
                '<div id="masonry-grid1">' ;
        for (var m=0; m<examples.length; m++)
        {

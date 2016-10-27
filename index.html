@@ -124,15 +124,18 @@
 		        <ul>
 		          <li style="clear:none;width:50% !important">
                               <a id="tab26" href="#eltos_cpu" 
-                                 onclick="$('#slider2d').toggle(); 
-                                          start_drawing(); refresh();">Processor</a>
+                                 onclick="if (is_drawing() == false)
+                                              $('#slider2d').toggle(); 
+                                          start_drawing(); 
+                                          refresh();">Processor</a>
                           </li>
 		          <li style="clear:none;width:50% !important">
                               <a id="tab24" href="#eltos_dbg"  
                                  onclick="stop_drawing(); 
                                           var o1 = show_asmdbg_pc();
                                           var obj_byid = $('#asm_debugger_container');
-                                          if (typeof o1[0] == 'undefined') return;
+                                          if (typeof o1[0] == 'undefined') 
+                                              return;
                                           obj_byid[0].scrollTop = o1[0].offsetTop;">Assembly Debugger</a>
                           </li>
 		        </ul>
@@ -554,10 +557,14 @@
         </tr>
         <tr>
         <td>
-            <a href="#example1" data-rel="popup" data-position-to="window" style="text-align:left"
-               class="ui-btn ui-btn-icon-left ui-icon-info">Examples</a>
-            <a href="#config1"  data-rel="popup" data-position-to="window" style="text-align:left"
-               class="ui-btn ui-btn-icon-left ui-icon-gear">Configuration</a>
+            <div data-role="controlgroup">
+               <a href="#example1" data-rel="popup" data-position-to="window" style="text-align:left"
+                  class="ui-btn ui-btn-icon-left ui-icon-info">Examples</a>
+               <a href="#config1"  data-rel="popup" data-position-to="window" style="text-align:left"
+                  class="ui-btn ui-btn-icon-left ui-icon-gear">Configuration</a>
+               <a href="#about2"   data-rel="popup" data-position-to="window" style="text-align:left"
+                  class="ui-btn ui-btn-icon-left ui-icon-tag">About</a>
+            </div>
         </td>
         </tr>
         </table>
@@ -579,7 +586,7 @@
    <div role="main" class="ui-content" style="padding: 8px 8px 8px 8px">
 
 	<div id="container-example1" class="container-fluid" 
-             style="max-width:85vw; max-height:85vh; overflow-x:auto;">
+             style="max-width:80vw; max-height:90vh; overflow-x:auto;">
         </div>
 
    </div>
@@ -600,11 +607,10 @@
 
 	<div id="bot-config1" style="max-width:85vw; overflow-x:auto;">
 	<div class="container-fluid">
-	<div class="row" style="width:1200px;">
-	  <div class="col-xs-3 col-md-4 col-lg-push-4">
+	<div class="row" style="width:1050px;">
+	  <div class="col-xs-4 col-md-4 col-lg-push-5">
 		<div class="row">
-		  <div class="col-xs-0 col-sm-1 col-md-1"></div>
-		  <div class="col-xs-12 col-sm-10 col-md-10">
+		  <div class="col-xs-12 col-sm-12 col-md-12">
 			  <ul class="container-fluid list-group" style="padding:0 0 0 0">
 			    <li class="list-group-item">
 				 Speed-up (slow - fast):
@@ -640,8 +646,7 @@
 		  </div>
 		</div>
 		<div class="row">
-		  <div class="col-xs-0 col-sm-1 col-md-1"></div>
-		  <div class="col-xs-12 col-sm-10 col-md-10">
+		  <div class="col-xs-12 col-sm-12 col-md-12">
 			  <ul class="container-fluid list-group" style="padding:0 0 0 0">
 			    <li class="list-group-item">
 				 <fieldset data-role="controlgroup" data-type="horizontal">
@@ -676,7 +681,7 @@
 		</div>
 	  </div>
 
-	  <div class="col-xs-5 col-md-4 col-lg-pull-4">
+	  <div class="col-xs-5 col-md-5 col-lg-pull-4">
 		<div class="row">
 		  <div class="col-xs-4 col-sm-4 col-md-4">
 		     <img alt="color configuration" src="images/cfg-colors.gif" width="100%">
@@ -767,7 +772,7 @@
 		</div>
 	  </div>
 
-	  <div class="col-xs-4 col-md-4">
+	  <div class="col-xs-3 col-md-3">
 		<div class="row">
 		  <div class="col-xs-12 col-sm-12 col-md-12">
 			  <ul class="container-fluid list-group" style="padding:0 0 0 0">
@@ -805,38 +810,19 @@
 				 Editor mode:<br>
 				 <ul>
 				 <li>
-				     <input name="radio8" id="radio8-vim" data-mini="true"
-					    aria-label="Editor mode (VIM)"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('editor_mode','vim'); save_cfg();
-						     inputfirm.setOption('keyMap','vim');
-						     inputasm.setOption('keyMap','vim');"
-					    value="vim" type="radio">
-				     <label for="radio8-vim">vim</label>
-				     <input name="radio8" id="radio8-emacs" data-mini="true"
-					    aria-label="Editor mode (Emacs)"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('editor_mode','emacs'); save_cfg();
-						     inputfirm.setOption('keyMap','emacs');
-						     inputasm.setOption('keyMap','emacs');"
-					    value="emacs" type="radio">
-				     <label for="radio8-emacs">emacs</label>
-				     <input name="radio8" id="radio8-sublime" data-mini="true"
-					    aria-label="Editor mode (Sublime)"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('editor_mode','sublime'); save_cfg();
-						     inputfirm.setOption('keyMap','sublime');
-						     inputasm.setOption('keyMap','sublime');"
-					    value="sublime" type="radio">
-				     <label for="radio8-sublime">sublime</label>
-				     <input name="radio8" id="radio8-default" data-mini="true"
-					    aria-label="Editor mode (Default)"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('editor_mode','default'); save_cfg();
-						     inputfirm.setOption('keyMap','default');
-						     inputasm.setOption('keyMap','default');"
-					    value="default" type="radio">
-				     <label for="radio8-default">default</label>
+				    <select name="select2" id="select2" 
+					    aria-label="Editor mode"
+					    onchange="var opt = $(this).find('option:selected');
+						      var optValue = opt.val();
+						      set_cfg('editor_mode',optValue); save_cfg();
+						      inputfirm.setOption('keyMap',optValue);
+						      inputasm.setOption('keyMap',optValue);"
+					    data-mini="true" data-native-menu="false">
+					<option value="default">default</option>
+					<option value="vim">VIM</option>
+					<option value="emacs">Emacs</option>
+					<option value="sublime">Sublime</option>
+				    </select>
 				 </li>
 				 </ul>
 				 </fieldset>
@@ -866,7 +852,7 @@
 			    </li>
 			    <li class="list-group-item">
 				 <fieldset data-role="controlgroup" data-type="horizontal">
-				 Register File Edit Mode:<br>
+				 Edit register file values:<br>
 				 <ul>
 				 <li>
 				     <input name="radio9" id="radio9-true" data-mini="true"
@@ -909,23 +895,62 @@
         <div style="font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 16px; line-height: 24px; padding-bottom: 6.4px; padding-left: 8px; padding-right: 8px; padding-top: 6.4px; max-width: 555px;">
         <div class="row">
         <div class="col-xs-12 col-sm-12">
-            Copyright &copy; 2015-2017 <small>F&eacute;lix Garc&iacute;a Carballeira, Alejandro Calder&oacute;n Mateos, Javier Prieto Cepeda, and Sa&uacute;l Alonso Monsalve</small>
+            Copyright &copy; 2015-2017 <br>
+	    <p>
+            <b>Contributors</b>: Javier Prieto Cepeda, Sa&uacute;l Alonso Monsalve<br>
+            <b>Coordinators</b>: F&eacute;lix Garc&iacute;a Carballeira, Alejandro Calder&oacute;n Mateos<br>
+            <p>
+            <center>
+            <small>
+            <a href="http://www.arcos.inf.uc3m.es/">ARCOS Group</a><br>
+            <a href="http://www.inf.uc3m.es/en/">Computer Science and Engineering Department</a><br>
+            <a href="http://www.uc3m.es/">Universidad Carlos III de Madrid</a><br>
+            </small>
+            </center>
+	    <br>
+	    <p>
+            See 'Menu / About' for more details...
+        </div>
+        <div class="col-xs-12 col-sm-12">
+            <center><a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">OK</a></center>
+        </div>
+        </div>
+        </div>
+
+   </div>
+
+</div><!-- /popup -->
+
+
+<div data-role="popup" id="about2" 
+     data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
+
+   <div data-role="header" data-theme="a">
+   <h1><b>WepSIM</b> <span class="badge btn-success"><div class="wsversion">X</div></span> </h1>
+   </div>
+   <div role="main" class="ui-content">
+
+        <div style="font-family:Helvetica Neue,Helvetica,Arial,sans-serif; font-size:16px; line-height:24px; padding-bottom:6.4px; padding-left:8px; padding-right:8px; padding-top:6.4px; width:555px; max-width:800px;">
+        <div class="row">
+        <div class="col-xs-12 col-sm-12">
+            Copyright &copy; 2015-2017 <br>
+            <small>Contributors: Javier Prieto Cepeda, Sa&uacute;l Alonso Monsalve</small><br>
+            <small>Coordinators: F&eacute;lix Garc&iacute;a Carballeira, Alejandro Calder&oacute;n Mateos</small><br>
             <p>
         </div>
         <div class="col-xs-12 col-sm-12">
-		<div id="bot-about1" class="carousel slide" data-ride="carousel">
-		  <ol class="carousel-indicators" style="position:relative; margin-bottom:0;">
-		    <li data-target="#bot-about1" data-slide-to="0" class="active"></li>
-		    <li data-target="#bot-about1" data-slide-to="1"></li>
-		    <li data-target="#bot-about1" data-slide-to="2"></li>
-		  </ol>
-		  <div class="carousel-inner" role="listbox">
+		    <div class="item">
+                    <b>WepSIM</b> works with the most popular Web Browsers: <br>
+                    Google Chrome 50+, Mozilla Firefox 45+, and Microsoft Edge 30+<br>
+		    <p>
+		    </div>
+
 		    <div class="item active">
 		    <b>WepSIM (Web elemental processor SIMulator)</b> is free software: you can redistribute it and/or modify
 		    it under the terms of the GNU Lesser General Public License as published by
 		    the Free Software Foundation, either version 3 of the License, or
-		    (at your option) any later version.
-		    See <a rel="external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.
+		    (at your option) any later version.<br>
+		    See <a rel="external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.<br>
 		    <p>
 		    </div>
 
@@ -944,23 +969,20 @@
                     <li>Plug-ins & extensions: 
 		        <a rel="external" href="http://bootboxjs.com/">Bootbox</a>,
 		        <a rel="external" href="http://codemirror.net/index.html">CodeMirror</a> Editor,
-		        <a rel="external" href="https://bgrins.github.io/spectrum/">spectrum</a> ColorPicker,
-		        <a rel="external" href="https://github.com/mouse0270/bootstrap-notify">Bootstrap Notify</a>
+		        <a rel="external" href="https://bgrins.github.io/spectrum/">Spectrum</a> ColorPicker,
+		        <a rel="external" href="https://github.com/mouse0270/bootstrap-notify">Bootstrap Notify</a>,
+		        <a rel="external" href="http://masonry.desandro.com/">Masonry</a> Grid,
+		        <a rel="external" href="http://anthonyterrien.com/knob/">Jquery Knob</a>
                     </li>
                     </ul>
 		    <p>
 		    </div>
 
 		    <div class="item">
-                    WepSIM works with the most popular Web Browsers: <br>
-                    Google Chrome 45+, Mozilla Firefox 40+, and Microsoft Edge 25+<br>
-		    It source code is available at <a rel="external" href="https://github.com/wepsim/wepsim">github.com/wepsim/wepsim</a><br>
-                    <br>
-		    More information: <a rel="external" href="http://www.arcos.inf.uc3m.es/ec-2ed/">www.arcos.inf.uc3m.es/ec-2ed/</a><br>
+		    It source code is available at <a rel="external" href="https://github.com/wepsim/wepsim">https://github.com/wepsim/wepsim</a>.<br>
+                    An Android 5.0+ version is also available at <a href="https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim">https://play.google...</a><br>
 		    <p>
 		    </div>
-		  </div>
-		</div>
         </div>
         <div class="col-xs-6 col-sm-6">
             <br>
@@ -1061,14 +1083,12 @@
                                             setTimeout(function() { $('#masonry-grid1').masonry('layout'); }, 500); 
                                          });
 
-                    $("#bot-about1").on("swipeleft",  function(){ $(this).carousel('next'); });
-                    $("#bot-about1").on("swiperight", function(){ $(this).carousel('prev'); });
-
-		    $("#config1").enhanceWithin().popup();
 		    $("#help1").enhanceWithin().popup();
 		    $("#bin1").enhanceWithin().popup();
 		    $("#about1").enhanceWithin().popup();
 		    $("#example1").enhanceWithin().popup();
+		    $("#config1").enhanceWithin().popup();
+		    $("#about2").enhanceWithin().popup();
 
 		    $("#actions_panel").panel().enhanceWithin();
 		    $(".ui-slider-input").hide();
@@ -1141,9 +1161,9 @@
 		    $("#radio5-" +    get_cfg('is_interactive')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio6-" +          get_cfg('ws_idiom')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio7-" +      get_cfg('editor_theme')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio8-" +       get_cfg('editor_mode')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio9-" +       get_cfg('is_editable')).prop('checked', true).checkboxradio("refresh") ;
                     $("#select1").val(get_cfg('ICON_theme')).selectmenu("refresh");
+                    $("#select2").val(get_cfg('editor_mode')).selectmenu("refresh");
                     $("#img_select1").attr("src","images/stop_" + get_cfg('ICON_theme') + ".png");
 
                     showhideAsmElements();
