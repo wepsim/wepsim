@@ -619,7 +619,7 @@
 
     function list_examples_html ( examples )
     {
-       var o = '<div style="width:950px;" data-filter="true" data-children="div > span">' +
+       var o = '<div style="min-width:320px; max-width:1250px; width:70vw;" data-filter="true" data-children="div > span">' +
                '<div id="masonry-grid1">' ;
        for (var m=0; m<examples.length; m++)
        {
