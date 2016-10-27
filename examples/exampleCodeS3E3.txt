@@ -32,7 +32,7 @@ sys_print:  lb   $27 ($t0)
 
 
 .data
-    helloworld: .asciiz "hello world..."
+    helloworld: .asciiz "hello world...\n"
 
 .text
     main:  # test syscall
