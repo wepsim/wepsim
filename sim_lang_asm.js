@@ -261,7 +261,7 @@ function treatControlSequences ( possible_value )
 				   break;
 			case "v":  ret_string = ret_string + '\v' ;
 				   break;
-			case "a":  ret_string = ret_string + '\a' ;
+			case "a":  ret_string = ret_string + String.fromCharCode(0x0007) ;
 				   break;
 			case "'":  ret_string = ret_string + '\'' ;
 				   break;
