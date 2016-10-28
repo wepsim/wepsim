@@ -236,12 +236,14 @@ function is_end_of_file(context)
 
 function treatControlSequences ( possible_value )
 {
-        var ret_string = "";
+        var ret = new Object() ;
+        ret.string = "";
+        ret.error  = false;
 
 	for (i=0; i<possible_value.length; i++)
 	{
 		if ("\\" != possible_value[i]) {
-                    ret_string = ret_string + possible_value[i] ;
+                    ret.string = ret.string + possible_value[i] ;
                     continue ;
                 }
 
@@ -249,32 +251,33 @@ function treatControlSequences ( possible_value )
 
 		switch (possible_value[i])
 		{
-			case "b":  ret_string = ret_string + '\b' ;
+			case "b":  ret.string = ret.string + '\b' ;
 				   break;
-			case "f":  ret_string = ret_string + '\f' ;
+			case "f":  ret.string = ret.string + '\f' ;
 				   break;
-			case "n":  ret_string = ret_string + '\n' ;
+			case "n":  ret.string = ret.string + '\n' ;
 				   break;
-			case "r":  ret_string = ret_string + '\r' ;
+			case "r":  ret.string = ret_string + '\r' ;
 				   break;
-			case "t":  ret_string = ret_string + '\t' ;
+			case "t":  ret.string = ret.string + '\t' ;
 				   break;
-			case "v":  ret_string = ret_string + '\v' ;
+			case "v":  ret.string = ret.string + '\v' ;
 				   break;
-			case "a":  ret_string = ret_string + String.fromCharCode(0x0007) ;
+			case "a":  ret.string = ret.string + String.fromCharCode(0x0007) ;
 				   break;
-			case "'":  ret_string = ret_string + '\'' ;
+			case "'":  ret.string = ret.string + '\'' ;
 				   break;
-			case "\"": ret_string = ret_string + '\"' ;
+			case "\"": ret.string = ret.string + '\"' ;
 				   break;
-			case "0":  ret_string = ret_string + '\0' ;
+			case "0":  ret.string = ret.string + '\0' ;
 				   break;
-			default:   console.log("sim_lang_asm: unknow escape char '\\" + possible_value[i] + "' in string will be ignored.");
-				   break;
+			default:   ret.string = "Unknown escape char '\\" + possible_value[i] + "'";
+                                   ret.error  = true;
+        			   return ret ;
 		}
 	}
 
-        return ret_string ;
+        return ret ;
 }
 
 
@@ -501,7 +504,10 @@ function read_data ( context, datosCU, ret )
                         // <value> | .<directive>
 		        nextToken(context) ;
                         var possible_value = getToken(context) ;
-                        possible_value = treatControlSequences(possible_value) ;
+                        var ret1 = treatControlSequences(possible_value) ;
+			if (true == ret1.error)
+			    return langError(context, ret1.string);
+                        possible_value = ret1.string ;
 
 			while (!is_directive(getToken(context)) && !is_end_of_file(context))
                         {
@@ -553,7 +559,10 @@ function read_data ( context, datosCU, ret )
 
                                 // <value> | .<directive>
 				possible_value = getToken(context);
-                                possible_value = treatControlSequences(possible_value) ;
+                                ret1 = treatControlSequences(possible_value) ;
+				if (true == ret1.error)
+				    return langError(context, ret1.string);
+                                possible_value = ret1.string ;
                         }
 		   }
 		   else
