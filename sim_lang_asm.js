@@ -234,6 +234,50 @@ function is_end_of_file(context)
 	return "" === getToken(context) && context.t >= context.text.length;
 }
 
+function treatControlSequences ( possible_value )
+{
+        var ret_string = "";
+
+	for (i=0; i<possible_value.length; i++)
+	{
+		if ("\\" != possible_value[i]) {
+                    ret_string = ret_string + possible_value[i] ;
+                    continue ;
+                }
+
+                i++;
+
+		switch (possible_value[i])
+		{
+			case "b":  ret_string = ret_string + '\b' ;
+				   break;
+			case "f":  ret_string = ret_string + '\f' ;
+				   break;
+			case "n":  ret_string = ret_string + '\n' ;
+				   break;
+			case "r":  ret_string = ret_string + '\r' ;
+				   break;
+			case "t":  ret_string = ret_string + '\t' ;
+				   break;
+			case "v":  ret_string = ret_string + '\v' ;
+				   break;
+			case "a":  ret_string = ret_string + String.fromCharCode(0x0007) ;
+				   break;
+			case "'":  ret_string = ret_string + '\'' ;
+				   break;
+			case "\"": ret_string = ret_string + '\"' ;
+				   break;
+			case "0":  ret_string = ret_string + '\0' ;
+				   break;
+			default:   console.log("sim_lang_asm: unknow escape char '\\" + possible_value[i] + "' in string will be ignored.");
+				   break;
+		}
+	}
+
+        return ret_string ;
+}
+
+
 /*
  *   Load segments
  */
@@ -457,6 +501,7 @@ function read_data ( context, datosCU, ret )
                         // <value> | .<directive>
 		        nextToken(context) ;
                         var possible_value = getToken(context) ;
+                        possible_value = treatControlSequences(possible_value) ;
 
 			while (!is_directive(getToken(context)) && !is_end_of_file(context))
                         {
@@ -475,33 +520,11 @@ function read_data ( context, datosCU, ret )
 					// Word filled
                                         writememory_and_reset(ret.mp, gen, 1) ;
 
-					if (possible_value[i] == "\"") continue;			
+					if (possible_value[i] == "\"") 
+                                            continue;			
 	
-					switch (possible_value[i])
-                                        {
-						case "\\":
-							switch (possible_value[i+1])
-                                                        {
-								case "n":
-									num_bits = "\n".charCodeAt(0).toString(2);
-									i++;
-									break;
-								case "t":
-									num_bits = "\t".charCodeAt(0).toString(2);
-									i++;
-									break;
-								case "0":
-									num_bits = "\0".charCodeAt(0).toString(2);
-									i++;
-									break;
-								default:	
-									num_bits = possible_value.charCodeAt(i).toString(2);
-									break;
-							}
-						default:
-							num_bits = possible_value.charCodeAt(i).toString(2);
-					}	
-	
+					num_bits = possible_value.charCodeAt(i).toString(2);
+
 					// Store character in machine code
 					gen.machineCode = assembly_replacement(gen.machineCode, num_bits, BYTE_LENGTH*(1+gen.byteWord), BYTE_LENGTH*gen.byteWord, BYTE_LENGTH-num_bits.length); 	
 					gen.byteWord++;
@@ -530,6 +553,7 @@ function read_data ( context, datosCU, ret )
 
                                 // <value> | .<directive>
 				possible_value = getToken(context);
+                                possible_value = treatControlSequences(possible_value) ;
                         }
 		   }
 		   else

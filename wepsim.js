@@ -619,7 +619,9 @@
 
     function list_examples_html ( examples )
     {
-       var o = '<div style="min-width:320px; max-width:1250px; width:70vw;" data-filter="true" data-children="div > span">' +
+       var examples_width = 310 * ((examples.length+1)/2) + 20;
+
+       var o = '<div style="min-width:320px; width:' + examples_width + 'px;" data-filter="true" data-children="div > span">' +
                '<div id="masonry-grid1">' ;
        for (var m=0; m<examples.length; m++)
        {
@@ -632,7 +634,7 @@
 		       '     <div class="panel-heading">' +
 		       '       <h3 class="panel-title">' + (m+1) + ') ' + e_title + '</h3>' +
 		       '     </div>' +
-		       '     <div class="panel-body">' + e_description + '<br>Load...' +
+		       '     <div class="panel-body">' + e_description + '<br>' +
 		       '       <div class="btn-group btn-group-justified btn-group-md">' +
 		       '           <a href="#" onclick="load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0;"' +
 		       '              class="ui-btn btn btn-group ui-btn-inline btn-default">' +
