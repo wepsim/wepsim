@@ -896,6 +896,17 @@
 	        if (o != null) o.innerHTML = decins ;
 	}
 
+        // Console (Screen + Keyboard)
+	function get_screen_content ( )
+	{
+		 return document.getElementById("kdb_con").value;
+	}
+
+	function set_screen_content ( screen )
+	{
+		 document.getElementById("kdb_con").value = screen;
+	}
+
 
         /*
          *  obj2html
