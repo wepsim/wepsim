@@ -28,7 +28,7 @@
     examples.push({ 
                      id: 'S2E1',
                      title: "Intermediate: I/O",
-                     description: "Example with fetch, in/out access, and basic .text/.data segment.<br>"
+                     description: "Example with programmed I/O access, and basic .text/.data segment.<br>"
                   });
 
     examples.push({ 
