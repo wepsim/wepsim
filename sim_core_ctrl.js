@@ -600,6 +600,7 @@
 
         function reset()
         {
+            // Hardware
 	    var SIMWARE = get_simware() ;
             compute_behavior("RESET") ;
 
@@ -619,12 +620,14 @@
 
             compute_behavior("CLOCK") ;
 
+            // User Interface
             show_dbg_ir(get_value(sim_states['REG_IR_DECO'])) ;
 	    show_states() ;
             show_rf_values();
             show_rf_names();
             show_main_memory   (MP,                0, false) ;
             show_control_memory(MC,  MC_dashboard, 0, false) ;
+            set_screen_content("") ;
         }
 
         function execute_microinstruction ()
