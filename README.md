@@ -2,15 +2,13 @@
 
 + Get WepSIM Simulator:
 
-   * (on-line) Web version: http://www.arcos.inf.uc3m.es/infoec/wepsim-ng/
+   * (on-line) Web version (Google Chrome 45+, Mozilla Firefox 40+ y Microsoft Edge 25+):
+http://www.arcos.inf.uc3m.es/infoec/wepsim-ng/
 
-         * Google Chrome 45+, Mozilla Firefox 40+ y Microsoft Edge 25+
+   * Android 5.0+ version: <br/> 
+https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim
 
-   * Android version: https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim
-
-         * Android 5.0 o superior
-
-   * WepSIM source code: https://github.com/wepsim/wepsim
+   * WepSIM repository: https://github.com/wepsim/wepsim
 
 + Quick Start:
 
