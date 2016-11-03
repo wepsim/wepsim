@@ -17,5 +17,5 @@ Quick Start
 
 + WepSIM help is available within the simulator.
 
-   * ![Main](help/simulator/simulator009.png)
+   * ![Main](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/simulator009.jpg)
 
