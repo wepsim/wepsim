@@ -24,7 +24,7 @@
      ![Main](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/assembly002.jpg)
 
    * You can modify your code and copile it: 
-     ![Main](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/assembly002.jpg)
+     ![Main](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/assembly003.jpg)
 
    * Go back to the simulator workspace, and you can work at microcode level: 
      ![Main](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/simulator009.jpg)
