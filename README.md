@@ -17,4 +17,5 @@ Quick Start
 
 + WepSIM help is available within the simulator.
 
+   * ![Main](help/simulator/simulator009.png)
 
