@@ -3,7 +3,7 @@ Quick Start
 
 + WepSIM Simulator:
 
-   * Web version: http://www.arcos.inf.uc3m.es/~infoec/wepsim-ng/
+   * Web version: http://www.arcos.inf.uc3m.es/infoec/wepsim-ng/
 
          * Google Chrome 45+, Mozilla Firefox 40+ y Microsoft Edge 25+
 
@@ -17,5 +17,9 @@ Quick Start
 
 + WepSIM help is available within the simulator.
 
-   * ![Main](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/simulator009.jpg)
+   * Main screen: \\
+     ![Main](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/simulator009.jpg)
+
+   * Main screen 2: \\
+     ![Main](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/simulator010.jpg)
 
