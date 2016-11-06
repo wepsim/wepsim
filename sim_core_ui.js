@@ -280,20 +280,31 @@
                 return valuebin ;
         }
 
-        function hex2values_update ( id_simstate, id_button )
+        function hex2values_update ( index )
         {
 	      var new_value = parseInt($("#popover1")[0].value) ;
-              // TODO: new_value = new_value % 2^bits of state...
-	      set_value(id_simstate, new_value) ;
 
-	      fullshow_rf_values() ;
-              fullshow_eltos(sim_states, filter_states);
+              if (typeof sim_states["BR"][index] != "undefined") 
+              {
+	          set_value(sim_states["BR"][index], new_value) ;
+	          fullshow_rf_values() ;
+                  $("#rf" + index).click() ;
+                  $("#rf" + index).click() ;
+              }
 
-              $(id_button).click() ;
-              $(id_button).click() ;
+              if (typeof sim_states[index] != "undefined") 
+              {
+                  if (1 == sim_states[index].nbits) 
+                      new_value = new_value % 2;
+
+	          set_value(sim_states[index], new_value) ;
+                  fullshow_eltos(sim_states, filter_states);
+                  $("#rp" + index).click() ;
+                  $("#rp" + index).click() ;
+              }
         }
 
-        function hex2values ( hexvalue, id_simstate, id_button )
+        function hex2values ( hexvalue, index )
         {
                 var valuebin = hex2bin(hexvalue);
                 var valuehex = hexvalue.toString(16).toUpperCase() ;
@@ -304,10 +315,11 @@
 		var valuef   = hex2float(valueui);
 
 		var valuedt = "" ;
-		if (get_cfg('is_editable') == true)
+		if (get_cfg('is_editable') == true) {
 		    valuedt = "<tr><td colspan=5 align=center><input type=text id='popover1' value='" + valueui + "' data-mini='true' style='width:65%'>&nbsp;" +
                               "<span class='badge' " + 
-                              "      onclick='hex2values_update(" + id_simstate + "," + id_button + ");'>update</span></td></tr>";
+                              "      onclick='hex2values_update(\"" + index + "\");'>update</span></td></tr>";
+                }
 
 		var vtable = "<table width='100%' class='table table-bordered table-condensed'>" + 
 			     "<tr><td><small><b>hex.</b></small></td>" +
@@ -364,15 +376,11 @@
 		    content: function() {
 		        var index = $(this).attr("data-popover-content");
                         var hexvalue = get_value(sim_states['BR'][index]);
-                        var id_simstate = "sim_states[\"BR\"][" + index + "]" ;
-                        var id_button   = "\"#rf" + index + "\"" ;
-
-                        return hex2values(hexvalue, id_simstate, id_button) ;
+                        return hex2values(hexvalue, index) ;
 		    },
 		    title: function() {
 		        var index = $(this).attr("data-popover-content");
                         var id_button = "&quot;#rf" + index + "&quot;" ;
-
 		        return '<span class="text-info"><strong>R' + index + '</strong></span>' +
                                '<button type="button" id="close" class="close" ' + 
                                '        onclick="$(' + id_button + ').click();">&times;</button>';
@@ -464,15 +472,11 @@
 		    content: function() {
 		        var index = $(this).attr("data-popover-content");
                         var hexvalue = get_value(sim_states[index]);
-                        var id_simstate = "sim_states[\"" + index + "\"]" ;
-                        var id_button   = "\"#rp" + index + "\"" ;
-
-                        return hex2values(hexvalue, id_simstate, id_button) ;
+                        return hex2values(hexvalue, index) ;
 		    },
 		    title: function() {
 		        var index = $(this).attr("data-popover-content");
                         var id_button = "&quot;#rp" + index + "&quot;" ;
-
 		        return '<span class="text-info"><strong>' + sim_states[index].name + '</strong></span>' +
                                '<button type="button" id="close" class="close" ' + 
                                '        onclick="$(' + id_button + ').click();">&times;</button>';
