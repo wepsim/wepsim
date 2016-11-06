@@ -158,34 +158,64 @@
 	    {
 		    for (var i=0; i<obj.draw_data.length; i++)
 		    for (var j=0; j<obj.draw_data[i].length; j++) {
-	                   obj_draw(obj.draw_data[i][j], (i==value) && draw_it, get_cfg('color_data_active'), get_cfg('color_data_inactive'), get_cfg('size_active'), get_cfg('size_inactive'));
+	                   obj_draw(obj.draw_data[i][j], 
+                                    (i==value) && draw_it, 
+                                    get_cfg('color_data_active'), 
+                                    get_cfg('color_data_inactive'), 
+                                    get_cfg('size_active'), 
+                                    get_cfg('size_inactive'));
 		    }
 
 		    for (var i=0; i<obj.draw_name.length; i++)
 		    for (var j=0; j<obj.draw_name[i].length; j++) {
-	                   obj_draw(obj.draw_name[i][j], (i==value) && draw_it, get_cfg('color_name_active'), get_cfg('color_name_inactive'), get_cfg('size_active'), get_cfg('size_inactive'));
+	                   obj_draw(obj.draw_name[i][j], 
+                                    (i==value) && draw_it, 
+                                    get_cfg('color_name_active'), 
+                                    get_cfg('color_name_inactive'), 
+                                    get_cfg('size_active'), 
+                                    get_cfg('size_inactive'));
 		    }
 	    }
 	    else if (obj.nbits == 1)
 	    // (same draw) && (nbits == 1)
 	    {
 		    for (var j=0; j<obj.draw_data[0].length; j++) {
-	                   obj_draw(obj.draw_data[0][j], (0!=value) && draw_it, get_cfg('color_data_active'), get_cfg('color_data_inactive'), get_cfg('size_active'), get_cfg('size_inactive'));
+	                   obj_draw(obj.draw_data[0][j], 
+                                    (0!=value) && draw_it, 
+                                    get_cfg('color_data_active'), 
+                                    get_cfg('color_data_inactive'), 
+                                    get_cfg('size_active'), 
+                                    get_cfg('size_inactive'));
 		    }
 
 		    for (var j=0; j<obj.draw_name[0].length; j++) {
-	                   obj_draw(obj.draw_name[0][j], (0!=value) && draw_it, get_cfg('color_name_active'), get_cfg('color_name_inactive'), get_cfg('size_active'), get_cfg('size_inactive'));
+	                   obj_draw(obj.draw_name[0][j], 
+                                    (0!=value) && draw_it, 
+                                    get_cfg('color_name_active'), 
+                                    get_cfg('color_name_inactive'), 
+                                    get_cfg('size_active'), 
+                                    get_cfg('size_inactive'));
 		    }
 	    }
 	    else if (obj.draw_data.length == 1)
 	    // (same draw) && (nbits > 1)
 	    {
 		    for (var j=0; j<obj.draw_data[0].length; j++) {
-	                   obj_draw(obj.draw_data[0][j], draw_it, get_cfg('color_data_active'), get_cfg('color_data_inactive'), get_cfg('size_active'), get_cfg('size_inactive'));
+	                   obj_draw(obj.draw_data[0][j], 
+                                    draw_it, 
+                                    get_cfg('color_data_active'), 
+                                    get_cfg('color_data_inactive'), 
+                                    get_cfg('size_active'), 
+                                    get_cfg('size_inactive'));
 		    }
 
 		    for (var j=0; j<obj.draw_name[0].length; j++) {
-	                   obj_draw(obj.draw_name[0][j], draw_it, get_cfg('color_name_active'), get_cfg('color_name_inactive'), get_cfg('size_active'), get_cfg('size_inactive'));
+	                   obj_draw(obj.draw_name[0][j], 
+                                    draw_it, 
+                                    get_cfg('color_name_active'), 
+                                    get_cfg('color_name_inactive'), 
+                                    get_cfg('size_active'), 
+                                    get_cfg('size_inactive'));
 		    }
 	    }
 	}
@@ -250,7 +280,7 @@
                 return valuebin ;
         }
 
-        function hex2values ( hexvalue, index )
+        function hex2values ( hexvalue, id_simstate, id_button )
         {
                 var valuebin = hex2bin(hexvalue);
                 var valuehex = hexvalue.toString(16).toUpperCase() ;
@@ -263,8 +293,8 @@
 		var valuedt = "" ;
 		if (get_cfg('is_editable') == true)
 		    valuedt = "<tr><td colspan=5 align=center><input type=text id='popover1' value='" + valueui + "' data-mini='true' style='width:65%'>&nbsp;" +
-                              "<span class='badge' onclick='set_value(sim_states[\"BR\"]["+index+"],parseInt($(\"#popover1\")[0].value));" + 
-                              "                              fullshow_rf_values();$(\"#rf"+index+"\").click();$(\"#rf"+index+"\").click();'>update</span></td></tr>";
+                              "<span class='badge' onclick='set_value(" + id_simstate + ",parseInt($(\"#popover1\")[0].value));" + 
+                              "                              fullshow_rf_values();$(" + id_button + ").click();$(" + id_button + ").click();'>update</span></td></tr>";
 
 		var vtable = "<table width='100%' class='table table-bordered table-condensed'>" + 
 			     "<tr><td><small><b>hex.</b></small></td>" +
@@ -319,14 +349,28 @@
 	    	    html: true,
                     placement: 'top',
 		    content: function() {
-		        var index    = $(this).attr("data-popover-content");
-                        var hexvalue = get_value(sim_states['BR'][index]);
-                        return hex2values(hexvalue,index) ;
+		        var index = $(this).attr("data-popover-content");
+
+                        var hexvalue = "Error: undefined state for popover." ;
+                        if (typeof sim_states['BR'][index] != "undefined") {
+                            hexvalue = get_value(sim_states['BR'][index]);
+                            var id_simstate = "sim_states[\"BR\"][" + index + "]" ;
+                            var id_button   = "\"#rf" + index + "\"" ;
+                        }
+                        if (typeof sim_states[index] != "undefined") {
+                            hexvalue = get_value(sim_states[index]);
+                            var id_simstate = "sim_states[" + index + "]" ;
+                            var id_button   = "\"#rp" + index + "\"" ;
+                        }
+
+                        return hex2values(hexvalue, id_simstate, id_button) ;
 		    },
 		    title: function() {
 		        var index = $(this).attr("data-popover-content");
+
 		        return '<span class="text-info"><strong>R' + index + '</strong></span>' +
-                               '<button type="button" id="close" class="close" onclick="$(&quot;#rf' + index + '&quot;).click();">&times;</button>';
+                               '<button type="button" id="close" class="close" ' + 
+                               '        onclick="$(&quot;#rf' + index + '&quot;).click();">&times;</button>';
 		    }
 	    });
         }
@@ -396,7 +440,10 @@
                 var divclass = divclasses[b] ;
 
                 o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" + 
-                      "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;'>" + showkey + 
+                      "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;' " + 
+                      "        data-toggle='popover' data-popover-content='" + s + "' data-container='body' " +
+                      "        id='rp" + s + "'>" +
+                      showkey + 
                       "<span class='badge' style='background-color:#CEECF5; color:black;' id='tbl_"  + s + "'>" +
                       sim_eltos[s].value.toString(get_cfg('RF_display_format')) +
                       "</span>" +
