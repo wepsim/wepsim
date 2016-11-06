@@ -280,6 +280,20 @@
                 return valuebin ;
         }
 
+        function hex2values_update ( id_simstate, id_button )
+        {
+	      var new_value = parseInt($("#popover1")[0].value) ;
+              // TODO: new_value = new_value % 2^bits of state...
+              // TODO: popover on rf -> up (now) + on rp -> down (new)
+	      set_value(id_simstate, new_value) ;
+
+	      fullshow_rf_values() ;
+              fullshow_eltos(sim_states, filter_states);
+
+              $(id_button).click() ;
+              $(id_button).click() ;
+        }
+
         function hex2values ( hexvalue, id_simstate, id_button )
         {
                 var valuebin = hex2bin(hexvalue);
@@ -293,8 +307,8 @@
 		var valuedt = "" ;
 		if (get_cfg('is_editable') == true)
 		    valuedt = "<tr><td colspan=5 align=center><input type=text id='popover1' value='" + valueui + "' data-mini='true' style='width:65%'>&nbsp;" +
-                              "<span class='badge' onclick='set_value(" + id_simstate + ",parseInt($(\"#popover1\")[0].value));" + 
-                              "                              fullshow_rf_values();$(" + id_button + ").click();$(" + id_button + ").click();'>update</span></td></tr>";
+                              "<span class='badge' " + 
+                              "      onclick='hex2values_update(" + id_simstate + "," + id_button + ");'>update</span></td></tr>";
 
 		var vtable = "<table width='100%' class='table table-bordered table-condensed'>" + 
 			     "<tr><td><small><b>hex.</b></small></td>" +
@@ -316,6 +330,51 @@
 			     "</table>" ;
 
 		return vtable;
+        }
+
+        function init_popovers ( )
+        {
+	    $("[data-toggle=popover]").popover({
+	    	    html:      true,
+                    placement: 'top',
+		    content: function() {
+		        var index = $(this).attr("data-popover-content");
+
+                        var hexvalue    = "Error: undefined state for popover." ;
+                        var id_simstate = "sim_states[\"BR\"][0]" ;
+                        var id_button   = "\"#rf0\"" ;
+                        if (typeof sim_states['BR'][index] != "undefined") {
+                            hexvalue = get_value(sim_states['BR'][index]);
+                            id_simstate = "sim_states[\"BR\"][" + index + "]" ;
+                            id_button   = "\"#rf" + index + "\"" ;
+                        }
+                        if (typeof sim_states[index] != "undefined") {
+                            hexvalue = get_value(sim_states[index]);
+                            id_simstate = "sim_states[\"" + index + "\"]" ;
+                            id_button   = "\"#rp" + index + "\"" ;
+                        }
+
+                        return hex2values(hexvalue, id_simstate, id_button) ;
+		    },
+		    title: function() {
+		        var index = $(this).attr("data-popover-content");
+
+                        var nm_button = "R0" ;
+                        var id_button = "&quot;#rf0&quot;" ;
+                        if (typeof sim_states['BR'][index] != "undefined") {
+                            nm_button = "R" + index ;
+                            id_button = "&quot;#rf" + index + "&quot;" ;
+                        }
+                        if (typeof sim_states[index] != "undefined") {
+                            nm_button = sim_states[index].name ;
+                            id_button = "&quot;#rp" + index + "&quot;" ;
+                        }
+
+		        return '<span class="text-info"><strong>' + nm_button + '</strong></span>' +
+                               '<button type="button" id="close" class="close" ' + 
+                               '        onclick="$(' + id_button + ').click();">&times;</button>';
+		    }
+	    });
         }
 
         function init_rf ( jqdiv )
@@ -344,35 +403,7 @@
 	    }
 
             $(jqdiv).html("<div class='row-fluid'>" + o1_rf + "</div>");
-
-	    $("[data-toggle=popover]").popover({
-	    	    html: true,
-                    placement: 'top',
-		    content: function() {
-		        var index = $(this).attr("data-popover-content");
-
-                        var hexvalue = "Error: undefined state for popover." ;
-                        if (typeof sim_states['BR'][index] != "undefined") {
-                            hexvalue = get_value(sim_states['BR'][index]);
-                            var id_simstate = "sim_states[\"BR\"][" + index + "]" ;
-                            var id_button   = "\"#rf" + index + "\"" ;
-                        }
-                        if (typeof sim_states[index] != "undefined") {
-                            hexvalue = get_value(sim_states[index]);
-                            var id_simstate = "sim_states[" + index + "]" ;
-                            var id_button   = "\"#rp" + index + "\"" ;
-                        }
-
-                        return hex2values(hexvalue, id_simstate, id_button) ;
-		    },
-		    title: function() {
-		        var index = $(this).attr("data-popover-content");
-
-		        return '<span class="text-info"><strong>R' + index + '</strong></span>' +
-                               '<button type="button" id="close" class="close" ' + 
-                               '        onclick="$(&quot;#rf' + index + '&quot;).click();">&times;</button>';
-		    }
-	    });
+            init_popovers();
         }
 
         function fullshow_rf_values ( )
@@ -452,6 +483,7 @@
             }
 
             $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
+            init_popovers();
         }
 
         function fullshow_eltos ( sim_eltos, filter ) 
