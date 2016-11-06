@@ -284,7 +284,6 @@
         {
 	      var new_value = parseInt($("#popover1")[0].value) ;
               // TODO: new_value = new_value % 2^bits of state...
-              // TODO: popover on rf -> up (now) + on rp -> down (new)
 	      set_value(id_simstate, new_value) ;
 
 	      fullshow_rf_values() ;
@@ -332,51 +331,6 @@
 		return vtable;
         }
 
-        function init_popovers ( )
-        {
-	    $("[data-toggle=popover]").popover({
-	    	    html:      true,
-                    placement: 'top',
-		    content: function() {
-		        var index = $(this).attr("data-popover-content");
-
-                        var hexvalue    = "Error: undefined state for popover." ;
-                        var id_simstate = "sim_states[\"BR\"][0]" ;
-                        var id_button   = "\"#rf0\"" ;
-                        if (typeof sim_states['BR'][index] != "undefined") {
-                            hexvalue = get_value(sim_states['BR'][index]);
-                            id_simstate = "sim_states[\"BR\"][" + index + "]" ;
-                            id_button   = "\"#rf" + index + "\"" ;
-                        }
-                        if (typeof sim_states[index] != "undefined") {
-                            hexvalue = get_value(sim_states[index]);
-                            id_simstate = "sim_states[\"" + index + "\"]" ;
-                            id_button   = "\"#rp" + index + "\"" ;
-                        }
-
-                        return hex2values(hexvalue, id_simstate, id_button) ;
-		    },
-		    title: function() {
-		        var index = $(this).attr("data-popover-content");
-
-                        var nm_button = "R0" ;
-                        var id_button = "&quot;#rf0&quot;" ;
-                        if (typeof sim_states['BR'][index] != "undefined") {
-                            nm_button = "R" + index ;
-                            id_button = "&quot;#rf" + index + "&quot;" ;
-                        }
-                        if (typeof sim_states[index] != "undefined") {
-                            nm_button = sim_states[index].name ;
-                            id_button = "&quot;#rp" + index + "&quot;" ;
-                        }
-
-		        return '<span class="text-info"><strong>' + nm_button + '</strong></span>' +
-                               '<button type="button" id="close" class="close" ' + 
-                               '        onclick="$(' + id_button + ').click();">&times;</button>';
-		    }
-	    });
-        }
-
         function init_rf ( jqdiv )
         {
             if (jqdiv == "")
@@ -392,7 +346,7 @@
             {
 		 o1_rf += "<div class='col-xs-6 col-sm-4 col-md-4 col-lg-3' style='padding:0 5 0 5;'>" +
                           "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;' " + 
-                          "        data-toggle='popover' data-popover-content='" + index + "' data-container='body' " +
+                          "        data-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
                           "  <span id='name_RF" + index + "' style='float:center; padding:0 0 0 0'>R" + index + "</span>" + 
                           "  <span class='badge' style='background-color:#CEECF5; color:black;' id='tbl_RF"  + index + "'>" + 
@@ -403,7 +357,27 @@
 	    }
 
             $(jqdiv).html("<div class='row-fluid'>" + o1_rf + "</div>");
-            init_popovers();
+
+	    $("[data-toggle=popover-up]").popover({
+	    	    html:      true,
+                    placement: 'top',
+		    content: function() {
+		        var index = $(this).attr("data-popover-content");
+                        var hexvalue = get_value(sim_states['BR'][index]);
+                        var id_simstate = "sim_states[\"BR\"][" + index + "]" ;
+                        var id_button   = "\"#rf" + index + "\"" ;
+
+                        return hex2values(hexvalue, id_simstate, id_button) ;
+		    },
+		    title: function() {
+		        var index = $(this).attr("data-popover-content");
+                        var id_button = "&quot;#rf" + index + "&quot;" ;
+
+		        return '<span class="text-info"><strong>R' + index + '</strong></span>' +
+                               '<button type="button" id="close" class="close" ' + 
+                               '        onclick="$(' + id_button + ').click();">&times;</button>';
+		    }
+	    });
         }
 
         function fullshow_rf_values ( )
@@ -472,7 +446,7 @@
 
                 o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" + 
                       "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;' " + 
-                      "        data-toggle='popover' data-popover-content='" + s + "' data-container='body' " +
+                      "        data-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +
                       showkey + 
                       "<span class='badge' style='background-color:#CEECF5; color:black;' id='tbl_"  + s + "'>" +
@@ -483,7 +457,27 @@
             }
 
             $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
-            init_popovers();
+
+	    $("[data-toggle=popover-bottom]").popover({
+	    	    html:      true,
+                    placement: 'bottom',
+		    content: function() {
+		        var index = $(this).attr("data-popover-content");
+                        var hexvalue = get_value(sim_states[index]);
+                        var id_simstate = "sim_states[\"" + index + "\"]" ;
+                        var id_button   = "\"#rp" + index + "\"" ;
+
+                        return hex2values(hexvalue, id_simstate, id_button) ;
+		    },
+		    title: function() {
+		        var index = $(this).attr("data-popover-content");
+                        var id_button = "&quot;#rp" + index + "&quot;" ;
+
+		        return '<span class="text-info"><strong>' + sim_states[index].name + '</strong></span>' +
+                               '<button type="button" id="close" class="close" ' + 
+                               '        onclick="$(' + id_button + ').click();">&times;</button>';
+		    }
+	    });
         }
 
         function fullshow_eltos ( sim_eltos, filter ) 
