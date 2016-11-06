@@ -158,34 +158,64 @@
 	    {
 		    for (var i=0; i<obj.draw_data.length; i++)
 		    for (var j=0; j<obj.draw_data[i].length; j++) {
-	                   obj_draw(obj.draw_data[i][j], (i==value) && draw_it, get_cfg('color_data_active'), get_cfg('color_data_inactive'), get_cfg('size_active'), get_cfg('size_inactive'));
+	                   obj_draw(obj.draw_data[i][j], 
+                                    (i==value) && draw_it, 
+                                    get_cfg('color_data_active'), 
+                                    get_cfg('color_data_inactive'), 
+                                    get_cfg('size_active'), 
+                                    get_cfg('size_inactive'));
 		    }
 
 		    for (var i=0; i<obj.draw_name.length; i++)
 		    for (var j=0; j<obj.draw_name[i].length; j++) {
-	                   obj_draw(obj.draw_name[i][j], (i==value) && draw_it, get_cfg('color_name_active'), get_cfg('color_name_inactive'), get_cfg('size_active'), get_cfg('size_inactive'));
+	                   obj_draw(obj.draw_name[i][j], 
+                                    (i==value) && draw_it, 
+                                    get_cfg('color_name_active'), 
+                                    get_cfg('color_name_inactive'), 
+                                    get_cfg('size_active'), 
+                                    get_cfg('size_inactive'));
 		    }
 	    }
 	    else if (obj.nbits == 1)
 	    // (same draw) && (nbits == 1)
 	    {
 		    for (var j=0; j<obj.draw_data[0].length; j++) {
-	                   obj_draw(obj.draw_data[0][j], (0!=value) && draw_it, get_cfg('color_data_active'), get_cfg('color_data_inactive'), get_cfg('size_active'), get_cfg('size_inactive'));
+	                   obj_draw(obj.draw_data[0][j], 
+                                    (0!=value) && draw_it, 
+                                    get_cfg('color_data_active'), 
+                                    get_cfg('color_data_inactive'), 
+                                    get_cfg('size_active'), 
+                                    get_cfg('size_inactive'));
 		    }
 
 		    for (var j=0; j<obj.draw_name[0].length; j++) {
-	                   obj_draw(obj.draw_name[0][j], (0!=value) && draw_it, get_cfg('color_name_active'), get_cfg('color_name_inactive'), get_cfg('size_active'), get_cfg('size_inactive'));
+	                   obj_draw(obj.draw_name[0][j], 
+                                    (0!=value) && draw_it, 
+                                    get_cfg('color_name_active'), 
+                                    get_cfg('color_name_inactive'), 
+                                    get_cfg('size_active'), 
+                                    get_cfg('size_inactive'));
 		    }
 	    }
 	    else if (obj.draw_data.length == 1)
 	    // (same draw) && (nbits > 1)
 	    {
 		    for (var j=0; j<obj.draw_data[0].length; j++) {
-	                   obj_draw(obj.draw_data[0][j], draw_it, get_cfg('color_data_active'), get_cfg('color_data_inactive'), get_cfg('size_active'), get_cfg('size_inactive'));
+	                   obj_draw(obj.draw_data[0][j], 
+                                    draw_it, 
+                                    get_cfg('color_data_active'), 
+                                    get_cfg('color_data_inactive'), 
+                                    get_cfg('size_active'), 
+                                    get_cfg('size_inactive'));
 		    }
 
 		    for (var j=0; j<obj.draw_name[0].length; j++) {
-	                   obj_draw(obj.draw_name[0][j], draw_it, get_cfg('color_name_active'), get_cfg('color_name_inactive'), get_cfg('size_active'), get_cfg('size_inactive'));
+	                   obj_draw(obj.draw_name[0][j], 
+                                    draw_it, 
+                                    get_cfg('color_name_active'), 
+                                    get_cfg('color_name_inactive'), 
+                                    get_cfg('size_active'), 
+                                    get_cfg('size_inactive'));
 		    }
 	    }
 	}
@@ -250,6 +280,30 @@
                 return valuebin ;
         }
 
+        function hex2values_update ( index )
+        {
+	      var new_value = parseInt($("#popover1")[0].value) ;
+
+              if (typeof sim_states["BR"][index] != "undefined") 
+              {
+	          set_value(sim_states["BR"][index], new_value) ;
+	          fullshow_rf_values() ;
+                  $("#rf" + index).click() ;
+                  $("#rf" + index).click() ;
+              }
+
+              if (typeof sim_states[index] != "undefined") 
+              {
+                  if (1 == sim_states[index].nbits) 
+                      new_value = new_value % 2;
+
+	          set_value(sim_states[index], new_value) ;
+                  fullshow_eltos(sim_states, filter_states);
+                  $("#rp" + index).click() ;
+                  $("#rp" + index).click() ;
+              }
+        }
+
         function hex2values ( hexvalue, index )
         {
                 var valuebin = hex2bin(hexvalue);
@@ -261,10 +315,11 @@
 		var valuef   = hex2float(valueui);
 
 		var valuedt = "" ;
-		if (get_cfg('is_editable') == true)
+		if (get_cfg('is_editable') == true) {
 		    valuedt = "<tr><td colspan=5 align=center><input type=text id='popover1' value='" + valueui + "' data-mini='true' style='width:65%'>&nbsp;" +
-                              "<span class='badge' onclick='set_value(sim_states[\"BR\"]["+index+"],parseInt($(\"#popover1\")[0].value));" + 
-                              "                              fullshow_rf_values();$(\"#rf"+index+"\").click();$(\"#rf"+index+"\").click();'>update</span></td></tr>";
+                              "<span class='badge' " + 
+                              "      onclick='hex2values_update(\"" + index + "\");'>update</span></td></tr>";
+                }
 
 		var vtable = "<table width='100%' class='table table-bordered table-condensed'>" + 
 			     "<tr><td><small><b>hex.</b></small></td>" +
@@ -303,7 +358,7 @@
             {
 		 o1_rf += "<div class='col-xs-6 col-sm-4 col-md-4 col-lg-3' style='padding:0 5 0 5;'>" +
                           "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;' " + 
-                          "        data-toggle='popover' data-popover-content='" + index + "' data-container='body' " +
+                          "        data-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
                           "  <span id='name_RF" + index + "' style='float:center; padding:0 0 0 0'>R" + index + "</span>" + 
                           "  <span class='badge' style='background-color:#CEECF5; color:black;' id='tbl_RF"  + index + "'>" + 
@@ -315,18 +370,20 @@
 
             $(jqdiv).html("<div class='row-fluid'>" + o1_rf + "</div>");
 
-	    $("[data-toggle=popover]").popover({
-	    	    html: true,
+	    $("[data-toggle=popover-up]").popover({
+	    	    html:      true,
                     placement: 'top',
 		    content: function() {
-		        var index    = $(this).attr("data-popover-content");
+		        var index = $(this).attr("data-popover-content");
                         var hexvalue = get_value(sim_states['BR'][index]);
-                        return hex2values(hexvalue,index) ;
+                        return hex2values(hexvalue, index) ;
 		    },
 		    title: function() {
 		        var index = $(this).attr("data-popover-content");
+                        var id_button = "&quot;#rf" + index + "&quot;" ;
 		        return '<span class="text-info"><strong>R' + index + '</strong></span>' +
-                               '<button type="button" id="close" class="close" onclick="$(&quot;#rf' + index + '&quot;).click();">&times;</button>';
+                               '<button type="button" id="close" class="close" ' + 
+                               '        onclick="$(' + id_button + ').click();">&times;</button>';
 		    }
 	    });
         }
@@ -396,7 +453,10 @@
                 var divclass = divclasses[b] ;
 
                 o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" + 
-                      "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;'>" + showkey + 
+                      "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;' " + 
+                      "        data-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
+                      "        id='rp" + s + "'>" +
+                      showkey + 
                       "<span class='badge' style='background-color:#CEECF5; color:black;' id='tbl_"  + s + "'>" +
                       sim_eltos[s].value.toString(get_cfg('RF_display_format')) +
                       "</span>" +
@@ -405,6 +465,23 @@
             }
 
             $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
+
+	    $("[data-toggle=popover-bottom]").popover({
+	    	    html:      true,
+                    placement: 'bottom',
+		    content: function() {
+		        var index = $(this).attr("data-popover-content");
+                        var hexvalue = get_value(sim_states[index]);
+                        return hex2values(hexvalue, index) ;
+		    },
+		    title: function() {
+		        var index = $(this).attr("data-popover-content");
+                        var id_button = "&quot;#rp" + index + "&quot;" ;
+		        return '<span class="text-info"><strong>' + sim_states[index].name + '</strong></span>' +
+                               '<button type="button" id="close" class="close" ' + 
+                               '        onclick="$(' + id_button + ').click();">&times;</button>';
+		    }
+	    });
         }
 
         function fullshow_eltos ( sim_eltos, filter ) 
