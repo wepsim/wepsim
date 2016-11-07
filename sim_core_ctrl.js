@@ -351,10 +351,10 @@
                             }
                         }
                         else {
-				 input_help += '<div><label>' + 
+				 input_help += '<div><center><label>' + 
                                                '<input aria-label="value for ' + key + '" type="number" size=4 min=0 max=' + (nvalues - 1) + ' class=dial ' +
-                                               ' name="ask_svalue" value="' + sim_signals[key].value + '"/>' + '&nbsp;&nbsp;' + ' 0 - ' + (nvalues - 1) +
-                                               '</label></div>\n' ;
+                                               '       name="ask_svalue" value="' + sim_signals[key].value + '"/>' + '&nbsp;&nbsp;' + ' 0 - ' + (nvalues - 1) +
+                                               '</center></label></div>\n' ;
                         }
 
 			bootbox.dialog({

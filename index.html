@@ -120,15 +120,14 @@
 		      </div>
 		      <div id="eltos_cpu" class="ui-body-d ui-content" style="padding:10 0 10 0">
                            <div class="container-fluid" style="padding:0 0 0 0">
-			     <div  id="slider2d" style="display: none;">
+			     <div  id="slider2d" style="display: hidden;">
 			     <form id="slider2f" class="full-width-slider" style="margin:0 20 20 -35">
 				 <input aria-label="Show CPU/CU" type="range" name="slider2" id="slider2" 
                                         min="0" max="100" value="55" step="5"
 				        data-show-value="false"
-                                        onchange="var a = this.value;
-                                                  var b = 100 - a;
-                                                  $('#eltos_cpu_a').css({width: a+'%'});
-                                                  $('#eltos_cpu_b').css({width: b+'%'});"
+                                        onchange="set_cpu_cu_size('#eltos_cpu_a', '#eltos_cpu_b', this.value);
+					          set_cfg('CPUCU_size', this.value); 
+                                                  save_cfg();"
                                         style="display:none;">
 			     </form>
 			     </div>
@@ -917,7 +916,7 @@
 	  <div data-role="collapsible" data-collapsed="false">
 	    <h1>Platforms</h1>
 	    <p>
-                    <b>WepSIM</b> works with the most popular modern Web Browsers:
+                    <b>WepSIM</b> for Web works with the most popular modern Web Browsers:
                     Google Chrome 50+, Mozilla Firefox 45+, and Microsoft Edge 30+<br>
                     <br>
                     An <a href="https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim">Android 5.0+ version</a> version is also available at Google Play.<br>
@@ -1135,6 +1134,7 @@
                     $("#select1").val(get_cfg('ICON_theme')).selectmenu("refresh");
                     $("#select2").val(get_cfg('editor_mode')).selectmenu("refresh");
                     $("#img_select1").attr("src","images/stop_" + get_cfg('ICON_theme') + ".gif");
+                    set_cpu_cu_size('#eltos_cpu_a','#eltos_cpu_b',get_cfg('CPUCU_size'));
 
                     showhideAsmElements();
 		    $("input:checkbox").click(function(){

@@ -57,6 +57,7 @@
 
                WSCFG['NOTIF_delay']         = { value:500,                type:"int"} ;
                WSCFG['ICON_theme']          = { value:'classic',          type:"string"} ;
+               WSCFG['CPUCU_size']          = { value:55,                 type:"int"} ;
 
 		/*
 		 *  SIM working
@@ -85,10 +86,12 @@
         {
 	   try 
 	   {
-                for (var item in WSCFG) 
+                for (var item in WSCFG) {
                      localStorage.setItem('wepsim_' + item, get_cfg(item));
+                }
 	   }
-           catch(err) {
+           catch(err) 
+           {
                 console.log("WepSIM can not save the configuration in a persistent way on this web browser, found error: \n" + err.message);
 	   }
         }
@@ -99,8 +102,9 @@
 
            for (var item in WSCFG) 
            {
-                if (item == 'version')
+                if (item == 'version') {
                     continue;
+                }
 
                 try 
                 {
@@ -110,7 +114,8 @@
                    if (get_cfg(item) == null)
                        throw "null values discarted";
                 }
-                catch(err) {
+                catch(err) 
+                {
                    console.log("WepSIM can not restore the configuration on this web browser, found error: \n" + err.message);
                    reset_cfg() ;
                    return;
