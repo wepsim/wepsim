@@ -630,7 +630,7 @@
 				 Breakpoint Icon:<br>
 				 <ul>
 				 <li>
-				    <img alt="stop icon" id="img_select1" src="images/stop_classic.png" 
+				    <img alt="stop icon" id="img_select1" src="images/stop_classic.gif" 
 					 style="position:absolute; left:15px; height:30px !important; width:30px !important;">
 				    <select name="select1" id="select1" 
                                             aria-label="Breakpoint Icon"
@@ -1134,7 +1134,7 @@
 		    $("#radio9-" +       get_cfg('is_editable')).prop('checked', true).checkboxradio("refresh") ;
                     $("#select1").val(get_cfg('ICON_theme')).selectmenu("refresh");
                     $("#select2").val(get_cfg('editor_mode')).selectmenu("refresh");
-                    $("#img_select1").attr("src","images/stop_" + get_cfg('ICON_theme') + ".png");
+                    $("#img_select1").attr("src","images/stop_" + get_cfg('ICON_theme') + ".gif");
 
                     showhideAsmElements();
 		    $("input:checkbox").click(function(){

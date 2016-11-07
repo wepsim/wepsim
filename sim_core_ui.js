@@ -731,7 +731,7 @@
 
 		var trpin = "&nbsp;" ;
 		if (true == memory_dashboard[key].breakpoint)
-		    trpin = "<img alt='stop icon' height=22 src='images/stop_" + icon_theme + ".png'>" ;
+		    trpin = "<img alt='stop icon' height=22 src='images/stop_" + icon_theme + ".gif'>" ;
 
 		if (key == index)
 		     o1 += "<tr id='maddr" + key + "' " +
@@ -847,7 +847,7 @@
                     o1.innerHTML = "&nbsp;" ;
                 } else {
                     bp_state = true ;
-                    o1.innerHTML = "<img alt='stop icon' height=22 src='images/stop_" + icon_theme + ".png'>" ;
+                    o1.innerHTML = "<img alt='stop icon' height=22 src='images/stop_" + icon_theme + ".gif'>" ;
                 }
 
                 FIRMWARE.assembly[hexaddr].breakpoint = bp_state ;
@@ -865,7 +865,7 @@
                     o1.innerHTML = "&nbsp;" ;
                 } else {
                     bp_state = true ;
-                    o1.innerHTML = "<img alt='stop icon' height='22' src='images/stop_" + icon_theme + ".png'>" ;
+                    o1.innerHTML = "<img alt='stop icon' height='22' src='images/stop_" + icon_theme + ".gif'>" ;
                 }
 
                 MC_dashboard[addr].breakpoint = bp_state ;
