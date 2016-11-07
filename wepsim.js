@@ -368,6 +368,14 @@
                    }, 300);
     }
 
+    function set_cpu_cu_size ( diva, divb, new_value ) 
+    {
+	var a = new_value;
+	var b = 100 - a;
+	$('#eltos_cpu_a').css({width: a+'%'});
+	$('#eltos_cpu_b').css({width: b+'%'});
+    }
+
 
     //
     // Auxiliar functions
