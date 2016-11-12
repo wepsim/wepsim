@@ -516,6 +516,7 @@ function loadFirmware (text)
 	   	   return langError(context,
 				    "'co' is already been used by: " + context.co_cop[instruccionAux.co].signature) ;
 	       }
+
 	       if (typeof context.co_cop[instruccionAux.co] == "undefined")
 	       {
   	           context.co_cop[instruccionAux.co] = new Object() ;
