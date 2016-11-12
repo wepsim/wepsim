@@ -1015,7 +1015,7 @@
 
       <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
               <div class="ui-body-d ui-content" style="padding: 2px 2px 2px 2px;">
-                 <div id=iframe_bin1 style="height:80vh; max-width: 80vw; overflow-y: auto;">
+                 <div id=iframe_bin1 style="height:80vh; max-width:80vw; overflow:auto;">
 		   <div id="compile_results" style="padding: 16px 16px 16px 16px;">
                         <br>
                         <center>
@@ -1135,6 +1135,7 @@
                     $("#select2").val(get_cfg('editor_mode')).selectmenu("refresh");
                     $("#img_select1").attr("src","images/stop_" + get_cfg('ICON_theme') + ".gif");
                     set_cpu_cu_size('#eltos_cpu_a','#eltos_cpu_b',get_cfg('CPUCU_size'));
+                    $("#slider2").val(get_cfg('CPUCU_size')).slider("refresh");
 
                     showhideAsmElements();
 		    $("input:checkbox").click(function(){

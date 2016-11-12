@@ -746,11 +746,11 @@
 	    if (typeof memory[index] == "undefined")
 		o1 += "<tr>" + 
 		      "<td width=15%><font color=blue>0x" + parseInt(index).toString(16) + "</font></td>" + 
-		      "<td><font color=blue><b>&nbsp;</b></font></td></tr>";
+		      "<td><font color=blue><b>00 00 00 00</b></font></td></tr>";
 
             $("#memory_MP").html("<center><table class='table table-hover table-condensed table-responsive'>" + 
-                                      "<tbody id=none>" + o1 + "</tbody>" +
-                                      "</table></center>");
+                                 "<tbody id=none>" + o1 + "</tbody>" +
+                                 "</table></center>");
 
             // scroll up/down to index element...
 	    var obj_byid = $('#addr' + index) ;
@@ -1172,14 +1172,14 @@
                              }
 
                              if (0 == rows) {
-			         o += "<tr style='font-family:\'Consolas\'; font-size:11pt;'>" +
+			         o += "<tr style=\"font-family:'Consolas'; font-size:11pt;\">" +
 				      "<td align=right  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
 				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c.toUpperCase() + "</td>" +
 				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + 
                                        mp[c].substr(0,8)  + "&nbsp;" + mp[c].substr(8,8)  + "&nbsp;" + mp[c].substr(16,8) + "&nbsp;" + mp[c].substr(24,8) + "</td>" +
 				      "<td rowspan=" ;
                              } else {
-			         x += "<tr style='font-family:\'Consolas\'; font-size:11pt;'>" +
+			         x += "<tr style=\"font-family:'Consolas'; font-size:11pt;\">" +
 				      "<td align=right  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
 				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c.toUpperCase() + "</td>" +
 				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + 
@@ -1191,12 +1191,12 @@
 	             }
 
 		     if (0 == rows) {
-			 o += "<tr style='font-family:\'Consolas\'; font-size:12pt;'>" +
+			 o += "<tr style=\"font-family:'Consolas'; font-size:12pt;\">" +
 			      "<td>&nbsp;</td>" +
 			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">0x" + parseInt(seg[skey].begin).toString(16).toUpperCase() + "</td>" +
 			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">&nbsp;</td>" +
 			      "<td rowspan=" ;
-			 x += "<tr style='font-family:\'Consolas\'; font-size:12pt;'>" +
+			 x += "<tr style=\"font-family:'Consolas'; font-size:12pt;\">" +
 			      "<td>&nbsp;</td>" +
 			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">0x" + parseInt(seg[skey].end).toString(16).toUpperCase() + "</td>" +
 			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">&nbsp;</td>" +
@@ -1208,7 +1208,7 @@
                      o += rows + " align=right>" + seg[skey].name + "&nbsp;</td></tr>" + x ;
 
 	             if (seg[skey].name != ".stack") {
-		         o += "<tr style='font-family:\'Consolas\'; font-size:12pt;'>" + 
+		         o += "<tr style=\"font-family:'Consolas'; font-size:12pt;\">" + 
                               "<td>&nbsp;</td>" + 
                               "<td valign=middle align=center height=25px>...</td>" + 
                               "<td valign=middle align=center height=25px>...</td>" + 
