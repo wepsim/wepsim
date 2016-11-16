@@ -45,6 +45,23 @@ sys_print:  lb   $27 ($t0)
            li  $t1 0
            div $t1 $t1 $t0
 
+           # test int0
+           li  $t0 0
+           out $t0 0x1104
+           li  $t0 50
+           out $t0 0x1108
+
+           li  $t0 0
+           li  $t1 1
+           li  $t2 100
+       b1: beq $t0 $t2 e1
+           add $t0 $t0 $t1
+           b b1
+
+       e1: li  $t0 0
+           out $t0 0x1104
+           out $t0 0x1108
+
            # the end
            jr $ra
 
