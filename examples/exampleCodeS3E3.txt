@@ -48,7 +48,7 @@ sys_print:  lb   $27 ($t0)
            # test int0
            li  $t0 0
            out $t0 0x1104
-           li  $t0 50
+           li  $t0 1000
            out $t0 0x1108
 
            li  $t0 0
