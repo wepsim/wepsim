@@ -6,6 +6,4 @@
 * Centered knob in multi-bit values selection
 * Example 5 updated
 * IO device can be configured programmatically
-* IO device can be configured programmatically
 * Example 11 updated
-
