@@ -7,3 +7,5 @@
 * Example 5 updated
 * IO device can be configured programmatically
 * Example 11 updated
+* English help on signals has been updated
+
