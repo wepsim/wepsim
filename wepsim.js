@@ -630,11 +630,15 @@
        var examples_width = 310 * ((examples.length+1)/2) + 20;
 
        var o = '<style scoped>' +
-               '                                           .onthefly-example1 { width:' + examples_width + 'px; }' +
-               '   @media screen and (min-width: 1200px) { .onthefly-example1 { width:70vw; height:70vh; overflow:auto; } }" ' +
+               '       .onthefly-example1 { min-width:320px; width:' + examples_width + 'px; }' +
+               '       .onthefly-example2 { } ' + 
+               '   @media screen and (min-width: 1200px) { ' + 
+               '       .onthefly-example1 { min-width:320px; width:70vw; height:70vh; overflow:auto; } ' + 
+               '       .onthefly-example2 { margin:0 auto; } ' + 
+               '   }" ' +
                '</style>' +
-               '<div style="min-width:320px;" class="onthefly-example1" data-filter="true" data-children="div > span">' +
-               '<div id="masonry-grid1" style="margin:0 auto;">' ;
+               '<div class="onthefly-example1" data-filter="true" data-children="div > span">' +
+               '<div class="onthefly-example2" id="masonry-grid1">' ;
        for (var m=0; m<examples.length; m++)
        {
 	       var e_title       = examples[m]['title'] ;

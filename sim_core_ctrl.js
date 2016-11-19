@@ -359,15 +359,28 @@
 
 			bootbox.dialog({
 			       title:   '<center>' + key + ': ' +
-                                        ' <button onclick="$(\'#bot_signal\').carousel(0);" ' + 
-                                        '         type="button" class="btn btn-info">Value</button>' +
-                                        ' <button onclick="$(\'#bot_signal\').carousel(1); update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());" ' + 
-                                        '         type="button" class="btn btn-success">Help</button>' + 
+                                        ' <div class="btn-group">' +
+                                        '   <button onclick="$(\'#bot_signal\').carousel(0);" ' + 
+                                        '           type="button" class="btn btn-info">Value</button>' +
+                                        '   <button onclick="$(\'#bot_signal\').carousel(1); update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());" ' + 
+                                        '           type="button" class="btn btn-success">Help</button>' + 
+                                        '   <button type="button" class="btn btn-success dropdown-toggle" ' + 
+                                        '           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height: 33px !important;">' +
+                                        '     <span class="caret"></span>' +
+                                        '     <span class="sr-only">Toggle Help Idiom</span>' +
+                                        '   </button>' +
+                                        '   <ul class="dropdown-menu">' +
+                                        '    <li><a href="#" onclick="set_cfg(\'ws_idiom\',\'es\'); save_cfg(); $(\'#bot_signal\').carousel(1); ' +
+                                        '                             update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());">ES</a></li>' +
+                                        '    <li><a href="#" onclick="set_cfg(\'ws_idiom\',\'en\'); save_cfg(); $(\'#bot_signal\').carousel(1); ' + 
+                                        '                             update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());">EN</a></li>' +
+                                        '   </ul>' +
+                                        ' </div>' +
                                         '</center>',
                                message: '<div id="bot_signal" class="carousel slide" data-ride="carousel" data-interval="false">' +
                                         '  <div class="carousel-inner" role="listbox">' +
                                         '    <div class="item active">' +
-                                        '         <div style="max-height:75vh; width:inherit; overflow:auto;">' + 
+                                        '         <div style="max-height:70vh; width:inherit; overflow:auto;">' + 
                                         '         <form class="form-horizontal" style="white-space:nowrap;">' +
                                         '         <input aria-label="value for ' + key + '" id="ask_skey" name="ask_skey" type="hidden" value="' + key + '" class="form-control input-md"> ' +
                                         '         <ol start="0">' +
