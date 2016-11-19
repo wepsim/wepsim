@@ -44,25 +44,13 @@
 	      </p>
 	      <ul>
 	      <p>
-	        begin
-	      </p>
-	      <p>
-	        {
-	      </p>
-	      <p>
-	                fetch:    (T2, C0=1),
-	      </p>
-	      <p>
-	                             (Ta, Td, R, BW=11, C1),
-	      </p>
-	      <p>
-	                             (M2, C2, T1, C3),
-	      </p>
-	      <p>
-	                             (A0, B=0, C=0000)
-	      </p>
-	      <p>
-	        }
+	        begin<br>
+	        {<br>
+	                fetch:    (T2, C0=1),<br>
+	                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (Ta, Td, R, BW=11, C1),<br>
+	                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (M2, C2, T1, C3),<br>
+	                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (A0, B=0, C=0000)<br>
+	        }<br>
 	      </p>
 	      </ul>
 	      <p class="cleanuphtml-2">
@@ -77,43 +65,18 @@
 	      </p>
 	      <ul>
 	      <p>
-	        inst1 campo1 campo2 campo3
-	      </p>
-	      <p>
-	        {
-	      </p>
-	      <p>
-	                    co=000000,
-	      </p>
-	      <p>
-	                    nwords=1,
-	      </p>
-	      <p>
-	                    campo1=reg(25,21),
-	      </p>
-	      <p>
-	                    campo2=reg(20,16),
-	      </p>
-	      <p>
-	                    campo3=reg(15,11),
-	      </p>
-	      <p>
-	                    {
-	      </p>
-	      <p>
-	                           (Cop=1001, SelP=11, C7, T6, LE,
-	      </p>
-	      <p>
-	                             SelA=10100, SelB=01111, SelE=10111,
-	      </p>
-	      <p>
-	                             A0=1, B=1, C=0)
-	      </p>
-	      <p>
-	                    }
-	      </p>
-	      <p>
-	        }
+	        inst1 campo1 campo2 campo3<br>
+	        {<br>
+	           &nbsp;&nbsp;&nbsp;&nbsp; co=000000,<br>
+	           &nbsp;&nbsp;&nbsp;&nbsp; nwords=1,<br>
+	           &nbsp;&nbsp;&nbsp;&nbsp; campo1=reg(25,21),<br>
+	           &nbsp;&nbsp;&nbsp;&nbsp; campo2=reg(20,16),<br>
+	           &nbsp;&nbsp;&nbsp;&nbsp; campo3=reg(15,11),<br>
+	           &nbsp;&nbsp;&nbsp;&nbsp; {<br>
+	           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (Cop=1001, SelP=11, C7, T6, LC, SelA=10100, SelB=01111, SelC=10111,<br>
+	           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  A0=1, B=1, C=0)<br>
+	           &nbsp;&nbsp;&nbsp;&nbsp; }<br>
+	        }<br>
 	      </p>
 	      </ul>
 	      <p class="cleanuphtml-2">
@@ -135,46 +98,19 @@
 	         
 	      </p>
 	      <p>
-	        inst1 campo1 campo2 campo3
-	      </p>
-	      <p>
-	        {
-	      </p>
-	      <p>
-	                    co=000000,
-	      </p>
-	      <p class="cleanuphtml-3">
-	                    cop=0000,
-	      </p>
-	      <p>
-	                    nwords=1,
-	      </p>
-	      <p>
-	                    campo1=reg(25,21),
-	      </p>
-	      <p>
-	                    campo2=reg(20,16),
-	      </p>
-	      <p>
-	                    campo3=reg(15,11),
-	      </p>
-	      <p>
-	                    {
-	      </p>
-	      <p>
-	                           (Cop=1001, SelP=11, C7, T6, LE,
-	      </p>
-	      <p>
-	                             SelA=10100, SelB=01111, SelE=10111,
-	      </p>
-	      <p>
-	                             A0=1, B=1, C=0)
-	      </p>
-	      <p>
-	                    }
-	      </p>
-	      <p>
-	        }
+	        inst1 campo1 campo2 campo3<br>
+	        {<br>
+	            &nbsp;&nbsp;&nbsp;&nbsp; co=000000,<br>
+	            &nbsp;&nbsp;&nbsp;&nbsp; <b>cop=0000,</b><br>
+	            &nbsp;&nbsp;&nbsp;&nbsp; nwords=1,<br>
+	            &nbsp;&nbsp;&nbsp;&nbsp; campo1=reg(25,21),<br>
+	            &nbsp;&nbsp;&nbsp;&nbsp; campo2=reg(20,16),<br>
+	            &nbsp;&nbsp;&nbsp;&nbsp; campo3=reg(15,11),<br>
+	            &nbsp;&nbsp;&nbsp;&nbsp; {<br>
+	            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (Cop=1001, SelP=11, C7, T6, LC, SelA=10100, SelB=01111, SelC=10111,<br>
+	            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; A0=1, B=1, C=0)<br>
+	            &nbsp;&nbsp;&nbsp;&nbsp; }<br>
+	        }<br>
 	      </p>
 	      </ul>
 	      <p class="cleanuphtml-2">
@@ -182,24 +118,23 @@
 	      </p>
 	      <p>
 	        <br />
-	        Los siguientes campos indican para cada uno de los par&aacute;metros qu&eacute; tipo es (registro, inmediato o direcci&oacute;n) as&iacute; como el bit de inicio y final entre los cuales est&aacute; el valor de dicho
-	        par&aacute;metro.
+	        Los siguientes campos indican para cada uno de los par&aacute;metros qu&eacute; tipo es (registro, inmediato o direcci&oacute;n) as&iacute; como el bit de inicio y final (valor de 0 a 31) entre los cuales est&aacute; el valor de dicho par&aacute;metro.
 	      </p>
 	      <p>
 	        El tipo de par&aacute;metro se indica con:
 	      </p>
 <ul>
 	      <li>
-	        parametro1 = reg(bit-inicio, bit-final): para un registro.
+	        parametro1 = reg(bit-final, bit-inicio), <br> para un registro, siendo los 5 bits que identifican el registro a usar.
 	      </li>
 	      <li>
-	        parametro1 = inm(bit-inicio, bit-final): para un valor inmediato.
+	        parametro1 = inm(bit-final, bit-inicio), <br> para un valor inmediato.
 	      </li>
 	      <li>
-	        parametro1 = addr(bit-inicio, bit-final)rel: para una direcci&oacute;n relativa.
+	        parametro1 = addr(bit-final, bit-inicio)rel, <br> para una direcci&oacute;n relativa con respecto al PC.
 	      </li>
 	      <li>
-	        parametro1 = addr(bit-inicio, bit-final)abs: para una direcci&oacute;n absoluta.
+	        parametro1 = addr(bit-final, bit-inicio)abs, <br> para una direcci&oacute;n absoluta.
 	      </li>
 </ul>
 	      <p>
