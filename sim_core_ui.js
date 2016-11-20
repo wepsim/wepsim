@@ -130,6 +130,7 @@
             if (true == DRAW_stop)
                 return ;
 
+            /* 1) Check if draw it */
 	    var draw_it = get_cfg('is_byvalue'); // 'is_byvalue' belongs to the sim_cfg.js
 	    if (typeof sim_states["REG_MICROINS"].value[obj.name] != "undefined") {
 		draw_it = true;
@@ -153,6 +154,7 @@
 		}
 	    }
 
+            /* 2) Draw data segments... */
 	    if (obj.draw_data.length > 1)
 	    // (different draws)
 	    {
@@ -162,16 +164,6 @@
                                     (i==value) && draw_it, 
                                     get_cfg('color_data_active'), 
                                     get_cfg('color_data_inactive'), 
-                                    get_cfg('size_active'), 
-                                    get_cfg('size_inactive'));
-		    }
-
-		    for (var i=0; i<obj.draw_name.length; i++)
-		    for (var j=0; j<obj.draw_name[i].length; j++) {
-	                   obj_draw(obj.draw_name[i][j], 
-                                    (i==value) && draw_it, 
-                                    get_cfg('color_name_active'), 
-                                    get_cfg('color_name_inactive'), 
                                     get_cfg('size_active'), 
                                     get_cfg('size_inactive'));
 		    }
@@ -187,15 +179,6 @@
                                     get_cfg('size_active'), 
                                     get_cfg('size_inactive'));
 		    }
-
-		    for (var j=0; j<obj.draw_name[0].length; j++) {
-	                   obj_draw(obj.draw_name[0][j], 
-                                    (0!=value) && draw_it, 
-                                    get_cfg('color_name_active'), 
-                                    get_cfg('color_name_inactive'), 
-                                    get_cfg('size_active'), 
-                                    get_cfg('size_inactive'));
-		    }
 	    }
 	    else if (obj.draw_data.length == 1)
 	    // (same draw) && (nbits > 1)
@@ -208,7 +191,37 @@
                                     get_cfg('size_active'), 
                                     get_cfg('size_inactive'));
 		    }
+	    }
 
+            /* 3) Draw name segments... */
+	    if (obj.draw_name.length > 1)
+	    // (different draws)
+	    {
+		    for (var i=0; i<obj.draw_name.length; i++)
+		    for (var j=0; j<obj.draw_name[i].length; j++) {
+	                   obj_draw(obj.draw_name[i][j], 
+                                    (i==value) && draw_it, 
+                                    get_cfg('color_name_active'), 
+                                    get_cfg('color_name_inactive'), 
+                                    get_cfg('size_active'), 
+                                    get_cfg('size_inactive'));
+		    }
+	    }
+	    else if (obj.nbits == 1)
+	    // (same draw) && (nbits == 1)
+	    {
+		    for (var j=0; j<obj.draw_name[0].length; j++) {
+	                   obj_draw(obj.draw_name[0][j], 
+                                    (0!=value) && draw_it, 
+                                    get_cfg('color_name_active'), 
+                                    get_cfg('color_name_inactive'), 
+                                    get_cfg('size_active'), 
+                                    get_cfg('size_inactive'));
+		    }
+	    }
+	    else if (obj.draw_name.length == 1)
+	    // (same draw) && (nbits > 1)
+	    {
 		    for (var j=0; j<obj.draw_name[0].length; j++) {
 	                   obj_draw(obj.draw_name[0][j], 
                                     draw_it, 
