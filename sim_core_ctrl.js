@@ -361,11 +361,11 @@
 			       title:   '<center>' + key + ': ' +
                                         ' <div class="btn-group">' +
                                         '   <button onclick="$(\'#bot_signal\').carousel(0);" ' + 
-                                        '           type="button" class="btn btn-info">Value</button>' +
+                                        '           type="button" class="btn btn-info" style="height:34px !important;">Value</button>' +
                                         '   <button onclick="$(\'#bot_signal\').carousel(1); update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());" ' + 
-                                        '           type="button" class="btn btn-success">Help</button>' + 
+                                        '           type="button" class="btn btn-success" style="height:34px !important;">Help</button>' + 
                                         '   <button type="button" class="btn btn-success dropdown-toggle" ' + 
-                                        '           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height: 33px !important;">' +
+                                        '           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height:34px !important;">' +
                                         '     <span class="caret"></span>' +
                                         '     <span class="sr-only">Toggle Help Idiom</span>' +
                                         '   </button>' +
@@ -390,7 +390,7 @@
                                         '         </div>' +
                                         '    </div>' +
                                         '    <div class="item">' +
-                                        '         <div id=help2 style="max-height:75vh; width:inherit; overflow:auto;">Loading...</div>' +
+                                        '         <div id=help2 style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>' +
                                         '    </div>' +
                                         '  </div>' +
                                         '</div>',
