@@ -1,7 +1,6 @@
 .kdata
    vector:  .word rt_i0
             .word rt_div0
-            .word rt_sys
 
    msgi0:   .asciiz "INT: 0\n"
    msgi1:   .asciiz "FPE: _/0\n"
@@ -24,43 +23,11 @@ sys_print:  lb   $27 ($t0)
             la   $t0 msgi1
             b    sys_print
 
-  rt_sys:   # 3.- syscall
-            move $t0 $a0
-            li   $t1 4
-            beq  $v0 $t1 sys_print
-            reti 
-
-
-.data
-    helloworld: .asciiz "hello world...\n"
-
 .text
-    main:  # test syscall
-           la  $a0 helloworld
-           li  $v0 4
-           syscall
-
-           # test div 0/0
+    main:  # test div 0/0
            li  $t0 0
            li  $t1 0
            div $t1 $t1 $t0
-
-           # test int0
-           li  $t0 0
-           out $t0 0x1104
-           li  $t0 500
-           out $t0 0x1108
-
-           li  $t0 0
-           li  $t1 1
-           li  $t2 20
-       b1: beq $t0 $t2 e1
-           add $t0 $t0 $t1
-           b b1
-
-       e1: li  $t0 0
-           out $t0 0x1104
-           out $t0 0x1108
 
            # the end
            jr $ra
