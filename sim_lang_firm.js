@@ -782,6 +782,8 @@ function loadFirmware (text)
                                 // CHECK: label is defined
 				return langError(context, "MADDR label not found : " + context.labelsNotFound[i].nombre) ;
 			}
+
+                        labelsFounded = 0;
 		}
 	   }
 
