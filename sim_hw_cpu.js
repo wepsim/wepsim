@@ -146,7 +146,6 @@
 
 	/* CONTROL UNIT */
 	sim_signals["C"]    = { name: "C",    visible: true, type: "L", value: 0, default_value: 0, nbits: "4", 
-                                depends_on: ["CLK"],
 				behavior: ["MV MUXC_MUXB VAL_ZERO; FIRE B", 
 					   "MBIT_E MUXC_MUXB INT 0 1; FIRE B",
 					   "MBIT_E MUXC_MUXB IORDY 0 1; FIRE B",
@@ -170,11 +169,11 @@
 					    ['svg_cu:path3484'],
 					    ['svg_cu:path3484-9'],
 					    ['svg_cu:path3108-3','svg_cu:path3260-3-8-6','svg_cu:path3260-3-8','svg_cu:path3260-3']],
-				draw_name: [[],
-                                            ['svg_cu:path3496','svg_cu:path3414','svg_cu:path3138','svg_cu:path3498']] };
+				draw_name: [['svg_cu:path3496','svg_cu:path3414','svg_cu:path3138','svg_cu:path3498']] };
 	sim_signals["B"]   = { name: "B", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 			       behavior: ["MV_ES A1 MUXC_MUXB; FIRE A1", 
 					  "NOT_ES A1 MUXC_MUXB; FIRE A1"],
+                               depends_on: ["CLK"],
 			       fire_name: ['svg_cu:text3408'], 
 			       draw_data: [['svg_cu:path3370'], 
 					   ['svg_cu:path3392','svg_cu:path3372','svg_cu:path3390','svg_cu:path3384']], 
@@ -182,21 +181,23 @@
 	sim_signals["A0"] = { name: "A0", visible: false, type: "L", value: 0, default_value:0, nbits: "1", 
 			       behavior: ["SBIT_S A0A1 A0 1; FIRE A0A1", 
 					  "SBIT_S A0A1 A0 1; FIRE A0A1"],
+                               depends_on: ["CLK"],
 			       fire_name: ['svg_cu:text3406'], 
-			       draw_data: [[]], 
-			       draw_name: [['svg_cu:path3096']] };
+			       draw_data: [['svg_cu:path3096'], ['svg_cu:path3096']], 
+			       draw_name: [[],['svg_cu:path3096']] };
 	sim_signals["A1"] = { name: "A1", visible: false, type: "L", value: 0, default_value:0, nbits: "1", 
 			       behavior: ["SBIT_S A0A1 A1 0; FIRE A0A1", 
 					  "SBIT_S A0A1 A1 0; FIRE A0A1"],
+                               depends_on: ["CLK"],
 			       fire_name: [], 
-			       draw_data: [[], ['svg_cu:path3094']], 
+			       draw_data: [['svg_cu:path3094'], ['svg_cu:path3094']], 
 			       draw_name: [[]] };
 	sim_signals["A0A1"] = { name: "A0A1", visible: true, type: "L", value: 0, default_value: 0, nbits: "2", 
 				behavior: ["ADD MUXA_MICROADDR REG_MICROADDR SUM_ONE", 
 					   "MV_EE MUXA_MICROADDR REG_MICROINS/MADDR",
 					   "MV MUXA_MICROADDR ROM_MUXA", 
 					   "MV MUXA_MICROADDR FETCH"],
-                                depends_on: ["A0","B","C"],
+                                depends_on: ["CLK"],
 				fire_name: [], 
 				draw_data: [['svg_cu:path3102', 'svg_cu:path3100', 'svg_cu:path3098', 'svg_cu:path3100-9', 'svg_cu:path3088'], 
 					    ['svg_cu:path3104', 'svg_cu:path3134', 'svg_cu:path3500', 'svg_cu:path3416'],
@@ -551,7 +552,7 @@
 				 draw_data: [[], ['svg_p:path3733', 'svg_p:path3493', 'svg_p:text3715', 'svg_p:path3493']],  
 				 draw_name: [[], []]};
 	sim_signals["IOW"]   = { name: "IOW", visible: true, type: "L", value: 0, default_value:0, nbits: "1",  
-				 behavior: ["NOP", "MOVE_BITS SCR_IOW 0 1 IOW; FIRE SCR_IOW"],
+				 behavior: ["NOP", "MOVE_BITS SCR_IOW 0 1 IOW; FIRE SCR_IOW; MOVE_BITS IO_IOW 0 1 IOW; FIRE IO_IOW;"],
 				 fire_name: ['svg_p:text3715'],  
 				 draw_data: [[], ['svg_p:path3735', 'svg_p:path3493', 'svg_p:text3717', 'svg_p:path3493']],  
 				 draw_name: [[], []]};

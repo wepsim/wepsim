@@ -44,24 +44,12 @@
 	      </p>
 	      <ul>
 	      <p>
-	        begin
-	      </p>
-	      <p>
-	        {
-	      </p>
-	      <p>
-	                fetch:    (T2, C0=1),
-	      </p>
-	      <p>
-	                             (Ta, Td, R, BW=11, C1),
-	      </p>
-	      <p>
-	                             (M2, C2, T1, C3),
-	      </p>
-	      <p>
-	                             (A0, B=0, C=0000)
-	      </p>
-	      <p>
+	        begin <br>
+	        { <br>
+	                fetch:    (T2, C0=1), <br>
+	                             (Ta, Td, R, BW=11, C1), <br>
+	                             (M2, C2, T1, C3), <br>
+	                             (A0, B=0, C=0000) <br>
 	        }
 	      </p>
 	      </ul>
@@ -76,43 +64,18 @@
 	      </p>
 	      <ul>
 	      <p>
-	        inst1 field1 field2 field3
-	      </p>
-	      <p>
-	        {
-	      </p>
-	      <p>
-	                    co=000000,
-	      </p>
-	      <p>
-	                    nwords=1,
-	      </p>
-	      <p>
-	                    field1=reg(25,21),
-	      </p>
-	      <p>
-	                    field2=reg(20,16),
-	      </p>
-	      <p>
-	                    field3=reg(15,11),
-	      </p>
-	      <p>
-	                    {
-	      </p>
-	      <p>
-	                           (Cop=1001, SelP=11, C7, T6, LE,
-	      </p>
-	      <p>
-	                             SelA=10100, SelB=01111, SelE=10111,
-	      </p>
-	      <p>
-	                             A0=1, B=1, C=0)
-	      </p>
-	      <p>
-	                    }
-	      </p>
-	      <p>
-	        }
+	        inst1 field1 field2 field3<br>
+	        {<br>
+	                    co=000000,<br>
+	                    nwords=1,<br>
+	                    field1=reg(25,21),<br>
+	                    field2=reg(20,16),<br>
+	                    field3=reg(15,11),<br>
+	                    {<br>
+	                           (Cop=1001, SelP=11, C7, T6, LC, SelA=10100, SelB=01111, SelC=10111,<br>
+	                             A0=1, B=1, C=0)<br>
+	                    }<br>
+	        }<br>
 	      </p>
 	      </ul>
 	      <p class="cleanuphtml-2">
@@ -132,46 +95,19 @@
 	         
 	      </p>
 	      <p>
-	        inst1 field1 field2 field3
-	      </p>
-	      <p>
-	        {
-	      </p>
-	      <p>
-	                    co=000000,
-	      </p>
-	      <p class="cleanuphtml-3">
-	                    cop=0000,
-	      </p>
-	      <p>
-	                    nwords=1,
-	      </p>
-	      <p>
-	                    field1=reg(25,21),
-	      </p>
-	      <p>
-	                    field2=reg(20,16),
-	      </p>
-	      <p>
-	                    field3=reg(15,11),
-	      </p>
-	      <p>
-	                    {
-	      </p>
-	      <p>
-	                           (Cop=1001, SelP=11, C7, T6, LE,
-	      </p>
-	      <p>
-	                             SelA=10100, SelB=01111, SelE=10111,
-	      </p>
-	      <p>
+	        inst1 field1 field2 field3<br>
+	        {<br>
+	                    co=000000,<br>
+	                    <b>cop=0000,</b><br>
+	                    nwords=1,<br>
+	                    field1=reg(25,21),<br>
+	                    field2=reg(20,16),<br>
+	                    field3=reg(15,11),<br>
+	                    {<br>
+	                           (Cop=1001, SelP=11, C7, T6, LC, SelA=10100, SelB=01111, SelC=10111,<br>
 	                             A0=1, B=1, C=0)
-	      </p>
-	      <p>
-	                    }
-	      </p>
-	      <p>
-	        }
+	                    }<br>
+	        }<br>
 	      </p>
 	      </ul>
 	      <p class="cleanuphtml-2">
@@ -179,23 +115,23 @@
 	      </p>
 	      <p>
 	        <br />
-		The following fields indicate for each of the parameters what type (registration, immediately or address) as well as the start and end bit among which is the value of that parameter.
+		The following fields indicate for each of the parameters what type (registration, immediately or address) as well as the start and end bits (from 0 up to 31) where the value of that parameter is.
 	      </p>
 	      <p>
 		The parameter type is indicated by:
 	      </p>
 <ul>
 	      <li>
-	        parameter1 = reg(bit-inicio, bit-final): for a register.
+	        parameter1 = reg(last-bit, fist-bit), <br> for a register.
 	      </li>
 	      <li>
-	        parameter1 = inm(bit-inicio, bit-final): for an immediate value.
+	        parameter1 = inm(last-bit, fist-bit), <br> for an immediate value.
 	      </li>
 	      <li>
-	        parameter1 = addr(bit-inicio, bit-final)rel: for a relative address.
+	        parameter1 = addr(last-bit, fist-bit)rel, <br> for a relative (to PC register) address.
 	      </li>
 	      <li>
-	        parameter1 = addr(bit-inicio, bit-final)abs: for an absolute address.
+	        parameter1 = addr(last-bit, fist-bit)abs, <br> for an absolute address.
 	      </li>
 </ul>
 	      <p>

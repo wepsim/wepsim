@@ -120,7 +120,7 @@
                                                            (bus_ab != IOCR_ID) && 
                                                            (bus_ab != IODR_ID) ) 
                                                       {
-                                                              return; 
+                                                            return; 
                                                       }
 
                                                       if (bus_ab == IOSR_ID) 
@@ -129,6 +129,18 @@
                                                           sim_states[s_expr[4]].value = bus_db ;
                                                       if (bus_ab == IODR_ID) 
                                                           sim_states[s_expr[5]].value = bus_db ;
+
+                                                      // check & modify the timer
+                                                      var iocr_id = sim_states[s_expr[4]].value ;
+                                                      var iodr_id = sim_states[s_expr[5]].value ;
+
+                                                      if ( (iocr_id < 0) || (iocr_id > 7) ) 
+                                                            return; 
+
+                                                      IO_INT_FACTORY[iocr_id].period(iodr_id) ;
+                                                      IO_INT_FACTORY[iocr_id].probability(1) ;
+                                                      if (0 == iodr_id)
+                                                          IO_INT_FACTORY[iocr_id].probability(0) ;
                                                    }
                                       };
 
