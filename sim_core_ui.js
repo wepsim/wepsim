@@ -539,7 +539,7 @@
                               "FLAG_I,1",  "FLAG_U,1" ] ;
 
         var divclasses = [ "col-xs-12 col-sm-12 col-md-12 col-lg-12", 
-                           "col-xs-4 col-sm-3 col-md-3 col-lg-3",
+                           "col-xs-4 col-sm-2 col-md-3 col-lg-2",
                            "col-xs-4 col-sm-4 col-md-4 col-lg-4" ] ;
 
         function init_states ( jqdiv ) 
