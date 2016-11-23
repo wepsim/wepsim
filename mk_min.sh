@@ -36,7 +36,7 @@ rm -fr sim_all.js
 cat external/bootstrap.min.js \
     external/bootstrap-notify.min.js \
     external/masonry.pkgd.min.js \
-    external/knockout-3.4.0.js \
+    external/knockout-3.4.1.js \
     external/jquery.knob.min.js \
     external/bootbox.min.js \
     external/spectrum.min.js \

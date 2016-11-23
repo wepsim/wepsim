@@ -99,12 +99,12 @@
 	sim_states["MA_ALU"]         = {name:"MA_ALU",           visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim_states["MB_ALU"]         = {name:"MB_ALU",           visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
-	sim_states["FLAG_C"]         = { name: "FLAG_C",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	sim_states["FLAG_V"]         = { name: "FLAG_V",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	sim_states["FLAG_N"]         = { name: "FLAG_N",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	sim_states["FLAG_Z"]         = { name: "FLAG_Z",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	sim_states["FLAG_I"]         = { name: "FLAG_I",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	sim_states["FLAG_U"]         = { name: "FLAG_U",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+	sim_states["FLAG_C"]         = { name: "alu.C",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+	sim_states["FLAG_V"]         = { name: "alu.V",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+	sim_states["FLAG_N"]         = { name: "alu.N",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+	sim_states["FLAG_Z"]         = { name: "alu.Z",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+	sim_states["FLAG_I"]         = { name: "alu.I",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+	sim_states["FLAG_U"]         = { name: "alu.U",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
 
 	/* CONTROL UNIT */
 	sim_states["REG_MICROADDR"]  = { name: "µADDR",          visible:true, nbits: "12", value:0,  default_value:0,  draw_data: ['svg_cu:text4667']};
