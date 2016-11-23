@@ -784,7 +784,6 @@ function loadFirmware (text)
 				return langError(context, "MADDR label not found : " + context.labelsNotFound[i].nombre) ;
 			}
 
-
                         labelsFounded = 0;
 		}
 	   }
