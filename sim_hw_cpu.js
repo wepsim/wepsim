@@ -375,32 +375,32 @@
 	sim_signals["TEST_C"] = { name: "TEST_C", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		  	          behavior: ["MV FLAG_C VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_C VAL_ONE; FIRE_IFSET SELP 2"],
 		  	          fire_name: ['svg_p:tspan4417'], 
-			          draw_data: [['svg_p:path3705']], 
+			          draw_data: [['svg_p:tspan4417']], 
 			          draw_name: [[]] };
 	sim_signals["TEST_V"] = { name: "TEST_V", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		  	          behavior: ["MV FLAG_V VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_V VAL_ONE; FIRE_IFSET SELP 2"],
 		  	          fire_name: ['svg_p:tspan4453'], 
-			          draw_data: [['svg_p:path3705']], 
+			          draw_data: [['svg_p:tspan4453']], 
 			          draw_name: [[]] };
 	sim_signals["TEST_N"] = { name: "TEST_N", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		  	          behavior: ["MV FLAG_N VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_N VAL_ONE; FIRE_IFSET SELP 2"],
 		  	          fire_name: ['svg_p:tspan4455'], 
-			          draw_data: [['svg_p:path3705']], 
+			          draw_data: [['svg_p:tspan4455']], 
 			          draw_name: [[]] };
 	sim_signals["TEST_Z"] = { name: "TEST_Z", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		  	          behavior: ["MV FLAG_Z VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_Z VAL_ONE; FIRE_IFSET SELP 2"],
 		  	          fire_name: ['svg_p:tspan4457'], 
-			          draw_data: [['svg_p:path3705']], 
+			          draw_data: [['svg_p:tspan4457']], 
 			          draw_name: [[]] };
 	sim_signals["TEST_I"] = { name: "TEST_I", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		  	          behavior: ["MV FLAG_I VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_I VAL_ONE; FIRE_IFSET SELP 2"],
 		  	          fire_name: ['svg_p:tspan3894'], 
-			          draw_data: [['svg_p:path3705']], 
+			          draw_data: [['svg_p:tspan3894']], 
 			          draw_name: [[]] };
 	sim_signals["TEST_U"] = { name: "TEST_U", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 			          behavior: ["MV FLAG_U VAL_ZERO; FIRE_IFSET SELP 1", "MV FLAG_U VAL_ONE; FIRE_IFSET SELP 1"],
 			          fire_name: ['svg_p:tspan3891'], 
-			          draw_data: [['svg_p:path3643']], 
+			          draw_data: [['svg_p:tspan3891']], 
 			          draw_name: [[]] };
 
 	sim_signals["SELA"] = { name: "SELA", visible: true, type: "L", value: 0, default_value:0, nbits: "5", 
