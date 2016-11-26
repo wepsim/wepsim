@@ -319,6 +319,10 @@
 
         function hex2values ( hexvalue, index )
         {
+                var rhex = /[0-9A-Fa-f]{6}/g;
+                if (!rhex.test(hexvalue))
+                    hexvalue = 0 ;
+
                 var valuebin = hex2bin(hexvalue);
                 var valuehex = hexvalue.toString(16).toUpperCase() ;
                     valuehex = "0x" + "00000000".substring(0, 8 - valuehex.length) + valuehex;
