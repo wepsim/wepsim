@@ -532,14 +532,11 @@
 
 
         var filter_states = [ "REG_IR_DECO,0",
-                              "REG_IR,2",  "REG_PC,2",  "REG_SR,2",
-                              "REG_RT1,2", "REG_RT2,2", "REG_RT3,2",
-                              "REG_MAR,2", "REG_MBR,2", "REG_MICROADDR,2",
-                              "FLAG_C,1",  "FLAG_V,1",  "FLAG_N,1",  "FLAG_Z,1",
-                              "FLAG_I,1",  "FLAG_U,1" ] ;
+                              "REG_IR,1",  "REG_PC,1",  "REG_SR,1",
+                              "REG_RT1,1", "REG_RT1,1", "REG_RT3,1",
+                              "REG_MAR,1", "REG_MBR,1", "REG_MICROADDR,1" ] ;
 
         var divclasses = [ "col-xs-12 col-sm-12 col-md-12 col-lg-12", 
-                           "col-xs-4 col-sm-3 col-md-3 col-lg-3",
                            "col-xs-4 col-sm-4 col-md-4 col-lg-4" ] ;
 
         function init_states ( jqdiv ) 
