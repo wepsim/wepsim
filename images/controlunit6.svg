@@ -10,7 +10,7 @@
   </rdf:RDF>
  </metadata>
  <text id="text3611" style="word-spacing:0px;letter-spacing:0px" transform="scale(.99998 1)" xml:space="preserve" font-size="13.289px" y="350.36798" x="139.88812" font-family="sans-serif" line-height="125%" fill="#000000"><tspan id="tspan3615" y="342.36798" x="121.88812"/></text>
- <g id="g6000">
+ <g id="g4755" transform="matrix(1 0 0 1.0148 .000070414 -8.2241)">
   <path id="path3008" stroke-linejoin="round" d="m456.69 41.092c0-0.6113 0.52705-1.0916 1.1978-1.0916h416.27c0.62289 0 1.1978 0.4803 1.1978 1.0916v108.42c0 0.61128-0.57497 1.0915-1.1978 1.0915h-416.27c-0.67081 0-1.1978-0.48029-1.1978-1.0915zm2.3958 108.42-1.1978-1.0916h416.27l-1.1978 1.0916v-108.42l1.1978 1.0915h-416.27l1.1978-1.0915z" stroke="#000" stroke-width=".045741px"/>
   <text id="text3010" font-size="24.985px" line-height="125%" xml:space="preserve" style="text-decoration-line:underline;text-decoration:underline" transform="scale(1.0122 .98795)" y="102.81481" x="569.45844" font-family="Arial" fill="#000000">Control Memory</text>
   <text id="text3012" font-size="17.432px" xml:space="preserve" transform="scale(1.0122 .98795)" y="428.78134" x="194.49161" font-family="Arial" fill="#000000">MUX C</text>
@@ -19,7 +19,7 @@
   <text id="text3018" font-size="13.076px" xml:space="preserve" transform="scale(1.0122 .98795)" y="224.62367" x="700.47424" font-family="Arial" line-height="125%" fill="#000000"><tspan id="tspan3920" y="224.62367" x="700.47424">80</tspan></text>
   <path id="path3020" stroke-linejoin="round" d="m82.969 331.5c0-0.31504 0.33083-0.57755 0.72784-0.57755h127.57c0.41909 0 0.74991 0.26251 0.74991 0.57755v24.276c0 0.33254-0.33082 0.57755-0.74991 0.57755h-127.57c-0.39701 0-0.72784-0.24501-0.72784-0.57755zm1.4778 24.276-0.74989-0.57757h127.57l-0.72784 0.57757v-24.276l0.72784 0.57755h-127.57l0.74989-0.57755z" stroke="#000" stroke-width=".019648px"/>
   <path id="path3024" stroke-linejoin="round" d="m217.7 178.18c0 0.28183 0.29063 0.5167 0.65874 0.5167h110.03c0.36811 0 0.65872-0.23487 0.65872-0.5167v-129.03c0-0.29751-0.29061-0.53238-0.65872-0.53238h-110.03c-0.36811 0-0.65874 0.23487-0.65874 0.53238zm1.2981-129.03-0.63939 0.51675h110.03l-0.63938-0.51675v129.03l0.63938-0.51674h-110.03l0.63939 0.51674z" stroke="#000" stroke-width=".017417px"/>
-  <path id="path3026" stroke-linejoin="round" d="m376.12 38.13c0-0.3875 0.33081-0.71041 0.72781-0.71041h28.23c0.39699 0 0.72783 0.32292 0.72783 0.71041v104.75c0 0.38748-0.33084 0.71039-0.72783 0.71039h-28.23c-0.397 0-0.72781-0.32291-0.72781-0.71039zm1.4556 104.75-0.72781-0.71041h28.23l-0.74989 0.71041v-104.75l0.74989 0.73192h-28.23l0.72781-0.73192z" stroke="#000" stroke-width=".021790px"/>
+  <path id="path3026" stroke-linejoin="round" d="m376.12 49.724c0-0.3449 0.33083-0.63232 0.72784-0.63232h28.231c0.397 0 0.72786 0.28742 0.72786 0.63232v93.236c0 0.34488-0.33086 0.6323-0.72786 0.6323h-28.231c-0.39701 0-0.72784-0.28742-0.72784-0.6323zm1.4557 93.236-0.72784-0.63232h28.231l-0.74993 0.63232v-93.236l0.74993 0.65146h-28.231l0.72784-0.65146z" stroke="#000" stroke-width=".020558px"/>
   <path id="path3028" stroke-linejoin="round" d="m68.479 449.25c0 0.40899 0.32604 0.73191 0.71728 0.73191h309.74c0.39124 0 0.71728-0.32292 0.71728-0.73191v-45.788c0-0.38749-0.32604-0.71039-0.71728-0.71039h-309.74c-0.39124 0-0.71728 0.3229-0.71728 0.71039zm1.4345-45.788-0.71729 0.71041h309.74l-0.71727-0.71041v45.788l0.71727-0.71041h-309.74l0.71729 0.71041z" stroke="#000" stroke-width=".021632px"/>
   <text id="text3030" font-size="20.395px" xml:space="preserve" transform="scale(1.0122 .98795)" y="272.79852" x="103.28958" font-family="Arial" line-height="125%" fill="#000000"><tspan id="tspan4390" y="272.79852" x="103.28958">co2µaddr</tspan></text>
   <path id="path3032" stroke-linejoin="round" d="m83.046 331.5c0-0.31504 0.33085-0.57755 0.7499-0.57755h49.935c0.41907 0 0.72783 0.26251 0.72783 0.57755v24.276c0 0.33254-0.30876 0.57755-0.72783 0.57755h-49.935c-0.41906 0-0.7499-0.24501-0.7499-0.57755zm1.4778 24.276-0.72785-0.57757h49.935l-0.72787 0.57757v-24.276l0.72787 0.57755h-49.935l0.72785-0.57755z" stroke="#000" stroke-width=".019648px"/>
@@ -43,7 +43,7 @@
   <text id="text3068" font-size="18.839px" xml:space="preserve" transform="scale(1.0122 .98795)" y="122.374" x="249.29938" font-family="Arial" line-height="125%" fill="#000000">MUX A</text>
   <text id="text3072" font-size="14.491px" xml:space="preserve" transform="scale(1.0122 .98795)" y="200.36542" x="737.5708" font-family="Arial" line-height="125%" fill="#000000">µInstruction</text>
   <text id="text3076" font-size="17.432px" xml:space="preserve" transform="scale(1.0122 .98795)" y="202.66406" x="486.14575" font-family="Arial" fill="#000000">MADDR</text>
-  <text id="text3080" font-size="17.432px" xml:space="preserve" transform="matrix(0 -.98795 1.0122 0 0 0)" y="392.08975" x="-116.65189" font-family="Arial" fill="#000000">µAddr</text>
+  <text id="text3080" font-size="17.432px" xml:space="preserve" transform="matrix(0 -.98795 1.0122 0 0 0)" y="392.08975" x="-124.74949" font-family="Arial" fill="#000000">µAddr</text>
   <path id="path3082" stroke-linejoin="round" d="m404.54 90.783h47.954v1.4425h-47.954v-1.4425zm46.945-3.574 6.0131 4.3061-6.0131 4.3061v-8.6123z" stroke="#000" stroke-width=".017991px"/>
   <text id="text3084" font-size="17.432px" xml:space="preserve" transform="scale(1.0122 .98795)" y="82.487183" x="104.13128" font-family="Arial" fill="#000000">+1</text>
   <path id="path3086" fill-rule="evenodd" d="m424.93 91.511c0-1.2055 0.94837-2.1743 2.0953-2.1743s2.0953 0.9687 2.0953 2.1743c0 1.184-0.94837 2.1528-2.0953 2.1528s-2.0953-0.96874-2.0953-2.1528"/>
@@ -51,8 +51,8 @@
   <path id="path3092" stroke-linejoin="round" d="m328.17 92.894h44.218v-1.4425h-44.218v1.4425zm43.366 3.5738 5.0901-4.3059-5.0901-4.3059v8.6118z" stroke="#000" stroke-width=".016551px"/>
   <path id="path3094" stroke-linejoin="round" d="m271.11 258.57v-71.728h-1.4777v71.728h1.4777zm3.6612-70.308-4.4111-8.6108-4.4111 8.6108h8.8221z" stroke="#000" stroke-width=".021790px"/>
   <path id="path3096" stroke-linejoin="round" d="m427.82 286.38v-53.653c0-0.41788-0.18619-0.76611-0.4096-0.76611h-127.15l0.422 0.76611v-45.92h-0.83153v45.92c0 0.41788 0.1862 0.76613 0.40962 0.76613h127.15l-0.42201-0.76613v53.653zm-125.07-98.01l-2.4824-9.2863-2.4824 9.2863z" stroke="#000" stroke-width=".016976px"/>
-  <path id="path3098" stroke-linejoin="round" d="m427.93 21.863h-313.63v1.0718h313.63z" stroke="#000" stroke-width=".026368px"/>
-  <path id="path3100" stroke-linejoin="round" d="m114.74 22.317-0.15777 38.566h1.3146l0.15775-38.566z" stroke="#000" stroke-width=".0081928px"/>
+  <path id="path3098" stroke-linejoin="round" d="m427.93 29.863h-313.63v1.0718h313.63z" stroke="#000" stroke-width=".026368px"/>
+  <path id="path3100" stroke-linejoin="round" d="m114.74 30.61-0.15777 32.71h1.3146l0.15775-32.71z" stroke="#000" stroke-width=".0075451px"/>
   <path id="path3102" stroke-linejoin="round" d="m140.76 73.973h69.546v1.4425h-69.546v-1.4425zm68.162-3.5846 8.3293 4.3058-8.3293 4.3058v-8.6116z" stroke="#000" stroke-width=".010586px"/>
   <path id="path3104" stroke-linejoin="round" d="m145.02 126.36h66.051v1.4317h-66.051v-1.4317zm64.811-3.5955 7.4636 4.3062-7.4636 4.3062v-8.612z" stroke="#000" stroke-width=".010022px"/>
   <path id="path3106" stroke-linejoin="round" d="m886.62 295.81h-12.895v-1.2925h12.895zm-9.5798 2.499-4.9307-3.1649 4.9307-3.4158z" stroke="#000" stroke-width=".019466px"/>
@@ -249,7 +249,7 @@
   <path id="path3058-1" stroke-linejoin="round" d="m396.38 169.43h13.763v1.0763h-13.763z" stroke="#000" stroke-width=".043580px"/>
   <path id="path3022-6" stroke-linejoin="round" d="m89.337 290.47c0 0.19652 0.4542 0.35587 1.0144 0.35587h120.25c0.56018 0 1.0144-0.15935 1.0144-0.35587v-58.275c0-0.19655-0.45418-0.35595-1.0144-0.35595h-120.25c-0.56019 0-1.0144 0.1594-1.0144 0.35595zm2.0286-58.275-1.0144 0.35591h120.25l-1.0144-0.35591v58.275l1.0144-0.35594h-120.25l1.0144 0.35594z" stroke="#000" stroke-width=".0089682px"/>
   <path id="path3100-8" stroke-linejoin="round" d="m115.43 100.14-0.13774 132.39h1.1517l0.13773-132.39z" stroke="#000" stroke-width=".014206px"/>
-  <path id="path3100-9" stroke-linejoin="round" d="m426.7 21.776-0.13242 68.324h1.1034l0.13241-68.324z" stroke="#000" stroke-width=".0099908px"/>
+  <path id="path3100-9" stroke-linejoin="round" d="m426.7 30.151-0.13242 57.95h1.1034l0.13241-57.95z" stroke="#000" stroke-width=".0092010px"/>
   <path id="path3100-8-5" stroke-linejoin="round" d="m885.83 265.05-0.1385 30.554h1.1582l0.13849-30.554z" stroke="#000" stroke-width=".0068449px"/>
   <text id="text3172-1" font-size="15.94px" xml:space="preserve" transform="scale(1.0122 .98795)" y="304.55014" x="633.12952" font-family="Arial" line-height="125%" fill="#000000"><tspan id="tspan4412" y="304.55014" x="633.12952">MR</tspan></text>
   <path id="path3180-5" stroke-linejoin="round" d="m635.94 279.41c0-0.38759 0.18415-0.73215 0.44721-0.73215h35.829c0.23677 0 0.42089 0.34456 0.42089 0.73215v30.018c0 0.38759-0.18412 0.73214-0.42089 0.73214h-35.829c-0.26306 0-0.44721-0.34455-0.44721-0.73214zm0.86813 30.018-0.42092-0.73219h35.829l-0.44719 0.73219v-30.018l0.44719 0.73216h-35.829l0.42092-0.73216z" stroke="#000" stroke-width=".033659px"/>
