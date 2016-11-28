@@ -492,7 +492,7 @@
                 var o  = ref_p.getElementById('text3459-7');
                 if (o != null) o.addEventListener('click', 
                                                   function() { 
-                                                     execute_microinstruction(); 
+                                                     wepsim_execute_microinstruction(); 
                                                   }, false);
             }
     }
@@ -510,7 +510,12 @@
                 var o  = ref_cu.getElementById('text4138');
                 if (o != null) o.addEventListener('click', 
                                                   function() { 
-                                                     execute_microinstruction(); 
+                                                     wepsim_execute_microinstruction(); 
+                                                  }, false);
+                var o  = ref_cu.getElementById('text4138-7');
+                if (o != null) o.addEventListener('click', 
+                                                  function() { 
+                                                     wepsim_execute_microinstruction(); 
                                                   }, false);
             }
     }
