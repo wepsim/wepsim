@@ -434,19 +434,22 @@
 	sim_signals["SE"]  = { name: "SE",     visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE SBWA",
 			                  "MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE SBWA"],
+                               depends_on: ["T3"],
 			       fire_name: ['svg_p:text3593', 'svg_p:text3431'],
 			       draw_data: [[]],
 			       draw_name: [['svg_p:path3591','svg_p:path3447-7-7']] };
-	sim_signals["SIZE"]   = { name: "SIZE",   visible: true, type: "L", value: 0, default_value:0, nbits: "5",
+	sim_signals["SIZE"] = { name: "SIZE",   visible: true, type: "L", value: 0, default_value:0, nbits: "5",
 			       behavior: ['MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3'],
+                               depends_on: ["T3"],
 			       fire_name: ['svg_p:text3363'],
 			       draw_data: [[]],
-			       draw_name: [[]] };
+			       draw_name: [['svg_p:path3355']] };
 	sim_signals["OFFSET"] = { name: "OFFSET", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
 			       behavior: ['MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3'],
+                               depends_on: ["T3"],
 			       fire_name: ['svg_p:text3707'],
 			       draw_data: [[]],
-			       draw_name: [[]] };
+			       draw_name: [['svg_p:path3359']] };
 
 	sim_signals["MC"]  = { name: "MC", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ['MBIT_S COP REG_IR 0 4; FIRE COP',
