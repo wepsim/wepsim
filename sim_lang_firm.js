@@ -517,12 +517,12 @@ function loadFirmware (text)
 				    "'co' is already been used by: " + context.co_cop[instruccionAux.co].signature) ;
 	       }
 
-	       if (typeof context.co_cop[instruccionAux.co] == "undefined")
+               if (typeof context.co_cop[instruccionAux.co] == "undefined")
 	       {
-  	           context.co_cop[instruccionAux.co] = new Object() ;
-	           context.co_cop[instruccionAux.co].signature = instruccionAux.signature ;
-	           context.co_cop[instruccionAux.co].cop       = null ;
-	       }
+	           context.co_cop[instruccionAux.co] = new Object() ;
+   	           context.co_cop[instruccionAux.co].signature = instruccionAux.signature ;
+                   context.co_cop[instruccionAux.co].cop       = null ;
+	       }		   
 
 	       nextToken(context);
 	       // match optional ,
@@ -783,6 +783,8 @@ function loadFirmware (text)
                                 // CHECK: label is defined
 				return langError(context, "MADDR label not found : " + context.labelsNotFound[i].nombre) ;
 			}
+
+                        labelsFounded = 0;
 		}
 	   }
 
