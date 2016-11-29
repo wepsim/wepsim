@@ -971,7 +971,10 @@
 
 	function show_dbg_mpc ( )
 	{
-                show_control_memory(MC, MC_dashboard, get_value(sim_states['REG_MICROADDR']), false) ;
+                show_control_memory(MC, 
+                                    MC_dashboard, 
+                                    get_value(sim_states['REG_MICROADDR']), 
+                                    false) ;
 	}
 
 	function show_dbg_ir ( decins )
