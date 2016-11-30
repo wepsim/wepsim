@@ -402,10 +402,10 @@
 			        draw_data: [[]],
 			        draw_name: [[]] };
 	sim_signals["EXCODE"] = { name: "EXCODE", visible: true, type: "L", value: 0, default_value:0, nbits: "4",
-			        behavior: ["FIRE T11"],
-			        fire_name: ['svg_cu:text3312-6'],
-			        draw_data: [[]],
-			        draw_name: [[]] };
+			          behavior: ["FIRE T11"],
+			          fire_name: ['svg_cu:text3312-6'],
+			          draw_data: [[]],
+			          draw_name: [[]] };
 
 	sim_signals["RA"]  = { name: "RA", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
 			       behavior: ["GET RA_T9 BR RA; FIRE_IFSET T9 1; FIRE_IFSET MA 0"],
@@ -455,7 +455,7 @@
 			       behavior: ['MBIT_S COP REG_IR 0 4; FIRE COP',
 					  'MV_ES COP REG_MICROINS/SELCOP; FIRE COP'],
                                depends_on: ["SELCOP"],
-			       fire_name: ['svg_cu:text3322'],
+			       fire_name: ['svg_cu:text3322','svg_cu:text3172-1-5'],
 			       draw_data: [['svg_cu:path3320', 'svg_cu:path3142'],['svg_cu:path3318', 'svg_cu:path3502-6', 'svg_cu:path3232-6']],
 			       draw_name: [[],['svg_cu:path3306']] }; /*path3210 print red color line of rest of control signals*/
 
@@ -463,7 +463,7 @@
 			       behavior: ['MBIT_SN RA REG_IR REG_MICROINS/SELA 5; FIRE RA; MBIT_SN RB REG_IR REG_MICROINS/SELB 5; FIRE RB; MBIT_SN RC REG_IR REG_MICROINS/SELC 5; FIRE RC',
 					  'MV_ES RA REG_MICROINS/SELA; MV_ES RB REG_MICROINS/SELB; MV_ES RC REG_MICROINS/SELC;'],
                                depends_on: ["SELA","SELB","SELC"],
-			       fire_name: ['svg_cu:text3222','svg_cu:text3242','svg_cu:text3254'],
+			       fire_name: ['svg_cu:text3222','svg_cu:text3242','svg_cu:text3254','svg_cu:text3172-1'],
 			       draw_data: [['svg_cu:path3494','svg_cu:path3492','svg_cu:path3490','svg_cu:path3142b','svg_cu:path3188',
                                             'svg_cu:path3190','svg_cu:path3192','svg_cu:path3194','svg_cu:path3276','svg_cu:path3290',
                                             'svg_cu:path3260','svg_cu:path3196','svg_cu:path3502','svg_cu:path3278','svg_cu:path3232','svg_cu:path3292'],
@@ -596,8 +596,8 @@
 
 
 	/*
-	*  Syntax of behaviors
-	*/
+	 *  Syntax of behaviors
+	 */
 
 	syntax_behavior["NOP"]   = { nparameters: 1,
 				     operation: function(s_expr) {}
