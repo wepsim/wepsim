@@ -239,7 +239,7 @@
 	sim_signals["C6"] = { name: "C6", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV REG_RT3 ALU_C6"],
 			       fire_name: ['svg_p:text3445'],
-			       draw_data: [['svg_p:path3261-8', 'svg_p:path3321', 'svg_p:path3901-6', 'svg_p:path3325', 'svg_p:path3323', 'svg_p:path3317-9']],
+			       draw_data: [['svg_p:path3325', 'svg_p:path3323']],
 			       draw_name: [['svg_p:path3245']] };
 	sim_signals["C7"] = { name: "C7", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV REG_SR M7_C7; FIRE C"],
@@ -286,7 +286,7 @@
 	sim_signals["T6"]  = { name: "T6",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["FIRE_IFSET C6 1", "MV BUS_IB ALU_C6; FIRE M7; FIRE M2; FIRE M1"],
 			       fire_name: ['svg_p:text3457'],
-			       draw_data: [['svg_p:path3589', 'svg_p:path3317', 'svg_p:path3321', 'svg_p:path3901-6', 'svg_p:path3163-2','svg_p:path3049', 'svg_p:path3261-8','svg_p:path3317-9']],
+			       draw_data: [['svg_p:path3589', 'svg_p:path3317', 'svg_p:path3163-2','svg_p:path3049']],
 			       draw_name: [['svg_p:path3319']] };
 	sim_signals["T7"]  = { name: "T7",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV BUS_IB REG_RT3; FIRE M7; FIRE M2; FIRE M1"],
@@ -366,7 +366,8 @@
 					  "LUI ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3"],
                                depends_on: ["SELCOP"],
 			       fire_name: ['svg_p:text3303'],
-			       draw_data: [['svg_p:path3237', 'svg_p:path3239']],
+			       draw_data: [['svg_p:path3237', 'svg_p:path3239', 
+                                            'svg_p:path3261-8', 'svg_p:path3321', 'svg_p:path3901-6', 'svg_p:path3317-9']],
 			       draw_name: [['svg_p:path3009', 'svg_p:path3301']] };
 	sim_signals["SELP"] = { name: "SELP",   visible: true, type: "L", value: 0, default_value:0, nbits: "2",
 				behavior: ['NOP',
