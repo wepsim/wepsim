@@ -284,7 +284,7 @@
 			       draw_data: [['svg_p:path3275', 'svg_p:path3273','svg_p:path3049']],
 			       draw_name: [['svg_p:path3307']] };
 	sim_signals["T6"]  = { name: "T6",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV BUS_IB ALU_C6; FIRE M7; FIRE M2; FIRE M1"],
+			       behavior: ["FIRE_IFSET C6 1", "MV BUS_IB ALU_C6; FIRE M7; FIRE M2; FIRE M1"],
 			       fire_name: ['svg_p:text3457'],
 			       draw_data: [['svg_p:path3589', 'svg_p:path3317', 'svg_p:path3321', 'svg_p:path3901-6', 'svg_p:path3163-2','svg_p:path3049', 'svg_p:path3261-8','svg_p:path3317-9']],
 			       draw_name: [['svg_p:path3319']] };
