@@ -169,7 +169,7 @@
 					    ['svg_cu:path3484'],
 					    ['svg_cu:path3484-9'],
 					    ['svg_cu:path3108-3','svg_cu:path3260-3-8-6','svg_cu:path3260-3-8','svg_cu:path3260-3']],
-				draw_name: [['svg_cu:path3496','svg_cu:path3414','svg_cu:path3138','svg_cu:path3498']] };
+				draw_name: [['svg_cu:path3496','svg_cu:path3414','svg_cu:path3194-08']] };
 	sim_signals["B"]   = { name: "B", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["MV_ES A1 MUXC_MUXB; FIRE A1",
 					  "NOT_ES A1 MUXC_MUXB; FIRE A1"],
@@ -177,14 +177,14 @@
 			       fire_name: ['svg_cu:text3408'],
 			       draw_data: [['svg_cu:path3094-7'],
 					   ['svg_cu:path3392','svg_cu:path3372','svg_cu:path3390','svg_cu:path3384','svg_cu:path3108-1','svg_cu:path3100-8-7']],
-			       draw_name: [[],['svg_cu:path3194-0','svg_cu:path3138-8','svg_cu:path3498-6','svg_cu:path3138-8-1']] };
+			       draw_name: [[],['svg_cu:path3194-0','svg_cu:path3138-8','svg_cu:path3498-6']] };
 	sim_signals["A0"] = { name: "A0", visible: false, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["SBIT_S A0A1 A0 1; FIRE A0A1",
 					  "SBIT_S A0A1 A0 1; FIRE A0A1"],
                                depends_on: ["CLK"],
 			       fire_name: ['svg_cu:text3406'],
 			       draw_data: [['svg_cu:path3096'], ['svg_cu:path3096']],
-			       draw_name: [[],['svg_cu:path3096']] };
+			       draw_name: [[],['svg_cu:path3138-8-1','svg_cu:path3098-2','svg_cu:path3124-2-5']] };
 	sim_signals["A1"] = { name: "A1", visible: false, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["SBIT_S A0A1 A1 0; FIRE A0A1",
 					  "SBIT_S A0A1 A1 0; FIRE A0A1"],
