@@ -295,7 +295,7 @@
 
         function hex2values_update ( index )
         {
-	      var new_value = parseInt($("#popover1")[0].value) ;
+	      var new_value = parseInt($("#popover1")[0].value) >>> 0;
 
               if (typeof sim_states["BR"][index] != "undefined") 
               {
@@ -319,7 +319,7 @@
 
         function hex2values ( hexvalue, index )
         {
-                var rhex = /[0-9A-Fa-f]{6}/g;
+                var rhex = /[0-9A-F]{1,8}/gi;
                 if (!rhex.test(hexvalue))
                     hexvalue = 0 ;
 
