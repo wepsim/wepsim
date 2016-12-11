@@ -325,7 +325,7 @@
 			       behavior: ["MV M2_C2 BUS_IB", "ADD M2_C2 REG_PC VAL_FOUR"],
                                depends_on: ["C2"],
 			       fire_name: ['svg_p:text3471'],
-			       draw_data: [['svg_p:path3217', 'svg_p:path3215', 'svg_p:path3213'],
+			       draw_data: [['svg_p:path3217', 'svg_p:path3215', 'svg_p:path3213', 'svg_p:path3213-9'],
 					   ['svg_p:path3211', 'svg_p:path3209', 'svg_p:path3193', 'svg_p:path3207', 'svg_p:path3197', 'svg_p:path3201']],
 			       draw_name: [[], ['svg_p:path3467', 'svg_p:path3467']]};
 	sim_signals["M7"]  = { name: "M7", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
