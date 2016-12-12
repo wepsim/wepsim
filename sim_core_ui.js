@@ -295,7 +295,7 @@
 
         function hex2values_update ( index )
         {
-	      var new_value = parseInt($("#popover1")[0].value) >>> 0;
+	      var new_value = parseInt($("#popover1")[0].value) ;
 
               if (typeof sim_states["BR"][index] != "undefined") 
               {
