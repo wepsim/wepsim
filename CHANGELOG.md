@@ -3,6 +3,8 @@
 * FLAGS interaction moved from register tab into processor image (you can click on the associated letter C, V, N, Z...)
 * Improved processor image
 * Completed some signal drawing
+* Try to avoid accidentally close the browser tab with WepSIM
+* Register file' registers can be updated with negative values easier
 
 1.7.0 -> 1.7.1:
 * All register can be visualized and changed (not only the register file elements)
