@@ -295,7 +295,7 @@
 
         function hex2values_update ( index )
         {
-	      var new_value = parseInt($("#popover1")[0].value) ;
+	      var new_value = parseInt($("#popover1")[0].value) >>> 0;
 
               if (typeof sim_states["BR"][index] != "undefined") 
               {
@@ -319,7 +319,7 @@
 
         function hex2values ( hexvalue, index )
         {
-                var rhex = /[0-9A-Fa-f]{6}/g;
+                var rhex = /[0-9A-F]{1,8}/gi;
                 if (!rhex.test(hexvalue))
                     hexvalue = 0 ;
 
@@ -537,7 +537,7 @@
 
         var filter_states = [ "REG_IR_DECO,0",
                               "REG_IR,1",  "REG_PC,1",  "REG_SR,1",
-                              "REG_RT1,1", "REG_RT1,1", "REG_RT3,1",
+                              "REG_RT1,1", "REG_RT2,1", "REG_RT3,1",
                               "REG_MAR,1", "REG_MBR,1", "REG_MICROADDR,1" ] ;
 
         var divclasses = [ "col-xs-12 col-sm-12 col-md-12 col-lg-12", 
@@ -971,7 +971,10 @@
 
 	function show_dbg_mpc ( )
 	{
-                show_control_memory(MC, MC_dashboard, get_value(sim_states['REG_MICROADDR']), false) ;
+                show_control_memory(MC, 
+                                    MC_dashboard, 
+                                    get_value(sim_states['REG_MICROADDR']), 
+                                    false) ;
 	}
 
 	function show_dbg_ir ( decins )
@@ -1011,7 +1014,7 @@
 				"M1,0",   "M2,0",   "M7,0",  "MA,0",   "MB,0",  
                                 "SELP,0", "LC,0",   "SE,0",  "SIZE,0", "OFFSET,0",
                                 "BW,0",   "R,0",    "W,0",   "TA,0",   "TD,0",   "IOR,0",  "IOW,0",  
-                                "I,0",    "U,0"  ] ;
+                                "TEST_I,0",    "TEST_U,0"  ] ;
 
 		var h = "<tr bgcolor=#FF9900>" + 
                         "<td bgcolor=white     style='border-style: solid; border-width:0px; border-color:lightgray;'></td>" + 

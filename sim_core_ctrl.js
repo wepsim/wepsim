@@ -274,7 +274,8 @@
 
 	    var pos = get_value(sim_states["REG_MICROADDR"]) - parseInt(SIMWARE['firmware'][assoc_i]["mc-start"]) ;
 	    if (typeof SIMWARE['firmware'][assoc_i]["microcode"][pos] == "undefined") {
-		SIMWARE['firmware'][assoc_i]["microcode"][pos] = new Object() ;
+		SIMWARE['firmware'][assoc_i]["microcode"][pos]     = new Object() ;
+		SIMWARE['firmware'][assoc_i]["microcomments"][pos] = "" ;
 	    }
 	    SIMWARE['firmware'][assoc_i]["microcode"][pos][key] = sim_signals[key].value ;
 
@@ -611,7 +612,7 @@
                 return true;
         }
 
-        function reset()
+        function reset ()
         {
             // Hardware
 	    var SIMWARE = get_simware() ;
@@ -626,7 +627,8 @@
                     show_asmdbg_pc() ;
 	    }
 
-	    if (typeof segments['.stack'] != "undefined")
+	    if ( (typeof segments['.stack'] != "undefined") && 
+                 (typeof sim_states["BR"][FIRMWARE.stackRegister] != "undefined") )
 	    {
 		set_value(sim_states["BR"][FIRMWARE.stackRegister], parseInt(segments['.stack'].begin));
 	    }
