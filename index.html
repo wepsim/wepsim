@@ -133,14 +133,14 @@
 			     </div>
 			     <div class="ui-grid-a">
 				<div class="ui-block-a" id="eltos_cpu_a" style="padding:0 0 0 0; width:60%">
-				    <object id="svg_p" data="images/processor5.svg" type="image/svg+xml">
+				    <object id="svg_p" data="images/processor6.svg" type="image/svg+xml">
 					Your browser doesn't support SVG
 				    </object>
 				    <img alt="fire" id="internalbus_fire" src="images/fire.gif" height=50 style="position:absolute; top:55%; left:5%;  display:none;">
 				    <img alt="fire" id="databus_fire"     src="images/fire.gif" height=50 style="position:absolute; top:23%; left:25%; display:none;">
 				</div>
 				<div class="ui-block-b" id="eltos_cpu_b" style="padding:0 0 0 0; width:40%">
-				    <object id="svg_cu" data="images/controlunit5.svg" type="image/svg+xml">
+				    <object id="svg_cu" data="images/controlunit6.svg" type="image/svg+xml">
 					Your browser doesn't support SVG
 				    </object>
 				</div>
@@ -369,7 +369,7 @@
                             <a href="#" style="background-color: #D4DB17"
                                    class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-6 col-md-2 col-lg-2"
 				   onclick="$('#help1_ref').data('relative','');
-                                            $('#iframe_help1').html('<object id=svg_p2 data=\'images/cpu5.svg?time=20161010a\' type=image/svg+xml>Your browser does not support SVG</object>');
+                                            $('#iframe_help1').html('<object id=svg_p2 data=\'images/cpu6.svg?time=20161202\' type=image/svg+xml>Your browser does not support SVG</object>');
                                             $('#help1').trigger('updatelayout');
                                             $('#help1').popup('reposition', {positionTo: 'window'});
 					    $('#help1').popup('open');"
@@ -647,6 +647,8 @@
 					<option value="dog1">Dog</option>
 					<option value="r2d2">R2-D2</option>
 					<option value="sw">Death Star</option>
+					<option value="bb8">BB-8</option>
+					<option value="vader1">Dark Vader</option>
 				    </select>
 				 </li>
 				 </ul>
@@ -1032,6 +1034,12 @@
 
 
 <script>
+    window.addEventListener("beforeunload", function (e) {
+       var confirmationMessage = "\o/";
+       (e || window.event).returnValue = confirmationMessage; // Gecko + IE
+       return confirmationMessage;                            // Webkit, Safari, Chrome
+    });
+
     try 
     {
 	    restore_cfg();

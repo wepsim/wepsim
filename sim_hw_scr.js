@@ -43,7 +43,7 @@
 
         sim_signals["SCR_IOW"] = { name: "IOW", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		                   behavior: ["NOP", "SCR_IOW BUS_AB BUS_DB DDR DSR CLK"],
-                                   fire_name: ['svg_p:tspan4004'], 
+                                   fire_name: ['svg_p:tspan4006'], 
                                    draw_data: [[], ['svg_p:path3873', 'svg_p:path3857']], 
                                    draw_name: [[], []]};
 
