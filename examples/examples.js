@@ -67,3 +67,9 @@
                      description: "Advanced example with floating point exception.<br>" 
                   });
 
+    examples.push({ 
+                     id: 'S3E4',
+                     title: "Advanced: int. + syscall + except.",
+                     description: "Advanced example with interruption, system call, and exception.<br>" 
+                  });
+
