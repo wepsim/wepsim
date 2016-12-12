@@ -274,7 +274,8 @@
 
 	    var pos = get_value(sim_states["REG_MICROADDR"]) - parseInt(SIMWARE['firmware'][assoc_i]["mc-start"]) ;
 	    if (typeof SIMWARE['firmware'][assoc_i]["microcode"][pos] == "undefined") {
-		SIMWARE['firmware'][assoc_i]["microcode"][pos] = new Object() ;
+		SIMWARE['firmware'][assoc_i]["microcode"][pos]     = new Object() ;
+		SIMWARE['firmware'][assoc_i]["microcomments"][pos] = "" ;
 	    }
 	    SIMWARE['firmware'][assoc_i]["microcode"][pos][key] = sim_signals[key].value ;
 
@@ -351,23 +352,36 @@
                             }
                         }
                         else {
-				 input_help += '<div><label>' + 
+				 input_help += '<div><center><label>' + 
                                                '<input aria-label="value for ' + key + '" type="number" size=4 min=0 max=' + (nvalues - 1) + ' class=dial ' +
-                                               ' name="ask_svalue" value="' + sim_signals[key].value + '"/>' + '&nbsp;&nbsp;' + ' 0 - ' + (nvalues - 1) +
-                                               '</label></div>\n' ;
+                                               '       name="ask_svalue" value="' + sim_signals[key].value + '"/>' + '&nbsp;&nbsp;' + ' 0 - ' + (nvalues - 1) +
+                                               '</center></label></div>\n' ;
                         }
 
 			bootbox.dialog({
 			       title:   '<center>' + key + ': ' +
-                                        ' <button onclick="$(\'#bot_signal\').carousel(0);" ' + 
-                                        '         type="button" class="btn btn-info">Value</button>' +
-                                        ' <button onclick="$(\'#bot_signal\').carousel(1); update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());" ' + 
-                                        '         type="button" class="btn btn-success">Help</button>' + 
+                                        ' <div class="btn-group">' +
+                                        '   <button onclick="$(\'#bot_signal\').carousel(0);" ' + 
+                                        '           type="button" class="btn btn-info" style="height:34px !important;">Value</button>' +
+                                        '   <button onclick="$(\'#bot_signal\').carousel(1); update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());" ' + 
+                                        '           type="button" class="btn btn-success" style="height:34px !important;">Help</button>' + 
+                                        '   <button type="button" class="btn btn-success dropdown-toggle" ' + 
+                                        '           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height:34px !important;">' +
+                                        '     <span class="caret"></span>' +
+                                        '     <span class="sr-only">Toggle Help Idiom</span>' +
+                                        '   </button>' +
+                                        '   <ul class="dropdown-menu">' +
+                                        '    <li><a href="#" onclick="set_cfg(\'ws_idiom\',\'es\'); save_cfg(); $(\'#bot_signal\').carousel(1); ' +
+                                        '                             update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());">ES</a></li>' +
+                                        '    <li><a href="#" onclick="set_cfg(\'ws_idiom\',\'en\'); save_cfg(); $(\'#bot_signal\').carousel(1); ' + 
+                                        '                             update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());">EN</a></li>' +
+                                        '   </ul>' +
+                                        ' </div>' +
                                         '</center>',
                                message: '<div id="bot_signal" class="carousel slide" data-ride="carousel" data-interval="false">' +
                                         '  <div class="carousel-inner" role="listbox">' +
                                         '    <div class="item active">' +
-                                        '         <div style="max-height:75vh; width:inherit; overflow:auto;">' + 
+                                        '         <div style="max-height:70vh; width:inherit; overflow:auto;">' + 
                                         '         <form class="form-horizontal" style="white-space:nowrap;">' +
                                         '         <input aria-label="value for ' + key + '" id="ask_skey" name="ask_skey" type="hidden" value="' + key + '" class="form-control input-md"> ' +
                                         '         <ol start="0">' +
@@ -377,7 +391,7 @@
                                         '         </div>' +
                                         '    </div>' +
                                         '    <div class="item">' +
-                                        '         <div id=help2 style="max-height:75vh; width:inherit; overflow:auto;">Loading...</div>' +
+                                        '         <div id=help2 style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>' +
                                         '    </div>' +
                                         '  </div>' +
                                         '</div>',
@@ -598,7 +612,7 @@
                 return true;
         }
 
-        function reset()
+        function reset ()
         {
             // Hardware
 	    var SIMWARE = get_simware() ;
@@ -613,7 +627,8 @@
                     show_asmdbg_pc() ;
 	    }
 
-	    if (typeof segments['.stack'] != "undefined")
+	    if ( (typeof segments['.stack'] != "undefined") && 
+                 (typeof sim_states["BR"][FIRMWARE.stackRegister] != "undefined") )
 	    {
 		set_value(sim_states["BR"][FIRMWARE.stackRegister], parseInt(segments['.stack'].begin));
 	    }

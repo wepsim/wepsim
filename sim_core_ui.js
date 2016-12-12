@@ -130,6 +130,7 @@
             if (true == DRAW_stop)
                 return ;
 
+            /* 1) Check if draw it */
 	    var draw_it = get_cfg('is_byvalue'); // 'is_byvalue' belongs to the sim_cfg.js
 	    if (typeof sim_states["REG_MICROINS"].value[obj.name] != "undefined") {
 		draw_it = true;
@@ -153,39 +154,81 @@
 		}
 	    }
 
+            /* 2) Draw data segments... */
 	    if (obj.draw_data.length > 1)
 	    // (different draws)
 	    {
 		    for (var i=0; i<obj.draw_data.length; i++)
 		    for (var j=0; j<obj.draw_data[i].length; j++) {
-	                   obj_draw(obj.draw_data[i][j], (i==value) && draw_it, get_cfg('color_data_active'), get_cfg('color_data_inactive'), get_cfg('size_active'), get_cfg('size_inactive'));
-		    }
-
-		    for (var i=0; i<obj.draw_name.length; i++)
-		    for (var j=0; j<obj.draw_name[i].length; j++) {
-	                   obj_draw(obj.draw_name[i][j], (i==value) && draw_it, get_cfg('color_name_active'), get_cfg('color_name_inactive'), get_cfg('size_active'), get_cfg('size_inactive'));
+	                   obj_draw(obj.draw_data[i][j], 
+                                    (i==value) && draw_it, 
+                                    get_cfg('color_data_active'), 
+                                    get_cfg('color_data_inactive'), 
+                                    get_cfg('size_active'), 
+                                    get_cfg('size_inactive'));
 		    }
 	    }
 	    else if (obj.nbits == 1)
 	    // (same draw) && (nbits == 1)
 	    {
 		    for (var j=0; j<obj.draw_data[0].length; j++) {
-	                   obj_draw(obj.draw_data[0][j], (0!=value) && draw_it, get_cfg('color_data_active'), get_cfg('color_data_inactive'), get_cfg('size_active'), get_cfg('size_inactive'));
-		    }
-
-		    for (var j=0; j<obj.draw_name[0].length; j++) {
-	                   obj_draw(obj.draw_name[0][j], (0!=value) && draw_it, get_cfg('color_name_active'), get_cfg('color_name_inactive'), get_cfg('size_active'), get_cfg('size_inactive'));
+	                   obj_draw(obj.draw_data[0][j], 
+                                    (0!=value) && draw_it, 
+                                    get_cfg('color_data_active'), 
+                                    get_cfg('color_data_inactive'), 
+                                    get_cfg('size_active'), 
+                                    get_cfg('size_inactive'));
 		    }
 	    }
 	    else if (obj.draw_data.length == 1)
 	    // (same draw) && (nbits > 1)
 	    {
 		    for (var j=0; j<obj.draw_data[0].length; j++) {
-	                   obj_draw(obj.draw_data[0][j], draw_it, get_cfg('color_data_active'), get_cfg('color_data_inactive'), get_cfg('size_active'), get_cfg('size_inactive'));
+	                   obj_draw(obj.draw_data[0][j], 
+                                    draw_it, 
+                                    get_cfg('color_data_active'), 
+                                    get_cfg('color_data_inactive'), 
+                                    get_cfg('size_active'), 
+                                    get_cfg('size_inactive'));
 		    }
+	    }
 
+            /* 3) Draw name segments... */
+	    if (obj.draw_name.length > 1)
+	    // (different draws)
+	    {
+		    for (var i=0; i<obj.draw_name.length; i++)
+		    for (var j=0; j<obj.draw_name[i].length; j++) {
+	                   obj_draw(obj.draw_name[i][j], 
+                                    (i==value) && draw_it, 
+                                    get_cfg('color_name_active'), 
+                                    get_cfg('color_name_inactive'), 
+                                    get_cfg('size_active'), 
+                                    get_cfg('size_inactive'));
+		    }
+	    }
+	    else if (obj.nbits == 1)
+	    // (same draw) && (nbits == 1)
+	    {
 		    for (var j=0; j<obj.draw_name[0].length; j++) {
-	                   obj_draw(obj.draw_name[0][j], draw_it, get_cfg('color_name_active'), get_cfg('color_name_inactive'), get_cfg('size_active'), get_cfg('size_inactive'));
+	                   obj_draw(obj.draw_name[0][j], 
+                                    (0!=value) && draw_it, 
+                                    get_cfg('color_name_active'), 
+                                    get_cfg('color_name_inactive'), 
+                                    get_cfg('size_active'), 
+                                    get_cfg('size_inactive'));
+		    }
+	    }
+	    else if (obj.draw_name.length == 1)
+	    // (same draw) && (nbits > 1)
+	    {
+		    for (var j=0; j<obj.draw_name[0].length; j++) {
+	                   obj_draw(obj.draw_name[0][j], 
+                                    draw_it, 
+                                    get_cfg('color_name_active'), 
+                                    get_cfg('color_name_inactive'), 
+                                    get_cfg('size_active'), 
+                                    get_cfg('size_inactive'));
 		    }
 	    }
 	}
@@ -250,21 +293,50 @@
                 return valuebin ;
         }
 
+        function hex2values_update ( index )
+        {
+	      var new_value = parseInt($("#popover1")[0].value) ;
+
+              if (typeof sim_states["BR"][index] != "undefined") 
+              {
+	          set_value(sim_states["BR"][index], new_value) ;
+	          fullshow_rf_values() ;
+                  $("#rf" + index).click() ;
+                  $("#rf" + index).click() ;
+              }
+
+              if (typeof sim_states[index] != "undefined") 
+              {
+                  if (1 == sim_states[index].nbits) 
+                      new_value = new_value % 2;
+
+	          set_value(sim_states[index], new_value) ;
+                  fullshow_eltos(sim_states, filter_states);
+                  $("#rp" + index).click() ;
+                  $("#rp" + index).click() ;
+              }
+        }
+
         function hex2values ( hexvalue, index )
         {
-                var valuebin = hex2bin(hexvalue);
-                var valuehex = hexvalue.toString(16).toUpperCase() ;
-                    valuehex = "0x" + "00000000".substring(0, 8 - valuehex.length) + valuehex;
+                var rhex = /[0-9A-F]{1,8}/gi;
+                if (!rhex.test(hexvalue))
+                    hexvalue = 0 ;
+
 		var valuei   = hexvalue  >> 0;
 		var valueui  = hexvalue >>> 0;
 		var valuec8  = hex2char8(valueui);
 		var valuef   = hex2float(valueui);
+                var valuebin = hex2bin(valueui);
+                var valuehex = valueui.toString(16).toUpperCase() ;
+                    valuehex = "0x" + "00000000".substring(0, 8 - valuehex.length) + valuehex;
 
 		var valuedt = "" ;
-		if (get_cfg('is_editable') == true)
+		if (get_cfg('is_editable') == true) {
 		    valuedt = "<tr><td colspan=5 align=center><input type=text id='popover1' value='" + valueui + "' data-mini='true' style='width:65%'>&nbsp;" +
-                              "<span class='badge' onclick='set_value(sim_states[\"BR\"]["+index+"],parseInt($(\"#popover1\")[0].value));" + 
-                              "                              fullshow_rf_values();$(\"#rf"+index+"\").click();$(\"#rf"+index+"\").click();'>update</span></td></tr>";
+                              "<span class='badge' " + 
+                              "      onclick='hex2values_update(\"" + index + "\");'>update</span></td></tr>";
+                }
 
 		var vtable = "<table width='100%' class='table table-bordered table-condensed'>" + 
 			     "<tr><td><small><b>hex.</b></small></td>" +
@@ -303,7 +375,7 @@
             {
 		 o1_rf += "<div class='col-xs-6 col-sm-4 col-md-4 col-lg-3' style='padding:0 5 0 5;'>" +
                           "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;' " + 
-                          "        data-toggle='popover' data-popover-content='" + index + "' data-container='body' " +
+                          "        data-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
                           "  <span id='name_RF" + index + "' style='float:center; padding:0 0 0 0'>R" + index + "</span>" + 
                           "  <span class='badge' style='background-color:#CEECF5; color:black;' id='tbl_RF"  + index + "'>" + 
@@ -315,18 +387,20 @@
 
             $(jqdiv).html("<div class='row-fluid'>" + o1_rf + "</div>");
 
-	    $("[data-toggle=popover]").popover({
-	    	    html: true,
+	    $("[data-toggle=popover-up]").popover({
+	    	    html:      true,
                     placement: 'top',
 		    content: function() {
-		        var index    = $(this).attr("data-popover-content");
+		        var index = $(this).attr("data-popover-content");
                         var hexvalue = get_value(sim_states['BR'][index]);
-                        return hex2values(hexvalue,index) ;
+                        return hex2values(hexvalue, index) ;
 		    },
 		    title: function() {
 		        var index = $(this).attr("data-popover-content");
+                        var id_button = "&quot;#rf" + index + "&quot;" ;
 		        return '<span class="text-info"><strong>R' + index + '</strong></span>' +
-                               '<button type="button" id="close" class="close" onclick="$(&quot;#rf' + index + '&quot;).click();">&times;</button>';
+                               '<button type="button" id="close" class="close" ' + 
+                               '        onclick="$(' + id_button + ').click();">&times;</button>';
 		    }
 	    });
         }
@@ -396,7 +470,10 @@
                 var divclass = divclasses[b] ;
 
                 o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" + 
-                      "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;'>" + showkey + 
+                      "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;' " + 
+                      "        data-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
+                      "        id='rp" + s + "'>" +
+                      showkey + 
                       "<span class='badge' style='background-color:#CEECF5; color:black;' id='tbl_"  + s + "'>" +
                       sim_eltos[s].value.toString(get_cfg('RF_display_format')) +
                       "</span>" +
@@ -405,6 +482,23 @@
             }
 
             $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
+
+	    $("[data-toggle=popover-bottom]").popover({
+	    	    html:      true,
+                    placement: 'bottom',
+		    content: function() {
+		        var index = $(this).attr("data-popover-content");
+                        var hexvalue = get_value(sim_states[index]);
+                        return hex2values(hexvalue, index) ;
+		    },
+		    title: function() {
+		        var index = $(this).attr("data-popover-content");
+                        var id_button = "&quot;#rp" + index + "&quot;" ;
+		        return '<span class="text-info"><strong>' + sim_states[index].name + '</strong></span>' +
+                               '<button type="button" id="close" class="close" ' + 
+                               '        onclick="$(' + id_button + ').click();">&times;</button>';
+		    }
+	    });
         }
 
         function fullshow_eltos ( sim_eltos, filter ) 
@@ -442,14 +536,11 @@
 
 
         var filter_states = [ "REG_IR_DECO,0",
-                              "REG_IR,2",  "REG_PC,2",  "REG_SR,2",
-                              "REG_RT1,2", "REG_RT2,2", "REG_RT3,2",
-                              "REG_MAR,2", "REG_MBR,2", "REG_MICROADDR,2",
-                              "FLAG_C,1",  "FLAG_V,1",  "FLAG_N,1",  "FLAG_Z,1",
-                              "FLAG_I,1",  "FLAG_U,1" ] ;
+                              "REG_IR,1",  "REG_PC,1",  "REG_SR,1",
+                              "REG_RT1,1", "REG_RT2,1", "REG_RT3,1",
+                              "REG_MAR,1", "REG_MBR,1", "REG_MICROADDR,1" ] ;
 
         var divclasses = [ "col-xs-12 col-sm-12 col-md-12 col-lg-12", 
-                           "col-xs-4 col-sm-3 col-md-3 col-lg-3",
                            "col-xs-4 col-sm-4 col-md-4 col-lg-4" ] ;
 
         function init_states ( jqdiv ) 
@@ -669,11 +760,11 @@
 	    if (typeof memory[index] == "undefined")
 		o1 += "<tr>" + 
 		      "<td width=15%><font color=blue>0x" + parseInt(index).toString(16) + "</font></td>" + 
-		      "<td><font color=blue><b>&nbsp;</b></font></td></tr>";
+		      "<td><font color=blue><b>00 00 00 00</b></font></td></tr>";
 
             $("#memory_MP").html("<center><table class='table table-hover table-condensed table-responsive'>" + 
-                                      "<tbody id=none>" + o1 + "</tbody>" +
-                                      "</table></center>");
+                                 "<tbody id=none>" + o1 + "</tbody>" +
+                                 "</table></center>");
 
             // scroll up/down to index element...
 	    var obj_byid = $('#addr' + index) ;
@@ -880,7 +971,10 @@
 
 	function show_dbg_mpc ( )
 	{
-                show_control_memory(MC, MC_dashboard, get_value(sim_states['REG_MICROADDR']), false) ;
+                show_control_memory(MC, 
+                                    MC_dashboard, 
+                                    get_value(sim_states['REG_MICROADDR']), 
+                                    false) ;
 	}
 
 	function show_dbg_ir ( decins )
@@ -920,7 +1014,7 @@
 				"M1,0",   "M2,0",   "M7,0",  "MA,0",   "MB,0",  
                                 "SELP,0", "LC,0",   "SE,0",  "SIZE,0", "OFFSET,0",
                                 "BW,0",   "R,0",    "W,0",   "TA,0",   "TD,0",   "IOR,0",  "IOW,0",  
-                                "I,0",    "U,0"  ] ;
+                                "TEST_I,0",    "TEST_U,0"  ] ;
 
 		var h = "<tr bgcolor=#FF9900>" + 
                         "<td bgcolor=white     style='border-style: solid; border-width:0px; border-color:lightgray;'></td>" + 
@@ -1095,14 +1189,14 @@
                              }
 
                              if (0 == rows) {
-			         o += "<tr style='font-family:\'Consolas\'; font-size:11pt;'>" +
+			         o += "<tr style=\"font-family:'Consolas'; font-size:11pt;\">" +
 				      "<td align=right  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
 				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c.toUpperCase() + "</td>" +
 				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + 
                                        mp[c].substr(0,8)  + "&nbsp;" + mp[c].substr(8,8)  + "&nbsp;" + mp[c].substr(16,8) + "&nbsp;" + mp[c].substr(24,8) + "</td>" +
 				      "<td rowspan=" ;
                              } else {
-			         x += "<tr style='font-family:\'Consolas\'; font-size:11pt;'>" +
+			         x += "<tr style=\"font-family:'Consolas'; font-size:11pt;\">" +
 				      "<td align=right  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
 				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c.toUpperCase() + "</td>" +
 				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + 
@@ -1114,12 +1208,12 @@
 	             }
 
 		     if (0 == rows) {
-			 o += "<tr style='font-family:\'Consolas\'; font-size:12pt;'>" +
+			 o += "<tr style=\"font-family:'Consolas'; font-size:12pt;\">" +
 			      "<td>&nbsp;</td>" +
 			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">0x" + parseInt(seg[skey].begin).toString(16).toUpperCase() + "</td>" +
 			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">&nbsp;</td>" +
 			      "<td rowspan=" ;
-			 x += "<tr style='font-family:\'Consolas\'; font-size:12pt;'>" +
+			 x += "<tr style=\"font-family:'Consolas'; font-size:12pt;\">" +
 			      "<td>&nbsp;</td>" +
 			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">0x" + parseInt(seg[skey].end).toString(16).toUpperCase() + "</td>" +
 			      "<td style='border-style: solid; border-width:1px;' bgcolor=" + color + ">&nbsp;</td>" +
@@ -1131,7 +1225,7 @@
                      o += rows + " align=right>" + seg[skey].name + "&nbsp;</td></tr>" + x ;
 
 	             if (seg[skey].name != ".stack") {
-		         o += "<tr style='font-family:\'Consolas\'; font-size:12pt;'>" + 
+		         o += "<tr style=\"font-family:'Consolas'; font-size:12pt;\">" + 
                               "<td>&nbsp;</td>" + 
                               "<td valign=middle align=center height=25px>...</td>" + 
                               "<td valign=middle align=center height=25px>...</td>" + 

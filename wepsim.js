@@ -368,6 +368,14 @@
                    }, 300);
     }
 
+    function set_cpu_cu_size ( diva, divb, new_value ) 
+    {
+	var a = new_value;
+	var b = 100 - a;
+	$('#eltos_cpu_a').css({width: a+'%'});
+	$('#eltos_cpu_b').css({width: b+'%'});
+    }
+
 
     //
     // Auxiliar functions
@@ -484,7 +492,7 @@
                 var o  = ref_p.getElementById('text3459-7');
                 if (o != null) o.addEventListener('click', 
                                                   function() { 
-                                                     execute_microinstruction(); 
+                                                     wepsim_execute_microinstruction(); 
                                                   }, false);
             }
     }
@@ -502,7 +510,12 @@
                 var o  = ref_cu.getElementById('text4138');
                 if (o != null) o.addEventListener('click', 
                                                   function() { 
-                                                     execute_microinstruction(); 
+                                                     wepsim_execute_microinstruction(); 
+                                                  }, false);
+                var o  = ref_cu.getElementById('text4138-7');
+                if (o != null) o.addEventListener('click', 
+                                                  function() { 
+                                                     wepsim_execute_microinstruction(); 
                                                   }, false);
             }
     }
@@ -621,8 +634,16 @@
     {
        var examples_width = 310 * ((examples.length+1)/2) + 20;
 
-       var o = '<div style="min-width:320px; width:' + examples_width + 'px;" data-filter="true" data-children="div > span">' +
-               '<div id="masonry-grid1">' ;
+       var o = '<style scoped>' +
+               '       .onthefly-example1 { min-width:320px; width:' + examples_width + 'px; }' +
+               '       .onthefly-example2 { } ' + 
+               '   @media screen and (min-width: 1200px) { ' + 
+               '       .onthefly-example1 { min-width:320px; width:70vw; height:70vh; overflow:auto; } ' + 
+               '       .onthefly-example2 { margin:0 auto; } ' + 
+               '   }" ' +
+               '</style>' +
+               '<div class="onthefly-example1" data-filter="true" data-children="div > span">' +
+               '<div class="onthefly-example2" id="masonry-grid1">' ;
        for (var m=0; m<examples.length; m++)
        {
 	       var e_title       = examples[m]['title'] ;

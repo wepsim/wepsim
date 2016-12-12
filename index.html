@@ -120,28 +120,27 @@
 		      </div>
 		      <div id="eltos_cpu" class="ui-body-d ui-content" style="padding:10 0 10 0">
                            <div class="container-fluid" style="padding:0 0 0 0">
-			     <div  id="slider2d" style="display: none;">
+			     <div  id="slider2d" style="display: hidden;">
 			     <form id="slider2f" class="full-width-slider" style="margin:0 20 20 -35">
 				 <input aria-label="Show CPU/CU" type="range" name="slider2" id="slider2" 
                                         min="0" max="100" value="55" step="5"
 				        data-show-value="false"
-                                        onchange="var a = this.value;
-                                                  var b = 100 - a;
-                                                  $('#eltos_cpu_a').css({width: a+'%'});
-                                                  $('#eltos_cpu_b').css({width: b+'%'});"
+                                        onchange="set_cpu_cu_size('#eltos_cpu_a', '#eltos_cpu_b', this.value);
+					          set_cfg('CPUCU_size', this.value); 
+                                                  save_cfg();"
                                         style="display:none;">
 			     </form>
 			     </div>
 			     <div class="ui-grid-a">
 				<div class="ui-block-a" id="eltos_cpu_a" style="padding:0 0 0 0; width:60%">
-				    <object id="svg_p" data="images/processor5.svg" type="image/svg+xml">
+				    <object id="svg_p" data="images/processor6.svg" type="image/svg+xml">
 					Your browser doesn't support SVG
 				    </object>
 				    <img alt="fire" id="internalbus_fire" src="images/fire.gif" height=50 style="position:absolute; top:55%; left:5%;  display:none;">
 				    <img alt="fire" id="databus_fire"     src="images/fire.gif" height=50 style="position:absolute; top:23%; left:25%; display:none;">
 				</div>
 				<div class="ui-block-b" id="eltos_cpu_b" style="padding:0 0 0 0; width:40%">
-				    <object id="svg_cu" data="images/controlunit5.svg" type="image/svg+xml">
+				    <object id="svg_cu" data="images/controlunit6.svg" type="image/svg+xml">
 					Your browser doesn't support SVG
 				    </object>
 				</div>
@@ -370,7 +369,7 @@
                             <a href="#" style="background-color: #D4DB17"
                                    class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-6 col-md-2 col-lg-2"
 				   onclick="$('#help1_ref').data('relative','');
-                                            $('#iframe_help1').html('<object id=svg_p2 data=\'images/cpu5.svg?time=20161010a\' type=image/svg+xml>Your browser does not support SVG</object>');
+                                            $('#iframe_help1').html('<object id=svg_p2 data=\'images/cpu6.svg?time=20161202\' type=image/svg+xml>Your browser does not support SVG</object>');
                                             $('#help1').trigger('updatelayout');
                                             $('#help1').popup('reposition', {positionTo: 'window'});
 					    $('#help1').popup('open');"
@@ -564,7 +563,7 @@
    <div role="main" class="ui-content" style="padding: 8px 8px 8px 8px">
 
 	<div id="container-example1" class="container-fluid" 
-             style="max-width:80vw; max-height:90vh; overflow-x:auto;">
+             style="max-width:80vw; max-height:90vh; overflow:auto;">
         </div>
 
    </div>
@@ -648,6 +647,8 @@
 					<option value="dog1">Dog</option>
 					<option value="r2d2">R2-D2</option>
 					<option value="sw">Death Star</option>
+					<option value="bb8">BB-8</option>
+					<option value="vader1">Dark Vader</option>
 				    </select>
 				 </li>
 				 </ul>
@@ -877,24 +878,22 @@
         <div class="col-xs-12 col-sm-12">
             Copyright &copy; 2015-2017 <br>
 	    <p>
-            <b>Contributors</b>: Javier Prieto Cepeda, Sa&uacute;l Alonso Monsalve<br>
-            <b>Coordinators</b>: F&eacute;lix Garc&iacute;a Carballeira, Alejandro Calder&oacute;n Mateos<br>
+            <b>Contributors</b>: 
+<a data-toggle="tooltip1" title=" <img class='img-rounded img-responsive' alt='Photo of Javier Prieto Cepeda' src='http://163.117.148.20/wp-content/uploads/2016/05/jprieto-2-150x150.jpg'> ">Javier Prieto Cepeda</a>,
+<a data-toggle="tooltip1" title=" <img class='img-rounded img-responsive' alt='Photo of Sa'ul Alonso Monsalve' src='http://163.117.148.20/wp-content/uploads/2016/05/salonso-1-150x150.jpg'> ">Sa&uacute;l Alonso Monsalve</a>
+<br>
+            <b>Coordinators</b>: 
+<a data-toggle="tooltip1" title=" <img class='img-rounded img-responsive' alt='Photo of F'elix Garc'ia Carballeira' src='http://163.117.148.20/wp-content/uploads/2016/05/fgarcia-1-150x150.jpg'> ">F&eacute;lix Garc&iacute;a Carballeira</a>,
+<a data-toggle="tooltip1" title=" <img class='img-rounded img-responsive' alt='Photo of Alejandro Calder'on Mateos' src='http://163.117.148.20/wp-content/uploads/2016/05/acaldero-1-150x150.jpg'> ">Alejandro Calder&oacute;n Mateos</a>
+<br>
             <p>
             <a href="http://www.arcos.inf.uc3m.es/">ARCOS Group</a><br>
             <a href="http://www.inf.uc3m.es/en/">Computer Science and Engineering Department</a><br>
             <a href="http://www.uc3m.es/">Universidad Carlos III de Madrid</a><br>
 	    <p>
         </div>
-        <div class="col-xs-12 col-sm-12">
-	    <center><a href="#" 
-                       class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" 
-                       onclick="$('#about1').popup('close');  
-                                $('#about1').bind({ popupafterclose: function(event, ui) { 
-                                                      $('#about2').popup('open');
-                                                  }
-                                             });">More details...</a></center>
         </div>
-        </div>
+
         </div>
 
    </div>
@@ -917,8 +916,9 @@
 	  <div data-role="collapsible" data-collapsed="false">
 	    <h1>Platforms</h1>
 	    <p>
-                    <b>WepSIM</b> works with the most popular modern Web Browsers:
-                    Google Chrome 50+, Mozilla Firefox 45+, and Microsoft Edge 30+<br>
+	            <br class="hidden-xs">
+                    <b>WepSIM</b> for Web works with the most popular modern Web Browsers:<br class="hidden-xs">
+                    Google Chrome 50+, Mozilla Firefox 45+, Microsoft Edge 30+, and Apple Safari 10+<br>
                     <br>
                     An <a href="https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim">Android 5.0+ version</a> version is also available at Google Play.<br>
                     <br>
@@ -929,6 +929,7 @@
 	  <div data-role="collapsible">
 	    <h1>License</h1>
 	    <p>
+	            <br class="hidden-xs">
 		    <b>WepSIM (Web elemental processor SIMulator)</b> is free software: you can redistribute it and/or modify
 		    it under the terms of the GNU Lesser General Public License as published by
 		    the Free Software Foundation, either version 3 of the License, or
@@ -941,6 +942,7 @@
 	  <div data-role="collapsible">
 	    <h1>Technologies</h1>
 	    <p>
+	            <br class="hidden-xs">
 		    <b>WepSIM</b> uses different technologies such as:<br>
                     <ul>
                     <li>Frameworks: 
@@ -1016,7 +1018,7 @@
 
       <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
               <div class="ui-body-d ui-content" style="padding: 2px 2px 2px 2px;">
-                 <div id=iframe_bin1 style="height:80vh; max-width: 80vw; overflow-y: auto;">
+                 <div id=iframe_bin1 style="height:80vh; max-width:80vw; overflow:auto;">
 		   <div id="compile_results" style="padding: 16px 16px 16px 16px;">
                         <br>
                         <center>
@@ -1032,6 +1034,12 @@
 
 
 <script>
+    window.addEventListener("beforeunload", function (e) {
+       var confirmationMessage = "\o/";
+       (e || window.event).returnValue = confirmationMessage; // Gecko + IE
+       return confirmationMessage;                            // Webkit, Safari, Chrome
+    });
+
     try 
     {
 	    restore_cfg();
@@ -1135,6 +1143,8 @@
                     $("#select1").val(get_cfg('ICON_theme')).selectmenu("refresh");
                     $("#select2").val(get_cfg('editor_mode')).selectmenu("refresh");
                     $("#img_select1").attr("src","images/stop_" + get_cfg('ICON_theme') + ".gif");
+                    set_cpu_cu_size('#eltos_cpu_a','#eltos_cpu_b',get_cfg('CPUCU_size'));
+                    $("#slider2").val(get_cfg('CPUCU_size')).slider("refresh");
 
                     showhideAsmElements();
 		    $("input:checkbox").click(function(){
@@ -1155,6 +1165,12 @@
 
 	    init("#states_ALL", "#states_BR", "#io_ALL", "#config_ALL"); 
 	    reset(); 
+
+            $('a[data-toggle="tooltip1"]').tooltip({
+                animated: 'fade',
+                placement: 'bottom',
+                html: true
+            });
     }
     catch(err) 
     {
