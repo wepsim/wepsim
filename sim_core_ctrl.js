@@ -146,6 +146,43 @@
             check_behavior();
         }
 
+        function compile_behaviors ()
+        {
+            var jit_bes = "";
+
+            for (var sig in sim_signals) 
+            {
+		 jit_bes += "sim_signals['" + sig + "'].behavior_fn = new Array();\n" ;
+
+                 for (var val in sim_signals[sig].behavior)
+                 {
+                      var input_behavior = sim_signals[sig].behavior[val] ;
+                      var jit_be = "";
+
+		      // 1.- Split several behaviors, e.g.: "MV D1 O1; MV D2 O2"
+		      var s_exprs = input_behavior.split(";");
+
+		      // 2.- For every behavior...
+		      for (var i=0; i<s_exprs.length; i++)
+		      {
+			    // 2.1.- ...to remove white spaces from both sides, e.g.: "  MV D1 O1  " (skip empty expression, i.e. "")
+			    s_exprs[i] = s_exprs[i].trim() ;
+			    if ("" == s_exprs[i]) continue ;
+
+			    // 2.2.- ...to split into expression, e.g.: "MV D1 O1"
+			    var s_expr = s_exprs[i].split(" ");
+
+			    // 2.3.- ...to do the operation
+			    jit_be += "syntax_behavior['" + s_expr[0] + "'].operation(" + JSON.stringify(s_expr) + ");\t" ;
+		      }
+
+		      jit_bes += "sim_signals['" + sig + "'].behavior_fn[" + val + "] = \t function() {" + jit_be + "};\n" ;
+                 }
+            }
+
+	    eval(jit_bes) ;
+        }
+
         function compute_behavior (input_behavior)
         {
             // 1.- Split several behaviors, e.g.: "MV D1 O1; MV D2 O2"
@@ -168,29 +205,33 @@
 
         function update_state ( key )
         {
-           var signal_value = 0;
-           var input_behavior = "";
+           var index_behavior = 0;
 
            switch (sim_signals[key].behavior.length)
            {
-                case 0:
-                     return; // Cuando behavior no tiene comportamiento, no hacemos nada en actualizacion de estado
+                case 0: // skip empty behavior
+                     return;
                      break;
 
-                case 1:
-                     signal_value = sim_signals[key].value ;
-                     input_behavior = sim_signals[key].behavior[0] ;
+                case 1: // several signal values share the same behavior -> behavior[0]
+                     index_behavior = 0;
                      break;
 
                 default:
-                     signal_value = sim_signals[key].value ;
-                     if (signal_value   < sim_signals[key].behavior.length)
-                         input_behavior = sim_signals[key].behavior[signal_value] ;
-                     else alert('ALERT: there are more signals values than behaviors defined!!!!\n' +
-                                'key: ' + key + ' and signal value: ' + signal_value);
+                     index_behavior = sim_signals[key].value ;
+                     if (sim_signals[key].behavior.length < index_behavior) {
+                         alert('ALERT: there are more signals values than behaviors defined!!!!\n' +
+                               'key: ' + key + ' and signal value: ' + index_behavior);
+                         return;
+                     }
                      break;
            }
 
+           if ( (typeof(sim_signals[key].behavior_fn) != "undefined") &&
+                (typeof(sim_signals[key].behavior_fn[index_behavior]) != "undefined") )
+                 return sim_signals[key].behavior_fn[index_behavior]();
+
+           var input_behavior = sim_signals[key].behavior[index_behavior] ;
            compute_behavior(input_behavior) ;
         }
 
@@ -538,6 +579,9 @@
 
             init_io(ioall_id) ; 
             init_config(configall_id) ; 
+
+            // 3.- pre-compile behaviors
+            compile_behaviors() ;
         }
 
         function init_eventlistener ( context )
