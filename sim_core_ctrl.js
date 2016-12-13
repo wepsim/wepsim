@@ -146,6 +146,9 @@
             check_behavior();
         }
 
+
+        var jit_behaviors = false ;
+
         function compile_behaviors ()
         {
             var jit_bes = "";
@@ -181,6 +184,7 @@
             }
 
 	    eval(jit_bes) ;
+            jit_behaviors = true ;
         }
 
         function compute_behavior (input_behavior)
@@ -227,12 +231,9 @@
                      break;
            }
 
-           if ( (typeof(sim_signals[key].behavior_fn) != "undefined") &&
-                (typeof(sim_signals[key].behavior_fn[index_behavior]) != "undefined") )
-                 return sim_signals[key].behavior_fn[index_behavior]();
-
-           var input_behavior = sim_signals[key].behavior[index_behavior] ;
-           compute_behavior(input_behavior) ;
+           if (jit_behaviors)
+                sim_signals[key].behavior_fn[index_behavior]();
+           else compute_behavior(sim_signals[key].behavior[index_behavior]) ;
         }
 
 
