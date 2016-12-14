@@ -661,7 +661,10 @@
         {
             // Hardware
 	    var SIMWARE = get_simware() ;
-            compute_behavior("RESET") ;
+
+            if (jit_behaviors)
+                 syntax_behavior["RESET"].operation();
+            else compute_behavior("RESET") ;
 
             if ((typeof segments['.ktext'] != "undefined") && (SIMWARE.labels2["kmain"])){
                     set_value(sim_states["REG_PC"], parseInt(SIMWARE.labels2["kmain"])); 
@@ -678,7 +681,9 @@
 		set_value(sim_states["BR"][FIRMWARE.stackRegister], parseInt(segments['.stack'].begin));
 	    }
 
-            compute_behavior("CLOCK") ;
+            if (jit_behaviors)
+                 syntax_behavior["CLOCK"].operation();
+            else compute_behavior("CLOCK") ;
 
             // User Interface
             show_dbg_ir(get_value(sim_states['REG_IR_DECO'])) ;
@@ -698,7 +703,9 @@
                 if ((0 == maddr) && (check_if_can_continue(true) == false))
 		    return false; // when do reset/fetch, check text segment bounds
 
-                compute_behavior("CLOCK") ;
+                if (jit_behaviors)
+                     syntax_behavior["CLOCK"].operation();
+                else compute_behavior("CLOCK") ;
 
 		show_states();
 		show_rf_values();
@@ -716,7 +723,9 @@
                 //     execute micro-instructions
 		do    
             	{
-                	compute_behavior("CLOCK") ;
+			if (jit_behaviors)
+                             syntax_behavior["CLOCK"].operation();
+			else compute_behavior("CLOCK") ;
             	}
 		while (
                          (0 != get_value(sim_states["REG_MICROADDR"])) && 
