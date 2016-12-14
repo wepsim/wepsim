@@ -73,6 +73,14 @@
 
         function check_behavior ( )
         {
+            // 1.- check if no signals are defined...
+            if (0 == sim_signals.length) 
+                alert("ALERT: empty signals!!!");
+
+            // 2.- check if no states are defined...
+            if (0 == sim_states.length) 
+                alert("ALERT: empty states!!!");
+
             for (var key in sim_signals)
             {
                 for (var key2 in sim_signals[key].behavior)
@@ -130,22 +138,10 @@
             }
         }
 
-        function load_check()
-        {
-            // 1.- check if no signals are defined...
-            if (0 == sim_signals.length) {
-                alert("ALERT: empty signals!!!");
-            }
 
-            // 2.- check if no states are defined...
-            if (0 == sim_states.length) {
-                alert("ALERT: empty states!!!");
-            }
-
-            // 3.- check behavior syntax...
-            check_behavior();
-        }
-
+        /*
+         *  work with behaviors
+         */
 
         var jit_behaviors = false ;
 
@@ -207,6 +203,25 @@
             }
         }
 
+        function compute_general_behavior ( name )
+        {
+            if (jit_behaviors)
+                 syntax_behavior[name].operation();
+            else compute_behavior(name) ;
+        }
+
+        function compute_signal_behavior ( signal_name, signal_value )
+        {
+            if (jit_behaviors)
+                 sim_signals[signal_name].behavior_fn[signal_value]();
+            else compute_behavior(sim_signals[signal_name].behavior[signal_value]) ;
+        }
+
+
+        /*
+         *  Show/Update the global state
+         */
+
         function update_state ( key )
         {
            var index_behavior = 0;
@@ -231,9 +246,7 @@
                      break;
            }
 
-           if (jit_behaviors)
-                sim_signals[key].behavior_fn[index_behavior]();
-           else compute_behavior(sim_signals[key].behavior[index_behavior]) ;
+           compute_signal_behavior(key,index_behavior) ;
         }
 
 
@@ -572,17 +585,17 @@
         function init ( stateall_id, statebr_id, ioall_id, configall_id )
         {
             // 1.- it checks if everything is ok 
-            load_check() ;
+            check_behavior();
 
-            // 2.- display the information holders
+            // 2.- pre-compile behaviors
+            compile_behaviors() ;
+
+            // 3.- display the information holders
             init_states(stateall_id) ; 
             init_rf(statebr_id) ; 
 
             init_io(ioall_id) ; 
             init_config(configall_id) ; 
-
-            // 3.- pre-compile behaviors
-            compile_behaviors() ;
         }
 
         function init_eventlistener ( context )
@@ -662,9 +675,7 @@
             // Hardware
 	    var SIMWARE = get_simware() ;
 
-            if (jit_behaviors)
-                 syntax_behavior["RESET"].operation();
-            else compute_behavior("RESET") ;
+            compute_general_behavior("RESET") ;
 
             if ((typeof segments['.ktext'] != "undefined") && (SIMWARE.labels2["kmain"])){
                     set_value(sim_states["REG_PC"], parseInt(SIMWARE.labels2["kmain"])); 
@@ -681,9 +692,7 @@
 		set_value(sim_states["BR"][FIRMWARE.stackRegister], parseInt(segments['.stack'].begin));
 	    }
 
-            if (jit_behaviors)
-                 syntax_behavior["CLOCK"].operation();
-            else compute_behavior("CLOCK") ;
+            compute_general_behavior("CLOCK") ;
 
             // User Interface
             show_dbg_ir(get_value(sim_states['REG_IR_DECO'])) ;
@@ -703,9 +712,7 @@
                 if ((0 == maddr) && (check_if_can_continue(true) == false))
 		    return false; // when do reset/fetch, check text segment bounds
 
-                if (jit_behaviors)
-                     syntax_behavior["CLOCK"].operation();
-                else compute_behavior("CLOCK") ;
+                compute_general_behavior("CLOCK") ;
 
 		show_states();
 		show_rf_values();
@@ -719,13 +726,10 @@
 	        if (check_if_can_continue(true) == false)
 		    return false;
 
-                // 1.- while the microaddress register doesn't store the fetch address (0), 
-                //     execute micro-instructions
+                // 1.- while the microaddress register doesn't store the fetch address (0), execute micro-instructions
 		do    
             	{
-			if (jit_behaviors)
-                             syntax_behavior["CLOCK"].operation();
-			else compute_behavior("CLOCK") ;
+                    compute_general_behavior("CLOCK") ;
             	}
 		while (
                          (0 != get_value(sim_states["REG_MICROADDR"])) && 
@@ -735,8 +739,10 @@
                 // 2.- to show states
 		show_states();
 		show_rf_values();
-                if (get_cfg('DBG_level') == "microinstruction")
+
+                if (get_cfg('DBG_level') == "microinstruction") {
                     show_dbg_mpc();
+                }
 
                 return true;
         }
