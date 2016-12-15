@@ -721,15 +721,18 @@
 
         function show_main_memory ( memory, index, redraw )
         {
-            if (null != show_main_memory_deffered)
+	    if (redraw == false) {
+		light_refresh_main_memory(memory, index);
+                return ;
+            }
+
+            if (null != show_main_memory_deffered) 
                 clearTimeout(show_main_memory_deffered) ;
 
-            show_main_memory_deffered = setTimeout(function() {
-							    if (redraw == false)
-								 light_refresh_main_memory(memory,index);
-                                                            else hard_refresh_main_memory(memory,index,redraw) ;
-                                                            show_main_memory_deffered = null;
-                                                       }, 200);
+            show_main_memory_deffered = setTimeout(function () {
+                                                       hard_refresh_main_memory(memory, index, redraw) ;
+                                                       show_main_memory_deffered = null;
+                                                   }, 120);
         }
 
         function hard_refresh_main_memory ( memory, index, redraw )
@@ -808,13 +811,22 @@
             o1.css('font-weight', 'bold') ;
         }
 
+        var show_control_memory_deffered = null;
+
         function show_control_memory ( memory, memory_dashboard, index, redraw )
         {
             if (false == redraw) {
-                return light_refresh_control_memory(memory,memory_dashboard,index);
+                light_refresh_control_memory(memory, memory_dashboard, index);
+                return ;
             }
 
-            hard_refresh_control_memory(memory,memory_dashboard,index,redraw) ;
+            if (null != show_control_memory_deffered) 
+                clearTimeout(show_control_memory_deffered) ;
+
+            show_control_memory_deffered = setTimeout(function () {
+                                            hard_refresh_control_memory(memory, memory_dashboard, index, redraw);
+                                            show_control_memory_deffered = null;
+                                           }, 120);
         }
 
         function hard_refresh_control_memory ( memory, memory_dashboard, index, redraw )
