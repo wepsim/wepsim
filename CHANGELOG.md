@@ -1,7 +1,8 @@
 
 1.7.2 -> 1.7.3:
+* Up to 29% faster execution (15% minimum)
 * Edit register values popup shows negative values properly
-* JIT-like optimization for behaviors
+* I/O tab renamed to Stats
 
 1.7.1 -> 1.7.2:
 * FLAGS interaction moved from register tab into processor image (you can click on the associated letter C, V, N, Z...)
