@@ -295,7 +295,7 @@
 
         function hex2values_update ( index )
         {
-	      var new_value = parseInt($("#popover1")[0].value) >>> 0;
+	      var new_value = parseInt($("#popover1")[0].value) ;
 
               if (typeof sim_states["BR"][index] != "undefined") 
               {
@@ -323,13 +323,13 @@
                 if (!rhex.test(hexvalue))
                     hexvalue = 0 ;
 
-                var valuebin = hex2bin(hexvalue);
-                var valuehex = hexvalue.toString(16).toUpperCase() ;
-                    valuehex = "0x" + "00000000".substring(0, 8 - valuehex.length) + valuehex;
 		var valuei   = hexvalue  >> 0;
 		var valueui  = hexvalue >>> 0;
 		var valuec8  = hex2char8(valueui);
 		var valuef   = hex2float(valueui);
+                var valuebin = hex2bin(valueui);
+                var valuehex = valueui.toString(16).toUpperCase() ;
+                    valuehex = "0x" + "00000000".substring(0, 8 - valuehex.length) + valuehex;
 
 		var valuedt = "" ;
 		if (get_cfg('is_editable') == true) {
