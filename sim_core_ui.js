@@ -1023,12 +1023,18 @@
         // Console (Screen + Keyboard)
 	function get_screen_content ( )
 	{
-		 return document.getElementById("kdb_con").value;
+		 var kdbcon = document.getElementById("kdb_con") ;
+                 if (typeof kdbcon != "undefined")
+		     return kdbcon.value ;
+
+		 return "" ;
 	}
 
 	function set_screen_content ( screen )
 	{
-		 document.getElementById("kdb_con").value = screen;
+		 var kdbcon = document.getElementById("kdb_con") ;
+                 if (typeof kdbcon != "undefined")
+		     kdbcon.value = screen ;
 	}
 
 
