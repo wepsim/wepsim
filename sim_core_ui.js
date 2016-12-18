@@ -1024,7 +1024,7 @@
 	function get_screen_content ( )
 	{
 		 var kdbcon = document.getElementById("kdb_con") ;
-                 if (typeof kdbcon != "undefined")
+                 if (typeof kdbcon != null)
 		     return kdbcon.value ;
 
 		 return "" ;
@@ -1033,7 +1033,7 @@
 	function set_screen_content ( screen )
 	{
 		 var kdbcon = document.getElementById("kdb_con") ;
-                 if (typeof kdbcon != "undefined")
+                 if (typeof kdbcon != null)
 		     kdbcon.value = screen ;
 	}
 
