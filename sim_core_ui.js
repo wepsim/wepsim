@@ -559,8 +559,10 @@
             {       // without ui
 		    sim_states['CLK'].value = ko.observable(sim_states['CLK'].value);
 		    sim_states['DECO_INS'].value = ko.observable(sim_states['DECO_INS'].value);
-		    for (var i=0; i<IO_INT_FACTORY.length; i++)
+		    for (var i=0; i<IO_INT_FACTORY.length; i++) {
 			 IO_INT_FACTORY[i].accumulated = ko.observable(IO_INT_FACTORY[i].accumulated) ;
+			 IO_INT_FACTORY[i].active      = ko.observable(IO_INT_FACTORY[i].active) ;
+                    }
                     return ;
             }
 
