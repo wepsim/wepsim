@@ -559,8 +559,10 @@
             {       // without ui
 		    sim_states['CLK'].value = ko.observable(sim_states['CLK'].value);
 		    sim_states['DECO_INS'].value = ko.observable(sim_states['DECO_INS'].value);
-		    for (var i=0; i<IO_INT_FACTORY.length; i++)
+		    for (var i=0; i<IO_INT_FACTORY.length; i++) {
 			 IO_INT_FACTORY[i].accumulated = ko.observable(IO_INT_FACTORY[i].accumulated) ;
+			 IO_INT_FACTORY[i].active      = ko.observable(IO_INT_FACTORY[i].active) ;
+                    }
                     return ;
             }
 
@@ -993,12 +995,18 @@
         // Console (Screen + Keyboard)
 	function get_screen_content ( )
 	{
-		 return document.getElementById("kdb_con").value;
+		 var kdbcon = document.getElementById("kdb_con") ;
+                 if (kdbcon != null)
+ 		     return kdbcon.value ;
+ 
+ 		 return "" ;
 	}
 
 	function set_screen_content ( screen )
 	{
-		 document.getElementById("kdb_con").value = screen;
+		 var kdbcon = document.getElementById("kdb_con") ;
+                 if (kdbcon != null)
+ 		     kdbcon.value = screen ;
 	}
 
 
