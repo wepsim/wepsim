@@ -1021,20 +1021,24 @@
 	}
 
         // Console (Screen + Keyboard)
+        var screen_content = "" ;
+
 	function get_screen_content ( )
 	{
-		 var kdbcon = document.getElementById("kdb_con") ;
-                 if (kdbcon != null)
-		     return kdbcon.value ;
+		 var scrobj = document.getElementById("kdb_con") ;
+                 if (scrobj != null)
+		     screen_content = scrobj.value ;
 
-		 return "" ;
+		 return screen_content ;
 	}
 
 	function set_screen_content ( screen )
 	{
-		 var kdbcon = document.getElementById("kdb_con") ;
-                 if (kdbcon != null)
-		     kdbcon.value = screen ;
+		 var scrobj = document.getElementById("kdb_con") ;
+                 if (scrobj != null)
+		     scrobj.value = screen ;
+
+		 screen_content = screen ;
 	}
 
 
