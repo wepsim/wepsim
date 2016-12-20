@@ -159,6 +159,10 @@ function read_microprg ( context )
                     nextToken(context) ;
 	   }
 
+           // semantic check: empty microcode is not valid
+	   if (microprograma.length == 0)
+	       return langError(context, "Empty microcode") ;
+
 	   // match mandatory }
            nextToken(context) ;
 
@@ -374,6 +378,10 @@ function loadFirmware (text)
                var instruccionAux = new Object();
 	       instruccionAux["name"]     = getToken(context) ;
 	       instruccionAux["mc-start"] = context.contadorMC ;
+
+               // semantic check: valid instruction name
+               if (instruccionAux["name"].match("[a-zA-Z_0-9]*")[0] != instruccionAux["name"])
+	           return langError(context, "Instruction name '" + instruccionAux["name"] + "' is not valid for [a-zA-Z_0-9]*") ;
 
 	       var firma = "";
 	       var firmaGlobal= "";
