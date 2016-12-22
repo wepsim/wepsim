@@ -721,17 +721,27 @@
                 return true;
         }
 
-        function execute_microprogram ()
+        function execute_microprogram ( limit_clks )
         {
 	        if (check_if_can_continue(true) == false)
 		    return false;
 
+                var limitless = false;
+                if (limit_clks < 0)
+                    limitless = true;
+
                 // 1.- while the microaddress register doesn't store the fetch address (0), execute micro-instructions
+                var i_clks = 0;
 		do    
             	{
                     compute_general_behavior("CLOCK") ;
+
+                    i_clks++;
+                    if (limitless) 
+                        limit_clks = i_clks ;
             	}
 		while (
+                         (i_clks < limit_clks) &&
                          (0 != get_value(sim_states["REG_MICROADDR"])) && 
                          (typeof MC[get_value(sim_states["REG_MICROADDR"])] != "undefined") 
                       );
@@ -744,7 +754,7 @@
                     show_dbg_mpc();
                 }
 
-                return true;
+                return (i_clks < limit_clks);
         }
 
         /* 3) LOAD/SAVE */

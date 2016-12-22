@@ -114,7 +114,7 @@
 	if (check_if_can_execute(true) == false)
 	    return false;
 
-	return execute_microprogram() ;
+	return execute_microprogram(-1) ;
     }
 
     function wepsim_execute_microinstruction ( )
@@ -211,7 +211,7 @@
 
 	var ret = false ;
 	if (get_cfg('DBG_level') == "instruction")
-	     ret = execute_microprogram() ;
+	     ret = execute_microprogram(-1) ;
 	else ret = execute_microinstruction() ;
 
 	if (ret === false) {
