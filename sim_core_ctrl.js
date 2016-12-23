@@ -738,7 +738,7 @@
 
                     i_clks++;
                     if (limitless) 
-                        limit_clks = i_clks ;
+                        limit_clks = i_clks + 1;
             	}
 		while (
                          (i_clks < limit_clks) &&
