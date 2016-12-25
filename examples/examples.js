@@ -73,9 +73,3 @@
                      description: "Advanced example with interruption, system call, and exception.<br>" 
                   });
 
-    examples.push({ 
-                     id: 'S4E1',
-                     title: "Special: addv + seqv.",
-                     description: "Example of instructions addv and seqv.<br>" 
-                  });
-
