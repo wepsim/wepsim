@@ -73,6 +73,14 @@
 
         function check_behavior ( )
         {
+            // 1.- check if no signals are defined...
+            if (0 == sim_signals.length) 
+                alert("ALERT: empty signals!!!");
+
+            // 2.- check if no states are defined...
+            if (0 == sim_states.length) 
+                alert("ALERT: empty states!!!");
+
             for (var key in sim_signals)
             {
                 for (var key2 in sim_signals[key].behavior)
@@ -130,20 +138,49 @@
             }
         }
 
-        function load_check()
+
+        /*
+         *  work with behaviors
+         */
+
+        var jit_behaviors = false ;
+
+        function compile_behaviors ()
         {
-            // 1.- check if no signals are defined...
-            if (0 == sim_signals.length) {
-                alert("ALERT: empty signals!!!");
+            var jit_bes = "";
+
+            for (var sig in sim_signals) 
+            {
+		 jit_bes += "sim_signals['" + sig + "'].behavior_fn = new Array();\n" ;
+
+                 for (var val in sim_signals[sig].behavior)
+                 {
+                      var input_behavior = sim_signals[sig].behavior[val] ;
+                      var jit_be = "";
+
+		      // 1.- Split several behaviors, e.g.: "MV D1 O1; MV D2 O2"
+		      var s_exprs = input_behavior.split(";");
+
+		      // 2.- For every behavior...
+		      for (var i=0; i<s_exprs.length; i++)
+		      {
+			    // 2.1.- ...to remove white spaces from both sides, e.g.: "  MV D1 O1  " (skip empty expression, i.e. "")
+			    s_exprs[i] = s_exprs[i].trim() ;
+			    if ("" == s_exprs[i]) continue ;
+
+			    // 2.2.- ...to split into expression, e.g.: "MV D1 O1"
+			    var s_expr = s_exprs[i].split(" ");
+
+			    // 2.3.- ...to do the operation
+			    jit_be += "syntax_behavior['" + s_expr[0] + "'].operation(" + JSON.stringify(s_expr) + ");\t" ;
+		      }
+
+		      jit_bes += "sim_signals['" + sig + "'].behavior_fn[" + val + "] = \t function() {" + jit_be + "};\n" ;
+                 }
             }
 
-            // 2.- check if no states are defined...
-            if (0 == sim_states.length) {
-                alert("ALERT: empty states!!!");
-            }
-
-            // 3.- check behavior syntax...
-            check_behavior();
+	    eval(jit_bes) ;
+            jit_behaviors = true ;
         }
 
         function compute_behavior (input_behavior)
@@ -166,32 +203,50 @@
             }
         }
 
+        function compute_general_behavior ( name )
+        {
+            if (jit_behaviors)
+                 syntax_behavior[name].operation();
+            else compute_behavior(name) ;
+        }
+
+        function compute_signal_behavior ( signal_name, signal_value )
+        {
+            if (jit_behaviors)
+                 sim_signals[signal_name].behavior_fn[signal_value]();
+            else compute_behavior(sim_signals[signal_name].behavior[signal_value]) ;
+        }
+
+
+        /*
+         *  Show/Update the global state
+         */
+
         function update_state ( key )
         {
-           var signal_value = 0;
-           var input_behavior = "";
+           var index_behavior = 0;
 
            switch (sim_signals[key].behavior.length)
            {
-                case 0:
-                     return; // Cuando behavior no tiene comportamiento, no hacemos nada en actualizacion de estado
+                case 0: // skip empty behavior
+                     return;
                      break;
 
-                case 1:
-                     signal_value = sim_signals[key].value ;
-                     input_behavior = sim_signals[key].behavior[0] ;
+                case 1: // several signal values share the same behavior -> behavior[0]
+                     index_behavior = 0;
                      break;
 
                 default:
-                     signal_value = sim_signals[key].value ;
-                     if (signal_value   < sim_signals[key].behavior.length)
-                         input_behavior = sim_signals[key].behavior[signal_value] ;
-                     else alert('ALERT: there are more signals values than behaviors defined!!!!\n' +
-                                'key: ' + key + ' and signal value: ' + signal_value);
+                     index_behavior = sim_signals[key].value ;
+                     if (sim_signals[key].behavior.length < index_behavior) {
+                         alert('ALERT: there are more signals values than behaviors defined!!!!\n' +
+                               'key: ' + key + ' and signal value: ' + index_behavior);
+                         return;
+                     }
                      break;
            }
 
-           compute_behavior(input_behavior) ;
+           compute_signal_behavior(key,index_behavior) ;
         }
 
 
@@ -530,9 +585,12 @@
         function init ( stateall_id, statebr_id, ioall_id, configall_id )
         {
             // 1.- it checks if everything is ok 
-            load_check() ;
+            check_behavior();
 
-            // 2.- display the information holders
+            // 2.- pre-compile behaviors
+            compile_behaviors() ;
+
+            // 3.- display the information holders
             init_states(stateall_id) ; 
             init_rf(statebr_id) ; 
 
@@ -616,7 +674,8 @@
         {
             // Hardware
 	    var SIMWARE = get_simware() ;
-            compute_behavior("RESET") ;
+
+            compute_general_behavior("RESET") ;
 
             if ((typeof segments['.ktext'] != "undefined") && (SIMWARE.labels2["kmain"])){
                     set_value(sim_states["REG_PC"], parseInt(SIMWARE.labels2["kmain"])); 
@@ -633,7 +692,7 @@
 		set_value(sim_states["BR"][FIRMWARE.stackRegister], parseInt(segments['.stack'].begin));
 	    }
 
-            compute_behavior("CLOCK") ;
+            compute_general_behavior("CLOCK") ;
 
             // User Interface
             show_dbg_ir(get_value(sim_states['REG_IR_DECO'])) ;
@@ -653,7 +712,7 @@
                 if ((0 == maddr) && (check_if_can_continue(true) == false))
 		    return false; // when do reset/fetch, check text segment bounds
 
-                compute_behavior("CLOCK") ;
+                compute_general_behavior("CLOCK") ;
 
 		show_states();
 		show_rf_values();
@@ -662,18 +721,27 @@
                 return true;
         }
 
-        function execute_microprogram ()
+        function execute_microprogram ( limit_clks )
         {
 	        if (check_if_can_continue(true) == false)
 		    return false;
 
-                // 1.- while the microaddress register doesn't store the fetch address (0), 
-                //     execute micro-instructions
+                var limitless = false;
+                if (limit_clks < 0)
+                    limitless = true;
+
+                // 1.- while the microaddress register doesn't store the fetch address (0), execute micro-instructions
+                var i_clks = 0;
 		do    
             	{
-                	compute_behavior("CLOCK") ;
+                    compute_general_behavior("CLOCK") ;
+
+                    i_clks++;
+                    if (limitless) 
+                        limit_clks = i_clks + 1;
             	}
 		while (
+                         (i_clks < limit_clks) &&
                          (0 != get_value(sim_states["REG_MICROADDR"])) && 
                          (typeof MC[get_value(sim_states["REG_MICROADDR"])] != "undefined") 
                       );
@@ -681,10 +749,12 @@
                 // 2.- to show states
 		show_states();
 		show_rf_values();
-                if (get_cfg('DBG_level') == "microinstruction")
-                    show_dbg_mpc();
 
-                return true;
+                if (get_cfg('DBG_level') == "microinstruction") {
+                    show_dbg_mpc();
+                }
+
+                return (i_clks < limit_clks);
         }
 
         /* 3) LOAD/SAVE */

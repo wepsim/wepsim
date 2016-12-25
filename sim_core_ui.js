@@ -719,12 +719,26 @@
          *  show_memories
          */
 
+        var show_main_memory_deffered = null;
+
         function show_main_memory ( memory, index, redraw )
         {
-            if (redraw == false) {
-                return refresh_main_memory(memory,index);
+	    if (redraw == false) {
+		light_refresh_main_memory(memory, index);
+                return ;
             }
 
+            if (null != show_main_memory_deffered) 
+                clearTimeout(show_main_memory_deffered) ;
+
+            show_main_memory_deffered = setTimeout(function () {
+                                                       hard_refresh_main_memory(memory, index, redraw) ;
+                                                       show_main_memory_deffered = null;
+                                                   }, 120);
+        }
+
+        function hard_refresh_main_memory ( memory, index, redraw )
+        {
 	    var o1 = "" ;
             var value = "" ;
 
@@ -781,7 +795,7 @@
 
         var old_main_addr = 0;
 
-        function refresh_main_memory ( memory, index )
+        function light_refresh_main_memory ( memory, index )
         {
             // if ($("#memory_MP").is(":visible") == false)
             //     return ;
@@ -799,12 +813,26 @@
             o1.css('font-weight', 'bold') ;
         }
 
+        var show_control_memory_deffered = null;
+
         function show_control_memory ( memory, memory_dashboard, index, redraw )
         {
             if (false == redraw) {
-                return refresh_control_memory(memory,memory_dashboard,index);
+                light_refresh_control_memory(memory, memory_dashboard, index);
+                return ;
             }
 
+            if (null != show_control_memory_deffered) 
+                clearTimeout(show_control_memory_deffered) ;
+
+            show_control_memory_deffered = setTimeout(function () {
+                                            hard_refresh_control_memory(memory, memory_dashboard, index, redraw);
+                                            show_control_memory_deffered = null;
+                                           }, 120);
+        }
+
+        function hard_refresh_control_memory ( memory, memory_dashboard, index, redraw )
+        {
 	    var o1 = "" ;
             var value = "" ;
             var icon_theme = get_cfg('ICON_theme') ;
@@ -866,7 +894,7 @@
 
         var old_mc_addr = 0;
 
-        function refresh_control_memory ( memory, memory_dashboard, index )
+        function light_refresh_control_memory ( memory, memory_dashboard, index )
         {
             // if ($("#memory_MP").is(":visible") == false)
             //     return ;
