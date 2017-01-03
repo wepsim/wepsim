@@ -419,15 +419,15 @@
 	    }
         }
 
-        var show_rf_values_deffered = null;
+        var show_rf_values_deferred = null;
 
         function show_rf_values ( )
         {
-            if (null == show_rf_values_deffered)
+            if (null == show_rf_values_deferred)
             {
-                show_rf_values_deffered = setTimeout(function() {
+                show_rf_values_deferred = setTimeout(function() {
                                                         fullshow_rf_values();
-                                                        show_rf_values_deffered=null;
+                                                        show_rf_values_deferred=null;
                                                      }, 120);
             }
         }
@@ -521,15 +521,15 @@
             }
         }
 
-        var show_eltos_deffered = null;
+        var show_eltos_deferred = null;
 
         function show_eltos ( sim_eltos, filter )
         {
-            if (null == show_eltos_deffered)
+            if (null == show_eltos_deferred)
             {
-                show_eltos_deffered = setTimeout(function() {
+                show_eltos_deferred = setTimeout(function() {
                                                         fullshow_eltos(sim_eltos, filter);
-                                                        show_eltos_deffered = null;
+                                                        show_eltos_deferred = null;
                                                  }, 130);
             }
         }
@@ -719,7 +719,7 @@
          *  show_memories
          */
 
-        var show_main_memory_deffered = null;
+        var show_main_memory_deferred = null;
 
         function show_main_memory ( memory, index, redraw )
         {
@@ -728,12 +728,12 @@
                 return ;
             }
 
-            if (null != show_main_memory_deffered) 
-                clearTimeout(show_main_memory_deffered) ;
+            if (null != show_main_memory_deferred) 
+                clearTimeout(show_main_memory_deferred) ;
 
-            show_main_memory_deffered = setTimeout(function () {
+            show_main_memory_deferred = setTimeout(function () {
                                                        hard_refresh_main_memory(memory, index, redraw) ;
-                                                       show_main_memory_deffered = null;
+                                                       show_main_memory_deferred = null;
                                                    }, 120);
         }
 
@@ -813,7 +813,7 @@
             o1.css('font-weight', 'bold') ;
         }
 
-        var show_control_memory_deffered = null;
+        var show_control_memory_deferred = null;
 
         function show_control_memory ( memory, memory_dashboard, index, redraw )
         {
@@ -822,12 +822,12 @@
                 return ;
             }
 
-            if (null != show_control_memory_deffered) 
-                clearTimeout(show_control_memory_deffered) ;
+            if (null != show_control_memory_deferred) 
+                clearTimeout(show_control_memory_deferred) ;
 
-            show_control_memory_deffered = setTimeout(function () {
+            show_control_memory_deferred = setTimeout(function () {
                                             hard_refresh_control_memory(memory, memory_dashboard, index, redraw);
-                                            show_control_memory_deffered = null;
+                                            show_control_memory_deferred = null;
                                            }, 120);
         }
 
@@ -926,9 +926,22 @@
                 return FIRMWARE.assembly[hexstrpc].source ;
         }
 
+        var show_asmdbg_pc_deferred = null;
+
+	function show_asmdbg_pc ( decins )
+	{
+            if (null == show_asmdbg_pc_deferred)
+            {
+                show_asmdbg_pc_deferred = setTimeout(function() {
+                                                        fullshow_asmdbg_pc();
+                                                        show_asmdbg_pc_deferred = null;
+                                                     }, 50);
+            }
+	}
+
         var old_addr = 0;
 
-	function show_asmdbg_pc ( )
+	function fullshow_asmdbg_pc ( )
 	{
                 var o1 = null ;
                 var reg_pc    = get_value(sim_states["REG_PC"]) ;
@@ -1007,7 +1020,20 @@
                                     false) ;
 	}
 
+        var show_dbg_ir_deferred = null;
+
 	function show_dbg_ir ( decins )
+	{
+            if (null == show_dbg_ir_deferred)
+            {
+                show_dbg_ir_deferred = setTimeout(function() {
+                                                        fullshow_dbg_ir(decins);
+                                                        show_dbg_ir_deferred = null;
+                                                     }, 100);
+            }
+	}
+
+	function fullshow_dbg_ir ( decins )
 	{
 	        var o = document.getElementById('svg_p');
 	        if (o != null) o = o.contentDocument;
