@@ -926,22 +926,9 @@
                 return FIRMWARE.assembly[hexstrpc].source ;
         }
 
-        var show_asmdbg_pc_deferred = null;
-
-	function show_asmdbg_pc ( decins )
-	{
-            if (null == show_asmdbg_pc_deferred)
-            {
-                show_asmdbg_pc_deferred = setTimeout(function() {
-                                                        fullshow_asmdbg_pc();
-                                                        show_asmdbg_pc_deferred = null;
-                                                     }, 50);
-            }
-	}
-
         var old_addr = 0;
 
-	function fullshow_asmdbg_pc ( )
+	function show_asmdbg_pc ( )
 	{
                 var o1 = null ;
                 var reg_pc    = get_value(sim_states["REG_PC"]) ;
