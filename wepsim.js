@@ -655,7 +655,7 @@
 		       '     <div class="panel-heading">' +
 		       '       <h3 class="panel-title">' + (m+1) + ') ' + e_title + '</h3>' +
 		       '     </div>' +
-		       '     <div class="panel-body">' + e_description + '<br>' +
+		       '     <div class="panel-body collapse in">' + e_description + '<br>' +
 		       '       <div class="btn-group btn-group-justified btn-group-md">' +
 		       '           <a href="#" onclick="load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0;"' +
 		       '              class="ui-btn btn btn-group ui-btn-inline btn-default">' +

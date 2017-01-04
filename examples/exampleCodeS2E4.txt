@@ -56,6 +56,3 @@ main:
        li  $a2 6
        jal counting
 
-       # return
-       jr $ra
-
