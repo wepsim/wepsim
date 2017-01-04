@@ -1,8 +1,8 @@
-/*      
+/*     
  *  Copyright 2015-2017 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
- * 
+ *
  *  WepSIM is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -25,7 +25,7 @@
 
         function get_simware ( )
         {
-	    if (typeof FIRMWARE['firmware'] == "undefined") 
+	    if (typeof FIRMWARE['firmware'] == "undefined")
             {
                 FIRMWARE['firmware']           = new Array() ;
                 FIRMWARE['mp']                 = new Object() ;
@@ -42,34 +42,34 @@
 
             return FIRMWARE ;
 	}
- 
+
         function set_simware ( preSIMWARE )
         {
-	    if (typeof preSIMWARE['firmware'] != "undefined") 
+	    if (typeof preSIMWARE['firmware'] != "undefined")
                 FIRMWARE['firmware'] = preSIMWARE['firmware'] ;
-	    if (typeof preSIMWARE['mp'] != "undefined") 
+	    if (typeof preSIMWARE['mp'] != "undefined")
                 FIRMWARE['mp'] = preSIMWARE['mp'] ;
-	    if (typeof preSIMWARE['registers'] != "undefined") 
+	    if (typeof preSIMWARE['registers'] != "undefined")
                 FIRMWARE['registers'] = preSIMWARE['registers'] ;
-	    if (typeof preSIMWARE['cihash'] != "undefined") 
+	    if (typeof preSIMWARE['cihash'] != "undefined")
                 FIRMWARE['cihash'] = preSIMWARE['cihash'] ;
-	    if (typeof preSIMWARE['assembly'] != "undefined") 
+	    if (typeof preSIMWARE['assembly'] != "undefined")
                 FIRMWARE['assembly'] = preSIMWARE['assembly'] ;
-	    if (typeof preSIMWARE['pseudoInstructions'] != "undefined") 
+	    if (typeof preSIMWARE['pseudoInstructions'] != "undefined")
                 FIRMWARE['pseudoInstructions'] = preSIMWARE['pseudoInstructions'] ;
 
-	    if (typeof preSIMWARE['seg'] != "undefined") 
+	    if (typeof preSIMWARE['seg'] != "undefined")
                 FIRMWARE['seg'] = preSIMWARE['seg'] ;
-	    if (typeof preSIMWARE['labels'] != "undefined") 
+	    if (typeof preSIMWARE['labels'] != "undefined")
                 FIRMWARE['labels'] = preSIMWARE['labels'] ;
-	    if (typeof preSIMWARE['labels2'] != "undefined") 
+	    if (typeof preSIMWARE['labels2'] != "undefined")
                 FIRMWARE['labels2'] = preSIMWARE['labels2'] ;
-	    if (typeof preSIMWARE['labels_firm'] != "undefined") 
+	    if (typeof preSIMWARE['labels_firm'] != "undefined")
                 FIRMWARE['labels_firm'] = preSIMWARE['labels_firm'] ;
 	    if (typeof preSIMWARE['stackRegister'] != "undefined")
 		FIRMWARE['stackRegister'] = preSIMWARE['stackRegister'] ;
 	}
- 
+
 
         /*
          *  draw
@@ -137,7 +137,7 @@
 	    }
 	    if ( (false == draw_it) && (typeof obj.depends_on != "undefined") )
 	    {
-		for (var k=0; k<obj.depends_on.length; k++) 
+		for (var k=0; k<obj.depends_on.length; k++)
 		{
 		     var sname = obj.depends_on[k] ;
 		     if (typeof sim_states["REG_MICROINS"].value[sname] != "undefined") {
@@ -146,7 +146,7 @@
 		     }
 		     else if ("CLK" == sname) {
                              // MRdy/IORdy/etc. (related hw. activated signals) relay on this trick.
-                             // Otherwise are not shown because they are not user-set in the microinstruction, 
+                             // Otherwise are not shown because they are not user-set in the microinstruction,
                              // but they are set dynamically by hardware
 			     draw_it = true;
 			     break;
@@ -160,11 +160,11 @@
 	    {
 		    for (var i=0; i<obj.draw_data.length; i++)
 		    for (var j=0; j<obj.draw_data[i].length; j++) {
-	                   obj_draw(obj.draw_data[i][j], 
-                                    (i==value) && draw_it, 
-                                    get_cfg('color_data_active'), 
-                                    get_cfg('color_data_inactive'), 
-                                    get_cfg('size_active'), 
+	                   obj_draw(obj.draw_data[i][j],
+                                    (i==value) && draw_it,
+                                    get_cfg('color_data_active'),
+                                    get_cfg('color_data_inactive'),
+                                    get_cfg('size_active'),
                                     get_cfg('size_inactive'));
 		    }
 	    }
@@ -172,11 +172,11 @@
 	    // (same draw) && (nbits == 1)
 	    {
 		    for (var j=0; j<obj.draw_data[0].length; j++) {
-	                   obj_draw(obj.draw_data[0][j], 
-                                    (0!=value) && draw_it, 
-                                    get_cfg('color_data_active'), 
-                                    get_cfg('color_data_inactive'), 
-                                    get_cfg('size_active'), 
+	                   obj_draw(obj.draw_data[0][j],
+                                    (0!=value) && draw_it,
+                                    get_cfg('color_data_active'),
+                                    get_cfg('color_data_inactive'),
+                                    get_cfg('size_active'),
                                     get_cfg('size_inactive'));
 		    }
 	    }
@@ -184,11 +184,11 @@
 	    // (same draw) && (nbits > 1)
 	    {
 		    for (var j=0; j<obj.draw_data[0].length; j++) {
-	                   obj_draw(obj.draw_data[0][j], 
-                                    draw_it, 
-                                    get_cfg('color_data_active'), 
-                                    get_cfg('color_data_inactive'), 
-                                    get_cfg('size_active'), 
+	                   obj_draw(obj.draw_data[0][j],
+                                    draw_it,
+                                    get_cfg('color_data_active'),
+                                    get_cfg('color_data_inactive'),
+                                    get_cfg('size_active'),
                                     get_cfg('size_inactive'));
 		    }
 	    }
@@ -199,11 +199,11 @@
 	    {
 		    for (var i=0; i<obj.draw_name.length; i++)
 		    for (var j=0; j<obj.draw_name[i].length; j++) {
-	                   obj_draw(obj.draw_name[i][j], 
-                                    (i==value) && draw_it, 
-                                    get_cfg('color_name_active'), 
-                                    get_cfg('color_name_inactive'), 
-                                    get_cfg('size_active'), 
+	                   obj_draw(obj.draw_name[i][j],
+                                    (i==value) && draw_it,
+                                    get_cfg('color_name_active'),
+                                    get_cfg('color_name_inactive'),
+                                    get_cfg('size_active'),
                                     get_cfg('size_inactive'));
 		    }
 	    }
@@ -211,11 +211,11 @@
 	    // (same draw) && (nbits == 1)
 	    {
 		    for (var j=0; j<obj.draw_name[0].length; j++) {
-	                   obj_draw(obj.draw_name[0][j], 
-                                    (0!=value) && draw_it, 
-                                    get_cfg('color_name_active'), 
-                                    get_cfg('color_name_inactive'), 
-                                    get_cfg('size_active'), 
+	                   obj_draw(obj.draw_name[0][j],
+                                    (0!=value) && draw_it,
+                                    get_cfg('color_name_active'),
+                                    get_cfg('color_name_inactive'),
+                                    get_cfg('size_active'),
                                     get_cfg('size_inactive'));
 		    }
 	    }
@@ -223,16 +223,16 @@
 	    // (same draw) && (nbits > 1)
 	    {
 		    for (var j=0; j<obj.draw_name[0].length; j++) {
-	                   obj_draw(obj.draw_name[0][j], 
-                                    draw_it, 
-                                    get_cfg('color_name_active'), 
-                                    get_cfg('color_name_inactive'), 
-                                    get_cfg('size_active'), 
+	                   obj_draw(obj.draw_name[0][j],
+                                    draw_it,
+                                    get_cfg('color_name_active'),
+                                    get_cfg('color_name_inactive'),
+                                    get_cfg('size_active'),
                                     get_cfg('size_inactive'));
 		    }
 	    }
 	}
- 
+
         function refresh()
         {
 	    for (var key in sim_signals)
@@ -297,7 +297,7 @@
         {
 	      var new_value = parseInt($("#popover1")[0].value) ;
 
-              if (typeof sim_states["BR"][index] != "undefined") 
+              if (typeof sim_states["BR"][index] != "undefined")
               {
 	          set_value(sim_states["BR"][index], new_value) ;
 	          fullshow_rf_values() ;
@@ -305,9 +305,9 @@
                   $("#rf" + index).click() ;
               }
 
-              if (typeof sim_states[index] != "undefined") 
+              if (typeof sim_states[index] != "undefined")
               {
-                  if (1 == sim_states[index].nbits) 
+                  if (1 == sim_states[index].nbits)
                       new_value = new_value % 2;
 
 	          set_value(sim_states[index], new_value) ;
@@ -334,27 +334,27 @@
 		var valuedt = "" ;
 		if (get_cfg('is_editable') == true) {
 		    valuedt = "<tr><td colspan=5 align=center><input type=text id='popover1' value='" + valueui + "' data-mini='true' style='width:65%'>&nbsp;" +
-                              "<span class='badge' " + 
+                              "<span class='badge' " +
                               "      onclick='hex2values_update(\"" + index + "\");'>update</span></td></tr>";
                 }
 
-		var vtable = "<table width='100%' class='table table-bordered table-condensed'>" + 
+		var vtable = "<table width='100%' class='table table-bordered table-condensed'>" +
 			     "<tr><td><small><b>hex.</b></small></td>" +
-                             "    <td colspan=4><small>" + valuehex + "</small></td></tr>" + 
+                             "    <td colspan=4><small>" + valuehex + "</small></td></tr>" +
 			     "<tr><td><small><b>bin.</b></small></td>" +
-                             "    <td colspan=4><small><font face='monospace'><b>" + valuebin + "</b></font></smallspan></td></tr>" + 
+                             "    <td colspan=4><small><font face='monospace'><b>" + valuebin + "</b></font></smallspan></td></tr>" +
 			     "<tr><td><small><b>signed</b></small></td>" +
-                             "    <td colspan=4><small>" + valuei   + "</small></td></tr>" + 
+                             "    <td colspan=4><small>" + valuei   + "</small></td></tr>" +
 			     "<tr><td><small><b>unsig.</b></small></td>" +
-                             "    <td colspan=4><small>" + valueui  + "</small></td></tr>" + 
+                             "    <td colspan=4><small>" + valueui  + "</small></td></tr>" +
 			     "<tr><td width=30%><small><b>char</b></small></td>" +
                              "    <td width=15% align=center><small>" + valuec8[0] + "</small></td>" +
                              "    <td width=15% align=center><small>" + valuec8[1] + "</small></td>" +
                              "    <td width=15% align=center><small>" + valuec8[2] + "</small></td>" +
-                             "    <td width=15% align=center><small>" + valuec8[3] + "</small></td></tr>" + 
-		             "<tr><td><small><b>float</b></small></td>" + 
-                             "    <td colspan=4><small><font face='monospace'><b>" + valuef + "</b></font></small></td></tr>" + 
-			     valuedt + 
+                             "    <td width=15% align=center><small>" + valuec8[3] + "</small></td></tr>" +
+		             "<tr><td><small><b>float</b></small></td>" +
+                             "    <td colspan=4><small><font face='monospace'><b>" + valuef + "</b></font></small></td></tr>" +
+			     valuedt +
 			     "</table>" ;
 
 		return vtable;
@@ -371,18 +371,18 @@
                         "  <div class='popover-heading'></div>" +
                         "  <div class='popover-body'></div>" +
                         "</div>" ;
-	    for (var index=0; index < sim_states['BR'].length; index++) 
+	    for (var index=0; index < sim_states['BR'].length; index++)
             {
 		 o1_rf += "<div class='col-xs-6 col-sm-4 col-md-4 col-lg-3' style='padding:0 5 0 5;'>" +
-                          "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;' " + 
+                          "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;' " +
                           "        data-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
-                          "  <span id='name_RF" + index + "' style='float:center; padding:0 0 0 0'>R" + index + "</span>" + 
-                          "  <span class='badge' style='background-color:#CEECF5; color:black;' id='tbl_RF"  + index + "'>" + 
+                          "  <span id='name_RF" + index + "' style='float:center; padding:0 0 0 0'>R" + index + "</span>" +
+                          "  <span class='badge' style='background-color:#CEECF5; color:black;' id='tbl_RF"  + index + "'>" +
                           (get_value(sim_states['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() +
-                          "  </span>" + 
+                          "  </span>" +
                           "</button>" +
-                          "</div>" ; 
+                          "</div>" ;
 	    }
 
             $(jqdiv).html("<div class='row-fluid'>" + o1_rf + "</div>");
@@ -399,7 +399,7 @@
 		        var index = $(this).attr("data-popover-content");
                         var id_button = "&quot;#rf" + index + "&quot;" ;
 		        return '<span class="text-info"><strong>R' + index + '</strong></span>' +
-                               '<button type="button" id="close" class="close" ' + 
+                               '<button type="button" id="close" class="close" ' +
                                '        onclick="$(' + id_button + ').click();">&times;</button>';
 		    }
 	    });
@@ -409,7 +409,7 @@
         {
             var SIMWARE = get_simware() ;
 
-	    for (var index=0; index < sim_states['BR'].length; index++) 
+	    for (var index=0; index < sim_states['BR'].length; index++)
             {
                  var br_value = (get_value(sim_states['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() ;
                  if (16 == get_cfg('RF_display_format'))
@@ -421,22 +421,22 @@
 
         var show_rf_values_deffered = null;
 
-        function show_rf_values ( ) 
+        function show_rf_values ( )
         {
             if (null == show_rf_values_deffered)
             {
-                show_rf_values_deffered = setTimeout(function() { 
+                show_rf_values_deffered = setTimeout(function() {
                                                         fullshow_rf_values();
                                                         show_rf_values_deffered=null;
                                                      }, 120);
             }
         }
 
-        function show_rf_names ( ) 
+        function show_rf_names ( )
         {
             var SIMWARE = get_simware() ;
 
-	    for (var index=0; index < sim_states['BR'].length; index++) 
+	    for (var index=0; index < sim_states['BR'].length; index++)
             {
                  var br_value = "R" + index;
 	         if ('logical' == get_cfg('RF_display_name'))
@@ -450,7 +450,7 @@
         }
 
 
-        function init_eltos ( jqdiv, sim_eltos, filter, divclasses ) 
+        function init_eltos ( jqdiv, sim_eltos, filter, divclasses )
         {
             if (jqdiv == "")
             {   // without ui
@@ -469,11 +469,11 @@
                 var b = filter[i].split(",")[1] ;
                 var divclass = divclasses[b] ;
 
-                o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" + 
-                      "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;' " + 
+                o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" +
+                      "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;' " +
                       "        data-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +
-                      showkey + 
+                      showkey +
                       "<span class='badge' style='background-color:#CEECF5; color:black;' id='tbl_"  + s + "'>" +
                       sim_eltos[s].value.toString(get_cfg('RF_display_format')) +
                       "</span>" +
@@ -495,13 +495,13 @@
 		        var index = $(this).attr("data-popover-content");
                         var id_button = "&quot;#rp" + index + "&quot;" ;
 		        return '<span class="text-info"><strong>' + sim_states[index].name + '</strong></span>' +
-                               '<button type="button" id="close" class="close" ' + 
+                               '<button type="button" id="close" class="close" ' +
                                '        onclick="$(' + id_button + ').click();">&times;</button>';
 		    }
 	    });
         }
 
-        function fullshow_eltos ( sim_eltos, filter ) 
+        function fullshow_eltos ( sim_eltos, filter )
         {
             for (var i=0; i<filter.length; i++)
             {
@@ -523,11 +523,11 @@
 
         var show_eltos_deffered = null;
 
-        function show_eltos ( sim_eltos, filter ) 
+        function show_eltos ( sim_eltos, filter )
         {
             if (null == show_eltos_deffered)
             {
-                show_eltos_deffered = setTimeout(function() { 
+                show_eltos_deffered = setTimeout(function() {
                                                         fullshow_eltos(sim_eltos, filter);
                                                         show_eltos_deffered = null;
                                                  }, 130);
@@ -540,15 +540,15 @@
                               "REG_RT1,1", "REG_RT2,1", "REG_RT3,1",
                               "REG_MAR,1", "REG_MBR,1", "REG_MICROADDR,1" ] ;
 
-        var divclasses = [ "col-xs-12 col-sm-12 col-md-12 col-lg-12", 
+        var divclasses = [ "col-xs-12 col-sm-12 col-md-12 col-lg-12",
                            "col-xs-4 col-sm-4 col-md-4 col-lg-4" ] ;
 
-        function init_states ( jqdiv ) 
+        function init_states ( jqdiv )
         {
             return init_eltos(jqdiv, sim_states, filter_states, divclasses ) ;
         }
 
-        function show_states ( ) 
+        function show_states ( )
         {
             return show_eltos(sim_states, filter_states) ;
         }
@@ -559,39 +559,41 @@
             {       // without ui
 		    sim_states['CLK'].value = ko.observable(sim_states['CLK'].value);
 		    sim_states['DECO_INS'].value = ko.observable(sim_states['DECO_INS'].value);
-		    for (var i=0; i<IO_INT_FACTORY.length; i++)
+		    for (var i=0; i<IO_INT_FACTORY.length; i++) {
 			 IO_INT_FACTORY[i].accumulated = ko.observable(IO_INT_FACTORY[i].accumulated) ;
+			 IO_INT_FACTORY[i].active      = ko.observable(IO_INT_FACTORY[i].active) ;
+                    }
                     return ;
             }
 
             // stats holder
-            var o1 = "<center>" + 
-                     "<table class='table table-hover table-condensed table-bordered table-responsive'>" + 
-                     "<tr>" + 
-                     "<td align=center width=50%>Instructions</td>" + 
-                     "<td align=center width=50%>" + 
+            var o1 = "<center>" +
+                     "<table class='table table-hover table-condensed table-bordered table-responsive'>" +
+                     "<tr>" +
+                     "<td align=center width=50%>Instructions</td>" +
+                     "<td align=center width=50%>" +
                      "<div id='ins_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
-                     "</td>" + 
-                     "</tr>" + 
-                     "<tr>" + 
-                     "<td align=center width=50%>CLK ticks</td>" + 
-                     "<td align=center width=50%>" + 
+                     "</td>" +
+                     "</tr>" +
+                     "<tr>" +
+                     "<td align=center width=50%>CLK ticks</td>" +
+                     "<td align=center width=50%>" +
                      "<div id='clk_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
-                     "</td>" + 
+                     "</td>" +
                      "</tr>" ;
                o1 += "<tr><td colspan=2>&nbsp;</td></tr>" ;
             for (var i=0; i<IO_INT_FACTORY.length; i++)
             {
                o1 += "<tr id='int" + i + "_context'>" +
-                     "<td align=center width=50%>" + 
-                     "<span data-bind=\"style: {fontWeight: active() ? 'bold' : ''}\">" + "Interrupt " + i + "</span>" + 
-                     "</td>" + 
-                     "<td align=center width=50%>" + 
-                     "<span data-bind='text: accumulated'>&nbsp;</span>" + 
-                     "</td>" + 
+                     "<td align=center width=50%>" +
+                     "<span data-bind=\"style: {fontWeight: active() ? 'bold' : ''}\">" + "Interrupt " + i + "</span>" +
+                     "</td>" +
+                     "<td align=center width=50%>" +
+                     "<span data-bind='text: accumulated'>&nbsp;</span>" +
+                     "</td>" +
                      "</tr>" ;
             }
-            o1 += "</table>" + 
+            o1 += "</table>" +
                   "</center>" ;
             $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
 
@@ -631,44 +633,44 @@
             var o1 = "<div class='container-fluid' style='padding:0 0 0 0; overflow-x:auto'>" +
                      "<div class='row-fluid'>" +
                      "<div class='col-xs-8 col-md-8' style='padding:0 0 0 0;'>" +
-                     "<div class='panel panel-default' style='margin:0 0 0 0;'>" + 
+                     "<div class='panel panel-default' style='margin:0 0 0 0;'>" +
                      "<div class='panel-heading'>" +
                      " <h3 class='panel-title'>I/O</h3>" +
                      "</div>" +
                      "<div class='panel-body' id='iopanel' style='padding: 0 0 0 0'>" ;
-               o1 += "<center>" + 
-                     "<table class='table table-hover table-condensed table-bordered table-responsive' " + 
-                     "       style='margin:0'>" + 
-                     "<tbody class='ui-mini'>" + 
-                     "<tr>" + 
-                     "<td align=center width=33%>" + 
-                     "  <span class='hidden-xs'>Interruption<br>identificator</span>" + 
-                     "  <span class='visible-xs'>Int.<br>Id.</span>" + 
-                     "</td>" + 
-                     "<td align=center width=33%>CLK period<br>(<b>0</b> - &infin;)</td>" + 
-                     "<td align=center width=33%>Probability<br>(0 - 1)</td>" + 
+               o1 += "<center>" +
+                     "<table class='table table-hover table-condensed table-bordered table-responsive' " +
+                     "       style='margin:0'>" +
+                     "<tbody class='ui-mini'>" +
+                     "<tr>" +
+                     "<td align=center width=33%>" +
+                     "  <span class='hidden-xs'>Interruption<br>identificator</span>" +
+                     "  <span class='visible-xs'>Int.<br>Id.</span>" +
+                     "</td>" +
+                     "<td align=center width=33%>CLK period<br>(<b>0</b> - &infin;)</td>" +
+                     "<td align=center width=33%>Probability<br>(0 - 1)</td>" +
                      "</tr>" ;
             for (var i=0; i<8; i++)
             {
                o1 += "<tr>" +
-                     "<td align=center style='padding:0 0 0 0; vertical-align: middle !important'>" + 
-                     "<span style='padding:0 0 0 0; margin:0 0 0 0'>" + i + "</span>" +  
+                     "<td align=center style='padding:0 0 0 0; vertical-align: middle !important'>" +
+                     "<span style='padding:0 0 0 0; margin:0 0 0 0'>" + i + "</span>" + 
                      "</td>" +
-                     "<td align=center style='padding:0 0 0 0'>" + 
+                     "<td align=center style='padding:0 0 0 0'>" +
                      "<div id='int" + i + "_per' style='margin:0 3 0 3'>" +
-                     "<input type=number data-bind='value: period' min='0' " + 
-                     "       style='margin:0 0 0 3; padding:0 0 0 5'>" + 
-                     "</div>" + 
+                     "<input type=number data-bind='value: period' min='0' " +
+                     "       style='margin:0 0 0 3; padding:0 0 0 5'>" +
+                     "</div>" +
                      "</td>" +
-                     "<td align=center style='padding:0 0 0 0'>" + 
+                     "<td align=center style='padding:0 0 0 0'>" +
                      "<div id='int" + i + "_pro' style='margin:0 3 0 3'>" +
-                     "<input type=number data-bind='value: probability' min='0' max='1' step='.05' " + 
-                     "       style='margin:0 0 0 3; padding:0 0 0 5'>" + 
-                     "</div>" + 
+                     "<input type=number data-bind='value: probability' min='0' max='1' step='.05' " +
+                     "       style='margin:0 0 0 3; padding:0 0 0 5'>" +
+                     "</div>" +
                      "</td>" +
                      "</tr>" ;
             }
-               o1 += "</tbody>" + 
+               o1 += "</tbody>" +
                      "</table>" +
                      "</center>" ;
                o1 += "</div>" +
@@ -676,7 +678,7 @@
                      "</div>" ;
 
                o1 += "<div class='col-xs-4 col-md-4' style='padding:0 0 0 10;'>" +
-                     "<div class='panel panel-default'>" + 
+                     "<div class='panel panel-default'>" +
                      "<div class='panel-heading'>" +
                      " <h3 class='panel-title'>Memory</h3>" +
                      "</div>" +
@@ -685,14 +687,14 @@
                      "  <center>" +
                      "  <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' style='padding: 0 0 0 0;'>Wait cycles <br>(<b>0</b> - &infin;)</div>" +
                      "  <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' id='mp_wc'><input type=number data-bind='value: MP_wc' min=0></div>" +
-                     "  </center>" + 
+                     "  </center>" +
                      "  </div>" +
                      "</div>" +
                      "</div>" +
                      "</div>" +
                      "</div>" +
                      "</div>" ;
-          
+         
             $(jqdiv).html(o1);
 
             // knockout binding
@@ -717,7 +719,7 @@
          *  show_memories
          */
 
-        function show_main_memory ( memory, index, redraw ) 
+        function show_main_memory ( memory, index, redraw )
         {
             if (redraw == false) {
                 return refresh_main_memory(memory,index);
@@ -758,11 +760,11 @@
             }
 
 	    if (typeof memory[index] == "undefined")
-		o1 += "<tr>" + 
-		      "<td width=15%><font color=blue>0x" + parseInt(index).toString(16) + "</font></td>" + 
+		o1 += "<tr>" +
+		      "<td width=15%><font color=blue>0x" + parseInt(index).toString(16) + "</font></td>" +
 		      "<td><font color=blue><b>00 00 00 00</b></font></td></tr>";
 
-            $("#memory_MP").html("<center><table class='table table-hover table-condensed table-responsive'>" + 
+            $("#memory_MP").html("<center><table class='table table-hover table-condensed table-responsive'>" +
                                  "<tbody id=none>" + o1 + "</tbody>" +
                                  "</table></center>");
 
@@ -779,7 +781,7 @@
 
         var old_main_addr = 0;
 
-        function refresh_main_memory ( memory, index ) 
+        function refresh_main_memory ( memory, index )
         {
             // if ($("#memory_MP").is(":visible") == false)
             //     return ;
@@ -797,10 +799,10 @@
             o1.css('font-weight', 'bold') ;
         }
 
-        function show_control_memory ( memory, memory_dashboard, index, redraw ) 
+        function show_control_memory ( memory, memory_dashboard, index, redraw )
         {
             if (false == redraw) {
-                return refresh_control_memory(memory,memory_dashboard,index); 
+                return refresh_control_memory(memory,memory_dashboard,index);
             }
 
 	    var o1 = "" ;
@@ -827,14 +829,14 @@
 		if (key == index)
 		     o1 += "<tr id='maddr" + key + "' " +
                            "    style='color:blue; font-size:normal; font-weight:bold' " +
-			   "    onclick='dbg_set_breakpoint(" + key + "); " + 
+			   "    onclick='dbg_set_breakpoint(" + key + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
 			   "<td width=12% align=right>" + "0x" + parseInt(key).toString(16) + "</td>" +
 			   "<td width=1% id='mcpin" + key + "' style='padding:5 0 0 0;'>" + trpin + "</td>" +
 			   "<td>" + value + "</td></tr>";
 		else o1 += "<tr id='maddr" + key + "' " +
                            "    style='color:black; font-size:small; font-weight:normal' " +
-			   "    onclick='dbg_set_breakpoint(" + key + "); " + 
+			   "    onclick='dbg_set_breakpoint(" + key + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
 			   "<td width=12% align=right>" + "0x" + parseInt(key).toString(16) + "</td>" +
 			   "<td width=1% id='mcpin" + key + "' style='padding:5 0 0 0;'>" + trpin + "</td>" +
@@ -842,12 +844,12 @@
             }
 
 	    if (typeof memory[index] == "undefined") {
-		o1 += "<tr>" + 
-		      "<td width=15%><font color=blue>0x" + parseInt(index).toString(16) + "</font></td>" + 
+		o1 += "<tr>" +
+		      "<td width=15%><font color=blue>0x" + parseInt(index).toString(16) + "</font></td>" +
 		      "<td><font color=blue><b>&nbsp;</b></font></td></tr>";
             }
 
-            $("#memory_MC").html("<center><table class='table table-hover table-condensed table-responsive'>" + 
+            $("#memory_MC").html("<center><table class='table table-hover table-condensed table-responsive'>" +
                                       "<tbody id=none>" + o1 + "</tbody>" +
                                       "</table></center>");
 
@@ -864,7 +866,7 @@
 
         var old_mc_addr = 0;
 
-        function refresh_control_memory ( memory, memory_dashboard, index ) 
+        function refresh_control_memory ( memory, memory_dashboard, index )
         {
             // if ($("#memory_MP").is(":visible") == false)
             //     return ;
@@ -971,9 +973,9 @@
 
 	function show_dbg_mpc ( )
 	{
-                show_control_memory(MC, 
-                                    MC_dashboard, 
-                                    get_value(sim_states['REG_MICROADDR']), 
+                show_control_memory(MC,
+                                    MC_dashboard,
+                                    get_value(sim_states['REG_MICROADDR']),
                                     false) ;
 	}
 
@@ -991,14 +993,24 @@
 	}
 
         // Console (Screen + Keyboard)
+        var screen_content = "" ;
+
 	function get_screen_content ( )
 	{
-		 return document.getElementById("kdb_con").value;
+		 var scrobj = document.getElementById("kdb_con") ;
+                 if (scrobj != null)
+		     screen_content = scrobj.value ;
+
+		 return screen_content ;
 	}
 
 	function set_screen_content ( screen )
 	{
-		 document.getElementById("kdb_con").value = screen;
+		 var scrobj = document.getElementById("kdb_con") ;
+                 if (scrobj != null)
+		     scrobj.value = screen ;
+
+		 screen_content = screen ;
 	}
 
 
@@ -1006,19 +1018,19 @@
          *  obj2html
          */
 
-	function firmware2html ( fir, showBinary ) 
+	function firmware2html ( fir, showBinary )
 	{
 		var filter =  [ "A0,0",   "B,0",    "C,0",   "SELA,5", "SELB,5", "SELC,2", "SELCOP,0",  "MR,0",  "MC,0",
 				"C0,0",   "C1,0",   "C2,0",  "C3,0",   "C4,0",   "C5,0",   "C6,0",      "C7,0",
 				"T1,0",   "T2,0",   "T3,0",  "T4,0",   "T5,0",   "T6,0",   "T7,0",      "T8,0",  "T9,0",  "T10,0", "T11,0",
-				"M1,0",   "M2,0",   "M7,0",  "MA,0",   "MB,0",  
+				"M1,0",   "M2,0",   "M7,0",  "MA,0",   "MB,0", 
                                 "SELP,0", "LC,0",   "SE,0",  "SIZE,0", "OFFSET,0",
-                                "BW,0",   "R,0",    "W,0",   "TA,0",   "TD,0",   "IOR,0",  "IOW,0",  
+                                "BW,0",   "R,0",    "W,0",   "TA,0",   "TD,0",   "IOR,0",  "IOW,0", 
                                 "TEST_I,0",    "TEST_U,0"  ] ;
 
-		var h = "<tr bgcolor=#FF9900>" + 
-                        "<td bgcolor=white     style='border-style: solid; border-width:0px; border-color:lightgray;'></td>" + 
-                        "<td bgcolor=lightblue style='border-style: solid; border-width:1px; border-color:lightgray;'>co</td>" + 
+		var h = "<tr bgcolor=#FF9900>" +
+                        "<td bgcolor=white     style='border-style: solid; border-width:0px; border-color:lightgray;'></td>" +
+                        "<td bgcolor=lightblue style='border-style: solid; border-width:1px; border-color:lightgray;'>co</td>" +
                         "<td bgcolor=#FFCC00   style='border-style: solid; border-width:1px; border-color:lightgray;' align=center><small><b>&#181;dir</b></small></td>" +
                         "<td bgcolor=white     style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;&nbsp;</td>" ;
 		var contSignals=1;
@@ -1027,7 +1039,7 @@
 		     h += "<td align=center style='border-style: solid; border-width:1px;'><small><b>" + sim_signals[s].name + "</b></small></td>";
 		     contSignals++;
 		}
-		h += "</tr>" ; 
+		h += "</tr>" ;
 		
 		var o  = "<center>";
 		    o += "<table style='table-layout:auto; border-style: solid: border-width:0px; border-collapse:collapse;'>";
@@ -1044,7 +1056,7 @@
 		    {
                          if (++l % 10 == 1)
 		             o = o + h ;
- 
+
 			 ico = "";
 			 if (typeof fir[i].co != "undefined")
 			     ico = parseInt(fir[i].co, 2) ;
@@ -1057,7 +1069,7 @@
                          else line += "<td style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;</td>" +
                                       "<td style='border-style: solid; border-width:1px; border-color:lightgray;'>&nbsp;</td>" ;
 
-                         if (showBinary) 
+                         if (showBinary)
                               madd = "0x" + (mstart + j).toString(16) ;
                          else madd = mstart + j ;
 
@@ -1070,14 +1082,14 @@
 
 			      var svalue = parseInt(sim_signals[s].default_value);
                               var newval = false;
-			      if ( (typeof mins[s] != "undefined") && (!isNaN(parseInt(mins[s]))) ) 
+			      if ( (typeof mins[s] != "undefined") && (!isNaN(parseInt(mins[s]))) )
                               {
 				   svalue = parseInt(mins[s]);
                                    newval = true;
                               }
 
 			      if ( (s == "SELA" || s == "SELB" || s == "SELC") &&
-                                   (typeof mins["MADDR"] != "undefined") && (!isNaN(parseInt(mins["MADDR"]))) ) 
+                                   (typeof mins["MADDR"] != "undefined") && (!isNaN(parseInt(mins["MADDR"]))) )
                               {
 				   var fragment = parseInt(mins["MADDR"]).toString(2) ;
                                    fragment = "000000000000".substring(0, 12 - fragment.length) + fragment + "000" ;
@@ -1095,7 +1107,7 @@
                                    }
                               }
 
-                              if (showBinary) 
+                              if (showBinary)
                               {
 			          var fragment = svalue.toString(2) ;
 			          var nbits    = parseInt(sim_signals[s].nbits);
@@ -1128,7 +1140,7 @@
              for (var j=3; j>=0; j--)
              {
 	          wadd = "0x" + (parseInt(c)+j).toString(16);
-	          if (typeof slebal[wadd] != "undefined") 
+	          if (typeof slebal[wadd] != "undefined")
                        for (var i=0; i<slebal[wadd].length; i++)
 		            clabel = clabel + "<span class='badge'>" + slebal[wadd][i] + "</span>" ;
 	          else clabel = clabel + "&nbsp;" ;
@@ -1140,7 +1152,7 @@
 	function mp2html ( mp, labels, seg )
 	{
                 var slebal = new Object();
-                for (l in labels) 
+                for (l in labels)
                 {
                      if (typeof slebal[labels[l]] == "undefined")
                          slebal[labels[l]] = new Array();
@@ -1153,27 +1165,27 @@
 			 "<tr>" +
 			 "<th style='border-style: solid; border-width:0px;'>labels</th>" +
 			 "<th style='border-style: solid; border-width:1px;'>address</th>" +
-			 "<th style='border-style: solid; border-width:1px;'>" + 
-                         "<table border=0 width=100%>" + 
-                       //"<tr><td colspan=8 align=center>content </td></tr>" + 
-                         "<tr align=center>" + 
+			 "<th style='border-style: solid; border-width:1px;'>" +
+                         "<table border=0 width=100%>" +
+                       //"<tr><td colspan=8 align=center>content </td></tr>" +
+                         "<tr align=center>" +
                          "  <td width=25% align=center><small><b>byte 3</b></small></td>" +
                          "  <td width=25% align=center><small><b>byte 2</b></small></td>" +
                          "  <td width=25% align=center><small><b>byte 1</b></small></td>" +
                          "  <td width=25% align=center><small><b>byte 0</b></small></td>" +
-                         "</tr>" + 
-                         "<tr>" + 
+                         "</tr>" +
+                         "<tr>" +
                          "  <td width=12% align=center >&nbsp;<sup>31&nbsp;&nbsp;......&nbsp;&nbsp;24</sup>&nbsp;</td>" +
                          "  <td width=12% align=center >&nbsp;<sup>23&nbsp;&nbsp;......&nbsp;&nbsp;16</sup>&nbsp;</td>" +
                          "  <td width=12% align=center >&nbsp;<sup>15&nbsp;&nbsp;......&nbsp;&nbsp;8</sup>&nbsp;</td>" +
                          "  <td width=12% align=center >&nbsp;<sup>7&nbsp;&nbsp;......&nbsp;&nbsp;0</sup>&nbsp;</td>" +
-                         "</tr>" + 
+                         "</tr>" +
                          "</table>" +
 			 "<th style='border-style: solid; border-width:0px;' align=right>&nbsp;&nbsp;segment</th>" +
 			 "</tr>" ;
 
 	   	var color="white";
-	        for (skey in seg) 
+	        for (skey in seg)
 	        {
                      c_begin =  parseInt(seg[skey].begin) ;
                      c_end   =  parseInt(seg[skey].end) ;
@@ -1192,14 +1204,14 @@
 			         o += "<tr style=\"font-family:'Consolas'; font-size:11pt;\">" +
 				      "<td align=right  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
 				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c.toUpperCase() + "</td>" +
-				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + 
+				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" +
                                        mp[c].substr(0,8)  + "&nbsp;" + mp[c].substr(8,8)  + "&nbsp;" + mp[c].substr(16,8) + "&nbsp;" + mp[c].substr(24,8) + "</td>" +
 				      "<td rowspan=" ;
                              } else {
 			         x += "<tr style=\"font-family:'Consolas'; font-size:11pt;\">" +
 				      "<td align=right  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
 				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c.toUpperCase() + "</td>" +
-				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + 
+				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" +
                                       mp[c].substr(0,8)  + "&nbsp;" + mp[c].substr(8,8)  + "&nbsp;" + mp[c].substr(16,8) + "&nbsp;" + mp[c].substr(24,8) + "</td>" +
 				      "</tr>" ;
                              }
@@ -1220,16 +1232,16 @@
 			      "<td>&nbsp;</td>" +
 			      "</tr>" ;
                         rows = 2 ;
-		     } 
+		     }
 
                      o += rows + " align=right>" + seg[skey].name + "&nbsp;</td></tr>" + x ;
 
 	             if (seg[skey].name != ".stack") {
-		         o += "<tr style=\"font-family:'Consolas'; font-size:12pt;\">" + 
-                              "<td>&nbsp;</td>" + 
-                              "<td valign=middle align=center height=25px>...</td>" + 
-                              "<td valign=middle align=center height=25px>...</td>" + 
-                              "<td>&nbsp;</td>" + 
+		         o += "<tr style=\"font-family:'Consolas'; font-size:12pt;\">" +
+                              "<td>&nbsp;</td>" +
+                              "<td valign=middle align=center height=25px>...</td>" +
+                              "<td valign=middle align=center height=25px>...</td>" +
+                              "<td>&nbsp;</td>" +
                               "</tr>" ;
 	             }
 	        }
@@ -1244,21 +1256,21 @@
         {
 	   var o1 = "<br>" ;
 
-	   o1 += " <center>" + 
+	   o1 += " <center>" +
                  " <table height=400px>" +
 	         " <tr>" +
 	         " <td>" +
 	         "<table style='border-style: solid' border=1 width=100% height=100%>" ;
-	   for (skey in segments) 
+	   for (skey in segments)
 	   {
 	        if (segments[skey].name != ".stack")
-	   	    o1 += "<tr><td valign=middle align=center height=60px bgcolor=" + segments[skey].color + ">" + 
-                          segments[skey].name + 
+	   	    o1 += "<tr><td valign=middle align=center height=60px bgcolor=" + segments[skey].color + ">" +
+                          segments[skey].name +
                           "</td></tr>" +
 	   	          "<tr><td valign=middle align=center height=25px>...</td></tr>" ;
 	   }
-	   o1 += "<tr><td valign=middle align=center bgcolor=" + segments['.stack'].color + ">" + 
-                 segments['.stack'].name + 
+	   o1 += "<tr><td valign=middle align=center bgcolor=" + segments['.stack'].color + ">" +
+                 segments['.stack'].name +
                  "</td></tr>" +
 	         "</table>" +
 	         " </td>" +
@@ -1268,7 +1280,7 @@
 
            var sx = "" ;
            var sp = "" ;
-	   for (skey in segments) 
+	   for (skey in segments)
 	   {
 	       sx = "<tr>" +
 	   	    "    <td valign=top align=left height=30px style=''>" +
@@ -1339,12 +1351,12 @@
 
                      // join the pieces...
                      if (typeof a2s[l] != "undefined")
-                         o += "<tr bgcolor='#FEFEFE'>" + 
+                         o += "<tr bgcolor='#FEFEFE'>" +
                               "<td colspan='7' style='line-height:0.3;' align=left><small><font color=gray>" + a2s[l] + "</font></small></td>"
                               "</tr>" ;
 
-                     o +=  "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'" + 
-                           "    onclick='asmdbg_set_breakpoint(" + l + "); " + 
+                     o +=  "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'" +
+                           "    onclick='asmdbg_set_breakpoint(" + l + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
                            "<td                                             width='2%'></td>" +
                            "<td class='asm_break'  style='line-height:0.9; padding:5 0 0 0;' width='10%' align='center' id='bp" + l + "'>&nbsp;</td>" +
