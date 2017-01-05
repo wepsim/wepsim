@@ -1148,8 +1148,10 @@
 							    set_value(sim_states["CLK"], val + 1);
 
 							    // 1.- To treat the (Falling) Edge signals
-							    for (var key in sim_signals)
+							    for (var i=0; i<jit_fire_order.length; i++)
 							    {
+                                                                 key = jit_fire_order[i] ;
+
 								 if ("E" == sim_signals[key].type) {
 								     update_state(key) ;
 								 }
@@ -1181,10 +1183,6 @@
 							    for (var i=0; i<jit_fire_order.length; i++)
 							    {
                                                                  key = jit_fire_order[i] ;
-/*
-							    for (var key in sim_signals)
-							    {
-*/
 								 update_draw(sim_signals[key], sim_signals[key].value) ;
 
 								 if ("L" == sim_signals[key].type) {
