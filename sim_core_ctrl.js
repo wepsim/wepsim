@@ -1,8 +1,8 @@
-/*      
+/*
  *  Copyright 2015-2017 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
- * 
+ *
  *  WepSIM is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -44,9 +44,9 @@
 
             // Ti + Tj
             if (tri_state_names.indexOf(fired) == -1)
-                return; 
+                return;
 
-            // 1.- counting the number of active tri-states 
+            // 1.- counting the number of active tri-states
             var tri_name = "";
             var tri_activated = 0;
 	    var tri_activated_name = "";
@@ -63,7 +63,7 @@
             }
 
             // 2.- paint the bus if any tri-state is active
-            if (tri_activated > 0) 
+            if (tri_activated > 0)
                 update_draw(sim_signals[tri_activated_name], 1) ;
 
             // 3.- check if more than one tri-state is active
@@ -75,17 +75,17 @@
                 $("#internalbus_fire").show();
                 internalbus_fire_visible = true ;
                 sim_states["BUS_IB"].value = 0xFFFFFFFF;
-            }       
+            }
         }
 
         function check_behavior ( )
         {
             // 1.- check if no signals are defined...
-            if (0 == sim_signals.length) 
+            if (0 == sim_signals.length)
                 alert("ALERT: empty signals!!!");
 
             // 2.- check if no states are defined...
-            if (0 == sim_states.length) 
+            if (0 == sim_states.length)
                 alert("ALERT: empty states!!!");
 
             for (var key in sim_signals)
@@ -117,13 +117,13 @@
 				return;
 			    }
 
-			    for (var j=1; j<behavior_k.length; j++) 
+			    for (var j=1; j<behavior_k.length; j++)
 			    {
 				if ("E" == syntax_behavior[behavior_k[0]].types[j-1])
 				{
 				     var s = behavior_k[j].split('/') ;
 
-				     if (typeof (sim_states[s[0]]) == "undefined") 
+				     if (typeof (sim_states[s[0]]) == "undefined")
 				     {
 					 alert("ALERT: Behavior has an undefined reference to a object state -> '" + behavior_i);
 					 return;
@@ -159,7 +159,7 @@
             var jit_bes = "";
             jit_fire_dep = new Object();
 
-            for (var sig in sim_signals) 
+            for (var sig in sim_signals)
             {
 		 jit_bes += "sim_signals['" + sig + "'].behavior_fn = new Array();\n" ;
 
@@ -185,13 +185,14 @@
 			    jit_be += "syntax_behavior['" + s_expr[0] + "'].operation(" + JSON.stringify(s_expr) + ");\t" ;
 
                             // 2.3b.- ...build the fire graph
-                            if ("FIRE" == s_expr[0]) 
+                            if (("FIRE" == s_expr[0]) &&
+                                (sim_signals[sig].type == sim_signals[s_expr[1]].type))
                             {
                                 if (typeof jit_fire_dep[s_expr[1]] == "undefined")
-                                {
                                     jit_fire_dep[s_expr[1]] = new Object();
+
+                                if (typeof jit_fire_dep[s_expr[1]][sig] == "undefined")
                                     jit_fire_dep[s_expr[1]][sig] = 0;
-                                }
 
                                 jit_fire_dep[s_expr[1]][sig]++;
                             }
@@ -204,12 +205,25 @@
 	    eval(jit_bes) ;
             jit_behaviors = true ;
 
-            jit_fire_order = new Array() ;
-            for (var sig in sim_signals) 
+            // build the fire_order array based on fire_dep graph
+            var allfireto = false;
+            jit_fire_order = new Array();
+            for (var sig in sim_signals)
             {
-                 if (typeof jit_fire_dep[sig] == "undefined") {
-                     jit_fire_order.push(sig) ;
-                 } 
+                if (typeof jit_fire_dep[sig] == "undefined") {
+                    jit_fire_order.push(sig);
+                    continue;
+                }
+
+                allfireto = false;
+                for (var sigorg in jit_fire_dep[sig])
+                {
+                     if (jit_fire_dep[sig][sigorg] == sim_signals[sigorg].behavior.length) {
+                         allfireto = true;
+                     }
+                }
+                if (allfireto == false)
+                    jit_fire_order.push(sig);
             }
         }
 
@@ -228,7 +242,7 @@
                     // 2.2.- ...to split into expression, e.g.: "MV D1 O1"
 		    var s_expr = s_exprs[i].split(" ");
 
-                    // 2.3.- ...to do the operation 
+                    // 2.3.- ...to do the operation
 		    syntax_behavior[s_expr[0]].operation(s_expr);
             }
         }
@@ -337,9 +351,9 @@
 		 assoc_i = i ;
             }
 
-            if (-1 == assoc_i) 
+            if (-1 == assoc_i)
             {
-	        alert("A new 'unknown' instruction is inserted,\n" + 
+	        alert("A new 'unknown' instruction is inserted,\n" +
                       "please edit it (co, nwords, etc.) in the firmware textarea.") ;
 
                 var new_ins = new Object() ;
@@ -379,14 +393,14 @@
         {
 	     var help_base = 'help/signals-' + get_cfg('ws_idiom') + '.html #' + key;
 	     $(helpdiv).load(help_base,
-			      function(response, status, xhr) { 
-				  if ( $(helpdiv).html() == "" ) 
-				       $(helpdiv).html('<br>Sorry, No more details available for this signal.<p>\n'); 
-				  $(helpdiv).trigger('create'); 
+			      function(response, status, xhr) {
+				  if ( $(helpdiv).html() == "" )
+				       $(helpdiv).html('<br>Sorry, No more details available for this signal.<p>\n');
+				  $(helpdiv).trigger('create');
 			      });
              ga('send', 'event', 'help', 'help.signal', 'help.signal.' + key);
 	}
- 
+
         function update_signal (event)
         {
 	    if (false === get_cfg('is_interactive'))
@@ -400,7 +414,7 @@
                     if (r[1] == event.currentTarget.id)
                     {
                         var nextvalue = 0;
-                        if (sim_signals[key].nbits == 1) 
+                        if (sim_signals[key].nbits == 1)
                             nextvalue = ((sim_signals[key].value >>> 0) + 1) % 2;
 
                         var str_bolded  = "";
@@ -412,7 +426,7 @@
                         var nvalues = Math.pow(2, sim_signals[key].nbits) ;
                         if (sim_signals[key].behavior.length == nvalues)
                         {
-                            for (var k = 0; k < sim_signals[key].behavior.length; k++) 
+                            for (var k = 0; k < sim_signals[key].behavior.length; k++)
                             {
                                  if (k == nextvalue)
                                       str_checked = ' checked="checked" ' ;
@@ -422,22 +436,22 @@
                                  if (sim_signals[key].default_value != k)
                                       str_bolded =         behav_str[0] ;
                                  else str_bolded = '<b>' + behav_str[0] + '</b>' ;
- 
-                                 n = sim_signals[key].behavior[k].indexOf(";"); 
+
+                                 n = sim_signals[key].behavior[k].indexOf(";");
                                  if (-1 == n)
                                      n = sim_signals[key].behavior[k].length;
-                                 str_bolded = '&nbsp;' + str_bolded + 
+                                 str_bolded = '&nbsp;' + str_bolded +
                                               '<span style="color:#CCCCCC">' + sim_signals[key].behavior[k].substring(n) + '</span>' ;
 
                                  n = k.toString(10) ;
-				 input_help += '<li><label>' + 
-                                               '<input aria-label="value ' + n + '" type="radio" name="ask_svalue" ' + 
-                                               '       value="' + n + '" ' + str_checked + ' />' + str_bolded + 
+				 input_help += '<li><label>' +
+                                               '<input aria-label="value ' + n + '" type="radio" name="ask_svalue" ' +
+                                               '       value="' + n + '" ' + str_checked + ' />' + str_bolded +
                                                '</label></li>' ;
                             }
                         }
                         else {
-				 input_help += '<div><center><label>' + 
+				 input_help += '<div><center><label>' +
                                                '<input aria-label="value for ' + key + '" type="number" size=4 min=0 max=' + (nvalues - 1) + ' class=dial ' +
                                                '       name="ask_svalue" value="' + sim_signals[key].value + '"/>' + '&nbsp;&nbsp;' + ' 0 - ' + (nvalues - 1) +
                                                '</center></label></div>\n' ;
@@ -446,11 +460,11 @@
 			bootbox.dialog({
 			       title:   '<center>' + key + ': ' +
                                         ' <div class="btn-group">' +
-                                        '   <button onclick="$(\'#bot_signal\').carousel(0);" ' + 
+                                        '   <button onclick="$(\'#bot_signal\').carousel(0);" ' +
                                         '           type="button" class="btn btn-info" style="height:34px !important;">Value</button>' +
-                                        '   <button onclick="$(\'#bot_signal\').carousel(1); update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());" ' + 
-                                        '           type="button" class="btn btn-success" style="height:34px !important;">Help</button>' + 
-                                        '   <button type="button" class="btn btn-success dropdown-toggle" ' + 
+                                        '   <button onclick="$(\'#bot_signal\').carousel(1); update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());" ' +
+                                        '           type="button" class="btn btn-success" style="height:34px !important;">Help</button>' +
+                                        '   <button type="button" class="btn btn-success dropdown-toggle" ' +
                                         '           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height:34px !important;">' +
                                         '     <span class="caret"></span>' +
                                         '     <span class="sr-only">Toggle Help Idiom</span>' +
@@ -458,7 +472,7 @@
                                         '   <ul class="dropdown-menu">' +
                                         '    <li><a href="#" onclick="set_cfg(\'ws_idiom\',\'es\'); save_cfg(); $(\'#bot_signal\').carousel(1); ' +
                                         '                             update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());">ES</a></li>' +
-                                        '    <li><a href="#" onclick="set_cfg(\'ws_idiom\',\'en\'); save_cfg(); $(\'#bot_signal\').carousel(1); ' + 
+                                        '    <li><a href="#" onclick="set_cfg(\'ws_idiom\',\'en\'); save_cfg(); $(\'#bot_signal\').carousel(1); ' +
                                         '                             update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());">EN</a></li>' +
                                         '   </ul>' +
                                         ' </div>' +
@@ -466,7 +480,7 @@
                                message: '<div id="bot_signal" class="carousel slide" data-ride="carousel" data-interval="false">' +
                                         '  <div class="carousel-inner" role="listbox">' +
                                         '    <div class="item active">' +
-                                        '         <div style="max-height:70vh; width:inherit; overflow:auto;">' + 
+                                        '         <div style="max-height:70vh; width:inherit; overflow:auto;">' +
                                         '         <form class="form-horizontal" style="white-space:nowrap;">' +
                                         '         <input aria-label="value for ' + key + '" id="ask_skey" name="ask_skey" type="hidden" value="' + key + '" class="form-control input-md"> ' +
                                         '         <ol start="0">' +
@@ -491,7 +505,7 @@
 					    success: {
 						label: "Save",
 						className: "btn-primary",
-						callback: function () 
+						callback: function ()
 							  {
 							     key        = $('#ask_skey').val();
 							     user_input = $("input[name='ask_svalue']:checked").val();
@@ -594,7 +608,7 @@
 	       MP[kx] = kv ;
 	    }
 
-	    // 5.- load the segments from SIMWARE['seg'] 
+	    // 5.- load the segments from SIMWARE['seg']
             segments = new Object() ;
 	    for (var key in SIMWARE['seg'])
 	    {
@@ -605,7 +619,7 @@
             show_main_memory   (MP,                1, false) ;
             show_control_memory(MC,  MC_dashboard, 1, false) ;
 	}
- 
+
 
         /*
          *  USER INTERFACE
@@ -614,24 +628,24 @@
         /* 1) INIT */
         function init ( stateall_id, statebr_id, ioall_id, configall_id )
         {
-            // 1.- it checks if everything is ok 
+            // 1.- it checks if everything is ok
             check_behavior();
 
             // 2.- pre-compile behaviors
             compile_behaviors() ;
 
             // 3.- display the information holders
-            init_states(stateall_id) ; 
-            init_rf(statebr_id) ; 
+            init_states(stateall_id) ;
+            init_rf(statebr_id) ;
 
-            init_io(ioall_id) ; 
-            init_config(configall_id) ; 
+            init_io(ioall_id) ;
+            init_config(configall_id) ;
         }
 
         function init_eventlistener ( context )
         {
             // 3.- for every signal, set the click event handler
-            for (var key in sim_signals) 
+            for (var key in sim_signals)
             {
                 for (var j=0; j<sim_signals[key].fire_name.length; j++)
                 {
@@ -670,7 +684,7 @@
 
 	        var SIMWARE = get_simware();
 
-                if ( 
+                if (
                      (! ((typeof segments['.ktext'] != "undefined") && (SIMWARE.labels2["kmain"])) ) &&
                      (! ((typeof segments['.text']  != "undefined") && (SIMWARE.labels2["main"]))   )
                 )
@@ -686,10 +700,10 @@
         function check_if_can_continue ( with_ui )
         {
 		var reg_pc = parseInt(get_value(sim_states["REG_PC"]));
-		if (  
+		if (
 		     (parseInt(get_value(sim_states["REG_MICROADDR"])) == 0) &&
 		     ((reg_pc >= parseInt(segments['.ktext'].end)) || (reg_pc < parseInt(segments['.ktext'].begin))) &&
-		     ((reg_pc >= parseInt(segments['.text'].end))  || (reg_pc < parseInt(segments['.text'].begin))) 
+		     ((reg_pc >= parseInt(segments['.text'].end))  || (reg_pc < parseInt(segments['.text'].begin)))
 		   )
 		{
                     if (with_ui)
@@ -708,15 +722,15 @@
             compute_general_behavior("RESET") ;
 
             if ((typeof segments['.ktext'] != "undefined") && (SIMWARE.labels2["kmain"])){
-                    set_value(sim_states["REG_PC"], parseInt(SIMWARE.labels2["kmain"])); 
+                    set_value(sim_states["REG_PC"], parseInt(SIMWARE.labels2["kmain"]));
                     show_asmdbg_pc() ;
 	    }
             else if ((typeof segments['.text'] != "undefined") && (SIMWARE.labels2["main"])){
-                    set_value(sim_states["REG_PC"], parseInt(SIMWARE.labels2["main"])); 
+                    set_value(sim_states["REG_PC"], parseInt(SIMWARE.labels2["main"]));
                     show_asmdbg_pc() ;
 	    }
 
-	    if ( (typeof segments['.stack'] != "undefined") && 
+	    if ( (typeof segments['.stack'] != "undefined") &&
                  (typeof sim_states["BR"][FIRMWARE.stackRegister] != "undefined") )
 	    {
 		set_value(sim_states["BR"][FIRMWARE.stackRegister], parseInt(segments['.stack'].begin));
@@ -737,7 +751,7 @@
         function execute_microinstruction ()
         {
                 var maddr = get_value(sim_states["REG_MICROADDR"]) ;
-                if (typeof MC[maddr] == "undefined") 
+                if (typeof MC[maddr] == "undefined")
                     return false;
                 if ((0 == maddr) && (check_if_can_continue(true) == false))
 		    return false; // when do reset/fetch, check text segment bounds
@@ -762,18 +776,18 @@
 
                 // 1.- while the microaddress register doesn't store the fetch address (0), execute micro-instructions
                 var i_clks = 0;
-		do    
+		do
             	{
                     compute_general_behavior("CLOCK") ;
 
                     i_clks++;
-                    if (limitless) 
+                    if (limitless)
                         limit_clks = i_clks + 1;
             	}
 		while (
                          (i_clks < limit_clks) &&
-                         (0 != get_value(sim_states["REG_MICROADDR"])) && 
-                         (typeof MC[get_value(sim_states["REG_MICROADDR"])] != "undefined") 
+                         (0 != get_value(sim_states["REG_MICROADDR"])) &&
+                         (typeof MC[get_value(sim_states["REG_MICROADDR"])] != "undefined")
                       );
 
                 // 2.- to show states
@@ -797,19 +811,19 @@
                     return preSIMWARE;
                 }
 
-                try 
+                try
                 {
 			var preSIMWARE = JSON.parse(textFromFileLoaded);
 			update_memories(preSIMWARE);
                         preSIMWARE.error = null;
                         return preSIMWARE;
                 }
-                catch (e) 
+                catch (e)
                 {
-			try 
+			try
 			{
                             var preSIMWARE = loadFirmware(textFromFileLoaded);
-                            if (preSIMWARE.error == null) 
+                            if (preSIMWARE.error == null)
                                 update_memories(preSIMWARE);
 
                             return preSIMWARE;

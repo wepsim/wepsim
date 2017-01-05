@@ -390,6 +390,7 @@
 	    $("[data-toggle=popover-up]").popover({
 	    	    html:      true,
                     placement: 'top',
+                    animation: false,
 		    content: function() {
 		        var index = $(this).attr("data-popover-content");
                         var hexvalue = get_value(sim_states['BR'][index]);
@@ -486,6 +487,7 @@
 	    $("[data-toggle=popover-bottom]").popover({
 	    	    html:      true,
                     placement: 'bottom',
+                    animation: false,
 		    content: function() {
 		        var index = $(this).attr("data-popover-content");
                         var hexvalue = get_value(sim_states[index]);
