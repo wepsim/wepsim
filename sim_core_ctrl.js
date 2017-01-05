@@ -150,11 +150,14 @@
          *  work with behaviors
          */
 
-        var jit_behaviors = false ;
+        var jit_behaviors  = false ;
+        var jit_fire_dep   = null;
+        var jit_fire_order = null;
 
         function compile_behaviors ()
         {
             var jit_bes = "";
+            jit_fire_dep = new Object();
 
             for (var sig in sim_signals) 
             {
@@ -178,8 +181,15 @@
 			    // 2.2.- ...to split into expression, e.g.: "MV D1 O1"
 			    var s_expr = s_exprs[i].split(" ");
 
-			    // 2.3.- ...to do the operation
+			    // 2.3a.- ...to do the operation
 			    jit_be += "syntax_behavior['" + s_expr[0] + "'].operation(" + JSON.stringify(s_expr) + ");\t" ;
+
+                            // 2.3b.- ...build the fire graph
+                            if ("FIRE" == s_expr[0]) {
+                                if (typeof jit_fire_dep[s_expr[1]] == "undefined")
+                                    jit_fire_dep[s_expr[1]] = new Array();
+                                jit_fire_dep[s_expr[1]].push(sig);
+                            }
 		      }
 
 		      jit_bes += "sim_signals['" + sig + "'].behavior_fn[" + val + "] = \t function() {" + jit_be + "};\n" ;
@@ -188,6 +198,15 @@
 
 	    eval(jit_bes) ;
             jit_behaviors = true ;
+
+            jit_fire_order = new Array() ;
+            for (var sig in sim_signals) 
+            {
+                 if (("L" == sim_signals[sig].type) && (typeof jit_fire_dep[sig] == "undefined")) 
+                 {
+                     jit_fire_order.push(sig) ;
+                 } 
+            }
         }
 
         function compute_behavior (input_behavior)

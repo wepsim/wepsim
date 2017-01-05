@@ -1178,6 +1178,11 @@
 							    }
 
 							    // 4.- Finally, 'fire' the (High) Level signals
+/*
+							    for (var i=0; i<jit_fire_order.length; i++)
+							    {
+                                                                 key = jit_fire_order[i] ;
+*/
 							    for (var key in sim_signals)
 							    {
 								 update_draw(sim_signals[key], sim_signals[key].value) ;
