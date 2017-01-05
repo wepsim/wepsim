@@ -185,10 +185,15 @@
 			    jit_be += "syntax_behavior['" + s_expr[0] + "'].operation(" + JSON.stringify(s_expr) + ");\t" ;
 
                             // 2.3b.- ...build the fire graph
-                            if ("FIRE" == s_expr[0]) {
+                            if ("FIRE" == s_expr[0]) 
+                            {
                                 if (typeof jit_fire_dep[s_expr[1]] == "undefined")
-                                    jit_fire_dep[s_expr[1]] = new Array();
-                                jit_fire_dep[s_expr[1]].push(sig);
+                                {
+                                    jit_fire_dep[s_expr[1]] = new Object();
+                                    jit_fire_dep[s_expr[1]][sig] = 0;
+                                }
+
+                                jit_fire_dep[s_expr[1]][sig]++;
                             }
 		      }
 
@@ -202,8 +207,7 @@
             jit_fire_order = new Array() ;
             for (var sig in sim_signals) 
             {
-                 if (("L" == sim_signals[sig].type) && (typeof jit_fire_dep[sig] == "undefined")) 
-                 {
+                 if (typeof jit_fire_dep[sig] == "undefined") {
                      jit_fire_order.push(sig) ;
                  } 
             }
