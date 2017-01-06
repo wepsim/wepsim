@@ -898,6 +898,24 @@
             <a href="http://www.inf.uc3m.es/en/">Computer Science and Engineering Department</a><br>
             <a href="http://www.uc3m.es/">Universidad Carlos III de Madrid</a><br>
 	    <p>
+
+	    <button type="button" 
+	            onclick="$('#modalaux2').modal('toggle');
+                             show_visgraph(jit_fire_dep);"
+                    class="btn btn-default btn-md">Show dependencies...</button>
+	    <div id="modalaux2" class="modal" role="dialog">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+			<button type="button" class="btn btn-default" data-dismiss="modal">&times; &nbsp; Close</button>
+		      </div>
+		      <div class="modal-body">
+	                <div id="depgraph1" style="width:80vw; height:90vh; border:1px solid lightgray;">Loading...</div>
+		      </div>
+		    </div>
+		  </div>
+	    </div>
+
         </div>
         </div>
 
@@ -919,7 +937,7 @@
    </div>
    <div role="main" class="ui-content">
 
-	<div data-role="collapsibleset">
+	<div data-role="collapsibleset" style="max-width: 600px;">
 	  <div data-role="collapsible" data-collapsed="false">
 	    <h1>Platforms</h1>
 	    <p>
@@ -937,8 +955,8 @@
 	    <h1>License</h1>
 	    <p>
 	            <br class="hidden-xs">
-		    <b>WepSIM (Web elemental processor SIMulator)</b> is free software: you can redistribute it and/or modify<br>
-		    it under the terms of the GNU Lesser General Public License as published by<br>
+		    <b>WepSIM (Web elemental processor SIMulator)</b> is free software: you can redistribute it and/or modify
+		    it under the terms of the GNU Lesser General Public License as published by
 		    the Free Software Foundation, either version 3 of the License, or (at your option) any later version.<br>
                     <br>
 		    See <a rel="external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.<br>
@@ -964,20 +982,12 @@
 		        <a rel="external" href="http://bootboxjs.com/">Bootbox</a>,
 		        <a rel="external" href="http://codemirror.net/index.html">CodeMirror</a> Editor,
 		        <a rel="external" href="https://bgrins.github.io/spectrum/">Spectrum</a> ColorPicker,
-                        <br>
 		        <a rel="external" href="https://github.com/mouse0270/bootstrap-notify">Bootstrap Notify</a>,
 		        <a rel="external" href="http://masonry.desandro.com/">Masonry</a> Grid,
 		        <a rel="external" href="http://anthonyterrien.com/knob/">Jquery Knob</a>
                     </li>
                     </ul>
             </p>
-	  </div>
-
-	  <div data-role="collapsible">
-	    <h1>Diagnosis</h1>
-            <button class="ui-btn ui-btn-b ui-btn-inline"
-	            onclick="show_visgraph(jit_fire_dep);">Click here to load it...</button>
-	    <div id="depgraph1" style="width:80wv; height:80hv; overflow:auto; border:1px solid lightgray;">.</div>
 	  </div>
 
 	</div>
