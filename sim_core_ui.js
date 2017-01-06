@@ -1430,7 +1430,7 @@
             for (var sig in sim_signals)
             {
                  tmp_hash[sig] = tmp_id ;
-                 tmp_nodes.push({id: tmp_id, label: sig, title: sig.name}) ;
+                 tmp_nodes.push({id: tmp_id, label: sig, title: sig}) ;
                  tmp_id++ ;
             }
 	    var jit_dep_nodes = new vis.DataSet(tmp_nodes) ;
