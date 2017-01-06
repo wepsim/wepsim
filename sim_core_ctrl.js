@@ -150,9 +150,33 @@
          *  work with behaviors
          */
 
-        var jit_behaviors  = false ;
-        var jit_fire_dep   = null;
-        var jit_fire_order = null;
+        var jit_behaviors   = false ;
+        var jit_fire_dep    = null ;
+        var jit_fire_order  = null ;
+	var jit_dep_network = null ;
+
+        function firedep_to_fireorder ( jit_fire_dep )
+        {
+            var allfireto = false;
+            jit_fire_order = new Array();
+            for (var sig in sim_signals)
+            {
+                if (typeof jit_fire_dep[sig] == "undefined") {
+                    jit_fire_order.push(sig);
+                    continue;
+                }
+
+                allfireto = false;
+                for (var sigorg in jit_fire_dep[sig])
+                {
+                     if (jit_fire_dep[sig][sigorg] == sim_signals[sigorg].behavior.length) {
+                         allfireto = true;
+                     }
+                }
+                if (allfireto == false)
+                    jit_fire_order.push(sig);
+            }
+        }
 
         function compile_behaviors ()
         {
@@ -204,27 +228,6 @@
 
 	    eval(jit_bes) ;
             jit_behaviors = true ;
-
-            // build the fire_order array based on fire_dep graph
-            var allfireto = false;
-            jit_fire_order = new Array();
-            for (var sig in sim_signals)
-            {
-                if (typeof jit_fire_dep[sig] == "undefined") {
-                    jit_fire_order.push(sig);
-                    continue;
-                }
-
-                allfireto = false;
-                for (var sigorg in jit_fire_dep[sig])
-                {
-                     if (jit_fire_dep[sig][sigorg] == sim_signals[sigorg].behavior.length) {
-                         allfireto = true;
-                     }
-                }
-                if (allfireto == false)
-                    jit_fire_order.push(sig);
-            }
         }
 
         function compute_behavior (input_behavior)
@@ -633,6 +636,7 @@
 
             // 2.- pre-compile behaviors
             compile_behaviors() ;
+            firedep_to_fireorder(jit_fire_dep) ;
 
             // 3.- display the information holders
             init_states(stateall_id) ;

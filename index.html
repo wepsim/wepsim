@@ -488,7 +488,7 @@
 </div><!-- /page -->
 
 
-<div data-role="panel" id="actions_panel" data-display="overlay" data-position="right" data-theme="a" 
+<div data-role="panel" id="actions_panel" data-display="overlay" data-position="right" data-theme="a" data-animate="false"
      style="width:19em; min-width:17em;">
 
         <table border=0 height=100% width=100%>
@@ -972,6 +972,14 @@
                     </ul>
             </p>
 	  </div>
+
+	  <div data-role="collapsible">
+	    <h1>Diagnosis</h1>
+	    <div id="depgraph1" 
+	         onclick="show_visgraph(jit_fire_dep);"
+                 style="width:80wv; height:80hv; overflow:auto; border:1px solid lightgray;">Click here to load it...</div>
+	  </div>
+
 	</div>
 
    </div>

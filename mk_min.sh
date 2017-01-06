@@ -54,7 +54,8 @@ cat external/bootstrap.min.js \
     external/codemirror.fold/comment-fold.js \
     external/codemirror.fold/indent-fold.js \
     external/codemirror.fold/markdown-fold.js \
-    external/codemirror.show-hint/codemirror.show-hint.js > external/external.min.js
+    external/codemirror.show-hint/codemirror.show-hint.js > external/external.min.js \
+    external/vis.js
 
 cat external/bootstrap.min.css \
     external/bootstrap-theme.min.css \
@@ -62,5 +63,6 @@ cat external/bootstrap.min.css \
     external/codemirror.css \
     external/codemirror.theme/blackboard.css \
     external/codemirror.fold/foldgutter.css \
-    external/codemirror.show-hint/codemirror.show-hint.css > external/external.min.css
+    external/codemirror.show-hint/codemirror.show-hint.css > external/external.min.css \
+    external/vis-network.min.css
 
