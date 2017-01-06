@@ -432,7 +432,7 @@
                 show_rf_values_deferred = setTimeout(function() {
                                                         fullshow_rf_values();
                                                         show_rf_values_deferred=null;
-                                                     }, 120);
+                                                     }, 125);
             }
         }
 
@@ -739,7 +739,7 @@
             show_main_memory_deferred = setTimeout(function () {
                                                        hard_refresh_main_memory(memory, index, redraw) ;
                                                        show_main_memory_deferred = null;
-                                                   }, 120);
+                                                   }, 150);
         }
 
         function hard_refresh_main_memory ( memory, index, redraw )
