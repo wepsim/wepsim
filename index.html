@@ -919,7 +919,7 @@
    </div>
    <div role="main" class="ui-content">
 
-	<div data-role="collapsibleset" style="max-width:600px;">
+	<div data-role="collapsibleset">
 	  <div data-role="collapsible" data-collapsed="false">
 	    <h1>Platforms</h1>
 	    <p>
@@ -937,10 +937,9 @@
 	    <h1>License</h1>
 	    <p>
 	            <br class="hidden-xs">
-		    <b>WepSIM (Web elemental processor SIMulator)</b> is free software: you can redistribute it and/or modify
-		    it under the terms of the GNU Lesser General Public License as published by
-		    the Free Software Foundation, either version 3 of the License, or
-		    (at your option) any later version.<br>
+		    <b>WepSIM (Web elemental processor SIMulator)</b> is free software: you can redistribute it and/or modify<br>
+		    it under the terms of the GNU Lesser General Public License as published by<br>
+		    the Free Software Foundation, either version 3 of the License, or (at your option) any later version.<br>
                     <br>
 		    See <a rel="external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.<br>
 	    </p>
@@ -965,6 +964,7 @@
 		        <a rel="external" href="http://bootboxjs.com/">Bootbox</a>,
 		        <a rel="external" href="http://codemirror.net/index.html">CodeMirror</a> Editor,
 		        <a rel="external" href="https://bgrins.github.io/spectrum/">Spectrum</a> ColorPicker,
+                        <br>
 		        <a rel="external" href="https://github.com/mouse0270/bootstrap-notify">Bootstrap Notify</a>,
 		        <a rel="external" href="http://masonry.desandro.com/">Masonry</a> Grid,
 		        <a rel="external" href="http://anthonyterrien.com/knob/">Jquery Knob</a>
@@ -975,9 +975,9 @@
 
 	  <div data-role="collapsible">
 	    <h1>Diagnosis</h1>
-	    <div id="depgraph1" 
-	         onclick="show_visgraph(jit_fire_dep);"
-                 style="width:80wv; height:80hv; overflow:auto; border:1px solid lightgray;">Click here to load it...</div>
+            <button class="ui-btn ui-btn-b ui-btn-inline"
+	            onclick="show_visgraph(jit_fire_dep);">Click here to load it...</button>
+	    <div id="depgraph1" style="width:80wv; height:80hv; overflow:auto; border:1px solid lightgray;">.</div>
 	  </div>
 
 	</div>
