@@ -408,6 +408,9 @@
 
         function fullshow_rf_values ( )
         {
+            // if ($("#states_BR").is(":visible") == false)
+            //     return ;
+
             var SIMWARE = get_simware() ;
 
 	    for (var index=0; index < sim_states['BR'].length; index++)
@@ -898,7 +901,7 @@
 
         function light_refresh_control_memory ( memory, memory_dashboard, index )
         {
-            // if ($("#memory_MP").is(":visible") == false)
+            // if ($("#memory_MC").is(":visible") == false)
             //     return ;
 
             o1 = $("#maddr" + old_mc_addr) ;
