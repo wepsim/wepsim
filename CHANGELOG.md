@@ -1,8 +1,14 @@
 
+1.7.3 -> 1.7.5:
+* Up to 3 times faster than 1.7.1 version!
+* Signal dependencies graph added
+* Examples displayed as table
+
 1.7.2 -> 1.7.3:
-* Up to 50% faster execution
+* Up to 50% faster execution 
 * Edit register values popup shows negative values properly
 * I/O tab renamed to Stats
+* Improved Control Unit image
 
 1.7.1 -> 1.7.2:
 * FLAGS interaction moved from register tab into processor image (you can click on the associated letter C, V, N, Z...)

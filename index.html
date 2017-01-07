@@ -56,6 +56,17 @@
         -o-transform: translatez(0);
         transform: translatez(0);
     }
+
+    /* https://github.com/nathancahill/Split.js */
+    .gutter.gutter-horizontal {
+        background-color: #F5F5F5;
+        cursor: ew-resize;
+    }
+
+    .split.split-horizontal, .gutter.gutter-horizontal {
+        height: 100%;
+        float: left;
+    }
     </style>
 
     <link  href="external/external.min.css" rel="stylesheet">
@@ -96,7 +107,7 @@
 	<div role="main" class="ui-content">
 
             <div class="row">
-                <div class="col-md-8" style="padding:0 0 0 0;">
+                <div id="col1" class="col-md-8" style="padding:0 0 0 0;">
 		    <div data-role="tabs" id="tabs2">
     		      <div data-role="navbar" id="tabsnav2" class="ui-responsive">
 		        <ul>
@@ -202,7 +213,7 @@
 	    	    </div>
                 </div>
 
-                <div class="col-md-4" style="padding:0 8px 0 0px;">
+                <div id="col2" class="col-md-4" style="padding:0 8px 0 0px;">
 
                     <div class="btn-toolbar" role="toolbar" id="sim_toolbar" style="padding: 0 0px 10px 0px;">
 			<div class="btn-group btn-group-justified" role="group">
@@ -555,8 +566,7 @@
    <div data-role="header" data-theme="a">
         <a href="#" 
            onclick="$('.collapse').collapse('toggle'); 
-                    $('#container-example1').enhanceWithin();
-                    setTimeout(function() { $('#masonry-grid1').masonry('layout'); }, 500);"
+                    $('#container-example1').enhanceWithin();"
            data-role="button" data-theme="b" data-icon="grid" data-iconpos="notext" 
            class="ui-btn-left">Show/Hide</a>
 
@@ -915,7 +925,7 @@
    <div data-role="header" data-theme="a">
         <a href="#" 
 	   onclick="$('#modalaux2').modal('toggle');
-		    show_visgraph(jit_fire_dep);"
+		    show_visgraph(jit_fire_dep, jit_fire_order);"
            data-role="button" data-theme="a" data-icon="info" data-iconpos="notext" 
            class="ui-btn-left">Close</a>
         <h1><b>About</b> <span class="badge btn-success"><div class="wsversion">X</div></span> </h1>
@@ -985,7 +995,7 @@
 		        <a rel="external" href="http://codemirror.net/index.html">CodeMirror</a> Editor,
 		        <a rel="external" href="https://bgrins.github.io/spectrum/">Spectrum</a> ColorPicker,
 		        <a rel="external" href="https://github.com/mouse0270/bootstrap-notify">Bootstrap Notify</a>,
-		        <a rel="external" href="http://masonry.desandro.com/">Masonry</a> Grid,
+		        <a rel="external" href="http://visjs.org/">vis.js</a> visualization library,
 		        <a rel="external" href="http://anthonyterrien.com/knob/">Jquery Knob</a>
                     </li>
                     </ul>
@@ -1075,18 +1085,8 @@
 	    {
 		    jQuery.fx.off = true;
 
-	            $("#container-example1").html(list_examples_html(examples));
+	            $("#container-example1").html(table_examples_html(examples));
 	            $("#container-example1").enhanceWithin();
-		    $('#masonry-grid1').masonry({
-		       columnWidth:  310,
-		       itemSelector: '.grid-item',
-		       isFitWidth:   true
-		    });
-		    $(document).delegate('input[data-type="search"]',  
-                                         'keyup change',  
-                                         function () { 
-                                            setTimeout(function() { $('#masonry-grid1').masonry('layout'); }, 500); 
-                                         });
 
 		    $("#help1").enhanceWithin().popup();
 		    $("#bin1").enhanceWithin().popup();
@@ -1192,6 +1192,9 @@
 
 	    init("#states_ALL", "#states_BR", "#io_ALL", "#config_ALL"); 
 	    reset(); 
+
+	    //Split(['#col1', '#col2'], 
+            //      { sizes: [65, 35], gutterSize: 5 });
 
             $('a[data-toggle="tooltip1"]').tooltip({
                 animated: 'fade',

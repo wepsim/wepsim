@@ -630,52 +630,51 @@
         ga('send', 'event', 'example', 'example.firmware', 'example.firmware.' + example_id);
     }
 
-    function list_examples_html ( examples )
+    function table_examples_html ( examples )
     {
-       var examples_width = 310 * ((examples.length+1)/2) + 20;
-
-       var o = '<style scoped>' +
-               '       .onthefly-example1 { min-width:320px; width:' + examples_width + 'px; }' +
-               '       .onthefly-example2 { } ' +
-               '   @media screen and (min-width: 1020px) { ' +
-               '       .onthefly-example1 { min-width:320px; width:70vw; height:70vh; overflow:auto; } ' +
-               '       .onthefly-example2 { margin:0 auto; } ' +
-               '   }" ' +
-               '   @media screen and (min-height: 1020px) { ' +
-               '       .onthefly-example1 { min-width:320px; width:70vw; height:70vh; overflow:auto; } ' +
-               '       .onthefly-example2 { margin:0 auto; } ' +
-               '   }" ' +
-               '</style>' +
-               '<div class="onthefly-example1" data-filter="true" data-children="div > span">' +
-               '<div class="onthefly-example2" id="masonry-grid1">' ;
+       var o = '<div class="table-responsive">' +
+               '<table width=100% class="table table-striped table-hover table-condensed">' + 
+               '<thead>' +
+               '<tr>' +
+               '  <th>#</th>' +
+               '  <th>level</th>' +
+               '  <th>title</th>' +
+               '  <th><span class="collapse in">description</span></th>' +
+               '  <th>Load...</th>' +
+               '</tr>' +
+               '</thead>' +
+               '<tbody>';
        for (var m=0; m<examples.length; m++)
        {
 	       var e_title       = examples[m]['title'] ;
+	       var e_level       = examples[m]['level'] ;
 	       var e_description = examples[m]['description'] ;
 	       var e_id          = examples[m]['id'] ;
 
-	       o = o + '   <span class="grid-item" style="max-width:300px;">' +
-		       '   <div class="panel panel-default">' +
-		       '     <div class="panel-heading">' +
-		       '       <h3 class="panel-title">' + (m+1) + ') ' + e_title + '</h3>' +
-		       '     </div>' +
-		       '     <div class="panel-body collapse in">' + e_description + '<br>' +
+	       o = o + '   <tr>' +
+		       '   <td>' + '<b>' + (m+1)   + '</b>' + '</td>' +
+		       '   <td>' + '<b>' + e_level + '</b>' + '</td>' +
+		       '   <td>' + '<b>' + e_title + '</b>' + '</td>' +
+		       '   <td>' +
+		       '      <span class="collapse in">' + e_description + '</span>' +
+		       '   </td>' +
+		       '   <td style="min-width:200px; max-width:250px">' +
 		       '       <div class="btn-group btn-group-justified btn-group-md">' +
 		       '           <a href="#" onclick="load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0;"' +
 		       '              class="ui-btn btn btn-group ui-btn-inline btn-default">' +
-		       '              <b>Assembly<br> only</b></a>' +
+		       '              <b>Assembly</b></a>' +
 		       '           <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',false);" style="padding:0 0 0 0;"' +
 		       '              class="ui-btn btn btn-group ui-btn-inline btn-default">' +
-		       '              <b>Firmware<br> only</b></a>' +
+		       '              <b>Firmware</b></a>' +
 		       '           <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',true);"  style="padding:0 0 0 0;"' +
 		       '              class="ui-btn btn btn-group ui-btn-inline btn-primary">' +
 		       '              <b>Both</b></a>' +
 		       '       </div>' +
-		       '     </div>' +
-		       '   </div>' +
-		       '   </span>' ;
+		       '   </td>' +
+		       '   </tr>' ;
        }
-       o = o + '</div>' +
+       o = o + '</tbody>' +
+               '</table>' +
                '</div>' ;
 
        return o ;
