@@ -1430,7 +1430,9 @@
             for (var sig in sim_signals)
             {
                  tmp_hash[sig] = tmp_id ;
-                 tmp_nodes.push({id: tmp_id, label: sig, title: sig}) ;
+                 tmp_nodes.push({id: tmp_id, 
+                                     label: sig, 
+                                     title: sig}) ;
                  tmp_id++ ;
             }
 	    var jit_dep_nodes = new vis.DataSet(tmp_nodes) ;
@@ -1438,14 +1440,19 @@
             var tmp_edges = new Array();
             for (var sig in sim_signals) {
                 for (var sigorg in jit_fire_dep[sig]) {
-                     tmp_edges.push({from: tmp_hash[sigorg], to: tmp_hash[sig]}) ;
+                     tmp_edges.push({from: tmp_hash[sigorg], 
+                                     to: tmp_hash[sig], 
+                                     arrows: 'to'}) ;
                 }
             }
 	    var jit_dep_edges = new vis.DataSet(tmp_edges) ;
 
 	    var jit_dep_container = document.getElementById('depgraph1') ;
-	    var jit_dep_data    = { nodes: jit_dep_nodes, edges: jit_dep_edges } ;
-	    var jit_dep_options = { interaction:{hover:true} } ;
+	    var jit_dep_data    = { nodes: jit_dep_nodes, 
+                                    edges: jit_dep_edges } ;
+	    var jit_dep_options = { interaction: {hover:true},
+                                    nodes: { borderWidth: 2, shadow:true },
+                                    edges: { width: 2, shadow:true } } ;
 	    jit_dep_network = new vis.Network(jit_dep_container, jit_dep_data, jit_dep_options) ;
         }
 
