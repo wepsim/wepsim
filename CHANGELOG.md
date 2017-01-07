@@ -1,6 +1,6 @@
 
 1.7.2 -> 1.7.3:
-* Up to 29% faster execution (15% minimum)
+* Up to 50% faster execution
 * Edit register values popup shows negative values properly
 * I/O tab renamed to Stats
 

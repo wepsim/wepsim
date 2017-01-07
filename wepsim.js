@@ -1,8 +1,8 @@
-/*      
+/*
  *  Copyright 2015-2017 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
- * 
+ *
  *  WepSIM is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -23,8 +23,8 @@
     // WepSIM API
     //
 
-    /* 
-     * File/URL  
+    /*
+     * File/URL
      */
 
     function wepsim_load_from_file ( fileToLoad, inputEditor )
@@ -86,8 +86,8 @@
 	xmlhttp.send();
     }
 
-    /* 
-     * Microcompile and compile 
+    /*
+     * Microcompile and compile
      */
 
     function wepsim_compile_assembly ( textToCompile )
@@ -100,8 +100,8 @@
         return compileFirmware(textToMCompile, false);
     }
 
-    /* 
-     * Play/stop 
+    /*
+     * Play/stop
      */
 
     function wepsim_execute_reset ( )
@@ -166,7 +166,7 @@
 
         var ret  = false ;
         var noti = "" ;
-        for (var i=1; i<notifications; i++) 
+        for (var i=1; i<notifications; i++)
         {
              noti = MC_dashboard[reg_maddr].notify[i] ;
 	     ret  = confirm("Notify @ " + reg_maddr + ":\n" + noti) ;
@@ -245,7 +245,7 @@
         if (DBG_stop == false) {
             DBG_stop = true ; // will help to execute_play stop playing
         } else {
-            DBG_stop = false ; 
+            DBG_stop = false ;
             wepsim_execute_play(btn1) ;
         }
     }
@@ -255,22 +255,22 @@
     // WepSIM UI
     //
 
-    function compileAssembly ( textToCompile, with_ui ) 
+    function compileAssembly ( textToCompile, with_ui )
     {
         // get SIMWARE.firmware
         var SIMWARE = get_simware() ;
-	if (SIMWARE.firmware.length == 0) 
+	if (SIMWARE.firmware.length == 0)
         {
             if (with_ui) {
                 alert('WARNING: please load the microcode first.');
                 $.mobile.pageContainer.pagecontainer('change','#main3');
             }
             return false;
-	} 
+	}
 
         // compile Assembly and show message
         var SIMWAREaddon = simlang_compile(textToCompile, SIMWARE);
-        if (SIMWAREaddon.error != null) 
+        if (SIMWAREaddon.error != null)
         {
             if (with_ui)
                 showError(SIMWAREaddon.error, "inputasm") ;
@@ -279,20 +279,20 @@
 
         if (with_ui)
 	    $.notify({ title: '<strong>INFO</strong>', message: 'Assembly was compiled and loaded.'},
-		     { type: 'success', 
-                       newest_on_top: true, 
-                       delay: get_cfg('NOTIF_delay'), 
+		     { type: 'success',
+                       newest_on_top: true,
+                       delay: get_cfg('NOTIF_delay'),
                        placement: { from: 'top', align: 'center' } });
 
         // update memory and segments
         set_simware(SIMWAREaddon) ;
 	update_memories(SIMWARE);
 
-        // update UI 
+        // update UI
         if (with_ui) {
-            $("#asm_debugger").html(assembly2html(SIMWAREaddon.mp, 
-                                                  SIMWAREaddon.labels2, 
-                                                  SIMWAREaddon.seg, 
+            $("#asm_debugger").html(assembly2html(SIMWAREaddon.mp,
+                                                  SIMWAREaddon.labels2,
+                                                  SIMWAREaddon.seg,
                                                   SIMWAREaddon.assembly));
             showhideAsmElements();
         }
@@ -301,17 +301,17 @@
         return true;
     }
 
-    function showBinaryCode ( popup_id, popup_content_id ) 
+    function showBinaryCode ( popup_id, popup_content_id )
     {
         $(popup_content_id).html("<center>" +
                                  "<br>Loading binary, please wait..." +
-                                 "<br>" + 
-                                 "<br>WARNING: loading binary might take time on slow mobile devices." + 
+                                 "<br>" +
+                                 "<br>WARNING: loading binary might take time on slow mobile devices." +
                                  "</center>");
         $(popup_content_id).css({width:"100%",height:"inherit !important"});
 	$(popup_id).popup('open');
 
-	setTimeout(function(){ 
+	setTimeout(function(){
 			var SIMWARE = get_simware() ;
 
 			$(popup_content_id).html(mp2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg));
@@ -324,10 +324,10 @@
                    }, 300);
     }
 
-    function compileFirmware ( textToMCompile, with_ui ) 
+    function compileFirmware ( textToMCompile, with_ui )
     {
 	var preSM = load_firmware(textToMCompile) ;
-	if (preSM.error != null) 
+	if (preSM.error != null)
         {
             if (with_ui)
                 showError(preSM.error, "inputfirm") ;
@@ -336,22 +336,22 @@
 
         if (with_ui)
 	    $.notify({ title: '<strong>INFO</strong>', message: 'Microcode was compiled and loaded.'},
-	    	     { type: 'success', 
-                       newest_on_top: true, 
-                       delay: get_cfg('NOTIF_delay'), 
+	    	     { type: 'success',
+                       newest_on_top: true,
+                       delay: get_cfg('NOTIF_delay'),
                        placement: { from: 'top', align: 'center' } });
 
-        // update UI 
+        // update UI
 	reset() ;
         return true;
     }
 
-    function showBinaryMicrocode ( popup_id, popup_content_id ) 
+    function showBinaryMicrocode ( popup_id, popup_content_id )
     {
         $(popup_content_id).html("<center>" +
                                  "<br>Loading binary, please wait..." +
-                                 "<br>" + 
-                                 "<br>WARNING: loading binary might take time on slow mobile devices." + 
+                                 "<br>" +
+                                 "<br>WARNING: loading binary might take time on slow mobile devices." +
                                  "</center>");
         $(popup_content_id).css({width:"100%",height:"inherit !important"});
 	$(popup_id).popup('open');
@@ -368,7 +368,7 @@
                    }, 300);
     }
 
-    function set_cpu_cu_size ( diva, divb, new_value ) 
+    function set_cpu_cu_size ( diva, divb, new_value )
     {
 	var a = new_value;
 	var b = 100 - a;
@@ -381,7 +381,7 @@
     // Auxiliar functions
     //
 
-    function showError ( Msg, editor ) 
+    function showError ( Msg, editor )
     {
             var errorMsg = Msg.replace(/\t/g,' ').replace(/   /g,' ');
 
@@ -389,7 +389,7 @@
             var lineMsg = '' ;
             if (null != pos) {
                 pos = parseInt(pos[0].match(/\d+/)[0]);
-                lineMsg += '<button type="button" class="btn btn-danger" ' + 
+                lineMsg += '<button type="button" class="btn btn-danger" ' +
                            '        onclick="$.notifyClose();' +
                            '                      var marked = ' + editor + '.addLineClass(' + (pos-1) + ', \'background\', \'CodeMirror-selected\');' +
                            '                 setTimeout(function() { ' + editor + '.removeLineClass(marked, \'background\', \'CodeMirror-selected\'); }, 3000);' +
@@ -398,20 +398,20 @@
 		           '		     ' + editor + '.scrollTo(null, t - middleHeight - 5);">Go line ' + pos + '</button>&nbsp;' ;
             }
 
-	    $.notify({ title: '<strong>ERROR</strong>', 
-                       message: errorMsg + '<br>' + 
-                                '<center>' +  
-                                lineMsg + 
-                                '<button type="button" class="btn btn-danger" onclick="$.notifyClose();">Close</button>' + 
+	    $.notify({ title: '<strong>ERROR</strong>',
+                       message: errorMsg + '<br>' +
+                                '<center>' +
+                                lineMsg +
+                                '<button type="button" class="btn btn-danger" onclick="$.notifyClose();">Close</button>' +
                                 '</center>' },
-		     { type: 'danger', 
-                       newest_on_top: true, 
-                       delay: 0, 
+		     { type: 'danger',
+                       newest_on_top: true,
+                       delay: 0,
                        placement: { from: 'top', align: 'center' }
                      });
     }
 
-    function showhideAsmElements ( ) 
+    function showhideAsmElements ( )
     {
 	$("input:checkbox:checked").each(function() {
 		var column = "table ." + $(this).attr("name");
@@ -437,7 +437,7 @@
 
         $('#iframe_help1').load('help/simulator-' + get_cfg('ws_idiom') + '.html ' + rel,
 			        function() {
-                                    $('#help1').trigger('updatelayout'); 
+                                    $('#help1').trigger('updatelayout');
                                     $('#help1').popup('open');
                                 });
 
@@ -455,44 +455,44 @@
 	    if (ref_p != null)
             {
                 var o  = ref_p.getElementById('text3495');
-	        if (o != null) o.addEventListener('click', 
-                                                  function() { 
+	        if (o != null) o.addEventListener('click',
+                                                  function() {
                                                      $('#tab11').trigger('click');
                                                   }, false);
 	        var o  = ref_p.getElementById('text3029');
-	        if (o != null) o.addEventListener('click', 
-                                                  function() { 
+	        if (o != null) o.addEventListener('click',
+                                                  function() {
                                                      $('#tab11').trigger('click');
                                                   }, false);
 	        var o  = ref_p.getElementById('text3031');
-	        if (o != null) o.addEventListener('click', 
-                                                  function() { 
+	        if (o != null) o.addEventListener('click',
+                                                  function() {
                                                      $('#tab11').trigger('click');
                                                   }, false);
 	        var o  = ref_p.getElementById('text3001');
-	        if (o != null) o.addEventListener('click', 
-                                                  function() { 
+	        if (o != null) o.addEventListener('click',
+                                                  function() {
                                                      $('#tab14').trigger('click');
                                                   }, false);
 	        var o  = ref_p.getElementById('text3775');
-	        if (o != null) o.addEventListener('click', 
-                                                  function() { 
+	        if (o != null) o.addEventListener('click',
+                                                  function() {
                                                      $('#tab15').trigger('click');
                                                   }, false);
 	        var o  = ref_p.getElementById('text3829');
-	        if (o != null) o.addEventListener('click', 
-                                                  function() { 
+	        if (o != null) o.addEventListener('click',
+                                                  function() {
                                                      $('#tab12').trigger('click');
                                                   }, false);
 	        var o  = ref_p.getElementById('text3845');
-	        if (o != null) o.addEventListener('click', 
-                                                  function() { 
+	        if (o != null) o.addEventListener('click',
+                                                  function() {
                                                      $('#tab12').trigger('click');
                                                   }, false);
                 var o  = ref_p.getElementById('text3459-7');
-                if (o != null) o.addEventListener('click', 
-                                                  function() { 
-                                                     wepsim_execute_microinstruction(); 
+                if (o != null) o.addEventListener('click',
+                                                  function() {
+                                                     wepsim_execute_microinstruction();
                                                   }, false);
             }
     }
@@ -503,19 +503,19 @@
 	    if (ref_cu != null)
             {
 	        var o  = ref_cu.getElementById('text3010');
-	        if (o != null) o.addEventListener('click', 
-                                                  function() { 
+	        if (o != null) o.addEventListener('click',
+                                                  function() {
                                                      $('#tab16').trigger('click');
                                                   }, false);
                 var o  = ref_cu.getElementById('text4138');
-                if (o != null) o.addEventListener('click', 
-                                                  function() { 
-                                                     wepsim_execute_microinstruction(); 
+                if (o != null) o.addEventListener('click',
+                                                  function() {
+                                                     wepsim_execute_microinstruction();
                                                   }, false);
                 var o  = ref_cu.getElementById('text4138-7');
-                if (o != null) o.addEventListener('click', 
-                                                  function() { 
-                                                     wepsim_execute_microinstruction(); 
+                if (o != null) o.addEventListener('click',
+                                                  function() {
+                                                     wepsim_execute_microinstruction();
                                                   }, false);
             }
     }
@@ -523,7 +523,7 @@
     function sim_prepare_editor ( editor )
     {
 	    editor.setValue("\n\n\n\n\n\n\n\n\n");
-	    editor.getWrapperElement().style['text-shadow'] = '0.0em 0.0em'; 
+	    editor.getWrapperElement().style['text-shadow'] = '0.0em 0.0em';
 
 	    if (get_cfg('editor_theme') == 'blackboard') {
 		editor.getWrapperElement().style['font-weight'] = 'normal';
@@ -531,11 +531,11 @@
 	    }
 
 	    var edt_mode = get_cfg('editor_mode');
-	    if (edt_mode == 'vim') 
+	    if (edt_mode == 'vim')
 		editor.setOption('keyMap','vim');
-	    if (edt_mode == 'emacs') 
+	    if (edt_mode == 'emacs')
 		editor.setOption('keyMap','emacs');
-	    if (edt_mode == 'sublime') 
+	    if (edt_mode == 'sublime')
 		editor.setOption('keyMap','sublime');
 
 	    setTimeout(function(){editor.refresh();}, 100);
@@ -571,7 +571,7 @@
 
                             var ok = false ;
                             var SIMWARE = get_simware() ;
-	                    if (SIMWARE.firmware.length != 0) 
+	                    if (SIMWARE.firmware.length != 0)
                                 ok = compileAssembly(mcode, true);
 
 			    if (true == ok)
@@ -583,12 +583,12 @@
                                   show_memories_values();
 			    }
 
-			    $.notify({ title: '<strong>INFO</strong>', 
+			    $.notify({ title: '<strong>INFO</strong>',
 			  	       message: 'Example ready to be used.'},
-				     { type: 'success', 
-				       newest_on_top: true, 
-				       delay: get_cfg('NOTIF_delay'), 
-				       placement: { from: 'top', align: 'center' } 
+				     { type: 'success',
+				       newest_on_top: true,
+				       delay: get_cfg('NOTIF_delay'),
+				       placement: { from: 'top', align: 'center' }
 				      });
                       };
         wepsim_load_from_url(url, do_next) ;
@@ -608,21 +608,21 @@
 			   inputfirm.refresh();
 
 			   var ok = compileFirmware(mcode, true);
-                           if (true == ok) 
+                           if (true == ok)
                            {
                                   if (true == chain_next_step)
-                                       setTimeout(function() { 
-                                                     load_from_example_assembly(example_id, chain_next_step); 
+                                       setTimeout(function() {
+                                                     load_from_example_assembly(example_id, chain_next_step);
                                                   }, 50);
                                   else show_memories_values();
                            }
 
-			   $.notify({ title: '<strong>INFO</strong>', 
+			   $.notify({ title: '<strong>INFO</strong>',
 				      message: 'Example ready to be used.'},
-				    { type: 'success', 
-				      newest_on_top: true, 
-				      delay: get_cfg('NOTIF_delay'), 
-				      placement: { from: 'top', align: 'center' } 
+				    { type: 'success',
+				      newest_on_top: true,
+				      delay: get_cfg('NOTIF_delay'),
+				      placement: { from: 'top', align: 'center' }
 				     });
                       };
         wepsim_load_from_url(url, do_next) ;
@@ -636,10 +636,14 @@
 
        var o = '<style scoped>' +
                '       .onthefly-example1 { min-width:320px; width:' + examples_width + 'px; }' +
-               '       .onthefly-example2 { } ' + 
-               '   @media screen and (min-width: 1200px) { ' + 
-               '       .onthefly-example1 { min-width:320px; width:70vw; height:70vh; overflow:auto; } ' + 
-               '       .onthefly-example2 { margin:0 auto; } ' + 
+               '       .onthefly-example2 { } ' +
+               '   @media screen and (min-width: 1020px) { ' +
+               '       .onthefly-example1 { min-width:320px; width:70vw; height:70vh; overflow:auto; } ' +
+               '       .onthefly-example2 { margin:0 auto; } ' +
+               '   }" ' +
+               '   @media screen and (min-height: 1020px) { ' +
+               '       .onthefly-example1 { min-width:320px; width:70vw; height:70vh; overflow:auto; } ' +
+               '       .onthefly-example2 { margin:0 auto; } ' +
                '   }" ' +
                '</style>' +
                '<div class="onthefly-example1" data-filter="true" data-children="div > span">' +
@@ -655,7 +659,7 @@
 		       '     <div class="panel-heading">' +
 		       '       <h3 class="panel-title">' + (m+1) + ') ' + e_title + '</h3>' +
 		       '     </div>' +
-		       '     <div class="panel-body">' + e_description + '<br>' +
+		       '     <div class="panel-body collapse in">' + e_description + '<br>' +
 		       '       <div class="btn-group btn-group-justified btn-group-md">' +
 		       '           <a href="#" onclick="load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0;"' +
 		       '              class="ui-btn btn btn-group ui-btn-inline btn-default">' +
