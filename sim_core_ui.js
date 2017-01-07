@@ -1422,7 +1422,7 @@
         /* 
          * Show signal dependencies
          */
-        function show_visgraph ( jit_fire_dep )
+        function show_visgraph ( jit_fire_dep, jit_fire_order )
         {
             var tmp_hash  = new Object();
             var tmp_nodes = new Array();
@@ -1431,9 +1431,12 @@
             {
                  tmp_hash[sig] = tmp_id ;
                  tmp_nodes.push({id: tmp_id, 
-                                     label: sig, 
-                                     title: sig}) ;
+                                 label: sig, 
+                                 title: sig}) ;
                  tmp_id++ ;
+            }
+            for (var i=0; i<jit_fire_order.length; i++) {
+                 tmp_nodes[tmp_hash[jit_fire_order[i]]].color = '#7BE141' ;
             }
 	    var jit_dep_nodes = new vis.DataSet(tmp_nodes) ;
 
