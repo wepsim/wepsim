@@ -390,6 +390,7 @@
 	    $("[data-toggle=popover-up]").popover({
 	    	    html:      true,
                     placement: 'top',
+                    animation: false,
 		    content: function() {
 		        var index = $(this).attr("data-popover-content");
                         var hexvalue = get_value(sim_states['BR'][index]);
@@ -407,6 +408,9 @@
 
         function fullshow_rf_values ( )
         {
+            // if ($("#states_BR").is(":visible") == false)
+            //     return ;
+
             var SIMWARE = get_simware() ;
 
 	    for (var index=0; index < sim_states['BR'].length; index++)
@@ -419,16 +423,16 @@
 	    }
         }
 
-        var show_rf_values_deffered = null;
+        var show_rf_values_deferred = null;
 
         function show_rf_values ( )
         {
-            if (null == show_rf_values_deffered)
+            if (null == show_rf_values_deferred)
             {
-                show_rf_values_deffered = setTimeout(function() {
+                show_rf_values_deferred = setTimeout(function() {
                                                         fullshow_rf_values();
-                                                        show_rf_values_deffered=null;
-                                                     }, 120);
+                                                        show_rf_values_deferred=null;
+                                                     }, 125);
             }
         }
 
@@ -486,6 +490,7 @@
 	    $("[data-toggle=popover-bottom]").popover({
 	    	    html:      true,
                     placement: 'bottom',
+                    animation: false,
 		    content: function() {
 		        var index = $(this).attr("data-popover-content");
                         var hexvalue = get_value(sim_states[index]);
@@ -521,15 +526,15 @@
             }
         }
 
-        var show_eltos_deffered = null;
+        var show_eltos_deferred = null;
 
         function show_eltos ( sim_eltos, filter )
         {
-            if (null == show_eltos_deffered)
+            if (null == show_eltos_deferred)
             {
-                show_eltos_deffered = setTimeout(function() {
+                show_eltos_deferred = setTimeout(function() {
                                                         fullshow_eltos(sim_eltos, filter);
-                                                        show_eltos_deffered = null;
+                                                        show_eltos_deferred = null;
                                                  }, 130);
             }
         }
@@ -719,7 +724,7 @@
          *  show_memories
          */
 
-        var show_main_memory_deffered = null;
+        var show_main_memory_deferred = null;
 
         function show_main_memory ( memory, index, redraw )
         {
@@ -728,13 +733,13 @@
                 return ;
             }
 
-            if (null != show_main_memory_deffered) 
-                clearTimeout(show_main_memory_deffered) ;
+            if (null != show_main_memory_deferred) 
+                clearTimeout(show_main_memory_deferred) ;
 
-            show_main_memory_deffered = setTimeout(function () {
+            show_main_memory_deferred = setTimeout(function () {
                                                        hard_refresh_main_memory(memory, index, redraw) ;
-                                                       show_main_memory_deffered = null;
-                                                   }, 120);
+                                                       show_main_memory_deferred = null;
+                                                   }, 150);
         }
 
         function hard_refresh_main_memory ( memory, index, redraw )
@@ -813,7 +818,7 @@
             o1.css('font-weight', 'bold') ;
         }
 
-        var show_control_memory_deffered = null;
+        var show_control_memory_deferred = null;
 
         function show_control_memory ( memory, memory_dashboard, index, redraw )
         {
@@ -822,12 +827,12 @@
                 return ;
             }
 
-            if (null != show_control_memory_deffered) 
-                clearTimeout(show_control_memory_deffered) ;
+            if (null != show_control_memory_deferred) 
+                clearTimeout(show_control_memory_deferred) ;
 
-            show_control_memory_deffered = setTimeout(function () {
+            show_control_memory_deferred = setTimeout(function () {
                                             hard_refresh_control_memory(memory, memory_dashboard, index, redraw);
-                                            show_control_memory_deffered = null;
+                                            show_control_memory_deferred = null;
                                            }, 120);
         }
 
@@ -896,7 +901,7 @@
 
         function light_refresh_control_memory ( memory, memory_dashboard, index )
         {
-            // if ($("#memory_MP").is(":visible") == false)
+            // if ($("#memory_MC").is(":visible") == false)
             //     return ;
 
             o1 = $("#maddr" + old_mc_addr) ;
@@ -1007,7 +1012,20 @@
                                     false) ;
 	}
 
+        var show_dbg_ir_deferred = null;
+
 	function show_dbg_ir ( decins )
+	{
+            if (null == show_dbg_ir_deferred)
+            {
+                show_dbg_ir_deferred = setTimeout(function() {
+                                                        fullshow_dbg_ir(decins);
+                                                        show_dbg_ir_deferred = null;
+                                                     }, 100);
+            }
+	}
+
+	function fullshow_dbg_ir ( decins )
 	{
 	        var o = document.getElementById('svg_p');
 	        if (o != null) o = o.contentDocument;
@@ -1399,4 +1417,42 @@
 
                 return o ;
 	}
+
+
+        /* 
+         * Show signal dependencies
+         */
+        function show_visgraph ( jit_fire_dep )
+        {
+            var tmp_hash  = new Object();
+            var tmp_nodes = new Array();
+            var tmp_id    = 0;
+            for (var sig in sim_signals)
+            {
+                 tmp_hash[sig] = tmp_id ;
+                 tmp_nodes.push({id: tmp_id, 
+                                     label: sig, 
+                                     title: sig}) ;
+                 tmp_id++ ;
+            }
+	    var jit_dep_nodes = new vis.DataSet(tmp_nodes) ;
+
+            var tmp_edges = new Array();
+            for (var sig in sim_signals) {
+                for (var sigorg in jit_fire_dep[sig]) {
+                     tmp_edges.push({from: tmp_hash[sigorg], 
+                                     to: tmp_hash[sig], 
+                                     arrows: 'to'}) ;
+                }
+            }
+	    var jit_dep_edges = new vis.DataSet(tmp_edges) ;
+
+	    var jit_dep_container = document.getElementById('depgraph1') ;
+	    var jit_dep_data    = { nodes: jit_dep_nodes, 
+                                    edges: jit_dep_edges } ;
+	    var jit_dep_options = { interaction: {hover:true},
+                                    nodes: { borderWidth: 2, shadow:true },
+                                    edges: { width: 2, shadow:true } } ;
+	    jit_dep_network = new vis.Network(jit_dep_container, jit_dep_data, jit_dep_options) ;
+        }
 

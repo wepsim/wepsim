@@ -231,7 +231,7 @@
 		          <li                    style="clear:none;width:33% !important"><a id="tab12" href="#con">Console</a></li>
 		          <li class="ui-block-a" style="clear:none;width:33% !important;border:1px solid #ddd;"><a id="tab15" href="#io">Statistics</a></li>
                           <br>
-		          <li style="           width:33% !important"><a id="tab11" href="#all" class="ui-btn-active">Registers</a></li>
+		          <li style="           width:33% !important"><a id="tab11" href="#all" class="ui-btn-active" onclick="show_rf_values();">Registers</a></li>
 		          <li style="clear:none;width:33% !important"><a id="tab16" href="#mc" onclick="show_memories_values();">Control Memory</a></li>
 		          <li style="clear:none;width:33% !important"><a id="tab13" href="#config">Configuration</a></li>
 		        </ul>
@@ -488,7 +488,7 @@
 </div><!-- /page -->
 
 
-<div data-role="panel" id="actions_panel" data-display="overlay" data-position="right" data-theme="a" 
+<div data-role="panel" id="actions_panel" data-display="overlay" data-position="right" data-theme="a" data-animate="false"
      style="width:19em; min-width:17em;">
 
         <table border=0 height=100% width=100%>
@@ -553,6 +553,13 @@
      data-dismissible="false" data-animate="false" data-overlay-theme="b">
 
    <div data-role="header" data-theme="a">
+        <a href="#" 
+           onclick="$('.collapse').collapse('toggle'); 
+                    $('#container-example1').enhanceWithin();
+                    setTimeout(function() { $('#masonry-grid1').masonry('layout'); }, 500);"
+           data-role="button" data-theme="b" data-icon="grid" data-iconpos="notext" 
+           class="ui-btn-left">Show/Hide</a>
+
         <h1><b>Examples</b> <span class="badge btn-success"><div class="wsversion">X</div></span></h1>
 
         <a href="#" 
@@ -891,6 +898,7 @@
             <a href="http://www.inf.uc3m.es/en/">Computer Science and Engineering Department</a><br>
             <a href="http://www.uc3m.es/">Universidad Carlos III de Madrid</a><br>
 	    <p>
+
         </div>
         </div>
 
@@ -905,6 +913,11 @@
      data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
 
    <div data-role="header" data-theme="a">
+        <a href="#" 
+	   onclick="$('#modalaux2').modal('toggle');
+		    show_visgraph(jit_fire_dep);"
+           data-role="button" data-theme="a" data-icon="info" data-iconpos="notext" 
+           class="ui-btn-left">Close</a>
         <h1><b>About</b> <span class="badge btn-success"><div class="wsversion">X</div></span> </h1>
         <a href="#" 
            data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" 
@@ -912,7 +925,21 @@
    </div>
    <div role="main" class="ui-content">
 
-	<div data-role="collapsibleset" style="max-width:600px;">
+	<div id="modalaux2" class="modal" role="dialog">
+		<div class="modal-dialog modal-lg">
+		  <div class="modal-content">
+			<button type="button" 
+                                class="btn btn-default" 
+                                data-dismiss="modal">&times; &nbsp; Close</button>
+		    <div class="modal-body">
+	                <div id="depgraph1" 
+                             style="width:100%; height:80%; border:1px solid lightgray;">Loading...</div>
+		    </div>
+		  </div>
+		</div>
+	</div>
+
+	<div data-role="collapsibleset" style="max-width: 600px;">
 	  <div data-role="collapsible" data-collapsed="false">
 	    <h1>Platforms</h1>
 	    <p>
@@ -932,8 +959,7 @@
 	            <br class="hidden-xs">
 		    <b>WepSIM (Web elemental processor SIMulator)</b> is free software: you can redistribute it and/or modify
 		    it under the terms of the GNU Lesser General Public License as published by
-		    the Free Software Foundation, either version 3 of the License, or
-		    (at your option) any later version.<br>
+		    the Free Software Foundation, either version 3 of the License, or (at your option) any later version.<br>
                     <br>
 		    See <a rel="external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.<br>
 	    </p>
@@ -965,6 +991,7 @@
                     </ul>
             </p>
 	  </div>
+
 	</div>
 
    </div>
