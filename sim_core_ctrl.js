@@ -209,8 +209,8 @@
 			    jit_be += "syntax_behavior['" + s_expr[0] + "'].operation(" + JSON.stringify(s_expr) + ");\t" ;
 
                             // 2.3b.- ...build the fire graph
-                            if (("FIRE" == s_expr[0]) &&
-                                (sim_signals[sig].type == sim_signals[s_expr[1]].type))
+                            if ( (("FIRE_IFSET" == s_expr[0]) || ("FIRE" == s_expr[0])) &&
+                                 (sim_signals[sig].type == sim_signals[s_expr[1]].type) )
                             {
                                 if (typeof jit_fire_dep[s_expr[1]] == "undefined")
                                     jit_fire_dep[s_expr[1]] = new Object();
