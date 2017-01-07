@@ -206,7 +206,8 @@
 			    var s_expr = s_exprs[i].split(" ");
 
 			    // 2.3a.- ...to do the operation
-			    jit_be += "syntax_behavior['" + s_expr[0] + "'].operation(" + JSON.stringify(s_expr) + ");\t" ;
+                            if (s_expr[0] != "NOP") // warning: optimizated just because nop.operation is empty right now...
+			        jit_be += "syntax_behavior['" + s_expr[0] + "'].operation(" + JSON.stringify(s_expr) + ");\t" ;
 
                             // 2.3b.- ...build the fire graph
                             if ( ("FIRE" == s_expr[0]) &&
