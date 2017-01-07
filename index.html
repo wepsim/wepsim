@@ -1193,8 +1193,18 @@
 	    init("#states_ALL", "#states_BR", "#io_ALL", "#config_ALL"); 
 	    reset(); 
 
-	    //Split(['#col1', '#col2'], 
-            //      { sizes: [65, 35], gutterSize: 5 });
+            // split (experimental)
+	    var split1 = Split(['#col1', '#col2'], { sizes: [65, 35], gutterSize: 5 });
+            $(window).resize(function() {
+                                if ($(window).width() > 1000) {
+                                    split1.setSizes([65, 35]);
+                                    $('.gutter.gutter-horizontal').height('100%') ;
+                                }
+                                else {
+                                    split1.setSizes([100, 100]);
+                                    $('.gutter.gutter-horizontal').height('0%') ;
+                                }
+                             });
 
             $('a[data-toggle="tooltip1"]').tooltip({
                 animated: 'fade',
