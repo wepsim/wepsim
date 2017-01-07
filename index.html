@@ -56,6 +56,17 @@
         -o-transform: translatez(0);
         transform: translatez(0);
     }
+
+    /* https://github.com/nathancahill/Split.js */
+    .gutter.gutter-horizontal {
+        background-color: #F5F5F5;
+        cursor: ew-resize;
+    }
+
+    .split.split-horizontal, .gutter.gutter-horizontal {
+        height: 100%;
+        float: left;
+    }
     </style>
 
     <link  href="external/external.min.css" rel="stylesheet">
@@ -96,7 +107,7 @@
 	<div role="main" class="ui-content">
 
             <div class="row">
-                <div class="col-md-8" style="padding:0 0 0 0;">
+                <div id="col1" class="col-md-8" style="padding:0 0 0 0;">
 		    <div data-role="tabs" id="tabs2">
     		      <div data-role="navbar" id="tabsnav2" class="ui-responsive">
 		        <ul>
@@ -202,7 +213,7 @@
 	    	    </div>
                 </div>
 
-                <div class="col-md-4" style="padding:0 8px 0 0px;">
+                <div id="col2" class="col-md-4" style="padding:0 8px 0 0px;">
 
                     <div class="btn-toolbar" role="toolbar" id="sim_toolbar" style="padding: 0 0px 10px 0px;">
 			<div class="btn-group btn-group-justified" role="group">
@@ -1192,6 +1203,9 @@
 
 	    init("#states_ALL", "#states_BR", "#io_ALL", "#config_ALL"); 
 	    reset(); 
+
+	    Split(['#col1', '#col2'], 
+                  { sizes: [65, 35], gutterSize: 5 });
 
             $('a[data-toggle="tooltip1"]').tooltip({
                 animated: 'fade',
