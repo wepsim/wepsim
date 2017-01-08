@@ -706,7 +706,7 @@
 
 	       o = o + '<tr>' +
 		       '<td>' + '<b>' + (m+1) + '</b>' + '</td>' +
-		       '<td style="min-width:150px; max-width:190">' +
+		       '<td style="min-width:150px; max-width:190px">' +
 		       '  <div class="btn-group btn-group-justified btn-group-sm">' +
                        '  <a href="#" ' +
                        '     class="ui-btn btn btn-group ui-btn-inline" ' +
