@@ -72,6 +72,7 @@
     <link  href="external/external.min.css" rel="stylesheet">
     <script src="external/external.min.js"></script>
     <script src="examples/examples.js"></script>
+    <script src="help/helps.js"></script>
 
     <script src="min.sim_all.js"></script>
     <script src="min.sim_hw.js"></script> 
@@ -506,10 +507,6 @@
         <tr>
         <td valign=top>
 
-	<div data-role="collapsible-set">
-	    <div data-role="collapsible" data-collapsed="false" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
-	    <h3>WorkSpaces</h3>
-	    <p>
 	    <ul id="listview_1" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b">
 		    <li><a id="tab21" href="#" style="background-color: lightgray"
 			   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"><h2>Microcode</h2></a></li>
@@ -518,40 +515,18 @@
 		    <li><a id="tab25" href="#" style="background-color: lightgray"
 			   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');"><h2>Simulator</h2></a></li>
 	    </ul>
-            </p>
-	    </div>
-
-	    <div data-role="collapsible" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
-	    <h3>Help</h3>
-	    <p>
-	    <ul id="listview_2" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b" data-mini="true">
-		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info" style="background-color: #D4DB17;"
-			   onclick="$('#help1_ref').data('relative','#help_simulator_screens');
-			            show_help1();"><h2>Simulator usage</h2></a></li>
-		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info" style="background-color: #D4DB17;"
-			   onclick="$('#help1_ref').data('relative','#help_firmware_format');
-			            show_help1();"><h2>Microcode format</h2></a></li>
-		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info" style="background-color: #D4DB17;"
-			   onclick="$('#help1_ref').data('relative','#help_assembly_format');
-			            show_help1();"><h2>Assembly format</h2></a></li>
-		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info" style="background-color: #D4DB17;"
-			   onclick="$('#help1_ref').data('relative','#help_simulator_arch');
-			            show_help1();"><h2>Simulator architecture</h2></a></li>
-	    </ul>
-            </p>
-	    </div>
-
-	</div>
 
         </td>
         </tr>
         <tr>
         <td>
-               <a href="#example1" data-rel="popup" data-position-to="window" style="text-align:left"
+               <a href="#help2"    data-rel="dialog" data-position-to="window" style="text-align:left"
+                  class="ui-btn ui-btn-icon-left ui-icon-info">Help</a>
+               <a href="#example1" data-rel="popup"  data-position-to="window" style="text-align:left"
                   class="ui-btn ui-btn-icon-left ui-icon-info">Examples</a>
-               <a href="#config1"  data-rel="popup" data-position-to="window" style="text-align:left"
+               <a href="#config1"  data-rel="popup"  data-position-to="window" style="text-align:left"
                   class="ui-btn ui-btn-icon-left ui-icon-gear">Configuration</a>
-               <a href="#about2"   data-rel="popup" data-position-to="window" style="text-align:left"
+               <a href="#about2"   data-rel="popup"  data-position-to="window" style="text-align:left"
                   class="ui-btn ui-btn-icon-left ui-icon-tag">About</a>
         </td>
         </tr>
@@ -575,6 +550,27 @@
 
 	<div id="container-example1" class="container-fluid" 
              style="max-width:80vw; max-height:90vh; overflow:auto;">
+        </div>
+
+   </div>
+</div>
+
+
+<div data-role="dialog" id="help2" style="background-color: white;"
+     data-dismissible="false" data-animate="false" data-overlay-theme="b">
+
+   <div data-role="header" data-theme="a">
+        <h1><b>Help</b> <span class="badge btn-success"><div class="wsversion">X</div></span></h1>
+
+        <a href="#" 
+           data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" 
+           class="ui-btn-right">Close</a>
+   </div>
+
+   <div role="main" class="ui-content" style="padding: 8px 8px 8px 8px">
+
+	<div id="container-help2" class="container-fluid" 
+             style="max-width:80vw; max-height:80vh; overflow:auto;">
         </div>
 
    </div>
@@ -1081,8 +1077,11 @@
 
 	            $("#container-example1").html(table_examples_html(examples));
 	            $("#container-example1").enhanceWithin();
+	            $("#container-help2").html(table_helps_html(helps));
+	            $("#container-help2").enhanceWithin();
 
 		    $("#help1").enhanceWithin().popup();
+		    $("#help2").enhanceWithin().dialog();
 		    $("#bin1").enhanceWithin().popup();
 		    $("#about1").enhanceWithin().popup();
 		    $("#example1").enhanceWithin().popup();

@@ -678,3 +678,41 @@
        return o ;
     }
 
+    function table_helps_html ( helps )
+    {
+       var o = '<div class="table-responsive">' +
+               '<table width=100% class="table table-striped table-hover table-condensed">' + 
+               '<thead>' +
+               '<tr>' +
+               '  <th>#</th>' +
+               '  <th>title</th>' +
+               '</tr>' +
+               '</thead>' +
+               '<tbody>';
+       for (var m=0; m<helps.length; m++)
+       {
+	       var e_title       = helps[m]['title'] ;
+	       var e_reference   = helps[m]['reference'] ;
+	       var e_description = helps[m]['description'] ;
+	       var e_id          = helps[m]['id'] ;
+
+	       o = o + '<tr>' +
+		       '<td>' + '<b>' + (m+1)   + '</b>' + '</td>' +
+	               '<td>' + 
+		       '    <div class="btn-group btn-group-justified btn-group-sm">' +
+                       '    <a href="#" ' + 
+                       '       class="ui-btn btn btn-group ui-btn-inline ui-btn-icon-left ui-icon-info" ' +  
+                       '       style="background-color: #D4DB17;" ' +
+		       '       onclick="$(\'#help1_ref\').data(\'relative\',\'' + e_reference + '\'); ' +
+		       '                show_help1();"><b>' + e_title + '</b></a>' + 
+		       '    </div>' +
+                       '</td>' ;
+		       '</tr>' ;
+       }
+       o = o + '</tbody>' +
+               '</table>' +
+               '</div>' ;
+
+       return o ;
+    }
+
