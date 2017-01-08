@@ -48,10 +48,6 @@
         background-size: 15px 15px;
     }
 
-    #help2 .ui-dialog-contain { 
-        max-width: 1024px;
-    }
-
     /* http://stackoverflow.com/questions/10814178/css-performance-relative-to-translatez0 */
     .trick-hwacceleration {
         -webkit-transform: translatez(0);
@@ -525,7 +521,8 @@
         <tr>
         <td>
 
-               <a href="#help2"    data-rel="dialog" data-position-to="window" 
+               <a href="#help1"    data-rel="popup"  data-position-to="window" 
+                  onclick="show_help1_index();"
                   style="text-align:left; background-color: #D4DB17;"
                   class="ui-btn ui-btn-icon-left ui-icon-info">Help</a>
                <a href="#example1" data-rel="popup"  data-position-to="window" 
@@ -560,26 +557,6 @@
 
 	<div id="container-example1" class="container-fluid" 
              style="max-width:80vw; max-height:90vh; overflow:auto;">
-        </div>
-
-   </div>
-</div>
-
-
-<div data-role="dialog" id="help2" style="background-color: white;" data-close-btn="none"
-     data-dismissible="false" data-animate="false" data-overlay-theme="b">
-
-   <div data-role="header" data-theme="a">
-        <h1><b>Help</b> <span class="badge btn-success"><div class="wsversion">X</div></span></h1>
-        <a href="#" 
-           data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" 
-           class="ui-btn-right">Close</a>
-   </div>
-
-   <div role="main" class="ui-content" style="padding: 8px 8px 8px 8px">
-
-	<div id="container-help2" class="container-fluid" 
-             style="max-width:80vw; max-height:80vh; overflow:auto;">
         </div>
 
    </div>
@@ -996,6 +973,12 @@
       <div data-role="header" data-theme="b" class="ui-corner-top">
            <div data-type="horizontal" data-role="controlgroup" class="ui-btn-left">  
              <div id="help1_ref" style="display:none;"></div>
+	     <input name="fake1" id="fake1-es" data-mini="true"
+		    aria-label="Idiom: Spanish"
+		    style="margin-top:-8px"
+		    onclick="show_help1_index();"
+		    value="none" type="radio">
+	     <label for="fake1-es">&lt;</label>
 	     <input name="radio6" id="radio6-es" data-mini="true"
 		    aria-label="Idiom: Spanish"
 		    style="margin-top:-8px"
@@ -1084,11 +1067,8 @@
 
 	            $("#container-example1").html(table_examples_html(examples));
 	            $("#container-example1").enhanceWithin();
-	            $("#container-help2").html(table_helps_html(helps));
-	            $("#container-help2").enhanceWithin();
 
 		    $("#help1").enhanceWithin().popup();
-		    $("#help2").enhanceWithin().dialog();
 		    $("#bin1").enhanceWithin().popup();
 		    $("#about1").enhanceWithin().popup();
 		    $("#example1").enhanceWithin().popup();

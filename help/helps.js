@@ -49,7 +49,7 @@
                      id:          "simulator",
                      title:       "Signal dependencies",
                      type:        "code",
-                     reference:   "$(\'#modalaux2\').modal(\'toggle\'); show_visgraph(jit_fire_dep, jit_fire_order);",
+                     reference:   "$(\'#modalaux2\').modal(\'toggle\'); show_visgraph(jit_fire_dep, jit_fire_order); $(\'#help1\').popup(\'close\');",
                      description: "Graph of the signal dependencies (need several seconds to display).<br>"
                   });
 

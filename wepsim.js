@@ -444,6 +444,15 @@
         ga('send', 'event', 'help', 'help.simulator', 'help.simulator.' + rel);
     }
 
+    function show_help1_index ( )
+    {
+	$('#iframe_help1').html(table_helps_html(helps)) ;
+	$('#iframe_help1').enhanceWithin() ;
+	$('#help1_ref').data('relative','') ;
+	$('#help1').trigger('updatelayout') ;
+	$('#help1').popup('open') ;
+    }
+
 
     //
     // Initialize
