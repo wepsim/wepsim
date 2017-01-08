@@ -647,9 +647,9 @@
                '<tr>' +
                '  <th>#</th>' +
                '  <th onclick="$(\'.collapse1\').collapse(\'toggle\');">level</th>' +
-               '  <th onclick="$(\'.collapse2\').collapse(\'toggle\');">title</th>' +
+               '  <th>title</th>' +
                '  <th onclick="$(\'.collapse3\').collapse(\'toggle\');">description</th>' +
-               '  <th onclick="$(\'.collapse4\').collapse(\'toggle\');">load...</th>' +
+               '  <th onclick="$(\'.collapse4\').collapse(\'toggle\');">load only...</th>' +
                '</tr>' +
                '</thead>' +
                '<tbody>';
@@ -660,25 +660,26 @@
 	       var e_description = examples[m]['description'] ;
 	       var e_id          = examples[m]['id'] ;
 
-	       o = o + '   <tr>' +
-		       '   <td>' + '<b>' + (m+1)   + '</b>' + '</td>' +
-		       '   <td>' + '<b    class="collapse1 collapse in">' + e_level + '</b>' + '</td>' +
-		       '   <td>' + '<b    class="collapse2 collapse in">' + e_title + '</b>' + '</td>' +
-		       '   <td>' + '<span class="collapse3 collapse in">' + e_description + '</span>' + '</td>' +
-		       '   <td class="collapse4 collapse in" style="min-width:200px; max-width:250px">' +
-		       '       <div class="btn-group btn-group-justified btn-group-md">' +
-		       '           <a href="#" onclick="load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0;"' +
-		       '              class="ui-btn btn btn-group ui-btn-inline btn-default">' +
-		       '              <b>Assembly</b></a>' +
-		       '           <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',false);" style="padding:0 0 0 0;"' +
-		       '              class="ui-btn btn btn-group ui-btn-inline btn-default">' +
-		       '              <b>Firmware</b></a>' +
-		       '           <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',true);"  style="padding:0 0 0 0;"' +
-		       '              class="ui-btn btn btn-group ui-btn-inline btn-primary">' +
-		       '              <b>Both</b></a>' +
-		       '       </div>' +
-		       '   </td>' +
-		       '   </tr>' ;
+	       o = o + ' <tr>' +
+		       ' <td>' + '<b>' + (m+1)   + '</b>' + '</td>' +
+		       ' <td>' + '<b    class="collapse1 collapse in">' + e_level + '</b>' + '</td>' +
+		       ' <td>' + 
+		       '   <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',true);"  style="padding:0 0 0 0;"' +
+		       '      class="ui-btn btn btn-group ui-btn-inline btn-primary">' + 
+                       '   <b class="collapse2 collapse in">' + e_title + '</b></a>' +
+                       ' </td>' +
+		       ' <td>' + '<span class="collapse3 collapse in">' + e_description + '</span>' + '</td>' +
+		       ' <td class="collapse4 collapse in" style="min-width:150px; max-width:200px">' +
+		       '     <div class="btn-group btn-group-justified btn-group-md">' +
+		       '         <a href="#" onclick="load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0;"' +
+		       '            class="ui-btn btn btn-group ui-btn-inline btn-default">' +
+		       '            <b>Assembly</b></a>' +
+		       '         <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',false);" style="padding:0 0 0 0;"' +
+		       '            class="ui-btn btn btn-group ui-btn-inline btn-default">' +
+		       '            <b>Firmware</b></a>' +
+		       '     </div>' +
+		       ' </td>' +
+		       ' </tr>' ;
        }
        o = o + '</tbody>' +
                '</table>' +
@@ -695,7 +696,7 @@
                '<tr>' +
                '  <th>#</th>' +
                '  <th>title</th>' +
-               '  <th onclick="$(\'.collapse3\').collapse(\'toggle\');">description</th>' +
+               '  <th onclick="$(\'.collapse2\').collapse(\'toggle\');">description</th>' +
                '</tr>' +
                '</thead>' +
                '<tbody>';
@@ -715,17 +716,15 @@
 
 	       o = o + '<tr>' +
 		       '<td>' + '<b>' + (m+1) + '</b>' + '</td>' +
-		       '<td style="min-width:150px; max-width:190px">' +
-		       '  <div class="btn-group btn-group-justified btn-group-sm">' +
+		       ' <td>' + 
                        '  <a href="#" ' +
                        '     class="ui-btn btn btn-group ui-btn-inline" ' +
-                       '     style="background-color: #D4DB17;" ' +
+                       '     style="background-color: #D4DB17; padding:0 0 0 0;" ' +
 		       '     onclick="' + onclick_code + '"><b>' + e_title + '</b></a>' +
-		       '  </div>' +
-                       '</td>' +
-		       '<td class="collapse3 collapse in">' +
-		       '  <c>' + e_description + '</c>' + 
-                       '</td>' +
+                       ' </td>' +
+		       ' <td class="collapse2 collapse in">' +
+		       '   <c>' + e_description + '</c>' + 
+                       ' </td>' +
 		       '</tr>' ;
        }
        o = o + '</tbody>' +
