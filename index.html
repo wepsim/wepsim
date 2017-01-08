@@ -48,6 +48,11 @@
         background-size: 15px 15px;
     }
 
+    #help2 .ui-dialog-contain { 
+        min-width: 550px;
+        min-width: 1024px;
+    }
+
     /* http://stackoverflow.com/questions/10814178/css-performance-relative-to-translatez0 */
     .trick-hwacceleration {
         -webkit-transform: translatez(0);
@@ -919,31 +924,12 @@
      data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
 
    <div data-role="header" data-theme="a">
-        <a href="#" 
-	   onclick="$('#modalaux2').modal('toggle');
-		    show_visgraph(jit_fire_dep, jit_fire_order);"
-           data-role="button" data-theme="a" data-icon="info" data-iconpos="notext" 
-           class="ui-btn-left">Close</a>
         <h1><b>About</b> <span class="badge btn-success"><div class="wsversion">X</div></span> </h1>
         <a href="#" 
            data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" 
            class="ui-btn-right">Close</a>
    </div>
    <div role="main" class="ui-content">
-
-	<div id="modalaux2" class="modal" role="dialog">
-		<div class="modal-dialog modal-lg">
-		  <div class="modal-content">
-			<button type="button" 
-                                class="btn btn-default" 
-                                data-dismiss="modal">&times; &nbsp; Close</button>
-		    <div class="modal-body">
-	                <div id="depgraph1" 
-                             style="width:100%; height:80%; border:1px solid lightgray;">Loading...</div>
-		    </div>
-		  </div>
-		</div>
-	</div>
 
 	<div data-role="collapsibleset" style="max-width: 600px;">
 	  <div data-role="collapsible" data-collapsed="false">
@@ -1005,6 +991,7 @@
 </div><!-- /popup -->
 
 
+
 <div data-role="popup" id="help1" 
      data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
 
@@ -1064,6 +1051,22 @@
       </div>
 
 </div><!-- /panel -->
+
+
+<div id="modalaux2" class="modal" role="dialog">
+	<div class="modal-dialog modal-lg">
+	  <div class="modal-content">
+	      <div class="modal-header">
+		<button type="button" 
+			class="btn btn-default" 
+			data-dismiss="modal">&times; &nbsp; Close</button>
+	      </div>
+	      <div class="modal-body">
+		  <div id="depgraph1" style="width:100%; height:80%; border:1px solid lightgray;">Loading...</div>
+	      </div>
+	  </div>
+	</div>
+</div><!-- /modal (signal dependencies) -->
 
 
 <script>

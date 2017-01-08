@@ -633,7 +633,7 @@
     function table_examples_html ( examples )
     {
        var o = '<div class="table-responsive">' +
-               '<table width=100% class="table table-striped table-hover table-condensed">' + 
+               '<table width=100% class="table table-striped table-hover table-condensed">' +
                '<thead>' +
                '<tr>' +
                '  <th>#</th>' +
@@ -681,32 +681,42 @@
     function table_helps_html ( helps )
     {
        var o = '<div class="table-responsive">' +
-               '<table width=100% class="table table-striped table-hover table-condensed">' + 
+               '<table width=100% class="table table-striped table-hover table-condensed">' +
                '<thead>' +
                '<tr>' +
                '  <th>#</th>' +
                '  <th>title</th>' +
+               '  <th onclick="$(\'.collapse3\').collapse(\'toggle\');">description</th>' +
                '</tr>' +
                '</thead>' +
                '<tbody>';
        for (var m=0; m<helps.length; m++)
        {
 	       var e_title       = helps[m]['title'] ;
+	       var e_type        = helps[m]['type'] ;
 	       var e_reference   = helps[m]['reference'] ;
 	       var e_description = helps[m]['description'] ;
 	       var e_id          = helps[m]['id'] ;
 
+               var onclick_code = "" ;
+               if ("relative" == e_type) 
+                   onclick_code = '$(\'#help1_ref\').data(\'relative\',\'' + e_reference + '\'); show_help1();' ;
+               if ("code" == e_type) 
+                   onclick_code = e_reference ;
+
 	       o = o + '<tr>' +
-		       '<td>' + '<b>' + (m+1)   + '</b>' + '</td>' +
-	               '<td>' + 
-		       '    <div class="btn-group btn-group-justified btn-group-sm">' +
-                       '    <a href="#" ' + 
-                       '       class="ui-btn btn btn-group ui-btn-inline ui-btn-icon-left ui-icon-info" ' +  
-                       '       style="background-color: #D4DB17;" ' +
-		       '       onclick="$(\'#help1_ref\').data(\'relative\',\'' + e_reference + '\'); ' +
-		       '                show_help1();"><b>' + e_title + '</b></a>' + 
-		       '    </div>' +
-                       '</td>' ;
+		       '<td>' + '<b>' + (m+1) + '</b>' + '</td>' +
+		       '<td style="min-width:150px; max-width:190">' +
+		       '  <div class="btn-group btn-group-justified btn-group-sm">' +
+                       '  <a href="#" ' +
+                       '     class="ui-btn btn btn-group ui-btn-inline" ' +
+                       '     style="background-color: #D4DB17;" ' +
+		       '     onclick="' + onclick_code + '"><b>' + e_title + '</b></a>' +
+		       '  </div>' +
+                       '</td>' +
+		       '<td class="collapse3 collapse in">' +
+		       '  <c>' + e_description + '</c>' + 
+                       '</td>' +
 		       '</tr>' ;
        }
        o = o + '</tbody>' +
