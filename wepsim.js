@@ -637,10 +637,10 @@
                '<thead>' +
                '<tr>' +
                '  <th>#</th>' +
-               '  <th>level</th>' +
-               '  <th>title</th>' +
-               '  <th><span class="collapse in">description</span></th>' +
-               '  <th>Load...</th>' +
+               '  <th onclick="$(\'.collapse1\').collapse(\'toggle\');">level</th>' +
+               '  <th onclick="$(\'.collapse2\').collapse(\'toggle\');">title</th>' +
+               '  <th onclick="$(\'.collapse3\').collapse(\'toggle\');">description</th>' +
+               '  <th onclick="$(\'.collapse4\').collapse(\'toggle\');">load...</th>' +
                '</tr>' +
                '</thead>' +
                '<tbody>';
@@ -653,12 +653,10 @@
 
 	       o = o + '   <tr>' +
 		       '   <td>' + '<b>' + (m+1)   + '</b>' + '</td>' +
-		       '   <td>' + '<b>' + e_level + '</b>' + '</td>' +
-		       '   <td>' + '<b>' + e_title + '</b>' + '</td>' +
-		       '   <td>' +
-		       '      <span class="collapse in">' + e_description + '</span>' +
-		       '   </td>' +
-		       '   <td style="min-width:200px; max-width:250px">' +
+		       '   <td>' + '<b    class="collapse1 collapse in">' + e_level + '</b>' + '</td>' +
+		       '   <td>' + '<b    class="collapse2 collapse in">' + e_title + '</b>' + '</td>' +
+		       '   <td>' + '<span class="collapse3 collapse in">' + e_description + '</span>' + '</td>' +
+		       '   <td class="collapse4 collapse in" style="min-width:200px; max-width:250px">' +
 		       '       <div class="btn-group btn-group-justified btn-group-md">' +
 		       '           <a href="#" onclick="load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0;"' +
 		       '              class="ui-btn btn btn-group ui-btn-inline btn-default">' +

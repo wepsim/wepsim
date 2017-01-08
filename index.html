@@ -564,12 +564,6 @@
      data-dismissible="false" data-animate="false" data-overlay-theme="b">
 
    <div data-role="header" data-theme="a">
-        <a href="#" 
-           onclick="$('.collapse').collapse('toggle'); 
-                    $('#container-example1').enhanceWithin();"
-           data-role="button" data-theme="b" data-icon="grid" data-iconpos="notext" 
-           class="ui-btn-left">Show/Hide</a>
-
         <h1><b>Examples</b> <span class="badge btn-success"><div class="wsversion">X</div></span></h1>
 
         <a href="#" 
@@ -1193,8 +1187,18 @@
 	    init("#states_ALL", "#states_BR", "#io_ALL", "#config_ALL"); 
 	    reset(); 
 
-	    //Split(['#col1', '#col2'], 
-            //      { sizes: [65, 35], gutterSize: 5 });
+            // split (experimental)
+	    var split1 = Split(['#col1', '#col2'], { sizes: [65, 35], gutterSize: 5 });
+            $(window).resize(function() {
+                                if ($(window).width() > 1000) {
+                                    split1.setSizes([65, 35]);
+                                    $('.gutter.gutter-horizontal').height('100%') ;
+                                }
+                                else {
+                                    split1.setSizes([100, 100]);
+                                    $('.gutter.gutter-horizontal').height('0%') ;
+                                }
+                             });
 
             $('a[data-toggle="tooltip1"]').tooltip({
                 animated: 'fade',
