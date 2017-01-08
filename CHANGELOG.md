@@ -1,8 +1,9 @@
 
 1.7.3 -> 1.7.5:
 * Up to 3 times faster than 1.7.1 version!
+* Examples displayed as table (easier to find one)
+* Help center
 * Signal dependencies graph added
-* Examples displayed as table
 
 1.7.2 -> 1.7.3:
 * Up to 50% faster execution 
