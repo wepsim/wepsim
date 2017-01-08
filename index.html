@@ -49,8 +49,7 @@
     }
 
     #help2 .ui-dialog-contain { 
-        min-width: 550px;
-        min-width: 1024px;
+        max-width: 1024px;
     }
 
     /* http://stackoverflow.com/questions/10814178/css-performance-relative-to-translatez0 */
@@ -1196,6 +1195,8 @@
 	    reset(); 
 
             // split (experimental)
+if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ))
+{
 	    var split1 = Split(['#col1', '#col2'], { sizes: [65, 35], gutterSize: 5 });
             $(window).resize(function() {
                                 if ($(window).width() > 1000) {
@@ -1207,6 +1208,7 @@
                                     $('.gutter.gutter-horizontal').height('0%') ;
                                 }
                              });
+}
 
             $('a[data-toggle="tooltip1"]').tooltip({
                 animated: 'fade',
