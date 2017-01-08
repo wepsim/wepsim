@@ -45,3 +45,11 @@
                      description: "Reference card of the elemental processor hardware simulated.<br>"
                   });
 
+    helps.push({
+                     id:          "simulator",
+                     title:       "Signal dependencies",
+                     type:        "code",
+                     reference:   "$(\'#modalaux2\').modal(\'toggle\'); show_visgraph(jit_fire_dep, jit_fire_order);",
+                     description: "Graph of the signal dependencies (need several seconds to display).<br>"
+                  });
+
