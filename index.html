@@ -359,13 +359,13 @@
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-xs-4 col-md-1 col-lg-1"
 				   data-transition="none" data-inline="true"
 				   onclick="var textToMCompile = inputfirm.getValue();
-                                            compileFirmware(textToMCompile, true);
+                                            wepsim_compile_firmware(textToMCompile, true);
                                             $('#asm_debugger').html('<br>After updates on the microcode, assembler has to be compiled against it.');">&#181;compile</a>
 		            <a href="#"       style="background-color: #CCCCCC"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2"
 				   data-transition="none" data-inline="true"
 				   onclick="var textToMCompile = inputfirm.getValue();
-                                            var ok = compileFirmware(textToMCompile, true);
+                                            var ok = wepsim_compile_firmware(textToMCompile, true);
                                             if (true == ok) {
                                                 $.mobile.pageContainer.pagecontainer('change','#main4');
                                             }">&#181;compile and go assembly</a>
@@ -373,9 +373,9 @@
 		            <a href="#" style="background-color: #DDDDDD"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-u ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2 ui-shadow"
 				   onclick="var textToMCompile = inputfirm.getValue();
-                                            var ok = compileFirmware(textToMCompile, true);
+                                            var ok = wepsim_compile_firmware(textToMCompile, true);
                                             if (true == ok) {
-                                                showBinaryMicrocode('#bin1','#compile_results');
+                                                wepsim_show_binary_microcode('#bin1','#compile_results');
                                             }">Show co2&#181;addr + control memory</a>
 
                             <a href="#" style="background-color: #D4DB17"
@@ -466,12 +466,12 @@
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-4 col-md-1 col-lg-1"
 				   data-transition="none" data-inline="true"
 				   onclick="var textToCompile = inputasm.getValue() ;
-                                            var ok = compileAssembly(textToCompile, true);">Compile</a>
+                                            var ok = wepsim_compile_assembly(textToCompile, true);">Compile</a>
 		            <a href="#" style="background-color: #CCCCCC"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2"
 				   data-transition="none" data-inline="true"
 				   onclick="var textToCompile = inputasm.getValue() ;
-                                            var ok = compileAssembly(textToCompile, true);
+                                            var ok = wepsim_compile_assembly(textToCompile, true);
                                             if (true == ok) {
                                                 $.mobile.pageContainer.pagecontainer('change','#main1');
                                             }">Compile and go simulator</a>
@@ -479,9 +479,9 @@
 		            <a href="#" style="background-color: #DDDDDD"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-u  ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2 ui-shadow"
 				   onclick="var textToCompile = inputasm.getValue();
-                                            var ok = compileAssembly(textToCompile, true);
+                                            var ok = wepsim_compile_assembly(textToCompile, true);
                                             if (true == ok) {
-                                                showBinaryCode('#bin1','#compile_results');
+                                                wepsim_show_binary_code('#bin1','#compile_results');
                                             }">Show Main Memory</a>
                             <a href="#" style="background-color: #D4DB17"
                                    class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-5 col-md-1 col-lg-1"
@@ -525,10 +525,11 @@
         <tr>
         <td>
                <a href="#help1"    data-rel="popup"  data-position-to="window" 
-                  onclick="show_help1_index();"
+                  onclick="wepsim_open_help_index();"
                   style="text-align:left; background-color: #D4DB17;"
                   class="ui-btn ui-btn-icon-left ui-icon-info">Help</a>
                <a href="#example1" data-rel="popup"  data-position-to="window" 
+                  onclick="wepsim_open_examples_index();"
                   style="text-align:left"
                   class="ui-btn ui-btn-icon-left ui-icon-info">Examples</a>
                <a href="#config1"  data-rel="popup"  data-position-to="window" 
@@ -976,7 +977,7 @@
            <div data-type="horizontal" data-role="controlgroup" class="ui-btn-left">  
              <div id="help1_ref" style="display:none;"></div>
              <a href="#" 
-		onclick="show_help1_index();"
+		onclick="wepsim_open_help_index();"
                 data-role="button" data-theme="a">&lt;</a>
 	     <input name="radio6" id="radio6-es" data-mini="true"
 		    aria-label="Idiom: Spanish"
@@ -1047,9 +1048,6 @@
 	    $(document).ready(function()
 	    {
 		    jQuery.fx.off = true;
-
-	            $("#container-example1").html(table_examples_html(examples));
-	            $("#container-example1").enhanceWithin();
 
 		    $("#help1").enhanceWithin().popup();
 		    $("#bin1").enhanceWithin().popup();

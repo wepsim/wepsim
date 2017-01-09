@@ -90,14 +90,121 @@
      * Microcompile and compile
      */
 
-    function wepsim_compile_assembly ( textToCompile )
+    function wepsim_compile_assembly ( textToCompile, with_ui )
     {
-        return compileAssembly(textToCompile, false);
+        // get SIMWARE.firmware
+        var SIMWARE = get_simware() ;
+	if (SIMWARE.firmware.length == 0)
+        {
+            if (with_ui) {
+                alert('WARNING: please load the microcode first.');
+                $.mobile.pageContainer.pagecontainer('change','#main3');
+            }
+            return false;
+	}
+
+        // compile Assembly and show message
+        var SIMWAREaddon = simlang_compile(textToCompile, SIMWARE);
+        if (SIMWAREaddon.error != null)
+        {
+            if (with_ui)
+                showError(SIMWAREaddon.error, "inputasm") ;
+            return false;
+        }
+
+        if (with_ui)
+	    $.notify({ title: '<strong>INFO</strong>', message: 'Assembly was compiled and loaded.'},
+		     { type: 'success',
+                       newest_on_top: true,
+                       delay: get_cfg('NOTIF_delay'),
+                       placement: { from: 'top', align: 'center' } });
+
+        // update memory and segments
+        set_simware(SIMWAREaddon) ;
+	update_memories(SIMWARE);
+
+        // update UI
+        if (with_ui) {
+            $("#asm_debugger").html(assembly2html(SIMWAREaddon.mp,
+                                                  SIMWAREaddon.labels2,
+                                                  SIMWAREaddon.seg,
+                                                  SIMWAREaddon.assembly));
+            showhideAsmElements();
+        }
+
+	reset();
+        return true;
     }
 
-    function wepsim_compile_microcode ( textToMCompile )
+    function wepsim_compile_firmware ( textToMCompile, with_ui )
     {
-        return compileFirmware(textToMCompile, false);
+	var preSM = load_firmware(textToMCompile) ;
+	if (preSM.error != null)
+        {
+            if (with_ui)
+                showError(preSM.error, "inputfirm") ;
+            return false;
+        }
+
+        if (with_ui)
+	    $.notify({ title: '<strong>INFO</strong>', message: 'Microcode was compiled and loaded.'},
+	    	     { type: 'success',
+                       newest_on_top: true,
+                       delay: get_cfg('NOTIF_delay'),
+                       placement: { from: 'top', align: 'center' } });
+
+        // update UI
+	reset() ;
+        return true;
+    }
+
+    /*
+     * Show binaries
+     */
+
+    function wepsim_show_binary_code ( popup_id, popup_content_id )
+    {
+        $(popup_content_id).html("<center>" +
+                                 "<br>Loading binary, please wait..." +
+                                 "<br>" +
+                                 "<br>WARNING: loading binary might take time on slow mobile devices." +
+                                 "</center>");
+        $(popup_content_id).css({width:"100%",height:"inherit !important"});
+	$(popup_id).popup('open');
+
+	setTimeout(function(){
+			var SIMWARE = get_simware() ;
+
+			$(popup_content_id).html(mp2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg));
+			$(popup_id).popup("reposition", {positionTo: 'window'});
+
+			for (skey in SIMWARE.seg) {
+			     $("#compile_begin_" + skey).html("0x" + SIMWARE.seg[skey].begin.toString(16));
+			     $("#compile_end_"   + skey).html("0x" + SIMWARE.seg[skey].end.toString(16));
+			}
+                   }, 300);
+    }
+
+    function wepsim_show_binary_microcode ( popup_id, popup_content_id )
+    {
+        $(popup_content_id).html("<center>" +
+                                 "<br>Loading binary, please wait..." +
+                                 "<br>" +
+                                 "<br>WARNING: loading binary might take time on slow mobile devices." +
+                                 "</center>");
+        $(popup_content_id).css({width:"100%",height:"inherit !important"});
+	$(popup_id).popup('open');
+
+	setTimeout(function() {
+			var SIMWARE = get_simware() ;
+			$(popup_content_id).html(firmware2html(SIMWARE.firmware, true));
+			$(popup_content_id).css({width:"inherit !important", height:"inherit !important"});
+
+			$(popup_id).enhanceWithin();
+			$(popup_id).trigger('updatelayout');
+			$(popup_id).popup("reposition", {positionTo: 'window'});
+			$(popup_id).trigger('refresh');
+                   }, 300);
     }
 
     /*
@@ -155,6 +262,60 @@
         DBG_stop = false ;
         wepsim_execute_chainplay(btn1) ;
     }
+
+    function wepsim_execute_toggle_play ( btn1 )
+    {
+        if (DBG_stop == false) {
+            DBG_stop = true ; // will help to execute_play stop playing
+        } else {
+            DBG_stop = false ;
+            wepsim_execute_play(btn1) ;
+        }
+    }
+
+    /*
+     * Help
+     */
+
+    function wepsim_open_help_index ( )
+    {
+	$('#iframe_help1').html(table_helps_html(helps)) ;
+	$('#iframe_help1').enhanceWithin() ;
+	$('#help1_ref').data('relative','') ;
+	$('#help1').trigger('updatelayout') ;
+	$('#help1').popup('open') ;
+    }
+
+    function wepsim_close_help ( )
+    {
+	$('#help1').popup('close') ;
+    }
+
+    /*
+     * Examples
+     */
+
+    function wepsim_open_examples_index ( )
+    {
+        $("#container-example1").html(table_examples_html(examples));
+        $("#container-example1").enhanceWithin();
+	$('#example1').trigger('updatelayout') ;
+	$('#example1').popup('open') ;
+    }
+
+    function wepsim_close_examples ( )
+    {
+	$('#example1').popup('close') ;
+    }
+
+
+    //
+    // Auxiliar functions
+    //
+
+    /*
+     * Play/stop
+     */
 
     function wepsim_check_stopbynotify_firm ( )
     {
@@ -240,146 +401,9 @@
 	setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), btn1) ;
     }
 
-    function wepsim_execute_toggle_play ( btn1 )
-    {
-        if (DBG_stop == false) {
-            DBG_stop = true ; // will help to execute_play stop playing
-        } else {
-            DBG_stop = false ;
-            wepsim_execute_play(btn1) ;
-        }
-    }
-
-
-    //
-    // WepSIM UI
-    //
-
-    function compileAssembly ( textToCompile, with_ui )
-    {
-        // get SIMWARE.firmware
-        var SIMWARE = get_simware() ;
-	if (SIMWARE.firmware.length == 0)
-        {
-            if (with_ui) {
-                alert('WARNING: please load the microcode first.');
-                $.mobile.pageContainer.pagecontainer('change','#main3');
-            }
-            return false;
-	}
-
-        // compile Assembly and show message
-        var SIMWAREaddon = simlang_compile(textToCompile, SIMWARE);
-        if (SIMWAREaddon.error != null)
-        {
-            if (with_ui)
-                showError(SIMWAREaddon.error, "inputasm") ;
-            return false;
-        }
-
-        if (with_ui)
-	    $.notify({ title: '<strong>INFO</strong>', message: 'Assembly was compiled and loaded.'},
-		     { type: 'success',
-                       newest_on_top: true,
-                       delay: get_cfg('NOTIF_delay'),
-                       placement: { from: 'top', align: 'center' } });
-
-        // update memory and segments
-        set_simware(SIMWAREaddon) ;
-	update_memories(SIMWARE);
-
-        // update UI
-        if (with_ui) {
-            $("#asm_debugger").html(assembly2html(SIMWAREaddon.mp,
-                                                  SIMWAREaddon.labels2,
-                                                  SIMWAREaddon.seg,
-                                                  SIMWAREaddon.assembly));
-            showhideAsmElements();
-        }
-
-	reset();
-        return true;
-    }
-
-    function showBinaryCode ( popup_id, popup_content_id )
-    {
-        $(popup_content_id).html("<center>" +
-                                 "<br>Loading binary, please wait..." +
-                                 "<br>" +
-                                 "<br>WARNING: loading binary might take time on slow mobile devices." +
-                                 "</center>");
-        $(popup_content_id).css({width:"100%",height:"inherit !important"});
-	$(popup_id).popup('open');
-
-	setTimeout(function(){
-			var SIMWARE = get_simware() ;
-
-			$(popup_content_id).html(mp2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg));
-			$(popup_id).popup("reposition", {positionTo: 'window'});
-
-			for (skey in SIMWARE.seg) {
-			     $("#compile_begin_" + skey).html("0x" + SIMWARE.seg[skey].begin.toString(16));
-			     $("#compile_end_"   + skey).html("0x" + SIMWARE.seg[skey].end.toString(16));
-			}
-                   }, 300);
-    }
-
-    function compileFirmware ( textToMCompile, with_ui )
-    {
-	var preSM = load_firmware(textToMCompile) ;
-	if (preSM.error != null)
-        {
-            if (with_ui)
-                showError(preSM.error, "inputfirm") ;
-            return false;
-        }
-
-        if (with_ui)
-	    $.notify({ title: '<strong>INFO</strong>', message: 'Microcode was compiled and loaded.'},
-	    	     { type: 'success',
-                       newest_on_top: true,
-                       delay: get_cfg('NOTIF_delay'),
-                       placement: { from: 'top', align: 'center' } });
-
-        // update UI
-	reset() ;
-        return true;
-    }
-
-    function showBinaryMicrocode ( popup_id, popup_content_id )
-    {
-        $(popup_content_id).html("<center>" +
-                                 "<br>Loading binary, please wait..." +
-                                 "<br>" +
-                                 "<br>WARNING: loading binary might take time on slow mobile devices." +
-                                 "</center>");
-        $(popup_content_id).css({width:"100%",height:"inherit !important"});
-	$(popup_id).popup('open');
-
-	setTimeout(function() {
-			var SIMWARE = get_simware() ;
-			$(popup_content_id).html(firmware2html(SIMWARE.firmware, true));
-			$(popup_content_id).css({width:"inherit !important", height:"inherit !important"});
-
-			$(popup_id).enhanceWithin();
-			$(popup_id).trigger('updatelayout');
-			$(popup_id).popup("reposition", {positionTo: 'window'});
-			$(popup_id).trigger('refresh');
-                   }, 300);
-    }
-
-    function set_cpu_cu_size ( diva, divb, new_value )
-    {
-	var a = new_value;
-	var b = 100 - a;
-	$('#eltos_cpu_a').css({width: a+'%'});
-	$('#eltos_cpu_b').css({width: b+'%'});
-    }
-
-
-    //
-    // Auxiliar functions
-    //
+    /*
+     * UI elements
+     */
 
     function showError ( Msg, editor )
     {
@@ -424,10 +448,155 @@
 	});
     }
 
+    function set_cpu_cu_size ( diva, divb, new_value )
+    {
+	var a = new_value;
+	var b = 100 - a;
+	$('#eltos_cpu_a').css({width: a+'%'});
+	$('#eltos_cpu_b').css({width: b+'%'});
+    }
 
-    //
-    // Help management
-    //
+
+    /*
+     * Example management
+     */
+
+    function getURLTimeStamp ( )
+    {
+        var dateObj = new Date();
+        var year    = dateObj.getUTCFullYear();
+        var month   = dateObj.getUTCMonth() + 1;
+        var day     = dateObj.getUTCDate();
+        var hour    = dateObj.getUTCHours();
+        var minutes = dateObj.getUTCMinutes();
+
+        return year + month + day + hour + minutes ;
+    }
+
+    function load_from_example_assembly ( example_id, chain_next_step )
+    {
+	$.mobile.pageContainer.pagecontainer('change', '#main4');
+	inputasm.setValue("Please wait...");
+	inputasm.refresh();
+
+	var url     = "examples/exampleCode" + example_id + ".txt?time=" + getURLTimeStamp() ;
+        var do_next = function( mcode ) {
+			    inputasm.setValue(mcode);
+			    inputasm.refresh();
+
+                            var ok = false ;
+                            var SIMWARE = get_simware() ;
+	                    if (SIMWARE.firmware.length != 0)
+                                ok = wepsim_compile_assembly(mcode, true);
+
+			    if (true == ok)
+			    {
+                                  if (true == chain_next_step)
+				      setTimeout(function(){
+					            $.mobile.pageContainer.pagecontainer('change', '#main1');
+				                 }, 50);
+                                  show_memories_values();
+			    }
+
+			    $.notify({ title: '<strong>INFO</strong>',
+			  	       message: 'Example ready to be used.'},
+				     { type: 'success',
+				       newest_on_top: true,
+				       delay: get_cfg('NOTIF_delay'),
+				       placement: { from: 'top', align: 'center' }
+				      });
+                      };
+        wepsim_load_from_url(url, do_next) ;
+
+        ga('send', 'event', 'example', 'example.assembly', 'example.assembly.' + example_id);
+    }
+
+    function load_from_example_firmware ( example_id, chain_next_step )
+    {
+	$.mobile.pageContainer.pagecontainer('change', '#main3');
+	inputfirm.setValue("Please wait...");
+	inputfirm.refresh();
+
+	var url     = "examples/exampleMicrocode" + example_id + ".txt?time=" + getURLTimeStamp() ;
+        var do_next = function( mcode ) {
+			   inputfirm.setValue(mcode);
+			   inputfirm.refresh();
+
+			   var ok = wepsim_compile_firmware(mcode, true);
+                           if (true == ok)
+                           {
+                                  if (true == chain_next_step)
+                                       setTimeout(function() {
+                                                     load_from_example_assembly(example_id, chain_next_step);
+                                                  }, 50);
+                                  else show_memories_values();
+                           }
+
+			   $.notify({ title: '<strong>INFO</strong>',
+				      message: 'Example ready to be used.'},
+				    { type: 'success',
+				      newest_on_top: true,
+				      delay: get_cfg('NOTIF_delay'),
+				      placement: { from: 'top', align: 'center' }
+				     });
+                      };
+        wepsim_load_from_url(url, do_next) ;
+
+        ga('send', 'event', 'example', 'example.firmware', 'example.firmware.' + example_id);
+    }
+
+    function table_examples_html ( examples )
+    {
+       var o = '<div class="table-responsive">' +
+               '<table width=100% class="table table-striped table-hover table-condensed">' +
+               '<thead>' +
+               '<tr>' +
+               '  <th>#</th>' +
+               '  <th onclick="$(\'.collapse1\').collapse(\'toggle\');">level</th>' +
+               '  <th>title</th>' +
+               '  <th onclick="$(\'.collapse3\').collapse(\'toggle\');">description</th>' +
+               '  <th onclick="$(\'.collapse4\').collapse(\'toggle\');">load only...</th>' +
+               '</tr>' +
+               '</thead>' +
+               '<tbody>';
+       for (var m=0; m<examples.length; m++)
+       {
+	       var e_title       = examples[m]['title'] ;
+	       var e_level       = examples[m]['level'] ;
+	       var e_description = examples[m]['description'] ;
+	       var e_id          = examples[m]['id'] ;
+
+	       o = o + ' <tr>' +
+		       ' <td>' + '<b>' + (m+1)   + '</b>' + '</td>' +
+		       ' <td>' + '<b    class="collapse1 collapse in">' + e_level + '</b>' + '</td>' +
+		       ' <td>' + 
+		       '   <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',true);"  style="padding:0 0 0 0;"' +
+		       '      class="ui-btn btn btn-group ui-btn-inline btn-primary">' + 
+                       '   <b class="collapse2 collapse in">' + e_title + '</b></a>' +
+                       ' </td>' +
+		       ' <td>' + '<span class="collapse3 collapse in">' + e_description + '</span>' + '</td>' +
+		       ' <td class="collapse4 collapse in" style="min-width:150px; max-width:200px">' +
+		       '     <div class="btn-group btn-group-justified btn-group-md">' +
+		       '         <a href="#" onclick="load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0;"' +
+		       '            class="ui-btn btn btn-group ui-btn-inline btn-default">' +
+		       '            <b>Assembly</b></a>' +
+		       '         <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',false);" style="padding:0 0 0 0;"' +
+		       '            class="ui-btn btn btn-group ui-btn-inline btn-default">' +
+		       '            <b>Firmware</b></a>' +
+		       '     </div>' +
+		       ' </td>' +
+		       ' </tr>' ;
+       }
+       o = o + '</tbody>' +
+               '</table>' +
+               '</div>' ;
+
+       return o ;
+    }
+
+    /*
+     * Help management
+     */
 
     function show_help1 ( )
     {
@@ -444,13 +613,50 @@
         ga('send', 'event', 'help', 'help.simulator', 'help.simulator.' + rel);
     }
 
-    function show_help1_index ( )
+    function table_helps_html ( helps )
     {
-	$('#iframe_help1').html(table_helps_html(helps)) ;
-	$('#iframe_help1').enhanceWithin() ;
-	$('#help1_ref').data('relative','') ;
-	$('#help1').trigger('updatelayout') ;
-	$('#help1').popup('open') ;
+       var o = '<div class="table-responsive">' +
+               '<table width=100% class="table table-striped table-hover table-condensed">' +
+               '<thead>' +
+               '<tr>' +
+               '  <th>#</th>' +
+               '  <th>title</th>' +
+               '  <th onclick="$(\'.collapse2\').collapse(\'toggle\');">description</th>' +
+               '</tr>' +
+               '</thead>' +
+               '<tbody>';
+       for (var m=0; m<helps.length; m++)
+       {
+	       var e_title       = helps[m]['title'] ;
+	       var e_type        = helps[m]['type'] ;
+	       var e_reference   = helps[m]['reference'] ;
+	       var e_description = helps[m]['description'] ;
+	       var e_id          = helps[m]['id'] ;
+
+               var onclick_code = "" ;
+               if ("relative" == e_type) 
+                   onclick_code = '$(\'#help1_ref\').data(\'relative\',\'' + e_reference + '\'); show_help1();' ;
+               if ("code" == e_type) 
+                   onclick_code = e_reference ;
+
+	       o = o + '<tr>' +
+		       '<td>' + '<b>' + (m+1) + '</b>' + '</td>' +
+		       ' <td>' + 
+                       '  <a href="#" ' +
+                       '     class="ui-btn btn btn-group ui-btn-inline" ' +
+                       '     style="background-color: #D4DB17; padding:0 0 0 0;" ' +
+		       '     onclick="' + onclick_code + '"><b>' + e_title + '</b></a>' +
+                       ' </td>' +
+		       ' <td class="collapse2 collapse in">' +
+		       '   <c>' + e_description + '</c>' + 
+                       ' </td>' +
+		       '</tr>' ;
+       }
+       o = o + '</tbody>' +
+               '</table>' +
+               '</div>' ;
+
+       return o ;
     }
 
 
@@ -548,189 +754,5 @@
 		editor.setOption('keyMap','sublime');
 
 	    setTimeout(function(){editor.refresh();}, 100);
-    }
-
-
-    //
-    // Example management
-    //
-
-    function getURLTimeStamp ( )
-    {
-        var dateObj = new Date();
-        var year    = dateObj.getUTCFullYear();
-        var month   = dateObj.getUTCMonth() + 1;
-        var day     = dateObj.getUTCDate();
-        var hour    = dateObj.getUTCHours();
-        var minutes = dateObj.getUTCMinutes();
-
-        return year + month + day + hour + minutes ;
-    }
-
-    function load_from_example_assembly ( example_id, chain_next_step )
-    {
-	$.mobile.pageContainer.pagecontainer('change', '#main4');
-	inputasm.setValue("Please wait...");
-	inputasm.refresh();
-
-	var url     = "examples/exampleCode" + example_id + ".txt?time=" + getURLTimeStamp() ;
-        var do_next = function( mcode ) {
-			    inputasm.setValue(mcode);
-			    inputasm.refresh();
-
-                            var ok = false ;
-                            var SIMWARE = get_simware() ;
-	                    if (SIMWARE.firmware.length != 0)
-                                ok = compileAssembly(mcode, true);
-
-			    if (true == ok)
-			    {
-                                  if (true == chain_next_step)
-				      setTimeout(function(){
-					            $.mobile.pageContainer.pagecontainer('change', '#main1');
-				                 }, 50);
-                                  show_memories_values();
-			    }
-
-			    $.notify({ title: '<strong>INFO</strong>',
-			  	       message: 'Example ready to be used.'},
-				     { type: 'success',
-				       newest_on_top: true,
-				       delay: get_cfg('NOTIF_delay'),
-				       placement: { from: 'top', align: 'center' }
-				      });
-                      };
-        wepsim_load_from_url(url, do_next) ;
-
-        ga('send', 'event', 'example', 'example.assembly', 'example.assembly.' + example_id);
-    }
-
-    function load_from_example_firmware ( example_id, chain_next_step )
-    {
-	$.mobile.pageContainer.pagecontainer('change', '#main3');
-	inputfirm.setValue("Please wait...");
-	inputfirm.refresh();
-
-	var url     = "examples/exampleMicrocode" + example_id + ".txt?time=" + getURLTimeStamp() ;
-        var do_next = function( mcode ) {
-			   inputfirm.setValue(mcode);
-			   inputfirm.refresh();
-
-			   var ok = compileFirmware(mcode, true);
-                           if (true == ok)
-                           {
-                                  if (true == chain_next_step)
-                                       setTimeout(function() {
-                                                     load_from_example_assembly(example_id, chain_next_step);
-                                                  }, 50);
-                                  else show_memories_values();
-                           }
-
-			   $.notify({ title: '<strong>INFO</strong>',
-				      message: 'Example ready to be used.'},
-				    { type: 'success',
-				      newest_on_top: true,
-				      delay: get_cfg('NOTIF_delay'),
-				      placement: { from: 'top', align: 'center' }
-				     });
-                      };
-        wepsim_load_from_url(url, do_next) ;
-
-        ga('send', 'event', 'example', 'example.firmware', 'example.firmware.' + example_id);
-    }
-
-    function table_examples_html ( examples )
-    {
-       var o = '<div class="table-responsive">' +
-               '<table width=100% class="table table-striped table-hover table-condensed">' +
-               '<thead>' +
-               '<tr>' +
-               '  <th>#</th>' +
-               '  <th onclick="$(\'.collapse1\').collapse(\'toggle\');">level</th>' +
-               '  <th>title</th>' +
-               '  <th onclick="$(\'.collapse3\').collapse(\'toggle\');">description</th>' +
-               '  <th onclick="$(\'.collapse4\').collapse(\'toggle\');">load only...</th>' +
-               '</tr>' +
-               '</thead>' +
-               '<tbody>';
-       for (var m=0; m<examples.length; m++)
-       {
-	       var e_title       = examples[m]['title'] ;
-	       var e_level       = examples[m]['level'] ;
-	       var e_description = examples[m]['description'] ;
-	       var e_id          = examples[m]['id'] ;
-
-	       o = o + ' <tr>' +
-		       ' <td>' + '<b>' + (m+1)   + '</b>' + '</td>' +
-		       ' <td>' + '<b    class="collapse1 collapse in">' + e_level + '</b>' + '</td>' +
-		       ' <td>' + 
-		       '   <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',true);"  style="padding:0 0 0 0;"' +
-		       '      class="ui-btn btn btn-group ui-btn-inline btn-primary">' + 
-                       '   <b class="collapse2 collapse in">' + e_title + '</b></a>' +
-                       ' </td>' +
-		       ' <td>' + '<span class="collapse3 collapse in">' + e_description + '</span>' + '</td>' +
-		       ' <td class="collapse4 collapse in" style="min-width:150px; max-width:200px">' +
-		       '     <div class="btn-group btn-group-justified btn-group-md">' +
-		       '         <a href="#" onclick="load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0;"' +
-		       '            class="ui-btn btn btn-group ui-btn-inline btn-default">' +
-		       '            <b>Assembly</b></a>' +
-		       '         <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',false);" style="padding:0 0 0 0;"' +
-		       '            class="ui-btn btn btn-group ui-btn-inline btn-default">' +
-		       '            <b>Firmware</b></a>' +
-		       '     </div>' +
-		       ' </td>' +
-		       ' </tr>' ;
-       }
-       o = o + '</tbody>' +
-               '</table>' +
-               '</div>' ;
-
-       return o ;
-    }
-
-    function table_helps_html ( helps )
-    {
-       var o = '<div class="table-responsive">' +
-               '<table width=100% class="table table-striped table-hover table-condensed">' +
-               '<thead>' +
-               '<tr>' +
-               '  <th>#</th>' +
-               '  <th>title</th>' +
-               '  <th onclick="$(\'.collapse2\').collapse(\'toggle\');">description</th>' +
-               '</tr>' +
-               '</thead>' +
-               '<tbody>';
-       for (var m=0; m<helps.length; m++)
-       {
-	       var e_title       = helps[m]['title'] ;
-	       var e_type        = helps[m]['type'] ;
-	       var e_reference   = helps[m]['reference'] ;
-	       var e_description = helps[m]['description'] ;
-	       var e_id          = helps[m]['id'] ;
-
-               var onclick_code = "" ;
-               if ("relative" == e_type) 
-                   onclick_code = '$(\'#help1_ref\').data(\'relative\',\'' + e_reference + '\'); show_help1();' ;
-               if ("code" == e_type) 
-                   onclick_code = e_reference ;
-
-	       o = o + '<tr>' +
-		       '<td>' + '<b>' + (m+1) + '</b>' + '</td>' +
-		       ' <td>' + 
-                       '  <a href="#" ' +
-                       '     class="ui-btn btn btn-group ui-btn-inline" ' +
-                       '     style="background-color: #D4DB17; padding:0 0 0 0;" ' +
-		       '     onclick="' + onclick_code + '"><b>' + e_title + '</b></a>' +
-                       ' </td>' +
-		       ' <td class="collapse2 collapse in">' +
-		       '   <c>' + e_description + '</c>' + 
-                       ' </td>' +
-		       '</tr>' ;
-       }
-       o = o + '</tbody>' +
-               '</table>' +
-               '</div>' ;
-
-       return o ;
     }
 
