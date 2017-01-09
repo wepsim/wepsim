@@ -56,11 +56,23 @@
         -o-transform: translatez(0);
         transform: translatez(0);
     }
+
+    /* https://github.com/nathancahill/Split.js */
+    .gutter.gutter-horizontal {
+        background-color: #F5F5F5;
+        cursor: ew-resize;
+    }
+
+    .split.split-horizontal, .gutter.gutter-horizontal {
+        height: 100%;
+        float: left;
+    }
     </style>
 
     <link  href="external/external.min.css" rel="stylesheet">
     <script src="external/external.min.js"></script>
     <script src="examples/examples.js"></script>
+    <script src="help/helps.js"></script>
 
     <script src="min.sim_all.js"></script>
     <script src="min.sim_hw.js"></script> 
@@ -96,7 +108,7 @@
 	<div role="main" class="ui-content">
 
             <div class="row">
-                <div class="col-md-8" style="padding:0 0 0 0;">
+                <div id="col1" class="col-md-8" style="padding:0 0 0 0;">
 		    <div data-role="tabs" id="tabs2">
     		      <div data-role="navbar" id="tabsnav2" class="ui-responsive">
 		        <ul>
@@ -202,7 +214,7 @@
 	    	    </div>
                 </div>
 
-                <div class="col-md-4" style="padding:0 8px 0 0px;">
+                <div id="col2" class="col-md-4" style="padding:0 8px 0 0px;">
 
                     <div class="btn-toolbar" role="toolbar" id="sim_toolbar" style="padding: 0 0px 10px 0px;">
 			<div class="btn-group btn-group-justified" role="group">
@@ -227,11 +239,11 @@
 		    <div data-role="tabs" id="tabs1">
     		      <div data-role="navbar" id="tabsnav1" class="ui-responsive">
 		        <ul>
-		          <li style="clear:none;width:33% !important"><a id="tab14" href="#mp" onclick="show_memories_values();">Memory</a></li>
-		          <li style="clear:none;width:33% !important"><a id="tab15" href="#io">I/O</a></li>
-		          <li class="ui-block-a" style="clear:none;width:33% !important;border:1px solid #ddd;"><a id="tab12" href="#con">Console</a></li>
+		          <li                    style="clear:none;width:33% !important"><a id="tab14" href="#mp" onclick="show_memories_values();">Memory</a></li>
+		          <li                    style="clear:none;width:33% !important"><a id="tab12" href="#con">Console</a></li>
+		          <li class="ui-block-a" style="clear:none;width:33% !important;border:1px solid #ddd;"><a id="tab15" href="#io">Statistics</a></li>
                           <br>
-		          <li style="           width:33% !important"><a id="tab11" href="#all" class="ui-btn-active">Registers</a></li>
+		          <li style="           width:33% !important"><a id="tab11" href="#all" class="ui-btn-active" onclick="show_rf_values();">Registers</a></li>
 		          <li style="clear:none;width:33% !important"><a id="tab16" href="#mc" onclick="show_memories_values();">Control Memory</a></li>
 		          <li style="clear:none;width:33% !important"><a id="tab13" href="#config">Configuration</a></li>
 		        </ul>
@@ -488,17 +500,13 @@
 </div><!-- /page -->
 
 
-<div data-role="panel" id="actions_panel" data-display="overlay" data-position="right" data-theme="a" 
+<div data-role="panel" id="actions_panel" data-display="overlay" data-position="right" data-theme="a" data-animate="false"
      style="width:19em; min-width:17em;">
 
-        <table border=0 height=100% width=100%>
+        <table border="0" height="100%" width="100%">
         <tr>
-        <td valign=top>
+        <td>
 
-	<div data-role="collapsible-set">
-	    <div data-role="collapsible" data-collapsed="false" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
-	    <h3>WorkSpaces</h3>
-	    <p>
 	    <ul id="listview_1" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b">
 		    <li><a id="tab21" href="#" style="background-color: lightgray"
 			   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"><h2>Microcode</h2></a></li>
@@ -507,41 +515,26 @@
 		    <li><a id="tab25" href="#" style="background-color: lightgray"
 			   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');"><h2>Simulator</h2></a></li>
 	    </ul>
-            </p>
-	    </div>
-
-	    <div data-role="collapsible" data-collapsed-icon="arrow-r" data-expanded-icon="arrow-d">
-	    <h3>Help</h3>
-	    <p>
-	    <ul id="listview_2" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b" data-mini="true">
-		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info" style="background-color: #D4DB17;"
-			   onclick="$('#help1_ref').data('relative','#help_simulator_screens');
-			            show_help1();"><h2>Simulator usage</h2></a></li>
-		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info" style="background-color: #D4DB17;"
-			   onclick="$('#help1_ref').data('relative','#help_firmware_format');
-			            show_help1();"><h2>Microcode format</h2></a></li>
-		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info" style="background-color: #D4DB17;"
-			   onclick="$('#help1_ref').data('relative','#help_assembly_format');
-			            show_help1();"><h2>Assembly format</h2></a></li>
-		    <li><a href="#" class="ui-btn ui-btn-icon-left ui-icon-info" style="background-color: #D4DB17;"
-			   onclick="$('#help1_ref').data('relative','#help_simulator_arch');
-			            show_help1();"><h2>Simulator architecture</h2></a></li>
-	    </ul>
-            </p>
-	    </div>
-
-	</div>
 
         </td>
         </tr>
         <tr>
         <td>
-               <a href="#example1" data-rel="popup" data-position-to="window" style="text-align:left"
+
+               <a href="#help1"    data-rel="popup"  data-position-to="window" 
+                  onclick="show_help1_index();"
+                  style="text-align:left; background-color: #D4DB17;"
+                  class="ui-btn ui-btn-icon-left ui-icon-info">Help</a>
+               <a href="#example1" data-rel="popup"  data-position-to="window" 
+                  style="text-align:left"
                   class="ui-btn ui-btn-icon-left ui-icon-info">Examples</a>
-               <a href="#config1"  data-rel="popup" data-position-to="window" style="text-align:left"
+               <a href="#config1"  data-rel="popup"  data-position-to="window" 
+                  style="text-align:left"
                   class="ui-btn ui-btn-icon-left ui-icon-gear">Configuration</a>
-               <a href="#about2"   data-rel="popup" data-position-to="window" style="text-align:left"
+               <a href="#about2"   data-rel="popup"  data-position-to="window" 
+                  style="text-align:left"
                   class="ui-btn ui-btn-icon-left ui-icon-tag">About</a>
+
         </td>
         </tr>
         </table>
@@ -891,6 +884,7 @@
             <a href="http://www.inf.uc3m.es/en/">Computer Science and Engineering Department</a><br>
             <a href="http://www.uc3m.es/">Universidad Carlos III de Madrid</a><br>
 	    <p>
+
         </div>
         </div>
 
@@ -912,7 +906,7 @@
    </div>
    <div role="main" class="ui-content">
 
-	<div data-role="collapsibleset" style="max-width:600px;">
+	<div data-role="collapsibleset" style="max-width: 600px;">
 	  <div data-role="collapsible" data-collapsed="false">
 	    <h1>Platforms</h1>
 	    <p>
@@ -932,8 +926,7 @@
 	            <br class="hidden-xs">
 		    <b>WepSIM (Web elemental processor SIMulator)</b> is free software: you can redistribute it and/or modify
 		    it under the terms of the GNU Lesser General Public License as published by
-		    the Free Software Foundation, either version 3 of the License, or
-		    (at your option) any later version.<br>
+		    the Free Software Foundation, either version 3 of the License, or (at your option) any later version.<br>
                     <br>
 		    See <a rel="external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.<br>
 	    </p>
@@ -959,17 +952,19 @@
 		        <a rel="external" href="http://codemirror.net/index.html">CodeMirror</a> Editor,
 		        <a rel="external" href="https://bgrins.github.io/spectrum/">Spectrum</a> ColorPicker,
 		        <a rel="external" href="https://github.com/mouse0270/bootstrap-notify">Bootstrap Notify</a>,
-		        <a rel="external" href="http://masonry.desandro.com/">Masonry</a> Grid,
+		        <a rel="external" href="http://visjs.org/">vis.js</a> visualization library,
 		        <a rel="external" href="http://anthonyterrien.com/knob/">Jquery Knob</a>
                     </li>
                     </ul>
             </p>
 	  </div>
+
 	</div>
 
    </div>
 
 </div><!-- /popup -->
+
 
 
 <div data-role="popup" id="help1" 
@@ -978,6 +973,9 @@
       <div data-role="header" data-theme="b" class="ui-corner-top">
            <div data-type="horizontal" data-role="controlgroup" class="ui-btn-left">  
              <div id="help1_ref" style="display:none;"></div>
+             <a href="#" 
+		onclick="show_help1_index();"
+                data-role="button" data-theme="a">&lt;</a>
 	     <input name="radio6" id="radio6-es" data-mini="true"
 		    aria-label="Idiom: Spanish"
 		    style="margin-top:-8px"
@@ -1048,18 +1046,8 @@
 	    {
 		    jQuery.fx.off = true;
 
-	            $("#container-example1").html(list_examples_html(examples));
+	            $("#container-example1").html(table_examples_html(examples));
 	            $("#container-example1").enhanceWithin();
-		    $('#masonry-grid1').masonry({
-		       columnWidth:  310,
-		       itemSelector: '.grid-item',
-		       isFitWidth:   true
-		    });
-		    $(document).delegate('input[data-type="search"]',  
-                                         'keyup change',  
-                                         function () { 
-                                            setTimeout(function() { $('#masonry-grid1').masonry('layout'); }, 500); 
-                                         });
 
 		    $("#help1").enhanceWithin().popup();
 		    $("#bin1").enhanceWithin().popup();
@@ -1165,6 +1153,22 @@
 
 	    init("#states_ALL", "#states_BR", "#io_ALL", "#config_ALL"); 
 	    reset(); 
+
+            // split (experimental)
+if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ))
+{
+	    var split1 = Split(['#col1', '#col2'], { sizes: [65, 35], gutterSize: 5 });
+            $(window).resize(function() {
+                                if ($(window).width() > 1000) {
+                                    split1.setSizes([65, 35]);
+                                    $('.gutter.gutter-horizontal').height('100%') ;
+                                }
+                                else {
+                                    split1.setSizes([100, 100]);
+                                    $('.gutter.gutter-horizontal').height('0%') ;
+                                }
+                             });
+}
 
             $('a[data-toggle="tooltip1"]').tooltip({
                 animated: 'fade',

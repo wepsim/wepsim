@@ -379,19 +379,19 @@
 				draw_name: [[], ['svg_p:path3697']] };
 
 	sim_signals["SELA"] = { name: "SELA", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
-			        behavior: ["FIRE MR"],
+			        behavior: ["FIRE MR_RA"],
                                 depends_on: ["RA"],
 			        fire_name: ['svg_cu:text3164'],
 			        draw_data: [[]],
 			        draw_name: [[]] };
 	sim_signals["SELB"] = { name: "SELB", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
-			        behavior: ["FIRE MR"],
+			        behavior: ["FIRE MR_RB"],
                                 depends_on: ["RB"],
 			        fire_name: ['svg_cu:text3168'],
 			        draw_data: [[]],
 			        draw_name: [[]] };
 	sim_signals["SELC"] = { name: "SELC", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
-			        behavior: ["FIRE MR"],
+			        behavior: ["FIRE MR_RC"],
                                 depends_on: ["RC"],
 			        fire_name: ['svg_cu:text3172'],
 			        draw_data: [[]],
@@ -461,23 +461,41 @@
 			       draw_name: [[],['svg_cu:path3306']] }; /*path3210 print red color line of rest of control signals*/
 
 	sim_signals["MR"]  = { name: "MR", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ['MBIT_SN RA REG_IR REG_MICROINS/SELA 5; FIRE RA; MBIT_SN RB REG_IR REG_MICROINS/SELB 5; FIRE RB; MBIT_SN RC REG_IR REG_MICROINS/SELC 5; FIRE RC',
-					  'MV_ES RA REG_MICROINS/SELA; MV_ES RB REG_MICROINS/SELB; MV_ES RC REG_MICROINS/SELC;'],
+			       behavior: ['MV_S2S MR_RA MR; FIRE MR_RA; MV_S2S MR_RB MR; FIRE MR_RB; MV_S2S MR_RC MR; FIRE MR_RC;'],
                                depends_on: ["SELA","SELB","SELC"],
 			       fire_name: ['svg_cu:text3222','svg_cu:text3242','svg_cu:text3254','svg_cu:text3172-1'],
 			       draw_data: [['svg_cu:path3494','svg_cu:path3492','svg_cu:path3490','svg_cu:path3142b','svg_cu:path3188',
                                             'svg_cu:path3190','svg_cu:path3192','svg_cu:path3194','svg_cu:path3276','svg_cu:path3290',
                                             'svg_cu:path3260','svg_cu:path3196','svg_cu:path3502','svg_cu:path3278','svg_cu:path3232','svg_cu:path3292'],
-					   ['svg_cu:path3270','svg_cu:path3282','svg_cu:path3300', 'svg_cu:path3258', 'svg_cu:path3260', 'svg_cu:path3278', 'svg_cu:path3196', 'svg_cu:path3502',
+					   ['svg_cu:path3270','svg_cu:path3282','svg_cu:path3300', 'svg_cu:path3258', 'svg_cu:path3260', 
+                                            'svg_cu:path3278', 'svg_cu:path3196', 'svg_cu:path3502',
 					    'svg_cu:path3294', 'svg_cu:path3292', 'svg_cu:path3288', 'svg_cu:path3232', 'svg_cu:path3280']],
 			       draw_name: [[],['svg_cu:path3220','svg_cu:path3240','svg_cu:path3252']] };
+	sim_signals["MR_RA"] = { name: "MR_RA", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+			         behavior: ['MBIT_SN RA REG_IR REG_MICROINS/SELA 5; FIRE RA;',
+					    'MV_ES RA REG_MICROINS/SELA; FIRE RA;'],
+			         fire_name: [],
+			         draw_data: [[]],
+			         draw_name: [[]] };
+	sim_signals["MR_RB"] = { name: "MR_RB", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+			         behavior: ['MBIT_SN RB REG_IR REG_MICROINS/SELB 5; FIRE RB;',
+					    'MV_ES RB REG_MICROINS/SELB; FIRE RB;'],
+			         fire_name: [],
+			         draw_data: [[]],
+			         draw_name: [[]] };
+	sim_signals["MR_RC"] = { name: "MR_RC", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+			         behavior: ['MBIT_SN RC REG_IR REG_MICROINS/SELC 5; FIRE RC;',
+					    'MV_ES RC REG_MICROINS/SELC; FIRE RC;'],
+			         fire_name: [],
+			         draw_data: [[]],
+			         draw_name: [[]] };
 
 	/* W-Byte & R-Byte Selector */
 	sim_signals["BW"] =  { name: "BW", visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
-		      behavior: ['MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE BWA; FIRE SBWA',
-				 'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE BWA; FIRE SBWA',
-				 'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE BWA; FIRE SBWA',
-				 'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE BWA; FIRE SBWA'],
+		               behavior: ['MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE BWA; FIRE SBWA',
+				          'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE BWA; FIRE SBWA',
+				          'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE BWA; FIRE SBWA',
+				          'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE BWA; FIRE SBWA'],
 				fire_name: ['svg_p:text3433'],
 				draw_data: [['svg_p:path3061-2-6']],
 				draw_name: [[],[]] };
@@ -636,6 +654,19 @@
 
 						   if (typeof sim_states[r[0]].value[r[1]] != "undefined")
 						       set_value(sim_states[s_expr[1]], parseInt(sim_states[r[0]].value[r[1]]));
+						}
+				   };
+	syntax_behavior["MV_S2S"] = { nparameters: 3,
+				     types: ["S", "S"],
+				     operation: function(s_expr) {
+						   var r = s_expr[2].split('/');
+						   if (1 == r.length) {
+						       sim_signals[s_expr[1]].value = get_value(sim_signals[s_expr[2]]);
+						       return;
+						   }
+
+						   if (typeof sim_signals[r[0]].value[r[1]] != "undefined")
+							sim_signals[s_expr[1]].value = sim_signals[r[0]].value[r[1]];
 						}
 				   };
 	syntax_behavior["NOT_ES"] = { nparameters: 3,
@@ -1117,8 +1148,10 @@
 							    set_value(sim_states["CLK"], val + 1);
 
 							    // 1.- To treat the (Falling) Edge signals
-							    for (var key in sim_signals)
+							    for (var i=0; i<jit_fire_order.length; i++)
 							    {
+                                                                 key = jit_fire_order[i] ;
+
 								 if ("E" == sim_signals[key].type) {
 								     update_state(key) ;
 								 }
@@ -1147,8 +1180,9 @@
 							    }
 
 							    // 4.- Finally, 'fire' the (High) Level signals
-							    for (var key in sim_signals)
+							    for (var i=0; i<jit_fire_order.length; i++)
 							    {
+                                                                 key = jit_fire_order[i] ;
 								 update_draw(sim_signals[key], sim_signals[key].value) ;
 
 								 if ("L" == sim_signals[key].type) {
