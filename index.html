@@ -578,278 +578,271 @@
    <div role="main" class="ui-content" style="padding: 8px 8px 8px 8px">
 
 	<div id="bot-config1" style="max-width:85vw; overflow-x:auto;">
-	<div class="container-fluid">
-	<div class="row" style="width:1050px;">
-	  <div class="col-xs-3 col-md-4 col-lg-push-5" style="min-width:300px">
-		<div class="row">
-		  <div class="col-xs-12 col-sm-12 col-md-12">
-			  <ul class="container-fluid list-group" style="padding:0 0 0 0">
-			    <li class="list-group-item">
-				 Speed-up (slow - fast):
-				 <input type="range"
-					aria-label="Execution speed control"
-					data-show-value="false"
-					name="slider1" id="slider1"
-					min="1" max="200" value="200" step=5
-					onchange="set_cfg('DBG_delay', 1000 / this.value); save_cfg();">
-			    </li>
-			    <li class="list-group-item">
-				 <fieldset data-role="controlgroup" data-type="horizontal">
-				 Single step element in run mode:
-				 <ul>
-				 <li>
-				     <input name="radio1" id="radio1-instruction" data-mini="true"
-					    aria-label="Execution unit (instruction)"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('DBG_level','instruction'); save_cfg();"
-					    value="on" type="radio">
-				     <label for="radio1-instruction"><span class="hidden-xs">Instructions</span><span class="visible-xs">Instruc.</span></label>
-				     <input name="radio1" id="radio1-microinstruction" data-mini="true"
-					    aria-label="Execution unit (microinstruction)"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('DBG_level','microinstruction'); save_cfg();"
-					    value="off" type="radio">
-				     <label for="radio1-microinstruction"><span class="hidden-xs">&#181;instructions</span><span class="visible-xs">&#181;instruc.</span></label>
-				 </li>
-				 </ul>
-				 </fieldset>
-			    </li>
-			  </ul>
-		  </div>
-		</div>
-		<div class="row">
-		  <div class="col-xs-12 col-sm-12 col-md-12">
-			  <ul class="container-fluid list-group" style="padding:0 0 0 0">
-			    <li class="list-group-item">
-				 <fieldset data-role="controlgroup" data-type="horizontal">
-				 Breakpoint Icon:<br>
-				 <ul>
-				 <li>
-				    <img alt="stop icon" id="img_select1" src="images/stop_classic.gif" 
-					 style="position:absolute; left:15px; height:30px !important; width:30px !important;">
-				    <select name="select1" id="select1" 
-                                            aria-label="Breakpoint Icon"
-					    onchange="var opt = $(this).find('option:selected');
-						      var optValue = opt.val();
-						      $('#img_select1').attr('src','images/stop_' + optValue + '.gif');
-						      set_cfg('ICON_theme',optValue); save_cfg();"
-					    data-mini="true" data-native-menu="false">
-					<option value="classic">Classic</option>
-					<option value="pushpin">Push Pin</option>
-					<option value="simple">Simple</option>
-					<option value="super">Superman</option>
-					<option value="batman">Batman</option>
-					<option value="cat1">Cat</option>
-					<option value="dog1">Dog</option>
-					<option value="r2d2">R2-D2</option>
-					<option value="sw">Death Star</option>
-					<option value="bb8">BB-8</option>
-					<option value="vader1">Dark Vader</option>
-				    </select>
-				 </li>
-				 </ul>
-				 </fieldset>
-			    </li>
-			  </ul>
-		  </div>
-		</div>
-	  </div>
+	<div class="table-responsive">
+	<table class="table table-striped table-hover table-condensed" width="100%">
+	<thead>
+	<tr>
+	  <th>#</th>
+	  <th>area</th>
+	  <th>title</th>
+	  <th>UI</th>
+	  <th>description</th>
+	</tr>
+	</thead>
+	<tbody>
+	 <tr>
+	  <td>1</td>
+	  <td>simulation</td>
+	  <td>Data-path color</td>
+	  <td>
+		 <input type="color"
+			aria-label="Color for active data"
+			id="colorpicker1"
+			data-show-value="false"
+			class="noshadow"
+			onchange="set_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh(); save_cfg();">
+          </td>
+	  <td rowspan=2><img alt="color configuration" src="images/cfg-colors.gif" height="100px"></td>
+	 </tr>
 
-	  <div class="col-xs-5 col-md-5 col-lg-pull-4">
-		<div class="row">
-		  <div class="col-xs-4 col-sm-4 col-md-4">
-		     <img alt="color configuration" src="images/cfg-colors.gif" width="100%">
-		  </div>
-		  <div class="col-xs-8 col-sm-8 col-md-8">
-			  <ul class="container-fluid list-group" style="padding:0 0 0 0">
-			    <li class="list-group-item">
-				 Data-path Color:
-				 <ul>
-				 <input type="color"
-					aria-label="Color for active data"
-					id="colorpicker1"
-					data-show-value="false"
-					class="noshadow"
-					onchange="set_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh(); save_cfg();">
-				 </ul>
-			    </li>
-			    <li class="list-group-item">
-				 Signal Color:
-				 <ul>
-				 <input type="color"
-					aria-label="Color for active signal name"
-					id="colorpicker2"
-					data-show-value="false"
-					class="noshadow"
-					onchange="set_cfg('color_name_active', $('#colorpicker2').spectrum('get')); refresh(); save_cfg();">
-				 </ul>
-			    </li>
-			  </ul>
-		  </div>
-		</div>
-		<div class="row">
-		  <div class="col-xs-4 col-sm-4 col-md-4">
-		     <img alt="register file example" src="images/cfg-rf.gif" width="100%">
-		  </div>
-		  <div class="col-xs-8 col-sm-8 col-md-8">
-			  <ul class="container-fluid list-group" style="padding:0 0 0 0">
-			    <li class="list-group-item">
-				 <fieldset data-role="controlgroup" data-type="horizontal">
-				 RF display format:<br>
-				 <ul>
-				 <li>
-				     <input name="radio2" id="radio2-16" data-mini="true"
-					    aria-label="register file display format (decimal)"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('RF_display_format',16); show_rf_values(); show_memories_values(); save_cfg();"
-					    value="on" type="radio">
-				     <label for="radio2-16">Hex.</label>
-				     <input name="radio2" id="radio2-10" data-mini="true"
-					    aria-label="register file display format (hexadecimal)"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('RF_display_format',10); show_rf_values(); show_memories_values(); save_cfg();"
-					    value="off" type="radio">
-				     <label for="radio2-10">Dec.</label>
-				     <input name="radio2" id="radio2-8"  data-mini="true"
-					    aria-label="register file display format (octal)"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('RF_display_format',8); show_rf_values(); show_memories_values(); save_cfg();"
-					    value="off" type="radio">
-				     <label for="radio2-8">Oct.</label>
-				 </li>
-				 </ul>
-				 </fieldset>
-			    </li>
-			    <li class="list-group-item">
-				 <fieldset data-role="controlgroup" data-type="horizontal">
-				 RF name nomenclature:<br>
-				 <ul>
-				 <li>
-				     <input name="radio3" id="radio3-numerical" data-mini="true"
-					    aria-label="register file display name (number)"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('RF_display_name','numerical'); show_rf_names(); save_cfg();"
-					    value="on" type="radio">
-				     <label for="radio3-numerical">Numbers</label>
-				     <input name="radio3" id="radio3-logical" data-mini="true"
-					    aria-label="register file display name (user identification)"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('RF_display_name','logical'); show_rf_names(); save_cfg();"
-					    value="off" type="radio">
-				     <label for="radio3-logical">Labels</label>
-				 </li>
-				 </ul>
-				 </fieldset>
-			    </li>
-			  </ul>
-		  </div>
-		</div>
-	  </div>
+	 <tr>
+	  <td>2</td>
+	  <td>simulation</td>
+	  <td>Signal color</td>
+	  <td>
+		 <input type="color"
+			aria-label="Color for active signal name"
+			id="colorpicker2"
+			data-show-value="false"
+			class="noshadow"
+			onchange="set_cfg('color_name_active', $('#colorpicker2').spectrum('get')); refresh(); save_cfg();">
+          </td>
+	 </tr>
 
-	  <div class="col-xs-3 col-md-3">
-		<div class="row">
-		  <div class="col-xs-12 col-sm-12 col-md-12">
-			  <ul class="container-fluid list-group" style="padding:0 0 0 0">
-			    <li class="list-group-item">
-				 <fieldset data-role="controlgroup" data-type="horizontal">
-				 Editor theme:<br>
-				 <ul>
-				 <li>
-				     <input name="radio7" id="radio7-default" data-mini="true"
-					    aria-label="Editor theme (Light)"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('editor_theme','default'); save_cfg();
-						     inputfirm.getWrapperElement().style['font-weight'] = 'bold';
-						     inputfirm.setOption('theme','default');
-						     inputasm.getWrapperElement().style['font-weight'] = 'bold';
-						     inputasm.setOption('theme','default');"
-					    value="default" type="radio">
-				     <label for="radio7-default">Light</label>
-				     <input name="radio7" id="radio7-blackboard" data-mini="true"
-					    aria-label="Editor theme (Dark)"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('editor_theme','blackboard'); save_cfg();
-						     inputfirm.getWrapperElement().style['font-weight'] = 'normal';
-						     inputfirm.setOption('theme','blackboard');
-						     inputasm.getWrapperElement().style['font-weight'] = 'normal';
-						     inputasm.setOption('theme','blackboard');"
-					    value="blackboard" type="radio">
-				     <label for="radio7-blackboard">Dark</label>
-				 </li>
-				 </ul>
-				 </fieldset>
-			    </li>
-			    <li class="list-group-item">
-				 <fieldset data-role="controlgroup" data-type="horizontal">
-				 Editor mode:<br>
-				 <ul>
-				 <li>
-				    <select name="select2" id="select2" 
-					    aria-label="Editor mode"
-					    onchange="var opt = $(this).find('option:selected');
-						      var optValue = opt.val();
-						      set_cfg('editor_mode',optValue); save_cfg();
-						      inputfirm.setOption('keyMap',optValue);
-						      inputasm.setOption('keyMap',optValue);"
-					    data-mini="true" data-native-menu="false">
-					<option value="default">default</option>
-					<option value="vim">VIM</option>
-					<option value="emacs">Emacs</option>
-					<option value="sublime">Sublime</option>
-				    </select>
-				 </li>
-				 </ul>
-				 </fieldset>
-			    </li>
-			  </ul>
-			  <ul class="container-fluid list-group" style="padding:0 0 0 0">
-			    <li class="list-group-item">
-				 <fieldset data-role="controlgroup" data-type="horizontal">
-				 Interactive Mode:<br>
-				 <ul>
-				 <li>
-				     <input name="radio5" id="radio5-true" data-mini="true"
-					    aria-label="Is interactive: true"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('is_interactive',true); save_cfg();"
-					    value="on" type="radio">
-				     <label for="radio5-true">On</label>
-				     <input name="radio5" id="radio5-false" data-mini="true"
-					    aria-label="Is interactive: false"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('is_interactive',false); save_cfg();"
-					    value="off" type="radio">
-				     <label for="radio5-false">Off</label>
-				 </li>
-				 </ul>
-				 </fieldset>
-			    </li>
-			    <li class="list-group-item">
-				 <fieldset data-role="controlgroup" data-type="horizontal">
-				 Edit register file values:<br>
-				 <ul>
-				 <li>
-				     <input name="radio9" id="radio9-true" data-mini="true"
-					    aria-label="Is editable: true"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('is_editable',true); save_cfg();"
-					    value="on" type="radio">
-				     <label for="radio9-true">On</label>
-				     <input name="radio9" id="radio9-false" data-mini="true"
-					    aria-label="Is editable: false"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('is_editable',false); save_cfg();"
-					    value="off" type="radio">
-				     <label for="radio9-false">Off</label>
-				 </li>
-				 </ul>
-				 </fieldset>
-			    </li>
-			  </ul>
-		  </div>
-		</div>
-	  </div>
-	</div>
+	 <tr>
+	  <td>3</td>
+	  <td>simulation</td>
+	  <td>RF display format</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+		     <input name="radio2" id="radio2-16" data-mini="true"
+			    aria-label="register file display format (decimal)"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('RF_display_format',16); show_rf_values(); show_memories_values(); save_cfg();"
+			    value="on" type="radio">
+		     <label for="radio2-16">Hex.</label>
+		     <input name="radio2" id="radio2-10" data-mini="true"
+			    aria-label="register file display format (hexadecimal)"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('RF_display_format',10); show_rf_values(); show_memories_values(); save_cfg();"
+			    value="off" type="radio">
+		     <label for="radio2-10">Dec.</label>
+		     <input name="radio2" id="radio2-8"  data-mini="true"
+			    aria-label="register file display format (octal)"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('RF_display_format',8); show_rf_values(); show_memories_values(); save_cfg();"
+			    value="off" type="radio">
+		     <label for="radio2-8">Oct.</label>
+		 </fieldset>
+          </td>
+	  <td rowspan=2><img alt="register file example" src="images/cfg-rf.gif" width="120px"></td>
+	 </tr>
+
+	 <tr>
+	  <td>4</td>
+	  <td>simulation</td>
+	  <td>RF name nomenclature</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+		     <input name="radio3" id="radio3-numerical" data-mini="true"
+			    aria-label="register file display name (number)"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('RF_display_name','numerical'); show_rf_names(); save_cfg();"
+			    value="on" type="radio">
+		     <label for="radio3-numerical">Numbers</label>
+		     <input name="radio3" id="radio3-logical" data-mini="true"
+			    aria-label="register file display name (user identification)"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('RF_display_name','logical'); show_rf_names(); save_cfg();"
+			    value="off" type="radio">
+		     <label for="radio3-logical">Labels</label>
+		 </fieldset>
+          </td>
+	 </tr>
+
+	 <tr>
+	  <td>5</td>
+	  <td>editor</td>
+	  <td>Theme</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+		     <input name="radio7" id="radio7-default" data-mini="true"
+			    aria-label="Editor theme (Light)"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('editor_theme','default'); save_cfg();
+				     inputfirm.getWrapperElement().style['font-weight'] = 'bold';
+				     inputfirm.setOption('theme','default');
+				     inputasm.getWrapperElement().style['font-weight'] = 'bold';
+				     inputasm.setOption('theme','default');"
+			    value="default" type="radio">
+		     <label for="radio7-default">Light</label>
+		     <input name="radio7" id="radio7-blackboard" data-mini="true"
+			    aria-label="Editor theme (Dark)"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('editor_theme','blackboard'); save_cfg();
+				     inputfirm.getWrapperElement().style['font-weight'] = 'normal';
+				     inputfirm.setOption('theme','blackboard');
+				     inputasm.getWrapperElement().style['font-weight'] = 'normal';
+				     inputasm.setOption('theme','blackboard');"
+			    value="blackboard" type="radio">
+		     <label for="radio7-blackboard">Dark</label>
+		 </fieldset>
+          </td>
+	  <td>Editor theme</td>
+	 </tr>
+
+	 <tr>
+	  <td>6</td>
+	  <td>editor</td>
+	  <td>Mode</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+		    <select name="select2" id="select2" 
+			    aria-label="Editor mode"
+			    onchange="var opt = $(this).find('option:selected');
+				      var optValue = opt.val();
+				      set_cfg('editor_mode',optValue); save_cfg();
+				      inputfirm.setOption('keyMap',optValue);
+				      inputasm.setOption('keyMap',optValue);"
+			    data-mini="true" data-native-menu="false">
+			<option value="default">default</option>
+			<option value="vim">VIM</option>
+			<option value="emacs">Emacs</option>
+			<option value="sublime">Sublime</option>
+		    </select>
+		 </fieldset>
+          </td>
+	  <td>Editor mode</td>
+	 </tr>
+
+	 <tr>
+	  <td>7</td>
+	  <td>execution</td>
+	  <td>Speed-up</td>
+	  <td>
+		 <input type="range"
+			aria-label="Execution speed control"
+			data-show-value="false"
+			name="slider1" id="slider1"
+			min="1" max="200" value="200" step=5
+			onchange="set_cfg('DBG_delay', 1000 / this.value); save_cfg();">
+          </td>
+	  <td>(slow - fast)</td>
+	 </tr>
+
+	 <tr>
+	  <td>8</td>
+	  <td>execution</td>
+	  <td>Step-by-step element</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+		     <input name="radio1" id="radio1-instruction" data-mini="true"
+			    aria-label="Execution unit (instruction)"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('DBG_level','instruction'); save_cfg();"
+			    value="on" type="radio">
+		     <label for="radio1-instruction"><span class="hidden-xs">Instructions</span><span class="visible-xs">Instruc.</span></label>
+		     <input name="radio1" id="radio1-microinstruction" data-mini="true"
+			    aria-label="Execution unit (microinstruction)"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('DBG_level','microinstruction'); save_cfg();"
+			    value="off" type="radio">
+		     <label for="radio1-microinstruction"><span class="hidden-xs">&#181;instructions</span><span class="visible-xs">&#181;instruc.</span></label>
+		 </fieldset>
+          </td>
+	  <td>Single step element in run mode</td>
+	 </tr>
+
+	 <tr>
+	  <td>9</td>
+	  <td>execution</td>
+	  <td>Breakpoint Icon</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+		    <img alt="stop icon" id="img_select1" src="images/stop_classic.gif" 
+			 style="position:relative; left:10px; height:30px !important; width:30px !important;">
+		    <select name="select1" id="select1" 
+			    aria-label="Breakpoint Icon"
+			    onchange="var opt = $(this).find('option:selected');
+				      var optValue = opt.val();
+				      $('#img_select1').attr('src','images/stop_' + optValue + '.gif');
+				      set_cfg('ICON_theme',optValue); save_cfg();"
+			    data-mini="true" data-native-menu="false">
+			<option value="classic">Classic</option>
+			<option value="pushpin">Push Pin</option>
+			<option value="simple">Simple</option>
+			<option value="super">Superman</option>
+			<option value="batman">Batman</option>
+			<option value="cat1">Cat</option>
+			<option value="dog1">Dog</option>
+			<option value="r2d2">R2-D2</option>
+			<option value="sw">Death Star</option>
+			<option value="bb8">BB-8</option>
+			<option value="vader1">Dark Vader</option>
+		    </select>
+		 </fieldset>
+          </td>
+	  <td>Breakpoint icon</td>
+	 </tr>
+
+	 <tr>
+	  <td>10</td>
+	  <td>execution</td>
+	  <td>Interactive Mode</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+		     <input name="radio5" id="radio5-true" data-mini="true"
+			    aria-label="Is interactive: true"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('is_interactive',true); save_cfg();"
+			    value="on" type="radio">
+		     <label for="radio5-true">On</label>
+		     <input name="radio5" id="radio5-false" data-mini="true"
+			    aria-label="Is interactive: false"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('is_interactive',false); save_cfg();"
+			    value="off" type="radio">
+		     <label for="radio5-false">Off</label>
+		 </fieldset>
+          </td>
+	  <td>Interactive Mode</td>
+	 </tr>
+
+	 <tr>
+	  <td>11</td>
+	  <td>execution</td>
+	  <td>Edit register values</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+		     <input name="radio9" id="radio9-true" data-mini="true"
+			    aria-label="Is editable: true"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('is_editable',true); save_cfg();"
+			    value="on" type="radio">
+		     <label for="radio9-true">On</label>
+		     <input name="radio9" id="radio9-false" data-mini="true"
+			    aria-label="Is editable: false"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('is_editable',false); save_cfg();"
+			    value="off" type="radio">
+		     <label for="radio9-false">Off</label>
+		 </fieldset>
+          </td>
+	  <td>Edit register file values</td>
+	 </tr>
+
+	</tbody>
+	</table>
 	</div>
 	</div>
 

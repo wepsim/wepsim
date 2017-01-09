@@ -281,9 +281,21 @@
     {
 	$('#iframe_help1').html(table_helps_html(helps)) ;
 	$('#iframe_help1').enhanceWithin() ;
+
 	$('#help1_ref').data('relative','') ;
 	$('#help1').trigger('updatelayout') ;
 	$('#help1').popup('open') ;
+    }
+
+    function wepsim_open_help_content ( content )
+    {
+        $('#iframe_help1').html(content) ;
+        $('#iframe_help1').enhanceWithin() ;
+
+        $('#help1_ref').data('relative','') ;
+        $('#help1').trigger('updatelayout') ;
+        $('#help1').popup('reposition', {positionTo: 'window'}) ;
+        $('#help1').popup('open') ;
     }
 
     function wepsim_close_help ( )
