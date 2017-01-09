@@ -64,7 +64,7 @@
     }
 
     .split.split-horizontal, .gutter.gutter-horizontal {
-        height: 100%;
+        height: 90%;
         float: left;
     }
     </style>
@@ -505,8 +505,13 @@
 
         <table border="0" height="100%" width="100%">
         <tr>
-        <td>
+        <td align="left">
+            <a href="#" data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-left">Close</a>
+        </td>
+        </tr>
 
+        <tr>
+        <td>
 	    <ul id="listview_1" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b">
 		    <li><a id="tab21" href="#" style="background-color: lightgray"
 			   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"><h2>Microcode</h2></a></li>
@@ -515,12 +520,10 @@
 		    <li><a id="tab25" href="#" style="background-color: lightgray"
 			   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');"><h2>Simulator</h2></a></li>
 	    </ul>
-
         </td>
         </tr>
         <tr>
         <td>
-
                <a href="#help1"    data-rel="popup"  data-position-to="window" 
                   onclick="show_help1_index();"
                   style="text-align:left; background-color: #D4DB17;"
@@ -534,7 +537,6 @@
                <a href="#about2"   data-rel="popup"  data-position-to="window" 
                   style="text-align:left"
                   class="ui-btn ui-btn-icon-left ui-icon-tag">About</a>
-
         </td>
         </tr>
         </table>
