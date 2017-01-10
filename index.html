@@ -595,14 +595,16 @@
 	  <td class="hidden-xs">simulation</td>
 	  <td>Data-path color</td>
 	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
 		 <input type="color"
 			aria-label="Color for active data"
 			id="colorpicker1"
 			data-show-value="false"
-			class="noshadow"
+			class="noshadow" style="margin:0 0 0 0"
 			onchange="set_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh(); save_cfg();">
+		 </fieldset>
           </td>
-	  <td rowspan="2"><img alt="color configuration" src="images/cfg-colors.gif" height="100px"></td>
+	  <td rowspan="2"><img alt="color configuration" src="images/cfg-colors.gif" height="90px"></td>
 	 </tr>
 
 	 <tr>
@@ -610,12 +612,14 @@
 	  <td class="hidden-xs">simulation</td>
 	  <td>Signal color</td>
 	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
 		 <input type="color"
 			aria-label="Color for active signal name"
 			id="colorpicker2"
 			data-show-value="false"
-			class="noshadow"
+			class="noshadow" style="margin:0 0 0 0"
 			onchange="set_cfg('color_name_active', $('#colorpicker2').spectrum('get')); refresh(); save_cfg();">
+		 </fieldset>
           </td>
 	 </tr>
 
@@ -645,7 +649,7 @@
 		     <label for="radio2-8">Oct.</label>
 		 </fieldset>
           </td>
-	  <td rowspan="2"><img alt="register file example" src="images/cfg-rf.gif" width="110px"></td>
+	  <td rowspan="2"><img alt="register file example" src="images/cfg-rf.gif" width="100px"></td>
 	 </tr>
 
 	 <tr>
@@ -760,7 +764,7 @@
 		     <label for="radio1-microinstruction"><span class="hidden-xs">&#181;instructions</span><span class="visible-xs">&#181;instruc.</span></label>
 		 </fieldset>
           </td>
-	  <td class="collapse7 collapse in">Single step element in run mode</td>
+	  <td class="collapse7 collapse in">Element in run mode</td>
 	 </tr>
 
 	 <tr>
