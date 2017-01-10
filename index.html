@@ -579,20 +579,20 @@
 
 	<div id="bot-config1" style="max-width:85vw; overflow-x:auto;">
 	<div class="table-responsive">
-	<table class="table table-striped table-hover table-condensed" width="100%">
+	<table class="table table-striped table-hover table-condensed" width="100%" style="margin:0 0 0 0">
 	<thead>
 	<tr>
-	  <th>#</th>
-	  <th>area</th>
+	  <th onclick="$('.collapse6').collapse('toggle');">#</th>
+	  <th class="hidden-xs">area</th>
 	  <th>title</th>
-	  <th>UI</th>
-	  <th>description</th>
+	  <th style="min-width:250px">value</th>
+	  <th onclick="$('.collapse7').collapse('toggle');">description</th>
 	</tr>
 	</thead>
 	<tbody>
 	 <tr>
-	  <td>1</td>
-	  <td>simulation</td>
+	  <td class="collapse6 collapse in">1</td>
+	  <td class="hidden-xs">simulation</td>
 	  <td>Data-path color</td>
 	  <td>
 		 <input type="color"
@@ -602,12 +602,12 @@
 			class="noshadow"
 			onchange="set_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh(); save_cfg();">
           </td>
-	  <td rowspan=2><img alt="color configuration" src="images/cfg-colors.gif" height="100px"></td>
+	  <td rowspan="2"><img alt="color configuration" src="images/cfg-colors.gif" height="100px"></td>
 	 </tr>
 
 	 <tr>
-	  <td>2</td>
-	  <td>simulation</td>
+	  <td class="collapse6 collapse in">2</td>
+	  <td class="hidden-xs">simulation</td>
 	  <td>Signal color</td>
 	  <td>
 		 <input type="color"
@@ -620,24 +620,24 @@
 	 </tr>
 
 	 <tr>
-	  <td>3</td>
-	  <td>simulation</td>
+	  <td class="collapse6 collapse in">3</td>
+	  <td class="hidden-xs">simulation</td>
 	  <td>RF display format</td>
 	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-		     <input name="radio2" id="radio2-16" data-mini="true"
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		     <input name="radio2" id="radio2-16" 
 			    aria-label="register file display format (decimal)"
 			    style="margin-top:-8px"
 			    onclick="set_cfg('RF_display_format',16); show_rf_values(); show_memories_values(); save_cfg();"
 			    value="on" type="radio">
 		     <label for="radio2-16">Hex.</label>
-		     <input name="radio2" id="radio2-10" data-mini="true"
+		     <input name="radio2" id="radio2-10" 
 			    aria-label="register file display format (hexadecimal)"
 			    style="margin-top:-8px"
 			    onclick="set_cfg('RF_display_format',10); show_rf_values(); show_memories_values(); save_cfg();"
 			    value="off" type="radio">
 		     <label for="radio2-10">Dec.</label>
-		     <input name="radio2" id="radio2-8"  data-mini="true"
+		     <input name="radio2" id="radio2-8"  
 			    aria-label="register file display format (octal)"
 			    style="margin-top:-8px"
 			    onclick="set_cfg('RF_display_format',8); show_rf_values(); show_memories_values(); save_cfg();"
@@ -645,22 +645,22 @@
 		     <label for="radio2-8">Oct.</label>
 		 </fieldset>
           </td>
-	  <td rowspan=2><img alt="register file example" src="images/cfg-rf.gif" width="120px"></td>
+	  <td rowspan="2"><img alt="register file example" src="images/cfg-rf.gif" width="120px"></td>
 	 </tr>
 
 	 <tr>
-	  <td>4</td>
-	  <td>simulation</td>
-	  <td>RF name nomenclature</td>
+	  <td class="collapse6 collapse in">4</td>
+	  <td class="hidden-xs">simulation</td>
+	  <td>RF name</td>
 	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-		     <input name="radio3" id="radio3-numerical" data-mini="true"
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		     <input name="radio3" id="radio3-numerical" 
 			    aria-label="register file display name (number)"
 			    style="margin-top:-8px"
 			    onclick="set_cfg('RF_display_name','numerical'); show_rf_names(); save_cfg();"
 			    value="on" type="radio">
 		     <label for="radio3-numerical">Numbers</label>
-		     <input name="radio3" id="radio3-logical" data-mini="true"
+		     <input name="radio3" id="radio3-logical" 
 			    aria-label="register file display name (user identification)"
 			    style="margin-top:-8px"
 			    onclick="set_cfg('RF_display_name','logical'); show_rf_names(); save_cfg();"
@@ -671,12 +671,12 @@
 	 </tr>
 
 	 <tr>
-	  <td>5</td>
-	  <td>editor</td>
-	  <td>Theme</td>
+	  <td class="collapse6 collapse in">5</td>
+	  <td class="hidden-xs">editor</td>
+	  <td>Editor theme</td>
 	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-		     <input name="radio7" id="radio7-default" data-mini="true"
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		     <input name="radio7" id="radio7-default" 
 			    aria-label="Editor theme (Light)"
 			    style="margin-top:-8px"
 			    onclick="set_cfg('editor_theme','default'); save_cfg();
@@ -686,7 +686,7 @@
 				     inputasm.setOption('theme','default');"
 			    value="default" type="radio">
 		     <label for="radio7-default">Light</label>
-		     <input name="radio7" id="radio7-blackboard" data-mini="true"
+		     <input name="radio7" id="radio7-blackboard" 
 			    aria-label="Editor theme (Dark)"
 			    style="margin-top:-8px"
 			    onclick="set_cfg('editor_theme','blackboard'); save_cfg();
@@ -698,15 +698,15 @@
 		     <label for="radio7-blackboard">Dark</label>
 		 </fieldset>
           </td>
-	  <td>Editor theme</td>
+	  <td class="collapse7 collapse in">Editor theme</td>
 	 </tr>
 
 	 <tr>
-	  <td>6</td>
-	  <td>editor</td>
-	  <td>Mode</td>
+	  <td class="collapse6 collapse in">6</td>
+	  <td class="hidden-xs">editor</td>
+	  <td>Editor mode</td>
 	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
 		    <select name="select2" id="select2" 
 			    aria-label="Editor mode"
 			    onchange="var opt = $(this).find('option:selected');
@@ -714,7 +714,7 @@
 				      set_cfg('editor_mode',optValue); save_cfg();
 				      inputfirm.setOption('keyMap',optValue);
 				      inputasm.setOption('keyMap',optValue);"
-			    data-mini="true" data-native-menu="false">
+			    data-native-menu="false">
 			<option value="default">default</option>
 			<option value="vim">VIM</option>
 			<option value="emacs">Emacs</option>
@@ -722,12 +722,12 @@
 		    </select>
 		 </fieldset>
           </td>
-	  <td>Editor mode</td>
+	  <td class="collapse7 collapse in">Editor mode</td>
 	 </tr>
 
 	 <tr>
-	  <td>7</td>
-	  <td>execution</td>
+	  <td class="collapse6 collapse in">7</td>
+	  <td class="hidden-xs">execution</td>
 	  <td>Speed-up</td>
 	  <td>
 		 <input type="range"
@@ -737,22 +737,22 @@
 			min="1" max="200" value="200" step=5
 			onchange="set_cfg('DBG_delay', 1000 / this.value); save_cfg();">
           </td>
-	  <td>(slow - fast)</td>
+	  <td class="collapse7 collapse in">Speed (slow - fast)</td>
 	 </tr>
 
 	 <tr>
-	  <td>8</td>
-	  <td>execution</td>
-	  <td>Step-by-step element</td>
+	  <td class="collapse6 collapse in">8</td>
+	  <td class="hidden-xs">execution</td>
+	  <td>Step-by-step</td>
 	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-		     <input name="radio1" id="radio1-instruction" data-mini="true"
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		     <input name="radio1" id="radio1-instruction" 
 			    aria-label="Execution unit (instruction)"
 			    style="margin-top:-8px"
 			    onclick="set_cfg('DBG_level','instruction'); save_cfg();"
 			    value="on" type="radio">
 		     <label for="radio1-instruction"><span class="hidden-xs">Instructions</span><span class="visible-xs">Instruc.</span></label>
-		     <input name="radio1" id="radio1-microinstruction" data-mini="true"
+		     <input name="radio1" id="radio1-microinstruction" 
 			    aria-label="Execution unit (microinstruction)"
 			    style="margin-top:-8px"
 			    onclick="set_cfg('DBG_level','microinstruction'); save_cfg();"
@@ -760,15 +760,15 @@
 		     <label for="radio1-microinstruction"><span class="hidden-xs">&#181;instructions</span><span class="visible-xs">&#181;instruc.</span></label>
 		 </fieldset>
           </td>
-	  <td>Single step element in run mode</td>
+	  <td class="collapse7 collapse in">Single step element in run mode</td>
 	 </tr>
 
 	 <tr>
-	  <td>9</td>
-	  <td>execution</td>
+	  <td class="collapse6 collapse in">9</td>
+	  <td class="hidden-xs">execution</td>
 	  <td>Breakpoint Icon</td>
 	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
 		    <img alt="stop icon" id="img_select1" src="images/stop_classic.gif" 
 			 style="position:relative; left:10px; height:30px !important; width:30px !important;">
 		    <select name="select1" id="select1" 
@@ -777,7 +777,7 @@
 				      var optValue = opt.val();
 				      $('#img_select1').attr('src','images/stop_' + optValue + '.gif');
 				      set_cfg('ICON_theme',optValue); save_cfg();"
-			    data-mini="true" data-native-menu="false">
+			    data-native-menu="false">
 			<option value="classic">Classic</option>
 			<option value="pushpin">Push Pin</option>
 			<option value="simple">Simple</option>
@@ -792,22 +792,22 @@
 		    </select>
 		 </fieldset>
           </td>
-	  <td>Breakpoint icon</td>
+	  <td class="collapse7 collapse in">Breakpoint icon</td>
 	 </tr>
 
 	 <tr>
-	  <td>10</td>
-	  <td>execution</td>
+	  <td class="collapse6 collapse in">10</td>
+	  <td class="hidden-xs">execution</td>
 	  <td>Interactive Mode</td>
 	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-		     <input name="radio5" id="radio5-true" data-mini="true"
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		     <input name="radio5" id="radio5-true" 
 			    aria-label="Is interactive: true"
 			    style="margin-top:-8px"
 			    onclick="set_cfg('is_interactive',true); save_cfg();"
 			    value="on" type="radio">
 		     <label for="radio5-true">On</label>
-		     <input name="radio5" id="radio5-false" data-mini="true"
+		     <input name="radio5" id="radio5-false" 
 			    aria-label="Is interactive: false"
 			    style="margin-top:-8px"
 			    onclick="set_cfg('is_interactive',false); save_cfg();"
@@ -815,22 +815,22 @@
 		     <label for="radio5-false">Off</label>
 		 </fieldset>
           </td>
-	  <td>Interactive Mode</td>
+	  <td class="collapse7 collapse in">Interactive Mode</td>
 	 </tr>
 
 	 <tr>
-	  <td>11</td>
-	  <td>execution</td>
-	  <td>Edit register values</td>
+	  <td class="collapse6 collapse in">11</td>
+	  <td class="hidden-xs">execution</td>
+	  <td>Editable registers</td>
 	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-		     <input name="radio9" id="radio9-true" data-mini="true"
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		     <input name="radio9" id="radio9-true" 
 			    aria-label="Is editable: true"
 			    style="margin-top:-8px"
 			    onclick="set_cfg('is_editable',true); save_cfg();"
 			    value="on" type="radio">
 		     <label for="radio9-true">On</label>
-		     <input name="radio9" id="radio9-false" data-mini="true"
+		     <input name="radio9" id="radio9-false" 
 			    aria-label="Is editable: false"
 			    style="margin-top:-8px"
 			    onclick="set_cfg('is_editable',false); save_cfg();"
@@ -838,7 +838,7 @@
 		     <label for="radio9-false">Off</label>
 		 </fieldset>
           </td>
-	  <td>Edit register file values</td>
+	  <td class="collapse7 collapse in">Edit register file values</td>
 	 </tr>
 
 	</tbody>
