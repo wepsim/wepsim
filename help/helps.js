@@ -37,11 +37,7 @@
                      id:          "architecture",
                      title:       "Hardware summary",
                      type:        "code",
-                     reference:   "$(\'#help1_ref\').data(\'relative\',\'\');" +
-                                  "$(\'#iframe_help1\').html(\'<object id=svg_p2 data=\\'images/cpu6.svg?time=20170108\\' type=image/svg+xml>Your browser does not support SVG</object>\');" +
-                                  "$(\'#help1\').trigger(\'updatelayout\');" +
-                                  "$(\'#help1\').popup(\'reposition\', {positionTo: \'window\'});" +
-                                  "$(\'#help1\').popup(\'open\');",
+                     reference:   "wepsim_open_help_content(\'<object id=svg_p2 data=\\'images/cpu6.svg?time=20170108\\' type=image/svg+xml>Your browser does not support SVG</object>\');",
                      description: "Reference card of the elemental processor hardware simulated.<br>"
                   });
 
@@ -49,10 +45,7 @@
                      id:          "simulator",
                      title:       "Signal dependencies",
                      type:        "code",
-                     reference:   "$(\'#iframe_help1\').html(\'<div id=depgraph1>...</div>\'); " + 
-                                  "$(\'#help1\').trigger(\'updatelayout\');" +
-                                  "$(\'#help1\').popup(\'reposition\', {positionTo: \'window\'});" +
-                                  "$(\'#help1\').popup(\'open\');" +
+                     reference:   "wepsim_open_help_content(\'<div id=depgraph1>...</div>\'); " +
                                   "show_visgraph(jit_fire_dep, jit_fire_order);",
                      description: "Graph of the signal dependencies (need several seconds to display).<br>"
                   });
