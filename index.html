@@ -64,7 +64,7 @@
     }
 
     .split.split-horizontal, .gutter.gutter-horizontal {
-        height: 100%;
+        height: 90%;
         float: left;
     }
     </style>
@@ -359,13 +359,13 @@
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-xs-4 col-md-1 col-lg-1"
 				   data-transition="none" data-inline="true"
 				   onclick="var textToMCompile = inputfirm.getValue();
-                                            compileFirmware(textToMCompile, true);
+                                            wepsim_compile_firmware(textToMCompile, true);
                                             $('#asm_debugger').html('<br>After updates on the microcode, assembler has to be compiled against it.');">&#181;compile</a>
 		            <a href="#"       style="background-color: #CCCCCC"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2"
 				   data-transition="none" data-inline="true"
 				   onclick="var textToMCompile = inputfirm.getValue();
-                                            var ok = compileFirmware(textToMCompile, true);
+                                            var ok = wepsim_compile_firmware(textToMCompile, true);
                                             if (true == ok) {
                                                 $.mobile.pageContainer.pagecontainer('change','#main4');
                                             }">&#181;compile and go assembly</a>
@@ -373,9 +373,9 @@
 		            <a href="#" style="background-color: #DDDDDD"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-u ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2 ui-shadow"
 				   onclick="var textToMCompile = inputfirm.getValue();
-                                            var ok = compileFirmware(textToMCompile, true);
+                                            var ok = wepsim_compile_firmware(textToMCompile, true);
                                             if (true == ok) {
-                                                showBinaryMicrocode('#bin1','#compile_results');
+                                                wepsim_show_binary_microcode('#bin1','#compile_results');
                                             }">Show co2&#181;addr + control memory</a>
 
                             <a href="#" style="background-color: #D4DB17"
@@ -466,12 +466,12 @@
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-4 col-md-1 col-lg-1"
 				   data-transition="none" data-inline="true"
 				   onclick="var textToCompile = inputasm.getValue() ;
-                                            var ok = compileAssembly(textToCompile, true);">Compile</a>
+                                            var ok = wepsim_compile_assembly(textToCompile, true);">Compile</a>
 		            <a href="#" style="background-color: #CCCCCC"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2"
 				   data-transition="none" data-inline="true"
 				   onclick="var textToCompile = inputasm.getValue() ;
-                                            var ok = compileAssembly(textToCompile, true);
+                                            var ok = wepsim_compile_assembly(textToCompile, true);
                                             if (true == ok) {
                                                 $.mobile.pageContainer.pagecontainer('change','#main1');
                                             }">Compile and go simulator</a>
@@ -479,9 +479,9 @@
 		            <a href="#" style="background-color: #DDDDDD"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-u  ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2 ui-shadow"
 				   onclick="var textToCompile = inputasm.getValue();
-                                            var ok = compileAssembly(textToCompile, true);
+                                            var ok = wepsim_compile_assembly(textToCompile, true);
                                             if (true == ok) {
-                                                showBinaryCode('#bin1','#compile_results');
+                                                wepsim_show_binary_code('#bin1','#compile_results');
                                             }">Show Main Memory</a>
                             <a href="#" style="background-color: #D4DB17"
                                    class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-5 col-md-1 col-lg-1"
@@ -505,8 +505,13 @@
 
         <table border="0" height="100%" width="100%">
         <tr>
-        <td>
+        <td align="left">
+            <a href="#" data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-left">Close</a>
+        </td>
+        </tr>
 
+        <tr>
+        <td>
 	    <ul id="listview_1" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b">
 		    <li><a id="tab21" href="#" style="background-color: lightgray"
 			   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"><h2>Microcode</h2></a></li>
@@ -515,17 +520,16 @@
 		    <li><a id="tab25" href="#" style="background-color: lightgray"
 			   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');"><h2>Simulator</h2></a></li>
 	    </ul>
-
         </td>
         </tr>
         <tr>
         <td>
-
                <a href="#help1"    data-rel="popup"  data-position-to="window" 
-                  onclick="show_help1_index();"
+                  onclick="wepsim_open_help_index();"
                   style="text-align:left; background-color: #D4DB17;"
                   class="ui-btn ui-btn-icon-left ui-icon-info">Help</a>
                <a href="#example1" data-rel="popup"  data-position-to="window" 
+                  onclick="wepsim_open_examples_index();"
                   style="text-align:left"
                   class="ui-btn ui-btn-icon-left ui-icon-info">Examples</a>
                <a href="#config1"  data-rel="popup"  data-position-to="window" 
@@ -534,7 +538,6 @@
                <a href="#about2"   data-rel="popup"  data-position-to="window" 
                   style="text-align:left"
                   class="ui-btn ui-btn-icon-left ui-icon-tag">About</a>
-
         </td>
         </tr>
         </table>
@@ -575,278 +578,275 @@
    <div role="main" class="ui-content" style="padding: 8px 8px 8px 8px">
 
 	<div id="bot-config1" style="max-width:85vw; overflow-x:auto;">
-	<div class="container-fluid">
-	<div class="row" style="width:1050px;">
-	  <div class="col-xs-3 col-md-4 col-lg-push-5" style="min-width:300px">
-		<div class="row">
-		  <div class="col-xs-12 col-sm-12 col-md-12">
-			  <ul class="container-fluid list-group" style="padding:0 0 0 0">
-			    <li class="list-group-item">
-				 Speed-up (slow - fast):
-				 <input type="range"
-					aria-label="Execution speed control"
-					data-show-value="false"
-					name="slider1" id="slider1"
-					min="1" max="200" value="200" step=5
-					onchange="set_cfg('DBG_delay', 1000 / this.value); save_cfg();">
-			    </li>
-			    <li class="list-group-item">
-				 <fieldset data-role="controlgroup" data-type="horizontal">
-				 Single step element in run mode:
-				 <ul>
-				 <li>
-				     <input name="radio1" id="radio1-instruction" data-mini="true"
-					    aria-label="Execution unit (instruction)"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('DBG_level','instruction'); save_cfg();"
-					    value="on" type="radio">
-				     <label for="radio1-instruction"><span class="hidden-xs">Instructions</span><span class="visible-xs">Instruc.</span></label>
-				     <input name="radio1" id="radio1-microinstruction" data-mini="true"
-					    aria-label="Execution unit (microinstruction)"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('DBG_level','microinstruction'); save_cfg();"
-					    value="off" type="radio">
-				     <label for="radio1-microinstruction"><span class="hidden-xs">&#181;instructions</span><span class="visible-xs">&#181;instruc.</span></label>
-				 </li>
-				 </ul>
-				 </fieldset>
-			    </li>
-			  </ul>
-		  </div>
-		</div>
-		<div class="row">
-		  <div class="col-xs-12 col-sm-12 col-md-12">
-			  <ul class="container-fluid list-group" style="padding:0 0 0 0">
-			    <li class="list-group-item">
-				 <fieldset data-role="controlgroup" data-type="horizontal">
-				 Breakpoint Icon:<br>
-				 <ul>
-				 <li>
-				    <img alt="stop icon" id="img_select1" src="images/stop_classic.gif" 
-					 style="position:absolute; left:15px; height:30px !important; width:30px !important;">
-				    <select name="select1" id="select1" 
-                                            aria-label="Breakpoint Icon"
-					    onchange="var opt = $(this).find('option:selected');
-						      var optValue = opt.val();
-						      $('#img_select1').attr('src','images/stop_' + optValue + '.gif');
-						      set_cfg('ICON_theme',optValue); save_cfg();"
-					    data-mini="true" data-native-menu="false">
-					<option value="classic">Classic</option>
-					<option value="pushpin">Push Pin</option>
-					<option value="simple">Simple</option>
-					<option value="super">Superman</option>
-					<option value="batman">Batman</option>
-					<option value="cat1">Cat</option>
-					<option value="dog1">Dog</option>
-					<option value="r2d2">R2-D2</option>
-					<option value="sw">Death Star</option>
-					<option value="bb8">BB-8</option>
-					<option value="vader1">Dark Vader</option>
-				    </select>
-				 </li>
-				 </ul>
-				 </fieldset>
-			    </li>
-			  </ul>
-		  </div>
-		</div>
-	  </div>
+	<div class="table-responsive">
+	<table class="table table-striped table-hover table-condensed" width="100%" style="margin:0 0 0 0">
+	<thead>
+	<tr>
+	  <th onclick="$('.collapse6').collapse('toggle');">#</th>
+	  <th class="hidden-xs">area</th>
+	  <th>title</th>
+	  <th style="min-width:250px">value</th>
+	  <th onclick="$('.collapse7').collapse('toggle');">description</th>
+	</tr>
+	</thead>
+	<tbody>
+	 <tr>
+	  <td class="collapse6 collapse in">1</td>
+	  <td class="hidden-xs">simulation</td>
+	  <td>Data-path color</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		 <input type="color"
+			aria-label="Color for active data"
+			id="colorpicker1"
+			data-show-value="false"
+			class="noshadow" style="margin:0 0 0 0"
+			onchange="set_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh(); save_cfg();">
+		 </fieldset>
+          </td>
+	  <td rowspan="2"><img alt="color configuration" src="images/cfg-colors.gif" height="90px"></td>
+	 </tr>
 
-	  <div class="col-xs-5 col-md-5 col-lg-pull-4">
-		<div class="row">
-		  <div class="col-xs-4 col-sm-4 col-md-4">
-		     <img alt="color configuration" src="images/cfg-colors.gif" width="100%">
-		  </div>
-		  <div class="col-xs-8 col-sm-8 col-md-8">
-			  <ul class="container-fluid list-group" style="padding:0 0 0 0">
-			    <li class="list-group-item">
-				 Data-path Color:
-				 <ul>
-				 <input type="color"
-					aria-label="Color for active data"
-					id="colorpicker1"
-					data-show-value="false"
-					class="noshadow"
-					onchange="set_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh(); save_cfg();">
-				 </ul>
-			    </li>
-			    <li class="list-group-item">
-				 Signal Color:
-				 <ul>
-				 <input type="color"
-					aria-label="Color for active signal name"
-					id="colorpicker2"
-					data-show-value="false"
-					class="noshadow"
-					onchange="set_cfg('color_name_active', $('#colorpicker2').spectrum('get')); refresh(); save_cfg();">
-				 </ul>
-			    </li>
-			  </ul>
-		  </div>
-		</div>
-		<div class="row">
-		  <div class="col-xs-4 col-sm-4 col-md-4">
-		     <img alt="register file example" src="images/cfg-rf.gif" width="100%">
-		  </div>
-		  <div class="col-xs-8 col-sm-8 col-md-8">
-			  <ul class="container-fluid list-group" style="padding:0 0 0 0">
-			    <li class="list-group-item">
-				 <fieldset data-role="controlgroup" data-type="horizontal">
-				 RF display format:<br>
-				 <ul>
-				 <li>
-				     <input name="radio2" id="radio2-16" data-mini="true"
-					    aria-label="register file display format (decimal)"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('RF_display_format',16); show_rf_values(); show_memories_values(); save_cfg();"
-					    value="on" type="radio">
-				     <label for="radio2-16">Hex.</label>
-				     <input name="radio2" id="radio2-10" data-mini="true"
-					    aria-label="register file display format (hexadecimal)"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('RF_display_format',10); show_rf_values(); show_memories_values(); save_cfg();"
-					    value="off" type="radio">
-				     <label for="radio2-10">Dec.</label>
-				     <input name="radio2" id="radio2-8"  data-mini="true"
-					    aria-label="register file display format (octal)"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('RF_display_format',8); show_rf_values(); show_memories_values(); save_cfg();"
-					    value="off" type="radio">
-				     <label for="radio2-8">Oct.</label>
-				 </li>
-				 </ul>
-				 </fieldset>
-			    </li>
-			    <li class="list-group-item">
-				 <fieldset data-role="controlgroup" data-type="horizontal">
-				 RF name nomenclature:<br>
-				 <ul>
-				 <li>
-				     <input name="radio3" id="radio3-numerical" data-mini="true"
-					    aria-label="register file display name (number)"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('RF_display_name','numerical'); show_rf_names(); save_cfg();"
-					    value="on" type="radio">
-				     <label for="radio3-numerical">Numbers</label>
-				     <input name="radio3" id="radio3-logical" data-mini="true"
-					    aria-label="register file display name (user identification)"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('RF_display_name','logical'); show_rf_names(); save_cfg();"
-					    value="off" type="radio">
-				     <label for="radio3-logical">Labels</label>
-				 </li>
-				 </ul>
-				 </fieldset>
-			    </li>
-			  </ul>
-		  </div>
-		</div>
-	  </div>
+	 <tr>
+	  <td class="collapse6 collapse in">2</td>
+	  <td class="hidden-xs">simulation</td>
+	  <td>Signal color</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		 <input type="color"
+			aria-label="Color for active signal name"
+			id="colorpicker2"
+			data-show-value="false"
+			class="noshadow" style="margin:0 0 0 0"
+			onchange="set_cfg('color_name_active', $('#colorpicker2').spectrum('get')); refresh(); save_cfg();">
+		 </fieldset>
+          </td>
+	 </tr>
 
-	  <div class="col-xs-3 col-md-3">
-		<div class="row">
-		  <div class="col-xs-12 col-sm-12 col-md-12">
-			  <ul class="container-fluid list-group" style="padding:0 0 0 0">
-			    <li class="list-group-item">
-				 <fieldset data-role="controlgroup" data-type="horizontal">
-				 Editor theme:<br>
-				 <ul>
-				 <li>
-				     <input name="radio7" id="radio7-default" data-mini="true"
-					    aria-label="Editor theme (Light)"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('editor_theme','default'); save_cfg();
-						     inputfirm.getWrapperElement().style['font-weight'] = 'bold';
-						     inputfirm.setOption('theme','default');
-						     inputasm.getWrapperElement().style['font-weight'] = 'bold';
-						     inputasm.setOption('theme','default');"
-					    value="default" type="radio">
-				     <label for="radio7-default">Light</label>
-				     <input name="radio7" id="radio7-blackboard" data-mini="true"
-					    aria-label="Editor theme (Dark)"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('editor_theme','blackboard'); save_cfg();
-						     inputfirm.getWrapperElement().style['font-weight'] = 'normal';
-						     inputfirm.setOption('theme','blackboard');
-						     inputasm.getWrapperElement().style['font-weight'] = 'normal';
-						     inputasm.setOption('theme','blackboard');"
-					    value="blackboard" type="radio">
-				     <label for="radio7-blackboard">Dark</label>
-				 </li>
-				 </ul>
-				 </fieldset>
-			    </li>
-			    <li class="list-group-item">
-				 <fieldset data-role="controlgroup" data-type="horizontal">
-				 Editor mode:<br>
-				 <ul>
-				 <li>
-				    <select name="select2" id="select2" 
-					    aria-label="Editor mode"
-					    onchange="var opt = $(this).find('option:selected');
-						      var optValue = opt.val();
-						      set_cfg('editor_mode',optValue); save_cfg();
-						      inputfirm.setOption('keyMap',optValue);
-						      inputasm.setOption('keyMap',optValue);"
-					    data-mini="true" data-native-menu="false">
-					<option value="default">default</option>
-					<option value="vim">VIM</option>
-					<option value="emacs">Emacs</option>
-					<option value="sublime">Sublime</option>
-				    </select>
-				 </li>
-				 </ul>
-				 </fieldset>
-			    </li>
-			  </ul>
-			  <ul class="container-fluid list-group" style="padding:0 0 0 0">
-			    <li class="list-group-item">
-				 <fieldset data-role="controlgroup" data-type="horizontal">
-				 Interactive Mode:<br>
-				 <ul>
-				 <li>
-				     <input name="radio5" id="radio5-true" data-mini="true"
-					    aria-label="Is interactive: true"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('is_interactive',true); save_cfg();"
-					    value="on" type="radio">
-				     <label for="radio5-true">On</label>
-				     <input name="radio5" id="radio5-false" data-mini="true"
-					    aria-label="Is interactive: false"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('is_interactive',false); save_cfg();"
-					    value="off" type="radio">
-				     <label for="radio5-false">Off</label>
-				 </li>
-				 </ul>
-				 </fieldset>
-			    </li>
-			    <li class="list-group-item">
-				 <fieldset data-role="controlgroup" data-type="horizontal">
-				 Edit register file values:<br>
-				 <ul>
-				 <li>
-				     <input name="radio9" id="radio9-true" data-mini="true"
-					    aria-label="Is editable: true"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('is_editable',true); save_cfg();"
-					    value="on" type="radio">
-				     <label for="radio9-true">On</label>
-				     <input name="radio9" id="radio9-false" data-mini="true"
-					    aria-label="Is editable: false"
-					    style="margin-top:-8px"
-					    onclick="set_cfg('is_editable',false); save_cfg();"
-					    value="off" type="radio">
-				     <label for="radio9-false">Off</label>
-				 </li>
-				 </ul>
-				 </fieldset>
-			    </li>
-			  </ul>
-		  </div>
-		</div>
-	  </div>
-	</div>
+	 <tr>
+	  <td class="collapse6 collapse in">3</td>
+	  <td class="hidden-xs">simulation</td>
+	  <td>RF display format</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		     <input name="radio2" id="radio2-16" 
+			    aria-label="register file display format (decimal)"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('RF_display_format',16); show_rf_values(); show_memories_values(); save_cfg();"
+			    value="on" type="radio">
+		     <label for="radio2-16">Hex.</label>
+		     <input name="radio2" id="radio2-10" 
+			    aria-label="register file display format (hexadecimal)"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('RF_display_format',10); show_rf_values(); show_memories_values(); save_cfg();"
+			    value="off" type="radio">
+		     <label for="radio2-10">Dec.</label>
+		     <input name="radio2" id="radio2-8"  
+			    aria-label="register file display format (octal)"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('RF_display_format',8); show_rf_values(); show_memories_values(); save_cfg();"
+			    value="off" type="radio">
+		     <label for="radio2-8">Oct.</label>
+		 </fieldset>
+          </td>
+	  <td rowspan="2"><img alt="register file example" src="images/cfg-rf.gif" width="100px"></td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse in">4</td>
+	  <td class="hidden-xs">simulation</td>
+	  <td>RF name</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		     <input name="radio3" id="radio3-numerical" 
+			    aria-label="register file display name (number)"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('RF_display_name','numerical'); show_rf_names(); save_cfg();"
+			    value="on" type="radio">
+		     <label for="radio3-numerical">Numbers</label>
+		     <input name="radio3" id="radio3-logical" 
+			    aria-label="register file display name (user identification)"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('RF_display_name','logical'); show_rf_names(); save_cfg();"
+			    value="off" type="radio">
+		     <label for="radio3-logical">Labels</label>
+		 </fieldset>
+          </td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse in">5</td>
+	  <td class="hidden-xs">editor</td>
+	  <td>Editor theme</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		     <input name="radio7" id="radio7-default" 
+			    aria-label="Editor theme (Light)"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('editor_theme','default'); save_cfg();
+				     inputfirm.getWrapperElement().style['font-weight'] = 'bold';
+				     inputfirm.setOption('theme','default');
+				     inputasm.getWrapperElement().style['font-weight'] = 'bold';
+				     inputasm.setOption('theme','default');"
+			    value="default" type="radio">
+		     <label for="radio7-default">Light</label>
+		     <input name="radio7" id="radio7-blackboard" 
+			    aria-label="Editor theme (Dark)"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('editor_theme','blackboard'); save_cfg();
+				     inputfirm.getWrapperElement().style['font-weight'] = 'normal';
+				     inputfirm.setOption('theme','blackboard');
+				     inputasm.getWrapperElement().style['font-weight'] = 'normal';
+				     inputasm.setOption('theme','blackboard');"
+			    value="blackboard" type="radio">
+		     <label for="radio7-blackboard">Dark</label>
+		 </fieldset>
+          </td>
+	  <td class="collapse7 collapse in">Editor theme</td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse in">6</td>
+	  <td class="hidden-xs">editor</td>
+	  <td>Editor mode</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		    <select name="select2" id="select2" 
+			    aria-label="Editor mode"
+			    onchange="var opt = $(this).find('option:selected');
+				      var optValue = opt.val();
+				      set_cfg('editor_mode',optValue); save_cfg();
+				      inputfirm.setOption('keyMap',optValue);
+				      inputasm.setOption('keyMap',optValue);"
+			    data-native-menu="false">
+			<option value="default">default</option>
+			<option value="vim">VIM</option>
+			<option value="emacs">Emacs</option>
+			<option value="sublime">Sublime</option>
+		    </select>
+		 </fieldset>
+          </td>
+	  <td class="collapse7 collapse in">Editor mode</td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse in">7</td>
+	  <td class="hidden-xs">execution</td>
+	  <td>Speed-up</td>
+	  <td>
+		 <input type="range"
+			aria-label="Execution speed control"
+			data-show-value="false"
+			name="slider1" id="slider1"
+			min="1" max="200" value="200" step=5
+			onchange="set_cfg('DBG_delay', 1000 / this.value); save_cfg();">
+          </td>
+	  <td class="collapse7 collapse in">Speed (slow - fast)</td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse in">8</td>
+	  <td class="hidden-xs">execution</td>
+	  <td>Step-by-step</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		     <input name="radio1" id="radio1-instruction" 
+			    aria-label="Execution unit (instruction)"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('DBG_level','instruction'); save_cfg();"
+			    value="on" type="radio">
+		     <label for="radio1-instruction"><span class="hidden-xs">Instructions</span><span class="visible-xs">Instruc.</span></label>
+		     <input name="radio1" id="radio1-microinstruction" 
+			    aria-label="Execution unit (microinstruction)"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('DBG_level','microinstruction'); save_cfg();"
+			    value="off" type="radio">
+		     <label for="radio1-microinstruction"><span class="hidden-xs">&#181;instructions</span><span class="visible-xs">&#181;instruc.</span></label>
+		 </fieldset>
+          </td>
+	  <td class="collapse7 collapse in">Element in run mode</td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse in">9</td>
+	  <td class="hidden-xs">execution</td>
+	  <td>Breakpoint Icon</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		    <img alt="stop icon" id="img_select1" src="images/stop_classic.gif" 
+			 style="position:relative; left:10px; height:30px !important; width:30px !important;">
+		    <select name="select1" id="select1" 
+			    aria-label="Breakpoint Icon"
+			    onchange="var opt = $(this).find('option:selected');
+				      var optValue = opt.val();
+				      $('#img_select1').attr('src','images/stop_' + optValue + '.gif');
+				      set_cfg('ICON_theme',optValue); save_cfg();"
+			    data-native-menu="false">
+			<option value="classic">Classic</option>
+			<option value="pushpin">Push Pin</option>
+			<option value="simple">Simple</option>
+			<option value="super">Superman</option>
+			<option value="batman">Batman</option>
+			<option value="cat1">Cat</option>
+			<option value="dog1">Dog</option>
+			<option value="r2d2">R2-D2</option>
+			<option value="sw">Death Star</option>
+			<option value="bb8">BB-8</option>
+			<option value="vader1">Dark Vader</option>
+		    </select>
+		 </fieldset>
+          </td>
+	  <td class="collapse7 collapse in">Breakpoint icon</td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse in">10</td>
+	  <td class="hidden-xs">execution</td>
+	  <td>Interactive Mode</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		     <input name="radio5" id="radio5-true" 
+			    aria-label="Is interactive: true"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('is_interactive',true); save_cfg();"
+			    value="on" type="radio">
+		     <label for="radio5-true">On</label>
+		     <input name="radio5" id="radio5-false" 
+			    aria-label="Is interactive: false"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('is_interactive',false); save_cfg();"
+			    value="off" type="radio">
+		     <label for="radio5-false">Off</label>
+		 </fieldset>
+          </td>
+	  <td class="collapse7 collapse in">Interactive Mode</td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse in">11</td>
+	  <td class="hidden-xs">execution</td>
+	  <td>Editable registers</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		     <input name="radio9" id="radio9-true" 
+			    aria-label="Is editable: true"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('is_editable',true); save_cfg();"
+			    value="on" type="radio">
+		     <label for="radio9-true">On</label>
+		     <input name="radio9" id="radio9-false" 
+			    aria-label="Is editable: false"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('is_editable',false); save_cfg();"
+			    value="off" type="radio">
+		     <label for="radio9-false">Off</label>
+		 </fieldset>
+          </td>
+	  <td class="collapse7 collapse in">Edit register file values</td>
+	 </tr>
+
+	</tbody>
+	</table>
 	</div>
 	</div>
 
@@ -914,7 +914,7 @@
                     <b>WepSIM</b> for Web works with the most popular modern Web Browsers:<br class="hidden-xs">
                     Google Chrome 50+, Mozilla Firefox 45+, Microsoft Edge 30+, and Apple Safari 10+<br>
                     <br>
-                    An <a href="https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim">Android 5.0+ version</a> version is also available at Google Play.<br>
+                    An <a href="https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim">Android 5.0+</a> version is also available at Google Play.<br>
                     <br>
 		    It source code is available at <a rel="external" href="https://github.com/wepsim/wepsim">https://github.com/wepsim/wepsim</a>.<br>
 	    </p>
@@ -926,7 +926,7 @@
 	            <br class="hidden-xs">
 		    <b>WepSIM (Web elemental processor SIMulator)</b> is free software: you can redistribute it and/or modify
 		    it under the terms of the GNU Lesser General Public License as published by
-		    the Free Software Foundation, either version 3 of the License, or (at your option) any later version.<br>
+		    the Free Software Foundation, either version 3 of the License.<br>
                     <br>
 		    See <a rel="external" href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.<br>
 	    </p>
@@ -974,7 +974,7 @@
            <div data-type="horizontal" data-role="controlgroup" class="ui-btn-left">  
              <div id="help1_ref" style="display:none;"></div>
              <a href="#" 
-		onclick="show_help1_index();"
+		onclick="wepsim_open_help_index();"
                 data-role="button" data-theme="a">&lt;</a>
 	     <input name="radio6" id="radio6-es" data-mini="true"
 		    aria-label="Idiom: Spanish"
@@ -1045,9 +1045,6 @@
 	    $(document).ready(function()
 	    {
 		    jQuery.fx.off = true;
-
-	            $("#container-example1").html(table_examples_html(examples));
-	            $("#container-example1").enhanceWithin();
 
 		    $("#help1").enhanceWithin().popup();
 		    $("#bin1").enhanceWithin().popup();
