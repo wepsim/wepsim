@@ -712,7 +712,8 @@
 		   )
 		{
                     if (with_ui)
-		        alert('PC register points outside .ktext/.text code segments!');
+		        alert('INFO: The program has finished.\n' + 
+                              '(because the PC register points outside .ktext/.text code segments)');
 		    return false;
 		}
 
