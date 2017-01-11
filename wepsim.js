@@ -650,21 +650,6 @@
      * Help management
      */
 
-    function show_help2 ( )
-    {
-        var rel = $('#help1_ref').data('relative') ;
-        if (rel == "")
-            return;
-
-        $('#iframe_help1').load('help/simulator-' + get_cfg('ws_idiom') + '.html ' + rel,
-			        function() {
-                                    $('#help1').trigger('updatelayout');
-                                    $('#help1').popup('open');
-                                });
-
-        ga('send', 'event', 'help', 'help.simulator', 'help.simulator.' + rel);
-    }
-
     function table_helps_html ( helps )
     {
        var o = '<div class="table-responsive">' +

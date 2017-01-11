@@ -27,10 +27,18 @@
 
     helps.push({
                      id:          "architecture",
-                     title:       "Simulator architecture",
+                     title:       "Simulated architecture",
                      type:        "relative",
                      reference:   "#help_simulator_arch",
-                     description: "Description of the simulator architecture.<br>"
+                     description: "Description of the elemental processor architecture.<br>"
+                  });
+
+    helps.push({
+                     id:          "architecture",
+                     title:       "Simulated signals",
+                     type:        "absolute",
+                     reference:   "signals",
+                     description: "Elemental processor 'signals summary.<br>"
                   });
 
     helps.push({
