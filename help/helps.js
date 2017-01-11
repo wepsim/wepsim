@@ -47,6 +47,14 @@
                      type:        "code",
                      reference:   "wepsim_open_help_content(\'<div id=depgraph1>...</div>\'); " +
                                   "show_visgraph(jit_fire_dep, jit_fire_order);",
-                     description: "Graph of the signal dependencies (need several seconds to display).<br>"
+                     description: "Graph of the signal dependencies (it needs several seconds to display).<br>"
+                  });
+
+    helps.push({
+                     id:          "about",
+                     title:       "License, platforms, technologies",
+                     type:        "absolute",
+                     reference:   "about",
+                     description: "WepSIM license, platforms, technologies used.<br>"
                   });
 
