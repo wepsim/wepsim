@@ -232,7 +232,7 @@
 			       onclick="wepsim_execute_toggle_play('#qbp'); return false;">Run</a>
 			    <a id="ib1" href="#" style="background-color: #D4DB17; -webkit-text-shadow: none; text-shadow: none;"
 			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-info ui-btn-icon-top ui-mini"
-			       onclick="$('#help1_ref').data('relative','#help_simulator_screens'); show_help1();">Help</a>
+			       onclick="wepsim_help_set_relative('#help_simulator_screens'); wepsim_help_refresh();">Help</a>
                         </div>
                     </div>
 
@@ -380,16 +380,12 @@
 
                             <a href="#" style="background-color: #D4DB17"
                                    class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-6 col-md-2 col-lg-2"
-				   onclick="$('#help1_ref').data('relative','');
-                                            $('#iframe_help1').html('<object id=svg_p2 data=\'images/cpu6.svg?time=20161202\' type=image/svg+xml>Your browser does not support SVG</object>');
-                                            $('#help1').trigger('updatelayout');
-                                            $('#help1').popup('reposition', {positionTo: 'window'});
-					    $('#help1').popup('open');"
+                                   onclick="wepsim_open_help_content('<object id=svg_p2 data=\'images/cpu6.svg?time=20170108\' type=image/svg+xml>Your browser does not support SVG</object>');
                                    >Hardware Summary</a>
 
                             <a href="#" style="background-color: #D4DB17"
                                    class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info    ui-btn-icon-left ui-mini col-xs-4 col-md-1 col-lg-1"
-				   onclick="$('#help1_ref').data('relative','#help_firmware_format'); show_help1();"
+				   onclick="wepsim_help_set_relative('#help_firmware_format'); wepsim_help_refresh();"
                                    >Help</a>
 		</div>
 		</div>
@@ -485,7 +481,7 @@
                                             }">Show Main Memory</a>
                             <a href="#" style="background-color: #D4DB17"
                                    class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-5 col-md-1 col-lg-1"
-				   onclick="$('#help1_ref').data('relative','#help_assembly_format'); show_help1();">Help</a>
+				   onclick="wepsim_help_set_relative('#help_assembly_format'); wepsim_help_refresh();">Help</a>
 		</div>
 		</div>
 
@@ -504,15 +500,15 @@
      style="width:19em; min-width:17em;">
 
         <table border="0" height="100%" width="100%">
-        <tr>
-        <td align="left" height="10%">
+        <tr height="10%">
+        <td align="left">
             <a href="#" data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-left">Close</a>
         </td>
         </tr>
 
         <tr>
-        <td valign=top>
-	    <ul id="listview_1" data-role="listview" data-inset="true" data-theme="a" data-divider-theme="b">
+        <td valign="top">
+	    <ul id="listview_1" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b">
 		    <li><a id="tab21" href="#" style="background-color: lightgray"
 			   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"><h2>Microcode</h2></a></li>
 		    <li><a id="tab24" href="#" style="background-color: lightgray"
@@ -522,8 +518,9 @@
 	    </ul>
         </td>
         </tr>
+
         <tr>
-        <td valign=middle>
+        <td valign="middle">
                <a href="#help1"    data-rel="popup"  data-position-to="window" 
                   onclick="wepsim_open_help_index();"
                   style="text-align:left; background-color: #D4DB17;"
@@ -979,13 +976,13 @@
 	     <input name="radio6" id="radio6-es" data-mini="true"
 		    aria-label="Idiom: Spanish"
 		    style="margin-top:-8px"
-		    onclick="set_cfg('ws_idiom','es'); save_cfg(); show_help1();"
+		    onclick="set_cfg('ws_idiom','es'); save_cfg(); wepsim_help_refresh();"
 		    value="ES" type="radio">
 	     <label for="radio6-es">ES</label>
 	     <input name="radio6" id="radio6-en" data-mini="true"
 		    aria-label="Idiom: English"
 		    style="margin-top:-8px"
-		    onclick="set_cfg('ws_idiom','en'); save_cfg(); show_help1();"
+		    onclick="set_cfg('ws_idiom','en'); save_cfg(); wepsim_help_refresh();"
 		    value="EN" type="radio">
 	     <label for="radio6-en">EN</label>
            </div>

@@ -50,3 +50,13 @@
                      description: "Graph of the signal dependencies (need several seconds to display).<br>"
                   });
 
+/*
+    helps.push({
+                     id:          "about",
+                     title:       "license, platform, technologies",
+                     type:        "absolute",
+                     reference:   "about",
+                     description: "WepSIM license, platforms, technologies used.<br>"
+                  });
+*/
+

@@ -277,6 +277,35 @@
      * Help
      */
 
+    function wepsim_help_refresh ( )
+    {
+        var rel = $('#help1_ref').data('relative') ;
+        if (rel != "") 
+        {
+            $('#iframe_help1').load('help/simulator-' + get_cfg('ws_idiom') + '.html ' + rel,
+	    		            function() {
+                                        $('#help1').trigger('updatelayout');
+                                        $('#help1').popup('open');
+                                    });
+
+            ga('send', 'event', 'help', 'help.simulator', 'help.simulator.' + rel);
+            return ;
+        }
+
+        var ab1 = $('#help1_ref').data('absolute') ;
+        if (ab1 != "") 
+        {
+            $('#iframe_help1').load('help/' + ab1 + '-' + get_cfg('ws_idiom') + '.html',
+	    		            function() {
+                                        $('#help1').trigger('updatelayout');
+                                        $('#help1').popup('open');
+                                    });
+
+            ga('send', 'event', 'help', 'help.' + ab1, 'help.' + ab1 + ".*");
+            return ;
+        }
+    }
+
     function wepsim_open_help_index ( )
     {
 	$('#iframe_help1').html(table_helps_html(helps)) ;
@@ -302,6 +331,17 @@
     {
 	$('#help1').popup('close') ;
     }
+
+    function wepsim_help_set_relative ( rel )
+    {
+        $('#help1_ref').data('relative', rel) ;
+    }
+
+    function wepsim_help_set_absolute ( ab1 )
+    {
+        $('#help1_ref').data('absolute', ab1) ;
+    }
+
 
     /*
      * Examples
@@ -610,7 +650,7 @@
      * Help management
      */
 
-    function show_help1 ( )
+    function show_help2 ( )
     {
         var rel = $('#help1_ref').data('relative') ;
         if (rel == "")
@@ -647,7 +687,11 @@
 
                var onclick_code = "" ;
                if ("relative" == e_type) 
-                   onclick_code = '$(\'#help1_ref\').data(\'relative\',\'' + e_reference + '\'); show_help1();' ;
+                   onclick_code = 'wepsim_help_set_relative(\'' + e_reference + '\');' + 
+                                  'wepsim_help_refresh();' ;
+               if ("absolute" == e_type) 
+                   onclick_code = 'wepsim_help_set_absolute(\'' + e_reference + '\');' + 
+                                  'wepsim_help_refresh();' ;
                if ("code" == e_type) 
                    onclick_code = e_reference ;
 
