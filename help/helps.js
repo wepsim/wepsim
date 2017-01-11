@@ -38,7 +38,7 @@
                      title:       "Simulated signals",
                      type:        "absolute",
                      reference:   "signals",
-                     description: "Elemental processor 'signals summary.<br>"
+                     description: "Signals summary of the simulated elemental processor.<br>"
                   });
 
     helps.push({
@@ -46,7 +46,7 @@
                      title:       "Hardware summary",
                      type:        "code",
                      reference:   "wepsim_open_help_content(\'<object id=svg_p2 data=\\'images/cpu6.svg?time=20170108\\' type=image/svg+xml>Your browser does not support SVG</object>\');",
-                     description: "Reference card of the elemental processor hardware simulated.<br>"
+                     description: "Reference card for the simulated elemental processor hardware.<br>"
                   });
 
     helps.push({
@@ -55,14 +55,14 @@
                      type:        "code",
                      reference:   "wepsim_open_help_content(\'<div id=depgraph1>...</div>\'); " +
                                   "show_visgraph(jit_fire_dep, jit_fire_order);",
-                     description: "Graph of the signal dependencies (it needs several seconds to display).<br>"
+                     description: "Graph of the signal dependencies (it needs several seconds to be displayed).<br>"
                   });
 
     helps.push({
                      id:          "about",
-                     title:       "License, platforms, technologies",
+                     title:       "License, platforms , technologies",
                      type:        "absolute",
                      reference:   "about",
-                     description: "WepSIM license, platforms, technologies used.<br>"
+                     description: "WepSIM license, supported platforms, technologies used.<br>"
                   });
 
