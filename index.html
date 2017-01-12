@@ -862,18 +862,38 @@
    </div>
    <div role="main" class="ui-content">
 
-        <div style="font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 16px; line-height: 24px; padding-bottom: 6.4px; padding-left: 8px; padding-right: 8px; padding-top: 6.4px; max-width: 555px;">
+        <div style="font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 16px; line-height: 24px; padding-bottom: 6.4px; padding-left: 8px; padding-right: 8px; padding-top: 6.4px; max-width: 850px;">
         <div class="row">
         <div class="col-xs-12 col-sm-12">
             Copyright &copy; 2015-2017 <br>
 	    <p>
-<a data-toggle="tooltip1" title=" <img class='img-rounded img-responsive' alt='Photo of F'elix Garc'ia Carballeira' src='images/author_fgarcia.png'> ">F&eacute;lix Garc&iacute;a Carballeira</a>,
-<a data-toggle="tooltip1" title=" <img class='img-rounded img-responsive' alt='Photo of Alejandro Calder'on Mateos' src='images/author_acaldero.png'> ">Alejandro Calder&oacute;n Mateos</a>,
-<br>
-<a data-toggle="tooltip1" title=" <img class='img-rounded img-responsive' alt='Photo of Javier Prieto Cepeda'  src='images/author_jprieto.png'> ">Javier Prieto Cepeda</a>,
-<a data-toggle="tooltip1" title=" <img class='img-rounded img-responsive' alt='Photo of Sa'ul Alonso Monsalve' src='images/author_salonso.png'> ">Sa&uacute;l Alonso Monsalve</a>
-<br>
+
+            <a href="#" 
+               class="btn btn-info" style="padding:0 0 0 0; color:white !important;"
+               data-toggle="popover1"
+               data-html="true" 
+               data-content="<img src='images/author_fgarcia.png' width='200'/>"
+               title="F&eacute;lix Garc&iacute;a Carballeira">F&eacute;lix Garc&iacute;a Carballeira</a> +
+            <a href="#" 
+               class="btn btn-info" style="padding:0 0 0 0; color:white !important;"
+               data-toggle="popover1"
+               data-html="true" 
+               data-content="<img src='images/author_acaldero.png' width='200'/>"
+               title="Alejandro Calder&oacute;n Mateos">Alejandro Calder&oacute;n Mateos</a> +
+            <a href="#" 
+               class="btn btn-info" style="padding:0 0 0 0; color:white !important;"
+               data-toggle="popover1"
+               data-html="true" 
+               data-content="<img src='images/author_jprieto.png' width='200'/><br><br><a href='https://es.linkedin.com/in/javier-prieto-cepeda'>linkedin</a>"
+               title="Javier Prieto Cepeda">Javier Prieto Cepeda</a> +
+            <a href="#" 
+               class="btn btn-info" style="padding:0 0 0 0; color:white !important;"
+               data-toggle="popover1"
+               data-html="true" 
+               data-content="<img src='images/author_salonso.png' width='200'/>"
+               title="Sa&uacute;l Alonso Monsalve">Sa&uacute;l Alonso Monsalve</a>
             <p>
+
             <a href="http://www.arcos.inf.uc3m.es/">ARCOS Group</a><br>
             <a href="http://www.inf.uc3m.es/en/">Computer Science and Engineering Department</a><br>
             <a href="http://www.uc3m.es/">Universidad Carlos III de Madrid</a><br>
@@ -897,7 +917,8 @@
              <div id="help1_ref" style="display:none;"></div>
              <a href="#" 
 		onclick="wepsim_open_help_index();"
-                data-role="button" data-theme="a">&lt;</a>
+                class="ui-btn ui-icon-home ui-btn-icon-left ui-shadow ui-corner-all"
+                data-role="button" data-theme="a">&nbsp;</a>
 	     <input name="radio6" id="radio6-es" data-mini="true"
 		    aria-label="Idiom: Spanish"
 		    style="margin-top:-8px"
@@ -1088,11 +1109,7 @@ if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(nav
                              });
 }
 
-            $('a[data-toggle="tooltip1"]').tooltip({
-                animated: 'fade',
-                placement: 'bottom',
-                html: true
-            });
+            $('a[data-toggle="popover1"]').popover() ;
     }
     catch(err) 
     {
