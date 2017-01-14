@@ -947,10 +947,12 @@
       <div data-role="header" data-theme="b" class="ui-corner-top">
            <div data-type="horizontal" data-role="controlgroup" class="ui-btn-left">  
              <div id="help1_ref" style="display:none;"></div>
-             <a href="#" 
-		onclick="wepsim_open_help_index();"
-                class="ui-btn ui-icon-home ui-btn-icon-left ui-shadow ui-corner-all"
-                data-role="button" data-theme="a">&nbsp;</a>
+	     <button type="button" 
+		     onclick="wepsim_open_help_index();"
+                     class="btn btn-success" 
+                     aria-label="Left Align">
+	        <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
+	     </button>
 	     <input name="radio6" id="radio6-es" data-mini="true"
 		    aria-label="Idiom: Spanish"
 		    style="margin-top:-8px"
