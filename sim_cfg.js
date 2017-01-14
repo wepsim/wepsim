@@ -51,6 +51,7 @@
 		 */
                WSCFG['DBG_delay']           = { value:10,                 type:"int"} ;
                WSCFG['DBG_level']           = { value:"instruction",      type:"string"} ;
+               WSCFG['DBG_limitick']        = { value:-1,                 type:"int"} ;
 
                WSCFG['RF_display_format']   = { value:16,                 type:"int"} ;
                WSCFG['RF_display_name']     = { value:'numerical',        type:"string"} ;

@@ -221,7 +221,9 @@
 	if (check_if_can_execute(true) == false)
 	    return false;
 
-	return execute_microprogram(-1) ;
+        var clklimit = get_cfg('DBG_limitick') ;
+
+	return execute_microprogram(clklimit) ;
     }
 
     function wepsim_execute_microinstruction ( )
@@ -422,9 +424,11 @@
 	    return ;
 	}
 
+        var clklimit = get_cfg('DBG_limitick') ;
+
 	var ret = false ;
 	if (get_cfg('DBG_level') == "instruction")
-	     ret = execute_microprogram(-1) ;
+	     ret = execute_microprogram(clklimit) ;
 	else ret = execute_microinstruction() ;
 
 	if (ret === false) {
