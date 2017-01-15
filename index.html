@@ -42,8 +42,14 @@
         height: inherit !important
     }
 
-    div.ui-input-text { 
+    div.ui-input-text, div.ui-slider { 
         margin: 0px 0px 0px 0px;
+    }
+    div.ui-slider-slider, input.ui-input-text, input.ui-slider-input {
+        display: none !important;
+    }
+    div.ui-slider-slider, div.ui-slider-track {
+        margin: 0 15px 0 15px !important;
     }
 
     .ui-icon-reset:after {
@@ -746,7 +752,7 @@
 	  <td>Speed-up</td>
 	  <td>
 		 <input type="range"
-			class="noshadow" style="margin:0 0 0 0"
+			class="noshadow ui-hidden-accessible" 
 			aria-label="Execution speed control"
 			data-show-value="false"
 			name="slider1" id="slider1"

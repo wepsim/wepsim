@@ -820,7 +820,8 @@
 		    label: 'Disable this tutorial',
 		    className: 'btn-danger',
 		    callback: function() {
-			set_cfg('is_welcome', true) ;
+			set_cfg('show_tutorials', false) ;
+                        save_cfg();
                         tutbox.modal("hide") ;
 		    }
 		},
