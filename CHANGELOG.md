@@ -1,8 +1,10 @@
 
 1.7.3 -> 1.7.5:
-* Up to 3 times faster than 1.7.1 version
-* Signal dependencies graph added
-* Examples: grid view
+* Faster: Up to 3 times faster than 1.7.1 version!
+* Easier: The new help center provides one place for all help
+* Convenient: tables for compact and uniform help-examples-configuration visualization
+* Signal dependencies graph included
+* New addv+seqv example
 
 1.7.2 -> 1.7.3:
 * Up to 50% faster execution 

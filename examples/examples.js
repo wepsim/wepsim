@@ -3,73 +3,92 @@
 
     examples.push({ 
                      id: 'S1E1',
-                     title: "Initial: instructions",
+                     title: "Instructions",
+                     level: "Initial",
                      description: "Simple example with fetch, arithmetic instructions, and basic .text segment.<br>"
                   });
 
     examples.push({ 
                      id: 'S1E2',
-                     title: "Initial: memory access",
+                     title: "Memory access",
+                     level: "Initial",
                      description: "Simple example with fetch, memory access, and basic .text/.data segment.<br>"
                   });
 
     examples.push({ 
                      id: 'S1E3',
-                     title: "Initial: looping",
+                     title: "Looping",
+                     level: "Initial",
                      description: "Simple example with fetch, branch, and basic .text segment.<br>"
                   });
 
     examples.push({ 
                      id: 'S1E4',
-                     title: "Initial: vector",
+                     title: "Vector",
+                     level: "Initial",
                      description: "Simple example with fetch, branch, and basic .text/.data segment.<br>"
                   });
 
     examples.push({ 
                      id: 'S2E1',
-                     title: "Intermediate: I/O",
+                     title: "I/O",
+                     level: "Intermediate",
                      description: "Example with programmed I/O access, and basic .text/.data segment.<br>"
                   });
 
     examples.push({ 
                      id: 'S2E2',
-                     title: "Intermediate: subrutine",
+                     title: "Subrutine",
+                     level: "Intermediate",
                      description: "Extended example with more instructions and I/O (keyboard, display).<br>" 
                   });
 
     examples.push({ 
                      id: 'S2E3',
-                     title: "Intermediate: masks & shift",
+                     title: "Masks & shift",
+                     level: "Intermediate",
                      description: "More extended example with masks, shift, and basic .text/.data segment.<br>"
                   });
 
     examples.push({ 
                      id: 'S2E4',
-                     title: "Intermediate: matrix",
+                     title: "Matrix",
+                     level: "Intermediate",
                      description: "Extended example with subrutine and matrix.<br>" 
                   });
 
     examples.push({ 
                      id: 'S3E1',
-                     title: "Advanced: interruptions",
+                     title: "Interruptions",
+                     level: "Advanced",
                      description: "Advanced example with interruptions support: fetch, RETI, and .ktext/.kdata.<br>" 
                   });
 
     examples.push({ 
                      id: 'S3E2',
-                     title: "Advanced: system call",
+                     title: "System call",
+                     level: "Advanced",
                      description: "Advanced example with system call support.<br>" 
                   });
 
     examples.push({ 
                      id: 'S3E3',
-                     title: "Advanced: exception",
+                     title: "Exception",
+                     level: "Advanced",
                      description: "Advanced example with floating point exception.<br>" 
                   });
 
     examples.push({ 
                      id: 'S3E4',
-                     title: "Advanced: int. + syscall + except.",
+                     title: "Int. + syscall + except.",
+                     level: "Advanced",
                      description: "Advanced example with interruption, system call, and exception.<br>" 
+                  });
+
+    examples.push({ 
+                     id: 'S4E1',
+                     title: "addv + seqv.",
+                     level: "Special",
+                     description: "Example of instructions addv and seqv.<br>" 
                   });
 
