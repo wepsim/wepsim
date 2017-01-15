@@ -1146,7 +1146,8 @@ if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(nav
 
             $('a[data-toggle="popover1"]').popover({
 		     placement: "top",
-                     animation: false, 
+                     trigger: 'focus',
+                     animation: false,
                      delay: { "show": 500, "hide": 100 } 
             }) ;
     }
