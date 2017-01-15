@@ -812,10 +812,18 @@
 
         tutorial[step].code_pre();
 
-	bootbox.dialog({
+	tutbox = bootbox.dialog({
 	    title:   tutorial[step].title,
 	    message: tutorial[step].message,
 	    buttons: {
+		cancel: {
+		    label: 'Disable this tutorial',
+		    className: 'btn-danger',
+		    callback: function() {
+			set_cfg('is_welcome', true) ;
+                        tutbox.modal("hide") ;
+		    }
+		},
 		confirm: {
 		    label: 'Next',
 		    className: 'btn-success',
@@ -824,12 +832,6 @@
 			setTimeout(function(){ 
 					sim_tutorial_showframe(tutorial, step + 1) ;
 				   }, 500);
-		    }
-		},
-		cancel: {
-		    label: 'Cancel',
-		    className: 'btn-danger',
-		    callback: function() {
 		    }
 		}
 	    },
