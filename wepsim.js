@@ -801,3 +801,39 @@
 	    setTimeout(function(){editor.refresh();}, 100);
     }
 
+    //
+    // Tutorials
+    //
+
+    function sim_tutorial_showframe ( tutorial, step )
+    {
+	if (step == tutorial.length)
+	    return;
+
+        tutorial[step].code_pre();
+
+	bootbox.dialog({
+	    title:   tutorial[step].title,
+	    message: tutorial[step].message,
+	    buttons: {
+		confirm: {
+		    label: 'Next',
+		    className: 'btn-success',
+		    callback: function() {
+			tutorial[step].code_post() ;
+			setTimeout(function(){ 
+					sim_tutorial_showframe(tutorial, step + 1) ;
+				   }, 500);
+		    }
+		},
+		cancel: {
+		    label: 'Cancel',
+		    className: 'btn-danger',
+		    callback: function() {
+		    }
+		}
+	    },
+            animate: false
+	});
+    }
+

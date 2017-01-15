@@ -77,6 +77,7 @@
     <script src="external/external.min.js"></script>
     <script src="examples/examples.js"></script>
     <script src="help/helps.js"></script>
+    <script src="tutorials/welcome.js"></script>
 
     <script src="min.sim_all.js"></script>
     <script src="min.sim_hw.js"></script> 
@@ -105,7 +106,9 @@
                 </div>
                 <span class="ui-title"><b>WepSIM</b> <span class="badge"><div class="wsversion">X</div></span> / Simulator</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
-                    <a href="#actions_panel" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
+                    <a id="menu1"
+                       href="#actions_panel"
+                       class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
 	</div><!-- /header -->
 
@@ -294,7 +297,9 @@
                 </div>
                 <span class="ui-title"><b>WepSIM</b> <span class="badge"><div class="wsversion">X</div></span> / Microcode</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
-                    <a href="#actions_panel" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
+                    <a id="menu1"
+                       href="#actions_panel"
+                       class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
 	</div><!-- /header -->
 
@@ -413,7 +418,9 @@
                 </div>
                 <span class="ui-title"><b>WepSIM</b> <span class="badge"><div class="wsversion">X</div></span> / Assembly</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
-                    <a href="#actions_panel" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
+                    <a id="menu1"
+                       href="#actions_panel"
+                       class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
 	</div><!-- /header -->
 
@@ -1150,6 +1157,8 @@ if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(nav
                      animation: false,
                      delay: { "show": 500, "hide": 100 } 
             }) ;
+
+            sim_tutorial_showframe(tut_welcome, 0) ;
     }
     catch(err) 
     {
