@@ -724,6 +724,8 @@
          *  show_memories
          */
 
+        var show_main_memory_deferred = null;
+
         function show_main_memory ( memory, index, redraw )
         {
 	    if (redraw == false) {
