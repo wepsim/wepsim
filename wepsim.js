@@ -822,6 +822,7 @@
 		    callback: function() {
 			set_cfg('show_tutorials', false) ;
                         save_cfg();
+                        $("#radio10-false").prop('checked', true).checkboxradio("refresh") ;
                         tutbox.modal("hide") ;
 		    }
 		},
