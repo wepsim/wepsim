@@ -822,6 +822,7 @@
 		    callback: function() {
 			set_cfg('show_tutorials', false) ;
                         save_cfg();
+                        $("#radio10-false").prop('checked', true).checkboxradio("refresh") ;
                         tutbox.modal("hide") ;
 		    }
 		},
@@ -832,7 +833,7 @@
 			tutorial[step].code_post() ;
 			setTimeout(function(){ 
 					sim_tutorial_showframe(tutorial, step + 1) ;
-				   }, 500);
+				   }, tutorial[step].wait_next);
 		    }
 		}
 	    },
