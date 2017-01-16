@@ -832,7 +832,7 @@
 			tutorial[step].code_post() ;
 			setTimeout(function(){ 
 					sim_tutorial_showframe(tutorial, step + 1) ;
-				   }, 500);
+				   }, tutorial[step].wait_next);
 		    }
 		}
 	    },
