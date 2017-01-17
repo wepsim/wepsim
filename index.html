@@ -997,6 +997,7 @@
            </div>
            <h1 style="padding:0 0 0 0;">
                <a href="#" 
+                  style="background-color: #D4DB17;"
 		  onclick="wepsim_open_help_index();"
                   class="ui-btn ui-btn-icon-right ui-btn-inline ui-icon-home ui-btn-a">Help</a>
            </h1>
@@ -1185,9 +1186,7 @@ if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(nav
                      delay: { "show": 500, "hide": 100 } 
             }) ;
 
-            if (get_cfg('show_tutorials')) {
-                sim_tutorial_showframe(tut_welcome, 0) ;
-            }
+            sim_tutorial_showframe(tut_welcome, 0) ;
     }
     catch(err) 
     {

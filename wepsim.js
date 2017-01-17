@@ -807,11 +807,19 @@
 
     function sim_tutorial_showframe ( tutorial, step )
     {
-	if (step == tutorial.length)
+        // 1.- check if
+        if (get_cfg('show_tutorials') == false) {
 	    return;
+        }
+	if (step == tutorial.length) {
+	    return;
+        }
 
+        // 2.- code_pre
         tutorial[step].code_pre();
 
+        // 3.- dialog +
+        //     code_post (next button) | cancel tutorials
 	tutbox = bootbox.dialog({
 	    title:   tutorial[step].title,
 	    message: tutorial[step].message,
