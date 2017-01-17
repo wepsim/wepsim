@@ -3,7 +3,7 @@
 + Get WepSIM Simulator:
 
    * (on-line) Web version (Google Chrome 45+, Mozilla Firefox 40+, Microsoft Edge 25+, and Apple Safari 10+): <br/>
-https://wepsim.github.io/wepsim (and http://www.arcos.inf.uc3m.es/infoec/wepsim-ng/)
+https://wepsim.github.io/wepsim
 
    * Android 5.0+ version: <br/> 
 https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim
@@ -12,7 +12,7 @@ https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim
 
 + Quick Start:
 
-   1 From the menu, there are different examples available (select 'both' from one of them):
+   1 From the menu, there are different examples available (click on the 'title' from one of them):
      ![screen:example](https://raw.githubusercontent.com/wepsim/wepsim/master/help/simulator/simulator015.jpg)
 
    2 Then go to the microcode editor workspace: 
