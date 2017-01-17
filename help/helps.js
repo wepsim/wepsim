@@ -60,7 +60,7 @@
 
     helps.push({
                      id:          "about",
-                     title:       "License, platforms, technologies",
+                     title:       "License, platforms, etc.",
                      type:        "absolute",
                      reference:   "about",
                      description: "WepSIM license, supported platforms, technologies used.<br>"
