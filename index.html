@@ -74,7 +74,7 @@
     }
 
     .split.split-horizontal, .gutter.gutter-horizontal {
-        height: 90%;
+        height: 80%;
         float: left;
     }
     </style>
@@ -83,6 +83,7 @@
     <script src="external/external.min.js"></script>
     <script src="examples/examples.js"></script>
     <script src="help/helps.js"></script>
+    <script src="tutorials/welcome.js"></script>
 
     <script src="min.sim_all.js"></script>
     <script src="min.sim_hw.js"></script> 
@@ -111,7 +112,9 @@
                 </div>
                 <span class="ui-title"><b>WepSIM</b> <span class="badge"><div class="wsversion">X</div></span> / Simulator</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
-                    <a href="#actions_panel" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
+                    <a id="menu1"
+                       href="#actions_panel"
+                       class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
 	</div><!-- /header -->
 
@@ -300,7 +303,9 @@
                 </div>
                 <span class="ui-title"><b>WepSIM</b> <span class="badge"><div class="wsversion">X</div></span> / Microcode</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
-                    <a href="#actions_panel" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
+                    <a id="menu1"
+                       href="#actions_panel"
+                       class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
 	</div><!-- /header -->
 
@@ -419,7 +424,9 @@
                 </div>
                 <span class="ui-title"><b>WepSIM</b> <span class="badge"><div class="wsversion">X</div></span> / Assembly</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
-                    <a href="#actions_panel" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
+                    <a id="menu1"
+                       href="#actions_panel"
+                       class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
 	</div><!-- /header -->
 
@@ -745,7 +752,7 @@
 	  <td>Speed-up</td>
 	  <td>
 		 <input type="range"
-			class="noshadow" style="margin:0 0 0 0"
+			class="noshadow ui-hidden-accessible" 
 			aria-label="Execution speed control"
 			data-show-value="false"
 			name="slider1" id="slider1"
@@ -878,6 +885,28 @@
 	  <td class="collapse7 collapse in">To limit clock ticks</td>
 	 </tr>
 
+	 <tr>
+	  <td class="collapse6 collapse in">13</td>
+	  <td class="hidden-xs" style="color:gray">help</td>
+	  <td>Active tutorials</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		     <input name="radio10" id="radio10-true" 
+			    aria-label="Is editable: true"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('show_tutorials',true); save_cfg();"
+			    value="on" type="radio">
+		     <label for="radio10-true">On</label>
+		     <input name="radio10" id="radio10-false" 
+			    aria-label="Is editable: false"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('show_tutorials',false); save_cfg();"
+			    value="off" type="radio">
+		     <label for="radio10-false">Off</label>
+		 </fieldset>
+          </td>
+	  <td class="collapse7 collapse in">Active tutorials</td>
+	 </tr>
 
 	</tbody>
 	</table>
@@ -1105,6 +1134,7 @@
 		    $("#radio6-" +          get_cfg('ws_idiom')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio7-" +      get_cfg('editor_theme')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio9-" +       get_cfg('is_editable')).prop('checked', true).checkboxradio("refresh") ;
+		    $("#radio10-" +   get_cfg('show_tutorials')).prop('checked', true).checkboxradio("refresh") ;
                     $("#select1").val(get_cfg('ICON_theme')).selectmenu("refresh");
                     $("#select2").val(get_cfg('editor_mode')).selectmenu("refresh");
                     $("#select3").val(get_cfg('DBG_limitick')).selectmenu("refresh");
@@ -1154,6 +1184,10 @@ if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(nav
                      animation: false,
                      delay: { "show": 500, "hide": 100 } 
             }) ;
+
+            if (get_cfg('show_tutorials')) {
+                sim_tutorial_showframe(tut_welcome, 0) ;
+            }
     }
     catch(err) 
     {

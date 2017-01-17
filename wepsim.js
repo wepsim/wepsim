@@ -801,3 +801,43 @@
 	    setTimeout(function(){editor.refresh();}, 100);
     }
 
+    //
+    // Tutorials
+    //
+
+    function sim_tutorial_showframe ( tutorial, step )
+    {
+	if (step == tutorial.length)
+	    return;
+
+        tutorial[step].code_pre();
+
+	tutbox = bootbox.dialog({
+	    title:   tutorial[step].title,
+	    message: tutorial[step].message,
+	    buttons: {
+		cancel: {
+		    label: 'Disable this tutorial',
+		    className: 'btn-danger',
+		    callback: function() {
+			set_cfg('show_tutorials', false) ;
+                        save_cfg();
+                        $("#radio10-false").prop('checked', true).checkboxradio("refresh") ;
+                        tutbox.modal("hide") ;
+		    }
+		},
+		confirm: {
+		    label: 'Next',
+		    className: 'btn-success',
+		    callback: function() {
+			tutorial[step].code_post() ;
+			setTimeout(function(){ 
+					sim_tutorial_showframe(tutorial, step + 1) ;
+				   }, tutorial[step].wait_next);
+		    }
+		}
+	    },
+            animate: false
+	});
+    }
+
