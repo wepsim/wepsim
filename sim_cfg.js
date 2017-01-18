@@ -20,7 +20,7 @@
 
 
         var WSCFG = new Object() ;
-        WSCFG['version'] = { value:"1.7.5", type:"string"} ;
+        WSCFG['version'] = { value:"1.7.6", type:"string"} ;
 
         function get_cfg ( field )
         {
@@ -35,7 +35,7 @@
         function reset_cfg ( )
         {
 		/*
-		 *  SVG configuration
+		 *  simulation screen: SVG
 		 */
                WSCFG['color_data_active']   = { value:"#0066FF",          type:"string"} ;
                WSCFG['color_data_inactive'] = { value:"rgb(0, 0, 0)",     type:"string"} ; // "black"
@@ -46,34 +46,38 @@
 	       WSCFG['size_active']         = { value:1.22,               type:"float"} ;
 	       WSCFG['size_inactive']       = { value:0.02,               type:"float"} ;
 
-		/*
-		 *  UI configuration
-		 */
-               WSCFG['DBG_delay']           = { value:10,                 type:"int"} ;
-               WSCFG['DBG_level']           = { value:"instruction",      type:"string"} ;
-               WSCFG['DBG_limitick']        = { value:-1,                 type:"int"} ;
+               WSCFG['is_byvalue']          = { value:false,              type:"boolean"};
 
+		/*
+		 *  simulation screen: Register File
+		 */
                WSCFG['RF_display_format']   = { value:16,                 type:"int"} ;
                WSCFG['RF_display_name']     = { value:'numerical',        type:"string"} ;
 
-               WSCFG['NOTIF_delay']         = { value:500,                type:"int"} ;
-               WSCFG['ICON_theme']          = { value:'classic',          type:"string"} ;
-               WSCFG['CPUCU_size']          = { value:55,                 type:"int"} ;
-
-		/*
-		 *  SIM working
-		 */
-
-               WSCFG['is_interactive']      = { value:true,               type:"boolean"};
-               WSCFG['is_byvalue']          = { value:false,              type:"boolean"};
                WSCFG['is_editable']         = { value:false,              type:"boolean"};
 
-               WSCFG['ws_idiom']            = { value:'es',               type:"string"};
+		/*
+		 *  simulation screen: Execution
+		 */
+               WSCFG['DBG_delay']           = { value:10,                 type:"int"} ;
+               WSCFG['DBG_level']           = { value:"instruction",      type:"string"} ;
+
+               WSCFG['DBG_limitick']        = { value:-1,                 type:"int"} ;
+               WSCFG['ICON_theme']          = { value:'classic',          type:"string"} ;
 
 		/*
-		 *  editor configuration
+		 *  simulation screen: Notification, etc.
 		 */
+               WSCFG['NOTIF_delay']         = { value:500,                type:"int"} ;
+               WSCFG['CPUCU_size']          = { value:55,                 type:"int"} ;
 
+               WSCFG['is_interactive']      = { value:true,               type:"boolean"};
+               WSCFG['ws_idiom']            = { value:'es',               type:"string"};
+               WSCFG['show_tutorials']      = { value:true,               type:"boolean"};
+
+		/*
+		 *  micro/assembly screen: editor
+		 */
                WSCFG['editor_theme']        = { value:'default',          type:"string"};
                WSCFG['editor_mode']         = { value:'default',          type:"string"};
         }

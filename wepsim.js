@@ -801,3 +801,79 @@
 	    setTimeout(function(){editor.refresh();}, 100);
     }
 
+    //
+    // Tutorials
+    //
+
+    function sim_tutorial_showframe ( tutorial, step )
+    {
+        // 1.- check if
+        if (get_cfg('show_tutorials') == false) {
+	    return;
+        }
+
+	if (step == tutorial.length)
+	    return;
+	if (step < 0) 
+	    return;
+
+        // 2.- code_pre
+        tutorial[step].code_pre();
+
+        // 3.- dialog +
+        //     code_post (next button) | cancel tutorials
+        var bbbt = new Object() ;
+            bbbt["cancel"] = {
+		    label: 'Disable this tutorial',
+		    className: 'btn-danger',
+		    callback: function() {
+			set_cfg('show_tutorials', false) ;
+                        save_cfg();
+                        $("#radio10-false").trigger("click").checkboxradio("refresh") ;
+                        tutbox.modal("hide") ;
+		    }
+		} ;
+
+        if (step != 0)
+            bbbt["prev"] = {
+		    label: 'Prev',
+		    className: 'btn-success',
+		    callback: function() {
+			tutorial[step].code_post() ;
+			setTimeout(function(){ 
+					sim_tutorial_showframe(tutorial, step - 1) ;
+				   }, tutorial[step].wait_next);
+		    }
+		};
+
+	if (step != (tutorial.length - 1))
+            bbbt["next"] = {
+		    label: 'Next',
+		    className: 'btn-success',
+		    callback: function() {
+			tutorial[step].code_post() ;
+			setTimeout(function(){ 
+					sim_tutorial_showframe(tutorial, step + 1) ;
+				   }, tutorial[step].wait_next);
+		    }
+		};
+	else
+            bbbt["end"] = {
+		    label: 'End',
+		    className: 'btn-success',
+		    callback: function() {
+			tutorial[step].code_post() ;
+			setTimeout(function(){ 
+					sim_tutorial_showframe(tutorial, step + 1) ;
+				   }, tutorial[step].wait_next);
+		    }
+		};
+
+	tutbox = bootbox.dialog({
+	    title:   tutorial[step].title,
+	    message: tutorial[step].message,
+	    buttons: bbbt,
+            animate: false
+	});
+    }
+
