@@ -28,16 +28,13 @@ https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim
      ![screen:code](https://raw.githubusercontent.com/wepsim/wepsim/master/help/simulator/assembly003.jpg)
 
    6 Finally, go back to the simulator workspace, and you can execute step by step and analyze the state of the components.
-       + It is possible to work at microcode level: 
-         ![screen:simulation cpu](https://raw.githubusercontent.com/wepsim/wepsim/master/help/simulator/simulator009.jpg)
-         ![screen:simulation cu](https://raw.githubusercontent.com/wepsim/wepsim/master/help/simulator/simulator012.jpg)
-       + And it is also possible to work at assembly level: 
-         ![screen:simulation asm](https://raw.githubusercontent.com/wepsim/wepsim/master/help/simulator/simulator010.jpg)
+       + It is possible to work at assembly level or at microcode level: 
+         ![screen:simulation cpu](https://raw.githubusercontent.com/acaldero/wepsim/1.7.6/tutorials/simulation_xinstruction.gif)
 
 + Main configuration options:
 
    + From the menu, there are different configuration options you can select:
-     ![screen:configuration](https://raw.githubusercontent.com/wepsim/wepsim/master/help/simulator/simulator014.jpg)
+     ![screen:configuration](https://raw.githubusercontent.com/acaldero/wepsim/1.7.6/tutorials/config_usage.gif)
 
    + From the simulator workspace, click over the 'processor button' shows/hides a slider to change the CPU/CU size:
      ![screen:configuration](https://raw.githubusercontent.com/wepsim/wepsim/master/help/simulator/simulator013.jpg)
