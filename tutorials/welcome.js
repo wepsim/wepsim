@@ -98,7 +98,7 @@
     tut_welcome.push({
                      id:          "welcome",
                      title:       "Welcome to the WepSIM simulator!",
-                     message:     "<img src='images/cfg-colors.gif' style='width:60%; max-height:60vh'>" +
+                     message:     "<img src='tutorials/help_usage.gif' style='width:100%; max-height:60vh'>" +
                                   "<br>" +
                                   "<h4>" +
                                   "<br>" +
