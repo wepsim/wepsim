@@ -704,20 +704,26 @@
 
         function check_if_can_continue ( with_ui )
         {
-		var reg_pc = parseInt(get_value(sim_states["REG_PC"]));
-		if (
-		     (parseInt(get_value(sim_states["REG_MICROADDR"])) == 0) &&
-		     ((reg_pc >= segments['.ktext'].end) || (reg_pc < segments['.ktext'].begin)) &&
-		     ((reg_pc >=  segments['.text'].end) || (reg_pc <  segments['.text'].begin))
-		   )
-		{
-                    if (with_ui)
-		        alert('INFO: The program has finished.\n' + 
-                              '(because the PC register points outside .ktext/.text code segments)');
-		    return false;
+		var reg_maddr = parseInt(get_value(sim_states["REG_MICROADDR"]));
+                if (reg_maddr != 0) {
+                    return true;
 		}
 
-                return true;
+		var reg_pc = parseInt(get_value(sim_states["REG_PC"]));
+		if ( (reg_pc < segments['.ktext'].end) && (reg_pc >= segments['.ktext'].begin)) {
+                    return true;
+		}
+		if ( (reg_pc <  segments['.text'].end) && (reg_pc >=  segments['.text'].begin)) {
+                    return true;
+		}
+
+                // (reg_maddr == 0) && (outside *text)
+	        if (with_ui) {
+	    	    alert('INFO: The program has finished.\n' + 
+		          '(because the PC register points outside .ktext/.text code segments)');
+	        }
+
+		return false;
         }
 
         function reset ()
