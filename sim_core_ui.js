@@ -931,9 +931,30 @@
                 return FIRMWARE.assembly[hexstrpc].source ;
         }
 
-        var old_addr = 0;
+
+        var show_asmdbg_pc_deferred = null;
+
+	function innershow_asmdbg_pc ( )
+	{
+	    fullshow_asmdbg_pc();
+	    show_asmdbg_pc_deferred = null;
+	}
 
 	function show_asmdbg_pc ( )
+	{
+            if (get_cfg('DBG_delay') > 8) {
+	        innershow_asmdbg_pc() ;
+                return ;
+            }
+
+            if (null == show_asmdbg_pc_deferred) {
+                show_asmdbg_pc_deferred = setTimeout(innershow_asmdbg_pc, 50);
+            }
+	}
+
+        var old_addr = 0;
+
+	function fullshow_asmdbg_pc ( )
 	{
                 var o1 = null ;
                 var reg_pc    = get_value(sim_states["REG_PC"]) ;
