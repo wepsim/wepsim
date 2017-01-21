@@ -1145,6 +1145,7 @@
                     $("#select1").val(get_cfg('ICON_theme')).selectmenu("refresh");
                     $("#select2").val(get_cfg('editor_mode')).selectmenu("refresh");
                     $("#select3").val(get_cfg('DBG_limitick')).selectmenu("refresh");
+                    $("#slider1").val(1000 / (get_cfg('DBG_delay')+0.01)).slider("refresh");
                     $("#img_select1").attr("src","images/stop_" + get_cfg('ICON_theme') + ".gif");
                     set_cpu_cu_size('#eltos_cpu_a','#eltos_cpu_b',get_cfg('CPUCU_size'));
                     $("#slider2").val(get_cfg('CPUCU_size')).slider("refresh");
