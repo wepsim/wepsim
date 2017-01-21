@@ -704,7 +704,12 @@
 
         function check_if_can_continue ( with_ui )
         {
-		var reg_maddr = parseInt(get_value(sim_states["REG_MICROADDR"]));
+		var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
+                if (typeof MC[reg_maddr] == "undefined") {
+                    return false;
+		}
+
+		// when do reset/fetch, check text segment bounds
                 if (reg_maddr != 0) {
                     return true;
 		}
@@ -717,7 +722,7 @@
                     return true;
 		}
 
-                // (reg_maddr == 0) && (outside *text)
+                // if (reg_maddr == 0) && (outside *text) -> cannot continue
 	        if (with_ui) {
 	    	    alert('INFO: The program has finished.\n' + 
 		          '(because the PC register points outside .ktext/.text code segments)');
@@ -762,11 +767,8 @@
 
         function execute_microinstruction ()
         {
-                var maddr = get_value(sim_states["REG_MICROADDR"]) ;
-                if (typeof MC[maddr] == "undefined")
-                    return false;
-                if ((0 == maddr) && (check_if_can_continue(true) == false))
-		    return false; // when do reset/fetch, check text segment bounds
+	        if (check_if_can_continue(true) == false)
+		    return false;
 
                 compute_general_behavior("CLOCK") ;
 
