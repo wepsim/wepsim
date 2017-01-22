@@ -17,7 +17,7 @@
                                   "</h4>",
                      code_pre:    function() { },
                      code_post:   function() { },
-                     wait_next:   200
+                     wait_next:   100
                   });
 
     tut_welcome.push({
@@ -32,7 +32,7 @@
                                   "</h4>",
                      code_pre:    function() { },
                      code_post:   function() { },
-                     wait_next:   200
+                     wait_next:   100
                   });
 
     tut_welcome.push({
@@ -44,9 +44,9 @@
                                   "Click the example button, <br>then click in the example 'title' name." +
                                   "<br>" +
                                   "</h4>",
-                     code_pre:    function() {  },
-                     code_post:   function() { load_from_example_firmware("S1E1", true); },
-                     wait_next:   200
+                     code_pre:    function() { },
+                     code_post:   function() { },
+                     wait_next:   100
                   });
 
     tut_welcome.push({
@@ -59,11 +59,8 @@
                                   "<br>" +
                                   "</h4>",
                      code_pre:    function() {  },
-                     code_post:   function() {
-                                      wepsim_execute_microinstruction() ;
-                                      wepsim_execute_microinstruction() ;
-                                  },
-                     wait_next:   200
+                     code_post:   function() { },
+                     wait_next:   100
                   });
 
     tut_welcome.push({
@@ -77,7 +74,7 @@
                                   "</h4>",
                      code_pre:    function() { },
                      code_post:   function() { },
-                     wait_next:   200
+                     wait_next:   100
                   });
 
     tut_welcome.push({
@@ -92,7 +89,7 @@
                                   "</h4>",
                      code_pre:    function() { },
                      code_post:   function() { },
-                     wait_next:   200
+                     wait_next:   100
                   });
 
     tut_welcome.push({
@@ -106,7 +103,10 @@
                                   "<br>" +
                                   "</h4>",
                      code_pre:    function() {  },
-                     code_post:   function() {  },
-                     wait_next:   200
+                     code_post:   function() {
+                                      load_from_example_firmware("S1E1", true);
+                                      wepsim_execute_microinstruction() ;
+                                  },
+                     wait_next:   100
                   });
 

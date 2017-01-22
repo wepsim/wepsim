@@ -282,7 +282,7 @@
     function wepsim_help_refresh ( )
     {
         var rel = $('#help1_ref').data('relative') ;
-        if (rel != "") 
+        if ( (typeof rel != "undefined") && (rel != "") )
         {
             $('#iframe_help1').load('help/simulator-' + get_cfg('ws_idiom') + '.html ' + rel,
 	    		            function() {
@@ -295,7 +295,7 @@
         }
 
         var ab1 = $('#help1_ref').data('absolute') ;
-        if (ab1 != "") 
+        if ( (typeof ab1 != "undefined") && (ab1 != "") )
         {
             $('#iframe_help1').load('help/' + ab1 + '-' + get_cfg('ws_idiom') + '.html',
 	    		            function() {
@@ -306,11 +306,15 @@
             ga('send', 'event', 'help', 'help.' + ab1, 'help.' + ab1 + ".*");
             return ;
         }
+
+        wepsim_open_help_index() ;
     }
 
     function wepsim_open_help_index ( )
     {
-	$('#iframe_help1').html(table_helps_html(helps)) ;
+        var help_xx = help[get_cfg('ws_idiom')] ;
+
+	$('#iframe_help1').html(table_helps_html(help_xx)) ;
 	$('#iframe_help1').enhanceWithin() ;
 
 	$('#help1_ref').data('relative','') ;

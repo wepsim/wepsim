@@ -437,7 +437,7 @@
                 return;
 
             var innerdelay = 125;
-            if (get_cfg('DBG_delay') < 8)
+            if (get_cfg('DBG_delay') < 5)
                 innerdelay = 375;
 
             show_rf_values_deferred = setTimeout(innershow_rf_values, innerdelay);
@@ -541,7 +541,7 @@
                 return;
 
             var innerdelay = 130;
-            if (get_cfg('DBG_delay') < 8)
+            if (get_cfg('DBG_delay') < 5)
                 innerdelay = 390;
 
             show_eltos_deferred = setTimeout(function() {
@@ -740,7 +740,7 @@
         function show_main_memory ( memory, index, redraw )
         {
             var innerdelay = 150;
-            if (get_cfg('DBG_delay') < 8)
+            if (get_cfg('DBG_delay') < 5)
                 innerdelay = 450;
 
             if (null != show_main_memory_deferred)
@@ -835,7 +835,7 @@
         function show_control_memory ( memory, memory_dashboard, index, redraw )
         {
             var innerdelay = 120;
-            if (get_cfg('DBG_delay') < 8)
+            if (get_cfg('DBG_delay') < 5)
                 innerdelay = 360;
 
             if (null != show_control_memory_deferred)
@@ -955,7 +955,7 @@
 
 	function show_asmdbg_pc ( )
 	{
-            if (get_cfg('DBG_delay') > 8)
+            if (get_cfg('DBG_delay') > 5)
 	        return fullshow_asmdbg_pc();
 
             if (null == show_asmdbg_pc_deferred)
@@ -1051,7 +1051,7 @@
                 return;
 
             var innerdelay = 100;
-            if (get_cfg('DBG_delay') < 8)
+            if (get_cfg('DBG_delay') < 5)
                 innerdelay = 300;
 
             show_dbg_ir_deferred = setTimeout(function() {
