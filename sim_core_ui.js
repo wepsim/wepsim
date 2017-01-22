@@ -425,15 +425,22 @@
 
         var show_rf_values_deferred = null;
 
+        function innershow_rf_values ( )
+        {
+	    fullshow_rf_values();
+	    show_rf_values_deferred = null;
+        }
+
         function show_rf_values ( )
         {
-            if (null == show_rf_values_deferred)
-            {
-                show_rf_values_deferred = setTimeout(function() {
-                                                        fullshow_rf_values();
-                                                        show_rf_values_deferred=null;
-                                                     }, 125);
-            }
+            if (null != show_rf_values_deferred)
+                return;
+
+            var innerdelay = 125;
+            if (get_cfg('DBG_delay') < 8)
+                innerdelay = 375;
+
+            show_rf_values_deferred = setTimeout(innershow_rf_values, innerdelay);
         }
 
         function show_rf_names ( )
@@ -530,13 +537,17 @@
 
         function show_eltos ( sim_eltos, filter )
         {
-            if (null == show_eltos_deferred)
-            {
-                show_eltos_deferred = setTimeout(function() {
-                                                        fullshow_eltos(sim_eltos, filter);
-                                                        show_eltos_deferred = null;
-                                                 }, 130);
-            }
+            if (null != show_eltos_deferred)
+                return;
+
+            var innerdelay = 130;
+            if (get_cfg('DBG_delay') < 8)
+                innerdelay = 390;
+
+            show_eltos_deferred = setTimeout(function() {
+                                                   fullshow_eltos(sim_eltos, filter);
+                                                   show_eltos_deferred = null;
+                                             }, innerdelay);
         }
 
 
@@ -728,18 +739,19 @@
 
         function show_main_memory ( memory, index, redraw )
         {
-	    if (redraw == false) {
-		light_refresh_main_memory(memory, index);
-                return ;
-            }
+            var innerdelay = 150;
+            if (get_cfg('DBG_delay') < 8)
+                innerdelay = 450;
 
-            if (null != show_main_memory_deferred) 
+            if (null != show_main_memory_deferred)
                 clearTimeout(show_main_memory_deferred) ;
 
             show_main_memory_deferred = setTimeout(function () {
-                                                       hard_refresh_main_memory(memory, index, redraw) ;
-                                                       show_main_memory_deferred = null;
-                                                   }, 150);
+						        if (redraw == false)
+						    	     light_refresh_main_memory(memory, index);
+                                                        else  hard_refresh_main_memory(memory, index, redraw) ;
+                                                        show_main_memory_deferred = null;
+                                                   }, innerdelay);
         }
 
         function hard_refresh_main_memory ( memory, index, redraw )
@@ -822,18 +834,19 @@
 
         function show_control_memory ( memory, memory_dashboard, index, redraw )
         {
-            if (false == redraw) {
-                light_refresh_control_memory(memory, memory_dashboard, index);
-                return ;
-            }
+            var innerdelay = 120;
+            if (get_cfg('DBG_delay') < 8)
+                innerdelay = 360;
 
-            if (null != show_control_memory_deferred) 
+            if (null != show_control_memory_deferred)
                 clearTimeout(show_control_memory_deferred) ;
 
             show_control_memory_deferred = setTimeout(function () {
-                                            hard_refresh_control_memory(memory, memory_dashboard, index, redraw);
-                                            show_control_memory_deferred = null;
-                                           }, 120);
+						         if (false == redraw)
+							      light_refresh_control_memory(memory, memory_dashboard, index);
+                                                         else  hard_refresh_control_memory(memory, memory_dashboard, index, redraw);
+                                                         show_control_memory_deferred = null;
+                                                      }, innerdelay);
         }
 
         function hard_refresh_control_memory ( memory, memory_dashboard, index, redraw )
@@ -942,14 +955,11 @@
 
 	function show_asmdbg_pc ( )
 	{
-            if (get_cfg('DBG_delay') > 8) {
-	        innershow_asmdbg_pc() ;
-                return ;
-            }
+            if (get_cfg('DBG_delay') > 8)
+	        return fullshow_asmdbg_pc();
 
-            if (null == show_asmdbg_pc_deferred) {
+            if (null == show_asmdbg_pc_deferred)
                 show_asmdbg_pc_deferred = setTimeout(innershow_asmdbg_pc, 50);
-            }
 	}
 
         var old_addr = 0;
@@ -1037,26 +1047,30 @@
 
 	function show_dbg_ir ( decins )
 	{
-            if (null == show_dbg_ir_deferred)
-            {
-                show_dbg_ir_deferred = setTimeout(function() {
-                                                        fullshow_dbg_ir(decins);
-                                                        show_dbg_ir_deferred = null;
-                                                     }, 100);
-            }
+            if (null != show_dbg_ir_deferred)
+                return;
+
+            var innerdelay = 100;
+            if (get_cfg('DBG_delay') < 8)
+                innerdelay = 300;
+
+            show_dbg_ir_deferred = setTimeout(function() {
+                                                   fullshow_dbg_ir(decins);
+                                                   show_dbg_ir_deferred = null;
+                                              }, innerdelay);
 	}
 
 	function fullshow_dbg_ir ( decins )
 	{
-	        var o = document.getElementById('svg_p');
-	        if (o != null) o = o.contentDocument;
-	        if (o != null) o = o.getElementById('tspan3899');
-	        if (o != null) o.innerHTML = decins ;
+	     var o = document.getElementById('svg_p');
+	     if (o != null) o = o.contentDocument;
+	     if (o != null) o = o.getElementById('tspan3899');
+	     if (o != null) o.innerHTML = decins ;
 
-	        var o = document.getElementById('svg_cu');
-	        if (o != null) o = o.contentDocument;
-	        if (o != null) o = o.getElementById('text3611');
-	        if (o != null) o.innerHTML = decins ;
+	     var o = document.getElementById('svg_cu');
+	     if (o != null) o = o.contentDocument;
+	     if (o != null) o = o.getElementById('text3611');
+	     if (o != null) o.innerHTML = decins ;
 	}
 
         // Console (Screen + Keyboard)
