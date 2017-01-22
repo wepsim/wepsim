@@ -1,8 +1,8 @@
-/*      
+/*
  *  Copyright 2015-2017 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
- * 
+ *
  *  WepSIM is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -23,8 +23,8 @@
     // WepSIM API
     //
 
-    /* 
-     * File/URL  
+    /*
+     * File/URL
      */
 
     function wepsim_load_from_file ( fileToLoad, inputEditor )
@@ -86,22 +86,129 @@
 	xmlhttp.send();
     }
 
-    /* 
-     * Microcompile and compile 
+    /*
+     * Microcompile and compile
      */
 
-    function wepsim_compile_assembly ( textToCompile )
+    function wepsim_compile_assembly ( textToCompile, with_ui )
     {
-        return compileAssembly(textToCompile, false);
+        // get SIMWARE.firmware
+        var SIMWARE = get_simware() ;
+	if (SIMWARE.firmware.length == 0)
+        {
+            if (with_ui) {
+                alert('WARNING: please load the microcode first.');
+                $.mobile.pageContainer.pagecontainer('change','#main3');
+            }
+            return false;
+	}
+
+        // compile Assembly and show message
+        var SIMWAREaddon = simlang_compile(textToCompile, SIMWARE);
+        if (SIMWAREaddon.error != null)
+        {
+            if (with_ui)
+                showError(SIMWAREaddon.error, "inputasm") ;
+            return false;
+        }
+
+        if (with_ui)
+	    $.notify({ title: '<strong>INFO</strong>', message: 'Assembly was compiled and loaded.'},
+		     { type: 'success',
+                       newest_on_top: true,
+                       delay: get_cfg('NOTIF_delay'),
+                       placement: { from: 'top', align: 'center' } });
+
+        // update memory and segments
+        set_simware(SIMWAREaddon) ;
+	update_memories(SIMWARE);
+
+        // update UI
+        if (with_ui) {
+            $("#asm_debugger").html(assembly2html(SIMWAREaddon.mp,
+                                                  SIMWAREaddon.labels2,
+                                                  SIMWAREaddon.seg,
+                                                  SIMWAREaddon.assembly));
+            showhideAsmElements();
+        }
+
+	reset();
+        return true;
     }
 
-    function wepsim_compile_microcode ( textToMCompile )
+    function wepsim_compile_firmware ( textToMCompile, with_ui )
     {
-        return compileFirmware(textToMCompile, false);
+	var preSM = load_firmware(textToMCompile) ;
+	if (preSM.error != null)
+        {
+            if (with_ui)
+                showError(preSM.error, "inputfirm") ;
+            return false;
+        }
+
+        if (with_ui)
+	    $.notify({ title: '<strong>INFO</strong>', message: 'Microcode was compiled and loaded.'},
+	    	     { type: 'success',
+                       newest_on_top: true,
+                       delay: get_cfg('NOTIF_delay'),
+                       placement: { from: 'top', align: 'center' } });
+
+        // update UI
+	reset() ;
+        return true;
     }
 
-    /* 
-     * Play/stop 
+    /*
+     * Show binaries
+     */
+
+    function wepsim_show_binary_code ( popup_id, popup_content_id )
+    {
+        $(popup_content_id).html("<center>" +
+                                 "<br>Loading binary, please wait..." +
+                                 "<br>" +
+                                 "<br>WARNING: loading binary might take time on slow mobile devices." +
+                                 "</center>");
+        $(popup_content_id).css({width:"100%",height:"inherit !important"});
+	$(popup_id).popup('open');
+
+	setTimeout(function(){
+			var SIMWARE = get_simware() ;
+
+			$(popup_content_id).html(mp2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg));
+			$(popup_id).popup("reposition", {positionTo: 'window'});
+
+			for (skey in SIMWARE.seg) {
+			     $("#compile_begin_" + skey).html("0x" + SIMWARE.seg[skey].begin.toString(16));
+			     $("#compile_end_"   + skey).html("0x" + SIMWARE.seg[skey].end.toString(16));
+			}
+                   }, 300);
+    }
+
+    function wepsim_show_binary_microcode ( popup_id, popup_content_id )
+    {
+        $(popup_content_id).html("<center>" +
+                                 "<br>Loading binary, please wait..." +
+                                 "<br>" +
+                                 "<br>WARNING: loading binary might take time on slow mobile devices." +
+                                 "</center>");
+        $(popup_content_id).css({width:"100%",height:"inherit !important"});
+	$(popup_id).popup('open');
+
+	setTimeout(function() {
+			var SIMWARE = get_simware() ;
+			$(popup_content_id).html(firmware2html(SIMWARE.firmware, true));
+			$(popup_content_id).css({width:"inherit !important", height:"inherit !important"});
+
+			$(popup_id).enhanceWithin();
+			$(popup_id).trigger('updatelayout');
+			$(popup_id).popup("reposition", {positionTo: 'window'});
+			$(popup_id).trigger('refresh');
+                   }, 300);
+    }
+
+    /*
+     * Play/stop
      */
 
     function wepsim_execute_reset ( )
@@ -114,7 +221,9 @@
 	if (check_if_can_execute(true) == false)
 	    return false;
 
-	return execute_microprogram() ;
+        var clklimit = get_cfg('DBG_limitick') ;
+
+	return execute_microprogram(clklimit) ;
     }
 
     function wepsim_execute_microinstruction ( )
@@ -156,6 +265,112 @@
         wepsim_execute_chainplay(btn1) ;
     }
 
+    function wepsim_execute_toggle_play ( btn1 )
+    {
+        if (DBG_stop == false) {
+            DBG_stop = true ; // will help to execute_play stop playing
+        } else {
+            DBG_stop = false ;
+            wepsim_execute_play(btn1) ;
+        }
+    }
+
+    /*
+     * Help
+     */
+
+    function wepsim_help_refresh ( )
+    {
+        var rel = $('#help1_ref').data('relative') ;
+        if (rel != "") 
+        {
+            $('#iframe_help1').load('help/simulator-' + get_cfg('ws_idiom') + '.html ' + rel,
+	    		            function() {
+                                        $('#help1').trigger('updatelayout');
+                                        $('#help1').popup('open');
+                                    });
+
+            ga('send', 'event', 'help', 'help.simulator', 'help.simulator.' + rel);
+            return ;
+        }
+
+        var ab1 = $('#help1_ref').data('absolute') ;
+        if (ab1 != "") 
+        {
+            $('#iframe_help1').load('help/' + ab1 + '-' + get_cfg('ws_idiom') + '.html',
+	    		            function() {
+                                        $('#help1').trigger('updatelayout');
+                                        $('#help1').popup('open');
+                                    });
+
+            ga('send', 'event', 'help', 'help.' + ab1, 'help.' + ab1 + ".*");
+            return ;
+        }
+    }
+
+    function wepsim_open_help_index ( )
+    {
+	$('#iframe_help1').html(table_helps_html(helps)) ;
+	$('#iframe_help1').enhanceWithin() ;
+
+	$('#help1_ref').data('relative','') ;
+	$('#help1').trigger('updatelayout') ;
+	$('#help1').popup('open') ;
+    }
+
+    function wepsim_open_help_content ( content )
+    {
+        $('#iframe_help1').html(content) ;
+        $('#iframe_help1').enhanceWithin() ;
+
+        $('#help1_ref').data('relative','') ;
+        $('#help1').trigger('updatelayout') ;
+        $('#help1').popup('reposition', {positionTo: 'window'}) ;
+        $('#help1').popup('open') ;
+    }
+
+    function wepsim_close_help ( )
+    {
+	$('#help1').popup('close') ;
+    }
+
+    function wepsim_help_set_relative ( rel )
+    {
+        $('#help1_ref').data('relative', rel) ;
+    }
+
+    function wepsim_help_set_absolute ( ab1 )
+    {
+        $('#help1_ref').data('absolute', ab1) ;
+    }
+
+
+    /*
+     * Examples
+     */
+
+    function wepsim_open_examples_index ( )
+    {
+        $("#container-example1").html(table_examples_html(examples));
+        $("#container-example1").enhanceWithin();
+	$('#example1').trigger('updatelayout') ;
+	$('#example1').popup('open') ;
+    }
+
+    function wepsim_close_examples ( )
+    {
+	$('#example1').popup('close') ;
+    }
+
+
+    //
+    // Auxiliar functions
+    //
+
+    /*
+     * Play/stop
+     */
+
     function wepsim_check_stopbynotify_firm ( )
     {
         var reg_maddr     = get_value(sim_states["REG_MICROADDR"]) ;
@@ -166,7 +381,7 @@
 
         var ret  = false ;
         var noti = "" ;
-        for (var i=1; i<notifications; i++) 
+        for (var i=1; i<notifications; i++)
         {
              noti = MC_dashboard[reg_maddr].notify[i] ;
 	     ret  = confirm("Notify @ " + reg_maddr + ":\n" + noti) ;
@@ -209,9 +424,11 @@
 	    return ;
 	}
 
+        var clklimit = get_cfg('DBG_limitick') ;
+
 	var ret = false ;
 	if (get_cfg('DBG_level') == "instruction")
-	     ret = execute_microprogram() ;
+	     ret = execute_microprogram(clklimit) ;
 	else ret = execute_microinstruction() ;
 
 	if (ret === false) {
@@ -240,148 +457,11 @@
 	setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), btn1) ;
     }
 
-    function wepsim_execute_toggle_play ( btn1 )
-    {
-        if (DBG_stop == false) {
-            DBG_stop = true ; // will help to execute_play stop playing
-        } else {
-            DBG_stop = false ; 
-            wepsim_execute_play(btn1) ;
-        }
-    }
+    /*
+     * UI elements
+     */
 
-
-    //
-    // WepSIM UI
-    //
-
-    function compileAssembly ( textToCompile, with_ui ) 
-    {
-        // get SIMWARE.firmware
-        var SIMWARE = get_simware() ;
-	if (SIMWARE.firmware.length == 0) 
-        {
-            if (with_ui) {
-                alert('WARNING: please load the microcode first.');
-                $.mobile.pageContainer.pagecontainer('change','#main3');
-            }
-            return false;
-	} 
-
-        // compile Assembly and show message
-        var SIMWAREaddon = simlang_compile(textToCompile, SIMWARE);
-        if (SIMWAREaddon.error != null) 
-        {
-            if (with_ui)
-                showError(SIMWAREaddon.error, "inputasm") ;
-            return false;
-        }
-
-        if (with_ui)
-	    $.notify({ title: '<strong>INFO</strong>', message: 'Assembly was compiled and loaded.'},
-		     { type: 'success', 
-                       newest_on_top: true, 
-                       delay: get_cfg('NOTIF_delay'), 
-                       placement: { from: 'top', align: 'center' } });
-
-        // update memory and segments
-        set_simware(SIMWAREaddon) ;
-	update_memories(SIMWARE);
-
-        // update UI 
-        if (with_ui) {
-            $("#asm_debugger").html(assembly2html(SIMWAREaddon.mp, 
-                                                  SIMWAREaddon.labels2, 
-                                                  SIMWAREaddon.seg, 
-                                                  SIMWAREaddon.assembly));
-            showhideAsmElements();
-        }
-
-	reset();
-        return true;
-    }
-
-    function showBinaryCode ( popup_id, popup_content_id ) 
-    {
-        $(popup_content_id).html("<center>" +
-                                 "<br>Loading binary, please wait..." +
-                                 "<br>" + 
-                                 "<br>WARNING: loading binary might take time on slow mobile devices." + 
-                                 "</center>");
-        $(popup_content_id).css({width:"100%",height:"inherit !important"});
-	$(popup_id).popup('open');
-
-	setTimeout(function(){ 
-			var SIMWARE = get_simware() ;
-
-			$(popup_content_id).html(mp2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg));
-			$(popup_id).popup("reposition", {positionTo: 'window'});
-
-			for (skey in SIMWARE.seg) {
-			     $("#compile_begin_" + skey).html("0x" + SIMWARE.seg[skey].begin.toString(16));
-			     $("#compile_end_"   + skey).html("0x" + SIMWARE.seg[skey].end.toString(16));
-			}
-                   }, 300);
-    }
-
-    function compileFirmware ( textToMCompile, with_ui ) 
-    {
-	var preSM = load_firmware(textToMCompile) ;
-	if (preSM.error != null) 
-        {
-            if (with_ui)
-                showError(preSM.error, "inputfirm") ;
-            return false;
-        }
-
-        if (with_ui)
-	    $.notify({ title: '<strong>INFO</strong>', message: 'Microcode was compiled and loaded.'},
-	    	     { type: 'success', 
-                       newest_on_top: true, 
-                       delay: get_cfg('NOTIF_delay'), 
-                       placement: { from: 'top', align: 'center' } });
-
-        // update UI 
-	reset() ;
-        return true;
-    }
-
-    function showBinaryMicrocode ( popup_id, popup_content_id ) 
-    {
-        $(popup_content_id).html("<center>" +
-                                 "<br>Loading binary, please wait..." +
-                                 "<br>" + 
-                                 "<br>WARNING: loading binary might take time on slow mobile devices." + 
-                                 "</center>");
-        $(popup_content_id).css({width:"100%",height:"inherit !important"});
-	$(popup_id).popup('open');
-
-	setTimeout(function() {
-			var SIMWARE = get_simware() ;
-			$(popup_content_id).html(firmware2html(SIMWARE.firmware, true));
-			$(popup_content_id).css({width:"inherit !important", height:"inherit !important"});
-
-			$(popup_id).enhanceWithin();
-			$(popup_id).trigger('updatelayout');
-			$(popup_id).popup("reposition", {positionTo: 'window'});
-			$(popup_id).trigger('refresh');
-                   }, 300);
-    }
-
-    function set_cpu_cu_size ( diva, divb, new_value ) 
-    {
-	var a = new_value;
-	var b = 100 - a;
-	$('#eltos_cpu_a').css({width: a+'%'});
-	$('#eltos_cpu_b').css({width: b+'%'});
-    }
-
-
-    //
-    // Auxiliar functions
-    //
-
-    function showError ( Msg, editor ) 
+    function showError ( Msg, editor )
     {
             var errorMsg = Msg.replace(/\t/g,' ').replace(/   /g,' ');
 
@@ -389,7 +469,7 @@
             var lineMsg = '' ;
             if (null != pos) {
                 pos = parseInt(pos[0].match(/\d+/)[0]);
-                lineMsg += '<button type="button" class="btn btn-danger" ' + 
+                lineMsg += '<button type="button" class="btn btn-danger" ' +
                            '        onclick="$.notifyClose();' +
                            '                      var marked = ' + editor + '.addLineClass(' + (pos-1) + ', \'background\', \'CodeMirror-selected\');' +
                            '                 setTimeout(function() { ' + editor + '.removeLineClass(marked, \'background\', \'CodeMirror-selected\'); }, 3000);' +
@@ -398,20 +478,20 @@
 		           '		     ' + editor + '.scrollTo(null, t - middleHeight - 5);">Go line ' + pos + '</button>&nbsp;' ;
             }
 
-	    $.notify({ title: '<strong>ERROR</strong>', 
-                       message: errorMsg + '<br>' + 
-                                '<center>' +  
-                                lineMsg + 
-                                '<button type="button" class="btn btn-danger" onclick="$.notifyClose();">Close</button>' + 
+	    $.notify({ title: '<strong>ERROR</strong>',
+                       message: errorMsg + '<br>' +
+                                '<center>' +
+                                lineMsg +
+                                '<button type="button" class="btn btn-danger" onclick="$.notifyClose();">Close</button>' +
                                 '</center>' },
-		     { type: 'danger', 
-                       newest_on_top: true, 
-                       delay: 0, 
+		     { type: 'danger',
+                       newest_on_top: true,
+                       delay: 0,
                        placement: { from: 'top', align: 'center' }
                      });
     }
 
-    function showhideAsmElements ( ) 
+    function showhideAsmElements ( )
     {
 	$("input:checkbox:checked").each(function() {
 		var column = "table ." + $(this).attr("name");
@@ -424,127 +504,18 @@
 	});
     }
 
-
-    //
-    // Help management
-    //
-
-    function show_help1 ( )
+    function set_cpu_cu_size ( diva, divb, new_value )
     {
-        var rel = $('#help1_ref').data('relative') ;
-        if (rel == "")
-            return;
-
-        $('#iframe_help1').load('help/simulator-' + get_cfg('ws_idiom') + '.html ' + rel,
-			        function() {
-                                    $('#help1').trigger('updatelayout'); 
-                                    $('#help1').popup('open');
-                                });
-
-        ga('send', 'event', 'help', 'help.simulator', 'help.simulator.' + rel);
+	var a = new_value;
+	var b = 100 - a;
+	$('#eltos_cpu_a').css({width: a+'%'});
+	$('#eltos_cpu_b').css({width: b+'%'});
     }
 
 
-    //
-    // Initialize
-    //
-
-    function sim_prepare_svg_p ( )
-    {
-	    var ref_p = document.getElementById('svg_p').contentDocument ;
-	    if (ref_p != null)
-            {
-                var o  = ref_p.getElementById('text3495');
-	        if (o != null) o.addEventListener('click', 
-                                                  function() { 
-                                                     $('#tab11').trigger('click');
-                                                  }, false);
-	        var o  = ref_p.getElementById('text3029');
-	        if (o != null) o.addEventListener('click', 
-                                                  function() { 
-                                                     $('#tab11').trigger('click');
-                                                  }, false);
-	        var o  = ref_p.getElementById('text3031');
-	        if (o != null) o.addEventListener('click', 
-                                                  function() { 
-                                                     $('#tab11').trigger('click');
-                                                  }, false);
-	        var o  = ref_p.getElementById('text3001');
-	        if (o != null) o.addEventListener('click', 
-                                                  function() { 
-                                                     $('#tab14').trigger('click');
-                                                  }, false);
-	        var o  = ref_p.getElementById('text3775');
-	        if (o != null) o.addEventListener('click', 
-                                                  function() { 
-                                                     $('#tab15').trigger('click');
-                                                  }, false);
-	        var o  = ref_p.getElementById('text3829');
-	        if (o != null) o.addEventListener('click', 
-                                                  function() { 
-                                                     $('#tab12').trigger('click');
-                                                  }, false);
-	        var o  = ref_p.getElementById('text3845');
-	        if (o != null) o.addEventListener('click', 
-                                                  function() { 
-                                                     $('#tab12').trigger('click');
-                                                  }, false);
-                var o  = ref_p.getElementById('text3459-7');
-                if (o != null) o.addEventListener('click', 
-                                                  function() { 
-                                                     wepsim_execute_microinstruction(); 
-                                                  }, false);
-            }
-    }
-
-    function sim_prepare_svg_cu ( )
-    {
-	    var ref_cu = document.getElementById('svg_cu').contentDocument ;
-	    if (ref_cu != null)
-            {
-	        var o  = ref_cu.getElementById('text3010');
-	        if (o != null) o.addEventListener('click', 
-                                                  function() { 
-                                                     $('#tab16').trigger('click');
-                                                  }, false);
-                var o  = ref_cu.getElementById('text4138');
-                if (o != null) o.addEventListener('click', 
-                                                  function() { 
-                                                     wepsim_execute_microinstruction(); 
-                                                  }, false);
-                var o  = ref_cu.getElementById('text4138-7');
-                if (o != null) o.addEventListener('click', 
-                                                  function() { 
-                                                     wepsim_execute_microinstruction(); 
-                                                  }, false);
-            }
-    }
-
-    function sim_prepare_editor ( editor )
-    {
-	    editor.setValue("\n\n\n\n\n\n\n\n\n");
-	    editor.getWrapperElement().style['text-shadow'] = '0.0em 0.0em'; 
-
-	    if (get_cfg('editor_theme') == 'blackboard') {
-		editor.getWrapperElement().style['font-weight'] = 'normal';
-		editor.setOption('theme','blackboard');
-	    }
-
-	    var edt_mode = get_cfg('editor_mode');
-	    if (edt_mode == 'vim') 
-		editor.setOption('keyMap','vim');
-	    if (edt_mode == 'emacs') 
-		editor.setOption('keyMap','emacs');
-	    if (edt_mode == 'sublime') 
-		editor.setOption('keyMap','sublime');
-
-	    setTimeout(function(){editor.refresh();}, 100);
-    }
-
-
-    //
-    // Example management
-    //
+    /*
+     * Example management
+     */
 
     function getURLTimeStamp ( )
     {
@@ -571,8 +542,8 @@
 
                             var ok = false ;
                             var SIMWARE = get_simware() ;
-	                    if (SIMWARE.firmware.length != 0) 
-                                ok = compileAssembly(mcode, true);
+	                    if (SIMWARE.firmware.length != 0)
+                                ok = wepsim_compile_assembly(mcode, true);
 
 			    if (true == ok)
 			    {
@@ -583,12 +554,12 @@
                                   show_memories_values();
 			    }
 
-			    $.notify({ title: '<strong>INFO</strong>', 
+			    $.notify({ title: '<strong>INFO</strong>',
 			  	       message: 'Example ready to be used.'},
-				     { type: 'success', 
-				       newest_on_top: true, 
-				       delay: get_cfg('NOTIF_delay'), 
-				       placement: { from: 'top', align: 'center' } 
+				     { type: 'success',
+				       newest_on_top: true,
+				       delay: get_cfg('NOTIF_delay'),
+				       placement: { from: 'top', align: 'center' }
 				      });
                       };
         wepsim_load_from_url(url, do_next) ;
@@ -607,22 +578,22 @@
 			   inputfirm.setValue(mcode);
 			   inputfirm.refresh();
 
-			   var ok = compileFirmware(mcode, true);
-                           if (true == ok) 
+			   var ok = wepsim_compile_firmware(mcode, true);
+                           if (true == ok)
                            {
                                   if (true == chain_next_step)
-                                       setTimeout(function() { 
-                                                     load_from_example_assembly(example_id, chain_next_step); 
+                                       setTimeout(function() {
+                                                     load_from_example_assembly(example_id, chain_next_step);
                                                   }, 50);
                                   else show_memories_values();
                            }
 
-			   $.notify({ title: '<strong>INFO</strong>', 
+			   $.notify({ title: '<strong>INFO</strong>',
 				      message: 'Example ready to be used.'},
-				    { type: 'success', 
-				      newest_on_top: true, 
-				      delay: get_cfg('NOTIF_delay'), 
-				      placement: { from: 'top', align: 'center' } 
+				    { type: 'success',
+				      newest_on_top: true,
+				      delay: get_cfg('NOTIF_delay'),
+				      placement: { from: 'top', align: 'center' }
 				     });
                       };
         wepsim_load_from_url(url, do_next) ;
@@ -630,50 +601,203 @@
         ga('send', 'event', 'example', 'example.firmware', 'example.firmware.' + example_id);
     }
 
-    function list_examples_html ( examples )
+    function table_examples_html ( examples )
     {
-       var examples_width = 310 * ((examples.length+1)/2) + 20;
-
-       var o = '<style scoped>' +
-               '       .onthefly-example1 { min-width:320px; width:' + examples_width + 'px; }' +
-               '       .onthefly-example2 { } ' + 
-               '   @media screen and (min-width: 1200px) { ' + 
-               '       .onthefly-example1 { min-width:320px; width:70vw; height:70vh; overflow:auto; } ' + 
-               '       .onthefly-example2 { margin:0 auto; } ' + 
-               '   }" ' +
-               '</style>' +
-               '<div class="onthefly-example1" data-filter="true" data-children="div > span">' +
-               '<div class="onthefly-example2" id="masonry-grid1">' ;
+       var o = '<div class="table-responsive">' +
+               '<table width=100% class="table table-striped table-hover table-condensed">' +
+               '<thead>' +
+               '<tr>' +
+               '  <th>#</th>' +
+               '  <th onclick="$(\'.collapse1\').collapse(\'toggle\');">level</th>' +
+               '  <th>title</th>' +
+               '  <th onclick="$(\'.collapse3\').collapse(\'toggle\');">description</th>' +
+               '  <th onclick="$(\'.collapse4\').collapse(\'toggle\');">load only...</th>' +
+               '</tr>' +
+               '</thead>' +
+               '<tbody>';
        for (var m=0; m<examples.length; m++)
        {
 	       var e_title       = examples[m]['title'] ;
+	       var e_level       = examples[m]['level'] ;
 	       var e_description = examples[m]['description'] ;
 	       var e_id          = examples[m]['id'] ;
 
-	       o = o + '   <span class="grid-item" style="max-width:300px;">' +
-		       '   <div class="panel panel-default">' +
-		       '     <div class="panel-heading">' +
-		       '       <h3 class="panel-title">' + (m+1) + ') ' + e_title + '</h3>' +
+	       o = o + ' <tr>' +
+		       ' <td>' + '<b>' + (m+1)   + '</b>' + '</td>' +
+		       ' <td>' + '<b    class="collapse1 collapse in">' + e_level + '</b>' + '</td>' +
+		       ' <td>' + 
+		       '   <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',true);"  style="padding:0 0 0 0;"' +
+		       '      class="ui-btn btn btn-group ui-btn-inline btn-primary">' + 
+                       '   <b class="collapse2 collapse in">' + e_title + '</b></a>' +
+                       ' </td>' +
+		       ' <td>' + '<span class="collapse3 collapse in">' + e_description + '</span>' + '</td>' +
+		       ' <td class="collapse4 collapse in" style="min-width:150px; max-width:200px">' +
+		       '     <div class="btn-group btn-group-justified btn-group-md">' +
+		       '         <a href="#" onclick="load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0;"' +
+		       '            class="ui-btn btn btn-group ui-btn-inline btn-default">' +
+		       '            <b>Assembly</b></a>' +
+		       '         <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',false);" style="padding:0 0 0 0;"' +
+		       '            class="ui-btn btn btn-group ui-btn-inline btn-default">' +
+		       '            <b>Firmware</b></a>' +
 		       '     </div>' +
-		       '     <div class="panel-body">' + e_description + '<br>' +
-		       '       <div class="btn-group btn-group-justified btn-group-md">' +
-		       '           <a href="#" onclick="load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0;"' +
-		       '              class="ui-btn btn btn-group ui-btn-inline btn-default">' +
-		       '              <b>Assembly<br> only</b></a>' +
-		       '           <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',false);" style="padding:0 0 0 0;"' +
-		       '              class="ui-btn btn btn-group ui-btn-inline btn-default">' +
-		       '              <b>Firmware<br> only</b></a>' +
-		       '           <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',true);"  style="padding:0 0 0 0;"' +
-		       '              class="ui-btn btn btn-group ui-btn-inline btn-primary">' +
-		       '              <b>Both</b></a>' +
-		       '       </div>' +
-		       '     </div>' +
-		       '   </div>' +
-		       '   </span>' ;
+		       ' </td>' +
+		       ' </tr>' ;
        }
-       o = o + '</div>' +
+       o = o + '</tbody>' +
+               '</table>' +
                '</div>' ;
 
        return o ;
+    }
+
+    /*
+     * Help management
+     */
+
+    function table_helps_html ( helps )
+    {
+       var o = '<div class="table-responsive">' +
+               '<table width=100% class="table table-striped table-hover table-condensed">' +
+               '<thead>' +
+               '<tr>' +
+               '  <th>#</th>' +
+               '  <th>title</th>' +
+               '  <th onclick="$(\'.collapse2\').collapse(\'toggle\');">description</th>' +
+               '</tr>' +
+               '</thead>' +
+               '<tbody>';
+       for (var m=0; m<helps.length; m++)
+       {
+	       var e_title       = helps[m]['title'] ;
+	       var e_type        = helps[m]['type'] ;
+	       var e_reference   = helps[m]['reference'] ;
+	       var e_description = helps[m]['description'] ;
+	       var e_id          = helps[m]['id'] ;
+
+               var onclick_code = "" ;
+               if ("relative" == e_type) 
+                   onclick_code = 'wepsim_help_set_relative(\'' + e_reference + '\');' + 
+                                  'wepsim_help_refresh();' ;
+               if ("absolute" == e_type) 
+                   onclick_code = 'wepsim_help_set_absolute(\'' + e_reference + '\');' + 
+                                  'wepsim_help_refresh();' ;
+               if ("code" == e_type) 
+                   onclick_code = e_reference ;
+
+	       o = o + '<tr>' +
+		       '<td>' + '<b>' + (m+1) + '</b>' + '</td>' +
+		       ' <td>' + 
+                       '  <a href="#" ' +
+                       '     class="ui-btn btn btn-group ui-btn-inline" ' +
+                       '     style="background-color: #D4DB17; padding:0 0 0 0;" ' +
+		       '     onclick="' + onclick_code + '"><b>' + e_title + '</b></a>' +
+                       ' </td>' +
+		       ' <td class="collapse2 collapse in">' +
+		       '   <c>' + e_description + '</c>' + 
+                       ' </td>' +
+		       '</tr>' ;
+       }
+       o = o + '</tbody>' +
+               '</table>' +
+               '</div>' ;
+
+       return o ;
+    }
+
+
+    //
+    // Initialize
+    //
+
+    function sim_prepare_svg_p ( )
+    {
+	    var ref_p = document.getElementById('svg_p').contentDocument ;
+	    if (ref_p != null)
+            {
+                var o  = ref_p.getElementById('text3495');
+	        if (o != null) o.addEventListener('click',
+                                                  function() {
+                                                     $('#tab11').trigger('click');
+                                                  }, false);
+	        var o  = ref_p.getElementById('text3029');
+	        if (o != null) o.addEventListener('click',
+                                                  function() {
+                                                     $('#tab11').trigger('click');
+                                                  }, false);
+	        var o  = ref_p.getElementById('text3031');
+	        if (o != null) o.addEventListener('click',
+                                                  function() {
+                                                     $('#tab11').trigger('click');
+                                                  }, false);
+	        var o  = ref_p.getElementById('text3001');
+	        if (o != null) o.addEventListener('click',
+                                                  function() {
+                                                     $('#tab14').trigger('click');
+                                                  }, false);
+	        var o  = ref_p.getElementById('text3775');
+	        if (o != null) o.addEventListener('click',
+                                                  function() {
+                                                     $('#tab15').trigger('click');
+                                                  }, false);
+	        var o  = ref_p.getElementById('text3829');
+	        if (o != null) o.addEventListener('click',
+                                                  function() {
+                                                     $('#tab12').trigger('click');
+                                                  }, false);
+	        var o  = ref_p.getElementById('text3845');
+	        if (o != null) o.addEventListener('click',
+                                                  function() {
+                                                     $('#tab12').trigger('click');
+                                                  }, false);
+                var o  = ref_p.getElementById('text3459-7');
+                if (o != null) o.addEventListener('click',
+                                                  function() {
+                                                     wepsim_execute_microinstruction();
+                                                  }, false);
+            }
+    }
+
+    function sim_prepare_svg_cu ( )
+    {
+	    var ref_cu = document.getElementById('svg_cu').contentDocument ;
+	    if (ref_cu != null)
+            {
+	        var o  = ref_cu.getElementById('text3010');
+	        if (o != null) o.addEventListener('click',
+                                                  function() {
+                                                     $('#tab16').trigger('click');
+                                                  }, false);
+                var o  = ref_cu.getElementById('text4138');
+                if (o != null) o.addEventListener('click',
+                                                  function() {
+                                                     wepsim_execute_microinstruction();
+                                                  }, false);
+                var o  = ref_cu.getElementById('text4138-7');
+                if (o != null) o.addEventListener('click',
+                                                  function() {
+                                                     wepsim_execute_microinstruction();
+                                                  }, false);
+            }
+    }
+
+    function sim_prepare_editor ( editor )
+    {
+	    editor.setValue("\n\n\n\n\n\n\n\n\n");
+	    editor.getWrapperElement().style['text-shadow'] = '0.0em 0.0em';
+
+	    if (get_cfg('editor_theme') == 'blackboard') {
+		editor.getWrapperElement().style['font-weight'] = 'normal';
+		editor.setOption('theme','blackboard');
+	    }
+
+	    var edt_mode = get_cfg('editor_mode');
+	    if (edt_mode == 'vim')
+		editor.setOption('keyMap','vim');
+	    if (edt_mode == 'emacs')
+		editor.setOption('keyMap','emacs');
+	    if (edt_mode == 'sublime')
+		editor.setOption('keyMap','sublime');
+
+	    setTimeout(function(){editor.refresh();}, 100);
     }
 
