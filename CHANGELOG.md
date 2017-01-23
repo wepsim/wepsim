@@ -2,6 +2,9 @@
 1.7.5 -> 1.7.6:
 * Tutorials support (welcome tutorial as example)
 * Several UI tweaks (slider positions, home help button, etc.)
+* Help index translated (English/Spanish)
+* Up to 15% faster than 1.7.5 in many examples
+* Speed-up configuration is now persistent
 
 1.7.3 -> 1.7.5:
 * Faster: Up to 3 times faster than 1.7.1 version!
