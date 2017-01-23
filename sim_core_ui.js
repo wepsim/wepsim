@@ -955,11 +955,12 @@
 
 	function show_asmdbg_pc ( )
 	{
-            if (get_cfg('DBG_delay') > 5)
+            var dbg_delay = get_cfg('DBG_delay') ;
+            if (dbg_delay > 5)
 	        return fullshow_asmdbg_pc();
 
             var innerdelay = 50;
-            if (get_cfg('DBG_delay') < 3)
+            if (dbg_delay < 3)
                 innerdelay = 200;
 
             if (null == show_asmdbg_pc_deferred)
