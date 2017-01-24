@@ -303,7 +303,14 @@
                                         $('#help1').popup('open');
                                     });
 
-            ga('send', 'event', 'help', 'help.' + ab1, 'help.' + ab1 + ".*");
+            ga('send', 'event', 'help', 'help.' + ab1, 'help.' + ab1 + '.*');
+            return ;
+        }
+
+        var cod1 = $('#help1_ref').data('code') ;
+        if ( (typeof cod1 != "undefined") && (cod1 == "true") )
+        {
+            ga('send', 'event', 'help', 'help.code', 'help.code.*');
             return ;
         }
 
@@ -319,7 +326,7 @@
 
 	$('#help1_ref').data('relative','') ;
 	$('#help1_ref').data('absolute','') ;
-	$('#help1_ref').data('code','') ;
+	$('#help1_ref').data('code','false') ;
 
 	$('#help1').trigger('updatelayout') ;
 	$('#help1').popup('open') ;
@@ -332,7 +339,7 @@
 
         $('#help1_ref').data('relative', '') ;
 	$('#help1_ref').data('absolute', '') ;
-	$('#help1_ref').data('code',     content) ;
+	$('#help1_ref').data('code','true') ;
 
         $('#help1').trigger('updatelayout') ;
         $('#help1').popup('reposition', {positionTo: 'window'}) ;
@@ -348,14 +355,14 @@
     {
         $('#help1_ref').data('relative', rel) ;
 	$('#help1_ref').data('absolute','') ;
-	$('#help1_ref').data('code','') ;
+	$('#help1_ref').data('code','false') ;
     }
 
     function wepsim_help_set_absolute ( ab1 )
     {
         $('#help1_ref').data('relative','') ;
         $('#help1_ref').data('absolute', ab1) ;
-	$('#help1_ref').data('code','') ;
+	$('#help1_ref').data('code','false') ;
     }
 
 
