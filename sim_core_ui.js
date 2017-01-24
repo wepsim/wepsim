@@ -573,8 +573,8 @@
         {
             if (jqdiv == "")
             {       // without ui
-		    sim_states['CLK'].value = ko.observable(sim_states['CLK'].value);
-		    sim_states['DECO_INS'].value = ko.observable(sim_states['DECO_INS'].value);
+		    sim_states['CLK'].value      = ko.observable(sim_states['CLK'].value).extend({ rateLimit: 25 });
+		    sim_states['DECO_INS'].value = ko.observable(sim_states['DECO_INS'].value).extend({ rateLimit: 25 });
 		    for (var i=0; i<IO_INT_FACTORY.length; i++) {
 			 IO_INT_FACTORY[i].accumulated = ko.observable(IO_INT_FACTORY[i].accumulated) ;
 			 IO_INT_FACTORY[i].active      = ko.observable(IO_INT_FACTORY[i].active) ;
@@ -614,11 +614,11 @@
             $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
 
             // knockout binding
-            sim_states['CLK'].value = ko.observable(sim_states['CLK'].value);
+            sim_states['CLK'].value = ko.observable(sim_states['CLK'].value).extend({ rateLimit: 25 });
             var ko_context = document.getElementById('clk_context');
             ko.applyBindings(sim_states['CLK'], ko_context);
 
-            sim_states['DECO_INS'].value = ko.observable(sim_states['DECO_INS'].value);
+            sim_states['DECO_INS'].value = ko.observable(sim_states['DECO_INS'].value).extend({ rateLimit: 25 });
             var ko_context = document.getElementById('ins_context');
             ko.applyBindings(sim_states['DECO_INS'], ko_context);
 
