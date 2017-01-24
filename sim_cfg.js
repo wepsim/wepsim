@@ -80,6 +80,35 @@
 		 */
                WSCFG['editor_theme']        = { value:'default',          type:"string"};
                WSCFG['editor_mode']         = { value:'default',          type:"string"};
+
+               set_secondary_cfg() ;
+        }
+
+        function set_secondary_cfg ( )
+        {
+            cfg_show_eltos_delay = 130;
+            if (get_cfg('DBG_delay') < 5)
+                cfg_show_eltos_delay = 390;
+
+            cfg_show_rf_delay = 125;
+            if (get_cfg('DBG_delay') < 5)
+                cfg_show_rf_delay = 375;
+
+            cfg_show_main_memory_delay = 150;
+            if (get_cfg('DBG_delay') < 5)
+                cfg_show_main_memory_delay = 450;
+
+            cfg_show_contorl_memory_delay = 120;
+            if (get_cfg('DBG_delay') < 5)
+                cfg_show_contorl_memory_delay = 360;
+
+            cfg_show_asmdbg_pc_delay = 50;
+            if (get_cfg('DBG_delay') < 3)
+                cfg_show_asmdbg_pc_delay = 200;
+
+            cfg_show_dbg_ir_delay = 100;
+            if (get_cfg('DBG_delay') < 5)
+                cfg_show_dbg_ir_delay = 300;
         }
 
 
@@ -99,6 +128,8 @@
            {
                 console.log("WepSIM can not save the configuration in a persistent way on this web browser, found error: \n" + err.message);
 	   }
+
+           set_secondary_cfg() ;
         }
 
         function restore_cfg ( )
@@ -126,5 +157,7 @@
                    return;
                 }
            }
+
+           set_secondary_cfg() ;
         }
 
