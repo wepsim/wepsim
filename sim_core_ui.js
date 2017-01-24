@@ -436,11 +436,7 @@
             if (null != show_rf_values_deferred)
                 return;
 
-            var innerdelay = 125;
-            if (get_cfg('DBG_delay') < 5)
-                innerdelay = 375;
-
-            show_rf_values_deferred = setTimeout(innershow_rf_values, innerdelay);
+            show_rf_values_deferred = setTimeout(innershow_rf_values, cfg_show_rf_delay);
         }
 
         function show_rf_names ( )
@@ -540,14 +536,10 @@
             if (null != show_eltos_deferred)
                 return;
 
-            var innerdelay = 130;
-            if (get_cfg('DBG_delay') < 5)
-                innerdelay = 390;
-
             show_eltos_deferred = setTimeout(function() {
                                                    fullshow_eltos(sim_eltos, filter);
                                                    show_eltos_deferred = null;
-                                             }, innerdelay);
+                                             }, cfg_show_eltos_delay);
         }
 
 
@@ -744,10 +736,6 @@
 
         function show_main_memory ( memory, index, redraw )
         {
-            var innerdelay = 150;
-            if (get_cfg('DBG_delay') < 5)
-                innerdelay = 450;
-
             if (null != show_main_memory_deferred)
                 clearTimeout(show_main_memory_deferred) ;
 
@@ -756,7 +744,7 @@
 						    	     light_refresh_main_memory(memory, index);
                                                         else  hard_refresh_main_memory(memory, index, redraw) ;
                                                         show_main_memory_deferred = null;
-                                                   }, innerdelay);
+                                                   }, cfg_show_main_memory_delay);
         }
 
         function hard_refresh_main_memory ( memory, index, redraw )
@@ -839,10 +827,6 @@
 
         function show_control_memory ( memory, memory_dashboard, index, redraw )
         {
-            var innerdelay = 120;
-            if (get_cfg('DBG_delay') < 5)
-                innerdelay = 360;
-
             if (null != show_control_memory_deferred)
                 clearTimeout(show_control_memory_deferred) ;
 
@@ -851,7 +835,7 @@
 							      light_refresh_control_memory(memory, memory_dashboard, index);
                                                          else  hard_refresh_control_memory(memory, memory_dashboard, index, redraw);
                                                          show_control_memory_deferred = null;
-                                                      }, innerdelay);
+                                                      }, cfg_show_contorl_memory_delay);
         }
 
         function hard_refresh_control_memory ( memory, memory_dashboard, index, redraw )
@@ -960,16 +944,11 @@
 
 	function show_asmdbg_pc ( )
 	{
-            var dbg_delay = get_cfg('DBG_delay') ;
-            if (dbg_delay > 5)
+            if (get_cfg('DBG_delay') > 5)
 	        return fullshow_asmdbg_pc();
 
-            var innerdelay = 50;
-            if (dbg_delay < 3)
-                innerdelay = 200;
-
             if (null == show_asmdbg_pc_deferred)
-                show_asmdbg_pc_deferred = setTimeout(innershow_asmdbg_pc, innerdelay);
+                show_asmdbg_pc_deferred = setTimeout(innershow_asmdbg_pc, cfg_show_asmdbg_pc_delay);
 	}
 
         var old_addr = 0;
@@ -1060,14 +1039,10 @@
             if (null != show_dbg_ir_deferred)
                 return;
 
-            var innerdelay = 100;
-            if (get_cfg('DBG_delay') < 5)
-                innerdelay = 300;
-
             show_dbg_ir_deferred = setTimeout(function() {
                                                    fullshow_dbg_ir(decins);
                                                    show_dbg_ir_deferred = null;
-                                              }, innerdelay);
+                                              }, cfg_show_dbg_ir_delay);
 	}
 
 	function fullshow_dbg_ir ( decins )
