@@ -318,6 +318,8 @@
 	$('#iframe_help1').enhanceWithin() ;
 
 	$('#help1_ref').data('relative','') ;
+	$('#help1_ref').data('absolute','') ;
+
 	$('#help1').trigger('updatelayout') ;
 	$('#help1').popup('open') ;
     }
@@ -328,6 +330,8 @@
         $('#iframe_help1').enhanceWithin() ;
 
         $('#help1_ref').data('relative','') ;
+	$('#help1_ref').data('absolute','') ;
+
         $('#help1').trigger('updatelayout') ;
         $('#help1').popup('reposition', {positionTo: 'window'}) ;
         $('#help1').popup('open') ;
@@ -341,10 +345,12 @@
     function wepsim_help_set_relative ( rel )
     {
         $('#help1_ref').data('relative', rel) ;
+	$('#help1_ref').data('absolute','') ;
     }
 
     function wepsim_help_set_absolute ( ab1 )
     {
+        $('#help1_ref').data('relative','') ;
         $('#help1_ref').data('absolute', ab1) ;
     }
 
