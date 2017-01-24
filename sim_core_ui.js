@@ -569,15 +569,20 @@
             return show_eltos(sim_states, filter_states) ;
         }
 
+        function ko_observable ( initial_value )
+        {
+            return ko.observable(initial_value).extend({ rateLimit: 30 });
+        }
+
         function init_io ( jqdiv )
         {
             if (jqdiv == "")
             {       // without ui
-		    sim_states['CLK'].value      = ko.observable(sim_states['CLK'].value).extend({ rateLimit: 25 });
-		    sim_states['DECO_INS'].value = ko.observable(sim_states['DECO_INS'].value).extend({ rateLimit: 25 });
+		    sim_states['CLK'].value      = ko_observable(sim_states['CLK'].value) ;
+		    sim_states['DECO_INS'].value = ko_observable(sim_states['DECO_INS'].value) ;
 		    for (var i=0; i<IO_INT_FACTORY.length; i++) {
-			 IO_INT_FACTORY[i].accumulated = ko.observable(IO_INT_FACTORY[i].accumulated) ;
-			 IO_INT_FACTORY[i].active      = ko.observable(IO_INT_FACTORY[i].active) ;
+			 IO_INT_FACTORY[i].accumulated = ko_observable(IO_INT_FACTORY[i].accumulated) ;
+			 IO_INT_FACTORY[i].active      = ko_observable(IO_INT_FACTORY[i].active) ;
                     }
                     return ;
             }
@@ -614,18 +619,18 @@
             $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
 
             // knockout binding
-            sim_states['CLK'].value = ko.observable(sim_states['CLK'].value).extend({ rateLimit: 25 });
+            sim_states['CLK'].value = ko_observable(sim_states['CLK'].value) ;
             var ko_context = document.getElementById('clk_context');
             ko.applyBindings(sim_states['CLK'], ko_context);
 
-            sim_states['DECO_INS'].value = ko.observable(sim_states['DECO_INS'].value).extend({ rateLimit: 25 });
+            sim_states['DECO_INS'].value = ko_observable(sim_states['DECO_INS'].value) ;
             var ko_context = document.getElementById('ins_context');
             ko.applyBindings(sim_states['DECO_INS'], ko_context);
 
             for (var i=0; i<IO_INT_FACTORY.length; i++)
             {
-                 IO_INT_FACTORY[i].accumulated = ko.observable(IO_INT_FACTORY[i].accumulated) ;
-                 IO_INT_FACTORY[i].active      = ko.observable(IO_INT_FACTORY[i].active) ;
+                 IO_INT_FACTORY[i].accumulated = ko_observable(IO_INT_FACTORY[i].accumulated) ;
+                 IO_INT_FACTORY[i].active      = ko_observable(IO_INT_FACTORY[i].active) ;
                  var ko_context = document.getElementById('int' + i + '_context');
                  ko.applyBindings(IO_INT_FACTORY[i], ko_context);
             }
@@ -637,11 +642,11 @@
             if (jqdiv == "")
             {
 		    for (var i=0; i<IO_INT_FACTORY.length; i++) {
-			 IO_INT_FACTORY[i].period = ko.observable(IO_INT_FACTORY[i].period) ;
-			 IO_INT_FACTORY[i].probability = ko.observable(IO_INT_FACTORY[i].probability) ;
+			 IO_INT_FACTORY[i].period = ko_observable(IO_INT_FACTORY[i].period) ;
+			 IO_INT_FACTORY[i].probability = ko_observable(IO_INT_FACTORY[i].probability) ;
 		    }
 
-		    MP_wc = ko.observable(MP_wc) ;
+		    MP_wc = ko_observable(MP_wc) ;
                     return ;
             }
 
@@ -716,16 +721,16 @@
             // knockout binding
             for (var i=0; i<IO_INT_FACTORY.length; i++)
             {
-                 IO_INT_FACTORY[i].period = ko.observable(IO_INT_FACTORY[i].period) ;
+                 IO_INT_FACTORY[i].period = ko_observable(IO_INT_FACTORY[i].period) ;
                  var ko_context = document.getElementById('int' + i + '_per');
                  ko.applyBindings(IO_INT_FACTORY[i], ko_context);
 
-                 IO_INT_FACTORY[i].probability = ko.observable(IO_INT_FACTORY[i].probability) ;
+                 IO_INT_FACTORY[i].probability = ko_observable(IO_INT_FACTORY[i].probability) ;
                  var ko_context = document.getElementById('int' + i + '_pro');
                  ko.applyBindings(IO_INT_FACTORY[i], ko_context);
             }
 
-	    MP_wc = ko.observable(MP_wc) ;
+	    MP_wc = ko_observable(MP_wc) ;
             var ko_context = document.getElementById('mp_wc');
             ko.applyBindings(MP_wc, ko_context);
         }
