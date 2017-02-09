@@ -447,33 +447,40 @@
 
         var clklimit = get_cfg('DBG_limitick') ;
 
-	var ret = false ;
-	if (get_cfg('DBG_level') == "instruction")
-	     ret = execute_microprogram(clklimit) ;
-	else ret = execute_microinstruction() ;
+        var turbo = 1;
+	if (get_cfg('DBG_delay') < 5)
+            turbo = 20;
 
-	if (ret === false) {
-	    wepsim_execute_stop(btn1) ;
-	    return ;
-	}
+        for (var i=0; i<turbo; i++)
+        {
+		var ret = false ;
+		if (get_cfg('DBG_level') == "instruction")
+		     ret = execute_microprogram(clklimit) ;
+		else ret = execute_microinstruction() ;
 
-        ret = wepsim_check_stopbybreakpoint_asm() ;
-	if (ret == true) {
-	    wepsim_execute_stop(btn1) ;
-	    return ;
-	}
+		if (ret === false) {
+		    wepsim_execute_stop(btn1) ;
+		    return ;
+		}
 
-        ret = wepsim_check_stopbybreakpoint_firm() ;
-	if (ret == true) {
-	    wepsim_execute_stop(btn1) ;
-	    return ;
-	}
+		ret = wepsim_check_stopbybreakpoint_asm() ;
+		if (ret == true) {
+		    wepsim_execute_stop(btn1) ;
+		    return ;
+		}
 
-        ret = wepsim_check_stopbynotify_firm() ;
-	if (ret == true) {
-	    wepsim_execute_stop(btn1) ;
-	    return ;
-	}
+		ret = wepsim_check_stopbybreakpoint_firm() ;
+		if (ret == true) {
+		    wepsim_execute_stop(btn1) ;
+		    return ;
+		}
+
+		ret = wepsim_check_stopbynotify_firm() ;
+		if (ret == true) {
+		    wepsim_execute_stop(btn1) ;
+		    return ;
+		}
+        }
 
 	setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), btn1) ;
     }
