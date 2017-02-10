@@ -425,15 +425,18 @@
 
         var show_rf_values_deferred = null;
 
+        function innershow_rf_values ( )
+        {
+	    fullshow_rf_values();
+	    show_rf_values_deferred = null;
+        }
+
         function show_rf_values ( )
         {
-            if (null == show_rf_values_deferred)
-            {
-                show_rf_values_deferred = setTimeout(function() {
-                                                        fullshow_rf_values();
-                                                        show_rf_values_deferred=null;
-                                                     }, 125);
-            }
+            if (null != show_rf_values_deferred)
+                return;
+
+            show_rf_values_deferred = setTimeout(innershow_rf_values, cfg_show_rf_delay);
         }
 
         function show_rf_names ( )
@@ -530,13 +533,13 @@
 
         function show_eltos ( sim_eltos, filter )
         {
-            if (null == show_eltos_deferred)
-            {
-                show_eltos_deferred = setTimeout(function() {
-                                                        fullshow_eltos(sim_eltos, filter);
-                                                        show_eltos_deferred = null;
-                                                 }, 130);
-            }
+            if (null != show_eltos_deferred)
+                return;
+
+            show_eltos_deferred = setTimeout(function() {
+                                                   fullshow_eltos(sim_eltos, filter);
+                                                   show_eltos_deferred = null;
+                                             }, cfg_show_eltos_delay);
         }
 
 
@@ -558,15 +561,20 @@
             return show_eltos(sim_states, filter_states) ;
         }
 
+        function ko_observable ( initial_value )
+        {
+            return ko.observable(initial_value).extend({ rateLimit: 30 });
+        }
+
         function init_io ( jqdiv )
         {
             if (jqdiv == "")
             {       // without ui
-		    sim_states['CLK'].value = ko.observable(sim_states['CLK'].value);
-		    sim_states['DECO_INS'].value = ko.observable(sim_states['DECO_INS'].value);
+		    sim_states['CLK'].value      = ko_observable(sim_states['CLK'].value) ;
+		    sim_states['DECO_INS'].value = ko_observable(sim_states['DECO_INS'].value) ;
 		    for (var i=0; i<IO_INT_FACTORY.length; i++) {
-			 IO_INT_FACTORY[i].accumulated = ko.observable(IO_INT_FACTORY[i].accumulated) ;
-			 IO_INT_FACTORY[i].active      = ko.observable(IO_INT_FACTORY[i].active) ;
+			 IO_INT_FACTORY[i].accumulated = ko_observable(IO_INT_FACTORY[i].accumulated) ;
+			 IO_INT_FACTORY[i].active      = ko_observable(IO_INT_FACTORY[i].active) ;
                     }
                     return ;
             }
@@ -603,18 +611,18 @@
             $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
 
             // knockout binding
-            sim_states['CLK'].value = ko.observable(sim_states['CLK'].value);
+            sim_states['CLK'].value = ko_observable(sim_states['CLK'].value) ;
             var ko_context = document.getElementById('clk_context');
             ko.applyBindings(sim_states['CLK'], ko_context);
 
-            sim_states['DECO_INS'].value = ko.observable(sim_states['DECO_INS'].value);
+            sim_states['DECO_INS'].value = ko_observable(sim_states['DECO_INS'].value) ;
             var ko_context = document.getElementById('ins_context');
             ko.applyBindings(sim_states['DECO_INS'], ko_context);
 
             for (var i=0; i<IO_INT_FACTORY.length; i++)
             {
-                 IO_INT_FACTORY[i].accumulated = ko.observable(IO_INT_FACTORY[i].accumulated) ;
-                 IO_INT_FACTORY[i].active      = ko.observable(IO_INT_FACTORY[i].active) ;
+                 IO_INT_FACTORY[i].accumulated = ko_observable(IO_INT_FACTORY[i].accumulated) ;
+                 IO_INT_FACTORY[i].active      = ko_observable(IO_INT_FACTORY[i].active) ;
                  var ko_context = document.getElementById('int' + i + '_context');
                  ko.applyBindings(IO_INT_FACTORY[i], ko_context);
             }
@@ -626,11 +634,11 @@
             if (jqdiv == "")
             {
 		    for (var i=0; i<IO_INT_FACTORY.length; i++) {
-			 IO_INT_FACTORY[i].period = ko.observable(IO_INT_FACTORY[i].period) ;
-			 IO_INT_FACTORY[i].probability = ko.observable(IO_INT_FACTORY[i].probability) ;
+			 IO_INT_FACTORY[i].period = ko_observable(IO_INT_FACTORY[i].period) ;
+			 IO_INT_FACTORY[i].probability = ko_observable(IO_INT_FACTORY[i].probability) ;
 		    }
 
-		    MP_wc = ko.observable(MP_wc) ;
+		    MP_wc = ko_observable(MP_wc) ;
                     return ;
             }
 
@@ -705,16 +713,16 @@
             // knockout binding
             for (var i=0; i<IO_INT_FACTORY.length; i++)
             {
-                 IO_INT_FACTORY[i].period = ko.observable(IO_INT_FACTORY[i].period) ;
+                 IO_INT_FACTORY[i].period = ko_observable(IO_INT_FACTORY[i].period) ;
                  var ko_context = document.getElementById('int' + i + '_per');
                  ko.applyBindings(IO_INT_FACTORY[i], ko_context);
 
-                 IO_INT_FACTORY[i].probability = ko.observable(IO_INT_FACTORY[i].probability) ;
+                 IO_INT_FACTORY[i].probability = ko_observable(IO_INT_FACTORY[i].probability) ;
                  var ko_context = document.getElementById('int' + i + '_pro');
                  ko.applyBindings(IO_INT_FACTORY[i], ko_context);
             }
 
-	    MP_wc = ko.observable(MP_wc) ;
+	    MP_wc = ko_observable(MP_wc) ;
             var ko_context = document.getElementById('mp_wc');
             ko.applyBindings(MP_wc, ko_context);
         }
@@ -728,18 +736,15 @@
 
         function show_main_memory ( memory, index, redraw )
         {
-	    if (redraw == false) {
-		light_refresh_main_memory(memory, index);
-                return ;
-            }
-
-            if (null != show_main_memory_deferred) 
+            if (null != show_main_memory_deferred)
                 clearTimeout(show_main_memory_deferred) ;
 
             show_main_memory_deferred = setTimeout(function () {
-                                                       hard_refresh_main_memory(memory, index, redraw) ;
-                                                       show_main_memory_deferred = null;
-                                                   }, 150);
+						        if (redraw == false)
+						    	     light_refresh_main_memory(memory, index);
+                                                        else  hard_refresh_main_memory(memory, index, redraw) ;
+                                                        show_main_memory_deferred = null;
+                                                   }, cfg_show_main_memory_delay);
         }
 
         function hard_refresh_main_memory ( memory, index, redraw )
@@ -822,18 +827,15 @@
 
         function show_control_memory ( memory, memory_dashboard, index, redraw )
         {
-            if (false == redraw) {
-                light_refresh_control_memory(memory, memory_dashboard, index);
-                return ;
-            }
-
-            if (null != show_control_memory_deferred) 
+            if (null != show_control_memory_deferred)
                 clearTimeout(show_control_memory_deferred) ;
 
             show_control_memory_deferred = setTimeout(function () {
-                                            hard_refresh_control_memory(memory, memory_dashboard, index, redraw);
-                                            show_control_memory_deferred = null;
-                                           }, 120);
+						         if (false == redraw)
+							      light_refresh_control_memory(memory, memory_dashboard, index);
+                                                         else  hard_refresh_control_memory(memory, memory_dashboard, index, redraw);
+                                                         show_control_memory_deferred = null;
+                                                      }, cfg_show_contorl_memory_delay);
         }
 
         function hard_refresh_control_memory ( memory, memory_dashboard, index, redraw )
@@ -931,9 +933,27 @@
                 return FIRMWARE.assembly[hexstrpc].source ;
         }
 
-        var old_addr = 0;
+
+        var show_asmdbg_pc_deferred = null;
+
+	function innershow_asmdbg_pc ( )
+	{
+	    fullshow_asmdbg_pc();
+	    show_asmdbg_pc_deferred = null;
+	}
 
 	function show_asmdbg_pc ( )
+	{
+            if (get_cfg('DBG_delay') > 5)
+	        return fullshow_asmdbg_pc();
+
+            if (null == show_asmdbg_pc_deferred)
+                show_asmdbg_pc_deferred = setTimeout(innershow_asmdbg_pc, cfg_show_asmdbg_pc_delay);
+	}
+
+        var old_addr = 0;
+
+	function fullshow_asmdbg_pc ( )
 	{
                 var o1 = null ;
                 var reg_pc    = get_value(sim_states["REG_PC"]) ;
@@ -1016,26 +1036,26 @@
 
 	function show_dbg_ir ( decins )
 	{
-            if (null == show_dbg_ir_deferred)
-            {
-                show_dbg_ir_deferred = setTimeout(function() {
-                                                        fullshow_dbg_ir(decins);
-                                                        show_dbg_ir_deferred = null;
-                                                     }, 100);
-            }
+            if (null != show_dbg_ir_deferred)
+                return;
+
+            show_dbg_ir_deferred = setTimeout(function() {
+                                                   fullshow_dbg_ir(decins);
+                                                   show_dbg_ir_deferred = null;
+                                              }, cfg_show_dbg_ir_delay);
 	}
 
 	function fullshow_dbg_ir ( decins )
 	{
-	        var o = document.getElementById('svg_p');
-	        if (o != null) o = o.contentDocument;
-	        if (o != null) o = o.getElementById('tspan3899');
-	        if (o != null) o.innerHTML = decins ;
+	     var o = document.getElementById('svg_p');
+	     if (o != null) o = o.contentDocument;
+	     if (o != null) o = o.getElementById('tspan3899');
+	     if (o != null) o.innerHTML = decins ;
 
-	        var o = document.getElementById('svg_cu');
-	        if (o != null) o = o.contentDocument;
-	        if (o != null) o = o.getElementById('text3611');
-	        if (o != null) o.innerHTML = decins ;
+	     var o = document.getElementById('svg_cu');
+	     if (o != null) o = o.contentDocument;
+	     if (o != null) o = o.getElementById('text3611');
+	     if (o != null) o.innerHTML = decins ;
 	}
 
         // Console (Screen + Keyboard)
@@ -1407,10 +1427,10 @@
                            "<td                                             width='2%'></td>" +
                            "<td class='asm_break'  style='line-height:0.9; padding:5 0 0 0;' width='10%' align='center' id='bp" + l + "'>&nbsp;</td>" +
                            "<td class='asm_addr'   style='line-height:0.9;' width='15%'>" + l + "</td>" +
-                           "<td class='asm_label1' style='line-height:0.9;' width='10%' align=right>" + s_label + "</td>" +
-                           "<td class='asm_ins'    style='line-height:0.9;' width='25%' align=left>"  + s1_instr + "</td>" +
                            "<td class='asm_label2' style='line-height:0.9;' width='10%' align=right>" + s_label + "</td>" +
                            "<td class='asm_pins'   style='line-height:0.9;' width='20%' align=left>"  + s2_instr + "</td>" +
+                           "<td class='asm_label1' style='line-height:0.9;' width='10%' align=right>" + s_label + "</td>" +
+                           "<td class='asm_ins'    style='line-height:0.9;' width='25%' align=left>"  + s1_instr + "</td>" +
                            "</tr>" ;
                 }
                 o += "</tbody></table></center>" ;

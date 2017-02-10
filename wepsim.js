@@ -282,7 +282,7 @@
     function wepsim_help_refresh ( )
     {
         var rel = $('#help1_ref').data('relative') ;
-        if (rel != "") 
+        if ( (typeof rel != "undefined") && (rel != "") )
         {
             $('#iframe_help1').load('help/simulator-' + get_cfg('ws_idiom') + '.html ' + rel,
 	    		            function() {
@@ -295,7 +295,7 @@
         }
 
         var ab1 = $('#help1_ref').data('absolute') ;
-        if (ab1 != "") 
+        if ( (typeof ab1 != "undefined") && (ab1 != "") )
         {
             $('#iframe_help1').load('help/' + ab1 + '-' + get_cfg('ws_idiom') + '.html',
 	    		            function() {
@@ -303,17 +303,31 @@
                                         $('#help1').popup('open');
                                     });
 
-            ga('send', 'event', 'help', 'help.' + ab1, 'help.' + ab1 + ".*");
+            ga('send', 'event', 'help', 'help.' + ab1, 'help.' + ab1 + '.*');
             return ;
         }
+
+        var cod1 = $('#help1_ref').data('code') ;
+        if ( (typeof cod1 != "undefined") && (cod1 == "true") )
+        {
+            ga('send', 'event', 'help', 'help.code', 'help.code.*');
+            return ;
+        }
+
+        wepsim_open_help_index() ;
     }
 
     function wepsim_open_help_index ( )
     {
-	$('#iframe_help1').html(table_helps_html(helps)) ;
+        var help_xx = help[get_cfg('ws_idiom')] ;
+
+	$('#iframe_help1').html(table_helps_html(help_xx)) ;
 	$('#iframe_help1').enhanceWithin() ;
 
 	$('#help1_ref').data('relative','') ;
+	$('#help1_ref').data('absolute','') ;
+	$('#help1_ref').data('code','false') ;
+
 	$('#help1').trigger('updatelayout') ;
 	$('#help1').popup('open') ;
     }
@@ -323,7 +337,10 @@
         $('#iframe_help1').html(content) ;
         $('#iframe_help1').enhanceWithin() ;
 
-        $('#help1_ref').data('relative','') ;
+        $('#help1_ref').data('relative', '') ;
+	$('#help1_ref').data('absolute', '') ;
+	$('#help1_ref').data('code','true') ;
+
         $('#help1').trigger('updatelayout') ;
         $('#help1').popup('reposition', {positionTo: 'window'}) ;
         $('#help1').popup('open') ;
@@ -337,11 +354,15 @@
     function wepsim_help_set_relative ( rel )
     {
         $('#help1_ref').data('relative', rel) ;
+	$('#help1_ref').data('absolute','') ;
+	$('#help1_ref').data('code','false') ;
     }
 
     function wepsim_help_set_absolute ( ab1 )
     {
+        $('#help1_ref').data('relative','') ;
         $('#help1_ref').data('absolute', ab1) ;
+	$('#help1_ref').data('code','false') ;
     }
 
 
@@ -426,33 +447,40 @@
 
         var clklimit = get_cfg('DBG_limitick') ;
 
-	var ret = false ;
-	if (get_cfg('DBG_level') == "instruction")
-	     ret = execute_microprogram(clklimit) ;
-	else ret = execute_microinstruction() ;
+        var turbo = 1;
+	if (get_cfg('DBG_delay') < 5)
+            turbo = 20;
 
-	if (ret === false) {
-	    wepsim_execute_stop(btn1) ;
-	    return ;
-	}
+        for (var i=0; i<turbo; i++)
+        {
+		var ret = false ;
+		if (get_cfg('DBG_level') == "instruction")
+		     ret = execute_microprogram(clklimit) ;
+		else ret = execute_microinstruction() ;
 
-        ret = wepsim_check_stopbybreakpoint_asm() ;
-	if (ret == true) {
-	    wepsim_execute_stop(btn1) ;
-	    return ;
-	}
+		if (ret === false) {
+		    wepsim_execute_stop(btn1) ;
+		    return ;
+		}
 
-        ret = wepsim_check_stopbybreakpoint_firm() ;
-	if (ret == true) {
-	    wepsim_execute_stop(btn1) ;
-	    return ;
-	}
+		ret = wepsim_check_stopbybreakpoint_asm() ;
+		if (ret == true) {
+		    wepsim_execute_stop(btn1) ;
+		    return ;
+		}
 
-        ret = wepsim_check_stopbynotify_firm() ;
-	if (ret == true) {
-	    wepsim_execute_stop(btn1) ;
-	    return ;
-	}
+		ret = wepsim_check_stopbybreakpoint_firm() ;
+		if (ret == true) {
+		    wepsim_execute_stop(btn1) ;
+		    return ;
+		}
+
+		ret = wepsim_check_stopbynotify_firm() ;
+		if (ret == true) {
+		    wepsim_execute_stop(btn1) ;
+		    return ;
+		}
+        }
 
 	setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), btn1) ;
     }
@@ -799,5 +827,81 @@
 		editor.setOption('keyMap','sublime');
 
 	    setTimeout(function(){editor.refresh();}, 100);
+    }
+
+    //
+    // Tutorials
+    //
+
+    function sim_tutorial_showframe ( tutorial, step )
+    {
+        // 1.- check if
+        if (get_cfg('show_tutorials') == false) {
+	    return;
+        }
+
+	if (step == tutorial.length)
+	    return;
+	if (step < 0) 
+	    return;
+
+        // 2.- code_pre
+        tutorial[step].code_pre();
+
+        // 3.- dialog +
+        //     code_post (next button) | cancel tutorials
+        var bbbt = new Object() ;
+            bbbt["cancel"] = {
+		    label: 'Disable this tutorial',
+		    className: 'btn-danger',
+		    callback: function() {
+			set_cfg('show_tutorials', false) ;
+                        save_cfg();
+                        $("#radio10-false").trigger("click").checkboxradio("refresh") ;
+                        tutbox.modal("hide") ;
+		    }
+		} ;
+
+        if (step != 0)
+            bbbt["prev"] = {
+		    label: 'Prev',
+		    className: 'btn-success',
+		    callback: function() {
+			tutorial[step].code_post() ;
+			setTimeout(function(){ 
+					sim_tutorial_showframe(tutorial, step - 1) ;
+				   }, tutorial[step].wait_next);
+		    }
+		};
+
+	if (step != (tutorial.length - 1))
+            bbbt["next"] = {
+		    label: 'Next',
+		    className: 'btn-success',
+		    callback: function() {
+			tutorial[step].code_post() ;
+			setTimeout(function(){ 
+					sim_tutorial_showframe(tutorial, step + 1) ;
+				   }, tutorial[step].wait_next);
+		    }
+		};
+	else
+            bbbt["end"] = {
+		    label: 'End',
+		    className: 'btn-success',
+		    callback: function() {
+			tutorial[step].code_post() ;
+			setTimeout(function(){ 
+					sim_tutorial_showframe(tutorial, step + 1) ;
+				   }, tutorial[step].wait_next);
+		    }
+		};
+
+	tutbox = bootbox.dialog({
+	    title:   tutorial[step].title,
+	    message: tutorial[step].message,
+	    buttons: bbbt,
+            animate: false
+	});
     }
 
