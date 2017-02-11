@@ -5,7 +5,8 @@
 * Help index translated (English/Spanish)
 * Up to 50% faster than 1.7.5 in many examples
 * Speed-up configuration is now persistent
-* Pseudoinstruction/Instruction columns have been exchanged
+* Labels are now shown in simulator Memory
+* Instructions are now shown in simulator Control Memory
 
 1.7.3 -> 1.7.5:
 * Faster: Up to 3 times faster than 1.7.1 version!
