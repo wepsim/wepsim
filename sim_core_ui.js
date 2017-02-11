@@ -374,7 +374,7 @@
 	    for (var index=0; index < sim_states['BR'].length; index++)
             {
 		 o1_rf += "<div class='col-xs-6 col-sm-4 col-md-4 col-lg-3' style='padding:0 5 0 5;'>" +
-                          "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;' " +
+                          "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none; transform:translate3d(0,0,0);' " +
                           "        data-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
                           "  <span id='name_RF" + index + "' style='float:center; padding:0 0 0 0'>R" + index + "</span>" +
@@ -477,7 +477,7 @@
                 var divclass = divclasses[b] ;
 
                 o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" +
-                      "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;' " +
+                      "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none; will-change:transform; transform:translate3d(0,0,0);' " +
                       "        data-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +
                       showkey +
@@ -772,9 +772,10 @@
 			 o1 += "</tbody>" + "<tbody id=begin_" + skey + ">";
 		}
 
+                // "color:blue; font-size:normal;" -> "color:blue font-size:small;" (reduce layout delay)
 		if (key == index)
 		     o1 += "<tr id='addr" + key + "'" +
-                           "    style='color:blue; font-size:normal; font-weight:bold'>" +
+                           "    style='color:blue;  font-size:small; font-weight:bold'>" +
 			   "<td width=50%>" + "0x" + key3 + "-" + key2 + "</td>" +
 			   "<td          >" +                   value2 + "</td></tr>" ;
 		else o1 += "<tr id='addr" + key + "'" +
@@ -785,8 +786,10 @@
 
 	    if (typeof memory[index] == "undefined")
 		o1 += "<tr>" +
-		      "<td width=15%><font color=blue>0x" + parseInt(index).toString(16) + "</font></td>" +
-		      "<td><font color=blue><b>00 00 00 00</b></font></td></tr>";
+		      "<td width=15%><font style='color:blue; font-size:small; font-weight:bold'>0x" + 
+                      parseInt(index).toString(16) + 
+                      "</font></td>" +
+		      "<td><font style='color:blue; font-size:small; font-weight:bold'><b>00 00 00 00</b></font></td></tr>";
 
             $("#memory_MP").html("<center><table class='table table-hover table-condensed table-responsive'>" +
                                  "<tbody id=none>" + o1 + "</tbody>" +
@@ -812,14 +815,14 @@
 
             o1 = $("#addr" + old_main_addr) ;
             o1.css('color', 'black') ;
-            o1.css('font-size', 'small') ;
+            //o1.css('font-size', 'small') ;
             o1.css('font-weight', 'normal') ;
 
             old_main_addr = index ;
 
             o1 = $("#addr" + old_main_addr) ;
             o1.css('color', 'blue') ;
-            o1.css('font-size', 'initial') ;
+            //o1.css('font-size', 'initial') ;
             o1.css('font-weight', 'bold') ;
         }
 
@@ -835,7 +838,7 @@
 							      light_refresh_control_memory(memory, memory_dashboard, index);
                                                          else  hard_refresh_control_memory(memory, memory_dashboard, index, redraw);
                                                          show_control_memory_deferred = null;
-                                                      }, cfg_show_contorl_memory_delay);
+                                                      }, cfg_show_control_memory_delay);
         }
 
         function hard_refresh_control_memory ( memory, memory_dashboard, index, redraw )
@@ -863,7 +866,7 @@
 
 		if (key == index)
 		     o1 += "<tr id='maddr" + key + "' " +
-                           "    style='color:blue; font-size:normal; font-weight:bold' " +
+                           "    style='color:blue; font-size:small; font-weight:bold' " +
 			   "    onclick='dbg_set_breakpoint(" + key + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
 			   "<td width=12% align=right>" + "0x" + parseInt(key).toString(16) + "</td>" +
@@ -880,8 +883,10 @@
 
 	    if (typeof memory[index] == "undefined") {
 		o1 += "<tr>" +
-		      "<td width=15%><font color=blue>0x" + parseInt(index).toString(16) + "</font></td>" +
-		      "<td><font color=blue><b>&nbsp;</b></font></td></tr>";
+		      "<td width=15%><font style='color:blue; font-size:small; font-weight:bold'>0x" + 
+                      parseInt(index).toString(16) + 
+                      "</font></td>" +
+		      "<td><font style='color:blue; font-size:small; font-weight:bold'><b>&nbsp;</b></font></td></tr>";
             }
 
             $("#memory_MC").html("<center><table class='table table-hover table-condensed table-responsive'>" +
@@ -908,14 +913,14 @@
 
             o1 = $("#maddr" + old_mc_addr) ;
             o1.css('color', 'black') ;
-            o1.css('font-size', 'small') ;
+            //o1.css('font-size', 'small') ;
             o1.css('font-weight', 'normal') ;
 
             old_mc_addr = index ;
 
             o1 = $("#maddr" + old_mc_addr) ;
             o1.css('color', 'blue') ;
-            o1.css('font-size', 'initial') ;
+            //o1.css('font-size', 'initial') ;
             o1.css('font-weight', 'bold') ;
         }
 
