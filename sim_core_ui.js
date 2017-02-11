@@ -749,23 +749,37 @@
 
         function hard_refresh_main_memory ( memory, index, redraw )
         {
+            var SIMWARE = get_simware() ;
+
 	    var o1 = "" ;
             var value = "" ;
 
+            var revlabels = new Object();
+            for (var key in SIMWARE.labels2)
+                 revlabels[SIMWARE.labels2[key]] = key;
+
+            var valkeys = new Object();
+            var valtags = new Array();
+
             for (var key in memory)
             {
+                for (var i=0; i<4; i++)
+                {
+		     valkeys[i] = (parseInt(key) + i).toString(16) ;
+                     valtags[i] = "" ;
+                     if (typeof revlabels["0x" + valkeys[i]] != "undefined")
+                         valtags[i] = revlabels["0x" + valkeys[i]] ;
+                }
+                tags2 = valtags.join("") ;
+                if (tags2.length != 0)
+                    tags2 = "<br>" + valtags.join("&nbsp;&middot;&nbsp;") ;
+
 		value  = memory[key].toString(16) ;
 		value  = "00000000".substring(0, 8 - value.length) + value ;
 		value2 = value[0] + value[1] + ' ' +
 			 value[2] + value[3] + ' ' +
 			 value[4] + value[5] + ' ' +
 			 value[6] + value[7] ;
-
-		key2 = parseInt(key).toString(16) ;
-	      //key2 = "00000000".substring(0, 8 - key2.length) + key2 ;
-
-		key3 = (parseInt(key) + 3).toString(16) ;
-	      //key3 = "00000000".substring(0, 8 - key3.length) + key3 ;
 
 		for (skey in segments) {
 		     if (parseInt(segments[skey].begin) == parseInt(key))
@@ -776,12 +790,12 @@
 		if (key == index)
 		     o1 += "<tr id='addr" + key + "'" +
                            "    style='color:blue;  font-size:small; font-weight:bold'>" +
-			   "<td width=50%>" + "0x" + key3 + "-" + key2 + "</td>" +
-			   "<td          >" +                   value2 + "</td></tr>" ;
+			   "<td width=50%>" + "0x" + valkeys[3] + "-" + valkeys[0] + "</td>" +
+			   "<td          >" + value2 + tags2 + "</td></tr>" ;
 		else o1 += "<tr id='addr" + key + "'" +
                            "    style='color:black; font-size:small; font-weight:normal'>" +
-			   "<td width=50%>" + "0x" + key3 + "-" + key2 + "</td>" +
-			   "<td          >" + value2                   + "</td></tr>" ;
+			   "<td width=50%>" + "0x" + valkeys[3] + "-" + valkeys[0] + "</td>" +
+			   "<td          >" + value2 + tags2 + "</td></tr>" ;
             }
 
 	    if (typeof memory[index] == "undefined")
