@@ -734,15 +734,18 @@
 
         var show_main_memory_deferred = null;
 
-        function show_main_memory ( memory, index, redraw )
+        function show_main_memory ( memory, index, redraw, updates )
         {
+            // if ($("#memory_MP").is(":visible") == false)
+            //     return ;
+
             if (null != show_main_memory_deferred)
-                clearTimeout(show_main_memory_deferred) ;
+                return;
 
             show_main_memory_deferred = setTimeout(function () {
 						        if (redraw == false)
-						    	     light_refresh_main_memory(memory, index);
-                                                        else  hard_refresh_main_memory(memory, index, redraw) ;
+						    	     light_refresh_main_memory(memory, index, updates);
+                                                        else  hard_refresh_main_memory(memory, index, updates) ;
                                                         show_main_memory_deferred = null;
                                                    }, cfg_show_main_memory_delay);
         }
@@ -752,47 +755,32 @@
 	    var o1 = "" ;
             var value = "" ;
 
-            var valkeys = new Object();
-            var revlabels = new Object();
+            var valkeys = new Array();
+
+            // todo: move next 4 lines to the end of the assembler parser
             var SIMWARE = get_simware() ;
+            var revlabels = new Object();
             for (var key in SIMWARE.labels2)
                  revlabels[SIMWARE.labels2[key]] = key;
 
             for (var key in memory)
             {
-		value  = memory[key].toString(16) ;
-		value  = "00000000".substring(0, 8 - value.length) + value ;
-
-                value2 = '' ;
-                for (var i=0; i<4; i++)
-		     valkeys[i] = (parseInt(key) + i).toString(16) ;
-
-                for (var i=0; i<4; i++) 
-                {
-                     labeli = revlabels["0x" + valkeys[3-i]] ;
-                     valuei = value[i*2] + value[i*2+1] ;
-
-                     if (typeof labeli != "undefined")
-                          value2 += '<span style="border:1px solid gray;">' + valuei + '</span>' +
-                                    '<span class="label label-primary" style="position:relative;top:12px;right:8px;">' + labeli + '</span>' ;
-                     else value2 += valuei + ' ' ;
-                }
+                value = main_memory_getword(revlabels, valkeys, memory, key) ;
 
 		for (skey in segments) {
 		     if (parseInt(segments[skey].begin) == parseInt(key))
 			 o1 += "</tbody>" + "<tbody id=begin_" + skey + ">";
 		}
 
-                // "color:blue; font-size:normal;" -> "color:blue font-size:small;" (reduce layout delay)
 		if (key == index)
 		     o1 += "<tr id='addr" + key + "'" +
                            "    style='color:blue;  font-size:small; font-weight:bold'>" +
 			   "<td width=50%>" + "0x" + valkeys[3] + "-" + valkeys[0] + "</td>" +
-			   "<td          >" + value2 + "</td></tr>" ;
+			   "<td id='mpval" + key + "'>" + value + "</td></tr>" ;
 		else o1 += "<tr id='addr" + key + "'" +
                            "    style='color:black; font-size:small; font-weight:normal'>" +
 			   "<td width=50%>" + "0x" + valkeys[3] + "-" + valkeys[0] + "</td>" +
-			   "<td          >" + value2 + "</td></tr>" ;
+			   "<td id='mpval" + key + "'>" + value + "</td></tr>" ;
             }
 
 	    if (typeof memory[index] == "undefined")
@@ -817,23 +805,59 @@
             }
         }
 
+        function main_memory_getword ( revlabels, valkeys, memory, key )
+        {
+                if (typeof memory[key] == "undefined")
+                    return "00 00 00 00" ;
+
+		var value  = memory[key].toString(16) ;
+		    value  = "00000000".substring(0, 8 - value.length) + value ;
+
+                var i = 0;
+                for (i=0; i<4; i++) {
+		     valkeys[i] = (parseInt(key) + i).toString(16) ;
+                }
+
+                value2 = '' ;
+                for (i=0; i<4; i++) 
+                {
+                     labeli = revlabels["0x" + valkeys[3-i]] ;
+                     valuei = value[i*2] + value[i*2+1] ;
+
+                     if (typeof labeli != "undefined")
+                          value2 += '<span style="border:1px solid gray;">' + valuei + '</span>' +
+                                    '<span class="label label-primary" style="position:relative;top:12px;right:8px;">' + labeli + '</span>' ;
+                     else value2 += valuei + ' ' ;
+                }
+
+                return value2 ;
+        }
+
         var old_main_addr = 0;
 
-        function light_refresh_main_memory ( memory, index )
+        function light_refresh_main_memory ( memory, index, redraw )
         {
-            // if ($("#memory_MP").is(":visible") == false)
-            //     return ;
+            if (redraw)
+            {
+                var valkeys   = new Array() ;
+                var SIMWARE   = get_simware() ;
+                var revlabels = new Object() ;
+                for (var key in SIMWARE.labels2)
+                     revlabels[SIMWARE.labels2[key]] = key ;
+                var svalue = main_memory_getword(revlabels, valkeys, memory, index) ;
+
+                o1 = $("#mpval" + index) ;
+                o1.html(svalue);
+            }
 
             o1 = $("#addr" + old_main_addr) ;
             o1.css('color', 'black') ;
-            //o1.css('font-size', 'small') ;
             o1.css('font-weight', 'normal') ;
 
             old_main_addr = index ;
 
             o1 = $("#addr" + old_main_addr) ;
             o1.css('color', 'blue') ;
-            //o1.css('font-size', 'initial') ;
             o1.css('font-weight', 'bold') ;
         }
 
@@ -842,7 +866,7 @@
         function show_control_memory ( memory, memory_dashboard, index, redraw )
         {
             if (null != show_control_memory_deferred)
-                clearTimeout(show_control_memory_deferred) ;
+                return;
 
             show_control_memory_deferred = setTimeout(function () {
 						         if (false == redraw)
@@ -936,14 +960,12 @@
 
             o1 = $("#maddr" + old_mc_addr) ;
             o1.css('color', 'black') ;
-            //o1.css('font-size', 'small') ;
             o1.css('font-weight', 'normal') ;
 
             old_mc_addr = index ;
 
             o1 = $("#maddr" + old_mc_addr) ;
             o1.css('color', 'blue') ;
-            //o1.css('font-size', 'initial') ;
             o1.css('font-weight', 'bold') ;
         }
 
