@@ -98,9 +98,9 @@
             if (get_cfg('DBG_delay') < 5)
                 cfg_show_main_memory_delay = 450;
 
-            cfg_show_contorl_memory_delay = 120;
+            cfg_show_control_memory_delay = 120;
             if (get_cfg('DBG_delay') < 5)
-                cfg_show_contorl_memory_delay = 360;
+                cfg_show_control_memory_delay = 360;
 
             cfg_show_asmdbg_pc_delay = 50;
             if (get_cfg('DBG_delay') < 3)

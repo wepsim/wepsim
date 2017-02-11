@@ -438,6 +438,8 @@
 	return true ;
     }
 
+    var max_turbo = 5 ;
+
     function wepsim_execute_chainplay ( btn1 )
     {
 	if (DBG_stop) {
@@ -449,8 +451,10 @@
 
         var turbo = 1;
 	if (get_cfg('DBG_delay') < 5)
-            turbo = 20;
+            turbo = max_turbo ;
 
+        if (max_turbo == 5) 
+            var t0 = performance.now() ;
         for (var i=0; i<turbo; i++)
         {
 		var ret = false ;
@@ -481,6 +485,11 @@
 		    return ;
 		}
         }
+        if (max_turbo == 5) 
+            var t1 = performance.now() ;
+
+        if (max_turbo == 5) 
+            max_turbo = 250*5/(t1-t0) ;
 
 	setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), btn1) ;
     }
