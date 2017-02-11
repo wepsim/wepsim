@@ -765,14 +765,17 @@
 
                 value2 = '' ;
                 for (var i=0; i<4; i++)
-                {
 		     valkeys[i] = (parseInt(key) + i).toString(16) ;
 
-                     if (typeof revlabels["0x" + valkeys[i]] != "undefined")
-                          value2 += '<button class="btn btn-xs btn-success" type="button">' + 
-                                    revlabels["0x" + valkeys[i]] + '&nbsp;' +
-                                    '<span class="badge">' + value[i*2] + value[i*2+1] + '</span></button>' ;
-                     else value2 += value[i*2] + value[i*2+1] + ' ' ;
+                for (var i=0; i<4; i++) 
+                {
+                     labeli = revlabels["0x" + valkeys[3-i]] ;
+                     valuei = value[i*2] + value[i*2+1] ;
+
+                     if (typeof labeli != "undefined")
+                          value2 += '<span style="border:1px solid gray;">' + valuei + '</span>' +
+                                    '<span class="label label-primary" style="position:relative;top:12px;right:8px;">' + labeli + '</span>' ;
+                     else value2 += valuei + ' ' ;
                 }
 
 		for (skey in segments) {
