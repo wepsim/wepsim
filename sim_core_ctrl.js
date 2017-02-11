@@ -341,8 +341,8 @@
 
         function show_memories_values ( )
         {
-               show_main_memory(MP,               get_value(sim_states['REG_PC']),        true) ;
-            show_control_memory(MC, MC_dashboard, get_value(sim_states['REG_MICROADDR']), true) ;
+               show_main_memory(MP,               get_value(sim_states['REG_PC']),        true, true) ;
+            show_control_memory(MC, MC_dashboard, get_value(sim_states['REG_MICROADDR']), true, true) ;
 	}
 
         function update_signal_firmware ( key )
@@ -620,8 +620,8 @@
 	    }
 
 	    // 6.- show memories...
-            show_main_memory   (MP,                1, false) ;
-            show_control_memory(MC,  MC_dashboard, 1, false) ;
+            show_main_memory   (MP,                1, false, true) ;
+            show_control_memory(MC,  MC_dashboard, 1, false, true) ;
 	}
 
 
@@ -760,8 +760,8 @@
 	    show_states() ;
             show_rf_values();
             show_rf_names();
-            show_main_memory   (MP,                0, false) ;
-            show_control_memory(MC,  MC_dashboard, 0, false) ;
+            show_main_memory   (MP,                0, false, false) ;
+            show_control_memory(MC,  MC_dashboard, 0, false, false) ;
             set_screen_content("") ;
         }
 
