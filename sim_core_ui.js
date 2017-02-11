@@ -858,6 +858,13 @@
             var value = "" ;
             var icon_theme = get_cfg('ICON_theme') ;
 
+            var SIMWARE = get_simware() ;
+            var revlabels = new Object() ;
+            for (var key in SIMWARE.firmware)
+                 revlabels[SIMWARE.firmware[key]["mc-start"]] = SIMWARE.firmware[key]["name"] ;
+
+            var maddr = "" ;
+            var trpin = "" ;
             for (var key in memory)
             {
 		value = "" ;
@@ -871,7 +878,12 @@
 		     value += ks + "=" + parseInt(memory[key][ks]).toString(2) + " ";
 		}
 
-		var trpin = "&nbsp;" ;
+                maddr = "0x" + parseInt(key).toString(16) ;
+                if (typeof revlabels[key] != "undefined")
+                    maddr = '<span class="label label-primary" style="position:relative;float:left;top:5px;right:8px;">' + revlabels[key] + '</span>' +
+                            '<span style="border:1px solid gray;">' + maddr + '</span>' ;
+
+		trpin = "&nbsp;" ;
 		if (true == memory_dashboard[key].breakpoint)
 		    trpin = "<img alt='stop icon' height=22 src='images/stop_" + icon_theme + ".gif'>" ;
 
@@ -880,14 +892,14 @@
                            "    style='color:blue; font-size:small; font-weight:bold' " +
 			   "    onclick='dbg_set_breakpoint(" + key + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
-			   "<td width=12% align=right>" + "0x" + parseInt(key).toString(16) + "</td>" +
+			   "<td width=12% align=right>" + maddr + "</td>" +
 			   "<td width=1% id='mcpin" + key + "' style='padding:5 0 0 0;'>" + trpin + "</td>" +
 			   "<td>" + value + "</td></tr>";
 		else o1 += "<tr id='maddr" + key + "' " +
                            "    style='color:black; font-size:small; font-weight:normal' " +
 			   "    onclick='dbg_set_breakpoint(" + key + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
-			   "<td width=12% align=right>" + "0x" + parseInt(key).toString(16) + "</td>" +
+			   "<td width=12% align=right>" + maddr + "</td>" +
 			   "<td width=1% id='mcpin" + key + "' style='padding:5 0 0 0;'>" + trpin + "</td>" +
 			   "<td>" + value + "</td></tr>";
             }
