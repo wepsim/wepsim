@@ -754,6 +754,7 @@
         {
 	    var o1 = "" ;
             var value = "" ;
+            var sname = "" ;
 
             var valkeys = new Array();
 
@@ -767,20 +768,35 @@
             {
                 value = main_memory_getword(revlabels, valkeys, memory, key) ;
 
-		for (skey in segments) {
-		     if (parseInt(segments[skey].begin) == parseInt(key))
-			 o1 += "</tbody>" + "<tbody id=begin_" + skey + ">";
+                sname = "" ;
+		for (skey in segments) 
+                {
+		     if (parseInt(segments[skey].begin) == parseInt(key)) 
+                     {
+			 o1 += "</tbody><tbody id=begin_" + skey + ">";
+                         sname = skey ;
+                     }
 		}
+
+                taddr = '0x' + valkeys[3] + '-' + valkeys[0] ;
+                if (sname != "")
+                    taddr = '<span class="label label-primary" ' + 
+                            '      style="position:relative;top:-10px;right:0px;">' + sname + '</span>' +
+                            '<span style="border:1px solid gray;">' + taddr + '</span>' ;
 
 		if (key == index)
 		     o1 += "<tr id='addr" + key + "'" +
                            "    style='color:blue;  font-size:small; font-weight:bold'>" +
-			   "<td width=50%>" + "0x" + valkeys[3] + "-" + valkeys[0] + "</td>" +
-			   "<td id='mpval" + key + "'>" + value + "</td></tr>" ;
+			   "<td width='35%' align='right'>" + taddr + "</td>" + 
+			   "<td width='5%'  align='center'>&nbsp;</td>" + 
+                           "<td width='50%' id='mpval" + key + "'>" + value + "</td>" + 
+                           "</tr>" ;
 		else o1 += "<tr id='addr" + key + "'" +
                            "    style='color:black; font-size:small; font-weight:normal'>" +
-			   "<td width=50%>" + "0x" + valkeys[3] + "-" + valkeys[0] + "</td>" +
-			   "<td id='mpval" + key + "'>" + value + "</td></tr>" ;
+			   "<td width='35%' align='right'>" + taddr + "</td>" + 
+			   "<td width='5%'  align='center'>&nbsp;</td>" + 
+                           "<td width='50%' id='mpval" + key + "'>" + value + "</td>" + 
+                           "</tr>" ;
             }
 
 	    if (typeof memory[index] == "undefined")
@@ -904,7 +920,8 @@
 
                 maddr = "0x" + parseInt(key).toString(16) ;
                 if (typeof revlabels[key] != "undefined")
-                    maddr = '<span class="label label-primary" style="position:relative;float:left;top:5px;right:8px;">' + revlabels[key] + '</span>' +
+                    maddr = '<span class="label label-primary" ' + 
+                            '      style="position:relative;top:-10px;right:0px;">' + revlabels[key] + '</span>' +
                             '<span style="border:1px solid gray;">' + maddr + '</span>' ;
 
 		trpin = "&nbsp;" ;
