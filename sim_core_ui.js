@@ -807,9 +807,10 @@
 
 	    if (typeof memory[index] == "undefined")
 		o1 += "<tr>" +
-		      "<td width=15%><font style='color:blue; font-size:small; font-weight:bold'>0x" + 
+		      "<td style='width:30%; min-width:150px;' align='right'><font style='color:blue; font-size:small; font-weight:bold'>0x" + 
                       parseInt(index).toString(16) + 
                       "</font></td>" +
+	              "<td width='5%' align='center'>&nbsp;</td>" + 
 		      "<td><font style='color:blue; font-size:small; font-weight:bold'><b>00 00 00 00</b></font></td></tr>";
 
             $("#memory_MP").html("<center><table class='table table-hover table-condensed table-responsive'>" +
