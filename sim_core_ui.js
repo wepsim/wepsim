@@ -750,6 +750,11 @@
                                                    }, cfg_show_main_memory_delay);
         }
 
+        function pack5 ( val )
+        {
+            return "00000".substring(0, 5 - val.length) + val ;
+        }
+
         function hard_refresh_main_memory ( memory, index, redraw )
         {
 	    var o1 = "" ;
@@ -773,29 +778,30 @@
                 {
 		     if (parseInt(segments[skey].begin) == parseInt(key)) 
                      {
-			 o1 += "</tbody><tbody id=begin_" + skey + ">";
+			 o1 += "</tbody><tbody id=begin" + skey.replace(".","_") + ">";
                          sname = skey ;
                      }
 		}
 
-                taddr = '0x' + valkeys[3] + '-' + valkeys[0] ;
                 if (sname != "")
-                    taddr = '<span class="label label-primary" ' + 
-                            '      style="position:relative;top:-10px;right:0px;">' + sname + '</span>' +
-                            '<span style="border:1px solid gray;">' + taddr + '</span>' ;
+                     taddr = '<span class="label label-default" ' + 
+                             '      style="position:relative;top:-10px;right:0px;">' + sname + '</span>' +
+                             '<small>0x</small>' + pack5(valkeys[3]) + ' - ' + 
+                             '<span style="border:1px solid gray;">' + '<small>0x</small>' + pack5(valkeys[0]) + '</span>' ;
+                else taddr = '<small>0x</small>' + pack5(valkeys[3]) + ' - ' + '<small>0x</small>' + pack5(valkeys[0]) ;
 
 		if (key == index)
 		     o1 += "<tr id='addr" + key + "'" +
-                           "    style='color:blue;  font-size:small; font-weight:bold'>" +
-			   "<td width='35%' align='right'>" + taddr + "</td>" + 
-			   "<td width='5%'  align='center'>&nbsp;</td>" + 
-                           "<td width='50%' id='mpval" + key + "'>" + value + "</td>" + 
+                           "    style='color:blue; font-size:small; font-weight:bold'>" +
+			   "<td style='width:30%; min-width:150px;' align='right'>" + taddr + "</td>" + 
+			   "<td width='5%'               align='center'>&nbsp;</td>" + 
+                           "<td id='mpval" + key + "'>" + value + "</td>" + 
                            "</tr>" ;
 		else o1 += "<tr id='addr" + key + "'" +
                            "    style='color:black; font-size:small; font-weight:normal'>" +
-			   "<td width='35%' align='right'>" + taddr + "</td>" + 
-			   "<td width='5%'  align='center'>&nbsp;</td>" + 
-                           "<td width='50%' id='mpval" + key + "'>" + value + "</td>" + 
+			   "<td style='width:30%; min-width:150px;' align='right'>" + taddr + "</td>" + 
+			   "<td width='5%'               align='center'>&nbsp;</td>" + 
+                           "<td id='mpval" + key + "'>" + value + "</td>" + 
                            "</tr>" ;
             }
 
