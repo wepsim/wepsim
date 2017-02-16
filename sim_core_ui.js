@@ -754,18 +754,18 @@
             // if ($("#memory_MP").is(":visible") == false)
             //     return ;
 
-            show_main_memory_redraw  = redraw | show_main_memory_redraw ;
+            if (get_cfg('DBG_delay') > 5) 
+                show_main_memory_redraw  = redraw || show_main_memory_redraw ;
 
             if (null != show_main_memory_deferred)
                 return;
 
+            show_main_memory_redraw = redraw ;
             show_main_memory_deferred = setTimeout(function () 
                                                    {
 						        if (show_main_memory_redraw == false)
 						    	    light_refresh_main_memory(memory, index, updates);
-                                                        else 
-                                                        if (get_cfg('DBG_delay') > 5) 
-                                                             hard_refresh_main_memory(memory, index, updates) ;
+                                                        else hard_refresh_main_memory(memory, index, updates) ;
 
                                                         show_main_memory_deferred = null;
                                                         show_main_memory_updates  = false;
