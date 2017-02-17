@@ -799,18 +799,18 @@
                 sname = seglabels[parseInt(key)] ;
 
                 if (typeof sname != "undefined")
-                    o1 += '<div style="position:sticky;top:0px;z-index:1;width:90%;background:#FFFFFF;"><b><small>' + sname + '</small></b></div>' ;
+                    o1 += '<div style="position:sticky;top:0px;z-index:1;width:80%;background:#FFFFFF;"><b><small>' + sname + '</small></b></div>' ;
 
                 taddr = '<small>0x</small>' + pack5(valkeys[3]) + ' - ' + '<small>0x</small>' + pack5(valkeys[0]) ;
 		if (key == index)
 		     o1 += "<div class='row' id='addr" + key + "'" +
-                           "     style='color:blue; font-size:small; font-weight:bold'>" +
+                           "     style='color:blue; font-size:small; font-weight:bold;    border-bottom: 1px solid lightgray !important'>" +
 			   "<div class='col-xs-5 col-sm-5 col-md-5 col-lg-5' align='right'  style='padding:5'>" + taddr + "</div>" + 
 			   "<div class='col-xs-1 col-sm-1 col-md-1 col-lg-1' align='center' style='padding:5'></div>" + 
                            "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' align='left'   style='padding:5' id='mpval" + key + "'>" + value + "</div>" + 
                            "</div>" ;
 		else o1 += "<div class='row' id='addr" + key + "'" +
-                           "     style='color:black; font-size:small; font-weight:normal'>" +
+                           "     style='color:black; font-size:small; font-weight:normal; border-bottom: 1px solid lightgray !important'>" +
 			   "<div class='col-xs-5 col-sm-5 col-md-5 col-lg-5' align='right'  style='padding:5'>" + taddr + "</div>" + 
 			   "<div class='col-xs-1 col-sm-1 col-md-1 col-lg-1' align='center' style='padding:5'></div>" + 
                            "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' align='left'   style='padding:5' id='mpval" + key + "'>" + value + "</div>" + 
@@ -819,16 +819,16 @@
 
 	    if (typeof memory[index] == "undefined")
 		o1 += "<div class='row'>" +
-		      "<div class='col-*-5' align='right'  style='padding:5'>" + 
+		      "<div class='col-xs-5 col-sm-5 col-md-5 col-lg-5' align='right'  style='padding:5'>" + 
                       "<font style='color:blue;font-size:small;font-weight:bold'>0x" + 
                       parseInt(index).toString(16) + 
                       "</font></div>" +
-		      "<div class='col-*-1' align='center' style='padding:5'></div>" + 
-		      "<div class='col-*-6' align='left'   style='padding:5'>" +
+		      "<div class='col-xs-1 col-sm-1 col-md-1 col-lg-1' align='center' style='padding:5'></div>" + 
+		      "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' align='left'   style='padding:5'>" +
                       "<font style='color:blue;font-size:small;font-weight:bold'><b>00 00 00 00</b></font></div>"+ 
                       "</div>";
 
-            $("#memory_MP").html("<div class='container' style='width:100%'>" + o1 + "</div>");
+            $("#memory_MP").html("<div class='container-fluid'>" + o1 + "</div>");
 
             // scroll up/down to index element...
 	    var obj_byid = $('#addr' + index) ;
@@ -837,7 +837,7 @@
 	        var topPos = obj_byid[0].offsetTop ;
 	        var obj_byid = $('#memory_MP') ;
 	        if (obj_byid.length > 0)
-	            obj_byid[0].scrollTop = topPos;
+	            obj_byid[0].scrollTop = topPos - 100;
             }
         }
 
