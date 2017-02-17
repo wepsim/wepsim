@@ -1,4 +1,7 @@
 
+1.7.6 -> 1.7.7:
+* Sticky segment name on memory visualization
+
 1.7.5 -> 1.7.6:
 * Tutorials support (welcome tutorial as example)
 * Several UI tweaks (slider positions, home help button, etc.)
