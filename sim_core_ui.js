@@ -801,18 +801,19 @@
                 if (typeof sname != "undefined")
                     o1 += '<div style="position:sticky;top:0px;z-index:1;width:80%;background:#FFFFFF;"><b><small>' + sname + '</small></b></div>' ;
 
-                taddr = '<small>0x</small>' + pack5(valkeys[3]) + ' - ' + '<small>0x</small>' + pack5(valkeys[0]) ;
+                taddr = '<small>0x</small>' + pack5(valkeys[3]) + '<span class="hidden-xs"> </span>-' + 
+                        '<span class="hidden-xs"><small> 0x</small></span>' + pack5(valkeys[0]) ;
 		if (key == index)
 		     o1 += "<div class='row' id='addr" + key + "'" +
                            "     style='color:blue; font-size:small; font-weight:bold;    border-bottom: 1px solid lightgray !important'>" +
 			   "<div class='col-xs-5 col-sm-5 col-md-5 col-lg-5' align='right'  style='padding:5'>" + taddr + "</div>" + 
-			   "<div class='col-xs-1 col-sm-1 col-md-1 col-lg-1' align='center' style='padding:5'></div>" + 
+			   "<div class='col-xs-1 col-sm-1 col-md-1 col-lg-1' align='center' style='padding:0'></div>" + 
                            "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' align='left'   style='padding:5' id='mpval" + key + "'>" + value + "</div>" + 
                            "</div>" ;
 		else o1 += "<div class='row' id='addr" + key + "'" +
                            "     style='color:black; font-size:small; font-weight:normal; border-bottom: 1px solid lightgray !important'>" +
 			   "<div class='col-xs-5 col-sm-5 col-md-5 col-lg-5' align='right'  style='padding:5'>" + taddr + "</div>" + 
-			   "<div class='col-xs-1 col-sm-1 col-md-1 col-lg-1' align='center' style='padding:5'></div>" + 
+			   "<div class='col-xs-1 col-sm-1 col-md-1 col-lg-1' align='center' style='padding:0'></div>" + 
                            "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' align='left'   style='padding:5' id='mpval" + key + "'>" + value + "</div>" + 
                            "</div>" ;
             }
