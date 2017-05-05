@@ -819,7 +819,7 @@
 
     function sim_prepare_editor ( editor )
     {
-	    editor.setValue("\n\n\n\n\n\n\n\n\n");
+	    editor.setValue("\n\n\n\n\n\n\n\n\n\n");
 	    editor.getWrapperElement().style['text-shadow'] = '0.0em 0.0em';
 
 	    if (get_cfg('editor_theme') == 'blackboard') {

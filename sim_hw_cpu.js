@@ -1189,6 +1189,20 @@
 								     update_state(key) ;
 								 }
 							    }
+
+							 /*
+							    // begin: only once ???
+							    var pfire_aux1 = function (key) {
+								 update_draw(sim_signals[key], sim_signals[key].value) ;
+								 if ("L" == sim_signals[key].type) {
+								     update_state(key) ;
+								 }
+                                                            }
+							    var pfire = new Parallel(jit_fire_order) ; 
+							    // end: only once ???
+							    pfire.map(pfire_aux1);
+							 */
+
 							}
 					   };
 

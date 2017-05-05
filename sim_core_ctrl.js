@@ -52,12 +52,8 @@
 	    var tri_activated_name = "";
             for (var i=0; i<tri_state_names.length; i++)
             {
-                 tri_name = tri_state_names[i] ;
-                 if (sim_signals[tri_name].value != 0)
-		 {
-                     tri_activated ++ ;
-		     tri_activated_name=tri_name;
-		 }
+		 tri_activated_name = tri_state_names[i] ;
+                 tri_activated      = tri_activated + sim_signals[tri_activated_name].value ;
                  if (tri_activated > 1)
                      break ;
             }
