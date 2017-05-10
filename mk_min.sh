@@ -57,7 +57,7 @@ cat external/bootstrap.min.js \
     external/codemirror.fold/markdown-fold.js \
     external/codemirror.show-hint/codemirror.show-hint.js > external/external.min.js \
     external/vis.min.js \
-    external/parallel.js
+    external/async.js
 
 cat external/bootstrap.min.css \
     external/bootstrap-theme.min.css \

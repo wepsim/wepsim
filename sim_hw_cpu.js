@@ -1191,16 +1191,26 @@
 							    }
 
 							 /*
-							    // begin: only once ???
-							    var pfire_aux1 = function (key) {
-								 update_draw(sim_signals[key], sim_signals[key].value) ;
-								 if ("L" == sim_signals[key].type) {
-								     update_state(key) ;
-								 }
+							    // https://hacks.mozilla.org/2016/05/a-taste-of-javascripts-new-parallel-primitives/
+							    let sab = new SharedArrayBuffer(sizeof(sim_signals)) ;
+                                                            let wa  = new Array(jit_fire_order.length) ;
+							    for (var i=0; i<jit_fire_order.length; i++)
+							    {
+							        let wa[i] = new Worker("...") ;
+							        wa[i].postMessage(sab, [sab]) ;
+							    }
+
+							    ...worker...
+							    let mem ;
+							    onmessage = function (ev) { 
+                                                                 mem = ev.data; 
                                                             }
-							    var pfire = new Parallel(jit_fire_order) ; 
-							    // end: only once ???
-							    pfire.map(pfire_aux1);
+							    let sim_signals = new sim_signals...(mem) ;
+							    update_draw(sim_signals[key], sim_signals[key].value) ;
+							    if ("L" == sim_signals[key].type) {
+							        update_state(key) ;
+							    }
+							    ...
 							 */
 
 							}
