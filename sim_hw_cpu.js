@@ -1191,26 +1191,17 @@
 							    }
 
 							 /*
-							    // https://hacks.mozilla.org/2016/05/a-taste-of-javascripts-new-parallel-primitives/
-							    let sab = new SharedArrayBuffer(sizeof(sim_signals)) ;
-                                                            let wa  = new Array(jit_fire_order.length) ;
-							    for (var i=0; i<jit_fire_order.length; i++)
-							    {
-							        let wa[i] = new Worker("...") ;
-							        wa[i].postMessage(sab, [sab]) ;
-							    }
-
-							    ...worker...
-							    let mem ;
-							    onmessage = function (ev) { 
-                                                                 mem = ev.data; 
-                                                            }
-							    let sim_signals = new sim_signals...(mem) ;
-							    update_draw(sim_signals[key], sim_signals[key].value) ;
-							    if ("L" == sim_signals[key].type) {
-							        update_state(key) ;
-							    }
-							    ...
+							    async.map(jit_fire_order, 
+							    	      function(key) { 
+									 update_draw(sim_signals[key], 
+                                                                                     sim_signals[key].value) ;
+									 if ("L" == sim_signals[key].type) {
+									     update_state(key) ;
+									 }
+								      },
+								      function(err, results) {
+								          // results... 
+								      });
 							 */
 
 							}
