@@ -1192,25 +1192,18 @@
 							    }
 							 */
 
-							    // 4.- Finally, 'fire' the (High) Level signals (parallel)
-							    fn = function (key) {
-								    if (1 == jit_fire_ndep[key])
-								    {
-									update_draw(sim_signals[key], sim_signals[key].value) ;
-									if ("L" == sim_signals[key].type)
-									    update_state(key) ;
-								    }
-								    else
-								    {
-								        return new Promise(function(resolve, reject) {
-								    	     update_draw(sim_signals[key], sim_signals[key].value) ;
-									     if ("L" == sim_signals[key].type)
-									         update_state(key) ;
-								        }) ;
-								    }
-								 };
-							    actions = jit_fire_order.map(fn) ;
-							    results = Promise.all(actions) ;
+							    // 4.- Finally, 'fire' the (High) Level signals
+							    fn_seq = function (key) {
+								         update_draw(sim_signals[key], sim_signals[key].value) ;
+								         if ("L" == sim_signals[key].type) {
+								             update_state(key) ;
+								         }
+								     };
+							    fn_par = function (key) {
+								         return new Promise( function(resolve, reject) { fn_seq(key); }) ;
+								     } ;
+							    actions = jit_fire_order.map(fn_par) ;
+							    Promise.all(actions) ;
 							}
 					   };
 

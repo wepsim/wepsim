@@ -2,7 +2,7 @@
 1.7.6 -> 1.7.7:
 * Sticky segment name on memory visualization
 * Improved full CPU image on help
-* Initial support for parallel primitives
+* Initial support for parallel execution on CLOCK
 
 1.7.5 -> 1.7.6:
 * Tutorials support (welcome tutorial as example)
