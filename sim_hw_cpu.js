@@ -1148,14 +1148,9 @@
 							    set_value(sim_states["CLK"], val + 1);
 
 							    // 1.- To treat the (Falling) Edge signals
-							    for (var i=0; i<jit_fire_order.length; i++)
-							    {
-                                                                 key = jit_fire_order[i] ;
-
-								 if ("E" == sim_signals[key].type) {
-								     update_state(key) ;
-								 }
-							    }
+							    jit_fire_order.map(fn_updateE_now) ;
+							    //actions = jit_fire_order.map(fn_updateE_future) ;
+							    //Promise.all(actions) ;
 
 							    // 2.- The special (Falling) Edge part of the Control Unit...
 						            sim_states["REG_MICROINS"].value = Object.create(sim_states["REG_MICROINS"].default_value);
@@ -1179,31 +1174,10 @@
 								 }
 							    }
 
-							    // 4.- Finally, 'fire' the (High) Level signals (sequential)
-							 /*
-							    for (var i=0; i<jit_fire_order.length; i++)
-							    {
-                                                                 key = jit_fire_order[i] ;
-								 update_draw(sim_signals[key], sim_signals[key].value) ;
-
-								 if ("L" == sim_signals[key].type) {
-								     update_state(key) ;
-								 }
-							    }
-							 */
-
 							    // 4.- Finally, 'fire' the (High) Level signals
-							    fn_seq = function (key) {
-								         update_draw(sim_signals[key], sim_signals[key].value) ;
-								         if ("L" == sim_signals[key].type) {
-								             update_state(key) ;
-								         }
-								     };
-							    fn_par = function (key) {
-								         return new Promise( function(resolve, reject) { fn_seq(key); }) ;
-								     } ;
-							    actions = jit_fire_order.map(fn_par) ;
-							    Promise.all(actions) ;
+							    jit_fire_order.map(fn_updateL_now) ;
+							    //actions = jit_fire_order.map(fn_updateL_future) ;
+							    //Promise.all(actions) ;
 							}
 					   };
 

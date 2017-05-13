@@ -268,6 +268,42 @@
 
 
         /*
+	 * CLOCK (parallel / sequential)
+	 */
+
+        function fn_updateE_now ( key )
+        {
+	    if ("E" == sim_signals[key].type) {
+		update_state(key) ;
+	    }
+	}
+
+        function fn_updateE_future ( key ) 
+        {
+            if (jit_fire_ndep[key] < 3)
+	        fn_updateE_now(key); 
+	    else
+	        return new Promise( function(resolve, reject) { fn_updateE_now(key); }) ;
+	}
+
+        function fn_updateL_now ( key )
+        {
+	    update_draw(sim_signals[key], sim_signals[key].value) ;
+	    if ("L" == sim_signals[key].type) {
+		update_state(key) ;
+	    }
+	}
+
+        function fn_updateL_future ( key ) 
+        {
+            if (jit_fire_ndep[key] < 3)
+	        fn_updateL_now(key); 
+	    else
+	        return new Promise( function(resolve, reject) { fn_updateL_now(key); });
+	}
+
+
+        /*
          *  Show/Update the global state
          */
 
