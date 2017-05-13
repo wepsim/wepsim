@@ -280,7 +280,7 @@
 
         function fn_updateE_future ( key ) 
         {
-            if (jit_fire_ndep[key] < 3)
+            if (jit_fire_ndep[key] < 1) // 1 -> 2
 	        fn_updateE_now(key); 
 	    else
 	        return new Promise( function(resolve, reject) { fn_updateE_now(key); }) ;
@@ -296,7 +296,7 @@
 
         function fn_updateL_future ( key ) 
         {
-            if (jit_fire_ndep[key] < 3)
+            if (jit_fire_ndep[key] < 1) // 1 -> 2
 	        fn_updateL_now(key); 
 	    else
 	        return new Promise( function(resolve, reject) { fn_updateL_now(key); });
