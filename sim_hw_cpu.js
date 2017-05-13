@@ -1179,7 +1179,8 @@
 								 }
 							    }
 
-							    // 4.- Finally, 'fire' the (High) Level signals
+							    // 4.- Finally, 'fire' the (High) Level signals (sequential)
+							 /*
 							    for (var i=0; i<jit_fire_order.length; i++)
 							    {
                                                                  key = jit_fire_order[i] ;
@@ -1189,21 +1190,27 @@
 								     update_state(key) ;
 								 }
 							    }
-
-							 /*
-							    async.map(jit_fire_order, 
-							    	      function(key) { 
-									 update_draw(sim_signals[key], 
-                                                                                     sim_signals[key].value) ;
-									 if ("L" == sim_signals[key].type) {
-									     update_state(key) ;
-									 }
-								      },
-								      function(err, results) {
-								          // results... 
-								      });
 							 */
 
+							    // 4.- Finally, 'fire' the (High) Level signals (parallel)
+							    fn = function (key) {
+								    if (1 == jit_fire_ndep[key])
+								    {
+									update_draw(sim_signals[key], sim_signals[key].value) ;
+									if ("L" == sim_signals[key].type)
+									    update_state(key) ;
+								    }
+								    else
+								    {
+								        return new Promise(function(resolve, reject) {
+								    	     update_draw(sim_signals[key], sim_signals[key].value) ;
+									     if ("L" == sim_signals[key].type)
+									         update_state(key) ;
+								        }) ;
+								    }
+								 };
+							    actions = jit_fire_order.map(fn) ;
+							    results = Promise.all(actions) ;
 							}
 					   };
 

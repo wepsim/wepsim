@@ -150,11 +150,13 @@
         var jit_fire_dep    = null ;
         var jit_fire_order  = null ;
 	var jit_dep_network = null ;
+        var jit_fire_ndep   = null ;
 
         function firedep_to_fireorder ( jit_fire_dep )
         {
             var allfireto = false;
             jit_fire_order = new Array();
+            jit_fire_ndep  = new Array();
             for (var sig in sim_signals)
             {
                 if (typeof jit_fire_dep[sig] == "undefined") {
@@ -162,13 +164,16 @@
                     continue;
                 }
 
+		ndep = 0;
                 allfireto = false;
                 for (var sigorg in jit_fire_dep[sig])
                 {
+	             ndep++;
                      if (jit_fire_dep[sig][sigorg] == sim_signals[sigorg].behavior.length) {
                          allfireto = true;
                      }
                 }
+		jit_fire_ndep[sig] = ndep;
                 if (allfireto == false)
                     jit_fire_order.push(sig);
             }
