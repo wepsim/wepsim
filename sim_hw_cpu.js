@@ -1148,9 +1148,9 @@
 							    set_value(sim_states["CLK"], val + 1);
 
 							    // 1.- To treat the (Falling) Edge signals
-							    //jit_fire_order.map(fn_updateE_now) ;
-							    actions = jit_fire_order.map(fn_updateE_future) ;
-							    Promise.all(actions) ;
+							    jit_fire_order.map(fn_updateE_now) ;
+							    //actions = jit_fire_order.map(fn_updateE_future) ;
+							    //Promise.all(actions) ;
 
 							    // 2.- The special (Falling) Edge part of the Control Unit...
 						            sim_states["REG_MICROINS"].value = Object.create(sim_states["REG_MICROINS"].default_value);
@@ -1175,9 +1175,9 @@
 							    }
 
 							    // 4.- Finally, 'fire' the (High) Level signals
-							    //jit_fire_order.map(fn_updateL_now) ;
-							    actions = jit_fire_order.map(fn_updateL_future) ;
-							    Promise.all(actions) ;
+							    jit_fire_order.map(fn_updateL_now) ;
+							    //actions = jit_fire_order.map(fn_updateL_future) ;
+							    //Promise.all(actions) ;
 							}
 					   };
 

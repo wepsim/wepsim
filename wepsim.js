@@ -489,7 +489,7 @@
             var t1 = performance.now() ;
 
         if (max_turbo == 5) 
-            max_turbo = 250*5/(t1-t0) ;
+            max_turbo = 1500/(t1-t0) ;
 
 	setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), btn1) ;
     }
