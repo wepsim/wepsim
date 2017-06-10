@@ -1153,25 +1153,20 @@
 							    //Promise.all(actions) ;
 
 							    // 2.- The special (Falling) Edge part of the Control Unit...
-						            sim_states["REG_MICROINS"].value = Object.create(sim_states["REG_MICROINS"].default_value);
+							    var new_maddr = get_value(sim_states["MUXA_MICROADDR"]) ;
+							    set_value(sim_states["REG_MICROADDR"], new_maddr) ;
 
-							    set_value(sim_states["REG_MICROADDR"], get_value(sim_states["MUXA_MICROADDR"])) ;
-							    if (typeof MC[get_value(sim_states["REG_MICROADDR"])] != "undefined")
-							    {
-								var mc_line = MC[get_value(sim_states["REG_MICROADDR"])] ;
-								for (var k in mc_line) {
-								     sim_states["REG_MICROINS"].value[k] = mc_line[k];
-								}
-							    }
+							    if (typeof MC[new_maddr] != "undefined")
+								     var new_mins = Object.create(MC[new_maddr]);
+								else var new_mins = Object.create(sim_states["REG_MICROINS"].default_value);
+							    sim_states["REG_MICROINS"].value = new_mins ;
 
                                                             // 3.- update signals
 							    for (var key in sim_signals)
 							    {
-								 sim_signals[key].value = sim_signals[key].default_value;
-
-								 if (typeof sim_states["REG_MICROINS"].value[key] != "undefined") {
-								     sim_signals[key].value = sim_states["REG_MICROINS"].value[key];
-								 }
+								 if (typeof new_mins[key] != "undefined") 
+								      sim_signals[key].value = new_mins[key];
+								 else sim_signals[key].value = sim_signals[key].default_value;
 							    }
 
 							    // 4.- Finally, 'fire' the (High) Level signals
