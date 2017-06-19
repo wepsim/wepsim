@@ -53,7 +53,7 @@
             for (var i=0; i<tri_state_names.length; i++)
             {
 		 tri_activated_name = tri_state_names[i] ;
-                 tri_activated      = tri_activated + sim_signals[tri_activated_name].value ;
+                 tri_activated      = tri_activated + parseInt(sim_signals[tri_activated_name].value) ;
                  if (tri_activated > 1)
                      break ;
             }
@@ -378,8 +378,21 @@
 
         function show_memories_values ( )
         {
+		/*
                show_main_memory(MP,               get_value(sim_states['REG_PC']),        true, true) ;
             show_control_memory(MC, MC_dashboard, get_value(sim_states['REG_MICROADDR']), true, true) ;
+		*/
+
+            var f1 = new Promise(function(resolve, reject) {
+                 show_main_memory(MP, get_value(sim_states['REG_PC']), true, true) ;
+                 resolve(1);
+            });
+            var f2 = new Promise(function(resolve, reject) {
+                 show_control_memory(MC, MC_dashboard, get_value(sim_states['REG_MICROADDR']), true, true) ;
+                 resolve(1);
+            });
+
+            Promise.all([f1, f2]);
 	}
 
         function update_signal_firmware ( key )
