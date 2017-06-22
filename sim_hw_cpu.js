@@ -146,17 +146,17 @@
 
 	/* CONTROL UNIT */
 	sim_signals["C"]    = { name: "C",    visible: true, type: "L", value: 0, default_value: 0, nbits: "4",
-				behavior: ["MV MUXC_MUXB VAL_ZERO; FIRE B",
-					   "MBIT_E MUXC_MUXB INT 0 1; FIRE B",
-					   "MBIT_E MUXC_MUXB IORDY 0 1; FIRE B",
-					   "MBIT_E MUXC_MUXB MRDY 0 1; FIRE B",
-					   "MBIT_I MUXC_MUXB REG_SR 0 1; FIRE B",
-					   "MBIT_I MUXC_MUXB REG_SR 1 1; FIRE B",
-					   "MBIT_I MUXC_MUXB REG_SR 28 1; FIRE B",
-					   "MBIT_I MUXC_MUXB REG_SR 29 1; FIRE B",
-					   "MBIT_I MUXC_MUXB REG_SR 30 1; FIRE B",
-					   "MBIT_I MUXC_MUXB REG_SR 31 1; FIRE B",
-					   "MV MUXC_MUXB INEX; FIRE B"],
+				behavior: ["MV MUXC_MUXB VAL_ZERO; FIRE_IFCHANGED B MUXC_MUXB",
+					   "MBIT_E MUXC_MUXB INT 0 1; FIRE_IFCHANGED B MUXC_MUXB",
+					   "MBIT_E MUXC_MUXB IORDY 0 1; FIRE_IFCHANGED B MUXC_MUXB",
+					   "MBIT_E MUXC_MUXB MRDY 0 1; FIRE_IFCHANGED B MUXC_MUXB",
+					   "MBIT_I MUXC_MUXB REG_SR 0 1; FIRE_IFCHANGED B MUXC_MUXB",
+					   "MBIT_I MUXC_MUXB REG_SR 1 1; FIRE_IFCHANGED B MUXC_MUXB",
+					   "MBIT_I MUXC_MUXB REG_SR 28 1; FIRE_IFCHANGED B MUXC_MUXB",
+					   "MBIT_I MUXC_MUXB REG_SR 29 1; FIRE_IFCHANGED B MUXC_MUXB",
+					   "MBIT_I MUXC_MUXB REG_SR 30 1; FIRE_IFCHANGED B MUXC_MUXB",
+					   "MBIT_I MUXC_MUXB REG_SR 31 1; FIRE_IFCHANGED B MUXC_MUXB",
+					   "MV MUXC_MUXB INEX; FIRE_IFCHANGED B MUXC_MUXB"],
 				fire_name: ['svg_cu:text3410'],
 				draw_data: [['svg_cu:path3108'],
 					    ['svg_cu:path3062'],
@@ -171,8 +171,8 @@
 					    ['svg_cu:path3108-3','svg_cu:path3260-3-8-6','svg_cu:path3260-3-8','svg_cu:path3260-3']],
 				draw_name: [['svg_cu:path3496','svg_cu:path3414','svg_cu:path3194-08']] };
 	sim_signals["B"]   = { name: "B", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["MV_ES A1 MUXC_MUXB; FIRE_IFCHANGED A1 A1",
-					  "NOT_ES A1 MUXC_MUXB; FIRE_IFCHANGED A1 A1"],
+			       behavior: ["MV_ES A1 MUXC_MUXB; FIRE A1",
+					  "NOT_ES A1 MUXC_MUXB; FIRE A1"],
                                depends_on: ["CLK"],
 			       fire_name: ['svg_cu:text3408'],
 			       draw_data: [['svg_cu:path3094-7'],
@@ -379,25 +379,25 @@
 				draw_name: [[], ['svg_p:path3697']] };
 
 	sim_signals["SELA"] = { name: "SELA", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
-			        behavior: ["FIRE_IFCHANGED SELA MR_RA"],
+			        behavior: ["FIRE_IFCHANGED MR_RA SELA"],
                                 depends_on: ["RA"],
 			        fire_name: ['svg_cu:text3164'],
 			        draw_data: [[]],
 			        draw_name: [[]] };
 	sim_signals["SELB"] = { name: "SELB", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
-			        behavior: ["FIRE_IFCHANGED SELB MR_RB"],
+			        behavior: ["FIRE_IFCHANGED MR_RB SELB"],
                                 depends_on: ["RB"],
 			        fire_name: ['svg_cu:text3168'],
 			        draw_data: [[]],
 			        draw_name: [[]] };
 	sim_signals["SELC"] = { name: "SELC", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
-			        behavior: ["FIRE_IFCHANGED SELC MR_RC"],
+			        behavior: ["FIRE_IFCHANGED MR_RC SELC"],
                                 depends_on: ["RC"],
 			        fire_name: ['svg_cu:text3172'],
 			        draw_data: [[]],
 			        draw_name: [[]] };
 	sim_signals["SELCOP"] = { name: "SELCOP", visible: true, type: "L", value: 0, default_value:0, nbits: "4",
-			        behavior: ["FIRE_IFCHANGED SELCOP MC"],
+			        behavior: ["FIRE_IFCHANGED MC SELCOP"],
                                 depends_on: ["COP"],
 			        fire_name: ['svg_cu:text3312'],
 			        draw_data: [[]],
@@ -461,7 +461,7 @@
 			       draw_name: [[],['svg_cu:path3306']] }; /*path3210 print red color line of rest of control signals*/
 
 	sim_signals["MR"]  = { name: "MR", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ['MV_S2S MR_RA MR; FIRE MR_RA; MV_S2S MR_RB MR; FIRE MR_RB; MV_S2S MR_RC MR; FIRE MR_RC;'],
+			       behavior: ['MV_S2S MR_RA MR; FIRE_IFCHANGED MR_RA MR_RA; MV_S2S MR_RB MR; FIRE_IFCHANGED MR_RB MR_RB; MV_S2S MR_RC MR; FIRE_IFCHANGED MR_RC MR_RC;'],
                                depends_on: ["SELA","SELB","SELC"],
 			       fire_name: ['svg_cu:text3222','svg_cu:text3242','svg_cu:text3254','svg_cu:text3172-1'],
 			       draw_data: [['svg_cu:path3494','svg_cu:path3492','svg_cu:path3490','svg_cu:path3142b','svg_cu:path3188',
@@ -1142,15 +1142,20 @@
 					   };
 
 		syntax_behavior["FIRE_IFCHANGED"] = { nparameters: 3,
-					     types: ["S", "S"],
+					     types: ["S", "X"],
 					     operation: function (s_expr)
 							{
-                                                            if ( (typeof sim_signals[s_expr[1]].changed != "undefined") && (sim_signals[s_expr[1]].changed == false) ) {
-                                                                  return ;
-							    }
+                                                            if ( (typeof sim_signals[s_expr[2]] != "undefined"))
+								  sim_elto = sim_signals[s_expr[2]] ;
+						       else if ( (typeof sim_states[s_expr[2]] != "undefined"))
+								  sim_elto = sim_states[s_expr[2]] ;
+						       else return ;
 
-                                                            sim_signals[s_expr[1]].changed = false ; // release:comment it, debug: uncomment it
-                                                            syntax_behavior["FIRE"].operation(s_expr) ;
+							    if ( (typeof sim_elto.changed != "undefined") && (sim_elto.changed == false) ) {
+								  return ;
+							    }
+							    sim_elto.changed = false ; // release:comment it, debug: uncomment it
+							    syntax_behavior["FIRE"].operation(s_expr) ;
 							}
 					   };
 

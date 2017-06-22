@@ -115,26 +115,24 @@
 
 			    for (var j=1; j<behavior_k.length; j++)
 			    {
-				if ("E" == syntax_behavior[behavior_k[0]].types[j-1])
-				{
-				     var s = behavior_k[j].split('/') ;
+				var s = behavior_k[j].split('/') ;
+				var t = syntax_behavior[behavior_k[0]].types[j-1] ;
 
-				     if (typeof (sim_states[s[0]]) == "undefined")
+				     if ( ("E" == t) && (typeof sim_states[s[0]] == "undefined") )
 				     {
-					 alert("ALERT: Behavior has an undefined reference to a object state -> '" + behavior_i);
-					 return;
+					  alert("ALERT: Behavior has an undefined reference to a object state -> '" + behavior_i);
+					  return;
 				     }
-				}
-				else if ("S" == syntax_behavior[behavior_k[0]].types[j-1])
-				{
-				     var s = behavior_k[j].split('/') ;
-
-				     if (typeof (sim_signals[s[0]]) == "undefined")
+				else if ( ("S" == t) && (typeof sim_signals[s[0]] == "undefined") )
 				     {
 					 alert("ALERT: Behavior has an undefined reference to a signal -> '" + behavior_i);
 					 return;
 				     }
-				}
+				else if ( ("X" == t) && (typeof sim_states[s[0]] == "undefined") && (typeof sim_signals[s[0]] == "undefined") )
+				     {
+					 alert("ALERT: Behavior has an undefined reference to a object state OR signal -> '" + behavior_i);
+					 return;
+				     }
 			    }
                     }
                 }
