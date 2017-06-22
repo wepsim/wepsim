@@ -179,15 +179,15 @@
 					   ['svg_cu:path3392','svg_cu:path3372','svg_cu:path3390','svg_cu:path3384','svg_cu:path3108-1','svg_cu:path3100-8-7']],
 			       draw_name: [[],['svg_cu:path3194-0','svg_cu:path3138-8','svg_cu:path3498-6']] };
 	sim_signals["A0"] = { name: "A0", visible: false, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["SBIT_S A0A1 A0 1; FIRE A0A1",
-					  "SBIT_S A0A1 A0 1; FIRE A0A1"],
+			       behavior: ["SBIT A0A1 A0 1; FIRE A0A1",
+					  "SBIT A0A1 A0 1; FIRE A0A1"],
                                depends_on: ["CLK"],
 			       fire_name: ['svg_cu:text3406'],
 			       draw_data: [['svg_cu:path3096'], ['svg_cu:path3096']],
 			       draw_name: [[],['svg_cu:path3138-8-1','svg_cu:path3098-2','svg_cu:path3124-2-5']] };
 	sim_signals["A1"] = { name: "A1", visible: false, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["SBIT_S A0A1 A1 0; FIRE A0A1",
-					  "SBIT_S A0A1 A1 0; FIRE A0A1"],
+			       behavior: ["SBIT A0A1 A1 0; FIRE A0A1",
+					  "SBIT A0A1 A1 0; FIRE A0A1"],
                                depends_on: ["CLK"],
 			       fire_name: [],
 			       draw_data: [['svg_cu:path3094'], ['svg_cu:path3094']],
@@ -371,9 +371,9 @@
 			       draw_name: [['svg_p:path3009', 'svg_p:path3301']] };
 	sim_signals["SELP"] = { name: "SELP",   visible: true, type: "L", value: 0, default_value:0, nbits: "2",
 				behavior: ['NOP',
-				     'MV SELP_M7 REG_SR; SBIT_E SELP_M7 FLAG_U 0; FIRE M7',
-				     'MV SELP_M7 REG_SR; SBIT_E SELP_M7 FLAG_I 1; FIRE M7',
-				     'MV SELP_M7 REG_SR; SBIT_E SELP_M7 FLAG_C 31; SBIT_E SELP_M7 FLAG_V 30; SBIT_E SELP_M7 FLAG_N 29; SBIT_E SELP_M7 FLAG_Z 28; FIRE M7'],
+				     'MV SELP_M7 REG_SR; SBIT SELP_M7 FLAG_U 0; FIRE M7',
+				     'MV SELP_M7 REG_SR; SBIT SELP_M7 FLAG_I 1; FIRE M7',
+				     'MV SELP_M7 REG_SR; SBIT SELP_M7 FLAG_C 31; SBIT SELP_M7 FLAG_V 30; SBIT SELP_M7 FLAG_N 29; SBIT SELP_M7 FLAG_Z 28; FIRE M7'],
 				fire_name: ['svg_p:text3703'],
 				draw_data: [[],['svg_p:path3643'],['svg_p:path3705'],['svg_p:path3675', 'svg_p:path3331']],
 				draw_name: [[], ['svg_p:path3697']] };
@@ -911,19 +911,26 @@
 						   set_value(sim_signals[s_expr[1]], parseInt(n3, 2));
 						}
 				   };
-	syntax_behavior["SBIT_E"] = { nparameters: 4,
-				     types: ["E", "E", "I"],
-				     operation: function (s_expr) {
-						   set_value(sim_states[s_expr[1]], (get_value(sim_states[s_expr[1]]) & ~(1 << s_expr[3])) | (get_value(sim_states[s_expr[2]]) << s_expr[3]) );
-						}
-				   };
-	syntax_behavior["SBIT_S"] = { nparameters: 4,
-				     types: ["S", "S", "I"],
-				     operation: function (s_expr) {
+	syntax_behavior["SBIT"]  = { nparameters: 4,
+				     types: ["X", "X", "I"],
+				     operation: function (s_expr) 
+		                                {
+                                                   if (typeof sim_states[s_expr[2]] != "undefined")
+                                                       sim_elto_org = sim_states[s_expr[2]] ;
+                                              else if (typeof sim_signals[s_expr[2]] != "undefined")
+                                                       sim_elto_org = sim_signals[s_expr[2]] ;
+                                              else return ;
+
+                                                   if (typeof sim_states[s_expr[1]] != "undefined")
+                                                       sim_elto_dst = sim_states[s_expr[1]] ;
+                                              else if (typeof sim_signals[s_expr[1]] != "undefined")
+                                                       sim_elto_dst = sim_signals[s_expr[1]] ;
+                                              else return ;
+
 						   //    0      1    2  3
-						   // SBIT_S  A0A1  A1  0
-						   set_value(sim_signals[s_expr[1]], (sim_signals[s_expr[1]].value & ~(1 << s_expr[3])) |
-										     (sim_signals[s_expr[2]].value << s_expr[3]));
+						   //   SBIT  A0A1  A1  0
+						   set_value(sim_elto_dst, (sim_elto_dst.value & ~(1 << s_expr[3])) |
+									   (sim_elto_org.value << s_expr[3]));
 						}
 				   };
 	syntax_behavior["MBITS"] = { nparameters: 8,
