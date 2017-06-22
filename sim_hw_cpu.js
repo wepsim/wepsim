@@ -147,15 +147,15 @@
 	/* CONTROL UNIT */
 	sim_signals["C"]    = { name: "C",    visible: true, type: "L", value: 0, default_value: 0, nbits: "4",
 				behavior: ["MV MUXC_MUXB VAL_ZERO; FIRE_IFCHANGED B MUXC_MUXB",
-					   "MBIT_E MUXC_MUXB INT 0 1; FIRE_IFCHANGED B MUXC_MUXB",
-					   "MBIT_E MUXC_MUXB IORDY 0 1; FIRE_IFCHANGED B MUXC_MUXB",
-					   "MBIT_E MUXC_MUXB MRDY 0 1; FIRE_IFCHANGED B MUXC_MUXB",
-					   "MBIT_I MUXC_MUXB REG_SR 0 1; FIRE_IFCHANGED B MUXC_MUXB",
-					   "MBIT_I MUXC_MUXB REG_SR 1 1; FIRE_IFCHANGED B MUXC_MUXB",
-					   "MBIT_I MUXC_MUXB REG_SR 28 1; FIRE_IFCHANGED B MUXC_MUXB",
-					   "MBIT_I MUXC_MUXB REG_SR 29 1; FIRE_IFCHANGED B MUXC_MUXB",
-					   "MBIT_I MUXC_MUXB REG_SR 30 1; FIRE_IFCHANGED B MUXC_MUXB",
-					   "MBIT_I MUXC_MUXB REG_SR 31 1; FIRE_IFCHANGED B MUXC_MUXB",
+					   "MBIT MUXC_MUXB INT 0 1; FIRE_IFCHANGED B MUXC_MUXB",
+					   "MBIT MUXC_MUXB IORDY 0 1; FIRE_IFCHANGED B MUXC_MUXB",
+					   "MBIT MUXC_MUXB MRDY 0 1; FIRE_IFCHANGED B MUXC_MUXB",
+					   "MBIT MUXC_MUXB REG_SR 0 1; FIRE_IFCHANGED B MUXC_MUXB",
+					   "MBIT MUXC_MUXB REG_SR 1 1; FIRE_IFCHANGED B MUXC_MUXB",
+					   "MBIT MUXC_MUXB REG_SR 28 1; FIRE_IFCHANGED B MUXC_MUXB",
+					   "MBIT MUXC_MUXB REG_SR 29 1; FIRE_IFCHANGED B MUXC_MUXB",
+					   "MBIT MUXC_MUXB REG_SR 30 1; FIRE_IFCHANGED B MUXC_MUXB",
+					   "MBIT MUXC_MUXB REG_SR 31 1; FIRE_IFCHANGED B MUXC_MUXB",
 					   "MV MUXC_MUXB INEX; FIRE_IFCHANGED B MUXC_MUXB"],
 				fire_name: ['svg_cu:text3410'],
 				draw_data: [['svg_cu:path3108'],
@@ -171,7 +171,7 @@
 					    ['svg_cu:path3108-3','svg_cu:path3260-3-8-6','svg_cu:path3260-3-8','svg_cu:path3260-3']],
 				draw_name: [['svg_cu:path3496','svg_cu:path3414','svg_cu:path3194-08']] };
 	sim_signals["B"]   = { name: "B", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["MV_ES A1 MUXC_MUXB; FIRE A1",
+			       behavior: ["MV A1 MUXC_MUXB; FIRE A1",
 					  "NOT_ES A1 MUXC_MUXB; FIRE A1"],
                                depends_on: ["CLK"],
 			       fire_name: ['svg_cu:text3408'],
@@ -194,7 +194,7 @@
 			       draw_name: [[]] };
 	sim_signals["A0A1"] = { name: "A0A1", visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
 				behavior: ["ADD MUXA_MICROADDR REG_MICROADDR SUM_ONE",
-					   "MV_EE MUXA_MICROADDR REG_MICROINS/MADDR",
+					   "MV MUXA_MICROADDR REG_MICROINS/MADDR",
 					   "MV MUXA_MICROADDR ROM_MUXA",
 					   "MV MUXA_MICROADDR FETCH"],
                                 depends_on: ["CLK"],
@@ -309,7 +309,7 @@
 			       draw_data: [['svg_p:path3145', 'svg_p:path3141','svg_p:path3049','svg_p:path3145-5']],
 			       draw_name: [['svg_p:path3137']] };
 	sim_signals["T11"] = { name: "T11", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV_EE BUS_IB REG_MICROINS/EXCODE; FIRE M7; FIRE M2; FIRE M1"],
+			       behavior: ["NOP", "MV BUS_IB REG_MICROINS/EXCODE; FIRE M7; FIRE M2; FIRE M1"],
 			       fire_name: ['svg_p:text3147-5','svg_cu:tspan4426'],
 			       draw_data: [['svg_p:path3145', 'svg_p:path3081-3','svg_p:path3139-7','svg_p:path3049','svg_cu:path3081-3','svg_cu:path3139-7','svg_cu:path3502']],
 			       draw_name: [['svg_p:path3133-6','svg_cu:path3133-6']] };
@@ -453,15 +453,15 @@
 			       draw_name: [['svg_p:path3359']] };
 
 	sim_signals["MC"]  = { name: "MC", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ['MBIT_S COP REG_IR 0 4; FIRE COP',
-					  'MV_ES COP REG_MICROINS/SELCOP; FIRE COP'],
+			       behavior: ['MBIT COP REG_IR 0 4; FIRE COP',
+					  'MV COP REG_MICROINS/SELCOP; FIRE COP'],
                                depends_on: ["SELCOP"],
 			       fire_name: ['svg_cu:text3322','svg_cu:text3172-1-5'],
 			       draw_data: [['svg_cu:path3320', 'svg_cu:path3142'],['svg_cu:path3318', 'svg_cu:path3502-6', 'svg_cu:path3232-6']],
 			       draw_name: [[],['svg_cu:path3306']] }; /*path3210 print red color line of rest of control signals*/
 
 	sim_signals["MR"]  = { name: "MR", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ['MV_S2S MR_RA MR; FIRE_IFCHANGED MR_RA MR_RA; MV_S2S MR_RB MR; FIRE_IFCHANGED MR_RB MR_RB; MV_S2S MR_RC MR; FIRE_IFCHANGED MR_RC MR_RC;'],
+			       behavior: ['MV MR_RA MR; FIRE_IFCHANGED MR_RA MR_RA; MV MR_RB MR; FIRE_IFCHANGED MR_RB MR_RB; MV MR_RC MR; FIRE_IFCHANGED MR_RC MR_RC;'],
                                depends_on: ["SELA","SELB","SELC"],
 			       fire_name: ['svg_cu:text3222','svg_cu:text3242','svg_cu:text3254','svg_cu:text3172-1'],
 			       draw_data: [['svg_cu:path3494','svg_cu:path3492','svg_cu:path3490','svg_cu:path3142b','svg_cu:path3188',
@@ -473,19 +473,19 @@
 			       draw_name: [[],['svg_cu:path3220','svg_cu:path3240','svg_cu:path3252']] };
 	sim_signals["MR_RA"] = { name: "MR_RA", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			         behavior: ['MBIT_SN RA REG_IR REG_MICROINS/SELA 5; FIRE RA;',
-					    'MV_ES RA REG_MICROINS/SELA; FIRE RA;'],
+					    'MV RA REG_MICROINS/SELA; FIRE RA;'],
 			         fire_name: [],
 			         draw_data: [[]],
 			         draw_name: [[]] };
 	sim_signals["MR_RB"] = { name: "MR_RB", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			         behavior: ['MBIT_SN RB REG_IR REG_MICROINS/SELB 5; FIRE RB;',
-					    'MV_ES RB REG_MICROINS/SELB; FIRE RB;'],
+					    'MV RB REG_MICROINS/SELB; FIRE RB;'],
 			         fire_name: [],
 			         draw_data: [[]],
 			         draw_name: [[]] };
 	sim_signals["MR_RC"] = { name: "MR_RC", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			         behavior: ['MBIT_SN RC REG_IR REG_MICROINS/SELC 5; FIRE RC;',
-					    'MV_ES RC REG_MICROINS/SELC; FIRE RC;'],
+					    'MV RC REG_MICROINS/SELC; FIRE RC;'],
 			         fire_name: [],
 			         draw_data: [[]],
 			         draw_name: [[]] };
@@ -608,7 +608,7 @@
 			          draw_data: [['svg_p:text3669-1']],
 			          draw_name: [[]] };
 	sim_signals["TEST_INTV"] = { name: "TEST_INTV", visible: true, type: "L", value: 0, default_value:0, nbits: "8",
-			          behavior: ["MBIT_E INTV TEST_INTV 0 32"],
+			          behavior: ["MBIT INTV TEST_INTV 0 32"],
 			          fire_name: ['svg_p:tspan4225'],
 			          draw_data: [['svg_p:path3749']],
 			          draw_name: [[]] };
@@ -621,54 +621,32 @@
 	syntax_behavior["NOP"]   = { nparameters: 1,
 				     operation: function(s_expr) {}
 				   };
-	syntax_behavior["MV"]    = { nparameters: 3,
-				     types: ["E", "E"],
-				     operation: function(s_expr) {
-						   var r = s_expr[2].split('/');
-						   if (1 == r.length)
-							set_value(sim_states[s_expr[1]], get_value(sim_states[s_expr[2]]));
-						   else set_value(sim_states[s_expr[1]], sim_states[r[0]].value[r[1]]);
-						}
-				   };
-	syntax_behavior["MV_ES"] = { nparameters: 3,
-				     types: ["S", "E"],
-				     operation: function(s_expr) {
-						   var r = s_expr[2].split('/');
-						   if (1 == r.length) {
-						       set_value(sim_signals[s_expr[1]], get_value(sim_states[s_expr[2]]));
-						       return;
-						   }
+        syntax_behavior["MV"]    = { nparameters: 3,
+                                     types: ["X", "X"],
+                                     operation: function(s_expr)
+                                                {
+                                                   r = s_expr[2].split('/');
 
-						   if (typeof sim_states[r[0]].value[r[1]] != "undefined")
-						       set_value(sim_signals[s_expr[1]], sim_states[r[0]].value[r[1]]);
-						}
-				   };
-	syntax_behavior["MV_EE"] = { nparameters: 3,
-				     types: ["E", "E"],
-				     operation: function(s_expr) {
-						   var r = s_expr[2].split('/');
-						   if (1 == r.length) {
-						       set_value(sim_states[s_expr[1]], parseInt(get_value(sim_states[s_expr[2]])));
-						       return;
-						   }
+                                                   if (typeof sim_states[s_expr[1]] != "undefined")
+                                                       sim_elto_dst = sim_states[s_expr[1]] ;
+                                              else if (typeof sim_signals[s_expr[1]] != "undefined")
+                                                       sim_elto_dst = sim_signals[s_expr[1]] ;
+                                              else return ;
 
-						   if (typeof sim_states[r[0]].value[r[1]] != "undefined")
-						       set_value(sim_states[s_expr[1]], parseInt(sim_states[r[0]].value[r[1]]));
-						}
-				   };
-	syntax_behavior["MV_S2S"] = { nparameters: 3,
-				     types: ["S", "S"],
-				     operation: function(s_expr) {
-						   var r = s_expr[2].split('/');
-						   if (1 == r.length) {
-						       set_value(sim_signals[s_expr[1]], get_value(sim_signals[s_expr[2]]));
-						       return;
-						   }
+                                                   if (typeof sim_states[r[0]] != "undefined")
+                                                       sim_elto_org = sim_states[r[0]] ;
+                                              else if (typeof sim_signals[r[0]] != "undefined")
+                                                       sim_elto_org = sim_signals[r[0]] ;
+                                              else return ;
 
-						   if (typeof sim_signals[r[0]].value[r[1]] != "undefined")
-						       set_value(sim_signals[s_expr[1]], sim_signals[r[0]].value[r[1]]);
-						}
-				   };
+                                                   newval = get_value(sim_elto_org) ;
+                                                   if (1 != r.length) 
+						       newval = newval[r[1]] ;
+
+                                                   if (typeof newval != "undefined")
+                                                       set_value(sim_elto_dst, newval);
+                                                }
+                                   };
 	syntax_behavior["NOT_ES"] = { nparameters: 3,
 				     types: ["S", "E"],
 				     operation: function (s_expr) {
@@ -880,43 +858,30 @@
 						   set_value(sim_states["FLAG_C"], 0) ;
 						}
 				   };
-	syntax_behavior["MBIT_I"] = { nparameters: 5,
-				     types: ["E", "E", "I", "I"],
-				     operation: function (s_expr) {
+	syntax_behavior["MBIT"]  = { nparameters: 5,
+				     types: ["X", "X", "I", "I"],
+				     operation: function (s_expr) 
+		                                {
+                                                   if (typeof sim_states[s_expr[2]] != "undefined")
+                                                       sim_elto_org = sim_states[s_expr[2]] ;
+                                              else if (typeof sim_signals[s_expr[2]] != "undefined")
+                                                       sim_elto_org = sim_signals[s_expr[2]] ;
+                                              else return ;
+
+                                                   if (typeof sim_states[s_expr[1]] != "undefined")
+                                                       sim_elto_dst = sim_states[s_expr[1]] ;
+                                              else if (typeof sim_signals[s_expr[1]] != "undefined")
+                                                       sim_elto_dst = sim_signals[s_expr[1]] ;
+                                              else return ;
+
 						   var offset = parseInt(s_expr[3]) ;
 						   var size   = parseInt(s_expr[4]) ;
 
-						   var n1 = get_value(sim_states[s_expr[2]]).toString(2); // to binary
+						   var n1 = get_value(sim_elto_org).toString(2); // to binary
 						   var n2 = "00000000000000000000000000000000".substring(0, 32-n1.length) + n1;
 						   n2 = n2.substr(31 - (offset + size - 1), size);
 
-						   set_value(sim_states[s_expr[1]], parseInt(n2, 2)) ;
-						}
-				   };
-	syntax_behavior["MBIT_S"] = { nparameters: 5,
-				     types: ["S", "E", "I", "I"],
-				     operation: function (s_expr) {
-						   var offset = parseInt(s_expr[3]) ;
-						   var size   = parseInt(s_expr[4]) ;
-
-						   var n1 = get_value(sim_states[s_expr[2]]).toString(2); // to binary
-						   var n2 = "00000000000000000000000000000000".substring(0, 32-n1.length) + n1;
-						   n2 = n2.substr(31 - (offset + size - 1), size);
-
-						   set_value(sim_signals[s_expr[1]], parseInt(n2, 2));
-						}
-				   };
-	syntax_behavior["MBIT_E"] = { nparameters: 5,
-				     types: ["E", "S", "I", "I"],
-				     operation: function (s_expr) {
-						   var offset = parseInt(s_expr[3]) ;
-						   var size   = parseInt(s_expr[4]) ;
-
-						   var n1 = get_value(sim_signals[s_expr[2]]).toString(2); // to binary
-						   var n2 = "00000000000000000000000000000000".substring(0, 32-n1.length) + n1;
-						   n2 = n2.substr(31 - (offset + size - 1), size);
-
-						   set_value(sim_states[s_expr[1]], parseInt(n2, 2));
+						   set_value(sim_elto_dst, parseInt(n2, 2));
 						}
 				   };
 	syntax_behavior["MBIT_SN"] = { nparameters: 5,
