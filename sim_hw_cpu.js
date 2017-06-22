@@ -1179,8 +1179,8 @@
 							    for (var key in sim_signals)
 							    {
 								 if (typeof new_mins[key] != "undefined") 
-								      sim_signals[key].value = new_mins[key];
-								 else sim_signals[key].value = sim_signals[key].default_value;
+								      set_value(sim_signals[key], new_mins[key]);
+								 else set_value(sim_signals[key], sim_signals[key].default_value);
 							    }
 
 							    // 4.- Finally, 'fire' the (High) Level signals

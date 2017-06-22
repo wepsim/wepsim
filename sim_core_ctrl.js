@@ -362,13 +362,16 @@
            }
 	   else if (typeof sim_obj.default_value == "object")
 	   {
-	       if (sim_obj.value() != value)
+	       if (sim_obj.value != value)
 	           sim_obj.changed = true ;
 
 	       sim_obj.value = value ;
            }
 	   else
 	   {
+	       if (sim_obj.value != value)
+	           sim_obj.changed = true ;
+
 	       sim_obj.value = value ;
            }
         }
