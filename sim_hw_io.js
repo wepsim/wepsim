@@ -101,11 +101,11 @@
                                                       var iodr   = sim_states[s_expr[5]].value ;
 
                                                       if (bus_ab == IOSR_ID) 
-                                                          sim_states[s_expr[2]].value = iosr ;
+                                                          set_value(sim_states[s_expr[2]], iosr);
                                                       if (bus_ab == IOCR_ID) 
-                                                          sim_states[s_expr[2]].value = iocr ;
+                                                          set_value(sim_states[s_expr[2]], iocr);
                                                       if (bus_ab == IODR_ID) 
-                                                          sim_states[s_expr[2]].value = iodr ;
+                                                          set_value(sim_states[s_expr[2]], iodr);
                                                    }
                                       };
 
@@ -124,11 +124,11 @@
                                                       }
 
                                                       if (bus_ab == IOSR_ID) 
-                                                          sim_states[s_expr[3]].value = bus_db ;
+                                                          set_value(sim_states[s_expr[3]], bus_db);
                                                       if (bus_ab == IOCR_ID) 
-                                                          sim_states[s_expr[4]].value = bus_db ;
+                                                          set_value(sim_states[s_expr[4]], bus_db);
                                                       if (bus_ab == IODR_ID) 
-                                                          sim_states[s_expr[5]].value = bus_db ;
+                                                          set_value(sim_states[s_expr[5]], bus_db);
 
                                                       // check & modify the timer
                                                       var iocr_id = sim_states[s_expr[4]].value ;
@@ -157,8 +157,8 @@
 
                                                            if (IO_INT_FACTORY[i].active() == true)
                                                            {
-                                                               sim_signals[s_expr[2]].value = 1 ; // ['INT']=1
-                                                                sim_states[s_expr[3]].value = i ; // ['INTV']=i
+                                                               set_value(sim_signals[s_expr[2]], 1); // ['INT']=1
+                                                               set_value( sim_states[s_expr[3]], i); // ['INTV']=i
                                                            }
 
                                                            if ((clk % IO_INT_FACTORY[i].period()) == 0)
@@ -173,8 +173,8 @@
                                                                   sim_events["io"][clk] = new Array() ;
                                                               sim_events["io"][clk].push(i) ;
 
-                                                             sim_signals[s_expr[2]].value = 1 ; // ['INT']=1
-                                                              sim_states[s_expr[3]].value = i ; // ['INTV']=i
+                                                              set_value(sim_signals[s_expr[2]], 1); // ['INT']=1
+                                                              set_value( sim_states[s_expr[3]], i); // ['INTV']=i
                                                            }
                                                       }
                                                    }
@@ -188,20 +188,20 @@
 
                                                       if (typeof sim_events["io"][clk] != "undefined") 
                                                       {
-                                                          sim_states[s_expr[4]].value = sim_events["io"][clk][0]; // ['BUS_DB'] = i
+                                                          set_value(sim_states[s_expr[4]], sim_events["io"][clk][0]); // ['BUS_DB'] = i
   							  return ;
                                                       }
 
-						     sim_signals[s_expr[2]].value = 0 ; // ['INT']  = 0
-						      sim_states[s_expr[5]].value = 0 ; // ['INTV'] = 0
+						      set_value(sim_signals[s_expr[2]], 0); // ['INT']  = 0
+						      set_value( sim_states[s_expr[5]], 0); // ['INTV'] = 0
 
 						      for (var i=0; i<IO_INT_FACTORY.length; i++) 
                                                       {
                                                            if (IO_INT_FACTORY[i].active())
                                                            {
-                                                              sim_signals[s_expr[2]].value = 0;  // ['INT']  = 1
-                                                               sim_states[s_expr[5]].value = i;  // ['INTV'] = i
-							       sim_states[s_expr[4]].value = i ; // ['BUS_DB'] = i
+                                                               set_value(sim_signals[s_expr[2]], 0) ; // ['INT']  = 1
+                                                               set_value( sim_states[s_expr[5]], i) ; // ['INTV'] = i
+							       set_value( sim_states[s_expr[4]], i) ; // ['BUS_DB'] = i
 
                                                                if (typeof sim_events["io"][clk] == "undefined") 
                                                                    sim_events["io"][clk] = new Array() ;
