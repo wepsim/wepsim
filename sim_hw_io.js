@@ -148,7 +148,7 @@
                                         types: ["E", "S", "E"],
                                         operation: function (s_expr) 
                                                    {
-                                                      var clk = sim_states[s_expr[1]].value() ;
+                                                      var clk = get_value(sim_states[s_expr[1]]) ;
 
 						      for (var i=IO_INT_FACTORY.length-1; i>=0; i--)
                                                       {
@@ -184,7 +184,8 @@
                                         types: ["E", "S", "S", "E", "E"],
                                         operation: function (s_expr) 
                                                    {
-                                                      var clk = sim_states[s_expr[1]].value() ;
+                                                      var clk = get_value(sim_states[s_expr[1]]) ;
+
                                                       if (typeof sim_events["io"][clk] != "undefined") 
                                                       {
                                                           sim_states[s_expr[4]].value = sim_events["io"][clk][0]; // ['BUS_DB'] = i

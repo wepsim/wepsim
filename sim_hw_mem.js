@@ -30,7 +30,7 @@
 
         sim_signals["MRDY"]  = { name: "MRDY", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                  depends_on: ["CLK"],
-		                 behavior: ["FIRE C", "FIRE C"],
+		                 behavior: ["FIRE_IFCHANGED MRDY C", "FIRE_IFCHANGED MRDY C"],
                                  fire_name: ['svg_p:tspan3916'], 
                                  draw_data: [[], ['svg_p:path3895', 'svg_p:path3541']], 
                                  draw_name: [[], []]};
