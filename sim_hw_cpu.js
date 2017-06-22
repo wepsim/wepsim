@@ -492,10 +492,10 @@
 
 	/* W-Byte & R-Byte Selector */
 	sim_signals["BW"] =  { name: "BW", visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
-		               behavior: ['MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE BWA; FIRE SBWA',
-				          'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE BWA; FIRE SBWA',
-				          'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE BWA; FIRE SBWA',
-				          'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE BWA; FIRE SBWA'],
+		               behavior: ['MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BWA; FIRE SBWA',
+				          'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BWA; FIRE SBWA',
+				          'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BWA; FIRE SBWA',
+				          'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BWA; FIRE SBWA'],
 				fire_name: ['svg_p:text3433'],
 				draw_data: [['svg_p:path3061-2-6']],
 				draw_name: [[],[]] };
@@ -1149,7 +1149,7 @@
                                                                   return ;
 							    }
 
-                                                            // sim_signals[s_expr[1]].changed = false;
+                                                            sim_signals[s_expr[1]].changed = false ; // release:comment it, debug: uncomment it
                                                             syntax_behavior["FIRE"].operation(s_expr) ;
 							}
 					   };
