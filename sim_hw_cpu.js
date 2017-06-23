@@ -627,17 +627,13 @@
                                                 {
                                                    r = s_expr[2].split('/');
 
-                                                   if (typeof sim_states[s_expr[1]] != "undefined")
-                                                       sim_elto_dst = sim_states[s_expr[1]] ;
-                                              else if (typeof sim_signals[s_expr[1]] != "undefined")
-                                                       sim_elto_dst = sim_signals[s_expr[1]] ;
-                                              else return ;
+						   sim_elto_dst = get_reference(s_expr[1]) ;
+						   if (typeof sim_elto_dst == "undefined")
+						       return ;
 
-                                                   if (typeof sim_states[r[0]] != "undefined")
-                                                       sim_elto_org = sim_states[r[0]] ;
-                                              else if (typeof sim_signals[r[0]] != "undefined")
-                                                       sim_elto_org = sim_signals[r[0]] ;
-                                              else return ;
+						   sim_elto_org = get_reference(r[0]) ;
+						   if (typeof sim_elto_org == "undefined")
+						       return ;
 
                                                    newval = get_value(sim_elto_org) ;
                                                    if (1 != r.length) 
@@ -862,17 +858,13 @@
 				     types: ["X", "X", "I", "I"],
 				     operation: function (s_expr) 
 		                                {
-                                                   if (typeof sim_states[s_expr[2]] != "undefined")
-                                                       sim_elto_org = sim_states[s_expr[2]] ;
-                                              else if (typeof sim_signals[s_expr[2]] != "undefined")
-                                                       sim_elto_org = sim_signals[s_expr[2]] ;
-                                              else return ;
+						   sim_elto_org = get_reference(s_expr[2]) ;
+						   if (typeof sim_elto_org == "undefined")
+						       return ;
 
-                                                   if (typeof sim_states[s_expr[1]] != "undefined")
-                                                       sim_elto_dst = sim_states[s_expr[1]] ;
-                                              else if (typeof sim_signals[s_expr[1]] != "undefined")
-                                                       sim_elto_dst = sim_signals[s_expr[1]] ;
-                                              else return ;
+						   sim_elto_dst = get_reference(s_expr[1]) ;
+						   if (typeof sim_elto_dst == "undefined")
+						       return ;
 
 						   var offset = parseInt(s_expr[3]) ;
 						   var size   = parseInt(s_expr[4]) ;
@@ -915,17 +907,13 @@
 				     types: ["X", "X", "I"],
 				     operation: function (s_expr) 
 		                                {
-                                                   if (typeof sim_states[s_expr[2]] != "undefined")
-                                                       sim_elto_org = sim_states[s_expr[2]] ;
-                                              else if (typeof sim_signals[s_expr[2]] != "undefined")
-                                                       sim_elto_org = sim_signals[s_expr[2]] ;
-                                              else return ;
+						   sim_elto_org = get_reference(s_expr[2]) ;
+						   if (typeof sim_elto_org == "undefined")
+						       return ;
 
-                                                   if (typeof sim_states[s_expr[1]] != "undefined")
-                                                       sim_elto_dst = sim_states[s_expr[1]] ;
-                                              else if (typeof sim_signals[s_expr[1]] != "undefined")
-                                                       sim_elto_dst = sim_signals[s_expr[1]] ;
-                                              else return ;
+						   sim_elto_dst = get_reference(s_expr[1]) ;
+						   if (typeof sim_elto_dst == "undefined")
+						       return ;
 
 						   //    0      1    2  3
 						   //   SBIT  A0A1  A1  0
@@ -1117,16 +1105,14 @@
 					     types: ["S", "X"],
 					     operation: function (s_expr)
 							{
-                                                            if ( (typeof sim_signals[s_expr[2]] != "undefined"))
-								  sim_elto = sim_signals[s_expr[2]] ;
-						       else if ( (typeof sim_states[s_expr[2]] != "undefined"))
-								  sim_elto = sim_states[s_expr[2]] ;
-						       else return ;
+						            sim_elto = get_reference(s_expr[2]) ;
+						            if (typeof sim_elto == "undefined")
+						                return ;
 
-							    if ( (typeof sim_elto.changed != "undefined") && (sim_elto.changed == false) ) {
-								  return ;
-							    }
-							    sim_elto.changed = false ; // release:comment it, debug: uncomment it
+							    if (sim_elto.changed == false)
+								return ;
+
+							    sim_elto.changed = false ; // todo: comment this line
 							    syntax_behavior["FIRE"].operation(s_expr) ;
 							}
 					   };
@@ -1139,7 +1125,8 @@
 							    set_value(sim_states["CLK"], val + 1);
 
 							    // 1.- To treat the (Falling) Edge signals
-							    jit_fire_order.map(fn_updateE_now) ;
+							    for (var i=0; i<jit_fire_order.length; i++)
+								 fn_updateE_now(jit_fire_order[i]) ;
 							    //actions = jit_fire_order.map(fn_updateE_future) ;
 							    //Promise.all(actions) ;
 
@@ -1161,7 +1148,8 @@
 							    }
 
 							    // 4.- Finally, 'fire' the (High) Level signals
-							    jit_fire_order.map(fn_updateL_now) ;
+							    for (var i=0; i<jit_fire_order.length; i++)
+								 fn_updateL_now(jit_fire_order[i]) ;
 							    //actions = jit_fire_order.map(fn_updateL_future) ;
 							    //Promise.all(actions) ;
 							}

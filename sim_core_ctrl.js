@@ -403,6 +403,26 @@
            }
         }
 
+        var sim_references = new Object() ;
+
+        function compute_references ( )
+        {
+            for (var key in sim_signals) {
+		 sim_references[key] = sim_signals[key] ;
+		    sim_signals[key].changed = false ;
+	    }
+
+            for (var key in sim_states) {
+		 sim_references[key] = sim_states[key] ;
+		     sim_states[key].changed = false ;
+	    }
+        }
+
+        function get_reference ( sim_name )
+        {
+	    return sim_references[sim_name] ;
+        }
+
 
         function show_memories_values ( )
         {
@@ -713,9 +733,10 @@
             // 1.- it checks if everything is ok
             check_behavior();
 
-            // 2.- pre-compile behaviors
+            // 2.- pre-compile behaviors & references
             compile_behaviors() ;
             firedep_to_fireorder(jit_fire_dep) ;
+            compute_references() ;
 
             // 3.- display the information holders
             init_states(stateall_id) ;
