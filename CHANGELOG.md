@@ -1,8 +1,13 @@
 
+1.7.7 -> 1.8.0:
+* Initial support for introspection (taken from the wepsim_tester project)
+* CPU behaviour has been slighly simplified
+* Added support for FIRE_IFCHANGED
+
 1.7.6 -> 1.7.7:
 * Sticky segment name on memory visualization
 * Improved full CPU image on help
-* Initial support for parallel execution on CLOCK
+* Initial support for promises on CLOCK
 
 1.7.5 -> 1.7.6:
 * Tutorials support (welcome tutorial as example)
