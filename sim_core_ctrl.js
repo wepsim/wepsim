@@ -836,8 +836,7 @@
                             if (0 == obj_result.errors)
                                  var msg = "<span style='background-color:#7CFC00'>" + 
                                            "Meets the specified requirements</span>" ;
-                            else var msg = "<span style='background-color: orange'>" +
-                                           wepsim_checkreport2txt(obj_result.result) + "</span>";
+                            else var msg = wepsim_checkreport2html(obj_result.result, true) ;
                             $('#check_results').html(msg);
 
                             return false;
@@ -847,7 +846,8 @@
 		        label: 'Dump',
 		        className: 'btn-default',
 		        callback: function() {
-                            $('#check_results').html("Not implemented!");
+                            $('#check_results').html("<span style='background-color:yellow'>" + 
+                                                     "Not yet implemented, sorry!</span>");
 
                             return false;
 		        }

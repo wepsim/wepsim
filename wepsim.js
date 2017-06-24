@@ -1064,3 +1064,38 @@
         return o;
     }
 
+    function wepsim_checkreport2html ( checklist, only_errors )
+    {
+        var o = "" ;
+        var color = "green" ;
+
+        if (typeof only_errors === 'undefined') 
+            only_errors = false ;
+
+        o += "<table border=1>" +
+             "<tr>" +
+             "<th>Element Type</th>" +
+             "<th>Element Id.</th>" +
+             "<th>Expected</th>" +
+             "<th>Obtained</th>" +
+             "</tr>" ;
+        for (var i=0; i<checklist.length; i++)
+        {
+             if (checklist[i].equals === false)
+                  color = "orange" ;
+             else color = "lightgreen" ;
+
+             if (only_errors && !checklist[i].equals)
+                 continue ;
+
+             o += "<tr bgcolor=" + color + ">" +
+                  "<td>" + checklist[i].elto_type + "</td>" +
+                  "<td>" + checklist[i].elto_id   + "</td>" +
+                  "<td>" + checklist[i].expected  + "</td>" +
+                  "<td>" + checklist[i].obtained  + "</td>" +
+                  "</tr>" ;
+        }
+        o += "</table>" ;
+
+        return o ;
+    }
