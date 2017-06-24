@@ -968,24 +968,33 @@
     function wepsim_dump_checklist ( )
     {
         var ret = "" ;
+        var value = 0 ;
 
-        for (var i=0; i<sim_states['BR'].length; i++) {
-             ret += "register " + i + " " + sim_states['BR'][i].value + "; " ;
+        for (var i=0; i<sim_states['BR'].length; i++) 
+        {
+             value = sim_states['BR'][i].value ;
+             if (value != 0)
+                 ret += "register " + i + " 0x" + value.toString(16) + "; " ;
         }
         ret += "\n" ;
 
-        for (var index in MP) {
-             ret += "memory " + index + " " + MP[index] + "; " ;
+        for (var index in MP) 
+        {
+             value = MP[index] ;
+             if (value != 0)
+                 ret += "memory 0x" + index.toString(16) + " 0x" + value.toString(16) + "; " ;
         }
-        ret += "\n" ;
 
 /*
+        ret += "\n" ;
+
         var sim_screen = get_screen_content() ;
         var sim_lines  = sim_screen.trim().split("\n") ;
-        for (var i=0; i<sim_lines.length; i++) {
-             ret += "screen " + i + " " + sim_lines[i] + "; " ;
+        for (var i=0; i<sim_lines.length; i++) 
+        {
+             value = sim_lines[i] ;
+             ret += "screen " + i + " " + value + "; " ;
         }
-        ret += "\n" ;
 */
 
         return ret ;

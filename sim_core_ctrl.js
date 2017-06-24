@@ -810,19 +810,15 @@
 
 	    var dialog_message = 'If you wish additions checks, please introduce them and press check.<br>' +
 			         '<br>' +
-			         'For example:<br>' +
                                  '<div>' +
                                  '   <form class="form-horizontal" style="white-space:nowrap;">' +
                                  '   <textarea aria-label="checks to perform" ' +
                                  '          id="end_state" name="end_state" ' + 
-                                 '          class="form-control input-md">' + 
-                                 'register 0 0 ; register 1 0 ; memory 0xFFFF 0' +
-                                 '   </textarea>' +
+                                 '          class="form-control input-md" rows="5"></textarea>' +
                                  '   </form>' +
                                  '</div>' +
 			         '<br>' +
-                                 '<div id="check_results">&nbsp;</div>' +
-			         '<br>' ;
+                                 '<div id="check_results">&nbsp;</div>' ;
 
             var dialog_btns = new Object() ;
                 dialog_btns["check"] = {
