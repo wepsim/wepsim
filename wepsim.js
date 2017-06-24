@@ -1012,14 +1012,16 @@
                  // TODO: translate $t0, ...
 
                  var index = parseInt(reg) ;
-
 		 if (typeof sim_states['BR'][index] == "undefined")
 		     continue ;
 
+                 var expected_value = parseInt(expected_result.registers[index]) ;
+                 var obtained_value = get_value(sim_states['BR'][index]) ; 
+
                  var diff = new Object() ;
-                 diff.expected  = expected_result.registers[index] ;
-                 diff.obtained  = get_value(sim_states['BR'][index]) ; 
-                 diff.equals    = (expected_result.registers[index] == get_value(sim_states['BR'][index])) ;
+                 diff.expected  = "0x" + expected_value.toString(16) ;
+                 diff.obtained  = "0x" + obtained_value.toString(16) ;
+                 diff.equals    = (expected_value == obtained_value) ;
                  diff.elto_type = "register" ;
                  diff.elto_id   = reg ;
                  result.push(diff) ;
