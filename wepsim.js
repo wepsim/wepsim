@@ -1034,15 +1034,17 @@
         {
             for (var mp in expected_result.memory)
             {
+                 var expected_value = expected_result.memory[mp] ;
+                 var obtained_value = 0 ;
+
                  var index = parseInt(mp) ;
-                 if (typeof MP[index] == "undefined")
-                      var value = 0 ;
-                 else var value = MP[index] ;
+                 if (typeof MP[index] != "undefined")
+                     obtained_value = parseInt(MP[index]) ;
 
                  var diff = new Object() ;
-                 diff.expected  = expected_result.memory[mp] ;
-                 diff.obtained  = value ;
-                 diff.equals    = (expected_result.memory[mp] == value) ;
+                 diff.expected  = expected_value.toString(16) ;
+                 diff.obtained  = obtained_value.toString(16) ;
+                 diff.equals    = (expected_value == obtained_value) ;
                  diff.elto_type = "memory" ;
                  diff.elto_id   = mp ;
                  result.push(diff) ;
