@@ -1072,7 +1072,7 @@
         if (typeof only_errors === 'undefined') 
             only_errors = false ;
 
-        o += "<table border=1>" +
+        o += "<table class='table table-hover table-bordered table-condensed'>" +
              "<tr>" +
              "<th>Element Type</th>" +
              "<th>Element Id.</th>" +
@@ -1085,7 +1085,7 @@
                   color = "orange" ;
              else color = "lightgreen" ;
 
-             if (only_errors && !checklist[i].equals)
+             if (only_errors && checklist[i].equals)
                  continue ;
 
              o += "<tr bgcolor=" + color + ">" +
