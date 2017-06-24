@@ -1034,7 +1034,7 @@
         {
             for (var mp in expected_result.memory)
             {
-                 var expected_value = expected_result.memory[mp] ;
+                 var expected_value = parseInt(expected_result.memory[mp]) ;
                  var obtained_value = 0 ;
 
                  var index = parseInt(mp) ;
@@ -1042,8 +1042,8 @@
                      obtained_value = parseInt(MP[index]) ;
 
                  var diff = new Object() ;
-                 diff.expected  = expected_value.toString(16) ;
-                 diff.obtained  = obtained_value.toString(16) ;
+                 diff.expected  = "0x" + expected_value.toString(16) ;
+                 diff.obtained  = "0x" + obtained_value.toString(16) ;
                  diff.equals    = (expected_value == obtained_value) ;
                  diff.elto_type = "memory" ;
                  diff.elto_id   = mp ;
