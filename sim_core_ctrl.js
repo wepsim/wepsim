@@ -801,6 +801,75 @@
                 return true;
         }
 
+        function dialog_cannot_continue ( )
+        {
+	    var chkbox = null ;
+
+      	    var dialog_title   = 'INFO: the program has finished ' +
+	    	 	         'because the PC register points outside .ktext/.text code segments' ;
+
+	    var dialog_message = 'If you wish additions checks, please introduce them and press check.<br>' +
+			         '<br>' +
+			         'For example:<br>' +
+                                 '<div>' +
+                                 '   <form class="form-horizontal" style="white-space:nowrap;">' +
+                                 '   <textarea aria-label="checks to perform" ' +
+                                 '          id="end_state" name="end_state" ' + 
+                                 '          class="form-control input-md">' + 
+                                 'register 0 0 ; register 1 0 ; memory 0xFFFF 0' +
+                                 '   </textarea>' +
+                                 '   </form>' +
+                                 '</div>' +
+			         '<br>' +
+                                 '<div id="check_results">&nbsp;</div>' +
+			         '<br>' ;
+
+            var dialog_btns = new Object() ;
+                dialog_btns["check"] = {
+	    	        label: 'Check',
+		        className: 'btn-default',
+		        callback: function() {
+                            var txt_checklist = $('#end_state').val();
+                            var obj_checklist = wepsim_read_checklist(txt_checklist) ;
+                            var obj_result    = wepsim_to_check(obj_checklist) ;
+
+                            if (0 == obj_result.errors)
+                                 var msg = "<span style='background-color:#7CFC00'>" + 
+                                           "Meets the specified requirements</span>" ;
+                            else var msg = "<span style='background-color: orange'>" +
+                                           wepsim_checkreport2txt(obj_result.result) + "</span>";
+                            $('#check_results').html(msg);
+
+                            return false;
+		        }
+		    } ;
+                dialog_btns["dump"] = {
+		        label: 'Dump',
+		        className: 'btn-default',
+		        callback: function() {
+                            $('#check_results').html("Not implemented!");
+
+                            return false;
+		        }
+		    } ;
+                dialog_btns["ok"] = {
+	    	        label: 'OK',
+		        className: 'btn-success',
+		        callback: function() {
+                            // chkbox.modal("hide") ;
+		        }
+		    } ;
+
+	    chkbox = bootbox.dialog({
+	                title:   dialog_title,
+	                message: dialog_message,
+	                buttons: dialog_btns,
+                        animate: false
+	             });
+
+	    return chkbox;
+        }
+
         function check_if_can_continue ( with_ui )
         {
 		var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
@@ -822,25 +891,8 @@
 		}
 
                 // if (reg_maddr == 0) && (outside *text) -> cannot continue
-	        if (with_ui) 
-		{
-	    	    var txt_checklist = prompt('INFO: The program has finished.\n' + 
-		                               '(because the PC register points outside .ktext/.text code segments)\n' +
-		                               '\n' +
-		                               'If you wish additions checks, please introduce them\n' +
-		                               '(otherwise press the cancel button)\n' +
-		                               '\n' +
-		                               'As example:\n',
-		                               'register 0 0 ; register 1 0 ; memory 0xffff 0') ;
-		    if (txt_checklist != null) 
-		    {
-		        var obj_checklist = wepsim_read_checklist(txt_checklist) ;
-		        var obj_result    = wepsim_to_check(obj_checklist) ;
-
-			if (0 == obj_result.errors)
-			     alert("Report:\n meet requirements!") ;
-			else alert("Report:\n" + wepsim_checkreport2txt(obj_result.result)) ;
-		    }
+	        if (with_ui) {
+                    dialog_cannot_continue() ;
 	        }
 
 		return false;
