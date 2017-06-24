@@ -976,10 +976,10 @@
             {
                  // TODO: translate $t0, ...
 
+                 var index = parseInt(reg) ;
+
 		 if (typeof sim_states['BR'][index] == "undefined")
 		     continue ;
-
-                 var index = parseInt(reg) ;
 
                  var diff = new Object() ;
                  diff.expected  = expected_result.registers[index] ;
