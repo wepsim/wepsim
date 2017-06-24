@@ -926,7 +926,7 @@
         o.memory    = new Object() ;
         o.screen    = new Object() ;
 
-        var lines = checklist.split("\n;") ;
+        var lines = checklist.split(";") ;
         for (var i=0; i<lines.length; i++)
         {
              check = lines[i].trim().split(" ");
@@ -1005,9 +1005,9 @@
                  else var value = MP[index] ;
 
                  var diff = new Object() ;
-                 diff.expected  = expected_result.memory[index] ;
+                 diff.expected  = expected_result.memory[mp] ;
                  diff.obtained  = value ;
-                 diff.equals    = (expected_result.memory[index] == value) ;
+                 diff.equals    = (expected_result.memory[mp] == value) ;
                  diff.elto_type = "memory" ;
                  diff.elto_id   = mp ;
                  result.push(diff) ;

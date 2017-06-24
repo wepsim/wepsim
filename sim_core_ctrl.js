@@ -827,8 +827,11 @@
 	    	    var txt_checklist = prompt('INFO: The program has finished.\n' + 
 		                               '(because the PC register points outside .ktext/.text code segments)\n' +
 		                               '\n' +
-		                               'If you wish additions checks, please introduce them (otherwise press the cancel button)\n',
-		                               'register 0 0') ;
+		                               'If you wish additions checks, please introduce them\n' +
+		                               '(otherwise press the cancel button)\n' +
+		                               '\n' +
+		                               'As example:\n',
+		                               'register 0 0 ; register 1 0 ; memory 0xffff 0') ;
 		    if (txt_checklist != null) 
 		    {
 		        var obj_checklist = wepsim_read_checklist(txt_checklist) ;
