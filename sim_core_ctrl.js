@@ -818,7 +818,10 @@
                                  '   </form>' +
                                  '</div>' +
 			         '<br>' +
-                                 '<div id="check_results">&nbsp;</div>' ;
+                                 '<div id="check_results_scroll"' +
+                                 '     style="height:25vh; width: inherit; overflow-y: scroll;" >' +
+                                 '   <div id="check_results">&nbsp;</div>' +
+                                 '</div>' ;
 
             var dialog_btns = new Object() ;
                 dialog_btns["check"] = {

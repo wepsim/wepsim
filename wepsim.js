@@ -972,7 +972,7 @@
 
         for (var i=0; i<sim_states['BR'].length; i++) 
         {
-             value = sim_states['BR'][i].value ;
+             value = parseInt(sim_states['BR'][i].value) ;
              if (value != 0)
                  ret += "register " + i + " 0x" + value.toString(16) + "; " ;
         }
@@ -980,9 +980,9 @@
 
         for (var index in MP) 
         {
-             value = MP[index] ;
+             value = parseInt(MP[index]) ;
              if (value != 0)
-                 ret += "memory 0x" + index.toString(16) + " 0x" + value.toString(16) + "; " ;
+                 ret += "memory 0x" + parseInt(index).toString(16) + " 0x" + value.toString(16) + "; " ;
         }
 
 /*
@@ -1107,10 +1107,10 @@
         if (typeof only_errors === 'undefined') 
             only_errors = false ;
 
-        o += "<table class='table table-hover table-bordered table-condensed'>" +
+        o += "<table class='table table-hover table-bordered table-condensed' style='margin:0 0 0 0;'>" +
              "<tr>" +
-             "<th>Element Type</th>" +
-             "<th>Element Id.</th>" +
+             "<th>Type</th>" +
+             "<th>Id.</th>" +
              "<th>Expected</th>" +
              "<th>Obtained</th>" +
              "</tr>" ;
