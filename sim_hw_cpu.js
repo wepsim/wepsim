@@ -146,17 +146,17 @@
 
 	/* CONTROL UNIT */
 	sim_signals["C"]    = { name: "C",    visible: true, type: "L", value: 0, default_value: 0, nbits: "4",
-				behavior: ["MV MUXC_MUXB VAL_ZERO; FIRE_IFCHANGED B MUXC_MUXB",
-					   "MBIT MUXC_MUXB INT 0 1; FIRE_IFCHANGED B MUXC_MUXB",
-					   "MBIT MUXC_MUXB IORDY 0 1; FIRE_IFCHANGED B MUXC_MUXB",
-					   "MBIT MUXC_MUXB MRDY 0 1; FIRE_IFCHANGED B MUXC_MUXB",
-					   "MBIT MUXC_MUXB REG_SR 0 1; FIRE_IFCHANGED B MUXC_MUXB",
-					   "MBIT MUXC_MUXB REG_SR 1 1; FIRE_IFCHANGED B MUXC_MUXB",
-					   "MBIT MUXC_MUXB REG_SR 28 1; FIRE_IFCHANGED B MUXC_MUXB",
-					   "MBIT MUXC_MUXB REG_SR 29 1; FIRE_IFCHANGED B MUXC_MUXB",
-					   "MBIT MUXC_MUXB REG_SR 30 1; FIRE_IFCHANGED B MUXC_MUXB",
-					   "MBIT MUXC_MUXB REG_SR 31 1; FIRE_IFCHANGED B MUXC_MUXB",
-					   "MV MUXC_MUXB INEX; FIRE_IFCHANGED B MUXC_MUXB"],
+				behavior: ["MV MUXC_MUXB VAL_ZERO; FIRE_IFCHANGED B MUXC_MUXB; RESET_CHANGED MUXC_MUXB",
+					   "MBIT MUXC_MUXB INT 0 1; FIRE_IFCHANGED B MUXC_MUXB; RESET_CHANGED MUXC_MUXB",
+					   "MBIT MUXC_MUXB IORDY 0 1; FIRE_IFCHANGED B MUXC_MUXB; RESET_CHANGED MUXC_MUXB",
+					   "MBIT MUXC_MUXB MRDY 0 1; FIRE_IFCHANGED B MUXC_MUXB; RESET_CHANGED MUXC_MUXB",
+					   "MBIT MUXC_MUXB REG_SR 0 1; FIRE_IFCHANGED B MUXC_MUXB; RESET_CHANGED MUXC_MUXB",
+					   "MBIT MUXC_MUXB REG_SR 1 1; FIRE_IFCHANGED B MUXC_MUXB; RESET_CHANGED MUXC_MUXB",
+					   "MBIT MUXC_MUXB REG_SR 28 1; FIRE_IFCHANGED B MUXC_MUXB; RESET_CHANGED MUXC_MUXB",
+					   "MBIT MUXC_MUXB REG_SR 29 1; FIRE_IFCHANGED B MUXC_MUXB; RESET_CHANGED MUXC_MUXB",
+					   "MBIT MUXC_MUXB REG_SR 30 1; FIRE_IFCHANGED B MUXC_MUXB; RESET_CHANGED MUXC_MUXB",
+					   "MBIT MUXC_MUXB REG_SR 31 1; FIRE_IFCHANGED B MUXC_MUXB; RESET_CHANGED MUXC_MUXB",
+					   "MV MUXC_MUXB INEX; FIRE_IFCHANGED B MUXC_MUXB; RESET_CHANGED MUXC_MUXB"],
 				fire_name: ['svg_cu:text3410'],
 				draw_data: [['svg_cu:path3108'],
 					    ['svg_cu:path3062'],
@@ -379,25 +379,25 @@
 				draw_name: [[], ['svg_p:path3697']] };
 
 	sim_signals["SELA"] = { name: "SELA", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
-			        behavior: ["FIRE_IFCHANGED MR_RA SELA"],
+			        behavior: ["FIRE_IFCHANGED MR_RA SELA; RESET_CHANGED SELA"],
                                 depends_on: ["RA"],
 			        fire_name: ['svg_cu:text3164'],
 			        draw_data: [[]],
 			        draw_name: [[]] };
 	sim_signals["SELB"] = { name: "SELB", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
-			        behavior: ["FIRE_IFCHANGED MR_RB SELB"],
+			        behavior: ["FIRE_IFCHANGED MR_RB SELB; RESET_CHANGED SELB"],
                                 depends_on: ["RB"],
 			        fire_name: ['svg_cu:text3168'],
 			        draw_data: [[]],
 			        draw_name: [[]] };
 	sim_signals["SELC"] = { name: "SELC", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
-			        behavior: ["FIRE_IFCHANGED MR_RC SELC"],
+			        behavior: ["FIRE_IFCHANGED MR_RC SELC; RESET_CHANGED SELC"],
                                 depends_on: ["RC"],
 			        fire_name: ['svg_cu:text3172'],
 			        draw_data: [[]],
 			        draw_name: [[]] };
 	sim_signals["SELCOP"] = { name: "SELCOP", visible: true, type: "L", value: 0, default_value:0, nbits: "4",
-			        behavior: ["FIRE_IFCHANGED MC SELCOP"],
+			        behavior: ["FIRE_IFCHANGED MC SELCOP; RESET_CHANGED SELCOP"],
                                 depends_on: ["COP"],
 			        fire_name: ['svg_cu:text3312'],
 			        draw_data: [[]],
@@ -461,7 +461,7 @@
 			       draw_name: [[],['svg_cu:path3306']] }; /*path3210 print red color line of rest of control signals*/
 
 	sim_signals["MR"]  = { name: "MR", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ['MV MR_RA MR; FIRE_IFCHANGED MR_RA MR_RA; MV MR_RB MR; FIRE_IFCHANGED MR_RB MR_RB; MV MR_RC MR; FIRE_IFCHANGED MR_RC MR_RC;'],
+			       behavior: ['MV MR_RA MR; FIRE_IFCHANGED MR_RA MR; MV MR_RB MR; FIRE_IFCHANGED MR_RB MR; MV MR_RC MR; FIRE_IFCHANGED MR_RC MR; RESET_CHANGED MR'],
                                depends_on: ["SELA","SELB","SELC"],
 			       fire_name: ['svg_cu:text3222','svg_cu:text3242','svg_cu:text3254','svg_cu:text3172-1'],
 			       draw_data: [['svg_cu:path3494','svg_cu:path3492','svg_cu:path3490','svg_cu:path3142b','svg_cu:path3188',
@@ -492,10 +492,10 @@
 
 	/* W-Byte & R-Byte Selector */
 	sim_signals["BW"] =  { name: "BW", visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
-		               behavior: ['MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BWA; FIRE SBWA',
-				          'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BWA; FIRE SBWA',
-				          'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BWA; FIRE SBWA',
-				          'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BWA; FIRE SBWA'],
+		               behavior: ['MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BW; FIRE SBWA; RESET_CHANGED BW',
+				          'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BW; FIRE SBWA; RESET_CHANGED BW',
+				          'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BW; FIRE SBWA; RESET_CHANGED BW',
+				          'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BW; FIRE SBWA; RESET_CHANGED BW'],
 				fire_name: ['svg_p:text3433'],
 				draw_data: [['svg_p:path3061-2-6']],
 				draw_name: [[],[]] };
@@ -628,12 +628,7 @@
                                                    r = s_expr[2].split('/');
 
 						   sim_elto_dst = get_reference(s_expr[1]) ;
-						   if (typeof sim_elto_dst == "undefined")
-						       return ;
-
 						   sim_elto_org = get_reference(r[0]) ;
-						   if (typeof sim_elto_org == "undefined")
-						       return ;
 
                                                    newval = get_value(sim_elto_org) ;
                                                    if (1 != r.length) 
@@ -859,12 +854,7 @@
 				     operation: function (s_expr) 
 		                                {
 						   sim_elto_org = get_reference(s_expr[2]) ;
-						   if (typeof sim_elto_org == "undefined")
-						       return ;
-
 						   sim_elto_dst = get_reference(s_expr[1]) ;
-						   if (typeof sim_elto_dst == "undefined")
-						       return ;
 
 						   var offset = parseInt(s_expr[3]) ;
 						   var size   = parseInt(s_expr[4]) ;
@@ -908,12 +898,7 @@
 				     operation: function (s_expr) 
 		                                {
 						   sim_elto_org = get_reference(s_expr[2]) ;
-						   if (typeof sim_elto_org == "undefined")
-						       return ;
-
 						   sim_elto_dst = get_reference(s_expr[1]) ;
-						   if (typeof sim_elto_dst == "undefined")
-						       return ;
 
 						   //    0      1    2  3
 						   //   SBIT  A0A1  A1  0
@@ -1106,14 +1091,19 @@
 					     operation: function (s_expr)
 							{
 						            sim_elto = get_reference(s_expr[2]) ;
-						            if (typeof sim_elto == "undefined")
-						                return ;
-
 							    if (sim_elto.changed == false)
 								return ;
 
-							    sim_elto.changed = false ; // todo: comment this line
 							    syntax_behavior["FIRE"].operation(s_expr) ;
+							}
+					   };
+
+		syntax_behavior["RESET_CHANGED"] = { nparameters: 2,
+					     types: ["X"],
+					     operation: function (s_expr)
+							{
+						            sim_elto = get_reference(s_expr[1]) ;
+							    sim_elto.changed = false ; // todo: comment this line
 							}
 					   };
 
