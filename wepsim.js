@@ -965,6 +965,32 @@
         return o ;
     }   
 
+    function wepsim_dump_checklist ( )
+    {
+        var ret = "" ;
+
+        for (var i=0; i<sim_states['BR'].length; i++) {
+             ret += "register " + i + " " + sim_states['BR'][i].value + "; " ;
+        }
+        ret += "\n" ;
+
+        for (var index in MP) {
+             ret += "memory " + index + " " + MP[index] + "; " ;
+        }
+        ret += "\n" ;
+
+/*
+        var sim_screen = get_screen_content() ;
+        var sim_lines  = sim_screen.trim().split("\n") ;
+        for (var i=0; i<sim_lines.length; i++) {
+             ret += "screen " + i + " " + sim_lines[i] + "; " ;
+        }
+        ret += "\n" ;
+*/
+
+        return ret ;
+    }
+
     function wepsim_to_check ( expected_result )
     {
         var result = new Array() ;
