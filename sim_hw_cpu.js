@@ -433,8 +433,8 @@
 			       draw_name: [['svg_p:path3121']] };
 
 	sim_signals["SE"]  = { name: "SE",     visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE SBWA",
-			                  "MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE SBWA"],
+			       behavior: ["MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE_IFCHANGED SBWA SE",
+			                  "MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE_IFCHANGED SBWA SE"],
                                depends_on: ["T3"],
 			       fire_name: ['svg_p:text3593', 'svg_p:text3431'],
 			       draw_data: [[]],
@@ -453,8 +453,8 @@
 			       draw_name: [['svg_p:path3359']] };
 
 	sim_signals["MC"]  = { name: "MC", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ['MBIT COP REG_IR 0 4; FIRE COP',
-					  'MV COP REG_MICROINS/SELCOP; FIRE COP'],
+			       behavior: ['MBIT COP REG_IR 0 4; FIRE_IFCHANGED COP MC',
+					  'MV COP REG_MICROINS/SELCOP; FIRE_IFCHANGED COP MC'],
                                depends_on: ["SELCOP"],
 			       fire_name: ['svg_cu:text3322','svg_cu:text3172-1-5'],
 			       draw_data: [['svg_cu:path3320', 'svg_cu:path3142'],['svg_cu:path3318', 'svg_cu:path3502-6', 'svg_cu:path3232-6']],

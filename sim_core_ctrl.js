@@ -822,9 +822,22 @@
 		}
 
                 // if (reg_maddr == 0) && (outside *text) -> cannot continue
-	        if (with_ui) {
-	    	    alert('INFO: The program has finished.\n' + 
-		          '(because the PC register points outside .ktext/.text code segments)');
+	        if (with_ui) 
+		{
+	    	    var txt_checklist = prompt('INFO: The program has finished.\n' + 
+		                               '(because the PC register points outside .ktext/.text code segments)\n' +
+		                               '\n' +
+		                               'If you wish additions checks, please introduce them (otherwise press the cancel button)\n',
+		                               'register 0 0') ;
+		    if (txt_checklist != null) 
+		    {
+		        var obj_checklist = wepsim_read_checklist(txt_checklist) ;
+		        var obj_result    = wepsim_to_check(obj_checklist) ;
+
+			if (0 == obj_result.errors)
+			     alert("Report:\n meet requirements!") ;
+			else alert("Report:\n" + wepsim_checkreport2txt(obj_result.result)) ;
+		    }
 	        }
 
 		return false;

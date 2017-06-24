@@ -919,14 +919,14 @@
     //  WepSIM check API
     //
 
-    function read_checklist ( checklist )
+    function wepsim_read_checklist ( checklist )
     {
         var o = new Object() ;
         o.registers = new Object() ;
         o.memory    = new Object() ;
         o.screen    = new Object() ;
 
-        var lines = checklist.split("\n") ;
+        var lines = checklist.split("\n;") ;
         for (var i=0; i<lines.length; i++)
         {
              check = lines[i].trim().split(" ");
@@ -965,7 +965,7 @@
         return o ;
     }   
 
-    function to_check ( expected_result )
+    function wepsim_to_check ( expected_result )
     {
         var result = new Array() ;
         var errors = 0 ;
@@ -975,6 +975,9 @@
             for (var reg in expected_result.registers)
             {
                  // TODO: translate $t0, ...
+
+		 if (typeof sim_states['BR'][index] == "undefined")
+		     continue ;
 
                  var index = parseInt(reg) ;
 
@@ -1046,34 +1049,18 @@
         return d ;
     }
 
-    function checkreport2html ( checklist )
+    function wepsim_checkreport2txt ( checklist )
     {
-        var o = "" ;
-        var color = "green" ;
+        var o = "";
 
-        o += "<table border=1>" +
-             "<tr>" +
-             "<th>Element Type</th>" +
-             "<th>Element Id.</th>" +
-             "<th>Expected</th>" +
-             "<th>Obtained</th>" +
-             "</tr>" ;
         for (var i=0; i<checklist.length; i++)
         {
-             if (checklist[i].equals === false)
-                  color = "orange" ;
-             else color = "lightgreen" ;
-
-             o += "<tr bgcolor=" + color + ">" +
-                  "<td>" + checklist[i].elto_type + "</td>" +
-                  "<td>" + checklist[i].elto_id   + "</td>" +
-                  "<td>" + checklist[i].expected  + "</td>" +
-                  "<td>" + checklist[i].obtained  + "</td>" +
-                  "</tr>" ;
+             if (checklist[i].equals === false) {
+                 o += checklist[i].elto_type + "[" + checklist[i].elto_id + "]='" +
+                      checklist[i].obtained + "' (expected '" + checklist[i].expected  + "'), ";
+             }
         }
-        o += "</table>" ;
 
-        return o ;
+        return o;
     }
-
 
