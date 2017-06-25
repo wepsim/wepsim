@@ -805,8 +805,7 @@
         {
 	    var chkbox = null ;
 
-      	    var dialog_title   = 'INFO: the program has finished ' +
-	    	 	         'because the PC register points outside .ktext/.text code segments' ;
+      	    var dialog_title   = 'The program has finished because the PC register points outside .ktext/.text code segments' ;
 
 	    var dialog_message = 'If you wish additions checks, please introduce them and press check.<br>' +
 			         '<br>' +
@@ -819,7 +818,7 @@
                                  '</div>' +
 			         '<br>' +
                                  '<div id="check_results_scroll"' +
-                                 '     style="height:25vh; width: inherit; overflow-y: scroll;" >' +
+                                 '     style="max-height:25vh; width: inherit; overflow-y: auto;" >' +
                                  '   <div id="check_results">&nbsp;</div>' +
                                  '</div>' ;
 

@@ -1121,13 +1121,13 @@
         for (var i=0; i<checklist.length; i++)
         {
              if (checklist[i].equals === false)
-                  color = "orange" ;
-             else color = "lightgreen" ;
+                  color = "danger" ;
+             else color = "success" ;
 
              if (only_errors && checklist[i].equals)
                  continue ;
 
-             o += "<tr bgcolor=" + color + ">" +
+             o += "<tr class=" + color + ">" +
                   "<td>" + checklist[i].elto_type + "</td>" +
                   "<td>" + checklist[i].elto_id   + "</td>" +
                   "<td>" + checklist[i].expected  + "</td>" +
