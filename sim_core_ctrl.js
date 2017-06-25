@@ -832,7 +832,8 @@
 		        className: 'btn-default',
 		        callback: function() {
                             txt_checklist = '' ;
-                            $('#end_state').val(txt_checklist);
+                            $('#end_state').val('');
+                            $('#check_results').html('');
 
                             return false;
 		        }

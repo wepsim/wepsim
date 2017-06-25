@@ -1112,12 +1112,15 @@
             only_errors = false ;
 
         o += "<table class='table table-hover table-bordered table-condensed' style='margin:0 0 0 0;'>" +
+             "<thead>" +
              "<tr>" +
              "<th>Type</th>" +
              "<th>Id.</th>" +
              "<th>Expected</th>" +
              "<th>Obtained</th>" +
-             "</tr>" ;
+             "</tr>" +
+             "</thead>" +
+             "<tbody>" ;
         for (var i=0; i<checklist.length; i++)
         {
              if (checklist[i].equals === false)
@@ -1134,7 +1137,8 @@
                   "<td>" + checklist[i].obtained  + "</td>" +
                   "</tr>" ;
         }
-        o += "</table>" ;
+        o += "</tbody>" + 
+             "</table>" ;
 
         return o ;
     }
