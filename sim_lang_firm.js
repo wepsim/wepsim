@@ -181,7 +181,11 @@ function read_native ( context )
 
 	   // read the rest...
 	   nextNative(context) ;
-	   microprograma.push('function () {' + getToken(context) + '}') ;
+
+	   var microInstruccionAux = new Object() ;
+	   microInstruccionAux["NATIVE"] = 'function () {' + getToken(context) + '}' ;
+
+	   microprograma.push(microInstruccionAux) ;
            microcomments.push('') ;
 
 	   // match mandatory }

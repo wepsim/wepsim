@@ -1162,6 +1162,11 @@
 								 fn_updateL_now(jit_fire_order[i]) ;
 							    //actions = jit_fire_order.map(fn_updateL_future) ;
 							    //Promise.all(actions) ;
+
+							    // 5.- Native
+							    if (typeof new_mins.NATIVE != "undefined") {
+							        eval(new_mins.NATIVE) ;
+							    }
 							}
 					   };
 
