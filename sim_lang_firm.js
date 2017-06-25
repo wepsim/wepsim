@@ -564,13 +564,13 @@ function loadFirmware (text)
 	       // 111111 === "please, find one free 'co' for me..."
 	       if (getToken(context).match("[1]*")[0] == getToken(context)) 
 	       {
-		   for (var i=last_co; i<first_co; i--) {
+		   for (var i=last_co; i>first_co; i--) {
 	                var label = i.toString(2) ;
 	                    label = "000000".substring(0, 6 - label.length) + label ;
 	                if (typeof context.co_cop[label] == "undefined") break;
 		   }
 
-	           if (i < last_co) {
+	           if (i > first_co) {
 	               instruccionAux["co"] = label ;
                        last_co = i ;
 		   }
