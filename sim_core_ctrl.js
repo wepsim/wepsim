@@ -801,6 +801,9 @@
                 return true;
         }
 
+        // checkbox-dialog: remembering the last selections...
+        var txt_checklist = '' ;
+
         function dialog_cannot_continue ( )
         {
 	    var chkbox = null ;
@@ -808,12 +811,13 @@
       	    var dialog_title   = 'The program has finished because the PC register points outside .ktext/.text code segments' ;
 
 	    var dialog_message = 'If you wish additions checks, please introduce them and press check.<br>' +
+	                         'If you want the checks for the current state, then please press dump.<br>' +
 			         '<br>' +
                                  '<div>' +
                                  '   <form class="form-horizontal" style="white-space:nowrap;">' +
                                  '   <textarea aria-label="checks to perform" ' +
                                  '          id="end_state" name="end_state" ' + 
-                                 '          class="form-control input-md" rows="5"></textarea>' +
+                                 '          class="form-control input-md" rows="5">' + txt_checklist + '</textarea>' +
                                  '   </form>' +
                                  '</div>' +
 			         '<br>' +
@@ -823,11 +827,19 @@
                                  '</div>' ;
 
             var dialog_btns = new Object() ;
+                dialog_btns["clear"] = {
+	    	        label: 'Clear',
+		        className: 'btn-default',
+		        callback: function() {
+                            txt_checklist = '' ;
+                            return false;
+		        }
+		    } ;
                 dialog_btns["check"] = {
 	    	        label: 'Check',
 		        className: 'btn-default',
 		        callback: function() {
-                            var txt_checklist = $('#end_state').val();
+                                txt_checklist = $('#end_state').val();
                             var obj_checklist = wepsim_read_checklist(txt_checklist) ;
                             var obj_result    = wepsim_to_check(obj_checklist) ;
 
@@ -854,10 +866,11 @@
 		        }
 		    } ;
                 dialog_btns["ok"] = {
-	    	        label: 'OK',
+	    	        label: '&nbsp;OK&nbsp;',
 		        className: 'btn-success',
 		        callback: function() {
                             // chkbox.modal("hide") ;
+                            return true;
 		        }
 		    } ;
 
