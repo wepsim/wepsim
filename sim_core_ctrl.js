@@ -832,6 +832,8 @@
 		        className: 'btn-default',
 		        callback: function() {
                             txt_checklist = '' ;
+                            $('#end_state').val(txt_checklist);
+
                             return false;
 		        }
 		    } ;
@@ -870,6 +872,7 @@
 		        className: 'btn-success',
 		        callback: function() {
                             // chkbox.modal("hide") ;
+				
                             return true;
 		        }
 		    } ;
