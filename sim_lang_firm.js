@@ -183,7 +183,7 @@ function read_native ( context )
 	   nextNative(context) ;
 
 	   var microInstruccionAux = new Object() ;
-	   microInstruccionAux["NATIVE"] = 'function () {' + getToken(context) + '}' ;
+	   microInstruccionAux["NATIVE"] = getToken(context) ;
 
 	   microprograma.push(microInstruccionAux) ;
            microcomments.push('') ;
