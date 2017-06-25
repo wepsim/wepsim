@@ -833,7 +833,7 @@
 		        callback: function() {
                             txt_checklist = '' ;
                             $('#end_state').val('');
-                            $('#check_results').html('');
+                            $('#check_results').html('&nbsp;');
 
                             return false;
 		        }

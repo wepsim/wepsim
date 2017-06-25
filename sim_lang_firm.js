@@ -170,6 +170,30 @@ function read_microprg ( context )
                     'microcomments': microcomments } ;
 }
 
+function read_native ( context )
+{
+           var microprograma = new Array();
+           var microcomments = new Array();
+
+	   // match mandatory {
+	   if (! isToken(context, "{") )
+	         return langError(context, "Expected '{' not found") ;
+
+	   // read the rest...
+	   nextNative(context) ;
+	   microprograma.push('function () {' + getToken(context) + '}') ;
+           microcomments.push('') ;
+
+	   // match mandatory }
+           nextToken(context) ;
+
+           return { 'microprograma': microprograma, 
+                    'microcomments': microcomments } ;
+}
+
+var first_co = 0 ;
+var last_co  = Math.pow(2,6) - 1 ;
+
 function loadFirmware (text)
 {
            var context = new Object() ;
@@ -349,7 +373,23 @@ function loadFirmware (text)
                    instruccionAux["mc-start"] = context.contadorMC ;
 
 	           nextToken(context);
-                   var ret = read_microprg(context) ;
+
+	           // match optional native
+	           instruccionAux["native"] = false;
+	           if (isToken(context, "native")) 
+		   {
+	               instruccionAux["native"] = true;
+		       nextToken(context);
+
+	               // match optional ,
+	               if (isToken(context,",")) 
+		           nextToken(context);
+	           }
+
+	           if (true == instruccionAux["native"])
+                        var ret = read_native(context) ;
+		   else var ret = read_microprg(context) ;
+
                    if (typeof ret.error != "undefined")
                        return ret ;
 
@@ -516,6 +556,20 @@ function loadFirmware (text)
 	       // semantic check: valid value
 	       if ( (getToken(context).match("[01]*")[0] != getToken(context)) || (getToken(context).length != 6) )
 	             return langError(context, "Incorrect binary format on 'co': " + getToken(context)) ;
+
+	       // 111111 === "please, find one free 'co' for me..."
+	       if (getToken(context).match("[1]*")[0] != getToken(context)) 
+	       {
+		   for (var i=first_co; i<last_co; i++) {
+	                var label = i.toString(2) ;
+	                    label = "000000".substring(0, 6 - label.length) + label ;
+	                if (typeof context.co_cop[label] == "undefined") break;
+		   }
+
+	           if (i < last_co) {
+	               instruccionAux["co"] = label ;
+		   }
+	       }
 
 	       // semantic check: 'co' is not already used
 	       if ( (typeof context.co_cop[instruccionAux["co"]] != "undefined") &&
@@ -717,14 +771,40 @@ function loadFirmware (text)
 //             nwords=1,
 //             reg=reg(25,21),
 //             val=inm(15,0),
+//             *[native,]*
+//             {
+//                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LE=1, MR=0, RE=10101, A0=1, B=1, C=0)
+//             }
+// }
+
+	       instruccionAux["native"] = false;
+
+	       // match optional 'native' + ','
+	       if (isToken(context, "native")) 
+	       {
+	           instruccionAux["native"] = true;
+		   nextToken(context);
+
+	           if (isToken(context,",")) 
+		       nextToken(context);
+	       }
+
+// li reg val {
+//             co=000000,
+//             nwords=1,
+//             reg=reg(25,21),
+//             val=inm(15,0),
 //             *{
 //                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LE=1, MR=0, RE=10101, A0=1, B=1, C=0)
 //             }*
 // }
 
-               var ret = read_microprg(context) ;
-               if (typeof ret.error != "undefined")
-                   return ret ;
+	           if (true == instruccionAux["native"])
+                        var ret = read_native(context) ;
+		   else var ret = read_microprg(context) ;
+
+                   if (typeof ret.error != "undefined")
+                       return ret ;
 
                instruccionAux["microcode"]     = ret.microprograma ;
                instruccionAux["microcomments"] = ret.microcomments ;

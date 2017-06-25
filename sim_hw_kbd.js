@@ -19,6 +19,24 @@
  */
 
 
+	/*
+	 *  KBD
+	 */
+
+        sim_components["KBD"] = {
+		                  name: "KBD", 
+		                  version: "1", 
+		                  dump_state: function() {
+						  var ret = "" ;
+						  return ret;
+				              } 
+                            	};
+
+
+	/*
+	 *  States - IO parameters
+	 */
+
         var KBDR_ID   = 0x0100 ;
         var KBSR_ID   = 0x0104 ;
 

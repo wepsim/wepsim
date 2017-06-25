@@ -20,6 +20,26 @@
 
 
 	/*
+	 *  CPU
+	 */
+
+        sim_components["CPU"] = {
+		                  name: "CPU", 
+		                  version: "1", 
+		                  dump_state: function() {
+						  var ret = "" ;
+						  var value = 0 ;
+					          for (var i=0; i<sim_states['BR'].length; i++)
+						  {
+						      value = parseInt(sim_states['BR'][i].value) ;
+						      if (value != 0)
+							  ret += "register " + i + " 0x" + value.toString(16) + "; " ;
+						  }
+						  return ret;
+				              } 
+                            	};
+
+	/*
 	 *  States - Memories
 	 */
 

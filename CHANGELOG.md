@@ -1,8 +1,10 @@
 
 1.7.7 -> 1.8.0:
-* Initial support for introspection (taken from the wepsim_tester project)
+* Initial support for introspection
 * CPU behaviour has been slighly simplified
 * Added support for FIRE_IFCHANGED
+* Initial support for native in microcode
+* 111111 -> find a free available 'co'
 
 1.7.6 -> 1.7.7:
 * Sticky segment name on memory visualization

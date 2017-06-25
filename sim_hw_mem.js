@@ -19,6 +19,31 @@
  */
 
 
+	/*
+	 *  Memory
+	 */
+
+        sim_components["RAM"] = {
+		                  name: "RAM", 
+		                  version: "1", 
+		                  dump_state: function() {
+						  var ret = "" ;
+						  var value = 0 ;
+					          for (var index in MP)
+						  {
+						       value = parseInt(MP[index]) ;
+						       if (value != 0)
+							   ret += "memory 0x" + parseInt(index).toString(16) + " 0x" + value.toString(16) + "; " ;
+						  }
+						  return ret;
+				              } 
+                            	};
+
+
+	/*
+	 *  States - internal memory
+	 */
+
         var MP       = new Object();
         var segments = new Object();
         var MP_wc    = 0;

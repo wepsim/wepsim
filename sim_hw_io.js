@@ -19,6 +19,24 @@
  */
 
 
+	/*
+	 *  IO
+	 */
+
+        sim_components["IO"] = {
+		                  name: "IO", 
+		                  version: "1", 
+		                  dump_state: function() {
+						  var ret = "" ;
+						  return ret;
+				              } 
+                            	};
+
+
+	/*
+	 *  States - IO parameters
+	 */
+
         var IO_INT_FACTORY = new Array() ;
         IO_INT_FACTORY[0] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
         IO_INT_FACTORY[1] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
