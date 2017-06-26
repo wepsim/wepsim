@@ -810,8 +810,9 @@
 
       	    var dialog_title   = 'The program has finished because the PC register points outside .ktext/.text code segments' ;
 
-	    var dialog_message = 'If you wish additions checks, please introduce them and press check.<br>' +
-	                         'If you want the checks for the current state, then please press dump.<br>' +
+	    var dialog_message = 'If you want to check the current state, please introduce requirements and press "check".<br>' +
+			         'For example: register 5 8 ; memory 1 0x10<br>' +
+	                         'If you want to dump the current state (as requirements fulfilled) then please press "dump".<br>' +
 			         '<br>' +
                                  '<div>' +
                                  '   <form class="form-horizontal" style="white-space:nowrap;">' +

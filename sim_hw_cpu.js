@@ -26,17 +26,41 @@
         sim_components["CPU"] = {
 		                  name: "CPU", 
 		                  version: "1", 
-		                  dump_state: function() {
+		                  dump_state: function () {
 						  var ret = "" ;
 						  var value = 0 ;
+					          var internal_reg = ["PC", "MAR", "MBR", "IR", "RT1", "RT1", "RT2", "RT3", "SR"] ;
+
 					          for (var i=0; i<sim_states['BR'].length; i++)
 						  {
 						      value = parseInt(sim_states['BR'][i].value) ;
 						      if (value != 0)
 							  ret += "register " + i + " 0x" + value.toString(16) + "; " ;
 						  }
+
+					          for (var i=0; i<internal_reg.length; i++)
+						  {
+						      value = parseInt(sim_states['REG_' + internal_reg[i]].value) ;
+						      if (value != 0)
+							  ret += "register " + internal_reg[i] + " 0x" + value.toString(16) + "; " ;
+						  }
+
 						  return ret;
-				              } 
+				               },
+		                  get_state: function ( reg ) {
+					          if (typeof sim_states['REG_' + reg] != "undefined") {
+					              return get_value(sim_states['REG_' + reg]) ;
+					          }
+
+					          // TODO: translate $t0, ...
+
+					          var index = parseInt(reg) ;
+					          if (typeof sim_states['BR'][index] != "undefined") {
+					              return get_value(sim_states['BR'][index]) ;
+					          }
+
+					          return null ;
+				             } 
                             	};
 
 	/*

@@ -36,7 +36,14 @@
 							   ret += "memory 0x" + parseInt(index).toString(16) + " 0x" + value.toString(16) + "; " ;
 						  }
 						  return ret;
-				              } 
+				              },
+		                  get_state: function ( pos ) {
+						  var index = parseInt(pos) ;
+						  if (typeof MP[index] != "undefined")
+						      return parseInt(MP[index]) ;
+
+					          return null ;
+				             } 
                             	};
 
 

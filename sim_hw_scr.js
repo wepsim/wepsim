@@ -29,15 +29,26 @@
 		                  dump_state: function() {
 						  var ret = "" ;
 					  /*
-					   *      var sim_screen = get_screen_content() ;
-					   *      var sim_lines  = sim_screen.trim().split("\n") ;
-					   *      for (var i=0; i<sim_lines.length; i++)
-					   *      {
-					   *           value = sim_lines[i] ;
-					   *           ret += "screen " + i + " " + value + "; " ;
-					   *      }
+					          var sim_screen = get_screen_content() ;
+					          var sim_lines  = sim_screen.trim().split("\n") ;
+					          for (var i=0; i<sim_lines.length; i++)
+					          {
+					               value = sim_lines[i] ;
+					               ret += "screen " + i + " " + value + "; " ;
+					          }
 					   */
 						  return ret;
+				              }, 
+		                  get_state:  function ( line ) {
+					  /*
+					          var sim_screen = get_screen_content() ;
+					          var sim_lines  = sim_screen.trim().split("\n") ;
+						  var index = parseInt(line) ;
+						  if (typeof sim_lines[index] != "undefined")
+						      return sim_lines[index] ;
+					   */
+
+					          return null ;
 				              } 
                             	};
 

@@ -984,14 +984,10 @@
         {
             for (var reg in expected_result.registers)
             {
-                 // TODO: translate $t0, ...
-
-                 var index = parseInt(reg) ;
-		 if (typeof sim_states['BR'][index] == "undefined")
+                 var expected_value = parseInt(expected_result.registers[reg]) ;
+	         var obtained_value = sim_components["CPU"].get_state(reg) ;
+		 if (null == obtained_value)
 		     continue ;
-
-                 var expected_value = parseInt(expected_result.registers[index]) ;
-                 var obtained_value = get_value(sim_states['BR'][index]) ; 
 
                  var diff = new Object() ;
                  diff.expected  = "0x" + expected_value.toString(16) ;
@@ -1012,11 +1008,9 @@
             for (var mp in expected_result.memory)
             {
                  var expected_value = parseInt(expected_result.memory[mp]) ;
-                 var obtained_value = 0 ;
-
-                 var index = parseInt(mp) ;
-                 if (typeof MP[index] != "undefined")
-                     obtained_value = parseInt(MP[index]) ;
+	         var obtained_value = sim_components["RAM"].get_state(mp) ;
+		 if (null == obtained_value)
+		     continue ;
 
                  var diff = new Object() ;
                  diff.expected  = "0x" + expected_value.toString(16) ;
@@ -1034,14 +1028,11 @@
 
         if (typeof expected_result.screen != "undefined")
         {
-            var sim_screen = get_screen_content() ;
-            var sim_lines  = sim_screen.trim().split("\n") ;
             for (var line in expected_result.screen)
             {
-                 var index = parseInt(line) ;
-                 if (typeof sim_lines[index] == "undefined")
-                      var value = "" ;
-                 else var value = sim_lines[index] ;
+	         var value = sim_components["SCR"].get_state(line) ;
+		 if (null == value)
+		     continue ;
 
                  var diff = new Object() ;
                  diff.expected  = expected_result.screen[index] ;
