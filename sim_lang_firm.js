@@ -564,15 +564,15 @@ function loadFirmware (text)
 	           if ( (typeof context.co_cop[instruccionAux["co"]] != "undefined") &&
 	                       (context.co_cop[instruccionAux["co"]].cop == null) )
 	           {
-	   	       return langError(context,
-				        "'co' is already been used by: " + context.co_cop[instruccionAux.co].signature) ;
+	   	           return langError(context,
+				                          "'co' is already been used by: " + context.co_cop[instruccionAux.co].signature) ;
 	           }
 
-                   if (typeof context.co_cop[instruccionAux.co] == "undefined")
+             if (typeof context.co_cop[instruccionAux.co] == "undefined")
 	           {
 	               context.co_cop[instruccionAux.co] = new Object() ;
-   	               context.co_cop[instruccionAux.co].signature = instruccionAux.signature ;
-                       context.co_cop[instruccionAux.co].cop       = null ;
+   	             context.co_cop[instruccionAux.co].signature = instruccionAux.signature ;
+                 context.co_cop[instruccionAux.co].cop       = null ;
 	           }
 	       }
 
