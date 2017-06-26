@@ -195,9 +195,6 @@ function read_native ( context )
                     'microcomments': microcomments } ;
 }
 
-var first_co = 0 ;
-var last_co  = Math.pow(2,6) - 1 ;
-
 function loadFirmware (text)
 {
            var context = new Object() ;
@@ -561,35 +558,23 @@ function loadFirmware (text)
 	       if ( (getToken(context).match("[01]*")[0] != getToken(context)) || (getToken(context).length != 6) )
 	             return langError(context, "Incorrect binary format on 'co': " + getToken(context)) ;
 
-	       // 111111 === "please, find one free 'co' for me..."
-	       if (getToken(context).match("[1]*")[0] == getToken(context)) 
-	       {
-		   for (var i=last_co; i>first_co; i--) {
-	                var label = i.toString(2) ;
-	                    label = "000000".substring(0, 6 - label.length) + label ;
-	                if (typeof context.co_cop[label] == "undefined") break;
-		   }
-
-	           if (i > first_co) {
-	               instruccionAux["co"] = label ;
-                       last_co = i ;
-		   }
-	       }
-
 	       // semantic check: 'co' is not already used
-	       if ( (typeof context.co_cop[instruccionAux["co"]] != "undefined") &&
-	                   (context.co_cop[instruccionAux["co"]].cop == null) )
+	       if (instruccionAux["co"] != "111111")
 	       {
-	   	   return langError(context,
-				    "'co' is already been used by: " + context.co_cop[instruccionAux.co].signature) ;
-	       }
+	           if ( (typeof context.co_cop[instruccionAux["co"]] != "undefined") &&
+	                       (context.co_cop[instruccionAux["co"]].cop == null) )
+	           {
+	   	       return langError(context,
+				        "'co' is already been used by: " + context.co_cop[instruccionAux.co].signature) ;
+	           }
 
-               if (typeof context.co_cop[instruccionAux.co] == "undefined")
-	       {
-	           context.co_cop[instruccionAux.co] = new Object() ;
-   	           context.co_cop[instruccionAux.co].signature = instruccionAux.signature ;
-                   context.co_cop[instruccionAux.co].cop       = null ;
-	       }		   
+                   if (typeof context.co_cop[instruccionAux.co] == "undefined")
+	           {
+	               context.co_cop[instruccionAux.co] = new Object() ;
+   	               context.co_cop[instruccionAux.co].signature = instruccionAux.signature ;
+                       context.co_cop[instruccionAux.co].cop       = null ;
+	           }
+	       }
 
 	       nextToken(context);
 	       // match optional ,
@@ -855,6 +840,39 @@ function loadFirmware (text)
            }
            if (found === false)
 	       return langError(context, "'begin' not found") ;
+
+           // TO RESOLVE co=111111 (111111 === "please, find one free 'co' for me...")
+           var first_co = 0 ;
+           var last_co  = Math.pow(2,6) - 1 ;
+           var label    = "" ;
+
+           for (var i=0; i<context.instrucciones.length; i++)
+           {
+                if ( (context.instrucciones[i].name != "begin") &&
+                     (context.instrucciones[i].co   == "111111") )
+                {
+			for (var j=first_co; j<last_co; j++) 
+			{
+			     label = j.toString(2) ;
+			     label = "000000".substring(0, 6 - label.length) + label ;
+
+			     if (typeof context.co_cop[label] == "undefined") 
+				 break;
+			}
+
+			if (j >= last_co) {
+		             return langError(context, "There is not enough 'co' codes available for instructions") ;
+			}
+
+                        context.instrucciones[i].co = label ;
+
+	                context.co_cop[label] = new Object() ;
+   	                context.co_cop[label].signature = context.instrucciones[i].signature ;
+                        context.co_cop[label].cop       = null ;
+
+			first_co = j ;
+                }
+           }
 
            // TO RESOLVE labels
 	   var labelsFounded=0;
