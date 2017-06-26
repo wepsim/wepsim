@@ -1,4 +1,25 @@
 
+1.7.7 -> 1.8.0:
+* Initial support for introspection
+* CPU behaviour has been slighly simplified
+* Added support for FIRE_IFCHANGED
+* Initial support for native in microcode
+* 111111 -> find a free available 'co'
+
+1.7.6 -> 1.7.7:
+* Sticky segment name on memory visualization
+* Improved full CPU image on help
+* Initial support for promises on CLOCK
+
+1.7.5 -> 1.7.6:
+* Tutorials support (welcome tutorial as example)
+* Several UI tweaks (slider positions, home help button, etc.)
+* Help index translated (English/Spanish)
+* Up to 50% faster than 1.7.5 in many examples
+* Speed-up configuration is now persistent
+* Labels are now shown in simulator Memory
+* Instructions are now shown in simulator Control Memory
+
 1.7.3 -> 1.7.5:
 * Faster: Up to 3 times faster than 1.7.1 version!
 * Easier: The new help center provides one place for all help

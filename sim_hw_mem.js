@@ -19,6 +19,31 @@
  */
 
 
+	/*
+	 *  Memory
+	 */
+
+        sim_components["RAM"] = {
+		                  name: "RAM", 
+		                  version: "1", 
+		                  dump_state: function() {
+						  var ret = "" ;
+						  var value = 0 ;
+					          for (var index in MP)
+						  {
+						       value = parseInt(MP[index]) ;
+						       if (value != 0)
+							   ret += "memory 0x" + parseInt(index).toString(16) + " 0x" + value.toString(16) + "; " ;
+						  }
+						  return ret;
+				              } 
+                            	};
+
+
+	/*
+	 *  States - internal memory
+	 */
+
         var MP       = new Object();
         var segments = new Object();
         var MP_wc    = 0;
@@ -30,7 +55,7 @@
 
         sim_signals["MRDY"]  = { name: "MRDY", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                  depends_on: ["CLK"],
-		                 behavior: ["FIRE C", "FIRE C"],
+		                 behavior: ["FIRE_IFCHANGED MRDY C", "FIRE_IFCHANGED MRDY C"],
                                  fire_name: ['svg_p:tspan3916'], 
                                  draw_data: [[], ['svg_p:path3895', 'svg_p:path3541']], 
                                  draw_name: [[], []]};
@@ -104,7 +129,7 @@
 
                                                       sim_states[s_expr[2]].value = (dbvalue >>> 0);
                                                      sim_signals[s_expr[4]].value = 1;
-				                      show_main_memory(MP, address, false) ;
+				                      show_main_memory(MP, address, false, false) ;
                                                    }
                                    };
 
@@ -160,7 +185,7 @@
 
 						      MP[address] = (value >>> 0);
                                                       sim_signals[s_expr[4]].value = 1;
-				                      show_main_memory(MP, address, true) ;
+				                      show_main_memory(MP, address, false, true) ;
                                                     }
                                    };
 

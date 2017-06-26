@@ -205,3 +205,38 @@ function resetComments ( context )
         context.comments = new Array() ;
 }
 
+
+/*
+ *  Native
+ */
+
+// TODO: some checking of this code before running (like an anti-virus)
+
+function nextNative ( context )
+{
+	 var first = context.t ;
+	 var last  = context.t ;
+
+	 // to detect blocks inside blocks -> { if () {} }
+	 var braces = 1 ;
+	 while ( (context.t < context.text.length) && (braces != 0) )
+	 {
+	     if ('{' == context.text[context.t])
+		  braces++ ;
+	     if ('}' == context.text[context.t])
+		  braces-- ;
+
+	     context.t++;
+	 }
+	 last = context.t - 1 ;
+
+	 // store the comment but do not return it as token
+	 var tok  = context.text.substring(first, last) ;
+
+         context.tokens.push(tok) ;
+         context.token_types.push("NATIVE") ;
+         context.i = context.tokens.length - 1 ;
+
+         return context ;
+}
+

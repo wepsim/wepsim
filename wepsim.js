@@ -282,7 +282,7 @@
     function wepsim_help_refresh ( )
     {
         var rel = $('#help1_ref').data('relative') ;
-        if (rel != "") 
+        if ( (typeof rel != "undefined") && (rel != "") )
         {
             $('#iframe_help1').load('help/simulator-' + get_cfg('ws_idiom') + '.html ' + rel,
 	    		            function() {
@@ -295,7 +295,7 @@
         }
 
         var ab1 = $('#help1_ref').data('absolute') ;
-        if (ab1 != "") 
+        if ( (typeof ab1 != "undefined") && (ab1 != "") )
         {
             $('#iframe_help1').load('help/' + ab1 + '-' + get_cfg('ws_idiom') + '.html',
 	    		            function() {
@@ -303,17 +303,31 @@
                                         $('#help1').popup('open');
                                     });
 
-            ga('send', 'event', 'help', 'help.' + ab1, 'help.' + ab1 + ".*");
+            ga('send', 'event', 'help', 'help.' + ab1, 'help.' + ab1 + '.*');
             return ;
         }
+
+        var cod1 = $('#help1_ref').data('code') ;
+        if ( (typeof cod1 != "undefined") && (cod1 == "true") )
+        {
+            ga('send', 'event', 'help', 'help.code', 'help.code.*');
+            return ;
+        }
+
+        wepsim_open_help_index() ;
     }
 
     function wepsim_open_help_index ( )
     {
-	$('#iframe_help1').html(table_helps_html(helps)) ;
+        var help_xx = help[get_cfg('ws_idiom')] ;
+
+	$('#iframe_help1').html(table_helps_html(help_xx)) ;
 	$('#iframe_help1').enhanceWithin() ;
 
 	$('#help1_ref').data('relative','') ;
+	$('#help1_ref').data('absolute','') ;
+	$('#help1_ref').data('code','false') ;
+
 	$('#help1').trigger('updatelayout') ;
 	$('#help1').popup('open') ;
     }
@@ -323,7 +337,10 @@
         $('#iframe_help1').html(content) ;
         $('#iframe_help1').enhanceWithin() ;
 
-        $('#help1_ref').data('relative','') ;
+        $('#help1_ref').data('relative', '') ;
+	$('#help1_ref').data('absolute', '') ;
+	$('#help1_ref').data('code','true') ;
+
         $('#help1').trigger('updatelayout') ;
         $('#help1').popup('reposition', {positionTo: 'window'}) ;
         $('#help1').popup('open') ;
@@ -337,11 +354,15 @@
     function wepsim_help_set_relative ( rel )
     {
         $('#help1_ref').data('relative', rel) ;
+	$('#help1_ref').data('absolute','') ;
+	$('#help1_ref').data('code','false') ;
     }
 
     function wepsim_help_set_absolute ( ab1 )
     {
+        $('#help1_ref').data('relative','') ;
         $('#help1_ref').data('absolute', ab1) ;
+	$('#help1_ref').data('code','false') ;
     }
 
 
@@ -417,6 +438,8 @@
 	return true ;
     }
 
+    var max_turbo = 5 ;
+
     function wepsim_execute_chainplay ( btn1 )
     {
 	if (DBG_stop) {
@@ -426,33 +449,47 @@
 
         var clklimit = get_cfg('DBG_limitick') ;
 
-	var ret = false ;
-	if (get_cfg('DBG_level') == "instruction")
-	     ret = execute_microprogram(clklimit) ;
-	else ret = execute_microinstruction() ;
+        var turbo = 1;
+	if (get_cfg('DBG_delay') < 5)
+            turbo = max_turbo ;
 
-	if (ret === false) {
-	    wepsim_execute_stop(btn1) ;
-	    return ;
-	}
+        if (max_turbo == 5) 
+            var t0 = performance.now() ;
+        for (var i=0; i<turbo; i++)
+        {
+		var ret = false ;
+		if (get_cfg('DBG_level') == "instruction")
+		     ret = execute_microprogram(clklimit) ;
+		else ret = execute_microinstruction() ;
 
-        ret = wepsim_check_stopbybreakpoint_asm() ;
-	if (ret == true) {
-	    wepsim_execute_stop(btn1) ;
-	    return ;
-	}
+		if (ret === false) {
+		    wepsim_execute_stop(btn1) ;
+		    return ;
+		}
 
-        ret = wepsim_check_stopbybreakpoint_firm() ;
-	if (ret == true) {
-	    wepsim_execute_stop(btn1) ;
-	    return ;
-	}
+		ret = wepsim_check_stopbybreakpoint_asm() ;
+		if (ret == true) {
+		    wepsim_execute_stop(btn1) ;
+		    return ;
+		}
 
-        ret = wepsim_check_stopbynotify_firm() ;
-	if (ret == true) {
-	    wepsim_execute_stop(btn1) ;
-	    return ;
-	}
+		ret = wepsim_check_stopbybreakpoint_firm() ;
+		if (ret == true) {
+		    wepsim_execute_stop(btn1) ;
+		    return ;
+		}
+
+		ret = wepsim_check_stopbynotify_firm() ;
+		if (ret == true) {
+		    wepsim_execute_stop(btn1) ;
+		    return ;
+		}
+        }
+        if (max_turbo == 5) 
+            var t1 = performance.now() ;
+
+        if (max_turbo == 5) 
+            max_turbo = 2500/(t1-t0) ;
 
 	setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), btn1) ;
     }
@@ -782,7 +819,7 @@
 
     function sim_prepare_editor ( editor )
     {
-	    editor.setValue("\n\n\n\n\n\n\n\n\n");
+	    editor.setValue("\n\n\n\n\n\n\n\n\n\n");
 	    editor.getWrapperElement().style['text-shadow'] = '0.0em 0.0em';
 
 	    if (get_cfg('editor_theme') == 'blackboard') {
@@ -801,3 +838,282 @@
 	    setTimeout(function(){editor.refresh();}, 100);
     }
 
+    //
+    // Tutorials
+    //
+
+    function sim_tutorial_showframe ( tutorial, step )
+    {
+        // 1.- check if
+        if (get_cfg('show_tutorials') == false) {
+	    return;
+        }
+
+	if (step == tutorial.length)
+	    return;
+	if (step < 0) 
+	    return;
+
+        // 2.- code_pre
+        tutorial[step].code_pre();
+
+        // 3.- dialog +
+        //     code_post (next button) | cancel tutorials
+        var bbbt = new Object() ;
+            bbbt["cancel"] = {
+		    label: 'Disable this tutorial',
+		    className: 'btn-danger',
+		    callback: function() {
+			set_cfg('show_tutorials', false) ;
+                        save_cfg();
+                        $("#radio10-false").trigger("click").checkboxradio("refresh") ;
+                        tutbox.modal("hide") ;
+		    }
+		} ;
+
+        if (step != 0)
+            bbbt["prev"] = {
+		    label: 'Prev',
+		    className: 'btn-success',
+		    callback: function() {
+			tutorial[step].code_post() ;
+			setTimeout(function(){ 
+					sim_tutorial_showframe(tutorial, step - 1) ;
+				   }, tutorial[step].wait_next);
+		    }
+		};
+
+	if (step != (tutorial.length - 1))
+            bbbt["next"] = {
+		    label: 'Next',
+		    className: 'btn-success',
+		    callback: function() {
+			tutorial[step].code_post() ;
+			setTimeout(function(){ 
+					sim_tutorial_showframe(tutorial, step + 1) ;
+				   }, tutorial[step].wait_next);
+		    }
+		};
+	else
+            bbbt["end"] = {
+		    label: 'End',
+		    className: 'btn-success',
+		    callback: function() {
+			tutorial[step].code_post() ;
+			setTimeout(function(){ 
+					sim_tutorial_showframe(tutorial, step + 1) ;
+				   }, tutorial[step].wait_next);
+		    }
+		};
+
+	tutbox = bootbox.dialog({
+	    title:   tutorial[step].title,
+	    message: tutorial[step].message,
+	    buttons: bbbt,
+            animate: false
+	});
+    }
+
+
+    //
+    //  WepSIM check API
+    //
+
+    function wepsim_read_checklist ( checklist )
+    {
+        var o = new Object() ;
+        o.registers = new Object() ;
+        o.memory    = new Object() ;
+        o.screen    = new Object() ;
+
+        var lines = checklist.split(";") ;
+        for (var i=0; i<lines.length; i++)
+        {
+             check = lines[i].trim().split(" ");
+
+	     // to check the check line itself...
+             if (check == "") {
+                 continue;
+             }
+
+             if (check.length < 3) {
+                 console.log("ERROR in checklist at line " + i + ": " + lines[i]);
+                 continue;
+             }
+
+             // TODO: support "register $0 >= 100" (right now "register $0 100"
+             // TODO: translate $t0 into $...
+
+	     // add the checking to be performed...
+             component_name = check[0].toUpperCase().trim() ;
+             switch (component_name) 
+	     {
+		 case "REGISTER":
+                        o.registers[check[1]] = check[2] ;
+		        break;
+		 case "MEMORY":
+                        o.memory[check[1]] = check[2] ;
+		        break;
+		 case "SCREEN":
+                        o.screen[check[1]] = check[2] ;
+		        break;
+		 default:
+                        console.log("ERROR in checklist at component " + component_name + ": " + lines[i]);
+             }
+        }
+
+        return o ;
+    }   
+
+    function wepsim_dump_checklist ( )
+    {
+        var ret = "" ;
+
+        for (var index in sim_components) 
+	     ret = ret + sim_components[index].dump_state() ;
+
+        return ret ;
+    }
+
+    function wepsim_to_check ( expected_result )
+    {
+        var result = new Array() ;
+        var errors = 0 ;
+
+        if (typeof expected_result.registers != "undefined")
+        {
+            for (var reg in expected_result.registers)
+            {
+                 // TODO: translate $t0, ...
+
+                 var index = parseInt(reg) ;
+		 if (typeof sim_states['BR'][index] == "undefined")
+		     continue ;
+
+                 var expected_value = parseInt(expected_result.registers[index]) ;
+                 var obtained_value = get_value(sim_states['BR'][index]) ; 
+
+                 var diff = new Object() ;
+                 diff.expected  = "0x" + expected_value.toString(16) ;
+                 diff.obtained  = "0x" + obtained_value.toString(16) ;
+                 diff.equals    = (expected_value == obtained_value) ;
+                 diff.elto_type = "register" ;
+                 diff.elto_id   = reg ;
+                 result.push(diff) ;
+
+                 if (diff.equals === false) {
+		     errors++ ;
+	         }
+            }
+        }
+
+        if (typeof expected_result.memory != "undefined")
+        {
+            for (var mp in expected_result.memory)
+            {
+                 var expected_value = parseInt(expected_result.memory[mp]) ;
+                 var obtained_value = 0 ;
+
+                 var index = parseInt(mp) ;
+                 if (typeof MP[index] != "undefined")
+                     obtained_value = parseInt(MP[index]) ;
+
+                 var diff = new Object() ;
+                 diff.expected  = "0x" + expected_value.toString(16) ;
+                 diff.obtained  = "0x" + obtained_value.toString(16) ;
+                 diff.equals    = (expected_value == obtained_value) ;
+                 diff.elto_type = "memory" ;
+                 diff.elto_id   = mp ;
+                 result.push(diff) ;
+
+                 if (diff.equals === false) {
+		     errors++ ;
+	         }
+            }
+        }
+
+        if (typeof expected_result.screen != "undefined")
+        {
+            var sim_screen = get_screen_content() ;
+            var sim_lines  = sim_screen.trim().split("\n") ;
+            for (var line in expected_result.screen)
+            {
+                 var index = parseInt(line) ;
+                 if (typeof sim_lines[index] == "undefined")
+                      var value = "" ;
+                 else var value = sim_lines[index] ;
+
+                 var diff = new Object() ;
+                 diff.expected  = expected_result.screen[index] ;
+                 diff.obtained  = value ;
+                 diff.equals    = (expected_result.screen[index] == value) ;
+                 diff.elto_type = "screen" ;
+                 diff.elto_id   = line ;
+                 result.push(diff) ;
+
+                 if (diff.equals === false) {
+		     errors++ ;
+	         }
+            }
+        }
+
+        var d = new Object() ;
+        d.result = result ;
+        d.errors = errors ;
+        return d ;
+    }
+
+    function wepsim_checkreport2txt ( checklist )
+    {
+        var o = "";
+
+        for (var i=0; i<checklist.length; i++)
+        {
+             if (checklist[i].equals === false) {
+                 o += checklist[i].elto_type + "[" + checklist[i].elto_id + "]='" +
+                      checklist[i].obtained + "' (expected '" + checklist[i].expected  + "'), ";
+             }
+        }
+
+        return o;
+    }
+
+    function wepsim_checkreport2html ( checklist, only_errors )
+    {
+        var o = "" ;
+        var color = "green" ;
+
+        if (typeof only_errors === 'undefined') 
+            only_errors = false ;
+
+        o += "<table class='table table-hover table-bordered table-condensed' style='margin:0 0 0 0;'>" +
+             "<thead>" +
+             "<tr>" +
+             "<th>Type</th>" +
+             "<th>Id.</th>" +
+             "<th>Expected</th>" +
+             "<th>Obtained</th>" +
+             "</tr>" +
+             "</thead>" +
+             "<tbody>" ;
+        for (var i=0; i<checklist.length; i++)
+        {
+             if (checklist[i].equals === false)
+                  color = "danger" ;
+             else color = "success" ;
+
+             if (only_errors && checklist[i].equals)
+                 continue ;
+
+             o += "<tr class=" + color + ">" +
+                  "<td>" + checklist[i].elto_type + "</td>" +
+                  "<td>" + checklist[i].elto_id   + "</td>" +
+                  "<td>" + checklist[i].expected  + "</td>" +
+                  "<td>" + checklist[i].obtained  + "</td>" +
+                  "</tr>" ;
+        }
+        o += "</tbody>" + 
+             "</table>" ;
+
+        return o ;
+    }

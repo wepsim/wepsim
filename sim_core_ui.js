@@ -279,16 +279,30 @@
                 return valuec ;
         }
 
+        function pack5 ( val )
+        {
+            return "00000".substring(0, 5 - val.length) + val ;
+        }
+
+        function pack8 ( val )
+        {
+            return "00000000".substring(0, 8 - val.length) + val ;
+        }
+
+        function pack32 ( val )
+        {
+            return "00000000000000000000000000000000".substring(0, 32 - val.length) + val;
+        }
+
         function hex2bin   ( hexvalue )
         {
                 var valuebin = hexvalue.toString(2) ;
 
-                valuebin = "00000000000000000000000000000000".substring(0, 32 - valuebin.length) + valuebin;
+                valuebin = pack32(valuebin) ;
                 valuebin = valuebin.substring(0,4)   + " " + valuebin.substring(4,8)   + " " +
                            valuebin.substring(8,12)  + " " + valuebin.substring(12,16) + " " +
                            valuebin.substring(16,20) + " " + valuebin.substring(20,24) + " " +
                            valuebin.substring(24,28) + " " + valuebin.substring(28,32) ;
-                //valuebin = valuebin.replace('0','.') ;
 
                 return valuebin ;
         }
@@ -329,7 +343,7 @@
 		var valuef   = hex2float(valueui);
                 var valuebin = hex2bin(valueui);
                 var valuehex = valueui.toString(16).toUpperCase() ;
-                    valuehex = "0x" + "00000000".substring(0, 8 - valuehex.length) + valuehex;
+                    valuehex = "0x" + pack8(valuehex) ;
 
 		var valuedt = "" ;
 		if (get_cfg('is_editable') == true) {
@@ -374,7 +388,7 @@
 	    for (var index=0; index < sim_states['BR'].length; index++)
             {
 		 o1_rf += "<div class='col-xs-6 col-sm-4 col-md-4 col-lg-3' style='padding:0 5 0 5;'>" +
-                          "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;' " +
+                          "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none; transform:translate3d(0,0,0);' " +
                           "        data-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
                           "  <span id='name_RF" + index + "' style='float:center; padding:0 0 0 0'>R" + index + "</span>" +
@@ -417,7 +431,7 @@
             {
                  var br_value = (get_value(sim_states['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() ;
                  if (16 == get_cfg('RF_display_format'))
-                     br_value = "00000000".substring(0, 8 - br_value.length) + br_value ;
+                     br_value = pack8(br_value) ;
 
                  $("#tbl_RF" + index).html(br_value);
 	    }
@@ -425,15 +439,18 @@
 
         var show_rf_values_deferred = null;
 
+        function innershow_rf_values ( )
+        {
+	    fullshow_rf_values();
+	    show_rf_values_deferred = null;
+        }
+
         function show_rf_values ( )
         {
-            if (null == show_rf_values_deferred)
-            {
-                show_rf_values_deferred = setTimeout(function() {
-                                                        fullshow_rf_values();
-                                                        show_rf_values_deferred=null;
-                                                     }, 125);
-            }
+            if (null != show_rf_values_deferred)
+                return;
+
+            show_rf_values_deferred = setTimeout(innershow_rf_values, cfg_show_rf_delay);
         }
 
         function show_rf_names ( )
@@ -474,7 +491,7 @@
                 var divclass = divclasses[b] ;
 
                 o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" +
-                      "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none;' " +
+                      "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none; will-change:transform; transform:translate3d(0,0,0);' " +
                       "        data-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +
                       showkey +
@@ -517,7 +534,7 @@
                 if (sim_eltos[key].nbits > 1) {
                         value = (sim_states[key].value >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() ;
                     if (16 == get_cfg('RF_display_format'))
-                        value = "00000000".substring(0, 8 - value.length) + value ;
+                        value = pack8(value) ;
                 }
 
 		var obj = document.getElementById("tbl_" + key);
@@ -530,13 +547,13 @@
 
         function show_eltos ( sim_eltos, filter )
         {
-            if (null == show_eltos_deferred)
-            {
-                show_eltos_deferred = setTimeout(function() {
-                                                        fullshow_eltos(sim_eltos, filter);
-                                                        show_eltos_deferred = null;
-                                                 }, 130);
-            }
+            if (null != show_eltos_deferred)
+                return;
+
+            show_eltos_deferred = setTimeout(function() {
+                                                   fullshow_eltos(sim_eltos, filter);
+                                                   show_eltos_deferred = null;
+                                             }, cfg_show_eltos_delay);
         }
 
 
@@ -558,15 +575,24 @@
             return show_eltos(sim_states, filter_states) ;
         }
 
+        function ko_observable ( initial_value )
+        {
+            var rli = 30 ;
+            if (get_cfg('DBG_delay') > 5) 
+                rli = 120 ;
+
+            return ko.observable(initial_value).extend({ rateLimit: rli });
+        }
+
         function init_io ( jqdiv )
         {
             if (jqdiv == "")
             {       // without ui
-		    sim_states['CLK'].value = ko.observable(sim_states['CLK'].value);
-		    sim_states['DECO_INS'].value = ko.observable(sim_states['DECO_INS'].value);
+		    sim_states['CLK'].value      = ko_observable(sim_states['CLK'].value) ;
+		    sim_states['DECO_INS'].value = ko_observable(sim_states['DECO_INS'].value) ;
 		    for (var i=0; i<IO_INT_FACTORY.length; i++) {
-			 IO_INT_FACTORY[i].accumulated = ko.observable(IO_INT_FACTORY[i].accumulated) ;
-			 IO_INT_FACTORY[i].active      = ko.observable(IO_INT_FACTORY[i].active) ;
+			 IO_INT_FACTORY[i].accumulated = ko_observable(IO_INT_FACTORY[i].accumulated) ;
+			 IO_INT_FACTORY[i].active      = ko_observable(IO_INT_FACTORY[i].active) ;
                     }
                     return ;
             }
@@ -603,18 +629,18 @@
             $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
 
             // knockout binding
-            sim_states['CLK'].value = ko.observable(sim_states['CLK'].value);
+            sim_states['CLK'].value = ko_observable(sim_states['CLK'].value) ;
             var ko_context = document.getElementById('clk_context');
             ko.applyBindings(sim_states['CLK'], ko_context);
 
-            sim_states['DECO_INS'].value = ko.observable(sim_states['DECO_INS'].value);
+            sim_states['DECO_INS'].value = ko_observable(sim_states['DECO_INS'].value) ;
             var ko_context = document.getElementById('ins_context');
             ko.applyBindings(sim_states['DECO_INS'], ko_context);
 
             for (var i=0; i<IO_INT_FACTORY.length; i++)
             {
-                 IO_INT_FACTORY[i].accumulated = ko.observable(IO_INT_FACTORY[i].accumulated) ;
-                 IO_INT_FACTORY[i].active      = ko.observable(IO_INT_FACTORY[i].active) ;
+                 IO_INT_FACTORY[i].accumulated = ko_observable(IO_INT_FACTORY[i].accumulated) ;
+                 IO_INT_FACTORY[i].active      = ko_observable(IO_INT_FACTORY[i].active) ;
                  var ko_context = document.getElementById('int' + i + '_context');
                  ko.applyBindings(IO_INT_FACTORY[i], ko_context);
             }
@@ -626,11 +652,11 @@
             if (jqdiv == "")
             {
 		    for (var i=0; i<IO_INT_FACTORY.length; i++) {
-			 IO_INT_FACTORY[i].period = ko.observable(IO_INT_FACTORY[i].period) ;
-			 IO_INT_FACTORY[i].probability = ko.observable(IO_INT_FACTORY[i].probability) ;
+			 IO_INT_FACTORY[i].period = ko_observable(IO_INT_FACTORY[i].period) ;
+			 IO_INT_FACTORY[i].probability = ko_observable(IO_INT_FACTORY[i].probability) ;
 		    }
 
-		    MP_wc = ko.observable(MP_wc) ;
+		    MP_wc = ko_observable(MP_wc) ;
                     return ;
             }
 
@@ -705,16 +731,16 @@
             // knockout binding
             for (var i=0; i<IO_INT_FACTORY.length; i++)
             {
-                 IO_INT_FACTORY[i].period = ko.observable(IO_INT_FACTORY[i].period) ;
+                 IO_INT_FACTORY[i].period = ko_observable(IO_INT_FACTORY[i].period) ;
                  var ko_context = document.getElementById('int' + i + '_per');
                  ko.applyBindings(IO_INT_FACTORY[i], ko_context);
 
-                 IO_INT_FACTORY[i].probability = ko.observable(IO_INT_FACTORY[i].probability) ;
+                 IO_INT_FACTORY[i].probability = ko_observable(IO_INT_FACTORY[i].probability) ;
                  var ko_context = document.getElementById('int' + i + '_pro');
                  ko.applyBindings(IO_INT_FACTORY[i], ko_context);
             }
 
-	    MP_wc = ko.observable(MP_wc) ;
+	    MP_wc = ko_observable(MP_wc) ;
             var ko_context = document.getElementById('mp_wc');
             ko.applyBindings(MP_wc, ko_context);
         }
@@ -725,67 +751,89 @@
          */
 
         var show_main_memory_deferred = null;
+        var show_main_memory_redraw   = false;
 
-        function show_main_memory ( memory, index, redraw )
+        function show_main_memory ( memory, index, redraw, updates )
         {
-	    if (redraw == false) {
-		light_refresh_main_memory(memory, index);
-                return ;
-            }
+            // if ($("#memory_MP").is(":visible") == false)
+            //     return ;
 
-            if (null != show_main_memory_deferred) 
-                clearTimeout(show_main_memory_deferred) ;
+            if (get_cfg('DBG_delay') > 5) 
+                show_main_memory_redraw  = redraw || show_main_memory_redraw ;
 
-            show_main_memory_deferred = setTimeout(function () {
-                                                       hard_refresh_main_memory(memory, index, redraw) ;
-                                                       show_main_memory_deferred = null;
-                                                   }, 150);
+            if (null != show_main_memory_deferred)
+                return;
+
+            show_main_memory_redraw = redraw ;
+            show_main_memory_deferred = setTimeout(function () 
+                                                   {
+						        if (show_main_memory_redraw == false)
+						    	    light_refresh_main_memory(memory, index, updates);
+                                                        else hard_refresh_main_memory(memory, index, updates) ;
+
+                                                        show_main_memory_deferred = null;
+                                                        show_main_memory_updates  = false;
+
+                                                   }, cfg_show_main_memory_delay);
         }
 
         function hard_refresh_main_memory ( memory, index, redraw )
         {
 	    var o1 = "" ;
             var value = "" ;
+            var sname = "" ;
+            var taddr = "" ;
+
+            var valkeys = new Array();
+
+            // todo: move next block to the end of the assembler parser
+            var SIMWARE = get_simware() ;
+
+            var revlabels = new Object() ;
+            for (var key in SIMWARE.labels2)
+                 revlabels[SIMWARE.labels2[key]] = key ;
+
+            var seglabels = new Object() ;
+	    for (skey in segments)
+                 seglabels[parseInt(segments[skey].begin)] = skey ;
 
             for (var key in memory)
             {
-		value  = memory[key].toString(16) ;
-		value  = "00000000".substring(0, 8 - value.length) + value ;
-		value2 = value[0] + value[1] + ' ' +
-			 value[2] + value[3] + ' ' +
-			 value[4] + value[5] + ' ' +
-			 value[6] + value[7] ;
+                value = main_memory_getword(revlabels, valkeys, memory, key) ;
+                sname = seglabels[parseInt(key)] ;
 
-		key2 = parseInt(key).toString(16) ;
-	      //key2 = "00000000".substring(0, 8 - key2.length) + key2 ;
+                if (typeof sname != "undefined")
+                    o1 += '<div style="position:sticky;top:0px;z-index:1;width:80%;background:#FFFFFF;"><b><small>' + sname + '</small></b></div>' ;
 
-		key3 = (parseInt(key) + 3).toString(16) ;
-	      //key3 = "00000000".substring(0, 8 - key3.length) + key3 ;
-
-		for (skey in segments) {
-		     if (parseInt(segments[skey].begin) == parseInt(key))
-			 o1 += "</tbody>" + "<tbody id=begin_" + skey + ">";
-		}
-
+                taddr = '<small>0x</small>' + pack5(valkeys[3]) + '<span class="hidden-xs"> </span>-' + 
+                        '<span class="hidden-xs"><small> 0x</small></span>' + pack5(valkeys[0]) ;
 		if (key == index)
-		     o1 += "<tr id='addr" + key + "'" +
-                           "    style='color:blue; font-size:normal; font-weight:bold'>" +
-			   "<td width=50%>" + "0x" + key3 + "-" + key2 + "</td>" +
-			   "<td          >" +                   value2 + "</td></tr>" ;
-		else o1 += "<tr id='addr" + key + "'" +
-                           "    style='color:black; font-size:small; font-weight:normal'>" +
-			   "<td width=50%>" + "0x" + key3 + "-" + key2 + "</td>" +
-			   "<td          >" + value2                   + "</td></tr>" ;
+		     o1 += "<div class='row' id='addr" + key + "'" +
+                           "     style='color:blue; font-size:small; font-weight:bold;    border-bottom: 1px solid lightgray !important'>" +
+			   "<div class='col-xs-5 col-sm-5 col-md-5 col-lg-5' align='right'  style='padding:5'>" + taddr + "</div>" + 
+			   "<div class='col-xs-1 col-sm-1 col-md-1 col-lg-1' align='center' style='padding:0'></div>" + 
+                           "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' align='left'   style='padding:5' id='mpval" + key + "'>" + value + "</div>" + 
+                           "</div>" ;
+		else o1 += "<div class='row' id='addr" + key + "'" +
+                           "     style='color:black; font-size:small; font-weight:normal; border-bottom: 1px solid lightgray !important'>" +
+			   "<div class='col-xs-5 col-sm-5 col-md-5 col-lg-5' align='right'  style='padding:5'>" + taddr + "</div>" + 
+			   "<div class='col-xs-1 col-sm-1 col-md-1 col-lg-1' align='center' style='padding:0'></div>" + 
+                           "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' align='left'   style='padding:5' id='mpval" + key + "'>" + value + "</div>" + 
+                           "</div>" ;
             }
 
 	    if (typeof memory[index] == "undefined")
-		o1 += "<tr>" +
-		      "<td width=15%><font color=blue>0x" + parseInt(index).toString(16) + "</font></td>" +
-		      "<td><font color=blue><b>00 00 00 00</b></font></td></tr>";
+		o1 += "<div class='row'>" +
+		      "<div class='col-xs-5 col-sm-5 col-md-5 col-lg-5' align='right'  style='padding:5'>" + 
+                      "<font style='color:blue;font-size:small;font-weight:bold'>0x" + 
+                      parseInt(index).toString(16) + 
+                      "</font></div>" +
+		      "<div class='col-xs-1 col-sm-1 col-md-1 col-lg-1' align='center' style='padding:5'></div>" + 
+		      "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' align='left'   style='padding:5'>" +
+                      "<font style='color:blue;font-size:small;font-weight:bold'><b>00 00 00 00</b></font></div>"+ 
+                      "</div>";
 
-            $("#memory_MP").html("<center><table class='table table-hover table-condensed table-responsive'>" +
-                                 "<tbody id=none>" + o1 + "</tbody>" +
-                                 "</table></center>");
+            $("#memory_MP").html("<div class='container-fluid'>" + o1 + "</div>");
 
             // scroll up/down to index element...
 	    var obj_byid = $('#addr' + index) ;
@@ -794,27 +842,63 @@
 	        var topPos = obj_byid[0].offsetTop ;
 	        var obj_byid = $('#memory_MP') ;
 	        if (obj_byid.length > 0)
-	            obj_byid[0].scrollTop = topPos;
+	            obj_byid[0].scrollTop = topPos - 100;
             }
+        }
+
+        function main_memory_getword ( revlabels, valkeys, memory, key )
+        {
+                if (typeof memory[key] == "undefined")
+                    return "00 00 00 00" ;
+
+		var value  = memory[key].toString(16) ;
+		    value  = pack8(value) ;
+
+                var i = 0;
+                for (i=0; i<4; i++) {
+		     valkeys[i] = (parseInt(key) + i).toString(16) ;
+                }
+
+                value2 = '' ;
+                for (i=0; i<4; i++) 
+                {
+                     labeli = revlabels["0x" + valkeys[3-i]] ;
+                     valuei = value[i*2] + value[i*2+1] ;
+
+                     if (typeof labeli != "undefined")
+                          value2 += '<span style="border:1px solid gray;">' + valuei + '</span>' +
+                                    '<span class="label label-primary" style="position:relative;top:12px;right:8px;">' + labeli + '</span>' ;
+                     else value2 += valuei + ' ' ;
+                }
+
+                return value2 ;
         }
 
         var old_main_addr = 0;
 
-        function light_refresh_main_memory ( memory, index )
+        function light_refresh_main_memory ( memory, index, redraw )
         {
-            // if ($("#memory_MP").is(":visible") == false)
-            //     return ;
+            if (redraw)
+            {
+                var valkeys   = new Array() ;
+                var SIMWARE   = get_simware() ;
+                var revlabels = new Object() ;
+                for (var key in SIMWARE.labels2)
+                     revlabels[SIMWARE.labels2[key]] = key ;
+                var svalue = main_memory_getword(revlabels, valkeys, memory, index) ;
+
+                o1 = $("#mpval" + index) ;
+                o1.html(svalue);
+            }
 
             o1 = $("#addr" + old_main_addr) ;
             o1.css('color', 'black') ;
-            o1.css('font-size', 'small') ;
             o1.css('font-weight', 'normal') ;
 
             old_main_addr = index ;
 
             o1 = $("#addr" + old_main_addr) ;
             o1.css('color', 'blue') ;
-            o1.css('font-size', 'initial') ;
             o1.css('font-weight', 'bold') ;
         }
 
@@ -822,18 +906,15 @@
 
         function show_control_memory ( memory, memory_dashboard, index, redraw )
         {
-            if (false == redraw) {
-                light_refresh_control_memory(memory, memory_dashboard, index);
-                return ;
-            }
-
-            if (null != show_control_memory_deferred) 
-                clearTimeout(show_control_memory_deferred) ;
+            if (null != show_control_memory_deferred)
+                return;
 
             show_control_memory_deferred = setTimeout(function () {
-                                            hard_refresh_control_memory(memory, memory_dashboard, index, redraw);
-                                            show_control_memory_deferred = null;
-                                           }, 120);
+						         if (false == redraw)
+							      light_refresh_control_memory(memory, memory_dashboard, index);
+                                                         else  hard_refresh_control_memory(memory, memory_dashboard, index, redraw);
+                                                         show_control_memory_deferred = null;
+                                                      }, cfg_show_control_memory_delay);
         }
 
         function hard_refresh_control_memory ( memory, memory_dashboard, index, redraw )
@@ -842,6 +923,13 @@
             var value = "" ;
             var icon_theme = get_cfg('ICON_theme') ;
 
+            var SIMWARE = get_simware() ;
+            var revlabels = new Object() ;
+            for (var key in SIMWARE.firmware)
+                 revlabels[SIMWARE.firmware[key]["mc-start"]] = SIMWARE.firmware[key]["name"] ;
+
+            var maddr = "" ;
+            var trpin = "" ;
             for (var key in memory)
             {
 		value = "" ;
@@ -855,36 +943,44 @@
 		     value += ks + "=" + parseInt(memory[key][ks]).toString(2) + " ";
 		}
 
-		var trpin = "&nbsp;" ;
+                maddr = "0x" + parseInt(key).toString(16) ;
+                if (typeof revlabels[key] != "undefined")
+                    maddr = '<span class="label label-primary" ' + 
+                            '      style="position:relative;top:-10px;right:0px;">' + revlabels[key] + '</span>' +
+                            '<span style="border:1px solid gray;">' + maddr + '</span>' ;
+
+		trpin = "&nbsp;" ;
 		if (true == memory_dashboard[key].breakpoint)
 		    trpin = "<img alt='stop icon' height=22 src='images/stop_" + icon_theme + ".gif'>" ;
 
 		if (key == index)
 		     o1 += "<tr id='maddr" + key + "' " +
-                           "    style='color:blue; font-size:normal; font-weight:bold' " +
+                           "    style='color:blue; font-size:small; font-weight:bold' " +
 			   "    onclick='dbg_set_breakpoint(" + key + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
-			   "<td width=12% align=right>" + "0x" + parseInt(key).toString(16) + "</td>" +
+			   "<td width=12% align=right>" + maddr + "</td>" +
 			   "<td width=1% id='mcpin" + key + "' style='padding:5 0 0 0;'>" + trpin + "</td>" +
 			   "<td>" + value + "</td></tr>";
 		else o1 += "<tr id='maddr" + key + "' " +
                            "    style='color:black; font-size:small; font-weight:normal' " +
 			   "    onclick='dbg_set_breakpoint(" + key + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
-			   "<td width=12% align=right>" + "0x" + parseInt(key).toString(16) + "</td>" +
+			   "<td width=12% align=right>" + maddr + "</td>" +
 			   "<td width=1% id='mcpin" + key + "' style='padding:5 0 0 0;'>" + trpin + "</td>" +
 			   "<td>" + value + "</td></tr>";
             }
 
 	    if (typeof memory[index] == "undefined") {
 		o1 += "<tr>" +
-		      "<td width=15%><font color=blue>0x" + parseInt(index).toString(16) + "</font></td>" +
-		      "<td><font color=blue><b>&nbsp;</b></font></td></tr>";
+		      "<td width=15%><font style='color:blue; font-size:small; font-weight:bold'>0x" + 
+                      parseInt(index).toString(16) + 
+                      "</font></td>" +
+		      "<td><font style='color:blue; font-size:small; font-weight:bold'><b>&nbsp;</b></font></td></tr>";
             }
 
             $("#memory_MC").html("<center><table class='table table-hover table-condensed table-responsive'>" +
-                                      "<tbody id=none>" + o1 + "</tbody>" +
-                                      "</table></center>");
+                                 "<tbody id=none>" + o1 + "</tbody>" +
+                                 "</table></center>");
 
             // scroll up/down to index element...
 	    var obj_byid = $('#maddr' + index) ;
@@ -906,14 +1002,12 @@
 
             o1 = $("#maddr" + old_mc_addr) ;
             o1.css('color', 'black') ;
-            o1.css('font-size', 'small') ;
             o1.css('font-weight', 'normal') ;
 
             old_mc_addr = index ;
 
             o1 = $("#maddr" + old_mc_addr) ;
             o1.css('color', 'blue') ;
-            o1.css('font-size', 'initial') ;
             o1.css('font-weight', 'bold') ;
         }
 
@@ -931,9 +1025,27 @@
                 return FIRMWARE.assembly[hexstrpc].source ;
         }
 
-        var old_addr = 0;
+
+        var show_asmdbg_pc_deferred = null;
+
+	function innershow_asmdbg_pc ( )
+	{
+	    fullshow_asmdbg_pc();
+	    show_asmdbg_pc_deferred = null;
+	}
 
 	function show_asmdbg_pc ( )
+	{
+            if (get_cfg('DBG_delay') > 5)
+	        return fullshow_asmdbg_pc();
+
+            if (null == show_asmdbg_pc_deferred)
+                show_asmdbg_pc_deferred = setTimeout(innershow_asmdbg_pc, cfg_show_asmdbg_pc_delay);
+	}
+
+        var old_addr = 0;
+
+	function fullshow_asmdbg_pc ( )
 	{
                 var o1 = null ;
                 var reg_pc    = get_value(sim_states["REG_PC"]) ;
@@ -1016,26 +1128,26 @@
 
 	function show_dbg_ir ( decins )
 	{
-            if (null == show_dbg_ir_deferred)
-            {
-                show_dbg_ir_deferred = setTimeout(function() {
-                                                        fullshow_dbg_ir(decins);
-                                                        show_dbg_ir_deferred = null;
-                                                     }, 100);
-            }
+            if (null != show_dbg_ir_deferred)
+                return;
+
+            show_dbg_ir_deferred = setTimeout(function() {
+                                                   fullshow_dbg_ir(decins);
+                                                   show_dbg_ir_deferred = null;
+                                              }, cfg_show_dbg_ir_delay);
 	}
 
 	function fullshow_dbg_ir ( decins )
 	{
-	        var o = document.getElementById('svg_p');
-	        if (o != null) o = o.contentDocument;
-	        if (o != null) o = o.getElementById('tspan3899');
-	        if (o != null) o.innerHTML = decins ;
+	     var o = document.getElementById('svg_p');
+	     if (o != null) o = o.contentDocument;
+	     if (o != null) o = o.getElementById('tspan3899');
+	     if (o != null) o.innerHTML = decins ;
 
-	        var o = document.getElementById('svg_cu');
-	        if (o != null) o = o.contentDocument;
-	        if (o != null) o = o.getElementById('text3611');
-	        if (o != null) o.innerHTML = decins ;
+	     var o = document.getElementById('svg_cu');
+	     if (o != null) o = o.contentDocument;
+	     if (o != null) o = o.getElementById('text3611');
+	     if (o != null) o.innerHTML = decins ;
 	}
 
         // Console (Screen + Keyboard)
@@ -1407,10 +1519,10 @@
                            "<td                                             width='2%'></td>" +
                            "<td class='asm_break'  style='line-height:0.9; padding:5 0 0 0;' width='10%' align='center' id='bp" + l + "'>&nbsp;</td>" +
                            "<td class='asm_addr'   style='line-height:0.9;' width='15%'>" + l + "</td>" +
-                           "<td class='asm_label1' style='line-height:0.9;' width='10%' align=right>" + s_label + "</td>" +
-                           "<td class='asm_ins'    style='line-height:0.9;' width='25%' align=left>"  + s1_instr + "</td>" +
                            "<td class='asm_label2' style='line-height:0.9;' width='10%' align=right>" + s_label + "</td>" +
                            "<td class='asm_pins'   style='line-height:0.9;' width='20%' align=left>"  + s2_instr + "</td>" +
+                           "<td class='asm_label1' style='line-height:0.9;' width='10%' align=right>" + s_label + "</td>" +
+                           "<td class='asm_ins'    style='line-height:0.9;' width='25%' align=left>"  + s1_instr + "</td>" +
                            "</tr>" ;
                 }
                 o += "</tbody></table></center>" ;

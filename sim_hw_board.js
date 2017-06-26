@@ -20,6 +20,13 @@
 
 
         /*
+         *  Components
+         */
+
+        var sim_components = new Object() ;
+
+
+        /*
          *  States
          */
 
