@@ -19,6 +19,24 @@
  */
 
 
+	/*
+	 *  IO
+	 */
+
+        sim_components["IO"] = {
+		                  name: "IO", 
+		                  version: "1", 
+		                  dump_state: function() {
+						  var ret = "" ;
+						  return ret;
+				              } 
+                            	};
+
+
+	/*
+	 *  States - IO parameters
+	 */
+
         var IO_INT_FACTORY = new Array() ;
         IO_INT_FACTORY[0] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
         IO_INT_FACTORY[1] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
@@ -57,7 +75,7 @@
 
         sim_signals["IORDY"]   = { name: "IORDY",  visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                    depends_on: ["CLK"],
-                                   behavior: ["FIRE C", "FIRE C"],
+		                   behavior: ["FIRE_IFCHANGED IORDY C", "FIRE_IFCHANGED IORDY C"],
                                    fire_name: ['svg_p:tspan4089','svg_p:path3793'], 
                                    draw_data: [[], ['svg_p:path3897']], 
                                    draw_name: [[], []]};
@@ -101,11 +119,11 @@
                                                       var iodr   = sim_states[s_expr[5]].value ;
 
                                                       if (bus_ab == IOSR_ID) 
-                                                          sim_states[s_expr[2]].value = iosr ;
+                                                          set_value(sim_states[s_expr[2]], iosr);
                                                       if (bus_ab == IOCR_ID) 
-                                                          sim_states[s_expr[2]].value = iocr ;
+                                                          set_value(sim_states[s_expr[2]], iocr);
                                                       if (bus_ab == IODR_ID) 
-                                                          sim_states[s_expr[2]].value = iodr ;
+                                                          set_value(sim_states[s_expr[2]], iodr);
                                                    }
                                       };
 
@@ -124,11 +142,11 @@
                                                       }
 
                                                       if (bus_ab == IOSR_ID) 
-                                                          sim_states[s_expr[3]].value = bus_db ;
+                                                          set_value(sim_states[s_expr[3]], bus_db);
                                                       if (bus_ab == IOCR_ID) 
-                                                          sim_states[s_expr[4]].value = bus_db ;
+                                                          set_value(sim_states[s_expr[4]], bus_db);
                                                       if (bus_ab == IODR_ID) 
-                                                          sim_states[s_expr[5]].value = bus_db ;
+                                                          set_value(sim_states[s_expr[5]], bus_db);
 
                                                       // check & modify the timer
                                                       var iocr_id = sim_states[s_expr[4]].value ;
@@ -148,7 +166,7 @@
                                         types: ["E", "S", "E"],
                                         operation: function (s_expr) 
                                                    {
-                                                      var clk = sim_states[s_expr[1]].value() ;
+                                                      var clk = get_value(sim_states[s_expr[1]]) ;
 
 						      for (var i=IO_INT_FACTORY.length-1; i>=0; i--)
                                                       {
@@ -157,8 +175,8 @@
 
                                                            if (IO_INT_FACTORY[i].active() == true)
                                                            {
-                                                               sim_signals[s_expr[2]].value = 1 ; // ['INT']=1
-                                                                sim_states[s_expr[3]].value = i ; // ['INTV']=i
+                                                               set_value(sim_signals[s_expr[2]], 1); // ['INT']=1
+                                                               set_value( sim_states[s_expr[3]], i); // ['INTV']=i
                                                            }
 
                                                            if ((clk % IO_INT_FACTORY[i].period()) == 0)
@@ -173,8 +191,8 @@
                                                                   sim_events["io"][clk] = new Array() ;
                                                               sim_events["io"][clk].push(i) ;
 
-                                                             sim_signals[s_expr[2]].value = 1 ; // ['INT']=1
-                                                              sim_states[s_expr[3]].value = i ; // ['INTV']=i
+                                                              set_value(sim_signals[s_expr[2]], 1); // ['INT']=1
+                                                              set_value( sim_states[s_expr[3]], i); // ['INTV']=i
                                                            }
                                                       }
                                                    }
@@ -184,23 +202,24 @@
                                         types: ["E", "S", "S", "E", "E"],
                                         operation: function (s_expr) 
                                                    {
-                                                      var clk = sim_states[s_expr[1]].value() ;
+                                                      var clk = get_value(sim_states[s_expr[1]]) ;
+
                                                       if (typeof sim_events["io"][clk] != "undefined") 
                                                       {
-                                                          sim_states[s_expr[4]].value = sim_events["io"][clk][0]; // ['BUS_DB'] = i
+                                                          set_value(sim_states[s_expr[4]], sim_events["io"][clk][0]); // ['BUS_DB'] = i
   							  return ;
                                                       }
 
-						     sim_signals[s_expr[2]].value = 0 ; // ['INT']  = 0
-						      sim_states[s_expr[5]].value = 0 ; // ['INTV'] = 0
+						      set_value(sim_signals[s_expr[2]], 0); // ['INT']  = 0
+						      set_value( sim_states[s_expr[5]], 0); // ['INTV'] = 0
 
 						      for (var i=0; i<IO_INT_FACTORY.length; i++) 
                                                       {
                                                            if (IO_INT_FACTORY[i].active())
                                                            {
-                                                              sim_signals[s_expr[2]].value = 0;  // ['INT']  = 1
-                                                               sim_states[s_expr[5]].value = i;  // ['INTV'] = i
-							       sim_states[s_expr[4]].value = i ; // ['BUS_DB'] = i
+                                                               set_value(sim_signals[s_expr[2]], 0) ; // ['INT']  = 1
+                                                               set_value( sim_states[s_expr[5]], i) ; // ['INTV'] = i
+							       set_value( sim_states[s_expr[4]], i) ; // ['BUS_DB'] = i
 
                                                                if (typeof sim_events["io"][clk] == "undefined") 
                                                                    sim_events["io"][clk] = new Array() ;

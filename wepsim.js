@@ -438,6 +438,8 @@
 	return true ;
     }
 
+    var max_turbo = 5 ;
+
     function wepsim_execute_chainplay ( btn1 )
     {
 	if (DBG_stop) {
@@ -449,8 +451,10 @@
 
         var turbo = 1;
 	if (get_cfg('DBG_delay') < 5)
-            turbo = 20;
+            turbo = max_turbo ;
 
+        if (max_turbo == 5) 
+            var t0 = performance.now() ;
         for (var i=0; i<turbo; i++)
         {
 		var ret = false ;
@@ -481,6 +485,11 @@
 		    return ;
 		}
         }
+        if (max_turbo == 5) 
+            var t1 = performance.now() ;
+
+        if (max_turbo == 5) 
+            max_turbo = 2500/(t1-t0) ;
 
 	setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), btn1) ;
     }
@@ -810,7 +819,7 @@
 
     function sim_prepare_editor ( editor )
     {
-	    editor.setValue("\n\n\n\n\n\n\n\n\n");
+	    editor.setValue("\n\n\n\n\n\n\n\n\n\n");
 	    editor.getWrapperElement().style['text-shadow'] = '0.0em 0.0em';
 
 	    if (get_cfg('editor_theme') == 'blackboard') {
@@ -905,3 +914,197 @@
 	});
     }
 
+
+    //
+    //  WepSIM check API
+    //
+
+    function wepsim_read_checklist ( checklist )
+    {
+        var o = new Object() ;
+        o.registers = new Object() ;
+        o.memory    = new Object() ;
+        o.screen    = new Object() ;
+
+        var lines = checklist.split(";") ;
+        for (var i=0; i<lines.length; i++)
+        {
+             check = lines[i].trim().split(" ");
+
+	     // to check the check line itself...
+             if (check == "") {
+                 continue;
+             }
+
+             if (check.length < 3) {
+                 console.log("ERROR in checklist at line " + i + ": " + lines[i]);
+                 continue;
+             }
+
+             // TODO: support "register $0 >= 100" (right now "register $0 100"
+             // TODO: translate $t0 into $...
+
+	     // add the checking to be performed...
+             component_name = check[0].toUpperCase().trim() ;
+             switch (component_name) 
+	     {
+		 case "REGISTER":
+                        o.registers[check[1]] = check[2] ;
+		        break;
+		 case "MEMORY":
+                        o.memory[check[1]] = check[2] ;
+		        break;
+		 case "SCREEN":
+                        o.screen[check[1]] = check[2] ;
+		        break;
+		 default:
+                        console.log("ERROR in checklist at component " + component_name + ": " + lines[i]);
+             }
+        }
+
+        return o ;
+    }   
+
+    function wepsim_dump_checklist ( )
+    {
+        var ret = "" ;
+
+        for (var index in sim_components) 
+	     ret = ret + sim_components[index].dump_state() ;
+
+        return ret ;
+    }
+
+    function wepsim_to_check ( expected_result )
+    {
+        var result = new Array() ;
+        var errors = 0 ;
+
+        if (typeof expected_result.registers != "undefined")
+        {
+            for (var reg in expected_result.registers)
+            {
+                 var expected_value = parseInt(expected_result.registers[reg]) ;
+	         var obtained_value = sim_components["CPU"].get_state(reg) ;
+		 if (null == obtained_value)
+		     continue ;
+
+                 var diff = new Object() ;
+                 diff.expected  = "0x" + expected_value.toString(16) ;
+                 diff.obtained  = "0x" + obtained_value.toString(16) ;
+                 diff.equals    = (expected_value == obtained_value) ;
+                 diff.elto_type = "register" ;
+                 diff.elto_id   = reg ;
+                 result.push(diff) ;
+
+                 if (diff.equals === false) {
+		     errors++ ;
+	         }
+            }
+        }
+
+        if (typeof expected_result.memory != "undefined")
+        {
+            for (var mp in expected_result.memory)
+            {
+                 var expected_value = parseInt(expected_result.memory[mp]) ;
+	         var obtained_value = sim_components["RAM"].get_state(mp) ;
+		 if (null == obtained_value)
+		     continue ;
+
+                 var diff = new Object() ;
+                 diff.expected  = "0x" + expected_value.toString(16) ;
+                 diff.obtained  = "0x" + obtained_value.toString(16) ;
+                 diff.equals    = (expected_value == obtained_value) ;
+                 diff.elto_type = "memory" ;
+                 diff.elto_id   = mp ;
+                 result.push(diff) ;
+
+                 if (diff.equals === false) {
+		     errors++ ;
+	         }
+            }
+        }
+
+        if (typeof expected_result.screen != "undefined")
+        {
+            for (var line in expected_result.screen)
+            {
+	         var value = sim_components["SCR"].get_state(line) ;
+		 if (null == value)
+		     continue ;
+
+                 var diff = new Object() ;
+                 diff.expected  = expected_result.screen[index] ;
+                 diff.obtained  = value ;
+                 diff.equals    = (expected_result.screen[index] == value) ;
+                 diff.elto_type = "screen" ;
+                 diff.elto_id   = line ;
+                 result.push(diff) ;
+
+                 if (diff.equals === false) {
+		     errors++ ;
+	         }
+            }
+        }
+
+        var d = new Object() ;
+        d.result = result ;
+        d.errors = errors ;
+        return d ;
+    }
+
+    function wepsim_checkreport2txt ( checklist )
+    {
+        var o = "";
+
+        for (var i=0; i<checklist.length; i++)
+        {
+             if (checklist[i].equals === false) {
+                 o += checklist[i].elto_type + "[" + checklist[i].elto_id + "]='" +
+                      checklist[i].obtained + "' (expected '" + checklist[i].expected  + "'), ";
+             }
+        }
+
+        return o;
+    }
+
+    function wepsim_checkreport2html ( checklist, only_errors )
+    {
+        var o = "" ;
+        var color = "green" ;
+
+        if (typeof only_errors === 'undefined') 
+            only_errors = false ;
+
+        o += "<table class='table table-hover table-bordered table-condensed' style='margin:0 0 0 0;'>" +
+             "<thead>" +
+             "<tr>" +
+             "<th>Type</th>" +
+             "<th>Id.</th>" +
+             "<th>Expected</th>" +
+             "<th>Obtained</th>" +
+             "</tr>" +
+             "</thead>" +
+             "<tbody>" ;
+        for (var i=0; i<checklist.length; i++)
+        {
+             if (checklist[i].equals === false)
+                  color = "danger" ;
+             else color = "success" ;
+
+             if (only_errors && checklist[i].equals)
+                 continue ;
+
+             o += "<tr class=" + color + ">" +
+                  "<td>" + checklist[i].elto_type + "</td>" +
+                  "<td>" + checklist[i].elto_id   + "</td>" +
+                  "<td>" + checklist[i].expected  + "</td>" +
+                  "<td>" + checklist[i].obtained  + "</td>" +
+                  "</tr>" ;
+        }
+        o += "</tbody>" + 
+             "</table>" ;
+
+        return o ;
+    }
