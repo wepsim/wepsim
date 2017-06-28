@@ -860,7 +860,7 @@
 		        label: 'Dump',
 		        className: 'btn-default',
 		        callback: function() {
-                            var txt_checklist = wepsim_dump_checklist();
+                                txt_checklist = wepsim_dump_checklist();
 
                             $('#end_state').val(txt_checklist);
                             $('#check_results').html("<span style='background-color:yellow'>" + 
