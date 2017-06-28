@@ -928,9 +928,12 @@
         {
              check = lines[i].trim().split(" ") ;
 
-             for (var index in sim_components) {
-	          var ret = sim_components[index].read_state(o, check) ;
-                  if (true == ret) break ;
+             for (var index in sim_components) 
+             {
+	          if (typeof sim_components[index].read_state == "function") {
+	              var ret = sim_components[index].read_state(o, check) ;
+                      if (true == ret) break ;
+                  }
              }
 
              if (false == ret) {
@@ -944,9 +947,11 @@
     function wepsim_dump_checklist ( )
     {
         var ret = "" ;
-
-        for (var index in sim_components) {
-	     ret = ret + sim_components[index].write_state() ;
+        for (var index in sim_components) 
+        {
+	     if (typeof sim_components[index].write_state == "function") {
+	         ret = ret + sim_components[index].write_state() ;
+             }
         }
 
         return ret ;
@@ -959,12 +964,13 @@
 
         for (var component in expected_result)
         {
-            for (var elto in expected_result.component)
+            for (var elto in expected_result[component])
             {
-                 var expected_value = parseInt(expected_result.component[elto]) ;
 	         var obtained_value = sim_components[component].get_state(elto) ;
 		 if (null == obtained_value)
 		     continue ;
+
+                 var expected_value = parseInt(expected_result[component][elto]) ;
 
                  var diff = new Object() ;
                  diff.expected  = "0x" + expected_value.toString(16) ;
