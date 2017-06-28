@@ -44,7 +44,6 @@
 						      return false ;
                                                   }
 
-/*
 					          var component_name = check[0].toUpperCase().trim() ;
 					          if (component_name == "SCREEN") 
                                                   {
@@ -54,7 +53,6 @@
                                                       o.SCR[check[1]] = decodeURI(check[2]) ;
                                                       return true ;
                                                   }
-*/
 
                                                   return false ;
 				             },

@@ -60,7 +60,7 @@
                                                       if (typeof o.CPU == "undefined")
                                                           o.CPU = new Object() ;
 
-                                                      o.CPU[check[1]] = check[2] ;
+                                                      o.CPU[check[1]] = "0x" + parseInt(check[2]).toString(16) ;
                                                       return true ;
                                                   }
 
@@ -68,14 +68,14 @@
 				             },
 		                  get_state: function ( reg ) {
 					          if (typeof sim_states['REG_' + reg] != "undefined") {
-					              return get_value(sim_states['REG_' + reg]) ;
+					              return "0x" + get_value(sim_states['REG_' + reg]).toString(16) ;
 					          }
 
 					          // TODO: translate $t0, ...
 
 					          var index = parseInt(reg) ;
 					          if (typeof sim_states['BR'][index] != "undefined") {
-					              return get_value(sim_states['BR'][index]) ;
+					              return "0x" + get_value(sim_states['BR'][index]).toString(16) ;
 					          }
 
 					          return null ;

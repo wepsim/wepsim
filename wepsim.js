@@ -922,6 +922,7 @@
     function wepsim_read_checklist ( checklist )
     {
         var o = new Object() ;
+	var ret = false ;
 
         var lines = checklist.split(";") ;
         for (var i=0; i<lines.length; i++)
@@ -931,7 +932,7 @@
              for (var index in sim_components) 
              {
 	          if (typeof sim_components[index].read_state == "function") {
-	              var ret = sim_components[index].read_state(o, check) ;
+	              ret = sim_components[index].read_state(o, check) ;
                       if (true == ret) break ;
                   }
              }
@@ -966,15 +967,15 @@
         {
             for (var elto in expected_result[component])
             {
+                 var expected_value = expected_result[component][elto] ;
 	         var obtained_value = sim_components[component].get_state(elto) ;
-		 if (null == obtained_value)
+		 if (null == obtained_value) {
 		     continue ;
-
-                 var expected_value = parseInt(expected_result[component][elto]) ;
+	         }
 
                  var diff = new Object() ;
-                 diff.expected  = "0x" + expected_value.toString(16) ;
-                 diff.obtained  = "0x" + obtained_value.toString(16) ;
+                 diff.expected  = expected_value ;
+                 diff.obtained  = obtained_value ;
                  diff.equals    = (expected_value == obtained_value) ;
                  diff.elto_type = component ;
                  diff.elto_id   = elto ;

@@ -48,7 +48,7 @@
                                                       if (typeof o.RAM == "undefined")
                                                           o.RAM = new Object() ;
 
-                                                      o.RAM[check[1]] = check[2] ;
+                                                      o.RAM[check[1]] = "0x" + parseInt(check[2]).toString(16) ;
                                                       return true ;
                                                   }
 
@@ -57,7 +57,7 @@
 		                  get_state: function ( pos ) {
 						  var index = parseInt(pos) ;
 						  if (typeof MP[index] != "undefined")
-						      return parseInt(MP[index]) ;
+						      return "0x" + parseInt(MP[index]).toString(16) ;
 
 					          return null ;
 				             }
