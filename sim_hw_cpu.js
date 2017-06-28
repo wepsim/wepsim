@@ -26,7 +26,7 @@
         sim_components["CPU"] = {
 		                  name: "CPU", 
 		                  version: "1", 
-		                  dump_state: function () {
+		                  write_state: function () {
 						  var ret = "" ;
 						  var value = 0 ;
 					          var internal_reg = ["PC", "MAR", "MBR", "IR", "RT1", "RT1", "RT2", "RT3", "SR"] ;
@@ -47,16 +47,35 @@
 
 						  return ret;
 				               },
+		                  read_state: function ( o, check ) {
+					          if ( (check == "") && (check.length < 3) ) {
+						      return false ;
+                                                  }
+
+                                           // TODO: support "register $0 >= 100" (right now "register $0 100")
+
+					          var component_name = check[0].toUpperCase().trim() ;
+					          if (component_name == "REGISTER") 
+                                                  {
+                                                      if (typeof o.CPU == "undefined")
+                                                          o.CPU = new Object() ;
+
+                                                      o.CPU[check[1]] = "0x" + parseInt(check[2]).toString(16) ;
+                                                      return true ;
+                                                  }
+
+                                                  return false ;
+				             },
 		                  get_state: function ( reg ) {
 					          if (typeof sim_states['REG_' + reg] != "undefined") {
-					              return get_value(sim_states['REG_' + reg]) ;
+					              return "0x" + get_value(sim_states['REG_' + reg]).toString(16) ;
 					          }
 
 					          // TODO: translate $t0, ...
 
 					          var index = parseInt(reg) ;
 					          if (typeof sim_states['BR'][index] != "undefined") {
-					              return get_value(sim_states['BR'][index]) ;
+					              return "0x" + get_value(sim_states['BR'][index]).toString(16) ;
 					          }
 
 					          return null ;

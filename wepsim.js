@@ -417,8 +417,11 @@
             return false ;
 
 	var curr_addr = "0x" + reg_maddr.toString(16) ;
-	alert("Breakpoint @ " + curr_addr + ":\n" +
-	      "Microinstruction at " + curr_addr + " is going to be issue.") ;
+
+	var dialog_title = "Breakpoint @ " + curr_addr + ":<br>" +
+	                   "Microinstruction at " + curr_addr + " is going to be issue." ;
+        dialog_stop_and_state(dialog_title) ;
+
 	return true ;
     }
 
@@ -433,8 +436,10 @@
 	if (false == FIRMWARE.assembly[curr_addr].breakpoint)
             return false ;
 
-	alert("Breakpoint @ " + curr_addr + ":\n" +
-	      "Instruction at " + curr_addr + " is going to be fetched.") ;
+	var dialog_title = "Breakpoint @ " + curr_addr + ":<br>" +
+	                   "Instruction at " + curr_addr + " is going to be fetched." ;
+        dialog_stop_and_state(dialog_title) ;
+
 	return true ;
     }
 
@@ -922,43 +927,21 @@
     function wepsim_read_checklist ( checklist )
     {
         var o = new Object() ;
-        o.registers = new Object() ;
-        o.memory    = new Object() ;
-        o.screen    = new Object() ;
+	var ret = false ;
 
         var lines = checklist.split(";") ;
         for (var i=0; i<lines.length; i++)
         {
-             check = lines[i].trim().split(" ");
+             check = lines[i].trim().split(" ") ;
 
-	     // to check the check line itself...
-             if (check == "") {
-                 continue;
+             for (var index in sim_components) 
+             {
+	          ret = sim_components[index].read_state(o, check) ;
+                  if (true == ret) break ;
              }
 
-             if (check.length < 3) {
-                 console.log("ERROR in checklist at line " + i + ": " + lines[i]);
-                 continue;
-             }
-
-             // TODO: support "register $0 >= 100" (right now "register $0 100"
-             // TODO: translate $t0 into $...
-
-	     // add the checking to be performed...
-             component_name = check[0].toUpperCase().trim() ;
-             switch (component_name) 
-	     {
-		 case "REGISTER":
-                        o.registers[check[1]] = check[2] ;
-		        break;
-		 case "MEMORY":
-                        o.memory[check[1]] = check[2] ;
-		        break;
-		 case "SCREEN":
-                        o.screen[check[1]] = check[2] ;
-		        break;
-		 default:
-                        console.log("ERROR in checklist at component " + component_name + ": " + lines[i]);
+             if (false == ret) {
+                 console.log("ERROR in checklist at component " + check[0] + ": " + lines[i]) ;
              }
         }
 
@@ -970,7 +953,7 @@
         var ret = "" ;
 
         for (var index in sim_components) 
-	     ret = ret + sim_components[index].dump_state() ;
+	     ret = ret + sim_components[index].write_state() ;
 
         return ret ;
     }
@@ -980,66 +963,22 @@
         var result = new Array() ;
         var errors = 0 ;
 
-        if (typeof expected_result.registers != "undefined")
+        for (var component in expected_result)
         {
-            for (var reg in expected_result.registers)
+            for (var elto in expected_result[component])
             {
-                 var expected_value = parseInt(expected_result.registers[reg]) ;
-	         var obtained_value = sim_components["CPU"].get_state(reg) ;
-		 if (null == obtained_value)
+                 var expected_value = expected_result[component][elto] ;
+	         var obtained_value = sim_components[component].get_state(elto) ;
+		 if (null == obtained_value) {
 		     continue ;
-
-                 var diff = new Object() ;
-                 diff.expected  = "0x" + expected_value.toString(16) ;
-                 diff.obtained  = "0x" + obtained_value.toString(16) ;
-                 diff.equals    = (expected_value == obtained_value) ;
-                 diff.elto_type = "register" ;
-                 diff.elto_id   = reg ;
-                 result.push(diff) ;
-
-                 if (diff.equals === false) {
-		     errors++ ;
 	         }
-            }
-        }
-
-        if (typeof expected_result.memory != "undefined")
-        {
-            for (var mp in expected_result.memory)
-            {
-                 var expected_value = parseInt(expected_result.memory[mp]) ;
-	         var obtained_value = sim_components["RAM"].get_state(mp) ;
-		 if (null == obtained_value)
-		     continue ;
 
                  var diff = new Object() ;
-                 diff.expected  = "0x" + expected_value.toString(16) ;
-                 diff.obtained  = "0x" + obtained_value.toString(16) ;
+                 diff.expected  = expected_value ;
+                 diff.obtained  = obtained_value ;
                  diff.equals    = (expected_value == obtained_value) ;
-                 diff.elto_type = "memory" ;
-                 diff.elto_id   = mp ;
-                 result.push(diff) ;
-
-                 if (diff.equals === false) {
-		     errors++ ;
-	         }
-            }
-        }
-
-        if (typeof expected_result.screen != "undefined")
-        {
-            for (var line in expected_result.screen)
-            {
-	         var value = sim_components["SCR"].get_state(line) ;
-		 if (null == value)
-		     continue ;
-
-                 var diff = new Object() ;
-                 diff.expected  = expected_result.screen[index] ;
-                 diff.obtained  = value ;
-                 diff.equals    = (expected_result.screen[index] == value) ;
-                 diff.elto_type = "screen" ;
-                 diff.elto_id   = line ;
+                 diff.elto_type = component ;
+                 diff.elto_id   = elto ;
                  result.push(diff) ;
 
                  if (diff.equals === false) {

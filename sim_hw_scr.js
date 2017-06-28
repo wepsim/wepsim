@@ -26,27 +26,44 @@
         sim_components["SCR"] = {
 		                  name: "SCR", 
 		                  version: "1", 
-		                  dump_state: function() {
+		                  write_state: function() {
 						  var ret = "" ;
-					  /*
+
 					          var sim_screen = get_screen_content() ;
 					          var sim_lines  = sim_screen.trim().split("\n") ;
 					          for (var i=0; i<sim_lines.length; i++)
 					          {
 					               value = sim_lines[i] ;
-					               ret += "screen " + i + " " + value + "; " ;
+           					       if (value.trim() != "") {
+					                   ret += "screen " + i + " " + encodeURI(value) + "; ";
+   						       }
 					          }
-					   */
+
 						  return ret;
 				              }, 
-		                  get_state:  function ( line ) {
-					  /*
+		                  read_state: function ( o, check ) {
+					          if ( (check == "") && (check.length < 3) ) {
+						      return false ;
+                                                  }
+
+					          var component_name = check[0].toUpperCase().trim() ;
+					          if (component_name == "SCREEN") 
+                                                  {
+                                                      if (typeof o.SCR == "undefined")
+                                                          o.SCR = new Object() ;
+
+                                                      o.SCR[check[1]] = "" + decodeURI(check[2]) ;
+                                                      return true ;
+                                                  }
+
+                                                  return false ;
+				             },
+		                  get_state: function ( line ) {
 					          var sim_screen = get_screen_content() ;
 					          var sim_lines  = sim_screen.trim().split("\n") ;
 						  var index = parseInt(line) ;
 						  if (typeof sim_lines[index] != "undefined")
 						      return sim_lines[index] ;
-					   */
 
 					          return null ;
 				              } 

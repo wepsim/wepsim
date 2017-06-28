@@ -804,11 +804,9 @@
         // checkbox-dialog: remembering the last selections...
         var txt_checklist = '' ;
 
-        function dialog_cannot_continue ( )
+        function dialog_stop_and_state ( dialog_title )
         {
 	    var chkbox = null ;
-
-      	    var dialog_title   = 'The program has finished because the PC register points outside .ktext/.text code segments' ;
 
 	    var dialog_message = 'If you want to check the current state, please introduce requirements and press "check".<br>' +
 			         'For example: register 5 8 ; memory 1 0x10<br>' +
@@ -853,6 +851,8 @@
                             else var msg = wepsim_checkreport2html(obj_result.result, true) ;
                             $('#check_results').html(msg);
 
+                            ga('send', 'event', 'state', 'state.check', 'state.check.' + msg);
+
                             return false;
 		        }
 		    } ;
@@ -860,11 +860,13 @@
 		        label: 'Dump',
 		        className: 'btn-default',
 		        callback: function() {
-                            var txt_checklist = wepsim_dump_checklist();
+                                txt_checklist = wepsim_dump_checklist();
 
                             $('#end_state').val(txt_checklist);
                             $('#check_results').html("<span style='background-color:yellow'>" + 
                                                      "State dumped.</span>");
+
+                            ga('send', 'event', 'state', 'state.dump', 'state.dump.' + txt_checklist);
 
                             return false;
 		        }
@@ -910,8 +912,10 @@
 		}
 
                 // if (reg_maddr == 0) && (outside *text) -> cannot continue
-	        if (with_ui) {
-                    dialog_cannot_continue() ;
+	        if (with_ui) 
+                {
+      	            var dialog_title = 'The program has finished because the PC register points outside .ktext/.text code segments' ;
+                    dialog_stop_and_state(dialog_title) ;
 	        }
 
 		return false;
