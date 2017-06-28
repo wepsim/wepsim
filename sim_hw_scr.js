@@ -33,8 +33,10 @@
 					          var sim_lines  = sim_screen.trim().split("\n") ;
 					          for (var i=0; i<sim_lines.length; i++)
 					          {
-					               value = encodeURI(sim_lines[i]) ;
-					               ret += "screen " + i + " " + value + "; " ;
+					               value = sim_lines[i] ;
+           					       if (value.trim() != "") {
+					                   ret += "screen " + i + " " + encodeURI(value) + "; ";
+   						       }
 					          }
 
 						  return ret;
@@ -50,7 +52,7 @@
                                                       if (typeof o.SCR == "undefined")
                                                           o.SCR = new Object() ;
 
-                                                      o.SCR[check[1]] = decodeURI(check[2]) ;
+                                                      o.SCR[check[1]] = "" + decodeURI(check[2]) ;
                                                       return true ;
                                                   }
 

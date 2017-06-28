@@ -417,8 +417,11 @@
             return false ;
 
 	var curr_addr = "0x" + reg_maddr.toString(16) ;
-	alert("Breakpoint @ " + curr_addr + ":\n" +
-	      "Microinstruction at " + curr_addr + " is going to be issue.") ;
+
+	var dialog_title = "Breakpoint @ " + curr_addr + ":<br>" +
+	                   "Microinstruction at " + curr_addr + " is going to be issue." ;
+        dialog_stop_and_state(dialog_title) ;
+
 	return true ;
     }
 
@@ -433,8 +436,10 @@
 	if (false == FIRMWARE.assembly[curr_addr].breakpoint)
             return false ;
 
-	alert("Breakpoint @ " + curr_addr + ":\n" +
-	      "Instruction at " + curr_addr + " is going to be fetched.") ;
+	var dialog_title = "Breakpoint @ " + curr_addr + ":<br>" +
+	                   "Instruction at " + curr_addr + " is going to be fetched." ;
+        dialog_stop_and_state(dialog_title) ;
+
 	return true ;
     }
 

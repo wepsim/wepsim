@@ -804,11 +804,9 @@
         // checkbox-dialog: remembering the last selections...
         var txt_checklist = '' ;
 
-        function dialog_cannot_continue ( )
+        function dialog_stop_and_state ( dialog_title )
         {
 	    var chkbox = null ;
-
-      	    var dialog_title   = 'The program has finished because the PC register points outside .ktext/.text code segments' ;
 
 	    var dialog_message = 'If you want to check the current state, please introduce requirements and press "check".<br>' +
 			         'For example: register 5 8 ; memory 1 0x10<br>' +
@@ -910,8 +908,10 @@
 		}
 
                 // if (reg_maddr == 0) && (outside *text) -> cannot continue
-	        if (with_ui) {
-                    dialog_cannot_continue() ;
+	        if (with_ui) 
+                {
+      	            var dialog_title = 'The program has finished because the PC register points outside .ktext/.text code segments' ;
+                    dialog_stop_and_state(dialog_title) ;
 	        }
 
 		return false;
