@@ -931,10 +931,8 @@
 
              for (var index in sim_components) 
              {
-	          if (typeof sim_components[index].read_state == "function") {
-	              ret = sim_components[index].read_state(o, check) ;
-                      if (true == ret) break ;
-                  }
+	          ret = sim_components[index].read_state(o, check) ;
+                  if (true == ret) break ;
              }
 
              if (false == ret) {
@@ -948,12 +946,9 @@
     function wepsim_dump_checklist ( )
     {
         var ret = "" ;
+
         for (var index in sim_components) 
-        {
-	     if (typeof sim_components[index].write_state == "function") {
-	         ret = ret + sim_components[index].write_state() ;
-             }
-        }
+	     ret = ret + sim_components[index].write_state() ;
 
         return ret ;
     }
