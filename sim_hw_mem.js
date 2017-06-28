@@ -26,7 +26,7 @@
         sim_components["RAM"] = {
 		                  name: "RAM", 
 		                  version: "1", 
-		                  dump_state: function() {
+		                  write_state: function() {
 						  var ret = "" ;
 						  var value = 0 ;
 					          for (var index in MP)
@@ -37,13 +37,30 @@
 						  }
 						  return ret;
 				              },
+		                  read_state: function ( o, check ) {
+					          if ( (check == "") && (check.length < 3) ) {
+						      return false ;
+                                                  }
+
+					          var component_name = check[0].toUpperCase().trim() ;
+					          if (component_name == "MEMORY") 
+                                                  {
+                                                      if (typeof o.RAM == "undefined")
+                                                          o.RAM = new Object() ;
+
+                                                      o.RAM[check[1]] = check[2] ;
+                                                      return true ;
+                                                  }
+
+                                                  return false ;
+				             },
 		                  get_state: function ( pos ) {
 						  var index = parseInt(pos) ;
 						  if (typeof MP[index] != "undefined")
 						      return parseInt(MP[index]) ;
 
 					          return null ;
-				             } 
+				             }
                             	};
 
 
