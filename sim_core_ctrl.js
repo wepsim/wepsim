@@ -851,6 +851,8 @@
                             else var msg = wepsim_checkreport2html(obj_result.result, true) ;
                             $('#check_results').html(msg);
 
+                            ga('send', 'event', 'state', 'state.check', 'state.check.' + msg);
+
                             return false;
 		        }
 		    } ;
@@ -863,6 +865,8 @@
                             $('#end_state').val(txt_checklist);
                             $('#check_results').html("<span style='background-color:yellow'>" + 
                                                      "State dumped.</span>");
+
+                            ga('send', 'event', 'state', 'state.dump', 'state.dump.' + txt_checklist);
 
                             return false;
 		        }
