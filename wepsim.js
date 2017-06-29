@@ -932,17 +932,23 @@
         var lines = checklist.split(";") ;
         for (var i=0; i<lines.length; i++)
         {
-             check = lines[i].trim().split(" ") ;
+             var line = lines[i].trim() ;
+	     if ("" == line)
+		 continue ;
 
+             var parts = line.split(" ") ;
+	     if (parts.length < 3)
+		 continue ;
+
+	     var check = { "type": parts[0], "id": parts[1], "value": parts[2] } ;
              for (var index in sim_components) 
              {
 	          ret = sim_components[index].read_state(o, check) ;
                   if (true == ret) break ;
              }
 
-             if (false == ret) {
-                 console.log("ERROR in checklist at component " + check[0] + ": " + lines[i]) ;
-             }
+             if (false == ret)
+                 console.log("ERROR in checklist at component " + check.type + ": " + line) ;
         }
 
         return o ;
@@ -950,10 +956,19 @@
 
     function wepsim_dump_checklist ( )
     {
-        var ret = "" ;
+	var o = new Object() ;
+	for (var index in sim_components) {
+	     sim_components[index].write_state(o) ;
+	}
 
-        for (var index in sim_components) 
-	     ret = ret + sim_components[index].write_state() ;
+	var ret = "" ;
+        for (var component in o) 
+	{
+	     var eltos = o[component] ;
+	     for (var i=0; i<eltos.length; i++) {
+	          ret = ret + eltos[i].type + " " + eltos[i].id + " " + eltos[i].value + "; " ;
+	     }
+	}
 
         return ret ;
     }
@@ -965,20 +980,20 @@
 
         for (var component in expected_result)
         {
-            for (var elto in expected_result[component])
+            for (var i=0; i<expected_result[component].length; i++)
             {
-                 var expected_value = expected_result[component][elto] ;
-	         var obtained_value = sim_components[component].get_state(elto) ;
+                 var elto = expected_result[component][i] ;
+	         var obtained_value = sim_components[component].get_state(elto.id) ;
 		 if (null == obtained_value) {
 		     continue ;
 	         }
 
                  var diff = new Object() ;
-                 diff.expected  = expected_value ;
+                 diff.expected  = elto.value ;
                  diff.obtained  = obtained_value ;
-                 diff.equals    = (expected_value == obtained_value) ;
+                 diff.equals    = (elto.value == obtained_value) ;
                  diff.elto_type = component ;
-                 diff.elto_id   = elto ;
+                 diff.elto_id   = elto.id ;
                  result.push(diff) ;
 
                  if (diff.equals === false) {
