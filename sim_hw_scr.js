@@ -28,7 +28,7 @@
 		                  version: "1", 
 		                  write_state: function ( vec ) {
                                                   if (typeof vec.SCR == "undefined")
-                                                      vec.SCR = new Array() ;
+                                                      vec.SCR = new Object() ;
 
 					          var sim_screen = get_screen_content() ;
 					          var sim_lines  = sim_screen.trim().split("\n") ;
@@ -36,10 +36,11 @@
 					          {
 					               value = sim_lines[i] ;
            					       if (value != "") {
-							   vec.SCR.push({"type":  "screen", 
+							   vec.SCR[i] = {"type":  "screen", 
+								         "default_value": "", 
 								         "id":    i,
 								         "op":    "=", 
-								         "value": encodeURI(value)}) ;
+								         "value": encodeURI(value)} ;
    						       }
 					          }
 
@@ -47,14 +48,15 @@
 				              }, 
 		                  read_state: function ( vec, check ) {
                                                   if (typeof vec.SCR == "undefined")
-                                                      vec.SCR = new Array() ;
+                                                      vec.SCR = new Object() ;
 
 					          if ("SCREEN" == check["type"].toUpperCase().trim())
                                                   {
-						      vec.SCR.push({"type":  "screen", 
-								    "id":    check["id"],
-								    "op":    "=", 
-								    "value": decodeURI(check["value"])}) ;
+						      vec.SCR[check["id"]] = {"type":  "screen", 
+								              "default_value": "", 
+								              "id":    check["id"],
+								              "op":    "=", 
+								              "value": decodeURI(check["value"])} ;
                                                       return true ;
                                                   }
 

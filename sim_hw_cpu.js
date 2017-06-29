@@ -28,7 +28,7 @@
 		                  version: "1", 
 		                  write_state:  function ( vec ) {
                                                   if (typeof vec.CPU == "undefined")
-                                                      vec.CPU = new Array() ;
+                                                      vec.CPU = new Object() ;
 
 					          var internal_reg = ["PC", "MAR", "MBR", "IR", "RT1", "RT1", "RT2", "RT3", "SR"] ;
 
@@ -37,10 +37,11 @@
 						  {
 						      value = parseInt(sim_states['BR'][i].value) ;
 						      if (value != 0) {
-							  vec.CPU.push({"type":  "register", 
+							  vec.CPU[i] = {"type":  "register", 
+								        "default_value": 0, 
 								        "id":    i, 
 								        "op":    "=", 
-								        "value": "0x" + value.toString(16)}) ;
+								        "value": "0x" + value.toString(16)} ;
 						      }
 						  }
 
@@ -48,10 +49,11 @@
 						  {
 						      value = parseInt(sim_states['REG_' + internal_reg[i]].value) ;
 						      if (value != 0) {
-							  vec.CPU.push({"type":  "register", 
-								        "id":    internal_reg[i], 
-								        "op":    "=", 
-								        "value": "0x" + value.toString(16)}) ;
+							  vec.CPU[internal_reg[i]] = {"type":  "register", 
+								                      "default_value": 0, 
+								                      "id":    internal_reg[i], 
+								                      "op":    "=", 
+								                      "value": "0x" + value.toString(16)} ;
 						      }
 						  }
 
@@ -59,15 +61,16 @@
 				               },
 		                  read_state:  function ( vec, check ) {
                                                   if (typeof vec.CPU == "undefined")
-                                                      vec.CPU = new Array() ;
+                                                      vec.CPU = new Object() ;
 
 					          if ("REGISTER" == check["type"].toUpperCase().trim())
                                                   {
                                                       // TODO: support "register $0 >= 100" (right now "register $0 100")
-						      vec.CPU.push({"type":  "register", 
-								    "id":    check["id"],
-								    "op":    "=", 
-								    "value": "0x" + parseInt(check["value"]).toString(16)}) ;
+						      vec.CPU[check["id"]] = {"type":  "register", 
+								              "default_value": 0, 
+								              "id":    check["id"],
+								              "op":    "=", 
+								              "value": "0x" + parseInt(check["value"]).toString(16)} ;
                                                       return true ;
                                                   }
 

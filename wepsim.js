@@ -964,9 +964,9 @@
 	var ret = "" ;
         for (var component in o) 
 	{
-	     var eltos = o[component] ;
-	     for (var i=0; i<eltos.length; i++) {
-	          ret = ret + eltos[i].type + " " + eltos[i].id + " " + eltos[i].value + "; " ;
+	     for (var eltos in o[component]) {
+		  var elto = o[component][eltos] ;
+	          ret = ret + elto.type + " " + elto.id + " " + elto.value + "; " ;
 	     }
 	}
 
@@ -975,30 +975,54 @@
 
     function wepsim_to_check ( expected_result )
     {
+	var o = new Object() ;
+	for (var index in sim_components) {
+	     sim_components[index].write_state(o) ;
+	}
+
         var result = new Array() ;
         var errors = 0 ;
 
+	for (var compo in o) 
+	{
+	    for (var elto in o[compo]) 
+            {
+		 if ( (typeof expected_result[compo]       == "undefined") ||
+		      (typeof expected_result[compo][elto] == "undefined") )
+                 {
+			 var diff = new Object() ;
+			 diff.expected  = o[compo][elto].default_value ;
+			 diff.obtained  = o[compo][elto].value ;
+			 diff.equals    = (diff.expected == diff.obtained) ;
+			 diff.elto_type = compo ;
+			 diff.elto_id   = o[compo][elto].id ;
+			 result.push(diff) ;
+
+			 if (diff.equals === false)
+			     errors++ ;
+                 }
+            }
+
+	}
+
         for (var component in expected_result)
         {
-            for (var i=0; i<expected_result[component].length; i++)
+	    for (var elto in expected_result[component])
             {
-                 var elto = expected_result[component][i] ;
-	         var obtained_value = sim_components[component].get_state(elto.id) ;
-		 if (null == obtained_value) {
+	         var obtained_value = sim_components[component].get_state(elto) ;
+		 if (null == obtained_value)
 		     continue ;
-	         }
 
                  var diff = new Object() ;
-                 diff.expected  = elto.value ;
+                 diff.expected  = expected_result[component][elto].value ;
                  diff.obtained  = obtained_value ;
-                 diff.equals    = (elto.value == obtained_value) ;
+                 diff.equals    = (diff.expected == diff.obtained) ;
                  diff.elto_type = component ;
-                 diff.elto_id   = elto.id ;
+                 diff.elto_id   = expected_result[component][elto].id ;
                  result.push(diff) ;
 
-                 if (diff.equals === false) {
+                 if (diff.equals === false)
 		     errors++ ;
-	         }
             }
         }
 
