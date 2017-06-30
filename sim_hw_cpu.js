@@ -26,47 +26,57 @@
         sim_components["CPU"] = {
 		                  name: "CPU", 
 		                  version: "1", 
-		                  write_state: function () {
-						  var ret = "" ;
-						  var value = 0 ;
+		                  write_state:  function ( vec ) {
+                                                  if (typeof vec.CPU == "undefined")
+                                                      vec.CPU = new Object() ;
+
 					          var internal_reg = ["PC", "MAR", "MBR", "IR", "RT1", "RT1", "RT2", "RT3", "SR"] ;
 
+						  var value = 0 ;
 					          for (var i=0; i<sim_states['BR'].length; i++)
 						  {
 						      value = parseInt(sim_states['BR'][i].value) ;
-						      if (value != 0)
-							  ret += "register " + i + " 0x" + value.toString(16) + "; " ;
+						      if (value != 0) {
+							  vec.CPU[i] = {"type":  "register", 
+								        "default_value": 0, 
+								        "id":    i, 
+								        "op":    "=", 
+								        "value": "0x" + value.toString(16)} ;
+						      }
 						  }
 
 					          for (var i=0; i<internal_reg.length; i++)
 						  {
 						      value = parseInt(sim_states['REG_' + internal_reg[i]].value) ;
-						      if (value != 0)
-							  ret += "register " + internal_reg[i] + " 0x" + value.toString(16) + "; " ;
+						      if (value != 0) {
+							  vec.CPU[internal_reg[i]] = {"type":  "register", 
+								                      "default_value": 0, 
+								                      "id":    internal_reg[i], 
+								                      "op":    "=", 
+								                      "value": "0x" + value.toString(16)} ;
+						      }
 						  }
 
-						  return ret;
+						  return vec;
 				               },
-		                  read_state: function ( o, check ) {
-					          if ( (check == "") && (check.length < 3) ) {
-						      return false ;
-                                                  }
+		                  read_state:  function ( vec, check ) {
+                                                  if (typeof vec.CPU == "undefined")
+                                                      vec.CPU = new Object() ;
 
-                                           // TODO: support "register $0 >= 100" (right now "register $0 100")
-
-					          var component_name = check[0].toUpperCase().trim() ;
-					          if (component_name == "REGISTER") 
+					          if ("REGISTER" == check["type"].toUpperCase().trim())
                                                   {
-                                                      if (typeof o.CPU == "undefined")
-                                                          o.CPU = new Object() ;
-
-                                                      o.CPU[check[1]] = "0x" + parseInt(check[2]).toString(16) ;
+                                                      // TODO: support "register $0 >= 100" (right now "register $0 100")
+						      vec.CPU[check["id"]] = {"type":  "register", 
+								              "default_value": 0, 
+								              "id":    check["id"],
+								              "op":    "=", 
+								              "value": "0x" + parseInt(check["value"]).toString(16)} ;
                                                       return true ;
                                                   }
 
                                                   return false ;
-				             },
-		                  get_state: function ( reg ) {
+				              },
+		                  get_state:  function ( reg ) {
 					          if (typeof sim_states['REG_' + reg] != "undefined") {
 					              return "0x" + get_value(sim_states['REG_' + reg]).toString(16) ;
 					          }
@@ -79,7 +89,7 @@
 					          }
 
 					          return null ;
-				             } 
+				              } 
                             	};
 
 	/*

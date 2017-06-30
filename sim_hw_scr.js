@@ -20,39 +20,43 @@
 
 
 	/*
-	 *  SCR
+	 *  SCREEN
 	 */
 
-        sim_components["SCR"] = {
-		                  name: "SCR", 
+        sim_components["SCREEN"] = {
+		                  name: "SCREEN", 
 		                  version: "1", 
-		                  write_state: function() {
-						  var ret = "" ;
+		                  write_state: function ( vec ) {
+                                                  if (typeof vec.SCREEN == "undefined")
+                                                      vec.SCREEN = new Object() ;
 
 					          var sim_screen = get_screen_content() ;
 					          var sim_lines  = sim_screen.trim().split("\n") ;
 					          for (var i=0; i<sim_lines.length; i++)
 					          {
 					               value = sim_lines[i] ;
-           					       if (value.trim() != "") {
-					                   ret += "screen " + i + " " + encodeURI(value) + "; ";
+           					       if (value != "") {
+							   vec.SCREEN[i] = {"type":  "screen", 
+								            "default_value": "", 
+								            "id":    i,
+								            "op":    "=", 
+								            "value": encodeURI(value)} ;
    						       }
 					          }
 
-						  return ret;
+						  return vec;
 				              }, 
-		                  read_state: function ( o, check ) {
-					          if ( (check == "") && (check.length < 3) ) {
-						      return false ;
-                                                  }
+		                  read_state: function ( vec, check ) {
+                                                  if (typeof vec.SCREEN == "undefined")
+                                                      vec.SCREEN = new Object() ;
 
-					          var component_name = check[0].toUpperCase().trim() ;
-					          if (component_name == "SCREEN") 
+					          if ("SCREEN" == check["type"].toUpperCase().trim())
                                                   {
-                                                      if (typeof o.SCR == "undefined")
-                                                          o.SCR = new Object() ;
-
-                                                      o.SCR[check[1]] = "" + decodeURI(check[2]) ;
+						      vec.SCREEN[check["id"]] = {"type":  "screen", 
+								                 "default_value": "", 
+								                 "id":    check["id"],
+								                 "op":    "=", 
+								                 "value": decodeURI(check["value"])} ;
                                                       return true ;
                                                   }
 

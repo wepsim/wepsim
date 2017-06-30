@@ -26,9 +26,8 @@
         sim_components["KBD"] = {
 		                  name: "KBD", 
 		                  version: "1", 
-		                  write_state: function () {
-						  var ret = "" ;
-						  return ret;
+		                  write_state: function ( vec ) {
+						  return vec;
 				               },
 		                  read_state:  function ( o, check ) {
                                                   return false ;

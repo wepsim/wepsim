@@ -932,17 +932,23 @@
         var lines = checklist.split(";") ;
         for (var i=0; i<lines.length; i++)
         {
-             check = lines[i].trim().split(" ") ;
+             var line = lines[i].trim() ;
+	     if ("" == line)
+		 continue ;
 
+             var parts = line.split(" ") ;
+	     if (parts.length < 3)
+		 continue ;
+
+	     var check = { "type": parts[0], "id": parts[1], "value": parts[2] } ;
              for (var index in sim_components) 
              {
 	          ret = sim_components[index].read_state(o, check) ;
                   if (true == ret) break ;
              }
 
-             if (false == ret) {
-                 console.log("ERROR in checklist at component " + check[0] + ": " + lines[i]) ;
-             }
+             if (false == ret)
+                 console.log("ERROR in checklist at component " + check.type + ": " + line) ;
         }
 
         return o ;
@@ -950,40 +956,75 @@
 
     function wepsim_dump_checklist ( )
     {
-        var ret = "" ;
+	var o = new Object() ;
+	for (var index in sim_components) {
+	     sim_components[index].write_state(o) ;
+	}
 
-        for (var index in sim_components) 
-	     ret = ret + sim_components[index].write_state() ;
+	var ret = "" ;
+        for (var component in o) 
+	{
+	     for (var eltos in o[component]) {
+		  var elto = o[component][eltos] ;
+	          ret = ret + elto.type + " " + elto.id + " " + elto.value + "; " ;
+	     }
+	}
 
         return ret ;
     }
 
     function wepsim_to_check ( expected_result )
     {
+	var o = new Object() ;
         var result = new Array() ;
         var errors = 0 ;
 
-        for (var component in expected_result)
-        {
-            for (var elto in expected_result[component])
-            {
-                 var expected_value = expected_result[component][elto] ;
-	         var obtained_value = sim_components[component].get_state(elto) ;
-		 if (null == obtained_value) {
-		     continue ;
-	         }
+	for (var compo in sim_components)
+	{
+	    // get current state
+	    sim_components[compo].write_state(o) ;
 
-                 var diff = new Object() ;
-                 diff.expected  = expected_value ;
-                 diff.obtained  = obtained_value ;
-                 diff.equals    = (expected_value == obtained_value) ;
-                 diff.elto_type = component ;
-                 diff.elto_id   = elto ;
-                 result.push(diff) ;
+	    // if there is new elements -> diff
+	    if (typeof o[compo] != "undefined")
+	    {
+		    for (var elto in o[compo]) 
+		    {
+			 if ( (typeof expected_result[compo]       == "undefined") ||
+			      (typeof expected_result[compo][elto] == "undefined") )
+			 {
+				 var diff = new Object() ;
+				 diff.expected  = o[compo][elto].default_value ;
+				 diff.obtained  = o[compo][elto].value ;
+				 diff.equals    = (diff.expected == diff.obtained) ;
+				 diff.elto_type = compo ;
+				 diff.elto_id   = o[compo][elto].id ;
+				 result.push(diff) ;
 
-                 if (diff.equals === false) {
-		     errors++ ;
-	         }
+				 if (diff.equals === false)
+				     errors++ ;
+			 }
+		    }
+	    }
+
+            if (typeof expected_result[compo] != "undefined") 
+	    {
+		    for (var elto in expected_result[compo])
+		    {
+			 var obtained_value = sim_components[compo].get_state(elto) ;
+			 if (null == obtained_value)
+			     continue ;
+
+			 var diff = new Object() ;
+			 diff.expected  = expected_result[compo][elto].value ;
+			 diff.obtained  = obtained_value ;
+			 diff.equals    = (diff.expected == diff.obtained) ;
+			 diff.elto_type = compo ;
+			 diff.elto_id   = expected_result[compo][elto].id ;
+			 result.push(diff) ;
+
+			 if (diff.equals === false)
+			     errors++ ;
+		    }
             }
         }
 

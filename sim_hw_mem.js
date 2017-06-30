@@ -23,32 +23,42 @@
 	 *  Memory
 	 */
 
-        sim_components["RAM"] = {
-		                  name: "RAM", 
+        sim_components["MEMORY"] = {
+		                  name: "MEMORY", 
 		                  version: "1", 
-		                  write_state: function() {
-						  var ret = "" ;
+		                  write_state: function ( vec ) {
+                                                  if (typeof vec.MEMORY == "undefined")
+                                                      vec.MEMORY = new Object() ;
+
+						  var key = 0 ;
 						  var value = 0 ;
 					          for (var index in MP)
 						  {
 						       value = parseInt(MP[index]) ;
-						       if (value != 0)
-							   ret += "memory 0x" + parseInt(index).toString(16) + " 0x" + value.toString(16) + "; " ;
+						       if (value != 0) 
+						       {
+					                   key = "0x" + parseInt(index).toString(16) ;
+							   vec.MEMORY[key] = {"type":  "memory", 
+								              "default_value": 0, 
+								              "id":    key,
+								              "op":    "=", 
+								              "value": "0x" + value.toString(16)} ;
+						       }
 						  }
-						  return ret;
+
+						  return vec;
 				              },
-		                  read_state: function ( o, check ) {
-					          if ( (check == "") && (check.length < 3) ) {
-						      return false ;
-                                                  }
+		                  read_state: function ( vec, check ) {
+                                                  if (typeof vec.MEMORY == "undefined")
+                                                      vec.MEMORY = new Object() ;
 
-					          var component_name = check[0].toUpperCase().trim() ;
-					          if (component_name == "MEMORY") 
+					          if ("MEMORY" == check["type"].toUpperCase().trim())
                                                   {
-                                                      if (typeof o.RAM == "undefined")
-                                                          o.RAM = new Object() ;
-
-                                                      o.RAM[check[1]] = "0x" + parseInt(check[2]).toString(16) ;
+						      vec.MEMORY[check["id"]] = {"type":  "memory", 
+							  	                 "default_value": 0, 
+								                 "id":    check["id"],
+								                 "op":    "=",
+								                 "value": "0x" + parseInt(check["value"]).toString(16)} ;
                                                       return true ;
                                                   }
 
