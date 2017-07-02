@@ -924,8 +924,8 @@
 		        }
 		    } ;
                 dialog_btns["ok"] = {
-	    	        label: '&nbsp;OK&nbsp;',
-		        className: 'btn-success',
+	    	        label: '&nbsp;&nbsp;OK&nbsp;&nbsp;',
+		        className: 'btn-primary',
 		        callback: function() {
                             // chkbox.modal("hide") ;
 				
