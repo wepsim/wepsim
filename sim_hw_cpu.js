@@ -38,7 +38,7 @@
 						      value = parseInt(sim_states['BR'][i].value) ;
 						      if (value != 0) {
 							  vec.CPU[i] = {"type":  "register", 
-								        "default_value": 0, 
+								        "default_value": 0x0,
 								        "id":    i, 
 								        "op":    "=", 
 								        "value": "0x" + value.toString(16)} ;
@@ -50,7 +50,7 @@
 						      value = parseInt(sim_states['REG_' + internal_reg[i]].value) ;
 						      if (value != 0) {
 							  vec.CPU[internal_reg[i]] = {"type":  "register", 
-								                      "default_value": 0, 
+								                      "default_value": 0x0,
 								                      "id":    internal_reg[i], 
 								                      "op":    "=", 
 								                      "value": "0x" + value.toString(16)} ;

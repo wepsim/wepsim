@@ -940,7 +940,7 @@
 	     if (parts.length < 3)
 		 continue ;
 
-	     var check = { "type": parts[0], "id": parts[1], "value": parts[2] } ;
+	     var check = { "type": parts[0], "id": parts[1], "value": decodeURI(parts[2]) } ;
              for (var index in sim_components) 
              {
 	          ret = sim_components[index].read_state(o, check) ;
@@ -966,7 +966,7 @@
 	{
 	     for (var eltos in o[component]) {
 		  var elto = o[component][eltos] ;
-	          ret = ret + elto.type + " " + elto.id + " " + elto.value + "; " ;
+	          ret = ret + elto.type + " " + elto.id + " " + encodeURI(elto.value) + "; " ;
 	     }
 	}
 
@@ -975,34 +975,36 @@
 
     function wepsim_to_check ( expected_result )
     {
-	var o = new Object() ;
-        var result = new Array() ;
-        var errors = 0 ;
+        var d = new Object() ;
+        d.result = new Array() ;
+        d.errors = 0 ;
 
+	var current = new Object() ;
 	for (var compo in sim_components)
 	{
 	    // get current state
-	    sim_components[compo].write_state(o) ;
+	    sim_components[compo].write_state(current) ;
 
 	    // if there is new elements -> diff
-	    if (typeof o[compo] != "undefined")
+	    if (typeof current[compo] != "undefined")
 	    {
-		    for (var elto in o[compo]) 
+		    for (var elto in current[compo]) 
 		    {
-			 if ( (typeof expected_result[compo]       == "undefined") ||
-			      (typeof expected_result[compo][elto] == "undefined") )
-			 {
-				 var diff = new Object() ;
-				 diff.expected  = o[compo][elto].default_value ;
-				 diff.obtained  = o[compo][elto].value ;
-				 diff.equals    = (diff.expected == diff.obtained) ;
-				 diff.elto_type = compo ;
-				 diff.elto_id   = o[compo][elto].id ;
-				 result.push(diff) ;
+			 if ( (typeof expected_result[compo]       != "undefined") && 
+			      (typeof expected_result[compo][elto] != "undefined") ) {
+			       continue ;
+		         }
 
-				 if (diff.equals === false)
-				     errors++ ;
-			 }
+			 var diff = new Object() ;
+			 diff.expected  = current[compo][elto].default_value ;
+			 diff.obtained  = current[compo][elto].value ;
+			 diff.equals    = (diff.expected == diff.obtained) ;
+			 diff.elto_type = compo.toLowerCase() ;
+			 diff.elto_id   = current[compo][elto].id ;
+			 d.result.push(diff) ;
+
+			 if (diff.equals === false)
+			     d.errors++ ;
 		    }
 	    }
 
@@ -1011,26 +1013,24 @@
 		    for (var elto in expected_result[compo])
 		    {
 			 var obtained_value = sim_components[compo].get_state(elto) ;
-			 if (null == obtained_value)
+			 if (null == obtained_value) {
 			     continue ;
+		         }
 
 			 var diff = new Object() ;
 			 diff.expected  = expected_result[compo][elto].value ;
 			 diff.obtained  = obtained_value ;
 			 diff.equals    = (diff.expected == diff.obtained) ;
-			 diff.elto_type = compo ;
+			 diff.elto_type = compo.toLowerCase() ;
 			 diff.elto_id   = expected_result[compo][elto].id ;
-			 result.push(diff) ;
+			 d.result.push(diff) ;
 
 			 if (diff.equals === false)
-			     errors++ ;
+			     d.errors++ ;
 		    }
             }
         }
 
-        var d = new Object() ;
-        d.result = result ;
-        d.errors = errors ;
         return d ;
     }
 

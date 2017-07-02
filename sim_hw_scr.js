@@ -37,10 +37,10 @@
 					               value = sim_lines[i] ;
            					       if (value != "") {
 							   vec.SCREEN[i] = {"type":  "screen", 
-								            "default_value": "", 
+								            "default_value": "",
 								            "id":    i,
 								            "op":    "=", 
-								            "value": encodeURI(value)} ;
+								            "value": value} ;
    						       }
 					          }
 
@@ -53,10 +53,10 @@
 					          if ("SCREEN" == check["type"].toUpperCase().trim())
                                                   {
 						      vec.SCREEN[check["id"]] = {"type":  "screen", 
-								                 "default_value": "", 
+								                 "default_value": "",
 								                 "id":    check["id"],
 								                 "op":    "=", 
-								                 "value": decodeURI(check["value"])} ;
+								                 "value": check["value"]} ;
                                                       return true ;
                                                   }
 

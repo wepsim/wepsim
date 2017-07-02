@@ -39,7 +39,7 @@
 						       {
 					                   key = "0x" + parseInt(index).toString(16) ;
 							   vec.MEMORY[key] = {"type":  "memory", 
-								              "default_value": 0, 
+								              "default_value": 0x0,
 								              "id":    key,
 								              "op":    "=", 
 								              "value": "0x" + value.toString(16)} ;
@@ -55,7 +55,7 @@
 					          if ("MEMORY" == check["type"].toUpperCase().trim())
                                                   {
 						      vec.MEMORY[check["id"]] = {"type":  "memory", 
-							  	                 "default_value": 0, 
+							  	                 "default_value": 0x0,
 								                 "id":    check["id"],
 								                 "op":    "=",
 								                 "value": "0x" + parseInt(check["value"]).toString(16)} ;

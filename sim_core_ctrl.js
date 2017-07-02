@@ -563,9 +563,11 @@
 			       title:   '<center>' + key + ': ' +
                                         ' <div class="btn-group">' +
                                         '   <button onclick="$(\'#bot_signal\').carousel(0);" ' +
-                                        '           type="button" class="btn btn-info" style="height:34px !important;">Value</button>' +
+                                        '           type="button" class="btn btn-info" ' + 
+                                        '           style="height:34px !important;">Value</button>' +
                                         '   <button onclick="$(\'#bot_signal\').carousel(1); update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());" ' +
-                                        '           type="button" class="btn btn-success" style="height:34px !important;">Help</button>' +
+                                        '           type="button" class="btn btn-success" ' + 
+                                        '           style="height:34px !important;">Help</button>' +
                                         '   <button type="button" class="btn btn-success dropdown-toggle" ' +
                                         '           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height:34px !important;">' +
                                         '     <span class="caret"></span>' +
@@ -801,29 +803,79 @@
                 return true;
         }
 
+        function update_checker_loadhelp ( helpdiv, key )
+        {
+	     var help_base = 'help/simulator-' + get_cfg('ws_idiom') + '.html #' + key;
+	     $(helpdiv).load(help_base,
+			      function(response, status, xhr) {
+				  if ( $(helpdiv).html() == "" )
+				       $(helpdiv).html('<br>Sorry, there is no more details.<p>\n');
+
+				  $(helpdiv).trigger('create');
+			      });
+             ga('send', 'event', 'help', 'help.checker', 'help.checker.' + key);
+	}
+
         // checkbox-dialog: remembering the last selections...
         var txt_checklist = '' ;
 
-        function dialog_stop_and_state ( dialog_title )
+        function dialog_stop_and_state ( dlg_title )
         {
 	    var chkbox = null ;
 
-	    var dialog_message = 'If you want to check the current state, please introduce requirements and press "check".<br>' +
-			         'For example: register 5 8 ; memory 1 0x10<br>' +
-	                         'If you want to dump the current state (as requirements fulfilled) then please press "dump".<br>' +
+            var dialog_title = '<center>' + 
+			       ' <div class="btn-group">' +
+			       '   <button onclick="$(\'#bot_check\').carousel(0);" ' +
+			       '           type="button" class="btn btn-info" ' + 
+                               '           style="height:34px !important;">State</button>' +
+                               '   <button onclick="$(\'#bot_check\').carousel(1); ' + 
+                               '                    update_checker_loadhelp(\'#help3\',\'help_checker\');" ' +
+			       '           type="button" class="btn btn-success" ' + 
+                               '           style="height:34px !important;">Help</button>' +
+			       '   <button type="button" class="btn btn-success dropdown-toggle" ' +
+ 			       '           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ' + 
+                               '           style="height:34px !important;">' +
+			       '     <span class="caret"></span>' +
+			       '     <span class="sr-only">Toggle Help Idiom</span>' +
+			       '   </button>' +
+			       '   <ul class="dropdown-menu">' +
+                               '    <li><a href="#" onclick="set_cfg(\'ws_idiom\',\'es\'); save_cfg(); ' +
+                               '                             $(\'#bot_check\').carousel(1); ' +
+                               '                             update_checker_loadhelp(\'#help3\',\'help_checker\');">ES</a></li>' +
+                               '    <li><a href="#" onclick="set_cfg(\'ws_idiom\',\'en\'); save_cfg(); ' +
+                               '                             $(\'#bot_check\').carousel(1); ' +
+                               '                             update_checker_loadhelp(\'#help3\',\'help_checker\');">EN</a></li>' +
+			       '   </ul>' +
+			       ' </div>' +
+			       '</center>' ;
+
+	    var dialog_message = '<div id="bot_check" class="carousel slide" ' + 
+                                 '     data-ride="carousel" data-interval="false">' +
+                                 ' <div class="carousel-inner" role="listbox">' +
+                                 ' <div class="item active">' +
+                                 ' <div>' +
+                                 '<h4>' + dlg_title + '</h4>' +
+                                 '<br>' +
+                                 ' <form class="form-horizontal" style="white-space:nowrap;">' +
+                                 ' <textarea aria-label="checks to perform" ' +
+                                 '           placeholder="List of requirements here.." ' + 
+                                 '           id="end_state" name="end_state" ' + 
+                                 '           class="form-control input-md" rows="5">' + txt_checklist + 
+                                 ' </textarea>' +
+                                 ' </form>' +
+                                 ' </div>' +
 			         '<br>' +
-                                 '<div>' +
-                                 '   <form class="form-horizontal" style="white-space:nowrap;">' +
-                                 '   <textarea aria-label="checks to perform" ' +
-                                 '          id="end_state" name="end_state" ' + 
-                                 '          class="form-control input-md" rows="5">' + txt_checklist + '</textarea>' +
-                                 '   </form>' +
-                                 '</div>' +
-			         '<br>' +
-                                 '<div id="check_results_scroll"' +
+                                 ' <div id="check_results_scroll"' +
                                  '     style="max-height:25vh; width: inherit; overflow-y: auto;" >' +
-                                 '   <div id="check_results">&nbsp;</div>' +
-                                 '</div>' ;
+                                 '     <div id="check_results">&nbsp;</div>' +
+                                 ' </div>' +
+                                 ' </div>' +
+                                 ' <div class="item">' +
+                                 '   <div id="help3" ' + 
+                                 '     style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>'+
+                                 ' </div>' +
+                                 ' </div>' +
+                                 '</div>';
 
             var dialog_btns = new Object() ;
                 dialog_btns["clear"] = {
@@ -872,8 +924,8 @@
 		        }
 		    } ;
                 dialog_btns["ok"] = {
-	    	        label: '&nbsp;OK&nbsp;',
-		        className: 'btn-success',
+	    	        label: '&nbsp;&nbsp;OK&nbsp;&nbsp;',
+		        className: 'btn-primary',
 		        callback: function() {
                             // chkbox.modal("hide") ;
 				
