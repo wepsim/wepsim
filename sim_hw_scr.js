@@ -39,7 +39,7 @@
 							   vec.SCREEN[i] = {"type":  "screen", 
 								            "default_value": "",
 								            "id":    i,
-								            "op":    "=", 
+								            "op":    "==", 
 								            "value": value} ;
    						       }
 					          }

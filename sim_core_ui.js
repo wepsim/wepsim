@@ -614,7 +614,7 @@
                      "</tr>" ;
                o1 += "<tr><td colspan=2>" + 
 		     "<a href='#' class='btn btn-default btn-block' " + 
-		     "   style='text-align:right; outline:none; box-shadow:none; background:#F0F0F0;' role='button' onclick='dialog_current_state(\"Current State\");'>state</a>" + 
+		     "   style='text-align:right; outline:none; box-shadow:none; background:#F0F0F0;' role='button' onclick='dialog_current_state(\"Current State\");'>Current State</a>" + 
 		     "</td></tr>" ;
             for (var i=0; i<IO_INT_FACTORY.length; i++)
             {

@@ -1027,15 +1027,17 @@
 
 		         diff.equals    = false ;
 			 if ("=" == expected_result[compo][elto].op)
-			     diff.equals = (parseInt(diff.expected) == parseInt(diff.obtained)) ;
+			     diff.equals = (parseInt(diff.obtained) == parseInt(diff.expected)) ;
 			 if (">" == expected_result[compo][elto].op)
-			     diff.equals = (parseInt(diff.expected) > parseInt(diff.obtained)) ;
+			     diff.equals = (parseInt(diff.expected)  > parseInt(diff.expected)) ;
 			 if ("<" == expected_result[compo][elto].op)
-			     diff.equals = (parseInt(diff.expected) < parseInt(diff.obtained)) ;
+			     diff.equals = (parseInt(diff.obtained)  < parseInt(diff.expected)) ;
 			 if (">=" == expected_result[compo][elto].op)
-			     diff.equals = (parseInt(diff.expected) >= parseInt(diff.obtained)) ;
+			     diff.equals = (parseInt(diff.obtained) >= parseInt(diff.expected)) ;
 			 if ("<=" == expected_result[compo][elto].op)
-			     diff.equals = (parseInt(diff.expected) <= parseInt(diff.obtained)) ;
+			     diff.equals = (parseInt(diff.obtained) <= parseInt(diff.expected)) ;
+			 if ("==" == expected_result[compo][elto].op)
+			     diff.equals = (diff.expected == diff.obtained) ;
 
 			 d.result.push(diff) ;
 
