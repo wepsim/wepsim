@@ -598,37 +598,68 @@
             }
 
             // stats holder
-            var o1 = "<center>" +
-                     "<table class='table table-hover table-condensed table-bordered table-responsive'>" +
-                     "<tr>" +
-                     "<td align=center width=50%>Instructions</td>" +
-                     "<td align=center width=50%>" +
-                     "<div id='ins_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
-                     "</td>" +
-                     "</tr>" +
-                     "<tr>" +
-                     "<td align=center width=50%>CLK ticks</td>" +
-                     "<td align=center width=50%>" +
-                     "<div id='clk_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
-                     "</td>" +
-                     "</tr>" ;
-               o1 += "<tr><td colspan=2>" + 
-		     "<a href='#' class='btn btn-default btn-block' " + 
-		     "   style='text-align:right; outline:none; box-shadow:none; background:#F0F0F0;' role='button' onclick='dialog_current_state(\"Current State\");'>Current State</a>" + 
-		     "</td></tr>" ;
+	    var o1 = "<div class='row-fluid'>" ;
+
+	       // IO
+               o1 += "<div class='col-xs-7 col-sm-7 col-lg-7' style='padding:0 0 0 10;'>" +
+                     "<div class='panel panel-default'>" +
+                     "<div class='panel-heading'>" +
+                     " <h3 class='panel-title'>I/O" +
+	 	     "   <a href='#' class='btn btn-default' " + 
+		     "      style='text-align:right; outline:none; box-shadow:none;' role='button' " + 
+		     "      onclick='dialog_current_state(\"Current State\");'>Get state</a>" + 
+                     " </h3>" +
+                     "</div>" +
+                     "<div class='panel-body' id='mempanel1' style='padding:0 0 0 0;'>" +
+                     "  <table class='table table-hover table-condensed table-bordered table-responsive' style='margin:0'>" +
+                     "  <tbody class='ui-mini'>" ;
             for (var i=0; i<IO_INT_FACTORY.length; i++)
             {
-               o1 += "<tr id='int" + i + "_context'>" +
-                     "<td align=center width=50%>" +
-                     "<span data-bind=\"style: {fontWeight: active() ? 'bold' : ''}\">" + "Interrupt " + i + "</span>" +
-                     "</td>" +
-                     "<td align=center width=50%>" +
-                     "<span data-bind='text: accumulated'>&nbsp;</span>" +
-                     "</td>" +
-                     "</tr>" ;
+               o1 += "  <tr id='int" + i + "_context'>" +
+                     "  <td align=center width=50%>" +
+                     "  <span data-bind=\"style: {fontWeight: active() ? 'bold' : ''}\">" + "Interrupt " + i + "</span>" +
+                     "  </td>" +
+                     "  <td align=center width=50%>" +
+                     "  <span data-bind='text: accumulated'>&nbsp;</span>" +
+                     "  </td>" +
+                     "  </tr>" ;
             }
-            o1 += "</table>" +
-                  "</center>" ;
+               o1 += "  </table>" +
+                     "</div>" +
+                     "</div>" +
+                     "</div>" ;
+
+	       // CPU
+               o1 += "<div class='col-xs-5 col-sm-5 col-lg-5' style='padding:0 0 0 10;'>" +
+                     "<div class='panel panel-default'>" +
+                     "<div class='panel-heading'>" +
+                     " <h3 class='panel-title'>CPU" +
+	 	     "   <a href='#' class='btn btn-default' " + 
+		     "      style='text-align:right; outline:none; box-shadow:none;' role='button' " + 
+		     "      onclick='dialog_current_state(\"Current State\");'>Get state</a>" + 
+                     " </h3>" +
+                     "</div>" +
+                     "<div class='panel-body' id='cpupanel1' style='padding:0 0 0 0;'>" +
+                     "  <table class='table table-hover table-condensed table-bordered table-responsive' style='margin:0'>" +
+                     "  <tr>" +
+                     "  <td align=center width=50%>Instructions</td>" +
+                     "  <td align=center width=50%>" +
+                     "  <div id='ins_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
+                     "  </td>" +
+                     "  </tr>" +
+                     "  <tr>" +
+                     "  <td align=center width=50%>CLK ticks</td>" +
+                     "  <td align=center width=50%>" +
+                     "  <div id='clk_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
+                     "  </td>" +
+                     "  </tr>" +
+                     "  </table>" +
+                     "</div>" +
+                     "</div>" +
+                     "</div>" ;
+
+	       o1 += "</div>" ;
+
             $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
 
             // knockout binding

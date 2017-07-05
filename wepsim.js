@@ -985,30 +985,7 @@
 	    // get current state
 	    sim_components[compo].write_state(current) ;
 
-	    // if there is new elements -> diff
-	    if (typeof current[compo] != "undefined")
-	    {
-		    for (var elto in current[compo]) 
-		    {
-			 if ( (typeof expected_result[compo]       != "undefined") && 
-			      (typeof expected_result[compo][elto] != "undefined") ) {
-			       continue ;
-		         }
-
-			 var diff = new Object() ;
-			 diff.expected  = current[compo][elto].default_value ;
-			 diff.obtained  = current[compo][elto].value ;
-			 diff.equals    = (diff.expected == diff.obtained) ;
-			 diff.elto_type = compo.toLowerCase() ;
-			 diff.elto_id   = current[compo][elto].id ;
-			 diff.elto_op   = "=" ;
-			 d.result.push(diff) ;
-
-			 if (diff.equals === false)
-			     d.errors++ ;
-		    }
-	    }
-
+	    // if there are different values -> diff
             if (typeof expected_result[compo] != "undefined") 
 	    {
 		    for (var elto in expected_result[compo])
@@ -1025,26 +1002,52 @@
 			 diff.elto_id   = expected_result[compo][elto].id ;
 			 diff.elto_op   = expected_result[compo][elto].op ;
 
-		         diff.equals    = false ;
+		         diff.fulfill   = false ;
 			 if ("=" == expected_result[compo][elto].op)
-			     diff.equals = (parseInt(diff.obtained) == parseInt(diff.expected)) ;
+			     diff.fulfill = (parseInt(diff.obtained) == parseInt(diff.expected)) ;
 			 if (">" == expected_result[compo][elto].op)
-			     diff.equals = (parseInt(diff.expected)  > parseInt(diff.expected)) ;
+			     diff.fulfill = (parseInt(diff.expected)  > parseInt(diff.expected)) ;
 			 if ("<" == expected_result[compo][elto].op)
-			     diff.equals = (parseInt(diff.obtained)  < parseInt(diff.expected)) ;
+			     diff.fulfill = (parseInt(diff.obtained)  < parseInt(diff.expected)) ;
 			 if (">=" == expected_result[compo][elto].op)
-			     diff.equals = (parseInt(diff.obtained) >= parseInt(diff.expected)) ;
+			     diff.fulfill = (parseInt(diff.obtained) >= parseInt(diff.expected)) ;
 			 if ("<=" == expected_result[compo][elto].op)
-			     diff.equals = (parseInt(diff.obtained) <= parseInt(diff.expected)) ;
+			     diff.fulfill = (parseInt(diff.obtained) <= parseInt(diff.expected)) ;
 			 if ("==" == expected_result[compo][elto].op)
-			     diff.equals = (diff.expected == diff.obtained) ;
+			     diff.fulfill = (diff.expected == diff.obtained) ;
+			 if ("!=" == expected_result[compo][elto].op)
+			     diff.fulfill = (diff.expected != diff.obtained) ;
 
 			 d.result.push(diff) ;
 
-			 if (diff.equals === false)
+			 if (diff.fulfill === false)
 			     d.errors++ ;
 		    }
             }
+
+	    // if there are new elements -> diff
+	    if (typeof current[compo] != "undefined")
+	    {
+		    for (var elto in current[compo]) 
+		    {
+			 if ( (typeof expected_result[compo]       != "undefined") && 
+			      (typeof expected_result[compo][elto] != "undefined") ) {
+			       continue ;
+		         }
+
+			 var diff = new Object() ;
+			 diff.expected  = current[compo][elto].default_value ;
+			 diff.obtained  = current[compo][elto].value ;
+			 diff.fulfill   = (diff.expected == diff.obtained) ;
+			 diff.elto_type = compo.toLowerCase() ;
+			 diff.elto_id   = current[compo][elto].id ;
+			 diff.elto_op   = "=" ;
+			 d.result.push(diff) ;
+
+			 if (diff.fulfill === false)
+			     d.errors++ ;
+		    }
+	    }
         }
 
         return d ;
@@ -1056,7 +1059,7 @@
 
         for (var i=0; i<checklist.length; i++)
         {
-             if (checklist[i].equals === false) {
+             if (checklist[i].fulfill === false) {
                  o += checklist[i].elto_type + "[" + checklist[i].elto_id + "]='" +
                       checklist[i].obtained + "' (expected '" + checklist[i].expected  + "'), ";
              }
@@ -1085,11 +1088,11 @@
              "<tbody>" ;
         for (var i=0; i<checklist.length; i++)
         {
-             if (checklist[i].equals === false)
+             if (checklist[i].fulfill === false)
                   color = "danger" ;
              else color = "success" ;
 
-             if (only_errors && checklist[i].equals)
+             if (only_errors && checklist[i].fulfill)
                  continue ;
 
              o += "<tr class=" + color + ">" +
