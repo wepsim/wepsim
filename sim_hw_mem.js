@@ -37,12 +37,12 @@
 						       value = parseInt(MP[index]) ;
 						       if (value != 0) 
 						       {
-					                   key = "0x" + parseInt(index).toString(16) ;
-							   vec.MEMORY[key] = {"type":  "memory", 
-								              "default_value": 0x0,
-								              "id":    key,
-								              "op":    "=", 
-								              "value": "0x" + value.toString(16)} ;
+					                   key = parseInt(index).toString(16) ;
+							   vec.MEMORY["0x" + key] = {"type":  "memory", 
+								                     "default_value": 0x0,
+								                     "id":    "0x" + key,
+								                     "op":    "=", 
+								                     "value": "0x" + value.toString(16)} ;
 						       }
 						  }
 
@@ -52,13 +52,15 @@
                                                   if (typeof vec.MEMORY == "undefined")
                                                       vec.MEMORY = new Object() ;
 
+					          var key = parseInt(check["id"]).toString(16) ;
+					          var val = parseInt(check["value"]).toString(16) ;
 					          if ("MEMORY" == check["type"].toUpperCase().trim())
                                                   {
-						      vec.MEMORY[check["id"]] = {"type":  "memory", 
-							  	                 "default_value": 0x0,
-								                 "id":    check["id"],
-								                 "op":    check["condition"],
-								                 "value": "0x" + parseInt(check["value"]).toString(16)} ;
+						      vec.MEMORY["0x" + key] = {"type":  "memory", 
+							  	                "default_value": 0x0,
+								                "id":    "0x" + key,
+								                "op":    check["condition"],
+								                "value": "0x" + val} ;
                                                       return true ;
                                                   }
 
@@ -66,8 +68,9 @@
 				             },
 		                  get_state: function ( pos ) {
 						  var index = parseInt(pos) ;
-						  if (typeof MP[index] != "undefined")
+						  if (typeof MP[index] != "undefined") {
 						      return "0x" + parseInt(MP[index]).toString(16) ;
+					          }
 
 					          return null ;
 				             }

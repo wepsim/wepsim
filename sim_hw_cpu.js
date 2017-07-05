@@ -37,11 +37,11 @@
 						  {
 						      value = parseInt(sim_states['BR'][i].value) ;
 						      if (value != 0) {
-							  vec.CPU[i] = {"type":  "register", 
-								        "default_value": 0x0,
-								        "id":    i, 
-								        "op":    "=", 
-								        "value": "0x" + value.toString(16)} ;
+							  vec.CPU["R" + i] = {"type":  "register", 
+								              "default_value": 0x0,
+								              "id":    "R" + i, 
+								              "op":    "=", 
+								              "value": "0x" + value.toString(16)} ;
 						      }
 						  }
 
@@ -63,27 +63,28 @@
                                                   if (typeof vec.CPU == "undefined")
                                                       vec.CPU = new Object() ;
 
+					          var key = check["id"].toUpperCase().trim() ;
+					          var val = parseInt(check["value"]).toString(16) ;
 					          if ("REGISTER" == check["type"].toUpperCase().trim())
                                                   {
-                                                      // TODO: support "register $0 >= 100" (right now "register $0 100")
-						      vec.CPU[check["id"]] = {"type":  "register", 
-								              "default_value": 0, 
-								              "id":    check["id"],
-								              "op":    check["condition"], 
-								              "value": "0x" + parseInt(check["value"]).toString(16)} ;
+						      vec.CPU[key] = {"type":  "register", 
+								      "default_value": 0, 
+								      "id":    key,
+								      "op":    check["condition"], 
+								      "value": "0x" + val} ;
                                                       return true ;
                                                   }
 
                                                   return false ;
 				              },
 		                  get_state:  function ( reg ) {
-					          if (typeof sim_states['REG_' + reg] != "undefined") {
-					              return "0x" + get_value(sim_states['REG_' + reg]).toString(16) ;
+					          var r_reg = reg.toUpperCase().trim() ;
+					          if (typeof sim_states['REG_' + r_reg] != "undefined") {
+					              return "0x" + get_value(sim_states['REG_' + r_reg]).toString(16) ;
 					          }
 
-					          // TODO: translate $t0, ...
-
-					          var index = parseInt(reg) ;
+					              r_reg = r_reg.replace('R','') ;
+					          var index = parseInt(r_reg) ;
 					          if (typeof sim_states['BR'][index] != "undefined") {
 					              return "0x" + get_value(sim_states['BR'][index]).toString(16) ;
 					          }

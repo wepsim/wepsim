@@ -258,7 +258,7 @@
 		if (-127 == exponent)
 		    if (1 == mantissa)
 			 valuef = (sign == 1) ? "+0" : "-0" ;
-		    else valuef = sign * ((hexvalue & 0x7fffff) / 0x7fffff) * Math.pow(2, 126) ;
+		    else valuef = sign * ((hexvalue & 0x7fffff) / 0x7fffff) * Math.pow(2, -126) ;
 		if (128 == exponent)
 		    if (1 == mantissa)
 			 valuef = (sign == 1) ? "+Inf" : "-Inf" ;
@@ -598,16 +598,16 @@
             }
 
             // stats holder
-	    var o1 = "<div class='row-fluid'>" ;
+	    var o1 = "" ;
 
 	       // IO
-               o1 += "<div class='col-xs-7 col-sm-7 col-lg-7' style='padding:0 0 0 10;'>" +
+               o1 += "<div class='col-xs-7 col-sm-7 col-lg-7' style='padding:0 0 0 0;'>" +
                      "<div class='panel panel-default'>" +
                      "<div class='panel-heading'>" +
-                     " <h3 class='panel-title'>I/O" +
-	 	     "   <a href='#' class='btn btn-default' " + 
-		     "      style='text-align:right; outline:none; box-shadow:none;' role='button' " + 
-		     "      onclick='dialog_current_state(\"Current State\");'>Get state</a>" + 
+                     " <h3 class='panel-title'>" +
+	 	     "   <a href='#' class='ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all ui-icon-search ui-btn-icon-left' " + 
+		     "      style='margin:0 0 0 0; border:0 0 0 0' role='button' " + 
+		     "      onclick='dialog_current_state(\"Current State\");'>I/O</a>" + 
                      " </h3>" +
                      "</div>" +
                      "<div class='panel-body' id='mempanel1' style='padding:0 0 0 0;'>" +
@@ -624,23 +624,25 @@
                      "  </td>" +
                      "  </tr>" ;
             }
-               o1 += "  </table>" +
+               o1 += "  </tbody>" +
+		     "  </table>" +
                      "</div>" +
                      "</div>" +
                      "</div>" ;
 
 	       // CPU
-               o1 += "<div class='col-xs-5 col-sm-5 col-lg-5' style='padding:0 0 0 10;'>" +
+               o1 += "<div class='col-xs-5 col-sm-5 col-lg-5' style='padding:0 0 0 5;'>" +
                      "<div class='panel panel-default'>" +
                      "<div class='panel-heading'>" +
-                     " <h3 class='panel-title'>CPU" +
-	 	     "   <a href='#' class='btn btn-default' " + 
-		     "      style='text-align:right; outline:none; box-shadow:none;' role='button' " + 
-		     "      onclick='dialog_current_state(\"Current State\");'>Get state</a>" + 
+                     " <h3 class='panel-title'>" +
+	 	     "   <a href='#' class='ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all ui-icon-search ui-btn-icon-left' " + 
+		     "      style='margin:0 0 0 0; border:0 0 0 0' role='button' " + 
+		     "      onclick='dialog_current_state(\"Current State\");'>CPU</a>" + 
                      " </h3>" +
                      "</div>" +
                      "<div class='panel-body' id='cpupanel1' style='padding:0 0 0 0;'>" +
                      "  <table class='table table-hover table-condensed table-bordered table-responsive' style='margin:0'>" +
+                     "  <tbody class='ui-mini'>" +
                      "  <tr>" +
                      "  <td align=center width=50%>Instructions</td>" +
                      "  <td align=center width=50%>" +
@@ -653,12 +655,11 @@
                      "  <div id='clk_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
                      "  </td>" +
                      "  </tr>" +
-                     "  </table>" +
+                     "  </tbody>" +
+		     "  </table>" +
                      "</div>" +
                      "</div>" +
                      "</div>" ;
-
-	       o1 += "</div>" ;
 
             $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
 
