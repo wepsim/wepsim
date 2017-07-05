@@ -258,7 +258,7 @@
 		if (-127 == exponent)
 		    if (1 == mantissa)
 			 valuef = (sign == 1) ? "+0" : "-0" ;
-		    else valuef = sign * ((hexvalue & 0x7fffff) / 0x7fffff) * Math.pow(2, 126) ;
+		    else valuef = sign * ((hexvalue & 0x7fffff) / 0x7fffff) * Math.pow(2, -126) ;
 		if (128 == exponent)
 		    if (1 == mantissa)
 			 valuef = (sign == 1) ? "+Inf" : "-Inf" ;
