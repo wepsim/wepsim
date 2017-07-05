@@ -937,10 +937,10 @@
 		 continue ;
 
              var parts = line.split(" ") ;
-	     if (parts.length < 3)
+	     if (parts.length < 4)
 		 continue ;
 
-	     var check = { "type": parts[0], "id": parts[1], "value": decodeURI(parts[2]) } ;
+	     var check = { "type": parts[0], "id": parts[1], "condition": parts[2], "value": decodeURI(parts[3]) } ;
              for (var index in sim_components) 
              {
 	          ret = sim_components[index].read_state(o, check) ;
@@ -966,7 +966,7 @@
 	{
 	     for (var eltos in o[component]) {
 		  var elto = o[component][eltos] ;
-	          ret = ret + elto.type + " " + elto.id + " " + encodeURI(elto.value) + "; " ;
+	          ret = ret + elto.type + " " + elto.id + " " + elto.op + " " + encodeURI(elto.value) + "; " ;
 	     }
 	}
 
@@ -1001,6 +1001,7 @@
 			 diff.equals    = (diff.expected == diff.obtained) ;
 			 diff.elto_type = compo.toLowerCase() ;
 			 diff.elto_id   = current[compo][elto].id ;
+			 diff.elto_op   = "=" ;
 			 d.result.push(diff) ;
 
 			 if (diff.equals === false)
@@ -1020,9 +1021,22 @@
 			 var diff = new Object() ;
 			 diff.expected  = expected_result[compo][elto].value ;
 			 diff.obtained  = obtained_value ;
-			 diff.equals    = (diff.expected == diff.obtained) ;
 			 diff.elto_type = compo.toLowerCase() ;
 			 diff.elto_id   = expected_result[compo][elto].id ;
+			 diff.elto_op   = expected_result[compo][elto].op ;
+
+		         diff.equals    = false ;
+			 if ("=" == expected_result[compo][elto].op)
+			     diff.equals = (parseInt(diff.expected) == parseInt(diff.obtained)) ;
+			 if (">" == expected_result[compo][elto].op)
+			     diff.equals = (parseInt(diff.expected) > parseInt(diff.obtained)) ;
+			 if ("<" == expected_result[compo][elto].op)
+			     diff.equals = (parseInt(diff.expected) < parseInt(diff.obtained)) ;
+			 if (">=" == expected_result[compo][elto].op)
+			     diff.equals = (parseInt(diff.expected) >= parseInt(diff.obtained)) ;
+			 if ("<=" == expected_result[compo][elto].op)
+			     diff.equals = (parseInt(diff.expected) <= parseInt(diff.obtained)) ;
+
 			 d.result.push(diff) ;
 
 			 if (diff.equals === false)
@@ -1079,7 +1093,7 @@
              o += "<tr class=" + color + ">" +
                   "<td>" + checklist[i].elto_type + "</td>" +
                   "<td>" + checklist[i].elto_id   + "</td>" +
-                  "<td>" + checklist[i].expected  + "</td>" +
+                  "<td>" + checklist[i].elto_op + "&nbsp;" + checklist[i].expected  + "</td>" +
                   "<td>" + checklist[i].obtained  + "</td>" +
                   "</tr>" ;
         }
