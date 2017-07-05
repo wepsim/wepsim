@@ -1036,6 +1036,8 @@
 			     diff.equals = (parseInt(diff.expected) >= parseInt(diff.obtained)) ;
 			 if ("<=" == expected_result[compo][elto].op)
 			     diff.equals = (parseInt(diff.expected) <= parseInt(diff.obtained)) ;
+			 if ("==" == expected_result[compo][elto].op)
+			     diff.equals = (diff.expected == diff.obtained) ;
 
 			 d.result.push(diff) ;
 
