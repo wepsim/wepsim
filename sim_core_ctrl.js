@@ -820,7 +820,7 @@
          * check dialogs
 	 */
 
-        function get_dialog_title ( dlg_btn_label )
+        function get_dialog_title ( dlg_btn_label, dlg_help )
         {
             var dialog_title = '<center>' + 
 			       ' <div class="btn-group">' +
@@ -828,7 +828,7 @@
 			       '           type="button" class="btn btn-info" ' + 
                                '           style="height:34px !important;">' + dlg_btn_label + '</button>' +
                                '   <button onclick="$(\'#bot_check\').carousel(1); ' + 
-                               '                    update_checker_loadhelp(\'#help3\',\'help_checker\');" ' +
+                               '                    update_checker_loadhelp(\'#help3\',\'' + dlg_help + '\');" ' +
 			       '           type="button" class="btn btn-success" ' + 
                                '           style="height:34px !important;">Help</button>' +
 			       '   <button type="button" class="btn btn-success dropdown-toggle" ' +
@@ -840,10 +840,10 @@
 			       '   <ul class="dropdown-menu">' +
                                '    <li><a href="#" onclick="set_cfg(\'ws_idiom\',\'es\'); save_cfg(); ' +
                                '                             $(\'#bot_check\').carousel(1); ' +
-                               '                             update_checker_loadhelp(\'#help3\',\'help_checker\');">ES</a></li>' +
+                               '                             update_checker_loadhelp(\'#help3\',\'' + dlg_help + '\');">ES</a></li>' +
                                '    <li><a href="#" onclick="set_cfg(\'ws_idiom\',\'en\'); save_cfg(); ' +
                                '                             $(\'#bot_check\').carousel(1); ' +
-                               '                             update_checker_loadhelp(\'#help3\',\'help_checker\');">EN</a></li>' +
+                               '                             update_checker_loadhelp(\'#help3\',\'' + dlg_help + '\');">EN</a></li>' +
 			       '   </ul>' +
 			       ' </div>' +
 			       '</center>' ;
@@ -917,7 +917,7 @@
         {
 	    var chkbox = null ;
 
-	    var dialog_title   = get_dialog_title('State') ;
+	    var dialog_title   = get_dialog_title('State', 'help_checker') ;
 	    var dialog_message = get_dialog_message(dlg_title, 'Please drop the requirement list here. See help for more information.', txt_checklist) ;
             var dialog_btns    = get_dialog_buttons() ;
                 dialog_btns["check"] = {
@@ -952,7 +952,7 @@
 	    var chkbox = null ;
             var txt_checklist = wepsim_dump_checklist();
 
-	    var dialog_title   = get_dialog_title('State') ;
+	    var dialog_title   = get_dialog_title('State', 'help_dumper') ;
 	    var dialog_message = get_dialog_message(dlg_title, 'Current state as requirement list.', txt_checklist) ;
             var dialog_btns    = get_dialog_buttons() ;
                 dialog_btns["dump"] = {
