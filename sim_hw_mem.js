@@ -57,7 +57,7 @@
 						      vec.MEMORY[check["id"]] = {"type":  "memory", 
 							  	                 "default_value": 0x0,
 								                 "id":    check["id"],
-								                 "op":    "=",
+								                 "op":    check["condition"],
 								                 "value": "0x" + parseInt(check["value"]).toString(16)} ;
                                                       return true ;
                                                   }

@@ -55,7 +55,7 @@
 						      vec.SCREEN[check["id"]] = {"type":  "screen", 
 								                 "default_value": "",
 								                 "id":    check["id"],
-								                 "op":    "=", 
+								                 "op":    check["condition"], 
 								                 "value": check["value"]} ;
                                                       return true ;
                                                   }
