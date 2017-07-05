@@ -419,7 +419,7 @@
 	var curr_addr = "0x" + reg_maddr.toString(16) ;
 
 	var dialog_title = "Breakpoint @ " + curr_addr + ":<br>" +
-	                   "Microinstruction at " + curr_addr + " is going to be issue." ;
+	                   "Microinstruction is going to be issue." ;
         dialog_stop_and_state(dialog_title) ;
 
 	return true ;
@@ -437,7 +437,7 @@
             return false ;
 
 	var dialog_title = "Breakpoint @ " + curr_addr + ":<br>" +
-	                   "Instruction at " + curr_addr + " is going to be fetched." ;
+	                   "Instruction is going to be fetched." ;
         dialog_stop_and_state(dialog_title) ;
 
 	return true ;
@@ -1006,7 +1006,7 @@
 			 if ("=" == expected_result[compo][elto].op)
 			     diff.fulfill = (parseInt(diff.obtained) == parseInt(diff.expected)) ;
 			 if (">" == expected_result[compo][elto].op)
-			     diff.fulfill = (parseInt(diff.expected)  > parseInt(diff.expected)) ;
+			     diff.fulfill = (parseInt(diff.obtained)  > parseInt(diff.expected)) ;
 			 if ("<" == expected_result[compo][elto].op)
 			     diff.fulfill = (parseInt(diff.obtained)  < parseInt(diff.expected)) ;
 			 if (">=" == expected_result[compo][elto].op)

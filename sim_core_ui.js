@@ -598,16 +598,16 @@
             }
 
             // stats holder
-	    var o1 = "<div class='row-fluid'>" ;
+	    var o1 = "" ;
 
 	       // IO
-               o1 += "<div class='col-xs-7 col-sm-7 col-lg-7' style='padding:0 0 0 10;'>" +
+               o1 += "<div class='col-xs-7 col-sm-7 col-lg-7' style='padding:0 0 0 0;'>" +
                      "<div class='panel panel-default'>" +
                      "<div class='panel-heading'>" +
-                     " <h3 class='panel-title'>I/O" +
+                     " <h3 class='panel-title'>" +
 	 	     "   <a href='#' class='btn btn-default' " + 
 		     "      style='text-align:right; outline:none; box-shadow:none;' role='button' " + 
-		     "      onclick='dialog_current_state(\"Current State\");'>Get state</a>" + 
+		     "      onclick='dialog_current_state(\"Current State\");'>I/O</a>" + 
                      " </h3>" +
                      "</div>" +
                      "<div class='panel-body' id='mempanel1' style='padding:0 0 0 0;'>" +
@@ -630,13 +630,13 @@
                      "</div>" ;
 
 	       // CPU
-               o1 += "<div class='col-xs-5 col-sm-5 col-lg-5' style='padding:0 0 0 10;'>" +
+               o1 += "<div class='col-xs-5 col-sm-5 col-lg-5' style='padding:0 0 0 5;'>" +
                      "<div class='panel panel-default'>" +
                      "<div class='panel-heading'>" +
-                     " <h3 class='panel-title'>CPU" +
+                     " <h3 class='panel-title'>" +
 	 	     "   <a href='#' class='btn btn-default' " + 
 		     "      style='text-align:right; outline:none; box-shadow:none;' role='button' " + 
-		     "      onclick='dialog_current_state(\"Current State\");'>Get state</a>" + 
+		     "      onclick='dialog_current_state(\"Current State\");'>CPU</a>" + 
                      " </h3>" +
                      "</div>" +
                      "<div class='panel-body' id='cpupanel1' style='padding:0 0 0 0;'>" +
@@ -657,8 +657,6 @@
                      "</div>" +
                      "</div>" +
                      "</div>" ;
-
-	       o1 += "</div>" ;
 
             $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
 
