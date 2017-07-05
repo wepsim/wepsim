@@ -605,8 +605,8 @@
                      "<div class='panel panel-default'>" +
                      "<div class='panel-heading'>" +
                      " <h3 class='panel-title'>" +
-	 	     "   <a href='#' class='btn btn-default' " + 
-		     "      style='text-align:right; outline:none; box-shadow:none;' role='button' " + 
+	 	     "   <a href='#' class='ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all ui-icon-search ui-btn-icon-left' " + 
+		     "      style='margin:0 0 0 0; border:0 0 0 0' role='button' " + 
 		     "      onclick='dialog_current_state(\"Current State\");'>I/O</a>" + 
                      " </h3>" +
                      "</div>" +
@@ -624,7 +624,8 @@
                      "  </td>" +
                      "  </tr>" ;
             }
-               o1 += "  </table>" +
+               o1 += "  </tbody>" +
+		     "  </table>" +
                      "</div>" +
                      "</div>" +
                      "</div>" ;
@@ -634,13 +635,14 @@
                      "<div class='panel panel-default'>" +
                      "<div class='panel-heading'>" +
                      " <h3 class='panel-title'>" +
-	 	     "   <a href='#' class='btn btn-default' " + 
-		     "      style='text-align:right; outline:none; box-shadow:none;' role='button' " + 
+	 	     "   <a href='#' class='ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all ui-icon-search ui-btn-icon-left' " + 
+		     "      style='margin:0 0 0 0; border:0 0 0 0' role='button' " + 
 		     "      onclick='dialog_current_state(\"Current State\");'>CPU</a>" + 
                      " </h3>" +
                      "</div>" +
                      "<div class='panel-body' id='cpupanel1' style='padding:0 0 0 0;'>" +
                      "  <table class='table table-hover table-condensed table-bordered table-responsive' style='margin:0'>" +
+                     "  <tbody class='ui-mini'>" +
                      "  <tr>" +
                      "  <td align=center width=50%>Instructions</td>" +
                      "  <td align=center width=50%>" +
@@ -653,7 +655,8 @@
                      "  <div id='clk_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
                      "  </td>" +
                      "  </tr>" +
-                     "  </table>" +
+                     "  </tbody>" +
+		     "  </table>" +
                      "</div>" +
                      "</div>" +
                      "</div>" ;

@@ -78,9 +78,9 @@
                                                   return false ;
 				              },
 		                  get_state:  function ( reg ) {
-					          var r_reg = "REG_" + reg.toUpperCase().trim() ;
-					          if (typeof sim_states[r_reg] != "undefined") {
-					              return "0x" + get_value(sim_states[r_reg]).toString(16) ;
+					          var r_reg = reg.toUpperCase().trim() ;
+					          if (typeof sim_states['REG_' + r_reg] != "undefined") {
+					              return "0x" + get_value(sim_states['REG_' + r_reg]).toString(16) ;
 					          }
 
 					              r_reg = r_reg.replace('R','') ;
