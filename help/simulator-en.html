@@ -705,21 +705,20 @@
 
       <div id="help_checker">
 
-              In order to work with the current state, there are three available actions:
+              It is possible to check that the current state fulfill our requirements:
 	      <br>
 	      <ul>
 	        <li>To check the current state, please introduce requirements and press "check".</li>
 	        <ul>
 	        For example:<br>
 	        <textarea aria-label="checks to perform" rows="2">
-register 5 8 ; memory 1 0x10
+register 5 8 ; memory 1 0x10; screen 0 first_line
 	        </textarea>
 	        </ul>
-
-	        <li>To dump the current state (as requirements fulfilled) then please press "dump".</li>
-
 	        <li>To clean the requirements, press "clean".</li>
 	      </ul>
+              It is also possible to request the main requirements in the current state (dump dialog).
+	      It can be used to check the differences between two states.
 	      </p>
 
       </div>

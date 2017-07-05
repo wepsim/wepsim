@@ -1152,6 +1152,8 @@
                     set_cpu_cu_size('#eltos_cpu_a','#eltos_cpu_b',get_cfg('CPUCU_size'));
                     $("#slider2").val(get_cfg('CPUCU_size')).slider("refresh");
 
+                    $('#slider2d').toggle(); 
+
                     showhideAsmElements();
 		    $("input:checkbox").click(function(){
 		        var name = $(this).attr("name") ;
