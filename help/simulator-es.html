@@ -736,21 +736,20 @@
 
       <div id="help_checker">
 
-              Para trabajar con el estado actual, hay tres acciones disponibles:
+              Es posible comprobar que el estado actual cumple los requisitos deseados:
 	      <br>
 	      <ul>
 	        <li>Para comprobar el estado actual, por favor introduzca los requisitos y presione "check".</li>
 	        <ul>
 	        Por ejemplo:<br>
 	        <textarea aria-label="checks to perform" rows="2">
-register 5 8 ; memory 1 0x10
+register 5 8 ; memory 1 0x10; screen 0 primera_linea
 	        </textarea>
 	        </ul>
-
-	        <li>Para volcar el estado actual (como requisitos cumplidos) por favor presione "dump".</li>
-
 	        <li>Para limpiar los requisitos, presione "clean".</li>
 	      </ul>
+              También es posible conocer los requisitos del estado actual (pantalla de volcado o 'dump').
+	      Puede ser usada para comprobar las diferencias entre dos estados.
 	      </p>
 
       </div>

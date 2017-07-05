@@ -816,18 +816,17 @@
              ga('send', 'event', 'help', 'help.checker', 'help.checker.' + key);
 	}
 
-        // checkbox-dialog: remembering the last selections...
-        var txt_checklist = '' ;
+        /* 
+         * check dialogs
+	 */
 
-        function dialog_stop_and_state ( dlg_title )
+        function get_dialog_title ( dlg_btn_label )
         {
-	    var chkbox = null ;
-
             var dialog_title = '<center>' + 
 			       ' <div class="btn-group">' +
 			       '   <button onclick="$(\'#bot_check\').carousel(0);" ' +
 			       '           type="button" class="btn btn-info" ' + 
-                               '           style="height:34px !important;">State</button>' +
+                               '           style="height:34px !important;">' + dlg_btn_label + '</button>' +
                                '   <button onclick="$(\'#bot_check\').carousel(1); ' + 
                                '                    update_checker_loadhelp(\'#help3\',\'help_checker\');" ' +
 			       '           type="button" class="btn btn-success" ' + 
@@ -849,6 +848,11 @@
 			       ' </div>' +
 			       '</center>' ;
 
+            return dialog_title ;
+        }
+
+        function get_dialog_message ( dlg_title, txt_placeholder, txt_checklist )
+        {
 	    var dialog_message = '<div id="bot_check" class="carousel slide" ' + 
                                  '     data-ride="carousel" data-interval="false">' +
                                  ' <div class="carousel-inner" role="listbox">' +
@@ -858,10 +862,9 @@
                                  '<br>' +
                                  ' <form class="form-horizontal" style="white-space:nowrap;">' +
                                  ' <textarea aria-label="checks to perform" ' +
-                                 '           placeholder="List of requirements here.." ' + 
+                                 '           placeholder="' + txt_placeholder + '"' +
                                  '           id="end_state" name="end_state" ' + 
-                                 '           class="form-control input-md" rows="5">' + txt_checklist + 
-                                 ' </textarea>' +
+                                 '           class="form-control input-md" rows="5">' + txt_checklist + '</textarea>' +
                                  ' </form>' +
                                  ' </div>' +
 			         '<br>' +
@@ -877,6 +880,11 @@
                                  ' </div>' +
                                  '</div>';
 
+            return dialog_message ;
+        }
+
+        function get_dialog_buttons ( )
+        {
             var dialog_btns = new Object() ;
                 dialog_btns["clear"] = {
 	    	        label: 'Clear',
@@ -885,40 +893,6 @@
                             txt_checklist = '' ;
                             $('#end_state').val('');
                             $('#check_results').html('&nbsp;');
-
-                            return false;
-		        }
-		    } ;
-                dialog_btns["check"] = {
-	    	        label: 'Check',
-		        className: 'btn-default',
-		        callback: function() {
-                                txt_checklist = $('#end_state').val();
-                            var obj_checklist = wepsim_read_checklist(txt_checklist) ;
-                            var obj_result    = wepsim_to_check(obj_checklist) ;
-
-                            if (0 == obj_result.errors)
-                                 var msg = "<span style='background-color:#7CFC00'>" + 
-                                           "Meets the specified requirements</span>" ;
-                            else var msg = wepsim_checkreport2html(obj_result.result, true) ;
-                            $('#check_results').html(msg);
-
-                            ga('send', 'event', 'state', 'state.check', 'state.check.' + msg);
-
-                            return false;
-		        }
-		    } ;
-                dialog_btns["dump"] = {
-		        label: 'Dump',
-		        className: 'btn-default',
-		        callback: function() {
-                                txt_checklist = wepsim_dump_checklist();
-
-                            $('#end_state').val(txt_checklist);
-                            $('#check_results').html("<span style='background-color:yellow'>" + 
-                                                     "State dumped.</span>");
-
-                            ga('send', 'event', 'state', 'state.dump', 'state.dump.' + txt_checklist);
 
                             return false;
 		        }
@@ -933,13 +907,73 @@
 		        }
 		    } ;
 
+            return dialog_btns ;
+        }
+
+        // checkbox-dialog: remembering the last selections...
+        var txt_checklist = '' ;
+
+        function dialog_stop_and_state ( dlg_title )
+        {
+	    var chkbox = null ;
+
+	    var dialog_title   = get_dialog_title('State') ;
+	    var dialog_message = get_dialog_message(dlg_title, 'Please drop the requirement list here. See help for more information.', txt_checklist) ;
+            var dialog_btns    = get_dialog_buttons() ;
+                dialog_btns["check"] = {
+	    	        label: 'Check',
+		        className: 'btn-default',
+		        callback: function() {
+                                txt_checklist = $('#end_state').val();
+                            var obj_checklist = wepsim_read_checklist(txt_checklist) ;
+                            var obj_result    = wepsim_to_check(obj_checklist) ;
+
+                            if (0 == obj_result.errors)
+                                 var msg = "<span style='background-color:#7CFC00'>Meets the specified requirements</span>" ;
+                            else var msg = wepsim_checkreport2html(obj_result.result, true) ;
+                            $('#check_results').html(msg);
+                            ga('send', 'event', 'state', 'state.check', 'state.check.' + msg);
+
+                            return false;
+		        }
+		    } ;
+
 	    chkbox = bootbox.dialog({
 	                title:   dialog_title,
 	                message: dialog_message,
 	                buttons: dialog_btns,
                         animate: false
 	             });
+	    return chkbox;
+        }
 
+        function dialog_current_state ( dlg_title )
+        {
+	    var chkbox = null ;
+            var txt_checklist = wepsim_dump_checklist();
+
+	    var dialog_title   = get_dialog_title('State') ;
+	    var dialog_message = get_dialog_message(dlg_title, 'Current state as requirement list.', txt_checklist) ;
+            var dialog_btns    = get_dialog_buttons() ;
+                dialog_btns["dump"] = {
+		        label: 'Dump',
+		        className: 'btn-default',
+		        callback: function() {
+                            txt_checklist = wepsim_dump_checklist();
+                            $('#end_state').val(txt_checklist);
+                            $('#check_results').html("<span style='background-color:yellow'>Current state dumped.</span>");
+                            ga('send', 'event', 'state', 'state.dump', 'state.dump.' + txt_checklist);
+
+                            return false;
+		        }
+		    } ;
+
+	    chkbox = bootbox.dialog({
+	                title:   dialog_title,
+	                message: dialog_message,
+	                buttons: dialog_btns,
+                        animate: false
+	             });
 	    return chkbox;
         }
 

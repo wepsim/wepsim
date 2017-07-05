@@ -612,7 +612,10 @@
                      "<div id='clk_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
                      "</td>" +
                      "</tr>" ;
-               o1 += "<tr><td colspan=2>&nbsp;</td></tr>" ;
+               o1 += "<tr><td colspan=2>" + 
+		     "<a href='#' class='btn btn-default btn-block' " + 
+		     "   style='text-align:right; outline:none; box-shadow:none; background:#F0F0F0;' role='button' onclick='dialog_current_state(\"Current State\");'>state</a>" + 
+		     "</td></tr>" ;
             for (var i=0; i<IO_INT_FACTORY.length; i++)
             {
                o1 += "<tr id='int" + i + "_context'>" +
