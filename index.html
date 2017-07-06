@@ -256,38 +256,40 @@
                         </div>
                     </div>
 
-		    <div data-role="tabs" id="tabs1">
 
-			  <fieldset data-role="controlgroup" data-type="horizontal" class="btn-group btn-group-justified" role="toolbar">
-		          <button class="ui-btn ui-icon-refresh ui-btn-icon-right ui-btn-icon-notext ui-mini"
-                                  onclick="var val = $('#select5a').val(); 
-                                           if ('tabxx' == val) 
-                                                dialog_current_state('Current State');
-                                           else $('#' + val).trigger('click');
+		    <fieldset class="ui-grid-c">
+			<div class="ui-block-a" style="width:10%">
+		          <button class="ui-btn ui-corner-all ui-shadow ui-mini" onclick="dialog_current_state('Current State');">State</button>
+			</div>
+			<div class="ui-block-b" style="width:15%">
+		          <button class="ui-btn ui-corner-all ui-shadow ui-mini"
+                                  onclick="var val = $('#select5a').val(); $('#' + val).trigger('click');
                                            show_memories_values();show_rf_values();show_memories_values();">Refresh</button>
+			</div>
+			<div class="ui-block-c" style="width:40%">
                           <select name="select5a" id="select5a" 
                                   onchange="var val = this.value;
-                                            if ('tabxx' == val) 
-                                                 dialog_current_state('Current State');
-                                            else $('#' + val).trigger('click');" 
+                                            $('#' + val).trigger('click');" 
                                   data-mini="true" data-native-menu="false">
-				  <optgroup label="CPU">
+				  <optgroup label="CPU" class="ui-mini">
 			             <option value="tab11" selected><a href="#all">Registers</a></option>
 			             <option value="tab16"         ><a href="#mc" >Control Memory</a></option>
 				  </optgroup>
-				  <optgroup label="Main Memory">
+				  <optgroup label="Main Memory" class="ui-mini">
 			             <option value="tab14"         ><a href="#mp" >Memory</a></option>
 				  </optgroup>
-				  <optgroup label="Devices">
+				  <optgroup label="Devices" class="ui-mini">
 			             <option value="tab12"         ><a href="#con">Console</a></option>
 		                     <option value="tab15"         ><a href="#io" >I/O</a></option>
 				  </optgroup>
-				  <optgroup label="Computer">
-		                     <option value="tabxx"         ><a href="#" >Get state</a></option>
-				  </optgroup>
 			  </select>
-		          <button class='ui-btn ui-icon-gear ui-btn-icon-right ui-mini' onclick='$("#tab13").trigger("click");'>Configuration</button>
-    		          </fieldset>
+			</div>
+			<div class="ui-block-d" style="width:35%">
+		          <button class='ui-btn ui-corner-all ui-shadow ui-icon-gear ui-btn-icon-right ui-mini' onclick='$("#tab13").trigger("click");'>Configuration</button>
+			</div>
+    		    </fieldset>
+
+		    <div data-role="tabs" id="tabs1">
 
     		      <div data-role="navbar" id="tabsnav1" class="ui-responsive">
 		        <ul>
