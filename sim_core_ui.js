@@ -604,11 +604,7 @@
                o1 += "<div class='col-xs-7 col-sm-7 col-lg-7' style='padding:0 0 0 0;'>" +
                      "<div class='panel panel-default'>" +
                      "<div class='panel-heading'>" +
-                     " <h3 class='panel-title'>" +
-	 	     "   <a href='#' class='ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all ui-icon-search ui-btn-icon-left' " + 
-		     "      style='margin:0 0 0 0; border:0 0 0 0' role='button' " + 
-		     "      onclick='dialog_current_state(\"Current State\");'>I/O</a>" + 
-                     " </h3>" +
+                     " <h3 class='panel-title'>I/O</h3>" +
                      "</div>" +
                      "<div class='panel-body' id='mempanel1' style='padding:0 0 0 0;'>" +
                      "  <table class='table table-hover table-condensed table-bordered table-responsive' style='margin:0'>" +
@@ -634,11 +630,7 @@
                o1 += "<div class='col-xs-5 col-sm-5 col-lg-5' style='padding:0 0 0 5;'>" +
                      "<div class='panel panel-default'>" +
                      "<div class='panel-heading'>" +
-                     " <h3 class='panel-title'>" +
-	 	     "   <a href='#' class='ui-btn ui-mini ui-btn-inline ui-shadow ui-corner-all ui-icon-search ui-btn-icon-left' " + 
-		     "      style='margin:0 0 0 0; border:0 0 0 0' role='button' " + 
-		     "      onclick='dialog_current_state(\"Current State\");'>CPU</a>" + 
-                     " </h3>" +
+                     " <h3 class='panel-title'>CPU</h3>" +
                      "</div>" +
                      "<div class='panel-body' id='cpupanel1' style='padding:0 0 0 0;'>" +
                      "  <table class='table table-hover table-condensed table-bordered table-responsive' style='margin:0'>" +

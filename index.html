@@ -257,17 +257,49 @@
                     </div>
 
 		    <div data-role="tabs" id="tabs1">
+
+			  <fieldset data-role="controlgroup" data-type="horizontal" class="btn-group btn-group-justified" role="toolbar">
+		          <button class="ui-btn ui-icon-refresh ui-btn-icon-right ui-btn-icon-notext ui-mini"
+                                  onclick="var val = $('#select5a').val(); 
+                                           if ('tabxx' == val) 
+                                                dialog_current_state('Current State');
+                                           else $('#' + val).trigger('click');
+                                           show_memories_values();show_rf_values();show_memories_values();">Refresh</button>
+                          <select name="select5a" id="select5a" 
+                                  onchange="var val = this.value;
+                                            if ('tabxx' == val) 
+                                                 dialog_current_state('Current State');
+                                            else $('#' + val).trigger('click');" 
+                                  data-mini="true" data-native-menu="false">
+				  <optgroup label="CPU">
+			             <option value="tab11" selected><a href="#all">Registers</a></option>
+			             <option value="tab16"         ><a href="#mc" >Control Memory</a></option>
+				  </optgroup>
+				  <optgroup label="Main Memory">
+			             <option value="tab14"         ><a href="#mp" >Memory</a></option>
+				  </optgroup>
+				  <optgroup label="Devices">
+			             <option value="tab12"         ><a href="#con">Console</a></option>
+		                     <option value="tab15"         ><a href="#io" >I/O</a></option>
+				  </optgroup>
+				  <optgroup label="Computer">
+		                     <option value="tabxx"         ><a href="#" >Get state</a></option>
+				  </optgroup>
+			  </select>
+		          <button class='ui-btn ui-icon-gear ui-btn-icon-right ui-mini' onclick='$("#tab13").trigger("click");'>Configuration</button>
+    		          </fieldset>
+
     		      <div data-role="navbar" id="tabsnav1" class="ui-responsive">
 		        <ul>
-		          <li                    style="clear:none;width:33% !important"><a id="tab14" href="#mp" onclick="show_memories_values();">Memory</a></li>
-		          <li                    style="clear:none;width:33% !important"><a id="tab12" href="#con">Console</a></li>
-		          <li class="ui-block-a" style="clear:none;width:33% !important;border:1px solid #ddd;"><a id="tab15" href="#io">Information</a></li>
-                          <br>
-		          <li style="           width:33% !important"><a id="tab11" href="#all" class="ui-btn-active" onclick="show_rf_values();">Registers</a></li>
-		          <li style="clear:none;width:33% !important"><a id="tab16" href="#mc" onclick="show_memories_values();">Control Memory</a></li>
-		          <li style="clear:none;width:33% !important"><a id="tab13" href="#config">Configuration</a></li>
+		          <li style="display:none;clear:none;width:33% !important"><a id="tab14" href="#mp">Memory</a></li>
+		          <li style="display:none;clear:none;width:33% !important"><a id="tab12" href="#con">Console</a></li>
+		          <li style="display:none;           width:33% !important"><a id="tab11" href="#all">Registers</a></li>
+		          <li style="display:none;clear:none;width:33% !important"><a id="tab16" href="#mc">Control Memory</a></li>
+                          <li style="display:none;clear:none;width:33% !important"><a id="tab13" href="#config">Configuration</a></li>
+                          <li style="display:none;clear:none;width:33% !important"><a id="tab15" href="#io">Information</a></li>
 		        </ul>
 		      </div>
+
 		      <div id="all"  class="ui-body-d ui-content" style="padding: 15 0px 0 0px;">
 		         <div id="states_ALL"          style="width: inherit; overflow-y: auto;"></div>
 			 <br style="height:0; width:100%; font-size:0; margin:5; padding:0; border:0; display:block;">
