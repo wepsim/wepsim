@@ -258,16 +258,16 @@
 
 
 		    <fieldset class="ui-grid-c">
-			<div class="ui-block-a" style="width:10%">
+			<div class="ui-block-a" style="width:12%">
 		          <button class="btn btn-default"
 		                  style="background-color: #E8E8E8"
-				  onclick="dialog_current_state('Current State');">State</button>
+		                  onclick="dialog_current_state('Current State');"><b>State</b></button>
 			</div>
 			<div class="ui-block-b" style="width:15%">
 		          <button class="btn btn-default"
 		                  style="background-color: #E8E8E8"
                                   onclick="var val = $('#select5a').val(); $('#' + val).trigger('click');
-                                           show_memories_values();show_rf_values();show_memories_values();">Refresh</button>
+				  show_memories_values();show_rf_values();show_memories_values();"><b>Refresh</b></button>
 			</div>
 			<div class="ui-block-c" style="width:40%">
                           <select name="select5a" id="select5a" class="selectpicker" 
@@ -288,10 +288,10 @@
 				  </optgroup>
 			  </select>
 			</div>
-			<div class="ui-block-d" style="width:35%">
+			<div class="ui-block-d" style="width:33%">
 		          <button class="btn btn-default"
 		                  style="background-color: #E8E8E8"
-				  onclick='$("#tab13").trigger("click");'>Configuration</button>
+			          onclick='$("#tab13").trigger("click");'><b>Configuration</b></button>
 			</div>
     		    </fieldset>
 
