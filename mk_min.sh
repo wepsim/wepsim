@@ -57,7 +57,8 @@ cat external/bootstrap.min.js \
     external/codemirror.fold/markdown-fold.js \
     external/codemirror.show-hint/codemirror.show-hint.js > external/external.min.js \
     external/vis.min.js \
-    external/async.js
+    external/async.js \
+    external/bootstrap-select.min.js
 
 cat external/bootstrap.min.css \
     external/bootstrap-theme.min.css \
@@ -66,5 +67,6 @@ cat external/bootstrap.min.css \
     external/codemirror.theme/blackboard.css \
     external/codemirror.fold/foldgutter.css \
     external/codemirror.show-hint/codemirror.show-hint.css > external/external.min.css \
-    external/vis-network.min.css
+    external/vis-network.min.css \
+    external/bootstrap-select.min.css
 

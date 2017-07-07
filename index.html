@@ -259,37 +259,37 @@
 
 		    <fieldset class="ui-grid-c">
 			<div class="ui-block-a" style="width:10%">
-		          <button class="ui-btn ui-corner-all ui-shadow ui-mini" 
+		          <button class="btn btn-default"
 		                  style="background-color: #E8E8E8"
 				  onclick="dialog_current_state('Current State');">State</button>
 			</div>
 			<div class="ui-block-b" style="width:15%">
-		          <button class="ui-btn ui-corner-all ui-shadow ui-mini"
+		          <button class="btn btn-default"
 		                  style="background-color: #E8E8E8"
                                   onclick="var val = $('#select5a').val(); $('#' + val).trigger('click');
                                            show_memories_values();show_rf_values();show_memories_values();">Refresh</button>
 			</div>
 			<div class="ui-block-c" style="width:40%">
-                          <select name="select5a" id="select5a" class="selectpicker"
+                          <select name="select5a" id="select5a" class="selectpicker" 
+				  data-role="none" data-container="body"
 		                  style="background-color: #E8E8E8"
                                   onchange="var val = this.value;
-                                            $('#' + val).trigger('click');" 
-                                  data-mini="true" data-native-menu="false">
-				  <optgroup label="CPU" class="ui-mini">
+				            $('#' + val).trigger('click');"> 
+				  <optgroup label="CPU">
 			             <option value="tab11" selected><a href="#all">Registers</a></option>
 			             <option value="tab16"         ><a href="#mc" >Control Memory</a></option>
 				  </optgroup>
-				  <optgroup label="Main Memory" class="ui-mini">
+				  <optgroup label="Main Memory">
 			             <option value="tab14"         ><a href="#mp" >Memory</a></option>
 				  </optgroup>
-				  <optgroup label="Devices" class="ui-mini">
+				  <optgroup label="Devices">
 			             <option value="tab12"         ><a href="#con">Console</a></option>
 		                     <option value="tab15"         ><a href="#io" >I/O</a></option>
 				  </optgroup>
 			  </select>
 			</div>
 			<div class="ui-block-d" style="width:35%">
-		          <button class='ui-btn ui-corner-all ui-shadow ui-icon-gear ui-btn-icon-right ui-mini' 
+		          <button class="btn btn-default"
 		                  style="background-color: #E8E8E8"
 				  onclick='$("#tab13").trigger("click");'>Configuration</button>
 			</div>
@@ -1236,6 +1236,11 @@ if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(nav
                      animation: false,
                      delay: { "show": 500, "hide": 100 } 
             }) ;
+
+            $(".selectpicker").selectpicker({
+		     style: 'btn-default',
+		     size: 5
+	    });
 
             sim_tutorial_showframe(tut_welcome, 0) ;
     }
