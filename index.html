@@ -259,15 +259,19 @@
 
 		    <fieldset class="ui-grid-c">
 			<div class="ui-block-a" style="width:10%">
-		          <button class="ui-btn ui-corner-all ui-shadow ui-mini" onclick="dialog_current_state('Current State');">State</button>
+		          <button class="ui-btn ui-corner-all ui-shadow ui-mini" 
+		                  style="background-color: #E8E8E8"
+				  onclick="dialog_current_state('Current State');">State</button>
 			</div>
 			<div class="ui-block-b" style="width:15%">
 		          <button class="ui-btn ui-corner-all ui-shadow ui-mini"
+		                  style="background-color: #E8E8E8"
                                   onclick="var val = $('#select5a').val(); $('#' + val).trigger('click');
                                            show_memories_values();show_rf_values();show_memories_values();">Refresh</button>
 			</div>
 			<div class="ui-block-c" style="width:40%">
-                          <select name="select5a" id="select5a" 
+                          <select name="select5a" id="select5a" class="selectpicker"
+		                  style="background-color: #E8E8E8"
                                   onchange="var val = this.value;
                                             $('#' + val).trigger('click');" 
                                   data-mini="true" data-native-menu="false">
@@ -285,7 +289,9 @@
 			  </select>
 			</div>
 			<div class="ui-block-d" style="width:35%">
-		          <button class='ui-btn ui-corner-all ui-shadow ui-icon-gear ui-btn-icon-right ui-mini' onclick='$("#tab13").trigger("click");'>Configuration</button>
+		          <button class='ui-btn ui-corner-all ui-shadow ui-icon-gear ui-btn-icon-right ui-mini' 
+		                  style="background-color: #E8E8E8"
+				  onclick='$("#tab13").trigger("click");'>Configuration</button>
 			</div>
     		    </fieldset>
 
