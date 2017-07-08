@@ -259,35 +259,37 @@
 
 		    <fieldset class="ui-grid-c">
 			<div class="ui-block-a" style="width:20%">
-		          <button class="btn btn-default ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-home"
+		          <button class="btn btn-default ui-btn ui-shadow ui-corner-all"
 		                  onclick="dialog_current_state('Current State');"><b>State</b></button>
 			</div>
-			<div class="ui-block-b" style="width:20%">
-		          <button class="btn btn-default ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-refresh"
-                                  onclick="var val = $('#select5a').val(); $('#' + val).trigger('click');
-				  show_memories_values();show_rf_values();show_memories_values();"><b>Refresh</b></button>
+			<div class="ui-block-d" style="width:20%">
+		          <button class="btn btn-default"
+			          onclick='$("#tab13").trigger("click");'><b>Configuration</b></button>
 			</div>
 			<div class="ui-block-c" style="width:40%; margin: 7 0 0 0">
                           <select name="select5a" id="select5a" class="selectpicker" data-container="body"
 		                  data-role="none" data-width="100%" data-size="false"
                                   onchange="var val = this.value;
-				            $('#' + val).trigger('click');"> 
+				            $('#tab' + val).trigger('click');"> 
 				  <optgroup label="CPU">
-				      <option value="tab11" selected data-content="<span class='label label-primary'>CPU</span>&nbsp;Registers"><a href="#all">Registers</a></option>
-			              <option value="tab16"          data-content="<span class='label label-primary'>CPU</span>&nbsp;Control Memory"><a href="#mc" >Control Memory</a></option>
+				      <option value="11" selected data-content="<span class='label label-primary'>CPU</span>&nbsp;Registers"><a href="#all">Registers</a></option>
+			              <option value="16"  data-content="<span class='label label-primary'>CPU</span>&nbsp;Control Memory"><a href="#mc" >Control Memory</a></option>
 				  </optgroup>
 				  <optgroup label="Main Memory">
-				      <option value="tab14"          data-content="<span class='label label-primary'>MM</span>&nbsp;Memory"><a href="#mp" >Memory</a></option>
+				      <option value="14"  data-content="<span class='label label-primary'>MM</span>&nbsp;Memory"><a href="#mp" >Memory</a></option>
 				  </optgroup>
 				  <optgroup label="Devices">
-				      <option value="tab12"          data-content="<span class='label label-primary'>Dev</span>&nbsp;Console"><a href="#con">Console</a></option>
-				      <option value="tab15"          data-content="<span class='label label-primary'>Dev</span>&nbsp;I/O"><a href="#io" >I/O</a></option>
+				      <option value="12"  data-content="<span class='label label-primary'>Dev</span>&nbsp;Keyboard+Display"><a href="#con">Keyboard+Display</a></option>
+				      <option value="15"  data-content="<span class='label label-primary'>Dev</span>&nbsp;I/O"><a href="#io" >I/O</a></option>
 				  </optgroup>
 			  </select>
 			</div>
-			<div class="ui-block-d" style="width:20%">
-		          <button class="btn btn-default"
-			          onclick='$("#tab13").trigger("click");'><b>Configuration</b></button>
+			<div class="ui-block-b" style="width:20%">
+		          <button class="btn btn-default ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-refresh"
+                                  onclick="var val = $('#select5a').val();
+				           $('#tab' + val).trigger('click');
+					   show_rf_values();
+				           show_memories_values();"><b>Refresh</b></button>
 			</div>
     		    </fieldset>
 
