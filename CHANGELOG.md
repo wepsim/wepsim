@@ -1,5 +1,6 @@
 
 1.8.0 -> 1.8.1:
+* Colorized syntax
 * Compact visualization controls
 
 1.7.7 -> 1.8.0:

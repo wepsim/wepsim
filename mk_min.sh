@@ -44,6 +44,7 @@ cat external/bootstrap.min.js \
     external/split.min.js \
     external/codemirror.js \
     external/codemirror.javascript.js \
+    external/codemirror.gas.js \
     external/codemirror.keymap/sublime.js \
     external/codemirror.keymap/emacs.js \
     external/codemirror.keymap/vim.js \
@@ -56,6 +57,7 @@ cat external/bootstrap.min.js \
     external/codemirror.fold/indent-fold.js \
     external/codemirror.fold/markdown-fold.js \
     external/codemirror.show-hint/codemirror.show-hint.js > external/external.min.js \
+    external/codemirror.runmode/colorize.js > external/external.min.js \
     external/vis.min.js \
     external/async.js \
     external/bootstrap-select.min.js

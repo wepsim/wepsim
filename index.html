@@ -260,19 +260,16 @@
 		    <fieldset class="ui-grid-c">
 			<div class="ui-block-a" style="width:20%">
 		          <button class="btn btn-default ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-home"
-		                  style="background-color: #E8E8E8"
 		                  onclick="dialog_current_state('Current State');"><b>State</b></button>
 			</div>
 			<div class="ui-block-b" style="width:20%">
 		          <button class="btn btn-default ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-refresh"
-		                  style="background-color: #E8E8E8"
                                   onclick="var val = $('#select5a').val(); $('#' + val).trigger('click');
 				  show_memories_values();show_rf_values();show_memories_values();"><b>Refresh</b></button>
 			</div>
-			<div class="ui-block-c" style="width:40%">
+			<div class="ui-block-c" style="width:40%; margin: 7 0 0 0">
                           <select name="select5a" id="select5a" class="selectpicker" data-container="body"
-		                  data-role="none" style="background-color: #E8E8E8" data-width="100%" data-size="false"
-		                  style="background-color: #E8E8E8"
+		                  data-role="none" data-width="100%" data-size="false"
                                   onchange="var val = this.value;
 				            $('#' + val).trigger('click');"> 
 				  <optgroup label="CPU">
@@ -290,7 +287,6 @@
 			</div>
 			<div class="ui-block-d" style="width:20%">
 		          <button class="btn btn-default"
-		                  style="background-color: #E8E8E8"
 			          onclick='$("#tab13").trigger("click");'><b>Configuration</b></button>
 			</div>
     		    </fieldset>
@@ -1126,11 +1122,11 @@
 					value: "",
 					lineNumbers: true,
 					matchBrackets: true,
-					mode: "text/x-csrc",
 					foldGutter: {
 						rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.brace, CodeMirror.fold.comment)
 					},
-					gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
+					gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+					mode: "text/javascript"
 				    });
                     sim_prepare_editor(inputfirm);
 
@@ -1152,7 +1148,7 @@
 					      });
 					  }
 					},
-					mode: "text/x-csrc"
+					mode: "gas"
 				    });
                     sim_prepare_editor(inputasm) ;
 
@@ -1193,6 +1189,10 @@
                     $("#slider2").val(get_cfg('CPUCU_size')).slider("refresh");
 
                     $('#slider2d').toggle(); 
+                    $(".selectpicker").selectpicker({
+		           style: 'btn-default',
+		           size: false
+	            });
 
                     showhideAsmElements();
 		    $("input:checkbox").click(function(){
@@ -1236,11 +1236,6 @@ if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(nav
                      animation: false,
                      delay: { "show": 500, "hide": 100 } 
             }) ;
-
-            $(".selectpicker").selectpicker({
-		     style: 'btn-default',
-		     size: 5
-	    });
 
             sim_tutorial_showframe(tut_welcome, 0) ;
     }
