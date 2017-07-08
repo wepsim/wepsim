@@ -266,7 +266,8 @@
 		          <button class="btn btn-default"
 			          onclick='$("#tab13").trigger("click");'><b>Configuration</b></button>
 			</div>
-			<div class="ui-block-c" style="width:40%; margin: 7 0 0 0">
+			<div class="ui-block-c" style="width:40%; margin: 7 0 0 0"
+			     onmouseover="$('#select5a').selectpicker('toggle');">
                           <select name="select5a" id="select5a" class="selectpicker" data-container="body"
 		                  data-role="none" data-width="100%" data-size="false"
                                   onchange="var val = this.value;
@@ -288,8 +289,9 @@
 		          <button class="btn btn-default ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-refresh"
                                   onclick="var val = $('#select5a').val();
 				           $('#tab' + val).trigger('click');
-					   show_rf_values();
-				           show_memories_values();"><b>Refresh</b></button>
+				           if ('11' == val)
+					        show_rf_values();
+				           else show_memories_values();"><b>Refresh</b></button>
 			</div>
     		    </fieldset>
 

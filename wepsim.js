@@ -109,15 +109,18 @@
         {
             if (with_ui)
                 showError(SIMWAREaddon.error, "inputasm") ;
+
             return false;
         }
 
-        if (with_ui)
+        if (with_ui) 
+	{
 	    $.notify({ title: '<strong>INFO</strong>', message: 'Assembly was compiled and loaded.'},
 		     { type: 'success',
                        newest_on_top: true,
                        delay: get_cfg('NOTIF_delay'),
                        placement: { from: 'top', align: 'center' } });
+	}
 
         // update memory and segments
         set_simware(SIMWAREaddon) ;
@@ -133,6 +136,7 @@
         }
 
 	reset();
+
         return true;
     }
 
@@ -592,8 +596,8 @@
                                   if (true == chain_next_step)
 				      setTimeout(function(){
 					            $.mobile.pageContainer.pagecontainer('change', '#main1');
+                                                    show_memories_values();
 				                 }, 50);
-                                  show_memories_values();
 			    }
 
 			    $.notify({ title: '<strong>INFO</strong>',
