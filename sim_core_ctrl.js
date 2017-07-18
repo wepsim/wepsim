@@ -851,7 +851,7 @@
             return dialog_title ;
         }
 
-        function get_dialog_message ( dlg_title, txt_placeholder, txt_checklist )
+        function get_dialog_message ( dlg_title, txt_placeholder, txt_checklist, txt_status )
         {
 	    var dialog_message = '<div id="bot_check" class="carousel slide" ' + 
                                  '     data-ride="carousel" data-interval="false">' +
@@ -870,7 +870,7 @@
 			         '<br>' +
                                  ' <div id="check_results_scroll"' +
                                  '     style="max-height:25vh; width: inherit; overflow-y: auto;" >' +
-                                 '     <div id="check_results">&nbsp;</div>' +
+                                 '     <div id="check_results">' + txt_status + '</div>' +
                                  ' </div>' +
                                  ' </div>' +
                                  ' <div class="item">' +
@@ -883,8 +883,15 @@
             return dialog_message ;
         }
 
-        function get_dialog_buttons ( )
+        // checkbox-dialog: remembering the last selections...
+        var txt_checklist = '' ;
+
+        function dialog_stop_and_state ( dlg_title )
         {
+	    var chkbox = null ;
+
+	    var dialog_title   = get_dialog_title('State', 'help_checker') ;
+	    var dialog_message = get_dialog_message(dlg_title, 'Please drop the requirement list here. See help for more information.', txt_checklist, '&nbsp;') ;
             var dialog_btns = new Object() ;
                 dialog_btns["clear"] = {
 	    	        label: 'Clear',
@@ -897,32 +904,9 @@
                             return false;
 		        }
 		    } ;
-                dialog_btns["ok"] = {
-	    	        label: '&nbsp;&nbsp;OK&nbsp;&nbsp;',
-		        className: 'btn-primary',
-		        callback: function() {
-                            // chkbox.modal("hide") ;
-				
-                            return true;
-		        }
-		    } ;
-
-            return dialog_btns ;
-        }
-
-        // checkbox-dialog: remembering the last selections...
-        var txt_checklist = '' ;
-
-        function dialog_stop_and_state ( dlg_title )
-        {
-	    var chkbox = null ;
-
-	    var dialog_title   = get_dialog_title('State', 'help_checker') ;
-	    var dialog_message = get_dialog_message(dlg_title, 'Please drop the requirement list here. See help for more information.', txt_checklist) ;
-            var dialog_btns    = get_dialog_buttons() ;
                 dialog_btns["check"] = {
 	    	        label: 'Check',
-		        className: 'btn-default',
+		        className: 'btn-info',
 		        callback: function() {
                                 txt_checklist = $('#end_state').val();
                             var obj_checklist = wepsim_read_checklist(txt_checklist) ;
@@ -935,6 +919,15 @@
                             ga('send', 'event', 'state', 'state.check', 'state.check.' + msg);
 
                             return false;
+		        }
+		    } ;
+                dialog_btns["ok"] = {
+	    	        label: '&nbsp;&nbsp;OK&nbsp;&nbsp;',
+		        className: 'btn-primary',
+		        callback: function() {
+                            // chkbox.modal("hide") ;
+				
+                            return true;
 		        }
 		    } ;
 
@@ -950,21 +943,21 @@
         function dialog_current_state ( dlg_title )
         {
 	    var chkbox = null ;
+
             var txt_checklist = wepsim_dump_checklist();
+	    ga('send', 'event', 'state', 'state.dump', 'state.dump.' + txt_checklist);
 
 	    var dialog_title   = get_dialog_title('State', 'help_dumper') ;
-	    var dialog_message = get_dialog_message(dlg_title, 'Current state as requirement list.', txt_checklist) ;
-            var dialog_btns    = get_dialog_buttons() ;
-                dialog_btns["dump"] = {
-		        label: 'Dump',
-		        className: 'btn-default',
+	    var dialog_message = get_dialog_message(dlg_title, 
+		                                    'Current state as requirement list.', 
+		                                    txt_checklist,
+		                                    "<span style='background-color:yellow'>Current state dumped.</span>") ;
+            var dialog_btns = new Object() ;
+                dialog_btns["ok"] = {
+	    	        label: '&nbsp;&nbsp;OK&nbsp;&nbsp;',
+		        className: 'btn-primary',
 		        callback: function() {
-                            txt_checklist = wepsim_dump_checklist();
-                            $('#end_state').val(txt_checklist);
-                            $('#check_results').html("<span style='background-color:yellow'>Current state dumped.</span>");
-                            ga('send', 'event', 'state', 'state.dump', 'state.dump.' + txt_checklist);
-
-                            return false;
+                            return true;
 		        }
 		    } ;
 

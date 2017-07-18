@@ -109,15 +109,18 @@
         {
             if (with_ui)
                 showError(SIMWAREaddon.error, "inputasm") ;
+
             return false;
         }
 
-        if (with_ui)
+        if (with_ui) 
+	{
 	    $.notify({ title: '<strong>INFO</strong>', message: 'Assembly was compiled and loaded.'},
 		     { type: 'success',
                        newest_on_top: true,
                        delay: get_cfg('NOTIF_delay'),
                        placement: { from: 'top', align: 'center' } });
+	}
 
         // update memory and segments
         set_simware(SIMWAREaddon) ;
@@ -133,6 +136,7 @@
         }
 
 	reset();
+
         return true;
     }
 
@@ -400,14 +404,15 @@
         if (1 == notifications)
             return false ;
 
-        var ret  = false ;
         var noti = "" ;
-        for (var i=1; i<notifications; i++)
-        {
-             noti = MC_dashboard[reg_maddr].notify[i] ;
-	     ret  = confirm("Notify @ " + reg_maddr + ":\n" + noti) ;
-             if (ret) return true ;
+        for (var i=1; i<notifications; i++) {
+             noti += MC_dashboard[reg_maddr].notify[i] + "\n<br>" ;
         }
+
+        var dialog_title = "Notify @ " + reg_maddr + ":<br>" + noti ;
+        dialog_stop_and_state(dialog_title) ;
+
+        return true ;
     }
 
     function wepsim_check_stopbybreakpoint_firm ( )
@@ -592,8 +597,8 @@
                                   if (true == chain_next_step)
 				      setTimeout(function(){
 					            $.mobile.pageContainer.pagecontainer('change', '#main1');
+                                                    show_memories_values();
 				                 }, 50);
-                                  show_memories_values();
 			    }
 
 			    $.notify({ title: '<strong>INFO</strong>',
