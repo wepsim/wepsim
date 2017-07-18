@@ -404,14 +404,15 @@
         if (1 == notifications)
             return false ;
 
-        var ret  = false ;
         var noti = "" ;
-        for (var i=1; i<notifications; i++)
-        {
-             noti = MC_dashboard[reg_maddr].notify[i] ;
-	     ret  = confirm("Notify @ " + reg_maddr + ":\n" + noti) ;
-             if (ret) return true ;
+        for (var i=1; i<notifications; i++) {
+             noti += MC_dashboard[reg_maddr].notify[i] + "\n<br>" ;
         }
+
+        var dialog_title = "Notify @ " + reg_maddr + ":<br>" + noti ;
+        dialog_stop_and_state(dialog_title) ;
+
+        return true ;
     }
 
     function wepsim_check_stopbybreakpoint_firm ( )
