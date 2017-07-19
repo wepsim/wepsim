@@ -238,16 +238,16 @@
 
                     <div class="btn-toolbar" role="toolbar" id="sim_toolbar" style="padding: 0 0px 10px 0px;">
 			<div class="btn-group btn-group-justified" role="group">
-			    <a          href="#" style="background-color: #CCCCCC"
+			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-reset   ui-btn-icon-top ui-mini"
 			       onclick="wepsim_execute_reset();">Reset</a>
-			    <a          href="#" style="background-color: #CCCCCC"
+			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini"
 			       onclick="wepsim_execute_microinstruction();">&#181;Instruction</a>
-			    <a          href="#" style="background-color: #CCCCCC"
+			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini"
 			       onclick="wepsim_execute_instruction();">Instruction</a>
-			    <a id="qbp" href="#" style="background-color: #CCCCCC"
+			    <a id="qbp" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-carat-r ui-btn-icon-top ui-mini"
 			       onclick="wepsim_execute_toggle_play('#qbp'); return false;">Run</a>
 			    <a id="ib1" href="#" style="background-color: #D4DB17; -webkit-text-shadow: none; text-shadow: none;"
@@ -260,17 +260,16 @@
 		    <fieldset class="ui-grid-c">
 			<div class="ui-block-a" style="width:20%">
 		          <button class="btn ui-btn ui-shadow ui-corner-all"
-		                  style="background: #dedede !important; border-color:#bbbbbb;"
+		                  style="background: #dedede !important; border-color:white; border-width:1 1 1 1px;"
 		                  onclick="dialog_current_state('Current State');"><b>State</b></button>
 			</div>
 			<div class="ui-block-d" style="width:20%">
 		          <button class="btn ui-btn ui-shadow ui-corner-all"
-		                  style="background: #dedede !important; border-color:#bbbbbb;"
+		                  style="background: #dedede !important; border-color:white; border-width:1 1 1 1px;"
 			          onclick='$("#tab13").trigger("click");'><b>Configuration</b></button>
 			</div>
 			<div class="ui-block-c" style="width:40%; margin: 7 0 0 0">
                           <select name="select5a" id="select5a" class="selectpicker" 
-		                  data-style="background: #dedede !important; border-color:#bbbbbb;"
 				  data-container="body" data-role="none" data-width="100%" data-size="false"
                                   onchange="var val = this.value;
 				            $('#tab' + val).trigger('click');"> 
@@ -289,7 +288,7 @@
 			</div>
 			<div class="ui-block-b" style="width:20%">
 		          <button class="btn ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-refresh"
-		                  style="background: #dedede !important; border-color:#bbbbbb;"
+		                  style="background: #dedede !important; border-color:white; border-width:1 1 1 1px;"
                                   onclick="var val = $('#select5a').val();
 				           $('#tab' + val).trigger('click');
 				           if ('11' == val)

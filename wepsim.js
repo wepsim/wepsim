@@ -401,16 +401,28 @@
         var reg_maddr     = get_value(sim_states["REG_MICROADDR"]) ;
         var notifications = MC_dashboard[reg_maddr].notify.length ;
 
-        if (1 == notifications)
+        if (1 == notifications) {
             return false ;
+	}
 
         var noti = "" ;
         for (var i=1; i<notifications; i++) {
              noti += MC_dashboard[reg_maddr].notify[i] + "\n<br>" ;
         }
 
-        var dialog_title = "Notify @ " + reg_maddr + ":<br>" + noti ;
-        dialog_stop_and_state(dialog_title) ;
+        // var dialog_title = "Notify @ " + reg_maddr + ":<br>" + noti ;
+        // dialog_stop_and_state(dialog_title) ;
+
+	bootbox.confirm({
+	    title:    "Notify @ " + reg_maddr + ":",
+	    message:  noti,
+	    buttons:  {
+		        cancel:  { label: '<i class="fa fa-times"></i> Stop'  },
+		        confirm: { label: '<i class="fa fa-check"></i> Next notification' }
+		      },
+	    callback: function (result) {
+		      }
+	});
 
         return true ;
     }
