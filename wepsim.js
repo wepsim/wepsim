@@ -946,6 +946,11 @@
         var o = new Object() ;
 	var ret = false ;
 
+	// white-spaces...
+	checklist = checklist.replace(/;|=|>=|<=|>|<|!=/gi, function (x){return ' ' + x + ' ';});  
+        checklist = checklist.replace(/  /g,' ') ;
+
+	// lines...
         var lines = checklist.split(";") ;
         for (var i=0; i<lines.length; i++)
         {
