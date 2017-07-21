@@ -26,16 +26,70 @@
         sim_components["CPU"] = {
 		                  name: "CPU", 
 		                  version: "1", 
-		                  dump_state: function() {
-						  var ret = "" ;
+		                  write_state:  function ( vec ) {
+                                                  if (typeof vec.CPU == "undefined")
+                                                      vec.CPU = new Object() ;
+
+					          var internal_reg = ["PC", "MAR", "MBR", "IR", "RT1", "RT1", "RT2", "RT3", "SR"] ;
+
 						  var value = 0 ;
 					          for (var i=0; i<sim_states['BR'].length; i++)
 						  {
 						      value = parseInt(sim_states['BR'][i].value) ;
-						      if (value != 0)
-							  ret += "register " + i + " 0x" + value.toString(16) + "; " ;
+						      if (value != 0) {
+							  vec.CPU["R" + i] = {"type":  "register", 
+								              "default_value": 0x0,
+								              "id":    "R" + i, 
+								              "op":    "=", 
+								              "value": "0x" + value.toString(16)} ;
+						      }
 						  }
-						  return ret;
+
+					          for (var i=0; i<internal_reg.length; i++)
+						  {
+						      value = parseInt(sim_states['REG_' + internal_reg[i]].value) ;
+						      if (value != 0) {
+							  vec.CPU[internal_reg[i]] = {"type":  "register", 
+								                      "default_value": 0x0,
+								                      "id":    internal_reg[i], 
+								                      "op":    "=", 
+								                      "value": "0x" + value.toString(16)} ;
+						      }
+						  }
+
+						  return vec;
+				               },
+		                  read_state:  function ( vec, check ) {
+                                                  if (typeof vec.CPU == "undefined")
+                                                      vec.CPU = new Object() ;
+
+					          var key = check["id"].toUpperCase().trim() ;
+					          var val = parseInt(check["value"]).toString(16) ;
+					          if ("REGISTER" == check["type"].toUpperCase().trim())
+                                                  {
+						      vec.CPU[key] = {"type":  "register", 
+								      "default_value": 0, 
+								      "id":    key,
+								      "op":    check["condition"], 
+								      "value": "0x" + val} ;
+                                                      return true ;
+                                                  }
+
+                                                  return false ;
+				              },
+		                  get_state:  function ( reg ) {
+					          var r_reg = reg.toUpperCase().trim() ;
+					          if (typeof sim_states['REG_' + r_reg] != "undefined") {
+					              return "0x" + get_value(sim_states['REG_' + r_reg]).toString(16) ;
+					          }
+
+					              r_reg = r_reg.replace('R','') ;
+					          var index = parseInt(r_reg) ;
+					          if (typeof sim_states['BR'][index] != "undefined") {
+					              return "0x" + get_value(sim_states['BR'][index]).toString(16) ;
+					          }
+
+					          return null ;
 				              } 
                             	};
 

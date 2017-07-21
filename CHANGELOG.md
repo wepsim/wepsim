@@ -1,10 +1,14 @@
 
+1.8.0 -> 1.8.1:
+* Colorized syntax
+* Compact visualization controls
+
 1.7.7 -> 1.8.0:
-* Initial support for introspection
+* Support for simple introspection
 * CPU behaviour has been slighly simplified
 * Added support for FIRE_IFCHANGED
 * Initial support for native in microcode
-* 111111 -> find a free available 'co'
+* Auto-assign 'co' value (free available) with co=111111
 
 1.7.6 -> 1.7.7:
 * Sticky segment name on memory visualization

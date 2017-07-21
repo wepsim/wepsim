@@ -23,20 +23,57 @@
 	 *  Memory
 	 */
 
-        sim_components["RAM"] = {
-		                  name: "RAM", 
+        sim_components["MEMORY"] = {
+		                  name: "MEMORY", 
 		                  version: "1", 
-		                  dump_state: function() {
-						  var ret = "" ;
+		                  write_state: function ( vec ) {
+                                                  if (typeof vec.MEMORY == "undefined")
+                                                      vec.MEMORY = new Object() ;
+
+						  var key = 0 ;
 						  var value = 0 ;
 					          for (var index in MP)
 						  {
 						       value = parseInt(MP[index]) ;
-						       if (value != 0)
-							   ret += "memory 0x" + parseInt(index).toString(16) + " 0x" + value.toString(16) + "; " ;
+						       if (value != 0) 
+						       {
+					                   key = parseInt(index).toString(16) ;
+							   vec.MEMORY["0x" + key] = {"type":  "memory", 
+								                     "default_value": 0x0,
+								                     "id":    "0x" + key,
+								                     "op":    "=", 
+								                     "value": "0x" + value.toString(16)} ;
+						       }
 						  }
-						  return ret;
-				              } 
+
+						  return vec;
+				              },
+		                  read_state: function ( vec, check ) {
+                                                  if (typeof vec.MEMORY == "undefined")
+                                                      vec.MEMORY = new Object() ;
+
+					          var key = parseInt(check["id"]).toString(16) ;
+					          var val = parseInt(check["value"]).toString(16) ;
+					          if ("MEMORY" == check["type"].toUpperCase().trim())
+                                                  {
+						      vec.MEMORY["0x" + key] = {"type":  "memory", 
+							  	                "default_value": 0x0,
+								                "id":    "0x" + key,
+								                "op":    check["condition"],
+								                "value": "0x" + val} ;
+                                                      return true ;
+                                                  }
+
+                                                  return false ;
+				             },
+		                  get_state: function ( pos ) {
+						  var index = parseInt(pos) ;
+						  if (typeof MP[index] != "undefined") {
+						      return "0x" + parseInt(MP[index]).toString(16) ;
+					          }
+
+					          return null ;
+				             }
                             	};
 
 

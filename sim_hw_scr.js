@@ -20,24 +20,56 @@
 
 
 	/*
-	 *  SCR
+	 *  SCREEN
 	 */
 
-        sim_components["SCR"] = {
-		                  name: "SCR", 
+        sim_components["SCREEN"] = {
+		                  name: "SCREEN", 
 		                  version: "1", 
-		                  dump_state: function() {
-						  var ret = "" ;
-					  /*
-					   *      var sim_screen = get_screen_content() ;
-					   *      var sim_lines  = sim_screen.trim().split("\n") ;
-					   *      for (var i=0; i<sim_lines.length; i++)
-					   *      {
-					   *           value = sim_lines[i] ;
-					   *           ret += "screen " + i + " " + value + "; " ;
-					   *      }
-					   */
-						  return ret;
+		                  write_state: function ( vec ) {
+                                                  if (typeof vec.SCREEN == "undefined")
+                                                      vec.SCREEN = new Object() ;
+
+					          var sim_screen = get_screen_content() ;
+					          var sim_lines  = sim_screen.trim().split("\n") ;
+					          for (var i=0; i<sim_lines.length; i++)
+					          {
+					               value = sim_lines[i] ;
+           					       if (value != "") {
+							   vec.SCREEN[i] = {"type":  "screen", 
+								            "default_value": "",
+								            "id":    i,
+								            "op":    "==", 
+								            "value": value} ;
+   						       }
+					          }
+
+						  return vec;
+				              }, 
+		                  read_state: function ( vec, check ) {
+                                                  if (typeof vec.SCREEN == "undefined")
+                                                      vec.SCREEN = new Object() ;
+
+					          if ("SCREEN" == check["type"].toUpperCase().trim())
+                                                  {
+						      vec.SCREEN[check["id"]] = {"type":  "screen", 
+								                 "default_value": "",
+								                 "id":    check["id"],
+								                 "op":    check["condition"], 
+								                 "value": check["value"]} ;
+                                                      return true ;
+                                                  }
+
+                                                  return false ;
+				             },
+		                  get_state: function ( line ) {
+					          var sim_screen = get_screen_content() ;
+					          var sim_lines  = sim_screen.trim().split("\n") ;
+						  var index = parseInt(line) ;
+						  if (typeof sim_lines[index] != "undefined")
+						      return sim_lines[index] ;
+
+					          return null ;
 				              } 
                             	};
 

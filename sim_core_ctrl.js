@@ -563,9 +563,11 @@
 			       title:   '<center>' + key + ': ' +
                                         ' <div class="btn-group">' +
                                         '   <button onclick="$(\'#bot_signal\').carousel(0);" ' +
-                                        '           type="button" class="btn btn-info" style="height:34px !important;">Value</button>' +
+                                        '           type="button" class="btn btn-info" ' + 
+                                        '           style="height:34px !important;">Value</button>' +
                                         '   <button onclick="$(\'#bot_signal\').carousel(1); update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());" ' +
-                                        '           type="button" class="btn btn-success" style="height:34px !important;">Help</button>' +
+                                        '           type="button" class="btn btn-success" ' + 
+                                        '           style="height:34px !important;">Help</button>' +
                                         '   <button type="button" class="btn btn-success dropdown-toggle" ' +
                                         '           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height:34px !important;">' +
                                         '     <span class="caret"></span>' +
@@ -801,37 +803,102 @@
                 return true;
         }
 
+        function update_checker_loadhelp ( helpdiv, key )
+        {
+	     var help_base = 'help/simulator-' + get_cfg('ws_idiom') + '.html #' + key;
+	     $(helpdiv).load(help_base,
+			      function(response, status, xhr) {
+				  if ( $(helpdiv).html() == "" )
+				       $(helpdiv).html('<br>Sorry, there is no more details.<p>\n');
+
+				  $(helpdiv).trigger('create');
+			      });
+             ga('send', 'event', 'help', 'help.checker', 'help.checker.' + key);
+	}
+
+        /* 
+         * check dialogs
+	 */
+
+        function get_dialog_title ( dlg_btn_label, dlg_help )
+        {
+            var dialog_title = '<center>' + 
+			       ' <div class="btn-group">' +
+			       '   <button onclick="$(\'#bot_check\').carousel(0);" ' +
+			       '           type="button" class="btn btn-info" ' + 
+                               '           style="height:34px !important;">' + dlg_btn_label + '</button>' +
+                               '   <button onclick="$(\'#bot_check\').carousel(1); ' + 
+                               '                    update_checker_loadhelp(\'#help3\',\'' + dlg_help + '\');" ' +
+			       '           type="button" class="btn btn-success" ' + 
+                               '           style="height:34px !important;">Help</button>' +
+			       '   <button type="button" class="btn btn-success dropdown-toggle" ' +
+ 			       '           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ' + 
+                               '           style="height:34px !important;">' +
+			       '     <span class="caret"></span>' +
+			       '     <span class="sr-only">Toggle Help Idiom</span>' +
+			       '   </button>' +
+			       '   <ul class="dropdown-menu">' +
+                               '    <li><a href="#" onclick="set_cfg(\'ws_idiom\',\'es\'); save_cfg(); ' +
+                               '                             $(\'#bot_check\').carousel(1); ' +
+                               '                             update_checker_loadhelp(\'#help3\',\'' + dlg_help + '\');">ES</a></li>' +
+                               '    <li><a href="#" onclick="set_cfg(\'ws_idiom\',\'en\'); save_cfg(); ' +
+                               '                             $(\'#bot_check\').carousel(1); ' +
+                               '                             update_checker_loadhelp(\'#help3\',\'' + dlg_help + '\');">EN</a></li>' +
+			       '   </ul>' +
+			       ' </div>' +
+			       '</center>' ;
+
+            return dialog_title ;
+        }
+
+        function get_dialog_message ( dlg_title, txt_placeholder, txt_checklist, txt_status )
+        {
+	    var dialog_message = '<div id="bot_check" class="carousel slide" ' + 
+                                 '     data-ride="carousel" data-interval="false">' +
+                                 ' <div class="carousel-inner" role="listbox">' +
+                                 ' <div class="item active">' +
+                                 ' <div>' +
+                                 '<h4>' + dlg_title + '</h4>' +
+                                 '<br>' +
+                                 ' <form class="form-horizontal" style="white-space:wrap;overflow-y:auto;max-height:32vh;">' +
+                                 ' <textarea aria-label="checks to perform" ' +
+                                 '           placeholder="' + txt_placeholder + '"' +
+                                 '           id="end_state" name="end_state" ' + 
+                                 '           class="form-control input-md" rows="5">' + txt_checklist + '</textarea>' +
+                                 ' </form>' +
+                                 ' </div>' +
+			         '<br>' +
+                                 ' <div id="check_results_scroll"' +
+                                 '     style="max-height:25vh; width: inherit; overflow-y: auto;" >' +
+                                 '     <div id="check_results">' + txt_status + '</div>' +
+                                 ' </div>' +
+                                 ' </div>' +
+                                 ' <div class="item">' +
+                                 '   <div id="help3" ' + 
+                                 '     style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>'+
+                                 ' </div>' +
+                                 ' </div>' +
+                                 '</div>';
+
+            return dialog_message ;
+        }
+
         // checkbox-dialog: remembering the last selections...
         var txt_checklist = '' ;
 
-        function dialog_cannot_continue ( )
+        function dialog_stop_and_state ( dlg_title )
         {
 	    var chkbox = null ;
 
-      	    var dialog_title   = 'The program has finished because the PC register points outside .ktext/.text code segments' ;
-
-	    var dialog_message = 'If you wish additions checks, please introduce them and press check.<br>' +
-	                         'If you want the checks for the current state, then please press dump.<br>' +
-			         '<br>' +
-                                 '<div>' +
-                                 '   <form class="form-horizontal" style="white-space:nowrap;">' +
-                                 '   <textarea aria-label="checks to perform" ' +
-                                 '          id="end_state" name="end_state" ' + 
-                                 '          class="form-control input-md" rows="5">' + txt_checklist + '</textarea>' +
-                                 '   </form>' +
-                                 '</div>' +
-			         '<br>' +
-                                 '<div id="check_results_scroll"' +
-                                 '     style="max-height:25vh; width: inherit; overflow-y: auto;" >' +
-                                 '   <div id="check_results">&nbsp;</div>' +
-                                 '</div>' ;
-
+	    var dialog_title   = get_dialog_title('State', 'help_checker') ;
+	    var dialog_message = get_dialog_message(dlg_title, 'Please drop the requirement list here. See help for more information.', txt_checklist, '&nbsp;') ;
             var dialog_btns = new Object() ;
                 dialog_btns["clear"] = {
 	    	        label: 'Clear',
 		        className: 'btn-default',
 		        callback: function() {
                             txt_checklist = '' ;
+			    $('#end_state').tokenfield('setTokens', []);
                             $('#end_state').val('');
                             $('#check_results').html('&nbsp;');
 
@@ -840,37 +907,24 @@
 		    } ;
                 dialog_btns["check"] = {
 	    	        label: 'Check',
-		        className: 'btn-default',
+		        className: 'btn-info',
 		        callback: function() {
                                 txt_checklist = $('#end_state').val();
                             var obj_checklist = wepsim_read_checklist(txt_checklist) ;
                             var obj_result    = wepsim_to_check(obj_checklist) ;
 
                             if (0 == obj_result.errors)
-                                 var msg = "<span style='background-color:#7CFC00'>" + 
-                                           "Meets the specified requirements</span>" ;
+                                 var msg = "<span style='background-color:#7CFC00'>Meets the specified requirements</span>" ;
                             else var msg = wepsim_checkreport2html(obj_result.result, true) ;
                             $('#check_results').html(msg);
-
-                            return false;
-		        }
-		    } ;
-                dialog_btns["dump"] = {
-		        label: 'Dump',
-		        className: 'btn-default',
-		        callback: function() {
-                            var txt_checklist = wepsim_dump_checklist();
-
-                            $('#end_state').val(txt_checklist);
-                            $('#check_results').html("<span style='background-color:yellow'>" + 
-                                                     "State dumped.</span>");
+                            ga('send', 'event', 'state', 'state.check', 'state.check.' + msg);
 
                             return false;
 		        }
 		    } ;
                 dialog_btns["ok"] = {
-	    	        label: '&nbsp;OK&nbsp;',
-		        className: 'btn-success',
+	    	        label: '&nbsp;&nbsp;OK&nbsp;&nbsp;',
+		        className: 'btn-primary',
 		        callback: function() {
                             // chkbox.modal("hide") ;
 				
@@ -884,6 +938,67 @@
 	                buttons: dialog_btns,
                         animate: false
 	             });
+
+            // testing: tokenfield:
+            chkbox.init(function() {
+                            $('#end_state').tokenfield({
+                                    autocomplete: { source: ['register','memory','screen'], delay: 100 },
+                                    showAutocompleteOnFocus: true,
+                                    allowEditing: true,
+                                    allowPasting: true,
+                                    limit: 0,
+                                    createTokensOnBlur: false,
+                                    delimiter: ';',
+                                    beautify: true,
+                                    inputType: 'textarea'
+                            }) ;
+                       });
+
+	    return chkbox;
+        }
+
+        function dialog_current_state ( dlg_title )
+        {
+	    var chkbox = null ;
+
+            var txt_checklist = wepsim_dump_checklist();
+	    ga('send', 'event', 'state', 'state.dump', 'state.dump.' + txt_checklist);
+
+	    var dialog_title   = get_dialog_title('State', 'help_dumper') ;
+	    var dialog_message = get_dialog_message(dlg_title, 
+		                                    'Current state as requirement list.', 
+		                                    txt_checklist,
+		                                    "<span style='background-color:yellow'>Current state dumped.</span>") ;
+            var dialog_btns = new Object() ;
+                dialog_btns["ok"] = {
+	    	        label: '&nbsp;&nbsp;OK&nbsp;&nbsp;',
+		        className: 'btn-primary',
+		        callback: function() {
+                            return true;
+		        }
+		    } ;
+
+	    chkbox = bootbox.dialog({
+	                title:   dialog_title,
+	                message: dialog_message,
+	                buttons: dialog_btns,
+                        animate: false
+	             });
+
+            // testing: tokenfield:
+            chkbox.init(function() {
+                            $('#end_state').tokenfield({
+                                    autocomplete: { source: ['register','memory','screen'], delay: 100 },
+                                    showAutocompleteOnFocus: true,
+                                    allowEditing: true,
+                                    allowPasting: true,
+                                    limit: 0,
+                                    createTokensOnBlur: false,
+                                    delimiter: ';',
+                                    beautify: true,
+                                    inputType: 'textarea'
+                            }) ;
+                       });
 
 	    return chkbox;
         }
@@ -909,8 +1024,10 @@
 		}
 
                 // if (reg_maddr == 0) && (outside *text) -> cannot continue
-	        if (with_ui) {
-                    dialog_cannot_continue() ;
+	        if (with_ui) 
+                {
+      	            var dialog_title = 'The program has finished because the PC register points outside .ktext/.text code segments' ;
+                    dialog_stop_and_state(dialog_title) ;
 	        }
 
 		return false;

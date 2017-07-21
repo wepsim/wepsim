@@ -109,15 +109,18 @@
         {
             if (with_ui)
                 showError(SIMWAREaddon.error, "inputasm") ;
+
             return false;
         }
 
-        if (with_ui)
+        if (with_ui) 
+	{
 	    $.notify({ title: '<strong>INFO</strong>', message: 'Assembly was compiled and loaded.'},
 		     { type: 'success',
                        newest_on_top: true,
                        delay: get_cfg('NOTIF_delay'),
                        placement: { from: 'top', align: 'center' } });
+	}
 
         // update memory and segments
         set_simware(SIMWAREaddon) ;
@@ -133,6 +136,7 @@
         }
 
 	reset();
+
         return true;
     }
 
@@ -397,17 +401,30 @@
         var reg_maddr     = get_value(sim_states["REG_MICROADDR"]) ;
         var notifications = MC_dashboard[reg_maddr].notify.length ;
 
-        if (1 == notifications)
+        if (1 == notifications) {
             return false ;
+	}
 
-        var ret  = false ;
         var noti = "" ;
-        for (var i=1; i<notifications; i++)
-        {
-             noti = MC_dashboard[reg_maddr].notify[i] ;
-	     ret  = confirm("Notify @ " + reg_maddr + ":\n" + noti) ;
-             if (ret) return true ;
+        for (var i=1; i<notifications; i++) {
+             noti += MC_dashboard[reg_maddr].notify[i] + "\n<br>" ;
         }
+
+        // var dialog_title = "Notify @ " + reg_maddr + ":<br>" + noti ;
+        // dialog_stop_and_state(dialog_title) ;
+
+	bootbox.confirm({
+	    title:    "Notify @ " + reg_maddr + ":",
+	    message:  noti,
+	    buttons:  {
+		        cancel:  { label: '<i class="fa fa-times"></i> Stop'  },
+		        confirm: { label: '<i class="fa fa-check"></i> Next notification' }
+		      },
+	    callback: function (result) {
+		      }
+	});
+
+        return true ;
     }
 
     function wepsim_check_stopbybreakpoint_firm ( )
@@ -417,8 +434,11 @@
             return false ;
 
 	var curr_addr = "0x" + reg_maddr.toString(16) ;
-	alert("Breakpoint @ " + curr_addr + ":\n" +
-	      "Microinstruction at " + curr_addr + " is going to be issue.") ;
+
+	var dialog_title = "Breakpoint @ " + curr_addr + ":<br>" +
+	                   "Microinstruction is going to be issue." ;
+        dialog_stop_and_state(dialog_title) ;
+
 	return true ;
     }
 
@@ -433,8 +453,10 @@
 	if (false == FIRMWARE.assembly[curr_addr].breakpoint)
             return false ;
 
-	alert("Breakpoint @ " + curr_addr + ":\n" +
-	      "Instruction at " + curr_addr + " is going to be fetched.") ;
+	var dialog_title = "Breakpoint @ " + curr_addr + ":<br>" +
+	                   "Instruction is going to be fetched." ;
+        dialog_stop_and_state(dialog_title) ;
+
 	return true ;
     }
 
@@ -587,8 +609,8 @@
                                   if (true == chain_next_step)
 				      setTimeout(function(){
 					            $.mobile.pageContainer.pagecontainer('change', '#main1');
+                                                    show_memories_values();
 				                 }, 50);
-                                  show_memories_values();
 			    }
 
 			    $.notify({ title: '<strong>INFO</strong>',
@@ -922,44 +944,33 @@
     function wepsim_read_checklist ( checklist )
     {
         var o = new Object() ;
-        o.registers = new Object() ;
-        o.memory    = new Object() ;
-        o.screen    = new Object() ;
+	var ret = false ;
 
+	// white-spaces...
+	checklist = checklist.replace(/;|==|!=|>=|<=|=|>|</gi, function (x){return ' ' + x + ' ';});  
+        checklist = checklist.replace(/  /g,' ') ;
+
+	// lines...
         var lines = checklist.split(";") ;
         for (var i=0; i<lines.length; i++)
         {
-             check = lines[i].trim().split(" ");
+             var line = lines[i].trim() ;
+	     if ("" == line)
+		 continue ;
 
-	     // to check the check line itself...
-             if (check == "") {
-                 continue;
+             var parts = line.split(" ") ;
+	     if (parts.length < 4)
+		 continue ;
+
+	     var check = { "type": parts[0], "id": parts[1], "condition": parts[2], "value": decodeURI(parts[3]) } ;
+             for (var index in sim_components) 
+             {
+	          ret = sim_components[index].read_state(o, check) ;
+                  if (true == ret) break ;
              }
 
-             if (check.length < 3) {
-                 console.log("ERROR in checklist at line " + i + ": " + lines[i]);
-                 continue;
-             }
-
-             // TODO: support "register $0 >= 100" (right now "register $0 100"
-             // TODO: translate $t0 into $...
-
-	     // add the checking to be performed...
-             component_name = check[0].toUpperCase().trim() ;
-             switch (component_name) 
-	     {
-		 case "REGISTER":
-                        o.registers[check[1]] = check[2] ;
-		        break;
-		 case "MEMORY":
-                        o.memory[check[1]] = check[2] ;
-		        break;
-		 case "SCREEN":
-                        o.screen[check[1]] = check[2] ;
-		        break;
-		 default:
-                        console.log("ERROR in checklist at component " + component_name + ": " + lines[i]);
-             }
+             if (false == ret)
+                 console.log("ERROR in checklist at component " + check.type + ": " + line) ;
         }
 
         return o ;
@@ -967,99 +978,100 @@
 
     function wepsim_dump_checklist ( )
     {
-        var ret = "" ;
+	var o = new Object() ;
+	for (var index in sim_components) {
+	     sim_components[index].write_state(o) ;
+	}
 
-        for (var index in sim_components) 
-	     ret = ret + sim_components[index].dump_state() ;
+	var ret = "" ;
+        for (var component in o) 
+	{
+	     for (var eltos in o[component]) {
+		  var elto = o[component][eltos] ;
+	          ret = ret + elto.type + " " + elto.id + " " + elto.op + " " + encodeURI(elto.value) + "; " ;
+	     }
+	}
 
         return ret ;
     }
 
     function wepsim_to_check ( expected_result )
     {
-        var result = new Array() ;
-        var errors = 0 ;
-
-        if (typeof expected_result.registers != "undefined")
-        {
-            for (var reg in expected_result.registers)
-            {
-                 // TODO: translate $t0, ...
-
-                 var index = parseInt(reg) ;
-		 if (typeof sim_states['BR'][index] == "undefined")
-		     continue ;
-
-                 var expected_value = parseInt(expected_result.registers[index]) ;
-                 var obtained_value = get_value(sim_states['BR'][index]) ; 
-
-                 var diff = new Object() ;
-                 diff.expected  = "0x" + expected_value.toString(16) ;
-                 diff.obtained  = "0x" + obtained_value.toString(16) ;
-                 diff.equals    = (expected_value == obtained_value) ;
-                 diff.elto_type = "register" ;
-                 diff.elto_id   = reg ;
-                 result.push(diff) ;
-
-                 if (diff.equals === false) {
-		     errors++ ;
-	         }
-            }
-        }
-
-        if (typeof expected_result.memory != "undefined")
-        {
-            for (var mp in expected_result.memory)
-            {
-                 var expected_value = parseInt(expected_result.memory[mp]) ;
-                 var obtained_value = 0 ;
-
-                 var index = parseInt(mp) ;
-                 if (typeof MP[index] != "undefined")
-                     obtained_value = parseInt(MP[index]) ;
-
-                 var diff = new Object() ;
-                 diff.expected  = "0x" + expected_value.toString(16) ;
-                 diff.obtained  = "0x" + obtained_value.toString(16) ;
-                 diff.equals    = (expected_value == obtained_value) ;
-                 diff.elto_type = "memory" ;
-                 diff.elto_id   = mp ;
-                 result.push(diff) ;
-
-                 if (diff.equals === false) {
-		     errors++ ;
-	         }
-            }
-        }
-
-        if (typeof expected_result.screen != "undefined")
-        {
-            var sim_screen = get_screen_content() ;
-            var sim_lines  = sim_screen.trim().split("\n") ;
-            for (var line in expected_result.screen)
-            {
-                 var index = parseInt(line) ;
-                 if (typeof sim_lines[index] == "undefined")
-                      var value = "" ;
-                 else var value = sim_lines[index] ;
-
-                 var diff = new Object() ;
-                 diff.expected  = expected_result.screen[index] ;
-                 diff.obtained  = value ;
-                 diff.equals    = (expected_result.screen[index] == value) ;
-                 diff.elto_type = "screen" ;
-                 diff.elto_id   = line ;
-                 result.push(diff) ;
-
-                 if (diff.equals === false) {
-		     errors++ ;
-	         }
-            }
-        }
-
         var d = new Object() ;
-        d.result = result ;
-        d.errors = errors ;
+        d.result = new Array() ;
+        d.errors = 0 ;
+
+	var current = new Object() ;
+	for (var compo in sim_components)
+	{
+	    // get current state
+	    sim_components[compo].write_state(current) ;
+
+	    // if there are different values -> diff
+            if (typeof expected_result[compo] != "undefined") 
+	    {
+		    for (var elto in expected_result[compo])
+		    {
+			 var obtained_value = sim_components[compo].get_state(elto) ;
+			 if (null == obtained_value) {
+			     continue ;
+		         }
+
+			 var diff = new Object() ;
+			 diff.expected  = expected_result[compo][elto].value ;
+			 diff.obtained  = obtained_value ;
+			 diff.elto_type = compo.toLowerCase() ;
+			 diff.elto_id   = expected_result[compo][elto].id ;
+			 diff.elto_op   = expected_result[compo][elto].op ;
+
+		         diff.fulfill   = false ;
+			 if ("=" == expected_result[compo][elto].op)
+			     diff.fulfill = (parseInt(diff.obtained) == parseInt(diff.expected)) ;
+			 if (">" == expected_result[compo][elto].op)
+			     diff.fulfill = (parseInt(diff.obtained)  > parseInt(diff.expected)) ;
+			 if ("<" == expected_result[compo][elto].op)
+			     diff.fulfill = (parseInt(diff.obtained)  < parseInt(diff.expected)) ;
+			 if (">=" == expected_result[compo][elto].op)
+			     diff.fulfill = (parseInt(diff.obtained) >= parseInt(diff.expected)) ;
+			 if ("<=" == expected_result[compo][elto].op)
+			     diff.fulfill = (parseInt(diff.obtained) <= parseInt(diff.expected)) ;
+			 if ("==" == expected_result[compo][elto].op)
+			     diff.fulfill = (diff.expected == diff.obtained) ;
+			 if ("!=" == expected_result[compo][elto].op)
+			     diff.fulfill = (diff.expected != diff.obtained) ;
+
+			 d.result.push(diff) ;
+
+			 if (diff.fulfill === false)
+			     d.errors++ ;
+		    }
+            }
+
+	    // if there are new elements -> diff
+	    if (typeof current[compo] != "undefined")
+	    {
+		    for (var elto in current[compo]) 
+		    {
+			 if ( (typeof expected_result[compo]       != "undefined") && 
+			      (typeof expected_result[compo][elto] != "undefined") ) {
+			       continue ;
+		         }
+
+			 var diff = new Object() ;
+			 diff.expected  = current[compo][elto].default_value ;
+			 diff.obtained  = current[compo][elto].value ;
+			 diff.fulfill   = (diff.expected == diff.obtained) ;
+			 diff.elto_type = compo.toLowerCase() ;
+			 diff.elto_id   = current[compo][elto].id ;
+			 diff.elto_op   = "=" ;
+			 d.result.push(diff) ;
+
+			 if (diff.fulfill === false)
+			     d.errors++ ;
+		    }
+	    }
+        }
+
         return d ;
     }
 
@@ -1069,7 +1081,7 @@
 
         for (var i=0; i<checklist.length; i++)
         {
-             if (checklist[i].equals === false) {
+             if (checklist[i].fulfill === false) {
                  o += checklist[i].elto_type + "[" + checklist[i].elto_id + "]='" +
                       checklist[i].obtained + "' (expected '" + checklist[i].expected  + "'), ";
              }
@@ -1098,17 +1110,17 @@
              "<tbody>" ;
         for (var i=0; i<checklist.length; i++)
         {
-             if (checklist[i].equals === false)
+             if (checklist[i].fulfill === false)
                   color = "danger" ;
              else color = "success" ;
 
-             if (only_errors && checklist[i].equals)
+             if (only_errors && checklist[i].fulfill)
                  continue ;
 
              o += "<tr class=" + color + ">" +
                   "<td>" + checklist[i].elto_type + "</td>" +
                   "<td>" + checklist[i].elto_id   + "</td>" +
-                  "<td>" + checklist[i].expected  + "</td>" +
+                  "<td>" + checklist[i].elto_op + "&nbsp;" + checklist[i].expected  + "</td>" +
                   "<td>" + checklist[i].obtained  + "</td>" +
                   "</tr>" ;
         }

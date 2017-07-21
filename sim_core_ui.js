@@ -258,7 +258,7 @@
 		if (-127 == exponent)
 		    if (1 == mantissa)
 			 valuef = (sign == 1) ? "+0" : "-0" ;
-		    else valuef = sign * ((hexvalue & 0x7fffff) / 0x7fffff) * Math.pow(2, 126) ;
+		    else valuef = sign * ((hexvalue & 0x7fffff) / 0x7fffff) * Math.pow(2, -126) ;
 		if (128 == exponent)
 		    if (1 == mantissa)
 			 valuef = (sign == 1) ? "+Inf" : "-Inf" ;
@@ -598,34 +598,61 @@
             }
 
             // stats holder
-            var o1 = "<center>" +
-                     "<table class='table table-hover table-condensed table-bordered table-responsive'>" +
-                     "<tr>" +
-                     "<td align=center width=50%>Instructions</td>" +
-                     "<td align=center width=50%>" +
-                     "<div id='ins_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
-                     "</td>" +
-                     "</tr>" +
-                     "<tr>" +
-                     "<td align=center width=50%>CLK ticks</td>" +
-                     "<td align=center width=50%>" +
-                     "<div id='clk_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
-                     "</td>" +
-                     "</tr>" ;
-               o1 += "<tr><td colspan=2>&nbsp;</td></tr>" ;
+	    var o1 = "" ;
+
+	       // IO
+               o1 += "<div class='col-xs-7 col-sm-7 col-lg-7' style='padding:0 0 0 0;'>" +
+                     "<div class='panel panel-default'>" +
+                     "<div class='panel-heading'>" +
+                     " <h3 class='panel-title'>I/O</h3>" +
+                     "</div>" +
+                     "<div class='panel-body' id='mempanel1' style='padding:0 0 0 0;'>" +
+                     "  <table class='table table-hover table-condensed table-bordered table-responsive' style='margin:0'>" +
+                     "  <tbody class='ui-mini'>" ;
             for (var i=0; i<IO_INT_FACTORY.length; i++)
             {
-               o1 += "<tr id='int" + i + "_context'>" +
-                     "<td align=center width=50%>" +
-                     "<span data-bind=\"style: {fontWeight: active() ? 'bold' : ''}\">" + "Interrupt " + i + "</span>" +
-                     "</td>" +
-                     "<td align=center width=50%>" +
-                     "<span data-bind='text: accumulated'>&nbsp;</span>" +
-                     "</td>" +
-                     "</tr>" ;
+               o1 += "  <tr id='int" + i + "_context'>" +
+                     "  <td align=center width=50%>" +
+                     "  <span data-bind=\"style: {fontWeight: active() ? 'bold' : ''}\">" + "Interrupt " + i + "</span>" +
+                     "  </td>" +
+                     "  <td align=center width=50%>" +
+                     "  <span data-bind='text: accumulated'>&nbsp;</span>" +
+                     "  </td>" +
+                     "  </tr>" ;
             }
-            o1 += "</table>" +
-                  "</center>" ;
+               o1 += "  </tbody>" +
+		     "  </table>" +
+                     "</div>" +
+                     "</div>" +
+                     "</div>" ;
+
+	       // CPU
+               o1 += "<div class='col-xs-5 col-sm-5 col-lg-5' style='padding:0 0 0 5;'>" +
+                     "<div class='panel panel-default'>" +
+                     "<div class='panel-heading'>" +
+                     " <h3 class='panel-title'>CPU</h3>" +
+                     "</div>" +
+                     "<div class='panel-body' id='cpupanel1' style='padding:0 0 0 0;'>" +
+                     "  <table class='table table-hover table-condensed table-bordered table-responsive' style='margin:0'>" +
+                     "  <tbody class='ui-mini'>" +
+                     "  <tr>" +
+                     "  <td align=center width=50%>Instructions</td>" +
+                     "  <td align=center width=50%>" +
+                     "  <div id='ins_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
+                     "  </td>" +
+                     "  </tr>" +
+                     "  <tr>" +
+                     "  <td align=center width=50%>CLK ticks</td>" +
+                     "  <td align=center width=50%>" +
+                     "  <div id='clk_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
+                     "  </td>" +
+                     "  </tr>" +
+                     "  </tbody>" +
+		     "  </table>" +
+                     "</div>" +
+                     "</div>" +
+                     "</div>" ;
+
             $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
 
             // knockout binding

@@ -44,6 +44,7 @@ cat external/bootstrap.min.js \
     external/split.min.js \
     external/codemirror.js \
     external/codemirror.javascript.js \
+    external/codemirror.gas.js \
     external/codemirror.keymap/sublime.js \
     external/codemirror.keymap/emacs.js \
     external/codemirror.keymap/vim.js \
@@ -56,8 +57,11 @@ cat external/bootstrap.min.js \
     external/codemirror.fold/indent-fold.js \
     external/codemirror.fold/markdown-fold.js \
     external/codemirror.show-hint/codemirror.show-hint.js > external/external.min.js \
+    external/codemirror.runmode/colorize.js > external/external.min.js \
     external/vis.min.js \
-    external/async.js
+    external/async.js \
+    external/bootstrap-select.min.js \
+    external/bootstrap-tokenfield.js
 
 cat external/bootstrap.min.css \
     external/bootstrap-theme.min.css \
@@ -66,5 +70,7 @@ cat external/bootstrap.min.css \
     external/codemirror.theme/blackboard.css \
     external/codemirror.fold/foldgutter.css \
     external/codemirror.show-hint/codemirror.show-hint.css > external/external.min.css \
-    external/vis-network.min.css
+    external/vis-network.min.css \
+    external/bootstrap-select.min.css \
+    external/bootstrap-tokenfield.css
 

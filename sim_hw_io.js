@@ -26,10 +26,15 @@
         sim_components["IO"] = {
 		                  name: "IO", 
 		                  version: "1", 
-		                  dump_state: function() {
-						  var ret = "" ;
-						  return ret;
-				              } 
+		                  write_state: function ( vec ) {
+						  return vec;
+				               },
+		                  read_state:  function ( o, check ) {
+                                                  return false ;
+				               },
+		                  get_state:   function ( reg ) {
+					          return null ;
+				               } 
                             	};
 
 

@@ -238,16 +238,16 @@
 
                     <div class="btn-toolbar" role="toolbar" id="sim_toolbar" style="padding: 0 0px 10px 0px;">
 			<div class="btn-group btn-group-justified" role="group">
-			    <a          href="#" style="background-color: #CCCCCC"
+			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-reset   ui-btn-icon-top ui-mini"
 			       onclick="wepsim_execute_reset();">Reset</a>
-			    <a          href="#" style="background-color: #CCCCCC"
+			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini"
 			       onclick="wepsim_execute_microinstruction();">&#181;Instruction</a>
-			    <a          href="#" style="background-color: #CCCCCC"
+			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini"
 			       onclick="wepsim_execute_instruction();">Instruction</a>
-			    <a id="qbp" href="#" style="background-color: #CCCCCC"
+			    <a id="qbp" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-carat-r ui-btn-icon-top ui-mini"
 			       onclick="wepsim_execute_toggle_play('#qbp'); return false;">Run</a>
 			    <a id="ib1" href="#" style="background-color: #D4DB17; -webkit-text-shadow: none; text-shadow: none;"
@@ -256,18 +256,60 @@
                         </div>
                     </div>
 
+
+		    <fieldset class="ui-grid-c">
+			<div class="ui-block-a" style="width:20%">
+		          <button class="btn ui-btn ui-shadow ui-corner-all"
+		                  style="background: #dedede !important; border-color:white; border-width:1 1 1 1px;"
+		                  onclick="dialog_current_state('Current State');"><b>State</b></button>
+			</div>
+			<div class="ui-block-d" style="width:20%">
+		          <button class="btn ui-btn ui-shadow ui-corner-all"
+		                  style="background: #dedede !important; border-color:white; border-width:1 1 1 1px;"
+			          onclick='$("#tab13").trigger("click");'><b>Configuration</b></button>
+			</div>
+			<div class="ui-block-c" style="width:40%; margin: 7 0 0 0">
+                          <select name="select5a" id="select5a" class="selectpicker" 
+				  data-container="body" data-role="none" data-width="100%" data-size="false"
+                                  onchange="var val = this.value;
+				            $('#tab' + val).trigger('click');"> 
+				  <optgroup label="CPU">
+				      <option value="11" selected data-content="<span class='label label-primary'>CPU</span>&nbsp;Registers"><a href="#all">Registers</a></option>
+			              <option value="16"  data-content="<span class='label label-primary'>CPU</span>&nbsp;Control Memory"><a href="#mc" >Control Memory</a></option>
+				  </optgroup>
+				  <optgroup label="Main Memory">
+				      <option value="14"  data-content="<span class='label label-primary'>MM</span>&nbsp;Memory"><a href="#mp" >Memory</a></option>
+				  </optgroup>
+				  <optgroup label="Devices">
+				      <option value="12"  data-content="<span class='label label-primary'>Dev</span>&nbsp;Keyboard+Display"><a href="#con">Keyboard+Display</a></option>
+				      <option value="15"  data-content="<span class='label label-primary'>Dev</span>&nbsp;I/O"><a href="#io" >I/O</a></option>
+				  </optgroup>
+			  </select>
+			</div>
+			<div class="ui-block-b" style="width:20%">
+		          <button class="btn ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-refresh"
+		                  style="background: #dedede !important; border-color:white; border-width:1 1 1 1px;"
+                                  onclick="var val = $('#select5a').val();
+				           $('#tab' + val).trigger('click');
+				           if ('11' == val)
+					        show_rf_values();
+				           else show_memories_values();"><b>Refresh</b></button>
+			</div>
+    		    </fieldset>
+
 		    <div data-role="tabs" id="tabs1">
+
     		      <div data-role="navbar" id="tabsnav1" class="ui-responsive">
 		        <ul>
-		          <li                    style="clear:none;width:33% !important"><a id="tab14" href="#mp" onclick="show_memories_values();">Memory</a></li>
-		          <li                    style="clear:none;width:33% !important"><a id="tab12" href="#con">Console</a></li>
-		          <li class="ui-block-a" style="clear:none;width:33% !important;border:1px solid #ddd;"><a id="tab15" href="#io">Statistics</a></li>
-                          <br>
-		          <li style="           width:33% !important"><a id="tab11" href="#all" class="ui-btn-active" onclick="show_rf_values();">Registers</a></li>
-		          <li style="clear:none;width:33% !important"><a id="tab16" href="#mc" onclick="show_memories_values();">Control Memory</a></li>
-		          <li style="clear:none;width:33% !important"><a id="tab13" href="#config">Configuration</a></li>
+		          <li style="display:none;clear:none;width:33% !important"><a id="tab14" href="#mp">Memory</a></li>
+		          <li style="display:none;clear:none;width:33% !important"><a id="tab12" href="#con">Console</a></li>
+		          <li style="display:none;           width:33% !important"><a id="tab11" href="#all">Registers</a></li>
+		          <li style="display:none;clear:none;width:33% !important"><a id="tab16" href="#mc">Control Memory</a></li>
+                          <li style="display:none;clear:none;width:33% !important"><a id="tab13" href="#config">Configuration</a></li>
+                          <li style="display:none;clear:none;width:33% !important"><a id="tab15" href="#io">Information</a></li>
 		        </ul>
 		      </div>
+
 		      <div id="all"  class="ui-body-d ui-content" style="padding: 15 0px 0 0px;">
 		         <div id="states_ALL"          style="width: inherit; overflow-y: auto;"></div>
 			 <br style="height:0; width:100%; font-size:0; margin:5; padding:0; border:0; display:block;">
@@ -883,9 +925,9 @@
 				      set_cfg('DBG_limitick',optValue); save_cfg();"
 			    data-native-menu="false">
 			<option value="-1">no limit</option>
-			<option value="1000">1000</option>
-			<option value="10000">10000</option>
-			<option value="100000">10000</option>
+			<option value="1000"  >1000</option>
+			<option value="10000" >10000</option>
+			<option value="100000">100000</option>
 		    </select>
 		 </fieldset>
           </td>
@@ -1086,11 +1128,11 @@
 					value: "",
 					lineNumbers: true,
 					matchBrackets: true,
-					mode: "text/x-csrc",
 					foldGutter: {
 						rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.brace, CodeMirror.fold.comment)
 					},
-					gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
+					gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+					mode: "text/javascript"
 				    });
                     sim_prepare_editor(inputfirm);
 
@@ -1112,7 +1154,7 @@
 					      });
 					  }
 					},
-					mode: "text/x-csrc"
+					mode: "gas"
 				    });
                     sim_prepare_editor(inputasm) ;
 
@@ -1151,6 +1193,12 @@
                     $("#img_select1").attr("src","images/stop_" + get_cfg('ICON_theme') + ".gif");
                     set_cpu_cu_size('#eltos_cpu_a','#eltos_cpu_b',get_cfg('CPUCU_size'));
                     $("#slider2").val(get_cfg('CPUCU_size')).slider("refresh");
+
+                    $('#slider2d').toggle(); 
+                    $(".selectpicker").selectpicker({
+		           style: 'btn-default',
+		           size: false
+	            });
 
                     showhideAsmElements();
 		    $("input:checkbox").click(function(){
