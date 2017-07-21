@@ -864,7 +864,9 @@
                                  ' <textarea aria-label="checks to perform" ' +
                                  '           placeholder="' + txt_placeholder + '"' +
                                  '           id="end_state" name="end_state" ' + 
-                                 '           class="form-control input-md" rows="5">' + txt_checklist + '</textarea>' +
+                                 '           class="form-control input-md speech-input" rows="5">' + 
+			           txt_checklist + 
+			         '</textarea>' +
                                  ' </form>' +
                                  ' </div>' +
 			         '<br>' +

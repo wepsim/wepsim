@@ -61,7 +61,8 @@ cat external/bootstrap.min.js \
     external/vis.min.js \
     external/async.js \
     external/bootstrap-select.min.js \
-    external/bootstrap-tokenfield.js
+    external/bootstrap-tokenfield.js \
+    external/speech-input.js
 
 cat external/bootstrap.min.css \
     external/bootstrap-theme.min.css \
@@ -72,5 +73,6 @@ cat external/bootstrap.min.css \
     external/codemirror.show-hint/codemirror.show-hint.css > external/external.min.css \
     external/vis-network.min.css \
     external/bootstrap-select.min.css \
-    external/bootstrap-tokenfield.css
+    external/bootstrap-tokenfield.css \
+    external/speech-input.css
 
