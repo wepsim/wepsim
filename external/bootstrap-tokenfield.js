@@ -1,8 +1,9 @@
-/*!
- * bootstrap-tokenfield
- * https://github.com/sliptree/bootstrap-tokenfield
- * Copyright 2013-2014 Sliptree and other contributors; Licensed MIT
- */
+//
+//
+// bootstrap-tokenfield
+// https://github.com/sliptree/bootstrap-tokenfield
+// Copyright 2013-2014 Sliptree and other contributors; Licensed MIT
+//
 
 (function (factory) {
   if (typeof define === 'function' && define.amd) {

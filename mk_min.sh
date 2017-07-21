@@ -61,7 +61,7 @@ cat external/bootstrap.min.js \
     external/vis.min.js \
     external/async.js \
     external/bootstrap-select.min.js \
-    external/bootstrap-tokenfield.min.js
+    external/bootstrap-tokenfield.js
 
 cat external/bootstrap.min.css \
     external/bootstrap-theme.min.css \
