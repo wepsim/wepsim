@@ -863,10 +863,15 @@
                                  ' <form class="form-horizontal" style="white-space:wrap;overflow-y:auto;max-height:32vh;">' +
                                  ' <textarea aria-label="checks to perform" ' +
                                  '           placeholder="' + txt_placeholder + '"' +
-                                 '           id="end_state" name="end_state" ' + 
-                                 '           class="form-control input-md speech-input" rows="5">' + 
-			           txt_checklist + 
-			         '</textarea>' +
+                                 '           id="end_state" ' + 
+			         '           name="end_state" ' + 
+                                 '           data-allowEditing="true" ' +
+                                 '           data-allowPasting="true" ' +
+                                 '           data-limit="0" ' +
+                                 '           data-createTokensOnBlur="false" ' +
+                                 '           data-delimiter=";" ' +
+                                 '           data-beautify="true" ' +
+                                 '           class="form-control input-xs speech-input" rows="5">' + txt_checklist + '</textarea>' +
                                  ' </form>' +
                                  ' </div>' +
 			         '<br>' +
@@ -919,7 +924,7 @@
                                  var msg = "<span style='background-color:#7CFC00'>Meets the specified requirements</span>" ;
                             else var msg = wepsim_checkreport2html(obj_result.result, true) ;
                             $('#check_results').html(msg);
-                            ga('send', 'event', 'state', 'state.check', 'state.check.' + msg);
+                            ga('send', 'event', 'state', 'state.check', 'state.check.' + obj_result.errors);
 
                             return false;
 		        }
@@ -941,19 +946,17 @@
                         animate: false
 	             });
 
-            // testing: tokenfield:
+            // tokenfield:
             chkbox.init(function() {
                             $('#end_state').tokenfield({
                                     autocomplete: { source: ['register','memory','screen'], delay: 100 },
                                     showAutocompleteOnFocus: true,
-                                    allowEditing: true,
-                                    allowPasting: true,
-                                    limit: 0,
-                                    createTokensOnBlur: false,
-                                    delimiter: ';',
-                                    beautify: true,
                                     inputType: 'textarea'
                             }) ;
+
+		            var inputEls = document.getElementById('end_state');
+		            if (null != inputEls)
+		                setup_speech_input(inputEls) ;
                        });
 
 	    return chkbox;
@@ -964,13 +967,14 @@
 	    var chkbox = null ;
 
             var txt_checklist = wepsim_dump_checklist();
-	    ga('send', 'event', 'state', 'state.dump', 'state.dump.' + txt_checklist);
+
+	    var s=0 ;
+            for(var i=0; i<txt_checklist.length; i++)
+		if (';' == txt_checklist[i]) s++ ;
+	    ga('send', 'event', 'state', 'state.dump', 'state.dump.' + s);
 
 	    var dialog_title   = get_dialog_title('State', 'help_dumper') ;
-	    var dialog_message = get_dialog_message(dlg_title, 
-		                                    'Current state as requirement list.', 
-		                                    txt_checklist,
-		                                    "<span style='background-color:yellow'>Current state dumped.</span>") ;
+	    var dialog_message = get_dialog_message(dlg_title, 'Empty...', txt_checklist, '') ;
             var dialog_btns = new Object() ;
                 dialog_btns["ok"] = {
 	    	        label: '&nbsp;&nbsp;OK&nbsp;&nbsp;',
@@ -987,19 +991,17 @@
                         animate: false
 	             });
 
-            // testing: tokenfield:
+            // tokenfield:
             chkbox.init(function() {
                             $('#end_state').tokenfield({
                                     autocomplete: { source: ['register','memory','screen'], delay: 100 },
                                     showAutocompleteOnFocus: true,
-                                    allowEditing: true,
-                                    allowPasting: true,
-                                    limit: 0,
-                                    createTokensOnBlur: false,
-                                    delimiter: ';',
-                                    beautify: true,
                                     inputType: 'textarea'
                             }) ;
+
+		            var inputEls = document.getElementById('end_state');
+		            if (null != inputEls)
+		                setup_speech_input(inputEls) ;
                        });
 
 	    return chkbox;

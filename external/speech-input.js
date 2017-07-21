@@ -1,21 +1,22 @@
 /*global webkitSpeechRecognition */
-(function() {
-	'use strict';
 
+// default message
+var talkMsg = 'Speak now';
+
+// seconds to wait for more input after last
+var defaultPatienceThreshold = 6;
+
+
+function setup_speech_input (inputEl) 
+{
 	// check for support (webkit only)
-	if (!('webkitSpeechRecognition' in window)) return;
-
-	var talkMsg = 'Speak now';
-	// seconds to wait for more input after last
-  	var defaultPatienceThreshold = 6;
+	if (!('webkitSpeechRecognition' in window)) 
+		return;
 
 	function capitalize(str) {
 		return str.charAt(0).toUpperCase() + str.slice(1);
 	}
 
-	var inputEls = document.getElementsByClassName('speech-input');
-
-	[].forEach.call(inputEls, function(inputEl) {
 		var patience = parseInt(inputEl.dataset.patience, 10) || defaultPatienceThreshold;
 		var micBtn, micIcon, holderIcon, newWrapper;
 		var shouldCapitalize = true;
@@ -160,5 +161,11 @@
 			finalTranscript = '';
 			recognition.start();
 		}, false);
-	});
+}
+
+(function() {
+	'use strict';
+
+	var inputEls = document.getElementsByClassName('speech-input');
+	[].forEach.call(inputEls, setup_speech_input) ;
 })();
