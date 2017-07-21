@@ -898,6 +898,7 @@
 		        className: 'btn-default',
 		        callback: function() {
                             txt_checklist = '' ;
+			    $('#end_state').tokenfield('setTokens', []);
                             $('#end_state').val('');
                             $('#check_results').html('&nbsp;');
 
