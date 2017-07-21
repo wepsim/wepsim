@@ -947,7 +947,7 @@
 	var ret = false ;
 
 	// white-spaces...
-	checklist = checklist.replace(/;|=|>=|<=|>|<|!=/gi, function (x){return ' ' + x + ' ';});  
+	checklist = checklist.replace(/;|==|!=|>=|<=|=|>|</gi, function (x){return ' ' + x + ' ';});  
         checklist = checklist.replace(/  /g,' ') ;
 
 	// lines...
