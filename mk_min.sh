@@ -60,7 +60,8 @@ cat external/bootstrap.min.js \
     external/codemirror.runmode/colorize.js > external/external.min.js \
     external/vis.min.js \
     external/async.js \
-    external/bootstrap-select.min.js
+    external/bootstrap-select.min.js \
+    external/bootstrap-tokenfield.js
 
 cat external/bootstrap.min.css \
     external/bootstrap-theme.min.css \
@@ -70,5 +71,6 @@ cat external/bootstrap.min.css \
     external/codemirror.fold/foldgutter.css \
     external/codemirror.show-hint/codemirror.show-hint.css > external/external.min.css \
     external/vis-network.min.css \
-    external/bootstrap-select.min.css
+    external/bootstrap-select.min.css \
+    external/bootstrap-tokenfield.css
 

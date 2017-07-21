@@ -860,7 +860,7 @@
                                  ' <div>' +
                                  '<h4>' + dlg_title + '</h4>' +
                                  '<br>' +
-                                 ' <form class="form-horizontal" style="white-space:nowrap;">' +
+                                 ' <form class="form-horizontal" style="white-space:wrap;overflow-y:auto;max-height:32vh;">' +
                                  ' <textarea aria-label="checks to perform" ' +
                                  '           placeholder="' + txt_placeholder + '"' +
                                  '           id="end_state" name="end_state" ' + 
@@ -898,6 +898,7 @@
 		        className: 'btn-default',
 		        callback: function() {
                             txt_checklist = '' ;
+			    $('#end_state').tokenfield('setTokens', []);
                             $('#end_state').val('');
                             $('#check_results').html('&nbsp;');
 
@@ -937,6 +938,22 @@
 	                buttons: dialog_btns,
                         animate: false
 	             });
+
+            // testing: tokenfield:
+            chkbox.init(function() {
+                            $('#end_state').tokenfield({
+                                    autocomplete: { source: ['register','memory','screen'], delay: 100 },
+                                    showAutocompleteOnFocus: true,
+                                    allowEditing: true,
+                                    allowPasting: true,
+                                    limit: 0,
+                                    createTokensOnBlur: false,
+                                    delimiter: ';',
+                                    beautify: true,
+                                    inputType: 'textarea'
+                            }) ;
+                       });
+
 	    return chkbox;
         }
 
@@ -967,6 +984,22 @@
 	                buttons: dialog_btns,
                         animate: false
 	             });
+
+            // testing: tokenfield:
+            chkbox.init(function() {
+                            $('#end_state').tokenfield({
+                                    autocomplete: { source: ['register','memory','screen'], delay: 100 },
+                                    showAutocompleteOnFocus: true,
+                                    allowEditing: true,
+                                    allowPasting: true,
+                                    limit: 0,
+                                    createTokensOnBlur: false,
+                                    delimiter: ';',
+                                    beautify: true,
+                                    inputType: 'textarea'
+                            }) ;
+                       });
+
 	    return chkbox;
         }
 
