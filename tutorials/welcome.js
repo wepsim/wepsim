@@ -107,7 +107,6 @@
                      code_pre:    function() {  },
                      code_post:   function() {
                                       load_from_example_firmware("S1E1", true);
-			              setTimeout(function(){ wepsim_execute_microinstruction(); }, 500);
                                   },
                      wait_next:   100
                   });

@@ -878,7 +878,8 @@
 
         // 2.- code_pre
         tutorial[step].code_pre();
-	tut_msg1 = new SpeechSynthesisUtterance(tutorial[step].title + ". " + tutorial[step].message);
+	tut_msg1 = new SpeechSynthesisUtterance(tutorial[step].title.replace(/<[^>]*>/g, '') + ". " + 
+		                                tutorial[step].message.replace(/<[^>]*>/g, ''));
 	tut_msg1.lang = 'en-US';
 
         // 3.- dialog +
