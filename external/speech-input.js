@@ -28,7 +28,7 @@ function setup_speech_input (inputEl)
 		var buttonSize = 0.8 * (inputEl.dataset.buttonsize || inputEl.offsetHeight);
 
 		// default max size for textareas
-		if (!inputEl.dataset.buttonsize && inputEl.tagName === 'TEXTAREA' && buttonSize > 26) {
+		if (!inputEl.dataset.buttonsize && inputEl.tagName.toUpperCase() === 'TEXTAREA' && buttonSize > 26) {
 			buttonSize = 26;
 		}
 
