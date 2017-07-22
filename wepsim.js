@@ -878,6 +878,8 @@
 
         // 2.- code_pre
         tutorial[step].code_pre();
+	tut_msg1 = new SpeechSynthesisUtterance(tutorial[step].title + ". " + tutorial[step].message);
+	tut_msg1.lang = 'en-US';
 
         // 3.- dialog +
         //     code_post (next button) | cancel tutorials
@@ -902,6 +904,8 @@
 			setTimeout(function(){ 
 					sim_tutorial_showframe(tutorial, step - 1) ;
 				   }, tutorial[step].wait_next);
+			if (typeof window.speechSynthesis != "undefined")
+			    window.speechSynthesis.cancel() ;
 		    }
 		};
 
@@ -914,6 +918,8 @@
 			setTimeout(function(){ 
 					sim_tutorial_showframe(tutorial, step + 1) ;
 				   }, tutorial[step].wait_next);
+			if (typeof window.speechSynthesis != "undefined")
+			    window.speechSynthesis.cancel() ;
 		    }
 		};
 	else
@@ -925,6 +931,8 @@
 			setTimeout(function(){ 
 					sim_tutorial_showframe(tutorial, step + 1) ;
 				   }, tutorial[step].wait_next);
+			if (typeof window.speechSynthesis != "undefined")
+			    window.speechSynthesis.cancel() ;
 		    }
 		};
 
@@ -934,6 +942,9 @@
 	    buttons: bbbt,
             animate: false
 	});
+
+	if (typeof window.speechSynthesis != "undefined")
+	    window.speechSynthesis.speak(tut_msg1);
     }
 
 
