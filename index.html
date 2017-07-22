@@ -1244,6 +1244,25 @@ if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(nav
             }) ;
 
             sim_tutorial_showframe(tut_welcome, 0) ;
+
+	    if (annyang) 
+	    {
+	        var commands = {
+    	            'reset':                    wepsim_execute_reset,
+	            'next instruction':         wepsim_execute_instruction,
+	            'next micro(instruction)':  wepsim_execute_microinstruction,
+	            'breakpoint':               wepsim_execute_set_breakpoint,
+	            'stop':                     wepsim_execute_stop,
+	            'play':                     wepsim_execute_play,
+	            'show help':        wepsim_open_help_index,
+	            'close help':       wepsim_close_help,
+	            'show examples':    wepsim_open_examples_index,
+	            'close examples':   wepsim_close_examples
+	        };
+
+	        annyang.addCommands(commands);
+	        annyang.start();
+	    }
     }
     catch(err) 
     {
