@@ -871,7 +871,8 @@
                                  '           data-createTokensOnBlur="false" ' +
                                  '           data-delimiter=";" ' +
                                  '           data-beautify="true" ' +
-                                 '           class="form-control input-xs speech-input" rows="5">' + txt_checklist + '</textarea>' +
+                                 '           class="form-control input-xs" rows="5">' + txt_checklist + '</textarea>' +
+                           //A1/ '           class="form-control input-xs speech-input" rows="5">' + txt_checklist + '</textarea>' +
                                  ' </form>' +
                                  ' </div>' +
 			         '<br>' +
@@ -954,9 +955,9 @@
                                     inputType: 'textarea'
                             }) ;
 
-		            var inputEls = document.getElementById('end_state');
-		            if (null != inputEls)
-		                setup_speech_input(inputEls) ;
+		            //A1/ var inputEls = document.getElementById('end_state');
+		            //A1/ if (null != inputEls)
+		            //A1/     setup_speech_input(inputEls) ;
                        });
 
 	    return chkbox;
@@ -999,9 +1000,9 @@
                                     inputType: 'textarea'
                             }) ;
 
-		            var inputEls = document.getElementById('end_state');
-		            if (null != inputEls)
-		                setup_speech_input(inputEls) ;
+		            //A1/ var inputEls = document.getElementById('end_state');
+		            //A1/ if (null != inputEls)
+		            //A1/     setup_speech_input(inputEls) ;
                        });
 
 	    return chkbox;
