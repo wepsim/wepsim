@@ -62,7 +62,9 @@ cat external/bootstrap.min.js \
     external/async.js \
     external/bootstrap-select.min.js \
     external/bootstrap-tokenfield.js \
-    external/speech-input.js
+    external/speech-input.js \
+    external/annyang.min.js \
+    external/speechkitt.min.js
 
 cat external/bootstrap.min.css \
     external/bootstrap-theme.min.css \

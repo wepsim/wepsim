@@ -663,9 +663,9 @@ li.CodeMirror-hint-active {
 }
 
 .si-wrapper button {
-	position: absolute;
+	/* position: absolute; */
 	top: 0;
-	right: 0;
+	right: -10;
 	height: 18px;
 	width: 18px;
 	margin: 0;
