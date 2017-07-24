@@ -588,86 +588,59 @@
         {
             if (jqdiv == "")
             {       // without ui
-		    sim_states['CLK'].value      = ko_observable(sim_states['CLK'].value) ;
-		    sim_states['DECO_INS'].value = ko_observable(sim_states['DECO_INS'].value) ;
+		    sim_states['CLK'].value = ko.observable(sim_states['CLK'].value);
+		    sim_states['DECO_INS'].value = ko.observable(sim_states['DECO_INS'].value);
 		    for (var i=0; i<IO_INT_FACTORY.length; i++) {
-			 IO_INT_FACTORY[i].accumulated = ko_observable(IO_INT_FACTORY[i].accumulated) ;
-			 IO_INT_FACTORY[i].active      = ko_observable(IO_INT_FACTORY[i].active) ;
+			 IO_INT_FACTORY[i].accumulated = ko.observable(IO_INT_FACTORY[i].accumulated) ;
+			 IO_INT_FACTORY[i].active      = ko.observable(IO_INT_FACTORY[i].active) ;
                     }
                     return ;
             }
 
             // stats holder
-	    var o1 = "" ;
-
-	       // IO
-               o1 += "<div class='col-xs-7 col-sm-7 col-lg-7' style='padding:0 0 0 0;'>" +
-                     "<div class='panel panel-default'>" +
-                     "<div class='panel-heading'>" +
-                     " <h3 class='panel-title'>I/O</h3>" +
-                     "</div>" +
-                     "<div class='panel-body' id='mempanel1' style='padding:0 0 0 0;'>" +
-                     "  <table class='table table-hover table-condensed table-bordered table-responsive' style='margin:0'>" +
-                     "  <tbody class='ui-mini'>" ;
+            var o1 = "<center>" +
+                     "<table class='table table-hover table-condensed table-bordered table-responsive'>" +
+                     "<tr>" +
+                     "<td align=center width=50%>Instructions</td>" +
+                     "<td align=center width=50%>" +
+                     "<div id='ins_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
+                     "</td>" +
+                     "</tr>" +
+                     "<tr>" +
+                     "<td align=center width=50%>CLK ticks</td>" +
+                     "<td align=center width=50%>" +
+                     "<div id='clk_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
+                     "</td>" +
+                     "</tr>" ;
+               o1 += "<tr><td colspan=2>&nbsp;</td></tr>" ;
             for (var i=0; i<IO_INT_FACTORY.length; i++)
             {
-               o1 += "  <tr id='int" + i + "_context'>" +
-                     "  <td align=center width=50%>" +
-                     "  <span data-bind=\"style: {fontWeight: active() ? 'bold' : ''}\">" + "Interrupt " + i + "</span>" +
-                     "  </td>" +
-                     "  <td align=center width=50%>" +
-                     "  <span data-bind='text: accumulated'>&nbsp;</span>" +
-                     "  </td>" +
-                     "  </tr>" ;
+               o1 += "<tr id='int" + i + "_context'>" +
+                     "<td align=center width=50%>" +
+                     "<span data-bind=\"style: {fontWeight: active() ? 'bold' : ''}\">" + "Interrupt " + i + "</span>" +
+                     "</td>" +
+                     "<td align=center width=50%>" +
+                     "<span data-bind='text: accumulated'>&nbsp;</span>" +
+                     "</td>" +
+                     "</tr>" ;
             }
-               o1 += "  </tbody>" +
-		     "  </table>" +
-                     "</div>" +
-                     "</div>" +
-                     "</div>" ;
-
-	       // CPU
-               o1 += "<div class='col-xs-5 col-sm-5 col-lg-5' style='padding:0 0 0 5;'>" +
-                     "<div class='panel panel-default'>" +
-                     "<div class='panel-heading'>" +
-                     " <h3 class='panel-title'>CPU</h3>" +
-                     "</div>" +
-                     "<div class='panel-body' id='cpupanel1' style='padding:0 0 0 0;'>" +
-                     "  <table class='table table-hover table-condensed table-bordered table-responsive' style='margin:0'>" +
-                     "  <tbody class='ui-mini'>" +
-                     "  <tr>" +
-                     "  <td align=center width=50%>Instructions</td>" +
-                     "  <td align=center width=50%>" +
-                     "  <div id='ins_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
-                     "  </td>" +
-                     "  </tr>" +
-                     "  <tr>" +
-                     "  <td align=center width=50%>CLK ticks</td>" +
-                     "  <td align=center width=50%>" +
-                     "  <div id='clk_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
-                     "  </td>" +
-                     "  </tr>" +
-                     "  </tbody>" +
-		     "  </table>" +
-                     "</div>" +
-                     "</div>" +
-                     "</div>" ;
-
+            o1 += "</table>" +
+                  "</center>" ;
             $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
 
             // knockout binding
-            sim_states['CLK'].value = ko_observable(sim_states['CLK'].value) ;
+            sim_states['CLK'].value = ko.observable(sim_states['CLK'].value);
             var ko_context = document.getElementById('clk_context');
             ko.applyBindings(sim_states['CLK'], ko_context);
 
-            sim_states['DECO_INS'].value = ko_observable(sim_states['DECO_INS'].value) ;
+            sim_states['DECO_INS'].value = ko.observable(sim_states['DECO_INS'].value);
             var ko_context = document.getElementById('ins_context');
             ko.applyBindings(sim_states['DECO_INS'], ko_context);
 
             for (var i=0; i<IO_INT_FACTORY.length; i++)
             {
-                 IO_INT_FACTORY[i].accumulated = ko_observable(IO_INT_FACTORY[i].accumulated) ;
-                 IO_INT_FACTORY[i].active      = ko_observable(IO_INT_FACTORY[i].active) ;
+                 IO_INT_FACTORY[i].accumulated = ko.observable(IO_INT_FACTORY[i].accumulated) ;
+                 IO_INT_FACTORY[i].active      = ko.observable(IO_INT_FACTORY[i].active) ;
                  var ko_context = document.getElementById('int' + i + '_context');
                  ko.applyBindings(IO_INT_FACTORY[i], ko_context);
             }
