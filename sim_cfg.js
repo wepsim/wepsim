@@ -74,6 +74,7 @@
                WSCFG['is_interactive']      = { value:true,               type:"boolean"};
                WSCFG['ws_idiom']            = { value:'es',               type:"string"};
                WSCFG['show_tutorials']      = { value:true,               type:"boolean"};
+               WSCFG['use_voice']           = { value:true,               type:"boolean"};
 
 		/*
 		 *  micro/assembly screen: editor
