@@ -842,13 +842,13 @@
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
 		    <img alt="stop icon" id="img_select1" src="images/stop_classic.gif" 
 			 style="position:relative; left:10px; height:30px !important; width:30px !important;">
-		    <select name="select1" id="select1" 
+		    <select data-native-menu="false"
+                            name="select1" id="select1" 
 			    aria-label="Breakpoint Icon"
 			    onchange="var opt = $(this).find('option:selected');
 				      var optValue = opt.val();
 				      $('#img_select1').attr('src','images/stop_' + optValue + '.gif');
-				      set_cfg('ICON_theme',optValue); save_cfg();"
-			    data-native-menu="false">
+				      set_cfg('ICON_theme',optValue); save_cfg();">
 			<option value="classic">Classic</option>
 			<option value="pushpin">Push Pin</option>
 			<option value="simple">Simple</option>
@@ -955,6 +955,29 @@
 		 </fieldset>
           </td>
 	  <td class="collapse7 collapse in">Active tutorials</td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse in">14</td>
+	  <td class="hidden-xs" style="color:gray">help</td>
+	  <td>Active voice</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		     <input name="radio11" id="radio11-true" 
+			    aria-label="Is editable: true"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('use_voice',true); save_cfg();"
+			    value="on" type="radio">
+		     <label for="radio11-true">On</label>
+		     <input name="radio11" id="radio11-false" 
+			    aria-label="Is editable: false"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('use_voice',false); save_cfg();"
+			    value="off" type="radio">
+		     <label for="radio11-false">Off</label>
+		 </fieldset>
+          </td>
+	  <td class="collapse7 collapse in">Use voice</td>
 	 </tr>
 
 	</tbody>
@@ -1186,6 +1209,7 @@
 		    $("#radio7-" +      get_cfg('editor_theme')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio9-" +       get_cfg('is_editable')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio10-" +   get_cfg('show_tutorials')).prop('checked', true).checkboxradio("refresh") ;
+		    $("#radio11-" +        get_cfg('use_voice')).prop('checked', true).checkboxradio("refresh") ;
                     $("#select1").val(get_cfg('ICON_theme')).selectmenu("refresh");
                     $("#select2").val(get_cfg('editor_mode')).selectmenu("refresh");
                     $("#select3").val(get_cfg('DBG_limitick')).selectmenu("refresh");
@@ -1243,25 +1267,7 @@ if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(nav
                      delay: { "show": 500, "hide": 100 } 
             }) ;
 
-	    if (annyang) 
-	    {
-	        var commands = {
-    	            'reset':                    wepsim_execute_reset,
-	            'next instruction':         wepsim_execute_instruction,
-	            'next micro(instruction)':  wepsim_execute_microinstruction,
-	            'play':                     wepsim_execute_play,
-	            'stop':                     wepsim_execute_stop,
-	            'help':           wepsim_open_help_index,
-	            'examples':       wepsim_open_examples_index,
-		    'configuration':  function() { $('#config1').popup('open'); },
-		    'close':          function() { wepsim_close_help(); wepsim_close_examples(); $('#config1').popup('close'); }
-	        };
-	        annyang.addCommands(commands);
-
-		SpeechKITT.annyang();
-		SpeechKITT.setStylesheet('external/speechkitt.css');
-		SpeechKITT.vroom();
-	    }
+            wepsim_voice_init() ;
 
             sim_tutorial_showframe(tut_welcome, 0) ;
     }

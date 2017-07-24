@@ -1141,3 +1141,42 @@
 
         return o ;
     }
+
+
+    /*
+     * Voice control
+     */
+
+    function wepsim_voice_init ( )
+    {
+	 // check if voice is available...
+         if (!annyang) 
+	     return false ;
+
+         if (get_cfg('use_voice') == false) 
+	     return false ;
+
+	 // setup annyang + speechkitt...
+         var commands = {
+               'reset':                    wepsim_execute_reset,
+               'next instruction':         wepsim_execute_instruction,
+               'next micro(instruction)':  wepsim_execute_microinstruction,
+               'play':                     wepsim_execute_play,
+               'stop':                     wepsim_execute_stop,
+
+               'help':                     wepsim_open_help_index,
+               'examples':                 wepsim_open_examples_index,
+               'configuration':            function() { $('#config1').popup('open'); },
+               'close':                    function() { wepsim_close_help(); 
+		                                        wepsim_close_examples(); 
+		                                        $('#config1').popup('close'); }
+         };
+         annyang.addCommands(commands);
+
+         SpeechKITT.annyang();
+         SpeechKITT.setStylesheet('external/speechkitt.css');
+         SpeechKITT.vroom();
+
+	 return true ;
+    }
+
