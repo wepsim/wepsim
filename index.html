@@ -966,13 +966,13 @@
 		     <input name="radio11" id="radio11-true" 
 			    aria-label="Is editable: true"
 			    style="margin-top:-8px"
-			    onclick="set_cfg('use_voice',true); save_cfg();"
+			    onclick="set_cfg('use_voice',true); save_cfg(); wepsim_voice_start();"
 			    value="on" type="radio">
 		     <label for="radio11-true">On</label>
 		     <input name="radio11" id="radio11-false" 
 			    aria-label="Is editable: false"
 			    style="margin-top:-8px"
-			    onclick="set_cfg('use_voice',false); save_cfg();"
+			    onclick="set_cfg('use_voice',false); save_cfg(); wepsim_voice_stop();"
 			    value="off" type="radio">
 		     <label for="radio11-false">Off</label>
 		 </fieldset>
@@ -1268,6 +1268,8 @@ if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(nav
             }) ;
 
             wepsim_voice_init() ;
+	    if (false == get_cfg('use_voice'))
+		wepsim_voice_stop() ;
 
             sim_tutorial_showframe(tut_welcome, 0) ;
     }

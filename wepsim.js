@@ -1153,9 +1153,6 @@
          if (!annyang) 
 	     return false ;
 
-         if (get_cfg('use_voice') == false) 
-	     return false ;
-
 	 // setup annyang + speechkitt...
          var commands = {
                'reset':                    wepsim_execute_reset,
@@ -1177,6 +1174,28 @@
          SpeechKITT.setStylesheet('external/speechkitt.css');
          SpeechKITT.vroom();
 
+	 return true ;
+    }
+
+    function wepsim_voice_start ( )
+    {
+	 // check if voice is available...
+         if (!annyang) 
+	     return false ;
+
+	 annyang.resume() ;
+         SpeechKITT.show();
+	 return true ;
+    }
+
+    function wepsim_voice_stop ( )
+    {
+	 // check if voice is available...
+         if (!annyang) 
+	     return false ;
+
+         SpeechKITT.hide();
+	 annyang.pause() ;
 	 return true ;
     }
 
