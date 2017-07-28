@@ -76,5 +76,6 @@ cat external/bootstrap.min.css \
     external/vis-network.min.css \
     external/bootstrap-select.min.css \
     external/bootstrap-tokenfield.css \
-    external/speech-input.css > external/external.min.css
+    external/speech-input.css \
+    external/speechkitt.css > external/external.min.css
 
