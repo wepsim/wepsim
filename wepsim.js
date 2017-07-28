@@ -893,6 +893,8 @@
                         save_cfg();
                         $("#radio10-false").trigger("click").checkboxradio("refresh") ;
                         tutbox.modal("hide") ;
+                        if (wepsim_voice_canSpeak())
+			    window.speechSynthesis.cancel() ;
 		    }
 		} ;
 
@@ -905,7 +907,7 @@
 			setTimeout(function(){ 
 					sim_tutorial_showframe(tutorial, step - 1) ;
 				   }, tutorial[step].wait_next);
-			if (typeof window.speechSynthesis != "undefined")
+                        if (wepsim_voice_canSpeak())
 			    window.speechSynthesis.cancel() ;
 		    }
 		};
@@ -919,7 +921,7 @@
 			setTimeout(function(){ 
 					sim_tutorial_showframe(tutorial, step + 1) ;
 				   }, tutorial[step].wait_next);
-			if (typeof window.speechSynthesis != "undefined")
+                        if (wepsim_voice_canSpeak())
 			    window.speechSynthesis.cancel() ;
 		    }
 		};
@@ -932,7 +934,7 @@
 			setTimeout(function(){ 
 					sim_tutorial_showframe(tutorial, step + 1) ;
 				   }, tutorial[step].wait_next);
-			if (typeof window.speechSynthesis != "undefined")
+                        if (wepsim_voice_canSpeak())
 			    window.speechSynthesis.cancel() ;
 		    }
 		};
@@ -944,7 +946,7 @@
             animate: false
 	});
 
-	if (typeof window.speechSynthesis != "undefined")
+        if (wepsim_voice_canSpeak())
 	    window.speechSynthesis.speak(tut_msg1);
     }
 
@@ -959,7 +961,8 @@
 	var ret = false ;
 
 	// white-spaces...
-	checklist = checklist.replace(/;|==|!=|>=|<=|=|>|</gi, function (x){return ' ' + x + ' ';});  
+	checklist = checklist.replace(/;|==|!=|>=|<=|=|>|</gi, 
+                                      function (x){return ' ' + x + ' ';});  
         checklist = checklist.replace(/  /g,' ') ;
 
 	// lines...
@@ -1183,7 +1186,7 @@
          if (!annyang) 
 	     return false ;
 
-	 annyang.resume() ;
+	 //annyang.resume() ;
          SpeechKITT.show();
 	 return true ;
     }
@@ -1195,7 +1198,18 @@
 	     return false ;
 
          SpeechKITT.hide();
-	 annyang.pause() ;
+	 //annyang.pause() ;
 	 return true ;
+    }
+
+    function wepsim_voice_canSpeak ( )
+    {
+	if (typeof window.speechSynthesis == "undefined")
+            return false ;
+
+        if (false == get_cfg('use_voice'))
+            return false ;
+
+        return true ;
     }
 
