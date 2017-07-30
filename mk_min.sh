@@ -31,6 +31,20 @@ rm -fr sim_all.js
 /usr/bin/yui-compressor -o min.wepsim.js wepsim.js
 
 # 
+#  wepsim information
+# 
+cat tutorials/tutorials.js \
+    tutorials/welcome-en.js \
+    tutorials/welcome-es.js \
+    tutorials/simpleusage-en.js \
+    tutorials/simpleusage-es.js \
+    help/help-en.js \
+    help/help-es.js \
+    examples/examples.js > sim_info.js
+/usr/bin/yui-compressor -o min.sim_info.js sim_info.js
+rm -fr sim_info.js
+
+# 
 #  external
 # 
 cat external/bootstrap.min.js \
