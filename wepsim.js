@@ -867,10 +867,6 @@
     function sim_tutorial_showframe ( tutorial, step )
     {
         // 1.- check if
-        if (get_cfg('show_tutorials') == false) {
-	    return;
-        }
-
 	if (step == tutorial.length)
 	    return;
 	if (step < 0) 
