@@ -1172,6 +1172,11 @@
 		                                        $('#config1').popup('close'); }
          };
          annyang.addCommands(commands);
+         annyang.addCallback('errorNetwork', 
+                             function () {
+	                         annyang.abort() ;
+                                 alert('Sorry but some network connection is needed in order to use the voice recognition engine.');
+                             });
 
          SpeechKITT.annyang();
          SpeechKITT.setStylesheet('external/speechkitt.css');
