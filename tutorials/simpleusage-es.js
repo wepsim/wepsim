@@ -95,7 +95,6 @@
                                 "<li>Las vista de ensamblador y hardware.</li>" +
                                 "<li>Los detalles de registros, memoria de control, memoria principal, etc.</li>" +
                                 "<li>Las acciones de reinicio, ejecución paso a paso o hasta punto de ruptura (o fin).</li>" +
-                                "<li>La ayuda en pantalla.</li>" +
                                 "</ul>" +
                                 "</h4>",
                      code_pre:  function() { },
