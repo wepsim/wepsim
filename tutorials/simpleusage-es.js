@@ -3,15 +3,15 @@
 
     tutorials['simpleusage']['es'].push({
                      id:        "simpleusage",
-                     title:     "Simple WepSIM experience: microprogramming and programming",
+                     title:     "Experiencia simple con WepSIM: microprogramar y ensamblar",
                      message:   "<img src='help/simulator/simulator011.jpg' style='width:100%; max-height:50vh'>" +
                                 "<br>" +
                                 "<h4>" +
-                                "This brief tutorial is going to show you how to:" +
+                                "Este breve tutorial le mostrar&aacute;:" +
                                 "<ol>" +
-                                "<li>You can edit your microcode.</li>" +
-                                "<li>You can edit your assembly (based on the previous microcode).</li>" +
-                                "<li>Execution of the former assembly in the simulation.</li>" +
+                                "<li>La edici&oacute;n de microc&oacute;digo.</li>" +
+                                "<li>La edici&oacute;n de c&oacute;digo ensamblador.</li>" +
+                                "<li>Ejecución del anterior ensamblador definido anteriormente.</li>" +
                                 "</ol>" +
                                 "</h4>",
                      code_pre:  function() { },
@@ -21,16 +21,29 @@
 
     tutorials['simpleusage']['es'].push({
                      id:        "simpleusage",
-                     title:     "Simple WepSIM experience: microprogramming and programming",
+                     title:     "Experiencia simple con WepSIM: microprogramar y ensamblar",
+                     message:   "<img src='help/simulator/firmware001.jpg' style='width:100%; max-height:50vh'>" +
+                                "<br>" +
+                                "<h4>" +
+                                "El primer paso es microprogramar el firmware a ser usado. " +
+                                "Por favor use el bot&oacute;n de men&uacute; y a continuaci&oacute;n seleccione la opción 'Microcode'." +
+                                "</h4>",
+                     code_pre:  function() { },
+                     code_post: function() { },
+                     wait_next: 100
+                  });
+
+    tutorials['simpleusage']['es'].push({
+                     id:        "simpleusage",
+                     title:     "Experiencia simple con WepSIM: microprogramar y ensamblar",
                      message:   "<img src='help/simulator/firmware002.jpg' style='width:100%; max-height:50vh'>" +
                                 "<br>" +
                                 "<h4>" +
-                                "The first step is to microprogramming the firmware to be used." +
-                                "The microprogramming screen provides:" +
+                                "La pantalla de microprogramación ofrece:" +
                                 "<ul>" +
-                                "<li>The editor for the microcode.</li>" +
-                                "<li>The microcompiler.</li>" +
-                                "<li>The hardware summary and help.</li>" +
+                                "<li>El editor de microcr&oacute;digo.</li>" +
+                                "<li>El microcompilador.</li>" +
+                                "<li>El resumen del hardware y la ayuda.</li>" +
                                 "</ul>" +
                                 "</h4>",
                      code_pre:  function() { },
@@ -40,16 +53,29 @@
 
     tutorials['simpleusage']['es'].push({
                      id:        "simpleusage",
-                     title:     "Simple WepSIM experience: microprogramming and programming",
+                     title:     "Experiencia simple con WepSIM: microprogramar y ensamblar",
+                     message:   "<img src='help/simulator/assembly002.jpg' style='width:100%; max-height:50vh'>" +
+                                "<br>" +
+                                "<h4>" +
+                                "El segundo paso es programar el ensamblador a ser ejecutado. " +
+                                "Por favor use el bot&oacute;n de men&uacute; y a continuaci&oacute;n la opci&oacute;n de 'Assembly'." +
+                                "</h4>",
+                     code_pre:  function() { },
+                     code_post: function() { },
+                     wait_next: 100
+                  });
+
+    tutorials['simpleusage']['es'].push({
+                     id:        "simpleusage",
+                     title:     "Experiencia simple con WepSIM: microprogramar y ensamblar",
                      message:   "<img src='help/simulator/assembly003.jpg' style='width:100%; max-height:50vh'>" +
                                 "<br>" +
                                 "<h4>" +
-                                "The second step is to programming the assembly to be executed." +
-                                "The programming screen provides:" +
+                                "La pantalla de programaci&oacute;n en ensamblador ofrece:" +
                                 "<ul>" +
-                                "<li>The editor for the assembly code.</li>" +
-                                "<li>The assembly compiler.</li>" +
-                                "<li>The memory map viewer and help.</li>" +
+                                "<li>El editor para el c&oacute;digo ensamblador.</li>" +
+                                "<li>El compilador de ensamblador.</li>" +
+                                "<li>El visualizador de mapa de memoria y ayuda.</li>" +
                                 "</ul>" +
                                 "</h4>",
                      code_pre:  function() { },
@@ -59,17 +85,17 @@
 
     tutorials['simpleusage']['es'].push({
                      id:        "simpleusage",
-                     title:     "Simple WepSIM experience: microprogramming and programming",
+                     title:     "Experiencia simple con WepSIM: microprogramar y ensamblar",
                      message:   "<img src='help/simulator/simulator010.jpg' style='width:100%; max-height:50vh'>" +
                                 "<br>" +
                                 "<h4>" +
-                                "The third step is to execute the assembly code in the simulator." +
-                                "The simulator screen provides:" +
+                                "El tercer paso es ejecutar el c&oacute;digo ensamblador en el ensamblador." +
+                                "La pantalla de simulación ofrece:" +
                                 "<ul>" +
-                                "<li>The assembly and hardware view.</li>" +
-                                "<li>The detail view of register, control memory, main memory, etc.</li>" +
-                                "<li>The reset, step by step or run until breakpoint/end.</li>" +
-                                "<li>The in-screen help.</li>" +
+                                "<li>Las vista de ensamblador y hardware.</li>" +
+                                "<li>Los detalles de registros, memoria de control, memoria principal, etc.</li>" +
+                                "<li>Las acciones de reinicio, ejecución paso a paso o hasta punto de ruptura (o fin).</li>" +
+                                "<li>La ayuda en pantalla.</li>" +
                                 "</ul>" +
                                 "</h4>",
                      code_pre:  function() { },

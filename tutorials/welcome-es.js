@@ -3,16 +3,16 @@
 
     tutorials['welcome']['es'].push({
                      id:          "welcome",
-                     title:       "Welcome to the WepSIM simulator!",
+                     title:       "¡Bienvenidos al simulador WepSIM!",
                      message:     "<img src='help/simulator/simulator012.jpg' style='width:100%; max-height:50vh'>" +
                                   "<br>" +
                                   "<h4>" +
-                                  "This brief tutorial is going to show you how to:" +
+                                  "Este breve tutorial le mostrar&aacute;:" +
                                   "<ol>" +
-                                  "<li>Load an example.</li>" +
-                                  "<li>Execute an example.</li>" +
-                                  "<li>Configure the simulation.</li>" +
-                                  "<li>Get help.</li>" +
+                                  "<li>Carga de un ejemplo.</li>" +
+                                  "<li>Ejecución de ejemplo.</li>" +
+                                  "<li>Configuraci&oacute;n del simulador.</li>" +
+                                  "<li>Obtener ayuda.</li>" +
                                   "</ol>" +
                                   "</h4>",
                      code_pre:    function() { },
@@ -22,12 +22,12 @@
 
     tutorials['welcome']['es'].push({
                      id:          "welcome",
-                     title:       "The menu button",
+                     title:       "El bot&oacute;n de men&uacute;",
                      message:     "<img src='tutorials/welcome/menu_open.gif' style='max-height:50vh'>" +
                                   "<br>" +
                                   "<h4>" +
-                                  "On the top, it let you access to the microcode editor, the assembly editor, and the simulation screen. " + 
-                                  "On the bottom, help, examples, and the configuration dialogs." +
+                                  "En la parte superior, le permite acceder a las pantallas de trabajo de microc&oacute;digo, ensamblador, y el simulador. " + 
+                                  "En la parte inferior, permite acceder a la ayuda, ejemplos y configuraci&oacute;n." +
                                   "<br>" +
                                   "</h4>",
                      code_pre:    function() { },
@@ -37,11 +37,11 @@
 
     tutorials['welcome']['es'].push({
                      id:          "welcome",
-                     title:       "How to load some example.",
+                     title:       "C&oacute;mo cargar algunos ejemplos.",
                      message:     "<img src='tutorials/welcome/example_usage.gif' style='width:100%; max-height:60vh'>" +
                                   "<br>" +
                                   "<h4>" +
-                                  "Click in the menu button and then in the example button, <br>then click in the example 'title' name." +
+                                  "Haga click en el bot&oacute;n de men&uacute y a continuaci&oacute;n en el bot&oacute;n de ejemplo, finalmente haga click en el 't&iacute;tulo' del ejemplo." +
                                   "<br>" +
                                   "</h4>",
                      code_pre:    function() { },
@@ -51,12 +51,12 @@
 
     tutorials['welcome']['es'].push({
                      id:          "welcome",
-                     title:       "How to execute an example.",
+                     title:       "C&oacute;mo cargar algunos ejemplos.",
                      message:     "<img src='tutorials/welcome/simulation_xinstruction.gif' style='width:100%; max-height:60vh'>" +
                                   "<br>" +
                                   "<h4>" +
-                                  "Click on next instruction/microinstruction to execute step by step. <br>" + 
-		                  "Click on run button to execute until the first breakpoint or the end of the assembly program." +
+                                  "Haga click en next instruction/microinstruction para ejecutar paso a paso. <br>" + 
+		                  "Haga click en run para ejecutar hasta el primer punto de ruptura o el fin del programa en ensamblador." +
                                   "<br>" +
                                   "</h4>",
                      code_pre:    function() { },
@@ -66,11 +66,11 @@
 
     tutorials['welcome']['es'].push({
                      id:          "welcome",
-                     title:       "How to configure WepSIM.",
+                     title:       "C&oacute;mo configurar WepSIM.",
                      message:     "<img src='tutorials/welcome/config_usage.gif' style='width:100%; max-height:60vh'>" +
                                   "<br>" +
                                   "<h4>" +
-                                  "Click in the menu again, then click in the configuration button." +
+                                  "Haga click en el men&uacute; de nuevo y a continuaci&oacute;n en el bot&oacute;n de configuraci&oacute;n." +
                                   "<br>" +
                                   "</h4>",
                      code_pre:    function() { },
@@ -80,12 +80,12 @@
 
     tutorials['welcome']['es'].push({
                      id:          "welcome",
-                     title:       "How to get the basic help.",
+                     title:       "C&oacute;mo conseguir la ayuda b&aacute;sica.",
                      message:     "<img src='tutorials/welcome/help_usage.gif' style='width:100%; max-height:60vh'>" +
                                   "<br>" +
                                   "<h4>" +
-                                  "Click in the menu again, <br>then click in the green help button.<br>" +
-                                  "You can get Spanish/English version, go to the help index, or close the help popup." +
+                                  "Haga click en el men&uacute; otra vez, y a continuaci&oacute;n en el bot&oacute;n verde de ayuda.<br>" +
+                                  "Puede obtener la versi&oacute;n Spanish/English, ir al &iacute;ndice de la ayuda o cerrar la pantalla de ayuda." +
                                   "<br>" +
                                   "</h4>",
                      code_pre:    function() { },
@@ -95,13 +95,13 @@
 
     tutorials['welcome']['es'].push({
                      id:          "welcome",
-                     title:       "Welcome to WepSIM!",
+                     title:       "¡Bienvenido a WepSIM!",
                      message:     "<img src='tutorials/welcome/help_usage.gif' style='width:100%; max-height:60vh'>" +
                                   "<br>" +
                                   "<h4>" +
                                   "<br>" +
-                                  "Please explorer the help sections for more information. <br>" + 
-                                  "If you click on the end button of the tutorial then WepSIM is going to load the first example for you. Enjoy!" + 
+                                  "Por favor explorer las secciones de la ayuda para m&aacute;s informaci&oacute;n. <br>" + 
+                                  "Si hace click en el bot&oacute;n 'end' del tutorial entonces WepSIM cargar&aacute; el primer ejemplo por usted. ¡Diviertase aprendiendo!" + 
                                   "<br>" +
                                   "</h4>",
                      code_pre:    function() {  },
