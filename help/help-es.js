@@ -77,7 +77,7 @@
 
     help['es'].push({
                      id:          "simulator",
-                     title:       "Tutorial de un ejemplo simple para microprogramar y programar en ensamblador.",
+                     title:       "Tutorial simple de uso.",
                      type:        "code",
                      reference:   "wepsim_close_help(); " + 
                                   "sim_tutorial_showframe('simpleusage', 0);",

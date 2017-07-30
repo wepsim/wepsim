@@ -22,10 +22,23 @@
     tutorials['simpleusage']['en'].push({
                      id:        "simpleusage",
                      title:     "Simple WepSIM experience: microprogramming and programming",
+                     message:   "<img src='help/simulator/firmware001.jpg' style='width:100%; max-height:50vh'>" +
+                                "<br>" +
+                                "<h4>" +
+                                "The first step is to microprogramming the firmware to be used. " +
+                                "Please use the menu button, then please select the 'Microcode' option." +
+                                "</h4>",
+                     code_pre:  function() { },
+                     code_post: function() { },
+                     wait_next: 100
+                  });
+
+    tutorials['simpleusage']['en'].push({
+                     id:        "simpleusage",
+                     title:     "Simple WepSIM experience: microprogramming and programming",
                      message:   "<img src='help/simulator/firmware002.jpg' style='width:100%; max-height:50vh'>" +
                                 "<br>" +
                                 "<h4>" +
-                                "The first step is to microprogramming the firmware to be used." +
                                 "The microprogramming screen provides:" +
                                 "<ul>" +
                                 "<li>The editor for the microcode.</li>" +
@@ -41,10 +54,23 @@
     tutorials['simpleusage']['en'].push({
                      id:        "simpleusage",
                      title:     "Simple WepSIM experience: microprogramming and programming",
+                     message:   "<img src='help/simulator/assembly002.jpg' style='width:100%; max-height:50vh'>" +
+                                "<br>" +
+                                "<h4>" +
+                                "The second step is to programming the assembly to be executed. " +
+                                "Please use the menu button, then please select the 'Assembly' option." +
+                                "</h4>",
+                     code_pre:  function() { },
+                     code_post: function() { },
+                     wait_next: 100
+                  });
+
+    tutorials['simpleusage']['en'].push({
+                     id:        "simpleusage",
+                     title:     "Simple WepSIM experience: microprogramming and programming",
                      message:   "<img src='help/simulator/assembly003.jpg' style='width:100%; max-height:50vh'>" +
                                 "<br>" +
                                 "<h4>" +
-                                "The second step is to programming the assembly to be executed." +
                                 "The programming screen provides:" +
                                 "<ul>" +
                                 "<li>The editor for the assembly code.</li>" +
@@ -67,8 +93,8 @@
                                 "The simulator screen provides:" +
                                 "<ul>" +
                                 "<li>The assembly and hardware view.</li>" +
-                                "<li>The detail view of register, control memory, main memory, etc.</li>" +
-                                "<li>The reset, step by step or run until breakpoint/end.</li>" +
+                                "<li>The detail view of registers, control memory, main memory, etc.</li>" +
+                                "<li>The reset, step by step or run until breakpoint/end actions.</li>" +
                                 "<li>The in-screen help.</li>" +
                                 "</ul>" +
                                 "</h4>",
