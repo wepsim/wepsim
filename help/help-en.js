@@ -72,7 +72,16 @@
                      title:       "Welcome tutorial.",
                      type:        "code",
                      reference:   "wepsim_close_help(); " + 
-                                  "sim_tutorial_showframe(tut_welcome, 0);",
+                                  "sim_tutorial_showframe('welcome', 0);",
                      description: "Open the welcome tutorial, it can be enable in the configuration.<br>"
+                  });
+
+    help['en'].push({
+                     id:          "simulator",
+                     title:       "Simple usage tutorial.",
+                     type:        "code",
+                     reference:   "wepsim_close_help(); " + 
+                                  "sim_tutorial_showframe('simpleusage', 0);",
+                     description: "Open the simple usage tutorial, for microprogramming and assembly programming.<br>"
                   });
 

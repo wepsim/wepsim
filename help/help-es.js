@@ -71,7 +71,16 @@
                      title:       "Tutorial de bienvenida.",
                      type:        "code",
                      reference:   "wepsim_close_help(); " + 
-                                  "sim_tutorial_showframe(tut_welcome, 0);",
+                                  "sim_tutorial_showframe('welcome', 0);",
                      description: "Tutorial de bienvenida, puede activarse en la configuraci&oacute;n.<br>"
+                  });
+
+    help['es'].push({
+                     id:          "simulator",
+                     title:       "Tutorial de un ejemplo simple para microprogramar y programar en ensamblador.",
+                     type:        "code",
+                     reference:   "wepsim_close_help(); " + 
+                                  "sim_tutorial_showframe('simpleusage', 0);",
+                     description: "Tutorial de uso simple, ejemplo básico para microprogramar y programar en ensamblador.<br>"
                   });
 

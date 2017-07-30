@@ -864,13 +864,20 @@
     // Tutorials
     //
 
-    function sim_tutorial_showframe ( tutorial, step )
+    function sim_tutorial_showframe ( tutorial_name, step )
     {
+        // 0.- get reference
+        if (typeof tutorials[tutorial_name] == "undefined")
+            return ;
+        var tutorial = tutorials[tutorial_name][get_cfg('ws_idiom')] ;
+        if (typeof tutorial == "undefined")
+            return ;
+
         // 1.- check if
 	if (step == tutorial.length)
-	    return;
+	    return ;
 	if (step < 0) 
-	    return;
+	    return ;
 
         // 2.- code_pre
         tutorial[step].code_pre();
@@ -901,7 +908,7 @@
 		    callback: function() {
 			tutorial[step].code_post() ;
 			setTimeout(function(){ 
-					sim_tutorial_showframe(tutorial, step - 1) ;
+					sim_tutorial_showframe(tutorial_name, step - 1) ;
 				   }, tutorial[step].wait_next);
                         if (wepsim_voice_canSpeak())
 			    window.speechSynthesis.cancel() ;
@@ -915,7 +922,7 @@
 		    callback: function() {
 			tutorial[step].code_post() ;
 			setTimeout(function(){ 
-					sim_tutorial_showframe(tutorial, step + 1) ;
+					sim_tutorial_showframe(tutorial_name, step + 1) ;
 				   }, tutorial[step].wait_next);
                         if (wepsim_voice_canSpeak())
 			    window.speechSynthesis.cancel() ;
@@ -928,7 +935,7 @@
 		    callback: function() {
 			tutorial[step].code_post() ;
 			setTimeout(function(){ 
-					sim_tutorial_showframe(tutorial, step + 1) ;
+					sim_tutorial_showframe(tutorial_name, step + 1) ;
 				   }, tutorial[step].wait_next);
                         if (wepsim_voice_canSpeak())
 			    window.speechSynthesis.cancel() ;
