@@ -101,7 +101,7 @@
                                   "<h4>" +
                                   "<br>" +
                                   "Please explorer the help sections for more information. <br>" + 
-                                  "If you click on the end button then WepSIM is going to load the first example for you. Enjoy!" + 
+                                  "If you click on the end button of the tutorial then WepSIM is going to load the first example for you. Enjoy!" + 
                                   "<br>" +
                                   "</h4>",
                      code_pre:    function() {  },

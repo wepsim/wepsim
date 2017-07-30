@@ -867,10 +867,6 @@
     function sim_tutorial_showframe ( tutorial, step )
     {
         // 1.- check if
-        if (get_cfg('show_tutorials') == false) {
-	    return;
-        }
-
 	if (step == tutorial.length)
 	    return;
 	if (step < 0) 
@@ -1172,6 +1168,11 @@
 		                                        $('#config1').popup('close'); }
          };
          annyang.addCommands(commands);
+         annyang.addCallback('errorNetwork', 
+                             function () {
+	                         annyang.abort() ;
+                                 alert('Sorry but some network connection is needed in order to use the voice recognition engine.');
+                             });
 
          SpeechKITT.annyang();
          SpeechKITT.setStylesheet('external/speechkitt.css');
