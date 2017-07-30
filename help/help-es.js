@@ -68,7 +68,7 @@
 
     help['es'].push({
                      id:          "simulator",
-                     title:       "Tutorial de bienvenida.",
+                     title:       "Tutorial de bienvenida",
                      type:        "code",
                      reference:   "wepsim_close_help(); " + 
                                   "sim_tutorial_showframe('welcome', 0);",
@@ -77,7 +77,7 @@
 
     help['es'].push({
                      id:          "simulator",
-                     title:       "Tutorial simple de uso.",
+                     title:       "Tutorial simple de uso",
                      type:        "code",
                      reference:   "wepsim_close_help(); " + 
                                   "sim_tutorial_showframe('simpleusage', 0);",

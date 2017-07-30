@@ -95,7 +95,6 @@
                                 "<li>The assembly and hardware view.</li>" +
                                 "<li>The detail view of registers, control memory, main memory, etc.</li>" +
                                 "<li>The reset, step by step or run until breakpoint/end actions.</li>" +
-                                "<li>The in-screen help.</li>" +
                                 "</ul>" +
                                 "</h4>",
                      code_pre:  function() { },

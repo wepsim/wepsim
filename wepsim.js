@@ -881,9 +881,12 @@
 
         // 2.- code_pre
         tutorial[step].code_pre();
-	tut_msg1 = new SpeechSynthesisUtterance(tutorial[step].title.replace(/<[^>]*>/g, '') + ". " + 
-		                                tutorial[step].message.replace(/<[^>]*>/g, ''));
-	tut_msg1.lang = 'en-US';
+        if (wepsim_voice_canSpeak())
+        {
+	    tut_msg1 = new SpeechSynthesisUtterance(tutorial[step].title.replace(/<[^>]*>/g, '') + ". " + 
+		                                    tutorial[step].message.replace(/<[^>]*>/g, ''));
+	    tut_msg1.lang = 'en-US';
+        }
 
         // 3.- dialog +
         //     code_post (next button) | cancel tutorials
