@@ -406,18 +406,16 @@
             return false ;
 	}
 
-        // 2.a) title: first line
+        // 2) ask user for more details ...
         var dialog_title = "Notify @ " + reg_maddr + ": " + MC_dashboard[reg_maddr].notify[1] ;
 
-        // 2.b) message: rest ...
-        var dialog_msg = "" ;
-        for (var i=1; i<notifications; i++) {
-             dialog_msg += MC_dashboard[reg_maddr].notify[i] + "\n<br>" ;
-        }
-
-        // 3) ask user for more details ...
 	if (confirm("Do you want more details for this notification? :\n" + dialog_title))
 	{
+            var dialog_msg = "" ;
+            for (var i=1; i<notifications; i++) {
+                 dialog_msg += MC_dashboard[reg_maddr].notify[i] + "\n<br>" ;
+            }
+
             // TODO: bootbox.alert -> dialog_stop_and_state(dialog_title, + new param: dialog_msg)
             // dialog_stop_and_state(dialog_title, dialog_msg) ; 
 
