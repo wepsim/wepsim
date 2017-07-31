@@ -233,23 +233,25 @@
 
                 <div id="col2" class="col-md-4" style="padding:0 8px 0 0px;">
 
-                    <div class="btn-toolbar" role="toolbar" id="sim_toolbar" style="padding: 0 0px 10px 0px;">
+                    <div class="btn-toolbar" role="toolbar" id="sim_toolbar" style="padding: 0 0px 2px 0px;">
 			<div class="btn-group btn-group-justified" role="group">
 			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-reset   ui-btn-icon-top ui-mini"
-			       onclick="wepsim_execute_reset();">Reset</a>
+			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-reset   ui-btn-icon-top ui-mini"
+			       onclick="wepsim_execute_reset();"><br>Reset</a>
 			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini"
-			       onclick="wepsim_execute_microinstruction();">&#181;Instruction</a>
+			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini"
+			       onclick="wepsim_execute_microinstruction();"><br>&#181;Instruction</a>
 			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini"
-			       onclick="wepsim_execute_instruction();">Instruction</a>
+			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini"
+			       onclick="wepsim_execute_instruction();"><br>Instruction</a>
 			    <a id="qbp" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-carat-r ui-btn-icon-top ui-mini"
-			       onclick="wepsim_execute_toggle_play('#qbp', false); return false;">Run</a>
+			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-carat-r ui-btn-icon-top ui-mini"
+			       onclick="wepsim_execute_toggle_play('#qbp', get_cfg('show_tutorials')); 
+                                        return false;"><br>Run</a>
 			    <a id="ib1" href="#" style="background-color: #D4DB17; -webkit-text-shadow: none; text-shadow: none;"
-			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-info ui-btn-icon-top ui-mini"
-			       onclick="wepsim_help_set_relative('#help_simulator_screens'); wepsim_help_refresh();">Help</a>
+			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-info ui-btn-icon-top ui-mini"
+			       onclick="wepsim_help_set_relative('#help_simulator_screens'); 
+                                        wepsim_help_refresh();"><br>Help</a>
                         </div>
                     </div>
 
@@ -285,7 +287,7 @@
 			</div>
 			<div class="ui-block-b" style="width:20%">
 		          <button class="btn ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-refresh"
-		                  style="background: #dedede !important; border-color:white; border-width:1 1 1 1px;"
+		                  style="background: #dedede !important; border-color:white; border-width:1 0 1 2px;"
                                   onclick="var val = $('#select5a').val();
 				           $('#tab' + val).trigger('click');
 				           if ('11' == val)
@@ -687,6 +689,29 @@
 	 <tr>
 	  <td class="collapse6 collapse in">3</td>
 	  <td class="hidden-xs" style="color:gray">simulation</td>
+	  <td>Interactive Mode</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		     <input name="radio5" id="radio5-true" 
+			    aria-label="Is interactive: true"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('is_interactive',true); save_cfg();"
+			    value="on" type="radio">
+		     <label for="radio5-true">On</label>
+		     <input name="radio5" id="radio5-false" 
+			    aria-label="Is interactive: false"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('is_interactive',false); save_cfg();"
+			    value="off" type="radio">
+		     <label for="radio5-false">Off</label>
+		 </fieldset>
+          </td>
+	  <td class="collapse7 collapse in">Interactive Mode</td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse in">4</td>
+	  <td class="hidden-xs" style="color:gray">simulation</td>
 	  <td>RF display format</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -716,7 +741,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">4</td>
+	  <td class="collapse6 collapse in">5</td>
 	  <td class="hidden-xs" style="color:gray">simulation</td>
 	  <td>RF name</td>
 	  <td>
@@ -738,7 +763,30 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">5</td>
+	  <td class="collapse6 collapse in">6</td>
+	  <td class="hidden-xs" style="color:gray">simulation</td>
+	  <td>Editable registers</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		     <input name="radio9" id="radio9-true" 
+			    aria-label="Is editable: true"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('is_editable',true); save_cfg();"
+			    value="on" type="radio">
+		     <label for="radio9-true">On</label>
+		     <input name="radio9" id="radio9-false" 
+			    aria-label="Is editable: false"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('is_editable',false); save_cfg();"
+			    value="off" type="radio">
+		     <label for="radio9-false">Off</label>
+		 </fieldset>
+          </td>
+	  <td class="collapse7 collapse in">Edit register file values</td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse in">7</td>
 	  <td class="hidden-xs" style="color:gray">editor</td>
 	  <td>Editor theme</td>
 	  <td>
@@ -769,7 +817,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">6</td>
+	  <td class="collapse6 collapse in">8</td>
 	  <td class="hidden-xs" style="color:gray">editor</td>
 	  <td>Editor mode</td>
 	  <td>
@@ -793,7 +841,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">7</td>
+	  <td class="collapse6 collapse in">9</td>
 	  <td class="hidden-xs" style="color:gray">execution</td>
 	  <td>Speed-up</td>
 	  <td>
@@ -809,7 +857,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">8</td>
+	  <td class="collapse6 collapse in">10</td>
 	  <td class="hidden-xs" style="color:gray">execution</td>
 	  <td>Step-by-step</td>
 	  <td>
@@ -832,7 +880,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">9</td>
+	  <td class="collapse6 collapse in">11</td>
 	  <td class="hidden-xs" style="color:gray">execution</td>
 	  <td>Breakpoint Icon</td>
 	  <td>
@@ -861,52 +909,6 @@
 		 </fieldset>
           </td>
 	  <td class="collapse7 collapse in">Breakpoint icon</td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse in">10</td>
-	  <td class="hidden-xs" style="color:gray">execution</td>
-	  <td>Interactive Mode</td>
-	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		     <input name="radio5" id="radio5-true" 
-			    aria-label="Is interactive: true"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('is_interactive',true); save_cfg();"
-			    value="on" type="radio">
-		     <label for="radio5-true">On</label>
-		     <input name="radio5" id="radio5-false" 
-			    aria-label="Is interactive: false"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('is_interactive',false); save_cfg();"
-			    value="off" type="radio">
-		     <label for="radio5-false">Off</label>
-		 </fieldset>
-          </td>
-	  <td class="collapse7 collapse in">Interactive Mode</td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse in">11</td>
-	  <td class="hidden-xs" style="color:gray">execution</td>
-	  <td>Editable registers</td>
-	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		     <input name="radio9" id="radio9-true" 
-			    aria-label="Is editable: true"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('is_editable',true); save_cfg();"
-			    value="on" type="radio">
-		     <label for="radio9-true">On</label>
-		     <input name="radio9" id="radio9-false" 
-			    aria-label="Is editable: false"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('is_editable',false); save_cfg();"
-			    value="off" type="radio">
-		     <label for="radio9-false">Off</label>
-		 </fieldset>
-          </td>
-	  <td class="collapse7 collapse in">Edit register file values</td>
 	 </tr>
 
 	 <tr>
