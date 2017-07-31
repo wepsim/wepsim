@@ -247,7 +247,7 @@
 
     function wepsim_execute_stop ( btn1 )
     {
-	$(btn1).html("Run") ;
+	$(btn1).html("<br>Run") ;
 	$(btn1).removeClass("ui-icon-minus") ;
 	$(btn1).addClass("ui-icon-carat-r") ;
 	$(btn1).css("backgroundColor", "#CCCCCC") ;
@@ -261,7 +261,7 @@
 	    return false;
 
 	$(btn1).css("backgroundColor", 'rgb(51, 136, 204)') ;
-	$(btn1).html("Stop") ;
+	$(btn1).html("<br>Stop") ;
 	$(btn1).removeClass("ui-icon-carat-r") ;
 	$(btn1).addClass("ui-icon-minus") ;
 
@@ -279,10 +279,7 @@
         } 
         else 
         {
-            DBG_stop = false ;
-            if (false == run_notifications)
-                 wepsim_execute_chainplay(btn1) ;
-            else wepsim_execute_chainnotify(btn1) ;
+            wepsim_execute_play(btn1,run_notifications) ;
         }
     }
 
