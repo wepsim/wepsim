@@ -671,15 +671,20 @@
             MC_dashboard = new Object() ;
             for (var i=0; i<SIMWARE['firmware'].length; i++)
 	    {
+               var notifications = new Array() ;
 	       var last = SIMWARE['firmware'][i]["microcode"].length ; // mc = microcode
                var mci  = SIMWARE['firmware'][i]["mc-start"] ;
 	       for (var j=0; j<last; j++)
 	       {
 		    var comment = SIMWARE['firmware'][i]["microcomments"][j] ;
 		    MC[mci]     = SIMWARE['firmware'][i]["microcode"][j] ;
-		    MC_dashboard[mci] = { comment: comment,
-                                          breakpoint: false,
-                                          notify: comment.trim().split("notify:") } ;
+
+                    notifications = comment.trim().split("notify:") ;
+		    for (var k=0; k<notifications.length; k++) {
+		         notifications[k] = notifications[k].split('\n')[0] ;
+                    }
+
+		    MC_dashboard[mci] = { comment: comment, breakpoint: false, notify: notifications } ;
 		    mci++;
 	       }
 	    }

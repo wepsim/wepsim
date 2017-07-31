@@ -398,6 +398,7 @@
 
     function wepsim_check_stopbynotify_firm ( )
     {
+        // 1) check if there are notifications...
         var reg_maddr     = get_value(sim_states["REG_MICROADDR"]) ;
         var notifications = MC_dashboard[reg_maddr].notify.length ;
 
@@ -405,26 +406,30 @@
             return false ;
 	}
 
-        var noti = "" ;
+        // 2.a) title: first line
+        var dialog_title = "Notify @ " + reg_maddr + ": " + MC_dashboard[reg_maddr].notify[1] ;
+
+        // 2.b) message: rest ...
+        var dialog_msg = "" ;
         for (var i=1; i<notifications; i++) {
-             noti += MC_dashboard[reg_maddr].notify[i] + "\n<br>" ;
+             dialog_msg += MC_dashboard[reg_maddr].notify[i] + "\n<br>" ;
         }
 
-        // var dialog_title = "Notify @ " + reg_maddr + ":<br>" + noti ;
-        // dialog_stop_and_state(dialog_title) ;
+        // 3) ask user for more details ...
+	if (confirm("Do you want more details for this notification? :\n" + dialog_title))
+	{
+            // TODO: bootbox.alert -> dialog_stop_and_state(dialog_title, + new param: dialog_msg)
+            // dialog_stop_and_state(dialog_title, dialog_msg) ; 
 
-	bootbox.confirm({
-	    title:    "Notify @ " + reg_maddr + ":",
-	    message:  noti,
-	    buttons:  {
-		        cancel:  { label: '<i class="fa fa-times"></i> Stop'  },
-		        confirm: { label: '<i class="fa fa-check"></i> Next notification' }
-		      },
-	    callback: function (result) {
-		      }
-	});
+	    bootbox.alert({
+	        title:    dialog_title,
+	        message:  dialog_msg
+	    });
 
-        return true ;
+	    return true ;
+	}
+
+	return false ;
     }
 
     function wepsim_check_stopbybreakpoint_firm ( )

@@ -13,7 +13,17 @@ begin
                     # RT1 <- MBR
                     (T1=1, C4=1),
 
-    csw_rt1:        # push PC
+    csw_rt1:        # notify: csw_rt1 microsubrutine...
+                    # notify: first, save the current PC+SR:
+                    # notify: <font color=blue>push PC</font>
+                    # notify: <font color=blue>push SR</font>
+                    # notify: then get the memory address to the assembly subrutine associated with RT1
+                    # notify: <font color=blue>MAR = RT1*4</font>
+                    # notify: <font color=blue>MBR = MP[MAR]</font>
+                    # notify: <font color=blue>PC  = MAR</font>
+                    # notify: finally, go fetch to start executing the assembly subrutine associated with RT1
+
+                    # push PC
                     (MR=1, SELA=11101, MA=0, MB=10, MC=1, SELCOP=1011, T6=1, SELC=11101, LC=1, C0),
                     (T2=1, M1=0, C1),
                     (BW=11, TA=1, TD=1, W=1)
@@ -40,12 +50,17 @@ reti {
         co=111110,
         nwords=1,
         {
+              # notify: RETI instruction...
+              # notify: <font color=blue>pop SR</font>
+              # notify: <font color=blue>pop PC</font>
+              # notify: then go fetch, to keep executing the assembly code 
+
               # pop SR
               (MR=1, SELA=11101, T9, C0),
               (MR=1, SELA=11101, MA=0, MB=10, MC=1, SELCOP=1010, T6=1, SELC=11101, LC=1),
               (TA=1, R=1, BW=11, M1=1, C1),
               (T1=1, M7=0, C7),
-              # pop PC
+              # pop PC + go fetch
               (MR=1, SELA=11101, T9, C0),
               (MR=1, SELA=11101, MA=0, MB=10, MC=1, SELCOP=1010, T6=1, SELC=11101, LC=1),
               (TA=1, R=1, BW=11, M1=1, C1),
@@ -57,6 +72,11 @@ syscall {
         co=101110,
         nwords=1,
         {
+                    # notify: SYSCALL instruction...
+                    # notify: <font color=blue>RT1 = 2</font>
+                    # notify: microjump to <font color=blue>csw_rti</font> microsubrutine
+                    # notify: note: PC already points to next instructions after syscall
+
                     # RT1 <- ExCode=2
                     (ExCode=10, T11, C4),
                     # csw_rt1(2)
