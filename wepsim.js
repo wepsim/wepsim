@@ -524,8 +524,8 @@
 				  },
 			callback: function (result) {
 				     if (result)
-					  wepsim_execute_stop(btn1) ;
-				     else setTimeout(wepsim_execute_chainnotify, get_cfg('DBG_delay'), btn1) ;
+				          setTimeout(wepsim_execute_chainnotify, get_cfg('DBG_delay'), btn1) ;
+				     else wepsim_execute_stop(btn1) ;
 				  }
 		    });
 
