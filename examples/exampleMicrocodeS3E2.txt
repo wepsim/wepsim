@@ -13,7 +13,7 @@ begin
                     # RT1 <- MBR
                     (T1=1, C4=1),
 
-    csw_rt1:        # notify: csw_rt1 microsubrutine...
+    csw_rt1:        # notify: The csw_rt1 microsubrutine.
                     # notify: first, save the current PC+SR:
                     # notify: <font color=blue>push PC</font>
                     # notify: <font color=blue>push SR</font>
@@ -50,7 +50,7 @@ reti {
         co=111110,
         nwords=1,
         {
-              # notify: RETI instruction...
+              # notify: The RETI instruction.
               # notify: <font color=blue>pop SR</font>
               # notify: <font color=blue>pop PC</font>
               # notify: then go fetch, to keep executing the assembly code 
@@ -72,7 +72,7 @@ syscall {
         co=101110,
         nwords=1,
         {
-                    # notify: SYSCALL instruction...
+                    # notify: The SYSCALL instruction.
                     # notify: <font color=blue>RT1 = 2</font>
                     # notify: microjump to <font color=blue>csw_rti</font> microsubrutine
                     # notify: note: PC already points to next instructions after syscall

@@ -255,7 +255,7 @@
 	DBG_stop = true;
     }
 
-    function wepsim_execute_play ( btn1 )
+    function wepsim_execute_play ( btn1, run_notifications )
     {
 	if (check_if_can_execute(true) == false)
 	    return false;
@@ -266,18 +266,26 @@
 	$(btn1).addClass("ui-icon-minus") ;
 
         DBG_stop = false ;
-        wepsim_execute_chainplay(btn1) ;
+        if (false == run_notifications)
+             wepsim_execute_chainplay(btn1) ;
+        else wepsim_execute_chainnotify(btn1) ;
     }
 
-    function wepsim_execute_toggle_play ( btn1 )
+    function wepsim_execute_toggle_play ( btn1, run_notifications )
     {
-        if (DBG_stop == false) {
+        if (DBG_stop == false) 
+        {
             DBG_stop = true ; // will help to execute_play stop playing
-        } else {
+        } 
+        else 
+        {
             DBG_stop = false ;
-            wepsim_execute_play(btn1) ;
+            if (false == run_notifications)
+                 wepsim_execute_chainplay(btn1) ;
+            else wepsim_execute_chainnotify(btn1) ;
         }
     }
+
 
     /*
      * Help
@@ -396,40 +404,6 @@
      * Play/stop
      */
 
-    function wepsim_check_stopbynotify_firm ( )
-    {
-        // 1) check if there are notifications...
-        var reg_maddr     = get_value(sim_states["REG_MICROADDR"]) ;
-        var notifications = MC_dashboard[reg_maddr].notify.length ;
-
-        if (1 == notifications) {
-            return false ;
-	}
-
-        // 2) ask user for more details ...
-        var dialog_title = "Notify @ " + reg_maddr + ": " + MC_dashboard[reg_maddr].notify[1] ;
-
-	if (confirm("Do you want more details for this notification? :\n" + dialog_title))
-	{
-            var dialog_msg = "" ;
-            for (var i=1; i<notifications; i++) {
-                 dialog_msg += MC_dashboard[reg_maddr].notify[i] + "\n<br>" ;
-            }
-
-            // TODO: bootbox.alert -> dialog_stop_and_state(dialog_title, + new param: dialog_msg)
-            // dialog_stop_and_state(dialog_title, dialog_msg) ; 
-
-	    bootbox.alert({
-	        title:    dialog_title,
-	        message:  dialog_msg
-	    });
-
-	    return true ;
-	}
-
-	return false ;
-    }
-
     function wepsim_check_stopbybreakpoint_firm ( )
     {
         var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
@@ -472,6 +446,7 @@
 	    return ;
 	}
 
+	var ret = false ;
         var clklimit = get_cfg('DBG_limitick') ;
 
         var turbo = 1;
@@ -482,7 +457,6 @@
             var t0 = performance.now() ;
         for (var i=0; i<turbo; i++)
         {
-		var ret = false ;
 		if (get_cfg('DBG_level') == "instruction")
 		     ret = execute_microprogram(clklimit) ;
 		else ret = execute_microinstruction() ;
@@ -503,12 +477,6 @@
 		    wepsim_execute_stop(btn1) ;
 		    return ;
 		}
-
-		ret = wepsim_check_stopbynotify_firm() ;
-		if (ret == true) {
-		    wepsim_execute_stop(btn1) ;
-		    return ;
-		}
         }
         if (max_turbo == 5) 
             var t1 = performance.now() ;
@@ -518,6 +486,56 @@
 
 	setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), btn1) ;
     }
+
+    function wepsim_execute_chainnotify ( btn1 )
+    {
+	if (DBG_stop) {
+	    wepsim_execute_stop(btn1) ;
+	    return ;
+	}
+
+	var ret = false ;
+        for (var i=0; i<max_turbo; i++)
+        {
+		ret = execute_microinstruction() ;
+		if (ret === false) 
+                {
+		    wepsim_execute_stop(btn1) ;
+		    return ;
+		}
+
+		var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
+		var notifications = MC_dashboard[reg_maddr].notify.length ;
+		if (notifications > 1) 
+                {
+		    var dialog_title = "Notify @ " + reg_maddr + ": " + MC_dashboard[reg_maddr].notify[1] ;
+
+		    var dialog_msg = "" ;
+		    for (var i=1; i<notifications; i++) {
+			 dialog_msg += MC_dashboard[reg_maddr].notify[i] + "\n<br>" ;
+		    }
+
+		    bootbox.confirm({
+			title:    dialog_title,
+			message:  dialog_msg,
+			buttons:  {
+				     cancel:  { label: 'Stop',     className: 'btn-danger' },
+				     confirm: { label: 'Continue', className: 'btn-primary' }
+				  },
+			callback: function (result) {
+				     if (result)
+					  wepsim_execute_stop(btn1) ;
+				     else setTimeout(wepsim_execute_chainnotify, get_cfg('DBG_delay'), btn1) ;
+				  }
+		    });
+
+		    return ;
+		}
+        }
+
+        setTimeout(wepsim_execute_chainnotify, get_cfg('DBG_delay'), btn1) ;
+    }
+
 
     /*
      * UI elements
@@ -1170,8 +1188,8 @@
                'reset':                    wepsim_execute_reset,
                'next instruction':         wepsim_execute_instruction,
                'next micro(instruction)':  wepsim_execute_microinstruction,
-               'play':                     wepsim_execute_play,
-               'stop':                     wepsim_execute_stop,
+               'play':                     function() { wepsim_execute_play('#qbp', false); },
+               'stop':                     function() { wepsim_execute_stop('#qbp'); },
 
                'help':                     wepsim_open_help_index,
                'examples':                 wepsim_open_examples_index,

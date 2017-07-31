@@ -671,7 +671,8 @@
             MC_dashboard = new Object() ;
             for (var i=0; i<SIMWARE['firmware'].length; i++)
 	    {
-               var notifications = new Array() ;
+               var elto_notify = new Array() ;
+               var elto_break  = false ;
 	       var last = SIMWARE['firmware'][i]["microcode"].length ; // mc = microcode
                var mci  = SIMWARE['firmware'][i]["mc-start"] ;
 	       for (var j=0; j<last; j++)
@@ -679,12 +680,13 @@
 		    var comment = SIMWARE['firmware'][i]["microcomments"][j] ;
 		    MC[mci]     = SIMWARE['firmware'][i]["microcode"][j] ;
 
-                    notifications = comment.trim().split("notify:") ;
-		    for (var k=0; k<notifications.length; k++) {
-		         notifications[k] = notifications[k].split('\n')[0] ;
+                    elto_break = (comment.trim().split("break:").length > 1) ;
+                    elto_notify = comment.trim().split("notify:") ;
+		    for (var k=0; k<elto_notify.length; k++) {
+		         elto_notify[k] = elto_notify[k].split('\n')[0] ;
                     }
 
-		    MC_dashboard[mci] = { comment: comment, breakpoint: false, notify: notifications } ;
+		    MC_dashboard[mci] = { comment: comment, breakpoint: elto_break, notify: elto_notify } ;
 		    mci++;
 	       }
 	    }
