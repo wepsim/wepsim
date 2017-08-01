@@ -702,17 +702,17 @@
 		       ' <td>' + '<b>' + (m+1)   + '</b>' + '</td>' +
 		       ' <td>' + '<b    class="collapse1 collapse in">' + e_level + '</b>' + '</td>' +
 		       ' <td>' + 
-		       '   <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',true);"  style="padding:0 0 0 0;"' +
+		       '   <a href="#" onclick="$(\'#example1\').modal(\'hide\'); load_from_example_firmware(\'' + e_id + '\',true);"  style="padding:0 0 0 0;"' +
 		       '      class="ui-btn btn btn-group ui-btn-inline btn-primary">' + 
                        '   <b class="collapse2 collapse in">' + e_title + '</b></a>' +
                        ' </td>' +
 		       ' <td>' + '<span class="collapse3 collapse in">' + e_description + '</span>' + '</td>' +
 		       ' <td class="collapse4 collapse in" style="min-width:150px; max-width:200px">' +
 		       '     <div class="btn-group btn-group-justified btn-group-md">' +
-		       '         <a href="#" onclick="load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0;"' +
+		       '         <a href="#" onclick="$(\'#example1\').modal(\'hide\'); load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0;"' +
 		       '            class="ui-btn btn btn-group ui-btn-inline btn-default">' +
 		       '            <b>Assembly</b></a>' +
-		       '         <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',false);" style="padding:0 0 0 0;"' +
+		       '         <a href="#" onclick="$(\'#example1\').modal(\'hide\'); load_from_example_firmware(\'' + e_id + '\',false);" style="padding:0 0 0 0;"' +
 		       '            class="ui-btn btn btn-group ui-btn-inline btn-default">' +
 		       '            <b>Firmware</b></a>' +
 		       '     </div>' +
