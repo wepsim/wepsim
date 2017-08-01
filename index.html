@@ -1047,45 +1047,6 @@
 </div><!-- /popup -->
 
 
-<div data-role="popup" id="help1" 
-     data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
-
-      <div data-role="header" data-theme="b" class="ui-corner-top">
-           <div data-type="horizontal" data-role="controlgroup" class="ui-btn-left">  
-             <div id="help1_ref" style="display:none;"></div>
-	     <input name="radio6" id="radio6-es" data-mini="true"
-		    aria-label="Idiom: Spanish"
-		    style="margin-top:-8px"
-		    onclick="set_cfg('ws_idiom','es'); save_cfg(); wepsim_help_refresh();"
-		    value="ES" type="radio">
-	     <label for="radio6-es">ES</label>
-	     <input name="radio6" id="radio6-en" data-mini="true"
-		    aria-label="Idiom: English"
-		    style="margin-top:-8px"
-		    onclick="set_cfg('ws_idiom','en'); save_cfg(); wepsim_help_refresh();"
-		    value="EN" type="radio">
-	     <label for="radio6-en">EN</label>
-           </div>
-           <h1 style="padding:0 0 0 0;">
-               <a href="#" 
-                  style="background-color: #D4DB17;"
-		  onclick="wepsim_open_help_index();"
-                  class="ui-btn ui-btn-icon-right ui-btn-inline ui-icon-home ui-btn-a">Help</a>
-           </h1>
-           <a href="#" 
-              data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" 
-              class="ui-btn-right">Close</a>
-      </div>
-
-      <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
-              <div class="ui-body-d ui-content" style="padding: 2px 2px 2px 2px;">
-                 <div id=iframe_help1 style="height:80vh; width:80vw; max-width:1200px; overflow:auto;"></div>
-              </div>
-      </div>
-
-</div><!-- /panel -->
-
-
 <div data-role="popup" id="bin1" 
      data-theme="a" data-dismissible="true" data-animate="false" data-overlay-theme="a">
 
@@ -1135,6 +1096,50 @@
 </div> <!-- /.modal -->
 
 
+<div id="help1" class="modal">
+     <div class="modal-dialog" style="width:80vw; height:80vh;">
+	<div class="modal-content">
+	   <div class="modal-header">
+		 <button type="button" data-role="button" data-dismiss="modal"
+                        class="close ui-btn-right ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-corner-all" 
+                         data-dismiss="modal" aria-hidden="true">x</button>
+		 <center>
+		   <div class="btn-group">
+		     <button type="button" class="btn btn-success" 
+		             onclick="wepsim_open_help_index();"
+			     style="height:34px !important;">Help Index</button>
+		     <button type="button" class="btn btn-success dropdown-toggle" 
+			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
+			     style="height:34px !important;">
+			 <span class="caret"></span>
+			 <span class="sr-only">Toggle Help Idiom</span>
+		     </button>
+		     <ul class="dropdown-menu">
+			 <li><a href="#" onclick="set_cfg('ws_idiom','es'); save_cfg(); 
+                                         wepsim_help_refresh();">ES</a></li>
+			 <li><a href="#" onclick="set_cfg('ws_idiom','en'); save_cfg(); 
+                                         wepsim_help_refresh();">EN</a></li>
+		     </ul>
+		   </div>
+                 </center>
+	   </div>
+	   <div class="modal-body">
+                 <div id="help1_ref" style="display:none;"></div>
+                 <div class="ui-body-d ui-content" 
+                      style="padding: 2px 2px 2px 2px; height:60vh; max-width:1200px; overflow:auto;">
+                      <div id="iframe_help1"></div>
+                 </div>
+	   </div>
+	   <div class="modal-footer">
+                 <button data-bb-handler="ok" type="button" 
+                         onclick="$('#help1').modal('hide'); "
+                         class="btn btn-primary">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
+	   </div>
+	</div>
+     </div>
+</div> <!-- /.modal -->
+
+
 <script>
     window.addEventListener("beforeunload", function (e) {
        var confirmationMessage = "\o/";
@@ -1151,7 +1156,6 @@
 		    jQuery.fx.off = true;
                     ko.options.deferUpdates = true;
 
-		    $("#help1").enhanceWithin().popup();
 		    $("#bin1").enhanceWithin().popup();
 		    $("#about1").enhanceWithin().popup();
 		    $("#example1").enhanceWithin().popup();
@@ -1226,7 +1230,7 @@
 		    $("#radio2-" + get_cfg('RF_display_format')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio3-" +   get_cfg('RF_display_name')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio5-" +    get_cfg('is_interactive')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio6-" +          get_cfg('ws_idiom')).prop('checked', true).checkboxradio("refresh") ;
+		  //$("#radio6-" +          get_cfg('ws_idiom')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio7-" +      get_cfg('editor_theme')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio9-" +       get_cfg('is_editable')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio10-" +   get_cfg('show_tutorials')).prop('checked', true).checkboxradio("refresh") ;
