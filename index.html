@@ -265,7 +265,7 @@
 			<div class="ui-block-d" style="width:20%">
 		          <button class="btn ui-btn ui-shadow ui-corner-all"
 		                  style="background: #dedede !important; border-color:white; border-width:1 1 1 1px;"
-			          onclick='$("#tab13").trigger("click");'><b>Configuration</b></button>
+                                  data-toggle="modal" data-target="#confighw"><b>Configuration</b></button>
 			</div>
 			<div class="ui-block-c" style="width:40%; margin: 7 0 0 0">
                           <select name="select5a" id="select5a" class="selectpicker" 
@@ -314,8 +314,8 @@
 			 <br style="height:0; width:100%; font-size:0; margin:5; padding:0; border:0; display:block;">
 		         <div id="states_BR"           style="width: inherit; overflow-y: auto;"></div>
 		      </div>
-	    	      <div id="config"  class="ui-body-d ui-content" style="padding:14 14 0 14;">
-		         <div id="config_ALL"          style="width: inherit; overflow-y: auto;"></div>
+	    	      <div id="config0"  class="ui-body-d ui-content" style="padding:14 14 0 14;">
+		         <div id="config_ALL0"         style="width: inherit; overflow-y: auto;"></div>
 		      </div>
 		      <div id="mp"   class="ui-body-d ui-content">
 		         <div id="memory_MP"           style="height:60vh; width: inherit; overflow-y: scroll;"></div>
@@ -1111,6 +1111,28 @@
       </div>
 
 </div><!-- /panel -->
+
+
+<div id="confighw" class="modal">
+     <div class="modal-dialog">
+	<div class="modal-content">
+	   <div class="modal-header">
+		 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+		 <center><h4 class="modal-title">Hardware Configuration</h4></center>
+	   </div>
+	   <div class="modal-body">
+		 <div id="config" class="ui-body-d ui-content" style="padding:14 14 0 14;">
+		      <div id="config_ALL" style="width: inherit; overflow-y: auto;"></div>
+		 </div>
+	   </div>
+	   <div class="modal-footer">
+                 <button data-bb-handler="ok" type="button" 
+                         onclick="$('#confighw').modal('hide'); "
+                         class="btn btn-primary">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
+	   </div>
+	</div>
+     </div>
+</div> <!-- /.modal -->
 
 
 <script>
