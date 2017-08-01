@@ -48,6 +48,18 @@
         overflow: auto;
     }
 
+    .modal-header {
+	padding: 5 5 5 5 !important;
+        background-color: #EEEEEE !important;
+    }
+    .modal-body {
+	padding: 10 10 10 10 !important;
+    }
+    .modal-footer {
+	padding: 8 8 8 8 !important;
+        background-color: #EEEEEE !important;
+    }
+
     div.ui-input-text, div.ui-slider { 
         margin: 0px 0px 0px 0px;
     }
@@ -1078,7 +1090,7 @@
 <div id="help1" class="modal">
      <div class="modal-dialog" style="width:90vw; height:80vh;">
 	<div class="modal-content">
-	   <div class="modal-header" style="padding:5 5 5 5; background-color:#EEEEEE;">
+	   <div class="modal-header">
 		 <button type="button" data-role="button" data-dismiss="modal"
                         class="close ui-btn-right ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-corner-all" 
                          data-dismiss="modal" aria-hidden="true">x</button>
@@ -1109,7 +1121,7 @@
                       <div id="iframe_help1"></div>
                  </div>
 	   </div>
-	   <div class="modal-footer" style="padding:5 5 5 5; background-color:#EEEEEE;">
+	   <div class="modal-footer">
                  <button data-bb-handler="ok" type="button" 
                          onclick="$('#help1').modal('hide'); "
                          class="btn btn-primary">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
@@ -1122,7 +1134,7 @@
 <div id="example1" class="modal">
      <div class="modal-dialog" style="width:90vw; height:80vh;">
 	<div class="modal-content">
-	   <div class="modal-header" style="padding:5 5 5 5; background-color:#EEEEEE;">
+	   <div class="modal-header">
 		 <button type="button" data-role="button" data-dismiss="modal"
                         class="close ui-btn-right ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-corner-all" 
                          data-dismiss="modal" aria-hidden="true">x</button>
@@ -1132,10 +1144,10 @@
 	   </div>
 	   <div class="modal-body">
 		<div id="container-example1" class="container-fluid" 
-		     style="max-height:75vh; overflow:auto;">
+		     style="max-height:75vh; padding:0 0 0 0; overflow:auto;">
 		</div>
 	   </div>
-	   <div class="modal-footer" style="padding:5 5 5 5; background-color:#EEEEEE;">
+	   <div class="modal-footer">
                  <button data-bb-handler="ok" type="button" 
                          onclick="$('#example1').modal('hide'); "
                          class="btn btn-primary">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
