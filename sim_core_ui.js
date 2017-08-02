@@ -681,8 +681,6 @@
                      "</table>" +
                      "</div>" +
                      "</div>" +
-                     "</div>" +
-                     "</div>" +
                      "</div>" ;
          
                o1 += "<div class='col-xs-12 col-md-12' style='padding:0 0 0 0;'>" +
