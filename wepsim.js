@@ -113,13 +113,8 @@
             return false;
         }
 
-        if (with_ui) 
-	{
-	    $.notify({ title: '<strong>INFO</strong>', message: 'Assembly was compiled and loaded.'},
-		     { type: 'success',
-                       newest_on_top: true,
-                       delay: get_cfg('NOTIF_delay'),
-                       placement: { from: 'top', align: 'center' } });
+        if (with_ui) {
+            wepsim_notify('<strong>INFO</strong>', 'Assembly was compiled and loaded.') ;
 	}
 
         // update memory and segments
@@ -150,12 +145,9 @@
             return false;
         }
 
-        if (with_ui)
-	    $.notify({ title: '<strong>INFO</strong>', message: 'Microcode was compiled and loaded.'},
-	    	     { type: 'success',
-                       newest_on_top: true,
-                       delay: get_cfg('NOTIF_delay'),
-                       placement: { from: 'top', align: 'center' } });
+        if (with_ui) {
+            wepsim_notify('<strong>INFO</strong>', 'Microcode was compiled and loaded.') ;
+        }
 
         // update UI
 	reset() ;
@@ -407,6 +399,15 @@
     // Auxiliar functions
     //
 
+    function wepsim_notify_success ( ntf_title, ntf_message )
+    {
+	 $.notify({ title: ntf_title, message: ntf_message },
+		  { type: 'success',
+                    newest_on_top: true,
+                    delay: get_cfg('NOTIF_delay'),
+                    placement: { from: 'top', align: 'center' } });
+    }
+
     /*
      * Play/stop
      */
@@ -641,13 +642,7 @@
 				                 }, 50);
 			    }
 
-			    $.notify({ title: '<strong>INFO</strong>',
-			  	       message: 'Example ready to be used.'},
-				     { type: 'success',
-				       newest_on_top: true,
-				       delay: get_cfg('NOTIF_delay'),
-				       placement: { from: 'top', align: 'center' }
-				      });
+                            wepsim_notify('<strong>INFO</strong>', 'Example ready to be used.') ;
                       };
         wepsim_load_from_url(url, do_next) ;
 
@@ -675,13 +670,7 @@
                                   else show_memories_values();
                            }
 
-			   $.notify({ title: '<strong>INFO</strong>',
-				      message: 'Example ready to be used.'},
-				    { type: 'success',
-				      newest_on_top: true,
-				      delay: get_cfg('NOTIF_delay'),
-				      placement: { from: 'top', align: 'center' }
-				     });
+                           wepsim_notify('<strong>INFO</strong>', 'Example ready to be used.') ;
                       };
         wepsim_load_from_url(url, do_next) ;
 
