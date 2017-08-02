@@ -642,142 +642,55 @@
 	</tr>
 	</thead>
 	<tbody>
+
 	 <tr>
 	  <td class="collapse6 collapse in">1</td>
-	  <td class="hidden-xs" style="color:gray">simulation</td>
-	  <td>Data-path color</td>
+	  <td class="hidden-xs" style="color:gray">help</td>
+	  <td>Active tutorials</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		 <input type="color"
-			aria-label="Color for active data"
-			id="colorpicker1"
-			data-show-value="false"
-			class="noshadow" style="margin:0 0 0 0"
-			onchange="set_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh(); save_cfg();">
+		     <input name="radio10" id="radio10-true" 
+			    aria-label="Is editable: true"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('show_tutorials',true); save_cfg();"
+			    value="on" type="radio">
+		     <label for="radio10-true">On</label>
+		     <input name="radio10" id="radio10-false" 
+			    aria-label="Is editable: false"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('show_tutorials',false); save_cfg();"
+			    value="off" type="radio">
+		     <label for="radio10-false">Off</label>
 		 </fieldset>
           </td>
-	  <td rowspan="2"><img alt="color configuration" 
-                               src="images/cfg-colors.gif" 
-                               style="width:90px; max-height:100%"></td>
+	  <td class="collapse7 collapse in">Set tutorial mode</td>
 	 </tr>
 
 	 <tr>
 	  <td class="collapse6 collapse in">2</td>
-	  <td class="hidden-xs" style="color:gray">simulation</td>
-	  <td>Signal color</td>
+	  <td class="hidden-xs" style="color:gray">help</td>
+	  <td>Active voice</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		 <input type="color"
-			aria-label="Color for active signal name"
-			id="colorpicker2"
-			data-show-value="false"
-			class="noshadow" style="margin:0 0 0 0"
-			onchange="set_cfg('color_name_active', $('#colorpicker2').spectrum('get')); refresh(); save_cfg();">
-		 </fieldset>
-          </td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse in">3</td>
-	  <td class="hidden-xs" style="color:gray">simulation</td>
-	  <td>Interactive Mode</td>
-	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		     <input name="radio5" id="radio5-true" 
-			    aria-label="Is interactive: true"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('is_interactive',true); save_cfg();"
-			    value="on" type="radio">
-		     <label for="radio5-true">On</label>
-		     <input name="radio5" id="radio5-false" 
-			    aria-label="Is interactive: false"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('is_interactive',false); save_cfg();"
-			    value="off" type="radio">
-		     <label for="radio5-false">Off</label>
-		 </fieldset>
-          </td>
-	  <td class="collapse7 collapse in">Interactive Mode</td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse in">4</td>
-	  <td class="hidden-xs" style="color:gray">simulation</td>
-	  <td>RF display format</td>
-	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		     <input name="radio2" id="radio2-16" 
-			    aria-label="register file display format (decimal)"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('RF_display_format',16); show_rf_values(); show_memories_values(); save_cfg();"
-			    value="on" type="radio">
-		     <label for="radio2-16">Hex.</label>
-		     <input name="radio2" id="radio2-10" 
-			    aria-label="register file display format (hexadecimal)"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('RF_display_format',10); show_rf_values(); show_memories_values(); save_cfg();"
-			    value="off" type="radio">
-		     <label for="radio2-10">Dec.</label>
-		     <input name="radio2" id="radio2-8"  
-			    aria-label="register file display format (octal)"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('RF_display_format',8); show_rf_values(); show_memories_values(); save_cfg();"
-			    value="off" type="radio">
-		     <label for="radio2-8">Oct.</label>
-		 </fieldset>
-          </td>
-	  <td rowspan="2"><img alt="register file example" 
-                               src="images/cfg-rf.gif" 
-                               style="width:92px; max-height:100%"></td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse in">5</td>
-	  <td class="hidden-xs" style="color:gray">simulation</td>
-	  <td>RF name</td>
-	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		     <input name="radio3" id="radio3-numerical" 
-			    aria-label="register file display name (number)"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('RF_display_name','numerical'); show_rf_names(); save_cfg();"
-			    value="on" type="radio">
-		     <label for="radio3-numerical">Numbers</label>
-		     <input name="radio3" id="radio3-logical" 
-			    aria-label="register file display name (user identification)"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('RF_display_name','logical'); show_rf_names(); save_cfg();"
-			    value="off" type="radio">
-		     <label for="radio3-logical">Labels</label>
-		 </fieldset>
-          </td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse in">6</td>
-	  <td class="hidden-xs" style="color:gray">simulation</td>
-	  <td>Editable registers</td>
-	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		     <input name="radio9" id="radio9-true" 
+		     <input name="radio11" id="radio11-true" 
 			    aria-label="Is editable: true"
 			    style="margin-top:-8px"
-			    onclick="set_cfg('is_editable',true); save_cfg();"
+			    onclick="set_cfg('use_voice',true); save_cfg(); wepsim_voice_start();"
 			    value="on" type="radio">
-		     <label for="radio9-true">On</label>
-		     <input name="radio9" id="radio9-false" 
+		     <label for="radio11-true">On</label>
+		     <input name="radio11" id="radio11-false" 
 			    aria-label="Is editable: false"
 			    style="margin-top:-8px"
-			    onclick="set_cfg('is_editable',false); save_cfg();"
+			    onclick="set_cfg('use_voice',false); save_cfg(); wepsim_voice_stop();"
 			    value="off" type="radio">
-		     <label for="radio9-false">Off</label>
+		     <label for="radio11-false">Off</label>
 		 </fieldset>
           </td>
-	  <td class="collapse7 collapse in">Edit register file values</td>
+	  <td class="collapse7 collapse in">Use voice</td>
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">7</td>
+	  <td class="collapse6 collapse in">9</td>
 	  <td class="hidden-xs" style="color:gray">editor</td>
 	  <td>Editor theme</td>
 	  <td>
@@ -808,7 +721,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">8</td>
+	  <td class="collapse6 collapse in">10</td>
 	  <td class="hidden-xs" style="color:gray">editor</td>
 	  <td>Editor mode</td>
 	  <td>
@@ -832,7 +745,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">9</td>
+	  <td class="collapse6 collapse in">11</td>
 	  <td class="hidden-xs" style="color:gray">execution</td>
 	  <td>Speed-up</td>
 	  <td>
@@ -848,7 +761,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">10</td>
+	  <td class="collapse6 collapse in">12</td>
 	  <td class="hidden-xs" style="color:gray">execution</td>
 	  <td>Step-by-step</td>
 	  <td>
@@ -871,7 +784,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">11</td>
+	  <td class="collapse6 collapse in">13</td>
 	  <td class="hidden-xs" style="color:gray">execution</td>
 	  <td>Breakpoint Icon</td>
 	  <td>
@@ -903,7 +816,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">12</td>
+	  <td class="collapse6 collapse in">14</td>
 	  <td class="hidden-xs" style="color:gray">execution</td>
 	  <td>Limit instr. ticks</td>
 	  <td>
@@ -925,49 +838,137 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">13</td>
-	  <td class="hidden-xs" style="color:gray">help</td>
-	  <td>Active tutorials</td>
+	  <td class="collapse6 collapse in">6</td>
+	  <td class="hidden-xs" style="color:gray">simulation</td>
+	  <td>RF display format</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		     <input name="radio10" id="radio10-true" 
-			    aria-label="Is editable: true"
+		     <input name="radio2" id="radio2-16" 
+			    aria-label="register file display format (decimal)"
 			    style="margin-top:-8px"
-			    onclick="set_cfg('show_tutorials',true); save_cfg();"
+			    onclick="set_cfg('RF_display_format',16); show_rf_values(); show_memories_values(); save_cfg();"
 			    value="on" type="radio">
-		     <label for="radio10-true">On</label>
-		     <input name="radio10" id="radio10-false" 
-			    aria-label="Is editable: false"
+		     <label for="radio2-16">Hex.</label>
+		     <input name="radio2" id="radio2-10" 
+			    aria-label="register file display format (hexadecimal)"
 			    style="margin-top:-8px"
-			    onclick="set_cfg('show_tutorials',false); save_cfg();"
+			    onclick="set_cfg('RF_display_format',10); show_rf_values(); show_memories_values(); save_cfg();"
 			    value="off" type="radio">
-		     <label for="radio10-false">Off</label>
+		     <label for="radio2-10">Dec.</label>
+		     <input name="radio2" id="radio2-8"  
+			    aria-label="register file display format (octal)"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('RF_display_format',8); show_rf_values(); show_memories_values(); save_cfg();"
+			    value="off" type="radio">
+		     <label for="radio2-8">Oct.</label>
 		 </fieldset>
           </td>
-	  <td class="collapse7 collapse in">Active tutorials</td>
+	  <td rowspan="2"><img alt="register file example" 
+                               src="images/cfg-rf.gif" 
+                               style="width:92px; max-height:100%"></td>
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">14</td>
-	  <td class="hidden-xs" style="color:gray">help</td>
-	  <td>Active voice</td>
+	  <td class="collapse6 collapse in">7</td>
+	  <td class="hidden-xs" style="color:gray">simulation</td>
+	  <td>RF name</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		     <input name="radio11" id="radio11-true" 
-			    aria-label="Is editable: true"
+		     <input name="radio3" id="radio3-numerical" 
+			    aria-label="register file display name (number)"
 			    style="margin-top:-8px"
-			    onclick="set_cfg('use_voice',true); save_cfg(); wepsim_voice_start();"
+			    onclick="set_cfg('RF_display_name','numerical'); show_rf_names(); save_cfg();"
 			    value="on" type="radio">
-		     <label for="radio11-true">On</label>
-		     <input name="radio11" id="radio11-false" 
-			    aria-label="Is editable: false"
+		     <label for="radio3-numerical">Numbers</label>
+		     <input name="radio3" id="radio3-logical" 
+			    aria-label="register file display name (user identification)"
 			    style="margin-top:-8px"
-			    onclick="set_cfg('use_voice',false); save_cfg(); wepsim_voice_stop();"
+			    onclick="set_cfg('RF_display_name','logical'); show_rf_names(); save_cfg();"
 			    value="off" type="radio">
-		     <label for="radio11-false">Off</label>
+		     <label for="radio3-logical">Labels</label>
 		 </fieldset>
           </td>
-	  <td class="collapse7 collapse in">Use voice</td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse in">3</td>
+	  <td class="hidden-xs" style="color:gray">simulation</td>
+	  <td>Data-path color</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		 <input type="color"
+			aria-label="Color for active data"
+			id="colorpicker1"
+			data-show-value="false"
+			class="noshadow" style="margin:0 0 0 0"
+			onchange="set_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh(); save_cfg();">
+		 </fieldset>
+          </td>
+	  <td rowspan="2"><img alt="color configuration" 
+                               src="images/cfg-colors.gif" 
+                               style="width:90px; max-height:100%"></td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse in">4</td>
+	  <td class="hidden-xs" style="color:gray">simulation</td>
+	  <td>Signal color</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		 <input type="color"
+			aria-label="Color for active signal name"
+			id="colorpicker2"
+			data-show-value="false"
+			class="noshadow" style="margin:0 0 0 0"
+			onchange="set_cfg('color_name_active', $('#colorpicker2').spectrum('get')); refresh(); save_cfg();">
+		 </fieldset>
+          </td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse in">5</td>
+	  <td class="hidden-xs" style="color:gray">simulation</td>
+	  <td>Interactive Mode</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		     <input name="radio5" id="radio5-true" 
+			    aria-label="Is interactive: true"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('is_interactive',true); save_cfg();"
+			    value="on" type="radio">
+		     <label for="radio5-true">On</label>
+		     <input name="radio5" id="radio5-false" 
+			    aria-label="Is interactive: false"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('is_interactive',false); save_cfg();"
+			    value="off" type="radio">
+		     <label for="radio5-false">Off</label>
+		 </fieldset>
+          </td>
+	  <td class="collapse7 collapse in">Interactive Mode</td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse in">8</td>
+	  <td class="hidden-xs" style="color:gray">simulation</td>
+	  <td>Editable registers</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		     <input name="radio9" id="radio9-true" 
+			    aria-label="Is editable: true"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('is_editable',true); save_cfg();"
+			    value="on" type="radio">
+		     <label for="radio9-true">On</label>
+		     <input name="radio9" id="radio9-false" 
+			    aria-label="Is editable: false"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('is_editable',false); save_cfg();"
+			    value="off" type="radio">
+		     <label for="radio9-false">Off</label>
+		 </fieldset>
+          </td>
+	  <td class="collapse7 collapse in">Edit register file values</td>
 	 </tr>
 
 	</tbody>
