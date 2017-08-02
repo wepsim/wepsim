@@ -215,9 +215,20 @@
      * Play/stop
      */
 
-    function wepsim_execute_reset ( )
+    function wepsim_execute_reset ( reset_cpu, reset_memory )
     {
-	return reset() ;
+        if (true == reset_memory) 
+        {
+            var SIMWARE = get_simware() ;
+	    if (SIMWARE.firmware.length != 0) {
+                update_memories(SIMWARE);
+	    }
+        }
+
+        if (true == reset_cpu) 
+        {
+	    reset() ;
+        }
     }
 
     function wepsim_execute_instruction ( )
@@ -685,7 +696,7 @@
                '<tr>' +
                '  <th>#</th>' +
                '  <th onclick="$(\'.collapse1\').collapse(\'toggle\');">level</th>' +
-               '  <th>title</th>' +
+               '  <th>load...</th>' +
                '  <th onclick="$(\'.collapse3\').collapse(\'toggle\');">description</th>' +
                '  <th onclick="$(\'.collapse4\').collapse(\'toggle\');">load only...</th>' +
                '</tr>' +
@@ -1181,7 +1192,7 @@
 
 	 // setup annyang + speechkitt...
          var commands = {
-               'reset':                    wepsim_execute_reset,
+               'reset':                    function() { wepsim_execute_reset(true, true); },
                'next instruction':         wepsim_execute_instruction,
                'next micro(instruction)':  wepsim_execute_microinstruction,
                'play':                     function() { wepsim_execute_play('#qbp', false); },
