@@ -114,7 +114,7 @@
         }
 
         if (with_ui) {
-            wepsim_notify('<strong>INFO</strong>', 'Assembly was compiled and loaded.') ;
+            wepsim_notify_success('<strong>INFO</strong>', 'Assembly was compiled and loaded.') ;
 	}
 
         // update memory and segments
@@ -146,7 +146,7 @@
         }
 
         if (with_ui) {
-            wepsim_notify('<strong>INFO</strong>', 'Microcode was compiled and loaded.') ;
+            wepsim_notify_success('<strong>INFO</strong>', 'Microcode was compiled and loaded.') ;
         }
 
         // update UI
@@ -642,7 +642,7 @@
 				                 }, 50);
 			    }
 
-                            wepsim_notify('<strong>INFO</strong>', 'Example ready to be used.') ;
+                            wepsim_notify_success('<strong>INFO</strong>', 'Example ready to be used.') ;
                       };
         wepsim_load_from_url(url, do_next) ;
 
@@ -670,7 +670,7 @@
                                   else show_memories_values();
                            }
 
-                           wepsim_notify('<strong>INFO</strong>', 'Example ready to be used.') ;
+                           wepsim_notify_success('<strong>INFO</strong>', 'Example ready to be used.') ;
                       };
         wepsim_load_from_url(url, do_next) ;
 
