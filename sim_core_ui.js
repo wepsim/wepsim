@@ -670,12 +670,15 @@
                      " <h3 class='panel-title'>Memory</h3>" +
                      "</div>" +
                      "<div class='panel-body' id='mempanel' style='padding:0 0 0 0;'>" +
-                     "  <div class='row-fluid'>" +
-                     "  <center>" +
-                     "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' style='padding: 0 0 0 0;'>Wait cycles (<b>0</b> - &infin;)</div>" +
-                     "  <div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' id='mp_wc'><input type=number data-bind='value: MP_wc' min=0></div>" +
-                     "  </center>" +
-                     "  </div>" +
+                     "<table class='table table-hover table-condensed table-bordered table-responsive' " +
+                     "       style='margin:0'>" +
+                     "<tbody class='no-ui-mini'>" +
+                     "<tr><td align=center'>Wait cycles (<b>0</b> - &infin;)</td></tr>" +
+                     "<tr><td align=center'>" + 
+                     "    <div id='mp_wc'><input type=number data-bind='value: MP_wc' min=0></div>" + 
+                     "</td></tr>" +
+                     "</tbody>" +
+                     "</table>" +
                      "</div>" +
                      "</div>" +
                      "</div>" +
@@ -693,12 +696,18 @@
                      "       style='margin:0'>" +
                      "<tbody class='no-ui-mini'>" +
                      "<tr>" +
-                     "<td align=center width=33%>" +
+                     "<td align=center width='33%'>" +
                      "  <span class='hidden-xs'>Interruption identificator</span>" +
-                     "  <span class='visible-xs'>Int.<br>Id.</span>" +
+                     "  <span class='visible-xs'>Int. Id.<br>(0 - 7)</span>" +
                      "</td>" +
-                     "<td align=center width=33%>CLK period (<b>0</b> - &infin;)</td>" +
-                     "<td align=center width=33%>Probability (0 - 1)</td>" +
+                     "<td align=center width='33%'>" +
+                     "  <span class='hidden-xs'>CLK period (<b>0</b> - &infin;)</span>" +
+                     "  <span class='visible-xs'>CLK ticks <br>(<b>0</b> - &infin;)</span>" +
+                     "</td>" +
+                     "<td align=center width='33%'>" +
+                     "  <span class='hidden-xs'>Probability (0 - 1)</span>" +
+                     "  <span class='visible-xs'>Probability <br>(0 - 1)</span>" +
+                     "</td>" +
                      "</tr>" ;
             for (var i=0; i<8; i++)
             {

@@ -982,7 +982,7 @@
 	    ga('send', 'event', 'state', 'state.dump', 'state.dump.' + s);
 
 	    var dialog_title   = get_dialog_title('State', 'help_dumper') ;
-	    var dialog_message = get_dialog_message(dlg_title, 'Empty...', txt_checklist, '') ;
+	    var dialog_message = get_dialog_message(dlg_title, 'Default...', txt_checklist, '') ;
             var dialog_btns = new Object() ;
                 dialog_btns["ok"] = {
 	    	        label: '&nbsp;&nbsp;OK&nbsp;&nbsp;',
