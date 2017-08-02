@@ -13,7 +13,18 @@ begin
                     # RT1 <- MBR
                     (T1=1, C4=1),
 
-    csw_rt1:        # push PC
+    csw_rt1:        # notify: The event handler microsubrutine.
+                    # notify: First, save the current PC+SR:
+                    # notify: <font color=blue>push PC</font>
+                    # notify: <font color=blue>push SR</font>
+                    # notify: Then get the memory address to the assembly subrutine associated with RT1:
+                    # notify: <font color=blue>MAR = RT1*4</font>
+                    # notify: <font color=blue>MBR = MP[MAR]</font>
+                    # notify: <font color=blue>PC  = MAR</font>
+                    # notify: Finally, go fetch to start executing the assembly subrutine associated with RT1
+                    # notify: <font color=blue>go fetch</font>
+
+                    # push PC
                     (MR=1, SELA=11101, MA=0, MB=10, MC=1, SELCOP=1011, T6=1, SELC=11101, LC=1, C0),
                     (T2=1, M1=0, C1),
                     (BW=11, TA=1, TD=1, W=1)
@@ -40,6 +51,13 @@ reti {
         co=111110,
         nwords=1,
         {
+              # notify: The RETI instruction.
+              # notify: It restore the SR and PC register to continue the interrupted assembly program:
+              # notify: <font color=blue>pop SR</font>
+              # notify: <font color=blue>pop PC</font>
+              # notify: Then go fetch, to keep executing the assembly code as no event has happened:
+              # notify: <font color=blue>go fetch</font>
+
               # pop SR
               (MR=1, SELA=11101, T9, C0),
               (MR=1, SELA=11101, MA=0, MB=10, MC=1, SELCOP=1010, T6=1, SELC=11101, LC=1),
@@ -164,6 +182,14 @@ div reg1 reg2 reg3 {
                     (A0=0, B=0, C=110, MADDR=fpe1),
                     # reg1 = reg2 / reg3, go fetch
                     (MC=1, MR=0, SELB=1011, SELA=10000, MA=0, MB=0, SELCOP=1101, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0),
+
+                    # notify: The FPE-DIV0 exception.
+                    # notify: Set the associaeted event identification in RT1:
+                    # notify: <font color=blue>RT1 = 1</font>
+                    # notify: Then, microjump to event handler microsubrutine:
+                    # notify: <font color=blue>go csw_rti</font>
+                    # notify: Rembember: PC already points to next instructions after syscall
+
               fpe1: # RT1 <- ExCode=1
                     (ExCode=1, T11, C4),
                     # csw_rt1(2)

@@ -8,12 +8,36 @@ begin
                     (M2, C2, T1, C3),
                     (A0, B=0, C=0),
 
-    mrti:           # MBR <- DB <- INTV
+    mrti:           # notify: Before each fetch.
+                    # notify: After executing any instruction, and before the fetch microcode,
+                    # notify: the CPU checks if any instruction is enable. 
+                    # notify: If so, then get the indentificator of the interruption from the device itself
+                    # notify: and from this identificator the CPU gets the associated subrutine index in RT1:
+                    # notify: <font color=blue>if (INT)</font>
+                    # notify: <font color=blue>    MBR <= DB <= INTV</font>
+                    # notify: <font color=blue>    RT1 <= MBR</font>
+                    # notify: In this CPU, it gets the interruption vector from the device
+                    # notify: (a number that identify the interruption)
+                    # notify: and use it as index in the subrutine vector in RT1 register.
+                    # notify: Note: PC already points to next instructions after the interruption
+
+                    # MBR <- DB <- INTV
                     (INTA, BW=11, M1=1, C1=1),
                     # RT1 <- MBR
                     (T1=1, C4=1),
 
-    csw_rt1:        # push PC
+    csw_rt1:        # notify: The event handler microsubrutine.
+                    # notify: First, save the current PC+SR:
+                    # notify: <font color=blue>push PC</font>
+                    # notify: <font color=blue>push SR</font>
+                    # notify: Then get the memory address to the assembly subrutine associated with RT1:
+                    # notify: <font color=blue>MAR = RT1*4</font>
+                    # notify: <font color=blue>MBR = MP[MAR]</font>
+                    # notify: <font color=blue>PC  = MAR</font>
+                    # notify: Finally, go fetch to start executing the assembly subrutine associated with RT1
+                    # notify: <font color=blue>go fetch</font>
+
+                    # push PC
                     (MR=1, SELA=11101, MA=0, MB=10, MC=1, SELCOP=1011, T6=1, SELC=11101, LC=1, C0),
                     (T2=1, M1=0, C1),
                     (BW=11, TA=1, TD=1, W=1)
@@ -40,6 +64,13 @@ reti {
         co=111110,
         nwords=1,
         {
+              # notify: The RETI instruction.
+              # notify: It restore the SR and PC register to continue the interrupted assembly program:
+              # notify: <font color=blue>pop SR</font>
+              # notify: <font color=blue>pop PC</font>
+              # notify: Then go fetch, to keep executing the assembly code as no event has happened:
+              # notify: <font color=blue>go fetch</font>
+
               # pop SR
               (MR=1, SELA=11101, T9, C0),
               (MR=1, SELA=11101, MA=0, MB=10, MC=1, SELCOP=1010, T6=1, SELC=11101, LC=1),

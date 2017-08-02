@@ -44,8 +44,20 @@
 
     .bootbox-dialog .modal-body {
         min-width: 70vw;
-        min-height: 60vh;
+        min-height: 65vh;
         overflow: auto;
+    }
+
+    .modal-header {
+	padding: 5 5 5 5 !important;
+        background-color: #EEEEEE !important;
+    }
+    .modal-body {
+	padding: 10 10 10 10 !important;
+    }
+    .modal-footer {
+	padding: 8 8 8 8 !important;
+        background-color: #EEEEEE !important;
     }
 
     div.ui-input-text, div.ui-slider { 
@@ -233,37 +245,39 @@
 
                 <div id="col2" class="col-md-4" style="padding:0 8px 0 0px;">
 
-                    <div class="btn-toolbar" role="toolbar" id="sim_toolbar" style="padding: 0 0px 10px 0px;">
+                    <div class="btn-toolbar" role="toolbar" id="sim_toolbar" style="padding: 0 0px 2px 0px;">
 			<div class="btn-group btn-group-justified" role="group">
 			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-reset   ui-btn-icon-top ui-mini"
-			       onclick="wepsim_execute_reset();">Reset</a>
+			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-reset   ui-btn-icon-top ui-mini"
+			       onclick="wepsim_execute_reset();"><br>Reset</a>
 			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini"
-			       onclick="wepsim_execute_microinstruction();">&#181;Instruction</a>
+			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini"
+			       onclick="wepsim_execute_microinstruction();"><br>&#181;Instruction</a>
 			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini"
-			       onclick="wepsim_execute_instruction();">Instruction</a>
+			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini"
+			       onclick="wepsim_execute_instruction();"><br>Instruction</a>
 			    <a id="qbp" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-carat-r ui-btn-icon-top ui-mini"
-			       onclick="wepsim_execute_toggle_play('#qbp'); return false;">Run</a>
+			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-carat-r ui-btn-icon-top ui-mini"
+			       onclick="wepsim_execute_toggle_play('#qbp', get_cfg('show_tutorials')); 
+                                        return false;"><br>Run</a>
 			    <a id="ib1" href="#" style="background-color: #D4DB17; -webkit-text-shadow: none; text-shadow: none;"
-			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-info ui-btn-icon-top ui-mini"
-			       onclick="wepsim_help_set_relative('#help_simulator_screens'); wepsim_help_refresh();">Help</a>
+			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-info ui-btn-icon-top ui-mini"
+			       onclick="wepsim_help_set_relative('#help_simulator_screens'); 
+                                        wepsim_help_refresh();"><br>Help</a>
                         </div>
                     </div>
 
 
 		    <fieldset class="ui-grid-c">
-			<div class="ui-block-a" style="width:20%">
-		          <button class="btn ui-btn ui-shadow ui-corner-all"
-		                  style="background: #dedede !important; border-color:white; border-width:1 1 1 1px;"
+			<div class="ui-block-a" style="width:15%">
+		          <button class="btn btn-default ui-btn ui-shadow ui-corner-all"
+		                  style="border-width:1 1 1 1px;"
 		                  onclick="dialog_current_state('Current State');"><b>State</b></button>
 			</div>
-			<div class="ui-block-d" style="width:20%">
-		          <button class="btn ui-btn ui-shadow ui-corner-all"
-		                  style="background: #dedede !important; border-color:white; border-width:1 1 1 1px;"
-			          onclick='$("#tab13").trigger("click");'><b>Configuration</b></button>
+			<div class="ui-block-d" style="width:27%">
+		          <button class="btn btn-default ui-btn ui-shadow ui-corner-all"
+		                  style="border-width:1 1 1 1px;"
+                                  data-toggle="modal" data-target="#confighw"><b>Configuration</b></button>
 			</div>
 			<div class="ui-block-c" style="width:40%; margin: 7 0 0 0">
                           <select name="select5a" id="select5a" class="selectpicker" 
@@ -283,9 +297,9 @@
 				  </optgroup>
 			  </select>
 			</div>
-			<div class="ui-block-b" style="width:20%">
-		          <button class="btn ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-refresh"
-		                  style="background: #dedede !important; border-color:white; border-width:1 1 1 1px;"
+			<div class="ui-block-b" style="width:18%">
+		          <button class="btn btn-default ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-refresh"
+		                  style="border-width:1 0 1 2px;"
                                   onclick="var val = $('#select5a').val();
 				           $('#tab' + val).trigger('click');
 				           if ('11' == val)
@@ -312,8 +326,8 @@
 			 <br style="height:0; width:100%; font-size:0; margin:5; padding:0; border:0; display:block;">
 		         <div id="states_BR"           style="width: inherit; overflow-y: auto;"></div>
 		      </div>
-	    	      <div id="config"  class="ui-body-d ui-content" style="padding:14 14 0 14;">
-		         <div id="config_ALL"          style="width: inherit; overflow-y: auto;"></div>
+	    	      <div id="config0"  class="ui-body-d ui-content" style="padding:14 14 0 14;">
+		         <div id="config_ALL0"         style="width: inherit; overflow-y: auto;"></div>
 		      </div>
 		      <div id="mp"   class="ui-body-d ui-content">
 		         <div id="memory_MP"           style="height:60vh; width: inherit; overflow-y: scroll;"></div>
@@ -602,27 +616,6 @@
 </div><!-- /panel -->
 
 
-<div data-role="popup" id="example1" style="background-color: white;"
-     data-dismissible="false" data-animate="false" data-overlay-theme="b">
-
-   <div data-role="header" data-theme="a">
-        <h1><b>Examples</b> <span class="badge btn-success"><div class="wsversion">X</div></span></h1>
-
-        <a href="#" 
-           data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" 
-           class="ui-btn-right">Close</a>
-   </div>
-
-   <div role="main" class="ui-content" style="padding: 8px 8px 8px 8px">
-
-	<div id="container-example1" class="container-fluid" 
-             style="max-width:80vw; max-height:90vh; overflow:auto;">
-        </div>
-
-   </div>
-</div>
-
-
 <div data-role="popup" id="config1" 
      data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
 
@@ -636,7 +629,7 @@
    <div role="main" class="ui-content" style="padding: 8px 8px 8px 8px">
 
 	<div id="container-configuration1" class="container-fluid" 
-             style="max-width:80vw; max-height:90vh; overflow:auto;">
+             style="max-width:80vw; max-height:85vh; overflow:auto;">
 	<div class="table-responsive">
 	<table class="table table-striped table-hover table-condensed" width="100%" style="margin:0 0 0 0">
 	<thead>
@@ -687,6 +680,29 @@
 	 <tr>
 	  <td class="collapse6 collapse in">3</td>
 	  <td class="hidden-xs" style="color:gray">simulation</td>
+	  <td>Interactive Mode</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		     <input name="radio5" id="radio5-true" 
+			    aria-label="Is interactive: true"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('is_interactive',true); save_cfg();"
+			    value="on" type="radio">
+		     <label for="radio5-true">On</label>
+		     <input name="radio5" id="radio5-false" 
+			    aria-label="Is interactive: false"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('is_interactive',false); save_cfg();"
+			    value="off" type="radio">
+		     <label for="radio5-false">Off</label>
+		 </fieldset>
+          </td>
+	  <td class="collapse7 collapse in">Interactive Mode</td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse in">4</td>
+	  <td class="hidden-xs" style="color:gray">simulation</td>
 	  <td>RF display format</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -716,7 +732,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">4</td>
+	  <td class="collapse6 collapse in">5</td>
 	  <td class="hidden-xs" style="color:gray">simulation</td>
 	  <td>RF name</td>
 	  <td>
@@ -738,7 +754,30 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">5</td>
+	  <td class="collapse6 collapse in">6</td>
+	  <td class="hidden-xs" style="color:gray">simulation</td>
+	  <td>Editable registers</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		     <input name="radio9" id="radio9-true" 
+			    aria-label="Is editable: true"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('is_editable',true); save_cfg();"
+			    value="on" type="radio">
+		     <label for="radio9-true">On</label>
+		     <input name="radio9" id="radio9-false" 
+			    aria-label="Is editable: false"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('is_editable',false); save_cfg();"
+			    value="off" type="radio">
+		     <label for="radio9-false">Off</label>
+		 </fieldset>
+          </td>
+	  <td class="collapse7 collapse in">Edit register file values</td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse in">7</td>
 	  <td class="hidden-xs" style="color:gray">editor</td>
 	  <td>Editor theme</td>
 	  <td>
@@ -769,7 +808,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">6</td>
+	  <td class="collapse6 collapse in">8</td>
 	  <td class="hidden-xs" style="color:gray">editor</td>
 	  <td>Editor mode</td>
 	  <td>
@@ -793,7 +832,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">7</td>
+	  <td class="collapse6 collapse in">9</td>
 	  <td class="hidden-xs" style="color:gray">execution</td>
 	  <td>Speed-up</td>
 	  <td>
@@ -809,7 +848,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">8</td>
+	  <td class="collapse6 collapse in">10</td>
 	  <td class="hidden-xs" style="color:gray">execution</td>
 	  <td>Step-by-step</td>
 	  <td>
@@ -832,7 +871,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">9</td>
+	  <td class="collapse6 collapse in">11</td>
 	  <td class="hidden-xs" style="color:gray">execution</td>
 	  <td>Breakpoint Icon</td>
 	  <td>
@@ -861,52 +900,6 @@
 		 </fieldset>
           </td>
 	  <td class="collapse7 collapse in">Breakpoint icon</td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse in">10</td>
-	  <td class="hidden-xs" style="color:gray">execution</td>
-	  <td>Interactive Mode</td>
-	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		     <input name="radio5" id="radio5-true" 
-			    aria-label="Is interactive: true"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('is_interactive',true); save_cfg();"
-			    value="on" type="radio">
-		     <label for="radio5-true">On</label>
-		     <input name="radio5" id="radio5-false" 
-			    aria-label="Is interactive: false"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('is_interactive',false); save_cfg();"
-			    value="off" type="radio">
-		     <label for="radio5-false">Off</label>
-		 </fieldset>
-          </td>
-	  <td class="collapse7 collapse in">Interactive Mode</td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse in">11</td>
-	  <td class="hidden-xs" style="color:gray">execution</td>
-	  <td>Editable registers</td>
-	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		     <input name="radio9" id="radio9-true" 
-			    aria-label="Is editable: true"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('is_editable',true); save_cfg();"
-			    value="on" type="radio">
-		     <label for="radio9-true">On</label>
-		     <input name="radio9" id="radio9-false" 
-			    aria-label="Is editable: false"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('is_editable',false); save_cfg();"
-			    value="off" type="radio">
-		     <label for="radio9-false">Off</label>
-		 </fieldset>
-          </td>
-	  <td class="collapse7 collapse in">Edit register file values</td>
 	 </tr>
 
 	 <tr>
@@ -1045,45 +1038,6 @@
 </div><!-- /popup -->
 
 
-<div data-role="popup" id="help1" 
-     data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
-
-      <div data-role="header" data-theme="b" class="ui-corner-top">
-           <div data-type="horizontal" data-role="controlgroup" class="ui-btn-left">  
-             <div id="help1_ref" style="display:none;"></div>
-	     <input name="radio6" id="radio6-es" data-mini="true"
-		    aria-label="Idiom: Spanish"
-		    style="margin-top:-8px"
-		    onclick="set_cfg('ws_idiom','es'); save_cfg(); wepsim_help_refresh();"
-		    value="ES" type="radio">
-	     <label for="radio6-es">ES</label>
-	     <input name="radio6" id="radio6-en" data-mini="true"
-		    aria-label="Idiom: English"
-		    style="margin-top:-8px"
-		    onclick="set_cfg('ws_idiom','en'); save_cfg(); wepsim_help_refresh();"
-		    value="EN" type="radio">
-	     <label for="radio6-en">EN</label>
-           </div>
-           <h1 style="padding:0 0 0 0;">
-               <a href="#" 
-                  style="background-color: #D4DB17;"
-		  onclick="wepsim_open_help_index();"
-                  class="ui-btn ui-btn-icon-right ui-btn-inline ui-icon-home ui-btn-a">Help</a>
-           </h1>
-           <a href="#" 
-              data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" 
-              class="ui-btn-right">Close</a>
-      </div>
-
-      <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
-              <div class="ui-body-d ui-content" style="padding: 2px 2px 2px 2px;">
-                 <div id=iframe_help1 style="height:80vh; width:80vw; max-width:1200px; overflow:auto;"></div>
-              </div>
-      </div>
-
-</div><!-- /panel -->
-
-
 <div data-role="popup" id="bin1" 
      data-theme="a" data-dismissible="true" data-animate="false" data-overlay-theme="a">
 
@@ -1111,6 +1065,88 @@
 </div><!-- /panel -->
 
 
+<div id="confighw" class="modal">
+     <div class="modal-dialog">
+	<div class="modal-content">
+	   <div class="modal-header">
+		 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+		 <center><h4 class="modal-title"><b>Hardware Configuration</b></h4></center>
+	   </div>
+	   <div class="modal-body">
+		 <div id="config" class="ui-body-d ui-content" style="padding:14 14 0 14;">
+		      <div id="config_ALL" style="width: inherit; overflow-y: auto;"></div>
+		 </div>
+	   </div>
+	   <div class="modal-footer">
+                 <button data-bb-handler="ok" type="button" 
+                         onclick="$('#confighw').modal('hide'); "
+                         class="btn btn-primary">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
+	   </div>
+	</div>
+     </div>
+</div> <!-- /.modal -->
+
+
+<div id="help1" class="modal">
+     <div class="modal-dialog" style="width:95vw; height:80vh;">
+	<div class="modal-content">
+	   <div class="modal-header">
+		 <button type="button" data-role="button" data-dismiss="modal"
+                        class="close ui-btn-right ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-corner-all" 
+                         data-dismiss="modal" aria-hidden="true">x</button>
+		 <center>
+		   <div class="btn-group">
+		     <button type="button" class="btn btn-success" 
+		             onclick="wepsim_open_help_index();"
+			     style="height:34px !important;">Help Index</button>
+		     <button type="button" class="btn btn-success dropdown-toggle" 
+			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
+			     style="height:34px !important;">
+			 <span class="caret"></span>
+			 <span class="sr-only">Toggle Help Idiom</span>
+		     </button>
+		     <ul class="dropdown-menu">
+			 <li><a href="#" onclick="set_cfg('ws_idiom','es'); save_cfg(); 
+                                         wepsim_help_refresh();">ES</a></li>
+			 <li><a href="#" onclick="set_cfg('ws_idiom','en'); save_cfg(); 
+                                         wepsim_help_refresh();">EN</a></li>
+		     </ul>
+		   </div>
+                 </center>
+	   </div>
+	   <div class="modal-body">
+                 <div id="help1_ref" style="display:none;"></div>
+                 <div class="ui-body-d ui-content" 
+                      style="padding: 2px 2px 2px 2px; height:80vh; max-width:1200px; overflow:auto;">
+                      <div id="iframe_help1"></div>
+                 </div>
+	   </div>
+	</div>
+     </div>
+</div> <!-- /.modal -->
+
+
+<div id="example1" class="modal">
+     <div class="modal-dialog" style="width:95vw; height:80vh;">
+	<div class="modal-content">
+	   <div class="modal-header">
+		 <button type="button" data-role="button" data-dismiss="modal"
+                        class="close ui-btn-right ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-corner-all" 
+                         data-dismiss="modal" aria-hidden="true">x</button>
+		 <center>
+                 <h4><b>Examples</b> <span class="badge btn-success"><div class="wsversion">X</div></span></h4>
+                 </center>
+	   </div>
+	   <div class="modal-body">
+		<div id="container-example1" class="container-fluid" 
+		     style="max-height:80vh; padding:0 0 0 0; overflow:auto;">
+		</div>
+	   </div>
+	</div>
+     </div>
+</div> <!-- /.modal -->
+
+
 <script>
     window.addEventListener("beforeunload", function (e) {
        var confirmationMessage = "\o/";
@@ -1127,10 +1163,8 @@
 		    jQuery.fx.off = true;
                     ko.options.deferUpdates = true;
 
-		    $("#help1").enhanceWithin().popup();
 		    $("#bin1").enhanceWithin().popup();
 		    $("#about1").enhanceWithin().popup();
-		    $("#example1").enhanceWithin().popup();
 		    $("#config1").enhanceWithin().popup();
 
 		    $("#actions_panel").panel().enhanceWithin();
@@ -1202,7 +1236,7 @@
 		    $("#radio2-" + get_cfg('RF_display_format')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio3-" +   get_cfg('RF_display_name')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio5-" +    get_cfg('is_interactive')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio6-" +          get_cfg('ws_idiom')).prop('checked', true).checkboxradio("refresh") ;
+		  //$("#radio6-" +          get_cfg('ws_idiom')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio7-" +      get_cfg('editor_theme')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio9-" +       get_cfg('is_editable')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio10-" +   get_cfg('show_tutorials')).prop('checked', true).checkboxradio("refresh") ;

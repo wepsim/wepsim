@@ -1,11 +1,16 @@
 
+1.8.1 -> 1.8.2:
+* added 'break:' to microcode
+* updated 'notify:' for tutorials
+* links to the tutorials in help 
+
 1.8.0 -> 1.8.1:
 * Colorized syntax
 * Compact visualization controls
 * Initial support for voice control
 
 1.7.7 -> 1.8.0:
-* Support for simple introspection
+* Support for simple state inspection
 * CPU behaviour has been slighly simplified
 * Added support for FIRE_IFCHANGED
 * Initial support for native in microcode

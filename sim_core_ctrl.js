@@ -671,15 +671,22 @@
             MC_dashboard = new Object() ;
             for (var i=0; i<SIMWARE['firmware'].length; i++)
 	    {
+               var elto_notify = new Array() ;
+               var elto_break  = false ;
 	       var last = SIMWARE['firmware'][i]["microcode"].length ; // mc = microcode
                var mci  = SIMWARE['firmware'][i]["mc-start"] ;
 	       for (var j=0; j<last; j++)
 	       {
 		    var comment = SIMWARE['firmware'][i]["microcomments"][j] ;
 		    MC[mci]     = SIMWARE['firmware'][i]["microcode"][j] ;
-		    MC_dashboard[mci] = { comment: comment,
-                                          breakpoint: false,
-                                          notify: comment.trim().split("notify:") } ;
+
+                    elto_break = (comment.trim().split("break:").length > 1) ;
+                    elto_notify = comment.trim().split("notify:") ;
+		    for (var k=0; k<elto_notify.length; k++) {
+		         elto_notify[k] = elto_notify[k].split('\n')[0] ;
+                    }
+
+		    MC_dashboard[mci] = { comment: comment, breakpoint: elto_break, notify: elto_notify } ;
 		    mci++;
 	       }
 	    }
@@ -975,7 +982,7 @@
 	    ga('send', 'event', 'state', 'state.dump', 'state.dump.' + s);
 
 	    var dialog_title   = get_dialog_title('State', 'help_dumper') ;
-	    var dialog_message = get_dialog_message(dlg_title, 'Empty...', txt_checklist, '') ;
+	    var dialog_message = get_dialog_message(dlg_title, 'Default...', txt_checklist, '') ;
             var dialog_btns = new Object() ;
                 dialog_btns["ok"] = {
 	    	        label: '&nbsp;&nbsp;OK&nbsp;&nbsp;',

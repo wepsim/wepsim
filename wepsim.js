@@ -247,7 +247,7 @@
 
     function wepsim_execute_stop ( btn1 )
     {
-	$(btn1).html("Run") ;
+	$(btn1).html("<br>Run") ;
 	$(btn1).removeClass("ui-icon-minus") ;
 	$(btn1).addClass("ui-icon-carat-r") ;
 	$(btn1).css("backgroundColor", "#CCCCCC") ;
@@ -255,29 +255,34 @@
 	DBG_stop = true;
     }
 
-    function wepsim_execute_play ( btn1 )
+    function wepsim_execute_play ( btn1, run_notifications )
     {
 	if (check_if_can_execute(true) == false)
 	    return false;
 
 	$(btn1).css("backgroundColor", 'rgb(51, 136, 204)') ;
-	$(btn1).html("Stop") ;
+	$(btn1).html("<br>Stop") ;
 	$(btn1).removeClass("ui-icon-carat-r") ;
 	$(btn1).addClass("ui-icon-minus") ;
 
         DBG_stop = false ;
-        wepsim_execute_chainplay(btn1) ;
+        if (false == run_notifications)
+             wepsim_execute_chainplay(btn1) ;
+        else wepsim_execute_chainnotify(btn1) ;
     }
 
-    function wepsim_execute_toggle_play ( btn1 )
+    function wepsim_execute_toggle_play ( btn1, run_notifications )
     {
-        if (DBG_stop == false) {
+        if (DBG_stop == false) 
+        {
             DBG_stop = true ; // will help to execute_play stop playing
-        } else {
-            DBG_stop = false ;
-            wepsim_execute_play(btn1) ;
+        } 
+        else 
+        {
+            wepsim_execute_play(btn1,run_notifications) ;
         }
     }
+
 
     /*
      * Help
@@ -291,7 +296,7 @@
             $('#iframe_help1').load('help/simulator-' + get_cfg('ws_idiom') + '.html ' + rel,
 	    		            function() {
                                         $('#help1').trigger('updatelayout');
-                                        $('#help1').popup('open');
+                                        $('#help1').modal('show');
                                     });
 
             ga('send', 'event', 'help', 'help.simulator', 'help.simulator.' + rel);
@@ -304,7 +309,7 @@
             $('#iframe_help1').load('help/' + ab1 + '-' + get_cfg('ws_idiom') + '.html',
 	    		            function() {
                                         $('#help1').trigger('updatelayout');
-                                        $('#help1').popup('open');
+                                        $('#help1').modal('show');
                                     });
 
             ga('send', 'event', 'help', 'help.' + ab1, 'help.' + ab1 + '.*');
@@ -333,7 +338,7 @@
 	$('#help1_ref').data('code','false') ;
 
 	$('#help1').trigger('updatelayout') ;
-	$('#help1').popup('open') ;
+	$('#help1').modal('show') ;
     }
 
     function wepsim_open_help_content ( content )
@@ -346,13 +351,12 @@
 	$('#help1_ref').data('code','true') ;
 
         $('#help1').trigger('updatelayout') ;
-        $('#help1').popup('reposition', {positionTo: 'window'}) ;
-        $('#help1').popup('open') ;
+        $('#help1').modal('show') ;
     }
 
     function wepsim_close_help ( )
     {
-	$('#help1').popup('close') ;
+	$('#help1').modal('hide') ;
     }
 
     function wepsim_help_set_relative ( rel )
@@ -379,12 +383,12 @@
         $("#container-example1").html(table_examples_html(examples));
         $("#container-example1").enhanceWithin();
 	$('#example1').trigger('updatelayout') ;
-	$('#example1').popup('open') ;
+	$('#example1').modal('show') ;
     }
 
     function wepsim_close_examples ( )
     {
-	$('#example1').popup('close') ;
+	$('#example1').modal('hide') ;
     }
 
 
@@ -395,37 +399,6 @@
     /*
      * Play/stop
      */
-
-    function wepsim_check_stopbynotify_firm ( )
-    {
-        var reg_maddr     = get_value(sim_states["REG_MICROADDR"]) ;
-        var notifications = MC_dashboard[reg_maddr].notify.length ;
-
-        if (1 == notifications) {
-            return false ;
-	}
-
-        var noti = "" ;
-        for (var i=1; i<notifications; i++) {
-             noti += MC_dashboard[reg_maddr].notify[i] + "\n<br>" ;
-        }
-
-        // var dialog_title = "Notify @ " + reg_maddr + ":<br>" + noti ;
-        // dialog_stop_and_state(dialog_title) ;
-
-	bootbox.confirm({
-	    title:    "Notify @ " + reg_maddr + ":",
-	    message:  noti,
-	    buttons:  {
-		        cancel:  { label: '<i class="fa fa-times"></i> Stop'  },
-		        confirm: { label: '<i class="fa fa-check"></i> Next notification' }
-		      },
-	    callback: function (result) {
-		      }
-	});
-
-        return true ;
-    }
 
     function wepsim_check_stopbybreakpoint_firm ( )
     {
@@ -469,6 +442,7 @@
 	    return ;
 	}
 
+	var ret = false ;
         var clklimit = get_cfg('DBG_limitick') ;
 
         var turbo = 1;
@@ -479,7 +453,6 @@
             var t0 = performance.now() ;
         for (var i=0; i<turbo; i++)
         {
-		var ret = false ;
 		if (get_cfg('DBG_level') == "instruction")
 		     ret = execute_microprogram(clklimit) ;
 		else ret = execute_microinstruction() ;
@@ -500,12 +473,6 @@
 		    wepsim_execute_stop(btn1) ;
 		    return ;
 		}
-
-		ret = wepsim_check_stopbynotify_firm() ;
-		if (ret == true) {
-		    wepsim_execute_stop(btn1) ;
-		    return ;
-		}
         }
         if (max_turbo == 5) 
             var t1 = performance.now() ;
@@ -515,6 +482,56 @@
 
 	setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), btn1) ;
     }
+
+    function wepsim_execute_chainnotify ( btn1 )
+    {
+	if (DBG_stop) {
+	    wepsim_execute_stop(btn1) ;
+	    return ;
+	}
+
+	var ret = false ;
+        for (var i=0; i<max_turbo; i++)
+        {
+		ret = execute_microinstruction() ;
+		if (ret === false) 
+                {
+		    wepsim_execute_stop(btn1) ;
+		    return ;
+		}
+
+		var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
+		var notifications = MC_dashboard[reg_maddr].notify.length ;
+		if (notifications > 1) 
+                {
+		    var dialog_title = "Notify @ " + reg_maddr + ": " + MC_dashboard[reg_maddr].notify[1] ;
+
+		    var dialog_msg = "" ;
+		    for (var i=1; i<notifications; i++) {
+			 dialog_msg += MC_dashboard[reg_maddr].notify[i] + "\n<br>" ;
+		    }
+
+		    bootbox.confirm({
+			title:    dialog_title,
+			message:  dialog_msg,
+			buttons:  {
+				     cancel:  { label: 'Stop',     className: 'btn-danger' },
+				     confirm: { label: 'Continue', className: 'btn-primary' }
+				  },
+			callback: function (result) {
+				     if (result)
+				          setTimeout(wepsim_execute_chainnotify, get_cfg('DBG_delay'), btn1) ;
+				     else wepsim_execute_stop(btn1) ;
+				  }
+		    });
+
+		    return ;
+		}
+        }
+
+        setTimeout(wepsim_execute_chainnotify, get_cfg('DBG_delay'), btn1) ;
+    }
+
 
     /*
      * UI elements
@@ -685,17 +702,17 @@
 		       ' <td>' + '<b>' + (m+1)   + '</b>' + '</td>' +
 		       ' <td>' + '<b    class="collapse1 collapse in">' + e_level + '</b>' + '</td>' +
 		       ' <td>' + 
-		       '   <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',true);"  style="padding:0 0 0 0;"' +
+		       '   <a href="#" onclick="$(\'#example1\').modal(\'hide\'); load_from_example_firmware(\'' + e_id + '\',true);"  style="padding:0 0 0 0;"' +
 		       '      class="ui-btn btn btn-group ui-btn-inline btn-primary">' + 
                        '   <b class="collapse2 collapse in">' + e_title + '</b></a>' +
                        ' </td>' +
 		       ' <td>' + '<span class="collapse3 collapse in">' + e_description + '</span>' + '</td>' +
 		       ' <td class="collapse4 collapse in" style="min-width:150px; max-width:200px">' +
 		       '     <div class="btn-group btn-group-justified btn-group-md">' +
-		       '         <a href="#" onclick="load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0;"' +
+		       '         <a href="#" onclick="$(\'#example1\').modal(\'hide\'); load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0;"' +
 		       '            class="ui-btn btn btn-group ui-btn-inline btn-default">' +
 		       '            <b>Assembly</b></a>' +
-		       '         <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',false);" style="padding:0 0 0 0;"' +
+		       '         <a href="#" onclick="$(\'#example1\').modal(\'hide\'); load_from_example_firmware(\'' + e_id + '\',false);" style="padding:0 0 0 0;"' +
 		       '            class="ui-btn btn btn-group ui-btn-inline btn-default">' +
 		       '            <b>Firmware</b></a>' +
 		       '     </div>' +
@@ -1167,8 +1184,8 @@
                'reset':                    wepsim_execute_reset,
                'next instruction':         wepsim_execute_instruction,
                'next micro(instruction)':  wepsim_execute_microinstruction,
-               'play':                     wepsim_execute_play,
-               'stop':                     wepsim_execute_stop,
+               'play':                     function() { wepsim_execute_play('#qbp', false); },
+               'stop':                     function() { wepsim_execute_stop('#qbp'); },
 
                'help':                     wepsim_open_help_index,
                'examples':                 wepsim_open_examples_index,

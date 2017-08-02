@@ -662,8 +662,30 @@
 
             // html holder
             var o1 = "<div class='container-fluid' style='padding:0 0 0 0; overflow-x:auto'>" +
-                     "<div class='row-fluid'>" +
-                     "<div class='col-xs-8 col-md-8' style='padding:0 0 0 0;'>" +
+                     "<div class='row-fluid'>" ;
+
+               o1 += "<div class='col-xs-12 col-md-12' style='padding:0 0 0 0;'>" +
+                     "<div class='panel panel-default'>" +
+                     "<div class='panel-heading'>" +
+                     " <h3 class='panel-title'>Memory</h3>" +
+                     "</div>" +
+                     "<div class='panel-body' id='mempanel' style='padding:0 0 0 0;'>" +
+                     "<table class='table table-hover table-condensed table-bordered table-responsive' " +
+                     "       style='margin:0'>" +
+                     "<tbody class='no-ui-mini'>" +
+                     "<tr><td align=center'>Wait cycles (<b>0</b> - &infin;)</td></tr>" +
+                     "<tr><td align=center'>" + 
+                     "    <div id='mp_wc'><input type=number data-bind='value: MP_wc' min=0></div>" + 
+                     "</td></tr>" +
+                     "</tbody>" +
+                     "</table>" +
+                     "</div>" +
+                     "</div>" +
+                     "</div>" +
+                     "</div>" +
+                     "</div>" ;
+         
+               o1 += "<div class='col-xs-12 col-md-12' style='padding:0 0 0 0;'>" +
                      "<div class='panel panel-default' style='margin:0 0 0 0;'>" +
                      "<div class='panel-heading'>" +
                      " <h3 class='panel-title'>I/O</h3>" +
@@ -672,14 +694,20 @@
                o1 += "<center>" +
                      "<table class='table table-hover table-condensed table-bordered table-responsive' " +
                      "       style='margin:0'>" +
-                     "<tbody class='ui-mini'>" +
+                     "<tbody class='no-ui-mini'>" +
                      "<tr>" +
-                     "<td align=center width=33%>" +
-                     "  <span class='hidden-xs'>Interruption<br>identificator</span>" +
-                     "  <span class='visible-xs'>Int.<br>Id.</span>" +
+                     "<td align=center width='33%'>" +
+                     "  <span class='hidden-xs'>Interruption identificator</span>" +
+                     "  <span class='visible-xs'>Int. Id.<br>(0 - 7)</span>" +
                      "</td>" +
-                     "<td align=center width=33%>CLK period<br>(<b>0</b> - &infin;)</td>" +
-                     "<td align=center width=33%>Probability<br>(0 - 1)</td>" +
+                     "<td align=center width='33%'>" +
+                     "  <span class='hidden-xs'>CLK period (<b>0</b> - &infin;)</span>" +
+                     "  <span class='visible-xs'>CLK ticks <br>(<b>0</b> - &infin;)</span>" +
+                     "</td>" +
+                     "<td align=center width='33%'>" +
+                     "  <span class='hidden-xs'>Probability (0 - 1)</span>" +
+                     "  <span class='visible-xs'>Probability <br>(0 - 1)</span>" +
+                     "</td>" +
                      "</tr>" ;
             for (var i=0; i<8; i++)
             {
@@ -708,24 +736,6 @@
                      "</div>" +
                      "</div>" ;
 
-               o1 += "<div class='col-xs-4 col-md-4' style='padding:0 0 0 10;'>" +
-                     "<div class='panel panel-default'>" +
-                     "<div class='panel-heading'>" +
-                     " <h3 class='panel-title'>Memory</h3>" +
-                     "</div>" +
-                     "<div class='panel-body' id='mempanel' style='padding:0 0 0 0;'>" +
-                     "  <div class='row-fluid'>" +
-                     "  <center>" +
-                     "  <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' style='padding: 0 0 0 0;'>Wait cycles <br>(<b>0</b> - &infin;)</div>" +
-                     "  <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' id='mp_wc'><input type=number data-bind='value: MP_wc' min=0></div>" +
-                     "  </center>" +
-                     "  </div>" +
-                     "</div>" +
-                     "</div>" +
-                     "</div>" +
-                     "</div>" +
-                     "</div>" ;
-         
             $(jqdiv).html(o1);
 
             // knockout binding
