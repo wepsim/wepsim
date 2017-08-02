@@ -692,7 +692,7 @@
                o1 += "<center>" +
                      "<table class='table table-hover table-condensed table-bordered table-responsive' " +
                      "       style='margin:0'>" +
-                     "<tbody class='no-ui-mini'>" +
+                     "<tbody class='ui-mini'>" +
                      "<tr>" +
                      "<td align=center width='33%'>" +
                      "  <span class='hidden-xs'>Interruption identificator</span>" +
@@ -715,14 +715,12 @@
                      "</td>" +
                      "<td align=center style='padding:0 0 0 0'>" +
                      "<div id='int" + i + "_per' style='margin:0 3 0 3'>" +
-                     "<input type=number data-bind='value: period' min='0' " +
-                     "       style='margin:0 0 0 3; padding:0 0 0 5'>" +
+                     "<input type=number data-bind='value: period' min='0'>" +
                      "</div>" +
                      "</td>" +
                      "<td align=center style='padding:0 0 0 0'>" +
                      "<div id='int" + i + "_pro' style='margin:0 3 0 3'>" +
-                     "<input type=number data-bind='value: probability' min='0' max='1' step='.05' " +
-                     "       style='margin:0 0 0 3; padding:0 0 0 5'>" +
+                     "<input type=number data-bind='value: probability' min='0' max='1' step='.05'>" +
                      "</div>" +
                      "</td>" +
                      "</tr>" ;
