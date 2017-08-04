@@ -673,8 +673,8 @@
                      "<table class='table table-hover table-condensed table-bordered table-responsive' " +
                      "       style='margin:0'>" +
                      "<tbody class='no-ui-mini'>" +
-                     "<tr><td align=center'>Wait cycles (<b>0</b> - &infin;)</td></tr>" +
-                     "<tr><td align=center'>" + 
+                     "<tr><td align=center'>Wait cycles (<b>0</b> - &infin;)</td>" +
+                     "    <td align=center'>" + 
                      "    <div id='mp_wc'><input type=number data-bind='value: MP_wc' min=0></div>" + 
                      "</td></tr>" +
                      "</tbody>" +
@@ -692,7 +692,7 @@
                o1 += "<center>" +
                      "<table class='table table-hover table-condensed table-bordered table-responsive' " +
                      "       style='margin:0'>" +
-                     "<tbody class='ui-mini'>" +
+                     "<tbody class='no-ui-mini'>" +
                      "<tr>" +
                      "<td align=center width='33%'>" +
                      "  <span class='hidden-xs'>Interruption identificator</span>" +
@@ -715,7 +715,7 @@
                      "</td>" +
                      "<td align=center style='padding:0 0 0 0'>" +
                      "<div id='int" + i + "_per' style='margin:0 3 0 3'>" +
-                     "<input type=number data-bind='value: period' min='0'>" +
+                     "<input type=number data-bind='value: period' min='0' max='1000000'>" +
                      "</div>" +
                      "</td>" +
                      "<td align=center style='padding:0 0 0 0'>" +
