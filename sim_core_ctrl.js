@@ -49,18 +49,24 @@
             // 1.- counting the number of active tri-states
             var tri_name = "";
             var tri_activated = 0;
-	    var tri_activated_name = "";
+	    var tri_activated_name  = "";
+	    var tri_activated_value = 0;
             for (var i=0; i<tri_state_names.length; i++)
             {
-		 tri_activated_name = tri_state_names[i] ;
-                 tri_activated      = tri_activated + parseInt(sim_signals[tri_activated_name].value) ;
+		 tri_activated_name  = tri_state_names[i] ;
+                 tri_activated_value = parseInt(get_value(sim_signals[tri_activated_name])) ;
+                 tri_activated      += tri_activated_value ;
+
+		 if ( (tri_activated_value > 0) && ("" == tri_name) )
+		       tri_name = tri_activated_name ;
                  if (tri_activated > 1)
                      break ;
             }
 
             // 2.- paint the bus if any tri-state is active
-            if (tri_activated > 0)
-                update_draw(sim_signals[tri_activated_name], 1) ;
+            if (tri_activated > 0) {
+                update_draw(sim_signals[tri_name], 1) ;
+            }
 
             // 3.- check if more than one tri-state is active
             if (internalbus_fire_visible) {
