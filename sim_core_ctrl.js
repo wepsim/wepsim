@@ -867,7 +867,8 @@
                                  ' <div>' +
                                  '<h4>' + dlg_title + '</h4>' +
                                  '<br>' +
-                                 ' <form class="form-horizontal" style="white-space:wrap;overflow-y:auto;max-height:32vh;">' +
+                                 ' <form class="form-horizontal" ' + 
+                                 '    style="white-space:wrap;overflow-y:auto;max-height:35vh;">' +
                                  ' <textarea aria-label="checks to perform" ' +
                                  '           placeholder="' + txt_placeholder + '"' +
                                  '           id="end_state" ' + 
