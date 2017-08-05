@@ -78,7 +78,8 @@ cat external/bootstrap.min.js \
     external/bootstrap-tokenfield.js \
     external/speech-input.js \
     external/annyang.min.js \
-    external/speechkitt.min.js > external/external.min.js
+    external/speechkitt.min.js \
+    external/dropify.min.js > external/external.min.js
 
 cat external/bootstrap.min.css \
     external/bootstrap-theme.min.css \
@@ -91,5 +92,6 @@ cat external/bootstrap.min.css \
     external/bootstrap-select.min.css \
     external/bootstrap-tokenfield.css \
     external/speech-input.css \
-    external/speechkitt.css > external/external.min.css
+    external/speechkitt.css \
+    external/dropify.min.css > external/external.min.css
 
