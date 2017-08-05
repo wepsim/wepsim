@@ -403,6 +403,7 @@
     {
 	 $.notify({ title: ntf_title, message: ntf_message },
 		  { type: 'success',
+                    z_index: 2000,
                     newest_on_top: true,
                     delay: get_cfg('NOTIF_delay'),
                     placement: { from: 'top', align: 'center' } });
@@ -573,6 +574,7 @@
                                 '<button type="button" class="btn btn-danger" onclick="$.notifyClose();">Close</button>' +
                                 '</center>' },
 		     { type: 'danger',
+                       z_index: 2000,
                        newest_on_top: true,
                        delay: 0,
                        placement: { from: 'top', align: 'center' }
