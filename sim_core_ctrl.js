@@ -873,8 +873,8 @@
                                  ' <div>' +
                                  '<h4>' + dlg_title + '</h4>' +
                                  '<br>' +
-                                 ' <form class="form-horizontal" ' + 
-                                 '    style="white-space:wrap;overflow-y:auto;max-height:35vh;">' +
+                                 ' <form id="end_state_form" class="form-horizontal" ' + 
+                                 '       style="white-space:wrap;overflow-y:auto;">' +
                                  ' <textarea aria-label="checks to perform" ' +
                                  '           placeholder="' + txt_placeholder + '"' +
                                  '           id="end_state" ' + 
@@ -886,7 +886,6 @@
                                  '           data-delimiter=";" ' +
                                  '           data-beautify="true" ' +
                                  '           class="form-control input-xs" rows="5">' + txt_checklist + '</textarea>' +
-                           //A1/ '           class="form-control input-xs speech-input" rows="5">' + txt_checklist + '</textarea>' +
                                  ' </form>' +
                                  ' </div>' +
 			         '<br>' +
@@ -913,7 +912,9 @@
 	    var chkbox = null ;
 
 	    var dialog_title   = get_dialog_title('State', 'help_checker') ;
-	    var dialog_message = get_dialog_message(dlg_title, 'Please drop the requirement list here. See help for more information.', txt_checklist, '&nbsp;') ;
+	    var dialog_message = get_dialog_message(dlg_title, 
+                                        'Please drop the requirement list here. See help for more information.', 
+                                        txt_checklist, '&nbsp;') ;
             var dialog_btns = new Object() ;
                 dialog_btns["clear"] = {
 	    	        label: 'Clear',
@@ -959,7 +960,11 @@
 	                message: dialog_message,
 	                buttons: dialog_btns,
                         animate: false
-	             });
+	             }) ;
+
+	    chkbox.find("div.modal-dialog").addClass("bootboxWidth");
+            $("#end_state_form").addClass("bootboxShortHeight") ;
+          //$("#end_state").addClass("speech-input") ;
 
             // tokenfield:
             chkbox.init(function() {
@@ -1004,7 +1009,11 @@
 	                message: dialog_message,
 	                buttons: dialog_btns,
                         animate: false
-	             });
+	             }) ;
+
+	    chkbox.find("div.modal-dialog").addClass("bootboxWidth");
+            $("#end_state_form").addClass("bootboxLargeHeight") ;
+          //$("#end_state").addClass("speech-input") ;
 
             // tokenfield:
             chkbox.init(function() {

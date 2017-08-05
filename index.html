@@ -42,14 +42,6 @@
         height: inherit !important
     }
 
-    .bootbox .modal-body {
-        overflow: auto;
-    }
-    .bootbox .modal-dialog {
-        min-width: 55vw;
-        min-height: 65vh;
-    }
-
     .modal-header {
 	padding: 5 5 5 5 !important;
         background-color: #EEEEEE !important;
@@ -60,6 +52,19 @@
     .modal-footer {
 	padding: 8 8 8 8 !important;
         background-color: #EEEEEE !important;
+    }
+
+    .bootbox .modal-body {
+        overflow: auto;
+    }
+    .bootboxWidth {
+        min-width: 75vw;
+    }
+    .bootboxShortHeight {
+        max-height: 35vh;
+    }
+    .bootboxLargeHeight {
+        max-height: 55vh;
     }
 
     div.ui-input-text, div.ui-slider { 
