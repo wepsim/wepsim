@@ -996,6 +996,30 @@
 	    var dialog_title   = get_dialog_title('State', 'help_dumper') ;
 	    var dialog_message = get_dialog_message(dlg_title, 'Default...', txt_checklist, '') ;
             var dialog_btns = new Object() ;
+                dialog_btns["copy"] = {
+	    	        label: 'Copy to clipboard',
+		        className: 'btn-primary',
+		        callback: function() {
+				      var msg = 'successful' ;
+				      try {
+				         var copyTextarea = document.getElementById('end_state');
+				         copyTextarea.select();
+				         document.execCommand('copy');
+				      } catch (err) {
+				         msg = 'unsuccessful' ;
+				      }
+
+				      $.notify({ title: '<strong>INFO</strong>', 
+                                                 message: 'Copied ' + msg + '!.'},
+					       { type: 'success',
+					    	 z_index: 2000,
+					    	 newest_on_top: true,
+						 delay: get_cfg('NOTIF_delay'),
+						 placement: { from: 'top', align: 'center' } });
+
+                                      return false;
+		        }
+		    } ;
                 dialog_btns["ok"] = {
 	    	        label: '&nbsp;&nbsp;OK&nbsp;&nbsp;',
 		        className: 'btn-primary',

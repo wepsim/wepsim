@@ -1116,12 +1116,15 @@
 
                 MC_dashboard[addr].breakpoint = bp_state ;
 
-                if ( bp_state && ('instruction' == get_cfg('DBG_level')) )
-                     $.notify({ title: '<strong>INFO</strong>', message: 'Please remember to change configuration to execute at microinstruction level.'},
+                if ( bp_state && ('instruction' == get_cfg('DBG_level')) ) {
+                     $.notify({ title: '<strong>INFO</strong>', 
+                         message: 'Please remember to change configuration to execute at microinstruction level.'},
                               { type: 'success',
+                                z_index: 2000,
                                 newest_on_top: true,
                                 delay: get_cfg('NOTIF_delay'),
                                 placement: { from: 'top', align: 'center' } });
+                }
         }
 
 	function show_dbg_mpc ( )
