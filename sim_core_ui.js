@@ -675,8 +675,10 @@
                      "<tbody class='no-ui-mini'>" +
                      "<tr><td align=center'>Wait cycles (<b>0</b> - &infin;)</td>" +
                      "    <td align=center'>" + 
-                     "    <div id='mp_wc'><input type=number data-bind='value: MP_wc' min=0></div>" + 
-                     "</td></tr>" +
+                     "<div id='mp_wc'>" + 
+                     "<input type=number data-bind='value: MP_wc' min='0' max='99999999'>" +
+                     "</div>" + 
+                     "    </td></tr>" +
                      "</tbody>" +
                      "</table>" +
                      "</div>" +
@@ -715,7 +717,7 @@
                      "</td>" +
                      "<td align=center style='padding:0 0 0 0'>" +
                      "<div id='int" + i + "_per' style='margin:0 3 0 3'>" +
-                     "<input type=number data-bind='value: period' min='0' max='1000000'>" +
+                     "<input type=number data-bind='value: period' min='0' max='99999999'>" +
                      "</div>" +
                      "</td>" +
                      "<td align=center style='padding:0 0 0 0'>" +
