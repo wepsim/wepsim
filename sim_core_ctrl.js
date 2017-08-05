@@ -57,8 +57,8 @@
                  tri_activated_value = parseInt(get_value(sim_signals[tri_activated_name])) ;
                  tri_activated      += tri_activated_value ;
 
-		 if ( (tri_activated_value > 0) && ("" == tri_name) )
-		       tri_name = tri_activated_name ;
+		 if (tri_activated_value > 0)
+		     tri_name = tri_activated_name ;
                  if (tri_activated > 1)
                      break ;
             }
