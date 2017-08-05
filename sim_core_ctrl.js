@@ -998,7 +998,7 @@
             var dialog_btns = new Object() ;
                 dialog_btns["copy"] = {
 	    	        label: 'Copy to clipboard',
-		        className: 'btn-primary',
+		        className: 'btn-default',
 		        callback: function() {
 				      var msg = 'successful' ;
 				      try {
