@@ -209,12 +209,13 @@
 
     function wepsim_execute_reset ( reset_cpu, reset_memory )
     {
+        state_history = new Array() ;
+
         if (true == reset_memory) 
         {
             var SIMWARE = get_simware() ;
-	    if (SIMWARE.firmware.length != 0) {
-                update_memories(SIMWARE);
-	    }
+	    if (SIMWARE.firmware.length != 0)
+                update_memories(SIMWARE) ;
         }
 
         if (true == reset_cpu) 
@@ -446,16 +447,20 @@
 	return true ;
     }
 
+    // state history
+    var state_history = new Array() ;
+
     function wepsim_check_state_firm ( )
     {
         var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
         if (false == MC_dashboard[reg_maddr].state)
             return false ;
 
+        var reg_clk   = get_value(sim_states["CLK"]) ;
         var state_str = wepsim_dump_checklist() ;
-        var state_js  = "{ " + "microaddr: '" + reg_maddr + "'," + 
-                        "  " + "state: '"     + state_str + "' }" ;
-        console.log(state_js) ;
+        state_history.push({ time: reg_clk,
+                             header: '@ micro-address ' + reg_maddr,
+                             body: [{ tag: 'p', content: state_str }] }) ;
 
 	return true ;
     }
