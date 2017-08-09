@@ -102,6 +102,10 @@
         height: 80%;
         float: left;
     }
+
+    .tokenfield .token .token-label {
+        max-width: none!important;
+    }
     </style>
 
     <link  href="external/external.min.css" rel="stylesheet">
@@ -284,7 +288,7 @@
 			<div class="ui-block-a" style="width:15%">
 		          <button class="btn btn-default ui-btn ui-shadow ui-corner-all"
 		                  style="border-width:1 1 1 1px;"
-		                  onclick="dialog_current_state('Current State');"><b>State</b></button>
+		                  onclick="wepsim_dialog_current_state();"><b>State</b></button>
 			</div>
 			<div class="ui-block-d" style="width:27%">
 		          <button class="btn btn-default ui-btn ui-shadow ui-corner-all"
@@ -1160,6 +1164,119 @@
 </div> <!-- /.modal -->
 
 
+<div id="current_state1" class="modal">
+<div class="modal-dialog bootboxWidth">
+   <div class="modal-content">
+      <div class="modal-header">
+         <button type="button" 
+                 class="bootbox-close-button close" 
+                 data-dismiss="modal" aria-hidden="true">×</button>
+         <h4 class="modal-title">
+            <center>
+               <div class="btn-group">
+                  <button onclick="$('#bot_check1').carousel(0);"
+                          type="button" 
+                          class="btn btn-default" 
+                          style="height:34px !important;">History</button>
+                  <button onclick="$('#bot_check1').carousel(1);" 
+                          type="button" 
+                          class="btn btn-info" 
+                          style="height:34px !important;">State</button>
+                  <button onclick="$('#bot_check1').carousel(2);
+                                   update_checker_loadhelp('#help3a','help_dumper');"
+                          type="button" 
+                          class="btn btn-success" 
+                          style="height:34px !important;">Help</button>
+                  <button type="button" 
+                          class="btn btn-success dropdown-toggle" 
+                          data-toggle="dropdown" 
+                          aria-haspopup="true" 
+                          aria-expanded="false" 
+                          style="height:34px !important;"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>   
+                  <ul class="dropdown-menu">
+                     <li><a href="#" onclick="set_cfg('ws_idiom','es'); save_cfg();
+                                              $('#bot_check1').carousel(2);
+                                              update_checker_loadhelp('#help3a','help_dumper');">ES</a></li>
+                     <li><a href="#" onclick="set_cfg('ws_idiom','en'); save_cfg();
+                                              $('#bot_check1').carousel(2);
+                                              update_checker_loadhelp('#help3a','help_dumper');">EN</a></li>
+                  </ul>
+               </div>
+            </center>
+         </h4>
+      </div>
+      <div class="modal-body">
+         <div class="bootbox-body">
+            <div id="bot_check1" class="carousel slide" data-ride="carousel" data-interval="false">
+               <div class="carousel-inner" role="listbox">
+                  <div class="item">
+                        <h4>History</h4>
+                        <br> 
+                        <div id="history1" 
+                             style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>
+                  </div>
+                  <div class="item active">
+                     <div>
+                        <h4>Current State</h4>
+                        <br> 
+                        <form id="end_state_form1" 
+                              class="form-horizontal bootboxLargeHeight" 
+                              style="white-space:wrap; overflow-y:auto;">
+                           <textarea aria-label="checks to perform" 
+                                     placeholder="Default..." 
+                                     id="end_state1" 
+                                     name="end_state1" 
+                                     data-allowediting="true" 
+                                     data-allowpasting="false" 
+                                     data-limit="0" 
+                                     data-createtokensonblur="false" 
+                                     data-delimiter=";" 
+                                     data-beautify="true" 
+                                     class="form-control input-xs" 
+                                     rows="5"></textarea>
+                        </form>
+                     </div>
+                  </div>
+                  <div class="item">
+                       <div id="help3a" 
+                            style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="modal-footer">
+           <button data-bb-handler="copy" 
+                   type="button" 
+                   onclick="var msg = 'successful' ;
+			    try {
+				 var copyTextarea = document.getElementById('end_state1');
+				 copyTextarea.select();
+				 document.execCommand('copy');
+			    } catch (err) {
+				 msg = 'unsuccessful' ;
+			    }
+
+			    $.notify({ title: '<strong>INFO</strong>',
+				       message: 'Copied ' + msg + '!.'},
+				     { type: 'success',
+				       z_index: 2000,
+				       newest_on_top: true,
+				       delay: get_cfg('NOTIF_delay'),
+				       placement: { from: 'top', align: 'center' } });
+
+			    return false;"
+                   class="btn btn-default col-xs-3 pull-left">Copy to clipboard</button>
+           <button data-bb-handler="ok" 
+                   type="button" 
+                   onclick="$('#current_state1').modal('hide');"
+                   class="btn btn-primary col-xs-3 pull-right">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
+      </div>
+   </div>
+</div>
+</div> <!-- /.modal -->
+
+
 <script>
     window.addEventListener("beforeunload", function (e) {
        var confirmationMessage = "\o/";
@@ -1312,6 +1429,15 @@ if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(nav
             }) ;
 
             $('.dropify').dropify();
+
+            $('#end_state1').tokenfield({
+                    autocomplete: { source: ['register','memory','screen'], delay: 100 },
+                    showAutocompleteOnFocus: true,
+                    inputType: 'textarea'
+            }) ;
+            //A1/ var inputEls = document.getElementById('end_state1');
+            //A1/ if (null != inputEls)
+            //A1/     setup_speech_input(inputEls) ;
 
             wepsim_voice_init() ;
 	    if (false == get_cfg('use_voice'))

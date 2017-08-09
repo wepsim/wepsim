@@ -209,12 +209,13 @@
 
     function wepsim_execute_reset ( reset_cpu, reset_memory )
     {
+        state_history = new Array() ;
+
         if (true == reset_memory) 
         {
             var SIMWARE = get_simware() ;
-	    if (SIMWARE.firmware.length != 0) {
-                update_memories(SIMWARE);
-	    }
+	    if (SIMWARE.firmware.length != 0)
+                update_memories(SIMWARE) ;
         }
 
         if (true == reset_cpu) 
@@ -446,16 +447,20 @@
 	return true ;
     }
 
+    // state history
+    var state_history = new Array() ;
+
     function wepsim_check_state_firm ( )
     {
         var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
         if (false == MC_dashboard[reg_maddr].state)
             return false ;
 
+        var reg_clk   = get_value(sim_states["CLK"]) ;
         var state_str = wepsim_dump_checklist() ;
-        var state_js  = "{ " + "microaddr: '" + reg_maddr + "'," + 
-                        "  " + "state: '"     + state_str + "' }" ;
-        console.log(state_js) ;
+        state_history.push({ time: Date().toString(),
+                             header: reg_clk + ' @ micro-address ' + reg_maddr,
+                             body: [{ tag: 'p', content: state_str }] }) ;
 
 	return true ;
     }
@@ -638,6 +643,32 @@
 	var b = 100 - a;
 	$('#eltos_cpu_a').css({width: a+'%'});
 	$('#eltos_cpu_b').css({width: b+'%'});
+    }
+
+    function wepsim_dialog_current_state ( )
+    {
+         // tab1
+         $('#history1').albeTimeline(state_history, {
+				        effect: 'zoomInUp',
+				        showGroup: true,
+				        showMenu: false,
+				        formatDate : 'yyyy-mm-dd HH:MM:ss fff',
+				        sortDesc: true
+				     });
+
+         // tab2
+         var txt_checklist = wepsim_dump_checklist();
+
+         var s=0 ;
+         for (var i=0; i<txt_checklist.length; i++)
+              if (';' == txt_checklist[i]) 
+                  s++ ;
+         ga('send', 'event', 'state', 'state.dump', 'state.dump.' + s);
+
+         $('#end_state1').tokenfield('setTokens', txt_checklist);
+
+         // show dialog
+         $('#current_state1').modal('show');
     }
 
 
@@ -1280,4 +1311,6 @@
 
         return true ;
     }
+
+
 
