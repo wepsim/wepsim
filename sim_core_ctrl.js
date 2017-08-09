@@ -924,7 +924,7 @@
             var dialog_btns = new Object() ;
                 dialog_btns["clear"] = {
 	    	        label: 'Clear',
-		        className: 'btn-default',
+		        className: 'btn-default col-xs-3',
 		        callback: function() {
                             txt_checklist = '' ;
 			    $('#end_state').tokenfield('setTokens', []);
@@ -936,7 +936,7 @@
 		    } ;
                 dialog_btns["check"] = {
 	    	        label: 'Check',
-		        className: 'btn-info',
+		        className: 'btn-info col-xs-3',
 		        callback: function() {
                                 txt_checklist = $('#end_state').val();
                             var obj_checklist = wepsim_read_checklist(txt_checklist) ;
@@ -953,7 +953,7 @@
 		    } ;
                 dialog_btns["ok"] = {
 	    	        label: '&nbsp;&nbsp;OK&nbsp;&nbsp;',
-		        className: 'btn-primary',
+		        className: 'btn-primary col-xs-3 pull-right',
 		        callback: function() {
                             // chkbox.modal("hide") ;
 				
@@ -1004,7 +1004,7 @@
             var dialog_btns = new Object() ;
                 dialog_btns["copy"] = {
 	    	        label: 'Copy to clipboard',
-		        className: 'btn-default',
+		        className: 'btn-default col-xs-3 pull-left',
 		        callback: function() {
 				      var msg = 'successful' ;
 				      try {
@@ -1028,7 +1028,7 @@
 		    } ;
                 dialog_btns["ok"] = {
 	    	        label: '&nbsp;&nbsp;OK&nbsp;&nbsp;',
-		        className: 'btn-primary',
+		        className: 'btn-primary col-xs-3 pull-right',
 		        callback: function() {
                             return true;
 		        }
