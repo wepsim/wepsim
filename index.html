@@ -1174,12 +1174,16 @@
          <h4 class="modal-title">
             <center>
                <div class="btn-group">
-                  <button onclick="$('#bot_check1').carousel(0);" 
+                  <button onclick="$('#bot_check1').carousel(0);"
+                          type="button" 
+                          class="btn btn-default" 
+                          style="height:34px !important;">History</button>
+                  <button onclick="$('#bot_check1').carousel(1);" 
                           type="button" 
                           class="btn btn-info" 
                           style="height:34px !important;">State</button>
-                  <button onclick="$('#bot_check1').carousel(1);
-                                   update_checker_loadhelp('#help3','help_dumper');"
+                  <button onclick="$('#bot_check1').carousel(2);
+                                   update_checker_loadhelp('#help3a','help_dumper');"
                           type="button" 
                           class="btn btn-success" 
                           style="height:34px !important;">Help</button>
@@ -1191,11 +1195,11 @@
                           style="height:34px !important;"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>   
                   <ul class="dropdown-menu">
                      <li><a href="#" onclick="set_cfg('ws_idiom','es'); save_cfg();
-                                              $('#bot_check1').carousel(1);
-                                              update_checker_loadhelp('#help3','help_dumper');">ES</a></li>
+                                              $('#bot_check1').carousel(2);
+                                              update_checker_loadhelp('#help3a','help_dumper');">ES</a></li>
                      <li><a href="#" onclick="set_cfg('ws_idiom','en'); save_cfg();
-                                              $('#bot_check1').carousel(1);
-                                              update_checker_loadhelp('#help3','help_dumper');">EN</a></li>
+                                              $('#bot_check1').carousel(2);
+                                              update_checker_loadhelp('#help3a','help_dumper');">EN</a></li>
                   </ul>
                </div>
             </center>
@@ -1205,6 +1209,12 @@
          <div class="bootbox-body">
             <div id="bot_check1" class="carousel slide" data-ride="carousel" data-interval="false">
                <div class="carousel-inner" role="listbox">
+                  <div class="item">
+                        <h4>History</h4>
+                        <br> 
+                        <div id="history1" 
+                             style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>
+                  </div>
                   <div class="item active">
                      <div>
                         <h4>Current State</h4>
@@ -1228,7 +1238,7 @@
                      </div>
                   </div>
                   <div class="item">
-                       <div id="help3" 
+                       <div id="help3a" 
                             style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>
                   </div>
                </div>

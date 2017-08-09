@@ -458,8 +458,8 @@
 
         var reg_clk   = get_value(sim_states["CLK"]) ;
         var state_str = wepsim_dump_checklist() ;
-        state_history.push({ time: reg_clk,
-                             header: '@ micro-address ' + reg_maddr,
+        state_history.push({ time: Date().toString(),
+                             header: reg_clk + ' @ micro-address ' + reg_maddr,
                              body: [{ tag: 'p', content: state_str }] }) ;
 
 	return true ;
@@ -647,6 +647,16 @@
 
     function wepsim_dialog_current_state ( )
     {
+         // tab1
+         $('#history1').albeTimeline(state_history, {
+				        effect: 'zoomInUp',
+				        showGroup: true,
+				        showMenu: false,
+				        formatDate : 'yyyy-mm-dd HH:MM:ss fff',
+				        sortDesc: true
+				     });
+
+         // tab2
          var txt_checklist = wepsim_dump_checklist();
 
          var s=0 ;
@@ -656,6 +666,8 @@
          ga('send', 'event', 'state', 'state.dump', 'state.dump.' + s);
 
          $('#end_state1').tokenfield('setTokens', txt_checklist);
+
+         // show dialog
          $('#current_state1').modal('show');
     }
 
