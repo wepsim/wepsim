@@ -509,6 +509,16 @@
 			wepsim_execute_stop(btn1) ;
 			return false ;
 		    }
+
+                    var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
+                    if (0 == reg_maddr) 
+                    {
+		        ret = wepsim_check_stopbybreakpoint_asm() ;
+		        if (true == ret) {
+		    	    wepsim_execute_stop(btn1) ;
+			    return false ;
+		        }
+		    }
             }
 	}
 
@@ -538,7 +548,7 @@
         if (max_turbo == 5) 
             var t1 = performance.now() ;
         if (max_turbo == 5) 
-            max_turbo = 3600/(t1-t0) ;
+            max_turbo = 3000/(t1-t0) ;
 
 	setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), btn1) ;
     }

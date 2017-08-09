@@ -15,12 +15,15 @@ begin
                     # notify: If so, the microcode gets the indentificator of the interruption 
                     # notify: from the device itself, and from this identificator the CPU gets 
                     # notify: the associated subrutine index in RT1:
+                    # notify: <pre>
                     # notify: <font color=blue>if (INT)</font>
                     # notify: <font color=blue>    MBR <= DB <= INTV</font>
                     # notify: <font color=blue>    RT1 <= MBR</font>
+                    # notify: </pre>
                     # notify: In this CPU, it gets the interruption vector from the device
                     # notify: (a number that identify the interruption)
                     # notify: and use it as index in the subrutine vector in RT1 register.
+                    # notify: It also sends an ACK to the device to stop sending the INT signal.
                     # notify: 
                     # notify: Note: PC already points to next instructions after the interruption
 
