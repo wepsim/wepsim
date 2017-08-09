@@ -645,6 +645,20 @@
 	$('#eltos_cpu_b').css({width: b+'%'});
     }
 
+    function wepsim_dialog_current_state ( )
+    {
+         var txt_checklist = wepsim_dump_checklist();
+
+         var s=0 ;
+         for (var i=0; i<txt_checklist.length; i++)
+              if (';' == txt_checklist[i]) 
+                  s++ ;
+         ga('send', 'event', 'state', 'state.dump', 'state.dump.' + s);
+
+         $('#end_state1').tokenfield('setTokens', txt_checklist);
+         $('#current_state1').modal('show');
+    }
+
 
     /*
      * Example management
@@ -1285,4 +1299,6 @@
 
         return true ;
     }
+
+
 
