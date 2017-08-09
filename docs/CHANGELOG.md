@@ -1,8 +1,9 @@
 
 1.8.1 -> 1.8.2:
-* added 'break:' to microcode
-* updated 'notify:' for tutorials
-* links to the tutorials in help 
+* Added 'break:' and 'state:' actions at microcode level
+* Updated 'notify:' for tutorials
+* Links to the tutorials in help 
+* Added 'copy to clipboard' action to the current state dialog
 
 1.8.0 -> 1.8.1:
 * Colorized syntax
