@@ -637,7 +637,7 @@
 								     MC_dashboard[get_value(sim_states["REG_MICROADDR"])] = new Object() ;
 								 }
 								 MC[get_value(sim_states["REG_MICROADDR"])][key] = sim_signals[key].value ;
-								 MC_dashboard[get_value(sim_states["REG_MICROADDR"])][key] = { comment: "", breakpoint: false, notify: new Array() };
+								 MC_dashboard[get_value(sim_states["REG_MICROADDR"])][key] = { comment: "", breakpoint: false, state: false, notify: new Array() };
 
 								 // update ROM[..]
 								 update_signal_firmware(key) ;
@@ -677,8 +677,10 @@
             MC_dashboard = new Object() ;
             for (var i=0; i<SIMWARE['firmware'].length; i++)
 	    {
-               var elto_notify = new Array() ;
+               var elto_state  = false ;
                var elto_break  = false ;
+               var elto_notify = new Array() ;
+
 	       var last = SIMWARE['firmware'][i]["microcode"].length ; // mc = microcode
                var mci  = SIMWARE['firmware'][i]["mc-start"] ;
 	       for (var j=0; j<last; j++)
@@ -686,13 +688,17 @@
 		    var comment = SIMWARE['firmware'][i]["microcomments"][j] ;
 		    MC[mci]     = SIMWARE['firmware'][i]["microcode"][j] ;
 
-                    elto_break = (comment.trim().split("break:").length > 1) ;
-                    elto_notify = comment.trim().split("notify:") ;
+                    elto_state  = (comment.trim().split("state:").length > 1) ;
+                    elto_break  = (comment.trim().split("break:").length > 1) ;
+                    elto_notify =  comment.trim().split("notify:") ;
 		    for (var k=0; k<elto_notify.length; k++) {
 		         elto_notify[k] = elto_notify[k].split('\n')[0] ;
                     }
 
-		    MC_dashboard[mci] = { comment: comment, breakpoint: elto_break, notify: elto_notify } ;
+		    MC_dashboard[mci] = { comment: comment, 
+                                          state: elto_state, 
+                                          breakpoint: elto_break, 
+                                          notify: elto_notify } ;
 		    mci++;
 	       }
 	    }
