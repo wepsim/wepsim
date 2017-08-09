@@ -10,15 +10,18 @@ begin
 
     mrti:           # notify: Before each fetch.
                     # notify: After executing any instruction, and before the fetch microcode,
-                    # notify: the CPU checks if any instruction is enable. 
-                    # notify: If so, then get the indentificator of the interruption from the device itself
-                    # notify: and from this identificator the CPU gets the associated subrutine index in RT1:
+                    # notify: the CPU checks if any interruption is enable. 
+                    # notify: 
+                    # notify: If so, the microcode gets the indentificator of the interruption 
+                    # notify: from the device itself, and from this identificator the CPU gets 
+                    # notify: the associated subrutine index in RT1:
                     # notify: <font color=blue>if (INT)</font>
                     # notify: <font color=blue>    MBR <= DB <= INTV</font>
                     # notify: <font color=blue>    RT1 <= MBR</font>
                     # notify: In this CPU, it gets the interruption vector from the device
                     # notify: (a number that identify the interruption)
                     # notify: and use it as index in the subrutine vector in RT1 register.
+                    # notify: 
                     # notify: Note: PC already points to next instructions after the interruption
 
                     # MBR <- DB <- INTV
@@ -65,6 +68,12 @@ reti {
         nwords=1,
         {
               # notify: The RETI instruction.
+              # notify: After the event is handled (interruption, exception or system call)
+              # notify: the execution of the current assemble program may stop (e.g.: exception because error)
+              # notify: or may continue (i.e.: correct print system call).
+              # notify: In order to continue, the state saved in the event handler microsubrutine 
+              # notify: must to be restored, and the reti instruction take care of this.
+              # notify: 
               # notify: It restore the SR and PC register to continue the interrupted assembly program:
               # notify: <font color=blue>pop SR</font>
               # notify: <font color=blue>pop PC</font>

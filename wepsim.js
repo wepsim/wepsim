@@ -446,6 +446,67 @@
 	return true ;
     }
 
+    function wepsim_check_state_firm ( )
+    {
+        var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
+        if (false == MC_dashboard[reg_maddr].state)
+            return false ;
+
+        var state_str = wepsim_dump_checklist() ;
+        var state_js  = "{ " + "microaddr: '" + reg_maddr + "'," + 
+                        "  " + "state: '"     + state_str + "' }" ;
+        console.log(state_js) ;
+
+	return true ;
+    }
+
+    function wepsim_execute_chunk ( btn1, chunk )
+    {
+	var ret = false ;
+
+	var playlevel = get_cfg('DBG_level') ;
+	if (playlevel == "instruction")  
+	{
+            var clklimit  = get_cfg('DBG_limitick') ;
+            for (var i=0; i<chunk; i++)
+            {
+		    ret = execute_microprogram(clklimit) ;
+		    if (ret === false) {
+			wepsim_execute_stop(btn1) ;
+			return false ;
+		    }
+
+		    ret = wepsim_check_stopbybreakpoint_asm() ;
+		    if (true == ret) {
+			wepsim_execute_stop(btn1) ;
+			return false ;
+		    }
+            }
+	}
+	else
+	{
+            for (var i=0; i<chunk; i++)
+            {
+		    wepsim_check_state_firm() ;
+
+		    ret = execute_microinstruction() ;
+		    if (ret === false) {
+			wepsim_execute_stop(btn1) ;
+			return false ;
+		    }
+
+		    ret = wepsim_check_stopbybreakpoint_firm() ;
+		    if (true == ret) {
+			wepsim_execute_stop(btn1) ;
+			return false ;
+		    }
+            }
+	}
+
+        return true ;
+    }
+
+    // instructions per chunck to be chained...
     var max_turbo = 5 ;
 
     function wepsim_execute_chainplay ( btn1 )
@@ -455,43 +516,20 @@
 	    return ;
 	}
 
-	var ret = false ;
-        var clklimit = get_cfg('DBG_limitick') ;
-
         var turbo = 1;
 	if (get_cfg('DBG_delay') < 5)
             turbo = max_turbo ;
-
         if (max_turbo == 5) 
             var t0 = performance.now() ;
-        for (var i=0; i<turbo; i++)
-        {
-		if (get_cfg('DBG_level') == "instruction")
-		     ret = execute_microprogram(clklimit) ;
-		else ret = execute_microinstruction() ;
 
-		if (ret === false) {
-		    wepsim_execute_stop(btn1) ;
-		    return ;
-		}
+        var ret = wepsim_execute_chunk(btn1, turbo) ;
+        if (false == ret)
+            return ;
 
-		ret = wepsim_check_stopbybreakpoint_asm() ;
-		if (ret == true) {
-		    wepsim_execute_stop(btn1) ;
-		    return ;
-		}
-
-		ret = wepsim_check_stopbybreakpoint_firm() ;
-		if (ret == true) {
-		    wepsim_execute_stop(btn1) ;
-		    return ;
-		}
-        }
         if (max_turbo == 5) 
             var t1 = performance.now() ;
-
         if (max_turbo == 5) 
-            max_turbo = 2500/(t1-t0) ;
+            max_turbo = 3600/(t1-t0) ;
 
 	setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), btn1) ;
     }

@@ -52,6 +52,12 @@ reti {
         nwords=1,
         {
               # notify: The RETI instruction.
+              # notify: After the event is handled (interruption, exception or system call)
+              # notify: the execution of the current assemble program may stop (e.g.: exception because error)
+              # notify: or may continue (i.e.: correct print system call).
+              # notify: In order to continue, the state saved in the event handler microsubrutine 
+              # notify: must to be restored, and the reti instruction take care of this.
+              # notify: 
               # notify: It restore the SR and PC register to continue the interrupted assembly program:
               # notify: <font color=blue>pop SR</font>
               # notify: <font color=blue>pop PC</font>
@@ -76,10 +82,17 @@ syscall {
         nwords=1,
         {
                     # notify: The SYSCALL instruction.
-                    # notify: Set the associaeted event identification in RT1:
+                    # notify: The syscall instruction has an associated event -> The System Call Event.
+                    # notify: It is used to request some service to the operating system.
+                    # notify: The operating system provides the associated assembly handler code
+                    # notify: that reads from registers/stacks the parameters of the syscall 
+                    # notify: and execute the proper actions.
+                    # notify: 
+                    # notify: The syscall microcode sets the associated event identification in RT1:
                     # notify: <font color=blue>RT1 = 2</font>
                     # notify: Then, microjump to event handler microsubrutine:
                     # notify: <font color=blue>go csw_rti</font>
+                    # notify: 
                     # notify: Rembember: PC already points to next instructions after syscall
 
                     # RT1 <- ExCode=2

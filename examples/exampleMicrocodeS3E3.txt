@@ -52,6 +52,12 @@ reti {
         nwords=1,
         {
               # notify: The RETI instruction.
+              # notify: After the event is handled (interruption, exception or system call)
+              # notify: the execution of the current assemble program may stop (e.g.: exception because error)
+              # notify: or may continue (i.e.: correct print system call).
+              # notify: In order to continue, the state saved in the event handler microsubrutine 
+              # notify: must to be restored, and the reti instruction take care of this.
+              # notify: 
               # notify: It restore the SR and PC register to continue the interrupted assembly program:
               # notify: <font color=blue>pop SR</font>
               # notify: <font color=blue>pop PC</font>
@@ -184,10 +190,14 @@ div reg1 reg2 reg3 {
                     (MC=1, MR=0, SELB=1011, SELA=10000, MA=0, MB=0, SELCOP=1101, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0),
 
                     # notify: The FPE-DIV0 exception.
-                    # notify: Set the associaeted event identification in RT1:
+                    # notify: The 'div r1 r2 r3' microcode checks if r3 == 0 before divide at the ALU.
+                    # notify: If so (r3==0) there is an associated event -> Floating Point Exception.
+                    # notify: 
+                    # notify: In this case, the microcode sets the associated event identification in RT1:
                     # notify: <font color=blue>RT1 = 1</font>
                     # notify: Then, microjump to event handler microsubrutine:
                     # notify: <font color=blue>go csw_rti</font>
+                    # notify: 
                     # notify: Rembember: PC already points to next instructions after syscall
 
               fpe1: # RT1 <- ExCode=1
