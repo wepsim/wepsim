@@ -410,6 +410,7 @@
                     placement: { from: 'top', align: 'center' } });
     }
 
+
     /*
      * Play/stop
      */
@@ -424,7 +425,8 @@
 
 	var dialog_title = "Breakpoint @ " + curr_addr + ":<br>" +
 	                   "Microinstruction is going to be issue." ;
-        dialog_stop_and_state(dialog_title) ;
+        $("#dlg_title2").html(dialog_title) ;
+        $('#current_state2').modal('show');
 
 	return true ;
     }
@@ -442,10 +444,12 @@
 
 	var dialog_title = "Breakpoint @ " + curr_addr + ":<br>" +
 	                   "Instruction is going to be fetched." ;
-        dialog_stop_and_state(dialog_title) ;
+        $("#dlg_title2").html(dialog_title) ;
+        $('#current_state2').modal('show');
 
 	return true ;
     }
+
 
     // state history
     var state_history = new Array() ;
@@ -645,6 +649,11 @@
 	$('#eltos_cpu_b').css({width: b+'%'});
     }
 
+
+    /*
+     * Check state
+     */
+
     function wepsim_dialog_current_state ( )
     {
          // tab1
@@ -669,6 +678,31 @@
 
          // show dialog
          $('#current_state1').modal('show');
+    }
+
+    function wepsim_dialog_check_state ( )
+    {
+        var txt_checklist = $('#end_state2').val();
+        var obj_checklist = wepsim_read_checklist(txt_checklist) ;
+        var obj_result    = wepsim_to_check(obj_checklist) ;
+
+        if (0 == obj_result.errors)
+    	     var msg = "<span style='background-color:#7CFC00'>Meets the specified requirements</span>" ;
+        else var msg = wepsim_checkreport2html(obj_result.result, true) ;
+
+        $('#check_results2').html(msg);
+        ga('send', 'event', 'state', 'state.check', 'state.check.' + obj_result.errors);
+
+	return true ;
+    }
+
+    function wepsim_dialog_check_reset ( )
+    {
+        $('#end_state2').tokenfield('setTokens', []);
+	$('#end_state2').val('');
+	$('#check_results2').html('&nbsp;');
+
+	return true ;
     }
 
 

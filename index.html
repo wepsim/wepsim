@@ -1277,6 +1277,101 @@
 </div> <!-- /.modal -->
 
 
+<div id="current_state2" class="modal">
+<div class="modal-dialog bootboxWidth">
+   <div class="modal-content">
+      <div class="modal-header">
+         <button type="button" 
+                 class="bootbox-close-button close" 
+                 data-dismiss="modal" aria-hidden="true">×</button>
+         <h4 class="modal-title">
+            <center>
+               <div class="btn-group">
+                  <button onclick="$('#bot_check2').carousel(0);" 
+                          type="button" 
+                          class="btn btn-info" 
+                          style="height:34px !important;">State</button>
+                  <button onclick="$('#bot_check2').carousel(1);
+                                   update_checker_loadhelp('#help3b','help_checker');"
+                          type="button" 
+                          class="btn btn-success" 
+                          style="height:34px !important;">Help</button>
+                  <button type="button" 
+                          class="btn btn-success dropdown-toggle" 
+                          data-toggle="dropdown" 
+                          aria-haspopup="true" 
+                          aria-expanded="false" 
+                          style="height:34px !important;"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>   
+                  <ul class="dropdown-menu">
+                     <li><a href="#" onclick="set_cfg('ws_idiom','es'); save_cfg();
+                                              $('#bot_check2').carousel(1);
+                                              update_checker_loadhelp('#help3b','help_checker');">ES</a></li>
+                     <li><a href="#" onclick="set_cfg('ws_idiom','en'); save_cfg();
+                                              $('#bot_check2').carousel(1);
+                                              update_checker_loadhelp('#help3b','help_checker');">EN</a></li>
+                  </ul>
+               </div>
+            </center>
+         </h4>
+      </div>
+      <div class="modal-body">
+         <div class="bootbox-body">
+            <div id="bot_check2" class="carousel slide" data-ride="carousel" data-interval="false">
+               <div class="carousel-inner" role="listbox">
+                  <div class="item active">
+                     <div>
+                        <h4><span id="dlg_title2">&nbsp;</span></h4>
+                        <br> 
+                        <form id="end_state_form2" 
+                              class="form-horizontal bootboxShortHeight" 
+                              style="white-space:wrap; overflow-y:auto;">
+                           <textarea aria-label="checks to perform" 
+                                     placeholder="Please drop the requirement list here. See help for more information." 
+                                     id="end_state2" 
+                                     name="end_state2" 
+                                     data-allowediting="true" 
+                                     data-allowpasting="true" 
+                                     data-limit="0" 
+                                     data-createtokensonblur="false" 
+                                     data-delimiter=";" 
+                                     data-beautify="true" 
+                                     class="form-control input-xs" 
+                                     rows="5"></textarea>
+                        </form>
+                     </div>
+		     <br>
+		     <div id="check_results_scroll2"
+		         style="max-height:25vh; width: inherit; overflow-y: auto;" >
+		         <div id="check_results2">&nbsp;</div>
+		     </div>
+                  </div>
+                  <div class="item">
+                       <div id="help3b" 
+                            style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="modal-footer">
+           <button data-bb-handler="copy" 
+                   type="button" 
+                   onclick="wepsim_dialog_check_reset(); return false;"
+                   class="btn btn-default col-xs-3">Clear</button>
+           <button data-bb-handler="copy" 
+                   type="button" 
+                   onclick="wepsim_dialog_check_state(); return false;"
+                   class="btn btn-info col-xs-3">Check</button>
+           <button data-bb-handler="ok" 
+                   type="button" 
+                   onclick="$('#current_state2').modal('hide');"
+                   class="btn btn-primary col-xs-3 pull-right">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
+      </div>
+   </div>
+</div>
+</div> <!-- /.modal -->
+
+
 <script>
     window.addEventListener("beforeunload", function (e) {
        var confirmationMessage = "\o/";
@@ -1436,6 +1531,15 @@ if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(nav
                     inputType: 'textarea'
             }) ;
             //A1/ var inputEls = document.getElementById('end_state1');
+            //A1/ if (null != inputEls)
+            //A1/     setup_speech_input(inputEls) ;
+
+            $('#end_state2').tokenfield({
+                    autocomplete: { source: ['register','memory','screen'], delay: 100 },
+                    showAutocompleteOnFocus: true,
+                    inputType: 'textarea'
+            }) ;
+            //A1/ var inputEls = document.getElementById('end_state2');
             //A1/ if (null != inputEls)
             //A1/     setup_speech_input(inputEls) ;
 
