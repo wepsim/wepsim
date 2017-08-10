@@ -741,13 +741,17 @@
                   '</span>' ;
 
               o += '<a href="#" class="list-group-item">' + 
-                   '<h4 class="list-group-item-heading">' + h + 
+                   '<h4 class="list-group-item-heading">' + 
+                      h + 
                    '  <button type="button" ' +
                    '          onclick="CopyFromDiv(\'state_' + i + '\');" ' + 
                    '          class="btn btn-default col-xs-3 pull-right">Copy to clipboard</button> ' +
                    '</h4>' +
                    '<p class="list-group-item-text">' + 
-                   '  <div class="panel-body" id="state_' + i + '">' + state_history[i].content + '</div>' +
+                   '  <div class="panel-body" id="state_' + i + '" ' + 
+                   '       style="height:20vh; overflow-y:scroll; width:90%;">' + 
+                      state_history[i].content + 
+                   '  </div>' +
                    '</p>' +
                    '</a>' ;
          }
@@ -777,9 +781,9 @@
          ga('send', 'event', 'state', 'state.dump', 'state.dump.eltos=' + s);
     }
 
-    function wepsim_dialog_check_state ( )
+    function wepsim_dialog_check_state ( id_result, id_input )
     {
-        var txt_checklist = $('#end_state2').val();
+        var txt_checklist = $('#' + id_input).val();
         var obj_checklist = wepsim_read_checklist(txt_checklist) ;
         var obj_result    = wepsim_to_check(obj_checklist) ;
 
@@ -790,7 +794,7 @@
                        "</span><center><br>" ;
         else var msg = wepsim_checkreport2html(obj_result.result, true) ;
 
-        $('#check_results2').html(msg);
+        $('#' + id_result).html(msg);
 
         // ga
         ga('send', 'event', 'state', 'state.check', 'state.check.differ=' + obj_result.errors);
@@ -798,11 +802,11 @@
 	return true ;
     }
 
-    function wepsim_dialog_check_reset ( )
+    function wepsim_dialog_check_reset ( id_result, id_input )
     {
-        $('#end_state2').tokenfield('setTokens', []);
-	$('#end_state2').val('');
-	$('#check_results2').html('');
+        $('#' + id_input).tokenfield('setTokens', []);
+	$('#' + id_input).val('');
+	$('#' + id_result).html('');
 
 	return true ;
     }
