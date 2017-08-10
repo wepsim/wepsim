@@ -94,6 +94,5 @@ cat external/bootstrap.min.css \
     external/bootstrap-tokenfield.css \
     external/speech-input.css \
     external/speechkitt.css \
-    external/dropify.min.css \
-    external/style-albe-timeline.css > external/external.min.css
+    external/dropify.min.css > external/external.min.css
 

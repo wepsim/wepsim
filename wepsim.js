@@ -655,6 +655,27 @@
      * Check state
      */
 
+    // credit for the SelectText function: 
+    // https://stackoverflow.com/questions/985272/selecting-text-in-an-element-akin-to-highlighting-with-your-mouse
+    function SelectText (element) 
+    {
+        var doc = document
+            , text = doc.getElementById(element)
+            , range, selection
+        ;    
+        if (doc.body.createTextRange) {
+            range = document.body.createTextRange();
+            range.moveToElementText(text);
+            range.select();
+        } else if (window.getSelection) {
+            selection = window.getSelection();        
+            range = document.createRange();
+            range.selectNodeContents(text);
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+    }
+
     var state_history = new Array() ;
 
     function wepsim_state_history_add ( )
@@ -664,9 +685,18 @@
         var state_str = wepsim_dump_checklist() ;
         var timestamp = new Date().getTime() ;
 
+        var panel_id    = 'state_' + state_history.length ;
+        var panel_title = '<h5>' + reg_clk + ' @ micro-address ' + reg_maddr + '</h5>' ;
+        var panel_str   = '<div class="panel panel-default">' +
+                          '<div class="panel-heading" ' + 
+                          '     onclick="SelectText(\'' + panel_id + '\');">' + 
+                                panel_title + 
+                          '</div>' +
+                          '<div class="panel-body" id="' + panel_id + '">' + state_str + '</div>' +
+                          '</div>' ;
+
         state_history.push({ time: timestamp,
-                             header: reg_clk + ' @ micro-address ' + reg_maddr,
-                             body: [{ tag: 'p', content: state_str }] }) ;
+                             body: [{ tag: 'span', content: panel_str }] }) ;
     }
 
     function wepsim_dialog_current_state ( )
@@ -682,17 +712,17 @@
 
          // tab2
          var txt_checklist = wepsim_dump_checklist();
-
-         var s=0 ;
-         for (var i=0; i<txt_checklist.length; i++)
-              if (';' == txt_checklist[i]) 
-                  s++ ;
-         ga('send', 'event', 'state', 'state.dump', 'state.dump.' + s);
-
          $('#end_state1').tokenfield('setTokens', txt_checklist);
 
          // show dialog
          $('#current_state1').modal('show');
+
+         // ga
+         var s=0 ;
+         for (var i=0; i<txt_checklist.length; i++)
+              if (';' == txt_checklist[i]) 
+                  s++ ;
+         ga('send', 'event', 'state', 'state.dump', 'state.dump.eltos=' + s);
     }
 
     function wepsim_dialog_check_state ( )
@@ -701,12 +731,17 @@
         var obj_checklist = wepsim_read_checklist(txt_checklist) ;
         var obj_result    = wepsim_to_check(obj_checklist) ;
 
+        // dialog
         if (0 == obj_result.errors)
-    	     var msg = "<span style='background-color:#7CFC00'>Meets the specified requirements</span>" ;
+    	     var msg = "<center><span style='background-color:#7CFC00'>" + 
+                       "Meets the specified requirements" + 
+                       "</span><center><br>" ;
         else var msg = wepsim_checkreport2html(obj_result.result, true) ;
 
         $('#check_results2').html(msg);
-        ga('send', 'event', 'state', 'state.check', 'state.check.' + obj_result.errors);
+
+        // ga
+        ga('send', 'event', 'state', 'state.check', 'state.check.differ=' + obj_result.errors);
 
 	return true ;
     }
@@ -715,7 +750,7 @@
     {
         $('#end_state2').tokenfield('setTokens', []);
 	$('#end_state2').val('');
-	$('#check_results2').html('&nbsp;');
+	$('#check_results2').html('');
 
 	return true ;
     }
