@@ -655,6 +655,27 @@
      * Check state
      */
 
+    // credit for the SelectText function: 
+    // https://stackoverflow.com/questions/985272/selecting-text-in-an-element-akin-to-highlighting-with-your-mouse
+    function SelectText (element) 
+    {
+        var doc = document
+            , text = doc.getElementById(element)
+            , range, selection
+        ;    
+        if (doc.body.createTextRange) {
+            range = document.body.createTextRange();
+            range.moveToElementText(text);
+            range.select();
+        } else if (window.getSelection) {
+            selection = window.getSelection();        
+            range = document.createRange();
+            range.selectNodeContents(text);
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+    }
+
     var state_history = new Array() ;
 
     function wepsim_state_history_add ( )
@@ -664,13 +685,18 @@
         var state_str = wepsim_dump_checklist() ;
         var timestamp = new Date().getTime() ;
 
-        state_str = '<div class="panel panel-default">' +
-                    '<div class="panel-heading"><h5>' + reg_clk + ' @ micro-address ' + reg_maddr + '</h5></div>' +
-                    '<div class="panel-body">' + state_str + '</div>' +
-                    '</div>' ;
+        var panel_id    = 'state_' + state_history.length ;
+        var panel_title = '<h5>' + reg_clk + ' @ micro-address ' + reg_maddr + '</h5>' ;
+        var panel_str   = '<div class="panel panel-default">' +
+                          '<div class="panel-heading" ' + 
+                          '     onclick="SelectText(\'' + panel_id + '\');">' + 
+                                panel_title + 
+                          '</div>' +
+                          '<div class="panel-body" id="' + panel_id + '">' + state_str + '</div>' +
+                          '</div>' ;
 
         state_history.push({ time: timestamp,
-                             body: [{ tag: 'span', content: state_str }] }) ;
+                             body: [{ tag: 'span', content: panel_str }] }) ;
     }
 
     function wepsim_dialog_current_state ( )
