@@ -1251,26 +1251,11 @@
            <button class="btn btn-info col-xs-3 pull-left"
                    onclick="wepsim_state_history_add();
                             wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
-			    $('#history1').albeTimeline(state_history, {
-							   effect: 'zoomInUp',
-							   showGroup: true,
-							   showMenu: false,
-							   formatDate: 'yyyy-MM-dd HH:mm:ss f',
-							   sortDesc: true
-						        });
+                            wepsim_state_history_list() ;
 			    return false;"
                    type="button">Add <span class='hidden-xs'>to history</span></button>
            <button class="btn btn-info col-xs-3 pull-left"
-                   onclick="var msg = 'successful' ;
-			    try {
-				 var copyTextarea = document.getElementById('end_state1');
-				 copyTextarea.select();
-				 document.execCommand('copy');
-			    } catch (err) {
-				 msg = 'unsuccessful' ;
-			    }
-                            wepsim_notify_success('<strong>INFO</strong>', 
-                                                  'Copied ' + msg + '!.') ;
+                   onclick="CopyFromTextarea('end_state1');
 			    return false;"
                    type="button">Copy <span class='hidden-xs'>to clipboard</span></button>
            <button type="button" 
