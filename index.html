@@ -1097,7 +1097,7 @@
 		 </div>
 	   </div>
 	   <div class="modal-footer">
-                 <button data-bb-handler="ok" type="button" 
+                 <button type="button" 
                          onclick="$('#confighw').modal('hide'); "
                          class="btn btn-primary col-xs-3 pull-right">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
 	   </div>
@@ -1248,8 +1248,7 @@
          </div>
       </div>
       <div class="modal-footer">
-           <button data-bb-handler="copy" 
-                   type="button" 
+           <button class="btn btn-default col-xs-3 pull-left"
                    onclick="wepsim_state_history_add();
                             wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
 			    $('#history1').albeTimeline(state_history, {
@@ -1260,9 +1259,8 @@
 							   sortDesc: true
 						        });
 			    return false;"
-                   class="btn btn-default col-xs-3 pull-left">Add to history</button>
-           <button data-bb-handler="copy" 
-                   type="button" 
+                   type="button">Add <span class='hidden-xs'>to history</span></button>
+           <button class="btn btn-default col-xs-3 pull-left"
                    onclick="var msg = 'successful' ;
 			    try {
 				 var copyTextarea = document.getElementById('end_state1');
@@ -1274,9 +1272,8 @@
                             wepsim_notify_success('<strong>INFO</strong>', 
                                                   'Copied ' + msg + '!.') ;
 			    return false;"
-                   class="btn btn-default col-xs-3 pull-left">Copy to clipboard</button>
-           <button data-bb-handler="ok" 
-                   type="button" 
+                   type="button">Copy <span class='hidden-xs'>to clipboard</span></button>
+           <button type="button" 
                    onclick="$('#current_state1').modal('hide');"
                    class="btn btn-primary col-xs-3 pull-right">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
       </div>
@@ -1349,8 +1346,8 @@
                      </div>
 		     <br>
 		     <div id="check_results_scroll2"
-		         style="max-height:25vh; width: inherit; overflow-y: auto;" >
-		         <div id="check_results2">&nbsp;</div>
+		          style="max-height:25vh; width:inherit; overflow-y:auto;" >
+		          <div id="check_results2"></div>
 		     </div>
                   </div>
                   <div class="item">
@@ -1362,16 +1359,13 @@
          </div>
       </div>
       <div class="modal-footer">
-           <button data-bb-handler="clear" 
-                   type="button" 
+           <button type="button" 
                    onclick="wepsim_dialog_check_reset(); return false;"
                    class="btn btn-default col-xs-3">Clear</button>
-           <button data-bb-handler="copy" 
-                   type="button" 
+           <button type="button" 
                    onclick="wepsim_dialog_check_state(); return false;"
                    class="btn btn-default col-xs-3">Check</button>
-           <button data-bb-handler="ok" 
-                   type="button" 
+           <button type="button" 
                    onclick="$('#current_state2').modal('hide');"
                    class="btn btn-primary col-xs-3 pull-right">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
       </div>
