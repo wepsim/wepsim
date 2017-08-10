@@ -1018,25 +1018,25 @@
                class="btn btn-info" style="padding:0 0 0 0; color:white !important;"
                data-toggle="popover1"
                data-html="true" 
-               data-content="<img src='images/author_fgarcia.png' width='200'/>"
+               data-content="<img src='images/author_fgarcia.png' height='200'/>"
                title="F&eacute;lix Garc&iacute;a Carballeira">F&eacute;lix Garc&iacute;a Carballeira</a> +
             <a href="#" 
                class="btn btn-info" style="padding:0 0 0 0; color:white !important;"
                data-toggle="popover1"
                data-html="true" 
-               data-content="<img src='images/author_acaldero.png' width='200'/>"
+               data-content="<img src='images/author_acaldero.png' height='200'/>"
                title="Alejandro Calder&oacute;n Mateos">Alejandro Calder&oacute;n Mateos</a> +
             <a href="#" 
                class="btn btn-info" style="padding:0 0 0 0; color:white !important;"
                data-toggle="popover1"
                data-html="true" 
-               data-content="<img src='images/author_jprieto.png' width='200'/><br><br><a href='https://es.linkedin.com/in/javier-prieto-cepeda'>linkedin</a>"
+               data-content="<img src='images/author_jprieto.png' height='200'/><br><br><a href='https://es.linkedin.com/in/javier-prieto-cepeda'>linkedin</a>"
                title="Javier Prieto Cepeda">Javier Prieto Cepeda</a> +
             <a href="#" 
                class="btn btn-info" style="padding:0 0 0 0; color:white !important;"
                data-toggle="popover1"
                data-html="true" 
-               data-content="<img src='images/author_salonso.png' width='200'/>"
+               data-content="<img src='images/author_salonso.png' height='200'/>"
                title="Sa&uacute;l Alonso Monsalve">Sa&uacute;l Alonso Monsalve</a>
             <p>
 
@@ -1250,6 +1250,19 @@
       <div class="modal-footer">
            <button data-bb-handler="copy" 
                    type="button" 
+                   onclick="wepsim_state_history_add();
+                            wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
+			    $('#history1').albeTimeline(state_history, {
+							   effect: 'zoomInUp',
+							   showGroup: true,
+							   showMenu: false,
+							   formatDate: 'yyyy-MM-dd HH:mm:ss f',
+							   sortDesc: true
+						        });
+			    return false;"
+                   class="btn btn-default col-xs-3 pull-left">Add to history</button>
+           <button data-bb-handler="copy" 
+                   type="button" 
                    onclick="var msg = 'successful' ;
 			    try {
 				 var copyTextarea = document.getElementById('end_state1');
@@ -1258,15 +1271,8 @@
 			    } catch (err) {
 				 msg = 'unsuccessful' ;
 			    }
-
-			    $.notify({ title: '<strong>INFO</strong>',
-				       message: 'Copied ' + msg + '!.'},
-				     { type: 'success',
-				       z_index: 2000,
-				       newest_on_top: true,
-				       delay: get_cfg('NOTIF_delay'),
-				       placement: { from: 'top', align: 'center' } });
-
+                            wepsim_notify_success('<strong>INFO</strong>', 
+                                                  'Copied ' + msg + '!.') ;
 			    return false;"
                    class="btn btn-default col-xs-3 pull-left">Copy to clipboard</button>
            <button data-bb-handler="ok" 
@@ -1328,7 +1334,7 @@
                               class="form-horizontal bootboxShortHeight" 
                               style="white-space:wrap; overflow-y:auto;">
                            <textarea aria-label="checks to perform" 
-                                     placeholder="Please drop the requirement list here. See help for more information." 
+                                     placeholder="See help for more information." 
                                      id="end_state2" 
                                      name="end_state2" 
                                      data-allowediting="true" 
@@ -1356,14 +1362,14 @@
          </div>
       </div>
       <div class="modal-footer">
-           <button data-bb-handler="copy" 
+           <button data-bb-handler="clear" 
                    type="button" 
                    onclick="wepsim_dialog_check_reset(); return false;"
                    class="btn btn-default col-xs-3">Clear</button>
            <button data-bb-handler="copy" 
                    type="button" 
                    onclick="wepsim_dialog_check_state(); return false;"
-                   class="btn btn-info col-xs-3">Check</button>
+                   class="btn btn-default col-xs-3">Check</button>
            <button data-bb-handler="ok" 
                    type="button" 
                    onclick="$('#current_state2').modal('hide');"

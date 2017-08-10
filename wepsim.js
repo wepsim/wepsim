@@ -450,22 +450,13 @@
 	return true ;
     }
 
-
-    // state history
-    var state_history = new Array() ;
-
     function wepsim_check_state_firm ( )
     {
         var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
         if (false == MC_dashboard[reg_maddr].state)
             return false ;
 
-        var reg_clk   = get_value(sim_states["CLK"]) ;
-        var state_str = wepsim_dump_checklist() ;
-        state_history.push({ time: Date().toString(),
-                             header: reg_clk + ' @ micro-address ' + reg_maddr,
-                             body: [{ tag: 'p', content: state_str }] }) ;
-
+        wepsim_state_history_add() ;
 	return true ;
     }
 
@@ -664,6 +655,20 @@
      * Check state
      */
 
+    var state_history = new Array() ;
+
+    function wepsim_state_history_add ( )
+    {
+        var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
+        var reg_clk   = get_value(sim_states["CLK"]) ;
+        var state_str = wepsim_dump_checklist() ;
+        var timestamp = new Date().getTime() ;
+
+        state_history.push({ time: timestamp,
+                             header: reg_clk + ' @ micro-address ' + reg_maddr,
+                             body: [{ tag: 'p', content: state_str }] }) ;
+    }
+
     function wepsim_dialog_current_state ( )
     {
          // tab1
@@ -671,7 +676,7 @@
 				        effect: 'zoomInUp',
 				        showGroup: true,
 				        showMenu: false,
-				        formatDate : 'yyyy-mm-dd HH:MM:ss fff',
+					formatDate: 'yyyy-MM-dd HH:mm:ss f',
 				        sortDesc: true
 				     });
 
