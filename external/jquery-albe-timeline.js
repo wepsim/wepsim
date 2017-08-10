@@ -171,6 +171,7 @@
 			format = format.replace(new RegExp(language.separator, 'g'), '___');
 		}
 		
+		format = format.replace('f', newDate.getMilliseconds());
 		format = format.replace('ss', padLeft(newDate.getSeconds(), 2));
 		format = format.replace('s', newDate.getSeconds());
 		format = format.replace('dd', padLeft(newDate.getDate(), 2));

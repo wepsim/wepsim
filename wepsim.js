@@ -410,6 +410,7 @@
                     placement: { from: 'top', align: 'center' } });
     }
 
+
     /*
      * Play/stop
      */
@@ -424,7 +425,8 @@
 
 	var dialog_title = "Breakpoint @ " + curr_addr + ":<br>" +
 	                   "Microinstruction is going to be issue." ;
-        dialog_stop_and_state(dialog_title) ;
+        $("#dlg_title2").html(dialog_title) ;
+        $('#current_state2').modal('show');
 
 	return true ;
     }
@@ -442,13 +444,11 @@
 
 	var dialog_title = "Breakpoint @ " + curr_addr + ":<br>" +
 	                   "Instruction is going to be fetched." ;
-        dialog_stop_and_state(dialog_title) ;
+        $("#dlg_title2").html(dialog_title) ;
+        $('#current_state2').modal('show');
 
 	return true ;
     }
-
-    // state history
-    var state_history = new Array() ;
 
     function wepsim_check_state_firm ( )
     {
@@ -456,12 +456,7 @@
         if (false == MC_dashboard[reg_maddr].state)
             return false ;
 
-        var reg_clk   = get_value(sim_states["CLK"]) ;
-        var state_str = wepsim_dump_checklist() ;
-        state_history.push({ time: Date().toString(),
-                             header: reg_clk + ' @ micro-address ' + reg_maddr,
-                             body: [{ tag: 'p', content: state_str }] }) ;
-
+        wepsim_state_history_add() ;
 	return true ;
     }
 
@@ -505,6 +500,16 @@
 			wepsim_execute_stop(btn1) ;
 			return false ;
 		    }
+
+                    var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
+                    if (0 == reg_maddr) 
+                    {
+		        ret = wepsim_check_stopbybreakpoint_asm() ;
+		        if (true == ret) {
+		    	    wepsim_execute_stop(btn1) ;
+			    return false ;
+		        }
+		    }
             }
 	}
 
@@ -534,7 +539,7 @@
         if (max_turbo == 5) 
             var t1 = performance.now() ;
         if (max_turbo == 5) 
-            max_turbo = 3600/(t1-t0) ;
+            max_turbo = 3000/(t1-t0) ;
 
 	setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), btn1) ;
     }
@@ -645,6 +650,25 @@
 	$('#eltos_cpu_b').css({width: b+'%'});
     }
 
+
+    /*
+     * Check state
+     */
+
+    var state_history = new Array() ;
+
+    function wepsim_state_history_add ( )
+    {
+        var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
+        var reg_clk   = get_value(sim_states["CLK"]) ;
+        var state_str = wepsim_dump_checklist() ;
+        var timestamp = new Date().getTime() ;
+
+        state_history.push({ time: timestamp,
+                             header: reg_clk + ' @ micro-address ' + reg_maddr,
+                             body: [{ tag: 'p', content: state_str }] }) ;
+    }
+
     function wepsim_dialog_current_state ( )
     {
          // tab1
@@ -652,7 +676,7 @@
 				        effect: 'zoomInUp',
 				        showGroup: true,
 				        showMenu: false,
-				        formatDate : 'yyyy-mm-dd HH:MM:ss fff',
+					formatDate: 'yyyy-MM-dd HH:mm:ss f',
 				        sortDesc: true
 				     });
 
@@ -669,6 +693,31 @@
 
          // show dialog
          $('#current_state1').modal('show');
+    }
+
+    function wepsim_dialog_check_state ( )
+    {
+        var txt_checklist = $('#end_state2').val();
+        var obj_checklist = wepsim_read_checklist(txt_checklist) ;
+        var obj_result    = wepsim_to_check(obj_checklist) ;
+
+        if (0 == obj_result.errors)
+    	     var msg = "<span style='background-color:#7CFC00'>Meets the specified requirements</span>" ;
+        else var msg = wepsim_checkreport2html(obj_result.result, true) ;
+
+        $('#check_results2').html(msg);
+        ga('send', 'event', 'state', 'state.check', 'state.check.' + obj_result.errors);
+
+	return true ;
+    }
+
+    function wepsim_dialog_check_reset ( )
+    {
+        $('#end_state2').tokenfield('setTokens', []);
+	$('#end_state2').val('');
+	$('#check_results2').html('&nbsp;');
+
+	return true ;
     }
 
 
