@@ -1213,14 +1213,12 @@
                <div class="carousel-inner" role="listbox">
                   <div class="item">
                         <h4>History</h4>
-                        <br> 
                         <div id="history1" 
                              style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>
                   </div>
                   <div class="item active">
                      <div>
                         <h4>Current State</h4>
-                        <br> 
                         <form id="end_state_form1" 
                               class="form-horizontal bootboxLargeHeight" 
                               style="white-space:wrap; overflow-y:auto;">
@@ -1251,26 +1249,11 @@
            <button class="btn btn-info col-xs-3 pull-left"
                    onclick="wepsim_state_history_add();
                             wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
-			    $('#history1').albeTimeline(state_history, {
-							   effect: 'zoomInUp',
-							   showGroup: true,
-							   showMenu: false,
-							   formatDate: 'yyyy-MM-dd HH:mm:ss f',
-							   sortDesc: true
-						        });
+                            wepsim_state_history_list() ;
 			    return false;"
                    type="button">Add <span class='hidden-xs'>to history</span></button>
            <button class="btn btn-info col-xs-3 pull-left"
-                   onclick="var msg = 'successful' ;
-			    try {
-				 var copyTextarea = document.getElementById('end_state1');
-				 copyTextarea.select();
-				 document.execCommand('copy');
-			    } catch (err) {
-				 msg = 'unsuccessful' ;
-			    }
-                            wepsim_notify_success('<strong>INFO</strong>', 
-                                                  'Copied ' + msg + '!.') ;
+                   onclick="CopyFromTextarea('end_state1');
 			    return false;"
                    type="button">Copy <span class='hidden-xs'>to clipboard</span></button>
            <button type="button" 
@@ -1360,10 +1343,10 @@
       </div>
       <div class="modal-footer">
            <button type="button" 
-                   onclick="wepsim_dialog_check_reset(); return false;"
+                   onclick="wepsim_dialog_check_reset('check_results2','end_state2'); return false;"
                    class="btn btn-default col-xs-3">Clear</button>
            <button type="button" 
-                   onclick="wepsim_dialog_check_state(); return false;"
+                   onclick="wepsim_dialog_check_state('check_results2','end_state2'); return false;"
                    class="btn btn-default col-xs-3">Check</button>
            <button type="button" 
                    onclick="$('#current_state2').modal('hide');"

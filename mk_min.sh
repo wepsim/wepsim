@@ -79,8 +79,7 @@ cat external/bootstrap.min.js \
     external/speech-input.js \
     external/annyang.min.js \
     external/speechkitt.min.js \
-    external/dropify.min.js \
-    external/jquery-albe-timeline.js > external/external.min.js
+    external/dropify.min.js > external/external.min.js
 
 cat external/bootstrap.min.css \
     external/bootstrap-theme.min.css \

@@ -652,7 +652,7 @@
 
 
     /*
-     * Check state
+     * Copy to clipboard
      */
 
     // credit for the SelectText function: 
@@ -676,6 +676,42 @@
         }
     }
 
+    function CopyFromDiv ( element_name )
+    {
+	    var msg = 'successful' ;
+
+	    try {
+                 SelectText(element_name) ;
+		 document.execCommand('copy');
+	    } 
+            catch (err) {
+		 msg = 'unsuccessful' ;
+	    }
+
+	    wepsim_notify_success('<strong>INFO</strong>', 'Copied ' + msg + '!.') ;
+    }
+
+    function CopyFromTextarea ( element_name )
+    {
+	    var msg = 'successful' ;
+
+	    try {
+		 var copyTextarea = document.getElementById(element_name);
+		 copyTextarea.select();
+		 document.execCommand('copy');
+	    } 
+            catch (err) {
+		 msg = 'unsuccessful' ;
+	    }
+
+	    wepsim_notify_success('<strong>INFO</strong>', 'Copied ' + msg + '!.') ;
+    }
+
+
+    /*
+     * Check state
+     */
+
     var state_history = new Array() ;
 
     function wepsim_state_history_add ( )
@@ -685,37 +721,57 @@
         var state_str = wepsim_dump_checklist() ;
         var timestamp = new Date().getTime() ;
 
-        var panel_id    = 'state_' + state_history.length ;
-        var panel_title = '<h5>' + reg_clk + ' @ micro-address ' + reg_maddr + '</h5>' ;
-        var panel_str   = '<div class="panel panel-default">' +
-                          '<div class="panel-heading" ' + 
-                          '     onclick="SelectText(\'' + panel_id + '\');">' + 
-                                panel_title + 
-                          '</div>' +
-                          '<div class="panel-body" id="' + panel_id + '">' + state_str + '</div>' +
-                          '</div>' ;
-
         state_history.push({ time: timestamp,
-                             body: [{ tag: 'span', content: panel_str }] }) ;
+                             title: 'clock ' + reg_clk + ' @ micro-address ' + reg_maddr,
+                             content: state_str }) ;
+    }
+
+    function wepsim_state_history_list ( )
+    {
+         var t = 0 ;
+         var h = '' ;
+         var o = '<div class="list-group">' ;
+         for (var i=state_history.length-1; i>=0; i--) 
+         {
+              t = new Date(state_history[i].time) ;
+              h = '<span class="label label-default">' +
+                  t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + '_' +
+                  t.getHours()    + '-' + t.getMinutes()   + '-' + t.getSeconds() + '_' + 
+                  t.getMilliseconds() + ': ' + state_history[i].title +
+                  '</span>' ;
+
+              o += '<a href="#" class="list-group-item">' + 
+                   '<h4 class="list-group-item-heading">' + 
+                      h + 
+                   '  <button type="button" ' +
+                   '          onclick="CopyFromDiv(\'state_' + i + '\');" ' + 
+                   '          class="btn btn-default col-xs-3 pull-right">Copy to clipboard</button> ' +
+                   '</h4>' +
+                   '<p class="list-group-item-text">' + 
+                   '  <div class="panel-body" id="state_' + i + '" ' + 
+                   '       style="height:20vh; overflow-y:scroll; width:90%;">' + 
+                      state_history[i].content + 
+                   '  </div>' +
+                   '</p>' +
+                   '</a>' ;
+         }
+         o += '</div>' ;
+
+         $('#history1').html(o) ;
     }
 
     function wepsim_dialog_current_state ( )
     {
+         // show dialog
+         $('#end_state1').val('Loading');
+         $('#current_state1').modal('show');
+
          // tab1
-         $('#history1').albeTimeline(state_history, {
-				        effect: 'zoomInUp',
-				        showGroup: true,
-				        showMenu: false,
-					formatDate: 'yyyy-MM-dd HH:mm:ss f',
-				        sortDesc: true
-				     });
+         wepsim_state_history_list() ;
 
          // tab2
          var txt_checklist = wepsim_dump_checklist();
          $('#end_state1').tokenfield('setTokens', txt_checklist);
-
-         // show dialog
-         $('#current_state1').modal('show');
 
          // ga
          var s=0 ;
@@ -725,9 +781,9 @@
          ga('send', 'event', 'state', 'state.dump', 'state.dump.eltos=' + s);
     }
 
-    function wepsim_dialog_check_state ( )
+    function wepsim_dialog_check_state ( id_result, id_input )
     {
-        var txt_checklist = $('#end_state2').val();
+        var txt_checklist = $('#' + id_input).val();
         var obj_checklist = wepsim_read_checklist(txt_checklist) ;
         var obj_result    = wepsim_to_check(obj_checklist) ;
 
@@ -738,7 +794,7 @@
                        "</span><center><br>" ;
         else var msg = wepsim_checkreport2html(obj_result.result, true) ;
 
-        $('#check_results2').html(msg);
+        $('#' + id_result).html(msg);
 
         // ga
         ga('send', 'event', 'state', 'state.check', 'state.check.differ=' + obj_result.errors);
@@ -746,11 +802,11 @@
 	return true ;
     }
 
-    function wepsim_dialog_check_reset ( )
+    function wepsim_dialog_check_reset ( id_result, id_input )
     {
-        $('#end_state2').tokenfield('setTokens', []);
-	$('#end_state2').val('');
-	$('#check_results2').html('');
+        $('#' + id_input).tokenfield('setTokens', []);
+	$('#' + id_input).val('');
+	$('#' + id_result).html('');
 
 	return true ;
     }
