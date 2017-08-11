@@ -655,6 +655,13 @@
      * Copy to clipboard
      */
 
+    var clipboard_copy = '' ;
+
+    function get_clipboard_copy ( ) 
+    {
+        return clipboard_copy ;
+    }
+
     // credit for the SelectText function: 
     // https://stackoverflow.com/questions/985272/selecting-text-in-an-element-akin-to-highlighting-with-your-mouse
     function SelectText (element) 
@@ -682,7 +689,8 @@
 
 	    try {
                  SelectText(element_name) ;
-		 document.execCommand('copy');
+                 document.execCommand('copy') ;
+		 clipboard_copy = $('#' + element_name).text() ;
 	    } 
             catch (err) {
 		 msg = 'unsuccessful' ;
@@ -698,7 +706,8 @@
 	    try {
 		 var copyTextarea = document.getElementById(element_name);
 		 copyTextarea.select();
-		 document.execCommand('copy');
+                 document.execCommand('copy') ;
+		 clipboard_copy = $('#' + element_name).val() ;
 	    } 
             catch (err) {
 		 msg = 'unsuccessful' ;
@@ -718,7 +727,8 @@
     {
         var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
         var reg_clk   = get_value(sim_states["CLK"]) ;
-        var state_str = wepsim_dump_checklist() ;
+        var state_obj = wepsim_current2state() ;
+        var state_str = wepsim_state2checklist(state_obj) ;
         var timestamp = new Date().getTime() ;
 
         state_history.push({ time: timestamp,
@@ -729,32 +739,38 @@
     function wepsim_state_history_list ( )
     {
          var t = 0 ;
-         var o = '<div class="panel-group" id="accordion">' ;
+         var o = '<div class="panel-group" id="accordion1">' ;
          for (var i=state_history.length-1; i>=0; i--) 
          {
               t = new Date(state_history[i].time) ;
 
               o += '<div class="panel panel-default">' +
                    '  <div class="panel-heading">' +
-                   '    <h4 class="panel-title">' +
-                   '      <a data-toggle="collapse" data-parent="#accordion" href="#collapse_' + i + '">' +
+                   '    <h4 class="panel-title" ' + 
+                   '        data-toggle="collapse" data-target="#collapse_'+i+'" data-parent="#accordion1">' +
                    '      <span>[' +
                             t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + '_' +
                             t.getHours()    + '-' + t.getMinutes()   + '-' + t.getSeconds() + '_' + 
                             t.getMilliseconds() + '] ' + state_history[i].title +
                    '      </span>' +
-                   '      </a>' +
                    '    </h4>' +
                    '  </div>' +
-                   '  <div id="collapse_' + i + '" class="panel-collapse collapse in">' +
-                   '      <div class="panel-body">' + 
-                   '           <div class="panel-body" id="state_' + i + '">' + 
-                               state_history[i].content + 
-                   '      </div>' +
-                   '      <button type="button" ' +
-                   '              onclick="CopyFromDiv(\'state_' + i + '\');" ' + 
-                   '              class="btn btn-default pull-right">Copy <span class="hidden-xs">to clipboard</span></button> ' +
-                   '  </div>' +
+                   '  <div id="collapse_' + i + '" class="panel-collapse collapse">' +
+                   '    <div class="panel-body">' + 
+                   '      <div class="panel-body" id="state_' + i + '">' + state_history[i].content + '</div>' +
+                   '      <textarea aria-label="hidden-state"  style="display:none"' +
+                   '                id="ta_state_'+i+'" readonly>' + state_history[i].content + '</textarea>' +
+                   '      <button class="btn btn-default col-xs-3"' + 
+                   '              onclick="var txt_chklst1 = get_clipboard_copy();' +
+                   '                       var obj_exp1    = wepsim_checklist2state(txt_chklst1);' +
+                   '                       var txt_chklst2 = $(\'#ta_state_'+i+'\').val();' +
+                   '                       var obj_exp2    = wepsim_checklist2state(txt_chklst2);' +
+                   '                       wepsim_dialog_check_state(\'check_results1\', obj_exp1, obj_exp2);"' +
+                   '           type="button">Check <span class="hidden-xs">expected in clipboard</span></button>' +
+                   '      <button class="btn btn-default col-xs-3"' + 
+                   '              onclick="CopyFromTextarea(\'ta_state_' + i + '\');" ' + 
+                   '              type="button">Copy <span class="hidden-xs">to clipboard</span></button>' +
+                   '    </div>' +
                    '  </div>' +
                    '</div>' ;
          }
@@ -773,7 +789,8 @@
          wepsim_state_history_list() ;
 
          // tab2
-         var txt_checklist = wepsim_dump_checklist();
+         var state_obj = wepsim_current2state() ;
+         var txt_checklist = wepsim_state2checklist(state_obj) ;
          $('#end_state1').tokenfield('setTokens', txt_checklist);
 
          // ga
@@ -784,11 +801,9 @@
          ga('send', 'event', 'state', 'state.dump', 'state.dump.eltos=' + s);
     }
 
-    function wepsim_dialog_check_state ( id_result, id_input )
+    function wepsim_dialog_check_state ( id_result, obj_chklst_expected, obj_chklst_current )
     {
-        var txt_checklist = $('#' + id_input).val();
-        var obj_checklist = wepsim_read_checklist(txt_checklist) ;
-        var obj_result    = wepsim_to_check(obj_checklist) ;
+        var obj_result = wepsim_diff_results(obj_chklst_expected, obj_chklst_current) ;
 
         // dialog
         if (0 == obj_result.errors)
@@ -1192,7 +1207,7 @@
     //  WepSIM check API
     //
 
-    function wepsim_read_checklist ( checklist )
+    function wepsim_checklist2state ( checklist )
     {
         var o = new Object() ;
 	var ret = false ;
@@ -1228,18 +1243,23 @@
         return o ;
     }   
 
-    function wepsim_dump_checklist ( )
+    function wepsim_current2state ( )
     {
 	var o = new Object() ;
 	for (var index in sim_components) {
 	     sim_components[index].write_state(o) ;
 	}
 
+        return o ;
+    }
+
+    function wepsim_state2checklist ( s_obj )
+    {
 	var ret = "" ;
-        for (var component in o) 
+        for (var component in s_obj) 
 	{
-	     for (var eltos in o[component]) {
-		  var elto = o[component][eltos] ;
+	     for (var eltos in s_obj[component]) {
+		  var elto = s_obj[component][eltos] ;
 	          ret = ret + elto.type + " " + elto.id + " " + elto.op + " " + encodeURI(elto.value) + "; " ;
 	     }
 	}
@@ -1247,27 +1267,25 @@
         return ret ;
     }
 
-    function wepsim_to_check ( expected_result )
+    function wepsim_diff_results ( expected_result, obtained_result )
     {
         var d = new Object() ;
         d.result = new Array() ;
         d.errors = 0 ;
 
-	var current = new Object() ;
+        var obtained_value = 0 ;
 	for (var compo in sim_components)
 	{
-	    // get current state
-	    sim_components[compo].write_state(current) ;
-
 	    // if there are different values -> diff
             if (typeof expected_result[compo] != "undefined") 
 	    {
 		    for (var elto in expected_result[compo])
 		    {
-			 var obtained_value = sim_components[compo].get_state(elto) ;
-			 if (null == obtained_value) {
-			     continue ;
-		         }
+                         obtained_value = expected_result[compo][elto].default_value ;
+			 if ( (typeof obtained_result[compo]       != "undefined") &&
+			      (typeof obtained_result[compo][elto] != "undefined") ) {
+                               obtained_value = obtained_result[compo][elto].value ;
+                         }
 
 			 var diff = new Object() ;
 			 diff.expected  = expected_result[compo][elto].value ;
@@ -1277,20 +1295,20 @@
 			 diff.elto_op   = expected_result[compo][elto].op ;
 
 		         diff.fulfill   = false ;
-			 if ("=" == expected_result[compo][elto].op)
-			     diff.fulfill = (parseInt(diff.obtained) == parseInt(diff.expected)) ;
-			 if (">" == expected_result[compo][elto].op)
-			     diff.fulfill = (parseInt(diff.obtained)  > parseInt(diff.expected)) ;
-			 if ("<" == expected_result[compo][elto].op)
-			     diff.fulfill = (parseInt(diff.obtained)  < parseInt(diff.expected)) ;
-			 if (">=" == expected_result[compo][elto].op)
-			     diff.fulfill = (parseInt(diff.obtained) >= parseInt(diff.expected)) ;
-			 if ("<=" == expected_result[compo][elto].op)
-			     diff.fulfill = (parseInt(diff.obtained) <= parseInt(diff.expected)) ;
-			 if ("==" == expected_result[compo][elto].op)
-			     diff.fulfill = (diff.expected == diff.obtained) ;
-			 if ("!=" == expected_result[compo][elto].op)
-			     diff.fulfill = (diff.expected != diff.obtained) ;
+			      if ("=" == expected_result[compo][elto].op)
+			          diff.fulfill = (parseInt(diff.obtained) == parseInt(diff.expected)) ;
+			 else if (">" == expected_result[compo][elto].op)
+			          diff.fulfill = (parseInt(diff.obtained)  > parseInt(diff.expected)) ;
+			 else if ("<" == expected_result[compo][elto].op)
+			          diff.fulfill = (parseInt(diff.obtained)  < parseInt(diff.expected)) ;
+			 else if (">=" == expected_result[compo][elto].op)
+			          diff.fulfill = (parseInt(diff.obtained) >= parseInt(diff.expected)) ;
+			 else if ("<=" == expected_result[compo][elto].op)
+			          diff.fulfill = (parseInt(diff.obtained) <= parseInt(diff.expected)) ;
+			 else if ("==" == expected_result[compo][elto].op)
+			          diff.fulfill = (diff.expected == diff.obtained) ;
+			 else if ("!=" == expected_result[compo][elto].op)
+			          diff.fulfill = (diff.expected != diff.obtained) ;
 
 			 d.result.push(diff) ;
 
@@ -1300,9 +1318,9 @@
             }
 
 	    // if there are new elements -> diff
-	    if (typeof current[compo] != "undefined")
+	    if (typeof obtained_result[compo] != "undefined")
 	    {
-		    for (var elto in current[compo]) 
+		    for (var elto in obtained_result[compo]) 
 		    {
 			 if ( (typeof expected_result[compo]       != "undefined") && 
 			      (typeof expected_result[compo][elto] != "undefined") ) {
@@ -1310,11 +1328,11 @@
 		         }
 
 			 var diff = new Object() ;
-			 diff.expected  = current[compo][elto].default_value ;
-			 diff.obtained  = current[compo][elto].value ;
+			 diff.expected  = obtained_result[compo][elto].default_value ;
+			 diff.obtained  = obtained_result[compo][elto].value ;
 			 diff.fulfill   = (diff.expected == diff.obtained) ;
 			 diff.elto_type = compo.toLowerCase() ;
-			 diff.elto_id   = current[compo][elto].id ;
+			 diff.elto_id   = obtained_result[compo][elto].id ;
 			 diff.elto_op   = "=" ;
 			 d.result.push(diff) ;
 

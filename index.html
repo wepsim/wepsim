@@ -58,7 +58,7 @@
         overflow: auto;
     }
     .bootboxWidth {
-        min-width: 75vw;
+        min-width: 80vw;
     }
     .bootboxShortHeight {
         max-height: 35vh;
@@ -1214,7 +1214,12 @@
                   <div class="item">
                         <h4>History</h4>
                         <div id="history1" 
-                             style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>
+                             style="max-height:42vh; width:inherit; overflow:auto;">Loading...</div>
+		        <br>
+		        <div id="check_results_scroll1"
+		             style="max-height:25vh; width:inherit; overflow-y:auto;" >
+		             <div id="check_results1"></div>
+		        </div>
                   </div>
                   <div class="item active">
                      <div>
@@ -1235,6 +1240,17 @@
                                      class="form-control input-xs" 
                                      rows="5"></textarea>
                         </form>
+			<br>
+			<button class="btn btn-default col-xs-3 pull-left"
+				onclick="wepsim_state_history_add();
+					 wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
+					 wepsim_state_history_list() ;
+					 return false;"
+				type="button">Add <span class='hidden-xs'>to history</span></button>
+			<button class="btn btn-default col-xs-3 pull-left"
+				onclick="CopyFromTextarea('end_state1');
+					 return false;"
+				type="button">Copy <span class='hidden-xs'>to clipboard</span></button>
                      </div>
                   </div>
                   <div class="item">
@@ -1246,16 +1262,6 @@
          </div>
       </div>
       <div class="modal-footer">
-           <button class="btn btn-info col-xs-3 pull-left"
-                   onclick="wepsim_state_history_add();
-                            wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
-                            wepsim_state_history_list() ;
-			    return false;"
-                   type="button">Add <span class='hidden-xs'>to history</span></button>
-           <button class="btn btn-info col-xs-3 pull-left"
-                   onclick="CopyFromTextarea('end_state1');
-			    return false;"
-                   type="button">Copy <span class='hidden-xs'>to clipboard</span></button>
            <button type="button" 
                    onclick="$('#current_state1').modal('hide');"
                    class="btn btn-primary col-xs-3 pull-right">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
@@ -1346,7 +1352,11 @@
                    onclick="wepsim_dialog_check_reset('check_results2','end_state2'); return false;"
                    class="btn btn-default col-xs-3">Clear</button>
            <button type="button" 
-                   onclick="wepsim_dialog_check_state('check_results2','end_state2'); return false;"
+                   onclick="var txt_checklist = $('#end_state2').val();
+                            var obj_expected  = wepsim_checklist2state(txt_checklist);
+                            var obj_current   = wepsim_current2state();
+                            wepsim_dialog_check_state('check_results2', obj_expected, obj_current); 
+                            return false;"
                    class="btn btn-default col-xs-3">Check</button>
            <button type="button" 
                    onclick="$('#current_state2').modal('hide');"
