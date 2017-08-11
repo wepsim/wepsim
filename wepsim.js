@@ -757,7 +757,9 @@
                    '  </div>' +
                    '  <div id="collapse_' + i + '" class="panel-collapse collapse">' +
                    '    <div class="panel-body">' + 
-                   '      <div class="panel-body" id="state_' + i + '">' + state_history[i].content + '</div>' +
+                   '      <div class="panel-body" ' + 
+                   '           style="padding:5 5 5 5;" ' + 
+                   '           id="state_' + i + '">' + state_history[i].content + '</div>' +
                    '      <textarea aria-label="hidden-state"  style="display:none"' +
                    '                id="ta_state_'+i+'" readonly>' + state_history[i].content + '</textarea>' +
                    '      <button class="btn btn-default col-xs-3"' + 
@@ -777,6 +779,7 @@
          o += '</div>' ;
 
          $('#history1').html(o) ;
+	 $('#check_results1').html('');
     }
 
     function wepsim_dialog_current_state ( )
@@ -864,11 +867,11 @@
 
 			    if (true == ok)
 			    {
-                                  if (true == chain_next_step)
-				      setTimeout(function(){
-					            $.mobile.pageContainer.pagecontainer('change', '#main1');
-                                                    show_memories_values();
-				                 }, 50);
+                                if (true == chain_next_step)
+				    setTimeout(function(){
+					          $.mobile.pageContainer.pagecontainer('change', '#main1');
+                                                  show_memories_values();
+				               }, 50);
 			    }
 
                             wepsim_notify_success('<strong>INFO</strong>', 'Example ready to be used.') ;
@@ -1229,7 +1232,10 @@
 	     if (parts.length < 4)
 		 continue ;
 
-	     var check = { "type": parts[0], "id": parts[1], "condition": parts[2], "value": decodeURI(parts[3]) } ;
+	     var check = { "type": parts[0], 
+                           "id": parts[1], 
+                           "condition": parts[2], 
+                           "value": decodeURI(parts[3]) } ;
              for (var index in sim_components) 
              {
 	          ret = sim_components[index].read_state(o, check) ;
