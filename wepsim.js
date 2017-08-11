@@ -729,31 +729,34 @@
     function wepsim_state_history_list ( )
     {
          var t = 0 ;
-         var h = '' ;
-         var o = '<div class="list-group">' ;
+         var o = '<div class="panel-group" id="accordion">' ;
          for (var i=state_history.length-1; i>=0; i--) 
          {
               t = new Date(state_history[i].time) ;
-              h = '<span class="label label-default">' +
-                  t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + '_' +
-                  t.getHours()    + '-' + t.getMinutes()   + '-' + t.getSeconds() + '_' + 
-                  t.getMilliseconds() + ': ' + state_history[i].title +
-                  '</span>' ;
 
-              o += '<a href="#" class="list-group-item">' + 
-                   '<h4 class="list-group-item-heading">' + 
-                      h + 
-                   '  <button type="button" ' +
-                   '          onclick="CopyFromDiv(\'state_' + i + '\');" ' + 
-                   '          class="btn btn-default col-xs-3 pull-right">Copy to clipboard</button> ' +
-                   '</h4>' +
-                   '<p class="list-group-item-text">' + 
-                   '  <div class="panel-body" id="state_' + i + '" ' + 
-                   '       style="height:20vh; overflow-y:scroll; width:90%;">' + 
-                      state_history[i].content + 
+              o += '<div class="panel panel-default">' +
+                   '  <div class="panel-heading">' +
+                   '    <h4 class="panel-title">' +
+                   '      <a data-toggle="collapse" data-parent="#accordion" href="#collapse_' + i + '">' +
+                   '      <span>[' +
+                            t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + '_' +
+                            t.getHours()    + '-' + t.getMinutes()   + '-' + t.getSeconds() + '_' + 
+                            t.getMilliseconds() + '] ' + state_history[i].title +
+                   '      </span>' +
+                   '      </a>' +
+                   '    </h4>' +
                    '  </div>' +
-                   '</p>' +
-                   '</a>' ;
+                   '  <div id="collapse_' + i + '" class="panel-collapse collapse in">' +
+                   '      <div class="panel-body">' + 
+                   '           <div class="panel-body" id="state_' + i + '">' + 
+                               state_history[i].content + 
+                   '      </div>' +
+                   '      <button type="button" ' +
+                   '              onclick="CopyFromDiv(\'state_' + i + '\');" ' + 
+                   '              class="btn btn-default pull-right">Copy <span class="hidden-xs">to clipboard</span></button> ' +
+                   '  </div>' +
+                   '  </div>' +
+                   '</div>' ;
          }
          o += '</div>' ;
 
