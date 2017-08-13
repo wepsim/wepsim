@@ -402,12 +402,12 @@
 
     function wepsim_notify_success ( ntf_title, ntf_message )
     {
-	 $.notify({ title: ntf_title, message: ntf_message },
-		  { type: 'success',
-                    z_index: 2000,
-                    newest_on_top: true,
-                    delay: get_cfg('NOTIF_delay'),
-                    placement: { from: 'top', align: 'center' } });
+	 return $.notify({ title: ntf_title, message: ntf_message },
+	  	         { type: 'success',
+                           z_index: 2000,
+                           newest_on_top: true,
+                           delay: get_cfg('NOTIF_delay'),
+                           placement: { from: 'top', align: 'center' } });
     }
 
 
@@ -785,23 +785,30 @@
     function wepsim_dialog_current_state ( )
     {
          // show dialog
-         $('#end_state1').val('Loading');
+         wepsim_notify_success('<strong>INFO</strong>', 'Loading, please wait...') ;
          $('#current_state1').modal('show');
 
-         // tab1
-         wepsim_state_history_list() ;
+	 setTimeout(function() {
 
-         // tab2
-         var state_obj = wepsim_current2state() ;
-         var txt_checklist = wepsim_state2checklist(state_obj) ;
-         $('#end_state1').tokenfield('setTokens', txt_checklist);
+	      // tab1
+	      wepsim_state_history_list() ;
 
-         // ga
-         var s=0 ;
-         for (var i=0; i<txt_checklist.length; i++)
-              if (';' == txt_checklist[i]) 
-                  s++ ;
-         ga('send', 'event', 'state', 'state.dump', 'state.dump.eltos=' + s);
+	      // tab2
+	      var state_obj     = wepsim_current2state() ;
+	      var txt_checklist = wepsim_state2checklist(state_obj) ;
+	      $('#end_state1').tokenfield('setTokens', txt_checklist);
+
+              $.notifyClose() ;
+              wepsim_notify_success('<strong>INFO</strong>', 'Current state loaded !') ;
+
+              // ga
+              var s=0 ;
+              for (var i=0; i<txt_checklist.length; i++)
+                   if (';' == txt_checklist[i]) 
+                       s++ ;
+              ga('send', 'event', 'state', 'state.dump', 'state.dump.eltos=' + s);
+
+         }, 80) ;
     }
 
     function wepsim_dialog_check_state ( id_result, obj_chklst_expected, obj_chklst_current )
