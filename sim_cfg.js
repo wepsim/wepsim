@@ -110,6 +110,10 @@
             cfg_show_dbg_ir_delay = 100;
             if (get_cfg('DBG_delay') < 5)
                 cfg_show_dbg_ir_delay = 300;
+
+            cfg_show_rf_refresh_delay = 30;
+            if (get_cfg('DBG_delay') < 5)
+                cfg_show_rf_refresh_delay = 120;
         }
 
 

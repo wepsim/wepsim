@@ -577,11 +577,7 @@
 
         function ko_observable ( initial_value )
         {
-            var rli = 30 ;
-            if (get_cfg('DBG_delay') > 5) 
-                rli = 120 ;
-
-            return ko.observable(initial_value).extend({ rateLimit: rli });
+            return ko.observable(initial_value).extend({ rateLimit: cfg_show_rf_refresh_delay });
         }
 
         function init_io ( jqdiv )
