@@ -607,14 +607,9 @@
 			       value:   sim_signals[key].value,
                                animate: false,
 			       buttons: {
-					    close: {
-						label: "Close",
-						className: "btn-danger",
-						callback: function() { }
-					    },
 					    success: {
 						label: "Save",
-						className: "btn-primary",
+						className: "btn-primary col-xs-2 pull-right",
 						callback: function ()
 							  {
 							     key        = $('#ask_skey').val();
@@ -650,6 +645,11 @@
 							     // fire signal
 							     compute_behavior('FIRE ' + key) ;
 							  }
+					    },
+					    close: {
+						label: "Close",
+						className: "btn-danger col-xs-2 pull-right",
+						callback: function() { }
 					    }
 					}
 			});

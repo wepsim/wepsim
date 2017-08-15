@@ -745,5 +745,26 @@ register 5 >= 8 ; memory 1 = 0x10; screen 0 == first_line
 
       </div>
 
+      <div id="help_hwcfg">
+
+              The configuration of the hardware simulated is performed in this dialog.<br>
+              There are two elements:
+	      <ul>
+	         <li>
+                 <b>Memory</b>: number of cycles that the memory needs to looking for some data.<br>
+                 The default value is zero, and that means that data is available 
+                 at the next clock cycle after requesting it to/from memory.
+                 </li>
+	         <li>
+                 <b>I/O</b>: number of cycles to fire up interruptions.<br>
+                 The default value is zero, and that means that firing interruptions is disabled.
+                 If the 'CLK period' is (for example) 100 and the 'Probability' is 1, then
+                 every 100 CPU clock cycles the associated interruption is fired.
+                 If the probability is 0.5 then the associated interruption is fired with 50% of probability.
+                 </li>
+	      </ul>
+
+      </div>
+
   </body>
 </html>

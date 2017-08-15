@@ -106,6 +106,11 @@
     .tokenfield .token .token-label {
         max-width: none!important;
     }
+
+    .no-text-shadow {
+        -webkit-text-shadow: none !important;
+        text-shadow: none !important;
+    }
     </style>
 
     <link  href="external/external.min.css" rel="stylesheet">
@@ -259,16 +264,16 @@
                     <div class="btn-toolbar" role="toolbar" id="sim_toolbar" style="padding: 0 0px 2px 0px;">
 			<div class="btn-group btn-group-justified" role="group">
 			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-reset   ui-btn-icon-top ui-mini"
+			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-reset   ui-btn-icon-top ui-mini no-text-shadow"
 			       onclick="wepsim_execute_reset(true, true);"><br>Reset</a>
 			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini"
+			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini no-text-shadow"
 			       onclick="wepsim_execute_microinstruction();"><br>&#181;Instruction</a>
 			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini"
+			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini no-text-shadow"
 			       onclick="wepsim_execute_instruction();"><br>Instruction</a>
 			    <a id="qbp" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-carat-r ui-btn-icon-top ui-mini"
+			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-carat-r ui-btn-icon-top ui-mini no-text-shadow"
                                onclick="var mode = get_cfg('show_tutorials');
                                         if (true == mode) {
                                             wepsim_notify_success('<strong>INFO</strong>',
@@ -276,8 +281,9 @@
                                         }
                                         wepsim_execute_toggle_play('#qbp', mode);
                                         return false;"><br>Run</a>
-			    <a id="ib1" href="#" style="background-color: #D4DB17; -webkit-text-shadow: none; text-shadow: none;"
-			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-info ui-btn-icon-top ui-mini"
+			    <a id="ib1" href="#" 
+                               style="background-color: #D4DB17;"
+			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-info ui-btn-icon-top ui-mini no-text-shadow"
 			       onclick="wepsim_help_set_relative('#help_simulator_screens'); 
                                         wepsim_help_refresh();"><br>Help</a>
                         </div>
@@ -1086,15 +1092,53 @@
      <div class="modal-dialog">
 	<div class="modal-content">
 	   <div class="modal-header">
-		<button type="button" data-role="button"
-                        class="close ui-btn-right ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-corner-all" 
-                        data-dismiss="modal" aria-hidden="true">x</button>
-		<center><h4 class="modal-title"><b>Hardware Configuration</b></h4></center>
+		 <button type="button" data-role="button"
+			 class="close ui-btn-right ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-corner-all" 
+			 data-dismiss="modal" aria-hidden="true">x</button>
+		 <h4 class="modal-title">
+		    <center>
+		       <div class="btn-group">
+			  <button onclick="$('#bot_hwcfg1').carousel(0);" 
+				  type="button" 
+				  class="btn btn-info" 
+				  style="height:34px !important;">Hardware Configuration</button>
+			  <button onclick="$('#bot_hwcfg1').carousel(1);
+					   update_checker_loadhelp('#help4a','help_hwcfg');"
+				  type="button" 
+				  class="btn btn-success" 
+				  style="height:34px !important;">Help</button>
+			  <button type="button" 
+				  class="btn btn-success dropdown-toggle" 
+				  data-toggle="dropdown" 
+				  aria-haspopup="true" 
+				  aria-expanded="false" 
+				  style="height:34px !important;"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>   
+			  <ul class="dropdown-menu">
+			     <li><a href="#" onclick="set_cfg('ws_idiom','es'); save_cfg();
+						      $('#bot_hwcfg1').carousel(1);
+						      update_checker_loadhelp('#help4a','help_hwcfg');">ES</a></li>
+			     <li><a href="#" onclick="set_cfg('ws_idiom','en'); save_cfg();
+						      $('#bot_hwcfg1').carousel(1);
+						      update_checker_loadhelp('#help4a','help_hwcfg');">EN</a></li>
+			  </ul>
+		       </div>
+		    </center>
+		 </h4>
 	   </div>
 	   <div class="modal-body">
-		 <div id="config" class="ui-body-d ui-content" style="padding:14 14 0 14;">
-		      <div id="config_ALL" style="width: inherit; overflow-y: auto;"></div>
-		 </div>
+               <div id="bot_hwcfg1" class="carousel slide" data-ride="carousel" data-interval="false">
+                  <div class="carousel-inner" role="listbox">
+                     <div class="item active">
+		          <div id="config" class="ui-body-d ui-content" style="padding:14 14 0 14;">
+		               <div id="config_ALL" style="width: inherit; overflow-y: auto;"></div>
+		          </div>
+                     </div>
+                     <div class="item">
+                          <div id="help4a" 
+                               style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>
+                     </div>
+                  </div>
+               </div>
 	   </div>
 	   <div class="modal-footer">
                  <button type="button" 
