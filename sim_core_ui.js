@@ -388,7 +388,7 @@
 	    for (var index=0; index < sim_states['BR'].length; index++)
             {
 		 o1_rf += "<div class='col-xs-6 col-sm-4 col-md-4 col-lg-3' style='padding:0 5 0 5;'>" +
-                          "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none; transform:translate3d(0,0,0);' " +
+                          "<button type='button' class='btn btn-outline-primary no-text-shadow' style='padding:0 0 0 0; outline:none; box-shadow:none; transform:translate3d(0,0,0);' " +
                           "        data-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
                           "  <span id='name_RF" + index + "' style='float:center; padding:0 0 0 0'>R" + index + "</span>" +

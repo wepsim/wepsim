@@ -1147,37 +1147,11 @@
         // 3.- dialog +
         //     code_post (next button) | cancel tutorials
         var bbbt = new Object() ;
-            bbbt["cancel"] = {
-		    label: 'Disable this tutorial',
-		    className: 'btn-danger',
-		    callback: function() {
-			set_cfg('show_tutorials', false) ;
-                        save_cfg();
-                        $("#radio10-false").trigger("click").checkboxradio("refresh") ;
-                        tutbox.modal("hide") ;
-                        if (wepsim_voice_canSpeak())
-			    window.speechSynthesis.cancel() ;
-		    }
-		} ;
-
-        if (step != 0)
-            bbbt["prev"] = {
-		    label: 'Prev',
-		    className: 'btn-success',
-		    callback: function() {
-			tutorial[step].code_post() ;
-			setTimeout(function(){ 
-					sim_tutorial_showframe(tutorial_name, step - 1) ;
-				   }, tutorial[step].wait_next);
-                        if (wepsim_voice_canSpeak())
-			    window.speechSynthesis.cancel() ;
-		    }
-		};
 
 	if (step != (tutorial.length - 1))
             bbbt["next"] = {
 		    label: 'Next',
-		    className: 'btn-success',
+		    className: 'btn-success col-xs-2 pull-right',
 		    callback: function() {
 			tutorial[step].code_post() ;
 			setTimeout(function(){ 
@@ -1190,7 +1164,7 @@
 	else
             bbbt["end"] = {
 		    label: 'End',
-		    className: 'btn-success',
+		    className: 'btn-success col-xs-2 pull-right',
 		    callback: function() {
 			tutorial[step].code_post() ;
 			setTimeout(function(){ 
@@ -1200,6 +1174,33 @@
 			    window.speechSynthesis.cancel() ;
 		    }
 		};
+
+        if (step != 0)
+            bbbt["prev"] = {
+		    label: 'Prev',
+		    className: 'btn-success col-xs-2 pull-right',
+		    callback: function() {
+			tutorial[step].code_post() ;
+			setTimeout(function(){ 
+					sim_tutorial_showframe(tutorial_name, step - 1) ;
+				   }, tutorial[step].wait_next);
+                        if (wepsim_voice_canSpeak())
+			    window.speechSynthesis.cancel() ;
+		    }
+		};
+
+        bbbt["cancel"] = {
+		    label: 'Disable this tutorial',
+		    className: 'btn-danger col-xs-3 pull-right',
+		    callback: function() {
+			set_cfg('show_tutorials', false) ;
+                        save_cfg();
+                        $("#radio10-false").trigger("click").checkboxradio("refresh") ;
+                        tutbox.modal("hide") ;
+                        if (wepsim_voice_canSpeak())
+			    window.speechSynthesis.cancel() ;
+		    }
+		} ;
 
 	tutbox = bootbox.dialog({
 	    title:   tutorial[step].title,
