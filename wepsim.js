@@ -519,6 +519,11 @@
     // instructions per chunck to be chained...
     var max_turbo = 5 ;
 
+    function wepsim_reset_max_turbo ( )
+    {
+        max_turbo = 5 ;
+    }
+
     function wepsim_execute_chainplay ( btn1 )
     {
 	if (DBG_stop) {
