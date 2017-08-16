@@ -760,19 +760,29 @@ register 5 >= 8 ; memory 1 = 0x10; screen 0 == first_line
 
       <div id="help_dumper">
 
-              Es posible conocer los requisitos del estado en el instante actual.<br>
-	      Puede ser usado para comprobar las diferencias entre dos instantes distintos.<br>
-	      <br>
+              El panel 'State' permite a los usuarios mostrar el estado actual como
+              una lista de los requisitos principales que lo define.
+              En este panel los usuarios pueden copiar estos requisitos al portapapeles o
+              también almacenar estos requisitos en el historial ('History').
 	      <ul>
 	        Por ejemplo:<br>
 	        <textarea aria-label="checks to perform" rows="2">
 register 5 >= 8 ; memory 1 = 0x10; screen 0 == first_line
 	        </textarea>
 	      </ul>
+
+              El panel 'History' permite a los usuarios llevar la pista con conjuntos de 
+              requisitos principales en diferentes ciclos de reloj de CPU.
+              Puede usarse para ver las diferencias del estado del procesador en dos momentos del tiempo.
+              Los requisitos principales en un instante pueden copiarse al portapapels, 
+              y también se puede comparar los requisitos principales con los almacenados en el portapapeles.
 	      <p>
-	      <b>NOTA: los puntos y coma son necesarios.</b>
-	      <br>
-	      <b>NOTA: tenga cuidado porque las barras de scroll suelen estar ocultas.</b>
+
+              Por favor recuerde dos detalles importantes:
+	      <ul>
+	         <li><b>Los puntos y coma son necesarios como separador de requisitos.</b></li>
+	         <li><b>Tenga cuidado porque las barras de scroll suelen estar ocultas.</b></li>
+	      </ul>
 
       </div>
 
