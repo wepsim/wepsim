@@ -165,12 +165,14 @@
                               <a id="tab26" href="#eltos_cpu" 
                                  onclick="if (is_drawing() == false)
                                               $('#slider2d').toggle(); 
+					  wepsim_reset_max_turbo() ;
                                           start_drawing(); 
                                           refresh();">Processor</a>
                           </li>
 		          <li style="clear:none;width:50% !important">
                               <a id="tab24" href="#eltos_dbg"  
                                  onclick="stop_drawing(); 
+					  wepsim_reset_max_turbo() ;
                                           var o1 = fullshow_asmdbg_pc();
                                           var obj_byid = $('#asm_debugger_container');
                                           if (typeof o1[0] == 'undefined') 
@@ -1105,7 +1107,7 @@
 			  <button onclick="$('#bot_hwcfg1').carousel(0);" 
 				  type="button" 
 				  class="btn btn-info" 
-				  style="height:34px !important;">Hardware Configuration</button>
+				  style="height:34px !important;">Hardware Conf<span class='visible-xs'>.</span><span class='hidden-xs'>iguration</span></button>
 			  <button onclick="$('#bot_hwcfg1').carousel(1);
 					   update_checker_loadhelp('#help4a','help_hwcfg');"
 				  type="button" 
