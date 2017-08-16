@@ -731,6 +731,12 @@
 	       MP[kx] = kv ;
 	    }
 
+            /// bugfix safari bug 10.1.2
+	    for (var e in MP)
+	         if (isNaN(MP[e]))
+	    	     MP[e] = 0 ;
+            /// end bugfix 
+
 	    // 5.- load the segments from SIMWARE['seg']
             segments = new Object() ;
 	    for (var key in SIMWARE['seg'])
