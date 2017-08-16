@@ -491,7 +491,7 @@
                 var divclass = divclasses[b] ;
 
                 o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" +
-                      "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none; will-change:transform; transform:translate3d(0,0,0);' " +
+                      "<button type='button' class='btn btn-outline-primary no-text-shadow' style='padding:0 0 0 0; outline:none; box-shadow:none; will-change:transform; transform:translate3d(0,0,0);' " +
                       "        data-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +
                       showkey +
