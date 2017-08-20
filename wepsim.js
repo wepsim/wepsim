@@ -407,6 +407,7 @@
                            z_index: 2000,
                            newest_on_top: true,
                            delay: get_cfg('NOTIF_delay'),
+                           timer: 100,
                            placement: { from: 'top', align: 'center' } });
     }
 
