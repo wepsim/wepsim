@@ -743,6 +743,13 @@
 
     function wepsim_state_history_list ( )
     {
+         if (0 == state_history.length) 
+         {
+             $('#history1').html('Empty history.') ;
+	     $('#check_results1').html('');
+             return ;
+         }
+
          var t = 0 ;
          var o = '<div class="panel-group" id="accordion1">' ;
          for (var i=state_history.length-1; i>=0; i--) 
@@ -1387,7 +1394,8 @@
         if (typeof only_errors === 'undefined') 
             only_errors = false ;
 
-        o += "<table class='table table-hover table-bordered table-condensed' style='margin:0 0 0 0;'>" +
+        o += "<table style='margin:0 0 0 0;' " + 
+             "       class='table table-hover table-bordered table-condensed'>" +
              "<thead>" +
              "<tr>" +
              "<th>Type</th>" +

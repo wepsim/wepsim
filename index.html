@@ -61,7 +61,7 @@
         min-width: 80vw;
     }
     .bootboxShortHeight {
-        max-height: 35vh;
+        max-height: 25vh;
     }
     .bootboxLargeHeight {
         max-height: 55vh;
@@ -1262,10 +1262,15 @@
             <div id="bot_check1" class="carousel slide" data-ride="carousel" data-interval="false">
                <div class="carousel-inner" role="listbox">
                   <div class="item">
-                        <h4>History</h4>
-                        <div id="history1" 
+                        <h4 style="margin:0 0 10 0;">History:</h4>
+                        <div id="history1"
                              style="max-height:42vh; width:inherit; overflow:auto;">Loading...</div>
-		        <br>
+
+                        <h4 style="margin:20 0 10 0;">Result:
+			<span class="btn btn-default btn-xs"
+			      onclick="SelectText('check_results_scroll1'); document.execCommand('copy');"
+			      data-inline="true">Copy to clipboard</i></span>
+                        </h4>
 		        <div id="check_results_scroll1"
 		             style="max-height:25vh; width:inherit; overflow-y:auto;" >
 		             <div id="check_results1"></div>
@@ -1273,7 +1278,7 @@
                   </div>
                   <div class="item active">
                      <div>
-                        <h4>Current State</h4>
+                        <h4>Current State:</h4>
                         <form id="end_state_form1" 
                               class="form-horizontal bootboxLargeHeight" 
                               style="white-space:wrap; overflow-y:auto;">
@@ -1298,8 +1303,7 @@
 					 return false;"
 				type="button">Add <span class='hidden-xs'>to history</span></button>
 			<button class="btn btn-default col-xs-3 pull-left"
-				onclick="CopyFromTextarea('end_state1');
-					 return false;"
+				onclick="CopyFromTextarea('end_state1'); return false;"
 				type="button">Copy <span class='hidden-xs'>to clipboard</span></button>
                      </div>
                   </div>
@@ -1363,9 +1367,13 @@
             <div id="bot_check2" class="carousel slide" data-ride="carousel" data-interval="false">
                <div class="carousel-inner" role="listbox">
                   <div class="item active">
-                     <div>
-                        <h4><span id="dlg_title2">&nbsp;</span></h4>
-                        <br> 
+                        <div class="panel panel-info">
+		        <div class="panel-heading">
+                           <h4><span id="dlg_title2">&nbsp;</span></h4>
+                        </div>
+                        </div>
+
+                        <h4>Requeriment list to compare with:</h4>
                         <form id="end_state_form2" 
                               class="form-horizontal bootboxShortHeight" 
                               style="white-space:wrap; overflow-y:auto;">
@@ -1382,11 +1390,14 @@
                                      class="form-control input-xs" 
                                      rows="5"></textarea>
                         </form>
-                     </div>
-		     <br>
-		     <div id="check_results_scroll2"
-		          style="max-height:25vh; width:inherit; overflow-y:auto;" >
-		          <div id="check_results2"></div>
+                        <h4 style="margin:20 0 10 0;">Result:
+		   	   <span class="btn btn-default btn-xs"
+			         onclick="SelectText('check_results_scroll2'); document.execCommand('copy');"
+			         data-inline="true">Copy to clipboard</i></span>
+                        </h4>
+		        <div id="check_results_scroll2"
+		             style="max-height:25vh; width:inherit; overflow-y:auto;" >
+		             <div id="check_results2"></div>
 		     </div>
                   </div>
                   <div class="item">
