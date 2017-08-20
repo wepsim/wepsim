@@ -609,7 +609,7 @@
 			       buttons: {
 					    success: {
 						label: "Save",
-						className: "btn-primary col-xs-2 pull-right",
+						className: "btn-primary col-xs-3 col-sm-2 pull-right",
 						callback: function ()
 							  {
 							     key        = $('#ask_skey').val();
@@ -648,7 +648,7 @@
 					    },
 					    close: {
 						label: "Close",
-						className: "btn-danger col-xs-2 pull-right",
+						className: "btn-danger col-xs-3 col-sm-2 pull-right",
 						callback: function() { }
 					    }
 					}
