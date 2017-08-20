@@ -1204,7 +1204,7 @@
 
         bbbt["cancel"] = {
 		    label: 'Disable this tutorial',
-		    className: 'btn-danger col-xs-3 col-sm-2 pull-right',
+		    className: 'btn-danger col-xs-4 col-sm-3 pull-right',
 		    callback: function() {
 			set_cfg('show_tutorials', false) ;
                         save_cfg();
