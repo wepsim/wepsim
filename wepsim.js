@@ -770,21 +770,25 @@
                    '  </div>' +
                    '  <div id="collapse_' + i + '" class="panel-collapse collapse">' +
                    '    <div class="panel-body">' + 
-                   '      <div class="panel-body" ' + 
-                   '           style="padding:5 5 5 5;" ' + 
-                   '           id="state_' + i + '">' + state_history[i].content + '</div>' +
-                   '      <textarea aria-label="hidden-state"  style="display:none"' +
-                   '                id="ta_state_'+i+'" readonly>' + state_history[i].content + '</textarea>' +
-                   '      <button class="btn btn-default col-xs-3"' + 
+                   '      <div class="container-fluid">' + 
+                   '      <div class="row">' + 
+                   '      <button class="btn btn-default btn-sm col-xs-4 col-sm-3 pull-right"' + 
+                   '              onclick="CopyFromTextarea(\'ta_state_' + i + '\');" ' + 
+                   '              type="button">Copy <span class="hidden-xs">to clipboard</span></button>' +
+                   '      <button class="btn btn-default btn-sm col-xs-4 col-sm-3 pull-right"' + 
                    '              onclick="var txt_chklst1 = get_clipboard_copy();' +
                    '                       var obj_exp1    = wepsim_checklist2state(txt_chklst1);' +
                    '                       var txt_chklst2 = $(\'#ta_state_'+i+'\').val();' +
                    '                       var obj_exp2    = wepsim_checklist2state(txt_chklst2);' +
                    '                       wepsim_dialog_check_state(\'check_results1\', obj_exp1, obj_exp2);"' +
                    '           type="button">Check <span class="hidden-xs">expected in clipboard</span></button>' +
-                   '      <button class="btn btn-default col-xs-3"' + 
-                   '              onclick="CopyFromTextarea(\'ta_state_' + i + '\');" ' + 
-                   '              type="button">Copy <span class="hidden-xs">to clipboard</span></button>' +
+                   '      </div>' + 
+                   '      </div>' + 
+                   '      <div class="panel-body" ' + 
+                   '           style="padding:5 5 5 5;" ' + 
+                   '           id="state_' + i + '">' + state_history[i].content + '</div>' +
+                   '      <textarea aria-label="hidden-state"  style="display:none"' +
+                   '                id="ta_state_'+i+'" readonly>' + state_history[i].content + '</textarea>' +
                    '    </div>' +
                    '  </div>' +
                    '</div>' ;
@@ -804,7 +808,7 @@
 	 setTimeout(function() {
 
 	      // tab1
-	      wepsim_state_history_list() ;
+	      //wepsim_state_history_list() ; // called on: reset+add but not on show...
 
 	      // tab2
 	      var state_obj     = wepsim_current2state() ;
