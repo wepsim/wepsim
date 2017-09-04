@@ -66,3 +66,21 @@
                      description: "Licencia de WepSIM, plataformas disponibles, tecnologías usadas.<br>"
                   });
 
+    help['es'].push({
+                     id:          "simulator",
+                     title:       "Tutorial de bienvenida",
+                     type:        "code",
+                     reference:   "wepsim_close_help(); " + 
+                                  "sim_tutorial_showframe('welcome', 0);",
+                     description: "Tutorial de bienvenida, puede activarse en la configuraci&oacute;n.<br>"
+                  });
+
+    help['es'].push({
+                     id:          "simulator",
+                     title:       "Tutorial simple de uso",
+                     type:        "code",
+                     reference:   "wepsim_close_help(); " + 
+                                  "sim_tutorial_showframe('simpleusage', 0);",
+                     description: "Tutorial de uso simple, ejemplo básico para microprogramar y programar en ensamblador.<br>"
+                  });
+

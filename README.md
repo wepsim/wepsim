@@ -2,7 +2,7 @@
 
 + Get WepSIM Simulator:
 
-   * (on-line) Web version (Google Chrome 45+, Mozilla Firefox 40+, Microsoft Edge 25+, and Apple Safari 10+): <br/>
+   * (on-line) Web version (Google Chrome 50+, Mozilla Firefox 50+, Microsoft Edge 25+, and Apple Safari 10+): <br/>
      * Release version: https://wepsim.github.io/wepsim
      * Development version: https://acaldero.github.io/wepsim
 
@@ -30,12 +30,12 @@ https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim
 
    6 Finally, go back to the simulator workspace, and you can execute step by step and analyze the state of the components.
        + It is possible to work at assembly level or at microcode level: 
-         ![screen:simulation cpu](https://raw.githubusercontent.com/acaldero/wepsim/master/tutorials/simulation_xinstruction.gif)
+         ![screen:simulation cpu](https://raw.githubusercontent.com/acaldero/wepsim/master/tutorials/welcome/simulation_xinstruction.gif)
 
 + Main configuration options:
 
    + From the menu, there are different configuration options you can select:
-     ![screen:configuration](https://raw.githubusercontent.com/acaldero/wepsim/master/tutorials/config_usage.gif)
+     ![screen:configuration](https://raw.githubusercontent.com/acaldero/wepsim/master/tutorials/welcome/config_usage.gif)
 
    + From the simulator workspace, click over the 'processor button' shows/hides a slider to change the CPU/CU size:
      ![screen:configuration](https://raw.githubusercontent.com/wepsim/wepsim/master/help/simulator/simulator013.jpg)

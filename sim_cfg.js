@@ -20,7 +20,7 @@
 
 
         var WSCFG = new Object() ;
-        WSCFG['version'] = { value:"1.8.1", type:"string"} ;
+        WSCFG['version'] = { value:"1.8.2", type:"string"} ;
 
         function get_cfg ( field )
         {
@@ -74,6 +74,7 @@
                WSCFG['is_interactive']      = { value:true,               type:"boolean"};
                WSCFG['ws_idiom']            = { value:'es',               type:"string"};
                WSCFG['show_tutorials']      = { value:true,               type:"boolean"};
+               WSCFG['use_voice']           = { value:false,              type:"boolean"};
 
 		/*
 		 *  micro/assembly screen: editor
@@ -109,6 +110,10 @@
             cfg_show_dbg_ir_delay = 100;
             if (get_cfg('DBG_delay') < 5)
                 cfg_show_dbg_ir_delay = 300;
+
+            cfg_show_rf_refresh_delay = 30;
+            if (get_cfg('DBG_delay') < 5)
+                cfg_show_rf_refresh_delay = 120;
         }
 
 

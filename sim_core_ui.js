@@ -388,7 +388,7 @@
 	    for (var index=0; index < sim_states['BR'].length; index++)
             {
 		 o1_rf += "<div class='col-xs-6 col-sm-4 col-md-4 col-lg-3' style='padding:0 5 0 5;'>" +
-                          "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none; transform:translate3d(0,0,0);' " +
+                          "<button type='button' class='btn btn-outline-primary no-text-shadow' style='padding:0 0 0 0; outline:none; box-shadow:none; transform:translate3d(0,0,0);' " +
                           "        data-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
                           "  <span id='name_RF" + index + "' style='float:center; padding:0 0 0 0'>R" + index + "</span>" +
@@ -491,7 +491,7 @@
                 var divclass = divclasses[b] ;
 
                 o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" +
-                      "<button type='button' class='btn btn-outline-primary' style='padding:0 0 0 0; outline:none; box-shadow:none; will-change:transform; transform:translate3d(0,0,0);' " +
+                      "<button type='button' class='btn btn-outline-primary no-text-shadow' style='padding:0 0 0 0; outline:none; box-shadow:none; will-change:transform; transform:translate3d(0,0,0);' " +
                       "        data-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +
                       showkey +
@@ -577,97 +577,66 @@
 
         function ko_observable ( initial_value )
         {
-            var rli = 30 ;
-            if (get_cfg('DBG_delay') > 5) 
-                rli = 120 ;
-
-            return ko.observable(initial_value).extend({ rateLimit: rli });
+            return ko.observable(initial_value).extend({ rateLimit: cfg_show_rf_refresh_delay });
         }
 
         function init_io ( jqdiv )
         {
             if (jqdiv == "")
             {       // without ui
-		    sim_states['CLK'].value      = ko_observable(sim_states['CLK'].value) ;
-		    sim_states['DECO_INS'].value = ko_observable(sim_states['DECO_INS'].value) ;
+		    sim_states['CLK'].value = ko.observable(sim_states['CLK'].value);
+		    sim_states['DECO_INS'].value = ko.observable(sim_states['DECO_INS'].value);
 		    for (var i=0; i<IO_INT_FACTORY.length; i++) {
-			 IO_INT_FACTORY[i].accumulated = ko_observable(IO_INT_FACTORY[i].accumulated) ;
-			 IO_INT_FACTORY[i].active      = ko_observable(IO_INT_FACTORY[i].active) ;
+			 IO_INT_FACTORY[i].accumulated = ko.observable(IO_INT_FACTORY[i].accumulated) ;
+			 IO_INT_FACTORY[i].active      = ko.observable(IO_INT_FACTORY[i].active) ;
                     }
                     return ;
             }
 
             // stats holder
-	    var o1 = "" ;
-
-	       // IO
-               o1 += "<div class='col-xs-7 col-sm-7 col-lg-7' style='padding:0 0 0 0;'>" +
-                     "<div class='panel panel-default'>" +
-                     "<div class='panel-heading'>" +
-                     " <h3 class='panel-title'>I/O</h3>" +
-                     "</div>" +
-                     "<div class='panel-body' id='mempanel1' style='padding:0 0 0 0;'>" +
-                     "  <table class='table table-hover table-condensed table-bordered table-responsive' style='margin:0'>" +
-                     "  <tbody class='ui-mini'>" ;
+            var o1 = "<center>" +
+                     "<table class='table table-hover table-condensed table-bordered table-responsive'>" +
+                     "<tr>" +
+                     "<td align=center width=50%>Instructions</td>" +
+                     "<td align=center width=50%>" +
+                     "<div id='ins_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
+                     "</td>" +
+                     "</tr>" +
+                     "<tr>" +
+                     "<td align=center width=50%>CLK ticks</td>" +
+                     "<td align=center width=50%>" +
+                     "<div id='clk_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
+                     "</td>" +
+                     "</tr>" ;
+               o1 += "<tr><td colspan=2>&nbsp;</td></tr>" ;
             for (var i=0; i<IO_INT_FACTORY.length; i++)
             {
-               o1 += "  <tr id='int" + i + "_context'>" +
-                     "  <td align=center width=50%>" +
-                     "  <span data-bind=\"style: {fontWeight: active() ? 'bold' : ''}\">" + "Interrupt " + i + "</span>" +
-                     "  </td>" +
-                     "  <td align=center width=50%>" +
-                     "  <span data-bind='text: accumulated'>&nbsp;</span>" +
-                     "  </td>" +
-                     "  </tr>" ;
+               o1 += "<tr id='int" + i + "_context'>" +
+                     "<td align=center width=50%>" +
+                     "<span data-bind=\"style: {fontWeight: active() ? 'bold' : ''}\">" + "Interrupt " + i + "</span>" +
+                     "</td>" +
+                     "<td align=center width=50%>" +
+                     "<span data-bind='text: accumulated'>&nbsp;</span>" +
+                     "</td>" +
+                     "</tr>" ;
             }
-               o1 += "  </tbody>" +
-		     "  </table>" +
-                     "</div>" +
-                     "</div>" +
-                     "</div>" ;
-
-	       // CPU
-               o1 += "<div class='col-xs-5 col-sm-5 col-lg-5' style='padding:0 0 0 5;'>" +
-                     "<div class='panel panel-default'>" +
-                     "<div class='panel-heading'>" +
-                     " <h3 class='panel-title'>CPU</h3>" +
-                     "</div>" +
-                     "<div class='panel-body' id='cpupanel1' style='padding:0 0 0 0;'>" +
-                     "  <table class='table table-hover table-condensed table-bordered table-responsive' style='margin:0'>" +
-                     "  <tbody class='ui-mini'>" +
-                     "  <tr>" +
-                     "  <td align=center width=50%>Instructions</td>" +
-                     "  <td align=center width=50%>" +
-                     "  <div id='ins_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
-                     "  </td>" +
-                     "  </tr>" +
-                     "  <tr>" +
-                     "  <td align=center width=50%>CLK ticks</td>" +
-                     "  <td align=center width=50%>" +
-                     "  <div id='clk_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
-                     "  </td>" +
-                     "  </tr>" +
-                     "  </tbody>" +
-		     "  </table>" +
-                     "</div>" +
-                     "</div>" +
-                     "</div>" ;
-
+            o1 += "</table>" +
+                  "</center>" ;
             $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
 
             // knockout binding
-            sim_states['CLK'].value = ko_observable(sim_states['CLK'].value) ;
+            sim_states['CLK'].value = ko.observable(sim_states['CLK'].value);
             var ko_context = document.getElementById('clk_context');
             ko.applyBindings(sim_states['CLK'], ko_context);
 
-            sim_states['DECO_INS'].value = ko_observable(sim_states['DECO_INS'].value) ;
+            sim_states['DECO_INS'].value = ko.observable(sim_states['DECO_INS'].value);
             var ko_context = document.getElementById('ins_context');
             ko.applyBindings(sim_states['DECO_INS'], ko_context);
 
             for (var i=0; i<IO_INT_FACTORY.length; i++)
             {
-                 IO_INT_FACTORY[i].accumulated = ko_observable(IO_INT_FACTORY[i].accumulated) ;
-                 IO_INT_FACTORY[i].active      = ko_observable(IO_INT_FACTORY[i].active) ;
+                 IO_INT_FACTORY[i].accumulated = ko.observable(IO_INT_FACTORY[i].accumulated) ;
+                 IO_INT_FACTORY[i].active      = ko.observable(IO_INT_FACTORY[i].active) ;
                  var ko_context = document.getElementById('int' + i + '_context');
                  ko.applyBindings(IO_INT_FACTORY[i], ko_context);
             }
@@ -689,8 +658,30 @@
 
             // html holder
             var o1 = "<div class='container-fluid' style='padding:0 0 0 0; overflow-x:auto'>" +
-                     "<div class='row-fluid'>" +
-                     "<div class='col-xs-8 col-md-8' style='padding:0 0 0 0;'>" +
+                     "<div class='row-fluid'>" ;
+
+               o1 += "<div class='col-xs-12 col-md-12' style='padding:0 0 0 0;'>" +
+                     "<div class='panel panel-default'>" +
+                     "<div class='panel-heading'>" +
+                     " <h3 class='panel-title'>Memory</h3>" +
+                     "</div>" +
+                     "<div class='panel-body' id='mempanel' style='padding:0 0 0 0;'>" +
+                     "<table class='table table-hover table-condensed table-bordered table-responsive' " +
+                     "       style='margin:0'>" +
+                     "<tbody class='no-ui-mini'>" +
+                     "<tr><td align=center'>Wait cycles (<b>0</b> - &infin;)</td>" +
+                     "    <td align=center'>" + 
+                     "<div id='mp_wc'>" + 
+                     "<input type=number data-bind='value: MP_wc' min='0' max='99999999'>" +
+                     "</div>" + 
+                     "    </td></tr>" +
+                     "</tbody>" +
+                     "</table>" +
+                     "</div>" +
+                     "</div>" +
+                     "</div>" ;
+         
+               o1 += "<div class='col-xs-12 col-md-12' style='padding:0 0 0 0;'>" +
                      "<div class='panel panel-default' style='margin:0 0 0 0;'>" +
                      "<div class='panel-heading'>" +
                      " <h3 class='panel-title'>I/O</h3>" +
@@ -699,14 +690,20 @@
                o1 += "<center>" +
                      "<table class='table table-hover table-condensed table-bordered table-responsive' " +
                      "       style='margin:0'>" +
-                     "<tbody class='ui-mini'>" +
+                     "<tbody class='no-ui-mini'>" +
                      "<tr>" +
-                     "<td align=center width=33%>" +
-                     "  <span class='hidden-xs'>Interruption<br>identificator</span>" +
-                     "  <span class='visible-xs'>Int.<br>Id.</span>" +
+                     "<td align=center width='33%'>" +
+                     "  <span class='hidden-xs'>Interruption identificator</span>" +
+                     "  <span class='visible-xs'>Int. Id.<br>(0 - 7)</span>" +
                      "</td>" +
-                     "<td align=center width=33%>CLK period<br>(<b>0</b> - &infin;)</td>" +
-                     "<td align=center width=33%>Probability<br>(0 - 1)</td>" +
+                     "<td align=center width='33%'>" +
+                     "  <span class='hidden-xs'>CLK period (<b>0</b> - &infin;)</span>" +
+                     "  <span class='visible-xs'>CLK ticks <br>(<b>0</b> - &infin;)</span>" +
+                     "</td>" +
+                     "<td align=center width='33%'>" +
+                     "  <span class='hidden-xs'>Probability (0 - 1)</span>" +
+                     "  <span class='visible-xs'>Probability <br>(0 - 1)</span>" +
+                     "</td>" +
                      "</tr>" ;
             for (var i=0; i<8; i++)
             {
@@ -716,14 +713,12 @@
                      "</td>" +
                      "<td align=center style='padding:0 0 0 0'>" +
                      "<div id='int" + i + "_per' style='margin:0 3 0 3'>" +
-                     "<input type=number data-bind='value: period' min='0' " +
-                     "       style='margin:0 0 0 3; padding:0 0 0 5'>" +
+                     "<input type=number data-bind='value: period' min='0' max='99999999'>" +
                      "</div>" +
                      "</td>" +
                      "<td align=center style='padding:0 0 0 0'>" +
                      "<div id='int" + i + "_pro' style='margin:0 3 0 3'>" +
-                     "<input type=number data-bind='value: probability' min='0' max='1' step='.05' " +
-                     "       style='margin:0 0 0 3; padding:0 0 0 5'>" +
+                     "<input type=number data-bind='value: probability' min='0' max='1' step='.05'>" +
                      "</div>" +
                      "</td>" +
                      "</tr>" ;
@@ -735,24 +730,6 @@
                      "</div>" +
                      "</div>" ;
 
-               o1 += "<div class='col-xs-4 col-md-4' style='padding:0 0 0 10;'>" +
-                     "<div class='panel panel-default'>" +
-                     "<div class='panel-heading'>" +
-                     " <h3 class='panel-title'>Memory</h3>" +
-                     "</div>" +
-                     "<div class='panel-body' id='mempanel' style='padding:0 0 0 0;'>" +
-                     "  <div class='row-fluid'>" +
-                     "  <center>" +
-                     "  <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' style='padding: 0 0 0 0;'>Wait cycles <br>(<b>0</b> - &infin;)</div>" +
-                     "  <div class='col-xs-12 col-sm-12 col-md-12 col-lg-12' id='mp_wc'><input type=number data-bind='value: MP_wc' min=0></div>" +
-                     "  </center>" +
-                     "  </div>" +
-                     "</div>" +
-                     "</div>" +
-                     "</div>" +
-                     "</div>" +
-                     "</div>" ;
-         
             $(jqdiv).html(o1);
 
             // knockout binding
@@ -1135,12 +1112,15 @@
 
                 MC_dashboard[addr].breakpoint = bp_state ;
 
-                if ( bp_state && ('instruction' == get_cfg('DBG_level')) )
-                     $.notify({ title: '<strong>INFO</strong>', message: 'Please remember to change configuration to execute at microinstruction level.'},
+                if ( bp_state && ('instruction' == get_cfg('DBG_level')) ) {
+                     $.notify({ title: '<strong>INFO</strong>', 
+                         message: 'Please remember to change configuration to execute at microinstruction level.'},
                               { type: 'success',
+                                z_index: 2000,
                                 newest_on_top: true,
                                 delay: get_cfg('NOTIF_delay'),
                                 placement: { from: 'top', align: 'center' } });
+                }
         }
 
 	function show_dbg_mpc ( )

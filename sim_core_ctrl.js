@@ -49,18 +49,24 @@
             // 1.- counting the number of active tri-states
             var tri_name = "";
             var tri_activated = 0;
-	    var tri_activated_name = "";
+	    var tri_activated_name  = "";
+	    var tri_activated_value = 0;
             for (var i=0; i<tri_state_names.length; i++)
             {
-		 tri_activated_name = tri_state_names[i] ;
-                 tri_activated      = tri_activated + parseInt(sim_signals[tri_activated_name].value) ;
+		 tri_activated_name  = tri_state_names[i] ;
+                 tri_activated_value = parseInt(get_value(sim_signals[tri_activated_name])) ;
+                 tri_activated      += tri_activated_value ;
+
+		 if (tri_activated_value > 0)
+		     tri_name = tri_activated_name ;
                  if (tri_activated > 1)
                      break ;
             }
 
             // 2.- paint the bus if any tri-state is active
-            if (tri_activated > 0)
-                update_draw(sim_signals[tri_activated_name], 1) ;
+            if (tri_activated > 0) {
+                update_draw(sim_signals[tri_name], 1) ;
+            }
 
             // 3.- check if more than one tri-state is active
             if (internalbus_fire_visible) {
@@ -601,14 +607,9 @@
 			       value:   sim_signals[key].value,
                                animate: false,
 			       buttons: {
-					    close: {
-						label: "Close",
-						className: "btn-danger",
-						callback: function() { }
-					    },
 					    success: {
 						label: "Save",
-						className: "btn-primary",
+						className: "btn-primary col-xs-3 col-sm-2 pull-right",
 						callback: function ()
 							  {
 							     key        = $('#ask_skey').val();
@@ -631,7 +632,7 @@
 								     MC_dashboard[get_value(sim_states["REG_MICROADDR"])] = new Object() ;
 								 }
 								 MC[get_value(sim_states["REG_MICROADDR"])][key] = sim_signals[key].value ;
-								 MC_dashboard[get_value(sim_states["REG_MICROADDR"])][key] = { comment: "", breakpoint: false, notify: new Array() };
+								 MC_dashboard[get_value(sim_states["REG_MICROADDR"])][key] = { comment: "", breakpoint: false, state: false, notify: new Array() };
 
 								 // update ROM[..]
 								 update_signal_firmware(key) ;
@@ -644,6 +645,11 @@
 							     // fire signal
 							     compute_behavior('FIRE ' + key) ;
 							  }
+					    },
+					    close: {
+						label: "Close",
+						className: "btn-danger col-xs-3 col-sm-2 pull-right",
+						callback: function() { }
 					    }
 					}
 			});
@@ -671,15 +677,28 @@
             MC_dashboard = new Object() ;
             for (var i=0; i<SIMWARE['firmware'].length; i++)
 	    {
+               var elto_state  = false ;
+               var elto_break  = false ;
+               var elto_notify = new Array() ;
+
 	       var last = SIMWARE['firmware'][i]["microcode"].length ; // mc = microcode
                var mci  = SIMWARE['firmware'][i]["mc-start"] ;
 	       for (var j=0; j<last; j++)
 	       {
 		    var comment = SIMWARE['firmware'][i]["microcomments"][j] ;
 		    MC[mci]     = SIMWARE['firmware'][i]["microcode"][j] ;
-		    MC_dashboard[mci] = { comment: comment,
-                                          breakpoint: false,
-                                          notify: comment.trim().split("notify:") } ;
+
+                    elto_state  = (comment.trim().split("state:").length > 1) ;
+                    elto_break  = (comment.trim().split("break:").length > 1) ;
+                    elto_notify =  comment.trim().split("notify:") ;
+		    for (var k=0; k<elto_notify.length; k++) {
+		         elto_notify[k] = elto_notify[k].split('\n')[0] ;
+                    }
+
+		    MC_dashboard[mci] = { comment: comment, 
+                                          state: elto_state, 
+                                          breakpoint: elto_break, 
+                                          notify: elto_notify } ;
 		    mci++;
 	       }
 	    }
@@ -711,6 +730,14 @@
 	       var kv = parseInt(SIMWARE['mp'][key].replace(/ /g,''), 2) ;
 	       MP[kx] = kv ;
 	    }
+
+            /// bugfix safari bug 10.1.2
+	    for (var e in MP) {
+	         if (isNaN(MP[e])) {
+	    	     delete MP[e];
+                 }
+            }
+            /// end bugfix 
 
 	    // 5.- load the segments from SIMWARE['seg']
             segments = new Object() ;
@@ -820,189 +847,6 @@
          * check dialogs
 	 */
 
-        function get_dialog_title ( dlg_btn_label, dlg_help )
-        {
-            var dialog_title = '<center>' + 
-			       ' <div class="btn-group">' +
-			       '   <button onclick="$(\'#bot_check\').carousel(0);" ' +
-			       '           type="button" class="btn btn-info" ' + 
-                               '           style="height:34px !important;">' + dlg_btn_label + '</button>' +
-                               '   <button onclick="$(\'#bot_check\').carousel(1); ' + 
-                               '                    update_checker_loadhelp(\'#help3\',\'' + dlg_help + '\');" ' +
-			       '           type="button" class="btn btn-success" ' + 
-                               '           style="height:34px !important;">Help</button>' +
-			       '   <button type="button" class="btn btn-success dropdown-toggle" ' +
- 			       '           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ' + 
-                               '           style="height:34px !important;">' +
-			       '     <span class="caret"></span>' +
-			       '     <span class="sr-only">Toggle Help Idiom</span>' +
-			       '   </button>' +
-			       '   <ul class="dropdown-menu">' +
-                               '    <li><a href="#" onclick="set_cfg(\'ws_idiom\',\'es\'); save_cfg(); ' +
-                               '                             $(\'#bot_check\').carousel(1); ' +
-                               '                             update_checker_loadhelp(\'#help3\',\'' + dlg_help + '\');">ES</a></li>' +
-                               '    <li><a href="#" onclick="set_cfg(\'ws_idiom\',\'en\'); save_cfg(); ' +
-                               '                             $(\'#bot_check\').carousel(1); ' +
-                               '                             update_checker_loadhelp(\'#help3\',\'' + dlg_help + '\');">EN</a></li>' +
-			       '   </ul>' +
-			       ' </div>' +
-			       '</center>' ;
-
-            return dialog_title ;
-        }
-
-        function get_dialog_message ( dlg_title, txt_placeholder, txt_checklist, txt_status )
-        {
-	    var dialog_message = '<div id="bot_check" class="carousel slide" ' + 
-                                 '     data-ride="carousel" data-interval="false">' +
-                                 ' <div class="carousel-inner" role="listbox">' +
-                                 ' <div class="item active">' +
-                                 ' <div>' +
-                                 '<h4>' + dlg_title + '</h4>' +
-                                 '<br>' +
-                                 ' <form class="form-horizontal" style="white-space:wrap;overflow-y:auto;max-height:32vh;">' +
-                                 ' <textarea aria-label="checks to perform" ' +
-                                 '           placeholder="' + txt_placeholder + '"' +
-                                 '           id="end_state" name="end_state" ' + 
-                                 '           class="form-control input-md" rows="5">' + txt_checklist + '</textarea>' +
-                                 ' </form>' +
-                                 ' </div>' +
-			         '<br>' +
-                                 ' <div id="check_results_scroll"' +
-                                 '     style="max-height:25vh; width: inherit; overflow-y: auto;" >' +
-                                 '     <div id="check_results">' + txt_status + '</div>' +
-                                 ' </div>' +
-                                 ' </div>' +
-                                 ' <div class="item">' +
-                                 '   <div id="help3" ' + 
-                                 '     style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>'+
-                                 ' </div>' +
-                                 ' </div>' +
-                                 '</div>';
-
-            return dialog_message ;
-        }
-
-        // checkbox-dialog: remembering the last selections...
-        var txt_checklist = '' ;
-
-        function dialog_stop_and_state ( dlg_title )
-        {
-	    var chkbox = null ;
-
-	    var dialog_title   = get_dialog_title('State', 'help_checker') ;
-	    var dialog_message = get_dialog_message(dlg_title, 'Please drop the requirement list here. See help for more information.', txt_checklist, '&nbsp;') ;
-            var dialog_btns = new Object() ;
-                dialog_btns["clear"] = {
-	    	        label: 'Clear',
-		        className: 'btn-default',
-		        callback: function() {
-                            txt_checklist = '' ;
-			    $('#end_state').tokenfield('setTokens', []);
-                            $('#end_state').val('');
-                            $('#check_results').html('&nbsp;');
-
-                            return false;
-		        }
-		    } ;
-                dialog_btns["check"] = {
-	    	        label: 'Check',
-		        className: 'btn-info',
-		        callback: function() {
-                                txt_checklist = $('#end_state').val();
-                            var obj_checklist = wepsim_read_checklist(txt_checklist) ;
-                            var obj_result    = wepsim_to_check(obj_checklist) ;
-
-                            if (0 == obj_result.errors)
-                                 var msg = "<span style='background-color:#7CFC00'>Meets the specified requirements</span>" ;
-                            else var msg = wepsim_checkreport2html(obj_result.result, true) ;
-                            $('#check_results').html(msg);
-                            ga('send', 'event', 'state', 'state.check', 'state.check.' + msg);
-
-                            return false;
-		        }
-		    } ;
-                dialog_btns["ok"] = {
-	    	        label: '&nbsp;&nbsp;OK&nbsp;&nbsp;',
-		        className: 'btn-primary',
-		        callback: function() {
-                            // chkbox.modal("hide") ;
-				
-                            return true;
-		        }
-		    } ;
-
-	    chkbox = bootbox.dialog({
-	                title:   dialog_title,
-	                message: dialog_message,
-	                buttons: dialog_btns,
-                        animate: false
-	             });
-
-            // testing: tokenfield:
-            chkbox.init(function() {
-                            $('#end_state').tokenfield({
-                                    autocomplete: { source: ['register','memory','screen'], delay: 100 },
-                                    showAutocompleteOnFocus: true,
-                                    allowEditing: true,
-                                    allowPasting: true,
-                                    limit: 0,
-                                    createTokensOnBlur: false,
-                                    delimiter: ';',
-                                    beautify: true,
-                                    inputType: 'textarea'
-                            }) ;
-                       });
-
-	    return chkbox;
-        }
-
-        function dialog_current_state ( dlg_title )
-        {
-	    var chkbox = null ;
-
-            var txt_checklist = wepsim_dump_checklist();
-	    ga('send', 'event', 'state', 'state.dump', 'state.dump.' + txt_checklist);
-
-	    var dialog_title   = get_dialog_title('State', 'help_dumper') ;
-	    var dialog_message = get_dialog_message(dlg_title, 
-		                                    'Current state as requirement list.', 
-		                                    txt_checklist,
-		                                    "<span style='background-color:yellow'>Current state dumped.</span>") ;
-            var dialog_btns = new Object() ;
-                dialog_btns["ok"] = {
-	    	        label: '&nbsp;&nbsp;OK&nbsp;&nbsp;',
-		        className: 'btn-primary',
-		        callback: function() {
-                            return true;
-		        }
-		    } ;
-
-	    chkbox = bootbox.dialog({
-	                title:   dialog_title,
-	                message: dialog_message,
-	                buttons: dialog_btns,
-                        animate: false
-	             });
-
-            // testing: tokenfield:
-            chkbox.init(function() {
-                            $('#end_state').tokenfield({
-                                    autocomplete: { source: ['register','memory','screen'], delay: 100 },
-                                    showAutocompleteOnFocus: true,
-                                    allowEditing: true,
-                                    allowPasting: true,
-                                    limit: 0,
-                                    createTokensOnBlur: false,
-                                    delimiter: ';',
-                                    beautify: true,
-                                    inputType: 'textarea'
-                            }) ;
-                       });
-
-	    return chkbox;
-        }
-
         function check_if_can_continue ( with_ui )
         {
 		var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
@@ -1027,7 +871,8 @@
 	        if (with_ui) 
                 {
       	            var dialog_title = 'The program has finished because the PC register points outside .ktext/.text code segments' ;
-                    dialog_stop_and_state(dialog_title) ;
+                    $("#dlg_title2").html(dialog_title) ;
+                    $('#current_state2').modal('show');
 	        }
 
 		return false;

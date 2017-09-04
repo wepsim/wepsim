@@ -1,7 +1,7 @@
 
-    var tut_welcome = new Array();
+    tutorials['welcome']['en'] = new Array() ;
 
-    tut_welcome.push({
+    tutorials['welcome']['en'].push({
                      id:          "welcome",
                      title:       "Welcome to the WepSIM simulator!",
                      message:     "<img src='help/simulator/simulator012.jpg' style='width:100%; max-height:50vh'>" +
@@ -20,14 +20,14 @@
                      wait_next:   100
                   });
 
-    tut_welcome.push({
+    tutorials['welcome']['en'].push({
                      id:          "welcome",
                      title:       "The menu button",
-                     message:     "<img src='tutorials/menu_open.gif' style='max-height:50vh'>" +
+                     message:     "<img src='tutorials/welcome/menu_open.gif' style='max-height:50vh'>" +
                                   "<br>" +
                                   "<h4>" +
-                                  "It let you access to the (a) microcode/assembly editors, the simulation screen, " + 
-                                  "(b) the examples, the configuration popup, and the help dialog." +
+                                  "On the top, it let you access to the microcode editor, the assembly editor, and the simulation screen. " + 
+                                  "On the bottom, help, examples, and the configuration dialogs." +
                                   "<br>" +
                                   "</h4>",
                      code_pre:    function() { },
@@ -35,13 +35,13 @@
                      wait_next:   100
                   });
 
-    tut_welcome.push({
+    tutorials['welcome']['en'].push({
                      id:          "welcome",
                      title:       "How to load some example.",
-                     message:     "<img src='tutorials/example_usage.gif' style='width:100%; max-height:60vh'>" +
+                     message:     "<img src='tutorials/welcome/example_usage.gif' style='width:100%; max-height:60vh'>" +
                                   "<br>" +
                                   "<h4>" +
-                                  "Click the example button, <br>then click in the example 'title' name." +
+                                  "Click in the menu button and then in the example button, <br>then click in the example 'title' name." +
                                   "<br>" +
                                   "</h4>",
                      code_pre:    function() { },
@@ -49,24 +49,25 @@
                      wait_next:   100
                   });
 
-    tut_welcome.push({
+    tutorials['welcome']['en'].push({
                      id:          "welcome",
                      title:       "How to execute an example.",
-                     message:     "<img src='tutorials/simulation_xinstruction.gif' style='width:100%; max-height:60vh'>" +
+                     message:     "<img src='tutorials/welcome/simulation_xinstruction.gif' style='width:100%; max-height:60vh'>" +
                                   "<br>" +
                                   "<h4>" +
-                                  "Click on next instruction/microinstruction to execute." +
+                                  "Click on next instruction/microinstruction to execute step by step. <br>" + 
+		                  "Click on run button to execute until the first breakpoint or the end of the assembly program." +
                                   "<br>" +
                                   "</h4>",
-                     code_pre:    function() {  },
+                     code_pre:    function() { },
                      code_post:   function() { },
                      wait_next:   100
                   });
 
-    tut_welcome.push({
+    tutorials['welcome']['en'].push({
                      id:          "welcome",
                      title:       "How to configure WepSIM.",
-                     message:     "<img src='tutorials/config_usage.gif' style='width:100%; max-height:60vh'>" +
+                     message:     "<img src='tutorials/welcome/config_usage.gif' style='width:100%; max-height:60vh'>" +
                                   "<br>" +
                                   "<h4>" +
                                   "Click in the menu again, then click in the configuration button." +
@@ -77,10 +78,10 @@
                      wait_next:   100
                   });
 
-    tut_welcome.push({
+    tutorials['welcome']['en'].push({
                      id:          "welcome",
                      title:       "How to get the basic help.",
-                     message:     "<img src='tutorials/help_usage.gif' style='width:100%; max-height:60vh'>" +
+                     message:     "<img src='tutorials/welcome/help_usage.gif' style='width:100%; max-height:60vh'>" +
                                   "<br>" +
                                   "<h4>" +
                                   "Click in the menu again, <br>then click in the green help button.<br>" +
@@ -92,20 +93,20 @@
                      wait_next:   100
                   });
 
-    tut_welcome.push({
+    tutorials['welcome']['en'].push({
                      id:          "welcome",
-                     title:       "Welcome to the WepSIM simulator!",
-                     message:     "<img src='tutorials/help_usage.gif' style='width:100%; max-height:60vh'>" +
+                     title:       "Welcome to WepSIM!",
+                     message:     "<img src='tutorials/welcome/help_usage.gif' style='width:100%; max-height:60vh'>" +
                                   "<br>" +
                                   "<h4>" +
                                   "<br>" +
-                                  "Please explorer the help sections for more information." + 
+                                  "Please explorer the help sections for more information. <br>" + 
+                                  "If you click on the end button of the tutorial then WepSIM is going to load the first example for you. Enjoy!" + 
                                   "<br>" +
                                   "</h4>",
                      code_pre:    function() {  },
                      code_post:   function() {
                                       load_from_example_firmware("S1E1", true);
-                                      wepsim_execute_microinstruction() ;
                                   },
                      wait_next:   100
                   });

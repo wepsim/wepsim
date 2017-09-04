@@ -1,10 +1,17 @@
 
+1.8.1 -> 1.8.2:
+* Added 'break:' and 'state:' actions at microcode level
+* Updated 'notify:' for tutorials
+* Links to the tutorials in help 
+* Added 'copy to clipboard' action to the current state dialog
+
 1.8.0 -> 1.8.1:
 * Colorized syntax
 * Compact visualization controls
+* Initial support for voice control
 
 1.7.7 -> 1.8.0:
-* Support for simple introspection
+* Support for simple state inspection
 * CPU behaviour has been slighly simplified
 * Added support for FIRE_IFCHANGED
 * Initial support for native in microcode
