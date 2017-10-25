@@ -209,7 +209,7 @@
 
     function wepsim_execute_reset ( reset_cpu, reset_memory )
     {
-        state_history = new Array() ;
+        wepsim_state_history_reset();
 
         if (true == reset_memory) 
         {
@@ -729,6 +729,11 @@
 
     var state_history = new Array() ;
 
+    function wepsim_state_history_reset ( )
+    {
+        state_history = new Array() ;
+    }
+
     function wepsim_state_history_add ( )
     {
         var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
@@ -781,7 +786,7 @@
                    '                       var txt_chklst2 = $(\'#ta_state_'+i+'\').val();' +
                    '                       var obj_exp2    = wepsim_checklist2state(txt_chklst2);' +
                    '                       wepsim_dialog_check_state(\'check_results1\', obj_exp1, obj_exp2);"' +
-                   '           type="button">Check <span class="hidden-xs">expected in clipboard</span></button>' +
+                   '           type="button">Check <span class="hidden-xs">differences with clipboard state</span></button>' +
                    '      </div>' + 
                    '      </div>' + 
                    '      <div class="panel-body" ' + 
@@ -1404,9 +1409,9 @@
              "<thead>" +
              "<tr>" +
              "<th>Type</th>" +
-             "<th>Id.</th>" +
-             "<th>Expected</th>" +
-             "<th>Obtained</th>" +
+             "<th>Identification</th>" +
+             "<th><span class='hidden-xs'>Values in the </span>clipboard<span class='hidden-xs'> state</th>" +
+             "<th><span class='hidden-xs'>Values in the </span>selected<span class='hidden-xs'> state</th>" +
              "</tr>" +
              "</thead>" +
              "<tbody>" ;
