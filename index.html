@@ -1296,6 +1296,10 @@
                   </div>
                   <div class="item active">
                      <div>
+			<button class="btn btn-default btn-sm col-xs-4 col-sm-3 pull-right"
+				onclick="CopyFromTextarea('end_state1'); return false;"
+				type="button">Copy <span class='hidden-xs'>to clipboard</span></button>
+			<br>
                         <h4>Current State:</h4>
                         <form id="end_state_form1" 
                               class="form-horizontal bootboxLargeHeight" 
@@ -1313,16 +1317,6 @@
                                      class="form-control input-xs" 
                                      rows="5"></textarea>
                         </form>
-			<br>
-			<button class="btn btn-default col-xs-3 pull-left"
-				onclick="wepsim_state_history_add();
-					 wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
-					 wepsim_state_history_list() ;
-					 return false;"
-				type="button">Add <span class='hidden-xs'>to history</span></button>
-			<button class="btn btn-default col-xs-3 pull-left"
-				onclick="CopyFromTextarea('end_state1'); return false;"
-				type="button">Copy <span class='hidden-xs'>to clipboard</span></button>
                      </div>
                   </div>
                   <div class="item">
@@ -1334,6 +1328,18 @@
          </div>
       </div>
       <div class="modal-footer">
+	   <button class="btn btn-default col-xs-3 pull-left"
+	   	   onclick="wepsim_state_history_reset();
+			    wepsim_notify_success('<strong>INFO</strong>', 'Removed all !.');
+			    wepsim_state_history_list() ;
+			    return false;"
+		   type="button">Reset <span class='hidden-xs'>history</span></button>
+	   <button class="btn btn-default col-xs-3 pull-left"
+		   onclick="wepsim_state_history_add();
+			    wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
+			    wepsim_state_history_list() ;
+			    return false;"
+		   type="button">Add <span class='hidden-xs'>state to history</span></button>
            <button type="button" 
                    onclick="$('#current_state1').modal('hide');"
                    class="btn btn-primary col-xs-3 pull-right">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
