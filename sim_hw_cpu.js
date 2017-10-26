@@ -833,11 +833,11 @@
 	syntax_behavior["ADD"]   = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr) {
-						   set_value(sim_states[s_expr[1]], (get_value(sim_states[s_expr[2]]) << 0) + (get_value(sim_states[s_expr[3]]) << 0) );
-						   set_value(sim_states[s_expr[1]],  get_value(sim_states[s_expr[1]]) & 0xFFFFFFFF) ;
+						   var result = (get_value(sim_states[s_expr[2]]) << 0) + (get_value(sim_states[s_expr[3]]) << 0) ;
+						   set_value(sim_states[s_expr[1]], result >>> 0) ;
 
-						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_N"], (result  < 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_Z"], (result == 0) ? 1 : 0) ;
 
 						   if ( (get_value(sim_states[s_expr[1]]) < 0) &&
 							(get_value(sim_states[s_expr[2]]) >= 0) &&
@@ -851,10 +851,11 @@
 	syntax_behavior["SUB"]   = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr) {
-						   set_value(sim_states[s_expr[1]], (get_value(sim_states[s_expr[2]]) << 0) - (get_value(sim_states[s_expr[3]]) << 0));
+						   var result = (get_value(sim_states[s_expr[2]]) << 0) - (get_value(sim_states[s_expr[3]]) << 0) ;
+						   set_value(sim_states[s_expr[1]], result >>> 0);
 
-						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_N"], (result  < 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_Z"], (result == 0) ? 1 : 0) ;
 
 						   if ( (get_value(sim_states[s_expr[1]]) < 0) &&
 							(get_value(sim_states[s_expr[2]]) >= 0) &&
@@ -868,10 +869,11 @@
 	syntax_behavior["MUL"]   = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr) {
-						   set_value(sim_states[s_expr[1]], (get_value(sim_states[s_expr[2]]) << 0) * (get_value(sim_states[s_expr[3]]) << 0));
+						   var result = (get_value(sim_states[s_expr[2]]) << 0) * (get_value(sim_states[s_expr[3]]) << 0) ;
+						   set_value(sim_states[s_expr[1]], result >>> 0);
 
-						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_N"], (result  < 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_Z"], (result == 0) ? 1 : 0) ;
 
 						   if ( (get_value(sim_states[s_expr[1]]) < 0) &&
 							(get_value(sim_states[s_expr[2]]) >= 0) &&
