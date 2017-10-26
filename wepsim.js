@@ -1409,7 +1409,7 @@
              "<thead>" +
              "<tr>" +
              "<th>Type</th>" +
-             "<th>Identification</th>" +
+             "<th><span class='hidden-xs'>Identification</span><span class='visible-xs'>Id.</span></th>" +
              "<th><span class='hidden-xs'>Values in the </span>clipboard<span class='hidden-xs'> state</th>" +
              "<th><span class='hidden-xs'>Values in the </span>selected<span class='hidden-xs'> state</th>" +
              "</tr>" +
