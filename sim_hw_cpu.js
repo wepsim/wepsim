@@ -30,7 +30,8 @@
                                                   if (typeof vec.CPU == "undefined")
                                                       vec.CPU = new Object() ;
 
-					          var internal_reg = ["PC", "MAR", "MBR", "IR", "RT1", "RT1", "RT2", "RT3", "SR"] ;
+					          // var internal_reg = ["PC", "MAR", "MBR", "IR", "RT1", "RT1", "RT2", "RT3", "SR"] ;
+					          var internal_reg = ["PC", "SR"] ;
 
 						  var value = 0 ;
 					          for (var i=0; i<sim_states['BR'].length; i++)
