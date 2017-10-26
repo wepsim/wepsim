@@ -763,9 +763,8 @@
               t = new Date(state_history[i].time) ;
 
               o += '<div class="panel panel-default">' +
-                   '  <div class="panel-heading">' +
-                   '    <h4 class="panel-title" ' + 
-                   '        data-toggle="collapse" data-target="#collapse_'+i+'" data-parent="#accordion1">' +
+                   '  <div class="panel-heading" data-toggle="collapse" data-target="#collapse_'+i+'" data-parent="#accordion1">' +
+                   '    <h4 class="panel-title">' +
                    '      <span>[' +
                             t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + '_' +
                             t.getHours()    + '-' + t.getMinutes()   + '-' + t.getSeconds() + '_' + 
