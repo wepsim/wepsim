@@ -1247,7 +1247,7 @@
                   <button onclick="$('#bot_check1').carousel(0);"
                           type="button" 
                           class="btn btn-default" 
-			  style="height:34px !important;">History<span class='hidden-xs'> Management</span></button>
+			  style="height:34px !important;">History</button>
                   <button onclick="$('#bot_check1').carousel(1);" 
                           type="button" 
                           class="btn btn-info" 
@@ -1296,11 +1296,11 @@
                   </div>
                   <div class="item">
                      <div>
-			<button class="btn btn-default btn-sm col-xs-4 col-sm-3 pull-right"
-				onclick="CopyFromTextarea('end_state1'); return false;"
-				type="button">Copy <span class='hidden-xs'>to clipboard</span></button>
-			<br>
-                        <h4>Current State:</h4>
+                        <h4 style="margin:20 0 10 0;">Current State:
+			<span class="btn btn-default btn-xs"
+			      onclick="CopyFromTextarea('end_state1'); return false;"
+			      data-inline="true">Copy <span class='hidden-xs'>to clipboard</span>
+                        </h4>
                         <form id="end_state_form1" 
                               class="form-horizontal bootboxLargeHeight" 
                               style="white-space:wrap; overflow-y:auto;">
