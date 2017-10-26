@@ -521,10 +521,7 @@
 	            var r = sim_signals[key].fire_name[j].split(':') ;
                     if (r[1] == event.currentTarget.id)
                     {
-                        var nextvalue = 0;
-                        if (sim_signals[key].nbits == 1)
-                            nextvalue = ((sim_signals[key].value >>> 0) + 1) % 2;
-
+                        var checkvalue  = (sim_signals[key].value >>> 0) ;
                         var str_bolded  = "";
                         var str_checked = "";
                         var input_help  = "";
@@ -536,7 +533,7 @@
                         {
                             for (var k = 0; k < sim_signals[key].behavior.length; k++)
                             {
-                                 if (k == nextvalue)
+                                 if (k == checkvalue)
                                       str_checked = ' checked="checked" ' ;
                                  else str_checked = ' ' ;
 
