@@ -442,7 +442,7 @@
                  resolve(1);
             });
             var f2 = new Promise(function(resolve, reject) {
-                 show_control_memory(MC, MC_dashboard, get_value(sim_states['REG_MICROADDR']), true, true) ;
+                 show_control_memory(MC, MC_dashboard, get_value(sim_states['REG_MICROADDR']), true) ;
                  resolve(1);
             });
 
@@ -521,10 +521,7 @@
 	            var r = sim_signals[key].fire_name[j].split(':') ;
                     if (r[1] == event.currentTarget.id)
                     {
-                        var nextvalue = 0;
-                        if (sim_signals[key].nbits == 1)
-                            nextvalue = ((sim_signals[key].value >>> 0) + 1) % 2;
-
+                        var checkvalue  = (sim_signals[key].value >>> 0) ;
                         var str_bolded  = "";
                         var str_checked = "";
                         var input_help  = "";
@@ -536,7 +533,7 @@
                         {
                             for (var k = 0; k < sim_signals[key].behavior.length; k++)
                             {
-                                 if (k == nextvalue)
+                                 if (k == checkvalue)
                                       str_checked = ' checked="checked" ' ;
                                  else str_checked = ' ' ;
 
@@ -747,8 +744,8 @@
 	    }
 
 	    // 6.- show memories...
-            show_main_memory   (MP,                1, true, true) ;
-            show_control_memory(MC,  MC_dashboard, 1, true, true) ;
+            show_main_memory   (MP,                0, true, true) ;
+            show_control_memory(MC,  MC_dashboard, 0, true) ;
 	}
 
 
@@ -908,7 +905,7 @@
             show_rf_values();
             show_rf_names();
             show_main_memory   (MP,                0, true, false) ;
-            show_control_memory(MC,  MC_dashboard, 0, true, false) ;
+            show_control_memory(MC,  MC_dashboard, 0, true) ;
             set_screen_content("") ;
         }
 

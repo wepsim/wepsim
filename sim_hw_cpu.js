@@ -30,7 +30,8 @@
                                                   if (typeof vec.CPU == "undefined")
                                                       vec.CPU = new Object() ;
 
-					          var internal_reg = ["PC", "MAR", "MBR", "IR", "RT1", "RT1", "RT2", "RT3", "SR"] ;
+					          // var internal_reg = ["PC", "MAR", "MBR", "IR", "RT1", "RT1", "RT2", "RT3", "SR"] ;
+					          var internal_reg = ["PC", "SR"] ;
 
 						  var value = 0 ;
 					          for (var i=0; i<sim_states['BR'].length; i++)
@@ -652,22 +653,22 @@
 
         /* Virtual Signals, for UI */
 	sim_signals["TEST_C"] = { name: "TEST_C", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-		  	          behavior: ["MV FLAG_C VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_C VAL_ONE; FIRE_IFSET SELP 2"],
+		  	          behavior: ["MV FLAG_C VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_C VAL_ONE; FIRE_IFSET SELP 3"],
 		  	          fire_name: ['svg_p:text3701-3'],
 			          draw_data: [['svg_p:text3701-3']],
 			          draw_name: [[]] };
 	sim_signals["TEST_V"] = { name: "TEST_V", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-		  	          behavior: ["MV FLAG_V VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_V VAL_ONE; FIRE_IFSET SELP 2"],
+		  	          behavior: ["MV FLAG_V VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_V VAL_ONE; FIRE_IFSET SELP 3"],
 		  	          fire_name: ['svg_p:text3701-3-1'],
 			          draw_data: [['svg_p:text3701-3-1']],
 			          draw_name: [[]] };
 	sim_signals["TEST_N"] = { name: "TEST_N", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-		  	          behavior: ["MV FLAG_N VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_N VAL_ONE; FIRE_IFSET SELP 2"],
+		  	          behavior: ["MV FLAG_N VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_N VAL_ONE; FIRE_IFSET SELP 3"],
 		  	          fire_name: ['svg_p:text3701-3-2'],
 			          draw_data: [['svg_p:text3701-3-2']],
 			          draw_name: [[]] };
 	sim_signals["TEST_Z"] = { name: "TEST_Z", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-		  	          behavior: ["MV FLAG_Z VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_Z VAL_ONE; FIRE_IFSET SELP 2"],
+		  	          behavior: ["MV FLAG_Z VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_Z VAL_ONE; FIRE_IFSET SELP 3"],
 		  	          fire_name: ['svg_p:text3701-3-5'],
 			          draw_data: [['svg_p:text3701-3-5']],
 			          draw_name: [[]] };
@@ -832,11 +833,11 @@
 	syntax_behavior["ADD"]   = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr) {
-						   set_value(sim_states[s_expr[1]], (get_value(sim_states[s_expr[2]]) << 0) + (get_value(sim_states[s_expr[3]]) << 0) );
-						   set_value(sim_states[s_expr[1]],  get_value(sim_states[s_expr[1]]) & 0xFFFFFFFF) ;
+						   var result = (get_value(sim_states[s_expr[2]]) << 0) + (get_value(sim_states[s_expr[3]]) << 0) ;
+						   set_value(sim_states[s_expr[1]], result >>> 0) ;
 
-						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_N"], (result  < 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_Z"], (result == 0) ? 1 : 0) ;
 
 						   if ( (get_value(sim_states[s_expr[1]]) < 0) &&
 							(get_value(sim_states[s_expr[2]]) >= 0) &&
@@ -850,10 +851,11 @@
 	syntax_behavior["SUB"]   = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr) {
-						   set_value(sim_states[s_expr[1]], (get_value(sim_states[s_expr[2]]) << 0) - (get_value(sim_states[s_expr[3]]) << 0));
+						   var result = (get_value(sim_states[s_expr[2]]) << 0) - (get_value(sim_states[s_expr[3]]) << 0) ;
+						   set_value(sim_states[s_expr[1]], result >>> 0);
 
-						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_N"], (result  < 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_Z"], (result == 0) ? 1 : 0) ;
 
 						   if ( (get_value(sim_states[s_expr[1]]) < 0) &&
 							(get_value(sim_states[s_expr[2]]) >= 0) &&
@@ -867,10 +869,11 @@
 	syntax_behavior["MUL"]   = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr) {
-						   set_value(sim_states[s_expr[1]], (get_value(sim_states[s_expr[2]]) << 0) * (get_value(sim_states[s_expr[3]]) << 0));
+						   var result = (get_value(sim_states[s_expr[2]]) << 0) * (get_value(sim_states[s_expr[3]]) << 0) ;
+						   set_value(sim_states[s_expr[1]], result >>> 0);
 
-						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_N"], (result  < 0) ? 1 : 0) ;
+						   set_value(sim_states["FLAG_Z"], (result == 0) ? 1 : 0) ;
 
 						   if ( (get_value(sim_states[s_expr[1]]) < 0) &&
 							(get_value(sim_states[s_expr[2]]) >= 0) &&
