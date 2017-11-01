@@ -8,60 +8,45 @@
 
 .ktext
 sys_prt_str: li   $1 1
-         b5: lb   $27 ($t0)
+         b5: lb   $27 ($26)
              beq  $27 $0 fin1
              out  $27 0x1000
-             add  $t0 $t0 $1
+             add  $26 $26 $1
              b  b5
        fin1: reti
       
-sys_prt_int: # push $fp, $a0
-             li   $1 4
-             sw   $a0 ($sp)
-             sub  $sp $sp $1
-             sw   $fp ($sp)
-             sub  $sp $sp $1
-             move $fp $sp
-             # '\0' -> ($sp)
+sys_prt_int: # '\0' -> ($sp)
              li   $1 1
              sb   $0 ($sp)
              sub  $sp $sp $1
          b3: # rem(x,10) -> ($sp)
              li   $1 10
-             div  $26 $a0 $1
-             rem  $27 $a0 $1
+             rem  $27 $26 $1
+             div  $26 $26 $1
              li   $1 48
              add  $27 $27 $1
              li   $1 1
              sb   $27 ($sp)
              sub  $sp $sp $1
-             move $a0 $26
-             bne  $a0 $0 b3
+             bne  $26 $0 b3
          f3: # print_string($sp)
              add  $sp $sp $1
              lb   $27 ($sp)
              beq  $27 $0 f2
              out  $27 0x1000
              b f3
-         f2: # pop $fp, $a0
-             li   $1 4
-             move $sp $fp
-             add  $sp $sp $1
-             lw   $fp ($sp)
-             add  $sp $sp $1
-             lw   $a0 ($sp)
-             reti
+         f2: reti
 
    rt_i0:    # 1.- interruption
-             la   $t0 msgi0
+             la   $26 msgi0
              b    sys_prt_str
 
    rt_div0:  # 2.- exception
-             la   $t0 msgi1
+             la   $26 msgi1
              b    sys_prt_str
 
    rt_sys:   # 3.- syscall
-             move $t0 $a0
+             move $26 $a0
              li   $t1 4
              beq  $v0 $t1 sys_prt_str
              li   $t1 1
