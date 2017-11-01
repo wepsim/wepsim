@@ -26,8 +26,8 @@ sys_print:  li   $0 0
 
   rt_sys:   # 3.- syscall
             move $26 $a0
-            li   $t1 4
-            beq  $v0 $t1 sys_print
+            li   $27 4
+            beq  $v0 $27 sys_print
             reti 
 
 

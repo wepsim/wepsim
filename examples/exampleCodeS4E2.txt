@@ -47,10 +47,10 @@ sys_prt_int: # '\0' -> ($sp)
 
    rt_sys:   # 3.- syscall
              move $26 $a0
-             li   $t1 4
-             beq  $v0 $t1 sys_prt_str
-             li   $t1 1
-             beq  $v0 $t1 sys_prt_int
+             li   $27 4
+             beq  $v0 $27 sys_prt_str
+             li   $27 1
+             beq  $v0 $27 sys_prt_int
              reti 
 
 
