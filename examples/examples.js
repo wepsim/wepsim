@@ -92,3 +92,10 @@
                      description: "Example of instructions addv and seqv.<br>" 
                   });
 
+    examples.push({ 
+                     id: 'S4E2',
+                     title: "syscall 1 & 4",
+                     level: "Special",
+                     description: "Example of syscall for print integer and string.<br>" 
+                  });
+
