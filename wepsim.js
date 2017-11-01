@@ -823,11 +823,21 @@
               wepsim_notify_success('<strong>INFO</strong>', 'Current state loaded !') ;
 
               // ga
-              var s=0 ;
-              for (var i=0; i<txt_checklist.length; i++)
-                   if (';' == txt_checklist[i]) 
-                       s++ ;
-              ga('send', 'event', 'state', 'state.dump', 'state.dump.eltos=' + s);
+	      var neltos  = 0 ;
+	      var nceltos = 0 ;
+	      var ga_str  = "" ;
+              for (var component in state_obj) 
+	      {
+	           nceltos = 0 ;
+	           for (var eltos in state_obj[component]) {
+	                nceltos++ ;
+	           }
+	           ga_str = ga_str + "," + component + "=" + nceltos ;
+                   neltos = neltos + nceltos ;
+	      }
+              ga('send', 'event', 'state', 
+	         'state.dump', 
+	         'state.dump.' + 'neltos=' + neltos + ga_str);
 
          }, 80) ;
     }
@@ -838,15 +848,17 @@
 
         // dialog
         if (0 == obj_result.errors)
-    	     var msg = "<center><span style='background-color:#7CFC00'>" + 
+    	     var msg = "&emsp;<span style='background-color:#7CFC00'>" + 
                        "Meets the specified requirements" + 
-                       "</span><center><br>" ;
+                       "</span><br>" ;
         else var msg = wepsim_checkreport2html(obj_result.result, true) ;
 
         $('#' + id_result).html(msg);
 
         // ga
-        ga('send', 'event', 'state', 'state.check', 'state.check.differ=' + obj_result.errors);
+        ga('send', 'event', 'state', 
+	   'state.check', 
+	   'state.check.' + 'a=' + obj_result.neltos_expected + ',b=' + obj_result.neltos_obtained + ',sd=' + obj_result.errors);
 
 	return true ;
     }
@@ -1307,6 +1319,8 @@
         var d = new Object() ;
         d.result = new Array() ;
         d.errors = 0 ;
+        d.neltos_expected = 0 ;
+        d.neltos_obtained = 0 ;
 
         var obtained_value = 0 ;
 	for (var compo in sim_components)
@@ -1316,6 +1330,8 @@
 	    {
 		    for (var elto in expected_result[compo])
 		    {
+                         d.neltos_expected++ ;
+
                          obtained_value = expected_result[compo][elto].default_value ;
 			 if ( (typeof obtained_result[compo]       != "undefined") &&
 			      (typeof obtained_result[compo][elto] != "undefined") ) {
@@ -1357,6 +1373,8 @@
 	    {
 		    for (var elto in obtained_result[compo]) 
 		    {
+                         d.neltos_obtained++ ;
+
 			 if ( (typeof expected_result[compo]       != "undefined") && 
 			      (typeof expected_result[compo][elto] != "undefined") ) {
 			       continue ;
