@@ -858,7 +858,7 @@
         // ga
         ga('send', 'event', 'state', 
 	   'state.check', 
-	   'state.check.' + 'a=' + d.neltos_expected + ',b=' + d.neltos_obtained + ',sd=' + obj_result.errors);
+	   'state.check.' + 'a=' + obj_result.neltos_expected + ',b=' + obj_result.neltos_obtained + ',sd=' + obj_result.errors);
 
 	return true ;
     }
