@@ -1168,6 +1168,8 @@
 	if (step < 0) 
 	    return ;
 
+        ga('send', 'event', 'help', 'help.tutorial', 'help.tutorial.name=' + tutorial_name + ',step=' + step);
+
         // 2.- code_pre
         tutorial[step].code_pre();
         if (wepsim_voice_canSpeak())
