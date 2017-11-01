@@ -42,6 +42,31 @@
         height: inherit !important
     }
 
+    .modal-header {
+	padding: 5 5 5 5 !important;
+        background-color: #EEEEEE !important;
+    }
+    .modal-body {
+	padding: 10 10 10 10 !important;
+    }
+    .modal-footer {
+	padding: 8 8 8 8 !important;
+        background-color: #EEEEEE !important;
+    }
+
+    .bootbox .modal-body {
+        overflow: auto;
+    }
+    .bootboxWidth {
+        min-width: 80vw;
+    }
+    .bootboxShortHeight {
+        max-height: 25vh;
+    }
+    .bootboxLargeHeight {
+        max-height: 55vh;
+    }
+
     div.ui-input-text, div.ui-slider { 
         margin: 0px 0px 0px 0px;
     }
@@ -74,19 +99,31 @@
     }
 
     .split.split-horizontal, .gutter.gutter-horizontal {
-        height: 90%;
+        height: 80%;
         float: left;
+    }
+
+    .tokenfield .token .token-label {
+        max-width: none!important;
+    }
+
+    .no-text-shadow {
+        -webkit-text-shadow: none !important;
+        text-shadow: none !important;
+    }
+
+    .ui-helper-hidden-accessible {
+        display: none;
     }
     </style>
 
     <link  href="external/external.min.css" rel="stylesheet">
     <script src="external/external.min.js"></script>
-    <script src="examples/examples.js"></script>
-    <script src="help/helps.js"></script>
 
     <script src="min.sim_all.js"></script>
     <script src="min.sim_hw.js"></script> 
     <script src="min.wepsim.js"></script>
+    <script src="min.sim_info.js"></script>
 
     <!-- Google Analytics -->
     <script>
@@ -111,7 +148,9 @@
                 </div>
                 <span class="ui-title"><b>WepSIM</b> <span class="badge"><div class="wsversion">X</div></span> / Simulator</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
-                    <a href="#actions_panel" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
+                    <a id="menu1"
+                       href="#actions_panel"
+                       class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
 	</div><!-- /header -->
 
@@ -126,13 +165,15 @@
                               <a id="tab26" href="#eltos_cpu" 
                                  onclick="if (is_drawing() == false)
                                               $('#slider2d').toggle(); 
+					  wepsim_reset_max_turbo() ;
                                           start_drawing(); 
                                           refresh();">Processor</a>
                           </li>
 		          <li style="clear:none;width:50% !important">
                               <a id="tab24" href="#eltos_dbg"  
                                  onclick="stop_drawing(); 
-                                          var o1 = show_asmdbg_pc();
+					  wepsim_reset_max_turbo() ;
+                                          var o1 = fullshow_asmdbg_pc();
                                           var obj_byid = $('#asm_debugger_container');
                                           if (typeof o1[0] == 'undefined') 
                                               return;
@@ -155,14 +196,14 @@
 			     </div>
 			     <div class="ui-grid-a">
 				<div class="ui-block-a" id="eltos_cpu_a" style="padding:0 0 0 0; width:60%">
-				    <object id="svg_p" data="images/processor6.svg" type="image/svg+xml">
+				    <object id="svg_p" data="images/processor6.svg" type="image/svg+xml" style="transform:translate3d(0,0,0);">
 					Your browser doesn't support SVG
 				    </object>
 				    <img alt="fire" id="internalbus_fire" src="images/fire.gif" height=50 style="position:absolute; top:55%; left:5%;  display:none;">
 				    <img alt="fire" id="databus_fire"     src="images/fire.gif" height=50 style="position:absolute; top:23%; left:25%; display:none;">
 				</div>
 				<div class="ui-block-b" id="eltos_cpu_b" style="padding:0 0 0 0; width:40%">
-				    <object id="svg_cu" data="images/controlunit6.svg" type="image/svg+xml">
+				    <object id="svg_cu" data="images/controlunit6.svg" type="image/svg+xml" style="transform:translate3d(0,0,0);">
 					Your browser doesn't support SVG
 				    </object>
 				</div>
@@ -180,18 +221,18 @@
 		   <div data-role="popup" id="checkboxespopup">
 		       <label><input aria-label="Show breakpoint"         type="checkbox" value="1" id="asm_break"  name="asm_break" checked="checked"><span>breakpoints</span></label>
 		       <label><input aria-label="Show address"            type="checkbox" value="1" id="asm_addr"   name="asm_addr"  checked="checked"><span>address</span></label>
-		       <label><input aria-label="Show label"              type="checkbox" value="1" id="asm_label1" name="asm_label1" checked="checked"><span>labels</span></label>
-		       <label><input aria-label="Show instruction"        type="checkbox" value="1" id="asm_ins"    name="asm_ins"   checked="checked"><span>assembly</span></label>
 		       <label><input aria-label="Show label"              type="checkbox" value="1" id="asm_label2" name="asm_label2" checked="checked"><span>labels</span></label>
 		       <label><input aria-label="Show pseudo-instruction" type="checkbox" value="1" id="asm_pins"   name="asm_pins"  checked="checked"><span>pseudo</span><span class="hidden-xs">-instructions</span></label>
+		       <label><input aria-label="Show label"              type="checkbox" value="1" id="asm_label1" name="asm_label1" checked="checked"><span>labels</span></label>
+		       <label><input aria-label="Show instruction"        type="checkbox" value="1" id="asm_ins"    name="asm_ins"   checked="checked"><span>assembly</span></label>
 		   </div>
 		   </th>
 			   <th width=10% class="asm_break"><span>break</span><span class="hidden-xs"><small>points</small></span></th>
 			   <th width=15% class="asm_addr"><span>addr</span><span class="hidden-xs">ess</span></th>
-                           <th width=10% class="asm_label1" align=right><span>labels</span></th>
-                           <th width=25% class="asm_ins"    align=left><span>assembly</span></th>
                            <th width=10% class="asm_label2" align=right><span>labels</span></th>
                            <th width=20% class="asm_pins"   align=left><span>pseudo</span><span class="hidden-xs"><small>instructions</small></span></th>
+                           <th width=10% class="asm_label1" align=right><span>labels</span></th>
+                           <th width=25% class="asm_ins"    align=left><span>assembly</span></th>
 			   </tr>
 			   </thead>
 			   </table>
@@ -226,45 +267,95 @@
 
                 <div id="col2" class="col-md-4" style="padding:0 8px 0 0px;">
 
-                    <div class="btn-toolbar" role="toolbar" id="sim_toolbar" style="padding: 0 0px 10px 0px;">
+                    <div class="btn-toolbar" role="toolbar" id="sim_toolbar" style="padding: 0 0px 2px 0px;">
 			<div class="btn-group btn-group-justified" role="group">
-			    <a          href="#" style="background-color: #CCCCCC"
-			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-reset   ui-btn-icon-top ui-mini"
-			       onclick="wepsim_execute_reset();">Reset</a>
-			    <a          href="#" style="background-color: #CCCCCC"
-			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini"
-			       onclick="wepsim_execute_microinstruction();">&#181;Instruction</a>
-			    <a          href="#" style="background-color: #CCCCCC"
-			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini"
-			       onclick="wepsim_execute_instruction();">Instruction</a>
-			    <a id="qbp" href="#" style="background-color: #CCCCCC"
-			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-carat-r ui-btn-icon-top ui-mini"
-			       onclick="wepsim_execute_toggle_play('#qbp'); return false;">Run</a>
-			    <a id="ib1" href="#" style="background-color: #D4DB17; -webkit-text-shadow: none; text-shadow: none;"
-			       class="ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-info ui-btn-icon-top ui-mini"
-			       onclick="wepsim_help_set_relative('#help_simulator_screens'); wepsim_help_refresh();">Help</a>
+			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
+			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-reset   ui-btn-icon-top ui-mini no-text-shadow"
+			       onclick="wepsim_execute_reset(true, true);"><br>Reset</a>
+			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
+			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini no-text-shadow"
+			       onclick="wepsim_execute_microinstruction();"><br>&#181;Instruction</a>
+			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
+			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini no-text-shadow"
+			       onclick="wepsim_execute_instruction();"><br>Instruction</a>
+			    <a id="qbp" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
+			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-carat-r ui-btn-icon-top ui-mini no-text-shadow"
+                               onclick="var mode = get_cfg('show_tutorials');
+                                        if (true == mode) {
+                                            wepsim_notify_success('<strong>INFO</strong>',
+                                                       'Tutorial mode on. Use the configuration to change it.');
+                                        }
+                                        wepsim_execute_toggle_play('#qbp', mode);
+                                        return false;"><br>Run</a>
+			    <a id="ib1" href="#" 
+                               style="background-color: #D4DB17;"
+			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-info ui-btn-icon-top ui-mini no-text-shadow"
+			       onclick="wepsim_help_set_relative('#help_simulator_screens'); 
+                                        wepsim_help_refresh();"><br>Help</a>
                         </div>
                     </div>
 
+
+		    <fieldset class="ui-grid-c">
+			<div class="ui-block-a" style="width:15%">
+		          <button class="btn btn-default ui-btn ui-shadow ui-corner-all"
+		                  style="border-width:1 1 1 1px;"
+		                  onclick="wepsim_dialog_current_state();"><b><span class="hidden-xs">State</span><span class="visible-xs">St.</span></b></button>
+			</div>
+			<div class="ui-block-d" style="width:27%">
+		          <button class="btn btn-default ui-btn ui-shadow ui-corner-all"
+		                  style="border-width:1 1 1 1px;"
+                                  data-toggle="modal" data-target="#confighw"><b><span class="hidden-xs">Configuration</span><span class="visible-xs">Cfg.</span></b></button>
+			</div>
+			<div class="ui-block-c" style="width:40%; margin: 7 0 0 0">
+                          <select name="select5a" id="select5a" class="selectpicker" 
+				  data-container="body" data-role="none" data-width="100%" data-size="false"
+                                  onchange="var val = this.value;
+				            $('#tab' + val).trigger('click');"> 
+				  <optgroup label="CPU">
+				      <option value="11" selected data-content="<span class='label label-primary'>CPU</span>&nbsp;Registers"><a href="#all">Registers</a></option>
+			              <option value="16"  data-content="<span class='label label-primary'>CPU</span>&nbsp;Control Memory"><a href="#mc" >Control Memory</a></option>
+				  </optgroup>
+				  <optgroup label="Main Memory">
+				      <option value="14"  data-content="<span class='label label-primary'>MM</span>&nbsp;Memory"><a href="#mp" >Memory</a></option>
+				  </optgroup>
+				  <optgroup label="Devices">
+				      <option value="12"  data-content="<span class='label label-primary'>Dev</span>&nbsp;Keyboard+Display"><a href="#con">Keyboard+Display</a></option>
+				      <option value="15"  data-content="<span class='label label-primary'>Dev</span>&nbsp;I/O"><a href="#io" >I/O</a></option>
+				  </optgroup>
+			  </select>
+			</div>
+			<div class="ui-block-b" style="width:18%">
+		          <button class="btn btn-default ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-refresh"
+		                  style="border-width:1 0 1 2px;"
+                                  onclick="var val = $('#select5a').val();
+				           $('#tab' + val).trigger('click');
+				           if ('11' == val)
+					        show_rf_values();
+				           else show_memories_values();"><b>Refresh</b></button>
+			</div>
+    		    </fieldset>
+
 		    <div data-role="tabs" id="tabs1">
+
     		      <div data-role="navbar" id="tabsnav1" class="ui-responsive">
 		        <ul>
-		          <li                    style="clear:none;width:33% !important"><a id="tab14" href="#mp" onclick="show_memories_values();">Memory</a></li>
-		          <li                    style="clear:none;width:33% !important"><a id="tab12" href="#con">Console</a></li>
-		          <li class="ui-block-a" style="clear:none;width:33% !important;border:1px solid #ddd;"><a id="tab15" href="#io">Statistics</a></li>
-                          <br>
-		          <li style="           width:33% !important"><a id="tab11" href="#all" class="ui-btn-active" onclick="show_rf_values();">Registers</a></li>
-		          <li style="clear:none;width:33% !important"><a id="tab16" href="#mc" onclick="show_memories_values();">Control Memory</a></li>
-		          <li style="clear:none;width:33% !important"><a id="tab13" href="#config">Configuration</a></li>
+		          <li style="display:none;clear:none;width:33% !important"><a id="tab14" href="#mp">Memory</a></li>
+		          <li style="display:none;clear:none;width:33% !important"><a id="tab12" href="#con">Console</a></li>
+		          <li style="display:none;           width:33% !important"><a id="tab11" href="#all">Registers</a></li>
+		          <li style="display:none;clear:none;width:33% !important"><a id="tab16" href="#mc">Control Memory</a></li>
+                          <li style="display:none;clear:none;width:33% !important"><a id="tab13" href="#config">Configuration</a></li>
+                          <li style="display:none;clear:none;width:33% !important"><a id="tab15" href="#io">Information</a></li>
 		        </ul>
 		      </div>
+
 		      <div id="all"  class="ui-body-d ui-content" style="padding: 15 0px 0 0px;">
 		         <div id="states_ALL"          style="width: inherit; overflow-y: auto;"></div>
 			 <br style="height:0; width:100%; font-size:0; margin:5; padding:0; border:0; display:block;">
 		         <div id="states_BR"           style="width: inherit; overflow-y: auto;"></div>
 		      </div>
-	    	      <div id="config"  class="ui-body-d ui-content" style="padding:14 14 0 14;">
-		         <div id="config_ALL"          style="width: inherit; overflow-y: auto;"></div>
+	    	      <div id="config0"  class="ui-body-d ui-content" style="padding:14 14 0 14;">
+		         <div id="config_ALL0"         style="width: inherit; overflow-y: auto;"></div>
 		      </div>
 		      <div id="mp"   class="ui-body-d ui-content">
 		         <div id="memory_MP"           style="height:60vh; width: inherit; overflow-y: scroll;"></div>
@@ -300,7 +391,9 @@
                 </div>
                 <span class="ui-title"><b>WepSIM</b> <span class="badge"><div class="wsversion">X</div></span> / Microcode</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
-                    <a href="#actions_panel" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
+                    <a id="menu1"
+                       href="#actions_panel"
+                       class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
 	</div><!-- /header -->
 
@@ -313,7 +406,7 @@
 		    </div>
 		    <div role="main" class="ui-content">
 			<h3>Please select the file to be loaded:</h3>
-			<p><input aria-label="file to load" type="file" id="fileToLoad" /></p>
+			<p><input aria-label="file to load" type="file" id="fileToLoad" class="dropify"/></p>
 			<center>
 			<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
                         <button class="ui-btn ui-btn-b ui-btn-inline" 
@@ -419,7 +512,9 @@
                 </div>
                 <span class="ui-title"><b>WepSIM</b> <span class="badge"><div class="wsversion">X</div></span> / Assembly</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
-                    <a href="#actions_panel" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
+                    <a id="menu1"
+                       href="#actions_panel"
+                       class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
 	</div><!-- /header -->
 
@@ -432,12 +527,12 @@
 		    </div>
 		    <div role="main" class="ui-content">
 			<h3>Please select the file to be assembled:</h3>
-			<p><input aria-label="file to load" type="file" id="fileToLoad2" /></p>
+			<p><input aria-label="file to load" type="file" id="fileToLoad2" class="dropify"/></p>
 			<center>
 			<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
                         <button class="ui-btn ui-btn-b ui-btn-inline" 
                                 onclick="var fileToLoad = document.getElementById('fileToLoad2').files[0];
-                                         wepsim_load_from_file(fileToLoad,inputasm);
+                                         wepsim_load_from_file(fileToLoad, inputasm);
                                          $('#lsload2').popup('close');">Load from File</button>
                         </center>
 		    </div>
@@ -549,32 +644,11 @@
 </div><!-- /panel -->
 
 
-<div data-role="popup" id="example1" style="background-color: white;"
-     data-dismissible="false" data-animate="false" data-overlay-theme="b">
-
-   <div data-role="header" data-theme="a">
-        <h1><b>Examples</b> <span class="badge btn-success"><div class="wsversion">X</div></span></h1>
-
-        <a href="#" 
-           data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" 
-           class="ui-btn-right">Close</a>
-   </div>
-
-   <div role="main" class="ui-content" style="padding: 8px 8px 8px 8px">
-
-	<div id="container-example1" class="container-fluid" 
-             style="max-width:80vw; max-height:90vh; overflow:auto;">
-        </div>
-
-   </div>
-</div>
-
-
 <div data-role="popup" id="config1" 
      data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
 
    <div data-role="header" data-theme="a">
-        <h1><b>Configuration</b> <span class="badge btn-success"><div class="wsversion">X</div></span></h1>
+        <h1><b>Config<span class="hidden-xs">uration</span></b> <span class="badge btn-success"><div class="wsversion">X</div></span></h1>
         <a href="#" 
            data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" 
            class="ui-btn-right">Close</a>
@@ -582,10 +656,10 @@
 
    <div role="main" class="ui-content" style="padding: 8px 8px 8px 8px">
 
-	<div id="container-configuration1" class="container-fluid" 
-             style="max-width:80vw; max-height:90vh; overflow:auto;">
-	<div class="table-responsive">
-	<table class="table table-striped table-hover table-condensed" width="100%" style="margin:0 0 0 0">
+	<div id="container-configuration1" class="table-responsive" 
+             style="max-width:82vw; max-height:85vh; overflow:auto;">
+	<table class="table table-striped table-hover table-condensed" data-role="none"
+               width="100%" style="margin:0 0 0 0">
 	<thead>
 	<tr>
 	  <th onclick="$('.collapse6').collapse('toggle');">#</th>
@@ -596,96 +670,55 @@
 	</tr>
 	</thead>
 	<tbody>
+
 	 <tr>
 	  <td class="collapse6 collapse in">1</td>
-	  <td class="hidden-xs" style="color:gray">simulation</td>
-	  <td>Data-path color</td>
+	  <td class="hidden-xs" style="color:gray">help</td>
+	  <td>Active tutorials</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		 <input type="color"
-			aria-label="Color for active data"
-			id="colorpicker1"
-			data-show-value="false"
-			class="noshadow" style="margin:0 0 0 0"
-			onchange="set_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh(); save_cfg();">
+		     <input name="radio10" id="radio10-true" 
+			    aria-label="Is editable: true"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('show_tutorials',true); save_cfg();"
+			    value="on" type="radio">
+		     <label for="radio10-true">On</label>
+		     <input name="radio10" id="radio10-false" 
+			    aria-label="Is editable: false"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('show_tutorials',false); save_cfg();"
+			    value="off" type="radio">
+		     <label for="radio10-false">Off</label>
 		 </fieldset>
           </td>
-	  <td rowspan="2"><img alt="color configuration" 
-                               src="images/cfg-colors.gif" 
-                               style="width:90px; max-height:100%"></td>
+	  <td class="collapse7 collapse in">Set tutorial mode</td>
 	 </tr>
 
 	 <tr>
 	  <td class="collapse6 collapse in">2</td>
-	  <td class="hidden-xs" style="color:gray">simulation</td>
-	  <td>Signal color</td>
+	  <td class="hidden-xs" style="color:gray">help</td>
+	  <td>Active voice</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		 <input type="color"
-			aria-label="Color for active signal name"
-			id="colorpicker2"
-			data-show-value="false"
-			class="noshadow" style="margin:0 0 0 0"
-			onchange="set_cfg('color_name_active', $('#colorpicker2').spectrum('get')); refresh(); save_cfg();">
+		     <input name="radio11" id="radio11-true" 
+			    aria-label="Is editable: true"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('use_voice',true); save_cfg(); wepsim_voice_start();"
+			    value="on" type="radio">
+		     <label for="radio11-true">On</label>
+		     <input name="radio11" id="radio11-false" 
+			    aria-label="Is editable: false"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('use_voice',false); save_cfg(); wepsim_voice_stop();"
+			    value="off" type="radio">
+		     <label for="radio11-false">Off</label>
 		 </fieldset>
           </td>
+	  <td class="collapse7 collapse in">Use voice</td>
 	 </tr>
 
 	 <tr>
 	  <td class="collapse6 collapse in">3</td>
-	  <td class="hidden-xs" style="color:gray">simulation</td>
-	  <td>RF display format</td>
-	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		     <input name="radio2" id="radio2-16" 
-			    aria-label="register file display format (decimal)"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('RF_display_format',16); show_rf_values(); show_memories_values(); save_cfg();"
-			    value="on" type="radio">
-		     <label for="radio2-16">Hex.</label>
-		     <input name="radio2" id="radio2-10" 
-			    aria-label="register file display format (hexadecimal)"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('RF_display_format',10); show_rf_values(); show_memories_values(); save_cfg();"
-			    value="off" type="radio">
-		     <label for="radio2-10">Dec.</label>
-		     <input name="radio2" id="radio2-8"  
-			    aria-label="register file display format (octal)"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('RF_display_format',8); show_rf_values(); show_memories_values(); save_cfg();"
-			    value="off" type="radio">
-		     <label for="radio2-8">Oct.</label>
-		 </fieldset>
-          </td>
-	  <td rowspan="2"><img alt="register file example" 
-                               src="images/cfg-rf.gif" 
-                               style="width:92px; max-height:100%"></td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse in">4</td>
-	  <td class="hidden-xs" style="color:gray">simulation</td>
-	  <td>RF name</td>
-	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		     <input name="radio3" id="radio3-numerical" 
-			    aria-label="register file display name (number)"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('RF_display_name','numerical'); show_rf_names(); save_cfg();"
-			    value="on" type="radio">
-		     <label for="radio3-numerical">Numbers</label>
-		     <input name="radio3" id="radio3-logical" 
-			    aria-label="register file display name (user identification)"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('RF_display_name','logical'); show_rf_names(); save_cfg();"
-			    value="off" type="radio">
-		     <label for="radio3-logical">Labels</label>
-		 </fieldset>
-          </td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse in">5</td>
 	  <td class="hidden-xs" style="color:gray">editor</td>
 	  <td>Editor theme</td>
 	  <td>
@@ -716,7 +749,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">6</td>
+	  <td class="collapse6 collapse in">4</td>
 	  <td class="hidden-xs" style="color:gray">editor</td>
 	  <td>Editor mode</td>
 	  <td>
@@ -740,23 +773,23 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">7</td>
+	  <td class="collapse6 collapse in">5</td>
 	  <td class="hidden-xs" style="color:gray">execution</td>
 	  <td>Speed-up</td>
 	  <td>
 		 <input type="range"
-			class="noshadow" style="margin:0 0 0 0"
+			class="noshadow ui-hidden-accessible" 
 			aria-label="Execution speed control"
 			data-show-value="false"
 			name="slider1" id="slider1"
-			min="1" max="500" value="200" step="10"
+			min="1" max="500" value="200" step="20"
 			onchange="set_cfg('DBG_delay', 1000 / this.value); save_cfg();">
           </td>
 	  <td class="collapse7 collapse in">Speed (slow - fast)</td>
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">8</td>
+	  <td class="collapse6 collapse in">6</td>
 	  <td class="hidden-xs" style="color:gray">execution</td>
 	  <td>Step-by-step</td>
 	  <td>
@@ -779,20 +812,20 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">9</td>
+	  <td class="collapse6 collapse in">7</td>
 	  <td class="hidden-xs" style="color:gray">execution</td>
 	  <td>Breakpoint Icon</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
 		    <img alt="stop icon" id="img_select1" src="images/stop_classic.gif" 
 			 style="position:relative; left:10px; height:30px !important; width:30px !important;">
-		    <select name="select1" id="select1" 
+		    <select data-native-menu="false"
+                            name="select1" id="select1" 
 			    aria-label="Breakpoint Icon"
 			    onchange="var opt = $(this).find('option:selected');
 				      var optValue = opt.val();
 				      $('#img_select1').attr('src','images/stop_' + optValue + '.gif');
-				      set_cfg('ICON_theme',optValue); save_cfg();"
-			    data-native-menu="false">
+				      set_cfg('ICON_theme',optValue); save_cfg();">
 			<option value="classic">Classic</option>
 			<option value="pushpin">Push Pin</option>
 			<option value="simple">Simple</option>
@@ -811,8 +844,120 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">10</td>
+	  <td class="collapse6 collapse in">8</td>
 	  <td class="hidden-xs" style="color:gray">execution</td>
+	  <td>Limit instr. ticks</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		    <select name="select3" id="select3" 
+			    aria-label="max. ticks per instruction"
+			    onchange="var opt = $(this).find('option:selected');
+				      var optValue = opt.val();
+				      set_cfg('DBG_limitick',optValue); save_cfg();"
+			    data-native-menu="false">
+			<option value="-1">no limit</option>
+			<option value="1000"  >1000</option>
+			<option value="10000" >10000</option>
+			<option value="100000">100000</option>
+		    </select>
+		 </fieldset>
+          </td>
+	  <td class="collapse7 collapse in">To limit clock ticks</td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse in">9</td>
+	  <td class="hidden-xs" style="color:gray">simulation</td>
+	  <td>RF display format</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		     <input name="radio2" id="radio2-16" 
+			    aria-label="register file display format (decimal)"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('RF_display_format',16); show_rf_values(); show_memories_values(); save_cfg();"
+			    value="on" type="radio">
+		     <label for="radio2-16">Hex.</label>
+		     <input name="radio2" id="radio2-10" 
+			    aria-label="register file display format (hexadecimal)"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('RF_display_format',10); show_rf_values(); show_memories_values(); save_cfg();"
+			    value="off" type="radio">
+		     <label for="radio2-10">Dec.</label>
+		     <input name="radio2" id="radio2-8"  
+			    aria-label="register file display format (octal)"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('RF_display_format',8); show_rf_values(); show_memories_values(); save_cfg();"
+			    value="off" type="radio">
+		     <label for="radio2-8">Oct.</label>
+		 </fieldset>
+          </td>
+	  <td rowspan="2"><img alt="register file example" 
+	                       class="collapse7 collapse in"
+                               src="images/cfg-rf.gif" 
+                               style="width:92px; max-height:100%"></td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse in">10</td>
+	  <td class="hidden-xs" style="color:gray">simulation</td>
+	  <td>RF name</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		     <input name="radio3" id="radio3-numerical" 
+			    aria-label="register file display name (number)"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('RF_display_name','numerical'); show_rf_names(); save_cfg();"
+			    value="on" type="radio">
+		     <label for="radio3-numerical">Numbers</label>
+		     <input name="radio3" id="radio3-logical" 
+			    aria-label="register file display name (user identification)"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('RF_display_name','logical'); show_rf_names(); save_cfg();"
+			    value="off" type="radio">
+		     <label for="radio3-logical">Labels</label>
+		 </fieldset>
+          </td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse in">11</td>
+	  <td class="hidden-xs" style="color:gray">simulation</td>
+	  <td>Data-path color</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		 <input type="color"
+			aria-label="Color for active data"
+			id="colorpicker1"
+			data-show-value="false"
+			class="noshadow" style="margin:0 0 0 0"
+			onchange="set_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh(); save_cfg();">
+		 </fieldset>
+          </td>
+	  <td rowspan="2"><img alt="color configuration" 
+	                       class="collapse7 collapse in"
+                               src="images/cfg-colors.gif" 
+                               style="width:90px; max-height:100%"></td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse in">12</td>
+	  <td class="hidden-xs" style="color:gray">simulation</td>
+	  <td>Signal color</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		 <input type="color"
+			aria-label="Color for active signal name"
+			id="colorpicker2"
+			data-show-value="false"
+			class="noshadow" style="margin:0 0 0 0"
+			onchange="set_cfg('color_name_active', $('#colorpicker2').spectrum('get')); refresh(); save_cfg();">
+		 </fieldset>
+          </td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse in">13</td>
+	  <td class="hidden-xs" style="color:gray">simulation</td>
 	  <td>Interactive Mode</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -834,8 +979,8 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">11</td>
-	  <td class="hidden-xs" style="color:gray">execution</td>
+	  <td class="collapse6 collapse in">14</td>
+	  <td class="hidden-xs" style="color:gray">simulation</td>
 	  <td>Editable registers</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -857,27 +1002,20 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">12</td>
-	  <td class="hidden-xs" style="color:gray">execution</td>
-	  <td>Limit instr. ticks</td>
+	  <td class="collapse6 collapse in">15</td>
+	  <td class="hidden-xs" style="color:gray">simulation</td>
+	  <td>Notification delay</td>
 	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		    <select name="select3" id="select3" 
-			    aria-label="max. ticks per instruction"
-			    onchange="var opt = $(this).find('option:selected');
-				      var optValue = opt.val();
-				      set_cfg('DBG_limitick',optValue); save_cfg();"
-			    data-native-menu="false">
-			<option value="-1">no limit</option>
-			<option value="1000">1000</option>
-			<option value="10000">10000</option>
-			<option value="100000">10000</option>
-		    </select>
-		 </fieldset>
+		 <input type="range"
+			class="noshadow ui-hidden-accessible" 
+			aria-label="Notification delay"
+			data-show-value="false"
+			name="slider3" id="slider3"
+			min="100" max="2000" value="1000" step="100"
+			onchange="set_cfg('NOTIF_delay', this.value); save_cfg();">
           </td>
-	  <td class="collapse7 collapse in">To limit clock ticks</td>
+	  <td class="collapse7 collapse in">Viewing time (slow - fast)</td>
 	 </tr>
-
 
 	</tbody>
 	</table>
@@ -900,7 +1038,7 @@
    </div>
    <div role="main" class="ui-content">
 
-        <div style="font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 16px; line-height: 24px; padding-bottom: 6.4px; padding-left: 8px; padding-right: 8px; padding-top: 6.4px; max-width: 850px;">
+        <div style="font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 16px; line-height: 24px; padding-bottom: 6.4px; padding-left: 8px; padding-right: 8px; padding-top: 6.4px; max-width: 90vw;">
         <div class="row">
         <div class="col-xs-12 col-sm-12">
             Copyright &copy; 2015-2017 <br>
@@ -910,25 +1048,25 @@
                class="btn btn-info" style="padding:0 0 0 0; color:white !important;"
                data-toggle="popover1"
                data-html="true" 
-               data-content="<img src='images/author_fgarcia.png' width='200'/>"
+               data-content="<img src='images/author_fgarcia.png' height='200'/>"
                title="F&eacute;lix Garc&iacute;a Carballeira">F&eacute;lix Garc&iacute;a Carballeira</a> +
             <a href="#" 
                class="btn btn-info" style="padding:0 0 0 0; color:white !important;"
                data-toggle="popover1"
                data-html="true" 
-               data-content="<img src='images/author_acaldero.png' width='200'/>"
+               data-content="<img src='images/author_acaldero.png' height='200'/>"
                title="Alejandro Calder&oacute;n Mateos">Alejandro Calder&oacute;n Mateos</a> +
             <a href="#" 
                class="btn btn-info" style="padding:0 0 0 0; color:white !important;"
                data-toggle="popover1"
                data-html="true" 
-               data-content="<img src='images/author_jprieto.png' width='200'/><br><br><a href='https://es.linkedin.com/in/javier-prieto-cepeda'>linkedin</a>"
+               data-content="<img src='images/author_jprieto.png' height='200'/><br><br><a href='https://es.linkedin.com/in/javier-prieto-cepeda'>linkedin</a>"
                title="Javier Prieto Cepeda">Javier Prieto Cepeda</a> +
             <a href="#" 
                class="btn btn-info" style="padding:0 0 0 0; color:white !important;"
                data-toggle="popover1"
                data-html="true" 
-               data-content="<img src='images/author_salonso.png' width='200'/>"
+               data-content="<img src='images/author_salonso.png' height='200'/>"
                title="Sa&uacute;l Alonso Monsalve">Sa&uacute;l Alonso Monsalve</a>
             <p>
 
@@ -945,44 +1083,6 @@
    </div>
 
 </div><!-- /popup -->
-
-
-<div data-role="popup" id="help1" 
-     data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
-
-      <div data-role="header" data-theme="b" class="ui-corner-top">
-           <div data-type="horizontal" data-role="controlgroup" class="ui-btn-left">  
-             <div id="help1_ref" style="display:none;"></div>
-	     <input name="radio6" id="radio6-es" data-mini="true"
-		    aria-label="Idiom: Spanish"
-		    style="margin-top:-8px"
-		    onclick="set_cfg('ws_idiom','es'); save_cfg(); wepsim_help_refresh();"
-		    value="ES" type="radio">
-	     <label for="radio6-es">ES</label>
-	     <input name="radio6" id="radio6-en" data-mini="true"
-		    aria-label="Idiom: English"
-		    style="margin-top:-8px"
-		    onclick="set_cfg('ws_idiom','en'); save_cfg(); wepsim_help_refresh();"
-		    value="EN" type="radio">
-	     <label for="radio6-en">EN</label>
-           </div>
-           <h1 style="padding:0 0 0 0;">
-               <a href="#" 
-		  onclick="wepsim_open_help_index();"
-                  class="ui-btn ui-btn-icon-right ui-btn-inline ui-icon-home ui-btn-a">Help</a>
-           </h1>
-           <a href="#" 
-              data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" 
-              class="ui-btn-right">Close</a>
-      </div>
-
-      <div data-role="content" data-theme="d" class="ui-corner-bottom ui-content">
-              <div class="ui-body-d ui-content" style="padding: 2px 2px 2px 2px;">
-                 <div id=iframe_help1 style="height:80vh; width:80vw; max-width:1200px; overflow:auto;"></div>
-              </div>
-      </div>
-
-</div><!-- /panel -->
 
 
 <div data-role="popup" id="bin1" 
@@ -1012,6 +1112,348 @@
 </div><!-- /panel -->
 
 
+<div id="confighw" class="modal">
+     <div class="modal-dialog">
+	<div class="modal-content">
+	   <div class="modal-header">
+		 <button type="button" data-role="button"
+			 class="close ui-btn-right ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-corner-all" 
+			 data-dismiss="modal" aria-hidden="true">x</button>
+		 <h4 class="modal-title">
+		    <center>
+		       <div class="btn-group">
+			  <button onclick="$('#bot_hwcfg1').carousel(0);" 
+				  type="button" 
+				  class="btn btn-info" 
+				  style="height:34px !important;">Hardware Conf<span class='visible-xs'>.</span><span class='hidden-xs'>iguration</span></button>
+			  <button onclick="$('#bot_hwcfg1').carousel(1);
+					   update_checker_loadhelp('#help4a','help_hwcfg');"
+				  type="button" 
+				  class="btn btn-success" 
+				  style="height:34px !important;">Help</button>
+			  <button type="button" 
+				  class="btn btn-success dropdown-toggle" 
+				  data-toggle="dropdown" 
+				  aria-haspopup="true" 
+				  aria-expanded="false" 
+				  style="height:34px !important;"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>   
+			  <ul class="dropdown-menu">
+			     <li><a href="#" onclick="set_cfg('ws_idiom','es'); save_cfg();
+						      $('#bot_hwcfg1').carousel(1);
+						      update_checker_loadhelp('#help4a','help_hwcfg');">ES</a></li>
+			     <li><a href="#" onclick="set_cfg('ws_idiom','en'); save_cfg();
+						      $('#bot_hwcfg1').carousel(1);
+						      update_checker_loadhelp('#help4a','help_hwcfg');">EN</a></li>
+			  </ul>
+		       </div>
+		    </center>
+		 </h4>
+	   </div>
+	   <div class="modal-body">
+               <div id="bot_hwcfg1" class="carousel slide" data-ride="carousel" data-interval="false">
+                  <div class="carousel-inner" role="listbox">
+                     <div class="item active">
+		          <div id="config" class="ui-body-d ui-content" style="padding:14 14 0 14;">
+		               <div id="config_ALL" style="width: inherit; overflow-y: auto;"></div>
+		          </div>
+                     </div>
+                     <div class="item">
+                          <div id="help4a" 
+                               style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>
+                     </div>
+                  </div>
+               </div>
+	   </div>
+	   <div class="modal-footer">
+                 <button type="button" 
+                         onclick="$('#confighw').modal('hide'); "
+                         class="btn btn-primary col-xs-3 pull-right">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
+	   </div>
+	</div>
+     </div>
+</div> <!-- /.modal -->
+
+
+<div id="help1" class="modal">
+     <div class="modal-dialog" style="width:95vw; height:80vh;">
+	<div class="modal-content">
+	   <div class="modal-header">
+		<button type="button" data-role="button"
+                        class="close ui-btn-right ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-corner-all" 
+                        data-dismiss="modal" aria-hidden="true">x</button>
+		<center>
+		   <div class="btn-group">
+		     <button type="button" class="btn btn-success" 
+		             onclick="wepsim_open_help_index();"
+			     style="height:34px !important;">Help Index</button>
+		     <button type="button" class="btn btn-success dropdown-toggle" 
+			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
+			     style="height:34px !important;">
+			 <span class="caret"></span>
+			 <span class="sr-only">Toggle Help Idiom</span>
+		     </button>
+		     <ul class="dropdown-menu">
+			 <li><a href="#" onclick="set_cfg('ws_idiom','es'); save_cfg(); 
+                                         wepsim_help_refresh();">ES</a></li>
+			 <li><a href="#" onclick="set_cfg('ws_idiom','en'); save_cfg(); 
+                                         wepsim_help_refresh();">EN</a></li>
+		     </ul>
+		   </div>
+                </center>
+	   </div>
+	   <div class="modal-body">
+                 <div id="help1_ref" style="display:none;"></div>
+                 <div class="ui-body-d ui-content" 
+                      style="padding: 2px 2px 2px 2px; height:80vh; max-width:1200px; overflow:auto;">
+                      <div id="iframe_help1"></div>
+                 </div>
+	   </div>
+	</div>
+     </div>
+</div> <!-- /.modal -->
+
+
+<div id="example1" class="modal">
+     <div class="modal-dialog" style="width:95vw; height:80vh;">
+	<div class="modal-content">
+	   <div class="modal-header">
+		<button type="button" data-role="button"
+                        class="close ui-btn-right ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-corner-all" 
+                        data-dismiss="modal" aria-hidden="true">x</button>
+		<center>
+                <h4><b>Examples</b> <span class="badge btn-success"><div class="wsversion">X</div></span></h4>
+                </center>
+	   </div>
+	   <div class="modal-body">
+		<div id="container-example1" class="container-fluid" 
+		     style="max-height:80vh; padding:0 0 0 0; overflow:auto;">
+		</div>
+	   </div>
+	</div>
+     </div>
+</div> <!-- /.modal -->
+
+
+<div id="current_state1" class="modal">
+<div class="modal-dialog bootboxWidth">
+   <div class="modal-content">
+      <div class="modal-header">
+	 <button type="button" data-role="button"
+		 class="close ui-btn-right ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-corner-all" 
+		 data-dismiss="modal" aria-hidden="true">x</button>
+         <h4 class="modal-title">
+            <center>
+               <div class="btn-group">
+                  <button onclick="$('#bot_check1').carousel(0);"
+                          type="button" 
+                          class="btn btn-default" 
+			  style="height:34px !important;">History</button>
+                  <button onclick="$('#bot_check1').carousel(1);" 
+                          type="button" 
+                          class="btn btn-info" 
+			  style="height:34px !important;"><span class='hidden-xs'>Edit </span>State</button>
+                  <button onclick="$('#bot_check1').carousel(2);
+                                   update_checker_loadhelp('#help3a','help_dumper');"
+                          type="button" 
+                          class="btn btn-success" 
+                          style="height:34px !important;">Help</button>
+                  <button type="button" 
+                          class="btn btn-success dropdown-toggle" 
+                          data-toggle="dropdown" 
+                          aria-haspopup="true" 
+                          aria-expanded="false" 
+                          style="height:34px !important;"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>   
+                  <ul class="dropdown-menu">
+                     <li><a href="#" onclick="set_cfg('ws_idiom','es'); save_cfg();
+                                              $('#bot_check1').carousel(2);
+                                              update_checker_loadhelp('#help3a','help_dumper');">ES</a></li>
+                     <li><a href="#" onclick="set_cfg('ws_idiom','en'); save_cfg();
+                                              $('#bot_check1').carousel(2);
+                                              update_checker_loadhelp('#help3a','help_dumper');">EN</a></li>
+                  </ul>
+               </div>
+            </center>
+         </h4>
+      </div>
+      <div class="modal-body">
+         <div class="bootbox-body">
+            <div id="bot_check1" class="carousel slide" data-ride="carousel" data-interval="false">
+               <div class="carousel-inner" role="listbox">
+                  <div class="item active">
+                        <h4 style="margin:0 0 10 0;">History:</h4>
+                        <div id="history1"
+			     style="max-height:42vh; width:inherit; overflow:auto;">
+				&emsp;<span style="background-color:#FCFC00">Empty list.</span>
+			</div>
+                        <h4 style="margin:20 0 10 0;">Result:
+			<span class="btn btn-default btn-xs"
+			      onclick="CopyFromDiv('check_results_scroll1'); return false;"
+			      data-inline="true">Copy to clipboard</i></span>
+                        </h4>
+		        <div id="check_results_scroll1"
+		             style="max-height:25vh; width:inherit; overflow-y:auto;" >
+		             <div id="check_results1"></div>
+		        </div>
+                  </div>
+                  <div class="item">
+                     <div>
+                        <h4 style="margin:20 0 10 0;">Current State:
+			<span class="btn btn-default btn-xs"
+			      onclick="CopyFromTextarea('end_state1'); return false;"
+			      data-inline="true">Copy to clipboard</span>
+                        </h4>
+                        <form id="end_state_form1" 
+                              class="form-horizontal bootboxLargeHeight" 
+                              style="white-space:wrap; overflow-y:auto;">
+                           <textarea aria-label="checks to perform" 
+                                     placeholder="Default..." 
+                                     id="end_state1" 
+                                     name="end_state1" 
+                                     data-allowediting="true" 
+                                     data-allowpasting="false" 
+                                     data-limit="0" 
+                                     data-createtokensonblur="false" 
+                                     data-delimiter=";" 
+                                     data-beautify="true" 
+                                     class="form-control input-xs" 
+                                     rows="5"></textarea>
+                        </form>
+                     </div>
+                  </div>
+                  <div class="item">
+                       <div id="help3a" 
+                            style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="modal-footer">
+	   <button class="btn btn-default col-xs-3 pull-left"
+	   	   onclick="wepsim_state_history_reset();
+			    wepsim_notify_success('<strong>INFO</strong>', 'Removed all !.');
+			    wepsim_state_history_list() ;
+			    return false;"
+		   type="button">Reset <span class='hidden-xs'>history</span></button>
+	   <button class="btn btn-default col-xs-3 pull-left"
+		   onclick="wepsim_state_history_add();
+			    wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
+			    wepsim_state_history_list() ;
+			    return false;"
+		   type="button">Add <span class='hidden-xs'>state to history</span></button>
+           <button type="button" 
+                   onclick="$('#current_state1').modal('hide');"
+                   class="btn btn-primary col-xs-3 pull-right">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
+      </div>
+   </div>
+</div>
+</div> <!-- /.modal -->
+
+
+<div id="current_state2" class="modal">
+<div class="modal-dialog bootboxWidth">
+   <div class="modal-content">
+      <div class="modal-header">
+	 <button type="button" data-role="button"
+		 class="close ui-btn-right ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-corner-all" 
+		 data-dismiss="modal" aria-hidden="true">x</button>
+         <h4 class="modal-title">
+            <center>
+               <div class="btn-group">
+                  <button onclick="$('#bot_check2').carousel(0);" 
+                          type="button" 
+                          class="btn btn-info" 
+                          style="height:34px !important;">State</button>
+                  <button onclick="$('#bot_check2').carousel(1);
+                                   update_checker_loadhelp('#help3b','help_checker');"
+                          type="button" 
+                          class="btn btn-success" 
+                          style="height:34px !important;">Help</button>
+                  <button type="button" 
+                          class="btn btn-success dropdown-toggle" 
+                          data-toggle="dropdown" 
+                          aria-haspopup="true" 
+                          aria-expanded="false" 
+                          style="height:34px !important;"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>   
+                  <ul class="dropdown-menu">
+                     <li><a href="#" onclick="set_cfg('ws_idiom','es'); save_cfg();
+                                              $('#bot_check2').carousel(1);
+                                              update_checker_loadhelp('#help3b','help_checker');">ES</a></li>
+                     <li><a href="#" onclick="set_cfg('ws_idiom','en'); save_cfg();
+                                              $('#bot_check2').carousel(1);
+                                              update_checker_loadhelp('#help3b','help_checker');">EN</a></li>
+                  </ul>
+               </div>
+            </center>
+         </h4>
+      </div>
+      <div class="modal-body">
+         <div class="bootbox-body">
+            <div id="bot_check2" class="carousel slide" data-ride="carousel" data-interval="false">
+               <div class="carousel-inner" role="listbox">
+                  <div class="item active">
+                        <div class="panel panel-info">
+		        <div class="panel-heading">
+                           <h4><span id="dlg_title2">&nbsp;</span></h4>
+                        </div>
+                        </div>
+
+                        <h4>Requeriment list to compare with:</h4>
+                        <form id="end_state_form2" 
+                              class="form-horizontal bootboxShortHeight" 
+                              style="white-space:wrap; overflow-y:auto;">
+                           <textarea aria-label="checks to perform" 
+                                     placeholder="See help for more information." 
+                                     id="end_state2" 
+                                     name="end_state2" 
+                                     data-allowediting="true" 
+                                     data-allowpasting="true" 
+                                     data-limit="0" 
+                                     data-createtokensonblur="false" 
+                                     data-delimiter=";" 
+                                     data-beautify="true" 
+                                     class="form-control input-xs" 
+                                     rows="5"></textarea>
+                        </form>
+                        <h4 style="margin:20 0 10 0;">Result:
+		   	   <span class="btn btn-default btn-xs"
+			         onclick="CopyFromDiv('check_results_scroll2'); return false;" 
+			         data-inline="true">Copy to clipboard</i></span>
+                        </h4>
+		        <div id="check_results_scroll2"
+		             style="max-height:25vh; width:inherit; overflow-y:auto;" >
+		             <div id="check_results2"></div>
+		     </div>
+                  </div>
+                  <div class="item">
+                       <div id="help3b" 
+                            style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="modal-footer">
+           <button type="button" 
+                   onclick="wepsim_dialog_check_reset('check_results2','end_state2'); 
+                            return false;"
+                   class="btn btn-default col-xs-3">Clear</button>
+           <button type="button" 
+                   onclick="var txt_checklist = $('#end_state2').val();
+                            var obj_expected  = wepsim_checklist2state(txt_checklist);
+                            var obj_current   = wepsim_current2state();
+                            wepsim_dialog_check_state('check_results2', obj_expected, obj_current); 
+                            return false;"
+                   class="btn btn-default col-xs-3">Check</button>
+           <button type="button" 
+                   onclick="$('#current_state2').modal('hide');"
+                   class="btn btn-primary col-xs-3 pull-right">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
+      </div>
+   </div>
+</div>
+</div> <!-- /.modal -->
+
+
 <script>
     window.addEventListener("beforeunload", function (e) {
        var confirmationMessage = "\o/";
@@ -1026,11 +1468,10 @@
 	    $(document).ready(function()
 	    {
 		    jQuery.fx.off = true;
+                    ko.options.deferUpdates = true;
 
-		    $("#help1").enhanceWithin().popup();
 		    $("#bin1").enhanceWithin().popup();
 		    $("#about1").enhanceWithin().popup();
-		    $("#example1").enhanceWithin().popup();
 		    $("#config1").enhanceWithin().popup();
 
 		    $("#actions_panel").panel().enhanceWithin();
@@ -1048,11 +1489,11 @@
 					value: "",
 					lineNumbers: true,
 					matchBrackets: true,
-					mode: "text/x-csrc",
 					foldGutter: {
 						rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.brace, CodeMirror.fold.comment)
 					},
-					gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"]
+					gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+					mode: "text/javascript"
 				    });
                     sim_prepare_editor(inputfirm);
 
@@ -1074,7 +1515,7 @@
 					      });
 					  }
 					},
-					mode: "text/x-csrc"
+					mode: "gas"
 				    });
                     sim_prepare_editor(inputasm) ;
 
@@ -1102,15 +1543,25 @@
 		    $("#radio2-" + get_cfg('RF_display_format')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio3-" +   get_cfg('RF_display_name')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio5-" +    get_cfg('is_interactive')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio6-" +          get_cfg('ws_idiom')).prop('checked', true).checkboxradio("refresh") ;
+		  //$("#radio6-" +          get_cfg('ws_idiom')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio7-" +      get_cfg('editor_theme')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio9-" +       get_cfg('is_editable')).prop('checked', true).checkboxradio("refresh") ;
+		    $("#radio10-" +   get_cfg('show_tutorials')).prop('checked', true).checkboxradio("refresh") ;
+		    $("#radio11-" +        get_cfg('use_voice')).prop('checked', true).checkboxradio("refresh") ;
                     $("#select1").val(get_cfg('ICON_theme')).selectmenu("refresh");
                     $("#select2").val(get_cfg('editor_mode')).selectmenu("refresh");
                     $("#select3").val(get_cfg('DBG_limitick')).selectmenu("refresh");
+                    $("#slider1").val(1000 / (get_cfg('DBG_delay')+0.01)).slider("refresh");
+                    $("#slider3").val(get_cfg('NOTIF_delay')).slider("refresh");
                     $("#img_select1").attr("src","images/stop_" + get_cfg('ICON_theme') + ".gif");
                     set_cpu_cu_size('#eltos_cpu_a','#eltos_cpu_b',get_cfg('CPUCU_size'));
                     $("#slider2").val(get_cfg('CPUCU_size')).slider("refresh");
+
+                    $('#slider2d').toggle(); 
+                    $(".selectpicker").selectpicker({
+		           style: 'btn-default',
+		           size: false
+	            });
 
                     showhideAsmElements();
 		    $("input:checkbox").click(function(){
@@ -1154,6 +1605,33 @@ if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(nav
                      animation: false,
                      delay: { "show": 500, "hide": 100 } 
             }) ;
+
+            $('.dropify').dropify();
+
+            $('#end_state1').tokenfield({
+                    autocomplete: { source: ['register','memory','screen'], delay: 100 },
+                    showAutocompleteOnFocus: true,
+                    inputType: 'textarea'
+            }) ;
+            //A1/ var inputEls = document.getElementById('end_state1');
+            //A1/ if (null != inputEls)
+            //A1/     setup_speech_input(inputEls) ;
+
+            $('#end_state2').tokenfield({
+                    autocomplete: { source: ['register','memory','screen'], delay: 100 },
+                    showAutocompleteOnFocus: true,
+                    inputType: 'textarea'
+            }) ;
+            //A1/ var inputEls = document.getElementById('end_state2');
+            //A1/ if (null != inputEls)
+            //A1/     setup_speech_input(inputEls) ;
+
+            wepsim_voice_init() ;
+	    if (false == get_cfg('use_voice'))
+		wepsim_voice_stop() ;
+
+            if (true == get_cfg('show_tutorials'))
+                sim_tutorial_showframe('welcome', 0) ;
     }
     catch(err) 
     {

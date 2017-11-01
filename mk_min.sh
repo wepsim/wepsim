@@ -31,12 +31,26 @@ rm -fr sim_all.js
 /usr/bin/yui-compressor -o min.wepsim.js wepsim.js
 
 # 
+#  wepsim information
+# 
+cat tutorials/tutorials.js \
+    tutorials/welcome-en.js \
+    tutorials/welcome-es.js \
+    tutorials/simpleusage-en.js \
+    tutorials/simpleusage-es.js \
+    help/help-en.js \
+    help/help-es.js \
+    examples/examples.js > sim_info.js
+/usr/bin/yui-compressor -o min.sim_info.js sim_info.js
+rm -fr sim_info.js
+
+# 
 #  external
 # 
 cat external/bootstrap.min.js \
     external/bootstrap-notify.min.js \
     external/masonry.pkgd.min.js \
-    external/knockout-3.4.1.js \
+    external/knockout-3.4.2.js \
     external/jquery.knob.min.js \
     external/bootbox.min.js \
     external/spectrum.min.js \
@@ -44,6 +58,7 @@ cat external/bootstrap.min.js \
     external/split.min.js \
     external/codemirror.js \
     external/codemirror.javascript.js \
+    external/codemirror.gas.js \
     external/codemirror.keymap/sublime.js \
     external/codemirror.keymap/emacs.js \
     external/codemirror.keymap/vim.js \
@@ -55,8 +70,16 @@ cat external/bootstrap.min.js \
     external/codemirror.fold/comment-fold.js \
     external/codemirror.fold/indent-fold.js \
     external/codemirror.fold/markdown-fold.js \
-    external/codemirror.show-hint/codemirror.show-hint.js > external/external.min.js \
-    external/vis.min.js
+    external/codemirror.show-hint/codemirror.show-hint.js \
+    external/codemirror.runmode/colorize.js \
+    external/vis.min.js \
+    external/async.js \
+    external/bootstrap-select.min.js \
+    external/bootstrap-tokenfield.js \
+    external/speech-input.js \
+    external/annyang.min.js \
+    external/speechkitt.min.js \
+    external/dropify.min.js > external/external.min.js
 
 cat external/bootstrap.min.css \
     external/bootstrap-theme.min.css \
@@ -64,6 +87,11 @@ cat external/bootstrap.min.css \
     external/codemirror.css \
     external/codemirror.theme/blackboard.css \
     external/codemirror.fold/foldgutter.css \
-    external/codemirror.show-hint/codemirror.show-hint.css > external/external.min.css \
-    external/vis-network.min.css
+    external/codemirror.show-hint/codemirror.show-hint.css \
+    external/vis-network.min.css \
+    external/bootstrap-select.min.css \
+    external/bootstrap-tokenfield.css \
+    external/speech-input.css \
+    external/speechkitt.css \
+    external/dropify.min.css > external/external.min.css
 

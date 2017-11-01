@@ -1,7 +1,8 @@
 
-    var helps = new Array();
+    var help       = new Object();
+        help['en'] = new Array();
 
-    helps.push({
+    help['en'].push({
                      id:          "simulator",
                      title:       "Simulator usage",
                      type:        "relative",
@@ -9,7 +10,7 @@
                      description: "Description of how the simulator works.<br>"
                   });
 
-    helps.push({
+    help['en'].push({
                      id:          "microcode",
                      title:       "Microcode format",
                      type:        "relative",
@@ -17,7 +18,7 @@
                      description: "Syntax of the microcode used.<br>"
                   });
 
-    helps.push({
+    help['en'].push({
                      id:          "assembly",
                      title:       "Assembly format",
                      type:        "relative",
@@ -25,7 +26,7 @@
                      description: "Syntax of the assembly elements.<br>"
                   });
 
-    helps.push({
+    help['en'].push({
                      id:          "architecture",
                      title:       "Simulated architecture",
                      type:        "relative",
@@ -33,15 +34,15 @@
                      description: "Description of the elemental processor architecture.<br>"
                   });
 
-    helps.push({
+    help['en'].push({
                      id:          "architecture",
                      title:       "Simulated signals",
                      type:        "absolute",
                      reference:   "signals",
-                     description: "Signals summary of the simulated elemental processor.<br>"
+                     description: "Main signals summary of the simulated elemental processor.<br>"
                   });
 
-    helps.push({
+    help['en'].push({
                      id:          "architecture",
                      title:       "Hardware summary",
                      type:        "code",
@@ -49,7 +50,7 @@
                      description: "Reference card for the simulated elemental processor hardware.<br>"
                   });
 
-    helps.push({
+    help['en'].push({
                      id:          "simulator",
                      title:       "Signal dependencies",
                      type:        "code",
@@ -58,11 +59,29 @@
                      description: "Graph of the signal dependencies (it needs several seconds to be displayed).<br>"
                   });
 
-    helps.push({
+    help['en'].push({
                      id:          "about",
                      title:       "License, platforms, etc.",
                      type:        "absolute",
                      reference:   "about",
                      description: "WepSIM license, supported platforms, technologies used.<br>"
+                  });
+
+    help['en'].push({
+                     id:          "simulator",
+                     title:       "Welcome tutorial",
+                     type:        "code",
+                     reference:   "wepsim_close_help(); " + 
+                                  "sim_tutorial_showframe('welcome', 0);",
+                     description: "Open the welcome tutorial, it can be enable in the configuration.<br>"
+                  });
+
+    help['en'].push({
+                     id:          "simulator",
+                     title:       "Simple usage tutorial",
+                     type:        "code",
+                     reference:   "wepsim_close_help(); " + 
+                                  "sim_tutorial_showframe('simpleusage', 0);",
+                     description: "Open the simple usage tutorial, for microprogramming and assembly programming.<br>"
                   });
 

@@ -19,6 +19,68 @@
  */
 
 
+	/*
+	 *  Memory
+	 */
+
+        sim_components["MEMORY"] = {
+		                  name: "MEMORY", 
+		                  version: "1", 
+		                  write_state: function ( vec ) {
+                                                  if (typeof vec.MEMORY == "undefined")
+                                                      vec.MEMORY = new Object() ;
+
+						  var key = 0 ;
+						  var value = 0 ;
+					          for (var index in MP)
+						  {
+						       value = parseInt(MP[index]) ;
+						       if (value != 0) 
+						       {
+					                   key = parseInt(index).toString(16) ;
+							   vec.MEMORY["0x" + key] = {"type":  "memory", 
+								                     "default_value": 0x0,
+								                     "id":    "0x" + key,
+								                     "op":    "=", 
+								                     "value": "0x" + value.toString(16)} ;
+						       }
+						  }
+
+						  return vec;
+				              },
+		                  read_state: function ( vec, check ) {
+                                                  if (typeof vec.MEMORY == "undefined")
+                                                      vec.MEMORY = new Object() ;
+
+					          var key = parseInt(check["id"]).toString(16) ;
+					          var val = parseInt(check["value"]).toString(16) ;
+					          if ("MEMORY" == check["type"].toUpperCase().trim())
+                                                  {
+						      vec.MEMORY["0x" + key] = {"type":  "memory", 
+							  	                "default_value": 0x0,
+								                "id":    "0x" + key,
+								                "op":    check["condition"],
+								                "value": "0x" + val} ;
+                                                      return true ;
+                                                  }
+
+                                                  return false ;
+				             },
+		                  get_state: function ( pos ) {
+						  var index = parseInt(pos) ;
+						  if (typeof MP[index] != "undefined") {
+						      return "0x" + parseInt(MP[index]).toString(16) ;
+					          }
+
+					          return null ;
+				             }
+                            	};
+
+
+	/*
+	 *  States - internal memory
+	 */
+
         var MP       = new Object();
         var segments = new Object();
         var MP_wc    = 0;
@@ -30,7 +92,7 @@
 
         sim_signals["MRDY"]  = { name: "MRDY", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                  depends_on: ["CLK"],
-		                 behavior: ["FIRE C", "FIRE C"],
+		                 behavior: ["FIRE_IFCHANGED MRDY C", "FIRE_IFCHANGED MRDY C"],
                                  fire_name: ['svg_p:tspan3916'], 
                                  draw_data: [[], ['svg_p:path3895', 'svg_p:path3541']], 
                                  draw_name: [[], []]};
@@ -104,7 +166,7 @@
 
                                                       sim_states[s_expr[2]].value = (dbvalue >>> 0);
                                                      sim_signals[s_expr[4]].value = 1;
-				                      show_main_memory(MP, address, false) ;
+				                      show_main_memory(MP, address, false, false) ;
                                                    }
                                    };
 
@@ -160,7 +222,7 @@
 
 						      MP[address] = (value >>> 0);
                                                       sim_signals[s_expr[4]].value = 1;
-				                      show_main_memory(MP, address, true) ;
+				                      show_main_memory(MP, address, false, true) ;
                                                     }
                                    };
 

@@ -49,22 +49,24 @@
             // 1.- counting the number of active tri-states
             var tri_name = "";
             var tri_activated = 0;
-	    var tri_activated_name = "";
+	    var tri_activated_name  = "";
+	    var tri_activated_value = 0;
             for (var i=0; i<tri_state_names.length; i++)
             {
-                 tri_name = tri_state_names[i] ;
-                 if (sim_signals[tri_name].value != 0)
-		 {
-                     tri_activated ++ ;
-		     tri_activated_name=tri_name;
-		 }
+		 tri_activated_name  = tri_state_names[i] ;
+                 tri_activated_value = parseInt(get_value(sim_signals[tri_activated_name])) ;
+                 tri_activated      += tri_activated_value ;
+
+		 if (tri_activated_value > 0)
+		     tri_name = tri_activated_name ;
                  if (tri_activated > 1)
                      break ;
             }
 
             // 2.- paint the bus if any tri-state is active
-            if (tri_activated > 0)
-                update_draw(sim_signals[tri_activated_name], 1) ;
+            if (tri_activated > 0) {
+                update_draw(sim_signals[tri_name], 1) ;
+            }
 
             // 3.- check if more than one tri-state is active
             if (internalbus_fire_visible) {
@@ -119,26 +121,24 @@
 
 			    for (var j=1; j<behavior_k.length; j++)
 			    {
-				if ("E" == syntax_behavior[behavior_k[0]].types[j-1])
-				{
-				     var s = behavior_k[j].split('/') ;
+				var s = behavior_k[j].split('/') ;
+				var t = syntax_behavior[behavior_k[0]].types[j-1] ;
 
-				     if (typeof (sim_states[s[0]]) == "undefined")
+				     if ( ("E" == t) && (typeof sim_states[s[0]] == "undefined") )
 				     {
-					 alert("ALERT: Behavior has an undefined reference to a object state -> '" + behavior_i);
-					 return;
+					  alert("ALERT: Behavior has an undefined reference to a object state -> '" + behavior_i);
+					  return;
 				     }
-				}
-				else if ("S" == syntax_behavior[behavior_k[0]].types[j-1])
-				{
-				     var s = behavior_k[j].split('/') ;
-
-				     if (typeof (sim_signals[s[0]]) == "undefined")
+				else if ( ("S" == t) && (typeof sim_signals[s[0]] == "undefined") )
 				     {
 					 alert("ALERT: Behavior has an undefined reference to a signal -> '" + behavior_i);
 					 return;
 				     }
-				}
+				else if ( ("X" == t) && (typeof sim_states[s[0]] == "undefined") && (typeof sim_signals[s[0]] == "undefined") )
+				     {
+					 alert("ALERT: Behavior has an undefined reference to a object state OR signal -> '" + behavior_i);
+					 return;
+				     }
 			    }
                     }
                 }
@@ -154,11 +154,13 @@
         var jit_fire_dep    = null ;
         var jit_fire_order  = null ;
 	var jit_dep_network = null ;
+        var jit_fire_ndep   = null ;
 
         function firedep_to_fireorder ( jit_fire_dep )
         {
             var allfireto = false;
             jit_fire_order = new Array();
+            jit_fire_ndep  = new Array();
             for (var sig in sim_signals)
             {
                 if (typeof jit_fire_dep[sig] == "undefined") {
@@ -166,13 +168,16 @@
                     continue;
                 }
 
+		ndep = 0;
                 allfireto = false;
                 for (var sigorg in jit_fire_dep[sig])
                 {
+	             ndep++;
                      if (jit_fire_dep[sig][sigorg] == sim_signals[sigorg].behavior.length) {
                          allfireto = true;
                      }
                 }
+		jit_fire_ndep[sig] = ndep;
                 if (allfireto == false)
                     jit_fire_order.push(sig);
             }
@@ -267,6 +272,42 @@
 
 
         /*
+	 * CLOCK (parallel / sequential)
+	 */
+
+        function fn_updateE_now ( key )
+        {
+	    if ("E" == sim_signals[key].type) {
+		update_state(key) ;
+	    }
+	}
+
+        function fn_updateE_future ( key ) 
+        {
+            if (jit_fire_ndep[key] < 1) // 1 -> 2
+	        fn_updateE_now(key); 
+	    else
+	        return new Promise( function(resolve, reject) { fn_updateE_now(key); }) ;
+	}
+
+        function fn_updateL_now ( key )
+        {
+	    update_draw(sim_signals[key], sim_signals[key].value) ;
+	    if ("L" == sim_signals[key].type) {
+		update_state(key) ;
+	    }
+	}
+
+        function fn_updateL_future ( key ) 
+        {
+            if (jit_fire_ndep[key] < 1) // 1 -> 2
+	        fn_updateL_now(key); 
+	    else
+	        return new Promise( function(resolve, reject) { fn_updateL_now(key); });
+	}
+
+
+        /*
          *  Show/Update the global state
          */
 
@@ -301,48 +342,111 @@
         function get_value ( sim_obj )
         {
 	   if (typeof sim_obj.value == "function")
+	   {
 	       return sim_obj.value() ;
-
+	   }
 	   else if (typeof sim_obj.default_value == "object")
+	   {
 	       return sim_obj.value ;
-
+	   }
 	   else
+	   {
 	       return sim_obj.value ;
+	   }
         }
 
         function set_value ( sim_obj, value )
         {
-	   if (typeof sim_obj.value == "function")
+	   if (typeof sim_obj.value == "function") 
+	   {
+	       if (sim_obj.value() != value)
+	           sim_obj.changed = true ;
+
 	       sim_obj.value(value) ;
-
+           }
 	   else if (typeof sim_obj.default_value == "object")
-	       sim_obj.value = value ;
+	   {
+	       if (sim_obj.value != value)
+	           sim_obj.changed = true ;
 
-	   else
 	       sim_obj.value = value ;
+           }
+	   else
+	   {
+	       if (sim_obj.value != value)
+	           sim_obj.changed = true ;
+
+	       sim_obj.value = value ;
+           }
         }
 
         function reset_value ( sim_obj )
         {
            if (typeof sim_obj.value == "function")
+	   {
+	        if (sim_obj.value() != sim_obj.default_value)
+	            sim_obj.changed = true ;
+
 	        set_value(sim_obj, sim_obj.default_value) ;
-
+           }
 	   else if (typeof sim_obj.default_value == "object")
+	   {
+	        sim_obj.changed = true ;
 	        sim_obj.value = Object.create(sim_obj.default_value) ;
-
+           }
 	   else if (sim_obj instanceof Array)
+	   {
+	        sim_obj.changed = true ;
 	        for (var i=0; i<sim_obj.length; i++)
 	  	     set_value(sim_obj[i], sim_obj[i].default_value) ;
-
+           }
 	   else
+	   {
+	        if (sim_obj.value != sim_obj.default_value)
+	            sim_obj.changed = true ;
+
 	        set_value(sim_obj, sim_obj.default_value) ;
+           }
+        }
+
+        var sim_references = new Object() ;
+
+        function compute_references ( )
+        {
+            for (var key in sim_signals) {
+		 sim_references[key] = sim_signals[key] ;
+		    sim_signals[key].changed = false ;
+	    }
+
+            for (var key in sim_states) {
+		 sim_references[key] = sim_states[key] ;
+		     sim_states[key].changed = false ;
+	    }
+        }
+
+        function get_reference ( sim_name )
+        {
+	    return sim_references[sim_name] ;
         }
 
 
         function show_memories_values ( )
         {
-               show_main_memory(MP,               get_value(sim_states['REG_PC']),        true) ;
-            show_control_memory(MC, MC_dashboard, get_value(sim_states['REG_MICROADDR']), true) ;
+		/*
+               show_main_memory(MP,               get_value(sim_states['REG_PC']),        true, true) ;
+            show_control_memory(MC, MC_dashboard, get_value(sim_states['REG_MICROADDR']), true, true) ;
+		*/
+
+            var f1 = new Promise(function(resolve, reject) {
+                 show_main_memory(MP, get_value(sim_states['REG_PC']), true, true) ;
+                 resolve(1);
+            });
+            var f2 = new Promise(function(resolve, reject) {
+                 show_control_memory(MC, MC_dashboard, get_value(sim_states['REG_MICROADDR']), true) ;
+                 resolve(1);
+            });
+
+            Promise.all([f1, f2]);
 	}
 
         function update_signal_firmware ( key )
@@ -417,10 +521,7 @@
 	            var r = sim_signals[key].fire_name[j].split(':') ;
                     if (r[1] == event.currentTarget.id)
                     {
-                        var nextvalue = 0;
-                        if (sim_signals[key].nbits == 1)
-                            nextvalue = ((sim_signals[key].value >>> 0) + 1) % 2;
-
+                        var checkvalue  = (sim_signals[key].value >>> 0) ;
                         var str_bolded  = "";
                         var str_checked = "";
                         var input_help  = "";
@@ -432,7 +533,7 @@
                         {
                             for (var k = 0; k < sim_signals[key].behavior.length; k++)
                             {
-                                 if (k == nextvalue)
+                                 if (k == checkvalue)
                                       str_checked = ' checked="checked" ' ;
                                  else str_checked = ' ' ;
 
@@ -465,9 +566,11 @@
 			       title:   '<center>' + key + ': ' +
                                         ' <div class="btn-group">' +
                                         '   <button onclick="$(\'#bot_signal\').carousel(0);" ' +
-                                        '           type="button" class="btn btn-info" style="height:34px !important;">Value</button>' +
+                                        '           type="button" class="btn btn-info" ' + 
+                                        '           style="height:34px !important;">Value</button>' +
                                         '   <button onclick="$(\'#bot_signal\').carousel(1); update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());" ' +
-                                        '           type="button" class="btn btn-success" style="height:34px !important;">Help</button>' +
+                                        '           type="button" class="btn btn-success" ' + 
+                                        '           style="height:34px !important;">Help</button>' +
                                         '   <button type="button" class="btn btn-success dropdown-toggle" ' +
                                         '           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height:34px !important;">' +
                                         '     <span class="caret"></span>' +
@@ -501,14 +604,9 @@
 			       value:   sim_signals[key].value,
                                animate: false,
 			       buttons: {
-					    close: {
-						label: "Close",
-						className: "btn-danger",
-						callback: function() { }
-					    },
 					    success: {
 						label: "Save",
-						className: "btn-primary",
+						className: "btn-primary col-xs-3 col-sm-2 pull-right",
 						callback: function ()
 							  {
 							     key        = $('#ask_skey').val();
@@ -531,7 +629,7 @@
 								     MC_dashboard[get_value(sim_states["REG_MICROADDR"])] = new Object() ;
 								 }
 								 MC[get_value(sim_states["REG_MICROADDR"])][key] = sim_signals[key].value ;
-								 MC_dashboard[get_value(sim_states["REG_MICROADDR"])][key] = { comment: "", breakpoint: false, notify: new Array() };
+								 MC_dashboard[get_value(sim_states["REG_MICROADDR"])][key] = { comment: "", breakpoint: false, state: false, notify: new Array() };
 
 								 // update ROM[..]
 								 update_signal_firmware(key) ;
@@ -544,6 +642,11 @@
 							     // fire signal
 							     compute_behavior('FIRE ' + key) ;
 							  }
+					    },
+					    close: {
+						label: "Close",
+						className: "btn-danger col-xs-3 col-sm-2 pull-right",
+						callback: function() { }
 					    }
 					}
 			});
@@ -571,15 +674,28 @@
             MC_dashboard = new Object() ;
             for (var i=0; i<SIMWARE['firmware'].length; i++)
 	    {
+               var elto_state  = false ;
+               var elto_break  = false ;
+               var elto_notify = new Array() ;
+
 	       var last = SIMWARE['firmware'][i]["microcode"].length ; // mc = microcode
                var mci  = SIMWARE['firmware'][i]["mc-start"] ;
 	       for (var j=0; j<last; j++)
 	       {
 		    var comment = SIMWARE['firmware'][i]["microcomments"][j] ;
 		    MC[mci]     = SIMWARE['firmware'][i]["microcode"][j] ;
-		    MC_dashboard[mci] = { comment: comment,
-                                          breakpoint: false,
-                                          notify: comment.trim().split("notify:") } ;
+
+                    elto_state  = (comment.trim().split("state:").length > 1) ;
+                    elto_break  = (comment.trim().split("break:").length > 1) ;
+                    elto_notify =  comment.trim().split("notify:") ;
+		    for (var k=0; k<elto_notify.length; k++) {
+		         elto_notify[k] = elto_notify[k].split('\n')[0] ;
+                    }
+
+		    MC_dashboard[mci] = { comment: comment, 
+                                          state: elto_state, 
+                                          breakpoint: elto_break, 
+                                          notify: elto_notify } ;
 		    mci++;
 	       }
 	    }
@@ -612,6 +728,14 @@
 	       MP[kx] = kv ;
 	    }
 
+            /// bugfix safari bug 10.1.2
+	    for (var e in MP) {
+	         if (isNaN(MP[e])) {
+	    	     delete MP[e];
+                 }
+            }
+            /// end bugfix 
+
 	    // 5.- load the segments from SIMWARE['seg']
             segments = new Object() ;
 	    for (var key in SIMWARE['seg'])
@@ -620,8 +744,8 @@
 	    }
 
 	    // 6.- show memories...
-            show_main_memory   (MP,                1, false) ;
-            show_control_memory(MC,  MC_dashboard, 1, false) ;
+            show_main_memory   (MP,                0, true, true) ;
+            show_control_memory(MC,  MC_dashboard, 0, true) ;
 	}
 
 
@@ -635,9 +759,10 @@
             // 1.- it checks if everything is ok
             check_behavior();
 
-            // 2.- pre-compile behaviors
+            // 2.- pre-compile behaviors & references
             compile_behaviors() ;
             firedep_to_fireorder(jit_fire_dep) ;
+            compute_references() ;
 
             // 3.- display the information holders
             init_states(stateall_id) ;
@@ -702,22 +827,52 @@
                 return true;
         }
 
+        function update_checker_loadhelp ( helpdiv, key )
+        {
+	     var help_base = 'help/simulator-' + get_cfg('ws_idiom') + '.html #' + key;
+	     $(helpdiv).load(help_base,
+			      function(response, status, xhr) {
+				  if ( $(helpdiv).html() == "" )
+				       $(helpdiv).html('<br>Sorry, there is no more details.<p>\n');
+
+				  $(helpdiv).trigger('create');
+			      });
+             ga('send', 'event', 'help', 'help.checker', 'help.checker.' + key);
+	}
+
+        /* 
+         * check dialogs
+	 */
+
         function check_if_can_continue ( with_ui )
         {
-		var reg_pc = parseInt(get_value(sim_states["REG_PC"]));
-		if (
-		     (parseInt(get_value(sim_states["REG_MICROADDR"])) == 0) &&
-		     ((reg_pc >= parseInt(segments['.ktext'].end)) || (reg_pc < parseInt(segments['.ktext'].begin))) &&
-		     ((reg_pc >= parseInt(segments['.text'].end))  || (reg_pc < parseInt(segments['.text'].begin)))
-		   )
-		{
-                    if (with_ui)
-		        alert('INFO: The program has finished.\n' + 
-                              '(because the PC register points outside .ktext/.text code segments)');
-		    return false;
+		var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
+                if (typeof MC[reg_maddr] == "undefined") {
+                    return false;
 		}
 
-                return true;
+		// when do reset/fetch, check text segment bounds
+                if (reg_maddr != 0) {
+                    return true;
+		}
+
+		var reg_pc = parseInt(get_value(sim_states["REG_PC"]));
+		if ( (reg_pc < segments['.ktext'].end) && (reg_pc >= segments['.ktext'].begin)) {
+                    return true;
+		}
+		if ( (reg_pc <  segments['.text'].end) && (reg_pc >=  segments['.text'].begin)) {
+                    return true;
+		}
+
+                // if (reg_maddr == 0) && (outside *text) -> cannot continue
+	        if (with_ui) 
+                {
+      	            var dialog_title = 'The program has finished because the PC register points outside .ktext/.text code segments' ;
+                    $("#dlg_title2").html(dialog_title) ;
+                    $('#current_state2').modal('show');
+	        }
+
+		return false;
         }
 
         function reset ()
@@ -749,18 +904,15 @@
 	    show_states() ;
             show_rf_values();
             show_rf_names();
-            show_main_memory   (MP,                0, false) ;
-            show_control_memory(MC,  MC_dashboard, 0, false) ;
+            show_main_memory   (MP,                0, true, false) ;
+            show_control_memory(MC,  MC_dashboard, 0, true) ;
             set_screen_content("") ;
         }
 
         function execute_microinstruction ()
         {
-                var maddr = get_value(sim_states["REG_MICROADDR"]) ;
-                if (typeof MC[maddr] == "undefined")
-                    return false;
-                if ((0 == maddr) && (check_if_can_continue(true) == false))
-		    return false; // when do reset/fetch, check text segment bounds
+	        if (check_if_can_continue(true) == false)
+		    return false;
 
                 compute_general_behavior("CLOCK") ;
 

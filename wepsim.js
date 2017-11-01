@@ -109,15 +109,13 @@
         {
             if (with_ui)
                 showError(SIMWAREaddon.error, "inputasm") ;
+
             return false;
         }
 
-        if (with_ui)
-	    $.notify({ title: '<strong>INFO</strong>', message: 'Assembly was compiled and loaded.'},
-		     { type: 'success',
-                       newest_on_top: true,
-                       delay: get_cfg('NOTIF_delay'),
-                       placement: { from: 'top', align: 'center' } });
+        if (with_ui) {
+            wepsim_notify_success('<strong>INFO</strong>', 'Assembly was compiled and loaded.') ;
+	}
 
         // update memory and segments
         set_simware(SIMWAREaddon) ;
@@ -133,6 +131,7 @@
         }
 
 	reset();
+
         return true;
     }
 
@@ -146,12 +145,9 @@
             return false;
         }
 
-        if (with_ui)
-	    $.notify({ title: '<strong>INFO</strong>', message: 'Microcode was compiled and loaded.'},
-	    	     { type: 'success',
-                       newest_on_top: true,
-                       delay: get_cfg('NOTIF_delay'),
-                       placement: { from: 'top', align: 'center' } });
+        if (with_ui) {
+            wepsim_notify_success('<strong>INFO</strong>', 'Microcode was compiled and loaded.') ;
+        }
 
         // update UI
 	reset() ;
@@ -211,9 +207,21 @@
      * Play/stop
      */
 
-    function wepsim_execute_reset ( )
+    function wepsim_execute_reset ( reset_cpu, reset_memory )
     {
-	return reset() ;
+        wepsim_state_history_reset();
+
+        if (true == reset_memory) 
+        {
+            var SIMWARE = get_simware() ;
+	    if (SIMWARE.firmware.length != 0)
+                update_memories(SIMWARE) ;
+        }
+
+        if (true == reset_cpu) 
+        {
+	    reset() ;
+        }
     }
 
     function wepsim_execute_instruction ( )
@@ -243,7 +251,7 @@
 
     function wepsim_execute_stop ( btn1 )
     {
-	$(btn1).html("Run") ;
+	$(btn1).html("<br>Run") ;
 	$(btn1).removeClass("ui-icon-minus") ;
 	$(btn1).addClass("ui-icon-carat-r") ;
 	$(btn1).css("backgroundColor", "#CCCCCC") ;
@@ -251,29 +259,34 @@
 	DBG_stop = true;
     }
 
-    function wepsim_execute_play ( btn1 )
+    function wepsim_execute_play ( btn1, run_notifications )
     {
 	if (check_if_can_execute(true) == false)
 	    return false;
 
 	$(btn1).css("backgroundColor", 'rgb(51, 136, 204)') ;
-	$(btn1).html("Stop") ;
+	$(btn1).html("<br>Stop") ;
 	$(btn1).removeClass("ui-icon-carat-r") ;
 	$(btn1).addClass("ui-icon-minus") ;
 
         DBG_stop = false ;
-        wepsim_execute_chainplay(btn1) ;
+        if (false == run_notifications)
+             wepsim_execute_chainplay(btn1) ;
+        else wepsim_execute_chainnotify(btn1) ;
     }
 
-    function wepsim_execute_toggle_play ( btn1 )
+    function wepsim_execute_toggle_play ( btn1, run_notifications )
     {
-        if (DBG_stop == false) {
+        if (DBG_stop == false) 
+        {
             DBG_stop = true ; // will help to execute_play stop playing
-        } else {
-            DBG_stop = false ;
-            wepsim_execute_play(btn1) ;
+        } 
+        else 
+        {
+            wepsim_execute_play(btn1,run_notifications) ;
         }
     }
+
 
     /*
      * Help
@@ -282,12 +295,12 @@
     function wepsim_help_refresh ( )
     {
         var rel = $('#help1_ref').data('relative') ;
-        if (rel != "") 
+        if ( (typeof rel != "undefined") && (rel != "") )
         {
             $('#iframe_help1').load('help/simulator-' + get_cfg('ws_idiom') + '.html ' + rel,
 	    		            function() {
                                         $('#help1').trigger('updatelayout');
-                                        $('#help1').popup('open');
+                                        $('#help1').modal('show');
                                     });
 
             ga('send', 'event', 'help', 'help.simulator', 'help.simulator.' + rel);
@@ -295,27 +308,41 @@
         }
 
         var ab1 = $('#help1_ref').data('absolute') ;
-        if (ab1 != "") 
+        if ( (typeof ab1 != "undefined") && (ab1 != "") )
         {
             $('#iframe_help1').load('help/' + ab1 + '-' + get_cfg('ws_idiom') + '.html',
 	    		            function() {
                                         $('#help1').trigger('updatelayout');
-                                        $('#help1').popup('open');
+                                        $('#help1').modal('show');
                                     });
 
-            ga('send', 'event', 'help', 'help.' + ab1, 'help.' + ab1 + ".*");
+            ga('send', 'event', 'help', 'help.' + ab1, 'help.' + ab1 + '.*');
             return ;
         }
+
+        var cod1 = $('#help1_ref').data('code') ;
+        if ( (typeof cod1 != "undefined") && (cod1 == "true") )
+        {
+            ga('send', 'event', 'help', 'help.code', 'help.code.*');
+            return ;
+        }
+
+        wepsim_open_help_index() ;
     }
 
     function wepsim_open_help_index ( )
     {
-	$('#iframe_help1').html(table_helps_html(helps)) ;
+        var help_xx = help[get_cfg('ws_idiom')] ;
+
+	$('#iframe_help1').html(table_helps_html(help_xx)) ;
 	$('#iframe_help1').enhanceWithin() ;
 
 	$('#help1_ref').data('relative','') ;
+	$('#help1_ref').data('absolute','') ;
+	$('#help1_ref').data('code','false') ;
+
 	$('#help1').trigger('updatelayout') ;
-	$('#help1').popup('open') ;
+	$('#help1').modal('show') ;
     }
 
     function wepsim_open_help_content ( content )
@@ -323,25 +350,31 @@
         $('#iframe_help1').html(content) ;
         $('#iframe_help1').enhanceWithin() ;
 
-        $('#help1_ref').data('relative','') ;
+        $('#help1_ref').data('relative', '') ;
+	$('#help1_ref').data('absolute', '') ;
+	$('#help1_ref').data('code','true') ;
+
         $('#help1').trigger('updatelayout') ;
-        $('#help1').popup('reposition', {positionTo: 'window'}) ;
-        $('#help1').popup('open') ;
+        $('#help1').modal('show') ;
     }
 
     function wepsim_close_help ( )
     {
-	$('#help1').popup('close') ;
+	$('#help1').modal('hide') ;
     }
 
     function wepsim_help_set_relative ( rel )
     {
         $('#help1_ref').data('relative', rel) ;
+	$('#help1_ref').data('absolute','') ;
+	$('#help1_ref').data('code','false') ;
     }
 
     function wepsim_help_set_absolute ( ab1 )
     {
+        $('#help1_ref').data('relative','') ;
         $('#help1_ref').data('absolute', ab1) ;
+	$('#help1_ref').data('code','false') ;
     }
 
 
@@ -354,12 +387,12 @@
         $("#container-example1").html(table_examples_html(examples));
         $("#container-example1").enhanceWithin();
 	$('#example1').trigger('updatelayout') ;
-	$('#example1').popup('open') ;
+	$('#example1').modal('show') ;
     }
 
     function wepsim_close_examples ( )
     {
-	$('#example1').popup('close') ;
+	$('#example1').modal('hide') ;
     }
 
 
@@ -367,27 +400,21 @@
     // Auxiliar functions
     //
 
+    function wepsim_notify_success ( ntf_title, ntf_message )
+    {
+	 return $.notify({ title: ntf_title, message: ntf_message },
+	  	         { type: 'success',
+                           z_index: 2000,
+                           newest_on_top: true,
+                           delay: get_cfg('NOTIF_delay'),
+                           timer: 100,
+                           placement: { from: 'top', align: 'center' } });
+    }
+
+
     /*
      * Play/stop
      */
-
-    function wepsim_check_stopbynotify_firm ( )
-    {
-        var reg_maddr     = get_value(sim_states["REG_MICROADDR"]) ;
-        var notifications = MC_dashboard[reg_maddr].notify.length ;
-
-        if (1 == notifications)
-            return false ;
-
-        var ret  = false ;
-        var noti = "" ;
-        for (var i=1; i<notifications; i++)
-        {
-             noti = MC_dashboard[reg_maddr].notify[i] ;
-	     ret  = confirm("Notify @ " + reg_maddr + ":\n" + noti) ;
-             if (ret) return true ;
-        }
-    }
 
     function wepsim_check_stopbybreakpoint_firm ( )
     {
@@ -396,8 +423,12 @@
             return false ;
 
 	var curr_addr = "0x" + reg_maddr.toString(16) ;
-	alert("Breakpoint @ " + curr_addr + ":\n" +
-	      "Microinstruction at " + curr_addr + " is going to be issue.") ;
+
+	var dialog_title = "Breakpoint @ " + curr_addr + ":<br>" +
+	                   "Microinstruction is going to be issue." ;
+        $("#dlg_title2").html(dialog_title) ;
+        $('#current_state2').modal('show');
+
 	return true ;
     }
 
@@ -412,9 +443,86 @@
 	if (false == FIRMWARE.assembly[curr_addr].breakpoint)
             return false ;
 
-	alert("Breakpoint @ " + curr_addr + ":\n" +
-	      "Instruction at " + curr_addr + " is going to be fetched.") ;
+	var dialog_title = "Breakpoint @ " + curr_addr + ":<br>" +
+	                   "Instruction is going to be fetched." ;
+        $("#dlg_title2").html(dialog_title) ;
+        $('#current_state2').modal('show');
+
 	return true ;
+    }
+
+    function wepsim_check_state_firm ( )
+    {
+        var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
+        if (false == MC_dashboard[reg_maddr].state)
+            return false ;
+
+        wepsim_state_history_add() ;
+	return true ;
+    }
+
+    function wepsim_execute_chunk ( btn1, chunk )
+    {
+	var ret = false ;
+
+	var playlevel = get_cfg('DBG_level') ;
+	if (playlevel == "instruction")  
+	{
+            var clklimit  = get_cfg('DBG_limitick') ;
+            for (var i=0; i<chunk; i++)
+            {
+		    ret = execute_microprogram(clklimit) ;
+		    if (ret === false) {
+			wepsim_execute_stop(btn1) ;
+			return false ;
+		    }
+
+		    ret = wepsim_check_stopbybreakpoint_asm() ;
+		    if (true == ret) {
+			wepsim_execute_stop(btn1) ;
+			return false ;
+		    }
+            }
+	}
+	else
+	{
+            for (var i=0; i<chunk; i++)
+            {
+		    wepsim_check_state_firm() ;
+
+		    ret = execute_microinstruction() ;
+		    if (ret === false) {
+			wepsim_execute_stop(btn1) ;
+			return false ;
+		    }
+
+		    ret = wepsim_check_stopbybreakpoint_firm() ;
+		    if (true == ret) {
+			wepsim_execute_stop(btn1) ;
+			return false ;
+		    }
+
+                    var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
+                    if (0 == reg_maddr) 
+                    {
+		        ret = wepsim_check_stopbybreakpoint_asm() ;
+		        if (true == ret) {
+		    	    wepsim_execute_stop(btn1) ;
+			    return false ;
+		        }
+		    }
+            }
+	}
+
+        return true ;
+    }
+
+    // instructions per chunck to be chained...
+    var max_turbo = 5 ;
+
+    function wepsim_reset_max_turbo ( )
+    {
+        max_turbo = 5 ;
     }
 
     function wepsim_execute_chainplay ( btn1 )
@@ -424,38 +532,73 @@
 	    return ;
 	}
 
-        var clklimit = get_cfg('DBG_limitick') ;
+        var turbo = 1;
+	if (get_cfg('DBG_delay') < 5)
+            turbo = max_turbo ;
+        if (max_turbo == 5) 
+            var t0 = performance.now() ;
 
-	var ret = false ;
-	if (get_cfg('DBG_level') == "instruction")
-	     ret = execute_microprogram(clklimit) ;
-	else ret = execute_microinstruction() ;
+        var ret = wepsim_execute_chunk(btn1, turbo) ;
+        if (false == ret)
+            return ;
 
-	if (ret === false) {
-	    wepsim_execute_stop(btn1) ;
-	    return ;
-	}
-
-        ret = wepsim_check_stopbybreakpoint_asm() ;
-	if (ret == true) {
-	    wepsim_execute_stop(btn1) ;
-	    return ;
-	}
-
-        ret = wepsim_check_stopbybreakpoint_firm() ;
-	if (ret == true) {
-	    wepsim_execute_stop(btn1) ;
-	    return ;
-	}
-
-        ret = wepsim_check_stopbynotify_firm() ;
-	if (ret == true) {
-	    wepsim_execute_stop(btn1) ;
-	    return ;
-	}
+        if (max_turbo == 5) 
+            var t1 = performance.now() ;
+        if (max_turbo == 5) 
+            max_turbo = 3000/(t1-t0) ;
 
 	setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), btn1) ;
     }
+
+    function wepsim_execute_chainnotify ( btn1 )
+    {
+	if (DBG_stop) {
+	    wepsim_execute_stop(btn1) ;
+	    return ;
+	}
+
+	var ret = false ;
+        for (var i=0; i<max_turbo; i++)
+        {
+		ret = execute_microinstruction() ;
+		if (ret === false) 
+                {
+		    wepsim_execute_stop(btn1) ;
+		    return ;
+		}
+
+		var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
+		var notifications = MC_dashboard[reg_maddr].notify.length ;
+		if (notifications > 1) 
+                {
+		    var dialog_title = "Notify @ " + reg_maddr + ": " + MC_dashboard[reg_maddr].notify[1] ;
+
+		    var dialog_msg = "" ;
+		    for (var i=1; i<notifications; i++) {
+			 dialog_msg += MC_dashboard[reg_maddr].notify[i] + "\n<br>" ;
+		    }
+
+		    bootbox.confirm({
+			title:    dialog_title,
+			message:  dialog_msg,
+			buttons:  {
+				     cancel:  { label: 'Stop',     className: 'btn-danger' },
+				     confirm: { label: 'Continue', className: 'btn-primary' }
+				  },
+			callback: function (result) {
+				     if (result)
+				          setTimeout(wepsim_execute_chainnotify, get_cfg('DBG_delay'), btn1) ;
+				     else wepsim_execute_stop(btn1) ;
+				  }
+		    });
+
+		    return ;
+		}
+        }
+
+        setTimeout(wepsim_execute_chainnotify, get_cfg('DBG_delay'), btn1) ;
+    }
+
 
     /*
      * UI elements
@@ -485,6 +628,7 @@
                                 '<button type="button" class="btn btn-danger" onclick="$.notifyClose();">Close</button>' +
                                 '</center>' },
 		     { type: 'danger',
+                       z_index: 2000,
                        newest_on_top: true,
                        delay: 0,
                        placement: { from: 'top', align: 'center' }
@@ -510,6 +654,222 @@
 	var b = 100 - a;
 	$('#eltos_cpu_a').css({width: a+'%'});
 	$('#eltos_cpu_b').css({width: b+'%'});
+    }
+
+
+    /*
+     * Copy to clipboard
+     */
+
+    var clipboard_copy = '' ;
+
+    function get_clipboard_copy ( ) 
+    {
+        return clipboard_copy ;
+    }
+
+    // credit for the SelectText function: 
+    // https://stackoverflow.com/questions/985272/selecting-text-in-an-element-akin-to-highlighting-with-your-mouse
+    function SelectText (element) 
+    {
+        var doc = document
+            , text = doc.getElementById(element)
+            , range, selection
+        ;    
+        if (doc.body.createTextRange) {
+            range = document.body.createTextRange();
+            range.moveToElementText(text);
+            range.select();
+        } else if (window.getSelection) {
+            selection = window.getSelection();        
+            range = document.createRange();
+            range.selectNodeContents(text);
+            selection.removeAllRanges();
+            selection.addRange(range);
+        }
+    }
+
+    function CopyFromDiv ( element_name )
+    {
+	    var msg = 'successful' ;
+
+	    try {
+                 SelectText(element_name) ;
+                 document.execCommand('copy') ;
+		 clipboard_copy = $('#' + element_name).text() ;
+	    } 
+            catch (err) {
+		 msg = 'unsuccessful' ;
+	    }
+
+	    wepsim_notify_success('<strong>INFO</strong>', 'Copied ' + msg + '!.') ;
+    }
+
+    function CopyFromTextarea ( element_name )
+    {
+	    var msg = 'successful' ;
+
+	    try {
+		 var copyTextarea = document.getElementById(element_name);
+		 copyTextarea.select();
+                 document.execCommand('copy') ;
+		 clipboard_copy = $('#' + element_name).val() ;
+	    } 
+            catch (err) {
+		 msg = 'unsuccessful' ;
+	    }
+
+	    wepsim_notify_success('<strong>INFO</strong>', 'Copied ' + msg + '!.') ;
+    }
+
+
+    /*
+     * Check state
+     */
+
+    var state_history = new Array() ;
+
+    function wepsim_state_history_reset ( )
+    {
+        state_history = new Array() ;
+    }
+
+    function wepsim_state_history_add ( )
+    {
+        var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
+        var reg_clk   = get_value(sim_states["CLK"]) ;
+        var state_obj = wepsim_current2state() ;
+        var state_str = wepsim_state2checklist(state_obj) ;
+        var timestamp = new Date().getTime() ;
+
+        state_history.push({ time: timestamp,
+                             title: 'clock ' + reg_clk + ' @ micro-address ' + reg_maddr,
+                             content: state_str }) ;
+    }
+
+    function wepsim_state_history_list ( )
+    {
+         if (0 == state_history.length) 
+         {
+             $('#history1').html('Empty history.') ;
+	     $('#check_results1').html('');
+             return ;
+         }
+
+         var t = 0 ;
+         var o = '<div class="panel-group" id="accordion1">' ;
+         for (var i=state_history.length-1; i>=0; i--) 
+         {
+              t = new Date(state_history[i].time) ;
+
+              o += '<div class="panel panel-default">' +
+                   '  <div class="panel-heading" data-toggle="collapse" data-target="#collapse_'+i+'" data-parent="#accordion1">' +
+                   '    <h4 class="panel-title">' +
+                   '      <span>[' +
+                            t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + '_' +
+                            t.getHours()    + '-' + t.getMinutes()   + '-' + t.getSeconds() + '_' + 
+                            t.getMilliseconds() + '] ' + state_history[i].title +
+                   '      </span>' +
+                   '    </h4>' +
+                   '  </div>' +
+                   '  <div id="collapse_' + i + '" class="panel-collapse collapse">' +
+                   '    <div class="panel-body">' + 
+                   '      <div class="container-fluid">' + 
+                   '      <div class="row">' + 
+                   '      <button class="btn btn-default btn-sm col-xs-4 col-sm-3 pull-right"' + 
+                   '              onclick="CopyFromTextarea(\'ta_state_' + i + '\');" ' + 
+                   '              type="button">Copy <span class="hidden-xs">to clipboard</span></button>' +
+                   '      <button class="btn btn-default btn-sm col-xs-4 col-sm-3 pull-right"' + 
+                   '              onclick="var txt_chklst1 = get_clipboard_copy();' +
+                   '                       var obj_exp1    = wepsim_checklist2state(txt_chklst1);' +
+                   '                       var txt_chklst2 = $(\'#ta_state_'+i+'\').val();' +
+                   '                       var obj_exp2    = wepsim_checklist2state(txt_chklst2);' +
+                   '                       wepsim_dialog_check_state(\'check_results1\', obj_exp1, obj_exp2);"' +
+                   '           type="button">Check <span class="hidden-xs">differences with clipboard state</span></button>' +
+                   '      </div>' + 
+                   '      </div>' + 
+                   '      <div class="panel-body" ' + 
+                   '           style="padding:5 5 5 5;" ' + 
+                   '           id="state_' + i + '">' + state_history[i].content + '</div>' +
+                   '      <textarea aria-label="hidden-state"  style="display:none"' +
+                   '                id="ta_state_'+i+'" readonly>' + state_history[i].content + '</textarea>' +
+                   '    </div>' +
+                   '  </div>' +
+                   '</div>' ;
+         }
+         o += '</div>' ;
+
+         $('#history1').html(o) ;
+	 $('#check_results1').html('');
+    }
+
+    function wepsim_dialog_current_state ( )
+    {
+         // show dialog
+         wepsim_notify_success('<strong>INFO</strong>', 'Loading, please wait...') ;
+         $('#current_state1').modal('show');
+
+	 setTimeout(function() {
+
+	      // tab1
+	      //wepsim_state_history_list() ; // called on: reset+add but not on show...
+
+	      // tab2
+	      var state_obj     = wepsim_current2state() ;
+	      var txt_checklist = wepsim_state2checklist(state_obj) ;
+	      $('#end_state1').tokenfield('setTokens', txt_checklist);
+
+              $.notifyClose() ;
+              wepsim_notify_success('<strong>INFO</strong>', 'Current state loaded !') ;
+
+              // ga
+	      var neltos  = 0 ;
+	      var nceltos = 0 ;
+	      var ga_str  = "" ;
+              for (var component in state_obj) 
+	      {
+	           nceltos = 0 ;
+	           for (var eltos in state_obj[component]) {
+	                nceltos++ ;
+	           }
+	           ga_str = ga_str + "," + component + "=" + nceltos ;
+                   neltos = neltos + nceltos ;
+	      }
+              ga('send', 'event', 'state', 
+	         'state.dump', 
+	         'state.dump.' + 'neltos=' + neltos + ga_str);
+
+         }, 80) ;
+    }
+
+    function wepsim_dialog_check_state ( id_result, obj_chklst_expected, obj_chklst_current )
+    {
+        var obj_result = wepsim_diff_results(obj_chklst_expected, obj_chklst_current) ;
+
+        // dialog
+        if (0 == obj_result.errors)
+    	     var msg = "&emsp;<span style='background-color:#7CFC00'>" + 
+                       "Meets the specified requirements" + 
+                       "</span><br>" ;
+        else var msg = wepsim_checkreport2html(obj_result.result, true) ;
+
+        $('#' + id_result).html(msg);
+
+        // ga
+        ga('send', 'event', 'state', 
+	   'state.check', 
+	   'state.check.' + 'a=' + obj_result.neltos_expected + ',b=' + obj_result.neltos_obtained + ',sd=' + obj_result.errors);
+
+	return true ;
+    }
+
+    function wepsim_dialog_check_reset ( id_result, id_input )
+    {
+        $('#' + id_input).tokenfield('setTokens', []);
+	$('#' + id_input).val('');
+	$('#' + id_result).html('');
+
+	return true ;
     }
 
 
@@ -547,20 +907,14 @@
 
 			    if (true == ok)
 			    {
-                                  if (true == chain_next_step)
-				      setTimeout(function(){
-					            $.mobile.pageContainer.pagecontainer('change', '#main1');
-				                 }, 50);
-                                  show_memories_values();
+                                if (true == chain_next_step)
+				    setTimeout(function(){
+					          $.mobile.pageContainer.pagecontainer('change', '#main1');
+                                                  show_memories_values();
+				               }, 50);
 			    }
 
-			    $.notify({ title: '<strong>INFO</strong>',
-			  	       message: 'Example ready to be used.'},
-				     { type: 'success',
-				       newest_on_top: true,
-				       delay: get_cfg('NOTIF_delay'),
-				       placement: { from: 'top', align: 'center' }
-				      });
+                            wepsim_notify_success('<strong>INFO</strong>', 'Example ready to be used.') ;
                       };
         wepsim_load_from_url(url, do_next) ;
 
@@ -588,13 +942,7 @@
                                   else show_memories_values();
                            }
 
-			   $.notify({ title: '<strong>INFO</strong>',
-				      message: 'Example ready to be used.'},
-				    { type: 'success',
-				      newest_on_top: true,
-				      delay: get_cfg('NOTIF_delay'),
-				      placement: { from: 'top', align: 'center' }
-				     });
+                           wepsim_notify_success('<strong>INFO</strong>', 'Example ready to be used.') ;
                       };
         wepsim_load_from_url(url, do_next) ;
 
@@ -609,7 +957,7 @@
                '<tr>' +
                '  <th>#</th>' +
                '  <th onclick="$(\'.collapse1\').collapse(\'toggle\');">level</th>' +
-               '  <th>title</th>' +
+               '  <th>load...</th>' +
                '  <th onclick="$(\'.collapse3\').collapse(\'toggle\');">description</th>' +
                '  <th onclick="$(\'.collapse4\').collapse(\'toggle\');">load only...</th>' +
                '</tr>' +
@@ -626,17 +974,17 @@
 		       ' <td>' + '<b>' + (m+1)   + '</b>' + '</td>' +
 		       ' <td>' + '<b    class="collapse1 collapse in">' + e_level + '</b>' + '</td>' +
 		       ' <td>' + 
-		       '   <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',true);"  style="padding:0 0 0 0;"' +
+		       '   <a href="#" onclick="$(\'#example1\').modal(\'hide\'); load_from_example_firmware(\'' + e_id + '\',true);"  style="padding:0 0 0 0;"' +
 		       '      class="ui-btn btn btn-group ui-btn-inline btn-primary">' + 
                        '   <b class="collapse2 collapse in">' + e_title + '</b></a>' +
                        ' </td>' +
 		       ' <td>' + '<span class="collapse3 collapse in">' + e_description + '</span>' + '</td>' +
 		       ' <td class="collapse4 collapse in" style="min-width:150px; max-width:200px">' +
 		       '     <div class="btn-group btn-group-justified btn-group-md">' +
-		       '         <a href="#" onclick="load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0;"' +
+		       '         <a href="#" onclick="$(\'#example1\').modal(\'hide\'); load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0;"' +
 		       '            class="ui-btn btn btn-group ui-btn-inline btn-default">' +
 		       '            <b>Assembly</b></a>' +
-		       '         <a href="#" onclick="load_from_example_firmware(\'' + e_id + '\',false);" style="padding:0 0 0 0;"' +
+		       '         <a href="#" onclick="$(\'#example1\').modal(\'hide\'); load_from_example_firmware(\'' + e_id + '\',false);" style="padding:0 0 0 0;"' +
 		       '            class="ui-btn btn btn-group ui-btn-inline btn-default">' +
 		       '            <b>Firmware</b></a>' +
 		       '     </div>' +
@@ -782,7 +1130,7 @@
 
     function sim_prepare_editor ( editor )
     {
-	    editor.setValue("\n\n\n\n\n\n\n\n\n");
+	    editor.setValue("\n\n\n\n\n\n\n\n\n\n");
 	    editor.getWrapperElement().style['text-shadow'] = '0.0em 0.0em';
 
 	    if (get_cfg('editor_theme') == 'blackboard') {
@@ -800,4 +1148,384 @@
 
 	    setTimeout(function(){editor.refresh();}, 100);
     }
+
+    //
+    // Tutorials
+    //
+
+    function sim_tutorial_showframe ( tutorial_name, step )
+    {
+        // 0.- get reference
+        if (typeof tutorials[tutorial_name] == "undefined")
+            return ;
+        var tutorial = tutorials[tutorial_name][get_cfg('ws_idiom')] ;
+        if (typeof tutorial == "undefined")
+            return ;
+
+        // 1.- check if
+	if (step == tutorial.length)
+	    return ;
+	if (step < 0) 
+	    return ;
+
+        // 2.- code_pre
+        tutorial[step].code_pre();
+        if (wepsim_voice_canSpeak())
+        {
+	    tut_msg1 = new SpeechSynthesisUtterance(tutorial[step].title.replace(/<[^>]*>/g, '') + ". " + 
+		                                    tutorial[step].message.replace(/<[^>]*>/g, ''));
+	    tut_msg1.lang = 'en-US';
+        }
+
+        // 3.- dialog +
+        //     code_post (next button) | cancel tutorials
+        var bbbt = new Object() ;
+
+	if (step != (tutorial.length - 1))
+            bbbt["next"] = {
+		    label: 'Next',
+		    className: 'btn-success col-xs-3 col-sm-2 pull-right',
+		    callback: function() {
+			tutorial[step].code_post() ;
+			setTimeout(function(){ 
+					sim_tutorial_showframe(tutorial_name, step + 1) ;
+				   }, tutorial[step].wait_next);
+                        if (wepsim_voice_canSpeak())
+			    window.speechSynthesis.cancel() ;
+		    }
+		};
+	else
+            bbbt["end"] = {
+		    label: 'End',
+		    className: 'btn-success col-xs-3 col-sm-2 pull-right',
+		    callback: function() {
+			tutorial[step].code_post() ;
+			setTimeout(function(){ 
+					sim_tutorial_showframe(tutorial_name, step + 1) ;
+				   }, tutorial[step].wait_next);
+                        if (wepsim_voice_canSpeak())
+			    window.speechSynthesis.cancel() ;
+		    }
+		};
+
+        if (step != 0)
+            bbbt["prev"] = {
+		    label: 'Prev',
+		    className: 'btn-success col-xs-3 col-sm-2 pull-right',
+		    callback: function() {
+			tutorial[step].code_post() ;
+			setTimeout(function(){ 
+					sim_tutorial_showframe(tutorial_name, step - 1) ;
+				   }, tutorial[step].wait_next);
+                        if (wepsim_voice_canSpeak())
+			    window.speechSynthesis.cancel() ;
+		    }
+		};
+
+        bbbt["cancel"] = {
+		    label: 'Disable this tutorial',
+		    className: 'btn-danger col-xs-4 col-sm-3 pull-right',
+		    callback: function() {
+			set_cfg('show_tutorials', false) ;
+                        save_cfg();
+                        $("#radio10-false").trigger("click").checkboxradio("refresh") ;
+                        tutbox.modal("hide") ;
+                        if (wepsim_voice_canSpeak())
+			    window.speechSynthesis.cancel() ;
+		    }
+		} ;
+
+	tutbox = bootbox.dialog({
+	    title:   tutorial[step].title,
+	    message: tutorial[step].message,
+	    buttons: bbbt,
+            animate: false
+	});
+
+        if (wepsim_voice_canSpeak())
+	    window.speechSynthesis.speak(tut_msg1);
+    }
+
+
+    //
+    //  WepSIM check API
+    //
+
+    function wepsim_checklist2state ( checklist )
+    {
+        var o = new Object() ;
+	var ret = false ;
+
+	// white-spaces...
+	checklist = checklist.replace(/;|==|!=|>=|<=|=|>|</gi, 
+                                      function (x){return ' ' + x + ' ';});  
+        checklist = checklist.replace(/  /g,' ') ;
+
+	// lines...
+        var lines = checklist.split(";") ;
+        for (var i=0; i<lines.length; i++)
+        {
+             var line = lines[i].trim() ;
+	     if ("" == line)
+		 continue ;
+
+             var parts = line.split(" ") ;
+	     if (parts.length < 4)
+		 continue ;
+
+	     var check = { "type": parts[0], 
+                           "id": parts[1], 
+                           "condition": parts[2], 
+                           "value": decodeURI(parts[3]) } ;
+             for (var index in sim_components) 
+             {
+	          ret = sim_components[index].read_state(o, check) ;
+                  if (true == ret) break ;
+             }
+
+             if (false == ret)
+                 console.log("ERROR in checklist at component " + check.type + ": " + line) ;
+        }
+
+        return o ;
+    }   
+
+    function wepsim_current2state ( )
+    {
+	var o = new Object() ;
+	for (var index in sim_components) {
+	     sim_components[index].write_state(o) ;
+	}
+
+        return o ;
+    }
+
+    function wepsim_state2checklist ( s_obj )
+    {
+	var ret = "" ;
+        for (var component in s_obj) 
+	{
+	     for (var eltos in s_obj[component]) {
+		  var elto = s_obj[component][eltos] ;
+	          ret = ret + elto.type + " " + elto.id + " " + elto.op + " " + encodeURI(elto.value) + "; " ;
+	     }
+	}
+
+        return ret ;
+    }
+
+    function wepsim_diff_results ( expected_result, obtained_result )
+    {
+        var d = new Object() ;
+        d.result = new Array() ;
+        d.errors = 0 ;
+        d.neltos_expected = 0 ;
+        d.neltos_obtained = 0 ;
+
+        var obtained_value = 0 ;
+	for (var compo in sim_components)
+	{
+	    // if there are different values -> diff
+            if (typeof expected_result[compo] != "undefined") 
+	    {
+		    for (var elto in expected_result[compo])
+		    {
+                         d.neltos_expected++ ;
+
+                         obtained_value = expected_result[compo][elto].default_value ;
+			 if ( (typeof obtained_result[compo]       != "undefined") &&
+			      (typeof obtained_result[compo][elto] != "undefined") ) {
+                               obtained_value = obtained_result[compo][elto].value ;
+                         }
+
+			 var diff = new Object() ;
+			 diff.expected  = expected_result[compo][elto].value ;
+			 diff.obtained  = obtained_value ;
+			 diff.elto_type = compo.toLowerCase() ;
+			 diff.elto_id   = expected_result[compo][elto].id ;
+			 diff.elto_op   = expected_result[compo][elto].op ;
+
+		         diff.fulfill   = false ;
+			      if ("=" == expected_result[compo][elto].op)
+			          diff.fulfill = (parseInt(diff.obtained) == parseInt(diff.expected)) ;
+			 else if (">" == expected_result[compo][elto].op)
+			          diff.fulfill = (parseInt(diff.obtained)  > parseInt(diff.expected)) ;
+			 else if ("<" == expected_result[compo][elto].op)
+			          diff.fulfill = (parseInt(diff.obtained)  < parseInt(diff.expected)) ;
+			 else if (">=" == expected_result[compo][elto].op)
+			          diff.fulfill = (parseInt(diff.obtained) >= parseInt(diff.expected)) ;
+			 else if ("<=" == expected_result[compo][elto].op)
+			          diff.fulfill = (parseInt(diff.obtained) <= parseInt(diff.expected)) ;
+			 else if ("==" == expected_result[compo][elto].op)
+			          diff.fulfill = (diff.expected == diff.obtained) ;
+			 else if ("!=" == expected_result[compo][elto].op)
+			          diff.fulfill = (diff.expected != diff.obtained) ;
+
+			 d.result.push(diff) ;
+
+			 if (diff.fulfill === false)
+			     d.errors++ ;
+		    }
+            }
+
+	    // if there are new elements -> diff
+	    if (typeof obtained_result[compo] != "undefined")
+	    {
+		    for (var elto in obtained_result[compo]) 
+		    {
+                         d.neltos_obtained++ ;
+
+			 if ( (typeof expected_result[compo]       != "undefined") && 
+			      (typeof expected_result[compo][elto] != "undefined") ) {
+			       continue ;
+		         }
+
+			 var diff = new Object() ;
+			 diff.expected  = obtained_result[compo][elto].default_value ;
+			 diff.obtained  = obtained_result[compo][elto].value ;
+			 diff.fulfill   = (diff.expected == diff.obtained) ;
+			 diff.elto_type = compo.toLowerCase() ;
+			 diff.elto_id   = obtained_result[compo][elto].id ;
+			 diff.elto_op   = "=" ;
+			 d.result.push(diff) ;
+
+			 if (diff.fulfill === false)
+			     d.errors++ ;
+		    }
+	    }
+        }
+
+        return d ;
+    }
+
+    function wepsim_checkreport2txt ( checklist )
+    {
+        var o = "";
+
+        for (var i=0; i<checklist.length; i++)
+        {
+             if (checklist[i].fulfill === false) {
+                 o += checklist[i].elto_type + "[" + checklist[i].elto_id + "]='" +
+                      checklist[i].obtained + "' (expected '" + checklist[i].expected  + "'), ";
+             }
+        }
+
+        return o;
+    }
+
+    function wepsim_checkreport2html ( checklist, only_errors )
+    {
+        var o = "" ;
+        var color = "green" ;
+
+        if (typeof only_errors === 'undefined') 
+            only_errors = false ;
+
+        o += "<table style='margin:0 0 0 0;' " + 
+             "       class='table table-hover table-bordered table-condensed'>" +
+             "<thead>" +
+             "<tr>" +
+             "<th>Type</th>" +
+             "<th><span class='hidden-xs'>Identification</span><span class='visible-xs'>Id.</span></th>" +
+             "<th><span class='hidden-xs'>Values in the </span>clipboard<span class='hidden-xs'> state</th>" +
+             "<th><span class='hidden-xs'>Values in the </span>selected<span class='hidden-xs'> state</th>" +
+             "</tr>" +
+             "</thead>" +
+             "<tbody>" ;
+        for (var i=0; i<checklist.length; i++)
+        {
+             if (checklist[i].fulfill === false)
+                  color = "danger" ;
+             else color = "success" ;
+
+             if (only_errors && checklist[i].fulfill)
+                 continue ;
+
+             o += "<tr class=" + color + ">" +
+                  "<td>" + checklist[i].elto_type + "</td>" +
+                  "<td>" + checklist[i].elto_id   + "</td>" +
+                  "<td>" + checklist[i].elto_op + "&nbsp;" + checklist[i].expected  + "</td>" +
+                  "<td>" + checklist[i].obtained  + "</td>" +
+                  "</tr>" ;
+        }
+        o += "</tbody>" + 
+             "</table>" ;
+
+        return o ;
+    }
+
+
+    /*
+     * Voice control
+     */
+
+    function wepsim_voice_init ( )
+    {
+	 // check if voice is available...
+         if (!annyang) 
+	     return false ;
+
+	 // setup annyang + speechkitt...
+         var commands = {
+               'reset':                    function() { wepsim_execute_reset(true, true); },
+               'next instruction':         wepsim_execute_instruction,
+               'next micro(instruction)':  wepsim_execute_microinstruction,
+               'play':                     function() { wepsim_execute_play('#qbp', false); },
+               'stop':                     function() { wepsim_execute_stop('#qbp'); },
+
+               'help':                     wepsim_open_help_index,
+               'examples':                 wepsim_open_examples_index,
+               'configuration':            function() { $('#config1').popup('open'); },
+               'close':                    function() { wepsim_close_help(); 
+		                                        wepsim_close_examples(); 
+		                                        $('#config1').popup('close'); }
+         };
+         annyang.addCommands(commands);
+         annyang.addCallback('errorNetwork', 
+                             function () {
+	                         annyang.abort() ;
+                                 alert('Sorry but some network connection is needed in order to use the voice recognition engine.');
+                             });
+
+         SpeechKITT.annyang();
+         SpeechKITT.setStylesheet('external/speechkitt.css');
+         SpeechKITT.vroom();
+
+	 return true ;
+    }
+
+    function wepsim_voice_start ( )
+    {
+	 // check if voice is available...
+         if (!annyang) 
+	     return false ;
+
+	 //annyang.resume() ;
+         SpeechKITT.show();
+	 return true ;
+    }
+
+    function wepsim_voice_stop ( )
+    {
+	 // check if voice is available...
+         if (!annyang) 
+	     return false ;
+
+         SpeechKITT.hide();
+	 //annyang.pause() ;
+	 return true ;
+    }
+
+    function wepsim_voice_canSpeak ( )
+    {
+	if (typeof window.speechSynthesis == "undefined")
+            return false ;
+
+        if (false == get_cfg('use_voice'))
+            return false ;
+
+        return true ;
+    }
+
+
 

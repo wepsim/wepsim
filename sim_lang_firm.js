@@ -170,6 +170,31 @@ function read_microprg ( context )
                     'microcomments': microcomments } ;
 }
 
+function read_native ( context )
+{
+           var microprograma = new Array();
+           var microcomments = new Array();
+
+	   // match mandatory {
+	   if (! isToken(context, "{") )
+	         return langError(context, "Expected '{' not found") ;
+
+	   // read the rest...
+	   nextNative(context) ;
+
+	   var microInstruccionAux = new Object() ;
+	   microInstruccionAux["NATIVE"] = getToken(context) ;
+
+	   microprograma.push(microInstruccionAux) ;
+           microcomments.push('') ;
+
+	   // match mandatory }
+           nextToken(context) ;
+
+           return { 'microprograma': microprograma, 
+                    'microcomments': microcomments } ;
+}
+
 function loadFirmware (text)
 {
            var context = new Object() ;
@@ -349,7 +374,23 @@ function loadFirmware (text)
                    instruccionAux["mc-start"] = context.contadorMC ;
 
 	           nextToken(context);
-                   var ret = read_microprg(context) ;
+
+	           // match optional native
+	           instruccionAux["native"] = false;
+	           if (isToken(context, "native")) 
+		   {
+	               instruccionAux["native"] = true;
+		       nextToken(context);
+
+	               // match optional ,
+	               if (isToken(context,",")) 
+		           nextToken(context);
+	           }
+
+	           if (true == instruccionAux["native"])
+                        var ret = read_native(context) ;
+		   else var ret = read_microprg(context) ;
+
                    if (typeof ret.error != "undefined")
                        return ret ;
 
@@ -518,19 +559,22 @@ function loadFirmware (text)
 	             return langError(context, "Incorrect binary format on 'co': " + getToken(context)) ;
 
 	       // semantic check: 'co' is not already used
-	       if ( (typeof context.co_cop[instruccionAux["co"]] != "undefined") &&
-	                   (context.co_cop[instruccionAux["co"]].cop == null) )
+	       if (instruccionAux["co"] != "111111")
 	       {
-	   	   return langError(context,
-				    "'co' is already been used by: " + context.co_cop[instruccionAux.co].signature) ;
-	       }
+	           if ( (typeof context.co_cop[instruccionAux["co"]] != "undefined") &&
+	                       (context.co_cop[instruccionAux["co"]].cop == null) )
+	           {
+	   	           return langError(context,
+				                          "'co' is already been used by: " + context.co_cop[instruccionAux.co].signature) ;
+	           }
 
-               if (typeof context.co_cop[instruccionAux.co] == "undefined")
-	       {
-	           context.co_cop[instruccionAux.co] = new Object() ;
-   	           context.co_cop[instruccionAux.co].signature = instruccionAux.signature ;
-                   context.co_cop[instruccionAux.co].cop       = null ;
-	       }		   
+             if (typeof context.co_cop[instruccionAux.co] == "undefined")
+	           {
+	               context.co_cop[instruccionAux.co] = new Object() ;
+   	             context.co_cop[instruccionAux.co].signature = instruccionAux.signature ;
+                 context.co_cop[instruccionAux.co].cop       = null ;
+	           }
+	       }
 
 	       nextToken(context);
 	       // match optional ,
@@ -717,14 +761,40 @@ function loadFirmware (text)
 //             nwords=1,
 //             reg=reg(25,21),
 //             val=inm(15,0),
+//             *[native,]*
+//             {
+//                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LE=1, MR=0, RE=10101, A0=1, B=1, C=0)
+//             }
+// }
+
+	       instruccionAux["native"] = false;
+
+	       // match optional 'native' + ','
+	       if (isToken(context, "native")) 
+	       {
+	           instruccionAux["native"] = true;
+		   nextToken(context);
+
+	           if (isToken(context,",")) 
+		       nextToken(context);
+	       }
+
+// li reg val {
+//             co=000000,
+//             nwords=1,
+//             reg=reg(25,21),
+//             val=inm(15,0),
 //             *{
 //                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LE=1, MR=0, RE=10101, A0=1, B=1, C=0)
 //             }*
 // }
 
-               var ret = read_microprg(context) ;
-               if (typeof ret.error != "undefined")
-                   return ret ;
+	           if (true == instruccionAux["native"])
+                        var ret = read_native(context) ;
+		   else var ret = read_microprg(context) ;
+
+                   if (typeof ret.error != "undefined")
+                       return ret ;
 
                instruccionAux["microcode"]     = ret.microprograma ;
                instruccionAux["microcomments"] = ret.microcomments ;
@@ -770,6 +840,39 @@ function loadFirmware (text)
            }
            if (found === false)
 	       return langError(context, "'begin' not found") ;
+
+           // TO RESOLVE co=111111 (111111 === "please, find one free 'co' for me...")
+           var first_co = 0 ;
+           var last_co  = Math.pow(2,6) - 1 ;
+           var label    = "" ;
+
+           for (var i=0; i<context.instrucciones.length; i++)
+           {
+                if ( (context.instrucciones[i].name != "begin") &&
+                     (context.instrucciones[i].co   == "111111") )
+                {
+			for (var j=first_co; j<last_co; j++) 
+			{
+			     label = j.toString(2) ;
+			     label = "000000".substring(0, 6 - label.length) + label ;
+
+			     if (typeof context.co_cop[label] == "undefined") 
+				 break;
+			}
+
+			if (j >= last_co) {
+		             return langError(context, "There is not enough 'co' codes available for instructions") ;
+			}
+
+                        context.instrucciones[i].co = label ;
+
+	                context.co_cop[label] = new Object() ;
+   	                context.co_cop[label].signature = context.instrucciones[i].signature ;
+                        context.co_cop[label].cop       = null ;
+
+			first_co = j ;
+                }
+           }
 
            // TO RESOLVE labels
 	   var labelsFounded=0;

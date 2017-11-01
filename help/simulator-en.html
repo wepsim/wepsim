@@ -702,5 +702,81 @@
 
       </div>
 
+
+      <div id="help_checker">
+
+              It is possible to check that the current state fulfill our requirements:
+	      <p>
+	      <ul>
+	        <li>To check the current state, please introduce requirements and press "check".</li>
+	        <c>
+	        For example:<br>
+	        <textarea aria-label="checks to perform" rows="2">
+register 5 >= 8 ; memory 1 = 0x10; screen 0 == first_line
+	        </textarea>
+	        </c>
+	        <li>To clean the requirements, press "clean".</li>
+	      </ul>
+	      <p>
+	      <b>TIP: the semicolons are needed.</b>
+	      <br>
+	      <b>TIP: please be careful because the scroll bars use to be hidden.</b>
+	      <br>
+	      When empty requirements are provided, the initial state is taken into consideration.
+
+      </div>
+
+
+      <div id="help_dumper">
+
+              The 'State' panel let users to show the state at the present moment as 
+              a list of main requirements. 
+              Users can copy the requirements to the clipboard or store them in the 'History'.
+	      <ul>
+	        For example:<br>
+	        <textarea aria-label="checks to perform" rows="2">
+register 5 >= 8 ; memory 1 = 0x10; screen 0 == first_line
+	        </textarea>
+	      </ul>
+
+              The 'History' panel let users to keep track of a list with the main requirements
+              in different CPU clock cycles.
+	      It can be used to check the differences between two moments in time. 
+              Any main requirement set can be copy to the clipboard, and other main requirement set
+              can be compared with the ones stored in the clipboard.
+	      <p>
+
+              Please, remember two important details:
+	      <ul>
+	         <li><b>The semicolons are needed.</b> 
+                 The ';' character indicates the end of any requirement.
+	         </li>
+	         <li><b>The scroll bars use to be hidden on requirements and differencies.</b>
+	         </li>
+	      </ul>
+
+      </div>
+
+      <div id="help_hwcfg">
+
+              The configuration of the hardware simulated is performed in this dialog.<br>
+              There are two elements:
+	      <ul>
+	         <li>
+                 <b>Memory</b>: number of cycles that the memory needs to looking for some data.<br>
+                 The default value is zero, and that means that data is available 
+                 at the next clock cycle after requesting it to/from memory.
+                 </li>
+	         <li>
+                 <b>I/O</b>: number of cycles to fire up interruptions.<br>
+                 The default value is zero, and that means that firing interruptions is disabled.
+                 If the 'CLK period' is (for example) 100 and the 'Probability' is 1, then
+                 every 100 CPU clock cycles the associated interruption is fired.
+                 If the probability is 0.5 then the associated interruption is fired with 50% of probability.
+                 </li>
+	      </ul>
+
+      </div>
+
   </body>
 </html>

@@ -733,5 +733,81 @@
 
       </div>
 
+
+      <div id="help_checker">
+
+              Es posible comprobar que el estado actual cumple los requisitos deseados:
+	      <p>
+	      <ul>
+	        <li>Para comprobar el estado actual, por favor introduzca los requisitos y presione "check".</li>
+	        <c>
+	        Por ejemplo:<br>
+	        <textarea aria-label="checks to perform" rows="2">
+register 5 >= 8 ; memory 1 = 0x10; screen 0 == first_line
+	        </textarea>
+	        </c>
+	        <li>Para limpiar los requisitos, presione "clean".</li>
+	      </ul>
+	      <p>
+	      <b>NOTA: los puntos y coma son necesarios.</b>
+	      <br>
+	      <b>NOTA: tenga cuidado porque las barras de scroll suelen estar ocultas.</b>
+	      <br>
+	      Cuando no se indican requisitos, se toma el estado inicial como base de comparación.
+
+      </div>
+
+
+      <div id="help_dumper">
+
+              El panel 'State' permite a los usuarios mostrar el estado actual como
+              una lista de los requisitos principales que lo define.
+              En este panel los usuarios pueden copiar estos requisitos al portapapeles o
+              también almacenar estos requisitos en el historial ('History').
+	      <ul>
+	        Por ejemplo:<br>
+	        <textarea aria-label="checks to perform" rows="2">
+register 5 >= 8 ; memory 1 = 0x10; screen 0 == first_line
+	        </textarea>
+	      </ul>
+
+              El panel 'History' permite a los usuarios llevar la pista con conjuntos de 
+              requisitos principales en diferentes ciclos de reloj de CPU.
+              Puede usarse para ver las diferencias del estado del procesador en dos momentos del tiempo.
+              Los requisitos principales en un instante pueden copiarse al portapapels, 
+              y también se puede comparar los requisitos principales con los almacenados en el portapapeles.
+	      <p>
+
+              Por favor recuerde dos detalles importantes:
+	      <ul>
+	         <li><b>Los puntos y coma son necesarios como separador de requisitos.</b></li>
+	         <li><b>Tenga cuidado porque las barras de scroll suelen estar ocultas.</b></li>
+	      </ul>
+
+      </div>
+
+      <div id="help_hwcfg">
+
+              La configuraci&oacute;n del hardware simulado se hace en este cuadro de di&aacute;logo.<br>
+              Hay dos elementos:
+	      <ul>
+	         <li>
+                 <b>Memoria</b>: n&uacute;mero de ciclos que la memoria precisa para buscar un dato.<br>
+                 El valor por defecto es cero, lo que significa que el dato est&aacute; disponible
+                 en el siguiente ciclo de reloj despu&eacute;s de la petici&oacute;n.
+                 </li>
+	         <li>
+                 <b>I/O</b>: n&uacute;mero de ciclos hasta lanzar una interrupci&oacute;n.<br>
+                 El valor por defecto es cero y esto significa que no se generar&aacute; 
+                 interrupciones por parte del dispositivo.
+                 Si el 'CLK period' es, por ejemplo, 100 y el valor de 'Probability' es 1 entonces
+                 cada 100 ciclos de reloj se generar&aacute; la interrupci&oacute;n asociada.
+                 Si la probabilidad es 0.5 entonces la interrupci&oacute;n asociada 
+                 se generar&aacute; con una probabilidad del 50%.
+                 </li>
+	      </ul>
+
+      </div>
+
   </body>
 </html>

@@ -19,6 +19,29 @@
  */
 
 
+	/*
+	 *  KBD
+	 */
+
+        sim_components["KBD"] = {
+		                  name: "KBD", 
+		                  version: "1", 
+		                  write_state: function ( vec ) {
+						  return vec;
+				               },
+		                  read_state:  function ( o, check ) {
+                                                  return false ;
+				               },
+		                  get_state:   function ( reg ) {
+					          return null ;
+				               } 
+                            	};
+
+
+	/*
+	 *  States - IO parameters
+	 */
+
         var KBDR_ID   = 0x0100 ;
         var KBSR_ID   = 0x0104 ;
 
@@ -60,13 +83,13 @@
 						      if (typeof sim_events["keybd"][clk] != "undefined")
                                                       {
 						              if (bus_ab == KBDR_ID)
-							          sim_states[s_expr[2]].value = sim_events["keybd"][clk];
+							          set_value(sim_states[s_expr[2]], sim_events["keybd"][clk]);
 							      if (bus_ab == KBSR_ID)
-								  sim_states[s_expr[2]].value = 1;
+								  set_value(sim_states[s_expr[2]], 1);
                                                               return;
                                                       }
 
-                                                      if (sim_states[s_expr[4]].value == 0) 
+                                                      if (get_value(sim_states[s_expr[4]]) == 0) 
                                                       {
 							      var keybuffer = document.getElementById("kdb_key").value;
 							      if (keybuffer.length != 0) 
@@ -74,22 +97,22 @@
 							          var keybuffer_rest = keybuffer.substr(1, keybuffer.length-1);
 							          document.getElementById("kdb_key").value = keybuffer_rest;
 
-							          sim_states[s_expr[4]].value = 1;
-							          sim_states[s_expr[3]].value = keybuffer[0].charCodeAt(0);
+							          set_value(sim_states[s_expr[4]], 1);
+							          set_value(sim_states[s_expr[3]], keybuffer[0].charCodeAt(0));
 							      }
                                                       }
-                                                      if (sim_states[s_expr[4]].value == 1) 
+                                                      if (get_value(sim_states[s_expr[4]]) == 1) 
                                                       {
 						              sim_events["keybd"][clk] = sim_states[s_expr[3]].value;
                                                       }
 
 						      if (bus_ab == KBSR_ID) {
-							      sim_states[s_expr[2]].value = sim_states[s_expr[4]].value;
+							      set_value(sim_states[s_expr[2]], sim_states[s_expr[4]].value);
 						      }
 						      if (bus_ab == KBDR_ID) {
-							      if (sim_states[s_expr[4]].value == 1) 
-							          sim_states[s_expr[2]].value = sim_states[s_expr[3]].value;
-							      sim_states[s_expr[4]].value = 0;
+							      if (get_value(sim_states[s_expr[4]]) == 1) 
+							          set_value(sim_states[s_expr[2]], get_value(sim_states[s_expr[3]]));
+							      set_value(sim_states[s_expr[4]], 0);
 						      }
                                                    }
                                    };
