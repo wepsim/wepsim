@@ -838,7 +838,8 @@
               ga('send', 'event', 'state', 
 	         'state.dump', 
 	         'state.dump' + '.ci=' + get_value(sim_states['REG_IR_DECO']) +
-		                ',neltos=' + neltos + ga_str);
+		                ',neltos=' + neltos + 
+		                ga_str);
 
          }, 80) ;
     }
@@ -859,9 +860,9 @@
         // ga
         ga('send', 'event', 'state', 
 	   'state.check', 
-	   'state.check' + ',ci=' + get_value(sim_states['REG_IR_DECO']));
-		           '.a='  + obj_result.neltos_expected + 
-		           ',b='  + obj_result.neltos_obtained + 
+	   'state.check' + ',ci=' + get_value(sim_states['REG_IR_DECO']) +
+		           '.a='  + obj_result.neltos_expected +
+		           ',b='  + obj_result.neltos_obtained +
 		           ',sd=' + obj_result.errors);
 
 	return true ;
