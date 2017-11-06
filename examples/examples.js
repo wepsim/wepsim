@@ -94,8 +94,8 @@
 
     examples.push({ 
                      id: 'S4E2',
-                     title: "syscall 1 & 4",
+                     title: "syscall 1, 4-5, 8, 11-12",
                      level: "Special",
-                     description: "Example of syscall for print integer and string.<br>" 
+                     description: "Example of syscall for printing/reading integer and string.<br>" 
                   });
 
