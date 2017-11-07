@@ -32,12 +32,20 @@
         {
             // TD + R
             if (databus_fire_visible) {
-                $("#databus_fire").hide();
+                //$("#databus_fire").hide();
+		     var o = document.getElementById('svg_p');
+		     if (o != null) o = o.contentDocument;
+		     if (o != null) o = o.getElementById('databus_fire');
+		     if (o != null) o.setAttributeNS(null, "visibility", "hidden");
                 databus_fire_visible = false ;
             }
             if ( (sim_signals["TD"].value != 0) && (sim_signals["R"].value != 0) )
             {
-                $("#databus_fire").show();
+                //$("#databus_fire").show();
+		     var o = document.getElementById('svg_p');
+		     if (o != null) o = o.contentDocument;
+		     if (o != null) o = o.getElementById('databus_fire');
+		     if (o != null) o.setAttributeNS(null, "visibility", "visible");
                 databus_fire_visible = true ;
                 sim_states["BUS_DB"].value = 0xFFFFFFFF;
             }
@@ -70,11 +78,19 @@
 
             // 3.- check if more than one tri-state is active
             if (internalbus_fire_visible) {
-                $("#internalbus_fire").hide();
+                //$("#internalbus_fire").hide();
+		     var o = document.getElementById('svg_p');
+		     if (o != null) o = o.contentDocument;
+		     if (o != null) o = o.getElementById('internalbus_fire');
+		     if (o != null) o.setAttributeNS(null, "visibility", "hidden");
                 internalbus_fire_visible = false ;
             }
             if (tri_activated > 1) {
-                $("#internalbus_fire").show();
+                //$("#internalbus_fire").show();
+		     var o = document.getElementById('svg_p');
+		     if (o != null) o = o.contentDocument;
+		     if (o != null) o = o.getElementById('internalbus_fire');
+		     if (o != null) o.setAttributeNS(null, "visibility", "visible");
                 internalbus_fire_visible = true ;
                 sim_states["BUS_IB"].value = 0xFFFFFFFF;
             }
