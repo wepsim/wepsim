@@ -979,8 +979,9 @@
 
 						   //    0      1    2  3
 						   //   SBIT  A0A1  A1  0
-						   set_value(sim_elto_dst, (sim_elto_dst.value & ~(1 << s_expr[3])) |
-									   (sim_elto_org.value << s_expr[3]));
+						   var new_value = (sim_elto_dst.value & ~(1 << s_expr[3])) | 
+						                         (sim_elto_org.value << s_expr[3]);
+						   set_value(sim_elto_dst, (new_value >>> 0));
 						}
 				   };
 	syntax_behavior["MBITS"] = { nparameters: 8,
