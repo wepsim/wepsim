@@ -751,7 +751,7 @@
     {
          if (0 == state_history.length) 
          {
-             $('#history1').html('Empty history.') ;
+             $('#history1').html('&emsp;<span style="background-color:#FCFC00">Empty.</span>') ;
 	     $('#check_results1').html('');
              return ;
          }
