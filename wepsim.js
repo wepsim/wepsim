@@ -751,7 +751,7 @@
     {
          if (0 == state_history.length) 
          {
-             $('#history1').html('Empty history.') ;
+             $('#history1').html('&emsp;<span style="background-color:#FCFC00">Empty.</span>') ;
 	     $('#check_results1').html('');
              return ;
          }
@@ -1071,36 +1071,43 @@
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab11').trigger('click');
+						     $('#select5a').selectpicker('val', 11);
                                                   }, false);
 	        var o  = ref_p.getElementById('text3029');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab11').trigger('click');
+						     $('#select5a').selectpicker('val', 11);
                                                   }, false);
 	        var o  = ref_p.getElementById('text3031');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab11').trigger('click');
+						     $('#select5a').selectpicker('val', 11);
                                                   }, false);
 	        var o  = ref_p.getElementById('text3001');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab14').trigger('click');
+						     $('#select5a').selectpicker('val', 14);
                                                   }, false);
 	        var o  = ref_p.getElementById('text3775');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab15').trigger('click');
+						     $('#select5a').selectpicker('val', 15);
                                                   }, false);
 	        var o  = ref_p.getElementById('text3829');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab12').trigger('click');
+						     $('#select5a').selectpicker('val', 12);
                                                   }, false);
 	        var o  = ref_p.getElementById('text3845');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab12').trigger('click');
+						     $('#select5a').selectpicker('val', 12);
                                                   }, false);
                 var o  = ref_p.getElementById('text3459-7');
                 if (o != null) o.addEventListener('click',
@@ -1119,6 +1126,7 @@
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab16').trigger('click');
+						     $('#select5a').selectpicker('val', 16);
                                                   }, false);
                 var o  = ref_cu.getElementById('text4138');
                 if (o != null) o.addEventListener('click',
