@@ -751,7 +751,7 @@
     {
          if (0 == state_history.length) 
          {
-             $('#history1').html('Empty history.') ;
+             $('#history1').html('&emsp;<span style="background-color:#FCFC00">Empty.</span>') ;
 	     $('#check_results1').html('');
              return ;
          }
@@ -823,11 +823,23 @@
               wepsim_notify_success('<strong>INFO</strong>', 'Current state loaded !') ;
 
               // ga
-              var s=0 ;
-              for (var i=0; i<txt_checklist.length; i++)
-                   if (';' == txt_checklist[i]) 
-                       s++ ;
-              ga('send', 'event', 'state', 'state.dump', 'state.dump.eltos=' + s);
+	      var neltos  = 0 ;
+	      var nceltos = 0 ;
+	      var ga_str  = "" ;
+              for (var component in state_obj) 
+	      {
+	           nceltos = 0 ;
+	           for (var eltos in state_obj[component]) {
+	                nceltos++ ;
+	           }
+	           ga_str = ga_str + "," + component + "=" + nceltos ;
+                   neltos = neltos + nceltos ;
+	      }
+              ga('send', 'event', 'state', 
+	         'state.dump', 
+	         'state.dump' + '.ci=' + get_value(sim_states['REG_IR_DECO']) +
+		                ',neltos=' + neltos + 
+		                ga_str);
 
          }, 80) ;
     }
@@ -838,15 +850,20 @@
 
         // dialog
         if (0 == obj_result.errors)
-    	     var msg = "<center><span style='background-color:#7CFC00'>" + 
+    	     var msg = "&emsp;<span style='background-color:#7CFC00'>" + 
                        "Meets the specified requirements" + 
-                       "</span><center><br>" ;
+                       "</span><br>" ;
         else var msg = wepsim_checkreport2html(obj_result.result, true) ;
 
         $('#' + id_result).html(msg);
 
         // ga
-        ga('send', 'event', 'state', 'state.check', 'state.check.differ=' + obj_result.errors);
+        ga('send', 'event', 'state', 
+	   'state.check', 
+	   'state.check' + ',ci=' + get_value(sim_states['REG_IR_DECO']) +
+		           '.a='  + obj_result.neltos_expected +
+		           ',b='  + obj_result.neltos_obtained +
+		           ',sd=' + obj_result.errors);
 
 	return true ;
     }
@@ -1054,36 +1071,43 @@
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab11').trigger('click');
+						     $('#select5a').selectpicker('val', 11);
                                                   }, false);
 	        var o  = ref_p.getElementById('text3029');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab11').trigger('click');
+						     $('#select5a').selectpicker('val', 11);
                                                   }, false);
 	        var o  = ref_p.getElementById('text3031');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab11').trigger('click');
+						     $('#select5a').selectpicker('val', 11);
                                                   }, false);
 	        var o  = ref_p.getElementById('text3001');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab14').trigger('click');
+						     $('#select5a').selectpicker('val', 14);
                                                   }, false);
 	        var o  = ref_p.getElementById('text3775');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab15').trigger('click');
+						     $('#select5a').selectpicker('val', 15);
                                                   }, false);
 	        var o  = ref_p.getElementById('text3829');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab12').trigger('click');
+						     $('#select5a').selectpicker('val', 12);
                                                   }, false);
 	        var o  = ref_p.getElementById('text3845');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab12').trigger('click');
+						     $('#select5a').selectpicker('val', 12);
                                                   }, false);
                 var o  = ref_p.getElementById('text3459-7');
                 if (o != null) o.addEventListener('click',
@@ -1102,6 +1126,7 @@
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab16').trigger('click');
+						     $('#select5a').selectpicker('val', 16);
                                                   }, false);
                 var o  = ref_cu.getElementById('text4138');
                 if (o != null) o.addEventListener('click',
@@ -1155,6 +1180,8 @@
 	    return ;
 	if (step < 0) 
 	    return ;
+
+        ga('send', 'event', 'help', 'help.tutorial', 'help.tutorial.name=' + tutorial_name + ',step=' + step);
 
         // 2.- code_pre
         tutorial[step].code_pre();
@@ -1307,6 +1334,8 @@
         var d = new Object() ;
         d.result = new Array() ;
         d.errors = 0 ;
+        d.neltos_expected = 0 ;
+        d.neltos_obtained = 0 ;
 
         var obtained_value = 0 ;
 	for (var compo in sim_components)
@@ -1316,6 +1345,8 @@
 	    {
 		    for (var elto in expected_result[compo])
 		    {
+                         d.neltos_expected++ ;
+
                          obtained_value = expected_result[compo][elto].default_value ;
 			 if ( (typeof obtained_result[compo]       != "undefined") &&
 			      (typeof obtained_result[compo][elto] != "undefined") ) {
@@ -1357,6 +1388,8 @@
 	    {
 		    for (var elto in obtained_result[compo]) 
 		    {
+                         d.neltos_obtained++ ;
+
 			 if ( (typeof expected_result[compo]       != "undefined") && 
 			      (typeof expected_result[compo][elto] != "undefined") ) {
 			       continue ;
