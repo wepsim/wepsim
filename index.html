@@ -868,25 +868,25 @@
 	 <tr>
 	  <td class="collapse6 collapse in">9</td>
 	  <td class="hidden-xs" style="color:gray">simulation</td>
-	  <td>RF display format</td>
+	  <td>Display format</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
 		     <input name="radio2" id="radio2-16" 
 			    aria-label="register file display format (decimal)"
 			    style="margin-top:-8px"
-			    onclick="set_cfg('RF_display_format',16); show_rf_values(); show_memories_values(); save_cfg();"
+			    onclick="set_cfg('RF_display_format',16); show_rf_values(); show_states(); show_memories_values(); save_cfg();"
 			    value="on" type="radio">
 		     <label for="radio2-16">Hex.</label>
 		     <input name="radio2" id="radio2-10" 
 			    aria-label="register file display format (hexadecimal)"
 			    style="margin-top:-8px"
-			    onclick="set_cfg('RF_display_format',10); show_rf_values(); show_memories_values(); save_cfg();"
+			    onclick="set_cfg('RF_display_format',10); show_rf_values(); show_states(); show_memories_values(); save_cfg();"
 			    value="off" type="radio">
 		     <label for="radio2-10">Dec.</label>
 		     <input name="radio2" id="radio2-8"  
 			    aria-label="register file display format (octal)"
 			    style="margin-top:-8px"
-			    onclick="set_cfg('RF_display_format',8); show_rf_values(); show_memories_values(); save_cfg();"
+			    onclick="set_cfg('RF_display_format',8); show_rf_values(); show_states(); show_memories_values(); save_cfg();"
 			    value="off" type="radio">
 		     <label for="radio2-8">Oct.</label>
 		 </fieldset>
@@ -1204,7 +1204,7 @@
 	   <div class="modal-body">
                  <div id="help1_ref" style="display:none;"></div>
                  <div class="ui-body-d ui-content" 
-                      style="padding: 2px 2px 2px 2px; height:80vh; max-width:1200px; overflow:auto;">
+                      style="padding: 2px 2px 2px 2px; height:80vh; overflow:auto;">
                       <div id="iframe_help1"></div>
                  </div>
 	   </div>
@@ -1283,9 +1283,9 @@
                         <h4 style="margin:0 0 10 0;">History:</h4>
                         <div id="history1"
 			     style="max-height:42vh; width:inherit; overflow:auto;">
-				&emsp;<span style="background-color:#FCFC00">Empty list.</span>
+				&emsp;<span style="background-color:#FCFC00">Empty.</span>
 			</div>
-                        <h4 style="margin:20 0 10 0;">Result:
+                        <h4 style="margin:20 0 10 0;">Differences (only changed values):
 			<span class="btn btn-default btn-xs"
 			      onclick="CopyFromDiv('check_results_scroll1'); return false;"
 			      data-inline="true">Copy to clipboard</i></span>
@@ -1297,7 +1297,7 @@
                   </div>
                   <div class="item">
                      <div>
-                        <h4 style="margin:20 0 10 0;">Current State:
+                        <h4 style="margin:20 0 10 0;">Current State (non-zero values):
 			<span class="btn btn-default btn-xs"
 			      onclick="CopyFromTextarea('end_state1'); return false;"
 			      data-inline="true">Copy to clipboard</span>
@@ -1489,6 +1489,7 @@
 					value: "",
 					lineNumbers: true,
 					matchBrackets: true,
+					tabSize: 2,
 					foldGutter: {
 						rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.brace, CodeMirror.fold.comment)
 					},
@@ -1502,6 +1503,7 @@
 					value: "",
 					lineNumbers: true,
 					matchBrackets: true,
+					tabSize: 2,
 					extraKeys: {
 					  "Ctrl-Space": function(cm) {
 					      CodeMirror.showHint(cm, function(cm, options) {
