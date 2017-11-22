@@ -79,6 +79,21 @@ function nextToken ( context )
 
 	          var token_type = "STRING" ;
           }
+          else if("'" == context.text[context.t])
+          {
+		  // read until '
+		  var first = context.t ;
+                  context.t++ ;
+		  while ( ("'".indexOf(context.text[context.t]) == -1) && (context.t < context.text.length) ) {
+                         if ("\\".indexOf(context.text[context.t]) != -1)
+			     context.t++;
+			 context.t++;
+		  }
+		  context.t++ ;
+		  var last = context.t ;
+
+	          var token_type = "STRING" ;
+          }
           else
           {
 		  // read until whitespaces
