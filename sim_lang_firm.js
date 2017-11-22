@@ -121,10 +121,9 @@ function read_microprg ( context )
 		   if (typeof sim_signals[nombre_tok] == "undefined")
 		       return langError(context, "Signal does not exists: '" + nombre_tok + "'") ;
 
-                   // semantic check: not RA, RB, RC, Cop
-		   forbidden_signals = "RA RB RC COP" ;
-		   if (forbidden_signals.includes(bb.toUpperCase()))
-		       return langError(context, "Signal '" + nombre_tok + "' cannot be used directly, use the Control Unit signals instead.") ;
+                   // semantic check: signal id can be used
+		   if (typeof sim_signals[nombre_tok].forbidden != "undefined")
+		       return langError(context, "Signal '" + nombre_tok + "' cannot be used directly, please use the Control Unit signals instead.") ;
 
 		   microInstruccionAux[nombre_tok] = 1; // signal is active so far...
 
