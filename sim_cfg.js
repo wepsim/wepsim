@@ -20,7 +20,7 @@
 
 
         var WSCFG = new Object() ;
-        WSCFG['version'] = { value:"1.8.2", type:"string"} ;
+        WSCFG['version'] = { value:"1.8.3", type:"string"} ;
 
         function get_cfg ( field )
         {
@@ -43,7 +43,7 @@
                WSCFG['color_name_active']   = { value:"red",              type:"string"} ;
                WSCFG['color_name_inactive'] = { value:"rgb(0, 0, 0)",     type:"string"} ; // "black"
 
-	       WSCFG['size_active']         = { value:1.22,               type:"float"} ;
+	       WSCFG['size_active']         = { value:1.25,               type:"float"} ;
 	       WSCFG['size_inactive']       = { value:0.02,               type:"float"} ;
 
                WSCFG['is_byvalue']          = { value:false,              type:"boolean"};
@@ -54,7 +54,7 @@
                WSCFG['RF_display_format']   = { value:16,                 type:"int"} ;
                WSCFG['RF_display_name']     = { value:'numerical',        type:"string"} ;
 
-               WSCFG['is_editable']         = { value:false,              type:"boolean"};
+               WSCFG['is_editable']         = { value:true,               type:"boolean"};
 
 		/*
 		 *  simulation screen: Execution

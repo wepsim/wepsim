@@ -9,6 +9,8 @@
    </cc:Work>
   </rdf:RDF>
  </metadata>
+ <image xmlns:xlink= "http://www.w3.org/1999/xlink" xlink:href="fire.gif" x="55.0"  y="350.0" height="50px" width="50px" id="internalbus_fire" visibility="hidden"/>
+ <image xmlns:xlink= "http://www.w3.org/1999/xlink" xlink:href="fire.gif" x="255.0" y="110.0" height="50px" width="50px" id="databus_fire"     visibility="hidden"/>
  <text id="text3039-8" font-size="12.5px" xml:space="preserve" line-height="125%" y="219.44113" x="594.98254" font-family="Arial" fill="#000000"><tspan id="tspan3899" y="210.0" x="480.0"/></text>
  <g id="g6297">
   <path id="path2993" stroke-linejoin="round" d="m30.829 193.47c0-0.68716 0.47363-1.2598 1.1164-1.2598h818.32c0.60896 0 1.1164 0.57263 1.1164 1.2598v415.25c0 0.72533-0.50745 1.298-1.1164 1.298h-818.32c-0.6428 0-1.1164-0.57261-1.1164-1.298zm2.2328 415.25-1.1164-1.2598h818.32l-1.1503 1.2598v-415.25l1.1503 1.298h-818.32l1.1164-1.298z" stroke="#000" stroke-width=".035938px"/>
