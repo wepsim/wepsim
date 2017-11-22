@@ -122,8 +122,14 @@ function isHex ( n )
 
 function isChar ( n )
 {
-	if (n[0] == "'" && n[2] == "'")
-	    return n.charCodeAt(1);
+        var ret1 = treatControlSequences(n) ;
+	if (true == ret1.error)
+	    return false;
+        var possible_value = ret1.string ;
+
+	if (possible_value[0] == "'" && possible_value[2] == "'")
+	    return possible_value.charCodeAt(1);
+
 	return false;
 }
 
@@ -240,7 +246,7 @@ function treatControlSequences ( possible_value )
         ret.string = "";
         ret.error  = false;
 
-	for (i=0; i<possible_value.length; i++)
+	for (var i=0; i<possible_value.length; i++)
 	{
 		if ("\\" != possible_value[i]) {
                     ret.string = ret.string + possible_value[i] ;
@@ -736,6 +742,11 @@ function read_text ( context, datosCU, ret )
 						else if ((converted = isDecimal(value)) !== false);
 						else if ((converted = isChar(value)) !== false);
 						else{
+                                                        if ((value[0] == "'")) {
+							        var error = "Unexpected inmediate value, found: '" + value + "' instead";
+                                                                advance[j] = 0;
+                                                                break;
+                                                        }
 							if (!isValidTag(value)){
 								var error = "A tag must follow an alphanumeric format (starting with a letter or underscore) but found '" + value + "' instead";
 								advance[j] = 0;
@@ -746,8 +757,9 @@ function read_text ( context, datosCU, ret )
 								advance[j] = 0;
 								break;
 							}
+                                                        						
 							label_found = true;
-						}
+					        }
 				
 						if(sel_found){							
 							res = decimal2binary(converted, WORD_LENGTH);
