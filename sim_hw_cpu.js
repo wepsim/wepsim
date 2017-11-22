@@ -422,7 +422,7 @@
 			       draw_data: [['svg_p:path3281', 'svg_p:path3171', 'svg_p:path3169'], ['svg_p:path3283'],
 					   ['svg_p:path3295', 'svg_p:path3293'], ['svg_p:path3297', 'svg_p:path3299']],
 			       draw_name: [[], ['svg_p:path3425', 'svg_p:path3427']] };
-	sim_signals["COP"] = { name: "COP", visible: true, type: "L", value: 0, default_value:0, nbits: "4",
+	sim_signals["COP"] = { name: "COP", visible: true, type: "L", value: 0, default_value:0, nbits: "4", forbidden: true,
 			       behavior: ["NOP",
                                           "AND ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
 					  "OR ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
@@ -483,19 +483,19 @@
 			          draw_data: [[]],
 			          draw_name: [[]] };
 
-	sim_signals["RA"]  = { name: "RA", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
+	sim_signals["RA"]  = { name: "RA", visible: true, type: "L", value: 0, default_value:0, nbits: "5", forbidden: true,
 			       behavior: ["GET RA_T9 BR RA; FIRE_IFSET T9 1; FIRE_IFSET MA 0"],
                                depends_on: ["SELA"],
 			       fire_name: ['svg_p:text3107'],
 			       draw_data: [[]],
 			       draw_name: [['svg_p:path3109']] };
-	sim_signals["RB"]  = { name: "RB", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
+	sim_signals["RB"]  = { name: "RB", visible: true, type: "L", value: 0, default_value:0, nbits: "5", forbidden: true,
 			       behavior: ["GET RB_T10 BR RB; FIRE_IFSET T10 1; FIRE_IFSET MB 0"],
                                depends_on: ["SELB"],
 			       fire_name: ['svg_p:text3123'],
 			       draw_data: [[]],
 			       draw_name: [['svg_p:path3113']] };
-	sim_signals["RC"]  = { name: "RC", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
+	sim_signals["RC"]  = { name: "RC", visible: true, type: "L", value: 0, default_value:0, nbits: "5", forbidden: true,
 			       behavior: ["FIRE LC"],
                                depends_on: ["SELC"],
 			       fire_name: ['svg_p:text3125'],
@@ -839,11 +839,15 @@
 						   set_value(sim_states["FLAG_N"], (result  < 0) ? 1 : 0) ;
 						   set_value(sim_states["FLAG_Z"], (result == 0) ? 1 : 0) ;
 
+						   set_value(sim_states["FLAG_V"], 0) ;
 						   if ( (get_value(sim_states[s_expr[1]]) < 0) &&
 							(get_value(sim_states[s_expr[2]]) >= 0) &&
 							(get_value(sim_states[s_expr[3]]) >= 0) )
 							set_value(sim_states["FLAG_V"], 1) ;
-						   else set_value(sim_states["FLAG_V"], 0) ;
+						   if ( (get_value(sim_states[s_expr[1]]) > 0) &&
+							(get_value(sim_states[s_expr[2]]) <= 0) &&
+							(get_value(sim_states[s_expr[3]]) <= 0) )
+							set_value(sim_states["FLAG_V"], 1) ;
 
 						   set_value(sim_states["FLAG_C"], ((get_value(sim_states[s_expr[2]])) >> 31) && ((get_value(sim_states[s_expr[3]])) >> 31)) ;
 						}
@@ -857,11 +861,15 @@
 						   set_value(sim_states["FLAG_N"], (result  < 0) ? 1 : 0) ;
 						   set_value(sim_states["FLAG_Z"], (result == 0) ? 1 : 0) ;
 
+						   set_value(sim_states["FLAG_V"], 0) ;
 						   if ( (get_value(sim_states[s_expr[1]]) < 0) &&
 							(get_value(sim_states[s_expr[2]]) >= 0) &&
 							(get_value(sim_states[s_expr[3]]) >= 0) )
 							set_value(sim_states["FLAG_V"], 1) ;
-						   else set_value(sim_states["FLAG_V"], 0) ;
+						   if ( (get_value(sim_states[s_expr[1]]) > 0) &&
+							(get_value(sim_states[s_expr[2]]) <= 0) &&
+							(get_value(sim_states[s_expr[3]]) <= 0) )
+							set_value(sim_states["FLAG_V"], 1) ;
 
 						   set_value(sim_states["FLAG_C"], ((get_value(sim_states[s_expr[2]])) >> 31) && ((get_value(sim_states[s_expr[3]])) >> 31)) ;
 						}
@@ -875,11 +883,15 @@
 						   set_value(sim_states["FLAG_N"], (result  < 0) ? 1 : 0) ;
 						   set_value(sim_states["FLAG_Z"], (result == 0) ? 1 : 0) ;
 
+						   set_value(sim_states["FLAG_V"], 0) ;
 						   if ( (get_value(sim_states[s_expr[1]]) < 0) &&
 							(get_value(sim_states[s_expr[2]]) >= 0) &&
 							(get_value(sim_states[s_expr[3]]) >= 0) )
 							set_value(sim_states["FLAG_V"], 1) ;
-						   else set_value(sim_states["FLAG_V"], 0) ;
+						   if ( (get_value(sim_states[s_expr[1]]) > 0) &&
+							(get_value(sim_states[s_expr[2]]) <= 0) &&
+							(get_value(sim_states[s_expr[3]]) <= 0) )
+							set_value(sim_states["FLAG_V"], 1) ;
 
 						   set_value(sim_states["FLAG_C"], 0) ;
 						}
