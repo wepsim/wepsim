@@ -3,24 +3,25 @@
             .word rt_div0
 
    msgi0:   .asciiz "INT: 0\n"
-   msgi1:   .asciiz "FPE: _/0\n"
+   msgi1:   .asciiz "FPE: */0\n"
 
 .ktext
-sys_print:  lb   $27 ($t0)
-            li   $1 0
-            beq  $27 $1 fin1
-            out  $27 0x1000
+sys_print:  
+            li   $0 0
             li   $1 1
-            add  $t0 $t0 $1
-            b  sys_print
+        b5: lb   $27 ($26)
+            beq  $27 $0 fin1
+            out  $27 0x1000
+            add  $26 $26 $1
+            b    b5
       fin1: reti
 
   rt_i0:    # 1.- interruption
-            la   $t0 msgi0
+            la   $26 msgi0
             b    sys_print
 
   rt_div0:  # 2.- exception
-            la   $t0 msgi1
+            la   $26 msgi1
             b    sys_print
 
 .text

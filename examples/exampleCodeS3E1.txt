@@ -8,25 +8,25 @@
    msgi2:   .asciiz "INT: 2\n"
 
 .ktext
-sys_print:  lb   $27 ($t0)
+sys_print:  lb   $27 ($26)
             li   $1 0
             beq  $27 $1 fin1
             out  $27 0x1000
             li   $1 1
-            add  $t0 $t0 $1
+            add  $26 $26 $1
             b  sys_print
       fin1: reti
 
   rt_i0:    # 1.- interruption
-            la   $t0 msgi0
+            la   $26 msgi0
             b    sys_print
 
   rt_i1:    # 2.- interruption
-            la   $t0 msgi1
+            la   $26 msgi1
             b    sys_print
 
   rt_i2:    # 3.- interruption
-            la   $t0 msgi2
+            la   $26 msgi2
             b    sys_print
 
 
