@@ -85,17 +85,3 @@
                      description: "Advanced example with interruption, system call, and exception.<br>" 
                   });
 
-    examples.push({ 
-                     id: 'S4E1',
-                     title: "addv + seqv.",
-                     level: "Special",
-                     description: "Example of instructions addv and seqv.<br>" 
-                  });
-
-    examples.push({ 
-                     id: 'S4E2',
-                     title: "syscall 1, 4-5, 8, 11-12",
-                     level: "Special",
-                     description: "Example of syscall for printing/reading integer and string.<br>" 
-                  });
-
