@@ -840,11 +840,11 @@
 						   set_value(sim_states["FLAG_Z"], (result == 0) ? 1 : 0) ;
 
 						   set_value(sim_states["FLAG_V"], 0) ;
-						   if ( (get_value(sim_states[s_expr[1]]) < 0) &&
+						   if ( (get_value(result) < 0) &&
 							(get_value(sim_states[s_expr[2]]) >= 0) &&
 							(get_value(sim_states[s_expr[3]]) >= 0) )
 							set_value(sim_states["FLAG_V"], 1) ;
-						   if ( (get_value(sim_states[s_expr[1]]) > 0) &&
+						   if ( (get_value(result) > 0) &&
 							(get_value(sim_states[s_expr[2]]) <= 0) &&
 							(get_value(sim_states[s_expr[3]]) <= 0) )
 							set_value(sim_states["FLAG_V"], 1) ;
@@ -862,11 +862,11 @@
 						   set_value(sim_states["FLAG_Z"], (result == 0) ? 1 : 0) ;
 
 						   set_value(sim_states["FLAG_V"], 0) ;
-						   if ( (get_value(sim_states[s_expr[1]]) < 0) &&
+						   if ( (get_value(result) < 0) &&
 							(get_value(sim_states[s_expr[2]]) >= 0) &&
 							(get_value(sim_states[s_expr[3]]) >= 0) )
 							set_value(sim_states["FLAG_V"], 1) ;
-						   if ( (get_value(sim_states[s_expr[1]]) > 0) &&
+						   if ( (get_value(result) > 0) &&
 							(get_value(sim_states[s_expr[2]]) <= 0) &&
 							(get_value(sim_states[s_expr[3]]) <= 0) )
 							set_value(sim_states["FLAG_V"], 1) ;
@@ -884,11 +884,11 @@
 						   set_value(sim_states["FLAG_Z"], (result == 0) ? 1 : 0) ;
 
 						   set_value(sim_states["FLAG_V"], 0) ;
-						   if ( (get_value(sim_states[s_expr[1]]) < 0) &&
+						   if ( (get_value(result) < 0) &&
 							(get_value(sim_states[s_expr[2]]) >= 0) &&
 							(get_value(sim_states[s_expr[3]]) >= 0) )
 							set_value(sim_states["FLAG_V"], 1) ;
-						   if ( (get_value(sim_states[s_expr[1]]) > 0) &&
+						   if ( (get_value(result) > 0) &&
 							(get_value(sim_states[s_expr[2]]) <= 0) &&
 							(get_value(sim_states[s_expr[3]]) <= 0) )
 							set_value(sim_states["FLAG_V"], 1) ;
