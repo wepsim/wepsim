@@ -944,6 +944,11 @@
 			 continue;
 		     }
 
+		     if ("NATIVE" == ks) {
+			 value += "<build-in>" ;
+			 continue;
+		     }
+
 		     value += ks + "=" + parseInt(memory[key][ks]).toString(2) + " ";
 		}
 

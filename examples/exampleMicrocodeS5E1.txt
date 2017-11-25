@@ -226,16 +226,23 @@ div reg1 reg2 reg3 {
             reg1=reg(25,21),
             reg2=reg(20,16),
             reg3=reg(15,11),
+            native,
             {
-                    # if (reg3 == 0)
-                    (MC=1, MR=0, SELA=1011, MA=0, MB=11, SELCOP=1100, SELP=11, M7, C7),
-                    (A0=0, B=0, C=110, MADDR=fpe1),
-                    # reg1 = reg2 / reg3, go fetch
-                    (MC=1, MR=0, SELB=1011, SELA=10000, MA=0, MB=0, SELCOP=1101, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0),
-              fpe1: # RT1 <- ExCode=1
-                    (ExCode=1, T11, C4),
-                    # csw_rt1(2)
-                    (A0=0, B=1, C=0, MADDR=csw_rt1)
+                var fields = wepsim_native_get_fields("div reg1 reg2 reg3") ;
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
+                var reg3   = wepsim_native_get_field_from_ir(fields, 2) ;
+
+                if (wepsim_native_get_value("BR", reg3) == 0)
+                {
+                    wepsim_native_set_value("CPU", "REG_RT1", 1) ;
+                    wepsim_native_go_label("csw_rt1") ;
+                }
+
+                var result = wepsim_native_get_value("BR", reg2) / wepsim_native_get_value("BR", reg3) ;
+                wepsim_native_set_value("BR", reg1, result) ;
+
+                wepsim_native_go_maddr(0) ;
             }
 }
 
