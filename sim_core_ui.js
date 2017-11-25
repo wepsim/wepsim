@@ -945,7 +945,7 @@
 		     }
 
 		     if ("NATIVE" == ks) {
-			 value += "<build-in>" ;
+			 value += "&lt;built-in&gt;" ;
 			 continue;
 		     }
 
