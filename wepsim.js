@@ -1624,16 +1624,27 @@
         var right_shift =       parseInt(fields[index].stopbit) ;
 
         value = value <<  left_shift ;
-        value = value >>  left_shift ;
+        value = value >>> left_shift ;
         value = value >>> right_shift ;
 
         return value ;
     }
 
-    function wepsim_native_gofetch ( )
+    function wepsim_native_go_maddr ( maddr )
     {
-        set_value(sim_states["REG_MICROADDR"], 0) ;
+        set_value(sim_states["REG_MICROADDR"], maddr) ;
         compute_behavior('FIRE A0') ;
+        compute_behavior('FIRE B') ;
+    }
+
+    function wepsim_native_go_label ( mlabel )
+    {
+        var SIMWARE = get_simware() ;
+        var maddr = SIMWARE.labels_firm[mlabel] ;
+        if (typeof maddr == "undefined")
+            return ;
+
+        set_value(sim_states["REG_MICROADDR"], maddr) ;
         compute_behavior('FIRE B') ;
     }
 
