@@ -1542,5 +1542,98 @@
         return true ;
     }
 
+    /*
+     * Native microcode support
+     */
 
+    function wepsim_native_get_value ( component, elto )
+    {
+        if ( ("CPU" == component) || ("BR" == component) )
+        {
+            if (Number.isInteger(elto))
+                 var index = elto ;
+            else var index = parseInt(elto) ;
+
+            if (isNaN(index))
+                return (get_value(sim_states[elto]) >>> 0) ;
+
+            return (get_value(sim_states['BR'][index]) >>> 0) ;
+        }
+
+        if ("MEMORY" == component)
+        {
+            return ((MP[elto]) >>> 0) ;
+        }
+
+        if ("SCREEN" == component)
+        {
+            var screen = get_screen_content() ;
+            return screen ;
+        }
+
+        return false ;
+    }
+
+    function wepsim_native_set_value ( component, elto, value )
+    {
+        if ( ("CPU" == component) || ("BR" == component) )
+        {
+            if (Number.isInteger(elto))
+                 var index = elto ;
+            else var index = parseInt(elto) ;
+
+            if (isNaN(index))
+                return set_value(sim_states[elto], value) ;
+
+            return set_value(sim_states['BR'][index], value) ;
+        }
+
+        if ("MEMORY" == component)
+        {
+            MP[elto] = value ;
+            return value ;
+        }
+
+        if ("SCREEN" == component)
+        {
+            set_screen_content(value) ;
+            return value ;
+        }
+
+        return false ;
+    }
+
+    function wepsim_native_get_fields ( signature_raw )
+    {
+        var SIMWARE = get_simware() ;
+
+        for (var key in SIMWARE.firmware) {
+             if (SIMWARE.firmware[key]["signatureRaw"] == signature_raw) {
+                 return SIMWARE.firmware[key]["fields"] ;
+             }
+        }
+    }
+
+    function wepsim_native_get_field_from_ir ( fields, index )
+    {
+        if (typeof fields[index] == "undefined")
+            return false ;
+
+        var value = get_value(sim_states["REG_IR"]) ;
+        var left_shift  = (31 - parseInt(fields[index].startbit)) ;
+        var right_shift =       parseInt(fields[index].stopbit) ;
+
+        value = value <<  left_shift ;
+        value = value >>  left_shift ;
+        value = value >>> right_shift ;
+
+        return value ;
+    }
+
+    function wepsim_native_gofetch ( )
+    {
+        set_value(sim_states["REG_MICROADDR"], 0) ;
+        compute_behavior('FIRE A0') ;
+        compute_behavior('FIRE B') ;
+    }
 
