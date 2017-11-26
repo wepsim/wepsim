@@ -99,10 +99,10 @@
                      description: "Example of syscall for printing/reading integer and string.<br>" 
                   });
 
-    examples.push({ 
-                     id: 'S5E1',
-                     title: "Test 1 (native)",
-                     level: "Test",
-                     description: "Test 1 for native support.<br>" 
-                  });
+    examples.push({
+	             id: 'S5E1',
+	             title: "Test 1 (native)",
+	             level: "Test",
+	             description: "Test 1 for native support.<br>"
+	          });
 
