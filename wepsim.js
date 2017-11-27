@@ -1565,10 +1565,16 @@
             return ((MP[elto]) >>> 0) ;
         }
 
-        if ( ("SCREEN" == component) || ("KBD" == component) || ("IO" == component) )
+        if ("DEVICE" == component)
         {
             var associated_state = io_hash[elto] ;
             return (get_value(sim_states[associated_state]) >>> 0) ;
+        }
+
+        if ("SCREEN" == component)
+        {
+            set_screen_content(value) ;
+            return value ;
         }
 
         return false ;
@@ -1594,10 +1600,16 @@
             return value ;
         }
 
-        if ( ("SCREEN" == component) || ("KBD" == component) || ("IO" == component) )
+        if ("DEVICE" == component)
         {
             var associated_state = io_hash[elto] ;
             return set_value(sim_states[associated_state], value) ;
+        }
+
+        if ("SCREEN" == component)
+        {
+            var screen = get_screen_content() ;
+            return screen ;
         }
 
         return false ;
@@ -1633,6 +1645,7 @@
     function wepsim_native_deco ( )
     {
         compute_behavior('DECO') ;
+        show_asmdbg_pc() ;
     }
 
     function wepsim_native_go_maddr ( maddr )
@@ -1640,19 +1653,24 @@
         set_value(sim_states["MUXA_MICROADDR"], maddr) ;
     }
 
-    function wepsim_native_go_label ( mlabel )
-    {
-        var SIMWARE = get_simware() ;
-        var maddr = SIMWARE.labels_firm[mlabel] ;
-        if (typeof maddr == "undefined")
-            return ;
-
-        set_value(sim_states["MUXA_MICROADDR"], maddr) ;
-    }
-
     function wepsim_native_go_opcode ( )
     {
 	var maddr = get_value(sim_states['ROM_MUXA']) ;
         set_value(sim_states["MUXA_MICROADDR"], maddr) ;
+    }
+
+    function wepsim_native_go_instruction ( signature_raw )
+    {
+        var SIMWARE = get_simware() ;
+
+        for (var key in SIMWARE.firmware) 
+        {
+             if (SIMWARE.firmware[key]["signatureRaw"] == signature_raw) 
+             {
+                 var maddr = SIMWARE.firmware[key]["mc-start"] ;
+                 set_value(sim_states["MUXA_MICROADDR"], maddr) ;
+                 return ;
+             }
+        }
     }
 

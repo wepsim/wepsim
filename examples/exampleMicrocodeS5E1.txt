@@ -1,41 +1,40 @@
 
-begin
+begin,
+native
 {
-                    # if (INT) go mrti
-                    (A0=0, B=0, C=1, MADDR=mrti),
+                /*
+                  if (INT)
+                  {
+                      # MBR <- DB <- INTV: (INTA, BW=11, M1=1, C1=1),
+                      # RT1 <- MBR
+                      # go int_handler
+                  }
+                */
 
-    fetch:          (T2, C0),
-                    (TA, R, BW=11, M1=1, C1=1),
-                    (M2, C2, T1, C3),
-                    (A0, B=0, C=0),
+                var addr  = wepsim_native_get_value("CPU", "REG_PC") ;
+                var value = wepsim_native_get_value("MEMORY", addr) ;
 
-    mrti:           # MBR <- DB <- INTV
-                    (INTA, BW=11, M1=1, C1=1),
-                    # RT1 <- MBR
-                    (T1=1, C4=1),
-
-    csw_rt1:        # push PC
-                    (MR=1, SELA=11101, MA=0, MB=10, MC=1, SELCOP=1011, T6=1, SELC=11101, LC=1, C0),
-                    (T2=1, M1=0, C1),
-                    (BW=11, TA=1, TD=1, W=1)
-                    # push SR
-                    (MR=1, SELA=11101, MA=0, MB=10, MC=1, SELCOP=1011, T6=1, SELC=11101, LC=1, C0),
-                    (T8=1, M1=0, C1),
-                    (BW=11, TA=1, TD=1, W=1),
-                    # MAR <- RT1*4
-                    (MA=1, MB=10, MC=1, SELCOP=1100, T6, M2=0, C0),
-                    # MBR <- MP[MAR]
-                    (TA=1, R=1, BW=11, M1=1, C1=1),
-                    # PC <- MAR
-                    (T1, M2=0, C2),
-                    # go fetch
-                    (A0=0, B=1, C=0, MADDR=fetch)
+                wepsim_native_set_value("CPU", "REG_IR", value) ;
+                wepsim_native_deco() ;
+                wepsim_native_set_value("CPU", "REG_PC", addr + 4) ;
+  
+                wepsim_native_go_opcode() ;
 }
 
 
 #
 # INT
 #
+
+syscall {
+            co=101110,
+            nwords=1,
+            native,
+            {
+                    wepsim_native_set_value("CPU", "REG_RT1", 2) ;
+                    wepsim_native_go_instruction("int_handler") ;
+            }
+}
 
 reti {
             co=111110,
@@ -60,13 +59,19 @@ reti {
             }
 }
 
-syscall {
-            co=101110,
+int_handler {
+            co=111111,
             nwords=1,
             native,
             {
-                    wepsim_native_set_value("CPU", "REG_RT1", 2) ;
-                    wepsim_native_go_label("csw_rt1") ;
+               /*
+                    # push PC
+                    # push SR
+                    # MAR <- RT1*4
+                    # MBR <- MP[MAR]
+                    # PC <- MAR
+                    # fetch
+                */
             }
 }
 
@@ -559,7 +564,7 @@ in reg val {
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var addr   = wepsim_native_get_field_from_ir(fields, 1) ;
 
-                var value = wepsim_native_get_value("IO", addr) ;
+                var value = wepsim_native_get_value("DEVICE", addr) ;
                 wepsim_native_set_value("BR", reg1, value) ;
 
                 wepsim_native_go_maddr(0) ;
@@ -578,7 +583,7 @@ out reg val {
                 var addr   = wepsim_native_get_field_from_ir(fields, 1) ;
 
                 var value = wepsim_native_get_value("BR", reg1) ;
-                wepsim_native_set_value("IO", addr, value) ;
+                wepsim_native_set_value("DEVICE", addr, value) ;
 
                 wepsim_native_go_maddr(0) ;
             }
