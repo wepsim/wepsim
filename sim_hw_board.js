@@ -33,6 +33,8 @@
         var sim_states = new Object() ;
         var sim_events = new Object() ;
 
+        var io_hash    = new Object();
+
 
         /*
          *  Signals

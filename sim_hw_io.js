@@ -57,6 +57,10 @@
         var IOCR_ID   = 0x1104 ;
         var IODR_ID   = 0x1108 ;
 
+        io_hash[IOSR_ID] = "IOSR" ;
+        io_hash[IOCR_ID] = "IOCR" ;
+        io_hash[IODR_ID] = "IODR" ;
+
 
         /*
          *  States

@@ -1565,10 +1565,10 @@
             return ((MP[elto]) >>> 0) ;
         }
 
-        if ("SCREEN" == component)
+        if ( ("SCREEN" == component) || ("KBD" == component) || ("IO" == component) )
         {
-            var screen = get_screen_content() ;
-            return screen ;
+            var associated_state = io_hash[elto] ;
+            return (get_value(sim_states[associated_state]) >>> 0) ;
         }
 
         return false ;
@@ -1594,10 +1594,10 @@
             return value ;
         }
 
-        if ("SCREEN" == component)
+        if ( ("SCREEN" == component) || ("KBD" == component) || ("IO" == component) )
         {
-            set_screen_content(value) ;
-            return value ;
+            var associated_state = io_hash[elto] ;
+            return set_value(sim_states[associated_state], value) ;
         }
 
         return false ;
@@ -1624,16 +1624,34 @@
         var right_shift =       parseInt(fields[index].stopbit) ;
 
         value = value <<  left_shift ;
-        value = value >>  left_shift ;
+        value = value >>> left_shift ;
         value = value >>> right_shift ;
 
         return value ;
     }
 
-    function wepsim_native_gofetch ( )
+    function wepsim_native_go_maddr ( maddr )
     {
-        set_value(sim_states["REG_MICROADDR"], 0) ;
-        compute_behavior('FIRE A0') ;
+	// (A0=0, B=1, C=0) -> MUXA=10
+        set_value(sim_states["REG_MICROADDR"], maddr) ;
         compute_behavior('FIRE B') ;
+    }
+
+    function wepsim_native_go_label ( mlabel )
+    {
+        var SIMWARE = get_simware() ;
+        var maddr = SIMWARE.labels_firm[mlabel] ;
+        if (typeof maddr == "undefined")
+            return ;
+
+	// (A0=0, B=1, C=0) -> MUXA=10
+        set_value(sim_states["REG_MICROADDR"], maddr) ;
+        compute_behavior('FIRE B') ;
+    }
+
+    function wepsim_native_go_co ( )
+    {
+	// (A0, B=0, C=0) -> MUXA=01
+        compute_behavior('FIRE A0') ;
     }
 
