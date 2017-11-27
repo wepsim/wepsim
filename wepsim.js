@@ -1630,11 +1630,14 @@
         return value ;
     }
 
+    function wepsim_native_deco ( )
+    {
+        compute_behavior('DECO') ;
+    }
+
     function wepsim_native_go_maddr ( maddr )
     {
-	// (A0=0, B=1, C=0) -> MUXA=10
-        set_value(sim_states["REG_MICROADDR"], maddr) ;
-        compute_behavior('FIRE B') ;
+        set_value(sim_states["MUXA_MICROADDR"], maddr) ;
     }
 
     function wepsim_native_go_label ( mlabel )
@@ -1644,14 +1647,12 @@
         if (typeof maddr == "undefined")
             return ;
 
-	// (A0=0, B=1, C=0) -> MUXA=10
-        set_value(sim_states["REG_MICROADDR"], maddr) ;
-        compute_behavior('FIRE B') ;
+        set_value(sim_states["MUXA_MICROADDR"], maddr) ;
     }
 
-    function wepsim_native_go_co ( )
+    function wepsim_native_go_opcode ( )
     {
-	// (A0, B=0, C=0) -> MUXA=01
-        compute_behavior('FIRE A0') ;
+	var maddr = get_value(sim_states['ROM_MUXA']) ;
+        set_value(sim_states["MUXA_MICROADDR"], maddr) ;
     }
 
