@@ -1630,10 +1630,16 @@
         return value ;
     }
 
+    function wepsim_native_deco ( )
+    {
+        compute_behavior('DECO') ;
+    }
+
     function wepsim_native_go_maddr ( maddr )
     {
-	// (A0=0, B=1, C=0) -> MUXA=10
         set_value(sim_states["REG_MICROADDR"], maddr) ;
+
+	// (A0=0, B=1, C=0) -> MUXA=10
         compute_behavior('FIRE B') ;
     }
 
@@ -1644,8 +1650,9 @@
         if (typeof maddr == "undefined")
             return ;
 
-	// (A0=0, B=1, C=0) -> MUXA=10
         set_value(sim_states["REG_MICROADDR"], maddr) ;
+
+	// (A0=0, B=1, C=0) -> MUXA=10
         compute_behavior('FIRE B') ;
     }
 
