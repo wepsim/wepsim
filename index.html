@@ -760,9 +760,10 @@
 			    onchange="var opt = $(this).find('option:selected');
 				      var optValue = opt.val();
 			              set_cfg('ws_mode',optValue); save_cfg();
-			              wepsim_hide_webmips();
                                       if ('webmips' == optValue)
-			                  wepsim_show_webmips();"
+			                   wepsim_show_webmips();
+			              else wepsim_hide_webmips();
+				      return false;"
 			    data-native-menu="false">
 			<option value="tutorial">Tutorial</option>
 			<option value="wepsim">WepSIM</option>
@@ -1574,6 +1575,10 @@
 		             $(column).hide() ;
 		        else $(column).show() ;
 		    });
+
+		    if ('webmips' == get_cfg('ws_mode'))
+			 wepsim_show_webmips();
+		    else wepsim_hide_webmips();
 	    }) ;
 
             $("div.wsversion").replaceWith(get_cfg('version'));
