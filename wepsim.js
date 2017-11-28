@@ -1555,6 +1555,18 @@
      * Native microcode support
      */
 
+    function wepsim_show_webmips ( )
+    {
+	$("#tab26").hide() ;
+	$("#tab21").hide() ;
+    }
+
+    function wepsim_hide_webmips ( )
+    {
+	$("#tab26").show() ;
+	$("#tab21").show() ;
+    }
+
     function wepsim_native_get_value ( component, elto )
     {
         if ( ("CPU" == component) || ("BR" == component) )
