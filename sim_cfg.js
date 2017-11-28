@@ -73,7 +73,7 @@
 
                WSCFG['is_interactive']      = { value:true,               type:"boolean"};
                WSCFG['ws_idiom']            = { value:'es',               type:"string"};
-               WSCFG['show_tutorials']      = { value:true,               type:"boolean"};
+               WSCFG['ws_mode']             = { value:'tutorial',         type:"string"};
                WSCFG['use_voice']           = { value:false,              type:"boolean"};
 
 		/*
