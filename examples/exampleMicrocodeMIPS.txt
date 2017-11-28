@@ -833,7 +833,7 @@ jal addr {
                 var address = wepsim_native_get_field_from_ir(fields, 0) ;
 
                 var pc = wepsim_native_get_value("CPU", "REG_PC") ;
-                wepsim_native_set_value("CPU", "REG_RA", pc) ;
+                wepsim_native_set_value("BR", 31, pc) ;
                 wepsim_native_set_value("CPU", "REG_PC", address) ;
 
                 wepsim_native_go_maddr(0) ;
