@@ -759,11 +759,14 @@
 			    aria-label="Execution mode"
 			    onchange="var opt = $(this).find('option:selected');
 				      var optValue = opt.val();
-			              set_cfg('ws_mode',optValue); save_cfg();"
+			              set_cfg('ws_mode',optValue); save_cfg();
+			              wepsim_hide_webmips();
+                                      if ('webmips' == optValue)
+			                  wepsim_show_webmips();"
 			    data-native-menu="false">
 			<option value="tutorial">Tutorial</option>
 			<option value="wepsim">WepSIM</option>
-			<option value="webmips">WepMIPS</option>
+			<option value="webmips">WebMIPS</option>
 		    </select>
 		 </fieldset>
           </td>
