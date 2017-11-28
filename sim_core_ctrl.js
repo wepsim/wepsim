@@ -913,7 +913,10 @@
 		set_value(sim_states["BR"][FIRMWARE.stackRegister], parseInt(segments['.stack'].begin));
 	    }
 
-            compute_general_behavior("CLOCK") ;
+	    var mode = get_cfg('ws_mode');
+	    if ('webmips' != mode) {
+                compute_general_behavior("CLOCK") ;
+	    }
 
             // User Interface
             show_dbg_ir(get_value(sim_states['REG_IR_DECO'])) ;

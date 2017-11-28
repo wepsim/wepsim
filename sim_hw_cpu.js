@@ -1200,17 +1200,17 @@
 		syntax_behavior["CLOCK"] = { nparameters: 1,
 					     operation: function(s_expr)
 							{
-							    // 0.- Update counter
+							    // 1.- Update counter
 							    var val = get_value(sim_states["CLK"]) ;
 							    set_value(sim_states["CLK"], val + 1);
 
-							    // 1.- To treat the (Falling) Edge signals
+							    // 2.- To treat the (Falling) Edge signals
 							    for (var i=0; i<jit_fire_order.length; i++)
 								 fn_updateE_now(jit_fire_order[i]) ;
 							    //actions = jit_fire_order.map(fn_updateE_future) ;
 							    //Promise.all(actions) ;
 
-							    // 2.- The special (Falling) Edge part of the Control Unit...
+							    // 3.- The special (Falling) Edge part of the Control Unit...
 							    var new_maddr = get_value(sim_states["MUXA_MICROADDR"]) ;
 							    set_value(sim_states["REG_MICROADDR"], new_maddr) ;
 
@@ -1219,7 +1219,7 @@
 								else var new_mins = Object.create(sim_states["REG_MICROINS"].default_value);
 							    sim_states["REG_MICROINS"].value = new_mins ;
 
-                                                            // 3.- update signals
+                                                            // 4.- update signals
 							    for (var key in sim_signals)
 							    {
 								 if (typeof new_mins[key] != "undefined") 
@@ -1227,13 +1227,13 @@
 								 else set_value(sim_signals[key], sim_signals[key].default_value);
 							    }
 
-							    // 4.- Finally, 'fire' the (High) Level signals
+							    // 5.- Finally, 'fire' the (High) Level signals
 							    for (var i=0; i<jit_fire_order.length; i++)
 								 fn_updateL_now(jit_fire_order[i]) ;
 							    //actions = jit_fire_order.map(fn_updateL_future) ;
 							    //Promise.all(actions) ;
 
-							    // 5.- Native
+							    // 6.- Native
 							    if (typeof new_mins.NATIVE != "undefined") {
 							        eval(new_mins.NATIVE) ;
 							    }

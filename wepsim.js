@@ -1559,6 +1559,7 @@
     {
 	$("#tab26").hide() ;
 	$("#tab21").hide() ;
+	$("#tab24").click()
     }
 
     function wepsim_hide_webmips ( )
