@@ -79,17 +79,17 @@ int_handler {
                 wepsim_native_set_value("BR", 29, reg_sp) ;
 
                 // MAR <- RT1*4
-                value = wepsim_native_get_value("CPU", "REG_RT1") ;
-                value = 4 * value ;
-                wepsim_native_set_value("CPU", "REG_MAR", value) ;
+                var addr = wepsim_native_get_value("CPU", "REG_RT1") ;
+                addr = 4 * addr ;
+                wepsim_native_set_value("CPU", "REG_MAR", addr) ;
 
                 // MBR <- MP[MAR]
                 // PC  <- MBR
-                value = wepsim_native_get_value("MEMORY", "REG_MAR") ;
-                wepsim_native_set_value("CPU", "REG_PC", value) ;
+                addr = wepsim_native_get_value("MEMORY", addr) ;
+                wepsim_native_set_value("CPU", "REG_PC", addr) ;
 
                 // fetch
-                var value = wepsim_native_get_value("MEMORY", value) ;
+                value = wepsim_native_get_value("MEMORY", addr) ;
                 wepsim_native_set_value("CPU", "REG_IR", value) ;
                 wepsim_native_deco() ;
                 wepsim_native_set_value("CPU", "REG_PC", addr + 4) ;
