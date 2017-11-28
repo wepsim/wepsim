@@ -932,7 +932,16 @@
 	inputfirm.setValue("Please wait...");
 	inputfirm.refresh();
 
-	var url     = "examples/exampleMicrocode" + example_id + ".txt?time=" + getURLTimeStamp() ;
+	var mode = get_cfg('ws_mode');
+	if ('webmips' == mode) {
+	    var url = "examples/exampleMicrocodeMIPS.txt?time=" + getURLTimeStamp() ;
+	    inputfirm.setOption('readOnly', true);
+        }
+	else {
+	    var url = "examples/exampleMicrocode" + example_id + ".txt?time=" + getURLTimeStamp() ;
+	    inputfirm.setOption('readOnly', false);
+	}
+
         var do_next = function( mcode ) {
 			   inputfirm.setValue(mcode);
 			   inputfirm.refresh();
@@ -1241,9 +1250,9 @@
 		    label: 'Disable this tutorial',
 		    className: 'btn-danger col-xs-4 col-sm-3 pull-right',
 		    callback: function() {
-			set_cfg('show_tutorials', false) ;
+			set_cfg('ws_mode', 'wepsim') ;
                         save_cfg();
-                        $("#radio10-false").trigger("click").checkboxradio("refresh") ;
+			$("#select4").val('wepsim').selectmenu("refresh");
                         tutbox.modal("hide") ;
                         if (wepsim_voice_canSpeak())
 			    window.speechSynthesis.cancel() ;
