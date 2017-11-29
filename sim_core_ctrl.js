@@ -873,10 +873,10 @@
 		}
 
 		var reg_pc = parseInt(get_value(sim_states["REG_PC"]));
-		if ( (reg_pc < segments['.ktext'].end) && (reg_pc >= segments['.ktext'].begin)) {
+		if ( (reg_pc <= segments['.ktext'].end) && (reg_pc >= segments['.ktext'].begin)) {
                     return true;
 		}
-		if ( (reg_pc <  segments['.text'].end) && (reg_pc >=  segments['.text'].begin)) {
+		if ( (reg_pc <=  segments['.text'].end) && (reg_pc >=  segments['.text'].begin)) {
                     return true;
 		}
 
