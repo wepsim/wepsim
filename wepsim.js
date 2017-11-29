@@ -1590,7 +1590,9 @@
         if ("DEVICE" == component)
         {
             var associated_state = io_hash[elto] ;
-            return (get_value(sim_states[associated_state]) >>> 0) ;
+            var value = (get_value(sim_states[associated_state]) >>> 0) ;
+            compute_behavior("FIRE IOR") ;
+            return value ;
         }
 
         if ("SCREEN" == component)
@@ -1610,8 +1612,13 @@
                  var index = elto ;
             else var index = parseInt(elto) ;
 
-            if (isNaN(index))
-                return set_value(sim_states[elto], value) ;
+            if (isNaN(index)) 
+            {
+                set_value(sim_states[elto], value) ;
+                if ("REG_PC" == elto)
+                    show_asmdbg_pc() ;
+                return value ;
+            }
 
             return set_value(sim_states['BR'][index], value) ;
         }
@@ -1625,7 +1632,9 @@
         if ("DEVICE" == component)
         {
             var associated_state = io_hash[elto] ;
-            return set_value(sim_states[associated_state], value) ;
+            set_value(sim_states[associated_state], value) ;
+            compute_behavior("FIRE IOW") ;
+            return value ;
         }
 
         if ("SCREEN" == component)
@@ -1667,7 +1676,6 @@
     function wepsim_native_deco ( )
     {
         compute_behavior('DECO') ;
-        show_asmdbg_pc() ;
     }
 
     function wepsim_native_go_maddr ( maddr )
