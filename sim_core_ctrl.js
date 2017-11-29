@@ -868,15 +868,16 @@
 		}
 
 		// when do reset/fetch, check text segment bounds
-                if (reg_maddr != 0) {
-                    return true;
+	        var mode = get_cfg('ws_mode');
+	        if ( ('webmips' != mode) && (reg_maddr != 0) ) {
+                       return true;
 		}
 
 		var reg_pc = parseInt(get_value(sim_states["REG_PC"]));
-		if ( (reg_pc <= segments['.ktext'].end) && (reg_pc >= segments['.ktext'].begin)) {
+		if ( (reg_pc < segments['.ktext'].end) && (reg_pc >= segments['.ktext'].begin)) {
                     return true;
 		}
-		if ( (reg_pc <=  segments['.text'].end) && (reg_pc >=  segments['.text'].begin)) {
+		if ( (reg_pc <  segments['.text'].end) && (reg_pc >=  segments['.text'].begin)) {
                     return true;
 		}
 
@@ -947,11 +948,22 @@
 	        if (check_if_can_continue(true) == false)
 		    return false;
 
+                var mode = get_cfg('ws_mode');
+                if ('webmips' == mode) 
+                {
+                    compute_general_behavior("CLOCK") ; // fetch...
+                    compute_general_behavior("CLOCK") ; // ...instruction
+		    show_states();
+		    show_rf_values();
+                    return true ;
+                }
+
                 var limitless = false;
                 if (limit_clks < 0)
                     limitless = true;
 
-                // 1.- while the microaddress register doesn't store the fetch address (0), execute micro-instructions
+                // 1.- do-while the microaddress register doesn't store the fetch address (0): 
+                //              execute micro-instructions
                 var i_clks = 0;
 		do
             	{
