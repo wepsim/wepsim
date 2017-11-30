@@ -99,3 +99,10 @@
                      description: "Example of syscall for printing/reading integer and string.<br>" 
                   });
 
+    examples.push({ 
+                     id: 'S4E3',
+                     title: "syscall 4-5",
+                     level: "Special",
+                     description: "Example of syscall for printing/reading string.<br>" 
+                  });
+

@@ -1,0 +1,78 @@
+
+.kdata
+   vector:  .word rti0
+            .word rti1
+            .word sys
+
+   msgi0:   .asciiz "Interruption 0."
+   msgi1:   .asciiz "Interruption 1."
+
+.ktext
+sys_print:  
+            li   $0 0
+            li   $1 1
+        b5: lb   $27 ($26)
+            beq  $27 $0 fin1
+            out  $27 0x1000
+            add  $26 $26 $1
+            b  sys_print
+      fin1: reti
+
+  rti0:     la   $26 msgi0
+            b    sys_print
+
+  rti1:     la   $26 msgi1
+            b    sys_print
+
+  sys:      move $26 $a0
+            li   $27 4
+            beq  $v0 $27 sys_print
+            reti 
+
+
+.data
+         w1:    .asciiz  "   hello"
+         w2:    .asciiz  "hello"
+         w3:    .asciiz  ""
+         enter: .asciiz  "\n"
+
+.text
+    main:  # test skipspaces_2: "  ..."
+           la $t1 w1
+           skipspaces_2 $t0 $t1
+           move  $a0 $t0
+           li    $v0 4
+           syscall
+
+           la    $a0 enter
+           li    $v0 4
+           syscall
+
+
+           # test skipspaces_2: "..."
+           la $t1 w2
+           skipspaces_2 $t0 $t1
+           move  $a0 $t0
+           li    $v0 4
+           syscall
+
+           la    $a0 enter
+           li    $v0 4
+           syscall
+
+
+           # test skipspaces_2: ""
+           la $t1 w3
+           skipspaces_2 $t0 $t1
+           move  $a0 $t0
+           li    $v0 4
+           syscall
+
+           la    $a0 enter
+           li    $v0 4
+           syscall
+
+
+           # the end
+           jr $ra
+

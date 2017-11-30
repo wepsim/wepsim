@@ -925,6 +925,70 @@ jr reg1 {
 
 
 #
+# Experimental
+#
+
+strlen_2 reg1 reg2 {
+            co=011011,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            native,
+            {
+                var fields = wepsim_native_get_fields("strlen_2 reg1 reg2") ;
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
+
+                var b_addr = wepsim_native_get_value("BR", reg2) ;
+                var counter = 0 ;
+                do
+                {
+                    var w_addr = b_addr & 0xFFFFFFFC ;
+                    var w_value = wepsim_native_get_value("MEMORY", w_addr) ;
+                    var b_value = b_addr & 0x00000003 ;
+                        b_value = w_value >>> (8 * b_value) ;
+                        b_value = b_value & 0x000000FF ;
+                    if (b_value != 0)
+                        counter++ ;
+                    b_addr++ ;
+                } while (b_value != 0) ;
+                wepsim_native_set_value("BR", reg1, counter) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+
+skipspaces_2 reg1 reg2 {
+            co=011010,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            native,
+            {
+                var fields = wepsim_native_get_fields("skipspaces_2 reg1 reg2") ;
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
+
+                var b_addr = wepsim_native_get_value("BR", reg2) ;
+                do
+                {
+                    var w_addr = b_addr & 0xFFFFFFFC ;
+                    var w_value = wepsim_native_get_value("MEMORY", w_addr) ;
+                    var b_value = b_addr & 0x00000003 ;
+                        b_value = w_value >>> (8 * b_value) ;
+                        b_value = b_value & 0x000000FF ;
+                    if (b_value == " ".charCodeAt(0))
+                        b_addr++ ;
+                } while (b_value == " ".charCodeAt(0)) ;
+                wepsim_native_set_value("BR", reg1, b_addr) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+
+#
 # Register naming
 #
 
