@@ -1,6 +1,8 @@
 
 .kdata
-   vector:  .word rt_sys
+   vector:  .word 0
+            .word 0
+            .word rt_sys
 
 .ktext
 sys_prt_str: li   $1 1
@@ -56,10 +58,18 @@ sys_prt_int: li   $1 1
            li $v0 1
            syscall
 
+           la $a0 enter
+           li $v0 4
+           syscall
+
            # test strlen_2: "..."
            la $t1 w2
            strlen_2 $a0 $t1
            li $v0 1
+           syscall
+
+           la $a0 enter
+           li $v0 4
            syscall
 
            # test strlen_2: ""
@@ -68,35 +78,49 @@ sys_prt_int: li   $1 1
            li $v0 1
            syscall
 
+           la $a0 enter
+           li $v0 4
+           syscall
+
+           # test strlen_2: (null)
+           li $t1 0
+           strlen_2 $a0 $t1
+           li $v0 1
+           syscall
+
+           la $a0 enter
+           li $v0 4
+           syscall
+
 
            # test skipasciicode_2: "  ..."
            la $t1 w1
            skipasciicode_2 $a0 $t1 32
-           li    $v0 4
+           li $v0 4
            syscall
 
-           la    $a0 enter
-           li    $v0 4
+           la $a0 enter
+           li $v0 4
            syscall
 
            # test skipasciicode_2: "..."
            la $t1 w2
            skipasciicode_2 $a0 $t1 32
-           li    $v0 4
+           li $v0 4
            syscall
 
-           la    $a0 enter
-           li    $v0 4
+           la $a0 enter
+           li $v0 4
            syscall
 
            # test skipasciicode_2: ""
            la $t1 w3
            skipasciicode_2 $a0 $t1 32
-           li    $v0 4
+           li $v0 4
            syscall
 
-           la    $a0 enter
-           li    $v0 4
+           la $a0 enter
+           li $v0 4
            syscall
 
 
