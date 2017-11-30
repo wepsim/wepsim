@@ -1593,6 +1593,7 @@
             var value = (get_value(sim_states[associated_state]) >>> 0) ;
 
             set_value(sim_states['KBSR'], elto) ;
+            set_value(sim_signals['IOR'], 1) ;
             compute_behavior("FIRE IOR") ;
 
             return value ;
@@ -1639,6 +1640,8 @@
 
             set_value(sim_states['BUS_AB'], elto) ;
             set_value(sim_states['BUS_DB'], value) ;
+
+            set_value(sim_signals['IOW'], 1) ;
             compute_behavior("FIRE IOW") ;
 
             return value ;
