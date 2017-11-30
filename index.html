@@ -673,7 +673,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse in">2</td>
-	  <td class="hidden-xs" style="color:gray">help</td>
+	  <td class="hidden-xs" style="color:gray">general</td>
 	  <td>Active voice</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -692,6 +692,31 @@
 		 </fieldset>
           </td>
 	  <td class="collapse7 collapse in">Use voice</td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse in">1</td>
+	  <td class="hidden-xs" style="color:gray">general</td>
+	  <td>Execution mode</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		    <select name="select4" id="select4" 
+			    aria-label="Execution mode"
+			    onchange="var opt = $(this).find('option:selected');
+				      var optValue = opt.val();
+			              set_cfg('ws_mode',optValue); save_cfg();
+                                      if ('webmips' == optValue)
+			                   wepsim_show_webmips();
+			              else wepsim_hide_webmips();
+				      return false;"
+			    data-native-menu="false">
+			<option value="tutorial">Tutorial</option>
+			<option value="wepsim">WepSIM</option>
+			<option value="webmips">WebMIPS</option>
+		    </select>
+		 </fieldset>
+          </td>
+	  <td class="collapse7 collapse in">Tutorial/WepSIM mode</td>
 	 </tr>
 
 	 <tr>
@@ -747,31 +772,6 @@
 		 </fieldset>
           </td>
 	  <td class="collapse7 collapse in">Editor mode</td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse in">1</td>
-	  <td class="hidden-xs" style="color:gray">execution</td>
-	  <td>Execution mode</td>
-	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		    <select name="select4" id="select4" 
-			    aria-label="Execution mode"
-			    onchange="var opt = $(this).find('option:selected');
-				      var optValue = opt.val();
-			              set_cfg('ws_mode',optValue); save_cfg();
-                                      if ('webmips' == optValue)
-			                   wepsim_show_webmips();
-			              else wepsim_hide_webmips();
-				      return false;"
-			    data-native-menu="false">
-			<option value="tutorial">Tutorial</option>
-			<option value="wepsim">WepSIM</option>
-			<option value="webmips">WebMIPS</option>
-		    </select>
-		 </fieldset>
-          </td>
-	  <td class="collapse7 collapse in">Set tutorial mode</td>
 	 </tr>
 
 	 <tr>
