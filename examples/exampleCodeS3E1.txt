@@ -8,7 +8,9 @@
    msgi2:   .asciiz "INT: 2\n"
 
 .ktext
-sys_print:  lb   $27 ($26)
+sys_print:  li   $0 0
+            beq  $26 $0 fin1
+            lb   $27 ($26)
             li   $1 0
             beq  $27 $1 fin1
             out  $27 0x1000

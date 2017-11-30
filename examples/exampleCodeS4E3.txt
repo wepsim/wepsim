@@ -1,11 +1,13 @@
 
 .kdata
-   vector:  .word 0
-            .word 0
+   vector:  .word -1
+            .word -1
             .word rt_sys
 
 .ktext
-sys_prt_str: li   $1 1
+sys_prt_str: li   $1  1
+             li   $0 0
+             beq  $26 $0 fin1
          b5: lb   $27 ($26)
              beq  $27 $0 fin1
              out  $27 0x1000
@@ -115,6 +117,16 @@ sys_prt_int: li   $1 1
 
            # test skipasciicode_2: ""
            la $t1 w3
+           skipasciicode_2 $a0 $t1 32
+           li $v0 4
+           syscall
+
+           la $a0 enter
+           li $v0 4
+           syscall
+
+           # test skipasciicode_2: (null)
+           li $t1 0
            skipasciicode_2 $a0 $t1 32
            li $v0 4
            syscall

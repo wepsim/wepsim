@@ -8,6 +8,8 @@
 
 .ktext
 sys_prt_str: li   $1 1
+             li   $0 0
+             beq  $26 $0 fin1
          b5: lb   $27 ($26)
              beq  $27 $0 fin1
              out  $27 0x1000
