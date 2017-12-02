@@ -87,22 +87,22 @@
 
     examples.push({ 
                      id: 'S4E1',
-                     title: "addv + seqv.",
-                     level: "Special",
-                     description: "Example of instructions addv and seqv.<br>" 
-                  });
-
-    examples.push({ 
-                     id: 'S4E2',
                      title: "syscall 1, 4-5, 8, 11-12",
                      level: "Special",
                      description: "Example of syscall for printing/reading integer and string.<br>" 
                   });
 
     examples.push({ 
-                     id: 'S4E3',
-                     title: "syscall 1-4",
+                     id: 'S4E2',
+                     title: "addv + seqv.",
                      level: "Special",
-                     description: "Example of syscall for printing string and integer.<br>" 
+                     description: "Example of instructions addv and seqv.<br>" 
+                  });
+
+    examples.push({ 
+                     id: 'S4E3',
+                     title: "strlen_2 + skipasciicode_2",
+                     level: "Special",
+                     description: "Example of instructions strlen_2 and skipasciicode_2.<br>" 
                   });
 
