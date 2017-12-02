@@ -1238,16 +1238,30 @@
         </h2>
         <p class="cleanuphtml-1"></p>
 
-          <div id="SBWA">
-          <div id="BWA">
-            <div id="A1A0">
-              <div id="BW">
-                <div id="BE">
+	<div id="M1">
+          <p>
+            <b>M1</b><b>     </b>             1 bits
+          </p>
+          <p>
+            They allow you to select which value can be used to update the data register (MBR): with the value from memory or the value from the internal data bus.
+          </p>
+          <p>
+          </p>
+        </div>
+        
+
+        <div id="SBWA">
+        <div id="BWA">
+	<div id="R">
+	<div id="W">
+        <div id="BE">
                   <p>
-                    <b>BE</b><b>      </b> 4 bits              
+                    <b>R</b><b>       </b> 1 bits <br>
+                    <b>W</b><b>       </b> 1 bits <br>
+                    <b>BE</b><b>      </b> 4 bits <br>
                   </p>
                   <p>
-                    Entry control signals of the main memory.
+                    Control signals of the main memory: R for read, W for write, BE for byte-selection
                   </p>
                   <p>
                     BE3=BW1,    BE2=BW0,    BE1=A1,       BE0=A0
@@ -2308,18 +2322,23 @@
                       </tr>
                     </tbody></table>
                   </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
                   <p>
-                     
-                  </p><br clear="all">
+                  </p>
+                  <br clear="all">
                   <p>
-                     
                   </p>
                   <p>
-                     
                   </p>
                   <p>
-                     
                   </p>
+
+        <div id="BW">
+        <div id="A1A0">
                   <p>
                     <b>BW+A1A0    </b> 4 bits              
                   </p>
@@ -2330,7 +2349,7 @@
                      
                   </p>
                   <p>
-                    R-Byte Selector operation (with SE = 0):
+                    Byte selector: R=1, SE=0 (R-byte selector):
                   </p>
                   <div class="cleanuphtml-2">
                     <table width="1061" cellspacing="0" cellpadding="0" border="0">
@@ -2856,7 +2875,7 @@
                      
                   </p>
                   <p>
-                    R-Byte Selector Operation (with SE = 1):
+                    Byte selector: R=1, SE=1 (R-byte selector):
                   </p>
                   <p>
                      
@@ -3385,7 +3404,7 @@
                      
                   </p>
                   <p>
-                    W-Byte Operation Selector:
+                    Byte selector: W=1, SE=x (W-byte selector):
                   </p>
                   <div class="cleanuphtml-2">
                     <table width="935" cellspacing="0" cellpadding="0" border="0">
@@ -3904,32 +3923,17 @@
                       </tr>
                     </tbody></table>
                   </div>
-                  <p>
-                     
-                  </p>
-                  <p>
-                     
-                  </p>
-                  <p>
-                     
-                  </p>
                 </div>
-              </div>
-            </div>
-          </div>
         </div>
-
-	<div id="M1">
-          <p>
-            <b>M1</b><b>     </b>             1 bits
-          </p>
-          <p>
-            They allow you to select which value can be used to update the data register (MBR): with the value from memory or the value from the internal data bus.
-          </p>
-          <p>
-          </p>
         </div>
         
+                  <p>
+                  </p>
+                  <p>
+                  </p>
+                  <p>
+                  </p>
+
 
         <h2>
           The central processing unit: Bank of Records (RF).
@@ -3941,7 +3945,7 @@
           <div id="RC">
           <div id="LC">
                 <p>
-                  <b>RA</b><b>     </b>             5 bits
+                  <b>RA</b><b>      </b>             5 bits
                 </p>
                 <p>
                   <b>RB</b><b>      </b>             5 bits

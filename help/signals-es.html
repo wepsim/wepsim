@@ -1233,16 +1233,30 @@
         </h2>
         <p class="cleanuphtml-1"></p>
 
-          <div id="SBWA">
-          <div id="BWA">
-            <div id="A1A0">
-              <div id="BW">
-                <div id="BE">
+	<div id="M1">
+          <p>
+            <b>M1</b><b>     </b>             1 bits
+          </p>
+          <p>
+            Permiten seleccionar con qu&eacute; valor se puede actualizar el registro de datos (MBR): con el valor que proviene de memoria o con el valor que proviene del bus interno de datos (<i>Internal bus</i>).
+          </p>
+          <p>
+          </p>
+        </div>
+
+
+        <div id="SBWA">
+        <div id="BWA">
+	<div id="R">
+	<div id="W">
+        <div id="BE">
                   <p>
-                    <b>BE</b><b>      </b> 4 bits              
+                    <b>W</b><b>       </b> 1 bits <br>
+                    <b>R</b><b>       </b> 1 bits <br>
+                    <b>BE</b><b>      </b> 4 bits <br>
                   </p>
                   <p>
-                    Senales de entrada a la memoria.
+                    Senales de entrada a la memoria: R para lectura, W para escritura y BE para selecci&oacute;n de byte
                   </p>
                   <p>
                     BE3=BW1,    BE2=BW0,    BE1=A1,       BE0=A0
@@ -2302,30 +2316,37 @@
                         </td>
                       </tr>
                     </tbody></table>
-                  </div>
+
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
                   <p>
-                     
-                  </p><br clear="all">
+                  </p>
+                  <br clear="all">
                   <p>
-                     
+                  </p>
+                  <p>
+                  </p>
+                  <p>
+                  </p>
+
+
+        <div id="BW">
+        <div id="A1A0">
+                  <p>
+                    <b>BW + A1A0</b>   4 bits              
+                  </p>
+                  <p>
+                    Senales de entrada al selector de bytes (W-Byte y R-Byte selector).
                   </p>
                   <p>
                      
                   </p>
                   <p>
-                     
-                  </p>
-                  <p>
-                    <b>BW+A1A0    </b> 4 bits              
-                  </p>
-                  <p>
-                    Senales de entrada a W-Byte Selector y R-Byte Selector.
-                  </p>
-                  <p>
-                     
-                  </p>
-                  <p>
-                    Funcionamiento de R-Byte Selector (con SE=0):
+                    Funcionamiento con R=1 y SE=0 (R-Byte selector):
                   </p>
                   <div class="cleanuphtml-2">
                     <table width="1061" cellspacing="0" cellpadding="0" border="0">
@@ -2851,7 +2872,7 @@
                      
                   </p>
                   <p>
-                    Funcionamiento de R-Byte Selector (con SE=1):
+                    Funcionamiento con R=1 y SE=1 (R-Byte selector):
                   </p>
                   <p>
                      
@@ -3380,7 +3401,7 @@
                      
                   </p>
                   <p>
-                    Funcionamiento de W-Byte Selector:
+                    Funcionamiento con W=1 y SE=x (W-Byte selector):
                   </p>
                   <div class="cleanuphtml-2">
                     <table width="935" cellspacing="0" cellpadding="0" border="0">
@@ -3899,32 +3920,17 @@
                       </tr>
                     </tbody></table>
                   </div>
-                  <p>
-                     
-                  </p>
-                  <p>
-                     
-                  </p>
-                  <p>
-                     
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
-	<div id="M1">
-          <p>
-            <b>M1</b><b>     </b>             1 bits
-          </p>
-          <p>
-            Permiten seleccionar con qu&eacute; valor se puede actualizar el registro de datos (MBR): con el valor que proviene de memoria o con el valor que proviene del bus interno de datos (<i>Internal bus</i>).
-          </p>
-          <p>
-          </p>
+        </div>
         </div>
         
+                  <p>
+                  </p>
+                  <p>
+                  </p>
+                  <p>
+                  </p>
+
 
         <h2>
           La unidad central de procesamiento: Banco de Registros (RF)
