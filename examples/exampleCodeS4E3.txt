@@ -50,28 +50,19 @@ sys_prt_int: li   $1 1
          w1:    .asciiz  "   hello"
          w2:    .asciiz  "hello"
          w3:    .asciiz  ""
+         ver2:  .asciiz  "mprog:\t"
          enter: .asciiz  "\n"
 
 .text
-    strlen_1: jr $ra
-
-skipspaces_1: jr $ra
-
     main:  # save $ra
            li  $t0 4
            sub $sp $sp $t0
            sw  $ra ($sp)
 
-           # test strlen_1 & strlen_2: "  ..."
-           la $a0 w1
-           jal strlen_1
-           move $a0 $v0
-           li $v0 1
-           syscall
-           la $a0 enter
+           # test strlen_2: "  ..."
+           la $a0 ver2
            li $v0 4
            syscall
-
            la $t1 w1
            strlen_2 $a0 $t1
            li $v0 1
@@ -80,16 +71,10 @@ skipspaces_1: jr $ra
            li $v0 4
            syscall
 
-           # test strlen_1 & strlen_2: "..."
-           la $a0 w2
-           jal strlen_1
-           move $a0 $v0
-           li $v0 1
-           syscall
-           la $a0 enter
+           # test strlen_2: "..."
+           la $a0 ver2
            li $v0 4
            syscall
-
            la $t1 w2
            strlen_2 $a0 $t1
            li $v0 1
@@ -98,16 +83,10 @@ skipspaces_1: jr $ra
            li $v0 4
            syscall
 
-           # test strlen_1 & strlen_2: ""
-           la $a0 w3
-           jal strlen_1
-           move $a0 $v0
-           li $v0 1
-           syscall
-           la $a0 enter
+           # test strlen_2: ""
+           la $a0 ver2
            li $v0 4
            syscall
-
            la $t1 w3
            strlen_2 $a0 $t1
            li $v0 1
@@ -116,16 +95,10 @@ skipspaces_1: jr $ra
            li $v0 4
            syscall
 
-           # test skipspaces_1 & skipasciicode_2: "  ..."
-           la $a0 w1
-           jal skipspaces_1
-           move $a0 $v0
+           # test skipasciicode_2: "  ..."
+           la $a0 ver2
            li $v0 4
            syscall
-           la $a0 enter
-           li $v0 4
-           syscall
-
            la $t1 w1
            skipasciicode_2 $a0 $t1 32
            li $v0 4
@@ -134,16 +107,10 @@ skipspaces_1: jr $ra
            li $v0 4
            syscall
 
-           # test skipspaces_1 & skipasciicode_2: "..."
-           la $a0 w2
-           jal skipspaces_1
-           move $a0 $v0
+           # test skipasciicode_2: "..."
+           la $a0 ver2
            li $v0 4
            syscall
-           la $a0 enter
-           li $v0 4
-           syscall
-
            la $t1 w2
            skipasciicode_2 $a0 $t1 32
            li $v0 4
@@ -152,16 +119,10 @@ skipspaces_1: jr $ra
            li $v0 4
            syscall
 
-           # test skipspaces_1 & skipasciicode_2: ""
-           la $a0 w3
-           jal skipspaces_1
-           move $a0 $v0
+           # test skipasciicode_2: ""
+           la $a0 ver2
            li $v0 4
            syscall
-           la $a0 enter
-           li $v0 4
-           syscall
-
            la $t1 w3
            skipasciicode_2 $a0 $t1 32
            li $v0 4
