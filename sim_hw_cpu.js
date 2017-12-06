@@ -599,7 +599,7 @@
 					   'MV BS_TD REG_MBR; FIRE TD; FIRE R; FIRE W',
 					   'MV BS_TD REG_MBR; FIRE TD; FIRE R; FIRE W',
 					   'MV BS_TD REG_MBR; FIRE TD; FIRE R; FIRE W'],
-				 fire_name: [],
+				 fire_name: ['svg_p:text3533-5'],
 				 draw_data: [[],[]],
 				 draw_name: [[],[]] };
 	sim_signals["SBWA"] = { name: "SBWA", visible: false, type: "L", value: 0, default_value: 0, nbits: "5",
