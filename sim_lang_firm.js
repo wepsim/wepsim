@@ -404,6 +404,14 @@ function loadFirmware (text)
                    if (typeof ret.error != "undefined")
                        return ret ;
 
+		   // native -> native_jit
+	           if (true == instruccionAux["native"]) {
+		       for (var i=0; i<ret.microprograma.length; i++) 
+			    if (typeof ret.microprograma[i].NATIVE != "undefined")
+	                        eval("ret.microprograma[i][\"NATIVE_JIT\"] = " + 
+				     "  function() { var fields = wepsim_native_get_fields(\"begin\");\n" + ret.microprograma[i].NATIVE + "\n}") ;
+		   }
+
                    instruccionAux["signature"]       = "begin" ;
 		   instruccionAux["signatureGlobal"] = "begin" ;
 		   instruccionAux["signatureUser"]   = "begin" ;
@@ -805,6 +813,14 @@ function loadFirmware (text)
 
                    if (typeof ret.error != "undefined")
                        return ret ;
+
+		   // native -> native_jit
+	           if (true == instruccionAux["native"]) {
+		       for (var i=0; i<ret.microprograma.length; i++) 
+			    if (typeof ret.microprograma[i].NATIVE != "undefined")
+	                        eval("ret.microprograma[i][\"NATIVE_JIT\"] = " + 
+			     	     "  function() {\n var fields = wepsim_native_get_fields(\"" + instruccionAux.signatureRaw + "\");\n" + ret.microprograma[i].NATIVE + "\n};") ;
+		   }
 
                instruccionAux["microcode"]     = ret.microprograma ;
                instruccionAux["microcomments"] = ret.microcomments ;

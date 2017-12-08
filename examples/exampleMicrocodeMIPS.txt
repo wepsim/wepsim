@@ -126,7 +126,7 @@ and reg1 reg2 reg3 {
             reg3=reg(15,11),
             native,
             {
-                var fields = wepsim_native_get_fields("and reg1 reg2 reg3") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
                 var reg3   = wepsim_native_get_field_from_ir(fields, 2) ;
@@ -148,7 +148,7 @@ or reg1 reg2 reg3 {
             reg3=reg(15,11),
             native,
             {
-                var fields = wepsim_native_get_fields("or reg1 reg2 reg3") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
                 var reg3   = wepsim_native_get_field_from_ir(fields, 2) ;
@@ -167,7 +167,7 @@ not reg {
             reg=reg(25,21),
             native,
             {
-                var fields = wepsim_native_get_fields("not reg") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
 
                 var result = wepsim_native_get_value("BR", reg1) ;
@@ -186,7 +186,7 @@ xor reg1 reg2 reg3 {
             reg3=reg(15,11),
             native,
             {
-                var fields = wepsim_native_get_fields("xor reg1 reg2 reg3") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
                 var reg3   = wepsim_native_get_field_from_ir(fields, 2) ;
@@ -207,7 +207,7 @@ add reg1 reg2 reg3 {
             reg3=reg(15,11),
             native,
             {
-                var fields = wepsim_native_get_fields("add reg1 reg2 reg3") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
                 var reg3   = wepsim_native_get_field_from_ir(fields, 2) ;
@@ -228,7 +228,7 @@ sub reg1 reg2 reg3 {
             reg3=reg(15,11),
             native,
             {
-                var fields = wepsim_native_get_fields("sub reg1 reg2 reg3") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
                 var reg3   = wepsim_native_get_field_from_ir(fields, 2) ;
@@ -249,7 +249,7 @@ mul reg1 reg2 reg3 {
             reg3=reg(15,11),
             native,
             {
-                var fields = wepsim_native_get_fields("mul reg1 reg2 reg3") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
                 var reg3   = wepsim_native_get_field_from_ir(fields, 2) ;
@@ -270,47 +270,46 @@ div reg1 reg2 reg3 {
             reg3=reg(15,11),
             native,
             {
-                var fields = wepsim_native_get_fields("div reg1 reg2 reg3") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
                 var reg3   = wepsim_native_get_field_from_ir(fields, 2) ;
 
-                if (wepsim_native_get_value("BR", reg3) == 0)
-                {
-                        wepsim_native_set_value("CPU", "REG_RT1", 1) ;
-
-                        // push PC
-                        var value  = wepsim_native_get_value("CPU", "REG_PC") ;
-                        var reg_sp = wepsim_native_get_value("BR", 29) ;
-                        reg_sp = reg_sp - 4 ;
-                        wepsim_native_set_value("MEMORY", reg_sp, value) ;
-                        wepsim_native_set_value("BR", 29, reg_sp) ;
-
-                        // push SR
-                        value  = wepsim_native_get_value("CPU", "REG_SR") ;
-                        reg_sp = wepsim_native_get_value("BR", 29) ;
-                        reg_sp = reg_sp - 4 ;
-                        wepsim_native_set_value("MEMORY", reg_sp, value) ;
-                        wepsim_native_set_value("BR", 29, reg_sp) ;
-
-                        // MAR <- RT1*4
-                        var addr = wepsim_native_get_value("CPU", "REG_RT1") ;
-                        addr = 4 * addr ;
-                        wepsim_native_set_value("CPU", "REG_MAR", addr) ;
-
-                        // PC <- MBR <- MP[MAR]
-                        addr = wepsim_native_get_value("MEMORY", addr) ;
-                        wepsim_native_set_value("CPU", "REG_PC", addr) ;
-
-                        // fetch
-                        wepsim_native_go_maddr(0) ;
-                }
-                else
+                if (wepsim_native_get_value("BR", reg3) != 0)
                 {
                     var result = wepsim_native_get_value("BR", reg2) / wepsim_native_get_value("BR", reg3) ;
                     wepsim_native_set_value("BR", reg1, result) ;
                     wepsim_native_go_maddr(0) ;
+                    return ;
                 }
+
+		wepsim_native_set_value("CPU", "REG_RT1", 1) ;
+
+		// push PC
+		var value  = wepsim_native_get_value("CPU", "REG_PC") ;
+		var reg_sp = wepsim_native_get_value("BR", 29) ;
+		reg_sp = reg_sp - 4 ;
+		wepsim_native_set_value("MEMORY", reg_sp, value) ;
+		wepsim_native_set_value("BR", 29, reg_sp) ;
+
+		// push SR
+		value  = wepsim_native_get_value("CPU", "REG_SR") ;
+		reg_sp = wepsim_native_get_value("BR", 29) ;
+		reg_sp = reg_sp - 4 ;
+		wepsim_native_set_value("MEMORY", reg_sp, value) ;
+		wepsim_native_set_value("BR", 29, reg_sp) ;
+
+		// MAR <- RT1*4
+		var addr = wepsim_native_get_value("CPU", "REG_RT1") ;
+		addr = 4 * addr ;
+		wepsim_native_set_value("CPU", "REG_MAR", addr) ;
+
+		// PC <- MBR <- MP[MAR]
+		addr = wepsim_native_get_value("MEMORY", addr) ;
+		wepsim_native_set_value("CPU", "REG_PC", addr) ;
+
+		// fetch
+		wepsim_native_go_maddr(0) ;
             }
 }
 
@@ -323,7 +322,7 @@ rem reg1 reg2 reg3 {
             reg3=reg(15,11),
             native,
             {
-                var fields = wepsim_native_get_fields("rem reg1 reg2 reg3") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
                 var reg3   = wepsim_native_get_field_from_ir(fields, 2) ;
@@ -343,7 +342,7 @@ srl reg1 reg2 val {
             val=inm(5,0),
             native,
             {
-                var fields = wepsim_native_get_fields("srl reg1 reg2 val") ;
+                // fields is a default parameter with the instruction field information
                 var reg1 = wepsim_native_get_field_from_ir(fields, 0) ;
                 var reg2 = wepsim_native_get_field_from_ir(fields, 1) ;
                 var val1 = wepsim_native_get_field_from_ir(fields, 2) ;
@@ -367,7 +366,7 @@ move reg1 reg2 {
             reg2=reg(20,16),
             native,
             {
-                var fields = wepsim_native_get_fields("move reg1 reg2") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
 
@@ -385,7 +384,7 @@ li reg val {
             val=inm(15,0),
             native,
             {
-                var fields = wepsim_native_get_fields("li reg val") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var val1   = wepsim_native_get_field_from_ir(fields, 1) ;
 
@@ -404,7 +403,7 @@ liu reg val {
             val=inm(15,0),
             native,
             {
-                var fields = wepsim_native_get_fields("liu reg1 val") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var val1   = wepsim_native_get_field_from_ir(fields, 1) ;
 
@@ -421,7 +420,7 @@ la  reg addr {
             addr=address(15,0)abs,
             native,
             {
-                var fields = wepsim_native_get_fields("la reg addr") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var val1   = wepsim_native_get_field_from_ir(fields, 1) ;
 
@@ -443,7 +442,7 @@ lw reg addr {
             addr=address(15,0)abs,
             native,
             {
-                var fields = wepsim_native_get_fields("lw reg addr") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var addr   = wepsim_native_get_field_from_ir(fields, 1) ;
 
@@ -461,7 +460,7 @@ sw reg addr {
             addr=address(15,0)abs,
             native,
             {
-                var fields = wepsim_native_get_fields("sw reg addr") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var addr   = wepsim_native_get_field_from_ir(fields, 1) ;
 
@@ -479,7 +478,7 @@ lb reg addr {
             addr=address(15,0)abs,
             native,
             {
-                var fields = wepsim_native_get_fields("lb reg addr") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var addr   = wepsim_native_get_field_from_ir(fields, 1) ;
 
@@ -504,7 +503,7 @@ sb reg addr {
             addr=address(15,0)abs,
             native,
             {
-                var fields = wepsim_native_get_fields("sb reg addr") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var addr   = wepsim_native_get_field_from_ir(fields, 1) ;
 
@@ -531,7 +530,7 @@ lb reg1 (reg2) {
             reg2 = reg(20,16),
             native,
             {
-                var fields = wepsim_native_get_fields("lb reg1 (reg2)") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
 
@@ -556,7 +555,7 @@ lbu reg1 (reg2) {
             reg2 = reg(20,16),
             native,
             {
-                var fields = wepsim_native_get_fields("lbu reg1 (reg2)") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
 
@@ -579,7 +578,7 @@ sb reg1 (reg2) {
             reg2 = reg(20,16),
             native,
             {
-                var fields = wepsim_native_get_fields("sb reg1 (reg2)") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
 
@@ -606,7 +605,7 @@ lw reg1 (reg2) {
             reg2 = reg(20,16),
             native,
             {
-                var fields = wepsim_native_get_fields("lw reg1 (reg2)") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
 
@@ -625,7 +624,7 @@ sw reg1 (reg2) {
             reg2 = reg(20,16),
             native,
             {
-                var fields = wepsim_native_get_fields("sw reg1 (reg2)") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
 
@@ -649,7 +648,7 @@ in reg val {
             val=inm(15,0),
             native,
             {
-                var fields = wepsim_native_get_fields("in reg val") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var addr   = wepsim_native_get_field_from_ir(fields, 1) ;
 
@@ -667,7 +666,7 @@ out reg val {
             val=inm(15,0),
             native,
             {
-                var fields = wepsim_native_get_fields("out reg val") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var addr   = wepsim_native_get_field_from_ir(fields, 1) ;
 
@@ -689,7 +688,7 @@ b offset {
             offset=address(15,0)rel,
             native,
             {
-                var fields = wepsim_native_get_fields("b offset") ;
+                // fields is a default parameter with the instruction field information
                 var offset = wepsim_native_get_field_from_ir(fields, 0) ;
 
                 var pc = wepsim_native_get_value("CPU", "REG_PC") ;
@@ -710,7 +709,7 @@ beq reg reg offset {
             offset=address(15,0)rel,
             native,
             {
-                var fields = wepsim_native_get_fields("beq reg reg offset") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
                 var offset = wepsim_native_get_field_from_ir(fields, 2) ;
@@ -738,7 +737,7 @@ bne reg reg offset {
             offset=address(15,0)rel,
             native,
             {
-                var fields = wepsim_native_get_fields("bne reg reg offset") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
                 var offset = wepsim_native_get_field_from_ir(fields, 2) ;
@@ -766,7 +765,7 @@ bge reg reg offset {
             offset=address(15,0)rel,
             native,
             {
-                var fields = wepsim_native_get_fields("bge reg reg offset") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
                 var offset = wepsim_native_get_field_from_ir(fields, 2) ;
@@ -794,7 +793,7 @@ blt reg reg offset {
             offset=address(15,0)rel,
             native,
             {
-                var fields = wepsim_native_get_fields("blt reg reg offset") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
                 var offset = wepsim_native_get_field_from_ir(fields, 2) ;
@@ -822,7 +821,7 @@ bgt reg reg offset {
             offset=address(15,0)rel,
             native,
             {
-                var fields = wepsim_native_get_fields("bgt reg reg offset") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
                 var offset = wepsim_native_get_field_from_ir(fields, 2) ;
@@ -850,7 +849,7 @@ ble reg reg offset {
             offset=address(15,0)rel,
             native,
             {
-                var fields = wepsim_native_get_fields("ble reg reg offset") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
                 var offset = wepsim_native_get_field_from_ir(fields, 2) ;
@@ -881,7 +880,7 @@ j addr {
             addr=address(15,0)abs,
             native,
             {
-                var fields  = wepsim_native_get_fields("j addr") ;
+                // fields is a default parameter with the instruction field information
                 var address = wepsim_native_get_field_from_ir(fields, 0) ;
 
                 wepsim_native_set_value("CPU", "REG_PC", address) ;
@@ -896,7 +895,7 @@ jal addr {
             addr=address(15,0)abs,
             native,
             {
-                var fields  = wepsim_native_get_fields("jal addr") ;
+                // fields is a default parameter with the instruction field information
                 var address = wepsim_native_get_field_from_ir(fields, 0) ;
 
                 var pc = wepsim_native_get_value("CPU", "REG_PC") ;
@@ -913,7 +912,7 @@ jr reg1 {
             reg1=reg(25,21),
             native,
             {
-                var fields  = wepsim_native_get_fields("jr reg1") ;
+                // fields is a default parameter with the instruction field information
                 var reg1 = wepsim_native_get_field_from_ir(fields, 0) ;
 
                 var new_pc = wepsim_native_get_value("BR", reg1) ;
@@ -935,7 +934,7 @@ strlen_2 reg1 reg2 {
             reg2 = reg(20,16),
             native,
             {
-                var fields = wepsim_native_get_fields("strlen_2 reg1 reg2") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
 
@@ -971,7 +970,7 @@ skipasciicode_2 reg1 reg2 val1 {
             val1 = inm(7,0),
             native,
             {
-                var fields = wepsim_native_get_fields("skipasciicode_2 reg1 reg2 val1") ;
+                // fields is a default parameter with the instruction field information
                 var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
                 var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
                 var val1   = wepsim_native_get_field_from_ir(fields, 2) ;

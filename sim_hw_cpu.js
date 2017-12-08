@@ -1234,9 +1234,10 @@
 							    //Promise.all(actions) ;
 
 							    // 6.- Native
-							    if (typeof new_mins.NATIVE != "undefined") {
-							        eval(new_mins.NATIVE) ;
-							    }
+							         if (typeof new_mins.NATIVE_JIT != "undefined")
+							             new_mins.NATIVE_JIT() ;
+						            else if (typeof new_mins.NATIVE != "undefined")
+							             eval(new_mins.NATIVE) ;
 							}
 					   };
 
