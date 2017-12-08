@@ -944,7 +944,8 @@
 			 continue;
 		     }
 
-		     if ("NATIVE" == ks) {
+		     if (("NATIVE" == ks) || ("NATIVE_JIT" == ks))
+		     {
 			 value += "&lt;built-in&gt;" ;
 			 continue;
 		     }
