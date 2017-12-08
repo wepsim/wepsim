@@ -2,10 +2,10 @@
 begin,
 native
 {
-                /*
-                  if ("pending interrupts")
+                  if (wepsim_native_get_signal("INT") == 1)
                   {
-                        // todo: fire INTA, clear INT, ...
+                        wepsim_native_set_signal("INT",  0) ;
+                        wepsim_native_set_signal("INTA", 1) ;
 
                         // RT1 <- MBR <- DB <- INTV
                         var value  = wepsim_native_get_value("CPU", "INTV") ;
@@ -36,8 +36,7 @@ native
 
                         // fetch
                         wepsim_native_go_maddr(0) ;
-                  }
-                */
+                }
 
                 var addr  = wepsim_native_get_value("CPU", "REG_PC") ;
                 var value = wepsim_native_get_value("MEMORY", addr) ;

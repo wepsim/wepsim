@@ -1573,6 +1573,18 @@
 	$("#tab21").show() ;
     }
 
+    function wepsim_native_get_signal ( elto )
+    {
+        return (get_value(sim_signals[elto]) >>> 0) ;
+    }
+
+    function wepsim_native_set_signal ( elto, value )
+    {
+        set_value(sim_signals[elto], value) ;
+	compute_behavior("FIRE " + elto) ;
+	return value ;
+    }
+
     function wepsim_native_get_value ( component, elto )
     {
         if ( ("CPU" == component) || ("BR" == component) )
