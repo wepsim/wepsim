@@ -4,12 +4,13 @@ native
 {
                   if (wepsim_native_get_signal("INT") == 1)
                   {
-                        wepsim_native_set_signal("INT",  0) ;
-                        wepsim_native_set_signal("INTA", 1) ;
-
                         // RT1 <- MBR <- DB <- INTV
                         var value  = wepsim_native_get_value("CPU", "INTV") ;
                         wepsim_native_set_value("CPU", "REG_RT1", value) ;
+
+                        // INT down, INTA up
+                        wepsim_native_set_signal("INT",  0) ;
+                        wepsim_native_set_signal("INTA", 1) ;
 
                         // push PC
                         value  = wepsim_native_get_value("CPU", "REG_PC") ;
