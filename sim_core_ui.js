@@ -944,9 +944,13 @@
 			 continue;
 		     }
 
-		     if (("NATIVE" == ks) || ("NATIVE_JIT" == ks))
-		     {
-			 value += "&lt;built-in&gt;" ;
+		     if ("NATIVE" == ks) {
+			 value += "&lt;native&gt; " ;
+			 continue;
+		     }
+
+		     if ("NATIVE_JIT" == ks) {
+			 value += "&lt;built-in&gt; " ;
 			 continue;
 		     }
 
