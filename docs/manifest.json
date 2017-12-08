@@ -1,0 +1,9 @@
+{
+  "short_name": "WepSIM",
+  "name": "WepSIM Simulator",
+  "description": "Progressive Web Application version of WepSIM",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#DDDDDD"
+}
