@@ -55,7 +55,7 @@ native
 #
 
 syscall {
-            co=101110,
+            co=111111,
             nwords=1,
             native,
             {
@@ -90,7 +90,7 @@ syscall {
 }
 
 reti {
-            co=111110,
+            co=111111,
             nwords=1,
             native,
             {
@@ -335,7 +335,7 @@ rem reg1 reg2 reg3 {
 }
 
 srl reg1 reg2 val {
-            co=010111,
+            co=111111,
             nwords=1,
             reg1=reg(25,21),
             reg2=reg(20,16),
@@ -360,7 +360,7 @@ srl reg1 reg2 val {
 #
 
 move reg1 reg2 {
-            co=000001,
+            co=111111,
             nwords=1,
             reg1=reg(25,21),
             reg2=reg(20,16),
@@ -378,7 +378,7 @@ move reg1 reg2 {
 }
 
 li reg val {
-            co=000010,
+            co=111111,
             nwords=1,
             reg=reg(25,21),
             val=inm(15,0),
@@ -397,7 +397,7 @@ li reg val {
 }
 
 liu reg val {
-            co=111100,
+            co=111111,
             nwords=1,
             reg=reg(25,21),
             val=inm(15,0),
@@ -414,7 +414,7 @@ liu reg val {
 }
 
 la  reg addr {
-            co=000011,
+            co=111111,
             nwords=1,
             reg=reg(25,21),
             addr=address(15,0)abs,
@@ -436,7 +436,7 @@ la  reg addr {
 #
 
 lw reg addr {
-            co=000100,
+            co=111111,
             nwords=1,
             reg=reg(25,21),
             addr=address(15,0)abs,
@@ -454,7 +454,7 @@ lw reg addr {
 }
 
 sw reg addr {
-            co=000101,
+            co=111111,
             nwords=1,
             reg=reg(25,21),
             addr=address(15,0)abs,
@@ -472,7 +472,7 @@ sw reg addr {
 }
 
 lb reg addr {
-            co=001000,
+            co=111111,
             nwords=1,
             reg=reg(25,21),
             addr=address(15,0)abs,
@@ -497,7 +497,7 @@ lb reg addr {
 }
 
 sb reg addr {
-            co=001001,
+            co=111111,
             nwords=1,
             reg=reg(25,21),
             addr=address(15,0)abs,
@@ -524,7 +524,7 @@ sb reg addr {
 }
 
 lb reg1 (reg2) {
-            co=100101,
+            co=111111,
             nwords=1,
             reg1 = reg(25,21),
             reg2 = reg(20,16),
@@ -549,7 +549,7 @@ lb reg1 (reg2) {
 }
 
 lbu reg1 (reg2) {
-            co=101111,
+            co=111111,
             nwords=1,
             reg1 = reg(25,21),
             reg2 = reg(20,16),
@@ -572,7 +572,7 @@ lbu reg1 (reg2) {
 }
 
 sb reg1 (reg2) {
-            co=100111,
+            co=111111,
             nwords=1,
             reg1 = reg(25,21),
             reg2 = reg(20,16),
@@ -599,7 +599,7 @@ sb reg1 (reg2) {
 }
 
 lw reg1 (reg2) {
-            co=111001,
+            co=111111,
             nwords=1,
             reg1 = reg(25,21),
             reg2 = reg(20,16),
@@ -618,7 +618,7 @@ lw reg1 (reg2) {
 }
 
 sw reg1 (reg2) {
-            co=111010,
+            co=111111,
             nwords=1,
             reg1 = reg(25,21),
             reg2 = reg(20,16),
@@ -642,7 +642,7 @@ sw reg1 (reg2) {
 #
 
 in reg val {
-            co=001010,
+            co=111111,
             nwords=1,
             reg=reg(25,21),
             val=inm(15,0),
@@ -660,7 +660,7 @@ in reg val {
 }
 
 out reg val {
-            co=001011,
+            co=111111,
             nwords=1,
             reg=reg(25,21),
             val=inm(15,0),
@@ -683,7 +683,7 @@ out reg val {
 #
 
 b offset {
-            co=001100,
+            co=111111,
             nwords=1,
             offset=address(15,0)rel,
             native,
@@ -702,7 +702,7 @@ b offset {
 }
 
 beq reg reg offset {
-            co=001101,
+            co=111111,
             nwords=1,
             reg=reg(25,21),
             reg=reg(20,16),
@@ -730,7 +730,7 @@ beq reg reg offset {
 }
 
 bne reg reg offset {
-            co=001110,
+            co=111111,
             nwords=1,
             reg=reg(25,21),
             reg=reg(20,16),
@@ -758,7 +758,7 @@ bne reg reg offset {
 }
 
 bge reg reg offset {
-            co=001111,
+            co=111111,
             nwords=1,
             reg=reg(25,21),
             reg=reg(20,16),
@@ -786,7 +786,7 @@ bge reg reg offset {
 }
 
 blt reg reg offset {
-            co=010000,
+            co=111111,
             nwords=1,
             reg=reg(25,21),
             reg=reg(20,16),
@@ -814,7 +814,7 @@ blt reg reg offset {
 }
 
 bgt reg reg offset {
-            co=010001,
+            co=111111,
             nwords=1,
             reg=reg(25,21),
             reg=reg(20,16),
@@ -842,7 +842,7 @@ bgt reg reg offset {
 }
 
 ble reg reg offset {
-            co=010010,
+            co=111111,
             nwords=1,
             reg=reg(25,21),
             reg=reg(20,16),
@@ -875,7 +875,7 @@ ble reg reg offset {
 #
 
 j addr {
-            co=010011,
+            co=111111,
             nwords=1,
             addr=address(15,0)abs,
             native,
@@ -890,7 +890,7 @@ j addr {
 }
 
 jal addr {
-            co=010100,
+            co=111111,
             nwords=1,
             addr=address(15,0)abs,
             native,
@@ -907,7 +907,7 @@ jal addr {
 }
 
 jr reg1 {
-            co=010101,
+            co=111111,
             nwords=1,
             reg1=reg(25,21),
             native,
@@ -928,7 +928,7 @@ jr reg1 {
 #
 
 strlen_2 reg1 reg2 {
-            co=011011,
+            co=111111,
             nwords=1,
             reg1 = reg(25,21),
             reg2 = reg(20,16),
@@ -961,9 +961,8 @@ strlen_2 reg1 reg2 {
             }
 }
 
-
 skipasciicode_2 reg1 reg2 val1 {
-            co=011010,
+            co=111111,
             nwords=1,
             reg1 = reg(25,21),
             reg2 = reg(20,16),
