@@ -404,14 +404,6 @@ function loadFirmware (text)
                    if (typeof ret.error != "undefined")
                        return ret ;
 
-		   // native -> native_jit
-	           if (true == instruccionAux["native"]) {
-		       for (var i=0; i<ret.microprograma.length; i++) 
-			    if (typeof ret.microprograma[i].NATIVE != "undefined")
-	                        eval("ret.microprograma[i][\"NATIVE_JIT\"] = " + 
-				     "  function() { var fields = wepsim_native_get_fields(\"begin\");\n" + ret.microprograma[i].NATIVE + "\n}") ;
-		   }
-
                    instruccionAux["signature"]       = "begin" ;
 		   instruccionAux["signatureGlobal"] = "begin" ;
 		   instruccionAux["signatureUser"]   = "begin" ;
@@ -814,14 +806,6 @@ function loadFirmware (text)
                    if (typeof ret.error != "undefined")
                        return ret ;
 
-		   // native -> native_jit
-	           if (true == instruccionAux["native"]) {
-		       for (var i=0; i<ret.microprograma.length; i++) 
-			    if (typeof ret.microprograma[i].NATIVE != "undefined")
-	                        eval("ret.microprograma[i][\"NATIVE_JIT\"] = " + 
-			     	     "  function() {\n var fields = wepsim_native_get_fields(\"" + instruccionAux.signatureRaw + "\");\n" + ret.microprograma[i].NATIVE + "\n};") ;
-		   }
-
                instruccionAux["microcode"]     = ret.microprograma ;
                instruccionAux["microcomments"] = ret.microcomments ;
 	       context.instrucciones.push(instruccionAux);
@@ -924,6 +908,29 @@ function loadFirmware (text)
                         labelsFounded = 0;
 		}
 	   }
+
+	   // native -> native_jit
+	   var mk_native = "" ;
+	   for (var i=0; i<context.instrucciones.length; i++)
+	   {
+		   var ins = context.instrucciones[i] ;
+		   if (false == ins["native"]) {
+		       continue ;
+		   }
+
+		   for (var j=0; j<ins["microcode"].length; j++)
+		   {
+			if (typeof ins["microcode"][j].NATIVE != "undefined") 
+			{
+			    mk_native += "context.instrucciones[" + i + "][\"microcode\"][" + j + "][\"NATIVE_JIT\"] = " + 
+			                 " function() {\n" +
+					 "\t var fields = wepsim_native_get_fields(\"" + ins["signatureRaw"] + "\");\n" + 
+					     ins["microcode"][j].NATIVE + 
+					 "\n};\n " ;
+			}
+		   }
+	   }
+	   eval(mk_native) ;
 
            var ret = new Object();
            ret.error              = null;
