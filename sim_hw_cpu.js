@@ -841,7 +841,7 @@
 							(get_value(sim_states[s_expr[3]]) < 0) )
 							flag_v = 1 ;
 
-						   var flag_c = ((get_value(sim_states[s_expr[2]])) >> 31) && ((get_value(sim_states[s_expr[3]])) >> 31) ;
+						   var flag_c = ((get_value(sim_states[s_expr[2]])) >>> 31) && ((get_value(sim_states[s_expr[3]])) >>> 31) ;
 
 			                           update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
 						}
@@ -865,7 +865,7 @@
 							(get_value(sim_states[s_expr[3]]) < 0) )
 							flag_v = 1 ;
 
-						   var flag_c = ((get_value(sim_states[s_expr[2]])) >> 31) && ((get_value(sim_states[s_expr[3]])) >> 31) ;
+						   var flag_c = ((get_value(sim_states[s_expr[2]])) >>> 31) && ((get_value(sim_states[s_expr[3]])) >>> 31) ;
 
 			                           update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
 						}

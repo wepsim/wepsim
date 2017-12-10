@@ -244,7 +244,7 @@
 
             // show up flags as test signals...
 	    var current_is_byvalue = get_cfg('is_byvalue') ;
-            get_cfg('is_byvalue', true) ; 
+            set_cfg('is_byvalue', true) ; 
             update_draw(sim_signals["TEST_N"], sim_signals["TEST_N"].value) ;
             update_draw(sim_signals["TEST_Z"], sim_signals["TEST_Z"].value) ;
             update_draw(sim_signals["TEST_V"], sim_signals["TEST_V"].value) ;
