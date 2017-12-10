@@ -828,24 +828,20 @@
 	syntax_behavior["ADD"]   = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr) {
-						   var result = (get_value(sim_states[s_expr[2]]) << 0) + 
-                                                                (get_value(sim_states[s_expr[3]]) << 0) ;
+						   var a = get_value(sim_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(sim_states[s_expr[3]]) << 0 ;
+						   var result = a + b ;
 						   set_value(sim_states[s_expr[1]], result >>> 0) ;
 
 						   var flag_n = (result  < 0) ? 1 : 0 ;
 						   var flag_z = (result == 0) ? 1 : 0 ;
+						   var flag_c = (a >>> 31) && (b >>> 31) ;
 
 						   var flag_v = 0 ;
-						   if ( (result < 0) &&
-							(get_value(sim_states[s_expr[2]]) >= 0) &&
-							(get_value(sim_states[s_expr[3]]) >= 0) )
+						   if ( (result  < 0) && (a >= 0) && (b >= 0) )
 							flag_v = 1 ;
-						   if ( (result >= 0) &&
-							(get_value(sim_states[s_expr[2]]) < 0) &&
-							(get_value(sim_states[s_expr[3]]) < 0) )
+						   if ( (result >= 0) && (a <  0) && (b <  0) )
 							flag_v = 1 ;
-
-						   var flag_c = ((get_value(sim_states[s_expr[2]])) >>> 31) && ((get_value(sim_states[s_expr[3]])) >>> 31) ;
 
 			                           update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
 						}
@@ -853,24 +849,20 @@
 	syntax_behavior["SUB"]   = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr) {
-						   var result = (get_value(sim_states[s_expr[2]]) << 0) - 
-                                                                (get_value(sim_states[s_expr[3]]) << 0) ;
-						   set_value(sim_states[s_expr[1]], result >>> 0);
+						   var a = get_value(sim_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(sim_states[s_expr[3]]) << 0 ;
+						   var result = a - b ;
+						   set_value(sim_states[s_expr[1]], result >>> 0) ;
 
 						   var flag_n = (result  < 0) ? 1 : 0 ;
 						   var flag_z = (result == 0) ? 1 : 0 ;
+						   var flag_c = (a >>> 31) && (b >>> 31) ;
 
 						   var flag_v = 0 ;
-						   if ( (result < 0) &&
-							(get_value(sim_states[s_expr[2]]) >= 0) &&
-							(get_value(sim_states[s_expr[3]]) >= 0) )
+						   if ( (result  < 0) && (a >= 0) && (b >= 0) )
 							flag_v = 1 ;
-						   if ( (result >= 0) &&
-							(get_value(sim_states[s_expr[2]]) < 0) &&
-							(get_value(sim_states[s_expr[3]]) < 0) )
+						   if ( (result >= 0) && (a <  0) && (b <  0) )
 							flag_v = 1 ;
-
-						   var flag_c = ((get_value(sim_states[s_expr[2]])) >>> 31) && ((get_value(sim_states[s_expr[3]])) >>> 31) ;
 
 			                           update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
 						}
@@ -878,24 +870,21 @@
 	syntax_behavior["MUL"]   = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr) {
-						   var result = (get_value(sim_states[s_expr[2]]) << 0) * 
-                                                                (get_value(sim_states[s_expr[3]]) << 0) ;
-						   set_value(sim_states[s_expr[1]], result >>> 0);
+						   var a = get_value(sim_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(sim_states[s_expr[3]]) << 0 ;
+						   var result = a * b ;
+						   set_value(sim_states[s_expr[1]], result >>> 0) ;
 
 						   var flag_n = (result  < 0) ? 1 : 0 ;
 						   var flag_z = (result == 0) ? 1 : 0 ;
+						   var flag_c = 0 ;
 
 						   var flag_v = 0 ;
-						   if ( (result < 0) &&
-							(get_value(sim_states[s_expr[2]]) >= 0) &&
-							(get_value(sim_states[s_expr[3]]) >= 0) )
-						        flag_v = 1 ;
-						   if ( (result >= 0) &&
-							(get_value(sim_states[s_expr[2]]) < 0) &&
-							(get_value(sim_states[s_expr[3]]) < 0) )
-						        flag_v = 1 ;
+						   if ( (result  < 0) && (a >= 0) && (b >= 0) )
+							flag_v = 1 ;
+						   if ( (result >= 0) && (a <  0) && (b <  0) )
+							flag_v = 1 ;
 
-						   var flag_c = 0 ;
 			                           update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
 						}
 				   };
@@ -911,10 +900,10 @@
                                                        return ;
                                                    }
 
-				       set_value(sim_states[s_expr[1]], Math.floor(a / b)) ;
-			               update_nzvc((get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0,
-						   (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0,
-						   0, 0) ;
+				                   set_value(sim_states[s_expr[1]], Math.floor(a / b)) ;
+			                           update_nzvc((get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0,
+						               (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0,
+						               0, 0) ;
 						}
 				   };
 	syntax_behavior["MOD"]   = { nparameters: 4,
