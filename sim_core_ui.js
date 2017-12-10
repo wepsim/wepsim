@@ -241,6 +241,15 @@
 	    }
 
 	    show_dbg_ir(get_value(sim_states['REG_IR_DECO'])) ;
+
+            // show up flags as test signals...
+	    var current_is_byvalue = get_cfg('is_byvalue') ;
+            get_cfg('is_byvalue', true) ; 
+            update_draw(sim_signals["TEST_N"], sim_signals["TEST_N"].value) ;
+            update_draw(sim_signals["TEST_Z"], sim_signals["TEST_Z"].value) ;
+            update_draw(sim_signals["TEST_V"], sim_signals["TEST_V"].value) ;
+            update_draw(sim_signals["TEST_C"], sim_signals["TEST_C"].value) ;
+            get_cfg('is_byvalue', current_is_byvalue) ; 
         }
 
 
