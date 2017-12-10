@@ -423,7 +423,7 @@
 					   ['svg_p:path3295', 'svg_p:path3293'], ['svg_p:path3297', 'svg_p:path3299']],
 			       draw_name: [[], ['svg_p:path3425', 'svg_p:path3427']] };
 	sim_signals["COP"] = { name: "COP", visible: true, type: "L", value: 0, default_value:0, nbits: "4", forbidden: true,
-			       behavior: ["NOP",
+			       behavior: ["NOP_ALU",
                                           "AND ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
 					  "OR ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
 					  "NOT ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
@@ -694,7 +694,10 @@
 	 */
 
 	syntax_behavior["NOP"]   = { nparameters: 1,
-				     operation: function(s_expr) {}
+				     operation: function(s_expr) { }
+				   };
+	syntax_behavior["NOP_ALU"] = { nparameters: 1,
+				     operation: function(s_expr) { update_nzvc(0, 0, 0, 0); }
 				   };
         syntax_behavior["MV"]    = { nparameters: 3,
                                      types: ["X", "X"],
@@ -825,7 +828,8 @@
 	syntax_behavior["ADD"]   = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr) {
-						   var result = (get_value(sim_states[s_expr[2]]) << 0) + (get_value(sim_states[s_expr[3]]) << 0) ;
+						   var result = (get_value(sim_states[s_expr[2]]) << 0) + 
+                                                                (get_value(sim_states[s_expr[3]]) << 0) ;
 						   set_value(sim_states[s_expr[1]], result >>> 0) ;
 
 						   var flag_n = (result  < 0) ? 1 : 0 ;
@@ -849,7 +853,8 @@
 	syntax_behavior["SUB"]   = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr) {
-						   var result = (get_value(sim_states[s_expr[2]]) << 0) - (get_value(sim_states[s_expr[3]]) << 0) ;
+						   var result = (get_value(sim_states[s_expr[2]]) << 0) - 
+                                                                (get_value(sim_states[s_expr[3]]) << 0) ;
 						   set_value(sim_states[s_expr[1]], result >>> 0);
 
 						   var flag_n = (result  < 0) ? 1 : 0 ;
@@ -873,7 +878,8 @@
 	syntax_behavior["MUL"]   = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr) {
-						   var result = (get_value(sim_states[s_expr[2]]) << 0) * (get_value(sim_states[s_expr[3]]) << 0) ;
+						   var result = (get_value(sim_states[s_expr[2]]) << 0) * 
+                                                                (get_value(sim_states[s_expr[3]]) << 0) ;
 						   set_value(sim_states[s_expr[1]], result >>> 0);
 
 						   var flag_n = (result  < 0) ? 1 : 0 ;
