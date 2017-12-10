@@ -1588,3 +1588,16 @@
 	    jit_dep_network = new vis.Network(jit_dep_container, jit_dep_data, jit_dep_options) ;
         }
 
+        function update_nzvc ( flag_n, flag_z, flag_v, flag_c )
+        {
+	   set_value(sim_states["FLAG_N"], flag_n) ;
+	   set_value(sim_states["FLAG_Z"], flag_z) ;
+	   set_value(sim_states["FLAG_V"], flag_v) ;
+	   set_value(sim_states["FLAG_C"], flag_c) ;
+
+	   set_value(sim_signals["TEST_N"], flag_n) ;
+	   set_value(sim_signals["TEST_Z"], flag_z) ;
+	   set_value(sim_signals["TEST_V"], flag_v) ;
+	   set_value(sim_signals["TEST_C"], flag_c) ;
+      }
+
