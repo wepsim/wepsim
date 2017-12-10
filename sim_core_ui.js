@@ -125,15 +125,19 @@
             return DRAW_stop ;
         }
 
-	function update_draw_byvalue ( obj, value, draw_it )
+	function update_draw ( obj, value )
         {
-            if (true == DRAW_stop)
+            if (true == DRAW_stop) {
                 return ;
+	    }
+
+	    var draw_it = get_cfg('is_byvalue'); // 'is_byvalue' belongs to the sim_cfg.js
 
             /* 1) Check if draw it */
 	    if (typeof sim_states["REG_MICROINS"].value[obj.name] != "undefined") {
 		draw_it = true;
 	    }
+
 	    if ( (false == draw_it) && (typeof obj.depends_on != "undefined") )
 	    {
 		for (var k=0; k<obj.depends_on.length; k++)
@@ -230,13 +234,6 @@
                                     get_cfg('size_inactive'));
 		    }
 	    }
-	}
-
-	function update_draw ( obj, value )
-        {
-	    var draw_it = get_cfg('is_byvalue'); // 'is_byvalue' belongs to the sim_cfg.js
-
-	    return update_draw_byvalue(obj, value, draw_it) ;
 	}
 
         function refresh()
@@ -1591,27 +1588,5 @@
                                     nodes: { borderWidth: 2, shadow:true },
                                     edges: { width: 2, shadow:true } } ;
 	    jit_dep_network = new vis.Network(jit_dep_container, jit_dep_data, jit_dep_options) ;
-        }
-
-        // test_n, test_z, test_v, test_c
-        function update_draw_flags ( )
-        {
-	    update_draw_byvalue(sim_signals["TEST_N"], sim_signals["TEST_N"].value, true) ;
-	    update_draw_byvalue(sim_signals["TEST_Z"], sim_signals["TEST_Z"].value, true) ;
-	    update_draw_byvalue(sim_signals["TEST_V"], sim_signals["TEST_V"].value, true) ;
-	    update_draw_byvalue(sim_signals["TEST_C"], sim_signals["TEST_C"].value, true) ;
-        }
-
-        function update_nzvc ( flag_n, flag_z, flag_v, flag_c )
-        {
-	   set_value(sim_states["FLAG_N"], flag_n) ;
-	   set_value(sim_states["FLAG_Z"], flag_z) ;
-	   set_value(sim_states["FLAG_V"], flag_v) ;
-	   set_value(sim_states["FLAG_C"], flag_c) ;
-
-	   set_value(sim_signals["TEST_N"], flag_n) ;
-	   set_value(sim_signals["TEST_Z"], flag_z) ;
-	   set_value(sim_signals["TEST_V"], flag_v) ;
-	   set_value(sim_signals["TEST_C"], flag_c) ;
         }
 

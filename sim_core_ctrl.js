@@ -679,6 +679,20 @@
 	    show_rf_values();
         }
 
+        // update ALU flags: test_n, test_z, test_v, test_c
+        function update_nzvc ( flag_n, flag_z, flag_v, flag_c )
+        {
+	   set_value(sim_states["FLAG_N"], flag_n) ;
+	   set_value(sim_states["FLAG_Z"], flag_z) ;
+	   set_value(sim_states["FLAG_V"], flag_v) ;
+	   set_value(sim_states["FLAG_C"], flag_c) ;
+
+	   set_value(sim_signals["TEST_N"], flag_n) ;
+	   set_value(sim_signals["TEST_Z"], flag_z) ;
+	   set_value(sim_signals["TEST_V"], flag_v) ;
+	   set_value(sim_signals["TEST_C"], flag_c) ;
+        }
+
         function update_memories ( preSIMWARE )
         {
 	    // 1.- load the SIMWARE
