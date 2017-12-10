@@ -1016,6 +1016,29 @@
 	 <tr>
 	  <td class="collapse6 collapse in">15</td>
 	  <td class="hidden-xs" style="color:gray">simulation</td>
+	  <td>Show by value</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		     <input name="radio10" id="radio10-true" 
+			    aria-label="Is by value: true"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('is_byvalue',true); save_cfg(); refresh();"
+			    value="on" type="radio">
+		     <label for="radio10-true">On</label>
+		     <input name="radio10" id="radio10-false" 
+			    aria-label="Is by value: false"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('is_byvalue',false); save_cfg(); refresh();"
+			    value="off" type="radio">
+		     <label for="radio10-false">Off</label>
+		 </fieldset>
+          </td>
+	  <td class="collapse7 collapse in">Show by value/activation</td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse in">16</td>
+	  <td class="hidden-xs" style="color:gray">simulation</td>
 	  <td>Notification delay</td>
 	  <td>
 		 <input type="range"
@@ -1560,6 +1583,7 @@
 		  //$("#radio6-" +          get_cfg('ws_idiom')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio7-" +      get_cfg('editor_theme')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio9-" +       get_cfg('is_editable')).prop('checked', true).checkboxradio("refresh") ;
+		    $("#radio10-" +       get_cfg('is_byvalue')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio11-" +        get_cfg('use_voice')).prop('checked', true).checkboxradio("refresh") ;
                     $("#select1").val(get_cfg('ICON_theme')).selectmenu("refresh");
                     $("#select2").val(get_cfg('editor_mode')).selectmenu("refresh");
