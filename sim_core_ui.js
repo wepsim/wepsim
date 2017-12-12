@@ -865,6 +865,9 @@
 	        if (obj_byid.length > 0)
 	            obj_byid[0].scrollTop = topPos - 100;
             }
+
+            // update old_main_add for light_update
+            old_main_addr = index ;
         }
 
         function main_memory_getword ( revlabels, valkeys, memory, key )
@@ -1022,6 +1025,9 @@
 	        if (obj_byid.length > 0)
 	            obj_byid[0].scrollTop = topPos;
             }
+
+            // update old_mc_add for light_update
+            old_mc_addr = 0;
         }
 
         var old_mc_addr = 0;
