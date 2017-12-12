@@ -148,7 +148,7 @@
       </div>
       <div id="B">
         <p>
-          <b>MUXB</b><b>           </b> 1 bits              
+          <b>MUXB</b><b>           </b> 1 bit              
         </p>
         <p>
           Select the denied condition or condition as the input value for A1:
@@ -360,9 +360,27 @@
         </p>
       </div>
 
+          <div id="SELCOP">
+          <div id="MC">
+          <p>
+            <b>MC</b><b>         </b>             1 bit<br>
+            <b>SELCOP</b><b>     </b>             4 bits
+          </p>
+          <p>
+            It allows to select the value for COP.
+          </p>
+          </div>
+          </div>
+
+          <div id="SELA">
+          <div id="SELB">
+          <div id="SELC">
           <div id="MR">
           <p>
-            <b>MR</b><b>     </b>             1 bits
+            <b>MR</b><b>       </b>             1 bit<br>
+            <b>SELA</b><b>     </b>             5 bits<br>
+            <b>SELB</b><b>     </b>             5 bits<br>
+            <b>SELC</b><b>     </b>             5 bits
           </p>
           <p>
             It allows to select the value for RA, RB and RC. 
@@ -389,6 +407,9 @@
           <p>
           </p>
         </div>
+        </div>
+        </div>
+        </div>
 
         <h2>
           The central processing unit: ALU
@@ -397,7 +418,7 @@
 
           <div id="MA">
           <p>
-            <b>MA</b> <b>    </b>             1 bits              
+            <b>MA</b> <b>    </b>             1 bit              
           </p>
           <p>
             Select which value to use as operator A in the ALU:
@@ -1006,7 +1027,7 @@
 
         <div id="M7">
           <p>
-            <b>M7</b> <b>     </b>             1 bits              
+            <b>M7</b> <b>     </b>             1 bit              
           </p>
           <p>
             Selects what value is loaded in the status register:
@@ -1074,7 +1095,7 @@
         <div id="SIZE">
         <div id="OFFSET">
               <p>
-                <b>SE</b>                  1 bits              
+                <b>SE</b>                  1 bit              
               </p>
               <p>
                 <b>SIZE</b>                5 bits              
@@ -1238,16 +1259,30 @@
         </h2>
         <p class="cleanuphtml-1"></p>
 
-          <div id="SBWA">
-          <div id="BWA">
-            <div id="A1A0">
-              <div id="BW">
-                <div id="BE">
+	<div id="M1">
+          <p>
+            <b>M1</b><b>     </b>             1 bit
+          </p>
+          <p>
+            They allow you to select which value can be used to update the data register (MBR): with the value from memory or the value from the internal data bus.
+          </p>
+          <p>
+          </p>
+        </div>
+        
+
+        <div id="SBWA">
+        <div id="BWA">
+	<div id="R">
+	<div id="W">
+        <div id="BE">
                   <p>
-                    <b>BE</b><b>      </b> 4 bits              
+                    <b>R</b><b>       </b> 1 bit <br>
+                    <b>W</b><b>       </b> 1 bit <br>
+                    <b>BE</b><b>      </b> 4 bits <br>
                   </p>
                   <p>
-                    Entry control signals of the main memory.
+                    Control signals of the main memory: R for read, W for write, BE for byte-selection
                   </p>
                   <p>
                     BE3=BW1,    BE2=BW0,    BE1=A1,       BE0=A0
@@ -2308,29 +2343,37 @@
                       </tr>
                     </tbody></table>
                   </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
                   <p>
-                     
-                  </p><br clear="all">
+                  </p>
+                  <br clear="all">
                   <p>
-                     
+                  </p>
+                  <p>
+                  </p>
+                  <p>
+                  </p>
+
+        <div id="BW">
+        <div id="A1A0">
+                  <p>
+                    <b>BW</b> (2 bits) <br>
+                    <b>A1A0</b> (2 bits) <br>
+                    <b>SE</b> (1 bit) <br>
+                    <b>W</b> (1 bit)
+                  </p>
+                  <p>
+                    Input signals for the Byte Selector (W-Byte and R-Byte Selectors).
                   </p>
                   <p>
                      
                   </p>
                   <p>
-                     
-                  </p>
-                  <p>
-                    <b>BW+A1A0    </b> 4 bits              
-                  </p>
-                  <p>
-                    Input signals to the W-Byte Selector and the R-Byte Selector.
-                  </p>
-                  <p>
-                     
-                  </p>
-                  <p>
-                    R-Byte Selector operation (with SE = 0):
+                    Byte selector: W=0, SE=0 (R-byte selector):
                   </p>
                   <div class="cleanuphtml-2">
                     <table width="1061" cellspacing="0" cellpadding="0" border="0">
@@ -2856,7 +2899,7 @@
                      
                   </p>
                   <p>
-                    R-Byte Selector Operation (with SE = 1):
+                    Byte selector: W=0, SE=1 (R-byte selector):
                   </p>
                   <p>
                      
@@ -3385,7 +3428,7 @@
                      
                   </p>
                   <p>
-                    W-Byte Operation Selector:
+                    Byte selector: W=1, SE={0,1} (W-byte selector):
                   </p>
                   <div class="cleanuphtml-2">
                     <table width="935" cellspacing="0" cellpadding="0" border="0">
@@ -3904,32 +3947,17 @@
                       </tr>
                     </tbody></table>
                   </div>
-                  <p>
-                     
-                  </p>
-                  <p>
-                     
-                  </p>
-                  <p>
-                     
-                  </p>
                 </div>
-              </div>
-            </div>
-          </div>
         </div>
-
-	<div id="M1">
-          <p>
-            <b>M1</b><b>     </b>             1 bits
-          </p>
-          <p>
-            They allow you to select which value can be used to update the data register (MBR): with the value from memory or the value from the internal data bus.
-          </p>
-          <p>
-          </p>
         </div>
         
+                  <p>
+                  </p>
+                  <p>
+                  </p>
+                  <p>
+                  </p>
+
 
         <h2>
           The central processing unit: Bank of Records (RF).
@@ -3941,7 +3969,7 @@
           <div id="RC">
           <div id="LC">
                 <p>
-                  <b>RA</b><b>     </b>             5 bits
+                  <b>RA</b><b>      </b>             5 bits
                 </p>
                 <p>
                   <b>RB</b><b>      </b>             5 bits
@@ -3950,7 +3978,7 @@
                   <b>RC</b><b>                  </b> 5 bits
                 </p>
                 <p>
-                  <b>LC</b><b>                  </b> 1 bits
+                  <b>LC</b><b>                  </b> 1 bit
                 </p>
                 <p>
                   They allow you to select a register which value goes to A (RA) or B (RB), or to update the value of the selected record (RC). 
@@ -3984,7 +4012,7 @@
 
           <div id="M2">
           <p>
-            <b>M2</b><b>     </b>             1 bits
+            <b>M2</b><b>     </b>             1 bit
           </p>
           <p>
             They allow you to select which value can be used to update the program counter register (PC): 
@@ -4028,6 +4056,28 @@
         </div>
         </div>
         </div>
+        </div>
+
+        <h2> The central processing unit: Access to the data bus </h2>
+        <p class="cleanuphtml-1"> </p>
+        <div id="TD">
+          <p>
+            <b>Td</b><b>     </b> 1 bit              
+          </p>
+          <p>
+            Copy the value of the MBR register, after being transformed by the 'bytes selector' componente, into the data bus.
+          </p>
+        </div>
+
+        <h2> The central processing unit: Access to the address bus </h2>
+        <p class="cleanuphtml-1"> </p>
+        <div id="TA">
+          <p>
+            <b>Ta</b><b>     </b> 1 bit              
+          </p>
+          <p>
+            Copy the value from the MAR register into the address bus.
+          </p>
         </div>
 
         <h2> The central processing unit: Access to the internal data bus </h2>
@@ -4075,7 +4125,8 @@
             <b>TEST_C, ..., TEST_U</b><b>           </b> 1 bit              
           </p>
           <p>
-            Let user to change on-the-fly the values of Carry-oVerflow-Negative-Zero-Int_enable-User_level flags as they were generated by the hardware elements.
+            Let user to change on-the-fly the values of Carry-oVerflow-Negative-Zero-Int_enable-User_level flags as they were generated by the hardware elements.<br>
+            <b>NOTE: this mechanism is for testing purposes only.</b>
           </p>
         </div>
         </div>

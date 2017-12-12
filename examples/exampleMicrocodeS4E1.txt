@@ -1,3 +1,4 @@
+
 begin
 {
                     # if (INT) go mrti
@@ -171,6 +172,18 @@ div reg1 reg2 reg3 {
             }
 }
 
+rem reg1 reg2 reg3 {
+            co=000000,
+            cop=1110,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            reg3=reg(15,11),
+            {
+                (MC=1, MR=0, SELA=10000, SELB=1011, MA=0, MB=0, SELCOP=1110, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+            }
+}
+
 srl reg1 reg2 val {
             co=010111,
             nwords=1,
@@ -190,7 +203,7 @@ srl reg1 reg2 val {
 
 
 #
-# MV/L*
+# MOVE/LI/LA
 #
 
 move reg1 reg2 {
@@ -243,6 +256,11 @@ la  reg addr {
             }
 }
 
+
+#
+# LOAD/STORE
+#
+
 lw reg addr {
             co=000100,
             nwords=1,
@@ -252,30 +270,6 @@ lw reg addr {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
                 (TA=1, R=1, BW=11, M1=1, C1=1),
                 (T1=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
-            }
-}
-
-lb reg1 (reg2) {
-            co=100101,
-            nwords=1,
-            reg1 = reg(25,21),
-            reg2 = reg(20,16),
-            {
-                (MR=0, SELA=10000, T9=1, C0),
-                (TA=1, R=1, BW=00, M1=1, C1=1),
-                (T1=1, LC=1, MR=0, SELC=10101, SE=1, A0=1, B=1, C=0)
-            }
-}
-
-lbu reg1 (reg2) {
-            co=101111,
-            nwords=1,
-            reg1 = reg(25,21),
-            reg2 = reg(20,16),
-            {
-                (MR=0, SELA=10000, T9=1, C0),
-                (TA=1, R=1, BW=00, M1=1, C1=1),
-                (T1=1, LC=1, MR=0, SELC=10101, SE=0, A0=1, B=1, C=0)
             }
 }
 
@@ -312,6 +306,66 @@ sb reg addr {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
                 (MR=0, SELA=10101,    T9=1, M1=0, C1=1),
                 (BW=0, TA=1, TD=1,     W=1,  A0=1, B=1, C=0)
+            }
+}
+
+lb reg1 (reg2) {
+            co=100101,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            {
+                (MR=0, SELA=10000, T9=1, C0),
+                (TA=1, R=1, BW=00, SE=1, M1=1, C1=1),
+                (T1=1, LC=1, MR=0, SELC=10101, SE=1, A0=1, B=1, C=0)
+            }
+}
+
+lbu reg1 (reg2) {
+            co=101111,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            {
+                (MR=0, SELA=10000, T9=1, C0),
+                (TA=1, R=1, BW=00, M1=1, C1=1),
+                (T1=1, LC=1, MR=0, SELC=10101, SE=0, A0=1, B=1, C=0)
+            }
+}
+
+sb reg1 (reg2) {
+            co=100111,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            {
+                (MR=0, SELA=10000, T9=1, C0=1),
+                (MR=0, SELA=10101, T9=1, M1=0, C1=1),
+                (BW=0, TA=1, TD=1, W=1,  A0=1, B=1, C=0)
+            }
+}
+
+lw reg1 (reg2) {
+            co=111001,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            {
+                (MR=0, SELA=10000, T9=1, C0),
+                (TA=1, R=1, BW=11, M1=1, C1=1),
+                (T1=1, LC=1, MR=0, SELC=10101, SE=1, A0=1, B=1, C=0)
+            }
+}
+
+sw reg1 (reg2) {
+            co=111010,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            {
+                (MR=0,  SELA=10000, T9=1, C0=1),
+                (MR=0,  SELA=10101, T9=1, M1=0, C1=1),
+                (BW=11, TA=1, TD=1, W=1,  A0=1, B=1, C=0)
             }
 }
 
@@ -511,92 +565,8 @@ jr reg1 {
 
 
 #
-# Misc
+# Register naming
 #
-
-nop {
-        co=010110,
-        nwords=1,
-        {
-                (A0=1, B=1, C=0)
-        }
-}
-
-addv_2 reg1 reg2 reg3 reg4
-{
-            co=011001,
-            nwords=1,
-            reg1=reg(25,21),
-            reg2=reg(20,16),
-            reg3=reg(15,11),
-            reg4=reg(10,6),
-            {
-                       (T8, C5),
-                       (MC=1, MR=0, SELA=110, SELB=110, MA=0, MB=0, SELCOP=1, T6, C4, C6, SELP=11, M7, C7),
-                       (A0=0, B=0, C=111, MADDR=bckBL1ftch),
-                loopB: (MC=1, MA=1, MB=11, SELCOP=1011, T6, C4, C6),
-                       (MC=1, MA=1, MB=10, SELCOP=1100, T6, C5),
-                       (MC=1, MR=0, MA=0, MB=1, SELA=01011, SELCOP=1010, T6, C0),
-                       (TA, R=1, BW=11, M1, C1),
-                       (MC=1, MR=0, MA=0, MB=1, SELA=10000, SELCOP=1010, T6, C0),
-                       (T1, C5),
-                       (TA, R=1, BW=11, M1, C1),
-                       (T1, C4),
-                       (MC=1, MR=0, MA=1, MB=1, SELCOP=1010, T6, M1=0, C1),
-                       (T7, C4),
-                       (MC=1, MR=0, MA=1, MB=10, SELCOP=1100, T6, C5),
-                       (MC=1, MR=0, MA=0, MB=1, SELA=10101, SELCOP=1010, T6, C0),
-                       (TA=1, TD=1, W=1,  BW=11),
-                       (MC=1, MA=1, MB=11, SELCOP=1100, SELP=11, M7, C7),
-                       (A0=0, B=1, C=110, MADDR=loopB),
-           bckB0ftch:  (MC=1, MR=1, SELA=10101, SELB=10101, SELC=10101, LC, MA=0, MB=0, SELCOP=1011),
-                       (T5, M7=0, C7),
-                       (A0=1, B=1, C=0)
-           bckBL1ftch: (MC=1, MR=0, SELA=00000, C6, MA=0, MB=11, SELCOP=1011),
-                       (T7, MR=1, SELC=10101, LC),
-                       (T5, M7=0, C7),
-                       (A0=1, B=1, C=0)
-            }
-}
-
-seqv_2 reg1 reg2 reg3 reg4
-{
-            co=011111,
-            nwords=1,
-            reg1=reg(25,21),
-            reg2=reg(20,16),
-            reg3=reg(15,11),
-            reg4=reg(10,6),
-            {
-                     (T8, C5),
-                     (MC=1, MR=0, SELA=110, SELB=110, MA=0, MB=0, SELCOP=1, T6, C4, C6, SELP=11, M7, C7),
-                     (A0=0, B=0, C=110, MADDR=bckSL1ftch),
-              loopS: (MC=1, MR=0, MA=1, MB=11, SELCOP=1011, T6, C4, C6),
-                     (MC=1, MR=0, MA=1, MB=10, SELCOP=1100, T6, C5),
-                     (MC=1, MR=0, MA=0, MB=1, SELA=01011, SELCOP=1010, T6, C0),
-                     (TA, R=1, BW=11, M1, C1),
-                     (MC=1, MR=0, MA=0, MB=1, SELA=10000, SELCOP=1010, T6, C0),
-                     (T1, C5),
-                     (TA, R=1, BW=11, M1, C1),
-                     (T1, C4),
-                      (MC=1, MR=0, MA=1, MB=1, SELCOP=1011, SELP=11, M7, C7),
-                      (A0=0, B=1, C=110, MADDR=bckS0ftch),
-                      (T7, C4),
-                      (MC=1, MA=1, MB=11, SELCOP=01100, SELP=11, M7, C7),
-                      (A0=0, B=1, C=110, MADDR=loopS),
-           bckS1ftch: (MC=1, MR=1, SELC=10101, LC, MA=1, MB=1, SELCOP=1110),
-                      (T5, M7=0, C7),
-                      (A0=1, B=1, C=0)
-           bckS0ftch: (MC=1, MR=1, SELA=10101, SELB=10101, SELC=10101, LC, MA=0, MB=0, SELCOP=1011),
-                      (T5, M7=0, C7),
-                      (A0=1, B=1, C=0)
-          bckSL1ftch: (MC=1, MR=0, SELA=00000, C6=1, MA=0, MB=11, SELCOP=1011),
-                      (T7, MR=1, SELC=10101, LC),
-                      (T5, M7=0, C7),
-                      (A0=1, B=1, C=0)
-            }
-}
-
 
 registers
 {

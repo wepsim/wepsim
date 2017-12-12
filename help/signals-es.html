@@ -143,7 +143,7 @@
       </div>
       <div id="B">
         <p>
-          <b>MUXB</b><b>           </b> 1 bits              
+          <b>MUXB</b><b>           </b> 1 bit              
         </p>
         <p>
           Selecciona la condici&oacute;n o condici&oacute;n negada como valor de entrada para A1:
@@ -355,9 +355,27 @@
         </p>
       </div>
 
+          <div id="SELCOP">
+          <div id="MC">
+          <p>
+            <b>MC</b><b>         </b>             1 bit<br>
+            <b>SELCOP</b><b>     </b>             4 bits
+          </p>
+          <p>
+            Permite seleccionar el valor para la señal COP de la ALU.
+          </p>
+          </div>
+          </div>
+
+          <div id="SELA">
+          <div id="SELB">
+          <div id="SELC">
           <div id="MR">
           <p>
-            <b>MR</b><b>     </b>             1 bits
+            <b>MR</b><b>       </b>             1 bit<br>
+            <b>SELA</b><b>     </b>             5 bits<br>
+            <b>SELB</b><b>     </b>             5 bits<br>
+            <b>SELC</b><b>     </b>             5 bits
           </p>
           <p>
             Permiten seleccionar el valor para RA, RB y RC.
@@ -384,6 +402,9 @@
           <p>
           </p>
         </div>
+        </div>
+        </div>
+        </div>
 
         <h2>
           La unidad central de procesamiento: ALU
@@ -392,7 +413,7 @@
 
           <div id="MA">
           <p>
-            <b>MA</b> <b>    </b>             1 bits              
+            <b>MA</b> <b>    </b>             1 bit              
           </p>
           <p>
             Selecciona qu&eacute; valor se usar&aacute; como operador A en la ALU:
@@ -1001,7 +1022,7 @@
 
         <div id="M7">
           <p>
-            <b>M7</b> <b>     </b>             1 bits              
+            <b>M7</b> <b>     </b>             1 bit              
           </p>
           <p>
             Selecciona qu&eacute; valor se carga en el registro de estado:
@@ -1069,7 +1090,7 @@
         <div id="SIZE">
         <div id="OFFSET">
               <p>
-                <b>SE</b>                  1 bits              
+                <b>SE</b>                  1 bit              
               </p>
               <p>
                 <b>SIZE</b>                5 bits              
@@ -1233,16 +1254,30 @@
         </h2>
         <p class="cleanuphtml-1"></p>
 
-          <div id="SBWA">
-          <div id="BWA">
-            <div id="A1A0">
-              <div id="BW">
-                <div id="BE">
+	<div id="M1">
+          <p>
+            <b>M1</b><b>     </b>             1 bit
+          </p>
+          <p>
+            Permiten seleccionar con qu&eacute; valor se puede actualizar el registro de datos (MBR): con el valor que proviene de memoria o con el valor que proviene del bus interno de datos (<i>Internal bus</i>).
+          </p>
+          <p>
+          </p>
+        </div>
+
+
+        <div id="SBWA">
+        <div id="BWA">
+	<div id="R">
+	<div id="W">
+        <div id="BE">
                   <p>
-                    <b>BE</b><b>      </b> 4 bits              
+                    <b>W</b><b>       </b> 1 bit <br>
+                    <b>R</b><b>       </b> 1 bit <br>
+                    <b>BE</b><b>      </b> 4 bits <br>
                   </p>
                   <p>
-                    Senales de entrada a la memoria.
+                    Senales de entrada a la memoria: R para lectura, W para escritura y BE para selecci&oacute;n de byte
                   </p>
                   <p>
                     BE3=BW1,    BE2=BW0,    BE1=A1,       BE0=A0
@@ -2302,30 +2337,40 @@
                         </td>
                       </tr>
                     </tbody></table>
-                  </div>
+
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+
                   <p>
-                     
-                  </p><br clear="all">
+                  </p>
+                  <br clear="all">
                   <p>
-                     
+                  </p>
+                  <p>
+                  </p>
+                  <p>
+                  </p>
+
+
+        <div id="BW">
+        <div id="A1A0">
+                  <p>
+                    <b>BW</b> (2 bits) <br>
+                    <b>A1A0</b> (2 bits) <br>
+                    <b>SE</b> (1 bit) <br>
+                    <b>W</b> (1 bit)
+                  </p>
+                  <p>
+                    Senales de entrada al selector de bytes (W-Byte y R-Byte selector).
                   </p>
                   <p>
                      
                   </p>
                   <p>
-                     
-                  </p>
-                  <p>
-                    <b>BW+A1A0    </b> 4 bits              
-                  </p>
-                  <p>
-                    Senales de entrada a W-Byte Selector y R-Byte Selector.
-                  </p>
-                  <p>
-                     
-                  </p>
-                  <p>
-                    Funcionamiento de R-Byte Selector (con SE=0):
+                    Funcionamiento con W=0 y SE=0 (R-Byte selector):
                   </p>
                   <div class="cleanuphtml-2">
                     <table width="1061" cellspacing="0" cellpadding="0" border="0">
@@ -2851,7 +2896,7 @@
                      
                   </p>
                   <p>
-                    Funcionamiento de R-Byte Selector (con SE=1):
+                    Funcionamiento con W=0 y SE=1 (R-Byte selector):
                   </p>
                   <p>
                      
@@ -3380,7 +3425,7 @@
                      
                   </p>
                   <p>
-                    Funcionamiento de W-Byte Selector:
+                    Funcionamiento con W=1 y SE={0,1} (W-Byte selector):
                   </p>
                   <div class="cleanuphtml-2">
                     <table width="935" cellspacing="0" cellpadding="0" border="0">
@@ -3899,32 +3944,17 @@
                       </tr>
                     </tbody></table>
                   </div>
-                  <p>
-                     
-                  </p>
-                  <p>
-                     
-                  </p>
-                  <p>
-                     
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
-	<div id="M1">
-          <p>
-            <b>M1</b><b>     </b>             1 bits
-          </p>
-          <p>
-            Permiten seleccionar con qu&eacute; valor se puede actualizar el registro de datos (MBR): con el valor que proviene de memoria o con el valor que proviene del bus interno de datos (<i>Internal bus</i>).
-          </p>
-          <p>
-          </p>
+        </div>
         </div>
         
+                  <p>
+                  </p>
+                  <p>
+                  </p>
+                  <p>
+                  </p>
+
 
         <h2>
           La unidad central de procesamiento: Banco de Registros (RF)
@@ -3945,7 +3975,7 @@
                   <b>RC</b><b>                  </b> 5 bits
                 </p>
                 <p>
-                  <b>LC</b><b>                  </b> 1 bits
+                  <b>LC</b><b>                  </b> 1 bit
                 </p>
                 <p>
                   Permiten seleccionar un registro para que su valor salga por A (RA) o por B (RB) o para actualizar el valor del registro seleccionado (RC). 
@@ -3977,7 +4007,7 @@
 
           <div id="M2">
           <p>
-            <b>M2</b><b>     </b>             1 bits
+            <b>M2</b><b>     </b>             1 bit
           </p>
           <p>
             Permiten seleccionar con qu&eacute; valor se puede actualizar el registro contador de programa (PC): sumando el contenido actual el valor de cuatro o con el valor que proviene del bus interno de
@@ -4021,6 +4051,28 @@
         </div>
         </div>
         </div>
+        </div>
+
+        <h2> La unidad central de procesamiento: Acceso al bus de datos</h2>
+        <p class="cleanuphtml-1"> </p>
+        <div id="TD">
+          <p>
+            <b>Td</b><b>     </b> 1 bit              
+          </p>
+          <p>
+            Copia el valor del registro MBR (Tras ser transformado por el componente 'bytes selector') en el bus de datos.
+          </p>
+        </div>
+
+        <h2> La unidad central de procesamiento: Acceso al bus de direcciones</h2>
+        <p class="cleanuphtml-1"> </p>
+        <div id="TA">
+          <p>
+            <b>Ta</b><b>     </b> 1 bit              
+          </p>
+          <p>
+            Copia el valor contenido en el registro MAR en el bus de direcciones.
+          </p>
         </div>
 
         <h2> La unidad central de procesamiento: Acceso al bus interno de datos</h2>
@@ -4070,7 +4122,8 @@
           </p>
           <p>
             Permite al usuario cambiar al vuelo los valores de C-V-N-Z-I-U como si hubieran sido generados por el hardware.
-            C: acarreo, V: desbordamiento, N: negativo, Z: cero, I: interrupciones habilitadas, U: espacio de usuario.
+            C: acarreo, V: desbordamiento, N: negativo, Z: cero, I: interrupciones habilitadas, U: espacio de usuario.<br>
+            <b>NOTA: este mecanismo es solo para pruebas.</b>
           </p>
         </div>
         </div>

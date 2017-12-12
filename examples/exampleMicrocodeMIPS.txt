@@ -1,0 +1,1037 @@
+
+begin,
+native
+{
+                  if (wepsim_native_get_signal("INT") == 1)
+                  {
+                        // RT1 <- MBR <- DB <- INTV
+                        var value  = wepsim_native_get_value("CPU", "INTV") ;
+                        wepsim_native_set_value("CPU", "REG_RT1", value) ;
+
+                        // INT down, INTA up
+                        wepsim_native_set_signal("INT",  0) ;
+                        wepsim_native_set_signal("INTA", 1) ;
+
+                        // push PC
+                        value  = wepsim_native_get_value("CPU", "REG_PC") ;
+                        var reg_sp = wepsim_native_get_value("BR", 29) ;
+                        reg_sp = reg_sp - 4 ;
+                        wepsim_native_set_value("MEMORY", reg_sp, value) ;
+                        wepsim_native_set_value("BR", 29, reg_sp) ;
+
+                        // push SR
+                        value  = wepsim_native_get_value("CPU", "REG_SR") ;
+                        reg_sp = wepsim_native_get_value("BR", 29) ;
+                        reg_sp = reg_sp - 4 ;
+                        wepsim_native_set_value("MEMORY", reg_sp, value) ;
+                        wepsim_native_set_value("BR", 29, reg_sp) ;
+
+                        // MAR <- RT1*4
+                        var addr = wepsim_native_get_value("CPU", "REG_RT1") ;
+                        addr = 4 * addr ;
+                        wepsim_native_set_value("CPU", "REG_MAR", addr) ;
+
+                        // PC <- MBR <- MP[MAR]
+                        addr = wepsim_native_get_value("MEMORY", addr) ;
+                        wepsim_native_set_value("CPU", "REG_PC", addr) ;
+
+                        // fetch
+                        wepsim_native_go_maddr(0) ;
+                }
+
+                var addr  = wepsim_native_get_value("CPU", "REG_PC") ;
+                var value = wepsim_native_get_value("MEMORY", addr) ;
+
+                wepsim_native_set_value("CPU", "REG_IR", value) ;
+                wepsim_native_set_value("CPU", "REG_PC", addr + 4) ;
+
+                wepsim_native_deco() ;
+                wepsim_native_go_opcode() ;
+}
+
+
+#
+# INT
+#
+
+syscall {
+            co=111111,
+            nwords=1,
+            native,
+            {
+                        wepsim_native_set_value("CPU", "REG_RT1", 2) ;
+
+                        // push PC
+                        var value  = wepsim_native_get_value("CPU", "REG_PC") ;
+                        var reg_sp = wepsim_native_get_value("BR", 29) ;
+                        reg_sp = reg_sp - 4 ;
+                        wepsim_native_set_value("MEMORY", reg_sp, value) ;
+                        wepsim_native_set_value("BR", 29, reg_sp) ;
+
+                        // push SR
+                        value  = wepsim_native_get_value("CPU", "REG_SR") ;
+                        reg_sp = wepsim_native_get_value("BR", 29) ;
+                        reg_sp = reg_sp - 4 ;
+                        wepsim_native_set_value("MEMORY", reg_sp, value) ;
+                        wepsim_native_set_value("BR", 29, reg_sp) ;
+
+                        // MAR <- RT1*4
+                        var addr = wepsim_native_get_value("CPU", "REG_RT1") ;
+                        addr = 4 * addr ;
+                        wepsim_native_set_value("CPU", "REG_MAR", addr) ;
+
+                        // PC <- MBR <- MP[MAR]
+                        addr = wepsim_native_get_value("MEMORY", addr) ;
+                        wepsim_native_set_value("CPU", "REG_PC", addr) ;
+
+                        // fetch
+                        wepsim_native_go_maddr(0) ;
+            }
+}
+
+reti {
+            co=111111,
+            nwords=1,
+            native,
+            {
+                // pop SR
+                var reg_sp = wepsim_native_get_value("BR", 29) ;
+                var value  = wepsim_native_get_value("MEMORY", reg_sp) ;
+                reg_sp = reg_sp + 4 ;
+                wepsim_native_set_value("CPU", "REG_SR", value) ;
+                wepsim_native_set_value("BR", 29, reg_sp) ;
+
+                // pop PC
+                var reg_sp = wepsim_native_get_value("BR", 29) ;
+                var value  = wepsim_native_get_value("MEMORY", reg_sp) ;
+                reg_sp = reg_sp + 4 ;
+                wepsim_native_set_value("CPU", "REG_PC", value) ;
+                wepsim_native_set_value("BR", 29, reg_sp) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+
+#
+# ALU
+#
+
+and reg1 reg2 reg3 {
+            co=000000,
+            cop=0000,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            reg3=reg(15,11),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
+                var reg3   = wepsim_native_get_field_from_ir(fields, 2) ;
+
+                var result = wepsim_native_get_value("BR", reg2) & wepsim_native_get_value("BR", reg3) ;
+                wepsim_native_set_value("BR", reg1, result) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+
+or reg1 reg2 reg3 {
+            co=000000,
+            cop=0001,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            reg3=reg(15,11),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
+                var reg3   = wepsim_native_get_field_from_ir(fields, 2) ;
+
+                var result = wepsim_native_get_value("BR", reg2) | wepsim_native_get_value("BR", reg3) ;
+                wepsim_native_set_value("BR", reg1, result) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+not reg {
+            co=000000,
+            cop=0010,
+            nwords=1,
+            reg=reg(25,21),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+
+                var result = wepsim_native_get_value("BR", reg1) ;
+                wepsim_native_set_value("BR", reg1, ~result) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+xor reg1 reg2 reg3 {
+            co=000000,
+            cop=0011,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            reg3=reg(15,11),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
+                var reg3   = wepsim_native_get_field_from_ir(fields, 2) ;
+
+                var result = wepsim_native_get_value("BR", reg2) ^ wepsim_native_get_value("BR", reg3) ;
+                wepsim_native_set_value("BR", reg1, result) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+add reg1 reg2 reg3 {
+            co=000000,
+            cop=1001,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            reg3=reg(15,11),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
+                var reg3   = wepsim_native_get_field_from_ir(fields, 2) ;
+
+                var result = wepsim_native_get_value("BR", reg2) + wepsim_native_get_value("BR", reg3) ;
+                wepsim_native_set_value("BR", reg1, result) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+sub reg1 reg2 reg3 {
+            co=000000,
+            cop=1010,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            reg3=reg(15,11),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
+                var reg3   = wepsim_native_get_field_from_ir(fields, 2) ;
+
+                var result = wepsim_native_get_value("BR", reg2) - wepsim_native_get_value("BR", reg3) ;
+                wepsim_native_set_value("BR", reg1, result) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+mul reg1 reg2 reg3 {
+            co=000000,
+            cop=1011,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            reg3=reg(15,11),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
+                var reg3   = wepsim_native_get_field_from_ir(fields, 2) ;
+
+                var result = wepsim_native_get_value("BR", reg2) * wepsim_native_get_value("BR", reg3) ;
+                wepsim_native_set_value("BR", reg1, result) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+div reg1 reg2 reg3 {
+            co=000000,
+            cop=1100,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            reg3=reg(15,11),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
+                var reg3   = wepsim_native_get_field_from_ir(fields, 2) ;
+
+                if (wepsim_native_get_value("BR", reg3) != 0)
+                {
+                    var result = wepsim_native_get_value("BR", reg2) / wepsim_native_get_value("BR", reg3) ;
+                    wepsim_native_set_value("BR", reg1, result) ;
+                    wepsim_native_go_maddr(0) ;
+                    return ;
+                }
+
+		wepsim_native_set_value("CPU", "REG_RT1", 1) ;
+
+		// push PC
+		var value  = wepsim_native_get_value("CPU", "REG_PC") ;
+		var reg_sp = wepsim_native_get_value("BR", 29) ;
+		reg_sp = reg_sp - 4 ;
+		wepsim_native_set_value("MEMORY", reg_sp, value) ;
+		wepsim_native_set_value("BR", 29, reg_sp) ;
+
+		// push SR
+		value  = wepsim_native_get_value("CPU", "REG_SR") ;
+		reg_sp = wepsim_native_get_value("BR", 29) ;
+		reg_sp = reg_sp - 4 ;
+		wepsim_native_set_value("MEMORY", reg_sp, value) ;
+		wepsim_native_set_value("BR", 29, reg_sp) ;
+
+		// MAR <- RT1*4
+		var addr = wepsim_native_get_value("CPU", "REG_RT1") ;
+		addr = 4 * addr ;
+		wepsim_native_set_value("CPU", "REG_MAR", addr) ;
+
+		// PC <- MBR <- MP[MAR]
+		addr = wepsim_native_get_value("MEMORY", addr) ;
+		wepsim_native_set_value("CPU", "REG_PC", addr) ;
+
+		// fetch
+		wepsim_native_go_maddr(0) ;
+            }
+}
+
+rem reg1 reg2 reg3 {
+            co=000000,
+            cop=1110,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            reg3=reg(15,11),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
+                var reg3   = wepsim_native_get_field_from_ir(fields, 2) ;
+
+                var result = wepsim_native_get_value("BR", reg2) % wepsim_native_get_value("BR", reg3) ;
+                wepsim_native_set_value("BR", reg1, result) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+srl reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            val=inm(5,0),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1 = wepsim_native_get_field_from_ir(fields, 0) ;
+                var reg2 = wepsim_native_get_field_from_ir(fields, 1) ;
+                var val1 = wepsim_native_get_field_from_ir(fields, 2) ;
+
+                var result = wepsim_native_get_value("BR", reg2) >>> val1 ;
+                wepsim_native_set_value("BR", reg1, result) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+
+#
+# MOVE/LI/LA
+#
+
+move reg1 reg2 {
+            co=111111,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
+
+                var result = wepsim_native_get_value("BR", reg2) ;
+                wepsim_native_set_value("BR", reg1, result) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+li reg val {
+            co=111111,
+            nwords=1,
+            reg=reg(25,21),
+            val=inm(15,0),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var val1   = wepsim_native_get_field_from_ir(fields, 1) ;
+
+                if (val1 & 0x00008000)
+                    val1 = val1 | 0xFFFF0000 ;
+                wepsim_native_set_value("BR", reg1, val1) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+liu reg val {
+            co=111111,
+            nwords=1,
+            reg=reg(25,21),
+            val=inm(15,0),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var val1   = wepsim_native_get_field_from_ir(fields, 1) ;
+
+                wepsim_native_set_value("BR", reg1, val1) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+la  reg addr {
+            co=111111,
+            nwords=1,
+            reg=reg(25,21),
+            addr=address(15,0)abs,
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var val1   = wepsim_native_get_field_from_ir(fields, 1) ;
+
+                wepsim_native_set_value("BR", reg1, val1) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+
+#
+# LOAD/STORE
+#
+
+lw reg addr {
+            co=111111,
+            nwords=1,
+            reg=reg(25,21),
+            addr=address(15,0)abs,
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var addr   = wepsim_native_get_field_from_ir(fields, 1) ;
+
+                var value = wepsim_native_get_value("MEMORY", addr) ;
+                wepsim_native_set_value("BR", reg1, value) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+sw reg addr {
+            co=111111,
+            nwords=1,
+            reg=reg(25,21),
+            addr=address(15,0)abs,
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var addr   = wepsim_native_get_field_from_ir(fields, 1) ;
+
+                var value = wepsim_native_get_value("BR", reg1) ;
+                wepsim_native_set_value("MEMORY", addr, value) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+lb reg addr {
+            co=111111,
+            nwords=1,
+            reg=reg(25,21),
+            addr=address(15,0)abs,
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var addr   = wepsim_native_get_field_from_ir(fields, 1) ;
+
+                var b_addr = addr ;
+                var w_addr = b_addr & 0xFFFFFFFC ;
+                var w_value = wepsim_native_get_value("MEMORY", w_addr) ;
+                var  b_value = b_addr & 0x00000003 ;
+                     b_value = w_value >>> (8 * b_value) ;
+                if  (b_value & 0x00000080)
+                     b_value = b_value | 0xFFFFFF00 ;
+                else b_value = b_value & 0x000000FF ;
+                wepsim_native_set_value("BR", reg1, b_value) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+sb reg addr {
+            co=111111,
+            nwords=1,
+            reg=reg(25,21),
+            addr=address(15,0)abs,
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var addr   = wepsim_native_get_field_from_ir(fields, 1) ;
+
+                var b_addr  = addr ;
+                var b_value = wepsim_native_get_value("BR", reg1) ;
+                    b_value = b_value & 0x000000FF ;
+                var w_addr  = b_addr & 0xFFFFFFFC ;
+                var w_value = wepsim_native_get_value("MEMORY", w_addr) ;
+                var b_off   = b_addr & 0x00000003 ;
+                if (3 == b_off) w_value = (w_value & 0x00FFFFFF) | (b_value << 24) ;
+                if (2 == b_off) w_value = (w_value & 0xFF00FFFF) | (b_value << 16) ;
+                if (1 == b_off) w_value = (w_value & 0xFFFF00FF) | (b_value <<  8) ;
+                if (0 == b_off) w_value = (w_value & 0xFFFFFF00) | (b_value) ;
+                wepsim_native_set_value("MEMORY", w_addr, w_value) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+lb reg1 (reg2) {
+            co=111111,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
+
+                var b_addr = wepsim_native_get_value("BR", reg2) ;
+                var w_addr = b_addr & 0xFFFFFFFC ;
+                var w_value = wepsim_native_get_value("MEMORY", w_addr) ;
+                var  b_value = b_addr & 0x00000003 ;
+                     b_value = w_value >>> (8 * b_value) ;
+                if  (b_value & 0x00000080)
+                     b_value = b_value | 0xFFFFFF00 ;
+                else b_value = b_value & 0x000000FF ;
+                wepsim_native_set_value("BR", reg1, b_value) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+lbu reg1 (reg2) {
+            co=111111,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
+
+                var b_addr = wepsim_native_get_value("BR", reg2) ;
+                var w_addr = b_addr & 0xFFFFFFFC ;
+                var w_value = wepsim_native_get_value("MEMORY", w_addr) ;
+                var b_value = b_addr & 0x00000003 ;
+                    b_value = w_value >>> (8 * b_value) ;
+                    b_value = b_value & 0x000000FF ;
+                wepsim_native_set_value("BR", reg1, b_value) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+sb reg1 (reg2) {
+            co=111111,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
+
+                var b_addr  = wepsim_native_get_value("BR", reg2) ;
+                var b_value = wepsim_native_get_value("BR", reg1) ;
+                    b_value = b_value & 0x000000FF ;
+                var w_addr  = b_addr & 0xFFFFFFFC ;
+                var w_value = wepsim_native_get_value("MEMORY", w_addr) ;
+                var b_off   = b_addr & 0x00000003 ;
+                if (3 == b_off) w_value = (w_value & 0x00FFFFFF) | (b_value << 24) ;
+                if (2 == b_off) w_value = (w_value & 0xFF00FFFF) | (b_value << 16) ;
+                if (1 == b_off) w_value = (w_value & 0xFFFF00FF) | (b_value <<  8) ;
+                if (0 == b_off) w_value = (w_value & 0xFFFFFF00) | (b_value) ;
+                wepsim_native_set_value("MEMORY", w_addr, w_value) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+lw reg1 (reg2) {
+            co=111111,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
+
+                var addr  = wepsim_native_get_value("BR", reg2) ;
+                var value = wepsim_native_get_value("MEMORY", addr) ;
+                wepsim_native_set_value("BR", reg1, value) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+sw reg1 (reg2) {
+            co=111111,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
+
+                var addr   = wepsim_native_get_value("BR", reg2) ;
+                var value1 = wepsim_native_get_value("BR", reg1) ;
+                wepsim_native_set_value("MEMORY", addr, value1) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+
+#
+# IN/OUT
+#
+
+in reg val {
+            co=111111,
+            nwords=1,
+            reg=reg(25,21),
+            val=inm(15,0),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var addr   = wepsim_native_get_field_from_ir(fields, 1) ;
+
+                var value = wepsim_native_get_value("DEVICE", addr) ;
+                wepsim_native_set_value("BR", reg1, value) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+out reg val {
+            co=111111,
+            nwords=1,
+            reg=reg(25,21),
+            val=inm(15,0),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var addr   = wepsim_native_get_field_from_ir(fields, 1) ;
+
+                var value = wepsim_native_get_value("BR", reg1) ;
+                wepsim_native_set_value("DEVICE", addr, value) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+
+#
+# b*
+#
+
+b offset {
+            co=111111,
+            nwords=1,
+            offset=address(15,0)rel,
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var offset = wepsim_native_get_field_from_ir(fields, 0) ;
+
+                var pc = wepsim_native_get_value("CPU", "REG_PC") ;
+                if ((offset & 0x8000) > 0)
+                     offset = offset | 0xFFFF0000 ;
+                pc = pc + offset ;
+                wepsim_native_set_value("CPU", "REG_PC", pc) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+beq reg reg offset {
+            co=111111,
+            nwords=1,
+            reg=reg(25,21),
+            reg=reg(20,16),
+            offset=address(15,0)rel,
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
+                var offset = wepsim_native_get_field_from_ir(fields, 2) ;
+
+                reg1 = wepsim_native_get_value("BR", reg1) ;
+                reg2 = wepsim_native_get_value("BR", reg2) ;
+                if (reg1 == reg2) 
+                {
+                    var pc = wepsim_native_get_value("CPU", "REG_PC") ;
+                    if ((offset & 0x8000) > 0)
+                         offset = offset | 0xFFFF0000 ;
+                    pc = pc + offset ;
+                    wepsim_native_set_value("CPU", "REG_PC", pc) ;
+                }
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+bne reg reg offset {
+            co=111111,
+            nwords=1,
+            reg=reg(25,21),
+            reg=reg(20,16),
+            offset=address(15,0)rel,
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
+                var offset = wepsim_native_get_field_from_ir(fields, 2) ;
+
+                reg1 = wepsim_native_get_value("BR", reg1) ;
+                reg2 = wepsim_native_get_value("BR", reg2) ;
+                if (reg1 != reg2) 
+                {
+                    var pc = wepsim_native_get_value("CPU", "REG_PC") ;
+                    if ((offset & 0x8000) > 0)
+                         offset = offset | 0xFFFF0000 ;
+                    pc = pc + offset ;
+                    wepsim_native_set_value("CPU", "REG_PC", pc) ;
+                }
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+bge reg reg offset {
+            co=111111,
+            nwords=1,
+            reg=reg(25,21),
+            reg=reg(20,16),
+            offset=address(15,0)rel,
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
+                var offset = wepsim_native_get_field_from_ir(fields, 2) ;
+
+                reg1 = wepsim_native_get_value("BR", reg1) ;
+                reg2 = wepsim_native_get_value("BR", reg2) ;
+                if (reg1 >= reg2) 
+                {
+                    var pc = wepsim_native_get_value("CPU", "REG_PC") ;
+                    if ((offset & 0x8000) > 0)
+                         offset = offset | 0xFFFF0000 ;
+                    pc = pc + offset ;
+                    wepsim_native_set_value("CPU", "REG_PC", pc) ;
+                }
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+blt reg reg offset {
+            co=111111,
+            nwords=1,
+            reg=reg(25,21),
+            reg=reg(20,16),
+            offset=address(15,0)rel,
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
+                var offset = wepsim_native_get_field_from_ir(fields, 2) ;
+
+                reg1 = wepsim_native_get_value("BR", reg1) ;
+                reg2 = wepsim_native_get_value("BR", reg2) ;
+                if (reg1 < reg2)
+                {
+                    var pc = wepsim_native_get_value("CPU", "REG_PC") ;
+                    if ((offset & 0x8000) > 0)
+                         offset = offset | 0xFFFF0000 ;
+                    pc = pc + offset ;
+                    wepsim_native_set_value("CPU", "REG_PC", pc) ;
+                }
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+bgt reg reg offset {
+            co=111111,
+            nwords=1,
+            reg=reg(25,21),
+            reg=reg(20,16),
+            offset=address(15,0)rel,
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
+                var offset = wepsim_native_get_field_from_ir(fields, 2) ;
+
+                reg1 = wepsim_native_get_value("BR", reg1) ;
+                reg2 = wepsim_native_get_value("BR", reg2) ;
+                if (reg1 > reg2)
+                {
+                    var pc = wepsim_native_get_value("CPU", "REG_PC") ;
+                    if ((offset & 0x8000) > 0)
+                         offset = offset | 0xFFFF0000 ;
+                    pc = pc + offset ;
+                    wepsim_native_set_value("CPU", "REG_PC", pc) ;
+                }
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+ble reg reg offset {
+            co=111111,
+            nwords=1,
+            reg=reg(25,21),
+            reg=reg(20,16),
+            offset=address(15,0)rel,
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
+                var offset = wepsim_native_get_field_from_ir(fields, 2) ;
+
+                reg1 = wepsim_native_get_value("BR", reg1) ;
+                reg2 = wepsim_native_get_value("BR", reg2) ;
+                if (reg1 <= reg2)
+                {
+                    var pc = wepsim_native_get_value("CPU", "REG_PC") ;
+                    if ((offset & 0x8000) > 0)
+                         offset = offset | 0xFFFF0000 ;
+                    pc = pc + offset ;
+                    wepsim_native_set_value("CPU", "REG_PC", pc) ;
+                }
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+
+#
+# j*
+#
+
+j addr {
+            co=111111,
+            nwords=1,
+            addr=address(15,0)abs,
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var address = wepsim_native_get_field_from_ir(fields, 0) ;
+
+                wepsim_native_set_value("CPU", "REG_PC", address) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+jal addr {
+            co=111111,
+            nwords=1,
+            addr=address(15,0)abs,
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var address = wepsim_native_get_field_from_ir(fields, 0) ;
+
+                var pc = wepsim_native_get_value("CPU", "REG_PC") ;
+                wepsim_native_set_value("BR", 31, pc) ;
+                wepsim_native_set_value("CPU", "REG_PC", address) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+jr reg1 {
+            co=111111,
+            nwords=1,
+            reg1=reg(25,21),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1 = wepsim_native_get_field_from_ir(fields, 0) ;
+
+                var new_pc = wepsim_native_get_value("BR", reg1) ;
+                wepsim_native_set_value("CPU", "REG_PC", new_pc) ;
+
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+
+#
+# ASE: Application-Specific Extensions
+#
+
+strlen_2 reg1 reg2 {
+            co=111111,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
+
+                var counter = 0 ;
+
+                var b_addr = wepsim_native_get_value("BR", reg2) ;
+                if (b_addr != 0)
+                {
+                    do
+                    {
+                        var w_addr = b_addr & 0xFFFFFFFC ;
+                        var w_value = wepsim_native_get_value("MEMORY", w_addr) ;
+                        var b_value = b_addr & 0x00000003 ;
+                            b_value = w_value >>> (8 * b_value) ;
+                            b_value = b_value & 0x000000FF ;
+                        if (b_value != 0)
+                            counter++ ;
+                        b_addr++ ;
+                    } while (b_value != 0) ;
+                }
+
+                wepsim_native_set_value("BR", reg1, counter) ;
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+skipasciicode_2 reg1 reg2 val1 {
+            co=111111,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            val1 = inm(7,0),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1   = wepsim_native_get_field_from_ir(fields, 0) ;
+                var reg2   = wepsim_native_get_field_from_ir(fields, 1) ;
+                var val1   = wepsim_native_get_field_from_ir(fields, 2) ;
+
+                var b_addr = wepsim_native_get_value("BR", reg2) ;
+                if (b_addr != 0)
+                {
+                    do
+                    {
+                         var w_addr = b_addr & 0xFFFFFFFC ;
+                         var w_value = wepsim_native_get_value("MEMORY", w_addr) ;
+                         var b_value = b_addr & 0x00000003 ;
+                             b_value = w_value >>> (8 * b_value) ;
+                             b_value = b_value & 0x000000FF ;
+                         if (b_value == val1)
+                             b_addr++ ;
+                    } while (b_value == val1) ;
+                }
+
+                wepsim_native_set_value("BR", reg1, b_addr) ;
+                wepsim_native_go_maddr(0) ;
+            }
+}
+
+
+#
+# Register naming
+#
+
+registers
+{
+        0=$zero,
+        1=$at,
+        2=$v0,
+        3=$v1,
+        4=$a0,
+        5=$a1,
+        6=$a2,
+        7=$a3,
+        8=$t0,
+        9=$t1,
+        10=$t2,
+        11=$t3,
+        12=$t4,
+        13=$t5,
+        14=$t6,
+        15=$t7,
+        16=$s0,
+        17=$s1,
+        18=$s2,
+        19=$s3,
+        20=$s4,
+        21=$s5,
+        22=$s6,
+        23=$s7,
+        24=$t8,
+        25=$t9,
+        26=$k0,
+        27=$k1,
+        28=$gp,
+        29=$sp (stack_pointer),
+        30=$fp,
+        31=$ra
+}
+

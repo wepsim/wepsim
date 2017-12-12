@@ -679,6 +679,20 @@
 	    show_rf_values();
         }
 
+        // update ALU flags: test_n, test_z, test_v, test_c
+        function update_nzvc ( flag_n, flag_z, flag_v, flag_c )
+        {
+	   set_value(sim_states["FLAG_N"], flag_n) ;
+	   set_value(sim_states["FLAG_Z"], flag_z) ;
+	   set_value(sim_states["FLAG_V"], flag_v) ;
+	   set_value(sim_states["FLAG_C"], flag_c) ;
+
+	   set_value(sim_signals["TEST_N"], flag_n) ;
+	   set_value(sim_signals["TEST_Z"], flag_z) ;
+	   set_value(sim_signals["TEST_V"], flag_v) ;
+	   set_value(sim_signals["TEST_C"], flag_c) ;
+        }
+
         function update_memories ( preSIMWARE )
         {
 	    // 1.- load the SIMWARE
@@ -770,7 +784,7 @@
          */
 
         /* 1) INIT */
-        function init ( stateall_id, statebr_id, ioall_id, configall_id )
+        function init ( stateall_id, statebr_id, ioall_id, cpuall_id, configall_id )
         {
             // 1.- it checks if everything is ok
             check_behavior();
@@ -785,6 +799,7 @@
             init_rf(statebr_id) ;
 
             init_io(ioall_id) ;
+            init_cpu(cpuall_id) ;
             init_config(configall_id) ;
         }
 
@@ -868,8 +883,9 @@
 		}
 
 		// when do reset/fetch, check text segment bounds
-                if (reg_maddr != 0) {
-                    return true;
+	        var mode = get_cfg('ws_mode');
+	        if ( ('webmips' != mode) && (reg_maddr != 0) ) {
+                       return true;
 		}
 
 		var reg_pc = parseInt(get_value(sim_states["REG_PC"]));
@@ -913,7 +929,10 @@
 		set_value(sim_states["BR"][FIRMWARE.stackRegister], parseInt(segments['.stack'].begin));
 	    }
 
-            compute_general_behavior("CLOCK") ;
+	    var mode = get_cfg('ws_mode');
+	    if ('webmips' != mode) {
+                compute_general_behavior("CLOCK") ;
+	    }
 
             // User Interface
             show_dbg_ir(get_value(sim_states['REG_IR_DECO'])) ;
@@ -944,11 +963,22 @@
 	        if (check_if_can_continue(true) == false)
 		    return false;
 
+                var mode = get_cfg('ws_mode');
+                if ('webmips' == mode) 
+                {
+                    compute_general_behavior("CLOCK") ; // fetch...
+                    compute_general_behavior("CLOCK") ; // ...instruction
+		    show_states();
+		    show_rf_values();
+                    return true ;
+                }
+
                 var limitless = false;
                 if (limit_clks < 0)
                     limitless = true;
 
-                // 1.- while the microaddress register doesn't store the fetch address (0), execute micro-instructions
+                // 1.- do-while the microaddress register doesn't store the fetch address (0): 
+                //              execute micro-instructions
                 var i_clks = 0;
 		do
             	{

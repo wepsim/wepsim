@@ -20,7 +20,7 @@
 
 
         var WSCFG = new Object() ;
-        WSCFG['version'] = { value:"1.8.3", type:"string"} ;
+        WSCFG['version'] = { value:"1.8.5", type:"string"} ;
 
         function get_cfg ( field )
         {
@@ -73,7 +73,7 @@
 
                WSCFG['is_interactive']      = { value:true,               type:"boolean"};
                WSCFG['ws_idiom']            = { value:'es',               type:"string"};
-               WSCFG['show_tutorials']      = { value:true,               type:"boolean"};
+               WSCFG['ws_mode']             = { value:'tutorial',         type:"string"};
                WSCFG['use_voice']           = { value:false,              type:"boolean"};
 
 		/*

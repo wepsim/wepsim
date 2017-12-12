@@ -932,7 +932,16 @@
 	inputfirm.setValue("Please wait...");
 	inputfirm.refresh();
 
-	var url     = "examples/exampleMicrocode" + example_id + ".txt?time=" + getURLTimeStamp() ;
+	var mode = get_cfg('ws_mode');
+	if ('webmips' == mode) {
+	    var url = "examples/exampleMicrocodeMIPS.txt?time=" + getURLTimeStamp() ;
+	    inputfirm.setOption('readOnly', true);
+        }
+	else {
+	    var url = "examples/exampleMicrocode" + example_id + ".txt?time=" + getURLTimeStamp() ;
+	    inputfirm.setOption('readOnly', false);
+	}
+
         var do_next = function( mcode ) {
 			   inputfirm.setValue(mcode);
 			   inputfirm.refresh();
@@ -1241,9 +1250,9 @@
 		    label: 'Disable this tutorial',
 		    className: 'btn-danger col-xs-4 col-sm-3 pull-right',
 		    callback: function() {
-			set_cfg('show_tutorials', false) ;
+			set_cfg('ws_mode', 'wepsim') ;
                         save_cfg();
-                        $("#radio10-false").trigger("click").checkboxradio("refresh") ;
+			$("#select4").val('wepsim').selectmenu("refresh");
                         tutbox.modal("hide") ;
                         if (wepsim_voice_canSpeak())
 			    window.speechSynthesis.cancel() ;
@@ -1329,7 +1338,7 @@
         return ret ;
     }
 
-    function wepsim_diff_results ( expected_result, obtained_result )
+    function wepsim_check_results ( expected_result, obtained_result, newones_too )
     {
         var d = new Object() ;
         d.result = new Array() ;
@@ -1384,7 +1393,7 @@
             }
 
 	    // if there are new elements -> diff
-	    if (typeof obtained_result[compo] != "undefined")
+	    if ((newones_too) && (typeof obtained_result[compo] != "undefined"))
 	    {
 		    for (var elto in obtained_result[compo]) 
 		    {
@@ -1411,6 +1420,11 @@
         }
 
         return d ;
+    }
+
+    function wepsim_diff_results ( expected_result, obtained_result )
+    {
+        return wepsim_check_results(expected_result, obtained_result, true) ;
     }
 
     function wepsim_checkreport2txt ( checklist )
@@ -1546,6 +1560,31 @@
      * Native microcode support
      */
 
+    function wepsim_show_webmips ( )
+    {
+	$("#tab26").hide() ;
+	$("#tab21").hide() ;
+	$("#tab24").click()
+    }
+
+    function wepsim_hide_webmips ( )
+    {
+	$("#tab26").show() ;
+	$("#tab21").show() ;
+    }
+
+    function wepsim_native_get_signal ( elto )
+    {
+        return (get_value(sim_signals[elto]) >>> 0) ;
+    }
+
+    function wepsim_native_set_signal ( elto, value )
+    {
+        set_value(sim_signals[elto], value) ;
+	compute_behavior("FIRE " + elto) ;
+	return value ;
+    }
+
     function wepsim_native_get_value ( component, elto )
     {
         if ( ("CPU" == component) || ("BR" == component) )
@@ -1565,10 +1604,23 @@
             return ((MP[elto]) >>> 0) ;
         }
 
-        if ( ("SCREEN" == component) || ("KBD" == component) || ("IO" == component) )
+        if ("DEVICE" == component)
         {
             var associated_state = io_hash[elto] ;
-            return (get_value(sim_states[associated_state]) >>> 0) ;
+            var value = (get_value(sim_states[associated_state]) >>> 0) ;
+
+            set_value(sim_states['BUS_AB'], elto) ;
+            set_value(sim_signals['IOR'], 1) ;
+            compute_behavior("FIRE IOR") ;
+            value = get_value(sim_states['BUS_DB']) ;
+
+            return value ;
+        }
+
+        if ("SCREEN" == component)
+        {
+            set_screen_content(value) ;
+            return value ;
         }
 
         return false ;
@@ -1582,8 +1634,13 @@
                  var index = elto ;
             else var index = parseInt(elto) ;
 
-            if (isNaN(index))
-                return set_value(sim_states[elto], value) ;
+            if (isNaN(index)) 
+            {
+                set_value(sim_states[elto], value) ;
+                if ("REG_PC" == elto)
+                    show_asmdbg_pc() ;
+                return value ;
+            }
 
             return set_value(sim_states['BR'][index], value) ;
         }
@@ -1594,10 +1651,23 @@
             return value ;
         }
 
-        if ( ("SCREEN" == component) || ("KBD" == component) || ("IO" == component) )
+        if ("DEVICE" == component)
         {
             var associated_state = io_hash[elto] ;
-            return set_value(sim_states[associated_state], value) ;
+            set_value(sim_states[associated_state], value) ;
+
+            set_value(sim_states['BUS_AB'], elto) ;
+            set_value(sim_states['BUS_DB'], value) ;
+            set_value(sim_signals['IOW'], 1) ;
+            compute_behavior("FIRE IOW") ;
+
+            return value ;
+        }
+
+        if ("SCREEN" == component)
+        {
+            var screen = get_screen_content() ;
+            return screen ;
         }
 
         return false ;
@@ -1630,28 +1700,34 @@
         return value ;
     }
 
+    function wepsim_native_deco ( )
+    {
+        compute_behavior('DECO') ;
+    }
+
     function wepsim_native_go_maddr ( maddr )
     {
-	// (A0=0, B=1, C=0) -> MUXA=10
-        set_value(sim_states["REG_MICROADDR"], maddr) ;
-        compute_behavior('FIRE B') ;
+        set_value(sim_states["MUXA_MICROADDR"], maddr) ;
     }
 
-    function wepsim_native_go_label ( mlabel )
+    function wepsim_native_go_opcode ( )
+    {
+	var maddr = get_value(sim_states['ROM_MUXA']) ;
+        set_value(sim_states["MUXA_MICROADDR"], maddr) ;
+    }
+
+    function wepsim_native_go_instruction ( signature_raw )
     {
         var SIMWARE = get_simware() ;
-        var maddr = SIMWARE.labels_firm[mlabel] ;
-        if (typeof maddr == "undefined")
-            return ;
 
-	// (A0=0, B=1, C=0) -> MUXA=10
-        set_value(sim_states["REG_MICROADDR"], maddr) ;
-        compute_behavior('FIRE B') ;
-    }
-
-    function wepsim_native_go_co ( )
-    {
-	// (A0, B=0, C=0) -> MUXA=01
-        compute_behavior('FIRE A0') ;
+        for (var key in SIMWARE.firmware) 
+        {
+             if (SIMWARE.firmware[key]["signatureRaw"] == signature_raw) 
+             {
+                 var maddr = SIMWARE.firmware[key]["mc-start"] ;
+                 set_value(sim_states["MUXA_MICROADDR"], maddr) ;
+                 return ;
+             }
+        }
     }
 
