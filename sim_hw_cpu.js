@@ -676,13 +676,13 @@
 		  	          fire_name: ['svg_p:text3701-3-5'],
 			          draw_data: [['svg_p:text3701-3-5']],
 			          draw_name: [[]] };
-	sim_signals["TEST_I"] = { name: "TEST_I", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
+	sim_signals["TEST_I"] = { name: "TEST_I", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 		  	          behavior: ["MV FLAG_I VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_I VAL_ONE; FIRE_IFSET SELP 2"],
                                   depends_on: ["CLK"],
 		  	          fire_name: ['svg_p:text3669'],
 			          draw_data: [['svg_p:text3669']],
 			          draw_name: [[]] };
-	sim_signals["TEST_U"] = { name: "TEST_U", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
+	sim_signals["TEST_U"] = { name: "TEST_U", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			          behavior: ["MV FLAG_U VAL_ZERO; FIRE_IFSET SELP 1", "MV FLAG_U VAL_ONE; FIRE_IFSET SELP 1"],
                                   depends_on: ["CLK"],
 			          fire_name: ['svg_p:text3669-1'],

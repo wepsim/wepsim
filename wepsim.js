@@ -1247,7 +1247,7 @@
 		};
 
         bbbt["cancel"] = {
-		    label: 'Disable this tutorial',
+		    label: 'Disable tutorials',
 		    className: 'btn-danger col-xs-4 col-sm-3 pull-right',
 		    callback: function() {
 			set_cfg('ws_mode', 'wepsim') ;
