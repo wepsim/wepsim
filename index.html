@@ -325,13 +325,14 @@
 				  <optgroup label="CPU">
 				      <option value="11" selected data-content="<span class='label label-primary'>CPU</span>&nbsp;Registers"><a href="#all">Registers</a></option>
 			              <option value="16"  data-content="<span class='label label-primary'>CPU</span>&nbsp;Control Memory"><a href="#mc" >Control Memory</a></option>
+				      <option value="17"  data-content="<span class='label label-primary'>CPU</span>&nbsp;CPU Stats"><a href="#cpu" >CPU stats</a></option>
 				  </optgroup>
 				  <optgroup label="Main Memory">
 				      <option value="14"  data-content="<span class='label label-primary'>MM</span>&nbsp;Memory"><a href="#mp" >Memory</a></option>
 				  </optgroup>
 				  <optgroup label="Devices">
 				      <option value="12"  data-content="<span class='label label-primary'>Dev</span>&nbsp;Keyboard+Display"><a href="#con">Keyboard+Display</a></option>
-				      <option value="15"  data-content="<span class='label label-primary'>Dev</span>&nbsp;I/O"><a href="#io" >I/O</a></option>
+				      <option value="15"  data-content="<span class='label label-primary'>Dev</span>&nbsp;I/O Stats"><a href="#io" >I/O Stats</a></option>
 				  </optgroup>
 			  </select>
 			</div>
@@ -355,7 +356,8 @@
 		          <li style="display:none;           width:33% !important"><a id="tab11" href="#all">Registers</a></li>
 		          <li style="display:none;clear:none;width:33% !important"><a id="tab16" href="#mc">Control Memory</a></li>
                           <li style="display:none;clear:none;width:33% !important"><a id="tab13" href="#config">Configuration</a></li>
-                          <li style="display:none;clear:none;width:33% !important"><a id="tab15" href="#io">Information</a></li>
+                          <li style="display:none;           width:33% !important"><a id="tab15" href="#io">IO stats</a></li>
+		          <li style="display:none;clear:none;width:33% !important"><a id="tab17" href="#cpu">CPU stats</a></li>
 		        </ul>
 		      </div>
 
@@ -383,6 +385,9 @@
 		      </div>
 		      <div id="io"  class="ui-body-d ui-content">
 		         <div id="io_ALL"              style="width: inherit; overflow-y: auto;"></div>
+		      </div>
+		      <div id="cpu"  class="ui-body-d ui-content">
+		         <div id="cpu_ALL"             style="width: inherit; overflow-y: auto;"></div>
 		      </div>
 	    	    </div>
                 </div>
@@ -1622,7 +1627,7 @@
                target.prop("scrollTop", this.scrollTop).prop("scrollLeft", this.scrollLeft);
             });
 
-	    init("#states_ALL", "#states_BR", "#io_ALL", "#config_ALL"); 
+	    init("#states_ALL", "#states_BR", "#io_ALL", "#cpu_ALL", "#config_ALL"); 
 	    reset(); 
 
             // split (experimental)

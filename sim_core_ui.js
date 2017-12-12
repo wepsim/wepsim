@@ -586,12 +586,47 @@
         {
             if (jqdiv == "")
             {       // without ui
-		    sim_states['CLK'].value = ko.observable(sim_states['CLK'].value);
-		    sim_states['DECO_INS'].value = ko.observable(sim_states['DECO_INS'].value);
 		    for (var i=0; i<IO_INT_FACTORY.length; i++) {
 			 IO_INT_FACTORY[i].accumulated = ko.observable(IO_INT_FACTORY[i].accumulated) ;
 			 IO_INT_FACTORY[i].active      = ko.observable(IO_INT_FACTORY[i].active) ;
                     }
+                    return ;
+            }
+
+            // stats holder
+            var o1 = "<center>" +
+                     "<table class='table table-hover table-condensed table-bordered table-responsive'>" ;
+            for (var i=0; i<IO_INT_FACTORY.length; i++)
+            {
+               o1 += "<tr id='int" + i + "_context'>" +
+                     "<td align=center width=50%>" +
+                     "<span data-bind=\"style: {fontWeight: active() ? 'bold' : ''}\">" + "Interrupt " + i + "</span>" +
+                     "</td>" +
+                     "<td align=center width=50%>" +
+                     "<span data-bind='text: accumulated'>&nbsp;</span>" +
+                     "</td>" +
+                     "</tr>" ;
+            }
+            o1 += "</table>" +
+                  "</center>" ;
+            $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
+
+            // knockout binding
+            for (var i=0; i<IO_INT_FACTORY.length; i++)
+            {
+                 IO_INT_FACTORY[i].accumulated = ko.observable(IO_INT_FACTORY[i].accumulated) ;
+                 IO_INT_FACTORY[i].active      = ko.observable(IO_INT_FACTORY[i].active) ;
+                 var ko_context = document.getElementById('int' + i + '_context');
+                 ko.applyBindings(IO_INT_FACTORY[i], ko_context);
+            }
+        }
+
+        function init_cpu ( jqdiv )
+        {
+            if (jqdiv == "")
+            {       // without ui
+		    sim_states['CLK'].value = ko.observable(sim_states['CLK'].value);
+		    sim_states['DECO_INS'].value = ko.observable(sim_states['DECO_INS'].value);
                     return ;
             }
 
@@ -609,21 +644,9 @@
                      "<td align=center width=50%>" +
                      "<div id='clk_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
                      "</td>" +
-                     "</tr>" ;
-               o1 += "<tr><td colspan=2>&nbsp;</td></tr>" ;
-            for (var i=0; i<IO_INT_FACTORY.length; i++)
-            {
-               o1 += "<tr id='int" + i + "_context'>" +
-                     "<td align=center width=50%>" +
-                     "<span data-bind=\"style: {fontWeight: active() ? 'bold' : ''}\">" + "Interrupt " + i + "</span>" +
-                     "</td>" +
-                     "<td align=center width=50%>" +
-                     "<span data-bind='text: accumulated'>&nbsp;</span>" +
-                     "</td>" +
-                     "</tr>" ;
-            }
-            o1 += "</table>" +
-                  "</center>" ;
+                     "</tr>" +
+                     "</table>" +
+                     "</center>" ;
             $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
 
             // knockout binding
@@ -634,14 +657,6 @@
             sim_states['DECO_INS'].value = ko.observable(sim_states['DECO_INS'].value);
             var ko_context = document.getElementById('ins_context');
             ko.applyBindings(sim_states['DECO_INS'], ko_context);
-
-            for (var i=0; i<IO_INT_FACTORY.length; i++)
-            {
-                 IO_INT_FACTORY[i].accumulated = ko.observable(IO_INT_FACTORY[i].accumulated) ;
-                 IO_INT_FACTORY[i].active      = ko.observable(IO_INT_FACTORY[i].active) ;
-                 var ko_context = document.getElementById('int' + i + '_context');
-                 ko.applyBindings(IO_INT_FACTORY[i], ko_context);
-            }
         }
 
         function init_config ( jqdiv )

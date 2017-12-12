@@ -784,7 +784,7 @@
          */
 
         /* 1) INIT */
-        function init ( stateall_id, statebr_id, ioall_id, configall_id )
+        function init ( stateall_id, statebr_id, ioall_id, cpuall_id, configall_id )
         {
             // 1.- it checks if everything is ok
             check_behavior();
@@ -799,6 +799,7 @@
             init_rf(statebr_id) ;
 
             init_io(ioall_id) ;
+            init_cpu(cpuall_id) ;
             init_config(configall_id) ;
         }
 
