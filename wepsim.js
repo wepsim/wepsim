@@ -131,7 +131,6 @@
         }
 
 	reset();
-
         return true;
     }
 
@@ -145,11 +144,11 @@
             return false;
         }
 
+        // update UI
         if (with_ui) {
             wepsim_notify_success('<strong>INFO</strong>', 'Microcode was compiled and loaded.') ;
         }
 
-        // update UI
 	reset() ;
         return true;
     }

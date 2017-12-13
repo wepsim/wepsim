@@ -240,6 +240,7 @@
         {
 	    for (var key in sim_signals) {
 		 update_draw(sim_signals[key], sim_signals[key].value) ;
+                 check_buses(key);
 	    }
 
 	    show_dbg_ir(get_value(sim_states['REG_IR_DECO'])) ;
