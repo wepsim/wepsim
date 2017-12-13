@@ -1576,8 +1576,9 @@
 		    }, false);
 
 		    $.mobile.pageContainer.pagecontainer('change','#main1');
-		    $('#tab11').trigger('click');
 		    $('#tab26').trigger('click');
+		    $('#tab11').trigger('click');
+		    $('#select5a').selectpicker('val', 11);
 
 		    $("#colorpicker1").spectrum({ preferredFormat: "hex", color: get_cfg('color_data_active')}) ;
 		    $("#colorpicker2").spectrum({ preferredFormat: "hex", color: get_cfg('color_name_active')}) ;

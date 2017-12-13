@@ -1,6 +1,6 @@
 
 // cache versioning
-var cacheName = 'v185b:static';
+var cacheName = 'v185c:static';
 
 // install
 self.addEventListener('install', 
