@@ -825,7 +825,7 @@
                 sname = seglabels[parseInt(key)] ;
 
                 if (typeof sname != "undefined")
-                    o1 += '<div style="position:sticky;top:0px;z-index:1;width:80%;background:#FFFFFF;"><b><small>' + sname + '</small></b></div>' ;
+                    o1 += '<div style="position:sticky;top:0px;z-index:1;width:50%;background:#FFFFFF;"><b><small>' + sname + '</small></b></div>' ;
 
                 taddr = '<small>0x</small>' + pack5(valkeys[3]) + '<span class="hidden-xs"> </span>-' + 
                         '<span class="hidden-xs"><small> 0x</small></span>' + pack5(valkeys[0]) ;
