@@ -62,7 +62,8 @@
                WSCFG['DBG_delay']           = { value:10,                 type:"int"} ;
                WSCFG['DBG_level']           = { value:"instruction",      type:"string"} ;
 
-               WSCFG['DBG_limitick']        = { value:-1,                 type:"int"} ;
+               WSCFG['DBG_limitins']        = { value:10000,              type:"int"} ;
+               WSCFG['DBG_limitick']        = { value:1000,               type:"int"} ;
                WSCFG['ICON_theme']          = { value:'classic',          type:"string"} ;
 
 		/*

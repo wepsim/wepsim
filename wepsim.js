@@ -230,7 +230,15 @@
 
         var clklimit = get_cfg('DBG_limitick') ;
 
-	return execute_microprogram(clklimit) ;
+	// before {
+	return execute_microprogram(clklimit) ; 
+	// }
+	// after {
+	// if (execute_microprogram(clklimit) == false!!!) {
+        //     wepsim_check_stopbylimit_firm() ;
+        //     return false ;
+	// }
+	// }
     }
 
     function wepsim_execute_microinstruction ( )
@@ -247,6 +255,7 @@
     }
 
     var DBG_stop  = true ;
+    var DBG_limit_instruction = 0 ;
 
     function wepsim_execute_stop ( btn1 )
     {
@@ -256,6 +265,7 @@
 	$(btn1).css("backgroundColor", "#CCCCCC") ;
 
 	DBG_stop = true;
+        DBG_limit_instruction = 0 ;
     }
 
     function wepsim_execute_play ( btn1, run_notifications )
@@ -269,6 +279,8 @@
 	$(btn1).addClass("ui-icon-minus") ;
 
         DBG_stop = false ;
+        DBG_limit_instruction = 0 ;
+
         if (false == run_notifications)
              wepsim_execute_chainplay(btn1) ;
         else wepsim_execute_chainnotify(btn1) ;
@@ -282,7 +294,7 @@
         } 
         else 
         {
-            wepsim_execute_play(btn1,run_notifications) ;
+            wepsim_execute_play(btn1, run_notifications) ;
         }
     }
 
@@ -450,6 +462,32 @@
 	return true ;
     }
 
+    function wepsim_check_stopbylimit_firm ( )
+    {
+        var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
+	var curr_addr = "0x" + reg_maddr.toString(16) ;
+
+	var dialog_title = "Limit @ " + curr_addr + ":<br>" +
+                           "Clock cycles limit reached in a single instruction." ;
+        $("#dlg_title2").html(dialog_title) ;
+        $('#current_state2').modal('show');
+
+	return true ;
+    }
+
+    function wepsim_check_stopbylimit_asm ( )
+    {
+	var reg_pc    = get_value(sim_states["REG_PC"]) ;
+	var curr_addr = "0x" + reg_pc.toString(16) ;
+
+	var dialog_title = "Limit @ " + curr_addr + ":<br>" +
+                           "Number of executed instructions limit reached." ;
+        $("#dlg_title2").html(dialog_title) ;
+        $('#current_state2').modal('show');
+
+	return true ;
+    }
+
     function wepsim_check_state_firm ( )
     {
         var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
@@ -545,6 +583,14 @@
             var t1 = performance.now() ;
         if (max_turbo == 5) 
             max_turbo = 3000/(t1-t0) ;
+
+	DBG_limit_instruction += turbo ;
+        if (DBG_limit_instruction > get_cfg('DBG_limitins')) 
+	{
+            wepsim_check_stopbylimit_asm() ;
+	    wepsim_execute_stop(btn1) ;
+            return ;
+	}
 
 	setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), btn1) ;
     }
