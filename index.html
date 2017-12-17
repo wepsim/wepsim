@@ -863,6 +863,29 @@
 	 <tr>
 	  <td class="collapse6 collapse in">8</td>
 	  <td class="hidden-xs" style="color:gray">execution</td>
+	  <td>Limit instr.</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		    <select name="select6" id="select6" 
+			    aria-label="max. ticks per instruction"
+			    onchange="var opt = $(this).find('option:selected');
+				      var optValue = opt.val();
+				      set_cfg('DBG_limitins',optValue); save_cfg();"
+			    data-native-menu="false">
+			<option value="-1">no limit</option>
+			<option value="500"  >500</option>
+			<option value="1000"  >1000</option>
+			<option value="10000" >10000</option>
+			<option value="100000">100000</option>
+		    </select>
+		 </fieldset>
+          </td>
+	  <td class="collapse7 collapse in">Max. executed instr.</td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse in">9</td>
+	  <td class="hidden-xs" style="color:gray">execution</td>
 	  <td>Limit instr. ticks</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -873,6 +896,7 @@
 				      set_cfg('DBG_limitick',optValue); save_cfg();"
 			    data-native-menu="false">
 			<option value="-1">no limit</option>
+			<option value="500"  >500</option>
 			<option value="1000"  >1000</option>
 			<option value="10000" >10000</option>
 			<option value="100000">100000</option>
@@ -883,7 +907,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">9</td>
+	  <td class="collapse6 collapse in">10</td>
 	  <td class="hidden-xs" style="color:gray">simulation</td>
 	  <td>Display format</td>
 	  <td>
@@ -915,7 +939,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">10</td>
+	  <td class="collapse6 collapse in">11</td>
 	  <td class="hidden-xs" style="color:gray">simulation</td>
 	  <td>RF name</td>
 	  <td>
@@ -937,7 +961,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">11</td>
+	  <td class="collapse6 collapse in">12</td>
 	  <td class="hidden-xs" style="color:gray">simulation</td>
 	  <td>Data-path color</td>
 	  <td>
@@ -957,7 +981,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">12</td>
+	  <td class="collapse6 collapse in">13</td>
 	  <td class="hidden-xs" style="color:gray">simulation</td>
 	  <td>Signal color</td>
 	  <td>
@@ -973,7 +997,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">13</td>
+	  <td class="collapse6 collapse in">14</td>
 	  <td class="hidden-xs" style="color:gray">simulation</td>
 	  <td>Interactive Mode</td>
 	  <td>
@@ -996,7 +1020,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">14</td>
+	  <td class="collapse6 collapse in">15</td>
 	  <td class="hidden-xs" style="color:gray">simulation</td>
 	  <td>Editable registers</td>
 	  <td>
@@ -1019,7 +1043,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">15</td>
+	  <td class="collapse6 collapse in">16</td>
 	  <td class="hidden-xs" style="color:gray">simulation</td>
 	  <td>Show by value</td>
 	  <td>
@@ -1042,7 +1066,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">16</td>
+	  <td class="collapse6 collapse in">17</td>
 	  <td class="hidden-xs" style="color:gray">simulation</td>
 	  <td>Notification delay</td>
 	  <td>
@@ -1593,6 +1617,7 @@
 		    $("#radio11-" +        get_cfg('use_voice')).prop('checked', true).checkboxradio("refresh") ;
                     $("#select1").val(get_cfg('ICON_theme')).selectmenu("refresh");
                     $("#select2").val(get_cfg('editor_mode')).selectmenu("refresh");
+                    $("#select6").val(get_cfg('DBG_limitins')).selectmenu("refresh");
                     $("#select3").val(get_cfg('DBG_limitick')).selectmenu("refresh");
                     $("#select4").val(get_cfg('ws_mode')).selectmenu("refresh");
                     $("#slider1").val(1000 / (get_cfg('DBG_delay')+0.01)).slider("refresh");

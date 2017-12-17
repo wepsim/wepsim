@@ -225,20 +225,34 @@
 
     function wepsim_execute_instruction ( )
     {
-	if (check_if_can_execute(true) == false)
-	    return false;
+	if (check_if_can_execute(true) == false) {
+	    return false ;
+        }
 
         var clklimit = get_cfg('DBG_limitick') ;
 
-	return execute_microprogram(clklimit) ;
+	var ret = execute_microprogram(clklimit) ;
+	if (false == ret.ok) {
+            wepsim_show_stopbyevent("Info", ret.msg) ;
+    	    return false ;
+        }
+
+        return true ;
     }
 
     function wepsim_execute_microinstruction ( )
     {
-	if (check_if_can_execute(true) == false)
-	    return false;
+	if (check_if_can_execute(true) == false) {
+	    return false ;
+        }
 
-	return execute_microinstruction() ;
+	var ret = execute_microinstruction() ;
+	if (false == ret.ok) {
+            wepsim_show_stopbyevent("Info", ret.msg) ;
+	    return false ;
+        }
+
+        return true ;
     }
 
     function wepsim_execute_set_breakpoint ( addr )
@@ -247,6 +261,7 @@
     }
 
     var DBG_stop  = true ;
+    var DBG_limit_instruction = 0 ;
 
     function wepsim_execute_stop ( btn1 )
     {
@@ -256,6 +271,7 @@
 	$(btn1).css("backgroundColor", "#CCCCCC") ;
 
 	DBG_stop = true;
+        DBG_limit_instruction = 0 ;
     }
 
     function wepsim_execute_play ( btn1, run_notifications )
@@ -269,6 +285,8 @@
 	$(btn1).addClass("ui-icon-minus") ;
 
         DBG_stop = false ;
+        DBG_limit_instruction = 0 ;
+
         if (false == run_notifications)
              wepsim_execute_chainplay(btn1) ;
         else wepsim_execute_chainnotify(btn1) ;
@@ -282,7 +300,7 @@
         } 
         else 
         {
-            wepsim_execute_play(btn1,run_notifications) ;
+            wepsim_execute_play(btn1, run_notifications) ;
         }
     }
 
@@ -418,17 +436,13 @@
     function wepsim_check_stopbybreakpoint_firm ( )
     {
         var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
-        if (false == MC_dashboard[reg_maddr].breakpoint)
+        var curr_addr = "0x" + reg_maddr.toString(16) ;
+
+        if (typeof MC_dashboard[reg_maddr] == "undefined") {
             return false ;
+        }
 
-	var curr_addr = "0x" + reg_maddr.toString(16) ;
-
-	var dialog_title = "Breakpoint @ " + curr_addr + ":<br>" +
-	                   "Microinstruction is going to be issue." ;
-        $("#dlg_title2").html(dialog_title) ;
-        $('#current_state2').modal('show');
-
-	return true ;
+        return (MC_dashboard[reg_maddr].breakpoint) ;
     }
 
     function wepsim_check_stopbybreakpoint_asm ( )
@@ -436,14 +450,22 @@
 	var reg_pc    = get_value(sim_states["REG_PC"]) ;
 	var curr_addr = "0x" + reg_pc.toString(16) ;
 
-	if (typeof FIRMWARE.assembly[curr_addr] == "undefined")
+	if (typeof FIRMWARE.assembly[curr_addr] == "undefined") {
             return false ;
+        }
 
-	if (false == FIRMWARE.assembly[curr_addr].breakpoint)
-            return false ;
+	return (FIRMWARE.assembly[curr_addr].breakpoint) ;
+    }
 
-	var dialog_title = "Breakpoint @ " + curr_addr + ":<br>" +
-	                   "Instruction is going to be fetched." ;
+    function wepsim_show_stopbyevent ( msg1, msg2 )
+    {
+        var reg_maddr  = get_value(sim_states["REG_MICROADDR"]) ;
+	var curr_maddr = "0x" + reg_maddr.toString(16) ;
+	var reg_pc     = get_value(sim_states["REG_PC"]) ;
+	var curr_addr  = "0x" + reg_pc.toString(16) ;
+
+	var dialog_title = msg1 + " @ pc=" + curr_addr + "+mpc=" + curr_maddr + ":<br>" + msg2 ;
+
         $("#dlg_title2").html(dialog_title) ;
         $('#current_state2').modal('show');
 
@@ -471,13 +493,15 @@
             for (var i=0; i<chunk; i++)
             {
 		    ret = execute_microprogram(clklimit) ;
-		    if (ret === false) {
+		    if (ret.ok === false) {
+                        wepsim_show_stopbyevent("Info", ret.msg) ;
 			wepsim_execute_stop(btn1) ;
 			return false ;
 		    }
 
 		    ret = wepsim_check_stopbybreakpoint_asm() ;
 		    if (true == ret) {
+                        wepsim_show_stopbyevent("Breakpoint", "Instruction is going to be fetched.") ;
 			wepsim_execute_stop(btn1) ;
 			return false ;
 		    }
@@ -489,23 +513,26 @@
             {
 		    wepsim_check_state_firm() ;
 
-		    ret = execute_microinstruction() ;
-		    if (ret === false) {
+		    var ret = execute_microinstruction() ;
+		    if (false == ret.ok) {
+		        wepsim_show_stopbyevent("Info", ret.msg) ;
 			wepsim_execute_stop(btn1) ;
 			return false ;
 		    }
 
-		    ret = wepsim_check_stopbybreakpoint_firm() ;
-		    if (true == ret) {
+                    ret = wepsim_check_stopbybreakpoint_firm() ;
+		    if (true == ret)
+		    {
+		        wepsim_show_stopbyevent("Breakpoint", "Microinstruction is going to be issue.") ;
 			wepsim_execute_stop(btn1) ;
 			return false ;
 		    }
 
-                    var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
                     if (0 == reg_maddr) 
                     {
 		        ret = wepsim_check_stopbybreakpoint_asm() ;
 		        if (true == ret) {
+                            wepsim_show_stopbyevent("Breakpoint", "Instruction is going to be fetched.") ;
 		    	    wepsim_execute_stop(btn1) ;
 			    return false ;
 		        }
@@ -546,6 +573,14 @@
         if (max_turbo == 5) 
             max_turbo = 3000/(t1-t0) ;
 
+	DBG_limit_instruction += turbo ;
+        if (DBG_limit_instruction > get_cfg('DBG_limitins')) 
+	{
+            wepsim_show_stopbyevent("Limit", "Number of executed instructions limit reached.");
+	    wepsim_execute_stop(btn1) ;
+            return ;
+	}
+
 	setTimeout(wepsim_execute_chainplay, get_cfg('DBG_delay'), btn1) ;
     }
 
@@ -559,9 +594,9 @@
 	var ret = false ;
         for (var i=0; i<max_turbo; i++)
         {
-		ret = execute_microinstruction() ;
-		if (ret === false) 
-                {
+		var ret = execute_microinstruction() ;
+		if (false == ret.ok) {
+		    wepsim_show_stopbyevent("Info", ret.msg) ;
 		    wepsim_execute_stop(btn1) ;
 		    return ;
 		}
