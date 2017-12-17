@@ -801,7 +801,7 @@
 				                   var result = (get_value(sim_states[s_expr[2]])) << 1 ;
 				                   set_value(sim_states[s_expr[1]], result) ;
 
-			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, (result) >> 31) ;
+			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, (result) >>> 31) ;
 						}
 				   };
 	syntax_behavior["RR"]    = { nparameters: 3,
