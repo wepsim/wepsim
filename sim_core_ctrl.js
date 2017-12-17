@@ -875,36 +875,37 @@
          * check dialogs
 	 */
 
-        function check_if_can_continue ( with_ui )
+        function check_if_can_continue ( )
         {
+		var ret = new Object() ;
+		    ret.ok  = true ;
+		    ret.msg = "" ;
+
 		var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
                 if (typeof MC[reg_maddr] == "undefined") {
-                    return false;
+		    ret.ok  = false ;
+		    ret.msg = "Error: undefined microinstruction at " + reg_maddr + "." ;
+                    return ret ;
 		}
 
 		// when do reset/fetch, check text segment bounds
 	        var mode = get_cfg('ws_mode');
 	        if ( ('webmips' != mode) && (reg_maddr != 0) ) {
-                       return true;
+                       return ret;
 		}
 
 		var reg_pc = parseInt(get_value(sim_states["REG_PC"]));
 		if ( (reg_pc < segments['.ktext'].end) && (reg_pc >= segments['.ktext'].begin)) {
-                    return true;
+                    return ret;
 		}
 		if ( (reg_pc <  segments['.text'].end) && (reg_pc >=  segments['.text'].begin)) {
-                    return true;
+                    return ret;
 		}
 
                 // if (reg_maddr == 0) && (outside *text) -> cannot continue
-	        if (with_ui) 
-                {
-      	            var dialog_title = 'The program has finished because the PC register points outside .ktext/.text code segments' ;
-                    $("#dlg_title2").html(dialog_title) ;
-                    $('#current_state2').modal('show');
-	        }
-
-		return false;
+		ret.ok  = false ;
+		ret.msg = 'The program has finished because the PC register points outside .ktext/.text code segments' ;
+                return ret ;
         }
 
         function reset ()
@@ -948,8 +949,10 @@
 
         function execute_microinstruction ()
         {
-	        if (check_if_can_continue(true) == false)
-		    return false;
+	        var ret = check_if_can_continue() ;
+	        if (false == ret.ok) {
+		    return ret ;
+	        }
 
                 compute_general_behavior("CLOCK") ;
 
@@ -957,13 +960,15 @@
 		show_rf_values();
                 show_dbg_mpc();
 
-                return true;
+                return ret ;
         }
 
         function execute_microprogram ( limit_clks )
         {
-	        if (check_if_can_continue(true) == false)
-		    return false;
+	        var ret = check_if_can_continue() ;
+	        if (false == ret.ok) {
+		    return ret ;
+	        }
 
                 var mode = get_cfg('ws_mode');
                 if ('webmips' == mode) 
@@ -972,7 +977,7 @@
                     compute_general_behavior("CLOCK") ; // ...instruction
 		    show_states();
 		    show_rf_values();
-                    return true ;
+                    return ret ;
                 }
 
                 var limitless = false;
@@ -981,20 +986,33 @@
 
                 // 1.- do-while the microaddress register doesn't store the fetch address (0): 
                 //              execute micro-instructions
-                var i_clks = 0;
+                var i_clks = 0 ;
+                var cur_addr = 0 ;
 		do
             	{
                     compute_general_behavior("CLOCK") ;
 
                     i_clks++;
-                    if (limitless)
+                    if (limitless) 
+		    {
                         limit_clks = i_clks + 1;
+		    }
+                    if (i_clks >= limit_clks) 
+		    {
+		        ret.msg = 'Warning: clock cycles limit reached in a single instruction.' ;
+		        ret.ok  = false ;
+			break ;
+	            }
+
+                    cur_addr = get_value(sim_states["REG_MICROADDR"]) ;
+                    if (typeof MC[cur_addr] == "undefined")
+		    {
+		        ret.msg = "Error: undefined microinstruction at " + cur_addr + "." ;
+		        ret.ok  = false ;
+			break ;
+	            }
             	}
-		while (
-                         (i_clks < limit_clks) &&
-                         (0 != get_value(sim_states["REG_MICROADDR"])) &&
-                         (typeof MC[get_value(sim_states["REG_MICROADDR"])] != "undefined")
-                      );
+		while ( (i_clks < limit_clks) && (0 != cur_addr) );
 
                 // 2.- to show states
 		show_states();
@@ -1004,7 +1022,7 @@
                     show_dbg_mpc();
                 }
 
-                return (i_clks < limit_clks);
+		return ret ;
         }
 
         /* 3) LOAD/SAVE */
