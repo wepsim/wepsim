@@ -343,7 +343,10 @@
 		          <button class="btn btn-default ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-refresh"
 		                  style="border-width:1 0 1 2px;"
                                   onclick="var val = $('#select5a').val();
-				           $('#tab' + val).trigger('click');"><b>Refresh</b></button>
+				           $('#tab' + val).trigger('click');
+				           if ('11' == val)
+					        show_rf_values();
+				           else show_memories_values();"><b>Refresh</b></button>
 			</div>
     		    </fieldset>
 
