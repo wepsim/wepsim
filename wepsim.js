@@ -509,11 +509,12 @@
 	}
 	else
 	{
+	    var reg_maddr = 0 ;
             for (var i=0; i<chunk; i++)
             {
 		    wepsim_check_state_firm() ;
 
-		    var ret = execute_microinstruction() ;
+		    ret = execute_microinstruction() ;
 		    if (false == ret.ok) {
 		        wepsim_show_stopbyevent("Info", ret.msg) ;
 			wepsim_execute_stop(btn1) ;
@@ -528,6 +529,7 @@
 			return false ;
 		    }
 
+		    reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
                     if (0 == reg_maddr) 
                     {
 		        ret = wepsim_check_stopbybreakpoint_asm() ;
