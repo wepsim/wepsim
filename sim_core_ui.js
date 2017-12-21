@@ -1025,7 +1025,7 @@
             }
 
             // update old_mc_add for light_update
-            old_mc_addr = 0;
+            old_mc_addr = index;
         }
 
         var old_mc_addr = 0;
