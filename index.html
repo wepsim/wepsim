@@ -117,7 +117,7 @@
     }
     </style>
 
-    <link  href="external/external.min.css" rel="stylesheet">
+    <link async href="external/external.min.css" rel="stylesheet">
     <script src="external/external.min.js"></script>
 
     <script src="min.sim_all.js"></script>
@@ -137,6 +137,16 @@
     <!-- End Google Analytics -->
 
     <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgo=">
+
+    <!-- PWA -->
+    <link  rel="manifest" href="./docs/manifest.json">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="WepSIM PWA">
+    <link  rel="apple-touch-icon" href="images/arcos.svg">
+    <meta name="msapplication-TileImage" content="images/arcos.svg">
+    <meta name="msapplication-TileColor" content="#2F3BA2">
 </head>
 
 
@@ -280,12 +290,12 @@
 			       onclick="wepsim_execute_instruction();"><br>Instruction</a>
 			    <a id="qbp" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-carat-r ui-btn-icon-top ui-mini no-text-shadow"
-                               onclick="var mode = get_cfg('show_tutorials');
-                                        if (true == mode) {
+                               onclick="var mode = get_cfg('ws_mode');
+                                        if ('tutorial' == mode) {
                                             wepsim_notify_success('<strong>INFO</strong>',
                                                        'Tutorial mode on. Use the configuration to change it.');
                                         }
-                                        wepsim_execute_toggle_play('#qbp', mode);
+                                        wepsim_execute_toggle_play('#qbp', (mode == 'tutorial'));
                                         return false;"><br>Run</a>
 			    <a id="ib1" href="#" 
                                style="background-color: #D4DB17;"
@@ -311,17 +321,21 @@
                           <select name="select5a" id="select5a" class="selectpicker" 
 				  data-container="body" data-role="none" data-width="100%" data-size="false"
                                   onchange="var val = this.value;
-				            $('#tab' + val).trigger('click');"> 
+				            $('#tab' + val).trigger('click');
+				            if ('11' == val)
+					         show_rf_values();
+				            else show_memories_values();"> 
 				  <optgroup label="CPU">
 				      <option value="11" selected data-content="<span class='label label-primary'>CPU</span>&nbsp;Registers"><a href="#all">Registers</a></option>
 			              <option value="16"  data-content="<span class='label label-primary'>CPU</span>&nbsp;Control Memory"><a href="#mc" >Control Memory</a></option>
+				      <option value="17"  data-content="<span class='label label-primary'>CPU</span>&nbsp;CPU Stats"><a href="#cpu" >CPU stats</a></option>
 				  </optgroup>
 				  <optgroup label="Main Memory">
 				      <option value="14"  data-content="<span class='label label-primary'>MM</span>&nbsp;Memory"><a href="#mp" >Memory</a></option>
 				  </optgroup>
 				  <optgroup label="Devices">
 				      <option value="12"  data-content="<span class='label label-primary'>Dev</span>&nbsp;Keyboard+Display"><a href="#con">Keyboard+Display</a></option>
-				      <option value="15"  data-content="<span class='label label-primary'>Dev</span>&nbsp;I/O"><a href="#io" >I/O</a></option>
+				      <option value="15"  data-content="<span class='label label-primary'>Dev</span>&nbsp;I/O Stats"><a href="#io" >I/O Stats</a></option>
 				  </optgroup>
 			  </select>
 			</div>
@@ -345,7 +359,8 @@
 		          <li style="display:none;           width:33% !important"><a id="tab11" href="#all">Registers</a></li>
 		          <li style="display:none;clear:none;width:33% !important"><a id="tab16" href="#mc">Control Memory</a></li>
                           <li style="display:none;clear:none;width:33% !important"><a id="tab13" href="#config">Configuration</a></li>
-                          <li style="display:none;clear:none;width:33% !important"><a id="tab15" href="#io">Information</a></li>
+                          <li style="display:none;           width:33% !important"><a id="tab15" href="#io">IO stats</a></li>
+		          <li style="display:none;clear:none;width:33% !important"><a id="tab17" href="#cpu">CPU stats</a></li>
 		        </ul>
 		      </div>
 
@@ -373,6 +388,9 @@
 		      </div>
 		      <div id="io"  class="ui-body-d ui-content">
 		         <div id="io_ALL"              style="width: inherit; overflow-y: auto;"></div>
+		      </div>
+		      <div id="cpu"  class="ui-body-d ui-content">
+		         <div id="cpu_ALL"             style="width: inherit; overflow-y: auto;"></div>
 		      </div>
 	    	    </div>
                 </div>
@@ -673,30 +691,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse in">1</td>
-	  <td class="hidden-xs" style="color:gray">help</td>
-	  <td>Active tutorials</td>
-	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		     <input name="radio10" id="radio10-true" 
-			    aria-label="Is editable: true"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('show_tutorials',true); save_cfg();"
-			    value="on" type="radio">
-		     <label for="radio10-true">On</label>
-		     <input name="radio10" id="radio10-false" 
-			    aria-label="Is editable: false"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('show_tutorials',false); save_cfg();"
-			    value="off" type="radio">
-		     <label for="radio10-false">Off</label>
-		 </fieldset>
-          </td>
-	  <td class="collapse7 collapse in">Set tutorial mode</td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse in">2</td>
-	  <td class="hidden-xs" style="color:gray">help</td>
+	  <td class="hidden-xs" style="color:gray">general</td>
 	  <td>Active voice</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -715,6 +710,31 @@
 		 </fieldset>
           </td>
 	  <td class="collapse7 collapse in">Use voice</td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse in">2</td>
+	  <td class="hidden-xs" style="color:gray">general</td>
+	  <td>Execution mode</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		    <select name="select4" id="select4" 
+			    aria-label="Execution mode"
+			    onchange="var opt = $(this).find('option:selected');
+				      var optValue = opt.val();
+			              set_cfg('ws_mode',optValue); save_cfg();
+                                      if ('webmips' == optValue)
+			                   wepsim_show_webmips();
+			              else wepsim_hide_webmips();
+				      return false;"
+			    data-native-menu="false">
+			<option value="tutorial">Tutorial</option>
+			<option value="wepsim">WepSIM</option>
+			<option value="webmips">WebMIPS</option>
+		    </select>
+		 </fieldset>
+          </td>
+	  <td class="collapse7 collapse in">Tutorial/WepSIM mode</td>
 	 </tr>
 
 	 <tr>
@@ -828,15 +848,23 @@
 				      set_cfg('ICON_theme',optValue); save_cfg();">
 			<option value="classic">Classic</option>
 			<option value="pushpin">Push Pin</option>
-			<option value="simple">Simple</option>
-			<option value="super">Superman</option>
-			<option value="batman">Batman</option>
-			<option value="cat1">Cat</option>
-			<option value="dog1">Dog</option>
-			<option value="r2d2">R2-D2</option>
-			<option value="sw">Death Star</option>
-			<option value="bb8">BB-8</option>
-			<option value="vader1">Dark Vader</option>
+			<optgroup label="Comics">
+			  <option value="super">Superman</option>
+			  <option value="batman">Batman</option>
+			</optgroup>
+			<optgroup label="Pets">
+			  <option value="cat1">Cat</option>
+			  <option value="dog1">Dog</option>
+			</optgroup>
+			<optgroup label="Films">
+			  <option value="hp1">HP</option>
+			  <option value="lotr4">Gandalf</option>
+			  <option value="lotr2">Ring</option>
+			  <option value="r2d2">R2-D2</option>
+			  <option value="sw">Death Star</option>
+			  <option value="bb8">BB-8</option>
+			  <option value="vader1">Dark Vader</option>
+			</optgroup>
 		    </select>
 		 </fieldset>
           </td>
@@ -845,6 +873,29 @@
 
 	 <tr>
 	  <td class="collapse6 collapse in">8</td>
+	  <td class="hidden-xs" style="color:gray">execution</td>
+	  <td>Limit instr.</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		    <select name="select6" id="select6" 
+			    aria-label="max. ticks per instruction"
+			    onchange="var opt = $(this).find('option:selected');
+				      var optValue = opt.val();
+				      set_cfg('DBG_limitins',optValue); save_cfg();"
+			    data-native-menu="false">
+			<option value="-1">no limit</option>
+			<option value="500"  >500</option>
+			<option value="1000"  >1000</option>
+			<option value="10000" >10000</option>
+			<option value="100000">100000</option>
+		    </select>
+		 </fieldset>
+          </td>
+	  <td class="collapse7 collapse in">Max. executed instr.</td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse in">9</td>
 	  <td class="hidden-xs" style="color:gray">execution</td>
 	  <td>Limit instr. ticks</td>
 	  <td>
@@ -856,6 +907,7 @@
 				      set_cfg('DBG_limitick',optValue); save_cfg();"
 			    data-native-menu="false">
 			<option value="-1">no limit</option>
+			<option value="500"  >500</option>
 			<option value="1000"  >1000</option>
 			<option value="10000" >10000</option>
 			<option value="100000">100000</option>
@@ -866,7 +918,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">9</td>
+	  <td class="collapse6 collapse in">10</td>
 	  <td class="hidden-xs" style="color:gray">simulation</td>
 	  <td>Display format</td>
 	  <td>
@@ -898,7 +950,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">10</td>
+	  <td class="collapse6 collapse in">11</td>
 	  <td class="hidden-xs" style="color:gray">simulation</td>
 	  <td>RF name</td>
 	  <td>
@@ -920,7 +972,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">11</td>
+	  <td class="collapse6 collapse in">12</td>
 	  <td class="hidden-xs" style="color:gray">simulation</td>
 	  <td>Data-path color</td>
 	  <td>
@@ -940,7 +992,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">12</td>
+	  <td class="collapse6 collapse in">13</td>
 	  <td class="hidden-xs" style="color:gray">simulation</td>
 	  <td>Signal color</td>
 	  <td>
@@ -956,7 +1008,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">13</td>
+	  <td class="collapse6 collapse in">14</td>
 	  <td class="hidden-xs" style="color:gray">simulation</td>
 	  <td>Interactive Mode</td>
 	  <td>
@@ -979,7 +1031,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">14</td>
+	  <td class="collapse6 collapse in">15</td>
 	  <td class="hidden-xs" style="color:gray">simulation</td>
 	  <td>Editable registers</td>
 	  <td>
@@ -1002,7 +1054,30 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">15</td>
+	  <td class="collapse6 collapse in">16</td>
+	  <td class="hidden-xs" style="color:gray">simulation</td>
+	  <td>Show by value</td>
+	  <td>
+		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
+		     <input name="radio10" id="radio10-true" 
+			    aria-label="Is by value: true"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('is_byvalue',true); save_cfg(); refresh();"
+			    value="on" type="radio">
+		     <label for="radio10-true">On</label>
+		     <input name="radio10" id="radio10-false" 
+			    aria-label="Is by value: false"
+			    style="margin-top:-8px"
+			    onclick="set_cfg('is_byvalue',false); save_cfg(); refresh();"
+			    value="off" type="radio">
+		     <label for="radio10-false">Off</label>
+		 </fieldset>
+          </td>
+	  <td class="collapse7 collapse in">Show by value/activation</td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse in">17</td>
 	  <td class="hidden-xs" style="color:gray">simulation</td>
 	  <td>Notification delay</td>
 	  <td>
@@ -1536,8 +1611,9 @@
 		    }, false);
 
 		    $.mobile.pageContainer.pagecontainer('change','#main1');
-		    $('#tab11').trigger('click');
 		    $('#tab26').trigger('click');
+		    $('#tab11').trigger('click');
+		    $('#select5a').selectpicker('val', 11);
 
 		    $("#colorpicker1").spectrum({ preferredFormat: "hex", color: get_cfg('color_data_active')}) ;
 		    $("#colorpicker2").spectrum({ preferredFormat: "hex", color: get_cfg('color_name_active')}) ;
@@ -1548,11 +1624,13 @@
 		  //$("#radio6-" +          get_cfg('ws_idiom')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio7-" +      get_cfg('editor_theme')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio9-" +       get_cfg('is_editable')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio10-" +   get_cfg('show_tutorials')).prop('checked', true).checkboxradio("refresh") ;
+		    $("#radio10-" +       get_cfg('is_byvalue')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio11-" +        get_cfg('use_voice')).prop('checked', true).checkboxradio("refresh") ;
                     $("#select1").val(get_cfg('ICON_theme')).selectmenu("refresh");
                     $("#select2").val(get_cfg('editor_mode')).selectmenu("refresh");
+                    $("#select6").val(get_cfg('DBG_limitins')).selectmenu("refresh");
                     $("#select3").val(get_cfg('DBG_limitick')).selectmenu("refresh");
+                    $("#select4").val(get_cfg('ws_mode')).selectmenu("refresh");
                     $("#slider1").val(1000 / (get_cfg('DBG_delay')+0.01)).slider("refresh");
                     $("#slider3").val(get_cfg('NOTIF_delay')).slider("refresh");
                     $("#img_select1").attr("src","images/stop_" + get_cfg('ICON_theme') + ".gif");
@@ -1573,6 +1651,10 @@
 		             $(column).hide() ;
 		        else $(column).show() ;
 		    });
+
+		    if ('webmips' == get_cfg('ws_mode'))
+			 wepsim_show_webmips();
+		    else wepsim_hide_webmips();
 	    }) ;
 
             $("div.wsversion").replaceWith(get_cfg('version'));
@@ -1582,7 +1664,7 @@
                target.prop("scrollTop", this.scrollTop).prop("scrollLeft", this.scrollLeft);
             });
 
-	    init("#states_ALL", "#states_BR", "#io_ALL", "#config_ALL"); 
+	    init("#states_ALL", "#states_BR", "#io_ALL", "#cpu_ALL", "#config_ALL"); 
 	    reset(); 
 
             // split (experimental)
@@ -1632,8 +1714,12 @@ if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(nav
 	    if (false == get_cfg('use_voice'))
 		wepsim_voice_stop() ;
 
-            if (true == get_cfg('show_tutorials'))
+            if ('tutorial' == get_cfg('ws_mode'))
                 sim_tutorial_showframe('welcome', 0) ;
+
+            // progressive web application
+	    if ('serviceWorker' in navigator)
+	        navigator.serviceWorker.register('./wepsim_pwa.js') ;
     }
     catch(err) 
     {

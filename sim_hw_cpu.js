@@ -326,7 +326,7 @@
 	sim_signals["TA"]  = { name: "TA",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV BUS_AB REG_MAR; MOVE_BITSE A1A0 0 2 BUS_AB 0; FIRE_IFCHANGED A1A0 A1A0"],
 			       fire_name: ['svg_p:text3091'],
-			       draw_data: [['svg_p:path3089', 'svg_p:path3597', 'svg_p:path3513', 'svg_p:path3601', 'svg_p:path3601-2', 'svg_p:path3187', 'svg_p:path3087', 'svg_p:path2995']],
+			       draw_data: [['svg_p:path3089', 'svg_p:path3597', 'svg_p:path3513', 'svg_p:path3601', 'svg_p:path3601-2', 'svg_p:path3187', 'svg_p:path3087', 'svg_p:path2995','svg_p:path3535']],
 			       draw_name: [['svg_p:path3085']] };
 	sim_signals["TD"]  = { name: "TD",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV BUS_DB BS_TD; MOVE_BITSE A1A0 0 2 BUS_AB 0; FIRE_IFCHANGED A1A0 A1A0"],
@@ -423,7 +423,7 @@
 					   ['svg_p:path3295', 'svg_p:path3293'], ['svg_p:path3297', 'svg_p:path3299']],
 			       draw_name: [[], ['svg_p:path3425', 'svg_p:path3427']] };
 	sim_signals["COP"] = { name: "COP", visible: true, type: "L", value: 0, default_value:0, nbits: "4", forbidden: true,
-			       behavior: ["NOP",
+			       behavior: ["NOP_ALU",
                                           "AND ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
 					  "OR ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
 					  "NOT ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
@@ -572,7 +572,7 @@
 				          'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BW; FIRE SBWA; RESET_CHANGED BW',
 				          'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BW; FIRE SBWA; RESET_CHANGED BW'],
 				fire_name: ['svg_p:text3433'],
-				draw_data: [['svg_p:path3061-2-6']],
+				draw_data: [['svg_p:path3061-2-6','svg_p:path3101-8','svg_p:path3535-8']],
 				draw_name: [[],[]] };
 	sim_signals["A1A0"] = { name: "A1A0", visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
 				behavior: ['MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA',
@@ -599,7 +599,7 @@
 					   'MV BS_TD REG_MBR; FIRE TD; FIRE R; FIRE W',
 					   'MV BS_TD REG_MBR; FIRE TD; FIRE R; FIRE W',
 					   'MV BS_TD REG_MBR; FIRE TD; FIRE R; FIRE W'],
-				 fire_name: [],
+				 fire_name: ['svg_p:text3533-5'],
 				 draw_data: [[],[]],
 				 draw_name: [[],[]] };
 	sim_signals["SBWA"] = { name: "SBWA", visible: false, type: "L", value: 0, default_value: 0, nbits: "5",
@@ -652,38 +652,45 @@
 				 draw_name: [[], []]};
 
         /* Virtual Signals, for UI */
-	sim_signals["TEST_C"] = { name: "TEST_C", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+	sim_signals["TEST_C"] = { name: "TEST_C", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
 		  	          behavior: ["MV FLAG_C VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_C VAL_ONE; FIRE_IFSET SELP 3"],
+                                  depends_on: ["SELCOP"],
 		  	          fire_name: ['svg_p:text3701-3'],
 			          draw_data: [['svg_p:text3701-3']],
 			          draw_name: [[]] };
-	sim_signals["TEST_V"] = { name: "TEST_V", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+	sim_signals["TEST_V"] = { name: "TEST_V", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
 		  	          behavior: ["MV FLAG_V VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_V VAL_ONE; FIRE_IFSET SELP 3"],
+                                  depends_on: ["SELCOP"],
 		  	          fire_name: ['svg_p:text3701-3-1'],
 			          draw_data: [['svg_p:text3701-3-1']],
 			          draw_name: [[]] };
-	sim_signals["TEST_N"] = { name: "TEST_N", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+	sim_signals["TEST_N"] = { name: "TEST_N", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
 		  	          behavior: ["MV FLAG_N VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_N VAL_ONE; FIRE_IFSET SELP 3"],
+                                  depends_on: ["SELCOP"],
 		  	          fire_name: ['svg_p:text3701-3-2'],
 			          draw_data: [['svg_p:text3701-3-2']],
 			          draw_name: [[]] };
-	sim_signals["TEST_Z"] = { name: "TEST_Z", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+	sim_signals["TEST_Z"] = { name: "TEST_Z", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
 		  	          behavior: ["MV FLAG_Z VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_Z VAL_ONE; FIRE_IFSET SELP 3"],
+                                  depends_on: ["SELCOP"],
 		  	          fire_name: ['svg_p:text3701-3-5'],
 			          draw_data: [['svg_p:text3701-3-5']],
 			          draw_name: [[]] };
 	sim_signals["TEST_I"] = { name: "TEST_I", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 		  	          behavior: ["MV FLAG_I VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_I VAL_ONE; FIRE_IFSET SELP 2"],
+                                  depends_on: ["CLK"],
 		  	          fire_name: ['svg_p:text3669'],
 			          draw_data: [['svg_p:text3669']],
 			          draw_name: [[]] };
 	sim_signals["TEST_U"] = { name: "TEST_U", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			          behavior: ["MV FLAG_U VAL_ZERO; FIRE_IFSET SELP 1", "MV FLAG_U VAL_ONE; FIRE_IFSET SELP 1"],
+                                  depends_on: ["CLK"],
 			          fire_name: ['svg_p:text3669-1'],
 			          draw_data: [['svg_p:text3669-1']],
 			          draw_name: [[]] };
-	sim_signals["TEST_INTV"] = { name: "TEST_INTV", visible: true, type: "L", value: 0, default_value:0, nbits: "8",
+	sim_signals["TEST_INTV"] = { name: "TEST_INTV", visible: true, type: "L", value: 0, default_value:0, nbits: "8", forbidden: true,
 			          behavior: ["MBIT INTV TEST_INTV 0 32"],
+                                  depends_on: ["INT"],
 			          fire_name: ['svg_p:tspan4225'],
 			          draw_data: [['svg_p:path3749']],
 			          draw_name: [[]] };
@@ -694,7 +701,10 @@
 	 */
 
 	syntax_behavior["NOP"]   = { nparameters: 1,
-				     operation: function(s_expr) {}
+				     operation: function(s_expr) { }
+				   };
+	syntax_behavior["NOP_ALU"] = { nparameters: 1,
+				     operation: function(s_expr) { update_nzvc(0, 0, 0, 0); }
 				   };
         syntax_behavior["MV"]    = { nparameters: 3,
                                      types: ["X", "X"],
@@ -734,166 +744,145 @@
 	syntax_behavior["AND"]   = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr) {
-						   set_value(sim_states[s_expr[1]], get_value(sim_states[s_expr[2]]) & get_value(sim_states[s_expr[3]]));
+				                   var result = get_value(sim_states[s_expr[2]]) & get_value(sim_states[s_expr[3]]) ;
+				                   set_value(sim_states[s_expr[1]], result) ;
 
-						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_V"], 0) ;
-						   set_value(sim_states["FLAG_C"], 0) ;
+			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	syntax_behavior["OR"]    = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr) {
-						   set_value(sim_states[s_expr[1]], get_value(sim_states[s_expr[2]]) | get_value(sim_states[s_expr[3]]));
+				                   var result = get_value(sim_states[s_expr[2]]) | get_value(sim_states[s_expr[3]]) ;
+				                   set_value(sim_states[s_expr[1]], result) ;
 
-						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_V"], 0) ;
-						   set_value(sim_states["FLAG_C"], 0) ;
+			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	syntax_behavior["NOT"]   = { nparameters: 3,
 				     types: ["E", "E"],
 				     operation: function(s_expr) {
-						   set_value(sim_states[s_expr[1]], ~(get_value(sim_states[s_expr[2]]))) ;
+				                   var result = ~(get_value(sim_states[s_expr[2]])) ;
+				                   set_value(sim_states[s_expr[1]], result) ;
 
-						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_V"], 0) ;
-						   set_value(sim_states["FLAG_C"], 0) ;
+			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	syntax_behavior["XOR"]   = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr) {
-						   set_value(sim_states[s_expr[1]], (get_value(sim_states[s_expr[2]])) ^ (get_value(sim_states[s_expr[3]])));
+				                   var result = get_value(sim_states[s_expr[2]]) ^ get_value(sim_states[s_expr[3]]) ;
+				                   set_value(sim_states[s_expr[1]], result) ;
 
-						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_V"], 0) ;
-						   set_value(sim_states["FLAG_C"], 0) ;
+			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	syntax_behavior["SRL"]   = { nparameters: 3,
 				     types: ["E", "E"],
 				     operation: function(s_expr) {
-						   set_value(sim_states[s_expr[1]], (get_value(sim_states[s_expr[2]])) >>> 1);
+				                   var result = (get_value(sim_states[s_expr[2]])) >>> 1 ;
+				                   set_value(sim_states[s_expr[1]], result) ;
 
-						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_V"], 0) ;
-						   set_value(sim_states["FLAG_C"], 0) ;
+			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	syntax_behavior["SRA"]   = { nparameters: 3,
 				     types: ["E", "E"],
 				     operation: function(s_expr) {
-						   set_value(sim_states[s_expr[1]], (get_value(sim_states[s_expr[2]])) >> 1);
+				                   var result = (get_value(sim_states[s_expr[2]])) >> 1 ;
+				                   set_value(sim_states[s_expr[1]], result) ;
 
-						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_V"], 0) ;
-						   set_value(sim_states["FLAG_C"], 0) ;
+			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	syntax_behavior["SL"]    = { nparameters: 3,
 				     types: ["E", "E"],
 				     operation: function(s_expr) {
-						   set_value(sim_states[s_expr[1]], (get_value(sim_states[s_expr[2]])) << 1);
+				                   var result = (get_value(sim_states[s_expr[2]])) << 1 ;
+				                   set_value(sim_states[s_expr[1]], result) ;
 
-						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_V"], 0) ;
-						   set_value(sim_states["FLAG_C"], (get_value(sim_states[s_expr[2]])) >> 31) ;
+			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, (result) >>> 31) ;
 						}
 				   };
 	syntax_behavior["RR"]    = { nparameters: 3,
 				     types: ["E", "E"],
 				     operation: function(s_expr) {
-						   set_value(sim_states[s_expr[1]],  ((get_value(sim_states[s_expr[2]])) >>> 1) | (((get_value(sim_states[s_expr[2]])) & 1) << 31));
+				                   var result = ((get_value(sim_states[s_expr[2]])) >>> 1) | (((get_value(sim_states[s_expr[2]])) & 1) << 31) ;
+				                   set_value(sim_states[s_expr[1]], result) ;
 
-						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_V"], 0) ;
-						   set_value(sim_states["FLAG_C"], 0) ;
+			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	syntax_behavior["RL"]    = { nparameters: 3,
 				     types: ["E", "E"],
 				     operation: function(s_expr) {
-						   set_value(sim_states[s_expr[1]], ((get_value(sim_states[s_expr[2]])) << 1) | (((get_value(sim_states[s_expr[2]])) & 0X80000000) >>> 31));
+				                   var result = ((get_value(sim_states[s_expr[2]])) << 1) | (((get_value(sim_states[s_expr[2]])) & 0X80000000) >>> 31) ;
+				                   set_value(sim_states[s_expr[1]], result) ;
 
-						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_V"], 0) ;
-						   set_value(sim_states["FLAG_C"], (get_value(sim_states[s_expr[2]])) >> 31) ;
+			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	syntax_behavior["ADD"]   = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr) {
-						   var result = (get_value(sim_states[s_expr[2]]) << 0) + (get_value(sim_states[s_expr[3]]) << 0) ;
+						   var a = get_value(sim_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(sim_states[s_expr[3]]) << 0 ;
+						   var result = a + b ;
 						   set_value(sim_states[s_expr[1]], result >>> 0) ;
 
-						   set_value(sim_states["FLAG_N"], (result  < 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_Z"], (result == 0) ? 1 : 0) ;
+						   var flag_n = (result < 0) ? 1 : 0 ;
+						   var flag_z = (result == 0) ? 1 : 0 ;
+						   var flag_c = (a >>> 31) && (b >>> 31) ;
 
-						   set_value(sim_states["FLAG_V"], 0) ;
-						   if ( (result < 0) &&
-							(get_value(sim_states[s_expr[2]]) >= 0) &&
-							(get_value(sim_states[s_expr[3]]) >= 0) )
-							set_value(sim_states["FLAG_V"], 1) ;
-						   if ( (result >= 0) &&
-							(get_value(sim_states[s_expr[2]]) < 0) &&
-							(get_value(sim_states[s_expr[3]]) < 0) )
-							set_value(sim_states["FLAG_V"], 1) ;
+						   var flag_v = 0 ;
+						   if ( (result < 0) && (a >= 0) && (b >= 0) )
+							flag_v = 1 ;
+						   if ( (result >= 0) && (a <  0) && (b <  0) )
+							flag_v = 1 ;
 
-						   set_value(sim_states["FLAG_C"], ((get_value(sim_states[s_expr[2]])) >> 31) && ((get_value(sim_states[s_expr[3]])) >> 31)) ;
+			                           update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
 						}
 				   };
 	syntax_behavior["SUB"]   = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr) {
-						   var result = (get_value(sim_states[s_expr[2]]) << 0) - (get_value(sim_states[s_expr[3]]) << 0) ;
-						   set_value(sim_states[s_expr[1]], result >>> 0);
+						   var a = get_value(sim_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(sim_states[s_expr[3]]) << 0 ;
+						   var result = a - b ;
+						   set_value(sim_states[s_expr[1]], result >>> 0) ;
 
-						   set_value(sim_states["FLAG_N"], (result  < 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_Z"], (result == 0) ? 1 : 0) ;
+						   var flag_n = (result < 0) ? 1 : 0 ;
+						   var flag_z = (result == 0) ? 1 : 0 ;
+						   var flag_c = (a >>> 31) && (b >>> 31) ;
 
-						   set_value(sim_states["FLAG_V"], 0) ;
-						   if ( (result < 0) &&
-							(get_value(sim_states[s_expr[2]]) >= 0) &&
-							(get_value(sim_states[s_expr[3]]) >= 0) )
-							set_value(sim_states["FLAG_V"], 1) ;
-						   if ( (result >= 0) &&
-							(get_value(sim_states[s_expr[2]]) < 0) &&
-							(get_value(sim_states[s_expr[3]]) < 0) )
-							set_value(sim_states["FLAG_V"], 1) ;
+						   var flag_v = 0 ;
+						   if ( (result < 0) && (a >= 0) && (b >= 0) )
+							flag_v = 1 ;
+						   if ( (result >= 0) && (a <  0) && (b <  0) )
+							flag_v = 1 ;
 
-						   set_value(sim_states["FLAG_C"], ((get_value(sim_states[s_expr[2]])) >> 31) && ((get_value(sim_states[s_expr[3]])) >> 31)) ;
+			                           update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
 						}
 				   };
 	syntax_behavior["MUL"]   = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr) {
-						   var result = (get_value(sim_states[s_expr[2]]) << 0) * (get_value(sim_states[s_expr[3]]) << 0) ;
-						   set_value(sim_states[s_expr[1]], result >>> 0);
+						   var a = get_value(sim_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(sim_states[s_expr[3]]) << 0 ;
+						   var result = a * b ;
+						   set_value(sim_states[s_expr[1]], result >>> 0) ;
 
-						   set_value(sim_states["FLAG_N"], (result  < 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_Z"], (result == 0) ? 1 : 0) ;
+						   var flag_n = (result < 0) ? 1 : 0 ;
+						   var flag_z = (result == 0) ? 1 : 0 ;
+						   var flag_c = 0 ;
 
-						   set_value(sim_states["FLAG_V"], 0) ;
-						   if ( (result < 0) &&
-							(get_value(sim_states[s_expr[2]]) >= 0) &&
-							(get_value(sim_states[s_expr[3]]) >= 0) )
-							set_value(sim_states["FLAG_V"], 1) ;
-						   if ( (result >= 0) &&
-							(get_value(sim_states[s_expr[2]]) < 0) &&
-							(get_value(sim_states[s_expr[3]]) < 0) )
-							set_value(sim_states["FLAG_V"], 1) ;
+						   var flag_v = 0 ;
+						   if ( (result < 0) && (a >= 0) && (b >= 0) )
+							flag_v = 1 ;
+						   if ( (result >= 0) && (a <  0) && (b <  0) )
+							flag_v = 1 ;
 
-						   set_value(sim_states["FLAG_C"], 0) ;
+			                           update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
 						}
 				   };
 	syntax_behavior["DIV"]   = { nparameters: 4,
@@ -904,38 +893,31 @@
 
 						   if (0 == b) {
 						       set_value(sim_states[s_expr[1]], 0) ;
-						       set_value(sim_states["FLAG_Z"], 1) ;
-						       set_value(sim_states["FLAG_V"], 1) ;
+			                               update_nzvc(0, 1, 1, 0) ;
                                                        return ;
                                                    }
 
-						   set_value(sim_states[s_expr[1]], Math.floor(a / b)) ;
-						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_V"], 0) ;
-						   set_value(sim_states["FLAG_C"], 0) ;
+				                   var result = Math.floor(a / b) ;
+				                   set_value(sim_states[s_expr[1]], result) ;
+			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	syntax_behavior["MOD"]   = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr) {
-						   set_value(sim_states[s_expr[1]], (get_value(sim_states[s_expr[2]]) << 0) % (get_value(sim_states[s_expr[3]]) << 0));
+						   var result = (get_value(sim_states[s_expr[2]]) << 0) % (get_value(sim_states[s_expr[3]]) << 0) ;
+						   set_value(sim_states[s_expr[1]], result) ;
 
-						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_V"], 0) ;
-						   set_value(sim_states["FLAG_C"], 0) ;
+			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	syntax_behavior["LUI"]   = { nparameters: 3,
 				     types: ["E", "E"],
 				     operation: function(s_expr) {
-						   set_value(sim_states[s_expr[1]], (get_value(sim_states[s_expr[2]])) << 16);
+						   var result = (get_value(sim_states[s_expr[2]])) << 16 ;
+						   set_value(sim_states[s_expr[1]], result) ;
 
-						   set_value(sim_states["FLAG_N"], (get_value(sim_states[s_expr[1]])  < 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_Z"], (get_value(sim_states[s_expr[1]]) == 0) ? 1 : 0) ;
-						   set_value(sim_states["FLAG_V"], 0) ;
-						   set_value(sim_states["FLAG_C"], 0) ;
+			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	syntax_behavior["MBIT"]  = { nparameters: 5,
@@ -1200,17 +1182,17 @@
 		syntax_behavior["CLOCK"] = { nparameters: 1,
 					     operation: function(s_expr)
 							{
-							    // 0.- Update counter
+							    // 1.- Update counter
 							    var val = get_value(sim_states["CLK"]) ;
 							    set_value(sim_states["CLK"], val + 1);
 
-							    // 1.- To treat the (Falling) Edge signals
+							    // 2.- To treat the (Falling) Edge signals
 							    for (var i=0; i<jit_fire_order.length; i++)
 								 fn_updateE_now(jit_fire_order[i]) ;
 							    //actions = jit_fire_order.map(fn_updateE_future) ;
 							    //Promise.all(actions) ;
 
-							    // 2.- The special (Falling) Edge part of the Control Unit...
+							    // 3.- The special (Falling) Edge part of the Control Unit...
 							    var new_maddr = get_value(sim_states["MUXA_MICROADDR"]) ;
 							    set_value(sim_states["REG_MICROADDR"], new_maddr) ;
 
@@ -1219,7 +1201,7 @@
 								else var new_mins = Object.create(sim_states["REG_MICROINS"].default_value);
 							    sim_states["REG_MICROINS"].value = new_mins ;
 
-                                                            // 3.- update signals
+                                                            // 4.- update signals
 							    for (var key in sim_signals)
 							    {
 								 if (typeof new_mins[key] != "undefined") 
@@ -1227,16 +1209,17 @@
 								 else set_value(sim_signals[key], sim_signals[key].default_value);
 							    }
 
-							    // 4.- Finally, 'fire' the (High) Level signals
+							    // 5.- Finally, 'fire' the (High) Level signals
 							    for (var i=0; i<jit_fire_order.length; i++)
 								 fn_updateL_now(jit_fire_order[i]) ;
 							    //actions = jit_fire_order.map(fn_updateL_future) ;
 							    //Promise.all(actions) ;
 
-							    // 5.- Native
-							    if (typeof new_mins.NATIVE != "undefined") {
-							        eval(new_mins.NATIVE) ;
-							    }
+							    // 6.- Native
+							         if (typeof new_mins.NATIVE_JIT != "undefined")
+							             new_mins.NATIVE_JIT() ;
+						            else if (typeof new_mins.NATIVE != "undefined")
+							             eval(new_mins.NATIVE) ;
 							}
 					   };
 

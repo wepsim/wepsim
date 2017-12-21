@@ -52,8 +52,7 @@ function read_microprg ( context )
                        newLabelName = newLabelName.substring(0, newLabelName.length-1) ; // remove the ending ':'
 
 		   if ("TAG" != getTokenType(context))
-		        return langError(context, 
-                                            "Expected '<label>:' not found but '" + newLabelName + "'.");
+		        return langError(context, "Expected '<label>:' not found but '" + newLabelName + "'.");
 
 	           // semantic check: existing LABEL
 		   for (var contadorMCAux in context.etiquetas)
@@ -379,6 +378,10 @@ function loadFirmware (text)
 
 	           nextToken(context);
 
+	           // match optional ,
+	           if (isToken(context,",")) 
+		       nextToken(context);
+
 	           // match optional native
 	           instruccionAux["native"] = false;
 	           if (isToken(context, "native")) 
@@ -389,6 +392,9 @@ function loadFirmware (text)
 	               // match optional ,
 	               if (isToken(context,",")) 
 		           nextToken(context);
+
+	               // add 'fetch' label
+		       context.etiquetas[context.contadorMC] = "fetch" ; 
 	           }
 
 	           if (true == instruccionAux["native"])
@@ -902,6 +908,29 @@ function loadFirmware (text)
                         labelsFounded = 0;
 		}
 	   }
+
+	   // native -> native_jit
+	   var mk_native = "" ;
+	   for (var i=0; i<context.instrucciones.length; i++)
+	   {
+		   var ins = context.instrucciones[i] ;
+		   if (false == ins["native"]) {
+		       continue ;
+		   }
+
+		   for (var j=0; j<ins["microcode"].length; j++)
+		   {
+			if (typeof ins["microcode"][j].NATIVE != "undefined") 
+			{
+			    mk_native += "context.instrucciones[" + i + "][\"microcode\"][" + j + "][\"NATIVE_JIT\"] = " + 
+			                 " function() {\n" +
+					 "\t var fields = wepsim_native_get_fields(\"" + ins["signatureRaw"] + "\");\n" + 
+					     ins["microcode"][j].NATIVE + 
+					 "\n};\n " ;
+			}
+		   }
+	   }
+	   eval(mk_native) ;
 
            var ret = new Object();
            ret.error              = null;

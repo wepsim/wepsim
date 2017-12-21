@@ -1,0 +1,16 @@
+{
+  "short_name": "WepSIM",
+  "name": "WepSIM Simulator",
+  "description": "Progressive Web Application version of WepSIM",
+  "start_url": "/wepsim/index.html",
+  "icons": [
+    {
+      "src": "/wepsim/images/wepsim.png",
+      "sizes": "256x256 192x192 144x144 128x128 64x64 32x32 24x24 16x16",
+      "type": "image/png"
+    }
+  ],
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#DDDDDD"
+}

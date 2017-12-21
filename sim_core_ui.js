@@ -127,14 +127,17 @@
 
 	function update_draw ( obj, value )
         {
-            if (true == DRAW_stop)
+            if (true == DRAW_stop) {
                 return ;
+	    }
+
+	    var draw_it = get_cfg('is_byvalue'); // 'is_byvalue' belongs to the sim_cfg.js
 
             /* 1) Check if draw it */
-	    var draw_it = get_cfg('is_byvalue'); // 'is_byvalue' belongs to the sim_cfg.js
 	    if (typeof sim_states["REG_MICROINS"].value[obj.name] != "undefined") {
 		draw_it = true;
 	    }
+
 	    if ( (false == draw_it) && (typeof obj.depends_on != "undefined") )
 	    {
 		for (var k=0; k<obj.depends_on.length; k++)
@@ -235,9 +238,9 @@
 
         function refresh()
         {
-	    for (var key in sim_signals)
-	    {
+	    for (var key in sim_signals) {
 		 update_draw(sim_signals[key], sim_signals[key].value) ;
+                 check_buses(key);
 	    }
 
 	    show_dbg_ir(get_value(sim_states['REG_IR_DECO'])) ;
@@ -584,12 +587,47 @@
         {
             if (jqdiv == "")
             {       // without ui
-		    sim_states['CLK'].value = ko.observable(sim_states['CLK'].value);
-		    sim_states['DECO_INS'].value = ko.observable(sim_states['DECO_INS'].value);
 		    for (var i=0; i<IO_INT_FACTORY.length; i++) {
 			 IO_INT_FACTORY[i].accumulated = ko.observable(IO_INT_FACTORY[i].accumulated) ;
 			 IO_INT_FACTORY[i].active      = ko.observable(IO_INT_FACTORY[i].active) ;
                     }
+                    return ;
+            }
+
+            // stats holder
+            var o1 = "<center>" +
+                     "<table class='table table-hover table-condensed table-bordered table-responsive'>" ;
+            for (var i=0; i<IO_INT_FACTORY.length; i++)
+            {
+               o1 += "<tr id='int" + i + "_context'>" +
+                     "<td align=center width=50%>" +
+                     "<span data-bind=\"style: {fontWeight: active() ? 'bold' : ''}\">" + "Interrupt " + i + "</span>" +
+                     "</td>" +
+                     "<td align=center width=50%>" +
+                     "<span data-bind='text: accumulated'>&nbsp;</span>" +
+                     "</td>" +
+                     "</tr>" ;
+            }
+            o1 += "</table>" +
+                  "</center>" ;
+            $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
+
+            // knockout binding
+            for (var i=0; i<IO_INT_FACTORY.length; i++)
+            {
+                 IO_INT_FACTORY[i].accumulated = ko.observable(IO_INT_FACTORY[i].accumulated) ;
+                 IO_INT_FACTORY[i].active      = ko.observable(IO_INT_FACTORY[i].active) ;
+                 var ko_context = document.getElementById('int' + i + '_context');
+                 ko.applyBindings(IO_INT_FACTORY[i], ko_context);
+            }
+        }
+
+        function init_cpu ( jqdiv )
+        {
+            if (jqdiv == "")
+            {       // without ui
+		    sim_states['CLK'].value = ko.observable(sim_states['CLK'].value);
+		    sim_states['DECO_INS'].value = ko.observable(sim_states['DECO_INS'].value);
                     return ;
             }
 
@@ -607,21 +645,9 @@
                      "<td align=center width=50%>" +
                      "<div id='clk_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
                      "</td>" +
-                     "</tr>" ;
-               o1 += "<tr><td colspan=2>&nbsp;</td></tr>" ;
-            for (var i=0; i<IO_INT_FACTORY.length; i++)
-            {
-               o1 += "<tr id='int" + i + "_context'>" +
-                     "<td align=center width=50%>" +
-                     "<span data-bind=\"style: {fontWeight: active() ? 'bold' : ''}\">" + "Interrupt " + i + "</span>" +
-                     "</td>" +
-                     "<td align=center width=50%>" +
-                     "<span data-bind='text: accumulated'>&nbsp;</span>" +
-                     "</td>" +
-                     "</tr>" ;
-            }
-            o1 += "</table>" +
-                  "</center>" ;
+                     "</tr>" +
+                     "</table>" +
+                     "</center>" ;
             $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
 
             // knockout binding
@@ -632,14 +658,6 @@
             sim_states['DECO_INS'].value = ko.observable(sim_states['DECO_INS'].value);
             var ko_context = document.getElementById('ins_context');
             ko.applyBindings(sim_states['DECO_INS'], ko_context);
-
-            for (var i=0; i<IO_INT_FACTORY.length; i++)
-            {
-                 IO_INT_FACTORY[i].accumulated = ko.observable(IO_INT_FACTORY[i].accumulated) ;
-                 IO_INT_FACTORY[i].active      = ko.observable(IO_INT_FACTORY[i].active) ;
-                 var ko_context = document.getElementById('int' + i + '_context');
-                 ko.applyBindings(IO_INT_FACTORY[i], ko_context);
-            }
         }
 
         function init_config ( jqdiv )
@@ -807,7 +825,7 @@
                 sname = seglabels[parseInt(key)] ;
 
                 if (typeof sname != "undefined")
-                    o1 += '<div style="position:sticky;top:0px;z-index:1;width:80%;background:#FFFFFF;"><b><small>' + sname + '</small></b></div>' ;
+                    o1 += '<div style="position:sticky;top:0px;z-index:1;width:50%;background:#FFFFFF;"><b><small>' + sname + '</small></b></div>' ;
 
                 taddr = '<small>0x</small>' + pack5(valkeys[3]) + '<span class="hidden-xs"> </span>-' + 
                         '<span class="hidden-xs"><small> 0x</small></span>' + pack5(valkeys[0]) ;
@@ -827,14 +845,11 @@
             }
 
 	    if (typeof memory[index] == "undefined")
-		o1 += "<div class='row'>" +
-		      "<div class='col-xs-5 col-sm-5 col-md-5 col-lg-5' align='right'  style='padding:5'>" + 
-                      "<font style='color:blue;font-size:small;font-weight:bold'>0x" + 
-                      parseInt(index).toString(16) + 
-                      "</font></div>" +
+		o1 += "<div class='row' id='addr" + index + "'" +
+                      "     style='color:blue; font-size:small; font-weight:bold;    border-bottom: 1px solid lightgray !important'>" +
+		      "<div class='col-xs-5 col-sm-5 col-md-5 col-lg-5' align='right'  style='padding:5'>" + "0x" + parseInt(index).toString(16) + "</div>" +
 		      "<div class='col-xs-1 col-sm-1 col-md-1 col-lg-1' align='center' style='padding:5'></div>" + 
-		      "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' align='left'   style='padding:5'>" +
-                      "<font style='color:blue;font-size:small;font-weight:bold'><b>00 00 00 00</b></font></div>"+ 
+		      "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' align='left'   style='padding:5' id='mpval>" + index + "'>" + "00 00 00 00" + "</div>"+ 
                       "</div>";
 
             $("#memory_MP").html("<div class='container-fluid'>" + o1 + "</div>");
@@ -848,6 +863,9 @@
 	        if (obj_byid.length > 0)
 	            obj_byid[0].scrollTop = topPos - 100;
             }
+
+            // update old_main_add for light_update
+            old_main_addr = index ;
         }
 
         function main_memory_getword ( revlabels, valkeys, memory, key )
@@ -945,7 +963,12 @@
 		     }
 
 		     if ("NATIVE" == ks) {
-			 value += "&lt;built-in&gt;" ;
+			 value += "&lt;native&gt; " ;
+			 continue;
+		     }
+
+		     if ("NATIVE_JIT" == ks) {
+			 value += "&lt;built-in&gt; " ;
 			 continue;
 		     }
 
@@ -1000,6 +1023,9 @@
 	        if (obj_byid.length > 0)
 	            obj_byid[0].scrollTop = topPos;
             }
+
+            // update old_mc_add for light_update
+            old_mc_addr = index;
         }
 
         var old_mc_addr = 0;
