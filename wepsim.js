@@ -114,7 +114,8 @@
         }
 
         if (with_ui) {
-            wepsim_notify_success('<strong>INFO</strong>', 'Assembly was compiled and loaded.') ;
+            wepsim_notify_success('<strong>INFO</strong>', 
+                                  'Assembly was compiled and loaded.') ;
 	}
 
         // update memory and segments
@@ -146,7 +147,8 @@
 
         // update UI
         if (with_ui) {
-            wepsim_notify_success('<strong>INFO</strong>', 'Microcode was compiled and loaded.') ;
+            wepsim_notify_success('<strong>INFO</strong>', 
+                                  'Microcode was compiled and loaded.') ;
         }
 
 	reset() ;
@@ -419,13 +421,17 @@
 
     function wepsim_notify_success ( ntf_title, ntf_message )
     {
-	 return $.notify({ title: ntf_title, message: ntf_message },
-	  	         { type: 'success',
-                           z_index: 2000,
-                           newest_on_top: true,
-                           delay: get_cfg('NOTIF_delay'),
-                           timer: 100,
-                           placement: { from: 'top', align: 'center' } });
+         return simcoreui_notify(ntf_title, ntf_message, 'success', get_cfg('NOTIF_delay')) ;
+    }
+
+    function wepsim_notify_error ( ntf_title, ntf_message )
+    {
+         return simcoreui_notify(ntf_title, ntf_message, 'danger', 0) ;
+    }
+
+    function wepsim_notify_close ( )
+    {
+         return simcoreui_notify_close() ;
     }
 
 
@@ -649,7 +655,7 @@
             if (null != pos) {
                 pos = parseInt(pos[0].match(/\d+/)[0]);
                 lineMsg += '<button type="button" class="btn btn-danger" ' +
-                           '        onclick="$.notifyClose();' +
+                           '        onclick="wepsim_notify_close();' +
                            '                      var marked = ' + editor + '.addLineClass(' + (pos-1) + ', \'background\', \'CodeMirror-selected\');' +
                            '                 setTimeout(function() { ' + editor + '.removeLineClass(marked, \'background\', \'CodeMirror-selected\'); }, 3000);' +
 		           '		     var t = ' + editor + '.charCoords({line: ' + pos + ', ch: 0}, \'local\').top;' +
@@ -657,18 +663,11 @@
 		           '		     ' + editor + '.scrollTo(null, t - middleHeight - 5);">Go line ' + pos + '</button>&nbsp;' ;
             }
 
-	    $.notify({ title: '<strong>ERROR</strong>',
-                       message: errorMsg + '<br>' +
-                                '<center>' +
-                                lineMsg +
-                                '<button type="button" class="btn btn-danger" onclick="$.notifyClose();">Close</button>' +
-                                '</center>' },
-		     { type: 'danger',
-                       z_index: 2000,
-                       newest_on_top: true,
-                       delay: 0,
-                       placement: { from: 'top', align: 'center' }
-                     });
+            wepsim_notify_error('<strong>ERROR</strong>',
+                                errorMsg + '<br>' + '<center>' + lineMsg +
+                                '<button type="button" class="btn btn-danger" ' + 
+                                '        onclick="wepsim_notify_close();">Close</button>' +
+                                '</center>') ;
     }
 
     function showhideAsmElements ( )
@@ -738,7 +737,8 @@
 		 msg = 'unsuccessful' ;
 	    }
 
-	    wepsim_notify_success('<strong>INFO</strong>', 'Copied ' + msg + '!.') ;
+	    wepsim_notify_success('<strong>INFO</strong>', 
+                                  'Copied ' + msg + '!.') ;
     }
 
     function CopyFromTextarea ( element_name )
@@ -755,7 +755,8 @@
 		 msg = 'unsuccessful' ;
 	    }
 
-	    wepsim_notify_success('<strong>INFO</strong>', 'Copied ' + msg + '!.') ;
+	    wepsim_notify_success('<strong>INFO</strong>', 
+                                  'Copied ' + msg + '!.') ;
     }
 
 
@@ -842,7 +843,8 @@
     function wepsim_dialog_current_state ( )
     {
          // show dialog
-         wepsim_notify_success('<strong>INFO</strong>', 'Loading, please wait...') ;
+         wepsim_notify_success('<strong>INFO</strong>', 
+                               'Loading, please wait...') ;
          $('#current_state1').modal('show');
 
 	 setTimeout(function() {
@@ -855,8 +857,9 @@
 	      var txt_checklist = wepsim_state2checklist(state_obj) ;
 	      $('#end_state1').tokenfield('setTokens', txt_checklist);
 
-              $.notifyClose() ;
-              wepsim_notify_success('<strong>INFO</strong>', 'Current state loaded !') ;
+              wepsim_notify_close() ;
+              wepsim_notify_success('<strong>INFO</strong>', 
+                                    'Current state loaded !') ;
 
               // ga
 	      var neltos  = 0 ;
@@ -955,7 +958,8 @@
 				               }, 50);
 			    }
 
-                            wepsim_notify_success('<strong>INFO</strong>', 'Example ready to be used.') ;
+                            wepsim_notify_success('<strong>INFO</strong>', 
+                                                  'Example ready to be used.') ;
                       };
         wepsim_load_from_url(url, do_next) ;
 
@@ -992,7 +996,8 @@
                                   else show_memories_values();
                            }
 
-                           wepsim_notify_success('<strong>INFO</strong>', 'Example ready to be used.') ;
+                           wepsim_notify_success('<strong>INFO</strong>', 
+                                                 'Example ready to be used.') ;
                       };
         wepsim_load_from_url(url, do_next) ;
 

@@ -251,6 +251,23 @@
          *  init_x & show_x
          */
 
+        function simcoreui_notify ( ntf_title, ntf_message, ntf_type, ntf_delay )
+        {   
+            return $.notify({ title: ntf_title, 
+                              message: ntf_message },
+                            { type: ntf_type,
+                              z_index: 2000,
+                              newest_on_top: true,
+                              delay: ntf_delay,
+                              timer: 100,
+                              placement: { from: 'top', align: 'left' } }) ;
+        }
+
+        function simcoreui_notify_close ( )
+        {   
+            return $.notifyClose() ;
+        }
+
         function hex2float ( hexvalue )
         {
 		var sign     = (hexvalue & 0x80000000) ? -1 : 1;
@@ -1143,14 +1160,10 @@
 
                 MC_dashboard[addr].breakpoint = bp_state ;
 
-                if ( bp_state && ('instruction' == get_cfg('DBG_level')) ) {
-                     $.notify({ title: '<strong>INFO</strong>', 
-                         message: 'Please remember to change configuration to execute at microinstruction level.'},
-                              { type: 'success',
-                                z_index: 2000,
-                                newest_on_top: true,
-                                delay: get_cfg('NOTIF_delay'),
-                                placement: { from: 'top', align: 'center' } });
+                if ( bp_state && ('instruction' == get_cfg('DBG_level')) )
+                {
+                     wepsim_notify_success('<strong>INFO</strong>', 
+                                           'Please remember to change configuration to execute at microinstruction level.') ;
                 }
         }
 
