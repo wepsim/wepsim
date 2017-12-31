@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015-2017 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  * 
@@ -164,10 +164,10 @@
                                                       if ( (iocr_id < 0) || (iocr_id > 7) ) 
                                                             return; 
 
-                                                      IO_INT_FACTORY[iocr_id].period(iodr_id) ;
-                                                      IO_INT_FACTORY[iocr_id].probability(1) ;
+                                                      set_value(IO_INT_FACTORY[iocr_id].period, iodr_id);
+                                                      set_value(IO_INT_FACTORY[iocr_id].probability, 1) ;
                                                       if (0 == iodr_id)
-                                                          IO_INT_FACTORY[iocr_id].probability(0) ;
+                                                          set_value(IO_INT_FACTORY[iocr_id].probability, 0) ;
                                                    }
                                       };
 
@@ -179,22 +179,22 @@
 
 						      for (var i=IO_INT_FACTORY.length-1; i>=0; i--)
                                                       {
-                                                           if (IO_INT_FACTORY[i].period() == 0)
+                                                           if (get_value(IO_INT_FACTORY[i].period) == 0)
  							       continue;
 
-                                                           if (IO_INT_FACTORY[i].active() == true)
+                                                           if (get_value(IO_INT_FACTORY[i].active) == true)
                                                            {
                                                                set_value(sim_signals[s_expr[2]], 1); // ['INT']=1
                                                                set_value( sim_states[s_expr[3]], i); // ['INTV']=i
                                                            }
 
-                                                           if ((clk % IO_INT_FACTORY[i].period()) == 0)
+                                                           if ((clk % get_value(IO_INT_FACTORY[i].period)) == 0)
                                                            {
-                                                              if (Math.random() > IO_INT_FACTORY[i].probability())
+                                                              if (Math.random() > get_value(IO_INT_FACTORY[i].probability))
                                                                   continue ;
 
-                                                              IO_INT_FACTORY[i].accumulated(IO_INT_FACTORY[i].accumulated()+1);
-                                                              IO_INT_FACTORY[i].active(true) ;
+                                                              set_value(IO_INT_FACTORY[i].accumulated, get_value(IO_INT_FACTORY[i].accumulated) + 1);
+                                                              set_value(IO_INT_FACTORY[i].active, true) ;
 
                                                               if (typeof sim_events["io"][clk] == "undefined")
                                                                   sim_events["io"][clk] = new Array() ;
@@ -224,7 +224,7 @@
 
 						      for (var i=0; i<IO_INT_FACTORY.length; i++) 
                                                       {
-                                                           if (IO_INT_FACTORY[i].active())
+                                                           if (get_value(IO_INT_FACTORY[i].active))
                                                            {
                                                                set_value(sim_signals[s_expr[2]], 0) ; // ['INT']  = 1
                                                                set_value( sim_states[s_expr[5]], i) ; // ['INTV'] = i
@@ -234,7 +234,7 @@
                                                                    sim_events["io"][clk] = new Array() ;
                                                                sim_events["io"][clk].push(i) ;
 
-							       IO_INT_FACTORY[i].active(false);
+							       set_value(IO_INT_FACTORY[i].active, false);
                                                                break; // stop at first INT
                                                            }
                                                       }

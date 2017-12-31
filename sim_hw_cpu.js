@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2017 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -1241,8 +1241,8 @@
 							    // 2.- reset the I/O factory
 							    for (var i=0; i<IO_INT_FACTORY.length; i++)
 							    {
-								IO_INT_FACTORY[i].accumulated(0) ;
-								IO_INT_FACTORY[i].active(false) ;
+						                 set_value(IO_INT_FACTORY[i].accumulated, 0);
+						                 set_value(IO_INT_FACTORY[i].active, false);
 							    }
 							}
 					   };

@@ -143,7 +143,7 @@
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="WepSIM PWA">
+    <meta name="apple-mobile-web-app-title" content="WepSIM 1.8.6">
     <link  rel="apple-touch-icon" href="images/arcos.svg">
     <meta name="msapplication-TileImage" content="images/arcos.svg">
     <meta name="msapplication-TileColor" content="#2F3BA2">
@@ -156,7 +156,7 @@
 
 	<div data-role="header" data-position="fixed" data-disable-page-zoom="false" data-theme="a">
                 <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
-                    <a href="#about1" data-rel="popup" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
+		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
                 </div>
                 <span class="ui-title"><b>WepSIM</b> <span class="badge"><div class="wsversion">X</div></span> / Simulator</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
@@ -169,7 +169,7 @@
 	<div role="main" class="ui-content">
 
             <div class="row">
-                <div id="col1" class="col-md-8" style="padding:0 0 0 0;">
+                <div id="col1" class="col-md-7" style="padding:0 0 0 0;">
 		    <div data-role="tabs" id="tabs2">
     		      <div data-role="navbar" id="tabsnav2" class="ui-responsive">
 		        <ul>
@@ -275,7 +275,7 @@
 	    	    </div>
                 </div>
 
-                <div id="col2" class="col-md-4" style="padding:0 8px 0 0px;">
+                <div id="col2" class="col-md-5" style="padding:0 8px 0 0px;">
 
                     <div class="btn-toolbar" role="toolbar" id="sim_toolbar" style="padding: 0 0px 2px 0px;">
 			<div class="btn-group btn-group-justified" role="group">
@@ -405,7 +405,7 @@
 
 	<div data-role="header" data-position="fixed" data-disable-page-zoom="false" data-theme="a">
                 <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
-                    <a href="#about1" data-rel="popup" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
+		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
                 </div>
                 <span class="ui-title"><b>WepSIM</b> <span class="badge"><div class="wsversion">X</div></span> / Microcode</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
@@ -480,13 +480,13 @@
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-xs-4 col-md-1 col-lg-1"
 				   data-transition="none" data-inline="true"
 				   onclick="var textToMCompile = inputfirm.getValue();
-                                            wepsim_compile_firmware(textToMCompile, true);
+                                            wepsim_compile_firmware(textToMCompile);
                                             $('#asm_debugger').html('<br>After updates on the microcode, assembler has to be compiled against it.');">&#181;compile</a>
 		            <a href="#"       style="background-color: #CCCCCC"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2"
 				   data-transition="none" data-inline="true"
 				   onclick="var textToMCompile = inputfirm.getValue();
-                                            var ok = wepsim_compile_firmware(textToMCompile, true);
+                                            var ok = wepsim_compile_firmware(textToMCompile);
                                             if (true == ok) {
                                                 $.mobile.pageContainer.pagecontainer('change','#main4');
                                             }">&#181;compile and go assembly</a>
@@ -494,7 +494,7 @@
 		            <a href="#" style="background-color: #DDDDDD"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-u ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2 ui-shadow"
 				   onclick="var textToMCompile = inputfirm.getValue();
-                                            var ok = wepsim_compile_firmware(textToMCompile, true);
+                                            var ok = wepsim_compile_firmware(textToMCompile);
                                             if (true == ok) {
                                                 wepsim_show_binary_microcode('#bin1','#compile_results');
                                             }">Show co2&#181;addr + control memory</a>
@@ -526,7 +526,7 @@
 
 	<div data-role="header" data-position="fixed" data-disable-page-zoom="false" data-theme="a">
                 <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
-                    <a href="#about1" data-rel="popup" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
+		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
                 </div>
                 <span class="ui-title"><b>WepSIM</b> <span class="badge"><div class="wsversion">X</div></span> / Assembly</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
@@ -585,12 +585,12 @@
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-4 col-md-1 col-lg-1"
 				   data-transition="none" data-inline="true"
 				   onclick="var textToCompile = inputasm.getValue() ;
-                                            var ok = wepsim_compile_assembly(textToCompile, true);">Compile</a>
+                                            var ok = wepsim_compile_assembly(textToCompile);">Compile</a>
 		            <a href="#" style="background-color: #CCCCCC"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2"
 				   data-transition="none" data-inline="true"
 				   onclick="var textToCompile = inputasm.getValue() ;
-                                            var ok = wepsim_compile_assembly(textToCompile, true);
+                                            var ok = wepsim_compile_assembly(textToCompile);
                                             if (true == ok) {
                                                 $.mobile.pageContainer.pagecontainer('change','#main1');
                                             }">Compile and go simulator</a>
@@ -598,7 +598,7 @@
 		            <a href="#" style="background-color: #DDDDDD"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-u  ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2 ui-shadow"
 				   onclick="var textToCompile = inputasm.getValue();
-                                            var ok = wepsim_compile_assembly(textToCompile, true);
+                                            var ok = wepsim_compile_assembly(textToCompile);
                                             if (true == ok) {
                                                 wepsim_show_binary_code('#bin1','#compile_results');
                                             }">Show Main Memory</a>
@@ -1102,64 +1102,6 @@
 </div><!-- /popup -->
 
 
-<div data-role="popup" id="about1" 
-     data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
-
-   <div data-role="header" data-theme="a">
-        <h1><b>WepSIM</b> <span class="badge btn-success"><div class="wsversion">X</div></span> </h1>
-        <a href="#" 
-           data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" 
-           class="ui-btn-right">Close</a>
-   </div>
-   <div role="main" class="ui-content">
-
-        <div style="font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 16px; line-height: 24px; padding-bottom: 6.4px; padding-left: 8px; padding-right: 8px; padding-top: 6.4px; max-width: 90vw;">
-        <div class="row">
-        <div class="col-xs-12 col-sm-12">
-            Copyright &copy; 2015-2017 <br>
-	    <p>
-
-            <a href="#" 
-               class="btn btn-info" style="padding:0 0 0 0; color:white !important;"
-               data-toggle="popover1"
-               data-html="true" 
-               data-content="<img src='images/author_fgarcia.png' height='200'/>"
-               title="F&eacute;lix Garc&iacute;a Carballeira">F&eacute;lix Garc&iacute;a Carballeira</a> +
-            <a href="#" 
-               class="btn btn-info" style="padding:0 0 0 0; color:white !important;"
-               data-toggle="popover1"
-               data-html="true" 
-               data-content="<img src='images/author_acaldero.png' height='200'/>"
-               title="Alejandro Calder&oacute;n Mateos">Alejandro Calder&oacute;n Mateos</a> +
-            <a href="#" 
-               class="btn btn-info" style="padding:0 0 0 0; color:white !important;"
-               data-toggle="popover1"
-               data-html="true" 
-               data-content="<img src='images/author_jprieto.png' height='200'/><br><br><a href='https://es.linkedin.com/in/javier-prieto-cepeda'>linkedin</a>"
-               title="Javier Prieto Cepeda">Javier Prieto Cepeda</a> +
-            <a href="#" 
-               class="btn btn-info" style="padding:0 0 0 0; color:white !important;"
-               data-toggle="popover1"
-               data-html="true" 
-               data-content="<img src='images/author_salonso.png' height='200'/>"
-               title="Sa&uacute;l Alonso Monsalve">Sa&uacute;l Alonso Monsalve</a>
-            <p>
-
-            <a href="http://www.arcos.inf.uc3m.es/">ARCOS Group</a><br>
-            <a href="http://www.inf.uc3m.es/en/">Computer Science and Engineering Department</a><br>
-            <a href="http://www.uc3m.es/">Universidad Carlos III de Madrid</a><br>
-	    <p>
-
-        </div>
-        </div>
-
-        </div>
-
-   </div>
-
-</div><!-- /popup -->
-
-
 <div data-role="popup" id="bin1" 
      data-theme="a" data-dismissible="true" data-animate="false" data-overlay-theme="a">
 
@@ -1529,6 +1471,70 @@
 </div> <!-- /.modal -->
 
 
+<div id="about2" class="modal">
+     <div class="modal-dialog modal-lg">
+	<div class="modal-content">
+	   <div class="modal-header">
+	        <button type="button" data-role="button"
+	       	        class="close ui-btn-right ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-corner-all" 
+		        data-dismiss="modal" aria-hidden="true">x</button>
+		<center>
+                <h4><b>WepSIM</b> <span class="badge btn-success"><div class="wsversion">X</div></span></h4>
+		</center>
+	   </div>
+	   <div class="modal-body">
+
+		<div style="font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 16px; line-height: 24px; padding-bottom: 6.4px; padding-left: 8px; padding-right: 8px; padding-top: 6.4px; max-width: 90vw;">
+		<div class="col">
+		    Copyright &copy; 2015-2018 <br>
+		    <p>
+
+		    <a href="#" 
+		       class="btn btn-info" style="padding:0 0 0 0; color:white !important;"
+		       data-toggle="popover1"
+		       data-html="true" 
+		       data-content="<img src='images/author_fgarcia.png' height='200'/>"
+		       title="F&eacute;lix Garc&iacute;a Carballeira">F&eacute;lix Garc&iacute;a Carballeira</a> +
+		    <a href="#" 
+		       class="btn btn-info" style="padding:0 0 0 0; color:white !important;"
+		       data-toggle="popover1"
+		       data-html="true" 
+		       data-content="<img src='images/author_acaldero.png' height='200'/>"
+		       title="Alejandro Calder&oacute;n Mateos">Alejandro Calder&oacute;n Mateos</a> +
+		    <a href="#" 
+		       class="btn btn-info" style="padding:0 0 0 0; color:white !important;"
+		       data-toggle="popover1"
+		       data-html="true" 
+		       data-content="<img src='images/author_jprieto.png' height='200'/><br><br><a class='label label-success' href='https://es.linkedin.com/in/javier-prieto-cepeda'>linkedin</a>"
+		       title="Javier Prieto Cepeda">Javier Prieto Cepeda</a> +
+		    <a href="#" 
+		       class="btn btn-info" style="padding:0 0 0 0; color:white !important;"
+		       data-toggle="popover1"
+		       data-html="true" 
+		       data-content="<img src='images/author_salonso.png' height='200'/>"
+		       title="Sa&uacute;l Alonso Monsalve">Sa&uacute;l Alonso Monsalve</a>
+		    <p>
+
+		    <a href="http://www.arcos.inf.uc3m.es/">ARCOS Group</a><br>
+		    <a href="http://www.inf.uc3m.es/en/">Computer Science and Engineering Department</a><br>
+		    <a href="http://www.uc3m.es/">Universidad Carlos III de Madrid</a><br>
+		    <p>
+
+		</div>
+		</div>
+	   </div>
+           <div class="modal-footer">
+		 <span class="label label-success label-lg" 
+	               style="text-align:right;"
+		       onclick="wepsim_help_set_absolute('about');
+			        wepsim_help_refresh();
+				$('#about2').modal('hide');">GNU Lesser General Public 3</span>
+	   </div>
+	</div>
+     </div>
+</div> <!-- /.modal -->
+
+
 <script>
     window.addEventListener("beforeunload", function (e) {
        var confirmationMessage = "\o/";
@@ -1546,7 +1552,6 @@
                     ko.options.deferUpdates = true;
 
 		    $("#bin1").enhanceWithin().popup();
-		    $("#about1").enhanceWithin().popup();
 		    $("#config1").enhanceWithin().popup();
 
 		    $("#actions_panel").panel().enhanceWithin();
@@ -1670,7 +1675,7 @@
             // split (experimental)
 if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ))
 {
-	    var split1 = Split(['#col1', '#col2'], { sizes: [65, 35], gutterSize: 5 });
+	    var split1 = Split(['#col1', '#col2'], { sizes: [60, 40], gutterSize: 5 });
             $(window).resize(function() {
                                 if ($(window).width() > 1000) {
                                     split1.setSizes([65, 35]);
@@ -1684,8 +1689,8 @@ if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(nav
 }
 
             $('a[data-toggle="popover1"]').popover({
-		     placement: "top",
-                     trigger: 'focus',
+		     placement: "bottom",
+                     trigger: 'focus, hover',
                      animation: false,
                      delay: { "show": 500, "hide": 100 } 
             }) ;
@@ -1718,8 +1723,15 @@ if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(nav
                 sim_tutorial_showframe('welcome', 0) ;
 
             // progressive web application
-	    if ('serviceWorker' in navigator)
-	        navigator.serviceWorker.register('./wepsim_pwa.js') ;
+	    if ('serviceWorker' in navigator) 
+            {
+		navigator.serviceWorker.register('./wepsim_pwa.js').catch(function() {
+		  wepsim_notify_error("<h4>Warning:" + 
+				      "<br>WepSIM was used over a HTTP connection.</h4>",
+		                      "Progressive Web Applications requires a HTTPS connection " +
+		                      "with a valid certificate, so PWA is disabled.") ;
+		}) ;
+	    }
     }
     catch(err) 
     {

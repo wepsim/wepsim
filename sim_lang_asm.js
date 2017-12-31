@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015-2017 Saul Alonso Monsalve, Javier Prieto Cepeda, Felix Garcia Carballeira, Alejandro Calderon Mateos
+ *  Copyright 2015-2018 Saul Alonso Monsalve, Javier Prieto Cepeda, Felix Garcia Carballeira, Alejandro Calderon Mateos
  *
  *  This file is part of WepSIM.
  * 
@@ -50,7 +50,7 @@
 function get_datatype_size ( datatype )
 {
 	if (typeof directives[datatype] == "undefined") {
-		console.log("data type: " + datatype + " is not defined!!!\n")
+		console.log("data type: " + datatype + " is not defined!!!\n") ;
 	    	return 0;
    	}
 
@@ -181,7 +181,7 @@ function get_candidate ( advance, instruction )
 	if (Object.keys(signatures).length == 1)
         {
 		var min = false;
-		for (i in candidates)
+		for (var i in candidates)
                 {
 			if (min == false) {
 				min = candidates[i];
@@ -522,7 +522,7 @@ function read_data ( context, datosCU, ret )
 
 				// check string
 				if ("" == possible_value)
-					return langError(context, "String is not closed (forgot to end it with quotation marks)")
+					return langError(context, "String is not closed (forgot to end it with quotation marks)") ;
 		                if ("STRING" != getTokenType(context))
 				    	return langError(context, "Expected string between quotation marks but found '" + possible_value + "' instead");
 
@@ -673,7 +673,7 @@ function read_text ( context, datosCU, ret )
 				finish[i].pop();
 				isPseudo = true;
 				var npseudoInstructions = 0;
-				var pseudo_fields = new Object;
+				var pseudo_fields = new Object();
 			}
 		}
 

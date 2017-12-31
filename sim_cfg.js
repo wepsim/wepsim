@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015-2017 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  * 
@@ -20,7 +20,7 @@
 
 
         var WSCFG = new Object() ;
-        WSCFG['version'] = { value:"1.8.5", type:"string"} ;
+        WSCFG['version'] = { value:"1.8.6", type:"string"} ;
 
         function get_cfg ( field )
         {

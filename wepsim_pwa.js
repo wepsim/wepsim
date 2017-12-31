@@ -1,6 +1,26 @@
+/*
+ *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *
+ *  This file is part of WepSIM.
+ *
+ *  WepSIM is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  WepSIM is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
 
 // cache versioning
-var cacheName = 'v185c:static';
+var cacheName = 'v186a:static';
 
 // install
 self.addEventListener('install', 
@@ -41,8 +61,8 @@ self.addEventListener('install',
 					'./images/stop_r2d2.gif',
 					'./images/stop_sw.gif',
 					'./images/stop_vader1.gif',
-                                        './docs/gpl.txt',
                                         './docs/manifest.json',
+                                        './docs/gpl.txt',
                                         './docs/lgpl.txt',
                                         './examples/exampleMicrocodeS2E1.txt',
                                         './examples/exampleMicrocodeS2E2.txt',
@@ -81,6 +101,7 @@ self.addEventListener('install',
                                         './tutorials/welcome/simulation_xinstruction.gif',
                                         './tutorials/welcome/example_usage.gif',
                                         './help/about-es.html',
+                                        './help/about-en.html',
                                         './help/signals/props002.xml',
                                         './help/signals/image008.jpg',
                                         './help/signals/image008.png',
@@ -104,7 +125,9 @@ self.addEventListener('install',
                                         './help/signals/image006.jpg',
                                         './help/signals/header.html',
                                         './help/signals-en.html',
+                                        './help/signals-es.html',
                                         './help/simulator-en.html',
+                                        './help/simulator-es.html',
                                         './help/simulator/simulator002.jpg',
                                         './help/simulator/simulator016.jpg',
                                         './help/simulator/simulator017.jpg',
@@ -133,9 +156,6 @@ self.addEventListener('install',
                                         './help/simulator/simulator018.jpg',
                                         './help/simulator/firmware004.jpg',
                                         './help/simulator/firmware005.jpg',
-                                        './help/about-en.html',
-                                        './help/signals-es.html',
-                                        './help/simulator-es.html',
                                         './external/jquery.mobile-1.4.5.min.css',
                                         './external/jquery.min.js',
                                         './external/jquery-ui.min.js',
