@@ -23,7 +23,7 @@
 	 *  IO
 	 */
 
-        sim_components["IO"] = {
+        sim_components.IO = {
 		                  name: "IO", 
 		                  version: "1", 
 		                  write_state: function ( vec ) {
@@ -42,7 +42,7 @@
 	 *  States - IO parameters
 	 */
 
-        var IO_INT_FACTORY = new Array() ;
+        var IO_INT_FACTORY = [] ;
         IO_INT_FACTORY[0] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
         IO_INT_FACTORY[1] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
         IO_INT_FACTORY[2] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
@@ -66,48 +66,48 @@
          *  States
          */
 
-        sim_states["IOSR"]   = { name: "IOSR",    visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-        sim_states["IOCR"]   = { name: "IOCR",    visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-        sim_states["IODR"]   = { name: "IODR",    visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+        sim_states.IOSR = { name: "IOSR",    visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+        sim_states.IOCR = { name: "IOCR",    visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+        sim_states.IODR = { name: "IODR",    visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
 
 
         /*
          *  Signals
          */
 
-        sim_signals["INT"]     = { name: "INT",    visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+        sim_signals.INT     = { name: "INT",    visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                    depends_on: ["CLK"],
                                    behavior: ["FIRE C", "FIRE C"],
                                    fire_name: ['svg_p:tspan4199'], 
                                    draw_data: [[], ['svg_p:path3809']], 
                                    draw_name: [[], []]};
 
-        sim_signals["IORDY"]   = { name: "IORDY",  visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+        sim_signals.IORDY   = { name: "IORDY",  visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                    depends_on: ["CLK"],
 		                   behavior: ["FIRE_IFCHANGED IORDY C", "FIRE_IFCHANGED IORDY C"],
                                    fire_name: ['svg_p:tspan4089','svg_p:path3793'], 
                                    draw_data: [[], ['svg_p:path3897']], 
                                    draw_name: [[], []]};
 
-        sim_signals["IO_IOR"]  = { name: "IO_IOR", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+        sim_signals.IO_IOR  = { name: "IO_IOR", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                    behavior: ["NOP", "IO_IOR BUS_AB BUS_DB IOSR IOCR IODR CLK; FIRE SBWA"],
                                    fire_name: ['svg_p:tspan4173','svg_p:text3715'], 
                                    draw_data: [[], ['svg_p:path3795', 'svg_p:path3733']], 
                                    draw_name: [[], []]};
 
-        sim_signals["IO_IOW"]  = { name: "IO_IOW", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+        sim_signals.IO_IOW  = { name: "IO_IOW", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                    behavior: ["NOP", "IO_IOW BUS_AB BUS_DB IOSR IOCR IODR CLK; FIRE SBWA"],
                                    fire_name: ['svg_p:text3785-0-6-0-5-5','svg_p:text3717'], 
                                    draw_data: [[], ['svg_p:path3805', 'svg_p:path3733']], 
                                    draw_name: [[], []]};
 
-        sim_signals["IO_IE"]    = { name: "IO_IE", visible: true, type: "L", value: 1, default_value: 1, nbits: "1", 
+        sim_signals.IO_IE    = { name: "IO_IE", visible: true, type: "L", value: 1, default_value: 1, nbits: "1", 
                                     behavior: ["NOP", "IO_CHK_I CLK INT INTV; FIRE C"],
                                     fire_name: [], 
                                     draw_data: [[], []], 
                                     draw_name: [[], []] };
 
-        sim_signals["INTA"]     = { name: "INTA",  visible: true, type: "L", value: 1, default_value: 0, nbits: "1", 
+        sim_signals.INTA     = { name: "INTA",  visible: true, type: "L", value: 1, default_value: 0, nbits: "1", 
                                     behavior: ["NOP", "INTA CLK INT INTA BUS_DB INTV; FIRE BW; FIRE C"],
                                     fire_name: ['svg_p:text3785-0-6-0-5-5-1-1'], 
                                     draw_data: [[], ['svg_p:path3807', 'svg_p:path3737']], 
@@ -118,14 +118,14 @@
          *  Syntax of behaviors
          */
 
-        syntax_behavior["IO_IOR"]   = { nparameters: 7,
+        syntax_behavior.IO_IOR   = { nparameters: 7,
                                         types: ["E", "E", "E", "E", "E", "E"],
                                         operation: function (s_expr) 
                                                    {
-                                                      var bus_ab = sim_states[s_expr[1]].value ;
-                                                      var iosr   = sim_states[s_expr[3]].value ;
-                                                      var iocr   = sim_states[s_expr[4]].value ;
-                                                      var iodr   = sim_states[s_expr[5]].value ;
+                                                      var bus_ab = get_value(sim_states[s_expr[1]]) ;
+                                                      var iosr   = get_value(sim_states[s_expr[3]]) ;
+                                                      var iocr   = get_value(sim_states[s_expr[4]]) ;
+                                                      var iodr   = get_value(sim_states[s_expr[5]]) ;
 
                                                       if (bus_ab == IOSR_ID) 
                                                           set_value(sim_states[s_expr[2]], iosr);
@@ -136,12 +136,12 @@
                                                    }
                                       };
 
-        syntax_behavior["IO_IOW"]   = { nparameters: 7,
+        syntax_behavior.IO_IOW   = { nparameters: 7,
                                         types: ["E", "E", "E", "E", "E", "E"],
                                         operation: function (s_expr) 
                                                    {
-                                                      var bus_ab = sim_states[s_expr[1]].value ;
-                                                      var bus_db = sim_states[s_expr[2]].value ;
+                                                      var bus_ab = get_value(sim_states[s_expr[1]]) ;
+                                                      var bus_db = get_value(sim_states[s_expr[2]]) ;
 
                                                       if ( (bus_ab != IOSR_ID) && 
                                                            (bus_ab != IOCR_ID) && 
@@ -158,8 +158,8 @@
                                                           set_value(sim_states[s_expr[5]], bus_db);
 
                                                       // check & modify the timer
-                                                      var iocr_id = sim_states[s_expr[4]].value ;
-                                                      var iodr_id = sim_states[s_expr[5]].value ;
+                                                      var iocr_id = get_value(sim_states[s_expr[4]]) ;
+                                                      var iodr_id = get_value(sim_states[s_expr[5]]) ;
 
                                                       if ( (iocr_id < 0) || (iocr_id > 7) ) 
                                                             return; 
@@ -171,7 +171,7 @@
                                                    }
                                       };
 
-        syntax_behavior["IO_CHK_I"] = { nparameters: 4, 
+        syntax_behavior.IO_CHK_I = { nparameters: 4, 
                                         types: ["E", "S", "E"],
                                         operation: function (s_expr) 
                                                    {
@@ -196,9 +196,9 @@
                                                               set_value(IO_INT_FACTORY[i].accumulated, get_value(IO_INT_FACTORY[i].accumulated) + 1);
                                                               set_value(IO_INT_FACTORY[i].active, true) ;
 
-                                                              if (typeof sim_events["io"][clk] == "undefined")
-                                                                  sim_events["io"][clk] = new Array() ;
-                                                              sim_events["io"][clk].push(i) ;
+                                                              if (typeof sim_events.io[clk] == "undefined")
+                                                                  sim_events.io[clk] = [] ;
+                                                              sim_events.io[clk].push(i) ;
 
                                                               set_value(sim_signals[s_expr[2]], 1); // ['INT']=1
                                                               set_value( sim_states[s_expr[3]], i); // ['INTV']=i
@@ -207,15 +207,15 @@
                                                    }
                                       };
 
-        syntax_behavior["INTA"]     = { nparameters: 6, 
+        syntax_behavior.INTA     = { nparameters: 6, 
                                         types: ["E", "S", "S", "E", "E"],
                                         operation: function (s_expr) 
                                                    {
                                                       var clk = get_value(sim_states[s_expr[1]]) ;
 
-                                                      if (typeof sim_events["io"][clk] != "undefined") 
+                                                      if (typeof sim_events.io[clk] != "undefined") 
                                                       {
-                                                          set_value(sim_states[s_expr[4]], sim_events["io"][clk][0]); // ['BUS_DB'] = i
+                                                          set_value(sim_states[s_expr[4]], sim_events.io[clk][0]); // ['BUS_DB'] = i
   							  return ;
                                                       }
 
@@ -230,9 +230,9 @@
                                                                set_value( sim_states[s_expr[5]], i) ; // ['INTV'] = i
 							       set_value( sim_states[s_expr[4]], i) ; // ['BUS_DB'] = i
 
-                                                               if (typeof sim_events["io"][clk] == "undefined") 
-                                                                   sim_events["io"][clk] = new Array() ;
-                                                               sim_events["io"][clk].push(i) ;
+                                                               if (typeof sim_events.io[clk] == "undefined") 
+                                                                   sim_events.io[clk] = [] ;
+                                                               sim_events.io[clk].push(i) ;
 
 							       set_value(IO_INT_FACTORY[i].active, false);
                                                                break; // stop at first INT

@@ -76,8 +76,8 @@
                                         types: ["E", "E", "E", "E", "E"],
                                         operation: function (s_expr) 
                                                    {
-                                                      var bus_ab = sim_states[s_expr[1]].value ;
-                                                      var clk    = sim_states[s_expr[5]].value() ;
+                                                      var bus_ab = get_value(sim_states[s_expr[1]]) ;
+                                                      var clk    = get_value(sim_states[s_expr[5]]) ;
 
                                                       if ( (bus_ab != KBDR_ID) && (bus_ab != KBSR_ID) ) {
                                                               return; 
@@ -106,11 +106,11 @@
                                                       }
                                                       if (get_value(sim_states[s_expr[4]]) == 1) 
                                                       {
-						              sim_events.keybd[clk] = sim_states[s_expr[3]].value;
+						              sim_events.keybd[clk] = get_value(sim_states[s_expr[3]]) ;
                                                       }
 
 						      if (bus_ab == KBSR_ID) {
-							      set_value(sim_states[s_expr[2]], sim_states[s_expr[4]].value);
+							      set_value(sim_states[s_expr[2]], get_value(sim_states[s_expr[4]]));
 						      }
 						      if (bus_ab == KBDR_ID) {
 							      if (get_value(sim_states[s_expr[4]]) == 1) 

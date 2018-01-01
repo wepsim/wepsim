@@ -118,14 +118,14 @@
                                         types: ["E", "E", "E", "E", "E"],
                                         operation: function (s_expr) 
                                                    {
-                                                      var bus_ab = sim_states[s_expr[1]].value ;
-                                                      var ddr    = sim_states[s_expr[3]].value ;
-                                                      var dsr    = sim_states[s_expr[4]].value ;
+                                                      var bus_ab = get_value(sim_states[s_expr[1]]) ;
+                                                      var ddr    = get_value(sim_states[s_expr[3]]) ;
+                                                      var dsr    = get_value(sim_states[s_expr[4]]) ;
 
                                                       if (bus_ab == DDR_ID)
-                                                          sim_states[s_expr[2]].value = ddr ;
+                                                          set_value(sim_states[s_expr[2]], ddr) ;
                                                       if (bus_ab == DSR_ID)
-                                                          sim_states[s_expr[2]].value = dsr ;
+                                                          set_value(sim_states[s_expr[2]], dsr) ;
                                                    }
                                    };
 
@@ -133,9 +133,9 @@
                                         types: ["E", "E", "E", "E", "E"],
                                         operation: function (s_expr) 
                                                    {
-                                                      var bus_ab = sim_states[s_expr[1]].value ;
-                                                      var bus_db = sim_states[s_expr[2]].value ;
-                                                      var clk    = sim_states[s_expr[5]].value();
+                                                      var bus_ab = get_value(sim_states[s_expr[1]]) ;
+                                                      var bus_db = get_value(sim_states[s_expr[2]]) ;
+                                                      var clk    = get_value(sim_states[s_expr[5]]) ;
                                                       var ch     = String.fromCharCode(bus_db);
 
                                                       if (bus_ab != DDR_ID) {
@@ -162,9 +162,9 @@
                                                          set_screen_content(screen + String.fromCharCode(bus_db));
                                                       }
 
-                                                      sim_states[s_expr[3]].value = bus_db ;
-                                                      sim_states[s_expr[4]].value = 1 ;
-                                                      sim_events.screen[clk]      = bus_db ;
+                                                      set_value(sim_states[s_expr[3]], bus_db) ;
+                                                      set_value(sim_states[s_expr[4]], 1) ;
+                                                      sim_events.screen[clk] = bus_db ;
                                                    }
                                    };
 
