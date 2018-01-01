@@ -20,9 +20,9 @@ https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim
 
      * Install WepSIM on iOS/Android as Progressive Web Application:
 
-       1 Once the https://acaldero.github.io/wepsim is loaded in Safari (iOS, MacOS) or Chrome (Android, Windows, Linux), from the top-right corner tap on the share icon (Safari) or the menu icon (Chrome).
-       2 Move within share options until 'add to home screen' option and click on it.
-       3 Then click in the 'add' option.
+       1 Once the https://acaldero.github.io/wepsim is loaded in Safari (iOS, MacOS) or Chrome (Android, Windows, Linux), from the top-right corner tap on the share icon (Safari) or the menu icon (Chrome). <br>
+       2 Move within share options until 'add to home screen' option and click on it. <br>
+       3 Then click in the 'add' option. <br>
        4 Finally WepSIM can be launched from the home screen icon.
 
 step   | iOS                       |  Android
