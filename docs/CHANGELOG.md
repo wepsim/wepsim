@@ -1,8 +1,10 @@
 
 1.8.5 -> 1.8.6:
 * Progressive Wep Application added
-* Travis-CI support added
+* Travis-CI added
 * Initial support for non-web tools
+* Code Climate added
+* Minor improvements on UI (bootstrap)
 
 1.8.2 -> 1.8.5:
 * ALU Flag is highlighted in a clock cycle if it is active
