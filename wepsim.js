@@ -476,12 +476,13 @@
     function wepsim_execute_chunk ( btn1, chunk )
     {
 	var ret = false ;
+        var i = 0 ;
 
 	var playlevel = get_cfg('DBG_level') ;
 	if (playlevel == "instruction")  
 	{
             var clklimit  = get_cfg('DBG_limitick') ;
-            for (var i=0; i<chunk; i++)
+            for (i=0; i<chunk; i++)
             {
 		    ret = execute_microprogram(clklimit) ;
 		    if (ret.ok === false) {
@@ -501,7 +502,7 @@
 	else
 	{
 	    var reg_maddr = 0 ;
-            for (var i=0; i<chunk; i++)
+            for (i=0; i<chunk; i++)
             {
 		    wepsim_check_state_firm() ;
 
@@ -546,6 +547,9 @@
 
     function wepsim_execute_chainplay ( btn1 )
     {
+	var t0 = 1.0 ;
+	var t1 = 1.0 ;
+
 	if (DBG_stop) {
 	    wepsim_execute_stop(btn1) ;
 	    return ;
@@ -555,14 +559,14 @@
 	if (get_cfg('DBG_delay') < 5)
             turbo = max_turbo ;
         if (max_turbo == 5) 
-            var t0 = performance.now() ;
+            t0 = performance.now() ;
 
         var ret = wepsim_execute_chunk(btn1, turbo) ;
         if (false == ret)
             return ;
 
         if (max_turbo == 5) 
-            var t1 = performance.now() ;
+            t1 = performance.now() ;
         if (max_turbo == 5) 
             max_turbo = 3000/(t1-t0) ;
 
@@ -587,7 +591,7 @@
 	var ret = false ;
         for (var i=0; i<max_turbo; i++)
         {
-		var ret = execute_microinstruction() ;
+		ret = execute_microinstruction() ;
 		if (false == ret.ok) {
 		    wepsim_show_stopbyevent("Info", ret.msg) ;
 		    wepsim_execute_stop(btn1) ;
@@ -601,8 +605,8 @@
 		    var dialog_title = "Notify @ " + reg_maddr + ": " + MC_dashboard[reg_maddr].notify[1] ;
 
 		    var dialog_msg = "" ;
-		    for (var i=1; i<notifications; i++) {
-			 dialog_msg += MC_dashboard[reg_maddr].notify[i] + "\n<br>" ;
+		    for (var k=1; k<notifications; k++) {
+			 dialog_msg += MC_dashboard[reg_maddr].notify[k] + "\n<br>" ;
 		    }
 
 		    bootbox.confirm({
@@ -873,11 +877,12 @@
         var obj_result = wepsim_diff_results(obj_chklst_expected, obj_chklst_current) ;
 
         // dialog
+        var msg = "" ;
         if (0 == obj_result.errors)
-    	     var msg = "&emsp;<span style='background-color:#7CFC00'>" + 
+    	     msg = "&emsp;<span style='background-color:#7CFC00'>" + 
                        "Meets the specified requirements" + 
                        "</span><br>" ;
-        else var msg = wepsim_checkreport2html(obj_result.result, true) ;
+        else msg = wepsim_checkreport2html(obj_result.result, true) ;
 
         $('#' + id_result).html(msg);
 
@@ -957,13 +962,14 @@
 	inputfirm.setValue("Please wait...");
 	inputfirm.refresh();
 
+	var url = "" ;
 	var mode = get_cfg('ws_mode');
 	if ('webmips' == mode) {
-	    var url = "examples/exampleMicrocodeMIPS.txt?time=" + getURLTimeStamp() ;
+	    url = "examples/exampleMicrocodeMIPS.txt?time=" + getURLTimeStamp() ;
 	    inputfirm.setOption('readOnly', true);
         }
 	else {
-	    var url = "examples/exampleMicrocode" + example_id + ".txt?time=" + getURLTimeStamp() ;
+	    url = "examples/exampleMicrocode" + example_id + ".txt?time=" + getURLTimeStamp() ;
 	    inputfirm.setOption('readOnly', false);
 	}
 
@@ -1372,13 +1378,16 @@
         d.neltos_expected = 0 ;
         d.neltos_obtained = 0 ;
 
+        var elto = null ;
+	var diff = {} ;
+
         var obtained_value = 0 ;
 	for (var compo in sim_components)
 	{
 	    // if there are different values -> diff
             if (typeof expected_result[compo] != "undefined") 
 	    {
-		    for (var elto in expected_result[compo])
+		    for (elto in expected_result[compo])
 		    {
                          d.neltos_expected++ ;
 
@@ -1388,7 +1397,7 @@
                                obtained_value = obtained_result[compo][elto].value ;
                          }
 
-			 var diff = {} ;
+			 diff = {} ;
 			 diff.expected  = expected_result[compo][elto].value ;
 			 diff.obtained  = obtained_value ;
 			 diff.elto_type = compo.toLowerCase() ;
@@ -1421,7 +1430,7 @@
 	    // if there are new elements -> diff
 	    if ((newones_too) && (typeof obtained_result[compo] != "undefined"))
 	    {
-		    for (var elto in obtained_result[compo]) 
+		    for (elto in obtained_result[compo]) 
 		    {
                          d.neltos_obtained++ ;
 
@@ -1430,7 +1439,7 @@
 			       continue ;
 		         }
 
-			 var diff = {} ;
+			 diff = {} ;
 			 diff.expected  = obtained_result[compo][elto].default_value ;
 			 diff.obtained  = obtained_result[compo][elto].value ;
 			 diff.fulfill   = (diff.expected == diff.obtained) ;
@@ -1613,11 +1622,13 @@
 
     function wepsim_native_get_value ( component, elto )
     {
+        var index = 0 ;
+
         if ( ("CPU" == component) || ("BR" == component) )
         {
             if (Number.isInteger(elto))
-                 var index = elto ;
-            else var index = parseInt(elto) ;
+                 index = elto ;
+            else index = parseInt(elto) ;
 
             if (isNaN(index))
                 return (get_value(sim_states[elto]) >>> 0) ;
@@ -1645,8 +1656,8 @@
 
         if ("SCREEN" == component)
         {
-            set_screen_content(value) ;
-            return value ;
+            var screen = get_screen_content() ;
+            return screen ;
         }
 
         return false ;
@@ -1654,17 +1665,21 @@
 
     function wepsim_native_set_value ( component, elto, value )
     {
+        var index = 0 ;
+
         if ( ("CPU" == component) || ("BR" == component) )
         {
             if (Number.isInteger(elto))
-                 var index = elto ;
-            else var index = parseInt(elto) ;
+                 index = elto ;
+            else index = parseInt(elto) ;
 
             if (isNaN(index)) 
             {
                 set_value(sim_states[elto], value) ;
-                if ("REG_PC" == elto)
+                if ("REG_PC" == elto) {
                     show_asmdbg_pc() ;
+		}
+
                 return value ;
             }
 
@@ -1692,8 +1707,8 @@
 
         if ("SCREEN" == component)
         {
-            var screen = get_screen_content() ;
-            return screen ;
+            set_screen_content(value) ;
+            return value ;
         }
 
         return false ;
@@ -1704,8 +1719,8 @@
         var SIMWARE = get_simware() ;
 
         for (var key in SIMWARE.firmware) {
-             if (SIMWARE.firmware[key]["signatureRaw"] == signature_raw) {
-                 return SIMWARE.firmware[key]["fields"] ;
+             if (SIMWARE.firmware[key].signatureRaw == signature_raw) {
+                 return SIMWARE.firmware[key].fields ;
              }
         }
     }
@@ -1748,7 +1763,7 @@
 
         for (var key in SIMWARE.firmware) 
         {
-             if (SIMWARE.firmware[key]["signatureRaw"] == signature_raw) 
+             if (SIMWARE.firmware[key].signatureRaw == signature_raw) 
              {
                  var maddr = SIMWARE.firmware[key]["mc-start"] ;
                  set_value(sim_states.MUXA_MICROADDR, maddr) ;
