@@ -28,7 +28,7 @@ https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim
        3 Then click in the 'add' option. <br>
        4 Finally WepSIM can be launched from the home screen icon.
 
-step   | iOS                       |  Android
+Step   | iOS                       |  Android
 ------:|:-------------------------:|:-------------------------:
 1    | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/docs/pwa/pwa_ios001.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/docs/pwa/pwa_android001.jpg)
 2    | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/docs/pwa/pwa_ios002.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/docs/pwa/pwa_android002.jpg)
