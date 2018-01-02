@@ -1,4 +1,9 @@
 
+1.8.5 -> 1.8.6:
+* Progressive Wep Application added
+* Travis-CI support added
+* Initial support for non-web tools
+
 1.8.2 -> 1.8.5:
 * ALU Flag is highlighted in a clock cycle if it is active
 * New configuration option in order to limit the number of the assembly instructions executed
