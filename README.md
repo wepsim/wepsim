@@ -1,6 +1,9 @@
 # WepSIM: Simulator of Elemental Processor 
 
+
 [![Build Status](https://travis-ci.org/acaldero/wepsim.svg?branch=master)](https://travis-ci.org/acaldero/wepsim)
+[![Maintainability](https://api.codeclimate.com/v1/badges/9efc2957158b5c67f775/maintainability)](https://codeclimate.com/github/acaldero/wepsim/maintainability)
+
 
 + WepSIM Simulator Source Code:
 
