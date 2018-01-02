@@ -1,7 +1,7 @@
 
-    tutorials['simpleusage']['en'] = new Array() ;
+    tutorials.simpleusage.en = [] ;
 
-    tutorials['simpleusage']['en'].push({
+    tutorials.simpleusage.en.push({
                      id:        "simpleusage",
                      title:     "Simple WepSIM experience: microprogramming and programming",
                      message:   "<img src='help/simulator/simulator011.jpg' style='width:100%; max-height:50vh'>" +
@@ -19,7 +19,7 @@
                      wait_next: 100
                   });
 
-    tutorials['simpleusage']['en'].push({
+    tutorials.simpleusage.en.push({
                      id:        "simpleusage",
                      title:     "Simple WepSIM experience: microprogramming and programming",
                      message:   "<img src='help/simulator/firmware001.jpg' style='width:100%; max-height:50vh'>" +
@@ -33,7 +33,7 @@
                      wait_next: 100
                   });
 
-    tutorials['simpleusage']['en'].push({
+    tutorials.simpleusage.en.push({
                      id:        "simpleusage",
                      title:     "Simple WepSIM experience: microprogramming and programming",
                      message:   "<img src='help/simulator/firmware002.jpg' style='width:100%; max-height:50vh'>" +
@@ -51,7 +51,7 @@
                      wait_next: 100
                   });
 
-    tutorials['simpleusage']['en'].push({
+    tutorials.simpleusage.en.push({
                      id:        "simpleusage",
                      title:     "Simple WepSIM experience: microprogramming and programming",
                      message:   "<img src='help/simulator/assembly002.jpg' style='width:100%; max-height:50vh'>" +
@@ -65,7 +65,7 @@
                      wait_next: 100
                   });
 
-    tutorials['simpleusage']['en'].push({
+    tutorials.simpleusage.en.push({
                      id:        "simpleusage",
                      title:     "Simple WepSIM experience: microprogramming and programming",
                      message:   "<img src='help/simulator/assembly003.jpg' style='width:100%; max-height:50vh'>" +
@@ -83,7 +83,7 @@
                      wait_next: 100
                   });
 
-    tutorials['simpleusage']['en'].push({
+    tutorials.simpleusage.en.push({
                      id:        "simpleusage",
                      title:     "Simple WepSIM experience: microprogramming and programming",
                      message:   "<img src='help/simulator/simulator010.jpg' style='width:100%; max-height:50vh'>" +
