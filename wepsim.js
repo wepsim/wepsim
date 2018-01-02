@@ -1284,7 +1284,7 @@
 		    callback: function() {
 			set_cfg('ws_mode', 'wepsim') ;
                         save_cfg();
-			$("#select4").val('wepsim').selectmenu("refresh");
+			$("#select4").val('wepsim') ;
                         tutbox.modal("hide") ;
                         if (wepsim_voice_canSpeak())
 			    window.speechSynthesis.cancel() ;
