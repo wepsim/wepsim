@@ -664,7 +664,7 @@
 
 
 <div id="config2" class="modal">
-    <div class="modal-dialog" style="min-width:35vw;">
+    <div class="modal-dialog" style="width:95vw; height:80vh;">
 	<div class="modal-content">
 	   <div class="modal-header">
 		<button type="button" data-role="button"
@@ -676,15 +676,17 @@
 	   </div>
 	   <div class="modal-body">
 
-	<table class="table table-striped table-hover table-condensed" data-role="none"
-	       id="table-config2"
-               style="width:100%; margin:0 0 0 0">
+
+        <div id=table-config2 class="table-responsive container-fluid" style="max-height:80vh; padding:0 0 0 0; overflow:auto;">
+	<table class="table table-striped table-hover table-condensed" 
+	       data-role="none" 
+	       style="width:100%; margin:0 0 0 0">
 	<thead>
 	<tr>
 	  <th onclick="$('.collapse6').collapse('toggle');">#</th>
 	  <th class="hidden-xs">area</th>
 	  <th>title</th>
-	  <th style="min-width:210px">value</th>
+	  <th style="min-width:10em">value</th>
 	  <th onclick="$('.collapse7').collapse('toggle');">description</th>
 	</tr>
 	</thead>
@@ -718,7 +720,7 @@
 	  <td class="hidden-xs" style="color:gray">general</td>
 	  <td>Execution mode</td>
 	  <td>
-		 <div class="form-group">
+		 <div class="form-group" style="max-width:10em; margin:0 0 0 0">
 		    <select name="select4" id="select4" class="form-control"
 			    aria-label="Execution mode" data-role="none"
 			    onchange="var opt = $(this).find('option:selected');
@@ -773,7 +775,7 @@
 	  <td class="hidden-xs" style="color:gray">editor</td>
 	  <td>Editor mode</td>
 	  <td>
-		 <div class="form-group">
+		 <div class="form-group" style="max-width:10em; margin:0 0 0 0">
 		    <select name="select2" id="select2" class="form-control"
 			    aria-label="Editor mode"    data-role="none"
 			    onchange="var opt = $(this).find('option:selected');
@@ -800,7 +802,7 @@
 		 <input type="range"
 			class="noshadow ui-hidden-accessible slider"
 			aria-label="Execution speed control"
-			data-show-value="false"
+			data-show-value="false" data-theme="a"
 			name="slider1" id="slider1"
 			min="1" max="500" value="200" step="20"
 			onchange="set_cfg('DBG_delay', 1000 / this.value); save_cfg();">
@@ -836,7 +838,7 @@
 	  <td class="hidden-xs" style="color:gray">execution</td>
 	  <td>Breakpoint Icon</td>
 	  <td>
-		 <div class="form-group">
+		 <div class="form-group" style="max-width:10em; margin:0 0 0 0">
 		    <select data-native-menu="false" class="form-control"
                             name="select1" id="select1" data-role="none"
 			    aria-label="Breakpoint Icon"
@@ -877,7 +879,7 @@
 	  <td class="hidden-xs" style="color:gray">execution</td>
 	  <td>Limit instr.</td>
 	  <td>
-		 <div class="form-group">
+		 <div class="form-group" style="max-width:10em; margin:0 0 0 0">
 		    <select name="select6" id="select6" class="form-control"
 			    aria-label="max. ticks per instruction" data-role="none"
 			    onchange="var opt = $(this).find('option:selected');
@@ -900,7 +902,7 @@
 	  <td class="hidden-xs" style="color:gray">execution</td>
 	  <td>Limit instr. ticks</td>
 	  <td>
-		 <div class="form-group">
+		 <div class="form-group" style="max-width:10em; margin:0 0 0 0">
 		    <select name="select3" id="select3" class="form-control"
 			    aria-label="max. ticks per instruction" data-role="none"
 			    onchange="var opt = $(this).find('option:selected');
@@ -1085,7 +1087,7 @@
 		 <input type="range"
 			class="noshadow ui-hidden-accessible" 
 			aria-label="Notification delay"
-			data-show-value="false"
+			data-show-value="false" data-theme="a"
 			name="slider3" id="slider3"
 			min="100" max="2000" value="1000" step="100"
 			onchange="set_cfg('NOTIF_delay', this.value); save_cfg();">
@@ -1095,6 +1097,8 @@
 
 	</tbody>
 	</table>
+	</div>
+
 
 	   </div>
 	</div>
