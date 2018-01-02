@@ -652,7 +652,8 @@
                   onclick="wepsim_open_examples_index();"
                   style="text-align:left"
                   class="ui-btn ui-btn-icon-left ui-icon-info">Examples</a>
-               <a href="#config1"  data-rel="popup"  data-position-to="window" 
+               <a href="#config2"  data-rel="popup"  data-position-to="window" 
+                  onclick="$('#config2').modal('show');"
                   style="text-align:left"
                   class="ui-btn ui-btn-icon-left ui-icon-gear">Configuration</a>
         </td>
@@ -662,22 +663,22 @@
 </div><!-- /panel -->
 
 
-<div data-role="popup" id="config1" 
-     data-theme="a" data-dismissible="false" data-animate="false" data-overlay-theme="b">
+<div id="config2" class="modal">
+    <div class="modal-dialog" style="min-width:35vw;">
+	<div class="modal-content">
+	   <div class="modal-header">
+		<button type="button" data-role="button"
+                        class="close ui-btn-right ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-corner-all" 
+                        data-dismiss="modal" aria-hidden="true">x</button>
+		<center>
+                <h4><b>Config<span class="hidden-xs">uration</span></b> <span class="badge btn-success"><div class="wsversion">X</div></span></h4>
+                </center>
+	   </div>
+	   <div class="modal-body">
 
-   <div data-role="header" data-theme="a">
-        <h1><b>Config<span class="hidden-xs">uration</span></b> <span class="badge btn-success"><div class="wsversion">X</div></span></h1>
-        <a href="#" 
-           data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" 
-           class="ui-btn-right">Close</a>
-   </div>
-
-   <div role="main" class="ui-content" style="padding: 8px 8px 8px 8px">
-
-	<div id="container-configuration1" class="table-responsive" 
-             style="max-width:82vw; max-height:85vh; overflow:auto;">
 	<table class="table table-striped table-hover table-condensed" data-role="none"
-               width="100%" style="margin:0 0 0 0">
+	       id="table-config2"
+               style="width:100%; margin:0 0 0 0">
 	<thead>
 	<tr>
 	  <th onclick="$('.collapse6').collapse('toggle');">#</th>
@@ -700,13 +701,13 @@
 			    style="margin-top:-8px"
 			    onclick="set_cfg('use_voice',true); save_cfg(); wepsim_voice_start();"
 			    value="on" type="radio">
-		     <label for="radio11-true">On</label>
+		     <label for="radio11-true" class="ui-btn-a">On</label>
 		     <input name="radio11" id="radio11-false" 
 			    aria-label="Is editable: false"
 			    style="margin-top:-8px"
 			    onclick="set_cfg('use_voice',false); save_cfg(); wepsim_voice_stop();"
 			    value="off" type="radio">
-		     <label for="radio11-false">Off</label>
+		     <label for="radio11-false" class="ui-btn-a">Off</label>
 		 </fieldset>
           </td>
 	  <td class="collapse7 collapse in">Use voice</td>
@@ -717,22 +718,21 @@
 	  <td class="hidden-xs" style="color:gray">general</td>
 	  <td>Execution mode</td>
 	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		    <select name="select4" id="select4" 
-			    aria-label="Execution mode"
+		 <div class="form-group">
+		    <select name="select4" id="select4" class="form-control"
+			    aria-label="Execution mode" data-role="none"
 			    onchange="var opt = $(this).find('option:selected');
 				      var optValue = opt.val();
 			              set_cfg('ws_mode',optValue); save_cfg();
                                       if ('webmips' == optValue)
 			                   wepsim_show_webmips();
 			              else wepsim_hide_webmips();
-				      return false;"
-			    data-native-menu="false">
+				      return false;">
 			<option value="tutorial">Tutorial</option>
 			<option value="wepsim">WepSIM</option>
 			<option value="webmips">WebMIPS</option>
 		    </select>
-		 </fieldset>
+		 </div>
           </td>
 	  <td class="collapse7 collapse in">Tutorial/WepSIM mode</td>
 	 </tr>
@@ -752,7 +752,7 @@
 				     inputasm.getWrapperElement().style['font-weight'] = 'bold';
 				     inputasm.setOption('theme','default');"
 			    value="default" type="radio">
-		     <label for="radio7-default">Light</label>
+		     <label for="radio7-default" class="ui-btn-a">Light</label>
 		     <input name="radio7" id="radio7-blackboard" 
 			    aria-label="Editor theme (Dark)"
 			    style="margin-top:-8px"
@@ -762,7 +762,7 @@
 				     inputasm.getWrapperElement().style['font-weight'] = 'normal';
 				     inputasm.setOption('theme','blackboard');"
 			    value="blackboard" type="radio">
-		     <label for="radio7-blackboard">Dark</label>
+		     <label for="radio7-blackboard" class="ui-btn-a">Dark</label>
 		 </fieldset>
           </td>
 	  <td class="collapse7 collapse in">Editor theme</td>
@@ -773,9 +773,9 @@
 	  <td class="hidden-xs" style="color:gray">editor</td>
 	  <td>Editor mode</td>
 	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		    <select name="select2" id="select2" 
-			    aria-label="Editor mode"
+		 <div class="form-group">
+		    <select name="select2" id="select2" class="form-control"
+			    aria-label="Editor mode"    data-role="none"
 			    onchange="var opt = $(this).find('option:selected');
 				      var optValue = opt.val();
 				      set_cfg('editor_mode',optValue); save_cfg();
@@ -787,7 +787,7 @@
 			<option value="emacs">Emacs</option>
 			<option value="sublime">Sublime</option>
 		    </select>
-		 </fieldset>
+		 </div>
           </td>
 	  <td class="collapse7 collapse in">Editor mode</td>
 	 </tr>
@@ -798,7 +798,7 @@
 	  <td>Speed-up</td>
 	  <td>
 		 <input type="range"
-			class="noshadow ui-hidden-accessible" 
+			class="noshadow ui-hidden-accessible slider"
 			aria-label="Execution speed control"
 			data-show-value="false"
 			name="slider1" id="slider1"
@@ -819,13 +819,13 @@
 			    style="margin-top:-8px"
 			    onclick="set_cfg('DBG_level','instruction'); save_cfg();"
 			    value="on" type="radio">
-		     <label for="radio1-instruction"><span class="hidden-xs">Instructions</span><span class="visible-xs">Instruc.</span></label>
+		     <label for="radio1-instruction" class="ui-btn-a"><span class="hidden-xs">Instructions</span><span class="visible-xs">Instruc.</span></label>
 		     <input name="radio1" id="radio1-microinstruction" 
 			    aria-label="Execution unit (microinstruction)"
 			    style="margin-top:-8px"
 			    onclick="set_cfg('DBG_level','microinstruction'); save_cfg();"
 			    value="off" type="radio">
-		     <label for="radio1-microinstruction"><span class="hidden-xs">&#181;instructions</span><span class="visible-xs">&#181;instruc.</span></label>
+		     <label for="radio1-microinstruction" class="ui-btn-a"><span class="hidden-xs">&#181;instructions</span><span class="visible-xs">&#181;instruc.</span></label>
 		 </fieldset>
           </td>
 	  <td class="collapse7 collapse in">Element in run mode</td>
@@ -836,11 +836,9 @@
 	  <td class="hidden-xs" style="color:gray">execution</td>
 	  <td>Breakpoint Icon</td>
 	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		    <img alt="stop icon" id="img_select1" src="images/stop_classic.gif" 
-			 style="position:relative; left:10px; height:30px !important; width:30px !important;">
-		    <select data-native-menu="false"
-                            name="select1" id="select1" 
+		 <div class="form-group">
+		    <select data-native-menu="false" class="form-control"
+                            name="select1" id="select1" data-role="none"
 			    aria-label="Breakpoint Icon"
 			    onchange="var opt = $(this).find('option:selected');
 				      var optValue = opt.val();
@@ -866,9 +864,12 @@
 			  <option value="vader1">Dark Vader</option>
 			</optgroup>
 		    </select>
-		 </fieldset>
+		 </div>
           </td>
-	  <td class="collapse7 collapse in">Breakpoint icon</td>
+	  <td class="collapse7 collapse in">
+		 <img alt="stop icon" id="img_select1" src="images/stop_classic.gif" 
+		      style="position:relative; left:10px; height:30px !important; width:30px !important;">
+	  </td>
 	 </tr>
 
 	 <tr>
@@ -876,20 +877,20 @@
 	  <td class="hidden-xs" style="color:gray">execution</td>
 	  <td>Limit instr.</td>
 	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		    <select name="select6" id="select6" 
-			    aria-label="max. ticks per instruction"
+		 <div class="form-group">
+		    <select name="select6" id="select6" class="form-control"
+			    aria-label="max. ticks per instruction" data-role="none"
 			    onchange="var opt = $(this).find('option:selected');
 				      var optValue = opt.val();
 				      set_cfg('DBG_limitins',optValue); save_cfg();"
 			    data-native-menu="false">
-			<option value="-1">no limit</option>
+			<option value="-1">without limit</option>
 			<option value="500"  >500</option>
 			<option value="1000"  >1000</option>
 			<option value="10000" >10000</option>
 			<option value="100000">100000</option>
 		    </select>
-		 </fieldset>
+		 </div>
           </td>
 	  <td class="collapse7 collapse in">Max. executed instr.</td>
 	 </tr>
@@ -899,20 +900,20 @@
 	  <td class="hidden-xs" style="color:gray">execution</td>
 	  <td>Limit instr. ticks</td>
 	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		    <select name="select3" id="select3" 
-			    aria-label="max. ticks per instruction"
+		 <div class="form-group">
+		    <select name="select3" id="select3" class="form-control"
+			    aria-label="max. ticks per instruction" data-role="none"
 			    onchange="var opt = $(this).find('option:selected');
 				      var optValue = opt.val();
 				      set_cfg('DBG_limitick',optValue); save_cfg();"
 			    data-native-menu="false">
-			<option value="-1">no limit</option>
+			<option value="-1">without limit</option>
 			<option value="500"  >500</option>
 			<option value="1000"  >1000</option>
 			<option value="10000" >10000</option>
 			<option value="100000">100000</option>
 		    </select>
-		 </fieldset>
+		 </div>
           </td>
 	  <td class="collapse7 collapse in">To limit clock ticks</td>
 	 </tr>
@@ -928,19 +929,19 @@
 			    style="margin-top:-8px"
 			    onclick="set_cfg('RF_display_format',16); show_rf_values(); show_states(); show_memories_values(); save_cfg();"
 			    value="on" type="radio">
-		     <label for="radio2-16">Hex.</label>
+		     <label for="radio2-16" class="ui-btn-a">Hex.</label>
 		     <input name="radio2" id="radio2-10" 
 			    aria-label="register file display format (hexadecimal)"
 			    style="margin-top:-8px"
 			    onclick="set_cfg('RF_display_format',10); show_rf_values(); show_states(); show_memories_values(); save_cfg();"
 			    value="off" type="radio">
-		     <label for="radio2-10">Dec.</label>
+		     <label for="radio2-10" class="ui-btn-a">Dec.</label>
 		     <input name="radio2" id="radio2-8"  
 			    aria-label="register file display format (octal)"
 			    style="margin-top:-8px"
 			    onclick="set_cfg('RF_display_format',8); show_rf_values(); show_states(); show_memories_values(); save_cfg();"
 			    value="off" type="radio">
-		     <label for="radio2-8">Oct.</label>
+		     <label for="radio2-8" class="ui-btn-a">Oct.</label>
 		 </fieldset>
           </td>
 	  <td rowspan="2"><img alt="register file example" 
@@ -960,13 +961,13 @@
 			    style="margin-top:-8px"
 			    onclick="set_cfg('RF_display_name','numerical'); show_rf_names(); save_cfg();"
 			    value="on" type="radio">
-		     <label for="radio3-numerical">Numbers</label>
+		     <label for="radio3-numerical" class="ui-btn-a">Numbers</label>
 		     <input name="radio3" id="radio3-logical" 
 			    aria-label="register file display name (user identification)"
 			    style="margin-top:-8px"
 			    onclick="set_cfg('RF_display_name','logical'); show_rf_names(); save_cfg();"
 			    value="off" type="radio">
-		     <label for="radio3-logical">Labels</label>
+		     <label for="radio3-logical" class="ui-btn-a">Labels</label>
 		 </fieldset>
           </td>
 	 </tr>
@@ -1018,13 +1019,13 @@
 			    style="margin-top:-8px"
 			    onclick="set_cfg('is_interactive',true); save_cfg();"
 			    value="on" type="radio">
-		     <label for="radio5-true">On</label>
+		     <label for="radio5-true" class="ui-btn-a">On</label>
 		     <input name="radio5" id="radio5-false" 
 			    aria-label="Is interactive: false"
 			    style="margin-top:-8px"
 			    onclick="set_cfg('is_interactive',false); save_cfg();"
 			    value="off" type="radio">
-		     <label for="radio5-false">Off</label>
+		     <label for="radio5-false" class="ui-btn-a">Off</label>
 		 </fieldset>
           </td>
 	  <td class="collapse7 collapse in">Interactive Mode</td>
@@ -1041,13 +1042,13 @@
 			    style="margin-top:-8px"
 			    onclick="set_cfg('is_editable',true); save_cfg();"
 			    value="on" type="radio">
-		     <label for="radio9-true">On</label>
+		     <label for="radio9-true" class="ui-btn-a">On</label>
 		     <input name="radio9" id="radio9-false" 
 			    aria-label="Is editable: false"
 			    style="margin-top:-8px"
 			    onclick="set_cfg('is_editable',false); save_cfg();"
 			    value="off" type="radio">
-		     <label for="radio9-false">Off</label>
+		     <label for="radio9-false" class="ui-btn-a">Off</label>
 		 </fieldset>
           </td>
 	  <td class="collapse7 collapse in">Edit register file values</td>
@@ -1064,13 +1065,13 @@
 			    style="margin-top:-8px"
 			    onclick="set_cfg('is_byvalue',true); save_cfg(); refresh();"
 			    value="on" type="radio">
-		     <label for="radio10-true">On</label>
+		     <label for="radio10-true" class="ui-btn-a">On</label>
 		     <input name="radio10" id="radio10-false" 
 			    aria-label="Is by value: false"
 			    style="margin-top:-8px"
 			    onclick="set_cfg('is_byvalue',false); save_cfg(); refresh();"
 			    value="off" type="radio">
-		     <label for="radio10-false">Off</label>
+		     <label for="radio10-false" class="ui-btn-a">Off</label>
 		 </fieldset>
           </td>
 	  <td class="collapse7 collapse in">Show by value/activation</td>
@@ -1094,12 +1095,11 @@
 
 	</tbody>
 	</table>
-	</div>
-	</div>
 
-   </div>
-
-</div><!-- /popup -->
+	   </div>
+	</div>
+     </div>
+</div> <!-- /.modal -->
 
 
 <div data-role="popup" id="bin1" 
@@ -1551,8 +1551,8 @@
 		    jQuery.fx.off = true;
                     ko.options.deferUpdates = true;
 
-		    $("#bin1").enhanceWithin().popup();
-		    $("#config1").enhanceWithin().popup();
+		    $("#bin1").enhanceWithin().popup() ;
+		    $("#table-config2").enhanceWithin() ;
 
 		    $("#actions_panel").panel().enhanceWithin();
 		    $(".ui-slider-input").hide();
@@ -1631,11 +1631,11 @@
 		    $("#radio9-" +       get_cfg('is_editable')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio10-" +       get_cfg('is_byvalue')).prop('checked', true).checkboxradio("refresh") ;
 		    $("#radio11-" +        get_cfg('use_voice')).prop('checked', true).checkboxradio("refresh") ;
-                    $("#select1").val(get_cfg('ICON_theme')).selectmenu("refresh");
-                    $("#select2").val(get_cfg('editor_mode')).selectmenu("refresh");
-                    $("#select6").val(get_cfg('DBG_limitins')).selectmenu("refresh");
-                    $("#select3").val(get_cfg('DBG_limitick')).selectmenu("refresh");
-                    $("#select4").val(get_cfg('ws_mode')).selectmenu("refresh");
+                    $("#select1").val(get_cfg('ICON_theme')) ;
+                    $("#select2").val(get_cfg('editor_mode')) ;
+                    $("#select6").val(get_cfg('DBG_limitins')) ;
+                    $("#select3").val(get_cfg('DBG_limitick')) ;
+                    $("#select4").val(get_cfg('ws_mode')) ;
                     $("#slider1").val(1000 / (get_cfg('DBG_delay')+0.01)).slider("refresh");
                     $("#slider3").val(get_cfg('NOTIF_delay')).slider("refresh");
                     $("#img_select1").attr("src","images/stop_" + get_cfg('ICON_theme') + ".gif");
