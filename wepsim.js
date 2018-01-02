@@ -154,13 +154,12 @@
                                  "<br>WARNING: loading binary might take time on slow mobile devices." +
                                  "</center>");
         $(popup_content_id).css({width:"100%",height:"inherit !important"});
-	$(popup_id).popup('open');
+	$(popup_id).modal('show');
 
 	setTimeout(function(){
 			var SIMWARE = get_simware() ;
 
 			$(popup_content_id).html(mp2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg));
-			$(popup_id).popup("reposition", {positionTo: 'window'});
 
 			for (var skey in SIMWARE.seg) {
 			     $("#compile_begin_" + skey).html("0x" + SIMWARE.seg[skey].begin.toString(16));
@@ -177,7 +176,7 @@
                                  "<br>WARNING: loading binary might take time on slow mobile devices." +
                                  "</center>");
         $(popup_content_id).css({width:"100%",height:"inherit !important"});
-	$(popup_id).popup('open');
+	$(popup_id).modal('show');
 
 	setTimeout(function() {
 			var SIMWARE = get_simware() ;
@@ -186,7 +185,6 @@
 
 			$(popup_id).enhanceWithin();
 			$(popup_id).trigger('updatelayout');
-			$(popup_id).popup("reposition", {positionTo: 'window'});
 			$(popup_id).trigger('refresh');
                    }, 300);
     }
@@ -1532,10 +1530,10 @@
 
                'help':                     wepsim_open_help_index,
                'examples':                 wepsim_open_examples_index,
-               'configuration':            function() { $('#config1').popup('open'); },
+               'configuration':            function() { $('#config2').modal('show'); },
                'close':                    function() { wepsim_close_help(); 
 		                                        wepsim_close_examples(); 
-		                                        $('#config1').popup('close'); }
+		                                        $('#config2').modal('show'); }
          };
          annyang.addCommands(commands);
          annyang.addCallback('errorNetwork', 
