@@ -8,9 +8,7 @@
 
 + WepSIM Simulator Source Code:
 
-   * https://github.com/wepsim/wepsim
-   * GNU Lesser General Public License version 3
-
+   * https://github.com/acaldero/wepsim
 
 + Get WepSIM Simulator:
 
