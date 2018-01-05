@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015-2017 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  * 
@@ -31,8 +31,8 @@ function read_microprg ( context )
 	   //           (A0, B=0, C=0)
 	   // }
 
-           var microprograma = new Array();
-           var microcomments = new Array();
+           var microprograma = [];
+           var microcomments = [];
            resetComments(context) ;
 
 	   // match mandatory {
@@ -42,7 +42,7 @@ function read_microprg ( context )
            nextToken(context) ;
 	   while (! isToken(context, "}") )
 	   {
-	       var microInstruccionAux = new Object();
+	       var microInstruccionAux = {};
 
 	       // match optional etiq:
 	       if (! isToken(context, "(") )
@@ -88,7 +88,7 @@ function read_microprg ( context )
 
                         nextToken(context) ;
 			// match mandatory VALUE
-			var labelsNotFoundAux=new Object();
+			var labelsNotFoundAux={};
 			labelsNotFoundAux["nombre"] = getToken(context) ;
 			labelsNotFoundAux["cycle"]  = microprograma.length;
 			labelsNotFoundAux["index"]  = context.i;
@@ -175,8 +175,8 @@ function read_microprg ( context )
 
 function read_native ( context )
 {
-           var microprograma = new Array();
-           var microcomments = new Array();
+           var microprograma = [];
+           var microcomments = [];
 
 	   // match mandatory {
 	   if (! isToken(context, "{") )
@@ -185,7 +185,7 @@ function read_native ( context )
 	   // read the rest...
 	   nextNative(context) ;
 
-	   var microInstruccionAux = new Object() ;
+	   var microInstruccionAux = {} ;
 	   microInstruccionAux["NATIVE"] = getToken(context) ;
 
 	   microprograma.push(microInstruccionAux) ;
@@ -200,24 +200,24 @@ function read_native ( context )
 
 function loadFirmware (text)
 {
-           var context = new Object() ;
+           var context = {} ;
 	   context.line           	= 1 ;
 	   context.error          	= null ;
 	   context.i              	= 0 ;
 	   context.contadorMC     	= 0 ;
-	   context.etiquetas      	= new Object() ;
-	   context.labelsNotFound 	= new Array() ;
-	   context.instrucciones  	= new Array() ;
-	   context.co_cop         	= new Object() ;
-	   context.registers      	= new Array() ;
+	   context.etiquetas      	= {} ;
+	   context.labelsNotFound 	= [] ;
+	   context.instrucciones  	= [] ;
+	   context.co_cop         	= {} ;
+	   context.registers      	= [] ;
            context.text           	= text ;
-	   context.tokens         	= new Array() ;
-	   context.token_types         	= new Array() ;
+	   context.tokens         	= [] ;
+	   context.token_types         	= [] ;
 	   context.t              	= 0 ;
-	   context.newlines       	= new Array() ;
-	   context.pseudoInstructions	= new Array();
+	   context.newlines       	= [] ;
+	   context.pseudoInstructions	= [];
 	   context.stackRegister	= null ;
-           context.comments             = new Array() ;
+           context.comments             = [] ;
 
            nextToken(context) ;
            while (context.t < context.text.length)
@@ -291,17 +291,17 @@ function loadFirmware (text)
 			nextToken(context);
 			while (! isToken(context, "}"))
 			{
-				var pseudoInstructionAux = new Object();			
-				var pseudoInitial	 = new Object();
+				var pseudoInstructionAux = {};			
+				var pseudoInitial	 = {};
 				pseudoInitial.signature	 = "";
 				pseudoInitial.name	 = "";
-				pseudoInitial.fields	 = new Array();
+				pseudoInitial.fields	 = [];
 				pseudoInitial.name	 = getToken(context);
 				pseudoInitial.signature	 = pseudoInitial.signature + getToken(context) + "," ;
 				nextToken(context);
 				while (! isToken(context, "{"))
 				{
-					var pseudoFieldAux	  = new Object();
+					var pseudoFieldAux	  = {};
 					pseudoFieldAux.name	  = getToken(context);
 					pseudoFieldAux.type	  = getToken(context).replace("num", "inm");
 					pseudoFieldAux.type       = pseudoFieldAux.type.replace(/[_0-9]+$/, '');
@@ -327,7 +327,7 @@ function loadFirmware (text)
 				pseudoInstructionAux["initial"]=pseudoInitial;	
 				var contPseudoFinish=0;
 
-				var pseudoFinishAux = new Object();
+				var pseudoFinishAux = {};
 				pseudoFinishAux.signature="";
 				
 				var inStart = 0;
@@ -372,7 +372,7 @@ function loadFirmware (text)
 
                if (isToken(context,"begin"))
                {
-                   var instruccionAux = new Object();
+                   var instruccionAux = {};
                    instruccionAux["name"]     = getToken(context) ;
                    instruccionAux["mc-start"] = context.contadorMC ;
 
@@ -426,7 +426,7 @@ function loadFirmware (text)
 //             }
 // }
 
-               var instruccionAux = new Object();
+               var instruccionAux = {};
 	       instruccionAux["name"]     = getToken(context) ;
 	       instruccionAux["mc-start"] = context.contadorMC ;
 
@@ -438,7 +438,7 @@ function loadFirmware (text)
 	       var firmaGlobal= "";
 	       var firmaUsuario= "";
 	       var numeroCampos = 0;
-	       var campos = new Array();
+	       var campos = [];
 
 	       firma = getToken(context)  + ',';
 	       firmaUsuario = getToken(context) + " ";
@@ -459,7 +459,7 @@ function loadFirmware (text)
                    // match optional FIELD
 		   if ( !isToken(context, ",") && !isToken(context, "(") && !isToken(context, ")") )
                    {
-		       var campoAux = new Object();
+		       var campoAux = {};
 		       var auxValue = getToken(context);
 		       
 		       if (auxValue[auxValue.length-1] == "+") 
@@ -497,7 +497,7 @@ function loadFirmware (text)
 
 			   if ( !isToken(context, ",") && !isToken(context, "(") && !isToken(context, ")") )
 			   {
-			       var campoAux = new Object();
+			       var campoAux = {};
 			       campoAux["name"] = getToken(context) ;
 			       campos.push(campoAux);
 			       numeroCampos++;
@@ -580,7 +580,7 @@ function loadFirmware (text)
 
              if (typeof context.co_cop[instruccionAux.co] == "undefined")
 	           {
-	               context.co_cop[instruccionAux.co] = new Object() ;
+	               context.co_cop[instruccionAux.co] = {} ;
    	             context.co_cop[instruccionAux.co].signature = instruccionAux.signature ;
                  context.co_cop[instruccionAux.co].cop       = null ;
 	           }
@@ -626,7 +626,7 @@ function loadFirmware (text)
 			     "'co+cop' is already been used by: " + context.co_cop[instruccionAux.co].cop[instruccionAux.cop]);
 		       }
 	               if (context.co_cop[instruccionAux.co].cop == null)
-	                   context.co_cop[instruccionAux.co].cop = new Object();
+	                   context.co_cop[instruccionAux.co].cop = {};
 	                   context.co_cop[instruccionAux.co].cop[instruccionAux.cop] = instruccionAux.signature ;
 
 		       nextToken(context);
@@ -674,7 +674,7 @@ function loadFirmware (text)
 // }
 
 	       var camposInsertados = 0;
-               var overlapping = new Object();
+               var overlapping = {};
 	       while (camposInsertados < numeroCampos)
 	       {
 	           // match mandatory FIELD
@@ -876,7 +876,7 @@ function loadFirmware (text)
 
                         context.instrucciones[i].co = label ;
 
-	                context.co_cop[label] = new Object() ;
+	                context.co_cop[label] = {} ;
    	                context.co_cop[label].signature = context.instrucciones[i].signature ;
                         context.co_cop[label].cop       = null ;
 
@@ -932,12 +932,12 @@ function loadFirmware (text)
 	   }
 	   eval(mk_native) ;
 
-           var ret = new Object();
+           var ret = {};
            ret.error              = null;
            ret.firmware           = context.instrucciones ;
            ret.labels_firm        = context.etiquetas;
-           ret.mp                 = new Object();
-           ret.seg                = new Object();
+           ret.mp                 = {};
+           ret.seg                = {};
            ret.registers          = context.registers ;
            ret.pseudoInstructions = context.pseudoInstructions ;
 	   ret.stackRegister	  = context.stackRegister;

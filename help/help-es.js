@@ -1,7 +1,7 @@
 
-        help['es'] = new Array();
+        help.es = [] ;
 
-    help['es'].push({
+    help.es.push({
                      id:          "simulator",
                      title:       "Uso del simulador",
                      type:        "relative",
@@ -9,7 +9,7 @@
                      description: "Descripción de cómo funciona el simulador.<br>"
                   });
 
-    help['es'].push({
+    help.es.push({
                      id:          "microcode",
                      title:       "Formato del microcódigo",
                      type:        "relative",
@@ -17,7 +17,7 @@
                      description: "Sintáxis del microcódigo usado.<br>"
                   });
 
-    help['es'].push({
+    help.es.push({
                      id:          "assembly",
                      title:       "Formato del ensamblador",
                      type:        "relative",
@@ -25,7 +25,7 @@
                      description: "Sintáxis del ensamblador.<br>"
                   });
 
-    help['es'].push({
+    help.es.push({
                      id:          "architecture",
                      title:       "Arquitectura del simulador",
                      type:        "relative",
@@ -33,7 +33,7 @@
                      description: "Descripción de la arquitectura del procesador elemental.<br>"
                   });
 
-    help['es'].push({
+    help.es.push({
                      id:          "architecture",
                      title:       "Señales simuladas",
                      type:        "absolute",
@@ -41,7 +41,7 @@
                      description: "Resumen de las señales principales del procesador elemental.<br>"
                   });
 
-    help['es'].push({
+    help.es.push({
                      id:          "architecture",
                      title:       "Resumen del Hardware",
                      type:        "code",
@@ -49,7 +49,7 @@
                      description: "Resumen del hardware del procesador elemental simulado.<br>"
                   });
 
-    help['es'].push({
+    help.es.push({
                      id:          "simulator",
                      title:       "Dependencias de las señales",
                      type:        "code",
@@ -58,7 +58,7 @@
                      description: "Gráfico de las dependencias entre señales (puede necesitar varios segundos para generarse).<br>"
                   });
 
-    help['es'].push({
+    help.es.push({
                      id:          "about",
                      title:       "Licencia, plataformas, etc.",
                      type:        "absolute",
@@ -66,7 +66,7 @@
                      description: "Licencia de WepSIM, plataformas disponibles, tecnologías usadas.<br>"
                   });
 
-    help['es'].push({
+    help.es.push({
                      id:          "simulator",
                      title:       "Tutorial de bienvenida",
                      type:        "code",
@@ -75,7 +75,7 @@
                      description: "Tutorial de bienvenida, puede activarse en la configuraci&oacute;n.<br>"
                   });
 
-    help['es'].push({
+    help.es.push({
                      id:          "simulator",
                      title:       "Tutorial simple de uso",
                      type:        "code",

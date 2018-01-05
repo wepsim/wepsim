@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015-2017 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  * 
@@ -25,20 +25,25 @@
 
 function nextToken ( context )
 {
+	  var tok   = "" ;
+	  var first = "" ;
+	  var last  = "" ;
+          var token_type = "" ;
+
           // skip whitespaces
           while ( ("# \t\n\r".indexOf(context.text[context.t]) != -1) && (context.t < context.text.length) )
           {
                  // # till end of line
                  if (context.text[context.t] == '#') 
                  {
-		     var first = context.t + 1 ;
+		     first = context.t + 1 ;
 		     while ( ("\n".indexOf(context.text[context.t]) == -1) && (context.t < context.text.length) ) {
 		    	      context.t++;
 		     }
-		     var last = context.t ;
+		     last = context.t ;
 
                      // store the comment but do not return it as token
-                     var tok  = context.text.substring(first, last) ;
+                     tok = context.text.substring(first, last) ;
 	             tok = tok.trim() ;
 		     context.comments.push(tok) ;
                  }
@@ -55,7 +60,7 @@ function nextToken ( context )
           // if {},()=: token, insert token
           if ( ("{},()=:".indexOf(context.text[context.t]) != -1) && (context.t < context.text.length) )
           {
-               var tok = context.text[context.t] ;
+               tok = context.text[context.t] ;
                context.t++ ;
                context.tokens.push(tok) ;
                context.token_types.push("TOKEN") ;
@@ -67,7 +72,7 @@ function nextToken ( context )
           if ("\"" == context.text[context.t])
           {
 		  // read until "
-		  var first = context.t ;
+		  first = context.t ;
                   context.t++ ;
 		  while ( ("\"".indexOf(context.text[context.t]) == -1) && (context.t < context.text.length) ) {
                          if ("\\".indexOf(context.text[context.t]) != -1)
@@ -75,14 +80,14 @@ function nextToken ( context )
 			 context.t++;
 		  }
 		  context.t++ ;
-		  var last = context.t ;
+		  last = context.t ;
 
-	          var token_type = "STRING" ;
+	          token_type = "STRING" ;
           }
           else if("'" == context.text[context.t])
           {
 		  // read until '
-		  var first = context.t ;
+		  first = context.t ;
                   context.t++ ;
 		  while ( ("'".indexOf(context.text[context.t]) == -1) && (context.t < context.text.length) ) {
                          if ("\\".indexOf(context.text[context.t]) != -1)
@@ -90,20 +95,20 @@ function nextToken ( context )
 			 context.t++;
 		  }
 		  context.t++ ;
-		  var last = context.t ;
+		  last = context.t ;
 
-	          var token_type = "STRING" ;
+	          token_type = "STRING" ;
           }
           else
           {
 		  // read until whitespaces
-		  var first = context.t ;
+		  first = context.t ;
 		  while ( ("{},()=:# \t\n\r".indexOf(context.text[context.t]) == -1) && (context.t < context.text.length) ) {
 			 context.t++;
 		  }
-		  var last = context.t ;
+		  last = context.t ;
 
-	          var token_type = "TOKEN" ;
+	          token_type = "TOKEN" ;
           }
 
           // try to explore if a ":" is near...
@@ -125,7 +130,7 @@ function nextToken ( context )
              }
 
           // insert token
-          var tok  = context.text.substring(first, last) ;
+          tok = context.text.substring(first, last) ;
 	  tok = tok.trim() ;
           if ("TAG" == token_type)
               tok = tok + ":" ;
@@ -217,7 +222,7 @@ function getComments ( context )
 
 function resetComments ( context )
 {
-        context.comments = new Array() ;
+        context.comments = [] ;
 }
 
 

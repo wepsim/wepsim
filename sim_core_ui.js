@@ -1,5 +1,5 @@
 /*     
- *  Copyright 2015-2017 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -238,7 +238,8 @@
 
         function refresh()
         {
-	    for (var key in sim_signals) {
+	    for (var key in sim_signals) 
+	    {
 		 update_draw(sim_signals[key], sim_signals[key].value) ;
                  check_buses(key);
 	    }
@@ -442,8 +443,8 @@
 
         function fullshow_rf_values ( )
         {
-            // if ($("#states_BR").is(":visible") == false)
-            //     return ;
+	    if (typeof document == "undefined")
+	        return ;
 
             var SIMWARE = get_simware() ;
 
@@ -545,6 +546,9 @@
 
         function fullshow_eltos ( sim_eltos, filter )
         {
+	    if (typeof document == "undefined")
+	        return ;
+
             for (var i=0; i<filter.length; i++)
             {
                 var r = filter[i].split(",") ;
@@ -597,17 +601,22 @@
 
         function ko_observable ( initial_value )
         {
-            return ko.observable(initial_value).extend({ rateLimit: cfg_show_rf_refresh_delay });
+	    if (typeof ko != "undefined") 
+                 return ko.observable(initial_value).extend({rateLimit: cfg_show_rf_refresh_delay}) ;
+	    else return initial_value ;
         }
 
         function init_io ( jqdiv )
         {
+	    // without ui...
             if (jqdiv == "")
-            {       // without ui
-		    for (var i=0; i<IO_INT_FACTORY.length; i++) {
-			 IO_INT_FACTORY[i].accumulated = ko.observable(IO_INT_FACTORY[i].accumulated) ;
-			 IO_INT_FACTORY[i].active      = ko.observable(IO_INT_FACTORY[i].active) ;
+            {
+		    for (var i=0; i<IO_INT_FACTORY.length; i++) 
+		    {
+		       IO_INT_FACTORY[i].accumulated = ko_observable(IO_INT_FACTORY[i].accumulated) ;
+		       IO_INT_FACTORY[i].active      = ko_observable(IO_INT_FACTORY[i].active) ;
                     }
+
                     return ;
             }
 
@@ -632,8 +641,8 @@
             // knockout binding
             for (var i=0; i<IO_INT_FACTORY.length; i++)
             {
-                 IO_INT_FACTORY[i].accumulated = ko.observable(IO_INT_FACTORY[i].accumulated) ;
-                 IO_INT_FACTORY[i].active      = ko.observable(IO_INT_FACTORY[i].active) ;
+                 IO_INT_FACTORY[i].accumulated = ko_observable(IO_INT_FACTORY[i].accumulated) ;
+                 IO_INT_FACTORY[i].active      = ko_observable(IO_INT_FACTORY[i].active) ;
                  var ko_context = document.getElementById('int' + i + '_context');
                  ko.applyBindings(IO_INT_FACTORY[i], ko_context);
             }
@@ -641,11 +650,13 @@
 
         function init_cpu ( jqdiv )
         {
+	    // without ui
             if (jqdiv == "")
-            {       // without ui
-		    sim_states['CLK'].value = ko.observable(sim_states['CLK'].value);
-		    sim_states['DECO_INS'].value = ko.observable(sim_states['DECO_INS'].value);
-                    return ;
+            {       
+		sim_states['CLK'].value      = ko_observable(sim_states['CLK'].value);
+		sim_states['DECO_INS'].value = ko_observable(sim_states['DECO_INS'].value);
+
+                return ;
             }
 
             // stats holder
@@ -668,11 +679,11 @@
             $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
 
             // knockout binding
-            sim_states['CLK'].value = ko.observable(sim_states['CLK'].value);
+            sim_states['CLK'].value = ko_observable(sim_states['CLK'].value);
             var ko_context = document.getElementById('clk_context');
             ko.applyBindings(sim_states['CLK'], ko_context);
 
-            sim_states['DECO_INS'].value = ko.observable(sim_states['DECO_INS'].value);
+            sim_states['DECO_INS'].value = ko_observable(sim_states['DECO_INS'].value);
             var ko_context = document.getElementById('ins_context');
             ko.applyBindings(sim_states['DECO_INS'], ko_context);
         }
@@ -682,9 +693,10 @@
             // without ui
             if (jqdiv == "")
             {
-		    for (var i=0; i<IO_INT_FACTORY.length; i++) {
-			 IO_INT_FACTORY[i].period = ko_observable(IO_INT_FACTORY[i].period) ;
-			 IO_INT_FACTORY[i].probability = ko_observable(IO_INT_FACTORY[i].probability) ;
+		    for (var i=0; i<IO_INT_FACTORY.length; i++) 
+		    {
+		        IO_INT_FACTORY[i].period      = ko_observable(IO_INT_FACTORY[i].period);
+		        IO_INT_FACTORY[i].probability = ko_observable(IO_INT_FACTORY[i].probability);
 		    }
 
 		    MP_wc = ko_observable(MP_wc) ;
@@ -794,9 +806,6 @@
 
         function show_main_memory ( memory, index, redraw, updates )
         {
-            // if ($("#memory_MP").is(":visible") == false)
-            //     return ;
-
             if (get_cfg('DBG_delay') > 5) 
                 show_main_memory_redraw  = redraw || show_main_memory_redraw ;
 
@@ -818,6 +827,9 @@
 
         function hard_refresh_main_memory ( memory, index, redraw )
         {
+	    if (typeof document == "undefined")
+	        return ;
+
 	    var o1 = "" ;
             var value = "" ;
             var sname = "" ;
@@ -958,6 +970,9 @@
 
         function hard_refresh_control_memory ( memory, memory_dashboard, index, redraw )
         {
+	    if (typeof document == "undefined")
+	        return ;
+
 	    var o1 = "" ;
             var value = "" ;
             var icon_theme = get_cfg('ICON_theme') ;
@@ -1049,9 +1064,6 @@
 
         function light_refresh_control_memory ( memory, memory_dashboard, index )
         {
-            // if ($("#memory_MC").is(":visible") == false)
-            //     return ;
-
             o1 = $("#maddr" + old_mc_addr) ;
             o1.css('color', 'black') ;
             o1.css('font-weight', 'normal') ;
@@ -1099,6 +1111,9 @@
 
 	function fullshow_asmdbg_pc ( )
 	{
+		if (typeof document == "undefined")
+		    return ;
+
                 var o1 = null ;
                 var reg_pc    = get_value(sim_states["REG_PC"]) ;
                 var curr_addr = "0x" + reg_pc.toString(16) ;
@@ -1190,6 +1205,9 @@
 
 	function fullshow_dbg_ir ( decins )
 	{
+	     if (typeof document == "undefined")
+	         return ;
+
 	     var o = document.getElementById('svg_p');
 	     if (o != null) o = o.contentDocument;
 	     if (o != null) o = o.getElementById('tspan3899');
@@ -1206,7 +1224,9 @@
 
 	function get_screen_content ( )
 	{
-		 var scrobj = document.getElementById("kdb_con") ;
+		 var scrobj = null ;
+                 if (typeof document != "undefined")
+		     scrobj = document.getElementById("kdb_con") ;
                  if (scrobj != null)
 		     screen_content = scrobj.value ;
 
@@ -1215,7 +1235,9 @@
 
 	function set_screen_content ( screen )
 	{
-		 var scrobj = document.getElementById("kdb_con") ;
+		 var scrobj = null ;
+                 if (typeof document != "undefined")
+		     scrobj = document.getElementById("kdb_con") ;
                  if (scrobj != null)
 		     scrobj.value = screen ;
 

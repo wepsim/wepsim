@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2017 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -80,7 +80,7 @@
                     if (null != do_next)
                         do_next(textFromFileLoaded);
 		}
-	}
+	} ;
 
 	xmlhttp.open("GET", url, true);
 	xmlhttp.send();
@@ -90,16 +90,14 @@
      * Microcompile and compile
      */
 
-    function wepsim_compile_assembly ( textToCompile, with_ui )
+    function wepsim_compile_assembly ( textToCompile )
     {
         // get SIMWARE.firmware
         var SIMWARE = get_simware() ;
 	if (SIMWARE.firmware.length == 0)
         {
-            if (with_ui) {
-                alert('WARNING: please load the microcode first.');
-                $.mobile.pageContainer.pagecontainer('change','#main3');
-            }
+            alert('WARNING: please load the microcode first.');
+            $.mobile.pageContainer.pagecontainer('change','#main3');
             return false;
 	}
 
@@ -107,49 +105,38 @@
         var SIMWAREaddon = simlang_compile(textToCompile, SIMWARE);
         if (SIMWAREaddon.error != null)
         {
-            if (with_ui)
-                showError(SIMWAREaddon.error, "inputasm") ;
-
+            showError(SIMWAREaddon.error, "inputasm") ;
             return false;
         }
 
-        if (with_ui) {
-            wepsim_notify_success('<strong>INFO</strong>', 
-                                  'Assembly was compiled and loaded.') ;
-	}
+        wepsim_notify_success('<strong>INFO</strong>', 
+                              'Assembly was compiled and loaded.') ;
 
         // update memory and segments
         set_simware(SIMWAREaddon) ;
 	update_memories(SIMWARE);
 
         // update UI
-        if (with_ui) {
-            $("#asm_debugger").html(assembly2html(SIMWAREaddon.mp,
-                                                  SIMWAREaddon.labels2,
-                                                  SIMWAREaddon.seg,
-                                                  SIMWAREaddon.assembly));
-            showhideAsmElements();
-        }
+        $("#asm_debugger").html(assembly2html(SIMWAREaddon.mp, SIMWAREaddon.labels2,
+                                              SIMWAREaddon.seg, SIMWAREaddon.assembly));
+        showhideAsmElements();
 
 	reset();
         return true;
     }
 
-    function wepsim_compile_firmware ( textToMCompile, with_ui )
+    function wepsim_compile_firmware ( textToMCompile )
     {
 	var preSM = load_firmware(textToMCompile) ;
 	if (preSM.error != null)
         {
-            if (with_ui)
-                showError(preSM.error, "inputfirm") ;
+            showError(preSM.error, "inputfirm") ;
             return false;
         }
 
         // update UI
-        if (with_ui) {
-            wepsim_notify_success('<strong>INFO</strong>', 
-                                  'Microcode was compiled and loaded.') ;
-        }
+        wepsim_notify_success('<strong>INFO</strong>', 
+                              'Microcode was compiled and loaded.') ;
 
 	reset() ;
         return true;
@@ -167,15 +154,14 @@
                                  "<br>WARNING: loading binary might take time on slow mobile devices." +
                                  "</center>");
         $(popup_content_id).css({width:"100%",height:"inherit !important"});
-	$(popup_id).popup('open');
+	$(popup_id).modal('show');
 
 	setTimeout(function(){
 			var SIMWARE = get_simware() ;
 
 			$(popup_content_id).html(mp2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg));
-			$(popup_id).popup("reposition", {positionTo: 'window'});
 
-			for (skey in SIMWARE.seg) {
+			for (var skey in SIMWARE.seg) {
 			     $("#compile_begin_" + skey).html("0x" + SIMWARE.seg[skey].begin.toString(16));
 			     $("#compile_end_"   + skey).html("0x" + SIMWARE.seg[skey].end.toString(16));
 			}
@@ -190,7 +176,7 @@
                                  "<br>WARNING: loading binary might take time on slow mobile devices." +
                                  "</center>");
         $(popup_content_id).css({width:"100%",height:"inherit !important"});
-	$(popup_id).popup('open');
+	$(popup_id).modal('show');
 
 	setTimeout(function() {
 			var SIMWARE = get_simware() ;
@@ -199,7 +185,6 @@
 
 			$(popup_id).enhanceWithin();
 			$(popup_id).trigger('updatelayout');
-			$(popup_id).popup("reposition", {positionTo: 'window'});
 			$(popup_id).trigger('refresh');
                    }, 300);
     }
@@ -441,7 +426,7 @@
 
     function wepsim_check_stopbybreakpoint_firm ( )
     {
-        var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
+        var reg_maddr = get_value(sim_states.REG_MICROADDR) ;
         var curr_addr = "0x" + reg_maddr.toString(16) ;
 
         if (typeof MC_dashboard[reg_maddr] == "undefined") {
@@ -453,7 +438,7 @@
 
     function wepsim_check_stopbybreakpoint_asm ( )
     {
-	var reg_pc    = get_value(sim_states["REG_PC"]) ;
+	var reg_pc    = get_value(sim_states.REG_PC) ;
 	var curr_addr = "0x" + reg_pc.toString(16) ;
 
 	if (typeof FIRMWARE.assembly[curr_addr] == "undefined") {
@@ -465,9 +450,9 @@
 
     function wepsim_show_stopbyevent ( msg1, msg2 )
     {
-        var reg_maddr  = get_value(sim_states["REG_MICROADDR"]) ;
+        var reg_maddr  = get_value(sim_states.REG_MICROADDR) ;
 	var curr_maddr = "0x" + reg_maddr.toString(16) ;
-	var reg_pc     = get_value(sim_states["REG_PC"]) ;
+	var reg_pc     = get_value(sim_states.REG_PC) ;
 	var curr_addr  = "0x" + reg_pc.toString(16) ;
 
 	var dialog_title = msg1 + " @ pc=" + curr_addr + "+mpc=" + curr_maddr + ":<br>" + msg2 ;
@@ -480,7 +465,7 @@
 
     function wepsim_check_state_firm ( )
     {
-        var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
+        var reg_maddr = get_value(sim_states.REG_MICROADDR) ;
         if (false == MC_dashboard[reg_maddr].state)
             return false ;
 
@@ -491,12 +476,13 @@
     function wepsim_execute_chunk ( btn1, chunk )
     {
 	var ret = false ;
+        var i = 0 ;
 
 	var playlevel = get_cfg('DBG_level') ;
 	if (playlevel == "instruction")  
 	{
             var clklimit  = get_cfg('DBG_limitick') ;
-            for (var i=0; i<chunk; i++)
+            for (i=0; i<chunk; i++)
             {
 		    ret = execute_microprogram(clklimit) ;
 		    if (ret.ok === false) {
@@ -516,7 +502,7 @@
 	else
 	{
 	    var reg_maddr = 0 ;
-            for (var i=0; i<chunk; i++)
+            for (i=0; i<chunk; i++)
             {
 		    wepsim_check_state_firm() ;
 
@@ -535,7 +521,7 @@
 			return false ;
 		    }
 
-		    reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
+		    reg_maddr = get_value(sim_states.REG_MICROADDR) ;
                     if (0 == reg_maddr) 
                     {
 		        ret = wepsim_check_stopbybreakpoint_asm() ;
@@ -561,6 +547,9 @@
 
     function wepsim_execute_chainplay ( btn1 )
     {
+	var t0 = 1.0 ;
+	var t1 = 1.0 ;
+
 	if (DBG_stop) {
 	    wepsim_execute_stop(btn1) ;
 	    return ;
@@ -570,14 +559,14 @@
 	if (get_cfg('DBG_delay') < 5)
             turbo = max_turbo ;
         if (max_turbo == 5) 
-            var t0 = performance.now() ;
+            t0 = performance.now() ;
 
         var ret = wepsim_execute_chunk(btn1, turbo) ;
         if (false == ret)
             return ;
 
         if (max_turbo == 5) 
-            var t1 = performance.now() ;
+            t1 = performance.now() ;
         if (max_turbo == 5) 
             max_turbo = 3000/(t1-t0) ;
 
@@ -602,22 +591,22 @@
 	var ret = false ;
         for (var i=0; i<max_turbo; i++)
         {
-		var ret = execute_microinstruction() ;
+		ret = execute_microinstruction() ;
 		if (false == ret.ok) {
 		    wepsim_show_stopbyevent("Info", ret.msg) ;
 		    wepsim_execute_stop(btn1) ;
 		    return ;
 		}
 
-		var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
+		var reg_maddr = get_value(sim_states.REG_MICROADDR) ;
 		var notifications = MC_dashboard[reg_maddr].notify.length ;
 		if (notifications > 1) 
                 {
 		    var dialog_title = "Notify @ " + reg_maddr + ": " + MC_dashboard[reg_maddr].notify[1] ;
 
 		    var dialog_msg = "" ;
-		    for (var i=1; i<notifications; i++) {
-			 dialog_msg += MC_dashboard[reg_maddr].notify[i] + "\n<br>" ;
+		    for (var k=1; k<notifications; k++) {
+			 dialog_msg += MC_dashboard[reg_maddr].notify[k] + "\n<br>" ;
 		    }
 
 		    bootbox.confirm({
@@ -764,17 +753,17 @@
      * Check state
      */
 
-    var state_history = new Array() ;
+    var state_history = [] ;
 
     function wepsim_state_history_reset ( )
     {
-        state_history = new Array() ;
+        state_history = [] ;
     }
 
     function wepsim_state_history_add ( )
     {
-        var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
-        var reg_clk   = get_value(sim_states["CLK"]) ;
+        var reg_maddr = get_value(sim_states.REG_MICROADDR) ;
+        var reg_clk   = get_value(sim_states.CLK) ;
         var state_obj = wepsim_current2state() ;
         var state_str = wepsim_state2checklist(state_obj) ;
         var timestamp = new Date().getTime() ;
@@ -876,7 +865,7 @@
 	      }
               ga('send', 'event', 'state', 
 	         'state.dump', 
-	         'state.dump' + '.ci=' + get_value(sim_states['REG_IR_DECO']) +
+	         'state.dump' + '.ci=' + get_value(sim_states.REG_IR_DECO) +
 		                ',neltos=' + neltos + 
 		                ga_str);
 
@@ -888,18 +877,19 @@
         var obj_result = wepsim_diff_results(obj_chklst_expected, obj_chklst_current) ;
 
         // dialog
+        var msg = "" ;
         if (0 == obj_result.errors)
-    	     var msg = "&emsp;<span style='background-color:#7CFC00'>" + 
+    	     msg = "&emsp;<span style='background-color:#7CFC00'>" + 
                        "Meets the specified requirements" + 
                        "</span><br>" ;
-        else var msg = wepsim_checkreport2html(obj_result.result, true) ;
+        else msg = wepsim_checkreport2html(obj_result.result, true) ;
 
         $('#' + id_result).html(msg);
 
         // ga
         ga('send', 'event', 'state', 
 	   'state.check', 
-	   'state.check' + ',ci=' + get_value(sim_states['REG_IR_DECO']) +
+	   'state.check' + ',ci=' + get_value(sim_states.REG_IR_DECO) +
 		           '.a='  + obj_result.neltos_expected +
 		           ',b='  + obj_result.neltos_obtained +
 		           ',sd=' + obj_result.errors);
@@ -947,7 +937,7 @@
                             var ok = false ;
                             var SIMWARE = get_simware() ;
 	                    if (SIMWARE.firmware.length != 0)
-                                ok = wepsim_compile_assembly(mcode, true);
+                                ok = wepsim_compile_assembly(mcode);
 
 			    if (true == ok)
 			    {
@@ -972,13 +962,14 @@
 	inputfirm.setValue("Please wait...");
 	inputfirm.refresh();
 
+	var url = "" ;
 	var mode = get_cfg('ws_mode');
 	if ('webmips' == mode) {
-	    var url = "examples/exampleMicrocodeMIPS.txt?time=" + getURLTimeStamp() ;
+	    url = "examples/exampleMicrocodeMIPS.txt?time=" + getURLTimeStamp() ;
 	    inputfirm.setOption('readOnly', true);
         }
 	else {
-	    var url = "examples/exampleMicrocode" + example_id + ".txt?time=" + getURLTimeStamp() ;
+	    url = "examples/exampleMicrocode" + example_id + ".txt?time=" + getURLTimeStamp() ;
 	    inputfirm.setOption('readOnly', false);
 	}
 
@@ -986,7 +977,7 @@
 			   inputfirm.setValue(mcode);
 			   inputfirm.refresh();
 
-			   var ok = wepsim_compile_firmware(mcode, true);
+			   var ok = wepsim_compile_firmware(mcode);
                            if (true == ok)
                            {
                                   if (true == chain_next_step)
@@ -1020,10 +1011,10 @@
                '<tbody>';
        for (var m=0; m<examples.length; m++)
        {
-	       var e_title       = examples[m]['title'] ;
-	       var e_level       = examples[m]['level'] ;
-	       var e_description = examples[m]['description'] ;
-	       var e_id          = examples[m]['id'] ;
+	       var e_title       = examples[m].title ;
+	       var e_level       = examples[m].level ;
+	       var e_description = examples[m].description ;
+	       var e_id          = examples[m].id ;
 
 	       o = o + ' <tr>' +
 		       ' <td>' + '<b>' + (m+1)   + '</b>' + '</td>' +
@@ -1071,11 +1062,11 @@
                '<tbody>';
        for (var m=0; m<helps.length; m++)
        {
-	       var e_title       = helps[m]['title'] ;
-	       var e_type        = helps[m]['type'] ;
-	       var e_reference   = helps[m]['reference'] ;
-	       var e_description = helps[m]['description'] ;
-	       var e_id          = helps[m]['id'] ;
+	       var e_title       = helps[m].title ;
+	       var e_type        = helps[m].type ;
+	       var e_reference   = helps[m].reference ;
+	       var e_description = helps[m].description ;
+	       var e_id          = helps[m].id ;
 
                var onclick_code = "" ;
                if ("relative" == e_type) 
@@ -1123,43 +1114,43 @@
                                                      $('#tab11').trigger('click');
 						     $('#select5a').selectpicker('val', 11);
                                                   }, false);
-	        var o  = ref_p.getElementById('text3029');
+	            o  = ref_p.getElementById('text3029');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab11').trigger('click');
 						     $('#select5a').selectpicker('val', 11);
                                                   }, false);
-	        var o  = ref_p.getElementById('text3031');
+	            o  = ref_p.getElementById('text3031');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab11').trigger('click');
 						     $('#select5a').selectpicker('val', 11);
                                                   }, false);
-	        var o  = ref_p.getElementById('text3001');
+	            o  = ref_p.getElementById('text3001');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab14').trigger('click');
 						     $('#select5a').selectpicker('val', 14);
                                                   }, false);
-	        var o  = ref_p.getElementById('text3775');
+	            o  = ref_p.getElementById('text3775');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab15').trigger('click');
 						     $('#select5a').selectpicker('val', 15);
                                                   }, false);
-	        var o  = ref_p.getElementById('text3829');
+	            o  = ref_p.getElementById('text3829');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab12').trigger('click');
 						     $('#select5a').selectpicker('val', 12);
                                                   }, false);
-	        var o  = ref_p.getElementById('text3845');
+	            o  = ref_p.getElementById('text3845');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab12').trigger('click');
 						     $('#select5a').selectpicker('val', 12);
                                                   }, false);
-                var o  = ref_p.getElementById('text3459-7');
+                    o  = ref_p.getElementById('text3459-7');
                 if (o != null) o.addEventListener('click',
                                                   function() {
                                                      wepsim_execute_microinstruction();
@@ -1178,12 +1169,12 @@
                                                      $('#tab16').trigger('click');
 						     $('#select5a').selectpicker('val', 16);
                                                   }, false);
-                var o  = ref_cu.getElementById('text4138');
+                    o  = ref_cu.getElementById('text4138');
                 if (o != null) o.addEventListener('click',
                                                   function() {
                                                      wepsim_execute_microinstruction();
                                                   }, false);
-                var o  = ref_cu.getElementById('text4138-7');
+                    o  = ref_cu.getElementById('text4138-7');
                 if (o != null) o.addEventListener('click',
                                                   function() {
                                                      wepsim_execute_microinstruction();
@@ -1244,10 +1235,10 @@
 
         // 3.- dialog +
         //     code_post (next button) | cancel tutorials
-        var bbbt = new Object() ;
+        var bbbt = {} ;
 
 	if (step != (tutorial.length - 1))
-            bbbt["next"] = {
+            bbbt.next = {
 		    label: 'Next',
 		    className: 'btn-success col-xs-3 col-sm-2 pull-right',
 		    callback: function() {
@@ -1260,7 +1251,7 @@
 		    }
 		};
 	else
-            bbbt["end"] = {
+            bbbt.end = {
 		    label: 'End',
 		    className: 'btn-success col-xs-3 col-sm-2 pull-right',
 		    callback: function() {
@@ -1274,7 +1265,7 @@
 		};
 
         if (step != 0)
-            bbbt["prev"] = {
+            bbbt.prev = {
 		    label: 'Prev',
 		    className: 'btn-success col-xs-3 col-sm-2 pull-right',
 		    callback: function() {
@@ -1287,13 +1278,13 @@
 		    }
 		};
 
-        bbbt["cancel"] = {
+        bbbt.cancel = {
 		    label: 'Disable tutorials',
 		    className: 'btn-danger col-xs-4 col-sm-3 pull-right',
 		    callback: function() {
 			set_cfg('ws_mode', 'wepsim') ;
                         save_cfg();
-			$("#select4").val('wepsim').selectmenu("refresh");
+			$("#select4").val('wepsim') ;
                         tutbox.modal("hide") ;
                         if (wepsim_voice_canSpeak())
 			    window.speechSynthesis.cancel() ;
@@ -1318,7 +1309,7 @@
 
     function wepsim_checklist2state ( checklist )
     {
-        var o = new Object() ;
+        var o = {} ;
 	var ret = false ;
 
 	// white-spaces...
@@ -1357,7 +1348,7 @@
 
     function wepsim_current2state ( )
     {
-	var o = new Object() ;
+	var o = {} ;
 	for (var index in sim_components) {
 	     sim_components[index].write_state(o) ;
 	}
@@ -1381,11 +1372,14 @@
 
     function wepsim_check_results ( expected_result, obtained_result, newones_too )
     {
-        var d = new Object() ;
-        d.result = new Array() ;
+        var d = {} ;
+        d.result = [] ;
         d.errors = 0 ;
         d.neltos_expected = 0 ;
         d.neltos_obtained = 0 ;
+
+        var elto = null ;
+	var diff = {} ;
 
         var obtained_value = 0 ;
 	for (var compo in sim_components)
@@ -1393,7 +1387,7 @@
 	    // if there are different values -> diff
             if (typeof expected_result[compo] != "undefined") 
 	    {
-		    for (var elto in expected_result[compo])
+		    for (elto in expected_result[compo])
 		    {
                          d.neltos_expected++ ;
 
@@ -1403,7 +1397,7 @@
                                obtained_value = obtained_result[compo][elto].value ;
                          }
 
-			 var diff = new Object() ;
+			 diff = {} ;
 			 diff.expected  = expected_result[compo][elto].value ;
 			 diff.obtained  = obtained_value ;
 			 diff.elto_type = compo.toLowerCase() ;
@@ -1436,7 +1430,7 @@
 	    // if there are new elements -> diff
 	    if ((newones_too) && (typeof obtained_result[compo] != "undefined"))
 	    {
-		    for (var elto in obtained_result[compo]) 
+		    for (elto in obtained_result[compo]) 
 		    {
                          d.neltos_obtained++ ;
 
@@ -1445,7 +1439,7 @@
 			       continue ;
 		         }
 
-			 var diff = new Object() ;
+			 diff = {} ;
 			 diff.expected  = obtained_result[compo][elto].default_value ;
 			 diff.obtained  = obtained_result[compo][elto].value ;
 			 diff.fulfill   = (diff.expected == diff.obtained) ;
@@ -1545,10 +1539,10 @@
 
                'help':                     wepsim_open_help_index,
                'examples':                 wepsim_open_examples_index,
-               'configuration':            function() { $('#config1').popup('open'); },
+               'configuration':            function() { $('#config2').modal('show'); },
                'close':                    function() { wepsim_close_help(); 
 		                                        wepsim_close_examples(); 
-		                                        $('#config1').popup('close'); }
+		                                        $('#config2').modal('show'); }
          };
          annyang.addCommands(commands);
          annyang.addCallback('errorNetwork', 
@@ -1605,7 +1599,7 @@
     {
 	$("#tab26").hide() ;
 	$("#tab21").hide() ;
-	$("#tab24").click()
+	$("#tab24").click() ;
     }
 
     function wepsim_hide_webmips ( )
@@ -1628,16 +1622,18 @@
 
     function wepsim_native_get_value ( component, elto )
     {
+        var index = 0 ;
+
         if ( ("CPU" == component) || ("BR" == component) )
         {
             if (Number.isInteger(elto))
-                 var index = elto ;
-            else var index = parseInt(elto) ;
+                 index = elto ;
+            else index = parseInt(elto) ;
 
             if (isNaN(index))
                 return (get_value(sim_states[elto]) >>> 0) ;
 
-            return (get_value(sim_states['BR'][index]) >>> 0) ;
+            return (get_value(sim_states.BR[index]) >>> 0) ;
         }
 
         if ("MEMORY" == component)
@@ -1650,57 +1646,10 @@
             var associated_state = io_hash[elto] ;
             var value = (get_value(sim_states[associated_state]) >>> 0) ;
 
-            set_value(sim_states['BUS_AB'], elto) ;
-            set_value(sim_signals['IOR'], 1) ;
+            set_value(sim_states.BUS_AB, elto) ;
+            set_value(sim_signals.IOR, 1) ;
             compute_behavior("FIRE IOR") ;
-            value = get_value(sim_states['BUS_DB']) ;
-
-            return value ;
-        }
-
-        if ("SCREEN" == component)
-        {
-            set_screen_content(value) ;
-            return value ;
-        }
-
-        return false ;
-    }
-
-    function wepsim_native_set_value ( component, elto, value )
-    {
-        if ( ("CPU" == component) || ("BR" == component) )
-        {
-            if (Number.isInteger(elto))
-                 var index = elto ;
-            else var index = parseInt(elto) ;
-
-            if (isNaN(index)) 
-            {
-                set_value(sim_states[elto], value) ;
-                if ("REG_PC" == elto)
-                    show_asmdbg_pc() ;
-                return value ;
-            }
-
-            return set_value(sim_states['BR'][index], value) ;
-        }
-
-        if ("MEMORY" == component)
-        {
-            MP[elto] = value ;
-            return value ;
-        }
-
-        if ("DEVICE" == component)
-        {
-            var associated_state = io_hash[elto] ;
-            set_value(sim_states[associated_state], value) ;
-
-            set_value(sim_states['BUS_AB'], elto) ;
-            set_value(sim_states['BUS_DB'], value) ;
-            set_value(sim_signals['IOW'], 1) ;
-            compute_behavior("FIRE IOW") ;
+            value = get_value(sim_states.BUS_DB) ;
 
             return value ;
         }
@@ -1714,13 +1663,64 @@
         return false ;
     }
 
+    function wepsim_native_set_value ( component, elto, value )
+    {
+        var index = 0 ;
+
+        if ( ("CPU" == component) || ("BR" == component) )
+        {
+            if (Number.isInteger(elto))
+                 index = elto ;
+            else index = parseInt(elto) ;
+
+            if (isNaN(index)) 
+            {
+                set_value(sim_states[elto], value) ;
+                if ("REG_PC" == elto) {
+                    show_asmdbg_pc() ;
+		}
+
+                return value ;
+            }
+
+            return set_value(sim_states.BR[index], value) ;
+        }
+
+        if ("MEMORY" == component)
+        {
+            MP[elto] = value ;
+            return value ;
+        }
+
+        if ("DEVICE" == component)
+        {
+            var associated_state = io_hash[elto] ;
+            set_value(sim_states[associated_state], value) ;
+
+            set_value(sim_states.BUS_AB, elto) ;
+            set_value(sim_states.BUS_DB, value) ;
+            set_value(sim_signals.IOW, 1) ;
+            compute_behavior("FIRE IOW") ;
+
+            return value ;
+        }
+
+        if ("SCREEN" == component)
+        {
+            set_screen_content(value) ;
+            return value ;
+        }
+
+        return false ;
+    }
+
     function wepsim_native_get_fields ( signature_raw )
     {
         var SIMWARE = get_simware() ;
 
         for (var key in SIMWARE.firmware) {
-             if (SIMWARE.firmware[key]["signatureRaw"] == signature_raw) {
-                 return SIMWARE.firmware[key]["fields"] ;
+             if (SIMWARE.firmware[key].signatureRaw == signature_raw) {
+                 return SIMWARE.firmware[key].fields ;
              }
         }
     }
@@ -1730,7 +1730,7 @@
         if (typeof fields[index] == "undefined")
             return false ;
 
-        var value = get_value(sim_states["REG_IR"]) ;
+        var value = get_value(sim_states.REG_IR) ;
         var left_shift  = (31 - parseInt(fields[index].startbit)) ;
         var right_shift =       parseInt(fields[index].stopbit) ;
 
@@ -1748,13 +1748,13 @@
 
     function wepsim_native_go_maddr ( maddr )
     {
-        set_value(sim_states["MUXA_MICROADDR"], maddr) ;
+        set_value(sim_states.MUXA_MICROADDR, maddr) ;
     }
 
     function wepsim_native_go_opcode ( )
     {
-	var maddr = get_value(sim_states['ROM_MUXA']) ;
-        set_value(sim_states["MUXA_MICROADDR"], maddr) ;
+	var maddr = get_value(sim_states.ROM_MUXA) ;
+        set_value(sim_states.MUXA_MICROADDR, maddr) ;
     }
 
     function wepsim_native_go_instruction ( signature_raw )
@@ -1763,10 +1763,10 @@
 
         for (var key in SIMWARE.firmware) 
         {
-             if (SIMWARE.firmware[key]["signatureRaw"] == signature_raw) 
+             if (SIMWARE.firmware[key].signatureRaw == signature_raw) 
              {
                  var maddr = SIMWARE.firmware[key]["mc-start"] ;
-                 set_value(sim_states["MUXA_MICROADDR"], maddr) ;
+                 set_value(sim_states.MUXA_MICROADDR, maddr) ;
                  return ;
              }
         }

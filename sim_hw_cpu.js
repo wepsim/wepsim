@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2017 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -28,15 +28,15 @@
 		                  version: "1", 
 		                  write_state:  function ( vec ) {
                                                   if (typeof vec.CPU == "undefined")
-                                                      vec.CPU = new Object() ;
+                                                      vec.CPU = {} ;
 
 					          // var internal_reg = ["PC", "MAR", "MBR", "IR", "RT1", "RT1", "RT2", "RT3", "SR"] ;
 					          var internal_reg = ["PC", "SR"] ;
 
 						  var value = 0 ;
-					          for (var i=0; i<sim_states['BR'].length; i++)
+					          for (var i=0; i<sim_states.BR.length; i++)
 						  {
-						      value = parseInt(sim_states['BR'][i].value) ;
+						      value = parseInt(sim_states.BR[i].value) ;
 						      if (value != 0) {
 							  vec.CPU["R" + i] = {"type":  "register", 
 								              "default_value": 0x0,
@@ -62,7 +62,7 @@
 				               },
 		                  read_state:  function ( vec, check ) {
                                                   if (typeof vec.CPU == "undefined")
-                                                      vec.CPU = new Object() ;
+                                                      vec.CPU = {} ;
 
 					          var key = check["id"].toUpperCase().trim() ;
 					          var val = parseInt(check["value"]).toString(16) ;
@@ -86,8 +86,8 @@
 
 					              r_reg = r_reg.replace('R','') ;
 					          var index = parseInt(r_reg) ;
-					          if (typeof sim_states['BR'][index] != "undefined") {
-					              return "0x" + get_value(sim_states['BR'][index]).toString(16) ;
+					          if (typeof sim_states.BR[index] != "undefined") {
+					              return "0x" + get_value(sim_states.BR[index]).toString(16) ;
 					          }
 
 					          return null ;
@@ -98,10 +98,10 @@
 	 *  States - Memories
 	 */
 
-	var MC           = new Object();
-	var MC_dashboard = new Object();
-	var ROM          = new Object();
-	var FIRMWARE     = new Object();
+	var MC           = {};
+	var MC_dashboard = {};
+	var ROM          = {};
+	var FIRMWARE     = {};
 
 
 	/*
@@ -109,39 +109,39 @@
 	 */
 
 	/* REGISTER FILE STATES */
-	sim_states["BR"] = new Array() ;
-	sim_states["BR"][0]          = {name:"R0",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][1]          = {name:"R1",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][2]          = {name:"R2",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][3]          = {name:"R3",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][4]          = {name:"R4",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][5]          = {name:"R5",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][6]          = {name:"R6",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][7]          = {name:"R7",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][8]          = {name:"R8",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][9]          = {name:"R9",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][10]         = {name:"R10",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][11]         = {name:"R11",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][12]         = {name:"R12",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][13]         = {name:"R13",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][14]         = {name:"R14",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][15]         = {name:"R15",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][16]         = {name:"R16",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][17]         = {name:"R17",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][18]         = {name:"R18",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][19]         = {name:"R19",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][20]         = {name:"R20",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][21]         = {name:"R21",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][22]         = {name:"R22",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][23]         = {name:"R23",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][24]         = {name:"R24",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][25]         = {name:"R25",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][26]         = {name:"R26",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][27]         = {name:"R27",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][28]         = {name:"R28",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][29]         = {name:"R29",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][30]         = {name:"R30",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	sim_states["BR"][31]         = {name:"R31",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR = [] ;
+	sim_states.BR[0]          = {name:"R0",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[1]          = {name:"R1",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[2]          = {name:"R2",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[3]          = {name:"R3",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[4]          = {name:"R4",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[5]          = {name:"R5",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[6]          = {name:"R6",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[7]          = {name:"R7",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[8]          = {name:"R8",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[9]          = {name:"R9",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[10]         = {name:"R10",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[11]         = {name:"R11",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[12]         = {name:"R12",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[13]         = {name:"R13",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[14]         = {name:"R14",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[15]         = {name:"R15",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[16]         = {name:"R16",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[17]         = {name:"R17",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[18]         = {name:"R18",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[19]         = {name:"R19",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[20]         = {name:"R20",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[21]         = {name:"R21",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[22]         = {name:"R22",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[23]         = {name:"R23",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[24]         = {name:"R24",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[25]         = {name:"R25",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[26]         = {name:"R26",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[27]         = {name:"R27",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[28]         = {name:"R28",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[29]         = {name:"R29",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[30]         = {name:"R30",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	sim_states.BR[31]         = {name:"R31",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
 	sim_states["REG_PC"]         = {name:"PC",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	sim_states["REG_MAR"]        = {name:"MAR",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
@@ -1233,16 +1233,16 @@
 								 reset_value(sim_signals[key]) ;
 
 							    // 1.b.- reset events to empty
-							    sim_events["screen"] = new Object() ;
-							    sim_events["keybd"]  = new Object() ;
-							    sim_events["io"]     = new Object() ;
-							    sim_events["mem"]    = new Object() ;
+							    sim_events["screen"] = {} ;
+							    sim_events["keybd"]  = {} ;
+							    sim_events["io"]     = {} ;
+							    sim_events["mem"]    = {} ;
 
 							    // 2.- reset the I/O factory
 							    for (var i=0; i<IO_INT_FACTORY.length; i++)
 							    {
-								IO_INT_FACTORY[i].accumulated(0) ;
-								IO_INT_FACTORY[i].active(false) ;
+						                 set_value(IO_INT_FACTORY[i].accumulated, 0);
+						                 set_value(IO_INT_FACTORY[i].active, false);
 							    }
 							}
 					   };

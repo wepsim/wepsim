@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015-2017 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  * 
@@ -23,35 +23,35 @@
          *  Components
          */
 
-        var sim_components = new Object() ;
+        var sim_components = {} ;
 
 
         /*
          *  States
          */
 
-        var sim_states = new Object() ;
-        var sim_events = new Object() ;
+        var sim_states = {} ;
+        var sim_events = {} ;
 
-        var io_hash    = new Object();
+        var io_hash    = {} ;
 
 
         /*
          *  Signals
          */
 
-        var sim_signals = new Object();
-        var fire_stack  = new Array() ;
+        var sim_signals = {} ;
+        var fire_stack  = [] ;
 
 
         /*
          *  Syntax of behaviors
          */
 
-        var syntax_behavior = new Object();
+        var syntax_behavior = {} ;
 
         // Print Signal
-        syntax_behavior["PRINT_S"] = { nparameters: 2,
+        syntax_behavior.PRINT_S = { nparameters: 2,
                                        types: ["S"],
                                        operation: function(s_expr)
                                                   {
@@ -60,7 +60,7 @@
                                      };
 
         // Print State
-        syntax_behavior["PRINT_E"] = { nparameters: 2,
+        syntax_behavior.PRINT_E = { nparameters: 2,
                                        types: ["E"],
                                        operation: function(s_expr)
                                                   {
