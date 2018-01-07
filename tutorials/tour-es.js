@@ -1,20 +1,20 @@
 
     tour_steps.es = [
 			{
-			   intro: "Bienvenidos a WepSIM!"
+			   intro: "Bienvenidos a WepSIM!<br> Este breve tutorial presentará lo esencial del funcionamiento con un ejemplo."
 			},
 			{
 			   element: '#menu1a',
-                           intro: "En la esquina superior derecha está el bot&oacute;n de men&uacute; que le permite acceder al editor de microc&oacute;digo, el editor de ensamblador y la pantalla del simulador. En la parte inferior est&aacute; la ayuda, los ejemplos y la configuraci&oacute;n."
+                           intro: "En la esquina superior derecha está el bot&oacute;n de men&uacute; que le permite acceder al editor de microc&oacute;digo, el editor de ensamblador y la pantalla del simulador.<br>En la parte inferior est&aacute; la ayuda, los ejemplos y la configuraci&oacute;n."
 			},
 			{
 			   element: '#btn_example1',
-                           intro: "Haga click en el bot&oacute;n del men&uacute; y a continuaci&oacute;n en el bot&oacute;n de ejemplos. Finalmente en el t&iacute;tulo del ejemplo que seleccione para trabajar",
+                           intro: "Haga click en el bot&oacute;n del men&uacute; y a continuaci&oacute;n en el bot&oacute;n de ejemplos...",
 			   position: 'right'
 			},
 			{
 			   element: '#example1',
-			   intro: 'Haga click en el example con el que quiera trabajar. Por ejemplo, "Instructions"...',
+			   intro: '... finalmente haga click en el t&iacute;tulo del ejemplo con el que quiera trabajar. Por ejemplo, "Instructions"...',
 			   position: 'left'
 			},
 			{
@@ -23,7 +23,7 @@
 			},
 			{
 			   element: '#eltos_cpu',
-			   intro: 'En la circuiter&iacute;a los estudiantes pueden seguir la generaci&oacute;n de las señales...'
+			   intro: '... en la circuiter&iacute;a podr&aacute; seguir como una instrucci&oacute;n de ensamblador se "microejecuta".'
 			},
 			{
 			   element: '#ni1',
@@ -31,10 +31,11 @@
 			},
 			{
 			   element: '#asm_debugger',
-			   intro: 'En el panel de ensamblador los estudiantes pueden seguir la ejecuci&oacute;n de instrucciones...'
+			   intro: '... en el panel de ensamblador podr&aacute; seguir la ejecuci&oacute;n de instrucciones.'
 			},
 			{
-			   intro: 'Por favor revise la ayuda para m&aacute;s tutoriales. Recuerde desactivar el modo tutorial en la configuraci&oacute;n despu&eacute;s de aprender de los tutoriales'
+			   element: '#btn_help1',
+			   intro: 'Por favor revise la ayuda para m&aacute;s tutoriales.<br>Recuerde desactivar el modo tutorial en la configuraci&oacute;n despu&eacute;s de aprender de los tutoriales'
 			}
 		    ] ;
 

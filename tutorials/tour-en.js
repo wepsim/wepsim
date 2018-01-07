@@ -33,24 +33,28 @@ var tour_steps = {} ;
 					tour.refresh() ;
 			                return true ;
 			            }
+	                            else if (this._currentStep === 8)
+	                            {
+			                $("#menu1a").click(); 
+			            }
 	                        };
 
     tour_steps.en = [
 			{
-			   intro: "Welcome to WepSIM!"
+			   intro: "Welcome to WepSIM!<br> This initial very brief tour will introduce you to execute a example"
 			},
 			{
 			   element: '#menu1a',
-                           intro: "The main main: On the top, it let you access to the microcode editor, the assembly editor, and the simulation screen. On the bottom, help, examples, and the configuration dialogs."
+                           intro: "On the top-right, the menu lets you access to the microcode editor, the assembly editor, and the simulation screen.<br>On the bottom, help, examples, and the configuration dialogs."
 			},
 			{
 			   element: '#btn_example1',
-                           intro: "Click in the menu button and then in the example button, then click in the example 'title' name.",
+                           intro: "In order to load some example please click in the menu button, and then in the example button...",
 			   position: 'auto'
 			},
 			{
 			   element: '#example1',
-			   intro: 'Click in the example you wish to work with. For example, "Instructions"...',
+			   intro: '... and finally click in the example "title" name you wish to work with. For example, "Instructions".',
 			   position: 'auto'
 			},
 			{
@@ -59,7 +63,7 @@ var tour_steps = {} ;
 			},
 			{
 			   element: '#eltos_cpu',
-			   intro: 'In the microprogramming space students can follow the microexecution...'
+			   intro: '... and in the circuit you can follow the how a assembly instruction is "microexecuted".'
 			},
 			{
 			   element: '#ni1',
@@ -67,10 +71,11 @@ var tour_steps = {} ;
 			},
 			{
 			   element: '#asm_debugger',
-			   intro: 'In the assembly space students can follow the execution of assembly instructions...'
+			   intro: '... and in the assembly space students can follow the execution of assembly instructions...'
 			},
 			{
-			   intro: 'Please, check the on-line help for more tutorials. Remember to disable the tutorial mode in the configuration after learning from tutorials'
+			   element: '#btn_help1',
+			   intro: 'Please, check the on-line help for more tutorials.<br>Remember to disable the tutorial mode in the configuration after learning from tutorials'
 			}
 		    ] ;
 
