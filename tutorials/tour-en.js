@@ -23,6 +23,11 @@ var tour_steps = {} ;
 	                            else if (this._currentStep === 5)
 	                            {
 			                $("#nm1").click(); 
+					tour.refresh() ;
+			                return true ;
+			            }
+	                            else if (this._currentStep === 6)
+	                            {
 			                $("#tab24").click(); 
 			                $("#ni1").click(); 
 					tour.refresh() ;
@@ -41,16 +46,20 @@ var tour_steps = {} ;
 			{
 			   element: '#btn_example1',
                            intro: "Click in the menu button and then in the example button, then click in the example 'title' name.",
-			   position: 'right'
+			   position: 'auto'
 			},
 			{
-			   element: '#S1E1',
+			   element: '#example1',
 			   intro: 'Click in the example you wish to work with. For example, "Instructions"...',
-			   position: 'left'
+			   position: 'auto'
 			},
 			{
 			   element: '#nm1',
 			   intro: 'Click on the next microinstruction to execute at microprogramming level...'
+			},
+			{
+			   element: '#eltos_cpu',
+			   intro: 'In the microprogramming space students can follow the microexecution...'
 			},
 			{
 			   element: '#ni1',
@@ -61,7 +70,7 @@ var tour_steps = {} ;
 			   intro: 'In the assembly space students are able to follow the execution...'
 			},
 			{
-			   intro: 'Please, check the on-line help for more tutorials.'
+			   intro: 'Please, check the on-line help for more tutorials. Remember to disable the tutorial mode in the configuration after learning from tutorials'
 			}
 		    ] ;
 

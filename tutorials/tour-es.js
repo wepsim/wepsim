@@ -1,36 +1,40 @@
 
     tour_steps.es = [
 			{
-			   intro: "Welcome to WepSIM!"
+			   intro: "Bienvenidos a WepSIM!"
 			},
 			{
 			   element: '#menu1a',
-                           intro: "The main main: On the top, it let you access to the microcode editor, the assembly editor, and the simulation screen. On the bottom, help, examples, and the configuration dialogs."
+                           intro: "En la esquina superior derecha está el bot&oacute;n de men&uacute; que le permite acceder al editor de microc&oacute;digo, el editor de ensamblador y la pantalla del simulador. En la parte inferior est&aacute; la ayuda, los ejemplos y la configuraci&oacute;n."
 			},
 			{
 			   element: '#btn_example1',
-                           intro: "Click in the menu button and then in the example button, then click in the example 'title' name.",
+                           intro: "Haga click en el bot&oacute;n del men&uacute; y a continuaci&oacute;n en el bot&oacute;n de ejemplos. Finalmente en el t&iacute;tulo del ejemplo que seleccione para trabajar",
 			   position: 'right'
 			},
 			{
-			   element: '#S1E1',
-			   intro: 'Click in the example you wish to work with. For example, "Instructions"...',
+			   element: '#example1',
+			   intro: 'Haga click en el example con el que quiera trabajar. Por ejemplo, "Instructions"...',
 			   position: 'left'
 			},
 			{
 			   element: '#nm1',
-			   intro: 'Click on the next microinstruction to execute at microprogramming level...'
+			   intro: 'Haga click en siguiene microinstruction para ejecutar a nivel de microprograma...'
+			},
+			{
+			   element: '#eltos_cpu',
+			   intro: 'In the microprogramming space students can follow the microexecution...'
 			},
 			{
 			   element: '#ni1',
-			   intro: 'Click on the next instruction to execute at assembly level...'
+			   intro: 'Haga click en siguiene microinstruction para ejecutar a nivel de ensamblador...'
 			},
 			{
 			   element: '#asm_debugger',
 			   intro: 'In the assembly space students are able to follow the execution...'
 			},
 			{
-			   intro: 'Please, check the on-line help for more tutorials.'
+			   intro: 'Por favor revise la ayuda para m&aacute;s tutoriales. Recuerde desactivar el modo tutorial en la configuraci&oacute;n despu&eacute;s de aprender de los tutoriales'
 			}
 		    ] ;
 
