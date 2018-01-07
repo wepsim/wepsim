@@ -38,6 +38,8 @@ cat tutorials/tutorials.js \
     tutorials/welcome-es.js \
     tutorials/simpleusage-en.js \
     tutorials/simpleusage-es.js \
+    tutorials/tour-en.js \
+    tutorials/tour-es.js \
     help/help-en.js \
     help/help-es.js \
     examples/examples.js > sim_info.js
@@ -76,6 +78,7 @@ cat external/bootstrap.min.js \
     external/async.js \
     external/bootstrap-select.min.js \
     external/bootstrap-tokenfield.js \
+    external/introjs.min.js \
     external/speech-input.js \
     external/annyang.min.js \
     external/speechkitt.min.js \
@@ -91,6 +94,7 @@ cat external/bootstrap.min.css \
     external/vis-network.min.css \
     external/bootstrap-select.min.css \
     external/bootstrap-tokenfield.css \
+    external/introjs.min.css \
     external/speech-input.css \
     external/speechkitt.css \
     external/dropify.min.css > external/external.min.css
