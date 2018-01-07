@@ -23,7 +23,7 @@
 			},
 			{
 			   element: '#eltos_cpu',
-			   intro: 'In the microprogramming space students can follow the microexecution...'
+			   intro: 'En la circuiter&iacute;a los estudiantes pueden seguir la generaci&oacute;n de las señales...'
 			},
 			{
 			   element: '#ni1',
@@ -31,7 +31,7 @@
 			},
 			{
 			   element: '#asm_debugger',
-			   intro: 'In the assembly space students are able to follow the execution...'
+			   intro: 'En el panel de ensamblador los estudiantes pueden seguir la ejecuci&oacute;n de instrucciones...'
 			},
 			{
 			   intro: 'Por favor revise la ayuda para m&aacute;s tutoriales. Recuerde desactivar el modo tutorial en la configuraci&oacute;n despu&eacute;s de aprender de los tutoriales'

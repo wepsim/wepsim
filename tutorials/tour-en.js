@@ -67,7 +67,7 @@ var tour_steps = {} ;
 			},
 			{
 			   element: '#asm_debugger',
-			   intro: 'In the assembly space students are able to follow the execution...'
+			   intro: 'In the assembly space students can follow the execution of assembly instructions...'
 			},
 			{
 			   intro: 'Please, check the on-line help for more tutorials. Remember to disable the tutorial mode in the configuration after learning from tutorials'
