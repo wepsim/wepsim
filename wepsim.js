@@ -169,10 +169,10 @@
 
     function wepsim_compile_firmware ( textToMCompile )
     {
-	var preSM = load_firmware(textToMCompile) ;
-	if (preSM.error != null)
+	var ret = sim_core_compile_firmware(textToMCompile) ;
+	if (false == ret.ok)
         {
-            showError(preSM.error, "inputfirm") ;
+            showError(ret.msg, "inputfirm") ;
             return false;
         }
 

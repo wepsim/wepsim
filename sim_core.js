@@ -252,7 +252,7 @@
         /**
          * Execute the next microinstruction.
          */
-        function execute_microinstruction ()
+        function sim_core_execute_microinstruction ()
         {
 	        var ret = sim_core_check_if_can_continue() ;
 	        if (false == ret.ok) {
@@ -271,7 +271,7 @@
         /**
          * Execute the next instruction.
          */
-        function execute_microprogram ( limit_clks )
+        function sim_core_execute_microprogram ( limit_clks )
         {
 	        var ret = sim_core_check_if_can_continue() ;
 	        if (false == ret.ok) {
@@ -338,7 +338,7 @@
          * @param {integer} ins_limit - The limit of instructions to be executed
          * @param {integer} clk_limit - The limit of clock cycles per instruction
          */
-        function sim_core_execute_asm_and_firmware ( ins_limit, clk_limit )
+        function sim_core_execute_program ( ins_limit, clk_limit )
         {
     	    var ret = {} ;
     	        ret.ok  = true ;
@@ -369,7 +369,7 @@
                         ((reg_pc < kcode_end) && (reg_pc >= kcode_begin)) )
                   )
     	    {
-    	           ret = execute_microprogram(clk_limit) ;
+    	           ret = sim_core_execute_microprogram(clk_limit) ;
                    if (false == ret.ok) {
     		       return ret ;
     	           }
@@ -399,62 +399,45 @@
         function sim_core_compile_firmware ( textToMCompile )
         {
     	    var ret = {} ;
-    	        ret.msg     = "" ;
-    	        ret.ok      = true ;
+    	        ret.msg = "" ;
+    	        ret.ok  = true ;
     
-    	    var preSM = loadFirmware(textToMCompile) ;
-    	    ret.simware = preSM ;
+            // check empty
+    	    if ("" == textToMCompile)
+            {
+                ret.msg = 'Empty Firmware' ;
+                ret.ok  = false ;
+                return ret ;
+            }
+
+            // try to load...
+	    try
+	    {
+    	        var preSM = loadFirmware(textToMCompile) ;
+    	        ret.simware = preSM ;
+	    }
+	    catch (e) 
+	    {
+	        // https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError
+	        ret.msg = 'ERROR: at line: ' + e.lineNumber + ' and column: ' + e.columnNumber ;
+                ret.ok  = false ;
+	        return ret;
+	    }
+
+            // check load result...
     	    if (preSM.error != null)
             {
-                ret.msg     = preSM.error ;
-                ret.ok      = false ;
+                ret.msg = preSM.error ;
+                ret.ok  = false ;
                 return ret ;
             }
     
+            // update with loaded microcode
             update_memories(preSM);
     	    sim_core_reset() ;
             return ret ;
         }
     
-        /**
-         * Load Firmware
-         * @param {string} textFromFileLoaded - The firmware to be loaded.
-         */
-        function load_firmware ( textFromFileLoaded )
-        {
-                if ("" == textFromFileLoaded.trim())
-                {
-                    var preSIMWARE = new Object() ;
-                    preSIMWARE.error = 'Empty Firmware' ;
-                    return preSIMWARE;
-                }
-
-                try
-                {
-			var preSIMWARE = JSON.parse(textFromFileLoaded);
-			update_memories(preSIMWARE);
-                        preSIMWARE.error = null;
-                        return preSIMWARE;
-                }
-                catch (e)
-                {
-			try
-			{
-                            var preSIMWARE = loadFirmware(textFromFileLoaded);
-                            if (preSIMWARE.error == null)
-                                update_memories(preSIMWARE);
-
-                            return preSIMWARE;
-			}
-			catch (e) {
-			    // https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError
-                            var preSIMWARE = new Object() ;
-                            preSIMWARE.error = 'ERROR: at line: ' + e.lineNumber + ' and column: ' + e.columnNumber ;
-                            return preSIMWARE;
-			}
-                }
-        }
-
         /**
          * Compile Assembly.
          * @param {string} textToCompile - The assembly to be compile and loaded into memory

@@ -1,4 +1,9 @@
 
+1.8.6 -> 1.8.7:
+* Code refactoring
+* More jshint recommendations
+* More non-web tools support
+
 1.8.5 -> 1.8.6:
 * Progressive Wep Application added
 * Travis-CI added
