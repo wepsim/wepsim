@@ -20,58 +20,6 @@
 
 
         /*
-         *  get/set simware
-         */
-
-        function get_simware ( )
-        {
-	    if (typeof FIRMWARE['firmware'] == "undefined")
-            {
-                FIRMWARE['firmware']           = new Array() ;
-                FIRMWARE['mp']                 = new Object() ;
-                FIRMWARE['seg']                = new Object() ;
-                FIRMWARE['assembly']           = new Object() ;
-                FIRMWARE['labels']             = new Object() ;
-                FIRMWARE['labels2']            = new Object() ;
-                FIRMWARE['labels_firm']        = new Object() ;
-                FIRMWARE['registers']          = new Object() ;
-                FIRMWARE['cihash']             = new Object() ;
-                FIRMWARE['pseudoInstructions'] = new Object() ;
-		FIRMWARE['stackRegister']      = new Object() ;
-            }
-
-            return FIRMWARE ;
-	}
-
-        function set_simware ( preSIMWARE )
-        {
-	    if (typeof preSIMWARE['firmware'] != "undefined")
-                FIRMWARE['firmware'] = preSIMWARE['firmware'] ;
-	    if (typeof preSIMWARE['mp'] != "undefined")
-                FIRMWARE['mp'] = preSIMWARE['mp'] ;
-	    if (typeof preSIMWARE['registers'] != "undefined")
-                FIRMWARE['registers'] = preSIMWARE['registers'] ;
-	    if (typeof preSIMWARE['cihash'] != "undefined")
-                FIRMWARE['cihash'] = preSIMWARE['cihash'] ;
-	    if (typeof preSIMWARE['assembly'] != "undefined")
-                FIRMWARE['assembly'] = preSIMWARE['assembly'] ;
-	    if (typeof preSIMWARE['pseudoInstructions'] != "undefined")
-                FIRMWARE['pseudoInstructions'] = preSIMWARE['pseudoInstructions'] ;
-
-	    if (typeof preSIMWARE['seg'] != "undefined")
-                FIRMWARE['seg'] = preSIMWARE['seg'] ;
-	    if (typeof preSIMWARE['labels'] != "undefined")
-                FIRMWARE['labels'] = preSIMWARE['labels'] ;
-	    if (typeof preSIMWARE['labels2'] != "undefined")
-                FIRMWARE['labels2'] = preSIMWARE['labels2'] ;
-	    if (typeof preSIMWARE['labels_firm'] != "undefined")
-                FIRMWARE['labels_firm'] = preSIMWARE['labels_firm'] ;
-	    if (typeof preSIMWARE['stackRegister'] != "undefined")
-		FIRMWARE['stackRegister'] = preSIMWARE['stackRegister'] ;
-	}
-
-
-        /*
          *  draw
          */
 

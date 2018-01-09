@@ -15,7 +15,8 @@ cat sim_cfg.js \
     sim_lang_firm.js \
     sim_lang_asm.js \
     sim_core_ctrl.js \
-    sim_core_ui.js > sim_all.js
+    sim_core_ui.js \
+    sim_core.js > sim_all.js
 /usr/bin/yui-compressor -o min.sim_all.js sim_all.js
 rm -fr sim_all.js
 

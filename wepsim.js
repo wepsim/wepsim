@@ -58,7 +58,7 @@
                                               SIMWAREaddon.seg, SIMWAREaddon.assembly));
         showhideAsmElements();
 
-	reset();
+	sim_core_reset_ui();
         return true;
     }
 
@@ -75,7 +75,7 @@
         wepsim_notify_success('<strong>INFO</strong>', 
                               'Microcode was compiled and loaded.') ;
 
-	reset() ;
+	sim_core_reset_ui() ;
         return true;
     }
 
@@ -143,13 +143,13 @@
 
         if (true == reset_cpu) 
         {
-	    reset() ;
+	    sim_core_reset_ui() ;
         }
     }
 
     function wepsim_execute_instruction ( )
     {
-	if (check_if_can_execute(true) == false) {
+	if (sim_core_check_if_can_execute(true) == false) {
 	    return false ;
         }
 
@@ -166,7 +166,7 @@
 
     function wepsim_execute_microinstruction ( )
     {
-	if (check_if_can_execute(true) == false) {
+	if (sim_core_check_if_can_execute(true) == false) {
 	    return false ;
         }
 
@@ -200,7 +200,7 @@
 
     function wepsim_execute_play ( btn1, run_notifications )
     {
-	if (check_if_can_execute(true) == false)
+	if (sim_core_check_if_can_execute(true) == false)
 	    return false;
 
 	$(btn1).css("backgroundColor", 'rgb(51, 136, 204)') ;

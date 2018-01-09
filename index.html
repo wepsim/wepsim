@@ -1618,14 +1618,14 @@
 		    var a = document.getElementById("svg_p");
 		    a.addEventListener("load",function() {
 			sim_prepare_svg_p();
-			init_eventlistener("svg_p");
+			sim_core_init_eventlistener("svg_p");
 			refresh();
 		    }, false);
 
 		    var a = document.getElementById("svg_cu");
 		    a.addEventListener("load",function() {
 			sim_prepare_svg_cu();
-			init_eventlistener("svg_cu");
+			sim_core_init_eventlistener("svg_cu");
 			refresh();
 		    }, false);
 
@@ -1683,8 +1683,8 @@
                target.prop("scrollTop", this.scrollTop).prop("scrollLeft", this.scrollLeft);
             });
 
-	    init("#states_ALL", "#states_BR", "#io_ALL", "#cpu_ALL", "#config_ALL"); 
-	    reset(); 
+	    sim_core_init_ui("#states_ALL", "#states_BR", "#io_ALL", "#cpu_ALL", "#config_ALL"); 
+	    sim_core_reset_ui(); 
 
             // split (experimental)
 if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ))
