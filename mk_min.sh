@@ -30,6 +30,7 @@ cat wepsim_example.js \
     wepsim_tutorial.js \
     wepsim_url.js \
     wepsim_voice.js \
+    wepsim_execute.js \
     wepsim.js \
     tutorials/tutorials.js \
     tutorials/welcome-en.js \
