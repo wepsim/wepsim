@@ -41,25 +41,13 @@
      * Example management
      */
 
-    function getURLTimeStamp ( )
-    {
-        var dateObj = new Date();
-        var year    = dateObj.getUTCFullYear();
-        var month   = dateObj.getUTCMonth() + 1;
-        var day     = dateObj.getUTCDate();
-        var hour    = dateObj.getUTCHours();
-        var minutes = dateObj.getUTCMinutes();
-
-        return year + month + day + hour + minutes ;
-    }
-
     function load_from_example_assembly ( example_id, chain_next_step )
     {
 	$.mobile.pageContainer.pagecontainer('change', '#main4');
 	inputasm.setValue("Please wait...");
 	inputasm.refresh();
 
-	var url     = "examples/exampleCode" + example_id + ".txt?time=" + getURLTimeStamp() ;
+	var url     = "examples/exampleCode" + example_id + ".txt" ;
         var do_next = function( mcode ) {
 			    inputasm.setValue(mcode);
 			    inputasm.refresh();
@@ -95,11 +83,11 @@
 	var url = "" ;
 	var mode = get_cfg('ws_mode');
 	if ('webmips' == mode) {
-	    url = "examples/exampleMicrocodeMIPS.txt?time=" + getURLTimeStamp() ;
+	    url = "examples/exampleMicrocodeMIPS.txt" ;
 	    inputfirm.setOption('readOnly', true);
         }
 	else {
-	    url = "examples/exampleMicrocode" + example_id + ".txt?time=" + getURLTimeStamp() ;
+	    url = "examples/exampleMicrocode" + example_id + ".txt" ;
 	    inputfirm.setOption('readOnly', false);
 	}
 
