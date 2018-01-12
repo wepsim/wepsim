@@ -22,26 +22,6 @@
         /* 1) Init */
 
         /**
-         * Initialize simulator core.
-         */
-        function sim_core_init ( )
-        {
-	    var ret = {} ;
-	        ret.msg     = "" ;
-	        ret.ok      = true ;
-
-            reset_cfg() ;
-            stop_drawing() ;
-
-            check_behavior();
-            compile_behaviors() ;
-            firedep_to_fireorder(jit_fire_dep) ;
-            compute_references() ;
-
-            return ret ;
-        }
-
-        /**
          * Initialize simulator core and UI.
          * @param {string} stateall_id - associated div
          * @param {string} statebr_id - associated div
@@ -49,8 +29,19 @@
          * @param {string} cpuall_id - associated div
          * @param {string} configall_id - associated div
          */
-        function sim_core_init_ui ( stateall_id, statebr_id, ioall_id, cpuall_id, configall_id )
+        function sim_core_init ( stateall_id, statebr_id, ioall_id, cpuall_id, configall_id )
         {
+	    var ret = {} ;
+	        ret.msg     = "" ;
+	        ret.ok      = true ;
+
+            if ( (stateall_id == "") && (statebr_id == "") && (ioall_id == "") && 
+		 (cpuall_id == "") && (configall_id == "") )
+	    {
+                reset_cfg() ;
+                stop_drawing() ;
+	    }
+
             // 1.- it checks if everything is ok
             check_behavior();
 
@@ -66,6 +57,8 @@
             init_io(ioall_id) ;
             init_cpu(cpuall_id) ;
             init_config(configall_id) ;
+
+            return ret ;
         }
 
         /**
