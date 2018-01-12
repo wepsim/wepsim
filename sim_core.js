@@ -168,20 +168,27 @@
         /**
          * Reset the WepSIM simulation.
          */
-        function sim_core_reset ( )
+        function sim_core_reset ( with_ui )
         {
     	    var ret = {} ;
     	        ret.msg     = "" ;
     	        ret.ok      = true ;
     
-    	    var SIMWARE = get_simware() ;
+            // Hardware
+	    var SIMWARE = get_simware() ;
             compute_general_behavior("RESET") ;
-    
-            if ((typeof segments['.ktext'] != "undefined") && (SIMWARE.labels2.kmain)){
-                        set_value(sim_states.REG_PC, parseInt(SIMWARE.labels2.kmain));
+
+            if ((typeof segments['.ktext'] != "undefined") && (SIMWARE.labels2.kmain))
+	    {
+                    set_value(sim_states.REG_PC, parseInt(SIMWARE.labels2.kmain));
+		    if (with_ui)
+                        show_asmdbg_pc() ;
     	    }
-            else if ((typeof segments['.text'] != "undefined") && (SIMWARE.labels2.main)){
-                        set_value(sim_states.REG_PC, parseInt(SIMWARE.labels2.main));
+            else if ((typeof segments['.text'] != "undefined") && (SIMWARE.labels2.main))
+	    {
+                    set_value(sim_states.REG_PC, parseInt(SIMWARE.labels2.main));
+		    if (with_ui)
+                        show_asmdbg_pc() ;
     	    }
     
     	    if ( (typeof segments['.stack'] != "undefined") &&
@@ -189,41 +196,6 @@
     	    {
     		set_value(sim_states.BR[FIRMWARE.stackRegister], parseInt(segments['.stack'].begin));
     	    }
-    
-    	    var mode = get_cfg('ws_mode');
-    	    if ('webmips' != mode) {
-                compute_general_behavior("CLOCK") ;
-    	    }
-    
-            set_screen_content("") ;
-    
-            return ret ;
-        }
-
-        /**
-         * Reset the WepSIM simulation with UI.
-         */
-        function sim_core_reset_ui ()
-        {
-            // Hardware
-	    var SIMWARE = get_simware() ;
-
-            compute_general_behavior("RESET") ;
-
-            if ((typeof segments['.ktext'] != "undefined") && (SIMWARE.labels2["kmain"])){
-                    set_value(sim_states["REG_PC"], parseInt(SIMWARE.labels2["kmain"]));
-                    show_asmdbg_pc() ;
-	    }
-            else if ((typeof segments['.text'] != "undefined") && (SIMWARE.labels2["main"])){
-                    set_value(sim_states["REG_PC"], parseInt(SIMWARE.labels2["main"]));
-                    show_asmdbg_pc() ;
-	    }
-
-	    if ( (typeof segments['.stack'] != "undefined") &&
-                 (typeof sim_states["BR"][FIRMWARE.stackRegister] != "undefined") )
-	    {
-		set_value(sim_states["BR"][FIRMWARE.stackRegister], parseInt(segments['.stack'].begin));
-	    }
 
 	    var mode = get_cfg('ws_mode');
 	    if ('webmips' != mode) {
@@ -231,15 +203,20 @@
 	    }
 
             // User Interface
-	    show_states() ;
-            show_rf_values();
-            show_rf_names();
-            show_dbg_ir(get_value(sim_states['REG_IR_DECO'])) ;
+	    if (with_ui)
+	    {
+	        show_states() ;
+                show_rf_values();
+                show_rf_names();
+                show_dbg_ir(get_value(sim_states['REG_IR_DECO'])) ;
 
-            show_main_memory   (MP,                0, true, false) ;
-            show_control_memory(MC,  MC_dashboard, 0, true) ;
+                show_main_memory   (MP,                0, true, false) ;
+                show_control_memory(MC,  MC_dashboard, 0, true) ;
+	    }
 
             set_screen_content("") ;
+
+            return ret ;
         }
 
         /**

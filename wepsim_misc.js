@@ -163,7 +163,7 @@
                                               SIMWAREaddon.seg, SIMWAREaddon.assembly));
         showhideAsmElements();
 
-	sim_core_reset_ui();
+	sim_core_reset(true);
         return true;
     }
 
@@ -180,7 +180,7 @@
         wepsim_notify_success('<strong>INFO</strong>', 
                               'Microcode was compiled and loaded.') ;
 
-	sim_core_reset_ui() ;
+	sim_core_reset(true) ;
         return true;
     }
 

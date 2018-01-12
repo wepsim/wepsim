@@ -36,7 +36,7 @@
 
         if (true == reset_cpu) 
         {
-	    sim_core_reset_ui() ;
+	    sim_core_reset(true) ;
         }
     }
 
