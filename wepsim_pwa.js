@@ -186,34 +186,8 @@ self.addEventListener('install',
   * fetch
   */
 
-function getURLTimeStamp ( )
-{
-        var dateObj = new Date();
-        var year    = dateObj.getUTCFullYear();
-        var month   = dateObj.getUTCMonth() + 1;
-        var day     = dateObj.getUTCDate();
-        var hour    = dateObj.getUTCHours();
-        var minutes = dateObj.getUTCMinutes();
-
-        return year + month + day + hour + minutes ;
-}
-
 self.addEventListener('fetch', 
 	              function(event) {
-			    // on-line: try the fresh version
-                            if (navigator.onLine) {
-				return fetch(event.request + "?time=" + getURLTimeStamp());
-                            }
-
-			    event.respondWith(
-				caches.match(event.request).then(function(response) {
-				    // cache
-				    if (response) {
-					return response;
-				    }
-				    // on-line
-				    return fetch(event.request);
-				})
-			    );
-});
+			    event.respondWith(fetchURL(event.request)) ;
+                      });
 

@@ -64,12 +64,38 @@
             downloadLink.click();
     }
 
+	function getURLTimeStamp ( )
+	{
+		var dateObj = new Date();
+		var year    = dateObj.getUTCFullYear();
+		var month   = dateObj.getUTCMonth() + 1;
+		var day     = dateObj.getUTCDate();
+		var hour    = dateObj.getUTCHours();
+		var minutes = dateObj.getUTCMinutes();
+
+		return year + month + day + hour + minutes ;
+	}
+
+	function fetchURL ( f_url )
+	{
+		// on-line: try the fresh version
+		if (navigator.onLine) {
+		    return fetch(f_url + "?time=" + getURLTimeStamp());
+		}
+
+		// off-line: try cache version
+		return caches.match(f_url);
+	}
+
     function wepsim_load_from_url ( url, do_next )
     {
-        fetch(url).then(function(response) {
-                           if (response.ok) {
-                               response.text().then(function(text) { do_next(text); }) ;
-                           }
-                        }) ;
+	fetchURL(url).then(function(response) {
+                              if (response.ok) 
+		              {
+                                  response.text().then(function(text) { 
+					                  do_next(text); 
+				                       }) ;
+                              }
+                           }) ;
     }
 
