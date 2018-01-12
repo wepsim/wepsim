@@ -495,6 +495,7 @@
                                             var ok = wepsim_compile_firmware(textToMCompile);
                                             if (true == ok) {
                                                 wepsim_show_binary_microcode('#bin2','#compile_results');
+			                        wepsim_notify_success('<strong>INFO</strong>', 'Please remember to recompile the assembly code if needed.');
                                             }">Show co2&#181;addr + control memory</a>
 
                             <a href="#" style="background-color: #D4DB17"
@@ -1746,8 +1747,6 @@ if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(nav
 
             if ('tutorial' == get_cfg('ws_mode')) 
             {
-                // sim_tutorial_showframe('welcome', 0) ;
-
 		var ti = get_cfg('ws_idiom') ;
 		var tour = introJs();
 		    tour.setOptions({ steps: tour_steps[ti] }) ;
