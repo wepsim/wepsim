@@ -36,20 +36,24 @@
 
         if (true == reset_cpu) 
         {
-	    sim_core_reset(true) ;
+	    sim_core_reset() ;
         }
     }
 
     function wepsim_execute_instruction ( )
     {
-	if (sim_core_check_if_can_execute(true) == false) {
+	var ret = sim_core_check_if_can_execute() ;
+	if (false == ret.ok) 
+	{
+	    alert(ret.msg) ;
 	    return false ;
         }
 
         var clklimit = get_cfg('DBG_limitick') ;
 
-	var ret = sim_core_execute_microprogram(clklimit) ;
-	if (false == ret.ok) {
+	ret = sim_core_execute_microprogram(clklimit) ;
+	if (false == ret.ok) 
+	{
             wepsim_show_stopbyevent("Info", ret.msg) ;
     	    return false ;
         }
@@ -59,11 +63,14 @@
 
     function wepsim_execute_microinstruction ( )
     {
-	if (sim_core_check_if_can_execute(true) == false) {
+	var ret = sim_core_check_if_can_execute() ;
+	if (false == ret.ok) 
+	{
+	    alert(ret.msg) ;
 	    return false ;
         }
 
-	var ret = sim_core_execute_microinstruction() ;
+	ret = sim_core_execute_microinstruction() ;
 	if (false == ret.ok) {
             wepsim_show_stopbyevent("Info", ret.msg) ;
 	    return false ;
@@ -93,8 +100,12 @@
 
     function wepsim_execute_play ( btn1, run_notifications )
     {
-	if (sim_core_check_if_can_execute(true) == false)
-	    return false;
+	var ret = sim_core_check_if_can_execute() ;
+	if (false == ret.ok) 
+	{
+	    alert(ret.msg) ;
+	    return false ;
+        }
 
 	$(btn1).css("backgroundColor", 'rgb(51, 136, 204)') ;
 	$(btn1).html("<br>Stop") ;
