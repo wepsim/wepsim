@@ -29,15 +29,21 @@
          * @param {string} cpuall_id - associated div
          * @param {string} configall_id - associated div
          */
-        function sim_core_init ( stateall_id, statebr_id, ioall_id, cpuall_id, configall_id )
+
+        var sim_core_with_ui = false ;
+
+        function sim_core_init ( with_ui )
         {
 	    var ret = {} ;
 	        ret.msg     = "" ;
 	        ret.ok      = true ;
 
-            if ( (stateall_id == "") && (statebr_id == "") && (ioall_id == "") && 
-		 (cpuall_id == "") && (configall_id == "") )
-	    {
+            sim_core_with_ui = with_ui ;
+
+            if ( with_ui ) {
+		restore_cfg() ;
+	    }
+	    else {
                 reset_cfg() ;
                 stop_drawing() ;
 	    }
@@ -50,7 +56,27 @@
             firedep_to_fireorder(jit_fire_dep) ;
             compute_references() ;
 
-            // 3.- display the information holders
+            return ret ;
+        }
+
+
+        /* 2) UI panels */
+
+        /**
+         * Initialize simulator core and UI.
+         * @param {string} stateall_id - associated div
+         * @param {string} statebr_id - associated div
+         * @param {string} ioall_id - associated div
+         * @param {string} cpuall_id - associated div
+         * @param {string} configall_id - associated div
+         */
+        function sim_core_init_panel ( stateall_id, statebr_id, ioall_id, cpuall_id, configall_id )
+        {
+	    var ret = {} ;
+	        ret.msg     = "" ;
+	        ret.ok      = true ;
+
+            // display the information holders
             init_states(stateall_id) ;
             init_rf(statebr_id) ;
 
@@ -95,35 +121,39 @@
         }
 
 
-        /* 2) Check if can... */
+        /* 3) Check if can... */
 
         /**
          * Check if simulation can be executed
          * @param {boolean} with_ui - if there is UI available
          */
-        function sim_core_check_if_can_execute ( with_ui )
+        function sim_core_check_if_can_execute ( )
         {
+	        var ret = {} ;
+	            ret.msg = "" ;
+	            ret.ok  = true ;
+
 		if ( (typeof segments['.ktext'] == "undefined") &&
 		     (typeof segments['.text']  == "undefined") )
 		{
-                    if (with_ui)
-		        alert('code segment .ktext/.text does not exist!');
-		    return false;
+		    ret.msg = 'code segment .ktext/.text does not exist!' ;
+	            ret.ok = false ;
+		    return ret ;
 		}
 
 	        var SIMWARE = get_simware();
 
                 if (
-                     (! ((typeof segments['.ktext'] != "undefined") && (SIMWARE.labels2["kmain"])) ) &&
-                     (! ((typeof segments['.text']  != "undefined") && (SIMWARE.labels2["main"]))   )
+                     (! ((typeof segments['.ktext'] != "undefined") && (SIMWARE.labels2.kmain)) ) &&
+                     (! ((typeof segments['.text']  != "undefined") && (SIMWARE.labels2.main))   )
                 )
                 {
-                     if (with_ui)
-		         alert("labels 'kmain' (in .ktext) or 'main' (in .text) do not exist!");
-                     return false;
+		     ret.msg = "labels 'kmain' (in .ktext) or 'main' (in .text) do not exist!" ;
+	             ret.ok = false ;
+		     return ret ;
 	        }
 
-                return true;
+                return ret ;
         }
 
         /**
@@ -131,11 +161,11 @@
          */
         function sim_core_check_if_can_continue ( )
         {
-		var ret = new Object() ;
+		var ret = {} ;
 		    ret.ok  = true ;
 		    ret.msg = "" ;
 
-		var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
+		var reg_maddr = get_value(sim_states.REG_MICROADDR) ;
                 if (typeof MC[reg_maddr] == "undefined") {
 		    ret.ok  = false ;
 		    ret.msg = "Error: undefined microinstruction at " + reg_maddr + "." ;
@@ -148,7 +178,7 @@
                        return ret;
 		}
 
-		var reg_pc = parseInt(get_value(sim_states["REG_PC"]));
+		var reg_pc = parseInt(get_value(sim_states.REG_PC));
 		if ( (reg_pc < segments['.ktext'].end) && (reg_pc >= segments['.ktext'].begin)) {
                     return ret;
 		}
@@ -163,12 +193,12 @@
         }
 
     
-        /* 3) EXECUTION */
+        /* 4) Execution */
 
         /**
          * Reset the WepSIM simulation.
          */
-        function sim_core_reset ( with_ui )
+        function sim_core_reset ( )
         {
     	    var ret = {} ;
     	        ret.msg     = "" ;
@@ -181,14 +211,16 @@
             if ((typeof segments['.ktext'] != "undefined") && (SIMWARE.labels2.kmain))
 	    {
                     set_value(sim_states.REG_PC, parseInt(SIMWARE.labels2.kmain));
-		    if (with_ui)
+		    if (sim_core_with_ui) {
                         show_asmdbg_pc() ;
+		    }
     	    }
             else if ((typeof segments['.text'] != "undefined") && (SIMWARE.labels2.main))
 	    {
                     set_value(sim_states.REG_PC, parseInt(SIMWARE.labels2.main));
-		    if (with_ui)
+		    if (sim_core_with_ui) {
                         show_asmdbg_pc() ;
+		    }
     	    }
     
     	    if ( (typeof segments['.stack'] != "undefined") &&
@@ -203,12 +235,12 @@
 	    }
 
             // User Interface
-	    if (with_ui)
+	    if (sim_core_with_ui)
 	    {
 	        show_states() ;
                 show_rf_values();
                 show_rf_names();
-                show_dbg_ir(get_value(sim_states['REG_IR_DECO'])) ;
+                show_dbg_ir(get_value(sim_states.REG_IR_DECO)) ;
 
                 show_main_memory   (MP,                0, true, false) ;
                 show_control_memory(MC,  MC_dashboard, 0, true) ;
@@ -222,7 +254,7 @@
         /**
          * Execute the next microinstruction.
          */
-        function sim_core_execute_microinstruction ()
+        function sim_core_execute_microinstruction ( )
         {
 	        var ret = sim_core_check_if_can_continue() ;
 	        if (false == ret.ok) {
@@ -282,7 +314,7 @@
 			break ;
 	            }
 
-                    cur_addr = get_value(sim_states["REG_MICROADDR"]) ;
+                    cur_addr = get_value(sim_states.REG_MICROADDR) ;
                     if (typeof MC[cur_addr] == "undefined")
 		    {
 		        ret.msg = "Error: undefined microinstruction at " + cur_addr + "." ;
@@ -360,7 +392,7 @@
         }
 
 
-        /* 4) COMPILE */
+        /* 5) Compile */
     
         /**
          * Compile Firmware.
@@ -381,9 +413,10 @@
             }
 
             // try to load...
+    	    var preSM = null ;
 	    try
 	    {
-    	        var preSM = loadFirmware(textToMCompile) ;
+    	        preSM = loadFirmware(textToMCompile) ;
     	        ret.simware = preSM ;
 	    }
 	    catch (e) 
