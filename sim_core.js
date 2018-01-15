@@ -23,14 +23,8 @@
 
         /**
          * Initialize simulator core and UI.
-         * @param {string} stateall_id - associated div
-         * @param {string} statebr_id - associated div
-         * @param {string} ioall_id - associated div
-         * @param {string} cpuall_id - associated div
-         * @param {string} configall_id - associated div
+         * @param {boolean} with_ui - initialize with UI support
          */
-
-        var sim_core_with_ui = false ;
 
         function sim_core_init ( with_ui )
         {
@@ -38,14 +32,12 @@
 	        ret.msg     = "" ;
 	        ret.ok      = true ;
 
-            sim_core_with_ui = with_ui ;
-
             if ( with_ui ) {
-		restore_cfg() ;
+		 restore_cfg() ;
 	    }
 	    else {
-                reset_cfg() ;
-                stop_drawing() ;
+                 reset_cfg() ;
+                 stop_drawing() ;
 	    }
 
             // 1.- it checks if everything is ok
@@ -211,16 +203,12 @@
             if ((typeof segments['.ktext'] != "undefined") && (SIMWARE.labels2.kmain))
 	    {
                     set_value(sim_states.REG_PC, parseInt(SIMWARE.labels2.kmain));
-		    if (sim_core_with_ui) {
-                        show_asmdbg_pc() ;
-		    }
+                    show_asmdbg_pc() ;
     	    }
             else if ((typeof segments['.text'] != "undefined") && (SIMWARE.labels2.main))
 	    {
                     set_value(sim_states.REG_PC, parseInt(SIMWARE.labels2.main));
-		    if (sim_core_with_ui) {
-                        show_asmdbg_pc() ;
-		    }
+                    show_asmdbg_pc() ;
     	    }
     
     	    if ( (typeof segments['.stack'] != "undefined") &&
@@ -234,19 +222,16 @@
                 compute_general_behavior("CLOCK") ;
 	    }
 
-            // User Interface
-	    if (sim_core_with_ui)
-	    {
-	        show_states() ;
-                show_rf_values();
-                show_rf_names();
-                show_dbg_ir(get_value(sim_states.REG_IR_DECO)) ;
-
-                show_main_memory   (MP,                0, true, false) ;
-                show_control_memory(MC,  MC_dashboard, 0, true) ;
-	    }
-
             set_screen_content("") ;
+
+            // User Interface
+	    show_states() ;
+            show_rf_values();
+            show_rf_names();
+            show_dbg_ir(get_value(sim_states.REG_IR_DECO)) ;
+
+            show_main_memory   (MP,                0, true, false) ;
+            show_control_memory(MC,  MC_dashboard, 0, true) ;
 
             return ret ;
         }
@@ -256,18 +241,19 @@
          */
         function sim_core_execute_microinstruction ( )
         {
-	        var ret = sim_core_check_if_can_continue() ;
-	        if (false == ret.ok) {
-		    return ret ;
-	        }
+	    var ret = sim_core_check_if_can_continue() ;
+	    if (false == ret.ok) {
+		return ret ;
+	    }
 
-                compute_general_behavior("CLOCK") ;
+            compute_general_behavior("CLOCK") ;
 
-		show_states();
-		show_rf_values();
-                show_dbg_mpc();
+            // User Interface
+	    show_states();
+	    show_rf_values();
+            show_dbg_mpc();
 
-                return ret ;
+            return ret ;
         }
 
         /**
