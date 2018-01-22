@@ -19,10 +19,17 @@
  */
 
 
-// cache versioning
-var cacheName = 'v186a:static';
+/*
+ * cache versioning
+ */
 
-// install
+var cacheName = 'v187a:static';
+
+
+/*
+ * install
+ */
+
 self.addEventListener('install', 
 	              function(e) {
 			    e.waitUntil(
@@ -174,23 +181,13 @@ self.addEventListener('install',
 			    );
 });
 
-// fetch
+
+ /*
+  * fetch
+  */
+
 self.addEventListener('fetch', 
 	              function(event) {
-			    // on-line: try the fresh version
-                            if (navigator.onLine) {
-				return fetch(event.request);
-                            }
-
-			    event.respondWith(
-				caches.match(event.request).then(function(response) {
-				    // cache
-				    if (response) {
-					return response;
-				    }
-				    // on-line
-				    return fetch(event.request);
-				})
-			    );
-});
+			    event.respondWith(fetchURL(event.request)) ;
+                      });
 

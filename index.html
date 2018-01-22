@@ -121,9 +121,7 @@
     <script src="external/external.min.js"></script>
 
     <script src="min.sim_all.js"></script>
-    <script src="min.sim_hw.js"></script> 
-    <script src="min.wepsim.js"></script>
-    <script src="min.sim_info.js"></script>
+    <script src="min.wepsim_all.js"></script>
 
     <!-- Google Analytics -->
     <script>
@@ -160,7 +158,7 @@
                 </div>
                 <span class="ui-title"><b>WepSIM</b> <span class="badge"><div class="wsversion">X</div></span> / Simulator</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
-                    <a id="menu1"
+                    <a id="menu1a"
                        href="#actions_panel"
                        class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
@@ -282,10 +280,10 @@
 			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-reset   ui-btn-icon-top ui-mini no-text-shadow"
 			       onclick="wepsim_execute_reset(true, true);"><br>Reset</a>
-			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
+			    <a id="nm1" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini no-text-shadow"
 			       onclick="wepsim_execute_microinstruction();"><br>&#181;Instruction</a>
-			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
+			    <a id="ni1" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini no-text-shadow"
 			       onclick="wepsim_execute_instruction();"><br>Instruction</a>
 			    <a id="qbp" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
@@ -409,7 +407,7 @@
                 </div>
                 <span class="ui-title"><b>WepSIM</b> <span class="badge"><div class="wsversion">X</div></span> / Microcode</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
-                    <a id="menu1"
+                    <a id="menu1b"
                        href="#actions_panel"
                        class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
@@ -497,6 +495,7 @@
                                             var ok = wepsim_compile_firmware(textToMCompile);
                                             if (true == ok) {
                                                 wepsim_show_binary_microcode('#bin2','#compile_results');
+			                        wepsim_notify_success('<strong>INFO</strong>', 'Please remember to recompile the assembly code if needed.');
                                             }">Show co2&#181;addr + control memory</a>
 
                             <a href="#" style="background-color: #D4DB17"
@@ -530,7 +529,7 @@
                 </div>
                 <span class="ui-title"><b>WepSIM</b> <span class="badge"><div class="wsversion">X</div></span> / Assembly</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
-                    <a id="menu1"
+                    <a id="menu1c"
                        href="#actions_panel"
                        class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
 		</div>
@@ -644,15 +643,15 @@
 
         <tr>
         <td valign="middle">
-               <a href="#help1"    data-rel="popup"  data-position-to="window" 
+               <a href="#help1"    data-rel="popup"  data-position-to="window" id="btn_help1"
                   onclick="wepsim_open_help_index();"
                   style="text-align:left; background-color: #D4DB17;"
                   class="ui-btn ui-btn-icon-left ui-icon-info">Help</a>
-               <a href="#example1" data-rel="popup"  data-position-to="window" 
+               <a href="#example1" data-rel="popup"  data-position-to="window" id="btn_example1"
                   onclick="wepsim_open_examples_index();"
                   style="text-align:left"
                   class="ui-btn ui-btn-icon-left ui-icon-info">Examples</a>
-               <a href="#config2"  data-rel="popup"  data-position-to="window" 
+               <a href="#config2"  data-rel="popup"  data-position-to="window" id="btn_config2"
                   onclick="$('#config2').modal('show');"
                   style="text-align:left"
                   class="ui-btn ui-btn-icon-left ui-icon-gear">Configuration</a>
@@ -1561,7 +1560,7 @@
 
     try 
     {
-	    restore_cfg();
+	    sim_core_init(true) ;
 
 	    $(document).ready(function()
 	    {
@@ -1620,14 +1619,14 @@
 		    var a = document.getElementById("svg_p");
 		    a.addEventListener("load",function() {
 			sim_prepare_svg_p();
-			init_eventlistener("svg_p");
+			sim_core_init_eventlistener("svg_p");
 			refresh();
 		    }, false);
 
 		    var a = document.getElementById("svg_cu");
 		    a.addEventListener("load",function() {
 			sim_prepare_svg_cu();
-			init_eventlistener("svg_cu");
+			sim_core_init_eventlistener("svg_cu");
 			refresh();
 		    }, false);
 
@@ -1685,8 +1684,8 @@
                target.prop("scrollTop", this.scrollTop).prop("scrollLeft", this.scrollLeft);
             });
 
-	    init("#states_ALL", "#states_BR", "#io_ALL", "#cpu_ALL", "#config_ALL"); 
-	    reset(); 
+	    sim_core_init_panel("#states_ALL", "#states_BR", "#io_ALL", "#cpu_ALL", "#config_ALL"); 
+	    sim_core_reset(); 
 
             // split (experimental)
 if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ))
@@ -1735,9 +1734,6 @@ if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(nav
 	    if (false == get_cfg('use_voice'))
 		wepsim_voice_stop() ;
 
-            if ('tutorial' == get_cfg('ws_mode'))
-                sim_tutorial_showframe('welcome', 0) ;
-
             // progressive web application
 	    if ('serviceWorker' in navigator) 
             {
@@ -1747,6 +1743,15 @@ if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(nav
 		                      "Progressive Web Applications requires a HTTPS connection " +
 		                      "with a valid certificate, so PWA is disabled.") ;
 		}) ;
+	    }
+
+            if ('tutorial' == get_cfg('ws_mode')) 
+            {
+		var ti = get_cfg('ws_idiom') ;
+		var tour = introJs();
+		    tour.setOptions({ steps: tour_steps[ti] }) ;
+		    tour.onbeforechange(tour_steps.onbeforechange) ;
+		    tour.start() ;
 	    }
     }
     catch(err) 
