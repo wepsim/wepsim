@@ -26,7 +26,7 @@
     function table_helps_html ( helps )
     {
        var o = '<div class="table-responsive">' +
-               '<table width=100% class="table table-striped table-hover table-condensed">' +
+               '<table width=100% class="table table-striped table-hover table-sm">' +
                '<thead>' +
                '<tr>' +
                '  <th>#</th>' +
@@ -58,10 +58,10 @@
 		       ' <td>' + 
                        '  <a href="#" ' +
                        '     class="ui-btn btn btn-group ui-btn-inline" ' +
-                       '     style="background-color: #D4DB17; padding:0 0 0 0;" ' +
+                       '     style="background-color: #D4DB17; padding:0 0 0 0; margin:2 8 0 0;" ' +
 		       '     onclick="' + onclick_code + '"><b>' + e_title + '</b></a>' +
                        ' </td>' +
-		       ' <td class="collapse2 collapse in">' +
+		       ' <td class="collapse2 collapse show">' +
 		       '   <c>' + e_description + '</c>' + 
                        ' </td>' +
 		       '</tr>' ;

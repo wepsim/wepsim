@@ -36,43 +36,43 @@
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab11').trigger('click');
-						     $('#select5a').selectpicker('val', 11);
+						     $('#select5a').val(11);
                                                   }, false);
 	            o  = ref_p.getElementById('text3029');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab11').trigger('click');
-						     $('#select5a').selectpicker('val', 11);
+						     $('#select5a').val(11);
                                                   }, false);
 	            o  = ref_p.getElementById('text3031');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab11').trigger('click');
-						     $('#select5a').selectpicker('val', 11);
+						     $('#select5a').val(11);
                                                   }, false);
 	            o  = ref_p.getElementById('text3001');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab14').trigger('click');
-						     $('#select5a').selectpicker('val', 14);
+						     $('#select5a').val(14);
                                                   }, false);
 	            o  = ref_p.getElementById('text3775');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab15').trigger('click');
-						     $('#select5a').selectpicker('val', 15);
+						     $('#select5a').val(15);
                                                   }, false);
 	            o  = ref_p.getElementById('text3829');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab12').trigger('click');
-						     $('#select5a').selectpicker('val', 12);
+						     $('#select5a').val(12);
                                                   }, false);
 	            o  = ref_p.getElementById('text3845');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab12').trigger('click');
-						     $('#select5a').selectpicker('val', 12);
+						     $('#select5a').val(12);
                                                   }, false);
                     o  = ref_p.getElementById('text3459-7');
                 if (o != null) o.addEventListener('click',
@@ -91,7 +91,7 @@
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab16').trigger('click');
-						     $('#select5a').selectpicker('val', 16);
+						     $('#select5a').val(16);
                                                   }, false);
                     o  = ref_cu.getElementById('text4138');
                 if (o != null) o.addEventListener('click',
@@ -296,8 +296,12 @@
     function set_cpu_cu_size ( diva, divb, new_value )
     {
 	var a = new_value;
-	var b = 100 - a;
-	$('#eltos_cpu_a').css({width: a+'%'});
-	$('#eltos_cpu_b').css({width: b+'%'});
+    	var b = 12 - a;
+
+	$('#eltos_cpu_a').removeClass();
+	$('#eltos_cpu_a').addClass('col-' + a);
+
+	$('#eltos_cpu_b').removeClass();
+	$('#eltos_cpu_b').addClass('col-' + b);
     }
 

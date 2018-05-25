@@ -121,38 +121,38 @@
          }
 
          var t = 0 ;
-         var o = '<div class="panel-group" id="accordion1">' ;
+         var o = '<div class="card-group-vertical" id="accordion1">' ;
          for (var i=state_history.length-1; i>=0; i--) 
          {
               t = new Date(state_history[i].time) ;
 
-              o += '<div class="panel panel-default">' +
-                   '  <div class="panel-heading" data-toggle="collapse" data-target="#collapse_'+i+'" data-parent="#accordion1">' +
-                   '    <h4 class="panel-title">' +
+              o += '<div class="card">' +
+                   '  <div class="card-header" data-toggle="collapse" data-target="#collapse_'+i+'" data-parent="#accordion1">' +
+                   '    <h5 class="card-title">' +
                    '      <span>[' +
                             t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + '_' +
                             t.getHours()    + '-' + t.getMinutes()   + '-' + t.getSeconds() + '_' + 
                             t.getMilliseconds() + '] ' + state_history[i].title +
                    '      </span>' +
-                   '    </h4>' +
+                   '    </h5>' +
                    '  </div>' +
                    '  <div id="collapse_' + i + '" class="panel-collapse collapse">' +
-                   '    <div class="panel-body">' + 
+                   '    <div class="card-body">' + 
                    '      <div class="container-fluid">' + 
                    '      <div class="row">' + 
-                   '      <button class="btn btn-default btn-sm col-xs-4 col-sm-3 pull-right"' + 
+                   '      <button class="btn btn-secondary btn-sm col-xs-4 col-sm-3 pull-right"' + 
                    '              onclick="CopyFromTextarea(\'ta_state_' + i + '\');" ' + 
-                   '              type="button">Copy <span class="hidden-xs">to clipboard</span></button>' +
-                   '      <button class="btn btn-default btn-sm col-xs-4 col-sm-3 pull-right"' + 
+                   '              type="button">Copy <span class="d-xs-none">to clipboard</span></button>' +
+                   '      <button class="btn btn-secondary btn-sm col-xs-4 col-sm-3 pull-right"' + 
                    '              onclick="var txt_chklst1 = get_clipboard_copy();' +
                    '                       var obj_exp1    = wepsim_checklist2state(txt_chklst1);' +
                    '                       var txt_chklst2 = $(\'#ta_state_'+i+'\').val();' +
                    '                       var obj_exp2    = wepsim_checklist2state(txt_chklst2);' +
                    '                       wepsim_dialog_check_state(\'check_results1\', obj_exp1, obj_exp2);"' +
-                   '           type="button">Check <span class="hidden-xs">differences with clipboard state</span></button>' +
+                   '           type="button">Check <span class="d-xs-none">differences with clipboard state</span></button>' +
                    '      </div>' + 
                    '      </div>' + 
-                   '      <div class="panel-body" ' + 
+                   '      <div class="card-body" ' + 
                    '           style="padding:5 5 5 5;" ' + 
                    '           id="state_' + i + '">' + state_history[i].content + '</div>' +
                    '      <textarea aria-label="hidden-state"  style="display:none"' +
@@ -428,21 +428,21 @@
             only_errors = false ;
 
         o += "<table style='margin:0 0 0 0;' " + 
-             "       class='table table-hover table-bordered table-condensed'>" +
+             "       class='table table-hover table-bordered table-sm'>" +
              "<thead>" +
              "<tr>" +
              "<th>Type</th>" +
-             "<th><span class='hidden-xs'>Identification</span><span class='visible-xs'>Id.</span></th>" +
-             "<th><span class='hidden-xs'>Values in the </span>clipboard<span class='hidden-xs'> state</th>" +
-             "<th><span class='hidden-xs'>Values in the </span>selected<span class='hidden-xs'> state</th>" +
+             "<th><span class='d-xs-none'>Identification</span><span class='d-sm-none'>Id.</span></th>" +
+             "<th><span class='d-xs-none'>Values in the </span>clipboard<span class='d-xs-none'> state</th>" +
+             "<th><span class='d-xs-none'>Values in the </span>selected<span class='d-xs-none'> state</th>" +
              "</tr>" +
              "</thead>" +
              "<tbody>" ;
         for (var i=0; i<checklist.length; i++)
         {
              if (checklist[i].fulfill === false)
-                  color = "danger" ;
-             else color = "success" ;
+                  color = "table-danger" ;
+             else color = "table-success" ;
 
              if (only_errors && checklist[i].fulfill)
                  continue ;

@@ -200,6 +200,7 @@
          *  init_x & show_x
          */
 
+/*
         function simcoreui_notify ( ntf_title, ntf_message, ntf_type, ntf_delay )
         {   
             return $.notify({ title: ntf_title, 
@@ -215,6 +216,34 @@
         function simcoreui_notify_close ( )
         {   
             return $.notifyClose() ;
+        }
+*/
+
+        function simcoreui_notify_close ( )
+        {
+            //$("#alerts-container").close() ;
+              $(".alert").alert('close') ;
+        }
+
+        function simcoreui_notify ( ntf_title, ntf_message, ntf_type, ntf_delay )
+        {
+	    // alerts-container does not exist, create it
+	    var ac = $("#alerts-container") ;
+	    if (ac.length == 0) {
+		ac = $('<div id="alerts-container" ' + 
+                       '     style="position: fixed; width: 50%; left: 25%; top: 10%;">') ;
+		$("body").append(ac) ;
+	    }
+
+	    // create the alert div
+            var btn1   = $('<button type="button" class="close" data-dismiss="alert">') ;
+	    var alert1 = $('<div class="alert alert-' + ntf_type + ' fade in">') ;
+	    ac.prepend(alert1.append(btn1.append("&times;")).append(ntf_message)) ;
+
+	    // if delay was passed, set up a timeout to close the alert
+	    if (ntf_delay != 0) {
+		window.setTimeout(function() { alert1.alert("close") }, ntf_delay);     
+	    }
         }
 
         function hex2float ( hexvalue )
@@ -317,11 +346,11 @@
 		var valuedt = "" ;
 		if (get_cfg('is_editable') == true) {
 		    valuedt = "<tr><td colspan=5 align=center><input type=text id='popover1' value='" + valueui + "' data-mini='true' style='width:65%'>&nbsp;" +
-                              "<span class='badge' " +
+                              "<span class='badge badge-secondary' " +
                               "      onclick='hex2values_update(\"" + index + "\");'>update</span></td></tr>";
                 }
 
-		var vtable = "<table width='100%' class='table table-bordered table-condensed'>" +
+		var vtable = "<table width='100%' class='table table-bordered table-sm'>" +
 			     "<tr><td><small><b>hex.</b></small></td>" +
                              "    <td colspan=4><small>" + valuehex + "</small></td></tr>" +
 			     "<tr><td><small><b>bin.</b></small></td>" +
@@ -361,14 +390,14 @@
                           "        data-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
                           "  <span id='name_RF" + index + "' style='float:center; padding:0 0 0 0'>R" + index + "</span>" +
-                          "  <span class='badge' style='background-color:#CEECF5; color:black;' id='tbl_RF"  + index + "'>" +
+                          "  <span class='badge badge-secondary' style='background-color:#CEECF5; color:black;' id='tbl_RF"  + index + "'>" +
                           (get_value(sim_states['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() +
                           "  </span>" +
                           "</button>" +
                           "</div>" ;
 	    }
 
-            $(jqdiv).html("<div class='row-fluid'>" + o1_rf + "</div>");
+            $(jqdiv).html("<div class='row justify-content-center'>" + o1_rf + "</div>");
 
 	    $("[data-toggle=popover-up]").popover({
 	    	    html:      true,
@@ -454,7 +483,7 @@
 
                 var showkey = sim_eltos[s].name;
                 if (sim_eltos[s].nbits > 1)
-                    showkey = showkey.substring(0,2) + '<span class="hidden-xs">' + showkey.substring(2,showkey.length) + '</span>' ;
+                    showkey = showkey.substring(0,2) + '<span class="d-xs-none">' + showkey.substring(2,showkey.length) + '</span>' ;
 
                 var b = filter[i].split(",")[1] ;
                 var divclass = divclasses[b] ;
@@ -464,14 +493,14 @@
                       "        data-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +
                       showkey +
-                      "<span class='badge' style='background-color:#CEECF5; color:black;' id='tbl_"  + s + "'>" +
+                      "<span class='badge badge-secondary' style='background-color:#CEECF5; color:black;' id='tbl_"  + s + "'>" +
                       sim_eltos[s].value.toString(get_cfg('RF_display_format')) +
                       "</span>" +
                       "</button>" +
                       "</div>" ;
             }
 
-            $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
+            $(jqdiv).html("<div class='row'>" + o1 + "</div>");
 
 	    $("[data-toggle=popover-bottom]").popover({
 	    	    html:      true,
@@ -534,8 +563,8 @@
                               "REG_RT1,1", "REG_RT2,1", "REG_RT3,1",
                               "REG_MAR,1", "REG_MBR,1", "REG_MICROADDR,1" ] ;
 
-        var divclasses = [ "col-xs-12 col-sm-12 col-md-12 col-lg-12",
-                           "col-xs-4 col-sm-4 col-md-4 col-lg-4" ] ;
+        var divclasses = [ "col-11", 
+		           "col" ] ;
 
         function init_states ( jqdiv )
         {
@@ -569,8 +598,8 @@
             }
 
             // stats holder
-            var o1 = "<center>" +
-                     "<table class='table table-hover table-condensed table-bordered table-responsive'>" ;
+            var o1 = "<div class='col-12'>" +
+                     "<table class='table table-hover table-sm table-bordered table-responsive'>" ;
             for (var i=0; i<IO_INT_FACTORY.length; i++)
             {
                o1 += "<tr id='int" + i + "_context'>" +
@@ -583,8 +612,8 @@
                      "</tr>" ;
             }
             o1 += "</table>" +
-                  "</center>" ;
-            $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
+                  "</div>" ;
+            $(jqdiv).html("<div class='row'>" + o1 + "</div>");
 
             // knockout binding
             for (var i=0; i<IO_INT_FACTORY.length; i++)
@@ -608,8 +637,8 @@
             }
 
             // stats holder
-            var o1 = "<center>" +
-                     "<table class='table table-hover table-condensed table-bordered table-responsive'>" +
+            var o1 = "<div class='col-12'>" +
+                     "<table class='table table-hover table-sm table-bordered table-responsive'>" +
                      "<tr>" +
                      "<td align=center width=50%>Instructions</td>" +
                      "<td align=center width=50%>" +
@@ -623,8 +652,8 @@
                      "</td>" +
                      "</tr>" +
                      "</table>" +
-                     "</center>" ;
-            $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
+                     "</div>" ;
+            $(jqdiv).html("<div class='row'>" + o1 + "</div>");
 
             // knockout binding
             sim_states['CLK'].value = ko_observable(sim_states['CLK'].value);
@@ -652,16 +681,16 @@
             }
 
             // html holder
-            var o1 = "<div class='container-fluid' style='padding:0 0 0 0; overflow-x:auto'>" +
-                     "<div class='row-fluid'>" ;
+            var o1 = "<div class='container-fluid'>" +
+                     "<div class='row'>" ;
 
-               o1 += "<div class='col-xs-12 col-md-12' style='padding:0 0 0 0;'>" +
-                     "<div class='panel panel-default'>" +
-                     "<div class='panel-heading'>" +
-                     " <h3 class='panel-title'>Memory</h3>" +
+               o1 += "<div class='col-12' style='padding:0 0 10 0;'>" +
+                     "<div class='card'>" +
+                     "<div class='card-header'>" +
+                     " <h3 class='card-title'>Memory</h3>" +
                      "</div>" +
-                     "<div class='panel-body' id='mempanel' style='padding:0 0 0 0;'>" +
-                     "<table class='table table-hover table-condensed table-bordered table-responsive' " +
+                     "<div class='card-body' id='mempanel' style='padding:0 0 0 0;'>" +
+                     "<table class='table table-hover table-sm table-bordered table-responsive' " +
                      "       style='margin:0'>" +
                      "<tbody class='no-ui-mini'>" +
                      "<tr><td align=center'>Wait cycles (<b>0</b> - &infin;)</td>" +
@@ -677,27 +706,27 @@
                      "</div>" ;
          
                o1 += "<div class='col-xs-12 col-md-12' style='padding:0 0 0 0;'>" +
-                     "<div class='panel panel-default' style='margin:0 0 0 0;'>" +
-                     "<div class='panel-heading'>" +
-                     " <h3 class='panel-title'>I/O</h3>" +
+                     "<div class='card' style='margin:0 0 0 0;'>" +
+                     "<div class='card-header'>" +
+                     " <h3 class='card-title'>I/O</h3>" +
                      "</div>" +
-                     "<div class='panel-body' id='iopanel' style='padding: 0 0 0 0'>" ;
+                     "<div class='card-body' id='iopanel' style='padding: 0 0 0 0'>" ;
                o1 += "<center>" +
-                     "<table class='table table-hover table-condensed table-bordered table-responsive' " +
+                     "<table class='table table-hover table-sm table-bordered table-responsive' " +
                      "       style='margin:0'>" +
                      "<tbody class='no-ui-mini'>" +
                      "<tr>" +
                      "<td align=center width='33%'>" +
-                     "  <span class='hidden-xs'>Interruption identificator</span>" +
-                     "  <span class='visible-xs'>Int. Id.<br>(0 - 7)</span>" +
+                     "  <span class='d-xs-none'>Interruption identificator</span>" +
+                     "  <span class='d-sm-none'>Int. Id.<br>(0 - 7)</span>" +
                      "</td>" +
                      "<td align=center width='33%'>" +
-                     "  <span class='hidden-xs'>CLK period (<b>0</b> - &infin;)</span>" +
-                     "  <span class='visible-xs'>CLK ticks <br>(<b>0</b> - &infin;)</span>" +
+                     "  <span class='d-xs-none'>CLK period (<b>0</b> - &infin;)</span>" +
+                     "  <span class='d-sm-none'>CLK ticks <br>(<b>0</b> - &infin;)</span>" +
                      "</td>" +
                      "<td align=center width='33%'>" +
-                     "  <span class='hidden-xs'>Probability (0 - 1)</span>" +
-                     "  <span class='visible-xs'>Probability <br>(0 - 1)</span>" +
+                     "  <span class='d-xs-none'>Probability (0 - 1)</span>" +
+                     "  <span class='d-sm-none'>Probability <br>(0 - 1)</span>" +
                      "</td>" +
                      "</tr>" ;
             for (var i=0; i<8; i++)
@@ -804,8 +833,8 @@
                 if (typeof sname != "undefined")
                     o1 += '<div style="position:sticky;top:0px;z-index:1;width:50%;background:#FFFFFF;"><b><small>' + sname + '</small></b></div>' ;
 
-                taddr = '<small>0x</small>' + pack5(valkeys[3]) + '<span class="hidden-xs"> </span>-' + 
-                        '<span class="hidden-xs"><small> 0x</small></span>' + pack5(valkeys[0]) ;
+                taddr = '<small>0x</small>' + pack5(valkeys[3]) + '<span class="d-xs-none"> </span>-' + 
+                        '<span class="d-xs-none"><small> 0x</small></span>' + pack5(valkeys[0]) ;
 		if (key == index)
 		     o1 += "<div class='row' id='addr" + key + "'" +
                            "     style='color:blue; font-size:small; font-weight:bold;    border-bottom: 1px solid lightgray !important'>" +
@@ -865,8 +894,11 @@
                      valuei = value[i*2] + value[i*2+1] ;
 
                      if (typeof labeli != "undefined")
-                          value2 += '<span style="border:1px solid gray;">' + valuei + '</span>' +
-                                    '<span class="label label-primary" style="position:relative;top:12px;right:8px;">' + labeli + '</span>' ;
+                          value2 += '<span>' +
+                                    '<span style="border:1px solid gray;">' + valuei + '</span>' +
+                                    '<span class="badge badge-pill badge-primary" ' + 
+                                    '     style="position:relative;top:-8px;">' + labeli + '</span>' +
+                                    '</span>' ;
                      else value2 += valuei + ' ' ;
                 }
 
@@ -957,9 +989,11 @@
 
                 maddr = "0x" + parseInt(key).toString(16) ;
                 if (typeof revlabels[key] != "undefined")
-                    maddr = '<span class="label label-primary" ' + 
-                            '      style="position:relative;top:-10px;right:0px;">' + revlabels[key] + '</span>' +
-                            '<span style="border:1px solid gray;">' + maddr + '</span>' ;
+                    maddr = '<span>' +
+                            '<span class="badge badge-pill badge-primary" ' + 
+                            '      style="position:relative;top:4px;">' + revlabels[key] + '</span>' +
+                            '<span style="border:1px solid gray;">' + maddr + '</span>' +
+                            '</span>' ;
 
 		trpin = "&nbsp;" ;
 		if (true == memory_dashboard[key].breakpoint)
@@ -970,14 +1004,14 @@
                            "    style='color:blue; font-size:small; font-weight:bold' " +
 			   "    onclick='dbg_set_breakpoint(" + key + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
-			   "<td width=12% align=right>" + maddr + "</td>" +
+			   "<td width=15% align=right>" + maddr + "</td>" +
 			   "<td width=1% id='mcpin" + key + "' style='padding:5 0 0 0;'>" + trpin + "</td>" +
 			   "<td>" + value + "</td></tr>";
 		else o1 += "<tr id='maddr" + key + "' " +
                            "    style='color:black; font-size:small; font-weight:normal' " +
 			   "    onclick='dbg_set_breakpoint(" + key + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
-			   "<td width=12% align=right>" + maddr + "</td>" +
+			   "<td width=15% align=right>" + maddr + "</td>" +
 			   "<td width=1% id='mcpin" + key + "' style='padding:5 0 0 0;'>" + trpin + "</td>" +
 			   "<td>" + value + "</td></tr>";
             }
@@ -990,7 +1024,7 @@
 		      "<td><font style='color:blue; font-size:small; font-weight:bold'><b>&nbsp;</b></font></td></tr>";
             }
 
-            $("#memory_MC").html("<center><table class='table table-hover table-condensed table-responsive'>" +
+            $("#memory_MC").html("<center><table class='table table-hover table-sm table-responsive'>" +
                                  "<tbody id=none>" + o1 + "</tbody>" +
                                  "</table></center>");
 
@@ -1243,7 +1277,8 @@
 
                          line = "";
                          if (j==0)
-                              line += "<td style='border-style: solid; border-width:0px; border-color:lightgray;'><span class='badge'>" + isignature + "</span>&nbsp;</td>" +
+                              line += "<td style='border-style: solid; border-width:0px; border-color:lightgray;'>" + 
+				      "<span class='badge badge-pill badge-secondary float-left'>" + isignature + "</span>&nbsp;</td>" +
                                       "<td style='border-style: solid; border-width:1px; border-color:lightgray;'>" + ico + "</td>" ;
                          else line += "<td style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;</td>" +
                                       "<td style='border-style: solid; border-width:1px; border-color:lightgray;'>&nbsp;</td>" ;
@@ -1321,7 +1356,7 @@
 	          wadd = "0x" + (parseInt(c)+j).toString(16);
 	          if (typeof slebal[wadd] != "undefined")
                        for (var i=0; i<slebal[wadd].length; i++)
-		            clabel = clabel + "<span class='badge'>" + slebal[wadd][i] + "</span>" ;
+		            clabel = clabel + "<span class='badge badge-pill badge-secondary float-left'>" + slebal[wadd][i] + "</span>" ;
 	          else clabel = clabel + "&nbsp;" ;
              }
 
@@ -1521,10 +1556,10 @@
                      s2_instr = asm[l].source_original ;
 
                      // labels
-                     s_label = "&nbsp;" ;
+                     s_label = "" ;
                      if (typeof a2l[l] != "undefined") {
                          for (var i=0; i<a2l[l].length; i++) {
-                              s_label = s_label + "<span class='label label-primary'>" + a2l[l][i] + "</span>" ;
+                              s_label = s_label + "<span class='badge badge-primary'>" + a2l[l][i] + "</span>" ;
                          }
                      }
 

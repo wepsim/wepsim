@@ -48,9 +48,8 @@ rm -fr wepsim_all.js
 # 
 #  external
 # 
-cat external/bootstrap.min.js \
-    external/bootstrap-notify.min.js \
-    external/masonry.pkgd.min.js \
+cat external/popper.min.js \
+    external/bootstrap.min.js \
     external/knockout-3.4.2.js \
     external/jquery.knob.min.js \
     external/bootbox.min.js \
@@ -75,7 +74,6 @@ cat external/bootstrap.min.js \
     external/codemirror.runmode/colorize.js \
     external/vis.min.js \
     external/async.js \
-    external/bootstrap-select.min.js \
     external/bootstrap-tokenfield.js \
     external/introjs.min.js \
     external/speech-input.js \
@@ -91,7 +89,6 @@ cat external/bootstrap.min.css \
     external/codemirror.fold/foldgutter.css \
     external/codemirror.show-hint/codemirror.show-hint.css \
     external/vis-network.min.css \
-    external/bootstrap-select.min.css \
     external/bootstrap-tokenfield.css \
     external/introjs.min.css \
     external/speech-input.css \

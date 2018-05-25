@@ -115,6 +115,14 @@
     .ui-helper-hidden-accessible {
         display: none;
     }
+    
+    // bootbox for bootstrap 4 trick
+    .bootbox .modal-header h4 {
+	 order: 0;
+    }
+    .bootbox .modal-header button {
+	 order: 1;
+    }
     </style>
 
     <link async href="external/external.min.css" rel="stylesheet">
@@ -156,7 +164,7 @@
                 <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
 		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
                 </div>
-                <span class="ui-title"><b>WepSIM</b> <span class="badge"><div class="wsversion">X</div></span> / Simulator</span>
+                <span class="ui-title"><b>WepSIM</b> <span class="badge badge-secondary"><div class="wsversion">X</div></span> / Simulator</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a id="menu1a"
                        href="#actions_panel"
@@ -164,14 +172,14 @@
 		</div>
 	</div><!-- /header -->
 
-	<div role="main" class="ui-content">
+	<div role="main" class="ui-content container-fluid">
 
             <div class="row">
                 <div id="col1" class="col-md-7" style="padding:0 0 0 0;">
 		    <div data-role="tabs" id="tabs2">
     		      <div data-role="navbar" id="tabsnav2" class="ui-responsive">
 		        <ul>
-		          <li style="clear:none;width:50% !important">
+		          <li class="nav-item">
                               <a id="tab26" href="#eltos_cpu" 
                                  onclick="if (is_drawing() == false)
                                               $('#slider2d').toggle(); 
@@ -230,15 +238,15 @@
 		       <label><input aria-label="Show breakpoint"         type="checkbox" value="1" id="asm_break"  name="asm_break" checked="checked"><span>breakpoints</span></label>
 		       <label><input aria-label="Show address"            type="checkbox" value="1" id="asm_addr"   name="asm_addr"  checked="checked"><span>address</span></label>
 		       <label><input aria-label="Show label"              type="checkbox" value="1" id="asm_label2" name="asm_label2" checked="checked"><span>labels</span></label>
-		       <label><input aria-label="Show pseudo-instruction" type="checkbox" value="1" id="asm_pins"   name="asm_pins"  checked="checked"><span>pseudo</span><span class="hidden-xs">-instructions</span></label>
+		       <label><input aria-label="Show pseudo-instruction" type="checkbox" value="1" id="asm_pins"   name="asm_pins"  checked="checked"><span>pseudo</span><span class="d-xs-none">-instructions</span></label>
 		       <label><input aria-label="Show label"              type="checkbox" value="1" id="asm_label1" name="asm_label1" checked="checked"><span>labels</span></label>
 		       <label><input aria-label="Show instruction"        type="checkbox" value="1" id="asm_ins"    name="asm_ins"   checked="checked"><span>assembly</span></label>
 		   </div>
 		   </th>
-			   <th width=10% class="asm_break"><span>break</span><span class="hidden-xs"><small>points</small></span></th>
-			   <th width=15% class="asm_addr"><span>addr</span><span class="hidden-xs">ess</span></th>
+			   <th width=10% class="asm_break"><span>break</span><span class="d-xs-none"><small>points</small></span></th>
+			   <th width=15% class="asm_addr"><span>addr</span><span class="d-xs-none">ess</span></th>
                            <th width=10% class="asm_label2" align=right><span>labels</span></th>
-                           <th width=20% class="asm_pins"   align=left><span>pseudo</span><span class="hidden-xs"><small>instructions</small></span></th>
+                           <th width=20% class="asm_pins"   align=left><span>pseudo</span><span class="d-xs-none"><small>instructions</small></span></th>
                            <th width=10% class="asm_label1" align=right><span>labels</span></th>
                            <th width=25% class="asm_ins"    align=left><span>assembly</span></th>
 			   </tr>
@@ -273,21 +281,21 @@
 	    	    </div>
                 </div>
 
-                <div id="col2" class="col-md-5" style="padding:0 8px 0 0px;">
+                <div id="col2" class="" style="padding:0 8px 0 0px;">
 
-                    <div class="btn-toolbar" role="toolbar" id="sim_toolbar" style="padding: 0 0px 2px 0px;">
-			<div class="btn-group btn-group-justified" role="group">
-			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-reset   ui-btn-icon-top ui-mini no-text-shadow"
+                    <div class="btn-toolbar" role="toolbar" id="sim_toolbar" style="padding: 0px 0px 2px 0px;">
+			<div class="btn-group btn-group-justified col-12" role="group" style="padding: 0px 0px 0px 0px;">
+			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px; margin:7px 2px 7px 2px;"
+			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-reset   ui-btn-icon-top ui-mini no-text-shadow col-2"
 			       onclick="wepsim_execute_reset(true, true);"><br>Reset</a>
-			    <a id="nm1" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini no-text-shadow"
+			    <a id="nm1" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px; margin:7px 2px 7px 2px;"
+			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini no-text-shadow col-3"
 			       onclick="wepsim_execute_microinstruction();"><br>&#181;Instruction</a>
-			    <a id="ni1" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini no-text-shadow"
+			    <a id="ni1" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px; margin:7px 2px 7px 2px;"
+			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini no-text-shadow col-3"
 			       onclick="wepsim_execute_instruction();"><br>Instruction</a>
-			    <a id="qbp" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-carat-r ui-btn-icon-top ui-mini no-text-shadow"
+			    <a id="qbp" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px; margin:7px 2px 7px 2px;"
+			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-carat-r ui-btn-icon-top ui-mini no-text-shadow col-2"
                                onclick="var mode = get_cfg('ws_mode');
                                         if ('tutorial' == mode) {
                                             wepsim_notify_success('<strong>INFO</strong>',
@@ -297,27 +305,28 @@
                                         return false;"><br>Run</a>
 			    <a id="ib1" href="#" 
                                style="background-color: #D4DB17;"
-			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-info ui-btn-icon-top ui-mini no-text-shadow"
+			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-info ui-btn-icon-top ui-mini no-text-shadow col-2"
 			       onclick="wepsim_help_set_relative('#help_simulator_screens'); 
                                         wepsim_help_refresh();"><br>Help</a>
                         </div>
                     </div>
 
 
-		    <fieldset class="ui-grid-c">
-			<div class="ui-block-a" style="width:15%">
-		          <button class="btn btn-default ui-btn ui-shadow ui-corner-all"
+		    <div class="container-fluid">
+		    <div class="row">
+			<div class="col-2" style="width:15%">
+		          <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all"
 		                  style="border-width:1 1 1 1px;"
-		                  onclick="wepsim_dialog_current_state();"><b><span class="hidden-xs">State</span><span class="visible-xs">St.</span></b></button>
+		                  onclick="wepsim_dialog_current_state();"><c><span class="d-xs-none">State</span><span class="d-sm-none">St.</span></c></button>
 			</div>
-			<div class="ui-block-d" style="width:27%">
-		          <button class="btn btn-default ui-btn ui-shadow ui-corner-all"
+			<div class="col-3" style="width:27%; padding:0 3 0 3;">
+		          <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all"
 		                  style="border-width:1 1 1 1px;"
-                                  data-toggle="modal" data-target="#confighw"><b><span class="hidden-xs">Configuration</span><span class="visible-xs">Cfg.</span></b></button>
+                                  data-toggle="modal" data-target="#confighw"><c><span class="d-xs-none">Configuration</span><span class="d-sm-none">Cfg.</span></c></button>
 			</div>
-			<div class="ui-block-c" style="width:40%; margin: 7 0 0 0">
-                          <select name="select5a" id="select5a" class="selectpicker" 
-				  data-container="body" data-role="none" data-width="100%" data-size="false"
+			<div class="col-5" style="width:40%; padding:0 3 0 3; margin: 7 0 0 0">
+                          <select name="select5a" id="select5a" class="custom-select col-5" 
+				  data-role="none" style="width: 100%"
                                   onchange="var val = this.value;
 				            $('#tab' + val).trigger('click');
 				            if ('11' == val)
@@ -337,16 +346,17 @@
 				  </optgroup>
 			  </select>
 			</div>
-			<div class="ui-block-b" style="width:18%">
-		          <button class="btn btn-default ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-refresh"
+			<div class="col-2" style="width:18%; padding:0 3 0 3;">
+		          <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-refresh"
 		                  style="border-width:1 0 1 2px;"
                                   onclick="var val = $('#select5a').val();
 				           $('#tab' + val).trigger('click');
 				           if ('11' == val)
 					        show_rf_values();
-				           else show_memories_values();"><b>Refresh</b></button>
+				           else show_memories_values();"><c>Refresh</c></button>
 			</div>
-    		    </fieldset>
+    		    </div>
+    		    </div>
 
 		    <div data-role="tabs" id="tabs1">
 
@@ -405,7 +415,7 @@
                 <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
 		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
                 </div>
-                <span class="ui-title"><b>WepSIM</b> <span class="badge"><div class="wsversion">X</div></span> / Microcode</span>
+                <span class="ui-title"><b>WepSIM</b> <span class="badge badge-secondary"><div class="wsversion">X</div></span> / Microcode</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a id="menu1b"
                        href="#actions_panel"
@@ -527,7 +537,7 @@
                 <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
 		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
                 </div>
-                <span class="ui-title"><b>WepSIM</b> <span class="badge"><div class="wsversion">X</div></span> / Assembly</span>
+                <span class="ui-title"><b>WepSIM</b> <span class="badge badge-secondary"><div class="wsversion">X</div></span> / Assembly</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a id="menu1c"
                        href="#actions_panel"
@@ -667,23 +677,23 @@
 	<div class="modal-content">
 	   <div class="modal-header">
 		<button type="button" data-role="button"
-                        class="close ui-btn-right ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-corner-all" 
+                        class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
                         data-dismiss="modal" aria-hidden="true">x</button>
 		<center>
-                <h4><b>Config<span class="hidden-xs">uration</span></b> <span class="badge btn-success"><div class="wsversion">X</div></span></h4>
+                <h4><b>Config<span class="d-xs-none">uration</span></b> <span class="badge btn-success"><div class="wsversion">X</div></span></h4>
                 </center>
 	   </div>
 	   <div class="modal-body">
 
 
         <div id=table-config2 class="table-responsive container-fluid" style="max-height:80vh; padding:0 0 0 0; overflow:auto;">
-	<table class="table table-striped table-hover table-condensed" 
+	<table class="table table-striped table-hover table-sm" 
 	       data-role="none" 
 	       style="width:100%; margin:0 0 0 0">
 	<thead>
 	<tr>
 	  <th onclick="$('.collapse6').collapse('toggle');">#</th>
-	  <th class="hidden-xs">area</th>
+	  <th class="d-xs-none">area</th>
 	  <th>title</th>
 	  <th style="min-width:11em">value</th>
 	  <th onclick="$('.collapse7').collapse('toggle');">description</th>
@@ -692,8 +702,8 @@
 	<tbody>
 
 	 <tr>
-	  <td class="collapse6 collapse in">1</td>
-	  <td class="hidden-xs" style="color:gray">general</td>
+	  <td class="collapse6 collapse show">1</td>
+	  <td class="d-xs-none" style="color:gray">general</td>
 	  <td>Active voice</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -711,12 +721,12 @@
 		     <label for="radio11-false" class="ui-btn-a">Off</label>
 		 </fieldset>
           </td>
-	  <td class="collapse7 collapse in">Use voice</td>
+	  <td class="collapse7 collapse show">Use voice</td>
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">2</td>
-	  <td class="hidden-xs" style="color:gray">general</td>
+	  <td class="collapse6 collapse show">2</td>
+	  <td class="d-xs-none" style="color:gray">general</td>
 	  <td>Execution mode</td>
 	  <td>
 		 <div class="form-group" style="max-width:10em; margin:0 0 0 0">
@@ -735,12 +745,12 @@
 		    </select>
 		 </div>
           </td>
-	  <td class="collapse7 collapse in">Tutorial/WepSIM mode</td>
+	  <td class="collapse7 collapse show">Tutorial/WepSIM mode</td>
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">3</td>
-	  <td class="hidden-xs" style="color:gray">editor</td>
+	  <td class="collapse6 collapse show">3</td>
+	  <td class="d-xs-none" style="color:gray">editor</td>
 	  <td>Editor theme</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -766,12 +776,12 @@
 		     <label for="radio7-blackboard" class="ui-btn-a">Dark</label>
 		 </fieldset>
           </td>
-	  <td class="collapse7 collapse in">Editor theme</td>
+	  <td class="collapse7 collapse show">Editor theme</td>
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">4</td>
-	  <td class="hidden-xs" style="color:gray">editor</td>
+	  <td class="collapse6 collapse show">4</td>
+	  <td class="d-xs-none" style="color:gray">editor</td>
 	  <td>Editor mode</td>
 	  <td>
 		 <div class="form-group" style="max-width:10em; margin:0 0 0 0">
@@ -790,12 +800,12 @@
 		    </select>
 		 </div>
           </td>
-	  <td class="collapse7 collapse in">Editor mode</td>
+	  <td class="collapse7 collapse show">Editor mode</td>
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">5</td>
-	  <td class="hidden-xs" style="color:gray">execution</td>
+	  <td class="collapse6 collapse show">5</td>
+	  <td class="d-xs-none" style="color:gray">execution</td>
 	  <td>Speed-up</td>
 	  <td>
 		 <input type="range"
@@ -806,12 +816,12 @@
 			min="1" max="500" value="200" step="20"
 			onchange="set_cfg('DBG_delay', 1000 / this.value); save_cfg();">
           </td>
-	  <td class="collapse7 collapse in">Speed (slow - fast)</td>
+	  <td class="collapse7 collapse show">Speed (slow - fast)</td>
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">6</td>
-	  <td class="hidden-xs" style="color:gray">execution</td>
+	  <td class="collapse6 collapse show">6</td>
+	  <td class="d-xs-none" style="color:gray">execution</td>
 	  <td>Step-by-step</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -820,21 +830,21 @@
 			    style="margin-top:-8px"
 			    onclick="set_cfg('DBG_level','instruction'); save_cfg();"
 			    value="on" type="radio">
-		     <label for="radio1-instruction" class="ui-btn-a"><span class="hidden-xs">Instructions</span><span class="visible-xs">Instruc.</span></label>
+		     <label for="radio1-instruction" class="ui-btn-a"><span class="d-xs-none">Instructions</span><span class="d-sm-none">Instruc.</span></label>
 		     <input name="radio1" id="radio1-microinstruction" 
 			    aria-label="Execution unit (microinstruction)"
 			    style="margin-top:-8px"
 			    onclick="set_cfg('DBG_level','microinstruction'); save_cfg();"
 			    value="off" type="radio">
-		     <label for="radio1-microinstruction" class="ui-btn-a"><span class="hidden-xs">&#181;instructions</span><span class="visible-xs">&#181;instruc.</span></label>
+		     <label for="radio1-microinstruction" class="ui-btn-a"><span class="d-xs-none">&#181;instructions</span><span class="d-sm-none">&#181;instruc.</span></label>
 		 </fieldset>
           </td>
-	  <td class="collapse7 collapse in">Element in run mode</td>
+	  <td class="collapse7 collapse show">Element in run mode</td>
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">7</td>
-	  <td class="hidden-xs" style="color:gray">execution</td>
+	  <td class="collapse6 collapse show">7</td>
+	  <td class="d-xs-none" style="color:gray">execution</td>
 	  <td>Breakpoint Icon</td>
 	  <td>
 		 <div class="form-group" style="max-width:10em; margin:0 0 0 0">
@@ -867,15 +877,15 @@
 		    </select>
 		 </div>
           </td>
-	  <td class="collapse7 collapse in">
+	  <td class="collapse7 collapse show">
 		 <img alt="stop icon" id="img_select1" src="images/stop_classic.gif" 
 		      style="position:relative; left:10px; height:30px !important; width:30px !important;">
 	  </td>
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">8</td>
-	  <td class="hidden-xs" style="color:gray">execution</td>
+	  <td class="collapse6 collapse show">8</td>
+	  <td class="d-xs-none" style="color:gray">execution</td>
 	  <td>Limit instr.</td>
 	  <td>
 		 <div class="form-group" style="max-width:10em; margin:0 0 0 0">
@@ -894,12 +904,12 @@
 		    </select>
 		 </div>
           </td>
-	  <td class="collapse7 collapse in">Max. executed instr.</td>
+	  <td class="collapse7 collapse show">Max. executed instr.</td>
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">9</td>
-	  <td class="hidden-xs" style="color:gray">execution</td>
+	  <td class="collapse6 collapse show">9</td>
+	  <td class="d-xs-none" style="color:gray">execution</td>
 	  <td>Limit instr. ticks</td>
 	  <td>
 		 <div class="form-group" style="max-width:10em; margin:0 0 0 0">
@@ -918,12 +928,12 @@
 		    </select>
 		 </div>
           </td>
-	  <td class="collapse7 collapse in">To limit clock ticks</td>
+	  <td class="collapse7 collapse show">To limit clock ticks</td>
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">10</td>
-	  <td class="hidden-xs" style="color:gray">simulation</td>
+	  <td class="collapse6 collapse show">10</td>
+	  <td class="d-xs-none" style="color:gray">simulation</td>
 	  <td>Display format</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -948,14 +958,14 @@
 		 </fieldset>
           </td>
 	  <td rowspan="2"><img alt="register file example" 
-	                       class="collapse7 collapse in"
+	                       class="collapse7 collapse show"
                                src="images/cfg-rf.gif" 
                                style="width:92px; max-height:100%"></td>
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">11</td>
-	  <td class="hidden-xs" style="color:gray">simulation</td>
+	  <td class="collapse6 collapse show">11</td>
+	  <td class="d-xs-none" style="color:gray">simulation</td>
 	  <td>RF name</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -976,8 +986,8 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">12</td>
-	  <td class="hidden-xs" style="color:gray">simulation</td>
+	  <td class="collapse6 collapse show">12</td>
+	  <td class="d-xs-none" style="color:gray">simulation</td>
 	  <td>Data-path color</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -990,14 +1000,14 @@
 		 </fieldset>
           </td>
 	  <td rowspan="2"><img alt="color configuration" 
-	                       class="collapse7 collapse in"
+	                       class="collapse7 collapse show"
                                src="images/cfg-colors.gif" 
                                style="width:90px; max-height:100%"></td>
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">13</td>
-	  <td class="hidden-xs" style="color:gray">simulation</td>
+	  <td class="collapse6 collapse show">13</td>
+	  <td class="d-xs-none" style="color:gray">simulation</td>
 	  <td>Signal color</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -1012,8 +1022,8 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">14</td>
-	  <td class="hidden-xs" style="color:gray">simulation</td>
+	  <td class="collapse6 collapse show">14</td>
+	  <td class="d-xs-none" style="color:gray">simulation</td>
 	  <td>Interactive Mode</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -1031,12 +1041,12 @@
 		     <label for="radio5-false" class="ui-btn-a">Off</label>
 		 </fieldset>
           </td>
-	  <td class="collapse7 collapse in">Interactive Mode</td>
+	  <td class="collapse7 collapse show">Interactive Mode</td>
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">15</td>
-	  <td class="hidden-xs" style="color:gray">simulation</td>
+	  <td class="collapse6 collapse show">15</td>
+	  <td class="d-xs-none" style="color:gray">simulation</td>
 	  <td>Editable registers</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -1054,12 +1064,12 @@
 		     <label for="radio9-false" class="ui-btn-a">Off</label>
 		 </fieldset>
           </td>
-	  <td class="collapse7 collapse in">Edit register file values</td>
+	  <td class="collapse7 collapse show">Edit register file values</td>
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">16</td>
-	  <td class="hidden-xs" style="color:gray">simulation</td>
+	  <td class="collapse6 collapse show">16</td>
+	  <td class="d-xs-none" style="color:gray">simulation</td>
 	  <td>Show by value</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -1077,12 +1087,12 @@
 		     <label for="radio10-false" class="ui-btn-a">Off</label>
 		 </fieldset>
           </td>
-	  <td class="collapse7 collapse in">Show by value/activation</td>
+	  <td class="collapse7 collapse show">Show by value/activation</td>
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse in">17</td>
-	  <td class="hidden-xs" style="color:gray">simulation</td>
+	  <td class="collapse6 collapse show">17</td>
+	  <td class="d-xs-none" style="color:gray">simulation</td>
 	  <td>Notification delay</td>
 	  <td>
 		 <input type="range"
@@ -1093,7 +1103,7 @@
 			min="100" max="2000" value="1000" step="100"
 			onchange="set_cfg('NOTIF_delay', this.value); save_cfg();">
           </td>
-	  <td class="collapse7 collapse in">Viewing time (slow - fast)</td>
+	  <td class="collapse7 collapse show">Viewing time (slow - fast)</td>
 	 </tr>
 
 	</tbody>
@@ -1112,7 +1122,7 @@
 	<div class="modal-content">
 	   <div class="modal-header">
 		<button type="button" data-role="button"
-                        class="close ui-btn-right ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-corner-all" 
+                        class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
                         data-dismiss="modal" aria-hidden="true">x</button>
 		<center>
                 <h4><b>Binary</b> <span class="badge btn-success"><div class="wsversion">X</div></span></h4>
@@ -1150,7 +1160,7 @@
 	<div class="modal-content">
 	   <div class="modal-header">
 		 <button type="button" data-role="button"
-			 class="close ui-btn-right ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-corner-all" 
+			 class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
 			 data-dismiss="modal" aria-hidden="true">x</button>
 		 <h4 class="modal-title">
 		    <center>
@@ -1158,7 +1168,7 @@
 			  <button onclick="$('#bot_hwcfg1').carousel(0);" 
 				  type="button" 
 				  class="btn btn-info" 
-				  style="height:34px !important;">Hardware Conf<span class='visible-xs'>.</span><span class='hidden-xs'>iguration</span></button>
+				  style="height:34px !important;">Hardware Conf<span class='d-sm-none'>.</span><span class='d-xs-none'>iguration</span></button>
 			  <button onclick="$('#bot_hwcfg1').carousel(1);
 					   update_checker_loadhelp('#help4a','help_hwcfg');"
 				  type="button" 
@@ -1185,12 +1195,12 @@
 	   <div class="modal-body">
                <div id="bot_hwcfg1" class="carousel slide" data-ride="carousel" data-interval="false">
                   <div class="carousel-inner" role="listbox">
-                     <div class="item active">
+                     <div class="carousel-item active">
 		          <div id="config" class="ui-body-d ui-content" style="padding:14 14 0 14;">
 		               <div id="config_ALL" style="width: inherit; overflow-y: auto;"></div>
 		          </div>
                      </div>
-                     <div class="item">
+                     <div class="carousel-item">
                           <div id="help4a" 
                                style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>
                      </div>
@@ -1208,20 +1218,18 @@
 
 
 <div id="help1" class="modal">
-     <div class="modal-dialog" style="width:95vw; height:80vh;">
+     <div class="modal-dialog" style="max-width:95vw; height:80vh;">
 	<div class="modal-content">
 	   <div class="modal-header">
 		<button type="button" data-role="button"
-                        class="close ui-btn-right ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-corner-all" 
+                        class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
                         data-dismiss="modal" aria-hidden="true">x</button>
 		<center>
 		   <div class="btn-group">
 		     <button type="button" class="btn btn-success" 
-		             onclick="wepsim_open_help_index();"
-			     style="height:34px !important;">Help Index</button>
+		             onclick="wepsim_open_help_index();">Help Index</button>
 		     <button type="button" class="btn btn-success dropdown-toggle" 
-			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
-			     style="height:34px !important;">
+			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			 <span class="caret"></span>
 			 <span class="sr-only">Toggle Help Idiom</span>
 		     </button>
@@ -1247,11 +1255,11 @@
 
 
 <div id="example1" class="modal">
-     <div class="modal-dialog" style="width:95vw; height:80vh;">
+     <div class="modal-dialog" style="max-width:95vw; height:80vh;">
 	<div class="modal-content">
 	   <div class="modal-header">
 		<button type="button" data-role="button"
-                        class="close ui-btn-right ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-corner-all" 
+                        class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
                         data-dismiss="modal" aria-hidden="true">x</button>
 		<center>
                 <h4><b>Examples</b> <span class="badge btn-success"><div class="wsversion">X</div></span></h4>
@@ -1279,12 +1287,12 @@
                <div class="btn-group">
                   <button onclick="$('#bot_check1').carousel(0);"
                           type="button" 
-                          class="btn btn-default" 
+                          class="btn btn-secondary" 
 			  style="height:34px !important;">History</button>
                   <button onclick="$('#bot_check1').carousel(1);" 
                           type="button" 
                           class="btn btn-info" 
-			  style="height:34px !important;"><span class='hidden-xs'>Edit </span>State</button>
+			  style="height:34px !important;"><span class='d-xs-none'>Edit </span>State</button>
                   <button onclick="$('#bot_check1').carousel(2);
                                    update_checker_loadhelp('#help3a','help_dumper');"
                           type="button" 
@@ -1312,14 +1320,14 @@
          <div class="bootbox-body">
             <div id="bot_check1" class="carousel slide" data-ride="carousel" data-interval="false">
                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
+                  <div class="carousel-item active">
                         <h4 style="margin:0 0 10 0;">History:</h4>
                         <div id="history1"
 			     style="max-height:42vh; width:inherit; overflow:auto;">
 				&emsp;<span style="background-color:#FCFC00">Empty.</span>
 			</div>
                         <h4 style="margin:20 0 10 0;">Differences (only changed values):
-			<span class="btn btn-default btn-xs"
+			<span class="btn btn-secondary btn-xs"
 			      onclick="CopyFromDiv('check_results_scroll1'); return false;"
 			      data-inline="true">Copy to clipboard</i></span>
                         </h4>
@@ -1328,10 +1336,10 @@
 		             <div id="check_results1"></div>
 		        </div>
                   </div>
-                  <div class="item">
+                  <div class="carousel-item">
                      <div>
                         <h4 style="margin:20 0 10 0;">Current State (non-zero values):
-			<span class="btn btn-default btn-xs"
+			<span class="btn btn-secondary btn-xs"
 			      onclick="CopyFromTextarea('end_state1'); return false;"
 			      data-inline="true">Copy to clipboard</span>
                         </h4>
@@ -1353,7 +1361,7 @@
                         </form>
                      </div>
                   </div>
-                  <div class="item">
+                  <div class="carousel-item">
                        <div id="help3a" 
                             style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>
                   </div>
@@ -1362,18 +1370,18 @@
          </div>
       </div>
       <div class="modal-footer">
-	   <button class="btn btn-default col-xs-3 pull-left"
+	   <button class="btn btn-secondary col-xs-3 pull-left"
 	   	   onclick="wepsim_state_history_reset();
 			    wepsim_notify_success('<strong>INFO</strong>', 'Removed all !.');
 			    wepsim_state_history_list() ;
 			    return false;"
-		   type="button">Reset <span class='hidden-xs'>history</span></button>
-	   <button class="btn btn-default col-xs-3 pull-left"
+		   type="button">Reset <span class='d-xs-none'>history</span></button>
+	   <button class="btn btn-secondary col-xs-3 pull-left"
 		   onclick="wepsim_state_history_add();
 			    wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
 			    wepsim_state_history_list() ;
 			    return false;"
-		   type="button">Add <span class='hidden-xs'>state to history</span></button>
+		   type="button">Add <span class='d-xs-none'>state to history</span></button>
            <button type="button" 
                    onclick="$('#current_state1').modal('hide');"
                    class="btn btn-primary col-xs-3 pull-right">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
@@ -1388,7 +1396,7 @@
    <div class="modal-content">
       <div class="modal-header">
 	 <button type="button" data-role="button"
-		 class="close ui-btn-right ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-corner-all" 
+		 class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
 		 data-dismiss="modal" aria-hidden="true">x</button>
          <h4 class="modal-title">
             <center>
@@ -1424,9 +1432,9 @@
          <div class="bootbox-body">
             <div id="bot_check2" class="carousel slide" data-ride="carousel" data-interval="false">
                <div class="carousel-inner" role="listbox">
-                  <div class="item active">
-                        <div class="panel panel-info">
-		        <div class="panel-heading">
+                  <div class="carousel-item active">
+                        <div class="card card-info">
+		        <div class="card-header">
                            <h4><span id="dlg_title2">&nbsp;</span></h4>
                         </div>
                         </div>
@@ -1449,7 +1457,7 @@
                                      rows="5"></textarea>
                         </form>
                         <h4 style="margin:20 0 10 0;">Result:
-		   	   <span class="btn btn-default btn-xs"
+		   	   <span class="btn btn-secondary btn-xs"
 			         onclick="CopyFromDiv('check_results_scroll2'); return false;" 
 			         data-inline="true">Copy to clipboard</i></span>
                         </h4>
@@ -1458,7 +1466,7 @@
 		             <div id="check_results2"></div>
 		     </div>
                   </div>
-                  <div class="item">
+                  <div class="carousel-item">
                        <div id="help3b" 
                             style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>
                   </div>
@@ -1470,14 +1478,14 @@
            <button type="button" 
                    onclick="wepsim_dialog_check_reset('check_results2','end_state2'); 
                             return false;"
-                   class="btn btn-default col-xs-3">Clear</button>
+                   class="btn btn-secondary col-xs-3">Clear</button>
            <button type="button" 
                    onclick="var txt_checklist = $('#end_state2').val();
                             var obj_expected  = wepsim_checklist2state(txt_checklist);
                             var obj_current   = wepsim_current2state();
                             wepsim_dialog_check_state('check_results2', obj_expected, obj_current); 
                             return false;"
-                   class="btn btn-default col-xs-3">Check</button>
+                   class="btn btn-secondary col-xs-3">Check</button>
            <button type="button" 
                    onclick="$('#current_state2').modal('hide');"
                    class="btn btn-primary col-xs-3 pull-right">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
@@ -1492,7 +1500,7 @@
 	<div class="modal-content">
 	   <div class="modal-header">
 	        <button type="button" data-role="button"
-	       	        class="close ui-btn-right ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-corner-all" 
+	       	        class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
 		        data-dismiss="modal" aria-hidden="true">x</button>
 		<center>
                 <h4><b>WepSIM</b> <span class="badge btn-success"><div class="wsversion">X</div></span></h4>
@@ -1633,7 +1641,7 @@
 		    $.mobile.pageContainer.pagecontainer('change','#main1');
 		    $('#tab26').trigger('click');
 		    $('#tab11').trigger('click');
-		    $('#select5a').selectpicker('val', 11);
+		    $('#select5a').val(11);
 
 		    $("#colorpicker1").spectrum({ preferredFormat: "hex", color: get_cfg('color_data_active')}) ;
 		    $("#colorpicker2").spectrum({ preferredFormat: "hex", color: get_cfg('color_name_active')}) ;
@@ -1659,7 +1667,7 @@
 
                     $('#slider2d').toggle(); 
                     $(".selectpicker").selectpicker({
-		           style: 'btn-default',
+		           style: 'btn-secondary',
 		           size: false
 	            });
 
@@ -1690,7 +1698,7 @@
             // split (experimental)
 if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ))
 {
-	    var split1 = Split(['#col1', '#col2'], { sizes: [60, 40], gutterSize: 5 });
+	    var split1 = Split(['#col1', '#col2'], { sizes: [60, 40], gutterSize: 10 });
             $(window).resize(function() {
                                 if ($(window).width() > 1000) {
                                     split1.setSizes([65, 35]);
