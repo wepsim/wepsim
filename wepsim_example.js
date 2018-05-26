@@ -147,10 +147,10 @@
 		       '     <div class="btn-group btn-group-justified btn-group-md">' +
 		       '         <a href="#" onclick="$(\'#example1\').modal(\'hide\'); load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0; margin:0 8 0 0;"' +
 		       '            class="ui-btn btn btn-group ui-btn-inline btn-secondary">' +
-		       '            <b>Assembly</b></a>' +
+		       '            <c>Assembly</c></a>' +
 		       '         <a href="#" onclick="$(\'#example1\').modal(\'hide\'); load_from_example_firmware(\'' + e_id + '\',false);" style="padding:0 0 0 0; margin:0 7 0 0;"' +
 		       '            class="ui-btn btn btn-group ui-btn-inline btn-secondary">' +
-		       '            <b>Firmware</b></a>' +
+		       '            <c>Firmware</c></a>' +
 		       '     </div>' +
 		       ' </td>' +
 		       ' </tr>' ;
