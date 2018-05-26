@@ -302,17 +302,28 @@
                 <div id="col2" class="" style="padding:0 8px 0 0px;">
 
                     <div class="btn-group col-12" role="group" id="sim_toolbar">
-		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-3"
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-2"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
-		                onclick="wepsim_dialog_current_state();"><c><span class="d-xs-none">State</span><span class="d-sm-none">St.</span></c></button>
-		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-5"
+		                onclick="wepsim_dialog_current_state(); $('#bot_check1').carousel(0);"><c><span class="d-xs-none">History</span><span class="d-sm-none">Hist.</span></c></button>
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-2"
+		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
+		                onclick="wepsim_dialog_current_state(); $('#bot_check1').carousel(1);"><c><span class="d-xs-none">State</span><span class="d-sm-none">St.</span></c></button>
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-4"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
                                 data-toggle="modal" data-target="#confighw"><c><span class="d-xs-none">HW. Configuration</span><span class="d-sm-none">Cfg.</span></c></button>
-			     <a id="ib1" href="#" 
-		                class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-4"
-		                style="border-width:1 1 1 1px; background-color: #D4DB17; margin:0 0 0 0;"
-			        onclick="wepsim_help_set_relative('#help_simulator_screens'); 
-                                         wepsim_help_refresh();">Help</a>
+			<select name="select4" id="select4" class="form-control ui-shadow col-4"
+				aria-label="Execution mode" data-role="none"
+				onchange="var opt = $(this).find('option:selected');
+					  var optValue = opt.val();
+					  set_cfg('ws_mode',optValue); save_cfg();
+					  if ('webmips' == optValue)
+					       wepsim_show_webmips();
+					  else wepsim_hide_webmips();
+					  return false;">
+				<option value="tutorial">Tutorial mode</option>
+				<option value="wepsim"  >WepSIM mode</option>
+				<option value="webmips" >WebMIPS mode</option>
+			</select>
                     </div>
 
                     <div class="btn-group col-12" role="group">
@@ -334,6 +345,11 @@
                                         }
                                         wepsim_execute_toggle_play('#qbp', (mode == 'tutorial'));
                                         return false;"><br>Run</a>
+                            <a id="ib1" href="#"
+                               style="background-color: #D4DB17;"
+			       class="btn ui-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info ui-btn-icon-top ui-mini no-text-shadow col-2"
+                               onclick="wepsim_help_set_relative('#help_simulator_screens');
+                                        wepsim_help_refresh();"><br>Help</a>
                     </div>
 
                     <div class="btn-group col-12" role="group">
@@ -736,30 +752,6 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">2</td>
-	  <td class="d-xs-none" style="color:gray">general</td>
-	  <td>Execution mode</td>
-	  <td>
-		 <div class="form-group" style="max-width:10em; margin:0 0 0 0">
-		    <select name="select4" id="select4" class="form-control"
-			    aria-label="Execution mode" data-role="none"
-			    onchange="var opt = $(this).find('option:selected');
-				      var optValue = opt.val();
-			              set_cfg('ws_mode',optValue); save_cfg();
-                                      if ('webmips' == optValue)
-			                   wepsim_show_webmips();
-			              else wepsim_hide_webmips();
-				      return false;">
-			<option value="tutorial">Tutorial</option>
-			<option value="wepsim">WepSIM</option>
-			<option value="webmips">WebMIPS</option>
-		    </select>
-		 </div>
-          </td>
-	  <td class="collapse7 collapse show">Tutorial/WepSIM mode</td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse show">3</td>
 	  <td class="d-xs-none" style="color:gray">editor</td>
 	  <td>Editor theme</td>
 	  <td>
@@ -790,7 +782,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">4</td>
+	  <td class="collapse6 collapse show">3</td>
 	  <td class="d-xs-none" style="color:gray">editor</td>
 	  <td>Editor mode</td>
 	  <td>
@@ -814,7 +806,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">5</td>
+	  <td class="collapse6 collapse show">4</td>
 	  <td class="d-xs-none" style="color:gray">execution</td>
 	  <td>Speed-up</td>
 	  <td>
@@ -830,7 +822,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">6</td>
+	  <td class="collapse6 collapse show">5</td>
 	  <td class="d-xs-none" style="color:gray">execution</td>
 	  <td>Step-by-step</td>
 	  <td>
@@ -853,7 +845,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">7</td>
+	  <td class="collapse6 collapse show">6</td>
 	  <td class="d-xs-none" style="color:gray">execution</td>
 	  <td>Breakpoint Icon</td>
 	  <td>
@@ -894,7 +886,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">8</td>
+	  <td class="collapse6 collapse show">7</td>
 	  <td class="d-xs-none" style="color:gray">execution</td>
 	  <td>Limit instr.</td>
 	  <td>
@@ -918,7 +910,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">9</td>
+	  <td class="collapse6 collapse show">8</td>
 	  <td class="d-xs-none" style="color:gray">execution</td>
 	  <td>Limit instr. ticks</td>
 	  <td>
@@ -942,7 +934,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">10</td>
+	  <td class="collapse6 collapse show">9</td>
 	  <td class="d-xs-none" style="color:gray">simulation</td>
 	  <td>Display format</td>
 	  <td>
@@ -974,7 +966,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">11</td>
+	  <td class="collapse6 collapse show">10</td>
 	  <td class="d-xs-none" style="color:gray">simulation</td>
 	  <td>RF name</td>
 	  <td>
@@ -996,7 +988,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">12</td>
+	  <td class="collapse6 collapse show">11</td>
 	  <td class="d-xs-none" style="color:gray">simulation</td>
 	  <td>Data-path color</td>
 	  <td>
@@ -1016,7 +1008,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">13</td>
+	  <td class="collapse6 collapse show">12</td>
 	  <td class="d-xs-none" style="color:gray">simulation</td>
 	  <td>Signal color</td>
 	  <td>
@@ -1032,7 +1024,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">14</td>
+	  <td class="collapse6 collapse show">13</td>
 	  <td class="d-xs-none" style="color:gray">simulation</td>
 	  <td>Interactive Mode</td>
 	  <td>
@@ -1055,7 +1047,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">15</td>
+	  <td class="collapse6 collapse show">14</td>
 	  <td class="d-xs-none" style="color:gray">simulation</td>
 	  <td>Editable registers</td>
 	  <td>
@@ -1078,7 +1070,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">16</td>
+	  <td class="collapse6 collapse show">15</td>
 	  <td class="d-xs-none" style="color:gray">simulation</td>
 	  <td>Show by value</td>
 	  <td>
@@ -1101,7 +1093,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">17</td>
+	  <td class="collapse6 collapse show">16</td>
 	  <td class="d-xs-none" style="color:gray">simulation</td>
 	  <td>Notification delay</td>
 	  <td>
