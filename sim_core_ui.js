@@ -696,7 +696,7 @@
                o1 += "<div class='col-12' style='padding:0 0 10 0;'>" +
                      "<div class='card'>" +
                      "<div class='card-header'>" +
-                     " <h3 class='card-title'>Memory</h3>" +
+                     " <h5 class='card-title'>Memory</h5>" +
                      "</div>" +
                      "<div class='card-body' id='mempanel' style='padding:0 0 0 0;'>" +
                      "<table class='table table-hover table-sm table-bordered table-responsive' " +
@@ -717,7 +717,7 @@
                o1 += "<div class='col-12' style='padding:0 0 0 0;'>" +
                      "<div class='card' style='margin:0 0 0 0;'>" +
                      "<div class='card-header'>" +
-                     " <h3 class='card-title'>I/O</h3>" +
+                     " <h5 class='card-title'>I/O</h5>" +
                      "</div>" +
                      "<div class='card-body' id='iopanel' style='padding: 0 0 0 0'>" ;
                o1 += "<center>" +
