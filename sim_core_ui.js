@@ -459,9 +459,13 @@
         {
             var SIMWARE = get_simware() ;
 
+            var br_value = "" ;
 	    for (var index=0; index < sim_states['BR'].length; index++)
             {
-                 var br_value = "R" + index;
+                 if (index < 10)
+                      br_value = "&nbsp;R" + index ;
+                 else br_value = "R" + index ;
+
 	         if ('logical' == get_cfg('RF_display_name'))
 		     if (typeof SIMWARE['registers'][index] != "undefined")
 		         br_value = SIMWARE['registers'][index] ;
