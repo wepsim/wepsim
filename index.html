@@ -149,7 +149,7 @@
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="WepSIM 1.8.6">
+    <meta name="apple-mobile-web-app-title" content="WepSIM 1.8.8">
     <link  rel="apple-touch-icon" href="images/arcos.svg">
     <meta name="msapplication-TileImage" content="images/arcos.svg">
     <meta name="msapplication-TileColor" content="#2F3BA2">
@@ -479,19 +479,19 @@
                 <div class="btn-toolbar" role="toolbar">
                 <div class="btn-group btn-group-justified" role="group">
 		            <a href="#lsload" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-back    ui-btn-icon-left ui-mini col-xs-3 col-md-1 col-lg-1"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-back    ui-btn-icon-left ui-mini col-1"
 				   data-rel="popup" data-position-to="window" data-transition="pop">Load</a>
 		            <a href="#lssave" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-left ui-mini col-xs-3 col-md-1 col-lg-1"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-left ui-mini col-1"
 				   data-rel="popup" data-position-to="window" data-transition="pop">Save</a>
 		            <a href="#"       style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-xs-4 col-md-1 col-lg-1"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-1"
 				   data-transition="none" data-inline="true"
 				   onclick="var textToMCompile = inputfirm.getValue();
                                             wepsim_compile_firmware(textToMCompile);
                                             $('#asm_debugger').html('<br>After updates on the microcode, assembler has to be compiled against it.');">&#181;compile</a>
 		            <a href="#"       style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-2"
 				   data-transition="none" data-inline="true"
 				   onclick="var textToMCompile = inputfirm.getValue();
                                             var ok = wepsim_compile_firmware(textToMCompile);
@@ -500,7 +500,7 @@
                                             }">&#181;compile and go assembly</a>
 
 		            <a href="#" style="background-color: #DDDDDD"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-u ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2 ui-shadow"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-u ui-btn-icon-left ui-mini col-2"
 				   onclick="var textToMCompile = inputfirm.getValue();
                                             var ok = wepsim_compile_firmware(textToMCompile);
                                             if (true == ok) {
@@ -514,7 +514,7 @@
                                    >Hardware Summary</a>
 
                             <a href="#" style="background-color: #D4DB17"
-                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info    ui-btn-icon-left ui-mini col-xs-4 col-md-1 col-lg-1"
+                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info    ui-btn-icon-left ui-mini col-1"
 				   onclick="wepsim_help_set_relative('#help_firmware_format'); wepsim_help_refresh();"
                                    >Help</a>
 		</div>
@@ -585,18 +585,18 @@
                 <div class="btn-toolbar" role="toolbar">
                 <div class="btn-group btn-group-justified" role="group">
 		            <a href="#lsload2" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-back     ui-btn-icon-left ui-mini col-xs-3 col-md-1 col-lg-1"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-back     ui-btn-icon-left ui-mini col-1"
 				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Load</a>
 		            <a href="#lssave2" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-forward  ui-btn-icon-left ui-mini col-xs-3 col-md-1 col-lg-1"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-forward  ui-btn-icon-left ui-mini col-1"
 				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Save</a>
 		            <a href="#" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-4 col-md-1 col-lg-1"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-1"
 				   data-transition="none" data-inline="true"
 				   onclick="var textToCompile = inputasm.getValue() ;
                                             var ok = wepsim_compile_assembly(textToCompile);">Compile</a>
 		            <a href="#" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-2"
 				   data-transition="none" data-inline="true"
 				   onclick="var textToCompile = inputasm.getValue() ;
                                             var ok = wepsim_compile_assembly(textToCompile);
@@ -605,14 +605,14 @@
                                             }">Compile and go simulator</a>
 
 		            <a href="#" style="background-color: #DDDDDD"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-u  ui-btn-icon-left ui-mini col-xs-9 col-md-2 col-lg-2 ui-shadow"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-u  ui-btn-icon-left ui-mini col-2"
 				   onclick="var textToCompile = inputasm.getValue();
                                             var ok = wepsim_compile_assembly(textToCompile);
                                             if (true == ok) {
                                                 wepsim_show_binary_code('#bin2','#compile_results');
                                             }">Show Main Memory</a>
                             <a href="#" style="background-color: #D4DB17"
-                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-5 col-md-1 col-lg-1"
+                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-1"
 				   onclick="wepsim_help_set_relative('#help_assembly_format'); wepsim_help_refresh();">Help</a>
 		</div>
 		</div>
@@ -809,7 +809,7 @@
 	  <td>Speed-up</td>
 	  <td>
 		 <input type="range"
-			class="noshadow ui-hidden-accessible slider"
+			class="noshadow-d ui-hidden-accessible-d slider"
 			aria-label="Execution speed control"
 			data-show-value="false" data-theme="a"
 			name="slider1" id="slider1"
@@ -995,7 +995,7 @@
 			aria-label="Color for active data"
 			id="colorpicker1"
 			data-show-value="false"
-			class="noshadow" style="margin:0 0 0 0"
+			class="noshadow-d" style="margin:0 0 0 0"
 			onchange="set_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh(); save_cfg();">
 		 </fieldset>
           </td>
@@ -1015,7 +1015,7 @@
 			aria-label="Color for active signal name"
 			id="colorpicker2"
 			data-show-value="false"
-			class="noshadow" style="margin:0 0 0 0"
+			class="noshadow-d" style="margin:0 0 0 0"
 			onchange="set_cfg('color_name_active', $('#colorpicker2').spectrum('get')); refresh(); save_cfg();">
 		 </fieldset>
           </td>
@@ -1096,7 +1096,7 @@
 	  <td>Notification delay</td>
 	  <td>
 		 <input type="range"
-			class="noshadow ui-hidden-accessible" 
+			class="noshadow-d ui-hidden-accessible-d" 
 			aria-label="Notification delay"
 			data-show-value="false" data-theme="a"
 			name="slider3" id="slider3"
@@ -1167,19 +1167,16 @@
 		       <div class="btn-group">
 			  <button onclick="$('#bot_hwcfg1').carousel(0);" 
 				  type="button" 
-				  class="btn btn-info" 
-				  style="height:34px !important;">Hardware Conf<span class='d-sm-none'>.</span><span class='d-xs-none'>iguration</span></button>
+				  class="btn btn-info">Hardware Conf<span class='d-sm-none'>.</span><span class='d-xs-none'>iguration</span></button>
 			  <button onclick="$('#bot_hwcfg1').carousel(1);
 					   update_checker_loadhelp('#help4a','help_hwcfg');"
 				  type="button" 
-				  class="btn btn-success" 
-				  style="height:34px !important;">Help</button>
+				  class="btn btn-success">Help</button>
 			  <button type="button" 
 				  class="btn btn-success dropdown-toggle" 
 				  data-toggle="dropdown" 
 				  aria-haspopup="true" 
-				  aria-expanded="false" 
-				  style="height:34px !important;"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>   
+				  aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>   
 			  <ul class="dropdown-menu">
 			     <li><a href="#" onclick="set_cfg('ws_idiom','es'); save_cfg();
 						      $('#bot_hwcfg1').carousel(1);
@@ -1262,7 +1259,7 @@
                         class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
                         data-dismiss="modal" aria-hidden="true">x</button>
 		<center>
-                <h4><b>Examples</b> <span class="badge btn-success"><div class="wsversion">X</div></span></h4>
+                <h5><b>Examples</b> <span class="badge btn-success"><div class="wsversion">X</div></span></h5>
                 </center>
 	   </div>
 	   <div class="modal-body">
@@ -1280,7 +1277,7 @@
    <div class="modal-content">
       <div class="modal-header">
 	 <button type="button" data-role="button"
-		 class="close ui-btn-right ui-btn ui-btn-b ui-icon-delete ui-btn-icon-notext ui-corner-all" 
+		 class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
 		 data-dismiss="modal" aria-hidden="true">x</button>
          <h4 class="modal-title">
             <center>
@@ -1327,7 +1324,7 @@
 				&emsp;<span style="background-color:#FCFC00">Empty.</span>
 			</div>
                         <h4 style="margin:20 0 10 0;">Differences (only changed values):
-			<span class="btn btn-secondary btn-xs"
+			<span class="btn btn-secondary btn-sm"
 			      onclick="CopyFromDiv('check_results_scroll1'); return false;"
 			      data-inline="true">Copy to clipboard</i></span>
                         </h4>
@@ -1339,7 +1336,7 @@
                   <div class="carousel-item">
                      <div>
                         <h4 style="margin:20 0 10 0;">Current State (non-zero values):
-			<span class="btn btn-secondary btn-xs"
+			<span class="btn btn-secondary btn-sm"
 			      onclick="CopyFromTextarea('end_state1'); return false;"
 			      data-inline="true">Copy to clipboard</span>
                         </h4>
@@ -1645,31 +1642,27 @@
 
 		    $("#colorpicker1").spectrum({ preferredFormat: "hex", color: get_cfg('color_data_active')}) ;
 		    $("#colorpicker2").spectrum({ preferredFormat: "hex", color: get_cfg('color_name_active')}) ;
-		    $("#radio1-" +         get_cfg('DBG_level')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio2-" + get_cfg('RF_display_format')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio3-" +   get_cfg('RF_display_name')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio5-" +    get_cfg('is_interactive')).prop('checked', true).checkboxradio("refresh") ;
-		  //$("#radio6-" +          get_cfg('ws_idiom')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio7-" +      get_cfg('editor_theme')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio9-" +       get_cfg('is_editable')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio10-" +       get_cfg('is_byvalue')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio11-" +        get_cfg('use_voice')).prop('checked', true).checkboxradio("refresh") ;
+		    $("#radio1-" +         get_cfg('DBG_level')).prop('checked', true) ;
+		    $("#radio2-" + get_cfg('RF_display_format')).prop('checked', true) ;
+		    $("#radio3-" +   get_cfg('RF_display_name')).prop('checked', true) ;
+		    $("#radio5-" +    get_cfg('is_interactive')).prop('checked', true) ;
+		  //$("#radio6-" +          get_cfg('ws_idiom')).prop('checked', true) ;
+		    $("#radio7-" +      get_cfg('editor_theme')).prop('checked', true) ;
+		    $("#radio9-" +       get_cfg('is_editable')).prop('checked', true) ;
+		    $("#radio10-" +       get_cfg('is_byvalue')).prop('checked', true) ;
+		    $("#radio11-" +        get_cfg('use_voice')).prop('checked', true) ;
                     $("#select1").val(get_cfg('ICON_theme')) ;
                     $("#select2").val(get_cfg('editor_mode')) ;
                     $("#select6").val(get_cfg('DBG_limitins')) ;
                     $("#select3").val(get_cfg('DBG_limitick')) ;
                     $("#select4").val(get_cfg('ws_mode')) ;
-                    $("#slider1").val(1000 / (get_cfg('DBG_delay')+0.01)).slider("refresh");
-                    $("#slider3").val(get_cfg('NOTIF_delay')).slider("refresh");
+                    $("#slider1").val(1000 / (get_cfg('DBG_delay')+0.01)) ;
+                    $("#slider3").val(get_cfg('NOTIF_delay')) ;
                     $("#img_select1").attr("src","images/stop_" + get_cfg('ICON_theme') + ".gif");
                     set_cpu_cu_size('#eltos_cpu_a','#eltos_cpu_b',get_cfg('CPUCU_size'));
-                    $("#slider2").val(get_cfg('CPUCU_size')).slider("refresh");
+                    $("#slider2").val(get_cfg('CPUCU_size'));
 
                     $('#slider2d').toggle(); 
-                    $(".selectpicker").selectpicker({
-		           style: 'btn-secondary',
-		           size: false
-	            });
 
                     showhideAsmElements();
 		    $("input:checkbox").click(function(){
@@ -1712,8 +1705,8 @@ if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(nav
 }
 
             $('a[data-toggle="popover1"]').popover({
-		     placement: "bottom",
-                     trigger: 'focus, hover',
+		     placement: "top",
+                     trigger: 'focus',
                      animation: false,
                      delay: { "show": 500, "hide": 100 } 
             }) ;
