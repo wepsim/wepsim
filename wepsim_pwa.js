@@ -170,9 +170,7 @@ self.addEventListener('install',
                                         './external/external.min.css',
                                         './external/external.min.js',
                                         './min.sim_all.js',
-                                        './min.sim_hw.js',
-                                        './min.wepsim.js',
-                                        './min.sim_info.js',
+                                        './min.wepsim_all.js',
 					'./index.html'
 				    ]).then(function() {
 					self.skipWaiting();
