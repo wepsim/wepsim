@@ -219,12 +219,6 @@
         }
 */
 
-        function simcoreui_notify_close ( )
-        {
-            //$("#alerts-container").close() ;
-              $(".alert").alert('close') ;
-        }
-
         function simcoreui_notify ( ntf_title, ntf_message, ntf_type, ntf_delay )
         {
 	    // alerts-container does not exist, create it
@@ -237,7 +231,7 @@
 
 	    // create the alert div
             var btn1   = $('<button type="button" class="close" data-dismiss="alert">') ;
-	    var alert1 = $('<div class="alert alert-' + ntf_type + ' fade in">') ;
+	    var alert1 = $('<div class="alert alert-' + ntf_type + '">') ;
 	    ac.prepend(alert1.append(btn1.append("&times;")).append(ntf_message)) ;
 
 	    // if delay was passed, set up a timeout to close the alert
@@ -245,6 +239,13 @@
 		window.setTimeout(function() { alert1.alert("close") }, ntf_delay);     
 	    }
         }
+
+        function simcoreui_notify_close ( )
+        {
+            //$("#alerts-container").close() ;
+              $(".alert").alert('close') ;
+        }
+
 
         function hex2float ( hexvalue )
         {
@@ -900,7 +901,7 @@
                      if (typeof labeli != "undefined")
                           value2 += '<span>' +
                                     '<span style="border:1px solid gray;">' + valuei + '</span>' +
-                                    '<span class="badge badge-pill badge-primary" ' + 
+                                    '<span class="badge badge-pill badge-info" ' + 
                                     '     style="position:relative;top:-8px;">' + labeli + '</span>' +
                                     '</span>' ;
                      else value2 += valuei + ' ' ;
@@ -994,7 +995,7 @@
                 maddr = "0x" + parseInt(key).toString(16) ;
                 if (typeof revlabels[key] != "undefined")
                     maddr = '<span>' +
-                            '<span class="badge badge-pill badge-primary" ' + 
+                            '<span class="badge badge-pill badge-info" ' + 
                             '      style="position:relative;top:4px;">' + revlabels[key] + '</span>' +
                             '<span style="border:1px solid gray;">' + maddr + '</span>' +
                             '</span>' ;
