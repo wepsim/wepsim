@@ -405,7 +405,7 @@
 
 	    $("[data-toggle=popover-up]").popover({
 	    	    html:      true,
-                    placement: 'top',
+                    placement: 'auto',
                     animation: false,
 		    content: function() {
 		        var index = $(this).attr("data-popover-content");

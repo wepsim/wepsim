@@ -301,19 +301,32 @@
 
                 <div id="col2" class="" style="padding:0 8px 0 0px;">
 
-                    <div class="btn-toolbar" role="toolbar" id="sim_toolbar" style="padding: 0px 0px 2px 0px;">
-			<div class="btn-group btn-group-justified col-12" role="group" style="padding: 0px 0px 0px 0px;">
-			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px; margin:7px 2px 7px 2px;"
-			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-reset   ui-btn-icon-right ui-mini no-text-shadow col-2"
+                    <div class="btn-group col-12" role="group" id="sim_toolbar">
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-3"
+		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
+		                onclick="wepsim_dialog_current_state();"><c><span class="d-xs-none">State</span><span class="d-sm-none">St.</span></c></button>
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-5"
+		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
+                                data-toggle="modal" data-target="#confighw"><c><span class="d-xs-none">HW. Configuration</span><span class="d-sm-none">Cfg.</span></c></button>
+			     <a id="ib1" href="#" 
+		                class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-4"
+		                style="border-width:1 1 1 1px; background-color: #D4DB17; margin:0 0 0 0;"
+			        onclick="wepsim_help_set_relative('#help_simulator_screens'); 
+                                         wepsim_help_refresh();">Help</a>
+                    </div>
+
+                    <div class="btn-group col-12" role="group">
+			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
+			       class="btn ui-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-reset   ui-btn-icon-top ui-mini no-text-shadow col-2"
 			       onclick="wepsim_execute_reset(true, true);"><br>Reset</a>
-			    <a id="nm1" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px; margin:7px 2px 7px 2px;"
-			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-right ui-mini no-text-shadow col-3"
+			    <a id="nm1" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
+			       class="btn ui-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini no-text-shadow col-3"
 			       onclick="wepsim_execute_microinstruction();"><br>&#181;Instruction</a>
-			    <a id="ni1" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px; margin:7px 2px 7px 2px;"
-			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-right ui-mini no-text-shadow col-3"
+			    <a id="ni1" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
+			       class="btn ui-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini no-text-shadow col-3"
 			       onclick="wepsim_execute_instruction();"><br>Instruction</a>
-			    <a id="qbp" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px; margin:7px 2px 7px 2px;"
-			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-carat-r ui-btn-icon-right ui-mini no-text-shadow col-2"
+			    <a id="qbp" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
+			       class="btn ui-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-carat-r ui-btn-icon-top ui-mini no-text-shadow col-2"
                                onclick="var mode = get_cfg('ws_mode');
                                         if ('tutorial' == mode) {
                                             wepsim_notify_success('<strong>INFO</strong>',
@@ -321,30 +334,13 @@
                                         }
                                         wepsim_execute_toggle_play('#qbp', (mode == 'tutorial'));
                                         return false;"><br>Run</a>
-			    <a id="ib1" href="#" 
-                               style="background-color: #D4DB17;"
-			       class="btn ui-btn btn-group ui-corner-all ui-btn-inline ui-btn-a ui-icon-info ui-btn-icon-right ui-mini no-text-shadow col-2"
-			       onclick="wepsim_help_set_relative('#help_simulator_screens'); 
-                                        wepsim_help_refresh();"><br>Help</a>
-                        </div>
                     </div>
 
-
-		    <div class="container-fluid">
-		    <div class="row">
-			<div class="col-2" style="width:15%; padding:0 3 0 3;">
-		          <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all"
-		                  style="border-width:1 1 1 1px;"
-		                  onclick="wepsim_dialog_current_state();"><c><span class="d-xs-none">State</span><span class="d-sm-none">St.</span></c></button>
-			</div>
-			<div class="col-3" style="width:27%; padding:0 3 0 3;">
-		          <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all"
-		                  style="border-width:1 1 1 1px;"
-                                  data-toggle="modal" data-target="#confighw"><c><span class="d-xs-none">Configuration</span><span class="d-sm-none">Cfg.</span></c></button>
-			</div>
-			<div class="col-5" style="width:40%; padding:0 3 0 3; margin: 7 0 0 0">
-                          <select name="select5a" id="select5a" class="custom-select ui-shadow"
-				  data-role="none" style="width: 100%"
+                    <div class="btn-group col-12" role="group">
+                          <select class="custom-select ui-shadow col-9"
+				  name="select5a" id="select5a" 
+				  data-role="none" 
+                                  style="border-color: #CCCCCC;"
                                   onchange="var val = this.value;
 				            $('#tab' + val).trigger('click');
 				            if ('11' == val)
@@ -363,18 +359,14 @@
                                       <option value="15"><div class="bg-primary text-white">Dev</div> - I/O Stats</a></option>
 				  </optgroup>
 			  </select>
-			</div>
-			<div class="col-2" style="width:18%; padding:0 3 0 3;">
-		          <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all ui-btn-icon-left ui-icon-refresh"
-		                  style="border-width:1 0 1 2px;"
+		          <button class="btn btn-light col-3 ui-shadow" data-role="none"
+                                  style="border-color: #CCCCCC;"
                                   onclick="var val = $('#select5a').val();
 				           $('#tab' + val).trigger('click');
 				           if ('11' == val)
 					        show_rf_values();
 				           else show_memories_values();"><c>Refresh</c></button>
-			</div>
-    		    </div>
-    		    </div>
+                    </div>
 
 		    <div data-role="tabs" id="tabs1">
 
@@ -399,15 +391,15 @@
 		         <div id="config_ALL0"         style="width: inherit; overflow-y: auto;"></div>
 		      </div>
 		      <div id="mp"   class="ui-body-d ui-content">
-		         <div id="memory_MP"           style="height:60vh; width: inherit; overflow-y: scroll;"></div>
+		         <div id="memory_MP"           style="height:52vh; width: inherit; overflow-y: scroll;"></div>
 		      </div>
 		      <div id="mc"   class="ui-body-d ui-content">
-		         <div id="memory_MC"           style="height:60vh; width: inherit; overflow-y: scroll;"></div>
+		         <div id="memory_MC"           style="height:52vh; width: inherit; overflow-y: scroll;"></div>
 		      </div>
 		      <div id="con"  class="ui-body-d ui-content">
                          <img alt="monitor" height=55 src="images/monitor2.png">
 		         <textarea aria-label="monitor"  style="min-width:90%; overflow-y:auto; margin:0 0 8 0"
-                                   placeholder="WepSIM" id="kdb_con" rows=10 readonly></textarea>
+                                   placeholder="WepSIM" id="kdb_con" rows=8 readonly></textarea>
                          <img alt="keyboard" height=35 src="images/keyboard1.png">
 		         <textarea aria-label="keyboard" style="min-width:90%; overflow-y:auto; margin:0 0 0 0"
                                    placeholder="WepSIM" id="kdb_key" rows=2></textarea>
@@ -1180,8 +1172,7 @@
 		 <button type="button" data-role="button"
 			 class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
 			 data-dismiss="modal" aria-hidden="true">x</button>
-		 <h5 class="modal-title">
-		    <div class="mx-auto">
+		 <div class="mx-auto">
 		       <div class="btn-group">
 			  <button onclick="$('#bot_hwcfg1').carousel(0);" 
 				  type="button" 
@@ -1204,8 +1195,7 @@
 						      update_checker_loadhelp('#help4a','help_hwcfg');">EN</a></li>
 			  </ul>
 		       </div>
-		    </div>
-		 </h5>
+		 </div>
 	   </div>
 	   <div class="modal-body">
                <div id="bot_hwcfg1" class="carousel slide" data-ride="carousel" data-interval="false">
@@ -1719,8 +1709,8 @@ if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(nav
 }
 
             $('a[data-toggle="popover1"]').popover({
-		     placement: "top",
-                     trigger: 'focus',
+                     placement: 'bottom',
+                     trigger: 'focus, hover',
                      animation: false,
                      delay: { "show": 500, "hide": 100 } 
             }) ;
