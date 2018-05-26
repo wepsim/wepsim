@@ -384,9 +384,9 @@
             var o1_rn = "" ;
 	    for (var index=0; index < sim_states['BR'].length; index++)
             {
+                 o1_rn = "R" + index ;
                  if (index < 10)
-                      o1_rn = "&nbsp;R" + index ;
-                 else o1_rn = "R" + index ;
+                     o1_rn = o1_rn + "&nbsp;" ;
 
 		 o1_rf += "<div class='col' style='padding:0 2px 0 2px !important; margin:1px 5px 1px 2px;'>" +
                           "<button type='button' class='btn btn-outline-primary no-text-shadow' " + 
@@ -485,13 +485,23 @@
             }
 
             var o1 = "" ;
+            var part1 = "" ;
+            var part2 = "" ;
             for (var i=0; i<filter.length; i++)
             {
                 var s = filter[i].split(",")[0] ;
 
                 var showkey = sim_eltos[s].name;
-                if (sim_eltos[s].nbits > 1)
-                    showkey = showkey.substring(0,2) + '<span class="d-xs-none">' + showkey.substring(2,showkey.length) + '</span>' ;
+                if (sim_eltos[s].nbits > 1) 
+	        {
+                    part1 = showkey.substring(0, 3) ;
+                    part2 = showkey.substring(3, showkey.length) ;
+		    if (part2.length > 0)
+                        showkey = part1 + '<span class="d-xs-none">' + part2 + '</span>' ;
+
+		    if (showkey.length < 3)
+			showkey = showkey + "&nbsp;" ;
+	        }
 
                 var b = filter[i].split(",")[1] ;
                 var divclass = divclasses[b] ;
@@ -541,8 +551,9 @@
                 var key = r[0] ;
                 var value = sim_eltos[key].value.toString(get_cfg('RF_display_format')) ;
 
-                if (sim_eltos[key].nbits > 1) {
-                        value = (sim_states[key].value >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() ;
+                if (sim_eltos[key].nbits > 1) 
+		{
+                    value = (sim_states[key].value >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() ;
                     if (16 == get_cfg('RF_display_format'))
                         value = pack8(value) ;
                 }
@@ -608,7 +619,7 @@
 
             // stats holder
             var o1 = "<div class='col-12'>" +
-                     "<table class='table table-hover table-sm table-bordered table-responsive'>" ;
+                     "<table class='table table-hover table-sm table-bordered'>" ;
             for (var i=0; i<IO_INT_FACTORY.length; i++)
             {
                o1 += "<tr id='int" + i + "_context'>" +
@@ -647,7 +658,7 @@
 
             // stats holder
             var o1 = "<div class='col-12'>" +
-                     "<table class='table table-hover table-sm table-bordered table-responsive'>" +
+                     "<table class='table table-hover table-sm table-bordered'>" +
                      "<tr>" +
                      "<td align=center width=50%>Instructions</td>" +
                      "<td align=center width=50%>" +
@@ -699,7 +710,7 @@
                      " <h5 class='card-title'>Memory</h5>" +
                      "</div>" +
                      "<div class='card-body' id='mempanel' style='padding:0 0 0 0;'>" +
-                     "<table class='table table-hover table-sm table-bordered table-responsive' " +
+                     "<table class='table table-hover table-sm table-bordered' " +
                      "       style='margin:0'>" +
                      "<tbody class='no-ui-mini'>" +
                      "<tr><td align=center'>Wait cycles (<b>0</b> - &infin;)</td>" +
@@ -721,7 +732,7 @@
                      "</div>" +
                      "<div class='card-body' id='iopanel' style='padding: 0 0 0 0'>" ;
                o1 += "<center>" +
-                     "<table class='table table-hover table-sm table-bordered table-responsive' " +
+                     "<table class='table table-hover table-sm table-bordered' " +
                      "       style='margin:0'>" +
                      "<tbody class='no-ui-mini'>" +
                      "<tr>" +
@@ -1033,7 +1044,7 @@
 		      "<td><font style='color:blue; font-size:small; font-weight:bold'><b>&nbsp;</b></font></td></tr>";
             }
 
-            $("#memory_MC").html("<center><table class='table table-hover table-sm table-responsive'>" +
+            $("#memory_MC").html("<center><table class='table table-hover table-sm'>" +
                                  "<tbody id=none>" + o1 + "</tbody>" +
                                  "</table></center>");
 
@@ -1568,7 +1579,7 @@
                      s_label = "" ;
                      if (typeof a2l[l] != "undefined") {
                          for (var i=0; i<a2l[l].length; i++) {
-                              s_label = s_label + "<span class='badge badge-primary'>" + a2l[l][i] + "</span>" ;
+                              s_label = s_label + "<span class='badge badge-info'>" + a2l[l][i] + "</span>" ;
                          }
                      }
 

@@ -25,7 +25,7 @@
 
     function table_helps_html ( helps )
     {
-       var o = '<div class="table-responsive">' +
+       var o = '<div class="table">' +
                '<table width=100% class="table table-striped table-hover table-sm">' +
                '<thead>' +
                '<tr>' +
