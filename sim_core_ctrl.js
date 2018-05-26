@@ -629,17 +629,17 @@
                                                '</center></label></div>\n' ;
                         }
 
+
+
 			bootbox.dialog({
 			       title:   '<center>' + key + ': ' +
                                         ' <div class="btn-group">' +
                                         '   <button onclick="$(\'#bot_signal\').carousel(0);" ' +
-                                        '           type="button" class="btn btn-info" ' + 
-                                        '           style="height:34px !important;">Value</button>' +
+                                        '           type="button" class="btn btn-info">Value</button>' +
                                         '   <button onclick="$(\'#bot_signal\').carousel(1); update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());" ' +
-                                        '           type="button" class="btn btn-success" ' + 
-                                        '           style="height:34px !important;">Help</button>' +
+                                        '           type="button" class="btn btn-success">Help</button>' +
                                         '   <button type="button" class="btn btn-success dropdown-toggle" ' +
-                                        '           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height:34px !important;">' +
+                                        '           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                                         '     <span class="caret"></span>' +
                                         '     <span class="sr-only">Toggle Help Idiom</span>' +
                                         '   </button>' +
@@ -653,7 +653,7 @@
                                         '</center>',
                                message: '<div id="bot_signal" class="carousel slide" data-ride="carousel" data-interval="false">' +
                                         '  <div class="carousel-inner" role="listbox">' +
-                                        '    <div class="item active">' +
+                                        '    <div class="carousel-item active">' +
                                         '         <div style="max-height:70vh; width:inherit; overflow:auto;">' +
                                         '         <form class="form-horizontal" style="white-space:nowrap;">' +
                                         '         <input aria-label="value for ' + key + '" id="ask_skey" name="ask_skey" type="hidden" value="' + key + '" class="form-control input-md"> ' +
@@ -663,7 +663,7 @@
                                         '         </form>' +
                                         '         </div>' +
                                         '    </div>' +
-                                        '    <div class="item">' +
+                                        '    <div class="carousel-item">' +
                                         '         <div id=help2 style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>' +
                                         '    </div>' +
                                         '  </div>' +
@@ -673,7 +673,7 @@
 			       buttons: {
 					    success: {
 						label: "Save",
-						className: "btn-primary col-xs-3 col-sm-2 pull-right",
+						className: "btn-primary col-xs-3 col-sm-2 float-right",
 						callback: function ()
 							  {
 							     key        = $('#ask_skey').val();
@@ -712,7 +712,7 @@
 					    },
 					    close: {
 						label: "Close",
-						className: "btn-danger col-xs-3 col-sm-2 pull-right",
+						className: "btn-danger col-xs-3 col-sm-2 float-right",
 						callback: function() { }
 					    }
 					}

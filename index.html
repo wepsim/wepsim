@@ -164,31 +164,35 @@
                 <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
 		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
                 </div>
-                <span class="ui-title"><b>WepSIM</b> <span class="badge badge-secondary"><div class="wsversion">X</div></span> / Simulator</span>
+                <span class="ui-title">WepSIM <span class="badge badge-secondary"><div class="wsversion">X</div></span> / Simulator</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a id="menu1a"
                        href="#actions_panel"
-                       class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
+		       class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-btn-inline">Menu</a>
 		</div>
 	</div><!-- /header -->
 
-	<div role="main" class="ui-content container-fluid">
+	<div role="main" class="ui-content">
 
             <div class="row">
-                <div id="col1" class="col-md-7" style="padding:0 0 0 0;">
-		    <div data-role="tabs" id="tabs2">
+                <div id="col1" class="col-7" style="padding:0 0 0 0;">
+
+                      <!-- Nav tabs -->
+                      <ul class="nav nav-tabs nav-fill nav-pills" role="tablist">
     		      <div data-role="navbar" id="tabsnav2" class="ui-responsive">
 		        <ul>
 		          <li class="nav-item">
                               <a id="tab26" href="#eltos_cpu" 
+                                 class="nav-link active" data-toggle="tab" role="tab"
                                  onclick="if (is_drawing() == false)
                                               $('#slider2d').toggle(); 
 					  wepsim_reset_max_turbo() ;
                                           start_drawing(); 
                                           refresh();">Processor</a>
                           </li>
-		          <li style="clear:none;width:50% !important">
+		          <li class="nav-item">
                               <a id="tab24" href="#eltos_dbg"  
+                                 class="nav-link active" data-toggle="tab" role="tab"
                                  onclick="stop_drawing(); 
 					  wepsim_reset_max_turbo() ;
                                           var o1 = fullshow_asmdbg_pc();
@@ -199,7 +203,11 @@
                           </li>
 		        </ul>
 		      </div>
-		      <div id="eltos_cpu" class="ui-body-d ui-content" style="padding:10 0 10 0">
+		      </ul>
+
+                      <!-- Tab panes -->
+                      <div class="tab-content">
+                      <div id="eltos_cpu" class="tab-pane active" role="tabpanel">
                            <div class="container-fluid" style="padding:0 0 0 0">
 			     <div  id="slider2d" style="display: hidden;">
 			     <form id="slider2f" class="full-width-slider" style="margin:0 20 20 5">
@@ -226,7 +234,7 @@
 			     </div>
                            </div>
 		      </div>
-		      <div id="eltos_dbg"  class="ui-body-d ui-content">
+		      <div id="eltos_dbg" class="tab-pane" role="tabpanel">
 			   <center>
 		           <div id="asm_table" style="overflow-x:auto;">
 		   	   <table class='table ui-responsive ui-table' style="margin-bottom:0px; min-width:700px;">
@@ -314,7 +322,7 @@
 
 		    <div class="container-fluid">
 		    <div class="row">
-			<div class="col-2" style="width:15%">
+			<div class="col-2" style="width:15%; padding:0 3 0 3;">
 		          <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all"
 		                  style="border-width:1 1 1 1px;"
 		                  onclick="wepsim_dialog_current_state();"><c><span class="d-xs-none">State</span><span class="d-sm-none">St.</span></c></button>
@@ -333,16 +341,16 @@
 					         show_rf_values();
 				            else show_memories_values();"> 
 				  <optgroup label="CPU">
-				      <option value="11" selected data-content="<span class='label label-primary'>CPU</span>&nbsp;Registers"><a href="#all">Registers</a></option>
-			              <option value="16"  data-content="<span class='label label-primary'>CPU</span>&nbsp;Control Memory"><a href="#mc" >Control Memory</a></option>
-				      <option value="17"  data-content="<span class='label label-primary'>CPU</span>&nbsp;CPU Stats"><a href="#cpu" >CPU stats</a></option>
+                                      <option value="11" selected><div class="bg-primary text-white">CPU</dev> - Registers</option>
+                                      <option value="16"><div class="bg-primary text-white">CPU</dev> - Control Memory</option>
+                                      <option value="17"><div class="bg-primary text-white">CPU</dev> - Stats</option>
 				  </optgroup>
 				  <optgroup label="Main Memory">
-				      <option value="14"  data-content="<span class='label label-primary'>MM</span>&nbsp;Memory"><a href="#mp" >Memory</a></option>
+                                      <option value="14"><div class="bg-primary text-white">MM</div> - Memory</option>
 				  </optgroup>
 				  <optgroup label="Devices">
-				      <option value="12"  data-content="<span class='label label-primary'>Dev</span>&nbsp;Keyboard+Display"><a href="#con">Keyboard+Display</a></option>
-				      <option value="15"  data-content="<span class='label label-primary'>Dev</span>&nbsp;I/O Stats"><a href="#io" >I/O Stats</a></option>
+                                      <option value="12"><div class="bg-primary text-white">Dev</dev> - Keyboard+Display</a></option>
+                                      <option value="15"><div class="bg-primary text-white">Dev</dev> - I/O Stats</a></option>
 				  </optgroup>
 			  </select>
 			</div>
@@ -373,9 +381,9 @@
 		      </div>
 
 		      <div id="all"  class="ui-body-d ui-content" style="padding: 15 0px 0 0px;">
-		         <div id="states_ALL"          style="width: inherit; overflow-y: auto;"></div>
+		         <div id="states_ALL"          style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
 			 <br style="height:0; width:100%; font-size:0; margin:5; padding:0; border:0; display:block;">
-		         <div id="states_BR"           style="width: inherit; overflow-y: auto;"></div>
+		         <div id="states_BR"           style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
 		      </div>
 	    	      <div id="config0"  class="ui-body-d ui-content" style="padding:14 14 0 14;">
 		         <div id="config_ALL0"         style="width: inherit; overflow-y: auto;"></div>
@@ -395,10 +403,10 @@
                                    placeholder="WepSIM" id="kdb_key" rows=2></textarea>
 		      </div>
 		      <div id="io"  class="ui-body-d ui-content">
-		         <div id="io_ALL"              style="width: inherit; overflow-y: auto;"></div>
+		         <div id="io_ALL"              style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
 		      </div>
 		      <div id="cpu"  class="ui-body-d ui-content">
-		         <div id="cpu_ALL"             style="width: inherit; overflow-y: auto;"></div>
+		         <div id="cpu_ALL"             style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
 		      </div>
 	    	    </div>
                 </div>
@@ -415,11 +423,11 @@
                 <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
 		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
                 </div>
-                <span class="ui-title"><b>WepSIM</b> <span class="badge badge-secondary"><div class="wsversion">X</div></span> / Microcode</span>
+                <span class="ui-title">WepSIM <span class="badge badge-secondary"><div class="wsversion">X</div></span> / Microcode</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a id="menu1b"
                        href="#actions_panel"
-                       class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
+                       class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-btn-inline">Menu</a>
 		</div>
 	</div><!-- /header -->
 
@@ -434,7 +442,7 @@
 			<h3>Please select the file to be loaded:</h3>
 			<p><input aria-label="file to load" type="file" id="fileToLoad" class="dropify"/></p>
 			<center>
-			<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
+			<a href="#" class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-btn-inline" data-rel="back">Cancel</a>
                         <button class="ui-btn ui-btn-b ui-btn-inline" 
                                 onclick="var fileToLoad = document.getElementById('fileToLoad').files[0];
 					 wepsim_load_from_file(fileToLoad, inputfirm);
@@ -452,7 +460,7 @@
 			<h2>Please write the file name where Microcode will be saved:</h2>
 			<p><input aria-label="filename to save content" id="inputFileNameToSaveAs" style="min-width: 90%;"/></p>
 			<center>
-			<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
+			<a href="#" class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-btn-inline" data-rel="back">Cancel</a>
                         <button class="ui-btn ui-btn-b ui-btn-inline" 
                                 onclick="if (confirm('Do you want me to save the current Control Memory contents rather than the editor contents?.\n\n' + 
                                                      'Please notice three things:\n' +
@@ -477,7 +485,7 @@
 		</div>
 
                 <div class="btn-toolbar" role="toolbar">
-                <div class="btn-group btn-group-justified" role="group">
+                <div class="btn-group btn-group-justified col-12" role="group">
 		            <a href="#lsload" style="background-color: #CCCCCC"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-back    ui-btn-icon-left ui-mini col-1"
 				   data-rel="popup" data-position-to="window" data-transition="pop">Load</a>
@@ -509,7 +517,7 @@
                                             }">Show co2&#181;addr + control memory</a>
 
                             <a href="#" style="background-color: #D4DB17"
-                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-xs-6 col-md-2 col-lg-2"
+                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-2"
                                    onclick="wepsim_open_help_content('<object id=svg_p2 data=\'images/cpu6.svg?time=20170108\' type=image/svg+xml>Your browser does not support SVG</object>');"
                                    >Hardware Summary</a>
 
@@ -537,11 +545,11 @@
                 <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
 		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
                 </div>
-                <span class="ui-title"><b>WepSIM</b> <span class="badge badge-secondary"><div class="wsversion">X</div></span> / Assembly</span>
+                <span class="ui-title">WepSIM <span class="badge badge-secondary"><div class="wsversion">X</div></span> / Assembly</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
                     <a id="menu1c"
                        href="#actions_panel"
-                       class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b">Menu</a>
+                       class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-btn-inline">Menu</a>
 		</div>
 	</div><!-- /header -->
 
@@ -556,7 +564,7 @@
 			<h3>Please select the file to be assembled:</h3>
 			<p><input aria-label="file to load" type="file" id="fileToLoad2" class="dropify"/></p>
 			<center>
-			<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
+			<a href="#" class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-btn-inline" data-rel="back">Cancel</a>
                         <button class="ui-btn ui-btn-b ui-btn-inline" 
                                 onclick="var fileToLoad = document.getElementById('fileToLoad2').files[0];
                                          wepsim_load_from_file(fileToLoad, inputasm);
@@ -574,7 +582,7 @@
 			<h2>Please write the file name where assembly will be saved:</h2>
 			<p><input aria-label="filename to save content" id="inputFileNameToSaveAs2" style="min-width: 90%;"/></p>
 			<center>
-			<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back">Cancel</a>
+			<a href="#" class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-btn-inline" data-rel="back">Cancel</a>
                         <button class="ui-btn ui-btn-b ui-btn-inline" 
                                 onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs2').value;
                                          wepsim_save_to_file(inputasm, fileNameToSaveAs);">Save to File</button>
@@ -583,7 +591,7 @@
 		</div>
 
                 <div class="btn-toolbar" role="toolbar">
-                <div class="btn-group btn-group-justified" role="group">
+                <div class="btn-group btn-group-justified col-12" role="group">
 		            <a href="#lsload2" style="background-color: #CCCCCC"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-back     ui-btn-icon-left ui-mini col-1"
 				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Load</a>
@@ -673,7 +681,7 @@
 
 
 <div id="config2" class="modal">
-    <div class="modal-dialog" style="min-width:60vw; height:80vh;">
+    <div class="modal-dialog modal-lg" style="min-width:70vw; height:70vh;">
 	<div class="modal-content">
 	   <div class="modal-header">
 		<button type="button" data-role="button"
@@ -1454,7 +1462,7 @@
                                      rows="5"></textarea>
                         </form>
                         <h4 style="margin:20 0 10 0;">Result:
-		   	   <span class="btn btn-secondary btn-xs"
+		   	   <span class="btn btn-secondary btn-sm"
 			         onclick="CopyFromDiv('check_results_scroll2'); return false;" 
 			         data-inline="true">Copy to clipboard</i></span>
                         </h4>
@@ -1660,7 +1668,7 @@
                     $("#slider3").val(get_cfg('NOTIF_delay')) ;
                     $("#img_select1").attr("src","images/stop_" + get_cfg('ICON_theme') + ".gif");
                     set_cpu_cu_size('#eltos_cpu_a','#eltos_cpu_b',get_cfg('CPUCU_size'));
-                    $("#slider2").val(get_cfg('CPUCU_size'));
+                    $("#slider2").val(get_cfg('CPUCU_size')).slider("refresh");
 
                     $('#slider2d').toggle(); 
 
@@ -1746,6 +1754,7 @@ if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(nav
 		}) ;
 	    }
 
+/*TODO: uncomment this if...
             if ('tutorial' == get_cfg('ws_mode')) 
             {
 		var ti = get_cfg('ws_idiom') ;
@@ -1754,6 +1763,11 @@ if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(nav
 		    tour.onbeforechange(tour_steps.onbeforechange) ;
 		    tour.start() ;
 	    }
+*/
+
+            $("#tabsnav2").navbar();
+            $("#tabs2").tabs();
+            $("#table-config2").enhanceWithin() ;
     }
     catch(err) 
     {

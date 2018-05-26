@@ -379,17 +379,20 @@
                 return ;
             }
 
-            var o1_rf = "<div class='hidden' id='popover_rf'>" +
-                        "  <div class='popover-heading'></div>" +
-                        "  <div class='popover-body'></div>" +
-                        "</div>" ;
+            var o1_rf = "" ;
+            var o1_rn = "" ;
 	    for (var index=0; index < sim_states['BR'].length; index++)
             {
-		 o1_rf += "<div class='col-xs-6 col-sm-4 col-md-4 col-lg-3' style='padding:0 5 0 5;'>" +
-                          "<button type='button' class='btn btn-outline-primary no-text-shadow' style='padding:0 0 0 0; outline:none; box-shadow:none; transform:translate3d(0,0,0);' " +
+                 if (index < 10)
+                      o1_rn = "&nbsp;R" + index ;
+                 else o1_rn = "R" + index ;
+
+		 o1_rf += "<div class='col' style='padding:0 2px 0 2px !important; margin:1px 5px 1px 2px;'>" +
+                          "<button type='button' class='btn btn-outline-primary no-text-shadow' " + 
+			  "        style='margin:1px 5px 1px 2px; padding:0 0 0 0; outline:none; box-shadow:none; transform:translate3d(0,0,0);' " +
                           "        data-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
-                          "  <span id='name_RF" + index + "' style='float:center; padding:0 0 0 0'>R" + index + "</span>" +
+                          "  <span id='name_RF" + index + "' style='float:center; padding:0 0 0 0'>" + o1_rn + "</span>" +
                           "  <span class='badge badge-secondary' style='background-color:#CEECF5; color:black;' id='tbl_RF"  + index + "'>" +
                           (get_value(sim_states['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() +
                           "  </span>" +
@@ -488,8 +491,9 @@
                 var b = filter[i].split(",")[1] ;
                 var divclass = divclasses[b] ;
 
-                o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" +
-                      "<button type='button' class='btn btn-outline-primary no-text-shadow' style='padding:0 0 0 0; outline:none; box-shadow:none; will-change:transform; transform:translate3d(0,0,0);' " +
+                o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5; margin:1px 5px 1px 2px; '>" +
+                      "<button type='button' class='btn btn-outline-primary no-text-shadow' " +
+                      "        style='padding:0 0 0 0; margin:1px 5px 1px 2px; outline:none; box-shadow:none; will-change:transform; transform:translate3d(0,0,0);' " +
                       "        data-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +
                       showkey +
@@ -500,7 +504,7 @@
                       "</div>" ;
             }
 
-            $(jqdiv).html("<div class='row'>" + o1 + "</div>");
+            $(jqdiv).html("<div class='row justify-content-center'>" + o1 + "</div>");
 
 	    $("[data-toggle=popover-bottom]").popover({
 	    	    html:      true,
@@ -564,7 +568,7 @@
                               "REG_MAR,1", "REG_MBR,1", "REG_MICROADDR,1" ] ;
 
         var divclasses = [ "col-11", 
-		           "col" ] ;
+                           "col" ] ;
 
         function init_states ( jqdiv )
         {
@@ -705,7 +709,7 @@
                      "</div>" +
                      "</div>" ;
          
-               o1 += "<div class='col-xs-12 col-md-12' style='padding:0 0 0 0;'>" +
+               o1 += "<div class='col-12' style='padding:0 0 0 0;'>" +
                      "<div class='card' style='margin:0 0 0 0;'>" +
                      "<div class='card-header'>" +
                      " <h3 class='card-title'>I/O</h3>" +
@@ -1542,7 +1546,7 @@
                      a2s[laddr] = l;
                 }
 
-                o += "<center><table data-role=table class='table ui-responsive'><tbody>" ;
+                o += "<center><table data-role=table class='table ui-responsive table-sm'><tbody>" ;
                 for (l in asm)
                 {
                      if  (bgc == "#F0F0F0")
