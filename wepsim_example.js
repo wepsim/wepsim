@@ -141,7 +141,7 @@
 		       '   <a href="#" ' + 
 		       '      id="' + e_id + '" ' + 
 		       '      onclick="$(\'#example1\').modal(\'hide\'); load_from_example_firmware(\'' + e_id + '\',true);" ' + 
-		       '      style="padding:0 0 0 0;"' +
+		       '      style="padding:0 0 0 0; margin:0 8 0 0;"' +
 		       '      class="ui-btn btn btn-group ui-btn-inline btn-primary">' + 
                        '   <b class="collapse2 collapse show">' + e_title + '</b></a>' +
                        ' </td>' +

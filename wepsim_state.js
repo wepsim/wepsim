@@ -136,14 +136,14 @@
                    '      </span>' +
                    '    </h5>' +
                    '  </div>' +
-                   '  <div id="collapse_' + i + '" class="panel-collapse collapse">' +
+                   '  <div id="collapse_' + i + '" class="collapse">' +
                    '    <div class="card-body">' + 
                    '      <div class="container-fluid">' + 
                    '      <div class="row">' + 
-                   '      <button class="btn btn-secondary btn-sm col-xs-4 col-sm-3 pull-right"' + 
+                   '      <button class="btn btn-secondary btn-sm col-xs-4 col-sm-3 float-right"' + 
                    '              onclick="CopyFromTextarea(\'ta_state_' + i + '\');" ' + 
                    '              type="button">Copy <span class="d-xs-none">to clipboard</span></button>' +
-                   '      <button class="btn btn-secondary btn-sm col-xs-4 col-sm-3 pull-right"' + 
+                   '      <button class="btn btn-secondary btn-sm col-xs-4 col-sm-3 float-right"' + 
                    '              onclick="var txt_chklst1 = get_clipboard_copy();' +
                    '                       var obj_exp1    = wepsim_checklist2state(txt_chklst1);' +
                    '                       var txt_chklst2 = $(\'#ta_state_'+i+'\').val();' +
