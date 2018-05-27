@@ -497,7 +497,7 @@
                     part1 = showkey.substring(0, 3) ;
                     part2 = showkey.substring(3, showkey.length) ;
 		    if (part2.length > 0)
-                        showkey = part1 + '<span class="d-xs-none">' + part2 + '</span>' ;
+                        showkey = part1 + '<span class="d-none d-sm-inline">' + part2 + '</span>' ;
 
 		    if (showkey.length < 3)
 			showkey = showkey + "&nbsp;" ;
@@ -737,15 +737,15 @@
                      "<tbody class='no-ui-mini'>" +
                      "<tr>" +
                      "<td align=center width='33%'>" +
-                     "  <span class='d-xs-none'>Interruption identificator</span>" +
+                     "  <span class='d-none d-sm-inline'>Interruption identificator</span>" +
                      "  <span class='d-sm-none'>Int. Id.<br>(0 - 7)</span>" +
                      "</td>" +
                      "<td align=center width='33%'>" +
-                     "  <span class='d-xs-none'>CLK period (<b>0</b> - &infin;)</span>" +
+                     "  <span class='d-none d-sm-inline'>CLK period (<b>0</b> - &infin;)</span>" +
                      "  <span class='d-sm-none'>CLK ticks <br>(<b>0</b> - &infin;)</span>" +
                      "</td>" +
                      "<td align=center width='33%'>" +
-                     "  <span class='d-xs-none'>Probability (0 - 1)</span>" +
+                     "  <span class='d-none d-sm-inline'>Probability (0 - 1)</span>" +
                      "  <span class='d-sm-none'>Probability <br>(0 - 1)</span>" +
                      "</td>" +
                      "</tr>" ;
@@ -853,8 +853,8 @@
                 if (typeof sname != "undefined")
                     o1 += '<div style="position:sticky;top:0px;z-index:1;width:50%;background:#FFFFFF;"><b><small>' + sname + '</small></b></div>' ;
 
-                taddr = '<small>0x</small>' + pack5(valkeys[3]) + '<span class="d-xs-none"> </span>-' + 
-                        '<span class="d-xs-none"><small> 0x</small></span>' + pack5(valkeys[0]) ;
+                taddr = '<small>0x</small>' + pack5(valkeys[3]) + '<span class="d-none d-sm-inline"> </span>-' + 
+                        '<span class="d-none d-sm-inline"><small> 0x</small></span>' + pack5(valkeys[0]) ;
 		if (key == index)
 		     o1 += "<div class='row' id='addr" + key + "'" +
                            "     style='color:blue; font-size:small; font-weight:bold;    border-bottom: 1px solid lightgray !important'>" +

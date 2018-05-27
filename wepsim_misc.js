@@ -299,9 +299,14 @@
     	var b = 12 - a;
 
 	$('#eltos_cpu_a').removeClass();
-	$('#eltos_cpu_a').addClass('col-' + a);
-
 	$('#eltos_cpu_b').removeClass();
-	$('#eltos_cpu_b').addClass('col-' + b);
+
+	if (a != 0)
+             $('#eltos_cpu_a').addClass('col-' + a);
+	else $('#eltos_cpu_a').addClass('d-none');
+
+	if (b != 0)
+	     $('#eltos_cpu_b').addClass('col-' + b);
+	else $('#eltos_cpu_b').addClass('d-none');
     }
 

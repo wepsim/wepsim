@@ -173,13 +173,14 @@
 	</div><!-- /header -->
 
 
-        <div role="main" class="ui-content container-fluid">
+        <div role="main" class="ui-content container-fluid" style="padding:8px 8px 8px 8px">
 
             <div class="row">
-                <div id="col1" class="" style="padding:0 0 0 0;">
+
+                <div id="col1" class="" style="padding:0px 0px 0px 8px !important;">
 
                       <!-- Nav tabs -->
-		      <ul class="nav nav-tabs nav-justified nav-pills">
+		      <ul class="nav nav-tabs nav-justified nav-tabs">
 		          <li class="nav-item">
                               <a id="tab26" href="#eltos_cpu" 
                                  class="nav-link active" data-toggle="tab" role="tab"
@@ -200,7 +201,7 @@
                                           var obj_byid = $('#asm_debugger_container');
                                           if (typeof o1[0] == 'undefined') 
                                               return;
-                                          obj_byid[0].scrollTop = o1[0].offsetTop;">Assembly Debugger</a>
+                                          obj_byid[0].scrollTop = o1[0].offsetTop;"><span class="d-sm-none">Assembly</span><span class="d-none d-sm-inline">Assembly Debugger</span></a>
                           </li>
 		      </ul>
 
@@ -256,15 +257,15 @@
 		       <label><input aria-label="Show breakpoint"         type="checkbox" value="1" id="asm_break"  name="asm_break" checked="checked"><span>breakpoints</span></label>
 		       <label><input aria-label="Show address"            type="checkbox" value="1" id="asm_addr"   name="asm_addr"  checked="checked"><span>address</span></label>
 		       <label><input aria-label="Show label"              type="checkbox" value="1" id="asm_label2" name="asm_label2" checked="checked"><span>labels</span></label>
-		       <label><input aria-label="Show pseudo-instruction" type="checkbox" value="1" id="asm_pins"   name="asm_pins"  checked="checked"><span>pseudo</span><span class="d-xs-none">-instructions</span></label>
+		       <label><input aria-label="Show pseudo-instruction" type="checkbox" value="1" id="asm_pins"   name="asm_pins"  checked="checked"><span>pseudo</span><span class="d-none d-sm-inline">-instructions</span></label>
 		       <label><input aria-label="Show label"              type="checkbox" value="1" id="asm_label1" name="asm_label1" checked="checked"><span>labels</span></label>
 		       <label><input aria-label="Show instruction"        type="checkbox" value="1" id="asm_ins"    name="asm_ins"   checked="checked"><span>assembly</span></label>
 		   </div>
 		   </th>
-			   <th width=10% class="asm_break"><span>break</span><span class="d-xs-none"><small>points</small></span></th>
-			   <th width=15% class="asm_addr"><span>addr</span><span class="d-xs-none">ess</span></th>
+			   <th width=10% class="asm_break"><span>break</span><span class="d-none d-sm-inline"><small>points</small></span></th>
+			   <th width=15% class="asm_addr"><span>addr</span><span class="d-none d-sm-inline">ess</span></th>
                            <th width=10% class="asm_label2" align=right><span>labels</span></th>
-                           <th width=20% class="asm_pins"   align=left><span>pseudo</span><span class="d-xs-none"><small>instructions</small></span></th>
+                           <th width=20% class="asm_pins"   align=left><span>pseudo</span><span class="d-none d-sm-inline"><small>instructions</small></span></th>
                            <th width=10% class="asm_label1" align=right><span>labels</span></th>
                            <th width=25% class="asm_ins"    align=left><span>assembly</span></th>
 			   </tr>
@@ -299,19 +300,19 @@
 	    	    </div>
                 </div>
 
-                <div id="col2" class="" style="padding:0 8px 0 0px;">
+                <div id="col2" class="" style="padding:8px 8px 0px 0px;">
 
                     <div class="btn-group col-12" role="group" id="sim_toolbar">
-		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-2"
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-xs-2 col-sm-2"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
-		                onclick="wepsim_dialog_current_state(); $('#bot_check1').carousel(0);"><c><span class="d-xs-none">History</span><span class="d-sm-none">Hist.</span></c></button>
-		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-2"
+		                onclick="wepsim_dialog_current_state(); $('#bot_check1').carousel(0);"><c><span class="d-none d-sm-inline">History</span><span class="d-sm-none">Hist.</span></c></button>
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-xs-2 col-sm-2"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
-		                onclick="wepsim_dialog_current_state(); $('#bot_check1').carousel(1);"><c><span class="d-xs-none">State</span><span class="d-sm-none">St.</span></c></button>
-		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-4"
+		                onclick="wepsim_dialog_current_state(); $('#bot_check1').carousel(1);"><c><span class="d-none d-sm-inline">State</span><span class="d-sm-none">St.</span></c></button>
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-xs-3 col-sm-4"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
-                                data-toggle="modal" data-target="#confighw"><c><span class="d-xs-none">HW. Configuration</span><span class="d-sm-none">Cfg.</span></c></button>
-			<select name="select4" id="select4" class="form-control ui-shadow col-4"
+                                data-toggle="modal" data-target="#confighw"><c><span class="d-none d-sm-inline">HW. Configuration</span><span class="d-sm-none">Cfg.</span></c></button>
+			<select name="select4" id="select4" class="form-control ui-shadow col-xs-5 col-sm-4"
 				aria-label="Execution mode" data-role="none"
 				onchange="var opt = $(this).find('option:selected');
 					  var optValue = opt.val();
@@ -706,7 +707,7 @@
                         class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
                         data-dismiss="modal" aria-hidden="true">x</button>
 		<div class="mx-auto">
-                <h5><b>Config<span class="d-xs-none">uration</span></b> <span class="badge badge-pill btn-success"><div class="wsversion">X</div></span></h5>
+                <h5><b>Config<span class="d-none d-sm-inline">uration</span></b> <span class="badge badge-pill btn-success"><div class="wsversion">X</div></span></h5>
                 </div>
 	   </div>
 	   <div class="modal-body">
@@ -719,7 +720,7 @@
 	<thead>
 	<tr>
 	  <th onclick="$('.collapse6').collapse('toggle');">#</th>
-	  <th class="d-xs-none">area</th>
+	  <th class="d-none d-sm-inline">area</th>
 	  <th>title</th>
 	  <th style="min-width:11em">value</th>
 	  <th onclick="$('.collapse7').collapse('toggle');">description</th>
@@ -729,7 +730,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">1</td>
-	  <td class="d-xs-none" style="color:gray">general</td>
+	  <td class="d-none d-sm-inline" style="color:gray">general</td>
 	  <td>Active voice</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -752,7 +753,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">2</td>
-	  <td class="d-xs-none" style="color:gray">editor</td>
+	  <td class="d-none d-sm-inline" style="color:gray">editor</td>
 	  <td>Editor theme</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -783,7 +784,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">3</td>
-	  <td class="d-xs-none" style="color:gray">editor</td>
+	  <td class="d-none d-sm-inline" style="color:gray">editor</td>
 	  <td>Editor mode</td>
 	  <td>
 		 <div class="form-group" style="max-width:10em; margin:0 0 0 0">
@@ -807,7 +808,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">4</td>
-	  <td class="d-xs-none" style="color:gray">execution</td>
+	  <td class="d-none d-sm-inline" style="color:gray">execution</td>
 	  <td>Speed-up</td>
 	  <td>
 		 <input type="range"
@@ -823,7 +824,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">5</td>
-	  <td class="d-xs-none" style="color:gray">execution</td>
+	  <td class="d-none d-sm-inline" style="color:gray">execution</td>
 	  <td>Step-by-step</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -832,13 +833,13 @@
 			    style="margin-top:-8px"
 			    onclick="set_cfg('DBG_level','instruction'); save_cfg();"
 			    value="on" type="radio">
-		     <label for="radio1-instruction" class="ui-btn-a"><span class="d-xs-none">Instructions</span><span class="d-sm-none">Instruc.</span></label>
+		     <label for="radio1-instruction" class="ui-btn-a"><span class="d-none d-sm-inline">Instructions</span><span class="d-sm-none">Instruc.</span></label>
 		     <input name="radio1" id="radio1-microinstruction" 
 			    aria-label="Execution unit (microinstruction)"
 			    style="margin-top:-8px"
 			    onclick="set_cfg('DBG_level','microinstruction'); save_cfg();"
 			    value="off" type="radio">
-		     <label for="radio1-microinstruction" class="ui-btn-a"><span class="d-xs-none">&#181;instructions</span><span class="d-sm-none">&#181;instruc.</span></label>
+		     <label for="radio1-microinstruction" class="ui-btn-a"><span class="d-none d-sm-inline">&#181;instructions</span><span class="d-sm-none">&#181;instruc.</span></label>
 		 </fieldset>
           </td>
 	  <td class="collapse7 collapse show">Element in run mode</td>
@@ -846,7 +847,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">6</td>
-	  <td class="d-xs-none" style="color:gray">execution</td>
+	  <td class="d-none d-sm-inline" style="color:gray">execution</td>
 	  <td>Breakpoint Icon</td>
 	  <td>
 		 <div class="form-group" style="max-width:10em; margin:0 0 0 0">
@@ -887,7 +888,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">7</td>
-	  <td class="d-xs-none" style="color:gray">execution</td>
+	  <td class="d-none d-sm-inline" style="color:gray">execution</td>
 	  <td>Limit instr.</td>
 	  <td>
 		 <div class="form-group" style="max-width:10em; margin:0 0 0 0">
@@ -911,7 +912,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">8</td>
-	  <td class="d-xs-none" style="color:gray">execution</td>
+	  <td class="d-none d-sm-inline" style="color:gray">execution</td>
 	  <td>Limit instr. ticks</td>
 	  <td>
 		 <div class="form-group" style="max-width:10em; margin:0 0 0 0">
@@ -935,7 +936,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">9</td>
-	  <td class="d-xs-none" style="color:gray">simulation</td>
+	  <td class="d-none d-sm-inline" style="color:gray">simulation</td>
 	  <td>Display format</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -967,7 +968,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">10</td>
-	  <td class="d-xs-none" style="color:gray">simulation</td>
+	  <td class="d-none d-sm-inline" style="color:gray">simulation</td>
 	  <td>RF name</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -989,7 +990,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">11</td>
-	  <td class="d-xs-none" style="color:gray">simulation</td>
+	  <td class="d-none d-sm-inline" style="color:gray">simulation</td>
 	  <td>Data-path color</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -1009,7 +1010,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">12</td>
-	  <td class="d-xs-none" style="color:gray">simulation</td>
+	  <td class="d-none d-sm-inline" style="color:gray">simulation</td>
 	  <td>Signal color</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -1025,7 +1026,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">13</td>
-	  <td class="d-xs-none" style="color:gray">simulation</td>
+	  <td class="d-none d-sm-inline" style="color:gray">simulation</td>
 	  <td>Interactive Mode</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -1048,7 +1049,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">14</td>
-	  <td class="d-xs-none" style="color:gray">simulation</td>
+	  <td class="d-none d-sm-inline" style="color:gray">simulation</td>
 	  <td>Editable registers</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -1071,7 +1072,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">15</td>
-	  <td class="d-xs-none" style="color:gray">simulation</td>
+	  <td class="d-none d-sm-inline" style="color:gray">simulation</td>
 	  <td>Show by value</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -1094,7 +1095,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">16</td>
-	  <td class="d-xs-none" style="color:gray">simulation</td>
+	  <td class="d-none d-sm-inline" style="color:gray">simulation</td>
 	  <td>Notification delay</td>
 	  <td>
 		 <input type="range"
@@ -1168,7 +1169,7 @@
 		       <div class="btn-group">
 			  <button onclick="$('#bot_hwcfg1').carousel(0);" 
 				  type="button" 
-				  class="btn btn-info">Hardware Conf<span class='d-sm-none'>.</span><span class='d-xs-none'>iguration</span></button>
+				  class="btn btn-info">Hardware Conf<span class='d-sm-none'>.</span><span class='d-none d-sm-inline'>iguration</span></button>
 			  <button onclick="$('#bot_hwcfg1').carousel(1);
 					   update_checker_loadhelp('#help4a','help_hwcfg');"
 				  type="button" 
@@ -1288,7 +1289,7 @@
                   <button onclick="$('#bot_check1').carousel(1);" 
                           type="button" 
                           class="btn btn-info" 
-			  style="height:34px !important;"><span class='d-xs-none'>Edit </span>State</button>
+			  style="height:34px !important;"><span class='d-none d-sm-inline'>Edit </span>State</button>
                   <button onclick="$('#bot_check1').carousel(2);
                                    update_checker_loadhelp('#help3a','help_dumper');"
                           type="button" 
@@ -1370,13 +1371,13 @@
 			    wepsim_notify_success('<strong>INFO</strong>', 'Removed all !.');
 			    wepsim_state_history_list() ;
 			    return false;"
-		   type="button">Reset <span class='d-xs-none'>history</span></button>
+		   type="button">Reset <span class='d-none d-sm-inline'>history</span></button>
 	   <button class="btn btn-secondary col-xs-3 pull-left"
 		   onclick="wepsim_state_history_add();
 			    wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
 			    wepsim_state_history_list() ;
 			    return false;"
-		   type="button">Add <span class='d-xs-none'>state to history</span></button>
+		   type="button">Add <span class='d-none d-sm-inline'>state to history</span></button>
            <button type="button" 
                    onclick="$('#current_state1').modal('hide');"
                    class="btn btn-primary col-xs-3 pull-right">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
@@ -1682,9 +1683,9 @@
 	    sim_core_init_panel("#states_ALL", "#states_BR", "#io_ALL", "#cpu_ALL", "#config_ALL"); 
 	    sim_core_reset(); 
 
-            // split (experimental)
-if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ))
-{
+// split (experimental)
+ if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ))
+ {
 	    var split1 = Split(['#col1', '#col2'], { sizes: [60, 40], gutterSize: 10 });
             $(window).resize(function() {
                                 if ($(window).width() > 1000) {
@@ -1696,7 +1697,7 @@ if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(nav
                                     $('.gutter.gutter-horizontal').height('0%') ;
                                 }
                              });
-}
+ }
 
             $('a[data-toggle="popover1"]').popover({
                      placement: 'bottom',
