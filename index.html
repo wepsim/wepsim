@@ -257,15 +257,15 @@
 		       <label><input aria-label="Show breakpoint"         type="checkbox" value="1" id="asm_break"  name="asm_break" checked="checked"><span>breakpoints</span></label>
 		       <label><input aria-label="Show address"            type="checkbox" value="1" id="asm_addr"   name="asm_addr"  checked="checked"><span>address</span></label>
 		       <label><input aria-label="Show label"              type="checkbox" value="1" id="asm_label2" name="asm_label2" checked="checked"><span>labels</span></label>
-		       <label><input aria-label="Show pseudo-instruction" type="checkbox" value="1" id="asm_pins"   name="asm_pins"  checked="checked"><span>pseudo</span><span class="d-none d-sm-inline">-instructions</span></label>
+		       <label><input aria-label="Show pseudo-instruction" type="checkbox" value="1" id="asm_pins"   name="asm_pins"  checked="checked"><span>pseudo</span><span class="d-none d-md-inline">-instructions</span></label>
 		       <label><input aria-label="Show label"              type="checkbox" value="1" id="asm_label1" name="asm_label1" checked="checked"><span>labels</span></label>
 		       <label><input aria-label="Show instruction"        type="checkbox" value="1" id="asm_ins"    name="asm_ins"   checked="checked"><span>assembly</span></label>
 		   </div>
 		   </th>
-			   <th width=10% class="asm_break"><span>break</span><span class="d-none d-sm-inline"><small>points</small></span></th>
+			   <th width=10% class="asm_break"><span>break</span><span class="d-none d-md-inline"><small>points</small></span></th>
 			   <th width=15% class="asm_addr"><span>addr</span><span class="d-none d-sm-inline">ess</span></th>
                            <th width=10% class="asm_label2" align=right><span>labels</span></th>
-                           <th width=20% class="asm_pins"   align=left><span>pseudo</span><span class="d-none d-sm-inline"><small>instructions</small></span></th>
+                           <th width=20% class="asm_pins"   align=left><span>pseudo</span><span class="d-none d-md-inline"><small>instructions</small></span></th>
                            <th width=10% class="asm_label1" align=right><span>labels</span></th>
                            <th width=25% class="asm_ins"    align=left><span>assembly</span></th>
 			   </tr>
@@ -309,21 +309,29 @@
 		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-xs-2 col-sm-2"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
 		                onclick="wepsim_dialog_current_state(); $('#bot_check1').carousel(1);"><c><span class="d-none d-sm-inline">State</span><span class="d-sm-none">St.</span></c></button>
-		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-xs-3 col-sm-4"
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-xs-3 col-sm-2"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
-                                data-toggle="modal" data-target="#confighw"><c><span class="d-none d-sm-inline">HW. Configuration</span><span class="d-sm-none">Cfg.</span></c></button>
-			<select name="select4" id="select4" class="form-control ui-shadow col-xs-5 col-sm-4"
+                                data-toggle="modal" data-target="#confighw"><c><span class="d-none d-sm-inline">Hardware</span><span class="d-sm-none">Hard.</span></c></button>
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-xs-3 col-sm-3"
+		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
+                                data-toggle="modal" data-target="#config2"><c><span class="d-none d-sm-inline">Configuration</span><span class="d-sm-none">Cfg.</span></c></button>
+			<select name="select4" id="select4" class="form-control ui-shadow col-xs-5 col-sm-3"
 				aria-label="Execution mode" data-role="none"
 				onchange="var opt = $(this).find('option:selected');
 					  var optValue = opt.val();
 					  set_cfg('ws_mode',optValue); save_cfg();
+                                          // webmips mode...
 					  if ('webmips' == optValue)
 					       wepsim_show_webmips();
 					  else wepsim_hide_webmips();
+                                          // tutorial mode...
+					  $('#select4').css('background-color', '#F6F6F6') ;
+					  if ('tutorial' == optValue)
+					      $('#select4').css('background-color', '#D4DB17') ;
 					  return false;">
-				<option value="tutorial">Tutorial mode</option>
-				<option value="wepsim"  >WepSIM mode</option>
-				<option value="webmips" >WebMIPS mode</option>
+				<option value="tutorial">Tutorial</option>
+				<option value="wepsim"  >WepSIM</option>
+				<option value="webmips" >WebMIPS</option>
 			</select>
                     </div>
 
@@ -1121,7 +1129,7 @@
 
 
 <div id="bin2" class="modal">
-     <div class="modal-dialog" style="min-width:60vw; height:80vh;">
+     <div class="modal-dialog" style="min-width:80vw; height:80vh;">
 	<div class="modal-content">
 	   <div class="modal-header">
 		<button type="button" data-role="button"
