@@ -303,19 +303,20 @@
                 <div id="col2" class="" style="padding:8px 8px 0px 0px;">
 
                     <div class="btn-group col-12" role="group" id="sim_toolbar">
-		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-xs-2 col-sm-2"
-		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
-		                onclick="wepsim_dialog_current_state(); $('#bot_check1').carousel(0);"><c><span class="d-none d-sm-inline">History</span><span class="d-sm-none">Hist.</span></c></button>
-		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-xs-2 col-sm-2"
-		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
-		                onclick="wepsim_dialog_current_state(); $('#bot_check1').carousel(1);"><c><span class="d-none d-sm-inline">State</span><span class="d-sm-none">St.</span></c></button>
 		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-xs-3 col-sm-2"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
-                                data-toggle="modal" data-target="#confighw"><c><span class="d-none d-sm-inline">Hardware</span><span class="d-sm-none">Hard.</span></c></button>
+                                data-toggle="modal" data-target="#confighw"><c><span class="d-none d-sm-inline">Hw.cfg.</span><span class="d-sm-none">Hcfg.</span></c></button>
 		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-xs-3 col-sm-3"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
                                 data-toggle="modal" data-target="#config2"><c><span class="d-none d-sm-inline">Configuration</span><span class="d-sm-none">Cfg.</span></c></button>
-			<select name="select4" id="select4" class="form-control ui-shadow col-xs-5 col-sm-3"
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-xs-3 col-sm-2"
+		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
+                                onclick="wepsim_open_examples_index();">Examples</button>
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-xs-2 col-sm-3"
+		                style="border-width:1 1 1 1px; margin:0 0 0 0; background-color:#D4DB17;"
+		                onclick="wepsim_help_set_relative('#help_simulator_screens');
+                                         wepsim_help_refresh();">Help</button>
+			<select name="select4" id="select4" class="form-control ui-shadow col-xs-5 col-sm-2"
 				aria-label="Execution mode" data-role="none"
 				onchange="var opt = $(this).find('option:selected');
 					  var optValue = opt.val();
@@ -337,7 +338,7 @@
 
                     <div class="btn-group col-12" role="group">
 			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-			       class="btn ui-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-reset   ui-btn-icon-top ui-mini no-text-shadow col-2"
+			       class="btn ui-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-reset   ui-btn-icon-top ui-mini no-text-shadow col-3"
 			       onclick="wepsim_execute_reset(true, true);"><br>Reset</a>
 			    <a id="nm1" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 			       class="btn ui-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini no-text-shadow col-3"
@@ -346,7 +347,7 @@
 			       class="btn ui-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-top ui-mini no-text-shadow col-3"
 			       onclick="wepsim_execute_instruction();"><br>Instruction</a>
 			    <a id="qbp" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-			       class="btn ui-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-carat-r ui-btn-icon-top ui-mini no-text-shadow col-2"
+			       class="btn ui-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-carat-r ui-btn-icon-top ui-mini no-text-shadow col-3"
                                onclick="var mode = get_cfg('ws_mode');
                                         if ('tutorial' == mode) {
                                             wepsim_notify_success('<strong>INFO</strong>',
@@ -354,15 +355,13 @@
                                         }
                                         wepsim_execute_toggle_play('#qbp', (mode == 'tutorial'));
                                         return false;"><br>Run</a>
-                            <a id="ib1" href="#"
-                               style="background-color: #D4DB17;"
-			       class="btn ui-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info ui-btn-icon-top ui-mini no-text-shadow col-2"
-                               onclick="wepsim_help_set_relative('#help_simulator_screens');
-                                        wepsim_help_refresh();"><br>Help</a>
                     </div>
 
                     <div class="btn-group col-12" role="group">
-                          <select class="custom-select ui-shadow col-9"
+		          <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-2"
+		                  style="border-width:1 1 1 1px; margin:0 0 0 0;"
+		                  onclick="wepsim_dialog_current_state();"><c><span class="d-none d-sm-inline">States</span><span class="d-sm-none">S.M.</span></c></button>
+                          <select class="custom-select ui-shadow col-7"
 				  name="select5a" id="select5a" 
 				  data-role="none" 
                                   style="border-color: #CCCCCC;"
