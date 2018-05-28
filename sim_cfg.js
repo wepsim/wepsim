@@ -70,8 +70,8 @@
 		 *  simulation screen: Notification, etc.
 		 */
                WSCFG.NOTIF_delay         = { value:1500,               type:"int"} ;
-               WSCFG.CPUCU_size          = { value:7,                  type:"int"} ;
-               WSCFG.C1C2_size           = { value:7,                  type:"int"} ;
+               WSCFG.CPUCU_size          = { value:6,                  type:"int"} ;
+               WSCFG.C1C2_size           = { value:8,                  type:"int"} ;
 
                WSCFG.is_interactive      = { value:true,               type:"boolean"};
                WSCFG.ws_idiom            = { value:'es',               type:"string"};
