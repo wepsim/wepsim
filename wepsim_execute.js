@@ -89,7 +89,7 @@
 
     function wepsim_execute_stop ( btn1 )
     {
-	$(btn1).html("<br>Run") ;
+	$(btn1).html("Run") ;
 	$(btn1).removeClass("ui-icon-minus") ;
 	$(btn1).addClass("ui-icon-carat-r") ;
 	$(btn1).css("backgroundColor", "#CCCCCC") ;
@@ -108,7 +108,7 @@
         }
 
 	$(btn1).css("backgroundColor", 'rgb(51, 136, 204)') ;
-	$(btn1).html("<br>Stop") ;
+	$(btn1).html("Stop") ;
 	$(btn1).removeClass("ui-icon-carat-r") ;
 	$(btn1).addClass("ui-icon-minus") ;
 
