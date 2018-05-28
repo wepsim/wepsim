@@ -187,17 +187,17 @@
                     <div class="col-8">
                     <div class="row">
 		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col"
+		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
+                                data-toggle="modal" data-target="#confighw"><c><span class="d-none d-sm-inline">Hw. timing</span><span class="d-sm-none">Hcfg.</span></c></button>
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col"
+		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
+                                data-toggle="modal" data-target="#config2"><c><span class="d-none d-sm-inline">Configuration</span><span class="d-sm-none">Cfg.</span></c></button>
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col"
 			        onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0;"><c><span class="d-none d-sm-inline">Microcode</span><span class="d-sm-none">Mcode</span></c></button>
 		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col"
 			        onclick="$.mobile.pageContainer.pagecontainer('change','#main4');"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0;"><c><span class="d-none d-sm-inline">Assembly</span><span class="d-sm-none">Asm.</span></c></button>
-		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col"
-		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
-                                data-toggle="modal" data-target="#confighw"><c><span class="d-none d-sm-inline">Hw.cfg.</span><span class="d-sm-none">Hcfg.</span></c></button>
-		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col"
-		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
-                                data-toggle="modal" data-target="#config2"><c><span class="d-none d-sm-inline">Configuration</span><span class="d-sm-none">Cfg.</span></c></button>
 		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
                                 onclick="wepsim_open_examples_index();">Examples</button>
@@ -273,7 +273,7 @@
                         <div id="eltos_cpu" class="tab-pane active" role="tabpanel">
                            <div class="container-fluid" style="padding:0 0 0 0">
 
-			     <div class="container-fluid" style="margin:20 0 0 0">
+			     <div class="container-fluid" style="margin:10 0 0 0">
 			     <div class="row">
 				<div class="col" id="eltos_cpu_a" style="padding:0 5 0 5;">
 				    <object id="svg_p" 
@@ -528,7 +528,7 @@
 		    </div>
 		</div>
 
-                <div class="container" role="none">
+                <div class="container col-11" role="none">
                 <div class="row-justify" role="none">
 		            <a href="#lsload" style="background-color: #CCCCCC"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-back    ui-btn-icon-left ui-mini col-1"
@@ -542,17 +542,18 @@
 				   onclick="var textToMCompile = inputfirm.getValue();
                                             wepsim_compile_firmware(textToMCompile);
                                             $('#asm_debugger').html('<br>After updates on the microcode, assembler has to be compiled against it.');">&#181;compile</a>
+
 		            <a href="#"       style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-2"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a                                  ui-mini col-1"
 				   data-transition="none" data-inline="true"
-				   onclick="var textToMCompile = inputfirm.getValue();
-                                            var ok = wepsim_compile_firmware(textToMCompile);
-                                            if (true == ok) {
-                                                $.mobile.pageContainer.pagecontainer('change','#main4');
-                                            }">&#181;compile and go assembly</a>
+				   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');">Assembler</a>
+		            <a href="#"       style="background-color: #CCCCCC"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a                                  ui-mini col-1"
+				   data-transition="none" data-inline="true"
+				   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a>
 
 		            <a href="#" style="background-color: #DDDDDD"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-u ui-btn-icon-left ui-mini col-2"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-u ui-btn-icon-left ui-mini col-3"
 				   onclick="var textToMCompile = inputfirm.getValue();
                                             var ok = wepsim_compile_firmware(textToMCompile);
                                             if (true == ok) {
@@ -634,7 +635,7 @@
 		    </div>
 		</div>
 
-                <div class="container" role="none">
+                <div class="container col-11" role="none">
                 <div class="row-justify" role="none">
 		            <a href="#lsload2" style="background-color: #CCCCCC"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-back     ui-btn-icon-left ui-mini col-1"
@@ -647,14 +648,15 @@
 				   data-transition="none" data-inline="true"
 				   onclick="var textToCompile = inputasm.getValue() ;
                                             var ok = wepsim_compile_assembly(textToCompile);">Compile</a>
+
 		            <a href="#" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-2"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a                                  ui-mini col-1"
 				   data-transition="none" data-inline="true"
-				   onclick="var textToCompile = inputasm.getValue() ;
-                                            var ok = wepsim_compile_assembly(textToCompile);
-                                            if (true == ok) {
-                                                $.mobile.pageContainer.pagecontainer('change','#main1');
-                                            }">Compile and go simulator</a>
+				   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');">Microcode</a>
+		            <a href="#" style="background-color: #CCCCCC"
+				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a                                  ui-mini col-1"
+				   data-transition="none" data-inline="true"
+				   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a>
 
 		            <a href="#" style="background-color: #DDDDDD"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-u  ui-btn-icon-left ui-mini col-2"
