@@ -172,19 +172,8 @@
 
             <div class="row">
 
-                    <div class="col-4">
-                    <div class="row">
-			    <form id="slider2f" class="full-width-slider col" style="margin:0px 0px 0px 0px;">
-				 <input aria-label="Show Main/Info" type="range" name="slider2a" id="slider2a" 
-					min="0" max="12" value="7" step="1"
-				        data-show-value="false"
-                                        onchange="set_ab_size('#col1', '#col2', this.value);
-					          set_cfg('C1C2_size', this.value);
-                                                  save_cfg();"
-                                        style="display:none;">
-			    </form>
-
-			    <form id="slider2f" class="full-width-slider col" style="margin:0px 0px 0px 0px;">
+                    <div class="col-2" style="padding-right:0;">
+			    <form id="slider2f" class="full-width-slider col" style="margin:0px; padding:0px;">
 				 <input aria-label="Show CPU/CU" type="range" name="slider2b" id="slider2b" 
 					min="0" max="12" value="7" step="1"
 				        data-show-value="false"
@@ -193,7 +182,6 @@
                                                   save_cfg();" 
                                         style="display:none;">
 			    </form>
-                    </div>
                     </div>
 
                     <div class="col-8">
@@ -236,6 +224,18 @@
 				<option value="webmips" >WebMIPS</option>
 			</select>
                     </div>
+                    </div>
+
+                    <div class="col-2" style="padding-left:0;">
+			    <form id="slider2f" class="full-width-slider col" style="margin:0px; padding:0px;">
+				 <input aria-label="Show Main/Info" type="range" name="slider2a" id="slider2a" 
+					min="0" max="12" value="7" step="1"
+				        data-show-value="false"
+                                        onchange="set_ab_size('#col1', '#col2', this.value);
+					          set_cfg('C1C2_size', this.value);
+                                                  save_cfg();"
+                                        style="display:none;">
+			    </form>
                     </div>
 
             </div>

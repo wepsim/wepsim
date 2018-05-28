@@ -303,10 +303,10 @@
 
 	if (a != 0)
              $(diva).addClass('col-' + a);
-	else $(diva).addClass('d-none');
+	else $(diva).addClass('col-12 order-1');
 
 	if (b != 0)
 	     $(divb).addClass('col-' + b);
-	else $(divb).addClass('d-none');
+	else $(divb).addClass('col-12 order-2');
     }
 
