@@ -293,20 +293,20 @@
 	});
     }
 
-    function set_cpu_cu_size ( diva, divb, new_value )
+    function set_ab_size ( diva, divb, new_value )
     {
 	var a = new_value;
     	var b = 12 - a;
 
-	$('#eltos_cpu_a').removeClass();
-	$('#eltos_cpu_b').removeClass();
+	$(diva).removeClass();
+	$(divb).removeClass();
 
 	if (a != 0)
-             $('#eltos_cpu_a').addClass('col-' + a);
-	else $('#eltos_cpu_a').addClass('d-none');
+             $(diva).addClass('col-' + a);
+	else $(diva).addClass('d-none');
 
 	if (b != 0)
-	     $('#eltos_cpu_b').addClass('col-' + b);
-	else $('#eltos_cpu_b').addClass('d-none');
+	     $(divb).addClass('col-' + b);
+	else $(divb).addClass('d-none');
     }
 

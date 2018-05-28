@@ -23,7 +23,7 @@
  * cache versioning
  */
 
-var cacheName = 'v188a:static';
+var cacheName = 'v188c:static';
 
 
 /*
@@ -186,6 +186,6 @@ self.addEventListener('install',
 
 self.addEventListener('fetch', 
 	              function(event) {
-			    event.respondWith(fetchURL(event.request)) ;
+			    event.respondWith(fetch(event.request)) ;
                       });
 

@@ -98,11 +98,6 @@
         cursor: ew-resize;
     }
 
-    .split.split-horizontal, .gutter.gutter-horizontal {
-        height: 80%;
-        float: left;
-    }
-
     .tokenfield .token .token-label {
         max-width: none!important;
     }
@@ -177,7 +172,77 @@
 
             <div class="row">
 
-                <div id="col1" class="" style="padding:0px 0px 0px 8px !important;">
+                    <div class="col-4">
+                    <div class="row">
+			    <form id="slider2f" class="full-width-slider col" style="margin:0px 0px 0px 0px;">
+				 <input aria-label="Show Main/Info" type="range" name="slider2a" id="slider2a" 
+					min="0" max="12" value="7" step="1"
+				        data-show-value="false"
+                                        onchange="set_ab_size('#col1', '#col2', this.value);
+					          set_cfg('C1C2_size', this.value);
+                                                  save_cfg();"
+                                        style="display:none;">
+			    </form>
+
+			    <form id="slider2f" class="full-width-slider col" style="margin:0px 0px 0px 0px;">
+				 <input aria-label="Show CPU/CU" type="range" name="slider2b" id="slider2b" 
+					min="0" max="12" value="7" step="1"
+				        data-show-value="false"
+                                        onchange="set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', this.value);
+					          set_cfg('CPUCU_size', this.value); 
+                                                  save_cfg();" 
+                                        style="display:none;">
+			    </form>
+                    </div>
+                    </div>
+
+                    <div class="col-8">
+                    <div class="row">
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col"
+			        onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"
+		                style="border-width:1 1 1 1px; margin:0 0 0 0;"><c><span class="d-none d-sm-inline">Microcode</span><span class="d-sm-none">Mcode</span></c></button>
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col"
+			        onclick="$.mobile.pageContainer.pagecontainer('change','#main4');"
+		                style="border-width:1 1 1 1px; margin:0 0 0 0;"><c><span class="d-none d-sm-inline">Assembly</span><span class="d-sm-none">Asm.</span></c></button>
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col"
+		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
+                                data-toggle="modal" data-target="#confighw"><c><span class="d-none d-sm-inline">Hw.cfg.</span><span class="d-sm-none">Hcfg.</span></c></button>
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col"
+		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
+                                data-toggle="modal" data-target="#config2"><c><span class="d-none d-sm-inline">Configuration</span><span class="d-sm-none">Cfg.</span></c></button>
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col"
+		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
+                                onclick="wepsim_open_examples_index();">Examples</button>
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col"
+		                style="border-width:1 1 1 1px; margin:0 0 0 0; background-color:#D4DB17;"
+		                onclick="wepsim_help_set_relative('#help_simulator_screens');
+                                         wepsim_help_refresh();">Help</button>
+			<select name="select4" id="select4" class="form-control ui-shadow col"
+				aria-label="Execution mode" data-role="none"
+				onchange="var opt = $(this).find('option:selected');
+					  var optValue = opt.val();
+					  set_cfg('ws_mode',optValue); save_cfg();
+                                          // webmips mode...
+					  if ('webmips' == optValue)
+					       wepsim_show_webmips();
+					  else wepsim_hide_webmips();
+                                          // tutorial mode...
+					  $('#select4').css('background-color', '#F6F6F6') ;
+					  if ('tutorial' == optValue)
+					      $('#select4').css('background-color', '#D4DB17') ;
+					  return false;">
+				<option value="tutorial">Tutorial</option>
+				<option value="wepsim"  >WepSIM</option>
+				<option value="webmips" >WebMIPS</option>
+			</select>
+                    </div>
+                    </div>
+
+            </div>
+
+            <div class="row">
+
+                <div id="col1" class="" style="padding:16px 0px 0px 16px !important;">
 
                       <!-- Nav tabs -->
 		      <ul class="nav nav-tabs nav-justified nav-tabs">
@@ -185,9 +250,7 @@
                               <a id="tab26" href="#eltos_cpu" 
                                  class="nav-link active" data-toggle="tab" role="tab"
 				 aria-controls="processor"
-                                 onclick="if (is_drawing() == false)
-                                              $('#slider2d').toggle(); 
-					  wepsim_reset_max_turbo() ;
+                                 onclick="wepsim_reset_max_turbo() ;
                                           start_drawing(); 
                                           refresh();">Processor</a>
                           </li>
@@ -209,17 +272,6 @@
                       <div class="tab-content">
                         <div id="eltos_cpu" class="tab-pane active" role="tabpanel">
                            <div class="container-fluid" style="padding:0 0 0 0">
-			     <div  id="slider2d" style="display: hidden;">
-			     <form id="slider2f" class="full-width-slider" style="margin:10 20 20 5">
-				 <input aria-label="Show CPU/CU" type="range" name="slider2" id="slider2" 
-					min="0" max="12" value="7" step="1"
-				        data-show-value="false"
-                                        onchange="set_cpu_cu_size('#eltos_cpu_a', '#eltos_cpu_b', this.value);
-					          set_cfg('CPUCU_size', this.value); 
-                                                  save_cfg();"
-                                        style="display:none;">
-			     </form>
-			     </div>
 
 			     <div class="container-fluid" style="margin:20 0 0 0">
 			     <div class="row">
@@ -300,41 +352,7 @@
 	    	    </div>
                 </div>
 
-                <div id="col2" class="" style="padding:8px 8px 0px 0px;">
-
-                    <div class="btn-group col-12" role="group" id="sim_toolbar">
-		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-xs-3 col-sm-2"
-		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
-                                data-toggle="modal" data-target="#confighw"><c><span class="d-none d-sm-inline">Hw.cfg.</span><span class="d-sm-none">Hcfg.</span></c></button>
-		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-xs-3 col-sm-3"
-		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
-                                data-toggle="modal" data-target="#config2"><c><span class="d-none d-sm-inline">Configuration</span><span class="d-sm-none">Cfg.</span></c></button>
-		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-xs-3 col-sm-2"
-		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
-                                onclick="wepsim_open_examples_index();">Examples</button>
-		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-xs-2 col-sm-3"
-		                style="border-width:1 1 1 1px; margin:0 0 0 0; background-color:#D4DB17;"
-		                onclick="wepsim_help_set_relative('#help_simulator_screens');
-                                         wepsim_help_refresh();">Help</button>
-			<select name="select4" id="select4" class="form-control ui-shadow col-xs-5 col-sm-2"
-				aria-label="Execution mode" data-role="none"
-				onchange="var opt = $(this).find('option:selected');
-					  var optValue = opt.val();
-					  set_cfg('ws_mode',optValue); save_cfg();
-                                          // webmips mode...
-					  if ('webmips' == optValue)
-					       wepsim_show_webmips();
-					  else wepsim_hide_webmips();
-                                          // tutorial mode...
-					  $('#select4').css('background-color', '#F6F6F6') ;
-					  if ('tutorial' == optValue)
-					      $('#select4').css('background-color', '#D4DB17') ;
-					  return false;">
-				<option value="tutorial">Tutorial</option>
-				<option value="wepsim"  >WepSIM</option>
-				<option value="webmips" >WebMIPS</option>
-			</select>
-                    </div>
+                <div id="col2" class="" style="padding:16px 16px 0px 0px;">
 
                     <div class="btn-group col-12" role="group">
 			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
@@ -510,8 +528,8 @@
 		    </div>
 		</div>
 
-                <div class="btn-toolbar" role="toolbar">
-                <div class="btn-group btn-group-justified col-12" role="group">
+                <div class="container" role="none">
+                <div class="row-justify" role="none">
 		            <a href="#lsload" style="background-color: #CCCCCC"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-back    ui-btn-icon-left ui-mini col-1"
 				   data-rel="popup" data-position-to="window" data-transition="pop">Load</a>
@@ -616,8 +634,8 @@
 		    </div>
 		</div>
 
-                <div class="btn-toolbar" role="toolbar">
-                <div class="btn-group btn-group-justified col-12" role="group">
+                <div class="container" role="none">
+                <div class="row-justify" role="none">
 		            <a href="#lsload2" style="background-color: #CCCCCC"
 				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-back     ui-btn-icon-left ui-mini col-1"
 				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Load</a>
@@ -1661,10 +1679,11 @@
                     $("#slider1").val(1000 / (get_cfg('DBG_delay')+0.01)) ; // .slider("refresh") ;
                     $("#slider3").val(get_cfg('NOTIF_delay')) ; // .slider("refresh") ;
                     $("#img_select1").attr("src","images/stop_" +  get_cfg('ICON_theme') + ".gif");
-                    set_cpu_cu_size('#eltos_cpu_a','#eltos_cpu_b', get_cfg('CPUCU_size'));
-                    $("#slider2").val(get_cfg('CPUCU_size')).slider("refresh");
 
-                    $('#slider2d').toggle(); 
+                    $("#slider2a").val(get_cfg('C1C2_size')).slider("refresh");
+                    $("#slider2b").val(get_cfg('CPUCU_size')).slider("refresh");
+                    set_ab_size('#col1',        '#col2',        get_cfg('C1C2_size'));
+                    set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', get_cfg('CPUCU_size'));
 
                     showhideAsmElements();
 		    $("input:checkbox").click(function(){
@@ -1693,22 +1712,6 @@
 
 	    sim_core_init_panel("#states_ALL", "#states_BR", "#io_ALL", "#cpu_ALL", "#config_ALL"); 
 	    sim_core_reset(); 
-
-// split (experimental)
-// if (!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ))
- {
-	    var split1 = Split(['#col1', '#col2'], { sizes: [60, 40], gutterSize: 10 });
-            $(window).resize(function() {
-                                if ($(window).width() > 1000) {
-                                    split1.setSizes([65, 35]);
-                                    $('.gutter.gutter-horizontal').height('100%') ;
-                                }
-                                else {
-                                    split1.setSizes([100, 100]);
-                                    $('.gutter.gutter-horizontal').height('0%') ;
-                                }
-                             });
- }
 
             $('a[data-toggle="popover1"]').popover({
                      placement: 'bottom',
