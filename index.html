@@ -170,7 +170,7 @@
 
             <div class="row">
 
-                    <div class="col-2" style="padding-right:0;">
+                    <div class="col-sm-2" style="padding-right:0;">
 			    <form id="slider2f" class="full-width-slider col" style="margin:0px; padding:0px;">
 				 <input aria-label="Show CPU/CU" type="range" name="slider2b" id="slider2b" 
 					min="0" max="12" value="7" step="1"
@@ -182,7 +182,7 @@
 			    </form>
                     </div>
 
-                    <div class="col-8">
+                    <div class="col-sm-8">
                     <div class="row">
 		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-sm"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
@@ -224,7 +224,7 @@
                     </div>
                     </div>
 
-                    <div class="col-2" style="padding-left:0;">
+                    <div class="col-sm-2" style="padding-left:0;">
 			    <form id="slider2f" class="full-width-slider col" style="margin:0px; padding:0px;">
 				 <input aria-label="Show Main/Info" type="range" name="slider2a" id="slider2a" 
 					min="0" max="12" value="7" step="1"
@@ -524,32 +524,23 @@
 		    </div>
 		</div>
 
-                <div class="container col-11" role="none">
+                <div class="container col-12" role="none">
                 <div class="row-justify" role="none">
 		            <a href="#lsload" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-back    ui-btn-icon-left ui-mini col-1"
+				   class="btn ui-btn ui-btn-a ui-mini col-1"
 				   data-rel="popup" data-position-to="window" data-transition="pop">Load</a>
 		            <a href="#lssave" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-forward ui-btn-icon-left ui-mini col-1"
+				   class="btn ui-btn ui-btn-a ui-mini col-1"
 				   data-rel="popup" data-position-to="window" data-transition="pop">Save</a>
 		            <a href="#"       style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-1"
+				   class="btn ui-btn ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini col-1"
 				   data-transition="none" data-inline="true"
 				   onclick="var textToMCompile = inputfirm.getValue();
                                             wepsim_compile_firmware(textToMCompile);
                                             $('#asm_debugger').html('<br>After updates on the microcode, assembler has to be compiled against it.');">&#181;compile</a>
 
-		            <a href="#"       style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a                                  ui-mini col-1"
-				   data-transition="none" data-inline="true"
-				   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');">Assembler</a>
-		            <a href="#"       style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a                                  ui-mini col-1"
-				   data-transition="none" data-inline="true"
-				   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a>
-
 		            <a href="#" style="background-color: #DDDDDD"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-u ui-btn-icon-left ui-mini col-3"
+				   class="btn ui-btn ui-btn-a ui-icon-arrow-u ui-btn-icon-left ui-mini col-2"
 				   onclick="var textToMCompile = inputfirm.getValue();
                                             var ok = wepsim_compile_firmware(textToMCompile);
                                             if (true == ok) {
@@ -558,14 +549,23 @@
                                             }">Show co2&#181;addr + control memory</a>
 
                             <a href="#" style="background-color: #D4DB17"
-                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-2"
+                                   class="btn ui-btn ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-2"
                                    onclick="wepsim_open_help_content('<object id=svg_p2 data=\'images/cpu6.svg?time=20180108\' type=image/svg+xml>Your browser does not support SVG</object>');"
                                    >Hardware Summary</a>
 
                             <a href="#" style="background-color: #D4DB17"
-                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info    ui-btn-icon-left ui-mini col-1"
+                                   class="btn ui-btn ui-btn-a ui-icon-info    ui-btn-icon-left ui-mini col-1"
 				   onclick="wepsim_help_set_relative('#help_firmware_format'); wepsim_help_refresh();"
                                    >Help</a>
+
+		            <a href="#"       style="background-color: #DDDDDD"
+				   class="btn ui-btn ui-btn-a  ui-mini col-1"
+				   data-transition="none" data-inline="true"
+				   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');">Assembler</a>
+		            <a href="#"       style="background-color: #DDDDDD"
+				   class="btn ui-btn ui-btn-a  ui-mini col-1"
+				   data-transition="none" data-inline="true"
+				   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a>
 		</div>
 		</div>
 
@@ -629,39 +629,39 @@
 		    </div>
 		</div>
 
-                <div class="container col-11" role="none">
+                <div class="container col-12" role="none">
                 <div class="row-justify" role="none">
 		            <a href="#lsload2" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-back     ui-btn-icon-left ui-mini col-1"
+				   class="btn ui-btn ui-btn-a ui-icon-back     ui-btn-icon-left ui-mini col-1"
 				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Load</a>
 		            <a href="#lssave2" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-forward  ui-btn-icon-left ui-mini col-1"
+				   class="btn ui-btn ui-btn-a ui-icon-forward  ui-btn-icon-left ui-mini col-1"
 				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Save</a>
 		            <a href="#" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-1"
+				   class="btn ui-btn ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini col-1"
 				   data-transition="none" data-inline="true"
 				   onclick="var textToCompile = inputasm.getValue() ;
                                             var ok = wepsim_compile_assembly(textToCompile);">Compile</a>
 
-		            <a href="#" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a                                  ui-mini col-1"
-				   data-transition="none" data-inline="true"
-				   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');">Microcode</a>
-		            <a href="#" style="background-color: #CCCCCC"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a                                  ui-mini col-1"
-				   data-transition="none" data-inline="true"
-				   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a>
-
 		            <a href="#" style="background-color: #DDDDDD"
-				   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-u  ui-btn-icon-left ui-mini col-2"
+				   class="btn ui-btn ui-btn-a ui-icon-arrow-u  ui-btn-icon-left ui-mini col-2"
 				   onclick="var textToCompile = inputasm.getValue();
                                             var ok = wepsim_compile_assembly(textToCompile);
                                             if (true == ok) {
                                                 wepsim_show_binary_code('#bin2','#compile_results');
                                             }">Show Main Memory</a>
                             <a href="#" style="background-color: #D4DB17"
-                                   class="ui-btn navbar-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-1"
+                                   class="btn ui-btn ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini col-1"
 				   onclick="wepsim_help_set_relative('#help_assembly_format'); wepsim_help_refresh();">Help</a>
+
+		            <a href="#" style="background-color: #DDDDDD"
+				   class="btn ui-btn ui-btn-a  ui-mini col-1 offset-2"
+				   data-transition="none" data-inline="true"
+				   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');">Microcode</a>
+		            <a href="#" style="background-color: #DDDDDD"
+				   class="btn ui-btn ui-btn-a  ui-mini col-1"
+				   data-transition="none" data-inline="true"
+				   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a>
 		</div>
 		</div>
 
