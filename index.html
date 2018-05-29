@@ -156,15 +156,13 @@
 <div data-role="page" id="main1">
 
 	<div data-role="header" data-position="fixed" data-disable-page-zoom="false" data-theme="a">
-                <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
+                <span class="ui-title">WepSIM <span class="badge badge-pill badge-secondary"><div class="wsversion">X</div></span> / Simulator</span>
+		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
+                    <a id="menu1a" href="#actions_panel"><img alt="ARCOS logo" src="images/uc3m.png" height="25"></a>
+		</div>
+                <div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
 		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
                 </div>
-                <span class="ui-title">WepSIM <span class="badge badge-pill badge-secondary"><div class="wsversion">X</div></span> / Simulator</span>
-		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
-                    <a id="menu1a"
-                       href="#actions_panel"
-		       class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-btn-inline">Menu</a>
-		</div>
 	</div><!-- /header -->
 
 
@@ -219,7 +217,7 @@
 					  if ('tutorial' == optValue)
 					      $('#select4').css('background-color', '#D4DB17') ;
 					  return false;">
-				<option value="tutorial">Tutorial</option>
+				<option value="tutorial">Tutorials</option>
 				<option value="wepsim"  >WepSIM</option>
 				<option value="webmips" >WebMIPS</option>
 			</select>
@@ -464,15 +462,13 @@
 <div data-role="page" id="main3">
 
 	<div data-role="header" data-position="fixed" data-disable-page-zoom="false" data-theme="a">
-                <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
+                <span class="ui-title">WepSIM <span class="badge badge-pill badge-secondary"><div class="wsversion">X</div></span> / Microcode</span>
+		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
+                    <a id="menu1b" href="#actions_panel"><img alt="ARCOS logo" src="images/uc3m.png" height="25"></a>
+		</div>
+                <div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
 		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
                 </div>
-                <span class="ui-title">WepSIM <span class="badge badge-pill badge-secondary"><div class="wsversion">X</div></span> / Microcode</span>
-		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
-                    <a id="menu1b"
-                       href="#actions_panel"
-                       class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-btn-inline">Menu</a>
-		</div>
 	</div><!-- /header -->
 
 	<div role="main" class="ui-content">
@@ -587,15 +583,13 @@
 <div data-role="page" id="main4">
 
 	<div data-role="header" data-position="fixed" data-disable-page-zoom="false" data-theme="a">
-                <div id="button_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
+                <span class="ui-title">WepSIM <span class="badge badge-pill badge-secondary"><div class="wsversion">X</div></span> / Assembly</span>
+		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
+                    <a id="menu1c" href="#actions_panel"><img alt="ARCOS logo" src="images/uc3m.png" height="25"></a>
+		</div>
+                <div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
 		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
                 </div>
-                <span class="ui-title">WepSIM <span class="badge badge-pill badge-secondary"><div class="wsversion">X</div></span> / Assembly</span>
-		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
-                    <a id="menu1c"
-                       href="#actions_panel"
-                       class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-btn-inline">Menu</a>
-		</div>
 	</div><!-- /header -->
 
 	<div role="main" class="ui-content">
@@ -682,7 +676,7 @@
 </div><!-- /page -->
 
 
-<div data-role="panel" id="actions_panel" data-display="overlay" data-position="right" data-theme="a" data-animate="false"
+<div data-role="panel" id="actions_panel" data-display="overlay" data-position="left" data-theme="a" data-animate="false"
      style="width:19em; min-width:17em;">
 
         <table border="0" height="100%" width="100%">
@@ -1556,7 +1550,7 @@
 		       class="btn btn-info" style="padding:0 0 0 0; color:white !important;"
 		       data-toggle="popover1"
 		       data-html="true" 
-		       data-content="<img src='images/author_salonso.png' height='200'/>"
+		       data-content="<img src='images/author_salonso.png' height='200'/><br><br><a class='badge badge-success' href='https://www.linkedin.com/in/salonsom/'>linkedin</a>"
 		       title="Sa&uacute;l Alonso Monsalve">Sa&uacute;l Alonso Monsalve</a>
 		    <p>
 
