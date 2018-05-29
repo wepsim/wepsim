@@ -158,7 +158,7 @@
 	<div data-role="header" data-position="fixed" data-disable-page-zoom="false" data-theme="a">
                 <span class="ui-title">WepSIM <span class="badge badge-pill badge-secondary"><div class="wsversion">X</div></span> / Simulator</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
-                    <a id="menu1a" href="#actions_panel"><img alt="ARCOS logo" src="images/uc3m.png" height="25"></a>
+                    <a id="menu1a" href="#actions_panel"><img alt="ARCOS logo" src="images/uc3m.png" style="height:22pt; padding:8 0 0 0;"></a>
 		</div>
                 <div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
 		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
@@ -184,26 +184,26 @@
 
                     <div class="col-8">
                     <div class="row">
-		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col"
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-sm"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
                                 data-toggle="modal" data-target="#confighw"><c><span class="d-none d-sm-inline">Hw. cfg.</span><span class="d-sm-none">Hcfg.</span></c></button>
-		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col"
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-sm"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
                                 data-toggle="modal" data-target="#config2"><c><span class="d-none d-sm-inline">Configuration</span><span class="d-sm-none">Cfg.</span></c></button>
-		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col"
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-sm"
 			        onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0;"><c><span class="d-none d-sm-inline">Microcode</span><span class="d-sm-none">Mcode</span></c></button>
-		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col"
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-sm"
 			        onclick="$.mobile.pageContainer.pagecontainer('change','#main4');"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0;"><c><span class="d-none d-sm-inline">Assembly</span><span class="d-sm-none">Asm.</span></c></button>
-		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col"
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-sm"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
                                 onclick="wepsim_open_examples_index();">Examples</button>
-		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col"
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-sm"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; background-color:#D4DB17;"
 		                onclick="wepsim_help_set_relative('#help_simulator_screens');
                                          wepsim_help_refresh();"><b>Help</b></button>
-			<select name="select4" id="select4" class="form-control ui-shadow col"
+			<select name="select4" id="select4" class="form-control ui-shadow col-sm"
 				aria-label="Execution mode" data-role="none"
 				onchange="var opt = $(this).find('option:selected');
 					  var optValue = opt.val();
@@ -217,7 +217,7 @@
 					  if ('tutorial' == optValue)
 					      $('#select4').css('background-color', '#D4DB17') ;
 					  return false;">
-				<option value="tutorial">Tutorials</option>
+				<option value="tutorial">Instructive</option>
 				<option value="wepsim"  >WepSIM</option>
 				<option value="webmips" >WebMIPS</option>
 			</select>
@@ -354,16 +354,16 @@
 
                     <div class="btn-group col-12" role="group">
 			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-			       class="btn ui-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-reset   ui-btn-icon-right ui-mini no-text-shadow col-3"
+			       class="btn ui-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-reset   ui-btn-icon-right ui-mini no-text-shadow col-sm"
 			       onclick="wepsim_execute_reset(true, true);">Reset</a>
 			    <a id="nm1" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-			       class="btn ui-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-right ui-mini no-text-shadow col-3"
+			       class="btn ui-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-right ui-mini no-text-shadow col-sm"
 			       onclick="wepsim_execute_microinstruction();">&#181;Instruction</a>
 			    <a id="ni1" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-			       class="btn ui-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-right ui-mini no-text-shadow col-3"
+			       class="btn ui-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-right ui-mini no-text-shadow col-sm"
 			       onclick="wepsim_execute_instruction();">Instruction</a>
 			    <a id="qbp" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-			       class="btn ui-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-carat-r ui-btn-icon-right ui-mini no-text-shadow col-3"
+			       class="btn ui-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-carat-r ui-btn-icon-right ui-mini no-text-shadow col-sm"
                                onclick="var mode = get_cfg('ws_mode');
                                         if ('tutorial' == mode) {
                                             wepsim_notify_success('<strong>INFO</strong>',
@@ -464,7 +464,7 @@
 	<div data-role="header" data-position="fixed" data-disable-page-zoom="false" data-theme="a">
                 <span class="ui-title">WepSIM <span class="badge badge-pill badge-secondary"><div class="wsversion">X</div></span> / Microcode</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
-                    <a id="menu1b" href="#actions_panel"><img alt="ARCOS logo" src="images/uc3m.png" height="25"></a>
+                    <a id="menu1b" href="#actions_panel"><img alt="ARCOS logo" src="images/uc3m.png" style="height:22pt; padding:8 0 0 0;"></a>
 		</div>
                 <div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
 		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
@@ -585,7 +585,7 @@
 	<div data-role="header" data-position="fixed" data-disable-page-zoom="false" data-theme="a">
                 <span class="ui-title">WepSIM <span class="badge badge-pill badge-secondary"><div class="wsversion">X</div></span> / Assembly</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
-                    <a id="menu1c" href="#actions_panel"><img alt="ARCOS logo" src="images/uc3m.png" height="25"></a>
+                    <a id="menu1c" href="#actions_panel"><img alt="ARCOS logo" src="images/uc3m.png" style="height:22pt; padding:8 0 0 0;"></a>
 		</div>
                 <div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
 		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
@@ -677,52 +677,46 @@
 
 
 <div data-role="panel" id="actions_panel" data-display="overlay" data-position="left" data-theme="a" data-animate="false"
-     style="width:22em; min-width:19em;">
+     style="width:25em; min-width:20em;">
 
         <table border="0" height="100%" width="100%">
         <tr height="10%">
         <td align="left">
-            <a href="#" data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-left">Close</a>
+            <a href="#" data-rel="close" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
         </td>
         </tr>
 
         <tr>
         <td valign="middle">
-		1.a) You can load an existing example:
+		1.a) You can load the microcode and assembly code from an existing example (some of them instructive):
 		    <a id="btn_example1" href="#example1" data-rel="popup" data-position-to="window" 
-			   role="button" class="ui-btn btn btn-secondary btn-lg btn-block"
-			   onclick="wepsim_open_examples_index();">Examples</a>
-		    <br>
-		1.b) Or you can modify some existing one:
+			   role="button" class="ui-btn btn btn-secondary btn-md btn-block"
+			   onclick="wepsim_open_examples_index();">Load examples</a>
+		1.b) Or you can modify some existing microcode and assembly code:
 		    <a id="tab21" href="#" 
-			   role="button" class="ui-btn btn btn-secondary btn-lg btn-block"
-			   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');">Microcode</a>
+			   role="button" class="ui-btn btn btn-secondary btn-md btn-block"
+			   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');">Edit microcode</a>
 		    <a id="tab24" href="#" 
-			   role="button" class="ui-btn btn btn-secondary btn-lg btn-block"
-			   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');">Assembly</a>
+			   role="button" class="ui-btn btn btn-secondary btn-md btn-block"
+			   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');">Edit assembly</a>
         </td>
         </tr>
 
         <tr>
-        <td valign="middle">
-		2.a) You can change the configuration of the simulator:
+        <td valign="top">
+		2) You can change the configuration of the simulator:
                     <a href="#config2"  data-rel="popup"  data-position-to="window" id="btn_config2"
-                       role="button" class="ui-btn ui-btn-icon-left ui-icon-gear btn btn-secondary btn-lg btn-block"
+                       role="button" class="ui-btn ui-btn-icon-left ui-icon-gear btn btn-secondary btn-md btn-block"
                        onclick="$('#config2').modal('show');">Configuration</a>
         </td>
         </tr>
 
         <tr>
-        <td valign="middle">
-		3.a) You can go to the simulator and execute your microcode+assembly:
+        <td valign="top">
+		3) You can go to the simulator and execute your "microcode" plus "assembly code":
 		    <a id="tab25" href="#" 
-		       role="button" class="ui-btn btn btn-secundary btn-lg btn-block"
+		       role="button" class="ui-btn btn btn-secundary btn-md btn-block"
 		       onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a></li>
-		3.b) Help available:
-                    <a id="btn_help1" href="#help1" data-rel="popup" data-position-to="window" 
-                       role="button" class="ui-btn ui-btn-icon-left ui-icon-info btn btn-secondary btn-lg btn-block"
-                       style="background-color: #D4DB17;"
-                       onclick="wepsim_open_help_index();">Help</a>
         </td>
         </tr>
         </table>

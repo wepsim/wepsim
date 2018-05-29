@@ -61,21 +61,21 @@
                      id: 'S3E1',
                      title: "Interruptions",
                      level: "Advanced",
-                     description: "Advanced example with interruptions support: fetch, RETI, and .ktext/.kdata.<br>" 
+                     description: "<b>Instructive</b> example with interruptions support: fetch, RETI, and .ktext/.kdata.<br>" 
                   });
 
     examples.push({ 
                      id: 'S3E2',
                      title: "System call",
                      level: "Advanced",
-                     description: "Advanced example with system call support.<br>" 
+                     description: "<b>Instructive</b> example with system call support.<br>" 
                   });
 
     examples.push({ 
                      id: 'S3E3',
                      title: "Exception",
                      level: "Advanced",
-                     description: "Advanced example with floating point exception.<br>" 
+                     description: "<b>Instructive</b> example with floating point exception.<br>" 
                   });
 
     examples.push({ 
