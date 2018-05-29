@@ -202,7 +202,7 @@
 		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; background-color:#D4DB17;"
 		                onclick="wepsim_help_set_relative('#help_simulator_screens');
-                                         wepsim_help_refresh();">Help</button>
+                                         wepsim_help_refresh();"><b>Help</b></button>
 			<select name="select4" id="select4" class="form-control ui-shadow col"
 				aria-label="Execution mode" data-role="none"
 				onchange="var opt = $(this).find('option:selected');
@@ -677,7 +677,7 @@
 
 
 <div data-role="panel" id="actions_panel" data-display="overlay" data-position="left" data-theme="a" data-animate="false"
-     style="width:19em; min-width:17em;">
+     style="width:22em; min-width:19em;">
 
         <table border="0" height="100%" width="100%">
         <tr height="10%">
@@ -687,32 +687,42 @@
         </tr>
 
         <tr>
-        <td valign="top">
-	    <ul id="listview_1" data-role="listview" data-inset="false" data-theme="a" data-divider-theme="b">
-		    <li><a id="tab21" href="#" style="background-color: lightgray"
-			   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"><h2>Microcode</h2></a></li>
-		    <li><a id="tab24" href="#" style="background-color: lightgray"
-			   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');"><h2>Assembly</h2></a></li>
-		    <li><a id="tab25" href="#" style="background-color: lightgray"
-			   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');"><h2>Simulator</h2></a></li>
-	    </ul>
+        <td valign="middle">
+		1.a) You can load an existing example:
+		    <a id="btn_example1" href="#example1" data-rel="popup" data-position-to="window" 
+			   role="button" class="ui-btn btn btn-secondary btn-lg btn-block"
+			   onclick="wepsim_open_examples_index();">Examples</a>
+		    <br>
+		1.b) Or you can modify some existing one:
+		    <a id="tab21" href="#" 
+			   role="button" class="ui-btn btn btn-secondary btn-lg btn-block"
+			   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');">Microcode</a>
+		    <a id="tab24" href="#" 
+			   role="button" class="ui-btn btn btn-secondary btn-lg btn-block"
+			   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');">Assembly</a>
         </td>
         </tr>
 
         <tr>
         <td valign="middle">
-               <a href="#help1"    data-rel="popup"  data-position-to="window" id="btn_help1"
-                  onclick="wepsim_open_help_index();"
-                  style="text-align:left; background-color: #D4DB17;"
-                  class="ui-btn ui-btn-icon-left ui-icon-info">Help</a>
-               <a href="#example1" data-rel="popup"  data-position-to="window" id="btn_example1"
-                  onclick="wepsim_open_examples_index();"
-                  style="text-align:left"
-                  class="ui-btn ui-btn-icon-left ui-icon-info">Examples</a>
-               <a href="#config2"  data-rel="popup"  data-position-to="window" id="btn_config2"
-                  onclick="$('#config2').modal('show');"
-                  style="text-align:left"
-                  class="ui-btn ui-btn-icon-left ui-icon-gear">Configuration</a>
+		2.a) You can change the configuration of the simulator:
+                    <a href="#config2"  data-rel="popup"  data-position-to="window" id="btn_config2"
+                       role="button" class="ui-btn ui-btn-icon-left ui-icon-gear btn btn-secondary btn-lg btn-block"
+                       onclick="$('#config2').modal('show');">Configuration</a>
+        </td>
+        </tr>
+
+        <tr>
+        <td valign="middle">
+		3.a) You can go to the simulator and execute your microcode+assembly:
+		    <a id="tab25" href="#" 
+		       role="button" class="ui-btn btn btn-secundary btn-lg btn-block"
+		       onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a></li>
+		3.b) Help available:
+                    <a id="btn_help1" href="#help1" data-rel="popup" data-position-to="window" 
+                       role="button" class="ui-btn ui-btn-icon-left ui-icon-info btn btn-secondary btn-lg btn-block"
+                       style="background-color: #D4DB17;"
+                       onclick="wepsim_open_help_index();">Help</a>
         </td>
         </tr>
         </table>
