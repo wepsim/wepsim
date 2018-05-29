@@ -186,7 +186,7 @@
                     <div class="row">
 		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
-                                data-toggle="modal" data-target="#confighw"><c><span class="d-none d-sm-inline">Hw. timing</span><span class="d-sm-none">Hcfg.</span></c></button>
+                                data-toggle="modal" data-target="#confighw"><c><span class="d-none d-sm-inline">Hw. cfg.</span><span class="d-sm-none">Hcfg.</span></c></button>
 		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
                                 data-toggle="modal" data-target="#config2"><c><span class="d-none d-sm-inline">Configuration</span><span class="d-sm-none">Cfg.</span></c></button>
@@ -752,6 +752,26 @@
 	 <tr>
 	  <td class="collapse6 collapse show">1</td>
 	  <td class="d-none d-sm-inline" style="color:gray">general</td>
+	  <td>Idiom</td>
+	  <td>
+		 <div class="form-group" style="max-width:10em; margin:0 0 0 0">
+		    <select name="select7" id="select7" class="form-control"
+			    aria-label="idiom for examples and help" data-role="none"
+			    onchange="var opt = $(this).find('option:selected');
+				      var optValue = opt.val();
+				      set_cfg('ws_idiom',optValue); save_cfg();"
+			    data-native-menu="false">
+			<option value="es">Spanish</option>
+			<option value="en">English</option>
+		    </select>
+		 </div>
+          </td>
+	  <td class="collapse7 collapse show">Idiom for help, examples, etc.</td>
+	 </tr>
+
+	 <tr>
+	  <td class="collapse6 collapse show">2</td>
+	  <td class="d-none d-sm-inline" style="color:gray">general</td>
 	  <td>Active voice</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -773,7 +793,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">2</td>
+	  <td class="collapse6 collapse show">3</td>
 	  <td class="d-none d-sm-inline" style="color:gray">editor</td>
 	  <td>Editor theme</td>
 	  <td>
@@ -804,7 +824,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">3</td>
+	  <td class="collapse6 collapse show">4</td>
 	  <td class="d-none d-sm-inline" style="color:gray">editor</td>
 	  <td>Editor mode</td>
 	  <td>
@@ -828,7 +848,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">4</td>
+	  <td class="collapse6 collapse show">5</td>
 	  <td class="d-none d-sm-inline" style="color:gray">execution</td>
 	  <td>Speed-up</td>
 	  <td>
@@ -844,7 +864,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">5</td>
+	  <td class="collapse6 collapse show">6</td>
 	  <td class="d-none d-sm-inline" style="color:gray">execution</td>
 	  <td>Step-by-step</td>
 	  <td>
@@ -867,7 +887,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">6</td>
+	  <td class="collapse6 collapse show">7</td>
 	  <td class="d-none d-sm-inline" style="color:gray">execution</td>
 	  <td>Breakpoint Icon</td>
 	  <td>
@@ -908,7 +928,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">7</td>
+	  <td class="collapse6 collapse show">8</td>
 	  <td class="d-none d-sm-inline" style="color:gray">execution</td>
 	  <td>Limit instr.</td>
 	  <td>
@@ -932,7 +952,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">8</td>
+	  <td class="collapse6 collapse show">9</td>
 	  <td class="d-none d-sm-inline" style="color:gray">execution</td>
 	  <td>Limit instr. ticks</td>
 	  <td>
@@ -956,7 +976,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">9</td>
+	  <td class="collapse6 collapse show">10</td>
 	  <td class="d-none d-sm-inline" style="color:gray">simulation</td>
 	  <td>Display format</td>
 	  <td>
@@ -988,7 +1008,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">10</td>
+	  <td class="collapse6 collapse show">11</td>
 	  <td class="d-none d-sm-inline" style="color:gray">simulation</td>
 	  <td>RF name</td>
 	  <td>
@@ -1010,7 +1030,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">11</td>
+	  <td class="collapse6 collapse show">12</td>
 	  <td class="d-none d-sm-inline" style="color:gray">simulation</td>
 	  <td>Data-path color</td>
 	  <td>
@@ -1030,7 +1050,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">12</td>
+	  <td class="collapse6 collapse show">13</td>
 	  <td class="d-none d-sm-inline" style="color:gray">simulation</td>
 	  <td>Signal color</td>
 	  <td>
@@ -1046,7 +1066,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">13</td>
+	  <td class="collapse6 collapse show">14</td>
 	  <td class="d-none d-sm-inline" style="color:gray">simulation</td>
 	  <td>Interactive Mode</td>
 	  <td>
@@ -1069,7 +1089,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">14</td>
+	  <td class="collapse6 collapse show">15</td>
 	  <td class="d-none d-sm-inline" style="color:gray">simulation</td>
 	  <td>Editable registers</td>
 	  <td>
@@ -1092,7 +1112,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">15</td>
+	  <td class="collapse6 collapse show">16</td>
 	  <td class="d-none d-sm-inline" style="color:gray">simulation</td>
 	  <td>Show by value</td>
 	  <td>
@@ -1115,7 +1135,7 @@
 	 </tr>
 
 	 <tr>
-	  <td class="collapse6 collapse show">16</td>
+	  <td class="collapse6 collapse show">17</td>
 	  <td class="d-none d-sm-inline" style="color:gray">simulation</td>
 	  <td>Notification delay</td>
 	  <td>
@@ -1133,7 +1153,6 @@
 	</tbody>
 	</table>
 	</div>
-
 
 	   </div>
 	</div>
@@ -1672,6 +1691,7 @@
                     $("#select6").val(get_cfg('DBG_limitins')) ;
                     $("#select3").val(get_cfg('DBG_limitick')) ;
                     $("#select4").val(get_cfg('ws_mode')) ;
+                    $("#select7").val(get_cfg('ws_idiom')) ;
                     $("#slider1").val(1000 / (get_cfg('DBG_delay')+0.01)) ; // .slider("refresh") ;
                     $("#slider3").val(get_cfg('NOTIF_delay')) ; // .slider("refresh") ;
                     $("#img_select1").attr("src","images/stop_" +  get_cfg('ICON_theme') + ".gif");
