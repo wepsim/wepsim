@@ -129,10 +129,10 @@
                '<tbody>';
        for (var m=0; m<examples.length; m++)
        {
-	       var e_title       = examples[m]['title'] ;
-	       var e_level       = examples[m]['level'] ;
-	       var e_description = examples[m]['description'] ;
-	       var e_id          = examples[m]['id'] ;
+	       var e_title       = examples[m].title ;
+	       var e_level       = examples[m].level ;
+	       var e_description = examples[m].description ;
+	       var e_id          = examples[m].id ;
 
 	       o = o + ' <tr>' +
 		       ' <td>' + '<b>' + (m+1)   + '</b>' + '</td>' +
