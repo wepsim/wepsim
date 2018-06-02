@@ -4,6 +4,23 @@
     tutorials.welcome.es.push({
                      id:          "welcome",
                      title:       "¡Bienvenidos al simulador WepSIM!",
+                     message:     "<img src='tutorials/welcome/menu_open.gif' style='max-height:50vh'>" +
+                                  "<p>" +
+                                  "<h5>" +
+                                  "WepSIM permite a estudiantes y profesores definir un juego de instrucciones, " + 
+                                  "y crear cualquier programa de ensamblador que use dicho juego de instrucciones. " + 
+                                  "Dado que WepSIM es visual, e integra interrupciones, llamadas al sistema, etc." + 
+                                  "nosotros realmente creemos que WepSIM es una herramienta revolucionaria. " + 
+                                  "<br>" +
+                                  "</h5>",
+                     code_pre:    function() { },
+                     code_post:   function() { },
+                     wait_next:   100
+                  });
+
+    tutorials.welcome.es.push({
+                     id:          "welcome",
+                     title:       "¡Bienvenidos al simulador WepSIM!",
                      message:     "<img src='help/simulator/simulator012.jpg' style='width:auto; max-height:50vh'>" +
                                   "<p>" +
                                   "<h5>" +
@@ -14,21 +31,6 @@
                                   "<li>Configuraci&oacute;n del simulador.</li>" +
                                   "<li>Obtener ayuda.</li>" +
                                   "</ol>" +
-                                  "</h5>",
-                     code_pre:    function() { },
-                     code_post:   function() { },
-                     wait_next:   100
-                  });
-
-    tutorials.welcome.es.push({
-                     id:          "welcome",
-                     title:       "El bot&oacute;n de men&uacute;",
-                     message:     "<img src='tutorials/welcome/menu_open.gif' style='max-height:50vh'>" +
-                                  "<p>" +
-                                  "<h5>" +
-                                  "En la parte superior, le permite acceder a las pantallas de trabajo de microc&oacute;digo, ensamblador, y el simulador. " + 
-                                  "En la parte inferior, permite acceder a la ayuda, ejemplos y configuraci&oacute;n." +
-                                  "<br>" +
                                   "</h5>",
                      code_pre:    function() { },
                      code_post:   function() { },
