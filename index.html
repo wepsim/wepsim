@@ -170,7 +170,7 @@
 
             <div class="row">
 
-                    <div class="col-sm-2" style="padding-right:0;">
+                    <div class="col-sm" style="padding-right:0;">
 			    <form id="slider2f" class="full-width-slider col" style="margin:0px; padding:0px;">
 				 <input aria-label="Show CPU/CU" type="range" name="slider2b" id="slider2b" 
 					min="0" max="12" value="7" step="1"
@@ -182,28 +182,35 @@
 			    </form>
                     </div>
 
-                    <div class="col-sm-8">
+		    <div class="w-100 d-xs-block d-sm-none"></div>
+
+                    <div class="col-sm">
                     <div class="row">
-		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-sm"
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
                                 data-toggle="modal" data-target="#confighw"><c><span class="d-none d-sm-inline">Hw. cfg.</span><span class="d-sm-none">Hcfg.</span></c></button>
-		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-sm"
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
                                 data-toggle="modal" data-target="#config2"><c><span class="d-none d-sm-inline">Configuration</span><span class="d-sm-none">Cfg.</span></c></button>
-		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-sm"
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col"
 			        onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"
-		                style="border-width:1 1 1 1px; margin:0 0 0 0;"><c><span class="d-none d-sm-inline">Microcode</span><span class="d-sm-none">Mcode</span></c></button>
-		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-sm"
+		                style="border-width:1 1 1 1px; margin:0 0 0 0;"><c><span class="d-none d-sm-inline">MicroCode</span><span class="d-sm-none">&#181;code</span></c></button>
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col"
 			        onclick="$.mobile.pageContainer.pagecontainer('change','#main4');"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0;"><c><span class="d-none d-sm-inline">Assembly</span><span class="d-sm-none">Asm.</span></c></button>
-		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-sm"
+                    </div>
+                    </div>
+
+                    <div class="col-sm">
+                    <div class="row">
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
                                 onclick="wepsim_open_examples_index();">Examples</button>
-		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-sm"
+		        <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; background-color:#D4DB17;"
 		                onclick="wepsim_help_set_relative('#help_simulator_screens');
                                          wepsim_help_refresh();"><b>Help</b></button>
-			<select name="select4" id="select4" class="form-control ui-shadow col-sm"
+			<select name="select4" id="select4" class="form-control ui-shadow col"
 				aria-label="Execution mode" data-role="none"
 				onchange="var opt = $(this).find('option:selected');
 					  var optValue = opt.val();
@@ -224,7 +231,9 @@
                     </div>
                     </div>
 
-                    <div class="col-sm-2" style="padding-left:0;">
+		    <div class="w-100 d-xs-block d-sm-none"></div>
+
+                    <div class="col-sm" style="padding-left:0;">
 			    <form id="slider2f" class="full-width-slider col" style="margin:0px; padding:0px;">
 				 <input aria-label="Show Main/Info" type="range" name="slider2a" id="slider2a" 
 					min="0" max="12" value="7" step="1"
@@ -273,7 +282,7 @@
 
 			     <div class="container-fluid" style="margin:10 0 0 0">
 			     <div class="row">
-				<div class="col" id="eltos_cpu_a" style="padding:0 5 0 5;">
+				<div class="col" id="eltos_cpu_a" style="padding:0 5 0 0;">
 				    <object id="svg_p" 
 					    data="images/processor6.svg" 
 					    type="image/svg+xml" 
