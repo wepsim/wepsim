@@ -158,7 +158,7 @@
 	<div data-role="header" data-position="fixed" data-disable-page-zoom="false" data-theme="a">
                 <span class="ui-title">WepSIM <span class="badge badge-pill badge-secondary"><div class="wsversion">X</div></span> / Simulator</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
-                    <a id="menu1a" href="#actions_panel"><img alt="ARCOS logo" src="images/uc3m.png" style="height:22pt; padding:8 0 0 0;"></a>
+		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="UC3M logo" src="images/uc3m.png" style="height:22pt; padding:8 0 0 0;"></a>
 		</div>
                 <div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
 		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
@@ -215,15 +215,23 @@
 				onchange="var opt = $(this).find('option:selected');
 					  var optValue = opt.val();
 					  set_cfg('ws_mode',optValue); save_cfg();
+
                                           // webmips mode...
 					  if ('webmips' == optValue)
 					       wepsim_show_webmips();
 					  else wepsim_hide_webmips();
+
                                           // tutorial mode...
 					  $('#select4').css('background-color', '#F6F6F6') ;
-					  if ('tutorial' == optValue)
+				          if ('tutorial' == optValue)
 					      $('#select4').css('background-color', '#D4DB17') ;
+
+                                          // tutorial mode...
+				          if ('welcome' == optValue)
+			                      $('#welcome1').modal('show');
+
 					  return false;">
+				<option value="welcome">Welcome...</option>
 				<option value="tutorial">Instructive</option>
 				<option value="wepsim"  >WepSIM</option>
 				<option value="webmips" >WebMIPS</option>
@@ -473,7 +481,7 @@
 	<div data-role="header" data-position="fixed" data-disable-page-zoom="false" data-theme="a">
                 <span class="ui-title">WepSIM <span class="badge badge-pill badge-secondary"><div class="wsversion">X</div></span> / Microcode</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
-                    <a id="menu1b" href="#actions_panel"><img alt="ARCOS logo" src="images/uc3m.png" style="height:22pt; padding:8 0 0 0;"></a>
+		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="UC3M logo" src="images/uc3m.png" style="height:22pt; padding:8 0 0 0;"></a>
 		</div>
                 <div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
 		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
@@ -594,7 +602,7 @@
 	<div data-role="header" data-position="fixed" data-disable-page-zoom="false" data-theme="a">
                 <span class="ui-title">WepSIM <span class="badge badge-pill badge-secondary"><div class="wsversion">X</div></span> / Assembly</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
-                    <a id="menu1c" href="#actions_panel"><img alt="ARCOS logo" src="images/uc3m.png" style="height:22pt; padding:8 0 0 0;"></a>
+		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="UC3M logo" src="images/uc3m.png" style="height:22pt; padding:8 0 0 0;"></a>
 		</div>
                 <div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
 		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
@@ -683,77 +691,6 @@
 	</div><!-- /content -->
 
 </div><!-- /page -->
-
-
-<div data-role="panel" id="actions_panel" data-display="overlay" data-position="left" data-theme="a" data-animate="false"
-     style="width:30em; min-width:25em;">
-
-        <table border="0" height="100%" width="100%">
-	<tr>
-        <td align="left">
-            <b>WepSIM <span class="badge badge-pill btn-success"><div class="wsversion">X</div></span></b>
-            <a href="#" data-rel="close" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-        </td>
-        </tr>
-
-        <tr>
-        <td valign="middle">
-
-		<ul class="list-group">
-		  <li class="list-group-item">
-                        <span class="badge badge-primary badge-pill">1.a</span>
-
-			You can load the microcode and assembly code from an existing examples (some of them instructive) by clicking on
-			    <a id="btn_example1" href="#example1" data-rel="popup" data-position-to="window" 
-				   role="button" class="ui-btn btn btn-secondary btn-sm"
-				   onclick="wepsim_open_examples_index();">Load examples</a>
-			<br>
-
-                        <span class="badge badge-primary badge-pill">1.b</span>
-
-			Or you can modify some existing microcode and assembly code.
-			Go to the microcode editor (click on
-			    <a id="tab21" href="#" 
-				   role="button" class="ui-btn btn btn-secondary btn-sm"
-				   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');">Edit microcode</a>
-			) and load-edit-save your existing microcode.
-			Then you can go to the assembly editor (click on
-			    <a id="tab24" href="#" 
-				   role="button" class="ui-btn btn btn-secondary btn-sm"
-				   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');">Edit assembly</a>
-			) and load-edit-save your existing code.
-		  </li>
-		  <li class="list-group-item">
-                        <span class="badge badge-primary badge-pill">2</span>
-
-			You can change the configuration of the simulator (click on
-			    <a href="#config2"  data-rel="popup"  data-position-to="window" id="btn_config2"
-			       role="button" class="ui-btn btn btn-secondary btn-sm"
-			       onclick="$('#config2').modal('show');">Configuration</a>
-			    ) or some aspects of the simulated hardware (click on
-			    <a href="#confighw"  data-rel="popup"  data-position-to="window" id="btn_config2"
-			       role="button" class="ui-btn btn btn-secondary btn-sm"
-			       onclick="$('#confighw').modal('show');">Hw. cfg.</a>
-			    )
-		  </li>
-		  <li class="list-group-item">
-                        <span class="badge badge-primary badge-pill">3</span>
-
-			Finally, you can go back to the simulator (click on
-			    <a id="tab25" href="#" 
-			       role="button" class="ui-btn btn btn-secundary btn-sm"
-			       onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a>
-		        )
-			and execute your "microcode" plus "assembly code" (Reset, Run, etc. buttons).
-		  </li>
-		</ul>
-
-        </td>
-        </tr>
-
-        </table>
-
-</div><!-- /panel -->
 
 
 <div id="config2" class="modal">
@@ -1629,6 +1566,89 @@
 </div> <!-- /.modal -->
 
 
+<div id="welcome1" class="modal">
+     <div class="modal-dialog modal-lg">
+	<div class="modal-content">
+
+	   <div class="modal-header">
+		<div class="mx-auto">
+		    <b>WepSIM <span class="badge badge-pill btn-success"><div class="wsversion">X</div></span> / Welcome</b>
+		    <button type="button" data-role="button"
+                            class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
+                            data-dismiss="modal" aria-hidden="true">x</button>
+                </div>
+	   </div>
+
+	   <div class="modal-body">
+
+		<ul class="list-group">
+		  <li class="list-group-item">
+			<span class="badge badge-primary badge-pill">1</span>
+
+			Please select the microcode and assembly code you want to work with...
+
+			<ul class="list-group">
+			  <li class="list-group-item">
+				<span class="badge badge-primary badge-pill">a</span>
+
+				...You can load from an existing examples (some of them instructive) by clicking on
+				    <a id="btn_example1" href="#example1" data-rel="popup" data-position-to="window" 
+					   role="button" class="btn btn-secondary btn-sm"
+					   onclick="wepsim_open_examples_index();">Load examples</a>
+				Under the 'instructive' mode, the instructive examples become special tutorials.
+				But under 'WepSIM' mode all examples are executed normally, with breakpoints, etc.
+			  </li>
+			</ul>
+
+			<ul class="list-group">
+			  <li class="list-group-item">
+				<span class="badge badge-primary badge-pill">b</span>
+
+				...Or you can modify some existing microcode and assembly code.
+				Go to the microcode editor (click on
+				    <a id="tab21" href="#" 
+					   role="button" class="btn btn-secondary btn-sm"
+					   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');">Edit microcode</a>
+				) and load-edit-save your existing microcode.
+				Then you can go to the assembly editor (click on
+				    <a id="tab24" href="#" 
+					   role="button" class="btn btn-secondary btn-sm"
+					   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');">Edit assembly</a>
+				) and load-edit-save your existing code.
+				Finally, you can go back to the simulator (click on
+				    <a id="tab25" href="#" 
+					   role="button" class="btn btn-secondary btn-sm"
+					   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a>
+				)
+			  </li>
+			</ul>
+		  </li>
+		  <li class="list-group-item">
+                        <span class="badge badge-primary badge-pill">2</span>
+
+			You can change the configuration of the simulator (click on
+			    <a href="#config2"  data-rel="popup"  data-position-to="window" id="btn_config2"
+			       role="button" class="btn btn-secondary btn-sm"
+			       onclick="$('#config2').modal('show');">Configuration</a>
+			    ) or some aspects of the simulated hardware (click on
+			    <a href="#confighw"  data-rel="popup"  data-position-to="window" id="btn_config2"
+			       role="button" class="btn btn-secondary btn-sm"
+			       onclick="$('#confighw').modal('show');">Hw. cfg.</a>
+			    )
+		  </li>
+		  <li class="list-group-item">
+                        <span class="badge badge-primary badge-pill">3</span>
+
+			Finally, in the simulator screen you can execute your "microcode" plus "assembly code" (Reset, Run, etc. buttons).
+		  </li>
+		</ul>
+
+	   </div>
+	</div>
+     </div>
+</div> <!-- /.modal -->
+
+
 <script>
     window.addEventListener("beforeunload", function (e) {
        var confirmationMessage = "\o/";
@@ -1645,7 +1665,6 @@
 		    jQuery.fx.off = true;
                     ko.options.deferUpdates = true;
 
-		    $("#actions_panel").panel().enhanceWithin();
 		    $(".ui-slider-input").hide();
 		    $("#listview_1").listview();
 
