@@ -53,8 +53,10 @@ Step   | iOS                       |  Android
 
 + Main configuration options:
 
-   + From the menu, the configuration button let users to personalize several options:
+   + From the general toolbar, the configuration button let users to personalize several options:
      ![screen:configuration](https://raw.githubusercontent.com/acaldero/wepsim/master/tutorials/welcome/config_usage.gif)
-   + From the simulator workspace, clicking over the 'processor button' shows/hides a slider to change the CPU/CU size:
+   + From the general toolbar, please use the left-upper slider to change the CPU/CU size:
      ![screen:configuration](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/simulator013.jpg)
+   + From the execution toolbar, clicking over the 'state' button to show the state manager:
+     ![screen:configuration](https://github.com/acaldero/wepsim/blob/master/tutorials/welcome/states_usage.gif)
 
