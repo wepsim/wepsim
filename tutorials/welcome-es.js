@@ -4,7 +4,7 @@
     tutorials.welcome.es.push({
                      id:          "welcome",
                      title:       "¡Bienvenidos al simulador WepSIM!",
-                     message:     "<img src='tutorials/welcome/menu_open.gif' style='max-height:50vh'>" +
+                     message:     "<img src='help/simulator/simulator012.jpg' style='width:auto; max-height:50vh'>" +
                                   "<p>" +
                                   "<h5>" +
                                   "WepSIM permite a estudiantes y profesores definir un juego de instrucciones, " + 
