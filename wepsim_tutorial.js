@@ -53,10 +53,37 @@
         //     code_post (next button) | cancel tutorials
         var bbbt = {} ;
 
+        bbbt.cancel = {
+		    label: 'Disable tutorials',
+		    className: 'btn-danger col float-right',
+		    callback: function() {
+			set_cfg('ws_mode', 'wepsim') ;
+                        save_cfg();
+			$("#select4").val('wepsim') ;
+                        tutbox.modal("hide") ;
+                        if (wepsim_voice_canSpeak())
+			    window.speechSynthesis.cancel() ;
+		    }
+		} ;
+
+        if (step != 0)
+            bbbt.prev = {
+		    label: 'Prev',
+		    className: 'btn-success col float-right',
+		    callback: function() {
+			tutorial[step].code_post() ;
+			setTimeout(function(){ 
+					sim_tutorial_showframe(tutorial_name, step - 1) ;
+				   }, tutorial[step].wait_next);
+                        if (wepsim_voice_canSpeak())
+			    window.speechSynthesis.cancel() ;
+		    }
+		};
+
 	if (step != (tutorial.length - 1))
             bbbt.next = {
 		    label: 'Next',
-		    className: 'btn-success col-xs-3 col-sm-2 float-right',
+		    className: 'btn-success col float-right',
 		    callback: function() {
 			tutorial[step].code_post() ;
 			setTimeout(function(){ 
@@ -69,7 +96,7 @@
 	else
             bbbt.end = {
 		    label: 'End',
-		    className: 'btn-success col-xs-3 col-sm-2 float-right',
+		    className: 'btn-success col float-right',
 		    callback: function() {
 			tutorial[step].code_post() ;
 			setTimeout(function(){ 
@@ -80,37 +107,11 @@
 		    }
 		};
 
-        if (step != 0)
-            bbbt.prev = {
-		    label: 'Prev',
-		    className: 'btn-success col-xs-3 col-sm-2 float-right',
-		    callback: function() {
-			tutorial[step].code_post() ;
-			setTimeout(function(){ 
-					sim_tutorial_showframe(tutorial_name, step - 1) ;
-				   }, tutorial[step].wait_next);
-                        if (wepsim_voice_canSpeak())
-			    window.speechSynthesis.cancel() ;
-		    }
-		};
-
-        bbbt.cancel = {
-		    label: 'Disable tutorials',
-		    className: 'btn-danger col-xs-4 col-sm-3 float-right',
-		    callback: function() {
-			set_cfg('ws_mode', 'wepsim') ;
-                        save_cfg();
-			$("#select4").val('wepsim') ;
-                        tutbox.modal("hide") ;
-                        if (wepsim_voice_canSpeak())
-			    window.speechSynthesis.cancel() ;
-		    }
-		} ;
-
 	tutbox = bootbox.dialog({
 	    title:   tutorial[step].title,
 	    message: tutorial[step].message,
 	    buttons: bbbt,
+	    size: "large",
             animate: false
 	});
 
