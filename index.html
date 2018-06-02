@@ -686,48 +686,71 @@
 
 
 <div data-role="panel" id="actions_panel" data-display="overlay" data-position="left" data-theme="a" data-animate="false"
-     style="width:25em; min-width:20em;">
+     style="width:30em; min-width:25em;">
 
         <table border="0" height="100%" width="100%">
-        <tr height="10%">
+	<tr>
         <td align="left">
+            <b>WepSIM <span class="badge badge-pill btn-success"><div class="wsversion">X</div></span></b>
             <a href="#" data-rel="close" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
         </td>
         </tr>
 
         <tr>
         <td valign="middle">
-		1.a) You can load the microcode and assembly code from an existing example (some of them instructive):
-		    <a id="btn_example1" href="#example1" data-rel="popup" data-position-to="window" 
-			   role="button" class="ui-btn btn btn-secondary btn-md btn-block"
-			   onclick="wepsim_open_examples_index();">Load examples</a>
-		1.b) Or you can modify some existing microcode and assembly code:
-		    <a id="tab21" href="#" 
-			   role="button" class="ui-btn btn btn-secondary btn-md btn-block"
-			   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');">Edit microcode</a>
-		    <a id="tab24" href="#" 
-			   role="button" class="ui-btn btn btn-secondary btn-md btn-block"
-			   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');">Edit assembly</a>
+
+		<ul class="list-group">
+		  <li class="list-group-item">
+                        <span class="badge badge-primary badge-pill">1.a</span>
+
+			You can load the microcode and assembly code from an existing examples (some of them instructive) by clicking on
+			    <a id="btn_example1" href="#example1" data-rel="popup" data-position-to="window" 
+				   role="button" class="ui-btn btn btn-secondary btn-sm"
+				   onclick="wepsim_open_examples_index();">Load examples</a>
+			<br>
+
+                        <span class="badge badge-primary badge-pill">1.b</span>
+
+			Or you can modify some existing microcode and assembly code.
+			Go to the microcode editor (click on
+			    <a id="tab21" href="#" 
+				   role="button" class="ui-btn btn btn-secondary btn-sm"
+				   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');">Edit microcode</a>
+			) and load-edit-save your existing microcode.
+			Then you can go to the assembly editor (click on
+			    <a id="tab24" href="#" 
+				   role="button" class="ui-btn btn btn-secondary btn-sm"
+				   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');">Edit assembly</a>
+			) and load-edit-save your existing code.
+		  </li>
+		  <li class="list-group-item">
+                        <span class="badge badge-primary badge-pill">2</span>
+
+			You can change the configuration of the simulator (click on
+			    <a href="#config2"  data-rel="popup"  data-position-to="window" id="btn_config2"
+			       role="button" class="ui-btn btn btn-secondary btn-sm"
+			       onclick="$('#config2').modal('show');">Configuration</a>
+			    ) or some aspects of the simulated hardware (click on
+			    <a href="#confighw"  data-rel="popup"  data-position-to="window" id="btn_config2"
+			       role="button" class="ui-btn btn btn-secondary btn-sm"
+			       onclick="$('#confighw').modal('show');">Hw. cfg.</a>
+			    )
+		  </li>
+		  <li class="list-group-item">
+                        <span class="badge badge-primary badge-pill">3</span>
+
+			Finally, you can go back to the simulator (click on
+			    <a id="tab25" href="#" 
+			       role="button" class="ui-btn btn btn-secundary btn-sm"
+			       onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a>
+		        )
+			and execute your "microcode" plus "assembly code" (Reset, Run, etc. buttons).
+		  </li>
+		</ul>
+
         </td>
         </tr>
 
-        <tr>
-        <td valign="top">
-		2) You can change the configuration of the simulator:
-                    <a href="#config2"  data-rel="popup"  data-position-to="window" id="btn_config2"
-                       role="button" class="ui-btn ui-btn-icon-left ui-icon-gear btn btn-secondary btn-md btn-block"
-                       onclick="$('#config2').modal('show');">Configuration</a>
-        </td>
-        </tr>
-
-        <tr>
-        <td valign="top">
-		3) You can go to the simulator and execute your "microcode" plus "assembly code":
-		    <a id="tab25" href="#" 
-		       role="button" class="ui-btn btn btn-secundary btn-md btn-block"
-		       onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a></li>
-        </td>
-        </tr>
         </table>
 
 </div><!-- /panel -->
