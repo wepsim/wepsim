@@ -187,20 +187,24 @@
                     <div class="col-sm">
                     <div class="row">
 		        <button class="btn btn-light ui-shadow col" data-role="none"
-		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
-                                data-toggle="modal" data-target="#confighw"><c><span class="d-none d-sm-inline">Hw. cfg.</span><span class="d-sm-none">Hcfg.</span></c></button>
+		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+                                data-toggle="modal" data-target="#confighw"><c><span class="d-none d-sm-inline"
+				>Hw. cfg.</span><span class="d-sm-none">Hcfg.</span></c></button>
 		        <button class="btn btn-light ui-shadow col" data-role="none"
-		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
-                                data-toggle="modal" data-target="#config2"><c><span class="d-none d-sm-inline">Configuration</span><span class="d-sm-none">Cfg.</span></c></button>
+		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+                                data-toggle="modal" data-target="#config2"><c><span class="d-none d-sm-inline"
+				>Configuration</span><span class="d-sm-none">Cfg.</span></c></button>
 		        <button class="btn btn-light ui-shadow col" data-role="none"
 			        onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"
-		                style="border-width:1 1 1 1px; margin:0 0 0 0;"><c><span class="d-none d-sm-inline">MicroCode</span><span class="d-sm-none">&#181;code</span></c></button>
+		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+				><c><span class="d-none d-sm-inline">MicroCode</span><span class="d-sm-none">&#181;code</span></c></button>
 		        <button class="btn btn-light ui-shadow col" data-role="none"
 			        onclick="$.mobile.pageContainer.pagecontainer('change','#main4');"
-		                style="border-width:1 1 1 1px; margin:0 0 0 0;"><c><span class="d-none d-sm-inline">Assembly</span><span class="d-sm-none">Asm.</span></c></button>
+		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+				><c><span class="d-none d-sm-inline">Assembly</span><span class="d-sm-none">Asm.</span></c></button>
 
 		        <button class="btn btn-light ui-shadow col" data-role="none"
-		                style="border-width:1 1 1 1px; margin:0 0 0 0;"
+		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                 onclick="wepsim_open_examples_index();">Examples</button>
 		        <button class="btn btn-light ui-shadow col" data-role="none"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; background-color:#D4DB17;"
@@ -387,13 +391,13 @@
                     </div>
 
                     <div class="btn-group col-12" role="group">
-		          <button class="btn btn-secondary ui-btn ui-shadow ui-corner-all col-2"
-		                  style="border-width:1 1 1 1px; margin:0 0 0 0;"
+		          <button class="btn btn-secondary ui-shadow ui-corner-all col"
+		                  style="border-color: #CCCCCC; border-width:1 1 1 1px; margin:0 0 0 0;"
 		                  onclick="wepsim_dialog_current_state();"><c><span class="d-none d-sm-inline">States</span><span class="d-sm-none">S.M.</span></c></button>
                           <select class="custom-select ui-shadow col-7"
+                                  style="border-color: #CCCCCC;"
 				  name="select5a" id="select5a" 
 				  data-role="none" 
-                                  style="border-color: #CCCCCC;"
                                   onchange="var val = this.value;
 				            $('#tab' + val).trigger('click');
 				            if ('11' == val)
@@ -412,7 +416,7 @@
                                       <option value="15"><div class="bg-primary text-white">Dev</div> - I/O Stats</a></option>
 				  </optgroup>
 			  </select>
-		          <button class="btn btn-light col-3 ui-shadow" data-role="none"
+		          <button class="btn btn-light ui-shadow ui-corner-all col" data-role="none"
                                   style="border-color: #CCCCCC;"
                                   onclick="var val = $('#select5a').val();
 				           $('#tab' + val).trigger('click');
