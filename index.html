@@ -550,14 +550,14 @@
 				   class="btn ui-btn ui-btn-a ui-mini"
 				   data-rel="popup" data-position-to="window" data-transition="pop">Save</a>
 		            <a href="#"       style="background-color: #CCCCCC"
-				   class="btn ui-btn ui-btn-a ui-icon-refresh ui-btn-icon-left ui-mini"
+				   class="btn ui-btn ui-btn-a ui-mini"
 				   data-transition="none" data-inline="true"
 				   onclick="var textToMCompile = inputfirm.getValue();
                                             wepsim_compile_firmware(textToMCompile);
                                             $('#asm_debugger').html('<br>After updates on the microcode, assembler has to be compiled against it.');">&#181;compile</a>
 
 		            <a href="#" style="background-color: #DDDDDD"
-				   class="btn ui-btn ui-btn-a ui-icon-arrow-u ui-btn-icon-left ui-mini"
+				   class="btn ui-btn ui-btn-a ui-mini"
 				   onclick="var textToMCompile = inputfirm.getValue();
                                             var ok = wepsim_compile_firmware(textToMCompile);
                                             if (true == ok) {
@@ -566,12 +566,12 @@
                                             }">Show co2&#181;addr + control memory</a>
 
                             <a href="#" style="background-color: #D4DB17"
-                                   class="btn ui-btn ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini"
+                                   class="btn ui-btn ui-btn-a ui-mini"
                                    onclick="wepsim_open_help_content('<object id=svg_p2 data=\'images/cpu6.svg?time=20180108\' type=image/svg+xml>Your browser does not support SVG</object>');"
                                    >Hardware Summary</a>
 
                             <a href="#" style="background-color: #D4DB17"
-                                   class="btn ui-btn ui-btn-a ui-icon-info    ui-btn-icon-left ui-mini"
+                                   class="btn ui-btn ui-btn-a ui-mini"
 				   onclick="wepsim_help_set_relative('#help_firmware_format'); wepsim_help_refresh();"
                                    >Help</a>
 
@@ -655,20 +655,20 @@
 				   class="btn ui-btn ui-btn-a ui-mini"
 				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Save</a>
 		            <a href="#" style="background-color: #CCCCCC"
-				   class="btn ui-btn ui-btn-a ui-icon-refresh  ui-btn-icon-left ui-mini"
+				   class="btn ui-btn ui-btn-a ui-mini"
 				   data-transition="none" data-inline="true"
 				   onclick="var textToCompile = inputasm.getValue() ;
                                             var ok = wepsim_compile_assembly(textToCompile);">Compile</a>
 
 		            <a href="#" style="background-color: #DDDDDD"
-				   class="btn ui-btn ui-btn-a ui-icon-arrow-u  ui-btn-icon-left ui-mini"
+				   class="btn ui-btn ui-btn-a ui-mini"
 				   onclick="var textToCompile = inputasm.getValue();
                                             var ok = wepsim_compile_assembly(textToCompile);
                                             if (true == ok) {
                                                 wepsim_show_binary_code('#bin2','#compile_results');
                                             }">Show Main Memory</a>
                             <a href="#" style="background-color: #D4DB17"
-                                   class="btn ui-btn ui-btn-a ui-icon-info     ui-btn-icon-left  ui-mini"
+                                   class="btn ui-btn ui-btn-a ui-mini"
 				   onclick="wepsim_help_set_relative('#help_assembly_format'); wepsim_help_refresh();">Help</a>
 
 		            <a href="#" style="background-color: #DDDDDD"
