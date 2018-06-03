@@ -1,7 +1,7 @@
 
     tutorials.simpleusage.en = [] ;
 
-    tutorials.welcome.en.push({
+    tutorials.simpleusage.en.push({
                      id:          "simpleusage",
                      title:       "Simple WepSIM experience: microprogramming and programming",
                      message:     "<center><img src='help/simulator/simulator012.jpg' style='max-width:100%; max-height:40vh;'></center>" +
@@ -43,7 +43,7 @@
                                 "<p>" +
                                 "<h5>" +
                                 "The first step is to microprogramming the firmware to be used. " +
-                                "Please use the menu button, then please select the 'Microcode' option." +
+                                "Please use the 'Microcode' button to switch to the microcode screen." +
                                 "</h5>",
                      code_pre:  function() { },
                      code_post: function() { },
@@ -62,6 +62,7 @@
                                 "<li>The microcompiler.</li>" +
                                 "<li>The hardware summary and help.</li>" +
                                 "</ul>" +
+                                "Once your code is ready (compiled without errors), next step is to go to the assembly screen." +
                                 "</h5>",
                      code_pre:  function() { },
                      code_post: function() { },
@@ -75,7 +76,7 @@
                                 "<p>" +
                                 "<h5>" +
                                 "The second step is to programming the assembly to be executed. " +
-                                "Please use the menu button, then please select the 'Assembly' option." +
+                                "Please use the 'Assembly' button from both, the simulator screen or the microcode screen." +
                                 "</h5>",
                      code_pre:  function() { },
                      code_post: function() { },
@@ -94,6 +95,7 @@
                                 "<li>The assembly compiler.</li>" +
                                 "<li>The memory map viewer and help.</li>" +
                                 "</ul>" +
+                                "Once your assebly code is ready (edited and compiled without errors) next step is to go into the simulation screen." +
                                 "</h5>",
                      code_pre:  function() { },
                      code_post: function() { },
@@ -113,6 +115,7 @@
                                 "<li>The detail view of registers, control memory, main memory, etc.</li>" +
                                 "<li>The reset, step by step or run until breakpoint/end actions.</li>" +
                                 "</ul>" +
+                                "This tutorial has introduced the typical usage of WepSIM for students and teachers. Enjoy WepSIM!" +
                                 "</h5>",
                      code_pre:  function() { },
                      code_post: function() { },
