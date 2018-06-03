@@ -1192,14 +1192,16 @@
 				  data-toggle="dropdown" 
 				  aria-haspopup="true" 
 				  aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>   
-			  <ul class="dropdown-menu">
-			     <li><a href="#" onclick="set_cfg('ws_idiom','es'); save_cfg();
-						      $('#bot_hwcfg1').carousel(1);
-						      update_checker_loadhelp('#help4a','help_hwcfg');">ES</a></li>
-			     <li><a href="#" onclick="set_cfg('ws_idiom','en'); save_cfg();
-						      $('#bot_hwcfg1').carousel(1);
-						      update_checker_loadhelp('#help4a','help_hwcfg');">EN</a></li>
-			  </ul>
+			  <div class="dropdown-menu">
+			     <a href="#" class="dropdown-item"
+		                         onclick="set_cfg('ws_idiom','es'); save_cfg();
+						  $('#bot_hwcfg1').carousel(1);
+						  update_checker_loadhelp('#help4a','help_hwcfg');">ES</a>
+			     <a href="#" class="dropdown-item"
+		                         onclick="set_cfg('ws_idiom','en'); save_cfg();
+						  $('#bot_hwcfg1').carousel(1);
+						  update_checker_loadhelp('#help4a','help_hwcfg');">EN</a>
+			  </div>
 		       </div>
 		 </div>
 	   </div>
@@ -1239,17 +1241,19 @@
 		   <div class="btn-group">
 		     <button type="button" class="btn btn-success" 
 		             onclick="wepsim_open_help_index();">Help Index</button>
-		     <button type="button" class="btn btn-success dropdown-toggle" 
+		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" 
 			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			 <span class="caret"></span>
 			 <span class="sr-only">Toggle Help Idiom</span>
 		     </button>
-		     <ul class="dropdown-menu">
-			 <li><a href="#" onclick="set_cfg('ws_idiom','es'); save_cfg(); 
-                                         wepsim_help_refresh();">ES</a></li>
-			 <li><a href="#" onclick="set_cfg('ws_idiom','en'); save_cfg(); 
-                                         wepsim_help_refresh();">EN</a></li>
-		     </ul>
+		     <div class="dropdown-menu">
+			 <a class="dropdown-item" href="#" 
+			    onclick="set_cfg('ws_idiom','es'); save_cfg(); 
+                                     wepsim_help_refresh();">ES</a>
+			 <a class="dropdown-item" href="#" 
+			    onclick="set_cfg('ws_idiom','en'); save_cfg(); 
+                                     wepsim_help_refresh();">EN</a>
+		     </div>
 		   </div>
                 </div>
 	   </div>
@@ -1314,14 +1318,16 @@
                           aria-haspopup="true" 
                           aria-expanded="false" 
                           style="height:34px !important;"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>   
-                  <ul class="dropdown-menu">
-                     <li><a href="#" onclick="set_cfg('ws_idiom','es'); save_cfg();
-                                              $('#bot_check1').carousel(2);
-                                              update_checker_loadhelp('#help3a','help_dumper');">ES</a></li>
-                     <li><a href="#" onclick="set_cfg('ws_idiom','en'); save_cfg();
-                                              $('#bot_check1').carousel(2);
-                                              update_checker_loadhelp('#help3a','help_dumper');">EN</a></li>
-                  </ul>
+                  <div class="dropdown-menu">
+                     <a href="#" class="dropdown-item"
+				 onclick="set_cfg('ws_idiom','es'); save_cfg();
+                                          $('#bot_check1').carousel(2);
+                                          update_checker_loadhelp('#help3a','help_dumper');">ES</a>>
+                     <a href="#" class="dropdown-item"
+				 onclick="set_cfg('ws_idiom','en'); save_cfg();
+                                          $('#bot_check1').carousel(2);
+                                          update_checker_loadhelp('#help3a','help_dumper');">EN</a>>
+                  </div>
                </div>
          </h5>
       </div>
@@ -1424,14 +1430,16 @@
                           aria-haspopup="true" 
                           aria-expanded="false" 
                           style="height:34px !important;"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>   
-                  <ul class="dropdown-menu">
-                     <li><a href="#" onclick="set_cfg('ws_idiom','es'); save_cfg();
-                                              $('#bot_check2').carousel(1);
-                                              update_checker_loadhelp('#help3b','help_checker');">ES</a></li>
-                     <li><a href="#" onclick="set_cfg('ws_idiom','en'); save_cfg();
-                                              $('#bot_check2').carousel(1);
-                                              update_checker_loadhelp('#help3b','help_checker');">EN</a></li>
-                  </ul>
+                  <div class="dropdown-menu">
+                     <a href="#" class="dropdown-item"
+				 onclick="set_cfg('ws_idiom','es'); save_cfg();
+                                          $('#bot_check2').carousel(1);
+                                          update_checker_loadhelp('#help3b','help_checker');">ES</a>
+                     <a href="#" class="dropdown-item"
+				 onclick="set_cfg('ws_idiom','en'); save_cfg();
+                                          $('#bot_check2').carousel(1);
+                                          update_checker_loadhelp('#help3b','help_checker');">EN</a>
+                  </div>
                </div>
          </h5>
       </div>

@@ -643,12 +643,14 @@
                                         '     <span class="caret"></span>' +
                                         '     <span class="sr-only">Toggle Help Idiom</span>' +
                                         '   </button>' +
-                                        '   <ul class="dropdown-menu">' +
-                                        '    <li><a href="#" onclick="set_cfg(\'ws_idiom\',\'es\'); save_cfg(); $(\'#bot_signal\').carousel(1); ' +
-                                        '                             update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());">ES</a></li>' +
-                                        '    <li><a href="#" onclick="set_cfg(\'ws_idiom\',\'en\'); save_cfg(); $(\'#bot_signal\').carousel(1); ' +
-                                        '                             update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());">EN</a></li>' +
-                                        '   </ul>' +
+                                        '   <div class="dropdown-menu">' +
+                                        '        <a href="#" class="dropdown-item" ' + 
+				        '                    onclick="set_cfg(\'ws_idiom\',\'es\'); save_cfg(); $(\'#bot_signal\').carousel(1); ' +
+                                        '                             update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());">ES</a>' +
+                                        '        <a href="#" class="dropdown-item" ' + 
+				        '                    onclick="set_cfg(\'ws_idiom\',\'en\'); save_cfg(); $(\'#bot_signal\').carousel(1); ' +
+                                        '                             update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());">EN</a>' +
+                                        '   </div>' +
                                         ' </div>' +
                                         '</center>',
                                message: '<div id="bot_signal" class="carousel slide" data-ride="carousel" data-interval="false">' +
