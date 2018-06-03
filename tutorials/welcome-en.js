@@ -4,7 +4,7 @@
     tutorials.welcome.en.push({
                      id:          "welcome",
                      title:       "Welcome to the WepSIM simulator!",
-                     message:     "<img src='help/simulator/simulator012.jpg' style='width:auto; max-height:50vh'>" +
+                     message:     "<center><img src='help/simulator/simulator012.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                   "<p>" +
                                   "<h5>" +
                                   "WepSIM allows students and teacher to define the instruction set, " + 
@@ -21,7 +21,7 @@
     tutorials.welcome.en.push({
                      id:          "welcome",
                      title:       "Welcome to the WepSIM simulator!",
-                     message:     "<img src='help/simulator/simulator012.jpg' style='width:auto; max-height:50vh'>" +
+                     message:     "<center><img src='help/simulator/simulator012.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                   "<p>" +
                                   "<h5>" +
                                   "This brief tutorial is going to show you how to:" +
@@ -40,10 +40,11 @@
     tutorials.welcome.en.push({
                      id:          "welcome",
                      title:       "How to load some example.",
-                     message:     "<img src='tutorials/welcome/example_usage.gif' style='width:auto; max-height:60vh'>" +
+                     message:     "<center><img src='tutorials/welcome/example_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
-                                  "Click in the menu button and then in the example button, <br>then click in the example 'title' name." +
+                                  "Click in the 'example' button, then click in the example 'title' name.<br>" +
+                                  "Then the example for microcode and assembly is loaded and microcompiled and compiled.<br>" +
                                   "<br>" +
                                   "</h5>",
                      code_pre:    function() { },
@@ -54,7 +55,7 @@
     tutorials.welcome.en.push({
                      id:          "welcome",
                      title:       "How to execute an example.",
-                     message:     "<img src='tutorials/welcome/simulation_xinstruction.gif' style='width:auto; max-height:60vh'>" +
+                     message:     "<center><img src='tutorials/welcome/simulation_xinstruction.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
                                   "Click on next instruction/microinstruction to execute step by step. <br>" + 
@@ -69,10 +70,10 @@
     tutorials.welcome.en.push({
                      id:          "welcome",
                      title:       "How to configure WepSIM.",
-                     message:     "<img src='tutorials/welcome/config_usage.gif' style='width:auto; max-height:60vh'>" +
+                     message:     "<center><img src='tutorials/welcome/config_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
-                                  "Click in the menu again, then click in the configuration button." +
+                                  "Click in the 'configuration' button and users are able to customize different parts of WepSIM." +
                                   "<br>" +
                                   "</h5>",
                      code_pre:    function() { },
@@ -83,11 +84,11 @@
     tutorials.welcome.en.push({
                      id:          "welcome",
                      title:       "How to get the basic help.",
-                     message:     "<img src='tutorials/welcome/help_usage.gif' style='width:auto; max-height:60vh'>" +
+                     message:     "<center><img src='tutorials/welcome/help_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
-                                  "Click in the menu again, <br>then click in the green help button.<br>" +
-                                  "You can get Spanish/English version, go to the help index, or close the help popup." +
+                                  "Please click in the green 'help' button to reach the help dialog.<br>" +
+                                  "You are able to switch idiom (Spanish/English), go to the help index, or close the help dialog." +
                                   "<br>" +
                                   "</h5>",
                      code_pre:    function() { },
@@ -98,12 +99,12 @@
     tutorials.welcome.en.push({
                      id:          "welcome",
                      title:       "Welcome to WepSIM!",
-                     message:     "<img src='tutorials/welcome/help_usage.gif' style='width:auto; max-height:60vh'>" +
+                     message:     "<center><img src='tutorials/welcome/help_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
                                   "<br>" +
                                   "Please explorer the help sections for more information. <br>" + 
-                                  "If you click on the end button of the tutorial then WepSIM is going to load the first example for you. Enjoy!" + 
+                                  "If you click on the end button of this tutorial, WepSIM is going to load the first example for you. Enjoy!" + 
                                   "<br>" +
                                   "</h5>",
                      code_pre:    function() {  },

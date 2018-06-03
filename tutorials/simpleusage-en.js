@@ -1,10 +1,27 @@
 
     tutorials.simpleusage.en = [] ;
 
+    tutorials.welcome.en.push({
+                     id:          "simpleusage",
+                     title:       "Simple WepSIM experience: microprogramming and programming",
+                     message:     "<center><img src='help/simulator/simulator012.jpg' style='max-width:100%; max-height:40vh;'></center>" +
+                                  "<p>" +
+                                  "<h5>" +
+                                  "WepSIM allows students and teacher to define the instruction set, " + 
+                                  "and create any assembly program using the defined instruction set. " + 
+                                  "Because WepSIM is visual, and integrates interruptions, system call, " + 
+                                  "and exceptions, we really believe WepSIM is a revolutionary teaching tool. " + 
+                                  "<br>" +
+                                  "</h5>",
+                     code_pre:    function() { },
+                     code_post:   function() { },
+                     wait_next:   100
+                  });
+
     tutorials.simpleusage.en.push({
                      id:        "simpleusage",
                      title:     "Simple WepSIM experience: microprogramming and programming",
-                     message:   "<img src='help/simulator/simulator011.jpg' style='width:auto; max-height:50vh'>" +
+                     message:   "<center><img src='help/simulator/simulator011.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
                                 "This brief tutorial is going to show you how to:" +
@@ -22,7 +39,7 @@
     tutorials.simpleusage.en.push({
                      id:        "simpleusage",
                      title:     "Simple WepSIM experience: microprogramming and programming",
-                     message:   "<img src='help/simulator/firmware001.jpg' style='width:auto; max-height:50vh'>" +
+                     message:   "<center><img src='help/simulator/firmware001.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
                                 "The first step is to microprogramming the firmware to be used. " +
@@ -36,7 +53,7 @@
     tutorials.simpleusage.en.push({
                      id:        "simpleusage",
                      title:     "Simple WepSIM experience: microprogramming and programming",
-                     message:   "<img src='help/simulator/firmware002.jpg' style='width:auto; max-height:50vh'>" +
+                     message:   "<center><img src='help/simulator/firmware002.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
                                 "The microprogramming screen provides:" +
@@ -54,7 +71,7 @@
     tutorials.simpleusage.en.push({
                      id:        "simpleusage",
                      title:     "Simple WepSIM experience: microprogramming and programming",
-                     message:   "<img src='help/simulator/assembly002.jpg' style='width:auto; max-height:50vh'>" +
+                     message:   "<center><img src='help/simulator/assembly002.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
                                 "The second step is to programming the assembly to be executed. " +
@@ -68,7 +85,7 @@
     tutorials.simpleusage.en.push({
                      id:        "simpleusage",
                      title:     "Simple WepSIM experience: microprogramming and programming",
-                     message:   "<img src='help/simulator/assembly003.jpg' style='width:auto; max-height:50vh'>" +
+                     message:   "<center><img src='help/simulator/assembly003.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
                                 "The programming screen provides:" +
@@ -86,7 +103,7 @@
     tutorials.simpleusage.en.push({
                      id:        "simpleusage",
                      title:     "Simple WepSIM experience: microprogramming and programming",
-                     message:   "<img src='help/simulator/simulator010.jpg' style='width:auto; max-height:50vh'>" +
+                     message:   "<center><img src='help/simulator/simulator010.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
                                 "The third step is to execute the assembly code in the simulator." +
