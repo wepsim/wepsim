@@ -127,31 +127,28 @@
               t = new Date(state_history[i].time) ;
 
               o += '<div class="card">' +
-                   '  <div class="card-header" data-toggle="collapse" data-target="#collapse_'+i+'" data-parent="#accordion1">' +
-                   '    <h5 class="card-title">' +
+                   '  <div class="card-header row">' +
+                   '    <h5 class="card-title col-7" ' + 
+		   '          data-toggle="collapse" data-target="#collapse_'+i+'" data-parent="#accordion1">' +
                    '      <span>[' +
                             t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + '_' +
                             t.getHours()    + '-' + t.getMinutes()   + '-' + t.getSeconds() + '_' + 
                             t.getMilliseconds() + '] ' + state_history[i].title +
                    '      </span>' +
                    '    </h5>' +
+                   '    <button class="btn btn-outline-dark btn-sm col float-right"' + 
+                   '           onclick="CopyFromTextarea(\'ta_state_' + i + '\');" ' + 
+                   '           type="button">Copy <span class="d-none d-sm-inline">to clipboard</span></button>' +
+                   '    <button class="btn btn-outline-dark btn-sm col float-right"' + 
+                   '            onclick="var txt_chklst1 = get_clipboard_copy();' +
+                   '                     var obj_exp1    = wepsim_checklist2state(txt_chklst1);' +
+                   '                     var txt_chklst2 = $(\'#ta_state_'+i+'\').val();' +
+                   '                     var obj_exp2    = wepsim_checklist2state(txt_chklst2);' +
+                   '                     wepsim_dialog_check_state(\'check_results1\', obj_exp1, obj_exp2);"' +
+                   '         type="button">Check <span class="d-none d-sm-inline">differences with clipboard state</span></button>' +
                    '  </div>' +
                    '  <div id="collapse_' + i + '" class="collapse">' +
                    '    <div class="card-body">' + 
-                   '      <div class="container-fluid">' + 
-                   '      <div class="row">' + 
-                   '      <button class="btn btn-secondary btn-sm col-xs-4 col-sm-3 float-right"' + 
-                   '              onclick="CopyFromTextarea(\'ta_state_' + i + '\');" ' + 
-                   '              type="button">Copy <span class="d-none d-sm-inline">to clipboard</span></button>' +
-                   '      <button class="btn btn-secondary btn-sm col-xs-4 col-sm-3 float-right"' + 
-                   '              onclick="var txt_chklst1 = get_clipboard_copy();' +
-                   '                       var obj_exp1    = wepsim_checklist2state(txt_chklst1);' +
-                   '                       var txt_chklst2 = $(\'#ta_state_'+i+'\').val();' +
-                   '                       var obj_exp2    = wepsim_checklist2state(txt_chklst2);' +
-                   '                       wepsim_dialog_check_state(\'check_results1\', obj_exp1, obj_exp2);"' +
-                   '           type="button">Check <span class="d-none d-sm-inline">differences with clipboard state</span></button>' +
-                   '      </div>' + 
-                   '      </div>' + 
                    '      <div class="card-body" ' + 
                    '           style="padding:5 5 5 5;" ' + 
                    '           id="state_' + i + '">' + state_history[i].content + '</div>' +
