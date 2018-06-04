@@ -127,7 +127,8 @@
               t = new Date(state_history[i].time) ;
 
               o += '<div class="card">' +
-                   '  <div class="card-header row">' +
+                   '  <div class="card-header row" ' + 
+		   '       style="width:101%; padding:8 15 8 15;">' +
                    '    <h5 class="card-title col-7" ' + 
 		   '          data-toggle="collapse" data-target="#collapse_'+i+'" data-parent="#accordion1">' +
                    '      <span>[' +
