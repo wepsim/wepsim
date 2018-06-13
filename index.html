@@ -482,7 +482,7 @@
 	<div data-role="header" data-position="fixed" data-disable-page-zoom="false" data-theme="a">
                 <span class="ui-title">WepSIM <span class="badge badge-pill badge-secondary"><div class="wsversion">X</div></span> / Microcode</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
-		    <a data-toggle="collapse" href="#collapseA1"><img alt="UC3M logo" src="images/uc3m.png" style="height:22pt; padding:8 0 0 0;"></a>
+		    <a data-toggle="collapse" href="#collapseA2"><img alt="UC3M logo" src="images/uc3m.png" style="height:22pt; padding:8 0 0 0;"></a>
 		</div>
                 <div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
 		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
@@ -490,6 +490,8 @@
 	</div><!-- /header -->
 
 	<div role="main" class="ui-content">
+
+            <div class="row collapse show" id="collapseA2">
 
 		<div id="lsload" 
                      data-role="popup" data-overlay-theme="a" data-theme="a" data-dismissible="false">
@@ -587,11 +589,13 @@
 		</div>
 		</div>
 
-		<div id="t3_firm"  class="ui-body-d ui-content" style="height:75vh; overflow-y:auto;">
+	    </div>
+
+	    <div id="t3_firm"  class="ui-body-d ui-content" style="height:75vh; overflow-y:auto;">
 		     <textarea aria-label="microcode" style="min-width:90%; overflow-x:auto;"
                                placeholder="Please select 'Example' or 'Load' first in order to have an initial Microcode."
                                id="inputFirmware" rows=20></textarea>
-		</div>
+	    </div>
 
 	</div><!-- /content -->
 
@@ -603,7 +607,7 @@
 	<div data-role="header" data-position="fixed" data-disable-page-zoom="false" data-theme="a">
                 <span class="ui-title">WepSIM <span class="badge badge-pill badge-secondary"><div class="wsversion">X</div></span> / Assembly</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
-		    <a data-toggle="collapse" href="#collapseA1"><img alt="UC3M logo" src="images/uc3m.png" style="height:22pt; padding:8 0 0 0;"></a>
+		    <a data-toggle="collapse" href="#collapseA3"><img alt="UC3M logo" src="images/uc3m.png" style="height:22pt; padding:8 0 0 0;"></a>
 		</div>
                 <div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
 		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
@@ -611,6 +615,8 @@
 	</div><!-- /header -->
 
 	<div role="main" class="ui-content">
+
+            <div class="row collapse show" id="collapseA3">
 
 		<div id="lsload2" 
                      data-role="popup" data-overlay-theme="a" data-theme="a" data-dismissible="false">
@@ -683,11 +689,13 @@
 		</div>
 		</div>
 
-		<div id="t4_asm"   class="ui-body-d ui-content" style="height:75vh; overflow-y:auto;">
+	    </div>
+
+	    <div id="t4_asm"   class="ui-body-d ui-content" style="height:75vh; overflow-y:auto;">
 		        <textarea aria-label="Assembly" style="min-width:90%; overflow-x:auto;"
                                   placeholder="Please select 'Load' first to have the assembly code to work with."
 			          id="inputAssembly" rows="20"></textarea>
-		</div>
+	    </div>
 
 	</div><!-- /content -->
 
