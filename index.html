@@ -158,7 +158,7 @@
 	<div data-role="header" data-position="fixed" data-disable-page-zoom="false" data-theme="a">
                 <span class="ui-title">WepSIM <span class="badge badge-pill badge-secondary"><div class="wsversion">X</div></span> / Simulator</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
-		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="UC3M logo" src="images/uc3m.png" style="height:22pt; padding:8 0 0 0;"></a>
+		    <a data-toggle="collapse" href="#collapseA1"><img alt="UC3M logo" src="images/uc3m.png" style="height:22pt; padding:8 0 0 0;"></a>
 		</div>
                 <div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
 		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
@@ -168,7 +168,7 @@
 
         <div role="main" class="ui-content container-fluid" style="padding:8px 8px 8px 8px">
 
-            <div class="row">
+            <div class="row collapse show" id="collapseA1">
 
                     <div class="col-sm-2" style="padding-right:0;">
 			    <form id="slider2f" class="full-width-slider col" style="margin:0px; padding:0px;">
@@ -188,20 +188,20 @@
                     <div class="row">
 		        <button class="btn btn-light ui-shadow col" data-role="none"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-                                data-toggle="modal" data-target="#confighw"><c><span class="d-none d-sm-inline"
+                                data-toggle="modal" data-target="#confighw"><c><span class="d-none d-sm-inline-flex"
 				>Hw. cfg.</span><span class="d-sm-none">Hcfg.</span></c></button>
 		        <button class="btn btn-light ui-shadow col" data-role="none"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-                                data-toggle="modal" data-target="#config2"><c><span class="d-none d-sm-inline"
+                                data-toggle="modal" data-target="#config2"><c><span class="d-none d-sm-inline-flex"
 				>Configuration</span><span class="d-sm-none">Cfg.</span></c></button>
 		        <button class="btn btn-light ui-shadow col" data-role="none"
 			        onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				><c><span class="d-none d-sm-inline">MicroCode</span><span class="d-sm-none">&#181;code</span></c></button>
+				><c><span class="d-none d-sm-inline-flex">MicroCode</span><span class="d-sm-none">&#181;code</span></c></button>
 		        <button class="btn btn-light ui-shadow col" data-role="none"
 			        onclick="$.mobile.pageContainer.pagecontainer('change','#main4');"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				><c><span class="d-none d-sm-inline">Assembly</span><span class="d-sm-none">Asm.</span></c></button>
+				><c><span class="d-none d-sm-inline-flex">Assembly</span><span class="d-sm-none">Asm.</span></c></button>
 
 		        <button class="btn btn-light ui-shadow col" data-role="none"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
@@ -280,7 +280,7 @@
                                           var obj_byid = $('#asm_debugger_container');
                                           if (typeof o1[0] == 'undefined') 
                                               return;
-                                          obj_byid[0].scrollTop = o1[0].offsetTop;"><span class="d-sm-none">Assembly</span><span class="d-none d-sm-inline">Assembly Debugger</span></a>
+                                          obj_byid[0].scrollTop = o1[0].offsetTop;"><span class="d-sm-none">Assembly</span><span class="d-none d-sm-inline-flex">Assembly Debugger</span></a>
                           </li>
 		      </ul>
 
@@ -331,7 +331,7 @@
 		   </div>
 		   </th>
 			   <th width=10% class="asm_break"><span>break</span><span class="d-none d-md-inline"><small>points</small></span></th>
-			   <th width=15% class="asm_addr"><span>addr</span><span class="d-none d-sm-inline">ess</span></th>
+			   <th width=15% class="asm_addr"><span>addr</span><span class="d-none d-sm-inline-flex">ess</span></th>
                            <th width=10% class="asm_label2" align=right><span>labels</span></th>
                            <th width=20% class="asm_pins"   align=left><span>pseudo</span><span class="d-none d-md-inline"><small>instructions</small></span></th>
                            <th width=10% class="asm_label1" align=right><span>labels</span></th>
@@ -394,7 +394,7 @@
                     <div class="btn-group col-12" role="group">
 		          <button class="btn btn-secondary ui-shadow ui-corner-all col"
 		                  style="border-color: #CCCCCC; border-width:1 1 1 1px; margin:0 0 0 0;"
-		                  onclick="wepsim_dialog_current_state();"><c><span class="d-none d-sm-inline">States</span><span class="d-sm-none">S.M.</span></c></button>
+		                  onclick="wepsim_dialog_current_state();"><c><span class="d-none d-sm-inline-flex">States</span><span class="d-sm-none">S.M.</span></c></button>
                           <select class="custom-select ui-shadow col-7"
                                   style="border-color: #CCCCCC;"
 				  name="select5a" id="select5a" 
@@ -482,7 +482,7 @@
 	<div data-role="header" data-position="fixed" data-disable-page-zoom="false" data-theme="a">
                 <span class="ui-title">WepSIM <span class="badge badge-pill badge-secondary"><div class="wsversion">X</div></span> / Microcode</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
-		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="UC3M logo" src="images/uc3m.png" style="height:22pt; padding:8 0 0 0;"></a>
+		    <a data-toggle="collapse" href="#collapseA1"><img alt="UC3M logo" src="images/uc3m.png" style="height:22pt; padding:8 0 0 0;"></a>
 		</div>
                 <div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
 		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
@@ -603,7 +603,7 @@
 	<div data-role="header" data-position="fixed" data-disable-page-zoom="false" data-theme="a">
                 <span class="ui-title">WepSIM <span class="badge badge-pill badge-secondary"><div class="wsversion">X</div></span> / Assembly</span>
 		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
-		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="UC3M logo" src="images/uc3m.png" style="height:22pt; padding:8 0 0 0;"></a>
+		    <a data-toggle="collapse" href="#collapseA1"><img alt="UC3M logo" src="images/uc3m.png" style="height:22pt; padding:8 0 0 0;"></a>
 		</div>
                 <div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
 		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
@@ -702,7 +702,7 @@
                         class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
                         data-dismiss="modal" aria-hidden="true">x</button>
 		<div class="mx-auto">
-                <h5><b>Config<span class="d-none d-sm-inline">uration</span></b> <span class="badge badge-pill btn-success"><div class="wsversion">X</div></span></h5>
+                <h5><b>Config<span class="d-none d-sm-inline-flex">uration</span></b> <span class="badge badge-pill btn-success"><div class="wsversion">X</div></span></h5>
                 </div>
 	   </div>
 	   <div class="modal-body">
@@ -715,7 +715,7 @@
 	<thead>
 	<tr>
 	  <th onclick="$('.collapse6').collapse('toggle');">#</th>
-	  <th class="d-none d-sm-inline">area</th>
+	  <th class="d-none d-sm-inline-flex">area</th>
 	  <th>title</th>
 	  <th style="min-width:11em">value</th>
 	  <th onclick="$('.collapse7').collapse('toggle');">description</th>
@@ -725,7 +725,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">1</td>
-	  <td class="d-none d-sm-inline" style="color:gray">general</td>
+	  <td class="d-none d-sm-inline-flex" style="color:gray">general</td>
 	  <td>Idiom</td>
 	  <td>
 		 <div class="form-group" style="max-width:10em; margin:0 0 0 0">
@@ -745,7 +745,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">2</td>
-	  <td class="d-none d-sm-inline" style="color:gray">general</td>
+	  <td class="d-none d-sm-inline-flex" style="color:gray">general</td>
 	  <td>Active voice</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -768,7 +768,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">3</td>
-	  <td class="d-none d-sm-inline" style="color:gray">editor</td>
+	  <td class="d-none d-sm-inline-flex" style="color:gray">editor</td>
 	  <td>Editor theme</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -799,7 +799,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">4</td>
-	  <td class="d-none d-sm-inline" style="color:gray">editor</td>
+	  <td class="d-none d-sm-inline-flex" style="color:gray">editor</td>
 	  <td>Editor mode</td>
 	  <td>
 		 <div class="form-group" style="max-width:10em; margin:0 0 0 0">
@@ -823,7 +823,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">5</td>
-	  <td class="d-none d-sm-inline" style="color:gray">execution</td>
+	  <td class="d-none d-sm-inline-flex" style="color:gray">execution</td>
 	  <td>Speed-up</td>
 	  <td>
 		 <input type="range"
@@ -831,7 +831,7 @@
 			aria-label="Execution speed control"
 			data-show-value="false" data-theme="a"
 			name="slider1" id="slider1"
-			min="1" max="500" value="200" step="20"
+			min="1" max="501" value="200" step="20"
 			onchange="set_cfg('DBG_delay', 1000 / this.value); save_cfg();">
           </td>
 	  <td class="collapse7 collapse show">Speed (slow - fast)</td>
@@ -839,7 +839,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">6</td>
-	  <td class="d-none d-sm-inline" style="color:gray">execution</td>
+	  <td class="d-none d-sm-inline-flex" style="color:gray">execution</td>
 	  <td>Step-by-step</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -848,13 +848,13 @@
 			    style="margin-top:-8px"
 			    onclick="set_cfg('DBG_level','instruction'); save_cfg();"
 			    value="on" type="radio">
-		     <label for="radio1-instruction" class="ui-btn-a"><span class="d-none d-sm-inline">Instructions</span><span class="d-sm-none">Instruc.</span></label>
+		     <label for="radio1-instruction" class="ui-btn-a"><span class="d-none d-sm-inline-flex">Instructions</span><span class="d-sm-none">Instruc.</span></label>
 		     <input name="radio1" id="radio1-microinstruction" 
 			    aria-label="Execution unit (microinstruction)"
 			    style="margin-top:-8px"
 			    onclick="set_cfg('DBG_level','microinstruction'); save_cfg();"
 			    value="off" type="radio">
-		     <label for="radio1-microinstruction" class="ui-btn-a"><span class="d-none d-sm-inline">&#181;instructions</span><span class="d-sm-none">&#181;instruc.</span></label>
+		     <label for="radio1-microinstruction" class="ui-btn-a"><span class="d-none d-sm-inline-flex">&#181;instructions</span><span class="d-sm-none">&#181;instruc.</span></label>
 		 </fieldset>
           </td>
 	  <td class="collapse7 collapse show">Element in run mode</td>
@@ -862,7 +862,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">7</td>
-	  <td class="d-none d-sm-inline" style="color:gray">execution</td>
+	  <td class="d-none d-sm-inline-flex" style="color:gray">execution</td>
 	  <td>Breakpoint Icon</td>
 	  <td>
 		 <div class="form-group" style="max-width:10em; margin:0 0 0 0">
@@ -903,7 +903,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">8</td>
-	  <td class="d-none d-sm-inline" style="color:gray">execution</td>
+	  <td class="d-none d-sm-inline-flex" style="color:gray">execution</td>
 	  <td>Limit instr.</td>
 	  <td>
 		 <div class="form-group" style="max-width:10em; margin:0 0 0 0">
@@ -927,7 +927,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">9</td>
-	  <td class="d-none d-sm-inline" style="color:gray">execution</td>
+	  <td class="d-none d-sm-inline-flex" style="color:gray">execution</td>
 	  <td>Limit instr. ticks</td>
 	  <td>
 		 <div class="form-group" style="max-width:10em; margin:0 0 0 0">
@@ -951,7 +951,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">10</td>
-	  <td class="d-none d-sm-inline" style="color:gray">simulation</td>
+	  <td class="d-none d-sm-inline-flex" style="color:gray">simulation</td>
 	  <td>Display format</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -983,7 +983,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">11</td>
-	  <td class="d-none d-sm-inline" style="color:gray">simulation</td>
+	  <td class="d-none d-sm-inline-flex" style="color:gray">simulation</td>
 	  <td>RF name</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -1005,7 +1005,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">12</td>
-	  <td class="d-none d-sm-inline" style="color:gray">simulation</td>
+	  <td class="d-none d-sm-inline-flex" style="color:gray">simulation</td>
 	  <td>Data-path color</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -1025,7 +1025,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">13</td>
-	  <td class="d-none d-sm-inline" style="color:gray">simulation</td>
+	  <td class="d-none d-sm-inline-flex" style="color:gray">simulation</td>
 	  <td>Signal color</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -1041,7 +1041,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">14</td>
-	  <td class="d-none d-sm-inline" style="color:gray">simulation</td>
+	  <td class="d-none d-sm-inline-flex" style="color:gray">simulation</td>
 	  <td>Interactive Mode</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -1064,7 +1064,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">15</td>
-	  <td class="d-none d-sm-inline" style="color:gray">simulation</td>
+	  <td class="d-none d-sm-inline-flex" style="color:gray">simulation</td>
 	  <td>Editable registers</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -1087,7 +1087,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">16</td>
-	  <td class="d-none d-sm-inline" style="color:gray">simulation</td>
+	  <td class="d-none d-sm-inline-flex" style="color:gray">simulation</td>
 	  <td>Show by value</td>
 	  <td>
 		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
@@ -1110,7 +1110,7 @@
 
 	 <tr>
 	  <td class="collapse6 collapse show">17</td>
-	  <td class="d-none d-sm-inline" style="color:gray">simulation</td>
+	  <td class="d-none d-sm-inline-flex" style="color:gray">simulation</td>
 	  <td>Notification delay</td>
 	  <td>
 		 <input type="range"
@@ -1183,7 +1183,7 @@
 		       <div class="btn-group">
 			  <button onclick="$('#bot_hwcfg1').carousel(0);" 
 				  type="button" 
-				  class="btn btn-info">Hardware Conf<span class='d-sm-none'>.</span><span class='d-none d-sm-inline'>iguration</span></button>
+				  class="btn btn-info">Hardware Conf<span class='d-sm-none'>.</span><span class='d-none d-sm-inline-flex'>iguration</span></button>
 			  <button onclick="$('#bot_hwcfg1').carousel(1);
 					   update_checker_loadhelp('#help4a','help_hwcfg');"
 				  type="button" 
@@ -1307,7 +1307,7 @@
                   <button onclick="$('#bot_check1').carousel(1);" 
                           type="button" 
                           class="btn btn-info" 
-			  style="height:34px !important;"><span class='d-none d-sm-inline'>Edit </span>State</button>
+			  style="height:34px !important;"><span class='d-none d-sm-inline-flex'>Edit </span>State</button>
                   <button onclick="$('#bot_check1').carousel(2);
                                    update_checker_loadhelp('#help3a','help_dumper');"
                           type="button" 
@@ -1391,13 +1391,13 @@
 			    wepsim_notify_success('<strong>INFO</strong>', 'Removed all !.');
 			    wepsim_state_history_list() ;
 			    return false;"
-		   type="button">Reset <span class='d-none d-sm-inline'>history</span></button>
+		   type="button">Reset <span class='d-none d-sm-inline-flex'>history</span></button>
 	   <button class="btn btn-secondary col-xs-3 pull-left"
 		   onclick="wepsim_state_history_add();
 			    wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
 			    wepsim_state_history_list() ;
 			    return false;"
-		   type="button">Add <span class='d-none d-sm-inline'>state to history</span></button>
+		   type="button">Add <span class='d-none d-sm-inline-flex'>state to history</span></button>
            <button type="button" 
                    onclick="$('#current_state1').modal('hide');"
                    class="btn btn-primary col-xs-3 pull-right">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
