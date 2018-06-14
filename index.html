@@ -1621,6 +1621,7 @@
 					mode: "text/javascript"
 				    });
                     sim_prepare_editor(inputfirm);
+		    inputfirm.setSize("auto","auto");
 
 		    inputasm = CodeMirror.fromTextArea(document.getElementById("inputAssembly"), 
                                     {
@@ -1644,6 +1645,7 @@
 					mode: "gas"
 				    });
                     sim_prepare_editor(inputasm) ;
+		    inputasm.setSize("auto","auto");
 
 		    var a = document.getElementById("svg_p");
 		    a.addEventListener("load",function() {
