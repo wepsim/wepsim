@@ -25,16 +25,17 @@
 
     function table_helps_html ( helps )
     {
-       var o = '<div class="table-responsive">' +
-               '<table width=100% class="table table-striped table-hover table-sm">' +
-               '<thead>' +
-               '<tr>' +
-               '  <th>#</th>' +
-               '  <th>title</th>' +
-               '  <th onclick="$(\'.collapse2\').collapse(\'toggle\');">description</th>' +
-               '</tr>' +
-               '</thead>' +
-               '<tbody>';
+           var o = '' ;
+               o = o + '<div class="table-responsive">' +
+                       '<table width=100% class="table table-striped table-hover table-sm">' +
+                       '<thead>' +
+                       '<tr>' +
+                       '  <th>#</th>' +
+                       '  <th>title</th>' +
+                       '  <th onclick="$(\'.collapse2\').collapse(\'toggle\');">description</th>' +
+                       '</tr>' +
+                       '</thead>' +
+                       '<tbody>';
        for (var m=0; m<helps.length; m++)
        {
 	       var e_title       = helps[m].title ;

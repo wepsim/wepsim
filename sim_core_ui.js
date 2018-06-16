@@ -705,9 +705,9 @@
                      "<div class='row'>" ;
 
                o1 += "<div class='col-12' style='padding:0 0 10 0;'>" +
-                     "<div class='card'>" +
+                     "<div class='card bg-light'>" +
                      "<div class='card-header'>" +
-                     " <h5 class='card-title'>Memory</h5>" +
+                     "  <b>Memory</b>" +
                      "</div>" +
                      "<div class='card-body' id='mempanel' style='padding:0 0 0 0;'>" +
                      "<table class='table table-hover table-sm table-bordered' " +
@@ -726,9 +726,9 @@
                      "</div>" ;
          
                o1 += "<div class='col-12' style='padding:0 0 0 0;'>" +
-                     "<div class='card' style='margin:0 0 0 0;'>" +
+                     "<div class='card bg-light' style='margin:0 0 0 0;'>" +
                      "<div class='card-header'>" +
-                     " <h5 class='card-title'>I/O</h5>" +
+                     "  <b>I/O</b>" +
                      "</div>" +
                      "<div class='card-body' id='iopanel' style='padding: 0 0 0 0'>" ;
                o1 += "<center>" +
@@ -737,7 +737,7 @@
                      "<tbody class='no-ui-mini'>" +
                      "<tr>" +
                      "<td align=center width='33%'>" +
-                     "  <span class='d-none d-sm-inline-flex'>Interruption identificator</span>" +
+                     "  <span class='d-none d-sm-inline-flex'>Interrupt identificator</span>" +
                      "  <span class='d-sm-none'>Int. Id.<br>(0 - 7)</span>" +
                      "</td>" +
                      "<td align=center width='33%'>" +
