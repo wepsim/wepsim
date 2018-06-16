@@ -374,24 +374,24 @@
 
                     <div class="row" style="padding:8px 16px 0px 8px;">
                     <div class="btn-toolbar btn-block" role="toolbar">
-			    <button          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-		               class="btn btn-light ui-shadow ui-icon-reset    ui-btn-icon-right col"
-			       onclick="wepsim_execute_reset(true, true);"><b>Reset</b></button>
-			    <button id="nm1" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-		               class="btn btn-light ui-shadow ui-icon-arrow-r  ui-btn-icon-right col" 
-			       onclick="wepsim_execute_microinstruction();"><b>&#181;Instruction</b></button>
-			    <button id="ni1" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-		               class="btn btn-light ui-shadow ui-icon-arrow-r  ui-btn-icon-right col" 
-			       onclick="wepsim_execute_instruction();"><b>Instruction</b></button>
-			    <button id="qbp" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-		               class="btn btn-light ui-shadow ui-icon-carat-r  ui-btn-icon-right col" 
-                               onclick="var mode = get_cfg('ws_mode');
-                                        if ('tutorial' == mode) {
-                                            wepsim_notify_success('<strong>INFO</strong>',
-                                                       'Tutorial mode on. Use the configuration to change it.');
-                                        }
-                                        wepsim_execute_toggle_play('#qbp', (mode == 'tutorial'));
-                                        return false;"><b>Run</b></button>
+			    <button          style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
+		                    class="btn btn-light ui-shadow ui-icon-reset    ui-btn-icon-right col" data-role="none"
+			            onclick="wepsim_execute_reset(true, true);"><b>Reset</b></button>
+			    <button id="nm1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
+		                    class="btn btn-light ui-shadow ui-icon-arrow-r  ui-btn-icon-right col"  data-role="none"
+			            onclick="wepsim_execute_microinstruction();"><b>&#181;Instruction</b></button>
+			    <button id="ni1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
+		                    class="btn btn-light ui-shadow ui-icon-arrow-r  ui-btn-icon-right col"  data-role="none"
+			            onclick="wepsim_execute_instruction();"><b>Instruction</b></button>
+			    <button id="qbp" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
+		                    class="btn btn-light ui-shadow ui-icon-carat-r  ui-btn-icon-right col"  data-role="none"
+                                    onclick="var mode = get_cfg('ws_mode');
+                                             if ('tutorial' == mode) {
+                                                 wepsim_notify_success('<strong>INFO</strong>',
+                                                            'Tutorial mode on. Use the configuration to change it.');
+                                             }
+                                             wepsim_execute_toggle_play('#qbp', (mode == 'tutorial'));
+                                             return false;"><b>Run</b></button>
                     </div>
                     </div>
 
@@ -399,8 +399,7 @@
                     <div class="btn-toolbar btn-block" role="toolbar">
 		          <button class="btn btn-light ui-shadow col" data-role="none"
 		                  style="border-color: #CCCCCC;"
-		                  onclick="wepsim_dialog_current_state();"><span class="d-block d-sm-none ui-icon-grid ui-btn-icon-notext"></span>
-					                                   <span class="d-none  d-sm-block"><c>States</c></span></button>
+		                  onclick="wepsim_dialog_current_state();"><c>States</c></span></button>
                           <select class="custom-select btn btn-light ui-shadow col"
                                   style="border-color: #CCCCCC;"
 				  name="select5a" id="select5a" 
@@ -429,8 +428,7 @@
 				           $('#tab' + val).trigger('click');
 				           if ('11' == val)
 					        show_rf_values();
-				           else show_memories_values();"><span class="d-block d-sm-none ui-icon-refresh ui-btn-icon-notext"></span>
-					                                 <span class="d-none  d-sm-block">Refresh</span></button>
+				           else show_memories_values();"><c>Refresh</c></button>
                     </div>
                     </div>
 
