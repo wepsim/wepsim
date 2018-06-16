@@ -551,7 +551,7 @@
 		</div>
 
                 <div class="container col-12" role="none">
-		<div class="btn-toolbar"    role="toolbar" aria-label="MicroCode Toolbar">
+		<div class="btn-toolbar"      role="toolbar" aria-label="MicroCode Toolbar">
 
                       <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">
 		            <button class="btn btn-light ui-shadow col" data-role="none"
@@ -568,12 +568,14 @@
 		      </div>
 
                       <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">
-		            <a      href="#lsload" class="btn btn-light ui-shadow col" data-role="none"
+		            <a      href="#lsload" 
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				    data-rel="popup" data-position-to="window" data-transition="pop"><b>Load</b></a>
-		            <a      href="#lssave" class="btn btn-light ui-shadow col" data-role="none"
+				    class="btn ui-btn ui-btn-a ui-mini ui-shadow"
+				    data-rel="popup" data-position-to="window" data-transition="pop">Load</a>
+		            <a      href="#lssave" 
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				    data-rel="popup" data-position-to="window" data-transition="pop"><b>Save</b></a>
+				    class="btn ui-btn ui-btn-a ui-mini ui-shadow"
+				    data-rel="popup" data-position-to="window" data-transition="pop">Save</a>
 		      </div>
 
                       <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">
@@ -674,38 +676,54 @@
 		</div>
 
                 <div class="container col-12" role="none">
-                <div class="row-justify" role="none">
-		            <a href="#lsload2" style="background-color: #CCCCCC"
-				   class="btn ui-btn ui-btn-a ui-mini"
-				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Load</a>
-		            <a href="#lssave2" style="background-color: #CCCCCC"
-				   class="btn ui-btn ui-btn-a ui-mini"
-				   data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Save</a>
-		            <a href="#" style="background-color: #CCCCCC"
-				   class="btn ui-btn ui-btn-a ui-mini"
-				   data-transition="none" data-inline="true"
-				   onclick="var textToCompile = inputasm.getValue() ;
-                                            var ok = wepsim_compile_assembly(textToCompile);">Compile</a>
+		<div class="btn-toolbar"      role="toolbar" aria-label="MicroCode Toolbar">
 
-		            <a href="#" style="background-color: #DDDDDD"
-				   class="btn ui-btn ui-btn-a ui-mini"
-				   onclick="var textToCompile = inputasm.getValue();
-                                            var ok = wepsim_compile_assembly(textToCompile);
-                                            if (true == ok) {
-                                                wepsim_show_binary_code('#bin2','#compile_results');
-                                            }">Show Main Memory</a>
-                            <a href="#" style="background-color: #D4DB17"
-                                   class="btn ui-btn ui-btn-a ui-mini"
-				   onclick="wepsim_help_set_relative('#help_assembly_format'); wepsim_help_refresh();">Help</a>
+                      <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">
+		            <button class="btn btn-light ui-shadow col" data-role="none"
+		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+                                    data-toggle="modal" data-target="#config2"><b><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></b></button>
+		            <button class="btn btn-light ui-shadow col" data-role="none"
+		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+				    data-transition="none" data-inline="true"
+				    onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"><b>MicroCode</b></button>
+		            <button class="btn btn-light ui-shadow col" data-role="none"
+		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+				    data-transition="none" data-inline="true"
+				    onclick="$.mobile.pageContainer.pagecontainer('change','#main1');"><b>Simulator</b></button>
+		      </div>
 
-		            <a href="#" style="background-color: #DDDDDD"
-				   class="btn ui-btn ui-btn-a  ui-mini offset-2"
-				   data-transition="none" data-inline="true"
-				   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');">MicroCode</a>
-		            <a href="#" style="background-color: #DDDDDD"
-				   class="btn ui-btn ui-btn-a  ui-mini"
-				   data-transition="none" data-inline="true"
-				   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a>
+                      <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">
+		            <a      href="#lsload2" 
+		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+				    class="btn ui-btn ui-btn-a ui-mini ui-shadow"
+				    data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Load</a>
+		            <a      href="#lssave2" 
+		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+				    class="btn ui-btn ui-btn-a ui-mini ui-shadow"
+				    data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Save</a>
+		      </div>
+
+                      <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">
+		            <button style="background-color: #CCCCCC"
+		                    class="btn btn-light ui-shadow col" data-role="none"
+				    data-transition="none" data-inline="true"
+				    onclick="var textToCompile = inputasm.getValue() ;
+                                             var ok = wepsim_compile_assembly(textToCompile);"><b>Compile</b></button>
+		            <button style="background-color: #DDDDDD"
+		                    class="btn btn-light ui-shadow col" data-role="none"
+				    onclick="var textToCompile = inputasm.getValue();
+                                             var ok = wepsim_compile_assembly(textToCompile);
+                                             if (true == ok) {
+                                                 wepsim_show_binary_code('#bin2','#compile_results');
+                                             }"><b>Show Main Memory</b></button>
+		      </div>
+
+                      <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">
+                            <button style="background-color: #D4DB17"
+		                    class="btn btn-light ui-shadow col" data-role="none"
+				    onclick="wepsim_help_set_relative('#help_assembly_format'); wepsim_help_refresh();"><b>Help</b></button>
+		      </div>
+
 		</div>
 		</div>
 
