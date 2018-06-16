@@ -186,7 +186,7 @@
 
                     <div class="col-sm">
                     <div class="row">
-		        <button class="btn btn-light ui-shadow col" data-role="none"
+		        <button class="btn btn-light ui-shadow col mr-2" data-role="none"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                 data-toggle="modal" data-target="#confighw"><b><span class="d-none d-sm-inline-flex"
 				>Hw. cfg.</span><span class="d-sm-none">Hw.cfg.</span></b></button>
@@ -198,7 +198,7 @@
 			        onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				><b><span class="d-none d-sm-inline-flex">MicroCode</span><span class="d-sm-none">&#181;code</span></b></button>
-		        <button class="btn btn-light ui-shadow col" data-role="none"
+		        <button class="btn btn-light ui-shadow col mr-2" data-role="none"
 			        onclick="$.mobile.pageContainer.pagecontainer('change','#main4');"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				><b><span class="d-none d-sm-inline-flex">Assembly</span><span class="d-sm-none">Asm.</span></b></button>
@@ -375,23 +375,23 @@
                     <div class="row" style="padding:8px 16px 0px 8px;">
                     <div class="btn-toolbar btn-block" role="toolbar">
 			    <button          style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-		                    class="btn btn-light ui-shadow ui-icon-reset    ui-btn-icon-right col" data-role="none"
-			            onclick="wepsim_execute_reset(true, true);"><b>Reset</b></button>
+		                    class="btn btn-light ui-shadow ui-icon-reset    ui-btn-icon-top col" data-role="none"
+			            onclick="wepsim_execute_reset(true, true);"><b><br>Reset</b></button>
 			    <button id="nm1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-		                    class="btn btn-light ui-shadow ui-icon-arrow-r  ui-btn-icon-right col"  data-role="none"
-			            onclick="wepsim_execute_microinstruction();"><b>&#181;Instruction</b></button>
+		                    class="btn btn-light ui-shadow ui-icon-arrow-r  ui-btn-icon-top col"  data-role="none"
+			            onclick="wepsim_execute_microinstruction();"><b><br>&#181;Instruction</b></button>
 			    <button id="ni1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-		                    class="btn btn-light ui-shadow ui-icon-arrow-r  ui-btn-icon-right col"  data-role="none"
-			            onclick="wepsim_execute_instruction();"><b>Instruction</b></button>
+		                    class="btn btn-light ui-shadow ui-icon-arrow-r  ui-btn-icon-top col"  data-role="none"
+			            onclick="wepsim_execute_instruction();"><b><br>Instruction</b></button>
 			    <button id="qbp" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-		                    class="btn btn-light ui-shadow ui-icon-carat-r  ui-btn-icon-right col"  data-role="none"
+		                    class="btn btn-light ui-shadow ui-icon-carat-r  ui-btn-icon-top col"  data-role="none"
                                     onclick="var mode = get_cfg('ws_mode');
                                              if ('tutorial' == mode) {
                                                  wepsim_notify_success('<strong>INFO</strong>',
                                                             'Tutorial mode on. Use the configuration to change it.');
                                              }
                                              wepsim_execute_toggle_play('#qbp', (mode == 'tutorial'));
-                                             return false;"><b>Run</b></button>
+                                             return false;"><b><br>Run</b></button>
                     </div>
                     </div>
 
