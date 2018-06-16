@@ -188,24 +188,26 @@
                     <div class="row">
 		        <button class="btn btn-light ui-shadow col" data-role="none"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-                                data-toggle="modal" data-target="#confighw"><c><span class="d-none d-sm-inline-flex"
-				>Hw. cfg.</span><span class="d-sm-none">Hcfg.</span></c></button>
+                                data-toggle="modal" data-target="#confighw"><b><span class="d-none d-sm-inline-flex"
+				>Hw. cfg.</span><span class="d-sm-none">Hw.cfg.</span></b></button>
 		        <button class="btn btn-light ui-shadow col" data-role="none"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-                                data-toggle="modal" data-target="#config2"><c><span class="d-none d-sm-inline-flex"
-				>Configuration</span><span class="d-sm-none">Cfg.</span></c></button>
+                                data-toggle="modal" data-target="#config2"><b><span class="d-none d-sm-inline-flex"
+				>Configuration</span><span class="d-sm-none">Cfg.</span></b></button>
 		        <button class="btn btn-light ui-shadow col" data-role="none"
 			        onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				><c><span class="d-none d-sm-inline-flex">MicroCode</span><span class="d-sm-none">&#181;code</span></c></button>
+				><b><span class="d-none d-sm-inline-flex">MicroCode</span><span class="d-sm-none">&#181;code</span></b></button>
 		        <button class="btn btn-light ui-shadow col" data-role="none"
 			        onclick="$.mobile.pageContainer.pagecontainer('change','#main4');"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				><c><span class="d-none d-sm-inline-flex">Assembly</span><span class="d-sm-none">Asm.</span></c></button>
+				><b><span class="d-none d-sm-inline-flex">Assembly</span><span class="d-sm-none">Asm.</span></b></button>
+
+			<div class="w-100 d-block d-sm-none"></div>
 
 		        <button class="btn btn-light ui-shadow col" data-role="none"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-                                onclick="wepsim_open_examples_index();">Examples</button>
+                                onclick="wepsim_open_examples_index();"><b>Examples</b></button>
 		        <button class="btn btn-light ui-shadow col" data-role="none"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color:#D4DB17; 
                                        background-color:#D4DB17;"
@@ -368,34 +370,38 @@
 	    	    </div>
                 </div>
 
-                <div id="col2" class="" style="padding:16px 16px 0px 0px;">
+                <div id="col2" class="" style="padding:0px 16px 0px 16px;">
 
-                    <div class="btn-group col-12" role="group">
-			    <a          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-			       class="btn ui-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-reset   ui-btn-icon-right ui-mini no-text-shadow col-sm"
-			       onclick="wepsim_execute_reset(true, true);">Reset</a>
-			    <a id="nm1" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-			       class="btn ui-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-right ui-mini no-text-shadow col-sm"
-			       onclick="wepsim_execute_microinstruction();">&#181;Instruction</a>
-			    <a id="ni1" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-			       class="btn ui-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-arrow-r ui-btn-icon-right ui-mini no-text-shadow col-sm"
-			       onclick="wepsim_execute_instruction();">Instruction</a>
-			    <a id="qbp" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-			       class="btn ui-btn ui-corner-all ui-btn-inline ui-btn-a ui-icon-carat-r ui-btn-icon-right ui-mini no-text-shadow col-sm"
+                    <div class="row" style="padding:8px 16px 0px 8px;">
+                    <div class="btn-toolbar btn-block" role="toolbar">
+			    <button          href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
+		               class="btn btn-light ui-shadow ui-icon-reset    ui-btn-icon-right col"
+			       onclick="wepsim_execute_reset(true, true);"><b>Reset</b></button>
+			    <button id="nm1" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
+		               class="btn btn-light ui-shadow ui-icon-arrow-r  ui-btn-icon-right col" 
+			       onclick="wepsim_execute_microinstruction();"><b>&#181;Instruction</b></button>
+			    <button id="ni1" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
+		               class="btn btn-light ui-shadow ui-icon-arrow-r  ui-btn-icon-right col" 
+			       onclick="wepsim_execute_instruction();"><b>Instruction</b></button>
+			    <button id="qbp" href="#" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
+		               class="btn btn-light ui-shadow ui-icon-carat-r  ui-btn-icon-right col" 
                                onclick="var mode = get_cfg('ws_mode');
                                         if ('tutorial' == mode) {
                                             wepsim_notify_success('<strong>INFO</strong>',
                                                        'Tutorial mode on. Use the configuration to change it.');
                                         }
                                         wepsim_execute_toggle_play('#qbp', (mode == 'tutorial'));
-                                        return false;">Run</a>
+                                        return false;"><b>Run</b></button>
+                    </div>
                     </div>
 
-                    <div class="btn-group col-12" role="group">
-		          <button class="btn btn-secondary ui-shadow ui-corner-all col"
-		                  style="border-color: #CCCCCC; border-width:1 1 1 1px; margin:0 0 0 0;"
-		                  onclick="wepsim_dialog_current_state();"><c><span class="d-none d-sm-inline-flex">States</span><span class="d-sm-none">S.M.</span></c></button>
-                          <select class="custom-select ui-shadow col-7"
+                    <div class="row" style="padding:3px 16px 0px 8px;">
+                    <div class="btn-toolbar btn-block" role="toolbar">
+		          <button class="btn btn-light ui-shadow col" data-role="none"
+		                  style="border-color: #CCCCCC;"
+		                  onclick="wepsim_dialog_current_state();"><span class="d-block d-sm-none ui-icon-grid ui-btn-icon-notext"></span>
+					                                   <span class="d-none  d-sm-block"><c>States</c></span></button>
+                          <select class="custom-select btn btn-light ui-shadow col"
                                   style="border-color: #CCCCCC;"
 				  name="select5a" id="select5a" 
 				  data-role="none" 
@@ -417,13 +423,15 @@
                                       <option value="15"><div class="bg-primary text-white">Dev</div> - I/O Stats</a></option>
 				  </optgroup>
 			  </select>
-		          <button class="btn btn-light ui-shadow ui-corner-all col" data-role="none"
+		          <button class="btn btn-light ui-shadow col" data-role="none"
                                   style="border-color: #CCCCCC;"
                                   onclick="var val = $('#select5a').val();
 				           $('#tab' + val).trigger('click');
 				           if ('11' == val)
 					        show_rf_values();
-				           else show_memories_values();"><c>Refresh</c></button>
+				           else show_memories_values();"><span class="d-block d-sm-none ui-icon-refresh ui-btn-icon-notext"></span>
+					                                 <span class="d-none  d-sm-block">Refresh</span></button>
+                    </div>
                     </div>
 
 		    <div data-role="tabs" id="tabs1">
