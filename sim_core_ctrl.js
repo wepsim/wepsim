@@ -638,7 +638,7 @@
                                         '           type="button" class="btn btn-info">Value</button>' +
                                         '   <button onclick="$(\'#bot_signal\').carousel(1); update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());" ' +
                                         '           type="button" class="btn btn-success">Help</button>' +
-                                        '   <button type="button" class="btn btn-success dropdown-toggle" ' +
+                                        '   <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" ' +
                                         '           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                                         '     <span class="caret"></span>' +
                                         '     <span class="sr-only">Toggle Help Idiom</span>' +
