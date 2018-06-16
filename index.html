@@ -551,47 +551,61 @@
 		</div>
 
                 <div class="container col-12" role="none">
-                <div class="row-justify" role="none">
-		            <a href="#lsload" style="background-color: #CCCCCC"
-				   class="btn ui-btn ui-btn-a ui-mini"
-				   data-rel="popup" data-position-to="window" data-transition="pop">Load</a>
-		            <a href="#lssave" style="background-color: #CCCCCC"
-				   class="btn ui-btn ui-btn-a ui-mini"
-				   data-rel="popup" data-position-to="window" data-transition="pop">Save</a>
-		            <a href="#"       style="background-color: #CCCCCC"
-				   class="btn ui-btn ui-btn-a ui-mini"
-				   data-transition="none" data-inline="true"
-				   onclick="var textToMCompile = inputfirm.getValue();
-                                            wepsim_compile_firmware(textToMCompile);
-                                            $('#asm_debugger').html('<br>After updates on the microcode, assembler has to be compiled against it.');">&#181;compile</a>
+		<div class="btn-toolbar"    role="toolbar" aria-label="MicroCode Toolbar">
 
-		            <a href="#" style="background-color: #DDDDDD"
-				   class="btn ui-btn ui-btn-a ui-mini"
-				   onclick="var textToMCompile = inputfirm.getValue();
-                                            var ok = wepsim_compile_firmware(textToMCompile);
-                                            if (true == ok) {
-                                                wepsim_show_binary_microcode('#bin2','#compile_results');
-			                        wepsim_notify_success('<strong>INFO</strong>', 'Please remember to recompile the assembly code if needed.');
-                                            }">Show co2&#181;addr + control memory</a>
+                      <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">
+		            <button class="btn btn-light ui-shadow col" data-role="none"
+		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+                                    data-toggle="modal" data-target="#config2"><b><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></b></button>
+		            <button class="btn btn-light ui-shadow col" data-role="none"
+		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+				    data-transition="none" data-inline="true"
+				    onclick="$.mobile.pageContainer.pagecontainer('change','#main4');"><b>Assembly</b></button>
+		            <button class="btn btn-light ui-shadow col" data-role="none"
+		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+				    data-transition="none" data-inline="true"
+				    onclick="$.mobile.pageContainer.pagecontainer('change','#main1');"><b>Simulator</b></button>
+		      </div>
 
-                            <a href="#" style="background-color: #D4DB17"
-                                   class="btn ui-btn ui-btn-a ui-mini"
-                                   onclick="wepsim_open_help_content('<object id=svg_p2 data=\'images/cpu6.svg?time=20180108\' type=image/svg+xml>Your browser does not support SVG</object>');"
-                                   >Hardware Summary</a>
+                      <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">
+		            <a      href="#lsload" class="btn btn-light ui-shadow col" data-role="none"
+		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+				    data-rel="popup" data-position-to="window" data-transition="pop"><b>Load</b></a>
+		            <a      href="#lssave" class="btn btn-light ui-shadow col" data-role="none"
+		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+				    data-rel="popup" data-position-to="window" data-transition="pop"><b>Save</b></a>
+		      </div>
 
-                            <a href="#" style="background-color: #D4DB17"
-                                   class="btn ui-btn ui-btn-a ui-mini"
-				   onclick="wepsim_help_set_relative('#help_firmware_format'); wepsim_help_refresh();"
-                                   >Help</a>
+                      <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">
+		            <button style="background-color: #CCCCCC"
+		                    class="btn btn-light ui-shadow col" data-role="none"
+				    data-transition="none" data-inline="true"
+				    onclick="var textToMCompile = inputfirm.getValue();
+                                             wepsim_compile_firmware(textToMCompile);
+				 	     $('#asm_debugger').html('<br>After updates on the microcode, assembler has to be compiled against it.');"><b>&#181;compile</b></button>
+		            <button style="background-color: #DDDDDD"
+		                    class="btn btn-light ui-shadow col" data-role="none"
+				    onclick="var textToMCompile = inputfirm.getValue();
+                                             var ok = wepsim_compile_firmware(textToMCompile);
+                                             if (true == ok) {
+                                                 wepsim_show_binary_microcode('#bin2','#compile_results');
+			                         wepsim_notify_success('<strong>INFO</strong>', 'Please remember to recompile the assembly code if needed.');
+                                             }">
+                                             <b><span class="d-none d-sm-inline-flex">Show co2&#181;addr + control memory</span><span class="d-sm-none">co2&#181;addr + c.m.</span></b>
+			                     </button>
+		      </div>
 
-		            <a href="#"       style="background-color: #DDDDDD"
-				   class="btn ui-btn ui-btn-a  ui-mini"
-				   data-transition="none" data-inline="true"
-				   onclick="$.mobile.pageContainer.pagecontainer('change','#main4');">Assembler</a>
-		            <a href="#"       style="background-color: #DDDDDD"
-				   class="btn ui-btn ui-btn-a  ui-mini"
-				   data-transition="none" data-inline="true"
-				   onclick="$.mobile.pageContainer.pagecontainer('change','#main1');">Simulator</a>
+                      <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">
+                            <button style="background-color: #D4DB17"
+		                    class="btn btn-light ui-shadow col" data-role="none"
+                                    onclick="wepsim_open_help_content('<object id=svg_p2 data=\'images/cpu6.svg?time=20180108\' type=image/svg+xml>Your browser does not support SVG</object>');"
+				    ><b>Hardware Summary</b></button>
+                            <button style="background-color: #D4DB17"
+		                    class="btn btn-light ui-shadow col" data-role="none"
+				    onclick="wepsim_help_set_relative('#help_firmware_format'); wepsim_help_refresh();"
+				    ><b>Help</b></button>
+		      </div>
+
 		</div>
 		</div>
 
@@ -687,7 +701,7 @@
 		            <a href="#" style="background-color: #DDDDDD"
 				   class="btn ui-btn ui-btn-a  ui-mini offset-2"
 				   data-transition="none" data-inline="true"
-				   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');">Microcode</a>
+				   onclick="$.mobile.pageContainer.pagecontainer('change','#main3');">MicroCode</a>
 		            <a href="#" style="background-color: #DDDDDD"
 				   class="btn ui-btn ui-btn-a  ui-mini"
 				   data-transition="none" data-inline="true"
