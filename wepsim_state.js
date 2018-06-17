@@ -146,7 +146,7 @@
                    '                     var txt_chklst2 = $(\'#ta_state_'+i+'\').val();' +
                    '                     var obj_exp2    = wepsim_checklist2state(txt_chklst2);' +
                    '                     wepsim_dialog_check_state(\'check_results1\', obj_exp1, obj_exp2);"' +
-                   '         type="button">Check <span class="d-none d-sm-inline-flex">differences with clipboard state</span></button>' +
+                   '         type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>' +
                    '  </div>' +
                    '  <div id="collapse_' + i + '" class="collapse">' +
                    '    <div class="card-body">' + 
@@ -431,8 +431,8 @@
              "<tr>" +
              "<th>Type</th>" +
              "<th><span class='d-none d-sm-inline-flex'>Identification</span><span class='d-sm-none'>Id.</span></th>" +
-             "<th><span class='d-none d-sm-inline-flex'>Values in the </span>clipboard<span class='d-none d-sm-inline-flex'> state</th>" +
-             "<th><span class='d-none d-sm-inline-flex'>Values in the </span>selected<span class='d-none d-sm-inline-flex'> state</th>" +
+             "<th><span class='d-none d-sm-inline-flex'>Values in the</span> clipboard <span class='d-none d-sm-inline-flex'>state</th>" +
+             "<th><span class='d-none d-sm-inline-flex'>Values in the</span> selected <span class='d-none d-sm-inline-flex'>state</th>" +
              "</tr>" +
              "</thead>" +
              "<tbody>" ;
