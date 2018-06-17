@@ -115,8 +115,8 @@
 
     function table_examples_html ( examples )
     {
-       var o = '<div class="table-responsive">' +
-               '<table width=100% class="table table-striped table-hover table-sm">' +
+       var o = '<div class="table-responsive" style="min-width:720px;">' +
+               '<table class="table table-striped table-hover table-sm">' +
                '<thead>' +
                '<tr>' +
                '  <th>#</th>' +
