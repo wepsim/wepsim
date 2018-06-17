@@ -384,9 +384,9 @@
             var o1_rn = "" ;
 	    for (var index=0; index < sim_states['BR'].length; index++)
             {
-                 o1_rn = "R" + index ;
+		 o1_rn = "R"  + index ;
                  if (index < 10)
-                     o1_rn = o1_rn + "&nbsp;" ;
+                     o1_rn = o1_rn + '<span style="opacity: 0.0;">_</span>' ;
 
 		 o1_rf += "<div class='col' style='padding:0 2px 0 2px !important; margin:1px 5px 1px 2px;'>" +
                           "<button type='button' class='btn btn-outline-primary no-text-shadow' " + 
@@ -462,9 +462,9 @@
             var br_value = "" ;
 	    for (var index=0; index < sim_states['BR'].length; index++)
             {
+		 br_value = "R"  + index ;
                  if (index < 10)
-                      br_value = "&nbsp;R" + index ;
-                 else br_value = "R" + index ;
+                     br_value = br_value + '<span style="opacity: 0.0;">_</span>' ;
 
 	         if ('logical' == get_cfg('RF_display_name'))
 		     if (typeof SIMWARE['registers'][index] != "undefined")
@@ -500,7 +500,7 @@
                         showkey = part1 + '<span class="d-none d-sm-inline-flex">' + part2 + '</span>' ;
 
 		    if (showkey.length < 3)
-			showkey = showkey + "&nbsp;" ;
+			showkey = showkey + '<span style="opacity: 0.0;">_</span>' ;
 	        }
 
                 var b = filter[i].split(",")[1] ;
