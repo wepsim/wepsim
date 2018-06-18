@@ -20,35 +20,8 @@
 
 
         /*
-         *  Components
-         */
-
-        var sim_components = {} ;
-
-
-        /*
-         *  States
-         */
-
-        var sim_states = {} ;
-        var sim_events = {} ;
-
-        var io_hash    = {} ;
-
-
-        /*
-         *  Signals
-         */
-
-        var sim_signals = {} ;
-        var fire_stack  = [] ;
-
-
-        /*
          *  Syntax of behaviors
          */
-
-        var syntax_behavior = {} ;
 
         // Print Signal
         syntax_behavior.PRINT_S = { nparameters: 2,

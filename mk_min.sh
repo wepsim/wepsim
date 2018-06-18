@@ -2,15 +2,22 @@
 set -x
 
 # 
-#  hardware + simulator
+#  EP hardware 
 # 
-cat sim_cfg.js \
+cat sim_ep/sim_ep.js \
     sim_ep/sim_hw_board.js \
     sim_ep/sim_hw_cpu.js \
     sim_ep/sim_hw_mem.js \
     sim_ep/sim_hw_io.js \
     sim_ep/sim_hw_kbd.js \
-    sim_ep/sim_hw_scr.js \
+    sim_ep/sim_hw_scr.js > sim_ep.js
+/usr/bin/yui-compressor -o min.sim_ep.js sim_ep.js
+rm -fr sim_ep.js
+
+# 
+#  Simulator
+# 
+cat sim_cfg.js \
     sim_lang.js \
     sim_lang_firm.js \
     sim_lang_asm.js \
@@ -21,7 +28,7 @@ cat sim_cfg.js \
 rm -fr sim_all.js
 
 # 
-#  wepsim engine + information
+#  WepSIM engine + information
 # 
 cat wepsim_example.js \
     wepsim_help.js \
