@@ -50,3 +50,21 @@
 
         var syntax_behavior = {} ;
 
+
+        /*
+         *  Elemental Processor
+         */
+
+        simhw_add({
+                      _name:            "Elemental Processor",
+                      _img_processor:   "sim_ep/processor6.svg",
+                      _img_controlunit: "sim_ep/controlunit6.svg",
+                      components:       sim_components,
+                      states:           sim_states,
+                      events:           sim_events,
+                      signals:          sim_signals,
+                      behaviors:        syntax_behavior,
+                      _io_hash:         io_hash,
+                      _fire_stack:      fire_stack
+	          }) ;
+

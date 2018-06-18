@@ -4,15 +4,16 @@ set -x
 # 
 #  EP hardware 
 # 
-cat sim_ep/sim_ep.js \
+cat sim_hw_index.js \
+    sim_ep/sim_ep.js \
     sim_ep/sim_hw_board.js \
     sim_ep/sim_hw_cpu.js \
     sim_ep/sim_hw_mem.js \
     sim_ep/sim_hw_io.js \
     sim_ep/sim_hw_kbd.js \
-    sim_ep/sim_hw_scr.js > sim_ep.js
-/usr/bin/yui-compressor -o min.sim_ep.js sim_ep.js
-rm -fr sim_ep.js
+    sim_ep/sim_hw_scr.js > sim_hw.js
+/usr/bin/yui-compressor -o min.sim_hw.js sim_hw.js
+rm -fr sim_hw.js
 
 # 
 #  Simulator
