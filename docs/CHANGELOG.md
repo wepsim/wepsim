@@ -3,6 +3,7 @@
 * Update bootstrap 3.x -> 4.1
 * Add a new toolbar (with 'menu' options)
 * The 'menu' has been reworked
+* Clarify the modularity of the Elemental Processor simulated
 
 1.8.6 -> 1.8.7:
 * Code refactoring
