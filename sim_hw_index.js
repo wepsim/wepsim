@@ -20,7 +20,7 @@
 
 
         /*
-         *  Simulated Hardware
+         *  Simulated Hardware: add & active
          */
 
         var sim = {
@@ -50,8 +50,28 @@
 	    }
         }
 
-        function sim_hw ( )
+
+        /*
+         *  Simulated Hardware: getter/setter
+         */
+
+        function simhw_active ( )
         {
             return sim.active ;
+        }
+
+        function simhw_sim_signals ( )
+        {
+            return sim.active.signals ;
+        }
+
+        function simhw_sim_states ( )
+        {
+            return sim.active.states ;
+        }
+
+        function simhw_syntax_behaviors ( )
+        {
+            return sim.active.behaviors ;
         }
 

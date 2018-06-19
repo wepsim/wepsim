@@ -82,7 +82,7 @@
 	    var draw_it = get_cfg('is_byvalue'); // 'is_byvalue' belongs to the sim_cfg.js
 
             /* 1) Check if draw it */
-	    if (typeof sim_states["REG_MICROINS"].value[obj.name] != "undefined") {
+	    if (typeof simhw_sim_states()["REG_MICROINS"].value[obj.name] != "undefined") {
 		draw_it = true;
 	    }
 
@@ -91,7 +91,7 @@
 		for (var k=0; k<obj.depends_on.length; k++)
 		{
 		     var sname = obj.depends_on[k] ;
-		     if (typeof sim_states["REG_MICROINS"].value[sname] != "undefined") {
+		     if (typeof simhw_sim_states()["REG_MICROINS"].value[sname] != "undefined") {
 			     draw_it = true;
 			     break;
 		     }
@@ -186,13 +186,13 @@
 
         function refresh()
         {
-	    for (var key in sim_signals) 
+	    for (var key in simhw_sim_signals()) 
 	    {
-		 update_draw(sim_signals[key], sim_signals[key].value) ;
+		 update_draw(simhw_sim_signals()[key], simhw_sim_signals()[key].value) ;
                  check_buses(key);
 	    }
 
-	    show_dbg_ir(get_value(sim_states['REG_IR_DECO'])) ;
+	    show_dbg_ir(get_value(simhw_sim_states()['REG_IR_DECO'])) ;
         }
 
 
@@ -310,21 +310,21 @@
         {
 	      var new_value = parseInt($("#popover1")[0].value) ;
 
-              if (typeof sim_states["BR"][index] != "undefined")
+              if (typeof simhw_sim_states()["BR"][index] != "undefined")
               {
-	          set_value(sim_states["BR"][index], new_value) ;
+	          set_value(simhw_sim_states()["BR"][index], new_value) ;
 	          fullshow_rf_values() ;
                   $("#rf" + index).click() ;
                   $("#rf" + index).click() ;
               }
 
-              if (typeof sim_states[index] != "undefined")
+              if (typeof simhw_sim_states()[index] != "undefined")
               {
-                  if (1 == sim_states[index].nbits)
+                  if (1 == simhw_sim_states()[index].nbits)
                       new_value = new_value % 2;
 
-	          set_value(sim_states[index], new_value) ;
-                  fullshow_eltos(sim_states, filter_states);
+	          set_value(simhw_sim_states()[index], new_value) ;
+                  fullshow_eltos(simhw_sim_states(), filter_states);
                   $("#rp" + index).click() ;
                   $("#rp" + index).click() ;
               }
@@ -382,7 +382,7 @@
 
             var o1_rf = "" ;
             var o1_rn = "" ;
-	    for (var index=0; index < sim_states['BR'].length; index++)
+	    for (var index=0; index < simhw_sim_states()['BR'].length; index++)
             {
 		 o1_rn = "R"  + index ;
                  if (index < 10)
@@ -395,7 +395,7 @@
                           "        id='rf" + index + "'>" +
                           "  <span id='name_RF" + index + "' style='float:center; padding:0 0 0 0'>" + o1_rn + "</span>" +
                           "  <span class='badge badge-secondary' style='background-color:#CEECF5; color:black;' id='tbl_RF"  + index + "'>" +
-                          (get_value(sim_states['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() +
+                          (get_value(simhw_sim_states()['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() +
                           "  </span>" +
                           "</button>" +
                           "</div>" ;
@@ -409,7 +409,7 @@
                     animation: false,
 		    content: function() {
 		        var index = $(this).attr("data-popover-content");
-                        var hexvalue = get_value(sim_states['BR'][index]);
+                        var hexvalue = get_value(simhw_sim_states()['BR'][index]);
                         return hex2values(hexvalue, index) ;
 		    },
 		    title: function() {
@@ -429,9 +429,9 @@
 
             var SIMWARE = get_simware() ;
 
-	    for (var index=0; index < sim_states['BR'].length; index++)
+	    for (var index=0; index < simhw_sim_states()['BR'].length; index++)
             {
-                 var br_value = (get_value(sim_states['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() ;
+                 var br_value = (get_value(simhw_sim_states()['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() ;
                  if (16 == get_cfg('RF_display_format'))
                      br_value = pack8(br_value) ;
 
@@ -460,7 +460,7 @@
             var SIMWARE = get_simware() ;
 
             var br_value = "" ;
-	    for (var index=0; index < sim_states['BR'].length; index++)
+	    for (var index=0; index < simhw_sim_states()['BR'].length; index++)
             {
 		 br_value = "R"  + index ;
                  if (index < 10)
@@ -527,13 +527,13 @@
                     animation: false,
 		    content: function() {
 		        var index = $(this).attr("data-popover-content");
-                        var hexvalue = get_value(sim_states[index]);
+                        var hexvalue = get_value(simhw_sim_states()[index]);
                         return hex2values(hexvalue, index) ;
 		    },
 		    title: function() {
 		        var index = $(this).attr("data-popover-content");
                         var id_button = "&quot;#rp" + index + "&quot;" ;
-		        return '<span class="text-info"><strong>' + sim_states[index].name + '</strong></span>' +
+		        return '<span class="text-info"><strong>' + simhw_sim_states()[index].name + '</strong></span>' +
                                '<button type="button" id="close" class="close" ' +
                                '        onclick="$(' + id_button + ').click();">&times;</button>';
 		    }
@@ -553,7 +553,7 @@
 
                 if (sim_eltos[key].nbits > 1) 
 		{
-                    value = (sim_states[key].value >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() ;
+                    value = (simhw_sim_states()[key].value >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() ;
                     if (16 == get_cfg('RF_display_format'))
                         value = pack8(value) ;
                 }
@@ -588,12 +588,12 @@
 
         function init_states ( jqdiv )
         {
-            return init_eltos(jqdiv, sim_states, filter_states, divclasses ) ;
+            return init_eltos(jqdiv, simhw_sim_states(), filter_states, divclasses ) ;
         }
 
         function show_states ( )
         {
-            return show_eltos(sim_states, filter_states) ;
+            return show_eltos(simhw_sim_states(), filter_states) ;
         }
 
         function ko_observable ( initial_value )
@@ -650,8 +650,8 @@
 	    // without ui
             if (jqdiv == "")
             {       
-		sim_states['CLK'].value      = ko_observable(sim_states['CLK'].value);
-		sim_states['DECO_INS'].value = ko_observable(sim_states['DECO_INS'].value);
+		simhw_sim_states()['CLK'].value      = ko_observable(simhw_sim_states()['CLK'].value);
+		simhw_sim_states()['DECO_INS'].value = ko_observable(simhw_sim_states()['DECO_INS'].value);
 
                 return ;
             }
@@ -676,13 +676,13 @@
             $(jqdiv).html("<div class='row'>" + o1 + "</div>");
 
             // knockout binding
-            sim_states['CLK'].value = ko_observable(sim_states['CLK'].value);
+            simhw_sim_states()['CLK'].value = ko_observable(simhw_sim_states()['CLK'].value);
             var ko_context = document.getElementById('clk_context');
-            ko.applyBindings(sim_states['CLK'], ko_context);
+            ko.applyBindings(simhw_sim_states()['CLK'], ko_context);
 
-            sim_states['DECO_INS'].value = ko_observable(sim_states['DECO_INS'].value);
+            simhw_sim_states()['DECO_INS'].value = ko_observable(simhw_sim_states()['DECO_INS'].value);
             var ko_context = document.getElementById('ins_context');
-            ko.applyBindings(sim_states['DECO_INS'], ko_context);
+            ko.applyBindings(simhw_sim_states()['DECO_INS'], ko_context);
         }
 
         function init_config ( jqdiv )
@@ -1117,7 +1117,7 @@
 		    return ;
 
                 var o1 = null ;
-                var reg_pc    = get_value(sim_states["REG_PC"]) ;
+                var reg_pc    = get_value(simhw_sim_states()["REG_PC"]) ;
                 var curr_addr = "0x" + reg_pc.toString(16) ;
 
                 if (typeof FIRMWARE.assembly[old_addr] != "undefined")
@@ -1188,7 +1188,7 @@
 	{
                 show_control_memory(MC,
                                     MC_dashboard,
-                                    get_value(sim_states['REG_MICROADDR']),
+                                    get_value(simhw_sim_states()['REG_MICROADDR']),
                                     false) ;
 	}
 
@@ -1269,7 +1269,7 @@
 		var contSignals=1;
 		for (var i=0; i<filter.length; i++) {
                      var s = filter[i].split(",")[0] ;
-		     h += "<td align=center style='border-style: solid; border-width:1px;'><small><b>" + sim_signals[s].name + "</b></small></td>";
+		     h += "<td align=center style='border-style: solid; border-width:1px;'><small><b>" + simhw_sim_signals()[s].name + "</b></small></td>";
 		     contSignals++;
 		}
 		h += "</tr>" ;
@@ -1314,7 +1314,7 @@
 			 {
                               var s = filter[k].split(",")[0] ;
 
-			      var svalue = parseInt(sim_signals[s].default_value);
+			      var svalue = parseInt(simhw_sim_signals()[s].default_value);
                               var newval = false;
 			      if ( (typeof mins[s] != "undefined") && (!isNaN(parseInt(mins[s]))) )
                               {
@@ -1344,7 +1344,7 @@
                               if (showBinary)
                               {
 			          var fragment = svalue.toString(2) ;
-			          var nbits    = parseInt(sim_signals[s].nbits);
+			          var nbits    = parseInt(simhw_sim_signals()[s].nbits);
 			          svalue = "00000000000000000000000000000000".substring(0, nbits - fragment.length) + fragment;
 
                                   var ngreen = filter[k].split(",")[1] ;
@@ -1615,7 +1615,7 @@
             var tmp_hash  = new Object();
             var tmp_nodes = new Array();
             var tmp_id    = 0;
-            for (var sig in sim_signals)
+            for (var sig in simhw_sim_signals())
             {
                  tmp_hash[sig] = tmp_id ;
                  tmp_nodes.push({id: tmp_id, 
@@ -1629,7 +1629,7 @@
 	    var jit_dep_nodes = new vis.DataSet(tmp_nodes) ;
 
             var tmp_edges = new Array();
-            for (var sig in sim_signals) {
+            for (var sig in simhw_sim_signals()) {
                 for (var sigorg in jit_fire_dep[sig]) {
                      tmp_edges.push({from: tmp_hash[sigorg], 
                                      to: tmp_hash[sig], 
