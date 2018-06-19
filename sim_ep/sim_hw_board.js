@@ -24,20 +24,20 @@
          */
 
         // Print Signal
-        syntax_behavior.PRINT_S = { nparameters: 2,
-                                       types: ["S"],
-                                       operation: function(s_expr)
-                                                  {
-                                                      console.log(s_expr[1] + ': 0x' + sim_signals[s_expr[1]].value.toString(16));
-                                                  }
-                                     };
+        ep_behaviors.PRINT_S = { nparameters: 2,
+                                 types: ["S"],
+                                 operation: function(s_expr)
+                                            {
+                                                 console.log(s_expr[1] + ': 0x' + ep_signals[s_expr[1]].value.toString(16));
+                                            }
+                               };
 
         // Print State
-        syntax_behavior.PRINT_E = { nparameters: 2,
-                                       types: ["E"],
-                                       operation: function(s_expr)
-                                                  {
-                                                      console.log(s_expr[1] + ': 0x' + sim_states[s_expr[1]].value.toString(16));
-                                                  }
-                                     };
+        ep_behaviors.PRINT_E = { nparameters: 2,
+                                 types: ["E"],
+                                 operation: function(s_expr)
+                                            {
+                                                 console.log(s_expr[1] + ': 0x' + ep_states[s_expr[1]].value.toString(16));
+                                            }
+                               };
 

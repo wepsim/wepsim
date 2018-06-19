@@ -20,51 +20,33 @@
 
 
         /*
-         *  Components
+         *  Elemental Processor: Internal
          */
 
-        var sim_components = {} ;
+        /* Abstraction */
+        var ep_components = {} ;
+        var ep_states = {} ;
+        var ep_events = {} ;
+        var ep_signals = {} ;
+        var ep_behaviors = {} ;
 
-
-        /*
-         *  States
-         */
-
-        var sim_states = {} ;
-        var sim_events = {} ;
-
+        /* Local support */
         var io_hash    = {} ;
-
-
-        /*
-         *  Signals
-         */
-
-        var sim_signals = {} ;
         var fire_stack  = [] ;
 
 
         /*
-         *  Syntax of behaviors
+         *  Elemental Processor: Public
          */
 
-        var syntax_behavior = {} ;
-
-
-        /*
-         *  Elemental Processor
-         */
-
-        simhw_add({
-                      _name:            "Elemental Processor",
-                      _img_processor:   "sim_ep/processor6.svg",
-                      _img_controlunit: "sim_ep/controlunit6.svg",
-                      components:       sim_components,
-                      states:           sim_states,
-                      events:           sim_events,
-                      signals:          sim_signals,
-                      behaviors:        syntax_behavior,
-                      _io_hash:         io_hash,
-                      _fire_stack:      fire_stack
-	          }) ;
+        var ep_def = {
+                       sim_name:            "Elemental Processor",
+                       sim_img_processor:   "sim_ep/processor6.svg",
+                       sim_img_controlunit: "sim_ep/controlunit6.svg",
+                       components:          ep_components,
+                       states:              ep_states,
+                       signals:             ep_signals,
+                       behaviors:           ep_behaviors,
+                       events:              ep_events
+	             } ;
 

@@ -40,10 +40,13 @@
                  stop_drawing() ;
 	    }
 
-            // 1.- it checks if everything is ok
+            // 0.- to register the default Elemental Processor
+            simhw_add(ep_def) ;
+
+            // 1.- to check if default behaviors are ok
             check_behavior();
 
-            // 2.- pre-compile behaviors & references
+            // 2.- to pre-compile behaviors & references
             compile_behaviors() ;
             firedep_to_fireorder(jit_fire_dep) ;
             compute_references() ;
