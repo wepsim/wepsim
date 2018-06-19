@@ -128,7 +128,7 @@
 		if ( (typeof segments['.ktext'] == "undefined") &&
 		     (typeof segments['.text']  == "undefined") )
 		{
-		    ret.msg = 'code segment .ktext/.text does not exist!' ;
+		    ret.msg = 'code segment .ktext/.text does not exist!\nPlease load some assembly code.' ;
 	            ret.ok = false ;
 		    return ret ;
 		}
