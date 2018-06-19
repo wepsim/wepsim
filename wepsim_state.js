@@ -273,9 +273,9 @@
                            "id": parts[1], 
                            "condition": parts[2], 
                            "value": decodeURI(parts[3]) } ;
-             for (var index in sim_components) 
+             for (var index in simhw_sim_components()) 
              {
-	          ret = sim_components[index].read_state(o, check) ;
+	          ret = simhw_sim_component(index).read_state(o, check) ;
                   if (true == ret) break ;
              }
 
@@ -289,8 +289,8 @@
     function wepsim_current2state ( )
     {
 	var o = {} ;
-	for (var index in sim_components) {
-	     sim_components[index].write_state(o) ;
+	for (var index in simhw_sim_components()) {
+	     simhw_sim_component(index).write_state(o) ;
 	}
 
         return o ;
@@ -322,7 +322,7 @@
 	var diff = {} ;
 
         var obtained_value = 0 ;
-	for (var compo in sim_components)
+	for (var compo in simhw_sim_components())
 	{
 	    // if there are different values -> diff
             if (typeof expected_result[compo] != "undefined") 

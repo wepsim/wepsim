@@ -90,3 +90,13 @@
             return sim.active.behaviors[id] ;
         }
 
+        function simhw_sim_components ( )
+        {
+            return sim.active.components ;
+        }
+
+        function simhw_sim_component ( id )
+        {
+            return sim.active.components[id] ;
+        }
+
