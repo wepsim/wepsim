@@ -139,7 +139,7 @@
 
     function wepsim_check_stopbybreakpoint_firm ( )
     {
-        var reg_maddr = get_value(sim_states.REG_MICROADDR) ;
+        var reg_maddr = get_value(simhw_sim_state('REG_MICROADDR')) ;
         var curr_addr = "0x" + reg_maddr.toString(16) ;
 
         if (typeof MC_dashboard[reg_maddr] == "undefined") {
@@ -151,7 +151,7 @@
 
     function wepsim_check_stopbybreakpoint_asm ( )
     {
-	var reg_pc    = get_value(sim_states.REG_PC) ;
+	var reg_pc    = get_value(simhw_sim_state('REG_PC')) ;
 	var curr_addr = "0x" + reg_pc.toString(16) ;
 
 	if (typeof FIRMWARE.assembly[curr_addr] == "undefined") {
@@ -163,9 +163,9 @@
 
     function wepsim_show_stopbyevent ( msg1, msg2 )
     {
-        var reg_maddr  = get_value(sim_states.REG_MICROADDR) ;
+        var reg_maddr  = get_value(simhw_sim_state('REG_MICROADDR')) ;
 	var curr_maddr = "0x" + reg_maddr.toString(16) ;
-	var reg_pc     = get_value(sim_states.REG_PC) ;
+	var reg_pc     = get_value(simhw_sim_state('REG_PC')) ;
 	var curr_addr  = "0x" + reg_pc.toString(16) ;
 
 	var dialog_title = msg1 + " @ pc=" + curr_addr + "+mpc=" + curr_maddr + ":<br>" + msg2 ;
@@ -178,7 +178,7 @@
 
     function wepsim_check_state_firm ( )
     {
-        var reg_maddr = get_value(sim_states.REG_MICROADDR) ;
+        var reg_maddr = get_value(simhw_sim_state('REG_MICROADDR')) ;
         if (false == MC_dashboard[reg_maddr].state)
             return false ;
 
@@ -234,7 +234,7 @@
 			return false ;
 		    }
 
-		    reg_maddr = get_value(sim_states.REG_MICROADDR) ;
+		    reg_maddr = get_value(simhw_sim_state('REG_MICROADDR')) ;
                     if (0 == reg_maddr) 
                     {
 		        ret = wepsim_check_stopbybreakpoint_asm() ;
@@ -311,7 +311,7 @@
 		    return ;
 		}
 
-		var reg_maddr = get_value(sim_states.REG_MICROADDR) ;
+		var reg_maddr = get_value(simhw_sim_state('REG_MICROADDR')) ;
 		var notifications = MC_dashboard[reg_maddr].notify.length ;
 		if (notifications > 1) 
                 {

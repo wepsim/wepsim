@@ -150,8 +150,8 @@
 	    }
 
             for (var key in simhw_sim_states()) {
-		 sim_references[key] = simhw_sim_states()[key] ;
-		     simhw_sim_states()[key].changed = false ;
+		 sim_references[key] = simhw_sim_state(key) ;
+		     simhw_sim_state(key).changed = false ;
 	    }
         }
 
@@ -189,7 +189,7 @@
 		     if (o != null) o = o.getElementById('databus_fire');
 		     if (o != null) o.setAttributeNS(null, "visibility", "visible");
                 databus_fire_visible = true ;
-                simhw_sim_states()["BUS_DB"].value = 0xFFFFFFFF;
+                simhw_sim_state("BUS_DB").value = 0xFFFFFFFF;
             }
 
             // Ti + Tj
@@ -234,7 +234,7 @@
 		     if (o != null) o = o.getElementById('internalbus_fire');
 		     if (o != null) o.setAttributeNS(null, "visibility", "visible");
                 internalbus_fire_visible = true ;
-                simhw_sim_states()["BUS_IB"].value = 0xFFFFFFFF;
+                simhw_sim_state("BUS_IB").value = 0xFFFFFFFF;
             }
         }
 
@@ -282,17 +282,17 @@
 				var s = behavior_k[j].split('/') ;
 				var t = simhw_syntax_behaviors()[behavior_k[0]].types[j-1] ;
 
-				     if ( ("E" == t) && (typeof simhw_sim_states()[s[0]] == "undefined") )
+				     if ( ("E" == t) && (typeof simhw_sim_state(s[0]) == "undefined") )
 				     {
 					  alert("ALERT: Behavior has an undefined reference to a object state -> '" + behavior_i);
 					  return;
 				     }
-				else if ( ("S" == t) && (typeof simhw_sim_signals()[s[0]] == "undefined") )
+				else if ( ("S" == t) && (typeof simhw_sim_signal(s[0]) == "undefined") )
 				     {
 					 alert("ALERT: Behavior has an undefined reference to a signal -> '" + behavior_i);
 					 return;
 				     }
-				else if ( ("X" == t) && (typeof simhw_sim_states()[s[0]] == "undefined") && (typeof simhw_sim_signals()[s[0]] == "undefined") )
+				else if ( ("X" == t) && (typeof simhw_sim_state(s[0]) == "undefined") && (typeof simhw_sim_signals()[s[0]] == "undefined") )
 				     {
 					 alert("ALERT: Behavior has an undefined reference to a object state OR signal -> '" + behavior_i);
 					 return;
@@ -500,16 +500,16 @@
         function show_memories_values ( )
         {
 		/*
-               show_main_memory(MP,               get_value(simhw_sim_states()['REG_PC']),        true, true) ;
-            show_control_memory(MC, MC_dashboard, get_value(simhw_sim_states()['REG_MICROADDR']), true, true) ;
+               show_main_memory(MP,               get_value(simhw_sim_state('REG_PC')),        true, true) ;
+            show_control_memory(MC, MC_dashboard, get_value(simhw_sim_state('REG_MICROADDR')), true, true) ;
 		*/
 
             var f1 = new Promise(function(resolve, reject) {
-                 show_main_memory(MP, get_value(simhw_sim_states()['REG_PC']), true, true) ;
+                 show_main_memory(MP, get_value(simhw_sim_state('REG_PC')), true, true) ;
                  resolve(1);
             });
             var f2 = new Promise(function(resolve, reject) {
-                 show_control_memory(MC, MC_dashboard, get_value(simhw_sim_states()['REG_MICROADDR']), true) ;
+                 show_control_memory(MC, MC_dashboard, get_value(simhw_sim_state('REG_MICROADDR')), true) ;
                  resolve(1);
             });
 
@@ -522,7 +522,7 @@
 
 	    var assoc_i = -1;
             for (var i=0; i<SIMWARE['firmware'].length; i++) {
-		 if (parseInt(SIMWARE['firmware'][i]["mc-start"]) > get_value(simhw_sim_states()["REG_MICROADDR"])) { break; }
+		 if (parseInt(SIMWARE['firmware'][i]["mc-start"]) > get_value(simhw_sim_state("REG_MICROADDR"))) { break; }
 		 assoc_i = i ;
             }
 
@@ -546,7 +546,7 @@
                 assoc_i = SIMWARE['firmware'].length - 1 ;
             }
 
-	    var pos = get_value(simhw_sim_states()["REG_MICROADDR"]) - parseInt(SIMWARE['firmware'][assoc_i]["mc-start"]) ;
+	    var pos = get_value(simhw_sim_state("REG_MICROADDR")) - parseInt(SIMWARE['firmware'][assoc_i]["mc-start"]) ;
 	    if (typeof SIMWARE['firmware'][assoc_i]["microcode"][pos] == "undefined") {
 		SIMWARE['firmware'][assoc_i]["microcode"][pos]     = new Object() ;
 		SIMWARE['firmware'][assoc_i]["microcomments"][pos] = "" ;
@@ -557,7 +557,7 @@
 	        delete SIMWARE['firmware'][assoc_i]["microcode"][pos][key] ;
 
 	    // show memories...
-	    var bits = get_value(simhw_sim_states()['REG_IR']).toString(2) ;
+	    var bits = get_value(simhw_sim_state('REG_IR')).toString(2) ;
 	    bits = "00000000000000000000000000000000".substring(0, 32 - bits.length) + bits ;
 	    //var op_code = parseInt(bits.substr(0, 6), 2) ; // op-code of 6 bits
 
@@ -689,16 +689,16 @@
 							     {
 								 // update REG_MICROINS
                                                                  if (simhw_sim_signals()[key].value != simhw_sim_signals()[key].default_value)
-								      simhw_sim_states()["REG_MICROINS"].value[key] = simhw_sim_signals()[key].value ;
-								 else delete(simhw_sim_states()["REG_MICROINS"].value[key]);
+								      simhw_sim_state("REG_MICROINS").value[key] = simhw_sim_signals()[key].value ;
+								 else delete(simhw_sim_state("REG_MICROINS").value[key]);
 
 								 // update MC[uADDR]
-								 if (typeof MC[get_value(simhw_sim_states()["REG_MICROADDR"])] == "undefined") {
-								     MC[get_value(simhw_sim_states()["REG_MICROADDR"])] = new Object() ;
-								     MC_dashboard[get_value(simhw_sim_states()["REG_MICROADDR"])] = new Object() ;
+								 if (typeof MC[get_value(simhw_sim_state("REG_MICROADDR"))] == "undefined") {
+								     MC[get_value(simhw_sim_state("REG_MICROADDR"))] = new Object() ;
+								     MC_dashboard[get_value(simhw_sim_state("REG_MICROADDR"))] = new Object() ;
 								 }
-								 MC[get_value(simhw_sim_states()["REG_MICROADDR"])][key] = simhw_sim_signals()[key].value ;
-								 MC_dashboard[get_value(simhw_sim_states()["REG_MICROADDR"])][key] = { comment: "", breakpoint: false, state: false, notify: new Array() };
+								 MC[get_value(simhw_sim_state("REG_MICROADDR"))][key] = simhw_sim_signals()[key].value ;
+								 MC_dashboard[get_value(simhw_sim_state("REG_MICROADDR"))][key] = { comment: "", breakpoint: false, state: false, notify: new Array() };
 
 								 // update ROM[..]
 								 update_signal_firmware(key) ;
@@ -735,15 +735,15 @@
         // update ALU flags: test_n, test_z, test_v, test_c
         function update_nzvc ( flag_n, flag_z, flag_v, flag_c )
         {
-	   set_value(simhw_sim_states()["FLAG_N"], flag_n) ;
-	   set_value(simhw_sim_states()["FLAG_Z"], flag_z) ;
-	   set_value(simhw_sim_states()["FLAG_V"], flag_v) ;
-	   set_value(simhw_sim_states()["FLAG_C"], flag_c) ;
+	   set_value(simhw_sim_state("FLAG_N"), flag_n) ;
+	   set_value(simhw_sim_state("FLAG_Z"), flag_z) ;
+	   set_value(simhw_sim_state("FLAG_V"), flag_v) ;
+	   set_value(simhw_sim_state("FLAG_C"), flag_c) ;
 
-	   set_value(simhw_sim_signals()["TEST_N"], flag_n) ;
-	   set_value(simhw_sim_signals()["TEST_Z"], flag_z) ;
-	   set_value(simhw_sim_signals()["TEST_V"], flag_v) ;
-	   set_value(simhw_sim_signals()["TEST_C"], flag_c) ;
+	   set_value(simhw_sim_signal("TEST_N"), flag_n) ;
+	   set_value(simhw_sim_signal("TEST_Z"), flag_z) ;
+	   set_value(simhw_sim_signal("TEST_V"), flag_v) ;
+	   set_value(simhw_sim_signal("TEST_C"), flag_c) ;
         }
 
         function update_memories ( preSIMWARE )

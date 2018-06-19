@@ -100,8 +100,8 @@
 
     function wepsim_state_history_add ( )
     {
-        var reg_maddr = get_value(sim_states.REG_MICROADDR) ;
-        var reg_clk   = get_value(sim_states.CLK) ;
+        var reg_maddr = get_value(simhw_sim_state('REG_MICROADDR')) ;
+        var reg_clk   = get_value(simhw_sim_state('CLK')) ;
         var state_obj = wepsim_current2state() ;
         var state_str = wepsim_state2checklist(state_obj) ;
         var timestamp = new Date().getTime() ;
@@ -201,7 +201,7 @@
 	      }
               ga('send', 'event', 'state', 
 	         'state.dump', 
-	         'state.dump' + '.ci=' + get_value(sim_states.REG_IR_DECO) +
+	         'state.dump' + '.ci=' + get_value(simhw_sim_state('REG_IR_DECO')) +
 		                ',neltos=' + neltos + 
 		                ga_str);
 
@@ -225,7 +225,7 @@
         // ga
         ga('send', 'event', 'state', 
 	   'state.check', 
-	   'state.check' + ',ci=' + get_value(sim_states.REG_IR_DECO) +
+	   'state.check' + ',ci=' + get_value(simhw_sim_state('REG_IR_DECO')) +
 		           '.a='  + obj_result.neltos_expected +
 		           ',b='  + obj_result.neltos_obtained +
 		           ',sd=' + obj_result.errors);

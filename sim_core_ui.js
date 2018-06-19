@@ -82,7 +82,7 @@
 	    var draw_it = get_cfg('is_byvalue'); // 'is_byvalue' belongs to the sim_cfg.js
 
             /* 1) Check if draw it */
-	    if (typeof simhw_sim_states()["REG_MICROINS"].value[obj.name] != "undefined") {
+	    if (typeof simhw_sim_state("REG_MICROINS").value[obj.name] != "undefined") {
 		draw_it = true;
 	    }
 
@@ -91,7 +91,7 @@
 		for (var k=0; k<obj.depends_on.length; k++)
 		{
 		     var sname = obj.depends_on[k] ;
-		     if (typeof simhw_sim_states()["REG_MICROINS"].value[sname] != "undefined") {
+		     if (typeof simhw_sim_state("REG_MICROINS").value[sname] != "undefined") {
 			     draw_it = true;
 			     break;
 		     }
@@ -192,7 +192,7 @@
                  check_buses(key);
 	    }
 
-	    show_dbg_ir(get_value(simhw_sim_states()['REG_IR_DECO'])) ;
+	    show_dbg_ir(get_value(simhw_sim_state('REG_IR_DECO'))) ;
         }
 
 
@@ -553,7 +553,7 @@
 
                 if (sim_eltos[key].nbits > 1) 
 		{
-                    value = (simhw_sim_states()[key].value >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() ;
+                    value = (simhw_sim_state(key).value >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() ;
                     if (16 == get_cfg('RF_display_format'))
                         value = pack8(value) ;
                 }
@@ -650,8 +650,8 @@
 	    // without ui
             if (jqdiv == "")
             {       
-		simhw_sim_states()['CLK'].value      = ko_observable(simhw_sim_states()['CLK'].value);
-		simhw_sim_states()['DECO_INS'].value = ko_observable(simhw_sim_states()['DECO_INS'].value);
+		simhw_sim_state('CLK').value      = ko_observable(simhw_sim_state('CLK').value);
+		simhw_sim_state('DECO_INS').value = ko_observable(simhw_sim_state('DECO_INS').value);
 
                 return ;
             }
@@ -676,13 +676,13 @@
             $(jqdiv).html("<div class='row'>" + o1 + "</div>");
 
             // knockout binding
-            simhw_sim_states()['CLK'].value = ko_observable(simhw_sim_states()['CLK'].value);
+            simhw_sim_state('CLK').value = ko_observable(simhw_sim_state('CLK').value);
             var ko_context = document.getElementById('clk_context');
-            ko.applyBindings(simhw_sim_states()['CLK'], ko_context);
+            ko.applyBindings(simhw_sim_state('CLK'), ko_context);
 
-            simhw_sim_states()['DECO_INS'].value = ko_observable(simhw_sim_states()['DECO_INS'].value);
+            simhw_sim_state('DECO_INS').value = ko_observable(simhw_sim_state('DECO_INS').value);
             var ko_context = document.getElementById('ins_context');
-            ko.applyBindings(simhw_sim_states()['DECO_INS'], ko_context);
+            ko.applyBindings(simhw_sim_state('DECO_INS'), ko_context);
         }
 
         function init_config ( jqdiv )
@@ -1117,7 +1117,7 @@
 		    return ;
 
                 var o1 = null ;
-                var reg_pc    = get_value(simhw_sim_states()["REG_PC"]) ;
+                var reg_pc    = get_value(simhw_sim_state("REG_PC")) ;
                 var curr_addr = "0x" + reg_pc.toString(16) ;
 
                 if (typeof FIRMWARE.assembly[old_addr] != "undefined")
@@ -1188,7 +1188,7 @@
 	{
                 show_control_memory(MC,
                                     MC_dashboard,
-                                    get_value(simhw_sim_states()['REG_MICROADDR']),
+                                    get_value(simhw_sim_state('REG_MICROADDR')),
                                     false) ;
 	}
 

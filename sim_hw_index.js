@@ -65,13 +65,28 @@
             return sim.active.signals ;
         }
 
+        function simhw_sim_signal ( id )
+        {
+            return sim.active.signals[id] ;
+        }
+
         function simhw_sim_states ( )
         {
             return sim.active.states ;
         }
 
+        function simhw_sim_state ( id )
+        {
+            return sim.active.states[id] ;
+        }
+
         function simhw_syntax_behaviors ( )
         {
             return sim.active.behaviors ;
+        }
+
+        function simhw_syntax_behavior ( id )
+        {
+            return sim.active.behaviors[id] ;
         }
 
