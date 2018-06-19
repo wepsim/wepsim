@@ -41,8 +41,8 @@
 
         var ep_def = {
                        sim_name:            "Elemental Processor",
-                       sim_img_processor:   "sim_ep/processor6.svg",
-                       sim_img_controlunit: "sim_ep/controlunit6.svg",
+                       sim_img_processor:   "sim_hw_ep/processor6.svg",
+                       sim_img_controlunit: "sim_hw_ep/controlunit6.svg",
                        components:          ep_components,
                        states:              ep_states,
                        signals:             ep_signals,
