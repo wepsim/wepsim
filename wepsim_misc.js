@@ -310,7 +310,7 @@
 	else $(divb).addClass('col-12 order-2');
     }
 
-    function wepsim_compile_assembly ( optValue, cssLayer )
+    function wepsim_change_mode ( optValue, cssLayer )
     {
 	  set_cfg('ws_mode',optValue); 
 	  save_cfg();
@@ -334,7 +334,9 @@
 	  // wepsim mode...
 	  if ('wepsim' == optValue) {
 	      simhw_setActive(0) ;
-              // TODO: update cpu-processor-controlunig image at index + help
+              // TODO: 
+	      // update cpu-processor-controlunig image at index + help
+	      // svg_cu + svg_p + mover/copiar los eventListener de index
 	  }
     }
 

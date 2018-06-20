@@ -169,6 +169,7 @@ self.addEventListener('install',
                                         './external/jquery.mobile-1.4.5.min.js',
                                         './external/external.min.css',
                                         './external/external.min.js',
+                                        './min.sim_hw.js',
                                         './min.sim_all.js',
                                         './min.wepsim_all.js',
 					'./index.html'
