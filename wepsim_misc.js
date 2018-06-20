@@ -335,8 +335,8 @@
 	  if ('wepsim' == optValue) {
 	      simhw_setActive(0) ;
               // TODO: 
-	      // update cpu-processor-controlunig image at index + help
-	      // svg_cu + svg_p + mover/copiar los eventListener de index
+	      // * update cpu-processor-controlunig image at index + cpu at help
+	      // * svg_cu + svg_p + mv/cp eventListener from index
 	  }
     }
 
