@@ -310,3 +310,31 @@
 	else $(divb).addClass('col-12 order-2');
     }
 
+    function wepsim_compile_assembly ( optValue, cssLayer )
+    {
+	  set_cfg('ws_mode',optValue); 
+	  save_cfg();
+
+	  // webmips mode...
+	  if ('webmips' == optValue)
+	       wepsim_show_webmips();
+	  else wepsim_hide_webmips();
+
+	  // tutorial mode...
+	  $(cssLayer).css('background-color', '#F6F6F6') ;
+	  if ('tutorial' == optValue) {
+	      $(cssLayer).css('background-color', '#D4DB17') ;
+	  }
+
+	  // intro mode...
+	  if ('intro' == optValue) {
+	      sim_tutorial_showframe('welcome', 0);
+	  }
+
+	  // wepsim mode...
+	  if ('wepsim' == optValue) {
+	      simhw_setActive(0) ;
+              // TODO: update cpu-processor-controlunig image at index + help
+	  }
+    }
+

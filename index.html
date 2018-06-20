@@ -218,22 +218,7 @@
 				aria-label="Execution mode" data-role="none"
 				onchange="var opt = $(this).find('option:selected');
 					  var optValue = opt.val();
-					  set_cfg('ws_mode',optValue); save_cfg();
-
-                                          // webmips mode...
-					  if ('webmips' == optValue)
-					       wepsim_show_webmips();
-					  else wepsim_hide_webmips();
-
-                                          // tutorial mode...
-					  $('#select4').css('background-color', '#F6F6F6') ;
-				          if ('tutorial' == optValue)
-					      $('#select4').css('background-color', '#D4DB17') ;
-
-                                          // intro mode...
-				          if ('intro' == optValue)
-		                              sim_tutorial_showframe('welcome', 0);
-
+                                          wepsim_compile_assembly(optValue, '#select4') ;
 					  return false;">
 				<option value="intro"   >Welcome...</option>
 				<option value="tutorial">Instructive</option>
