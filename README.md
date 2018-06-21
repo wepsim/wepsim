@@ -8,7 +8,7 @@
 
 + WepSIM Simulator Source Code:
 
-   * https://github.com/acaldero/wepsim
+   * https://github.com/wepsim/wepsim
 
 + Get WepSIM Simulator:
 
