@@ -312,8 +312,6 @@
 
     function wepsim_activehw ( mode )
     {
-	    simhw_setActive(mode) ;
-
               // TODO: 
 	      // * update cpu-processor-controlunig image at index + cpu at help
 
@@ -355,6 +353,7 @@
 
 	  // wepsim mode...
 	  if ('wepsim' == optValue) {
+	      simhw_setActive(mode) ;
               wepsim_activehw(0) ;
 	  }
     }
