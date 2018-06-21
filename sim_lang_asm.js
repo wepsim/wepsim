@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015-2017 Saul Alonso Monsalve, Javier Prieto Cepeda, Felix Garcia Carballeira, Alejandro Calderon Mateos
+ *  Copyright 2015-2018 Saul Alonso Monsalve, Javier Prieto Cepeda, Felix Garcia Carballeira, Alejandro Calderon Mateos
  *
  *  This file is part of WepSIM.
  * 
@@ -22,15 +22,15 @@
  *   Constants
  */
 
-	const BYTE_LENGTH = 8 ;
-	const WORD_BYTES = 4 ;
-	const WORD_LENGTH = WORD_BYTES * BYTE_LENGTH ;
+	BYTE_LENGTH = 8 ;
+	WORD_BYTES = 4 ;
+	WORD_LENGTH = WORD_BYTES * BYTE_LENGTH ;
 
 /*
  *   Directives 
  */
 
-	directives = new Object() ;
+	directives = {} ;
 	directives[".kdata"]   = { name:".kdata",  kindof:"segment",  size:0 };
 	directives[".ktext"]   = { name:".ktext",  kindof:"segment",  size:0 };
 	directives[".data"]    = { name:".data",   kindof:"segment",  size:0 };
@@ -50,7 +50,7 @@
 function get_datatype_size ( datatype )
 {
 	if (typeof directives[datatype] == "undefined") {
-		console.log("data type: " + datatype + " is not defined!!!\n")
+		console.log("data type: " + datatype + " is not defined!!!\n") ;
 	    	return 0;
    	}
 
@@ -167,8 +167,8 @@ function sum_array ( a )
 function get_candidate ( advance, instruction )
 {
 	var candidate = false;
-	var candidates = new Object();
-	var signatures = new Object();
+	var candidates = {};
+	var signatures = {};
 
 	for (i=0; i<advance.length; i++)
         {
@@ -181,7 +181,7 @@ function get_candidate ( advance, instruction )
 	if (Object.keys(signatures).length == 1)
         {
 		var min = false;
-		for (i in candidates)
+		for (var i in candidates)
                 {
 			if (min == false) {
 				min = candidates[i];
@@ -242,7 +242,7 @@ function is_end_of_file(context)
 
 function treatControlSequences ( possible_value )
 {
-        var ret = new Object() ;
+        var ret = {} ;
         ret.string = "";
         ret.error  = false;
 
@@ -295,7 +295,7 @@ function read_data ( context, datosCU, ret )
 {
            var seg_name = getToken(context) ;
 
-	   var gen = new Object();
+	   var gen = {};
 	   gen.byteWord = 0;
 	   gen.machineCode = reset_assembly(1);
            gen.seg_ptr = ret.seg[seg_name].begin ;
@@ -522,7 +522,7 @@ function read_data ( context, datosCU, ret )
 
 				// check string
 				if ("" == possible_value)
-					return langError(context, "String is not closed (forgot to end it with quotation marks)")
+					return langError(context, "String is not closed (forgot to end it with quotation marks)") ;
 		                if ("STRING" != getTokenType(context))
 				    	return langError(context, "Expected string between quotation marks but found '" + possible_value + "' instead");
 
@@ -602,7 +602,7 @@ function read_text ( context, datosCU, ret )
 	   var counter = -1; 
 
 	   // Fill register names
-	   var registers = new Object() ;
+	   var registers = {} ;
 	   for (i=0; i<datosCU.registers.length; i++)
 	   {
 		var aux = "$" + i;
@@ -673,7 +673,7 @@ function read_text ( context, datosCU, ret )
 				finish[i].pop();
 				isPseudo = true;
 				var npseudoInstructions = 0;
-				var pseudo_fields = new Object;
+				var pseudo_fields = {};
 			}
 		}
 
@@ -985,26 +985,26 @@ function read_text ( context, datosCU, ret )
  */
 function simlang_compile (text, datosCU)
 {
-           var context = new Object() ;
+           var context = {} ;
 	   context.line           	= 1 ;
 	   context.error          	= null ;
 	   context.i              	= 0 ;
 	   context.contadorMC     	= 0 ;
-	   context.etiquetas      	= new Object() ;
-	   context.labelsNotFound 	= new Array() ;
-	   context.instrucciones  	= new Array() ;
-	   context.co_cop         	= new Object() ;
-	   context.registers      	= new Array() ;
+	   context.etiquetas      	= {} ;
+	   context.labelsNotFound 	= [] ;
+	   context.instrucciones  	= [] ;
+	   context.co_cop         	= {} ;
+	   context.registers      	= [] ;
            context.text           	= text ;
-	   context.tokens         	= new Array() ;
-	   context.token_types    	= new Array() ;
+	   context.tokens         	= [] ;
+	   context.token_types    	= [] ;
 	   context.t              	= 0 ;
-	   context.newlines       	= new Array() ;
-	   context.pseudoInstructions	= new Array();
+	   context.newlines       	= [] ;
+	   context.pseudoInstructions	= [];
 	   context.stackRegister	= null ;
-	   context.firmware             = new Object() ;
-	   context.pseudoInstructions   = new Object();
-           context.comments             = new Array() ;
+	   context.firmware             = {} ;
+	   context.pseudoInstructions   = {};
+           context.comments             = [] ;
 	   
 	   // fill firmware
 	   for (i=0; i<datosCU.firmware.length; i++)
@@ -1012,7 +1012,7 @@ function simlang_compile (text, datosCU)
 		var aux = datosCU.firmware[i];
 
 	   	if (typeof context.firmware[aux.name] == "undefined")
-	   	    context.firmware[aux.name] = new Array();
+	   	    context.firmware[aux.name] = [];
 
 	   	context.firmware[aux.name].push({ name:aux.name,
 							  nwords:parseInt(aux.nwords), 
@@ -1032,7 +1032,7 @@ function simlang_compile (text, datosCU)
 
 		if (typeof context.pseudoInstructions[initial.name] == "undefined"){
 		    context.pseudoInstructions[initial.name] = 0;
-		    context.firmware[initial.name] = new Array();
+		    context.firmware[initial.name] = [];
 		}
 
 		context.pseudoInstructions[initial.name]++;
@@ -1044,7 +1044,7 @@ function simlang_compile (text, datosCU)
 							isPseudoinstruction:true });
 	   }
 
-           var ret = new Object(); 
+           var ret = {}; 
            ret.seg = {
                        ".kdata": { name:".kdata",  begin:0x0000, end:0x00FF, color: "#FF99CC", kindof:"data" },
                        ".ktext": { name:".ktext",  begin:0x0100, end:0x0FFF, color: "#A9D0F5", kindof:"text" },
@@ -1052,10 +1052,10 @@ function simlang_compile (text, datosCU)
                        ".text":  { name:".text",   begin:0x8000, end:0xFF00, color: "#BEF781", kindof:"text" },
                        ".stack": { name:".stack",  begin:0xFFFF, end:0xFFFF, color: "#F1F2A3", kindof:"stack" }
                      };
-          ret.mp           = new Object() ;
-	  ret.labels	   = new Object() ; // [addr] = {name, addr, startbit, stopbit}
-          ret.labels2      = new Object() ;
-          ret.assembly     = new Object() ; // This is for the Assembly Debugger...
+          ret.mp           = {} ;
+	  ret.labels	   = {} ; // [addr] = {name, addr, startbit, stopbit}
+          ret.labels2      = {} ;
+          ret.assembly     = {} ; // This is for the Assembly Debugger...
 
 	  data_found = false;
 	  text_found = false;

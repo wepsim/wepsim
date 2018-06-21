@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015-2017 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  * 
@@ -23,12 +23,12 @@
 	 *  SCREEN
 	 */
 
-        sim_components["SCREEN"] = {
+        sim_components.SCREEN = {
 		                  name: "SCREEN", 
 		                  version: "1", 
 		                  write_state: function ( vec ) {
                                                   if (typeof vec.SCREEN == "undefined")
-                                                      vec.SCREEN = new Object() ;
+                                                      vec.SCREEN = {} ;
 
 					          var sim_screen = get_screen_content() ;
 					          var sim_lines  = sim_screen.trim().split("\n") ;
@@ -48,15 +48,15 @@
 				              }, 
 		                  read_state: function ( vec, check ) {
                                                   if (typeof vec.SCREEN == "undefined")
-                                                      vec.SCREEN = new Object() ;
+                                                      vec.SCREEN = {} ;
 
-					          if ("SCREEN" == check["type"].toUpperCase().trim())
+					          if ("SCREEN" == check.type.toUpperCase().trim())
                                                   {
-						      vec.SCREEN[check["id"]] = {"type":  "screen", 
-								                 "default_value": "",
-								                 "id":    check["id"],
-								                 "op":    check["condition"], 
-								                 "value": check["value"]} ;
+						      vec.SCREEN[check.id] = {"type":  "screen", 
+								              "default_value": "",
+								              "id":    check.id,
+								              "op":    check.condition, 
+								              "value": check.value} ;
                                                       return true ;
                                                   }
 
@@ -89,21 +89,21 @@
          *  States
          */
 
-        sim_states["DDR"]   = { name: "DDR",    visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-        sim_states["DSR"]   = { name: "DSR",    visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+        sim_states.DDR   = { name: "DDR",    visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+        sim_states.DSR   = { name: "DSR",    visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
 
 
         /*
          *  Signals
          */
 
-        sim_signals["SCR_IOR"] = { name: "IOR", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+        sim_signals.SCR_IOR = { name: "IOR", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		                   behavior: ["NOP", "SCR_IOR BUS_AB BUS_DB DDR DSR CLK"],
                                    fire_name: ['svg_p:tspan4004'], 
                                    draw_data: [[], ['svg_p:path3871', 'svg_p:path3857']], 
                                    draw_name: [[], []]};
 
-        sim_signals["SCR_IOW"] = { name: "IOW", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+        sim_signals.SCR_IOW = { name: "IOW", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		                   behavior: ["NOP", "SCR_IOW BUS_AB BUS_DB DDR DSR CLK"],
                                    fire_name: ['svg_p:tspan4006'], 
                                    draw_data: [[], ['svg_p:path3873', 'svg_p:path3857']], 
@@ -114,28 +114,28 @@
          *  Syntax of behaviors
          */
 
-        syntax_behavior["SCR_IOR"] = { nparameters: 6,
+        syntax_behavior.SCR_IOR = { nparameters: 6,
                                         types: ["E", "E", "E", "E", "E"],
                                         operation: function (s_expr) 
                                                    {
-                                                      var bus_ab = sim_states[s_expr[1]].value ;
-                                                      var ddr    = sim_states[s_expr[3]].value ;
-                                                      var dsr    = sim_states[s_expr[4]].value ;
+                                                      var bus_ab = get_value(sim_states[s_expr[1]]) ;
+                                                      var ddr    = get_value(sim_states[s_expr[3]]) ;
+                                                      var dsr    = get_value(sim_states[s_expr[4]]) ;
 
                                                       if (bus_ab == DDR_ID)
-                                                          sim_states[s_expr[2]].value = ddr ;
+                                                          set_value(sim_states[s_expr[2]], ddr) ;
                                                       if (bus_ab == DSR_ID)
-                                                          sim_states[s_expr[2]].value = dsr ;
+                                                          set_value(sim_states[s_expr[2]], dsr) ;
                                                    }
                                    };
 
-        syntax_behavior["SCR_IOW"] = { nparameters: 6,
+        syntax_behavior.SCR_IOW = { nparameters: 6,
                                         types: ["E", "E", "E", "E", "E"],
                                         operation: function (s_expr) 
                                                    {
-                                                      var bus_ab = sim_states[s_expr[1]].value ;
-                                                      var bus_db = sim_states[s_expr[2]].value ;
-                                                      var clk    = sim_states[s_expr[5]].value();
+                                                      var bus_ab = get_value(sim_states[s_expr[1]]) ;
+                                                      var bus_db = get_value(sim_states[s_expr[2]]) ;
+                                                      var clk    = get_value(sim_states[s_expr[5]]) ;
                                                       var ch     = String.fromCharCode(bus_db);
 
                                                       if (bus_ab != DDR_ID) {
@@ -157,14 +157,14 @@
                                                       {
                                                          // (b) visible
                                                          var screen = get_screen_content() ;
-                                                         if (typeof sim_events["screen"][clk] != "undefined") 
+                                                         if (typeof sim_events.screen[clk] != "undefined") 
                                                              screen = screen.substr(0, screen.length-1);
                                                          set_screen_content(screen + String.fromCharCode(bus_db));
                                                       }
 
-                                                      sim_states[s_expr[3]].value = bus_db ;
-                                                      sim_states[s_expr[4]].value = 1 ;
-                                                      sim_events["screen"][clk]   = bus_db ;
+                                                      set_value(sim_states[s_expr[3]], bus_db) ;
+                                                      set_value(sim_states[s_expr[4]], 1) ;
+                                                      sim_events.screen[clk] = bus_db ;
                                                    }
                                    };
 

@@ -1,0 +1,14 @@
+{
+  "name": "wepsim-travisci-jslint",
+  "description": "Check code with jshint",
+  "author": "acaldero",
+  "version": "0.0.5",
+  "devDependencies": {
+    "jshint": "^2.6.0"
+  },
+  "scripts": {
+    "test": "jshint sim_hw_board.js sim_hw_scr.js sim_hw_kbd.js sim_hw_mem.js sim_hw_io.js sim_lang.js sim_cfg.js sim_core.js examples/examples.js help/help-en.js help/help-es.js tutorials/simpleusage-en.js tutorials/simpleusage-es.js tutorials/tutorials.js tutorials/welcome-en.js tutorials/welcome-es.js wepsim_pwa.js wepsim_example.js wepsim_help.js wepsim_native.js wepsim_pwa.js wepsim_tutorial.js wepsim_url.js wepsim_voice.js"
+  },
+  "dependencies": {
+  }
+}

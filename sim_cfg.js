@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015-2017 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  * 
@@ -19,8 +19,8 @@
  */
 
 
-        var WSCFG = new Object() ;
-        WSCFG['version'] = { value:"1.8.3", type:"string"} ;
+        var WSCFG = {} ;
+        WSCFG.version = { value:"1.8.7", type:"string"} ;
 
         function get_cfg ( field )
         {
@@ -37,50 +37,51 @@
 		/*
 		 *  simulation screen: SVG
 		 */
-               WSCFG['color_data_active']   = { value:"#0066FF",          type:"string"} ;
-               WSCFG['color_data_inactive'] = { value:"rgb(0, 0, 0)",     type:"string"} ; // "black"
+               WSCFG.color_data_active   = { value:"#0066FF",          type:"string"} ;
+               WSCFG.color_data_inactive = { value:"rgb(0, 0, 0)",     type:"string"} ; // "black"
 
-               WSCFG['color_name_active']   = { value:"red",              type:"string"} ;
-               WSCFG['color_name_inactive'] = { value:"rgb(0, 0, 0)",     type:"string"} ; // "black"
+               WSCFG.color_name_active   = { value:"red",              type:"string"} ;
+               WSCFG.color_name_inactive = { value:"rgb(0, 0, 0)",     type:"string"} ; // "black"
 
-	       WSCFG['size_active']         = { value:1.25,               type:"float"} ;
-	       WSCFG['size_inactive']       = { value:0.02,               type:"float"} ;
+	       WSCFG.size_active         = { value:1.25,               type:"float"} ;
+	       WSCFG.size_inactive       = { value:0.02,               type:"float"} ;
 
-               WSCFG['is_byvalue']          = { value:false,              type:"boolean"};
+               WSCFG.is_byvalue          = { value:false,              type:"boolean"};
 
 		/*
 		 *  simulation screen: Register File
 		 */
-               WSCFG['RF_display_format']   = { value:16,                 type:"int"} ;
-               WSCFG['RF_display_name']     = { value:'numerical',        type:"string"} ;
+               WSCFG.RF_display_format   = { value:16,                 type:"int"} ;
+               WSCFG.RF_display_name     = { value:'numerical',        type:"string"} ;
 
-               WSCFG['is_editable']         = { value:true,               type:"boolean"};
+               WSCFG.is_editable         = { value:true,               type:"boolean"};
 
 		/*
 		 *  simulation screen: Execution
 		 */
-               WSCFG['DBG_delay']           = { value:10,                 type:"int"} ;
-               WSCFG['DBG_level']           = { value:"instruction",      type:"string"} ;
+               WSCFG.DBG_delay           = { value:10,                 type:"int"} ;
+               WSCFG.DBG_level           = { value:"instruction",      type:"string"} ;
 
-               WSCFG['DBG_limitick']        = { value:-1,                 type:"int"} ;
-               WSCFG['ICON_theme']          = { value:'classic',          type:"string"} ;
+               WSCFG.DBG_limitins        = { value:10000,              type:"int"} ;
+               WSCFG.DBG_limitick        = { value:1000,               type:"int"} ;
+               WSCFG.ICON_theme          = { value:'classic',          type:"string"} ;
 
 		/*
 		 *  simulation screen: Notification, etc.
 		 */
-               WSCFG['NOTIF_delay']         = { value:500,                type:"int"} ;
-               WSCFG['CPUCU_size']          = { value:55,                 type:"int"} ;
+               WSCFG.NOTIF_delay         = { value:500,                type:"int"} ;
+               WSCFG.CPUCU_size          = { value:55,                 type:"int"} ;
 
-               WSCFG['is_interactive']      = { value:true,               type:"boolean"};
-               WSCFG['ws_idiom']            = { value:'es',               type:"string"};
-               WSCFG['show_tutorials']      = { value:true,               type:"boolean"};
-               WSCFG['use_voice']           = { value:false,              type:"boolean"};
+               WSCFG.is_interactive      = { value:true,               type:"boolean"};
+               WSCFG.ws_idiom            = { value:'es',               type:"string"};
+               WSCFG.ws_mode             = { value:'tutorial',         type:"string"};
+               WSCFG.use_voice           = { value:false,              type:"boolean"};
 
 		/*
 		 *  micro/assembly screen: editor
 		 */
-               WSCFG['editor_theme']        = { value:'default',          type:"string"};
-               WSCFG['editor_mode']         = { value:'default',          type:"string"};
+               WSCFG.editor_theme        = { value:'default',          type:"string"};
+               WSCFG.editor_mode         = { value:'default',          type:"string"};
 
                set_secondary_cfg() ;
         }

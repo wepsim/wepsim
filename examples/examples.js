@@ -1,5 +1,5 @@
 
-    var examples = new Array();
+    var examples = [];
 
     examples.push({ 
                      id: 'S1E1',

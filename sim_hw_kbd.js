@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015-2017 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  * 
@@ -23,7 +23,7 @@
 	 *  KBD
 	 */
 
-        sim_components["KBD"] = {
+        sim_components.KBD = {
 		                  name: "KBD", 
 		                  version: "1", 
 		                  write_state: function ( vec ) {
@@ -53,15 +53,15 @@
          *  States
          */
 
-        sim_states["KBDR"]   = { name: "KBDR",    visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-        sim_states["KBSR"]   = { name: "KBSR",    visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+        sim_states.KBDR   = { name: "KBDR",    visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+        sim_states.KBSR   = { name: "KBSR",    visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
 
 
         /*
          *  Signals
          */
 
-        sim_signals["KBD_IOR"] = { name: "IOR", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+        sim_signals.KBD_IOR = { name: "IOR", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		                   behavior: ["NOP", "KBD_IOR BUS_AB BUS_DB KBDR KBSR CLK; FIRE SBWA"],
                                    fire_name: ['svg_p:tspan4057'], 
                                    draw_data: [[], ['svg_p:path3863', 'svg_p:path3847']], 
@@ -72,21 +72,21 @@
          *  Syntax of behaviors
          */
 
-        syntax_behavior["KBD_IOR"] = { nparameters: 6,
+        syntax_behavior.KBD_IOR = { nparameters: 6,
                                         types: ["E", "E", "E", "E", "E"],
                                         operation: function (s_expr) 
                                                    {
-                                                      var bus_ab = sim_states[s_expr[1]].value ;
-                                                      var clk    = sim_states[s_expr[5]].value() ;
+                                                      var bus_ab = get_value(sim_states[s_expr[1]]) ;
+                                                      var clk    = get_value(sim_states[s_expr[5]]) ;
 
                                                       if ( (bus_ab != KBDR_ID) && (bus_ab != KBSR_ID) ) {
                                                               return; 
                                                       }
 
-						      if (typeof sim_events["keybd"][clk] != "undefined")
+						      if (typeof sim_events.keybd[clk] != "undefined")
                                                       {
 						              if (bus_ab == KBDR_ID)
-							          set_value(sim_states[s_expr[2]], sim_events["keybd"][clk]);
+							          set_value(sim_states[s_expr[2]], sim_events.keybd[clk]);
 							      if (bus_ab == KBSR_ID)
 								  set_value(sim_states[s_expr[2]], 1);
                                                               return;
@@ -106,11 +106,11 @@
                                                       }
                                                       if (get_value(sim_states[s_expr[4]]) == 1) 
                                                       {
-						              sim_events["keybd"][clk] = sim_states[s_expr[3]].value;
+						              sim_events.keybd[clk] = get_value(sim_states[s_expr[3]]) ;
                                                       }
 
 						      if (bus_ab == KBSR_ID) {
-							      set_value(sim_states[s_expr[2]], sim_states[s_expr[4]].value);
+							      set_value(sim_states[s_expr[2]], get_value(sim_states[s_expr[4]]));
 						      }
 						      if (bus_ab == KBDR_ID) {
 							      if (get_value(sim_states[s_expr[4]]) == 1) 

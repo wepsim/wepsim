@@ -2,47 +2,48 @@
 set -x
 
 # 
-#  hardware
+#  hardware + simulator
 # 
-cat sim_hw_board.js \
+cat sim_cfg.js \
+    sim_hw_board.js \
     sim_hw_cpu.js \
     sim_hw_mem.js \
     sim_hw_io.js \
     sim_hw_kbd.js \
-    sim_hw_scr.js > sim_hw.js
-/usr/bin/yui-compressor -o min.sim_hw.js sim_hw.js
-rm -fr sim_hw.js
-
-# 
-#  simulator
-# 
-cat sim_cfg.js \
-    sim_core_ui.js \
-    sim_core_ctrl.js \
+    sim_hw_scr.js \
     sim_lang.js \
     sim_lang_firm.js \
-    sim_lang_asm.js > sim_all.js
+    sim_lang_asm.js \
+    sim_core_ctrl.js \
+    sim_core_ui.js \
+    sim_core.js > sim_all.js
 /usr/bin/yui-compressor -o min.sim_all.js sim_all.js
 rm -fr sim_all.js
 
 # 
-#  wepsim engine
+#  wepsim engine + information
 # 
-/usr/bin/yui-compressor -o min.wepsim.js wepsim.js
-
-# 
-#  wepsim information
-# 
-cat tutorials/tutorials.js \
+cat wepsim_example.js \
+    wepsim_help.js \
+    wepsim_native.js \
+    wepsim_state.js \
+    wepsim_tutorial.js \
+    wepsim_url.js \
+    wepsim_voice.js \
+    wepsim_execute.js \
+    wepsim_misc.js \
+    tutorials/tutorials.js \
     tutorials/welcome-en.js \
     tutorials/welcome-es.js \
     tutorials/simpleusage-en.js \
     tutorials/simpleusage-es.js \
+    tutorials/tour-en.js \
+    tutorials/tour-es.js \
     help/help-en.js \
     help/help-es.js \
-    examples/examples.js > sim_info.js
-/usr/bin/yui-compressor -o min.sim_info.js sim_info.js
-rm -fr sim_info.js
+    examples/examples.js > wepsim_all.js
+/usr/bin/yui-compressor -o min.wepsim_all.js wepsim_all.js
+rm -fr wepsim_all.js
 
 # 
 #  external
@@ -76,6 +77,7 @@ cat external/bootstrap.min.js \
     external/async.js \
     external/bootstrap-select.min.js \
     external/bootstrap-tokenfield.js \
+    external/introjs.min.js \
     external/speech-input.js \
     external/annyang.min.js \
     external/speechkitt.min.js \
@@ -91,6 +93,7 @@ cat external/bootstrap.min.css \
     external/vis-network.min.css \
     external/bootstrap-select.min.css \
     external/bootstrap-tokenfield.css \
+    external/introjs.min.css \
     external/speech-input.css \
     external/speechkitt.css \
     external/dropify.min.css > external/external.min.css

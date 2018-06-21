@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2017 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -17,6 +17,148 @@
  *  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
+
+        /*
+         *  Get/Set
+         */
+
+        function get_simware ( )
+        {
+	    if (typeof FIRMWARE['firmware'] == "undefined")
+            {
+                FIRMWARE['firmware']           = new Array() ;
+                FIRMWARE['mp']                 = new Object() ;
+                FIRMWARE['seg']                = new Object() ;
+                FIRMWARE['assembly']           = new Object() ;
+                FIRMWARE['labels']             = new Object() ;
+                FIRMWARE['labels2']            = new Object() ;
+                FIRMWARE['labels_firm']        = new Object() ;
+                FIRMWARE['registers']          = new Object() ;
+                FIRMWARE['cihash']             = new Object() ;
+                FIRMWARE['pseudoInstructions'] = new Object() ;
+		FIRMWARE['stackRegister']      = new Object() ;
+            }
+
+            return FIRMWARE ;
+	}
+
+        function set_simware ( preSIMWARE )
+        {
+	    if (typeof preSIMWARE['firmware'] != "undefined")
+                FIRMWARE['firmware'] = preSIMWARE['firmware'] ;
+	    if (typeof preSIMWARE['mp'] != "undefined")
+                FIRMWARE['mp'] = preSIMWARE['mp'] ;
+	    if (typeof preSIMWARE['registers'] != "undefined")
+                FIRMWARE['registers'] = preSIMWARE['registers'] ;
+	    if (typeof preSIMWARE['cihash'] != "undefined")
+                FIRMWARE['cihash'] = preSIMWARE['cihash'] ;
+	    if (typeof preSIMWARE['assembly'] != "undefined")
+                FIRMWARE['assembly'] = preSIMWARE['assembly'] ;
+	    if (typeof preSIMWARE['pseudoInstructions'] != "undefined")
+                FIRMWARE['pseudoInstructions'] = preSIMWARE['pseudoInstructions'] ;
+
+	    if (typeof preSIMWARE['seg'] != "undefined")
+                FIRMWARE['seg'] = preSIMWARE['seg'] ;
+	    if (typeof preSIMWARE['labels'] != "undefined")
+                FIRMWARE['labels'] = preSIMWARE['labels'] ;
+	    if (typeof preSIMWARE['labels2'] != "undefined")
+                FIRMWARE['labels2'] = preSIMWARE['labels2'] ;
+	    if (typeof preSIMWARE['labels_firm'] != "undefined")
+                FIRMWARE['labels_firm'] = preSIMWARE['labels_firm'] ;
+	    if (typeof preSIMWARE['stackRegister'] != "undefined")
+		FIRMWARE['stackRegister'] = preSIMWARE['stackRegister'] ;
+	}
+
+        function get_value ( sim_obj )
+        {
+	   if (typeof sim_obj.value == "function")
+	   {
+	       return sim_obj.value() ;
+	   }
+	   else if (typeof sim_obj.default_value == "object")
+	   {
+	       return sim_obj.value ;
+	   }
+	   else
+	   {
+	       return sim_obj.value ;
+	   }
+        }
+
+        function set_value ( sim_obj, value )
+        {
+	   if (typeof sim_obj.value == "function") 
+	   {
+	       if (sim_obj.value() != value)
+	           sim_obj.changed = true ;
+
+	       sim_obj.value(value) ;
+           }
+	   else if (typeof sim_obj.default_value == "object")
+	   {
+	       if (sim_obj.value != value)
+	           sim_obj.changed = true ;
+
+	       sim_obj.value = value ;
+           }
+	   else
+	   {
+	       if (sim_obj.value != value)
+	           sim_obj.changed = true ;
+
+	       sim_obj.value = value ;
+           }
+        }
+
+        function reset_value ( sim_obj )
+        {
+           if (typeof sim_obj.value == "function")
+	   {
+	        if (sim_obj.value() != sim_obj.default_value)
+	            sim_obj.changed = true ;
+
+	        set_value(sim_obj, sim_obj.default_value) ;
+           }
+	   else if (typeof sim_obj.default_value == "object")
+	   {
+	        sim_obj.changed = true ;
+	        sim_obj.value = Object.create(sim_obj.default_value) ;
+           }
+	   else if (sim_obj instanceof Array)
+	   {
+	        sim_obj.changed = true ;
+	        for (var i=0; i<sim_obj.length; i++)
+	  	     set_value(sim_obj[i], sim_obj[i].default_value) ;
+           }
+	   else
+	   {
+	        if (sim_obj.value != sim_obj.default_value)
+	            sim_obj.changed = true ;
+
+	        set_value(sim_obj, sim_obj.default_value) ;
+           }
+        }
+
+        var sim_references = new Object() ;
+
+        function compute_references ( )
+        {
+            for (var key in sim_signals) {
+		 sim_references[key] = sim_signals[key] ;
+		    sim_signals[key].changed = false ;
+	    }
+
+            for (var key in sim_states) {
+		 sim_references[key] = sim_states[key] ;
+		     sim_states[key].changed = false ;
+	    }
+        }
+
+        function get_reference ( sim_name )
+        {
+	    return sim_references[sim_name] ;
+        }
 
 
         /*
@@ -355,97 +497,6 @@
         }
 
 
-        function get_value ( sim_obj )
-        {
-	   if (typeof sim_obj.value == "function")
-	   {
-	       return sim_obj.value() ;
-	   }
-	   else if (typeof sim_obj.default_value == "object")
-	   {
-	       return sim_obj.value ;
-	   }
-	   else
-	   {
-	       return sim_obj.value ;
-	   }
-        }
-
-        function set_value ( sim_obj, value )
-        {
-	   if (typeof sim_obj.value == "function") 
-	   {
-	       if (sim_obj.value() != value)
-	           sim_obj.changed = true ;
-
-	       sim_obj.value(value) ;
-           }
-	   else if (typeof sim_obj.default_value == "object")
-	   {
-	       if (sim_obj.value != value)
-	           sim_obj.changed = true ;
-
-	       sim_obj.value = value ;
-           }
-	   else
-	   {
-	       if (sim_obj.value != value)
-	           sim_obj.changed = true ;
-
-	       sim_obj.value = value ;
-           }
-        }
-
-        function reset_value ( sim_obj )
-        {
-           if (typeof sim_obj.value == "function")
-	   {
-	        if (sim_obj.value() != sim_obj.default_value)
-	            sim_obj.changed = true ;
-
-	        set_value(sim_obj, sim_obj.default_value) ;
-           }
-	   else if (typeof sim_obj.default_value == "object")
-	   {
-	        sim_obj.changed = true ;
-	        sim_obj.value = Object.create(sim_obj.default_value) ;
-           }
-	   else if (sim_obj instanceof Array)
-	   {
-	        sim_obj.changed = true ;
-	        for (var i=0; i<sim_obj.length; i++)
-	  	     set_value(sim_obj[i], sim_obj[i].default_value) ;
-           }
-	   else
-	   {
-	        if (sim_obj.value != sim_obj.default_value)
-	            sim_obj.changed = true ;
-
-	        set_value(sim_obj, sim_obj.default_value) ;
-           }
-        }
-
-        var sim_references = new Object() ;
-
-        function compute_references ( )
-        {
-            for (var key in sim_signals) {
-		 sim_references[key] = sim_signals[key] ;
-		    sim_signals[key].changed = false ;
-	    }
-
-            for (var key in sim_states) {
-		 sim_references[key] = sim_states[key] ;
-		     sim_states[key].changed = false ;
-	    }
-        }
-
-        function get_reference ( sim_name )
-        {
-	    return sim_references[sim_name] ;
-        }
-
-
         function show_memories_values ( )
         {
 		/*
@@ -679,6 +730,20 @@
 	    show_rf_values();
         }
 
+        // update ALU flags: test_n, test_z, test_v, test_c
+        function update_nzvc ( flag_n, flag_z, flag_v, flag_c )
+        {
+	   set_value(sim_states["FLAG_N"], flag_n) ;
+	   set_value(sim_states["FLAG_Z"], flag_z) ;
+	   set_value(sim_states["FLAG_V"], flag_v) ;
+	   set_value(sim_states["FLAG_C"], flag_c) ;
+
+	   set_value(sim_signals["TEST_N"], flag_n) ;
+	   set_value(sim_signals["TEST_Z"], flag_z) ;
+	   set_value(sim_signals["TEST_V"], flag_v) ;
+	   set_value(sim_signals["TEST_C"], flag_c) ;
+        }
+
         function update_memories ( preSIMWARE )
         {
 	    // 1.- load the SIMWARE
@@ -763,251 +828,4 @@
             show_main_memory   (MP,                0, true, true) ;
             show_control_memory(MC,  MC_dashboard, 0, true) ;
 	}
-
-
-        /*
-         *  USER INTERFACE
-         */
-
-        /* 1) INIT */
-        function init ( stateall_id, statebr_id, ioall_id, configall_id )
-        {
-            // 1.- it checks if everything is ok
-            check_behavior();
-
-            // 2.- pre-compile behaviors & references
-            compile_behaviors() ;
-            firedep_to_fireorder(jit_fire_dep) ;
-            compute_references() ;
-
-            // 3.- display the information holders
-            init_states(stateall_id) ;
-            init_rf(statebr_id) ;
-
-            init_io(ioall_id) ;
-            init_config(configall_id) ;
-        }
-
-        function init_eventlistener ( context )
-        {
-            // 3.- for every signal, set the click event handler
-            for (var key in sim_signals)
-            {
-                for (var j=0; j<sim_signals[key].fire_name.length; j++)
-                {
-			   var r = sim_signals[key].fire_name[j].split(':') ;
-			   if (r[0] != context) {
-			       continue;
-                           }
-
-  			   var o = document.getElementById(r[0]).contentDocument ;
-                           if (null == o)  {
-                               console.log('warning: unreferenced graphic element context named "' + r[0] + '".');
-                               continue;
-                           }
-
-  			   var u = o.getElementById(r[1]) ;
-                           if (null == u)  {
-                               console.log('warning: unreferenced graphic element named "' + r[0] + ':' + r[1] + '".');
-                               continue;
-                           }
-
-  			   u.addEventListener('click', update_signal, false);
-                }
-            }
-        }
-
-        /* 2) EXECUTION */
-        function check_if_can_execute ( with_ui )
-        {
-		if ( (typeof segments['.ktext'] == "undefined") &&
-		     (typeof segments['.text']  == "undefined") )
-		{
-                    if (with_ui)
-		        alert('code segment .ktext/.text does not exist!');
-		    return false;
-		}
-
-	        var SIMWARE = get_simware();
-
-                if (
-                     (! ((typeof segments['.ktext'] != "undefined") && (SIMWARE.labels2["kmain"])) ) &&
-                     (! ((typeof segments['.text']  != "undefined") && (SIMWARE.labels2["main"]))   )
-                )
-                {
-                     if (with_ui)
-		         alert("labels 'kmain' (in .ktext) or 'main' (in .text) do not exist!");
-                     return false;
-	        }
-
-                return true;
-        }
-
-        function update_checker_loadhelp ( helpdiv, key )
-        {
-	     var help_base = 'help/simulator-' + get_cfg('ws_idiom') + '.html #' + key;
-	     $(helpdiv).load(help_base,
-			      function(response, status, xhr) {
-				  if ( $(helpdiv).html() == "" )
-				       $(helpdiv).html('<br>Sorry, there is no more details.<p>\n');
-
-				  $(helpdiv).trigger('create');
-			      });
-             ga('send', 'event', 'help', 'help.checker', 'help.checker.' + key);
-	}
-
-        /* 
-         * check dialogs
-	 */
-
-        function check_if_can_continue ( with_ui )
-        {
-		var reg_maddr = get_value(sim_states["REG_MICROADDR"]) ;
-                if (typeof MC[reg_maddr] == "undefined") {
-                    return false;
-		}
-
-		// when do reset/fetch, check text segment bounds
-                if (reg_maddr != 0) {
-                    return true;
-		}
-
-		var reg_pc = parseInt(get_value(sim_states["REG_PC"]));
-		if ( (reg_pc < segments['.ktext'].end) && (reg_pc >= segments['.ktext'].begin)) {
-                    return true;
-		}
-		if ( (reg_pc <  segments['.text'].end) && (reg_pc >=  segments['.text'].begin)) {
-                    return true;
-		}
-
-                // if (reg_maddr == 0) && (outside *text) -> cannot continue
-	        if (with_ui) 
-                {
-      	            var dialog_title = 'The program has finished because the PC register points outside .ktext/.text code segments' ;
-                    $("#dlg_title2").html(dialog_title) ;
-                    $('#current_state2').modal('show');
-	        }
-
-		return false;
-        }
-
-        function reset ()
-        {
-            // Hardware
-	    var SIMWARE = get_simware() ;
-
-            compute_general_behavior("RESET") ;
-
-            if ((typeof segments['.ktext'] != "undefined") && (SIMWARE.labels2["kmain"])){
-                    set_value(sim_states["REG_PC"], parseInt(SIMWARE.labels2["kmain"]));
-                    show_asmdbg_pc() ;
-	    }
-            else if ((typeof segments['.text'] != "undefined") && (SIMWARE.labels2["main"])){
-                    set_value(sim_states["REG_PC"], parseInt(SIMWARE.labels2["main"]));
-                    show_asmdbg_pc() ;
-	    }
-
-	    if ( (typeof segments['.stack'] != "undefined") &&
-                 (typeof sim_states["BR"][FIRMWARE.stackRegister] != "undefined") )
-	    {
-		set_value(sim_states["BR"][FIRMWARE.stackRegister], parseInt(segments['.stack'].begin));
-	    }
-
-            compute_general_behavior("CLOCK") ;
-
-            // User Interface
-            show_dbg_ir(get_value(sim_states['REG_IR_DECO'])) ;
-	    show_states() ;
-            show_rf_values();
-            show_rf_names();
-            show_main_memory   (MP,                0, true, false) ;
-            show_control_memory(MC,  MC_dashboard, 0, true) ;
-            set_screen_content("") ;
-        }
-
-        function execute_microinstruction ()
-        {
-	        if (check_if_can_continue(true) == false)
-		    return false;
-
-                compute_general_behavior("CLOCK") ;
-
-		show_states();
-		show_rf_values();
-                show_dbg_mpc();
-
-                return true;
-        }
-
-        function execute_microprogram ( limit_clks )
-        {
-	        if (check_if_can_continue(true) == false)
-		    return false;
-
-                var limitless = false;
-                if (limit_clks < 0)
-                    limitless = true;
-
-                // 1.- while the microaddress register doesn't store the fetch address (0), execute micro-instructions
-                var i_clks = 0;
-		do
-            	{
-                    compute_general_behavior("CLOCK") ;
-
-                    i_clks++;
-                    if (limitless)
-                        limit_clks = i_clks + 1;
-            	}
-		while (
-                         (i_clks < limit_clks) &&
-                         (0 != get_value(sim_states["REG_MICROADDR"])) &&
-                         (typeof MC[get_value(sim_states["REG_MICROADDR"])] != "undefined")
-                      );
-
-                // 2.- to show states
-		show_states();
-		show_rf_values();
-
-                if (get_cfg('DBG_level') == "microinstruction") {
-                    show_dbg_mpc();
-                }
-
-                return (i_clks < limit_clks);
-        }
-
-        /* 3) LOAD/SAVE */
-        function load_firmware ( textFromFileLoaded )
-        {
-                if ("" == textFromFileLoaded.trim())
-                {
-                    var preSIMWARE = new Object() ;
-                    preSIMWARE.error = 'Empty Firmware' ;
-                    return preSIMWARE;
-                }
-
-                try
-                {
-			var preSIMWARE = JSON.parse(textFromFileLoaded);
-			update_memories(preSIMWARE);
-                        preSIMWARE.error = null;
-                        return preSIMWARE;
-                }
-                catch (e)
-                {
-			try
-			{
-                            var preSIMWARE = loadFirmware(textFromFileLoaded);
-                            if (preSIMWARE.error == null)
-                                update_memories(preSIMWARE);
-
-                            return preSIMWARE;
-			}
-			catch (e) {
-			    // https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError
-                            var preSIMWARE = new Object() ;
-                            preSIMWARE.error = 'ERROR: at line: ' + e.lineNumber + ' and column: ' + e.columnNumber ;
-                            return preSIMWARE;
-			}
-                }
-        }
 

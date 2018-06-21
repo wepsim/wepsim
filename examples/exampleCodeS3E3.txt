@@ -9,6 +9,7 @@
 sys_print:  
             li   $0 0
             li   $1 1
+            beq  $26 $0 fin1
         b5: lb   $27 ($26)
             beq  $27 $0 fin1
             out  $27 0x1000

@@ -1,0 +1,21 @@
+
+ The current stop images are extracted from image repositories, and each stop image has its own copyright from authors/providers of each one:
+
+./images/stop_batman.gif
+./images/stop_bb8.gif
+./images/stop_cat1.gif
+./images/stop_classic.gif
+./images/stop_dog1.gif
+./images/stop_hp1.gif
+./images/stop_hp2.gif
+./images/stop_lotr1.gif
+./images/stop_lotr2.gif
+./images/stop_lotr3.gif
+./images/stop_lotr4.gif
+./images/stop_pushpin.gif
+./images/stop_r2d2.gif
+./images/stop_simple.gif
+./images/stop_super.gif
+./images/stop_sw.gif
+./images/stop_vader1.gif
+

@@ -1,4 +1,26 @@
 
+1.8.6 -> 1.8.7:
+* Code refactoring
+* More jshint recommendations
+* More non-web tools support
+
+1.8.5 -> 1.8.6:
+* Progressive Wep Application added
+* Travis-CI added
+* Initial support for non-web tools
+* Code Climate added
+* Minor improvements on UI (bootstrap)
+
+1.8.2 -> 1.8.5:
+* ALU Flag is highlighted in a clock cycle if it is active
+* New configuration option in order to limit the number of the assembly instructions executed
+* Help on memory components has been improved
+* New example, and many of them have been updated
+* New stop icons
+* Statistical information about instruction and clock cycles are now part of the "CPU Stats"
+* Initial native mode support
+* Initial deployment as Progressive Wep Application
+
 1.8.1 -> 1.8.2:
 * Added 'break:' and 'state:' actions at microcode level
 * Updated 'notify:' for tutorials

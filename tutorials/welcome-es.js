@@ -1,7 +1,7 @@
 
-    tutorials['welcome']['es'] = new Array() ;
+    tutorials.welcome.es = [] ;
 
-    tutorials['welcome']['es'].push({
+    tutorials.welcome.es.push({
                      id:          "welcome",
                      title:       "¡Bienvenidos al simulador WepSIM!",
                      message:     "<img src='help/simulator/simulator012.jpg' style='width:100%; max-height:50vh'>" +
@@ -20,7 +20,7 @@
                      wait_next:   100
                   });
 
-    tutorials['welcome']['es'].push({
+    tutorials.welcome.es.push({
                      id:          "welcome",
                      title:       "El bot&oacute;n de men&uacute;",
                      message:     "<img src='tutorials/welcome/menu_open.gif' style='max-height:50vh'>" +
@@ -35,7 +35,7 @@
                      wait_next:   100
                   });
 
-    tutorials['welcome']['es'].push({
+    tutorials.welcome.es.push({
                      id:          "welcome",
                      title:       "C&oacute;mo cargar algunos ejemplos.",
                      message:     "<img src='tutorials/welcome/example_usage.gif' style='width:100%; max-height:60vh'>" +
@@ -49,7 +49,7 @@
                      wait_next:   100
                   });
 
-    tutorials['welcome']['es'].push({
+    tutorials.welcome.es.push({
                      id:          "welcome",
                      title:       "C&oacute;mo cargar algunos ejemplos.",
                      message:     "<img src='tutorials/welcome/simulation_xinstruction.gif' style='width:100%; max-height:60vh'>" +
@@ -64,7 +64,7 @@
                      wait_next:   100
                   });
 
-    tutorials['welcome']['es'].push({
+    tutorials.welcome.es.push({
                      id:          "welcome",
                      title:       "C&oacute;mo configurar WepSIM.",
                      message:     "<img src='tutorials/welcome/config_usage.gif' style='width:100%; max-height:60vh'>" +
@@ -78,7 +78,7 @@
                      wait_next:   100
                   });
 
-    tutorials['welcome']['es'].push({
+    tutorials.welcome.es.push({
                      id:          "welcome",
                      title:       "C&oacute;mo conseguir la ayuda b&aacute;sica.",
                      message:     "<img src='tutorials/welcome/help_usage.gif' style='width:100%; max-height:60vh'>" +
@@ -93,7 +93,7 @@
                      wait_next:   100
                   });
 
-    tutorials['welcome']['es'].push({
+    tutorials.welcome.es.push({
                      id:          "welcome",
                      title:       "¡Bienvenido a WepSIM!",
                      message:     "<img src='tutorials/welcome/help_usage.gif' style='width:100%; max-height:60vh'>" +
