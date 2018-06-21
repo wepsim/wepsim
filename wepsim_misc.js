@@ -314,10 +314,12 @@
     {
 	    simhw_setActive(mode) ;
 
-	    document.getElementById('svg_p').setAttribute('data',  simhw_active().sim_img_processor) ;
-	    document.getElementById('svg_cu').setAttribute('data', simhw_active().sim_img_controlunit) ;
-	    document.getElementById('svg_p2').setAttribute('data', simhw_active().sim_img_cpu) ;
-	    wepsim_notify_success('<strong>INFO</strong>', '"' + simhw_active().sim_name + '" has been activated.') ;
+	    var o = document.getElementById('svg_p') ;
+	    if (o != null) o.setAttribute('data',  simhw_active().sim_img_processor) ;
+	        o = document.getElementById('svg_cu') ;
+	    if (o != null) o.setAttribute('data', simhw_active().sim_img_controlunit) ;
+	        o = document.getElementById('svg_p2') ;
+	    if (o != null) o.setAttribute('data', simhw_active().sim_img_cpu) ;
 
 	    var a = document.getElementById("svg_p");
 	    a.addEventListener("load",function() {
@@ -332,6 +334,8 @@
 		sim_core_init_eventlistener("svg_cu");
 		refresh();
 	    }, false);
+
+	    wepsim_notify_success('<strong>INFO</strong>', '"' + simhw_active().sim_name + '" has been activated.') ;
     }
 
     function wepsim_change_mode ( optValue, cssLayer )
