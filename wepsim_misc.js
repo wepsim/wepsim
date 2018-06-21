@@ -314,9 +314,9 @@
     {
 	    simhw_setActive(mode) ;
 
-	    $("div.img_processor").replaceWith(simhw_active().sim_img_processor) ;
-	    $("div.img_controlunit").replaceWith(simhw_active().sim_img_controlunit) ;
-	    $("div.img_cpu").replaceWith(simhw_active().sim_img_cpu) ;
+	    document.getElementById('svg_p').setAttribute('data',  simhw_active().sim_img_processor) ;
+	    document.getElementById('svg_cu').setAttribute('data', simhw_active().sim_img_controlunit) ;
+	    document.getElementById('svg_p2').setAttribute('data', simhw_active().sim_img_cpu) ;
 	    wepsim_notify_success('<strong>INFO</strong>', '"' + simhw_active().sim_name + '" has been activated.') ;
 
 	    var a = document.getElementById("svg_p");
