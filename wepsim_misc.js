@@ -310,6 +310,28 @@
 	else $(divb).addClass('col-12 order-2');
     }
 
+    function wepsim_activehw ( mode )
+    {
+	    simhw_setActive(mode) ;
+
+              // TODO: 
+	      // * update cpu-processor-controlunig image at index + cpu at help
+
+	    var a = document.getElementById("svg_p");
+	    a.addEventListener("load",function() {
+		sim_prepare_svg_p();
+		sim_core_init_eventlistener("svg_p");
+		refresh();
+	    }, false);
+
+	    var a = document.getElementById("svg_cu");
+	    a.addEventListener("load",function() {
+		sim_prepare_svg_cu();
+		sim_core_init_eventlistener("svg_cu");
+		refresh();
+	    }, false);
+    }
+
     function wepsim_change_mode ( optValue, cssLayer )
     {
 	  set_cfg('ws_mode',optValue); 
@@ -333,10 +355,7 @@
 
 	  // wepsim mode...
 	  if ('wepsim' == optValue) {
-	      simhw_setActive(0) ;
-              // TODO: 
-	      // * update cpu-processor-controlunig image at index + cpu at help
-	      // * svg_cu + svg_p + mv/cp eventListener from index
+              wepsim_activehw(0) ;
 	  }
     }
 

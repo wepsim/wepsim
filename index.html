@@ -1671,19 +1671,7 @@
                     sim_prepare_editor(inputasm) ;
 		    inputasm.setSize("auto","auto");
 
-		    var a = document.getElementById("svg_p");
-		    a.addEventListener("load",function() {
-			sim_prepare_svg_p();
-			sim_core_init_eventlistener("svg_p");
-			refresh();
-		    }, false);
-
-		    var a = document.getElementById("svg_cu");
-		    a.addEventListener("load",function() {
-			sim_prepare_svg_cu();
-			sim_core_init_eventlistener("svg_cu");
-			refresh();
-		    }, false);
+                    wepsim_activehw(0) ;
 
 		    $.mobile.pageContainer.pagecontainer('change','#main1');
 		    $('#tab26').trigger('click');
