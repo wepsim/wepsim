@@ -36,43 +36,43 @@
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab11').trigger('click');
-						     $('#select5a').selectpicker('val', 11);
+						     $('#select5a').val(11);
                                                   }, false);
 	            o  = ref_p.getElementById('text3029');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab11').trigger('click');
-						     $('#select5a').selectpicker('val', 11);
+						     $('#select5a').val(11);
                                                   }, false);
 	            o  = ref_p.getElementById('text3031');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab11').trigger('click');
-						     $('#select5a').selectpicker('val', 11);
+						     $('#select5a').val(11);
                                                   }, false);
 	            o  = ref_p.getElementById('text3001');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab14').trigger('click');
-						     $('#select5a').selectpicker('val', 14);
+						     $('#select5a').val(14);
                                                   }, false);
 	            o  = ref_p.getElementById('text3775');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab15').trigger('click');
-						     $('#select5a').selectpicker('val', 15);
+						     $('#select5a').val(15);
                                                   }, false);
 	            o  = ref_p.getElementById('text3829');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab12').trigger('click');
-						     $('#select5a').selectpicker('val', 12);
+						     $('#select5a').val(12);
                                                   }, false);
 	            o  = ref_p.getElementById('text3845');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab12').trigger('click');
-						     $('#select5a').selectpicker('val', 12);
+						     $('#select5a').val(12);
                                                   }, false);
                     o  = ref_p.getElementById('text3459-7');
                 if (o != null) o.addEventListener('click',
@@ -91,7 +91,7 @@
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab16').trigger('click');
-						     $('#select5a').selectpicker('val', 16);
+						     $('#select5a').val(16);
                                                   }, false);
                     o  = ref_cu.getElementById('text4138');
                 if (o != null) o.addEventListener('click',
@@ -293,11 +293,72 @@
 	});
     }
 
-    function set_cpu_cu_size ( diva, divb, new_value )
+    function set_ab_size ( diva, divb, new_value )
     {
 	var a = new_value;
-	var b = 100 - a;
-	$('#eltos_cpu_a').css({width: a+'%'});
-	$('#eltos_cpu_b').css({width: b+'%'});
+    	var b = 12 - a;
+
+	$(diva).removeClass();
+	$(divb).removeClass();
+
+	if (a != 0)
+             $(diva).addClass('col-' + a);
+	else $(diva).addClass('col-12 order-1');
+
+	if (b != 0)
+	     $(divb).addClass('col-' + b);
+	else $(divb).addClass('col-12 order-2');
+    }
+
+    function wepsim_activehw ( mode )
+    {
+	    simhw_setActive(mode) ;
+
+	    var o = document.getElementById('svg_p') ;
+	    if (o != null) o.setAttribute('data',  simhw_active().sim_img_processor) ;
+	        o = document.getElementById('svg_cu') ;
+	    if (o != null) o.setAttribute('data', simhw_active().sim_img_controlunit) ;
+	        o = document.getElementById('svg_p2') ;
+	    if (o != null) o.setAttribute('data', simhw_active().sim_img_cpu) ;
+
+	    var a = document.getElementById("svg_p");
+	    a.addEventListener("load",function() {
+		sim_prepare_svg_p();
+		sim_core_init_eventlistener("svg_p");
+		refresh();
+	    }, false);
+
+	    var a = document.getElementById("svg_cu");
+	    a.addEventListener("load",function() {
+		sim_prepare_svg_cu();
+		sim_core_init_eventlistener("svg_cu");
+		refresh();
+	    }, false);
+
+	    wepsim_notify_success('<strong>INFO</strong>', '"' + simhw_active().sim_name + '" has been activated.') ;
+    }
+
+    function wepsim_change_mode ( optValue, cssLayer )
+    {
+	  // webmips mode...
+	  if ('webmips' == optValue)
+	       wepsim_show_webmips();
+	  else wepsim_hide_webmips();
+
+	  // tutorial mode...
+	  $(cssLayer).css('background-color', '#F6F6F6') ;
+	  if ('tutorial' == optValue) {
+	      $(cssLayer).css('background-color', '#D4DB17') ;
+	  }
+
+	  // intro mode...
+	  if ('intro' == optValue) {
+	      sim_tutorial_showframe('welcome', 0);
+	  }
+
+	  // wepsim mode...
+	  if ('wepsim' == optValue) {
+              wepsim_activehw(0) ;
+	  }
     }
 

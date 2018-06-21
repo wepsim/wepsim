@@ -82,7 +82,7 @@
 	    var draw_it = get_cfg('is_byvalue'); // 'is_byvalue' belongs to the sim_cfg.js
 
             /* 1) Check if draw it */
-	    if (typeof sim_states["REG_MICROINS"].value[obj.name] != "undefined") {
+	    if (typeof simhw_sim_state("REG_MICROINS").value[obj.name] != "undefined") {
 		draw_it = true;
 	    }
 
@@ -91,7 +91,7 @@
 		for (var k=0; k<obj.depends_on.length; k++)
 		{
 		     var sname = obj.depends_on[k] ;
-		     if (typeof sim_states["REG_MICROINS"].value[sname] != "undefined") {
+		     if (typeof simhw_sim_state("REG_MICROINS").value[sname] != "undefined") {
 			     draw_it = true;
 			     break;
 		     }
@@ -186,13 +186,13 @@
 
         function refresh()
         {
-	    for (var key in sim_signals) 
+	    for (var key in simhw_sim_signals()) 
 	    {
-		 update_draw(sim_signals[key], sim_signals[key].value) ;
+		 update_draw(simhw_sim_signals()[key], simhw_sim_signals()[key].value) ;
                  check_buses(key);
 	    }
 
-	    show_dbg_ir(get_value(sim_states['REG_IR_DECO'])) ;
+	    show_dbg_ir(get_value(simhw_sim_state('REG_IR_DECO'))) ;
         }
 
 
@@ -200,6 +200,7 @@
          *  init_x & show_x
          */
 
+/*
         function simcoreui_notify ( ntf_title, ntf_message, ntf_type, ntf_delay )
         {   
             return $.notify({ title: ntf_title, 
@@ -216,6 +217,35 @@
         {   
             return $.notifyClose() ;
         }
+*/
+
+        function simcoreui_notify ( ntf_title, ntf_message, ntf_type, ntf_delay )
+        {
+	    // alerts-container does not exist, create it
+	    var ac = $("#alerts-container") ;
+	    if (ac.length == 0) {
+		ac = $('<div id="alerts-container" ' + 
+                       '     style="position: fixed; width: 50%; left: 25%; top: 10%; z-index:256;">') ;
+		$("body").append(ac) ;
+	    }
+
+	    // create the alert div
+            var btn1   = $('<button type="button" class="close" data-dismiss="alert">') ;
+	    var alert1 = $('<div class="alert alert-' + ntf_type + '">') ;
+	    ac.prepend(alert1.append(btn1.append("&times;")).append(ntf_message)) ;
+
+	    // if delay was passed, set up a timeout to close the alert
+	    if (ntf_delay != 0) {
+		window.setTimeout(function() { alert1.alert("close") }, ntf_delay);     
+	    }
+        }
+
+        function simcoreui_notify_close ( )
+        {
+            //$("#alerts-container").close() ;
+              $(".alert").alert('close') ;
+        }
+
 
         function hex2float ( hexvalue )
         {
@@ -280,21 +310,21 @@
         {
 	      var new_value = parseInt($("#popover1")[0].value) ;
 
-              if (typeof sim_states["BR"][index] != "undefined")
+              if (typeof simhw_sim_states()["BR"][index] != "undefined")
               {
-	          set_value(sim_states["BR"][index], new_value) ;
+	          set_value(simhw_sim_states()["BR"][index], new_value) ;
 	          fullshow_rf_values() ;
                   $("#rf" + index).click() ;
                   $("#rf" + index).click() ;
               }
 
-              if (typeof sim_states[index] != "undefined")
+              if (typeof simhw_sim_states()[index] != "undefined")
               {
-                  if (1 == sim_states[index].nbits)
+                  if (1 == simhw_sim_states()[index].nbits)
                       new_value = new_value % 2;
 
-	          set_value(sim_states[index], new_value) ;
-                  fullshow_eltos(sim_states, filter_states);
+	          set_value(simhw_sim_states()[index], new_value) ;
+                  fullshow_eltos(simhw_sim_states(), filter_states);
                   $("#rp" + index).click() ;
                   $("#rp" + index).click() ;
               }
@@ -317,11 +347,11 @@
 		var valuedt = "" ;
 		if (get_cfg('is_editable') == true) {
 		    valuedt = "<tr><td colspan=5 align=center><input type=text id='popover1' value='" + valueui + "' data-mini='true' style='width:65%'>&nbsp;" +
-                              "<span class='badge' " +
+                              "<span class='badge badge-secondary' " +
                               "      onclick='hex2values_update(\"" + index + "\");'>update</span></td></tr>";
                 }
 
-		var vtable = "<table width='100%' class='table table-bordered table-condensed'>" +
+		var vtable = "<table width='100%' class='table table-bordered table-sm'>" +
 			     "<tr><td><small><b>hex.</b></small></td>" +
                              "    <td colspan=4><small>" + valuehex + "</small></td></tr>" +
 			     "<tr><td><small><b>bin.</b></small></td>" +
@@ -350,33 +380,36 @@
                 return ;
             }
 
-            var o1_rf = "<div class='hidden' id='popover_rf'>" +
-                        "  <div class='popover-heading'></div>" +
-                        "  <div class='popover-body'></div>" +
-                        "</div>" ;
-	    for (var index=0; index < sim_states['BR'].length; index++)
+            var o1_rf = "" ;
+            var o1_rn = "" ;
+	    for (var index=0; index < simhw_sim_states()['BR'].length; index++)
             {
-		 o1_rf += "<div class='col-xs-6 col-sm-4 col-md-4 col-lg-3' style='padding:0 5 0 5;'>" +
-                          "<button type='button' class='btn btn-outline-primary no-text-shadow' style='padding:0 0 0 0; outline:none; box-shadow:none; transform:translate3d(0,0,0);' " +
+		 o1_rn = "R"  + index ;
+                 if (index < 10)
+                     o1_rn = o1_rn + '<span style="opacity: 0.0;">_</span>' ;
+
+		 o1_rf += "<div class='col' style='padding:0 2px 0 2px !important; margin:1px 5px 1px 2px;'>" +
+                          "<button type='button' class='btn btn-outline-primary no-text-shadow' " + 
+			  "        style='margin:1px 5px 1px 2px; padding:0 0 0 0; outline:none; box-shadow:none; transform:translate3d(0,0,0);' " +
                           "        data-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
-                          "  <span id='name_RF" + index + "' style='float:center; padding:0 0 0 0'>R" + index + "</span>" +
-                          "  <span class='badge' style='background-color:#CEECF5; color:black;' id='tbl_RF"  + index + "'>" +
-                          (get_value(sim_states['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() +
+                          "  <span id='name_RF" + index + "' style='float:center; padding:0 0 0 0'>" + o1_rn + "</span>" +
+                          "  <span class='badge badge-secondary' style='background-color:#CEECF5; color:black;' id='tbl_RF"  + index + "'>" +
+                          (get_value(simhw_sim_states()['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() +
                           "  </span>" +
                           "</button>" +
                           "</div>" ;
 	    }
 
-            $(jqdiv).html("<div class='row-fluid'>" + o1_rf + "</div>");
+            $(jqdiv).html("<div class='row justify-content-center'>" + o1_rf + "</div>");
 
 	    $("[data-toggle=popover-up]").popover({
 	    	    html:      true,
-                    placement: 'top',
+                    placement: 'auto',
                     animation: false,
 		    content: function() {
 		        var index = $(this).attr("data-popover-content");
-                        var hexvalue = get_value(sim_states['BR'][index]);
+                        var hexvalue = get_value(simhw_sim_states()['BR'][index]);
                         return hex2values(hexvalue, index) ;
 		    },
 		    title: function() {
@@ -396,9 +429,9 @@
 
             var SIMWARE = get_simware() ;
 
-	    for (var index=0; index < sim_states['BR'].length; index++)
+	    for (var index=0; index < simhw_sim_states()['BR'].length; index++)
             {
-                 var br_value = (get_value(sim_states['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() ;
+                 var br_value = (get_value(simhw_sim_states()['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() ;
                  if (16 == get_cfg('RF_display_format'))
                      br_value = pack8(br_value) ;
 
@@ -426,9 +459,13 @@
         {
             var SIMWARE = get_simware() ;
 
-	    for (var index=0; index < sim_states['BR'].length; index++)
+            var br_value = "" ;
+	    for (var index=0; index < simhw_sim_states()['BR'].length; index++)
             {
-                 var br_value = "R" + index;
+		 br_value = "R"  + index ;
+                 if (index < 10)
+                     br_value = br_value + '<span style="opacity: 0.0;">_</span>' ;
+
 	         if ('logical' == get_cfg('RF_display_name'))
 		     if (typeof SIMWARE['registers'][index] != "undefined")
 		         br_value = SIMWARE['registers'][index] ;
@@ -448,30 +485,41 @@
             }
 
             var o1 = "" ;
+            var part1 = "" ;
+            var part2 = "" ;
             for (var i=0; i<filter.length; i++)
             {
                 var s = filter[i].split(",")[0] ;
 
                 var showkey = sim_eltos[s].name;
-                if (sim_eltos[s].nbits > 1)
-                    showkey = showkey.substring(0,2) + '<span class="hidden-xs">' + showkey.substring(2,showkey.length) + '</span>' ;
+                if (sim_eltos[s].nbits > 1) 
+	        {
+                    part1 = showkey.substring(0, 3) ;
+                    part2 = showkey.substring(3, showkey.length) ;
+		    if (part2.length > 0)
+                        showkey = part1 + '<span class="d-none d-sm-inline-flex">' + part2 + '</span>' ;
+
+		    if (showkey.length < 3)
+			showkey = showkey + '<span style="opacity: 0.0;">_</span>' ;
+	        }
 
                 var b = filter[i].split(",")[1] ;
                 var divclass = divclasses[b] ;
 
-                o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5;'>" +
-                      "<button type='button' class='btn btn-outline-primary no-text-shadow' style='padding:0 0 0 0; outline:none; box-shadow:none; will-change:transform; transform:translate3d(0,0,0);' " +
+                o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5; margin:1px 5px 1px 2px; '>" +
+                      "<button type='button' class='btn btn-outline-primary no-text-shadow' " +
+                      "        style='padding:0 0 0 0; margin:1px 5px 1px 2px; outline:none; box-shadow:none; will-change:transform; transform:translate3d(0,0,0);' " +
                       "        data-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +
                       showkey +
-                      "<span class='badge' style='background-color:#CEECF5; color:black;' id='tbl_"  + s + "'>" +
+                      "<span class='badge badge-secondary' style='background-color:#CEECF5; color:black;' id='tbl_"  + s + "'>" +
                       sim_eltos[s].value.toString(get_cfg('RF_display_format')) +
                       "</span>" +
                       "</button>" +
                       "</div>" ;
             }
 
-            $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
+            $(jqdiv).html("<div class='row justify-content-center'>" + o1 + "</div>");
 
 	    $("[data-toggle=popover-bottom]").popover({
 	    	    html:      true,
@@ -479,13 +527,13 @@
                     animation: false,
 		    content: function() {
 		        var index = $(this).attr("data-popover-content");
-                        var hexvalue = get_value(sim_states[index]);
+                        var hexvalue = get_value(simhw_sim_states()[index]);
                         return hex2values(hexvalue, index) ;
 		    },
 		    title: function() {
 		        var index = $(this).attr("data-popover-content");
                         var id_button = "&quot;#rp" + index + "&quot;" ;
-		        return '<span class="text-info"><strong>' + sim_states[index].name + '</strong></span>' +
+		        return '<span class="text-info"><strong>' + simhw_sim_states()[index].name + '</strong></span>' +
                                '<button type="button" id="close" class="close" ' +
                                '        onclick="$(' + id_button + ').click();">&times;</button>';
 		    }
@@ -503,8 +551,9 @@
                 var key = r[0] ;
                 var value = sim_eltos[key].value.toString(get_cfg('RF_display_format')) ;
 
-                if (sim_eltos[key].nbits > 1) {
-                        value = (sim_states[key].value >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() ;
+                if (sim_eltos[key].nbits > 1) 
+		{
+                    value = (simhw_sim_state(key).value >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() ;
                     if (16 == get_cfg('RF_display_format'))
                         value = pack8(value) ;
                 }
@@ -534,17 +583,17 @@
                               "REG_RT1,1", "REG_RT2,1", "REG_RT3,1",
                               "REG_MAR,1", "REG_MBR,1", "REG_MICROADDR,1" ] ;
 
-        var divclasses = [ "col-xs-12 col-sm-12 col-md-12 col-lg-12",
-                           "col-xs-4 col-sm-4 col-md-4 col-lg-4" ] ;
+        var divclasses = [ "col-11", 
+                           "col" ] ;
 
         function init_states ( jqdiv )
         {
-            return init_eltos(jqdiv, sim_states, filter_states, divclasses ) ;
+            return init_eltos(jqdiv, simhw_sim_states(), filter_states, divclasses ) ;
         }
 
         function show_states ( )
         {
-            return show_eltos(sim_states, filter_states) ;
+            return show_eltos(simhw_sim_states(), filter_states) ;
         }
 
         function ko_observable ( initial_value )
@@ -569,8 +618,8 @@
             }
 
             // stats holder
-            var o1 = "<center>" +
-                     "<table class='table table-hover table-condensed table-bordered table-responsive'>" ;
+            var o1 = "<div class='col-12'>" +
+                     "<table class='table table-hover table-sm table-bordered'>" ;
             for (var i=0; i<IO_INT_FACTORY.length; i++)
             {
                o1 += "<tr id='int" + i + "_context'>" +
@@ -583,8 +632,8 @@
                      "</tr>" ;
             }
             o1 += "</table>" +
-                  "</center>" ;
-            $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
+                  "</div>" ;
+            $(jqdiv).html("<div class='row'>" + o1 + "</div>");
 
             // knockout binding
             for (var i=0; i<IO_INT_FACTORY.length; i++)
@@ -601,15 +650,15 @@
 	    // without ui
             if (jqdiv == "")
             {       
-		sim_states['CLK'].value      = ko_observable(sim_states['CLK'].value);
-		sim_states['DECO_INS'].value = ko_observable(sim_states['DECO_INS'].value);
+		simhw_sim_state('CLK').value      = ko_observable(simhw_sim_state('CLK').value);
+		simhw_sim_state('DECO_INS').value = ko_observable(simhw_sim_state('DECO_INS').value);
 
                 return ;
             }
 
             // stats holder
-            var o1 = "<center>" +
-                     "<table class='table table-hover table-condensed table-bordered table-responsive'>" +
+            var o1 = "<div class='col-12'>" +
+                     "<table class='table table-hover table-sm table-bordered'>" +
                      "<tr>" +
                      "<td align=center width=50%>Instructions</td>" +
                      "<td align=center width=50%>" +
@@ -623,17 +672,17 @@
                      "</td>" +
                      "</tr>" +
                      "</table>" +
-                     "</center>" ;
-            $(jqdiv).html("<div class='row-fluid'>" + o1 + "</div>");
+                     "</div>" ;
+            $(jqdiv).html("<div class='row'>" + o1 + "</div>");
 
             // knockout binding
-            sim_states['CLK'].value = ko_observable(sim_states['CLK'].value);
+            simhw_sim_state('CLK').value = ko_observable(simhw_sim_state('CLK').value);
             var ko_context = document.getElementById('clk_context');
-            ko.applyBindings(sim_states['CLK'], ko_context);
+            ko.applyBindings(simhw_sim_state('CLK'), ko_context);
 
-            sim_states['DECO_INS'].value = ko_observable(sim_states['DECO_INS'].value);
+            simhw_sim_state('DECO_INS').value = ko_observable(simhw_sim_state('DECO_INS').value);
             var ko_context = document.getElementById('ins_context');
-            ko.applyBindings(sim_states['DECO_INS'], ko_context);
+            ko.applyBindings(simhw_sim_state('DECO_INS'), ko_context);
         }
 
         function init_config ( jqdiv )
@@ -652,16 +701,16 @@
             }
 
             // html holder
-            var o1 = "<div class='container-fluid' style='padding:0 0 0 0; overflow-x:auto'>" +
-                     "<div class='row-fluid'>" ;
+            var o1 = "<div class='container-fluid'>" +
+                     "<div class='row'>" ;
 
-               o1 += "<div class='col-xs-12 col-md-12' style='padding:0 0 0 0;'>" +
-                     "<div class='panel panel-default'>" +
-                     "<div class='panel-heading'>" +
-                     " <h3 class='panel-title'>Memory</h3>" +
+               o1 += "<div class='col-12' style='padding:0 0 10 0;'>" +
+                     "<div class='card bg-light'>" +
+                     "<div class='card-header'>" +
+                     "  <b>Memory</b>" +
                      "</div>" +
-                     "<div class='panel-body' id='mempanel' style='padding:0 0 0 0;'>" +
-                     "<table class='table table-hover table-condensed table-bordered table-responsive' " +
+                     "<div class='card-body' id='mempanel' style='padding:0 0 0 0;'>" +
+                     "<table class='table table-hover table-sm table-bordered' " +
                      "       style='margin:0'>" +
                      "<tbody class='no-ui-mini'>" +
                      "<tr><td align=center'>Wait cycles (<b>0</b> - &infin;)</td>" +
@@ -676,28 +725,28 @@
                      "</div>" +
                      "</div>" ;
          
-               o1 += "<div class='col-xs-12 col-md-12' style='padding:0 0 0 0;'>" +
-                     "<div class='panel panel-default' style='margin:0 0 0 0;'>" +
-                     "<div class='panel-heading'>" +
-                     " <h3 class='panel-title'>I/O</h3>" +
+               o1 += "<div class='col-12' style='padding:0 0 0 0;'>" +
+                     "<div class='card bg-light' style='margin:0 0 0 0;'>" +
+                     "<div class='card-header'>" +
+                     "  <b>I/O</b>" +
                      "</div>" +
-                     "<div class='panel-body' id='iopanel' style='padding: 0 0 0 0'>" ;
+                     "<div class='card-body' id='iopanel' style='padding: 0 0 0 0'>" ;
                o1 += "<center>" +
-                     "<table class='table table-hover table-condensed table-bordered table-responsive' " +
+                     "<table class='table table-hover table-sm table-bordered' " +
                      "       style='margin:0'>" +
                      "<tbody class='no-ui-mini'>" +
                      "<tr>" +
                      "<td align=center width='33%'>" +
-                     "  <span class='hidden-xs'>Interruption identificator</span>" +
-                     "  <span class='visible-xs'>Int. Id.<br>(0 - 7)</span>" +
+                     "  <span class='d-none d-sm-inline-flex'>Interrupt identificator</span>" +
+                     "  <span class='d-sm-none'>Int. Id.<br>(0 - 7)</span>" +
                      "</td>" +
                      "<td align=center width='33%'>" +
-                     "  <span class='hidden-xs'>CLK period (<b>0</b> - &infin;)</span>" +
-                     "  <span class='visible-xs'>CLK ticks <br>(<b>0</b> - &infin;)</span>" +
+                     "  <span class='d-none d-sm-inline-flex'>CLK period (<b>0</b> - &infin;)</span>" +
+                     "  <span class='d-sm-none'>CLK ticks <br>(<b>0</b> - &infin;)</span>" +
                      "</td>" +
                      "<td align=center width='33%'>" +
-                     "  <span class='hidden-xs'>Probability (0 - 1)</span>" +
-                     "  <span class='visible-xs'>Probability <br>(0 - 1)</span>" +
+                     "  <span class='d-none d-sm-inline-flex'>Probability (0 - 1)</span>" +
+                     "  <span class='d-sm-none'>Probability <br>(0 - 1)</span>" +
                      "</td>" +
                      "</tr>" ;
             for (var i=0; i<8; i++)
@@ -804,8 +853,8 @@
                 if (typeof sname != "undefined")
                     o1 += '<div style="position:sticky;top:0px;z-index:1;width:50%;background:#FFFFFF;"><b><small>' + sname + '</small></b></div>' ;
 
-                taddr = '<small>0x</small>' + pack5(valkeys[3]) + '<span class="hidden-xs"> </span>-' + 
-                        '<span class="hidden-xs"><small> 0x</small></span>' + pack5(valkeys[0]) ;
+                taddr = '<small>0x</small>' + pack5(valkeys[3]) + '<span class="d-none d-sm-inline-flex"> </span>-' + 
+                        '<span class="d-none d-sm-inline-flex"><small> 0x</small></span>' + pack5(valkeys[0]) ;
 		if (key == index)
 		     o1 += "<div class='row' id='addr" + key + "'" +
                            "     style='color:blue; font-size:small; font-weight:bold;    border-bottom: 1px solid lightgray !important'>" +
@@ -865,8 +914,11 @@
                      valuei = value[i*2] + value[i*2+1] ;
 
                      if (typeof labeli != "undefined")
-                          value2 += '<span style="border:1px solid gray;">' + valuei + '</span>' +
-                                    '<span class="label label-primary" style="position:relative;top:12px;right:8px;">' + labeli + '</span>' ;
+                          value2 += '<span>' +
+                                    '<span style="border:1px solid gray;">' + valuei + '</span>' +
+                                    '<span class="badge badge-pill badge-info" ' + 
+                                    '     style="position:relative;top:-8px;">' + labeli + '</span>' +
+                                    '</span>' ;
                      else value2 += valuei + ' ' ;
                 }
 
@@ -957,9 +1009,11 @@
 
                 maddr = "0x" + parseInt(key).toString(16) ;
                 if (typeof revlabels[key] != "undefined")
-                    maddr = '<span class="label label-primary" ' + 
-                            '      style="position:relative;top:-10px;right:0px;">' + revlabels[key] + '</span>' +
-                            '<span style="border:1px solid gray;">' + maddr + '</span>' ;
+                    maddr = '<span>' +
+                            '<span class="badge badge-pill badge-info" ' + 
+                            '      style="position:relative;top:4px;">' + revlabels[key] + '</span>' +
+                            '<span style="border:1px solid gray;">' + maddr + '</span>' +
+                            '</span>' ;
 
 		trpin = "&nbsp;" ;
 		if (true == memory_dashboard[key].breakpoint)
@@ -970,14 +1024,14 @@
                            "    style='color:blue; font-size:small; font-weight:bold' " +
 			   "    onclick='dbg_set_breakpoint(" + key + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
-			   "<td width=12% align=right>" + maddr + "</td>" +
+			   "<td width=15% align=right>" + maddr + "</td>" +
 			   "<td width=1% id='mcpin" + key + "' style='padding:5 0 0 0;'>" + trpin + "</td>" +
 			   "<td>" + value + "</td></tr>";
 		else o1 += "<tr id='maddr" + key + "' " +
                            "    style='color:black; font-size:small; font-weight:normal' " +
 			   "    onclick='dbg_set_breakpoint(" + key + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
-			   "<td width=12% align=right>" + maddr + "</td>" +
+			   "<td width=15% align=right>" + maddr + "</td>" +
 			   "<td width=1% id='mcpin" + key + "' style='padding:5 0 0 0;'>" + trpin + "</td>" +
 			   "<td>" + value + "</td></tr>";
             }
@@ -990,7 +1044,7 @@
 		      "<td><font style='color:blue; font-size:small; font-weight:bold'><b>&nbsp;</b></font></td></tr>";
             }
 
-            $("#memory_MC").html("<center><table class='table table-hover table-condensed table-responsive'>" +
+            $("#memory_MC").html("<center><table class='table table-hover table-sm'>" +
                                  "<tbody id=none>" + o1 + "</tbody>" +
                                  "</table></center>");
 
@@ -1063,7 +1117,7 @@
 		    return ;
 
                 var o1 = null ;
-                var reg_pc    = get_value(sim_states["REG_PC"]) ;
+                var reg_pc    = get_value(simhw_sim_state("REG_PC")) ;
                 var curr_addr = "0x" + reg_pc.toString(16) ;
 
                 if (typeof FIRMWARE.assembly[old_addr] != "undefined")
@@ -1134,7 +1188,7 @@
 	{
                 show_control_memory(MC,
                                     MC_dashboard,
-                                    get_value(sim_states['REG_MICROADDR']),
+                                    get_value(simhw_sim_state('REG_MICROADDR')),
                                     false) ;
 	}
 
@@ -1215,7 +1269,7 @@
 		var contSignals=1;
 		for (var i=0; i<filter.length; i++) {
                      var s = filter[i].split(",")[0] ;
-		     h += "<td align=center style='border-style: solid; border-width:1px;'><small><b>" + sim_signals[s].name + "</b></small></td>";
+		     h += "<td align=center style='border-style: solid; border-width:1px;'><small><b>" + simhw_sim_signals()[s].name + "</b></small></td>";
 		     contSignals++;
 		}
 		h += "</tr>" ;
@@ -1243,7 +1297,8 @@
 
                          line = "";
                          if (j==0)
-                              line += "<td style='border-style: solid; border-width:0px; border-color:lightgray;'><span class='badge'>" + isignature + "</span>&nbsp;</td>" +
+                              line += "<td style='border-style: solid; border-width:0px; border-color:lightgray;'>" + 
+				      "<span class='badge badge-pill badge-secondary float-left'>" + isignature + "</span>&nbsp;</td>" +
                                       "<td style='border-style: solid; border-width:1px; border-color:lightgray;'>" + ico + "</td>" ;
                          else line += "<td style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;</td>" +
                                       "<td style='border-style: solid; border-width:1px; border-color:lightgray;'>&nbsp;</td>" ;
@@ -1259,7 +1314,7 @@
 			 {
                               var s = filter[k].split(",")[0] ;
 
-			      var svalue = parseInt(sim_signals[s].default_value);
+			      var svalue = parseInt(simhw_sim_signals()[s].default_value);
                               var newval = false;
 			      if ( (typeof mins[s] != "undefined") && (!isNaN(parseInt(mins[s]))) )
                               {
@@ -1289,7 +1344,7 @@
                               if (showBinary)
                               {
 			          var fragment = svalue.toString(2) ;
-			          var nbits    = parseInt(sim_signals[s].nbits);
+			          var nbits    = parseInt(simhw_sim_signals()[s].nbits);
 			          svalue = "00000000000000000000000000000000".substring(0, nbits - fragment.length) + fragment;
 
                                   var ngreen = filter[k].split(",")[1] ;
@@ -1321,7 +1376,7 @@
 	          wadd = "0x" + (parseInt(c)+j).toString(16);
 	          if (typeof slebal[wadd] != "undefined")
                        for (var i=0; i<slebal[wadd].length; i++)
-		            clabel = clabel + "<span class='badge'>" + slebal[wadd][i] + "</span>" ;
+		            clabel = clabel + "<span class='badge badge-pill badge-secondary float-left'>" + slebal[wadd][i] + "</span>" ;
 	          else clabel = clabel + "&nbsp;" ;
              }
 
@@ -1507,7 +1562,7 @@
                      a2s[laddr] = l;
                 }
 
-                o += "<center><table data-role=table class='table ui-responsive'><tbody>" ;
+                o += "<center><table data-role=table class='table ui-responsive table-sm'><tbody>" ;
                 for (l in asm)
                 {
                      if  (bgc == "#F0F0F0")
@@ -1521,10 +1576,10 @@
                      s2_instr = asm[l].source_original ;
 
                      // labels
-                     s_label = "&nbsp;" ;
+                     s_label = "" ;
                      if (typeof a2l[l] != "undefined") {
                          for (var i=0; i<a2l[l].length; i++) {
-                              s_label = s_label + "<span class='label label-primary'>" + a2l[l][i] + "</span>" ;
+                              s_label = s_label + "<span class='badge badge-info'>" + a2l[l][i] + "</span>" ;
                          }
                      }
 
@@ -1560,7 +1615,7 @@
             var tmp_hash  = new Object();
             var tmp_nodes = new Array();
             var tmp_id    = 0;
-            for (var sig in sim_signals)
+            for (var sig in simhw_sim_signals())
             {
                  tmp_hash[sig] = tmp_id ;
                  tmp_nodes.push({id: tmp_id, 
@@ -1574,7 +1629,7 @@
 	    var jit_dep_nodes = new vis.DataSet(tmp_nodes) ;
 
             var tmp_edges = new Array();
-            for (var sig in sim_signals) {
+            for (var sig in simhw_sim_signals()) {
                 for (var sigorg in jit_fire_dep[sig]) {
                      tmp_edges.push({from: tmp_hash[sigorg], 
                                      to: tmp_hash[sig], 

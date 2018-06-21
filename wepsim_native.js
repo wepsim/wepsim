@@ -38,12 +38,12 @@
 
     function wepsim_native_get_signal ( elto )
     {
-        return (get_value(sim_signals[elto]) >>> 0) ;
+        return (get_value(simhw_sim_signal(elto)) >>> 0) ;
     }
 
     function wepsim_native_set_signal ( elto, value )
     {
-        set_value(sim_signals[elto], value) ;
+        set_value(simhw_sim_signal(elto), value) ;
 	compute_behavior("FIRE " + elto) ;
 	return value ;
     }
@@ -59,9 +59,9 @@
             else index = parseInt(elto) ;
 
             if (isNaN(index))
-                return (get_value(sim_states[elto]) >>> 0) ;
+                return (get_value(simhw_sim_state(elto)) >>> 0) ;
 
-            return (get_value(sim_states.BR[index]) >>> 0) ;
+            return (get_value(simhw_sim_states().BR[index]) >>> 0) ;
         }
 
         if ("MEMORY" == component)
@@ -72,12 +72,12 @@
         if ("DEVICE" == component)
         {
             var associated_state = io_hash[elto] ;
-            var value = (get_value(sim_states[associated_state]) >>> 0) ;
+            var value = (get_value(simhw_sim_state(associated_state)) >>> 0) ;
 
-            set_value(sim_states.BUS_AB, elto) ;
-            set_value(sim_signals.IOR, 1) ;
+            set_value(simhw_sim_state('BUS_AB'), elto) ;
+            set_value(simhw_sim_signal('IOR'), 1) ;
             compute_behavior("FIRE IOR") ;
-            value = get_value(sim_states.BUS_DB) ;
+            value = get_value(simhw_sim_state('BUS_DB')) ;
 
             return value ;
         }
@@ -103,7 +103,7 @@
 
             if (isNaN(index)) 
             {
-                set_value(sim_states[elto], value) ;
+                set_value(simhw_sim_state(elto), value) ;
                 if ("REG_PC" == elto) {
                     show_asmdbg_pc() ;
 		}
@@ -111,7 +111,7 @@
                 return value ;
             }
 
-            return set_value(sim_states.BR[index], value) ;
+            return set_value(simhw_sim_states().BR[index], value) ;
         }
 
         if ("MEMORY" == component)
@@ -123,11 +123,11 @@
         if ("DEVICE" == component)
         {
             var associated_state = io_hash[elto] ;
-            set_value(sim_states[associated_state], value) ;
+            set_value(simhw_sim_state(associated_state), value) ;
 
-            set_value(sim_states.BUS_AB, elto) ;
-            set_value(sim_states.BUS_DB, value) ;
-            set_value(sim_signals.IOW, 1) ;
+            set_value(simhw_sim_state('BUS_AB'), elto) ;
+            set_value(simhw_sim_state('BUS_DB'), value) ;
+            set_value(simhw_sim_signal('IOW'), 1) ;
             compute_behavior("FIRE IOW") ;
 
             return value ;
@@ -158,7 +158,7 @@
         if (typeof fields[index] == "undefined")
             return false ;
 
-        var value = get_value(sim_states.REG_IR) ;
+        var value = get_value(simhw_sim_state('REG_IR')) ;
         var left_shift  = (31 - parseInt(fields[index].startbit)) ;
         var right_shift =       parseInt(fields[index].stopbit) ;
 
@@ -176,13 +176,13 @@
 
     function wepsim_native_go_maddr ( maddr )
     {
-        set_value(sim_states.MUXA_MICROADDR, maddr) ;
+        set_value(simhw_sim_state('MUXA_MICROADDR'), maddr) ;
     }
 
     function wepsim_native_go_opcode ( )
     {
-	var maddr = get_value(sim_states.ROM_MUXA) ;
-        set_value(sim_states.MUXA_MICROADDR, maddr) ;
+	var maddr = get_value(simhw_sim_state('ROM_MUXA')) ;
+        set_value(simhw_sim_state('MUXA_MICROADDR'), maddr) ;
     }
 
     function wepsim_native_go_instruction ( signature_raw )
@@ -194,7 +194,7 @@
              if (SIMWARE.firmware[key].signatureRaw == signature_raw) 
              {
                  var maddr = SIMWARE.firmware[key]["mc-start"] ;
-                 set_value(sim_states.MUXA_MICROADDR, maddr) ;
+                 set_value(simhw_sim_state('MUXA_MICROADDR'), maddr) ;
                  return ;
              }
         }

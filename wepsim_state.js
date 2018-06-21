@@ -100,8 +100,8 @@
 
     function wepsim_state_history_add ( )
     {
-        var reg_maddr = get_value(sim_states.REG_MICROADDR) ;
-        var reg_clk   = get_value(sim_states.CLK) ;
+        var reg_maddr = get_value(simhw_sim_state('REG_MICROADDR')) ;
+        var reg_clk   = get_value(simhw_sim_state('CLK')) ;
         var state_obj = wepsim_current2state() ;
         var state_str = wepsim_state2checklist(state_obj) ;
         var timestamp = new Date().getTime() ;
@@ -121,38 +121,36 @@
          }
 
          var t = 0 ;
-         var o = '<div class="panel-group" id="accordion1">' ;
+         var o = '<div class="card-group-vertical" id="accordion1">' ;
          for (var i=state_history.length-1; i>=0; i--) 
          {
               t = new Date(state_history[i].time) ;
 
-              o += '<div class="panel panel-default">' +
-                   '  <div class="panel-heading" data-toggle="collapse" data-target="#collapse_'+i+'" data-parent="#accordion1">' +
-                   '    <h4 class="panel-title">' +
+              o += '<div class="card">' +
+                   '  <div class="card-header row" ' + 
+		   '       style="width:101%; padding:8 15 8 15;">' +
+                   '    <h5 class="card-title col-7" ' + 
+		   '          data-toggle="collapse" data-target="#collapse_'+i+'" data-parent="#accordion1">' +
                    '      <span>[' +
                             t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + '_' +
                             t.getHours()    + '-' + t.getMinutes()   + '-' + t.getSeconds() + '_' + 
                             t.getMilliseconds() + '] ' + state_history[i].title +
                    '      </span>' +
-                   '    </h4>' +
+                   '    </h5>' +
+                   '    <button class="btn btn-outline-dark btn-sm col float-right"' + 
+                   '           onclick="CopyFromTextarea(\'ta_state_' + i + '\');" ' + 
+                   '           type="button">Copy <span class="d-none d-sm-inline-flex">to clipboard</span></button>' +
+                   '    <button class="btn btn-outline-dark btn-sm col float-right"' + 
+                   '            onclick="var txt_chklst1 = get_clipboard_copy();' +
+                   '                     var obj_exp1    = wepsim_checklist2state(txt_chklst1);' +
+                   '                     var txt_chklst2 = $(\'#ta_state_'+i+'\').val();' +
+                   '                     var obj_exp2    = wepsim_checklist2state(txt_chklst2);' +
+                   '                     wepsim_dialog_check_state(\'check_results1\', obj_exp1, obj_exp2);"' +
+                   '         type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>' +
                    '  </div>' +
-                   '  <div id="collapse_' + i + '" class="panel-collapse collapse">' +
-                   '    <div class="panel-body">' + 
-                   '      <div class="container-fluid">' + 
-                   '      <div class="row">' + 
-                   '      <button class="btn btn-default btn-sm col-xs-4 col-sm-3 pull-right"' + 
-                   '              onclick="CopyFromTextarea(\'ta_state_' + i + '\');" ' + 
-                   '              type="button">Copy <span class="hidden-xs">to clipboard</span></button>' +
-                   '      <button class="btn btn-default btn-sm col-xs-4 col-sm-3 pull-right"' + 
-                   '              onclick="var txt_chklst1 = get_clipboard_copy();' +
-                   '                       var obj_exp1    = wepsim_checklist2state(txt_chklst1);' +
-                   '                       var txt_chklst2 = $(\'#ta_state_'+i+'\').val();' +
-                   '                       var obj_exp2    = wepsim_checklist2state(txt_chklst2);' +
-                   '                       wepsim_dialog_check_state(\'check_results1\', obj_exp1, obj_exp2);"' +
-                   '           type="button">Check <span class="hidden-xs">differences with clipboard state</span></button>' +
-                   '      </div>' + 
-                   '      </div>' + 
-                   '      <div class="panel-body" ' + 
+                   '  <div id="collapse_' + i + '" class="collapse">' +
+                   '    <div class="card-body">' + 
+                   '      <div class="card-body" ' + 
                    '           style="padding:5 5 5 5;" ' + 
                    '           id="state_' + i + '">' + state_history[i].content + '</div>' +
                    '      <textarea aria-label="hidden-state"  style="display:none"' +
@@ -203,7 +201,7 @@
 	      }
               ga('send', 'event', 'state', 
 	         'state.dump', 
-	         'state.dump' + '.ci=' + get_value(sim_states.REG_IR_DECO) +
+	         'state.dump' + '.ci=' + get_value(simhw_sim_state('REG_IR_DECO')) +
 		                ',neltos=' + neltos + 
 		                ga_str);
 
@@ -227,7 +225,7 @@
         // ga
         ga('send', 'event', 'state', 
 	   'state.check', 
-	   'state.check' + ',ci=' + get_value(sim_states.REG_IR_DECO) +
+	   'state.check' + ',ci=' + get_value(simhw_sim_state('REG_IR_DECO')) +
 		           '.a='  + obj_result.neltos_expected +
 		           ',b='  + obj_result.neltos_obtained +
 		           ',sd=' + obj_result.errors);
@@ -275,9 +273,9 @@
                            "id": parts[1], 
                            "condition": parts[2], 
                            "value": decodeURI(parts[3]) } ;
-             for (var index in sim_components) 
+             for (var index in simhw_sim_components()) 
              {
-	          ret = sim_components[index].read_state(o, check) ;
+	          ret = simhw_sim_component(index).read_state(o, check) ;
                   if (true == ret) break ;
              }
 
@@ -291,8 +289,8 @@
     function wepsim_current2state ( )
     {
 	var o = {} ;
-	for (var index in sim_components) {
-	     sim_components[index].write_state(o) ;
+	for (var index in simhw_sim_components()) {
+	     simhw_sim_component(index).write_state(o) ;
 	}
 
         return o ;
@@ -324,7 +322,7 @@
 	var diff = {} ;
 
         var obtained_value = 0 ;
-	for (var compo in sim_components)
+	for (var compo in simhw_sim_components())
 	{
 	    // if there are different values -> diff
             if (typeof expected_result[compo] != "undefined") 
@@ -428,21 +426,21 @@
             only_errors = false ;
 
         o += "<table style='margin:0 0 0 0;' " + 
-             "       class='table table-hover table-bordered table-condensed'>" +
+             "       class='table table-hover table-bordered table-sm'>" +
              "<thead>" +
              "<tr>" +
              "<th>Type</th>" +
-             "<th><span class='hidden-xs'>Identification</span><span class='visible-xs'>Id.</span></th>" +
-             "<th><span class='hidden-xs'>Values in the </span>clipboard<span class='hidden-xs'> state</th>" +
-             "<th><span class='hidden-xs'>Values in the </span>selected<span class='hidden-xs'> state</th>" +
+             "<th><span class='d-none d-sm-inline-flex'>Identification</span><span class='d-sm-none'>Id.</span></th>" +
+             "<th><span class='d-none d-sm-inline-flex'>Values in the</span> clipboard <span class='d-none d-sm-inline-flex'>state</th>" +
+             "<th><span class='d-none d-sm-inline-flex'>Values in the</span> selected <span class='d-none d-sm-inline-flex'>state</th>" +
              "</tr>" +
              "</thead>" +
              "<tbody>" ;
         for (var i=0; i<checklist.length; i++)
         {
              if (checklist[i].fulfill === false)
-                  color = "danger" ;
-             else color = "success" ;
+                  color = "table-danger" ;
+             else color = "table-success" ;
 
              if (only_errors && checklist[i].fulfill)
                  continue ;

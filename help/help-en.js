@@ -4,6 +4,24 @@
 
     help.en.push({
                      id:          "simulator",
+                     title:       "Welcome tutorial",
+                     type:        "code",
+                     reference:   "wepsim_close_help(); " + 
+                                  "sim_tutorial_showframe('welcome', 0);",
+                     description: "Open the welcome tutorial.<br>"
+                  });
+
+    help.en.push({
+                     id:          "simulator",
+                     title:       "Simple usage tutorial",
+                     type:        "code",
+                     reference:   "wepsim_close_help(); " + 
+                                  "sim_tutorial_showframe('simpleusage', 0);",
+                     description: "Open the simple usage tutorial, for microprogramming and assembly programming.<br>"
+                  });
+
+    help.en.push({
+                     id:          "simulator",
                      title:       "Simulator usage",
                      type:        "relative",
                      reference:   "#help_simulator_screens",
@@ -46,7 +64,7 @@
                      id:          "architecture",
                      title:       "Hardware summary",
                      type:        "code",
-                     reference:   "wepsim_open_help_content(\'<object id=svg_p2 data=\\'images/cpu6.svg?time=20170108\\' type=image/svg+xml>Your browser does not support SVG</object>\');",
+                     reference:   "wepsim_open_help_content(\'<object id=svg_p2 data=\\'sim_hw_ep/cpu6.svg?time=20180108\\' type=image/svg+xml>Your browser does not support SVG</object>\');",
                      description: "Reference card for the simulated elemental processor hardware.<br>"
                   });
 
@@ -65,23 +83,5 @@
                      type:        "absolute",
                      reference:   "about",
                      description: "WepSIM license, supported platforms, technologies used.<br>"
-                  });
-
-    help.en.push({
-                     id:          "simulator",
-                     title:       "Welcome tutorial",
-                     type:        "code",
-                     reference:   "wepsim_close_help(); " + 
-                                  "sim_tutorial_showframe('welcome', 0);",
-                     description: "Open the welcome tutorial, it can be enable in the configuration.<br>"
-                  });
-
-    help.en.push({
-                     id:          "simulator",
-                     title:       "Simple usage tutorial",
-                     type:        "code",
-                     reference:   "wepsim_close_help(); " + 
-                                  "sim_tutorial_showframe('simpleusage', 0);",
-                     description: "Open the simple usage tutorial, for microprogramming and assembly programming.<br>"
                   });
 
