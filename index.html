@@ -218,6 +218,8 @@
 				aria-label="Execution mode" data-role="none"
 				onchange="var opt = $(this).find('option:selected');
 					  var optValue = opt.val();
+					  set_cfg('ws_mode',optValue); 
+					  save_cfg();
                                           wepsim_change_mode(optValue, '#select4') ;
 					  return false;">
 				<option value="intro"   >Welcome...</option>
@@ -1671,8 +1673,6 @@
                     sim_prepare_editor(inputasm) ;
 		    inputasm.setSize("auto","auto");
 
-                    wepsim_activehw(0) ;
-
 		    $.mobile.pageContainer.pagecontainer('change','#main1');
 		    $('#tab26').trigger('click');
 		    $('#tab11').trigger('click');
@@ -1712,14 +1712,6 @@
 		             $(column).hide() ;
 		        else $(column).show() ;
 		    });
-
-		    var ws_mode = get_cfg('ws_mode');
-		    if ('webmips' == ws_mode)
-			 wepsim_show_webmips();
-		    else wepsim_hide_webmips();
-		    if ('tutorial' == ws_mode)
-		         $('#select4').css('background-color', '#D4DB17') ;
-		    else $('#select4').css('background-color', '#F6F6F6') ;
 	    }) ;
 
             $("div.wsversion").replaceWith(get_cfg('version'));
@@ -1760,8 +1752,9 @@
             //A1/     setup_speech_input(inputEls) ;
 
             wepsim_voice_init() ;
-	    if (false == get_cfg('use_voice'))
+	    if (false == get_cfg('use_voice')) {
 		wepsim_voice_stop() ;
+	    }
 
             // progressive web application
 	    if ('serviceWorker' in navigator) 
@@ -1774,18 +1767,8 @@
 		}) ;
 	    }
 
-            if ('intro' == get_cfg('ws_mode')) 
-            {
-		sim_tutorial_showframe('welcome', 0);
-
-             /* OLD1: update welcome information
-		var ti = get_cfg('ws_idiom') ;
-		var tour = introJs();
-		    tour.setOptions({ steps: tour_steps[ti] }) ;
-		    tour.onbeforechange(tour_steps.onbeforechange) ;
-		    tour.start() ;
-              */
-	    }
+	    var ws_mode = get_cfg('ws_mode');
+            wepsim_change_mode(ws_mode, '#select4') ;
     }
     catch(err) 
     {

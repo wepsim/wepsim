@@ -312,8 +312,12 @@
 
     function wepsim_activehw ( mode )
     {
-              // TODO: 
-	      // * update cpu-processor-controlunig image at index + cpu at help
+	    simhw_setActive(mode) ;
+
+	    $("div.img_processor").replaceWith(simhw_active().sim_img_processor) ;
+	    $("div.img_controlunit").replaceWith(simhw_active().sim_img_controlunit) ;
+	    $("div.img_cpu").replaceWith(simhw_active().sim_img_cpu) ;
+	    wepsim_notify_success('<strong>INFO</strong>', '"' + simhw_active().sim_name + '" has been activated.') ;
 
 	    var a = document.getElementById("svg_p");
 	    a.addEventListener("load",function() {
@@ -332,9 +336,6 @@
 
     function wepsim_change_mode ( optValue, cssLayer )
     {
-	  set_cfg('ws_mode',optValue); 
-	  save_cfg();
-
 	  // webmips mode...
 	  if ('webmips' == optValue)
 	       wepsim_show_webmips();
@@ -353,7 +354,6 @@
 
 	  // wepsim mode...
 	  if ('wepsim' == optValue) {
-	      simhw_setActive(mode) ;
               wepsim_activehw(0) ;
 	  }
     }
