@@ -43,7 +43,7 @@
 
         function simhw_setActive ( newActive )
         {
-	    if (sim.systems.length <= newActive) 
+	    if (sim.systems.length >= newActive) 
 	    {
                 sim.active = sim.systems[newActive] ;
                 sim.index  = newActive ;
