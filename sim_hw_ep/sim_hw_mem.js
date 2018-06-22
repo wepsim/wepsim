@@ -23,7 +23,7 @@
 	 *  Memory
 	 */
 
-        sim_components.MEMORY = {
+        ep_components.MEMORY = {
 		                  name: "MEMORY", 
 		                  version: "1", 
 		                  write_state: function ( vec ) {
@@ -90,20 +90,20 @@
          *  Signals
          */
 
-        sim_signals.MRDY  = { name: "MRDY", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+        ep_signals.MRDY      = { name: "MRDY", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                  depends_on: ["CLK"],
 		                 behavior: ["FIRE_IFCHANGED MRDY C", "FIRE_IFCHANGED MRDY C"],
                                  fire_name: ['svg_p:tspan3916'], 
                                  draw_data: [[], ['svg_p:path3895','svg_p:path3541']], 
                                  draw_name: [[], []]};
 
-        sim_signals.R     = { name: "R", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+        ep_signals.R         = { name: "R", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		                 behavior: ["NOP", "MEM_READ BUS_AB BUS_DB BWA MRDY CLK; FIRE MRDY"],
                                  fire_name: ['svg_p:text3533-5-2','svg_p:text3713'], 
                                  draw_data: [[], ['svg_p:path3557','svg_p:path3571']], 
                                  draw_name: [[], []]};
 
-        sim_signals.W     = { name: "W", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+        ep_signals.W         = { name: "W", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		                 behavior: ["NOP", "MEM_WRITE BUS_AB BUS_DB BWA MRDY CLK; FIRE MRDY"],
                                  fire_name: ['svg_p:text3533-5-08','svg_p:text3527','svg_p:text3431-7'], 
                                  draw_data: [[], ['svg_p:path3559','svg_p:path3575','svg_p:path3447-7']], 
@@ -114,24 +114,24 @@
          *  Syntax of behaviors
          */
 
-        syntax_behavior.MEM_READ = { nparameters: 6, 
+        ep_behaviors.MEM_READ       = { nparameters: 6, 
                                         types: ["E", "E", "S", "S", "E"],
                                         operation: function (s_expr) 
                                                    {
-						      var address = sim_states[s_expr[1]].value;
-                                                      var dbvalue = sim_states[s_expr[2]].value;
-                                                      var bw      = sim_signals[s_expr[3]].value;
-                                                      var clk     = get_value(sim_states[s_expr[5]].value) ;
+						      var address = ep_states[s_expr[1]].value;
+                                                      var dbvalue = ep_states[s_expr[2]].value;
+                                                      var bw      = ep_signals[s_expr[3]].value;
+                                                      var clk     = get_value(ep_states[s_expr[5]].value) ;
 
-                                                      sim_signals[s_expr[4]].value = 0;
+                                                      ep_signals[s_expr[4]].value = 0;
 						      var remain = get_value(MP_wc);
 						      if ( 
-                                                           (typeof sim_events.mem[clk-1] != "undefined") &&
-						           (sim_events.mem[clk-1] > 0) 
+                                                           (typeof ep_events.mem[clk-1] != "undefined") &&
+						           (ep_events.mem[clk-1] > 0) 
                                                          ) {
-						              remain = sim_events.mem[clk-1] - 1;
+						              remain = ep_events.mem[clk-1] - 1;
                                                            }
-						      sim_events.mem[clk] = remain;
+						      ep_events.mem[clk] = remain;
                                                       if (remain > 0)
                                                           return;
 
@@ -164,30 +164,30 @@
                                                            dbvalue = value;
                                                       }
 
-                                                      sim_states[s_expr[2]].value = (dbvalue >>> 0);
-                                                     sim_signals[s_expr[4]].value = 1;
+                                                      ep_states[s_expr[2]].value = (dbvalue >>> 0);
+                                                     ep_signals[s_expr[4]].value = 1;
 				                      show_main_memory(MP, address, false, false) ;
                                                    }
                                    };
 
-        syntax_behavior.MEM_WRITE = { nparameters: 6, 
+        ep_behaviors.MEM_WRITE       = { nparameters: 6, 
                                          types: ["E", "E", "S", "S", "E"],
                                          operation: function (s_expr) 
                                                     {
-						      var address = sim_states[s_expr[1]].value;
-                                                      var dbvalue = sim_states[s_expr[2]].value;
-                                                      var bw      = sim_signals[s_expr[3]].value;
-                                                      var clk     = get_value(sim_states[s_expr[5]].value) ;
+						      var address = ep_states[s_expr[1]].value;
+                                                      var dbvalue = ep_states[s_expr[2]].value;
+                                                      var bw      = ep_signals[s_expr[3]].value;
+                                                      var clk     = get_value(ep_states[s_expr[5]].value) ;
 
-                                                      sim_signals[s_expr[4]].value = 0;
+                                                      ep_signals[s_expr[4]].value = 0;
 						      var remain = get_value(MP_wc);
 						      if ( 
-                                                           (typeof sim_events.mem[clk-1] != "undefined") &&
-						           (sim_events.mem[clk-1] > 0) 
+                                                           (typeof ep_events.mem[clk-1] != "undefined") &&
+						           (ep_events.mem[clk-1] > 0) 
                                                          ) {
-						              remain = sim_events.mem[clk-1] - 1;
+						              remain = ep_events.mem[clk-1] - 1;
                                                            }
-						      sim_events.mem[clk] = remain;
+						      ep_events.mem[clk] = remain;
                                                       if (remain > 0)
                                                           return;
 
@@ -221,7 +221,7 @@
                                                       }
 
 						      MP[address] = (value >>> 0);
-                                                      sim_signals[s_expr[4]].value = 1;
+                                                      ep_signals[s_expr[4]].value = 1;
 				                      show_main_memory(MP, address, false, true) ;
                                                     }
                                    };

@@ -23,7 +23,7 @@
 	 *  KBD
 	 */
 
-        sim_components.KBD = {
+        ep_components.KBD = {
 		                  name: "KBD", 
 		                  version: "1", 
 		                  write_state: function ( vec ) {
@@ -53,15 +53,15 @@
          *  States
          */
 
-        sim_states.KBDR   = { name: "KBDR",    visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-        sim_states.KBSR   = { name: "KBSR",    visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+        ep_states.KBDR   = { name: "KBDR",    visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+        ep_states.KBSR   = { name: "KBSR",    visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
 
 
         /*
          *  Signals
          */
 
-        sim_signals.KBD_IOR = { name: "IOR", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+         ep_signals.KBD_IOR = { name: "IOR", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		                   behavior: ["NOP", "KBD_IOR BUS_AB BUS_DB KBDR KBSR CLK; FIRE SBWA"],
                                    fire_name: ['svg_p:tspan4057'], 
                                    draw_data: [[], ['svg_p:path3863', 'svg_p:path3847']], 
@@ -72,27 +72,27 @@
          *  Syntax of behaviors
          */
 
-        syntax_behavior.KBD_IOR = { nparameters: 6,
+        ep_behaviors.KBD_IOR = { nparameters: 6,
                                         types: ["E", "E", "E", "E", "E"],
                                         operation: function (s_expr) 
                                                    {
-                                                      var bus_ab = get_value(sim_states[s_expr[1]]) ;
-                                                      var clk    = get_value(sim_states[s_expr[5]]) ;
+                                                      var bus_ab = get_value(ep_states[s_expr[1]]) ;
+                                                      var clk    = get_value(ep_states[s_expr[5]]) ;
 
                                                       if ( (bus_ab != KBDR_ID) && (bus_ab != KBSR_ID) ) {
                                                               return; 
                                                       }
 
-						      if (typeof sim_events.keybd[clk] != "undefined")
+						      if (typeof ep_events.keybd[clk] != "undefined")
                                                       {
 						              if (bus_ab == KBDR_ID)
-							          set_value(sim_states[s_expr[2]], sim_events.keybd[clk]);
+							          set_value(ep_states[s_expr[2]], ep_events.keybd[clk]);
 							      if (bus_ab == KBSR_ID)
-								  set_value(sim_states[s_expr[2]], 1);
+								  set_value(ep_states[s_expr[2]], 1);
                                                               return;
                                                       }
 
-                                                      if (get_value(sim_states[s_expr[4]]) == 0) 
+                                                      if (get_value(ep_states[s_expr[4]]) == 0) 
                                                       {
 							      var keybuffer = document.getElementById("kdb_key").value;
 							      if (keybuffer.length != 0) 
@@ -100,22 +100,22 @@
 							          var keybuffer_rest = keybuffer.substr(1, keybuffer.length-1);
 							          document.getElementById("kdb_key").value = keybuffer_rest;
 
-							          set_value(sim_states[s_expr[4]], 1);
-							          set_value(sim_states[s_expr[3]], keybuffer[0].charCodeAt(0));
+							          set_value(ep_states[s_expr[4]], 1);
+							          set_value(ep_states[s_expr[3]], keybuffer[0].charCodeAt(0));
 							      }
                                                       }
-                                                      if (get_value(sim_states[s_expr[4]]) == 1) 
+                                                      if (get_value(ep_states[s_expr[4]]) == 1) 
                                                       {
-						              sim_events.keybd[clk] = get_value(sim_states[s_expr[3]]) ;
+						              ep_events.keybd[clk] = get_value(ep_states[s_expr[3]]) ;
                                                       }
 
 						      if (bus_ab == KBSR_ID) {
-							      set_value(sim_states[s_expr[2]], get_value(sim_states[s_expr[4]]));
+							      set_value(ep_states[s_expr[2]], get_value(ep_states[s_expr[4]]));
 						      }
 						      if (bus_ab == KBDR_ID) {
-							      if (get_value(sim_states[s_expr[4]]) == 1) 
-							          set_value(sim_states[s_expr[2]], get_value(sim_states[s_expr[3]]));
-							      set_value(sim_states[s_expr[4]], 0);
+							      if (get_value(ep_states[s_expr[4]]) == 1) 
+							          set_value(ep_states[s_expr[2]], get_value(ep_states[s_expr[3]]));
+							      set_value(ep_states[s_expr[4]], 0);
 						      }
                                                    }
                                    };

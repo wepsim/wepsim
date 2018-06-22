@@ -117,11 +117,11 @@ function read_microprg ( context )
 		   }
 
                    // semantic check: valid signal id
-		   if (typeof sim_signals[nombre_tok] == "undefined")
+		   if (typeof simhw_sim_signal(nombre_tok) == "undefined")
 		       return langError(context, "Signal does not exists: '" + nombre_tok + "'") ;
 
                    // semantic check: signal id can be used
-		   if (typeof sim_signals[nombre_tok].forbidden != "undefined")
+		   if (typeof simhw_sim_signal(nombre_tok).forbidden != "undefined")
 		       return langError(context, "Signal '" + nombre_tok + "' cannot be used directly, please use the Control Unit signals instead.") ;
 
 		   microInstruccionAux[nombre_tok] = 1; // signal is active so far...
@@ -139,7 +139,7 @@ function read_microprg ( context )
 			    return langError(context, "Incorrect binary format: " + getToken(context)) ;
 
                         // semantic check: value within range
-		        if (microInstruccionAux[nombre_tok] >= Math.pow(2, sim_signals[nombre_tok].nbits))
+		        if (microInstruccionAux[nombre_tok] >= Math.pow(2, simhw_sim_signal(nombre_tok).nbits))
 		            return langError(context, "Value out of range: " + getToken(context)) ;
 
                         nextToken(context) ;

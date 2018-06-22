@@ -40,10 +40,13 @@
                  stop_drawing() ;
 	    }
 
-            // 1.- it checks if everything is ok
+            // 0.- to register the default Elemental Processor
+            simhw_add(ep_def) ;
+
+            // 1.- to check if default behaviors are ok
             check_behavior();
 
-            // 2.- pre-compile behaviors & references
+            // 2.- to pre-compile behaviors & references
             compile_behaviors() ;
             firedep_to_fireorder(jit_fire_dep) ;
             compute_references() ;
@@ -86,11 +89,11 @@
         function sim_core_init_eventlistener ( context )
         {
             // 3.- for every signal, set the click event handler
-            for (var key in sim_signals)
+            for (var key in simhw_sim_signals())
             {
-                for (var j=0; j<sim_signals[key].fire_name.length; j++)
+                for (var j=0; j<simhw_sim_signal(key).fire_name.length; j++)
                 {
-			   var r = sim_signals[key].fire_name[j].split(':') ;
+			   var r = simhw_sim_signal(key).fire_name[j].split(':') ;
 			   if (r[0] != context) {
 			       continue;
                            }
@@ -128,7 +131,7 @@
 		if ( (typeof segments['.ktext'] == "undefined") &&
 		     (typeof segments['.text']  == "undefined") )
 		{
-		    ret.msg = 'code segment .ktext/.text does not exist!' ;
+		    ret.msg = 'code segment .ktext/.text does not exist!\nPlease load some assembly code.' ;
 	            ret.ok = false ;
 		    return ret ;
 		}
@@ -157,7 +160,7 @@
 		    ret.ok  = true ;
 		    ret.msg = "" ;
 
-		var reg_maddr = get_value(sim_states.REG_MICROADDR) ;
+		var reg_maddr = get_value(simhw_sim_state('REG_MICROADDR')) ;
                 if (typeof MC[reg_maddr] == "undefined") {
 		    ret.ok  = false ;
 		    ret.msg = "Error: undefined microinstruction at " + reg_maddr + "." ;
@@ -170,7 +173,7 @@
                        return ret;
 		}
 
-		var reg_pc = parseInt(get_value(sim_states.REG_PC));
+		var reg_pc = parseInt(get_value(simhw_sim_state('REG_PC')));
 		if ( (reg_pc < segments['.ktext'].end) && (reg_pc >= segments['.ktext'].begin)) {
                     return ret;
 		}
@@ -202,19 +205,19 @@
 
             if ((typeof segments['.ktext'] != "undefined") && (SIMWARE.labels2.kmain))
 	    {
-                    set_value(sim_states.REG_PC, parseInt(SIMWARE.labels2.kmain));
+                    set_value(simhw_sim_state('REG_PC'), parseInt(SIMWARE.labels2.kmain));
                     show_asmdbg_pc() ;
     	    }
             else if ((typeof segments['.text'] != "undefined") && (SIMWARE.labels2.main))
 	    {
-                    set_value(sim_states.REG_PC, parseInt(SIMWARE.labels2.main));
+                    set_value(simhw_sim_state('REG_PC'), parseInt(SIMWARE.labels2.main));
                     show_asmdbg_pc() ;
     	    }
     
     	    if ( (typeof segments['.stack'] != "undefined") &&
-                 (typeof sim_states.BR[FIRMWARE.stackRegister] != "undefined") )
+                 (typeof simhw_sim_states().BR[FIRMWARE.stackRegister] != "undefined") )
     	    {
-    		set_value(sim_states.BR[FIRMWARE.stackRegister], parseInt(segments['.stack'].begin));
+    		set_value(simhw_sim_states().BR[FIRMWARE.stackRegister], parseInt(segments['.stack'].begin));
     	    }
 
 	    var mode = get_cfg('ws_mode');
@@ -228,7 +231,7 @@
 	    show_states() ;
             show_rf_values();
             show_rf_names();
-            show_dbg_ir(get_value(sim_states.REG_IR_DECO)) ;
+            show_dbg_ir(get_value(simhw_sim_state('REG_IR_DECO'))) ;
 
             show_main_memory   (MP,                0, true, false) ;
             show_control_memory(MC,  MC_dashboard, 0, true) ;
@@ -300,7 +303,7 @@
 			break ;
 	            }
 
-                    cur_addr = get_value(sim_states.REG_MICROADDR) ;
+                    cur_addr = get_value(simhw_sim_state('REG_MICROADDR')) ;
                     if (typeof MC[cur_addr] == "undefined")
 		    {
 		        ret.msg = "Error: undefined microinstruction at " + cur_addr + "." ;
@@ -333,8 +336,8 @@
     	        ret.msg = "" ;
     
             // execute firmware-assembly
-    	    var reg_pc        = get_value(sim_states.REG_PC) ;
-    	    var reg_pc_before = get_value(sim_states.REG_PC) - 4 ;
+    	    var reg_pc        = get_value(simhw_sim_state('REG_PC')) ;
+    	    var reg_pc_before = get_value(simhw_sim_state('REG_PC')) - 4 ;
     
     	    var code_begin  = 0 ;
     	    if ( (typeof segments['.text'] != "undefined") && (typeof segments['.text'].begin != "undefined") )
@@ -371,7 +374,7 @@
     	           }
     
     	           reg_pc_before = reg_pc ;
-    	           reg_pc = get_value(sim_states.REG_PC) ;
+    	           reg_pc = get_value(simhw_sim_state('REG_PC')) ;
     	    }
     
             return ret ;

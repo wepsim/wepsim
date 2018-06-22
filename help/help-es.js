@@ -3,6 +3,24 @@
 
     help.es.push({
                      id:          "simulator",
+                     title:       "Tutorial de bienvenida",
+                     type:        "code",
+                     reference:   "wepsim_close_help(); " + 
+                                  "sim_tutorial_showframe('welcome', 0);",
+                     description: "Tutorial de bienvenida.<br>"
+                  });
+
+    help.es.push({
+                     id:          "simulator",
+                     title:       "Tutorial simple de uso",
+                     type:        "code",
+                     reference:   "wepsim_close_help(); " + 
+                                  "sim_tutorial_showframe('simpleusage', 0);",
+                     description: "Tutorial de uso simple, ejemplo básico para microprogramar y programar en ensamblador.<br>"
+                  });
+
+    help.es.push({
+                     id:          "simulator",
                      title:       "Uso del simulador",
                      type:        "relative",
                      reference:   "#help_simulator_screens",
@@ -45,7 +63,7 @@
                      id:          "architecture",
                      title:       "Resumen del Hardware",
                      type:        "code",
-                     reference:   "wepsim_open_help_content(\'<object id=svg_p2 data=\\'images/cpu6.svg?time=20170108\\' type=image/svg+xml>Your browser does not support SVG</object>\');",
+                     reference:   "wepsim_open_help_content(\'<object id=svg_p2 data=\\'sim_hw_ep/cpu6.svg?time=20180108\\' type=image/svg+xml>Your browser does not support SVG</object>\');",
                      description: "Resumen del hardware del procesador elemental simulado.<br>"
                   });
 
@@ -64,23 +82,5 @@
                      type:        "absolute",
                      reference:   "about",
                      description: "Licencia de WepSIM, plataformas disponibles, tecnologías usadas.<br>"
-                  });
-
-    help.es.push({
-                     id:          "simulator",
-                     title:       "Tutorial de bienvenida",
-                     type:        "code",
-                     reference:   "wepsim_close_help(); " + 
-                                  "sim_tutorial_showframe('welcome', 0);",
-                     description: "Tutorial de bienvenida, puede activarse en la configuraci&oacute;n.<br>"
-                  });
-
-    help.es.push({
-                     id:          "simulator",
-                     title:       "Tutorial simple de uso",
-                     type:        "code",
-                     reference:   "wepsim_close_help(); " + 
-                                  "sim_tutorial_showframe('simpleusage', 0);",
-                     description: "Tutorial de uso simple, ejemplo básico para microprogramar y programar en ensamblador.<br>"
                   });
 

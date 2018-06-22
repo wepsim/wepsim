@@ -115,8 +115,8 @@
 
     function table_examples_html ( examples )
     {
-       var o = '<div class="table-responsive">' +
-               '<table width=100% class="table table-striped table-hover table-condensed">' +
+       var o = '<div class="table-responsive" style="min-width:720px;">' +
+               '<table class="table table-striped table-hover table-sm">' +
                '<thead>' +
                '<tr>' +
                '  <th>#</th>' +
@@ -136,24 +136,21 @@
 
 	       o = o + ' <tr>' +
 		       ' <td>' + '<b>' + (m+1)   + '</b>' + '</td>' +
-		       ' <td>' + '<b    class="collapse1 collapse in">' + e_level + '</b>' + '</td>' +
+		       ' <td>' + '<b    class="collapse1 collapse show">' + e_level + '</b>' + '</td>' +
 		       ' <td>' + 
-		       '   <a href="#" ' + 
-		       '      id="' + e_id + '" ' + 
-		       '      onclick="$(\'#example1\').modal(\'hide\'); load_from_example_firmware(\'' + e_id + '\',true);" ' + 
-		       '      style="padding:0 0 0 0;"' +
+		       '   <a href="#" onclick="$(\'#example1\').modal(\'hide\'); load_from_example_firmware(\'' + e_id + '\',true);"  style="padding:0 0 0 0; margin:0 8 0 0;"' +
 		       '      class="ui-btn btn btn-group ui-btn-inline btn-primary">' + 
-                       '   <b class="collapse2 collapse in">' + e_title + '</b></a>' +
+                       '   <b class="collapse2 collapse show">' + e_title + '</b></a>' +
                        ' </td>' +
-		       ' <td>' + '<span class="collapse3 collapse in">' + e_description + '</span>' + '</td>' +
-		       ' <td class="collapse4 collapse in" style="min-width:150px; max-width:200px">' +
+		       ' <td>' + '<span class="collapse3 collapse show">' + e_description + '</span>' + '</td>' +
+		       ' <td class="collapse4 collapse show" style="min-width:150px; max-width:200px">' +
 		       '     <div class="btn-group btn-group-justified btn-group-md">' +
-		       '         <a href="#" onclick="$(\'#example1\').modal(\'hide\'); load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0;"' +
-		       '            class="ui-btn btn btn-group ui-btn-inline btn-default">' +
-		       '            <b>Assembly</b></a>' +
-		       '         <a href="#" onclick="$(\'#example1\').modal(\'hide\'); load_from_example_firmware(\'' + e_id + '\',false);" style="padding:0 0 0 0;"' +
-		       '            class="ui-btn btn btn-group ui-btn-inline btn-default">' +
-		       '            <b>Firmware</b></a>' +
+		       '         <a href="#" onclick="$(\'#example1\').modal(\'hide\'); load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0; margin:0 8 0 0;"' +
+		       '            class="ui-btn btn btn-group ui-btn-inline btn-secondary">' +
+		       '            <c>Assembly</c></a>' +
+		       '         <a href="#" onclick="$(\'#example1\').modal(\'hide\'); load_from_example_firmware(\'' + e_id + '\',false);" style="padding:0 0 0 0; margin:0 7 0 0;"' +
+		       '            class="ui-btn btn btn-group ui-btn-inline btn-secondary">' +
+		       '            <c>Firmware</c></a>' +
 		       '     </div>' +
 		       ' </td>' +
 		       ' </tr>' ;

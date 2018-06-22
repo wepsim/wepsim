@@ -2,15 +2,23 @@
 set -x
 
 # 
-#  hardware + simulator
+#  EP hardware 
+# 
+cat sim_hw_index.js \
+    sim_hw_ep/sim_ep.js \
+    sim_hw_ep/sim_hw_board.js \
+    sim_hw_ep/sim_hw_cpu.js \
+    sim_hw_ep/sim_hw_mem.js \
+    sim_hw_ep/sim_hw_io.js \
+    sim_hw_ep/sim_hw_kbd.js \
+    sim_hw_ep/sim_hw_scr.js > sim_hw.js
+/usr/bin/yui-compressor -o min.sim_hw.js sim_hw.js
+rm -fr sim_hw.js
+
+# 
+#  Simulator
 # 
 cat sim_cfg.js \
-    sim_hw_board.js \
-    sim_hw_cpu.js \
-    sim_hw_mem.js \
-    sim_hw_io.js \
-    sim_hw_kbd.js \
-    sim_hw_scr.js \
     sim_lang.js \
     sim_lang_firm.js \
     sim_lang_asm.js \
@@ -21,7 +29,7 @@ cat sim_cfg.js \
 rm -fr sim_all.js
 
 # 
-#  wepsim engine + information
+#  WepSIM engine + information
 # 
 cat wepsim_example.js \
     wepsim_help.js \
@@ -48,15 +56,13 @@ rm -fr wepsim_all.js
 # 
 #  external
 # 
-cat external/bootstrap.min.js \
-    external/bootstrap-notify.min.js \
-    external/masonry.pkgd.min.js \
+cat external/popper.min.js \
+    external/bootstrap.min.js \
     external/knockout-3.4.2.js \
     external/jquery.knob.min.js \
     external/bootbox.min.js \
     external/spectrum.min.js \
     external/timbre.min.js \
-    external/split.min.js \
     external/codemirror.js \
     external/codemirror.javascript.js \
     external/codemirror.gas.js \
@@ -75,7 +81,6 @@ cat external/bootstrap.min.js \
     external/codemirror.runmode/colorize.js \
     external/vis.min.js \
     external/async.js \
-    external/bootstrap-select.min.js \
     external/bootstrap-tokenfield.js \
     external/introjs.min.js \
     external/speech-input.js \
@@ -91,7 +96,6 @@ cat external/bootstrap.min.css \
     external/codemirror.fold/foldgutter.css \
     external/codemirror.show-hint/codemirror.show-hint.css \
     external/vis-network.min.css \
-    external/bootstrap-select.min.css \
     external/bootstrap-tokenfield.css \
     external/introjs.min.css \
     external/speech-input.css \

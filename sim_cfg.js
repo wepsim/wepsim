@@ -20,7 +20,7 @@
 
 
         var WSCFG = {} ;
-        WSCFG.version = { value:"1.8.7", type:"string"} ;
+        WSCFG.version = { value:"1.8.9", type:"string"} ;
 
         function get_cfg ( field )
         {
@@ -69,11 +69,12 @@
 		/*
 		 *  simulation screen: Notification, etc.
 		 */
-               WSCFG.NOTIF_delay         = { value:500,                type:"int"} ;
-               WSCFG.CPUCU_size          = { value:55,                 type:"int"} ;
+               WSCFG.NOTIF_delay         = { value:1500,               type:"int"} ;
+               WSCFG.CPUCU_size          = { value:6,                  type:"int"} ;
+               WSCFG.C1C2_size           = { value:8,                  type:"int"} ;
 
                WSCFG.is_interactive      = { value:true,               type:"boolean"};
-               WSCFG.ws_idiom            = { value:'es',               type:"string"};
+               WSCFG.ws_idiom            = { value:'en',               type:"string"};
                WSCFG.ws_mode             = { value:'tutorial',         type:"string"};
                WSCFG.use_voice           = { value:false,              type:"boolean"};
 

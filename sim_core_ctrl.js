@@ -144,14 +144,14 @@
 
         function compute_references ( )
         {
-            for (var key in sim_signals) {
-		 sim_references[key] = sim_signals[key] ;
-		    sim_signals[key].changed = false ;
+            for (var key in simhw_sim_signals()) {
+		 sim_references[key] = simhw_sim_signal(key) ;
+		 simhw_sim_signal(key).changed = false ;
 	    }
 
-            for (var key in sim_states) {
-		 sim_references[key] = sim_states[key] ;
-		     sim_states[key].changed = false ;
+            for (var key in simhw_sim_states()) {
+		 sim_references[key] = simhw_sim_state(key) ;
+		 simhw_sim_state(key).changed = false ;
 	    }
         }
 
@@ -181,7 +181,7 @@
 		     if (o != null) o.setAttributeNS(null, "visibility", "hidden");
                 databus_fire_visible = false ;
             }
-            if ( (sim_signals["TD"].value != 0) && (sim_signals["R"].value != 0) )
+            if ( (simhw_sim_signal("TD").value != 0) && (simhw_sim_signal("R").value != 0) )
             {
                 //$("#databus_fire").show();
 		     var o = document.getElementById('svg_p');
@@ -189,7 +189,7 @@
 		     if (o != null) o = o.getElementById('databus_fire');
 		     if (o != null) o.setAttributeNS(null, "visibility", "visible");
                 databus_fire_visible = true ;
-                sim_states["BUS_DB"].value = 0xFFFFFFFF;
+                simhw_sim_state("BUS_DB").value = 0xFFFFFFFF;
             }
 
             // Ti + Tj
@@ -204,7 +204,7 @@
             for (var i=0; i<tri_state_names.length; i++)
             {
 		 tri_activated_name  = tri_state_names[i] ;
-                 tri_activated_value = parseInt(get_value(sim_signals[tri_activated_name])) ;
+                 tri_activated_value = parseInt(get_value(simhw_sim_signal(tri_activated_name))) ;
                  tri_activated      += tri_activated_value ;
 
 		 if (tri_activated_value > 0)
@@ -215,7 +215,7 @@
 
             // 2.- paint the bus if any tri-state is active
             if (tri_activated > 0) {
-                update_draw(sim_signals[tri_name], 1) ;
+                update_draw(simhw_sim_signal(tri_name), 1) ;
             }
 
             // 3.- check if more than one tri-state is active
@@ -234,26 +234,26 @@
 		     if (o != null) o = o.getElementById('internalbus_fire');
 		     if (o != null) o.setAttributeNS(null, "visibility", "visible");
                 internalbus_fire_visible = true ;
-                sim_states["BUS_IB"].value = 0xFFFFFFFF;
+                simhw_sim_state("BUS_IB").value = 0xFFFFFFFF;
             }
         }
 
         function check_behavior ( )
         {
             // 1.- check if no signals are defined...
-            if (0 == sim_signals.length)
+            if (0 == simhw_sim_signals().length)
                 alert("ALERT: empty signals!!!");
 
             // 2.- check if no states are defined...
-            if (0 == sim_states.length)
+            if (0 == simhw_sim_states().length)
                 alert("ALERT: empty states!!!");
 
-            for (var key in sim_signals)
+            for (var key in simhw_sim_signals())
             {
-                for (var key2 in sim_signals[key].behavior)
+                for (var key2 in simhw_sim_signal(key).behavior)
                 {
 		    // 1.- Split several behaviors, example: "MV D1 O1; MV D2 O2"
-                    var behaviors = sim_signals[key].behavior[key2].split(";") ;
+                    var behaviors = simhw_sim_signal(key).behavior[key2].split(";") ;
 
 		    // 2.- For every behavior...
 		    for (var i=0; i<behaviors.length; i++)
@@ -265,34 +265,34 @@
                                 continue;
 			    }
 
-			    if (typeof (syntax_behavior[behavior_k[0]]) == "undefined")
+			    if (typeof (simhw_syntax_behavior(behavior_k[0])) == "undefined")
 			    {
 				alert("ALERT: Unknown operation -> " + behavior_k[0] + " (" + behavior_i + ")");
 				return;
 			    }
 
-			    if (behavior_k.length != syntax_behavior[behavior_k[0]].nparameters)
+			    if (behavior_k.length != simhw_syntax_behavior(behavior_k[0]).nparameters)
 			    {
-				alert("ALERT: Behavior has an incorrect number of elements --> " + behavior_i + "/" + syntax_behavior[behavior_k[0]].nparameters);
+				alert("ALERT: Behavior has an incorrect number of elements --> " + behavior_i + "/" + simhw_syntax_behavior(behavior_k[0]).nparameters);
 				return;
 			    }
 
 			    for (var j=1; j<behavior_k.length; j++)
 			    {
 				var s = behavior_k[j].split('/') ;
-				var t = syntax_behavior[behavior_k[0]].types[j-1] ;
+				var t = simhw_syntax_behavior(behavior_k[0]).types[j-1] ;
 
-				     if ( ("E" == t) && (typeof sim_states[s[0]] == "undefined") )
+				     if ( ("E" == t) && (typeof simhw_sim_state(s[0]) == "undefined") )
 				     {
 					  alert("ALERT: Behavior has an undefined reference to a object state -> '" + behavior_i);
 					  return;
 				     }
-				else if ( ("S" == t) && (typeof sim_signals[s[0]] == "undefined") )
+				else if ( ("S" == t) && (typeof simhw_sim_signal(s[0]) == "undefined") )
 				     {
 					 alert("ALERT: Behavior has an undefined reference to a signal -> '" + behavior_i);
 					 return;
 				     }
-				else if ( ("X" == t) && (typeof sim_states[s[0]] == "undefined") && (typeof sim_signals[s[0]] == "undefined") )
+				else if ( ("X" == t) && (typeof simhw_sim_state(s[0]) == "undefined") && (typeof simhw_sim_signal(s[0]) == "undefined") )
 				     {
 					 alert("ALERT: Behavior has an undefined reference to a object state OR signal -> '" + behavior_i);
 					 return;
@@ -319,7 +319,7 @@
             var allfireto = false;
             jit_fire_order = new Array();
             jit_fire_ndep  = new Array();
-            for (var sig in sim_signals)
+            for (var sig in simhw_sim_signals())
             {
                 if (typeof jit_fire_dep[sig] == "undefined") {
                     jit_fire_order.push(sig);
@@ -331,7 +331,7 @@
                 for (var sigorg in jit_fire_dep[sig])
                 {
 	             ndep++;
-                     if (jit_fire_dep[sig][sigorg] == sim_signals[sigorg].behavior.length) {
+                     if (jit_fire_dep[sig][sigorg] == simhw_sim_signal(sigorg).behavior.length) {
                          allfireto = true;
                      }
                 }
@@ -346,13 +346,13 @@
             var jit_bes = "";
             jit_fire_dep = new Object();
 
-            for (var sig in sim_signals)
+            for (var sig in simhw_sim_signals())
             {
-		 jit_bes += "sim_signals['" + sig + "'].behavior_fn = new Array();\n" ;
+		 jit_bes += "simhw_sim_signal('" + sig + "').behavior_fn = new Array();\n" ;
 
-                 for (var val in sim_signals[sig].behavior)
+                 for (var val in simhw_sim_signal(sig).behavior)
                  {
-                      var input_behavior = sim_signals[sig].behavior[val] ;
+                      var input_behavior = simhw_sim_signal(sig).behavior[val] ;
                       var jit_be = "";
 
 		      // 1.- Split several behaviors, e.g.: "MV D1 O1; MV D2 O2"
@@ -370,11 +370,11 @@
 
 			    // 2.3a.- ...to do the operation
                             if (s_expr[0] != "NOP") // warning: optimizated just because nop.operation is empty right now...
-			        jit_be += "syntax_behavior['" + s_expr[0] + "'].operation(" + JSON.stringify(s_expr) + ");\t" ;
+			        jit_be += "simhw_syntax_behavior('" + s_expr[0] + "').operation(" + JSON.stringify(s_expr) + ");\t" ;
 
                             // 2.3b.- ...build the fire graph
                             if ( ("FIRE" == s_expr[0]) &&
-                                 (sim_signals[sig].type == sim_signals[s_expr[1]].type) )
+                                 (simhw_sim_signal(sig).type == simhw_sim_signal(s_expr[1]).type) )
                             {
                                 if (typeof jit_fire_dep[s_expr[1]] == "undefined")
                                     jit_fire_dep[s_expr[1]] = new Object();
@@ -386,7 +386,7 @@
                             }
 		      }
 
-		      jit_bes += "sim_signals['" + sig + "'].behavior_fn[" + val + "] = \t function() {" + jit_be + "};\n" ;
+		      jit_bes += "simhw_sim_signal('" + sig + "').behavior_fn[" + val + "] = \t function() {" + jit_be + "};\n" ;
                  }
             }
 
@@ -410,22 +410,22 @@
 		    var s_expr = s_exprs[i].split(" ");
 
                     // 2.3.- ...to do the operation
-		    syntax_behavior[s_expr[0]].operation(s_expr);
+		    simhw_syntax_behavior(s_expr[0]).operation(s_expr);
             }
         }
 
         function compute_general_behavior ( name )
         {
             if (jit_behaviors)
-                 syntax_behavior[name].operation();
+                 simhw_syntax_behavior(name).operation();
             else compute_behavior(name) ;
         }
 
         function compute_signal_behavior ( signal_name, signal_value )
         {
             if (jit_behaviors)
-                 sim_signals[signal_name].behavior_fn[signal_value]();
-            else compute_behavior(sim_signals[signal_name].behavior[signal_value]) ;
+                 simhw_sim_signal(signal_name).behavior_fn[signal_value]();
+            else compute_behavior(simhw_sim_signal(signal_name).behavior[signal_value]) ;
         }
 
 
@@ -435,7 +435,7 @@
 
         function fn_updateE_now ( key )
         {
-	    if ("E" == sim_signals[key].type) {
+	    if ("E" == simhw_sim_signal(key).type) {
 		update_state(key) ;
 	    }
 	}
@@ -450,8 +450,8 @@
 
         function fn_updateL_now ( key )
         {
-	    update_draw(sim_signals[key], sim_signals[key].value) ;
-	    if ("L" == sim_signals[key].type) {
+	    update_draw(simhw_sim_signal(key), simhw_sim_signal(key).value) ;
+	    if ("L" == simhw_sim_signal(key).type) {
 		update_state(key) ;
 	    }
 	}
@@ -473,7 +473,7 @@
         {
            var index_behavior = 0;
 
-           switch (sim_signals[key].behavior.length)
+           switch (simhw_sim_signal(key).behavior.length)
            {
                 case 0: // skip empty behavior
                      return;
@@ -484,8 +484,8 @@
                      break;
 
                 default:
-                     index_behavior = sim_signals[key].value ;
-                     if (sim_signals[key].behavior.length < index_behavior) {
+                     index_behavior = simhw_sim_signal(key).value ;
+                     if (simhw_sim_signal(key).behavior.length < index_behavior) {
                          alert('ALERT: there are more signals values than behaviors defined!!!!\n' +
                                'key: ' + key + ' and signal value: ' + index_behavior);
                          return;
@@ -500,16 +500,16 @@
         function show_memories_values ( )
         {
 		/*
-               show_main_memory(MP,               get_value(sim_states['REG_PC']),        true, true) ;
-            show_control_memory(MC, MC_dashboard, get_value(sim_states['REG_MICROADDR']), true, true) ;
+               show_main_memory(MP,               get_value(simhw_sim_state('REG_PC')),        true, true) ;
+            show_control_memory(MC, MC_dashboard, get_value(simhw_sim_state('REG_MICROADDR')), true, true) ;
 		*/
 
             var f1 = new Promise(function(resolve, reject) {
-                 show_main_memory(MP, get_value(sim_states['REG_PC']), true, true) ;
+                 show_main_memory(MP, get_value(simhw_sim_state('REG_PC')), true, true) ;
                  resolve(1);
             });
             var f2 = new Promise(function(resolve, reject) {
-                 show_control_memory(MC, MC_dashboard, get_value(sim_states['REG_MICROADDR']), true) ;
+                 show_control_memory(MC, MC_dashboard, get_value(simhw_sim_state('REG_MICROADDR')), true) ;
                  resolve(1);
             });
 
@@ -522,7 +522,7 @@
 
 	    var assoc_i = -1;
             for (var i=0; i<SIMWARE['firmware'].length; i++) {
-		 if (parseInt(SIMWARE['firmware'][i]["mc-start"]) > get_value(sim_states["REG_MICROADDR"])) { break; }
+		 if (parseInt(SIMWARE['firmware'][i]["mc-start"]) > get_value(simhw_sim_state("REG_MICROADDR"))) { break; }
 		 assoc_i = i ;
             }
 
@@ -546,18 +546,18 @@
                 assoc_i = SIMWARE['firmware'].length - 1 ;
             }
 
-	    var pos = get_value(sim_states["REG_MICROADDR"]) - parseInt(SIMWARE['firmware'][assoc_i]["mc-start"]) ;
+	    var pos = get_value(simhw_sim_state("REG_MICROADDR")) - parseInt(SIMWARE['firmware'][assoc_i]["mc-start"]) ;
 	    if (typeof SIMWARE['firmware'][assoc_i]["microcode"][pos] == "undefined") {
 		SIMWARE['firmware'][assoc_i]["microcode"][pos]     = new Object() ;
 		SIMWARE['firmware'][assoc_i]["microcomments"][pos] = "" ;
 	    }
-	    SIMWARE['firmware'][assoc_i]["microcode"][pos][key] = sim_signals[key].value ;
+	    SIMWARE['firmware'][assoc_i]["microcode"][pos][key] = simhw_sim_signal(key).value ;
 
-            if (sim_signals[key].default_value == sim_signals[key].value)
+            if (simhw_sim_signal(key).default_value == simhw_sim_signal(key).value)
 	        delete SIMWARE['firmware'][assoc_i]["microcode"][pos][key] ;
 
 	    // show memories...
-	    var bits = get_value(sim_states['REG_IR']).toString(2) ;
+	    var bits = get_value(simhw_sim_state('REG_IR')).toString(2) ;
 	    bits = "00000000000000000000000000000000".substring(0, 32 - bits.length) + bits ;
 	    //var op_code = parseInt(bits.substr(0, 6), 2) ; // op-code of 6 bits
 
@@ -581,39 +581,39 @@
 	    if (false === get_cfg('is_interactive'))
                 return;
 
-            for (var key in sim_signals)
+            for (var key in simhw_sim_signals())
             {
-                for (var j=0; j<sim_signals[key].fire_name.length; j++)
+                for (var j=0; j<simhw_sim_signal(key).fire_name.length; j++)
                 {
-	            var r = sim_signals[key].fire_name[j].split(':') ;
+	            var r = simhw_sim_signal(key).fire_name[j].split(':') ;
                     if (r[1] == event.currentTarget.id)
                     {
-                        var checkvalue  = (sim_signals[key].value >>> 0) ;
+                        var checkvalue  = (simhw_sim_signal(key).value >>> 0) ;
                         var str_bolded  = "";
                         var str_checked = "";
                         var input_help  = "";
                         var behav_str   = new Array();
                         var n = 0;
 
-                        var nvalues = Math.pow(2, sim_signals[key].nbits) ;
-                        if (sim_signals[key].behavior.length == nvalues)
+                        var nvalues = Math.pow(2, simhw_sim_signal(key).nbits) ;
+                        if (simhw_sim_signal(key).behavior.length == nvalues)
                         {
-                            for (var k = 0; k < sim_signals[key].behavior.length; k++)
+                            for (var k = 0; k < simhw_sim_signal(key).behavior.length; k++)
                             {
                                  if (k == checkvalue)
                                       str_checked = ' checked="checked" ' ;
                                  else str_checked = ' ' ;
 
-                                 behav_str = sim_signals[key].behavior[k].split(";") ;
-                                 if (sim_signals[key].default_value != k)
+                                 behav_str = simhw_sim_signal(key).behavior[k].split(";") ;
+                                 if (simhw_sim_signal(key).default_value != k)
                                       str_bolded =         behav_str[0] ;
                                  else str_bolded = '<b>' + behav_str[0] + '</b>' ;
 
-                                 n = sim_signals[key].behavior[k].indexOf(";");
+                                 n = simhw_sim_signal(key).behavior[k].indexOf(";");
                                  if (-1 == n)
-                                     n = sim_signals[key].behavior[k].length;
+                                     n = simhw_sim_signal(key).behavior[k].length;
                                  str_bolded = '&nbsp;' + str_bolded +
-                                              '<span style="color:#CCCCCC">' + sim_signals[key].behavior[k].substring(n) + '</span>' ;
+                                              '<span style="color:#CCCCCC">' + simhw_sim_signal(key).behavior[k].substring(n) + '</span>' ;
 
                                  n = k.toString(10) ;
 				 input_help += '<li><label>' +
@@ -625,35 +625,37 @@
                         else {
 				 input_help += '<div><center><label>' +
                                                '<input aria-label="value for ' + key + '" type="number" size=4 min=0 max=' + (nvalues - 1) + ' class=dial ' +
-                                               '       name="ask_svalue" value="' + sim_signals[key].value + '"/>' + '&nbsp;&nbsp;' + ' 0 - ' + (nvalues - 1) +
+                                               '       name="ask_svalue" value="' + simhw_sim_signal(key).value + '"/>' + '&nbsp;&nbsp;' + ' 0 - ' + (nvalues - 1) +
                                                '</center></label></div>\n' ;
                         }
+
+
 
 			bootbox.dialog({
 			       title:   '<center>' + key + ': ' +
                                         ' <div class="btn-group">' +
                                         '   <button onclick="$(\'#bot_signal\').carousel(0);" ' +
-                                        '           type="button" class="btn btn-info" ' + 
-                                        '           style="height:34px !important;">Value</button>' +
+                                        '           type="button" class="btn btn-info">Value</button>' +
                                         '   <button onclick="$(\'#bot_signal\').carousel(1); update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());" ' +
-                                        '           type="button" class="btn btn-success" ' + 
-                                        '           style="height:34px !important;">Help</button>' +
-                                        '   <button type="button" class="btn btn-success dropdown-toggle" ' +
-                                        '           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="height:34px !important;">' +
+                                        '           type="button" class="btn btn-success">Help</button>' +
+                                        '   <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" ' +
+                                        '           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                                         '     <span class="caret"></span>' +
                                         '     <span class="sr-only">Toggle Help Idiom</span>' +
                                         '   </button>' +
-                                        '   <ul class="dropdown-menu">' +
-                                        '    <li><a href="#" onclick="set_cfg(\'ws_idiom\',\'es\'); save_cfg(); $(\'#bot_signal\').carousel(1); ' +
-                                        '                             update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());">ES</a></li>' +
-                                        '    <li><a href="#" onclick="set_cfg(\'ws_idiom\',\'en\'); save_cfg(); $(\'#bot_signal\').carousel(1); ' +
-                                        '                             update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());">EN</a></li>' +
-                                        '   </ul>' +
+                                        '   <div class="dropdown-menu">' +
+                                        '        <a href="#" class="dropdown-item" ' + 
+				        '                    onclick="set_cfg(\'ws_idiom\',\'es\'); save_cfg(); $(\'#bot_signal\').carousel(1); ' +
+                                        '                             update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());">ES</a>' +
+                                        '        <a href="#" class="dropdown-item" ' + 
+				        '                    onclick="set_cfg(\'ws_idiom\',\'en\'); save_cfg(); $(\'#bot_signal\').carousel(1); ' +
+                                        '                             update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());">EN</a>' +
+                                        '   </div>' +
                                         ' </div>' +
                                         '</center>',
                                message: '<div id="bot_signal" class="carousel slide" data-ride="carousel" data-interval="false">' +
                                         '  <div class="carousel-inner" role="listbox">' +
-                                        '    <div class="item active">' +
+                                        '    <div class="carousel-item active">' +
                                         '         <div style="max-height:70vh; width:inherit; overflow:auto;">' +
                                         '         <form class="form-horizontal" style="white-space:nowrap;">' +
                                         '         <input aria-label="value for ' + key + '" id="ask_skey" name="ask_skey" type="hidden" value="' + key + '" class="form-control input-md"> ' +
@@ -663,17 +665,17 @@
                                         '         </form>' +
                                         '         </div>' +
                                         '    </div>' +
-                                        '    <div class="item">' +
+                                        '    <div class="carousel-item">' +
                                         '         <div id=help2 style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>' +
                                         '    </div>' +
                                         '  </div>' +
                                         '</div>',
-			       value:   sim_signals[key].value,
+			       value:   simhw_sim_signal(key).value,
                                animate: false,
 			       buttons: {
 					    success: {
 						label: "Save",
-						className: "btn-primary col-xs-3 col-sm-2 pull-right",
+						className: "btn-primary col-xs-3 col-sm-2 float-right",
 						callback: function ()
 							  {
 							     key        = $('#ask_skey').val();
@@ -681,22 +683,22 @@
                                                              if (typeof user_input == "undefined")
 							         user_input = $("input[name='ask_svalue']").val();
 
-							     sim_signals[key].value = user_input ;
+							     simhw_sim_signal(key).value = user_input ;
 
 	                                                     if (true === get_cfg('is_interactive'))
 							     {
 								 // update REG_MICROINS
-                                                                 if (sim_signals[key].value != sim_signals[key].default_value)
-								      sim_states["REG_MICROINS"].value[key] = sim_signals[key].value ;
-								 else delete(sim_states["REG_MICROINS"].value[key]);
+                                                                 if (simhw_sim_signal(key).value != simhw_sim_signal(key).default_value)
+								      simhw_sim_state("REG_MICROINS").value[key] = simhw_sim_signal(key).value ;
+								 else delete(simhw_sim_state("REG_MICROINS").value[key]);
 
 								 // update MC[uADDR]
-								 if (typeof MC[get_value(sim_states["REG_MICROADDR"])] == "undefined") {
-								     MC[get_value(sim_states["REG_MICROADDR"])] = new Object() ;
-								     MC_dashboard[get_value(sim_states["REG_MICROADDR"])] = new Object() ;
+								 if (typeof MC[get_value(simhw_sim_state("REG_MICROADDR"))] == "undefined") {
+								     MC[get_value(simhw_sim_state("REG_MICROADDR"))] = new Object() ;
+								     MC_dashboard[get_value(simhw_sim_state("REG_MICROADDR"))] = new Object() ;
 								 }
-								 MC[get_value(sim_states["REG_MICROADDR"])][key] = sim_signals[key].value ;
-								 MC_dashboard[get_value(sim_states["REG_MICROADDR"])][key] = { comment: "", breakpoint: false, state: false, notify: new Array() };
+								 MC[get_value(simhw_sim_state("REG_MICROADDR"))][key] = simhw_sim_signal(key).value ;
+								 MC_dashboard[get_value(simhw_sim_state("REG_MICROADDR"))][key] = { comment: "", breakpoint: false, state: false, notify: new Array() };
 
 								 // update ROM[..]
 								 update_signal_firmware(key) ;
@@ -712,14 +714,14 @@
 					    },
 					    close: {
 						label: "Close",
-						className: "btn-danger col-xs-3 col-sm-2 pull-right",
+						className: "btn-danger col-xs-3 col-sm-2 float-right",
 						callback: function() { }
 					    }
 					}
 			});
 
                         $(".dial").knob({ 'min':0, 'max':(nvalues-1) })
-                                  .val(sim_signals[key].value)
+                                  .val(simhw_sim_signal(key).value)
                                   .trigger('change');
 
                     } // if (event.name == signals.firename.name)
@@ -733,15 +735,15 @@
         // update ALU flags: test_n, test_z, test_v, test_c
         function update_nzvc ( flag_n, flag_z, flag_v, flag_c )
         {
-	   set_value(sim_states["FLAG_N"], flag_n) ;
-	   set_value(sim_states["FLAG_Z"], flag_z) ;
-	   set_value(sim_states["FLAG_V"], flag_v) ;
-	   set_value(sim_states["FLAG_C"], flag_c) ;
+	   set_value(simhw_sim_state("FLAG_N"), flag_n) ;
+	   set_value(simhw_sim_state("FLAG_Z"), flag_z) ;
+	   set_value(simhw_sim_state("FLAG_V"), flag_v) ;
+	   set_value(simhw_sim_state("FLAG_C"), flag_c) ;
 
-	   set_value(sim_signals["TEST_N"], flag_n) ;
-	   set_value(sim_signals["TEST_Z"], flag_z) ;
-	   set_value(sim_signals["TEST_V"], flag_v) ;
-	   set_value(sim_signals["TEST_C"], flag_c) ;
+	   set_value(simhw_sim_signal("TEST_N"), flag_n) ;
+	   set_value(simhw_sim_signal("TEST_Z"), flag_z) ;
+	   set_value(simhw_sim_signal("TEST_V"), flag_v) ;
+	   set_value(simhw_sim_signal("TEST_C"), flag_c) ;
         }
 
         function update_memories ( preSIMWARE )
