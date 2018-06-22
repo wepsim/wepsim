@@ -23,14 +23,14 @@
      * Native microcode support
      */
 
-    function wepsim_show_webmips ( )
+    function wepsim_show_wepmips ( )
     {
 	$("#tab26").hide() ;
 	$("#tab21").hide() ;
 	$("#tab24").click() ;
     }
 
-    function wepsim_hide_webmips ( )
+    function wepsim_hide_wepmips ( )
     {
 	$("#tab26").show() ;
 	$("#tab21").show() ;

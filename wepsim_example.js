@@ -82,7 +82,7 @@
 
 	var url = "" ;
 	var mode = get_cfg('ws_mode');
-	if ('webmips' == mode) {
+	if ('wepmips' == mode) {
 	    url = "examples/exampleMicrocodeMIPS.txt" ;
 	    inputfirm.setOption('readOnly', true);
         }
