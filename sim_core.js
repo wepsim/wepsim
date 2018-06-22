@@ -169,7 +169,7 @@
 
 		// when do reset/fetch, check text segment bounds
 	        var mode = get_cfg('ws_mode');
-	        if ( ('webmips' != mode) && (reg_maddr != 0) ) {
+	        if ( ('wepmips' != mode) && (reg_maddr != 0) ) {
                        return ret;
 		}
 
@@ -221,7 +221,7 @@
     	    }
 
 	    var mode = get_cfg('ws_mode');
-	    if ('webmips' != mode) {
+	    if ('wepmips' != mode) {
                 compute_general_behavior("CLOCK") ;
 	    }
 
@@ -270,7 +270,7 @@
 	        }
 
                 var mode = get_cfg('ws_mode');
-                if ('webmips' == mode) 
+                if ('wepmips' == mode) 
                 {
                     compute_general_behavior("CLOCK") ; // fetch...
                     compute_general_behavior("CLOCK") ; // ...instruction
