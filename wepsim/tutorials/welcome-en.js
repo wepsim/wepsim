@@ -40,7 +40,7 @@
     tutorials.welcome.en.push({
                      id:          "welcome",
                      title:       "How to load some example.",
-                     message:     "<center><img src='tutorials/welcome/example_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
+                     message:     "<center><img src='help/welcome/example_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
                                   "Click in the 'example' button, then click in the example 'title' name.<br>" +
@@ -55,7 +55,7 @@
     tutorials.welcome.en.push({
                      id:          "welcome",
                      title:       "How to execute an example.",
-                     message:     "<center><img src='tutorials/welcome/simulation_xinstruction.gif' style='max-width:100%; max-height:60vh'></center>" +
+                     message:     "<center><img src='help/welcome/simulation_xinstruction.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
                                   "Click on next instruction/microinstruction to execute step by step. <br>" + 
@@ -70,7 +70,7 @@
     tutorials.welcome.en.push({
                      id:          "welcome",
                      title:       "How to configure WepSIM.",
-                     message:     "<center><img src='tutorials/welcome/config_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
+                     message:     "<center><img src='help/welcome/config_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
                                   "Click in the 'configuration' button and users are able to customize different parts of WepSIM." +
@@ -84,7 +84,7 @@
     tutorials.welcome.en.push({
                      id:          "welcome",
                      title:       "How to get the basic help.",
-                     message:     "<center><img src='tutorials/welcome/help_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
+                     message:     "<center><img src='help/welcome/help_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
                                   "Please click in the green 'help' button to reach the help dialog.<br>" +
@@ -99,7 +99,7 @@
     tutorials.welcome.en.push({
                      id:          "welcome",
                      title:       "Welcome to WepSIM!",
-                     message:     "<center><img src='tutorials/welcome/help_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
+                     message:     "<center><img src='help/welcome/help_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
                                   "<br>" +

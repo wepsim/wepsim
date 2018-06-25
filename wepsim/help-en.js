@@ -64,7 +64,7 @@
                      id:          "architecture",
                      title:       "Hardware summary",
                      type:        "code",
-                     reference:   "wepsim_open_help_content(\'<object id=svg_p2 data=\\'sim_hw_ep/cpu6.svg?time=20180108\\' type=image/svg+xml>Your browser does not support SVG</object>\');",
+                     reference:   "wepsim_open_help_content(\'<object id=svg_p2 data=\\'sim_hw/sim_hw_ep/cpu6.svg?time=20180108\\' type=image/svg+xml>Your browser does not support SVG</object>\');",
                      description: "Reference card for the simulated elemental processor hardware.<br>"
                   });
 

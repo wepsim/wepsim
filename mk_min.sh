@@ -4,61 +4,62 @@ set -x
 # 
 #  EP hardware 
 # 
-cat sim_hw_index.js \
-    sim_hw_ep/sim_ep.js \
-    sim_hw_ep/sim_hw_board.js \
-    sim_hw_ep/sim_hw_cpu.js \
-    sim_hw_ep/sim_hw_mem.js \
-    sim_hw_ep/sim_hw_io.js \
-    sim_hw_ep/sim_hw_kbd.js \
-    sim_hw_ep/sim_hw_scr.js > sim_hw.js
+cat sim_hw/sim_hw_index.js \
+    sim_hw/sim_hw_ep/sim_ep.js \
+    sim_hw/sim_hw_ep/sim_hw_board.js \
+    sim_hw/sim_hw_ep/sim_hw_cpu.js \
+    sim_hw/sim_hw_ep/sim_hw_mem.js \
+    sim_hw/sim_hw_ep/sim_hw_io.js \
+    sim_hw/sim_hw_ep/sim_hw_kbd.js \
+    sim_hw/sim_hw_ep/sim_hw_scr.js > sim_hw.js
 /usr/bin/yui-compressor -o min.sim_hw.js sim_hw.js
 rm -fr sim_hw.js
 
 # 
 #  Simulator engine
 # 
-cat sim_cfg.js \
-    sim_lang.js \
-    sim_lang_firm.js \
-    sim_lang_asm.js \
-    sim_core_ctrl.js \
-    sim_core_ui.js \
-    sim_core.js > sim_all.js
-/usr/bin/yui-compressor -o min.sim_all.js sim_all.js
-rm -fr sim_all.js
+cat sim_engine/sim_cfg.js \
+    sim_engine/sim_lang.js \
+    sim_engine/sim_lang_firm.js \
+    sim_engine/sim_lang_asm.js \
+    sim_engine/sim_core_ctrl.js \
+    sim_engine/sim_core_ui.js \
+    sim_engine/sim_core.js > sim_engine.js
+/usr/bin/yui-compressor -o min.sim_engine.js sim_engine.js
+rm -fr sim_engine.js
 
 # 
 #  WepSIM: bootstrap + jquery-mobile
 # 
-cat wepsim_example.js \
-    wepsim_help.js \
-    wepsim_native.js \
-    wepsim_state.js \
-    wepsim_tutorial.js \
-    wepsim_url.js \
-    wepsim_voice.js \
-    wepsim_execute.js \
-    wepsim_misc.js \
-    tutorials/tutorials.js \
-    tutorials/welcome-en.js \
-    tutorials/welcome-es.js \
-    tutorials/simpleusage-en.js \
-    tutorials/simpleusage-es.js \
-    tutorials/tour-en.js \
-    tutorials/tour-es.js \
-    help/help-en.js \
-    help/help-es.js \
-    examples/examples.js > wepsim_all.js
-/usr/bin/yui-compressor -o min.wepsim_all.js wepsim_all.js
-rm -fr wepsim_all.js
+cp  wepsim/wepsim_pwa.js min.wepsim_pwa.js
+cat wepsim/wepsim_example.js \
+    wepsim/wepsim_help.js \
+    wepsim/wepsim_native.js \
+    wepsim/wepsim_state.js \
+    wepsim/wepsim_tutorial.js \
+    wepsim/wepsim_url.js \
+    wepsim/wepsim_voice.js \
+    wepsim/wepsim_execute.js \
+    wepsim/wepsim_misc.js \
+    wepsim/tutorials/tutorials.js \
+    wepsim/tutorials/welcome-en.js \
+    wepsim/tutorials/welcome-es.js \
+    wepsim/tutorials/simpleusage-en.js \
+    wepsim/tutorials/simpleusage-es.js \
+    wepsim/tutorials/tour-en.js \
+    wepsim/tutorials/tour-es.js \
+    wepsim/help-en.js \
+    wepsim/help-es.js \
+    wepsim/examples.js > wepsim_web.js
+/usr/bin/yui-compressor -o min.wepsim_web.js wepsim_web.js
+rm -fr wepsim_web.js
 
 # 
 #  WepSIM: nodejs
 # 
 cat min.sim_hw.js \
-    min.sim_all.js \
-    min.wepsim_all.js \
+    min.sim_engine.js \
+    min.wepsim_web.js \
     wepsim_node.js > min.wepsim_node.js
 
 
@@ -95,7 +96,7 @@ cat external/popper.min.js \
     external/speech-input.js \
     external/annyang.min.js \
     external/speechkitt.min.js \
-    external/dropify.min.js > external/external.min.js
+    external/dropify.min.js > min.external.js
 
 cat external/bootstrap.min.css \
     external/bootstrap-theme.min.css \
@@ -109,5 +110,5 @@ cat external/bootstrap.min.css \
     external/introjs.min.css \
     external/speech-input.css \
     external/speechkitt.css \
-    external/dropify.min.css > external/external.min.css
+    external/dropify.min.css > min.external.css
 

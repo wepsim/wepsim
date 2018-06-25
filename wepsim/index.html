@@ -16,17 +16,17 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=2.2, minimum-scale=1, width=device-width">
 
-    <script src="external/jquery.min.js"></script>
-    <script src="external/jquery-ui.min.js"></script>
+    <script src="../external/jquery.min.js"></script>
+    <script src="../external/jquery-ui.min.js"></script>
     <script>
         $(document).bind("mobileinit", function() {
             $.mobile.defaultPageTransition = "none";
             $.mobile.defaultDialogTransition = "none";
         });
     </script>
-    <script src="external/jquery.mobile-1.4.5.min.js"></script>
+    <script src="../external/jquery.mobile-1.4.5.min.js"></script>
 
-    <link rel="stylesheet" href="external/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="../external/jquery.mobile-1.4.5.min.css">
     <style>
     .ui-panel-inner {
         position: absolute;
@@ -120,12 +120,12 @@
     }
     </style>
 
-    <link async href="min.external.css" rel="stylesheet">
-    <script      src="min.external.js"></script>
+    <link async href="../min.external.css" rel="stylesheet">
+    <script      src="../min.external.js"></script>
 
-    <script src="min.sim_hw.js"></script>
-    <script src="min.sim_engine.js"></script>
-    <script src="min.wepsim_web.js"></script>
+    <script src="../min.sim_hw.js"></script>
+    <script src="../min.sim_engine.js"></script>
+    <script src="../min.wepsim_web.js"></script>
 
     <!-- Google Analytics -->
     <script>
@@ -1761,7 +1761,7 @@
             // progressive web application
 	    if ('serviceWorker' in navigator) 
             {
-		navigator.serviceWorker.register('./min.wepsim_pwa.js').catch(function() {
+		navigator.serviceWorker.register('./wepsim/wepsim_pwa.js').catch(function() {
 		  wepsim_notify_error("<h4>Warning:" + 
 				      "<br>WepSIM was used over a HTTP connection.</h4>",
 		                      "Progressive Web Applications requires a HTTPS connection " +
