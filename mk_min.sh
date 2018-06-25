@@ -60,7 +60,7 @@ rm -fr wepsim_web.js
 cat min.sim_hw.js \
     min.sim_engine.js \
     min.wepsim_web.js \
-    wepsim_node.js > min.wepsim_node.js
+    wepsim/wepsim_node.js > min.wepsim_node.js
 
 
 # 
