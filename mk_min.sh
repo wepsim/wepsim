@@ -2,7 +2,7 @@
 set -x
 
 # 
-#  EP hardware 
+#  hardware model + software model + core (simulation ctrl + UI)
 # 
 cat sim_hw/sim_hw_index.js \
     sim_hw/sim_hw_ep/sim_ep.js \
@@ -11,27 +11,20 @@ cat sim_hw/sim_hw_index.js \
     sim_hw/sim_hw_ep/sim_hw_mem.js \
     sim_hw/sim_hw_ep/sim_hw_io.js \
     sim_hw/sim_hw_ep/sim_hw_kbd.js \
-    sim_hw/sim_hw_ep/sim_hw_scr.js > sim_hw.js
-/usr/bin/yui-compressor -o min.sim_hw.js sim_hw.js
-rm -fr sim_hw.js
+    sim_hw/sim_hw_ep/sim_hw_scr.js \
+    sim_sw/sim_lang.js \
+    sim_sw/sim_lang_firm.js \
+    sim_sw/sim_lang_asm.js \
+    sim_core/sim_cfg.js \
+    sim_core/sim_core_ctrl.js \
+    sim_core/sim_core_ui.js \
+    sim_core/sim_core.js > sim_all.js
+/usr/bin/yui-compressor -o min.sim_all.js sim_all.js
+rm -fr sim_all.js
 
 # 
-#  Simulator engine
+#  WepSIM web engine
 # 
-cat sim_engine/sim_cfg.js \
-    sim_engine/sim_lang.js \
-    sim_engine/sim_lang_firm.js \
-    sim_engine/sim_lang_asm.js \
-    sim_engine/sim_core_ctrl.js \
-    sim_engine/sim_core_ui.js \
-    sim_engine/sim_core.js > sim_engine.js
-/usr/bin/yui-compressor -o min.sim_engine.js sim_engine.js
-rm -fr sim_engine.js
-
-# 
-#  WepSIM: bootstrap + jquery-mobile
-# 
-cp  wepsim/wepsim_pwa.js min.wepsim_pwa.js
 cat wepsim/wepsim_example.js \
     wepsim/wepsim_help.js \
     wepsim/wepsim_native.js \
@@ -53,12 +46,12 @@ cat wepsim/wepsim_example.js \
     wepsim/examples.js > wepsim_web.js
 /usr/bin/yui-compressor -o min.wepsim_web.js wepsim_web.js
 rm -fr wepsim_web.js
+cp  wepsim/wepsim_pwa.js min.wepsim_pwa.js
 
 # 
-#  WepSIM: nodejs
+#  WepSIM nodejs engine
 # 
-cat min.sim_hw.js \
-    min.sim_engine.js \
+cat min.sim_all.js \
     min.wepsim_web.js \
     wepsim/wepsim_node.js > min.wepsim_node.js
 

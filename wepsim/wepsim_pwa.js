@@ -23,7 +23,7 @@
  * cache versioning
  */
 
-var cacheName = 'v189a:static';
+var cacheName = 'v190a:static';
 
 
 /*
@@ -169,8 +169,7 @@ self.addEventListener('install',
                                         './external/jquery.mobile-1.4.5.min.js',
                                         './min.external.css',
                                         './min.external.js',
-                                        './min.sim_hw.js',
-                                        './min.sim_engine.js',
+                                        './min.sim_all.js',
                                         './min.wepsim_web.js',
 					'./index.html'
 				    ]).then(function() {
