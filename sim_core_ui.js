@@ -457,6 +457,9 @@
 
         function show_rf_names ( )
         {
+	    if (typeof document == "undefined")
+	        return ;
+
             var SIMWARE = get_simware() ;
 
             var br_value = "" ;

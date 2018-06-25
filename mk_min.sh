@@ -16,7 +16,7 @@ cat sim_hw_index.js \
 rm -fr sim_hw.js
 
 # 
-#  Simulator
+#  Simulator engine
 # 
 cat sim_cfg.js \
     sim_lang.js \
@@ -29,7 +29,7 @@ cat sim_cfg.js \
 rm -fr sim_all.js
 
 # 
-#  WepSIM engine + information
+#  WepSIM: bootstrap + jquery-mobile
 # 
 cat wepsim_example.js \
     wepsim_help.js \
@@ -52,6 +52,15 @@ cat wepsim_example.js \
     examples/examples.js > wepsim_all.js
 /usr/bin/yui-compressor -o min.wepsim_all.js wepsim_all.js
 rm -fr wepsim_all.js
+
+# 
+#  WepSIM: nodejs
+# 
+cat min.sim_hw.js \
+    min.sim_all.js \
+    min.wepsim_all.js \
+    wepsim_node.js > min.wepsim_node.js
+
 
 # 
 #  external
