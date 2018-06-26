@@ -89,7 +89,8 @@ cat external/popper.min.js \
     external/speech-input.js \
     external/annyang.min.js \
     external/speechkitt.min.js \
-    external/dropify.min.js > min.external.js
+    external/dropify.min.js \
+    external/fontawesome5/all.js > min.external.js
 
 cat external/bootstrap.min.css \
     external/bootstrap-theme.min.css \
@@ -103,5 +104,6 @@ cat external/bootstrap.min.css \
     external/introjs.min.css \
     external/speech-input.css \
     external/speechkitt.css \
-    external/dropify.min.css > min.external.css
+    external/dropify.min.css \
+    external/fontawesome5/all.css > min.external.css
 
