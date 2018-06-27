@@ -1,8 +1,8 @@
 # WepSIM: Simulator of Elemental Processor 
 
 
-[![Build Status](https://travis-ci.org/acaldero/wepsim.svg?branch=master)](https://travis-ci.org/acaldero/wepsim)
-[![Maintainability](https://api.codeclimate.com/v1/badges/9efc2957158b5c67f775/maintainability)](https://codeclimate.com/github/acaldero/wepsim/maintainability)
+[![Build Status](https://travis-ci.org/wepsim/wepsim.svg?branch=master)](https://travis-ci.org/wepsim/wepsim)
+[![Maintainability](https://api.codeclimate.com/v1/badges/9efc2957158b5c67f775/maintainability)](https://codeclimate.com/github/wepsim/wepsim/maintainability)
  [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
  
 
@@ -14,7 +14,7 @@
 
    * on-line => Web version (Google Chrome 65+, Mozilla Firefox 55+, Microsoft Edge 25+, and Apple Safari 11+):
      * Release version: https://wepsim.github.io/wepsim
-     * Nightly build: https://acaldero.github.io/wepsim
+     * Nightly build: https://wepsim.github.io/wepsim
 
    * off-line => Install WepSIM:
      * Install on Android 5.0+: <br/> 
@@ -29,11 +29,10 @@ https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim
 
 Step   | iOS                       |  Android
 ------:|:-------------------------:|:-------------------------:
-1    | ![screen:pwa_ios](https://raw.githubusercontent.com/wepsim/wepsim/master/docs/pwa/pwa_ios001.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/wepsim/wepsim/master/docs/pwa/pwa_android001.jpg)
-2    | ![screen:pwa_ios](https://raw.githubusercontent.com/wepsim/wepsim/master/docs/pwa/pwa_ios002.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/wepsim/wepsim/master/docs/pwa/pwa_android002.jpg)
-3    | ![screen:pwa_ios](https://raw.githubusercontent.com/wepsim/wepsim/master/docs/pwa/pwa_ios003.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/wepsim/wepsim/master/docs/pwa/pwa_android003.jpg)
-4    | ![screen:pwa_ios](https://raw.githubusercontent.com/wepsim/wepsim/master/docs/pwa/pwa_ios004.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/wepsim/wepsim/master/docs/pwa/pwa_android004.jpg)         
-
+1    | ![screen:pwa_ios](https://raw.githubusercontent.com/wepsim/wepsim/master/help/pwa/pwa_ios001.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/wepsim/wepsim/master/help/pwa/pwa_android001.jpg)
+2    | ![screen:pwa_ios](https://raw.githubusercontent.com/wepsim/wepsim/master/help/pwa/pwa_ios002.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/wepsim/wepsim/master/help/pwa/pwa_android002.jpg)
+3    | ![screen:pwa_ios](https://raw.githubusercontent.com/wepsim/wepsim/master/help/pwa/pwa_ios003.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/wepsim/wepsim/master/help/pwa/pwa_android003.jpg)
+4    | ![screen:pwa_ios](https://raw.githubusercontent.com/wepsim/wepsim/master/help/pwa/pwa_ios004.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/wepsim/wepsim/master/help/pwa/pwa_android004.jpg)         
 
 + Quick Start:
 
@@ -49,14 +48,14 @@ Step   | iOS                       |  Android
      ![screen:code](https://raw.githubusercontent.com/wepsim/wepsim/master/help/simulator/assembly003.jpg)
    6 Finally, go back to the simulator workspace, and you can execute step by step and analyze the state of the components.
      It is possible to work at assembly level or at microcode level: 
-     ![screen:simulation cpu](https://raw.githubusercontent.com/wepsim/wepsim/master/tutorials/welcome/simulation_xinstruction.gif)
+     ![screen:simulation cpu](https://raw.githubusercontent.com/wepsim/wepsim/master/help/welcome/simulation_xinstruction.gif)
 
 + Main configuration options:
 
    + From the general toolbar, the configuration button let users to personalize several options:
-     ![screen:configuration](https://raw.githubusercontent.com/wepsim/wepsim/master/tutorials/welcome/config_usage.gif)
+     ![screen:configuration](https://raw.githubusercontent.com/wepsim/wepsim/master/help/welcome/config_usage.gif)
    + From the general toolbar, please use the left-upper slider to change the CPU/CU size:
      ![screen:configuration](https://raw.githubusercontent.com/wepsim/wepsim/master/help/simulator/simulator013.jpg)
    + From the execution toolbar, clicking over the 'state' button to show the state manager:
-     ![screen:configuration](https://github.com/wepsim/wepsim/blob/master/tutorials/welcome/states_usage.gif)
+     ![screen:configuration](https://github.com/wepsim/wepsim/blob/master/help/welcome/states_usage.gif)
 
