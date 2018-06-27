@@ -225,7 +225,6 @@
 				<option value="intro"   >Welcome...</option>
 				<option value="tutorial">Instructive</option>
 				<option value="wepsim"  >WepSIM</option>
-				<option value="webmips" >WebMIPS</option>
 			</select>
                     </div>
                     </div>
@@ -388,7 +387,7 @@
 		          <button class="btn btn-light ui-shadow col" data-role="none"
 		                  style="border-color: #CCCCCC;"
 		                  onclick="wepsim_dialog_current_state();"><c>States</c></span></button>
-                          <select class="custom-select btn btn-light ui-shadow col"
+                          <select class="custom-select btn btn-light ui-shadow col-5"
                                   style="border-color: #CCCCCC;"
 				  name="select5a" id="select5a" 
 				  data-role="none" 
@@ -541,7 +540,7 @@
                 <div class="container col-12" role="none">
 		<div class="col-sm"           role="toolbar" aria-label="MicroCode Toolbar">
 
-                      <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">
+                      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button class="btn btn-light ui-shadow col" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                     data-toggle="modal" data-target="#config2"><b><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></b></button>
@@ -555,7 +554,7 @@
 				    onclick="$.mobile.pageContainer.pagecontainer('change','#main1');"><b>Simulator</b></button>
 		      </div>
 
-                      <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">
+                      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <a      href="#lsload" 
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				    class="btn ui-btn ui-btn-a ui-mini ui-shadow"
@@ -566,7 +565,7 @@
 				    data-rel="popup" data-position-to="window" data-transition="pop">Save</a>
 		      </div>
 
-                      <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">
+                      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button style="background-color: #CCCCCC"
 		                    class="btn btn-light ui-shadow col" data-role="none"
 				    data-transition="none" data-inline="true"
@@ -585,7 +584,7 @@
 			                     </button>
 		      </div>
 
-                      <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">
+                      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
                             <button style="background-color: #D4DB17"
 		                    class="btn btn-light ui-shadow col" data-role="none"
                                     onclick="wepsim_open_help_content('<object id=svg_p2 data=\'sim_hw_ep/cpu6.svg?time=20180608\' type=image/svg+xml>Your browser does not support SVG</object>');"
@@ -666,7 +665,7 @@
                 <div class="container col-12" role="none">
 		<div class="col-sm"           role="toolbar" aria-label="Assembly Toolbar">
 
-                      <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">
+                      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button class="btn btn-light ui-shadow col" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                     data-toggle="modal" data-target="#config2"><b><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></b></button>
@@ -680,7 +679,7 @@
 				    onclick="$.mobile.pageContainer.pagecontainer('change','#main1');"><b>Simulator</b></button>
 		      </div>
 
-                      <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">
+                      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <a      href="#lsload2" 
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				    class="btn ui-btn ui-btn-a ui-mini ui-shadow"
@@ -691,7 +690,7 @@
 				    data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Save</a>
 		      </div>
 
-                      <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">
+                      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button style="background-color: #CCCCCC"
 		                    class="btn btn-light ui-shadow col" data-role="none"
 				    data-transition="none" data-inline="true"
@@ -1341,7 +1340,7 @@
                   <button onclick="$('#bot_check1').carousel(1);" 
                           type="button" 
                           class="btn btn-info" 
-			  style="height:34px !important;"><span class='d-none d-sm-inline-flex'>Edit </span>State</button>
+			  style="height:34px !important;"><span class='d-none d-sm-inline-flex'>Edit</span> State</button>
                   <button onclick="$('#bot_check1').carousel(2);
                                    update_checker_loadhelp('#help3a','help_dumper');"
                           type="button" 

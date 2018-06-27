@@ -340,10 +340,10 @@
 
     function wepsim_change_mode ( optValue, cssLayer )
     {
-	  // webmips mode...
-	  if ('webmips' == optValue)
-	       wepsim_show_webmips();
-	  else wepsim_hide_webmips();
+	  // wepmips mode...
+	  if ('wepmips' == optValue)
+	       wepsim_show_wepmips();
+	  else wepsim_hide_wepmips();
 
 	  // tutorial mode...
 	  $(cssLayer).css('background-color', '#F6F6F6') ;
