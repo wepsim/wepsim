@@ -198,7 +198,8 @@ function langError ( context, msgError )
         context.error += "\n...\n</pre>" +
                          "(*) Problem around line " + context.line + ":<br>" + msgError + ".<br>" ;
 
-        ga('send', 'event', 'compile', 'compile.error', 'compile.error.' + msgError);
+	if (typeof ga !== "undefined")
+            ga('send', 'event', 'compile', 'compile.error', 'compile.error.' + msgError);
 
         return context;
 }
