@@ -14,7 +14,7 @@
 
    * on-line => Web version (Google Chrome 65+, Mozilla Firefox 55+, Microsoft Edge 25+, and Apple Safari 11+):
      * Release version: https://wepsim.github.io/wepsim
-     * Nightly build: https://wepsim.github.io/wepsim
+     * Nightly build: https://acaldero.github.io/wepsim
 
    * off-line => Install WepSIM:
      * Install on Android 5.0+: <br/> 
