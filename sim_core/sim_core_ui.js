@@ -1389,7 +1389,7 @@
 	function mp2html ( mp, labels, seg )
 	{
                 var slebal = new Object();
-                for (l in labels)
+                for (var l in labels)
                 {
                      if (typeof slebal[labels[l]] == "undefined")
                          slebal[labels[l]] = new Array();
@@ -1422,7 +1422,7 @@
 			 "</tr>" ;
 
 	   	var color="white";
-	        for (skey in seg)
+	        for (var skey in seg)
 	        {
                      c_begin =  parseInt(seg[skey].begin) ;
                      c_end   =  parseInt(seg[skey].end) ;
@@ -1498,7 +1498,7 @@
 	         " <tr>" +
 	         " <td>" +
 	         "<table style='border-style: solid' border=1 width=100% height=100%>" ;
-	   for (skey in segments)
+	   for (var skey in segments)
 	   {
 	        if (segments[skey].name != ".stack")
 	   	    o1 += "<tr><td valign=middle align=center height=60px bgcolor=" + segments[skey].color + ">" +
