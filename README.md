@@ -12,7 +12,7 @@
 
 + Get WepSIM Simulator:
 
-   * on-line => Web version (Google Chrome 65+, Mozilla Firefox 55+, Microsoft Edge 25+, and Apple Safari 11+):
+   * on-line => Web version (Google Chrome 65+, Mozilla Firefox 60+, Microsoft Edge 40+, and Apple Safari 11+):
      * Release version: https://wepsim.github.io/wepsim
      * Nightly build: https://acaldero.github.io/wepsim
 
