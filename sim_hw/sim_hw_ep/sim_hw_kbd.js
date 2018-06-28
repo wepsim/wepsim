@@ -94,14 +94,14 @@
 
                                                       if (get_value(ep_states[s_expr[4]]) == 0) 
                                                       {
-							      var keybuffer = document.getElementById("kdb_key").value;
+							      var keybuffer = get_keyboard_content() ;
 							      if (keybuffer.length != 0) 
-                                                              {
-							          var keybuffer_rest = keybuffer.substr(1, keybuffer.length-1);
-							          document.getElementById("kdb_key").value = keybuffer_rest;
+							      {
+								  var keybuffer_rest = keybuffer.substr(1, keybuffer.length-1);
+								  set_keyboard_content(keybuffer_rest) ;
 
-							          set_value(ep_states[s_expr[4]], 1);
-							          set_value(ep_states[s_expr[3]], keybuffer[0].charCodeAt(0));
+								  set_value(ep_states[s_expr[4]], 1);
+								  set_value(ep_states[s_expr[3]], keybuffer[0].charCodeAt(0));
 							      }
                                                       }
                                                       if (get_value(ep_states[s_expr[4]]) == 1) 
@@ -118,5 +118,5 @@
 							      set_value(ep_states[s_expr[4]], 0);
 						      }
                                                    }
-                                   };
+                                   } ;
 

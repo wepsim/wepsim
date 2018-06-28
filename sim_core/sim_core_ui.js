@@ -1226,6 +1226,7 @@
 
         // Console (Screen + Keyboard)
         var screen_content = "" ;
+        var keyboard_content = "" ;
 
 	function get_screen_content ( )
 	{
@@ -1247,6 +1248,36 @@
 		     scrobj.value = screen ;
 
 		 screen_content = screen ;
+	}
+
+	function get_keyboard_content ( )
+	{
+              if (typeof document == "undefined") 
+	      {
+		  var readlineSync = require('readline-sync');
+                  var keys = readlineSync.question('keyboard> ');
+	          keyboard_content = keys.toString() ;
+	          return keyboard_content ;
+	      }
+
+	      var keyobj = null ;
+              if (typeof document != "undefined")
+	          keyobj = document.getElementById("kdb_key") ;
+              if (keyobj != null)
+		  keyboard_content = keyobj.value ;
+
+	      return keyboard_content ;
+	}
+
+	function set_keyboard_content ( keystrokes )
+	{
+	      var keyobj = null ;
+              if (typeof document != "undefined")
+		  keyobj = document.getElementById("kdb_key") ;
+              if (keyobj != null)
+		  keyobj.value = keystrokes ;
+
+	      keyboard_content = keystrokes ;
 	}
 
 
