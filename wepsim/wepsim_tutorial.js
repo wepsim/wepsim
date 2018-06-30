@@ -68,7 +68,7 @@
 
         if (step != 0)
             bbbt.prev = {
-		    label: 'Prev',
+		    label: 'Prev.',
 		    className: 'btn-success col float-right',
 		    callback: function() {
 			tutorial[step].code_post() ;
