@@ -77,7 +77,7 @@
 
     help.es.push({
                      id:          "simulator",
-                     title:       "Dependencias de las señales",
+                     title:       "Dependencias entre señales",
                      i_type:      "code",
                      u_type:      "info",
                      reference:   "wepsim_open_help_content(\'<div id=depgraph1>...</div>\'); " +

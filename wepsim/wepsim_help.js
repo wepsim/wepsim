@@ -43,7 +43,7 @@
         o = o + "<div class='container grid-striped' data-spy='scroll' data-target='#list-help' data-offset='0'>" +
 	        "<div class='row font-weight-bold py-1'>" +
 		'<div class="col-lg-auto">#</div>' +
-		'<div class="col-lg-3">title</div>' +
+		'<div class="col-lg-4">title</div>' +
 		'<div class="col-lg">description</div>' +
 		'</div>' ;
        for (var m=0; m<helps.length; m++)
@@ -73,7 +73,7 @@
 			'<div class="col-lg-auto">' +
 			'    <span class="badge badge-pill badge-light">' + m + '</span>' +
 			'</div>' +
-			'<div class="col-lg-3">' +
+			'<div class="col-lg-4">' +
 			'    <a href="#" ' +
 			'       class="ui-btn btn btn-group ui-btn-inline" ' +
 			'       style="background-color: #D4DB17; padding:0 0 0 0; margin:2 8 0 0;" ' +

@@ -1314,7 +1314,23 @@
                         class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
                         data-dismiss="modal" aria-hidden="true">x</button>
 		<div class="mx-auto">
-                <h5><b>Examples</b> <span class="badge badge-pill btn-success"><div class="wsversion">X</div></span></h5>
+		   <div class="btn-group">
+		     <button type="button" class="btn btn-success" 
+		             onclick="wepsim_open_examples_index();">Examples</button>
+		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" 
+			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			 <span class="caret"></span>
+			 <span class="sr-only">Toggle Help Idiom</span>
+		     </button>
+		     <div class="dropdown-menu">
+			 <a class="dropdown-item" href="#" 
+			    onclick="set_cfg('ws_idiom','es'); save_cfg(); 
+                                     wepsim_open_examples_index();">ES</a>
+			 <a class="dropdown-item" href="#" 
+			    onclick="set_cfg('ws_idiom','en'); save_cfg(); 
+                                     wepsim_open_examples_index();">EN</a>
+		     </div>
+		   </div>
                 </div>
 	   </div>
 	   <div class="modal-body">
