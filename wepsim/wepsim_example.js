@@ -117,7 +117,6 @@
     {
        var o = "" ;
 
-       var fmt_toggle    = "" ;
        var fmt_header    = "" ;
        var e_title       = "" ;
        var e_level       = "" ;
@@ -131,41 +130,35 @@
        {
 	       fmt_header = "" ;
 	       if (e_level != examples[lang][m].level)
-                   fmt_header = "<div class='row'>" + 
-			        "<div class='col-sm-12 text-right text-capitalize font-weight-bold'>" + examples[lang][m].level + "</div>" + 
-			        "</div>" ;
+                   fmt_header = "<div class='col-sm-12 border-bottom border-secondary text-right text-capitalize font-weight-bold'>" + examples[lang][m].level + "</div>" ;
 
 	       e_title       = examples[lang][m].title ;
 	       e_level       = examples[lang][m].level ;
 	       e_description = examples[lang][m].description ;
 	       e_id          = examples[lang][m].id ;
 
-                if (fmt_toggle == "")
-                    fmt_toggle = "bg-light" ;
-               else fmt_toggle = "" ;
-
 	       o = o + fmt_header +
-                        "<div class='row py-1 " + fmt_toggle + "' id='" + e_level + "'>" +
+                        "<div class='row py-1'>" +
                         '<div class="col-sm-auto">' +
                         '    <span class="badge badge-pill badge-light">' + (m+1) + '</span>' +
                         '</div>' +
                         '<div class="col-sm-3">' +
 		        '   <span onclick="$(\'#example1\').modal(\'hide\'); load_from_example_firmware(\'' + e_id + '\',true);"  style="padding:0 0 0 0; margin:0 8 0 0;"' +
-		        '         class="bg-primary text-white">' + e_title + '</span>' +
-                        '</div>' +
-                        '<div class="col-sm-6">' +
-                        '    <c>' + e_description + '</c>' +
+		        '         class="bg-info text-white">' + e_title + '</span>' +
                         '</div>' +
                         '<div class="col-sm">' +
-		        '     <div class="btn-group btn-group-justified btn-group-md">' +
-		        '         <a href="#" onclick="$(\'#example1\').modal(\'hide\'); load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0; margin:0 8 0 0;"' +
-		        '            class="ui-btn btn btn-group ui-btn-inline btn-secondary">' +
-		        '            <c>Assembly</c></a>' +
-		        '         <a href="#" onclick="$(\'#example1\').modal(\'hide\'); load_from_example_firmware(\'' + e_id + '\',false);" style="padding:0 0 0 0; margin:0 7 0 0;"' +
-		        '            class="ui-btn btn btn-group ui-btn-inline btn-secondary">' +
-		        '            <c>Firmware</c></a>' +
-		        '     </div>' +
+                        '    <c>' + e_description + '</c>' +
                         '</div>' +
+                        //'<div class="col-sm">' +
+		        //'     <div class="btn-group btn-group-justified btn-group-md">' +
+		        //'         <a href="#" onclick="$(\'#example1\').modal(\'hide\'); load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0; margin:0 8 0 0;"' +
+		        //'            class="ui-btn btn btn-group ui-btn-inline btn-secondary">' +
+		        //'            <c>Assembly</c></a>' +
+		        //'         <a href="#" onclick="$(\'#example1\').modal(\'hide\'); load_from_example_firmware(\'' + e_id + '\',false);" style="padding:0 0 0 0; margin:0 7 0 0;"' +
+		        //'            class="ui-btn btn btn-group ui-btn-inline btn-secondary">' +
+		        //'            <c>Firmware</c></a>' +
+		        //'     </div>' +
+                        //'</div>' +
                         '</div>' ;
        }
        o = o + '</div>' ;

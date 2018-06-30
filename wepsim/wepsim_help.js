@@ -48,7 +48,9 @@
        {
 	        fmt_header = "" ;
 	        if (e_utype != helps[m].u_type)
-		    fmt_header = "<div class='row'><div class='float-none text-right text-capitalize font-weight-bold col-12 sticky-top'>" + helps[m].u_type + "</div></div>" ;
+		    fmt_header = "<div class='row'>" + 
+			         "<div class='float-none text-right text-capitalize font-weight-bold col-12 border-bottom border-secondary'>" + helps[m].u_type + "</div>" + 
+			         "</div>" ;
 
 		e_title       = helps[m].title ;
 		e_itype       = helps[m].i_type ;
@@ -77,10 +79,8 @@
 			'    <span class="badge badge-pill badge-light">' + m + '</span>' +
 			'</div>' +
 			'<div class="col-md-4">' +
-			'    <a href="#" ' +
-			'       class="ui-btn btn btn-group ui-btn-inline" ' +
-			'       style="background-color: #D4DB17; padding:0 0 0 0; margin:2 8 0 0;" ' +
-			'       onclick="' + onclick_code + '"><b>' + e_title + '</b></a>' +
+			'    <span class="bg-success text-white" ' +
+			'          onclick="' + onclick_code + '">' + e_title + '</span>' +
 			'</div>' +
 			'<div class="col-md">' +
 			'    <c>' + e_description + '</c>' +
