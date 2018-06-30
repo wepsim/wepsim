@@ -25,6 +25,72 @@
 
     function table_helps_html ( helps )
     {
+       var o = "" ;
+       var toggle = "";
+
+       var utypes = [] ;
+       for (var m=0; m<helps.length; m++)
+       {
+	    if (!utypes.includes(helps[m].u_type))
+	         utypes.push(helps[m].u_type) ;
+       }
+
+       //o = o + "<ul id='list-help' class='nav nav-pills nav-justified sticky-top'>" ;
+       //for (var m=0; m<utypes.length; m++)
+       //     o = o + "<li class='nav-item'><a class='nav-link' href='#" + utypes[m] + "'>" + utypes[m] + "</a></li>" ;
+       //o = o + '</ul>' ;
+
+        o = o + "<div class='container grid-striped' data-spy='scroll' data-target='#list-help' data-offset='0'>" +
+	        "<div class='row font-weight-bold py-1'>" +
+		'<div class="col-lg-auto">#</div>' +
+		'<div class="col-lg-3">title</div>' +
+		'<div class="col-lg">description</div>' +
+		'</div>' ;
+       for (var m=0; m<helps.length; m++)
+       {
+		var e_title       = helps[m].title ;
+		var e_itype       = helps[m].i_type ;
+		var e_utype       = helps[m].u_type ;
+		var e_reference   = helps[m].reference ;
+		var e_description = helps[m].description ;
+		var e_id          = helps[m].id ;
+
+		var onclick_code = "" ;
+		if ("relative" == e_itype) 
+		    onclick_code = 'wepsim_help_set_relative(\'' + e_reference + '\');' + 
+				   'wepsim_help_refresh();' ;
+		if ("absolute" == e_itype) 
+		    onclick_code = 'wepsim_help_set_absolute(\'' + e_reference + '\');' + 
+				   'wepsim_help_refresh();' ;
+		if ("code" == e_itype) 
+		    onclick_code = e_reference ;
+
+	        if (toggle == "")
+	            toggle = "bg-light" ;
+	       else toggle = "" ;
+
+		o = o + "<div class='row py-1 " + toggle + "' id='" + e_utype + "'>" +
+			'<div class="col-lg-auto">' +
+			'    <span class="badge badge-pill badge-light">' + m + '</span>' +
+			'</div>' +
+			'<div class="col-lg-3">' +
+			'    <a href="#" ' +
+			'       class="ui-btn btn btn-group ui-btn-inline" ' +
+			'       style="background-color: #D4DB17; padding:0 0 0 0; margin:2 8 0 0;" ' +
+			'       onclick="' + onclick_code + '"><b>' + e_title + '</b></a>' +
+			'</div>' +
+			'<div class="col-lg">' +
+			'    <c>' + e_description + '</c>' +
+			'</div>' +
+			'</div>' ;
+       }
+       o = o + '</div>' ;
+
+       return o ;
+    }
+
+    function table_helps_html2 ( helps )
+    {
            var o = '' ;
                o = o + '<div class="table-responsive">' +
                        '<table width=100% class="table table-striped table-hover table-sm">' +
