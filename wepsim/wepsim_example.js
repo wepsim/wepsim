@@ -115,6 +115,8 @@
 
     function table_examples_html ( examples )
     {
+       var lang = get_cfg('ws_idiom') ;
+
        var o = '<div class="table-responsive" style="min-width:720px;">' +
                '<table class="table table-striped table-hover table-sm">' +
                '<thead>' +
@@ -127,12 +129,12 @@
                '</tr>' +
                '</thead>' +
                '<tbody>';
-       for (var m=0; m<examples.length; m++)
+       for (var m=0; m<examples[lang].length; m++)
        {
-	       var e_title       = examples[m].title ;
-	       var e_level       = examples[m].level ;
-	       var e_description = examples[m].description ;
-	       var e_id          = examples[m].id ;
+	       var e_title       = examples[lang][m].title ;
+	       var e_level       = examples[lang][m].level ;
+	       var e_description = examples[lang][m].description ;
+	       var e_id          = examples[lang][m].id ;
 
 	       o = o + ' <tr>' +
 		       ' <td>' + '<b>' + (m+1)   + '</b>' + '</td>' +
