@@ -60,6 +60,7 @@
 
     .bootbox .modal-body {
         overflow: auto;
+	-webkit-overflow-scrolling: touch;
     }
     .bootboxWidth {
         min-width: 80vw;
@@ -310,7 +311,7 @@
 
 		        <div id="eltos_dbg" class="tab-pane" role="tabpanel">
 			   <center>
-		           <div id="asm_table" style="overflow-x:auto;">
+		           <div id="asm_table" style="overflow-x:auto; -webkit-overflow-scrolling:touch;">
 		   	   <table class='table ui-responsive ui-table' style="margin-bottom:0px; min-width:700px;">
 		   	   <thead>
 			   <tr>
@@ -338,7 +339,7 @@
 			   </center>
 
 		           <div id="asm_debugger_container" 
-                                style="overflow-y:auto; overflow-x:auto; height:70vh !important;">
+                                style="overflow-y:auto; overflow-x:auto; height:70vh !important; -webkit-overflow-scrolling:touch;">
                                 <div id="asm_debugger" style="min-width:700px;">
                                 <br>
                                 <ol>
@@ -448,17 +449,17 @@
 		         <div id="config_ALL0"         style="width: inherit; overflow-y: auto;"></div>
 		      </div>
 		      <div id="mp"   class="ui-body-d ui-content">
-		         <div id="memory_MP"           style="height:58vh; width: inherit; overflow-y: scroll;"></div>
+		         <div id="memory_MP"           style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
 		      </div>
 		      <div id="mc"   class="ui-body-d ui-content">
-		         <div id="memory_MC"           style="height:58vh; width: inherit; overflow-y: scroll;"></div>
+		         <div id="memory_MC"           style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
 		      </div>
 		      <div id="con"  class="ui-body-d ui-content">
                          <img alt="monitor" height=55 src="images/monitor2.png">
-		         <textarea aria-label="monitor"  style="min-width:90%; overflow-y:auto; margin:0 0 8 0"
+		         <textarea aria-label="monitor"  style="min-width:90%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 8 0"
                                    placeholder="WepSIM" id="kdb_con" rows=8 readonly></textarea>
                          <img alt="keyboard" height=35 src="images/keyboard1.png">
-		         <textarea aria-label="keyboard" style="min-width:90%; overflow-y:auto; margin:0 0 0 0"
+		         <textarea aria-label="keyboard" style="min-width:90%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 0 0"
                                    placeholder="WepSIM" id="kdb_key" rows=2></textarea>
 		      </div>
 		      <div id="io"  class="ui-body-d ui-content">
@@ -606,8 +607,8 @@
 
 	    </div>
 
-	    <div id="t3_firm"  class="ui-body-d ui-content" style="height:75vh; overflow-y:auto;">
-		     <textarea aria-label="microcode" style="min-width:90%; overflow-x:auto;"
+	    <div id="t3_firm"  class="ui-body-d ui-content" style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
+		     <textarea aria-label="microcode" style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
                                placeholder="Please select 'Example' or 'Load' first in order to have an initial Microcode."
                                id="inputFirmware" rows=20></textarea>
 	    </div>
@@ -723,8 +724,8 @@
 
 	    </div>
 
-	    <div id="t4_asm"   class="ui-body-d ui-content" style="height:75vh; overflow-y:auto;">
-		        <textarea aria-label="Assembly" style="min-width:90%; overflow-x:auto;"
+	    <div id="t4_asm"   class="ui-body-d ui-content" style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
+		        <textarea aria-label="Assembly" style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
                                   placeholder="Please select 'Load' first to have the assembly code to work with."
 			          id="inputAssembly" rows="20"></textarea>
 	    </div>
@@ -748,7 +749,7 @@
 	   <div class="modal-body">
 
 
-        <div id=table-config2 class="table container-fluid" style="padding:0 0 0 0; overflow:auto;">
+        <div id=table-config2 class="table container-fluid" style="padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
 	<table class="table table-striped table-hover table-sm" 
 	       data-role="none" 
 	       style="width:100%; margin:0 0 0 0">
@@ -1188,10 +1189,10 @@
 	   <div class="modal-body">
 
 		<div id="bin2-container" class="container-fluid" 
-		     style="padding:0 0 0 0; overflow:auto;">
+		     style="padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
 
 		      <div class="ui-body-d ui-content" style="padding: 2px 2px 2px 2px;">
-			 <div id=iframe_bin2 style="max-height:80vh; max-width:100%; overflow:auto;">
+			 <div id=iframe_bin2 style="max-height:80vh; max-width:100%; overflow:auto; -webkit-overflow-scrolling:touch;">
 			   <div id="compile_results" style="padding: 16px 16px 16px 16px;">
 				<br>
 				<center>
@@ -1301,7 +1302,7 @@
 	   <div class="modal-body">
                  <div id="help1_ref" style="display:none;"></div>
                  <div class="ui-body-d ui-content" 
-                      style="padding: 2px 2px 2px 2px; max-height:80vh; overflow-y:auto;">
+                      style="padding: 2px 2px 2px 2px; max-height:80vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
                       <div id="iframe_help1"></div>
                  </div>
 	   </div>
@@ -1339,7 +1340,7 @@
 	   </div>
 	   <div class="modal-body">
 		<div id="container-example1" class="container-fluid" 
-		     style="max-height:80vh; padding:0 0 0 0; overflow:auto;">
+		     style="max-height:80vh; padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
 		</div>
 	   </div>
 	</div>
@@ -1395,7 +1396,7 @@
                   <div class="carousel-item active">
                         <h4 style="margin:0 0 10 0;">History:</h4>
                         <div id="history1"
-			     style="max-height:42vh; width:inherit; overflow:auto;">
+			     style="max-height:42vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
 				&emsp;<span style="background-color:#FCFC00">Empty.</span>
 			</div>
                         <h4 style="margin:20 0 10 0;">Differences (only changed values):
@@ -1404,7 +1405,7 @@
 			      data-inline="true">Copy to clipboard</i></span>
                         </h4>
 		        <div id="check_results_scroll1"
-		             style="max-height:25vh; width:inherit; overflow-y:auto;" >
+		             style="max-height:25vh; width:inherit; overflow-y:auto; -webkit-overflow-scrolling:touch;" >
 		             <div id="check_results1"></div>
 		        </div>
                   </div>
@@ -1417,7 +1418,7 @@
                         </h4>
                         <form id="end_state_form1" 
                               class="form-horizontal bootboxLargeHeight" 
-                              style="white-space:wrap; overflow-y:auto;">
+                              style="white-space:wrap; overflow-y:auto; -webkit-overflow-scrolling:touch;">
                            <textarea aria-label="checks to perform" 
                                      placeholder="Default..." 
                                      id="end_state1" 
@@ -1435,7 +1436,7 @@
                   </div>
                   <div class="carousel-item">
                        <div id="help3a" 
-                            style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>
+                            style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">Loading...</div>
                   </div>
                </div>
             </div>
@@ -1514,7 +1515,7 @@
                         <h4>Requeriment list to compare with:</h4>
                         <form id="end_state_form2" 
                               class="form-horizontal bootboxShortHeight" 
-                              style="white-space:wrap; overflow-y:auto;">
+                              style="white-space:wrap; overflow-y:auto; -webkit-overflow-scrolling:touch;">
                            <textarea aria-label="checks to perform" 
                                      placeholder="See help for more information." 
                                      id="end_state2" 
@@ -1534,13 +1535,13 @@
 			         data-inline="true">Copy to clipboard</i></span>
                         </h4>
 		        <div id="check_results_scroll2"
-		             style="max-height:25vh; width:inherit; overflow-y:auto;" >
+		             style="max-height:25vh; width:inherit; overflow-y:auto; -webkit-overflow-scrolling:touch;">
 		             <div id="check_results2"></div>
 		     </div>
                   </div>
                   <div class="carousel-item">
                        <div id="help3b" 
-                            style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>
+                            style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">Loading...</div>
                   </div>
                </div>
             </div>

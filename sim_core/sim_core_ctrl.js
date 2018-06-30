@@ -656,7 +656,7 @@
                                message: '<div id="bot_signal" class="carousel slide" data-ride="carousel" data-interval="false">' +
                                         '  <div class="carousel-inner" role="listbox">' +
                                         '    <div class="carousel-item active">' +
-                                        '         <div style="max-height:70vh; width:inherit; overflow:auto;">' +
+                                        '         <div style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">' +
                                         '         <form class="form-horizontal" style="white-space:nowrap;">' +
                                         '         <input aria-label="value for ' + key + '" id="ask_skey" name="ask_skey" type="hidden" value="' + key + '" class="form-control input-md"> ' +
                                         '         <ol start="0">' +
@@ -666,7 +666,7 @@
                                         '         </div>' +
                                         '    </div>' +
                                         '    <div class="carousel-item">' +
-                                        '         <div id=help2 style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>' +
+                                        '         <div id=help2 style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">Loading...</div>' +
                                         '    </div>' +
                                         '  </div>' +
                                         '</div>',
