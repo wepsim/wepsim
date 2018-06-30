@@ -46,7 +46,7 @@
 		'<div class="col-lg-4">title</div>' +
 		'<div class="col-lg">description</div>' +
 		'</div>' ;
-       for (var m=0; m<helps.length; m++)
+       for (m=0; m<helps.length; m++)
        {
 		var e_title       = helps[m].title ;
 		var e_itype       = helps[m].i_type ;
