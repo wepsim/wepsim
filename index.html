@@ -212,7 +212,7 @@
 
 		        <button class="btn btn-light ui-shadow col my-1" data-role="none"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-                                onclick="wepsim_open_examples_index();"><b>Examples</b></button>
+                                onclick="wepsim_open_examples_index(false);"><b>Examples</b></button>
 		        <button class="btn btn-light ui-shadow col my-1" data-role="none"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color:#CCCCCC; 
                                        background-color:#D4DB17;"
@@ -1321,7 +1321,7 @@
 		<div class="mx-auto">
 		   <div class="btn-group">
 		     <button type="button" class="btn btn-success" 
-		             onclick="wepsim_open_examples_index();">Examples</button>
+		             onclick="wepsim_open_examples_index(true);">Examples</button>
 		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" 
 			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			 <span class="caret"></span>
@@ -1330,10 +1330,10 @@
 		     <div class="dropdown-menu">
 			 <a class="dropdown-item" href="#" 
 			    onclick="set_cfg('ws_idiom','es'); save_cfg(); 
-                                     wepsim_open_examples_index();">ES</a>
+                                     wepsim_open_examples_index(false);">ES</a>
 			 <a class="dropdown-item" href="#" 
 			    onclick="set_cfg('ws_idiom','en'); save_cfg(); 
-                                     wepsim_open_examples_index();">EN</a>
+                                     wepsim_open_examples_index(false);">EN</a>
 		     </div>
 		   </div>
                 </div>

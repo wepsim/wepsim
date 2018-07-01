@@ -38,7 +38,7 @@
                'stop':                     function() { wepsim_execute_stop('#qbp'); },
 
                'help':                     wepsim_open_help_index,
-               'examples':                 wepsim_open_examples_index,
+               'examples':                 function() { wepsim_open_examples_index(false); },
                'configuration':            function() { $('#config2').modal('show'); },
                'close':                    function() { wepsim_close_help(); 
 		                                        wepsim_close_examples(); 
