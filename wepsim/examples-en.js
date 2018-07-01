@@ -86,24 +86,3 @@
                        description: "Advanced example with interruption, system call, and exception.<br>" 
                      });
 
-    examples.en.push({ 
-                       id: 'S4E3',
-                       title: "strlen_2 + skipasciicode_2",
-                       level: "Special",
-                       description: "Application-specific extension: strlen_2 + skipasciicode_2.<br>" 
-                     });
-
-    examples.en.push({ 
-                       id: 'S4E2',
-                       title: "addv + seqv.",
-                       level: "Special",
-                       description: "Application-specific extension: addv + seqv.<br>" 
-                     });
-
-    examples.en.push({ 
-                       id: 'S4E1',
-                       title: "syscall 1, 4-5, 8, 11-12",
-                       level: "Special",
-                       description: "Example of syscall for printing/reading integer and string.<br>" 
-                     });
-
