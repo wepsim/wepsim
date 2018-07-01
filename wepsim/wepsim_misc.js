@@ -328,8 +328,8 @@
 		refresh();
 	    }, false);
 
-	    var a = document.getElementById("svg_cu");
-	    a.addEventListener("load",function() {
+	    var b = document.getElementById("svg_cu");
+	    b.addEventListener("load",function() {
 		sim_prepare_svg_cu();
 		sim_core_init_eventlistener("svg_cu");
 		refresh();

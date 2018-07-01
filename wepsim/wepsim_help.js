@@ -25,6 +25,75 @@
 
     function table_helps_html ( helps )
     {
+        var o = "" ;
+
+        var fmt_toggle    = "" ;
+        var fmt_header    = "" ;
+	var e_title       = "" ;
+	var e_itype       = "" ;
+	var e_utype       = "" ;
+	var e_reference   = "" ;
+	var e_description = "" ;
+	var e_id          = "" ;
+
+        var utypes = [] ;
+        for (var m=0; m<helps.length; m++)
+        {
+	    if (!utypes.includes(helps[m].u_type))
+	         utypes.push(helps[m].u_type) ;
+        }
+
+        o = o + '<div class="container grid-striped">' ;
+       for (m=0; m<helps.length; m++)
+       {
+	        fmt_header = "" ;
+	        if (e_utype != helps[m].u_type)
+		    fmt_header = "<div class='row'>" + 
+			         "<div class='float-none text-right text-capitalize font-weight-bold col-12 border-bottom border-secondary'>" + helps[m].u_type + "</div>" + 
+			         "</div>" ;
+
+		e_title       = helps[m].title ;
+		e_itype       = helps[m].i_type ;
+		e_utype       = helps[m].u_type ;
+		e_reference   = helps[m].reference ;
+		e_description = helps[m].description ;
+		e_id          = helps[m].id ;
+
+		var onclick_code = "" ;
+		if ("relative" == e_itype) 
+		    onclick_code = 'wepsim_help_set_relative(\'' + e_reference + '\');' + 
+				   'wepsim_help_refresh();' ;
+		if ("absolute" == e_itype) 
+		    onclick_code = 'wepsim_help_set_absolute(\'' + e_reference + '\');' + 
+				   'wepsim_help_refresh();' ;
+		if ("code" == e_itype) 
+		    onclick_code = e_reference ;
+
+	        if (fmt_toggle == "")
+	            fmt_toggle = "bg-light" ;
+	       else fmt_toggle = "" ;
+
+		o = o + fmt_header +
+		        "<div class='row py-1 " + fmt_toggle + "' id='" + e_utype + "'>" +
+			'<div class="col-md-auto">' +
+			'    <span class="badge badge-pill badge-light">' + m + '</span>' +
+			'</div>' +
+			'<div class="col-md-4">' +
+			'    <span class="bg-success text-white" ' +
+			'          onclick="' + onclick_code + '">' + e_title + '</span>' +
+			'</div>' +
+			'<div class="col-md">' +
+			'    <c>' + e_description + '</c>' +
+			'</div>' +
+			'</div>' ;
+       }
+       o = o + '</div>' ;
+
+       return o ;
+    }
+
+    function table_helps_htmltable ( helps )
+    {
            var o = '' ;
                o = o + '<div class="table-responsive">' +
                        '<table width=100% class="table table-striped table-hover table-sm">' +

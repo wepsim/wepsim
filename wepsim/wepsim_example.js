@@ -23,9 +23,14 @@
      * Examples
      */
 
-    function wepsim_open_examples_index ( )
+    var toggle_extended = false ;
+
+    function wepsim_open_examples_index ( enable_toggle_extended )
     {
-        $("#container-example1").html(table_examples_html(examples));
+        if (true == enable_toggle_extended)
+            toggle_extended = !toggle_extended ;
+
+        $("#container-example1").html(table_examples_html(examples, toggle_extended));
         $("#container-example1").enhanceWithin();
 	$('#example1').trigger('updatelayout') ;
 	$('#example1').modal('show') ;
@@ -113,51 +118,58 @@
         ga('send', 'event', 'example', 'example.firmware', 'example.firmware.' + example_id);
     }
 
-    function table_examples_html ( examples )
+    function table_examples_html ( examples, extended )
     {
-       var o = '<div class="table-responsive" style="min-width:720px;">' +
-               '<table class="table table-striped table-hover table-sm">' +
-               '<thead>' +
-               '<tr>' +
-               '  <th>#</th>' +
-               '  <th onclick="$(\'.collapse1\').collapse(\'toggle\');">level</th>' +
-               '  <th>load...</th>' +
-               '  <th onclick="$(\'.collapse3\').collapse(\'toggle\');">description</th>' +
-               '  <th onclick="$(\'.collapse4\').collapse(\'toggle\');">load only...</th>' +
-               '</tr>' +
-               '</thead>' +
-               '<tbody>';
-       for (var m=0; m<examples.length; m++)
-       {
-	       var e_title       = examples[m].title ;
-	       var e_level       = examples[m].level ;
-	       var e_description = examples[m].description ;
-	       var e_id          = examples[m].id ;
+       var o = "" ;
 
-	       o = o + ' <tr>' +
-		       ' <td>' + '<b>' + (m+1)   + '</b>' + '</td>' +
-		       ' <td>' + '<b    class="collapse1 collapse show">' + e_level + '</b>' + '</td>' +
-		       ' <td>' + 
-		       '   <a href="#" onclick="$(\'#example1\').modal(\'hide\'); load_from_example_firmware(\'' + e_id + '\',true);"  style="padding:0 0 0 0; margin:0 8 0 0;"' +
-		       '      class="ui-btn btn btn-group ui-btn-inline btn-primary">' + 
-                       '   <b class="collapse2 collapse show">' + e_title + '</b></a>' +
-                       ' </td>' +
-		       ' <td>' + '<span class="collapse3 collapse show">' + e_description + '</span>' + '</td>' +
-		       ' <td class="collapse4 collapse show" style="min-width:150px; max-width:200px">' +
-		       '     <div class="btn-group btn-group-justified btn-group-md">' +
-		       '         <a href="#" onclick="$(\'#example1\').modal(\'hide\'); load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0; margin:0 8 0 0;"' +
-		       '            class="ui-btn btn btn-group ui-btn-inline btn-secondary">' +
-		       '            <c>Assembly</c></a>' +
-		       '         <a href="#" onclick="$(\'#example1\').modal(\'hide\'); load_from_example_firmware(\'' + e_id + '\',false);" style="padding:0 0 0 0; margin:0 7 0 0;"' +
-		       '            class="ui-btn btn btn-group ui-btn-inline btn-secondary">' +
-		       '            <c>Firmware</c></a>' +
-		       '     </div>' +
-		       ' </td>' +
-		       ' </tr>' ;
+       var fmt_header    = "" ;
+       var e_title       = "" ;
+       var e_level       = "" ;
+       var e_description = "" ;
+       var e_id          = "" ;
+
+       var lang = get_cfg('ws_idiom') ;
+
+       o = o + '<div class="container grid-striped">' ;
+       for (var m=0; m<examples[lang].length; m++)
+       {
+	       fmt_header = "" ;
+	       if (e_level != examples[lang][m].level)
+                   fmt_header = "<div class='col-sm-12 border-bottom border-secondary text-right text-capitalize font-weight-bold'>" + examples[lang][m].level + "</div>" ;
+
+	       e_title       = examples[lang][m].title ;
+	       e_level       = examples[lang][m].level ;
+	       e_description = examples[lang][m].description ;
+	       e_id          = examples[lang][m].id ;
+
+	       o = o + fmt_header +
+                        "<div class='row py-1'>" +
+                        '<div class="col-sm-auto">' +
+                        '    <span class="badge badge-pill badge-light">' + (m+1) + '</span>' +
+                        '</div>' +
+                        '<div class="col-sm-3">' +
+		        '   <span onclick="$(\'#example1\').modal(\'hide\'); load_from_example_firmware(\'' + e_id + '\',true);"  style="padding:0 0 0 0; margin:0 8 0 0;"' +
+		        '         class="bg-info text-white">' + e_title + '</span>' +
+                        '</div>' +
+                        '<div class="col-sm">' +
+                        '    <c>' + e_description + '</c>' +
+                        '</div>' ;
+
+	       if (true == extended)
+	       o = o + '<div class="col-sm-auto">' +
+		        '     <div class="btn-group btn-group-justified btn-group-md">' +
+		        '         <a onclick="$(\'#example1\').modal(\'hide\'); load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0; margin:0 8 0 0;"' +
+		        '            class="bg-dark text-white">' +
+		        '            <c>Assembly</c></a>' +
+		        '         <a onclick="$(\'#example1\').modal(\'hide\'); load_from_example_firmware(\'' + e_id + '\',false);" style="padding:0 0 0 0; margin:0 7 0 0;"' +
+		        '            class="bg-dark text-white">' +
+		        '            <c>Firmware</c></a>' +
+		        '     </div>' +
+                        '</div>' ;
+	      
+	       o = o + '</div>' ;
        }
-       o = o + '</tbody>' +
-               '</table>' +
-               '</div>' ;
+       o = o + '</div>' ;
 
        return o ;
     }

@@ -16,17 +16,17 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=2.2, minimum-scale=1, width=device-width">
 
-    <script src="../external/jquery.min.js"></script>
-    <script src="../external/jquery-ui.min.js"></script>
+    <script src="external/jquery.min.js"></script>
+    <script src="external/jquery-ui.min.js"></script>
     <script>
         $(document).bind("mobileinit", function() {
             $.mobile.defaultPageTransition = "none";
             $.mobile.defaultDialogTransition = "none";
         });
     </script>
-    <script src="../external/jquery.mobile-1.4.5.min.js"></script>
+    <script src="external/jquery.mobile-1.4.5.min.js"></script>
 
-    <link rel="stylesheet" href="../external/jquery.mobile-1.4.5.min.css">
+    <link rel="stylesheet" href="external/jquery.mobile-1.4.5.min.css">
     <style>
     .ui-panel-inner {
         position: absolute;
@@ -40,6 +40,10 @@
 
     textarea.ui-input-text { 
         height: inherit !important
+    }
+
+    .modal-lg {
+        max-width: 80vw !important;
     }
 
     .modal-header {
@@ -56,6 +60,7 @@
 
     .bootbox .modal-body {
         overflow: auto;
+	-webkit-overflow-scrolling: touch;
     }
     .bootboxWidth {
         min-width: 80vw;
@@ -120,11 +125,11 @@
     }
     </style>
 
-    <link async href="../min.external.css" rel="stylesheet">
-    <script      src="../min.external.js"></script>
+    <link async href="min.external.css" rel="stylesheet">
+    <script      src="min.external.js"></script>
 
-    <script src="../min.sim_all.js"></script>
-    <script src="../min.wepsim_web.js"></script>
+    <script src="min.sim_all.js"></script>
+    <script src="min.wepsim_web.js"></script>
 
     <!-- Google Analytics -->
     <script>
@@ -207,9 +212,9 @@
 
 		        <button class="btn btn-light ui-shadow col my-1" data-role="none"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-                                onclick="wepsim_open_examples_index();"><b>Examples</b></button>
+                                onclick="wepsim_open_examples_index(false);"><b>Examples</b></button>
 		        <button class="btn btn-light ui-shadow col my-1" data-role="none"
-		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color:#D4DB17; 
+		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color:#CCCCCC; 
                                        background-color:#D4DB17;"
 		                onclick="wepsim_open_help_index();
                                          wepsim_help_refresh();"><b>Help</b></button>
@@ -258,7 +263,7 @@
 				 aria-controls="processor"
                                  onclick="wepsim_reset_max_turbo() ;
                                           start_drawing(); 
-                                          refresh();">Processor</a>
+                                          refresh();"><i class="fas fa-microchip"></i>&nbsp;Processor</a>
                           </li>
 		          <li class="nav-item">
                               <a id="tab24" href="#eltos_dbg"  
@@ -271,7 +276,7 @@
                                           var obj_byid = $('#asm_debugger_container');
                                           if (typeof o1[0] == 'undefined') 
                                               return;
-                                          obj_byid[0].scrollTop = o1[0].offsetTop;"><span class="d-sm-none">Assembly</span><span class="d-none d-sm-inline-flex">Assembly Debugger</span></a>
+                                          obj_byid[0].scrollTop = o1[0].offsetTop;"><i class="fas fa-bug"></i>&nbsp;<span class="d-sm-none">Assembly</span><span class="d-none d-sm-inline-flex">Assembly Debugger</span></a>
                           </li>
 		      </ul>
 
@@ -306,7 +311,7 @@
 
 		        <div id="eltos_dbg" class="tab-pane" role="tabpanel">
 			   <center>
-		           <div id="asm_table" style="overflow-x:auto;">
+		           <div id="asm_table" style="overflow-x:auto; -webkit-overflow-scrolling:touch;">
 		   	   <table class='table ui-responsive ui-table' style="margin-bottom:0px; min-width:700px;">
 		   	   <thead>
 			   <tr>
@@ -334,7 +339,7 @@
 			   </center>
 
 		           <div id="asm_debugger_container" 
-                                style="overflow-y:auto; overflow-x:auto; height:70vh !important;">
+                                style="overflow-y:auto; overflow-x:auto; height:70vh !important; -webkit-overflow-scrolling:touch;">
                                 <div id="asm_debugger" style="min-width:700px;">
                                 <br>
                                 <ol>
@@ -388,7 +393,7 @@
                     <div class="btn-toolbar btn-block" role="toolbar">
 		          <button class="btn btn-light ui-shadow col" data-role="none"
 		                  style="border-color: #CCCCCC;"
-		                  onclick="wepsim_dialog_current_state();"><c>States</c></span></button>
+		                  onclick="wepsim_dialog_current_state();"><i class="fas fa-camera"></i>&nbsp;<c>States</c></span></button>
                           <select class="custom-select btn btn-light ui-shadow col-5"
                                   style="border-color: #CCCCCC;"
 				  name="select5a" id="select5a" 
@@ -417,7 +422,7 @@
 				           $('#tab' + val).trigger('click');
 				           if ('11' == val)
 					        show_rf_values();
-				           else show_memories_values();"><c>Refresh</c></button>
+				           else show_memories_values();"><i class="fas fa-sync-alt"></i>&nbsp;<c>Refresh</c></button>
                     </div>
                     </div>
 
@@ -444,17 +449,17 @@
 		         <div id="config_ALL0"         style="width: inherit; overflow-y: auto;"></div>
 		      </div>
 		      <div id="mp"   class="ui-body-d ui-content">
-		         <div id="memory_MP"           style="height:58vh; width: inherit; overflow-y: scroll;"></div>
+		         <div id="memory_MP"           style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
 		      </div>
 		      <div id="mc"   class="ui-body-d ui-content">
-		         <div id="memory_MC"           style="height:58vh; width: inherit; overflow-y: scroll;"></div>
+		         <div id="memory_MC"           style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
 		      </div>
 		      <div id="con"  class="ui-body-d ui-content">
                          <img alt="monitor" height=55 src="images/monitor2.png">
-		         <textarea aria-label="monitor"  style="min-width:90%; overflow-y:auto; margin:0 0 8 0"
+		         <textarea aria-label="monitor"  style="min-width:90%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 8 0"
                                    placeholder="WepSIM" id="kdb_con" rows=8 readonly></textarea>
                          <img alt="keyboard" height=35 src="images/keyboard1.png">
-		         <textarea aria-label="keyboard" style="min-width:90%; overflow-y:auto; margin:0 0 0 0"
+		         <textarea aria-label="keyboard" style="min-width:90%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 0 0"
                                    placeholder="WepSIM" id="kdb_key" rows=2></textarea>
 		      </div>
 		      <div id="io"  class="ui-body-d ui-content">
@@ -560,11 +565,11 @@
 		            <a      href="#lsload" 
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				    class="btn ui-btn ui-btn-a ui-mini ui-shadow"
-				    data-rel="popup" data-position-to="window" data-transition="pop">Load</a>
+				    data-rel="popup" data-position-to="window" data-transition="pop"><i class="fas fa-file-upload"></i>&nbsp;Load</a>
 		            <a      href="#lssave" 
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				    class="btn ui-btn ui-btn-a ui-mini ui-shadow"
-				    data-rel="popup" data-position-to="window" data-transition="pop">Save</a>
+	                            data-rel="popup" data-position-to="window" data-transition="pop"><i class="fas fa-file-download"></i>&nbsp;Save</a>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
@@ -573,7 +578,7 @@
 				    data-transition="none" data-inline="true"
 				    onclick="var textToMCompile = inputfirm.getValue();
                                              wepsim_compile_firmware(textToMCompile);
-				 	     $('#asm_debugger').html('<br>After updates on the microcode, assembler has to be compiled against it.');"><b>&#181;compile</b></button>
+				 	     $('#asm_debugger').html('<br>After updates on the microcode, assembler has to be compiled against it.');"><i class="fas fa-sign-out-alt"></i>&nbsp;<b>&#181;compile</b></button>
 		            <button style="background-color: #DDDDDD"
 		                    class="btn btn-light ui-shadow col" data-role="none"
 				    onclick="var textToMCompile = inputfirm.getValue();
@@ -582,7 +587,7 @@
                                                  wepsim_show_binary_microcode('#bin2','#compile_results');
 			                         wepsim_notify_success('<strong>INFO</strong>', 'Please remember to recompile the assembly code if needed.');
                                              }">
-                                             <b><span class="d-none d-sm-inline-flex">Show co2&#181;addr + control memory</span><span class="d-sm-none">co2&#181;addr + c.m.</span></b>
+                                             <b><i class="fas fa-memory"></i>&nbsp;<span class="d-none d-sm-inline-flex">Show co2&#181;addr + control memory</span><span class="d-sm-none">co2&#181;addr + c.m.</span></b>
 			                     </button>
 		      </div>
 
@@ -590,11 +595,11 @@
                             <button style="background-color: #D4DB17"
 		                    class="btn btn-light ui-shadow col" data-role="none"
                                     onclick="wepsim_open_help_content('<object id=svg_p2 data=\'sim_hw/sim_hw_ep/cpu6.svg?time=20180608\' type=image/svg+xml>Your browser does not support SVG</object>');"
-				    ><b>Hardware Summary</b></button>
+				    ><i class="fas fa-microchip"></i>&nbsp;<b>Hardware Summary</b></button>
                             <button style="background-color: #D4DB17"
 		                    class="btn btn-light ui-shadow col" data-role="none"
 				    onclick="wepsim_help_set_relative('#help_firmware_format'); wepsim_help_refresh();"
-				    ><b>Help</b></button>
+				    ><i class="fas fa-info-circle"></i>&nbsp;<b>Help</b></button>
 		      </div>
 
 		</div>
@@ -602,8 +607,8 @@
 
 	    </div>
 
-	    <div id="t3_firm"  class="ui-body-d ui-content" style="height:75vh; overflow-y:auto;">
-		     <textarea aria-label="microcode" style="min-width:90%; overflow-x:auto;"
+	    <div id="t3_firm"  class="ui-body-d ui-content" style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
+		     <textarea aria-label="microcode" style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
                                placeholder="Please select 'Example' or 'Load' first in order to have an initial Microcode."
                                id="inputFirmware" rows=20></textarea>
 	    </div>
@@ -685,11 +690,11 @@
 		            <a      href="#lsload2" 
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				    class="btn ui-btn ui-btn-a ui-mini ui-shadow"
-				    data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Load</a>
+				    data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true"><i class="fas fa-file-upload"></i>&nbsp;Load</a>
 		            <a      href="#lssave2" 
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				    class="btn ui-btn ui-btn-a ui-mini ui-shadow"
-				    data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true">Save</a>
+				    data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true"><i class="fas fa-file-download"></i>&nbsp;Save</a>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
@@ -697,20 +702,21 @@
 		                    class="btn btn-light ui-shadow col" data-role="none"
 				    data-transition="none" data-inline="true"
 				    onclick="var textToCompile = inputasm.getValue() ;
-                                             var ok = wepsim_compile_assembly(textToCompile);"><b>Compile</b></button>
+                                             var ok = wepsim_compile_assembly(textToCompile);"><i class="fas fa-sign-out-alt"></i>&nbsp;<b>Compile</b></button>
 		            <button style="background-color: #DDDDDD"
 		                    class="btn btn-light ui-shadow col" data-role="none"
 				    onclick="var textToCompile = inputasm.getValue();
                                              var ok = wepsim_compile_assembly(textToCompile);
                                              if (true == ok) {
                                                  wepsim_show_binary_code('#bin2','#compile_results');
-                                             }"><b>Show Main Memory</b></button>
+                                             }"><i class="fas fa-memory"></i>&nbsp;<b>Show Main Memory</b></button>
 		      </div>
 
                       <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">
                             <button style="background-color: #D4DB17"
 		                    class="btn btn-light ui-shadow col" data-role="none"
-				    onclick="wepsim_help_set_relative('#help_assembly_format'); wepsim_help_refresh();"><b>Help</b></button>
+				    onclick="wepsim_help_set_relative('#help_assembly_format'); wepsim_help_refresh();"
+				    ><i class="fas fa-info-circle"></i>&nbsp;<b>Help</b></button>
 		      </div>
 
 		</div>
@@ -718,8 +724,8 @@
 
 	    </div>
 
-	    <div id="t4_asm"   class="ui-body-d ui-content" style="height:75vh; overflow-y:auto;">
-		        <textarea aria-label="Assembly" style="min-width:90%; overflow-x:auto;"
+	    <div id="t4_asm"   class="ui-body-d ui-content" style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
+		        <textarea aria-label="Assembly" style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
                                   placeholder="Please select 'Load' first to have the assembly code to work with."
 			          id="inputAssembly" rows="20"></textarea>
 	    </div>
@@ -743,7 +749,7 @@
 	   <div class="modal-body">
 
 
-        <div id=table-config2 class="table container-fluid" style="padding:0 0 0 0; overflow:auto;">
+        <div id=table-config2 class="table container-fluid" style="padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
 	<table class="table table-striped table-hover table-sm" 
 	       data-role="none" 
 	       style="width:100%; margin:0 0 0 0">
@@ -1183,10 +1189,10 @@
 	   <div class="modal-body">
 
 		<div id="bin2-container" class="container-fluid" 
-		     style="padding:0 0 0 0; overflow:auto;">
+		     style="padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
 
 		      <div class="ui-body-d ui-content" style="padding: 2px 2px 2px 2px;">
-			 <div id=iframe_bin2 style="max-height:80vh; max-width:100%; overflow:auto;">
+			 <div id=iframe_bin2 style="max-height:80vh; max-width:100%; overflow:auto; -webkit-overflow-scrolling:touch;">
 			   <div id="compile_results" style="padding: 16px 16px 16px 16px;">
 				<br>
 				<center>
@@ -1267,7 +1273,7 @@
 
 
 <div id="help1" class="modal">
-     <div class="modal-dialog" style="max-width:90vw;">
+     <div class="modal-dialog modal-lg">
 	<div class="modal-content">
 	   <div class="modal-header">
 		<button type="button" data-role="button"
@@ -1296,7 +1302,7 @@
 	   <div class="modal-body">
                  <div id="help1_ref" style="display:none;"></div>
                  <div class="ui-body-d ui-content" 
-                      style="padding: 2px 2px 2px 2px; height:80vh; overflow:auto;">
+                      style="padding: 2px 2px 2px 2px; max-height:80vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
                       <div id="iframe_help1"></div>
                  </div>
 	   </div>
@@ -1306,19 +1312,35 @@
 
 
 <div id="example1" class="modal">
-     <div class="modal-dialog" style="max-width:90vw; height:80vh;">
+     <div class="modal-dialog modal-lg" style="height:80vh;">
 	<div class="modal-content">
 	   <div class="modal-header">
 		<button type="button" data-role="button"
                         class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
                         data-dismiss="modal" aria-hidden="true">x</button>
 		<div class="mx-auto">
-                <h5><b>Examples</b> <span class="badge badge-pill btn-success"><div class="wsversion">X</div></span></h5>
+		   <div class="btn-group">
+		     <button type="button" class="btn btn-success" 
+		             onclick="wepsim_open_examples_index(true);">Examples</button>
+		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" 
+			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			 <span class="caret"></span>
+			 <span class="sr-only">Toggle Help Idiom</span>
+		     </button>
+		     <div class="dropdown-menu">
+			 <a class="dropdown-item" href="#" 
+			    onclick="set_cfg('ws_idiom','es'); save_cfg(); 
+                                     wepsim_open_examples_index(false);">ES</a>
+			 <a class="dropdown-item" href="#" 
+			    onclick="set_cfg('ws_idiom','en'); save_cfg(); 
+                                     wepsim_open_examples_index(false);">EN</a>
+		     </div>
+		   </div>
                 </div>
 	   </div>
 	   <div class="modal-body">
 		<div id="container-example1" class="container-fluid" 
-		     style="max-height:80vh; padding:0 0 0 0; overflow:auto;">
+		     style="max-height:80vh; padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
 		</div>
 	   </div>
 	</div>
@@ -1374,7 +1396,7 @@
                   <div class="carousel-item active">
                         <h4 style="margin:0 0 10 0;">History:</h4>
                         <div id="history1"
-			     style="max-height:42vh; width:inherit; overflow:auto;">
+			     style="max-height:42vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
 				&emsp;<span style="background-color:#FCFC00">Empty.</span>
 			</div>
                         <h4 style="margin:20 0 10 0;">Differences (only changed values):
@@ -1383,7 +1405,7 @@
 			      data-inline="true">Copy to clipboard</i></span>
                         </h4>
 		        <div id="check_results_scroll1"
-		             style="max-height:25vh; width:inherit; overflow-y:auto;" >
+		             style="max-height:25vh; width:inherit; overflow-y:auto; -webkit-overflow-scrolling:touch;" >
 		             <div id="check_results1"></div>
 		        </div>
                   </div>
@@ -1396,7 +1418,7 @@
                         </h4>
                         <form id="end_state_form1" 
                               class="form-horizontal bootboxLargeHeight" 
-                              style="white-space:wrap; overflow-y:auto;">
+                              style="white-space:wrap; overflow-y:auto; -webkit-overflow-scrolling:touch;">
                            <textarea aria-label="checks to perform" 
                                      placeholder="Default..." 
                                      id="end_state1" 
@@ -1414,7 +1436,7 @@
                   </div>
                   <div class="carousel-item">
                        <div id="help3a" 
-                            style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>
+                            style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">Loading...</div>
                   </div>
                </div>
             </div>
@@ -1493,7 +1515,7 @@
                         <h4>Requeriment list to compare with:</h4>
                         <form id="end_state_form2" 
                               class="form-horizontal bootboxShortHeight" 
-                              style="white-space:wrap; overflow-y:auto;">
+                              style="white-space:wrap; overflow-y:auto; -webkit-overflow-scrolling:touch;">
                            <textarea aria-label="checks to perform" 
                                      placeholder="See help for more information." 
                                      id="end_state2" 
@@ -1513,13 +1535,13 @@
 			         data-inline="true">Copy to clipboard</i></span>
                         </h4>
 		        <div id="check_results_scroll2"
-		             style="max-height:25vh; width:inherit; overflow-y:auto;" >
+		             style="max-height:25vh; width:inherit; overflow-y:auto; -webkit-overflow-scrolling:touch;">
 		             <div id="check_results2"></div>
 		     </div>
                   </div>
                   <div class="carousel-item">
                        <div id="help3b" 
-                            style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>
+                            style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">Loading...</div>
                   </div>
                </div>
             </div>
@@ -1760,7 +1782,7 @@
             // progressive web application
 	    if ('serviceWorker' in navigator) 
             {
-		navigator.serviceWorker.register('./wepsim/wepsim_pwa.js').catch(function() {
+		navigator.serviceWorker.register('./min.wepsim_pwa.js').catch(function() {
 		  wepsim_notify_error("<h4>Warning:" + 
 				      "<br>WepSIM was used over a HTTP connection.</h4>",
 		                      "Progressive Web Applications requires a HTTPS connection " +
