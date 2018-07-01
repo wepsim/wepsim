@@ -42,8 +42,17 @@
         height: inherit !important
     }
 
-    .modal-lg {
-        max-width: 80vw !important;
+    @include media-breakpoint-only(sm) {
+       .modal-lg { max-width: 95vw !important;  }
+    }
+    @include media-breakpoint-only(md) {
+       .modal-lg { max-width: 90vw !important;  }
+    }
+    @include media-breakpoint-up(lg) {
+       .modal-lg { max-width: 85vw !important;  }
+    }
+    @include media-breakpoint-up(xl) {
+       .modal-lg { max-width: 80vw !important;  }
     }
 
     .modal-header {
@@ -63,7 +72,7 @@
 	-webkit-overflow-scrolling: touch;
     }
     .bootboxWidth {
-        min-width: 80vw;
+        min-width: 85vw;
     }
     .bootboxShortHeight {
         max-height: 25vh;

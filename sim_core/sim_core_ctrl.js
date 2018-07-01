@@ -672,6 +672,7 @@
                                         '</div>',
 			       value:   simhw_sim_signal(key).value,
                                animate: false,
+                               size:    'large',
 			       buttons: {
 					    success: {
 						label: "Save",
