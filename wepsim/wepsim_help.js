@@ -79,7 +79,7 @@
 			'    <span class="badge badge-pill badge-light">' + m + '</span>' +
 			'</div>' +
 			'<div class="col-md-4">' +
-			'    <span class="bg-success text-white" ' +
+			'    <span class="bg-success text-white" style="cursor:pointer;" ' +
 			'          onclick="' + onclick_code + '">' + e_title + '</span>' +
 			'</div>' +
 			'<div class="col-md">' +
@@ -88,57 +88,6 @@
 			'</div>' ;
        }
        o = o + '</div>' ;
-
-       return o ;
-    }
-
-    function table_helps_htmltable ( helps )
-    {
-           var o = '' ;
-               o = o + '<div class="table-responsive">' +
-                       '<table width=100% class="table table-striped table-hover table-sm">' +
-                       '<thead>' +
-                       '<tr>' +
-                       '  <th>#</th>' +
-                       '  <th>title</th>' +
-                       '  <th onclick="$(\'.collapse2\').collapse(\'toggle\');">description</th>' +
-                       '</tr>' +
-                       '</thead>' +
-                       '<tbody>';
-       for (var m=0; m<helps.length; m++)
-       {
-	       var e_title       = helps[m].title ;
-	       var e_type        = helps[m].type ;
-	       var e_reference   = helps[m].reference ;
-	       var e_description = helps[m].description ;
-	       var e_id          = helps[m].id ;
-
-               var onclick_code = "" ;
-               if ("relative" == e_type) 
-                   onclick_code = 'wepsim_help_set_relative(\'' + e_reference + '\');' + 
-                                  'wepsim_help_refresh();' ;
-               if ("absolute" == e_type) 
-                   onclick_code = 'wepsim_help_set_absolute(\'' + e_reference + '\');' + 
-                                  'wepsim_help_refresh();' ;
-               if ("code" == e_type) 
-                   onclick_code = e_reference ;
-
-	       o = o + '<tr>' +
-		       '<td>' + '<b>' + (m+1) + '</b>' + '</td>' +
-		       ' <td>' + 
-                       '  <a href="#" ' +
-                       '     class="ui-btn btn btn-group ui-btn-inline" ' +
-                       '     style="background-color: #D4DB17; padding:0 0 0 0; margin:2 8 0 0;" ' +
-		       '     onclick="' + onclick_code + '"><b>' + e_title + '</b></a>' +
-                       ' </td>' +
-		       ' <td class="collapse2 collapse show">' +
-		       '   <c>' + e_description + '</c>' + 
-                       ' </td>' +
-		       '</tr>' ;
-       }
-       o = o + '</tbody>' +
-               '</table>' +
-               '</div>' ;
 
        return o ;
     }

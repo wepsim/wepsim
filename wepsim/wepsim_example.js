@@ -122,6 +122,7 @@
     {
        var o = "" ;
 
+       var fmt_toggle    = "" ;
        var fmt_header    = "" ;
        var e_title       = "" ;
        var e_level       = "" ;
@@ -142,13 +143,18 @@
 	       e_description = examples[lang][m].description ;
 	       e_id          = examples[lang][m].id ;
 
+	        if (fmt_toggle == "")
+	            fmt_toggle = "bg-light" ;
+	       else fmt_toggle = "" ;
+
 	       o = o + fmt_header +
-                        "<div class='row py-1'>" +
+                        "<div class='row py-1 " + fmt_toggle + "'>" +
                         '<div class="col-sm-auto">' +
                         '    <span class="badge badge-pill badge-light">' + (m+1) + '</span>' +
                         '</div>' +
                         '<div class="col-sm-3">' +
-		        '   <span onclick="$(\'#example1\').modal(\'hide\'); load_from_example_firmware(\'' + e_id + '\',true);"  style="padding:0 0 0 0; margin:0 8 0 0;"' +
+		        '   <span style="padding:0 0 0 0; margin:0 8 0 0; cursor:pointer;" ' + 
+		        '         onclick="$(\'#example1\').modal(\'hide\'); load_from_example_firmware(\'' + e_id + '\',true);" ' + 
 		        '         class="bg-info text-white">' + e_title + '</span>' +
                         '</div>' +
                         '<div class="col-sm">' +
