@@ -292,9 +292,8 @@
                     compute_general_behavior("CLOCK") ;
 
 		    if (3 == verbosity) {
-                        ret.msg   = ret.msg + 'micropc: ' + cur_addr + '\n' ;
 		        state_obj = wepsim_current2state() ;
-                        ret.msg   = ret.msg + 'state: ' + wepsim_state2checklist(state_obj) + '\n' ;
+                        ret.msg   = ret.msg + 'micropc(0x' + cur_addr.toString(16) + '): ' + wepsim_state2checklist(state_obj) + '\n' ;
 		    }
 
                     i_clks++;
@@ -360,6 +359,7 @@
     	    if ( (typeof segments['.ktext'] != "undefined") && (typeof segments['.ktext'].end   != "undefined") )
     	          kcode_end = parseInt(segments['.ktext'].end) ;
     
+	    var ret1      = null ;
 	    var state_obj = null ;
     	    var ins_executed = 0 ; 
     	    while (
@@ -368,16 +368,18 @@
                         ((reg_pc < kcode_end) && (reg_pc >= kcode_begin)) )
                   )
     	    {
-    	           ret = sim_core_execute_microprogram(verbosity, clk_limit) ;
-                   if (false == ret.ok) {
-    		       return ret ;
+    	           ret1 = sim_core_execute_microprogram(verbosity, clk_limit) ;
+                   if (false == ret1.ok) {
+    		       return ret1 ;
     	           }
     
-		   if (2 == verbosity) {
-                       ret.msg   = ret.msg + 'pc: ' + reg_pc + '\n' ;
-		       state_obj = wepsim_current2state() ;
-                       ret.msg   = ret.msg + 'state: ' + wepsim_state2checklist(state_obj) + '\n' ;
-		   }
+		    if (3 == verbosity) {
+                        ret.msg   = ret.msg + ret1.msg ;
+		    }
+		    if (2 == verbosity) {
+		        state_obj = wepsim_current2state() ;
+                        ret.msg   = ret.msg + 'pc(0x' + reg_pc.toString(16) + '): ' + wepsim_state2checklist(state_obj) + '\n' ;
+		    }
 
     	           ins_executed++ ; 
                    if (ins_executed > ins_limit) 
