@@ -129,7 +129,7 @@
               o += '<div class="card">' +
                    '  <div class="card-header row" ' + 
 		   '       style="width:101%; padding:8 15 8 15;">' +
-                   '    <h5 class="card-title col-7" ' + 
+                   '    <h5 class="card-title col" ' + 
 		   '          data-toggle="collapse" data-target="#collapse_'+i+'" data-parent="#accordion1">' +
                    '      <span>[' +
                             t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + '_' +
@@ -137,9 +137,10 @@
                             t.getMilliseconds() + '] ' + state_history[i].title +
                    '      </span>' +
                    '    </h5>' +
+                   '    <div class="btn-group" role="group" aria-label="Basic example">' +
                    '    <button class="btn btn-outline-dark btn-sm col float-right"' + 
                    '           onclick="CopyFromTextarea(\'ta_state_' + i + '\');" ' + 
-                   '           type="button">Copy <span class="d-none d-sm-inline-flex">to clipboard</span></button>' +
+                   '           type="button">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>' +
                    '    <button class="btn btn-outline-dark btn-sm col float-right"' + 
                    '            onclick="var txt_chklst1 = get_clipboard_copy();' +
                    '                     var obj_exp1    = simstate_checklist2state(txt_chklst1);' +
@@ -147,6 +148,7 @@
                    '                     var obj_exp2    = simstate_checklist2state(txt_chklst2);' +
                    '                     wepsim_dialog_check_state(\'check_results1\', obj_exp1, obj_exp2);"' +
                    '         type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>' +
+                   '    </div>' +
                    '  </div>' +
                    '  <div id="collapse_' + i + '" class="collapse">' +
                    '    <div class="card-body">' + 
