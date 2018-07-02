@@ -294,14 +294,14 @@
 		do
             	{
 		       if (3 == verbosity) {
-		           before_state = wepsim_current2state() ;
+		           before_state = simstate_current2state() ;
 		       }
 
                     compute_general_behavior("CLOCK") ;
 
 		       if (3 == verbosity) {
-		           after_state = wepsim_current2state() ;
-                           ret.msg     = ret.msg + 'micropc(0x' + cur_addr.toString(16) + '): ' + wepsim_state2checklist(after_state) + '\n' ;
+		           after_state = simstate_current2state() ;
+                           ret.msg     = ret.msg + 'micropc(0x' + cur_addr.toString(16) + '): ' + simstate_state2checklist(after_state) + '\n' ;
 		       }
 
                     i_clks++;
@@ -379,7 +379,7 @@
                   )
     	    {
 		     if (2 == verbosity) {
-		         before_state = wepsim_current2state() ;
+		         before_state = simstate_current2state() ;
 		     }
 
     	           ret1 = sim_core_execute_microprogram(verbosity, clk_limit) ;
@@ -391,8 +391,8 @@
                          ret.msg   = ret.msg + ret1.msg ;
 		     }
 		     if (2 == verbosity) {
-		         after_state = wepsim_current2state() ;
-                         ret.msg     = ret.msg + 'pc(0x' + reg_pc.toString(16) + '): ' + wepsim_state2checklist(after_state) + '\n' ;
+		         after_state = simstate_current2state() ;
+                         ret.msg     = ret.msg + 'pc(0x' + reg_pc.toString(16) + '): ' + simstate_state2checklist(after_state) + '\n' ;
 		     }
 
     	           ins_executed++ ; 
