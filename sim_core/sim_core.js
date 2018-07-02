@@ -285,16 +285,24 @@
 
                 // 1.- do-while the microaddress register doesn't store the fetch address (0): 
                 //              execute micro-instructions
+		//
+	        var before_state = null ;
+	        var  after_state = null ;
+
                 var i_clks = 0 ;
                 var cur_addr = 0 ;
 		do
             	{
+		       if (3 == verbosity) {
+		           before_state = wepsim_current2state() ;
+		       }
+
                     compute_general_behavior("CLOCK") ;
 
-		    if (3 == verbosity) {
-		        state_obj = wepsim_current2state() ;
-                        ret.msg   = ret.msg + 'micropc(0x' + cur_addr.toString(16) + '): ' + wepsim_state2checklist(state_obj) + '\n' ;
-		    }
+		       if (3 == verbosity) {
+		           after_state = wepsim_current2state() ;
+                           ret.msg     = ret.msg + 'micropc(0x' + cur_addr.toString(16) + '): ' + wepsim_state2checklist(after_state) + '\n' ;
+		       }
 
                     i_clks++;
                     if (limitless) 
@@ -359,8 +367,10 @@
     	    if ( (typeof segments['.ktext'] != "undefined") && (typeof segments['.ktext'].end   != "undefined") )
     	          kcode_end = parseInt(segments['.ktext'].end) ;
     
-	    var ret1      = null ;
-	    var state_obj = null ;
+	    var ret1         = null ;
+	    var before_state = null ;
+	    var  after_state = null ;
+
     	    var ins_executed = 0 ; 
     	    while (
                          (reg_pc != reg_pc_before)  &&
@@ -368,18 +378,22 @@
                         ((reg_pc < kcode_end) && (reg_pc >= kcode_begin)) )
                   )
     	    {
+		     if (2 == verbosity) {
+		         before_state = wepsim_current2state() ;
+		     }
+
     	           ret1 = sim_core_execute_microprogram(verbosity, clk_limit) ;
                    if (false == ret1.ok) {
     		       return ret1 ;
     	           }
     
-		    if (3 == verbosity) {
-                        ret.msg   = ret.msg + ret1.msg ;
-		    }
-		    if (2 == verbosity) {
-		        state_obj = wepsim_current2state() ;
-                        ret.msg   = ret.msg + 'pc(0x' + reg_pc.toString(16) + '): ' + wepsim_state2checklist(state_obj) + '\n' ;
-		    }
+		     if (3 == verbosity) {
+                         ret.msg   = ret.msg + ret1.msg ;
+		     }
+		     if (2 == verbosity) {
+		         after_state = wepsim_current2state() ;
+                         ret.msg     = ret.msg + 'pc(0x' + reg_pc.toString(16) + '): ' + wepsim_state2checklist(after_state) + '\n' ;
+		     }
 
     	           ins_executed++ ; 
                    if (ins_executed > ins_limit) 
