@@ -91,7 +91,7 @@
 	}
 
 	// 4) execute firmware-assembly
-	ret = sim_core_execute_program(max_instructions, max_cycles) ;
+	ret = sim_core_execute_program(0, max_instructions, max_cycles) ;
 	if (false == ret.ok) 
 	{
             ret1.msg = "ERROR: Execution: " + ret.msg + ".\n" ;
@@ -111,7 +111,7 @@
 	return ret1 ;
     }
 
-    function wepsim_nodejs_run ( str_firmware, str_assembly, max_instructions, max_cycles )
+    function wepsim_nodejs_run ( verbosity, str_firmware, str_assembly, max_instructions, max_cycles )
     {
         var ret1 = {} ;
             ret1.ok = true ;
@@ -139,7 +139,7 @@
 	}
 
 	// 4) execute firmware-assembly
-	ret = sim_core_execute_program(max_instructions, max_cycles) ;
+	ret = sim_core_execute_program(verbosity, max_instructions, max_cycles) ;
 	if (false == ret.ok) 
 	{
             ret1.msg = "ERROR: Execution: " + ret.msg + ".\n" ;
@@ -147,10 +147,23 @@
 	    return ret1 ;
 	}
 
-	// 5) show the current state
-        ret = wepsim_nodejs_show_currentstate() ;
-
-        ret1.msg = "OK: Execution: " + ret.msg ;
+	// 5) show a final report
+	switch (verbosity) 
+	{
+           case 0:
+                ret1.msg = "OK: Firmware + Assembly + Execution." ;
+                break ;
+           case 1:
+                ret = wepsim_nodejs_show_currentstate() ;
+                ret1.msg = ret.msg ;
+                break ;
+           case 2:
+           case 3:
+                ret1.msg = ret.msg ;
+                break ;
+           default:
+                ret1.msg = "Unknow verbosity value: " +  verbosity ;
+        }
         ret1.ok = true ;
 	return ret1 ;
     }
@@ -160,7 +173,7 @@
      * Export API
      */
 
-    module.exports.wepsim_nodejs_init  = wepsim_nodejs_init ;
-    module.exports.wepsim_nodejs_check = wepsim_nodejs_check ;
-    module.exports.wepsim_nodejs_run   = wepsim_nodejs_run ;
+    module.exports.wepsim_nodejs_init                    = wepsim_nodejs_init ;
+    module.exports.wepsim_nodejs_check                   = wepsim_nodejs_check ;
+    module.exports.wepsim_nodejs_run                     = wepsim_nodejs_run ;
 

@@ -262,7 +262,7 @@
         /**
          * Execute the next instruction.
          */
-        function sim_core_execute_microprogram ( limit_clks )
+        function sim_core_execute_microprogram ( verbosity, limit_clks )
         {
 	        var ret = sim_core_check_if_can_continue() ;
 	        if (false == ret.ok) {
@@ -290,6 +290,12 @@
 		do
             	{
                     compute_general_behavior("CLOCK") ;
+
+		    if (3 == verbosity) {
+                        ret.msg   = ret.msg + 'micropc: ' + cur_addr + '\n' ;
+		        state_obj = wepsim_current2state() ;
+                        ret.msg   = ret.msg + 'state: ' + wepsim_state2checklist(state_obj) + '\n' ;
+		    }
 
                     i_clks++;
                     if (limitless) 
@@ -326,10 +332,11 @@
 
         /**
          * Execute the assembly previously compiled and loaded.
+         * @param {boolean} verbosity - Return the intermediated states
          * @param {integer} ins_limit - The limit of instructions to be executed
          * @param {integer} clk_limit - The limit of clock cycles per instruction
          */
-        function sim_core_execute_program ( ins_limit, clk_limit )
+        function sim_core_execute_program ( verbosity, ins_limit, clk_limit )
         {
     	    var ret = {} ;
     	        ret.ok  = true ;
@@ -353,6 +360,7 @@
     	    if ( (typeof segments['.ktext'] != "undefined") && (typeof segments['.ktext'].end   != "undefined") )
     	          kcode_end = parseInt(segments['.ktext'].end) ;
     
+	    var state_obj = null ;
     	    var ins_executed = 0 ; 
     	    while (
                          (reg_pc != reg_pc_before)  &&
@@ -360,11 +368,17 @@
                         ((reg_pc < kcode_end) && (reg_pc >= kcode_begin)) )
                   )
     	    {
-    	           ret = sim_core_execute_microprogram(clk_limit) ;
+    	           ret = sim_core_execute_microprogram(verbosity, clk_limit) ;
                    if (false == ret.ok) {
     		       return ret ;
     	           }
     
+		   if (2 == verbosity) {
+                       ret.msg   = ret.msg + 'pc: ' + reg_pc + '\n' ;
+		       state_obj = wepsim_current2state() ;
+                       ret.msg   = ret.msg + 'state: ' + wepsim_state2checklist(state_obj) + '\n' ;
+		   }
+
     	           ins_executed++ ; 
                    if (ins_executed > ins_limit) 
     	           {

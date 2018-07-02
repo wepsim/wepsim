@@ -51,7 +51,7 @@
 
         var clklimit = get_cfg('DBG_limitick') ;
 
-	ret = sim_core_execute_microprogram(clklimit) ;
+	ret = sim_core_execute_microprogram(0, clklimit) ;
 	if (false == ret.ok) 
 	{
             wepsim_show_stopbyevent("Info", ret.msg) ;
@@ -197,7 +197,7 @@
             var clklimit  = get_cfg('DBG_limitick') ;
             for (i=0; i<chunk; i++)
             {
-		    ret = sim_core_execute_microprogram(clklimit) ;
+		    ret = sim_core_execute_microprogram(0, clklimit) ;
 		    if (ret.ok === false) {
                         wepsim_show_stopbyevent("Info", ret.msg) ;
 			wepsim_execute_stop(btn1) ;

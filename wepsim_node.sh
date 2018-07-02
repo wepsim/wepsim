@@ -17,9 +17,11 @@
        console.log('+ ./wepsim_node.sh check <microcode file> <assembly file> <checklist file> [max. instructions] [max. cycles]') ;
        console.log('') ;
        console.log('Examples:') ;
-       console.log('./wepsim_node.sh check ./examples/exampleMicrocodeS1E1.txt ./examples/exampleCodeS1E1.txt ./examples/exampleChecklistS1E1.txt') ;
-       console.log('./wepsim_node.sh check ./examples/exampleMicrocodeS1E1.txt ./examples/exampleCodeS1E1.txt ./examples/exampleChecklistS1E2.txt') ;
-       console.log('./wepsim_node.sh run   ./examples/exampleMicrocodeS1E1.txt ./examples/exampleCodeS1E1.txt') ;
+       console.log('./wepsim_node.sh check                 ./examples/exampleMicrocodeS1E1.txt ./examples/exampleCodeS1E1.txt ./examples/exampleChecklistS1E1.txt') ;
+       console.log('./wepsim_node.sh check                 ./examples/exampleMicrocodeS1E1.txt ./examples/exampleCodeS1E1.txt ./examples/exampleChecklistS1E2.txt') ;
+       console.log('./wepsim_node.sh run                   ./examples/exampleMicrocodeS1E1.txt ./examples/exampleCodeS1E1.txt') ;
+       console.log('./wepsim_node.sh stepbystep            ./examples/exampleMicrocodeS1E1.txt ./examples/exampleCodeS1E1.txt') ;
+       console.log('./wepsim_node.sh microstepbymicrostep  ./examples/exampleMicrocodeS1E1.txt ./examples/exampleCodeS1E1.txt') ;
        console.log('') ;
 
        return true ;
@@ -77,7 +79,59 @@
            cfg_cycles_limit = parseInt(process.argv[6]) ;
 
        ws.wepsim_nodejs_init(false) ;
-       var ret = ws.wepsim_nodejs_run(data_microcode, data_asmcode, cfg_instruction_limit, cfg_cycles_limit) ;
+       var ret = ws.wepsim_nodejs_run(1, data_microcode, data_asmcode, cfg_instruction_limit, cfg_cycles_limit) ;
+
+       console.log(ret.msg);
+       return ret.ok ;
+       // if (ret.ok == false) throw 'ERROR...' ;
+   }
+
+
+   //
+   // action == stepbystep
+   //
+
+   if ("STEPBYSTEP" == process.argv[2].toUpperCase())
+   {
+       var data_microcode = fs.readFileSync(process.argv[3], 'utf8') ;
+       var data_asmcode   = fs.readFileSync(process.argv[4], 'utf8') ;
+
+       cfg_instruction_limit = 1000 ;
+       if (process.argv.length > 5)
+           cfg_instruction_limit = parseInt(process.argv[5]) ;
+
+       cfg_cycles_limit = 1024 ;
+       if (process.argv.length > 6)
+           cfg_cycles_limit = parseInt(process.argv[6]) ;
+
+       ws.wepsim_nodejs_init(false) ;
+       var ret = ws.wepsim_nodejs_run(2, data_microcode, data_asmcode, cfg_instruction_limit, cfg_cycles_limit) ;
+
+       console.log(ret.msg);
+       return ret.ok ;
+       // if (ret.ok == false) throw 'ERROR...' ;
+   }
+
+
+   //
+   // action == microstepbymicrostep
+   //
+
+   if ("MICROSTEPBYMICROSTEP" == process.argv[2].toUpperCase())
+   {
+       var data_microcode = fs.readFileSync(process.argv[3], 'utf8') ;
+       var data_asmcode   = fs.readFileSync(process.argv[4], 'utf8') ;
+
+       cfg_instruction_limit = 1000 ;
+       if (process.argv.length > 5)
+           cfg_instruction_limit = parseInt(process.argv[5]) ;
+
+       cfg_cycles_limit = 1024 ;
+       if (process.argv.length > 6)
+           cfg_cycles_limit = parseInt(process.argv[6]) ;
+
+       ws.wepsim_nodejs_init(false) ;
+       var ret = ws.wepsim_nodejs_run(3, data_microcode, data_asmcode, cfg_instruction_limit, cfg_cycles_limit) ;
 
        console.log(ret.msg);
        return ret.ok ;
