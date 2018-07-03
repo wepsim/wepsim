@@ -301,12 +301,10 @@
                     compute_general_behavior("CLOCK") ;
 
 		       if (3 == verbosity) {
-		         //after_state = simstate_current2state() ;
-                         //ret.msg     = ret.msg + 'micropc(0x' + cur_addr.toString(16) + '): ' + 
-			 //              simstate_state2checklist(after_state) + '\n' ;
 		           after_state = simstate_current2state() ;
                            curr_mpc    = '0x' + cur_addr.toString(16) ;
-                           ret.msg     = ret.msg + 'micropc(' + curr_mpc + '):\t' + controlmemory_lineToString(MC, cur_addr) + '\n' +
+                           ret.msg     = ret.msg + 'micropc(' + curr_mpc + '):\t' + 
+				         controlmemory_lineToString(MC, cur_addr) + ':\t' +
                                          simstate_diff_states(before_state,after_state) + '\n' ;
 		       }
 
@@ -399,12 +397,10 @@
                          ret.msg   = ret.msg + ret1.msg ;
 		     }
 		     if (2 == verbosity) {
-		       //after_state = simstate_current2state() ;
-                       //ret.msg     = ret.msg + 'pc(0x' + reg_pc.toString(16) + '): ' + 
-		       //              simstate_state2checklist(after_state) + '\n' ;
 		         after_state = simstate_current2state() ;
                          curr_pc     = '0x' + reg_pc.toString(16) ;
-                         ret.msg     = ret.msg + 'pc(' + curr_pc + '):\t' + SIMWARE.assembly[curr_pc].source + ':\n' +
+                         ret.msg     = ret.msg + 'pc(' + curr_pc + '):\t' + 
+				       SIMWARE.assembly[curr_pc].source + ':\t' +
                                        simstate_diff_states(before_state,after_state) + '\n' ;
 		     }
 
