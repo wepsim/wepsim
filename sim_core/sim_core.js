@@ -306,7 +306,7 @@
 			 //              simstate_state2checklist(after_state) + '\n' ;
 		           after_state = simstate_current2state() ;
                            curr_mpc    = '0x' + cur_addr.toString(16) ;
-                           ret.msg     = ret.msg + 'micropc(' + curr_mpc + '):\t' + JSON.stringify(MC[cur_addr]) + ':\n' +
+                           ret.msg     = ret.msg + 'micropc(' + curr_mpc + '):\t' + controlmemory_lineToString(MC, cur_addr) + '\n' +
                                          simstate_diff_states(before_state,after_state) + '\n' ;
 		       }
 
