@@ -288,6 +288,7 @@
 		//
 	        var before_state = null ;
 	        var  after_state = null ;
+	        var  curr_mpc    = "" ;
 
                 var i_clks = 0 ;
                 var cur_addr = 0 ;
@@ -304,7 +305,8 @@
                          //ret.msg     = ret.msg + 'micropc(0x' + cur_addr.toString(16) + '): ' + 
 			 //              simstate_state2checklist(after_state) + '\n' ;
 		           after_state = simstate_current2state() ;
-                           ret.msg     = ret.msg + 'micropc(0x' + cur_addr.toString(16) + '): ' + 
+                           curr_mpc    = '0x' + cur_addr.toString(16) ;
+                           ret.msg     = ret.msg + 'micropc(' + curr_mpc + '):\t' + JSON.stringify(MC[cur_addr]) + ':\n' +
                                          simstate_diff_states(before_state,after_state) + '\n' ;
 		       }
 
@@ -374,6 +376,8 @@
 	    var ret1         = null ;
 	    var before_state = null ;
 	    var  after_state = null ;
+	    var curr_pc      = "" ;
+	    var SIMWARE      = get_simware() ;
 
     	    var ins_executed = 0 ; 
     	    while (
@@ -399,7 +403,8 @@
                        //ret.msg     = ret.msg + 'pc(0x' + reg_pc.toString(16) + '): ' + 
 		       //              simstate_state2checklist(after_state) + '\n' ;
 		         after_state = simstate_current2state() ;
-                         ret.msg     = ret.msg + 'pc(0x' + reg_pc.toString(16) + '): ' + 
+                         curr_pc     = '0x' + reg_pc.toString(16) ;
+                         ret.msg     = ret.msg + 'pc(' + curr_pc + '):\t' + SIMWARE.assembly[curr_pc].source + ':\n' +
                                        simstate_diff_states(before_state,after_state) + '\n' ;
 		     }
 
