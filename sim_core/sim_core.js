@@ -301,12 +301,11 @@
 
 		       if (3 == verbosity) {
 		         //after_state = simstate_current2state() ;
-                         //ret.msg     = ret.msg + 'micropc(0x' + cur_addr.toString(16) + '): ' + simstate_state2checklist(after_state) + '\n' ;
+                         //ret.msg     = ret.msg + 'micropc(0x' + cur_addr.toString(16) + '): ' + 
+			 //              simstate_state2checklist(after_state) + '\n' ;
 		           after_state = simstate_current2state() ;
-		           before_arr  = simstate_state2checklist(before_state).split(";") ;
-		           after_arr   = simstate_state2checklist(after_state).split(";") ;
                            ret.msg     = ret.msg + 'micropc(0x' + cur_addr.toString(16) + '): ' + 
-			                 after_arr.filter(function(elto) { return !before_arr.includes(elto); }).join(";") + '\n' ;
+                                         simstate_diff_states(before_state,after_state) + '\n' ;
 		       }
 
                     i_clks++;
@@ -397,12 +396,11 @@
 		     }
 		     if (2 == verbosity) {
 		       //after_state = simstate_current2state() ;
-                       //ret.msg     = ret.msg + 'pc(0x' + reg_pc.toString(16) + '): ' + simstate_state2checklist(after_state) + '\n' ;
+                       //ret.msg     = ret.msg + 'pc(0x' + reg_pc.toString(16) + '): ' + 
+		       //              simstate_state2checklist(after_state) + '\n' ;
 		         after_state = simstate_current2state() ;
-		         before_arr  = simstate_state2checklist(before_state).split(";") ;
-		         after_arr   = simstate_state2checklist(after_state).split(";") ;
                          ret.msg     = ret.msg + 'pc(0x' + reg_pc.toString(16) + '): ' + 
-			               after_arr.filter(function(elto) { return !before_arr.includes(elto); }).join(";") + '\n' ;
+                                       simstate_diff_states(before_state,after_state) + '\n' ;
 		     }
 
     	           ins_executed++ ; 

@@ -174,6 +174,13 @@
         return simstate_check_results(expected_result, obtained_result, true) ;
     }
 
+    function simstate_diff_states ( before_state_obj, after_state_obj )
+    {
+	var before_arr = simstate_state2checklist(before_state_obj).split(";") ;
+	var after_arr  = simstate_state2checklist(after_state_obj).split(";") ;
+	return after_arr.filter(function(elto) { return !before_arr.includes(elto); }).join(";") ;
+    }
+
     function simstate_checkreport2txt ( checklist )
     {
         var o = "";
