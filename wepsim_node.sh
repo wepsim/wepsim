@@ -10,18 +10,27 @@
    if (2 == process.argv.length)
    {
        console.log('') ;
-       console.log('WepSIM-lite 0.5') ;
+       console.log('WepSIM-lite 0.8') ;
        console.log('+ Simplified version of the wepsim simulator for the command line.') ;
        console.log('') ;
        console.log('Usage:') ;
-       console.log('+ ./wepsim_node.sh check <microcode file> <assembly file> <checklist file> [max. instructions] [max. cycles]') ;
+       console.log('+ ./wepsim_node.sh <command> <microcode file> <assembly file> <checklist file> [max. instructions] [max. cycles]') ;
        console.log('') ;
        console.log('Examples:') ;
-       console.log('./wepsim_node.sh check                 ./examples/exampleMicrocodeS1E1.txt ./examples/exampleCodeS1E1.txt ./examples/exampleChecklistS1E1.txt') ;
-       console.log('./wepsim_node.sh check                 ./examples/exampleMicrocodeS1E1.txt ./examples/exampleCodeS1E1.txt ./examples/exampleChecklistS1E2.txt') ;
-       console.log('./wepsim_node.sh run                   ./examples/exampleMicrocodeS1E1.txt ./examples/exampleCodeS1E1.txt') ;
-       console.log('./wepsim_node.sh stepbystep            ./examples/exampleMicrocodeS1E1.txt ./examples/exampleCodeS1E1.txt') ;
-       console.log('./wepsim_node.sh microstepbymicrostep  ./examples/exampleMicrocodeS1E1.txt ./examples/exampleCodeS1E1.txt') ;
+       console.log(' * Run some example and show the final state:') ;
+       console.log('   ./wepsim_node.sh run                   ./examples/exampleMicrocodeS1E1.txt ./examples/exampleCodeS1E1.txt') ;
+       console.log('') ;
+       console.log(' * Run some example and show the state on each assembly instruction executed:') ;
+       console.log('   ./wepsim_node.sh stepbystep            ./examples/exampleMicrocodeS1E1.txt ./examples/exampleCodeS1E1.txt') ;
+       console.log('') ;
+       console.log(' * Run some example and show the state on each microinstruction executed:') ;
+       console.log('   ./wepsim_node.sh microstepbymicrostep  ./examples/exampleMicrocodeS1E1.txt ./examples/exampleCodeS1E1.txt') ;
+       console.log('') ;
+       console.log(' * Check that some example actually works:') ;
+       console.log('   ./wepsim_node.sh check               ./examples/exampleMicrocodeS1E1.txt ./examples/exampleCodeS1E1.txt ./examples/exampleChecklistS1E1.txt') ;
+       console.log('') ;
+       console.log(' * Check that some example actually does not works:') ;
+       console.log('   ./wepsim_node.sh check               ./examples/exampleMicrocodeS1E1.txt ./examples/exampleCodeS1E1.txt ./examples/exampleChecklistS1E2.txt') ;
        console.log('') ;
 
        return true ;

@@ -304,7 +304,7 @@
 		           after_state = simstate_current2state() ;
                            curr_mpc    = '0x' + cur_addr.toString(16) ;
                            ret.msg     = ret.msg + 'micropc(' + curr_mpc + '):\t' + 
-				         controlmemory_lineToString(MC, cur_addr).trim() + ':\t\t' +
+				         controlmemory_lineToString(MC, cur_addr).trim() + ':\t\t\t' +
                                          simstate_diff_states(before_state,after_state) + '\n' ;
 		       }
 
@@ -400,7 +400,7 @@
 		         after_state = simstate_current2state() ;
                          curr_pc     = '0x' + reg_pc.toString(16) ;
                          ret.msg     = ret.msg + 'pc(' + curr_pc + '):\t' + 
-				       SIMWARE.assembly[curr_pc].source + ':\t\t' +
+				       SIMWARE.assembly[curr_pc].source_original + ':\t\t\t' +
                                        simstate_diff_states(before_state,after_state) + '\n' ;
 		     }
 
