@@ -1554,8 +1554,8 @@
                    class="btn btn-secondary col-xs-3">Clear</button>
            <button type="button" 
                    onclick="var txt_checklist = $('#end_state2').val();
-                            var obj_expected  = wepsim_checklist2state(txt_checklist);
-                            var obj_current   = wepsim_current2state();
+                            var obj_expected  = simstate_checklist2state(txt_checklist);
+                            var obj_current   = simstate_current2state();
                             wepsim_dialog_check_state('check_results2', obj_expected, obj_current); 
                             return false;"
                    class="btn btn-secondary col-xs-3">Check</button>

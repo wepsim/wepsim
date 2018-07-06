@@ -40,7 +40,7 @@
 
               if (typeof document == "undefined") 
 	      {
-		  console.log(screen_content) ;
+		  console.log("screen> " + screen_content) ;
 	          return ;
 	      }
 

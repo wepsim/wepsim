@@ -102,8 +102,8 @@
     {
         var reg_maddr = get_value(simhw_sim_state('REG_MICROADDR')) ;
         var reg_clk   = get_value(simhw_sim_state('CLK')) ;
-        var state_obj = wepsim_current2state() ;
-        var state_str = wepsim_state2checklist(state_obj) ;
+        var state_obj = simstate_current2state() ;
+        var state_str = simstate_state2checklist(state_obj) ;
         var timestamp = new Date().getTime() ;
 
         state_history.push({ time: timestamp,
@@ -129,7 +129,7 @@
               o += '<div class="card">' +
                    '  <div class="card-header row" ' + 
 		   '       style="width:101%; padding:8 15 8 15;">' +
-                   '    <h5 class="card-title col-7" ' + 
+                   '    <h5 class="card-title col" ' + 
 		   '          data-toggle="collapse" data-target="#collapse_'+i+'" data-parent="#accordion1">' +
                    '      <span>[' +
                             t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + '_' +
@@ -137,16 +137,18 @@
                             t.getMilliseconds() + '] ' + state_history[i].title +
                    '      </span>' +
                    '    </h5>' +
+                   '    <div class="btn-group" role="group" aria-label="Basic example">' +
                    '    <button class="btn btn-outline-dark btn-sm col float-right"' + 
                    '           onclick="CopyFromTextarea(\'ta_state_' + i + '\');" ' + 
-                   '           type="button">Copy <span class="d-none d-sm-inline-flex">to clipboard</span></button>' +
+                   '           type="button">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>' +
                    '    <button class="btn btn-outline-dark btn-sm col float-right"' + 
                    '            onclick="var txt_chklst1 = get_clipboard_copy();' +
-                   '                     var obj_exp1    = wepsim_checklist2state(txt_chklst1);' +
+                   '                     var obj_exp1    = simstate_checklist2state(txt_chklst1);' +
                    '                     var txt_chklst2 = $(\'#ta_state_'+i+'\').val();' +
-                   '                     var obj_exp2    = wepsim_checklist2state(txt_chklst2);' +
+                   '                     var obj_exp2    = simstate_checklist2state(txt_chklst2);' +
                    '                     wepsim_dialog_check_state(\'check_results1\', obj_exp1, obj_exp2);"' +
                    '         type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>' +
+                   '    </div>' +
                    '  </div>' +
                    '  <div id="collapse_' + i + '" class="collapse">' +
                    '    <div class="card-body">' + 
@@ -178,8 +180,8 @@
 	      //wepsim_state_history_list() ; // called on: reset+add but not on show...
 
 	      // tab2
-	      var state_obj     = wepsim_current2state() ;
-	      var txt_checklist = wepsim_state2checklist(state_obj) ;
+	      var state_obj     = simstate_current2state() ;
+	      var txt_checklist = simstate_state2checklist(state_obj) ;
 	      $('#end_state1').tokenfield('setTokens', txt_checklist);
 
               wepsim_notify_close() ;
@@ -210,7 +212,7 @@
 
     function wepsim_dialog_check_state ( id_result, obj_chklst_expected, obj_chklst_current )
     {
-        var obj_result = wepsim_diff_results(obj_chklst_expected, obj_chklst_current) ;
+        var obj_result = simstate_diff_results(obj_chklst_expected, obj_chklst_current) ;
 
         // dialog
         var msg = "" ;
@@ -218,7 +220,7 @@
     	     msg = "&emsp;<span style='background-color:#7CFC00'>" + 
                        "Meets the specified requirements" + 
                        "</span><br>" ;
-        else msg = wepsim_checkreport2html(obj_result.result, true) ;
+        else msg = simstate_checkreport2html(obj_result.result, true) ;
 
         $('#' + id_result).html(msg);
 
@@ -240,221 +242,5 @@
 	$('#' + id_result).html('');
 
 	return true ;
-    }
-
-
-    //
-    //  WepSIM check API
-    //
-
-    function wepsim_checklist2state ( checklist )
-    {
-        var o = {} ;
-	var ret = false ;
-
-	// white-spaces...
-	checklist = checklist.replace(/;|==|!=|>=|<=|=|>|</gi, 
-                                      function (x){return ' ' + x + ' ';});  
-        checklist = checklist.replace(/  /g,' ') ;
-
-	// lines...
-        var lines = checklist.split(";") ;
-        for (var i=0; i<lines.length; i++)
-        {
-             var line = lines[i].trim() ;
-	     if ("" == line)
-		 continue ;
-
-             var parts = line.split(" ") ;
-	     if (parts.length < 4)
-		 continue ;
-
-	     var check = { "type": parts[0], 
-                           "id": parts[1], 
-                           "condition": parts[2], 
-                           "value": decodeURI(parts[3]) } ;
-             for (var index in simhw_sim_components()) 
-             {
-	          ret = simhw_sim_component(index).read_state(o, check) ;
-                  if (true == ret) break ;
-             }
-
-             if (false == ret)
-                 console.log("ERROR in checklist at component " + check.type + ": " + line) ;
-        }
-
-        return o ;
-    }   
-
-    function wepsim_current2state ( )
-    {
-	var o = {} ;
-	for (var index in simhw_sim_components()) {
-	     simhw_sim_component(index).write_state(o) ;
-	}
-
-        return o ;
-    }
-
-    function wepsim_state2checklist ( s_obj )
-    {
-	var ret = "" ;
-        for (var component in s_obj) 
-	{
-	     for (var eltos in s_obj[component]) {
-		  var elto = s_obj[component][eltos] ;
-	          ret = ret + elto.type + " " + elto.id + " " + elto.op + " " + encodeURI(elto.value) + "; " ;
-	     }
-	}
-
-        return ret ;
-    }
-
-    function wepsim_check_results ( expected_result, obtained_result, newones_too )
-    {
-        var d = {} ;
-        d.result = [] ;
-        d.errors = 0 ;
-        d.neltos_expected = 0 ;
-        d.neltos_obtained = 0 ;
-
-        var elto = null ;
-	var diff = {} ;
-
-        var obtained_value = 0 ;
-	for (var compo in simhw_sim_components())
-	{
-	    // if there are different values -> diff
-            if (typeof expected_result[compo] != "undefined") 
-	    {
-		    for (elto in expected_result[compo])
-		    {
-                         d.neltos_expected++ ;
-
-                         obtained_value = expected_result[compo][elto].default_value ;
-			 if ( (typeof obtained_result[compo]       != "undefined") &&
-			      (typeof obtained_result[compo][elto] != "undefined") ) {
-                               obtained_value = obtained_result[compo][elto].value ;
-                         }
-
-			 diff = {} ;
-			 diff.expected  = expected_result[compo][elto].value ;
-			 diff.obtained  = obtained_value ;
-			 diff.elto_type = compo.toLowerCase() ;
-			 diff.elto_id   = expected_result[compo][elto].id ;
-			 diff.elto_op   = expected_result[compo][elto].op ;
-
-		         diff.fulfill   = false ;
-			      if ("=" == expected_result[compo][elto].op)
-			          diff.fulfill = (parseInt(diff.obtained) == parseInt(diff.expected)) ;
-			 else if (">" == expected_result[compo][elto].op)
-			          diff.fulfill = (parseInt(diff.obtained)  > parseInt(diff.expected)) ;
-			 else if ("<" == expected_result[compo][elto].op)
-			          diff.fulfill = (parseInt(diff.obtained)  < parseInt(diff.expected)) ;
-			 else if (">=" == expected_result[compo][elto].op)
-			          diff.fulfill = (parseInt(diff.obtained) >= parseInt(diff.expected)) ;
-			 else if ("<=" == expected_result[compo][elto].op)
-			          diff.fulfill = (parseInt(diff.obtained) <= parseInt(diff.expected)) ;
-			 else if ("==" == expected_result[compo][elto].op)
-			          diff.fulfill = (diff.expected == diff.obtained) ;
-			 else if ("!=" == expected_result[compo][elto].op)
-			          diff.fulfill = (diff.expected != diff.obtained) ;
-
-			 d.result.push(diff) ;
-
-			 if (diff.fulfill === false)
-			     d.errors++ ;
-		    }
-            }
-
-	    // if there are new elements -> diff
-	    if ((newones_too) && (typeof obtained_result[compo] != "undefined"))
-	    {
-		    for (elto in obtained_result[compo]) 
-		    {
-                         d.neltos_obtained++ ;
-
-			 if ( (typeof expected_result[compo]       != "undefined") && 
-			      (typeof expected_result[compo][elto] != "undefined") ) {
-			       continue ;
-		         }
-
-			 diff = {} ;
-			 diff.expected  = obtained_result[compo][elto].default_value ;
-			 diff.obtained  = obtained_result[compo][elto].value ;
-			 diff.fulfill   = (diff.expected == diff.obtained) ;
-			 diff.elto_type = compo.toLowerCase() ;
-			 diff.elto_id   = obtained_result[compo][elto].id ;
-			 diff.elto_op   = "=" ;
-			 d.result.push(diff) ;
-
-			 if (diff.fulfill === false)
-			     d.errors++ ;
-		    }
-	    }
-        }
-
-        return d ;
-    }
-
-    function wepsim_diff_results ( expected_result, obtained_result )
-    {
-        return wepsim_check_results(expected_result, obtained_result, true) ;
-    }
-
-    function wepsim_checkreport2txt ( checklist )
-    {
-        var o = "";
-
-        for (var i=0; i<checklist.length; i++)
-        {
-             if (checklist[i].fulfill === false) {
-                 o += checklist[i].elto_type + "[" + checklist[i].elto_id + "]='" +
-                      checklist[i].obtained + "' (expected '" + checklist[i].expected  + "'), ";
-             }
-        }
-
-        return o;
-    }
-
-    function wepsim_checkreport2html ( checklist, only_errors )
-    {
-        var o = "" ;
-        var color = "green" ;
-
-        if (typeof only_errors === 'undefined') 
-            only_errors = false ;
-
-        o += "<table style='margin:0 0 0 0;' " + 
-             "       class='table table-hover table-bordered table-sm'>" +
-             "<thead>" +
-             "<tr>" +
-             "<th>Type</th>" +
-             "<th><span class='d-none d-sm-inline-flex'>Identification</span><span class='d-sm-none'>Id.</span></th>" +
-             "<th><span class='d-none d-sm-inline-flex'>Values in the</span> clipboard <span class='d-none d-sm-inline-flex'>state</th>" +
-             "<th><span class='d-none d-sm-inline-flex'>Values in the</span> selected <span class='d-none d-sm-inline-flex'>state</th>" +
-             "</tr>" +
-             "</thead>" +
-             "<tbody>" ;
-        for (var i=0; i<checklist.length; i++)
-        {
-             if (checklist[i].fulfill === false)
-                  color = "table-danger" ;
-             else color = "table-success" ;
-
-             if (only_errors && checklist[i].fulfill)
-                 continue ;
-
-             o += "<tr class=" + color + ">" +
-                  "<td>" + checklist[i].elto_type + "</td>" +
-                  "<td>" + checklist[i].elto_id   + "</td>" +
-                  "<td>" + checklist[i].elto_op + "&nbsp;" + checklist[i].expected  + "</td>" +
-                  "<td>" + checklist[i].obtained  + "</td>" +
-                  "</tr>" ;
-        }
-        o += "</tbody>" + 
-             "</table>" ;
-
-        return o ;
     }
 

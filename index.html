@@ -182,9 +182,9 @@
 
         <div role="main" class="ui-content container-fluid" style="padding:8px 8px 8px 8px">
 
-            <div class="row collapse show" id="collapseA1">
+            <div class="row collapse show" id="collapseA1" style="margin:1px">
 
-                    <div class="col-sm-2" style="padding-right:0;">
+                    <div class="col-sm-3 col-md-2" style="padding-right:0;">
 			    <form id="slider2f" class="full-width-slider col my-1" style="margin:0px; padding:0px;">
 				 <input aria-label="Show CPU/CU" type="range" name="slider2b" id="slider2b" 
 					min="0" max="12" value="7" step="1"
@@ -223,7 +223,7 @@
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                 onclick="wepsim_open_examples_index(false);"><b>Examples</b></button>
 		        <button class="btn btn-light ui-shadow col my-1" data-role="none"
-		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color:#CCCCCC; 
+		                style="border-width:1 1 1 1px; border-color:#CCCCCC; 
                                        background-color:#D4DB17;"
 		                onclick="wepsim_open_help_index();
                                          wepsim_help_refresh();"><b>Help</b></button>
@@ -244,7 +244,7 @@
 
 		    <div class="w-100 d-xs-block d-sm-none"></div>
 
-                    <div class="col-sm-2" style="padding-left:0;">
+                    <div class="col-sm-3 col-md-2" style="padding-left:0;">
 			    <form id="slider2f" class="full-width-slider col my-1" style="margin:0px; padding:0px;">
 				 <input aria-label="Show Main/Info" type="range" name="slider2a" id="slider2a" 
 					min="0" max="12" value="7" step="1"
@@ -260,7 +260,7 @@
 
             <div class="row">
 
-                <div id="col1" class="" style="padding:16px 0px 0px 16px !important;">
+                <div id="col1" class="" style="padding:12px 0px 0px 16px !important;">
 
                       <!-- Nav tabs -->
 		      <ul class="nav nav-tabs nav-justified nav-tabs">
@@ -271,7 +271,7 @@
 				 aria-controls="processor"
                                  onclick="wepsim_reset_max_turbo() ;
                                           start_drawing(); 
-                                          refresh();">Processor</a>
+                                          refresh();"><i class="fas fa-microchip"></i>&nbsp;Processor</a>
                           </li>
 		          <li class="nav-item">
                               <a id="tab24" href="#eltos_dbg"  
@@ -284,7 +284,7 @@
                                           var obj_byid = $('#asm_debugger_container');
                                           if (typeof o1[0] == 'undefined') 
                                               return;
-                                          obj_byid[0].scrollTop = o1[0].offsetTop;"><span class="d-sm-none">Assembly</span><span class="d-none d-sm-inline-flex">Assembly Debugger</span></a>
+                                          obj_byid[0].scrollTop = o1[0].offsetTop;"><i class="fas fa-bug"></i>&nbsp;<span class="d-sm-none">Assembly</span><span class="d-none d-sm-inline-flex">Assembly Debugger</span></a>
                           </li>
 		      </ul>
 
@@ -754,10 +754,10 @@
                 <h5><b>Config<span class="d-none d-sm-inline-flex">uration</span></b> <span class="badge badge-pill btn-success"><div class="wsversion">X</div></span></h5>
                 </div>
 	   </div>
-	   <div class="modal-body">
+	   <div class="modal-body" style="overflow:auto; -webkit-overflow-scrolling:touch; height:85vh;">
 
 
-        <div id=table-config2 class="table container-fluid" style="padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
+        <div id=table-config2 class="table container-fluid" style="padding:0 0 0 0;">
 	<table class="table table-striped table-hover table-sm" 
 	       data-role="none" 
 	       style="width:100%; margin:0 0 0 0">
@@ -1562,8 +1562,8 @@
                    class="btn btn-secondary col-xs-3">Clear</button>
            <button type="button" 
                    onclick="var txt_checklist = $('#end_state2').val();
-                            var obj_expected  = wepsim_checklist2state(txt_checklist);
-                            var obj_current   = wepsim_current2state();
+                            var obj_expected  = simstate_checklist2state(txt_checklist);
+                            var obj_current   = simstate_current2state();
                             wepsim_dialog_check_state('check_results2', obj_expected, obj_current); 
                             return false;"
                    class="btn btn-secondary col-xs-3">Check</button>
