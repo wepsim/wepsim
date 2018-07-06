@@ -1820,7 +1820,7 @@
             // Firefox OS
 	    if ('mozApps' in navigator) 
 	    {
-		    var manifest_url = location.href + '/docs/manifest.webapp';
+		    var manifest_url = location.href + 'manifest.webapp';
 		    var installCheck = navigator.mozApps.checkInstalled(manifest_url);
 		    installCheck.onsuccess = function() 
 		    {

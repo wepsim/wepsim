@@ -5,7 +5,7 @@
   "launch_path": "/index.html",
   "icons": {
     "56": "/wepsim/images/wepsim.png",
-    "112": "/wepsim/images/wepsim.png"
+    "128": "/wepsim/images/wepsim.png"
   },
   "developer": {
     "name": "Alejandro Calderon Mateos",
@@ -19,5 +19,6 @@
       }
     }
   },
-  "default_locale": "en"
+  "default_locale": "en",
+  "fullscreen": "true"
 }
