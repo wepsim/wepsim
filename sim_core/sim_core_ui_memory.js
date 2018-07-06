@@ -193,25 +193,10 @@
                                                       }, cfg_show_control_memory_delay);
         }
 
-        function hard_refresh_control_memory ( memory, memory_dashboard, index, redraw )
+        function controlmemory_lineToString ( memory, key )
         {
-	    if (typeof document == "undefined")
-	        return ;
+		var value = "" ;
 
-	    var o1 = "" ;
-            var value = "" ;
-            var icon_theme = get_cfg('ICON_theme') ;
-
-            var SIMWARE = get_simware() ;
-            var revlabels = new Object() ;
-            for (var key in SIMWARE.firmware)
-                 revlabels[SIMWARE.firmware[key]["mc-start"]] = SIMWARE.firmware[key]["name"] ;
-
-            var maddr = "" ;
-            var trpin = "" ;
-            for (var key in memory)
-            {
-		value = "" ;
 		for (var ks in memory[key])
 		{
 		     if (1 == memory[key][ks]) {
@@ -232,6 +217,28 @@
 		     value += ks + "=" + parseInt(memory[key][ks]).toString(2) + " ";
 		}
 
+		return value ;
+        }
+
+        function hard_refresh_control_memory ( memory, memory_dashboard, index, redraw )
+        {
+	    if (typeof document == "undefined")
+	        return ;
+
+	    var o1 = "" ;
+            var value = "" ;
+            var icon_theme = get_cfg('ICON_theme') ;
+
+            var SIMWARE = get_simware() ;
+            var revlabels = new Object() ;
+            for (var key in SIMWARE.firmware)
+                 revlabels[SIMWARE.firmware[key]["mc-start"]] = SIMWARE.firmware[key]["name"] ;
+
+            var maddr = "" ;
+            var trpin = "" ;
+            for (var key in memory)
+            {
+                value = controlmemory_lineToString(memory, key) ;
                 maddr = "0x" + parseInt(key).toString(16) ;
                 if (typeof revlabels[key] != "undefined")
                     maddr = '<span>' +

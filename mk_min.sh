@@ -20,6 +20,7 @@ cat sim_hw/sim_hw_index.js \
     sim_core/sim_core_ui.js \
     sim_core/sim_core_ui_console.js \
     sim_core/sim_core_ui_memory.js \
+    sim_core/sim_stateshots.js \
     sim_core/sim_core.js > sim_all.js
 /usr/bin/yui-compressor -o min.sim_all.js sim_all.js
 rm -fr sim_all.js

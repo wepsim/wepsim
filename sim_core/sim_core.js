@@ -262,7 +262,7 @@
         /**
          * Execute the next instruction.
          */
-        function sim_core_execute_microprogram ( limit_clks )
+        function sim_core_execute_microprogram ( verbosity, limit_clks )
         {
 	        var ret = sim_core_check_if_can_continue() ;
 	        if (false == ret.ok) {
@@ -285,11 +285,28 @@
 
                 // 1.- do-while the microaddress register doesn't store the fetch address (0): 
                 //              execute micro-instructions
+		//
+	        var before_state = null ;
+	        var  after_state = null ;
+	        var  curr_mpc    = "" ;
+
                 var i_clks = 0 ;
                 var cur_addr = 0 ;
 		do
             	{
+		       if (3 == verbosity) {
+		           before_state = simstate_current2state() ;
+		       }
+
                     compute_general_behavior("CLOCK") ;
+
+		       if (3 == verbosity) {
+		           after_state = simstate_current2state() ;
+                           curr_mpc    = '0x' + cur_addr.toString(16) ;
+                           ret.msg     = ret.msg + 'micropc(' + curr_mpc + '):\t' + 
+				         controlmemory_lineToString(MC, cur_addr).trim() + ':\t\t\t' +
+                                         simstate_diff_states(before_state,after_state) + '\n' ;
+		       }
 
                     i_clks++;
                     if (limitless) 
@@ -326,10 +343,11 @@
 
         /**
          * Execute the assembly previously compiled and loaded.
+         * @param {boolean} verbosity - Return the intermediated states
          * @param {integer} ins_limit - The limit of instructions to be executed
          * @param {integer} clk_limit - The limit of clock cycles per instruction
          */
-        function sim_core_execute_program ( ins_limit, clk_limit )
+        function sim_core_execute_program ( verbosity, ins_limit, clk_limit )
         {
     	    var ret = {} ;
     	        ret.ok  = true ;
@@ -353,6 +371,12 @@
     	    if ( (typeof segments['.ktext'] != "undefined") && (typeof segments['.ktext'].end   != "undefined") )
     	          kcode_end = parseInt(segments['.ktext'].end) ;
     
+	    var ret1         = null ;
+	    var before_state = null ;
+	    var  after_state = null ;
+	    var curr_pc      = "" ;
+	    var SIMWARE      = get_simware() ;
+
     	    var ins_executed = 0 ; 
     	    while (
                          (reg_pc != reg_pc_before)  &&
@@ -360,11 +384,26 @@
                         ((reg_pc < kcode_end) && (reg_pc >= kcode_begin)) )
                   )
     	    {
-    	           ret = sim_core_execute_microprogram(clk_limit) ;
-                   if (false == ret.ok) {
-    		       return ret ;
+		     if (2 == verbosity) {
+		         before_state = simstate_current2state() ;
+		     }
+
+    	           ret1 = sim_core_execute_microprogram(verbosity, clk_limit) ;
+                   if (false == ret1.ok) {
+    		       return ret1 ;
     	           }
     
+		     if (3 == verbosity) {
+                         ret.msg   = ret.msg + ret1.msg ;
+		     }
+		     if (2 == verbosity) {
+		         after_state = simstate_current2state() ;
+                         curr_pc     = '0x' + reg_pc.toString(16) ;
+                         ret.msg     = ret.msg + 'pc(' + curr_pc + '):\t' + 
+				       SIMWARE.assembly[curr_pc].source_original + ':\t\t\t' +
+                                       simstate_diff_states(before_state,after_state) + '\n' ;
+		     }
+
     	           ins_executed++ ; 
                    if (ins_executed > ins_limit) 
     	           {
