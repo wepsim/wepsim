@@ -1803,6 +1803,9 @@
 		wepsim_voice_stop() ;
 	    }
 
+	    var ws_mode = get_cfg('ws_mode');
+            wepsim_change_mode(ws_mode, '#select4') ;
+
             // progressive web application
 	    if ('serviceWorker' in navigator) 
             {
@@ -1814,8 +1817,27 @@
 		}) ;
 	    }
 
-	    var ws_mode = get_cfg('ws_mode');
-            wepsim_change_mode(ws_mode, '#select4') ;
+            // Firefox OS
+	    if ('mozApps' in navigator) 
+	    {
+		    var manifest_url = location.href + '/docs/manifest.webapp';
+		    var installCheck = navigator.mozApps.checkInstalled(manifest_url);
+		    installCheck.onsuccess = function() 
+		    {
+		        if (!installCheck.result)
+		        {
+			      var installLocFind = navigator.mozApps.install(manifest_url);
+			      installLocFind.onsuccess = function(data) {
+				  wepsim_notify_success('<h4>Info:<br></h4>',
+					                'WepSIM was installed.');
+			      } ;
+			      installLocFind.onerror = function() {
+				  wepsim_notify_error('<h4>Warning:<br>' + installLocFind.error.name + '</h4>',
+						      'FirefoxOS/KaiOS installation was cancelled.') ;
+			      } ;
+		        } ;
+		    } ;
+            }
     }
     catch(err) 
     {

@@ -4,20 +4,20 @@
   "description": "The Web Elemental Processor Simulator",
   "launch_path": "/index.html",
   "icons": {
-    "56": "/images/wepsim.png",
-    "112": "/images/wepsim.png"
+    "56": "/wepsim/images/wepsim.png",
+    "112": "/wepsim/images/wepsim.png"
   },
   "developer": {
     "name": "Alejandro Calderon Mateos",
-    "url": "http://acaldero.github.io/wepsim"
+    "url": "http://acaldero.github.io/wepsim/"
   },
   "locales": {
     "en": {
       "description": "The Web Elemental Processor Simulator",
       "developer": {
-        "url": "http://acaldero.github.io/wepsim"
+        "url": "http://acaldero.github.io/wepsim/"
       }
-    },
+    }
   },
   "default_locale": "en"
 }
