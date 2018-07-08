@@ -43,7 +43,7 @@
 	         utypes.push(helps[m].u_type) ;
         }
 
-        o = o + '<div class="container grid-striped">' ;
+        o = o + '<div class="container grid-striped border border-light">' ;
        for (m=0; m<helps.length; m++)
        {
 	        fmt_header = "" ;

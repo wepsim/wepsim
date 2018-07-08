@@ -131,7 +131,7 @@
 
        var lang = get_cfg('ws_idiom') ;
 
-       o = o + '<div class="container grid-striped">' ;
+       o = o + '<div class="container grid-striped border border-light">' ;
        for (var m=0; m<examples[lang].length; m++)
        {
 	       fmt_header = "" ;
