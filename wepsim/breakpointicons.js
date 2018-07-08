@@ -12,6 +12,8 @@
                     { type: "films",   shortname: "r2d2" },
                     { type: "films",   shortname: "sw" },
                     { type: "films",   shortname: "bb8" },
-                    { type: "films",   shortname: "vader1" }
+                    { type: "films",   shortname: "vader1" },
+                    { type: "films",   shortname: "grail" },
+                    { type: "films",   shortname: "despicable" }
     ] ;
 
