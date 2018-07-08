@@ -47,7 +47,8 @@ cat wepsim/wepsim_example.js \
     wepsim/help-en.js \
     wepsim/help-es.js \
     wepsim/examples-en.js \
-    wepsim/examples-es.js > wepsim_web.js
+    wepsim/examples-es.js \
+    wepsim/breakpointicons.js > wepsim_web.js
 /usr/bin/yui-compressor -o min.wepsim_web.js wepsim_web.js
 rm -fr wepsim_web.js
 cp  wepsim/wepsim_pwa.js min.wepsim_pwa.js
