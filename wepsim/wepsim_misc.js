@@ -383,8 +383,8 @@
 		o = o + "<img src='images/stop_" + breakpoint_icon_list[i].shortname + ".gif' alt='" + breakpoint_icon_list[i].shortname + " icon' " +
 		        "     class='img-thumbnail img-fluid mx-3 d-block'" +
 		        "     style='height:6vh;'" +
-		        "     onclick='$('#img_select1').attr('src','images/stop_" + breakpoint_icon_list[i].shortname + ".gif');" +
-		        "	        set_cfg('ICON_theme','" + breakpoint_icon_list[i].shortname + "'); save_cfg();'>" ;
+		        "     onclick=\"$('#img_select1').attr('src','images/stop_" + breakpoint_icon_list[i].shortname + ".gif');" +
+		        "	        set_cfg('ICON_theme','" + breakpoint_icon_list[i].shortname + "'); save_cfg();\">" ;
 	}
         o = o + "</div>" +
 	        "</div>";
