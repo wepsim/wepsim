@@ -362,3 +362,106 @@
 	  }
     }
 
+    function wepsim_show_breakpoint_icon_list ()
+    {
+        return  "  <div class=\"row p-1\">" +
+		"  <div class=\"float-none text-left text-capitalize font-weight-bold col-12 border-bottom border-secondary\">classic</div>" +
+		"  </div>" +
+		"  <div class=\"row p-1\">" +
+		"	<img src=\"images/stop_classic.gif\" alt=\"classic icon\" " +
+		"	     class=\"img-thumbnail img-fluid mx-3 d-block\"" +
+		"	     style=\"height:35px;\"" +
+		"	     onclick=\"var optValue = 'classic'; $('#breakpointicon1').modal('hide');" +
+		"		       $('#img_select1').attr('src','images/stop_' + optValue + '.gif');" +
+		"		       set_cfg('ICON_theme',optValue); save_cfg();\">" +
+		"	<img src=\"images/stop_pushpin.gif\" alt=\"pushpin icon\" " +
+		"	     class=\"img-thumbnail img-fluid mx-3 d-block\"" +
+		"	     style=\"height:35px;\"" +
+		"	     onclick=\"var optValue = 'pushpin'; $('#breakpointicon1').modal('hide');" +
+		"		       $('#img_select1').attr('src','images/stop_' + optValue + '.gif');" +
+		"		       set_cfg('ICON_theme',optValue); save_cfg();\">" +
+		"  </div>" +
+		"  <div class=\"row p-1\">" +
+		"  <div class=\"float-none text-left text-capitalize font-weight-bold col-12 border-bottom border-secondary\">comics</div>" +
+		"  </div>" +
+		"  <div class=\"row p-1\">" +
+		"	<img src=\"images/stop_super.gif\" alt=\"superman icon\" " +
+		"	     class=\"img-thumbnail img-fluid mx-3 d-block\"" +
+		"	     style=\"height:35px;\"" +
+		"	     onclick=\"var optValue = 'super'; $('#breakpointicon1').modal('hide');" +
+		"		       $('#img_select1').attr('src','images/stop_' + optValue + '.gif');" +
+		"		       set_cfg('ICON_theme',optValue); save_cfg();\">" +
+		"	<img src=\"images/stop_batman.gif\" alt=\"batman icon\" " +
+		"	     class=\"img-thumbnail img-fluid mx-3 d-block\"" +
+		"	     style=\"height:35px;\"" +
+		"	     onclick=\"var optValue = 'batman'; $('#breakpointicon1').modal('hide');" +
+		"		       $('#img_select1').attr('src','images/stop_' + optValue + '.gif');" +
+		"		       set_cfg('ICON_theme',optValue); save_cfg();\">" +
+		"  </div>" +
+		"  <div class=\"row p-1\">" +
+		"  <div class=\"float-none text-left text-capitalize font-weight-bold col-12 border-bottom border-secondary\">pets</div>" +
+		"  </div>" +
+		"  <div class=\"row p-1\">" +
+		"	<img src=\"images/stop_cat1.gif\" alt=\"cat icon\" " +
+		"	     class=\"img-thumbnail img-fluid mx-3 d-block\"" +
+		"	     style=\"height:35px;\"" +
+		"	     onclick=\"var optValue = 'cat1'; $('#breakpointicon1').modal('hide');" +
+		"		       $('#img_select1').attr('src','images/stop_' + optValue + '.gif');" +
+		"		       set_cfg('ICON_theme',optValue); save_cfg();\">" +
+		"	<img src=\"images/stop_dog1.gif\" alt=\"dog icon\" " +
+		"	     class=\"img-thumbnail img-fluid mx-3 d-block\"" +
+		"	     style=\"height:35px;\"" +
+		"	     onclick=\"var optValue = 'dog1'; $('#breakpointicon1').modal('hide');" +
+		"		       $('#img_select1').attr('src','images/stop_' + optValue + '.gif');" +
+		"		       set_cfg('ICON_theme',optValue); save_cfg();\">" +
+		"  </div>" +
+		"  <div class=\"row p-1\">" +
+		"  <div class=\"float-none text-left text-capitalize font-weight-bold col-12 border-bottom border-secondary\">films</div>" +
+		"  </div>" +
+		"  <div class=\"row p-1\">" +
+		"	<img src=\"images/stop_hp1.gif\" alt=\"harry potter icon\" " +
+		"	     class=\"img-thumbnail img-fluid mx-3 d-block\"" +
+		"	     style=\"height:35px;\"" +
+		"	     onclick=\"var optValue = 'hp1'; $('#breakpointicon1').modal('hide');" +
+		"		       $('#img_select1').attr('src','images/stop_' + optValue + '.gif');" +
+		"		       set_cfg('ICON_theme',optValue); save_cfg();\">" +
+		"	<img src=\"images/stop_lotr4.gif\" alt=\"gandalf icon\" " +
+		"	     class=\"img-thumbnail img-fluid mx-3 d-block\"" +
+		"	     style=\"height:35px;\"" +
+		"	     onclick=\"var optValue = 'lotr4'; $('#breakpointicon1').modal('hide');" +
+		"		       $('#img_select1').attr('src','images/stop_' + optValue + '.gif');" +
+		"		       set_cfg('ICON_theme',optValue); save_cfg();\">" +
+		"	<img src=\"images/stop_lotr2.gif\" alt=\"ring from lord of the ring icon\" " +
+		"	     class=\"img-thumbnail img-fluid mx-3 d-block\"" +
+		"	     style=\"height:35px;\"" +
+		"	     onclick=\"var optValue = 'lotr2'; $('#breakpointicon1').modal('hide');" +
+		"		       $('#img_select1').attr('src','images/stop_' + optValue + '.gif');" +
+		"		       set_cfg('ICON_theme',optValue); save_cfg();\">" +
+		"	<img src=\"images/stop_r2d2.gif\" alt=\"r2d2 icon\" " +
+		"	     class=\"img-thumbnail img-fluid mx-3 d-block\"" +
+		"	     style=\"height:35px;\"" +
+		"	     onclick=\"var optValue = 'r2d2'; $('#breakpointicon1').modal('hide');" +
+		"		       $('#img_select1').attr('src','images/stop_' + optValue + '.gif');" +
+		"		       set_cfg('ICON_theme',optValue); save_cfg();\">" +
+		"	<img src=\"images/stop_sw.gif\" alt=\"death star icon\" " +
+		"	     class=\"img-thumbnail img-fluid mx-3 d-block\"" +
+		"	     style=\"height:35px;\"" +
+		"	     onclick=\"var optValue = 'sw'; $('#breakpointicon1').modal('hide');" +
+		"		       $('#img_select1').attr('src','images/stop_' + optValue + '.gif');" +
+		"		       set_cfg('ICON_theme',optValue); save_cfg();\">" +
+		"	<img src=\"images/stop_bb8.gif\" alt=\"bb8 icon\" " +
+		"	     class=\"img-thumbnail img-fluid mx-3 d-block\"" +
+		"	     style=\"height:35px;\"" +
+		"	     onclick=\"var optValue = 'bb8'; $('#breakpointicon1').modal('hide');" +
+		"		       $('#img_select1').attr('src','images/stop_' + optValue + '.gif');" +
+		"		       set_cfg('ICON_theme',optValue); save_cfg();\">" +
+		"	<img src=\"images/stop_vader1.gif\" alt=\"dark vader icon\" " +
+		"	     class=\"img-thumbnail img-fluid mx-3 d-block\"" +
+		"	     style=\"height:35px;\"" +
+		"	     onclick=\"var optValue = 'vader1'; $('#breakpointicon1').modal('hide');" +
+		"		       $('#img_select1').attr('src','images/stop_' + optValue + '.gif');" +
+		"		       set_cfg('ICON_theme',optValue); save_cfg();\">" +
+		"  </div>" +
+		"</div>" ;
+    }
+
