@@ -776,7 +776,7 @@
 		<div class='row py-1' style="background-color:#F5F5F5;">
                    <div class="col-sm-auto"><span class="badge badge-pill badge-light">01</span></div>
                    <div class="col-sm-4">
-			 <div class="form-group">
+			 <div class="form-group" style="margin:0 0 0 0;">
 			    <select name="select7" id="select7" class="form-control form-control-sm"
 				    aria-label="idiom for examples and help" data-role="none"
 				    onchange="var opt = $(this).find('option:selected');
@@ -794,20 +794,18 @@
                 <div class='row py-1'>
                    <div class="col-sm-auto"><span class="badge badge-pill badge-light">02</span></div>
                    <div class="col-sm-4">
-			 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-			     <input name="radio11" id="radio11-true" 
-				    aria-label="Is editable: true"
-				    style="margin-top:-8px"
-				    onclick="set_cfg('use_voice',true); save_cfg(); wepsim_voice_start();"
-				    value="on" type="radio">
-			     <label for="radio11-true" class="ui-btn-a">On</label>
-			     <input name="radio11" id="radio11-false" 
-				    aria-label="Is editable: false"
-				    style="margin-top:-8px"
-				    onclick="set_cfg('use_voice',false); save_cfg(); wepsim_voice_stop();"
-				    value="off" type="radio">
-			     <label for="radio11-false" class="ui-btn-a">Off</label>
-			 </fieldset>
+			 <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons" data-role="none">
+			    <label class="btn btn-light w-50 btn-outline-secondary" id="label11-true"
+				   aria-label="Active voice: true"
+				   onclick="set_cfg('use_voice',true); save_cfg(); wepsim_voice_start();">
+			        <input type="radio" name="options" id="radio11-true"   autocomplete="off" data-role="none">On
+			    </label>
+			    <label class="btn btn-light w-50 btn-outline-secondary" id="label11-false"
+				   aria-label="Active voice: false"
+				   onclick="set_cfg('use_voice',false); save_cfg(); wepsim_voice_stop();">
+			        <input type="radio" name="options" id="radio11-false"  autocomplete="off" data-role="none">Off
+			    </label>
+			</div>
 		   </div>
                    <div class="col-sm">Active voice: experimental voice control</div>
                 </div>
@@ -830,28 +828,24 @@
 		<div class='row py-1' style="background-color:#F5F5F5;">
                    <div class="col-sm-auto"><span class="badge badge-pill badge-light">04</span></div>
                    <div class="col-sm-4">
-			 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-			     <input name="radio7" id="radio7-default" 
-				    aria-label="Editor theme (Light)"
-				    style="margin-top:-8px"
-				    onclick="set_cfg('editor_theme','default'); save_cfg();
-					     inputfirm.getWrapperElement().style['font-weight'] = 'bold';
-					     inputfirm.setOption('theme','default');
-					     inputasm.getWrapperElement().style['font-weight'] = 'bold';
-					     inputasm.setOption('theme','default');"
-				    value="default" type="radio">
-			     <label for="radio7-default" class="ui-btn-a">Light</label>
-			     <input name="radio7" id="radio7-blackboard" 
-				    aria-label="Editor theme (Dark)"
-				    style="margin-top:-8px"
-				    onclick="set_cfg('editor_theme','blackboard'); save_cfg();
-					     inputfirm.getWrapperElement().style['font-weight'] = 'normal';
-					     inputfirm.setOption('theme','blackboard');
-					     inputasm.getWrapperElement().style['font-weight'] = 'normal';
-					     inputasm.setOption('theme','blackboard');"
-				    value="blackboard" type="radio">
-			     <label for="radio7-blackboard" class="ui-btn-a">Dark</label>
-			 </fieldset>
+			 <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons" data-role="none">
+			    <label class="btn btn-light w-50 btn-outline-secondary" id="label7-default"
+				   onclick="set_cfg('editor_theme','default'); save_cfg();
+					    inputfirm.getWrapperElement().style['font-weight'] = 'bold';
+					    inputfirm.setOption('theme','default');
+					    inputasm.getWrapperElement().style['font-weight'] = 'bold';
+					    inputasm.setOption('theme','default');">
+			        <input type="radio" name="options" id="radio7-default" aria-label="Editor theme: light" autocomplete="off" data-role="none">Light
+			    </label>
+			    <label class="btn btn-light w-50 btn-outline-secondary" id="label7-blackboard"
+				   onclick="set_cfg('editor_theme','blackboard'); save_cfg();
+				   	    inputfirm.getWrapperElement().style['font-weight'] = 'normal';
+				   	    inputfirm.setOption('theme','blackboard');
+				   	    inputasm.getWrapperElement().style['font-weight'] = 'normal';
+					    inputasm.setOption('theme','blackboard');">
+			        <input type="radio" name="options" id="radio7-blackboard" aria-label="Editor theme: dark" autocomplete="off" data-role="none">Dark
+			    </label>
+			</div>
 		   </div>
                    <div class="col-sm">Editor theme: light or dark</div>
                 </div>
@@ -859,7 +853,7 @@
                 <div class='row py-1'>
                    <div class="col-sm-auto"><span class="badge badge-pill badge-light">05</span></div>
                    <div class="col-sm-4">
-			 <div class="form-group">
+			 <div class="form-group" style="margin:0 0 0 0;">
 			    <select name="select2" id="select2" class="form-control form-control-sm"
 				    aria-label="Editor mode"    data-role="none"
 				    onchange="var opt = $(this).find('option:selected');
@@ -882,26 +876,23 @@
 		<div class='row py-1' style="background-color:#F5F5F5;">
                    <div class="col-sm-auto"><span class="badge badge-pill badge-light">06</span></div>
                    <div class="col-sm-4">
-			 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-			     <input name="radio12" id="radio12-50" 
-				    aria-label="Speed: slow"
-				    style="margin-top:-8px"
-				    onclick="set_cfg('DBG_delay', this.value); save_cfg();"
-				    value="50" type="radio">
-			     <label for="radio12-50" class="ui-btn-a">Slow</label>
-			     <input name="radio12" id="radio12-5" 
-				    aria-label="Speed: normal"
-				    style="margin-top:-8px"
-				    onclick="set_cfg('DBG_delay', this.value); save_cfg();"
-				    value="5" type="radio">
-			     <label for="radio12-5" class="ui-btn-a">Normal</label>
-			     <input name="radio12" id="radio12-1" 
-				    aria-label="Speed: fast"
-				    style="margin-top:-8px"
-				    onclick="set_cfg('DBG_delay', this.value); save_cfg();"
-				    value="1" type="radio">
-			     <label for="radio12-1" class="ui-btn-a">Fast</label>
-			 </fieldset>
+			 <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons" data-role="none">
+			    <label class="btn btn-light w-50 btn-outline-secondary" id="label12-50"
+				   aria-label="Speed: slow"
+                                   onclick="set_cfg('DBG_delay', 50); save_cfg();">
+			        <input type="radio" name="options" id="radio12-50"   autocomplete="off" data-role="none">Slow
+			    </label>
+			    <label class="btn btn-light w-50 btn-outline-secondary" id="label12-5"
+				   aria-label="Speed: normal"
+                                   onclick="set_cfg('DBG_delay', 5); save_cfg();">
+			        <input type="radio" name="options" id="radio12-5"  autocomplete="off" data-role="none">Normal
+			    </label>
+			    <label class="btn btn-light w-50 btn-outline-secondary" id="label12-1"
+				   aria-label="Speed: fast"
+                                   onclick="set_cfg('DBG_delay', 1); save_cfg();">
+			        <input type="radio" name="options" id="radio12-1"  autocomplete="off" data-role="none">Fast
+			    </label>
+			</div>
 		   </div>
                    <div class="col-sm">Running speed: execution speed</div>
                 </div>
@@ -909,20 +900,20 @@
                 <div class='row py-1'>
                    <div class="col-sm-auto"><span class="badge badge-pill badge-light">07</span></div>
                    <div class="col-sm-4">
-			 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-			     <input name="radio1" id="radio1-instruction" 
-				    aria-label="Execution unit (instruction)"
-				    style="margin-top:-8px"
-				    onclick="set_cfg('DBG_level','instruction'); save_cfg();"
-				    value="on" type="radio">
-			     <label for="radio1-instruction" class="ui-btn-a"><span class="d-none d-sm-inline-flex">Instructions</span><span class="d-sm-none">Instruc.</span></label>
-			     <input name="radio1" id="radio1-microinstruction" 
-				    aria-label="Execution unit (microinstruction)"
-				    style="margin-top:-8px"
-				    onclick="set_cfg('DBG_level','microinstruction'); save_cfg();"
-				    value="off" type="radio">
-			     <label for="radio1-microinstruction" class="ui-btn-a"><span class="d-none d-sm-inline-flex">&#181;instructions</span><span class="d-sm-none">&#181;instruc.</span></label>
-			 </fieldset>
+			 <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons" data-role="none">
+			    <label class="btn btn-light w-50 btn-outline-secondary" id="label1-instruction"
+				   aria-label="Execution unit: instruction"
+				   onclick="set_cfg('DBG_level','instruction'); save_cfg();">
+			        <input type="radio" name="options" id="radio1-instruction"   autocomplete="off" data-role="none">
+				<span class="d-none d-sm-inline-flex">Instructions</span><span class="d-sm-none">Instruc.</span></label>
+			    </label>
+			    <label class="btn btn-light w-50 btn-outline-secondary" id="label1-microinstruction"
+				   aria-label="Execution unit: microinstruction"
+				   onclick="set_cfg('DBG_level','microinstruction'); save_cfg();">
+			        <input type="radio" name="options" id="radio1-microinstruction"  autocomplete="off" data-role="none">
+				<span class="d-none d-sm-inline-flex">&#181;instructions</span><span class="d-sm-none">&#181;instruc.</span></label>
+			    </label>
+			</div>
 		  </td>
 		   </div>
                    <div class="col-sm">Step-by-step: element in run mode</div>
@@ -930,7 +921,7 @@
 
 		<div class='row py-1' style="background-color:#F5F5F5;">
                    <div class="col-sm-auto"><span class="badge badge-pill badge-light">08</span></div>
-                   <div class="col-sm-4">
+                   <div class="col-sm-4 mx-auto">
 			 <a href="#" id="breakpointicon1" title="Please select your breakpoint Icon or click here to cancel" tabindex="0"
 			    data-toggle="popover" data-trigger="focus">
 				<img alt="stop icon" id="img_select1" src="images/stop_classic.gif" 
@@ -943,7 +934,7 @@
                 <div class='row py-1'>
                    <div class="col-sm-auto"><span class="badge badge-pill badge-light">09</span></div>
                    <div class="col-sm-4">
-			 <div class="form-group">
+			 <div class="form-group" style="margin:0 0 0 0;">
 			    <select name="select6" id="select6" class="form-control form-control-sm"
 				    aria-label="max. ticks per instruction" data-role="none"
 				    onchange="var opt = $(this).find('option:selected');
@@ -965,7 +956,7 @@
 		<div class='row py-1' style="background-color:#F5F5F5;">
                    <div class="col-sm-auto"><span class="badge badge-pill badge-light">10</span></div>
                    <div class="col-sm-4">
-			 <div class="form-group">
+			 <div class="form-group" style="margin:0 0 0 0;">
 			    <select name="select3" id="select3" class="form-control form-control-sm"
 				    aria-label="max. ticks per instruction" data-role="none"
 				    onchange="var opt = $(this).find('option:selected');
@@ -988,26 +979,23 @@
                 <div class='row py-1' style="background-color:#F5F5F5;">
                    <div class="col-sm-auto"><span class="badge badge-pill badge-light">11</span></div>
                    <div class="col-sm-4">
-			 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-			     <input name="radio2" id="radio2-16" 
-				    aria-label="register file display format (decimal)"
-				    style="margin-top:-8px"
-				    onclick="set_cfg('RF_display_format',16); show_rf_values(); show_states(); show_memories_values(); save_cfg();"
-				    value="on" type="radio">
-			     <label for="radio2-16" class="ui-btn-a">Hex.</label>
-			     <input name="radio2" id="radio2-10" 
-				    aria-label="register file display format (hexadecimal)"
-				    style="margin-top:-8px"
-				    onclick="set_cfg('RF_display_format',10); show_rf_values(); show_states(); show_memories_values(); save_cfg();"
-				    value="off" type="radio">
-			     <label for="radio2-10" class="ui-btn-a">Dec.</label>
-			     <input name="radio2" id="radio2-8"  
-				    aria-label="register file display format (octal)"
-				    style="margin-top:-8px"
-				    onclick="set_cfg('RF_display_format',8); show_rf_values(); show_states(); show_memories_values(); save_cfg();"
-				    value="off" type="radio">
-			     <label for="radio2-8" class="ui-btn-a">Oct.</label>
-			 </fieldset>
+			 <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons" data-role="none">
+			    <label class="btn btn-light w-50 btn-outline-secondary" id="label2-16"
+				   aria-label="register file display format: hexadecimal"
+				   onclick="set_cfg('RF_display_format',16); show_rf_values(); show_states(); show_memories_values(); save_cfg();">
+			        <input type="radio" name="options" id="radio2-16"   autocomplete="off" data-role="none">Hex.
+			    </label>
+			    <label class="btn btn-light w-50 btn-outline-secondary" id="label2-10"
+				   aria-label="register file display format: decimal"
+				   onclick="set_cfg('RF_display_format',10); show_rf_values(); show_states(); show_memories_values(); save_cfg();">
+			        <input type="radio" name="options" id="radio2-10"  autocomplete="off" data-role="none">Dec.
+			    </label>
+			    <label class="btn btn-light w-50 btn-outline-secondary" id="label2-8"
+				   aria-label="register file display format: octal"
+				   onclick="set_cfg('RF_display_format',8); show_rf_values(); show_states(); show_memories_values(); save_cfg();">
+			        <input type="radio" name="options" id="radio2-8"  autocomplete="off" data-role="none">Oct.
+			    </label>
+			</div>
 		   </div>
                    <div class="col-sm">
                    Display format&nbsp;
@@ -1019,20 +1007,18 @@
 		<div class='row py-1'>
                    <div class="col-sm-auto"><span class="badge badge-pill badge-light">12</span></div>
                    <div class="col-sm-4">
-			 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-			     <input name="radio3" id="radio3-numerical" 
-				    aria-label="register file display name (number)"
-				    style="margin-top:-8px"
-				    onclick="set_cfg('RF_display_name','numerical'); show_rf_names(); save_cfg();"
-				    value="on" type="radio">
-			     <label for="radio3-numerical" class="ui-btn-a">Numbers</label>
-			     <input name="radio3" id="radio3-logical" 
-				    aria-label="register file display name (user identification)"
-				    style="margin-top:-8px"
-				    onclick="set_cfg('RF_display_name','logical'); show_rf_names(); save_cfg();"
-				    value="off" type="radio">
-			     <label for="radio3-logical" class="ui-btn-a">Labels</label>
-			 </fieldset>
+			 <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons" data-role="none">
+			    <label class="btn btn-light w-50 btn-outline-secondary" id="label3-numerical"
+				   aria-label="register file display name (number)"
+				   onclick="set_cfg('RF_display_name','numerical'); show_rf_names(); save_cfg();">
+			        <input type="radio" name="options" id="radio3-numerical"  autocomplete="off" data-role="none">Numbers
+			    </label>
+			    <label class="btn btn-light w-50 btn-outline-secondary" id="label3-logical"
+				   aria-label="register file display name (user identification)"
+				   onclick="set_cfg('RF_display_name','logical'); show_rf_names(); save_cfg();">
+			        <input type="radio" name="options" id="radio3-logical" autocomplete="off" data-role="none">Labels
+			    </label>
+			</div>
 		   </div>
                    <div class="col-sm">Register file names</div>
                 </div>
@@ -1040,20 +1026,18 @@
 		<div class='row py-1' style="background-color:#F5F5F5;">
                    <div class="col-sm-auto"><span class="badge badge-pill badge-light">13</span></div>
                    <div class="col-sm-4">
-			 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-			     <input name="radio9" id="radio9-true" 
-				    aria-label="Is editable: true"
-				    style="margin-top:-8px"
-				    onclick="set_cfg('is_editable',true); save_cfg();"
-				    value="on" type="radio">
-			     <label for="radio9-true" class="ui-btn-a">On</label>
-			     <input name="radio9" id="radio9-false" 
-				    aria-label="Is editable: false"
-				    style="margin-top:-8px"
-				    onclick="set_cfg('is_editable',false); save_cfg();"
-				    value="off" type="radio">
-			     <label for="radio9-false" class="ui-btn-a">Off</label>
-			 </fieldset>
+			 <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons" data-role="none">
+			    <label class="btn btn-light w-50 btn-outline-secondary" id="label9-true"
+				   aria-label="Is editable: true"
+				   onclick="set_cfg('is_editable',true); save_cfg();">
+			        <input type="radio" name="options" id="radio9-true"  aria-label="Active voice: true"  autocomplete="off" data-role="none">On
+			    </label>
+			    <label class="btn btn-light w-50 btn-outline-secondary" id="label9-false"
+				   aria-label="Is editable: false"
+				   onclick="set_cfg('is_editable',false); save_cfg();">
+			        <input type="radio" name="options" id="radio9-false" aria-label="Active voice: false" autocomplete="off" data-role="none">Off
+			    </label>
+			</div>
 		   </div>
                    <div class="col-sm">Editable registers: edit register file values </div>
                 </div>
@@ -1096,20 +1080,18 @@
 		<div class='row py-1' style="background-color:#F5F5F5;">
                    <div class="col-sm-auto"><span class="badge badge-pill badge-light">16</span></div>
                    <div class="col-sm-4">
-			 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-			     <input name="radio10" id="radio10-true" 
-				    aria-label="Is by value: true"
-				    style="margin-top:-8px"
-				    onclick="set_cfg('is_byvalue',true); save_cfg(); refresh();"
-				    value="on" type="radio">
-			     <label for="radio10-true" class="ui-btn-a">On</label>
-			     <input name="radio10" id="radio10-false" 
-				    aria-label="Is by value: false"
-				    style="margin-top:-8px"
-				    onclick="set_cfg('is_byvalue',false); save_cfg(); refresh();"
-				    value="off" type="radio">
-			     <label for="radio10-false" class="ui-btn-a">Off</label>
-			 </fieldset>
+			 <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons" data-role="none">
+			    <label class="btn btn-light w-50 btn-outline-secondary" id="label10-true"
+				   aria-label="Is by value: true"
+				   onclick="set_cfg('is_byvalue',true); save_cfg();">
+			        <input type="radio" name="options" id="radio10-true"   autocomplete="off" data-role="none">On
+			    </label>
+			    <label class="btn btn-light w-50 btn-outline-secondary" id="label10-false"
+				   aria-label="Is by value: false"
+				   onclick="set_cfg('is_byvalue',false); save_cfg();">
+			        <input type="radio" name="options" id="radio10-false"  autocomplete="off" data-role="none">Off
+			    </label>
+			</div>
 		   </div>
                    <div class="col-sm">Show by value or by activation </div>
                 </div>
@@ -1117,20 +1099,18 @@
                 <div class='row py-1'>
                    <div class="col-sm-auto"><span class="badge badge-pill badge-light">17</span></div>
                    <div class="col-sm-4">
-			 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-			     <input name="radio5" id="radio5-true" 
-				    aria-label="Is interactive: true"
-				    style="margin-top:-8px"
-				    onclick="set_cfg('is_interactive',true); save_cfg();"
-				    value="on" type="radio">
-			     <label for="radio5-true" class="ui-btn-a">On</label>
-			     <input name="radio5" id="radio5-false" 
-				    aria-label="Is interactive: false"
-				    style="margin-top:-8px"
-				    onclick="set_cfg('is_interactive',false); save_cfg();"
-				    value="off" type="radio">
-			     <label for="radio5-false" class="ui-btn-a">Off</label>
-			 </fieldset>
+			 <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons" data-role="none">
+			    <label class="btn btn-light w-50 btn-outline-secondary" id="label5-true"
+				   aria-label="Is interactive: true"
+				   onclick="set_cfg('is_interactive',true); save_cfg();">
+			        <input type="radio" name="options" id="radio5-true"   autocomplete="off" data-role="none">On
+			    </label>
+			    <label class="btn btn-light w-50 btn-outline-secondary" id="label5-false"
+				   aria-label="Is interactive: false"
+				   onclick="set_cfg('is_interactive',false); save_cfg();">
+			        <input type="radio" name="options" id="radio5-false"  autocomplete="off" data-role="none">Off
+			    </label>
+			</div>
 		   </div>
                    <div class="col-sm">Interactive mode: signal value can be updated</div>
                 </div>
@@ -1672,23 +1652,20 @@
 
 		    $("#colorpicker1").spectrum({ preferredFormat: "hex", color: get_cfg('color_data_active')}) ;
 		    $("#colorpicker2").spectrum({ preferredFormat: "hex", color: get_cfg('color_name_active')}) ;
-		    $("#radio1-" +         get_cfg('DBG_level')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio2-" + get_cfg('RF_display_format')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio3-" +   get_cfg('RF_display_name')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio5-" +    get_cfg('is_interactive')).prop('checked', true).checkboxradio("refresh") ;
-		  //$("#radio6-" +          get_cfg('ws_idiom')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio7-" +      get_cfg('editor_theme')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio9-" +       get_cfg('is_editable')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio10-" +       get_cfg('is_byvalue')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio11-" +        get_cfg('use_voice')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio12-" +        get_cfg('DBG_delay')).prop('checked', true).checkboxradio("refresh") ;
-                  //$("#select1").val(get_cfg('ICON_theme')) ;
+		    $("#radio1-" +         get_cfg('DBG_level')).click() ;
+		    $("#radio2-" + get_cfg('RF_display_format')).click() ;
+		    $("#radio3-" +   get_cfg('RF_display_name')).click() ;
+		    $("#radio5-" +    get_cfg('is_interactive')).click() ;
+		    $("#radio7-" +      get_cfg('editor_theme')).click() ;
+		    $("#radio9-" +       get_cfg('is_editable')).click() ;
+		    $("#radio10-" +       get_cfg('is_byvalue')).click() ;
+		    $("#radio11-" +        get_cfg('use_voice')).click() ;
+		    $("#radio12-" +        get_cfg('DBG_delay')).click() ;
                     $("#select2").val(get_cfg('editor_mode')) ;
                     $("#select6").val(get_cfg('DBG_limitins')) ;
                     $("#select3").val(get_cfg('DBG_limitick')) ;
                     $("#select4").val(get_cfg('ws_mode')) ;
                     $("#select7").val(get_cfg('ws_idiom')) ;
-                  //$("#slider1").val(1000 / (get_cfg('DBG_delay')+0.01)) ; // .slider("refresh") ;
                     $("#slider3").val(get_cfg('NOTIF_delay')) ; // .slider("refresh") ;
                     $("#img_select1").attr("src","images/stop_" +  get_cfg('ICON_theme') + ".gif");
 
