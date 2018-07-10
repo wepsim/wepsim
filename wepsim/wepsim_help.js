@@ -48,8 +48,8 @@
        {
 	        fmt_header = "" ;
 	        if (e_utype != helps[m].u_type)
-		    fmt_header = "<div class='row'>" + 
-			         "<div class='float-none text-right text-capitalize font-weight-bold col-12 border-bottom border-secondary'>" + helps[m].u_type + "</div>" + 
+		    fmt_header = "<div class='float-none text-right text-capitalize font-weight-bold col-12 border-bottom border-secondary bg-white sticky-top'>" + 
+			         helps[m].u_type + 
 			         "</div>" ;
 
 		e_title       = helps[m].title ;
