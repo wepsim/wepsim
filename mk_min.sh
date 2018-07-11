@@ -30,6 +30,7 @@ rm -fr sim_all.js
 # 
 cat wepsim/wepsim_example.js \
     wepsim/wepsim_help.js \
+    wepsim/wepsim_config.js \
     wepsim/wepsim_native.js \
     wepsim/wepsim_state.js \
     wepsim/wepsim_tutorial.js \
@@ -48,6 +49,8 @@ cat wepsim/wepsim_example.js \
     wepsim/help-es.js \
     wepsim/examples-en.js \
     wepsim/examples-es.js \
+    wepsim/config-en.js \
+    wepsim/config-es.js \
     wepsim/breakpointicons.js > wepsim_web.js
 /usr/bin/yui-compressor -o min.wepsim_web.js wepsim_web.js
 rm -fr wepsim_web.js
