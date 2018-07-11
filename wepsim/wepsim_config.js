@@ -73,6 +73,36 @@
        return o ;
     }
 
+    function wepsim_show_breakpoint_icon_list ()
+    {
+	var o = "<div class='container'>" +
+	        "<div class='row'>" ;
+
+	var prev_type = "" ;
+	for (var i=0; i<breakpoint_icon_list.length; i++)
+	{
+		if (breakpoint_icon_list[i].type != prev_type) 
+		{
+                    o = o + "</div>" +
+			    "<div class='row p-1'>" +
+		            "<div class='float-none text-left text-capitalize font-weight-bold col-12 border-bottom border-secondary'>" + breakpoint_icon_list[i].type + "</div>" +
+		            "</div>" +
+		            "<div class='row'>" ;
+		    prev_type = breakpoint_icon_list[i].type ;
+		}
+
+		o = o + "<img src='images/stop_" + breakpoint_icon_list[i].shortname + ".gif' alt='" + breakpoint_icon_list[i].shortname + " icon' " +
+		        "     class='img-thumbnail img-fluid mx-3 d-block'" +
+		        "     style='height:6vh; min-height:30px;'" +
+		        "     onclick=\"$('#img_select1').attr('src','images/stop_" + breakpoint_icon_list[i].shortname + ".gif');" +
+		        "	        set_cfg('ICON_theme','" + breakpoint_icon_list[i].shortname + "'); save_cfg();\">" ;
+	}
+        o = o + "</div>" +
+	        "</div>";
+
+	return o ;
+    }
+
 
     /*
      * Config screen

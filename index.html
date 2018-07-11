@@ -221,7 +221,8 @@
 				>Hw. cfg.</span><span class="d-sm-none">Hw.cfg.</span></b></button>
 		        <button class="btn btn-light ui-shadow col my-1" data-role="none"
 		    	        style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-			        data-toggle="modal" data-target="#config2"><b><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></b></button>
+                                onclick="wepsim_init_config(); wepsim_open_config();"
+                                ><b><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></b></button>
 		        <button class="btn btn-light ui-shadow col my-1" data-role="none"
 			        onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
@@ -1338,7 +1339,6 @@
                      animation: false,
                      delay: { "show": 500, "hide": 100 } 
             }) ;
-            $('#breakpointicon1').popover({ html: true, content: wepsim_show_breakpoint_icon_list });
 
             $('.dropify').dropify();
 
