@@ -59,7 +59,7 @@
 		/*
 		 *  simulation screen: Execution
 		 */
-               WSCFG.DBG_delay           = { value:10,                 type:"int"} ;
+               WSCFG.DBG_delay           = { value:5,                  type:"int"} ;
                WSCFG.DBG_level           = { value:"instruction",      type:"string"} ;
 
                WSCFG.DBG_limitins        = { value:10000,              type:"int"} ;
