@@ -33,6 +33,12 @@
 	     config_xx[m].code_init() ;
         }
 	$("#container-config2").scrollTop(0);
+        $('a[data-toggle="popover1"]').popover({
+	     placement: 'bottom',
+	     trigger: 'focus, hover',
+	     animation: false,
+	     delay: { "show": 500, "hide": 100 }
+        }) ;
 
 	$('#config2').trigger('updatelayout') ;
 	$('#config2').modal('show') ;
