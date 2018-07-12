@@ -20,6 +20,31 @@
 
 
     /*
+     * Config screen
+     */
+
+    function wepsim_open_config_index ( )
+    {
+        var config_xx = config[get_cfg('ws_idiom')] ;
+
+	$('#container-config2').html(table_config_html(config_xx)) ;
+	$('#container-config2').enhanceWithin() ;
+        for (m=0; m<config_xx.length; m++) {
+	     config_xx[m].code_init() ;
+        }
+	$("#container-config2").scrollTop(0);
+
+	$('#config2').trigger('updatelayout') ;
+	$('#config2').modal('show') ;
+    }
+
+    function wepsim_close_config ( )
+    {
+        $('#config2').modal('hide') ;
+    }
+
+
+    /*
      * Config management
      */
 
@@ -101,33 +126,5 @@
 	        "</div>";
 
 	return o ;
-    }
-
-
-    /*
-     * Config screen
-     */
-
-    function wepsim_init_config ( )
-    {
-        var config_xx = config[get_cfg('ws_idiom')] ;
-
-	$('#table-config2').html(table_config_html(config_xx)) ;
-	$('#table-config2').enhanceWithin() ;
-        for (m=0; m<config_xx.length; m++) {
-	     config_xx[m].code_init() ;
-        }
-
-	$('#config2').trigger('updatelayout') ;
-    }
-
-    function wepsim_open_config ( )
-    {
-	$('#config2').modal('show') ;
-    }
-
-    function wepsim_close_config ( )
-    {
-        $('#config2').modal('hide') ;
     }
 

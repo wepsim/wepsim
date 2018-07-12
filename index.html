@@ -221,8 +221,7 @@
 				>Hw. cfg.</span><span class="d-sm-none">Hw.cfg.</span></b></button>
 		        <button class="btn btn-light ui-shadow col my-1" data-role="none"
 		    	        style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-                                onclick="wepsim_init_config(); wepsim_open_config();"
-                                ><b><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></b></button>
+                                onclick="wepsim_open_config_index();"><b><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></b></button>
 		        <button class="btn btn-light ui-shadow col my-1" data-role="none"
 			        onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
@@ -574,7 +573,7 @@
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button class="btn btn-light ui-shadow col" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-                                    data-toggle="modal" data-target="#config2"><b><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></b></button>
+                                    onclick="wepsim_open_config_index();"><b><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></b></button>
 		            <button class="btn btn-light ui-shadow col" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				    data-transition="none" data-inline="true"
@@ -699,7 +698,7 @@
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button class="btn btn-light ui-shadow col" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-                                    data-toggle="modal" data-target="#config2"><b><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></b></button>
+                                    onclick="wepsim_open_config_index();"><b><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></b></button>
 		            <button class="btn btn-light ui-shadow col" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				    data-transition="none" data-inline="true"
@@ -760,7 +759,7 @@
 
 
 <div id="config2" class="modal">
-    <div class="modal-dialog modal-lg" style="height:70vh;">
+    <div class="modal-dialog modal-lg" style="height:80vh;">
 	<div class="modal-content">
 	   <div class="modal-header">
 		<button type="button" data-role="button"
@@ -770,11 +769,10 @@
                 <h5><b>Config<span class="d-none d-sm-inline-flex">uration</span></b> <span class="badge badge-pill btn-success"><div class="wsversion">X</div></span></h5>
                 </div>
 	   </div>
-	   <div class="modal-body" style="overflow:auto; -webkit-overflow-scrolling:touch; height:85vh;">
-
-              <div id='table-config2' class='container-fluid grid-striped border border-light'>
-	      </div>
-
+	   <div class="modal-body">
+		<div id="container-config2" class="container-fluid" 
+		     style="max-height:80vh; padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
+		</div>
 	   </div>
 	</div>
      </div>
@@ -1256,10 +1254,7 @@
 		    $("#listview_1").listview();
 
 		    $("#tabsnav1").navbar();
-
 		    $("#tabs1").tabs();
-
-		    $("#table-config2").enhanceWithin() ;
 
 		    inputfirm = CodeMirror.fromTextArea(document.getElementById("inputFirmware"), 
                                     {
@@ -1319,8 +1314,6 @@
 		             $(column).hide() ;
 		        else $(column).show() ;
 		    });
-
-	            wepsim_init_config() ;
 	    }) ;
 
             $("div.wsversion").replaceWith(get_cfg('version'));

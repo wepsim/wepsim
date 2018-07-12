@@ -11,7 +11,7 @@
 				   "	     onchange=\"var opt = $(this).find('option:selected');" +
 				   "	 	        var optValue = opt.val();" +
 				   "		        set_cfg('ws_idiom',optValue); save_cfg();" +
-				   "		        wepsim_init_config();\"" +
+				   "		        wepsim_open_config_index();\"" +
 				   "	     data-native-menu='false'>" +
 				   "	<option value='es'>Spanish</option>" +
 				   "	<option value='en'>English</option>" +
