@@ -76,10 +76,11 @@
         for (m=0; m<config.length; m++)
         {
 	        fmt_header = "" ;
-	        if (e_type != config[m].type)
-		    fmt_header = "<div class='float-none text-right text-capitalize font-weight-bold col-12 border-bottom border-secondary bg-white'>" + 
+	        if (e_type != config[m].type) {
+		    fmt_header = "<div class='float-none text-right text-capitalize font-weight-bold col-12 border-bottom border-secondary bg-white sticky-top'>" + 
 			         config[m].type + 
 			         "</div>" ;
+		}
 
 		e_type        = config[m].type ;
 		e_code_cfg    = config[m].code_cfg ;
