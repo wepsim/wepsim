@@ -75,7 +75,7 @@
 
                WSCFG.is_interactive      = { value:true,               type:"boolean"};
                WSCFG.ws_idiom            = { value:'en',               type:"string"};
-               WSCFG.ws_mode             = { value:'tutorial',         type:"string"};
+               WSCFG.ws_mode             = { value:'intro',            type:"string"};
                WSCFG.use_voice           = { value:false,              type:"boolean"};
 
 		/*

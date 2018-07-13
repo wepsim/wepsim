@@ -76,7 +76,7 @@
 		o = o + fmt_header +
 		        "<div class='row py-1 " + fmt_toggle + "' id='" + e_utype + "'>" +
 			'<div class="col-md-auto">' +
-			'    <span class="badge badge-pill badge-light">' + m + '</span>' +
+			'    <span class="badge badge-pill badge-light">' + (m+1) + '</span>' +
 			'</div>' +
 			'<div class="col-md-4">' +
 			'    <span class="bg-success text-white" style="cursor:pointer;" ' +
