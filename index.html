@@ -236,7 +236,7 @@
 
 		        <button class="btn btn-light ui-shadow col my-1" data-role="none"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-                                onclick="wepsim_open_examples_index(false);"><b>Examples</b></button>
+                                onclick="wepsim_open_examples_index();"><b>Examples</b></button>
 		        <button class="btn btn-light ui-shadow col my-1" data-role="none"
 		                style="border-width:1 1 1 1px; border-color:#CCCCCC; 
                                        background-color:#D4DB17;"
@@ -769,8 +769,8 @@
 
 		<div class="mx-auto">
 		   <div class="btn-group">
-		     <button type="button" class="btn btn-outline-dark" disabled><b>Config<span class="d-none d-sm-inline-flex">uration</span></b></button>
-		     <button type="button" class="btn btn-outline-success" disabled>Help</button>
+		     <button type="button" class="btn btn-dark" disabled>Config<span class="d-none d-sm-inline-flex">uration</span></button>
+		     <button type="button" class="btn btn-success" data-toggle="collapse" data-target=".collapse7">Help</button>
 		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" 
 			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			 <span class="caret"></span>
@@ -903,8 +903,9 @@
 		<div class="mx-auto">
 		   <div class="btn-group">
 		     <button type="button" class="btn btn-success" 
-		             onclick="wepsim_open_help_index();">Help Index</button>
-		     <button type="button" class="btn btn-outline-success" disabled>Help</button>
+		             onclick="wepsim_open_help_index();
+			              wepsim_help_refresh();">Help Index</button>
+		     <button type="button" class="btn btn-success" data-toggle="collapse" data-target=".collapse7">Help</button>
 		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" 
 			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			 <span class="caret"></span>
@@ -942,9 +943,8 @@
                         data-dismiss="modal" aria-hidden="true">x</button>
 		<div class="mx-auto">
 		   <div class="btn-group">
-		     <button type="button" class="btn btn-info" 
-		             onclick="wepsim_open_examples_index(true);">Examples</button>
-		     <button type="button" class="btn btn-outline-success" disabled>Help</button>
+		     <button type="button" class="btn btn-info"    data-toggle="collapse" data-target=".collapse8">Examples</button>
+		     <button type="button" class="btn btn-success" data-toggle="collapse" data-target=".collapse7">Help</button>
 		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" 
 			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			 <span class="caret"></span>
@@ -953,10 +953,10 @@
 		     <div class="dropdown-menu" style="z-index:100000;">
 			 <a class="dropdown-item" href="#" 
 			    onclick="set_cfg('ws_idiom','es'); save_cfg(); 
-                                     wepsim_open_examples_index(false);">ES</a>
+                                     wepsim_open_examples_index();">ES</a>
 			 <a class="dropdown-item" href="#" 
 			    onclick="set_cfg('ws_idiom','en'); save_cfg(); 
-                                     wepsim_open_examples_index(false);">EN</a>
+                                     wepsim_open_examples_index();">EN</a>
 		     </div>
 		   </div>
                 </div>

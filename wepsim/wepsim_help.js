@@ -82,7 +82,7 @@
 			'    <span class="bg-success text-white" style="cursor:pointer;" ' +
 			'          onclick="' + onclick_code + '">' + e_title + '</span>' +
 			'</div>' +
-			'<div class="col-md">' +
+			'<div class="col-md collapse7 show">' +
 			'    <c>' + e_description + '</c>' +
 			'</div>' +
 			'</div>' ;
