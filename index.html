@@ -763,12 +763,30 @@
     <div class="modal-dialog modal-lg" style="height:80vh;">
 	<div class="modal-content">
 	   <div class="modal-header">
-		<button type="button" data-role="button"
+		<button type="button" data-role="button" style="padding:8"
                         class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
                         data-dismiss="modal" aria-hidden="true">x</button>
+
 		<div class="mx-auto">
-                <h5><b>Config<span class="d-none d-sm-inline-flex">uration</span></b> <span class="badge badge-pill btn-success"><div class="wsversion">X</div></span></h5>
+		   <div class="btn-group">
+		     <button type="button" class="btn btn-outline-dark" disabled><b>Config<span class="d-none d-sm-inline-flex">uration</span></b></button>
+		     <button type="button" class="btn btn-outline-success" disabled>Help</button>
+		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" 
+			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			 <span class="caret"></span>
+			 <span class="sr-only">Toggle Help Idiom</span>
+		     </button>
+		     <div class="dropdown-menu" style="z-index:100000;">
+			 <a class="dropdown-item" href="#" 
+			    onclick="set_cfg('ws_idiom','es'); save_cfg(); 
+                                     wepsim_open_config_index();">ES</a>
+			 <a class="dropdown-item" href="#" 
+			    onclick="set_cfg('ws_idiom','en'); save_cfg(); 
+                                     wepsim_open_config_index();">EN</a>
+		     </div>
+		   </div>
                 </div>
+
 	   </div>
 	   <div class="modal-body">
 		<div id="container-config2" class="container-fluid" 
@@ -784,7 +802,7 @@
      <div class="modal-dialog" style="min-width:80vw; height:80vh;">
 	<div class="modal-content">
 	   <div class="modal-header">
-		<button type="button" data-role="button"
+		<button type="button" data-role="button" style="padding:8"
                         class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
                         data-dismiss="modal" aria-hidden="true">x</button>
 		<div class="mx-auto">
@@ -820,7 +838,7 @@
      <div class="modal-dialog">
 	<div class="modal-content">
 	   <div class="modal-header">
-		 <button type="button" data-role="button"
+		 <button type="button" data-role="button" style="padding:8"
 			 class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
 			 data-dismiss="modal" aria-hidden="true">x</button>
 		 <div class="mx-auto">
@@ -837,7 +855,7 @@
 				  data-toggle="dropdown" 
 				  aria-haspopup="true" 
 				  aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>   
-			  <div class="dropdown-menu">
+		          <div class="dropdown-menu" style="z-index:100000;">
 			     <a href="#" class="dropdown-item"
 		                         onclick="set_cfg('ws_idiom','es'); save_cfg();
 						  $('#bot_hwcfg1').carousel(1);
@@ -879,19 +897,20 @@
      <div class="modal-dialog modal-lg">
 	<div class="modal-content">
 	   <div class="modal-header">
-		<button type="button" data-role="button"
+		<button type="button" data-role="button" style="padding:8"
                         class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
                         data-dismiss="modal" aria-hidden="true">x</button>
 		<div class="mx-auto">
 		   <div class="btn-group">
 		     <button type="button" class="btn btn-success" 
 		             onclick="wepsim_open_help_index();">Help Index</button>
+		     <button type="button" class="btn btn-outline-success" disabled>Help</button>
 		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" 
 			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			 <span class="caret"></span>
 			 <span class="sr-only">Toggle Help Idiom</span>
 		     </button>
-		     <div class="dropdown-menu">
+		     <div class="dropdown-menu" style="z-index:100000;">
 			 <a class="dropdown-item" href="#" 
 			    onclick="set_cfg('ws_idiom','es'); save_cfg(); 
                                      wepsim_help_refresh();">ES</a>
@@ -918,19 +937,20 @@
      <div class="modal-dialog modal-lg" style="height:80vh;">
 	<div class="modal-content">
 	   <div class="modal-header">
-		<button type="button" data-role="button"
+		<button type="button" data-role="button" style="padding:8"
                         class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
                         data-dismiss="modal" aria-hidden="true">x</button>
 		<div class="mx-auto">
 		   <div class="btn-group">
-		     <button type="button" class="btn btn-success" 
+		     <button type="button" class="btn btn-info" 
 		             onclick="wepsim_open_examples_index(true);">Examples</button>
+		     <button type="button" class="btn btn-outline-success" disabled>Help</button>
 		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" 
 			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			 <span class="caret"></span>
 			 <span class="sr-only">Toggle Help Idiom</span>
 		     </button>
-		     <div class="dropdown-menu">
+		     <div class="dropdown-menu" style="z-index:100000;">
 			 <a class="dropdown-item" href="#" 
 			    onclick="set_cfg('ws_idiom','es'); save_cfg(); 
                                      wepsim_open_examples_index(false);">ES</a>
@@ -955,7 +975,7 @@
 <div class="modal-dialog bootboxWidth">
    <div class="modal-content">
       <div class="modal-header">
-	 <button type="button" data-role="button"
+	 <button type="button" data-role="button" style="padding:8"
 		 class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
 		 data-dismiss="modal" aria-hidden="true">x</button>
          <h5 class="modal-title mx-auto">
@@ -979,7 +999,7 @@
                           aria-haspopup="true" 
                           aria-expanded="false" 
                           style="height:34px !important;"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>   
-                  <div class="dropdown-menu">
+		  <div class="dropdown-menu" style="z-index:100000;">
                      <a href="#" class="dropdown-item"
 				 onclick="set_cfg('ws_idiom','es'); save_cfg();
                                           $('#bot_check1').carousel(2);
@@ -1071,7 +1091,7 @@
 <div class="modal-dialog bootboxWidth">
    <div class="modal-content">
       <div class="modal-header">
-	 <button type="button" data-role="button"
+	 <button type="button" data-role="button" style="padding:8"
 		 class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
 		 data-dismiss="modal" aria-hidden="true">x</button>
          <h5 class="modal-title mx-auto">
@@ -1091,7 +1111,7 @@
                           aria-haspopup="true" 
                           aria-expanded="false" 
                           style="height:34px !important;"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>   
-                  <div class="dropdown-menu">
+		  <div class="dropdown-menu" style="z-index:100000;">
                      <a href="#" class="dropdown-item"
 				 onclick="set_cfg('ws_idiom','es'); save_cfg();
                                           $('#bot_check2').carousel(1);
@@ -1175,7 +1195,7 @@
      <div class="modal-dialog modal-lg">
 	<div class="modal-content">
 	   <div class="modal-header">
-	        <button type="button" data-role="button"
+	        <button type="button" data-role="button" style="padding:8"
 	       	        class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
 		        data-dismiss="modal" aria-hidden="true">x</button>
 		<div class="mx-auto">

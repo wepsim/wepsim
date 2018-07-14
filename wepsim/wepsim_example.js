@@ -136,7 +136,7 @@
        {
 	       fmt_header = "" ;
 	       if (e_level != examples[lang][m].level)
-                   fmt_header = "<div class='col-sm-12 border-bottom border-secondary text-right text-capitalize font-weight-bold bg-white'>" + 
+                   fmt_header = "<div class='col-sm-12 border-bottom border-secondary text-right text-capitalize font-weight-bold bg-white sticky-top'>" + 
 			        examples[lang][m].level + 
 			        "</div>" ;
 
