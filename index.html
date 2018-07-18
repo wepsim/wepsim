@@ -216,10 +216,6 @@
 
                     <div class="col-sm">
                     <div class="row">
-		        <button class="btn btn-light ui-shadow col my-1 mr-2" data-role="none"
-		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-                                data-toggle="modal" data-target="#confighw"><b><span class="d-none d-sm-inline-flex"
-				>Hw. cfg.</span><span class="d-sm-none">Hw.cfg.</span></b></button>
 		        <button class="btn btn-light ui-shadow col my-1" data-role="none"
 		    	        style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                 onclick="wepsim_open_config_index();"><b><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></b></button>
@@ -434,10 +430,12 @@
 				  </optgroup>
 				  <optgroup label="Main Memory">
                                       <option value="14"><div class="bg-primary text-white">MM</div> - Memory</option>
+                                      <option value="18"><div class="bg-primary text-white">MM</div> - Configuration</a></option>
 				  </optgroup>
 				  <optgroup label="Devices">
                                       <option value="12"><div class="bg-primary text-white">Dev</div> - Keyboard+Display</a></option>
                                       <option value="15"><div class="bg-primary text-white">Dev</div> - I/O Stats</a></option>
+                                      <option value="19"><div class="bg-primary text-white">Dev</div> - Configuration</a></option>
 				  </optgroup>
 			  </select>
 		          <button class="btn btn-light ui-shadow col" data-role="none"
@@ -461,24 +459,26 @@
                           <li style="display:none;clear:none;width:33% !important"><a id="tab13" href="#config">Configuration</a></li>
                           <li style="display:none;           width:33% !important"><a id="tab15" href="#io">IO stats</a></li>
 		          <li style="display:none;clear:none;width:33% !important"><a id="tab17" href="#cpu">CPU stats</a></li>
+		          <li style="display:none;clear:none;width:33% !important"><a id="tab18" href="#mpcfg">Memory configuration</a></li>
+		          <li style="display:none;          ;width:33% !important"><a id="tab19" href="#iocfg">I/O configuration</a></li>
 		        </ul>
 		      </div>
 
 		      <div id="all"  class="ui-body-d ui-content" style="padding: 15 0px 0 0px;">
-		         <div id="states_ALL"          style="width:inherit; overflow-y:auto;" class="container container-fluid"></div>
+		         <div id="states_ALL"  style="width:inherit; overflow-y:auto;" class="container container-fluid"></div>
 			 <br style="height:0; width:100%; font-size:0; margin:5; padding:0; border:0; display:block;">
-		         <div id="states_BR"           style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
+		         <div id="states_BR"   style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
 		      </div>
-	    	      <div id="config0"  class="ui-body-d ui-content" style="padding:8 8 0 8;">
-		         <div id="config_ALL0"         style="width: inherit; overflow-y: auto;"></div>
+	    	      <div id="iocfg"  class="ui-body-d ui-content" style="padding:8 8 0 8;">
+		         <div id="config_ALL"  style="width: inherit; overflow-y: auto;"></div>
 		      </div>
-		      <div id="mp"   class="ui-body-d ui-content">
-		         <div id="memory_MP"           style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
+		      <div id="mp"     class="ui-body-d ui-content">
+		         <div id="memory_MP"   style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
 		      </div>
-		      <div id="mc"   class="ui-body-d ui-content">
-		         <div id="memory_MC"           style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
+		      <div id="mc"     class="ui-body-d ui-content">
+		         <div id="memory_MC"   style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
 		      </div>
-		      <div id="con"  class="ui-body-d ui-content">
+		      <div id="con"    class="ui-body-d ui-content">
                          <img alt="monitor" height=55 src="images/monitor2.png">
 		         <textarea aria-label="monitor"  style="min-width:90%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 8 0"
                                    placeholder="WepSIM" id="kdb_con" rows=8 readonly></textarea>
@@ -486,11 +486,14 @@
 		         <textarea aria-label="keyboard" style="min-width:90%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 0 0"
                                    placeholder="WepSIM" id="kdb_key" rows=2></textarea>
 		      </div>
-		      <div id="io"  class="ui-body-d ui-content">
-		         <div id="io_ALL"              style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
+		      <div id="io"     class="ui-body-d ui-content">
+		         <div id="io_ALL"      style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
 		      </div>
-		      <div id="cpu"  class="ui-body-d ui-content">
-		         <div id="cpu_ALL"             style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
+		      <div id="cpu"    class="ui-body-d ui-content">
+		         <div id="cpu_ALL"     style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
+		      </div>
+		      <div id="mpcfg"  class="ui-body-d ui-content">
+                          <div id="help4a"     style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>
 		      </div>
 	    	    </div>
                 </div>
@@ -828,65 +831,6 @@
 
 		</div>
 
-	   </div>
-	</div>
-     </div>
-</div> <!-- /.modal -->
-
-
-<div id="confighw" class="modal">
-     <div class="modal-dialog">
-	<div class="modal-content">
-	   <div class="modal-header">
-		 <button type="button" data-role="button" style="padding:8"
-			 class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
-			 data-dismiss="modal" aria-hidden="true">x</button>
-		 <div class="mx-auto">
-		       <div class="btn-group">
-			  <button onclick="$('#bot_hwcfg1').carousel(0);" 
-				  type="button" 
-				  class="btn btn-info">Hardware Conf<span class='d-sm-none'>.</span><span class='d-none d-sm-inline-flex'>iguration</span></button>
-			  <button onclick="$('#bot_hwcfg1').carousel(1);
-					   update_checker_loadhelp('#help4a','help_hwcfg');"
-				  type="button" 
-				  class="btn btn-success">Help</button>
-			  <button type="button" 
-				  class="btn btn-success dropdown-toggle" 
-				  data-toggle="dropdown" 
-				  aria-haspopup="true" 
-				  aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>   
-		          <div class="dropdown-menu" style="z-index:100000;">
-			     <a href="#" class="dropdown-item"
-		                         onclick="set_cfg('ws_idiom','es'); save_cfg();
-						  $('#bot_hwcfg1').carousel(1);
-						  update_checker_loadhelp('#help4a','help_hwcfg');">ES</a>
-			     <a href="#" class="dropdown-item"
-		                         onclick="set_cfg('ws_idiom','en'); save_cfg();
-						  $('#bot_hwcfg1').carousel(1);
-						  update_checker_loadhelp('#help4a','help_hwcfg');">EN</a>
-			  </div>
-		       </div>
-		 </div>
-	   </div>
-	   <div class="modal-body">
-               <div id="bot_hwcfg1" class="carousel slide" data-ride="carousel" data-interval="false">
-                  <div class="carousel-inner" role="listbox">
-                     <div class="carousel-item active">
-		          <div id="config" class="ui-body-d ui-content" style="padding:8 8 0 8;">
-		               <div id="config_ALL" style="width: inherit; overflow-y: auto;"></div>
-		          </div>
-                     </div>
-                     <div class="carousel-item">
-                          <div id="help4a" 
-                               style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>
-                     </div>
-                  </div>
-               </div>
-	   </div>
-	   <div class="modal-footer">
-                 <button type="button" 
-                         onclick="$('#confighw').modal('hide'); "
-                         class="btn btn-primary col-xs-3 pull-right">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
 	   </div>
 	</div>
      </div>
@@ -1414,6 +1358,9 @@
 		        } ;
 		    } ;
             }
+
+	    // todo: update...
+	    update_checker_loadhelp('#help4a','help_hwcfg') ;
     }
     catch(err) 
     {
