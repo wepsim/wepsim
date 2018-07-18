@@ -59,7 +59,7 @@
 		/*
 		 *  simulation screen: Execution
 		 */
-               WSCFG.DBG_delay           = { value:10,                 type:"int"} ;
+               WSCFG.DBG_delay           = { value:5,                  type:"int"} ;
                WSCFG.DBG_level           = { value:"instruction",      type:"string"} ;
 
                WSCFG.DBG_limitins        = { value:10000,              type:"int"} ;
@@ -75,7 +75,7 @@
 
                WSCFG.is_interactive      = { value:true,               type:"boolean"};
                WSCFG.ws_idiom            = { value:'en',               type:"string"};
-               WSCFG.ws_mode             = { value:'tutorial',         type:"string"};
+               WSCFG.ws_mode             = { value:'intro',            type:"string"};
                WSCFG.use_voice           = { value:false,              type:"boolean"};
 
 		/*

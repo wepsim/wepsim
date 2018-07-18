@@ -1,8 +1,4 @@
 <meta http-equiv="cache-control" content="max-age=0" />
-<meta http-equiv="cache-control" content="no-cache" />
-<meta http-equiv="expires" content="0" />
-<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
-<meta http-equiv="pragma" content="no-cache" />
 
 <!DOCTYPE html>
 
@@ -10,6 +6,11 @@
 
 <head>
     <title>(ARCOS) WepSIM</title>
+
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="0" />
+    <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+    <meta http-equiv="pragma" content="no-cache" />
 
     <meta charset="utf-8" />
     <meta name="format-detection" content="telephone=no">
@@ -156,12 +157,27 @@
     <!-- PWA -->
     <link  rel="manifest" href="./docs/manifest.json">
 
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable"          content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
-    <meta name="apple-mobile-web-app-title" content="WepSIM 1.8.9">
+    <meta name="apple-mobile-web-app-title"            content="WepSIM 1.9.0">
+    <meta name="msapplication-TileImage"               content="images/arcos.svg">
+    <meta name="msapplication-TileColor"               content="#2F3BA2">
     <link  rel="apple-touch-icon" href="images/arcos.svg">
-    <meta name="msapplication-TileImage" content="images/arcos.svg">
-    <meta name="msapplication-TileColor" content="#2F3BA2">
+
+    <link rel="apple-touch-startup-image" href="images/wepsim.png" 
+          media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="images/wepsim.png" 
+          media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="images/wepsim.png" 
+          media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="images/wepsim.png" 
+          media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="images/wepsim.png" 
+          media="(min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="images/wepsim.png" 
+          media="(min-device-width: 834px) and (max-device-width: 834px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="images/wepsim.png" 
+          media="(min-device-width: 1024px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
 </head>
 
 
@@ -205,9 +221,8 @@
                                 data-toggle="modal" data-target="#confighw"><b><span class="d-none d-sm-inline-flex"
 				>Hw. cfg.</span><span class="d-sm-none">Hw.cfg.</span></b></button>
 		        <button class="btn btn-light ui-shadow col my-1" data-role="none"
-		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-                                data-toggle="modal" data-target="#config2"><b><span class="d-none d-sm-inline-flex"
-				>Configuration</span><span class="d-sm-none">Cfg.</span></b></button>
+		    	        style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+                                onclick="wepsim_open_config_index();"><b><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></b></button>
 		        <button class="btn btn-light ui-shadow col my-1" data-role="none"
 			        onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
@@ -221,7 +236,7 @@
 
 		        <button class="btn btn-light ui-shadow col my-1" data-role="none"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-                                onclick="wepsim_open_examples_index(false);"><b>Examples</b></button>
+                                onclick="wepsim_open_examples_index();"><b>Examples</b></button>
 		        <button class="btn btn-light ui-shadow col my-1" data-role="none"
 		                style="border-width:1 1 1 1px; border-color:#CCCCCC; 
                                        background-color:#D4DB17;"
@@ -231,7 +246,7 @@
 				aria-label="Execution mode" data-role="none"
 				onchange="var opt = $(this).find('option:selected');
 					  var optValue = opt.val();
-					  set_cfg('ws_mode',optValue); 
+					  set_cfg('ws_mode', optValue); 
 					  save_cfg();
                                           wepsim_change_mode(optValue, '#select4') ;
 					  return false;">
@@ -401,7 +416,7 @@
                     <div class="btn-toolbar btn-block" role="toolbar">
 		          <button class="btn btn-light ui-shadow col" data-role="none"
 		                  style="border-color: #CCCCCC;"
-		                  onclick="wepsim_dialog_current_state();"><i class="fas fa-camera"></i>&nbsp;<c>States</c></span></button>
+		                  onclick="wepsim_dialog_current_state();"><i class="fas fa-camera"></i>&nbsp;<c>States</c></button>
                           <select class="custom-select btn btn-light ui-shadow col-5"
                                   style="border-color: #CCCCCC;"
 				  name="select5a" id="select5a" 
@@ -558,7 +573,7 @@
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button class="btn btn-light ui-shadow col" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-                                    data-toggle="modal" data-target="#config2"><b><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></b></button>
+                                    onclick="wepsim_open_config_index();"><b><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></b></button>
 		            <button class="btn btn-light ui-shadow col" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				    data-transition="none" data-inline="true"
@@ -683,7 +698,7 @@
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button class="btn btn-light ui-shadow col" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-                                    data-toggle="modal" data-target="#config2"><b><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></b></button>
+                                    onclick="wepsim_open_config_index();"><b><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></b></button>
 		            <button class="btn btn-light ui-shadow col" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				    data-transition="none" data-inline="true"
@@ -744,439 +759,38 @@
 
 
 <div id="config2" class="modal">
-    <div class="modal-dialog modal-lg" style="height:70vh;">
+    <div class="modal-dialog modal-lg" style="height:80vh;">
 	<div class="modal-content">
 	   <div class="modal-header">
-		<button type="button" data-role="button"
+		<button type="button" data-role="button" style="padding:8"
                         class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
                         data-dismiss="modal" aria-hidden="true">x</button>
+
 		<div class="mx-auto">
-                <h5><b>Config<span class="d-none d-sm-inline-flex">uration</span></b> <span class="badge badge-pill btn-success"><div class="wsversion">X</div></span></h5>
+		   <div class="btn-group">
+		     <button type="button" class="btn btn-dark" disabled>Config<span class="d-none d-sm-inline-flex">uration</span></button>
+		     <button type="button" class="btn btn-success" data-toggle="collapse" data-target=".collapse7">Help</button>
+		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" 
+			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			 <span class="caret"></span>
+			 <span class="sr-only">Toggle Help Idiom</span>
+		     </button>
+		     <div class="dropdown-menu" style="z-index:100000;">
+			 <a class="dropdown-item" href="#" 
+			    onclick="set_cfg('ws_idiom','es'); save_cfg(); 
+                                     wepsim_open_config_index();">ES</a>
+			 <a class="dropdown-item" href="#" 
+			    onclick="set_cfg('ws_idiom','en'); save_cfg(); 
+                                     wepsim_open_config_index();">EN</a>
+		     </div>
+		   </div>
                 </div>
+
 	   </div>
-	   <div class="modal-body" style="overflow:auto; -webkit-overflow-scrolling:touch; height:85vh;">
-
-
-        <div id=table-config2 class="table container-fluid" style="padding:0 0 0 0;">
-	<table class="table table-striped table-hover table-sm" 
-	       data-role="none" 
-	       style="width:100%; margin:0 0 0 0">
-	<thead>
-	<tr>
-	  <th onclick="$('.collapse6').collapse('toggle');">#</th>
-	  <th class="d-none d-sm-inline-flex">area</th>
-	  <th>title</th>
-	  <th style="min-width:11em">value</th>
-	  <th onclick="$('.collapse7').collapse('toggle');">description</th>
-	</tr>
-	</thead>
-	<tbody>
-
-	 <tr>
-	  <td class="collapse6 collapse show">1</td>
-	  <td class="d-none d-sm-inline-flex" style="color:gray">general</td>
-	  <td>Idiom</td>
-	  <td>
-		 <div class="form-group" style="max-width:10em; margin:0 0 0 0">
-		    <select name="select7" id="select7" class="form-control form-control-sm"
-			    aria-label="idiom for examples and help" data-role="none"
-			    onchange="var opt = $(this).find('option:selected');
-				      var optValue = opt.val();
-				      set_cfg('ws_idiom',optValue); save_cfg();"
-			    data-native-menu="false">
-			<option value="es">Spanish</option>
-			<option value="en">English</option>
-		    </select>
-		 </div>
-          </td>
-	  <td class="collapse7 collapse show">Idiom for help, examples, etc.</td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse show">2</td>
-	  <td class="d-none d-sm-inline-flex" style="color:gray">general</td>
-	  <td>Active voice</td>
-	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		     <input name="radio11" id="radio11-true" 
-			    aria-label="Is editable: true"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('use_voice',true); save_cfg(); wepsim_voice_start();"
-			    value="on" type="radio">
-		     <label for="radio11-true" class="ui-btn-a">On</label>
-		     <input name="radio11" id="radio11-false" 
-			    aria-label="Is editable: false"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('use_voice',false); save_cfg(); wepsim_voice_stop();"
-			    value="off" type="radio">
-		     <label for="radio11-false" class="ui-btn-a">Off</label>
-		 </fieldset>
-          </td>
-	  <td class="collapse7 collapse show">Use voice</td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse show">3</td>
-	  <td class="d-none d-sm-inline-flex" style="color:gray">editor</td>
-	  <td>Editor theme</td>
-	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		     <input name="radio7" id="radio7-default" 
-			    aria-label="Editor theme (Light)"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('editor_theme','default'); save_cfg();
-				     inputfirm.getWrapperElement().style['font-weight'] = 'bold';
-				     inputfirm.setOption('theme','default');
-				     inputasm.getWrapperElement().style['font-weight'] = 'bold';
-				     inputasm.setOption('theme','default');"
-			    value="default" type="radio">
-		     <label for="radio7-default" class="ui-btn-a">Light</label>
-		     <input name="radio7" id="radio7-blackboard" 
-			    aria-label="Editor theme (Dark)"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('editor_theme','blackboard'); save_cfg();
-				     inputfirm.getWrapperElement().style['font-weight'] = 'normal';
-				     inputfirm.setOption('theme','blackboard');
-				     inputasm.getWrapperElement().style['font-weight'] = 'normal';
-				     inputasm.setOption('theme','blackboard');"
-			    value="blackboard" type="radio">
-		     <label for="radio7-blackboard" class="ui-btn-a">Dark</label>
-		 </fieldset>
-          </td>
-	  <td class="collapse7 collapse show">Editor theme</td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse show">4</td>
-	  <td class="d-none d-sm-inline-flex" style="color:gray">editor</td>
-	  <td>Editor mode</td>
-	  <td>
-		 <div class="form-group" style="max-width:10em; margin:0 0 0 0">
-		    <select name="select2" id="select2" class="form-control form-control-sm"
-			    aria-label="Editor mode"    data-role="none"
-			    onchange="var opt = $(this).find('option:selected');
-				      var optValue = opt.val();
-				      set_cfg('editor_mode',optValue); save_cfg();
-				      inputfirm.setOption('keyMap',optValue);
-				      inputasm.setOption('keyMap',optValue);"
-			    data-native-menu="false">
-			<option value="default">default</option>
-			<option value="vim">VIM</option>
-			<option value="emacs">Emacs</option>
-			<option value="sublime">Sublime</option>
-		    </select>
-		 </div>
-          </td>
-	  <td class="collapse7 collapse show">Editor mode</td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse show">5</td>
-	  <td class="d-none d-sm-inline-flex" style="color:gray">execution</td>
-	  <td>Speed-up</td>
-	  <td>
-		 <input type="range"
-			class="custom-range" data-role="none"
-			aria-label="Execution speed control"
-			data-show-value="false" data-theme="a"
-			name="slider1" id="slider1"
-			min="1" max="501" value="200" step="20"
-			onchange="set_cfg('DBG_delay', 1000 / this.value); save_cfg();">
-          </td>
-	  <td class="collapse7 collapse show">Speed (slow - fast)</td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse show">6</td>
-	  <td class="d-none d-sm-inline-flex" style="color:gray">execution</td>
-	  <td>Step-by-step</td>
-	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		     <input name="radio1" id="radio1-instruction" 
-			    aria-label="Execution unit (instruction)"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('DBG_level','instruction'); save_cfg();"
-			    value="on" type="radio">
-		     <label for="radio1-instruction" class="ui-btn-a"><span class="d-none d-sm-inline-flex">Instructions</span><span class="d-sm-none">Instruc.</span></label>
-		     <input name="radio1" id="radio1-microinstruction" 
-			    aria-label="Execution unit (microinstruction)"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('DBG_level','microinstruction'); save_cfg();"
-			    value="off" type="radio">
-		     <label for="radio1-microinstruction" class="ui-btn-a"><span class="d-none d-sm-inline-flex">&#181;instructions</span><span class="d-sm-none">&#181;instruc.</span></label>
-		 </fieldset>
-          </td>
-	  <td class="collapse7 collapse show">Element in run mode</td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse show">7</td>
-	  <td class="d-none d-sm-inline-flex" style="color:gray">execution</td>
-	  <td>Breakpoint Icon</td>
-	  <td>
-		 <div class="form-group" style="max-width:10em; margin:0 0 0 0">
-		    <select data-native-menu="false" class="form-control form-control-sm"
-                            name="select1" id="select1" data-role="none"
-			    aria-label="Breakpoint Icon"
-			    onchange="var opt = $(this).find('option:selected');
-				      var optValue = opt.val();
-				      $('#img_select1').attr('src','images/stop_' + optValue + '.gif');
-				      set_cfg('ICON_theme',optValue); save_cfg();">
-			<option value="classic">Classic</option>
-			<option value="pushpin">Push Pin</option>
-			<optgroup label="Comics">
-			  <option value="super">Superman</option>
-			  <option value="batman">Batman</option>
-			</optgroup>
-			<optgroup label="Pets">
-			  <option value="cat1">Cat</option>
-			  <option value="dog1">Dog</option>
-			</optgroup>
-			<optgroup label="Films">
-			  <option value="hp1">HP</option>
-			  <option value="lotr4">Gandalf</option>
-			  <option value="lotr2">Ring</option>
-			  <option value="r2d2">R2-D2</option>
-			  <option value="sw">Death Star</option>
-			  <option value="bb8">BB-8</option>
-			  <option value="vader1">Dark Vader</option>
-			</optgroup>
-		    </select>
-		 </div>
-          </td>
-	  <td class="collapse7 collapse show">
-		 <img alt="stop icon" id="img_select1" src="images/stop_classic.gif" 
-		      style="position:relative; left:10px; height:30px !important; width:30px !important;">
-	  </td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse show">8</td>
-	  <td class="d-none d-sm-inline-flex" style="color:gray">execution</td>
-	  <td>Limit instr.</td>
-	  <td>
-		 <div class="form-group" style="max-width:10em; margin:0 0 0 0">
-		    <select name="select6" id="select6" class="form-control form-control-sm"
-			    aria-label="max. ticks per instruction" data-role="none"
-			    onchange="var opt = $(this).find('option:selected');
-				      var optValue = opt.val();
-				      set_cfg('DBG_limitins',optValue); save_cfg();"
-			    data-native-menu="false">
-			<option value="-1">without limit</option>
-			<option value="500"  >500</option>
-			<option value="1000" >1000</option>
-			<option value="2000" >2000</option>
-			<option value="10000">10000</option>
-			<option value="50000">50000</option>
-		    </select>
-		 </div>
-          </td>
-	  <td class="collapse7 collapse show">Max. executed instr.</td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse show">9</td>
-	  <td class="d-none d-sm-inline-flex" style="color:gray">execution</td>
-	  <td>Limit instr. ticks</td>
-	  <td>
-		 <div class="form-group" style="max-width:10em; margin:0 0 0 0">
-		    <select name="select3" id="select3" class="form-control form-control-sm"
-			    aria-label="max. ticks per instruction" data-role="none"
-			    onchange="var opt = $(this).find('option:selected');
-				      var optValue = opt.val();
-				      set_cfg('DBG_limitick',optValue); save_cfg();"
-			    data-native-menu="false">
-			<option value="-1">without limit</option>
-			<option value="500"  >500</option>
-			<option value="1000" >1000</option>
-			<option value="2000" >2000</option>
-			<option value="10000">10000</option>
-			<option value="50000">50000</option>
-		    </select>
-		 </div>
-          </td>
-	  <td class="collapse7 collapse show">To limit clock ticks</td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse show">10</td>
-	  <td class="d-none d-sm-inline-flex" style="color:gray">simulation</td>
-	  <td>Display format</td>
-	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		     <input name="radio2" id="radio2-16" 
-			    aria-label="register file display format (decimal)"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('RF_display_format',16); show_rf_values(); show_states(); show_memories_values(); save_cfg();"
-			    value="on" type="radio">
-		     <label for="radio2-16" class="ui-btn-a">Hex.</label>
-		     <input name="radio2" id="radio2-10" 
-			    aria-label="register file display format (hexadecimal)"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('RF_display_format',10); show_rf_values(); show_states(); show_memories_values(); save_cfg();"
-			    value="off" type="radio">
-		     <label for="radio2-10" class="ui-btn-a">Dec.</label>
-		     <input name="radio2" id="radio2-8"  
-			    aria-label="register file display format (octal)"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('RF_display_format',8); show_rf_values(); show_states(); show_memories_values(); save_cfg();"
-			    value="off" type="radio">
-		     <label for="radio2-8" class="ui-btn-a">Oct.</label>
-		 </fieldset>
-          </td>
-	  <td rowspan="2"><img alt="register file example" 
-	                       class="collapse7 collapse show"
-                               src="images/cfg-rf.gif" 
-                               style="width:92px; max-height:100%"></td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse show">11</td>
-	  <td class="d-none d-sm-inline-flex" style="color:gray">simulation</td>
-	  <td>RF name</td>
-	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		     <input name="radio3" id="radio3-numerical" 
-			    aria-label="register file display name (number)"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('RF_display_name','numerical'); show_rf_names(); save_cfg();"
-			    value="on" type="radio">
-		     <label for="radio3-numerical" class="ui-btn-a">Numbers</label>
-		     <input name="radio3" id="radio3-logical" 
-			    aria-label="register file display name (user identification)"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('RF_display_name','logical'); show_rf_names(); save_cfg();"
-			    value="off" type="radio">
-		     <label for="radio3-logical" class="ui-btn-a">Labels</label>
-		 </fieldset>
-          </td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse show">12</td>
-	  <td class="d-none d-sm-inline-flex" style="color:gray">simulation</td>
-	  <td>Data-path color</td>
-	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		 <input type="color"
-			aria-label="Color for active data"
-			id="colorpicker1"
-			data-show-value="false"
-			class="noshadow-d" style="margin:0 0 0 0"
-			onchange="set_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh(); save_cfg();">
-		 </fieldset>
-          </td>
-	  <td rowspan="2"><img alt="color configuration" 
-	                       class="collapse7 collapse show"
-                               src="images/cfg-colors.gif" 
-                               style="width:90px; max-height:100%"></td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse show">13</td>
-	  <td class="d-none d-sm-inline-flex" style="color:gray">simulation</td>
-	  <td>Signal color</td>
-	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		 <input type="color"
-			aria-label="Color for active signal name"
-			id="colorpicker2"
-			data-show-value="false"
-			class="noshadow-d" style="margin:0 0 0 0"
-			onchange="set_cfg('color_name_active', $('#colorpicker2').spectrum('get')); refresh(); save_cfg();">
-		 </fieldset>
-          </td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse show">14</td>
-	  <td class="d-none d-sm-inline-flex" style="color:gray">simulation</td>
-	  <td>Interactive Mode</td>
-	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		     <input name="radio5" id="radio5-true" 
-			    aria-label="Is interactive: true"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('is_interactive',true); save_cfg();"
-			    value="on" type="radio">
-		     <label for="radio5-true" class="ui-btn-a">On</label>
-		     <input name="radio5" id="radio5-false" 
-			    aria-label="Is interactive: false"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('is_interactive',false); save_cfg();"
-			    value="off" type="radio">
-		     <label for="radio5-false" class="ui-btn-a">Off</label>
-		 </fieldset>
-          </td>
-	  <td class="collapse7 collapse show">Interactive Mode</td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse show">15</td>
-	  <td class="d-none d-sm-inline-flex" style="color:gray">simulation</td>
-	  <td>Editable registers</td>
-	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		     <input name="radio9" id="radio9-true" 
-			    aria-label="Is editable: true"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('is_editable',true); save_cfg();"
-			    value="on" type="radio">
-		     <label for="radio9-true" class="ui-btn-a">On</label>
-		     <input name="radio9" id="radio9-false" 
-			    aria-label="Is editable: false"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('is_editable',false); save_cfg();"
-			    value="off" type="radio">
-		     <label for="radio9-false" class="ui-btn-a">Off</label>
-		 </fieldset>
-          </td>
-	  <td class="collapse7 collapse show">Edit register file values</td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse show">16</td>
-	  <td class="d-none d-sm-inline-flex" style="color:gray">simulation</td>
-	  <td>Show by value</td>
-	  <td>
-		 <fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" style="margin:0 0 0 0">
-		     <input name="radio10" id="radio10-true" 
-			    aria-label="Is by value: true"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('is_byvalue',true); save_cfg(); refresh();"
-			    value="on" type="radio">
-		     <label for="radio10-true" class="ui-btn-a">On</label>
-		     <input name="radio10" id="radio10-false" 
-			    aria-label="Is by value: false"
-			    style="margin-top:-8px"
-			    onclick="set_cfg('is_byvalue',false); save_cfg(); refresh();"
-			    value="off" type="radio">
-		     <label for="radio10-false" class="ui-btn-a">Off</label>
-		 </fieldset>
-          </td>
-	  <td class="collapse7 collapse show">Show by value/activation</td>
-	 </tr>
-
-	 <tr>
-	  <td class="collapse6 collapse show">17</td>
-	  <td class="d-none d-sm-inline-flex" style="color:gray">simulation</td>
-	  <td>Notification delay</td>
-	  <td>
-		 <input type="range"
-			class="custom-range" data-role="none"
-			aria-label="Notification delay"
-			data-show-value="false" data-theme="a"
-			name="slider3" id="slider3"
-			min="100" max="2000" value="1000" step="100"
-			onchange="set_cfg('NOTIF_delay', this.value); save_cfg();">
-          </td>
-	  <td class="collapse7 collapse show">Viewing time (fast - slow)</td>
-	 </tr>
-
-	</tbody>
-	</table>
-	</div>
-
+	   <div class="modal-body">
+		<div id="container-config2" class="container-fluid" 
+		     style="max-height:80vh; padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
+		</div>
 	   </div>
 	</div>
      </div>
@@ -1187,7 +801,7 @@
      <div class="modal-dialog" style="min-width:80vw; height:80vh;">
 	<div class="modal-content">
 	   <div class="modal-header">
-		<button type="button" data-role="button"
+		<button type="button" data-role="button" style="padding:8"
                         class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
                         data-dismiss="modal" aria-hidden="true">x</button>
 		<div class="mx-auto">
@@ -1219,13 +833,11 @@
 </div> <!-- /.modal -->
 
 
-
-
 <div id="confighw" class="modal">
      <div class="modal-dialog">
 	<div class="modal-content">
 	   <div class="modal-header">
-		 <button type="button" data-role="button"
+		 <button type="button" data-role="button" style="padding:8"
 			 class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
 			 data-dismiss="modal" aria-hidden="true">x</button>
 		 <div class="mx-auto">
@@ -1242,7 +854,7 @@
 				  data-toggle="dropdown" 
 				  aria-haspopup="true" 
 				  aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>   
-			  <div class="dropdown-menu">
+		          <div class="dropdown-menu" style="z-index:100000;">
 			     <a href="#" class="dropdown-item"
 		                         onclick="set_cfg('ws_idiom','es'); save_cfg();
 						  $('#bot_hwcfg1').carousel(1);
@@ -1284,19 +896,21 @@
      <div class="modal-dialog modal-lg">
 	<div class="modal-content">
 	   <div class="modal-header">
-		<button type="button" data-role="button"
+		<button type="button" data-role="button" style="padding:8"
                         class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
                         data-dismiss="modal" aria-hidden="true">x</button>
 		<div class="mx-auto">
 		   <div class="btn-group">
 		     <button type="button" class="btn btn-success" 
-		             onclick="wepsim_open_help_index();">Help Index</button>
+		             onclick="wepsim_open_help_index();
+			              wepsim_help_refresh();">Help Index</button>
+		     <button type="button" class="btn btn-success" data-toggle="collapse" data-target=".collapse7">Help</button>
 		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" 
 			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			 <span class="caret"></span>
 			 <span class="sr-only">Toggle Help Idiom</span>
 		     </button>
-		     <div class="dropdown-menu">
+		     <div class="dropdown-menu" style="z-index:100000;">
 			 <a class="dropdown-item" href="#" 
 			    onclick="set_cfg('ws_idiom','es'); save_cfg(); 
                                      wepsim_help_refresh();">ES</a>
@@ -1323,25 +937,25 @@
      <div class="modal-dialog modal-lg" style="height:80vh;">
 	<div class="modal-content">
 	   <div class="modal-header">
-		<button type="button" data-role="button"
+		<button type="button" data-role="button" style="padding:8"
                         class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
                         data-dismiss="modal" aria-hidden="true">x</button>
 		<div class="mx-auto">
 		   <div class="btn-group">
-		     <button type="button" class="btn btn-success" 
-		             onclick="wepsim_open_examples_index(true);">Examples</button>
+		     <button type="button" class="btn btn-info"    data-toggle="collapse" data-target=".collapse8">Examples</button>
+		     <button type="button" class="btn btn-success" data-toggle="collapse" data-target=".collapse7">Help</button>
 		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" 
 			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			 <span class="caret"></span>
 			 <span class="sr-only">Toggle Help Idiom</span>
 		     </button>
-		     <div class="dropdown-menu">
+		     <div class="dropdown-menu" style="z-index:100000;">
 			 <a class="dropdown-item" href="#" 
 			    onclick="set_cfg('ws_idiom','es'); save_cfg(); 
-                                     wepsim_open_examples_index(false);">ES</a>
+                                     wepsim_open_examples_index();">ES</a>
 			 <a class="dropdown-item" href="#" 
 			    onclick="set_cfg('ws_idiom','en'); save_cfg(); 
-                                     wepsim_open_examples_index(false);">EN</a>
+                                     wepsim_open_examples_index();">EN</a>
 		     </div>
 		   </div>
                 </div>
@@ -1360,7 +974,7 @@
 <div class="modal-dialog bootboxWidth">
    <div class="modal-content">
       <div class="modal-header">
-	 <button type="button" data-role="button"
+	 <button type="button" data-role="button" style="padding:8"
 		 class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
 		 data-dismiss="modal" aria-hidden="true">x</button>
          <h5 class="modal-title mx-auto">
@@ -1384,7 +998,7 @@
                           aria-haspopup="true" 
                           aria-expanded="false" 
                           style="height:34px !important;"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>   
-                  <div class="dropdown-menu">
+		  <div class="dropdown-menu" style="z-index:100000;">
                      <a href="#" class="dropdown-item"
 				 onclick="set_cfg('ws_idiom','es'); save_cfg();
                                           $('#bot_check1').carousel(2);
@@ -1476,7 +1090,7 @@
 <div class="modal-dialog bootboxWidth">
    <div class="modal-content">
       <div class="modal-header">
-	 <button type="button" data-role="button"
+	 <button type="button" data-role="button" style="padding:8"
 		 class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
 		 data-dismiss="modal" aria-hidden="true">x</button>
          <h5 class="modal-title mx-auto">
@@ -1496,7 +1110,7 @@
                           aria-haspopup="true" 
                           aria-expanded="false" 
                           style="height:34px !important;"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>   
-                  <div class="dropdown-menu">
+		  <div class="dropdown-menu" style="z-index:100000;">
                      <a href="#" class="dropdown-item"
 				 onclick="set_cfg('ws_idiom','es'); save_cfg();
                                           $('#bot_check2').carousel(1);
@@ -1580,7 +1194,7 @@
      <div class="modal-dialog modal-lg">
 	<div class="modal-content">
 	   <div class="modal-header">
-	        <button type="button" data-role="button"
+	        <button type="button" data-role="button" style="padding:8"
 	       	        class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
 		        data-dismiss="modal" aria-hidden="true">x</button>
 		<div class="mx-auto">
@@ -1660,10 +1274,7 @@
 		    $("#listview_1").listview();
 
 		    $("#tabsnav1").navbar();
-
 		    $("#tabs1").tabs();
-
-		    $("#table-config2").enhanceWithin() ;
 
 		    inputfirm = CodeMirror.fromTextArea(document.getElementById("inputFirmware"), 
                                     {
@@ -1708,27 +1319,7 @@
 		    $('#tab26').trigger('click');
 		    $('#tab11').trigger('click');
 		    $('#select5a').val(11);
-
-		    $("#colorpicker1").spectrum({ preferredFormat: "hex", color: get_cfg('color_data_active')}) ;
-		    $("#colorpicker2").spectrum({ preferredFormat: "hex", color: get_cfg('color_name_active')}) ;
-		    $("#radio1-" +         get_cfg('DBG_level')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio2-" + get_cfg('RF_display_format')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio3-" +   get_cfg('RF_display_name')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio5-" +    get_cfg('is_interactive')).prop('checked', true).checkboxradio("refresh") ;
-		  //$("#radio6-" +          get_cfg('ws_idiom')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio7-" +      get_cfg('editor_theme')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio9-" +       get_cfg('is_editable')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio10-" +       get_cfg('is_byvalue')).prop('checked', true).checkboxradio("refresh") ;
-		    $("#radio11-" +        get_cfg('use_voice')).prop('checked', true).checkboxradio("refresh") ;
-                    $("#select1").val(get_cfg('ICON_theme')) ;
-                    $("#select2").val(get_cfg('editor_mode')) ;
-                    $("#select6").val(get_cfg('DBG_limitins')) ;
-                    $("#select3").val(get_cfg('DBG_limitick')) ;
                     $("#select4").val(get_cfg('ws_mode')) ;
-                    $("#select7").val(get_cfg('ws_idiom')) ;
-                    $("#slider1").val(1000 / (get_cfg('DBG_delay')+0.01)) ; // .slider("refresh") ;
-                    $("#slider3").val(get_cfg('NOTIF_delay')) ; // .slider("refresh") ;
-                    $("#img_select1").attr("src","images/stop_" +  get_cfg('ICON_theme') + ".gif");
 
                     $("#slider2a").val(get_cfg('C1C2_size')).slider("refresh");
                     $("#slider2b").val(get_cfg('CPUCU_size')).slider("refresh");
@@ -1787,6 +1378,9 @@
 		wepsim_voice_stop() ;
 	    }
 
+	    var ws_mode = get_cfg('ws_mode');
+            wepsim_change_mode(ws_mode, '#select4') ;
+
             // progressive web application
 	    if ('serviceWorker' in navigator) 
             {
@@ -1798,8 +1392,27 @@
 		}) ;
 	    }
 
-	    var ws_mode = get_cfg('ws_mode');
-            wepsim_change_mode(ws_mode, '#select4') ;
+            // Firefox OS
+	    if ('mozApps' in navigator) 
+	    {
+		    var manifest_url = location.href + 'manifest.webapp';
+		    var installCheck = navigator.mozApps.checkInstalled(manifest_url);
+		    installCheck.onsuccess = function() 
+		    {
+		        if (!installCheck.result)
+		        {
+			      var installLocFind = navigator.mozApps.install(manifest_url);
+			      installLocFind.onsuccess = function(data) {
+				  wepsim_notify_success('<h4>Info:<br></h4>',
+					                'WepSIM was installed.');
+			      } ;
+			      installLocFind.onerror = function() {
+				  wepsim_notify_error('<h4>Warning:<br>' + installLocFind.error.name + '</h4>',
+						      'FirefoxOS/KaiOS installation was cancelled.') ;
+			      } ;
+		        } ;
+		    } ;
+            }
     }
     catch(err) 
     {

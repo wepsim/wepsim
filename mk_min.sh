@@ -30,6 +30,7 @@ rm -fr sim_all.js
 # 
 cat wepsim/wepsim_example.js \
     wepsim/wepsim_help.js \
+    wepsim/wepsim_config.js \
     wepsim/wepsim_native.js \
     wepsim/wepsim_state.js \
     wepsim/wepsim_tutorial.js \
@@ -37,17 +38,20 @@ cat wepsim/wepsim_example.js \
     wepsim/wepsim_voice.js \
     wepsim/wepsim_execute.js \
     wepsim/wepsim_misc.js \
-    wepsim/tutorials/tutorials.js \
-    wepsim/tutorials/welcome-en.js \
-    wepsim/tutorials/welcome-es.js \
-    wepsim/tutorials/simpleusage-en.js \
-    wepsim/tutorials/simpleusage-es.js \
-    wepsim/tutorials/tour-en.js \
-    wepsim/tutorials/tour-es.js \
-    wepsim/help-en.js \
-    wepsim/help-es.js \
-    wepsim/examples-en.js \
-    wepsim/examples-es.js > wepsim_web.js
+    wepsim/tutorials.js \
+    wepsim/en/welcome-en.js \
+    wepsim/en/simpleusage-en.js \
+    wepsim/en/tour-en.js \
+    wepsim/en/help-en.js \
+    wepsim/en/config-en.js \
+    wepsim/en/examples-en.js \
+    wepsim/es/welcome-es.js \
+    wepsim/es/simpleusage-es.js \
+    wepsim/es/tour-es.js \
+    wepsim/es/help-es.js \
+    wepsim/es/config-es.js \
+    wepsim/es/examples-es.js \
+    wepsim/breakpointicons.js > wepsim_web.js
 /usr/bin/yui-compressor -o min.wepsim_web.js wepsim_web.js
 rm -fr wepsim_web.js
 cp  wepsim/wepsim_pwa.js min.wepsim_pwa.js

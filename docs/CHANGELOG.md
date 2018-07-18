@@ -1,7 +1,7 @@
 
 1.8.9 -> 1.9.0:
 * Command line version added
-* Example & help dialog simplified
+* Example, help, and configuration dialog simplified
 * Inertial scroll added
 
 1.8.7 -> 1.8.9:

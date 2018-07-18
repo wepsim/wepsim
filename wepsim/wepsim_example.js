@@ -23,14 +23,9 @@
      * Examples
      */
 
-    var toggle_extended = false ;
-
-    function wepsim_open_examples_index ( enable_toggle_extended )
+    function wepsim_open_examples_index ( )
     {
-        if (true == enable_toggle_extended)
-            toggle_extended = !toggle_extended ;
-
-        $("#container-example1").html(table_examples_html(examples, toggle_extended));
+        $("#container-example1").html(table_examples_html(examples));
         $("#container-example1").enhanceWithin();
 	$('#example1').trigger('updatelayout') ;
 	$('#example1').modal('show') ;
@@ -118,7 +113,7 @@
         ga('send', 'event', 'example', 'example.firmware', 'example.firmware.' + example_id);
     }
 
-    function table_examples_html ( examples, extended )
+    function table_examples_html ( examples )
     {
        var o = "" ;
 
@@ -131,12 +126,14 @@
 
        var lang = get_cfg('ws_idiom') ;
 
-       o = o + '<div class="container grid-striped">' ;
+       o = o + '<div class="container grid-striped border border-light">' ;
        for (var m=0; m<examples[lang].length; m++)
        {
 	       fmt_header = "" ;
 	       if (e_level != examples[lang][m].level)
-                   fmt_header = "<div class='col-sm-12 border-bottom border-secondary text-right text-capitalize font-weight-bold'>" + examples[lang][m].level + "</div>" ;
+                   fmt_header = "<div class='col-sm-12 border-bottom border-secondary text-right text-capitalize font-weight-bold bg-white sticky-top'>" + 
+			        examples[lang][m].level + 
+			        "</div>" ;
 
 	       e_title       = examples[lang][m].title ;
 	       e_level       = examples[lang][m].level ;
@@ -157,12 +154,11 @@
 		        '         onclick="$(\'#example1\').modal(\'hide\'); load_from_example_firmware(\'' + e_id + '\',true);" ' + 
 		        '         class="bg-info text-white">' + e_title + '</span>' +
                         '</div>' +
-                        '<div class="col-sm">' +
+                        '<div class="col-sm collapse7 show">' +
                         '    <c>' + e_description + '</c>' +
                         '</div>' ;
 
-	       if (true == extended)
-	       o = o + '<div class="col-sm-auto">' +
+	       o = o + '<div class="col-sm-auto collapse8 collapse">' +
 		        '     <div class="btn-group btn-group-justified btn-group-md">' +
 		        '         <a onclick="$(\'#example1\').modal(\'hide\'); load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0; margin:0 8 0 0;"' +
 		        '            class="bg-dark text-white">' +
