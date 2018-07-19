@@ -469,9 +469,6 @@
 			 <br style="height:0; width:100%; font-size:0; margin:5; padding:0; border:0; display:block;">
 		         <div id="states_BR"   style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
 		      </div>
-	    	      <div id="iocfg"  class="ui-body-d ui-content" style="padding:8 8 0 8;">
-		         <div id="config_ALL"  style="width: inherit; overflow-y: auto;"></div>
-		      </div>
 		      <div id="mp"     class="ui-body-d ui-content">
 		         <div id="memory_MP"   style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
 		      </div>
@@ -493,7 +490,12 @@
 		         <div id="cpu_ALL"     style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
 		      </div>
 		      <div id="mpcfg"  class="ui-body-d ui-content">
-                          <div id="help4a"     style="max-height:70vh; width:inherit; overflow:auto;">Loading...</div>
+		          <div id="config_MP" style="width: inherit;" class="container container-fluid"></div>
+                          <div id="help4a"    style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling: touch;">Loading...</div>
+		      </div>
+	    	      <div id="iocfg"  class="ui-body-d ui-content" style="padding:8 8 0 8;">
+		          <div id="config_IO" style="width: inherit; overflow-y: auto;"></div>
+                          <div id="help4b"    style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling: touch;">Loading...</div>
 		      </div>
 	    	    </div>
                 </div>
@@ -1288,7 +1290,7 @@
                target.prop("scrollTop", this.scrollTop).prop("scrollLeft", this.scrollLeft);
             });
 
-	    sim_core_init_panel("#states_ALL", "#states_BR", "#io_ALL", "#cpu_ALL", "#config_ALL"); 
+	    sim_core_init_panel("#states_ALL", "#states_BR", "#io_ALL", "#cpu_ALL", "#config_MP", "#config_IO"); 
 	    sim_core_reset(); 
 
             $('a[data-toggle="popover1"]').popover({
@@ -1359,8 +1361,9 @@
 		    } ;
             }
 
-	    // todo: update...
+	    // TODO: move into help...
 	    update_checker_loadhelp('#help4a','help_hwcfg') ;
+	    update_checker_loadhelp('#help4b','help_hwcfg') ;
     }
     catch(err) 
     {

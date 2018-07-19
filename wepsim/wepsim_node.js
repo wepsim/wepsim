@@ -26,7 +26,7 @@
     function wepsim_nodejs_init ( )
     {
          sim_core_init(false) ;
-	 sim_core_init_panel('', '', '', '', '') ;
+	 sim_core_init_panel('', '', '', '', '', '') ;
     }
 
     function wepsim_nodejs_show_checkresults ( checklist_ok, newones_too )
