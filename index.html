@@ -200,7 +200,7 @@
 
             <div class="row collapse show" id="collapseA1" style="margin:1px">
 
-                    <div class="col-sm-3 col-md-2" style="padding:0;">
+                    <div class="col-sm-3 col-md-2 order-md-0 order-1" style="padding:0;">
 			    <form id="slider2f" class="full-width-slider col my-1" style="margin:0px; padding:0px;">
 				 <input aria-label="Show CPU/CU" type="range" name="slider2b" id="slider2b" 
 					min="0" max="12" value="7" step="1"
@@ -214,7 +214,7 @@
 
 		    <div class="w-100 d-xs-block d-sm-none"></div>
 
-                    <div class="col-sm">
+                    <div class="col-sm            order-md-1 order-0">
                     <div class="row">
 		        <button class="btn btn-light ui-shadow col my-1" data-role="none"
 		    	        style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
@@ -256,7 +256,7 @@
 
 		    <div class="w-100 d-xs-block d-sm-none"></div>
 
-                    <div class="col-sm-3 col-md-2" style="padding:0;">
+                    <div class="col-sm-3 col-md-2 order-md-2" style="padding:0;">
 			    <form id="slider2f" class="full-width-slider col my-1" style="margin:0px; padding:0px;">
 				 <input aria-label="Show Main/Info" type="range" name="slider2a" id="slider2a" 
 					min="0" max="12" value="7" step="1"
@@ -520,34 +520,46 @@
 
             <div class="row collapse show" id="collapseA2">
 
-		<div id="lsload" 
-                     data-role="popup" data-overlay-theme="a" data-theme="a" data-dismissible="false">
-		    <div data-role="header" data-theme="a">
-		    <h1>Microcode</h1>
-		    </div>
-		    <div role="main" class="ui-content">
+		<div class="modal" id="lsload" tabindex="-1" role="dialog" aria-labelledby="lsload2" aria-hidden="true">
+		     <div class="modal-dialog">
+		     <div class="modal-content">
+		     <div class="modal-header">
+			<button type="button" data-role="none" style="padding:8" 
+				class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
+				data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h3 class="modal-title">Microcode...</h3>
+		     </div>
+		     <div class="modal-body">
 			<h3>Please select the file to be loaded:</h3>
 			<p><input aria-label="file to load" type="file" id="fileToLoad" class="dropify"/></p>
 			<center>
-			<a href="#" class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-btn-inline" data-rel="back">Cancel</a>
+			<button class="ui-btn ui-btn-b ui-btn-inline"
+				type="button" data-dismiss="modal">Cancel</button>
                         <button class="ui-btn ui-btn-b ui-btn-inline" 
                                 onclick="var fileToLoad = document.getElementById('fileToLoad').files[0];
 					 wepsim_load_from_file(fileToLoad, inputfirm);
-                                         $('#lsload').popup('close');">Load from this File</button>
+                                         $('#lsload').modal('hide');">Load from this File</button>
                         </center>
-		    </div>
+		     </div>
+		     </div>
+		     </div>
 		</div>
 
-		<div id="lssave" 
-                     data-role="popup" data-overlay-theme="a" data-theme="a" data-dismissible="false">
-		    <div data-role="header" data-theme="a">
-		    <h1>Save Page</h1>
-		    </div>
-		    <div role="main" class="ui-content">
-			<h2>Please write the file name where Microcode will be saved:</h2>
+		<div class="modal" id="lssave" tabindex="-1" role="dialog" aria-labelledby="lssave2" aria-hidden="true">
+		     <div class="modal-dialog">
+		     <div class="modal-content">
+		     <div class="modal-header">
+			<button type="button" data-role="none" style="padding:8" 
+				class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
+				data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h3 class="modal-title">Microcode...</h3>
+		     </div>
+		     <div class="modal-body">
+			<h2>Please write the file name where microcode will be saved:</h2>
 			<p><input aria-label="filename to save content" id="inputFileNameToSaveAs" style="min-width: 90%;"/></p>
 			<center>
-			<a href="#" class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-btn-inline" data-rel="back">Cancel</a>
+			<button class="ui-btn ui-btn-b ui-btn-inline"
+				type="button" data-dismiss="modal">Cancel</button>
                         <button class="ui-btn ui-btn-b ui-btn-inline" 
                                 onclick="if (confirm('Do you want me to save the current Control Memory contents rather than the editor contents?.\n\n' + 
                                                      'Please notice three things:\n' +
@@ -568,7 +580,9 @@
                                 onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
                                          wepsim_save_to_file(inputfirm, fileNameToSaveAs);">Save Editor content to File</button>
                         </center>
-		    </div>
+		     </div>
+		     </div>
+		     </div>
 		</div>
 
                 <div class="container col-12" role="none">
@@ -589,14 +603,12 @@
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
-		            <a      href="#lsload" 
+		            <button data-target="#lsload" data-toggle="modal" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				    class="btn ui-btn ui-btn-a ui-mini ui-shadow"
-				    data-rel="popup" data-position-to="window" data-transition="pop"><i class="fas fa-file-upload"></i>&nbsp;Load</a>
-		            <a      href="#lssave" 
+				    class="btn btn-light ui-shadow col"><i class="fas fa-file-upload"></i>&nbsp;<b>Load</b></button>
+		            <button data-target="#lssave" data-toggle="modal" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				    class="btn ui-btn ui-btn-a ui-mini ui-shadow"
-	                            data-rel="popup" data-position-to="window" data-transition="pop"><i class="fas fa-file-download"></i>&nbsp;Save</a>
+				    class="btn btn-light ui-shadow col"><i class="fas fa-file-download"></i>&nbsp;<b>Save</b></button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
@@ -661,39 +673,53 @@
 
             <div class="row collapse show" id="collapseA3">
 
-		<div id="lsload2" 
-                     data-role="popup" data-overlay-theme="a" data-theme="a" data-dismissible="false">
-		    <div data-role="header" data-theme="a">
-		    <h1>Assembler</h1>
-		    </div>
-		    <div role="main" class="ui-content">
+		<div class="modal" id="lsload2" tabindex="-1" role="dialog" aria-labelledby="lsload2" aria-hidden="true">
+		     <div class="modal-dialog">
+		     <div class="modal-content">
+		     <div class="modal-header">
+			<button type="button" data-role="none" style="padding:8" 
+				class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
+				data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h3 class="modal-title">Load...</h3>
+		     </div>
+		     <div class="modal-body">
 			<h3>Please select the file to be assembled:</h3>
 			<p><input aria-label="file to load" type="file" id="fileToLoad2" class="dropify"/></p>
 			<center>
-			<a href="#" class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-btn-inline" data-rel="back">Cancel</a>
+			<button class="ui-btn ui-btn-b ui-btn-inline"
+				type="button" data-dismiss="modal">Cancel</button>
                         <button class="ui-btn ui-btn-b ui-btn-inline" 
                                 onclick="var fileToLoad = document.getElementById('fileToLoad2').files[0];
                                          wepsim_load_from_file(fileToLoad, inputasm);
-                                         $('#lsload2').popup('close');">Load from this File</button>
+                                         $('#lsload2').modal('hide');">Load from this File</button>
                         </center>
-		    </div>
+		     </div>
+		     </div>
+		     </div>
 		</div>
 
-		<div id="lssave2" 
-                     data-role="popup" data-overlay-theme="a" data-theme="a" data-dismissible="false">
-		    <div data-role="header" data-theme="a">
-		    <h1>Save Page</h1>
-		    </div>
-		    <div role="main" class="ui-content">
+		<div class="modal" id="lssave2" tabindex="-1" role="dialog" aria-labelledby="lssave2" aria-hidden="true">
+		     <div class="modal-dialog">
+		     <div class="modal-content">
+		     <div class="modal-header">
+			<button type="button" data-role="none" style="padding:8" 
+				class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
+				data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h3 class="modal-title">Save...</h3>
+		     </div>
+		     <div class="modal-body">
 			<h2>Please write the file name where assembly will be saved:</h2>
 			<p><input aria-label="filename to save content" id="inputFileNameToSaveAs2" style="min-width: 90%;"/></p>
 			<center>
-			<a href="#" class="ui-btn ui-btn-b ui-corner-all ui-shadow ui-btn-inline" data-rel="back">Cancel</a>
+			<button class="ui-btn ui-btn-b ui-btn-inline"
+				type="button" data-dismiss="modal">Cancel</button>
                         <button class="ui-btn ui-btn-b ui-btn-inline" 
                                 onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs2').value;
                                          wepsim_save_to_file(inputasm, fileNameToSaveAs);">Save to File</button>
                         </center>
-		    </div>
+		     </div>
+		     </div>
+		     </div>
 		</div>
 
                 <div class="container col-12" role="none">
@@ -716,14 +742,12 @@
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
-		            <a      href="#lsload2" 
+		            <button data-target="#lsload2" data-toggle="modal" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				    class="btn ui-btn ui-btn-a ui-mini ui-shadow"
-				    data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true"><i class="fas fa-file-upload"></i>&nbsp;Load</a>
-		            <a      href="#lssave2" 
+				    class="btn btn-light ui-shadow col"><i class="fas fa-file-upload"></i>&nbsp;<b>Load</b></button>
+		            <button data-target="#lssave2" data-toggle="modal" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				    class="btn ui-btn ui-btn-a ui-mini ui-shadow"
-				    data-rel="popup" data-position-to="window" data-transition="pop" data-inline="true"><i class="fas fa-file-download"></i>&nbsp;Save</a>
+				    class="btn btn-light ui-shadow col"><i class="fas fa-file-download"></i>&nbsp;<b>Save</b></button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
