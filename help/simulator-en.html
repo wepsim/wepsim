@@ -432,10 +432,26 @@
 	      </p>
 	      <p>
 	        The <b class="cleanuphtml-1">Figure 4</b> shows these inputs/outputs mentioned, which is necessary to join the R and W request signals for read and write respectively.
-	      </p><br clear="all" />
-	      <p>
-	         
 	      </p>
+
+	      <p>
+              The simulated hardware could be configure:<br>
+	      <ul>
+	         <li>
+                 <b>Memory</b>: number of cycles that the memory needs to looking for some data.<br>
+                 The default value is zero, and that means that data is available 
+                 at the next clock cycle after requesting it to/from memory.
+                 </li>
+	         <li>
+                 <b>I/O</b>: number of cycles to fire up interruptions.<br>
+                 The default value is zero, and that means that firing interruptions is disabled.
+                 If the 'CLK period' is (for example) 100 and the 'Probability' is 1, then
+                 every 100 CPU clock cycles the associated interruption is fired.
+                 If the probability is 0.5 then the associated interruption is fired with 50% of probability.
+                 </li>
+	      </ul>
+	      </p>
+
 	      <h2>
 	        <a name="_Toc438325788">Internal organization: control signals</a>
 	      </h2>
@@ -753,27 +769,6 @@ register 5 >= 8 ; memory 1 = 0x10; screen 0 == first_line
 	         </li>
 	         <li><b>The scroll bars use to be hidden on requirements and differencies.</b>
 	         </li>
-	      </ul>
-
-      </div>
-
-      <div id="help_hwcfg">
-
-              The configuration of the hardware simulated is performed in this dialog.<br>
-              There are two elements:
-	      <ul>
-	         <li>
-                 <b>Memory</b>: number of cycles that the memory needs to looking for some data.<br>
-                 The default value is zero, and that means that data is available 
-                 at the next clock cycle after requesting it to/from memory.
-                 </li>
-	         <li>
-                 <b>I/O</b>: number of cycles to fire up interruptions.<br>
-                 The default value is zero, and that means that firing interruptions is disabled.
-                 If the 'CLK period' is (for example) 100 and the 'Probability' is 1, then
-                 every 100 CPU clock cycles the associated interruption is fired.
-                 If the probability is 0.5 then the associated interruption is fired with 50% of probability.
-                 </li>
 	      </ul>
 
       </div>

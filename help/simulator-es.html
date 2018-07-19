@@ -446,10 +446,28 @@
 	      </p>
 	      <p>
 	        La <b class="cleanuphtml-1">Figura 4</b> muestra estas entradas/salidas comentadas, a las que hay que unir las se&ntilde;ales R y W para la petici&oacute;n de lectura y escritura respectivamente.
-	      </p><br clear="all" />
-	      <p>
-	         
 	      </p>
+
+	      <p>
+	      El hardware simulado puede configurarse:<br>
+	      <ul>
+	         <li>
+                 <b>Memoria</b>: n&uacute;mero de ciclos que la memoria precisa para buscar un dato.<br>
+                 El valor por defecto es cero, lo que significa que el dato est&aacute; disponible
+                 en el siguiente ciclo de reloj despu&eacute;s de la petici&oacute;n.
+                 </li>
+	         <li>
+                 <b>I/O</b>: n&uacute;mero de ciclos hasta lanzar una interrupci&oacute;n.<br>
+                 El valor por defecto es cero y esto significa que no se generar&aacute; 
+                 interrupciones por parte del dispositivo.
+                 Si el 'CLK period' es, por ejemplo, 100 y el valor de 'Probability' es 1 entonces
+                 cada 100 ciclos de reloj se generar&aacute; la interrupci&oacute;n asociada.
+                 Si la probabilidad es 0.5 entonces la interrupci&oacute;n asociada 
+                 se generar&aacute; con una probabilidad del 50%.
+                 </li>
+	      </ul>
+	      </p>
+
 	      <h2>
 	        <a name="_Toc438325788">Organizaci&oacute;n interna: se&ntilde;ales de control</a>
 	      </h2>
@@ -782,29 +800,6 @@ register 5 >= 8 ; memory 1 = 0x10; screen 0 == first_line
 	      <ul>
 	         <li><b>Los puntos y coma son necesarios como separador de requisitos.</b></li>
 	         <li><b>Tenga cuidado porque las barras de scroll suelen estar ocultas.</b></li>
-	      </ul>
-
-      </div>
-
-      <div id="help_hwcfg">
-
-              La configuraci&oacute;n del hardware simulado se hace en este cuadro de di&aacute;logo.<br>
-              Hay dos elementos:
-	      <ul>
-	         <li>
-                 <b>Memoria</b>: n&uacute;mero de ciclos que la memoria precisa para buscar un dato.<br>
-                 El valor por defecto es cero, lo que significa que el dato est&aacute; disponible
-                 en el siguiente ciclo de reloj despu&eacute;s de la petici&oacute;n.
-                 </li>
-	         <li>
-                 <b>I/O</b>: n&uacute;mero de ciclos hasta lanzar una interrupci&oacute;n.<br>
-                 El valor por defecto es cero y esto significa que no se generar&aacute; 
-                 interrupciones por parte del dispositivo.
-                 Si el 'CLK period' es, por ejemplo, 100 y el valor de 'Probability' es 1 entonces
-                 cada 100 ciclos de reloj se generar&aacute; la interrupci&oacute;n asociada.
-                 Si la probabilidad es 0.5 entonces la interrupci&oacute;n asociada 
-                 se generar&aacute; con una probabilidad del 50%.
-                 </li>
 	      </ul>
 
       </div>
