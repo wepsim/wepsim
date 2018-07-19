@@ -200,7 +200,7 @@
 
             <div class="row collapse show" id="collapseA1" style="margin:1px">
 
-                    <div class="col-sm-3 col-md-2" style="padding-right:0;">
+                    <div class="col-sm-3 col-md-2" style="padding:0;">
 			    <form id="slider2f" class="full-width-slider col my-1" style="margin:0px; padding:0px;">
 				 <input aria-label="Show CPU/CU" type="range" name="slider2b" id="slider2b" 
 					min="0" max="12" value="7" step="1"
@@ -226,7 +226,7 @@
 		        <button class="btn btn-light ui-shadow col my-1 mr-2" data-role="none"
 			        onclick="$.mobile.pageContainer.pagecontainer('change','#main4');"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				><b><span class="d-none d-sm-inline-flex">Assembly</span><span class="d-sm-none">Asm.</span></b></button>
+				><b><span class="d-none d-sm-inline-flex">Assembly</span><span class="d-sm-none">Assembly</span></b></button>
 
 			<div class="w-100 d-block d-sm-none"></div>
 
@@ -256,7 +256,7 @@
 
 		    <div class="w-100 d-xs-block d-sm-none"></div>
 
-                    <div class="col-sm-3 col-md-2" style="padding-left:0;">
+                    <div class="col-sm-3 col-md-2" style="padding:0;">
 			    <form id="slider2f" class="full-width-slider col my-1" style="margin:0px; padding:0px;">
 				 <input aria-label="Show Main/Info" type="range" name="slider2a" id="slider2a" 
 					min="0" max="12" value="7" step="1"
@@ -516,7 +516,7 @@
                 </div>
 	</div><!-- /header -->
 
-	<div role="main" class="ui-content">
+        <div role="main" class="ui-content container-fluid" style="padding:8px 8px 8px 8px">
 
             <div class="row collapse show" id="collapseA2">
 
@@ -657,7 +657,7 @@
                 </div>
 	</div><!-- /header -->
 
-	<div role="main" class="ui-content">
+        <div role="main" class="ui-content container-fluid" style="padding:8px 8px 8px 8px">
 
             <div class="row collapse show" id="collapseA3">
 
@@ -706,7 +706,9 @@
 		            <button class="btn btn-light ui-shadow col" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				    data-transition="none" data-inline="true"
-				    onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"><b>MicroCode</b></button>
+				    onclick="$.mobile.pageContainer.pagecontainer('change','#main3');">
+			    <b><span class="d-none d-sm-inline-flex">MicroCode</span><span class="d-sm-none">&#181;code</span></b>
+			    </button>
 		            <button class="btn btn-light ui-shadow col" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				    data-transition="none" data-inline="true"
