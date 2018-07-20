@@ -152,46 +152,26 @@
 	        registers
 	      </p>
 	      <p>
-	        {
-	      <br>
-	                  0=$zero,
-	      <br>
-	                  1=$at,
-	      <br>
-	                  2=$v0,
-	      <br>
-	                  3=$v1,
-	      <br>
-	                  4=$a0,
-	      <br>
-	                  5=$a1,
-	      <br>
-	                  6=$a2,
-	      <br>
-	                  7=$a3,
-	      <br>
-	                  .
-	      <br>
-	                  .
-	      <br>
-	                  .
-	      <br>
-	                  24=$t8,        
-	      <br>
-	                  25=$t9,
-	      <br>
-	                  26=$k0,
-	      <br>
-	                  27=$k1,
-	      <br>
-	                  28=$gp,
-	      <br>
-	                  29=$sp (stack_pointer),
-	      <br>
-	                  30=$fp,
-	      <br>
-	                  31=$ra
-	      <br>
+	        { <br>
+	                  0=$zero, <br>
+	                  1=$at, <br>
+	                  2=$v0, <br>
+	                  3=$v1, <br>
+	                  4=$a0, <br>
+	                  5=$a1, <br>
+	                  6=$a2, <br>
+	                  7=$a3, <br>
+	                  .  <br>
+	                  .  <br>
+	                  .  <br>
+	                  24=$t8,        <br>
+	                  25=$t9, <br>
+	                  26=$k0, <br>
+	                  27=$k1, <br>
+	                  28=$gp, <br>
+	                  29=$sp (stack_pointer), <br>
+	                  30=$fp, <br>
+	                  31=$ra <br>
 	        }
 	      </p>
 	      </ul>
@@ -550,30 +530,13 @@
       </div>
 
 
-      <div id="help_simulator_screens">
-      <h1>Ejecuci&oacute;n en WepSIM</h1>
+      <div id="help_simulator_firmware">
+      <h1>Gesti&oacute;n de microc&oacute;digo en WepSIM</h1>
 
 	      <p>
-	      </p>
-	      <p>
-	        El ciclo de trabajo supone (normalmente) los siguientes pasos:
-		<ul>
-                <li>Cargar un firmware de trabajo (ver Gesti&oacute;n de microc&oacute;digo).</li>
-                <li>Cargar un programa en ensamblador que use el firmware de trabajo (ver Gesti&oacute;n del ensamblador).</li>
-		<li>Ir a la pantalla principal (simulador) para ejecutar el programa en ensamblador que use el firmware de trabajo (ver Simulaci&oacute;n en WepSIM).</li>
-		</ul>
-	      </p>
-	      <p>
-	      </p>
-
-
-	      <a name="firmware_screens"></a>
-              <h2>Gesti&oacute;n de microc&oacute;digo en WepSIM</h2>
-
-	      <p>
-	        Un fichero de texto con las tres secciones antes comentadas
-                (microc&oacute;digo, nombrado de registro y definici&oacute;n de pseudo-instrucciones) se carga en la pantalla de Firmware. Para acceder a dicha
-	        pantalla se ha de ir al men&uacute; (parte superior derecha) e indicar la opci&oacute;n <i>Firmware</i> (v&eacute;ase la <b class="cleanuphtml-4">Figura 16</b>)
+	        Un fichero de texto con tres secciones (microc&oacute;digo, nombrado de registro y definici&oacute;n de pseudo-instrucciones) se carga en la pantalla de Firmware. 
+		Por favor revise 'Microcódigo en WepSIM' para más información sobre el formato del microcódigo.
+		Para acceder a dicha pantalla se ha de ir al men&uacute; (parte superior derecha) e indicar la opci&oacute;n <i>Firmware</i> (v&eacute;ase la <b class="cleanuphtml-4">Figura 16</b>)
 	      </p>
 	      <p>
 	         
@@ -586,7 +549,7 @@
 	      </p>
 	      <p>
 	        <br />
-	        A continuaci&oacute;n aparecer&aacute; una pantalla con un cuadro de texto que permite indicar el <i>firmware</i> (las tres secciones antes comentadas). Es posible cargar un <i>firmware</i> existente
+	        A continuaci&oacute;n aparecer&aacute; una pantalla con un editor de texto en línea que permite indicar el <i>firmware</i> (las tres secciones antes comentadas). Es posible cargar un <i>firmware</i> existente
 	        usando el bot&oacute;n "Load" de la barra inferior, modificar un <i>firmware</i> anteriormente cargado o salvar el firmware en curso con el bot&oacute;n "Save" de la barra inferior. Una vez se indique el
 	        firmware es preciso hacer clic en el bot&oacute;n "&#181;compile" para pasar a binario y cargar en la memoria de control dicho firmware, como se muestra en la <b class="cleanuphtml-4">Figura 17</b>.
 	      </p>
@@ -601,31 +564,40 @@
 	      </p>
 	      <p>
 	        <br />
-	        Una vez cargado el nuevo <i>firmware</i> correctamente aparecer&aacute; la pantalla mostrada en la <b class="cleanuphtml-4">Figura 18</b> en la que se muestra la memoria de control con los valores
-	        que almacena.
+	        Una vez cargado el nuevo <i>firmware</i> correctamente aparecer&aacute; la pantalla mostrada en la <b class="cleanuphtml-4">Figura 18</b> donde se puede hacer click en el botón indicado para que se muestra la memoria de control con los valores que almacena (<b class="cleanuphtml-4">Figura 19</b>).
 	      </p>
 	      <p>
-	        <img max-width="90%" width="90%" id="Imagen 3" src="help/simulator/firmware004.jpg" alt="" name="Imagen 3" />
+	        <img max-width="90%" width="90%" id="Imagen4" src="help/simulator/firmware004.jpg" alt="botón de mostrar la memoria de control" name="Imagen4" />
 	      </p>
 	      <p class="cleanuphtml-2">
-	        <a name="_Toc438322907"></a><a class="cleanuphtml-1" name="_Ref434191551">Figura</a> <b>18</b> <b>Pantalla firmware: firmware finalmente compilado</b>
+	        <a name="_Toc438322907"></a><a class="cleanuphtml-1" name="_Ref434191551">Figura</a> <b>18</b> <b>Pantalla firmware: botón para mostrar la memoria de control</b>
+	      </p>
+
+	      <p>
+	        <img max-width="90%" width="90%" id="Imagen5" src="help/simulator/firmware005.jpg" alt="modal con el contenido de la memoria de control" name="Imagen5" />
+	      </p>
+	      <p class="cleanuphtml-2">
+	        <a name="_Toc438322907"></a><a class="cleanuphtml-1" name="_Ref434191551">Figura</a> <b>19</b> <b>Pantalla firmware: firmware finalmente compilado</b>
 	      </p>
 	      <p>
 	        <br />
 	        El siguiente paso es la carga del programa ensamblador que permita probar este <i>firmware</i>, para ello podemos pulsar el bot&oacute;n "<i>Assembly</i>" de la barra inferior.
+		Por favor revise la sección 'Simulador: ensamblador' para más información al respecto.
 	      </p>
 	      <p>
 	         
 	      </p>
 
+      </div>
 
-	      <a name="assembly_screens"></a>
-              <h2>Gesti&oacute;n del ensamblador en WepSIM</h2>
+
+      <div id="help_simulator_assembly">
+      <h1>Gesti&oacute;n del ensamblador en WepSIM</h1>
 
 	      <p>
-	        Un fichero de texto con las dos secciones antes comentadas
-                (datos y c&oacute;digo) se carga en la pantalla de Ensamblador. Para acceder a dicha pantalla se ha de ir al men&uacute; (parte superior derecha)
-	        e indicar la opci&oacute;n Assembly (v&eacute;ase la <b class="cleanuphtml-3">Figura 16</b>)<br />
+	        Un fichero de texto con dos tipos de secciones (datos y c&oacute;digo) se carga en la pantalla de Ensamblador. 
+		Para acceder a dicha pantalla se ha de ir al men&uacute; (parte superior derecha)
+	        e indicar la opci&oacute;n Assembly (v&eacute;ase la <b class="cleanuphtml-3">Figura 20</b>)<br />
 	        <br />
 	      </p>
 	      <p>
@@ -635,7 +607,7 @@
 	        <a name="_Toc438322909"></a><a class="cleanuphtml-1" name="_Toc434155501">Figura</a> <b>20</b> <b>Pantalla principal: opci&oacute;n de carga de c&oacute;digo ensamblador</b>
 	      </p>
 	      <p>
-	        A continuaci&oacute;n aparecer&aacute; una pantalla con un cuadro de texto que permite indicar el c&oacute;digo en ensamblador. Es posible cargar un c&oacute;digo existente usando el bot&oacute;n "Load" de la barra superior,
+	        A continuaci&oacute;n aparecer&aacute; una pantalla con un editor de texto que permite indicar el c&oacute;digo en ensamblador. Es posible cargar un c&oacute;digo existente usando el bot&oacute;n "Load" de la barra superior,
 	        modificar un c&oacute;digo anteriormente cargado o salvar el c&oacute;digo actualmente en cargado con el bot&oacute;n "Save" de la barra inferior.
 	      </p>
 	      <p>
@@ -653,13 +625,18 @@
 	        <br /></b>
 	      </p>
 	      <p>
-	        Una vez compilado, se pasar&aacute; a la pantalla indicada en la <b class="cleanuphtml-3">Figura 23</b>, donde se mostrar&aacute; el contenido de la memoria principal en binario.
+	        Una vez compilado, se pasar&aacute; a la pantalla indicada en la <b class="cleanuphtml-3">Figura 22</b>, desde donde se puede hacer click en el botón mostrado para mostrar el contenido de la memoria principal en binario (<b class="cleanuphtml-3">Figura 23</b>).
 	      </p>
 	      <p>
-	         
 	      </p>
 	      <p>
-	        <img max-width="90%" width="90%" id="Imagen 30" src="help/simulator/assembly005.jpg" alt="" name="Imagen 30" />
+	        <img max-width="90%" width="90%" id="Imagen 30" src="help/simulator/assembly004.jpg" alt="botón para solicitar explorar la memoria principal" />
+	      </p>
+	      <p class="cleanuphtml-2">
+	        <a name="_Toc438322912"></a><a class="cleanuphtml-1" name="_Ref434192450">Figura</a> <b>22</b> <b>Pantalla ensamblador: botón para explorar la memoria principal</b>
+	      </p>
+	      <p>
+	        <img max-width="90%" width="90%" id="Imagen 30" src="help/simulator/assembly005.jpg" alt="memoria principal en binario" />
 	      </p>
 	      <p class="cleanuphtml-2">
 	        <a name="_Toc438322912"></a><a class="cleanuphtml-1" name="_Ref434192450">Figura</a> <b>23</b> <b>Pantalla ensamblador: c&oacute;digo finalmente compilado</b>
@@ -671,9 +648,11 @@
 	      <p>
 	      </p>
 
+      </div>
 
-	      <a name="simulator_screens"></a>
-              <h2>Simulaci&oacute;n en WepSIM</h2>
+
+      <div id="help_simulator_execution">
+      <h1>Simulaci&oacute;n en WepSIM</h1>
 
 	      <p>
 	        Estando en la pantalla principal es posible visualizar:
