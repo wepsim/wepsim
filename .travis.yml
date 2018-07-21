@@ -7,3 +7,11 @@ node_js:
 before_install:
   - npm install jshint
 
+script:
+  - npm jshint
+  - npm  test-run
+  - npm  test-stepbystep
+  - npm  test-microstepbymicrostep
+  - npm  test-check-ok
+  - npm  test-check-ko
+
