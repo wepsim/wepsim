@@ -8,5 +8,10 @@ before_install:
   - npm install jshint
 
 script:
-  - npm test
+  - npm run jshint
+  - npm run test-run
+  - npm run test-stepbystep
+  - npm run test-microstepbymicrostep
+  - npm run test-check-ok
+  - npm run test-check-ko
 
