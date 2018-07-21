@@ -320,13 +320,13 @@
 				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Is by value: true'" +
 				   "		   onclick=\"set_cfg('is_byvalue',true); save_cfg();\">" +
-				   "		<input type='radio' name='options' id='radio10-true'   autocomplete='off' data-role='none'>On" +
+				   "		<input type='radio' name='options' id='radio10-true'   autocomplete='off' data-role='none'>Value" +
 				   "	    </label>" +
 				   "	    <label id='label10-false'" +
 				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Is by value: false'" +
 				   "		   onclick=\"set_cfg('is_byvalue',false); save_cfg();\">" +
-				   "		<input type='radio' name='options' id='radio10-false'  autocomplete='off' data-role='none'>Off" +
+				   "		<input type='radio' name='options' id='radio10-false'  autocomplete='off' data-role='none'>Activation" +
 				   "	    </label>" +
 				   "	</div> ",
 		      code_init:   function() { $('#radio10-' +       get_cfg('is_byvalue')).click(); },
