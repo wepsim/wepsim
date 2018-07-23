@@ -669,17 +669,11 @@
             ko.applyBindings(simhw_sim_state('DECO_INS'), ko_context);
         }
 
-        function init_config ( jqdiv )
+        function init_config_mp ( jqdiv )
         {
             // without ui
             if (jqdiv == "")
             {
-		    for (var i=0; i<IO_INT_FACTORY.length; i++) 
-		    {
-		        IO_INT_FACTORY[i].period      = ko_observable(IO_INT_FACTORY[i].period);
-		        IO_INT_FACTORY[i].probability = ko_observable(IO_INT_FACTORY[i].probability);
-		    }
-
 		    MP_wc = ko_observable(MP_wc) ;
                     return ;
             }
@@ -690,9 +684,6 @@
 
                o1 += "<div class='col-12' style='padding:0 0 10 0;'>" +
                      "<div class='card bg-light'>" +
-                     "<div class='card-header'>" +
-                     "  <b>Memory</b>" +
-                     "</div>" +
                      "<div class='card-body' id='mempanel' style='padding:0 0 0 0;'>" +
                      "<table class='table table-hover table-sm table-bordered' " +
                      "       style='margin:0'>" +
@@ -709,11 +700,33 @@
                      "</div>" +
                      "</div>" ;
          
+            $(jqdiv).html(o1);
+
+            // knockout binding
+	    MP_wc = ko_observable(MP_wc) ;
+            var ko_context = document.getElementById('mp_wc');
+            ko.applyBindings(MP_wc, ko_context);
+        }
+
+        function init_config_io ( jqdiv )
+        {
+            // without ui
+            if (jqdiv == "")
+            {
+		    for (var i=0; i<IO_INT_FACTORY.length; i++) 
+		    {
+		        IO_INT_FACTORY[i].period      = ko_observable(IO_INT_FACTORY[i].period);
+		        IO_INT_FACTORY[i].probability = ko_observable(IO_INT_FACTORY[i].probability);
+		    }
+                    return ;
+            }
+
+            // html holder
+            var o1 = "<div class='container-fluid'>" +
+                     "<div class='row'>" ;
+
                o1 += "<div class='col-12' style='padding:0 0 0 0;'>" +
                      "<div class='card bg-light' style='margin:0 0 0 0;'>" +
-                     "<div class='card-header'>" +
-                     "  <b>I/O</b>" +
-                     "</div>" +
                      "<div class='card-body' id='iopanel' style='padding: 0 0 0 0'>" ;
                o1 += "<center>" +
                      "<table class='table table-hover table-sm table-bordered' " +
@@ -771,10 +784,6 @@
                  var ko_context = document.getElementById('int' + i + '_pro');
                  ko.applyBindings(IO_INT_FACTORY[i], ko_context);
             }
-
-	    MP_wc = ko_observable(MP_wc) ;
-            var ko_context = document.getElementById('mp_wc');
-            ko.applyBindings(MP_wc, ko_context);
         }
 
 

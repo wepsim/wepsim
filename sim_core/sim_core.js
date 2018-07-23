@@ -65,7 +65,7 @@
          * @param {string} cpuall_id - associated div
          * @param {string} configall_id - associated div
          */
-        function sim_core_init_panel ( stateall_id, statebr_id, ioall_id, cpuall_id, configall_id )
+        function sim_core_init_panel ( stateall_id, statebr_id, ioall_id, cpuall_id, configmp_id, configio_id )
         {
 	    var ret = {} ;
 	        ret.msg     = "" ;
@@ -77,7 +77,9 @@
 
             init_io(ioall_id) ;
             init_cpu(cpuall_id) ;
-            init_config(configall_id) ;
+
+            init_config_mp(configmp_id) ;
+            init_config_io(configio_id) ;
 
             return ret ;
         }

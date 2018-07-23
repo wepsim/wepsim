@@ -631,7 +631,7 @@
 
 
 
-			bootbox.dialog({
+			var bb = bootbox.dialog({
 			       title:   '<center>' + key + ': ' +
                                         ' <div class="btn-group">' +
                                         '   <button onclick="$(\'#bot_signal\').carousel(0);" ' +
@@ -646,10 +646,12 @@
                                         '   <div class="dropdown-menu">' +
                                         '        <a href="#" class="dropdown-item" ' + 
 				        '                    onclick="set_cfg(\'ws_idiom\',\'es\'); save_cfg(); $(\'#bot_signal\').carousel(1); ' +
-                                        '                             update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());">ES</a>' +
+                                        '                             update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());" ' + 
+				        '        >ES<span class="d-none d-sm-inline-flex">&nbsp;(Spanish)</span></a>' +
                                         '        <a href="#" class="dropdown-item" ' + 
 				        '                    onclick="set_cfg(\'ws_idiom\',\'en\'); save_cfg(); $(\'#bot_signal\').carousel(1); ' +
-                                        '                             update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());">EN</a>' +
+                                        '                             update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());" ' +
+				        '        >EN<span class="d-none d-sm-inline-flex">&nbsp;(English)</span></a>' +
                                         '   </div>' +
                                         ' </div>' +
                                         '</center>',
@@ -720,6 +722,8 @@
 					    }
 					}
 			});
+
+			bb.find(".modal-title").addClass("mx-auto") ;
 
                         $(".dial").knob({ 'min':0, 'max':(nvalues-1) })
                                   .val(simhw_sim_signal(key).value)

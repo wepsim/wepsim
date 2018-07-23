@@ -146,46 +146,26 @@
 	        registers
 	      </p>
 	      <p>
-	        {
-	      <br>
-	                  0=$zero,
-	      <br>
-	                  1=$at,
-	      <br>
-	                  2=$v0,
-	      <br>
-	                  3=$v1,
-	      <br>
-	                  4=$a0,
-	      <br>
-	                  5=$a1,
-	      <br>
-	                  6=$a2,
-	      <br>
-	                  7=$a3,
-	      <br>
-	                  .
-	      <br>
-	                  .
-	      <br>
-	                  .
-	      <br>
-	                  24=$t8,        
-	      <br>
-	                  25=$t9,
-	      <br>
-	                  26=$k0,
-	      <br>
-	                  27=$k1,
-	      <br>
-	                  28=$gp,
-	      <br>
-	                  29=$sp (stack_pointer),
-	      <br>
-	                  30=$fp,
-	      <br>
-	                  31=$ra
-	      <br>
+	        { <br>
+	                  0=$zero, <br>
+	                  1=$at, <br>
+	                  2=$v0, <br>
+	                  3=$v1, <br>
+	                  4=$a0, <br>
+	                  5=$a1, <br>
+	                  6=$a2, <br>
+	                  7=$a3, <br>
+	                  .  <br>
+	                  .  <br>
+	                  .  <br>
+	                  24=$t8,        <br>
+	                  25=$t9, <br>
+	                  26=$k0, <br>
+	                  27=$k1, <br>
+	                  28=$gp, <br>
+	                  29=$sp (stack_pointer), <br>
+	                  30=$fp, <br>
+	                  31=$ra <br>
 	        }
 	      </p>
 	      </ul>
@@ -432,10 +412,26 @@
 	      </p>
 	      <p>
 	        The <b class="cleanuphtml-1">Figure 4</b> shows these inputs/outputs mentioned, which is necessary to join the R and W request signals for read and write respectively.
-	      </p><br clear="all" />
-	      <p>
-	         
 	      </p>
+
+	      <p>
+              The simulated hardware could be configure:<br>
+	      <ul>
+	         <li>
+                 <b>Memory</b>: number of cycles that the memory needs to looking for some data.<br>
+                 The default value is zero, and that means that data is available 
+                 at the next clock cycle after requesting it to/from memory.
+                 </li>
+	         <li>
+                 <b>I/O</b>: number of cycles to fire up interruptions.<br>
+                 The default value is zero, and that means that firing interruptions is disabled.
+                 If the 'CLK period' is (for example) 100 and the 'Probability' is 1, then
+                 every 100 CPU clock cycles the associated interruption is fired.
+                 If the probability is 0.5 then the associated interruption is fired with 50% of probability.
+                 </li>
+	      </ul>
+	      </p>
+
 	      <h2>
 	        <a name="_Toc438325788">Internal organization: control signals</a>
 	      </h2>
@@ -511,27 +507,13 @@
       </div>
 
 
-      <div id="help_simulator_screens">
-      <h1>Execution in WepSIM</h1>
+      <div id="help_simulator_firmware">
+      <h1>Microcode management in WepSIM</h1>
 
 	      <p>
-	      </p>
-	      <p>
-                The usual workflow includes the following steps:
-		<ul>
-                <li>To load a hand-on micro-code (see microcode management).</li>
-                <li>To load an assembler program that uses the hand-on microcode (see assembler management).</li>
-		<li>To go to the main screen (simulator) and to run the assembly program using the hand-on microcode (see Simulation WepSIM).</li>
-		</ul>
-	      </p>
-	      <p>
-	      </p>
-
-	      <a name="firmware_screens"></a>
-              <h2>Microcode management in WepSIM</h2>
-	      <p>
-                A text file with all three before commented sections (microcode, register naming, and definition of pseudo-instructions) 
-                is loaded in the Microcode screen. In order to access to this screen you have to use the upper-center Microcode button (see Figure <b class="cleanuphtml-4">Figure 16</b>)
+                A text file with three sections (microcode, register naming, and definition of pseudo-instructions) is loaded in the Microcode screen. 
+		Please refer to 'Microcode in WepSIM' for more information about the microcode format.
+		In order to access to this screen you have to use the upper-center Microcode button (see Figure <b class="cleanuphtml-4">Figure 16</b>)
 	      </p>
 	      <p>
 	         
@@ -544,7 +526,7 @@
 	      </p>
 	      <p>
 	        <br />
-                Then a screen with a text-editor appears where student is able to indicate the microcode (the three sections before commented). You can load an existing microcode by using the "Load" button on the upper toolbar, modify a previously loaded microcode or save the current microcode with the "Save" button on the upper toolbar. Once the microcode is ready, click the "μcompile" button to microcompile it and load the resulting binary in the control memory, as shown in <b class="cleanuphtml-4">Figure 17</b>.
+                Then, a screen with a on-line text-editor appears where the student is able to describe the microcode (the three sections before commented). Users can load an existing microcode by using the "Load" button on the upper toolbar, modify a previously loaded microcode or save the current microcode with the "Save" button on the upper toolbar. Once the microcode is ready, click the "μcompile" button to microcompile it and load the resulting binary in the control memory, as shown in <b class="cleanuphtml-4">Figure 17</b>.
 	      </p>
 	      <p>
 	        <img max-width="90%" width="90%" id="Imagen 2" src="help/simulator/firmware002.jpg" alt="" name="Imagen 2" />
@@ -560,25 +542,34 @@
                 Once the new microcode is loaded correctly, the button shown in <b class="cleanuphtml-4">Figure 18</b> let students to check the binary loaded into the control memory.
 	      </p>
 	      <p>
-	        <img max-width="90%" width="90%" id="Imagen 3" src="help/simulator/firmware004.jpg" alt="" name="Imagen 3" />
+	        <img max-width="90%" width="90%" id="Imagen4" src="help/simulator/firmware004.jpg" alt="Button to open the control memory modal" />
 	      </p>
 	      <p class="cleanuphtml-2">
-	        <a name="_Toc438322907"></a><a class="cleanuphtml-1" name="_Ref434191551">Figure</a> <b>18</b> <b>Microcode screen: binary in control memory.</b>
+	        <a name="fig4"></a><a class="cleanuphtml-1" name="_Ref434191551">Figure</a> <b>18</b> <b>Microcode screen: show control memory contents.</b>
+	      </p>
+	      <p>
+	        <img max-width="90%" width="90%" id="Imagen5" src="help/simulator/firmware005.jpg" alt="Modal with the control memory content in binary" />
+	      </p>
+	      <p class="cleanuphtml-2">
+	        <a name="fig5"></a><a class="cleanuphtml-1" name="_Ref434191551">Figure</a> <b>19</b> <b>Microcode screen: binary in control memory.</b>
 	      </p>
 	      <p>
 	        <br />
                 The next step is to load the assembler program to test this microcode, and for that you have to click on the "Assembly" button on the upper toolbar.
+		Please check the 'Simulator: assembly' section from help for more information.
 	      </p>
 	      <p>
 	         
 	      </p>
 
+      </div>
 
-	      <a name="assembly_screens"></a>
-              <h2>Assembler management in WepSIM</h2>
+
+      <div id="help_simulator_assembly">
+      <h1>Assembler management in WepSIM</h1>
 
 	      <p>
-                A text file with the two sections previously commented (data and code) is loaded on the Assembler screen. 
+                A text file with two types of sections (data and code) is loaded on the Assembler screen. 
                 To access to this screen the student has select the Assembly button (see <b class="cleanuphtml-3">Figure 16</b>) in the upper toolbar.
 	        <br />
 	      </p>
@@ -605,13 +596,19 @@
 	        <br /></b>
 	      </p>
 	      <p>
-                Once compiled, it will pass to the screen shown in <b class="cleanuphtml-3">Figure 23</b>, where the content of main memory in binary is displayed.
+                Once compiled, it will pass to the screen shown in <b class="cleanuphtml-3">Figure 22</b>, and the user can click on the button show in order to explore the content of main memory in binary (<b class="cleanuphtml-3">Figure 23</b>).
 	      </p>
 	      <p>
 	         
 	      </p>
 	      <p>
-	        <img max-width="90%" width="90%" id="Imagen 30" src="help/simulator/assembly005.jpg" alt="" name="Imagen 30" />
+	        <img max-width="90%" width="90%" id="Imagen 30" src="help/simulator/assembly004.jpg" alt="Assembly screen, button to show assembly in binary" />
+	      </p>
+	      <p class="cleanuphtml-2">
+	        <a name="_Toc438322912"></a><a class="cleanuphtml-1" name="_Ref434192450">Figure</a> <b>22</b> <b>Assembly screen: button to explore the main memory values.</b>
+	      </p>
+	      <p>
+	        <img max-width="90%" width="90%" id="Imagen 30" src="help/simulator/assembly005.jpg" alt="Modal with the assembly in binary" />
 	      </p>
 	      <p class="cleanuphtml-2">
 	        <a name="_Toc438322912"></a><a class="cleanuphtml-1" name="_Ref434192450">Figure</a> <b>23</b> <b>Assembly screen: binary values.</b>
@@ -624,9 +621,11 @@
 	      <p>
 	      </p>
 
+      </div>
 
-	      <a name="simulator_screens"></a>
-              <h2>Simulation in WepSIM</h2>
+
+      <div id="help_simulator_execution">
+      <h1>Simulation in WepSIM</h1>
 
 	      <p>
 	        In the main screen it is possible to see:
@@ -753,27 +752,6 @@ register 5 >= 8 ; memory 1 = 0x10; screen 0 == first_line
 	         </li>
 	         <li><b>The scroll bars use to be hidden on requirements and differencies.</b>
 	         </li>
-	      </ul>
-
-      </div>
-
-      <div id="help_hwcfg">
-
-              The configuration of the hardware simulated is performed in this dialog.<br>
-              There are two elements:
-	      <ul>
-	         <li>
-                 <b>Memory</b>: number of cycles that the memory needs to looking for some data.<br>
-                 The default value is zero, and that means that data is available 
-                 at the next clock cycle after requesting it to/from memory.
-                 </li>
-	         <li>
-                 <b>I/O</b>: number of cycles to fire up interruptions.<br>
-                 The default value is zero, and that means that firing interruptions is disabled.
-                 If the 'CLK period' is (for example) 100 and the 'Probability' is 1, then
-                 every 100 CPU clock cycles the associated interruption is fired.
-                 If the probability is 0.5 then the associated interruption is fired with 50% of probability.
-                 </li>
 	      </ul>
 
       </div>

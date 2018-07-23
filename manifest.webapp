@@ -4,8 +4,8 @@
   "description": "The Web Elemental Processor Simulator",
   "launch_path": "/index.html",
   "icons": {
-    "56": "/wepsim/images/wepsim.png",
-    "128": "/wepsim/images/wepsim.png"
+      "56": "/wepsim/images/wepsim.png",
+      "128": "/wepsim/images/wepsim.png"
   },
   "developer": {
     "name": "Alejandro Calderon Mateos",
