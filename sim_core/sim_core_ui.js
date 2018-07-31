@@ -674,7 +674,7 @@
             // without ui
             if (jqdiv == "")
             {
-		    MP_wc = ko_observable(MP_wc) ;
+                    simhw_MPwc_reset() ;
                     return ;
             }
 
@@ -691,7 +691,7 @@
                      "<tr><td align=center'>Wait cycles (<b>0</b> - &infin;)</td>" +
                      "    <td align=center'>" + 
                      "<div id='mp_wc'>" + 
-                     "<input type=number data-bind='value: MP_wc' min='0' max='99999999'>" +
+                     "<input type=number data-bind='value: simhw_MPwc()' min='0' max='99999999'>" +
                      "</div>" + 
                      "    </td></tr>" +
                      "</tbody>" +
@@ -703,9 +703,9 @@
             $(jqdiv).html(o1);
 
             // knockout binding
-	    MP_wc = ko_observable(MP_wc) ;
+            simhw_MPwc_reset() ;
             var ko_context = document.getElementById('mp_wc');
-            ko.applyBindings(MP_wc, ko_context);
+            ko.applyBindings(simhw_MPwc(), ko_context);
         }
 
         function init_config_io ( jqdiv )

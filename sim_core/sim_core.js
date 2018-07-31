@@ -130,8 +130,10 @@
 	            ret.msg = "" ;
 	            ret.ok  = true ;
 
-		if ( (typeof segments['.ktext'] == "undefined") &&
-		     (typeof segments['.text']  == "undefined") )
+                var curr_segments = simhw_segments() ;
+
+		if ( (typeof curr_segments['.ktext'] == "undefined") &&
+		     (typeof curr_segments['.text']  == "undefined") )
 		{
 		    ret.msg = 'code segment .ktext/.text does not exist!\nPlease load some assembly code.' ;
 	            ret.ok = false ;
@@ -141,8 +143,8 @@
 	        var SIMWARE = get_simware();
 
                 if (
-                     (! ((typeof segments['.ktext'] != "undefined") && (SIMWARE.labels2.kmain)) ) &&
-                     (! ((typeof segments['.text']  != "undefined") && (SIMWARE.labels2.main))   )
+                     (! ((typeof curr_segments['.ktext'] != "undefined") && (SIMWARE.labels2.kmain)) ) &&
+                     (! ((typeof curr_segments['.text']  != "undefined") && (SIMWARE.labels2.main))   )
                 )
                 {
 		     ret.msg = "labels 'kmain' (in .ktext) or 'main' (in .text) do not exist!" ;
@@ -175,11 +177,12 @@
                        return ret;
 		}
 
+                var curr_segments = simhw_segments() ;
 		var reg_pc = parseInt(get_value(simhw_sim_state('REG_PC')));
-		if ( (reg_pc < segments['.ktext'].end) && (reg_pc >= segments['.ktext'].begin)) {
+		if ( (reg_pc < curr_segments['.ktext'].end) && (reg_pc >= curr_segments['.ktext'].begin)) {
                     return ret;
 		}
-		if ( (reg_pc <  segments['.text'].end) && (reg_pc >=  segments['.text'].begin)) {
+		if ( (reg_pc <  curr_segments['.text'].end) && (reg_pc >=  curr_segments['.text'].begin)) {
                     return ret;
 		}
 
@@ -202,25 +205,27 @@
     	        ret.ok      = true ;
     
             // Hardware
-	    var SIMWARE   = get_simware() ;
-            var curr_firm = simhw_FIRMWARE() ;
+	    var SIMWARE       = get_simware() ;
+            var curr_firm     = simhw_FIRMWARE() ;
+            var curr_segments = simhw_segments() ;
+
             compute_general_behavior("RESET") ;
 
-            if ((typeof segments['.ktext'] != "undefined") && (SIMWARE.labels2.kmain))
+            if ((typeof curr_segments['.ktext'] != "undefined") && (SIMWARE.labels2.kmain))
 	    {
                     set_value(simhw_sim_state('REG_PC'), parseInt(SIMWARE.labels2.kmain));
                     show_asmdbg_pc() ;
     	    }
-            else if ((typeof segments['.text'] != "undefined") && (SIMWARE.labels2.main))
+            else if ((typeof curr_segments['.text'] != "undefined") && (SIMWARE.labels2.main))
 	    {
                     set_value(simhw_sim_state('REG_PC'), parseInt(SIMWARE.labels2.main));
                     show_asmdbg_pc() ;
     	    }
     
-    	    if ( (typeof segments['.stack'] != "undefined") &&
+    	    if ( (typeof curr_segments['.stack'] != "undefined") &&
                  (typeof simhw_sim_states().BR[curr_firm.stackRegister] != "undefined") )
     	    {
-    		set_value(simhw_sim_states().BR[curr_firm.stackRegister], parseInt(segments['.stack'].begin));
+    		set_value(simhw_sim_states().BR[curr_firm.stackRegister], parseInt(curr_segments['.stack'].begin));
     	    }
 
 	    var mode = get_cfg('ws_mode');
@@ -236,8 +241,8 @@
             show_rf_names();
             show_dbg_ir(get_value(simhw_sim_state('REG_IR_DECO'))) ;
 
-            show_main_memory   (MP,                                0, true, false) ;
-            show_control_memory(simhw_MC(),  simhw_MC_dashboard(), 0, true) ;
+            show_main_memory    (simhw_MP(),                        0, true, false) ;
+            show_control_memory (simhw_MC(),  simhw_MC_dashboard(), 0, true) ;
 
             return ret ;
         }
@@ -358,22 +363,24 @@
     	        ret.msg = "" ;
     
             // execute firmware-assembly
+            var curr_segments = simhw_segments() ;
+
     	    var reg_pc        = get_value(simhw_sim_state('REG_PC')) ;
     	    var reg_pc_before = get_value(simhw_sim_state('REG_PC')) - 4 ;
     
     	    var code_begin  = 0 ;
-    	    if ( (typeof segments['.text'] != "undefined") && (typeof segments['.text'].begin != "undefined") )
-    	          code_begin = parseInt(segments['.text'].begin) ;
+    	    if ( (typeof curr_segments['.text'] != "undefined") && (typeof curr_segments['.text'].begin != "undefined") )
+    	          code_begin = parseInt(curr_segments['.text'].begin) ;
     	    var code_end    = 0 ;
-    	    if ( (typeof segments['.text'] != "undefined") && (typeof segments['.text'].end   != "undefined") )
-    	          code_end = parseInt(segments['.text'].end) ;
+    	    if ( (typeof curr_segments['.text'] != "undefined") && (typeof curr_segments['.text'].end   != "undefined") )
+    	          code_end = parseInt(curr_segments['.text'].end) ;
     
     	    var kcode_begin = 0 ;
-    	    if ( (typeof segments['.ktext'] != "undefined") && (typeof segments['.ktext'].begin != "undefined") )
-    	          kcode_begin = parseInt(segments['.ktext'].begin) ;
+    	    if ( (typeof curr_segments['.ktext'] != "undefined") && (typeof curr_segments['.ktext'].begin != "undefined") )
+    	          kcode_begin = parseInt(curr_segments['.ktext'].begin) ;
     	    var kcode_end   = 0 ;
-    	    if ( (typeof segments['.ktext'] != "undefined") && (typeof segments['.ktext'].end   != "undefined") )
-    	          kcode_end = parseInt(segments['.ktext'].end) ;
+    	    if ( (typeof curr_segments['.ktext'] != "undefined") && (typeof curr_segments['.ktext'].end   != "undefined") )
+    	          kcode_end = parseInt(curr_segments['.ktext'].end) ;
     
 	    var ret1         = null ;
 	    var before_state = null ;

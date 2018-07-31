@@ -67,8 +67,10 @@
                  revlabels[SIMWARE.labels2[key]] = key ;
 
             var seglabels = new Object() ;
-	    for (skey in segments)
-                 seglabels[parseInt(segments[skey].begin)] = skey ;
+            var curr_segments = simhw_segments() ;
+	    for (skey in curr_segments) {
+                 seglabels[parseInt(curr_segments[skey].begin)] = skey ;
+            }
 
             for (var key in memory)
             {

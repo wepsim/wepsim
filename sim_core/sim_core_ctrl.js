@@ -504,7 +504,7 @@
         function show_memories_values ( )
         {
 		/*
-               show_main_memory(MP,               
+               show_main_memory(simhw_MP(),               
                                 get_value(simhw_sim_state('REG_PC')),        true, true) ;
             show_control_memory(simhw_MC(), 
                                 simhw_MC_dashboard(), 
@@ -512,7 +512,7 @@
 		*/
 
             var f1 = new Promise(function(resolve, reject) {
-                 show_main_memory(MP, 
+                 show_main_memory(simhw_MP(), 
                                   get_value(simhw_sim_state('REG_PC')), true, true) ;
                  resolve(1);
             });
@@ -818,31 +818,33 @@
 	    }
 
 	    // 4.- load the MP from SIMWARE['mp']
-            MP = new Object() ;
+            simhw_MP_reset() ;
 	    for (var key in SIMWARE['mp'])
 	    {
 	       var kx = parseInt(key)
 	       var kv = parseInt(SIMWARE['mp'][key].replace(/ /g,''), 2) ;
-	       MP[kx] = kv ;
+               simhw_MP_set(kx, kv) ;
 	    }
 
             /// bugfix safari bug 10.1.2
+            /*
 	    for (var e in MP) {
 	         if (isNaN(MP[e])) {
 	    	     delete MP[e];
                  }
             }
+            */
             /// end bugfix 
 
 	    // 5.- load the segments from SIMWARE['seg']
-            segments = new Object() ;
+            simhw_segments_reset() ;
 	    for (var key in SIMWARE['seg'])
 	    {
-	       segments[key] = SIMWARE['seg'][key] ;
+	         simhw_segments_set(key, SIMWARE['seg'][key]) ;
 	    }
 
 	    // 6.- show memories...
-            show_main_memory   (MP,                               0, true, true) ;
+            show_main_memory   (simhw_MP(),                       0, true, true) ;
             show_control_memory(simhw_MC(), simhw_MC_dashboard(), 0, true) ;
 	}
 

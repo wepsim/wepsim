@@ -30,10 +30,13 @@
         var ep_signals    = {} ;
         var ep_behaviors  = {} ;
 
-	var ep_MC           = {};
-	var ep_MC_dashboard = {};
-	var ep_ROM          = {};
-	var ep_FIRMWARE     = {};
+	var ep_MC           = {} ;
+	var ep_MC_dashboard = {} ;
+	var ep_ROM          = {} ;
+	var ep_FIRMWARE     = {} ;
+        var ep_segments     = {} ;
+        var ep_MP           = {} ;
+        var ep_MP_wc        = 0 ;
 
         /* Local support */
         var io_hash      = {} ;
@@ -58,6 +61,9 @@
 	               MC:                  ep_MC,
 	               MC_dashboard:        ep_MC_dashboard,
 	               ROM:                 ep_ROM,
-	               FIRMWARE:            ep_FIRMWARE
+	               FIRMWARE:            ep_FIRMWARE,
+                       segments:            ep_segments,
+                       MP:                  ep_MP,
+                       MP_wc:               ep_MP_wc
 	             } ;
 

@@ -200,3 +200,72 @@
             return sim.active.FIRMWARE = ep_FIRMWARE ;
         }
 
+        // MP
+
+        function simhw_MP ( )
+        {
+            return sim.active.MP ;
+        }
+
+        function simhw_MP_get ( id )
+        {
+            return sim.active.MP[id] ;
+        }
+
+        function simhw_MP_set ( id, val )
+        {
+            return sim.active.MP[id] = val ;
+        }
+
+        function simhw_MP_reset ( )
+        {
+            ep_MP = new Object() ;
+            return sim.active.MP = ep_MP ;
+        }
+
+        // segments
+
+        function simhw_segments ( )
+        {
+            return sim.active.segments ;
+        }
+
+        function simhw_segments_get ( id )
+        {
+            return sim.active.segments[id] ;
+        }
+
+        function simhw_segments_set ( id, val )
+        {
+            return sim.active.segments[id] = val ;
+        }
+
+        function simhw_segments_reset ( )
+        {
+            ep_segments = new Object() ;
+            return sim.active.segments = ep_segments ;
+        }
+
+        // MP_wc
+
+        function simhw_MPwc ( )
+        {
+            return sim.active.MP_wc ;
+        }
+
+        function simhw_MPwc_get ( id )
+        {
+            return sim.active.MP_wc[id] ;
+        }
+
+        function simhw_MPwc_set ( id, val )
+        {
+            return sim.active.MP_wc[id] = val ;
+        }
+
+        function simhw_MPwc_reset ( )
+        {
+            ep_MP_wc = ko_observable(0) ;
+            return sim.active.MP_wc = ep_MP ;
+        }
+

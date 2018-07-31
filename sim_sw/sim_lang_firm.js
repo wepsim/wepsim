@@ -1099,9 +1099,10 @@ function decode_instruction ( binstruction )
 function decode_ram ( )
 {
     var sram = "\n" ;
-    for (var address in MP)
+    var curr_MP = simhw_MP() ;
+    for (var address in curr_MP)
     {
-        var binstruction = MP[address].toString(2) ;
+        var binstruction = curr_MP[address].toString(2) ;
             binstruction = "00000000000000000000000000000000".substring(0, 32 - binstruction.length) + binstruction ;
         sram += "0x" + parseInt(address).toString(16) + ":" + decode_instruction(binstruction) + "\n" ;
     }
