@@ -594,8 +594,8 @@
             {
 		    for (var i=0; i<IO_INT_FACTORY.length; i++) 
 		    {
-		       IO_INT_FACTORY[i].accumulated = ko_observable(IO_INT_FACTORY[i].accumulated) ;
-		       IO_INT_FACTORY[i].active      = ko_observable(IO_INT_FACTORY[i].active) ;
+		         IO_INT_FACTORY[i].accumulated = ko_observable(IO_INT_FACTORY[i].accumulated) ;
+		         IO_INT_FACTORY[i].active      = ko_observable(IO_INT_FACTORY[i].active) ;
                     }
 
                     return ;

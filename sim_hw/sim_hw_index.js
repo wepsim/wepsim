@@ -266,6 +266,6 @@
         function simhw_MPwc_reset ( )
         {
             ep_MP_wc = ko_observable(0) ;
-            return sim.active.MP_wc = ep_MP ;
+            return sim.active.MP_wc = ep_MP_wc ;
         }
 

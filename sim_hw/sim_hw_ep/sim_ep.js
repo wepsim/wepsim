@@ -52,6 +52,7 @@
                        sim_img_processor:   "sim_hw/sim_hw_ep/processor6.svg",
                        sim_img_controlunit: "sim_hw/sim_hw_ep/controlunit6.svg",
                        sim_img_cpu:         "sim_hw/sim_hw_ep/cpu6.svg",
+
                        components:          ep_components,
                        states:              ep_states,
                        signals:             ep_signals,
