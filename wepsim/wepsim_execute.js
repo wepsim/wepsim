@@ -142,23 +142,24 @@
         var reg_maddr = get_value(simhw_sim_state('REG_MICROADDR')) ;
         var curr_addr = "0x" + reg_maddr.toString(16) ;
 
-        if (typeof MC_dashboard[reg_maddr] == "undefined") {
+        if (typeof simhw_MC_dashboard(reg_maddr) == "undefined") {
             return false ;
         }
 
-        return (MC_dashboard[reg_maddr].breakpoint) ;
+        return (simhw_MC_dashboard(reg_maddr).breakpoint) ;
     }
 
     function wepsim_check_stopbybreakpoint_asm ( )
     {
 	var reg_pc    = get_value(simhw_sim_state('REG_PC')) ;
 	var curr_addr = "0x" + reg_pc.toString(16) ;
+        var curr_firm = simhw_FIRMWARE() ;
 
-	if (typeof FIRMWARE.assembly[curr_addr] == "undefined") {
+	if (typeof curr_firm.assembly[curr_addr] == "undefined") {
             return false ;
         }
 
-	return (FIRMWARE.assembly[curr_addr].breakpoint) ;
+	return (curr_firm.assembly[curr_addr].breakpoint) ;
     }
 
     function wepsim_show_stopbyevent ( msg1, msg2 )
@@ -179,7 +180,7 @@
     function wepsim_check_state_firm ( )
     {
         var reg_maddr = get_value(simhw_sim_state('REG_MICROADDR')) ;
-        if (false == MC_dashboard[reg_maddr].state)
+        if (false == simhw_MC_dashboard(reg_maddr).state)
             return false ;
 
         wepsim_state_history_add() ;
@@ -311,15 +312,16 @@
 		    return ;
 		}
 
-		var reg_maddr = get_value(simhw_sim_state('REG_MICROADDR')) ;
-		var notifications = MC_dashboard[reg_maddr].notify.length ;
+		var reg_maddr     = get_value(simhw_sim_state('REG_MICROADDR')) ;
+		var notifications = simhw_MC_dashboard(reg_maddr).notify.length ;
 		if (notifications > 1) 
                 {
-		    var dialog_title = "Notify @ " + reg_maddr + ": " + MC_dashboard[reg_maddr].notify[1] ;
+		    var dialog_title = "Notify @ " + reg_maddr + ": " + 
+                                       simhw_MC_dashboard(reg_maddr).notify[1] ;
 
 		    var dialog_msg = "" ;
 		    for (var k=1; k<notifications; k++) {
-			 dialog_msg += MC_dashboard[reg_maddr].notify[k] + "\n<br>" ;
+			 dialog_msg += simhw_MC_dashboard(reg_maddr).notify[k] + "\n<br>" ;
 		    }
 
 		    bootbox.confirm({

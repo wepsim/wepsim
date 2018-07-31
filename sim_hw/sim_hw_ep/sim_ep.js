@@ -25,14 +25,19 @@
 
         /* Abstraction */
         var ep_components = {} ;
-        var ep_states = {} ;
-        var ep_events = {} ;
-        var ep_signals = {} ;
-        var ep_behaviors = {} ;
+        var ep_states     = {} ;
+        var ep_events     = {} ;
+        var ep_signals    = {} ;
+        var ep_behaviors  = {} ;
+
+	var ep_MC           = {};
+	var ep_MC_dashboard = {};
+	var ep_ROM          = {};
+	var ep_FIRMWARE     = {};
 
         /* Local support */
-        var io_hash    = {} ;
-        var fire_stack  = [] ;
+        var io_hash      = {} ;
+        var fire_stack   = [] ;
 
 
         /*
@@ -48,6 +53,11 @@
                        states:              ep_states,
                        signals:             ep_signals,
                        behaviors:           ep_behaviors,
-                       events:              ep_events
+                       events:              ep_events,
+
+	               MC:                  ep_MC,
+	               MC_dashboard:        ep_MC_dashboard,
+	               ROM:                 ep_ROM,
+	               FIRMWARE:            ep_FIRMWARE
 	             } ;
 

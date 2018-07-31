@@ -163,7 +163,7 @@
 		    ret.msg = "" ;
 
 		var reg_maddr = get_value(simhw_sim_state('REG_MICROADDR')) ;
-                if (typeof MC[reg_maddr] == "undefined") {
+                if (typeof simhw_MC_get(reg_maddr) == "undefined") {
 		    ret.ok  = false ;
 		    ret.msg = "Error: undefined microinstruction at " + reg_maddr + "." ;
                     return ret ;
@@ -202,7 +202,8 @@
     	        ret.ok      = true ;
     
             // Hardware
-	    var SIMWARE = get_simware() ;
+	    var SIMWARE   = get_simware() ;
+            var curr_firm = simhw_FIRMWARE() ;
             compute_general_behavior("RESET") ;
 
             if ((typeof segments['.ktext'] != "undefined") && (SIMWARE.labels2.kmain))
@@ -217,9 +218,9 @@
     	    }
     
     	    if ( (typeof segments['.stack'] != "undefined") &&
-                 (typeof simhw_sim_states().BR[FIRMWARE.stackRegister] != "undefined") )
+                 (typeof simhw_sim_states().BR[curr_firm.stackRegister] != "undefined") )
     	    {
-    		set_value(simhw_sim_states().BR[FIRMWARE.stackRegister], parseInt(segments['.stack'].begin));
+    		set_value(simhw_sim_states().BR[curr_firm.stackRegister], parseInt(segments['.stack'].begin));
     	    }
 
 	    var mode = get_cfg('ws_mode');
@@ -235,8 +236,8 @@
             show_rf_names();
             show_dbg_ir(get_value(simhw_sim_state('REG_IR_DECO'))) ;
 
-            show_main_memory   (MP,                0, true, false) ;
-            show_control_memory(MC,  MC_dashboard, 0, true) ;
+            show_main_memory   (MP,                                0, true, false) ;
+            show_control_memory(simhw_MC(),  simhw_MC_dashboard(), 0, true) ;
 
             return ret ;
         }
@@ -291,6 +292,7 @@
 	        var before_state = null ;
 	        var  after_state = null ;
 	        var  curr_mpc    = "" ;
+                var  curr_MC     = simhw_MC() ;
 
                 var i_clks = 0 ;
                 var cur_addr = 0 ;
@@ -306,7 +308,7 @@
 		           after_state = simstate_current2state() ;
                            curr_mpc    = '0x' + cur_addr.toString(16) ;
                            ret.msg     = ret.msg + 'micropc(' + curr_mpc + '):\t' + 
-				         controlmemory_lineToString(MC, cur_addr).trim() + ':\t\t\t' +
+				         controlmemory_lineToString(curr_MC, cur_addr).trim() + ':\t\t\t' +
                                          simstate_diff_states(before_state,after_state) + '\n' ;
 		       }
 
@@ -323,7 +325,7 @@
 	            }
 
                     cur_addr = get_value(simhw_sim_state('REG_MICROADDR')) ;
-                    if (typeof MC[cur_addr] == "undefined")
+                    if (typeof curr_MC[cur_addr] == "undefined")
 		    {
 		        ret.msg = "Error: undefined microinstruction at " + cur_addr + "." ;
 		        ret.ok  = false ;

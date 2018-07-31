@@ -25,49 +25,53 @@
 
         function get_simware ( )
         {
-	    if (typeof FIRMWARE['firmware'] == "undefined")
+            var curr_firm = simhw_FIRMWARE() ;
+
+	    if (typeof curr_firm['firmware'] == "undefined")
             {
-                FIRMWARE['firmware']           = new Array() ;
-                FIRMWARE['mp']                 = new Object() ;
-                FIRMWARE['seg']                = new Object() ;
-                FIRMWARE['assembly']           = new Object() ;
-                FIRMWARE['labels']             = new Object() ;
-                FIRMWARE['labels2']            = new Object() ;
-                FIRMWARE['labels_firm']        = new Object() ;
-                FIRMWARE['registers']          = new Object() ;
-                FIRMWARE['cihash']             = new Object() ;
-                FIRMWARE['pseudoInstructions'] = new Object() ;
-		FIRMWARE['stackRegister']      = new Object() ;
+                curr_firm['firmware']           = new Array() ;
+                curr_firm['mp']                 = new Object() ;
+                curr_firm['seg']                = new Object() ;
+                curr_firm['assembly']           = new Object() ;
+                curr_firm['labels']             = new Object() ;
+                curr_firm['labels2']            = new Object() ;
+                curr_firm['labels_firm']        = new Object() ;
+                curr_firm['registers']          = new Object() ;
+                curr_firm['cihash']             = new Object() ;
+                curr_firm['pseudoInstructions'] = new Object() ;
+		curr_firm['stackRegister']      = new Object() ;
             }
 
-            return FIRMWARE ;
+            return curr_firm ;
 	}
 
         function set_simware ( preSIMWARE )
         {
+            var curr_firm = simhw_FIRMWARE() ;
+
 	    if (typeof preSIMWARE['firmware'] != "undefined")
-                FIRMWARE['firmware'] = preSIMWARE['firmware'] ;
+                curr_firm['firmware'] = preSIMWARE['firmware'] ;
 	    if (typeof preSIMWARE['mp'] != "undefined")
-                FIRMWARE['mp'] = preSIMWARE['mp'] ;
+                curr_firm['mp'] = preSIMWARE['mp'] ;
 	    if (typeof preSIMWARE['registers'] != "undefined")
-                FIRMWARE['registers'] = preSIMWARE['registers'] ;
+                curr_firm['registers'] = preSIMWARE['registers'] ;
 	    if (typeof preSIMWARE['cihash'] != "undefined")
-                FIRMWARE['cihash'] = preSIMWARE['cihash'] ;
+                curr_firm['cihash'] = preSIMWARE['cihash'] ;
 	    if (typeof preSIMWARE['assembly'] != "undefined")
-                FIRMWARE['assembly'] = preSIMWARE['assembly'] ;
+                curr_firm['assembly'] = preSIMWARE['assembly'] ;
 	    if (typeof preSIMWARE['pseudoInstructions'] != "undefined")
-                FIRMWARE['pseudoInstructions'] = preSIMWARE['pseudoInstructions'] ;
+                curr_firm['pseudoInstructions'] = preSIMWARE['pseudoInstructions'] ;
 
 	    if (typeof preSIMWARE['seg'] != "undefined")
-                FIRMWARE['seg'] = preSIMWARE['seg'] ;
+                curr_firm['seg'] = preSIMWARE['seg'] ;
 	    if (typeof preSIMWARE['labels'] != "undefined")
-                FIRMWARE['labels'] = preSIMWARE['labels'] ;
+                curr_firm['labels'] = preSIMWARE['labels'] ;
 	    if (typeof preSIMWARE['labels2'] != "undefined")
-                FIRMWARE['labels2'] = preSIMWARE['labels2'] ;
+                curr_firm['labels2'] = preSIMWARE['labels2'] ;
 	    if (typeof preSIMWARE['labels_firm'] != "undefined")
-                FIRMWARE['labels_firm'] = preSIMWARE['labels_firm'] ;
+                curr_firm['labels_firm'] = preSIMWARE['labels_firm'] ;
 	    if (typeof preSIMWARE['stackRegister'] != "undefined")
-		FIRMWARE['stackRegister'] = preSIMWARE['stackRegister'] ;
+		curr_firm['stackRegister'] = preSIMWARE['stackRegister'] ;
 	}
 
         function get_value ( sim_obj )
@@ -500,16 +504,22 @@
         function show_memories_values ( )
         {
 		/*
-               show_main_memory(MP,               get_value(simhw_sim_state('REG_PC')),        true, true) ;
-            show_control_memory(MC, MC_dashboard, get_value(simhw_sim_state('REG_MICROADDR')), true, true) ;
+               show_main_memory(MP,               
+                                get_value(simhw_sim_state('REG_PC')),        true, true) ;
+            show_control_memory(simhw_MC(), 
+                                simhw_MC_dashboard(), 
+                                get_value(simhw_sim_state('REG_MICROADDR')), true, true) ;
 		*/
 
             var f1 = new Promise(function(resolve, reject) {
-                 show_main_memory(MP, get_value(simhw_sim_state('REG_PC')), true, true) ;
+                 show_main_memory(MP, 
+                                  get_value(simhw_sim_state('REG_PC')), true, true) ;
                  resolve(1);
             });
             var f2 = new Promise(function(resolve, reject) {
-                 show_control_memory(MC, MC_dashboard, get_value(simhw_sim_state('REG_MICROADDR')), true) ;
+                 show_control_memory(simhw_MC(), 
+                                     simhw_MC_dashboard(), 
+                                     get_value(simhw_sim_state('REG_MICROADDR')), true) ;
                  resolve(1);
             });
 
@@ -696,12 +706,13 @@
 								 else delete(simhw_sim_state("REG_MICROINS").value[key]);
 
 								 // update MC[uADDR]
-								 if (typeof MC[get_value(simhw_sim_state("REG_MICROADDR"))] == "undefined") {
-								     MC[get_value(simhw_sim_state("REG_MICROADDR"))] = new Object() ;
-								     MC_dashboard[get_value(simhw_sim_state("REG_MICROADDR"))] = new Object() ;
+								 var curr_maddr = get_value(simhw_sim_state("REG_MICROADDR")) ;
+								 if (typeof simhw_MC_get(curr_maddr) == "undefined") {
+								     simhw_MC_set           (curr_maddr, new Object()) ;
+								     simhw_MC_dashboard_set (curr_maddr, new Object()) ;
 								 }
-								 MC[get_value(simhw_sim_state("REG_MICROADDR"))][key] = simhw_sim_signal(key).value ;
-								 MC_dashboard[get_value(simhw_sim_state("REG_MICROADDR"))][key] = { comment: "", breakpoint: false, state: false, notify: new Array() };
+                                                                 simhw_MC_get(curr_maddr)[key] = simhw_sim_signal(key).value ;
+								 simhw_MC_dashboard_get(curr_maddr)[key] = { comment: "", breakpoint: false, state: false, notify: new Array() };
 
 								 // update ROM[..]
 								 update_signal_firmware(key) ;
@@ -758,8 +769,8 @@
             var SIMWARE = get_simware() ;
 
 	    // 2.- load the MC from ROM['firmware']
-            MC           = new Object() ;
-            MC_dashboard = new Object() ;
+            simhw_MC_reset() ;
+            simhw_MC_dashboard_reset() ;
             for (var i=0; i<SIMWARE['firmware'].length; i++)
 	    {
                var elto_state  = false ;
@@ -770,26 +781,25 @@
                var mci  = SIMWARE['firmware'][i]["mc-start"] ;
 	       for (var j=0; j<last; j++)
 	       {
-		    var comment = SIMWARE['firmware'][i]["microcomments"][j] ;
-		    MC[mci]     = SIMWARE['firmware'][i]["microcode"][j] ;
-
-                    elto_state  = (comment.trim().split("state:").length > 1) ;
-                    elto_break  = (comment.trim().split("break:").length > 1) ;
-                    elto_notify =  comment.trim().split("notify:") ;
+		    var comment  = SIMWARE['firmware'][i]["microcomments"][j] ;
+                    elto_state   = (comment.trim().split("state:").length > 1) ;
+                    elto_break   = (comment.trim().split("break:").length > 1) ;
+                    elto_notify  =  comment.trim().split("notify:") ;
 		    for (var k=0; k<elto_notify.length; k++) {
 		         elto_notify[k] = elto_notify[k].split('\n')[0] ;
                     }
 
-		    MC_dashboard[mci] = { comment: comment, 
-                                          state: elto_state, 
-                                          breakpoint: elto_break, 
-                                          notify: elto_notify } ;
+		    simhw_MC_set(mci, SIMWARE['firmware'][i]["microcode"][j]) ;
+                    simhw_MC_dashboard_set(mci, { comment: comment, 
+                                                  state: elto_state, 
+                                                  breakpoint: elto_break, 
+                                                  notify: elto_notify }) ;
 		    mci++;
 	       }
 	    }
 
 	    // 3.- load the ROM (2/2)
-            ROM = new Object() ;
+            simhw_ROM_reset() ;
             for (var i=0; i<SIMWARE['firmware'].length; i++)
 	    {
                if ("begin" == SIMWARE['firmware'][i]['name']) {
@@ -803,7 +813,7 @@
 	           cop = parseInt(SIMWARE['firmware'][i]["cop"], 2) ;
 
                var rom_addr = 64*co + cop ;
-	       ROM[rom_addr] = ma ;
+	       simhw_ROM_set(rom_addr, ma) ;
                SIMWARE['cihash'][rom_addr] = SIMWARE['firmware'][i]['signature'] ;
 	    }
 
@@ -832,7 +842,7 @@
 	    }
 
 	    // 6.- show memories...
-            show_main_memory   (MP,                0, true, true) ;
-            show_control_memory(MC,  MC_dashboard, 0, true) ;
+            show_main_memory   (MP,                               0, true, true) ;
+            show_control_memory(simhw_MC(), simhw_MC_dashboard(), 0, true) ;
 	}
 

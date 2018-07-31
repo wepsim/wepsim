@@ -791,16 +791,17 @@
 
 	function get_deco_from_pc ( pc )
 	{
-	        var hexstrpc = "0x" + pc.toString(16) ;
+	        var hexstrpc  = "0x" + pc.toString(16) ;
+                var curr_firm = simhw_FIRMWARE() ;
 
-	        if ( (typeof FIRMWARE.assembly                  == "undefined") ||
-	             (typeof FIRMWARE.assembly[hexstrpc]        == "undefined") ||
-	             (typeof FIRMWARE.assembly[hexstrpc].source == "undefined") )
+	        if ( (typeof curr_firm.assembly                  == "undefined") ||
+	             (typeof curr_firm.assembly[hexstrpc]        == "undefined") ||
+	             (typeof curr_firm.assembly[hexstrpc].source == "undefined") )
                 {
                       return "";
                 }
 
-                return FIRMWARE.assembly[hexstrpc].source ;
+                return curr_firm.assembly[hexstrpc].source ;
         }
 
 

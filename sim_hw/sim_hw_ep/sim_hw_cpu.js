@@ -94,15 +94,6 @@
 				              }
                             	};
 
-	/*
-	 *  States - Memories
-	 */
-
-	var MC           = {};
-	var MC_dashboard = {};
-	var ROM          = {};
-	var FIRMWARE     = {};
-
 
 	/*
 	 *  States
@@ -1097,16 +1088,16 @@
 						    if (typeof oi.cop != "undefined")
                                                         rom_addr = rom_addr + cop_code ;
 
-						    // 2.- ! ROM[rom_addr] -> error
-						    if (typeof ROM[rom_addr] == "undefined")
+						    // 2.- ! ep_ROM[rom_addr] -> error
+						    if (typeof ep_ROM[rom_addr] == "undefined")
 						    {
 							 alert('ERROR: undefined rom address ' + rom_addr + ' in firmware') ;
 							 ep_states['ROM_MUXA'].value = 0 ;
 							 return -1;
 						    }
 
-						    // 3.- ROM[rom_addr] -> mc-start -> ROM_MUXA
-						    ep_states['ROM_MUXA'].value = ROM[rom_addr] ;
+						    // 3.- ep_ROM[rom_addr] -> mc-start -> ROM_MUXA
+						    ep_states['ROM_MUXA'].value = ep_ROM[rom_addr] ;
 
 						    // 4.-  Statistics
 						    var val = get_value(ep_states['DECO_INS']) ;
@@ -1197,8 +1188,8 @@
 							    var new_maddr = get_value(ep_states["MUXA_MICROADDR"]) ;
 							    set_value(ep_states["REG_MICROADDR"], new_maddr) ;
 
-							    if (typeof MC[new_maddr] != "undefined")
-								     var new_mins = Object.create(MC[new_maddr]);
+							    if (typeof ep_MC[new_maddr] != "undefined")
+								     var new_mins = Object.create(ep_MC[new_maddr]);
 								else var new_mins = Object.create(ep_states["REG_MICROINS"].default_value);
 							    ep_states["REG_MICROINS"].value = new_mins ;
 

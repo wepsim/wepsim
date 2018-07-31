@@ -699,20 +699,22 @@
 		    return ;
 
                 var o1 = null ;
+
                 var reg_pc    = get_value(simhw_sim_state("REG_PC")) ;
                 var curr_addr = "0x" + reg_pc.toString(16) ;
+                var curr_firm = simhw_FIRMWARE() ;
 
-                if (typeof FIRMWARE.assembly[old_addr] != "undefined")
+                if (typeof curr_firm.assembly[old_addr] != "undefined")
                 {
                      o1 = $("#asmdbg" + old_addr) ;
-                     o1.css('background-color', FIRMWARE.assembly[old_addr].bgcolor) ;
+                     o1.css('background-color', curr_firm.assembly[old_addr].bgcolor) ;
                 }
                 else
                 {
-                     for (l in FIRMWARE.assembly)
+                     for (l in curr_firm.assembly)
                      {
                           o1 = $("#asmdbg" + l) ;
-                          o1.css('background-color', FIRMWARE.assembly[l].bgcolor) ;
+                          o1.css('background-color', curr_firm.assembly[l].bgcolor) ;
                      }
                 }
                 old_addr = curr_addr ;
@@ -726,10 +728,11 @@
         function asmdbg_set_breakpoint ( addr )
         {
                 var icon_theme = get_cfg('ICON_theme') ;
+                var hexaddr    = "0x" + addr.toString(16) ;
+                var curr_firm  = simhw_FIRMWARE() ;
 
-                var hexaddr  = "0x" + addr.toString(16) ;
-                var o1       = document.getElementById("bp"+hexaddr) ;
-                var bp_state = FIRMWARE.assembly[hexaddr].breakpoint ;
+                var o1 = document.getElementById("bp"+hexaddr) ;
+                var bp_state = curr_firm.assembly[hexaddr].breakpoint ;
 
                 if (bp_state === true) {
                     bp_state = false ;
@@ -739,7 +742,7 @@
                     o1.innerHTML = "<img alt='stop icon' height=22 src='images/stop_" + icon_theme + ".gif'>" ;
                 }
 
-                FIRMWARE.assembly[hexaddr].breakpoint = bp_state ;
+                curr_firm.assembly[hexaddr].breakpoint = bp_state ;
         }
 
         function dbg_set_breakpoint ( addr )
@@ -747,7 +750,7 @@
                 var icon_theme = get_cfg('ICON_theme') ;
 
                 var o1       = document.getElementById("mcpin" + addr) ;
-                var bp_state = MC_dashboard[addr].breakpoint ;
+                var bp_state = simhw_MC_dashboard_get(addr).breakpoint ;
 
                 if (bp_state === true) {
                     bp_state = false ;
@@ -757,7 +760,7 @@
                     o1.innerHTML = "<img alt='stop icon' height='22' src='images/stop_" + icon_theme + ".gif'>" ;
                 }
 
-                MC_dashboard[addr].breakpoint = bp_state ;
+                simhw_MC_dashboard_get(addr).breakpoint = bp_state ;
 
                 if ( bp_state && ('instruction' == get_cfg('DBG_level')) )
                 {
@@ -768,8 +771,8 @@
 
 	function show_dbg_mpc ( )
 	{
-                show_control_memory(MC,
-                                    MC_dashboard,
+                show_control_memory(simhw_MC(),
+                                    simhw_MC_dashboard(),
                                     get_value(simhw_sim_state('REG_MICROADDR')),
                                     false) ;
 	}

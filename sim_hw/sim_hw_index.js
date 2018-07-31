@@ -60,6 +60,8 @@
             return sim.active ;
         }
 
+        // sim_signals
+
         function simhw_sim_signals ( )
         {
             return sim.active.signals ;
@@ -69,6 +71,8 @@
         {
             return sim.active.signals[id] ;
         }
+
+        // sim_states
 
         function simhw_sim_states ( )
         {
@@ -80,6 +84,8 @@
             return sim.active.states[id] ;
         }
 
+        // syntax_behaviours
+
         function simhw_syntax_behaviors ( )
         {
             return sim.active.behaviors ;
@@ -90,6 +96,8 @@
             return sim.active.behaviors[id] ;
         }
 
+        // sim_components
+
         function simhw_sim_components ( )
         {
             return sim.active.components ;
@@ -98,5 +106,97 @@
         function simhw_sim_component ( id )
         {
             return sim.active.components[id] ;
+        }
+
+        // MC
+
+        function simhw_MC ( )
+        {
+            return sim.active.MC ;
+        }
+
+        function simhw_MC_get ( id )
+        {
+            return sim.active.MC[id] ;
+        }
+
+        function simhw_MC_set ( id, val )
+        {
+            return sim.active.MC[id] = val ;
+        }
+
+        function simhw_MC_reset ( )
+        {
+            ep_MC = new Object() ;
+            return sim.active.MC = ep_MC ;
+        }
+
+        // MC_dashboard
+
+        function simhw_MC_dashboard ( )
+        {
+            return sim.active.MC_dashboard ;
+        }
+
+        function simhw_MC_dashboard_get ( id )
+        {
+            return sim.active.MC_dashboard[id] ;
+        }
+
+        function simhw_MC_dashboard_set ( id, val )
+        {
+            return sim.active.MC_dashboard[id] = val ;
+        }
+
+        function simhw_MC_dashboard_reset ( )
+        {
+            ep_MC_dashboard = new Object() ;
+            return sim.active.MC_dashboard = ep_MC_dashboard ;
+        }
+
+        // ROM
+
+        function simhw_ROM ( )
+        {
+            return sim.active.ROM ;
+        }
+
+        function simhw_ROM_get ( id )
+        {
+            return sim.active.ROM[id] ;
+        }
+
+        function simhw_ROM_set ( id, val )
+        {
+            return sim.active.ROM[id] = val ;
+        }
+
+        function simhw_ROM_reset ( )
+        {
+            ep_ROM = new Object() ;
+            return sim.active.ROM = ep_ROM ;
+        }
+
+        // FIRMWARE
+
+        function simhw_FIRMWARE ( )
+        {
+            return sim.active.FIRMWARE ;
+        }
+
+        function simhw_FIRMWARE_get ( id )
+        {
+            return sim.active.FIRMWARE[id] ;
+        }
+
+        function simhw_FIRMWARE_set ( id, val )
+        {
+            return sim.active.FIRMWARE[id] = val ;
+        }
+
+        function simhw_FIRMWARE_reset ( )
+        {
+            ep_FIRMWARE = new Object() ;
+            return sim.active.FIRMWARE = ep_FIRMWARE ;
         }
 
