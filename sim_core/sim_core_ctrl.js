@@ -25,7 +25,7 @@
 
         function get_simware ( )
         {
-            var curr_firm = simhw_FIRMWARE() ;
+            var curr_firm = simhw_internalState('FIRMWARE') ;
 
 	    if (typeof curr_firm['firmware'] == "undefined")
             {
@@ -47,7 +47,7 @@
 
         function set_simware ( preSIMWARE )
         {
-            var curr_firm = simhw_FIRMWARE() ;
+            var curr_firm = simhw_internalState('FIRMWARE') ;
 
 	    if (typeof preSIMWARE['firmware'] != "undefined")
                 curr_firm['firmware'] = preSIMWARE['firmware'] ;
@@ -504,21 +504,21 @@
         function show_memories_values ( )
         {
 		/*
-               show_main_memory(simhw_MP(),               
+               show_main_memory(simhw_internalState('MP'),               
                                 get_value(simhw_sim_state('REG_PC')),        true, true) ;
-            show_control_memory(simhw_MC(), 
-                                simhw_MC_dashboard(), 
+            show_control_memory(simhw_internalState('MC'),
+                                simhw_internalState('MC_dashboard'), 
                                 get_value(simhw_sim_state('REG_MICROADDR')), true, true) ;
 		*/
 
             var f1 = new Promise(function(resolve, reject) {
-                 show_main_memory(simhw_MP(), 
+                 show_main_memory(simhw_internalState('MP'), 
                                   get_value(simhw_sim_state('REG_PC')), true, true) ;
                  resolve(1);
             });
             var f2 = new Promise(function(resolve, reject) {
-                 show_control_memory(simhw_MC(), 
-                                     simhw_MC_dashboard(), 
+                 show_control_memory(simhw_internalState('MC'), 
+                                     simhw_internalState('MC_dashboard'), 
                                      get_value(simhw_sim_state('REG_MICROADDR')), true) ;
                  resolve(1);
             });
@@ -707,12 +707,12 @@
 
 								 // update MC[uADDR]
 								 var curr_maddr = get_value(simhw_sim_state("REG_MICROADDR")) ;
-								 if (typeof simhw_MC_get(curr_maddr) == "undefined") {
-								     simhw_MC_set           (curr_maddr, new Object()) ;
-								     simhw_MC_dashboard_set (curr_maddr, new Object()) ;
+								 if (typeof simhw_internalState_get('MC', curr_maddr) == "undefined") {
+								     simhw_internalState_set('MC', curr_maddr, new Object()) ;
+								     simhw_internalState_set('MC_dashboard', curr_maddr, new Object()) ;
 								 }
-                                                                 simhw_MC_get(curr_maddr)[key] = simhw_sim_signal(key).value ;
-								 simhw_MC_dashboard_get(curr_maddr)[key] = { comment: "", breakpoint: false, state: false, notify: new Array() };
+                                                                 simhw_internalState_get('MC', curr_maddr)[key] = simhw_sim_signal(key).value ;
+								 simhw_internalState_get('MC_dashboard', curr_maddr)[key] = { comment: "", breakpoint: false, state: false, notify: new Array() };
 
 								 // update ROM[..]
 								 update_signal_firmware(key) ;
@@ -769,8 +769,8 @@
             var SIMWARE = get_simware() ;
 
 	    // 2.- load the MC from ROM['firmware']
-            simhw_MC_reset() ;
-            simhw_MC_dashboard_reset() ;
+            simhw_internalState_reset('MC') ;
+            simhw_internalState_reset('MC_dashboard') ;
             for (var i=0; i<SIMWARE['firmware'].length; i++)
 	    {
                var elto_state  = false ;
@@ -789,17 +789,17 @@
 		         elto_notify[k] = elto_notify[k].split('\n')[0] ;
                     }
 
-		    simhw_MC_set(mci, SIMWARE['firmware'][i]["microcode"][j]) ;
-                    simhw_MC_dashboard_set(mci, { comment: comment, 
-                                                  state: elto_state, 
-                                                  breakpoint: elto_break, 
-                                                  notify: elto_notify }) ;
+		    simhw_internalState_set('MC',           mci, SIMWARE['firmware'][i]["microcode"][j]) ;
+                    simhw_internalState_set('MC_dashboard', mci, { comment: comment, 
+                                                                   state: elto_state, 
+                                                                   breakpoint: elto_break, 
+                                                                   notify: elto_notify }) ;
 		    mci++;
 	       }
 	    }
 
 	    // 3.- load the ROM (2/2)
-            simhw_ROM_reset() ;
+            simhw_internalState_reset('ROM') ;
             for (var i=0; i<SIMWARE['firmware'].length; i++)
 	    {
                if ("begin" == SIMWARE['firmware'][i]['name']) {
@@ -813,17 +813,17 @@
 	           cop = parseInt(SIMWARE['firmware'][i]["cop"], 2) ;
 
                var rom_addr = 64*co + cop ;
-	       simhw_ROM_set(rom_addr, ma) ;
+	       simhw_internalState_set('ROM', rom_addr, ma) ;
                SIMWARE['cihash'][rom_addr] = SIMWARE['firmware'][i]['signature'] ;
 	    }
 
 	    // 4.- load the MP from SIMWARE['mp']
-            simhw_MP_reset() ;
+            simhw_internalState_reset('MP') ;
 	    for (var key in SIMWARE['mp'])
 	    {
 	       var kx = parseInt(key)
 	       var kv = parseInt(SIMWARE['mp'][key].replace(/ /g,''), 2) ;
-               simhw_MP_set(kx, kv) ;
+               simhw_internalState_set('MP', kx, kv) ;
 	    }
 
             /// bugfix safari bug 10.1.2
@@ -837,14 +837,14 @@
             /// end bugfix 
 
 	    // 5.- load the segments from SIMWARE['seg']
-            simhw_segments_reset() ;
+            simhw_internalState_reset('segments') ;
 	    for (var key in SIMWARE['seg'])
 	    {
-	         simhw_segments_set(key, SIMWARE['seg'][key]) ;
+	         simhw_internalState_set('segments', key, SIMWARE['seg'][key]) ;
 	    }
 
 	    // 6.- show memories...
-            show_main_memory   (simhw_MP(),                       0, true, true) ;
-            show_control_memory(simhw_MC(), simhw_MC_dashboard(), 0, true) ;
+            show_main_memory   (simhw_internalState('MP'), 0, true, true) ;
+            show_control_memory(simhw_internalState('MC'), simhw_internalState('MC_dashboard'), 0, true) ;
 	}
 

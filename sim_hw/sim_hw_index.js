@@ -108,164 +108,32 @@
             return sim.active.components[id] ;
         }
 
-        // MC
+        // getInternalState
 
-        function simhw_MC ( )
+        function simhw_internalState ( name )
         {
-            return sim.active.MC ;
+            return sim.active.internal_states[name] ;
         }
 
-        function simhw_MC_get ( id )
+        function simhw_internalState_get ( name, id )
         {
-            return sim.active.MC[id] ;
+            return sim.active.internal_states[name][id] ;
         }
 
-        function simhw_MC_set ( id, val )
+        function simhw_internalState_set ( name, id, val )
         {
-            return sim.active.MC[id] = val ;
+            return sim.active.internal_states[name][id] = val ;
         }
 
-        function simhw_MC_reset ( )
+        function simhw_internalState_koReset ( name, val )
         {
-            ep_MC = new Object() ;
-            return sim.active.MC = ep_MC ;
+            ep_internal_states[name] = ko_observable(val) ;
+            return sim.active.internal_states[name] = ep_internal_states[name] ;
         }
 
-        // MC_dashboard
-
-        function simhw_MC_dashboard ( )
+        function simhw_internalState_reset ( name )
         {
-            return sim.active.MC_dashboard ;
-        }
-
-        function simhw_MC_dashboard_get ( id )
-        {
-            return sim.active.MC_dashboard[id] ;
-        }
-
-        function simhw_MC_dashboard_set ( id, val )
-        {
-            return sim.active.MC_dashboard[id] = val ;
-        }
-
-        function simhw_MC_dashboard_reset ( )
-        {
-            ep_MC_dashboard = new Object() ;
-            return sim.active.MC_dashboard = ep_MC_dashboard ;
-        }
-
-        // ROM
-
-        function simhw_ROM ( )
-        {
-            return sim.active.ROM ;
-        }
-
-        function simhw_ROM_get ( id )
-        {
-            return sim.active.ROM[id] ;
-        }
-
-        function simhw_ROM_set ( id, val )
-        {
-            return sim.active.ROM[id] = val ;
-        }
-
-        function simhw_ROM_reset ( )
-        {
-            ep_ROM = new Object() ;
-            return sim.active.ROM = ep_ROM ;
-        }
-
-        // FIRMWARE
-
-        function simhw_FIRMWARE ( )
-        {
-            return sim.active.FIRMWARE ;
-        }
-
-        function simhw_FIRMWARE_get ( id )
-        {
-            return sim.active.FIRMWARE[id] ;
-        }
-
-        function simhw_FIRMWARE_set ( id, val )
-        {
-            return sim.active.FIRMWARE[id] = val ;
-        }
-
-        function simhw_FIRMWARE_reset ( )
-        {
-            ep_FIRMWARE = new Object() ;
-            return sim.active.FIRMWARE = ep_FIRMWARE ;
-        }
-
-        // MP
-
-        function simhw_MP ( )
-        {
-            return sim.active.MP ;
-        }
-
-        function simhw_MP_get ( id )
-        {
-            return sim.active.MP[id] ;
-        }
-
-        function simhw_MP_set ( id, val )
-        {
-            return sim.active.MP[id] = val ;
-        }
-
-        function simhw_MP_reset ( )
-        {
-            ep_MP = new Object() ;
-            return sim.active.MP = ep_MP ;
-        }
-
-        // segments
-
-        function simhw_segments ( )
-        {
-            return sim.active.segments ;
-        }
-
-        function simhw_segments_get ( id )
-        {
-            return sim.active.segments[id] ;
-        }
-
-        function simhw_segments_set ( id, val )
-        {
-            return sim.active.segments[id] = val ;
-        }
-
-        function simhw_segments_reset ( )
-        {
-            ep_segments = new Object() ;
-            return sim.active.segments = ep_segments ;
-        }
-
-        // MP_wc
-
-        function simhw_MPwc ( )
-        {
-            return sim.active.MP_wc ;
-        }
-
-        function simhw_MPwc_get ( id )
-        {
-            return sim.active.MP_wc[id] ;
-        }
-
-        function simhw_MPwc_set ( id, val )
-        {
-            return sim.active.MP_wc[id] = val ;
-        }
-
-        function simhw_MPwc_reset ( )
-        {
-            ep_MP_wc = ko_observable(0) ;
-            return sim.active.MP_wc = ep_MP_wc ;
+            ep_internal_states[name] = new Object() ;
+            return sim.active.internal_states[name] = ep_internal_states[name] ;
         }
 

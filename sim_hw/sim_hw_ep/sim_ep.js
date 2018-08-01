@@ -24,23 +24,12 @@
          */
 
         /* Abstraction */
-        var ep_components = {} ;
-        var ep_states     = {} ;
-        var ep_events     = {} ;
-        var ep_signals    = {} ;
-        var ep_behaviors  = {} ;
-
-	var ep_MC           = {} ;
-	var ep_MC_dashboard = {} ;
-	var ep_ROM          = {} ;
-	var ep_FIRMWARE     = {} ;
-        var ep_segments     = {} ;
-        var ep_MP           = {} ;
-        var ep_MP_wc        = 0 ;
-
-        /* Local support */
-        var io_hash      = {} ;
-        var fire_stack   = [] ;
+        var ep_components      = {} ;
+        var ep_states          = {} ;
+        var ep_events          = {} ;
+        var ep_signals         = {} ;
+        var ep_behaviors       = {} ;
+        var ep_internal_states = {} ;
 
 
         /*
@@ -58,13 +47,6 @@
                        signals:             ep_signals,
                        behaviors:           ep_behaviors,
                        events:              ep_events,
-
-	               MC:                  ep_MC,
-	               MC_dashboard:        ep_MC_dashboard,
-	               ROM:                 ep_ROM,
-	               FIRMWARE:            ep_FIRMWARE,
-                       segments:            ep_segments,
-                       MP:                  ep_MP,
-                       MP_wc:               ep_MP_wc
+                       internal_states:     ep_internal_states
 	             } ;
 

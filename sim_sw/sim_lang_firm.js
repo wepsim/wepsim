@@ -1066,7 +1066,7 @@ function saveFirmware ( SIMWARE )
 
 function decode_instruction ( binstruction )
 {
-    var curr_firm = simhw_FIRMWARE() ;
+    var curr_firm = simhw_internalState('FIRMWARE') ;
 
     var co  = binstruction.substring(0,   6) ;
     var cop = binstruction.substring(28, 32) ;
@@ -1099,7 +1099,7 @@ function decode_instruction ( binstruction )
 function decode_ram ( )
 {
     var sram = "\n" ;
-    var curr_MP = simhw_MP() ;
+    var curr_MP = simhw_internalState('MP') ;
     for (var address in curr_MP)
     {
         var binstruction = curr_MP[address].toString(2) ;

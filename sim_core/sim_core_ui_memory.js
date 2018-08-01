@@ -67,7 +67,7 @@
                  revlabels[SIMWARE.labels2[key]] = key ;
 
             var seglabels = new Object() ;
-            var curr_segments = simhw_segments() ;
+            var curr_segments = simhw_internalState('segments') ;
 	    for (skey in curr_segments) {
                  seglabels[parseInt(curr_segments[skey].begin)] = skey ;
             }
@@ -704,7 +704,7 @@
 
                 var reg_pc    = get_value(simhw_sim_state("REG_PC")) ;
                 var curr_addr = "0x" + reg_pc.toString(16) ;
-                var curr_firm = simhw_FIRMWARE() ;
+                var curr_firm = simhw_internalState('FIRMWARE') ;
 
                 if (typeof curr_firm.assembly[old_addr] != "undefined")
                 {
@@ -731,7 +731,7 @@
         {
                 var icon_theme = get_cfg('ICON_theme') ;
                 var hexaddr    = "0x" + addr.toString(16) ;
-                var curr_firm  = simhw_FIRMWARE() ;
+                var curr_firm  = simhw_internalState('FIRMWARE') ;
 
                 var o1 = document.getElementById("bp"+hexaddr) ;
                 var bp_state = curr_firm.assembly[hexaddr].breakpoint ;
@@ -752,7 +752,7 @@
                 var icon_theme = get_cfg('ICON_theme') ;
 
                 var o1       = document.getElementById("mcpin" + addr) ;
-                var bp_state = simhw_MC_dashboard_get(addr).breakpoint ;
+                var bp_state = simhw_internalState_get('MC_dashboard', addr).breakpoint ;
 
                 if (bp_state === true) {
                     bp_state = false ;
@@ -762,7 +762,7 @@
                     o1.innerHTML = "<img alt='stop icon' height='22' src='images/stop_" + icon_theme + ".gif'>" ;
                 }
 
-                simhw_MC_dashboard_get(addr).breakpoint = bp_state ;
+                simhw_internalState_get('MC_dashboard', addr).breakpoint = bp_state ;
 
                 if ( bp_state && ('instruction' == get_cfg('DBG_level')) )
                 {
@@ -773,8 +773,8 @@
 
 	function show_dbg_mpc ( )
 	{
-                show_control_memory(simhw_MC(),
-                                    simhw_MC_dashboard(),
+                show_control_memory(simhw_internalState('MC'),
+                                    simhw_internalState('MC_dashboard'),
                                     get_value(simhw_sim_state('REG_MICROADDR')),
                                     false) ;
 	}

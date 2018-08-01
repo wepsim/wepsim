@@ -674,7 +674,7 @@
             // without ui
             if (jqdiv == "")
             {
-                    simhw_MPwc_reset() ;
+                    simhw_internalState_koReset('MP_wc', 0) ;
                     return ;
             }
 
@@ -682,30 +682,30 @@
             var o1 = "<div class='container-fluid'>" +
                      "<div class='row'>" ;
 
-               o1 += "<div class='col-12' style='padding:0 0 10 0;'>" +
-                     "<div class='card bg-light'>" +
-                     "<div class='card-body' id='mempanel' style='padding:0 0 0 0;'>" +
-                     "<table class='table table-hover table-sm table-bordered' " +
-                     "       style='margin:0'>" +
-                     "<tbody class='no-ui-mini'>" +
-                     "<tr><td align=center'>Wait cycles (<b>0</b> - &infin;)</td>" +
-                     "    <td align=center'>" + 
-                     "<div id='mp_wc'>" + 
-                     "<input type=number data-bind='value: simhw_MPwc()' min='0' max='99999999'>" +
-                     "</div>" + 
-                     "    </td></tr>" +
-                     "</tbody>" +
-                     "</table>" +
-                     "</div>" +
-                     "</div>" +
-                     "</div>" ;
+            o1 += "<div class='col-12' style='padding:0 0 10 0;'>" +
+                  "<div class='card bg-light'>" +
+                  "<div class='card-body' id='mempanel' style='padding:0 0 0 0;'>" +
+                  "<table class='table table-hover table-sm table-bordered' " +
+                  "       style='margin:0'>" +
+                  "<tbody class='no-ui-mini'>" +
+                  "<tr><td align=center'>Wait cycles (<b>0</b> - &infin;)</td>" +
+                  "    <td align=center'>" + 
+                  "<div id='mp_wc'>" + 
+                  "<input type=number data-bind='value: simhw_internalState(\"MP_wc\")' min='0' max='99999999'>" +
+                  "</div>" + 
+                  "    </td></tr>" +
+                  "</tbody>" +
+                  "</table>" +
+                  "</div>" +
+                  "</div>" +
+                  "</div>" ;
          
             $(jqdiv).html(o1);
 
             // knockout binding
-            simhw_MPwc_reset() ;
+            simhw_internalState_koReset('MP_wc', 0) ;
             var ko_context = document.getElementById('mp_wc');
-            ko.applyBindings(simhw_MPwc(), ko_context);
+            ko.applyBindings(simhw_internalState('MP_wc'), ko_context);
         }
 
         function init_config_io ( jqdiv )
@@ -792,7 +792,7 @@
 	function get_deco_from_pc ( pc )
 	{
 	        var hexstrpc  = "0x" + pc.toString(16) ;
-                var curr_firm = simhw_FIRMWARE() ;
+                var curr_firm = simhw_internalState('FIRMWARE') ;
 
 	        if ( (typeof curr_firm.assembly                  == "undefined") ||
 	             (typeof curr_firm.assembly[hexstrpc]        == "undefined") ||

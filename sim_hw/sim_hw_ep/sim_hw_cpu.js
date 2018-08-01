@@ -96,6 +96,19 @@
 
 
 	/*
+	 *  Internal States
+	 */
+
+        ep_internal_states.MC           = {} ;
+        ep_internal_states.MC_dashboard = {} ;
+        ep_internal_states.ROM          = {} ;
+
+        ep_internal_states.FIRMWARE     = {} ;
+        ep_internal_states.io_hash      = {} ;
+        ep_internal_states.fire_stack   = [] ;
+
+
+	/*
 	 *  States
 	 */
 
@@ -1088,16 +1101,16 @@
 						    if (typeof oi.cop != "undefined")
                                                         rom_addr = rom_addr + cop_code ;
 
-						    // 2.- ! ep_ROM[rom_addr] -> error
-						    if (typeof ep_ROM[rom_addr] == "undefined")
+						    // 2.- ! ep_internal_states['ROM'][rom_addr] -> error
+						    if (typeof ep_internal_states['ROM'][rom_addr] == "undefined")
 						    {
 							 alert('ERROR: undefined rom address ' + rom_addr + ' in firmware') ;
 							 ep_states['ROM_MUXA'].value = 0 ;
 							 return -1;
 						    }
 
-						    // 3.- ep_ROM[rom_addr] -> mc-start -> ROM_MUXA
-						    ep_states['ROM_MUXA'].value = ep_ROM[rom_addr] ;
+						    // 3.- ep_internal_states['ROM'][rom_addr] -> mc-start -> ROM_MUXA
+						    ep_states['ROM_MUXA'].value = ep_internal_states['ROM'][rom_addr] ;
 
 						    // 4.-  Statistics
 						    var val = get_value(ep_states['DECO_INS']) ;
@@ -1116,11 +1129,11 @@
 					     operation: function (s_expr)
 							{
 							    // 0.- avoid loops
-							    if (fire_stack.indexOf(s_expr[1]) != -1) {
+							    if (ep_internal_states.fire_stack.indexOf(s_expr[1]) != -1) {
 								return ;
 							    }
 
-							    fire_stack.push(s_expr[1]) ;
+							    ep_internal_states.fire_stack.push(s_expr[1]) ;
 
 							    // 1.- update draw
 							    update_draw( ep_signals[s_expr[1]],  ep_signals[s_expr[1]].value) ;
@@ -1131,7 +1144,7 @@
 								update_state(s_expr[1]) ;
 							    }
 
-							    fire_stack.pop(s_expr[1]) ;
+							    ep_internal_states.fire_stack.pop(s_expr[1]) ;
 
 							    // 3.- check conflicts
                                                             check_buses(s_expr[1]);
@@ -1188,17 +1201,17 @@
 							    var new_maddr = get_value(ep_states["MUXA_MICROADDR"]) ;
 							    set_value(ep_states["REG_MICROADDR"], new_maddr) ;
 
-							    if (typeof ep_MC[new_maddr] != "undefined")
-								     var new_mins = Object.create(ep_MC[new_maddr]);
+							    if (typeof ep_internal_states['MC'][new_maddr] != "undefined")
+								     var new_mins = Object.create(ep_internal_states['MC'][new_maddr]);
 								else var new_mins = Object.create(ep_states["REG_MICROINS"].default_value);
 							    ep_states["REG_MICROINS"].value = new_mins ;
 
                                                             // 4.- update signals
-							    for (var key in  ep_signals)
+							    for (var key in ep_signals)
 							    {
 								 if (typeof new_mins[key] != "undefined") 
-								      set_value( ep_signals[key], new_mins[key]);
-								 else set_value( ep_signals[key],  ep_signals[key].default_value);
+								      set_value(ep_signals[key],   new_mins[key]);
+								 else set_value(ep_signals[key], ep_signals[key].default_value);
 							    }
 
 							    // 5.- Finally, 'fire' the (High) Level signals

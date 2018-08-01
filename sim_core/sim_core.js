@@ -130,7 +130,7 @@
 	            ret.msg = "" ;
 	            ret.ok  = true ;
 
-                var curr_segments = simhw_segments() ;
+                var curr_segments = simhw_internalState('segments') ;
 
 		if ( (typeof curr_segments['.ktext'] == "undefined") &&
 		     (typeof curr_segments['.text']  == "undefined") )
@@ -165,7 +165,7 @@
 		    ret.msg = "" ;
 
 		var reg_maddr = get_value(simhw_sim_state('REG_MICROADDR')) ;
-                if (typeof simhw_MC_get(reg_maddr) == "undefined") {
+                if (typeof simhw_internalState_get('MC', reg_maddr) == "undefined") {
 		    ret.ok  = false ;
 		    ret.msg = "Error: undefined microinstruction at " + reg_maddr + "." ;
                     return ret ;
@@ -177,7 +177,7 @@
                        return ret;
 		}
 
-                var curr_segments = simhw_segments() ;
+                var curr_segments = simhw_internalState('segments') ;
 		var reg_pc = parseInt(get_value(simhw_sim_state('REG_PC')));
 		if ( (reg_pc < curr_segments['.ktext'].end) && (reg_pc >= curr_segments['.ktext'].begin)) {
                     return ret;
@@ -206,8 +206,8 @@
     
             // Hardware
 	    var SIMWARE       = get_simware() ;
-            var curr_firm     = simhw_FIRMWARE() ;
-            var curr_segments = simhw_segments() ;
+            var curr_firm     = simhw_internalState('FIRMWARE') ;
+            var curr_segments = simhw_internalState('segments') ;
 
             compute_general_behavior("RESET") ;
 
@@ -241,8 +241,8 @@
             show_rf_names();
             show_dbg_ir(get_value(simhw_sim_state('REG_IR_DECO'))) ;
 
-            show_main_memory    (simhw_MP(),                        0, true, false) ;
-            show_control_memory (simhw_MC(),  simhw_MC_dashboard(), 0, true) ;
+            show_main_memory   (simhw_internalState('MP'),  0, true, false) ;
+            show_control_memory(simhw_internalState('MC'),  simhw_internalState('MC_dashboard'), 0, true) ;
 
             return ret ;
         }
@@ -297,7 +297,7 @@
 	        var before_state = null ;
 	        var  after_state = null ;
 	        var  curr_mpc    = "" ;
-                var  curr_MC     = simhw_MC() ;
+                var  curr_MC     = simhw_internalState('MC') ;
 
                 var i_clks = 0 ;
                 var cur_addr = 0 ;
@@ -363,7 +363,7 @@
     	        ret.msg = "" ;
     
             // execute firmware-assembly
-            var curr_segments = simhw_segments() ;
+            var curr_segments = simhw_internalState('segments') ;
 
     	    var reg_pc        = get_value(simhw_sim_state('REG_PC')) ;
     	    var reg_pc_before = get_value(simhw_sim_state('REG_PC')) - 4 ;

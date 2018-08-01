@@ -81,8 +81,8 @@
         var DDR_ID   = 0x1000 ;
         var DSR_ID   = 0x1004 ;
 
-        io_hash[DDR_ID] = "DDR" ;
-        io_hash[DSR_ID] = "DSR" ;
+        ep_internal_states.io_hash[DDR_ID] = "DDR" ;
+        ep_internal_states.io_hash[DSR_ID] = "DSR" ;
 
 
         /*
