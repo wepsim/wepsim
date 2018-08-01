@@ -42,16 +42,15 @@
 	 *  States - IO parameters
 	 */
 
-        var IO_INT_FACTORY = [] ;
-        IO_INT_FACTORY[0] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
-        IO_INT_FACTORY[1] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
-        IO_INT_FACTORY[2] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
-        IO_INT_FACTORY[3] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
-        IO_INT_FACTORY[4] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
-        IO_INT_FACTORY[5] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
-        IO_INT_FACTORY[6] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
-        IO_INT_FACTORY[7] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
-
+        ep_internal_states.io_int_factory = [] ;
+        ep_internal_states.io_int_factory[0] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
+        ep_internal_states.io_int_factory[1] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
+        ep_internal_states.io_int_factory[2] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
+        ep_internal_states.io_int_factory[3] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
+        ep_internal_states.io_int_factory[4] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
+        ep_internal_states.io_int_factory[5] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
+        ep_internal_states.io_int_factory[6] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
+        ep_internal_states.io_int_factory[7] = { period: 0, probability: 0.5, accumulated: 0, active: false } ;
 
         var IOSR_ID   = 0x1100 ;
         var IOCR_ID   = 0x1104 ;
@@ -164,10 +163,10 @@
                                                       if ( (iocr_id < 0) || (iocr_id > 7) ) 
                                                             return; 
 
-                                                      set_value(IO_INT_FACTORY[iocr_id].period, iodr_id);
-                                                      set_value(IO_INT_FACTORY[iocr_id].probability, 1) ;
+                                                      set_value(ep_internal_states.io_int_factory[iocr_id].period, iodr_id);
+                                                      set_value(ep_internal_states.io_int_factory[iocr_id].probability, 1) ;
                                                       if (0 == iodr_id)
-                                                          set_value(IO_INT_FACTORY[iocr_id].probability, 0) ;
+                                                          set_value(ep_internal_states.io_int_factory[iocr_id].probability, 0) ;
                                                    }
                                       };
 
@@ -177,24 +176,24 @@
                                                    {
                                                       var clk = get_value(ep_states[s_expr[1]]) ;
 
-						      for (var i=IO_INT_FACTORY.length-1; i>=0; i--)
+						      for (var i=ep_internal_states.io_int_factory.length-1; i>=0; i--)
                                                       {
-                                                           if (get_value(IO_INT_FACTORY[i].period) == 0)
+                                                           if (get_value(ep_internal_states.io_int_factory[i].period) == 0)
  							       continue;
 
-                                                           if (get_value(IO_INT_FACTORY[i].active) == true)
+                                                           if (get_value(ep_internal_states.io_int_factory[i].active) == true)
                                                            {
                                                                set_value(ep_signals[s_expr[2]], 1); // ['INT']=1
                                                                set_value(ep_states[s_expr[3]], i);  // ['INTV']=i
                                                            }
 
-                                                           if ((clk % get_value(IO_INT_FACTORY[i].period)) == 0)
+                                                           if ((clk % get_value(ep_internal_states.io_int_factory[i].period)) == 0)
                                                            {
-                                                              if (Math.random() > get_value(IO_INT_FACTORY[i].probability))
+                                                              if (Math.random() > get_value(ep_internal_states.io_int_factory[i].probability))
                                                                   continue ;
 
-                                                              set_value(IO_INT_FACTORY[i].accumulated, get_value(IO_INT_FACTORY[i].accumulated) + 1);
-                                                              set_value(IO_INT_FACTORY[i].active, true) ;
+                                                              set_value(ep_internal_states.io_int_factory[i].accumulated, get_value(ep_internal_states.io_int_factory[i].accumulated) + 1);
+                                                              set_value(ep_internal_states.io_int_factory[i].active, true) ;
 
                                                               if (typeof ep_events.io[clk] == "undefined")
                                                                   ep_events.io[clk] = [] ;
@@ -222,9 +221,9 @@
 						      set_value(ep_signals[s_expr[2]], 0); // ['INT']  = 0
 						      set_value(ep_states[s_expr[5]], 0); // ['INTV'] = 0
 
-						      for (var i=0; i<IO_INT_FACTORY.length; i++) 
+						      for (var i=0; i<ep_internal_states.io_int_factory.length; i++) 
                                                       {
-                                                           if (get_value(IO_INT_FACTORY[i].active))
+                                                           if (get_value(ep_internal_states.io_int_factory[i].active))
                                                            {
                                                                set_value(ep_signals[s_expr[2]], 0) ; // ['INT']  = 1
                                                                set_value(ep_states[s_expr[5]], i) ; // ['INTV'] = i
@@ -234,7 +233,7 @@
                                                                    ep_events.io[clk] = [] ;
                                                                ep_events.io[clk].push(i) ;
 
-							       set_value(IO_INT_FACTORY[i].active, false);
+							       set_value(ep_internal_states.io_int_factory[i].active, false);
                                                                break; // stop at first INT
                                                            }
                                                       }

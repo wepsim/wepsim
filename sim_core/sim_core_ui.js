@@ -589,13 +589,15 @@
 
         function init_io ( jqdiv )
         {
+            var curr_iointfactory = simhw_internalState('io_int_factory') ;
+
 	    // without ui...
             if (jqdiv == "")
             {
-		    for (var i=0; i<IO_INT_FACTORY.length; i++) 
+		    for (var i=0; i<curr_iointfactory.length; i++) 
 		    {
-		         IO_INT_FACTORY[i].accumulated = ko_observable(IO_INT_FACTORY[i].accumulated) ;
-		         IO_INT_FACTORY[i].active      = ko_observable(IO_INT_FACTORY[i].active) ;
+		         curr_iointfactory[i].accumulated = ko_observable(curr_iointfactory[i].accumulated) ;
+		         curr_iointfactory[i].active      = ko_observable(curr_iointfactory[i].active) ;
                     }
 
                     return ;
@@ -604,7 +606,7 @@
             // stats holder
             var o1 = "<div class='col-12'>" +
                      "<table class='table table-hover table-sm table-bordered'>" ;
-            for (var i=0; i<IO_INT_FACTORY.length; i++)
+            for (var i=0; i<curr_iointfactory.length; i++)
             {
                o1 += "<tr id='int" + i + "_context'>" +
                      "<td align=center width=50%>" +
@@ -620,12 +622,12 @@
             $(jqdiv).html("<div class='row'>" + o1 + "</div>");
 
             // knockout binding
-            for (var i=0; i<IO_INT_FACTORY.length; i++)
+            for (var i=0; i<curr_iointfactory.length; i++)
             {
-                 IO_INT_FACTORY[i].accumulated = ko_observable(IO_INT_FACTORY[i].accumulated) ;
-                 IO_INT_FACTORY[i].active      = ko_observable(IO_INT_FACTORY[i].active) ;
+                 curr_iointfactory[i].accumulated = ko_observable(curr_iointfactory[i].accumulated) ;
+                 curr_iointfactory[i].active      = ko_observable(curr_iointfactory[i].active) ;
                  var ko_context = document.getElementById('int' + i + '_context');
-                 ko.applyBindings(IO_INT_FACTORY[i], ko_context);
+                 ko.applyBindings(curr_iointfactory[i], ko_context);
             }
         }
 
@@ -710,13 +712,15 @@
 
         function init_config_io ( jqdiv )
         {
+            var curr_iointfactory = simhw_internalState('io_int_factory') ;
+
             // without ui
             if (jqdiv == "")
             {
-		    for (var i=0; i<IO_INT_FACTORY.length; i++) 
+		    for (var i=0; i<curr_iointfactory.length; i++) 
 		    {
-		        IO_INT_FACTORY[i].period      = ko_observable(IO_INT_FACTORY[i].period);
-		        IO_INT_FACTORY[i].probability = ko_observable(IO_INT_FACTORY[i].probability);
+		        curr_iointfactory[i].period      = ko_observable(curr_iointfactory[i].period);
+		        curr_iointfactory[i].probability = ko_observable(curr_iointfactory[i].probability);
 		    }
                     return ;
             }
@@ -774,15 +778,15 @@
             $(jqdiv).html(o1);
 
             // knockout binding
-            for (var i=0; i<IO_INT_FACTORY.length; i++)
+            for (var i=0; i<curr_iointfactory.length; i++)
             {
-                 IO_INT_FACTORY[i].period = ko_observable(IO_INT_FACTORY[i].period) ;
+                 curr_iointfactory[i].period = ko_observable(curr_iointfactory[i].period) ;
                  var ko_context = document.getElementById('int' + i + '_per');
-                 ko.applyBindings(IO_INT_FACTORY[i], ko_context);
+                 ko.applyBindings(curr_iointfactory[i], ko_context);
 
-                 IO_INT_FACTORY[i].probability = ko_observable(IO_INT_FACTORY[i].probability) ;
+                 curr_iointfactory[i].probability = ko_observable(curr_iointfactory[i].probability) ;
                  var ko_context = document.getElementById('int' + i + '_pro');
-                 ko.applyBindings(IO_INT_FACTORY[i], ko_context);
+                 ko.applyBindings(curr_iointfactory[i], ko_context);
             }
         }
 

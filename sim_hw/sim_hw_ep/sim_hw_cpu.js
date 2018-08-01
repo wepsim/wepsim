@@ -1244,10 +1244,10 @@
 							    ep_events["mem"]    = {} ;
 
 							    // 2.- reset the I/O factory
-							    for (var i=0; i<IO_INT_FACTORY.length; i++)
+							    for (var i=0; i<ep_internal_states.io_int_factory.length; i++)
 							    {
-						                 set_value(IO_INT_FACTORY[i].accumulated, 0);
-						                 set_value(IO_INT_FACTORY[i].active, false);
+						                 set_value(ep_internal_states.io_int_factory[i].accumulated, 0);
+						                 set_value(ep_internal_states.io_int_factory[i].active, false);
 							    }
 							}
 					   };
