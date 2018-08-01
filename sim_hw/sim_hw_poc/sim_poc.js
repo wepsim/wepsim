@@ -20,26 +20,13 @@
 
 
         /*
-         *  Elemental Processor: Internal
+         *  Proof-Of-Concept: Public
          */
 
-        /* Abstraction */
-        var ep_components      = {} ;
-        var ep_states          = {} ;
-        var ep_events          = {} ;
-        var ep_signals         = {} ;
-        var ep_behaviors       = {} ;
-        var ep_internal_states = {} ;
-
-
-        /*
-         *  Elemental Processor: Public
-         */
-
-        var ep_def = {
-                       sim_name:            "Elemental Processor",
-                       sim_short_name:      "ep",
-                       sim_img_processor:   "sim_hw/sim_hw_ep/processor6.svg",
+        var poc_def = {
+                       sim_name:            "Proof-Of-Concept Processor",
+                       sim_short_name:      "poc",
+                       sim_img_processor:   "sim_hw/sim_hw_ep/cpu6.svg",
                        sim_img_controlunit: "sim_hw/sim_hw_ep/controlunit6.svg",
                        sim_img_cpu:         "sim_hw/sim_hw_ep/cpu6.svg",
 
@@ -51,5 +38,5 @@
                        internal_states:     ep_internal_states
 	             } ;
 
-        simhw_add(ep_def) ;
+        simhw_add(poc_def) ;
 

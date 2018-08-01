@@ -354,11 +354,11 @@
 	  // intro mode...
 	  if ('intro' == optValue) {
 	      sim_tutorial_showframe('welcome', 0);
+              return ;
 	  }
 
-	  // wepsim mode...
-	  if ('wepsim' == optValue) {
-              wepsim_activehw(0) ;
-	  }
+	  // switch active hardware by name...
+	  var hwid = simhw_getActiveByName(optValue) ;
+          wepsim_activehw(hwid) ;
     }
 

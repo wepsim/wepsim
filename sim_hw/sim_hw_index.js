@@ -43,11 +43,24 @@
 
         function simhw_setActive ( newActive )
         {
-	    if (sim.systems.length >= newActive) 
+	    if ( (newActive >= 0) && 
+                 (sim.systems.length >= newActive) )
 	    {
                 sim.active = sim.systems[newActive] ;
                 sim.index  = newActive ;
 	    }
+        }
+
+        function simhw_getActiveByName ( short_name )
+        {
+            for (var m=0; m<sim.systems.length; m++) 
+            {
+                 if (sim.systems[m].sim_short_name == short_name) {
+                     return m ;
+                 }
+            }
+
+            return -1 ;
         }
 
 

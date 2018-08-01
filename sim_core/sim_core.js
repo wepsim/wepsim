@@ -40,9 +40,6 @@
                  stop_drawing() ;
 	    }
 
-            // 0.- to register the default Elemental Processor
-            simhw_add(ep_def) ;
-
             // 1.- to check if default behaviors are ok
             check_behavior();
 
