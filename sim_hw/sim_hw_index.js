@@ -60,6 +60,13 @@
             return sim.active ;
         }
 
+        // name
+
+        function simhw_short_name ( )
+        {
+            return sim.active.sim_short_name ;
+        }
+
         // sim_signals
 
         function simhw_sim_signals ( )

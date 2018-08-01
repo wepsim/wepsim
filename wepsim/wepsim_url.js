@@ -89,9 +89,14 @@
 
     function wepsim_load_from_url ( url, do_next )
     {
-	fetchURL(url).then(function(response) {
-                              if (response.ok) 
-		              {
+	fetchURL(url).then(function(response) 
+                           {
+                              if (typeof response == "undefined") {
+			          console.error("File " + url + " could not be fetched (are you on-line?)") ;
+                                  return ;
+                              }
+
+                              if (response.ok) {
                                   response.text().then(function(text) { 
 					                  do_next(text); 
 				                       }) ;

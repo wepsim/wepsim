@@ -18,19 +18,19 @@
        console.log('') ;
        console.log('Examples:') ;
        console.log(' * Run some example and show the final state:') ;
-       console.log('   ./wepsim_node.sh run                   ./examples/exampleMicrocodeS1E1.txt ./examples/exampleCodeS1E1.txt') ;
+       console.log('   ./wepsim_node.sh run                   ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt') ;
        console.log('') ;
        console.log(' * Run some example and show the state on each assembly instruction executed:') ;
-       console.log('   ./wepsim_node.sh stepbystep            ./examples/exampleMicrocodeS1E1.txt ./examples/exampleCodeS1E1.txt') ;
+       console.log('   ./wepsim_node.sh stepbystep            ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt') ;
        console.log('') ;
        console.log(' * Run some example and show the state on each microinstruction executed:') ;
-       console.log('   ./wepsim_node.sh microstepbymicrostep  ./examples/exampleMicrocodeS1E1.txt ./examples/exampleCodeS1E1.txt') ;
+       console.log('   ./wepsim_node.sh microstepbymicrostep  ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt') ;
        console.log('') ;
        console.log(' * Check that some example actually works:') ;
-       console.log('   ./wepsim_node.sh check               ./examples/exampleMicrocodeS1E1.txt ./examples/exampleCodeS1E1.txt ./examples/exampleChecklistS1E1.txt') ;
+       console.log('   ./wepsim_node.sh check                 ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt ./examples/ep/exampleChecklistS1E1.txt') ;
        console.log('') ;
        console.log(' * Check that some example actually does not works:') ;
-       console.log('   ./wepsim_node.sh check               ./examples/exampleMicrocodeS1E1.txt ./examples/exampleCodeS1E1.txt ./examples/exampleChecklistS1E2.txt') ;
+       console.log('   ./wepsim_node.sh check                 ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt ./examples/ep/exampleChecklistS1E2.txt') ;
        console.log('') ;
 
        return true ;
@@ -43,9 +43,18 @@
 
    if ("CHECK" == process.argv[2].toUpperCase())
    {
-       var data_microcode = fs.readFileSync(process.argv[3], 'utf8') ;
-       var data_asmcode   = fs.readFileSync(process.argv[4], 'utf8') ;
-       var data_okresult  = fs.readFileSync(process.argv[5], 'utf8') ;
+       try 
+       {
+          var data_microcode = fs.readFileSync(process.argv[3], 'utf8') ;
+          var data_asmcode   = fs.readFileSync(process.argv[4], 'utf8') ;
+          var data_okresult  = fs.readFileSync(process.argv[5], 'utf8') ;
+       }
+       catch (e)
+       {
+           console.log(e);
+           return false ;
+           // throw 'ERROR...' ;
+       }
 
        cfg_instruction_limit = 1000 ;
        if (process.argv.length > 6)
