@@ -2,6 +2,8 @@
     var examples    = {};
         examples.en = [];
 
+    // EP
+
     examples.en.push({ 
                        id: 'S1E1',
                        title: "Instructions",
@@ -120,5 +122,15 @@
                        level: "Special",
                        hardware: "ep",
                        description: "Application-specific extension: strlen_2 + skipasciicode_2.<br>" 
+                     });
+
+    // POC
+
+    examples.en.push({ 
+                       id: 'S1E1',
+                       title: "Instructions",
+                       level: "Initial",
+                       hardware: "poc",
+                       description: "Simple example.<br>"
                      });
 

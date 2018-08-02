@@ -129,6 +129,7 @@
        var fmt_header    = "" ;
        var e_title       = "" ;
        var e_level       = "" ;
+       var e_hardware    = "" ;
        var e_description = "" ;
        var e_id          = "" ;
 
@@ -139,12 +140,11 @@
        {
 	       fmt_header = "" ;
 	       if (e_level != examples[lang][m].level)
-                   fmt_header = "<div class='col-sm-12 border-bottom border-secondary text-right text-capitalize font-weight-bold bg-white sticky-top'>" + 
-			        examples[lang][m].level + 
-			        "</div>" ;
+                   fmt_header = "<div class='col-sm-12 border-bottom border-secondary text-right text-capitalize font-weight-bold bg-white sticky-top'>" + examples[lang][m].hardware.toUpperCase() + ": " + examples[lang][m].level + "</div>" ;
 
 	       e_title       = examples[lang][m].title ;
 	       e_level       = examples[lang][m].level ;
+	       e_hardware    = examples[lang][m].hardware ;
 	       e_description = examples[lang][m].description ;
 	       e_id          = examples[lang][m].id ;
 
