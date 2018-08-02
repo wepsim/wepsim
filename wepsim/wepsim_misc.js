@@ -318,7 +318,6 @@
     function wepsim_activehw ( mode )
     {
 	    simhw_setActive(mode) ;
-            sim_core_init(true) ;
 
             // reload images
 	    var o = document.getElementById('svg_p') ;

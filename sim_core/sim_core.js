@@ -40,14 +40,6 @@
                  stop_drawing() ;
 	    }
 
-            // 1.- to check if default behaviors are ok
-            check_behavior();
-
-            // 2.- to pre-compile behaviors & references
-            compile_behaviors() ;
-            firedep_to_fireorder(jit_fire_dep) ;
-            compute_references() ;
-
             return ret ;
         }
 

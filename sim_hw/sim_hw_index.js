@@ -31,9 +31,18 @@
 
         function simhw_add ( newElto )
         {
+            // 1.- to add a new element
             sim.systems.push(newElto) ;
             sim.active = newElto ;
             sim.index  = sim.systems.length - 1 ;
+
+            // 2.- to check if default behaviors are ok
+            check_behavior();
+            
+            // 3.- to pre-compile behaviors & references
+            compile_behaviors() ;
+            firedep_to_fireorder(jit_fire_dep) ;
+            compute_references() ;
         }
 
         function simhw_getActive ( )
