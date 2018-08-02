@@ -201,6 +201,11 @@
          return simcoreui_notify(ntf_title, ntf_message, 'danger', 0) ;
     }
 
+    function wepsim_notify_warning ( ntf_title, ntf_message )
+    {
+         return simcoreui_notify(ntf_title, ntf_message, 'warning', get_cfg('NOTIF_delay')) ;
+    }
+
     function wepsim_notify_close ( )
     {
          return simcoreui_notify_close() ;
@@ -314,6 +319,7 @@
     {
 	    simhw_setActive(mode) ;
 
+            // reload images
 	    var o = document.getElementById('svg_p') ;
 	    if (o != null) o.setAttribute('data',  simhw_active().sim_img_processor) ;
 	        o = document.getElementById('svg_cu') ;
@@ -321,6 +327,7 @@
 	        o = document.getElementById('svg_p2') ;
 	    if (o != null) o.setAttribute('data', simhw_active().sim_img_cpu) ;
 
+            // reload images event-handlers
 	    var a = document.getElementById("svg_p");
 	    a.addEventListener("load",function() {
 		sim_prepare_svg_p();
@@ -335,7 +342,12 @@
 		refresh();
 	    }, false);
 
-	    wepsim_notify_success('<strong>INFO</strong>', '"' + simhw_active().sim_name + '" has been activated.') ;
+            // info + warning
+	    wepsim_notify_warning('<strong>WARNING</strong>', 
+                                 'Please remember the current firmware and assembly could need to be reloaded.') ;
+
+	    wepsim_notify_success('<strong>INFO</strong>', 
+                                  '"' + simhw_active().sim_name + '" has been activated.') ;
     }
 
     function wepsim_change_mode ( optValue, cssLayer )
