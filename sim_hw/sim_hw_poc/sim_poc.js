@@ -20,6 +20,19 @@
 
 
         /*
+         *  Elemental Processor: Internal
+         */
+
+        /* Abstraction */
+        var poc_components      = {} ;
+        var poc_states          = {} ;
+        var poc_events          = {} ;
+        var poc_signals         = {} ;
+        var poc_behaviors       = {} ;
+        var poc_internal_states = {} ;
+
+
+        /*
          *  Proof-Of-Concept: Public
          */
 
@@ -30,12 +43,12 @@
                        sim_img_controlunit: "sim_hw/sim_hw_ep/controlunit6.svg",
                        sim_img_cpu:         "sim_hw/sim_hw_ep/cpu6.svg",
 
-                       components:          ep_components,
-                       states:              ep_states,
-                       signals:             ep_signals,
-                       behaviors:           ep_behaviors,
-                       events:              ep_events,
-                       internal_states:     ep_internal_states
+                       components:          poc_components,
+                       states:              poc_states,
+                       signals:             poc_signals,
+                       behaviors:           poc_behaviors,
+                       events:              poc_events,
+                       internal_states:     poc_internal_states
 	             } ;
 
         simhw_add(poc_def) ;

@@ -25,53 +25,39 @@
 
         function get_simware ( )
         {
-            var curr_firm = simhw_internalState('FIRMWARE') ;
+            var cf = simhw_internalState('FIRMWARE') ;
 
-	    if (typeof curr_firm['firmware'] == "undefined")
-            {
-                curr_firm['firmware']           = new Array() ;
-                curr_firm['mp']                 = new Object() ;
-                curr_firm['seg']                = new Object() ;
-                curr_firm['assembly']           = new Object() ;
-                curr_firm['labels']             = new Object() ;
-                curr_firm['labels2']            = new Object() ;
-                curr_firm['labels_firm']        = new Object() ;
-                curr_firm['registers']          = new Object() ;
-                curr_firm['cihash']             = new Object() ;
-                curr_firm['pseudoInstructions'] = new Object() ;
-		curr_firm['stackRegister']      = new Object() ;
-            }
+	    if (typeof cf['firmware'] == "undefined")            cf['firmware']           = new Array() ;
+	    if (typeof cf['mp'] == "undefined")                  cf['mp']                 = new Object() ;
+	    if (typeof cf['seg'] == "undefined")                 cf['seg']                = new Object() ;
+	    if (typeof cf['assembly'] == "undefined")            cf['assembly']           = new Object() ;
+	    if (typeof cf['labels'] == "undefined")              cf['labels']             = new Object() ;
+	    if (typeof cf['labels2'] == "undefined")             cf['labels2']            = new Object() ;
+	    if (typeof cf['labels_firm'] == "undefined")         cf['labels_firm']        = new Object() ;
+	    if (typeof cf['registers'] == "undefined")           cf['registers']          = new Object() ;
+	    if (typeof cf['cihash'] == "undefined")              cf['cihash']             = new Object() ;
+	    if (typeof cf['pseudoInstructions'] == "undefined")  cf['pseudoInstructions'] = new Object() ;
+	    if (typeof cf['stackRegister'] == "undefined")       cf['stackRegister']      = new Object() ;
 
-            return curr_firm ;
+            return cf ;
 	}
 
-        function set_simware ( preSIMWARE )
+        function set_simware ( preWARE )
         {
-            var curr_firm = simhw_internalState('FIRMWARE') ;
+            var cf = simhw_internalState('FIRMWARE') ;
 
-	    if (typeof preSIMWARE['firmware'] != "undefined")
-                curr_firm['firmware'] = preSIMWARE['firmware'] ;
-	    if (typeof preSIMWARE['mp'] != "undefined")
-                curr_firm['mp'] = preSIMWARE['mp'] ;
-	    if (typeof preSIMWARE['registers'] != "undefined")
-                curr_firm['registers'] = preSIMWARE['registers'] ;
-	    if (typeof preSIMWARE['cihash'] != "undefined")
-                curr_firm['cihash'] = preSIMWARE['cihash'] ;
-	    if (typeof preSIMWARE['assembly'] != "undefined")
-                curr_firm['assembly'] = preSIMWARE['assembly'] ;
-	    if (typeof preSIMWARE['pseudoInstructions'] != "undefined")
-                curr_firm['pseudoInstructions'] = preSIMWARE['pseudoInstructions'] ;
+	    if (typeof preWARE['firmware'] != "undefined")           cf['firmware'] = preWARE['firmware'] ;
+	    if (typeof preWARE['mp'] != "undefined")                 cf['mp'] = preWARE['mp'] ;
+	    if (typeof preWARE['registers'] != "undefined")          cf['registers'] = preWARE['registers'] ;
+	    if (typeof preWARE['cihash'] != "undefined")             cf['cihash'] = preWARE['cihash'] ;
+	    if (typeof preWARE['assembly'] != "undefined")           cf['assembly'] = preWARE['assembly'] ;
+	    if (typeof preWARE['pseudoInstructions'] != "undefined") cf['pseudoInstructions'] = preWARE['pseudoInstructions'] ;
 
-	    if (typeof preSIMWARE['seg'] != "undefined")
-                curr_firm['seg'] = preSIMWARE['seg'] ;
-	    if (typeof preSIMWARE['labels'] != "undefined")
-                curr_firm['labels'] = preSIMWARE['labels'] ;
-	    if (typeof preSIMWARE['labels2'] != "undefined")
-                curr_firm['labels2'] = preSIMWARE['labels2'] ;
-	    if (typeof preSIMWARE['labels_firm'] != "undefined")
-                curr_firm['labels_firm'] = preSIMWARE['labels_firm'] ;
-	    if (typeof preSIMWARE['stackRegister'] != "undefined")
-		curr_firm['stackRegister'] = preSIMWARE['stackRegister'] ;
+	    if (typeof preWARE['seg'] != "undefined")                cf['seg'] = preWARE['seg'] ;
+	    if (typeof preWARE['labels'] != "undefined")             cf['labels'] = preWARE['labels'] ;
+	    if (typeof preWARE['labels2'] != "undefined")            cf['labels2'] = preWARE['labels2'] ;
+	    if (typeof preWARE['labels_firm'] != "undefined")        cf['labels_firm'] = preWARE['labels_firm'] ;
+	    if (typeof preWARE['stackRegister'] != "undefined")      cf['stackRegister'] = preWARE['stackRegister'] ;
 	}
 
 
