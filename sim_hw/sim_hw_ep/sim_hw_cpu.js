@@ -107,6 +107,9 @@
         ep_internal_states.io_hash      = {} ;
         ep_internal_states.fire_stack   = [] ;
 
+        ep_internal_states.tri_state_names = [ "T1","T2","T3","T4","T5","T6","T7","T8","T9","T10","T11" ] ;
+        ep_internal_states.fire_visible    = { 'databus': false, 'internalbus': false } ;
+
 
 	/*
 	 *  States

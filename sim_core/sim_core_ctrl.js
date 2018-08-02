@@ -65,36 +65,35 @@
          *  checking & updating
          */
 
-        var tri_state_names = [ "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11" ] ;
-
-        var databus_fire_visible = false ;
-        var internalbus_fire_visible = false ;
-
         function check_buses ( fired )
         {
+            var tri_state_names = simhw_internalState('tri_state_names') ;
+
             // TD + R
-            if (databus_fire_visible) {
-                //$("#databus_fire").hide();
-		     var o = document.getElementById('svg_p');
-		     if (o != null) o = o.contentDocument;
-		     if (o != null) o = o.getElementById('databus_fire');
-		     if (o != null) o.setAttributeNS(null, "visibility", "hidden");
-                databus_fire_visible = false ;
+            if (simhw_internalState_get('fire_visible','databus') == true) 
+            {
+		var o = document.getElementById('svg_p');
+		if (o != null) o = o.contentDocument;
+		if (o != null) o = o.getElementById('databus_fire');
+		if (o != null) o.setAttributeNS(null, "visibility", "hidden");
+
+                simhw_internalState_set('fire_visible', 'databus', false) ;
             }
             if ( (simhw_sim_signal("TD").value != 0) && (simhw_sim_signal("R").value != 0) )
             {
-                //$("#databus_fire").show();
-		     var o = document.getElementById('svg_p');
-		     if (o != null) o = o.contentDocument;
-		     if (o != null) o = o.getElementById('databus_fire');
-		     if (o != null) o.setAttributeNS(null, "visibility", "visible");
-                databus_fire_visible = true ;
+		var o = document.getElementById('svg_p');
+		if (o != null) o = o.contentDocument;
+		if (o != null) o = o.getElementById('databus_fire');
+		if (o != null) o.setAttributeNS(null, "visibility", "visible");
+
+                simhw_internalState_set('fire_visible', 'databus', true) ;
                 simhw_sim_state("BUS_DB").value = 0xFFFFFFFF;
             }
 
             // Ti + Tj
-            if (tri_state_names.indexOf(fired) == -1)
+            if (tri_state_names.indexOf(fired) == -1) {
                 return;
+            }
 
             // 1.- counting the number of active tri-states
             var tri_name = "";
@@ -119,21 +118,23 @@
             }
 
             // 3.- check if more than one tri-state is active
-            if (internalbus_fire_visible) {
-                //$("#internalbus_fire").hide();
-		     var o = document.getElementById('svg_p');
-		     if (o != null) o = o.contentDocument;
-		     if (o != null) o = o.getElementById('internalbus_fire');
-		     if (o != null) o.setAttributeNS(null, "visibility", "hidden");
-                internalbus_fire_visible = false ;
+            if (simhw_internalState_get('fire_visible','internalbus') == true)
+            {
+		var o = document.getElementById('svg_p');
+		if (o != null) o = o.contentDocument;
+		if (o != null) o = o.getElementById('internalbus_fire');
+		if (o != null) o.setAttributeNS(null, "visibility", "hidden");
+
+                simhw_internalState_set('fire_visible', 'internalbus', false) ;
             }
-            if (tri_activated > 1) {
-                //$("#internalbus_fire").show();
-		     var o = document.getElementById('svg_p');
-		     if (o != null) o = o.contentDocument;
-		     if (o != null) o = o.getElementById('internalbus_fire');
-		     if (o != null) o.setAttributeNS(null, "visibility", "visible");
-                internalbus_fire_visible = true ;
+            if (tri_activated > 1) 
+            {
+		var o = document.getElementById('svg_p');
+		if (o != null) o = o.contentDocument;
+		if (o != null) o = o.getElementById('internalbus_fire');
+		if (o != null) o.setAttributeNS(null, "visibility", "visible");
+
+                simhw_internalState_set('fire_visible', 'internalbus', true) ;
                 simhw_sim_state("BUS_IB").value = 0xFFFFFFFF;
             }
         }
@@ -141,12 +142,14 @@
         function check_behavior ( )
         {
             // 1.- check if no signals are defined...
-            if (0 == simhw_sim_signals().length)
+            if (0 == simhw_sim_signals().length) {
                 alert("ALERT: empty signals!!!");
+            }
 
             // 2.- check if no states are defined...
-            if (0 == simhw_sim_states().length)
+            if (0 == simhw_sim_states().length) {
                 alert("ALERT: empty states!!!");
+            }
 
             for (var key in simhw_sim_signals())
             {
