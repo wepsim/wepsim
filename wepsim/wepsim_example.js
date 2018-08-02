@@ -48,7 +48,7 @@
 	inputasm.refresh();
 
         var sname = simhw_short_name() ;
-        if (typeof sname == "unsigned")
+        if (typeof sname == "undefined")
             sname = "" ;
 
 	var url     = "examples/" + sname + "/exampleCode" + example_id + ".txt" ;
@@ -85,7 +85,7 @@
 	inputfirm.refresh();
 
         var sname = simhw_short_name() ;
-        if (typeof sname == "unsigned")
+        if (typeof sname == "undefined")
             sname = "" ;
 
 	var url = "" ;

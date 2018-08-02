@@ -98,7 +98,7 @@
          *  References
          */
 
-        var sim_references = new Object() ;
+        var sim_references = {} ; // new Object() ;
 
         function compute_references ( )
         {
@@ -107,7 +107,7 @@
 		 simhw_sim_signal(key).changed = false ;
 	    }
 
-            for (var key in simhw_sim_states()) {
+            for (    key in simhw_sim_states()) {
 		 sim_references[key] = simhw_sim_state(key) ;
 		 simhw_sim_state(key).changed = false ;
 	    }
