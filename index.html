@@ -92,6 +92,34 @@
         margin: 0 15px 0 15px !important;
     }
 
+    .slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 10px;
+        border-radius: 20px;
+        background: #e3e3e3;
+        outline: none;
+        opacity: 1.0;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+    }
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 35px;
+        height: 25px;
+        border-radius: 50%; 
+        background: #4CAF50;
+        cursor: pointer;
+    }
+    .slider::-moz-range-thumb {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background: #4CAF50;
+        cursor: pointer;
+    }
+
     .ui-icon-reset:after {
 	background-image: url("images/reset.svg");
         background-repeat: no-repeat;
@@ -221,14 +249,14 @@
 		    <div class="w-100 d-block d-sm-none"></div>
 
                     <div class="col-sm p-0">
-			    <form id="slider2f" class="full-width-slider col my-1" style="margin:0px; padding:0px;">
+			    <form id="slider2f" class="full-width-slider col my-1 p-0 p-0 pt-1 pb-2">
 				 <input aria-label="Show CPU/CU" type="range" name="slider2b" id="slider2b" 
 					min="0" max="12" value="7" step="1"
 				        data-show-value="false"
+                                        class="custom-range slider" data-role="none"
                                         onchange="set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', this.value);
 					          set_cfg('CPUCU_size', this.value); 
-                                                  save_cfg();" 
-                                        style="display:none;">
+                                                  save_cfg();">
 			    </form>
                     </div>
 
@@ -262,14 +290,14 @@
 		    <div class="w-100 d-xs-block d-sm-none"></div>
 
                     <div class="col-sm p-0">
-			    <form id="slider2f" class="full-width-slider col my-1" style="margin:0px; padding:0px;">
+			    <form id="slider2f" class="full-width-slider col my-1 p-0 p-0 pt-1 pb-2">
 				 <input aria-label="Show Main/Info" type="range" name="slider2a" id="slider2a" 
 					min="0" max="12" value="7" step="1"
 				        data-show-value="false"
+                                        class="custom-range slider" data-role="none"
                                         onchange="set_ab_size('#col1', '#col2', this.value);
 					          set_cfg('C1C2_size', this.value);
-                                                  save_cfg();"
-                                        style="display:none;">
+                                                  save_cfg();">
 			    </form>
                     </div>
 
@@ -1296,8 +1324,8 @@
 		    $('#select5a').val(11);
                     $("#select4").val(get_cfg('ws_mode')) ;
 
-                    $("#slider2a").val(get_cfg('C1C2_size')).slider("refresh");
-                    $("#slider2b").val(get_cfg('CPUCU_size')).slider("refresh");
+                    $("#slider2a").val(get_cfg('C1C2_size'));
+                    $('#slider2b').val(get_cfg('CPUCU_size'));
                     set_ab_size('#col1',        '#col2',        get_cfg('C1C2_size'));
                     set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', get_cfg('CPUCU_size'));
 
