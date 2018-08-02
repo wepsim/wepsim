@@ -145,15 +145,9 @@
             sim.active.internal_states[name][id] = val ;
         }
 
-        function simhw_internalState_koReset ( name, val )
+        function simhw_internalState_reset ( name, val )
         {
-            ep_internal_states[name] = ko_observable(val) ;
-            sim.active.internal_states[name] = ep_internal_states[name] ;
-        }
-
-        function simhw_internalState_reset ( name )
-        {
-            ep_internal_states[name] = {} ; // new Object() ;
+            ep_internal_states[name] = val ;
             sim.active.internal_states[name] = ep_internal_states[name] ;
         }
 

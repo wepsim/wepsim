@@ -668,8 +668,8 @@
             var SIMWARE = get_simware() ;
 
 	    // 2.- load the MC from ROM['firmware']
-            simhw_internalState_reset('MC') ;
-            simhw_internalState_reset('MC_dashboard') ;
+            simhw_internalState_reset('MC', {}) ;
+            simhw_internalState_reset('MC_dashboard', {}) ;
             for (var i=0; i<SIMWARE['firmware'].length; i++)
 	    {
                var elto_state  = false ;
@@ -698,7 +698,7 @@
 	    }
 
 	    // 3.- load the ROM (2/2)
-            simhw_internalState_reset('ROM') ;
+            simhw_internalState_reset('ROM', {}) ;
             for (var i=0; i<SIMWARE['firmware'].length; i++)
 	    {
                if ("begin" == SIMWARE['firmware'][i]['name']) {
@@ -717,7 +717,7 @@
 	    }
 
 	    // 4.- load the MP from SIMWARE['mp']
-            simhw_internalState_reset('MP') ;
+            simhw_internalState_reset('MP', {}) ;
 	    for (var key in SIMWARE['mp'])
 	    {
 	       var kx = parseInt(key)
@@ -736,7 +736,7 @@
             /// end bugfix 
 
 	    // 5.- load the segments from SIMWARE['seg']
-            simhw_internalState_reset('segments') ;
+            simhw_internalState_reset('segments', {}) ;
 	    for (var key in SIMWARE['seg'])
 	    {
 	         simhw_internalState_set('segments', key, SIMWARE['seg'][key]) ;

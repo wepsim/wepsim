@@ -587,6 +587,20 @@
 	    else return initial_value ;
         }
 
+        function ko_rebind_state ( state, id_elto )
+        {
+	    if (typeof ko == "undefined") {
+                return ;
+            }
+
+            var state_obj = simhw_sim_state(state) ;
+            if (typeof state_obj.value != "function")
+                state_obj.value = ko.observable(state_obj.value).extend({rateLimit: cfg_show_rf_refresh_delay}) ;
+            var ko_context = document.getElementById(id_elto);
+            ko.cleanNode(ko_context);
+            ko.applyBindings(simhw_sim_state(state), ko_context);
+        }
+
         function init_io ( jqdiv )
         {
             var curr_iointfactory = simhw_internalState('io_int_factory') ;
@@ -624,9 +638,12 @@
             // knockout binding
             for (var i=0; i<curr_iointfactory.length; i++)
             {
-                 curr_iointfactory[i].accumulated = ko_observable(curr_iointfactory[i].accumulated) ;
-                 curr_iointfactory[i].active      = ko_observable(curr_iointfactory[i].active) ;
+                 if (typeof curr_iointfactory[i].accumulated != "function")
+                     curr_iointfactory[i].accumulated = ko_observable(curr_iointfactory[i].accumulated) ;
+                 if (typeof curr_iointfactory[i].active != "function")
+                     curr_iointfactory[i].active      = ko_observable(curr_iointfactory[i].active) ;
                  var ko_context = document.getElementById('int' + i + '_context');
+                 ko.cleanNode(ko_context);
                  ko.applyBindings(curr_iointfactory[i], ko_context);
             }
         }
@@ -662,13 +679,8 @@
             $(jqdiv).html("<div class='row'>" + o1 + "</div>");
 
             // knockout binding
-            simhw_sim_state('CLK').value = ko_observable(simhw_sim_state('CLK').value);
-            var ko_context = document.getElementById('clk_context');
-            ko.applyBindings(simhw_sim_state('CLK'), ko_context);
-
-            simhw_sim_state('DECO_INS').value = ko_observable(simhw_sim_state('DECO_INS').value);
-            var ko_context = document.getElementById('ins_context');
-            ko.applyBindings(simhw_sim_state('DECO_INS'), ko_context);
+            ko_rebind_state('CLK',      'clk_context') ;
+            ko_rebind_state('DECO_INS', 'ins_context') ;
         }
 
         function init_config_mp ( jqdiv )
@@ -676,7 +688,7 @@
             // without ui
             if (jqdiv == "")
             {
-                    simhw_internalState_koReset('MP_wc', 0) ;
+                    simhw_internalState_reset('MP_wc', ko_observable(0)) ;
                     return ;
             }
 
@@ -705,7 +717,7 @@
             $(jqdiv).html(o1);
 
             // knockout binding
-            simhw_internalState_koReset('MP_wc', 0) ;
+            simhw_internalState_reset('MP_wc', ko_observable(0)) ;
             var ko_context = document.getElementById('mp_wc');
             ko.applyBindings(simhw_internalState('MP_wc'), ko_context);
         }
@@ -780,12 +792,16 @@
             // knockout binding
             for (var i=0; i<curr_iointfactory.length; i++)
             {
-                 curr_iointfactory[i].period = ko_observable(curr_iointfactory[i].period) ;
+                 if (typeof curr_iointfactory[i].period != "function")
+                     curr_iointfactory[i].period = ko_observable(curr_iointfactory[i].period) ;
                  var ko_context = document.getElementById('int' + i + '_per');
+                 ko.cleanNode(ko_context);
                  ko.applyBindings(curr_iointfactory[i], ko_context);
-
-                 curr_iointfactory[i].probability = ko_observable(curr_iointfactory[i].probability) ;
+ 
+                 if (typeof curr_iointfactory[i].probability != "function")
+                     curr_iointfactory[i].probability = ko_observable(curr_iointfactory[i].probability) ;
                  var ko_context = document.getElementById('int' + i + '_pro');
+                 ko.cleanNode(ko_context);
                  ko.applyBindings(curr_iointfactory[i], ko_context);
             }
         }

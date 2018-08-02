@@ -254,9 +254,9 @@
 					min="0" max="12" value="7" step="1"
 				        data-show-value="false"
                                         class="custom-range slider" data-role="none"
-                                        onchange="set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', this.value);
-					          set_cfg('CPUCU_size', this.value); 
-                                                  save_cfg();">
+                                        oninput="set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', this.value);
+					         set_cfg('CPUCU_size', this.value); 
+                                                 save_cfg();">
 			    </form>
                     </div>
 
@@ -278,6 +278,8 @@
 					  set_cfg('ws_mode', optValue); 
 					  save_cfg();
                                           wepsim_change_mode(optValue, '#select4') ;
+	                                  sim_core_init_panel('#states_ALL', '#states_BR', '#io_ALL', 
+                                                              '#cpu_ALL', '#config_MP', '#config_IO'); 
 					  return false;">
 				<option value="intro"    >Welcome...</option>
 				<option value="tutorial" >Instructive</option>
@@ -295,9 +297,9 @@
 					min="0" max="12" value="7" step="1"
 				        data-show-value="false"
                                         class="custom-range slider" data-role="none"
-                                        onchange="set_ab_size('#col1', '#col2', this.value);
-					          set_cfg('C1C2_size', this.value);
-                                                  save_cfg();">
+                                        oninput="set_ab_size('#col1', '#col2', this.value);
+					         set_cfg('C1C2_size', this.value);
+                                                 save_cfg();">
 			    </form>
                     </div>
 
@@ -1346,7 +1348,10 @@
                target.prop("scrollTop", this.scrollTop).prop("scrollLeft", this.scrollLeft);
             });
 
-	    sim_core_init_panel("#states_ALL", "#states_BR", "#io_ALL", "#cpu_ALL", "#config_MP", "#config_IO"); 
+	    var ws_mode = get_cfg('ws_mode');
+            wepsim_change_mode(ws_mode, '#select4') ;
+	    sim_core_init_panel("#states_ALL", "#states_BR", "#io_ALL", 
+                                "#cpu_ALL", "#config_MP", "#config_IO"); 
 	    sim_core_reset(); 
 
             $('a[data-toggle="popover1"]').popover({
@@ -1380,9 +1385,6 @@
 	    if (false == get_cfg('use_voice')) {
 		wepsim_voice_stop() ;
 	    }
-
-	    var ws_mode = get_cfg('ws_mode');
-            wepsim_change_mode(ws_mode, '#select4') ;
 
             // progressive web application
 	    if ('serviceWorker' in navigator) 

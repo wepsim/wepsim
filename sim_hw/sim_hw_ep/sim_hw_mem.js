@@ -124,7 +124,7 @@
                                                       var clk     = get_value(ep_states[s_expr[5]].value) ;
 
                                                       ep_signals[s_expr[4]].value = 0;
-						      var remain = get_value(ep_internal_states.MP_wc);
+						      var remain = get_var(ep_internal_states.MP_wc);
 						      if ( 
                                                            (typeof ep_events.mem[clk-1] != "undefined") &&
 						           (ep_events.mem[clk-1] > 0) 
@@ -180,7 +180,7 @@
                                                       var clk     = get_value(ep_states[s_expr[5]].value) ;
 
                                                       ep_signals[s_expr[4]].value = 0;
-						      var remain = get_value(ep_internal_states.MP_wc);
+						      var remain = get_var(ep_internal_states.MP_wc);
 						      if ( 
                                                            (typeof ep_events.mem[clk-1] != "undefined") &&
 						           (ep_events.mem[clk-1] > 0) 

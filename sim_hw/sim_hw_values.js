@@ -93,6 +93,30 @@
            }
         }
 
+        function get_var ( sim_var )
+        {
+	   if (typeof sim_var == "function")
+	   {
+	       return sim_var() ;
+	   }
+	   else
+	   {
+	       return sim_var ;
+	   }
+        }
+
+        function set_var ( sim_var, value )
+        {
+	   if (typeof sim_var == "function") 
+	   {
+	       sim_var(value) ;
+           }
+	   else
+	   {
+	       sim_var = value ;
+           }
+        }
+
 
         /*
          *  References

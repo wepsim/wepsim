@@ -8,11 +8,11 @@
   },
   "scripts": {
     "jshint":                    "jshint sim_hw/sim_hw_ep/sim_hw_board.js  sim_hw/sim_hw_ep/sim_hw_scr.js  sim_hw/sim_hw_ep/sim_hw_kbd.js  sim_hw/sim_hw_ep/sim_hw_mem.js  sim_hw/sim_hw_ep/sim_hw_io.js  sim_sw/sim_lang.js  sim_core/sim_cfg.js  sim_core/sim_core.js  wepsim/en/examples-en.js wepsim/es/examples-es.js wepsim/en/help-en.js wepsim/es/help-es.js wepsim/en/simpleusage-en.js wepsim/es/simpleusage-es.js wepsim/tutorials.js wepsim/en/welcome-en.js wepsim/es/welcome-es.js wepsim/wepsim_pwa.js wepsim/wepsim_example.js wepsim/wepsim_help.js wepsim/wepsim_native.js wepsim/wepsim_tutorial.js wepsim/wepsim_url.js wepsim/wepsim_voice.js wepsim/wepsim_node.js wepsim/en/tour-en.js wepsim/es/tour-es.js wepsim/wepsim_misc.js sim_hw/sim_hw_index.js sim_hw/sim_hw_values.js sim_hw/sim_hw_ep/sim_ep.js sim_hw/sim_hw_values.js",
-    "test-run":                  "./wepsim_node.sh run                   ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt",
-    "test-stepbystep":           "./wepsim_node.sh stepbystep            ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt",
-    "test-microstepbymicrostep": "./wepsim_node.sh microstepbymicrostep  ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt",
-    "test-check-ok":             "./wepsim_node.sh check                 ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt ./examples/ep/exampleChecklistS1E1.txt",
-    "test-check-ko":             "./wepsim_node.sh check                 ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt ./examples/ep/exampleChecklistS1E2.txt"
+    "test-run":                  "./wepsim_node.sh run                   ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt",
+    "test-stepbystep":           "./wepsim_node.sh stepbystep            ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt",
+    "test-microstepbymicrostep": "./wepsim_node.sh microstepbymicrostep  ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt",
+    "test-check-ok":             "./wepsim_node.sh check                 ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt ./examples/ep/exampleChecklistS1E1.txt",
+    "test-check-ko":             "./wepsim_node.sh check                 ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt ./examples/ep/exampleChecklistS1E2.txt"
   },
   "dependencies": {
   }
