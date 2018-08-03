@@ -371,7 +371,7 @@
 
 		 o1_rf += "<div class='col' style='padding:0 2px 0 2px !important; margin:1px 5px 1px 2px;'>" +
                           "<button type='button' class='btn py-0 ml-1' " + 
-			  "        style='width:inherit; border-color:#cecece; background-color:#fafafa' data-role='none' " +
+			  "        style='width:inherit; border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
                           "        data-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
                           "  <span id='name_RF" + index + "' style='float:center; padding:0 0 0 0; color:black;'>" + o1_rn + "</span>" +
@@ -492,7 +492,7 @@
 
                 o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5; margin:1px 5px 1px 2px; '>" +
                       "<button type='button' class='btn py-0 ml-1' " + 
-		      "        style='width:inherit; border-color:#cecece; background-color:#fafafa' data-role='none' " +
+		      "        style='width:inherit; border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
                       "        data-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +
                       showkey +
