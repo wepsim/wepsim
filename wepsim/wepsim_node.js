@@ -37,8 +37,8 @@
 	    return ret ;
 	}
 
-        simhw_setActive(hwid) ;
         sim_core_init(false) ;
+        simhw_setActive(hwid) ;
 	sim_core_init_panel('', '', '', '', '', '') ;
 	return ret ;
     }

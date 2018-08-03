@@ -37,8 +37,8 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
 	    return ret ;
 	}
 
-        simhw_setActive(hwid) ;
         sim_core_init(false) ;
+        simhw_setActive(hwid) ;
 	sim_core_init_panel('', '', '', '', '', '') ;
 	return ret ;
     }
