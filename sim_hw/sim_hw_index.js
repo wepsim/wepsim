@@ -62,11 +62,6 @@
                 compile_behaviors() ;
                 firedep_to_fireorder(jit_fire_dep) ;
                 compute_references() ;
-
-                // update UI
-                show_states();
-                show_rf_values();
-                show_rf_names();
 	    }
         }
 

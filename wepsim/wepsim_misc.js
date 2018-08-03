@@ -277,7 +277,6 @@
 			$(popup_content_id).html(firmware2html(SIMWARE.firmware, true));
 			$(popup_content_id).css({width:"inherit !important", height:"inherit !important"});
 
-			$(popup_id).enhanceWithin();
 			$(popup_id).trigger('updatelayout');
 			$(popup_id).trigger('refresh');
                    }, 300);
@@ -348,6 +347,11 @@
 
 	    wepsim_notify_success('<strong>INFO</strong>', 
                                   '"' + simhw_active().sim_name + '" has been activated.') ;
+
+            // update UI
+            show_states();
+            show_rf_values();
+            show_rf_names();
     }
 
     function wepsim_change_mode ( optValue, cssLayer )
