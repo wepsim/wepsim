@@ -370,11 +370,11 @@
                      o1_rn = o1_rn + '<span style="opacity: 0.0;">_</span>' ;
 
 		 o1_rf += "<div class='col' style='padding:0 2px 0 2px !important; margin:1px 5px 1px 2px;'>" +
-                          "<button type='button' class='btn btn-outline-primary no-text-shadow' " + 
-			  "        style='margin:1px 5px 1px 2px; padding:0 0 0 0; outline:none; box-shadow:none; transform:translate3d(0,0,0);' " +
+                          "<button type='button' class='btn py-0 ml-1' " + 
+			  "        style='width:inherit; border-color:#cecece; background-color:#fafafa' data-role='none' " +
                           "        data-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
-                          "  <span id='name_RF" + index + "' style='float:center; padding:0 0 0 0'>" + o1_rn + "</span>" +
+                          "  <span id='name_RF" + index + "' style='float:center; padding:0 0 0 0; color:black;'>" + o1_rn + "</span>" +
                           "  <span class='badge badge-secondary' style='background-color:#CEECF5; color:black;' id='tbl_RF"  + index + "'>" +
                           (get_value(simhw_sim_states()['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() +
                           "  </span>" +
@@ -491,8 +491,8 @@
                 var divclass = divclasses[b] ;
 
                 o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5; margin:1px 5px 1px 2px; '>" +
-                      "<button type='button' class='btn btn-outline-primary no-text-shadow' " +
-                      "        style='padding:0 0 0 0; margin:1px 5px 1px 2px; outline:none; box-shadow:none; will-change:transform; transform:translate3d(0,0,0);' " +
+                      "<button type='button' class='btn py-0 ml-1' " + 
+		      "        style='width:inherit; border-color:#cecece; background-color:#fafafa' data-role='none' " +
                       "        data-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +
                       showkey +
