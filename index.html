@@ -371,22 +371,14 @@
 		   	   <thead>
 			   <tr>
 		   <th width=1%>
-		   <a href="#checkboxespopup" data-rel="popup">&plusmn;</a>
-		   <div data-role="popup" id="checkboxespopup">
-		       <label><input aria-label="Show breakpoint"         type="checkbox" value="1" id="asm_break"  name="asm_break" checked="checked"><span>breakpoints</span></label>
-		       <label><input aria-label="Show address"            type="checkbox" value="1" id="asm_addr"   name="asm_addr"  checked="checked"><span>address</span></label>
-		       <label><input aria-label="Show label"              type="checkbox" value="1" id="asm_label2" name="asm_label2" checked="checked"><span>labels</span></label>
-		       <label><input aria-label="Show pseudo-instruction" type="checkbox" value="1" id="asm_pins"   name="asm_pins"  checked="checked"><span>pseudo</span><span class="d-none d-md-inline">-instructions</span></label>
-		       <label><input aria-label="Show label"              type="checkbox" value="1" id="asm_label1" name="asm_label1" checked="checked"><span>labels</span></label>
-		       <label><input aria-label="Show instruction"        type="checkbox" value="1" id="asm_ins"    name="asm_ins"   checked="checked"><span>assembly</span></label>
-		   </div>
+		   <a href="#" data-toggle="popover2">&plusmn;</a>
 		   </th>
-			   <th width=10% class="asm_break"><span>break</span><span class="d-none d-md-inline"><small>points</small></span></th>
-			   <th width=15% class="asm_addr"><span>addr</span><span class="d-none d-sm-inline-flex">ess</span></th>
-                           <th width=10% class="asm_label2" align=right><span>labels</span></th>
-                           <th width=20% class="asm_pins"   align=left><span>pseudo</span><span class="d-none d-md-inline"><small>instructions</small></span></th>
-                           <th width=10% class="asm_label1" align=right><span>labels</span></th>
-                           <th width=25% class="asm_ins"    align=left><span>assembly</span></th>
+			   <th width=10% class="asm_break show"><span>break</span><span class="d-none d-md-inline"><small>points</small></span></th>
+			   <th width=15% class="asm_addr show"><span>addr</span><span class="d-none d-sm-inline-flex">ess</span></th>
+                           <th width=10% class="asm_label2 show" align=right><span>labels</span></th>
+                           <th width=20% class="asm_pins show"   align=left><span>pseudo</span><span class="d-none d-md-inline"><small>instructions</small></span></th>
+                           <th width=10% class="asm_label1 show" align=right><span>labels</span></th>
+                           <th width=25% class="asm_ins show"    align=left><span>assembly</span></th>
 			   </tr>
 			   </thead>
 			   </table>
@@ -1379,6 +1371,19 @@
                      animation: false,
                      delay: { "show": 500, "hide": 100 } 
             }) ;
+            $("[data-toggle=popover2]").popover({
+                    html:       true,
+                    placement: 'auto',
+                    animation:  false,
+                    content: function() {
+                        return '<label><input aria-label="Show breakpoint"         type="checkbox" value="1" id="asm_break"   checked="checked" data-toggle="collapse" data-target=".asm_break"><span>breakpoints</span></label>' +
+		               '<label><input aria-label="Show address"            type="checkbox" value="1" id="asm_addr"    checked="checked" data-toggle="collapse" data-target=".asm_addr"><span>address</span></label>' +
+		               '<label><input aria-label="Show label"              type="checkbox" value="1" id="asm_label2"  checked="checked" data-toggle="collapse" data-target=".asm_label2"><span>labels</span></label>' +
+		               '<label><input aria-label="Show pseudo-instruction" type="checkbox" value="1" id="asm_pins"    checked="checked" data-toggle="collapse" data-target=".asm_pins"><span>pseudo</span><span class="d-none d-md-inline">-instructions</span></label>' +
+		               '<label><input aria-label="Show label"              type="checkbox" value="1" id="asm_label1"  checked="checked" data-toggle="collapse" data-target=".asm_label1"><span>labels</span></label>' +
+		               '<label><input aria-label="Show instruction"        type="checkbox" value="1" id="asm_ins"     checked="checked" data-toggle="collapse" data-target=".asm_ins"><span>assembly</span></label>' ;
+                    }
+            });
 
             $('.dropify').dropify();
 
