@@ -826,12 +826,11 @@
 <div id="config2" class="modal">
     <div class="modal-dialog modal-lg" style="height:80vh;">
 	<div class="modal-content">
-	   <div class="modal-header">
 
+	   <div class="modal-header">
 		<div class="mx-auto">
 		   <div class="btn-group">
 		     <button type="button" class="btn btn-outline-dark" disabled>Config<span class="d-none d-sm-inline-flex">uration</span></button>
-		     <button type="button" class="btn btn-success" data-toggle="collapse" data-target=".collapse7">Desc<span class="d-none d-sm-inline-flex">ription</span></button>
 		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" 
 			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			 <span class="caret"></span>
@@ -848,13 +847,20 @@
 		   </div>
                 </div>
 		<button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
-
 	   </div>
+
 	   <div class="modal-body">
 		<div id="container-config2" class="container-fluid" 
-		     style="max-height:80vh; padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
+		     style="max-height:75vh; padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
 		</div>
 	   </div>
+
+	   <div class="modal-footer">
+		 <button type="button" class="btn btn-info    btn-sm col-xs-4 col-sm-3 float-left mr-auto"
+                         data-toggle="collapse" data-target=".collapse7">Desc<span class="d-none d-sm-inline-flex">ription</span></button>
+		 <button type="button" class="btn btn-danger  btn-sm col-xs-3 col-sm-2 float-right"  
+                         data-toggle="collapse" data-target=".collapse7" data-dismiss="modal">Close</button>
+	   </div><!-- /footer -->
 	</div>
      </div>
 </div> <!-- /.modal -->
@@ -899,14 +905,13 @@
 <div id="help1" class="modal">
      <div class="modal-dialog modal-lg">
 	<div class="modal-content">
-	   <div class="modal-header">
 
-		<button type="button" class="btn btn-success" 
-			onclick="wepsim_open_help_index(); wepsim_help_refresh();">Home</button>
+	   <div class="modal-header">
 		<div class="mx-auto">
 		   <div class="btn-group">
+		     <button type="button" class="btn btn-success" 
+		     	     onclick="wepsim_open_help_index(); wepsim_help_refresh();">Help Index</button>
 		     <button type="button" class="btn btn-outline-dark" disabled>Help</button>
-		     <button type="button" class="btn btn-success" data-toggle="collapse" data-target=".collapse7">Desc<span class="d-none d-sm-inline-flex">ription</span></button>
 		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" 
 			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			 <span class="caret"></span>
@@ -923,15 +928,22 @@
 		   </div>
                 </div>
 		<button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
-
 	   </div>
+
 	   <div class="modal-body">
                  <div id="help1_ref" style="display:none;"></div>
                  <div class="ui-body-d ui-content" 
-                      style="padding: 2px 2px 2px 2px; max-height:80vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
+                      style="padding: 2px 2px 2px 2px; max-height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
                       <div id="iframe_help1"></div>
                  </div>
 	   </div>
+
+	   <div class="modal-footer">
+		 <button type="button" class="btn btn-info    btn-sm col-xs-4 col-sm-3 float-left mr-auto"
+                         data-toggle="collapse" data-target=".collapse7">Desc<span class="d-none d-sm-inline-flex">ription</span></button>
+		 <button type="button" class="btn btn-danger  btn-sm col-xs-3 col-sm-2 float-right"  
+                         data-toggle="collapse" data-target=".collapse7" data-dismiss="modal">Close</button>
+	   </div><!-- /footer -->
 	</div>
      </div>
 </div> <!-- /.modal -->
@@ -940,18 +952,16 @@
 <div id="example1" class="modal">
      <div class="modal-dialog modal-lg" style="height:80vh;">
 	<div class="modal-content">
-	   <div class="modal-header">
 
+	   <div class="modal-header">
 		<div class="mx-auto">
 		   <div class="btn-group">
 		     <button type="button" class="btn btn-outline-dark" disabled>Examples</button>
-		     <button type="button" class="btn btn-success" data-toggle="collapse" data-target=".collapse7">Desc<span class="d-none d-sm-inline-flex">ription</span></button>
 		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" 
 			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			 <span class="caret"></span>
 			 <span class="sr-only">Toggle Help Idiom</span>
 		     </button>
-		     <button type="button" class="btn btn-info" data-toggle="collapse" data-target=".collapse8">Ind<span class="d-none d-sm-inline-flex">ividual</span></button>
 		     <div class="dropdown-menu" style="z-index:100000;">
 			 <a class="dropdown-item" href="#" 
 			    onclick="set_cfg('ws_idiom','es'); save_cfg(); 
@@ -963,13 +973,22 @@
 		   </div>
                 </div>
 		<button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
-
 	   </div>
+
 	   <div class="modal-body">
 		<div id="container-example1" class="container-fluid" 
-		     style="max-height:80vh; padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
+		     style="max-height:75vh; padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
 		</div>
 	   </div>
+
+	   <div class="modal-footer">
+		 <button type="button" class="btn btn-info    btn-sm col-xs-4 col-sm-3 float-left"
+                         data-toggle="collapse" data-target=".collapse7">Desc<span class="d-none d-sm-inline-flex">ription</span></button>
+		 <button type="button" class="btn btn-info    btn-sm col-xs-4 col-sm-3 float-left mr-auto"
+                         data-toggle="collapse" data-target=".collapse8">Ind<span class="d-none d-sm-inline-flex">ividual</span></button>
+		 <button type="button" class="btn btn-danger  btn-sm col-xs-3 col-sm-2 float-right"
+                         data-toggle="collapse" data-target=".collapse7" data-dismiss="modal">Close</button>
+	   </div><!-- /footer -->
 	</div>
      </div>
 </div> <!-- /.modal -->
