@@ -319,17 +319,19 @@
 		    var dialog_title = "Notify @ " + reg_maddr + ": " + 
                                        simhw_internalState_get('MC_dashboard', reg_maddr).notify[1] ;
 
-		    var dialog_msg = "" ;
+		    var dialog_msg = '<div style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">' ;
+
 		    for (var k=1; k<notifications; k++) {
 			 dialog_msg += simhw_internalState_get('MC_dashboard', reg_maddr).notify[k] + "\n<br>" ;
 		    }
+                    dialog_msg += '</div>' ;
 
 		    bootbox.confirm({
 			title:    dialog_title,
 			message:  dialog_msg,
 			buttons:  {
-				     cancel:  { label: 'Stop',     className: 'btn-danger' },
-				     confirm: { label: 'Continue', className: 'btn-primary' }
+				     cancel:  { label: 'Stop',     className: 'btn-danger  btn-sm' },
+				     confirm: { label: 'Continue', className: 'btn-primary btn-sm' }
 				  },
 			callback: function (result) {
 				     if (result)

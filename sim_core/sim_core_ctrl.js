@@ -385,7 +385,7 @@
                                         '         </div>' +
                                         '    </div>' +
                                         '    <div class="carousel-item">' +
-                                        '         <div id=help2 style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">Loading...</div>' +
+                                        '         <div id=help2 style="max-height:65vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">Loading...</div>' +
                                         '    </div>' +
                                         '  </div>' +
                                         '</div>',
@@ -395,7 +395,7 @@
 			       buttons: {
 					    success: {
 						label: "Save",
-						className: "btn-primary col-xs-3 col-sm-2 float-right",
+						className: "btn-primary btn-sm col-xs-3 col-sm-2 float-right",
 						callback: function ()
 							  {
 							     key        = $('#ask_skey').val();
@@ -435,7 +435,7 @@
 					    },
 					    close: {
 						label: "Close",
-						className: "btn-danger col-xs-3 col-sm-2 float-right",
+						className: "btn-danger btn-sm col-xs-3 col-sm-2 float-right",
 						callback: function() { }
 					    }
 					}

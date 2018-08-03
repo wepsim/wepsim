@@ -57,12 +57,12 @@
 	    {
                 sim.active = sim.systems[newActive] ;
                 sim.index  = newActive ;
-
-                // to pre-compile behaviors & references
-                compile_behaviors() ;
-                firedep_to_fireorder(jit_fire_dep) ;
-                compute_references() ;
 	    }
+
+            // to pre-compile behaviors & references
+            compile_behaviors() ;
+            firedep_to_fireorder(jit_fire_dep) ;
+            compute_references() ;
         }
 
         function simhw_getActiveByName ( short_name )
