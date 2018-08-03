@@ -369,8 +369,8 @@
                  if (index < 10)
                      o1_rn = o1_rn + '<span style="opacity: 0.0;">_</span>' ;
 
-		 o1_rf += "<div class='col' style='padding:0 2px 0 2px !important; margin:1px 5px 1px 2px;'>" +
-                          "<button type='button' class='btn py-0 ml-1' " + 
+		 o1_rf += "<div class='col pb-1 px-1'>" +
+                          "<button type='button' class='btn py-0 px-0 ml-0' " + 
 			  "        style='width:inherit; border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
                           "        data-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
@@ -490,8 +490,8 @@
                 var b = filter[i].split(",")[1] ;
                 var divclass = divclasses[b] ;
 
-                o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5; margin:1px 5px 1px 2px; '>" +
-                      "<button type='button' class='btn py-0 ml-1' " + 
+                o1 += "<div class='" + divclass + " pb-1 px-1'>" +
+                      "<button type='button' class='btn py-0 px-0 ml-1' " + 
 		      "        style='width:inherit; border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
                       "        data-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +
