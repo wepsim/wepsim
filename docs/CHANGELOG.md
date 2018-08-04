@@ -6,7 +6,7 @@
 1.8.9 -> 1.9.0:
 * Command line version added
 * Example, help, and configuration dialog simplified
-* Inertial scroll added
+* Bugfixes: inertial scroll restored, button placement, etc.
 
 1.8.7 -> 1.8.9:
 * Update bootstrap 3.x -> 4.1
