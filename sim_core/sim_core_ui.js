@@ -289,7 +289,8 @@
 
         function hex2values_update ( index )
         {
-	      var new_value = parseInt($("#popover1")[0].value) ;
+	      var new_value     = parseInt($("#popover1")[0].value) ;
+              var filter_states = simhw_internalState('filter_states') ;
 
               if (typeof simhw_sim_states()["BR"][index] != "undefined")
               {
@@ -461,7 +462,7 @@
         }
 
 
-        function init_eltos ( jqdiv, sim_eltos, filter, divclasses )
+        function init_eltos ( jqdiv, sim_eltos, filter )
         {
             if (jqdiv == "")
             {   // without ui
@@ -487,8 +488,7 @@
 			showkey = showkey + '<span style="opacity: 0.0;">_</span>' ;
 	        }
 
-                var b = filter[i].split(",")[1] ;
-                var divclass = divclasses[b] ;
+                var divclass = filter[i].split(",")[1] ;
 
                 o1 += "<div class='" + divclass + " pb-1 px-1'>" +
                       "<button type='button' class='btn py-0 px-0 ml-1' " + 
@@ -561,22 +561,15 @@
                                              }, cfg_show_eltos_delay);
         }
 
-
-        var filter_states = [ "REG_IR_DECO,0",
-                              "REG_IR,1",  "REG_PC,1",  "REG_SR,1",
-                              "REG_RT1,1", "REG_RT2,1", "REG_RT3,1",
-                              "REG_MAR,1", "REG_MBR,1", "REG_MICROADDR,1" ] ;
-
-        var divclasses = [ "col-11", 
-                           "col" ] ;
-
         function init_states ( jqdiv )
         {
-            return init_eltos(jqdiv, simhw_sim_states(), filter_states, divclasses ) ;
+            var filter_states = simhw_internalState('filter_states') ;
+            return init_eltos(jqdiv, simhw_sim_states(), filter_states) ;
         }
 
         function show_states ( )
         {
+            var filter_states = simhw_internalState('filter_states') ;
             return show_eltos(simhw_sim_states(), filter_states) ;
         }
 
