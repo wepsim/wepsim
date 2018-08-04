@@ -356,17 +356,7 @@
                                   '"' + simhw_active().sim_name + '" has been activated.') ;
 
             // update UI
-            show_states() ;
-            show_rf_values() ;
-            show_rf_names() ;
-            show_dbg_ir(get_value(simhw_sim_state('REG_IR_DECO'))) ;
-
-            show_memories_values() ;
-            //var SIMWARE = get_simware() ;
-            //$("#asm_debugger").html(assembly2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg, SIMWARE.assembly));
-            //showhideAsmElements();
-            show_asmdbg_pc() ;
-            show_dbg_mpc() ;
+            sim_core_reset() ;
     }
 
     function wepsim_change_mode ( optValue, cssLayer )
