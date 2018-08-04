@@ -18,7 +18,6 @@
     <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=2.2, minimum-scale=1, width=device-width">
 
     <script src="external/jquery.min.224.js"></script>
-    <script src="external/jquery-ui.min.js"></script>
     <script>
         $(document).bind("mobileinit", function() {
             $.mobile.defaultPageTransition = "none";
@@ -1420,20 +1419,12 @@
 
             $('.dropify').dropify();
 
-            $('#end_state1').tokenfield({
-                    autocomplete: { source: ['register','memory','screen'], delay: 100 },
-                    showAutocompleteOnFocus: true,
-                    inputType: 'textarea'
-            }) ;
+            $('#end_state1').tokenfield({ inputType: 'textarea' }) ;
             //A1/ var inputEls = document.getElementById('end_state1');
             //A1/ if (null != inputEls)
             //A1/     setup_speech_input(inputEls) ;
 
-            $('#end_state2').tokenfield({
-                    autocomplete: { source: ['register','memory','screen'], delay: 100 },
-                    showAutocompleteOnFocus: true,
-                    inputType: 'textarea'
-            }) ;
+            $('#end_state2').tokenfield({ inputType: 'textarea' }) ;
             //A1/ var inputEls = document.getElementById('end_state2');
             //A1/ if (null != inputEls)
             //A1/     setup_speech_input(inputEls) ;
