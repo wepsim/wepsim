@@ -356,6 +356,8 @@
                                   '"' + simhw_active().sim_name + '" has been activated.') ;
 
             // update UI
+            var SIMWARE = get_simware() ;
+    	    update_memories(SIMWARE) ;
             sim_core_reset() ;
     }
 
