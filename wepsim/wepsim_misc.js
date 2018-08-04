@@ -359,6 +359,9 @@
             var SIMWARE = get_simware() ;
     	    update_memories(SIMWARE) ;
             sim_core_reset() ;
+
+            $("#asm_debugger").html(assembly2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg, SIMWARE.assembly));
+            showhideAsmElements();
     }
 
     function wepsim_change_mode ( optValue, cssLayer )
