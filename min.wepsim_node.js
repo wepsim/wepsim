@@ -23,10 +23,24 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
      * WepSIM nodejs aux.
      */
 
-    function wepsim_nodejs_init ( )
+    function wepsim_nodejs_init ( simhw_name )
     {
-         sim_core_init(false) ;
-	 sim_core_init_panel('', '', '', '', '', '') ;
+	var ret = {} ;
+	    ret.msg = "" ;
+	    ret.ok  = true ;
+
+        var hwid = simhw_getActiveByName(simhw_name) ;
+        if (hwid < 0) 
+	{
+            ret.msg = "ERROR: unknown hardware: " + simhw_name + ".\n" ;
+            ret.ok  = false ;
+	    return ret ;
+	}
+
+        sim_core_init(false) ;
+        simhw_setActive(hwid) ;
+	sim_core_init_panel('', '', '', '', '', '') ;
+	return ret ;
     }
 
     function wepsim_nodejs_show_checkresults ( checklist_ok, newones_too )

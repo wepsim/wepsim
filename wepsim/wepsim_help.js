@@ -140,7 +140,6 @@
         var help_xx = help[get_cfg('ws_idiom')] ;
 
 	$('#iframe_help1').html(table_helps_html(help_xx)) ;
-	$('#iframe_help1').enhanceWithin() ;
 
 	$('#help1_ref').data('relative','') ;
 	$('#help1_ref').data('absolute','') ;
@@ -153,7 +152,6 @@
     function wepsim_open_help_content ( content )
     {
         $('#iframe_help1').html(content) ;
-        $('#iframe_help1').enhanceWithin() ;
 
         $('#help1_ref').data('relative', '') ;
 	$('#help1_ref').data('absolute', '') ;

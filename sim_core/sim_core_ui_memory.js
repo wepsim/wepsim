@@ -67,8 +67,10 @@
                  revlabels[SIMWARE.labels2[key]] = key ;
 
             var seglabels = new Object() ;
-	    for (skey in segments)
-                 seglabels[parseInt(segments[skey].begin)] = skey ;
+            var curr_segments = simhw_internalState('segments') ;
+	    for (skey in curr_segments) {
+                 seglabels[parseInt(curr_segments[skey].begin)] = skey ;
+            }
 
             for (var key in memory)
             {
@@ -316,13 +318,7 @@
 
 	function firmware2html ( fir, showBinary )
 	{
-		var filter =  [ "A0,0",   "B,0",    "C,0",   "SELA,5", "SELB,5", "SELC,2", "SELCOP,0",  "MR,0",  "MC,0",
-				"C0,0",   "C1,0",   "C2,0",  "C3,0",   "C4,0",   "C5,0",   "C6,0",      "C7,0",
-				"T1,0",   "T2,0",   "T3,0",  "T4,0",   "T5,0",   "T6,0",   "T7,0",      "T8,0",  "T9,0",  "T10,0", "T11,0",
-				"M1,0",   "M2,0",   "M7,0",  "MA,0",   "MB,0", 
-                                "SELP,0", "LC,0",   "SE,0",  "SIZE,0", "OFFSET,0",
-                                "BW,0",   "R,0",    "W,0",   "TA,0",   "TD,0",   "IOR,0",  "IOW,0", 
-                                "TEST_I,0",    "TEST_U,0"  ] ;
+                var filter = simhw_internalState('filter_signals') ;
 
 		var h = "<tr bgcolor=#FF9900>" +
                         "<td bgcolor=white     style='border-style: solid; border-width:0px; border-color:lightgray;'></td>" +
@@ -656,12 +652,12 @@
                            "    onclick='asmdbg_set_breakpoint(" + l + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
                            "<td                                             width='2%'></td>" +
-                           "<td class='asm_break'  style='line-height:0.9; padding:5 0 0 0;' width='10%' align='center' id='bp" + l + "'>&nbsp;</td>" +
-                           "<td class='asm_addr'   style='line-height:0.9;' width='15%'>" + l + "</td>" +
-                           "<td class='asm_label2' style='line-height:0.9;' width='10%' align=right>" + s_label + "</td>" +
-                           "<td class='asm_pins'   style='line-height:0.9;' width='20%' align=left>"  + s2_instr + "</td>" +
-                           "<td class='asm_label1' style='line-height:0.9;' width='10%' align=right>" + s_label + "</td>" +
-                           "<td class='asm_ins'    style='line-height:0.9;' width='25%' align=left>"  + s1_instr + "</td>" +
+                           "<td class='asm_break show'  style='line-height:0.9; padding:5 0 0 0;' width='10%' align='center' id='bp" + l + "'>&nbsp;</td>" +
+                           "<td class='asm_addr show'   style='line-height:0.9;' width='15%'>" + l + "</td>" +
+                           "<td class='asm_label2 show' style='line-height:0.9;' width='10%' align=right>" + s_label + "</td>" +
+                           "<td class='asm_pins show'   style='line-height:0.9;' width='20%' align=left>"  + s2_instr + "</td>" +
+                           "<td class='asm_label1 show' style='line-height:0.9;' width='10%' align=right>" + s_label + "</td>" +
+                           "<td class='asm_ins show'    style='line-height:0.9;' width='25%' align=left>"  + s1_instr + "</td>" +
                            "</tr>" ;
                 }
                 o += "</tbody></table></center>" ;
@@ -699,20 +695,22 @@
 		    return ;
 
                 var o1 = null ;
+
                 var reg_pc    = get_value(simhw_sim_state("REG_PC")) ;
                 var curr_addr = "0x" + reg_pc.toString(16) ;
+                var curr_firm = simhw_internalState('FIRMWARE') ;
 
-                if (typeof FIRMWARE.assembly[old_addr] != "undefined")
+                if (typeof curr_firm.assembly[old_addr] != "undefined")
                 {
                      o1 = $("#asmdbg" + old_addr) ;
-                     o1.css('background-color', FIRMWARE.assembly[old_addr].bgcolor) ;
+                     o1.css('background-color', curr_firm.assembly[old_addr].bgcolor) ;
                 }
                 else
                 {
-                     for (l in FIRMWARE.assembly)
+                     for (l in curr_firm.assembly)
                      {
                           o1 = $("#asmdbg" + l) ;
-                          o1.css('background-color', FIRMWARE.assembly[l].bgcolor) ;
+                          o1.css('background-color', curr_firm.assembly[l].bgcolor) ;
                      }
                 }
                 old_addr = curr_addr ;
@@ -726,10 +724,11 @@
         function asmdbg_set_breakpoint ( addr )
         {
                 var icon_theme = get_cfg('ICON_theme') ;
+                var hexaddr    = "0x" + addr.toString(16) ;
+                var curr_firm  = simhw_internalState('FIRMWARE') ;
 
-                var hexaddr  = "0x" + addr.toString(16) ;
-                var o1       = document.getElementById("bp"+hexaddr) ;
-                var bp_state = FIRMWARE.assembly[hexaddr].breakpoint ;
+                var o1 = document.getElementById("bp"+hexaddr) ;
+                var bp_state = curr_firm.assembly[hexaddr].breakpoint ;
 
                 if (bp_state === true) {
                     bp_state = false ;
@@ -739,7 +738,7 @@
                     o1.innerHTML = "<img alt='stop icon' height=22 src='images/stop_" + icon_theme + ".gif'>" ;
                 }
 
-                FIRMWARE.assembly[hexaddr].breakpoint = bp_state ;
+                curr_firm.assembly[hexaddr].breakpoint = bp_state ;
         }
 
         function dbg_set_breakpoint ( addr )
@@ -747,7 +746,7 @@
                 var icon_theme = get_cfg('ICON_theme') ;
 
                 var o1       = document.getElementById("mcpin" + addr) ;
-                var bp_state = MC_dashboard[addr].breakpoint ;
+                var bp_state = simhw_internalState_get('MC_dashboard', addr).breakpoint ;
 
                 if (bp_state === true) {
                     bp_state = false ;
@@ -757,7 +756,7 @@
                     o1.innerHTML = "<img alt='stop icon' height='22' src='images/stop_" + icon_theme + ".gif'>" ;
                 }
 
-                MC_dashboard[addr].breakpoint = bp_state ;
+                simhw_internalState_get('MC_dashboard', addr).breakpoint = bp_state ;
 
                 if ( bp_state && ('instruction' == get_cfg('DBG_level')) )
                 {
@@ -768,8 +767,8 @@
 
 	function show_dbg_mpc ( )
 	{
-                show_control_memory(MC,
-                                    MC_dashboard,
+                show_control_memory(simhw_internalState('MC'),
+                                    simhw_internalState('MC_dashboard'),
                                     get_value(simhw_sim_state('REG_MICROADDR')),
                                     false) ;
 	}

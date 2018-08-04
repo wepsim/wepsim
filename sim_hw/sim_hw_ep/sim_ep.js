@@ -24,15 +24,12 @@
          */
 
         /* Abstraction */
-        var ep_components = {} ;
-        var ep_states = {} ;
-        var ep_events = {} ;
-        var ep_signals = {} ;
-        var ep_behaviors = {} ;
-
-        /* Local support */
-        var io_hash    = {} ;
-        var fire_stack  = [] ;
+        var ep_components      = {} ;
+        var ep_states          = {} ;
+        var ep_events          = {} ;
+        var ep_signals         = {} ;
+        var ep_behaviors       = {} ;
+        var ep_internal_states = {} ;
 
 
         /*
@@ -41,13 +38,37 @@
 
         var ep_def = {
                        sim_name:            "Elemental Processor",
+                       sim_short_name:      "ep",
                        sim_img_processor:   "sim_hw/sim_hw_ep/processor6.svg",
                        sim_img_controlunit: "sim_hw/sim_hw_ep/controlunit6.svg",
                        sim_img_cpu:         "sim_hw/sim_hw_ep/cpu6.svg",
+
                        components:          ep_components,
                        states:              ep_states,
                        signals:             ep_signals,
                        behaviors:           ep_behaviors,
-                       events:              ep_events
+                       events:              ep_events,
+                       internal_states:     ep_internal_states
 	             } ;
+
+        simhw_add(ep_def) ;
+
+
+        /*
+         *  Elemental Processor: Private
+         */
+
+        // update ALU flags: test_n, test_z, test_v, test_c
+        function ep_update_nzvc ( flag_n, flag_z, flag_v, flag_c )
+        {
+	   set_value(simhw_sim_state("FLAG_N"), flag_n) ;
+	   set_value(simhw_sim_state("FLAG_Z"), flag_z) ;
+	   set_value(simhw_sim_state("FLAG_V"), flag_v) ;
+	   set_value(simhw_sim_state("FLAG_C"), flag_c) ;
+
+	   set_value(simhw_sim_signal("TEST_N"), flag_n) ;
+	   set_value(simhw_sim_signal("TEST_Z"), flag_z) ;
+	   set_value(simhw_sim_signal("TEST_V"), flag_v) ;
+	   set_value(simhw_sim_signal("TEST_C"), flag_c) ;
+        }
 

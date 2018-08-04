@@ -17,7 +17,7 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=2.2, minimum-scale=1, width=device-width">
 
-    <script src="external/jquery.min.js"></script>
+    <script src="external/jquery.min.224.js"></script>
     <script src="external/jquery-ui.min.js"></script>
     <script>
         $(document).bind("mobileinit", function() {
@@ -92,6 +92,34 @@
         margin: 0 15px 0 15px !important;
     }
 
+    .slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 10px;
+        border-radius: 20px;
+        background: #e3e3e3;
+        outline: none;
+        opacity: 1.0;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+    }
+    .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 35px;
+        height: 25px;
+        border-radius: 50%; 
+        background: #4CAF50;
+        cursor: pointer;
+    }
+    .slider::-moz-range-thumb {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        background: #4CAF50;
+        cursor: pointer;
+    }
+
     .ui-icon-reset:after {
 	background-image: url("images/reset.svg");
         background-repeat: no-repeat;
@@ -156,7 +184,7 @@
 
     <!-- PWA -->
     <link  rel="manifest"                              href="./docs/manifest.json">
-    <meta name="msapplication-config"                  content="/images/icons/browserconfig.xml">
+    <meta name="msapplication-config"                  content="images/icons/browserconfig.xml">
 
     <meta name="apple-mobile-web-app-capable"          content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -165,23 +193,23 @@
     <meta name="msapplication-TileColor"               content="#2F3BA2">
     <meta name="theme-color"                           content="#ffffff">
 
-    <link rel="shortcut icon" href="/images/icons/favicon.ico">
-    <link rel="mask-icon"     href="/images/icons/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="images/icons/favicon.ico">
+    <link rel="mask-icon"     href="images/icons/safari-pinned-tab.svg" color="#5bbad5">
 
-    <link href="/images/icons/apple-touch-icon.png"  rel="apple-touch-icon" sizes="180x180" type="image/png">
-    <link href="/images/icons/favicon-16x16.png"     rel="apple-touch-icon" sizes="16x16"   type="image/png">
-    <link href="/images/icons/favicon-32x32.png"     rel="apple-touch-icon" sizes="32x32"   type="image/png">
-    <link href="/images/icons/favicon-152x152.png"   rel="apple-touch-icon" sizes="152x152" type="image/png">
-    <link href="/images/icons/favicon-167x167.png"   rel="apple-touch-icon" sizes="167x167" type="image/png">
-    <link href="/images/icons/favicon-180x180.png"   rel="apple-touch-icon" sizes="180x180" type="image/png">
+    <link href="images/icons/apple-touch-icon.png"  rel="apple-touch-icon" sizes="180x180" type="image/png">
+    <link href="images/icons/favicon-16x16.png"     rel="apple-touch-icon" sizes="16x16"   type="image/png">
+    <link href="images/icons/favicon-32x32.png"     rel="apple-touch-icon" sizes="32x32"   type="image/png">
+    <link href="images/icons/favicon-152x152.png"   rel="apple-touch-icon" sizes="152x152" type="image/png">
+    <link href="images/icons/favicon-167x167.png"   rel="apple-touch-icon" sizes="167x167" type="image/png">
+    <link href="images/icons/favicon-180x180.png"   rel="apple-touch-icon" sizes="180x180" type="image/png">
 
-    <link href="/images/splash/iphone5_splash.png"    media="(device-width: 320px)  and (device-height: 568px)  and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image"/>
-    <link href="/images/splash/iphone6_splash.png"    media="(device-width: 375px)  and (device-height: 667px)  and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image"/>
-    <link href="/images/splash/iphoneplus_splash.png" media="(device-width: 621px)  and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image"/>
-    <link href="/images/splash/iphonex_splash.png"    media="(device-width: 375px)  and (device-height: 812px)  and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image"/>
-    <link href="/images/splash/ipad_splash.png"       media="(device-width: 768px)  and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image"/>
-    <link href="/images/splash/ipadpro1_splash.png"   media="(device-width: 834px)  and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image"/>
-    <link href="/images/splash/ipadpro2_splash.png"   media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image"/>
+    <link href="images/splash/iphone5_splash.png"    media="(device-width: 320px)  and (device-height: 568px)  and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image"/>
+    <link href="images/splash/iphone6_splash.png"    media="(device-width: 375px)  and (device-height: 667px)  and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image"/>
+    <link href="images/splash/iphoneplus_splash.png" media="(device-width: 621px)  and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image"/>
+    <link href="images/splash/iphonex_splash.png"    media="(device-width: 375px)  and (device-height: 812px)  and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image"/>
+    <link href="images/splash/ipad_splash.png"       media="(device-width: 768px)  and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image"/>
+    <link href="images/splash/ipadpro1_splash.png"   media="(device-width: 834px)  and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image"/>
+    <link href="images/splash/ipadpro2_splash.png"   media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image"/>
 </head>
 
 
@@ -221,14 +249,14 @@
 		    <div class="w-100 d-block d-sm-none"></div>
 
                     <div class="col-sm p-0">
-			    <form id="slider2f" class="full-width-slider col my-1" style="margin:0px; padding:0px;">
+			    <form id="slider2f" class="full-width-slider col my-1 p-0 pt-2 pb-2">
 				 <input aria-label="Show CPU/CU" type="range" name="slider2b" id="slider2b" 
 					min="0" max="12" value="7" step="1"
 				        data-show-value="false"
-                                        onchange="set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', this.value);
-					          set_cfg('CPUCU_size', this.value); 
-                                                  save_cfg();" 
-                                        style="display:none;">
+                                        class="custom-range slider" data-role="none"
+                                        oninput="set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', this.value);
+					         set_cfg('CPUCU_size', this.value); 
+                                                 save_cfg();">
 			    </form>
                     </div>
 
@@ -250,7 +278,10 @@
 					  set_cfg('ws_mode', optValue); 
 					  save_cfg();
                                           wepsim_change_mode(optValue, '#select4') ;
+	                                  sim_core_init_panel('#states_ALL', '#states_BR', '#io_ALL', 
+                                                              '#cpu_ALL', '#config_MP', '#config_IO'); 
 					  return false;">
+
 				<option value="intro"   >Welcome...</option>
 				<option value="tutorial">Instructive</option>
 				<option value="wepsim"  >WepSIM (EP)</option>
@@ -260,14 +291,14 @@
 		    <div class="w-100 d-xs-block d-sm-none"></div>
 
                     <div class="col-sm p-0">
-			    <form id="slider2f" class="full-width-slider col my-1" style="margin:0px; padding:0px;">
+			    <form id="slider2f" class="full-width-slider col my-1 p-0 pt-2 pb-2">
 				 <input aria-label="Show Main/Info" type="range" name="slider2a" id="slider2a" 
 					min="0" max="12" value="7" step="1"
 				        data-show-value="false"
-                                        onchange="set_ab_size('#col1', '#col2', this.value);
-					          set_cfg('C1C2_size', this.value);
-                                                  save_cfg();"
-                                        style="display:none;">
+                                        class="custom-range slider" data-role="none"
+                                        oninput="set_ab_size('#col1', '#col2', this.value);
+					         set_cfg('C1C2_size', this.value);
+                                                 save_cfg();">
 			    </form>
                     </div>
 
@@ -339,22 +370,14 @@
 		   	   <thead>
 			   <tr>
 		   <th width=1%>
-		   <a href="#checkboxespopup" data-rel="popup">&plusmn;</a>
-		   <div data-role="popup" id="checkboxespopup">
-		       <label><input aria-label="Show breakpoint"         type="checkbox" value="1" id="asm_break"  name="asm_break" checked="checked"><span>breakpoints</span></label>
-		       <label><input aria-label="Show address"            type="checkbox" value="1" id="asm_addr"   name="asm_addr"  checked="checked"><span>address</span></label>
-		       <label><input aria-label="Show label"              type="checkbox" value="1" id="asm_label2" name="asm_label2" checked="checked"><span>labels</span></label>
-		       <label><input aria-label="Show pseudo-instruction" type="checkbox" value="1" id="asm_pins"   name="asm_pins"  checked="checked"><span>pseudo</span><span class="d-none d-md-inline">-instructions</span></label>
-		       <label><input aria-label="Show label"              type="checkbox" value="1" id="asm_label1" name="asm_label1" checked="checked"><span>labels</span></label>
-		       <label><input aria-label="Show instruction"        type="checkbox" value="1" id="asm_ins"    name="asm_ins"   checked="checked"><span>assembly</span></label>
-		   </div>
+		   <a href="#" data-toggle="popover2" id="popover2_asm">&plusmn;</a>
 		   </th>
-			   <th width=10% class="asm_break"><span>break</span><span class="d-none d-md-inline"><small>points</small></span></th>
-			   <th width=15% class="asm_addr"><span>addr</span><span class="d-none d-sm-inline-flex">ess</span></th>
-                           <th width=10% class="asm_label2" align=right><span>labels</span></th>
-                           <th width=20% class="asm_pins"   align=left><span>pseudo</span><span class="d-none d-md-inline"><small>instructions</small></span></th>
-                           <th width=10% class="asm_label1" align=right><span>labels</span></th>
-                           <th width=25% class="asm_ins"    align=left><span>assembly</span></th>
+			   <th width=10% class="asm_break show"><span>break</span><span class="d-none d-md-inline"><small>points</small></span></th>
+			   <th width=15% class="asm_addr show"><span>addr</span><span class="d-none d-sm-inline-flex">ess</span></th>
+                           <th width=10% class="asm_label2 show" align=right><span>labels</span></th>
+                           <th width=20% class="asm_pins show"   align=left><span>pseudo</span><span class="d-none d-md-inline"><small>instructions</small></span></th>
+                           <th width=10% class="asm_label1 show" align=right><span>labels</span></th>
+                           <th width=25% class="asm_ins show"    align=left><span>assembly</span></th>
 			   </tr>
 			   </thead>
 			   </table>
@@ -794,12 +817,11 @@
 <div id="config2" class="modal">
     <div class="modal-dialog modal-lg" style="height:80vh;">
 	<div class="modal-content">
-	   <div class="modal-header">
 
+	   <div class="modal-header">
 		<div class="mx-auto">
 		   <div class="btn-group">
 		     <button type="button" class="btn btn-outline-dark" disabled>Config<span class="d-none d-sm-inline-flex">uration</span></button>
-		     <button type="button" class="btn btn-success" data-toggle="collapse" data-target=".collapse7">Desc<span class="d-none d-sm-inline-flex">ription</span></button>
 		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" 
 			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			 <span class="caret"></span>
@@ -816,13 +838,20 @@
 		   </div>
                 </div>
 		<button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
-
 	   </div>
+
 	   <div class="modal-body">
 		<div id="container-config2" class="container-fluid" 
-		     style="max-height:80vh; padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
+		     style="max-height:75vh; padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
 		</div>
 	   </div>
+
+	   <div class="modal-footer">
+		 <button type="button" class="btn btn-info    btn-sm col-xs-4 col-sm-3 float-left mr-auto"
+                         data-toggle="collapse" data-target=".collapse7">Desc<span class="d-none d-sm-inline-flex">ription</span></button>
+		 <button type="button" class="btn btn-danger  btn-sm col-xs-3 col-sm-2 float-right"  
+                         data-toggle="collapse" data-target=".collapse7" data-dismiss="modal">Close</button>
+	   </div><!-- /footer -->
 	</div>
      </div>
 </div> <!-- /.modal -->
@@ -867,14 +896,13 @@
 <div id="help1" class="modal">
      <div class="modal-dialog modal-lg">
 	<div class="modal-content">
-	   <div class="modal-header">
 
-		<button type="button" class="btn btn-success" 
-			onclick="wepsim_open_help_index(); wepsim_help_refresh();">Home</button>
+	   <div class="modal-header">
 		<div class="mx-auto">
+		   <button type="button" class="btn btn-success" 
+		   	   onclick="wepsim_open_help_index(); wepsim_help_refresh();">Help Index</button>
 		   <div class="btn-group">
 		     <button type="button" class="btn btn-outline-dark" disabled>Help</button>
-		     <button type="button" class="btn btn-success" data-toggle="collapse" data-target=".collapse7">Desc<span class="d-none d-sm-inline-flex">ription</span></button>
 		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" 
 			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			 <span class="caret"></span>
@@ -891,15 +919,22 @@
 		   </div>
                 </div>
 		<button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
-
 	   </div>
+
 	   <div class="modal-body">
                  <div id="help1_ref" style="display:none;"></div>
                  <div class="ui-body-d ui-content" 
-                      style="padding: 2px 2px 2px 2px; max-height:80vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
+                      style="padding: 2px 2px 2px 2px; max-height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
                       <div id="iframe_help1"></div>
                  </div>
 	   </div>
+
+	   <div class="modal-footer">
+		 <button type="button" class="btn btn-info    btn-sm col-xs-4 col-sm-3 float-left mr-auto"
+                         data-toggle="collapse" data-target=".collapse7">Desc<span class="d-none d-sm-inline-flex">ription</span></button>
+		 <button type="button" class="btn btn-danger  btn-sm col-xs-3 col-sm-2 float-right"  
+                         data-toggle="collapse" data-target=".collapse7" data-dismiss="modal">Close</button>
+	   </div><!-- /footer -->
 	</div>
      </div>
 </div> <!-- /.modal -->
@@ -908,13 +943,11 @@
 <div id="example1" class="modal">
      <div class="modal-dialog modal-lg" style="height:80vh;">
 	<div class="modal-content">
-	   <div class="modal-header">
 
-		<button type="button" class="btn btn-info" data-toggle="collapse" data-target=".collapse8">Ind<span class="d-none d-sm-inline-flex">ividual</span></button>
+	   <div class="modal-header">
 		<div class="mx-auto">
 		   <div class="btn-group">
 		     <button type="button" class="btn btn-outline-dark" disabled>Examples</button>
-		     <button type="button" class="btn btn-success" data-toggle="collapse" data-target=".collapse7">Desc<span class="d-none d-sm-inline-flex">ription</span></button>
 		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" 
 			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			 <span class="caret"></span>
@@ -931,13 +964,22 @@
 		   </div>
                 </div>
 		<button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
-
 	   </div>
+
 	   <div class="modal-body">
 		<div id="container-example1" class="container-fluid" 
-		     style="max-height:80vh; padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
+		     style="max-height:75vh; padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
 		</div>
 	   </div>
+
+	   <div class="modal-footer">
+		 <button type="button" class="btn btn-info    btn-sm col-xs-4 col-sm-3 float-left"
+                         data-toggle="collapse" data-target=".collapse7">Desc<span class="d-none d-sm-inline-flex">ription</span></button>
+		 <button type="button" class="btn btn-info    btn-sm col-xs-4 col-sm-3 float-left mr-auto"
+                         data-toggle="collapse" data-target=".collapse8">Ind<span class="d-none d-sm-inline-flex">ividual</span></button>
+		 <button type="button" class="btn btn-danger  btn-sm col-xs-3 col-sm-2 float-right"
+                         data-toggle="collapse" data-target=".collapse7" data-dismiss="modal">Close</button>
+	   </div><!-- /footer -->
 	</div>
      </div>
 </div> <!-- /.modal -->
@@ -1184,13 +1226,13 @@
 		    <a href="#" 
 		       class="btn btn-info" style="padding:0 0 0 0; color:white !important;"
 		       data-toggle="popover1"
-		       data-html="true" 
+		       data-html="true"
 		       data-content="<img src='images/author_fgarcia.png' height='200'/>"
 		       title="F&eacute;lix Garc&iacute;a Carballeira">F&eacute;lix Garc&iacute;a Carballeira</a> +
 		    <a href="#" 
 		       class="btn btn-info" style="padding:0 0 0 0; color:white !important;"
 		       data-toggle="popover1"
-		       data-html="true" 
+		       data-html="true"
 		       data-content="<img src='images/author_acaldero.png' height='200'/>"
 		       title="Alejandro Calder&oacute;n Mateos">Alejandro Calder&oacute;n Mateos</a> +
 		    <a href="#" 
@@ -1294,8 +1336,8 @@
 		    $('#select5a').val(11);
                     $("#select4").val(get_cfg('ws_mode')) ;
 
-                    $("#slider2a").val(get_cfg('C1C2_size')).slider("refresh");
-                    $("#slider2b").val(get_cfg('CPUCU_size')).slider("refresh");
+                    $("#slider2a").val(get_cfg('C1C2_size'));
+                    $('#slider2b').val(get_cfg('CPUCU_size'));
                     set_ab_size('#col1',        '#col2',        get_cfg('C1C2_size'));
                     set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', get_cfg('CPUCU_size'));
 
@@ -1316,7 +1358,10 @@
                target.prop("scrollTop", this.scrollTop).prop("scrollLeft", this.scrollLeft);
             });
 
-	    sim_core_init_panel("#states_ALL", "#states_BR", "#io_ALL", "#cpu_ALL", "#config_MP", "#config_IO"); 
+	    var ws_mode = get_cfg('ws_mode');
+            wepsim_change_mode(ws_mode, '#select4') ;
+	    sim_core_init_panel("#states_ALL", "#states_BR", "#io_ALL", 
+                                "#cpu_ALL", "#config_MP", "#config_IO"); 
 	    sim_core_reset(); 
 
             $('a[data-toggle="popover1"]').popover({
@@ -1325,6 +1370,24 @@
                      animation: false,
                      delay: { "show": 500, "hide": 100 } 
             }) ;
+            $("[data-toggle=popover2]").popover({
+                    html:       true,
+                    placement: 'auto',
+                    animation:  false,
+                    content: function() {
+                        return '<label><input aria-label="Show breakpoint"         type="checkbox" value="1" id="asm_break"   checked="checked" data-toggle="collapse" data-target=".asm_break"><span>breakpoints</span></label>' +
+		               '<label><input aria-label="Show address"            type="checkbox" value="1" id="asm_addr"    checked="checked" data-toggle="collapse" data-target=".asm_addr"><span>address</span></label>' +
+		               '<label><input aria-label="Show label"              type="checkbox" value="1" id="asm_label2"  checked="checked" data-toggle="collapse" data-target=".asm_label2"><span>labels</span></label>' +
+		               '<label><input aria-label="Show pseudo-instruction" type="checkbox" value="1" id="asm_pins"    checked="checked" data-toggle="collapse" data-target=".asm_pins"><span>pseudo</span><span class="d-none d-md-inline">-instructions</span></label>' +
+		               '<label><input aria-label="Show label"              type="checkbox" value="1" id="asm_label1"  checked="checked" data-toggle="collapse" data-target=".asm_label1"><span>labels</span></label>' +
+		               '<label><input aria-label="Show instruction"        type="checkbox" value="1" id="asm_ins"     checked="checked" data-toggle="collapse" data-target=".asm_ins"><span>assembly</span></label>' ;
+                    },
+                    title: function() {
+                        return 'Selectors' +
+                               '<button type="button" id="close" class="close" ' +
+                               '        onclick="$(\'#popover2_asm\').popover(\'hide\');">&times;</button>' ;
+                    }
+            });
 
             $('.dropify').dropify();
 
@@ -1350,9 +1413,6 @@
 	    if (false == get_cfg('use_voice')) {
 		wepsim_voice_stop() ;
 	    }
-
-	    var ws_mode = get_cfg('ws_mode');
-            wepsim_change_mode(ws_mode, '#select4') ;
 
             // progressive web application
 	    if ('serviceWorker' in navigator) 

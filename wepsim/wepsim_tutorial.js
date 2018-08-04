@@ -57,9 +57,9 @@
 		    label: 'Disable tutorials',
 		    className: 'btn-danger col float-right',
 		    callback: function() {
-			set_cfg('ws_mode', 'wepsim') ;
+			set_cfg('ws_mode','ep') ;
                         save_cfg();
-			$("#select4").val('wepsim') ;
+			$("#select4").val('ep') ;
                         tutbox.modal("hide") ;
                         if (wepsim_voice_canSpeak())
 			    window.speechSynthesis.cancel() ;

@@ -5,6 +5,8 @@ set -x
 #  hardware model + software model + core (simulation ctrl + UI)
 # 
 cat sim_hw/sim_hw_index.js \
+    sim_hw/sim_hw_values.js \
+    sim_hw/sim_hw_behavior.js \
     sim_hw/sim_hw_ep/sim_ep.js \
     sim_hw/sim_hw_ep/sim_hw_board.js \
     sim_hw/sim_hw_ep/sim_hw_cpu.js \
@@ -12,6 +14,13 @@ cat sim_hw/sim_hw_index.js \
     sim_hw/sim_hw_ep/sim_hw_io.js \
     sim_hw/sim_hw_ep/sim_hw_kbd.js \
     sim_hw/sim_hw_ep/sim_hw_scr.js \
+    sim_hw/sim_hw_poc/sim_poc.js \
+    sim_hw/sim_hw_poc/sim_hw_board.js \
+    sim_hw/sim_hw_poc/sim_hw_cpu.js \
+    sim_hw/sim_hw_poc/sim_hw_mem.js \
+    sim_hw/sim_hw_poc/sim_hw_io.js \
+    sim_hw/sim_hw_poc/sim_hw_kbd.js \
+    sim_hw/sim_hw_poc/sim_hw_scr.js \
     sim_sw/sim_lang.js \
     sim_sw/sim_lang_firm.js \
     sim_sw/sim_lang_asm.js \

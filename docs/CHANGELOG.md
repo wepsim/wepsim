@@ -1,4 +1,8 @@
 
+1.9.0 -> 1.9.1:
+* Update Bootstrap up to 4.1.3
+* Added a Proof-Of-Concept (poc) simulated hardware as example for possible modularity.
+
 1.8.9 -> 1.9.0:
 * Command line version added
 * Example, help, and configuration dialog simplified

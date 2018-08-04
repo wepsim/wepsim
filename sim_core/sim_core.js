@@ -40,17 +40,6 @@
                  stop_drawing() ;
 	    }
 
-            // 0.- to register the default Elemental Processor
-            simhw_add(ep_def) ;
-
-            // 1.- to check if default behaviors are ok
-            check_behavior();
-
-            // 2.- to pre-compile behaviors & references
-            compile_behaviors() ;
-            firedep_to_fireorder(jit_fire_dep) ;
-            compute_references() ;
-
             return ret ;
         }
 
@@ -130,8 +119,10 @@
 	            ret.msg = "" ;
 	            ret.ok  = true ;
 
-		if ( (typeof segments['.ktext'] == "undefined") &&
-		     (typeof segments['.text']  == "undefined") )
+                var curr_segments = simhw_internalState('segments') ;
+
+		if ( (typeof curr_segments['.ktext'] == "undefined") &&
+		     (typeof curr_segments['.text']  == "undefined") )
 		{
 		    ret.msg = 'code segment .ktext/.text does not exist!\nPlease load some assembly code.' ;
 	            ret.ok = false ;
@@ -141,8 +132,8 @@
 	        var SIMWARE = get_simware();
 
                 if (
-                     (! ((typeof segments['.ktext'] != "undefined") && (SIMWARE.labels2.kmain)) ) &&
-                     (! ((typeof segments['.text']  != "undefined") && (SIMWARE.labels2.main))   )
+                     (! ((typeof curr_segments['.ktext'] != "undefined") && (SIMWARE.labels2.kmain)) ) &&
+                     (! ((typeof curr_segments['.text']  != "undefined") && (SIMWARE.labels2.main))   )
                 )
                 {
 		     ret.msg = "labels 'kmain' (in .ktext) or 'main' (in .text) do not exist!" ;
@@ -163,7 +154,7 @@
 		    ret.msg = "" ;
 
 		var reg_maddr = get_value(simhw_sim_state('REG_MICROADDR')) ;
-                if (typeof MC[reg_maddr] == "undefined") {
+                if (typeof simhw_internalState_get('MC', reg_maddr) == "undefined") {
 		    ret.ok  = false ;
 		    ret.msg = "Error: undefined microinstruction at " + reg_maddr + "." ;
                     return ret ;
@@ -175,11 +166,12 @@
                        return ret;
 		}
 
+                var curr_segments = simhw_internalState('segments') ;
 		var reg_pc = parseInt(get_value(simhw_sim_state('REG_PC')));
-		if ( (reg_pc < segments['.ktext'].end) && (reg_pc >= segments['.ktext'].begin)) {
+		if ( (reg_pc < curr_segments['.ktext'].end) && (reg_pc >= curr_segments['.ktext'].begin)) {
                     return ret;
 		}
-		if ( (reg_pc <  segments['.text'].end) && (reg_pc >=  segments['.text'].begin)) {
+		if ( (reg_pc <  curr_segments['.text'].end) && (reg_pc >=  curr_segments['.text'].begin)) {
                     return ret;
 		}
 
@@ -202,24 +194,27 @@
     	        ret.ok      = true ;
     
             // Hardware
-	    var SIMWARE = get_simware() ;
+	    var SIMWARE       = get_simware() ;
+            var curr_firm     = simhw_internalState('FIRMWARE') ;
+            var curr_segments = simhw_internalState('segments') ;
+
             compute_general_behavior("RESET") ;
 
-            if ((typeof segments['.ktext'] != "undefined") && (SIMWARE.labels2.kmain))
+            if ((typeof curr_segments['.ktext'] != "undefined") && (SIMWARE.labels2.kmain))
 	    {
                     set_value(simhw_sim_state('REG_PC'), parseInt(SIMWARE.labels2.kmain));
                     show_asmdbg_pc() ;
     	    }
-            else if ((typeof segments['.text'] != "undefined") && (SIMWARE.labels2.main))
+            else if ((typeof curr_segments['.text'] != "undefined") && (SIMWARE.labels2.main))
 	    {
                     set_value(simhw_sim_state('REG_PC'), parseInt(SIMWARE.labels2.main));
                     show_asmdbg_pc() ;
     	    }
     
-    	    if ( (typeof segments['.stack'] != "undefined") &&
-                 (typeof simhw_sim_states().BR[FIRMWARE.stackRegister] != "undefined") )
+    	    if ( (typeof curr_segments['.stack'] != "undefined") &&
+                 (typeof simhw_sim_states().BR[curr_firm.stackRegister] != "undefined") )
     	    {
-    		set_value(simhw_sim_states().BR[FIRMWARE.stackRegister], parseInt(segments['.stack'].begin));
+    		set_value(simhw_sim_states().BR[curr_firm.stackRegister], parseInt(curr_segments['.stack'].begin));
     	    }
 
 	    var mode = get_cfg('ws_mode');
@@ -235,8 +230,8 @@
             show_rf_names();
             show_dbg_ir(get_value(simhw_sim_state('REG_IR_DECO'))) ;
 
-            show_main_memory   (MP,                0, true, false) ;
-            show_control_memory(MC,  MC_dashboard, 0, true) ;
+            show_main_memory   (simhw_internalState('MP'),  0, true, false) ;
+            show_control_memory(simhw_internalState('MC'),  simhw_internalState('MC_dashboard'), 0, true) ;
 
             return ret ;
         }
@@ -291,6 +286,7 @@
 	        var before_state = null ;
 	        var  after_state = null ;
 	        var  curr_mpc    = "" ;
+                var  curr_MC     = simhw_internalState('MC') ;
 
                 var i_clks = 0 ;
                 var cur_addr = 0 ;
@@ -306,7 +302,7 @@
 		           after_state = simstate_current2state() ;
                            curr_mpc    = '0x' + cur_addr.toString(16) ;
                            ret.msg     = ret.msg + 'micropc(' + curr_mpc + '):\t' + 
-				         controlmemory_lineToString(MC, cur_addr).trim() + ':\t\t\t' +
+				         controlmemory_lineToString(curr_MC, cur_addr).trim() + ':\t\t\t' +
                                          simstate_diff_states(before_state,after_state) + '\n' ;
 		       }
 
@@ -323,7 +319,7 @@
 	            }
 
                     cur_addr = get_value(simhw_sim_state('REG_MICROADDR')) ;
-                    if (typeof MC[cur_addr] == "undefined")
+                    if (typeof curr_MC[cur_addr] == "undefined")
 		    {
 		        ret.msg = "Error: undefined microinstruction at " + cur_addr + "." ;
 		        ret.ok  = false ;
@@ -356,22 +352,24 @@
     	        ret.msg = "" ;
     
             // execute firmware-assembly
+            var curr_segments = simhw_internalState('segments') ;
+
     	    var reg_pc        = get_value(simhw_sim_state('REG_PC')) ;
     	    var reg_pc_before = get_value(simhw_sim_state('REG_PC')) - 4 ;
     
     	    var code_begin  = 0 ;
-    	    if ( (typeof segments['.text'] != "undefined") && (typeof segments['.text'].begin != "undefined") )
-    	          code_begin = parseInt(segments['.text'].begin) ;
+    	    if ( (typeof curr_segments['.text'] != "undefined") && (typeof curr_segments['.text'].begin != "undefined") )
+    	          code_begin = parseInt(curr_segments['.text'].begin) ;
     	    var code_end    = 0 ;
-    	    if ( (typeof segments['.text'] != "undefined") && (typeof segments['.text'].end   != "undefined") )
-    	          code_end = parseInt(segments['.text'].end) ;
+    	    if ( (typeof curr_segments['.text'] != "undefined") && (typeof curr_segments['.text'].end   != "undefined") )
+    	          code_end = parseInt(curr_segments['.text'].end) ;
     
     	    var kcode_begin = 0 ;
-    	    if ( (typeof segments['.ktext'] != "undefined") && (typeof segments['.ktext'].begin != "undefined") )
-    	          kcode_begin = parseInt(segments['.ktext'].begin) ;
+    	    if ( (typeof curr_segments['.ktext'] != "undefined") && (typeof curr_segments['.ktext'].begin != "undefined") )
+    	          kcode_begin = parseInt(curr_segments['.ktext'].begin) ;
     	    var kcode_end   = 0 ;
-    	    if ( (typeof segments['.ktext'] != "undefined") && (typeof segments['.ktext'].end   != "undefined") )
-    	          kcode_end = parseInt(segments['.ktext'].end) ;
+    	    if ( (typeof curr_segments['.ktext'] != "undefined") && (typeof curr_segments['.ktext'].end   != "undefined") )
+    	          kcode_end = parseInt(curr_segments['.ktext'].end) ;
     
 	    var ret1         = null ;
 	    var before_state = null ;

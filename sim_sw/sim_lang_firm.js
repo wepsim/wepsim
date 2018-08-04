@@ -1066,27 +1066,29 @@ function saveFirmware ( SIMWARE )
 
 function decode_instruction ( binstruction )
 {
+    var curr_firm = simhw_internalState('FIRMWARE') ;
+
     var co  = binstruction.substring(0,   6) ;
     var cop = binstruction.substring(28, 32) ;
 
     // try to find instruction in the loaded firmware
     var oinstruction = null ;
-    for (var fi in FIRMWARE['firmware'])
+    for (var fi in curr_firm['firmware'])
     {
-         if (FIRMWARE.firmware[fi].name == "begin") 
+         if (curr_firm.firmware[fi].name == "begin") 
          {
              continue ;
          }
 
-         if ( (FIRMWARE.firmware[fi].co == co) && (typeof FIRMWARE.firmware[fi].cop == "undefined") )
+         if ( (curr_firm.firmware[fi].co == co) && (typeof curr_firm.firmware[fi].cop == "undefined") )
          {
-             oinstruction = FIRMWARE.firmware[fi] ;
+             oinstruction = curr_firm.firmware[fi] ;
              break ;
          }
 
-         if ( (FIRMWARE.firmware[fi].co == co) && (typeof FIRMWARE.firmware[fi].cop != "undefined") && (FIRMWARE.firmware[fi].cop == cop) )
+         if ( (curr_firm.firmware[fi].co == co) && (typeof curr_firm.firmware[fi].cop != "undefined") && (curr_firm.firmware[fi].cop == cop) )
          {
-             oinstruction = FIRMWARE.firmware[fi] ;
+             oinstruction = curr_firm.firmware[fi] ;
              break ;
          }
     }
@@ -1097,9 +1099,10 @@ function decode_instruction ( binstruction )
 function decode_ram ( )
 {
     var sram = "\n" ;
-    for (var address in MP)
+    var curr_MP = simhw_internalState('MP') ;
+    for (var address in curr_MP)
     {
-        var binstruction = MP[address].toString(2) ;
+        var binstruction = curr_MP[address].toString(2) ;
             binstruction = "00000000000000000000000000000000".substring(0, 32 - binstruction.length) + binstruction ;
         sram += "0x" + parseInt(address).toString(16) + ":" + decode_instruction(binstruction) + "\n" ;
     }

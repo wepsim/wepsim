@@ -32,9 +32,9 @@
 
 						  var key = 0 ;
 						  var value = 0 ;
-					          for (var index in MP)
+					          for (var index in ep_internal_states.MP)
 						  {
-						       value = parseInt(MP[index]) ;
+						       value = parseInt(ep_internal_states.MP[index]) ;
 						       if (value != 0) 
 						       {
 					                   key = parseInt(index).toString(16) ;
@@ -68,8 +68,8 @@
 				             },
 		                  get_state: function ( pos ) {
 						  var index = parseInt(pos) ;
-						  if (typeof MP[index] != "undefined") {
-						      return "0x" + parseInt(MP[index]).toString(16) ;
+						  if (typeof ep_internal_states.MP[index] != "undefined") {
+						      return "0x" + parseInt(ep_internal_states.MP[index]).toString(16) ;
 					          }
 
 					          return null ;
@@ -78,12 +78,12 @@
 
 
 	/*
-	 *  States - internal memory
+	 *  Internal States
 	 */
 
-        var MP       = {};
-        var segments = {};
-        var MP_wc    = 0;
+        ep_internal_states.segments     = {} ;
+        ep_internal_states.MP           = {} ;
+        ep_internal_states.MP_wc        = 0 ;
 
 
         /*
@@ -124,7 +124,7 @@
                                                       var clk     = get_value(ep_states[s_expr[5]].value) ;
 
                                                       ep_signals[s_expr[4]].value = 0;
-						      var remain = get_value(MP_wc);
+						      var remain = get_var(ep_internal_states.MP_wc);
 						      if ( 
                                                            (typeof ep_events.mem[clk-1] != "undefined") &&
 						           (ep_events.mem[clk-1] > 0) 
@@ -137,8 +137,8 @@
 
 						      var value   = 0;
                                                       address = address & 0xFFFFFFFC;
-						      if (typeof  MP[address] != "undefined")
-						   	  value = MP[address];
+						      if (typeof  ep_internal_states.MP[address] != "undefined")
+						   	  value = ep_internal_states.MP[address];
 
                                                       // TABLES
                                                       if ( 0 == (bw & 0x0000000C) )
@@ -166,7 +166,7 @@
 
                                                       ep_states[s_expr[2]].value = (dbvalue >>> 0);
                                                      ep_signals[s_expr[4]].value = 1;
-				                      show_main_memory(MP, address, false, false) ;
+				                      show_main_memory(ep_internal_states.MP, address, false, false) ;
                                                    }
                                    };
 
@@ -180,7 +180,7 @@
                                                       var clk     = get_value(ep_states[s_expr[5]].value) ;
 
                                                       ep_signals[s_expr[4]].value = 0;
-						      var remain = get_value(MP_wc);
+						      var remain = get_var(ep_internal_states.MP_wc);
 						      if ( 
                                                            (typeof ep_events.mem[clk-1] != "undefined") &&
 						           (ep_events.mem[clk-1] > 0) 
@@ -193,8 +193,8 @@
 
 						      var value   = 0;
                                                       address = address & 0xFFFFFFFC;
-						      if (typeof  MP[address] != "undefined")
-						   	  value = MP[address];
+						      if (typeof  ep_internal_states.MP[address] != "undefined")
+						   	  value = ep_internal_states.MP[address];
 
                                                       // TABLES
                                                       if ( 0 == (bw & 0x0000000C) )
@@ -220,9 +220,9 @@
                                                            value = dbvalue;
                                                       }
 
-						      MP[address] = (value >>> 0);
+						      ep_internal_states.MP[address] = (value >>> 0);
                                                       ep_signals[s_expr[4]].value = 1;
-				                      show_main_memory(MP, address, false, true) ;
+				                      show_main_memory(ep_internal_states.MP, address, false, true) ;
                                                     }
                                    };
 

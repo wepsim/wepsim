@@ -94,14 +94,34 @@
 				              }
                             	};
 
+
 	/*
-	 *  States - Memories
+	 *  Internal States
 	 */
 
-	var MC           = {};
-	var MC_dashboard = {};
-	var ROM          = {};
-	var FIRMWARE     = {};
+        ep_internal_states.MC           = {} ;
+        ep_internal_states.MC_dashboard = {} ;
+        ep_internal_states.ROM          = {} ;
+
+        ep_internal_states.FIRMWARE     = {} ;
+        ep_internal_states.io_hash      = {} ;
+        ep_internal_states.fire_stack   = [] ;
+
+        ep_internal_states.tri_state_names = [ "T1","T2","T3","T4","T5","T6","T7","T8","T9","T10","T11" ] ;
+        ep_internal_states.fire_visible    = { 'databus': false, 'internalbus': false } ;
+        ep_internal_states.filter_states   = [ "REG_IR_DECO,col-11",
+                                               "REG_IR,col",  "REG_PC,col",  "REG_SR,col",
+                                               "REG_RT1,col", "REG_RT2,col", "REG_RT3,col",
+                                               "REG_MAR,col", "REG_MBR,col", "REG_MICROADDR,col" ] ;
+        ep_internal_states.filter_signals  = [ "A0,0",   "B,0",    "C,0",   
+                                               "SELA,5", "SELB,5", "SELC,2", "SELCOP,0", "MR,0", "MC,0",
+				       "C0,0", "C1,0",   "C2,0",   "C3,0",   "C4,0",     "C5,0", "C6,0", "C7,0",
+				       "T1,0", "T2,0",   "T3,0",   "T4,0",   "T5,0",     "T6,0", "T7,0", "T8,0",
+                                       "T9,0", "T10,0", "T11,0",
+				               "M1,0",   "M2,0",   "M7,0",  "MA,0",   "MB,0", 
+                                               "SELP,0", "LC,0",   "SE,0",  "SIZE,0", "OFFSET,0",
+                                               "BW,0",   "R,0",    "W,0",   "TA,0",   "TD,0",    "IOR,0","IOW,0", 
+                                               "TEST_I,0", "TEST_U,0"  ] ;
 
 
 	/*
@@ -705,7 +725,7 @@
 				     operation: function(s_expr) { }
 				   };
 	ep_behaviors["NOP_ALU"]  = { nparameters: 1,
-				     operation: function(s_expr) { update_nzvc(0, 0, 0, 0); }
+				     operation: function(s_expr) { ep_update_nzvc(0, 0, 0, 0); }
 				   };
         ep_behaviors["MV"]       = { nparameters: 3,
                                      types: ["X", "X"],
@@ -748,7 +768,7 @@
 				                   var result = get_value(ep_states[s_expr[2]]) & get_value(ep_states[s_expr[3]]) ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
-			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	ep_behaviors["OR"]       = { nparameters: 4,
@@ -757,7 +777,7 @@
 				                   var result = get_value(ep_states[s_expr[2]]) | get_value(ep_states[s_expr[3]]) ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
-			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	ep_behaviors["NOT"]      = { nparameters: 3,
@@ -766,7 +786,7 @@
 				                   var result = ~(get_value(ep_states[s_expr[2]])) ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
-			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	ep_behaviors["XOR"]      = { nparameters: 4,
@@ -775,7 +795,7 @@
 				                   var result = get_value(ep_states[s_expr[2]]) ^ get_value(ep_states[s_expr[3]]) ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
-			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	ep_behaviors["SRL"]      = { nparameters: 3,
@@ -784,7 +804,7 @@
 				                   var result = (get_value(ep_states[s_expr[2]])) >>> 1 ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
-			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	ep_behaviors["SRA"]      = { nparameters: 3,
@@ -793,7 +813,7 @@
 				                   var result = (get_value(ep_states[s_expr[2]])) >> 1 ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
-			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	ep_behaviors["SL"]       = { nparameters: 3,
@@ -802,7 +822,7 @@
 				                   var result = (get_value(ep_states[s_expr[2]])) << 1 ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
-			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, (result) >>> 31) ;
+			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, (result) >>> 31) ;
 						}
 				   };
 	ep_behaviors["RR"]       = { nparameters: 3,
@@ -811,7 +831,7 @@
 				                   var result = ((get_value(ep_states[s_expr[2]])) >>> 1) | (((get_value(ep_states[s_expr[2]])) & 1) << 31) ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
-			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	ep_behaviors["RL"]       = { nparameters: 3,
@@ -820,7 +840,7 @@
 				                   var result = ((get_value(ep_states[s_expr[2]])) << 1) | (((get_value(ep_states[s_expr[2]])) & 0X80000000) >>> 31) ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
-			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	ep_behaviors["ADD"]      = { nparameters: 4,
@@ -841,7 +861,7 @@
 						   if ( (result >= 0) && (a <  0) && (b <  0) )
 							flag_v = 1 ;
 
-			                           update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
+			                           ep_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
 						}
 				   };
 	ep_behaviors["SUB"]      = { nparameters: 4,
@@ -862,7 +882,7 @@
 						   if ( (result >= 0) && (a <  0) && (b <  0) )
 							flag_v = 1 ;
 
-			                           update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
+			                           ep_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
 						}
 				   };
 	ep_behaviors["MUL"]      = { nparameters: 4,
@@ -883,7 +903,7 @@
 						   if ( (result >= 0) && (a <  0) && (b <  0) )
 							flag_v = 1 ;
 
-			                           update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
+			                           ep_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
 						}
 				   };
 	ep_behaviors["DIV"]      = { nparameters: 4,
@@ -894,13 +914,13 @@
 
 						   if (0 == b) {
 						       set_value(ep_states[s_expr[1]], 0) ;
-			                               update_nzvc(0, 1, 1, 0) ;
+			                               ep_update_nzvc(0, 1, 1, 0) ;
                                                        return ;
                                                    }
 
 				                   var result = Math.floor(a / b) ;
 				                   set_value(ep_states[s_expr[1]], result) ;
-			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	ep_behaviors["MOD"]      = { nparameters: 4,
@@ -909,7 +929,7 @@
 						   var result = (get_value(ep_states[s_expr[2]]) << 0) % (get_value(ep_states[s_expr[3]]) << 0) ;
 						   set_value(ep_states[s_expr[1]], result) ;
 
-			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	ep_behaviors["LUI"]      = { nparameters: 3,
@@ -918,7 +938,7 @@
 						   var result = (get_value(ep_states[s_expr[2]])) << 16 ;
 						   set_value(ep_states[s_expr[1]], result) ;
 
-			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	ep_behaviors["MBIT"]     = { nparameters: 5,
@@ -1097,16 +1117,16 @@
 						    if (typeof oi.cop != "undefined")
                                                         rom_addr = rom_addr + cop_code ;
 
-						    // 2.- ! ROM[rom_addr] -> error
-						    if (typeof ROM[rom_addr] == "undefined")
+						    // 2.- ! ep_internal_states['ROM'][rom_addr] -> error
+						    if (typeof ep_internal_states['ROM'][rom_addr] == "undefined")
 						    {
 							 alert('ERROR: undefined rom address ' + rom_addr + ' in firmware') ;
 							 ep_states['ROM_MUXA'].value = 0 ;
 							 return -1;
 						    }
 
-						    // 3.- ROM[rom_addr] -> mc-start -> ROM_MUXA
-						    ep_states['ROM_MUXA'].value = ROM[rom_addr] ;
+						    // 3.- ep_internal_states['ROM'][rom_addr] -> mc-start -> ROM_MUXA
+						    ep_states['ROM_MUXA'].value = ep_internal_states['ROM'][rom_addr] ;
 
 						    // 4.-  Statistics
 						    var val = get_value(ep_states['DECO_INS']) ;
@@ -1125,11 +1145,11 @@
 					     operation: function (s_expr)
 							{
 							    // 0.- avoid loops
-							    if (fire_stack.indexOf(s_expr[1]) != -1) {
+							    if (ep_internal_states.fire_stack.indexOf(s_expr[1]) != -1) {
 								return ;
 							    }
 
-							    fire_stack.push(s_expr[1]) ;
+							    ep_internal_states.fire_stack.push(s_expr[1]) ;
 
 							    // 1.- update draw
 							    update_draw( ep_signals[s_expr[1]],  ep_signals[s_expr[1]].value) ;
@@ -1140,7 +1160,7 @@
 								update_state(s_expr[1]) ;
 							    }
 
-							    fire_stack.pop(s_expr[1]) ;
+							    ep_internal_states.fire_stack.pop(s_expr[1]) ;
 
 							    // 3.- check conflicts
                                                             check_buses(s_expr[1]);
@@ -1197,17 +1217,17 @@
 							    var new_maddr = get_value(ep_states["MUXA_MICROADDR"]) ;
 							    set_value(ep_states["REG_MICROADDR"], new_maddr) ;
 
-							    if (typeof MC[new_maddr] != "undefined")
-								     var new_mins = Object.create(MC[new_maddr]);
+							    if (typeof ep_internal_states['MC'][new_maddr] != "undefined")
+								     var new_mins = Object.create(ep_internal_states['MC'][new_maddr]);
 								else var new_mins = Object.create(ep_states["REG_MICROINS"].default_value);
 							    ep_states["REG_MICROINS"].value = new_mins ;
 
                                                             // 4.- update signals
-							    for (var key in  ep_signals)
+							    for (var key in ep_signals)
 							    {
 								 if (typeof new_mins[key] != "undefined") 
-								      set_value( ep_signals[key], new_mins[key]);
-								 else set_value( ep_signals[key],  ep_signals[key].default_value);
+								      set_value(ep_signals[key],   new_mins[key]);
+								 else set_value(ep_signals[key], ep_signals[key].default_value);
 							    }
 
 							    // 5.- Finally, 'fire' the (High) Level signals
@@ -1240,10 +1260,10 @@
 							    ep_events["mem"]    = {} ;
 
 							    // 2.- reset the I/O factory
-							    for (var i=0; i<IO_INT_FACTORY.length; i++)
+							    for (var i=0; i<ep_internal_states.io_int_factory.length; i++)
 							    {
-						                 set_value(IO_INT_FACTORY[i].accumulated, 0);
-						                 set_value(IO_INT_FACTORY[i].active, false);
+						                 set_var(ep_internal_states.io_int_factory[i].accumulated, 0);
+						                 set_var(ep_internal_states.io_int_factory[i].active, false);
 							    }
 							}
 					   };

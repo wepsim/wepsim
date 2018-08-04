@@ -201,6 +201,11 @@
          return simcoreui_notify(ntf_title, ntf_message, 'danger', 0) ;
     }
 
+    function wepsim_notify_warning ( ntf_title, ntf_message )
+    {
+         return simcoreui_notify(ntf_title, ntf_message, 'warning', get_cfg('NOTIF_delay')) ;
+    }
+
     function wepsim_notify_close ( )
     {
          return simcoreui_notify_close() ;
@@ -272,7 +277,6 @@
 			$(popup_content_id).html(firmware2html(SIMWARE.firmware, true));
 			$(popup_content_id).css({width:"inherit !important", height:"inherit !important"});
 
-			$(popup_id).enhanceWithin();
 			$(popup_id).trigger('updatelayout');
 			$(popup_id).trigger('refresh');
                    }, 300);
@@ -314,6 +318,7 @@
     {
 	    simhw_setActive(mode) ;
 
+            // reload images
 	    var o = document.getElementById('svg_p') ;
 	    if (o != null) o.setAttribute('data',  simhw_active().sim_img_processor) ;
 	        o = document.getElementById('svg_cu') ;
@@ -321,6 +326,7 @@
 	        o = document.getElementById('svg_p2') ;
 	    if (o != null) o.setAttribute('data', simhw_active().sim_img_cpu) ;
 
+            // reload images event-handlers
 	    var a = document.getElementById("svg_p");
 	    a.addEventListener("load",function() {
 		sim_prepare_svg_p();
@@ -335,7 +341,26 @@
 		refresh();
 	    }, false);
 
-	    wepsim_notify_success('<strong>INFO</strong>', '"' + simhw_active().sim_name + '" has been activated.') ;
+            // info + warning
+	    wepsim_notify_warning('<strong>WARNING</strong>', 
+                                 'Please remember the current firmware and assembly could need to be reloaded.') ;
+	    wepsim_notify_warning('<strong>WARNING</strong>', 
+                                 'Pass working session with the simulated hardware are not kept.') ;
+	    wepsim_notify_success('<strong>INFO</strong>', 
+                                  '"' + simhw_active().sim_name + '" has been activated.') ;
+
+            // update UI
+            show_states() ;
+            show_rf_values() ;
+            show_rf_names() ;
+            show_dbg_ir(get_value(simhw_sim_state('REG_IR_DECO'))) ;
+
+            show_memories_values() ;
+            //var SIMWARE = get_simware() ;
+            //$("#asm_debugger").html(assembly2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg, SIMWARE.assembly));
+            //showhideAsmElements();
+            show_asmdbg_pc() ;
+            show_dbg_mpc() ;
     }
 
     function wepsim_change_mode ( optValue, cssLayer )
@@ -354,11 +379,11 @@
 	  // intro mode...
 	  if ('intro' == optValue) {
 	      sim_tutorial_showframe('welcome', 0);
+              return ;
 	  }
 
-	  // wepsim mode...
-	  if ('wepsim' == optValue) {
-              wepsim_activehw(0) ;
-	  }
+	  // switch active hardware by name...
+	  var hwid = simhw_getActiveByName(optValue) ;
+          wepsim_activehw(hwid) ;
     }
 

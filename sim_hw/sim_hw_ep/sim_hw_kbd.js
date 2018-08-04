@@ -45,8 +45,8 @@
         var KBDR_ID   = 0x0100 ;
         var KBSR_ID   = 0x0104 ;
 
-        io_hash[KBDR_ID] = "KBDR" ;
-        io_hash[KBSR_ID] = "KBSR" ;
+        ep_internal_states.io_hash[KBDR_ID] = "KBDR" ;
+        ep_internal_states.io_hash[KBSR_ID] = "KBSR" ;
 
 
         /*

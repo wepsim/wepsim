@@ -26,7 +26,6 @@
     function wepsim_open_examples_index ( )
     {
         $("#container-example1").html(table_examples_html(examples));
-        $("#container-example1").enhanceWithin();
 	$('#example1').trigger('updatelayout') ;
 	$('#example1').modal('show') ;
     }
@@ -47,7 +46,18 @@
 	inputasm.setValue("Please wait...");
 	inputasm.refresh();
 
-	var url     = "examples/exampleCode" + example_id + ".txt" ;
+        var sample_hw = "" ;
+        var sample_id = "" ;
+        var sid = example_id.split(":") ;
+        if (2 == sid.length) {
+            sample_hw = sid[0] ;
+            sample_id = sid[1] ;
+        }
+        else {
+            console.log("warning: example without hardware id") ;
+        }
+
+	var url     = "examples/" + sample_hw + "/exampleCode" + sample_id + ".txt" ;
         var do_next = function( mcode ) {
 			    inputasm.setValue(mcode);
 			    inputasm.refresh();
@@ -71,7 +81,7 @@
                       };
         wepsim_load_from_url(url, do_next) ;
 
-        ga('send', 'event', 'example', 'example.assembly', 'example.assembly.' + example_id);
+        ga('send', 'event', 'example', 'example.assembly', 'example.assembly.' + sample_hw + "." + sample_id);
     }
 
     function load_from_example_firmware ( example_id, chain_next_step )
@@ -80,14 +90,25 @@
 	inputfirm.setValue("Please wait...");
 	inputfirm.refresh();
 
+        var sample_hw = "" ;
+        var sample_id = "" ;
+        var sid = example_id.split(":") ;
+        if (2 == sid.length) {
+            sample_hw = sid[0] ;
+            sample_id = sid[1] ;
+        }
+        else {
+            console.log("warning: example without hardware id") ;
+        }
+
 	var url = "" ;
 	var mode = get_cfg('ws_mode');
 	if ('wepmips' == mode) {
-	    url = "examples/exampleMicrocodeMIPS.txt" ;
+	    url = "examples/" + sample_hw + "/exampleMicrocodeMIPS.txt" ;
 	    inputfirm.setOption('readOnly', true);
         }
 	else {
-	    url = "examples/exampleMicrocode" + example_id + ".txt" ;
+	    url = "examples/" + sample_hw + "/exampleMicrocode" + sample_id + ".txt" ;
 	    inputfirm.setOption('readOnly', false);
 	}
 
@@ -110,7 +131,7 @@
                       };
         wepsim_load_from_url(url, do_next) ;
 
-        ga('send', 'event', 'example', 'example.firmware', 'example.firmware.' + example_id);
+        ga('send', 'event', 'example', 'example.firmware', 'example.firmware.' + sample_hw + "." + sample_id);
     }
 
     function table_examples_html ( examples )
@@ -121,6 +142,7 @@
        var fmt_header    = "" ;
        var e_title       = "" ;
        var e_level       = "" ;
+       var e_hw          = "" ;
        var e_description = "" ;
        var e_id          = "" ;
 
@@ -130,13 +152,13 @@
        for (var m=0; m<examples[lang].length; m++)
        {
 	       fmt_header = "" ;
-	       if (e_level != examples[lang][m].level)
-                   fmt_header = "<div class='col-sm-12 border-bottom border-secondary text-right text-capitalize font-weight-bold bg-white sticky-top'>" + 
-			        examples[lang][m].level + 
-			        "</div>" ;
+	       if (e_level != examples[lang][m].level) {
+                   fmt_header = "<div class='col-sm-12 border-bottom border-secondary text-right text-capitalize font-weight-bold bg-white sticky-top'>" + examples[lang][m].hardware.toUpperCase() + ": " + examples[lang][m].level + "</div>" ;
+               }
 
 	       e_title       = examples[lang][m].title ;
 	       e_level       = examples[lang][m].level ;
+	       e_hw          = examples[lang][m].hardware ;
 	       e_description = examples[lang][m].description ;
 	       e_id          = examples[lang][m].id ;
 
@@ -151,7 +173,8 @@
                         '</div>' +
                         '<div class="col-sm-3">' +
 		        '   <span style="padding:0 0 0 0; margin:0 8 0 0; cursor:pointer;" ' + 
-		        '         onclick="$(\'#example1\').modal(\'hide\'); load_from_example_firmware(\'' + e_id + '\',true);" ' + 
+		        '         onclick="$(\'#example1\').modal(\'hide\'); ' + 
+                        '                  load_from_example_firmware(\'' + e_hw + ":" + e_id + '\',true);" ' + 
 		        '         class="bg-info text-white">' + e_title + '</span>' +
                         '</div>' +
                         '<div class="col-sm collapse7 show">' +
@@ -160,10 +183,14 @@
 
 	       o = o + '<div class="col-sm-auto collapse8 collapse">' +
 		        '     <div class="btn-group btn-group-justified btn-group-md">' +
-		        '         <a onclick="$(\'#example1\').modal(\'hide\'); load_from_example_assembly(\'' + e_id + '\',false);"  style="padding:0 0 0 0; margin:0 8 0 0;"' +
+		        '         <a onclick="$(\'#example1\').modal(\'hide\'); ' + 
+                        '                    load_from_example_assembly(\'' + e_hw + ":" + e_id + '\',false);"' + 
+                        '            style="padding:0 0 0 0; margin:0 8 0 0;"' +
 		        '            class="bg-dark text-white">' +
 		        '            <c>Assembly</c></a>' +
-		        '         <a onclick="$(\'#example1\').modal(\'hide\'); load_from_example_firmware(\'' + e_id + '\',false);" style="padding:0 0 0 0; margin:0 7 0 0;"' +
+		        '         <a onclick="$(\'#example1\').modal(\'hide\'); ' + 
+                        '                    load_from_example_firmware(\'' + e_hw + ":" + e_id + '\',false);"' + 
+                        '            style="padding:0 0 0 0; margin:0 7 0 0;"' +
 		        '            class="bg-dark text-white">' +
 		        '            <c>Firmware</c></a>' +
 		        '     </div>' +

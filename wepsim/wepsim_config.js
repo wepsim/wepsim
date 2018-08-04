@@ -28,7 +28,6 @@
         var config_xx = config[get_cfg('ws_idiom')] ;
 
 	$('#container-config2').html(table_config_html(config_xx)) ;
-	$('#container-config2').enhanceWithin() ;
         for (m=0; m<config_xx.length; m++) {
 	     config_xx[m].code_init() ;
         }

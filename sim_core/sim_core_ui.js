@@ -289,7 +289,8 @@
 
         function hex2values_update ( index )
         {
-	      var new_value = parseInt($("#popover1")[0].value) ;
+	      var new_value     = parseInt($("#popover1")[0].value) ;
+              var filter_states = simhw_internalState('filter_states') ;
 
               if (typeof simhw_sim_states()["BR"][index] != "undefined")
               {
@@ -369,12 +370,12 @@
                  if (index < 10)
                      o1_rn = o1_rn + '<span style="opacity: 0.0;">_</span>' ;
 
-		 o1_rf += "<div class='col' style='padding:0 2px 0 2px !important; margin:1px 5px 1px 2px;'>" +
-                          "<button type='button' class='btn btn-outline-primary no-text-shadow' " + 
-			  "        style='margin:1px 5px 1px 2px; padding:0 0 0 0; outline:none; box-shadow:none; transform:translate3d(0,0,0);' " +
+		 o1_rf += "<div class='col pb-1 px-1'>" +
+                          "<button type='button' class='btn py-0 px-0 ml-0' " + 
+			  "        style='width:inherit; border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
                           "        data-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
-                          "  <span id='name_RF" + index + "' style='float:center; padding:0 0 0 0'>" + o1_rn + "</span>" +
+                          "  <span id='name_RF" + index + "' style='float:center; padding:0 0 0 0; color:black;'>" + o1_rn + "</span>" +
                           "  <span class='badge badge-secondary' style='background-color:#CEECF5; color:black;' id='tbl_RF"  + index + "'>" +
                           (get_value(simhw_sim_states()['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() +
                           "  </span>" +
@@ -461,7 +462,7 @@
         }
 
 
-        function init_eltos ( jqdiv, sim_eltos, filter, divclasses )
+        function init_eltos ( jqdiv, sim_eltos, filter )
         {
             if (jqdiv == "")
             {   // without ui
@@ -487,12 +488,11 @@
 			showkey = showkey + '<span style="opacity: 0.0;">_</span>' ;
 	        }
 
-                var b = filter[i].split(",")[1] ;
-                var divclass = divclasses[b] ;
+                var divclass = filter[i].split(",")[1] ;
 
-                o1 += "<div class='" + divclass + "' style='padding: 0 5 0 5; margin:1px 5px 1px 2px; '>" +
-                      "<button type='button' class='btn btn-outline-primary no-text-shadow' " +
-                      "        style='padding:0 0 0 0; margin:1px 5px 1px 2px; outline:none; box-shadow:none; will-change:transform; transform:translate3d(0,0,0);' " +
+                o1 += "<div class='" + divclass + " pb-1 px-1'>" +
+                      "<button type='button' class='btn py-0 px-0 ml-1' " + 
+		      "        style='width:inherit; border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
                       "        data-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +
                       showkey +
@@ -561,22 +561,15 @@
                                              }, cfg_show_eltos_delay);
         }
 
-
-        var filter_states = [ "REG_IR_DECO,0",
-                              "REG_IR,1",  "REG_PC,1",  "REG_SR,1",
-                              "REG_RT1,1", "REG_RT2,1", "REG_RT3,1",
-                              "REG_MAR,1", "REG_MBR,1", "REG_MICROADDR,1" ] ;
-
-        var divclasses = [ "col-11", 
-                           "col" ] ;
-
         function init_states ( jqdiv )
         {
-            return init_eltos(jqdiv, simhw_sim_states(), filter_states, divclasses ) ;
+            var filter_states = simhw_internalState('filter_states') ;
+            return init_eltos(jqdiv, simhw_sim_states(), filter_states) ;
         }
 
         function show_states ( )
         {
+            var filter_states = simhw_internalState('filter_states') ;
             return show_eltos(simhw_sim_states(), filter_states) ;
         }
 
@@ -587,15 +580,31 @@
 	    else return initial_value ;
         }
 
+        function ko_rebind_state ( state, id_elto )
+        {
+	    if (typeof ko == "undefined") {
+                return ;
+            }
+
+            var state_obj = simhw_sim_state(state) ;
+            if (typeof state_obj.value != "function")
+                state_obj.value = ko.observable(state_obj.value).extend({rateLimit: cfg_show_rf_refresh_delay}) ;
+            var ko_context = document.getElementById(id_elto);
+            ko.cleanNode(ko_context);
+            ko.applyBindings(simhw_sim_state(state), ko_context);
+        }
+
         function init_io ( jqdiv )
         {
+            var curr_iointfactory = simhw_internalState('io_int_factory') ;
+
 	    // without ui...
             if (jqdiv == "")
             {
-		    for (var i=0; i<IO_INT_FACTORY.length; i++) 
+		    for (var i=0; i<curr_iointfactory.length; i++) 
 		    {
-		       IO_INT_FACTORY[i].accumulated = ko_observable(IO_INT_FACTORY[i].accumulated) ;
-		       IO_INT_FACTORY[i].active      = ko_observable(IO_INT_FACTORY[i].active) ;
+		         curr_iointfactory[i].accumulated = ko_observable(curr_iointfactory[i].accumulated) ;
+		         curr_iointfactory[i].active      = ko_observable(curr_iointfactory[i].active) ;
                     }
 
                     return ;
@@ -604,7 +613,7 @@
             // stats holder
             var o1 = "<div class='col-12'>" +
                      "<table class='table table-hover table-sm table-bordered'>" ;
-            for (var i=0; i<IO_INT_FACTORY.length; i++)
+            for (var i=0; i<curr_iointfactory.length; i++)
             {
                o1 += "<tr id='int" + i + "_context'>" +
                      "<td align=center width=50%>" +
@@ -620,12 +629,15 @@
             $(jqdiv).html("<div class='row'>" + o1 + "</div>");
 
             // knockout binding
-            for (var i=0; i<IO_INT_FACTORY.length; i++)
+            for (var i=0; i<curr_iointfactory.length; i++)
             {
-                 IO_INT_FACTORY[i].accumulated = ko_observable(IO_INT_FACTORY[i].accumulated) ;
-                 IO_INT_FACTORY[i].active      = ko_observable(IO_INT_FACTORY[i].active) ;
+                 if (typeof curr_iointfactory[i].accumulated != "function")
+                     curr_iointfactory[i].accumulated = ko_observable(curr_iointfactory[i].accumulated) ;
+                 if (typeof curr_iointfactory[i].active != "function")
+                     curr_iointfactory[i].active      = ko_observable(curr_iointfactory[i].active) ;
                  var ko_context = document.getElementById('int' + i + '_context');
-                 ko.applyBindings(IO_INT_FACTORY[i], ko_context);
+                 ko.cleanNode(ko_context);
+                 ko.applyBindings(curr_iointfactory[i], ko_context);
             }
         }
 
@@ -660,13 +672,8 @@
             $(jqdiv).html("<div class='row'>" + o1 + "</div>");
 
             // knockout binding
-            simhw_sim_state('CLK').value = ko_observable(simhw_sim_state('CLK').value);
-            var ko_context = document.getElementById('clk_context');
-            ko.applyBindings(simhw_sim_state('CLK'), ko_context);
-
-            simhw_sim_state('DECO_INS').value = ko_observable(simhw_sim_state('DECO_INS').value);
-            var ko_context = document.getElementById('ins_context');
-            ko.applyBindings(simhw_sim_state('DECO_INS'), ko_context);
+            ko_rebind_state('CLK',      'clk_context') ;
+            ko_rebind_state('DECO_INS', 'ins_context') ;
         }
 
         function init_config_mp ( jqdiv )
@@ -674,7 +681,7 @@
             // without ui
             if (jqdiv == "")
             {
-		    MP_wc = ko_observable(MP_wc) ;
+                    simhw_internalState_reset('MP_wc', ko_observable(0)) ;
                     return ;
             }
 
@@ -682,41 +689,43 @@
             var o1 = "<div class='container-fluid'>" +
                      "<div class='row'>" ;
 
-               o1 += "<div class='col-12' style='padding:0 0 10 0;'>" +
-                     "<div class='card bg-light'>" +
-                     "<div class='card-body' id='mempanel' style='padding:0 0 0 0;'>" +
-                     "<table class='table table-hover table-sm table-bordered' " +
-                     "       style='margin:0'>" +
-                     "<tbody class='no-ui-mini'>" +
-                     "<tr><td align=center'>Wait cycles (<b>0</b> - &infin;)</td>" +
-                     "    <td align=center'>" + 
-                     "<div id='mp_wc'>" + 
-                     "<input type=number data-bind='value: MP_wc' min='0' max='99999999'>" +
-                     "</div>" + 
-                     "    </td></tr>" +
-                     "</tbody>" +
-                     "</table>" +
-                     "</div>" +
-                     "</div>" +
-                     "</div>" ;
+            o1 += "<div class='col-12' style='padding:0 0 10 0;'>" +
+                  "<div class='card bg-light'>" +
+                  "<div class='card-body' id='mempanel' style='padding:0 0 0 0;'>" +
+                  "<table class='table table-hover table-sm table-bordered' " +
+                  "       style='margin:0'>" +
+                  "<tbody class='no-ui-mini'>" +
+                  "<tr><td align=center'>Wait cycles (<b>0</b> - &infin;)</td>" +
+                  "    <td align=center'>" + 
+                  "<div id='mp_wc'>" + 
+                  "<input type=number data-bind='value: simhw_internalState(\"MP_wc\")' min='0' max='99999999'>" +
+                  "</div>" + 
+                  "    </td></tr>" +
+                  "</tbody>" +
+                  "</table>" +
+                  "</div>" +
+                  "</div>" +
+                  "</div>" ;
          
             $(jqdiv).html(o1);
 
             // knockout binding
-	    MP_wc = ko_observable(MP_wc) ;
+            simhw_internalState_reset('MP_wc', ko_observable(0)) ;
             var ko_context = document.getElementById('mp_wc');
-            ko.applyBindings(MP_wc, ko_context);
+            ko.applyBindings(simhw_internalState('MP_wc'), ko_context);
         }
 
         function init_config_io ( jqdiv )
         {
+            var curr_iointfactory = simhw_internalState('io_int_factory') ;
+
             // without ui
             if (jqdiv == "")
             {
-		    for (var i=0; i<IO_INT_FACTORY.length; i++) 
+		    for (var i=0; i<curr_iointfactory.length; i++) 
 		    {
-		        IO_INT_FACTORY[i].period      = ko_observable(IO_INT_FACTORY[i].period);
-		        IO_INT_FACTORY[i].probability = ko_observable(IO_INT_FACTORY[i].probability);
+		        curr_iointfactory[i].period      = ko_observable(curr_iointfactory[i].period);
+		        curr_iointfactory[i].probability = ko_observable(curr_iointfactory[i].probability);
 		    }
                     return ;
             }
@@ -774,15 +783,19 @@
             $(jqdiv).html(o1);
 
             // knockout binding
-            for (var i=0; i<IO_INT_FACTORY.length; i++)
+            for (var i=0; i<curr_iointfactory.length; i++)
             {
-                 IO_INT_FACTORY[i].period = ko_observable(IO_INT_FACTORY[i].period) ;
+                 if (typeof curr_iointfactory[i].period != "function")
+                     curr_iointfactory[i].period = ko_observable(curr_iointfactory[i].period) ;
                  var ko_context = document.getElementById('int' + i + '_per');
-                 ko.applyBindings(IO_INT_FACTORY[i], ko_context);
-
-                 IO_INT_FACTORY[i].probability = ko_observable(IO_INT_FACTORY[i].probability) ;
+                 ko.cleanNode(ko_context);
+                 ko.applyBindings(curr_iointfactory[i], ko_context);
+ 
+                 if (typeof curr_iointfactory[i].probability != "function")
+                     curr_iointfactory[i].probability = ko_observable(curr_iointfactory[i].probability) ;
                  var ko_context = document.getElementById('int' + i + '_pro');
-                 ko.applyBindings(IO_INT_FACTORY[i], ko_context);
+                 ko.cleanNode(ko_context);
+                 ko.applyBindings(curr_iointfactory[i], ko_context);
             }
         }
 
@@ -791,16 +804,17 @@
 
 	function get_deco_from_pc ( pc )
 	{
-	        var hexstrpc = "0x" + pc.toString(16) ;
+	        var hexstrpc  = "0x" + pc.toString(16) ;
+                var curr_firm = simhw_internalState('FIRMWARE') ;
 
-	        if ( (typeof FIRMWARE.assembly                  == "undefined") ||
-	             (typeof FIRMWARE.assembly[hexstrpc]        == "undefined") ||
-	             (typeof FIRMWARE.assembly[hexstrpc].source == "undefined") )
+	        if ( (typeof curr_firm.assembly                  == "undefined") ||
+	             (typeof curr_firm.assembly[hexstrpc]        == "undefined") ||
+	             (typeof curr_firm.assembly[hexstrpc].source == "undefined") )
                 {
                       return "";
                 }
 
-                return FIRMWARE.assembly[hexstrpc].source ;
+                return curr_firm.assembly[hexstrpc].source ;
         }
 
 

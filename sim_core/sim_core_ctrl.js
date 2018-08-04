@@ -25,176 +25,75 @@
 
         function get_simware ( )
         {
-	    if (typeof FIRMWARE['firmware'] == "undefined")
-            {
-                FIRMWARE['firmware']           = new Array() ;
-                FIRMWARE['mp']                 = new Object() ;
-                FIRMWARE['seg']                = new Object() ;
-                FIRMWARE['assembly']           = new Object() ;
-                FIRMWARE['labels']             = new Object() ;
-                FIRMWARE['labels2']            = new Object() ;
-                FIRMWARE['labels_firm']        = new Object() ;
-                FIRMWARE['registers']          = new Object() ;
-                FIRMWARE['cihash']             = new Object() ;
-                FIRMWARE['pseudoInstructions'] = new Object() ;
-		FIRMWARE['stackRegister']      = new Object() ;
-            }
+            var cf = simhw_internalState('FIRMWARE') ;
 
-            return FIRMWARE ;
+	    if (typeof cf['firmware'] == "undefined")            cf['firmware']           = new Array() ;
+	    if (typeof cf['mp'] == "undefined")                  cf['mp']                 = new Object() ;
+	    if (typeof cf['seg'] == "undefined")                 cf['seg']                = new Object() ;
+	    if (typeof cf['assembly'] == "undefined")            cf['assembly']           = new Object() ;
+	    if (typeof cf['labels'] == "undefined")              cf['labels']             = new Object() ;
+	    if (typeof cf['labels2'] == "undefined")             cf['labels2']            = new Object() ;
+	    if (typeof cf['labels_firm'] == "undefined")         cf['labels_firm']        = new Object() ;
+	    if (typeof cf['registers'] == "undefined")           cf['registers']          = new Object() ;
+	    if (typeof cf['cihash'] == "undefined")              cf['cihash']             = new Object() ;
+	    if (typeof cf['pseudoInstructions'] == "undefined")  cf['pseudoInstructions'] = new Object() ;
+	    if (typeof cf['stackRegister'] == "undefined")       cf['stackRegister']      = new Object() ;
+
+            return cf ;
 	}
 
-        function set_simware ( preSIMWARE )
+        function set_simware ( preWARE )
         {
-	    if (typeof preSIMWARE['firmware'] != "undefined")
-                FIRMWARE['firmware'] = preSIMWARE['firmware'] ;
-	    if (typeof preSIMWARE['mp'] != "undefined")
-                FIRMWARE['mp'] = preSIMWARE['mp'] ;
-	    if (typeof preSIMWARE['registers'] != "undefined")
-                FIRMWARE['registers'] = preSIMWARE['registers'] ;
-	    if (typeof preSIMWARE['cihash'] != "undefined")
-                FIRMWARE['cihash'] = preSIMWARE['cihash'] ;
-	    if (typeof preSIMWARE['assembly'] != "undefined")
-                FIRMWARE['assembly'] = preSIMWARE['assembly'] ;
-	    if (typeof preSIMWARE['pseudoInstructions'] != "undefined")
-                FIRMWARE['pseudoInstructions'] = preSIMWARE['pseudoInstructions'] ;
+            var cf = simhw_internalState('FIRMWARE') ;
 
-	    if (typeof preSIMWARE['seg'] != "undefined")
-                FIRMWARE['seg'] = preSIMWARE['seg'] ;
-	    if (typeof preSIMWARE['labels'] != "undefined")
-                FIRMWARE['labels'] = preSIMWARE['labels'] ;
-	    if (typeof preSIMWARE['labels2'] != "undefined")
-                FIRMWARE['labels2'] = preSIMWARE['labels2'] ;
-	    if (typeof preSIMWARE['labels_firm'] != "undefined")
-                FIRMWARE['labels_firm'] = preSIMWARE['labels_firm'] ;
-	    if (typeof preSIMWARE['stackRegister'] != "undefined")
-		FIRMWARE['stackRegister'] = preSIMWARE['stackRegister'] ;
+	    if (typeof preWARE['firmware'] != "undefined")           cf['firmware'] = preWARE['firmware'] ;
+	    if (typeof preWARE['mp'] != "undefined")                 cf['mp'] = preWARE['mp'] ;
+	    if (typeof preWARE['registers'] != "undefined")          cf['registers'] = preWARE['registers'] ;
+	    if (typeof preWARE['cihash'] != "undefined")             cf['cihash'] = preWARE['cihash'] ;
+	    if (typeof preWARE['assembly'] != "undefined")           cf['assembly'] = preWARE['assembly'] ;
+	    if (typeof preWARE['pseudoInstructions'] != "undefined") cf['pseudoInstructions'] = preWARE['pseudoInstructions'] ;
+
+	    if (typeof preWARE['seg'] != "undefined")                cf['seg'] = preWARE['seg'] ;
+	    if (typeof preWARE['labels'] != "undefined")             cf['labels'] = preWARE['labels'] ;
+	    if (typeof preWARE['labels2'] != "undefined")            cf['labels2'] = preWARE['labels2'] ;
+	    if (typeof preWARE['labels_firm'] != "undefined")        cf['labels_firm'] = preWARE['labels_firm'] ;
+	    if (typeof preWARE['stackRegister'] != "undefined")      cf['stackRegister'] = preWARE['stackRegister'] ;
 	}
-
-        function get_value ( sim_obj )
-        {
-	   if (typeof sim_obj.value == "function")
-	   {
-	       return sim_obj.value() ;
-	   }
-	   else if (typeof sim_obj.default_value == "object")
-	   {
-	       return sim_obj.value ;
-	   }
-	   else
-	   {
-	       return sim_obj.value ;
-	   }
-        }
-
-        function set_value ( sim_obj, value )
-        {
-	   if (typeof sim_obj.value == "function") 
-	   {
-	       if (sim_obj.value() != value)
-	           sim_obj.changed = true ;
-
-	       sim_obj.value(value) ;
-           }
-	   else if (typeof sim_obj.default_value == "object")
-	   {
-	       if (sim_obj.value != value)
-	           sim_obj.changed = true ;
-
-	       sim_obj.value = value ;
-           }
-	   else
-	   {
-	       if (sim_obj.value != value)
-	           sim_obj.changed = true ;
-
-	       sim_obj.value = value ;
-           }
-        }
-
-        function reset_value ( sim_obj )
-        {
-           if (typeof sim_obj.value == "function")
-	   {
-	        if (sim_obj.value() != sim_obj.default_value)
-	            sim_obj.changed = true ;
-
-	        set_value(sim_obj, sim_obj.default_value) ;
-           }
-	   else if (typeof sim_obj.default_value == "object")
-	   {
-	        sim_obj.changed = true ;
-	        sim_obj.value = Object.create(sim_obj.default_value) ;
-           }
-	   else if (sim_obj instanceof Array)
-	   {
-	        sim_obj.changed = true ;
-	        for (var i=0; i<sim_obj.length; i++)
-	  	     set_value(sim_obj[i], sim_obj[i].default_value) ;
-           }
-	   else
-	   {
-	        if (sim_obj.value != sim_obj.default_value)
-	            sim_obj.changed = true ;
-
-	        set_value(sim_obj, sim_obj.default_value) ;
-           }
-        }
-
-        var sim_references = new Object() ;
-
-        function compute_references ( )
-        {
-            for (var key in simhw_sim_signals()) {
-		 sim_references[key] = simhw_sim_signal(key) ;
-		 simhw_sim_signal(key).changed = false ;
-	    }
-
-            for (var key in simhw_sim_states()) {
-		 sim_references[key] = simhw_sim_state(key) ;
-		 simhw_sim_state(key).changed = false ;
-	    }
-        }
-
-        function get_reference ( sim_name )
-        {
-	    return sim_references[sim_name] ;
-        }
 
 
         /*
          *  checking & updating
          */
 
-        var tri_state_names = [ "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11" ] ;
-
-        var databus_fire_visible = false ;
-        var internalbus_fire_visible = false ;
-
         function check_buses ( fired )
         {
+            var tri_state_names = simhw_internalState('tri_state_names') ;
+
             // TD + R
-            if (databus_fire_visible) {
-                //$("#databus_fire").hide();
-		     var o = document.getElementById('svg_p');
-		     if (o != null) o = o.contentDocument;
-		     if (o != null) o = o.getElementById('databus_fire');
-		     if (o != null) o.setAttributeNS(null, "visibility", "hidden");
-                databus_fire_visible = false ;
+            if (simhw_internalState_get('fire_visible','databus') == true) 
+            {
+		var o = document.getElementById('svg_p');
+		if (o != null) o = o.contentDocument;
+		if (o != null) o = o.getElementById('databus_fire');
+		if (o != null) o.setAttributeNS(null, "visibility", "hidden");
+
+                simhw_internalState_set('fire_visible', 'databus', false) ;
             }
             if ( (simhw_sim_signal("TD").value != 0) && (simhw_sim_signal("R").value != 0) )
             {
-                //$("#databus_fire").show();
-		     var o = document.getElementById('svg_p');
-		     if (o != null) o = o.contentDocument;
-		     if (o != null) o = o.getElementById('databus_fire');
-		     if (o != null) o.setAttributeNS(null, "visibility", "visible");
-                databus_fire_visible = true ;
+		var o = document.getElementById('svg_p');
+		if (o != null) o = o.contentDocument;
+		if (o != null) o = o.getElementById('databus_fire');
+		if (o != null) o.setAttributeNS(null, "visibility", "visible");
+
+                simhw_internalState_set('fire_visible', 'databus', true) ;
                 simhw_sim_state("BUS_DB").value = 0xFFFFFFFF;
             }
 
             // Ti + Tj
-            if (tri_state_names.indexOf(fired) == -1)
+            if (tri_state_names.indexOf(fired) == -1) {
                 return;
+            }
 
             // 1.- counting the number of active tri-states
             var tri_name = "";
@@ -219,213 +118,25 @@
             }
 
             // 3.- check if more than one tri-state is active
-            if (internalbus_fire_visible) {
-                //$("#internalbus_fire").hide();
-		     var o = document.getElementById('svg_p');
-		     if (o != null) o = o.contentDocument;
-		     if (o != null) o = o.getElementById('internalbus_fire');
-		     if (o != null) o.setAttributeNS(null, "visibility", "hidden");
-                internalbus_fire_visible = false ;
+            if (simhw_internalState_get('fire_visible','internalbus') == true)
+            {
+		var o = document.getElementById('svg_p');
+		if (o != null) o = o.contentDocument;
+		if (o != null) o = o.getElementById('internalbus_fire');
+		if (o != null) o.setAttributeNS(null, "visibility", "hidden");
+
+                simhw_internalState_set('fire_visible', 'internalbus', false) ;
             }
-            if (tri_activated > 1) {
-                //$("#internalbus_fire").show();
-		     var o = document.getElementById('svg_p');
-		     if (o != null) o = o.contentDocument;
-		     if (o != null) o = o.getElementById('internalbus_fire');
-		     if (o != null) o.setAttributeNS(null, "visibility", "visible");
-                internalbus_fire_visible = true ;
+            if (tri_activated > 1) 
+            {
+		var o = document.getElementById('svg_p');
+		if (o != null) o = o.contentDocument;
+		if (o != null) o = o.getElementById('internalbus_fire');
+		if (o != null) o.setAttributeNS(null, "visibility", "visible");
+
+                simhw_internalState_set('fire_visible', 'internalbus', true) ;
                 simhw_sim_state("BUS_IB").value = 0xFFFFFFFF;
             }
-        }
-
-        function check_behavior ( )
-        {
-            // 1.- check if no signals are defined...
-            if (0 == simhw_sim_signals().length)
-                alert("ALERT: empty signals!!!");
-
-            // 2.- check if no states are defined...
-            if (0 == simhw_sim_states().length)
-                alert("ALERT: empty states!!!");
-
-            for (var key in simhw_sim_signals())
-            {
-                for (var key2 in simhw_sim_signal(key).behavior)
-                {
-		    // 1.- Split several behaviors, example: "MV D1 O1; MV D2 O2"
-                    var behaviors = simhw_sim_signal(key).behavior[key2].split(";") ;
-
-		    // 2.- For every behavior...
-		    for (var i=0; i<behaviors.length; i++)
-                    {
-			    var behavior_i = behaviors[i].trim();
-			    var behavior_k = behavior_i.split(" ") ;
-
-			    if ("" == behavior_i)  {
-                                continue;
-			    }
-
-			    if (typeof (simhw_syntax_behavior(behavior_k[0])) == "undefined")
-			    {
-				alert("ALERT: Unknown operation -> " + behavior_k[0] + " (" + behavior_i + ")");
-				return;
-			    }
-
-			    if (behavior_k.length != simhw_syntax_behavior(behavior_k[0]).nparameters)
-			    {
-				alert("ALERT: Behavior has an incorrect number of elements --> " + behavior_i + "/" + simhw_syntax_behavior(behavior_k[0]).nparameters);
-				return;
-			    }
-
-			    for (var j=1; j<behavior_k.length; j++)
-			    {
-				var s = behavior_k[j].split('/') ;
-				var t = simhw_syntax_behavior(behavior_k[0]).types[j-1] ;
-
-				     if ( ("E" == t) && (typeof simhw_sim_state(s[0]) == "undefined") )
-				     {
-					  alert("ALERT: Behavior has an undefined reference to a object state -> '" + behavior_i);
-					  return;
-				     }
-				else if ( ("S" == t) && (typeof simhw_sim_signal(s[0]) == "undefined") )
-				     {
-					 alert("ALERT: Behavior has an undefined reference to a signal -> '" + behavior_i);
-					 return;
-				     }
-				else if ( ("X" == t) && (typeof simhw_sim_state(s[0]) == "undefined") && (typeof simhw_sim_signal(s[0]) == "undefined") )
-				     {
-					 alert("ALERT: Behavior has an undefined reference to a object state OR signal -> '" + behavior_i);
-					 return;
-				     }
-			    }
-                    }
-                }
-            }
-        }
-
-
-        /*
-         *  work with behaviors
-         */
-
-        var jit_behaviors   = false ;
-        var jit_fire_dep    = null ;
-        var jit_fire_order  = null ;
-	var jit_dep_network = null ;
-        var jit_fire_ndep   = null ;
-
-        function firedep_to_fireorder ( jit_fire_dep )
-        {
-            var allfireto = false;
-            jit_fire_order = new Array();
-            jit_fire_ndep  = new Array();
-            for (var sig in simhw_sim_signals())
-            {
-                if (typeof jit_fire_dep[sig] == "undefined") {
-                    jit_fire_order.push(sig);
-                    continue;
-                }
-
-		ndep = 0;
-                allfireto = false;
-                for (var sigorg in jit_fire_dep[sig])
-                {
-	             ndep++;
-                     if (jit_fire_dep[sig][sigorg] == simhw_sim_signal(sigorg).behavior.length) {
-                         allfireto = true;
-                     }
-                }
-		jit_fire_ndep[sig] = ndep;
-                if (allfireto == false)
-                    jit_fire_order.push(sig);
-            }
-        }
-
-        function compile_behaviors ()
-        {
-            var jit_bes = "";
-            jit_fire_dep = new Object();
-
-            for (var sig in simhw_sim_signals())
-            {
-		 jit_bes += "simhw_sim_signal('" + sig + "').behavior_fn = new Array();\n" ;
-
-                 for (var val in simhw_sim_signal(sig).behavior)
-                 {
-                      var input_behavior = simhw_sim_signal(sig).behavior[val] ;
-                      var jit_be = "";
-
-		      // 1.- Split several behaviors, e.g.: "MV D1 O1; MV D2 O2"
-		      var s_exprs = input_behavior.split(";");
-
-		      // 2.- For every behavior...
-		      for (var i=0; i<s_exprs.length; i++)
-		      {
-			    // 2.1.- ...to remove white spaces from both sides, e.g.: "  MV D1 O1  " (skip empty expression, i.e. "")
-			    s_exprs[i] = s_exprs[i].trim() ;
-			    if ("" == s_exprs[i]) continue ;
-
-			    // 2.2.- ...to split into expression, e.g.: "MV D1 O1"
-			    var s_expr = s_exprs[i].split(" ");
-
-			    // 2.3a.- ...to do the operation
-                            if (s_expr[0] != "NOP") // warning: optimizated just because nop.operation is empty right now...
-			        jit_be += "simhw_syntax_behavior('" + s_expr[0] + "').operation(" + JSON.stringify(s_expr) + ");\t" ;
-
-                            // 2.3b.- ...build the fire graph
-                            if ( ("FIRE" == s_expr[0]) &&
-                                 (simhw_sim_signal(sig).type == simhw_sim_signal(s_expr[1]).type) )
-                            {
-                                if (typeof jit_fire_dep[s_expr[1]] == "undefined")
-                                    jit_fire_dep[s_expr[1]] = new Object();
-
-                                if (typeof jit_fire_dep[s_expr[1]][sig] == "undefined")
-                                    jit_fire_dep[s_expr[1]][sig] = 0;
-
-                                jit_fire_dep[s_expr[1]][sig]++;
-                            }
-		      }
-
-		      jit_bes += "simhw_sim_signal('" + sig + "').behavior_fn[" + val + "] = \t function() {" + jit_be + "};\n" ;
-                 }
-            }
-
-	    eval(jit_bes) ;
-            jit_behaviors = true ;
-        }
-
-        function compute_behavior (input_behavior)
-        {
-            // 1.- Split several behaviors, e.g.: "MV D1 O1; MV D2 O2"
-            var s_exprs = input_behavior.split(";");
-
-            // 2.- For every behavior...
-            for (var i=0; i<s_exprs.length; i++)
-            {
-                    // 2.1.- ...to remove white spaces from both sides, e.g.: "  MV D1 O1  " (skip empty expression, i.e. "")
-		    s_exprs[i] = s_exprs[i].trim() ;
-                    if ("" == s_exprs[i]) continue ;
-
-                    // 2.2.- ...to split into expression, e.g.: "MV D1 O1"
-		    var s_expr = s_exprs[i].split(" ");
-
-                    // 2.3.- ...to do the operation
-		    simhw_syntax_behavior(s_expr[0]).operation(s_expr);
-            }
-        }
-
-        function compute_general_behavior ( name )
-        {
-            if (jit_behaviors)
-                 simhw_syntax_behavior(name).operation();
-            else compute_behavior(name) ;
-        }
-
-        function compute_signal_behavior ( signal_name, signal_value )
-        {
-            if (jit_behaviors)
-                 simhw_sim_signal(signal_name).behavior_fn[signal_value]();
-            else compute_behavior(simhw_sim_signal(signal_name).behavior[signal_value]) ;
         }
 
 
@@ -500,16 +211,22 @@
         function show_memories_values ( )
         {
 		/*
-               show_main_memory(MP,               get_value(simhw_sim_state('REG_PC')),        true, true) ;
-            show_control_memory(MC, MC_dashboard, get_value(simhw_sim_state('REG_MICROADDR')), true, true) ;
+               show_main_memory(simhw_internalState('MP'),               
+                                get_value(simhw_sim_state('REG_PC')),        true, true) ;
+            show_control_memory(simhw_internalState('MC'),
+                                simhw_internalState('MC_dashboard'), 
+                                get_value(simhw_sim_state('REG_MICROADDR')), true, true) ;
 		*/
 
             var f1 = new Promise(function(resolve, reject) {
-                 show_main_memory(MP, get_value(simhw_sim_state('REG_PC')), true, true) ;
+                 show_main_memory(simhw_internalState('MP'), 
+                                  get_value(simhw_sim_state('REG_PC')), true, true) ;
                  resolve(1);
             });
             var f2 = new Promise(function(resolve, reject) {
-                 show_control_memory(MC, MC_dashboard, get_value(simhw_sim_state('REG_MICROADDR')), true) ;
+                 show_control_memory(simhw_internalState('MC'), 
+                                     simhw_internalState('MC_dashboard'), 
+                                     get_value(simhw_sim_state('REG_MICROADDR')), true) ;
                  resolve(1);
             });
 
@@ -668,7 +385,7 @@
                                         '         </div>' +
                                         '    </div>' +
                                         '    <div class="carousel-item">' +
-                                        '         <div id=help2 style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">Loading...</div>' +
+                                        '         <div id=help2 style="max-height:65vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">Loading...</div>' +
                                         '    </div>' +
                                         '  </div>' +
                                         '</div>',
@@ -678,7 +395,7 @@
 			       buttons: {
 					    success: {
 						label: "Save",
-						className: "btn-primary col-xs-3 col-sm-2 float-right",
+						className: "btn-primary btn-sm col-xs-3 col-sm-2 float-right",
 						callback: function ()
 							  {
 							     key        = $('#ask_skey').val();
@@ -696,12 +413,13 @@
 								 else delete(simhw_sim_state("REG_MICROINS").value[key]);
 
 								 // update MC[uADDR]
-								 if (typeof MC[get_value(simhw_sim_state("REG_MICROADDR"))] == "undefined") {
-								     MC[get_value(simhw_sim_state("REG_MICROADDR"))] = new Object() ;
-								     MC_dashboard[get_value(simhw_sim_state("REG_MICROADDR"))] = new Object() ;
+								 var curr_maddr = get_value(simhw_sim_state("REG_MICROADDR")) ;
+								 if (typeof simhw_internalState_get('MC', curr_maddr) == "undefined") {
+								     simhw_internalState_set('MC', curr_maddr, new Object()) ;
+								     simhw_internalState_set('MC_dashboard', curr_maddr, new Object()) ;
 								 }
-								 MC[get_value(simhw_sim_state("REG_MICROADDR"))][key] = simhw_sim_signal(key).value ;
-								 MC_dashboard[get_value(simhw_sim_state("REG_MICROADDR"))][key] = { comment: "", breakpoint: false, state: false, notify: new Array() };
+                                                                 simhw_internalState_get('MC', curr_maddr)[key] = simhw_sim_signal(key).value ;
+								 simhw_internalState_get('MC_dashboard', curr_maddr)[key] = { comment: "", breakpoint: false, state: false, notify: new Array() };
 
 								 // update ROM[..]
 								 update_signal_firmware(key) ;
@@ -717,7 +435,7 @@
 					    },
 					    close: {
 						label: "Close",
-						className: "btn-danger col-xs-3 col-sm-2 float-right",
+						className: "btn-danger btn-sm col-xs-3 col-sm-2 float-right",
 						callback: function() { }
 					    }
 					}
@@ -737,20 +455,6 @@
 	    show_rf_values();
         }
 
-        // update ALU flags: test_n, test_z, test_v, test_c
-        function update_nzvc ( flag_n, flag_z, flag_v, flag_c )
-        {
-	   set_value(simhw_sim_state("FLAG_N"), flag_n) ;
-	   set_value(simhw_sim_state("FLAG_Z"), flag_z) ;
-	   set_value(simhw_sim_state("FLAG_V"), flag_v) ;
-	   set_value(simhw_sim_state("FLAG_C"), flag_c) ;
-
-	   set_value(simhw_sim_signal("TEST_N"), flag_n) ;
-	   set_value(simhw_sim_signal("TEST_Z"), flag_z) ;
-	   set_value(simhw_sim_signal("TEST_V"), flag_v) ;
-	   set_value(simhw_sim_signal("TEST_C"), flag_c) ;
-        }
-
         function update_memories ( preSIMWARE )
         {
 	    // 1.- load the SIMWARE
@@ -758,8 +462,8 @@
             var SIMWARE = get_simware() ;
 
 	    // 2.- load the MC from ROM['firmware']
-            MC           = new Object() ;
-            MC_dashboard = new Object() ;
+            simhw_internalState_reset('MC', {}) ;
+            simhw_internalState_reset('MC_dashboard', {}) ;
             for (var i=0; i<SIMWARE['firmware'].length; i++)
 	    {
                var elto_state  = false ;
@@ -770,26 +474,25 @@
                var mci  = SIMWARE['firmware'][i]["mc-start"] ;
 	       for (var j=0; j<last; j++)
 	       {
-		    var comment = SIMWARE['firmware'][i]["microcomments"][j] ;
-		    MC[mci]     = SIMWARE['firmware'][i]["microcode"][j] ;
-
-                    elto_state  = (comment.trim().split("state:").length > 1) ;
-                    elto_break  = (comment.trim().split("break:").length > 1) ;
-                    elto_notify =  comment.trim().split("notify:") ;
+		    var comment  = SIMWARE['firmware'][i]["microcomments"][j] ;
+                    elto_state   = (comment.trim().split("state:").length > 1) ;
+                    elto_break   = (comment.trim().split("break:").length > 1) ;
+                    elto_notify  =  comment.trim().split("notify:") ;
 		    for (var k=0; k<elto_notify.length; k++) {
 		         elto_notify[k] = elto_notify[k].split('\n')[0] ;
                     }
 
-		    MC_dashboard[mci] = { comment: comment, 
-                                          state: elto_state, 
-                                          breakpoint: elto_break, 
-                                          notify: elto_notify } ;
+		    simhw_internalState_set('MC',           mci, SIMWARE['firmware'][i]["microcode"][j]) ;
+                    simhw_internalState_set('MC_dashboard', mci, { comment: comment, 
+                                                                   state: elto_state, 
+                                                                   breakpoint: elto_break, 
+                                                                   notify: elto_notify }) ;
 		    mci++;
 	       }
 	    }
 
 	    // 3.- load the ROM (2/2)
-            ROM = new Object() ;
+            simhw_internalState_reset('ROM', {}) ;
             for (var i=0; i<SIMWARE['firmware'].length; i++)
 	    {
                if ("begin" == SIMWARE['firmware'][i]['name']) {
@@ -803,36 +506,38 @@
 	           cop = parseInt(SIMWARE['firmware'][i]["cop"], 2) ;
 
                var rom_addr = 64*co + cop ;
-	       ROM[rom_addr] = ma ;
+	       simhw_internalState_set('ROM', rom_addr, ma) ;
                SIMWARE['cihash'][rom_addr] = SIMWARE['firmware'][i]['signature'] ;
 	    }
 
 	    // 4.- load the MP from SIMWARE['mp']
-            MP = new Object() ;
+            simhw_internalState_reset('MP', {}) ;
 	    for (var key in SIMWARE['mp'])
 	    {
 	       var kx = parseInt(key)
 	       var kv = parseInt(SIMWARE['mp'][key].replace(/ /g,''), 2) ;
-	       MP[kx] = kv ;
+               simhw_internalState_set('MP', kx, kv) ;
 	    }
 
             /// bugfix safari bug 10.1.2
+            /*
 	    for (var e in MP) {
 	         if (isNaN(MP[e])) {
 	    	     delete MP[e];
                  }
             }
+            */
             /// end bugfix 
 
 	    // 5.- load the segments from SIMWARE['seg']
-            segments = new Object() ;
+            simhw_internalState_reset('segments', {}) ;
 	    for (var key in SIMWARE['seg'])
 	    {
-	       segments[key] = SIMWARE['seg'][key] ;
+	         simhw_internalState_set('segments', key, SIMWARE['seg'][key]) ;
 	    }
 
 	    // 6.- show memories...
-            show_main_memory   (MP,                0, true, true) ;
-            show_control_memory(MC,  MC_dashboard, 0, true) ;
+            show_main_memory   (simhw_internalState('MP'), 0, true, true) ;
+            show_control_memory(simhw_internalState('MC'), simhw_internalState('MC_dashboard'), 0, true) ;
 	}
 

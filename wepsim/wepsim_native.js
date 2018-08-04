@@ -66,7 +66,7 @@
 
         if ("MEMORY" == component)
         {
-            return ((MP[elto]) >>> 0) ;
+            return (simhw_internalState_get('MP',elto) >>> 0) ;
         }
 
         if ("DEVICE" == component)
@@ -116,7 +116,7 @@
 
         if ("MEMORY" == component)
         {
-            MP[elto] = value ;
+            simhw_internalState_set('MP', elto, value) ;
             return value ;
         }
 
