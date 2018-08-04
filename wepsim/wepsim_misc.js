@@ -127,6 +127,12 @@
 	    setTimeout(function(){editor.refresh();}, 100);
     }
 
+    function sim_change_workspace ( page )
+    {
+            if (typeof $.mobile.pageContainer.pagecontainer != "undefined")
+                $.mobile.pageContainer.pagecontainer('change', page);
+    }
+
 
     /*
      * Microcompile and compile
@@ -139,7 +145,7 @@
 	if (SIMWARE.firmware.length == 0)
         {
             alert('WARNING: please load the microcode first.');
-            $.mobile.pageContainer.pagecontainer('change','#main3');
+            sim_change_workspace('#main3') ;
             return false;
 	}
 
