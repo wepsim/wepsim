@@ -475,54 +475,86 @@
                     </div>
                     </div>
 
-		    <div data-role="tabs" id="tabs1">
+                    <ul class="nav nav-tabs" id="tabs1" role="tablist" style="display:none;">
+                      <li class="nav-item">
+                          <a class="nav-link active" role="tab" aria-controls="home" aria-selected="true"
+                             data-toggle="tab" id="tab14" href="#mp">Memory</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+                             data-toggle="tab" id="tab12" href="#con">Console</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+                             data-toggle="tab" id="tab11" href="#all">Registers</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+                             data-toggle="tab" id="tab16" href="#mc">Control Memory</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+                             data-toggle="tab" id="tab13" href="#config">Configuration</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+                             data-toggle="tab" id="tab15" href="#io">IO stats</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+                             data-toggle="tab" id="tab17" href="#cpu">CPU stats</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+                             data-toggle="tab" id="tab18" href="#mpcfg">Memory configuration</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+                             data-toggle="tab" id="tab19" href="#iocfg">I/O configuration</a>
+                      </li>
+                    </ul>
+                    <div class="tab-content mt-3">
+                         <div class="tab-pane mx-2 my-2 active" role="tabpanel" 
+                              id="all" aria-labelledby="all-tab">
+				 <div id="states_ALL" style="width:inherit; overflow-y:auto;" 
+                                      class="container container-fluid"></div>
+				 <br style="height:0; width:100%; font-size:0; margin:5; padding:0; border:0; display:block;">
+				 <div id="states_BR" style="width: inherit; overflow-y: auto;" 
+                                      class="container container-fluid"></div>
+                         </div>
+                         <div class="tab-pane mx-2 my-2" role="tabpanel" 
+                              id="mp" aria-labelledby="mp-tab">
+		              <div id="memory_MP" style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
+                         </div>
+                         <div class="tab-pane mx-2 my-2" role="tabpanel" 
+                              id="mc" aria-labelledby="mc-tab">
+		              <div id="memory_MC" style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
+                         </div>
+                         <div class="tab-pane mx-2 my-2" role="tabpanel" 
+                              id="con" aria-labelledby="con-tab">
+				 <img alt="monitor" height=55 src="images/monitor2.png">
+				 <textarea aria-label="monitor" style="min-width:90%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 8 0" placeholder="WepSIM" id="kdb_con" rows=8 readonly></textarea>
+				 <img alt="keyboard" height=35 src="images/keyboard1.png">
+				 <textarea aria-label="keyboard" style="min-width:90%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 0 0" placeholder="WepSIM" id="kdb_key" rows=2></textarea>
+                         </div>
+                         <div class="tab-pane mx-2 my-2" role="tabpanel" 
+                              id="io" aria-labelledby="io-tab">
+		              <div id="io_ALL" style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
+                         </div>
+                         <div class="tab-pane mx-2 my-2" role="tabpanel" 
+                              id="cpu" aria-labelledby="cpu-tab">
+		              <div id="cpu_ALL" style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
+                         </div>
+                         <div class="tab-pane mx-2 my-2" role="tabpanel" 
+                              id="mpcfg" aria-labelledby="mpcfg-tab">
+		              <div id="config_MP" style="width: inherit;" class="container container-fluid"></div>
+                         </div>
+                         <div class="tab-pane mx-2 my-2" role="tabpanel" 
+                              id="iocfg" aria-labelledby="iocfg-tab">
+		              <div id="config_IO" style="width: inherit; overflow-y: auto;"></div>
+                         </div>
+                    </div>
 
-    		      <div data-role="navbar" id="tabsnav1" class="ui-responsive">
-		        <ul>
-		          <li style="display:none;clear:none;width:33% !important"><a id="tab14" href="#mp">Memory</a></li>
-		          <li style="display:none;clear:none;width:33% !important"><a id="tab12" href="#con">Console</a></li>
-		          <li style="display:none;           width:33% !important"><a id="tab11" href="#all">Registers</a></li>
-		          <li style="display:none;clear:none;width:33% !important"><a id="tab16" href="#mc">Control Memory</a></li>
-                          <li style="display:none;clear:none;width:33% !important"><a id="tab13" href="#config">Configuration</a></li>
-                          <li style="display:none;           width:33% !important"><a id="tab15" href="#io">IO stats</a></li>
-		          <li style="display:none;clear:none;width:33% !important"><a id="tab17" href="#cpu">CPU stats</a></li>
-		          <li style="display:none;clear:none;width:33% !important"><a id="tab18" href="#mpcfg">Memory configuration</a></li>
-		          <li style="display:none;          ;width:33% !important"><a id="tab19" href="#iocfg">I/O configuration</a></li>
-		        </ul>
-		      </div>
-
-		      <div id="all"  class="ui-body-d ui-content" style="padding: 15 0px 0 0px;">
-		         <div id="states_ALL"  style="width:inherit; overflow-y:auto;" class="container container-fluid"></div>
-			 <br style="height:0; width:100%; font-size:0; margin:5; padding:0; border:0; display:block;">
-		         <div id="states_BR"   style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
-		      </div>
-		      <div id="mp"     class="ui-body-d ui-content">
-		         <div id="memory_MP"   style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
-		      </div>
-		      <div id="mc"     class="ui-body-d ui-content">
-		         <div id="memory_MC"   style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
-		      </div>
-		      <div id="con"    class="ui-body-d ui-content">
-                         <img alt="monitor" height=55 src="images/monitor2.png">
-		         <textarea aria-label="monitor"  style="min-width:90%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 8 0"
-                                   placeholder="WepSIM" id="kdb_con" rows=8 readonly></textarea>
-                         <img alt="keyboard" height=35 src="images/keyboard1.png">
-		         <textarea aria-label="keyboard" style="min-width:90%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 0 0"
-                                   placeholder="WepSIM" id="kdb_key" rows=2></textarea>
-		      </div>
-		      <div id="io"     class="ui-body-d ui-content">
-		         <div id="io_ALL"      style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
-		      </div>
-		      <div id="cpu"    class="ui-body-d ui-content">
-		         <div id="cpu_ALL"     style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
-		      </div>
-		      <div id="mpcfg"  class="ui-body-d ui-content">
-		          <div id="config_MP" style="width: inherit;" class="container container-fluid"></div>
-		      </div>
-	    	      <div id="iocfg"  class="ui-body-d ui-content" style="padding:8 8 0 8;">
-		          <div id="config_IO" style="width: inherit; overflow-y: auto;"></div>
-		      </div>
-	    	    </div>
                 </div>
             </div>
 
@@ -1287,8 +1319,6 @@
                     ko.options.deferUpdates = true;
 
 		    $(".ui-slider-input").hide();
-		    $("#tabsnav1").navbar();
-		    $("#tabs1").tabs();
 
 		    inputfirm = CodeMirror.fromTextArea(document.getElementById("inputFirmware"), 
                                     {
