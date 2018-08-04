@@ -53,3 +53,22 @@
 
         simhw_add(ep_def) ;
 
+
+        /*
+         *  Elemental Processor: Private
+         */
+
+        // update ALU flags: test_n, test_z, test_v, test_c
+        function ep_update_nzvc ( flag_n, flag_z, flag_v, flag_c )
+        {
+	   set_value(simhw_sim_state("FLAG_N"), flag_n) ;
+	   set_value(simhw_sim_state("FLAG_Z"), flag_z) ;
+	   set_value(simhw_sim_state("FLAG_V"), flag_v) ;
+	   set_value(simhw_sim_state("FLAG_C"), flag_c) ;
+
+	   set_value(simhw_sim_signal("TEST_N"), flag_n) ;
+	   set_value(simhw_sim_signal("TEST_Z"), flag_z) ;
+	   set_value(simhw_sim_signal("TEST_V"), flag_v) ;
+	   set_value(simhw_sim_signal("TEST_C"), flag_c) ;
+        }
+

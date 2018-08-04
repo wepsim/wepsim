@@ -712,7 +712,7 @@
 				     operation: function(s_expr) { }
 				   };
 	ep_behaviors["NOP_ALU"]  = { nparameters: 1,
-				     operation: function(s_expr) { update_nzvc(0, 0, 0, 0); }
+				     operation: function(s_expr) { ep_update_nzvc(0, 0, 0, 0); }
 				   };
         ep_behaviors["MV"]       = { nparameters: 3,
                                      types: ["X", "X"],
@@ -755,7 +755,7 @@
 				                   var result = get_value(ep_states[s_expr[2]]) & get_value(ep_states[s_expr[3]]) ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
-			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	ep_behaviors["OR"]       = { nparameters: 4,
@@ -764,7 +764,7 @@
 				                   var result = get_value(ep_states[s_expr[2]]) | get_value(ep_states[s_expr[3]]) ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
-			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	ep_behaviors["NOT"]      = { nparameters: 3,
@@ -773,7 +773,7 @@
 				                   var result = ~(get_value(ep_states[s_expr[2]])) ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
-			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	ep_behaviors["XOR"]      = { nparameters: 4,
@@ -782,7 +782,7 @@
 				                   var result = get_value(ep_states[s_expr[2]]) ^ get_value(ep_states[s_expr[3]]) ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
-			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	ep_behaviors["SRL"]      = { nparameters: 3,
@@ -791,7 +791,7 @@
 				                   var result = (get_value(ep_states[s_expr[2]])) >>> 1 ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
-			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	ep_behaviors["SRA"]      = { nparameters: 3,
@@ -800,7 +800,7 @@
 				                   var result = (get_value(ep_states[s_expr[2]])) >> 1 ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
-			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	ep_behaviors["SL"]       = { nparameters: 3,
@@ -809,7 +809,7 @@
 				                   var result = (get_value(ep_states[s_expr[2]])) << 1 ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
-			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, (result) >>> 31) ;
+			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, (result) >>> 31) ;
 						}
 				   };
 	ep_behaviors["RR"]       = { nparameters: 3,
@@ -818,7 +818,7 @@
 				                   var result = ((get_value(ep_states[s_expr[2]])) >>> 1) | (((get_value(ep_states[s_expr[2]])) & 1) << 31) ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
-			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	ep_behaviors["RL"]       = { nparameters: 3,
@@ -827,7 +827,7 @@
 				                   var result = ((get_value(ep_states[s_expr[2]])) << 1) | (((get_value(ep_states[s_expr[2]])) & 0X80000000) >>> 31) ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
-			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	ep_behaviors["ADD"]      = { nparameters: 4,
@@ -848,7 +848,7 @@
 						   if ( (result >= 0) && (a <  0) && (b <  0) )
 							flag_v = 1 ;
 
-			                           update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
+			                           ep_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
 						}
 				   };
 	ep_behaviors["SUB"]      = { nparameters: 4,
@@ -869,7 +869,7 @@
 						   if ( (result >= 0) && (a <  0) && (b <  0) )
 							flag_v = 1 ;
 
-			                           update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
+			                           ep_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
 						}
 				   };
 	ep_behaviors["MUL"]      = { nparameters: 4,
@@ -890,7 +890,7 @@
 						   if ( (result >= 0) && (a <  0) && (b <  0) )
 							flag_v = 1 ;
 
-			                           update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
+			                           ep_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
 						}
 				   };
 	ep_behaviors["DIV"]      = { nparameters: 4,
@@ -901,13 +901,13 @@
 
 						   if (0 == b) {
 						       set_value(ep_states[s_expr[1]], 0) ;
-			                               update_nzvc(0, 1, 1, 0) ;
+			                               ep_update_nzvc(0, 1, 1, 0) ;
                                                        return ;
                                                    }
 
 				                   var result = Math.floor(a / b) ;
 				                   set_value(ep_states[s_expr[1]], result) ;
-			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	ep_behaviors["MOD"]      = { nparameters: 4,
@@ -916,7 +916,7 @@
 						   var result = (get_value(ep_states[s_expr[2]]) << 0) % (get_value(ep_states[s_expr[3]]) << 0) ;
 						   set_value(ep_states[s_expr[1]], result) ;
 
-			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	ep_behaviors["LUI"]      = { nparameters: 3,
@@ -925,7 +925,7 @@
 						   var result = (get_value(ep_states[s_expr[2]])) << 16 ;
 						   set_value(ep_states[s_expr[1]], result) ;
 
-			                           update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
 	ep_behaviors["MBIT"]     = { nparameters: 5,
