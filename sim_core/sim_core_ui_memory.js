@@ -658,12 +658,12 @@
                            "    onclick='asmdbg_set_breakpoint(" + l + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
                            "<td                                             width='2%'></td>" +
-                           "<td class='asm_break'  style='line-height:0.9; padding:5 0 0 0;' width='10%' align='center' id='bp" + l + "'>&nbsp;</td>" +
-                           "<td class='asm_addr'   style='line-height:0.9;' width='15%'>" + l + "</td>" +
-                           "<td class='asm_label2' style='line-height:0.9;' width='10%' align=right>" + s_label + "</td>" +
-                           "<td class='asm_pins'   style='line-height:0.9;' width='20%' align=left>"  + s2_instr + "</td>" +
-                           "<td class='asm_label1' style='line-height:0.9;' width='10%' align=right>" + s_label + "</td>" +
-                           "<td class='asm_ins'    style='line-height:0.9;' width='25%' align=left>"  + s1_instr + "</td>" +
+                           "<td class='asm_break show'  style='line-height:0.9; padding:5 0 0 0;' width='10%' align='center' id='bp" + l + "'>&nbsp;</td>" +
+                           "<td class='asm_addr show'   style='line-height:0.9;' width='15%'>" + l + "</td>" +
+                           "<td class='asm_label2 show' style='line-height:0.9;' width='10%' align=right>" + s_label + "</td>" +
+                           "<td class='asm_pins show'   style='line-height:0.9;' width='20%' align=left>"  + s2_instr + "</td>" +
+                           "<td class='asm_label1 show' style='line-height:0.9;' width='10%' align=right>" + s_label + "</td>" +
+                           "<td class='asm_ins show'    style='line-height:0.9;' width='25%' align=left>"  + s1_instr + "</td>" +
                            "</tr>" ;
                 }
                 o += "</tbody></table></center>" ;
