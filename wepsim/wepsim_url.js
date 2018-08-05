@@ -116,7 +116,7 @@
                     if (null != do_next)
                         do_next(textFromFileLoaded);
 		}
-	}
+	};
 
 	xmlhttp.open("GET", url, true);
 	xmlhttp.send();
