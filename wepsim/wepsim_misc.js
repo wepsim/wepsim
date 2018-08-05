@@ -129,8 +129,12 @@
 
     function sim_change_workspace ( page )
     {
-            if (typeof $.mobile != "undefined")
-                $.mobile.pageContainer.pagecontainer('change', page);
+            if ( (typeof $.mobile                             != "undefined") &&
+                 (typeof $.mobile.pageContainer               != "undefined") &&
+                 (typeof $.mobile.pageContainer.pagecontainer != "undefined") ) 
+            {
+                  $.mobile.pageContainer.pagecontainer('change', page);
+            }
     }
 
 

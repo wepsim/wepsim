@@ -1314,8 +1314,10 @@
 
 	    $(document).ready(function()
 	    {
-		    jQuery.fx.off = true;
-                    ko.options.deferUpdates = true;
+		    if (typeof jQuery.fx != "undefined")
+		        jQuery.fx.off = true;
+		    if (typeof ko != "undefined")
+                        ko.options.deferUpdates = true;
 
 		    $(".ui-slider-input").hide();
 
