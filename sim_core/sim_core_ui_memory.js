@@ -85,24 +85,21 @@
 		if (key == index)
 		     o1 += "<div class='row' id='addr" + key + "'" +
                            "     style='color:blue; font-size:small; font-weight:bold;    border-bottom: 1px solid lightgray !important'>" +
-			   "<div class='col-xs-5 col-sm-5 col-md-5 col-lg-5' align='right'  style='padding:5'>" + taddr + "</div>" + 
-			   "<div class='col-xs-1 col-sm-1 col-md-1 col-lg-1' align='center' style='padding:0'></div>" + 
-                           "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' align='left'   style='padding:5' id='mpval" + key + "'>" + value + "</div>" + 
+			   "<div class='col-6 pr-2' align='right'  style='padding:5'>" + taddr + "</div>" + 
+                           "<div class='col-6'      align='left'   style='padding:5' id='mpval" + key + "'>" + value + "</div>" + 
                            "</div>" ;
 		else o1 += "<div class='row' id='addr" + key + "'" +
                            "     style='color:black; font-size:small; font-weight:normal; border-bottom: 1px solid lightgray !important'>" +
-			   "<div class='col-xs-5 col-sm-5 col-md-5 col-lg-5' align='right'  style='padding:5'>" + taddr + "</div>" + 
-			   "<div class='col-xs-1 col-sm-1 col-md-1 col-lg-1' align='center' style='padding:0'></div>" + 
-                           "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' align='left'   style='padding:5' id='mpval" + key + "'>" + value + "</div>" + 
+			   "<div class='col-6 pr-2' align='right'  style='padding:5'>" + taddr + "</div>" + 
+                           "<div class='col-6'      align='left'   style='padding:5' id='mpval" + key + "'>" + value + "</div>" + 
                            "</div>" ;
             }
 
 	    if (typeof memory[index] == "undefined")
 		o1 += "<div class='row' id='addr" + index + "'" +
-                      "     style='color:blue; font-size:small; font-weight:bold;    border-bottom: 1px solid lightgray !important'>" +
-		      "<div class='col-xs-5 col-sm-5 col-md-5 col-lg-5' align='right'  style='padding:5'>" + "0x" + parseInt(index).toString(16) + "</div>" +
-		      "<div class='col-xs-1 col-sm-1 col-md-1 col-lg-1' align='center' style='padding:5'></div>" + 
-		      "<div class='col-xs-6 col-sm-6 col-md-6 col-lg-6' align='left'   style='padding:5' id='mpval>" + index + "'>" + "00 00 00 00" + "</div>"+ 
+                      "     style='color:blue; font-size:small; font-weight:bold; border-bottom: 1px solid lightgray !important'>" +
+		      "<div class='col-6 pr-2' align='right'  style='padding:5'>" + "0x" + parseInt(index).toString(16) + "</div>" +
+		      "<div class='col-6'      align='left'   style='padding:5' id='mpval>" + index + "'>" + "00 00 00 00" + "</div>"+ 
                       "</div>";
 
             $("#memory_MP").html("<div class='container-fluid'>" + o1 + "</div>");
