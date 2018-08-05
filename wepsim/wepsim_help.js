@@ -39,8 +39,9 @@
         var utypes = [] ;
         for (var m=0; m<helps.length; m++)
         {
-	    if (!utypes.includes(helps[m].u_type))
+	    if (false == array_includes(utypes, helps[m].u_type)) {
 	         utypes.push(helps[m].u_type) ;
+            }
         }
 
         o = o + '<div class="container grid-striped border border-light">' ;

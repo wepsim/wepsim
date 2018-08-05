@@ -67,8 +67,9 @@
         var utypes = [] ;
         for (var m=0; m<config.length; m++)
         {
-	    if (!utypes.includes(config[m].type))
-	         utypes.push(config[m].type) ;
+	    if (false == array_includes(utypes, config[m].type)) {
+	        utypes.push(config[m].type) ;
+            }
         }
 
         o = o + '<div class="container grid-striped border border-light">' ;
