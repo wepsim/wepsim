@@ -109,7 +109,7 @@
 
         poc_internal_states.tri_state_names = [ "T1","T2","T3","T4","T5","T6","T7","T8","T9","T10","T11" ] ;
         poc_internal_states.fire_visible    = { 'databus': false, 'internalbus': false } ;
-        poc_internal_states.filter_states   = [ "REG_IR_DECO,col-11",
+        poc_internal_states.filter_states   = [ "REG_IR_DECO,col-12",
                                                 "REG_IR,col",  "REG_PC,col",  "REG_SR,col",
                                                 "REG_RT1,col", "REG_RT2,col", "REG_RT3,col",
                                                 "REG_MAR,col", "REG_MBR,col", "REG_MICROADDR,col" ] ;
