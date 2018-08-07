@@ -370,10 +370,19 @@
 
     function wepsim_change_mode ( optValue, cssLayer )
     {
-	  // wepmips mode...
-	  if ('wepmips' == optValue)
+          var hwid = -1 ;
+
+	  // switch active hardware by name...
+	  if ('wepmips' == optValue) {
+	       hwid = simhw_getActiveByName('ep') ;
+               wepsim_activehw(hwid) ;
 	       wepsim_show_wepmips();
-	  else wepsim_hide_wepmips();
+          }
+	  else { 
+	       hwid = simhw_getActiveByName(optValue) ;
+               wepsim_activehw(hwid) ;
+               wepsim_hide_wepmips();
+          }
 
 	  // tutorial mode...
 	  $(cssLayer).css('background-color', '#F6F6F6') ;
@@ -386,9 +395,5 @@
 	      sim_tutorial_showframe('welcome', 0);
               return ;
 	  }
-
-	  // switch active hardware by name...
-	  var hwid = simhw_getActiveByName(optValue) ;
-          wepsim_activehw(hwid) ;
     }
 
