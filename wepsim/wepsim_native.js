@@ -71,7 +71,7 @@
 
         if ("DEVICE" == component)
         {
-            var associated_state = io_hash[elto] ;
+            var associated_state = simhw_internalState_get('io_hash',elto) ;
             var value = (get_value(simhw_sim_state(associated_state)) >>> 0) ;
 
             set_value(simhw_sim_state('BUS_AB'), elto) ;
@@ -122,7 +122,7 @@
 
         if ("DEVICE" == component)
         {
-            var associated_state = io_hash[elto] ;
+            var associated_state = simhw_internalState_get('io_hash',elto) ;
             set_value(simhw_sim_state(associated_state), value) ;
 
             set_value(simhw_sim_state('BUS_AB'), elto) ;
