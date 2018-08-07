@@ -89,9 +89,7 @@
 
     function wepsim_execute_stop ( btn1 )
     {
-	$(btn1).html("<br><b>Run</b>") ;
-	$(btn1).removeClass("ui-icon-minus") ;
-	$(btn1).addClass("ui-icon-carat-r") ;
+	$(btn1).html("<i class='fa fa-play'></i><br><b>Play</b>") ;
 	$(btn1).css("backgroundColor", "#CCCCCC") ;
 
 	DBG_stop = true;
@@ -108,9 +106,7 @@
         }
 
 	$(btn1).css("backgroundColor", 'rgb(51, 136, 204)') ;
-	$(btn1).html("<br><b>Stop</b>") ;
-	$(btn1).removeClass("ui-icon-carat-r") ;
-	$(btn1).addClass("ui-icon-minus") ;
+	$(btn1).html("<i class='fa fa-stop'></i><br><b>Stop</b>") ;
 
         DBG_stop = false ;
         DBG_limit_instruction = 0 ;
