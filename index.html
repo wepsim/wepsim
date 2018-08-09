@@ -15,10 +15,10 @@
     <meta charset="utf-8" />
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
-    <meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=2.2, minimum-scale=1, width=device-width">
+    <meta name="viewport" content="user-scalable=yes, width=device-width",
+                initial-scale=1, maximum-scale=2.5, minimum-scale=.5>
 
     <script src="external/jquery.min.224.js"></script>
-    <script src="external/jquery-ui.min.js"></script>
     <script>
         $(document).bind("mobileinit", function() {
             $.mobile.defaultPageTransition = "none";
@@ -237,11 +237,11 @@
 		    	        style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                 onclick="wepsim_open_config_index();"><b><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></b></button>
 		        <button class="btn btn-light ui-shadow my-1" data-role="none"
-			        onclick="$.mobile.pageContainer.pagecontainer('change','#main3');"
+			        onclick="sim_change_workspace('#main3');"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				><b><span class="d-none d-sm-inline-flex">MicroCode</span><span class="d-sm-none">&#181;code</span></b></button>
 		        <button class="btn btn-light ui-shadow my-1 mr-2" data-role="none"
-			        onclick="$.mobile.pageContainer.pagecontainer('change','#main4');"
+			        onclick="sim_change_workspace('#main4');"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				><b><span class="d-none d-sm-inline-flex">Assembly</span><span class="d-sm-none">Assembly</span></b></button>
                     </div>
@@ -281,10 +281,9 @@
 	                                  sim_core_init_panel('#states_ALL', '#states_BR', '#io_ALL', 
                                                               '#cpu_ALL', '#config_MP', '#config_IO'); 
 					  return false;">
-
-				<option value="intro"   >Welcome...</option>
-				<option value="tutorial">Instructive</option>
-				<option value="ep"      >WepSIM (EP)</option>
+				<option value="intro"    >Welcome...</option>
+				<option value="tutorial" >Instructive</option>
+				<option value="ep"       >WepSIM (EP)</option>
 			</select>
                     </div>
 
@@ -415,23 +414,23 @@
                     <div class="row" style="padding:8px 16px 0px 8px;">
                     <div class="btn-toolbar btn-block" role="toolbar">
 			    <button          style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-		                    class="btn btn-light ui-shadow ui-icon-reset    ui-btn-icon-top col" data-role="none"
-			            onclick="wepsim_execute_reset(true, true);"><b><br>Reset</b></button>
+		                    class="btn btn-light col" data-role="none"
+			            onclick="wepsim_execute_reset(true, true);"><i class="fa fa-power-off"></i><b><br>Reset</b></button>
 			    <button id="nm1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-		                    class="btn btn-light ui-shadow ui-icon-arrow-r  ui-btn-icon-top col"  data-role="none"
-			            onclick="wepsim_execute_microinstruction();"><b><br>&#181;Instruction</b></button>
+		                    class="btn btn-light col"  data-role="none"
+			            onclick="wepsim_execute_microinstruction();"><i class="fa fa-forward"></i><b><br>&#181;<span class="d-none d-sm-inline-flex">Instruction</span><span class="d-sm-none">Instr.</span></b></button>
 			    <button id="ni1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-		                    class="btn btn-light ui-shadow ui-icon-arrow-r  ui-btn-icon-top col"  data-role="none"
-			            onclick="wepsim_execute_instruction();"><b><br>Instruction</b></button>
+		                    class="btn btn-light col"  data-role="none"
+			            onclick="wepsim_execute_instruction();"><i class="fa fa-fast-forward"></i><b><br><span class="d-none d-sm-inline-flex">Instruction</span><span class="d-sm-none">Instr.</span></b></button>
 			    <button id="qbp" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-		                    class="btn btn-light ui-shadow ui-icon-carat-r  ui-btn-icon-top col"  data-role="none"
+		                    class="btn btn-light col" data-role="none"
                                     onclick="var mode = get_cfg('ws_mode');
                                              if ('tutorial' == mode) {
                                                  wepsim_notify_success('<strong>INFO</strong>',
                                                             'Tutorial mode on. Use the configuration to change it.');
                                              }
                                              wepsim_execute_toggle_play('#qbp', (mode == 'tutorial'));
-                                             return false;"><b><br>Run</b></button>
+                                             return false;"><i class="fa fa-play"></i><b><br>Run</b></button>
                     </div>
                     </div>
 
@@ -440,7 +439,7 @@
 		          <button class="btn btn-light ui-shadow col" data-role="none"
 		                  style="border-color: #CCCCCC;"
 		                  onclick="wepsim_dialog_current_state();"><i class="fas fa-camera"></i>&nbsp;<c>States</c></button>
-                          <select class="custom-select btn btn-light ui-shadow col-5"
+                          <select class="custom-select btn btn-light ui-shadow col"
                                   style="border-color: #CCCCCC;"
 				  name="select5a" id="select5a" 
 				  data-role="none" 
@@ -474,54 +473,86 @@
                     </div>
                     </div>
 
-		    <div data-role="tabs" id="tabs1">
+                    <ul class="nav nav-tabs" id="tabs1" role="tablist" style="display:none;">
+                      <li class="nav-item">
+                          <a class="nav-link active" role="tab" aria-controls="home" aria-selected="true"
+                             data-toggle="tab" id="tab14" href="#mp">Memory</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+                             data-toggle="tab" id="tab12" href="#con">Console</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+                             data-toggle="tab" id="tab11" href="#all">Registers</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+                             data-toggle="tab" id="tab16" href="#mc">Control Memory</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+                             data-toggle="tab" id="tab13" href="#config">Configuration</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+                             data-toggle="tab" id="tab15" href="#io">IO stats</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+                             data-toggle="tab" id="tab17" href="#cpu">CPU stats</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+                             data-toggle="tab" id="tab18" href="#mpcfg">Memory configuration</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+                             data-toggle="tab" id="tab19" href="#iocfg">I/O configuration</a>
+                      </li>
+                    </ul>
+                    <div class="tab-content mt-3">
+                         <div class="tab-pane mx-2 my-2 active" role="tabpanel" 
+                              id="all" aria-labelledby="all-tab">
+				 <div id="states_ALL" style="width:inherit; overflow-y:auto;" 
+                                      class="container container-fluid"></div>
+				 <br style="height:0; width:100%; font-size:0; margin:5; padding:0; border:0; display:block;">
+				 <div id="states_BR" style="width: inherit; overflow-y: auto;" 
+                                      class="container container-fluid"></div>
+                         </div>
+                         <div class="tab-pane mx-2 my-2" role="tabpanel" 
+                              id="mp" aria-labelledby="mp-tab">
+		              <div id="memory_MP" style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
+                         </div>
+                         <div class="tab-pane mx-2 my-2" role="tabpanel" 
+                              id="mc" aria-labelledby="mc-tab">
+		              <div id="memory_MC" style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
+                         </div>
+                         <div class="tab-pane mx-2 my-2" role="tabpanel" 
+                              id="con" aria-labelledby="con-tab">
+				 <img alt="monitor" height=55 src="images/monitor2.png">
+				 <textarea aria-label="monitor" style="min-width:90%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 8 0" placeholder="WepSIM" id="kdb_con" rows=8 readonly></textarea>
+				 <img alt="keyboard" height=35 src="images/keyboard1.png">
+				 <textarea aria-label="keyboard" style="min-width:90%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 0 0" placeholder="WepSIM" id="kdb_key" rows=2></textarea>
+                         </div>
+                         <div class="tab-pane mx-2 my-2" role="tabpanel" 
+                              id="io" aria-labelledby="io-tab">
+		              <div id="io_ALL" style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
+                         </div>
+                         <div class="tab-pane mx-2 my-2" role="tabpanel" 
+                              id="cpu" aria-labelledby="cpu-tab">
+		              <div id="cpu_ALL" style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
+                         </div>
+                         <div class="tab-pane mx-2 my-2" role="tabpanel" 
+                              id="mpcfg" aria-labelledby="mpcfg-tab">
+		              <div id="config_MP" style="width: inherit;" class="container container-fluid"></div>
+                         </div>
+                         <div class="tab-pane mx-2 my-2" role="tabpanel" 
+                              id="iocfg" aria-labelledby="iocfg-tab">
+		              <div id="config_IO" style="width: inherit; overflow-y: auto;"></div>
+                         </div>
+                    </div>
 
-    		      <div data-role="navbar" id="tabsnav1" class="ui-responsive">
-		        <ul>
-		          <li style="display:none;clear:none;width:33% !important"><a id="tab14" href="#mp">Memory</a></li>
-		          <li style="display:none;clear:none;width:33% !important"><a id="tab12" href="#con">Console</a></li>
-		          <li style="display:none;           width:33% !important"><a id="tab11" href="#all">Registers</a></li>
-		          <li style="display:none;clear:none;width:33% !important"><a id="tab16" href="#mc">Control Memory</a></li>
-                          <li style="display:none;clear:none;width:33% !important"><a id="tab13" href="#config">Configuration</a></li>
-                          <li style="display:none;           width:33% !important"><a id="tab15" href="#io">IO stats</a></li>
-		          <li style="display:none;clear:none;width:33% !important"><a id="tab17" href="#cpu">CPU stats</a></li>
-		          <li style="display:none;clear:none;width:33% !important"><a id="tab18" href="#mpcfg">Memory configuration</a></li>
-		          <li style="display:none;          ;width:33% !important"><a id="tab19" href="#iocfg">I/O configuration</a></li>
-		        </ul>
-		      </div>
-
-		      <div id="all"  class="ui-body-d ui-content" style="padding: 15 0px 0 0px;">
-		         <div id="states_ALL"  style="width:inherit; overflow-y:auto;" class="container container-fluid"></div>
-			 <br style="height:0; width:100%; font-size:0; margin:5; padding:0; border:0; display:block;">
-		         <div id="states_BR"   style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
-		      </div>
-		      <div id="mp"     class="ui-body-d ui-content">
-		         <div id="memory_MP"   style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
-		      </div>
-		      <div id="mc"     class="ui-body-d ui-content">
-		         <div id="memory_MC"   style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
-		      </div>
-		      <div id="con"    class="ui-body-d ui-content">
-                         <img alt="monitor" height=55 src="images/monitor2.png">
-		         <textarea aria-label="monitor"  style="min-width:90%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 8 0"
-                                   placeholder="WepSIM" id="kdb_con" rows=8 readonly></textarea>
-                         <img alt="keyboard" height=35 src="images/keyboard1.png">
-		         <textarea aria-label="keyboard" style="min-width:90%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 0 0"
-                                   placeholder="WepSIM" id="kdb_key" rows=2></textarea>
-		      </div>
-		      <div id="io"     class="ui-body-d ui-content">
-		         <div id="io_ALL"      style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
-		      </div>
-		      <div id="cpu"    class="ui-body-d ui-content">
-		         <div id="cpu_ALL"     style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
-		      </div>
-		      <div id="mpcfg"  class="ui-body-d ui-content">
-		          <div id="config_MP" style="width: inherit;" class="container container-fluid"></div>
-		      </div>
-	    	      <div id="iocfg"  class="ui-body-d ui-content" style="padding:8 8 0 8;">
-		          <div id="config_IO" style="width: inherit; overflow-y: auto;"></div>
-		      </div>
-	    	    </div>
                 </div>
             </div>
 
@@ -621,11 +652,11 @@
 		            <button class="btn btn-light ui-shadow col" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				    data-transition="none" data-inline="true"
-				    onclick="$.mobile.pageContainer.pagecontainer('change','#main4');"><b>Assembly</b></button>
+				    onclick="sim_change_workspace('#main4');"><b>Assembly</b></button>
 		            <button class="btn btn-light ui-shadow col" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				    data-transition="none" data-inline="true"
-				    onclick="$.mobile.pageContainer.pagecontainer('change','#main1');"><b>Simulator</b></button>
+				    onclick="sim_change_workspace('#main1');"><b>Simulator</b></button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
@@ -758,13 +789,13 @@
 		            <button class="btn btn-light ui-shadow col" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				    data-transition="none" data-inline="true"
-				    onclick="$.mobile.pageContainer.pagecontainer('change','#main3');">
+				    onclick="sim_change_workspace('#main3');">
 			    <b><span class="d-none d-sm-inline-flex">MicroCode</span><span class="d-sm-none">&#181;code</span></b>
 			    </button>
 		            <button class="btn btn-light ui-shadow col" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				    data-transition="none" data-inline="true"
-				    onclick="$.mobile.pageContainer.pagecontainer('change','#main1');"><b>Simulator</b></button>
+				    onclick="sim_change_workspace('#main1');"><b>Simulator</b></button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
@@ -1282,14 +1313,12 @@
 
 	    $(document).ready(function()
 	    {
-		    jQuery.fx.off = true;
-                    ko.options.deferUpdates = true;
+		    if (typeof jQuery.fx != "undefined")
+		        jQuery.fx.off = true;
+		    if (typeof ko != "undefined")
+                        ko.options.deferUpdates = true;
 
 		    $(".ui-slider-input").hide();
-		    $("#listview_1").listview();
-
-		    $("#tabsnav1").navbar();
-		    $("#tabs1").tabs();
 
 		    inputfirm = CodeMirror.fromTextArea(document.getElementById("inputFirmware"), 
                                     {
@@ -1330,7 +1359,7 @@
                     sim_prepare_editor(inputasm) ;
 		    inputasm.setSize("auto","auto");
 
-		    $.mobile.pageContainer.pagecontainer('change','#main1');
+		    sim_change_workspace('#main1');
 		    $('#tab26').trigger('click');
 		    $('#tab11').trigger('click');
 		    $('#select5a').val(11);
@@ -1391,20 +1420,12 @@
 
             $('.dropify').dropify();
 
-            $('#end_state1').tokenfield({
-                    autocomplete: { source: ['register','memory','screen'], delay: 100 },
-                    showAutocompleteOnFocus: true,
-                    inputType: 'textarea'
-            }) ;
+            $('#end_state1').tokenfield({ inputType: 'textarea' }) ;
             //A1/ var inputEls = document.getElementById('end_state1');
             //A1/ if (null != inputEls)
             //A1/     setup_speech_input(inputEls) ;
 
-            $('#end_state2').tokenfield({
-                    autocomplete: { source: ['register','memory','screen'], delay: 100 },
-                    showAutocompleteOnFocus: true,
-                    inputType: 'textarea'
-            }) ;
+            $('#end_state2').tokenfield({ inputType: 'textarea' }) ;
             //A1/ var inputEls = document.getElementById('end_state2');
             //A1/ if (null != inputEls)
             //A1/     setup_speech_input(inputEls) ;
@@ -1449,7 +1470,8 @@
     }
     catch(err) 
     {
-        alert("WepSIM was improperly used:\n" + err.message);
+        //alert("WepSIM was improperly used:\n" + err.message);
+          alert("WepSIM was improperly used:\n" + err.message + "\n\nMore details:\n" + err.stack);
     }
 </script>
 

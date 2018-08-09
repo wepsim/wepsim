@@ -127,6 +127,16 @@
 	    setTimeout(function(){editor.refresh();}, 100);
     }
 
+    function sim_change_workspace ( page )
+    {
+            if ( (typeof $.mobile                             != "undefined") &&
+                 (typeof $.mobile.pageContainer               != "undefined") &&
+                 (typeof $.mobile.pageContainer.pagecontainer != "undefined") ) 
+            {
+                  $.mobile.pageContainer.pagecontainer('change', page);
+            }
+    }
+
 
     /*
      * Microcompile and compile
@@ -139,7 +149,7 @@
 	if (SIMWARE.firmware.length == 0)
         {
             alert('WARNING: please load the microcode first.');
-            $.mobile.pageContainer.pagecontainer('change','#main3');
+            sim_change_workspace('#main3') ;
             return false;
 	}
 
@@ -351,7 +361,7 @@
 
             // update UI
             var SIMWARE = get_simware() ;
-            update_memories(SIMWARE) ;
+    	    update_memories(SIMWARE) ;
             sim_core_reset() ;
 
             $("#asm_debugger").html(assembly2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg, SIMWARE.assembly));
@@ -360,10 +370,19 @@
 
     function wepsim_change_mode ( optValue, cssLayer )
     {
-	  // wepmips mode...
-	  if ('wepmips' == optValue)
+          var hwid = -1 ;
+
+	  // switch active hardware by name...
+	  if ('wepmips' == optValue) {
+	       hwid = simhw_getActiveByName('ep') ;
+               wepsim_activehw(hwid) ;
 	       wepsim_show_wepmips();
-	  else wepsim_hide_wepmips();
+          }
+	  else { 
+	       hwid = simhw_getActiveByName(optValue) ;
+               wepsim_activehw(hwid) ;
+               wepsim_hide_wepmips();
+          }
 
 	  // tutorial mode...
 	  $(cssLayer).css('background-color', '#F6F6F6') ;
@@ -376,9 +395,5 @@
 	      sim_tutorial_showframe('welcome', 0);
               return ;
 	  }
-
-	  // switch active hardware by name...
-	  var hwid = simhw_getActiveByName(optValue) ;
-          wepsim_activehw(hwid) ;
     }
 
