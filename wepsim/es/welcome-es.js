@@ -108,7 +108,7 @@
                                   "</h5>",
                      code_pre:    function() {  },
                      code_post:   function() {
-                                      load_from_example_firmware("S1E1", true);
+                                      load_from_example_firmware("ep:S1E1", true);
                                   },
                      wait_next:   100
                   });

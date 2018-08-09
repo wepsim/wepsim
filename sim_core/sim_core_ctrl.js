@@ -60,6 +60,21 @@
 	    if (typeof preWARE['stackRegister'] != "undefined")      cf['stackRegister'] = preWARE['stackRegister'] ;
 	}
 
+        function array_includes ( arr, val )
+        {
+	    if (typeof arr.includes != "undefined") {
+	        return arr.includes(val) ;
+            }
+
+            for (var i=0; i<arr.length; i++) 
+            {
+                 if (arr[i] == val) {
+                     return true ;
+                 }
+            }
+            return false ;
+	}
+
 
         /*
          *  checking & updating

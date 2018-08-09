@@ -127,6 +127,16 @@
 	    setTimeout(function(){editor.refresh();}, 100);
     }
 
+    function sim_change_workspace ( page )
+    {
+            if ( (typeof $.mobile                             != "undefined") &&
+                 (typeof $.mobile.pageContainer               != "undefined") &&
+                 (typeof $.mobile.pageContainer.pagecontainer != "undefined") ) 
+            {
+                  $.mobile.pageContainer.pagecontainer('change', page);
+            }
+    }
+
 
     /*
      * Microcompile and compile
@@ -139,7 +149,7 @@
 	if (SIMWARE.firmware.length == 0)
         {
             alert('WARNING: please load the microcode first.');
-            $.mobile.pageContainer.pagecontainer('change','#main3');
+            sim_change_workspace('#main3') ;
             return false;
 	}
 
@@ -350,25 +360,29 @@
                                   '"' + simhw_active().sim_name + '" has been activated.') ;
 
             // update UI
-            show_states() ;
-            show_rf_values() ;
-            show_rf_names() ;
-            show_dbg_ir(get_value(simhw_sim_state('REG_IR_DECO'))) ;
+            var SIMWARE = get_simware() ;
+    	    update_memories(SIMWARE) ;
+            sim_core_reset() ;
 
-            show_memories_values() ;
-            //var SIMWARE = get_simware() ;
-            //$("#asm_debugger").html(assembly2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg, SIMWARE.assembly));
-            //showhideAsmElements();
-            show_asmdbg_pc() ;
-            show_dbg_mpc() ;
+            $("#asm_debugger").html(assembly2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg, SIMWARE.assembly));
+            showhideAsmElements();
     }
 
     function wepsim_change_mode ( optValue, cssLayer )
     {
-	  // wepmips mode...
-	  if ('wepmips' == optValue)
+          var hwid = -1 ;
+
+	  // switch active hardware by name...
+	  if ('wepmips' == optValue) {
+	       hwid = simhw_getActiveByName('ep') ;
+               wepsim_activehw(hwid) ;
 	       wepsim_show_wepmips();
-	  else wepsim_hide_wepmips();
+          }
+	  else { 
+	       hwid = simhw_getActiveByName(optValue) ;
+               wepsim_activehw(hwid) ;
+               wepsim_hide_wepmips();
+          }
 
 	  // tutorial mode...
 	  $(cssLayer).css('background-color', '#F6F6F6') ;
@@ -381,9 +395,5 @@
 	      sim_tutorial_showframe('welcome', 0);
               return ;
 	  }
-
-	  // switch active hardware by name...
-	  var hwid = simhw_getActiveByName(optValue) ;
-          wepsim_activehw(hwid) ;
     }
 

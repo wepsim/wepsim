@@ -491,7 +491,7 @@
                 var divclass = filter[i].split(",")[1] ;
 
                 o1 += "<div class='" + divclass + " pb-1 px-1'>" +
-                      "<button type='button' class='btn py-0 px-0 ml-1' " + 
+                      "<button type='button' class='btn py-0 px-0 ml-0' " + 
 		      "        style='width:inherit; border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
                       "        data-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +
