@@ -104,3 +104,21 @@
                            }) ;
     }
 
+    function wepsim_load_from_url_forandroid ( url, do_next )
+    {
+	var xmlhttp = new XMLHttpRequest();
+
+	xmlhttp.onreadystatechange=function() {
+	     // if ((xmlhttp.readyState == 4) &&  (xmlhttp.status == 200))
+		if ((xmlhttp.readyState == 4) && ((xmlhttp.status == 200) || (xmlhttp.status == 0)))
+		{
+		    var textFromFileLoaded = xmlhttp.responseText ;
+                    if (null != do_next)
+                        do_next(textFromFileLoaded);
+		}
+	};
+
+	xmlhttp.open("GET", url, true);
+	xmlhttp.send();
+    }
+
