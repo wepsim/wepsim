@@ -735,13 +735,13 @@
 
 <!-- load/save microcode -->
 <div class="modal" id="lsload" tabindex="-1" role="dialog" aria-labelledby="lsload2" aria-hidden="true">
-     <div class="modal-dialog">
+     <div class="modal-dialog modal-lg">
      <div class="modal-content">
-     <div class="modal-header">
-	<button type="button" data-role="none" style="padding:0;margin:0" 
-		class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
-		data-dismiss="modal" aria-hidden="true">&times;</button>
-	<h3 class="modal-title">Microcode...</h3>
+     <div class="modal-header bg-dark">
+	<h3 class="modal-title text-white">Microcode...</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="text-white font-weight-bold">&times;</span>
+        </button>
      </div>
      <div class="modal-body">
 	<h3>Please select the file to be loaded:</h3>
@@ -762,17 +762,18 @@
 <div class="modal" id="lssave" tabindex="-1" role="dialog" aria-labelledby="lssave2" aria-hidden="true">
      <div class="modal-dialog modal-lg">
      <div class="modal-content">
-     <div class="modal-header">
-	<button type="button" data-role="none" style="padding:0;margin:0" 
-		class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
-		data-dismiss="modal" aria-hidden="true">&times;</button>
-	<h3 class="modal-title">Microcode...</h3>
+     <div class="modal-header bg-dark">
+	<h3 class="modal-title text-white">Microcode...</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="text-white font-weight-bold">&times;</span>
+        </button>
      </div>
      <div class="modal-body">
 	<h2>Please write the file name where microcode will be saved:</h2>
-	<p><input aria-label="filename to save content" id="inputFileNameToSaveAs" style="min-width: 90%;"/></p>
+	<p><input aria-label="filename to save content" id="inputFileNameToSaveAs" 
+                  class="form-control btn-outline-dark" placeholder="file name" style="min-width: 90%;"/></p>
      </div>
-     <div class="modal-footer">
+     <div class="modal-footer" style="flex-wrap: wrap">
 	<button class="btn btn-lg btn-dark my-1"  data-role="none"
 		onclick="if (confirm('Do you want me to save the current Control Memory contents rather than the editor contents?.\n\n' + 
 				     'Please notice three things:\n' +
@@ -802,13 +803,13 @@
 
 <!-- load/save assembly -->
 <div class="modal" id="lsload2" tabindex="-1" role="dialog" aria-labelledby="lsload2" aria-hidden="true">
-     <div class="modal-dialog">
+     <div class="modal-dialog modal-lg">
      <div class="modal-content">
-     <div class="modal-header">
-	<button type="button" data-role="none" style="padding:0;margin:0" 
-		class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
-		data-dismiss="modal" aria-hidden="true">&times;</button>
-	<h3 class="modal-title">Load...</h3>
+     <div class="modal-header bg-dark">
+	<h3 class="modal-title text-white">Load...</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="text-white font-weight-bold">&times;</span>
+        </button>
      </div>
      <div class="modal-body">
 	<h3>Please select the file to be assembled:</h3>
@@ -827,17 +828,18 @@
 </div>
 
 <div class="modal" id="lssave2" tabindex="-1" role="dialog" aria-labelledby="lssave2" aria-hidden="true">
-     <div class="modal-dialog">
+     <div class="modal-dialog modal-lg">
      <div class="modal-content">
-     <div class="modal-header">
-	<button type="button" data-role="none" style="padding:0;margin:0" 
-		class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
-		data-dismiss="modal" aria-hidden="true">&times;</button>
-	<h3 class="modal-title">Save...</h3>
+     <div class="modal-header bg-dark">
+	<h3 class="modal-title text-white">Save...</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="text-white font-weight-bold">&times;</span>
+        </button>
      </div>
      <div class="modal-body">
 	<h2>Please write the file name where assembly will be saved:</h2>
-	<p><input aria-label="filename to save content" id="inputFileNameToSaveAs2" style="min-width: 90%;"/></p>
+	<p><input aria-label="filename to save content" id="inputFileNameToSaveAs2" 
+                  class="form-control btn-outline-dark" placeholder="file name" style="min-width: 90%;"/></p>
      </div>
      <div class="modal-footer">
 	<button class="btn btn-lg btn-dark" 
