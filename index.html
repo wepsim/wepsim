@@ -579,71 +579,6 @@
 
             <div class="row collapse show" id="collapseA2">
 
-		<div class="modal" id="lsload" tabindex="-1" role="dialog" aria-labelledby="lsload2" aria-hidden="true">
-		     <div class="modal-dialog">
-		     <div class="modal-content">
-		     <div class="modal-header">
-			<button type="button" data-role="none" style="padding:0;margin:0" 
-				class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
-				data-dismiss="modal" aria-hidden="true">&times;</button>
-		        <h3 class="modal-title">Microcode...</h3>
-		     </div>
-		     <div class="modal-body">
-			<h3>Please select the file to be loaded:</h3>
-			<p><input aria-label="file to load" type="file" id="fileToLoad" class="dropify"/></p>
-			<center>
-			<button class="ui-btn ui-btn-b ui-btn-inline"
-				type="button" data-dismiss="modal">Cancel</button>
-                        <button class="ui-btn ui-btn-b ui-btn-inline" 
-                                onclick="var fileToLoad = document.getElementById('fileToLoad').files[0];
-					 wepsim_load_from_file(fileToLoad, inputfirm);
-                                         $('#lsload').modal('hide');">Load from this File</button>
-                        </center>
-		     </div>
-		     </div>
-		     </div>
-		</div>
-
-		<div class="modal" id="lssave" tabindex="-1" role="dialog" aria-labelledby="lssave2" aria-hidden="true">
-		     <div class="modal-dialog">
-		     <div class="modal-content">
-		     <div class="modal-header">
-			<button type="button" data-role="none" style="padding:0;margin:0" 
-				class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
-				data-dismiss="modal" aria-hidden="true">&times;</button>
-		        <h3 class="modal-title">Microcode...</h3>
-		     </div>
-		     <div class="modal-body">
-			<h2>Please write the file name where microcode will be saved:</h2>
-			<p><input aria-label="filename to save content" id="inputFileNameToSaveAs" style="min-width: 90%;"/></p>
-			<center>
-			<button class="ui-btn ui-btn-b ui-btn-inline"
-				type="button" data-dismiss="modal">Cancel</button>
-                        <button class="ui-btn ui-btn-b ui-btn-inline" 
-                                onclick="if (confirm('Do you want me to save the current Control Memory contents rather than the editor contents?.\n\n' + 
-                                                     'Please notice three things:\n' +
-                                                     '* The current Control Memory will replace the editor contents.\n' +
-                                                     '* The comments outside the microcode will be removed.\n' +
-                                                     '* Pseudo-instructions will be not included.'))
-                                         {
-					     var SIMWARE = get_simware() ;
-					     var simware_as_text = saveFirmware(SIMWARE);
-					     if (simware_as_text.trim() == '')
-						  alert('The Microcode loaded in memory is empty!\n' + 
-							'Please load a Microcode first in memory in order to save it.');
-					     else inputfirm.setValue(simware_as_text);
-                                             var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
-                                             wepsim_save_to_file(inputfirm, fileNameToSaveAs);
-					 }">Save control memory to File</button>
-                        <button class="ui-btn ui-btn-b ui-btn-inline" 
-                                onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
-                                         wepsim_save_to_file(inputfirm, fileNameToSaveAs);">Save Editor content to File</button>
-                        </center>
-		     </div>
-		     </div>
-		     </div>
-		</div>
-
                 <div class="container col-12" role="none">
 		<div class="col-sm"           role="toolbar" aria-label="MicroCode Toolbar">
 
@@ -732,55 +667,6 @@
 
             <div class="row collapse show" id="collapseA3">
 
-		<div class="modal" id="lsload2" tabindex="-1" role="dialog" aria-labelledby="lsload2" aria-hidden="true">
-		     <div class="modal-dialog">
-		     <div class="modal-content">
-		     <div class="modal-header">
-			<button type="button" data-role="none" style="padding:0;margin:0" 
-				class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
-				data-dismiss="modal" aria-hidden="true">&times;</button>
-		        <h3 class="modal-title">Load...</h3>
-		     </div>
-		     <div class="modal-body">
-			<h3>Please select the file to be assembled:</h3>
-			<p><input aria-label="file to load" type="file" id="fileToLoad2" class="dropify"/></p>
-			<center>
-			<button class="ui-btn ui-btn-b ui-btn-inline"
-				type="button" data-dismiss="modal">Cancel</button>
-                        <button class="ui-btn ui-btn-b ui-btn-inline" 
-                                onclick="var fileToLoad = document.getElementById('fileToLoad2').files[0];
-                                         wepsim_load_from_file(fileToLoad, inputasm);
-                                         $('#lsload2').modal('hide');">Load from this File</button>
-                        </center>
-		     </div>
-		     </div>
-		     </div>
-		</div>
-
-		<div class="modal" id="lssave2" tabindex="-1" role="dialog" aria-labelledby="lssave2" aria-hidden="true">
-		     <div class="modal-dialog">
-		     <div class="modal-content">
-		     <div class="modal-header">
-			<button type="button" data-role="none" style="padding:0;margin:0" 
-				class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
-				data-dismiss="modal" aria-hidden="true">&times;</button>
-		        <h3 class="modal-title">Save...</h3>
-		     </div>
-		     <div class="modal-body">
-			<h2>Please write the file name where assembly will be saved:</h2>
-			<p><input aria-label="filename to save content" id="inputFileNameToSaveAs2" style="min-width: 90%;"/></p>
-			<center>
-			<button class="ui-btn ui-btn-b ui-btn-inline"
-				type="button" data-dismiss="modal">Cancel</button>
-                        <button class="ui-btn ui-btn-b ui-btn-inline" 
-                                onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs2').value;
-                                         wepsim_save_to_file(inputasm, fileNameToSaveAs);">Save to File</button>
-                        </center>
-		     </div>
-		     </div>
-		     </div>
-		</div>
-
                 <div class="container col-12" role="none">
 		<div class="col-sm"           role="toolbar" aria-label="Assembly Toolbar">
 
@@ -847,6 +733,125 @@
 </div><!-- /page -->
 
 
+<!-- load/save microcode -->
+<div class="modal" id="lsload" tabindex="-1" role="dialog" aria-labelledby="lsload2" aria-hidden="true">
+     <div class="modal-dialog">
+     <div class="modal-content">
+     <div class="modal-header">
+	<button type="button" data-role="none" style="padding:0;margin:0" 
+		class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
+		data-dismiss="modal" aria-hidden="true">&times;</button>
+	<h3 class="modal-title">Microcode...</h3>
+     </div>
+     <div class="modal-body">
+	<h3>Please select the file to be loaded:</h3>
+	<p><input aria-label="file to load" type="file" id="fileToLoad" class="dropify"/></p>
+     </div>
+     <div class="modal-footer">
+	<button class="btn btn-lg btn-dark" 
+		onclick="var fileToLoad = document.getElementById('fileToLoad').files[0];
+			 wepsim_load_from_file(fileToLoad, inputfirm);
+			 $('#lsload').modal('hide');">Load from this File</button>
+	<button class="btn btn-lg btn-danger"
+		type="button" data-dismiss="modal">Cancel</button>
+     </div>
+     </div>
+     </div>
+</div>
+
+<div class="modal" id="lssave" tabindex="-1" role="dialog" aria-labelledby="lssave2" aria-hidden="true">
+     <div class="modal-dialog modal-lg">
+     <div class="modal-content">
+     <div class="modal-header">
+	<button type="button" data-role="none" style="padding:0;margin:0" 
+		class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
+		data-dismiss="modal" aria-hidden="true">&times;</button>
+	<h3 class="modal-title">Microcode...</h3>
+     </div>
+     <div class="modal-body">
+	<h2>Please write the file name where microcode will be saved:</h2>
+	<p><input aria-label="filename to save content" id="inputFileNameToSaveAs" style="min-width: 90%;"/></p>
+     </div>
+     <div class="modal-footer">
+	<button class="btn btn-lg btn-dark my-1"  data-role="none"
+		onclick="if (confirm('Do you want me to save the current Control Memory contents rather than the editor contents?.\n\n' + 
+				     'Please notice three things:\n' +
+				     '* The current Control Memory will replace the editor contents.\n' +
+				     '* The comments outside the microcode will be removed.\n' +
+				     '* Pseudo-instructions will be not included.'))
+			 {
+			     var SIMWARE = get_simware() ;
+			     var simware_as_text = saveFirmware(SIMWARE);
+			     if (simware_as_text.trim() == '')
+				  alert('The Microcode loaded in memory is empty!\n' + 
+					'Please load a Microcode first in memory in order to save it.');
+			     else inputfirm.setValue(simware_as_text);
+			     var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
+			     wepsim_save_to_file(inputfirm, fileNameToSaveAs);
+			 }">Save control memory to File</button>
+	<button class="btn btn-lg btn-dark my-1"  data-role="none"
+		onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
+			 wepsim_save_to_file(inputfirm, fileNameToSaveAs);">Save Editor content to File</button>
+	<button class="btn btn-lg btn-danger my-1"  data-role="none"
+		type="button" data-dismiss="modal">Cancel</button>
+     </div>
+     </div>
+     </div>
+</div>
+
+
+<!-- load/save assembly -->
+<div class="modal" id="lsload2" tabindex="-1" role="dialog" aria-labelledby="lsload2" aria-hidden="true">
+     <div class="modal-dialog">
+     <div class="modal-content">
+     <div class="modal-header">
+	<button type="button" data-role="none" style="padding:0;margin:0" 
+		class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
+		data-dismiss="modal" aria-hidden="true">&times;</button>
+	<h3 class="modal-title">Load...</h3>
+     </div>
+     <div class="modal-body">
+	<h3>Please select the file to be assembled:</h3>
+	<p><input aria-label="file to load" type="file" id="fileToLoad2" class="dropify"/></p>
+     </div>
+     <div class="modal-footer">
+	<button class="btn btn-lg btn-dark" 
+		onclick="var fileToLoad = document.getElementById('fileToLoad2').files[0];
+			 wepsim_load_from_file(fileToLoad, inputasm);
+			 $('#lsload2').modal('hide');">Load from this File</button>
+	<button class="btn btn-lg btn-danger"
+		type="button" data-dismiss="modal">Cancel</button>
+     </div>
+     </div>
+     </div>
+</div>
+
+<div class="modal" id="lssave2" tabindex="-1" role="dialog" aria-labelledby="lssave2" aria-hidden="true">
+     <div class="modal-dialog">
+     <div class="modal-content">
+     <div class="modal-header">
+	<button type="button" data-role="none" style="padding:0;margin:0" 
+		class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
+		data-dismiss="modal" aria-hidden="true">&times;</button>
+	<h3 class="modal-title">Save...</h3>
+     </div>
+     <div class="modal-body">
+	<h2>Please write the file name where assembly will be saved:</h2>
+	<p><input aria-label="filename to save content" id="inputFileNameToSaveAs2" style="min-width: 90%;"/></p>
+     </div>
+     <div class="modal-footer">
+	<button class="btn btn-lg btn-dark" 
+		onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs2').value;
+			 wepsim_save_to_file(inputasm, fileNameToSaveAs);">Save to File</button>
+	<button class="btn btn-lg btn-danger"
+		type="button" data-dismiss="modal">Cancel</button>
+     </div>
+     </div>
+     </div>
+</div>
+
+
+<!-- configuration -->
 <div id="config2" class="modal">
     <div class="modal-dialog modal-lg" style="height:80vh;">
 	<div class="modal-content">
