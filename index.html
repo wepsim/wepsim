@@ -1261,78 +1261,92 @@
 		<div style="font-family: Helvetica Neue,Helvetica,Arial,sans-serif; font-size: 16px; line-height: 24px; padding-bottom: 6.4px; padding-left: 8px; padding-right: 8px; padding-top: 6.4px; max-width: 90vw;">
 		<div class="col">
 
-			<div class="row py-2">
+			<div class="row py-0">
 			  <div class="col-sm-12">
-			         <h5>
-                                 Copyright &copy; 2015-2018 &nbsp;
-				 <span  class="badge badge-success badge"
-					onclick="wepsim_help_set_absolute('about');
-						 wepsim_help_refresh();
-						 $('#about2').modal('hide');">GNU Lesser General Public 3</span>
-                                 </h5>
+			         <h5>Copyright &copy; 2015-2018</h5>
 			  </div>
 			</div>
 
-			<div class="row py-3">
-			  <div class="col p-1">
+                        <div class="card-deck">
 			      <div class="card bg-light text-center">
-			        <img class="card-img-top" 
+			        <img class="card-img-top collapse show" id="collapse-author-1"
                                      src="images/author_fgarcia.png" alt="Felix Garcia Carballeira">
-			        <div class="card-body"><b class="card-title">F&eacute;lix  Garc&iacute;a  Carballeira</b></div>
-		                <a class='badge badge-info' href='https://www.researchgate.net/profile/Felix_Garcia-Carballeira'>researchgate</a>
+			        <div class="card-body" data-toggle="collapse" href="#collapse-author-1">
+                                  <b class="card-title">F&eacute;lix  Garc&iacute;a  Carballeira</b>
+                                </div>
+                                <div class="card-footer">
+                                  <small>
+		                  <a class='card-link' href='https://www.researchgate.net/profile/Felix_Garcia-Carballeira'>r-gate</a>
+                                  </small>
+                                </div>
 			      </div>
-			  </div>
-			  <div class="col p-1">
+
 			      <div class="card bg-light text-center">
-			        <img class="card-img-top"
+			        <img class="card-img-top collapse show" id="collapse-author-2"
                                      src="images/author_acaldero.png" alt="Alejandro Calder&oacute;n Mateos">
-			        <div class="card-body"><b class="card-title">Alejandro  Calder&oacute;n  Mateos</b></div>
-		                <a class='badge badge-info' href='https://www.researchgate.net/profile/Alejandro_Calderon2'>researchgate</a>
+			        <div class="card-body" data-toggle="collapse" href="#collapse-author-2">
+                                  <b class="card-title">Alejandro  Calder&oacute;n  Mateos</b>
+                                </div>
+                                <div class="card-footer">
+                                  <small>
+		                  <a class='card-link' href='https://www.researchgate.net/profile/Alejandro_Calderon2'>r-gate</a>
+                                  </small>
+                                </div>
 			      </div>
-			  </div>
-		          <div class="w-100 d-md-block d-lg-none"></div>
-			  <div class="col p-1">
+
 			      <div class="card bg-light text-center">
-			        <img class="card-img-top"
+			        <img class="card-img-top collapse show" id="collapse-author-3"
                                      src="images/author_jprieto.png" alt="Javier Prieto Cepeda">
-			        <div class="card-body"><b class="card-title">Javier  Prieto  Cepeda</b></div>
-		                <a class='badge badge-success' href='https://www.linkedin.com/in/javier-prieto-cepeda'>linkedin</a>
+			        <div class="card-body" data-toggle="collapse" href="#collapse-author-3">
+                                  <b class="card-title">Javier  Prieto  Cepeda</b>
+                                </div>
+                                <div class="card-footer">
+                                  <small>
+		                  <a class='card-link' href='https://www.linkedin.com/in/javier-prieto-cepeda'>linkedin</a>
+                                  </small>
+                                </div>
 			      </div>
-			  </div>
-			  <div class="col p-1">
+
 			      <div class="card bg-light text-center">
-			        <img class="card-img-top" 
+			        <img class="card-img-top collapse show" id="collapse-author-4"
                                      src="images/author_salonso.png" alt="Sa&uacute;l Alonso Monsalve">
-			        <div class="card-body"><b class="card-title">Sa&uacute;l  Alonso  Monsalve</b></div>
-			        <p class="card-text">
-		                <a class='badge badge-success' href='https://www.linkedin.com/in/salonsom/'>linkedin</a>
-		                <a class='badge badge-info'    href='https://www.researchgate.net/profile/Saul_Alonso_Monsalve'>researchgate</a>
-                                </p>
+			        <div class="card-body" data-toggle="collapse" href="#collapse-author-4">
+                                  <b class="card-title">Sa&uacute;l  Alonso  Monsalve</b>
+                                </div>
+                                <div class="card-footer">
+                                  <small>
+		                  <a class='card-link' href='https://www.linkedin.com/in/salonsom/'>linkedin</a>
+		                  <a class='card-link' href='https://www.researchgate.net/profile/Saul_Alonso_Monsalve'>r-gate</a>
+                                  </small>
+                                </div>
 			      </div>
-			  </div>
 			</div>
 
-			<div class="row py-2">
-			  <div class="col-sm-12">
-                            <h5> 
+			    <ul class="list-group pt-4 pb-1 m-0">
+                            <li class="list-group-item p-1">
                             <i class="fa fa-university">&#xf0c0;</i>
 			    <a href="http://www.arcos.inf.uc3m.es/">ARCOS Group</a><br>
-
+                            </li>
+                            <li class="list-group-item p-1">
                             <i class="fa fa-university">&#xf19d;</i>
 			    <a href="http://www.inf.uc3m.es/en/">Computer Science and Engineering Department</a><br>
-
+                            </li>
+                            <li class="list-group-item p-1">
                             <i class="fa fa-university"></i>
 			    <a href="http://www.uc3m.es/">Universidad Carlos III de Madrid</a>
-                            </h5> 
-			  </div>
-			</div>
+                            </li>
+			    </ul>
 
 		</div>
 		</div>
 	   </div>
            <div class="modal-footer">
+		 <span  class="badge badge-success badge float-left mr-auto"
+			onclick="wepsim_help_set_absolute('about');
+				 wepsim_help_refresh();
+				 $('#about2').modal('hide');">GNU Lesser General Public 3</span>
 		 <button type="button" data-dismiss="modal"
-                         class="btn btn-primary btn-sm col-xs-3 col-sm-2 float-right">OK</button>
+                         class="btn btn-primary btn-sm float-right col-3">OK</button>
 	   </div>
 	</div>
      </div>
