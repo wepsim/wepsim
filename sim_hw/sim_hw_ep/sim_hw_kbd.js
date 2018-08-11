@@ -120,3 +120,11 @@
                                                    }
                                    } ;
 
+        ep_behaviors.KBD_RESET   = { nparameters: 1,
+                                       operation: function (s_expr) 
+                                                  {
+						     // reset events.keybd
+                                                     ep_events.keybd = {} ;
+                                                  }
+                                   };
+

@@ -240,3 +240,18 @@
                                                    }
                                       };
 
+        ep_behaviors.IO_RESET      = { nparameters: 1,
+                                       operation: function (s_expr) 
+                                                  {
+						     // reset events.io
+                                                     ep_events.io = {} ;
+
+						     // reset the I/O factory
+						     for (var i=0; i<ep_internal_states.io_int_factory.length; i++)
+						     {
+						      set_var(ep_internal_states.io_int_factory[i].accumulated, 0);
+						      set_var(ep_internal_states.io_int_factory[i].active, false);
+						     }
+                                                  }
+                                     };
+
