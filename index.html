@@ -420,7 +420,7 @@
 			            onclick="wepsim_execute_reset(true, true);"><i class="fa fa-power-off"></i><b><br>Reset</b></button>
 			    <button id="nm1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"  data-role="none"
-			            onclick="wepsim_execute_microinstruction();"><i class="fa fa-forward"></i><b><br>&#181;<span class="d-none d-sm-inline-flex">Instruction</span><span class="d-sm-none">Instr.</span></b></button>
+			            onclick="wepsim_execute_microinstruction();"><i class="fa fa-step-forward"></i><b><br>&#181;<span class="d-none d-sm-inline-flex">Instruction</span><span class="d-sm-none">Instr.</span></b></button>
 			    <button id="ni1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"  data-role="none"
 			            onclick="wepsim_execute_instruction();"><i class="fa fa-fast-forward"></i><b><br><span class="d-none d-sm-inline-flex">Instruction</span><span class="d-sm-none">Instr.</span></b></button>
@@ -888,9 +888,9 @@
 
 	   <div class="modal-footer">
 		 <button type="button" class="btn btn-info    btn-sm col-xs-4 col-sm-3 float-left mr-auto"
-                         data-toggle="collapse" data-target=".collapse7">Desc<span class="d-none d-sm-inline-flex">ription</span></button>
+                         data-toggle="collapse" data-target=".collapse7">&plusmn; Desc<span class="d-none d-sm-inline-flex">ription</span></button>
 		 <button type="button" class="btn btn-danger  btn-sm col-xs-3 col-sm-2 float-right"  
-                         data-toggle="collapse" data-target=".collapse7" data-dismiss="modal">Close</button>
+                         data-dismiss="modal">Close</button>
 	   </div><!-- /footer -->
 	</div>
      </div>
@@ -901,12 +901,12 @@
      <div class="modal-dialog" style="min-width:80vw; height:80vh;">
 	<div class="modal-content">
 	   <div class="modal-header">
-		<button type="button" data-role="button" style="padding:0;margin:0"
-                        class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
-                        data-dismiss="modal" aria-hidden="true">x</button>
 		<div class="mx-auto">
                 <h5><b>Binary</b> <span class="badge badge-pill btn-success"><div class="wsversion">X</div></span></h5>
                 </div>
+		<button type="button" class="close mx-0" data-dismiss="modal" aria-label="Close">
+		    <span aria-hidden="true" class="text-black font-weight-bold">&times;</span>
+		</button>
 	   </div>
 	   <div class="modal-body">
 
@@ -971,9 +971,9 @@
 
 	   <div class="modal-footer">
 		 <button type="button" class="btn btn-info    btn-sm col-xs-4 col-sm-3 float-left mr-auto"
-                         data-toggle="collapse" data-target=".collapse7">Desc<span class="d-none d-sm-inline-flex">ription</span></button>
+                         data-toggle="collapse" data-target=".collapse7">&plusmn; Desc<span class="d-none d-sm-inline-flex">ription</span></button>
 		 <button type="button" class="btn btn-danger  btn-sm col-xs-3 col-sm-2 float-right"  
-                         data-toggle="collapse" data-target=".collapse7" data-dismiss="modal">Close</button>
+                         data-dismiss="modal">Close</button>
 	   </div><!-- /footer -->
 	</div>
      </div>
@@ -1014,11 +1014,11 @@
 
 	   <div class="modal-footer">
 		 <button type="button" class="btn btn-info    btn-sm col-xs-4 col-sm-3 float-left"
-                         data-toggle="collapse" data-target=".collapse7">Desc<span class="d-none d-sm-inline-flex">ription</span></button>
+                         data-toggle="collapse" data-target=".collapse7">&plusmn; Desc<span class="d-none d-sm-inline-flex">ription</span></button>
 		 <button type="button" class="btn btn-info    btn-sm col-xs-4 col-sm-3 float-left mr-auto"
-                         data-toggle="collapse" data-target=".collapse8">Ind<span class="d-none d-sm-inline-flex">ividual</span></button>
+                         data-toggle="collapse" data-target=".collapse8">&plusmn; Ind<span class="d-none d-sm-inline-flex">ividual</span></button>
 		 <button type="button" class="btn btn-danger  btn-sm col-xs-3 col-sm-2 float-right"
-                         data-toggle="collapse" data-target=".collapse7" data-dismiss="modal">Close</button>
+                         data-dismiss="modal">Close</button>
 	   </div><!-- /footer -->
 	</div>
      </div>
@@ -1068,7 +1068,7 @@
       </div>
       <div class="modal-body">
          <div class="bootbox-body">
-            <div id="bot_check1" class="carousel slide" data-ride="carousel" data-interval="false">
+            <div id="bot_check1" class="carousel" data-ride="carousel" data-interval="false">
                <div class="carousel-inner" role="listbox">
                   <div class="carousel-item active">
                         <h4 style="margin:0 0 10 0;">History:</h4>
@@ -1249,12 +1249,12 @@
      <div class="modal-dialog modal-lg">
 	<div class="modal-content">
 	   <div class="modal-header">
-	        <button type="button" data-role="button" style="padding:0;margin:0"
-	       	        class="close ui-btn-right ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all" 
-		        data-dismiss="modal" aria-hidden="true">x</button>
 		<div class="mx-auto">
                 <h5><b>WepSIM</b> <span class="badge badge-pill btn-success"><div class="wsversion">X</div></span></h5>
 		</div>
+		<button type="button" class="close mx-0" data-dismiss="modal" aria-label="Close">
+		    <span aria-hidden="true" class="text-black font-weight-bold">&times;</span>
+		</button>
 	   </div>
 	   <div class="modal-body">
 
@@ -1298,11 +1298,13 @@
 		</div>
 	   </div>
            <div class="modal-footer">
-		 <span class="badge badge-success badge-lg" 
-	               style="text-align:right;"
-		       onclick="wepsim_help_set_absolute('about');
-			        wepsim_help_refresh();
-				$('#about2').modal('hide');">GNU Lesser General Public 3</span>
+		 <span   class="badge badge-success badge-lg float-left mr-auto"
+	                 style="text-align:left;"
+		         onclick="wepsim_help_set_absolute('about');
+		 	          wepsim_help_refresh();
+		 		  $('#about2').modal('hide');">GNU Lesser General Public 3</span>
+		 <button type="button" data-dismiss="modal"
+                         class="btn btn-primary btn-sm col-xs-3 col-sm-2 float-right">OK</button>
 	   </div>
 	</div>
      </div>
