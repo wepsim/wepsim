@@ -113,7 +113,7 @@
                                                 "REG_IR,col",  "REG_PC,col",  "REG_SR,col",
                                                 "REG_RT1,col", "REG_RT2,col", "REG_RT3,col",
                                                 "REG_MAR,col", "REG_MBR,col", "REG_MICROADDR,col" ] ;
-        ep_internal_states.filter_signals   = [ "A0,0",   "B,0",    "C,0",   
+        poc_internal_states.filter_signals  = [ "A0,0",   "B,0",    "C,0",   
                                                 "SELA,5", "SELB,5", "SELC,2", "SELCOP,0", "MR,0", "MC,0",
 				        "C0,0", "C1,0",   "C2,0",   "C3,0",   "C4,0",     "C5,0", "C6,0", "C7,0",
 				        "T1,0", "T2,0",   "T3,0",   "T4,0",   "T5,0",     "T6,0", "T7,0", "T8,0",
@@ -667,7 +667,7 @@
 				 draw_data: [[], ['svg_p:path3733', 'svg_p:path3493', 'svg_p:text3715', 'svg_p:path3493']],
 				 draw_name: [[], []]};
 	 poc_signals["IOW"]   = { name: "IOW", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-				 behavior: ["NOP", "MOVE_BITS SCR_IOW 0 1 IOW; FIRE SCR_IOW; MOVE_BITS IO_IOW 0 1 IOW; FIRE IO_IOW;"],
+				 behavior: ["NOP", "MOVE_BITS SCR_IOW 0 1 IOW; FIRE SCR_IOW;"],
 				 fire_name: ['svg_p:text3715'],
 				 draw_data: [[], ['svg_p:path3735', 'svg_p:path3493', 'svg_p:text3717', 'svg_p:path3493']],
 				 draw_name: [[], []]};
@@ -1258,13 +1258,6 @@
 							    poc_events["keybd"]  = {} ;
 							    poc_events["io"]     = {} ;
 							    poc_events["mem"]    = {} ;
-
-							    // 2.- reset the I/O factory
-							    for (var i=0; i<poc_internal_states.io_int_factory.length; i++)
-							    {
-						                 set_value(poc_internal_states.io_int_factory[i].accumulated, 0);
-						                 set_value(poc_internal_states.io_int_factory[i].active, false);
-							    }
 							}
 					   };
 

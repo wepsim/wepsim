@@ -597,6 +597,8 @@
         function init_io ( jqdiv )
         {
             var curr_iointfactory = simhw_internalState('io_int_factory') ;
+	    if (typeof curr_iointfactory == "undefined")
+                return ;
 
 	    // without ui...
             if (jqdiv == "")
@@ -718,6 +720,8 @@
         function init_config_io ( jqdiv )
         {
             var curr_iointfactory = simhw_internalState('io_int_factory') ;
+	    if (typeof curr_iointfactory == "undefined")
+                return ;
 
             // without ui
             if (jqdiv == "")
