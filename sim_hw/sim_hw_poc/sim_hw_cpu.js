@@ -122,6 +122,7 @@
                                                 "SELP,0", "LC,0",   "SE,0",  "SIZE,0", "OFFSET,0",
                                                 "BW,0",   "R,0",    "W,0",   "TA,0",   "TD,0",   "IOR,0","IOW,0", 
                                                 "TEST_I,0", "TEST_U,0"  ] ;
+        poc_internal_states.alu_flags       = { 'flag_n': 0, 'flag_z': 0, 'flag_v': 0, 'flag_c': 0 } ;
 
 
 	/*
@@ -1247,17 +1248,13 @@
 		poc_behaviors["RESET"]    = { nparameters: 1,
 					     operation: function(s_expr)
 							{
-							    // 1.a.- set states/signals to the default state
-							    for (var key in poc_states)
+							    // set states/signals to the default state
+							    for (var key in poc_states) {
 								 reset_value(poc_states[key]) ;
-							    for (var key in  poc_signals)
-								 reset_value( poc_signals[key]) ;
-
-							    // 1.b.- reset events to empty
-							    poc_events["screen"] = {} ;
-							    poc_events["keybd"]  = {} ;
-							    poc_events["io"]     = {} ;
-							    poc_events["mem"]    = {} ;
+                                                            }
+							    for (var key in  poc_signals) {
+								 reset_value(poc_signals[key]) ;
+                                                            }
 							}
 					   };
 
@@ -1265,6 +1262,29 @@
 				             operation: function(s_expr)
 							{
                                                             show_asmdbg_pc();
+							}
+					   };
+
+	poc_behaviors["UPDATE_NZVC"]  = { nparameters: 1,
+				            operation: function(s_expr)
+							{
+							   set_value(simhw_sim_state("FLAG_N"),   
+								     poc_internal_states.alu_flags.flag_n);
+							   set_value(simhw_sim_state("FLAG_Z"),   
+								     poc_internal_states.alu_flags.flag_z);
+							   set_value(simhw_sim_state("FLAG_V"),   
+								     poc_internal_states.alu_flags.flag_v);
+							   set_value(simhw_sim_state("FLAG_C"),   
+								     poc_internal_states.alu_flags.flag_c);
+
+							   set_value(simhw_sim_signal("TEST_N"),  
+								     poc_internal_states.alu_flags.flag_n);
+							   set_value(simhw_sim_signal("TEST_Z"),  
+								     poc_internal_states.alu_flags.flag_z);
+							   set_value(simhw_sim_signal("TEST_V"),  
+								     poc_internal_states.alu_flags.flag_v);
+							   set_value(simhw_sim_signal("TEST_C"),  
+								     poc_internal_states.alu_flags.flag_c);
 							}
 					   };
 

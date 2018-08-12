@@ -168,3 +168,11 @@
                                                 }
                                 };
 
+        poc_behaviors.SCR_RESET = { nparameters: 1,
+                                      operation: function (s_expr) 
+                                                 {
+						     // reset events.screen
+                                                     poc_events.screen = {} ;
+                                                 }
+                                  };
+

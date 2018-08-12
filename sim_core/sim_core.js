@@ -64,7 +64,7 @@
             var sim_components = simhw_sim_components() ;
             for (var elto in sim_components)
             {
-		 switch (elto.name) 
+		 switch (sim_components[elto].name) 
                  {
 		    case "CPU":
 			     init_states(stateall_id) ;
@@ -217,7 +217,7 @@
             var sim_components = simhw_sim_components() ;
             for (var elto in sim_components)
             {
-		 switch (elto.name) 
+		 switch (sim_components[elto].name) 
                  {
 		    case "CPU":
 			     compute_general_behavior("RESET") ;
@@ -272,7 +272,7 @@
             var sim_components = simhw_sim_components() ;
             for (var elto in sim_components)
             {
-		 switch (elto.name) 
+		 switch (sim_components[elto].name) 
                  {
 		    case "CPU":
 			     show_states() ;

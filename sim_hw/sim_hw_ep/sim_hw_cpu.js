@@ -1310,19 +1310,13 @@
 		ep_behaviors["RESET"]    = { nparameters: 1,
 					     operation: function(s_expr)
 							{
-							    // 1.- set states/signals to the default state
+							    // set states/signals to the default state
 							    for (var key in ep_states) {
 								 reset_value(ep_states[key]) ;
                                                             }
 							    for (var key in  ep_signals) {
 								 reset_value(ep_signals[key]) ;
                                                             }
-
-							    // 2.- reset the modules
-                                                            ep_behaviors["SCR_RESET"].operation() ;
-                                                            ep_behaviors["KBD_RESET"].operation() ;
-                                                            ep_behaviors["MEM_RESET"].operation() ;
-                                                            ep_behaviors["IO_RESET"].operation() ;
 							}
 					   };
 

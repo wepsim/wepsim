@@ -120,3 +120,11 @@
                                                    }
                                    } ;
 
+        poc_behaviors.KBD_RESET  = { nparameters: 1,
+                                       operation: function (s_expr) 
+                                                  {
+						     // reset events.keybd
+                                                     poc_events.keybd = {} ;
+                                                  }
+                                   };
+
