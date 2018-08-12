@@ -61,12 +61,12 @@
 	        ret.ok      = true ;
 
             // default information holders as disabled
-            $(stateall_id).html('<div class="text-white bg-danger">DISABLED</div>') ;
-            $(statebr_id).html ('<div class="text-white bg-danger">DISABLED</div>') ;
-            $(ioall_id).html   ('<div class="text-white bg-danger">DISABLED</div>') ;
-            $(cpuall_id).html  ('<div class="text-white bg-danger">DISABLED</div>') ;
-            $(configmp_id).html('<div class="text-white bg-danger">DISABLED</div>') ;
-            $(configio_id).html('<div class="text-white bg-danger">DISABLED</div>') ;
+            $(stateall_id).html('<div class="bg-warning"><b>Not available in this hardware</b></div>') ;
+            $(statebr_id).html ('<div class="bg-warning"><b>Not available in this hardware</b></div>') ;
+            $(ioall_id).html   ('<div class="bg-warning"><b>Not available in this hardware</b></div>') ;
+            $(cpuall_id).html  ('<div class="bg-warning"><b>Not available in this hardware</b></div>') ;
+            $(configmp_id).html('<div class="bg-warning"><b>Not available in this hardware</b></div>') ;
+            $(configio_id).html('<div class="bg-warning"><b>Not available in this hardware</b></div>') ;
 
             // display the information holders
             var sim_components = simhw_sim_components() ;
@@ -239,20 +239,20 @@
 
 			 if ((typeof curr_segments['.ktext'] != "undefined") && (SIMWARE.labels2.kmain))
 			 {
-				    set_value(simhw_sim_state('REG_PC'), parseInt(SIMWARE.labels2.kmain));
-				    show_asmdbg_pc() ;
+			      set_value(simhw_sim_state('REG_PC'), parseInt(SIMWARE.labels2.kmain));
+			      show_asmdbg_pc() ;
 			 }
 			 else if ((typeof curr_segments['.text'] != "undefined") && (SIMWARE.labels2.main))
 			 {
-				    set_value(simhw_sim_state('REG_PC'), parseInt(SIMWARE.labels2.main));
-				    show_asmdbg_pc() ;
+			      set_value(simhw_sim_state('REG_PC'), parseInt(SIMWARE.labels2.main));
+			      show_asmdbg_pc() ;
 			 }
 		    
 			 if ( (typeof curr_segments['.stack'] != "undefined") &&
 			      (typeof simhw_sim_states().BR[curr_firm.stackRegister] != "undefined") )
 			 {
-				   set_value(simhw_sim_states().BR[curr_firm.stackRegister], 
-					     parseInt(curr_segments['.stack'].begin));
+				set_value(simhw_sim_states().BR[curr_firm.stackRegister], 
+					  parseInt(curr_segments['.stack'].begin));
 			 }
 			 break;
 
@@ -290,20 +290,20 @@
 		 switch (sim_components[elto].name) 
                  {
 		    case "CPU":
-			     show_states() ;
-			     show_rf_values();
-			     show_rf_names();
-			     show_dbg_ir(get_value(simhw_sim_state('REG_IR_DECO'))) ;
-			     show_control_memory(simhw_internalState('MC'),  
-						 simhw_internalState('MC_dashboard'), 0, true);
+			 show_states() ;
+			 show_rf_values();
+			 show_rf_names();
+			 show_dbg_ir(get_value(simhw_sim_state('REG_IR_DECO'))) ;
+			 show_control_memory(simhw_internalState('MC'),  
+					     simhw_internalState('MC_dashboard'), 0, true);
 			 break;
 
 		    case "MEMORY":
-			     show_main_memory(simhw_internalState('MP'),  0, true, false) ;
+			 show_main_memory(simhw_internalState('MP'),  0, true, false) ;
 			 break;
 
 		    case "SCREEN":
-			     set_screen_content("") ;
+			 set_screen_content("") ;
 			 break;
 
 		    default:
