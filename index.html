@@ -439,10 +439,10 @@
                     <div class="row" style="padding:3px 16px 0px 8px;">
                     <div class="btn-toolbar btn-block" role="toolbar">
 		          <button class="btn btn-light ui-shadow col" data-role="none"
-		                  style="border-color: #CCCCCC;"
+		                  style="border-color: #CCCCCC; flex-grow:1;"
 		                  onclick="wepsim_dialog_current_state();"><i class="fas fa-camera"></i>&nbsp;<c>States</c></button>
                           <select class="custom-select btn btn-light ui-shadow col"
-                                  style="border-color: #CCCCCC;"
+                                  style="border-color: #CCCCCC; flex-grow:2;"
 				  name="select5a" id="select5a" 
 				  data-role="none" 
                                   onchange="var val = this.value;
@@ -462,11 +462,11 @@
 				  <optgroup label="Devices">
                                       <option id="12" value="12"><div class="bg-primary text-white">Dev</div> - Keyboard+Display</a></option>
                                       <option id="15" value="15"><div class="bg-primary text-white">Dev</div> - I/O Stats</a></option>
-                                      <option id="19" value="19"><div class="bg-primary text-white">Dev</div> - Configuration</a></option>
+                                      <option id="19" value="19"><div class="bg-primary text-white">Dev</div> - I/O Configuration</a></option>
 				  </optgroup>
 			  </select>
 		          <button class="btn btn-light ui-shadow col" data-role="none"
-                                  style="border-color: #CCCCCC;"
+                                  style="border-color: #CCCCCC; flex-grow:1;"
                                   onclick="var val = $('#select5a').val();
 				           $('#tab' + val).trigger('click');
 				           if ('11' == val)
@@ -1259,7 +1259,7 @@
 	   <div class="modal-body">
 
 		<div id="container-about1" class="container-fluid" 
-		     style="max-height:80vh; padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
+		     style="max-height:75vh; padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
 
 			<div class="row py-0">
 			  <div class="col-sm-12">
@@ -1267,12 +1267,12 @@
 			  </div>
 			</div>
 
-                        <div class="card-deck">
-			      <div class="card bg-light text-center">
-			        <img class="card-img-top collapse show" id="collapse-author-1"
+                        <div class="card-desk row">
+			      <div class="card bg-light text-center col-3">
+			        <img class="card-img-top img-fluid collapse show" id="collapse-author-1"
                                      src="images/author_fgarcia.png" alt="Felix Garcia Carballeira">
 			        <div class="card-body" data-toggle="collapse" href="#collapse-author-1">
-                                  <b class="card-title">F&eacute;lix  Garc&iacute;a  Carballeira</b>
+                                  <b class="card-title">F&eacute;lix &nbsp;Garc&iacute;a &nbsp;Carballeira</b>
                                 </div>
                                 <div class="card-footer">
                                   <small>
@@ -1281,11 +1281,11 @@
                                 </div>
 			      </div>
 
-			      <div class="card bg-light text-center">
-			        <img class="card-img-top collapse show" id="collapse-author-2"
+			      <div class="card bg-light text-center col-3">
+			        <img class="card-img-top img-fluid collapse show" id="collapse-author-2"
                                      src="images/author_acaldero.png" alt="Alejandro Calder&oacute;n Mateos">
 			        <div class="card-body" data-toggle="collapse" href="#collapse-author-2">
-                                  <b class="card-title">Alejandro  Calder&oacute;n  Mateos</b>
+                                  <b class="card-title">Alejandro &nbsp;Calder&oacute;n &nbsp;Mateos</b>
                                 </div>
                                 <div class="card-footer">
                                   <small>
@@ -1294,11 +1294,11 @@
                                 </div>
 			      </div>
 
-			      <div class="card bg-light text-center">
-			        <img class="card-img-top collapse show" id="collapse-author-3"
+			      <div class="card bg-light text-center col-3">
+			        <img class="card-img-top img-fluid collapse show" id="collapse-author-3"
                                      src="images/author_jprieto.png" alt="Javier Prieto Cepeda">
 			        <div class="card-body" data-toggle="collapse" href="#collapse-author-3">
-                                  <b class="card-title">Javier  Prieto  Cepeda</b>
+                                  <b class="card-title">Javier &nbsp;Prieto &nbsp;Cepeda</b>
                                 </div>
                                 <div class="card-footer">
                                   <small>
@@ -1307,11 +1307,11 @@
                                 </div>
 			      </div>
 
-			      <div class="card bg-light text-center">
-			        <img class="card-img-top collapse show" id="collapse-author-4"
+			      <div class="card bg-light text-center col-3">
+			        <img class="card-img-top img-fluid collapse show" id="collapse-author-4"
                                      src="images/author_salonso.png" alt="Sa&uacute;l Alonso Monsalve">
 			        <div class="card-body" data-toggle="collapse" href="#collapse-author-4">
-                                  <b class="card-title">Sa&uacute;l  Alonso  Monsalve</b>
+                                  <b class="card-title">Sa&uacute;l &nbsp;Alonso &nbsp;Monsalve</b>
                                 </div>
                                 <div class="card-footer">
                                   <small>
