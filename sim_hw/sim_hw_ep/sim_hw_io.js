@@ -26,6 +26,7 @@
         ep_components.IO = {
 		                  name: "IO", 
 		                  version: "1", 
+		                  abilities: ["IO", "IO_CONFIG"], 
 		                  write_state: function ( vec ) {
 						  return vec;
 				               },

@@ -26,6 +26,7 @@
         poc_components.KBD = {
 		                  name: "KBD", 
 		                  version: "1", 
+		                  abilities: ["KBD"], 
 		                  write_state: function ( vec ) {
 						  return vec;
 				               },

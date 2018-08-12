@@ -26,6 +26,7 @@
         poc_components.MEMORY = {
 		                  name: "MEMORY", 
 		                  version: "1", 
+		                  abilities: ["MEMORY"], 
 		                  write_state: function ( vec ) {
                                                   if (typeof vec.MEMORY == "undefined")
                                                       vec.MEMORY = {} ;

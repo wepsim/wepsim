@@ -60,28 +60,43 @@
 	        ret.msg     = "" ;
 	        ret.ok      = true ;
 
+            // default information holders as disabled
+            $(stateall_id).html('<div class="text-white bg-danger">DISABLED</div>') ;
+            $(statebr_id).html ('<div class="text-white bg-danger">DISABLED</div>') ;
+            $(ioall_id).html   ('<div class="text-white bg-danger">DISABLED</div>') ;
+            $(cpuall_id).html  ('<div class="text-white bg-danger">DISABLED</div>') ;
+            $(configmp_id).html('<div class="text-white bg-danger">DISABLED</div>') ;
+            $(configio_id).html('<div class="text-white bg-danger">DISABLED</div>') ;
+
             // display the information holders
             var sim_components = simhw_sim_components() ;
             for (var elto in sim_components)
             {
-		 switch (sim_components[elto].name) 
-                 {
-		    case "CPU":
-			     init_states(stateall_id) ;
-			     init_rf(statebr_id) ;
-			     init_cpu(cpuall_id) ;
-			 break;
+		 for (var index in sim_components[elto].abilities)
+		 {
+		      switch (sim_components[elto].abilities[index]) 
+                      {
+		         case "CPU":
+			      init_states(stateall_id) ;
+			      init_rf(statebr_id) ;
+			      init_cpu(cpuall_id) ;
+			      break;
 
-		    case "MEMORY":
-			     init_config_mp(configmp_id) ;
-			 break;
+		         case "MEMORY_CONFIG":
+			      init_config_mp(configmp_id) ;
+			      break;
 
-		    case "IO":
-			     init_io(ioall_id) ;
-			     init_config_io(configio_id) ;
-			 break;
+		         case "IO":
+			      init_io(ioall_id) ;
+			      break;
 
-		    default:
+		         case "IO_CONFIG":
+			      init_config_io(configio_id) ;
+			      break;
+
+		         default:
+			      break;
+		      }
 		 }
             }
 
@@ -220,41 +235,41 @@
 		 switch (sim_components[elto].name) 
                  {
 		    case "CPU":
-			     compute_general_behavior("RESET") ;
+			 compute_general_behavior("RESET") ;
 
-			     if ((typeof curr_segments['.ktext'] != "undefined") && (SIMWARE.labels2.kmain))
-			     {
+			 if ((typeof curr_segments['.ktext'] != "undefined") && (SIMWARE.labels2.kmain))
+			 {
 				    set_value(simhw_sim_state('REG_PC'), parseInt(SIMWARE.labels2.kmain));
 				    show_asmdbg_pc() ;
-			     }
-			     else if ((typeof curr_segments['.text'] != "undefined") && (SIMWARE.labels2.main))
-			     {
+			 }
+			 else if ((typeof curr_segments['.text'] != "undefined") && (SIMWARE.labels2.main))
+			 {
 				    set_value(simhw_sim_state('REG_PC'), parseInt(SIMWARE.labels2.main));
 				    show_asmdbg_pc() ;
-			     }
+			 }
 		    
-			     if ( (typeof curr_segments['.stack'] != "undefined") &&
-				  (typeof simhw_sim_states().BR[curr_firm.stackRegister] != "undefined") )
-			     {
+			 if ( (typeof curr_segments['.stack'] != "undefined") &&
+			      (typeof simhw_sim_states().BR[curr_firm.stackRegister] != "undefined") )
+			 {
 				   set_value(simhw_sim_states().BR[curr_firm.stackRegister], 
 					     parseInt(curr_segments['.stack'].begin));
-			     }
+			 }
 			 break;
 
 		    case "MEMORY":
-			     compute_general_behavior("MEM_RESET") ;
+			 compute_general_behavior("MEM_RESET") ;
 			 break;
 
 		    case "SCREEN":
-		             compute_general_behavior("SCR_RESET") ;
+		         compute_general_behavior("SCR_RESET") ;
 			 break;
 
 		    case "KBD":
-			     compute_general_behavior("KBD_RESET") ;
+			 compute_general_behavior("KBD_RESET") ;
 			 break;
 
 		    case "IO":
-			     compute_general_behavior("IO_RESET") ;
+			 compute_general_behavior("IO_RESET") ;
 			 break;
 
 		    default:

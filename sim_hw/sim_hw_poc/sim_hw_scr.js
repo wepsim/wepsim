@@ -26,6 +26,7 @@
         poc_components.SCREEN = {
 		                  name: "SCREEN", 
 		                  version: "1", 
+		                  abilities: ["SCREEN"], 
 		                  write_state: function ( vec ) {
                                                   if (typeof vec.SCREEN == "undefined")
                                                       vec.SCREEN = {} ;

@@ -26,6 +26,7 @@
         poc_components["CPU"] = {
 		                  name: "CPU", 
 		                  version: "1", 
+		                  abilities: ["CPU"], 
 		                  write_state:  function ( vec ) {
                                                   if (typeof vec.CPU == "undefined")
                                                       vec.CPU = {} ;
