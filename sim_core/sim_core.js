@@ -225,12 +225,12 @@
     	        ret.ok      = true ;
     
             // current elements
-	    var SIMWARE       = get_simware() ;
-            var curr_firm     = simhw_internalState('FIRMWARE') ;
-            var curr_segments = simhw_internalState('segments') ;
+	    var SIMWARE        = get_simware() ;
+            var curr_firm      = simhw_internalState('FIRMWARE') ;
+            var curr_segments  = simhw_internalState('segments') ;
+            var sim_components = simhw_sim_components() ;
 
             // Hardware
-            var sim_components = simhw_sim_components() ;
             for (var elto in sim_components)
             {
 		 switch (sim_components[elto].name) 
@@ -285,8 +285,7 @@
 	    }
 
             // User Interface
-            var sim_components = simhw_sim_components() ;
-            for (var elto in sim_components)
+            for (elto in sim_components)
             {
 		 switch (sim_components[elto].name) 
                  {
