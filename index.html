@@ -150,6 +150,11 @@
         text-shadow: none !important;
     }
 
+    .text-vertical-lr {
+	writing-mode:vertical-lr; 
+        text-orientation: sideways;
+    }
+
     .ui-helper-hidden-accessible {
         display: none;
     }
@@ -1246,7 +1251,7 @@
 
 
 <div id="about2" class="modal">
-     <div class="modal-dialog modal-lg">
+     <div class="modal-dialog">
 	<div class="modal-content">
 	   <div class="modal-header">
 		<div class="mx-auto">
@@ -1259,7 +1264,7 @@
 	   <div class="modal-body">
 
 		<div id="container-about1" class="container-fluid" 
-		     style="max-height:75vh; padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
+		     style="max-height:75vh; overflow:auto; -webkit-overflow-scrolling:touch;">
 
 			<div class="row py-0">
 			  <div class="col-sm-12">
@@ -1267,56 +1272,57 @@
 			  </div>
 			</div>
 
-                        <div class="card-desk row">
-			      <div class="card bg-light text-center col-3">
+                        <div class="card-desk row"
+                             style="max-width:512px;">
+			      <div class="card bg-light text-center col-3 p-1">
 			        <img class="card-img-top img-fluid collapse show" id="collapse-author-1"
                                      src="images/author_fgarcia.png" alt="Felix Garcia Carballeira">
 			        <div class="card-body" data-toggle="collapse" href="#collapse-author-1">
-                                  <b class="card-title">F&eacute;lix &nbsp;Garc&iacute;a &nbsp;Carballeira</b>
+                                  <b class="card-title text-vertical-lr">F&eacute;lix &nbsp;Garc&iacute;a &nbsp;Carballeira</b>
                                 </div>
                                 <div class="card-footer">
                                   <small>
-		                  <a class='card-link' href='https://www.researchgate.net/profile/Felix_Garcia-Carballeira'>r-gate</a>
+		                  <a class='card-link badge badge-primary' href='https://www.researchgate.net/profile/Felix_Garcia-Carballeira'>r-gate</a>
                                   </small>
                                 </div>
 			      </div>
 
-			      <div class="card bg-light text-center col-3">
+			      <div class="card bg-light text-center col-3 p-1">
 			        <img class="card-img-top img-fluid collapse show" id="collapse-author-2"
                                      src="images/author_acaldero.png" alt="Alejandro Calder&oacute;n Mateos">
 			        <div class="card-body" data-toggle="collapse" href="#collapse-author-2">
-                                  <b class="card-title">Alejandro &nbsp;Calder&oacute;n &nbsp;Mateos</b>
+                                  <b class="card-title text-vertical-lr">Alejandro &nbsp;Calder&oacute;n &nbsp;Mateos</b>
                                 </div>
                                 <div class="card-footer">
                                   <small>
-		                  <a class='card-link' href='https://www.researchgate.net/profile/Alejandro_Calderon2'>r-gate</a>
+		                  <a class='card-link badge badge-primary' href='https://www.researchgate.net/profile/Alejandro_Calderon2'>r-gate</a>
                                   </small>
                                 </div>
 			      </div>
 
-			      <div class="card bg-light text-center col-3">
+			      <div class="card bg-light text-center col-3 p-1">
 			        <img class="card-img-top img-fluid collapse show" id="collapse-author-3"
                                      src="images/author_jprieto.png" alt="Javier Prieto Cepeda">
 			        <div class="card-body" data-toggle="collapse" href="#collapse-author-3">
-                                  <b class="card-title">Javier &nbsp;Prieto &nbsp;Cepeda</b>
+                                  <b class="card-title text-vertical-lr">Javier &nbsp;Prieto &nbsp;Cepeda</b>
                                 </div>
                                 <div class="card-footer">
                                   <small>
-		                  <a class='card-link' href='https://www.linkedin.com/in/javier-prieto-cepeda'>linkedin</a>
+		                  <a class='card-link badge badge-primary' href='https://www.linkedin.com/in/javier-prieto-cepeda'>linkedin</a>
                                   </small>
                                 </div>
 			      </div>
 
-			      <div class="card bg-light text-center col-3">
+			      <div class="card bg-light text-center col-3 p-1">
 			        <img class="card-img-top img-fluid collapse show" id="collapse-author-4"
                                      src="images/author_salonso.png" alt="Sa&uacute;l Alonso Monsalve">
 			        <div class="card-body" data-toggle="collapse" href="#collapse-author-4">
-                                  <b class="card-title">Sa&uacute;l &nbsp;Alonso &nbsp;Monsalve</b>
+                                  <b class="card-title text-vertical-lr">Sa&uacute;l &nbsp;Alonso &nbsp;Monsalve</b>
                                 </div>
                                 <div class="card-footer">
                                   <small>
-		                  <a class='card-link' href='https://www.linkedin.com/in/salonsom/'>linkedin</a>
-		                  <a class='card-link' href='https://www.researchgate.net/profile/Saul_Alonso_Monsalve'>r-gate</a>
+		                  <a class='card-link badge badge-primary m-0' href='https://www.linkedin.com/in/salonsom/'>linkedin</a>
+		                  <a class='card-link badge badge-primary m-0' href='https://www.researchgate.net/profile/Saul_Alonso_Monsalve'>r-gate</a>
                                   </small>
                                 </div>
 			      </div>
