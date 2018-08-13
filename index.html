@@ -1272,58 +1272,67 @@
 			  </div>
 			</div>
 
+                        <!-- popovers thanks to: https://codepen.io/diqidoq/pen/RRojxQ -->
                         <div class="card-desk row"
                              style="max-width:512px;">
 			      <div class="card bg-light text-center col-3 p-1">
-			        <img class="card-img-top img-fluid collapse show" id="collapse-author-1"
+			        <img class="card-img-top img-fluid" id="collapse-author-1"
                                      src="images/author_fgarcia.png" alt="Felix Garcia Carballeira">
-			        <div class="card-body" data-toggle="collapse" href="#collapse-author-1">
-                                  <b class="card-title text-vertical-lr">F&eacute;lix &nbsp;Garc&iacute;a &nbsp;Carballeira</b>
+			        <div class="card-body">
+                                  <a class="btn text-vertical-lr" 
+                                     data-placement="bottom"  data-toggle="popover3" data-html="true" href="#" 
+                                     id="fgarcia"><b>F&eacute;lix &nbsp;Garc&iacute;a &nbsp;Carballeira</b></a>
                                 </div>
-                                <div class="card-footer">
-                                  <small>
+                                <div id="popover-content-fgarcia" class="d-none">
+                                  <c>
 		                  <a class='card-link badge badge-primary' href='https://www.researchgate.net/profile/Felix_Garcia-Carballeira'>r-gate</a>
-                                  </small>
+                                  </c>
                                 </div>
 			      </div>
 
 			      <div class="card bg-light text-center col-3 p-1">
-			        <img class="card-img-top img-fluid collapse show" id="collapse-author-2"
+			        <img class="card-img-top img-fluid" id="collapse-author-2"
                                      src="images/author_acaldero.png" alt="Alejandro Calder&oacute;n Mateos">
-			        <div class="card-body" data-toggle="collapse" href="#collapse-author-2">
-                                  <b class="card-title text-vertical-lr">Alejandro &nbsp;Calder&oacute;n &nbsp;Mateos</b>
+			        <div class="card-body">
+                                  <a class="btn text-vertical-lr" 
+                                     data-placement="bottom"  data-toggle="popover3" data-html="true" href="#" 
+                                     id="acaldero"><b>Alejandro &nbsp;Calder&oacute;n &nbsp;Mateos</b></a>
                                 </div>
-                                <div class="card-footer">
-                                  <small>
+                                <div id="popover-content-acaldero" class="d-none">
+                                  <c>
 		                  <a class='card-link badge badge-primary' href='https://www.researchgate.net/profile/Alejandro_Calderon2'>r-gate</a>
-                                  </small>
+                                  </c>
                                 </div>
 			      </div>
 
 			      <div class="card bg-light text-center col-3 p-1">
-			        <img class="card-img-top img-fluid collapse show" id="collapse-author-3"
+			        <img class="card-img-top img-fluid" id="collapse-author-3"
                                      src="images/author_jprieto.png" alt="Javier Prieto Cepeda">
-			        <div class="card-body" data-toggle="collapse" href="#collapse-author-3">
-                                  <b class="card-title text-vertical-lr">Javier &nbsp;Prieto &nbsp;Cepeda</b>
+			        <div class="card-body">
+                                  <a class="btn text-vertical-lr" 
+                                     data-placement="bottom"  data-toggle="popover3" data-html="true" href="#" 
+                                     id="jprieto"><b>Javier &nbsp;Prieto &nbsp;Cepeda</b></a>
                                 </div>
-                                <div class="card-footer">
-                                  <small>
+                                <div id="popover-content-jprieto" class="d-none">
+                                  <c>
 		                  <a class='card-link badge badge-primary' href='https://www.linkedin.com/in/javier-prieto-cepeda'>linkedin</a>
-                                  </small>
+                                  </c>
                                 </div>
 			      </div>
 
 			      <div class="card bg-light text-center col-3 p-1">
-			        <img class="card-img-top img-fluid collapse show" id="collapse-author-4"
+			        <img class="card-img-top img-fluid" id="collapse-author-4"
                                      src="images/author_salonso.png" alt="Sa&uacute;l Alonso Monsalve">
-			        <div class="card-body" data-toggle="collapse" href="#collapse-author-4">
-                                  <b class="card-title text-vertical-lr">Sa&uacute;l &nbsp;Alonso &nbsp;Monsalve</b>
+			        <div class="card-body">
+                                  <a class="btn text-vertical-lr" 
+                                     data-placement="bottom"  data-toggle="popover3" data-html="true" href="#" 
+                                     id="salonso"><b>Sa&uacute;l &nbsp;Alonso &nbsp;Monsalve</b></a>
                                 </div>
-                                <div class="card-footer">
-                                  <small>
-		                  <a class='card-link badge badge-primary m-0' href='https://www.linkedin.com/in/salonsom/'>linkedin</a>
-		                  <a class='card-link badge badge-primary m-0' href='https://www.researchgate.net/profile/Saul_Alonso_Monsalve'>r-gate</a>
-                                  </small>
+                                <div id="popover-content-salonso" class="d-none">
+                                  <c>
+		                  <a class='card-link badge badge-primary' href='https://www.linkedin.com/in/salonsom/'>linkedin</a>
+		                  <a class='card-link badge badge-primary' href='https://www.researchgate.net/profile/Saul_Alonso_Monsalve'>r-gate</a>
+                                  </c>
                                 </div>
 			      </div>
 			</div>
@@ -1475,6 +1484,13 @@
                                '        onclick="$(\'#popover2_asm\').popover(\'hide\');">&times;</button>' ;
                     }
             });
+            $("[data-toggle=popover3]").popover({
+	            html: true,
+	            content: function() {
+	              var id = $(this).attr('id')
+	              return $('#popover-content-' + id).html();
+	            }
+	    });
 
             $('.dropify').dropify();
 
