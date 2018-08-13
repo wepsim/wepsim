@@ -61,12 +61,13 @@
 	        ret.ok      = true ;
 
             // default information holders as disabled
-            $(stateall_id).html('<div class="bg-warning"><b>Not available in this hardware</b></div>') ;
-            $(statebr_id).html ('<div class="bg-warning"><b>Not available in this hardware</b></div>') ;
-            $(ioall_id).html   ('<div class="bg-warning"><b>Not available in this hardware</b></div>') ;
-            $(cpuall_id).html  ('<div class="bg-warning"><b>Not available in this hardware</b></div>') ;
-            $(configmp_id).html('<div class="bg-warning"><b>Not available in this hardware</b></div>') ;
-            $(configio_id).html('<div class="bg-warning"><b>Not available in this hardware</b></div>') ;
+            var msg_default = '<div class="bg-warning"><b>Not available in this hardware</b></div>' ;
+            if ('' != stateall_id)  $(stateall_id).html(msg_default) ;
+            if ('' != statebr_id)    $(statebr_id).html(msg_default) ;
+            if ('' != ioall_id)        $(ioall_id).html(msg_default) ;
+            if ('' != cpuall_id)      $(cpuall_id).html(msg_default) ;
+            if ('' != configmp_id)  $(configmp_id).html(msg_default) ;
+            if ('' != configio_id)  $(configio_id).html(msg_default) ;
 
             // display the information holders
             var sim_components = simhw_sim_components() ;
