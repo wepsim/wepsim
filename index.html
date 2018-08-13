@@ -735,7 +735,7 @@
 
 <!-- load/save microcode -->
 <div class="modal" id="lsload" tabindex="-1" role="dialog" aria-labelledby="lsload2" aria-hidden="true">
-     <div class="modal-dialog modal-lg">
+     <div class="modal-dialog">
      <div class="modal-content">
      <div class="modal-header bg-dark">
 	<h3 class="modal-title text-white">Load Microcode</h3>
@@ -748,11 +748,11 @@
 	<p><input aria-label="file to load" type="file" id="fileToLoad" class="dropify"/></p>
      </div>
      <div class="modal-footer">
-	<button class="btn btn-lg btn-dark" 
+	<button class="btn btn-md btn-dark" 
 		onclick="var fileToLoad = document.getElementById('fileToLoad').files[0];
 			 wepsim_load_from_file(fileToLoad, inputfirm);
 			 $('#lsload').modal('hide');">Load from this File</button>
-	<button class="btn btn-lg btn-danger"
+	<button class="btn btn-md btn-danger"
 		type="button" data-dismiss="modal">Cancel</button>
      </div>
      </div>
@@ -760,7 +760,7 @@
 </div>
 
 <div class="modal" id="lssave" tabindex="-1" role="dialog" aria-labelledby="lssave2" aria-hidden="true">
-     <div class="modal-dialog modal-lg">
+     <div class="modal-dialog">
      <div class="modal-content">
      <div class="modal-header bg-dark">
 	<h3 class="modal-title text-white">Save Microcode</h3>
@@ -774,7 +774,7 @@
                   class="form-control btn-outline-dark" placeholder="File name where microcode will be saved" style="min-width: 90%;"/></p>
      </div>
      <div class="modal-footer" style="flex-wrap: wrap">
-	<button class="btn btn-lg btn-dark my-1"  data-role="none"
+	<button class="btn btn-md btn-dark my-1"  data-role="none"
 		onclick="if (confirm('Do you want me to save the current Control Memory contents rather than the editor contents?.\n\n' + 
 				     'Please notice three things:\n' +
 				     '* The current Control Memory will replace the editor contents.\n' +
@@ -790,10 +790,10 @@
 			     var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
 			     wepsim_save_to_file(inputfirm, fileNameToSaveAs);
 			 }">Save control memory to File</button>
-	<button class="btn btn-lg btn-dark my-1"  data-role="none"
+	<button class="btn btn-md btn-dark my-1"  data-role="none"
 		onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
 			 wepsim_save_to_file(inputfirm, fileNameToSaveAs);">Save Editor content to File</button>
-	<button class="btn btn-lg btn-danger my-1"  data-role="none"
+	<button class="btn btn-md btn-danger my-1"  data-role="none"
 		type="button" data-dismiss="modal">Cancel</button>
      </div>
      </div>
@@ -803,7 +803,7 @@
 
 <!-- load/save assembly -->
 <div class="modal" id="lsload2" tabindex="-1" role="dialog" aria-labelledby="lsload2" aria-hidden="true">
-     <div class="modal-dialog modal-lg">
+     <div class="modal-dialog">
      <div class="modal-content">
      <div class="modal-header bg-dark">
 	<h3 class="modal-title text-white">Load Assembly</h3>
@@ -816,11 +816,11 @@
 	<p><input aria-label="file to load" type="file" id="fileToLoad2" class="dropify"/></p>
      </div>
      <div class="modal-footer">
-	<button class="btn btn-lg btn-dark" 
+	<button class="btn btn-md btn-dark" 
 		onclick="var fileToLoad = document.getElementById('fileToLoad2').files[0];
 			 wepsim_load_from_file(fileToLoad, inputasm);
 			 $('#lsload2').modal('hide');">Load from this File</button>
-	<button class="btn btn-lg btn-danger"
+	<button class="btn btn-md btn-danger"
 		type="button" data-dismiss="modal">Cancel</button>
      </div>
      </div>
@@ -828,7 +828,7 @@
 </div>
 
 <div class="modal" id="lssave2" tabindex="-1" role="dialog" aria-labelledby="lssave2" aria-hidden="true">
-     <div class="modal-dialog modal-lg">
+     <div class="modal-dialog">
      <div class="modal-content">
      <div class="modal-header bg-dark">
 	<h3 class="modal-title text-white">Save Assembly</h3>
@@ -842,10 +842,10 @@
                   class="form-control btn-outline-dark" placeholder="File name where assembly will be saved" style="min-width: 90%;"/></p>
      </div>
      <div class="modal-footer">
-	<button class="btn btn-lg btn-dark" 
+	<button class="btn btn-md btn-dark" 
 		onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs2').value;
 			 wepsim_save_to_file(inputasm, fileNameToSaveAs);">Save to File</button>
-	<button class="btn btn-lg btn-danger"
+	<button class="btn btn-md btn-danger"
 		type="button" data-dismiss="modal">Cancel</button>
      </div>
      </div>
@@ -1488,7 +1488,8 @@
 	    }
 
             // progressive web application
-	    if ('serviceWorker' in navigator) 
+var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+	    if ( (false == isMobile) && ('serviceWorker' in navigator) )
             {
 		navigator.serviceWorker.register('./min.wepsim_pwa.js').catch(function() {
 		  wepsim_notify_error("<h4>Warning:" + 
