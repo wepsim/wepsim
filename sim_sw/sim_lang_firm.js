@@ -1064,6 +1064,35 @@ function saveFirmware ( SIMWARE )
  *  Auxiliar firmware interface
  */
 
+function generate_cocop_hash ( curr_firm )
+{
+    curr_firm.cocop_hash = {} ;
+
+    var fico  = 0 ;
+    var ficop = 0 ;
+
+    for (var fi in curr_firm['firmware'])
+    {
+	 if (curr_firm.firmware[fi].name == "begin") {
+	     continue ;
+	 }
+
+	 fico  = curr_firm.firmware[fi].co ;
+	 if (typeof curr_firm.cocop_hash[fico] == "undefined") {
+	     curr_firm.cocop_hash[fico] = {} ;
+	 }
+
+	 if (typeof curr_firm.firmware[fi].cop == "undefined") {
+	     curr_firm.cocop_hash[fico].withcop = false ;
+	     curr_firm.cocop_hash[fico].i       = curr_firm.firmware[fi] ;
+	 } else {
+	     ficop = curr_firm.firmware[fi].cop ;
+	     curr_firm.cocop_hash[fico].withcop = true ;
+	     curr_firm.cocop_hash[fico][ficop]    = curr_firm.firmware[fi] ;
+	 }
+    }
+}
+
 function decode_instruction ( curr_firm, ep_ir, binstruction )
 {
     var ret = { 
@@ -1085,25 +1114,12 @@ function decode_instruction ( curr_firm, ep_ir, binstruction )
     ret.cop_code = parseInt(cop, 2) ;
 
     // try to find instruction in the loaded firmware
-    for (var fi in curr_firm['firmware'])
-    {
-         if (curr_firm.firmware[fi].name == "begin") 
-         {
-             continue ;
-         }
+    if (typeof curr_firm.cocop_hash == "undefined")
+        generate_cocop_hash(curr_firm) ;
 
-         if ( (curr_firm.firmware[fi].co == co) && (typeof curr_firm.firmware[fi].cop == "undefined") )
-         {
-             ret.oinstruction = curr_firm.firmware[fi] ;
-             break ;
-         }
-
-         if ( (curr_firm.firmware[fi].co == co) && (typeof curr_firm.firmware[fi].cop != "undefined") && (curr_firm.firmware[fi].cop == cop) )
-         {
-             ret.oinstruction = curr_firm.firmware[fi] ;
-             break ;
-         }
-    }
+    if (false == curr_firm.cocop_hash[co].withcop)
+         ret.oinstruction = curr_firm.cocop_hash[co].i ;
+    else ret.oinstruction = curr_firm.cocop_hash[co][cop] ;
 
     return ret ;
 }
