@@ -97,6 +97,14 @@
 
 
 	/*
+	 *  Default elements at the Instruction Register (IR)
+	 */
+
+        poc_ir.default_eltos = {  "co": { "begin":  0, "end":  5, "length": 6 },
+			         "cop": { "begin": 28, "end": 31, "length": 4 } } ;
+
+
+	/*
 	 *  Internal States
 	 */
 
@@ -1097,32 +1105,33 @@
 	poc_behaviors["DECO"]    = { nparameters: 1,
 				     operation: function(s_expr)
 						{
-						    var bits = get_value(poc_states['REG_IR']).toString(2) ;
-						        bits = "00000000000000000000000000000000".substring(0, 32 - bits.length) + bits ;
-						    var  op_code = parseInt(bits.substr(0,  6), 2) ; //  op-code of 6 bits
-						    var cop_code = parseInt(bits.substr(28, 4), 2) ; // cop-code of 4 bits
+						    poc_states['INEX'].value = 0 ;
 
 						    // 1.- IR -> oi
-						    poc_states['INEX'].value = 0 ;
-						    var oi = decode_instruction(bits) ;
-						    if (null == oi)
+						    var oi = decode_instruction(poc_internal_states.FIRMWARE, 
+                                                                                poc_ir,
+						                                get_value(poc_states['REG_IR'])) ;
+						    if (null == oi.oinstruction)
                                                     {
-                                                         alert('ERROR: undefined instruction code in firmware ' +
-                                                               '(co:' + op_code.toString(2) + ', cop:' + cop_code.toString(2) + ')') ;
+                                                         alert('ERROR: undefined instruction code in firmware (' +
+							       'co:'  +  oi.op_code.toString(2) + ', ' + 
+							       'cop:' + oi.cop_code.toString(2) + ')') ;
 							 poc_states['ROM_MUXA'].value = 0 ;
 							 poc_states['INEX'].value = 1 ;
 							 return -1;
 						    }
 
-						    // 2.- oi -> rom_addr
-                                                    var rom_addr = op_code << 6;
-						    if (typeof oi.cop != "undefined")
-                                                        rom_addr = rom_addr + cop_code ;
+						    // 2.- oi.oinstruction -> rom_addr
+                                                    var rom_addr = oi.op_code << 6;
+						    if (typeof oi.oinstruction.cop != "undefined") {
+                                                        rom_addr = rom_addr + oi.cop_code ;
+						    }
 
 						    // 2.- ! poc_internal_states['ROM'][rom_addr] -> error
 						    if (typeof poc_internal_states['ROM'][rom_addr] == "undefined")
 						    {
-							 alert('ERROR: undefined rom address ' + rom_addr + ' in firmware') ;
+							 alert('ERROR: undefined rom address ' + rom_addr + 
+                                                               ' in firmware') ;
 							 poc_states['ROM_MUXA'].value = 0 ;
 							 return -1;
 						    }

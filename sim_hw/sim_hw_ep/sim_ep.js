@@ -30,6 +30,7 @@
         var ep_signals         = {} ;
         var ep_behaviors       = {} ;
         var ep_internal_states = {} ;
+        var ep_ir              = {} ;
 
 
         /*
@@ -48,7 +49,9 @@
                        signals:             ep_signals,
                        behaviors:           ep_behaviors,
                        events:              ep_events,
-                       internal_states:     ep_internal_states
+
+                       internal_states:     ep_internal_states,
+                       ir_info:             ep_ir
 	             } ;
 
         simhw_add(ep_def) ;

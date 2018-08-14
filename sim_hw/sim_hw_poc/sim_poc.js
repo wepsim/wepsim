@@ -30,6 +30,7 @@
         var poc_signals         = {} ;
         var poc_behaviors       = {} ;
         var poc_internal_states = {} ;
+        var poc_ir              = {} ;
 
 
         /*
@@ -48,7 +49,9 @@
                        signals:             poc_signals,
                        behaviors:           poc_behaviors,
                        events:              poc_events,
-                       internal_states:     poc_internal_states
+
+                       internal_states:     poc_internal_states,
+                       ir_info:             poc_ir
 	             } ;
 
         simhw_add(poc_def) ;
