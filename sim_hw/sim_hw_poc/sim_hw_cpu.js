@@ -501,22 +501,22 @@
 					  "DIV ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
 					  "MOD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
 					  "LUI ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3"],
+					  "FADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "FSUB ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "FMUL ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "FDIV ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "FMOD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "NOP_ALU",
+					  "NOP_ALU",
+					  "NOP_ALU",
+					  "NOP_ALU",
+					  "NOP_ALU",
+					  "NOP_ALU",
+					  "NOP_ALU",
+					  "NOP_ALU",
+					  "NOP_ALU",
+					  "NOP_ALU",
+					  "NOP_ALU"],
                                depends_on: ["SELCOP"],
 			       fire_name: ['svg_p:text3303'],
 			       draw_data: [['svg_p:path3237', 'svg_p:path3239', 
@@ -808,19 +808,19 @@
 						   set_value( poc_signals[s_expr[1]], Math.abs(get_value(poc_states[s_expr[2]]) - 1));
 						}
 				   };
-	poc_behaviors["GET"]      = { nparameters: 4,
+	poc_behaviors["GET"]     = { nparameters: 4,
 				     types: ["E", "E", "S"],
 				     operation: function(s_expr) {
 						   set_value(poc_states[s_expr[1]], get_value(poc_states[s_expr[2]][ poc_signals[s_expr[3]].value]));
 						}
 				   };
-	poc_behaviors["SET"]      = { nparameters: 4,
+	poc_behaviors["SET"]     = { nparameters: 4,
 				     types: ["E", "S", "E"],
 				     operation: function(s_expr) {
 						   set_value(poc_states[s_expr[1]][ poc_signals[s_expr[2]].value], get_value(poc_states[s_expr[3]]));
 						}
 				   };
-	poc_behaviors["AND"]      = { nparameters: 4,
+	poc_behaviors["AND"]     = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr) {
 				                   var result = get_value(poc_states[s_expr[2]]) & get_value(poc_states[s_expr[3]]) ;
@@ -829,7 +829,7 @@
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
-	poc_behaviors["OR"]       = { nparameters: 4,
+	poc_behaviors["OR"]      = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr) {
 				                   var result = get_value(poc_states[s_expr[2]]) | get_value(poc_states[s_expr[3]]) ;
@@ -838,7 +838,7 @@
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
-	poc_behaviors["NOT"]      = { nparameters: 3,
+	poc_behaviors["NOT"]     = { nparameters: 3,
 				     types: ["E", "E"],
 				     operation: function(s_expr) {
 				                   var result = ~(get_value(poc_states[s_expr[2]])) ;
@@ -847,7 +847,7 @@
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
-	poc_behaviors["XOR"]      = { nparameters: 4,
+	poc_behaviors["XOR"]     = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr) {
 				                   var result = get_value(poc_states[s_expr[2]]) ^ get_value(poc_states[s_expr[3]]) ;
@@ -856,7 +856,7 @@
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
-	poc_behaviors["SRL"]      = { nparameters: 3,
+	poc_behaviors["SRL"]     = { nparameters: 3,
 				     types: ["E", "E"],
 				     operation: function(s_expr) {
 				                   var result = (get_value(poc_states[s_expr[2]])) >>> 1 ;
@@ -865,7 +865,7 @@
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
-	poc_behaviors["SRA"]      = { nparameters: 3,
+	poc_behaviors["SRA"]     = { nparameters: 3,
 				     types: ["E", "E"],
 				     operation: function(s_expr) {
 				                   var result = (get_value(poc_states[s_expr[2]])) >> 1 ;
@@ -874,7 +874,7 @@
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
-	poc_behaviors["SL"]       = { nparameters: 3,
+	poc_behaviors["SL"]      = { nparameters: 3,
 				     types: ["E", "E"],
 				     operation: function(s_expr) {
 				                   var result = (get_value(poc_states[s_expr[2]])) << 1 ;
@@ -883,7 +883,7 @@
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, (result) >>> 31) ;
 						}
 				   };
-	poc_behaviors["RR"]       = { nparameters: 3,
+	poc_behaviors["RR"]      = { nparameters: 3,
 				     types: ["E", "E"],
 				     operation: function(s_expr) {
 				                   var result = ((get_value(poc_states[s_expr[2]])) >>> 1) | (((get_value(poc_states[s_expr[2]])) & 1) << 31) ;
@@ -892,7 +892,7 @@
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
-	poc_behaviors["RL"]       = { nparameters: 3,
+	poc_behaviors["RL"]      = { nparameters: 3,
 				     types: ["E", "E"],
 				     operation: function(s_expr) {
 				                   var result = ((get_value(poc_states[s_expr[2]])) << 1) | (((get_value(poc_states[s_expr[2]])) & 0X80000000) >>> 31) ;
@@ -901,7 +901,7 @@
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
-	poc_behaviors["ADD"]      = { nparameters: 4,
+	poc_behaviors["ADD"]     = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr) {
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
@@ -922,7 +922,7 @@
 			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
 						}
 				   };
-	poc_behaviors["SUB"]      = { nparameters: 4,
+	poc_behaviors["SUB"]     = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr) {
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
@@ -943,7 +943,7 @@
 			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
 						}
 				   };
-	poc_behaviors["MUL"]      = { nparameters: 4,
+	poc_behaviors["MUL"]     = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr) {
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
@@ -964,7 +964,7 @@
 			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
 						}
 				   };
-	poc_behaviors["DIV"]      = { nparameters: 4,
+	poc_behaviors["DIV"]     = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr) {
 						   var a = (get_value(poc_states[s_expr[2]]) << 0) ;
@@ -981,7 +981,7 @@
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
-	poc_behaviors["MOD"]      = { nparameters: 4,
+	poc_behaviors["MOD"]     = { nparameters: 4,
 				     types: ["E", "E", "E"],
 				     operation: function(s_expr) {
 						   var result = (get_value(poc_states[s_expr[2]]) << 0) % (get_value(poc_states[s_expr[3]]) << 0) ;
@@ -990,7 +990,112 @@
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						}
 				   };
-	poc_behaviors["LUI"]      = { nparameters: 3,
+	poc_behaviors["LUI"]     = { nparameters: 3,
+				     types: ["E", "E"],
+				     operation: function(s_expr) {
+						   var result = (get_value(poc_states[s_expr[2]])) << 16 ;
+						   set_value(poc_states[s_expr[1]], result) ;
+
+			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						}
+				   };
+	poc_behaviors["FADD"]    = { nparameters: 4,
+				     types: ["E", "E", "E"],
+				     operation: function(s_expr) { // Dummy code added for testing only...
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(poc_states[s_expr[3]]) << 0 ;
+						   var result = a.toFixed(2) + b.toFixed(2) ;
+
+						   set_value(poc_states[s_expr[1]], result >>> 0) ;
+
+						   var flag_n = (result  < 0.0) ? 1 : 0 ;
+						   var flag_z = (result == 0.0) ? 1 : 0 ;
+						   var flag_c = 0 ;
+
+						   var flag_v = 0 ;
+						   if ( (result < 0.0) && (a >= 0.0) && (b >= 0.0) )
+							flag_v = 1 ;
+						   if ( (result >= 0.0) && (a <  0.0) && (b <  0.0) )
+							flag_v = 1 ;
+
+			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
+						}
+				   };
+	poc_behaviors["FSUB"]    = { nparameters: 4,
+				     types: ["E", "E", "E"],
+				     operation: function(s_expr) { // Dummy code added for testing only...
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(poc_states[s_expr[3]]) << 0 ;
+						   var result = a.toFixed(2) - b.toFixed(2) ;
+						   set_value(poc_states[s_expr[1]], result >>> 0) ;
+
+						   var flag_n = (result  < 0.0) ? 1 : 0 ;
+						   var flag_z = (result == 0.0) ? 1 : 0 ;
+						   var flag_c = 0 ;
+
+						   var flag_v = 0 ;
+						   if ( (result < 0) && (a >= 0) && (b >= 0) )
+							flag_v = 1 ;
+						   if ( (result >= 0) && (a <  0) && (b <  0) )
+							flag_v = 1 ;
+
+			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
+						}
+				   };
+	poc_behaviors["FMUL"]    = { nparameters: 4,
+				     types: ["E", "E", "E"],
+				     operation: function(s_expr) { // Dummy code added for testing only...
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(poc_states[s_expr[3]]) << 0 ;
+						   var result = a.toFixed(2) * b.toFixed(2) ;
+						   set_value(poc_states[s_expr[1]], result >>> 0) ;
+
+						   var flag_n = (result  < 0.0) ? 1 : 0 ;
+						   var flag_z = (result == 0.0) ? 1 : 0 ;
+						   var flag_c = 0 ;
+
+						   var flag_v = 0 ;
+						   if ( (result < 0) && (a >= 0) && (b >= 0) )
+							flag_v = 1 ;
+						   if ( (result >= 0) && (a <  0) && (b <  0) )
+							flag_v = 1 ;
+
+			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
+						}
+				   };
+	poc_behaviors["FDIV"]    = { nparameters: 4,
+				     types: ["E", "E", "E"],
+				     operation: function(s_expr) { // Dummy code added for testing only...
+						   var a = (get_value(poc_states[s_expr[2]]) << 0) ;
+						   var b = (get_value(poc_states[s_expr[3]]) << 0) ;
+
+						   if (0 == b) {
+						       set_value(poc_states[s_expr[1]], 0) ;
+			                               poc_update_nzvc(0, 1, 1, 0) ;
+                                                       return ;
+                                                   }
+
+				                   var result = Math.floor(a / b) ;
+				                   set_value(poc_states[s_expr[1]], result) ;
+			                           poc_update_nzvc((result  < 0.0) ? 1 : 0, 
+                                                                   (result == 0.0) ? 1 : 0, 
+                                                                   0, 
+                                                                   0) ;
+						}
+				   };
+	poc_behaviors["FMOD"]    = { nparameters: 4,
+				     types: ["E", "E", "E"],
+				     operation: function(s_expr) { // Dummy code added for testing only...
+						   var result = (get_value(poc_states[s_expr[2]]) << 0) % (get_value(poc_states[s_expr[3]]) << 0) ;
+						   set_value(poc_states[s_expr[1]], result) ;
+
+			                           poc_update_nzvc((result  < 0.0) ? 1 : 0, 
+                                                                   (result == 0.0) ? 1 : 0, 
+                                                                   0, 
+                                                                   0) ;
+						}
+				   };
+	poc_behaviors["LUI"]     = { nparameters: 3,
 				     types: ["E", "E"],
 				     operation: function(s_expr) {
 						   var result = (get_value(poc_states[s_expr[2]])) << 16 ;

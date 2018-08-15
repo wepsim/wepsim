@@ -200,7 +200,8 @@ function read_native ( context )
 
 function loadFirmware (text)
 {
-           var ir_info = simhw_sim_irInfo() ;
+           var     ir_info = simhw_sim_irInfo() ;
+           var all_ones_co = "1".repeat(ir_info.default_eltos.co.length) ;
 
            var context = {} ;
 	   context.line           	= 1 ;
@@ -574,7 +575,7 @@ function loadFirmware (text)
                }
 
 	       // semantic check: 'co' is not already used
-	       if (instruccionAux["co"] != "111111") // TODO: "111...".length <== ir_info.default_eltos.co.length
+	       if (instruccionAux["co"] != all_ones_co)
 	       {
 	           if ( (typeof context.co_cop[instruccionAux["co"]] != "undefined") &&
 	                       (context.co_cop[instruccionAux["co"]].cop == null) )
@@ -583,11 +584,11 @@ function loadFirmware (text)
 			         "'co' is already been used by: " + context.co_cop[instruccionAux.co].signature) ;
 	           }
 
-             if (typeof context.co_cop[instruccionAux.co] == "undefined")
+                   if (typeof context.co_cop[instruccionAux.co] == "undefined")
 	           {
 	               context.co_cop[instruccionAux.co] = {} ;
-   	             context.co_cop[instruccionAux.co].signature = instruccionAux.signature ;
-                 context.co_cop[instruccionAux.co].cop       = null ;
+   	               context.co_cop[instruccionAux.co].signature = instruccionAux.signature ;
+                       context.co_cop[instruccionAux.co].cop       = null ;
 	           }
 	       }
 
