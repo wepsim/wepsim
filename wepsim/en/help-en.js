@@ -70,9 +70,9 @@
     help.en.push({
                      id:          "architecture",
                      title:       "Simulated architecture",
-                     i_type:      "relative",
+                     i_type:      "absolute",
                      u_type:      "elemental processor",
-                     reference:   "#help_simulator_arch",
+                     reference:   "ep/ep",
                      description: "Description of the elemental processor architecture.<br>"
                   });
 
@@ -81,7 +81,7 @@
                      title:       "Simulated signals",
                      i_type:      "absolute",
                      u_type:      "elemental processor",
-                     reference:   "signals",
+                     reference:   "ep/signals",
                      description: "Main signals summary of the simulated elemental processor.<br>"
                   });
 
