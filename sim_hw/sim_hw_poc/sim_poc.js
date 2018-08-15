@@ -40,7 +40,7 @@
         var poc_def = {
                        sim_name:            "Proof-Of-Concept Processor",
                        sim_short_name:      "poc",
-                       sim_img_processor:   "sim_hw/sim_hw_poc/cpu2.svg",
+                       sim_img_processor:   "sim_hw/sim_hw_poc/processor2.svg",
                        sim_img_controlunit: "sim_hw/sim_hw_poc/controlunit2.svg",
                        sim_img_cpu:         "sim_hw/sim_hw_poc/cpu2.svg",
 
