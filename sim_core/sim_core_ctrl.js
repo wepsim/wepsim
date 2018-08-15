@@ -35,9 +35,10 @@
 	    if (typeof cf['labels2'] == "undefined")             cf['labels2']            = new Object() ;
 	    if (typeof cf['labels_firm'] == "undefined")         cf['labels_firm']        = new Object() ;
 	    if (typeof cf['registers'] == "undefined")           cf['registers']          = new Object() ;
-	    if (typeof cf['cihash'] == "undefined")              cf['cihash']             = new Object() ;
 	    if (typeof cf['pseudoInstructions'] == "undefined")  cf['pseudoInstructions'] = new Object() ;
 	    if (typeof cf['stackRegister'] == "undefined")       cf['stackRegister']      = new Object() ;
+	    if (typeof cf['cihash'] == "undefined")              cf['cihash']             = new Object() ;
+	    if (typeof cf['cocop_hash'] == "undefined")          cf['cocop_hash']         = new Object() ;
 
             return cf ;
 	}
@@ -49,7 +50,6 @@
 	    if (typeof preWARE['firmware'] != "undefined")           cf['firmware'] = preWARE['firmware'] ;
 	    if (typeof preWARE['mp'] != "undefined")                 cf['mp'] = preWARE['mp'] ;
 	    if (typeof preWARE['registers'] != "undefined")          cf['registers'] = preWARE['registers'] ;
-	    if (typeof preWARE['cihash'] != "undefined")             cf['cihash'] = preWARE['cihash'] ;
 	    if (typeof preWARE['assembly'] != "undefined")           cf['assembly'] = preWARE['assembly'] ;
 	    if (typeof preWARE['pseudoInstructions'] != "undefined") cf['pseudoInstructions'] = preWARE['pseudoInstructions'] ;
 
@@ -58,6 +58,8 @@
 	    if (typeof preWARE['labels2'] != "undefined")            cf['labels2'] = preWARE['labels2'] ;
 	    if (typeof preWARE['labels_firm'] != "undefined")        cf['labels_firm'] = preWARE['labels_firm'] ;
 	    if (typeof preWARE['stackRegister'] != "undefined")      cf['stackRegister'] = preWARE['stackRegister'] ;
+	    if (typeof preWARE['cihash'] != "undefined")             cf['cihash'] = preWARE['cihash'] ;
+	    if (typeof preWARE['cocop_hash'] != "undefined")         cf['cocop_hash'] = preWARE['cocop_hash'] ;
 	}
 
         function array_includes ( arr, val )

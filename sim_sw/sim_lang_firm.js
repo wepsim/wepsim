@@ -941,15 +941,42 @@ function loadFirmware (text)
 	   }
 	   eval(mk_native) ;
 
-           var ret = {};
-           ret.error              = null;
+           // co_cop_hash
+	   var fico  = 0 ;
+	   var ficop = 0 ;
+	   context.cocop_hash = {} ;
+	   for (var fi in context.instrucciones)
+	   {
+		 if (context.instrucciones[fi].name == "begin") {
+		     continue ;
+		 }
+
+		 fico  = context.instrucciones[fi].co ;
+		 if (typeof context.cocop_hash[fico] == "undefined") {
+		     context.cocop_hash[fico] = {} ;
+		 }
+
+		 if (typeof context.instrucciones[fi].cop == "undefined") {
+		     context.cocop_hash[fico].withcop = false ;
+		     context.cocop_hash[fico].i       = context.instrucciones[fi] ;
+		 } else {
+		     ficop = context.instrucciones[fi].cop ;
+		     context.cocop_hash[fico].withcop = true ;
+		     context.cocop_hash[fico][ficop]  = context.instrucciones[fi] ;
+		 }
+	   }
+
+           // return results
+           var ret = {} ;
+           ret.error              = null ;
            ret.firmware           = context.instrucciones ;
-           ret.labels_firm        = context.etiquetas;
-           ret.mp                 = {};
-           ret.seg                = {};
+           ret.labels_firm        = context.etiquetas ;
+           ret.mp                 = {} ;
+           ret.seg                = {} ;
            ret.registers          = context.registers ;
            ret.pseudoInstructions = context.pseudoInstructions ;
-	   ret.stackRegister	  = context.stackRegister;
+	   ret.stackRegister	  = context.stackRegister ;
+	   ret.cocop_hash	  = context.cocop_hash ;
 
            return ret ;
 }
@@ -1073,35 +1100,6 @@ function saveFirmware ( SIMWARE )
  *  Auxiliar firmware interface
  */
 
-function generate_cocop_hash ( curr_firm )
-{
-    curr_firm.cocop_hash = {} ;
-
-    var fico  = 0 ;
-    var ficop = 0 ;
-
-    for (var fi in curr_firm['firmware'])
-    {
-	 if (curr_firm.firmware[fi].name == "begin") {
-	     continue ;
-	 }
-
-	 fico  = curr_firm.firmware[fi].co ;
-	 if (typeof curr_firm.cocop_hash[fico] == "undefined") {
-	     curr_firm.cocop_hash[fico] = {} ;
-	 }
-
-	 if (typeof curr_firm.firmware[fi].cop == "undefined") {
-	     curr_firm.cocop_hash[fico].withcop = false ;
-	     curr_firm.cocop_hash[fico].i       = curr_firm.firmware[fi] ;
-	 } else {
-	     ficop = curr_firm.firmware[fi].cop ;
-	     curr_firm.cocop_hash[fico].withcop = true ;
-	     curr_firm.cocop_hash[fico][ficop]    = curr_firm.firmware[fi] ;
-	 }
-    }
-}
-
 function decode_instruction ( curr_firm, ep_ir, binstruction )
 {
     var ret = { 
@@ -1121,10 +1119,6 @@ function decode_instruction ( curr_firm, ep_ir, binstruction )
     // cop-code
     var cop = bits.substr(ep_ir.default_eltos.cop.begin, ep_ir.default_eltos.cop.length); 
     ret.cop_code = parseInt(cop, 2) ;
-
-    // try to find instruction in the loaded firmware
-    if (typeof curr_firm.cocop_hash == "undefined")
-        generate_cocop_hash(curr_firm) ;
 
     if (false == curr_firm.cocop_hash[co].withcop)
          ret.oinstruction = curr_firm.cocop_hash[co].i ;
