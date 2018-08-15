@@ -726,7 +726,7 @@
 				 draw_name: [[], []]};
 	 poc_signals["IOW"]   = { name: "IOW", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 				 behavior: ["NOP", "MOVE_BITS SCR_IOW 0 1 IOW; FIRE SCR_IOW;"],
-				 fire_name: ['svg_p:text3715'],
+				 fire_name: ['svg_p:text3717'],
 				 draw_data: [[], ['svg_p:path3735', 'svg_p:path3493', 'svg_p:text3717', 'svg_p:path3493']],
 				 draw_name: [[], []]};
 
