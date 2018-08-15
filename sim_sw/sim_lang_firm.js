@@ -200,6 +200,8 @@ function read_native ( context )
 
 function loadFirmware (text)
 {
+           var ir_info = simhw_sim_irInfo() ;
+
            var context = {} ;
 	   context.line           	= 1 ;
 	   context.error          	= null ;
@@ -510,8 +512,8 @@ function loadFirmware (text)
 			   else
 		           {
 			       return langError(context,
-			    			    "'token' is missing after '(' on: " + 
-                                                    context.co_cop[instruccionAux.co].signature) ;
+			    			"'token' is missing after '(' on: " + 
+                                                context.co_cop[instruccionAux.co].signature) ;
 		           }
 
 			   if (isToken(context,")"))
@@ -565,17 +567,20 @@ function loadFirmware (text)
 	       instruccionAux["co"] = getToken(context) ;
 
 	       // semantic check: valid value
-	       if ( (getToken(context).match("[01]*")[0] != getToken(context)) || (getToken(context).length != 6) )
-	             return langError(context, "Incorrect binary format on 'co': " + getToken(context)) ;
+	       if (    (getToken(context).match("[01]*")[0] != getToken(context)) 
+                    || (getToken(context).length != ir_info.default_eltos.co.length) ) 
+               {
+	           return langError(context, "Incorrect binary format on 'co': " + getToken(context)) ;
+               }
 
 	       // semantic check: 'co' is not already used
-	       if (instruccionAux["co"] != "111111")
+	       if (instruccionAux["co"] != "111111") // TODO: "111...".length <== ir_info.default_eltos.co.length
 	       {
 	           if ( (typeof context.co_cop[instruccionAux["co"]] != "undefined") &&
 	                       (context.co_cop[instruccionAux["co"]].cop == null) )
 	           {
-	   	           return langError(context,
-				                          "'co' is already been used by: " + context.co_cop[instruccionAux.co].signature) ;
+	   	         return langError(context,
+			         "'co' is already been used by: " + context.co_cop[instruccionAux.co].signature) ;
 	           }
 
              if (typeof context.co_cop[instruccionAux.co] == "undefined")
@@ -615,8 +620,11 @@ function loadFirmware (text)
 		       instruccionAux["cop"] = getToken(context) ;
 
 		       // semantic check: valid value
-		       if ( (getToken(context).match("[01]*")[0] != getToken(context)) || (getToken(context).length != 4) )
-			     return langError(context, "Incorrect binary format on 'cop': " + getToken(context)) ;
+		       if (    (getToken(context).match("[01]*")[0] != getToken(context)) 
+                            || (getToken(context).length != ir_info.default_eltos.cop.length) )
+                       {
+		            return langError(context, "Incorrect binary format on 'cop': " + getToken(context)) ;
+                       }
 
 		       // semantic check: 'co+cop' is not already used
 	               if (        (context.co_cop[instruccionAux.co].cop != null) &&

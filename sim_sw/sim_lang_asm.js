@@ -215,10 +215,12 @@ function assembly_replacement(machineCode, num_bits, startbit, stopbit, free_spa
 
 function assembly_co_cop(machineCode, co, cop)
 {		
+        var ir_info = simhw_sim_irInfo() ;
+
 	if (co !== false) 
 	    machineCode = assembly_replacement(machineCode, co, WORD_LENGTH, WORD_LENGTH-6, 0); 	
 	if (cop !== false)
-	    machineCode = assembly_replacement(machineCode, cop, 4, 0, 0);
+	    machineCode = assembly_replacement(machineCode, cop, ir_info.default_eltos.cop.length, 0, 0);
 
 	return machineCode;
 }
@@ -912,7 +914,9 @@ function read_text ( context, datosCU, ret )
 		var machineCode = reset_assembly(firmware[instruction][candidate].nwords);
 
 		// replace CO and COP in machine code
-		machineCode = assembly_co_cop(machineCode, firmware[instruction][candidate].co, firmware[instruction][candidate].cop);
+		machineCode = assembly_co_cop(machineCode, 
+                                              firmware[instruction][candidate].co, 
+                                              firmware[instruction][candidate].cop);
 	
 		// store candidate fields in machine code
 		for (i=0; i<binaryAux[candidate].length; i++){

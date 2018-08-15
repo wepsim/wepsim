@@ -101,7 +101,7 @@
 	 */
 
         poc_ir.default_eltos = {  "co": { "begin":  0, "end":  5, "length": 6 },
-			         "cop": { "begin": 28, "end": 31, "length": 4 } } ;
+			         "cop": { "begin": 27, "end": 31, "length": 5 } } ;
 
 
 	/*
@@ -172,6 +172,38 @@
 	poc_states.BR[29]         = {name:"R29",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	poc_states.BR[30]         = {name:"R30",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	poc_states.BR[31]         = {name:"R31",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[32]         = {name:"R32",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[33]         = {name:"R33",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[34]         = {name:"R34",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[35]         = {name:"R35",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[36]         = {name:"R36",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[37]         = {name:"R37",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[38]         = {name:"R38",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[39]         = {name:"R39",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[40]         = {name:"R40",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[41]         = {name:"R41",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[42]         = {name:"R42",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[43]         = {name:"R43",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[44]         = {name:"R44",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[45]         = {name:"R45",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[46]         = {name:"R46",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[47]         = {name:"R47",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[48]         = {name:"R48",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[49]         = {name:"R49",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[50]         = {name:"R50",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[51]         = {name:"R51",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[52]         = {name:"R52",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[53]         = {name:"R53",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[54]         = {name:"R54",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[55]         = {name:"R55",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[56]         = {name:"R56",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[57]         = {name:"R57",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[58]         = {name:"R58",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[59]         = {name:"R59",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[60]         = {name:"R60",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[61]         = {name:"R61",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[62]         = {name:"R62",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[63]         = {name:"R63",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
 	poc_states["REG_PC"]         = {name:"PC",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	poc_states["REG_MAR"]        = {name:"MAR",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
@@ -452,7 +484,7 @@
 			       draw_data: [['svg_p:path3281', 'svg_p:path3171', 'svg_p:path3169'], ['svg_p:path3283'],
 					   ['svg_p:path3295', 'svg_p:path3293'], ['svg_p:path3297', 'svg_p:path3299']],
 			       draw_name: [[], ['svg_p:path3425', 'svg_p:path3427']] };
-	 poc_signals["COP"] = { name: "COP", visible: true, type: "L", value: 0, default_value:0, nbits: "4", forbidden: true,
+	 poc_signals["COP"] = { name: "COP", visible: true, type: "L", value: 0, default_value:0, nbits: "5", forbidden: true,
 			       behavior: ["NOP_ALU",
                                           "AND ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
 					  "OR ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
@@ -468,7 +500,23 @@
 					  "MUL ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
 					  "DIV ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
 					  "MOD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "LUI ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3"],
+					  "LUI ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3"],
                                depends_on: ["SELCOP"],
 			       fire_name: ['svg_p:text3303'],
 			       draw_data: [['svg_p:path3237', 'svg_p:path3239', 
@@ -501,7 +549,7 @@
 			        fire_name: ['svg_cu:text3172'],
 			        draw_data: [[]],
 			        draw_name: [[]] };
-	 poc_signals["SELCOP"] = { name: "SELCOP", visible: true, type: "L", value: 0, default_value:0, nbits: "4",
+	 poc_signals["SELCOP"] = { name: "SELCOP", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
 			        behavior: ["FIRE_IFCHANGED MC SELCOP; RESET_CHANGED SELCOP"],
                                 depends_on: ["COP"],
 			        fire_name: ['svg_cu:text3312'],
@@ -558,7 +606,7 @@
 			       draw_name: [['svg_p:path3359']] };
 
 	 poc_signals["MC"]  = { name: "MC", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ['MBIT COP REG_IR 0 4; FIRE_IFCHANGED COP MC',
+			       behavior: ['MBIT COP REG_IR 0 5; FIRE_IFCHANGED COP MC',
 					  'MV COP REG_MICROINS/SELCOP; FIRE_IFCHANGED COP MC'],
                                depends_on: ["SELCOP"],
 			       fire_name: ['svg_cu:text3322','svg_cu:text3172-1-5'],
