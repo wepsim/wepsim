@@ -244,11 +244,11 @@
 		    	        style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                 onclick="wepsim_open_config_index();"><b><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></b></button>
 		        <button class="btn btn-light ui-shadow my-1" data-role="none"
-                                onclick="$('#carousel-8').carousel(1);"
+                                onclick="sim_change_workspace_microcode();"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				><b><span class="d-none d-sm-inline-flex">MicroCode</span><span class="d-sm-none">&#181;code</span></b></button>
 		        <button class="btn btn-light ui-shadow my-1 mr-2" data-role="none"
-                                onclick="$('#carousel-8').carousel(2);"
+                                onclick="sim_change_workspace_assembly();"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				><b><span class="d-none d-sm-inline-flex">Assembly</span><span class="d-sm-none">Assembly</span></b></button>
                     </div>
@@ -581,11 +581,11 @@
                                     onclick="wepsim_open_config_index();"><b><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></b></button>
 		            <button class="btn btn-light ui-shadow col" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-                                    onclick="$('#carousel-8').carousel(2);"
+                                    onclick="sim_change_workspace_assembly();"
 				    data-transition="none" data-inline="true"><b>Assembly</b></button>
 		            <button class="btn btn-light ui-shadow col" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-                                    onclick="$('#carousel-8').carousel(0);"
+                                    onclick="sim_change_workspace_simulator();"
 				    data-transition="none" data-inline="true"><b>Simulator</b></button>
 		      </div>
 
@@ -655,13 +655,13 @@
                                     onclick="wepsim_open_config_index();"><b><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></b></button>
 		            <button class="btn btn-light ui-shadow col" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-                                    onclick="$('#carousel-8').carousel(1);"
+                                    onclick="sim_change_workspace_microcode();"
 				    data-transition="none" data-inline="true">
 			    <b><span class="d-none d-sm-inline-flex">MicroCode</span><span class="d-sm-none">&#181;code</span></b>
 			    </button>
 		            <button class="btn btn-light ui-shadow col" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-                                    onclick="$('#carousel-8').carousel(0);"
+                                    onclick="sim_change_workspace_simulator();"
 				    data-transition="none" data-inline="true"><b>Simulator</b></button>
 		      </div>
 
@@ -1416,7 +1416,7 @@
                     sim_prepare_editor(inputasm) ;
 		    inputasm.setSize("auto","auto");
 
-                    $('#carousel-8').carousel(0);
+		    sim_change_workspace_simulator();
 		    $('#tab26').trigger('click');
 		    $('#tab11').trigger('click');
 		    $('#select5a').val(11);

@@ -42,7 +42,7 @@
 
     function load_from_example_assembly ( example_id, chain_next_step )
     {
-        sim_change_workspace('#main4');
+        sim_change_workspace_assembly();
 	inputasm.setValue("Please wait...");
 	inputasm.refresh();
 
@@ -71,7 +71,7 @@
 			    {
                                 if (true == chain_next_step)
 				    setTimeout(function(){
-                                                  sim_change_workspace('#main1');
+					          sim_change_workspace_simulator() ;
                                                   show_memories_values();
 				               }, 50);
 			    }
@@ -86,7 +86,7 @@
 
     function load_from_example_firmware ( example_id, chain_next_step )
     {
-        sim_change_workspace('#main3');
+        sim_change_workspace_microcode();
 	inputfirm.setValue("Please wait...");
 	inputfirm.refresh();
 

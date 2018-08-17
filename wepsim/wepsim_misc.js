@@ -127,14 +127,33 @@
 	    setTimeout(function(){editor.refresh();}, 100);
     }
 
-    function sim_change_workspace ( page )
+    function sim_change_workspace ( page_id, carousel_id )
     {
             if ( (typeof $.mobile                             != "undefined") &&
                  (typeof $.mobile.pageContainer               != "undefined") &&
                  (typeof $.mobile.pageContainer.pagecontainer != "undefined") ) 
             {
-                  $.mobile.pageContainer.pagecontainer('change', page);
+                  $.mobile.pageContainer.pagecontainer('change', page_id);
             }
+            else
+            {
+                  $('#carousel-8').carousel(carousel_id) ;
+            }
+    }
+
+    function sim_change_workspace_simulator ( )
+    {
+	    sim_change_workspace('#main1', 0) ;
+    }
+
+    function sim_change_workspace_microcode ( )
+    {
+	    sim_change_workspace('#main3', 1) ;
+    }
+
+    function sim_change_workspace_assembly ( )
+    {
+	    sim_change_workspace('#main4', 2) ;
     }
 
 

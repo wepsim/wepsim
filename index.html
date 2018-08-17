@@ -242,11 +242,11 @@
 		    	        style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                 onclick="wepsim_open_config_index();"><b><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></b></button>
 		        <button class="btn btn-light ui-shadow my-1" data-role="none"
-			        onclick="sim_change_workspace('#main3');"
+			        onclick="sim_change_workspace_microcode();"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				><b><span class="d-none d-sm-inline-flex">MicroCode</span><span class="d-sm-none">&#181;code</span></b></button>
 		        <button class="btn btn-light ui-shadow my-1 mr-2" data-role="none"
-			        onclick="sim_change_workspace('#main4');"
+			        onclick="sim_change_workspace_assembly();"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				><b><span class="d-none d-sm-inline-flex">Assembly</span><span class="d-sm-none">Assembly</span></b></button>
                     </div>
@@ -594,11 +594,11 @@
 		            <button class="btn btn-light ui-shadow col" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				    data-transition="none" data-inline="true"
-				    onclick="sim_change_workspace('#main4');"><b>Assembly</b></button>
+				    onclick="sim_change_workspace_assembly();"><b>Assembly</b></button>
 		            <button class="btn btn-light ui-shadow col" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				    data-transition="none" data-inline="true"
-				    onclick="sim_change_workspace('#main1');"><b>Simulator</b></button>
+				    onclick="sim_change_workspace_simulator();"><b>Simulator</b></button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
@@ -682,13 +682,13 @@
 		            <button class="btn btn-light ui-shadow col" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				    data-transition="none" data-inline="true"
-				    onclick="sim_change_workspace('#main3');">
+				    onclick="sim_change_workspace_microcode();">
 			    <b><span class="d-none d-sm-inline-flex">MicroCode</span><span class="d-sm-none">&#181;code</span></b>
 			    </button>
 		            <button class="btn btn-light ui-shadow col" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				    data-transition="none" data-inline="true"
-				    onclick="sim_change_workspace('#main1');"><b>Simulator</b></button>
+				    onclick="sim_change_workspace_simulator();"><b>Simulator</b></button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
@@ -1435,7 +1435,7 @@
                     sim_prepare_editor(inputasm) ;
 		    inputasm.setSize("auto","auto");
 
-		    sim_change_workspace('#main1');
+                    sim_change_workspace_simulator();
 		    $('#tab26').trigger('click');
 		    $('#tab11').trigger('click');
 		    $('#select5a').val(11);
