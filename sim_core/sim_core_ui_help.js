@@ -19,18 +19,38 @@
  */
 
 
-     function load_div ( helpdiv, key, data )
+     function request_html_url ( r_url )
      {
-		var content = '<br>Sorry, No more details available for this element.<p>\n' ;
-		if (data != "") 
-                {
-		    content = $(data).find('#' + key).html() ;
-                    if (typeof content == "undefined") 
-		        content = $(data).filter('#' + key).html() ;
-                }
+        var robj = null ;
+	var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-		$(helpdiv).html(content) ;
-		$(helpdiv).trigger('create');
+	if (false == isMobile) 
+        {
+            if (navigator.onLine) 
+                 robj = fetch(r_url);
+            else robj = caches.match(r_url).then() ;
+        }
+        else 
+        { 
+            robj = $.ajax(r_url, { type: 'GET', dataType: 'html' }) ;
+        }
+
+        return robj ;
+     }
+
+     function update_div_frompartialhtml ( helpdiv, key, data )
+     {
+	var content = '<br>Sorry, No more details available for this element.<p>\n' ;
+	if (data != "") 
+	{
+	    content = $(data).find('#' + key).html() ;
+	    if (typeof content == "undefined") {
+		content = $(data).filter('#' + key).html() ;
+	    }
+	}
+
+	$(helpdiv).html(content) ;
+	$(helpdiv).trigger('create');
      }
 
      function update_signal_loadhelp ( helpdiv, simhw, key )
@@ -38,16 +58,11 @@
 	     var curr_idiom = get_cfg('ws_idiom') ;
 	     var help_base = 'help/' + simhw + '/signals-' + curr_idiom + '.html' ;
 
-               var robj = null ;
-               if (navigator.onLine) 
-                    robj = fetch(help_base);
-	          //robj = $.ajax(help_base, { type: 'GET', dataType: 'html' }) ;
-               else robj = caches.match(help_base).then() ;
-
+               var robj = request_html_url(help_base) ;
                robj.then(function (data) {
                             if (typeof data == "object")
-                                 data.text().then(function(res){load_div(helpdiv, key, res);}) ;
-                            else load_div(helpdiv, key, data) ;
+                                 data.text().then(function(res){update_div_frompartialhtml(helpdiv, key, res);}) ;
+                            else update_div_frompartialhtml(helpdiv, key, data) ;
 	 	         }) ;
 
              ga('send', 'event', 'help', 'help.signal', 'help.signal.' + key);
@@ -58,12 +73,12 @@
           var curr_idiom = get_cfg('ws_idiom') ;
   	  var help_base = 'help/simulator-' + curr_idiom + '.html' ;
 
-	  $.ajax(help_base, { type: 'GET', dataType: 'html' })
-           .done(function (data) {
+               var robj = request_html_url(help_base) ;
+               robj.then(function (data) {
                             if (typeof data == "object")
-                                 data.text().then(function(res){load_div(helpdiv, key, res);}) ;
-                            else load_div(helpdiv, key, data) ;
-		 });
+                                 data.text().then(function(res){update_div_frompartialhtml(helpdiv, key, res);}) ;
+                            else update_div_frompartialhtml(helpdiv, key, data) ;
+	 	         }) ;
 
           ga('send', 'event', 'help', 'help.checker', 'help.checker.' + key);
      }
