@@ -42,7 +42,6 @@
 
     function load_from_example_assembly ( example_id, chain_next_step )
     {
-        sim_change_workspace_assembly();
 	inputasm.setValue("Please wait...");
 	inputasm.refresh();
 
@@ -62,22 +61,29 @@
 			    inputasm.setValue(mcode);
 			    inputasm.refresh();
 
+                            // compile it
                             var ok = false ;
                             var SIMWARE = get_simware() ;
-	                    if (SIMWARE.firmware.length != 0)
-                                ok = wepsim_compile_assembly(mcode);
-
-			    if (true == ok)
-			    {
-                                if (true == chain_next_step)
-				    setTimeout(function(){
-					          sim_change_workspace_simulator() ;
-                                                  show_memories_values();
-				               }, 50);
+	                    if (SIMWARE.firmware.length != 0) {
+                                ok = wepsim_compile_assembly(mcode) ;
 			    }
 
-                            wepsim_notify_success('<strong>INFO</strong>', 
-                                                  'Example ready to be used.') ;
+                            // stop here if error is found
+			    if (false == ok) {
+			        sim_change_workspace_assembly() ;
+                                return ;
+			    }
+
+                            // chain to next task
+                            if (true == chain_next_step) {
+				setTimeout(function() {
+					      sim_change_workspace_simulator() ;
+                                              show_memories_values();
+				           }, 50);
+                             }
+
+                             wepsim_notify_success('<strong>INFO</strong>', 
+                                                   'Example ready to be used.') ;
                       };
         wepsim_load_from_url(url, do_next) ;
 
@@ -86,7 +92,6 @@
 
     function load_from_example_firmware ( example_id, chain_next_step )
     {
-        sim_change_workspace_microcode();
 	inputfirm.setValue("Please wait...");
 	inputfirm.refresh();
 
@@ -117,13 +122,22 @@
 			   inputfirm.refresh();
 
 			   var ok = wepsim_compile_firmware(mcode);
-                           if (true == ok)
+
+                            // stop here if error is found
+			    if (false == ok) {
+                                sim_change_workspace_microcode();
+                                return ;
+			    }
+
+                           // chain to next task
+                           if (true == chain_next_step) 
                            {
-                                  if (true == chain_next_step)
-                                       setTimeout(function() {
-                                                     load_from_example_assembly(example_id, chain_next_step);
-                                                  }, 50);
-                                  else show_memories_values();
+                               setTimeout(function() {
+                                             load_from_example_assembly(example_id, chain_next_step);
+                                          }, 50);
+                           }
+                           else {
+                               show_memories_values();
                            }
 
                            wepsim_notify_success('<strong>INFO</strong>', 

@@ -224,7 +224,7 @@
             </button>
             <div id="navbarSupportedContent" 
 	         class="collapse navbar-collapse mx-auto py-0" style="background-color: #F0F0F0">
-	    <ul class="nav nav-pills ml-auto">
+	    <ul class="nav nav-pills ml-auto p-1">
 	       <li class="nav-item ml-auto"><a href="http://www.arcos.uc3m.es/"><img alt="ARCOS logo" src="images/arcos.svg"   style="height:25pt" class="img-thumbnail m-0 p-0"></a><b>.</b></li>
 	       <li class="nav-item"><a href="http://www.inf.uc3m.es/en/"><img alt="CS&E Departament logo" src="images/dptoinf.jpg" style="height:25pt" class="img-thumbnail m-0 p-0"></a><b>.</b></li>
 	       <li class="nav-item"><a href="http://www.uc3m.es/"><img alt="UC3M logo" src="images/uc3m.png"    style="height:25pt;" class="img-thumbnail"></a></li>
@@ -633,7 +633,8 @@
 
 	    </div>
 
-	    <div id="t3_firm"  class="ui-body-d ui-content" style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
+	    <div id="t3_firm" class="ui-body-d ui-content p-2" 
+                 style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
 		     <textarea aria-label="microcode" style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
                                placeholder="Please select 'Example' or 'Load' first in order to have an initial Microcode."
                                id="inputFirmware" rows=20></textarea>
@@ -701,10 +702,12 @@
 
 	    </div>
 
-	    <div id="t4_asm"   class="ui-body-d ui-content" style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
-		        <textarea aria-label="Assembly" style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
-                                  placeholder="Please select 'Load' first to have the assembly code to work with."
-			          id="inputAssembly" rows="20"></textarea>
+	    <div id="t4_asm" class="ui-body-d ui-content p-2"
+                 style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
+		     <textarea aria-label="Assembly" 
+                               style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
+                               placeholder="Please select 'Load' first to have the assembly code to work with."
+			       id="inputAssembly" rows="20"></textarea>
 	    </div>
           </div>
 

@@ -392,16 +392,24 @@
           var hwid = -1 ;
 
 	  // switch active hardware by name...
-	  if ('wepmips' == optValue) {
-	       hwid = simhw_getActiveByName('ep') ;
-               wepsim_activehw(hwid) ;
-	       wepsim_show_wepmips();
+          switch (optValue)
+          {
+	      case 'intro': 
+	      case 'wepmips': 
+	      case 'tutorial': 
+                               hwid = simhw_getActiveByName('ep') ;
+                               wepsim_activehw(hwid) ;
+                               break;
+	      default: 
+	                       hwid = simhw_getActiveByName(optValue) ;
+                               wepsim_activehw(hwid) ;
+                               break;
           }
-	  else { 
-	       hwid = simhw_getActiveByName(optValue) ;
-               wepsim_activehw(hwid) ;
-               wepsim_hide_wepmips();
-          }
+
+	  // show/hide wepmips...
+	  if ('wepmips' == optValue)
+	       wepsim_show_wepmips() ;
+	  else wepsim_hide_wepmips() ;
 
 	  // tutorial mode...
 	  $(cssLayer).css('background-color', '#F6F6F6') ;

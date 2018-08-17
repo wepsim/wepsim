@@ -65,7 +65,7 @@
                             else update_div_frompartialhtml(helpdiv, key, data) ;
 	 	         }) ;
 
-             ga('send', 'event', 'help', 'help.signal', 'help.signal.' + key);
+             ga('send', 'event', 'help', 'help.signal', 'help.signal.' + simhw + '.' + key);
      }
 
      function update_checker_loadhelp ( helpdiv, key )
