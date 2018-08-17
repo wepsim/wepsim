@@ -19,7 +19,7 @@
  */
 
 
-     function load_div ( helpdiv, simhw, key, data )
+     function load_div ( helpdiv, key, data )
      {
 		var content = '<br>Sorry, No more details available for this element.<p>\n' ;
 		if (data != "") 
@@ -46,8 +46,8 @@
 
                robj.then(function (data) {
                             if (typeof data == "object")
-                                 data.text().then(function(res){load_div(helpdiv, simhw, key, res);}) ;
-                            else load_div(helpdiv, simhw, key, data) ;
+                                 data.text().then(function(res){load_div(helpdiv, key, res);}) ;
+                            else load_div(helpdiv, key, data) ;
 	 	         }) ;
 
              ga('send', 'event', 'help', 'help.signal', 'help.signal.' + key);
@@ -61,8 +61,8 @@
 	  $.ajax(help_base, { type: 'GET', dataType: 'html' })
            .done(function (data) {
                             if (typeof data == "object")
-                                 data.text().then(function(res){load_div(helpdiv, simhw, key, res);}) ;
-                            else load_div(helpdiv, simhw, key, data) ;
+                                 data.text().then(function(res){load_div(helpdiv, key, res);}) ;
+                            else load_div(helpdiv, key, data) ;
 		 });
 
           ga('send', 'event', 'help', 'help.checker', 'help.checker.' + key);
