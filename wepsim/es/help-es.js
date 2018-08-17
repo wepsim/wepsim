@@ -112,3 +112,12 @@
                      description: "Licencia de WepSIM, plataformas disponibles, tecnologías usadas.<br>"
                   });
 
+    help.es.push({
+                     id:          "authors",
+                     title:       "Authors",
+                     i_type:      "code",
+                     u_type:      "info",
+                     reference:   "wepsim_close_help(); $('#about2').modal(open);",
+                     description: "Autores de WepSIM.<br>"
+                  });
+
