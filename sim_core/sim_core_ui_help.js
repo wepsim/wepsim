@@ -22,8 +22,12 @@
      function load_div ( helpdiv, simhw, key, data )
      {
 		var content = '<br>Sorry, No more details available for this element.<p>\n' ;
-		if (data != "")
-		    content = $(data).filter('#' + key).html() ;
+		if (data != "") 
+                {
+		    content = $(data).find('#' + key).html() ;
+                    if (typeof content == "undefined") 
+		        content = $(data).filter('#' + key).html() ;
+                }
 
 		$(helpdiv).html(content) ;
 		$(helpdiv).trigger('create');
