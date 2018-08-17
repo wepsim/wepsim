@@ -19,19 +19,32 @@
  */
 
 
+     function load_div ( helpdiv, simhw, key, data )
+     {
+		var content = '<br>Sorry, No more details available for this element.<p>\n' ;
+		if (data != "")
+		    content = $(data).filter('#' + key).html() ;
+
+		$(helpdiv).html(content) ;
+		$(helpdiv).trigger('create');
+     }
+
      function update_signal_loadhelp ( helpdiv, simhw, key )
      {
 	     var curr_idiom = get_cfg('ws_idiom') ;
-	     var help_base = 'help/' + simhw + '/signals-' + curr_idiom + '.html #' + key;
+	     var help_base = 'help/' + simhw + '/signals-' + curr_idiom + '.html' ;
 
-	     $(helpdiv).load(help_base,
-			     function(response, status, xhr) {
-				if ( $(helpdiv).html() == "" ) {
-				     $(helpdiv).html('<br>Sorry, No more details available for this signal.<p>\n');
-                                }
+               var robj = null ;
+               if (navigator.onLine) 
+                    robj = fetch(help_base);
+	          //robj = $.ajax(help_base, { type: 'GET', dataType: 'html' }) ;
+               else robj = caches.match(help_base).then() ;
 
-				$(helpdiv).trigger('create');
-			     });
+               robj.then(function (data) {
+                            if (typeof data == "object")
+                                 data.text().then(function(res){load_div(helpdiv, simhw, key, res);}) ;
+                            else load_div(helpdiv, simhw, key, data) ;
+	 	         }) ;
 
              ga('send', 'event', 'help', 'help.signal', 'help.signal.' + key);
      }
@@ -39,16 +52,14 @@
      function update_checker_loadhelp ( helpdiv, key )
      {
           var curr_idiom = get_cfg('ws_idiom') ;
-  	  var help_base = 'help/simulator-' + curr_idiom + '.html #' + key;
+  	  var help_base = 'help/simulator-' + curr_idiom + '.html' ;
 
-	  $(helpdiv).load(help_base,
-			  function(response, status, xhr) {
-				if ( $(helpdiv).html() == "" ) {
-				     $(helpdiv).html('<br>Sorry, there is no more details.<p>\n');
-                                }
-
-				$(helpdiv).trigger('create');
-			  });
+	  $.ajax(help_base, { type: 'GET', dataType: 'html' })
+           .done(function (data) {
+                            if (typeof data == "object")
+                                 data.text().then(function(res){load_div(helpdiv, simhw, key, res);}) ;
+                            else load_div(helpdiv, simhw, key, data) ;
+		 });
 
           ga('send', 'event', 'help', 'help.checker', 'help.checker.' + key);
      }
