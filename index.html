@@ -1462,16 +1462,9 @@
                     html:       true,
                     placement: 'auto',
                     animation:  false,
-                    content: function() {
-                        return '<label><input aria-label="Show breakpoint"         type="checkbox" value="1" id="asm_break"   checked="checked" data-toggle="collapse" data-target=".asm_break"><span>breakpoints</span></label>' +
-		               '<label><input aria-label="Show address"            type="checkbox" value="1" id="asm_addr"    checked="checked" data-toggle="collapse" data-target=".asm_addr"><span>address</span></label>' +
-		               '<label><input aria-label="Show label"              type="checkbox" value="1" id="asm_label2"  checked="checked" data-toggle="collapse" data-target=".asm_label2"><span>labels</span></label>' +
-		               '<label><input aria-label="Show pseudo-instruction" type="checkbox" value="1" id="asm_pins"    checked="checked" data-toggle="collapse" data-target=".asm_pins"><span>pseudo</span><span class="d-none d-md-inline">-instructions</span></label>' +
-		               '<label><input aria-label="Show label"              type="checkbox" value="1" id="asm_label1"  checked="checked" data-toggle="collapse" data-target=".asm_label1"><span>labels</span></label>' +
-		               '<label><input aria-label="Show instruction"        type="checkbox" value="1" id="asm_ins"     checked="checked" data-toggle="collapse" data-target=".asm_ins"><span>assembly</span></label>' ;
-                    },
+                    content:    wepsim_show_asm_columns_checked,
                     title: function() {
-                        return 'Selectors' +
+                        return '<span class="p-2">Selectors</span>' +
                                '<button type="button" id="close" class="close" data-role="none" ' +
                                '        onclick="$(\'#popover2_asm\').popover(\'hide\');">&times;</button>' ;
                     }
