@@ -134,19 +134,17 @@
                    '<b>Inserted at:</b><br>' +
                    'Date: ' + t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + '<br>' +
                    'Hour: ' + t.getHours()    + ':' + t.getMinutes()   + ':' + t.getSeconds() + '-' + t.getMilliseconds() + '<br>' +
-                   '<br>Please, click in the title to close' +
                    '</div>' ;
 
               o += '<div class="card">' +
-                   '  <div class="card-header row" ' + 
-		   '       style="width:101%; padding:8 15 8 15;">' +
-                   '    <h5 class="card-title col" ' + 
+                   '  <div class="card-header row p-2 w-100">' + 
+                   '    <h5 class="card-title col m-0" ' + 
 		   '        data-toggle="collapse" data-target="#collapse_'+i+'" ' + 
                    '        data-parent="#accordion1">' + state_history[i].title + '</h5>' + tt +
                    '    <div class="btn-group" role="group" aria-label="Basic example">' +
                    '    <button class="btn btn-outline-dark btn-sm col float-right"' + 
-                   '            data-toggle="popover4" data-html="true" ' + 
-                   '            title="' + state_history[i].title + '" id="' + it + '">+Info</button>' +
+                   '            data-toggle="popover4" data-html="true" type="button" ' + 
+                   '            atitle="' + state_history[i].title + '" id="' + it + '">+Info</button>' +
                    '    <button class="btn btn-outline-dark btn-sm col float-right"' + 
                    '            onclick="CopyFromTextarea(\'ta_state_' + i + '\');" ' + 
                    '            type="button">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>' +
@@ -174,13 +172,13 @@
 
          // update contents
          $('#history1').html(o) ;
-	 $('#check_results1').html('');
+	 $('#check_results1').html('') ;
 
          // initializate popover
 	 $("[data-toggle=popover4]").popover({
 		  html:       true,
 		  placement: 'auto',
-	          trigger:   'focus',
+	          trigger:   'click',
 		  animation:  false,
                   content: function() {
                                  var id = $(this).attr('id')
@@ -190,7 +188,7 @@
                                  var id = $(this).attr('id')
 			         return '<span class="p-2">' + id + '</span>' +
 			                '<button type="button" id="close" class="close" data-role="none" ' +
-			                '     onclick="this.popover(\'hide\');">&times;</button>';
+			                '     onclick="$(\'#' + id + '\').popover(\'hide\');">&times;</button>';
 		           }
 	 });
     }
