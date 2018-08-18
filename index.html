@@ -1434,6 +1434,31 @@
 		             $(column).hide() ;
 		        else $(column).show() ;
 		    });
+
+		    $('a[data-toggle="popover1"]').popover({
+			     placement: 'bottom',
+			     trigger: 'focus, hover',
+			     animation: false,
+			     delay: { "show": 500, "hide": 100 } 
+		    }) ;
+		    $("[data-toggle=popover2]").popover({
+			    html:       true,
+			    placement: 'auto',
+			    animation:  false,
+			    content:    wepsim_show_asm_columns_checked,
+			    title: function() {
+				return '<span class="p-2">Selectors</span>' +
+				       '<button type="button" id="close" class="close" data-role="none" ' +
+				       '        onclick="$(\'#popover2_asm\').popover(\'hide\');">&times;</button>' ;
+			    }
+		    });
+		    $("[data-toggle=popover3]").popover({
+			    html: true,
+			    content: function() {
+			      var id = $(this).attr('id')
+			      return $('#popover-content-' + id).html();
+			    }
+		    });
 	    }) ;
 
             $("div.wsversion").replaceWith(get_cfg('version'));
@@ -1448,31 +1473,6 @@
 	    sim_core_init_panel("#states_ALL", "#states_BR", "#io_ALL", 
                                 "#cpu_ALL", "#config_MP", "#config_IO"); 
 	    sim_core_reset(); 
-
-            $('a[data-toggle="popover1"]').popover({
-                     placement: 'bottom',
-                     trigger: 'focus, hover',
-                     animation: false,
-                     delay: { "show": 500, "hide": 100 } 
-            }) ;
-            $("[data-toggle=popover2]").popover({
-                    html:       true,
-                    placement: 'auto',
-                    animation:  false,
-                    content:    wepsim_show_asm_columns_checked,
-                    title: function() {
-                        return '<span class="p-2">Selectors</span>' +
-                               '<button type="button" id="close" class="close" data-role="none" ' +
-                               '        onclick="$(\'#popover2_asm\').popover(\'hide\');">&times;</button>' ;
-                    }
-            });
-            $("[data-toggle=popover3]").popover({
-	            html: true,
-	            content: function() {
-	              var id = $(this).attr('id')
-	              return $('#popover-content-' + id).html();
-	            }
-	    });
 
             $('.dropify').dropify();
 
