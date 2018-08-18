@@ -165,3 +165,10 @@
             sim.active.internal_states[name] = ep_internal_states[name] ;
         }
 
+        // ir_info
+
+        function simhw_sim_irInfo ( )
+        {
+            return sim.active.ir_info ;
+        }
+

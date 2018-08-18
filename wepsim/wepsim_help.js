@@ -181,17 +181,3 @@
 	$('#help1_ref').data('code','false') ;
     }
 
-    function update_checker_loadhelp ( helpdiv, key )
-    {
-	var help_base = 'help/simulator-' + get_cfg('ws_idiom') + '.html #' + key;
-	$(helpdiv).load(help_base,
-			      function(response, status, xhr) {
-				  if ( $(helpdiv).html() == "" )
-				       $(helpdiv).html('<br>Sorry, there is no more details.<p>\n');
-
-				  $(helpdiv).trigger('create');
-			      });
-
-        ga('send', 'event', 'help', 'help.checker', 'help.checker.' + key);
-    }
-

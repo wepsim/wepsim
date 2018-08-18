@@ -26,11 +26,12 @@
         ep_components["CPU"] = {
 		                  name: "CPU", 
 		                  version: "1", 
+		                  abilities: ["CPU"], 
 		                  write_state:  function ( vec ) {
                                                   if (typeof vec.CPU == "undefined")
                                                       vec.CPU = {} ;
 
-					          // var internal_reg = ["PC", "MAR", "MBR", "IR", "RT1", "RT1", "RT2", "RT3", "SR"] ;
+					          // var internal_reg = ["PC", "MAR", "MBR", "IR", "RT1", "RT2", "RT3", "SR"] ;
 					          var internal_reg = ["PC", "SR"] ;
 
 						  var value = 0 ;
@@ -96,6 +97,14 @@
 
 
 	/*
+	 *  Default elements at the Instruction Register (IR)
+	 */
+
+        ep_ir.default_eltos = {  "co": { "begin":  0, "end":  5, "length": 6 },
+			        "cop": { "begin": 28, "end": 31, "length": 4 } } ;
+
+
+	/*
 	 *  Internal States
 	 */
 
@@ -122,6 +131,7 @@
                                                "SELP,0", "LC,0",   "SE,0",  "SIZE,0", "OFFSET,0",
                                                "BW,0",   "R,0",    "W,0",   "TA,0",   "TD,0",    "IOR,0","IOW,0", 
                                                "TEST_I,0", "TEST_U,0"  ] ;
+        ep_internal_states.alu_flags       = { 'flag_n': 0, 'flag_z': 0, 'flag_v': 0, 'flag_c': 0 } ;
 
 
 	/*
@@ -356,7 +366,7 @@
 	 ep_signals["T1"]  = { name: "T1",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV BUS_IB REG_MBR; FIRE M7; FIRE M2; FIRE M1"],
 			       fire_name: ['svg_p:text3105'],
-			       draw_data: [['svg_p:path3071', 'svg_p:path3069','svg_p:path3049','svg_p:path3063-9', 'svg_p:path3071']],
+			       draw_data: [['svg_p:path3071', 'svg_p:path3069','svg_p:path3049','svg_p:path3063-9', 'svg_p:path3071','svg_p:path3071']],
 			       draw_name: [['svg_p:path3067']] };
 	 ep_signals["T2"]  = { name: "T2",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV BUS_IB REG_PC; FIRE M7; FIRE M2; FIRE M1"],
@@ -431,13 +441,13 @@
 			       draw_name: [[], ['svg_p:path3667']] };
 	 ep_signals["MA"]  = { name: "MA",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["MV MA_ALU RA_T9; FIRE COP", "MV MA_ALU REG_RT1; FIRE COP"],
-                               depends_on: ["SELA","SELB","SELC"],
+                               depends_on: ["SELA","SELB"],
 			       fire_name: ['svg_p:text3463'],
 			       draw_data: [['svg_p:path3249', 'svg_p:path3161', 'svg_p:path3165'], ['svg_p:path3279']],
 			       draw_name: [[], ['svg_p:path3423']] };
 	 ep_signals["MB"]  = { name: "MB",  visible: true, type: "L", value: 0, default_value:0, nbits: "2",
 			       behavior: ["MV MB_ALU RB_T10; FIRE COP", "MV MB_ALU REG_RT2; FIRE COP", "MV MB_ALU VAL_FOUR; FIRE COP", "MV MB_ALU VAL_ONE; FIRE COP"],
-                               depends_on: ["SELA","SELB","SELC"],
+                               depends_on: ["SELA","SELB"],
 			       fire_name: ['svg_p:text3465'],
 			       draw_data: [['svg_p:path3281', 'svg_p:path3171', 'svg_p:path3169'], ['svg_p:path3283'],
 					   ['svg_p:path3295', 'svg_p:path3293'], ['svg_p:path3297', 'svg_p:path3299']],
@@ -563,7 +573,7 @@
 			       draw_data: [['svg_cu:path3494','svg_cu:path3492','svg_cu:path3490','svg_cu:path3142b','svg_cu:path3188',
                                             'svg_cu:path3190','svg_cu:path3192','svg_cu:path3194','svg_cu:path3276','svg_cu:path3290',
                                             'svg_cu:path3260','svg_cu:path3196','svg_cu:path3502','svg_cu:path3278','svg_cu:path3232','svg_cu:path3292'],
-					   ['svg_cu:path3270','svg_cu:path3282','svg_cu:path3300', 'svg_cu:path3258', 'svg_cu:path3260', 
+					   ['svg_cu:path3270','svg_cu:path3282','svg_cu:path3300', 'svg_cu:path3258', 'svg_cu:path3260','svg_cu:path3258-4', 
                                             'svg_cu:path3278', 'svg_cu:path3196', 'svg_cu:path3502',
 					    'svg_cu:path3294', 'svg_cu:path3292', 'svg_cu:path3288', 'svg_cu:path3232', 'svg_cu:path3280']],
 			       draw_name: [[],['svg_cu:path3220','svg_cu:path3240','svg_cu:path3252']] };
@@ -668,7 +678,7 @@
 				 draw_name: [[], []]};
 	 ep_signals["IOW"]   = { name: "IOW", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 				 behavior: ["NOP", "MOVE_BITS SCR_IOW 0 1 IOW; FIRE SCR_IOW; MOVE_BITS IO_IOW 0 1 IOW; FIRE IO_IOW;"],
-				 fire_name: ['svg_p:text3715'],
+				 fire_name: ['svg_p:text3717'],
 				 draw_data: [[], ['svg_p:path3735', 'svg_p:path3493', 'svg_p:text3717', 'svg_p:path3493']],
 				 draw_name: [[], []]};
 
@@ -725,7 +735,14 @@
 				     operation: function(s_expr) { }
 				   };
 	ep_behaviors["NOP_ALU"]  = { nparameters: 1,
-				     operation: function(s_expr) { ep_update_nzvc(0, 0, 0, 0); }
+				     operation: function(s_expr) 
+                                                { 
+                                                   ep_internal_states.alu_flags.flag_n = 0 ;
+                                                   ep_internal_states.alu_flags.flag_z = 0 ;
+                                                   ep_internal_states.alu_flags.flag_c = 0 ;
+                                                   ep_internal_states.alu_flags.flag_v = 0 ;
+                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
+                                                }
 				   };
         ep_behaviors["MV"]       = { nparameters: 3,
                                      types: ["X", "X"],
@@ -768,7 +785,11 @@
 				                   var result = get_value(ep_states[s_expr[2]]) & get_value(ep_states[s_expr[3]]) ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
-			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						   ep_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_v = 0 ;
+						   ep_internal_states.alu_flags.flag_c = 0 ;
+                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
 						}
 				   };
 	ep_behaviors["OR"]       = { nparameters: 4,
@@ -777,7 +798,11 @@
 				                   var result = get_value(ep_states[s_expr[2]]) | get_value(ep_states[s_expr[3]]) ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
-			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						   ep_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_v = 0 ;
+						   ep_internal_states.alu_flags.flag_c = 0 ;
+                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
 						}
 				   };
 	ep_behaviors["NOT"]      = { nparameters: 3,
@@ -786,7 +811,11 @@
 				                   var result = ~(get_value(ep_states[s_expr[2]])) ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
-			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						   ep_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_v = 0 ;
+						   ep_internal_states.alu_flags.flag_c = 0 ;
+                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
 						}
 				   };
 	ep_behaviors["XOR"]      = { nparameters: 4,
@@ -795,7 +824,11 @@
 				                   var result = get_value(ep_states[s_expr[2]]) ^ get_value(ep_states[s_expr[3]]) ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
-			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						   ep_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_v = 0 ;
+						   ep_internal_states.alu_flags.flag_c = 0 ;
+                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
 						}
 				   };
 	ep_behaviors["SRL"]      = { nparameters: 3,
@@ -804,7 +837,11 @@
 				                   var result = (get_value(ep_states[s_expr[2]])) >>> 1 ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
-			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						   ep_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_v = 0 ;
+						   ep_internal_states.alu_flags.flag_c = 0 ;
+                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
 						}
 				   };
 	ep_behaviors["SRA"]      = { nparameters: 3,
@@ -813,7 +850,11 @@
 				                   var result = (get_value(ep_states[s_expr[2]])) >> 1 ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
-			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						   ep_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_v = 0 ;
+						   ep_internal_states.alu_flags.flag_c = 0 ;
+                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
 						}
 				   };
 	ep_behaviors["SL"]       = { nparameters: 3,
@@ -822,7 +863,11 @@
 				                   var result = (get_value(ep_states[s_expr[2]])) << 1 ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
-			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, (result) >>> 31) ;
+						   ep_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_v = 0 ;
+						   ep_internal_states.alu_flags.flag_c = ((result) >>> 31) ;
+                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
 						}
 				   };
 	ep_behaviors["RR"]       = { nparameters: 3,
@@ -831,16 +876,25 @@
 				                   var result = ((get_value(ep_states[s_expr[2]])) >>> 1) | (((get_value(ep_states[s_expr[2]])) & 1) << 31) ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
-			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						   ep_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_v = 0 ;
+						   ep_internal_states.alu_flags.flag_c = 0 ;
+                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
 						}
 				   };
 	ep_behaviors["RL"]       = { nparameters: 3,
 				     types: ["E", "E"],
 				     operation: function(s_expr) {
-				                   var result = ((get_value(ep_states[s_expr[2]])) << 1) | (((get_value(ep_states[s_expr[2]])) & 0X80000000) >>> 31) ;
+				                   var result = ((get_value(ep_states[s_expr[2]])) << 1) | 
+                                                                 (((get_value(ep_states[s_expr[2]])) & 0X80000000) >>> 31) ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
-			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						   ep_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_v = 0 ;
+						   ep_internal_states.alu_flags.flag_c = 0 ;
+                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
 						}
 				   };
 	ep_behaviors["ADD"]      = { nparameters: 4,
@@ -851,17 +905,17 @@
 						   var result = a + b ;
 						   set_value(ep_states[s_expr[1]], result >>> 0) ;
 
-						   var flag_n = (result < 0) ? 1 : 0 ;
-						   var flag_z = (result == 0) ? 1 : 0 ;
-						   var flag_c = (a >>> 31) && (b >>> 31) ;
+						   ep_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_c = (a >>> 31) && (b >>> 31) ;
 
-						   var flag_v = 0 ;
+						   ep_internal_states.alu_flags.flag_v = 0 ;
 						   if ( (result < 0) && (a >= 0) && (b >= 0) )
-							flag_v = 1 ;
+							ep_internal_states.alu_flags.flag_v = 1 ;
 						   if ( (result >= 0) && (a <  0) && (b <  0) )
-							flag_v = 1 ;
+							ep_internal_states.alu_flags.flag_v = 1 ;
 
-			                           ep_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
+                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
 						}
 				   };
 	ep_behaviors["SUB"]      = { nparameters: 4,
@@ -872,17 +926,17 @@
 						   var result = a - b ;
 						   set_value(ep_states[s_expr[1]], result >>> 0) ;
 
-						   var flag_n = (result < 0) ? 1 : 0 ;
-						   var flag_z = (result == 0) ? 1 : 0 ;
-						   var flag_c = (a >>> 31) && (b >>> 31) ;
+						   ep_internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_c = (a >>> 31) && (b >>> 31) ;
 
-						   var flag_v = 0 ;
+						   ep_internal_states.alu_flags.flag_v = 0 ;
 						   if ( (result < 0) && (a >= 0) && (b >= 0) )
-							flag_v = 1 ;
+							ep_internal_states.alu_flags.flag_v = 1 ;
 						   if ( (result >= 0) && (a <  0) && (b <  0) )
-							flag_v = 1 ;
+							ep_internal_states.alu_flags.flag_v = 1 ;
 
-			                           ep_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
+                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
 						}
 				   };
 	ep_behaviors["MUL"]      = { nparameters: 4,
@@ -893,17 +947,17 @@
 						   var result = a * b ;
 						   set_value(ep_states[s_expr[1]], result >>> 0) ;
 
-						   var flag_n = (result < 0) ? 1 : 0 ;
-						   var flag_z = (result == 0) ? 1 : 0 ;
-						   var flag_c = 0 ;
+						   ep_internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_c = 0 ;
 
-						   var flag_v = 0 ;
+						   ep_internal_states.alu_flags.flag_v = 0 ;
 						   if ( (result < 0) && (a >= 0) && (b >= 0) )
-							flag_v = 1 ;
+							ep_internal_states.alu_flags.flag_v = 1 ;
 						   if ( (result >= 0) && (a <  0) && (b <  0) )
-							flag_v = 1 ;
+							ep_internal_states.alu_flags.flag_v = 1 ;
 
-			                           ep_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
+                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
 						}
 				   };
 	ep_behaviors["DIV"]      = { nparameters: 4,
@@ -914,13 +968,22 @@
 
 						   if (0 == b) {
 						       set_value(ep_states[s_expr[1]], 0) ;
-			                               ep_update_nzvc(0, 1, 1, 0) ;
+
+						       ep_internal_states.alu_flags.flag_n = 0 ;
+						       ep_internal_states.alu_flags.flag_z = 1 ;
+						       ep_internal_states.alu_flags.flag_v = 1 ;
+						       ep_internal_states.alu_flags.flag_c = 0 ;
+                                                       ep_behaviors["UPDATE_NZVC"].operation() ;
                                                        return ;
                                                    }
 
 				                   var result = Math.floor(a / b) ;
 				                   set_value(ep_states[s_expr[1]], result) ;
-			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						   ep_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_v = 0 ;
+						   ep_internal_states.alu_flags.flag_c = 0 ;
+                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
 						}
 				   };
 	ep_behaviors["MOD"]      = { nparameters: 4,
@@ -929,7 +992,11 @@
 						   var result = (get_value(ep_states[s_expr[2]]) << 0) % (get_value(ep_states[s_expr[3]]) << 0) ;
 						   set_value(ep_states[s_expr[1]], result) ;
 
-			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						   ep_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_v = 0 ;
+						   ep_internal_states.alu_flags.flag_c = 0 ;
+                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
 						}
 				   };
 	ep_behaviors["LUI"]      = { nparameters: 3,
@@ -938,7 +1005,11 @@
 						   var result = (get_value(ep_states[s_expr[2]])) << 16 ;
 						   set_value(ep_states[s_expr[1]], result) ;
 
-			                           ep_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						   ep_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   ep_internal_states.alu_flags.flag_v = 0 ;
+						   ep_internal_states.alu_flags.flag_c = 0 ;
+                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
 						}
 				   };
 	ep_behaviors["MBIT"]     = { nparameters: 5,
@@ -1095,32 +1166,33 @@
 	ep_behaviors["DECO"]    = { nparameters: 1,
 				     operation: function(s_expr)
 						{
-						    var bits = get_value(ep_states['REG_IR']).toString(2) ;
-						        bits = "00000000000000000000000000000000".substring(0, 32 - bits.length) + bits ;
-						    var  op_code = parseInt(bits.substr(0,  6), 2) ; //  op-code of 6 bits
-						    var cop_code = parseInt(bits.substr(28, 4), 2) ; // cop-code of 4 bits
+						    ep_states['INEX'].value = 0 ;
 
 						    // 1.- IR -> oi
-						    ep_states['INEX'].value = 0 ;
-						    var oi = decode_instruction(bits) ;
-						    if (null == oi)
+						    var oi = decode_instruction(ep_internal_states.FIRMWARE, 
+                                                                                ep_ir,
+						                                get_value(ep_states['REG_IR'])) ;
+						    if (null == oi.oinstruction)
                                                     {
-                                                         alert('ERROR: undefined instruction code in firmware ' +
-                                                               '(co:' + op_code.toString(2) + ', cop:' + cop_code.toString(2) + ')') ;
+                                                         alert('ERROR: undefined instruction code in firmware (' +
+							       'co:'  +  oi.op_code.toString(2) + ', ' + 
+							       'cop:' + oi.cop_code.toString(2) + ')') ;
 							 ep_states['ROM_MUXA'].value = 0 ;
 							 ep_states['INEX'].value = 1 ;
 							 return -1;
 						    }
 
-						    // 2.- oi -> rom_addr
-                                                    var rom_addr = op_code << 6;
-						    if (typeof oi.cop != "undefined")
-                                                        rom_addr = rom_addr + cop_code ;
+						    // 2.- oi.oinstruction -> rom_addr
+                                                    var rom_addr = oi.op_code << 6;
+						    if (typeof oi.oinstruction.cop != "undefined") {
+                                                        rom_addr = rom_addr + oi.cop_code ;
+						    }
 
 						    // 2.- ! ep_internal_states['ROM'][rom_addr] -> error
 						    if (typeof ep_internal_states['ROM'][rom_addr] == "undefined")
 						    {
-							 alert('ERROR: undefined rom address ' + rom_addr + ' in firmware') ;
+							 alert('ERROR: undefined rom address ' + rom_addr + 
+                                                               ' in firmware') ;
 							 ep_states['ROM_MUXA'].value = 0 ;
 							 return -1;
 						    }
@@ -1184,8 +1256,9 @@
 					     operation: function (s_expr)
 							{
 						            sim_elto = get_reference(s_expr[2]) ;
-							    if (sim_elto.changed == false)
+							    if (sim_elto.changed == false) {
 								return ;
+                                                            }
 
 							    ep_behaviors["FIRE"].operation(s_expr) ;
 							}
@@ -1196,7 +1269,7 @@
 					     operation: function (s_expr)
 							{
 						            sim_elto = get_reference(s_expr[1]) ;
-							    sim_elto.changed = false ; // todo: comment this line
+							    sim_elto.changed = false ; // Disable by Default
 							}
 					   };
 
@@ -1247,31 +1320,43 @@
 		ep_behaviors["RESET"]    = { nparameters: 1,
 					     operation: function(s_expr)
 							{
-							    // 1.a.- set states/signals to the default state
-							    for (var key in ep_states)
+							    // set states/signals to the default state
+							    for (var key in ep_states) {
 								 reset_value(ep_states[key]) ;
-							    for (var key in  ep_signals)
-								 reset_value( ep_signals[key]) ;
-
-							    // 1.b.- reset events to empty
-							    ep_events["screen"] = {} ;
-							    ep_events["keybd"]  = {} ;
-							    ep_events["io"]     = {} ;
-							    ep_events["mem"]    = {} ;
-
-							    // 2.- reset the I/O factory
-							    for (var i=0; i<ep_internal_states.io_int_factory.length; i++)
-							    {
-						                 set_var(ep_internal_states.io_int_factory[i].accumulated, 0);
-						                 set_var(ep_internal_states.io_int_factory[i].active, false);
-							    }
+                                                            }
+							    for (var key in  ep_signals) {
+								 reset_value(ep_signals[key]) ;
+                                                            }
 							}
 					   };
 
 	ep_behaviors["UPDATEDPC"]     = { nparameters: 1,
-				             operation: function(s_expr)
+				            operation: function(s_expr)
 							{
                                                             show_asmdbg_pc();
+							}
+					   };
+
+	ep_behaviors["UPDATE_NZVC"]   = { nparameters: 1,
+				            operation: function(s_expr)
+							{
+							   set_value(simhw_sim_state("FLAG_N"),   
+								     ep_internal_states.alu_flags.flag_n);
+							   set_value(simhw_sim_state("FLAG_Z"),   
+								     ep_internal_states.alu_flags.flag_z);
+							   set_value(simhw_sim_state("FLAG_V"),   
+								     ep_internal_states.alu_flags.flag_v);
+							   set_value(simhw_sim_state("FLAG_C"),   
+								     ep_internal_states.alu_flags.flag_c);
+
+							   set_value(simhw_sim_signal("TEST_N"),  
+								     ep_internal_states.alu_flags.flag_n);
+							   set_value(simhw_sim_signal("TEST_Z"),  
+								     ep_internal_states.alu_flags.flag_z);
+							   set_value(simhw_sim_signal("TEST_V"),  
+								     ep_internal_states.alu_flags.flag_v);
+							   set_value(simhw_sim_signal("TEST_C"),  
+								     ep_internal_states.alu_flags.flag_c);
 							}
 					   };
 

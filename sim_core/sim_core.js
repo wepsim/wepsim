@@ -60,15 +60,46 @@
 	        ret.msg     = "" ;
 	        ret.ok      = true ;
 
+            // default information holders as disabled
+            var msg_default = '<div class="bg-warning"><b>Not available in this hardware</b></div>' ;
+            if ('' != stateall_id)  $(stateall_id).html(msg_default) ;
+            if ('' != statebr_id)    $(statebr_id).html(msg_default) ;
+            if ('' != ioall_id)        $(ioall_id).html(msg_default) ;
+            if ('' != cpuall_id)      $(cpuall_id).html(msg_default) ;
+            if ('' != configmp_id)  $(configmp_id).html(msg_default) ;
+            if ('' != configio_id)  $(configio_id).html(msg_default) ;
+
             // display the information holders
-            init_states(stateall_id) ;
-            init_rf(statebr_id) ;
+            var sim_components = simhw_sim_components() ;
+            for (var elto in sim_components)
+            {
+		 for (var index in sim_components[elto].abilities)
+		 {
+		      switch (sim_components[elto].abilities[index]) 
+                      {
+		         case "CPU":
+			      init_states(stateall_id) ;
+			      init_rf(statebr_id) ;
+			      init_cpu(cpuall_id) ;
+			      break;
 
-            init_io(ioall_id) ;
-            init_cpu(cpuall_id) ;
+		         case "MEMORY_CONFIG":
+			      init_config_mp(configmp_id) ;
+			      break;
 
-            init_config_mp(configmp_id) ;
-            init_config_io(configio_id) ;
+		         case "IO":
+			      init_io(ioall_id) ;
+			      break;
+
+		         case "IO_CONFIG":
+			      init_config_io(configio_id) ;
+			      break;
+
+		         default:
+			      break;
+		      }
+		 }
+            }
 
             return ret ;
         }
@@ -193,46 +224,94 @@
     	        ret.msg     = "" ;
     	        ret.ok      = true ;
     
+            // current elements
+	    var SIMWARE        = get_simware() ;
+            var curr_firm      = simhw_internalState('FIRMWARE') ;
+            var curr_segments  = simhw_internalState('segments') ;
+            var sim_components = simhw_sim_components() ;
+
             // Hardware
-	    var SIMWARE       = get_simware() ;
-            var curr_firm     = simhw_internalState('FIRMWARE') ;
-            var curr_segments = simhw_internalState('segments') ;
+            for (var elto in sim_components)
+            {
+		 switch (sim_components[elto].name) 
+                 {
+		    case "CPU":
+			 compute_general_behavior("RESET") ;
 
-            compute_general_behavior("RESET") ;
+			 if ((typeof curr_segments['.ktext'] != "undefined") && (SIMWARE.labels2.kmain))
+			 {
+			      set_value(simhw_sim_state('REG_PC'), parseInt(SIMWARE.labels2.kmain));
+			      show_asmdbg_pc() ;
+			 }
+			 else if ((typeof curr_segments['.text'] != "undefined") && (SIMWARE.labels2.main))
+			 {
+			      set_value(simhw_sim_state('REG_PC'), parseInt(SIMWARE.labels2.main));
+			      show_asmdbg_pc() ;
+			 }
+		    
+			 if ( (typeof curr_segments['.stack'] != "undefined") &&
+			      (typeof simhw_sim_states().BR[curr_firm.stackRegister] != "undefined") )
+			 {
+				set_value(simhw_sim_states().BR[curr_firm.stackRegister], 
+					  parseInt(curr_segments['.stack'].begin));
+			 }
+			 break;
 
-            if ((typeof curr_segments['.ktext'] != "undefined") && (SIMWARE.labels2.kmain))
-	    {
-                    set_value(simhw_sim_state('REG_PC'), parseInt(SIMWARE.labels2.kmain));
-                    show_asmdbg_pc() ;
-    	    }
-            else if ((typeof curr_segments['.text'] != "undefined") && (SIMWARE.labels2.main))
-	    {
-                    set_value(simhw_sim_state('REG_PC'), parseInt(SIMWARE.labels2.main));
-                    show_asmdbg_pc() ;
-    	    }
-    
-    	    if ( (typeof curr_segments['.stack'] != "undefined") &&
-                 (typeof simhw_sim_states().BR[curr_firm.stackRegister] != "undefined") )
-    	    {
-    		set_value(simhw_sim_states().BR[curr_firm.stackRegister], parseInt(curr_segments['.stack'].begin));
-    	    }
+		    case "MEMORY":
+			 compute_general_behavior("MEM_RESET") ;
+			 break;
 
+		    case "SCREEN":
+		         compute_general_behavior("SCR_RESET") ;
+			 break;
+
+		    case "KBD":
+			 compute_general_behavior("KBD_RESET") ;
+			 break;
+
+		    case "IO":
+			 compute_general_behavior("IO_RESET") ;
+			 break;
+
+		    default:
+			 break;
+		 }
+            }
+
+            // Set mode
 	    var mode = get_cfg('ws_mode');
 	    if ('wepmips' != mode) {
                 compute_general_behavior("CLOCK") ;
 	    }
 
-            set_screen_content("") ;
-
             // User Interface
-	    show_states() ;
-            show_rf_values();
-            show_rf_names();
-            show_dbg_ir(get_value(simhw_sim_state('REG_IR_DECO'))) ;
+            for (elto in sim_components)
+            {
+		 switch (sim_components[elto].name) 
+                 {
+		    case "CPU":
+			 show_states() ;
+			 show_rf_values();
+			 show_rf_names();
+			 show_dbg_ir(get_value(simhw_sim_state('REG_IR_DECO'))) ;
+			 show_control_memory(simhw_internalState('MC'),  
+					     simhw_internalState('MC_dashboard'), 0, true);
+			 break;
 
-            show_main_memory   (simhw_internalState('MP'),  0, true, false) ;
-            show_control_memory(simhw_internalState('MC'),  simhw_internalState('MC_dashboard'), 0, true) ;
+		    case "MEMORY":
+			 show_main_memory(simhw_internalState('MP'),  0, true, false) ;
+			 break;
 
+		    case "SCREEN":
+			 set_screen_content("") ;
+			 break;
+
+		    default:
+			 break;
+		 }
+            }
+
+            // return
             return ret ;
         }
 
@@ -246,9 +325,10 @@
 		return ret ;
 	    }
 
+            // CPU - Hardware
             compute_general_behavior("CLOCK") ;
 
-            // User Interface
+            // CPU - User Interface
 	    show_states();
 	    show_rf_values();
             show_dbg_mpc();

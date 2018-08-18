@@ -35,9 +35,10 @@
 	    if (typeof cf['labels2'] == "undefined")             cf['labels2']            = new Object() ;
 	    if (typeof cf['labels_firm'] == "undefined")         cf['labels_firm']        = new Object() ;
 	    if (typeof cf['registers'] == "undefined")           cf['registers']          = new Object() ;
-	    if (typeof cf['cihash'] == "undefined")              cf['cihash']             = new Object() ;
 	    if (typeof cf['pseudoInstructions'] == "undefined")  cf['pseudoInstructions'] = new Object() ;
 	    if (typeof cf['stackRegister'] == "undefined")       cf['stackRegister']      = new Object() ;
+	    if (typeof cf['cihash'] == "undefined")              cf['cihash']             = new Object() ;
+	    if (typeof cf['cocop_hash'] == "undefined")          cf['cocop_hash']         = new Object() ;
 
             return cf ;
 	}
@@ -49,7 +50,6 @@
 	    if (typeof preWARE['firmware'] != "undefined")           cf['firmware'] = preWARE['firmware'] ;
 	    if (typeof preWARE['mp'] != "undefined")                 cf['mp'] = preWARE['mp'] ;
 	    if (typeof preWARE['registers'] != "undefined")          cf['registers'] = preWARE['registers'] ;
-	    if (typeof preWARE['cihash'] != "undefined")             cf['cihash'] = preWARE['cihash'] ;
 	    if (typeof preWARE['assembly'] != "undefined")           cf['assembly'] = preWARE['assembly'] ;
 	    if (typeof preWARE['pseudoInstructions'] != "undefined") cf['pseudoInstructions'] = preWARE['pseudoInstructions'] ;
 
@@ -58,6 +58,8 @@
 	    if (typeof preWARE['labels2'] != "undefined")            cf['labels2'] = preWARE['labels2'] ;
 	    if (typeof preWARE['labels_firm'] != "undefined")        cf['labels_firm'] = preWARE['labels_firm'] ;
 	    if (typeof preWARE['stackRegister'] != "undefined")      cf['stackRegister'] = preWARE['stackRegister'] ;
+	    if (typeof preWARE['cihash'] != "undefined")             cf['cihash'] = preWARE['cihash'] ;
+	    if (typeof preWARE['cocop_hash'] != "undefined")         cf['cocop_hash'] = preWARE['cocop_hash'] ;
 	}
 
         function array_includes ( arr, val )
@@ -285,8 +287,9 @@
 	    }
 	    SIMWARE['firmware'][assoc_i]["microcode"][pos][key] = simhw_sim_signal(key).value ;
 
-            if (simhw_sim_signal(key).default_value == simhw_sim_signal(key).value)
+            if (simhw_sim_signal(key).default_value == simhw_sim_signal(key).value) {
 	        delete SIMWARE['firmware'][assoc_i]["microcode"][pos][key] ;
+	    }
 
 	    // show memories...
 	    var bits = get_value(simhw_sim_state('REG_IR')).toString(2) ;
@@ -294,18 +297,6 @@
 	    //var op_code = parseInt(bits.substr(0, 6), 2) ; // op-code of 6 bits
 
             show_memories_values() ;
-	}
-
-        function update_signal_loadhelp ( helpdiv, key )
-        {
-	     var help_base = 'help/signals-' + get_cfg('ws_idiom') + '.html #' + key;
-	     $(helpdiv).load(help_base,
-			      function(response, status, xhr) {
-				  if ( $(helpdiv).html() == "" )
-				       $(helpdiv).html('<br>Sorry, No more details available for this signal.<p>\n');
-				  $(helpdiv).trigger('create');
-			      });
-             ga('send', 'event', 'help', 'help.signal', 'help.signal.' + key);
 	}
 
         function update_signal (event)
@@ -361,14 +352,17 @@
                                                '</center></label></div>\n' ;
                         }
 
-
+                        var curr_hw = simhw_short_name() ;
+                        if ("" == curr_hw) {
+                            curr_hw = "ep" ;
+	                }
 
 			var bb = bootbox.dialog({
 			       title:   '<center>' + key + ': ' +
                                         ' <div class="btn-group">' +
                                         '   <button onclick="$(\'#bot_signal\').carousel(0);" ' +
                                         '           type="button" class="btn btn-info">Value</button>' +
-                                        '   <button onclick="$(\'#bot_signal\').carousel(1); update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());" ' +
+                                        '   <button onclick="$(\'#bot_signal\').carousel(1); update_signal_loadhelp(\'#help2\',$(\'#ask_shard\').val(),$(\'#ask_skey\').val());" ' +
                                         '           type="button" class="btn btn-success">Help</button>' +
                                         '   <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" ' +
                                         '           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
@@ -378,11 +372,11 @@
                                         '   <div class="dropdown-menu">' +
                                         '        <a href="#" class="dropdown-item" ' + 
 				        '                    onclick="set_cfg(\'ws_idiom\',\'es\'); save_cfg(); $(\'#bot_signal\').carousel(1); ' +
-                                        '                             update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());" ' + 
+                                        '                             update_signal_loadhelp(\'#help2\',$(\'#ask_shard\').val(),$(\'#ask_skey\').val());" ' + 
 				        '        >ES<span class="d-none d-sm-inline-flex">&nbsp;(Spanish)</span></a>' +
                                         '        <a href="#" class="dropdown-item" ' + 
 				        '                    onclick="set_cfg(\'ws_idiom\',\'en\'); save_cfg(); $(\'#bot_signal\').carousel(1); ' +
-                                        '                             update_signal_loadhelp(\'#help2\',$(\'#ask_skey\').val());" ' +
+                                        '                             update_signal_loadhelp(\'#help2\',$(\'#ask_shard\').val(),$(\'#ask_skey\').val());" ' +
 				        '        >EN<span class="d-none d-sm-inline-flex">&nbsp;(English)</span></a>' +
                                         '   </div>' +
                                         ' </div>' +
@@ -392,7 +386,8 @@
                                         '    <div class="carousel-item active">' +
                                         '         <div style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">' +
                                         '         <form class="form-horizontal" style="white-space:nowrap;">' +
-                                        '         <input aria-label="value for ' + key + '" id="ask_skey" name="ask_skey" type="hidden" value="' + key + '" class="form-control input-md"> ' +
+                                        '         <input aria-label="value for ' + key     + '" id="ask_skey"  name="ask_skey"  type="hidden" value="' + key     + '" class="form-control input-md"> ' +
+                                        '         <input aria-label="value for ' + curr_hw + '" id="ask_shard" name="ask_shard" type="hidden" value="' + curr_hw + '" class="form-control input-md"> ' +
                                         '         <ol start="0">' +
                                                   input_help +
                                         '         </ol>' +
@@ -415,8 +410,9 @@
 							  {
 							     key        = $('#ask_skey').val();
 							     user_input = $("input[name='ask_svalue']:checked").val();
-                                                             if (typeof user_input == "undefined")
+                                                             if (typeof user_input == "undefined") {
 							         user_input = $("input[name='ask_svalue']").val();
+	                                                     }
 
 							     simhw_sim_signal(key).value = user_input ;
 

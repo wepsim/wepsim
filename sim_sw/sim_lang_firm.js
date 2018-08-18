@@ -200,6 +200,9 @@ function read_native ( context )
 
 function loadFirmware (text)
 {
+           var     ir_info = simhw_sim_irInfo() ;
+           var all_ones_co = "1".repeat(ir_info.default_eltos.co.length) ;
+
            var context = {} ;
 	   context.line           	= 1 ;
 	   context.error          	= null ;
@@ -510,8 +513,8 @@ function loadFirmware (text)
 			   else
 		           {
 			       return langError(context,
-			    			    "'token' is missing after '(' on: " + 
-                                                    context.co_cop[instruccionAux.co].signature) ;
+			    			"'token' is missing after '(' on: " + 
+                                                context.co_cop[instruccionAux.co].signature) ;
 		           }
 
 			   if (isToken(context,")"))
@@ -565,24 +568,27 @@ function loadFirmware (text)
 	       instruccionAux["co"] = getToken(context) ;
 
 	       // semantic check: valid value
-	       if ( (getToken(context).match("[01]*")[0] != getToken(context)) || (getToken(context).length != 6) )
-	             return langError(context, "Incorrect binary format on 'co': " + getToken(context)) ;
+	       if (    (getToken(context).match("[01]*")[0] != getToken(context)) 
+                    || (getToken(context).length != ir_info.default_eltos.co.length) ) 
+               {
+	           return langError(context, "Incorrect binary format on 'co': " + getToken(context)) ;
+               }
 
 	       // semantic check: 'co' is not already used
-	       if (instruccionAux["co"] != "111111")
+	       if (instruccionAux["co"] != all_ones_co)
 	       {
 	           if ( (typeof context.co_cop[instruccionAux["co"]] != "undefined") &&
 	                       (context.co_cop[instruccionAux["co"]].cop == null) )
 	           {
-	   	           return langError(context,
-				                          "'co' is already been used by: " + context.co_cop[instruccionAux.co].signature) ;
+	   	         return langError(context,
+			         "'co' is already been used by: " + context.co_cop[instruccionAux.co].signature) ;
 	           }
 
-             if (typeof context.co_cop[instruccionAux.co] == "undefined")
+                   if (typeof context.co_cop[instruccionAux.co] == "undefined")
 	           {
 	               context.co_cop[instruccionAux.co] = {} ;
-   	             context.co_cop[instruccionAux.co].signature = instruccionAux.signature ;
-                 context.co_cop[instruccionAux.co].cop       = null ;
+   	               context.co_cop[instruccionAux.co].signature = instruccionAux.signature ;
+                       context.co_cop[instruccionAux.co].cop       = null ;
 	           }
 	       }
 
@@ -615,8 +621,11 @@ function loadFirmware (text)
 		       instruccionAux["cop"] = getToken(context) ;
 
 		       // semantic check: valid value
-		       if ( (getToken(context).match("[01]*")[0] != getToken(context)) || (getToken(context).length != 4) )
-			     return langError(context, "Incorrect binary format on 'cop': " + getToken(context)) ;
+		       if (    (getToken(context).match("[01]*")[0] != getToken(context)) 
+                            || (getToken(context).length != ir_info.default_eltos.cop.length) )
+                       {
+		            return langError(context, "Incorrect binary format on 'cop': " + getToken(context)) ;
+                       }
 
 		       // semantic check: 'co+cop' is not already used
 	               if (        (context.co_cop[instruccionAux.co].cop != null) &&
@@ -932,15 +941,42 @@ function loadFirmware (text)
 	   }
 	   eval(mk_native) ;
 
-           var ret = {};
-           ret.error              = null;
+           // co_cop_hash
+	   var fico  = 0 ;
+	   var ficop = 0 ;
+	   context.cocop_hash = {} ;
+	   for (var fi in context.instrucciones)
+	   {
+		 if (context.instrucciones[fi].name == "begin") {
+		     continue ;
+		 }
+
+		 fico  = context.instrucciones[fi].co ;
+		 if (typeof context.cocop_hash[fico] == "undefined") {
+		     context.cocop_hash[fico] = {} ;
+		 }
+
+		 if (typeof context.instrucciones[fi].cop == "undefined") {
+		     context.cocop_hash[fico].withcop = false ;
+		     context.cocop_hash[fico].i       = context.instrucciones[fi] ;
+		 } else {
+		     ficop = context.instrucciones[fi].cop ;
+		     context.cocop_hash[fico].withcop = true ;
+		     context.cocop_hash[fico][ficop]  = context.instrucciones[fi] ;
+		 }
+	   }
+
+           // return results
+           var ret = {} ;
+           ret.error              = null ;
            ret.firmware           = context.instrucciones ;
-           ret.labels_firm        = context.etiquetas;
-           ret.mp                 = {};
-           ret.seg                = {};
+           ret.labels_firm        = context.etiquetas ;
+           ret.mp                 = {} ;
+           ret.seg                = {} ;
            ret.registers          = context.registers ;
            ret.pseudoInstructions = context.pseudoInstructions ;
-	   ret.stackRegister	  = context.stackRegister;
+	   ret.stackRegister	  = context.stackRegister ;
+	   ret.cocop_hash	  = context.cocop_hash ;
 
            return ret ;
 }
@@ -1064,47 +1100,46 @@ function saveFirmware ( SIMWARE )
  *  Auxiliar firmware interface
  */
 
-function decode_instruction ( binstruction )
+function decode_instruction ( curr_firm, ep_ir, binstruction )
 {
-    var curr_firm = simhw_internalState('FIRMWARE') ;
+    var ret = { 
+                 "oinstruction": null,
+                  op_code: 0,
+                 cop_code: 0
+              } ;
 
-    var co  = binstruction.substring(0,   6) ;
-    var cop = binstruction.substring(28, 32) ;
+    // instructions as 32-string
+    var bits = binstruction.toString(2) ;
+        bits = "00000000000000000000000000000000".substring(0, 32 - bits.length) + bits ;
 
-    // try to find instruction in the loaded firmware
-    var oinstruction = null ;
-    for (var fi in curr_firm['firmware'])
-    {
-         if (curr_firm.firmware[fi].name == "begin") 
-         {
-             continue ;
-         }
+    // op-code 
+    var co = bits.substr(ep_ir.default_eltos.co.begin, ep_ir.default_eltos.co.length); 
+    ret.op_code = parseInt(co, 2) ;
 
-         if ( (curr_firm.firmware[fi].co == co) && (typeof curr_firm.firmware[fi].cop == "undefined") )
-         {
-             oinstruction = curr_firm.firmware[fi] ;
-             break ;
-         }
+    // cop-code
+    var cop = bits.substr(ep_ir.default_eltos.cop.begin, ep_ir.default_eltos.cop.length); 
+    ret.cop_code = parseInt(cop, 2) ;
 
-         if ( (curr_firm.firmware[fi].co == co) && (typeof curr_firm.firmware[fi].cop != "undefined") && (curr_firm.firmware[fi].cop == cop) )
-         {
-             oinstruction = curr_firm.firmware[fi] ;
-             break ;
-         }
-    }
+    if (false == curr_firm.cocop_hash[co].withcop)
+         ret.oinstruction = curr_firm.cocop_hash[co].i ;
+    else ret.oinstruction = curr_firm.cocop_hash[co][cop] ;
 
-    return oinstruction ;
+    return ret ;
 }
 
 function decode_ram ( )
 {
     var sram = "\n" ;
-    var curr_MP = simhw_internalState('MP') ;
+
+    var curr_ircfg = simhw_sim_irInfo() ;
+    var curr_firm  = simhw_internalState('FIRMWARE') ;
+    var curr_MP    = simhw_internalState('MP') ;
     for (var address in curr_MP)
     {
         var binstruction = curr_MP[address].toString(2) ;
-            binstruction = "00000000000000000000000000000000".substring(0, 32 - binstruction.length) + binstruction ;
-        sram += "0x" + parseInt(address).toString(16) + ":" + decode_instruction(binstruction) + "\n" ;
+            binstruction = "00000000000000000000000000000000".substring(0, 32-binstruction.length) + binstruction;
+        sram += "0x" + parseInt(address).toString(16) + ":" + 
+                decode_instruction(curr_firm, curr_ircfg, binstruction).oinstruction + "\n" ;
     }
 
     return sram ;

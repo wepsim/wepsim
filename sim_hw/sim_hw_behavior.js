@@ -133,6 +133,9 @@
             var jit_bes = "";
             jit_fire_dep = new Object();
 
+	    var  sig_obj = null ;
+	    var expr_obj = null ;
+
             for (var sig in simhw_sim_signals())
             {
 		 jit_bes += "simhw_sim_signal('" + sig + "').behavior_fn = new Array();\n" ;
@@ -160,16 +163,25 @@
 			        jit_be += "simhw_syntax_behavior('" + s_expr[0] + "').operation(" + JSON.stringify(s_expr) + ");\t" ;
 
                             // 2.3b.- ...build the fire graph
-                            if ( ("FIRE" == s_expr[0]) &&
-                                 (simhw_sim_signal(sig).type == simhw_sim_signal(s_expr[1]).type) )
+                            if ("FIRE" == s_expr[0])
                             {
-                                if (typeof jit_fire_dep[s_expr[1]] == "undefined")
-                                    jit_fire_dep[s_expr[1]] = new Object();
+                                 sig_obj = simhw_sim_signal(sig) ;
+                                expr_obj = simhw_sim_signal(s_expr[1]) ;
 
-                                if (typeof jit_fire_dep[s_expr[1]][sig] == "undefined")
-                                    jit_fire_dep[s_expr[1]][sig] = 0;
+                                if (typeof expr_obj == "undefined")
+                                {
+                                    alert("ERROR: for signal '" + sig + "', unknow behavior '" + s_exprs[i] + "'");
+                                }
+                                else if (sig_obj.type == expr_obj.type)
+                                {
+                                    if (typeof jit_fire_dep[s_expr[1]] == "undefined")
+                                        jit_fire_dep[s_expr[1]] = new Object();
 
-                                jit_fire_dep[s_expr[1]][sig]++;
+                                    if (typeof jit_fire_dep[s_expr[1]][sig] == "undefined")
+                                        jit_fire_dep[s_expr[1]][sig] = 0;
+
+                                    jit_fire_dep[s_expr[1]][sig]++;
+                                }
                             }
 		      }
 

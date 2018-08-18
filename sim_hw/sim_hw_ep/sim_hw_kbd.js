@@ -26,6 +26,7 @@
         ep_components.KBD = {
 		                  name: "KBD", 
 		                  version: "1", 
+		                  abilities: ["KBD"], 
 		                  write_state: function ( vec ) {
 						  return vec;
 				               },
@@ -119,4 +120,12 @@
 						      }
                                                    }
                                    } ;
+
+        ep_behaviors.KBD_RESET   = { nparameters: 1,
+                                       operation: function (s_expr) 
+                                                  {
+						     // reset events.keybd
+                                                     ep_events.keybd = {} ;
+                                                  }
+                                   };
 
