@@ -149,11 +149,13 @@
     function sim_change_workspace_microcode ( )
     {
 	    sim_change_workspace('#main3', 1) ;
+            inputfirm.refresh() ;
     }
 
     function sim_change_workspace_assembly ( )
     {
 	    sim_change_workspace('#main4', 2) ;
+            inputasm.refresh() ;
     }
 
 
