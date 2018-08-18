@@ -120,6 +120,8 @@
              return ;
          }
 
+	 $("[data-toggle=popover4]").popover('hide') ;
+
          var  t = 0 ;
          var tt = '' ;
          var it = '' ;
@@ -144,7 +146,8 @@
                    '    <div class="btn-group" role="group" aria-label="Basic example">' +
                    '    <button class="btn btn-outline-dark btn-sm col float-right"' + 
                    '            data-toggle="popover4" data-html="true" type="button" ' + 
-                   '            atitle="' + state_history[i].title + '" id="' + it + '">+Info</button>' +
+                   '            data-title="' + state_history[i].title + '" ' +
+                   '            id="' + it + '">+Info</button>' +
                    '    <button class="btn btn-outline-dark btn-sm col float-right"' + 
                    '            onclick="CopyFromTextarea(\'ta_state_' + i + '\');" ' + 
                    '            type="button">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>' +
@@ -185,8 +188,9 @@
                                  return $('#popover-content-' + id).html();
                            },
 		  title:   function() {
-                                 var id = $(this).attr('id')
-			         return '<span class="p-2">' + id + '</span>' +
+                                 var id    = $(this).attr('id')
+                                 var title = $(this).attr('data-title')
+			         return '<span class="p-2">' + title + '</span>' +
 			                '<button type="button" id="close" class="close" data-role="none" ' +
 			                '     onclick="$(\'#' + id + '\').popover(\'hide\');">&times;</button>';
 		           }
