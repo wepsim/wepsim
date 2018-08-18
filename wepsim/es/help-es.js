@@ -69,9 +69,9 @@
     help.es.push({
                      id:          "architecture",
                      title:       "Arquitectura del simulador",
-                     i_type:      "relative",
+                     i_type:      "absolute",
                      u_type:      "procesador elemental",
-                     reference:   "#help_simulator_arch",
+                     reference:   "ep/ep",
                      description: "Descripción de la arquitectura del procesador elemental.<br>"
                   });
 
@@ -80,7 +80,7 @@
                      title:       "Señales simuladas",
                      i_type:      "absolute",
                      u_type:      "procesador elemental",
-                     reference:   "signals",
+                     reference:   "ep/signals",
                      description: "Resumen de las señales principales del procesador elemental.<br>"
                   });
 
@@ -110,5 +110,14 @@
                      u_type:      "info",
                      reference:   "about",
                      description: "Licencia de WepSIM, plataformas disponibles, tecnologías usadas.<br>"
+                  });
+
+    help.es.push({
+                     id:          "authors",
+                     title:       "Authors",
+                     i_type:      "code",
+                     u_type:      "info",
+                     reference:   "wepsim_close_help(); $('#about2').modal(open);",
+                     description: "Autores de WepSIM.<br>"
                   });
 

@@ -70,9 +70,9 @@
     help.en.push({
                      id:          "architecture",
                      title:       "Simulated architecture",
-                     i_type:      "relative",
+                     i_type:      "absolute",
                      u_type:      "elemental processor",
-                     reference:   "#help_simulator_arch",
+                     reference:   "ep/ep",
                      description: "Description of the elemental processor architecture.<br>"
                   });
 
@@ -81,7 +81,7 @@
                      title:       "Simulated signals",
                      i_type:      "absolute",
                      u_type:      "elemental processor",
-                     reference:   "signals",
+                     reference:   "ep/signals",
                      description: "Main signals summary of the simulated elemental processor.<br>"
                   });
 
@@ -111,5 +111,14 @@
                      u_type:      "info",
                      reference:   "about",
                      description: "WepSIM license, supported platforms, technologies used.<br>"
+                  });
+
+    help.en.push({
+                     id:          "authors",
+                     title:       "Authors",
+                     i_type:      "code",
+                     u_type:      "info",
+                     reference:   "wepsim_close_help(); $('#about2').modal(open);",
+                     description: "Authors of WepSIM.<br>"
                   });
 

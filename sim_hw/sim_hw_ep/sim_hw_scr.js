@@ -26,6 +26,7 @@
         ep_components.SCREEN = {
 		                  name: "SCREEN", 
 		                  version: "1", 
+		                  abilities: ["SCREEN"], 
 		                  write_state: function ( vec ) {
                                                   if (typeof vec.SCREEN == "undefined")
                                                       vec.SCREEN = {} ;
@@ -167,4 +168,12 @@
                                                       ep_events.screen[clk] = bus_db ;
                                                 }
                                 };
+
+        ep_behaviors.SCR_RESET  = { nparameters: 1,
+                                      operation: function (s_expr) 
+                                                 {
+						     // reset events.screen
+                                                     ep_events.screen = {} ;
+                                                 }
+                                  };
 

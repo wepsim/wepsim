@@ -26,6 +26,7 @@
         ep_components.MEMORY = {
 		                  name: "MEMORY", 
 		                  version: "1", 
+		                  abilities: ["MEMORY", "MEMORY_CONFIG"], 
 		                  write_state: function ( vec ) {
                                                   if (typeof vec.MEMORY == "undefined")
                                                       vec.MEMORY = {} ;
@@ -93,7 +94,7 @@
         ep_signals.MRDY      = { name: "MRDY", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                  depends_on: ["CLK"],
 		                 behavior: ["FIRE_IFCHANGED MRDY C", "FIRE_IFCHANGED MRDY C"],
-                                 fire_name: ['svg_p:tspan3916'], 
+                                 fire_name: ['svg_p:tspan3916','svg_p:text3909'], 
                                  draw_data: [[], ['svg_p:path3895','svg_p:path3541']], 
                                  draw_name: [[], []]};
 
@@ -226,4 +227,11 @@
                                                     }
                                    };
 
+        ep_behaviors.MEM_RESET   = { nparameters: 1,
+                                       operation: function (s_expr) 
+                                                  {
+						     // reset events.mem
+                                                     ep_events.mem = {} ;
+                                                  }
+                                   };
 
