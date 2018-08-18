@@ -319,8 +319,7 @@
                                  class="nav-link active" data-toggle="tab" role="tab"
                                  style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"
 				 aria-controls="processor"
-                                 onclick="wepsim_reset_max_turbo() ;
-                                          start_drawing(); 
+                                 onclick="start_drawing(); 
                                           refresh();"><i class="fas fa-microchip"></i>&nbsp;Processor</a>
                           </li>
 		          <li class="nav-item">
@@ -329,7 +328,6 @@
                                  style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"
 				 aria-controls="assembly debugger"
                                  onclick="stop_drawing(); 
-					  wepsim_reset_max_turbo() ;
                                           var o1 = fullshow_asmdbg_pc();
                                           var obj_byid = $('#asm_debugger_container');
                                           if (typeof o1[0] == 'undefined') 
@@ -474,7 +472,8 @@
 				           $('#tab' + val).trigger('click');
 				           if ('11' == val)
 					        show_rf_values();
-				           else show_memories_values();"><i class="fas fa-sync-alt"></i>&nbsp;<c>Refresh</c></button>
+				           else show_memories_values();
+					   wepsim_reset_max_turbo() ;"><i class="fas fa-sync-alt"></i>&nbsp;<c>Refresh</c></button>
                     </div>
                     </div>
 
@@ -1408,6 +1407,7 @@
 				    });
                     sim_prepare_editor(inputfirm);
 		    inputfirm.setSize("auto","auto");
+		    inputfirm.refresh();
 
 		    inputasm = CodeMirror.fromTextArea(document.getElementById("inputAssembly"), 
                                     {
@@ -1432,6 +1432,7 @@
 				    });
                     sim_prepare_editor(inputasm) ;
 		    inputasm.setSize("auto","auto");
+		    inputasm.refresh();
 
                     sim_change_workspace_simulator();
 		    $('#tab26').trigger('click');
