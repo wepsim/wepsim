@@ -18,16 +18,8 @@
     <meta name="viewport" content="user-scalable=yes, width=device-width",
                 initial-scale=1, maximum-scale=2.5, minimum-scale=.5>
 
-    <script src="external/jquery.min.224.js"></script>
-    <script>
-        $(document).bind("mobileinit", function() {
-            $.mobile.defaultPageTransition = "none";
-            $.mobile.defaultDialogTransition = "none";
-        });
-    </script>
-    <script src="external/jquery.mobile-1.4.5.min.js"></script>
+    <script src="external/jquery.min.331.js"></script>
 
-    <link rel="stylesheet" href="external/jquery.mobile-1.4.5.min.css">
     <style>
     .ui-panel-inner {
         position: absolute;
@@ -220,21 +212,31 @@
 
 <body>
 
-<div data-role="page" id="main1">
+	<nav class="navbar navbar-expand-lg fixed-top p-1" style="background-color: #F0F0F0">
+	    <span class="navbar-brand mr-auto">
+               <span class="ui-title" data-toggle="collapse" href="#collapseA1" class="mx-2">WepSIM <span class="badge badge-pill badge-secondary"><div class="wsversion">X</div></span></span>
+            </span>
+            <button class="navbar-toggler ml-auto" data-toggle="collapse" 
+                    style="background-color: #F0F0F0"
+                    data-target="#navbarSupportedContent" data-role="none"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<i class="fas fa-bars"></i>
+            </button>
+            <div id="navbarSupportedContent" 
+	         class="collapse navbar-collapse mx-auto py-0" style="background-color: #F0F0F0">
+	    <ul class="nav nav-pills ml-auto p-1">
+	       <li class="nav-item ml-auto"><a href="http://www.arcos.uc3m.es/"><img alt="ARCOS logo" src="images/arcos.svg"   style="height:25pt" class="img-thumbnail m-0 p-0"></a><b>.</b></li>
+	       <li class="nav-item"><a href="http://www.inf.uc3m.es/en/"><img alt="CS&E Departament logo" src="images/dptoinf.jpg" style="height:25pt" class="img-thumbnail m-0 p-0"></a><b>.</b></li>
+	       <li class="nav-item"><a href="http://www.uc3m.es/"><img alt="UC3M logo" src="images/uc3m.png"    style="height:25pt;" class="img-thumbnail"></a></li>
+	    </ul>
+            </div>
+	</nav>
 
-	<div data-role="header" data-position="fixed" data-disable-page-zoom="false" data-theme="a">
-                <span class="ui-title">WepSIM <span class="badge badge-pill badge-secondary"><div class="wsversion">X</div></span> / Simulator</span>
-		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
-		    <a data-toggle="collapse" href="#collapseA1"><img alt="UC3M logo" src="images/uc3m.png" style="height:22pt; padding:8 0 0 0;"></a>
-		</div>
-                <div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
-		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
-                </div>
-	</div><!-- /header -->
-
-
-        <div role="main" class="ui-content container-fluid" style="padding:8px 8px 8px 8px">
-
+	<div id="carousel-8" class="carousel" data-ride="carousel" data-interval="false">
+	  <div class="carousel-inner">
+	  <div class="carousel-item active" id="ws_simulator">
+            <br>
+	    <h4>Simulator</h4>
             <div class="row collapse show" id="collapseA1" style="margin:1px">
 
                     <div class="col-sm-auto btn-toolbar" role="toolbar">
@@ -242,11 +244,11 @@
 		    	        style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                 onclick="wepsim_open_config_index();"><b><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></b></button>
 		        <button class="btn btn-light ui-shadow my-1" data-role="none"
-			        onclick="sim_change_workspace_microcode();"
+                                onclick="sim_change_workspace_microcode();"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				><b><span class="d-none d-sm-inline-flex">MicroCode</span><span class="d-sm-none">&#181;code</span></b></button>
 		        <button class="btn btn-light ui-shadow my-1 mr-2" data-role="none"
-			        onclick="sim_change_workspace_assembly();"
+                                onclick="sim_change_workspace_assembly();"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				><b><span class="d-none d-sm-inline-flex">Assembly</span><span class="d-sm-none">Assembly</span></b></button>
                     </div>
@@ -265,7 +267,7 @@
 			    </form>
                     </div>
 
-		    <div class="w-100 d-xs-block d-sm-none"></div>
+		    <div class="w-100 d-md-block d-lg-none"></div>
 
                     <div class="col-sm-auto btn-toolbar" role="toolbar">
 		        <button class="btn btn-light ui-shadow my-1" data-role="none"
@@ -310,8 +312,8 @@
 
             </div>
 
-            <div class="row">
 
+            <div class="row">
                 <div id="col1" class="" style="padding:12px 0px 0px 16px !important;">
 
                       <!-- Nav tabs -->
@@ -562,27 +564,13 @@
 
                 </div>
             </div>
-
-	</div><!-- /content -->
-
-</div><!-- /page -->
+          </div>
 
 
-<div data-role="page" id="main3">
-
-	<div data-role="header" data-position="fixed" data-disable-page-zoom="false" data-theme="a">
-                <span class="ui-title">WepSIM <span class="badge badge-pill badge-secondary"><div class="wsversion">X</div></span> / Microcode</span>
-		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
-		    <a data-toggle="collapse" href="#collapseA2"><img alt="UC3M logo" src="images/uc3m.png" style="height:22pt; padding:8 0 0 0;"></a>
-		</div>
-                <div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
-		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
-                </div>
-	</div><!-- /header -->
-
-        <div role="main" class="ui-content container-fluid" style="padding:8px 8px 8px 8px">
-
-            <div class="row collapse show" id="collapseA2">
+	  <div class="carousel-item" id="ws_mcode">
+            <br>
+	    <h4>Microcode</h4>
+            <div class="row collapse show" id="collapseA1">
 
                 <div class="container col-12" role="none">
 		<div class="col-sm"           role="toolbar" aria-label="MicroCode Toolbar">
@@ -593,12 +581,12 @@
                                     onclick="wepsim_open_config_index();"><b><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></b></button>
 		            <button class="btn btn-light ui-shadow col" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				    data-transition="none" data-inline="true"
-				    onclick="sim_change_workspace_assembly();"><b>Assembly</b></button>
+                                    onclick="sim_change_workspace_assembly();"
+				    data-transition="none" data-inline="true"><b>Assembly</b></button>
 		            <button class="btn btn-light ui-shadow col" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				    data-transition="none" data-inline="true"
-				    onclick="sim_change_workspace_simulator();"><b>Simulator</b></button>
+                                    onclick="sim_change_workspace_simulator();"
+				    data-transition="none" data-inline="true"><b>Simulator</b></button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
@@ -645,32 +633,19 @@
 
 	    </div>
 
-	    <div id="t3_firm"  class="ui-body-d ui-content" style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
+	    <div id="t3_firm" class="ui-body-d ui-content p-2" 
+                 style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
 		     <textarea aria-label="microcode" style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
                                placeholder="Please select 'Example' or 'Load' first in order to have an initial Microcode."
                                id="inputFirmware" rows=20></textarea>
 	    </div>
-
-	</div><!-- /content -->
-
-</div><!-- /page -->
+          </div>
 
 
-<div data-role="page" id="main4">
-
-	<div data-role="header" data-position="fixed" data-disable-page-zoom="false" data-theme="a">
-                <span class="ui-title">WepSIM <span class="badge badge-pill badge-secondary"><div class="wsversion">X</div></span> / Assembly</span>
-		<div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
-		    <a data-toggle="collapse" href="#collapseA3"><img alt="UC3M logo" src="images/uc3m.png" style="height:22pt; padding:8 0 0 0;"></a>
-		</div>
-                <div id="action_bar" data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
-		    <a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><img alt="ARCOS logo" src="images/arcos.svg" height="40"></a>
-                </div>
-	</div><!-- /header -->
-
-        <div role="main" class="ui-content container-fluid" style="padding:8px 8px 8px 8px">
-
-            <div class="row collapse show" id="collapseA3">
+	  <div class="carousel-item" id="ws_acode">
+            <br>
+	    <h4>Assembly</h4>
+            <div class="row collapse show" id="collapseA1">
 
                 <div class="container col-12" role="none">
 		<div class="col-sm"           role="toolbar" aria-label="Assembly Toolbar">
@@ -681,14 +656,14 @@
                                     onclick="wepsim_open_config_index();"><b><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></b></button>
 		            <button class="btn btn-light ui-shadow col" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				    data-transition="none" data-inline="true"
-				    onclick="sim_change_workspace_microcode();">
+                                    onclick="sim_change_workspace_microcode();"
+				    data-transition="none" data-inline="true">
 			    <b><span class="d-none d-sm-inline-flex">MicroCode</span><span class="d-sm-none">&#181;code</span></b>
 			    </button>
 		            <button class="btn btn-light ui-shadow col" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				    data-transition="none" data-inline="true"
-				    onclick="sim_change_workspace_simulator();"><b>Simulator</b></button>
+                                    onclick="sim_change_workspace_simulator();"
+				    data-transition="none" data-inline="true"><b>Simulator</b></button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
@@ -727,15 +702,17 @@
 
 	    </div>
 
-	    <div id="t4_asm"   class="ui-body-d ui-content" style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
-		        <textarea aria-label="Assembly" style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
-                                  placeholder="Please select 'Load' first to have the assembly code to work with."
-			          id="inputAssembly" rows="20"></textarea>
+	    <div id="t4_asm" class="ui-body-d ui-content p-2"
+                 style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
+		     <textarea aria-label="Assembly" 
+                               style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
+                               placeholder="Please select 'Load' first to have the assembly code to work with."
+			       id="inputAssembly" rows="20"></textarea>
 	    </div>
+          </div>
 
-	</div><!-- /content -->
-
-</div><!-- /page -->
+	  </div>
+	</div>
 
 
 <!-- load/save microcode -->
@@ -744,7 +721,7 @@
      <div class="modal-content">
      <div class="modal-header bg-dark">
 	<h3 class="modal-title text-white">Load Microcode</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-role="none">
           <span aria-hidden="true" class="text-white font-weight-bold">&times;</span>
         </button>
      </div>
@@ -753,11 +730,11 @@
 	<p><input aria-label="file to load" type="file" id="fileToLoad" class="dropify"/></p>
      </div>
      <div class="modal-footer">
-	<button class="btn btn-md btn-dark" 
+	<button class="btn btn-md btn-dark" data-role="none" 
 		onclick="var fileToLoad = document.getElementById('fileToLoad').files[0];
 			 wepsim_load_from_file(fileToLoad, inputfirm);
 			 $('#lsload').modal('hide');">Load from this File</button>
-	<button class="btn btn-md btn-danger"
+	<button class="btn btn-md btn-danger data-role="none""
 		type="button" data-dismiss="modal">Cancel</button>
      </div>
      </div>
@@ -769,7 +746,7 @@
      <div class="modal-content">
      <div class="modal-header bg-dark">
 	<h3 class="modal-title text-white">Save Microcode</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-role="none">
           <span aria-hidden="true" class="text-white font-weight-bold">&times;</span>
         </button>
      </div>
@@ -812,7 +789,7 @@
      <div class="modal-content">
      <div class="modal-header bg-dark">
 	<h3 class="modal-title text-white">Load Assembly</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-role="none">
           <span aria-hidden="true" class="text-white font-weight-bold">&times;</span>
         </button>
      </div>
@@ -821,11 +798,11 @@
 	<p><input aria-label="file to load" type="file" id="fileToLoad2" class="dropify"/></p>
      </div>
      <div class="modal-footer">
-	<button class="btn btn-md btn-dark" 
+	<button class="btn btn-md btn-dark" data-role="none" 
 		onclick="var fileToLoad = document.getElementById('fileToLoad2').files[0];
 			 wepsim_load_from_file(fileToLoad, inputasm);
 			 $('#lsload2').modal('hide');">Load from this File</button>
-	<button class="btn btn-md btn-danger"
+	<button class="btn btn-md btn-danger" data-role="none"
 		type="button" data-dismiss="modal">Cancel</button>
      </div>
      </div>
@@ -837,7 +814,7 @@
      <div class="modal-content">
      <div class="modal-header bg-dark">
 	<h3 class="modal-title text-white">Save Assembly</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-role="none">
           <span aria-hidden="true" class="text-white font-weight-bold">&times;</span>
         </button>
      </div>
@@ -847,10 +824,10 @@
                   class="form-control btn-outline-dark" placeholder="File name where assembly will be saved" style="min-width: 90%;"/></p>
      </div>
      <div class="modal-footer">
-	<button class="btn btn-md btn-dark" 
+	<button class="btn btn-md btn-dark" data-role="none"
 		onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs2').value;
 			 wepsim_save_to_file(inputasm, fileNameToSaveAs);">Save to File</button>
-	<button class="btn btn-md btn-danger"
+	<button class="btn btn-md btn-danger" data-role="none"
 		type="button" data-dismiss="modal">Cancel</button>
      </div>
      </div>
@@ -866,9 +843,9 @@
 	   <div class="modal-header">
 		<div class="mx-auto">
 		   <div class="btn-group">
-		     <button type="button" class="btn btn-outline-dark" disabled>Config<span class="d-none d-sm-inline-flex">uration</span></button>
+		     <button type="button" class="btn btn-outline-dark" data-role="none" disabled>Config<span class="d-none d-sm-inline-flex">uration</span></button>
 		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" 
-			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-role="none">
 			 <span class="caret"></span>
 			 <span class="sr-only">Toggle Help Idiom</span>
 		     </button>
@@ -882,7 +859,7 @@
 		     </div>
 		   </div>
                 </div>
-		<button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
+		<button type="button" class="close ml-0" data-dismiss="modal" data-role="none">&times;</button>
 	   </div>
 
 	   <div class="modal-body">
@@ -893,8 +870,10 @@
 
 	   <div class="modal-footer">
 		 <button type="button" class="btn btn-outline-dark  btn-sm col-xs-4 col-sm-3 float-left mr-auto"
+                         data-role="none"
                          data-toggle="collapse" data-target=".collapse7">&plusmn; Desc<span class="d-none d-sm-inline-flex">ription</span></button>
 		 <button type="button" class="btn btn-danger        btn-sm col-xs-3 col-sm-2 float-right"  
+                         data-role="none"
                          data-dismiss="modal">Close</button>
 	   </div><!-- /footer -->
 	</div>
@@ -909,7 +888,7 @@
 		<div class="mx-auto">
                 <h5><b>Binary</b> <span class="badge badge-pill btn-success"><div class="wsversion">X</div></span></h5>
                 </div>
-		<button type="button" class="close mx-0" data-dismiss="modal" aria-label="Close">
+		<button type="button" class="close mx-0" data-dismiss="modal" aria-label="Close" data-role="none">
 		    <span aria-hidden="true" class="text-black font-weight-bold">&times;</span>
 		</button>
 	   </div>
@@ -944,12 +923,12 @@
 
 	   <div class="modal-header">
 		<div class="mx-auto">
-		   <button type="button" class="btn btn-success" 
+		   <button type="button" class="btn btn-success" data-role="none"
 		   	   onclick="wepsim_open_help_index(); wepsim_help_refresh();">Help Index</button>
 		   <div class="btn-group">
-		     <button type="button" class="btn btn-outline-dark" disabled>Help</button>
+		     <button type="button" class="btn btn-outline-dark" data-role="none" disabled>Help</button>
 		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" 
-			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-role="none">
 			 <span class="caret"></span>
 			 <span class="sr-only">Toggle Help Idiom</span>
 		     </button>
@@ -963,7 +942,7 @@
 		     </div>
 		   </div>
                 </div>
-		<button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
+		<button type="button" class="close ml-0" data-dismiss="modal" data-role="none">&times;</button>
 	   </div>
 
 	   <div class="modal-body">
@@ -976,8 +955,10 @@
 
 	   <div class="modal-footer">
 		 <button type="button" class="btn btn-outline-dark  btn-sm col-xs-4 col-sm-3 float-left mr-auto"
+                         data-role="none"
                          data-toggle="collapse" data-target=".collapse7">&plusmn; Desc<span class="d-none d-sm-inline-flex">ription</span></button>
 		 <button type="button" class="btn btn-danger        btn-sm col-xs-3 col-sm-2 float-right"  
+                         data-role="none"
                          data-dismiss="modal">Close</button>
 	   </div><!-- /footer -->
 	</div>
@@ -992,8 +973,9 @@
 	   <div class="modal-header">
 		<div class="mx-auto">
 		   <div class="btn-group">
-		     <button type="button" class="btn btn-outline-dark" disabled>Examples</button>
+		     <button type="button" class="btn btn-outline-dark" data-role="none" disabled>Examples</button>
 		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" 
+                             data-role="none"
 			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			 <span class="caret"></span>
 			 <span class="sr-only">Toggle Help Idiom</span>
@@ -1008,7 +990,7 @@
 		     </div>
 		   </div>
                 </div>
-		<button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
+		<button type="button" class="close ml-0" data-dismiss="modal" data-role="none">&times;</button>
 	   </div>
 
 	   <div class="modal-body">
@@ -1019,10 +1001,13 @@
 
 	   <div class="modal-footer">
 		 <button type="button" class="btn btn-outline-dark  btn-sm col-xs-4 col-sm-3 float-left"
+                         data-role="none"
                          data-toggle="collapse" data-target=".collapse7">&plusmn; Desc<span class="d-none d-sm-inline-flex">ription</span></button>
 		 <button type="button" class="btn btn-outline-dark  btn-sm col-xs-4 col-sm-3 float-left mr-auto"
+                         data-role="none"
                          data-toggle="collapse" data-target=".collapse8">&plusmn; Ind<span class="d-none d-sm-inline-flex">ividual</span></button>
 		 <button type="button" class="btn btn-danger        btn-sm col-xs-3 col-sm-2 float-right"
+                         data-role="none"
                          data-dismiss="modal">Close</button>
 	   </div><!-- /footer -->
 	</div>
@@ -1039,19 +1024,23 @@
                   <button onclick="$('#bot_check1').carousel(0);"
                           type="button" 
                           class="btn btn-secondary" 
+                          data-role="none"
 			  style="height:34px !important;">History</button>
                   <button onclick="$('#bot_check1').carousel(1);" 
                           type="button" 
                           class="btn btn-info" 
+                          data-role="none"
 			  style="height:34px !important;"><span class='d-none d-sm-inline-flex'>Edit</span> State</button>
                   <button onclick="$('#bot_check1').carousel(2);
                                    update_checker_loadhelp('#help3a','help_dumper');"
                           type="button" 
                           class="btn btn-success" 
+                          data-role="none"
                           style="height:34px !important;">Help</button>
                   <button type="button" 
                           class="btn btn-success dropdown-toggle" 
                           data-toggle="dropdown" 
+                          data-role="none"
                           aria-haspopup="true" 
                           aria-expanded="false" 
                           style="height:34px !important;"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>   
@@ -1067,7 +1056,7 @@
                   </div>
                </div>
          </div>
-         <button type="button" class="close ml-0" data-dismiss="modal" aria-label="Close">
+         <button type="button" class="close ml-0" data-dismiss="modal" aria-label="Close" data-role="none">
              <span aria-hidden="true" class="text-black font-weight-bold">&times;</span>
          </button>
       </div>
@@ -1126,18 +1115,21 @@
       </div>
       <div class="modal-footer">
 	   <button class="btn btn-secondary col-xs-3 pull-left"
+                   data-role="none"
 	   	   onclick="wepsim_state_history_reset();
 			    wepsim_notify_success('<strong>INFO</strong>', 'Removed all !.');
 			    wepsim_state_history_list() ;
 			    return false;"
 		   type="button">Reset <span class='d-none d-sm-inline-flex'>history</span></button>
 	   <button class="btn btn-secondary col-xs-3 pull-left"
+                   data-role="none"
 		   onclick="wepsim_state_history_add();
 			    wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
 			    wepsim_state_history_list() ;
 			    return false;"
 		   type="button">Add <span class='d-none d-sm-inline-flex'>state to history</span></button>
            <button type="button" 
+                   data-role="none"
                    onclick="$('#current_state1').modal('hide');"
                    class="btn btn-primary col-xs-3 pull-right">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
       </div>
@@ -1155,15 +1147,18 @@
                   <button onclick="$('#bot_check2').carousel(0);" 
                           type="button" 
                           class="btn btn-info" 
+                          data-role="none"
                           style="height:34px !important;">State</button>
                   <button onclick="$('#bot_check2').carousel(1);
                                    update_checker_loadhelp('#help3b','help_checker');"
                           type="button" 
                           class="btn btn-success" 
+                          data-role="none"
                           style="height:34px !important;">Help</button>
                   <button type="button" 
                           class="btn btn-success dropdown-toggle" 
                           data-toggle="dropdown" 
+                          data-role="none"
                           aria-haspopup="true" 
                           aria-expanded="false" 
                           style="height:34px !important;"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>   
@@ -1179,7 +1174,7 @@
                   </div>
                </div>
          </div>
-         <button type="button" class="close ml-0" data-dismiss="modal" aria-label="Close">
+         <button type="button" class="close ml-0" data-dismiss="modal" aria-label="Close" data-role="none">
              <span aria-hidden="true" class="text-black font-weight-bold">&times;</span>
          </button>
       </div>
@@ -1233,6 +1228,7 @@
            <button type="button" 
                    onclick="wepsim_dialog_check_reset('check_results2','end_state2'); 
                             return false;"
+                   data-role="none"
                    class="btn btn-secondary col-xs-3">Clear</button>
            <button type="button" 
                    onclick="var txt_checklist = $('#end_state2').val();
@@ -1240,9 +1236,11 @@
                             var obj_current   = simstate_current2state();
                             wepsim_dialog_check_state('check_results2', obj_expected, obj_current); 
                             return false;"
+                   data-role="none"
                    class="btn btn-secondary col-xs-3">Check</button>
            <button type="button" 
                    onclick="$('#current_state2').modal('hide');"
+                   data-role="none"
                    class="btn btn-primary col-xs-3 pull-right">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
       </div>
    </div>
@@ -1257,14 +1255,14 @@
 		<div class="mx-auto">
                 <h5><b>WepSIM</b> <span class="badge badge-pill btn-success"><div class="wsversion">X</div></span></h5>
 		</div>
-		<button type="button" class="close mx-0" data-dismiss="modal" aria-label="Close">
+		<button type="button" class="close mx-0" data-dismiss="modal" aria-label="Close" data-role="none">
 		    <span aria-hidden="true" class="text-black font-weight-bold">&times;</span>
 		</button>
 	   </div>
 	   <div class="modal-body">
 
 		<div id="container-about1" class="container-fluid" 
-		     style="max-height:78vh; overflow:auto; -webkit-overflow-scrolling:touch;">
+		     style="max-height:80vh; overflow:auto; -webkit-overflow-scrolling:touch;">
 
 			<div class="row py-0">
 			  <div class="col-sm-12">
@@ -1346,21 +1344,6 @@
 			      </div>
 			</div>
 
-			    <ul class="list-group pt-3 pb-1 m-0">
-                            <li class="list-group-item p-1">
-                            <i class="fa fa-university">&#xf0c0;</i>
-			    <a href="http://www.arcos.inf.uc3m.es/">ARCOS Group</a><br>
-                            </li>
-                            <li class="list-group-item p-1">
-                            <i class="fa fa-university">&#xf19d;</i>
-			    <a href="http://www.inf.uc3m.es/en/">Computer Science and Engineering Department</a><br>
-                            </li>
-                            <li class="list-group-item p-1">
-                            <i class="fa fa-university"></i>
-			    <a href="http://www.uc3m.es/">Universidad Carlos III de Madrid</a>
-                            </li>
-			    </ul>
-
 		</div>
 	   </div>
            <div class="modal-footer">
@@ -1369,6 +1352,7 @@
 				 wepsim_help_refresh();
 				 $('#about2').modal('hide');">GNU Lesser General Public 3</span>
 		 <button type="button" data-dismiss="modal"
+                         data-role="none"
                          class="btn btn-primary btn-sm float-right col-3">OK</button>
 	   </div>
 	</div>
@@ -1394,20 +1378,20 @@
 		    if (typeof ko != "undefined")
                         ko.options.deferUpdates = true;
 
-		    $(".ui-slider-input").hide();
+		    //$(".ui-slider-input").hide();
 
 		    inputfirm = CodeMirror.fromTextArea(document.getElementById("inputFirmware"), 
-                                    {
-					value: "\n\n\n\n\n\n\n\n\n\n\n\n",
-					lineNumbers: true,
-					matchBrackets: true,
-					tabSize: 2,
-					foldGutter: {
-						rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.brace, CodeMirror.fold.comment)
-					},
-					gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
-					mode: "text/javascript"
-				    });
+                                {
+				   value: "\n\n\n\n\n\n\n\n\n\n\n\n",
+				   lineNumbers: true,
+				   matchBrackets: true,
+				   tabSize: 2,
+				   foldGutter: {
+					rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.brace, CodeMirror.fold.comment)
+				   },
+				   gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+				   mode: "text/javascript"
+				});
                     sim_prepare_editor(inputfirm);
 		    inputfirm.setSize("auto","auto");
 
@@ -1435,12 +1419,11 @@
                     sim_prepare_editor(inputasm) ;
 		    inputasm.setSize("auto","auto");
 
-                    sim_change_workspace_simulator();
+		    sim_change_workspace_simulator();
 		    $('#tab26').trigger('click');
 		    $('#tab11').trigger('click');
 		    $('#select5a').val(11);
                     $("#select4").val(get_cfg('ws_mode')) ;
-
                     $("#slider2a").val(get_cfg('C1C2_size'));
                     $('#slider2b').val(get_cfg('CPUCU_size'));
                     set_ab_size('#col1',        '#col2',        get_cfg('C1C2_size'));
@@ -1489,7 +1472,7 @@
                     },
                     title: function() {
                         return 'Selectors' +
-                               '<button type="button" id="close" class="close" ' +
+                               '<button type="button" id="close" class="close" data-role="none" ' +
                                '        onclick="$(\'#popover2_asm\').popover(\'hide\');">&times;</button>' ;
                     }
             });
