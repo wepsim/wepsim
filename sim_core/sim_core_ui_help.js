@@ -22,9 +22,8 @@
      function request_html_url ( r_url )
      {
         var robj = null ;
-	var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-	if (false == isMobile) 
+	if (false == is_mobile()) 
         {
             if (navigator.onLine) 
                  robj = fetch(r_url);

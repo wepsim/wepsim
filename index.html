@@ -225,9 +225,9 @@
             <div id="navbarSupportedContent" 
 	         class="collapse navbar-collapse mx-auto py-0" style="background-color: #F0F0F0">
 	    <ul class="nav nav-pills ml-auto p-1">
-	       <li class="nav-item ml-auto"><a href="http://www.arcos.uc3m.es/"><img alt="ARCOS logo" src="images/arcos.svg"   style="height:25pt" class="img-thumbnail m-0 p-0"></a><b>.</b></li>
-	       <li class="nav-item"><a href="http://www.inf.uc3m.es/en/"><img alt="CS&E Departament logo" src="images/dptoinf.jpg" style="height:25pt" class="img-thumbnail m-0 p-0"></a><b>.</b></li>
-	       <li class="nav-item"><a href="http://www.uc3m.es/"><img alt="UC3M logo" src="images/uc3m.png"    style="height:25pt;" class="img-thumbnail"></a></li>
+	       <li class="nav-item ml-auto"><a href="http://www.arcos.uc3m.es/"><img alt="ARCOS logo" src="images/arcos.svg"   style="height:30pt" class="img-fluid rounded m-0 p-1"></a><b>.</b></li>
+	       <li class="nav-item"><a href="http://www.inf.uc3m.es/en/"><img alt="CS&E Departament logo" src="images/dptoinf.png" style="height:28pt" class="img-fluid rounded m-0 p-0"></a><b>.</b></li>
+	       <li class="nav-item"><a href="http://www.uc3m.es/"><img alt="UC3M logo" src="images/uc3m.png"    style="height:22pt;" class="img-fluid rounded p-1"></a></li>
 	    </ul>
             </div>
 	</nav>
@@ -1438,6 +1438,31 @@
 		             $(column).hide() ;
 		        else $(column).show() ;
 		    });
+
+		    $('a[data-toggle="popover1"]').popover({
+			     placement: 'bottom',
+			     trigger: 'focus, hover',
+			     animation: false,
+			     delay: { "show": 500, "hide": 100 } 
+		    }) ;
+		    $("[data-toggle=popover2]").popover({
+			    html:       true,
+			    placement: 'auto',
+			    animation:  false,
+			    content:    wepsim_show_asm_columns_checked,
+			    title: function() {
+				return '<span class="p-2">Selectors</span>' +
+				       '<button type="button" id="close" class="close" data-role="none" ' +
+				       '        onclick="$(\'#popover2_asm\').popover(\'hide\');">&times;</button>' ;
+			    }
+		    });
+		    $("[data-toggle=popover3]").popover({
+			    html: true,
+			    content: function() {
+			      var id = $(this).attr('id')
+			      return $('#popover-content-' + id).html();
+			    }
+		    });
 	    }) ;
 
             $("div.wsversion").replaceWith(get_cfg('version'));
@@ -1452,31 +1477,6 @@
 	    sim_core_init_panel("#states_ALL", "#states_BR", "#io_ALL", 
                                 "#cpu_ALL", "#config_MP", "#config_IO"); 
 	    sim_core_reset(); 
-
-            $('a[data-toggle="popover1"]').popover({
-                     placement: 'bottom',
-                     trigger: 'focus, hover',
-                     animation: false,
-                     delay: { "show": 500, "hide": 100 } 
-            }) ;
-            $("[data-toggle=popover2]").popover({
-                    html:       true,
-                    placement: 'auto',
-                    animation:  false,
-                    content:    wepsim_show_asm_columns_checked,
-                    title: function() {
-                        return '<span class="p-2">Selectors</span>' +
-                               '<button type="button" id="close" class="close" data-role="none" ' +
-                               '        onclick="$(\'#popover2_asm\').popover(\'hide\');">&times;</button>' ;
-                    }
-            });
-            $("[data-toggle=popover3]").popover({
-	            html: true,
-	            content: function() {
-	              var id = $(this).attr('id')
-	              return $('#popover-content-' + id).html();
-	            }
-	    });
 
             $('.dropify').dropify();
 
@@ -1496,8 +1496,7 @@
 	    }
 
             // progressive web application
-var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-	    if ( (false == isMobile) && ('serviceWorker' in navigator) )
+	    if ( (false == is_mobile()) && ('serviceWorker' in navigator) )
             {
 		navigator.serviceWorker.register('./min.wepsim_pwa.js').catch(function() {
 		  wepsim_notify_error("<h4>Warning:" + 

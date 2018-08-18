@@ -106,30 +106,52 @@
             }
     }
 
-    function sim_prepare_editor ( editor )
+
+    /*
+     *  Editor
+     */
+
+    function sim_cfg_editor_theme ( editor )
     {
-	    editor.setValue("\n\n\n\n\n\n\n\n\n\n");
+	    var theme = get_cfg('editor_theme') ;
+
 	    editor.getWrapperElement().style['text-shadow'] = '0.0em 0.0em';
 	    editor.getWrapperElement().style['font-weight'] = 'bold';
 
-	    if (get_cfg('editor_theme') == 'blackboard') {
+	    if (theme == 'blackboard') {
 		editor.getWrapperElement().style['font-weight'] = 'normal';
-		editor.setOption('theme','blackboard');
 	    }
 
+	    editor.setOption('theme', theme);
+    }
+
+    function sim_cfg_editor_mode ( editor )
+    {
 	    var edt_mode = get_cfg('editor_mode');
+
 	    if (edt_mode == 'vim')
 		editor.setOption('keyMap','vim');
 	    if (edt_mode == 'emacs')
 		editor.setOption('keyMap','emacs');
 	    if (edt_mode == 'sublime')
 		editor.setOption('keyMap','sublime');
+    }
 
-	    setTimeout(function(){editor.refresh();}, 100);
+    function sim_prepare_editor ( editor )
+    {
+	    editor.setValue("\n\n\n\n\n\n\n\n\n\n");
+
+            sim_cfg_editor_theme(editor) ;
+            sim_cfg_editor_mode(editor) ;
 
             editor.setSize("auto","auto");
             editor.refresh();
     }
+
+
+    /*
+     *  Workspaces
+     */
 
     function sim_change_workspace ( page_id, carousel_id )
     {

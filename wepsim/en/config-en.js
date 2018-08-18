@@ -63,19 +63,15 @@
 				   "	    <label id='label7-default'" +
 				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;' " +
 				   "		   onclick=\"set_cfg('editor_theme','default'); save_cfg();" +
-				   "			    inputfirm.getWrapperElement().style['font-weight'] = 'bold';" +
-				   "			    inputfirm.setOption('theme','default');" +
-				   "			    inputasm.getWrapperElement().style['font-weight'] = 'bold';" +
-				   "			    inputasm.setOption('theme','default');\">" +
+				   "			     sim_cfg_editor_theme(inputfirm) ;" +
+				   "			     sim_cfg_editor_theme(inputasm) ;\">" +
 				   "		<input type='radio' name='options' id='radio7-default' aria-label='Editor theme: light' autocomplete='off' data-role='none'>Light" +
 				   "	    </label>" +
 				   "	    <label id='label7-blackboard'" +
 				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;' " +
 				   "		   onclick=\"set_cfg('editor_theme','blackboard'); save_cfg();" +
-				   "			    inputfirm.getWrapperElement().style['font-weight'] = 'normal';" +
-				   "			    inputfirm.setOption('theme','blackboard');" +
-				   "			    inputasm.getWrapperElement().style['font-weight'] = 'normal';" +
-				   "			    inputasm.setOption('theme','blackboard');\">" +
+				   "			     sim_cfg_editor_theme(inputfirm) ;" +
+				   "			     sim_cfg_editor_theme(inputasm) ;\">" +
 				   "		<input type='radio' name='options' id='radio7-blackboard' aria-label='Editor theme: dark' autocomplete='off' data-role='none'>Dark" +
 				   "	    </label>" +
 				   "	</div>",
@@ -92,8 +88,8 @@
 			           "	    onchange=\"var opt = $(this).find('option:selected');" +
 			           "		      var optValue = opt.val();" +
 			           "		      set_cfg('editor_mode',optValue); save_cfg();" +
-			           "		      inputfirm.setOption('keyMap',optValue);" +
-			           "		      inputasm.setOption('keyMap',optValue);\"" +
+			           "		      sim_cfg_editor_mode(inputfirm);" +
+			           "		      sim_cfg_editor_mode(inputasm);\"" +
 			           "	    data-native-menu='false'>" +
 			           "	<option value='default'>default</option>" +
 			           "	<option value='vim'>VIM</option>" +
