@@ -123,7 +123,7 @@
            
         </p>
         <p class="cleanuphtml-3">
-          <img style="max-width:90%;" alt="" name="Imagen 1" src="help/signals/image001.jpg" id="Imagen 1">
+          <img style="max-width:90%;" alt="" name="Imagen 1" src="help/ep/signals/image001.jpg" id="Imagen 1">
         </p>
         <p class="cleanuphtml-3">
           <b>Figura</b> <b>8</b> <b>Opciones para el MUX A</b>
@@ -359,7 +359,7 @@
           <div id="MC">
           <p>
             <b>MC</b><b>         </b>             1 bit<br>
-            <b>SELCOP</b><b>     </b>             4 bits
+            <b>SELCOP</b><b>     </b>             5 bits
           </p>
           <p>
             Permite seleccionar el valor para la señal COP de la ALU.
@@ -373,16 +373,16 @@
           <div id="MR">
           <p>
             <b>MR</b><b>       </b>             1 bit<br>
-            <b>SELA</b><b>     </b>             5 bits<br>
-            <b>SELB</b><b>     </b>             5 bits<br>
-            <b>SELC</b><b>     </b>             5 bits
+            <b>SELA</b><b>     </b>             6 bits<br>
+            <b>SELB</b><b>     </b>             6 bits<br>
+            <b>SELC</b><b>     </b>             6 bits
           </p>
           <p>
             Permiten seleccionar el valor para RA, RB y RC.
             Si MR es igual a 1 entonces el valor SELA representar&aacute; el identificador del registro del banco de registro que se desea usar:
           </p>
           <p class="cleanuphtml-3">
-            <img style="max-width:90%;" id="Imagen 82" src="help/signals/image009.png" name="Imagen 92" alt="">
+            <img style="max-width:90%;" id="Imagen 82" src="help/ep/signals/image009.png" name="Imagen 92" alt="">
           </p>
           <p class="cleanuphtml-3">
             <a class="cleanuphtml-4" name="_Toc438322899">Figura</a> <b>20</b> <b>Detalle de la gesti&oacute;n de las se&ntilde;ales RA, RB y RC</b>
@@ -390,10 +390,10 @@
 
           <p>
             Si MR es igual a 0 entonces el valor SELA representa el desplazamiento dentro del registro de instrucci&oacute;n 
-	    a partir del cual se toman 5 bits, y el valor de esos 5 bits es el identificador del registro en el banco de registro:
+	    a partir del cual se toman 6 bits, y el valor de esos 6 bits es el identificador del registro en el banco de registro:
           </p>
           <p class="cleanuphtml-3">
-            <img style="max-width:90%;" id="Imagen 82" src="help/signals/image010.png" name="Imagen 93" alt="">
+            <img style="max-width:90%;" id="Imagen 82" src="help/ep/signals/image010.png" name="Imagen 93" alt="">
           </p>
           <p class="cleanuphtml-3">
             <a class="cleanuphtml-4" name="_Toc438322899">Figura</a> <b>20</b> <b>Detalle de la gesti&oacute;n de las se&ntilde;ales RA, RB y RC</b>
@@ -556,7 +556,7 @@
 
         <div id="COP">
           <p>
-            <b>COP</b> <b>   </b>             4 bits              
+            <b>COP</b> <b>   </b>             5 bits              
           </p>
           <p>
             Selecciona la operaci&oacute;n que se realiza en la ALU:
@@ -569,7 +569,7 @@
               <tbody><tr>
                 <td valign="top">
                   <p class="cleanuphtml-1">
-                    COP (C0P<sub>3</sub>-C0P<sub>0</sub>)
+                    COP (C0P<sub>4</sub>-C0P<sub>0</sub>)
                   </p>
                 </td>
                 <td valign="top">
@@ -1111,7 +1111,7 @@
                 Por ejemplo, dado el siguiente contenido en el registro de instrucciones:
               </p>
               <p class="cleanuphtml-3">
-                <img style="max-width:90%;" id="Imagen 15" src="help/signals/image002.png" name="Imagen 15" alt="">
+                <img style="max-width:90%;" id="Imagen 15" src="help/ep/signals/image002.png" name="Imagen 15" alt="">
               </p>
               <p>
                 Los valores:
@@ -1161,7 +1161,7 @@
                     </td>
                     <td valign="top">
                       <p>
-                        <img style="max-width:90%;" id="Imagen 16" src="help/signals/image003.jpg" name="Imagen 16" alt="">
+                        <img style="max-width:90%;" id="Imagen 16" src="help/ep/signals/image003.jpg" name="Imagen 16" alt="">
                       </p>
                     </td>
                   </tr>
@@ -1183,7 +1183,7 @@
                     </td>
                     <td valign="top">
                       <p>
-                        <img style="max-width:90%;" id="Imagen 17" src="help/signals/image004.jpg" name="Imagen 17" alt="">
+                        <img style="max-width:90%;" id="Imagen 17" src="help/ep/signals/image004.jpg" name="Imagen 17" alt="">
                       </p>
                     </td>
                   </tr>
@@ -1205,7 +1205,7 @@
                     </td>
                     <td valign="top">
                       <p>
-                        <img style="max-width:90%;" id="Imagen 18" src="help/signals/image005.jpg" name="Imagen 18" alt="">
+                        <img style="max-width:90%;" id="Imagen 18" src="help/ep/signals/image005.jpg" name="Imagen 18" alt="">
                       </p>
                     </td>
                   </tr>
@@ -1227,7 +1227,7 @@
                     </td>
                     <td valign="top">
                       <p>
-                        <img style="max-width:90%;" id="Imagen 19" src="help/signals/image006.jpg" name="Imagen 19" alt="">
+                        <img style="max-width:90%;" id="Imagen 19" src="help/ep/signals/image006.jpg" name="Imagen 19" alt="">
                       </p>
                     </td>
                   </tr>
@@ -3966,13 +3966,13 @@
           <div id="RC">
           <div id="LC">
                 <p>
-                  <b>RA</b><b>     </b>             5 bits
+                  <b>RA</b><b>     </b>             6 bits
                 </p>
                 <p>
-                  <b>RB</b><b>      </b>             5 bits
+                  <b>RB</b><b>      </b>             6 bits
                 </p>
                 <p>
-                  <b>RC</b><b>                  </b> 5 bits
+                  <b>RC</b><b>                  </b> 6 bits
                 </p>
                 <p>
                   <b>LC</b><b>                  </b> 1 bit
@@ -3986,7 +3986,7 @@
                    
                 </p>
                 <p class="cleanuphtml-3">
-                  <img style="max-width:90%;" id="Imagen 25" src="help/signals/image007.jpg" name="Imagen 25" alt="">
+                  <img style="max-width:90%;" id="Imagen 25" src="help/ep/signals/image007.jpg" name="Imagen 25" alt="">
                 </p>
                 <p class="cleanuphtml-3">
                   <a class="cleanuphtml-4" name="_Toc438322898">Figura</a> <b>9</b> <b>Opciones para el MUX A</b>
@@ -4017,7 +4017,7 @@
              
           </p>
           <p class="cleanuphtml-3">
-            <img style="max-width:90%;" id="Imagen 82" src="help/signals/image008.jpg" name="Imagen 82" alt="">
+            <img style="max-width:90%;" id="Imagen 82" src="help/ep/signals/image008.jpg" name="Imagen 82" alt="">
           </p>
           <p class="cleanuphtml-3">
             <a class="cleanuphtml-4" name="_Toc438322899">Figura</a> <b>10</b> <b>Detalle de la gesti&oacute;n del registro PC</b>
@@ -4123,7 +4123,7 @@
           <p>
             Permite al usuario cambiar al vuelo los valores de C-V-N-Z-I-U como si hubieran sido generados por el hardware.
             C: acarreo, V: desbordamiento, N: negativo, Z: cero, I: interrupciones habilitadas, U: espacio de usuario.<br>
-            <b>NOTA: este mecanismo es solo para pruebas.</b>
+            <b>NOTA: este mecanismo es solo para pruebas. No debe ser usado para la versi&oacute;n final del microc&oacute;digo.</b>
           </p>
         </div>
         </div>

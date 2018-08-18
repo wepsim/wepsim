@@ -26,6 +26,7 @@
         ep_components.IO = {
 		                  name: "IO", 
 		                  version: "1", 
+		                  abilities: ["IO", "IO_CONFIG"], 
 		                  write_state: function ( vec ) {
 						  return vec;
 				               },
@@ -84,19 +85,19 @@
          ep_signals.IORDY      = { name: "IORDY",  visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                    depends_on: ["CLK"],
 		                   behavior: ["FIRE_IFCHANGED IORDY C", "FIRE_IFCHANGED IORDY C"],
-                                   fire_name: ['svg_p:tspan4089','svg_p:path3793'], 
+                                   fire_name: ['svg_p:tspan4089','svg_p:path3793','svg_p:text3911'], 
                                    draw_data: [[], ['svg_p:path3897']], 
                                    draw_name: [[], []]};
 
          ep_signals.IO_IOR     = { name: "IO_IOR", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                    behavior: ["NOP", "IO_IOR BUS_AB BUS_DB IOSR IOCR IODR CLK; FIRE SBWA"],
-                                   fire_name: ['svg_p:tspan4173','svg_p:text3715'], 
+                                   fire_name: ['svg_p:tspan4173'], 
                                    draw_data: [[], ['svg_p:path3795', 'svg_p:path3733']], 
                                    draw_name: [[], []]};
 
          ep_signals.IO_IOW     = { name: "IO_IOW", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                    behavior: ["NOP", "IO_IOW BUS_AB BUS_DB IOSR IOCR IODR CLK; FIRE SBWA"],
-                                   fire_name: ['svg_p:text3785-0-6-0-5-5','svg_p:text3717'], 
+                                   fire_name: ['svg_p:text3785-0-6-0-5-5'], 
                                    draw_data: [[], ['svg_p:path3805', 'svg_p:path3733']], 
                                    draw_name: [[], []]};
 
@@ -239,4 +240,19 @@
                                                       }
                                                    }
                                       };
+
+        ep_behaviors.IO_RESET      = { nparameters: 1,
+                                       operation: function (s_expr) 
+                                                  {
+						     // reset events.io
+                                                     ep_events.io = {} ;
+
+						     // reset the I/O factory
+						     for (var i=0; i<ep_internal_states.io_int_factory.length; i++)
+						     {
+						      set_var(ep_internal_states.io_int_factory[i].accumulated, 0);
+						      set_var(ep_internal_states.io_int_factory[i].active, false);
+						     }
+                                                  }
+                                     };
 

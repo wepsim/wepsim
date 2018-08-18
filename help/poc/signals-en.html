@@ -128,7 +128,7 @@
            
         </p>
         <p class="cleanuphtml-3">
-          <img style="max-width:90%" alt="" name="Imagen 1" src="help/signals/image001.jpg" id="Imagen 1">
+          <img style="max-width:90%" alt="" name="Imagen 1" src="help/ep/signals/image001.jpg" id="Imagen 1">
         </p>
         <p class="cleanuphtml-3">
           <b>Figure</b> <b>8</b> <b>Options for MUX A</b>
@@ -364,7 +364,7 @@
           <div id="MC">
           <p>
             <b>MC</b><b>         </b>             1 bit<br>
-            <b>SELCOP</b><b>     </b>             4 bits
+            <b>SELCOP</b><b>     </b>             5 bits
           </p>
           <p>
             It allows to select the value for COP.
@@ -378,27 +378,27 @@
           <div id="MR">
           <p>
             <b>MR</b><b>       </b>             1 bit<br>
-            <b>SELA</b><b>     </b>             5 bits<br>
-            <b>SELB</b><b>     </b>             5 bits<br>
-            <b>SELC</b><b>     </b>             5 bits
+            <b>SELA</b><b>     </b>             6 bits<br>
+            <b>SELB</b><b>     </b>             6 bits<br>
+            <b>SELC</b><b>     </b>             6 bits
           </p>
           <p>
             It allows to select the value for RA, RB and RC. 
             If MR equals 1 then the SELA value will represent the register id. of the register file that you want to use:
           </p>
           <p class="cleanuphtml-3">
-            <img style="max-width:90%" id="Imagen 82" src="help/signals/image009.png" name="Imagen 92" alt="">
+            <img style="max-width:90%" id="Imagen 82" src="help/ep/signals/image009.png" name="Imagen 92" alt="">
           </p>
           <p class="cleanuphtml-3">
             <a class="cleanuphtml-4" name="_Toc438322899">Figure</a> <b>20</b> <b>Details of management signals RA, RB and RC</b>
           </p>
 
           <p>
-            If MR equals 0 then the SELA value represents the offset within the instruction register from which 5 bits are taken, 
-            and the value of those 5 bits is the identifier of the register in the register file:
+            If MR equals 0 then the SELA value represents the offset within the instruction register from which 6 bits are taken, 
+            and the value of those 6 bits is the identifier of the register in the register file:
           </p>
           <p class="cleanuphtml-3">
-            <img style="max-width:90%" id="Imagen 82" src="help/signals/image010.png" name="Imagen 93" alt="">
+            <img style="max-width:90%" id="Imagen 82" src="help/ep/signals/image010.png" name="Imagen 93" alt="">
           </p>
           <p class="cleanuphtml-3">
 	    <a class="cleanuphtml-4" name="_Toc438322899">Figure</a> <b>20</b> <b>Details of management signals RA, RB and RC</b>
@@ -561,7 +561,7 @@
 
         <div id="COP">
           <p>
-            <b>COP</b> <b>   </b>             4 bits              
+            <b>COP</b> <b>   </b>             5 bits              
           </p>
           <p>
             Select the operation that is performed in the ALU:
@@ -574,7 +574,7 @@
               <tbody><tr>
                 <td valign="top">
                   <p class="cleanuphtml-1">
-                    COP (C0P<sub>3</sub>-C0P<sub>0</sub>)
+                    COP (C0P<sub>4</sub>-C0P<sub>0</sub>)
                   </p>
                 </td>
                 <td valign="top">
@@ -1116,7 +1116,7 @@
                 For example, given the following contents in the instruction register:
               </p>
               <p class="cleanuphtml-3">
-                <img style="max-width:90%" id="Imagen 15" src="help/signals/image002.png" name="Imagen 15" alt="">
+                <img style="max-width:90%" id="Imagen 15" src="help/ep/signals/image002.png" name="Imagen 15" alt="">
               </p>
               <p>
                 Values:
@@ -1166,7 +1166,7 @@
                     </td>
                     <td valign="top">
                       <p>
-                        <img style="max-width:90%" id="Imagen 16" src="help/signals/image003.jpg" name="Imagen 16" alt="">
+                        <img style="max-width:90%" id="Imagen 16" src="help/ep/signals/image003.jpg" name="Imagen 16" alt="">
                       </p>
                     </td>
                   </tr>
@@ -1188,7 +1188,7 @@
                     </td>
                     <td valign="top">
                       <p>
-                        <img style="max-width:90%" id="Imagen 17" src="help/signals/image004.jpg" name="Imagen 17" alt="">
+                        <img style="max-width:90%" id="Imagen 17" src="help/ep/signals/image004.jpg" name="Imagen 17" alt="">
                       </p>
                     </td>
                   </tr>
@@ -1210,7 +1210,7 @@
                     </td>
                     <td valign="top">
                       <p>
-                        <img style="max-width:90%" id="Imagen 18" src="help/signals/image005.jpg" name="Imagen 18" alt="">
+                        <img style="max-width:90%" id="Imagen 18" src="help/ep/signals/image005.jpg" name="Imagen 18" alt="">
                       </p>
                     </td>
                   </tr>
@@ -1232,7 +1232,7 @@
                     </td>
                     <td valign="top">
                       <p>
-                        <img style="max-width:90%" id="Imagen 19" src="help/signals/image006.jpg" name="Imagen 19" alt="">
+                        <img style="max-width:90%" id="Imagen 19" src="help/ep/signals/image006.jpg" name="Imagen 19" alt="">
                       </p>
                     </td>
                   </tr>
@@ -3969,13 +3969,13 @@
           <div id="RC">
           <div id="LC">
                 <p>
-                  <b>RA</b><b>      </b>             5 bits
+                  <b>RA</b><b>      </b>             6 bits
                 </p>
                 <p>
-                  <b>RB</b><b>      </b>             5 bits
+                  <b>RB</b><b>      </b>             6 bits
                 </p>
                 <p>
-                  <b>RC</b><b>                  </b> 5 bits
+                  <b>RC</b><b>                  </b> 6 bits
                 </p>
                 <p>
                   <b>LC</b><b>                  </b> 1 bit
@@ -3989,7 +3989,7 @@
                    
                 </p>
                 <p class="cleanuphtml-3">
-                  <img style="max-width:90%" id="Imagen 25" src="help/signals/image007.jpg" name="Imagen 25" alt="">
+                  <img style="max-width:90%" id="Imagen 25" src="help/ep/signals/image007.jpg" name="Imagen 25" alt="">
                 </p>
                 <p class="cleanuphtml-3">
                   <a class="cleanuphtml-4" name="_Toc438322898">Figure</a> <b>9</b> <b>Options available for the MUX A</b>
@@ -4022,7 +4022,7 @@
              
           </p>
           <p class="cleanuphtml-3">
-            <img style="max-width:90%" id="Imagen 82" src="help/signals/image008.jpg" name="Imagen 82" alt="">
+            <img style="max-width:90%" id="Imagen 82" src="help/ep/signals/image008.jpg" name="Imagen 82" alt="">
           </p>
           <p class="cleanuphtml-3">
             <a class="cleanuphtml-4" name="_Toc438322899">Figure</a> <b>10</b> <b>Detail of the PC register management options</b>
@@ -4126,7 +4126,7 @@
           </p>
           <p>
             Let user to change on-the-fly the values of Carry-oVerflow-Negative-Zero-Int_enable-User_level flags as they were generated by the hardware elements.<br>
-            <b>NOTE: this mechanism is for testing purposes only.</b>
+            <b>NOTE: this mechanism is for testing purposes only. You should not use those signals in the final version of your microcode.</b>
           </p>
         </div>
         </div>

@@ -89,36 +89,40 @@
 
     function wepsim_load_from_url ( url, do_next )
     {
-	fetchURL(url).then(function(response) 
-                           {
-                              if (typeof response == "undefined") {
-			          console.error("File " + url + " could not be fetched (are you on-line?)") ;
-                                  return ;
-                              }
+	var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-                              if (response.ok) {
-                                  response.text().then(function(text) { 
-					                  do_next(text); 
-				                       }) ;
-                              }
-                           }) ;
-    }
+	if (false == isMobile)
+	{
+		fetchURL(url).then(function(response) 
+				   {
+				      if (typeof response == "undefined") {
+					  console.error("File " + url + " could not be fetched:" + 
+                                                        " * Please check that you are on-line.") ;
+					  return ;
+				      }
 
-    function wepsim_load_from_url_forandroid ( url, do_next )
-    {
-	var xmlhttp = new XMLHttpRequest();
+				      if (response.ok) {
+					  response.text().then(function(text) { 
+								  do_next(text); 
+							       }) ;
+				      }
+				   }) ;
+	}
+	else 
+        {
+		var xmlhttp = new XMLHttpRequest();
 
-	xmlhttp.onreadystatechange=function() {
-	     // if ((xmlhttp.readyState == 4) &&  (xmlhttp.status == 200))
-		if ((xmlhttp.readyState == 4) && ((xmlhttp.status == 200) || (xmlhttp.status == 0)))
-		{
-		    var textFromFileLoaded = xmlhttp.responseText ;
-                    if (null != do_next)
-                        do_next(textFromFileLoaded);
-		}
-	};
+		xmlhttp.onreadystatechange = function() {
+			if ((xmlhttp.readyState == 4) && ((xmlhttp.status == 200) || (xmlhttp.status == 0)))
+			{
+			    var textFromFileLoaded = xmlhttp.responseText ;
+			    if (null != do_next)
+				do_next(textFromFileLoaded);
+			}
+		};
 
-	xmlhttp.open("GET", url, true);
-	xmlhttp.send();
+		xmlhttp.open("GET", url, true);
+		xmlhttp.send();
+	}
     }
 

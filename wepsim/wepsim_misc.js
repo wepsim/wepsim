@@ -127,14 +127,33 @@
 	    setTimeout(function(){editor.refresh();}, 100);
     }
 
-    function sim_change_workspace ( page )
+    function sim_change_workspace ( page_id, carousel_id )
     {
             if ( (typeof $.mobile                             != "undefined") &&
                  (typeof $.mobile.pageContainer               != "undefined") &&
                  (typeof $.mobile.pageContainer.pagecontainer != "undefined") ) 
             {
-                  $.mobile.pageContainer.pagecontainer('change', page);
+                  $.mobile.pageContainer.pagecontainer('change', page_id);
             }
+            else
+            {
+                  $('#carousel-8').carousel(carousel_id) ;
+            }
+    }
+
+    function sim_change_workspace_simulator ( )
+    {
+	    sim_change_workspace('#main1', 0) ;
+    }
+
+    function sim_change_workspace_microcode ( )
+    {
+	    sim_change_workspace('#main3', 1) ;
+    }
+
+    function sim_change_workspace_assembly ( )
+    {
+	    sim_change_workspace('#main4', 2) ;
     }
 
 
@@ -373,16 +392,24 @@
           var hwid = -1 ;
 
 	  // switch active hardware by name...
-	  if ('wepmips' == optValue) {
-	       hwid = simhw_getActiveByName('ep') ;
-               wepsim_activehw(hwid) ;
-	       wepsim_show_wepmips();
+          switch (optValue)
+          {
+	      case 'intro': 
+	      case 'wepmips': 
+	      case 'tutorial': 
+                               hwid = simhw_getActiveByName('ep') ;
+                               wepsim_activehw(hwid) ;
+                               break;
+	      default: 
+	                       hwid = simhw_getActiveByName(optValue) ;
+                               wepsim_activehw(hwid) ;
+                               break;
           }
-	  else { 
-	       hwid = simhw_getActiveByName(optValue) ;
-               wepsim_activehw(hwid) ;
-               wepsim_hide_wepmips();
-          }
+
+	  // show/hide wepmips...
+	  if ('wepmips' == optValue)
+	       wepsim_show_wepmips() ;
+	  else wepsim_hide_wepmips() ;
 
 	  // tutorial mode...
 	  $(cssLayer).css('background-color', '#F6F6F6') ;
