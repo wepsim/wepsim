@@ -110,6 +110,7 @@
     {
 	    editor.setValue("\n\n\n\n\n\n\n\n\n\n");
 	    editor.getWrapperElement().style['text-shadow'] = '0.0em 0.0em';
+	    editor.getWrapperElement().style['font-weight'] = 'bold';
 
 	    if (get_cfg('editor_theme') == 'blackboard') {
 		editor.getWrapperElement().style['font-weight'] = 'normal';
@@ -125,6 +126,9 @@
 		editor.setOption('keyMap','sublime');
 
 	    setTimeout(function(){editor.refresh();}, 100);
+
+            editor.setSize("auto","auto");
+            editor.refresh();
     }
 
     function sim_change_workspace ( page_id, carousel_id )

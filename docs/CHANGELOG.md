@@ -1,6 +1,7 @@
 
 1.9.1 -> 1.9.2:
 * Transition compleated: Jquery Mobile 1.4.5 (2014) => Bootstrap 4.1.3 (2018)
+* CodeMirror updated up to 5.39.2
 * Examples are loaded quicker than before
 
 1.9.0 -> 1.9.1:
