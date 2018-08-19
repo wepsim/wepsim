@@ -137,8 +137,8 @@
                    '<b>was inserted at:</b><br>' +
                    'Date: ' + t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + '<br>' +
                    'Hour: ' + t.getHours()    + ':' + t.getMinutes()   + ':' + t.getSeconds() + '-' + t.getMilliseconds() + '<br>' +
-		   '<button type="button" id="close" class="btn btn-sm btn-danger w-100" ' + 
-		   '        data-role="none" ' +
+		   '<button type="button" id="close" data-role="none" ' +
+                   '        class="btn btn-sm btn-danger w-100 p-0" ' + 
 		   '        onclick="$(\'#' + it + '\').popover(\'hide\');">Close</button>' +
                    '</div>' ;
 
