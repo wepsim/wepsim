@@ -1448,12 +1448,9 @@
 			    html:       true,
 			    placement: 'auto',
 			    animation:  false,
-			    content:    wepsim_show_asm_columns_checked,
-			    title: function() {
-				return '<span class="p-2">Selectors</span>' +
-				       '<button type="button" id="close" class="close" data-role="none" ' +
-				       '        onclick="$(\'#popover2_asm\').popover(\'hide\');">&times;</button>' ;
-			    }
+			    content:    function() { 
+                                           return wepsim_show_asm_columns_checked('popover2_asm'); 
+                                        }
 		    });
 		    $("[data-toggle=popover3]").popover({
 			    html: true,
