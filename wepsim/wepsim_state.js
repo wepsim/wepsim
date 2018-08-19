@@ -133,20 +133,23 @@
                    t.getHours()    + '-' + t.getMinutes()   + '-' + t.getSeconds() + '-' + t.getMilliseconds() ;
 
               tt = '<div id="popover-content-' + it + '" class="d-none bg-light">' +
-                   '<b>Inserted at:</b><br>' +
+                   state_history[i].title + '<br>' +
+                   '<b>was inserted at:</b><br>' +
                    'Date: ' + t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + '<br>' +
                    'Hour: ' + t.getHours()    + ':' + t.getMinutes()   + ':' + t.getSeconds() + '-' + t.getMilliseconds() + '<br>' +
+		   '<button type="button" id="close" class="btn btn-sm btn-danger w-100" ' + 
+		   '        data-role="none" ' +
+		   '        onclick="$(\'#' + it + '\').popover(\'hide\');">Close</button>' +
                    '</div>' ;
 
               o += '<div class="card">' +
-                   '  <div class="card-header row p-2 w-100">' + 
-                   '    <h5 class="card-title col m-0" ' + 
+                   '  <div class="card-header p-1 w-100">' + 
+                   '    <h5 class="card-title float-left m-0 text-primary" ' + 
 		   '        data-toggle="collapse" data-target="#collapse_'+i+'" ' + 
                    '        data-parent="#accordion1">' + state_history[i].title + '</h5>' + tt +
-                   '    <div class="btn-group" role="group" aria-label="Basic example">' +
+                   '    <div class="btn-group float-right" role="group" aria-label="Basic example">' +
                    '    <button class="btn btn-outline-dark btn-sm col float-right"' + 
                    '            data-toggle="popover4" data-html="true" type="button" ' + 
-                   '            data-title="' + state_history[i].title + '" ' +
                    '            id="' + it + '">+Info</button>' +
                    '    <button class="btn btn-outline-dark btn-sm col float-right"' + 
                    '            onclick="CopyFromTextarea(\'ta_state_' + i + '\');" ' + 
@@ -186,14 +189,7 @@
                   content: function() {
                                  var id = $(this).attr('id')
                                  return $('#popover-content-' + id).html();
-                           },
-		  title:   function() {
-                                 var id    = $(this).attr('id')
-                                 var title = $(this).attr('data-title')
-			         return '<span class="p-2">' + title + '</span>' +
-			                '<button type="button" id="close" class="close" data-role="none" ' +
-			                '     onclick="$(\'#' + id + '\').popover(\'hide\');">&times;</button>';
-		           }
+                           }
 	 });
     }
 
