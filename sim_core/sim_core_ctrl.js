@@ -453,6 +453,7 @@
 			});
 
 			bb.find(".modal-title").addClass("mx-auto") ;
+			bb.find(".bootbox-close-button").addClass("mx-1") ;
 
                         $(".dial").knob({ 'min':0, 'max':(nvalues-1) })
                                   .val(simhw_sim_signal(key).value)
