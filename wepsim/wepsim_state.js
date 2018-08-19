@@ -95,20 +95,22 @@
 
     function wepsim_state_history_reset ( )
     {
-        state_history = [] ;
+	 $("[data-toggle=popover4]").popover('hide') ;
+
+         state_history = [] ;
     }
 
     function wepsim_state_history_add ( )
     {
-        var reg_maddr = get_value(simhw_sim_state('REG_MICROADDR')) ;
-        var reg_clk   = get_value(simhw_sim_state('CLK')) ;
-        var state_obj = simstate_current2state() ;
-        var state_str = simstate_state2checklist(state_obj) ;
-        var timestamp = new Date().getTime() ;
+         var reg_maddr = get_value(simhw_sim_state('REG_MICROADDR')) ;
+         var reg_clk   = get_value(simhw_sim_state('CLK')) ;
+         var state_obj = simstate_current2state() ;
+         var state_str = simstate_state2checklist(state_obj) ;
+         var timestamp = new Date().getTime() ;
 
-        state_history.push({ time: timestamp,
-                             title: 'clock ' + reg_clk + ' @ &#181;address ' + reg_maddr,
-                             content: state_str }) ;
+         state_history.push({ time: timestamp,
+                              title: 'clock ' + reg_clk + ' @ &#181;address ' + reg_maddr,
+                              content: state_str }) ;
     }
 
     function wepsim_state_history_list ( )
@@ -185,6 +187,7 @@
 		  html:       true,
 		  placement: 'auto',
 	          trigger:   'click',
+	          container: 'body',
 		  animation:  false,
                   content: function() {
                                  var id = $(this).attr('id')
