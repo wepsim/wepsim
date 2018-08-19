@@ -1436,24 +1436,25 @@
 
 		    $('a[data-toggle="popover1"]').popover({
 			     placement: 'bottom',
-			     trigger: 'focus, hover',
+			     trigger:   'focus, hover',
 			     animation: false,
 			     delay: { "show": 500, "hide": 100 } 
 		    }) ;
 		    $("[data-toggle=popover2]").popover({
 			    html:       true,
 			    placement: 'auto',
+                            container: 'body',
 			    animation:  false,
 			    content:    function() { 
                                            return wepsim_show_asm_columns_checked('popover2_asm'); 
                                         }
 		    });
 		    $("[data-toggle=popover3]").popover({
-			    html: true,
+			    html:    true,
 			    content: function() {
-			      var id = $(this).attr('id')
-			      return $('#popover-content-' + id).html();
-			    }
+			                  var id = $(this).attr('id')
+			                  return $('#popover-content-' + id).html();
+			             }
 		    });
 	    }) ;
 
