@@ -24,20 +24,24 @@
 
         function get_cfg ( field )
         {
-               return WSCFG[field].value ;
+             return WSCFG[field].value ;
         }
 
         function set_cfg ( field, value )
         {
-               WSCFG[field].value = value ;
+             WSCFG[field].value = value ;
+
+             ga('send', 'event', 'config', 
+                'config.' + WSCFG.version.value, 
+                'config.' + WSCFG.version.value + '.' + field + '.' + value);
         }
 
         function is_mobile ( )
         {
-               if (typeof navigator == "undefined")
-                   return false ;
+             if (typeof navigator == "undefined")
+                 return false ;
 
-               return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ;
+             return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ;
         }
 
         function reset_cfg ( )
