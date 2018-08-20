@@ -22,9 +22,8 @@
      function request_html_url ( r_url )
      {
         var robj = null ;
-	var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-	if (false == isMobile) 
+	if (false == is_mobile()) 
         {
             if (navigator.onLine) 
                  robj = fetch(r_url);
@@ -40,16 +39,21 @@
 
      function update_div_frompartialhtml ( helpdiv, key, data )
      {
-	var content = '<br>Sorry, No more details available for this element.<p>\n' ;
-	if (data != "") 
+	var default_content = '<br>Sorry, No more details available for this element.<p>\n' ;
+	var help_content    = default_content ;
+
+	if ("" != data) 
 	{
-	    content = $(data).find('#' + key).html() ;
-	    if (typeof content == "undefined") {
-		content = $(data).filter('#' + key).html() ;
-	    }
+		help_content = $(data).find('#' + key).html() ;
+		if (typeof help_content == "undefined") {
+		    help_content = $(data).filter('#' + key).html() ;
+		}
+		if (typeof help_content == "undefined") {
+		    help_content = default_content ;
+		}
 	}
 
-	$(helpdiv).html(content) ;
+	$(helpdiv).html(help_content) ;
 	$(helpdiv).trigger('create');
      }
 

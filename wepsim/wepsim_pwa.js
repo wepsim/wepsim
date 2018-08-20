@@ -23,7 +23,7 @@
  * cache versioning
  */
 
-var cacheName = 'v191b:static';
+var cacheName = 'v192a:static';
 
 
 /*
@@ -101,7 +101,6 @@ self.addEventListener('install',
                                         './help/about-es.html',
                                         './help/about-en.html',
                                         './help/welcome/help_usage.gif',
-                                        './help/welcome/menu_open.gif',
                                         './help/welcome/config_usage.gif',
                                         './help/welcome/simulation_xinstruction.gif',
                                         './help/welcome/example_usage.gif',

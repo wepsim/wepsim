@@ -95,20 +95,22 @@
 
     function wepsim_state_history_reset ( )
     {
-        state_history = [] ;
+	 $("[data-toggle=popover4]").popover('hide') ;
+
+         state_history = [] ;
     }
 
     function wepsim_state_history_add ( )
     {
-        var reg_maddr = get_value(simhw_sim_state('REG_MICROADDR')) ;
-        var reg_clk   = get_value(simhw_sim_state('CLK')) ;
-        var state_obj = simstate_current2state() ;
-        var state_str = simstate_state2checklist(state_obj) ;
-        var timestamp = new Date().getTime() ;
+         var reg_maddr = get_value(simhw_sim_state('REG_MICROADDR')) ;
+         var reg_clk   = get_value(simhw_sim_state('CLK')) ;
+         var state_obj = simstate_current2state() ;
+         var state_str = simstate_state2checklist(state_obj) ;
+         var timestamp = new Date().getTime() ;
 
-        state_history.push({ time: timestamp,
-                             title: 'clock ' + reg_clk + ' @ micro-address ' + reg_maddr,
-                             content: state_str }) ;
+         state_history.push({ time: timestamp,
+                              title: 'clock ' + reg_clk + ' @ &#181;address ' + reg_maddr,
+                              content: state_str }) ;
     }
 
     function wepsim_state_history_list ( )
@@ -120,34 +122,47 @@
              return ;
          }
 
-         var t = 0 ;
+	 $("[data-toggle=popover4]").popover('hide') ;
+
+         var  t = 0 ;
+         var tt = '' ;
+         var it = '' ;
          var o = '<div class="card-group-vertical" id="accordion1">' ;
          for (var i=state_history.length-1; i>=0; i--) 
          {
-              t = new Date(state_history[i].time) ;
+               t = new Date(state_history[i].time) ;
+              it = t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + '-' +
+                   t.getHours()    + '-' + t.getMinutes()   + '-' + t.getSeconds() + '-' + t.getMilliseconds() ;
+
+              tt = '<div id="popover-content-' + it + '" class="d-none bg-light">' +
+                   state_history[i].title + '<br>' +
+                   '<b>was inserted at:</b><br>' +
+                   'Date: ' + t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + '<br>' +
+                   'Hour: ' + t.getHours()    + ':' + t.getMinutes()   + ':' + t.getSeconds() + '-' + t.getMilliseconds() + '<br>' +
+		   '<button type="button" id="close" data-role="none" ' +
+                   '        class="btn btn-sm btn-danger w-100 p-0" ' + 
+		   '        onclick="$(\'#' + it + '\').popover(\'hide\');">Close</button>' +
+                   '</div>' ;
 
               o += '<div class="card">' +
-                   '  <div class="card-header row" ' + 
-		   '       style="width:101%; padding:8 15 8 15;">' +
-                   '    <h5 class="card-title col" ' + 
-		   '          data-toggle="collapse" data-target="#collapse_'+i+'" data-parent="#accordion1">' +
-                   '      <span>[' +
-                            t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + '_' +
-                            t.getHours()    + '-' + t.getMinutes()   + '-' + t.getSeconds() + '_' + 
-                            t.getMilliseconds() + '] ' + state_history[i].title +
-                   '      </span>' +
-                   '    </h5>' +
-                   '    <div class="btn-group" role="group" aria-label="Basic example">' +
+                   '  <div class="card-header p-1 w-100">' + 
+                   '    <h5 class="card-title float-left m-0 text-primary" ' + 
+		   '        data-toggle="collapse" data-target="#collapse_'+i+'" ' + 
+                   '        data-parent="#accordion1">' + state_history[i].title + '</h5>' + tt +
+                   '    <div class="btn-group float-right" role="group" aria-label="Basic example">' +
                    '    <button class="btn btn-outline-dark btn-sm col float-right"' + 
-                   '           onclick="CopyFromTextarea(\'ta_state_' + i + '\');" ' + 
-                   '           type="button">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>' +
+                   '            data-toggle="popover4" data-html="true" type="button" ' + 
+                   '            id="' + it + '">+Info</button>' +
+                   '    <button class="btn btn-outline-dark btn-sm col float-right"' + 
+                   '            onclick="CopyFromTextarea(\'ta_state_' + i + '\');" ' + 
+                   '            type="button">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>' +
                    '    <button class="btn btn-outline-dark btn-sm col float-right"' + 
                    '            onclick="var txt_chklst1 = get_clipboard_copy();' +
                    '                     var obj_exp1    = simstate_checklist2state(txt_chklst1);' +
                    '                     var txt_chklst2 = $(\'#ta_state_'+i+'\').val();' +
                    '                     var obj_exp2    = simstate_checklist2state(txt_chklst2);' +
                    '                     wepsim_dialog_check_state(\'check_results1\', obj_exp1, obj_exp2);"' +
-                   '         type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>' +
+                   '            type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>' +
                    '    </div>' +
                    '  </div>' +
                    '  <div id="collapse_' + i + '" class="collapse">' +
@@ -163,8 +178,22 @@
          }
          o += '</div>' ;
 
+         // update contents
          $('#history1').html(o) ;
-	 $('#check_results1').html('');
+	 $('#check_results1').html('') ;
+
+         // initializate popover
+	 $("[data-toggle=popover4]").popover({
+		  html:       true,
+		  placement: 'auto',
+	          trigger:   'click',
+	          container: 'body',
+		  animation:  false,
+                  content: function() {
+                                 var id = $(this).attr('id')
+                                 return $('#popover-content-' + id).html();
+                           }
+	 });
     }
 
     function wepsim_dialog_current_state ( )
