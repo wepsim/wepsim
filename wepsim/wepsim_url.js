@@ -89,9 +89,7 @@
 
     function wepsim_load_from_url ( url, do_next )
     {
-	var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-	if (false == isMobile)
+	if (false == is_mobile())
 	{
 		fetchURL(url).then(function(response) 
 				   {

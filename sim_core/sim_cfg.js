@@ -24,12 +24,24 @@
 
         function get_cfg ( field )
         {
-               return WSCFG[field].value ;
+             return WSCFG[field].value ;
         }
 
         function set_cfg ( field, value )
         {
-               WSCFG[field].value = value ;
+             WSCFG[field].value = value ;
+
+             ga('send', 'event', 'config', 
+                'config.' + WSCFG.version.value, 
+                'config.' + WSCFG.version.value + '.' + field + '.' + value);
+        }
+
+        function is_mobile ( )
+        {
+             if (typeof navigator == "undefined")
+                 return false ;
+
+             return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ;
         }
 
         function reset_cfg ( )
@@ -84,6 +96,16 @@
                WSCFG.editor_theme        = { value:'default',          type:"string"};
                WSCFG.editor_mode         = { value:'default',          type:"string"};
 
+               // some mobile-tuning
+               if (is_mobile())
+               {
+                   WSCFG.NOTIF_delay.value = 1750 ;
+                   WSCFG.ICON_theme.value  = 'cat1' ;
+                   WSCFG.CPUCU_size.value  = 6 ;
+                   WSCFG.C1C2_size.value   = 12 ;
+               }
+
+               // configuration that depends on the previous one
                set_secondary_cfg() ;
         }
 

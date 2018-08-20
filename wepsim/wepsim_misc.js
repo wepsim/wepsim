@@ -106,26 +106,52 @@
             }
     }
 
-    function sim_prepare_editor ( editor )
-    {
-	    editor.setValue("\n\n\n\n\n\n\n\n\n\n");
-	    editor.getWrapperElement().style['text-shadow'] = '0.0em 0.0em';
 
-	    if (get_cfg('editor_theme') == 'blackboard') {
+    /*
+     *  Editor
+     */
+
+    function sim_cfg_editor_theme ( editor )
+    {
+	    var theme = get_cfg('editor_theme') ;
+
+	    editor.getWrapperElement().style['text-shadow'] = '0.0em 0.0em';
+	    editor.getWrapperElement().style['font-weight'] = 'bold';
+
+	    if (theme == 'blackboard') {
 		editor.getWrapperElement().style['font-weight'] = 'normal';
-		editor.setOption('theme','blackboard');
 	    }
 
+	    editor.setOption('theme', theme);
+    }
+
+    function sim_cfg_editor_mode ( editor )
+    {
 	    var edt_mode = get_cfg('editor_mode');
+
 	    if (edt_mode == 'vim')
 		editor.setOption('keyMap','vim');
 	    if (edt_mode == 'emacs')
 		editor.setOption('keyMap','emacs');
 	    if (edt_mode == 'sublime')
 		editor.setOption('keyMap','sublime');
-
-	    setTimeout(function(){editor.refresh();}, 100);
     }
+
+    function sim_prepare_editor ( editor )
+    {
+	    editor.setValue("\n\n\n\n\n\n\n\n\n\n");
+
+            sim_cfg_editor_theme(editor) ;
+            sim_cfg_editor_mode(editor) ;
+
+            editor.setSize("auto","auto");
+            editor.refresh();
+    }
+
+
+    /*
+     *  Workspaces
+     */
 
     function sim_change_workspace ( page_id, carousel_id )
     {
@@ -149,11 +175,13 @@
     function sim_change_workspace_microcode ( )
     {
 	    sim_change_workspace('#main3', 1) ;
+            inputfirm.refresh() ;
     }
 
     function sim_change_workspace_assembly ( )
     {
 	    sim_change_workspace('#main4', 2) ;
+            inputasm.refresh() ;
     }
 
 
@@ -422,5 +450,46 @@
 	      sim_tutorial_showframe('welcome', 0);
               return ;
 	  }
+    }
+
+    function wepsim_show_asm_columns_checked ( asm_div )
+    {
+        var o = '<ul class="list-group">' +
+                '<li class="list-group-item py-0"><label>' + 
+		'<input aria-label="Show breakpoint" type="checkbox" value="1" id="asm_break" ' + 
+                '    checked="checked" data-toggle="collapse" data-target=".asm_break">' + 
+                '&nbsp;<span>breakpoints</span>' + 
+		'</label></li>' +
+		'<li class="list-group-item py-0"><label>' + 
+		'<input aria-label="Show address"    type="checkbox" value="1" id="asm_addr"    ' + 
+		'    checked="checked" data-toggle="collapse" data-target=".asm_addr">' + 
+                '&nbsp;<span>address</span>' + 
+		'</label></li>' +
+		'<li class="list-group-item py-0"><label>' + 
+		'<input aria-label="Show label"      type="checkbox" value="1" id="asm_label2"  ' + 
+		'    checked="checked" data-toggle="collapse" data-target=".asm_label2">' + 
+                '&nbsp;<span>labels</span>' + 
+		'</label></li>' +
+                '<li class="list-group-item py-0"><label>' + 
+		'<input aria-label="Show pseudo-instruction" type="checkbox" value="1" id="asm_pins" ' + 
+		'    checked="checked" data-toggle="collapse" data-target=".asm_pins">' + 
+                '&nbsp;<span>pseudo</span><span class="d-none d-md-inline">-instructions</span>' + 
+		'</label></li>' +
+		'<li class="list-group-item py-0"><label>' + 
+		'<input aria-label="Show label"              type="checkbox" value="1" id="asm_label1"  ' + 
+		' checked="checked" data-toggle="collapse" data-target=".asm_label1">' + 
+                '&nbsp;<span>labels</span>' + 
+		'</label></li>' +
+		'<li class="list-group-item py-0"><label>' + 
+		'<input aria-label="Show instruction"        type="checkbox" value="1" id="asm_ins"     ' + 
+		' checked="checked" data-toggle="collapse" data-target=".asm_ins">' + 
+                '&nbsp;<span>assembly</span>' + 
+		'</label></li>' +
+		'</ul>' +
+                '<button type="button" id="close" data-role="none" ' +
+                '        class="btn btn-sm btn-danger w-100 p-0" ' +
+                '        onclick="$(\'#' + asm_div + '\').popover(\'hide\');">Close</button>' ;
+
+        return o ;
     }
 
