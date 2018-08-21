@@ -153,7 +153,7 @@
     config.es.push({
                       id:          "select1",
                       type:        "Ejecuci&oacute;n",
-                      code_cfg:    "<a href='#' id='breakpointicon1' title='Please select your breakpoint Icon or click here to cancel' tabindex='0'" +
+                      code_cfg:    "<a href='#' id='breakpointicon1' title='Por favor seleccione icono' tabindex='0'" +
 			           "   data-toggle='popover' data-trigger='focus'>" +
 		                   "   		<img alt='stop icon' id='img_select1' src='images/stop_classic.gif' " +
 			           "                 style='position:relative; left:10px; height:30px !important; width:30px !important;'>" +

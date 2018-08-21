@@ -129,8 +129,13 @@
 		        "     onclick=\"$('#img_select1').attr('src','images/stop_" + breakpoint_icon_list[i].shortname + ".gif');" +
 		        "	        set_cfg('ICON_theme','" + breakpoint_icon_list[i].shortname + "'); save_cfg();\">" ;
 	}
-        o = o + "</div>" +
-	        "</div>";
+        o = o + '</div>' +
+	        '<div class="row p-1 border-top border-secondary">' +
+                '<button type="button" id="close" data-role="none" ' +
+                '        class="btn btn-sm btn-danger w-100 p-0" ' +
+                '        onclick="$(\'#breakpointicon1\').popover(\'hide\');">Close</button>' +
+	        '</div>' +
+	        '</div>';
 
 	return o ;
     }
