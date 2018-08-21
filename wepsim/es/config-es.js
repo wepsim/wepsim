@@ -9,7 +9,7 @@
 				   "	     aria-label='idiom for examples and help' data-role='none'" +
 				   "	     onchange=\"var opt = $(this).find('option:selected');" +
 				   "	 	        var optValue = opt.val();" +
-				   "		        set_cfg('ws_idiom',optValue); save_cfg();" +
+				   "		        update_cfg('ws_idiom',optValue); " +
 				   "		        wepsim_open_config_index();\"" +
 				   "	     data-native-menu='false'>" +
 				   "	<option value='es'>Spanish</option>" +
@@ -27,13 +27,13 @@
 				   "	    <label id='label11-true'" +
 				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Active voice: true'" +
-				   "		   onclick=\"set_cfg('use_voice',true); save_cfg(); wepsim_voice_start();\">" +
+				   "		   onclick=\"update_cfg('use_voice',true);  wepsim_voice_start();\">" +
 				   "		<input type='radio' name='options' id='radio11-true'   autocomplete='off' data-role='none'>On" +
 				   "	    </label>" +
 				   "	    <label id='label11-false'" +
 				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Active voice: false'" +
-				   "		   onclick=\"set_cfg('use_voice',false); save_cfg(); wepsim_voice_stop();\">" +
+				   "		   onclick=\"update_cfg('use_voice',false);  wepsim_voice_stop();\">" +
 				   "		<input type='radio' name='options' id='radio11-false'  autocomplete='off' data-role='none'>Off" +
 				   "	    </label>" +
 				   "	</div>",
@@ -50,7 +50,7 @@
 				   "	   data-show-value='false' data-theme='a'" +
 				   "	   name='slider3' id='slider3'" +
 				   "	   min='100' max='2000' value='1000' step='100'" +
-				   "	   onchange=\"set_cfg('NOTIF_delay', this.value); save_cfg();\">",
+				   "	   onchange=\"update_cfg('NOTIF_delay', this.value); \">",
                       code_init:   function() { $('#slider3').val(get_cfg('NOTIF_delay')); },
                       description: "Tiempo hasta que desaparecen las notificaciones (r&aacute;pido - lento)"
                    });
@@ -61,14 +61,14 @@
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' data-role='none'>" +
 				   "	    <label id='label7-default'" +
 				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;' " +
-				   "		   onclick=\"set_cfg('editor_theme','default'); save_cfg();" +
+				   "		   onclick=\"update_cfg('editor_theme','default'); " +
 				   "			     sim_cfg_editor_theme(inputfirm) ;" +
 				   "			     sim_cfg_editor_theme(inputasm) ;\">" +
 				   "		<input type='radio' name='options' id='radio7-default' aria-label='Editor theme: light' autocomplete='off' data-role='none'>Claro" +
 				   "	    </label>" +
 				   "	    <label id='label7-blackboard'" +
 				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;' " +
-				   "		   onclick=\"set_cfg('editor_theme','blackboard'); save_cfg();" +
+				   "		   onclick=\"update_cfg('editor_theme','blackboard'); " +
 				   "			     sim_cfg_editor_theme(inputfirm) ;" +
 				   "			     sim_cfg_editor_theme(inputasm) ;\">" +
 				   "		<input type='radio' name='options' id='radio7-blackboard' aria-label='Editor theme: dark' autocomplete='off' data-role='none'>Oscuro" +
@@ -86,7 +86,7 @@
 			           "	    aria-label='Editor mode'    data-role='none'" +
 			           "	    onchange=\"var opt = $(this).find('option:selected');" +
 			           "		      var optValue = opt.val();" +
-			           "		      set_cfg('editor_mode',optValue); save_cfg();" +
+			           "		      update_cfg('editor_mode',optValue); " +
 			           "		      sim_cfg_editor_mode(inputfirm);" +
 			           "		      sim_cfg_editor_mode(inputasm);\"" +
 			           "	    data-native-menu='false'>" +
@@ -107,19 +107,19 @@
 				   "	    <label id='label12-50'" +
 				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Speed: slow'" +
-				   "		   onclick=\"set_cfg('DBG_delay', 50); save_cfg();\">" +
+				   "		   onclick=\"update_cfg('DBG_delay', 50); \">" +
 				   "		<input type='radio' name='options' id='radio12-50'   autocomplete='off' data-role='none'>Lento" +
 				   "	    </label>" +
 				   "	    <label id='label12-5'" +
 				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Speed: normal'" +
-				   "		   onclick=\"set_cfg('DBG_delay', 5); save_cfg();\">" +
+				   "		   onclick=\"update_cfg('DBG_delay', 5); \">" +
 				   "		<input type='radio' name='options' id='radio12-5'  autocomplete='off' data-role='none'>Normal" +
 				   "	    </label>" +
 				   "	    <label id='label12-1'" +
 				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Speed: fast'" +
-				   "		   onclick=\"set_cfg('DBG_delay', 1); save_cfg();\">" +
+				   "		   onclick=\"update_cfg('DBG_delay', 1); \">" +
 				   "		<input type='radio' name='options' id='radio12-1'  autocomplete='off' data-role='none'>Veloz" +
 				   "	    </label>" +
 				   "	</div>",
@@ -134,14 +134,14 @@
 				   "	    <label id='label1-instruction'" +
 				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Execution unit: instruction'" +
-				   "		   onclick=\"set_cfg('DBG_level','instruction'); save_cfg();\">" +
+				   "		   onclick=\"update_cfg('DBG_level','instruction'); \">" +
 				   "		<input type='radio' name='options' id='radio1-instruction'   autocomplete='off' data-role='none'>" +
 				   "		<span class='d-none d-sm-inline-flex'>Instrucciones</span><span class='d-sm-none'>Instruc.</span></label>" +
 				   "	    </label>" +
 				   "	    <label id='label1-microinstruction'" +
 				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Execution unit: microinstruction'" +
-				   "		   onclick=\"set_cfg('DBG_level','microinstruction'); save_cfg();\">" +
+				   "		   onclick=\"update_cfg('DBG_level','microinstruction'); \">" +
 				   "		<input type='radio' name='options' id='radio1-microinstruction'  autocomplete='off' data-role='none'>" +
 				   "		<span class='d-none d-sm-inline-flex'>&#181;instrucciones</span><span class='d-sm-none'>&#181;instruc.</span></label>" +
 				   "	    </label>" +
@@ -170,7 +170,7 @@
 				   "		    aria-label='max. ticks per instruction' data-role='none'" +
 				   "		    onchange=\"var opt = $(this).find('option:selected');" +
 				   "			       var optValue = opt.val();" +
-				   "			       set_cfg('DBG_limitins',optValue); save_cfg();\"" +
+				   "			       update_cfg('DBG_limitins',optValue); \"" +
 				   "		    data-native-menu='false'>" +
 				   "		<option value='-1'>without limit</option>" +
 				   "		<option value='500'  >500</option>" +
@@ -192,7 +192,7 @@
 				   "		    aria-label='max. ticks per instruction' data-role='none'" +
 				   "		    onchange=\"var opt = $(this).find('option:selected');" +
 				   "			       var optValue = opt.val();" +
-				   "			       set_cfg('DBG_limitick',optValue); save_cfg();\"" +
+				   "			       update_cfg('DBG_limitick',optValue); \"" +
 				   "		    data-native-menu='false'>" +
 				   "		<option value='-1'>without limit</option>" +
 				   "		<option value='500'  >500</option>" +
@@ -213,19 +213,19 @@
 				   "	    <label id='label2-16'" +
 				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: hexadecimal'" +
-				   "		   onclick=\"set_cfg('RF_display_format',16); show_rf_values(); show_states(); show_memories_values(); save_cfg();\">" +
+				   "		   onclick=\"update_cfg('RF_display_format',16); show_rf_values(); show_states(); show_memories_values(); \">" +
 				   "		<input type='radio' name='options' id='radio2-16'   autocomplete='off' data-role='none'>Hex." +
 				   "	    </label>" +
 				   "	    <label id='label2-10'" +
 				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: decimal'" +
-				   "		   onclick=\"set_cfg('RF_display_format',10); show_rf_values(); show_states(); show_memories_values(); save_cfg();\">" +
+				   "		   onclick=\"update_cfg('RF_display_format',10); show_rf_values(); show_states(); show_memories_values(); \">" +
 				   "		<input type='radio' name='options' id='radio2-10'  autocomplete='off' data-role='none'>Dec." +
 				   "	    </label>" +
 				   "	    <label id='label2-8'" +
 				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: octal'" +
-				   "		   onclick=\"set_cfg('RF_display_format',8); show_rf_values(); show_states(); show_memories_values(); save_cfg();\">" +
+				   "		   onclick=\"update_cfg('RF_display_format',8); show_rf_values(); show_states(); show_memories_values(); \">" +
 				   "		<input type='radio' name='options' id='radio2-8'  autocomplete='off' data-role='none'>Oct." +
 				   "	    </label>" +
 				   "	</div>",
@@ -242,13 +242,13 @@
 				   "	    <label id='label3-numerical'" +
 				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display name (number)'" +
-				   "		   onclick=\"set_cfg('RF_display_name','numerical'); show_rf_names(); save_cfg();\">" +
+				   "		   onclick=\"update_cfg('RF_display_name','numerical'); show_rf_names(); \">" +
 				   "		<input type='radio' name='options' id='radio3-numerical'  autocomplete='off' data-role='none'>Numbers" +
 				   "	    </label>" +
 				   "	    <label id='label3-logical'" +
 				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display name (user identification)'" +
-				   "		   onclick=\"set_cfg('RF_display_name','logical'); show_rf_names(); save_cfg();\">" +
+				   "		   onclick=\"update_cfg('RF_display_name','logical'); show_rf_names(); \">" +
 				   "		<input type='radio' name='options' id='radio3-logical' autocomplete='off' data-role='none'>Labels" +
 				   "	    </label>" +
 				   "	</div>",
@@ -263,13 +263,13 @@
 				   "	    <label id='label9-true'" +
 				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Is editable: true'" +
-				   "		   onclick=\"set_cfg('is_editable',true); save_cfg();\">" +
+				   "		   onclick=\"update_cfg('is_editable',true); \">" +
 				   "		<input type='radio' name='options' id='radio9-true'  aria-label='Active voice: true'  autocomplete='off' data-role='none'>On" +
 				   "	    </label>" +
 				   "	    <label id='label9-false'" +
 				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Is editable: false'" +
-				   "		   onclick=\"set_cfg('is_editable',false); save_cfg();\">" +
+				   "		   onclick=\"update_cfg('is_editable',false); \">" +
 				   "		<input type='radio' name='options' id='radio9-false' aria-label='Active voice: false' autocomplete='off' data-role='none'>Off" +
 				   "	    </label>" +
 				   "	</div>",
@@ -286,7 +286,7 @@
 				   "		id='colorpicker1'" +
 				   "		data-show-value='false'" +
 				   "		class='noshadow-d' style='margin:0 0 0 0'" +
-				   "		onchange=\"set_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh(); save_cfg();\">" +
+				   "		onchange=\"update_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh(); \">" +
 				   "</fieldset>",
 		      code_init:   function() { $('#colorpicker1').spectrum({ preferredFormat: 'hex', color: get_cfg('color_data_active')}); },
                       description: "Color del camino de datos <a href='#' data-toggle='popover1' title='Example of data-path color' data-html='true' data-content='<img alt=\"register file example\" src=\"images/cfg-colors.gif\" style=\"height:30vh;\">'>(ejemplo)</a>"
@@ -301,7 +301,7 @@
 				   "		id='colorpicker2'" +
 				   "		data-show-value='false'" +
 				   "		class='noshadow-d' style='margin:0 0 0 0'" +
-				   "		onchange=\"set_cfg('color_name_active', $('#colorpicker2').spectrum('get')); refresh(); save_cfg();\">" +
+				   "		onchange=\"update_cfg('color_name_active', $('#colorpicker2').spectrum('get')); refresh(); \">" +
 				   "	 </fieldset> ",
 		      code_init:   function() { $('#colorpicker2').spectrum({ preferredFormat: 'hex', color: get_cfg('color_name_active')}); },
                       description: "Color de las se&nacute;ales activas"
@@ -314,13 +314,13 @@
 				   "	    <label id='label10-true'" +
 				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Is by value: true'" +
-				   "		   onclick=\"set_cfg('is_byvalue',true); save_cfg();\">" +
+				   "		   onclick=\"update_cfg('is_byvalue',true); \">" +
 				   "		<input type='radio' name='options' id='radio10-true'   autocomplete='off' data-role='none'>Valor" +
 				   "	    </label>" +
 				   "	    <label id='label10-false'" +
 				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Is by value: false'" +
-				   "		   onclick=\"set_cfg('is_byvalue',false); save_cfg();\">" +
+				   "		   onclick=\"update_cfg('is_byvalue',false); \">" +
 				   "		<input type='radio' name='options' id='radio10-false'  autocomplete='off' data-role='none'>Activaci&oacute;n" +
 				   "	    </label>" +
 				   "	</div> ",
@@ -335,13 +335,13 @@
 				   "	    <label id='label5-true'" +
 				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Is interactive: true'" +
-				   "		   onclick=\"set_cfg('is_interactive',true); save_cfg();\">" +
+				   "		   onclick=\"update_cfg('is_interactive',true); \">" +
 				   "		<input type='radio' name='options' id='radio5-true'   autocomplete='off' data-role='none'>On" +
 				   "	    </label>" +
 				   "	    <label id='label5-false'" +
 				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Is interactive: false'" +
-				   "		   onclick=\"set_cfg('is_interactive',false); save_cfg();\">" +
+				   "		   onclick=\"update_cfg('is_interactive',false); \">" +
 				   "		<input type='radio' name='options' id='radio5-false'  autocomplete='off' data-role='none'>Off" +
 				   "	    </label>" +
 				   "	</div> ",
