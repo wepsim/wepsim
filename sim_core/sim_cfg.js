@@ -30,10 +30,6 @@
         function set_cfg ( field, value )
         {
              WSCFG[field].value = value ;
-
-             ga('send', 'event', 'config', 
-                'config.' + WSCFG.version.value, 
-                'config.' + WSCFG.version.value + '.' + field + '.' + value);
         }
 
         function is_mobile ( )
@@ -188,5 +184,21 @@
            }
 
            set_secondary_cfg() ;
+        }
+
+
+        /*
+         *  update_cfg = set_cfg + ga + save_cfg
+         */
+
+        function update_cfg ( field, value )
+        {
+             WSCFG[field].value = value ;
+
+             ga('send', 'event', 'config', 
+                'config.' + WSCFG.version.value, 
+                'config.' + WSCFG.version.value + '.' + field + '.' + value);
+
+             save_cfg() ;
         }
 
