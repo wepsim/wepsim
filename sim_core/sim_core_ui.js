@@ -484,8 +484,10 @@
 		    if (part2.length > 0)
                         showkey = part1 + '<span class="d-none d-sm-inline-flex">' + part2 + '</span>' ;
 
-		    if (showkey.length < 3)
-			showkey = showkey + '<span style="opacity: 0.0;">_</span>' ;
+		         if (showkey.length < 3)
+			     showkey = showkey + '<span style="opacity: 0.0;">__</span>' ;
+		    else if (showkey.length < 4)
+			     showkey = showkey + '<span style="opacity: 0.0;">_</span>' ;
 	        }
 
                 var divclass = filter[i].split(",")[1] ;
