@@ -219,7 +219,7 @@
             <button class="navbar-toggler ml-auto btn-outline-secondary" data-toggle="collapse" 
                     data-target="#navbarSupportedContent" data-role="none"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-		<i class="fas fa-bars"></i>
+		<em class="fas fa-bars"></em>
             </button>
             <div id="navbarSupportedContent" 
 	         class="collapse navbar-collapse mx-auto py-0" style="background-color: #EAEAEA">
@@ -321,7 +321,7 @@
                                  style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"
 				 aria-controls="processor"
                                  onclick="start_drawing(); 
-                                          refresh();"><i class="fas fa-microchip"></i>&nbsp;Processor</a>
+                                          refresh();"><em class="fas fa-microchip"></em>&nbsp;Processor</a>
                           </li>
 		          <li class="nav-item">
                               <a id="tab24" href="#eltos_dbg"  
@@ -333,7 +333,7 @@
                                           var obj_byid = $('#asm_debugger_container');
                                           if (typeof o1[0] == 'undefined') 
                                               return;
-                                          obj_byid[0].scrollTop = o1[0].offsetTop;"><i class="fas fa-bug"></i>&nbsp;<span class="d-sm-none">Assembly</span><span class="d-none d-sm-inline-flex">Assembly Debugger</span></a>
+                                          obj_byid[0].scrollTop = o1[0].offsetTop;"><em class="fas fa-bug"></em>&nbsp;<span class="d-sm-none">Assembly</span><span class="d-none d-sm-inline-flex">Assembly Debugger</span></a>
                           </li>
 		      </ul>
 
@@ -442,7 +442,7 @@
                     <div class="btn-toolbar btn-block" role="toolbar">
 		          <button class="btn btn-light shadow-sm col" data-role="none"
 		                  style="border-color: #CCCCCC; flex-grow:1;"
-		                  onclick="wepsim_dialog_current_state();"><i class="fas fa-camera"></i>&nbsp;<c>States</c></button>
+		                  onclick="wepsim_dialog_current_state();"><em class="fas fa-camera"></em>&nbsp;<c>States</c></button>
                           <select class="custom-select btn btn-light shadow-sm col"
                                   style="border-color: #CCCCCC; flex-grow:2;"
 				  name="select5a" id="select5a" 
@@ -474,7 +474,7 @@
 				           if ('11' == val)
 					        show_rf_values();
 				           else show_memories_values();
-					   wepsim_reset_max_turbo();"><i class="fas fa-sync-alt"></i>&nbsp;<c>Refresh</c></button>
+					   wepsim_reset_max_turbo();"><em class="fas fa-sync-alt"></em>&nbsp;<c>Refresh</c></button>
                     </div>
                     </div>
 
@@ -586,10 +586,10 @@
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button data-target="#lsload" data-toggle="modal" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				    class="btn btn-light shadow-sm col"><i class="fas fa-file-upload"></i>&nbsp;<strong>Load</strong></button>
+				    class="btn btn-light shadow-sm col"><em class="fas fa-file-upload"></em>&nbsp;<strong>Load</strong></button>
 		            <button data-target="#lssave" data-toggle="modal" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				    class="btn btn-light shadow-sm col"><i class="fas fa-file-download"></i>&nbsp;<strong>Save</strong></button>
+				    class="btn btn-light shadow-sm col"><em class="fas fa-file-download"></em>&nbsp;<strong>Save</strong></button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
@@ -598,7 +598,7 @@
 				    data-transition="none" data-inline="true"
 				    onclick="var textToMCompile = inputfirm.getValue();
                                              wepsim_compile_firmware(textToMCompile);
-				 	     $('#asm_debugger').html('<br>After updates on the microcode, assembler has to be compiled against it.');"><i class="fas fa-sign-out-alt"></i>&nbsp;<strong>&#181;compile</strong></button>
+				 	     $('#asm_debugger').html('<br>After updates on the microcode, assembler has to be compiled against it.');"><em class="fas fa-sign-out-alt"></em>&nbsp;<strong>&#181;compile</strong></button>
 		            <button style="background-color: #DDDDDD"
 		                    class="btn btn-light shadow-sm col" data-role="none"
 				    onclick="var textToMCompile = inputfirm.getValue();
@@ -607,7 +607,7 @@
                                                  wepsim_show_binary_microcode('#bin2','#compile_results');
 			                         wepsim_notify_success('<strong>INFO</strong>', 'Please remember to recompile the assembly code if needed.');
                                              }">
-                                             <strong><i class="fas fa-memory"></i>&nbsp;<span class="d-none d-sm-inline-flex">Show co2&#181;addr + control memory</span><span class="d-sm-none">co2&#181;addr + c.m.</span></strong>
+                                             <strong><em class="fas fa-memory"></em>&nbsp;<span class="d-none d-sm-inline-flex">Show co2&#181;addr + control memory</span><span class="d-sm-none">co2&#181;addr + c.m.</span></strong>
 			                     </button>
 		      </div>
 
@@ -615,11 +615,11 @@
                             <button style="background-color: #D4DB17"
 		                    class="btn btn-light shadow-sm col" data-role="none"
                                     onclick="wepsim_open_help_content('<object id=svg_p2 data=\'sim_hw/sim_hw_ep/cpu6.svg?time=20180608\' type=image/svg+xml>Your browser does not support SVG</object>');"
-				    ><i class="fas fa-microchip"></i>&nbsp;<strong>Hardware Summary</strong></button>
+				    ><em class="fas fa-microchip"></em>&nbsp;<strong>Hardware Summary</strong></button>
                             <button style="background-color: #D4DB17"
 		                    class="btn btn-light shadow-sm col" data-role="none"
 				    onclick="wepsim_help_set_relative('#help_firmware_format'); wepsim_help_refresh();"
-				    ><i class="fas fa-info-circle"></i>&nbsp;<strong>Help</strong></button>
+				    ><em class="fas fa-info-circle"></em>&nbsp;<strong>Help</strong></button>
 		      </div>
 
 		</div>
@@ -662,10 +662,10 @@
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button data-target="#lsload2" data-toggle="modal" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				    class="btn btn-light shadow-sm col"><i class="fas fa-file-upload"></i>&nbsp;<strong>Load</strong></button>
+				    class="btn btn-light shadow-sm col"><em class="fas fa-file-upload"></em>&nbsp;<strong>Load</strong></button>
 		            <button data-target="#lssave2" data-toggle="modal" data-role="none"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				    class="btn btn-light shadow-sm col"><i class="fas fa-file-download"></i>&nbsp;<strong>Save</strong></button>
+				    class="btn btn-light shadow-sm col"><em class="fas fa-file-download"></em>&nbsp;<strong>Save</strong></button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
@@ -673,21 +673,21 @@
 		                    class="btn btn-light shadow-sm col" data-role="none"
 				    data-transition="none" data-inline="true"
 				    onclick="var textToCompile = inputasm.getValue() ;
-                                             var ok = wepsim_compile_assembly(textToCompile);"><i class="fas fa-sign-out-alt"></i>&nbsp;<strong>Compile</strong></button>
+                                             var ok = wepsim_compile_assembly(textToCompile);"><em class="fas fa-sign-out-alt"></em>&nbsp;<strong>Compile</strong></button>
 		            <button style="background-color: #DDDDDD"
 		                    class="btn btn-light shadow-sm col" data-role="none"
 				    onclick="var textToCompile = inputasm.getValue();
                                              var ok = wepsim_compile_assembly(textToCompile);
                                              if (true == ok) {
                                                  wepsim_show_binary_code('#bin2','#compile_results');
-                                             }"><i class="fas fa-memory"></i>&nbsp;<strong><span class="d-none d-sm-inline-flex">Show Main Memory</span><span class="d-sm-none">Show Main Mem.</span></strong></button>
+                                             }"><em class="fas fa-memory"></em>&nbsp;<strong><span class="d-none d-sm-inline-flex">Show Main Memory</span><span class="d-sm-none">Show Main Mem.</span></strong></button>
 		      </div>
 
                       <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">
                             <button style="background-color: #D4DB17"
 		                    class="btn btn-light shadow-sm col" data-role="none"
 				    onclick="wepsim_help_set_relative('#help_assembly_format'); wepsim_help_refresh();"
-				    ><i class="fas fa-info-circle"></i>&nbsp;<strong>Help</strong></button>
+				    ><em class="fas fa-info-circle"></em>&nbsp;<strong>Help</strong></button>
 		      </div>
 
 		</div>
