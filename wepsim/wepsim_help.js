@@ -101,10 +101,11 @@
     function wepsim_help_refresh ( )
     {
         var helpdiv = '#iframe_help1' ;
-        var rel = $('#help1_ref').data('relative') ;
+        var rel     = $('#help1_ref').data('relative') ;
+        var helpurl = '' ;
         if ( (typeof rel != "undefined") && (rel != "") )
         {
-             var helpurl = 'help/simulator-' + get_cfg('ws_idiom') + '.html' ;
+             helpurl = 'help/simulator-' + get_cfg('ws_idiom') + '.html' ;
              resolve_html_url(helpdiv, helpurl, rel, function() {
 							// $('#help1').trigger('updatelayout');
 							$('#help1').modal('show');
@@ -118,7 +119,7 @@
         var ab1 = $('#help1_ref').data('absolute') ;
         if ( (typeof ab1 != "undefined") && (ab1 != "") )
         {
-             var helpurl = 'help/' + ab1 + '-' + get_cfg('ws_idiom') + '.html' ;
+             helpurl = 'help/' + ab1 + '-' + get_cfg('ws_idiom') + '.html' ;
              resolve_html_url(helpdiv, helpurl, '', function() {
 							// $('#help1').trigger('updatelayout');
 							$('#help1').modal('show');
