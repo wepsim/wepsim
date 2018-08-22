@@ -190,8 +190,8 @@
 	          container: 'body',
 		  animation:  false,
                   content: function() {
-                                 var id = $(this).attr('id')
-                                 return $('#popover-content-' + id).html();
+                                 var id = $(this).attr('id') ;
+                                 return $('#popover-content-' + id).html() ;
                            }
 	 });
     }
