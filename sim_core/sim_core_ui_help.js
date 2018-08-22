@@ -37,24 +37,47 @@
         return robj ;
      }
 
-     function update_div_frompartialhtml ( helpdiv, key, data )
-     {
-	var default_content = '<br>Sorry, No more details available for this element.<p>\n' ;
-	var help_content    = default_content ;
+	     function update_div_frompartialhtml ( helpdiv, key, data )
+	     {
+		if ("" == key)
+                {
+		    $(helpdiv).html(data) ;
+		    return ;
+		}
 
-	if ("" != data) 
-	{
-		help_content = $(data).find('#' + key).html() ;
+		var default_content = '<br>Sorry, No more details available for this element.<p>\n' ;
+		if ("" == data) 
+                {
+		    $(helpdiv).html(default_content) ;
+		    return ;
+		}
+
+                // (key != "") && (data != "")
+		var help_content = $(data).find(key).html() ;
 		if (typeof help_content == "undefined") {
-		    help_content = $(data).filter('#' + key).html() ;
+		    help_content = $(data).filter(key).html() ;
 		}
 		if (typeof help_content == "undefined") {
 		    help_content = default_content ;
 		}
-	}
 
-	$(helpdiv).html(help_content) ;
-	$(helpdiv).trigger('create');
+		$(helpdiv).html(help_content) ;
+	     }
+
+     function resolve_html_url ( helpdiv, r_url, key, update_div )
+     {
+        return request_html_url(r_url).then(function (data) {
+		    if (typeof data == "object") {
+			 data.text().then(function(res) { 
+                                             update_div_frompartialhtml(helpdiv, key, res);
+                                             update_div() ;
+                                          }) ;
+                    }
+		    else { 
+                         update_div_frompartialhtml(helpdiv, key, data) ;
+                         update_div() ;
+                    }
+	       }) ;
      }
 
      function update_signal_loadhelp ( helpdiv, simhw, key )
@@ -62,12 +85,7 @@
 	     var curr_idiom = get_cfg('ws_idiom') ;
 	     var help_base = 'help/' + simhw + '/signals-' + curr_idiom + '.html' ;
 
-               var robj = request_html_url(help_base) ;
-               robj.then(function (data) {
-                            if (typeof data == "object")
-                                 data.text().then(function(res){update_div_frompartialhtml(helpdiv, key, res);}) ;
-                            else update_div_frompartialhtml(helpdiv, key, data) ;
-	 	         }) ;
+             resolve_html_url(helpdiv, help_base, '#'+key, function() { $(helpdiv).trigger('create') ; }) ;
 
              ga('send', 'event', 'help', 'help.signal', 'help.signal.' + simhw + '.' + key);
      }
@@ -77,12 +95,7 @@
           var curr_idiom = get_cfg('ws_idiom') ;
   	  var help_base = 'help/simulator-' + curr_idiom + '.html' ;
 
-               var robj = request_html_url(help_base) ;
-               robj.then(function (data) {
-                            if (typeof data == "object")
-                                 data.text().then(function(res){update_div_frompartialhtml(helpdiv, key, res);}) ;
-                            else update_div_frompartialhtml(helpdiv, key, data) ;
-	 	         }) ;
+          resolve_html_url(helpdiv, help_base, '#'+key, function() { $(helpdiv).trigger('create') ; }) ;
 
           ga('send', 'event', 'help', 'help.checker', 'help.checker.' + key);
      }

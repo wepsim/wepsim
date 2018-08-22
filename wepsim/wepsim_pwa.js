@@ -23,7 +23,7 @@
  * cache versioning
  */
 
-var cacheName = 'v192a:static';
+var cacheName = 'v192a_static';
 
 
 /*
@@ -211,6 +211,22 @@ self.addEventListener('install',
 
 self.addEventListener('fetch', 
 	              function(event) {
-			    event.respondWith(fetch(event.request)) ;
+			  // OLD: event.respondWith(fetch(event.request)) ;
+
+			  // NEW: https://developer.mozilla.org/es/docs/Web/API/FetchEvent
+			  if (event.request.method != 'GET') {
+			      event.respondWith(fetch(event.request)) ;
+			      return ;
+                          }
+
+			  event.respondWith(async function() {
+			      const cache = await caches.open(cacheName);
+			      const cachedResponse = await cache.match(event.request);
+			      if (cachedResponse) {
+			          event.waitUntil(cache.add(event.request));
+			          return cachedResponse;
+			      }
+			      return fetch(event.request);
+			  }());
                       });
 

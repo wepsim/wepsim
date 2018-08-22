@@ -100,29 +100,32 @@
 
     function wepsim_help_refresh ( )
     {
+        var helpdiv = '#iframe_help1' ;
         var rel = $('#help1_ref').data('relative') ;
         if ( (typeof rel != "undefined") && (rel != "") )
         {
-            $('#iframe_help1').load('help/simulator-' + get_cfg('ws_idiom') + '.html ' + rel,
-	    		            function() {
-                                        $('#help1').trigger('updatelayout');
-                                        $('#help1').modal('show');
-                                    });
+             var helpurl = 'help/simulator-' + get_cfg('ws_idiom') + '.html' ;
+             resolve_html_url(helpdiv, helpurl, rel, function() {
+							// $('#help1').trigger('updatelayout');
+							$('#help1').modal('show');
+						    }) ;
 
-            ga('send', 'event', 'help', 'help.simulator', 'help.simulator.' + rel);
-            return ;
+             ga('send', 'event', 'help', 'help.simulator', 'help.simulator.' + rel);
+
+             return ;
         }
 
         var ab1 = $('#help1_ref').data('absolute') ;
         if ( (typeof ab1 != "undefined") && (ab1 != "") )
         {
-            $('#iframe_help1').load('help/' + ab1 + '-' + get_cfg('ws_idiom') + '.html',
-	    		            function() {
-                                        $('#help1').trigger('updatelayout');
-                                        $('#help1').modal('show');
-                                    });
+             var helpurl = 'help/' + ab1 + '-' + get_cfg('ws_idiom') + '.html' ;
+             resolve_html_url(helpdiv, helpurl, '', function() {
+							// $('#help1').trigger('updatelayout');
+							$('#help1').modal('show');
+						    }) ;
 
             ga('send', 'event', 'help', 'help.' + ab1, 'help.' + ab1 + '.*');
+
             return ;
         }
 
