@@ -5,7 +5,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>WepSIM 1.9.2</title>
+    <title>WepSIM</title>
 
     <meta http-equiv="cache-control" content="no-cache" />
     <meta http-equiv="expires" content="0" />
@@ -229,6 +229,8 @@
 	    </ul>
             </div>
 	</nav>
+
+        <h1 class="d-none">WepSIM</h1>
 
 	<div id="carousel-8" class="carousel" data-ride="carousel" data-interval="false">
 	  <div class="carousel-inner">
@@ -517,42 +519,34 @@
                       </li>
                     </ul>
                     <div class="tab-content mt-3">
-                         <div class="tab-pane mx-1 my-2 active" role="tabpanel" 
-                              id="all" aria-labelledby="all-tab">
+                         <div class="tab-pane mx-1 my-2 active" role="tabpanel" id="all">
 				 <div id="states_ALL" style="width:inherit; overflow-y:auto;" 
                                       class="container container-fluid pb-2"></div>
 				 <div id="states_BR" style="width: inherit; overflow-y: auto;" 
                                       class="container container-fluid"></div>
                          </div>
-                         <div class="tab-pane mx-2 my-2" role="tabpanel" 
-                              id="mp" aria-labelledby="mp-tab">
+                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="mp">
 		              <div id="memory_MP" style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
                          </div>
-                         <div class="tab-pane mx-2 my-2" role="tabpanel" 
-                              id="mc" aria-labelledby="mc-tab">
+                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="mc">
 		              <div id="memory_MC" style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
                          </div>
-                         <div class="tab-pane mx-2 my-2" role="tabpanel" 
-                              id="con" aria-labelledby="con-tab">
+                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="con">
 				 <img alt="monitor" height=55 src="images/monitor2.png">
 				 <textarea aria-label="monitor" style="min-width:90%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 8 0" placeholder="WepSIM" id="kdb_con" rows=8 readonly></textarea>
 				 <img alt="keyboard" height=35 src="images/keyboard1.png">
 				 <textarea aria-label="keyboard" style="min-width:90%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 0 0" placeholder="WepSIM" id="kdb_key" rows=2></textarea>
                          </div>
-                         <div class="tab-pane mx-2 my-2" role="tabpanel" 
-                              id="io" aria-labelledby="io-tab">
+                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="io">
 		              <div id="io_ALL" style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
                          </div>
-                         <div class="tab-pane mx-2 my-2" role="tabpanel" 
-                              id="cpu" aria-labelledby="cpu-tab">
+                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="cpu">
 		              <div id="cpu_ALL" style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
                          </div>
-                         <div class="tab-pane mx-2 my-2" role="tabpanel" 
-                              id="mpcfg" aria-labelledby="mpcfg-tab">
+                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="mpcfg">
 		              <div id="config_MP" style="width: inherit;" class="container container-fluid"></div>
                          </div>
-                         <div class="tab-pane mx-2 my-2" role="tabpanel" 
-                              id="iocfg" aria-labelledby="iocfg-tab">
+                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="iocfg">
 		              <div id="config_IO" style="width: inherit; overflow-y: auto;"></div>
                          </div>
                     </div>
@@ -709,7 +703,7 @@
 
 
 <!-- load/save microcode -->
-<div class="modal" id="lsload" tabindex="-1" role="dialog" aria-labelledby="lsload2" aria-hidden="true">
+<div class="modal" id="lsload" tabindex="-1" role="dialog" aria-labelledby="lsload" aria-hidden="true">
      <div class="modal-dialog">
      <div class="modal-content">
      <div class="modal-header bg-dark">
@@ -734,7 +728,7 @@
      </div>
 </div>
 
-<div class="modal" id="lssave" tabindex="-1" role="dialog" aria-labelledby="lssave2" aria-hidden="true">
+<div class="modal" id="lssave" tabindex="-1" role="dialog" aria-labelledby="lssave" aria-hidden="true">
      <div class="modal-dialog">
      <div class="modal-content">
      <div class="modal-header bg-dark">
