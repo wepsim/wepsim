@@ -381,7 +381,7 @@
                                         '   </div>' +
                                         ' </div>' +
                                         '</center>',
-                               message: '<div id="bot_signal" class="carousel slide" data-ride="carousel" data-interval="false">' +
+                               message: '<div id="bot_signal" class="carousel" data-ride="carousel" data-interval="false">' +
                                         '  <div class="carousel-inner" role="listbox">' +
                                         '    <div class="carousel-item active">' +
                                         '         <div style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">' +

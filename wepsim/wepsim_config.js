@@ -124,13 +124,13 @@
 		}
 
 		o = o + "<img src='images/stop_" + breakpoint_icon_list[i].shortname + ".gif' alt='" + breakpoint_icon_list[i].shortname + " icon' " +
-		        "     class='img-thumbnail img-fluid mx-3 d-block'" +
+		        "     class='img-thumbnail col-3 mx-2 d-block'" +
 		        "     style='height:6vh; min-height:30px;'" +
 		        "     onclick=\"$('#img_select1').attr('src','images/stop_" + breakpoint_icon_list[i].shortname + ".gif');" +
 		        "	        set_cfg('ICON_theme','" + breakpoint_icon_list[i].shortname + "'); save_cfg();\">" ;
 	}
         o = o + '</div>' +
-	        '<div class="row p-1 border-top border-secondary">' +
+	        '<div class="row mt-2 p-1 border-top border-secondary">' +
                 '<button type="button" id="close" data-role="none" ' +
                 '        class="btn btn-sm btn-danger w-100 p-0" ' +
                 '        onclick="$(\'#breakpointicon1\').popover(\'hide\');">Close</button>' +

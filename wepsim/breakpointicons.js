@@ -2,10 +2,10 @@
     var breakpoint_icon_list = [
                     { type: "classic", shortname: "classic",	origin: "https://www.optikunde.de/farbe/rot.php" },
                     { type: "classic", shortname: "pushpin",	origin: "http://clipart-library.com/red-push-pin.html" },
-                    { type: "comics",  shortname: "super",	origin: "https://worldvectorlogo.com/logo/superman-3" },
-                    { type: "comics",  shortname: "batman",	origin: "http://getwallpapers.com/collection/black-and-white-batman-wallpaper" },
                     { type: "pets",    shortname: "cat1",	origin: "" },
                     { type: "pets",    shortname: "dog1",	origin: "" },
+                    { type: "films",   shortname: "super",	origin: "https://worldvectorlogo.com/logo/superman-3" },
+                    { type: "films",   shortname: "batman",	origin: "http://getwallpapers.com/collection/black-and-white-batman-wallpaper" },
                     { type: "films",   shortname: "r2d2",	origin: "https://imgur.com/gallery/gKSmy" },
                     { type: "films",   shortname: "sw",		origin: "https://i2.wp.com/icons.iconarchive.com/icons/sensibleworld/starwars/1024/Death-Star-icon.png" },
                     { type: "films",   shortname: "bb8",	origin: "" },
