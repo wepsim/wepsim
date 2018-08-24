@@ -485,7 +485,7 @@
                         showkey = part1 + '<span class="d-none d-sm-inline-flex">' + part2 + '</span>' ;
 
 		    if (showkey.length < 3)
-			showkey = showkey + '<span style="opacity: 0.0;">_</span>' ;
+			showkey = showkey + '<span style="opacity: 0.0;">__</span>' ;
 	        }
 
                 var divclass = filter[i].split(",")[1] ;
