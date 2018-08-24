@@ -1373,8 +1373,6 @@
 				   mode: "text/javascript"
 				});
                     sim_prepare_editor(inputfirm);
-		    inputfirm.setSize("auto","auto");
-		    inputfirm.refresh();
 
 		    inputasm = CodeMirror.fromTextArea(document.getElementById("inputAssembly"), 
                                     {
@@ -1398,8 +1396,6 @@
 					mode: "gas"
 				    });
                     sim_prepare_editor(inputasm) ;
-		    inputasm.setSize("auto","auto");
-		    inputasm.refresh();
 
 		    sim_change_workspace_simulator();
 		    $('#tab26').trigger('click');
