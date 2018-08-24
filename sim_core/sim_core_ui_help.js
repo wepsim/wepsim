@@ -39,23 +39,20 @@
 
 	     function update_div_frompartialhtml ( helpdiv, key, data )
 	     {
-		if ("" == key)
-                {
-		    $(helpdiv).html(data) ;
-		    return ;
-		}
-
 		var default_content = '<br>Sorry, No more details available for this element.<p>\n' ;
-		if ("" == data) 
-                {
-		    $(helpdiv).html(default_content) ;
-		    return ;
+
+		if ("" == data)
+		     $(helpdiv).html(default_content) ;
+		else $(helpdiv).html(data) ;
+
+		if ( ("" == data) || ("" == key) ) {
+                     return ;
 		}
 
                 // (key != "") && (data != "")
-		var help_content = $(data).filter(key).html() ;
+		var help_content = $(helpdiv).filter(key).html() ;
 		if (typeof help_content == "undefined") {
-		    help_content = $(data).find(key).html() ;
+		    help_content = $(helpdiv).find(key).html() ;
 		}
 		if (typeof help_content == "undefined") {
 		    help_content = default_content ;
