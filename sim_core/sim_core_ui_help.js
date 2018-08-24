@@ -53,9 +53,9 @@
 		}
 
                 // (key != "") && (data != "")
-		var help_content = $(data).find(key).html() ;
+		var help_content = $(data).filter(key).html() ;
 		if (typeof help_content == "undefined") {
-		    help_content = $(data).filter(key).html() ;
+		    help_content = $(data).find(key).html() ;
 		}
 		if (typeof help_content == "undefined") {
 		    help_content = default_content ;
