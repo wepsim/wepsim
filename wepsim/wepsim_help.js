@@ -146,7 +146,7 @@
 	$('#help1_ref').data('absolute','') ;
 	$('#help1_ref').data('code','false') ;
 
-	$('#help1').trigger('updatelayout') ;
+      //$('#help1').trigger('updatelayout') ;
 	$('#help1').modal('show') ;
     }
 
@@ -158,7 +158,7 @@
 	$('#help1_ref').data('absolute', '') ;
 	$('#help1_ref').data('code','true') ;
 
-        $('#help1').trigger('updatelayout') ;
+      //$('#help1').trigger('updatelayout') ;
         $('#help1').modal('show') ;
     }
 

@@ -26,7 +26,7 @@
     function wepsim_open_examples_index ( )
     {
         $("#container-example1").html(table_examples_html(examples));
-	$('#example1').trigger('updatelayout') ;
+      //$('#example1').trigger('updatelayout') ;
 	$('#example1').modal('show') ;
     }
 
