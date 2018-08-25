@@ -106,10 +106,8 @@
         if ( (typeof rel != "undefined") && (rel != "") )
         {
              helpurl = 'help/simulator-' + get_cfg('ws_idiom') + '.html' ;
-             resolve_html_url(helpdiv, helpurl, rel, function() {
-							// $('#help1').trigger('updatelayout');
-							$('#help1').modal('show');
-						    }) ;
+	     $('#help1').modal('show');
+             resolve_html_url(helpdiv, helpurl, rel, function() { }) ;
 
              ga('send', 'event', 'help', 'help.simulator', 'help.simulator.' + rel);
 
@@ -120,10 +118,8 @@
         if ( (typeof ab1 != "undefined") && (ab1 != "") )
         {
              helpurl = 'help/' + ab1 + '-' + get_cfg('ws_idiom') + '.html' ;
-             resolve_html_url(helpdiv, helpurl, '', function() {
-							// $('#help1').trigger('updatelayout');
-							$('#help1').modal('show');
-						    }) ;
+	     $('#help1').modal('show');
+             resolve_html_url(helpdiv, helpurl, '', function() { }) ;
 
             ga('send', 'event', 'help', 'help.' + ab1, 'help.' + ab1 + '.*');
 
