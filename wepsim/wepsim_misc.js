@@ -334,7 +334,7 @@
 			$(popup_content_id).html(firmware2html(SIMWARE.firmware, true));
 			$(popup_content_id).css({width:"inherit !important", height:"inherit !important"});
 
-			$(popup_id).trigger('updatelayout');
+		      //$(popup_id).trigger('updatelayout');
 			$(popup_id).trigger('refresh');
                    }, 300);
     }
