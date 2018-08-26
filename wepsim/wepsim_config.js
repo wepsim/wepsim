@@ -39,7 +39,7 @@
 	     delay: { "show": 500, "hide": 100 }
         }) ;
 
-	$('#config2').trigger('updatelayout') ;
+      //$('#config2').trigger('updatelayout') ;
 	$('#config2').modal('show') ;
     }
 

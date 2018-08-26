@@ -1,6 +1,6 @@
 <meta http-equiv="cache-control" content="max-age=0" />
 
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 
@@ -87,7 +87,6 @@
     .slider {
         -webkit-appearance: none;
         width: 100%;
-        height: 10px;
         border-radius: 20px;
         background: #e3e3e3;
         outline: none;
@@ -143,7 +142,8 @@
     }
 
     .text-vertical-lr {
-	writing-mode:vertical-lr; 
+	writing-mode: tb-rl;
+        -ms-writing-mode: bt-rl;
         text-orientation: sideways;
     }
 
@@ -214,7 +214,7 @@
 
 	<nav class="navbar navbar-expand-lg fixed-top p-0" style="background-color: #EAEAEA">
 	    <span class="navbar-brand mr-auto">
-               <a class="ui-title pl-2" data-toggle="collapse" href="#collapseA1" class="mx-2">WepSIM</a>&nbsp;<a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><span class="badge badge-pill badge-secondary"><div class="wsversion">X</div></a></span>
+               <a class="ui-title pl-2" data-toggle="collapse" href="#collapseA1" class="mx-2">WepSIM</a>&nbsp;<a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><span class="badge badge-pill badge-secondary btn"><div class="wsversion">X</div></a></span>
             </span>
             <button class="navbar-toggler ml-auto btn-outline-secondary" data-toggle="collapse" 
                     data-target="#navbarSupportedContent" data-role="none"
@@ -236,7 +236,8 @@
 	    <h6 class="pt-3">Simulator</h6>
             <div class="row collapse show py-2 px-1" id="collapseA1" style="margin:1px">
 
-                    <div class="col-sm-auto btn-toolbar" role="toolbar">
+                    <div class="col-sm-auto">
+                    <div class="btn-toolbar btn-block" role="toolbar">
 		        <button class="btn btn-light shadow-sm my-1" data-role="none"
 		    	        style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                 onclick="wepsim_open_config_index();"><strong><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
@@ -249,15 +250,16 @@
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				><strong><span class="d-none d-sm-inline-flex">Assembly</span><span class="d-sm-none">Assembly</span></strong></button>
                     </div>
+                    </div>
 
 		    <div class="w-100 d-block d-sm-none"></div>
 
                     <div class="col-sm p-0">
-			    <form id="slider2f" class="full-width-slider col my-1 p-0 pt-2 pb-2">
+			    <form id="slider2f" class="full-width-slider row-auto my-1 p-0 pt-2 pb-2">
 				 <input aria-label="Show CPU/CU" type="range" name="slider2b" id="slider2b" 
 					min="0" max="12" value="7" step="1"
 				        data-show-value="false"
-                                        class="custom-range slider" data-role="none"
+                                        class="custom-range slider col mx-0 px-0" data-role="none"
                                         oninput="set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', this.value);
 					         set_cfg('CPUCU_size', this.value); 
                                                  save_cfg();">
@@ -266,11 +268,12 @@
 
 		    <div class="w-100 d-md-block d-lg-none"></div>
 
-                    <div class="col-sm-auto btn-toolbar" role="toolbar">
-		        <button class="btn btn-light shadow-sm my-1" data-role="none"
+                    <div class="col-sm">
+                    <div class="btn-toolbar btn-block" role="toolbar">
+		        <button class="btn btn-light shadow-sm my-1 col-auto" data-role="none"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                 onclick="wepsim_open_examples_index();"><strong>Examples</strong></button>
-		        <button class="btn btn-light shadow-sm my-1" data-role="none"
+		        <button class="btn btn-light shadow-sm my-1 col-auto" data-role="none"
 		                style="border-width:1 1 1 1px; border-color:#CCCCCC; 
                                        background-color:#D4DB17;"
 		                onclick="wepsim_open_help_index();
@@ -290,15 +293,16 @@
 				<option value="ep"       >WepSIM (EP)</option>
 			</select>
                     </div>
+		    </div>
 
 		    <div class="w-100 d-xs-block d-sm-none"></div>
 
                     <div class="col-sm p-0">
-			    <form id="slider2e" class="full-width-slider col my-1 p-0 pt-2 pb-2">
+			    <form id="slider2e" class="full-width-slider row-auto my-1 p-0 pt-2 pb-2">
 				 <input aria-label="Show Main/Info" type="range" name="slider2a" id="slider2a" 
 					min="0" max="12" value="7" step="1"
 				        data-show-value="false"
-                                        class="custom-range slider" data-role="none"
+                                        class="custom-range slider col mx-0 px-0" data-role="none"
                                         oninput="set_ab_size('#col1', '#col2', this.value);
 					         set_cfg('C1C2_size', this.value);
                                                  save_cfg();">
@@ -1161,13 +1165,22 @@
             <div id="bot_check2" class="carousel" data-ride="carousel" data-interval="false">
                <div class="carousel-inner" role="listbox">
                   <div class="carousel-item active">
-                        <div class="card card-info">
-		        <div class="card-header">
-                           <h4><span id="dlg_title2">&nbsp;</span></h4>
-                        </div>
-                        </div>
+			<div class="card card-info">
+			<div class="card-header">
+				<div class="row">
+				  <div class="col-auto">
+					<a data-toggle="collapse" 
+                                           aria-expanded="false" aria-controls="collapse message"
+                                           href="#collapse-msg1"><em class="fas fa-hand-point-right"></em></a>
+				  </div>
+				  <div class="col">
+					<h5 class="collapse show" id="collapse-msg1"><span id="dlg_title2">&nbsp;</span></h5>
+				  </div>
+				</div>
+			</div>
+			</div>
 
-                        <h4>Requeriment list to compare with:</h4>
+                        <h4 class="pt-2">Requeriment list to compare with:</h4>
                         <form id="end_state_form2" 
                               class="form-horizontal bootboxShortHeight" 
                               style="white-space:wrap; overflow-y:auto; -webkit-overflow-scrolling:touch;">
