@@ -125,30 +125,30 @@ cat external/bootstrap.min.css \
 #  Preparing distributions...
 #
 
-                    mkdir -p dist
-                    touch    dist/index.html
-                    mkdir -p dist/external
-                    touch    dist/external/index.html
-cp external/jquery.min.js    dist/external
+                    mkdir -p _dist
+                    touch    _dist/index.html
+                    mkdir -p _dist/external
+                    touch    _dist/external/index.html
+cp external/jquery.min.js    _dist/external
 
-cp index.html             dist/
-cp manifest.webapp        dist/
-cp wepsim/wepsim_node.sh  dist/
-chmod a+x dist/*.sh
+cp index.html             _dist/
+cp manifest.webapp        _dist/
+cp wepsim/wepsim_node.sh  _dist/
+chmod a+x _dist/*.sh
 
-cp min.sim_all.js       dist/
-cp min.external.css     dist/
-cp min.external.js      dist/
-cp min.wepsim_web.js    dist/
-cp min.wepsim_pwa.js    dist/
-cp min.wepsim_node.js   dist/
+cp min.sim_all.js       _dist/
+cp min.external.css     _dist/
+cp min.external.js      _dist/
+cp min.wepsim_web.js    _dist/
+cp min.wepsim_pwa.js    _dist/
+cp min.wepsim_node.js   _dist/
 
-cp -a examples  dist/
-          touch dist/examples/index.html
-cp -a docs      dist/
-          touch dist/docs/index.html
-cp -a images    dist/
-          touch dist/images/index.html
-cp -a help      dist/
-          touch dist/help/index.html
+cp -a examples  _dist/
+          touch _dist/examples/index.html
+cp -a docs      _dist/
+          touch _dist/docs/index.html
+cp -a images    _dist/
+          touch _dist/images/index.html
+cp -a help      _dist/
+          touch _dist/help/index.html
 

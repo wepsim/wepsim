@@ -7,8 +7,8 @@
     "jshint": "^2.6.0"
   },
   "scripts": {
-    "test-source":        "cd .    ; ./travis/jshint.sh",
-    "test-wepsim-node":   "cd dist ; ./travis/wepsimnode.sh"
+    "test-source":        "            ./_travis/jshint.sh",
+    "test-wepsim-node":   "cd _dist ; ../_travis/wepsimnode.sh"
   },
   "dependencies": {
   }
