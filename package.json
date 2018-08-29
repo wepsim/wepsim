@@ -1,18 +1,14 @@
 {
-  "name": "wepsim-travisci-jslint",
-  "description": "Check code with jshint",
+  "name": "wepsim-travisci",
+  "description": "Check WepSIM",
   "author": "acaldero@inf.uc3m.es",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "devDependencies": {
     "jshint": "^2.6.0"
   },
   "scripts": {
-    "jshint":                    "./jshint.sh",
-    "test-run":                  "cd dist ; ./wepsim_node.sh run                   ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt",
-    "test-stepbystep":           "cd dist ; ./wepsim_node.sh stepbystep            ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt",
-    "test-microstepbymicrostep": "cd dist ; ./wepsim_node.sh microstepbymicrostep  ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt",
-    "test-check-ok":             "cd dist ; ./wepsim_node.sh check    ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt ./examples/ep/exampleChecklistS1E1.txt",
-    "test-check-ko":             "cd dist ; ./wepsim_node.sh check    ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt ./examples/ep/exampleChecklistS1E2.txt"
+    "test-source":        "cd .    ; ./travis/jshint.sh",
+    "test-wepsim-node":   "cd dist ; ./travis/wepsimnode.sh"
   },
   "dependencies": {
   }
