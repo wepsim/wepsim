@@ -155,10 +155,10 @@
                       type:        "Ejecuci&oacute;n",
                       code_cfg:    "<a href='#' id='breakpointicon1' title='Por favor seleccione icono' tabindex='0'" +
 			           "   data-toggle='popover' data-trigger='focus'>" +
-		                   "   		<img alt='stop icon' id='img_select1' src='images/stop_classic.gif' " +
+		                   "   		<img alt='stop icon' id='img_select1' src='images/stop/stop_classic.gif' " +
 			           "                 style='position:relative; left:10px; height:30px !important; width:30px !important;'>" +
 			           "</a>",
-                      code_init:   function() { $('#img_select1').attr("src","images/stop_" +  get_cfg('ICON_theme') + ".gif"); $('#breakpointicon1').popover({ html: true, content: wepsim_show_breakpoint_icon_list }); },
+                      code_init:   function() { $('#img_select1').attr("src","images/stop/stop_" +  get_cfg('ICON_theme') + ".gif"); $('#breakpointicon1').popover({ html: true, content: wepsim_show_breakpoint_icon_list }); },
                       description: "Icono a ser usado en puntos de ruptura"
                    });
 
