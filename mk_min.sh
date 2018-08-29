@@ -2,8 +2,10 @@
 set -x
 
 # 
-#  hardware model + software model + core (simulation ctrl + UI)
+#  Packing...
 # 
+
+#  hardware model + software model + core (simulation ctrl + UI)
 cat sim_hw/sim_hw_index.js \
     sim_hw/sim_hw_values.js \
     sim_hw/sim_hw_behavior.js \
@@ -34,9 +36,7 @@ cat sim_hw/sim_hw_index.js \
 /usr/bin/yui-compressor -o min.sim_all.js sim_all.js
 rm -fr sim_all.js
 
-# 
 #  WepSIM web engine
-# 
 cat wepsim/wepsim_example.js \
     wepsim/wepsim_help.js \
     wepsim/wepsim_config.js \
@@ -65,17 +65,13 @@ cat wepsim/wepsim_example.js \
 rm -fr wepsim_web.js
 cp  wepsim/wepsim_pwa.js min.wepsim_pwa.js
 
-# 
 #  WepSIM nodejs engine
-# 
 cat min.sim_all.js \
     min.wepsim_web.js \
     wepsim/wepsim_node.js > min.wepsim_node.js
 
 
-# 
 #  external
-# 
 cat external/popper.min.js \
     external/bootstrap.min.js \
     external/knockout-3.4.2.js \
@@ -123,4 +119,48 @@ cat external/bootstrap.min.css \
     external/speechkitt.css \
     external/dropify.min.css \
     external/fontawesome5/all.css > min.external.css
+
+
+#
+#  Preparing distributions...
+#
+
+mkdir -p dist
+
+# web
+mkdir -p dist/
+mkdir -p dist/sim_hw/sim_hw_ep/
+mkdir -p dist/sim_hw/sim_hw_poc/
+cp index.html           dist/
+cp min.sim_all.js       dist/
+cp min.wepsim_web.js    dist/
+cp min.external.css     dist/
+cp min.external.js      dist/
+cp -a examples          dist/
+cp -a docs              dist/
+cp -a external          dist/
+cp -a images            dist/
+cp -a help              dist/
+cp sim_hw/sim_hw_ep/*.svg  dist/sim_hw/sim_hw_ep/
+cp sim_hw/sim_hw_poc/*.svg dist/sim_hw/sim_hw_poc/
+touch dist/index.html
+touch dist/sim_hw/index.html
+touch dist/sim_hw/sim_hw_poc/index.html
+touch dist/sim_hw/sim_hw_ep/index.html
+touch dist/examples/index.html
+touch dist/docs/index.html
+touch dist/external/index.html
+touch dist/images/index.html
+touch dist/help/index.html
+
+# pwa
+cp min.wepsim_pwa.js    dist/
+cp manifest.webapp      dist/
+
+# shell
+cp min.sim_all.js       dist/
+cp min.wepsim_web.js    dist/
+cp min.wepsim_node.js   dist/
+cp wepsim_node.sh       dist/
+chmod a+x dist/*.sh
 

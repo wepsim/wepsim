@@ -1,0 +1,197 @@
+begin
+{
+    fetch:          (T2, C0),
+                    (TA, R, BW=11, M1=1, C1=1),
+                    (M2, C2, T1, C3),
+                    (A0, B=0, C=0)
+}
+
+
+#
+# ALU
+#
+
+and reg1 reg2 reg3 {
+            co=000000,
+            cop=00000,
+            nwords=1,
+            reg1=reg(25,20),
+            reg2=reg(19,14),
+            reg3=reg(13,8),
+            {
+                (MC=1, MR=0, SELA=01000, SELB=001110, MA=0, MB=0, SELCOP=1, T6=1, SELC=010100, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+            }
+}
+
+or reg1 reg2 reg3 {
+            co=000000,
+            cop=00001,
+            nwords=1,
+            reg1=reg(25,20),
+            reg2=reg(19,14),
+            reg3=reg(13,8),
+            {
+                (MC=1, MR=0, SELA=01000, SELB=001110, MA=0, MB=0, SELCOP=10, T6=1, SELC=010100, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+            }
+}
+
+not reg {
+            co=000000,
+            cop=00010,
+            nwords=1,
+            reg=reg(25,20),
+            {
+                (MC=1, MR=0, SELA=010100, MA=0, SELCOP=11, T6=1, SELC=010100, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+            }
+}
+
+add reg1 reg2 reg3 {
+            co=000000,
+            cop=01001,
+            nwords=1,
+            reg1=reg(25,20),
+            reg2=reg(19,14),
+            reg3=reg(13,8),
+            {
+                (MC=1, MR=0, SELA=01000, SELB=001110, MA=0, MB=0, SELCOP=1010, T6=1, SELC=010100, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+            }
+}
+
+sub reg1 reg2 reg3 {
+            co=000000,
+            cop=01010,
+            nwords=1,
+            reg1=reg(25,20),
+            reg2=reg(19,14),
+            reg3=reg(13,8),
+            {
+                (MC=1, MR=0, SELA=01000, SELB=001110, MA=0, MB=0, SELCOP=1011, T6=1, SELC=010100, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+            }
+}
+
+
+#
+# MV/L*
+#
+
+li reg val {
+            co=000010,
+            nwords=1,
+            reg=reg(25,20),
+            val=inm(15,0),
+            {
+                (SE=1, OFFSET=0, SIZE=10000, SE=1, T3=1, LC=1, MR=0, SELC=10100, A0=1, B=1, C=0)
+            }
+}
+
+
+#
+# IN/OUT
+#
+
+in reg val {
+            co=001010,
+            nwords=1,
+            reg=reg(25,20),
+            val=inm(15,0),
+            {
+                (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
+                (TA=1, IOR=1,    M1=1, C1=1),
+                (T1=1, LC=1,     MR=0, SELC=10100, A0=1, B=1, C=0)
+            }
+}
+
+out reg val {
+            co=001011,
+            nwords=1,
+            reg=reg(25,20),
+            val=inm(15,0),
+            {
+                (SE=0, OFFSET=0,    SIZE=10000, T3=1, C0=1),
+                (MR=0, SELA=010100, T9=1,       M1=0, C1=1),
+                (TA=1, TD=1,        IOW=1,      A0=1, B=1, C=0)
+            }
+}
+
+
+#
+# Misc
+#
+
+nop {
+        co=010110,
+        nwords=1,
+        {
+                (A0=1, B=1, C=0)
+        }
+}
+
+
+registers
+{
+        0=$zero,
+        1=$at,
+        2=$v0,
+        3=$v1,
+        4=$a0,
+        5=$a1,
+        6=$a2,
+        7=$a3,
+        8=$t0,
+        9=$t1,
+        10=$t2,
+        11=$t3,
+        12=$t4,
+        13=$t5,
+        14=$t6,
+        15=$t7,
+        16=$s0,
+        17=$s1,
+        18=$s2,
+        19=$s3,
+        20=$s4,
+        21=$s5,
+        22=$s6,
+        23=$s7,
+        24=$t8,
+        25=$t9,
+        26=$k0,
+        27=$k1,
+        28=$gp,
+        29=$sp (stack_pointer),
+        30=$fp,
+        31=$ra,
+        32=$r01,
+        33=$r02,
+        34=$r03,
+        35=$r04,
+        36=$r05,
+        37=$r06,
+        38=$r07,
+        39=$r08,
+        40=$r09,
+        41=$r10,
+        42=$r11,
+        43=$r12,
+        44=$r13,
+        45=$r14,
+        46=$r15,
+        47=$r16,
+        48=$r17,
+        49=$r18,
+        50=$r19,
+        51=$r20,
+        52=$r21,
+        53=$r22,
+        54=$r23,
+        55=$r24,
+        56=$r25,
+        57=$r26,
+        58=$r27,
+        59=$r28,
+        60=$r29,
+        61=$r30,
+        62=$r31,
+        63=$r32
+}
+
