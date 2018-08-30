@@ -151,9 +151,9 @@
                   '              <div class="row h-100"><div class="col border-right border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>' +
                   '       </div>' +
                   '       <div class="col py-2 pl-0">' +
+		  '  		<a data-toggle="collapse" data-target="#collapse_'+i+'" ' + 
+		  '                class="col-auto pl-0" target="_blank" href="#">' + state_history[i].title + '</a>' +
                   '             <div class="btn-group float-none" role="group" aria-label="State information for ' + it + '">' +
-		  '  		     <a data-toggle="collapse" data-target="#collapse_'+i+'" ' + 
-		  '                     class="col-auto pl-0" target="_blank" href="#">' + state_history[i].title + '</a>' +
                   '                  <button class="btn btn-outline-dark btn-sm col float-right"' + 
                   '                           data-toggle="popover4" data-html="true" type="button" ' + 
                   '                           id="' + it + '">+Info</button>' +
