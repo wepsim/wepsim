@@ -117,7 +117,7 @@
     {
          if (0 == state_history.length) 
          {
-             $('#history1').html('<ul class="timeline"><li><span style="background-color:#FCFC00">&lt;Empty history&gt;</span></li></ul>') ;
+             $('#history1').html('<span style="background-color:#FCFC00">&lt;Empty history&gt;</span>') ;
 	     $('#check_results1').html('');
 
              return ;
@@ -128,7 +128,7 @@
          var  t = 0 ;
          var it = '' ;
          var tt = '' ;
-         var  o = '<ul class="timeline">' ;
+         var  o = '' ;
          for (var i=state_history.length-1; i>=0; i--) 
          {
               t = new Date(state_history[i].time) ;
@@ -145,10 +145,15 @@
 		  '        onclick="$(\'#' + it + '\').popover(\'hide\');">Close</button>' +
                   '</div>' ;
 
-	     o += '	<li class="bg-light">' +
-		  '		<a data-toggle="collapse" data-target="#collapse_'+i+'" ' + 
-		  '                class="" target="_blank" href="#">' + state_history[i].title + '</a>' +
-                  '             <div class="btn-group float-right" role="group" aria-label="State information for ' + it + '">' +
+	     o += '  <div class="row">' +
+                  '       <div class="col-auto text-center flex-column d-none d-sm-flex pr-0">' +
+                  '              <h5 class="m-2"><span class="badge badge-pill border-secondary border">&nbsp;</span></h5>' +
+                  '              <div class="row h-100"><div class="col border-right border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>' +
+                  '       </div>' +
+                  '       <div class="col py-2 pl-0">' +
+                  '             <div class="btn-group float-none" role="group" aria-label="State information for ' + it + '">' +
+		  '  		     <a data-toggle="collapse" data-target="#collapse_'+i+'" ' + 
+		  '                     class="col-auto pl-0" target="_blank" href="#">' + state_history[i].title + '</a>' +
                   '                  <button class="btn btn-outline-dark btn-sm col float-right"' + 
                   '                           data-toggle="popover4" data-html="true" type="button" ' + 
                   '                           id="' + it + '">+Info</button>' +
@@ -163,7 +168,7 @@
                   '                                    wepsim_dialog_check_state(\'check_results1\', obj_exp1, obj_exp2);"' +
                   '                           type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>' +
                   '             </div>' +
-			                tt +
+			        tt +
 		  '		<p>' +
                   '               <div id="collapse_' + i + '" class="collapse">' +
                   '                   <div class="card-body" ' + 
@@ -173,9 +178,9 @@
                   '                             id="ta_state_'+i+'" readonly>' + state_history[i].content + '</textarea>' +
                   '               </div>' +
 		  '		</p>' +
-		  '	</li>' ;
+                  '       </div>' +
+                  '  </div>' ;
          }
-         o +=     '</ul>' ;
 
          // update contents
          $('#history1').html(o) ;

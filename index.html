@@ -158,39 +158,6 @@
     .bootbox .modal-header button {
 	 order: 1;
     }
-
-    // Based on https://bootsnipp.com/snippets/featured/simple-vertical-timeline
-    ul.timeline {
-	    list-style-type: none;
-	    position: relative;
-    }
-    ul.timeline:before {
-	    content: ' ';
-	    background: #d4d9df;
-	    display: inline-block;
-	    position: relative;
-	    left: -10px;
-	    width: 2px;
-	    height: 20vh;
-	    z-index: 400;
-	    float: left;
-    }
-    ul.timeline > li {
-	    margin: 20px 0;
-	    padding-left: 20px;
-    }
-    ul.timeline > li:before {
-	    content: ' ';
-	    background: white;
-	    display: inline-block;
-	    position: relative;
-	    border-radius: 50%;
-	    border: 3px solid #22c0e8;
-	    left: -40px;
-	    width: 20px;
-	    height: 20px;
-	    z-index: 400;
-    }
     </style>
 
     <link async href="min.external.css" rel="stylesheet">
@@ -1083,43 +1050,49 @@
                   <div class="carousel-item active">
 
                         <h4 class="mt-2">State (non-zero values):</h4>
-                        <div style="max-height:55vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
-  			<ul class="timeline">
-			    <li>
-                                        <a data-toggle="collapse" data-target="#collapse_X" class="" target="_blank" href="#">&lt;Now&gt;</a>
-					<div class="btn-group float-right" role="group" aria-label="State information for now">
-						<span class="btn btn-outline-dark btn-sm"
-						      onclick="CopyFromTextarea('end_state1'); return false;"
-						      data-inline="true">Copy to clipboard</span>
-					</div>
-					<p>
-					<div id="collapse_X" class="collapse show">
-						<form id="end_state_form1" 
-						      class="form-horizontal" 
-						      style="white-space:wrap; overflow-y:auto; -webkit-overflow-scrolling:touch; width:100%;">
-						   <textarea aria-label="checks to perform" 
-							     placeholder="Default..." 
-							     id="end_state1" 
-							     name="end_state1" 
-							     data-allowediting="true" 
-							     data-allowpasting="false" 
-							     data-limit="0" 
-							     data-createtokensonblur="false" 
-							     data-delimiter=";" 
-							     data-beautify="true" 
-							     class="form-control input-xs" 
-							     rows="5"></textarea>
-						</form>
-					</div>
-					</p>
-			    </li>
-			</ul>
-                        <div id="history1">
-  			<ul class="timeline"><li><span style="background-color:#FCFC00">&lt;Empty history&gt;</span></li></ul>
-			</div>
+                        <div class="container pb-2" style="max-height:50vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
+			     <div class="row">
+			     <div class="col-auto text-center flex-column d-none d-sm-flex pr-0">
+				    <h5 class="m-2"><span class="badge border-secondary border">&nbsp;</span></h5>
+				    <div class="row h-100"><div class="col border-right border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>
+			     </div>
+			     <div class="col py-2 pl-0">
+				<div class="btn-group float-none" role="group" aria-label="State information for now">
+				  <a class="col-auto pl-0" data-toggle="collapse" data-target="#collapse_X" target="_blank" href="#">&lt;Now&gt;</a>
+				  <div class="btn-group float-right" role="group" aria-label="State information for now">
+				  	  <span class="btn btn-outline-dark btn-sm"
+					        onclick="CopyFromTextarea('end_state1'); return false;"
+					        data-inline="true">Copy to clipboard</span>
+				  </div>
+                                </div>
+				<p>
+				<div id="collapse_X" class="collapse show">
+					<form id="end_state_form1" 
+					      class="form-horizontal" 
+					      style="white-space:wrap; overflow-y:auto; -webkit-overflow-scrolling:touch; width:100%;">
+					   <textarea aria-label="checks to perform" 
+						     placeholder="Default..." 
+						     id="end_state1" 
+						     name="end_state1" 
+						     data-allowediting="true" 
+						     data-allowpasting="false" 
+						     data-limit="0" 
+						     data-createtokensonblur="false" 
+						     data-delimiter=";" 
+						     data-beautify="true" 
+						     class="form-control input-xs" 
+						     rows="5"></textarea>
+					</form>
+				</div>
+				</p>
+			     </div>
+			     </div>
+                             <div id="history1">
+  		 	          <span style="background-color:#FCFC00">&lt;Empty history&gt;</span>
+			     </div>
 			</div>
 
-                        <h4 style="margin:20 0 10 0;">Differences (only changed values):
+                        <h4 class="mt-1">Differences (only changed values):
 			<span class="btn btn-outline-dark btn-sm"
 			      onclick="CopyFromDiv('check_results_scroll1'); return false;"
 			      data-inline="true">Copy to clipboard</i></span>
