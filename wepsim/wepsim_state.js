@@ -117,8 +117,9 @@
     {
          if (0 == state_history.length) 
          {
-             $('#history1').html('&emsp;<span style="background-color:#FCFC00">Empty.</span>') ;
+             $('#history1').html('<ul class="timeline"><li><span style="background-color:#FCFC00">&lt;Empty history&gt;</span></li></ul>') ;
 	     $('#check_results1').html('');
+
              return ;
          }
 
