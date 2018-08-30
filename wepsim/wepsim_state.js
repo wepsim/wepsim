@@ -169,15 +169,12 @@
                   '                           type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>' +
                   '             </div>' +
 			        tt +
-		  '		<p>' +
-                  '               <div id="collapse_' + i + '" class="collapse">' +
-                  '                   <div class="card-body" ' + 
-                  '                        style="padding:5 5 5 5;" ' + 
+                  '             <div id="collapse_' + i + '" class="border border-secondary mt-2 collapse">' +
+                  '                   <div class="card-body p-1" ' + 
                   '                        id="state_' + i + '">' + state_history[i].content + '</div>' +
                   '                   <textarea aria-label="hidden-state"  style="display:none"' +
                   '                             id="ta_state_'+i+'" readonly>' + state_history[i].content + '</textarea>' +
-                  '               </div>' +
-		  '		</p>' +
+                  '             </div>' +
                   '       </div>' +
                   '  </div>' ;
          }
