@@ -165,9 +165,10 @@
 	var reg_pc     = get_value(simhw_sim_state('REG_PC')) ;
 	var curr_addr  = "0x" + reg_pc.toString(16) ;
 
-	var dialog_title = msg1 + " @ pc=" + curr_addr + "+mpc=" + curr_maddr + ":<br>" + msg2 ;
+	var dialog_title = msg1 + " @ pc=" + curr_addr + "+mpc=" + curr_maddr ;
 
         $("#dlg_title2").html(dialog_title) ;
+        $("#dlg_body2").html(msg2) ;
         $('#current_state2').modal('show');
 
 	return true ;

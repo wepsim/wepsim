@@ -117,70 +117,72 @@
     {
          if (0 == state_history.length) 
          {
-             $('#history1').html('&emsp;<span style="background-color:#FCFC00">Empty.</span>') ;
-	     $('#check_results1').html('');
+             $('#history1').html('<span style="background-color:#FCFC00">&lt;Empty history&gt;</span>') ;
+	     $('#check_results1').html('<span style="background-color:#FCFC00">&lt;Empty&gt;</span>');
+
              return ;
          }
 
 	 $("[data-toggle=popover4]").popover('hide') ;
 
          var  t = 0 ;
-         var tt = '' ;
          var it = '' ;
-         var o = '<div class="card-group-vertical" id="accordion1">' ;
+         var tt = '' ;
+         var  o = '' ;
          for (var i=state_history.length-1; i>=0; i--) 
          {
-               t = new Date(state_history[i].time) ;
-              it = t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + '-' +
-                   t.getHours()    + '-' + t.getMinutes()   + '-' + t.getSeconds() + '-' + t.getMilliseconds() ;
+              t = new Date(state_history[i].time) ;
+             it = t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + '-' +
+                  t.getHours()    + '-' + t.getMinutes()   + '-' + t.getSeconds() + '-' + t.getMilliseconds() ;
 
-              tt = '<div id="popover-content-' + it + '" class="d-none bg-light">' +
-                   state_history[i].title + '<br>' +
-                   '<b>was inserted at:</b><br>' +
-                   'Date: ' + t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + '<br>' +
-                   'Hour: ' + t.getHours()    + ':' + t.getMinutes()   + ':' + t.getSeconds() + '-' + t.getMilliseconds() + '<br>' +
-		   '<button type="button" id="close" data-role="none" ' +
-                   '        class="btn btn-sm btn-danger w-100 p-0" ' + 
-		   '        onclick="$(\'#' + it + '\').popover(\'hide\');">Close</button>' +
-                   '</div>' ;
+             tt = '<div id="popover-content-' + it + '" class="d-none bg-light">' +
+                  state_history[i].title + '<br>' +
+                  '<b>was inserted at:</b><br>' +
+                  'Date: ' + t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + '<br>' +
+                  'Hour: ' + t.getHours()    + ':' + t.getMinutes()   + ':' + t.getSeconds() + '-' + t.getMilliseconds() + '<br>' +
+		  '<button type="button" id="close" data-role="none" ' +
+                  '        class="btn btn-sm btn-danger w-100 p-0" ' + 
+		  '        onclick="$(\'#' + it + '\').popover(\'hide\');">Close</button>' +
+                  '</div>' ;
 
-              o += '<div class="card">' +
-                   '  <div class="card-header p-1 w-100">' + 
-                   '    <h5 class="card-title float-left m-0 text-primary" ' + 
-		   '        data-toggle="collapse" data-target="#collapse_'+i+'" ' + 
-                   '        data-parent="#accordion1">' + state_history[i].title + '</h5>' + tt +
-                   '    <div class="btn-group float-right" role="group" aria-label="Basic example">' +
-                   '    <button class="btn btn-outline-dark btn-sm col float-right"' + 
-                   '            data-toggle="popover4" data-html="true" type="button" ' + 
-                   '            id="' + it + '">+Info</button>' +
-                   '    <button class="btn btn-outline-dark btn-sm col float-right"' + 
-                   '            onclick="CopyFromTextarea(\'ta_state_' + i + '\');" ' + 
-                   '            type="button">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>' +
-                   '    <button class="btn btn-outline-dark btn-sm col float-right"' + 
-                   '            onclick="var txt_chklst1 = get_clipboard_copy();' +
-                   '                     var obj_exp1    = simstate_checklist2state(txt_chklst1);' +
-                   '                     var txt_chklst2 = $(\'#ta_state_'+i+'\').val();' +
-                   '                     var obj_exp2    = simstate_checklist2state(txt_chklst2);' +
-                   '                     wepsim_dialog_check_state(\'check_results1\', obj_exp1, obj_exp2);"' +
-                   '            type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>' +
-                   '    </div>' +
-                   '  </div>' +
-                   '  <div id="collapse_' + i + '" class="collapse">' +
-                   '    <div class="card-body">' + 
-                   '      <div class="card-body" ' + 
-                   '           style="padding:5 5 5 5;" ' + 
-                   '           id="state_' + i + '">' + state_history[i].content + '</div>' +
-                   '      <textarea aria-label="hidden-state"  style="display:none"' +
-                   '                id="ta_state_'+i+'" readonly>' + state_history[i].content + '</textarea>' +
-                   '    </div>' +
-                   '  </div>' +
-                   '</div>' ;
+	     o += '  <div class="row">' +
+                  '       <div class="col-auto text-center flex-column d-none d-sm-flex pr-0">' +
+                  '              <h5 class="m-2"><span class="badge badge-pill border-secondary border">&nbsp;</span></h5>' +
+                  '              <div class="row h-100"><div class="col border-right border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>' +
+                  '       </div>' +
+                  '       <div class="col py-2 pl-0">' +
+		  '  		<a data-toggle="collapse" data-target="#collapse_'+i+'" ' + 
+		  '                class="col-auto pl-0" target="_blank" href="#">' + state_history[i].title + '</a>' +
+                  '             <div class="btn-group float-none" role="group" aria-label="State information for ' + it + '">' +
+                  '                  <button class="btn btn-outline-dark btn-sm col float-right"' + 
+                  '                           data-toggle="popover4" data-html="true" type="button" ' + 
+                  '                           id="' + it + '">+Info</button>' +
+                  '                   <button class="btn btn-outline-dark btn-sm col float-right"' + 
+                  '                           onclick="CopyFromTextarea(\'ta_state_' + i + '\');" ' + 
+                  '                           type="button">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>' +
+                  '                   <button class="btn btn-outline-dark btn-sm col float-right"' + 
+                  '                           onclick="var txt_chklst1 = get_clipboard_copy();' +
+                  '                                    var obj_exp1    = simstate_checklist2state(txt_chklst1);' +
+                  '                                    var txt_chklst2 = $(\'#ta_state_'+i+'\').val();' +
+                  '                                    var obj_exp2    = simstate_checklist2state(txt_chklst2);' +
+                  '                                    wepsim_dialog_check_state(\'check_results1\', obj_exp1, obj_exp2);' +
+                  '                                    $(\'#check_results_scroll1\').collapse(\'show\');"' +
+                  '                           type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>' +
+                  '             </div>' +
+			        tt +
+                  '             <div id="collapse_' + i + '" class="border border-secondary mt-2 collapse">' +
+                  '                   <div class="card-body p-1" ' + 
+                  '                        id="state_' + i + '">' + state_history[i].content + '</div>' +
+                  '                   <textarea aria-label="hidden-state"  style="display:none"' +
+                  '                             id="ta_state_'+i+'" readonly>' + state_history[i].content + '</textarea>' +
+                  '             </div>' +
+                  '       </div>' +
+                  '  </div>' ;
          }
-         o += '</div>' ;
 
          // update contents
          $('#history1').html(o) ;
-	 $('#check_results1').html('') ;
+	 $('#check_results1').html('<span style="background-color:#FCFC00">&lt;Empty&gt;</span>');
 
          // initializate popover
 	 $("[data-toggle=popover4]").popover({

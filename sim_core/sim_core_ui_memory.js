@@ -248,7 +248,7 @@
 
 		trpin = "&nbsp;" ;
 		if (true == memory_dashboard[key].breakpoint)
-		    trpin = "<img alt='stop icon' height=22 src='images/stop_" + icon_theme + ".gif'>" ;
+		    trpin = "<img alt='stop icon' height=22 src='images/stop/stop_" + icon_theme + ".gif'>" ;
 
 		if (key == index)
 		     o1 += "<tr id='maddr" + key + "' " +
@@ -732,7 +732,7 @@
                     o1.innerHTML = "&nbsp;" ;
                 } else {
                     bp_state = true ;
-                    o1.innerHTML = "<img alt='stop icon' height=22 src='images/stop_" + icon_theme + ".gif'>" ;
+                    o1.innerHTML = "<img alt='stop icon' height=22 src='images/stop/stop_" + icon_theme + ".gif'>" ;
                 }
 
                 curr_firm.assembly[hexaddr].breakpoint = bp_state ;
@@ -750,7 +750,7 @@
                     o1.innerHTML = "&nbsp;" ;
                 } else {
                     bp_state = true ;
-                    o1.innerHTML = "<img alt='stop icon' height='22' src='images/stop_" + icon_theme + ".gif'>" ;
+                    o1.innerHTML = "<img alt='stop icon' height='22' src='images/stop/stop_" + icon_theme + ".gif'>" ;
                 }
 
                 simhw_internalState_get('MC_dashboard', addr).breakpoint = bp_state ;

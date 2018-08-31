@@ -2,8 +2,10 @@
 set -x
 
 # 
-#  hardware model + software model + core (simulation ctrl + UI)
+#  Packing...
 # 
+
+#  hardware model + software model + core (simulation ctrl + UI)
 cat sim_hw/sim_hw_index.js \
     sim_hw/sim_hw_values.js \
     sim_hw/sim_hw_behavior.js \
@@ -34,9 +36,7 @@ cat sim_hw/sim_hw_index.js \
 /usr/bin/yui-compressor -o min.sim_all.js sim_all.js
 rm -fr sim_all.js
 
-# 
 #  WepSIM web engine
-# 
 cat wepsim/wepsim_example.js \
     wepsim/wepsim_help.js \
     wepsim/wepsim_config.js \
@@ -65,17 +65,13 @@ cat wepsim/wepsim_example.js \
 rm -fr wepsim_web.js
 cp  wepsim/wepsim_pwa.js min.wepsim_pwa.js
 
-# 
 #  WepSIM nodejs engine
-# 
 cat min.sim_all.js \
     min.wepsim_web.js \
     wepsim/wepsim_node.js > min.wepsim_node.js
 
 
-# 
 #  external
-# 
 cat external/popper.min.js \
     external/bootstrap.min.js \
     external/knockout-3.4.2.js \
@@ -123,4 +119,36 @@ cat external/bootstrap.min.css \
     external/speechkitt.css \
     external/dropify.min.css \
     external/fontawesome5/all.css > min.external.css
+
+
+#
+#  Preparing distributions...
+#
+
+                    mkdir -p _dist
+                    touch    _dist/index.html
+                    mkdir -p _dist/external
+                    touch    _dist/external/index.html
+cp external/jquery.min.js    _dist/external
+
+cp index.html             _dist/
+cp manifest.webapp        _dist/
+cp wepsim/wepsim_node.sh  _dist/
+chmod a+x _dist/*.sh
+
+cp min.sim_all.js       _dist/
+cp min.external.css     _dist/
+cp min.external.js      _dist/
+cp min.wepsim_web.js    _dist/
+cp min.wepsim_pwa.js    _dist/
+cp min.wepsim_node.js   _dist/
+
+cp -a examples  _dist/
+          touch _dist/examples/index.html
+cp -a docs      _dist/
+          touch _dist/docs/index.html
+cp -a images    _dist/
+          touch _dist/images/index.html
+cp -a help      _dist/
+          touch _dist/help/index.html
 
