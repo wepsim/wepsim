@@ -547,8 +547,15 @@ register 5 >= 8 ; memory 1 = 0x10; screen 0 == first_line
 
       <div id="help_dumper">
 
-              The 'State' panel let users to show the state at the present moment as 
-              a list of main requirements. 
+              The 'Current state' panel shows to users the state at the present moment as 
+              a list of non-zero values of the different hardware elements.
+              By default after reset every memory position, value in a register, etc. is zero.
+              But the non-zero values are shown in this panel.
+
+              This list of values can be also described as the requirements after the execution
+              of some assembly code, and this list can be compared and checked agains other list
+              in order to known if it is correct (it is the expected set of values at this execution point).
+
               Users can copy the requirements to the clipboard or store them in the 'History'.
 	      <ul>
 	        For example:<br>
@@ -566,11 +573,10 @@ register 5 >= 8 ; memory 1 = 0x10; screen 0 == first_line
 
               Please, remember two important details:
 	      <ul>
-	         <li><b>The semicolons are needed.</b> 
-                 The ';' character indicates the end of any requirement.
-	         </li>
-	         <li><b>The scroll bars use to be hidden on requirements and differencies.</b>
-	         </li>
+	         <li><em>The semicolons are needed.</em> 
+                     The ';' character indicates the end of any requirement.</li>
+	         <li><em>The scroll bars use to be hidden on requirements and differencies.</em></li>
+	         <li><em>Only the values that are different between two states are shown.</em></li>
 	      </ul>
 
       </div>
