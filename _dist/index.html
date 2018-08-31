@@ -1060,9 +1060,16 @@
 				<a class="col-auto pl-0" data-toggle="collapse" data-target="#collapse_X" target="_blank" href="#">&lt;Now&gt;</a>
 				<div class="btn-group float-none" role="group" aria-label="State information for now">
 				  <div class="btn-group float-right" role="group" aria-label="State information for now">
-				  	  <span class="btn btn-outline-dark btn-sm"
-					        onclick="CopyFromTextarea('end_state1'); return false;"
-					        data-inline="true">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></span>
+                                          <button class="btn btn-outline-dark btn-sm col float-right"
+					          onclick="CopyFromTextarea('end_state1'); return false;"
+					          data-inline="true">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>
+                                          <button class="btn btn-outline-dark btn-sm col float-right"
+                                                  onclick="var txt_chklst1 = get_clipboard_copy();
+                                                           var obj_exp1    = simstate_checklist2state(txt_chklst1);
+                                                           var txt_chklst2 = $('#end_state1').val();
+                                                           var obj_exp2    = simstate_checklist2state(txt_chklst2);
+                                                           wepsim_dialog_check_state('check_results1', obj_exp1, obj_exp2);"
+                                                  type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>
 				  </div>
                                 </div>
 				<p>
