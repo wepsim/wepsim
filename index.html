@@ -1131,7 +1131,7 @@
 			    wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
 			    wepsim_state_history_list() ;
 			    return false;"
-		   type="button">Add <span class='d-none d-sm-inline-flex'>state to history</span></button>
+		   type="button">Add <span class='d-none d-sm-inline-flex'>'Now' to history</span></button>
            <button type="button" 
                    data-role="none"
                    onclick="$('#current_state1').modal('hide');"
@@ -1143,37 +1143,11 @@
 
 
 <div id="current_state2" class="modal">
-<div class="modal-dialog bootboxWidth">
+<div class="modal-dialog">
    <div class="modal-content">
       <div class="modal-header">
          <div class="modal-title mx-auto">
-               <div class="btn-group">
-                  <button onclick="$('#bot_check2').carousel(0);" 
-                          type="button" 
-                          class="btn btn-info" 
-                          data-role="none">State</button>
-                  <button onclick="$('#bot_check2').carousel(1);
-                                   update_checker_loadhelp('#help3b','help_checker');"
-                          type="button" 
-                          class="btn btn-success" 
-                          data-role="none">Help</button>
-                  <button type="button" 
-                          class="btn btn-success dropdown-toggle" 
-                          data-toggle="dropdown" 
-                          data-role="none"
-                          aria-haspopup="true" 
-                          aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>   
-		  <div class="dropdown-menu" style="z-index:100000;">
-                     <a href="#" class="dropdown-item"
-				 onclick="set_cfg('ws_idiom','es'); save_cfg();
-                                          $('#bot_check2').carousel(1);
-                                          update_checker_loadhelp('#help3b','help_checker');">ES<span class="d-none d-sm-inline-flex">&nbsp;(Spanish)</span></a>
-                     <a href="#" class="dropdown-item"
-				 onclick="set_cfg('ws_idiom','en'); save_cfg();
-                                          $('#bot_check2').carousel(1);
-                                          update_checker_loadhelp('#help3b','help_checker');">EN<span class="d-none d-sm-inline-flex">&nbsp;(English)</span></a>
-                  </div>
-               </div>
+	      <h4>Play</h4>
          </div>
          <button type="button" class="close ml-0" data-dismiss="modal" aria-label="Close" data-role="none">
              <span aria-hidden="true" class="text-black font-weight-bold">&times;</span>
@@ -1181,73 +1155,17 @@
       </div>
       <div class="modal-body">
          <div class="bootbox-body">
-            <div id="bot_check2" class="carousel" data-ride="carousel" data-interval="false">
-               <div class="carousel-inner" role="listbox">
-                  <div class="carousel-item active">
-			<div class="card card-info">
-			<div class="card-header">
-				<div class="row">
-				  <div class="col-auto">
-					<a data-toggle="collapse" 
-                                           aria-expanded="false" aria-controls="collapse message"
-                                           href="#collapse-msg1"><em class="fas fa-hand-point-right"></em></a>
-				  </div>
-				  <div class="col">
-					<h5 class="collapse show" id="collapse-msg1"><span id="dlg_title2">&nbsp;</span></h5>
-				  </div>
-				</div>
-			</div>
-			</div>
-
-                        <h4 class="pt-2">Requeriment list to compare with:</h4>
-                        <form id="end_state_form2" 
-                              class="form-horizontal bootboxShortHeight" 
-                              style="white-space:wrap; overflow-y:auto; -webkit-overflow-scrolling:touch;">
-                           <textarea aria-label="checks to perform" 
-                                     placeholder="See help for more information." 
-                                     id="end_state2" 
-                                     name="end_state2" 
-                                     data-allowediting="true" 
-                                     data-allowpasting="true" 
-                                     data-limit="0" 
-                                     data-createtokensonblur="false" 
-                                     data-delimiter=";" 
-                                     data-beautify="true" 
-                                     class="form-control input-xs" 
-                                     rows="5"></textarea>
-                        </form>
-                        <h4 style="margin:20 0 10 0;">Result:
-		   	   <span class="btn btn-secondary btn-sm"
-			         onclick="CopyFromDiv('check_results_scroll2'); return false;" 
-			         data-inline="true">Copy to clipboard</i></span>
-                        </h4>
-		        <div id="check_results_scroll2"
-		             style="max-height:25vh; width:inherit; overflow-y:auto; -webkit-overflow-scrolling:touch;">
-		             <div id="check_results2"></div>
-		     </div>
-                  </div>
-                  <div class="carousel-item">
-                       <div id="help3b" 
-                            style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">Loading...</div>
-                  </div>
-               </div>
-            </div>
+		<div class="card card-info border-secondary m-2">
+		<div class="card-header border-secondary">
+			<strong><span id="dlg_title2">&nbsp;</span></strong>
+		</div>
+		<div class="card-body">
+			<h5><span id="dlg_body2">&nbsp;</span></h5>
+		</div>
+		</div>
          </div>
       </div>
       <div class="modal-footer">
-           <button type="button" 
-                   onclick="wepsim_dialog_check_reset('check_results2','end_state2'); 
-                            return false;"
-                   data-role="none"
-                   class="btn btn-secondary col-xs-3">Clear</button>
-           <button type="button" 
-                   onclick="var txt_checklist = $('#end_state2').val();
-                            var obj_expected  = simstate_checklist2state(txt_checklist);
-                            var obj_current   = simstate_current2state();
-                            wepsim_dialog_check_state('check_results2', obj_expected, obj_current); 
-                            return false;"
-                   data-role="none"
-                   class="btn btn-secondary col-xs-3">Check</button>
            <button type="button" 
                    onclick="$('#current_state2').modal('hide');"
                    data-role="none"
