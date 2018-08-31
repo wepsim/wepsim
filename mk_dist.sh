@@ -68,8 +68,8 @@ cat wepsim/wepsim_example.js \
 rm -fr _dist/wepsim_web.js
 
 #  WepSIM nodejs engine
-cat min.sim_all.js \
-    min.wepsim_web.js \
+cat _dist/min.sim_all.js \
+    _dist/min.wepsim_web.js \
     wepsim/wepsim_node.js > _dist/min.wepsim_node.js
 
 #  external
