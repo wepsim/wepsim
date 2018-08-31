@@ -160,11 +160,11 @@
     }
     </style>
 
-    <link async href="min.external.css" rel="stylesheet">
-    <script      src="min.external.js"></script>
+    <link async href="_dist/min.external.css" rel="stylesheet">
+    <script      src="_dist/min.external.js"></script>
 
-    <script src="min.sim_all.js"></script>
-    <script src="min.wepsim_web.js"></script>
+    <script src="_dist/min.sim_all.js"></script>
+    <script src="_dist/min.wepsim_web.js"></script>
 
     <!-- Google Analytics -->
     <script>
@@ -1133,8 +1133,8 @@
                    data-role="none"
 		   onclick="wepsim_state_history_add();
 			    wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
-			    wepsim_state_history_list() ;
-			    $('#states3').collapse('show');
+			    wepsim_state_history_list();
+                            wepsim_dialog_current_state();
 			    return false;"
 		   type="button">Add <span class='d-none d-sm-inline-flex'>'Now' to history</span></button>
            <button type="button" 
@@ -1428,7 +1428,7 @@
             // progressive web application
 	    if ( (false == is_mobile()) && ('serviceWorker' in navigator) )
             {
-		navigator.serviceWorker.register('./min.wepsim_pwa.js').catch(function() {
+		navigator.serviceWorker.register('_dist/min.wepsim_pwa.js').catch(function() {
 		  wepsim_notify_error("<h4>Warning:" + 
 				      "<br>WepSIM was used over a HTTP connection.</h4>",
 		                      "Progressive Web Applications requires a HTTPS connection " +

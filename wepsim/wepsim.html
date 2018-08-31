@@ -160,11 +160,11 @@
     }
     </style>
 
-    <link async href="./min.external.css" rel="stylesheet">
-    <script      src="./min.external.js"></script>
+    <link async href="WEPSIM_ROOT/min.external.css" rel="stylesheet">
+    <script      src="WEPSIM_ROOT/min.external.js"></script>
 
-    <script src="./min.sim_all.js"></script>
-    <script src="./min.wepsim_web.js"></script>
+    <script src="WEPSIM_ROOT/min.sim_all.js"></script>
+    <script src="WEPSIM_ROOT/min.wepsim_web.js"></script>
 
     <!-- Google Analytics -->
     <script>
@@ -1428,7 +1428,7 @@
             // progressive web application
 	    if ( (false == is_mobile()) && ('serviceWorker' in navigator) )
             {
-		navigator.serviceWorker.register('./min.wepsim_pwa.js').catch(function() {
+		navigator.serviceWorker.register('WEPSIM_ROOT/min.wepsim_pwa.js').catch(function() {
 		  wepsim_notify_error("<h4>Warning:" + 
 				      "<br>WepSIM was used over a HTTP connection.</h4>",
 		                      "Progressive Web Applications requires a HTTPS connection " +
