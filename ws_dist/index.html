@@ -1047,7 +1047,7 @@
                <div class="carousel-inner" role="listbox">
                   <div class="carousel-item active">
 
-                        <div class="container-fluid ml-1 pb-2 collapse show" id="states3"
+                        <div class="container-fluid ml-1 pb-0 collapse show" id="states3"
 			     style="max-height:50vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
 			     <div class="row">
 			     <div class="col-auto text-center flex-column d-none d-sm-flex pr-0" style="height:12vh;">
@@ -1095,27 +1095,37 @@
 			     </div>
 			</div>
 
-			<h4 class="mt-1">
+			<h4 class="mt-1 mb-0">
 			    <a data-toggle="collapse" href="#history3">History</a>:
                         </h4>
                         <div class="container-fluid ml-1 pb-2 collapse show" id="history3"
 			     style="max-height:40vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
                              <div id="history1">
+				  <div class="pt-2"></div>
   		 	          <span style="background-color:#FCFC00">&lt;Empty history&gt;</span>
 			     </div>
 			</div>
 
 			<h4 class="mt-1">
-			    <a data-toggle="collapse" href="#check_results_scroll1">Differences</a>&nbsp;<span class="text-secondary">(only changed values)</span>:
+			    <a data-toggle="collapse" href="#check_results_scroll1">Differences</a>:&nbsp;
 			    <span class="btn btn-outline-dark btn-sm"
 			          onclick="CopyFromDiv('check_results_scroll1'); return false;"
 			          data-inline="true">Copy to clipboard</i></span>
                         </h4>
                         <div class="container-fluid ml-1 pb-2 collapse show" id="check_results_scroll1"
 		             style="max-height:40vh; width:inherit; overflow-y:auto; -webkit-overflow-scrolling:touch;" >
-		             <div id="check_results1">
-                                  <span style="background-color:#FCFC00">&lt;Empty&gt;</span>
-                             </div>
+			     <div class="row align-items-center">
+			     <div class="col-auto text-center flex-column d-none d-sm-flex pr-0" style="height:12vh;">
+				  <span class="badge badge-pill border-secondary border m-2">clipboard</span>
+				  <div class="row h-100"><div class="col border-right border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>
+				  <span class="badge badge-pill border-secondary border m-2">reference</span>
+			     </div>
+			     <div class="col py-2 pl-2">
+				  <div id="check_results1">
+				       <span style="background-color:#FCFC00">&lt;Empty (only modified values are shown)&gt;</span>
+				  </div>
+			     </div>
+			     </div>
 		        </div>
                   </div>
                   <div class="carousel-item">

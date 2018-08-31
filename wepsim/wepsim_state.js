@@ -115,10 +115,13 @@
 
     function wepsim_state_history_list ( )
     {
+	 var empty_results = '<span style="background-color:#FCFC00">&lt;Empty (only modified values are shown)&gt;</span>' ;
+         var empty_history = '<span style="background-color:#FCFC00">&lt;Empty history&gt;</span>' ;
+
          if (0 == state_history.length) 
          {
-             $('#history1').html('<span style="background-color:#FCFC00">&lt;Empty history&gt;</span>') ;
-	     $('#check_results1').html('<span style="background-color:#FCFC00">&lt;Empty&gt;</span>');
+             $('#history1').html(empty_history) ;
+	     $('#check_results1').html(empty_results) ;
 
              return ;
          }
@@ -128,6 +131,7 @@
          var  t = 0 ;
          var it = '' ;
          var tt = '' ;
+         var vr = '' ;
          var  o = '' ;
          for (var i=state_history.length-1; i>=0; i--) 
          {
@@ -145,10 +149,14 @@
 		  '        onclick="$(\'#' + it + '\').popover(\'hide\');">Close</button>' +
                   '</div>' ;
 
+	     vrow = '' ;
+	     if (i != 0)
+                 vrow = '<div class="row h-100"><div class="col border-right border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>' ;
+
 	     o += '  <div class="row">' +
                   '       <div class="col-auto text-center flex-column d-none d-sm-flex pr-0" style="height:12vh;">' +
                   '              <h5 class="m-2"><span class="badge badge-pill border-secondary border">&nbsp;</span></h5>' +
-                  '              <div class="row h-100"><div class="col border-right border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>' +
+		 	         vrow +
                   '       </div>' +
                   '       <div class="col py-2 pl-0">' +
 		  '  		<a data-toggle="collapse" data-target="#collapse_'+i+'" ' + 
@@ -182,7 +190,7 @@
 
          // update contents
          $('#history1').html(o) ;
-	 $('#check_results1').html('<span style="background-color:#FCFC00">&lt;Empty&gt;</span>');
+	 $('#check_results1').html(empty_results) ;
 
          // initializate popover
 	 $("[data-toggle=popover4]").popover({
