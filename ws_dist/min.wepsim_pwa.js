@@ -23,7 +23,7 @@
  * cache versioning
  */
 
-var cacheName = 'v192a_static';
+var cacheName = 'v193a_static';
 
 
 /*
@@ -35,7 +35,12 @@ self.addEventListener('install',
 			    e.waitUntil(
 				caches.open(cacheName).then(function(cache) {
 				    return cache.addAll([
+                                        './external/jquery.min.js',
                                         './min.wepsim_pwa.js',
+                                        './min.external.css',
+                                        './min.external.js',
+                                        './min.sim_all.js',
+                                        './min.wepsim_web.js',
                                         './images/ajax-loader.gif',
                                         './images/reset.svg',
                                         './images/author_salonso.png',
@@ -194,11 +199,6 @@ self.addEventListener('install',
                                         './help/simulator/firmware002.jpg',
                                         './help/simulator/firmware004.jpg',
                                         './help/simulator/firmware005.jpg',
-                                        './external/jquery.min.js',
-                                        './min.external.css',
-                                        './min.external.js',
-                                        './min.sim_all.js',
-                                        './min.wepsim_web.js',
 					'./index.html'
 				    ]).then(function() {
 					self.skipWaiting();

@@ -160,11 +160,11 @@
     }
     </style>
 
-    <link async href="min.external.css" rel="stylesheet">
-    <script      src="min.external.js"></script>
+    <link async href="WEPSIM_ROOT/min.external.css" rel="stylesheet">
+    <script      src="WEPSIM_ROOT/min.external.js"></script>
 
-    <script src="min.sim_all.js"></script>
-    <script src="min.wepsim_web.js"></script>
+    <script src="WEPSIM_ROOT/min.sim_all.js"></script>
+    <script src="WEPSIM_ROOT/min.wepsim_web.js"></script>
 
     <!-- Google Analytics -->
     <script>
@@ -1052,7 +1052,7 @@
                         <div class="container-fluid ml-1 pb-2 collapse show" id="states3"
 			     style="max-height:50vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
 			     <div class="row">
-			     <div class="col-auto text-center flex-column d-none d-sm-flex pr-0">
+			     <div class="col-auto text-center flex-column d-none d-sm-flex pr-0" style="height:12vh;">
 				    <h5 class="m-2"><span class="badge badge-pill border-secondary border">&nbsp;</span></h5>
 				    <div class="row h-100"><div class="col border-right border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>
 			     </div>
@@ -1131,8 +1131,8 @@
                    data-role="none"
 		   onclick="wepsim_state_history_add();
 			    wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
-			    wepsim_state_history_list() ;
-			    $('#states3').collapse('show');
+			    wepsim_state_history_list();
+                            wepsim_dialog_current_state();
 			    return false;"
 		   type="button">Add <span class='d-none d-sm-inline-flex'>'Now' to history</span></button>
            <button type="button" 
@@ -1426,7 +1426,7 @@
             // progressive web application
 	    if ( (false == is_mobile()) && ('serviceWorker' in navigator) )
             {
-		navigator.serviceWorker.register('./min.wepsim_pwa.js').catch(function() {
+		navigator.serviceWorker.register('WEPSIM_ROOT/min.wepsim_pwa.js').catch(function() {
 		  wepsim_notify_error("<h4>Warning:" + 
 				      "<br>WepSIM was used over a HTTP connection.</h4>",
 		                      "Progressive Web Applications requires a HTTPS connection " +
