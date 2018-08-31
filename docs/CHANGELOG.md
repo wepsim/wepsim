@@ -1,5 +1,6 @@
 
 1.9.2 -> 1.9.3:
+* 'States' management revamped
 * Packing in both, source directory and into the 'dist' directory
 
 1.9.1 -> 1.9.2:

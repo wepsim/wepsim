@@ -1049,11 +1049,13 @@
                <div class="carousel-inner" role="listbox">
                   <div class="carousel-item active">
 
-                        <h4 class="mt-2">State (non-zero values):</h4>
-                        <div class="container-fluid ml-1 pb-2" style="max-height:50vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
+                        <h4 class="mt-2"><a data-toggle="collapse" href="#states3" 
+			                    aria-expanded="false" aria-controls="collapse states">State</a> (non-zero values):</h4>
+                        <div class="container-fluid ml-1 pb-2 collapse show" id="states3"
+			     style="max-height:50vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
 			     <div class="row">
 			     <div class="col-auto text-center flex-column d-none d-sm-flex pr-0">
-				    <h5 class="m-2"><span class="badge border-secondary border">&nbsp;</span></h5>
+				    <h5 class="m-2"><span class="badge badge-pill border-secondary border">&nbsp;</span></h5>
 				    <div class="row h-100"><div class="col border-right border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>
 			     </div>
 			     <div class="col py-2 pl-0">
@@ -1099,14 +1101,15 @@
 			     </div>
 			</div>
 
-                        <h4 class="mt-1">Differences (only changed values):
-			<span class="btn btn-outline-dark btn-sm"
-			      onclick="CopyFromDiv('check_results_scroll1'); return false;"
-			      data-inline="true">Copy to clipboard</i></span>
+			<h4 class="mt-1">
+			    <a data-toggle="collapse" href="#check_results_scroll1">Differences</a> (only changed values):
+			    <span class="btn btn-outline-dark btn-sm"
+			          onclick="CopyFromDiv('check_results_scroll1'); return false;"
+			          data-inline="true">Copy to clipboard</i></span>
                         </h4>
-		        <div id="check_results_scroll1"
-		             style="max-height:25vh; width:inherit; overflow-y:auto; -webkit-overflow-scrolling:touch;" >
-		             <div id="check_results1"></div>
+		        <div id="check_results_scroll1" class="collapse show"
+		             style="max-height:50vh; width:inherit; overflow-y:auto; -webkit-overflow-scrolling:touch;" >
+		             <div id="check_results1"><span style="background-color:#FCFC00">&lt;Empty&gt;</span></div>
 		        </div>
                   </div>
                   <div class="carousel-item">
