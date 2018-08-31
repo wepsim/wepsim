@@ -165,7 +165,8 @@
                   '                                    var obj_exp1    = simstate_checklist2state(txt_chklst1);' +
                   '                                    var txt_chklst2 = $(\'#ta_state_'+i+'\').val();' +
                   '                                    var obj_exp2    = simstate_checklist2state(txt_chklst2);' +
-                  '                                    wepsim_dialog_check_state(\'check_results1\', obj_exp1, obj_exp2);"' +
+                  '                                    wepsim_dialog_check_state(\'check_results1\', obj_exp1, obj_exp2);' +
+                  '                                    $(\'#check_results_scroll1\').collapse(\'show\');"' +
                   '                           type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>' +
                   '             </div>' +
 			        tt +
@@ -181,7 +182,7 @@
 
          // update contents
          $('#history1').html(o) ;
-	 $('#check_results1').html('') ;
+	 $('#check_results1').html('<span style="background-color:#FCFC00">&lt;Empty&gt;</span>');
 
          // initializate popover
 	 $("[data-toggle=popover4]").popover({

@@ -1070,7 +1070,8 @@
                                                            var obj_exp1    = simstate_checklist2state(txt_chklst1);
                                                            var txt_chklst2 = $('#end_state1').val();
                                                            var obj_exp2    = simstate_checklist2state(txt_chklst2);
-                                                           wepsim_dialog_check_state('check_results1', obj_exp1, obj_exp2);"
+                                                           wepsim_dialog_check_state('check_results1', obj_exp1, obj_exp2);
+						           $('#check_results_scroll1').collapse('show');"
                                                   type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>
 				  </div>
                                 </div>
@@ -1133,6 +1134,7 @@
 		   onclick="wepsim_state_history_add();
 			    wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
 			    wepsim_state_history_list() ;
+			    $('#states3').collapse('show');
 			    return false;"
 		   type="button">Add <span class='d-none d-sm-inline-flex'>'Now' to history</span></button>
            <button type="button" 
