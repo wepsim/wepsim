@@ -1147,7 +1147,7 @@
    <div class="modal-content">
       <div class="modal-header">
          <div class="modal-title mx-auto">
-	      <h4>Play</h4>
+	      <h4><span id="dlg_title2">&nbsp;</span></h4>
          </div>
          <button type="button" class="close ml-0" data-dismiss="modal" aria-label="Close" data-role="none">
              <span aria-hidden="true" class="text-black font-weight-bold">&times;</span>
@@ -1155,17 +1155,19 @@
       </div>
       <div class="modal-body">
          <div class="bootbox-body">
-		<div class="card card-info border-secondary m-2">
-		<div class="card-header border-secondary">
-			<strong><span id="dlg_title2">&nbsp;</span></strong>
-		</div>
+		<div class="card card-info border-light m-2">
 		<div class="card-body">
-			<h5><span id="dlg_body2">&nbsp;</span></h5>
+		     <h5><span id="dlg_body2">&nbsp;</span></h5>
 		</div>
 		</div>
          </div>
       </div>
       <div class="modal-footer">
+           <button type="button" 
+                   onclick="$('#current_state2').modal('hide');
+                            $('#current_state1').modal('show');"
+                   data-role="none"
+                   class="btn btn-secondary col-xs-3 pull-left shadow-none mr-auto">States</button>
            <button type="button" 
                    onclick="$('#current_state2').modal('hide');"
                    data-role="none"
