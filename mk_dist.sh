@@ -2,11 +2,11 @@
 set -x
 
 # skeleton
-                    mkdir -p _dist
-                    touch    _dist/index.html
-                    mkdir -p _dist/external
-                    touch    _dist/external/index.html
-cp external/jquery.min.js    _dist/external
+                    mkdir -p ws_dist
+                    touch    ws_dist/index.html
+                    mkdir -p ws_dist/external
+                    touch    ws_dist/external/index.html
+cp external/jquery.min.js    ws_dist/external
 
 #  hardware model + software model + core (simulation ctrl + UI)
 cat sim_hw/sim_hw_index.js \
@@ -35,9 +35,9 @@ cat sim_hw/sim_hw_index.js \
     sim_core/sim_core_ui_console.js \
     sim_core/sim_core_ui_memory.js \
     sim_core/sim_core_ui_help.js \
-    sim_core/sim_core.js > _dist/sim_all.js
-/usr/bin/yui-compressor -o _dist/min.sim_all.js _dist/sim_all.js
-rm -fr _dist/sim_all.js
+    sim_core/sim_core.js > ws_dist/sim_all.js
+/usr/bin/yui-compressor -o ws_dist/min.sim_all.js ws_dist/sim_all.js
+rm -fr ws_dist/sim_all.js
 
 #  WepSIM web engine
 cat wepsim/wepsim_example.js \
@@ -63,14 +63,14 @@ cat wepsim/wepsim_example.js \
     wepsim/es/help-es.js \
     wepsim/es/config-es.js \
     wepsim/es/examples-es.js \
-    wepsim/breakpointicons.js > _dist/wepsim_web.js
-/usr/bin/yui-compressor -o _dist/min.wepsim_web.js _dist/wepsim_web.js
-rm -fr _dist/wepsim_web.js
+    wepsim/breakpointicons.js > ws_dist/wepsim_web.js
+/usr/bin/yui-compressor -o ws_dist/min.wepsim_web.js ws_dist/wepsim_web.js
+rm -fr ws_dist/wepsim_web.js
 
 #  WepSIM nodejs engine
-cat _dist/min.sim_all.js \
-    _dist/min.wepsim_web.js \
-    wepsim/wepsim_node.js > _dist/min.wepsim_node.js
+cat ws_dist/min.sim_all.js \
+    ws_dist/min.wepsim_web.js \
+    wepsim/wepsim_node.js > ws_dist/min.wepsim_node.js
 
 #  external
 cat external/popper.min.js \
@@ -104,7 +104,7 @@ cat external/popper.min.js \
     external/annyang.min.js \
     external/speechkitt.min.js \
     external/dropify.min.js \
-    external/fontawesome5/all.js > _dist/min.external.js
+    external/fontawesome5/all.js > ws_dist/min.external.js
 
 cat external/bootstrap.min.css \
     external/bootstrap-theme.min.css \
@@ -119,24 +119,24 @@ cat external/bootstrap.min.css \
     external/speech-input.css \
     external/speechkitt.css \
     external/dropify.min.css \
-    external/fontawesome5/all.css > _dist/min.external.css
+    external/fontawesome5/all.css > ws_dist/min.external.css
 
 #  examples, docs, etc.
-cp -a examples  _dist/
-          touch _dist/examples/index.html
-cp -a docs      _dist/
-          touch _dist/docs/index.html
-cp -a images    _dist/
-          touch _dist/images/index.html
-cp -a help      _dist/
-          touch _dist/help/index.html
+cp -a examples  ws_dist/
+          touch ws_dist/examples/index.html
+cp -a docs      ws_dist/
+          touch ws_dist/docs/index.html
+cp -a images    ws_dist/
+          touch ws_dist/images/index.html
+cp -a help      ws_dist/
+          touch ws_dist/help/index.html
 
 #  user interface
-sed "s/WEPSIM_ROOT/_dist/g" wepsim/wepsim.html    > index.html
-sed "s/WEPSIM_ROOT/\./g"    wepsim/wepsim.html    > _dist/index.html
-sed "s/WEPSIM_ROOT/\./g"    wepsim/wepsim_pwa.js  > _dist/min.wepsim_pwa.js
+sed "s/WEPSIM_ROOT/ws_dist/g" wepsim/wepsim.html    > index.html
+sed "s/WEPSIM_ROOT/\./g"      wepsim/wepsim.html    > ws_dist/index.html
+sed "s/WEPSIM_ROOT/\./g"      wepsim/wepsim_pwa.js  > ws_dist/min.wepsim_pwa.js
 
-cp manifest.webapp        _dist/
-cp wepsim/wepsim_node.sh  _dist/
-chmod a+x _dist/*.sh
+cp manifest.webapp        ws_dist/
+cp wepsim/wepsim_node.sh  ws_dist/
+chmod a+x ws_dist/*.sh
 
