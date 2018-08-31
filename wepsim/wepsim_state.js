@@ -146,7 +146,7 @@
                   '</div>' ;
 
 	     o += '  <div class="row">' +
-                  '       <div class="col-auto text-center flex-column d-none d-sm-flex pr-0">' +
+                  '       <div class="col-auto text-center flex-column d-none d-sm-flex pr-0" style="height:12vh;">' +
                   '              <h5 class="m-2"><span class="badge badge-pill border-secondary border">&nbsp;</span></h5>' +
                   '              <div class="row h-100"><div class="col border-right border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>' +
                   '       </div>' +
