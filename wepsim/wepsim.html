@@ -1047,8 +1047,6 @@
                <div class="carousel-inner" role="listbox">
                   <div class="carousel-item active">
 
-                        <h4 class="mt-2"><a data-toggle="collapse" href="#states3" 
-			                    aria-expanded="false" aria-controls="collapse states">State</a> (non-zero values):</h4>
                         <div class="container-fluid ml-1 pb-2 collapse show" id="states3"
 			     style="max-height:50vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
 			     <div class="row">
@@ -1057,7 +1055,7 @@
 				    <div class="row h-100"><div class="col border-right border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>
 			     </div>
 			     <div class="col py-2 pl-0">
-				<a class="col-auto pl-0" data-toggle="collapse" data-target="#collapse_X" target="_blank" href="#">&lt;Now&gt;</a>
+				<a class="col-auto pl-0" data-toggle="collapse" data-target="#collapse_X" target="_blank" href="#">&lt;Current State&gt;</a>
 				<div class="btn-group float-none" role="group" aria-label="State information for now">
 				  <div class="btn-group float-right" role="group" aria-label="State information for now">
                                           <button class="btn btn-outline-dark btn-sm col float-right"
@@ -1095,20 +1093,29 @@
 				</p>
 			     </div>
 			     </div>
+			</div>
+
+			<h4 class="mt-1">
+			    <a data-toggle="collapse" href="#history3">History</a>:
+                        </h4>
+                        <div class="container-fluid ml-1 pb-2 collapse show" id="history3"
+			     style="max-height:40vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
                              <div id="history1">
   		 	          <span style="background-color:#FCFC00">&lt;Empty history&gt;</span>
 			     </div>
 			</div>
 
 			<h4 class="mt-1">
-			    <a data-toggle="collapse" href="#check_results_scroll1">Differences</a> (only changed values):
+			    <a data-toggle="collapse" href="#check_results_scroll1">Differences</a>&nbsp;<span class="text-secondary">(only changed values)</span>:
 			    <span class="btn btn-outline-dark btn-sm"
 			          onclick="CopyFromDiv('check_results_scroll1'); return false;"
 			          data-inline="true">Copy to clipboard</i></span>
                         </h4>
-		        <div id="check_results_scroll1" class="collapse show"
-		             style="max-height:50vh; width:inherit; overflow-y:auto; -webkit-overflow-scrolling:touch;" >
-		             <div id="check_results1"><span style="background-color:#FCFC00">&lt;Empty&gt;</span></div>
+                        <div class="container-fluid ml-1 pb-2 collapse show" id="check_results_scroll1"
+		             style="max-height:40vh; width:inherit; overflow-y:auto; -webkit-overflow-scrolling:touch;" >
+		             <div id="check_results1">
+                                  <span style="background-color:#FCFC00">&lt;Empty&gt;</span>
+                             </div>
 		        </div>
                   </div>
                   <div class="carousel-item">
@@ -1133,8 +1140,9 @@
 			    wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
 			    wepsim_state_history_list();
                             wepsim_dialog_current_state();
+			    $('#states3').collapse('show');
 			    return false;"
-		   type="button">Add <span class='d-none d-sm-inline-flex'>'Now' to history</span></button>
+		   type="button">Add <span class='d-none d-sm-inline-flex'>'Current State' to history</span></button>
            <button type="button" 
                    data-role="none"
                    onclick="$('#current_state1').modal('hide');"

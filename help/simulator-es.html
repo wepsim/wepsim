@@ -564,8 +564,15 @@ register 5 >= 8 ; memory 1 = 0x10; screen 0 == first_line
 
       <div id="help_dumper">
 
-              El panel 'State' permite a los usuarios mostrar el estado actual como
-              una lista de los requisitos principales que lo define.
+              El panel 'Current state' muestra a los usuarios el estado actual como
+              una lista de los valores en los distintos elementos del hardware que no son cero.
+              Por defecto toda posición de memoria, valor de registro, etc. vale cero (y no se muestra),
+              pero los valores que sean distintos de cero son mostrados en el panel.
+
+              Dicha lista también puede verse como los requisitos principales tras la ejecuci&oacute;n 
+              de un c&oacute;digo, por lo que sirve para comparar y comprobar que es correcto 
+              (igual al estado esperado).
+
               En este panel los usuarios pueden copiar estos requisitos al portapapeles o
               también almacenar estos requisitos en el historial ('History').
 	      <ul>
@@ -578,14 +585,15 @@ register 5 >= 8 ; memory 1 = 0x10; screen 0 == first_line
               El panel 'History' permite a los usuarios llevar la pista con conjuntos de 
               requisitos principales en diferentes ciclos de reloj de CPU.
               Puede usarse para ver las diferencias del estado del procesador en dos momentos del tiempo.
-              Los requisitos principales en un instante pueden copiarse al portapapels, 
+              Los requisitos principales en un instante pueden copiarse al portapapeles, 
               y también se puede comparar los requisitos principales con los almacenados en el portapapeles.
 	      <p>
 
               Por favor recuerde dos detalles importantes:
 	      <ul>
-	         <li><b>Los puntos y coma son necesarios como separador de requisitos.</b></li>
-	         <li><b>Tenga cuidado porque las barras de scroll suelen estar ocultas.</b></li>
+	         <li><em>Los puntos y coma son necesarios como separador de requisitos.</em></li>
+	         <li><em>Tenga cuidado porque las barras de scroll suelen estar ocultas.</em></li>
+	         <li><em>Solo se muestran los valores distintos entre dos estados.</em></li>
 	      </ul>
 
       </div>
