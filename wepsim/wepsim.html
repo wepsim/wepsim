@@ -211,7 +211,7 @@
 		<tr>
 		<td align="center">
 	        <img src="images/ajax-loader.gif">
-	        <br>Loading WepSIM...
+		<br><span class="text-primary font-weight-bold">Loading WepSIM...</span>
 		</td>
 		</tr>
 		</table>
@@ -239,9 +239,9 @@
 	  <div class="carousel-inner">
 	  <div class="carousel-item active p-1" id="ws_simulator">
 	    <h6 class="pt-3">Simulator</h6>
-            <div class="row collapse show py-2 px-1" id="collapseA1" style="margin:1px">
+            <div class="row collapse show py-1 px-1" id="collapseA1" style="margin:1px">
 
-                    <div class="col-sm-auto">
+                    <div class="col-sm-auto p-1">
                     <div class="btn-toolbar btn-block" role="toolbar">
 		        <button class="btn btn-light shadow-sm my-1" data-role="none"
 		    	        style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
@@ -569,7 +569,7 @@
             <div class="row collapse show py-2 px-1" id="collapseA1">
 
                 <div class="container col-12" role="none">
-		<div class="col-sm"           role="toolbar" aria-label="MicroCode Toolbar">
+		<div class="col-sm px-1"      role="toolbar" aria-label="MicroCode Toolbar">
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button class="btn btn-light shadow-sm col" data-role="none"
@@ -643,7 +643,7 @@
             <div class="row collapse show py-2 px-1" id="collapseA1">
 
                 <div class="container col-12" role="none">
-		<div class="col-sm"           role="toolbar" aria-label="Assembly Toolbar">
+		<div class="col-sm px-1"      role="toolbar" aria-label="Assembly Toolbar">
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button class="btn btn-light shadow-sm col" data-role="none"
@@ -1426,18 +1426,10 @@
 		    });
 	    }) ;
 
-            $("div.wsversion").replaceWith(get_cfg('version'));
-
             var target = $("#asm_table");
             $("#asm_debugger_container").scroll(function() {
                target.prop("scrollTop", this.scrollTop).prop("scrollLeft", this.scrollLeft);
             });
-
-	    var ws_mode = get_cfg('ws_mode');
-            wepsim_change_mode(ws_mode, '#select4') ;
-	    sim_core_init_panel("#states_ALL", "#states_BR", "#io_ALL", 
-                                "#cpu_ALL", "#config_MP", "#config_IO"); 
-	    sim_core_reset(); 
 
             $('.dropify').dropify();
 
@@ -1450,6 +1442,14 @@
             //A1/ var inputEls = document.getElementById('end_state2');
             //A1/ if (null != inputEls)
             //A1/     setup_speech_input(inputEls) ;
+
+            $("div.wsversion").replaceWith(get_cfg('version'));
+
+	    var ws_mode = get_cfg('ws_mode');
+            wepsim_change_mode(ws_mode, '#select4') ;
+	    sim_core_init_panel("#states_ALL", "#states_BR", "#io_ALL", 
+                                "#cpu_ALL", "#config_MP", "#config_IO"); 
+	    sim_core_reset(); 
 
             wepsim_voice_init() ;
 	    if (false == get_cfg('use_voice')) {
@@ -1491,7 +1491,9 @@
     }
     catch(err) 
     {
-          alert("WepSIM was improperly used:\n" + err.message + "\n\nMore details:\n" + err.stack);
+          alert("WepSIM was improperly used:\n" + err.message + "\n" + 
+		"\n" + 
+		"More details:\n" + err.stack);
     }
 </script>
 <noscript>Your browser does not support JavaScript!</noscript>
