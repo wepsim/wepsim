@@ -160,12 +160,6 @@
     }
     </style>
 
-    <link async href="WEPSIM_ROOT/min.external.css" rel="stylesheet">
-    <script      src="WEPSIM_ROOT/min.external.js"></script>
-
-    <script src="WEPSIM_ROOT/min.sim_all.js"></script>
-    <script src="WEPSIM_ROOT/min.wepsim_web.js"></script>
-
     <!-- Google Analytics -->
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -211,6 +205,17 @@
 
 
 <body>
+
+	<span id="ws_loader" class="collapse show">
+		<table width="100%" height="100%" bgcolor="white">
+		<tr>
+		<td align="center">
+	        <img src="images/ajax-loader.gif">
+	        <br>Loading WepSIM...
+		</td>
+		</tr>
+		</table>
+	</span>
 
 	<nav class="navbar navbar-expand-lg fixed-top p-0" style="background-color: #EAEAEA">
 	    <span class="navbar-brand mr-auto">
@@ -310,7 +315,6 @@
                     </div>
 
             </div>
-
 
             <div class="row">
                 <div id="col1" class="" style="padding:12px 0px 0px 16px !important;">
@@ -1311,12 +1315,21 @@
 </div> <!-- /.modal -->
 
 
+    <link async href="WEPSIM_ROOT/min.external.css" rel="stylesheet">
+    <script      src="WEPSIM_ROOT/min.external.js"></script>
+
+    <script src="WEPSIM_ROOT/min.sim_all.js"></script>
+    <script src="WEPSIM_ROOT/min.wepsim_web.js"></script>
+
+
 <script>
     window.addEventListener("beforeunload", function (e) {
        var confirmationMessage = "\o/";
        (e || window.event).returnValue = confirmationMessage; // Gecko + IE
        return confirmationMessage;                            // Webkit, Safari, Chrome
     });
+
+    $("#ws_loader").collapse('hide') ;
 
     try 
     {
