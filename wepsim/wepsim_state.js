@@ -113,15 +113,26 @@
                               content: state_str }) ;
     }
 
-    function wepsim_state_history_list ( )
+    function wepsim_state_results_empty ( )
     {
 	 var empty_results = '<span style="background-color:#FCFC00">&lt;Empty (only modified values are shown)&gt;</span>' ;
+
+	 $('#check_results1').html(empty_results) ;
+    }
+
+    function wepsim_state_history_empty ( )
+    {
          var empty_history = '<span style="background-color:#FCFC00">&lt;Empty history&gt;</span>' ;
 
+         $('#history1').html(empty_history) ;
+    }
+
+    function wepsim_state_history_list ( )
+    {
          if (0 == state_history.length) 
          {
-             $('#history1').html(empty_history) ;
-	     $('#check_results1').html(empty_results) ;
+	     wepsim_state_history_empty() ;
+             wepsim_state_results_empty() ;
 
              return ;
          }
@@ -167,6 +178,7 @@
                   '                           id="' + it + '">+Info</button>' +
                   '                   <button class="btn btn-outline-dark btn-sm col float-right"' + 
                   '                           onclick="CopyFromDiv(\'state_' + i + '\');  ' + 
+                  '                                    wepsim_state_history_list(); ' + 
                   '                                    $(\'#s_clip\').html(\'' + state_history[i].title + '\'); ' + 
                   '                                    $(\'#s_ref\').html(\'reference\'); " ' + 
                   '                           type="button">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>' +
@@ -193,7 +205,7 @@
 
          // update contents
          $('#history1').html(o) ;
-	 $('#check_results1').html(empty_results) ;
+         wepsim_state_results_empty() ;
 
          // initializate popover
 	 $("[data-toggle=popover4]").popover({
