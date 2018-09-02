@@ -1191,7 +1191,14 @@
          <div class="bootbox-body">
 		<div class="card card-info border-light m-2">
 		<div class="card-body">
-		     <h5><span id="dlg_body2">&nbsp;</span></h5>
+		     <div class="row">
+		          <div class="col-auto">
+			       <i class="fas fa-comment-alt"></i>
+		          </div>
+		          <div class="col">
+		               <h5><span id="dlg_body2">&nbsp;</span></h5>
+		          </div>
+		     </div>
 		</div>
 		</div>
          </div>
@@ -1199,7 +1206,7 @@
       <div class="modal-footer">
            <button type="button" 
                    onclick="$('#current_state2').modal('hide');
-                            $('#current_state1').modal('show');"
+		            wepsim_dialog_current_state();"
                    data-role="none"
                    class="btn btn-secondary col-xs-3 pull-left shadow-none mr-auto">States</button>
            <button type="button" 
