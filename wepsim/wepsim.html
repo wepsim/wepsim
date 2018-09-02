@@ -1057,11 +1057,14 @@
 			     style="max-height:50vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
 			     <div class="row">
 			     <div class="col-auto text-center flex-column d-none d-sm-flex pr-0" style="height:12vh;">
-				    <h5 class="m-2"><span class="badge badge-pill border-secondary border">&nbsp;</span></h5>
+				    <h5 class="m-2">
+					<span class="badge badge-pill border-secondary border">
+						<a class="col-auto p-0" data-toggle="collapse" data-target="#collapse_X" target="_blank" href="#">Current<br> State</a>
+					</span>
+				    </h5>
 				    <div class="row h-100"><div class="col border-right border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>
 			     </div>
 			     <div class="col py-2 pl-0">
-				<a class="col-auto pl-0" data-toggle="collapse" data-target="#collapse_X" target="_blank" href="#">&lt;Current State&gt;</a>
 				<div class="btn-group float-none" role="group" aria-label="State information for now">
 				  <div class="btn-group float-right" role="group" aria-label="State information for now">
                                           <button class="btn btn-outline-dark btn-sm col float-right"
@@ -1082,8 +1085,7 @@
                                                   type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>
 				  </div>
                                 </div>
-				<p>
-				<div id="collapse_X" class="collapse show">
+				<div id="collapse_X" class="mt-2 collapse show">
 					<form id="end_state_form1" 
 					      class="form-horizontal" 
 					      style="white-space:wrap; overflow-y:auto; -webkit-overflow-scrolling:touch; width:100%;">
@@ -1101,7 +1103,6 @@
 						     rows="5"></textarea>
 					</form>
 				</div>
-				</p>
 			     </div>
 			     </div>
 			</div>
@@ -1127,7 +1128,7 @@
                         <div class="container-fluid ml-1 pb-2 collapse show" id="check_results_scroll1"
 		             style="max-height:40vh; width:inherit; overflow-y:auto; -webkit-overflow-scrolling:touch;" >
 			     <div class="row align-items-center">
-			     <div class="col-auto text-center flex-column d-none d-sm-flex pr-0" style="height:12vh;">
+			     <div class="col-auto text-center flex-column d-none d-sm-flex pr-0" style="height:16vh;">
 				  <span id="s_clip" class="badge badge-pill border-secondary border m-2">clipboard</span>
 				  <div class="row h-100"><div class="col border-right border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>
 				  <span id="s_ref"  class="badge badge-pill border-secondary border m-2">reference</span>
