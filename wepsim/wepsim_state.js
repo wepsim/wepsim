@@ -166,7 +166,9 @@
                   '                           data-toggle="popover4" data-html="true" type="button" ' + 
                   '                           id="' + it + '">+Info</button>' +
                   '                   <button class="btn btn-outline-dark btn-sm col float-right"' + 
-                  '                           onclick="CopyFromTextarea(\'ta_state_' + i + '\');" ' + 
+                  '                           onclick="CopyFromDiv(\'state_' + i + '\');  ' + 
+                  '                                    $(\'#s_clip\').html(\'' + state_history[i].title + '\'); ' + 
+                  '                                    $(\'#s_ref\').html(\'reference\'); " ' + 
                   '                           type="button">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>' +
                   '                   <button class="btn btn-outline-dark btn-sm col float-right"' + 
                   '                           onclick="var txt_chklst1 = get_clipboard_copy();' +
@@ -174,6 +176,7 @@
                   '                                    var txt_chklst2 = $(\'#ta_state_'+i+'\').val();' +
                   '                                    var obj_exp2    = simstate_checklist2state(txt_chklst2);' +
                   '                                    wepsim_dialog_check_state(\'check_results1\', obj_exp1, obj_exp2);' +
+                  '                                    $(\'#s_ref\').html(\'' + state_history[i].title + '\'); ' + 
                   '                                    $(\'#check_results_scroll1\').collapse(\'show\');"' +
                   '                           type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>' +
                   '             </div>' +

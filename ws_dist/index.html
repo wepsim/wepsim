@@ -1065,13 +1065,17 @@
 				<div class="btn-group float-none" role="group" aria-label="State information for now">
 				  <div class="btn-group float-right" role="group" aria-label="State information for now">
                                           <button class="btn btn-outline-dark btn-sm col float-right"
-					          onclick="CopyFromTextarea('end_state1'); return false;"
+					          onclick="CopyFromTextarea('end_state1'); 
+	                                                   $('#s_clip').html('now');
+	                                                   $('#s_ref').html('reference');
+	                                                   return false;"
 					          data-inline="true">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>
                                           <button class="btn btn-outline-dark btn-sm col float-right"
                                                   onclick="var txt_chklst1 = get_clipboard_copy();
                                                            var obj_exp1    = simstate_checklist2state(txt_chklst1);
                                                            var txt_chklst2 = $('#end_state1').val();
                                                            var obj_exp2    = simstate_checklist2state(txt_chklst2);
+	                                                   $('#s_ref').html('now');
                                                            wepsim_dialog_check_state('check_results1', obj_exp1, obj_exp2);
 						           $('#check_results_scroll1').collapse('show');"
                                                   type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>
@@ -1115,16 +1119,17 @@
 			<h4 class="mt-1">
 			    <a data-toggle="collapse" href="#check_results_scroll1">Differences</a>:&nbsp;
 			    <span class="btn btn-outline-dark btn-sm"
-			          onclick="CopyFromDiv('check_results_scroll1'); return false;"
+			          onclick="CopyFromDiv('check_results_scroll1'); 
+	                                   return false;"
 			          data-inline="true">Copy to clipboard</i></span>
                         </h4>
                         <div class="container-fluid ml-1 pb-2 collapse show" id="check_results_scroll1"
 		             style="max-height:40vh; width:inherit; overflow-y:auto; -webkit-overflow-scrolling:touch;" >
 			     <div class="row align-items-center">
 			     <div class="col-auto text-center flex-column d-none d-sm-flex pr-0" style="height:12vh;">
-				  <span class="badge badge-pill border-secondary border m-2">clipboard</span>
+				  <span id="s_clip" class="badge badge-pill border-secondary border m-2">clipboard</span>
 				  <div class="row h-100"><div class="col border-right border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>
-				  <span class="badge badge-pill border-secondary border m-2">reference</span>
+				  <span id="s_ref"  class="badge badge-pill border-secondary border m-2">reference</span>
 			     </div>
 			     <div class="col py-2 pl-2">
 				  <div id="check_results1">
@@ -1143,14 +1148,14 @@
          </div>
       </div>
       <div class="modal-footer">
-	   <button class="btn btn-secondary col-xs-3 pull-left"
+	   <button class="btn btn-sm btn-secondary col-xs-3 pull-left"
                    data-role="none"
 	   	   onclick="wepsim_state_history_reset();
 			    wepsim_notify_success('<strong>INFO</strong>', 'Removed all !.');
 			    wepsim_state_history_list() ;
 			    return false;"
 		   type="button">Reset <span class='d-none d-sm-inline-flex'>history</span></button>
-	   <button class="btn btn-secondary col-xs-3 pull-left"
+	   <button class="btn btn-sm btn-secondary col-xs-3 pull-left"
                    data-role="none"
 		   onclick="wepsim_state_history_add();
 			    wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
@@ -1162,7 +1167,7 @@
            <button type="button" 
                    data-role="none"
                    onclick="$('#current_state1').modal('hide');"
-                   class="btn btn-primary col-xs-3 pull-right shadow-none">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
+                   class="btn btn-sm btn-primary col-xs-3 pull-right shadow-none">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
       </div>
    </div>
 </div>
