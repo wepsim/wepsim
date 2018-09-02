@@ -109,19 +109,31 @@
          var timestamp = new Date().getTime() ;
 
          state_history.push({ time: timestamp,
-                              title: 'clock ' + reg_clk + ' @ &#181;address ' + reg_maddr,
+                              title:       'clock ' + reg_clk + ' @ &#181;address ' + reg_maddr,
+                              title_short: 'clock ' + reg_clk + ',<br>&#181;add '   + reg_maddr,
                               content: state_str }) ;
+    }
+
+    function wepsim_state_results_empty ( )
+    {
+	 var empty_results = '<span style="background-color:#FCFC00">&lt;Empty (only modified values are shown)&gt;</span>' ;
+
+	 $('#check_results1').html(empty_results) ;
+    }
+
+    function wepsim_state_history_empty ( )
+    {
+         var empty_history = '<span style="background-color:#FCFC00">&lt;Empty history&gt;</span>' ;
+
+         $('#history1').html(empty_history) ;
     }
 
     function wepsim_state_history_list ( )
     {
-	 var empty_results = '<span style="background-color:#FCFC00">&lt;Empty (only modified values are shown)&gt;</span>' ;
-         var empty_history = '<span style="background-color:#FCFC00">&lt;Empty history&gt;</span>' ;
-
          if (0 == state_history.length) 
          {
-             $('#history1').html(empty_history) ;
-	     $('#check_results1').html(empty_results) ;
+	     wepsim_state_history_empty() ;
+             wepsim_state_results_empty() ;
 
              return ;
          }
@@ -151,22 +163,28 @@
 
 	     vrow = '' ;
 	     if (i != 0)
-                 vrow = '<div class="row h-100"><div class="col border-right border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>' ;
+                 vrow = '<div class="row" style="max-height:12vh"><div class="col border-right border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>' ;
 
 	     o += '  <div class="row">' +
-                  '       <div class="col-auto text-center flex-column d-none d-sm-flex pr-0" style="height:12vh;">' +
-                  '              <h5 class="m-2"><span class="badge badge-pill border-secondary border">&nbsp;</span></h5>' +
+                  '       <div class="col-auto text-center flex-column d-flex pr-0">' +
+                  '              <h5 class="m-2">' + 
+		  '              <span class="badge badge-pill border-secondary border">' + 
+		  '  		       <a data-toggle="collapse" data-target="#collapse_'+i+'" ' + 
+		  '                       class="col-auto p-0" target="_blank" href="#">' + state_history[i].title_short + '</a>' +
+		  '              </span>' + 
+		  '              </h5>' +
 		 	         vrow +
                   '       </div>' +
                   '       <div class="col py-2 pl-0">' +
-		  '  		<a data-toggle="collapse" data-target="#collapse_'+i+'" ' + 
-		  '                class="col-auto pl-0" target="_blank" href="#">' + state_history[i].title + '</a>' +
                   '             <div class="btn-group float-none" role="group" aria-label="State information for ' + it + '">' +
                   '                  <button class="btn btn-outline-dark btn-sm col float-right"' + 
                   '                           data-toggle="popover4" data-html="true" type="button" ' + 
                   '                           id="' + it + '">+Info</button>' +
                   '                   <button class="btn btn-outline-dark btn-sm col float-right"' + 
-                  '                           onclick="CopyFromTextarea(\'ta_state_' + i + '\');" ' + 
+                  '                           onclick="CopyFromDiv(\'state_' + i + '\');  ' + 
+                  '                                    wepsim_state_history_list(); ' + 
+                  '                                    $(\'#s_clip\').html(\'' + state_history[i].title_short + '\'); ' + 
+                  '                                    $(\'#s_ref\').html(\'reference\'); " ' + 
                   '                           type="button">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>' +
                   '                   <button class="btn btn-outline-dark btn-sm col float-right"' + 
                   '                           onclick="var txt_chklst1 = get_clipboard_copy();' +
@@ -174,6 +192,7 @@
                   '                                    var txt_chklst2 = $(\'#ta_state_'+i+'\').val();' +
                   '                                    var obj_exp2    = simstate_checklist2state(txt_chklst2);' +
                   '                                    wepsim_dialog_check_state(\'check_results1\', obj_exp1, obj_exp2);' +
+                  '                                    $(\'#s_ref\').html(\'' + state_history[i].title_short + '\'); ' + 
                   '                                    $(\'#check_results_scroll1\').collapse(\'show\');"' +
                   '                           type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>' +
                   '             </div>' +
@@ -190,7 +209,7 @@
 
          // update contents
          $('#history1').html(o) ;
-	 $('#check_results1').html(empty_results) ;
+         wepsim_state_results_empty() ;
 
          // initializate popover
 	 $("[data-toggle=popover4]").popover({
@@ -256,9 +275,9 @@
         // dialog
         var msg = "" ;
         if (0 == obj_result.errors)
-    	     msg = "&emsp;<span style='background-color:#7CFC00'>" + 
-                       "Meets the specified requirements" + 
-                       "</span><br>" ;
+    	     msg = "&emsp;<br><span style='background-color:#7CFC00'>" + 
+                   "Meets the specified requirements" + 
+                   "</span><br>" ;
         else msg = simstate_checkreport2html(obj_result.result, true) ;
 
         $('#' + id_result).html(msg);

@@ -211,7 +211,7 @@
 		<tr>
 		<td align="center">
 	        <img src="images/ajax-loader.gif">
-	        <br>Loading WepSIM...
+		<br><span class="text-primary font-weight-bold">Loading WepSIM...</span>
 		</td>
 		</tr>
 		</table>
@@ -229,7 +229,8 @@
             <div id="navbarSupportedContent" 
 	         class="collapse navbar-collapse mx-auto py-0" style="background-color: #EAEAEA">
 	    <ul class="nav nav-pills ml-auto p-1">
-	       <li class="nav-item ml-auto"><img alt="ARCOS logo" src="images/arcos.svg" style="height:30pt" class="img-fluid rounded m-0 p-1"><strong>.</strong></li>
+	       <li class="nav-item ml-auto"><img alt="ARCOS logo" src="images/arcos.svg" style="height:30pt" class="img-fluid rounded m-0 p-1"></li>
+	       <li class="nav-item"><strong>.</strong></li>
 	       <li class="nav-item"><img alt="CS&E Departament logo" src="images/dptoinf.png" style="height:28pt" class="img-fluid rounded m-0 p-0"></li>
 	    </ul>
             </div>
@@ -239,9 +240,9 @@
 	  <div class="carousel-inner">
 	  <div class="carousel-item active p-1" id="ws_simulator">
 	    <h6 class="pt-3">Simulator</h6>
-            <div class="row collapse show py-2 px-1" id="collapseA1" style="margin:1px">
+            <div class="row collapse show py-1 px-1" id="collapseA1" style="margin:1px">
 
-                    <div class="col-sm-auto">
+                    <div class="col-sm-auto p-1">
                     <div class="btn-toolbar btn-block" role="toolbar">
 		        <button class="btn btn-light shadow-sm my-1" data-role="none"
 		    	        style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
@@ -446,7 +447,7 @@
                     </div>
                     </div>
 
-                    <div class="row row pl-2 pr-3">
+                    <div class="row row pl-2 pr-3 pt-1">
                     <div class="btn-toolbar btn-block" role="toolbar">
 		          <button class="btn btn-light shadow-sm col" data-role="none"
 		                  style="border-color: #CCCCCC; flex-grow:1;"
@@ -567,7 +568,7 @@
             <div class="row collapse show py-2 px-1" id="collapseA1">
 
                 <div class="container col-12" role="none">
-		<div class="col-sm"           role="toolbar" aria-label="MicroCode Toolbar">
+		<div class="col-sm px-1"      role="toolbar" aria-label="MicroCode Toolbar">
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button class="btn btn-light shadow-sm col" data-role="none"
@@ -641,7 +642,7 @@
             <div class="row collapse show py-2 px-1" id="collapseA1">
 
                 <div class="container col-12" role="none">
-		<div class="col-sm"           role="toolbar" aria-label="Assembly Toolbar">
+		<div class="col-sm px-1"      role="toolbar" aria-label="Assembly Toolbar">
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button class="btn btn-light shadow-sm col" data-role="none"
@@ -1054,29 +1055,36 @@
                         <div class="container-fluid ml-1 pb-0 collapse show" id="states3"
 			     style="max-height:50vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
 			     <div class="row">
-			     <div class="col-auto text-center flex-column d-none d-sm-flex pr-0" style="height:12vh;">
-				    <h5 class="m-2"><span class="badge badge-pill border-secondary border">&nbsp;</span></h5>
-				    <div class="row h-100"><div class="col border-right border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>
+			     <div class="col-auto text-center flex-column d-flex pr-0">
+				    <h5 class="m-2">
+					<span class="badge badge-pill border-secondary border">
+						<a class="col-auto p-0" data-toggle="collapse" data-target="#collapse_X" target="_blank" href="#">Current<br> State</a>
+					</span>
+				    </h5>
+				    <div class="row" style="max-height:12vh"><div class="col border-right border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>
 			     </div>
 			     <div class="col py-2 pl-0">
-				<a class="col-auto pl-0" data-toggle="collapse" data-target="#collapse_X" target="_blank" href="#">&lt;Current State&gt;</a>
 				<div class="btn-group float-none" role="group" aria-label="State information for now">
 				  <div class="btn-group float-right" role="group" aria-label="State information for now">
                                           <button class="btn btn-outline-dark btn-sm col float-right"
-					          onclick="CopyFromTextarea('end_state1'); return false;"
+					          onclick="CopyFromTextarea('end_state1'); 
+	                                                   $('#s_clip').html('now');
+	                                                   $('#s_ref').html('reference');
+	                                                   wepsim_state_results_empty();
+	                                                   return false;"
 					          data-inline="true">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>
                                           <button class="btn btn-outline-dark btn-sm col float-right"
                                                   onclick="var txt_chklst1 = get_clipboard_copy();
                                                            var obj_exp1    = simstate_checklist2state(txt_chklst1);
                                                            var txt_chklst2 = $('#end_state1').val();
                                                            var obj_exp2    = simstate_checklist2state(txt_chklst2);
+	                                                   $('#s_ref').html('now');
                                                            wepsim_dialog_check_state('check_results1', obj_exp1, obj_exp2);
 						           $('#check_results_scroll1').collapse('show');"
                                                   type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>
 				  </div>
                                 </div>
-				<p>
-				<div id="collapse_X" class="collapse show">
+				<div id="collapse_X" class="mt-2 collapse show">
 					<form id="end_state_form1" 
 					      class="form-horizontal" 
 					      style="white-space:wrap; overflow-y:auto; -webkit-overflow-scrolling:touch; width:100%;">
@@ -1094,7 +1102,6 @@
 						     rows="5"></textarea>
 					</form>
 				</div>
-				</p>
 			     </div>
 			     </div>
 			</div>
@@ -1113,16 +1120,17 @@
 			<h4 class="mt-1">
 			    <a data-toggle="collapse" href="#check_results_scroll1">Differences</a>:&nbsp;
 			    <span class="btn btn-outline-dark btn-sm"
-			          onclick="CopyFromDiv('check_results_scroll1'); return false;"
+			          onclick="CopyFromDiv('check_results_scroll1'); 
+	                                   return false;"
 			          data-inline="true">Copy to clipboard</i></span>
                         </h4>
                         <div class="container-fluid ml-1 pb-2 collapse show" id="check_results_scroll1"
 		             style="max-height:40vh; width:inherit; overflow-y:auto; -webkit-overflow-scrolling:touch;" >
 			     <div class="row align-items-center">
-			     <div class="col-auto text-center flex-column d-none d-sm-flex pr-0" style="height:12vh;">
-				  <span class="badge badge-pill border-secondary border m-2">clipboard</span>
-				  <div class="row h-100"><div class="col border-right border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>
-				  <span class="badge badge-pill border-secondary border m-2">reference</span>
+			     <div class="col-auto text-center flex-column d-flex pr-0">
+				  <span id="s_clip" class="badge badge-pill border-secondary border m-2">clipboard</span>
+				  <div class="row" style="max-height:16vh"><div class="col border-right border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>
+				  <span id="s_ref"  class="badge badge-pill border-secondary border m-2">reference</span>
 			     </div>
 			     <div class="col py-2 pl-2">
 				  <div id="check_results1">
@@ -1141,14 +1149,14 @@
          </div>
       </div>
       <div class="modal-footer">
-	   <button class="btn btn-secondary col-xs-3 pull-left"
+	   <button class="btn btn-sm btn-secondary col-xs-3 pull-left"
                    data-role="none"
 	   	   onclick="wepsim_state_history_reset();
 			    wepsim_notify_success('<strong>INFO</strong>', 'Removed all !.');
 			    wepsim_state_history_list() ;
 			    return false;"
 		   type="button">Reset <span class='d-none d-sm-inline-flex'>history</span></button>
-	   <button class="btn btn-secondary col-xs-3 pull-left"
+	   <button class="btn btn-sm btn-secondary col-xs-3 pull-left"
                    data-role="none"
 		   onclick="wepsim_state_history_add();
 			    wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
@@ -1160,7 +1168,7 @@
            <button type="button" 
                    data-role="none"
                    onclick="$('#current_state1').modal('hide');"
-                   class="btn btn-primary col-xs-3 pull-right shadow-none">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
+                   class="btn btn-sm btn-primary col-xs-3 pull-right shadow-none">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
       </div>
    </div>
 </div>
@@ -1182,7 +1190,14 @@
          <div class="bootbox-body">
 		<div class="card card-info border-light m-2">
 		<div class="card-body">
-		     <h5><span id="dlg_body2">&nbsp;</span></h5>
+		     <div class="row">
+		          <div class="col-auto">
+			       <i class="fas fa-comment-alt"></i>
+		          </div>
+		          <div class="col">
+		               <h5><span id="dlg_body2">&nbsp;</span></h5>
+		          </div>
+		     </div>
 		</div>
 		</div>
          </div>
@@ -1190,7 +1205,7 @@
       <div class="modal-footer">
            <button type="button" 
                    onclick="$('#current_state2').modal('hide');
-                            $('#current_state1').modal('show');"
+		            wepsim_dialog_current_state();"
                    data-role="none"
                    class="btn btn-secondary col-xs-3 pull-left shadow-none mr-auto">States</button>
            <button type="button" 
@@ -1424,18 +1439,10 @@
 		    });
 	    }) ;
 
-            $("div.wsversion").replaceWith(get_cfg('version'));
-
             var target = $("#asm_table");
             $("#asm_debugger_container").scroll(function() {
                target.prop("scrollTop", this.scrollTop).prop("scrollLeft", this.scrollLeft);
             });
-
-	    var ws_mode = get_cfg('ws_mode');
-            wepsim_change_mode(ws_mode, '#select4') ;
-	    sim_core_init_panel("#states_ALL", "#states_BR", "#io_ALL", 
-                                "#cpu_ALL", "#config_MP", "#config_IO"); 
-	    sim_core_reset(); 
 
             $('.dropify').dropify();
 
@@ -1448,6 +1455,14 @@
             //A1/ var inputEls = document.getElementById('end_state2');
             //A1/ if (null != inputEls)
             //A1/     setup_speech_input(inputEls) ;
+
+            $("div.wsversion").replaceWith(get_cfg('version'));
+
+	    var ws_mode = get_cfg('ws_mode');
+            wepsim_change_mode(ws_mode, '#select4') ;
+	    sim_core_init_panel("#states_ALL", "#states_BR", "#io_ALL", 
+                                "#cpu_ALL", "#config_MP", "#config_IO"); 
+	    sim_core_reset(); 
 
             wepsim_voice_init() ;
 	    if (false == get_cfg('use_voice')) {
@@ -1489,7 +1504,9 @@
     }
     catch(err) 
     {
-          alert("WepSIM was improperly used:\n" + err.message + "\n\nMore details:\n" + err.stack);
+          alert("WepSIM was improperly used:\n" + err.message + "\n" + 
+		"\n" + 
+		"More details:\n" + err.stack);
     }
 </script>
 <noscript>Your browser does not support JavaScript!</noscript>
