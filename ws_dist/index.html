@@ -1029,7 +1029,7 @@
 					<span class="badge badge-pill border-secondary border">
 						<a class="col-auto p-0" 
 					           data-toggle="collapse" data-target="#collapse_X" 
-						   target="_blank" href="#" id="curr_clk_maddr">Current<br> State</a>
+						   target="_blank" href="#" id="curr_clk_maddr">now</a>
 					</span>
 				    </h5>
 			     </div>
@@ -1038,7 +1038,8 @@
 				  <div class="btn-group float-right" role="group" aria-label="State information for now">
                                           <button class="btn btn-outline-dark btn-sm col float-right"
 					          onclick="CopyFromTextarea('end_state1'); 
-	                                                   $('#s_clip').html('now');
+	                                                   var curr_tag = $('#curr_clk_maddr').html();
+	                                                   $('#s_clip').html(curr_tag);
 	                                                   $('#s_ref').html('reference');
 	                                                   wepsim_state_results_empty();
 	                                                   return false;"
@@ -1048,7 +1049,8 @@
                                                            var obj_exp1    = simstate_checklist2state(txt_chklst1);
                                                            var txt_chklst2 = $('#end_state1').val();
                                                            var obj_exp2    = simstate_checklist2state(txt_chklst2);
-	                                                   $('#s_ref').html('now');
+	                                                   var ref_tag     = $('#curr_clk_maddr').html();
+	                                                   $('#s_ref').html(ref_tag);
                                                            wepsim_dialog_check_state('check_results1', obj_exp1, obj_exp2);
 						           $('#check_results_scroll1').collapse('show');"
                                                   type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>

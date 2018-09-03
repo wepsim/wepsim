@@ -190,9 +190,11 @@
                   '                           id="' + it + '">+Info</button>' +
                   '                   <button class="btn btn-outline-dark btn-sm col float-right"' + 
                   '                           onclick="wepsim_state_history_list();  ' + 
-                  '                                    $(\'#collapse_' + i + '\').collapse(\'show\'); ' + 
+                  '                                    $(\'#collapse_' + i + '\').collapse(\'show\') ' + 
+		  '							         .on(\'shown.bs.collapse\', function () { ' +
+                  '                                                                    $(\'#collapse_' + i + '\').collapse(\'hide\'); ' + 
+	          '						                 });' +
                   '                                    CopyFromDiv(\'state_' + i + '\');  ' + 
-                  '                                    $(\'#collapse_' + i + '\').collapse(\'hide\'); ' + 
                   '                                    $(\'#s_clip\').html(\'' + state_history[i].title_short + '\'); ' + 
                   '                                    $(\'#s_ref\').html(\'reference\'); " ' + 
                   '                           type="button">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>' +
