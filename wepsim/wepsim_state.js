@@ -91,6 +91,19 @@
      * Check state
      */
 
+    function wepsim_state_get_clk ( )
+    {
+         var reg_maddr = get_value(simhw_sim_state('REG_MICROADDR')) ;
+         var reg_clk   = get_value(simhw_sim_state('CLK')) ;
+         var timestamp = new Date().getTime() ;
+
+         return { 
+		   time:        timestamp,
+                   title:       'clock ' + reg_clk + ' @ &#181;address ' + reg_maddr,
+                   title_short: 'clock ' + reg_clk + ',<br>&#181;add '   + reg_maddr 
+	        } ;
+    }
+
     var state_history = [] ;
 
     function wepsim_state_history_reset ( )
@@ -102,16 +115,11 @@
 
     function wepsim_state_history_add ( )
     {
-         var reg_maddr = get_value(simhw_sim_state('REG_MICROADDR')) ;
-         var reg_clk   = get_value(simhw_sim_state('CLK')) ;
+         var ret       = wepsim_state_get_clk() ;
          var state_obj = simstate_current2state() ;
-         var state_str = simstate_state2checklist(state_obj) ;
-         var timestamp = new Date().getTime() ;
 
-         state_history.push({ time: timestamp,
-                              title:       'clock ' + reg_clk + ' @ &#181;address ' + reg_maddr,
-                              title_short: 'clock ' + reg_clk + ',<br>&#181;add '   + reg_maddr,
-                              content: state_str }) ;
+         ret.content = simstate_state2checklist(state_obj) ;
+         state_history.push(ret) ;
     }
 
     function wepsim_state_results_empty ( )
@@ -119,6 +127,8 @@
 	 var empty_results = '<span style="background-color:#FCFC00">&lt;Empty (only modified values are shown)&gt;</span>' ;
 
 	 $('#check_results1').html(empty_results) ;
+	 $('#s_clip').html('clipboard');
+          $('#s_ref').html('reference');
     }
 
     function wepsim_state_history_empty ( )
@@ -167,22 +177,20 @@
 
 	     o += '  <div class="row">' +
                   '       <div class="col-auto text-center flex-column d-flex pr-0">' +
-                  '              <h5 class="m-2">' + 
+                  '              <strong class="m-2">' + 
 		  '              <span class="badge badge-pill border-secondary border">' + 
 		  '  		       <a data-toggle="collapse" data-target="#collapse_'+i+'" ' + 
 		  '                       class="col-auto p-0" target="_blank" href="#">' + state_history[i].title_short + '</a>' +
 		  '              </span>' + 
-		  '              </h5>' +
+		  '              </strong>' +
 		 	         vrow +
                   '       </div>' +
                   '       <div class="col py-2 pl-0">' +
                   '             <div class="btn-group float-none" role="group" aria-label="State information for ' + it + '">' +
-                  '                  <button class="btn btn-outline-dark btn-sm col float-right"' + 
-                  '                           data-toggle="popover4" data-html="true" type="button" ' + 
-                  '                           id="' + it + '">+Info</button>' +
                   '                   <button class="btn btn-outline-dark btn-sm col float-right"' + 
-                  '                           onclick="CopyFromDiv(\'state_' + i + '\');  ' + 
-                  '                                    wepsim_state_history_list(); ' + 
+                  '                           onclick="wepsim_state_results_empty();  ' + 
+                  '                                    $(\'#collapse_' + i + '\').collapse(\'show\'); ' + 
+                  '                                    CopyFromDiv(\'state_' + i + '\');  ' + 
                   '                                    $(\'#s_clip\').html(\'' + state_history[i].title_short + '\'); ' + 
                   '                                    $(\'#s_ref\').html(\'reference\'); " ' + 
                   '                           type="button">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>' +
@@ -195,6 +203,9 @@
                   '                                    $(\'#s_ref\').html(\'' + state_history[i].title_short + '\'); ' + 
                   '                                    $(\'#check_results_scroll1\').collapse(\'show\');"' +
                   '                           type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>' +
+                  '                   <button class="btn btn-outline-dark btn-sm col float-right"' + 
+                  '                           data-toggle="popover4" data-html="true" type="button" ' + 
+                  '                           id="' + it + '">+Info</button>' +
                   '             </div>' +
 			        tt +
                   '             <div id="collapse_' + i + '" class="border border-secondary mt-2 collapse">' +
@@ -234,10 +245,11 @@
 
 	 setTimeout(function() {
 
-	      // tab1
-	      //wepsim_state_history_list() ; // called on: reset+add but not on show...
+	      // current clk+maddr
+              var ret = wepsim_state_get_clk() ;
+              $('#curr_clk_maddr').html(ret.title_short) ;
 
-	      // tab2
+	      // current state
 	      var state_obj     = simstate_current2state() ;
 	      var txt_checklist = simstate_state2checklist(state_obj) ;
 	      $('#end_state1').tokenfield('setTokens', txt_checklist);
@@ -259,6 +271,7 @@
 	           ga_str = ga_str + "," + component + "=" + nceltos ;
                    neltos = neltos + nceltos ;
 	      }
+
               ga('send', 'event', 'state', 
 	         'state.dump', 
 	         'state.dump' + '.ci=' + get_value(simhw_sim_state('REG_IR_DECO')) +
