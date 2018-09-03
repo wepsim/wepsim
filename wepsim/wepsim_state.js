@@ -91,6 +91,19 @@
      * Check state
      */
 
+    function wepsim_state_get_clk ( )
+    {
+         var reg_maddr = get_value(simhw_sim_state('REG_MICROADDR')) ;
+         var reg_clk   = get_value(simhw_sim_state('CLK')) ;
+         var timestamp = new Date().getTime() ;
+
+         return { 
+		   time:        timestamp,
+                   title:       'clock ' + reg_clk + ' @ &#181;address ' + reg_maddr,
+                   title_short: 'clock ' + reg_clk + ',<br>&#181;add '   + reg_maddr 
+	        } ;
+    }
+
     var state_history = [] ;
 
     function wepsim_state_history_reset ( )
@@ -102,16 +115,11 @@
 
     function wepsim_state_history_add ( )
     {
-         var reg_maddr = get_value(simhw_sim_state('REG_MICROADDR')) ;
-         var reg_clk   = get_value(simhw_sim_state('CLK')) ;
+         var ret       = wepsim_state_get_clk() ;
          var state_obj = simstate_current2state() ;
-         var state_str = simstate_state2checklist(state_obj) ;
-         var timestamp = new Date().getTime() ;
 
-         state_history.push({ time: timestamp,
-                              title:       'clock ' + reg_clk + ' @ &#181;address ' + reg_maddr,
-                              title_short: 'clock ' + reg_clk + ',<br>&#181;add '   + reg_maddr,
-                              content: state_str }) ;
+         ret.content = simstate_state2checklist(state_obj) ;
+         state_history.push(ret) ;
     }
 
     function wepsim_state_results_empty ( )
@@ -181,8 +189,10 @@
                   '                           data-toggle="popover4" data-html="true" type="button" ' + 
                   '                           id="' + it + '">+Info</button>' +
                   '                   <button class="btn btn-outline-dark btn-sm col float-right"' + 
-                  '                           onclick="CopyFromDiv(\'state_' + i + '\');  ' + 
-                  '                                    wepsim_state_history_list(); ' + 
+                  '                           onclick="wepsim_state_history_list();  ' + 
+                  '                                    $(\'#collapse_' + i + '\').collapse(\'show\'); ' + 
+                  '                                    CopyFromDiv(\'state_' + i + '\');  ' + 
+                  '                                    $(\'#collapse_' + i + '\').collapse(\'hide\'); ' + 
                   '                                    $(\'#s_clip\').html(\'' + state_history[i].title_short + '\'); ' + 
                   '                                    $(\'#s_ref\').html(\'reference\'); " ' + 
                   '                           type="button">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>' +
@@ -234,10 +244,11 @@
 
 	 setTimeout(function() {
 
-	      // tab1
-	      //wepsim_state_history_list() ; // called on: reset+add but not on show...
+	      // current clk+maddr
+              var ret = wepsim_state_get_clk() ;
+              $('#curr_clk_maddr').html(ret.title_short) ;
 
-	      // tab2
+	      // current state
 	      var state_obj     = simstate_current2state() ;
 	      var txt_checklist = simstate_state2checklist(state_obj) ;
 	      $('#end_state1').tokenfield('setTokens', txt_checklist);
@@ -259,6 +270,7 @@
 	           ga_str = ga_str + "," + component + "=" + nceltos ;
                    neltos = neltos + nceltos ;
 	      }
+
               ga('send', 'event', 'state', 
 	         'state.dump', 
 	         'state.dump' + '.ci=' + get_value(simhw_sim_state('REG_IR_DECO')) +
