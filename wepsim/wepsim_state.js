@@ -127,6 +127,8 @@
 	 var empty_results = '<span style="background-color:#FCFC00">&lt;Empty (only modified values are shown)&gt;</span>' ;
 
 	 $('#check_results1').html(empty_results) ;
+	 $('#s_clip').html('clipboard');
+          $('#s_ref').html('reference');
     }
 
     function wepsim_state_history_empty ( )
@@ -175,22 +177,19 @@
 
 	     o += '  <div class="row">' +
                   '       <div class="col-auto text-center flex-column d-flex pr-0">' +
-                  '              <h5 class="m-2">' + 
+                  '              <strong class="m-2">' + 
 		  '              <span class="badge badge-pill border-secondary border">' + 
 		  '  		       <a data-toggle="collapse" data-target="#collapse_'+i+'" ' + 
 		  '                       class="col-auto p-0" target="_blank" href="#">' + state_history[i].title_short + '</a>' +
 		  '              </span>' + 
-		  '              </h5>' +
+		  '              </strong>' +
 		 	         vrow +
                   '       </div>' +
                   '       <div class="col py-2 pl-0">' +
                   '             <div class="btn-group float-none" role="group" aria-label="State information for ' + it + '">' +
                   '                   <button class="btn btn-outline-dark btn-sm col float-right"' + 
-                  '                           onclick="wepsim_state_history_list();  ' + 
-                  '                                    $(\'#collapse_' + i + '\').collapse(\'show\') ' + 
-		  '							         .on(\'shown.bs.collapse\', function () { ' +
-                  '                                                                    $(\'#collapse_' + i + '\').collapse(\'hide\'); ' + 
-	          '						                 });' +
+                  '                           onclick="wepsim_state_results_empty();  ' + 
+                  '                                    $(\'#collapse_' + i + '\').collapse(\'show\'); ' + 
                   '                                    CopyFromDiv(\'state_' + i + '\');  ' + 
                   '                                    $(\'#s_clip\').html(\'' + state_history[i].title_short + '\'); ' + 
                   '                                    $(\'#s_ref\').html(\'reference\'); " ' + 

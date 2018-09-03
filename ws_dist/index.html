@@ -983,7 +983,7 @@
                <div class="btn-group">
                   <button onclick="$('#bot_check1').carousel(0);"
                           type="button" 
-                          class="btn btn-secondary"
+                          class="btn btn-dark"
                           data-role="none">States</button>
                   <button onclick="$('#bot_check1').carousel(1);
                                    update_checker_loadhelp('#help3a','help_dumper');"
@@ -1025,23 +1025,23 @@
 			     style="max-height:50vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
 			     <div class="row">
 			     <div class="col-auto text-center flex-column d-flex pr-0">
-				    <h5 class="m-2">
+				    <strong class="m-2">
 					<span class="badge badge-pill border-secondary border">
 						<a class="col-auto p-0" 
 					           data-toggle="collapse" data-target="#collapse_X" 
 						   target="_blank" href="#" id="curr_clk_maddr">now</a>
 					</span>
-				    </h5>
+				    </strong>
+				    <div class="row" style="max-height:2vh"><div class="col">&nbsp;</div><div class="col">&nbsp;</div></div>
 			     </div>
 			     <div class="col py-2 pl-0">
 				<div class="btn-group float-none" role="group" aria-label="State information for now">
 				  <div class="btn-group float-right" role="group" aria-label="State information for now">
                                           <button class="btn btn-outline-dark btn-sm col float-right"
 					          onclick="CopyFromTextarea('end_state1'); 
+	                                                   wepsim_state_results_empty();
 	                                                   var curr_tag = $('#curr_clk_maddr').html();
 	                                                   $('#s_clip').html(curr_tag);
-	                                                   $('#s_ref').html('reference');
-	                                                   wepsim_state_results_empty();
 	                                                   return false;"
 					          data-inline="true">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>
                                           <button class="btn btn-outline-dark btn-sm col float-right"
@@ -1078,7 +1078,7 @@
 			     </div>
 			</div>
 
-			<h4 class="mt-1 mb-0">
+			<h4 class="my-0">
 			    <a data-toggle="collapse" href="#history3">History</a>:
                         </h4>
                         <div class="container-fluid ml-1 pb-2 collapse show" id="history3"
@@ -1121,14 +1121,14 @@
          </div>
       </div>
       <div class="modal-footer">
-	   <button class="btn btn-sm btn-secondary col-xs-3 pull-left"
+	   <button class="btn btn-dark btn-sm col-xs-3 col-sm-2 float-left"
                    data-role="none"
 	   	   onclick="wepsim_state_history_reset();
 			    wepsim_notify_success('<strong>INFO</strong>', 'Removed all !.');
 			    wepsim_state_history_list() ;
 			    return false;"
 		   type="button">Reset <span class='d-none d-sm-inline-flex'>history</span></button>
-	   <button class="btn btn-sm btn-secondary col-xs-3 pull-left"
+	   <button class="btn btn-dark btn-sm col-xs-3 col-sm-3 float-left mr-auto"
                    data-role="none"
 		   onclick="wepsim_state_history_add();
 			    wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
@@ -1137,10 +1137,10 @@
 			    $('#states3').collapse('show');
 			    return false;"
 		   type="button">Add <span class='d-none d-sm-inline-flex'>'Current State' to history</span></button>
-           <button type="button" 
+           <button class="btn btn-primary btn-sm col-xs-3 col-sm-2 pull-right shadow-none"
                    data-role="none"
                    onclick="$('#current_state1').modal('hide');"
-                   class="btn btn-sm btn-primary col-xs-3 pull-right shadow-none">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
+                   type="button">OK</button>
       </div>
    </div>
 </div>
@@ -1310,13 +1310,12 @@
 
 
 <script>
-    window.addEventListener("beforeunload", function (e) {
-       var confirmationMessage = "\o/";
-       (e || window.event).returnValue = confirmationMessage; // Gecko + IE
-       return confirmationMessage;                            // Webkit, Safari, Chrome
-    });
-
-    $("#ws_loader").collapse('hide') ;
+    window.addEventListener("beforeunload", 
+	                    function (e) {
+			         var confirmationMessage = "\o/";
+			         (e || window.event).returnValue = confirmationMessage; // Gecko + IE
+			         return confirmationMessage;                            // Webkit, Safari, Chrome
+			    });
 
     try 
     {
@@ -1324,12 +1323,12 @@
 
 	    $(document).ready(function()
 	    {
+                    $("#ws_loader").collapse('hide') ;
+
 		    if (typeof jQuery.fx != "undefined")
 		        jQuery.fx.off = true;
 		    if (typeof ko != "undefined")
                         ko.options.deferUpdates = true;
-
-		    //$(".ui-slider-input").hide();
 
 		    inputfirm = CodeMirror.fromTextArea(document.getElementById("inputFirmware"), 
                                 {
@@ -1409,37 +1408,37 @@
 			                  return $('#popover-content-' + id).html();
 			             }
 		    });
+
+		    var target = $("#asm_table");
+		    $("#asm_debugger_container").scroll(function() {
+		       target.prop("scrollTop", this.scrollTop).prop("scrollLeft", this.scrollLeft);
+		    });
+
+		    $('.dropify').dropify();
+
+		    $('#end_state1').tokenfield({ inputType: 'textarea' }) ;
+		    //A1/ var inputEls = document.getElementById('end_state1');
+		    //A1/ if (null != inputEls)
+		    //A1/     setup_speech_input(inputEls) ;
+
+		    $('#end_state2').tokenfield({ inputType: 'textarea' }) ;
+		    //A1/ var inputEls = document.getElementById('end_state2');
+		    //A1/ if (null != inputEls)
+		    //A1/     setup_speech_input(inputEls) ;
+
+		    $("div.wsversion").replaceWith(get_cfg('version'));
+
+		    var ws_mode = get_cfg('ws_mode');
+		    wepsim_change_mode(ws_mode, '#select4') ;
+		    sim_core_init_panel("#states_ALL", "#states_BR", "#io_ALL", 
+					"#cpu_ALL", "#config_MP", "#config_IO"); 
+		    sim_core_reset(); 
+
+		    wepsim_voice_init() ;
+		    if (false == get_cfg('use_voice')) {
+			wepsim_voice_stop() ;
+		    }
 	    }) ;
-
-            var target = $("#asm_table");
-            $("#asm_debugger_container").scroll(function() {
-               target.prop("scrollTop", this.scrollTop).prop("scrollLeft", this.scrollLeft);
-            });
-
-            $('.dropify').dropify();
-
-            $('#end_state1').tokenfield({ inputType: 'textarea' }) ;
-            //A1/ var inputEls = document.getElementById('end_state1');
-            //A1/ if (null != inputEls)
-            //A1/     setup_speech_input(inputEls) ;
-
-            $('#end_state2').tokenfield({ inputType: 'textarea' }) ;
-            //A1/ var inputEls = document.getElementById('end_state2');
-            //A1/ if (null != inputEls)
-            //A1/     setup_speech_input(inputEls) ;
-
-            $("div.wsversion").replaceWith(get_cfg('version'));
-
-	    var ws_mode = get_cfg('ws_mode');
-            wepsim_change_mode(ws_mode, '#select4') ;
-	    sim_core_init_panel("#states_ALL", "#states_BR", "#io_ALL", 
-                                "#cpu_ALL", "#config_MP", "#config_IO"); 
-	    sim_core_reset(); 
-
-            wepsim_voice_init() ;
-	    if (false == get_cfg('use_voice')) {
-		wepsim_voice_stop() ;
-	    }
 
             // progressive web application
 	    if ( (false == is_mobile()) && ('serviceWorker' in navigator) )
@@ -1476,6 +1475,8 @@
     }
     catch(err) 
     {
+          $("#ws_loader").collapse('hide') ;
+
           alert("WepSIM was improperly used:\n" + err.message + "\n" + 
 		"\n" + 
 		"More details:\n" + err.stack);
