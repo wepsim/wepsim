@@ -185,9 +185,6 @@
                   '       </div>' +
                   '       <div class="col py-2 pl-0">' +
                   '             <div class="btn-group float-none" role="group" aria-label="State information for ' + it + '">' +
-                  '                  <button class="btn btn-outline-dark btn-sm col float-right"' + 
-                  '                           data-toggle="popover4" data-html="true" type="button" ' + 
-                  '                           id="' + it + '">+Info</button>' +
                   '                   <button class="btn btn-outline-dark btn-sm col float-right"' + 
                   '                           onclick="wepsim_state_history_list();  ' + 
                   '                                    $(\'#collapse_' + i + '\').collapse(\'show\') ' + 
@@ -207,6 +204,9 @@
                   '                                    $(\'#s_ref\').html(\'' + state_history[i].title_short + '\'); ' + 
                   '                                    $(\'#check_results_scroll1\').collapse(\'show\');"' +
                   '                           type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>' +
+                  '                   <button class="btn btn-outline-dark btn-sm col float-right"' + 
+                  '                           data-toggle="popover4" data-html="true" type="button" ' + 
+                  '                           id="' + it + '">+Info</button>' +
                   '             </div>' +
 			        tt +
                   '             <div id="collapse_' + i + '" class="border border-secondary mt-2 collapse">' +
