@@ -191,6 +191,7 @@
                   '                           onclick="wepsim_state_results_empty();  ' + 
                   '                                    $(\'#collapse_' + i + '\').collapse(\'show\'); ' + 
                   '                                    CopyFromDiv(\'state_' + i + '\');  ' + 
+                  '                                    $(\'#collapse_' + i + '\').collapse(\'hide\'); ' + 
                   '                                    $(\'#s_clip\').html(\'' + state_history[i].title_short + '\'); ' + 
                   '                                    $(\'#s_ref\').html(\'reference\'); " ' + 
                   '                           type="button">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>' +
