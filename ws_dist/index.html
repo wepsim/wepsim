@@ -174,7 +174,7 @@
 		<table width="100%" height="100%" bgcolor="white">
 		<tr>
 		<td align="center">
-	        <img src="images/ajax-loader.gif">
+	        <img src="images/ajax-loader.gif" style="min-height:5vh">
 		<br><span class="text-primary font-weight-bold">Loading WepSIM...</span>
 		</td>
 		</tr>
@@ -1032,11 +1032,9 @@
 						   target="_blank" href="#" id="curr_clk_maddr">now</a>
 					</span>
 				    </strong>
-				    <div class="row" style="max-height:2vh"><div class="col">&nbsp;</div><div class="col">&nbsp;</div></div>
 			     </div>
-			     <div class="col py-2 pl-0">
+			     <div class="col pt-2 pl-0">
 				<div class="btn-group float-none" role="group" aria-label="State information for now">
-				  <div class="btn-group float-right" role="group" aria-label="State information for now">
                                           <button class="btn btn-outline-dark btn-sm col float-right"
 					          onclick="CopyFromTextarea('end_state1'); 
 	                                                   wepsim_state_results_empty();
@@ -1054,11 +1052,10 @@
                                                            wepsim_dialog_check_state('check_results1', obj_exp1, obj_exp2);
 						           $('#check_results_scroll1').collapse('show');"
                                                   type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>
-				  </div>
                                 </div>
 				<div id="collapse_X" class="mt-2 collapse show">
 					<form id="end_state_form1" 
-					      class="form-horizontal" 
+					      class="form-horizontal mb-2"
 					      style="white-space:wrap; overflow-y:auto; -webkit-overflow-scrolling:touch; width:100%;">
 					   <textarea aria-label="checks to perform" 
 						     placeholder="Default..." 
@@ -1078,7 +1075,7 @@
 			     </div>
 			</div>
 
-			<h4 class="my-0">
+			<h4 class="mt-1">
 			    <a data-toggle="collapse" href="#history3">History</a>:
                         </h4>
                         <div class="container-fluid ml-1 pb-2 collapse show" id="history3"
@@ -1121,14 +1118,14 @@
          </div>
       </div>
       <div class="modal-footer">
-	   <button class="btn btn-dark btn-sm col-xs-3 col-sm-2 float-left"
+	   <button class="btn btn-dark btn-sm col-xs-3 col-sm-2 float-right"
                    data-role="none"
 	   	   onclick="wepsim_state_history_reset();
 			    wepsim_notify_success('<strong>INFO</strong>', 'Removed all !.');
 			    wepsim_state_history_list() ;
 			    return false;"
 		   type="button">Reset <span class='d-none d-sm-inline-flex'>history</span></button>
-	   <button class="btn btn-dark btn-sm col-xs-3 col-sm-3 float-left mr-auto"
+	   <button class="btn btn-dark btn-sm col-xs-3 col-sm-3 float-right"
                    data-role="none"
 		   onclick="wepsim_state_history_add();
 			    wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
@@ -1136,11 +1133,11 @@
                             wepsim_dialog_current_state();
 			    $('#states3').collapse('show');
 			    return false;"
-		   type="button">Add <span class='d-none d-sm-inline-flex'>'Current State' to history</span></button>
-           <button class="btn btn-primary btn-sm col-xs-3 col-sm-2 pull-right shadow-none"
+		   type="button">Add <span class='d-none d-sm-inline-flex'>'Current State' to History</span></button>
+           <button class="btn btn-danger btn-sm col-xs-3 col-sm-2 pull-right shadow-none"
                    data-role="none"
                    onclick="$('#current_state1').modal('hide');"
-                   type="button">OK</button>
+                   type="button">Close</button>
       </div>
    </div>
 </div>
