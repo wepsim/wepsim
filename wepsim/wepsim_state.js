@@ -178,7 +178,7 @@
 	     o += '  <div class="row">' +
                   '       <div class="col-auto text-center flex-column d-flex pr-0">' +
                   '              <strong class="m-2">' + 
-		  '              <span class="badge badge-pill border-secondary border">' + 
+		  '              <span class="badge badge-pill border-secondary border shadow">' + 
 		  '  		       <a data-toggle="collapse" data-target="#collapse_'+i+'" ' + 
 		  '                       class="col-auto p-0" target="_blank" href="#">' + state_history[i].title_short + '</a>' +
 		  '              </span>' + 
