@@ -254,8 +254,9 @@
                                        background-color:#D4DB17;"
 		                onclick="wepsim_open_help_index();
                                          wepsim_help_refresh();"><strong>Help</strong></button>
-			<select name="select4" id="select4" class="custom-select btn btn-light shadow-sm col my-1"
-				aria-label="Execution mode"
+			<select class="custom-select btn btn-light shadow-sm col my-1"
+				aria-label="Execution mode" 
+                                name="select4" id="select4" 
 				onchange="var opt = $(this).find('option:selected');
 					  var optValue = opt.val();
 					  set_cfg('ws_mode', optValue); 
@@ -426,6 +427,7 @@
 		                  onclick="wepsim_dialog_current_state();"><em class="fas fa-camera"></em>&nbsp;States</button>
                           <select class="custom-select btn btn-light shadow-sm col"
                                   style="border-color: #CCCCCC; flex-grow:2;"
+				  aria-label="select CPU, MM or DEV element to work with"
 				  name="select5a" id="select5a" 
                                   onchange="var val = this.value;
 				            $('#tab' + val).trigger('click');
@@ -510,10 +512,14 @@
 		              <div id="memory_MC" style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="con">
-				 <img alt="monitor" height=55 src="images/monitor2.png">
-				 <textarea aria-label="monitor" style="min-width:90%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 8 0" placeholder="WepSIM" id="kdb_con" rows=8 readonly></textarea>
-				 <img alt="keyboard" height=35 src="images/keyboard1.png">
-				 <textarea aria-label="keyboard" style="min-width:90%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 0 0" placeholder="WepSIM" id="kdb_key" rows=2></textarea>
+				 <label class="my-0" for="monitor"><img alt="monitor" height=55 src="images/monitor2.png"></label>
+				 <textarea aria-label="monitor" 
+					   style="min-width:90%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 8 0" 
+					   placeholder="WepSIM" id="kdb_con" rows=8 readonly></textarea>
+				 <label class="my-0" for="keyboard"><img alt="keyboard" height=35 src="images/keyboard1.png"></label>
+				 <textarea aria-label="keyboard" 
+					   style="min-width:90%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 0 0" 
+					   placeholder="WepSIM" id="kdb_key" rows=2></textarea>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="io">
 		              <div id="io_ALL" style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
@@ -599,8 +605,9 @@
 
 	    </div>
 
-	    <div id="t3_firm" class="ui-body-d ui-content p-2" 
+	    <div id="t3_firm" class="ui-body-d ui-content px-2 py-0" 
                  style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
+		     <label class="my-0" for="microcode"><small>microcode:</small></label>
 		     <textarea aria-label="microcode" style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
                                placeholder="Please select 'Example' or 'Load' first in order to have an initial Microcode."
                                id="inputFirmware" rows=20></textarea>
@@ -667,9 +674,10 @@
 
 	    </div>
 
-	    <div id="t4_asm" class="ui-body-d ui-content p-2"
+	    <div id="t4_asm" class="ui-body-d ui-content px-2 py-0"
                  style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
-		     <textarea aria-label="Assembly" 
+		     <label class="my-0" for="assembly"><small>assembly:</small></label>
+		     <textarea aria-label="assembly" 
                                style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
                                placeholder="Please select 'Load' first to have the assembly code to work with."
 			       id="inputAssembly" rows="20"></textarea>
@@ -1051,7 +1059,8 @@
 					<form id="end_state_form1" 
 					      class="form-horizontal mb-2"
 					      style="white-space:wrap; overflow-y:auto; -webkit-overflow-scrolling:touch; width:100%;">
-					   <textarea aria-label="checks to perform" 
+		                           <label class="my-0" for="current_state"><small>state:</small></label>
+					   <textarea aria-label="current_state" 
 						     placeholder="Default..." 
 						     id="end_state1" 
 						     name="end_state1" 
