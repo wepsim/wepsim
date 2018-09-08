@@ -4,7 +4,7 @@
     tutorials.welcome.es.push({
                      id:          "welcome",
                      title:       "¡Bienvenidos al simulador WepSIM!",
-                     message:     "<center><img src='help/simulator/simulator012.jpg' style='max-width:100%; max-height:40vh;'></center>" +
+                     message:     "<center><img alt='wepsim screenshot' src='help/simulator/simulator012.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                   "<p>" +
                                   "<h5>" +
                                   "WepSIM permite a estudiantes y profesores definir un juego de instrucciones, " + 
@@ -21,7 +21,7 @@
     tutorials.welcome.es.push({
                      id:          "welcome",
                      title:       "¡Bienvenidos al simulador WepSIM!",
-                     message:     "<center><img src='help/simulator/simulator012.jpg' style='max-width:100%; max-height:40vh;'></center>" +
+                     message:     "<center><img alt='wepsim screenshot' src='help/simulator/simulator012.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                   "<p>" +
                                   "<h5>" +
                                   "Este breve tutorial le mostrar&aacute;:" +
@@ -40,7 +40,7 @@
     tutorials.welcome.es.push({
                      id:          "welcome",
                      title:       "C&oacute;mo cargar algunos ejemplos.",
-                     message:     "<center><img src='help/welcome/example_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
+                     message:     "<center><img alt='wepsim screenshot' src='help/welcome/example_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
                                   "Haga click en el bot&oacute;n de 'examples' y haga click en el 't&iacute;tulo' del ejemplo que desea cargar." +
@@ -54,7 +54,7 @@
     tutorials.welcome.es.push({
                      id:          "welcome",
                      title:       "C&oacute;mo cargar algunos ejemplos.",
-                     message:     "<center><img src='help/welcome/simulation_xinstruction.gif' style='max-width:100%; max-height:60vh'></center>" +
+                     message:     "<center><img alt='wepsim screenshot' src='help/welcome/simulation_xinstruction.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
                                   "Haga click en next instruction/microinstruction para ejecutar paso a paso. <br>" + 
@@ -69,7 +69,7 @@
     tutorials.welcome.es.push({
                      id:          "welcome",
                      title:       "C&oacute;mo configurar WepSIM.",
-                     message:     "<center><img src='help/welcome/config_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
+                     message:     "<center><img alt='wepsim screenshot' src='help/welcome/config_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
                                   "Haga click en el bot&oacute;n de configuraci&oacute;n para configurar diversos aspectos de WepSIM para su comididad." +
@@ -83,7 +83,7 @@
     tutorials.welcome.es.push({
                      id:          "welcome",
                      title:       "C&oacute;mo conseguir la ayuda b&aacute;sica.",
-                     message:     "<center><img src='help/welcome/help_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
+                     message:     "<center><img alt='wepsim screenshot' src='help/welcome/help_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
                                   "Haga click en el bot&oacute;n verde de ayuda 'help'.<br>" +
@@ -98,7 +98,7 @@
     tutorials.welcome.es.push({
                      id:          "welcome",
                      title:       "¡Bienvenido a WepSIM!",
-                     message:     "<center><img src='help/welcome/help_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
+                     message:     "<center><img alt='wepsim screenshot' src='help/welcome/help_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
                                   "<br>" +

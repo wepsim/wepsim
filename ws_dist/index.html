@@ -2,7 +2,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
     <title>WepSIM</title>
@@ -35,14 +35,16 @@
     }
 
     .modal-header {
-	padding: 5 5 5 5 !important;
+	padding: 7 7 7 7 !important;
+        border-color: #AAAAAA !important;
         background-color: #EEEEEE !important;
     }
     .modal-body {
 	padding: 10 10 10 10 !important;
     }
     .modal-footer {
-	padding: 8 8 8 8 !important;
+	padding: 7 7 7 7 !important;
+        border-color: #AAAAAA !important;
         background-color: #EEEEEE !important;
     }
 
@@ -130,7 +132,7 @@
     </style>
 
     <!-- Google Analytics -->
-    <script>
+    <script type="text/javascript">
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -178,8 +180,8 @@
 		<table width="100%" height="100%" bgcolor="white">
 		<tr>
 		<td align="center">
-	        <img src="images/ajax-loader.gif" style="min-height:5vh">
-		<br><span class="text-primary font-weight-bold">Loading WepSIM...</span>
+	        <img src="images/ajax-loader.gif" style="min-height:5vh" alt="loading icon">
+		<br/><span class="text-primary font-weight-bold">Loading WepSIM...</span>
 		</td>
 		</tr>
 		</table>
@@ -187,10 +189,10 @@
 
 	<nav class="navbar navbar-expand-lg fixed-top p-0" style="background-color: #EAEAEA">
 	    <span class="navbar-brand mr-auto">
-               <a class="ui-title pl-2" data-toggle="collapse" href="#collapseA1" class="mx-2">WepSIM</a>&nbsp;<a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><span class="badge badge-pill badge-secondary btn"><div class="wsversion">X</div></a></span>
+               <a class="ui-title pl-2" data-toggle="collapse" href=".multi-collapse" class="mx-2">WepSIM</a>&nbsp;<a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><span class="badge badge-pill badge-secondary btn"><div class="wsversion">X</div></a></span>
             </span>
             <button class="navbar-toggler ml-auto btn-outline-secondary" data-toggle="collapse" 
-                    data-target="#navbarSupportedContent" data-role="none"
+                    data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		<em class="fas fa-bars"></em>
             </button>
@@ -199,7 +201,7 @@
 	    <ul class="nav nav-pills ml-auto p-1">
 	       <li class="nav-item ml-auto"><img alt="ARCOS logo" src="images/arcos.svg" style="height:30pt" class="img-fluid rounded m-0 p-1"></li>
 	       <li class="nav-item"><strong>.</strong></li>
-	       <li class="nav-item"><img alt="CS&E Departament logo" src="images/dptoinf.png" style="height:28pt" class="img-fluid rounded m-0 p-0"></li>
+	       <li class="nav-item"><img alt="Computer Science and Engineering Departament logo" src="images/dptoinf.png" style="height:28pt" class="img-fluid rounded m-0 p-0"></li>
 	    </ul>
             </div>
 	</nav>
@@ -208,18 +210,17 @@
 	  <div class="carousel-inner">
 	  <div class="carousel-item active p-1" id="ws_simulator">
 	    <h6 class="pt-3">Simulator</h6>
-            <div class="row collapse show py-1 px-1" id="collapseA1" style="margin:1px">
-
+            <div class="row collapse show py-1 px-1 multi-collapse" style="margin:1px">
                     <div class="col-sm-auto p-1">
                     <div class="btn-toolbar btn-block" role="toolbar">
-		        <button class="btn btn-light shadow-sm my-1" data-role="none"
+		        <button class="btn btn-light shadow-sm my-1"
 		    	        style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                 onclick="wepsim_open_config_index();"><strong><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
-		        <button class="btn btn-light shadow-sm my-1" data-role="none"
+		        <button class="btn btn-light shadow-sm my-1"
                                 onclick="sim_change_workspace_microcode();"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				><strong><span class="d-none d-sm-inline-flex">MicroCode</span><span class="d-sm-none">&#181;code</span></strong></button>
-		        <button class="btn btn-light shadow-sm my-1 mr-2" data-role="none"
+		        <button class="btn btn-light shadow-sm my-1 mr-2"
                                 onclick="sim_change_workspace_assembly();"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				><strong><span class="d-none d-sm-inline-flex">Assembly</span><span class="d-sm-none">Assembly</span></strong></button>
@@ -233,7 +234,7 @@
 				 <input aria-label="Show CPU/CU" type="range" name="slider2b" id="slider2b" 
 					min="0" max="12" value="7" step="1"
 				        data-show-value="false"
-                                        class="custom-range slider col mx-0 px-0" data-role="none"
+                                        class="custom-range slider col mx-0 px-0"
                                         oninput="set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', this.value);
 					         set_cfg('CPUCU_size', this.value); 
                                                  save_cfg();">
@@ -241,19 +242,20 @@
                     </div>
 
 		    <div class="w-100 d-md-block d-lg-none"></div>
-
                     <div class="col-sm">
                     <div class="btn-toolbar btn-block" role="toolbar">
-		        <button class="btn btn-light shadow-sm my-1 col-auto" data-role="none"
+		        <button class="btn btn-light shadow-sm my-1 col-auto"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                 onclick="wepsim_open_examples_index();"><strong>Examples</strong></button>
-		        <button class="btn btn-light shadow-sm my-1 col-auto" data-role="none"
+		        <button class="btn btn-light shadow-sm my-1 col-auto"
 		                style="border-width:1 1 1 1px; border-color:#CCCCCC; 
                                        background-color:#D4DB17;"
 		                onclick="wepsim_open_help_index();
                                          wepsim_help_refresh();"><strong>Help</strong></button>
-			<select name="select4" id="select4" class="custom-select btn btn-light shadow-sm col my-1"
-				aria-label="Execution mode" data-role="none"
+			<label class="my-1 p-0 col" for="select4">
+			<select class="custom-select btn btn-light shadow-sm"
+				aria-label="Execution mode" 
+                                name="select4" id="select4" 
 				onchange="var opt = $(this).find('option:selected');
 					  var optValue = opt.val();
 					  set_cfg('ws_mode', optValue); 
@@ -265,7 +267,10 @@
 				<option value="intro"    >Welcome...</option>
 				<option value="tutorial" >Instructive</option>
 				<option value="ep"       >WepSIM (EP)</option>
+				<option value="poc"      >WepSIM (POC)</option>
+				<option value="wepmips"  >WepMIPS</option>
 			</select>
+			</label>
                     </div>
 		    </div>
 
@@ -276,7 +281,7 @@
 				 <input aria-label="Show Main/Info" type="range" name="slider2a" id="slider2a" 
 					min="0" max="12" value="7" step="1"
 				        data-show-value="false"
-                                        class="custom-range slider col mx-0 px-0" data-role="none"
+                                        class="custom-range slider col mx-0 px-0"
                                         oninput="set_ab_size('#col1', '#col2', this.value);
 					         set_cfg('C1C2_size', this.value);
                                                  save_cfg();">
@@ -395,16 +400,16 @@
                     <div class="row row pl-2 pr-3">
                     <div class="btn-toolbar btn-block" role="toolbar">
 			    <button          style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-		                    class="btn btn-light col" data-role="none"
+		                    class="btn btn-light col"
 			            onclick="wepsim_execute_reset(true, true);"><em class="fa fa-power-off"></em><strong><br>Reset</strong></button>
 			    <button id="nm1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-		                    class="btn btn-light col"  data-role="none"
+		                    class="btn btn-light col"
 			            onclick="wepsim_execute_microinstruction();"><em class="fa fa-step-forward"></em><strong><br>&#181;<span class="d-none d-sm-inline-flex">Instruction</span><span class="d-sm-none">Instr.</span></strong></button>
 			    <button id="ni1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-		                    class="btn btn-light col"  data-role="none"
+		                    class="btn btn-light col"
 			            onclick="wepsim_execute_instruction();"><em class="fa fa-fast-forward"></em><strong><br><span class="d-none d-sm-inline-flex">Instruction</span><span class="d-sm-none">Instr.</span></strong></button>
 			    <button id="qbp" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-		                    class="btn btn-light col" data-role="none"
+		                    class="btn btn-light col"
                                     onclick="var mode = get_cfg('ws_mode');
                                              if ('tutorial' == mode) {
                                                  wepsim_notify_success('<strong>INFO</strong>',
@@ -417,13 +422,14 @@
 
                     <div class="row row pl-2 pr-3 pt-1">
                     <div class="btn-toolbar btn-block" role="toolbar">
-		          <button class="btn btn-light shadow-sm col" data-role="none"
+		          <button class="btn btn-light shadow-sm col"
 		                  style="border-color: #CCCCCC; flex-grow:1;"
-		                  onclick="wepsim_dialog_current_state();"><em class="fas fa-camera"></em>&nbsp;<c>States</c></button>
+		                  onclick="wepsim_dialog_current_state();"><em class="fas fa-camera"></em>&nbsp;States</button>
+			  <label class="m-0" for="select5a">
                           <select class="custom-select btn btn-light shadow-sm col"
                                   style="border-color: #CCCCCC; flex-grow:2;"
+				  aria-label="select CPU, MM or DEV element to work with"
 				  name="select5a" id="select5a" 
-				  data-role="none" 
                                   onchange="var val = this.value;
 				            $('#tab' + val).trigger('click');
 				            if ('11' == val)
@@ -444,14 +450,15 @@
                                       <option id="19" value="19"><div class="bg-primary text-white">Dev</div> - I/O Configuration</a></option>
 				  </optgroup>
 			  </select>
-		          <button class="btn btn-light shadow-sm col" data-role="none"
+			  </label>
+		          <button class="btn btn-light shadow-sm col"
                                   style="border-color: #CCCCCC; flex-grow:1;"
                                   onclick="var val = $('#select5a').val();
 				           $('#tab' + val).trigger('click');
 				           if ('11' == val)
 					        show_rf_values();
 				           else show_memories_values();
-					   wepsim_reset_max_turbo();"><em class="fas fa-sync-alt"></em>&nbsp;<c>Refresh</c></button>
+					   wepsim_reset_max_turbo();"><em class="fas fa-sync-alt"></em>&nbsp;Refresh</button>
                     </div>
                     </div>
 
@@ -508,9 +515,17 @@
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="con">
 				 <img alt="monitor" height=55 src="images/monitor2.png">
-				 <textarea aria-label="monitor" style="min-width:90%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 8 0" placeholder="WepSIM" id="kdb_con" rows=8 readonly></textarea>
+				 <label class="my-0" for="kbd_con">
+				 <textarea aria-label="monitor" 
+					   style="min-width:90%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 8 0" 
+					   placeholder="WepSIM" id="kdb_con" rows=8 readonly></textarea>
+				 </label>
 				 <img alt="keyboard" height=35 src="images/keyboard1.png">
-				 <textarea aria-label="keyboard" style="min-width:90%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 0 0" placeholder="WepSIM" id="kdb_key" rows=2></textarea>
+				 <label class="my-0" for="kbd_key">
+				 <textarea aria-label="keyboard" 
+					   style="min-width:90%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 0 0" 
+					   placeholder="WepSIM" id="kdb_key" rows=2></textarea>
+				 </label>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="io">
 		              <div id="io_ALL" style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
@@ -533,43 +548,43 @@
 
 	  <div class="carousel-item p-1" id="ws_mcode">
 	    <h6 class="pt-3">Microcode</h6>
-            <div class="row collapse show py-2 px-1" id="collapseA1">
+            <div class="row collapse show py-2 px-1 multi-collapse">
 
                 <div class="container col-12" role="none">
 		<div class="col-sm px-1"      role="toolbar" aria-label="MicroCode Toolbar">
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
-		            <button class="btn btn-light shadow-sm col" data-role="none"
+		            <button class="btn btn-light shadow-sm col"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                     onclick="wepsim_open_config_index();"><strong><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
-		            <button class="btn btn-light shadow-sm col" data-role="none"
+		            <button class="btn btn-light shadow-sm col"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                     onclick="sim_change_workspace_assembly();"
 				    data-transition="none" data-inline="true"><strong>Assembly</strong></button>
-		            <button class="btn btn-light shadow-sm col" data-role="none"
+		            <button class="btn btn-light shadow-sm col"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                     onclick="sim_change_workspace_simulator();"
 				    data-transition="none" data-inline="true"><strong>Simulator</strong></button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
-		            <button data-target="#lsload" data-toggle="modal" data-role="none"
+		            <button data-target="#lsload" data-toggle="modal"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				    class="btn btn-light shadow-sm col"><em class="fas fa-file-upload"></em>&nbsp;<strong>Load</strong></button>
-		            <button data-target="#lssave" data-toggle="modal" data-role="none"
+		            <button data-target="#lssave" data-toggle="modal"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				    class="btn btn-light shadow-sm col"><em class="fas fa-file-download"></em>&nbsp;<strong>Save</strong></button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button style="background-color: #CCCCCC"
-		                    class="btn btn-light shadow-sm col" data-role="none"
+		                    class="btn btn-light shadow-sm col"
 				    data-transition="none" data-inline="true"
 				    onclick="var textToMCompile = inputfirm.getValue();
                                              wepsim_compile_firmware(textToMCompile);
 				 	     $('#asm_debugger').html('<br>After updates on the microcode, assembler has to be compiled against it.');"><em class="fas fa-sign-out-alt"></em>&nbsp;<strong>&#181;compile</strong></button>
 		            <button style="background-color: #DDDDDD"
-		                    class="btn btn-light shadow-sm col" data-role="none"
+		                    class="btn btn-light shadow-sm col"
 				    onclick="var textToMCompile = inputfirm.getValue();
                                              var ok = wepsim_compile_firmware(textToMCompile);
                                              if (true == ok) {
@@ -582,11 +597,11 @@
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
                             <button style="background-color: #D4DB17"
-		                    class="btn btn-light shadow-sm col" data-role="none"
+		                    class="btn btn-light shadow-sm col"
                                     onclick="wepsim_open_help_content('<object id=svg_p2 data=\'images/ep/cpu6.svg?time=20180808\' type=image/svg+xml>Your browser does not support SVG</object>');"
 				    ><em class="fas fa-microchip"></em>&nbsp;<strong>Hardware Summary</strong></button>
                             <button style="background-color: #D4DB17"
-		                    class="btn btn-light shadow-sm col" data-role="none"
+		                    class="btn btn-light shadow-sm col"
 				    onclick="wepsim_help_set_relative('#help_firmware_format'); wepsim_help_refresh();"
 				    ><em class="fas fa-info-circle"></em>&nbsp;<strong>Help</strong></button>
 		      </div>
@@ -596,9 +611,11 @@
 
 	    </div>
 
-	    <div id="t3_firm" class="ui-body-d ui-content p-2" 
+	    <div id="t3_firm" class="ui-body-d ui-content px-2 py-0" 
                  style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
-		     <textarea aria-label="microcode" style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
+		     <label class="my-0" for="inputFirmware">microcode:</label>
+		     <textarea aria-label="microcode"
+		               style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
                                placeholder="Please select 'Example' or 'Load' first in order to have an initial Microcode."
                                id="inputFirmware" rows=20></textarea>
 	    </div>
@@ -607,44 +624,44 @@
 
 	  <div class="carousel-item p-1" id="ws_acode">
 	    <h6 class="pt-3">Assembly</h6>
-            <div class="row collapse show py-2 px-1" id="collapseA1">
+            <div class="row collapse show py-2 px-1 multi-collapse">
 
                 <div class="container col-12" role="none">
 		<div class="col-sm px-1"      role="toolbar" aria-label="Assembly Toolbar">
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
-		            <button class="btn btn-light shadow-sm col" data-role="none"
+		            <button class="btn btn-light shadow-sm col"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                     onclick="wepsim_open_config_index();"><strong><span class="d-none d-sm-inline-flex">Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
-		            <button class="btn btn-light shadow-sm col" data-role="none"
+		            <button class="btn btn-light shadow-sm col"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                     onclick="sim_change_workspace_microcode();"
 				    data-transition="none" data-inline="true">
 			    <strong><span class="d-none d-sm-inline-flex">MicroCode</span><span class="d-sm-none">&#181;code</span></strong>
 			    </button>
-		            <button class="btn btn-light shadow-sm col" data-role="none"
+		            <button class="btn btn-light shadow-sm col"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                     onclick="sim_change_workspace_simulator();"
 				    data-transition="none" data-inline="true"><strong>Simulator</strong></button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
-		            <button data-target="#lsload2" data-toggle="modal" data-role="none"
+		            <button data-target="#lsload2" data-toggle="modal"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				    class="btn btn-light shadow-sm col"><em class="fas fa-file-upload"></em>&nbsp;<strong>Load</strong></button>
-		            <button data-target="#lssave2" data-toggle="modal" data-role="none"
+		            <button data-target="#lssave2" data-toggle="modal"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				    class="btn btn-light shadow-sm col"><em class="fas fa-file-download"></em>&nbsp;<strong>Save</strong></button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button style="background-color: #CCCCCC"
-		                    class="btn btn-light shadow-sm col" data-role="none"
+		                    class="btn btn-light shadow-sm col"
 				    data-transition="none" data-inline="true"
 				    onclick="var textToCompile = inputasm.getValue() ;
                                              var ok = wepsim_compile_assembly(textToCompile);"><em class="fas fa-sign-out-alt"></em>&nbsp;<strong>Compile</strong></button>
 		            <button style="background-color: #DDDDDD"
-		                    class="btn btn-light shadow-sm col" data-role="none"
+		                    class="btn btn-light shadow-sm col"
 				    onclick="var textToCompile = inputasm.getValue();
                                              var ok = wepsim_compile_assembly(textToCompile);
                                              if (true == ok) {
@@ -654,7 +671,7 @@
 
                       <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">
                             <button style="background-color: #D4DB17"
-		                    class="btn btn-light shadow-sm col" data-role="none"
+		                    class="btn btn-light shadow-sm col"
 				    onclick="wepsim_help_set_relative('#help_assembly_format'); wepsim_help_refresh();"
 				    ><em class="fas fa-info-circle"></em>&nbsp;<strong>Help</strong></button>
 		      </div>
@@ -664,9 +681,10 @@
 
 	    </div>
 
-	    <div id="t4_asm" class="ui-body-d ui-content p-2"
+	    <div id="t4_asm" class="ui-body-d ui-content px-2 py-0"
                  style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
-		     <textarea aria-label="Assembly" 
+		     <label class="my-0" for="inputAssembly">assembly:</label>
+		     <textarea aria-label="assembly"
                                style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
                                placeholder="Please select 'Load' first to have the assembly code to work with."
 			       id="inputAssembly" rows="20"></textarea>
@@ -683,20 +701,20 @@
      <div class="modal-content">
      <div class="modal-header bg-dark">
 	<h3 class="modal-title text-white">Load Microcode</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-role="none">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" class="text-white font-weight-bold">&times;</span>
         </button>
      </div>
      <div class="modal-body">
-	<h3>Please select the file to be loaded:</h3>
+	<label for="fileToLoad"><em>Please select the microcode file to be loaded:</em></label>
 	<p><input aria-label="file to load" type="file" id="fileToLoad" class="dropify"/></p>
      </div>
      <div class="modal-footer">
-	<button class="btn btn-md btn-dark" data-role="none" 
+	<button class="btn btn-md btn-dark"
 		onclick="var fileToLoad = document.getElementById('fileToLoad').files[0];
 			 wepsim_load_from_file(fileToLoad, inputfirm);
 			 $('#lsload').modal('hide');">Load from this File</button>
-	<button class="btn btn-md btn-danger data-role="none""
+	<button class="btn btn-md btn-danger"
 		type="button" data-dismiss="modal">Cancel</button>
      </div>
      </div>
@@ -708,17 +726,17 @@
      <div class="modal-content">
      <div class="modal-header bg-dark">
 	<h3 class="modal-title text-white">Save Microcode</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-role="none">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" class="text-white font-weight-bold">&times;</span>
         </button>
      </div>
      <div class="modal-body">
-	<h2>Please write the file name:</h2>
+        <label for="inputFileNameToSaveAs"><em>Please write the file name:</em></label>
 	<p><input aria-label="filename to save content" id="inputFileNameToSaveAs" 
                   class="form-control btn-outline-dark" placeholder="File name where microcode will be saved" style="min-width: 90%;"/></p>
      </div>
      <div class="modal-footer" style="flex-wrap: wrap">
-	<button class="btn btn-md btn-dark my-1"  data-role="none"
+	<button class="btn btn-md btn-dark my-1"
 		onclick="if (confirm('Do you want me to save the current Control Memory contents rather than the editor contents?.\n\n' + 
 				     'Please notice three things:\n' +
 				     '* The current Control Memory will replace the editor contents.\n' +
@@ -734,10 +752,10 @@
 			     var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
 			     wepsim_save_to_file(inputfirm, fileNameToSaveAs);
 			 }">Save control memory to File</button>
-	<button class="btn btn-md btn-dark my-1"  data-role="none"
+	<button class="btn btn-md btn-dark my-1"
 		onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
 			 wepsim_save_to_file(inputfirm, fileNameToSaveAs);">Save Editor content to File</button>
-	<button class="btn btn-md btn-danger my-1"  data-role="none"
+	<button class="btn btn-md btn-danger my-1"
 		type="button" data-dismiss="modal">Cancel</button>
      </div>
      </div>
@@ -751,20 +769,20 @@
      <div class="modal-content">
      <div class="modal-header bg-dark">
 	<h3 class="modal-title text-white">Load Assembly</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-role="none">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" class="text-white font-weight-bold">&times;</span>
         </button>
      </div>
      <div class="modal-body">
-	<h3>Please select the file to be assembled:</h3>
+        <label for="fileToLoad2"><em>Please select the assembly file to be loaded:</em></label>
 	<p><input aria-label="file to load" type="file" id="fileToLoad2" class="dropify"/></p>
      </div>
      <div class="modal-footer">
-	<button class="btn btn-md btn-dark" data-role="none" 
+	<button class="btn btn-md btn-dark"
 		onclick="var fileToLoad = document.getElementById('fileToLoad2').files[0];
 			 wepsim_load_from_file(fileToLoad, inputasm);
 			 $('#lsload2').modal('hide');">Load from this File</button>
-	<button class="btn btn-md btn-danger" data-role="none"
+	<button class="btn btn-md btn-danger"
 		type="button" data-dismiss="modal">Cancel</button>
      </div>
      </div>
@@ -776,20 +794,20 @@
      <div class="modal-content">
      <div class="modal-header bg-dark">
 	<h3 class="modal-title text-white">Save Assembly</h3>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close" data-role="none">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" class="text-white font-weight-bold">&times;</span>
         </button>
      </div>
      <div class="modal-body">
-	<h2>Please write the file name:</h2>
+        <label for="inputFileNameToSaveAs2"><em>Please write the file name:</em></label>
 	<p><input aria-label="filename to save content" id="inputFileNameToSaveAs2" 
                   class="form-control btn-outline-dark" placeholder="File name where assembly will be saved" style="min-width: 90%;"/></p>
      </div>
      <div class="modal-footer">
-	<button class="btn btn-md btn-dark" data-role="none"
+	<button class="btn btn-md btn-dark"
 		onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs2').value;
 			 wepsim_save_to_file(inputasm, fileNameToSaveAs);">Save to File</button>
-	<button class="btn btn-md btn-danger" data-role="none"
+	<button class="btn btn-md btn-danger"
 		type="button" data-dismiss="modal">Cancel</button>
      </div>
      </div>
@@ -805,9 +823,9 @@
 	   <div class="modal-header">
 		<div class="mx-auto">
 		   <div class="btn-group">
-		     <button type="button" class="btn btn-outline-dark" data-role="none" disabled>Config<span class="d-none d-sm-inline-flex">uration</span></button>
+		     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled>Config<span class="d-none d-sm-inline-flex">uration</span></button>
 		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" 
-			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-role="none">
+			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			 <span class="caret"></span>
 			 <span class="sr-only">Toggle Help Idiom</span>
 		     </button>
@@ -821,7 +839,7 @@
 		     </div>
 		   </div>
                 </div>
-		<button type="button" class="close ml-0" data-dismiss="modal" data-role="none">&times;</button>
+		<button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
 	   </div>
 
 	   <div class="modal-body">
@@ -832,10 +850,8 @@
 
 	   <div class="modal-footer">
 		 <button type="button" class="btn btn-outline-dark  btn-sm col-xs-4 col-sm-3 float-left mr-auto"
-                         data-role="none"
                          data-toggle="collapse" data-target=".collapse7">&plusmn; Desc<span class="d-none d-sm-inline-flex">ription</span></button>
 		 <button type="button" class="btn btn-danger        btn-sm col-xs-3 col-sm-2 float-right"  
-                         data-role="none"
                          data-dismiss="modal">Close</button>
 	   </div><!-- /footer -->
 	</div>
@@ -850,7 +866,7 @@
 		<div class="mx-auto">
                 <h5><strong>Binary</strong> <span class="badge badge-pill btn-success"><div class="wsversion">X</div></span></h5>
                 </div>
-		<button type="button" class="close mx-0" data-dismiss="modal" aria-label="Close" data-role="none">
+		<button type="button" class="close mx-0" data-dismiss="modal" aria-label="Close">
 		    <span aria-hidden="true" class="text-black font-weight-bold">&times;</span>
 		</button>
 	   </div>
@@ -885,12 +901,12 @@
 
 	   <div class="modal-header">
 		<div class="mx-auto">
-		   <button type="button" class="btn btn-success" data-role="none"
+		   <button type="button" class="btn btn-success px-3 py-1"
 		   	   onclick="wepsim_open_help_index(); wepsim_help_refresh();">Help Index</button>
 		   <div class="btn-group">
-		     <button type="button" class="btn btn-outline-dark" data-role="none" disabled>Help</button>
+		     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled>Help</button>
 		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" 
-			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-role="none">
+			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			 <span class="caret"></span>
 			 <span class="sr-only">Toggle Help Idiom</span>
 		     </button>
@@ -904,7 +920,7 @@
 		     </div>
 		   </div>
                 </div>
-		<button type="button" class="close ml-0" data-dismiss="modal" data-role="none">&times;</button>
+		<button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
 	   </div>
 
 	   <div class="modal-body">
@@ -917,10 +933,8 @@
 
 	   <div class="modal-footer">
 		 <button type="button" class="btn btn-outline-dark  btn-sm col-xs-4 col-sm-3 float-left mr-auto"
-                         data-role="none"
                          data-toggle="collapse" data-target=".collapse7">&plusmn; Desc<span class="d-none d-sm-inline-flex">ription</span></button>
 		 <button type="button" class="btn btn-danger        btn-sm col-xs-3 col-sm-2 float-right"  
-                         data-role="none"
                          data-dismiss="modal">Close</button>
 	   </div><!-- /footer -->
 	</div>
@@ -935,9 +949,8 @@
 	   <div class="modal-header">
 		<div class="mx-auto">
 		   <div class="btn-group">
-		     <button type="button" class="btn btn-outline-dark" data-role="none" disabled>Examples</button>
+		     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled>Examples</button>
 		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" 
-                             data-role="none"
 			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			 <span class="caret"></span>
 			 <span class="sr-only">Toggle Help Idiom</span>
@@ -952,7 +965,7 @@
 		     </div>
 		   </div>
                 </div>
-		<button type="button" class="close ml-0" data-dismiss="modal" data-role="none">&times;</button>
+		<button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
 	   </div>
 
 	   <div class="modal-body">
@@ -963,13 +976,10 @@
 
 	   <div class="modal-footer">
 		 <button type="button" class="btn btn-outline-dark  btn-sm col-xs-4 col-sm-3 float-left"
-                         data-role="none"
                          data-toggle="collapse" data-target=".collapse7">&plusmn; Desc<span class="d-none d-sm-inline-flex">ription</span></button>
 		 <button type="button" class="btn btn-outline-dark  btn-sm col-xs-4 col-sm-3 float-left mr-auto"
-                         data-role="none"
                          data-toggle="collapse" data-target=".collapse8">&plusmn; Ind<span class="d-none d-sm-inline-flex">ividual</span></button>
 		 <button type="button" class="btn btn-danger        btn-sm col-xs-3 col-sm-2 float-right"
-                         data-role="none"
                          data-dismiss="modal">Close</button>
 	   </div><!-- /footer -->
 	</div>
@@ -985,17 +995,14 @@
                <div class="btn-group">
                   <button onclick="$('#bot_check1').carousel(0);"
                           type="button" 
-                          class="btn btn-dark"
-                          data-role="none">States</button>
+                          class="btn btn-dark px-3 py-1">States</button>
                   <button onclick="$('#bot_check1').carousel(1);
                                    update_checker_loadhelp('#help3a','help_dumper');"
                           type="button" 
-                          class="btn btn-success"
-                          data-role="none">Help</button>
+                          class="btn btn-success px-3 py-1">Help</button>
                   <button type="button" 
-                          class="btn btn-success dropdown-toggle"
+                          class="btn btn-success dropdown-toggle dropdown-toggle-split"
                           data-toggle="dropdown" 
-                          data-role="none"
                           aria-haspopup="true" 
                           aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>   
 		  <div class="dropdown-menu" style="z-index:100000;">
@@ -1010,7 +1017,7 @@
                   </div>
                </div>
          </div>
-         <button type="button" class="close ml-0" data-dismiss="modal" aria-label="Close" data-role="none">
+         <button type="button" class="close ml-0" data-dismiss="modal" aria-label="Close">
              <span aria-hidden="true" class="text-black font-weight-bold">&times;</span>
          </button>
       </div>
@@ -1028,7 +1035,7 @@
 			     <div class="row">
 			     <div class="col-auto text-center flex-column d-flex pr-0">
 				    <strong class="m-2">
-					<span class="badge badge-pill border-secondary border">
+					<span class="badge badge-pill border-secondary border shadow">
 						<a class="col-auto p-0" 
 					           data-toggle="collapse" data-target="#collapse_X" 
 						   target="_blank" href="#" id="curr_clk_maddr">now</a>
@@ -1059,7 +1066,8 @@
 					<form id="end_state_form1" 
 					      class="form-horizontal mb-2"
 					      style="white-space:wrap; overflow-y:auto; -webkit-overflow-scrolling:touch; width:100%;">
-					   <textarea aria-label="checks to perform" 
+		                           <label class="my-0" for="end_state1">state:</label>
+					   <textarea aria-label="current_state" 
 						     placeholder="Default..." 
 						     id="end_state1" 
 						     name="end_state1" 
@@ -1099,9 +1107,9 @@
 		             style="max-height:40vh; width:inherit; overflow-y:auto; -webkit-overflow-scrolling:touch;" >
 			     <div class="row align-items-center">
 			     <div class="col-auto text-center flex-column d-flex pr-0">
-				  <span id="s_clip" class="badge badge-pill border-secondary border m-2">clipboard</span>
+				  <span id="s_clip" class="badge badge-pill border-secondary border m-2 shadow">clipboard</span>
 				  <div class="row" style="max-height:16vh"><div class="col border-right border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>
-				  <span id="s_ref"  class="badge badge-pill border-secondary border m-2">reference</span>
+				  <span id="s_ref"  class="badge badge-pill border-secondary border m-2 shadow">reference</span>
 			     </div>
 			     <div class="col py-2 pl-2">
 				  <div id="check_results1">
@@ -1120,24 +1128,21 @@
          </div>
       </div>
       <div class="modal-footer">
-	   <button class="btn btn-dark btn-sm col-xs-3 col-sm-2 float-right"
-                   data-role="none"
+	   <button class="btn btn-dark btn-sm col-auto float-right"
 	   	   onclick="wepsim_state_history_reset();
 			    wepsim_notify_success('<strong>INFO</strong>', 'Removed all !.');
 			    wepsim_state_history_list() ;
 			    return false;"
-		   type="button">Reset <span class='d-none d-sm-inline-flex'>history</span></button>
-	   <button class="btn btn-dark btn-sm col-xs-3 col-sm-3 float-right"
-                   data-role="none"
+		   type="button"><i class="fa fa-trash" aria-hidden="true"></i> Reset <span class='d-none d-sm-inline-flex'>history</span></button>
+	   <button class="btn btn-dark btn-sm col-auto float-right"
 		   onclick="wepsim_state_history_add();
 			    wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
 			    wepsim_state_history_list();
                             wepsim_dialog_current_state();
 			    $('#states3').collapse('show');
 			    return false;"
-		   type="button">Add <span class='d-none d-sm-inline-flex'>'Current State' to History</span></button>
-           <button class="btn btn-danger btn-sm col-xs-3 col-sm-2 pull-right shadow-none"
-                   data-role="none"
+		   type="button"><i class="fa fa-plus" aria-hidden="true"></i> Add <span class='d-none d-sm-inline-flex'>'Current State' to History</span></button>
+           <button class="btn btn-danger btn-sm col-xs-3 col-sm-1 pull-right shadow-none"
                    onclick="$('#current_state1').modal('hide');"
                    type="button">Close</button>
       </div>
@@ -1151,9 +1156,9 @@
    <div class="modal-content">
       <div class="modal-header">
          <div class="modal-title mx-auto">
-	      <h4><span id="dlg_title2">&nbsp;</span></h4>
+	      <h4><span id="dlg_title2">Current PC and microPC</span></h4>
          </div>
-         <button type="button" class="close ml-0" data-dismiss="modal" aria-label="Close" data-role="none">
+         <button type="button" class="close ml-0" data-dismiss="modal" aria-label="Close">
              <span aria-hidden="true" class="text-black font-weight-bold">&times;</span>
          </button>
       </div>
@@ -1166,7 +1171,7 @@
 			       <i class="fas fa-comment-alt"></i>
 		          </div>
 		          <div class="col">
-		               <h5><span id="dlg_body2">&nbsp;</span></h5>
+		               <h5><span id="dlg_body2">Reason for stopping the execution goes here...</span></h5>
 		          </div>
 		     </div>
 		</div>
@@ -1177,11 +1182,9 @@
            <button type="button" 
                    onclick="$('#current_state2').modal('hide');
 		            wepsim_dialog_current_state();"
-                   data-role="none"
                    class="btn btn-secondary col-xs-3 pull-left shadow-none mr-auto">States</button>
            <button type="button" 
                    onclick="$('#current_state2').modal('hide');"
-                   data-role="none"
                    class="btn btn-primary col-xs-3 pull-right shadow-none">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
       </div>
    </div>
@@ -1196,7 +1199,7 @@
 		<div class="mx-auto">
                 <h5><strong>WepSIM</strong> <span class="badge badge-pill btn-success"><div class="wsversion">X</div></span></h5>
 		</div>
-		<button type="button" class="close mx-0" data-dismiss="modal" aria-label="Close" data-role="none">
+		<button type="button" class="close mx-0" data-dismiss="modal" aria-label="Close">
 		    <span aria-hidden="true" class="text-black font-weight-bold">&times;</span>
 		</button>
 	   </div>
@@ -1220,7 +1223,7 @@
 			        <div class="card-body">
                                   <a class="btn text-vertical-lr p-0"
                                      data-placement="bottom"  data-toggle="popover3" data-html="true" href="#" 
-                                     id="fgarcia"><c>F&eacute;lix Garc&iacute;a Carballeira</c></a>
+                                     id="fgarcia">F&eacute;lix Garc&iacute;a Carballeira</a>
                                 </div>
                                 <div id="popover-content-fgarcia" class="d-none bg-light">
 				  <div class="list-group">
@@ -1236,7 +1239,7 @@
 			        <div class="card-body">
                                   <a class="btn text-vertical-lr p-0"
                                      data-placement="bottom"  data-toggle="popover3" data-html="true" href="#" 
-                                     id="acaldero"><c>Alejandro Calder&oacute;n Mateos</c></a>
+                                     id="acaldero">Alejandro Calder&oacute;n Mateos</a>
                                 </div>
                                 <div id="popover-content-acaldero" class="d-none bg-light">
 				  <div class="list-group">
@@ -1254,7 +1257,7 @@
 			        <div class="card-body">
                                   <a class="btn text-vertical-lr p-0"
                                      data-placement="bottom"  data-toggle="popover3" data-html="true" href="#" 
-                                     id="jprieto"><c>Javier Prieto Cepeda</c></a>
+                                     id="jprieto">Javier Prieto Cepeda</a>
                                 </div>
                                 <div id="popover-content-jprieto" class="d-none bg-light">
 				  <div class="list-group">
@@ -1270,7 +1273,7 @@
 			        <div class="card-body">
                                   <a class="btn text-vertical-lr p-0"
                                      data-placement="bottom"  data-toggle="popover3" data-html="true" href="#" 
-                                     id="salonso"><c>Sa&uacute;l Alonso Monsalve</c></a>
+                                     id="salonso">Sa&uacute;l Alonso Monsalve</a>
                                 </div>
                                 <div id="popover-content-salonso" class="d-none bg-light">
 				  <div class="list-group">
@@ -1293,7 +1296,6 @@
 				 wepsim_help_refresh();
 				 $('#about2').modal('hide');">GNU Lesser General Public 3</span>
 		 <button type="button" data-dismiss="modal"
-                         data-role="none"
                          class="btn btn-primary btn-sm float-right col-3 shadow-none">OK</button>
 	   </div>
 	</div>
@@ -1302,13 +1304,13 @@
 
 
     <link async href="./min.external.css" rel="stylesheet">
-    <script      src="./min.external.js"></script>
+    <script      src="./min.external.js"></script><noscript>Your browser does not support JavaScript!</noscript>
 
-    <script src="./min.sim_all.js"></script>
-    <script src="./min.wepsim_web.js"></script>
+    <script src="./min.sim_all.js"   ></script><noscript>Your browser does not support JavaScript!</noscript>
+    <script src="./min.wepsim_web.js"></script><noscript>Your browser does not support JavaScript!</noscript>
 
 
-<script>
+<script type="text/javascript">
     window.addEventListener("beforeunload", 
 	                    function (e) {
 			         var confirmationMessage = "\o/";
