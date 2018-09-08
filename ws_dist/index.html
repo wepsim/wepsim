@@ -516,14 +516,18 @@
 		              <div id="memory_MC" style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="con">
-				 <label class="my-0" for="kbd_con"><img alt="monitor" height=55 src="images/monitor2.png"></label>
+				 <img alt="monitor" height=55 src="images/monitor2.png">
+				 <label class="my-0" for="kbd_con">
 				 <textarea aria-label="monitor" 
 					   style="min-width:90%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 8 0" 
 					   placeholder="WepSIM" id="kdb_con" rows=8 readonly></textarea>
-				 <label class="my-0" for="kbd_key"><img alt="keyboard" height=35 src="images/keyboard1.png"></label>
+				 </label>
+				 <img alt="keyboard" height=35 src="images/keyboard1.png">
+				 <label class="my-0" for="kbd_key">
 				 <textarea aria-label="keyboard" 
 					   style="min-width:90%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 0 0" 
 					   placeholder="WepSIM" id="kdb_key" rows=2></textarea>
+				 </label>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="io">
 		              <div id="io_ALL" style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
@@ -611,11 +615,12 @@
 
 	    <div id="t3_firm" class="ui-body-d ui-content px-2 py-0" 
                  style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
-		     <label class="my-0" for="inputFirmware"><small>microcode:</small></label>
+		     <label class="my-0" for="inputFirmware">
 		     <textarea aria-label="microcode"
 		               style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
                                placeholder="Please select 'Example' or 'Load' first in order to have an initial Microcode."
                                id="inputFirmware" rows=20></textarea>
+		     </label>
 	    </div>
           </div>
 
@@ -681,11 +686,12 @@
 
 	    <div id="t4_asm" class="ui-body-d ui-content px-2 py-0"
                  style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
-		     <label class="my-0" for="inputAssembly"><small>assembly:</small></label>
+		     <label class="my-0" for="inputAssembly">
 		     <textarea aria-label="assembly"
                                style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
                                placeholder="Please select 'Load' first to have the assembly code to work with."
 			       id="inputAssembly" rows="20"></textarea>
+		     </label>
 	    </div>
           </div>
 
@@ -704,7 +710,7 @@
         </button>
      </div>
      <div class="modal-body">
-        <label for="fileToLoad">Please select the microcode file to be loaded:</label>
+	<label for="fileToLoad"><em>Please select the microcode file to be loaded:</em></label>
 	<p><input aria-label="file to load" type="file" id="fileToLoad" class="dropify"/></p>
      </div>
      <div class="modal-footer">
@@ -729,7 +735,7 @@
         </button>
      </div>
      <div class="modal-body">
-	<h3>Please write the file name:</h3>
+        <label for="inputFileNameToSaveAs"><em>Please write the file name:</em></label>
 	<p><input aria-label="filename to save content" id="inputFileNameToSaveAs" 
                   class="form-control btn-outline-dark" placeholder="File name where microcode will be saved" style="min-width: 90%;"/></p>
      </div>
@@ -772,7 +778,7 @@
         </button>
      </div>
      <div class="modal-body">
-        <label for="fileToLoad2">Please select the assembly file to be loaded:</label>
+        <label for="fileToLoad2"><em>Please select the assembly file to be loaded:</em></label>
 	<p><input aria-label="file to load" type="file" id="fileToLoad2" class="dropify"/></p>
      </div>
      <div class="modal-footer">
@@ -797,7 +803,7 @@
         </button>
      </div>
      <div class="modal-body">
-	<h3>Please write the file name:</h3>
+        <label for="inputFileNameToSaveAs2"><em>Please write the file name:</em></label>
 	<p><input aria-label="filename to save content" id="inputFileNameToSaveAs2" 
                   class="form-control btn-outline-dark" placeholder="File name where assembly will be saved" style="min-width: 90%;"/></p>
      </div>
@@ -1064,7 +1070,7 @@
 					<form id="end_state_form1" 
 					      class="form-horizontal mb-2"
 					      style="white-space:wrap; overflow-y:auto; -webkit-overflow-scrolling:touch; width:100%;">
-		                           <label class="my-0" for="end_state1"><small>state:</small></label>
+		                           <label class="my-0" for="end_state1">
 					   <textarea aria-label="current_state" 
 						     placeholder="Default..." 
 						     id="end_state1" 
@@ -1077,6 +1083,7 @@
 						     data-beautify="true" 
 						     class="form-control input-xs" 
 						     rows="5"></textarea>
+					   </label>
 					</form>
 				</div>
 			     </div>
