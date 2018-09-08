@@ -2,7 +2,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xml:lang="en" xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
     <title>WepSIM</title>
@@ -189,7 +189,7 @@
 
 	<nav class="navbar navbar-expand-lg fixed-top p-0" style="background-color: #EAEAEA">
 	    <span class="navbar-brand mr-auto">
-               <a class="ui-title pl-2" data-toggle="collapse" href="#collapseA1" class="mx-2">WepSIM</a>&nbsp;<a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><span class="badge badge-pill badge-secondary btn"><div class="wsversion">X</div></a></span>
+               <a class="ui-title pl-2" data-toggle="collapse" href=".multi-collapse" class="mx-2">WepSIM</a>&nbsp;<a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><span class="badge badge-pill badge-secondary btn"><div class="wsversion">X</div></a></span>
             </span>
             <button class="navbar-toggler ml-auto btn-outline-secondary" data-toggle="collapse" 
                     data-target="#navbarSupportedContent"
@@ -210,7 +210,7 @@
 	  <div class="carousel-inner">
 	  <div class="carousel-item active p-1" id="ws_simulator">
 	    <h6 class="pt-3">Simulator</h6>
-            <div class="row collapse show py-1 px-1" id="collapseA1" style="margin:1px">
+            <div class="row collapse show py-1 px-1 multi-collapse" style="margin:1px">
 
                     <div class="col-sm-auto p-1">
                     <div class="btn-toolbar btn-block" role="toolbar">
@@ -550,7 +550,7 @@
 
 	  <div class="carousel-item p-1" id="ws_mcode">
 	    <h6 class="pt-3">Microcode</h6>
-            <div class="row collapse show py-2 px-1" id="collapseA1">
+            <div class="row collapse show py-2 px-1 multi-collapse">
 
                 <div class="container col-12" role="none">
 		<div class="col-sm px-1"      role="toolbar" aria-label="MicroCode Toolbar">
@@ -615,19 +615,18 @@
 
 	    <div id="t3_firm" class="ui-body-d ui-content px-2 py-0" 
                  style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
-		     <label class="my-0" for="inputFirmware">
+		     <label class="my-0" for="inputFirmware">microcode:</label>
 		     <textarea aria-label="microcode"
 		               style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
                                placeholder="Please select 'Example' or 'Load' first in order to have an initial Microcode."
                                id="inputFirmware" rows=20></textarea>
-		     </label>
 	    </div>
           </div>
 
 
 	  <div class="carousel-item p-1" id="ws_acode">
 	    <h6 class="pt-3">Assembly</h6>
-            <div class="row collapse show py-2 px-1" id="collapseA1">
+            <div class="row collapse show py-2 px-1 multi-collapse">
 
                 <div class="container col-12" role="none">
 		<div class="col-sm px-1"      role="toolbar" aria-label="Assembly Toolbar">
@@ -686,12 +685,11 @@
 
 	    <div id="t4_asm" class="ui-body-d ui-content px-2 py-0"
                  style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
-		     <label class="my-0" for="inputAssembly">
+		     <label class="my-0" for="inputAssembly">assembly:</label>
 		     <textarea aria-label="assembly"
                                style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
                                placeholder="Please select 'Load' first to have the assembly code to work with."
 			       id="inputAssembly" rows="20"></textarea>
-		     </label>
 	    </div>
           </div>
 
@@ -1070,7 +1068,7 @@
 					<form id="end_state_form1" 
 					      class="form-horizontal mb-2"
 					      style="white-space:wrap; overflow-y:auto; -webkit-overflow-scrolling:touch; width:100%;">
-		                           <label class="my-0" for="end_state1">
+		                           <label class="my-0" for="end_state1">state:</label>
 					   <textarea aria-label="current_state" 
 						     placeholder="Default..." 
 						     id="end_state1" 
@@ -1083,7 +1081,6 @@
 						     data-beautify="true" 
 						     class="form-control input-xs" 
 						     rows="5"></textarea>
-					   </label>
 					</form>
 				</div>
 			     </div>
