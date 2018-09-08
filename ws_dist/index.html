@@ -254,6 +254,7 @@
                                        background-color:#D4DB17;"
 		                onclick="wepsim_open_help_index();
                                          wepsim_help_refresh();"><strong>Help</strong></button>
+			<label class="m-0" for="select4">
 			<select class="custom-select btn btn-light shadow-sm col my-1"
 				aria-label="Execution mode" 
                                 name="select4" id="select4" 
@@ -271,6 +272,7 @@
 				<option value="poc"      >WepSIM (POC)</option>
 				<option value="wepmips"  >WepMIPS</option>
 			</select>
+			</label>
                     </div>
 		    </div>
 
@@ -425,6 +427,7 @@
 		          <button class="btn btn-light shadow-sm col"
 		                  style="border-color: #CCCCCC; flex-grow:1;"
 		                  onclick="wepsim_dialog_current_state();"><em class="fas fa-camera"></em>&nbsp;States</button>
+			  <label class="m-0" for="select5a">
                           <select class="custom-select btn btn-light shadow-sm col"
                                   style="border-color: #CCCCCC; flex-grow:2;"
 				  aria-label="select CPU, MM or DEV element to work with"
@@ -449,6 +452,7 @@
                                       <option id="19" value="19"><div class="bg-primary text-white">Dev</div> - I/O Configuration</a></option>
 				  </optgroup>
 			  </select>
+			  </label>
 		          <button class="btn btn-light shadow-sm col"
                                   style="border-color: #CCCCCC; flex-grow:1;"
                                   onclick="var val = $('#select5a').val();
