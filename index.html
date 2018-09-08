@@ -512,11 +512,11 @@
 		              <div id="memory_MC" style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="con">
-				 <label class="my-0" for="monitor"><img alt="monitor" height=55 src="images/monitor2.png"></label>
+				 <label class="my-0" for="kbd_con"><img alt="monitor" height=55 src="images/monitor2.png"></label>
 				 <textarea aria-label="monitor" 
 					   style="min-width:90%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 8 0" 
 					   placeholder="WepSIM" id="kdb_con" rows=8 readonly></textarea>
-				 <label class="my-0" for="keyboard"><img alt="keyboard" height=35 src="images/keyboard1.png"></label>
+				 <label class="my-0" for="kbd_key"><img alt="keyboard" height=35 src="images/keyboard1.png"></label>
 				 <textarea aria-label="keyboard" 
 					   style="min-width:90%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 0 0" 
 					   placeholder="WepSIM" id="kdb_key" rows=2></textarea>
@@ -607,8 +607,9 @@
 
 	    <div id="t3_firm" class="ui-body-d ui-content px-2 py-0" 
                  style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
-		     <label class="my-0" for="microcode"><small>microcode:</small></label>
-		     <textarea aria-label="microcode" style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
+		     <label class="my-0" for="ta_firm"><small>microcode:</small></label>
+		     <textarea aria-label="microcode" id="ta_firm"
+		               style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
                                placeholder="Please select 'Example' or 'Load' first in order to have an initial Microcode."
                                id="inputFirmware" rows=20></textarea>
 	    </div>
@@ -676,8 +677,8 @@
 
 	    <div id="t4_asm" class="ui-body-d ui-content px-2 py-0"
                  style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
-		     <label class="my-0" for="assembly"><small>assembly:</small></label>
-		     <textarea aria-label="assembly" 
+		     <label class="my-0" for="ta_asm"><small>assembly:</small></label>
+		     <textarea aria-label="assembly" id="ta_asm"
                                style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
                                placeholder="Please select 'Load' first to have the assembly code to work with."
 			       id="inputAssembly" rows="20"></textarea>
@@ -1059,7 +1060,7 @@
 					<form id="end_state_form1" 
 					      class="form-horizontal mb-2"
 					      style="white-space:wrap; overflow-y:auto; -webkit-overflow-scrolling:touch; width:100%;">
-		                           <label class="my-0" for="current_state"><small>state:</small></label>
+		                           <label class="my-0" for="end_state1"><small>state:</small></label>
 					   <textarea aria-label="current_state" 
 						     placeholder="Default..." 
 						     id="end_state1" 
