@@ -26,13 +26,13 @@
                       type:        "General",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' data-role='none'>" +
 				   "	    <label id='label11-true'" +
-				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Active voice: true'" +
 				   "		   onclick=\"update_cfg('use_voice',true); wepsim_voice_start();\">" +
 				   "		<input type='radio' name='options' id='radio11-true'   autocomplete='off' data-role='none'>On" +
 				   "	    </label>" +
 				   "	    <label id='label11-false'" +
-				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Active voice: false'" +
 				   "		   onclick=\"update_cfg('use_voice',false); wepsim_voice_stop();\">" +
 				   "		<input type='radio' name='options' id='radio11-false'  autocomplete='off' data-role='none'>Off" +
@@ -46,7 +46,7 @@
                       id:          "slider3",
                       type:        "General",
                       code_cfg:    "<input type='range'" +
-				   "	   class='custom-range' data-role='none'" +
+				   "	   class='custom-range pt-2' data-role='none'" +
 				   "	   aria-label='Notification delay'" +
 				   "	   data-show-value='false' data-theme='a'" +
 				   "	   name='slider3' id='slider3'" +
@@ -61,14 +61,14 @@
                       type:        "Editor",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' data-role='none'>" +
 				   "	    <label id='label7-default'" +
-				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;' " +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;' " +
 				   "		   onclick=\"update_cfg('editor_theme','default');" +
 				   "			     sim_cfg_editor_theme(inputfirm) ;" +
 				   "			     sim_cfg_editor_theme(inputasm) ;\">" +
 				   "		<input type='radio' name='options' id='radio7-default' aria-label='Editor theme: light' autocomplete='off' data-role='none'>Light" +
 				   "	    </label>" +
 				   "	    <label id='label7-blackboard'" +
-				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;' " +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;' " +
 				   "		   onclick=\"update_cfg('editor_theme','blackboard');" +
 				   "			     sim_cfg_editor_theme(inputfirm) ;" +
 				   "			     sim_cfg_editor_theme(inputasm) ;\">" +
@@ -106,19 +106,19 @@
                       type:        "Execution",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' data-role='none'>" +
 				   "	    <label id='label12-50'" +
-				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Speed: slow'" +
 				   "		   onclick=\"update_cfg('DBG_delay', 50);\">" +
 				   "		<input type='radio' name='options' id='radio12-50'   autocomplete='off' data-role='none'>Slow" +
 				   "	    </label>" +
 				   "	    <label id='label12-5'" +
-				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Speed: normal'" +
 				   "		   onclick=\"update_cfg('DBG_delay', 5);\">" +
 				   "		<input type='radio' name='options' id='radio12-5'  autocomplete='off' data-role='none'>Normal" +
 				   "	    </label>" +
 				   "	    <label id='label12-1'" +
-				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Speed: fast'" +
 				   "		   onclick=\"update_cfg('DBG_delay', 1);\">" +
 				   "		<input type='radio' name='options' id='radio12-1'  autocomplete='off' data-role='none'>Fast" +
@@ -133,14 +133,14 @@
                       type:        "Execution",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' data-role='none'>" +
 				   "	    <label id='label1-instruction'" +
-				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Execution unit: instruction'" +
 				   "		   onclick=\"update_cfg('DBG_level','instruction');\">" +
 				   "		<input type='radio' name='options' id='radio1-instruction'   autocomplete='off' data-role='none'>" +
 				   "		<span class='d-none d-sm-inline-flex'>Instructions</span><span class='d-sm-none'>Instruc.</span></label>" +
 				   "	    </label>" +
 				   "	    <label id='label1-microinstruction'" +
-				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Execution unit: microinstruction'" +
 				   "		   onclick=\"update_cfg('DBG_level','microinstruction');\">" +
 				   "		<input type='radio' name='options' id='radio1-microinstruction'  autocomplete='off' data-role='none'>" +
@@ -212,19 +212,19 @@
                       type:        "Register file",
                       code_cfg:    " <div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' data-role='none'>" +
 				   "	    <label id='label2-16'" +
-				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: hexadecimal'" +
 				   "		   onclick=\"update_cfg('RF_display_format',16); show_rf_values(); show_states(); show_memories_values();\">" +
 				   "		<input type='radio' name='options' id='radio2-16'   autocomplete='off' data-role='none'>Hex." +
 				   "	    </label>" +
 				   "	    <label id='label2-10'" +
-				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: decimal'" +
 				   "		   onclick=\"update_cfg('RF_display_format',10); show_rf_values(); show_states(); show_memories_values();\">" +
 				   "		<input type='radio' name='options' id='radio2-10'  autocomplete='off' data-role='none'>Dec." +
 				   "	    </label>" +
 				   "	    <label id='label2-8'" +
-				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: octal'" +
 				   "		   onclick=\"update_cfg('RF_display_format',8); show_rf_values(); show_states(); show_memories_values();\">" +
 				   "		<input type='radio' name='options' id='radio2-8'  autocomplete='off' data-role='none'>Oct." +
@@ -241,13 +241,13 @@
                       type:        "Register file",
                       code_cfg:    " <div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' data-role='none'>" +
 				   "	    <label id='label3-numerical'" +
-				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display name (number)'" +
 				   "		   onclick=\"update_cfg('RF_display_name','numerical'); show_rf_names();\">" +
 				   "		<input type='radio' name='options' id='radio3-numerical'  autocomplete='off' data-role='none'>Numbers" +
 				   "	    </label>" +
 				   "	    <label id='label3-logical'" +
-				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display name (user identification)'" +
 				   "		   onclick=\"update_cfg('RF_display_name','logical'); show_rf_names();\">" +
 				   "		<input type='radio' name='options' id='radio3-logical' autocomplete='off' data-role='none'>Labels" +
@@ -262,13 +262,13 @@
                       type:        "Register file",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' data-role='none'>" +
 				   "	    <label id='label9-true'" +
-				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Is editable: true'" +
 				   "		   onclick=\"update_cfg('is_editable',true);\">" +
 				   "		<input type='radio' name='options' id='radio9-true'  aria-label='Active voice: true'  autocomplete='off' data-role='none'>On" +
 				   "	    </label>" +
 				   "	    <label id='label9-false'" +
-				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Is editable: false'" +
 				   "		   onclick=\"update_cfg('is_editable',false);\">" +
 				   "		<input type='radio' name='options' id='radio9-false' aria-label='Active voice: false' autocomplete='off' data-role='none'>Off" +
@@ -313,13 +313,13 @@
                       type:        "Circuitry simulation",
                       code_cfg:    " <div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' data-role='none'>" +
 				   "	    <label id='label10-true'" +
-				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Is by value: true'" +
 				   "		   onclick=\"update_cfg('is_byvalue',true);\">" +
 				   "		<input type='radio' name='options' id='radio10-true'   autocomplete='off' data-role='none'>Value" +
 				   "	    </label>" +
 				   "	    <label id='label10-false'" +
-				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Is by value: false'" +
 				   "		   onclick=\"update_cfg('is_byvalue',false);\">" +
 				   "		<input type='radio' name='options' id='radio10-false'  autocomplete='off' data-role='none'>Activation" +
@@ -334,13 +334,13 @@
                       type:        "Circuitry simulation",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' data-role='none'>" +
 				   "	    <label id='label5-true'" +
-				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Is interactive: true'" +
 				   "		   onclick=\"update_cfg('is_interactive',true);\">" +
 				   "		<input type='radio' name='options' id='radio5-true'   autocomplete='off' data-role='none'>On" +
 				   "	    </label>" +
 				   "	    <label id='label5-false'" +
-				   "		   class='btn btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Is interactive: false'" +
 				   "		   onclick=\"update_cfg('is_interactive',false);\">" +
 				   "		<input type='radio' name='options' id='radio5-false'  autocomplete='off' data-role='none'>Off" +
