@@ -187,7 +187,8 @@
 
 	<nav class="navbar navbar-expand-lg fixed-top p-0" style="background-color: #EAEAEA">
 	    <span class="navbar-brand mr-auto">
-               <a class="ui-title pl-2 mx-2" data-toggle="collapse" href=".multi-collapse">WepSIM</a>&nbsp;<a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><span class="badge badge-pill badge-secondary btn"><div class="wsversion">X</div></span></a>
+               <a class="ui-title pl-2 mx-2" style="text-decoration: none"
+		  data-toggle="collapse" href=".multi-collapse">WepSIM</a>&nbsp;<a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><span class="badge badge-pill badge-secondary btn"><div class="wsversion">loading ...</div></span></a>
             </span>
             <button class="navbar-toggler ml-auto btn-outline-secondary" data-toggle="collapse" 
                     data-target="#navbarSupportedContent"
@@ -425,8 +426,8 @@
 		          <button class="btn btn-light shadow-sm col"
 		                  style="border-color: #CCCCCC; flex-grow:1;"
 		                  onclick="wepsim_dialog_current_state();"><em class="fas fa-camera"></em>&nbsp;States</button>
-			  <label class="m-0" for="select5a">
-                          <select class="custom-select btn btn-light shadow-sm col"
+			  <label  for="select5a" class="col p-0 m-0" style="flex-grow:2;">
+                          <select class="custom-select btn btn-light shadow-sm"
                                   style="border-color: #CCCCCC; flex-grow:2;"
 				  aria-label="select CPU, MM or DEV element to work with"
 				  name="select5a" id="select5a" 
@@ -1445,10 +1446,11 @@
 	    if ( (false == is_mobile()) && ('serviceWorker' in navigator) )
             {
 		navigator.serviceWorker.register('ws_dist/min.wepsim_pwa.js').catch(function() {
-		  wepsim_notify_error("<h4>Warning:" + 
-				      "<br/>WepSIM was used over a HTTP connection.</h4>",
-		                      "Progressive Web Applications requires a HTTPS connection " +
-		                      "with a valid certificate, so PWA is disabled.") ;
+		    wepsim_notify_error("<h4>Warning:" + 
+		  		        "<br/>WepSIM was used over a HTTP connection.</h4>",
+		                        "Progressive Web Applications requires a HTTPS connection " +
+		                        "with a valid certificate, so PWA is disabled.<br/>" +
+		                        "Please use the 'x' to close this notification.") ;
 		}) ;
 	    }
 
