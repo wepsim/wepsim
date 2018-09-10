@@ -45,14 +45,14 @@
                       id:          "slider3",
                       type:        "General",
                       code_cfg:    "<input type='range'" +
-				   "	   class='custom-range' data-role='none'" +
+				   "	   class='custom-range pt-2' data-role='none'" +
 				   "	   aria-label='Notification delay'" +
 				   "	   data-show-value='false' data-theme='a'" +
 				   "	   name='slider3' id='slider3'" +
 				   "	   min='100' max='2000' value='1000' step='100'" +
 				   "	   onchange=\"update_cfg('NOTIF_delay', this.value); \">",
                       code_init:   function() { $('#slider3').val(get_cfg('NOTIF_delay')); },
-                      description: "Tiempo hasta que desaparecen las notificaciones (r&aacute;pido - lento)"
+                      description: "Tiempo en desaparecer las notificaciones (r&aacute;pido - lento)"
                    });
 
     config.es.push({
