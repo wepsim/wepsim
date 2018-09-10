@@ -248,35 +248,35 @@
 
 		trpin = "&nbsp;" ;
 		if (true == memory_dashboard[key].breakpoint)
-		    trpin = "<img alt='stop icon' height=22 src='images/stop/stop_" + icon_theme + ".gif'>" ;
+		    trpin = "<img alt='stop icon' height='22' src='images/stop/stop_" + icon_theme + ".gif'>" ;
 
 		if (key == index)
 		     o1 += "<tr id='maddr" + key + "' " +
                            "    style='color:blue; font-size:small; font-weight:bold' " +
 			   "    onclick='dbg_set_breakpoint(" + key + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
-			   "<td width=15% align=right>" + maddr + "</td>" +
-			   "<td width=1% id='mcpin" + key + "' style='padding:5 0 0 0;'>" + trpin + "</td>" +
+			   "<td width='15%' align='right'>" + maddr + "</td>" +
+			   "<td width='1%' id='mcpin" + key + "' style='padding:5 0 0 0;'>" + trpin + "</td>" +
 			   "<td>" + value + "</td></tr>";
 		else o1 += "<tr id='maddr" + key + "' " +
                            "    style='color:black; font-size:small; font-weight:normal' " +
 			   "    onclick='dbg_set_breakpoint(" + key + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
-			   "<td width=15% align=right>" + maddr + "</td>" +
-			   "<td width=1% id='mcpin" + key + "' style='padding:5 0 0 0;'>" + trpin + "</td>" +
+			   "<td width='15%' align='right'>" + maddr + "</td>" +
+			   "<td width='1%' id='mcpin" + key + "' style='padding:5 0 0 0;'>" + trpin + "</td>" +
 			   "<td>" + value + "</td></tr>";
             }
 
 	    if (typeof memory[index] == "undefined") {
 		o1 += "<tr>" +
-		      "<td width=15%><font style='color:blue; font-size:small; font-weight:bold'>0x" + 
+		      "<td width='15%'><font style='color:blue; font-size:small; font-weight:bold'>0x" + 
                       parseInt(index).toString(16) + 
                       "</font></td>" +
 		      "<td><font style='color:blue; font-size:small; font-weight:bold'><b>&nbsp;</b></font></td></tr>";
             }
 
             $("#memory_MC").html("<center><table class='table table-hover table-sm'>" +
-                                 "<tbody id=none>" + o1 + "</tbody>" +
+                                 "<tbody id='none'>" + o1 + "</tbody>" +
                                  "</table></center>");
 
             // scroll up/down to index element...
@@ -317,15 +317,15 @@
 	{
                 var filter = simhw_internalState('filter_signals') ;
 
-		var h = "<tr bgcolor=#FF9900>" +
-                        "<td bgcolor=white     style='border-style: solid; border-width:0px; border-color:lightgray;'></td>" +
-                        "<td bgcolor=lightblue style='border-style: solid; border-width:1px; border-color:lightgray;'>co</td>" +
-                        "<td bgcolor=#FFCC00   style='border-style: solid; border-width:1px; border-color:lightgray;' align=center><small><b>&#181;dir</b></small></td>" +
-                        "<td bgcolor=white     style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;&nbsp;</td>" ;
+		var h = "<tr bgcolor='#FF9900'>" +
+                        "<td bgcolor='white'     style='border-style: solid; border-width:0px; border-color:lightgray;'></td>" +
+                        "<td bgcolor='lightblue' style='border-style: solid; border-width:1px; border-color:lightgray;'>co</td>" +
+                        "<td bgcolor='#FFCC00'   style='border-style: solid; border-width:1px; border-color:lightgray;' align='center'><small><b>&#181;dir</b></small></td>" +
+                        "<td bgcolor='white'     style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;&nbsp;</td>" ;
 		var contSignals=1;
 		for (var i=0; i<filter.length; i++) {
                      var s = filter[i].split(",")[0] ;
-		     h += "<td align=center style='border-style: solid; border-width:1px;'><small><b>" + simhw_sim_signals()[s].name + "</b></small></td>";
+		     h += "<td align='center' style='border-style: solid; border-width:1px;'><small><b>" + simhw_sim_signals()[s].name + "</b></small></td>";
 		     contSignals++;
 		}
 		h += "</tr>" ;
@@ -363,8 +363,8 @@
                               madd = "0x" + (mstart + j).toString(16) ;
                          else madd = mstart + j ;
 
-			 line += "<td align=center  style='border-style: solid; border-width:1px; border-color:lightgray;' bgcolor=white>" + madd + "</td>" +
-                                 "<td bgcolor=white style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;</td>" ;
+			 line += "<td align='center'  style='border-style: solid; border-width:1px; border-color:lightgray;' bgcolor='white'>" + madd + "</td>" +
+                                 "<td bgcolor='white' style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;</td>" ;
 			 var mins = mcode[j] ;
 		         for (var k=0; k<filter.length; k++)
 			 {
@@ -410,8 +410,8 @@
                               }
 
 			      if (newval)
-			           line += "<td align=center style='border-style: solid; border-width:1px;'><b>" + svalue + "</b></td>";
-			      else line += "<td align=center style='border-style: solid; border-width:1px;'><font color='grey'>" + svalue + "</font></td>";
+			           line += "<td align='center' style='border-style: solid; border-width:1px;'><b>" + svalue + "</b></td>";
+			      else line += "<td align='center' style='border-style: solid; border-width:1px;'><font color='grey'>" + svalue + "</font></td>";
 			 }
 
 			 o += "<tr>" + line + "</tr>" ;
@@ -459,19 +459,19 @@
                          "<table border=0 width=100%>" +
                        //"<tr><td colspan=8 align=center>content </td></tr>" +
                          "<tr align=center>" +
-                         "  <td width=25% align=center><small><b>byte 3</b></small></td>" +
-                         "  <td width=25% align=center><small><b>byte 2</b></small></td>" +
-                         "  <td width=25% align=center><small><b>byte 1</b></small></td>" +
-                         "  <td width=25% align=center><small><b>byte 0</b></small></td>" +
+                         "  <td width='25%' align='center'><small><b>byte 3</b></small></td>" +
+                         "  <td width='25%' align='center'><small><b>byte 2</b></small></td>" +
+                         "  <td width='25%' align='center'><small><b>byte 1</b></small></td>" +
+                         "  <td width='25%' align='center'><small><b>byte 0</b></small></td>" +
                          "</tr>" +
                          "<tr>" +
-                         "  <td width=12% align=center >&nbsp;<sup>31&nbsp;&nbsp;......&nbsp;&nbsp;24</sup>&nbsp;</td>" +
-                         "  <td width=12% align=center >&nbsp;<sup>23&nbsp;&nbsp;......&nbsp;&nbsp;16</sup>&nbsp;</td>" +
-                         "  <td width=12% align=center >&nbsp;<sup>15&nbsp;&nbsp;......&nbsp;&nbsp;8</sup>&nbsp;</td>" +
-                         "  <td width=12% align=center >&nbsp;<sup>7&nbsp;&nbsp;......&nbsp;&nbsp;0</sup>&nbsp;</td>" +
+                         "  <td width='12%' align='center' >&nbsp;<sup>31&nbsp;&nbsp;......&nbsp;&nbsp;24</sup>&nbsp;</td>" +
+                         "  <td width='12%' align='center' >&nbsp;<sup>23&nbsp;&nbsp;......&nbsp;&nbsp;16</sup>&nbsp;</td>" +
+                         "  <td width='12%' align='center' >&nbsp;<sup>15&nbsp;&nbsp;......&nbsp;&nbsp;8</sup>&nbsp;</td>" +
+                         "  <td width='12%' align='center' >&nbsp;<sup>7&nbsp;&nbsp;......&nbsp;&nbsp;0</sup>&nbsp;</td>" +
                          "</tr>" +
                          "</table>" +
-			 "<th style='border-style: solid; border-width:0px;' align=right>&nbsp;&nbsp;segment</th>" +
+			 "<th style='border-style: solid; border-width:0px;' align='right'>&nbsp;&nbsp;segment</th>" +
 			 "</tr>" ;
 
 	   	var color="white";
@@ -492,16 +492,16 @@
 
                              if (0 == rows) {
 			         o += "<tr style=\"font-family:'Consolas'; font-size:11pt;\">" +
-				      "<td align=right  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
-				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c.toUpperCase() + "</td>" +
-				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" +
+				      "<td align='right'  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
+				      "<td                style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c.toUpperCase() + "</td>" +
+				      "<td                style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" +
                                        mp[c].substr(0,8)  + "&nbsp;" + mp[c].substr(8,8)  + "&nbsp;" + mp[c].substr(16,8) + "&nbsp;" + mp[c].substr(24,8) + "</td>" +
 				      "<td rowspan=" ;
                              } else {
 			         x += "<tr style=\"font-family:'Consolas'; font-size:11pt;\">" +
-				      "<td align=right  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
-				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c.toUpperCase() + "</td>" +
-				      "<td              style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" +
+				      "<td align='right'  style='border-style: solid; border-width:0px;'>" + labels2html_aux(slebal,c) + "</td>" +
+				      "<td                style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" + c.toUpperCase() + "</td>" +
+				      "<td                style='border-style: solid; border-width:1px;' bgcolor=" + color + ">" +
                                       mp[c].substr(0,8)  + "&nbsp;" + mp[c].substr(8,8)  + "&nbsp;" + mp[c].substr(16,8) + "&nbsp;" + mp[c].substr(24,8) + "</td>" +
 				      "</tr>" ;
                              }
@@ -529,8 +529,8 @@
 	             if (seg[skey].name != ".stack") {
 		         o += "<tr style=\"font-family:'Consolas'; font-size:12pt;\">" +
                               "<td>&nbsp;</td>" +
-                              "<td valign=middle align=center height=25px>...</td>" +
-                              "<td valign=middle align=center height=25px>...</td>" +
+                              "<td valign='middle' align='center' height='25px'>...</td>" +
+                              "<td valign='middle' align='center' height='25px'>...</td>" +
                               "<td>&nbsp;</td>" +
                               "</tr>" ;
 	             }
@@ -547,24 +547,24 @@
 	   var o1 = "<br>" ;
 
 	   o1 += " <center>" +
-                 " <table height=400px>" +
+                 " <table height='400px'>" +
 	         " <tr>" +
 	         " <td>" +
-	         "<table style='border-style: solid' border=1 width=100% height=100%>" ;
+	         "<table style='border-style: solid' border='1' width='100%' height='100%'>" ;
 	   for (var skey in segments)
 	   {
 	        if (segments[skey].name != ".stack")
-	   	    o1 += "<tr><td valign=middle align=center height=60px bgcolor=" + segments[skey].color + ">" +
+	   	    o1 += "<tr><td valign='middle' align='center' height='60px' bgcolor='" + segments[skey].color + "'>" +
                           segments[skey].name +
                           "</td></tr>" +
-	   	          "<tr><td valign=middle align=center height=25px>...</td></tr>" ;
+	   	          "<tr><td valign='middle' align='center' height='25px'>...</td></tr>" ;
 	   }
-	   o1 += "<tr><td valign=middle align=center bgcolor=" + segments['.stack'].color + ">" +
+	   o1 += "<tr><td valign='middle' align='center' bgcolor='" + segments['.stack'].color + "'>" +
                  segments['.stack'].name +
                  "</td></tr>" +
 	         "</table>" +
 	         " </td>" +
-	         " <td width=20px>&nbsp;</td>" +
+	         " <td width='20px'>&nbsp;</td>" +
 	         " <td>" +
 	         " <table style='border-style: solid; border-width:0px; width:100%; height:100%'>" ;
 
@@ -573,18 +573,18 @@
 	   for (skey in segments)
 	   {
 	       sx = "<tr>" +
-	   	    "    <td valign=top align=left height=30px style=''>" +
+	   	    "    <td valign='top' align='left' height='30px' style=''>" +
 	   	    "    <div id='compile_begin_" + segments[skey].name + "'>" + segments[skey].begin + "</div>" +
 	   	    "    </td>" +
 	   	    " </tr>" +
 	   	    " <tr>" +
-	   	    "    <td valign=bottom align=left height=30px style=''>" +
+	   	    "    <td valign='bottom' align='left' height='30px' style=''>" +
 	   	    "    <div id='compile_end_"   + segments[skey].name + "'>" + segments[skey].end + "</div>" +
 	   	    "    </td>" +
 	   	    " </tr>" ;
 
 	       if (segments[skey].name != ".stack")
-	   	    o1 += sx + "<tr><td valign=middle align=center height=25px>...</td></tr>" ;
+	   	    o1 += sx + "<tr><td valign='middle' align='center' height='25px'>...</td></tr>" ;
                else sp  = sx ;
 	   }
 	   o1 += sp +
@@ -618,7 +618,7 @@
                      a2s[laddr] = l;
                 }
 
-                o += "<center><table data-role=table class='table ui-responsive table-sm'><tbody>" ;
+                o += "<center><table data-role='table' class='table ui-responsive table-sm'><tbody>" ;
                 for (l in asm)
                 {
                      if  (bgc == "#F0F0F0")
@@ -642,7 +642,7 @@
                      // join the pieces...
                      if (typeof a2s[l] != "undefined")
                          o += "<tr bgcolor='#FEFEFE'>" +
-                              "<td colspan='7' style='line-height:0.3;' align=left><small><font color=gray>" + a2s[l] + "</font></small></td>"
+                              "<td colspan='7' style='line-height:0.3;' align='left'><small><font color='gray'>" + a2s[l] + "</font></small></td>"
                               "</tr>" ;
 
                      o +=  "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'" +
