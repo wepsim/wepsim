@@ -46,7 +46,7 @@
                       id:          "slider3",
                       type:        "General",
                       code_cfg:    "<input type='range'" +
-				   "	   class='custom-range' data-role='none'" +
+				   "	   class='custom-range pt-2' data-role='none'" +
 				   "	   aria-label='Notification delay'" +
 				   "	   data-show-value='false' data-theme='a'" +
 				   "	   name='slider3' id='slider3'" +
