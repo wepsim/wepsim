@@ -1,5 +1,5 @@
 
-# WepSIM: Simulator of Elemental Processor 
+# WepSIM: Wep Elemental Processor Simulator
 
 [![Build Status](https://travis-ci.org/acaldero/wepsim.svg?branch=master)](https://travis-ci.org/acaldero/wepsim)
 [![Maintainability](https://api.codeclimate.com/v1/badges/9efc2957158b5c67f775/maintainability)](https://codeclimate.com/github/acaldero/wepsim/maintainability)
@@ -9,7 +9,8 @@
 
 - [Getting WepSIM](#get-wepsim)
 - [Install WepSIM as Progressive Web Application](#get-wepsim-pwa)
-- [Getting Started](#quick-start)
+- [Getting Started](#quick-start-web)
+- [Getting Started: Command Line](#quick-start-cl)
 
 ## Getting WepSIM
 
@@ -19,6 +20,9 @@
 
 + Android version (Android 5.0+):
      * Install from: https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim
+
++ Linux/Unix version (Node 8.10.0+ and Bash 4.4.19+):
+     * Install from: https://github.com/wepsim/wepsim.github.io/raw/master/wepsim-cl-lite.zip
 
 + WepSIM Source Code:
    * https://github.com/acaldero/wepsim
@@ -61,3 +65,91 @@ Step   | iOS                       |  Android                  | Action to perfo
 + WepSIM also has a 'state management':
    + From the execution toolbar, clicking over the 'state' button to show the state manager:
      ![screen:configuration](https://raw.githubusercontent.com/acaldero/wepsim/master/help/welcome/states_usage.gif)
+
+## Getting Started: Command Line
+
++ The typical workflow consists in the following steps:
+
+   1 Run the 'exampleCodeS1E1.txt' assembly for the 'ep' architecture with the 'exampleMicrocodeS1E1.txt' microcode, and print the final state:
+
+```
+./wepsim_node.sh run                   ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt
+screen>
+screen>
+screen>
+register R2 = 0x2; register R3 = 0x1; register R5 = 0x1; register R29 = 0xffff; register PC = 0x8018; memory 0x8000 = 0x8400002; memory 0x8004 = 0x8600001; memory 0x8008 = 0xa21809; memory 0x800c = 0x8400002; memory 0x8010 = 0x8600001; memory 0x8014 = 0xa2180a;
+```
+
+   2 Run 'step by step' the 'exampleCodeS1E1.txt' assembly for the 'ep' architecture with the 'exampleMicrocodeS1E1.txt' microcode, and print for each assembly instruction the state elementes that modify its value:
+
+```
+./wepsim_node.sh stepbystep            ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt
+screen>
+screen>
+screen>
+pc(0x8000):	li $2 2:			register R2 = 0x2; register R29 = 0xffff; register PC = 0x8004
+pc(0x8004):	li $3 1:			register R3 = 0x1; register PC = 0x8008
+pc(0x8008):	add $5 $2 $3:			register R5 = 0x3; register PC = 0x800c
+pc(0x800c):	li $2 2:			register PC = 0x8010
+pc(0x8010):	li $3 1:			register PC = 0x8014
+pc(0x8014):	sub $5 $2 $3:			register R5 = 0x1; register PC = 0x8018
+```
+
+   3 Run 'microstep by microstep' the 'exampleCodeS1E1.txt' assembly for the 'ep' architecture with the 'exampleMicrocodeS1E1.txt' microcode, and print for each microinstruction the state elementes that modify its value:
+
+```
+./wepsim_node.sh microstepbymicrostep  ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt
+screen>
+screen>
+screen>
+micropc(0x0):	T2 C0:
+micropc(0x1):	TA R BW=11 M1 C1:
+micropc(0x2):	M2 C2 T1 C3:			register PC = 0x8004
+micropc(0x3):	A0 B=0 C=0:
+micropc(0x53):	SE OFFSET=0 SIZE=10000 T3 LC MR=0 SELC=10101 A0 B C=0:			register R2 = 0x2; register R29 = 0xffff
+micropc(0x0):	T2 C0:
+micropc(0x1):	TA R BW=11 M1 C1:
+micropc(0x2):	M2 C2 T1 C3:			register PC = 0x8008
+micropc(0x3):	A0 B=0 C=0:
+micropc(0x53):	SE OFFSET=0 SIZE=10000 T3 LC MR=0 SELC=10101 A0 B C=0:			register R3 = 0x1
+micropc(0x0):	T2 C0:
+micropc(0x1):	TA R BW=11 M1 C1:
+micropc(0x2):	M2 C2 T1 C3:			register PC = 0x800c
+micropc(0x3):	A0 B=0 C=0:
+micropc(0x35):	MC MR=0 SELA=1011 SELB=10000 MA=0 MB=0 SELCOP=1010 T6 SELC=10101 LC SELP=11 M7 C7 A0 B C=0:			register R5 = 0x3
+micropc(0x0):	T2 C0:
+micropc(0x1):	TA R BW=11 M1 C1:
+micropc(0x2):	M2 C2 T1 C3:			register PC = 0x8010
+micropc(0x3):	A0 B=0 C=0:
+micropc(0x53):	SE OFFSET=0 SIZE=10000 T3 LC MR=0 SELC=10101 A0 B C=0:
+micropc(0x0):	T2 C0:
+micropc(0x1):	TA R BW=11 M1 C1:
+micropc(0x2):	M2 C2 T1 C3:			register PC = 0x8014
+micropc(0x3):	A0 B=0 C=0:
+micropc(0x53):	SE OFFSET=0 SIZE=10000 T3 LC MR=0 SELC=10101 A0 B C=0:
+micropc(0x0):	T2 C0:
+micropc(0x1):	TA R BW=11 M1 C1:
+micropc(0x2):	M2 C2 T1 C3:			register PC = 0x8018
+micropc(0x3):	A0 B=0 C=0:
+micropc(0x3f):	MC MR=0 SELB=1011 SELA=10000 MA=0 MB=0 SELCOP=1011 T6 SELC=10101 LC SELP=11 M7 C7 A0 B C=0:			register R5 = 0x1
+```
+
+   4 Run the 'exampleCodeS1E1.txt' assembly for the 'ep' architecture with the 'exampleMicrocodeS1E1.txt' microcode, and check if the state at the end of the execution is the same as the one stored on file 'exampleChecklistS1E1.txt' (and if it match the expected state the output is):
+
+```
+./wepsim_node.sh check                 ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt ./examples/ep/exampleChecklistS1E1.txt
+screen>
+screen>
+screen>
+OK: Execution: no error reported
+```
+
+   5 Run the 'exampleCodeS1E1.txt' assembly for the 'ep' architecture with the 'exampleMicrocodeS1E1.txt' microcode, and check if the state at the end of the execution is the same as the one stored on file 'exampleChecklistS1E1.txt' (and if fails the output is):
+
+```
+./wepsim_node.sh check                 ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt ./examples/ep/exampleChecklistS1E2.txt
+screen>
+screen>
+screen>
+ERROR: Execution: different results: cpu[R1]='0' (expected '0xf'), cpu[R2]='0x2' (expected '0xf'), memory[0x1000]='0' (expected '0xa07ff0f'), memory[0x1004]='0' (expected '0x10061'), memory[0x1008]='0' (expected '0x7ffff'), memory[0x100c]='0' (expected '0x61000a'), memory[0x1010]='0' (expected '0xf'), memory[0x1014]='0' (expected '0xffffffff'), memory[0x1018]='0' (expected '0x7'), memory[0x101c]='0' (expected '0x12345678'), memory[0x1020]='0' (expected '0x61'), memory[0x1024]='0' (expected '0x6c6c6568'), memory[0x1028]='0' (expected '0x726f776f'), memory[0x102c]='0' (expected '0x646c'), memory[0x8000]='0x8400002' (expected '0x20201000'), memory[0x8004]='0x8600001' (expected '0x10601010'), memory[0x8008]='0xa21809' (expected '0x820000f'), memory[0x800c]='0x8400002' (expected '0x24201000'), memory[0x8010]='0x8600001' (expected '0x840000f'), memory[0x8014]='0xa2180a' (expected '0x14401010')
+```
