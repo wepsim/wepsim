@@ -70,8 +70,8 @@ Step   | iOS                       |  Android                  | Action to perfo
 
 + From the command line it is possible to 'run' the 'exampleCodeS1E1.txt' assembly for the 'ep' architecture with the 'exampleMicrocodeS1E1.txt' microcode, and print the final state:
 
-```
-./wepsim_node.sh run                   ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt
+```bash
+./wepsim_node.sh run ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt
 screen>
 screen>
 screen>
@@ -80,8 +80,8 @@ register R2 = 0x2; register R3 = 0x1; register R5 = 0x1; register R29 = 0xffff; 
 
 + It is also possible to 'run' 'step by step' the 'exampleCodeS1E1.txt' assembly for the 'ep' architecture with the 'exampleMicrocodeS1E1.txt' microcode, and print for each assembly instruction the state elementes that modify its value:
 
-```
-./wepsim_node.sh stepbystep            ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt
+```bash
+./wepsim_node.sh stepbystep ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt
 screen>
 screen>
 screen>
@@ -95,7 +95,7 @@ pc(0x8014):	sub $5 $2 $3:			register R5 = 0x1; register PC = 0x8018
 
 + And to 'run' 'microstep by microstep' the 'exampleCodeS1E1.txt' assembly for the 'ep' architecture with the 'exampleMicrocodeS1E1.txt' microcode, and print for each microinstruction the state elementes that modify its value:
 
-```
+```bash
 ./wepsim_node.sh microstepbymicrostep  ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt
 screen>
 screen>
@@ -114,7 +114,7 @@ micropc(0x0):	T2 C0:
 micropc(0x1):	TA R BW=11 M1 C1:
 micropc(0x2):	M2 C2 T1 C3:			register PC = 0x800c
 micropc(0x3):	A0 B=0 C=0:
-micropc(0x35):	MC MR=0 SELA=1011 SELB=10000 MA=0 MB=0 SELCOP=1010 T6 SELC=10101 LC SELP=11 M7 C7 A0 B C=0:			register R5 = 0x3
+micropc(0x35):	MC MR=0 SELA=1011 SELB=10000 MA=0 MB=0 SELCOP=1010 T6 SELC=10101 LC SELP=11 M7 C7 A0 B C=0: register R5 = 0x3
 micropc(0x0):	T2 C0:
 micropc(0x1):	TA R BW=11 M1 C1:
 micropc(0x2):	M2 C2 T1 C3:			register PC = 0x8010
@@ -129,13 +129,13 @@ micropc(0x0):	T2 C0:
 micropc(0x1):	TA R BW=11 M1 C1:
 micropc(0x2):	M2 C2 T1 C3:			register PC = 0x8018
 micropc(0x3):	A0 B=0 C=0:
-micropc(0x3f):	MC MR=0 SELB=1011 SELA=10000 MA=0 MB=0 SELCOP=1011 T6 SELC=10101 LC SELP=11 M7 C7 A0 B C=0:			register R5 = 0x1
+micropc(0x3f):	MC MR=0 SELB=1011 SELA=10000 MA=0 MB=0 SELCOP=1011 T6 SELC=10101 LC SELP=11 M7 C7 A0 B C=0: register R5 = 0x1
 ```
 
 + You can check if the state at the end of the execution is the same as the one stored on file 'exampleChecklistS1E1.txt'. You can 'run' the 'exampleCodeS1E1.txt' assembly for the 'ep' architecture with the 'exampleMicrocodeS1E1.txt' microcode (**and if it matchs the expected state then the output is going to be**):
 
-```
-./wepsim_node.sh check                 ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt ./examples/ep/exampleChecklistS1E1.txt
+```bash
+./wepsim_node.sh check ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt ./examples/ep/exampleChecklistS1E1.txt
 screen>
 screen>
 screen>
@@ -144,8 +144,8 @@ OK: Execution: no error reported
 
 + You can check if the state at the end of the execution is the same as the one stored on file 'exampleChecklistS1E1.txt'. You can 'run' the 'exampleCodeS1E1.txt' assembly for the 'ep' architecture with the 'exampleMicrocodeS1E1.txt' microcode (**and if it fails to match the expected state then the output is going to be**):
 
-```
-./wepsim_node.sh check                 ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt ./examples/ep/exampleChecklistS1E2.txt
+```bash
+./wepsim_node.sh check ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt ./examples/ep/exampleChecklistS1E2.txt
 screen>
 screen>
 screen>
