@@ -232,7 +232,7 @@
 		      code_init:   function() { $('#radio2-' + get_cfg('RF_display_format')).click(); },
                       description: "Formato de presentaci&oacute;n&nbsp;" +
                                    "<a href='#' data-toggle='popover1' title='Example of display formats' data-html='true' " +
-                                   "   data-content='<img alt=\"register file example\" src=\"images/cfg-rf.gif\" style=\"height:30vh;\">'>(ejemplo)</a>"
+                                   "   data-content='<img alt=\"register file example\" src=\"images/cfg-rf.gif\" class=\"img-fluid\">'>(ejemplo)</a>"
                    });
 
     config.es.push({
@@ -289,7 +289,7 @@
 				   "		onchange=\"update_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh(); \">" +
 				   "</fieldset>",
 		      code_init:   function() { $('#colorpicker1').spectrum({ preferredFormat: 'hex', color: get_cfg('color_data_active')}); },
-                      description: "Color del camino de datos <a href='#' data-toggle='popover1' title='Example of data-path color' data-html='true' data-content='<img alt=\"register file example\" src=\"images/cfg-colors.gif\" style=\"height:30vh;\">'>(ejemplo)</a>"
+                      description: "Color del camino de datos <a href='#' data-toggle='popover1' title='Example of data-path color' data-html='true' data-content='<img alt=\"register file example\" src=\"images/cfg-colors.gif\" class=\"img-fluid\">'>(ejemplo)</a>"
                    });
 
     config.es.push({
