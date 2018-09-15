@@ -411,7 +411,30 @@
     	    update_memories(SIMWARE) ;
             sim_core_reset() ;
 
-            $("#asm_debugger").html(assembly2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg, SIMWARE.assembly));
+            var asmdbg_content = "<br/>" +
+                                 "<ol>" +
+                                 "<li>Load the microcode to be used.</li>" +
+                                 "    <ul>" +
+                                 "    <li>You can use an example of microcode, load it from a file or you can edit one.</li>" +
+                                 "    </ul>" +
+                                 "<br/>" +
+                                 "<li>Load the assembly to be used.</li>" +
+                                 "    <ul>" +
+                                 "    <li>You can use an assembly example, load it from a file or you can edit one.</li>" +
+                                 "   </ul>" +
+                                 "<br/>" +
+                                 "<li>Come back to the simulator in order to execute the microcode+assembly loaded before.</li>" +
+                                 "    <ul>" +
+                                 "    <li>Each step could be executed at microinstruction or instruction level.</li>" +
+                                 "    </ul>" +
+                                 "</ol>" ;
+	    for (var l in SIMWARE.assembly) // <===> if (SIMWARE.assembly != {})
+	    {
+                 asmdbg_content = assembly2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg, SIMWARE.assembly) ;
+		 break ;
+	    }
+            $("#asm_debugger").html(asmdbg_content);
+
             showhideAsmElements();
     }
 
