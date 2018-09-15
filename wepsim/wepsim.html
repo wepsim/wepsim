@@ -229,7 +229,7 @@
 
 		    <div class="w-100 d-block d-sm-none"></div>
 
-                    <div class="col-sm p-0">
+                    <div id="slider_cpucu" class="col-sm p-0">
 			    <form id="slider2f" class="full-width-slider row-auto mt-2 p-0 pt-2 pb-2">
 				 <input aria-label="Show CPU/CU" type="range" name="slider2b" id="slider2b" 
 					min="0" max="12" value="7" step="1"
@@ -371,23 +371,6 @@
 		           <div id="asm_debugger_container" 
                                 style="overflow-y:auto; overflow-x:auto; height:70vh !important; -webkit-overflow-scrolling:touch;">
                                 <div id="asm_debugger" style="min-width:700px;">
-                                <br/>
-                                <ol>
-                                <li>Load the microcode to be used.</li>
-                                    <ul>
-                                    <li>You can use an example of microcode, load it from a file or you can edit one.</li>
-                                    </ul>
-                                <br/>
-                                <li>Load the assembly to be used.</li>
-                                    <ul>
-                                    <li>You can use an assembly example, load it from a file or you can edit one.</li>
-                                    </ul>
-                                <br/>
-                                <li>Come back to the simulator in order to execute the microcode+assembly loaded before.</li>
-                                    <ul>
-                                    <li>Each step could be executed at microinstruction or instruction level.</li>
-                                    </ul>
-                                </ol>
                                 </div>
 		           </div>
 		      </div>
@@ -1196,7 +1179,7 @@
 	<div class="modal-content">
 	   <div class="modal-header">
 		<div class="mx-auto">
-                <h5><strong>WepSIM</strong> <span class="badge badge-pill btn-success"><div class="wsversion">X</div></span></h5>
+                <h5 class="m-1"><strong>WepSIM</strong> <span class="badge badge-pill btn-success"><div class="wsversion">X</div></span></h5>
 		</div>
 		<button type="button" class="close mx-0" data-dismiss="modal" aria-label="Close">
 		    <span aria-hidden="true" class="text-black font-weight-bold">&times;</span>
@@ -1207,80 +1190,88 @@
 		<div id="container-about1" class="container-fluid" 
 		     style="max-height:80vh; overflow:auto; -webkit-overflow-scrolling:touch;">
 
-			<div class="row py-0">
-			  <div class="col-sm-12">
-			         <h5>Copyright &copy; 2015-2018</h5>
+			<div class="row pb-2">
+			  <div class="col-sm-12 p-0">
+			         <span class="float-left mr-auto text-primary"
+                                       onclick="wepsim_help_set_absolute('about');
+                                                wepsim_help_refresh();
+                                                $('#about2').modal('hide');">GNU Lesser General Public 3</span>
 			  </div>
 			</div>
 
-                        <!-- popovers thanks to: https://codepen.io/diqidoq/pen/RRojxQ -->
                         <div class="card-desk row"
                              style="max-width:512px;">
-			      <div class="card bg-light text-center col-3 p-1">
-			        <img class="card-img-top img-fluid" id="collapse-author-1"
+			      <div class="card bg-white text-center col-3 p-0">
+			        <img class="card-img-top img-fluid shadow" id="collapse-author-1"
                                      src="images/author_fgarcia.png" alt="Felix Garcia Carballeira" />
-			        <div class="card-body">
-                                  <a class="btn text-vertical-lr p-0"
-                                     data-placement="bottom"  data-toggle="popover3" data-html="true" href="#" 
+			        <div class="card-body p-3">
+                                  <a class="btn text-vertical-lr p-0 text-primary"
                                      id="fgarcia">F&eacute;lix Garc&iacute;a Carballeira</a>
                                 </div>
-                                <div id="popover-content-fgarcia" class="d-none bg-light">
+			        <div id="cf-fgarcia" class="card-footer p-1 collapse cf-all bg-white">
 				  <div class="list-group">
-		                  <a class='card-link list-group-itemlist-group-item-action px-1 py-2'
+		                  <a class='card-link list-group-item p-1'
+                                     ><span class="fab fa-linkedin"></span> linkedin</a>
+		                  <a class='card-link list-group-item p-1 m-0'
                                      href='https://www.researchgate.net/profile/Felix_Garcia-Carballeira'><span class="fab fa-researchgate"></span> r-gate</a>
+		                  <a class='card-link list-group-item p-1 m-0'
+                                     ><span class="fab fa-github"></span> github</a>
                                   </div>
                                 </div>
 			      </div>
 
-			      <div class="card bg-light text-center col-3 p-1">
-			        <img class="card-img-top img-fluid" id="collapse-author-2"
+			      <div class="card bg-white text-center col-3 p-0">
+			        <img class="card-img-top img-fluid shadow" id="collapse-author-2"
                                      src="images/author_acaldero.png" alt="Alejandro Calder&oacute;n Mateos" />
-			        <div class="card-body">
-                                  <a class="btn text-vertical-lr p-0"
-                                     data-placement="bottom"  data-toggle="popover3" data-html="true" href="#" 
+			        <div class="card-body p-3">
+                                  <a class="btn text-vertical-lr p-0 text-primary"
                                      id="acaldero">Alejandro Calder&oacute;n Mateos</a>
                                 </div>
-                                <div id="popover-content-acaldero" class="d-none bg-light">
+			        <div id="cf-acaldero" class="card-footer p-1 collapse cf-all bg-white">
 				  <div class="list-group">
-		                  <a class='card-link list-group-itemlist-group-item-action px-1 py-2'
+		                  <a class='card-link list-group-item p-1'
+                                     href='https://www.linkedin.com/in/alejandro-calderon-mateos/'><span class="fab fa-linkedin"></span> linkedin</a>
+		                  <a class='card-link list-group-item p-1 m-0'
                                      href='https://www.researchgate.net/profile/Alejandro_Calderon2'><span class="fab fa-researchgate"></span> r-gate</a>
-		                  <a class='card-link list-group-itemlist-group-item-action px-1 py-2 m-0'
+		                  <a class='card-link list-group-item p-1 m-0'
                                      href='https://github.com/acaldero/wepsim'><span class="fab fa-github"></span> github</a>
                                   </div>
                                 </div>
 			      </div>
 
-			      <div class="card bg-light text-center col-3 p-1">
-			        <img class="card-img-top img-fluid" id="collapse-author-3"
+			      <div class="card bg-white text-center col-3 p-0">
+			        <img class="card-img-top img-fluid shadow" id="collapse-author-3"
                                      src="images/author_jprieto.png" alt="Javier Prieto Cepeda" />
-			        <div class="card-body">
-                                  <a class="btn text-vertical-lr p-0"
-                                     data-placement="bottom"  data-toggle="popover3" data-html="true" href="#" 
+			        <div class="card-body p-3">
+                                  <a class="btn text-vertical-lr p-0 text-primary"
                                      id="jprieto">Javier Prieto Cepeda</a>
                                 </div>
-                                <div id="popover-content-jprieto" class="d-none bg-light">
+			        <div id="cf-jprieto" class="card-footer p-1 collapse cf-all bg-white">
 				  <div class="list-group">
-		                  <a class='card-link list-group-itemlist-group-item-action px-1 py-2'
+		                  <a class='card-link list-group-item p-1'
                                      href='https://www.linkedin.com/in/javier-prieto-cepeda'><span class="fab fa-linkedin"></span> linkedin</a>
+		                  <a class='card-link list-group-item p-1 m-0'
+                                     ><span class="fab fa-researchgate"></span> r-gate</a>
+		                  <a class='card-link list-group-item p-1 m-0'
+                                     ><span class="fab fa-github"></span> github</a>
                                   </div>
                                 </div>
 			      </div>
 
-			      <div class="card bg-light text-center col-3 p-1">
-			        <img class="card-img-top img-fluid" id="collapse-author-4"
+			      <div class="card bg-white text-center col-3 p-0">
+			        <img class="card-img-top img-fluid shadow" id="collapse-author-4"
                                      src="images/author_salonso.png" alt="Sa&uacute;l Alonso Monsalve" />
-			        <div class="card-body">
-                                  <a class="btn text-vertical-lr p-0"
-                                     data-placement="bottom"  data-toggle="popover3" data-html="true" href="#" 
+			        <div class="card-body p-3">
+                                  <a class="btn text-vertical-lr p-0 text-primary"
                                      id="salonso">Sa&uacute;l Alonso Monsalve</a>
                                 </div>
-                                <div id="popover-content-salonso" class="d-none bg-light">
+			        <div id="cf-salonso" class="card-footer p-1 collapse cf-all bg-white">
 				  <div class="list-group">
-		                  <a class='card-link list-group-itemlist-group-item-action px-1 py-2'
+		                  <a class='card-link list-group-item p-1'
                                      href='https://www.linkedin.com/in/salonsom/'><span class="fab fa-linkedin"></span> linkedin</a>
-		                  <a class='card-link list-group-itemlist-group-item-action px-1 py-2 m-0'
+		                  <a class='card-link list-group-item p-1 m-0'
                                      href='https://www.researchgate.net/profile/Saul_Alonso_Monsalve'><span class="fab fa-researchgate"></span> r-gate</a>
-		                  <a class='card-link list-group-itemlist-group-item-action px-1 py-2 m-0'
+		                  <a class='card-link list-group-item p-1 m-0'
                                      href='https://github.com/saulam/wepsim'><span class="fab fa-github"></span> github</a>
                                   </div>
                                 </div>
@@ -1290,12 +1281,11 @@
 		</div>
 	   </div>
            <div class="modal-footer">
-		 <span  class="badge badge-success badge float-left mr-auto"
-			onclick="wepsim_help_set_absolute('about');
-				 wepsim_help_refresh();
-				 $('#about2').modal('hide');">GNU Lesser General Public 3</span>
+		 <button type="button" 
+	                 class="btn btn-outline-dark  btn-sm col-xs-4 col-sm-3 float-left mr-auto"
+                         data-toggle="collapse" data-target=".cf-all">&plusmn; Desc<span class="d-none d-sm-inline-flex">ription</span></button>
 		 <button type="button" data-dismiss="modal"
-                         class="btn btn-primary btn-sm float-right col-3 shadow-none">OK</button>
+                         class="btn btn-primary       btn-sm col-xs-4 col-sm-3 float-right shadow-none">OK</button>
 	   </div>
 	</div>
      </div>

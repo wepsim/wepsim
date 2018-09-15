@@ -25,6 +25,7 @@
 
     function wepsim_show_wepmips ( )
     {
+	$("#slider_cpucu").hide() ;
 	$("#tab26").hide() ;
 	$("#tab21").hide() ;
 	$("#tab24").click() ;
@@ -32,6 +33,7 @@
 
     function wepsim_hide_wepmips ( )
     {
+	$("#slider_cpucu").show() ;
 	$("#tab26").show() ;
 	$("#tab21").show() ;
     }
