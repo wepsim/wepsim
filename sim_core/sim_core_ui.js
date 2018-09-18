@@ -333,23 +333,31 @@
                               "      onclick='hex2values_update(\"" + index + "\");'>update</span></td></tr>";
                 }
 
-		var vtable = "<table width='100%' class='table table-bordered table-sm mb-1'>" +
-			     "<tr><td><strong><b>hex.</b></strong></td>" +
-                             "    <td colspan=4><strong>" + valuehex + "</strong></td></tr>" +
-			     "<tr><td><strong><b>bin.</b></strong></td>" +
-                             "    <td colspan=4><strong><font face='monospace'><b>" + valuebin + "</b></font></smallspan></td></tr>" +
-			     "<tr><td><strong><b>signed</b></strong></td>" +
-                             "    <td colspan=4><strong>" + valuei   + "</strong></td></tr>" +
-			     "<tr><td><strong><b>unsig.</b></strong></td>" +
-                             "    <td colspan=4><strong>" + valueui  + "</strong></td></tr>" +
-			     "<tr><td width=30%><strong><b>char</b></strong></td>" +
-                             "    <td width=15% align=center><strong>" + valuec8[0] + "</strong></td>" +
-                             "    <td width=15% align=center><strong>" + valuec8[1] + "</strong></td>" +
-                             "    <td width=15% align=center><strong>" + valuec8[2] + "</strong></td>" +
-                             "    <td width=15% align=center><strong>" + valuec8[3] + "</strong></td></tr>" +
-		             "<tr><td><strong><b>float</b></strong></td>" +
-                             "    <td colspan=4><strong><font face='monospace'><b>" + valuef + "</b></font></strong></td></tr>" +
+		var vtable = "<table class='table table-bordered table-hover table-sm mb-1'>" +
+			     "<tbody>" +
+			     "<tr><td class='py-0 px-1'><strong>hex.</strong></td>" +
+                             "    <td class='py-0 px-1' colspan='4'><strong><font face='monospace'>" + valuehex + "</font></strong></td>" +
+			     "</tr>" +
+			     "<tr><td class='py-0 px-1'><strong>binary</strong></td>" +
+                             "    <td class='py-0 px-1' colspan='4'><strong><font face='monospace'>" + valuebin + "</font></strong></td>" +
+			     "</tr>" +
+			     "<tr><td class='py-0 px-1'><strong>signed</strong></td>" +
+                             "    <td class='py-0 px-1' colspan='4'><strong><font face='monospace'>" + valuei   + "</font></strong></td>" +
+			     "</tr>" +
+			     "<tr><td class='py-0 px-1'><strong>unsig.</strong></td>" +
+                             "    <td class='py-0 px-1' colspan='4'><strong><font face='monospace'>" + valueui  + "</font></strong></td>" +
+			     "</tr>" +
+			     "<tr><td class='py-0 px-1'><strong>char</strong></td>" +
+                             "    <td class='py-0 px-1' align='center'><strong><font face='monospace'>" + valuec8[0] + "</font></strong></td>" +
+                             "    <td class='py-0 px-1' align='center'><strong><font face='monospace'>" + valuec8[1] + "</font></strong></td>" +
+                             "    <td class='py-0 px-1' align='center'><strong><font face='monospace'>" + valuec8[2] + "</font></strong></td>" +
+                             "    <td class='py-0 px-1' align='center'><strong><font face='monospace'>" + valuec8[3] + "</font></strong></td>" +
+			     "</tr>" +
+		             "<tr><td class='py-0 px-1'><strong>float</strong></td>" +
+                             "    <td class='py-0 px-1' colspan='4'><strong><font face='monospace'>" + valuef + "</font></strong></td>" +
+			     "</tr>" +
 			     valuedt +
+			     "</tbody>" +
 			     "</table>" ;
 
 		return vtable;
@@ -389,6 +397,12 @@
 	    	    html:      true,
                     placement: 'auto',
                     animation: false,
+                    trigger:   'click',
+		    template:  '<div class="popover shadow" role="tooltip"><div class="arrow"></div>' +
+		               '<h3  class="popover-header"></h3>' +
+		               '<div class="popover-body"></div>' +
+		               '</div>',
+		    container: 'body',
 		    content: function() {
 		        var index = $(this).attr("data-popover-content");
                         var hexvalue = get_value(simhw_sim_states()['BR'][index]);
