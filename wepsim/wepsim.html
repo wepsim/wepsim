@@ -179,7 +179,7 @@
 		<tr>
 		<td align="center">
 	        <img src="images/ajax-loader.gif" style="min-height:5vh" alt="loading icon" />
-		<br/><span class="text-primary font-weight-bold p-3"><h4>Loading WepSIM...</h4></span>
+		<br/><span class="text-primary font-weight-bold p-3"><strong>Loading WepSIM...</strong></span>
 		</td>
 		</tr>
 		</table>
@@ -230,7 +230,8 @@
 		    <div class="w-100 d-block d-sm-none"></div>
 
                     <div id="slider_cpucu" class="col-sm p-0">
-			    <form id="slider2f" class="full-width-slider row-auto mt-2 p-0 pt-2 pb-2">
+			    <form id="slider2f" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">
+				 <label class="my-0" for="slider2b" style="min-width:95%">processor:</label>
 				 <input aria-label="Show CPU/CU" type="range" name="slider2b" id="slider2b" 
 					min="0" max="12" value="7" step="1"
 				        data-show-value="false"
@@ -278,7 +279,8 @@
 		    <div class="w-100 d-xs-block d-sm-none"></div>
 
                     <div class="col-sm p-0">
-			    <form id="slider2e" class="full-width-slider row-auto mt-2 p-0 pt-2 pb-2">
+			    <form id="slider2e" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">
+				 <label class="my-0" for="slider2a" style="min-width:95%">info:</label>
 				 <input aria-label="Show Main/Info" type="range" name="slider2a" id="slider2a" 
 					min="0" max="12" value="7" step="1"
 				        data-show-value="false"
@@ -498,18 +500,19 @@
 		              <div id="memory_MC" style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="con">
-				 <img alt="monitor" height="55" src="images/monitor2.png" />
 				 <label class="my-0" for="kdb_con" style="min-width:95%">
-				 <textarea aria-label="monitor" 
+				 <img alt="monitor" height="55" src="images/monitor2.png" />
+				 </label>
+				 <textarea aria-label="monitor"
 					   style="width:100%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 8 0" 
 					   placeholder="WepSIM" id="kdb_con" rows="8" readonly></textarea>
-				 </label>
-				 <img alt="keyboard" height="35" src="images/keyboard1.png" />
+
 				 <label class="my-0" for="kdb_key" style="min-width:95%">
-				 <textarea aria-label="keyboard" 
+				 <img alt="keyboard" height="35" src="images/keyboard1.png" />
+				 </label>
+				 <textarea aria-label="keyboard"
 					   style="min-width:100%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 0 0" 
 					   placeholder="WepSIM" id="kdb_key" rows="2"></textarea>
-				 </label>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="io">
 		              <div id="io_ALL" style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
@@ -684,7 +687,7 @@
      <div class="modal-dialog">
      <div class="modal-content">
      <div class="modal-header bg-dark">
-	<h3 class="modal-title text-white">Load Microcode</h3>
+	<strong class="modal-title text-white">Load Microcode</strong>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" class="text-white font-weight-bold">&times;</span>
         </button>
@@ -694,11 +697,11 @@
 	<p><input aria-label="file to load" type="file" id="fileToLoad" class="dropify"/></p>
      </div>
      <div class="modal-footer">
-	<button class="btn btn-md btn-dark"
+	<button class="btn btn-sm btn-dark"
 		onclick="var fileToLoad = document.getElementById('fileToLoad').files[0];
 			 wepsim_load_from_file(fileToLoad, inputfirm);
 			 $('#lsload').modal('hide');">Load from this File</button>
-	<button class="btn btn-md btn-danger"
+	<button class="btn btn-sm btn-danger"
 		type="button" data-dismiss="modal">Cancel</button>
      </div>
      </div>
@@ -709,7 +712,7 @@
      <div class="modal-dialog">
      <div class="modal-content">
      <div class="modal-header bg-dark">
-	<h3 class="modal-title text-white">Save Microcode</h3>
+	<strong class="modal-title text-white">Save Microcode</strong>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" class="text-white font-weight-bold">&times;</span>
         </button>
@@ -720,7 +723,7 @@
                   class="form-control btn-outline-dark" placeholder="File name where microcode will be saved" style="min-width: 90%;"/></p>
      </div>
      <div class="modal-footer" style="flex-wrap: wrap">
-	<button class="btn btn-md btn-dark my-1"
+	<button class="btn btn-sm btn-dark my-1"
 		onclick="if (confirm('Do you want me to save the current Control Memory contents rather than the editor contents?.\n\n' + 
 				     'Please notice three things:\n' +
 				     '* The current Control Memory will replace the editor contents.\n' +
@@ -736,10 +739,10 @@
 			     var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
 			     wepsim_save_to_file(inputfirm, fileNameToSaveAs);
 			 }">Save control memory to File</button>
-	<button class="btn btn-md btn-dark my-1"
+	<button class="btn btn-sm btn-dark my-1"
 		onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
 			 wepsim_save_to_file(inputfirm, fileNameToSaveAs);">Save Editor content to File</button>
-	<button class="btn btn-md btn-danger my-1"
+	<button class="btn btn-sm btn-danger my-1"
 		type="button" data-dismiss="modal">Cancel</button>
      </div>
      </div>
@@ -752,7 +755,7 @@
      <div class="modal-dialog">
      <div class="modal-content">
      <div class="modal-header bg-dark">
-	<h3 class="modal-title text-white">Load Assembly</h3>
+	<strong class="modal-title text-white">Load Assembly</strong>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" class="text-white font-weight-bold">&times;</span>
         </button>
@@ -762,11 +765,11 @@
 	<p><input aria-label="file to load" type="file" id="fileToLoad2" class="dropify"/></p>
      </div>
      <div class="modal-footer">
-	<button class="btn btn-md btn-dark"
+	<button class="btn btn-sm btn-dark"
 		onclick="var fileToLoad = document.getElementById('fileToLoad2').files[0];
 			 wepsim_load_from_file(fileToLoad, inputasm);
 			 $('#lsload2').modal('hide');">Load from this File</button>
-	<button class="btn btn-md btn-danger"
+	<button class="btn btn-sm btn-danger"
 		type="button" data-dismiss="modal">Cancel</button>
      </div>
      </div>
@@ -777,7 +780,7 @@
      <div class="modal-dialog">
      <div class="modal-content">
      <div class="modal-header bg-dark">
-	<h3 class="modal-title text-white">Save Assembly</h3>
+	<strong class="modal-title text-white">Save Assembly</strong>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" class="text-white font-weight-bold">&times;</span>
         </button>
@@ -788,10 +791,10 @@
                   class="form-control btn-outline-dark" placeholder="File name where assembly will be saved" style="min-width: 90%;"/></p>
      </div>
      <div class="modal-footer">
-	<button class="btn btn-md btn-dark"
+	<button class="btn btn-sm btn-dark"
 		onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs2').value;
 			 wepsim_save_to_file(inputasm, fileNameToSaveAs);">Save to File</button>
-	<button class="btn btn-md btn-danger"
+	<button class="btn btn-sm btn-danger"
 		type="button" data-dismiss="modal">Cancel</button>
      </div>
      </div>
@@ -1117,7 +1120,7 @@
 			    wepsim_notify_success('<strong>INFO</strong>', 'Removed all !.');
 			    wepsim_state_history_list() ;
 			    return false;"
-		   type="button"><i class="fa fa-trash" aria-hidden="true"></i> Reset <span class='d-none d-sm-inline-flex'>history</span></button>
+		   type="button"><em class="fa fa-trash" aria-hidden="true"></em> Reset <span class='d-none d-sm-inline-flex'>history</span></button>
 	   <button class="btn btn-dark btn-sm col-auto float-right"
 		   onclick="wepsim_state_history_add();
 			    wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
@@ -1125,7 +1128,7 @@
                             wepsim_dialog_current_state();
 			    $('#states3').collapse('show');
 			    return false;"
-		   type="button"><i class="fa fa-plus" aria-hidden="true"></i> Add <span class='d-none d-sm-inline-flex'>'Current State' to History</span></button>
+		   type="button"><em class="fa fa-plus" aria-hidden="true"></em> Add <span class='d-none d-sm-inline-flex'>'Current State' to History</span></button>
            <button class="btn btn-danger btn-sm col-xs-3 col-sm-1 pull-right shadow-none"
                    onclick="$('#current_state1').modal('hide');"
                    type="button">Close</button>
@@ -1152,7 +1155,7 @@
 		<div class="card-body">
 		     <div class="row">
 		          <div class="col-auto">
-			       <i class="fas fa-comment-alt"></i>
+			       <em class="fas fa-comment-alt"></em>
 		          </div>
 		          <div class="col">
 		               <h5><span id="dlg_body2">Reason for stopping the execution goes here...</span></h5>
