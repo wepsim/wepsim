@@ -333,22 +333,22 @@
                               "      onclick='hex2values_update(\"" + index + "\");'>update</span></td></tr>";
                 }
 
-		var vtable = "<table width='100%' class='table table-bordered table-sm'>" +
-			     "<tr><td><small><b>hex.</b></small></td>" +
-                             "    <td colspan=4><small>" + valuehex + "</small></td></tr>" +
-			     "<tr><td><small><b>bin.</b></small></td>" +
-                             "    <td colspan=4><small><font face='monospace'><b>" + valuebin + "</b></font></smallspan></td></tr>" +
-			     "<tr><td><small><b>signed</b></small></td>" +
-                             "    <td colspan=4><small>" + valuei   + "</small></td></tr>" +
-			     "<tr><td><small><b>unsig.</b></small></td>" +
-                             "    <td colspan=4><small>" + valueui  + "</small></td></tr>" +
-			     "<tr><td width=30%><small><b>char</b></small></td>" +
-                             "    <td width=15% align=center><small>" + valuec8[0] + "</small></td>" +
-                             "    <td width=15% align=center><small>" + valuec8[1] + "</small></td>" +
-                             "    <td width=15% align=center><small>" + valuec8[2] + "</small></td>" +
-                             "    <td width=15% align=center><small>" + valuec8[3] + "</small></td></tr>" +
-		             "<tr><td><small><b>float</b></small></td>" +
-                             "    <td colspan=4><small><font face='monospace'><b>" + valuef + "</b></font></small></td></tr>" +
+		var vtable = "<table width='100%' class='table table-bordered table-sm mb-1'>" +
+			     "<tr><td><strong><b>hex.</b></strong></td>" +
+                             "    <td colspan=4><strong>" + valuehex + "</strong></td></tr>" +
+			     "<tr><td><strong><b>bin.</b></strong></td>" +
+                             "    <td colspan=4><strong><font face='monospace'><b>" + valuebin + "</b></font></smallspan></td></tr>" +
+			     "<tr><td><strong><b>signed</b></strong></td>" +
+                             "    <td colspan=4><strong>" + valuei   + "</strong></td></tr>" +
+			     "<tr><td><strong><b>unsig.</b></strong></td>" +
+                             "    <td colspan=4><strong>" + valueui  + "</strong></td></tr>" +
+			     "<tr><td width=30%><strong><b>char</b></strong></td>" +
+                             "    <td width=15% align=center><strong>" + valuec8[0] + "</strong></td>" +
+                             "    <td width=15% align=center><strong>" + valuec8[1] + "</strong></td>" +
+                             "    <td width=15% align=center><strong>" + valuec8[2] + "</strong></td>" +
+                             "    <td width=15% align=center><strong>" + valuec8[3] + "</strong></td></tr>" +
+		             "<tr><td><strong><b>float</b></strong></td>" +
+                             "    <td colspan=4><strong><font face='monospace'><b>" + valuef + "</b></font></strong></td></tr>" +
 			     valuedt +
 			     "</table>" ;
 
