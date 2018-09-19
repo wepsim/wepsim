@@ -328,7 +328,7 @@
 
 		var valuedt = "" ;
 		if (get_cfg('is_editable') == true) {
-		    valuedt = "<tr><td class='py-0 px-1' colspan='5' align='center'>" + 
+		    valuedt = "<tr><td class='py-1 px-1' colspan='5' align='center'>" + 
                               "<input type='text' id='popover1' value='" + valueui + "' data-mini='true' style='width:65%'>&nbsp;" +
                               "<span class='badge badge-secondary' " +
                               "      onclick='hex2values_update(\"" + index + "\");'>update</span>" + 
@@ -393,7 +393,7 @@
                           "</div>" ;
 	    }
 
-            $(jqdiv).html("<div class='row justify-content-center'>" + o1_rf + "</div>");
+            $(jqdiv).html("<div class='row justify-content-center pt-1'>" + o1_rf + "</div>");
 
 	    $("[data-toggle=popover-up]").popover({
 	    	    html:      true,
@@ -520,7 +520,7 @@
                       "</div>" ;
             }
 
-            $(jqdiv).html("<div class='row justify-content-center'>" + o1 + "</div>");
+            $(jqdiv).html("<div class='row justify-content-center pt-1'>" + o1 + "</div>");
 
 	    $("[data-toggle=popover-bottom]").popover({
 	    	    html:      true,
