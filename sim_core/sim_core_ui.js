@@ -328,9 +328,11 @@
 
 		var valuedt = "" ;
 		if (get_cfg('is_editable') == true) {
-		    valuedt = "<tr><td colspan=5 align=center><input type=text id='popover1' value='" + valueui + "' data-mini='true' style='width:65%'>&nbsp;" +
+		    valuedt = "<tr><td class='py-0 px-1' colspan='5' align='center'>" + 
+                              "<input type='text' id='popover1' value='" + valueui + "' data-mini='true' style='width:65%'>&nbsp;" +
                               "<span class='badge badge-secondary' " +
-                              "      onclick='hex2values_update(\"" + index + "\");'>update</span></td></tr>";
+                              "      onclick='hex2values_update(\"" + index + "\");'>update</span>" + 
+                              "</td></tr>";
                 }
 
 		var vtable = "<table class='table table-bordered table-hover table-sm mb-1'>" +
@@ -398,7 +400,8 @@
                     placement: 'auto',
                     animation: false,
                     trigger:   'click',
-		    template:  '<div class="popover shadow" role="tooltip"><div class="arrow"></div>' +
+		    template:  '<div class="popover shadow" role="tooltip">' + 
+                               '<div class="arrow"></div>' +
 		               '<h3  class="popover-header"></h3>' +
 		               '<div class="popover-body"></div>' +
 		               '</div>',
