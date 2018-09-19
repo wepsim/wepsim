@@ -280,7 +280,7 @@
 
                 valuebin = pack32(valuebin) ;
                 valuebin = valuebin.substring(0,4)   + " " + valuebin.substring(4,8)   + " " +
-                           valuebin.substring(8,12)  + " " + valuebin.substring(12,16) + " " +
+                           valuebin.substring(8,12)  + " " + valuebin.substring(12,16) + "<br>" +
                            valuebin.substring(16,20) + " " + valuebin.substring(20,24) + " " +
                            valuebin.substring(24,28) + " " + valuebin.substring(28,32) ;
 
@@ -328,33 +328,35 @@
 
 		var valuedt = "" ;
 		if (get_cfg('is_editable') == true) {
-		    valuedt = "<tr><td colspan=5 align=center><input type=text id='popover1' value='" + valueui + "' data-mini='true' style='width:65%'>&nbsp;" +
+		    valuedt = "<tr><td class='py-1 px-1' colspan='5' align='center'>" + 
+                              "<input type='text' id='popover1' value='" + valueui + "' data-mini='true' style='width:65%'>&nbsp;" +
                               "<span class='badge badge-secondary' " +
-                              "      onclick='hex2values_update(\"" + index + "\");'>update</span></td></tr>";
+                              "      onclick='hex2values_update(\"" + index + "\");'>update</span>" + 
+                              "</td></tr>";
                 }
 
 		var vtable = "<table class='table table-bordered table-hover table-sm mb-1'>" +
 			     "<tbody>" +
-			     "<tr><td class='py-0 px-1'><strong>hex.</strong></td>" +
-                             "    <td class='py-0 px-1' colspan='4'><strong><font face='monospace'>" + valuehex + "</font></strong></td>" +
+			     "<tr><td class='p-0 pb-1 pl-1'><strong>hex.</strong></td>" +
+                             "    <td class='p-0 pb-1 pl-1' colspan='4'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuehex + "</strong></td>" +
 			     "</tr>" +
-			     "<tr><td class='py-0 px-1'><strong>binary</strong></td>" +
-                             "    <td class='py-0 px-1' colspan='4'><strong><font face='monospace'>" + valuebin + "</font></strong></td>" +
+			     "<tr><td class='p-0 pb-1 pl-1'><strong>binary</strong></td>" +
+                             "    <td class='p-0 pb-1 pl-1' colspan='4'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuebin + "</strong></td>" +
 			     "</tr>" +
-			     "<tr><td class='py-0 px-1'><strong>signed</strong></td>" +
-                             "    <td class='py-0 px-1' colspan='4'><strong><font face='monospace'>" + valuei   + "</font></strong></td>" +
+			     "<tr><td class='p-0 pb-1 pl-1'><strong>signed</strong></td>" +
+                             "    <td class='p-0 pb-1 pl-1' colspan='4'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuei   + "</strong></td>" +
 			     "</tr>" +
-			     "<tr><td class='py-0 px-1'><strong>unsig.</strong></td>" +
-                             "    <td class='py-0 px-1' colspan='4'><strong><font face='monospace'>" + valueui  + "</font></strong></td>" +
+			     "<tr><td class='p-0 pb-1 pl-1'><strong>unsig.</strong></td>" +
+                             "    <td class='p-0 pb-1 pl-1' colspan='4'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valueui  + "</strong></td>" +
 			     "</tr>" +
-			     "<tr><td class='py-0 px-1'><strong>char</strong></td>" +
-                             "    <td class='py-0 px-1' align='center'><strong><font face='monospace'>" + valuec8[0] + "</font></strong></td>" +
-                             "    <td class='py-0 px-1' align='center'><strong><font face='monospace'>" + valuec8[1] + "</font></strong></td>" +
-                             "    <td class='py-0 px-1' align='center'><strong><font face='monospace'>" + valuec8[2] + "</font></strong></td>" +
-                             "    <td class='py-0 px-1' align='center'><strong><font face='monospace'>" + valuec8[3] + "</font></strong></td>" +
+			     "<tr><td class='p-0 pb-1 pl-1'><strong>char</strong></td>" +
+                             "    <td class='p-0 pb-1 pl-1' align='center'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuec8[0] + "</strong></td>" +
+                             "    <td class='p-0 pb-1 pl-1' align='center'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuec8[1] + "</strong></td>" +
+                             "    <td class='p-0 pb-1 pl-1' align='center'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuec8[2] + "</strong></td>" +
+                             "    <td class='p-0 pb-1 pl-1' align='center'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuec8[3] + "</strong></td>" +
 			     "</tr>" +
-		             "<tr><td class='py-0 px-1'><strong>float</strong></td>" +
-                             "    <td class='py-0 px-1' colspan='4'><strong><font face='monospace'>" + valuef + "</font></strong></td>" +
+		             "<tr><td class='p-0 pb-1 pl-1'><strong>float</strong></td>" +
+                             "    <td class='p-0 pb-1 pl-1' colspan='4'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuef + "</strong></td>" +
 			     "</tr>" +
 			     valuedt +
 			     "</tbody>" +
@@ -391,14 +393,15 @@
                           "</div>" ;
 	    }
 
-            $(jqdiv).html("<div class='row justify-content-center'>" + o1_rf + "</div>");
+            $(jqdiv).html("<div class='row justify-content-center pt-1'>" + o1_rf + "</div>");
 
 	    $("[data-toggle=popover-up]").popover({
 	    	    html:      true,
                     placement: 'auto',
                     animation: false,
                     trigger:   'click',
-		    template:  '<div class="popover shadow" role="tooltip"><div class="arrow"></div>' +
+		    template:  '<div class="popover shadow" role="tooltip">' + 
+                               '<div class="arrow"></div>' +
 		               '<h3  class="popover-header"></h3>' +
 		               '<div class="popover-body"></div>' +
 		               '</div>',
@@ -411,7 +414,7 @@
 		    title: function() {
 		        var index = $(this).attr("data-popover-content");
                         var id_button = "&quot;#rf" + index + "&quot;" ;
-		        return '<span class="text-info"><strong>R' + index + '</strong></span>' +
+		        return '<span class="text-dark"><strong>R' + index + '</strong></span>' +
                                '<button type="button" id="close" class="close" ' +
                                '        onclick="$(' + id_button + ').click();">&times;</button>';
 		    }
@@ -517,7 +520,7 @@
                       "</div>" ;
             }
 
-            $(jqdiv).html("<div class='row justify-content-center'>" + o1 + "</div>");
+            $(jqdiv).html("<div class='row justify-content-center pt-1'>" + o1 + "</div>");
 
 	    $("[data-toggle=popover-bottom]").popover({
 	    	    html:      true,
@@ -531,7 +534,7 @@
 		    title: function() {
 		        var index = $(this).attr("data-popover-content");
                         var id_button = "&quot;#rp" + index + "&quot;" ;
-		        return '<span class="text-info"><strong>' + simhw_sim_states()[index].name + '</strong></span>' +
+		        return '<span class="text-dark"><strong>' + simhw_sim_states()[index].name + '</strong></span>' +
                                '<button type="button" id="close" class="close" ' +
                                '        onclick="$(' + id_button + ').click();">&times;</button>';
 		    }
