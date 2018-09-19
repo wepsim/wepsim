@@ -280,7 +280,7 @@
 
                 valuebin = pack32(valuebin) ;
                 valuebin = valuebin.substring(0,4)   + " " + valuebin.substring(4,8)   + " " +
-                           valuebin.substring(8,12)  + " " + valuebin.substring(12,16) + " " +
+                           valuebin.substring(8,12)  + " " + valuebin.substring(12,16) + "<br>" +
                            valuebin.substring(16,20) + " " + valuebin.substring(20,24) + " " +
                            valuebin.substring(24,28) + " " + valuebin.substring(28,32) ;
 
