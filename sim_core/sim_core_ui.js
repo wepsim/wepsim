@@ -338,25 +338,27 @@
 		var vtable = "<table class='table table-bordered table-hover table-sm mb-1'>" +
 			     "<tbody>" +
 			     "<tr><td class='p-0 pb-1 pl-1'><strong>hex.</strong></td>" +
-                             "    <td class='p-0 pb-1 pl-1' colspan='4'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuehex + "</strong></td>" +
+                             "    <td class='p-0 pb-1 pl-1'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuehex + "</strong></td>" +
 			     "</tr>" +
 			     "<tr><td class='p-0 pb-1 pl-1'><strong>binary</strong></td>" +
-                             "    <td class='p-0 pb-1 pl-1' colspan='4'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuebin + "</strong></td>" +
+                             "    <td class='p-0 pb-1 pl-1'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuebin + "</strong></td>" +
 			     "</tr>" +
 			     "<tr><td class='p-0 pb-1 pl-1'><strong>signed</strong></td>" +
-                             "    <td class='p-0 pb-1 pl-1' colspan='4'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuei   + "</strong></td>" +
+                             "    <td class='p-0 pb-1 pl-1'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuei   + "</strong></td>" +
 			     "</tr>" +
 			     "<tr><td class='p-0 pb-1 pl-1'><strong>unsig.</strong></td>" +
-                             "    <td class='p-0 pb-1 pl-1' colspan='4'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valueui  + "</strong></td>" +
+                             "    <td class='p-0 pb-1 pl-1'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valueui  + "</strong></td>" +
 			     "</tr>" +
 			     "<tr><td class='p-0 pb-1 pl-1'><strong>char</strong></td>" +
-                             "    <td class='p-0 pb-1 pl-1' align='center'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuec8[0] + "</strong></td>" +
-                             "    <td class='p-0 pb-1 pl-1' align='center'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuec8[1] + "</strong></td>" +
-                             "    <td class='p-0 pb-1 pl-1' align='center'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuec8[2] + "</strong></td>" +
-                             "    <td class='p-0 pb-1 pl-1' align='center'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuec8[3] + "</strong></td>" +
+                             "    <td class='p-0 pb-1 pl-1'>" + 
+			     "<strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>&nbsp;" + valuec8[0] + "&nbsp;</strong>&nbsp;" + 
+			     "<strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>&nbsp;" + valuec8[1] + "&nbsp;</strong>&nbsp;" + 
+			     "<strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>&nbsp;" + valuec8[2] + "&nbsp;</strong>&nbsp;" + 
+			     "<strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>&nbsp;" + valuec8[3] + "&nbsp;</strong>&nbsp;" + 
+			     "</td>" +
 			     "</tr>" +
 		             "<tr><td class='p-0 pb-1 pl-1'><strong>float</strong></td>" +
-                             "    <td class='p-0 pb-1 pl-1' colspan='4'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuef + "</strong></td>" +
+                             "    <td class='p-0 pb-1 pl-1'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuef + "</strong></td>" +
 			     "</tr>" +
 			     valuedt +
 			     "</tbody>" +
