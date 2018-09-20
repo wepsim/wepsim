@@ -98,7 +98,7 @@
                      title:       "Dependencias entre señales",
                      i_type:      "code",
                      u_type:      "info",
-                     reference:   "wepsim_open_help_content(\'<div id=depgraph1>...</div>\'); " +
+                     reference:   "wepsim_open_help_content('<div id=\\'depgraph1\\' style=\\'height:70vh;\\'>Cargando...</div>'); " +
                                   "show_visgraph(jit_fire_dep, jit_fire_order);",
                      description: "Gráfico de las dependencias entre señales (puede necesitar varios segundos para generarse).<br>"
                   });

@@ -99,7 +99,7 @@
                      title:       "Signal dependencies",
                      i_type:      "code",
                      u_type:      "info",
-                     reference:   "wepsim_open_help_content(\'<div id=depgraph1>...</div>\'); " +
+                     reference:   "wepsim_open_help_content('<div id=\\'depgraph1\\' style=\\'height:70vh;\\'>Loading...</div>'); " +
                                   "show_visgraph(jit_fire_dep, jit_fire_order);",
                      description: "Graph of the signal dependencies (it needs several seconds to be displayed).<br>"
                   });
