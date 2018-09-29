@@ -11,36 +11,44 @@ var tour_steps = {} ;
 	                            else if (this._currentStep === 2)
 	                            {
 			                $("#select4").click(); 
-			                $("#btn_cfg1").click(); 
 					tour.refresh() ;
 			                return true ;
 			            }
 	                            else if (this._currentStep === 3)
 	                            {
-			                $("#config2").modal('hide'); 
+			                $("#btn_cfg1").click(); 
 					tour.refresh() ;
 			                return true ;
 			            }
 	                            else if (this._currentStep === 4)
 	                            {
-			                $("#btn_help1").click(); 
+			                $("#config2").modal('hide'); 
 					tour.refresh() ;
 			                return true ;
 			            }
 	                            else if (this._currentStep === 5)
 	                            {
-			                $("#help1").modal('hide'); 
+			                $("#btn_help1").click(); 
 					tour.refresh() ;
 			                return true ;
 			            }
 	                            else if (this._currentStep === 6)
 	                            {
-			                $("#btn_example1").click(); 
+			                $("#help1").modal('hide'); 
 					tour.refresh() ;
 			                return true ;
 			            }
 	                            else if (this._currentStep === 7)
 	                            {
+			                $("#btn_example1").click(); 
+					tour.refresh() ;
+			                return true ;
+			            }
+	                            else if (this._currentStep === 8)
+	                            {
+					set_cfg('ws_mode', 'intro') ;
+                                        save_cfg() ;
+
 			                $("#example1").modal('hide'); 
 					tour.refresh() ;
 			                return true ;
@@ -51,7 +59,7 @@ var tour_steps = {} ;
                         // 0
 			{
 			   intro: "¡Bienvenidos y Bienvenidas a WepSIM!<br>" + 
-                                  "Este breve tour introduce los elementos b&acute;sicos de la interfaz."
+                                  "Este breve tour introduce los elementos b&aacute;sicos de la interfaz."
 			},
                         // 1
 			{
@@ -95,6 +103,13 @@ var tour_steps = {} ;
 			   element: '#example1',
                            intro: "... El cuadro de di&aacute;logo lista ejemplos ordenados por dificultad." +
                                   "Hay muchos ejemplos muy &uacute;tiles para el aprendizaje incremental.",
+			   position: 'auto'
+			},
+                        // 8
+			{
+			   element: '#carousel-8',
+                           intro: "WepSIM le ayudar&aacute; a entender mejor c&oacute;mo funciona un computador." + 
+				  "Recomendamos seleccionar 'Ayuda/Tutorial de bienvenida', ¡Bienvenida+o!",
 			   position: 'auto'
 			}
 		    ] ;

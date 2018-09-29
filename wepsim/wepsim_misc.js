@@ -445,6 +445,7 @@
 	  // switch active hardware by name...
           switch (optValue)
           {
+	      case 'newbie': 
 	      case 'intro': 
 	      case 'wepmips': 
 	      case 'tutorial': 
@@ -473,6 +474,17 @@
 	      sim_tutorial_showframe('welcome', 0);
               return ;
 	  }
+
+	  // newbie mode...
+          if ('newbie' == get_cfg('ws_mode'))
+          {
+              var ti = get_cfg('ws_idiom') ;
+                  tour = introJs();
+                  tour.setOptions({ steps: tour_steps[ti] }) ;
+                  tour.onbeforechange(tour_steps.onbeforechange) ;
+                  tour.start() ;
+              return ;
+          }
     }
 
     function wepsim_show_asm_columns_checked ( asm_div )

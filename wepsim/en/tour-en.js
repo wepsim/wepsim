@@ -11,36 +11,44 @@ var tour_steps = {} ;
 	                            else if (this._currentStep === 2)
 	                            {
 			                $("#select4").click(); 
-			                $("#btn_cfg1").click(); 
 					tour.refresh() ;
 			                return true ;
 			            }
 	                            else if (this._currentStep === 3)
 	                            {
-			                $("#config2").modal('hide'); 
+			                $("#btn_cfg1").click(); 
 					tour.refresh() ;
 			                return true ;
 			            }
 	                            else if (this._currentStep === 4)
 	                            {
-			                $("#btn_help1").click(); 
+			                $("#config2").modal('hide'); 
 					tour.refresh() ;
 			                return true ;
 			            }
 	                            else if (this._currentStep === 5)
 	                            {
-			                $("#help1").modal('hide'); 
+			                $("#btn_help1").click(); 
 					tour.refresh() ;
 			                return true ;
 			            }
 	                            else if (this._currentStep === 6)
 	                            {
-			                $("#btn_example1").click(); 
+			                $("#help1").modal('hide'); 
 					tour.refresh() ;
 			                return true ;
 			            }
 	                            else if (this._currentStep === 7)
 	                            {
+			                $("#btn_example1").click(); 
+					tour.refresh() ;
+			                return true ;
+			            }
+	                            else if (this._currentStep === 8)
+	                            {
+					set_cfg('ws_mode', 'intro') ;
+                                        save_cfg() ;
+
 			                $("#example1").modal('hide'); 
 					tour.refresh() ;
 			                return true ;
@@ -94,6 +102,13 @@ var tour_steps = {} ;
 			   element: '#example1',
                            intro: "... The example dialog list several examples ordered by difficulty." + 
                                   "There are many examples that can be used to learn incrementally.",
+			   position: 'auto'
+			},
+                        // 8
+			{
+			   element: '#carousel-8',
+                           intro: "WepSIM let users to better understand how a computer works." + 
+				  "We recommend to select 'Help/Welcome tutorial', welcome!",
 			   position: 'auto'
 			}
 		    ] ;
