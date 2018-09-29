@@ -52,7 +52,7 @@
                              });
 
          SpeechKITT.annyang();
-         SpeechKITT.setStylesheet('external/speechkitt.css');
+         SpeechKITT.setStylesheet('external/speechkitt/themes/flat.css');
          SpeechKITT.vroom();
 
 	 return true ;

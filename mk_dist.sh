@@ -99,11 +99,11 @@ cat external/popper.min.js \
     external/vis.min.js \
     external/async.js \
     external/bootstrap-tokenfield.js \
-    external/introjs.min.js \
+    external/introjs/introjs.min.js \
     external/speech-input.js \
     external/annyang.min.js \
-    external/speechkitt.min.js \
-    external/dropify.min.js \
+    external/speechkit/speechkitt.min.js \
+    external/dropify/dropify.min.js \
     external/fontawesome5/all.js > ws_dist/min.external.js
 
 cat external/bootstrap.min.css \
@@ -115,11 +115,13 @@ cat external/bootstrap.min.css \
     external/codemirror.show-hint/codemirror.show-hint.css \
     external/vis-network.min.css \
     external/bootstrap-tokenfield.css \
-    external/introjs.min.css \
+    external/introjs/introjs.min.css \
     external/speech-input.css \
-    external/speechkitt.css \
-    external/dropify.min.css \
+    external/dropify/dropify.min.css \
     external/fontawesome5/all.css > ws_dist/min.external.css
+
+cp -a external/dropify     ws_dist/external/
+cp -a external/speechkitt  ws_dist/external/
 
 #  examples, docs, etc.
 cp -a examples  ws_dist/
