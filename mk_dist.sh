@@ -80,39 +80,39 @@ cat external/popper.min.js \
     external/bootbox.min.js \
     external/spectrum.min.js \
     external/timbre.min.js \
-    external/codemirror.js \
-    external/codemirror.javascript.js \
-    external/codemirror.gas.js \
-    external/codemirror.keymap/sublime.js \
-    external/codemirror.keymap/emacs.js \
-    external/codemirror.keymap/vim.js \
-    external/codemirror.edit/matchbrackets.js \
-    external/codemirror.fold/foldcode.js \
-    external/codemirror.fold/foldgutter.js \
-    external/codemirror.fold/brace-fold.js \
-    external/codemirror.fold/xml-fold.js \
-    external/codemirror.fold/comment-fold.js \
-    external/codemirror.fold/indent-fold.js \
-    external/codemirror.fold/markdown-fold.js \
-    external/codemirror.show-hint/codemirror.show-hint.js \
-    external/codemirror.runmode/colorize.js \
+    external/codemirror/codemirror.js \
+    external/codemirror/codemirror.javascript.js \
+    external/codemirror/codemirror.gas.js \
+    external/codemirror/codemirror.keymap/sublime.js \
+    external/codemirror/codemirror.keymap/emacs.js \
+    external/codemirror/codemirror.keymap/vim.js \
+    external/codemirror/codemirror.edit/matchbrackets.js \
+    external/codemirror/codemirror.fold/foldcode.js \
+    external/codemirror/codemirror.fold/foldgutter.js \
+    external/codemirror/codemirror.fold/brace-fold.js \
+    external/codemirror/codemirror.fold/xml-fold.js \
+    external/codemirror/codemirror.fold/comment-fold.js \
+    external/codemirror/codemirror.fold/indent-fold.js \
+    external/codemirror/codemirror.fold/markdown-fold.js \
+    external/codemirror/codemirror.show-hint/codemirror.show-hint.js \
+    external/codemirror/codemirror.runmode/colorize.js \
     external/vis.min.js \
     external/async.js \
     external/bootstrap-tokenfield.js \
     external/introjs/introjs.min.js \
     external/speech-input.js \
     external/annyang.min.js \
-    external/speechkit/speechkitt.min.js \
+    external/speechkitt/speechkitt.min.js \
     external/dropify/dropify.min.js \
     external/fontawesome5/all.js > ws_dist/min.external.js
 
 cat external/bootstrap.min.css \
     external/bootstrap-theme.min.css \
     external/spectrum.min.css \
-    external/codemirror.css \
-    external/codemirror.theme/blackboard.css \
-    external/codemirror.fold/foldgutter.css \
-    external/codemirror.show-hint/codemirror.show-hint.css \
+    external/codemirror/codemirror.css \
+    external/codemirror/codemirror.theme/blackboard.css \
+    external/codemirror/codemirror.fold/foldgutter.css \
+    external/codemirror/codemirror.show-hint/codemirror.show-hint.css \
     external/vis-network.min.css \
     external/bootstrap-tokenfield.css \
     external/introjs/introjs.min.css \
