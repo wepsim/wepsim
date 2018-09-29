@@ -470,13 +470,14 @@
 	  }
 
 	  // intro mode...
-	  if ('intro' == optValue) {
+	  if ('intro' == optValue) 
+	  {
 	      sim_tutorial_showframe('welcome', 0);
               return ;
 	  }
 
 	  // newbie mode...
-          if ('newbie' == get_cfg('ws_mode'))
+          if ('newbie' == optValue)
           {
               var ti = get_cfg('ws_idiom') ;
                   tour = introJs();

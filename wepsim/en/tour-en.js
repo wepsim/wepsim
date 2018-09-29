@@ -48,6 +48,7 @@ var tour_steps = {} ;
 	                            {
 					set_cfg('ws_mode', 'intro') ;
                                         save_cfg() ;
+                                        wepsim_change_mode('intro', '#select4') ;
 
 			                $("#example1").modal('hide'); 
 					tour.refresh() ;
@@ -58,8 +59,8 @@ var tour_steps = {} ;
     tour_steps.en = [
                         // 0
 			{
-			   intro: "Welcome to WepSIM!<br>" + 
-                                  "This initial very brief tour introduces you to the basic UI."
+			   intro: "It seems this is the first time on WepSIM, Welcome!<br>" +
+                                  "This brief tour introduces the interface for getting help, modifiying the configuration, and using examples."
 			},
                         // 1
 			{
@@ -75,7 +76,6 @@ var tour_steps = {} ;
 			},
                         // 3
 			{
-			   element: '#config2',
                            intro: "... The configuration let users to adapt several aspects of the execution, user interface, preferences, etc.",
 			   position: 'auto'
 			},
@@ -87,7 +87,6 @@ var tour_steps = {} ;
 			},
                         // 5
 			{
-			   element: '#help1',
                            intro: "... The help dialog summary the tutorials, descriptions, information, etc.",
 			   position: 'auto'
 			},
@@ -99,16 +98,14 @@ var tour_steps = {} ;
 			},
                         // 7
 			{
-			   element: '#example1',
-                           intro: "... The example dialog list several examples ordered by difficulty." + 
+                           intro: "... The example dialog list several examples ordered by difficulty.<br>" + 
                                   "There are many examples that can be used to learn incrementally.",
 			   position: 'auto'
 			},
                         // 8
 			{
-			   element: '#carousel-8',
-                           intro: "WepSIM let users to better understand how a computer works." + 
-				  "We recommend to select 'Help/Welcome tutorial', welcome!",
+                           intro: "WepSIM let users to better understand how a computer works.<br>" + 
+				  "From the 'Help' dialog you can access the 'Welcome tutorial' whenever you need it, welcome!",
 			   position: 'auto'
 			}
 		    ] ;

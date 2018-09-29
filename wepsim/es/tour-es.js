@@ -48,6 +48,7 @@ var tour_steps = {} ;
 	                            {
 					set_cfg('ws_mode', 'intro') ;
                                         save_cfg() ;
+                                        wepsim_change_mode('intro', '#select4') ;
 
 			                $("#example1").modal('hide'); 
 					tour.refresh() ;
@@ -55,11 +56,11 @@ var tour_steps = {} ;
 			            }
 	                        };
 
-    tour_steps.en = [
+    tour_steps.es = [
                         // 0
 			{
-			   intro: "¡Bienvenidos y Bienvenidas a WepSIM!<br>" + 
-                                  "Este breve tour introduce los elementos b&aacute;sicos de la interfaz."
+			   intro: "Parece que es la primera vez en WepSIM, ¡Bienvenido+a!<br>" + 
+                                  "Este breve tour le muestra d&oacute;nde pedir ayuda, modificar la configuraci&oacute;n o usar ejemplos."
 			},
                         // 1
 			{
@@ -76,7 +77,6 @@ var tour_steps = {} ;
 			},
                         // 3
 			{
-			   element: '#config2',
                            intro: "... Con la configuraci&oacute;ón se puede adaptar distintos aspectos de ejecuci&oacute;n, interfaz de usuario/a, preferencias, etc.",
 			   position: 'auto'
 			},
@@ -88,7 +88,6 @@ var tour_steps = {} ;
 			},
                         // 5
 			{
-			   element: '#help1',
                            intro: "... El cuadro de di&aacute;logo permite el acceso a tutoriales, informaci&oacute;n, etc.",
 			   position: 'auto'
 			},
@@ -100,16 +99,14 @@ var tour_steps = {} ;
 			},
                         // 7
 			{
-			   element: '#example1',
-                           intro: "... El cuadro de di&aacute;logo lista ejemplos ordenados por dificultad." +
+                           intro: "... El cuadro de di&aacute;logo lista ejemplos ordenados por dificultad.<br>" +
                                   "Hay muchos ejemplos muy &uacute;tiles para el aprendizaje incremental.",
 			   position: 'auto'
 			},
                         // 8
 			{
-			   element: '#carousel-8',
-                           intro: "WepSIM le ayudar&aacute; a entender mejor c&oacute;mo funciona un computador." + 
-				  "Recomendamos seleccionar 'Ayuda/Tutorial de bienvenida', ¡Bienvenida+o!",
+                           intro: "WepSIM le ayudar&aacute; a entender mejor c&oacute;mo funciona un computador.<br>" + 
+				  "Desde el panel de 'Ayuda' simpre puede acceder al 'Tutorial de bienvenida', ¡Bienvenida+o!",
 			   position: 'auto'
 			}
 		    ] ;
