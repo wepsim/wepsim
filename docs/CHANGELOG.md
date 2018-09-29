@@ -1,4 +1,7 @@
 
+1.9.3 -> 1.9.5:
+* Minor clean-up on external dependencies
+
 1.9.2 -> 1.9.3:
 * 'States' management revamped
 * Packing in both, source directory and into the 'dist' directory
