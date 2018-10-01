@@ -26,23 +26,50 @@
     function wepsim_voice_init ( )
     {
 	 // check if voice is available...
-         if (!annyang) 
+         if (!annyang) {
 	     return false ;
+         }
 
 	 // setup annyang + speechkitt...
          var commands = {
-               'reset':                    function() { wepsim_execute_reset(true, true); },
-               'next instruction':         wepsim_execute_instruction,
-               'next micro(instruction)':  wepsim_execute_microinstruction,
-               'play':                     function() { wepsim_execute_play('#qbp', false); },
-               'stop':                     function() { wepsim_execute_stop('#qbp'); },
+               'reset':                    function() { 
+                                               wepsim_execute_reset(true, true); 
+                                           },
 
-               'help':                     wepsim_open_help_index,
-               'examples':                 function() { wepsim_open_examples_index(); },
-               'configuration':            function() { $('#config2').modal('show'); },
-               'close':                    function() { wepsim_close_help(); 
-		                                        wepsim_close_examples(); 
-		                                        $('#config2').modal('show'); }
+               'next':                     function() { 
+                                               wepsim_execute_instruction(); 
+                                           },
+
+               'next micro(instruction)':  function() { 
+                                               wepsim_execute_microinstruction(); 
+                                           },
+
+               'play':                     function() { 
+                                               wepsim_execute_play('#qbp', false); 
+                                           },
+
+               'stop':                     function() { 
+                                               wepsim_execute_stop('#qbp'); 
+                                           },
+
+               'help':                     function() { 
+                                               wepsim_open_help_index(); 
+                                               wepsim_help_refresh(); 
+                                           },
+
+               'examples':                 function() { 
+                                               wepsim_open_examples_index(); 
+                                           },
+
+               'configuration':            function() { 
+                                               $('#config2').modal('show'); 
+                                           },
+
+               'close':                    function() { 
+                                               wepsim_close_help(); 
+		                               wepsim_close_examples(); 
+		                               $('#config2').modal('hide'); 
+                                           }
          };
          annyang.addCommands(commands);
          annyang.addCallback('errorNetwork', 
@@ -51,6 +78,7 @@
                                  alert('Sorry but some network connection is needed in order to use the voice recognition engine.');
                              });
 
+         // setting up SpeachKITT...
          SpeechKITT.annyang();
          SpeechKITT.setStylesheet('external/speechkitt/themes/flat.css');
          SpeechKITT.vroom();
