@@ -31,47 +31,7 @@
          }
 
 	 // setup annyang + speechkitt...
-         var commands = {
-               'reset':                    function() { 
-                                               wepsim_execute_reset(true, true); 
-                                           },
-
-               'next':                     function() { 
-                                               wepsim_execute_instruction(); 
-                                           },
-
-               'next micro(instruction)':  function() { 
-                                               wepsim_execute_microinstruction(); 
-                                           },
-
-               'play':                     function() { 
-                                               wepsim_execute_play('#qbp', false); 
-                                           },
-
-               'stop':                     function() { 
-                                               wepsim_execute_stop('#qbp'); 
-                                           },
-
-               'help':                     function() { 
-                                               wepsim_open_help_index(); 
-                                               wepsim_help_refresh(); 
-                                           },
-
-               'examples':                 function() { 
-                                               wepsim_open_examples_index(); 
-                                           },
-
-               'configuration':            function() { 
-                                               $('#config2').modal('show'); 
-                                           },
-
-               'close':                    function() { 
-                                               wepsim_close_help(); 
-		                               wepsim_close_examples(); 
-		                               $('#config2').modal('hide'); 
-                                           }
-         };
-         annyang.addCommands(commands);
+         annyang.addCommands(wepsim_voice_commands);
          annyang.addCallback('errorNetwork', 
                              function () {
 	                         annyang.abort() ;

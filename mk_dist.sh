@@ -48,6 +48,7 @@ cat wepsim/wepsim_example.js \
     wepsim/wepsim_tutorial.js \
     wepsim/wepsim_url.js \
     wepsim/wepsim_voice.js \
+    wepsim/wepsim_voice_commands.js \
     wepsim/wepsim_execute.js \
     wepsim/wepsim_misc.js \
     wepsim/tutorials.js \
