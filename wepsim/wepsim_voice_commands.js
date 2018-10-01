@@ -23,45 +23,45 @@
      * Voice control
      */
 
-    var wepsim_voice_commands = {
+    var wepsim_voice_commands = {} ;
 
-               'reset':                    function() { 
-                                               wepsim_execute_reset(true, true); 
-                                           },
+    wepsim_voice_commands['reset'] =          function() { 
+                                                  wepsim_execute_reset(true, true) ;
+                                              } ;
 
-               'next':                     function() { 
-                                               wepsim_execute_instruction(); 
-                                           },
+    wepsim_voice_commands['next'] =           function() { 
+                                                  wepsim_execute_instruction() ;
+                                              } ;
 
-               'next micro(instruction)':  function() { 
-                                               wepsim_execute_microinstruction(); 
-                                           },
+    wepsim_voice_commands['next micro(instruction)'] = function() { 
+                                                           wepsim_execute_microinstruction() ;
+                                                       } ;
 
-               'play':                     function() { 
-                                               wepsim_execute_play('#qbp', false); 
-                                           },
+    wepsim_voice_commands['play'] =           function() { 
+                                                  wepsim_execute_play('#qbp', false) ;
+                                              } ;
 
-               'stop':                     function() { 
-                                               wepsim_execute_stop('#qbp'); 
-                                           },
+    wepsim_voice_commands['stop'] =           function() { 
+                                                  wepsim_execute_stop('#qbp') ;
+                                              } ;
 
-               'help':                     function() { 
-                                               wepsim_open_help_index(); 
-                                               wepsim_help_refresh(); 
-                                           },
+    wepsim_voice_commands['help'] =           function() { 
+                                                  wepsim_open_help_index() ;
+                                                  wepsim_help_refresh() ;
+                                              } ;
 
-               'examples':                 function() { 
-                                               wepsim_open_examples_index(); 
-                                           },
+    wepsim_voice_commands['examples'] =       function() { 
+                                                  wepsim_open_examples_index() ;
+                                              } ;
 
-               'configuration':            function() { 
-                                               $('#config2').modal('show'); 
-                                           },
+    wepsim_voice_commands['configuration'] =  function() { 
+						  wepsim_open_config_index() ;
+                                              } ;
 
-               'close':                    function() { 
-                                               wepsim_close_help(); 
-		                               wepsim_close_examples(); 
-		                               $('#config2').modal('hide'); 
-                                           }
-    } ;
+    wepsim_voice_commands['close'] =          function() { 
+                                                  wepsim_close_help() ;
+		                                  wepsim_close_examples() ;
+					          wepsim_close_config() ;
+                                              } ;
+
 

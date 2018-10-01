@@ -1,5 +1,6 @@
 
 1.9.3 -> 1.9.5:
+* Voice support improved
 * Minor clean-up on external dependencies
 
 1.9.2 -> 1.9.3:
