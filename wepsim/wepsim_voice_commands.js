@@ -25,6 +25,29 @@
 
     var wepsim_voice_commands = {} ;
 
+
+    // dialog
+    wepsim_voice_commands['configuration'] =  function() { 
+						  wepsim_open_config_index() ;
+                                              } ;
+
+    wepsim_voice_commands['examples'] =       function() { 
+                                                  wepsim_open_examples_index() ;
+                                              } ;
+
+    wepsim_voice_commands['help'] =           function() { 
+                                                  wepsim_open_help_index() ;
+                                                  wepsim_help_refresh() ;
+                                              } ;
+
+    wepsim_voice_commands['close'] =          function() { 
+                                                  wepsim_close_help() ;
+		                                  wepsim_close_examples() ;
+					          wepsim_close_config() ;
+                                              } ;
+
+
+    // execution
     wepsim_voice_commands['reset'] =          function() { 
                                                   wepsim_execute_reset(true, true) ;
                                               } ;
@@ -43,25 +66,6 @@
 
     wepsim_voice_commands['stop'] =           function() { 
                                                   wepsim_execute_stop('#qbp') ;
-                                              } ;
-
-    wepsim_voice_commands['help'] =           function() { 
-                                                  wepsim_open_help_index() ;
-                                                  wepsim_help_refresh() ;
-                                              } ;
-
-    wepsim_voice_commands['examples'] =       function() { 
-                                                  wepsim_open_examples_index() ;
-                                              } ;
-
-    wepsim_voice_commands['configuration'] =  function() { 
-						  wepsim_open_config_index() ;
-                                              } ;
-
-    wepsim_voice_commands['close'] =          function() { 
-                                                  wepsim_close_help() ;
-		                                  wepsim_close_examples() ;
-					          wepsim_close_config() ;
                                               } ;
 
 
