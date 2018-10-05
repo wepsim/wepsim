@@ -49,8 +49,9 @@
     function wepsim_voice_start ( )
     {
 	 // check if voice is available...
-         if (!annyang) 
+         if (!annyang) {
 	     return false ;
+         }
 
 	 //annyang.resume() ;
          SpeechKITT.show();
@@ -60,8 +61,9 @@
     function wepsim_voice_stop ( )
     {
 	 // check if voice is available...
-         if (!annyang) 
+         if (!annyang) {
 	     return false ;
+         }
 
          SpeechKITT.hide();
 	 //annyang.pause() ;
@@ -70,11 +72,13 @@
 
     function wepsim_voice_canSpeak ( )
     {
-	if (typeof window.speechSynthesis == "undefined")
+	if (typeof window.speechSynthesis == "undefined") {
             return false ;
+        }
 
-        if (false == get_cfg('use_voice'))
+        if (false == get_cfg('use_voice')) {
             return false ;
+        }
 
         return true ;
     }
