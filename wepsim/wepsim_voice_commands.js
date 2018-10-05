@@ -69,3 +69,14 @@
                                               } ;
 
 
+    wepsim_voice_commands['list'] =  function() { 
+	                                           var vc_list = "" ;
+
+	                                           for (var vc in wepsim_voice_commands) {
+	                                                vc_list = vc_list + ", " + vc ;
+		                                   }
+
+						   alert(vc_list) ;
+                                              } ;
+
+
