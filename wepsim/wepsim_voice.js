@@ -41,7 +41,7 @@
          // setting up SpeachKITT...
          SpeechKITT.annyang();
          SpeechKITT.setStylesheet('external/speechkitt/themes/flat.css');
-         SpeechKITT.setInstructionsText('What can I help you with? ("list" for commands)');
+         SpeechKITT.setInstructionsText('What can I help you with? (list)');
          SpeechKITT.vroom();
 
 	 return true ;

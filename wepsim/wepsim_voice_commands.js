@@ -24,59 +24,74 @@
      */
 
     var wepsim_voice_commands = {} ;
+    var wepsim_voice_dialog = null ;
 
 
     // dialog
-    wepsim_voice_commands['configuration'] =  function() { 
+    wepsim_voice_commands['configuration'] =  function()
+                                              {
 						  wepsim_open_config_index() ;
                                               } ;
 
-    wepsim_voice_commands['examples'] =       function() { 
+    wepsim_voice_commands['examples'] =       function()
+                                              {
                                                   wepsim_open_examples_index() ;
                                               } ;
 
-    wepsim_voice_commands['help'] =           function() { 
+    wepsim_voice_commands['help'] =           function()
+                                              {
                                                   wepsim_open_help_index() ;
                                                   wepsim_help_refresh() ;
                                               } ;
 
-    wepsim_voice_commands['close'] =          function() { 
+    wepsim_voice_commands['close'] =          function()
+                                              {
                                                   wepsim_close_help() ;
 		                                  wepsim_close_examples() ;
 					          wepsim_close_config() ;
+
+						  if (null != wepsim_voice_dialog = null) {
+					              wepsim_voice_dialog.modal('hide');
+	                                          }
                                               } ;
 
 
     // execution
-    wepsim_voice_commands['reset'] =          function() { 
+    wepsim_voice_commands['reset'] =          function()
+                                              {
                                                   wepsim_execute_reset(true, true) ;
                                               } ;
 
-    wepsim_voice_commands['next'] =           function() { 
+    wepsim_voice_commands['next'] =           function()
+                                              {
                                                   wepsim_execute_instruction() ;
                                               } ;
 
-    wepsim_voice_commands['next micro(instruction)'] = function() { 
+    wepsim_voice_commands['next micro(instruction)'] = function()
+                                                       {
                                                            wepsim_execute_microinstruction() ;
                                                        } ;
 
-    wepsim_voice_commands['play'] =           function() { 
+    wepsim_voice_commands['play'] =           function()
+                                              {
                                                   wepsim_execute_play('#qbp', false) ;
                                               } ;
 
-    wepsim_voice_commands['stop'] =           function() { 
+    wepsim_voice_commands['stop'] =           function()
+                                              {
                                                   wepsim_execute_stop('#qbp') ;
                                               } ;
 
 
-    wepsim_voice_commands['list'] =  function() { 
-	                                           var vc_list = "" ;
+    wepsim_voice_commands['list'] =  function() {
+	                                           var vc_list = "available commands:\n" ;
 
 	                                           for (var vc in wepsim_voice_commands) {
-	                                                vc_list = vc_list + ", " + vc ;
+	                                                vc_list = vc_list + " * '" + vc + "'\n";
 		                                   }
 
-						   alert(vc_list) ;
+	                                           wepsim_voice_dialog = bootbox.alert(vc_list)
+					           wepsim_voice_dialog.modal('show');
                                               } ;
 
 
