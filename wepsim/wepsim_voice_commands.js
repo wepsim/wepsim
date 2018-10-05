@@ -84,10 +84,10 @@
 
 
     wepsim_voice_commands['list'] =  function() {
-	                                           var vc_list = "available commands:\n" ;
+	                                           var vc_list = "available commands:<br>" ;
 
 	                                           for (var vc in wepsim_voice_commands) {
-	                                                vc_list = vc_list + " * '" + vc + "'\n";
+	                                                vc_list = vc_list + " * '" + vc + "'<br>";
 		                                   }
 
 	                                           wepsim_voice_dialog = bootbox.alert(vc_list)
