@@ -50,7 +50,7 @@
 		                                  wepsim_close_examples() ;
 					          wepsim_close_config() ;
 
-						  if (null != wepsim_voice_dialog = null) {
+						  if (null != wepsim_voice_dialog) {
 					              wepsim_voice_dialog.modal('hide');
 	                                          }
                                               } ;
