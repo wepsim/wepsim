@@ -7,11 +7,11 @@
  
 ## Table of contents
 
-- [Getting WepSIM](#get-wepsim)
-- [Install WepSIM as Progressive Web Application](#get-wepsim-pwa)
-- [Getting Started](#quick-start-web)
-- [Getting Started: Command Line](#quick-start-cl)
-- [Getting Started: WepSIM API](#quick-start-api)
+- [Getting WepSIM](#getting-wepsim)
+- [Install WepSIM as Progressive Web Application](#install-wepsim-as-progressive-web-application)
+- [Getting Started](#getting-started)
+- [Getting Started: Command Line](#getting-started-command-line)
+- [Getting Started: WepSIM API](#getting-started-wepsim-api)
 
 ## Getting WepSIM
 
