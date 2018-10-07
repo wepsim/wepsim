@@ -158,16 +158,41 @@ ERROR: Execution: different results: cpu[R1]='0' (expected '0xf'), cpu[R2]='0x2'
 + If you want to use WepSIM within your App, there is an WepSIM API in JavaScript available too. One simple example of using the WepSIM API is the following one:
 
 ```javascript
-        // input
-        simhw_name       = 'ep' ;
-        str_firmware     = '' ;
-        str_assembly     = '' ;
-        max_instructions = 1024 ;
-        max_cycles       = 10240 ;
-        verbosity        = 1 ;
+        /*
+         * include the WepSIM nodejs engine
+         */
+        <script src="min.sim_all.js"   ></script><noscript>Your browser does not support JavaScript!</noscript>
+        <script src="min.wepsim_web.js"></script><noscript>Your browser does not support JavaScript!</noscript>
+
+
+        /*
+         * input
+         */
+
+        str_firmware = 'begin {\n' +
+		       '  fetch:  (T2, C0),\n' +
+		       '          (TA, R, BW=11, M1=1, C1=1),\n' +
+		       '          (M2, C2, T1, C3),\n' +
+		       '          (A0, B=0, C=0)\n' +
+		       '}\n' +
+		       'nop {\n' +
+		       '        co=010110,\n' +
+		       '        nwords=1,\n' +
+		       '        {\n' +
+		       '                (A0=1, B=1, C=0)\n' +
+		       '        }\n' +
+                       '}\n' +
+                       'registers {\n' +
+                       '        0=$zero,\n' +
+                       '        29=$sp (stack_pointer)\n' +
+                       '}\n' ;
+
+        str_assembly = '.text\n' +
+		       'main: nop\n' ;
+
 
 	// 1) initialize ws
-        var ret = sim_core_init(false, simhw_name) ;
+        var ret = sim_core_init(false, 'ep') ;
 	if (false != ret.ok) {
 	    sim_core_init_ui('', '', '', '', '', '') ;
         }
@@ -189,7 +214,7 @@ ERROR: Execution: different results: cpu[R1]='0' (expected '0xf'), cpu[R2]='0x2'
 
 	// 5) execute firmware-assembly
 	if (false != ret.ok) {
-	    ret = sim_core_execute_program(verbosity, max_instructions, max_cycles) ;
+	    ret = sim_core_execute_program(1, 1024, 10240) ;
         }
 
 	// 6) show a final report
@@ -197,5 +222,12 @@ ERROR: Execution: different results: cpu[R1]='0' (expected '0xf'), cpu[R2]='0x2'
 	    var state_obj = simstate_current2state() ;
 	    ret.msg = simstate_state2checklist(state_obj) ;
         }
+
+
+        /*
+         * output
+         */
+
+        console.log(ret.msg) ;
 ```
 
