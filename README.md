@@ -159,7 +159,7 @@ ERROR: Execution: different results: cpu[R1]='0' (expected '0xf'), cpu[R2]='0x2'
 
 ```javascript
         /*
-         * include the WepSIM nodejs engine
+         * include the WepSIM engine
          */
         <script src="min.sim_all.js"   ></script><noscript>Your browser does not support JavaScript!</noscript>
         <script src="min.wepsim_web.js"></script><noscript>Your browser does not support JavaScript!</noscript>
