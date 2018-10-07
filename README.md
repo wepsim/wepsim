@@ -166,20 +166,11 @@ ERROR: Execution: different results: cpu[R1]='0' (expected '0xf'), cpu[R2]='0x2'
         max_cycles       = 10240 ;
         verbosity        = 1 ;
 
-        // output
-        var ret = {} ;
-            ret.ok  = true ;
-            ret.msg = "" ;
-
 	// 1) initialize ws
-        var hwid = simhw_getActiveByName(simhw_name) ;
-	if (hwid < 0) {
-	    ret.ok = false ;
+        var ret = sim_core_init(false, simhw_name) ;
+	if (false != ret.ok) {
+	    sim_core_init_ui('', '', '', '', '', '') ;
         }
-
-        sim_core_init(false) ;
-        simhw_setActive(hwid) ;
-	sim_core_init_panel('', '', '', '', '', '') ;
 
 	// 2) reset hardware
 	if (false != ret.ok) {

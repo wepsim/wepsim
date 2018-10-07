@@ -25,21 +25,26 @@
 
     function wepsim_nodejs_init ( simhw_name )
     {
-	var ret = {} ;
-	    ret.msg = "" ;
-	    ret.ok  = true ;
+	var ret1 = {} ;
+	    ret1.msg = "" ;
+	    ret1.ok  = true ;
 
-        var hwid = simhw_getActiveByName(simhw_name) ;
-        if (hwid < 0) 
+        var ret = sim_core_init(false, simhw_name) ;
+	if (false == ret.ok) 
 	{
-            ret.msg = "ERROR: unknown hardware: " + simhw_name + ".\n" ;
-            ret.ok  = false ;
-	    return ret ;
+            ret1.msg = "ERROR: initialize: " + ret.msg + ".\n" ;
+            ret1.ok  = false ;
+	    return ret1 ;
 	}
 
-        sim_core_init(false) ;
-        simhw_setActive(hwid) ;
-	sim_core_init_panel('', '', '', '', '', '') ;
+	ret = sim_core_init_ui('', '', '', '', '', '') ;
+	if (false == ret.ok) 
+	{
+            ret1.msg = "ERROR: initialize: " + ret.msg + ".\n" ;
+            ret1.ok  = false ;
+	    return ret1 ;
+	}
+
 	return ret ;
     }
 
@@ -91,7 +96,7 @@
 	if (false == ret.ok) 
 	{
             ret1.msg = "ERROR: Firmware: " + ret.msg + ".\n" ;
-            ret1.ok = false ;
+            ret1.ok  = false ;
 	    return ret1 ;
 	}
 
@@ -100,7 +105,7 @@
 	if (false == ret.ok) 
         {
             ret1.msg = "ERROR: Assembly: " + ret.msg + ".\n" ;
-            ret1.ok = false ;
+            ret1.ok  = false ;
 	    return ret1 ;
 	}
 
@@ -109,7 +114,7 @@
 	if (false == ret.ok) 
 	{
             ret1.msg = "ERROR: Execution: " + ret.msg + ".\n" ;
-            ret1.ok = false ;
+            ret1.ok  = false ;
 	    return ret1 ;
 	}
 
@@ -118,7 +123,7 @@
 	if (false == ret.ok)
 	{
             ret1.msg = "ERROR: Execution: different results: " + ret.msg + "\n" ;
-            ret1.ok = false ;
+            ret1.ok  = false ;
 	    return ret1 ;
         }
 
@@ -128,7 +133,7 @@
     function wepsim_nodejs_run ( verbosity, str_firmware, str_assembly, max_instructions, max_cycles )
     {
         var ret1 = {} ;
-            ret1.ok = true ;
+            ret1.ok  = true ;
             ret1.msg = "" ;
 
 	// 1) initialize ws
@@ -139,7 +144,7 @@
 	if (false == ret.ok) 
 	{
             ret1.msg = "ERROR: Firmware: " + ret.msg + ".\n" ;
-            ret1.ok = false ;
+            ret1.ok  = false ;
 	    return ret1 ;
 	}
 
@@ -148,7 +153,7 @@
 	if (false == ret.ok) 
         {
             ret1.msg = "ERROR: Assembly: " + ret.msg + ".\n" ;
-            ret1.ok = false ;
+            ret1.ok  = false ;
 	    return ret1 ;
 	}
 
@@ -157,7 +162,7 @@
 	if (false == ret.ok) 
 	{
             ret1.msg = "ERROR: Execution: " + ret.msg + ".\n" ;
-            ret1.ok = false ;
+            ret1.ok  = false ;
 	    return ret1 ;
 	}
 

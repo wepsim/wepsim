@@ -269,8 +269,8 @@
 					  set_cfg('ws_mode', optValue); 
 					  save_cfg();
                                           wepsim_change_mode(optValue, '#select4') ;
-	                                  sim_core_init_panel('#states_ALL', '#states_BR', '#io_ALL', 
-                                                              '#cpu_ALL', '#config_MP', '#config_IO'); 
+	                                  sim_core_init_ui('#states_ALL', '#states_BR', '#io_ALL', 
+                                                           '#cpu_ALL', '#config_MP', '#config_IO'); 
 					  return false;">
 				<option value="intro"    >Welcome...</option>
 				<option value="tutorial" >Instructive</option>
@@ -1320,7 +1320,7 @@
 
     try 
     {
-	    sim_core_init(true) ;
+	    sim_core_init(true, 'ep') ;
 
 	    $(document).ready(function()
 	    {
@@ -1431,8 +1431,8 @@
 
 		    var ws_mode = get_cfg('ws_mode');
 		    wepsim_change_mode(ws_mode, '#select4') ;
-		    sim_core_init_panel("#states_ALL", "#states_BR", "#io_ALL", 
-					"#cpu_ALL", "#config_MP", "#config_IO"); 
+		    sim_core_init_ui("#states_ALL", "#states_BR", "#io_ALL", 
+				     "#cpu_ALL", "#config_MP", "#config_IO"); 
 		    sim_core_reset(); 
 
 		    wepsim_voice_init() ;
