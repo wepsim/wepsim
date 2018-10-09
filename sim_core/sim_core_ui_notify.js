@@ -29,7 +29,7 @@
 	    var ac = $("#alerts-container") ;
 	    if (ac.length == 0) {
 		ac = $('<div id="alerts-container" ' + 
-                       '     style="position: fixed; width: 50%; left: 25%; top: 10%; z-index:256;">') ;
+                       '     style="position:fixed; width:50%; left:25%; top:10%; z-index:256;">') ;
 		$("body").append(ac) ;
 	    }
 
