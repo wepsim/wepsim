@@ -1398,14 +1398,14 @@
                             container: 'body',
 			    animation:  false,
 			    content:    function() { 
-                                  return '<ul class="nav justify-content-center flex-column">' + 
-					 '<a class="nav-item nav-link" ' + 
+                                  return '<ul class="list-group list-group-flush">' + 
+					 '<a class="list-group-item" ' + 
 					 '   data-toggle="collapse" href=".multi-collapse">Hide/Show menu bar</a>' + 
-				         '<a class="nav-item nav-link" ' + 
+				         '<a class="list-group-item" ' + 
 					 '   href="#" ' + 
                                          '   onclick="simcoreui_notify_notifications(); ' + 
 					 '            $(\'#po1\').popover(\'hide\');">Show notifications</a>' + 
-			                 '<a class="nav-item nav-link" ' + 
+			                 '<a class="list-group-item" ' + 
 					 '   href="#" ' + 
 					 '   onclick="$(\'#about2\').modal(\'show\'); ' + 
 					 '            $(\'#po1\').popover(\'hide\');">Authors</a>' + 
