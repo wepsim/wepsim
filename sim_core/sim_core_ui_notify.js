@@ -91,7 +91,7 @@
 	    {
 		 t = new Date(simcoreui_notifications[i].date) ;
 
-                 acc += '<li class="list-group-item list-group-item-light">' + 
+                 acc += '<li class="list-group-item list-group-item-' + simcoreui_notifications[i].type + '">' + 
 			'[' + 
                             t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + ' ' +
                             t.getHours()    + ':' + t.getMinutes()   + ':' + t.getSeconds() + '-' + t.getMilliseconds() +

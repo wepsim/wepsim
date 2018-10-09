@@ -188,6 +188,7 @@
 	<nav class="navbar navbar-expand-lg fixed-top p-0" style="background-color: #EAEAEA">
 	    <span class="navbar-brand mr-auto">
                <a class="ui-title pl-2 mx-2" style="text-decoration: none"
+	          id="po1"
 		  data-container="body" 
 		  data-toggle="popover0" 
 		  data-html="true" 
@@ -1401,9 +1402,13 @@
 					 '<a class="nav-item nav-link" ' + 
 					 '   data-toggle="collapse" href=".multi-collapse">Hide/Show menu bar</a>' + 
 				         '<a class="nav-item nav-link" ' + 
-					 '   href="#" onclick="simcoreui_notify_notifications();">Show notifications</a>' + 
+					 '   href="#" ' + 
+                                         '   onclick="simcoreui_notify_notifications(); ' + 
+					 '            $(\'#po1\').popover(\'hide\');">Show notifications</a>' + 
 			                 '<a class="nav-item nav-link" ' + 
-					 '   href="#" data-target="#about2" data-toggle="modal" data-position-to="window">Authors</a>' + 
+					 '   href="#" ' + 
+					 '   onclick="$(\'#about2\').modal(\'show\'); ' + 
+					 '            $(\'#po1\').popover(\'hide\');">Authors</a>' + 
 				         '</ul>' ;
                                         }
 		    });
