@@ -188,7 +188,10 @@
 	<nav class="navbar navbar-expand-lg fixed-top p-0" style="background-color: #EAEAEA">
 	    <span class="navbar-brand mr-auto">
                <a class="ui-title pl-2 mx-2" style="text-decoration: none"
-		  data-toggle="collapse" href=".multi-collapse">WepSIM</a>&nbsp;<a href="#" data-target="#about2" data-toggle="modal" data-position-to="window"><span class="badge badge-pill badge-secondary btn"><div class="wsversion">loading ...</div></span></a>
+		  data-container="body" 
+		  data-toggle="popover0" 
+		  data-html="true" 
+		  data-placement="bottom">WepSIM</a>&nbsp;<span class="badge badge-pill badge-secondary"><div class="wsversion">loading ...</div></span>
             </span>
             <button class="navbar-toggler ml-auto btn-outline-secondary" data-toggle="collapse" 
                     data-target="#navbarSupportedContent"
@@ -405,7 +408,7 @@
                                     onclick="var mode = get_cfg('ws_mode');
                                              if ('tutorial' == mode) {
                                                  wepsim_notify_success('<strong>INFO</strong>',
-                                                            'Tutorial mode on. Use the configuration to change it.');
+                                                                       'Tutorial mode on. Use the configuration to change it.');
                                              }
                                              wepsim_execute_toggle_play('#qbp', (mode == 'tutorial'));
                                              return false;"><em class="fa fa-play"></em><strong><br/>Run</strong></button>
@@ -582,7 +585,8 @@
                                              var ok = wepsim_compile_firmware(textToMCompile);
                                              if (true == ok) {
                                                  wepsim_show_binary_microcode('#bin2','#compile_results');
-			                         wepsim_notify_success('<strong>INFO</strong>', 'Please remember to recompile the assembly code if needed.');
+			                         wepsim_notify_success('<strong>INFO</strong>', 
+	                                                               'Please remember to recompile the assembly code if needed.');
                                              }">
                                              <strong><em class="fas fa-memory"></em>&nbsp;<span class="d-none d-sm-inline-flex">Show co2&#181;addr + control memory</span><span class="d-sm-none">co2&#181;addr + c.m.</span></strong>
 			                     </button>
@@ -1387,6 +1391,22 @@
 		        else $(column).show() ;
 		    });
 
+		    $("[data-toggle=popover0]").popover({
+			    html:       true,
+			    placement: 'auto',
+                            container: 'body',
+			    animation:  false,
+			    content:    function() { 
+                                  return '<ul class="nav justify-content-center flex-column">' + 
+					 '<a class="nav-item nav-link" ' + 
+					 '   data-toggle="collapse" href=".multi-collapse">Hide/Show menu bar</a>' + 
+				         '<a class="nav-item nav-link" ' + 
+					 '   href="#" onclick="simcoreui_notify_notifications();">Show notifications</a>' + 
+			                 '<a class="nav-item nav-link" ' + 
+					 '   href="#" data-target="#about2" data-toggle="modal" data-position-to="window">Authors</a>' + 
+				         '</ul>' ;
+                                        }
+		    });
 		    $('a[data-toggle="popover1"]').popover({
 			     placement: 'bottom',
 			     trigger:   'focus, hover',
