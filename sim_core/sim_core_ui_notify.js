@@ -29,7 +29,8 @@
 	    var ac = $("#alerts-container") ;
 	    if (ac.length == 0) {
 		ac = $('<div id="alerts-container" ' + 
-                       '     style="position:fixed; width:50%; left:25%; top:10%; z-index:256;">') ;
+                       '     class="col-xs-10 offset-xs-1 col-md-8 offset-md-2" ' +
+                       '     style="position:fixed; top:10%; z-index:256;">') ;
 		$("body").append(ac) ;
 	    }
 
@@ -85,7 +86,7 @@
 
 	    // setup content...
 	    acc  += '<br>' + 
-		    '<div class="card" style="max-height:80vh; overflow:auto;">' + 
+		    '<div class="card" style="max-height:80vh; overflow:auto; -webkit-overflow-scrolling: touch;">' + 
 		    '<ul class="list-group list-group-flush">' ;
 	    for (var i=simcoreui_notifications.length-1; i!=0; i--) 
 	    {
