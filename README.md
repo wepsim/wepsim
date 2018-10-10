@@ -155,18 +155,19 @@ ERROR: Execution: different results: cpu[R1]='0' (expected '0xf'), cpu[R2]='0x2'
 
 ## Getting Started: WepSIM API
 
-+ If you want to use WepSIM within your App, there is an WepSIM API in JavaScript available too. One simple example of using the WepSIM API is the following one:
++ If you want to use WepSIM within your App, there is a WepSIM API in JavaScript available too. 
+  You will need to include the WepSIM engine in your proyect:
+
+```javascript
+        <script src="min.sim_all.js"   ></script><noscript>Your browser does not support JavaScript!</noscript>
+        <script src="min.wepsim_web.js"></script><noscript>Your browser does not support JavaScript!</noscript>
+```
+
+  And then, one simple example of using this WepSIM API is the following:
 
 ```javascript
         /*
-         * include the WepSIM engine
-         */
-        <script src="min.sim_all.js"   ></script><noscript>Your browser does not support JavaScript!</noscript>
-        <script src="min.wepsim_web.js"></script><noscript>Your browser does not support JavaScript!</noscript>
-
-
-        /*
-         * input
+         * Input: minimal firmware and minimal assembly code
          */
 
         str_firmware = 'begin {\n' +
@@ -191,7 +192,11 @@ ERROR: Execution: different results: cpu[R1]='0' (expected '0xf'), cpu[R2]='0x2'
 		       'main: nop\n' ;
 
 
-	// 1) initialize ws
+        /*
+         * Code: Initialize WepSIM + reset + compile firmware + compile assembly + execute + get final state
+         */
+
+	// 1) initialize WepSIM engine
         var ret = sim_core_init(false, 'ep') ;
 	if (false != ret.ok) {
 	    sim_core_init_ui('', '', '', '', '', '') ;
@@ -225,7 +230,7 @@ ERROR: Execution: different results: cpu[R1]='0' (expected '0xf'), cpu[R2]='0x2'
 
 
         /*
-         * output
+         * Output: the final state
          */
 
         console.log(ret.msg) ;

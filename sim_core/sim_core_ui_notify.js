@@ -35,7 +35,7 @@
 
 	    // create the alert div
             var btn1   = $('<button type="button" class="close" data-dismiss="alert">') ;
-	    var alert1 = $('<div class="alert alert-' + ntf_type + '">') ;
+	    var alert1 = $('<div class="alert alert-' + ntf_type + ' shadow">') ;
 	    ac.prepend(alert1.append(btn1.append("&times;")).append(ntf_message)) ;
 
 	    // if delay was passed, set up a timeout to close the alert
@@ -92,11 +92,16 @@
 		 t = new Date(simcoreui_notifications[i].date) ;
 
                  acc += '<li class="list-group-item list-group-item-' + simcoreui_notifications[i].type + '">' + 
-			'[' + 
-                            t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + ' ' +
+			'<h5 class="m-0">' +
+			'<span class="badge">[' + t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + ']</span>' + 
+			'<span class="badge">(' + 
                             t.getHours()    + ':' + t.getMinutes()   + ':' + t.getSeconds() + '-' + t.getMilliseconds() +
-			'] ' + 
-			simcoreui_notifications[i].title + ': <br>' + simcoreui_notifications[i].message + 
+			')</span>' + 
+			'</h5>' +
+			'<span class="text-monospace">' +
+			    simcoreui_notifications[i].title + ':' + 
+			'</span>' +
+			    simcoreui_notifications[i].message + 
 			'</li>' ;
 	    }
 	    acc += '</ul>' +
