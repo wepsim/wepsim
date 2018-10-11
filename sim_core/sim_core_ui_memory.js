@@ -774,8 +774,9 @@
 
 	function show_dbg_ir ( decins )
 	{
-            if (null != show_dbg_ir_deferred)
-                return;
+            if (null != show_dbg_ir_deferred) {
+                return ;
+            }
 
             show_dbg_ir_deferred = setTimeout(function() {
                                                    fullshow_dbg_ir(decins);
@@ -785,8 +786,9 @@
 
 	function fullshow_dbg_ir ( decins )
 	{
-	     if (typeof document == "undefined")
+	     if (typeof document == "undefined") {
 	         return ;
+             }
 
 	     var o = document.getElementById('svg_p');
 	     if (o != null) o = o.contentDocument;

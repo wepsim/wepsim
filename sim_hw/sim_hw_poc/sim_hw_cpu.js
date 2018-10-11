@@ -1546,8 +1546,6 @@
 		poc_behaviors["CLOCK"] = { nparameters: 1,
 					     operation: function(s_expr)
 							{
-							    var verbal = "" ;
-
 							    // 1.- Update counter
 							    var val = get_value(poc_states["CLK"]) ;
 							    set_value(poc_states["CLK"], val + 1);
@@ -1572,15 +1570,8 @@
 							    for (var key in poc_signals)
 							    {
 								 if (typeof new_mins[key] != "undefined") 
-								 {
-								     set_value(poc_signals[key],   new_mins[key]);
-								     verbal = verbal + compute_signal_verbals(key, new_mins[key]) ;
-								 }
-								 else 
-								 {
-								     set_value(poc_signals[key], poc_signals[key].default_value);
-								 }
-
+								      set_value(poc_signals[key],   new_mins[key]);
+								 else set_value(poc_signals[key], poc_signals[key].default_value);
 							    }
 
 							    // 5.- Finally, 'fire' the (High) Level signals
@@ -1595,9 +1586,6 @@
 							             new_mins.NATIVE_JIT() ;
 						            else if (typeof new_mins.NATIVE != "undefined")
 							             eval(new_mins.NATIVE) ;
-
-							    // 7.- Verbal
-							    //console.log(verbal) ;
                                                         },
                                                 verbal: function (s_expr) 
                                                         {

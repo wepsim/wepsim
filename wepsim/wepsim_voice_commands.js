@@ -28,70 +28,85 @@
 
 
     // dialog
-    wepsim_voice_commands['configuration'] =  function()
-                                              {
-						  wepsim_open_config_index() ;
-                                              } ;
+    wepsim_voice_commands['configuration'] = function()
+    {
+	 wepsim_open_config_index() ;
+    } ;
 
-    wepsim_voice_commands['examples'] =       function()
-                                              {
-                                                  wepsim_open_examples_index() ;
-                                              } ;
+    wepsim_voice_commands['examples'] = function()
+    {
+         wepsim_open_examples_index() ;
+    } ;
 
-    wepsim_voice_commands['help'] =           function()
-                                              {
-                                                  wepsim_open_help_index() ;
-                                                  wepsim_help_refresh() ;
-                                              } ;
+    wepsim_voice_commands['help'] = function()
+    {
+         wepsim_open_help_index() ;
+         wepsim_help_refresh() ;
+    } ;
 
-    wepsim_voice_commands['close'] =          function()
-                                              {
-                                                  wepsim_close_help() ;
-		                                  wepsim_close_examples() ;
-					          wepsim_close_config() ;
+    wepsim_voice_commands['close'] = function()
+    {
+	 wepsim_close_help() ;
+	 wepsim_close_examples() ;
+	 wepsim_close_config() ;
 
-						  if (null != wepsim_voice_dialog) {
-					              wepsim_voice_dialog.modal('hide');
-	                                          }
-                                              } ;
+	 if (null != wepsim_voice_dialog) {
+	     wepsim_voice_dialog.modal('hide');
+	 }
+    } ;
 
 
     // execution
-    wepsim_voice_commands['reset'] =          function()
-                                              {
-                                                  wepsim_execute_reset(true, true) ;
-                                              } ;
+    wepsim_voice_commands['reset'] = function()
+    {
+         wepsim_execute_reset(true, true) ;
 
-    wepsim_voice_commands['next'] =           function()
-                                              {
-                                                  wepsim_execute_instruction() ;
-                                              } ;
+	 // speak...
+         var msg = "Current processor has been reset." ;
+	 wepsim_voice_speak(msg) ;
+    } ;
+
+    wepsim_voice_commands['next'] = function()
+    {
+         wepsim_execute_instruction() ;
+
+	 // speak...
+         var msg = "Next executed." ;
+	 wepsim_voice_speak(msg) ;
+    } ;
 
     wepsim_voice_commands['next micro(instruction)'] = function()
-                                                       {
-                                                           wepsim_execute_microinstruction() ;
-                                                       } ;
+    {
+         wepsim_execute_microinstruction() ;
 
-    wepsim_voice_commands['play'] =           function()
-                                              {
-                                                  wepsim_execute_play('#qbp', false) ;
-                                              } ;
+	 // speak...
+         var msg = "Next microinstruction executed. Associated actions are: " + get_verbal_from_current_mpc() ;
+	 wepsim_voice_speak(msg) ;
+    } ;
 
-    wepsim_voice_commands['stop'] =           function()
-                                              {
-                                                  wepsim_execute_stop('#qbp') ;
-                                              } ;
+    wepsim_voice_commands['play'] = function()
+    {
+         wepsim_execute_play('#qbp', false) ;
+    } ;
 
+    wepsim_voice_commands['stop'] = function()
+    {
+         wepsim_execute_stop('#qbp') ;
+    } ;
 
-    wepsim_voice_commands['list'] =  function() {
-	                                           var vc_list = "available commands:<br>" ;
+    wepsim_voice_commands['list'] =  function() 
+    {
+	 var vc_list = "available commands:<br>" ;
 
-	                                           for (var vc in wepsim_voice_commands) {
-	                                                vc_list = vc_list + " * '" + vc + "'<br>";
-		                                   }
+	 for (var vc in wepsim_voice_commands) {
+	      vc_list = vc_list + " * '" + vc + "'<br>";
+	 }
 
-	                                           wepsim_voice_dialog = bootbox.alert(vc_list)
-					           wepsim_voice_dialog.modal('show');
-                                              } ;
+	 wepsim_voice_dialog = bootbox.alert(vc_list)
+	 wepsim_voice_dialog.modal('show');
 
+	 // speak...
+         var msg = $("</p>").html(vc_list).text() ;
+	 wepsim_voice_speak(msg) ;
+    } ;
 
