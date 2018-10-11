@@ -277,13 +277,13 @@
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Is editable: true'" +
 				   "		   onclick=\"update_cfg('is_editable',true); \">" +
-				   "		<input type='radio' name='options' id='radio9-true'  aria-label='Active voice: true'  autocomplete='off' >On" +
+				   "		<input type='radio' name='options' id='radio9-true'  aria-label='Is editable: true'  autocomplete='off' >On" +
 				   "	    </label>" +
 				   "	    <label id='label9-false'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Is editable: false'" +
 				   "		   onclick=\"update_cfg('is_editable',false); \">" +
-				   "		<input type='radio' name='options' id='radio9-false' aria-label='Active voice: false' autocomplete='off' >Off" +
+				   "		<input type='radio' name='options' id='radio9-false' aria-label='Is editable: false' autocomplete='off' >Off" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() { $('#radio9-' +       get_cfg('is_editable')).click(); },

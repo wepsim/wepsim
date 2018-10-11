@@ -192,7 +192,8 @@
 		  data-container="body" 
 		  data-toggle="popover0" 
 		  data-html="true" 
-		  data-placement="bottom">WepSIM</a>&nbsp;<span class="badge badge-pill badge-secondary"><div class="wsversion">loading ...</div></span>
+		  data-placement="bottom">WepSIM&nbsp;<span class="badge badge-pill badge-secondary"><div class="wsversion">loading ...</div></span>
+	       </a>
             </span>
             <button class="navbar-toggler ml-auto btn-outline-secondary" data-toggle="collapse" 
                     data-target="#navbarSupportedContent"
@@ -1396,22 +1397,40 @@
 			    html:       true,
 			    placement: 'auto',
                             container: 'body',
+                            template:  '<div class="popover shadow border border-dark" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
 			    animation:  false,
 			    content:    function() { 
-                                  return '<ul class="list-group list-group-flush">' + 
-					 '<a class="list-group-item" ' + 
-					 '   data-toggle="collapse" href=".multi-collapse-1">Hide/Show Action Bar</a>' + 
-					 '<a class="list-group-item" ' + 
-					 '   data-toggle="collapse" href=".multi-collapse-2">Hide/Show Slider</a>' + 
-				         '<a class="list-group-item" ' + 
-					 '   href="#" ' + 
-                                         '   onclick="simcoreui_notify_notifications(); ' + 
-					 '            $(\'#po1\').popover(\'hide\');">Show Notifications</a>' + 
-			                 '<a class="list-group-item" ' + 
-					 '   href="#" ' + 
-					 '   onclick="$(\'#about2\').modal(\'show\'); ' + 
-					 '            $(\'#po1\').popover(\'hide\');">About WepSIM</a>' + 
-				         '</ul>' ;
+                                    return '<ul class="list-group list-group-flush">' + 
+					   '<li class="list-group-item p-2"> ' + 
+					   '  <em class="fas fa-bars"></em> &nbsp;' + 
+					   '  <a class="btn btn-sm btn-outline-secondary" data-toggle="collapse" href=".multi-collapse-1">Hide/Show Action Bar</a>' + 
+					   '</li>' + 
+					   '<li class="list-group-item p-2"> ' + 
+					   '  <em class="fas fa-sliders-h"></em> &nbsp;' + 
+					   '  <a class="btn btn-sm btn-outline-secondary" data-toggle="collapse" href=".multi-collapse-2">Hide/Show Slider</a>' + 
+					   '</li>' + 
+					   '<li class="list-group-item p-2"> ' + 
+					   '  <em class="fas fa-flag"></em> &nbsp;' + 
+					   '  <a class="btn btn-sm btn-outline-secondary" href="#" ' + 
+                                           '     onclick="simcoreui_notify_notifications(); ' + 
+					   '              $(\'#po1\').popover(\'hide\');">Show Notifications</a>' + 
+					   '</li>' + 
+					   '<li class="list-group-item p-2"> ' + 
+					   '  <em class="fas fa-microphone"></em> &nbsp;' + 
+					   '  <a class="btn btn-sm btn-outline-secondary" href="#" ' + 
+                                           '     onclick="var now = get_cfg(\'use_voice\'); ' +
+                                           '              update_cfg(\'use_voice\', !now); ' +
+                                           '              if (now) ' +
+                                           '                   wepsim_voice_stop(); ' +
+                                           '              else wepsim_voice_start();">Active/Deactive Voice</a>' + 
+					   '</li>' + 
+					   '<li class="list-group-item p-2"> ' + 
+					   '  <em class="fas fa-magic"></em> &nbsp;' + 
+					   '  <a class="btn btn-sm btn-outline-secondary" href="#" ' + 
+					   '     onclick="$(\'#about2\').modal(\'show\'); ' + 
+					   '              $(\'#po1\').popover(\'hide\');">About WepSIM</a>' + 
+					   '</li>' + 
+				           '</ul>' ;
                                         }
 		    });
 		    $('a[data-toggle="popover1"]').popover({
