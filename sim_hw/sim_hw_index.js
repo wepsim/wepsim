@@ -43,6 +43,9 @@
             compile_behaviors() ;
             firedep_to_fireorder(jit_fire_dep) ;
             compute_references() ;
+
+            // 4.- to pre-compile verbals
+            compile_verbals() ;
         }
 
         function simhw_getActive ( )

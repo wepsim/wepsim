@@ -748,13 +748,21 @@
 	 *  Syntax of behaviors
 	 */
 
-	poc_behaviors["NOP"]      = { nparameters: 1,
-				     operation: function(s_expr) { }
+	poc_behaviors["NOP"]     = { nparameters: 1,
+				     operation: function(s_expr) { },
+				        verbal: function(s_expr) { return "" ; }
 				   };
-	poc_behaviors["NOP_ALU"]  = { nparameters: 1,
-				     operation: function(s_expr) { poc_update_nzvc(0, 0, 0, 0); }
+	poc_behaviors["NOP_ALU"] = { nparameters: 1,
+				     operation: function(s_expr) 
+		                                { 
+						   poc_update_nzvc(0, 0, 0, 0);
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
+						}
 				   };
-        poc_behaviors["MV"]       = { nparameters: 3,
+        poc_behaviors["MV"]      = { nparameters: 3,
                                      types: ["X", "X"],
                                      operation: function(s_expr)
                                                 {
@@ -769,24 +777,40 @@
 
                                                    if (typeof newval != "undefined")
                                                        set_value(sim_elto_dst, newval);
-                                                }
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
+						}
                                    };
 	poc_behaviors["NOT_ES"]   = { nparameters: 3,
 				     types: ["S", "E"],
 				     operation: function (s_expr) {
 						   set_value( poc_signals[s_expr[1]], Math.abs(get_value(poc_states[s_expr[2]]) - 1));
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["GET"]     = { nparameters: 4,
 				     types: ["E", "E", "S"],
 				     operation: function(s_expr) {
 						   set_value(poc_states[s_expr[1]], get_value(poc_states[s_expr[2]][ poc_signals[s_expr[3]].value]));
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["SET"]     = { nparameters: 4,
 				     types: ["E", "S", "E"],
 				     operation: function(s_expr) {
 						   set_value(poc_states[s_expr[1]][ poc_signals[s_expr[2]].value], get_value(poc_states[s_expr[3]]));
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["AND"]     = { nparameters: 4,
@@ -796,6 +820,10 @@
 				                   set_value(poc_states[s_expr[1]], result) ;
 
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["OR"]      = { nparameters: 4,
@@ -805,6 +833,10 @@
 				                   set_value(poc_states[s_expr[1]], result) ;
 
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["NOT"]     = { nparameters: 3,
@@ -814,6 +846,10 @@
 				                   set_value(poc_states[s_expr[1]], result) ;
 
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["XOR"]     = { nparameters: 4,
@@ -823,6 +859,10 @@
 				                   set_value(poc_states[s_expr[1]], result) ;
 
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["SRL"]     = { nparameters: 3,
@@ -832,6 +872,10 @@
 				                   set_value(poc_states[s_expr[1]], result) ;
 
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["SRA"]     = { nparameters: 3,
@@ -841,6 +885,10 @@
 				                   set_value(poc_states[s_expr[1]], result) ;
 
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["SL"]      = { nparameters: 3,
@@ -850,6 +898,10 @@
 				                   set_value(poc_states[s_expr[1]], result) ;
 
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, (result) >>> 31) ;
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["RR"]      = { nparameters: 3,
@@ -859,6 +911,10 @@
 				                   set_value(poc_states[s_expr[1]], result) ;
 
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["RL"]      = { nparameters: 3,
@@ -868,6 +924,10 @@
 				                   set_value(poc_states[s_expr[1]], result) ;
 
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["ADD"]     = { nparameters: 4,
@@ -889,6 +949,10 @@
 							flag_v = 1 ;
 
 			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["SUB"]     = { nparameters: 4,
@@ -910,6 +974,10 @@
 							flag_v = 1 ;
 
 			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["MUL"]     = { nparameters: 4,
@@ -931,6 +999,10 @@
 							flag_v = 1 ;
 
 			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["DIV"]     = { nparameters: 4,
@@ -948,6 +1020,10 @@
 				                   var result = Math.floor(a / b) ;
 				                   set_value(poc_states[s_expr[1]], result) ;
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["MOD"]     = { nparameters: 4,
@@ -957,6 +1033,10 @@
 						   set_value(poc_states[s_expr[1]], result) ;
 
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["LUI"]     = { nparameters: 3,
@@ -966,6 +1046,10 @@
 						   set_value(poc_states[s_expr[1]], result) ;
 
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["ADDFOUR"] = { nparameters: 3,
@@ -986,6 +1070,10 @@
 							flag_v = 1 ;
 
 			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["ADDONE"]  = { nparameters: 3,
@@ -1006,6 +1094,10 @@
 							flag_v = 1 ;
 
 			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["FADD"]    = { nparameters: 4,
@@ -1028,6 +1120,10 @@
 							flag_v = 1 ;
 
 			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["FSUB"]    = { nparameters: 4,
@@ -1049,6 +1145,10 @@
 							flag_v = 1 ;
 
 			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["FMUL"]    = { nparameters: 4,
@@ -1070,6 +1170,10 @@
 							flag_v = 1 ;
 
 			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["FDIV"]    = { nparameters: 4,
@@ -1090,6 +1194,10 @@
                                                                    (result == 0.0) ? 1 : 0, 
                                                                    0, 
                                                                    0) ;
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["FMOD"]    = { nparameters: 4,
@@ -1102,6 +1210,10 @@
                                                                    (result == 0.0) ? 1 : 0, 
                                                                    0, 
                                                                    0) ;
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["LUI"]     = { nparameters: 3,
@@ -1111,6 +1223,10 @@
 						   set_value(poc_states[s_expr[1]], result) ;
 
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["MBIT"]     = { nparameters: 5,
@@ -1128,6 +1244,10 @@
 						   n2 = n2.substr(31 - (offset + size - 1), size);
 
 						   set_value(sim_elto_dst, parseInt(n2, 2));
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["MBIT_SN"]  = { nparameters: 5,
@@ -1155,6 +1275,10 @@
 						   var n3 = n2.substr(31 - (base + offset - 1), offset) ;
 
 						   set_value( poc_signals[s_expr[1]], parseInt(n3, 2));
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["SBIT"]     = { nparameters: 4,
@@ -1169,6 +1293,10 @@
 						   var new_value = (sim_elto_dst.value & ~(1 << s_expr[3])) | 
 						                         (sim_elto_org.value << s_expr[3]);
 						   set_value(sim_elto_dst, (new_value >>> 0));
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["MBITS"]    = { nparameters: 8,
@@ -1189,6 +1317,10 @@
 						   }
 
 						   set_value(poc_states[s_expr[1]], parseInt(n3, 2));
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 
@@ -1207,6 +1339,10 @@
 						   n3 = n3 + n4;
 
 						   set_value(poc_states[s_expr[1]], parseInt(n3, 2));
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["EXT_SIG"] =  { nparameters: 3,
@@ -1221,6 +1357,10 @@
 						   }
 
 						   set_value(poc_states[s_expr[1]], parseInt(n4, 2));
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["MOVE_BITS"] =  { nparameters: 5,
@@ -1241,6 +1381,10 @@
 						   var n3 = m1 + n1 + m2;
 
 						   set_value( poc_signals[s_expr[1]], parseInt(n3, 2));
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 	poc_behaviors["MOVE_BITSE"] = {
@@ -1262,6 +1406,10 @@
 						   var n3 = m1 + n1 + m2;
 
 						   set_value( poc_signals[s_expr[1]], parseInt(n3, 2));
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				  };
 	poc_behaviors["DECO"]    = { nparameters: 1,
@@ -1310,6 +1458,10 @@
                                                     var decins = get_deco_from_pc(pc) ;
 						    set_value(poc_states['REG_IR_DECO'], decins) ;
                                                     show_dbg_ir(get_value(poc_states['REG_IR_DECO']));
+						},
+					verbal: function (s_expr) 
+						{
+						   return "" ;
 						}
 				   };
 
@@ -1337,6 +1489,10 @@
 
 							    // 3.- check conflicts
                                                             check_buses(s_expr[1]);
+							},
+						verbal: function (s_expr) 
+							{
+							   return "" ;
 							}
 					   };
 
@@ -1349,6 +1505,10 @@
                                                             }
 
                                                             poc_behaviors["FIRE"].operation(s_expr) ;
+							},
+						verbal: function (s_expr) 
+							{
+							   return "" ;
 							}
 					   };
 
@@ -1361,6 +1521,10 @@
 								return ;
 
 							    poc_behaviors["FIRE"].operation(s_expr) ;
+							},
+						verbal: function (s_expr) 
+							{
+							   return "" ;
 							}
 					   };
 
@@ -1370,6 +1534,10 @@
 							{
 						            sim_elto = get_reference(s_expr[1]) ;
 							    sim_elto.changed = false ; // todo: comment this line
+							},
+						verbal: function (s_expr) 
+							{
+							   return "" ;
 							}
 					   };
 
@@ -1414,7 +1582,11 @@
 							             new_mins.NATIVE_JIT() ;
 						            else if (typeof new_mins.NATIVE != "undefined")
 							             eval(new_mins.NATIVE) ;
-							}
+                                                        },
+                                                verbal: function (s_expr) 
+                                                        {
+                                                           return "" ;
+                                                        }
 					   };
 
 		poc_behaviors["RESET"]    = { nparameters: 1,
@@ -1427,14 +1599,22 @@
 							    for (var key in  poc_signals) {
 								 reset_value(poc_signals[key]) ;
                                                             }
-							}
+                                                        },
+                                                verbal: function (s_expr) 
+                                                        {
+                                                           return "" ;
+                                                        }
 					   };
 
 	poc_behaviors["UPDATEDPC"]     = { nparameters: 1,
 				             operation: function(s_expr)
 							{
                                                             show_asmdbg_pc();
-							}
+                                                        },
+                                                verbal: function (s_expr) 
+                                                        {
+                                                           return "" ;
+                                                        }
 					   };
 
 	poc_behaviors["UPDATE_NZVC"]  = { nparameters: 1,
@@ -1457,6 +1637,10 @@
 								     poc_internal_states.alu_flags.flag_v);
 							   set_value(simhw_sim_signal("TEST_C"),  
 								     poc_internal_states.alu_flags.flag_c);
-							}
+                                                        },
+                                                verbal: function (s_expr) 
+                                                        {
+                                                           return "" ;
+                                                        }
 					   };
 
