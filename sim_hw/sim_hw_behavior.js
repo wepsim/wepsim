@@ -96,6 +96,7 @@
          */
 
         var jit_behaviors   = false ;
+        var jit_verbals     = false ;
         var jit_fire_dep    = null ;
         var jit_fire_order  = null ;
 	var jit_dep_network = null ;
@@ -262,5 +263,16 @@
             }
 
 	    eval(jit_vbl) ;
+            jit_verbals = true ;
+        }
+
+        function compute_signal_verbals ( signal_name, signal_value )
+        {
+            var verbal = "" ;
+
+            if (jit_behaviors)
+                verbal = simhw_sim_signal(signal_name).verbal_fn[signal_value]();
+
+	    return verbal ;
         }
 

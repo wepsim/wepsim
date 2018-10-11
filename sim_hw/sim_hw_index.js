@@ -66,6 +66,9 @@
             compile_behaviors() ;
             firedep_to_fireorder(jit_fire_dep) ;
             compute_references() ;
+
+            // to pre-compile verbals
+            compile_verbals() ;
         }
 
         function simhw_getActiveByName ( short_name )

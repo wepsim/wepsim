@@ -767,7 +767,9 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ;
+                                                   var r = s_expr[2].split('/');
+
+                                                   return "Move from " + r[0] + " to " + s_expr[1] + ". " ;
                                                 }
                                    };
 	ep_behaviors["NOT_ES"]   = { nparameters: 3,
