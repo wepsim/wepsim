@@ -176,15 +176,14 @@
                                                       var bw      = poc_signals[s_expr[3]].value;
                                                       var clk     = get_value(poc_states[s_expr[5]].value) ;
 
-						      var value = poc_internal_states.MP[address];
-
 					              var bw_type = "word" ;
                                                         if ( 0 == (bw & 0x0000000C) )
 							     bw_type = "byte" ;
                                                       else ( 1 == (bw & 0x0000000C) )
 							     bw_type = "half" ;
 
-                                                      return "try to read a " + bw_type + " from memory at address " + address + " with value " + value ;
+                                                        return "Try to read a " + bw_type + " from memory " +
+							       "at address 0x"  + address.toString(16) + " with value " + poc_internal_states.MP[address].toString(16) + ". " ;
                                                    }
                                       };
 
@@ -249,15 +248,14 @@
                                                       var bw      = poc_signals[s_expr[3]].value;
                                                       var clk     = get_value(poc_states[s_expr[5]].value) ;
 
-						      var value = poc_internal_states.MP[address];
-
 					              var bw_type = "word" ;
                                                         if ( 0 == (bw & 0x0000000C) )
 							     bw_type = "byte" ;
                                                       else ( 1 == (bw & 0x0000000C) )
 							     bw_type = "half" ;
 
-                                                      return "try to write a " + bw_type + " to memory at address " + address + " with value " + value ;
+                                                        return "Try to write a " + bw_type + " to memory " +
+							       "at address 0x"  + address.toString(16) + " with value " + poc_internal_states.MP[address].toString(16) + ". " ;
                                                    }
                                     };
 
@@ -269,7 +267,7 @@
                                                    },
                                            verbal: function (s_expr) 
                                                    {
-                                                      return "reset the memory (all values will be zeroes)" ;
+                                                      return "Reset the memory (all values will be zeroes). " ;
                                                    }
                                    };
 

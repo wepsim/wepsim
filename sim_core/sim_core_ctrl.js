@@ -221,7 +221,7 @@
                      break;
            }
 
-           compute_signal_behavior(key,index_behavior) ;
+           compute_signal_behavior(key, index_behavior) ;
         }
 
 

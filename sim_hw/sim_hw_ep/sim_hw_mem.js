@@ -185,8 +185,8 @@
                                                       else ( 1 == (bw & 0x0000000C) )
 							     bw_type = "half" ;
 
-                                                      verbal = "try to read a " + bw_type + " from memory " + 
-							       "at address "    + address + " with value " + ep_internal_states.MP[address] ;
+                                                      verbal = "Try to read a " + bw_type + " from memory " + 
+							       "at address 0x"  + address.toString(16) + " with value " + ep_internal_states.MP[address].toString(16) + ". " ;
 
                                                       return verbal ;
                                                    }
@@ -261,8 +261,8 @@
                                                       else ( 1 == (bw & 0x0000000C) )
 							     bw_type = "half" ;
 
-                                                      verbal = "try to write a " + bw_type + " to memory " + 
-							       "at address "     + address + " with value " + ep_internal_states.MP[address] ;
+                                                      verbal = "Try to write a " + bw_type + " to memory " + 
+							       "at address 0x"  + address.toString(16) + " with value " + ep_internal_states.MP[address].toString(16) + ". " ;
 
                                                       return verbal ;
                                                    }
@@ -276,7 +276,7 @@
                                                    },
                                            verbal: function (s_expr) 
                                                    {
-                                                       return "reset the memory (all values will be zeroes)" ;
+                                                       return "Reset the memory (all values will be zeroes). " ;
                                                    }
                                    };
 

@@ -129,6 +129,7 @@
             }
         }
 
+        // behaviors
         function compile_behaviors ()
         {
             var jit_bes = "";
@@ -228,6 +229,7 @@
             else compute_behavior(simhw_sim_signal(signal_name).behavior[signal_value]) ;
         }
 
+        // verbals
         function compile_verbals ()
         {
             var jit_vbl = "";
@@ -266,12 +268,43 @@
             jit_verbals = true ;
         }
 
+        function compute_verbal (input_behavior)
+        {
+	    var verbal = "" ;
+
+            // 1.- Split several behaviors, e.g.: "MV D1 O1; MV D2 O2"
+            var s_exprs = input_behavior.split(";");
+
+            // 2.- For every behavior...
+            for (var i=0; i<s_exprs.length; i++)
+            {
+                    // 2.1.- ...to remove white spaces from both sides, e.g.: "  MV D1 O1  " (skip empty expression, i.e. "")
+		    s_exprs[i] = s_exprs[i].trim() ;
+                    if ("" == s_exprs[i]) continue ;
+
+                    // 2.2.- ...to split into expression, e.g.: "MV D1 O1"
+		    var s_expr = s_exprs[i].split(" ");
+
+                    // 2.3.- ...to do the operation
+		    verbal = verbal + simhw_syntax_behavior(s_expr[0]).verbal(s_expr);
+            }
+
+            return verbal ;
+        }
+
         function compute_signal_verbals ( signal_name, signal_value )
         {
             var verbal = "" ;
 
+            // common signals...
+            var index = simhw_sim_signal(signal_name).behavior.length - 1 ;
+	    if (index > 1) index -- ;
+	    if (signal_value < index) index = signal_value ;
+
+            // compute verbal...
             if (jit_behaviors)
-                verbal = simhw_sim_signal(signal_name).verbal_fn[signal_value]();
+                 verbal =                simhw_sim_signal(signal_name).verbal_fn[index]();
+            else verbal = compute_verbal(simhw_sim_signal(signal_name).behavior[index]) ;
 
 	    return verbal ;
         }
