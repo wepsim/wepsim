@@ -70,6 +70,7 @@
     wepsim_voice_commands['next micro(instruction)'] = function()
                                                        {
                                                            wepsim_execute_microinstruction() ;
+                                                           console.log(get_verbal_from_current_mpc()) ;
                                                        } ;
 
     wepsim_voice_commands['play'] =           function()
