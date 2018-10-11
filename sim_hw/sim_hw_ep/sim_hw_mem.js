@@ -180,13 +180,17 @@
                                                       var clk     = get_value(ep_states[s_expr[5]].value) ;
 
 					              var bw_type = "word" ;
-                                                        if ( 0 == (bw & 0x0000000C) )
-							     bw_type = "byte" ;
-                                                      else ( 1 == (bw & 0x0000000C) )
-							     bw_type = "half" ;
+                                                           if ( 0 == (bw & 0x0000000C) )
+							  bw_type = "byte" ;
+                                                      else if ( 1 == (bw & 0x0000000C) )
+							  bw_type = "half" ;
+
+						      var value = 0 ;
+					              if (typeof ep_internal_states.MP[address] != "undefined")
+							  value = ep_internal_states.MP[address] ;
 
                                                       verbal = "Try to read a " + bw_type + " from memory " + 
-							       "at address 0x"  + address.toString(16) + " with value " + ep_internal_states.MP[address].toString(16) + ". " ;
+							       "at address 0x"  + address.toString(16) + " with value " + value.toString(16) + ". " ;
 
                                                       return verbal ;
                                                    }
@@ -256,13 +260,17 @@
                                                       var clk     = get_value(ep_states[s_expr[5]].value) ;
 
 					              var bw_type = "word" ;
-                                                        if ( 0 == (bw & 0x0000000C) )
-							     bw_type = "byte" ;
-                                                      else ( 1 == (bw & 0x0000000C) )
-							     bw_type = "half" ;
+                                                           if ( 0 == (bw & 0x0000000C) )
+							  bw_type = "byte" ;
+                                                      else if ( 1 == (bw & 0x0000000C) )
+							  bw_type = "half" ;
+
+						      var value = 0 ;
+					              if (typeof ep_internal_states.MP[address] != "undefined")
+							  value = ep_internal_states.MP[address] ;
 
                                                       verbal = "Try to write a " + bw_type + " to memory " + 
-							       "at address 0x"  + address.toString(16) + " with value " + ep_internal_states.MP[address].toString(16) + ". " ;
+							       "at address 0x"  + address.toString(16) + " with value " + value.toString(16) + ". " ;
 
                                                       return verbal ;
                                                    }

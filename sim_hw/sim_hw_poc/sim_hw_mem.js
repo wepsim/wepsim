@@ -177,13 +177,17 @@
                                                       var clk     = get_value(poc_states[s_expr[5]].value) ;
 
 					              var bw_type = "word" ;
-                                                        if ( 0 == (bw & 0x0000000C) )
-							     bw_type = "byte" ;
-                                                      else ( 1 == (bw & 0x0000000C) )
-							     bw_type = "half" ;
+                                                           if ( 0 == (bw & 0x0000000C) )
+							        bw_type = "byte" ;
+                                                      else if ( 1 == (bw & 0x0000000C) )
+							        bw_type = "half" ;
 
-                                                        return "Try to read a " + bw_type + " from memory " +
-							       "at address 0x"  + address.toString(16) + " with value " + poc_internal_states.MP[address].toString(16) + ". " ;
+						      var value = 0 ;
+					              if (typeof poc_internal_states.MP[address] != "undefined")
+							  value = poc_internal_states.MP[address] ;
+
+                                                      return "Try to read a " + bw_type + " from memory " +
+							     "at address 0x"  + address.toString(16) + " with value " + value.toString(16) + ". " ;
                                                    }
                                       };
 
@@ -249,13 +253,17 @@
                                                       var clk     = get_value(poc_states[s_expr[5]].value) ;
 
 					              var bw_type = "word" ;
-                                                        if ( 0 == (bw & 0x0000000C) )
-							     bw_type = "byte" ;
-                                                      else ( 1 == (bw & 0x0000000C) )
-							     bw_type = "half" ;
+                                                           if ( 0 == (bw & 0x0000000C) )
+							        bw_type = "byte" ;
+                                                      else if ( 1 == (bw & 0x0000000C) )
+							        bw_type = "half" ;
 
-                                                        return "Try to write a " + bw_type + " to memory " +
-							       "at address 0x"  + address.toString(16) + " with value " + poc_internal_states.MP[address].toString(16) + ". " ;
+						      var value = 0 ;
+					              if (typeof poc_internal_states.MP[address] != "undefined")
+							  value = poc_internal_states.MP[address] ;
+
+                                                      return "Try to write a " + bw_type + " to memory " +
+							     "at address 0x"  + address.toString(16) + " with value " + value.toString(16) + ". " ;
                                                    }
                                     };
 
