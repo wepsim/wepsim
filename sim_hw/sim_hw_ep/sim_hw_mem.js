@@ -172,12 +172,12 @@
                                                    },
                                            verbal: function (s_expr) 
                                                    {
+					              var verbal = "" ;
+
 						      var address = ep_states[s_expr[1]].value;
                                                       var dbvalue = ep_states[s_expr[2]].value;
                                                       var bw      = ep_signals[s_expr[3]].value;
                                                       var clk     = get_value(ep_states[s_expr[5]].value) ;
-
-						      var value = ep_internal_states.MP[address];
 
 					              var bw_type = "word" ;
                                                         if ( 0 == (bw & 0x0000000C) )
@@ -185,7 +185,10 @@
                                                       else ( 1 == (bw & 0x0000000C) )
 							     bw_type = "half" ;
 
-                                                      return "try to read a " + bw_type + " from memory at address " + address + " with value " + value ;
+                                                      verbal = "try to read a " + bw_type + " from memory " + 
+							       "at address "    + address + " with value " + ep_internal_states.MP[address] ;
+
+                                                      return verbal ;
                                                    }
                                       };
 
@@ -245,12 +248,12 @@
                                                    },
                                            verbal: function (s_expr) 
                                                    {
+					              var verbal = "" ;
+
 						      var address = ep_states[s_expr[1]].value;
                                                       var dbvalue = ep_states[s_expr[2]].value;
                                                       var bw      = ep_signals[s_expr[3]].value;
                                                       var clk     = get_value(ep_states[s_expr[5]].value) ;
-
-						      var value = ep_internal_states.MP[address];
 
 					              var bw_type = "word" ;
                                                         if ( 0 == (bw & 0x0000000C) )
@@ -258,19 +261,22 @@
                                                       else ( 1 == (bw & 0x0000000C) )
 							     bw_type = "half" ;
 
-                                                      return "try to write a " + bw_type + " to memory at address " + address + " with value " + value ;
+                                                      verbal = "try to write a " + bw_type + " to memory " + 
+							       "at address "     + address + " with value " + ep_internal_states.MP[address] ;
+
+                                                      return verbal ;
                                                    }
                                     };
 
         ep_behaviors.MEM_RESET    = { nparameters: 1,
                                         operation: function (s_expr) 
                                                    {
-						      // reset events.mem
-                                                      ep_events.mem = {} ;
+						       // reset events.mem
+                                                       ep_events.mem = {} ;
                                                    },
                                            verbal: function (s_expr) 
                                                    {
-                                                      return "reset the memory (all values will be zeroes)" ;
+                                                       return "reset the memory (all values will be zeroes)" ;
                                                    }
                                    };
 

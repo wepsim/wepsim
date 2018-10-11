@@ -121,17 +121,17 @@
                                                    },
                                            verbal: function (s_expr) 
                                                    {
+					              var verbal = "" ;
+
                                                       var bus_ab = get_value(ep_states[s_expr[1]]) ;
                                                       var clk    = get_value(ep_states[s_expr[5]]) ;
 
-                                                      if ( (bus_ab != KBDR_ID) && (bus_ab != KBSR_ID) ) {
-                                                              return; 
-                                                      }
-
 						      if (bus_ab == KBDR_ID)
-                                                          return "read the screen data: " + ep_states[s_expr[2]] ;
+                                                          verbal = "read the screen data: " + ep_states[s_expr[2]] ;
 						      if (bus_ab == KBSR_ID)
-                                                          return "read the screen state: " + ep_states[s_expr[2]] ;
+                                                          verbal = "read the screen state: " + ep_states[s_expr[2]] ;
+
+					              return verbal ;
                                                    }
                                    } ;
 

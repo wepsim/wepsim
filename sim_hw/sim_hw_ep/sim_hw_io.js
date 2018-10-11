@@ -133,6 +133,24 @@
                                                           set_value(ep_states[s_expr[2]], iocr);
                                                       if (bus_ab == IODR_ID) 
                                                           set_value(ep_states[s_expr[2]], iodr);
+                                                   },
+                                           verbal: function (s_expr) 
+                                                   {
+                                                      var verbal = "" ;
+
+                                                      var bus_ab = get_value(ep_states[s_expr[1]]) ;
+                                                      var iosr   = get_value(ep_states[s_expr[3]]) ;
+                                                      var iocr   = get_value(ep_states[s_expr[4]]) ;
+                                                      var iodr   = get_value(ep_states[s_expr[5]]) ;
+
+                                                      if (bus_ab == IOSR_ID) 
+                                                          verbal = "I/O device read at IOSR of value " + iosr ;
+                                                      if (bus_ab == IOCR_ID) 
+                                                          verbal = "I/O device read at IOCR of value " + iocr ;
+                                                      if (bus_ab == IODR_ID) 
+                                                          verbal = "I/O device read at IODR of value " + iodr ;
+
+                                                      return verbal ;
                                                    }
                                       };
 
@@ -143,9 +161,9 @@
                                                       var bus_ab = get_value(ep_states[s_expr[1]]) ;
                                                       var bus_db = get_value(ep_states[s_expr[2]]) ;
 
-                                                      if ( (bus_ab != IOSR_ID) && 
-                                                           (bus_ab != IOCR_ID) && 
-                                                           (bus_ab != IODR_ID) ) 
+                                                      if ( (bus_ab != IOSR_ID) &&
+                                                           (bus_ab != IOCR_ID) &&
+                                                           (bus_ab != IODR_ID) )
                                                       {
                                                             return; 
                                                       }
@@ -168,6 +186,21 @@
                                                       set_var(ep_internal_states.io_int_factory[iocr_id].probability, 1) ;
                                                       if (0 == iodr_id)
                                                           set_var(ep_internal_states.io_int_factory[iocr_id].probability, 0) ;
+                                                   },
+                                           verbal: function (s_expr) 
+                                                   {
+                                                      var verbal = "" ;
+                                                      var bus_ab = get_value(ep_states[s_expr[1]]) ;
+                                                      var bus_db = get_value(ep_states[s_expr[2]]) ;
+
+                                                      if (bus_ab == IOSR_ID) 
+                                                          verbal = "I/O device write at IOSR with value " + bus_db ;
+                                                      if (bus_ab == IOCR_ID) 
+                                                          verbal = "I/O device write at IOCR with value " + bus_db ;
+                                                      if (bus_ab == IODR_ID) 
+                                                          verbal = "I/O device write at IODR with value " + bus_db ;
+
+                                                      return verbal ;
                                                    }
                                       };
 
@@ -185,7 +218,7 @@
                                                            if (get_var(ep_internal_states.io_int_factory[i].active) == true)
                                                            {
                                                                set_value(ep_signals[s_expr[2]], 1); // ['INT']=1
-                                                               set_value(ep_states[s_expr[3]], i);  // ['INTV']=i
+                                                               set_value( ep_states[s_expr[3]], i); // ['INTV']=i
                                                            }
 
                                                            if ((clk % get_var(ep_internal_states.io_int_factory[i].period)) == 0)
@@ -200,10 +233,14 @@
                                                                   ep_events.io[clk] = [] ;
                                                               ep_events.io[clk].push(i) ;
 
-                                                              set_value( ep_signals[s_expr[2]], 1); // ['INT']=1
-                                                              set_value( ep_states[s_expr[3]], i);  // ['INTV']=i
+                                                              set_value(ep_signals[s_expr[2]], 1); // ['INT']=1
+                                                              set_value( ep_states[s_expr[3]], i); // ['INTV']=i
                                                            }
                                                       }
+                                                   },
+                                           verbal: function (s_expr) 
+                                                   {
+                                                      return "Check I/O Interruption" ;
                                                    }
                                       };
 
@@ -238,6 +275,10 @@
                                                                break; // stop at first INT
                                                            }
                                                       }
+                                                   },
+                                           verbal: function (s_expr) 
+                                                   {
+                                                      return "signal an interruption ACK" ;
                                                    }
                                       };
 
@@ -253,6 +294,10 @@
 						      set_var(ep_internal_states.io_int_factory[i].accumulated, 0);
 						      set_var(ep_internal_states.io_int_factory[i].active, false);
 						     }
+                                                  },
+                                          verbal: function (s_expr) 
+                                                  {
+                                                     return "reset the I/O device" ;
                                                   }
                                      };
 
