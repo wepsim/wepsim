@@ -118,6 +118,20 @@
 							          set_value(poc_states[s_expr[2]], get_value(poc_states[s_expr[3]]));
 							      set_value(poc_states[s_expr[4]], 0);
 						      }
+                                                   },
+                                           verbal: function (s_expr) 
+                                                   {
+                                                      var bus_ab = get_value(poc_states[s_expr[1]]) ;
+                                                      var clk    = get_value(poc_states[s_expr[5]]) ;
+
+                                                      if ( (bus_ab != KBDR_ID) && (bus_ab != KBSR_ID) ) {
+                                                              return; 
+                                                      }
+
+						      if (bus_ab == KBDR_ID)
+                                                          return "read the screen data: " + poc_states[s_expr[2]] ;
+						      if (bus_ab == KBSR_ID)
+                                                          return "read the screen state: " + poc_states[s_expr[2]] ;
                                                    }
                                    } ;
 
@@ -126,6 +140,10 @@
                                                   {
 						     // reset events.keybd
                                                      poc_events.keybd = {} ;
+                                                  },
+                                          verbal: function (s_expr) 
+                                                  {
+                                                     return "reset the keyboard content" ;
                                                   }
                                    };
 
