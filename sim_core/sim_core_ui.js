@@ -812,6 +812,18 @@
                 return curr_firm.assembly[hexstrpc].source ;
         }
 
+	function get_verbal_from_current_mpc ( )
+	{
+	        var verbal = "" ;
+
+	        var mins = get_value(simhw_sim_state('REG_MICROINS')) ;
+	        for (var key in mins) {
+	   	     verbal = verbal + compute_signal_verbals(key, mins[key]) ;
+	        }
+
+	        return verbal ;
+        }
+
 
         /* 
          * Show signal dependencies
