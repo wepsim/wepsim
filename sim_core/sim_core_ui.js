@@ -200,34 +200,6 @@
          *  init_x & show_x
          */
 
-        function simcoreui_notify ( ntf_title, ntf_message, ntf_type, ntf_delay )
-        {
-	    // alerts-container does not exist, create it
-	    var ac = $("#alerts-container") ;
-	    if (ac.length == 0) {
-		ac = $('<div id="alerts-container" ' + 
-                       '     style="position: fixed; width: 50%; left: 25%; top: 10%; z-index:256;">') ;
-		$("body").append(ac) ;
-	    }
-
-	    // create the alert div
-            var btn1   = $('<button type="button" class="close" data-dismiss="alert">') ;
-	    var alert1 = $('<div class="alert alert-' + ntf_type + '">') ;
-	    ac.prepend(alert1.append(btn1.append("&times;")).append(ntf_message)) ;
-
-	    // if delay was passed, set up a timeout to close the alert
-	    if (ntf_delay != 0) {
-		window.setTimeout(function() { alert1.alert("close") }, ntf_delay);     
-	    }
-        }
-
-        function simcoreui_notify_close ( )
-        {
-            //$("#alerts-container").close() ;
-              $(".alert").alert('close') ;
-        }
-
-
         function hex2float ( hexvalue )
         {
 		var sign     = (hexvalue & 0x80000000) ? -1 : 1;

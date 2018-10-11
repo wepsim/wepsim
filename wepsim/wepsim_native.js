@@ -23,21 +23,6 @@
      * Native microcode support
      */
 
-    function wepsim_show_wepmips ( )
-    {
-	$("#slider_cpucu").hide() ;
-	$("#tab26").hide() ;
-	$("#tab21").hide() ;
-	$("#tab24").click() ;
-    }
-
-    function wepsim_hide_wepmips ( )
-    {
-	$("#slider_cpucu").show() ;
-	$("#tab26").show() ;
-	$("#tab21").show() ;
-    }
-
     function wepsim_native_get_signal ( elto )
     {
         return (get_value(simhw_sim_signal(elto)) >>> 0) ;

@@ -20,7 +20,7 @@
 
 
         var WSCFG = {} ;
-        WSCFG.version = { value:"1.9.3", type:"string"} ;
+        WSCFG.version = { value:"1.9.5", type:"string"} ;
 
         function get_cfg ( field )
         {
@@ -83,7 +83,7 @@
 
                WSCFG.is_interactive      = { value:true,               type:"boolean"};
                WSCFG.ws_idiom            = { value:'en',               type:"string"};
-               WSCFG.ws_mode             = { value:'intro',            type:"string"};
+               WSCFG.ws_mode             = { value:'newbie',           type:"string"};
                WSCFG.use_voice           = { value:false,              type:"boolean"};
 
 		/*

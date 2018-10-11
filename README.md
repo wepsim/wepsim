@@ -7,10 +7,11 @@
  
 ## Table of contents
 
-- [Getting WepSIM](#get-wepsim)
-- [Install WepSIM as Progressive Web Application](#get-wepsim-pwa)
-- [Getting Started](#quick-start-web)
-- [Getting Started: Command Line](#quick-start-cl)
+- [Getting WepSIM](#getting-wepsim)
+- [Install WepSIM as Progressive Web Application](#install-wepsim-as-progressive-web-application)
+- [Getting Started](#getting-started)
+- [Getting Started: Command Line](#getting-started-command-line)
+- [Getting Started: WepSIM API](#getting-started-wepsim-api)
 
 ## Getting WepSIM
 
@@ -151,3 +152,87 @@ screen>
 screen>
 ERROR: Execution: different results: cpu[R1]='0' (expected '0xf'), cpu[R2]='0x2' (expected '0xf'), memory[0x1000]='0' (expected '0xa07ff0f'), memory[0x1004]='0' (expected '0x10061'), memory[0x1008]='0' (expected '0x7ffff'), memory[0x100c]='0' (expected '0x61000a'), memory[0x1010]='0' (expected '0xf'), memory[0x1014]='0' (expected '0xffffffff'), memory[0x1018]='0' (expected '0x7'), memory[0x101c]='0' (expected '0x12345678'), memory[0x1020]='0' (expected '0x61'), memory[0x1024]='0' (expected '0x6c6c6568'), memory[0x1028]='0' (expected '0x726f776f'), memory[0x102c]='0' (expected '0x646c'), memory[0x8000]='0x8400002' (expected '0x20201000'), memory[0x8004]='0x8600001' (expected '0x10601010'), memory[0x8008]='0xa21809' (expected '0x820000f'), memory[0x800c]='0x8400002' (expected '0x24201000'), memory[0x8010]='0x8600001' (expected '0x840000f'), memory[0x8014]='0xa2180a' (expected '0x14401010')
 ```
+
+## Getting Started: WepSIM API
+
++ If you want to use WepSIM within your App, there is a WepSIM API in JavaScript available too. 
+  You will need to include the WepSIM engine in your proyect:
+
+```javascript
+        <script src="min.sim_all.js"   ></script><noscript>Your browser does not support JavaScript!</noscript>
+        <script src="min.wepsim_web.js"></script><noscript>Your browser does not support JavaScript!</noscript>
+```
+
+  And then, one simple example of using this WepSIM API is the following:
+
+```javascript
+        /*
+         * Input: minimal firmware and minimal assembly code
+         */
+
+        str_firmware = 'begin {\n' +
+		       '  fetch:  (T2, C0),\n' +
+		       '          (TA, R, BW=11, M1=1, C1=1),\n' +
+		       '          (M2, C2, T1, C3),\n' +
+		       '          (A0, B=0, C=0)\n' +
+		       '}\n' +
+		       'nop {\n' +
+		       '        co=010110,\n' +
+		       '        nwords=1,\n' +
+		       '        {\n' +
+		       '                (A0=1, B=1, C=0)\n' +
+		       '        }\n' +
+                       '}\n' +
+                       'registers {\n' +
+                       '        0=$zero,\n' +
+                       '        29=$sp (stack_pointer)\n' +
+                       '}\n' ;
+
+        str_assembly = '.text\n' +
+		       'main: nop\n' ;
+
+
+        /*
+         * Code: Initialize WepSIM + reset + compile firmware + compile assembly + execute + get final state
+         */
+
+	// 1) initialize WepSIM engine
+        var ret = sim_core_init(false, 'ep') ;
+	if (false != ret.ok) {
+	    sim_core_init_ui('', '', '', '', '', '') ;
+        }
+
+	// 2) reset hardware
+	if (false != ret.ok) {
+            sim_core_reset() ;
+        }
+
+	// 3) load firmware
+	if (false != ret.ok) {
+            ret = sim_core_compile_firmware(str_firmware) ;
+        }
+
+	// 4) load assembly
+	if (false != ret.ok) {
+            ret = sim_core_compile_assembly(str_assembly) ;
+        }
+
+	// 5) execute firmware-assembly
+	if (false != ret.ok) {
+	    ret = sim_core_execute_program(1, 1024, 10240) ;
+        }
+
+	// 6) show a final report
+	if (false != ret.ok) {
+	    var state_obj = simstate_current2state() ;
+	    ret.msg = simstate_state2checklist(state_obj) ;
+        }
+
+
+        /*
+         * Output: the final state
+         */
+
+        console.log(ret.msg) ;
+```
+

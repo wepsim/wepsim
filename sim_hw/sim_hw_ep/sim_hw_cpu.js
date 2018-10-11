@@ -732,7 +732,8 @@
 	 */
 
 	ep_behaviors["NOP"]      = { nparameters: 1,
-				     operation: function(s_expr) { }
+				     operation: function(s_expr) { },
+				        verbal: function(s_expr) { return "" ; }
 				   };
 	ep_behaviors["NOP_ALU"]  = { nparameters: 1,
 				     operation: function(s_expr) 
@@ -742,6 +743,10 @@
                                                    ep_internal_states.alu_flags.flag_c = 0 ;
                                                    ep_internal_states.alu_flags.flag_v = 0 ;
                                                    ep_behaviors["UPDATE_NZVC"].operation() ;
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   return "" ;
                                                 }
 				   };
         ep_behaviors["MV"]       = { nparameters: 3,
@@ -759,25 +764,43 @@
 
                                                    if (typeof newval != "undefined")
                                                        set_value(sim_elto_dst, newval);
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   var r = s_expr[2].split('/');
+
+                                                   return "Move from " + r[0] + " to " + s_expr[1] + ". " ;
                                                 }
                                    };
 	ep_behaviors["NOT_ES"]   = { nparameters: 3,
 				     types: ["S", "E"],
 				     operation: function (s_expr) {
 						   set_value( ep_signals[s_expr[1]], Math.abs(get_value(ep_states[s_expr[2]]) - 1));
-						}
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   return "" ;
+                                                }
 				   };
 	ep_behaviors["GET"]      = { nparameters: 4,
 				     types: ["E", "E", "S"],
 				     operation: function(s_expr) {
 						   set_value(ep_states[s_expr[1]], get_value(ep_states[s_expr[2]][ ep_signals[s_expr[3]].value]));
-						}
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   return "" ;
+                                                }
 				   };
 	ep_behaviors["SET"]      = { nparameters: 4,
 				     types: ["E", "S", "E"],
 				     operation: function(s_expr) {
 						   set_value(ep_states[s_expr[1]][ ep_signals[s_expr[2]].value], get_value(ep_states[s_expr[3]]));
-						}
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   return "" ;
+                                                }
 				   };
 	ep_behaviors["AND"]      = { nparameters: 4,
 				     types: ["E", "E", "E"],
@@ -790,7 +813,11 @@
 						   ep_internal_states.alu_flags.flag_v = 0 ;
 						   ep_internal_states.alu_flags.flag_c = 0 ;
                                                    ep_behaviors["UPDATE_NZVC"].operation() ;
-						}
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   return "" ;
+                                                }
 				   };
 	ep_behaviors["OR"]       = { nparameters: 4,
 				     types: ["E", "E", "E"],
@@ -803,7 +830,11 @@
 						   ep_internal_states.alu_flags.flag_v = 0 ;
 						   ep_internal_states.alu_flags.flag_c = 0 ;
                                                    ep_behaviors["UPDATE_NZVC"].operation() ;
-						}
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   return "" ;
+                                                }
 				   };
 	ep_behaviors["NOT"]      = { nparameters: 3,
 				     types: ["E", "E"],
@@ -816,7 +847,11 @@
 						   ep_internal_states.alu_flags.flag_v = 0 ;
 						   ep_internal_states.alu_flags.flag_c = 0 ;
                                                    ep_behaviors["UPDATE_NZVC"].operation() ;
-						}
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   return "" ;
+                                                }
 				   };
 	ep_behaviors["XOR"]      = { nparameters: 4,
 				     types: ["E", "E", "E"],
@@ -829,7 +864,11 @@
 						   ep_internal_states.alu_flags.flag_v = 0 ;
 						   ep_internal_states.alu_flags.flag_c = 0 ;
                                                    ep_behaviors["UPDATE_NZVC"].operation() ;
-						}
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   return "" ;
+                                                }
 				   };
 	ep_behaviors["SRL"]      = { nparameters: 3,
 				     types: ["E", "E"],
@@ -842,7 +881,11 @@
 						   ep_internal_states.alu_flags.flag_v = 0 ;
 						   ep_internal_states.alu_flags.flag_c = 0 ;
                                                    ep_behaviors["UPDATE_NZVC"].operation() ;
-						}
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   return "" ;
+                                                }
 				   };
 	ep_behaviors["SRA"]      = { nparameters: 3,
 				     types: ["E", "E"],
@@ -855,7 +898,11 @@
 						   ep_internal_states.alu_flags.flag_v = 0 ;
 						   ep_internal_states.alu_flags.flag_c = 0 ;
                                                    ep_behaviors["UPDATE_NZVC"].operation() ;
-						}
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   return "" ;
+                                                }
 				   };
 	ep_behaviors["SL"]       = { nparameters: 3,
 				     types: ["E", "E"],
@@ -868,7 +915,11 @@
 						   ep_internal_states.alu_flags.flag_v = 0 ;
 						   ep_internal_states.alu_flags.flag_c = ((result) >>> 31) ;
                                                    ep_behaviors["UPDATE_NZVC"].operation() ;
-						}
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   return "" ;
+                                                }
 				   };
 	ep_behaviors["RR"]       = { nparameters: 3,
 				     types: ["E", "E"],
@@ -881,7 +932,11 @@
 						   ep_internal_states.alu_flags.flag_v = 0 ;
 						   ep_internal_states.alu_flags.flag_c = 0 ;
                                                    ep_behaviors["UPDATE_NZVC"].operation() ;
-						}
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   return "" ;
+                                                }
 				   };
 	ep_behaviors["RL"]       = { nparameters: 3,
 				     types: ["E", "E"],
@@ -895,7 +950,11 @@
 						   ep_internal_states.alu_flags.flag_v = 0 ;
 						   ep_internal_states.alu_flags.flag_c = 0 ;
                                                    ep_behaviors["UPDATE_NZVC"].operation() ;
-						}
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   return "" ;
+                                                }
 				   };
 	ep_behaviors["ADD"]      = { nparameters: 4,
 				     types: ["E", "E", "E"],
@@ -916,7 +975,11 @@
 							ep_internal_states.alu_flags.flag_v = 1 ;
 
                                                    ep_behaviors["UPDATE_NZVC"].operation() ;
-						}
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   return "" ;
+                                                }
 				   };
 	ep_behaviors["SUB"]      = { nparameters: 4,
 				     types: ["E", "E", "E"],
@@ -937,7 +1000,11 @@
 							ep_internal_states.alu_flags.flag_v = 1 ;
 
                                                    ep_behaviors["UPDATE_NZVC"].operation() ;
-						}
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   return "" ;
+                                                }
 				   };
 	ep_behaviors["MUL"]      = { nparameters: 4,
 				     types: ["E", "E", "E"],
@@ -958,7 +1025,11 @@
 							ep_internal_states.alu_flags.flag_v = 1 ;
 
                                                    ep_behaviors["UPDATE_NZVC"].operation() ;
-						}
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   return "" ;
+                                                }
 				   };
 	ep_behaviors["DIV"]      = { nparameters: 4,
 				     types: ["E", "E", "E"],
@@ -984,7 +1055,11 @@
 						   ep_internal_states.alu_flags.flag_v = 0 ;
 						   ep_internal_states.alu_flags.flag_c = 0 ;
                                                    ep_behaviors["UPDATE_NZVC"].operation() ;
-						}
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   return "" ;
+                                                }
 				   };
 	ep_behaviors["MOD"]      = { nparameters: 4,
 				     types: ["E", "E", "E"],
@@ -997,7 +1072,11 @@
 						   ep_internal_states.alu_flags.flag_v = 0 ;
 						   ep_internal_states.alu_flags.flag_c = 0 ;
                                                    ep_behaviors["UPDATE_NZVC"].operation() ;
-						}
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   return "" ;
+                                                }
 				   };
 	ep_behaviors["LUI"]      = { nparameters: 3,
 				     types: ["E", "E"],
@@ -1010,7 +1089,11 @@
 						   ep_internal_states.alu_flags.flag_v = 0 ;
 						   ep_internal_states.alu_flags.flag_c = 0 ;
                                                    ep_behaviors["UPDATE_NZVC"].operation() ;
-						}
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   return "" ;
+                                                }
 				   };
 	ep_behaviors["MBIT"]     = { nparameters: 5,
 				     types: ["X", "X", "I", "I"],
@@ -1027,7 +1110,11 @@
 						   n2 = n2.substr(31 - (offset + size - 1), size);
 
 						   set_value(sim_elto_dst, parseInt(n2, 2));
-						}
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   return "" ;
+                                                }
 				   };
 	ep_behaviors["MBIT_SN"]  = { nparameters: 5,
 				     types: ["S", "E", "E", "I"],
@@ -1054,7 +1141,11 @@
 						   var n3 = n2.substr(31 - (base + offset - 1), offset) ;
 
 						   set_value( ep_signals[s_expr[1]], parseInt(n3, 2));
-						}
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   return "" ;
+                                                }
 				   };
 	ep_behaviors["SBIT"]     = { nparameters: 4,
 				     types: ["X", "X", "I"],
@@ -1068,7 +1159,11 @@
 						   var new_value = (sim_elto_dst.value & ~(1 << s_expr[3])) | 
 						                         (sim_elto_org.value << s_expr[3]);
 						   set_value(sim_elto_dst, (new_value >>> 0));
-						}
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   return "" ;
+                                                }
 				   };
 	ep_behaviors["MBITS"]    = { nparameters: 8,
 				     types: ["E", "I", "E", "S", "S", "I", "S"],
@@ -1088,7 +1183,11 @@
 						   }
 
 						   set_value(ep_states[s_expr[1]], parseInt(n3, 2));
-						}
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   return "" ;
+                                                }
 				   };
 
 	ep_behaviors["BSEL"] =  { nparameters: 6,
@@ -1106,7 +1205,11 @@
 						   n3 = n3 + n4;
 
 						   set_value(ep_states[s_expr[1]], parseInt(n3, 2));
-						}
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   return "" ;
+                                                }
 				   };
 	ep_behaviors["EXT_SIG"] =  { nparameters: 3,
 				     types: ["E", "I"],
@@ -1120,7 +1223,11 @@
 						   }
 
 						   set_value(ep_states[s_expr[1]], parseInt(n4, 2));
-						}
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   return "" ;
+                                                }
 				   };
 	ep_behaviors["MOVE_BITS"] =  { nparameters: 5,
 				     types: ["S", "I", "I","S"],
@@ -1140,7 +1247,11 @@
 						   var n3 = m1 + n1 + m2;
 
 						   set_value( ep_signals[s_expr[1]], parseInt(n3, 2));
-						}
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   return "" ;
+                                                }
 				   };
 	ep_behaviors["MOVE_BITSE"] = {
 					  nparameters: 6,
@@ -1161,7 +1272,11 @@
 						   var n3 = m1 + n1 + m2;
 
 						   set_value( ep_signals[s_expr[1]], parseInt(n3, 2));
-						}
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   return "" ;
+                                                }
 				  };
 	ep_behaviors["DECO"]    = { nparameters: 1,
 				     operation: function(s_expr)
@@ -1209,12 +1324,16 @@
                                                     var decins = get_deco_from_pc(pc) ;
 						    set_value(ep_states['REG_IR_DECO'], decins) ;
                                                     show_dbg_ir(get_value(ep_states['REG_IR_DECO']));
-						}
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+                                                   return "" ;
+                                                }
 				   };
 
 		ep_behaviors["FIRE"] = { nparameters: 2,
-					     types: ["S"],
-					     operation: function (s_expr)
+					       types: ["S"],
+					   operation: function (s_expr)
 							{
 							    // 0.- avoid loops
 							    if (ep_internal_states.fire_stack.indexOf(s_expr[1]) != -1) {
@@ -1236,7 +1355,11 @@
 
 							    // 3.- check conflicts
                                                             check_buses(s_expr[1]);
-							}
+                                                        },
+                                                verbal: function (s_expr) 
+                                                        {
+                                                           return "" ;
+                                                        }
 					   };
 
 		ep_behaviors["FIRE_IFSET"] = { nparameters: 3,
@@ -1248,7 +1371,11 @@
                                                             }
 
                                                             ep_behaviors["FIRE"].operation(s_expr) ;
-							}
+                                                        },
+                                                verbal: function (s_expr) 
+                                                        {
+                                                           return "" ;
+                                                        }
 					   };
 
 		ep_behaviors["FIRE_IFCHANGED"] = { nparameters: 3,
@@ -1261,7 +1388,11 @@
                                                             }
 
 							    ep_behaviors["FIRE"].operation(s_expr) ;
-							}
+                                                        },
+                                                verbal: function (s_expr) 
+                                                        {
+                                                           return "" ;
+                                                        }
 					   };
 
 		ep_behaviors["RESET_CHANGED"] = { nparameters: 2,
@@ -1270,7 +1401,11 @@
 							{
 						            sim_elto = get_reference(s_expr[1]) ;
 							    sim_elto.changed = false ; // Disable by Default
-							}
+                                                        },
+                                                verbal: function (s_expr) 
+                                                        {
+                                                           return "" ;
+                                                        }
 					   };
 
 		ep_behaviors["CLOCK"] = { nparameters: 1,
@@ -1314,7 +1449,11 @@
 							             new_mins.NATIVE_JIT() ;
 						            else if (typeof new_mins.NATIVE != "undefined")
 							             eval(new_mins.NATIVE) ;
-							}
+                                                        },
+                                                verbal: function (s_expr) 
+                                                        {
+                                                           return "" ;
+                                                        }
 					   };
 
 		ep_behaviors["RESET"]    = { nparameters: 1,
@@ -1327,14 +1466,22 @@
 							    for (var key in  ep_signals) {
 								 reset_value(ep_signals[key]) ;
                                                             }
-							}
+                                                        },
+                                                verbal: function (s_expr) 
+                                                        {
+                                                           return "" ;
+                                                        }
 					   };
 
 	ep_behaviors["UPDATEDPC"]     = { nparameters: 1,
 				            operation: function(s_expr)
 							{
                                                             show_asmdbg_pc();
-							}
+                                                        },
+                                                verbal: function (s_expr) 
+                                                        {
+                                                           return "" ;
+                                                        }
 					   };
 
 	ep_behaviors["UPDATE_NZVC"]   = { nparameters: 1,
@@ -1357,6 +1504,10 @@
 								     ep_internal_states.alu_flags.flag_v);
 							   set_value(simhw_sim_signal("TEST_C"),  
 								     ep_internal_states.alu_flags.flag_c);
-							}
+                                                        },
+                                                verbal: function (s_expr) 
+                                                        {
+                                                           return "" ;
+                                                        }
 					   };
 

@@ -438,6 +438,25 @@
             showhideAsmElements();
     }
 
+    function wepsim_show_wepmips ( )
+    {
+        $(".multi-collapse-2").collapse("show") ;
+	$("#slider_cpucu").hide() ;
+
+	$("#tab26").hide() ;
+	$("#tab21").hide() ;
+	$("#tab24").click() ;
+    }
+
+    function wepsim_hide_wepmips ( )
+    {
+        $(".multi-collapse-2").collapse("show") ;
+	$("#slider_cpucu").show() ;
+
+	$("#tab26").show() ;
+	$("#tab21").show() ;
+    }
+
     function wepsim_change_mode ( optValue, cssLayer )
     {
           var hwid = -1 ;
@@ -445,6 +464,7 @@
 	  // switch active hardware by name...
           switch (optValue)
           {
+	      case 'newbie': 
 	      case 'intro': 
 	      case 'wepmips': 
 	      case 'tutorial': 
@@ -469,10 +489,22 @@
 	  }
 
 	  // intro mode...
-	  if ('intro' == optValue) {
+	  if ('intro' == optValue) 
+	  {
 	      sim_tutorial_showframe('welcome', 0);
               return ;
 	  }
+
+	  // newbie mode...
+          if ('newbie' == optValue)
+          {
+              var ti = get_cfg('ws_idiom') ;
+                  tour = introJs();
+                  tour.setOptions({ steps: tour_steps[ti] }) ;
+                  tour.onbeforechange(tour_steps.onbeforechange) ;
+                  tour.start() ;
+              return ;
+          }
     }
 
     function wepsim_show_asm_columns_checked ( asm_div )

@@ -116,24 +116,35 @@
          */
 
         poc_behaviors.SCR_IOR     = { nparameters: 6,
-                                     types: ["E", "E", "E", "E", "E"],
-                                     operation: function (s_expr) 
-                                                {
-                                                   var bus_ab = get_value(poc_states[s_expr[1]]) ;
-                                                   var ddr    = get_value(poc_states[s_expr[3]]) ;
-                                                   var dsr    = get_value(poc_states[s_expr[4]]) ;
+                                      types: ["E", "E", "E", "E", "E"],
+                                      operation: function (s_expr) 
+                                                 {
+                                                    var bus_ab = get_value(poc_states[s_expr[1]]) ;
+                                                    var ddr    = get_value(poc_states[s_expr[3]]) ;
+                                                    var dsr    = get_value(poc_states[s_expr[4]]) ;
 
-                                                   if (bus_ab == DDR_ID)
-                                                       set_value(poc_states[s_expr[2]], ddr) ;
-                                                   if (bus_ab == DSR_ID)
-                                                       set_value(poc_states[s_expr[2]], dsr) ;
-                                                }
+                                                    if (bus_ab == DDR_ID)
+                                                        set_value(poc_states[s_expr[2]], ddr) ;
+                                                    if (bus_ab == DSR_ID)
+                                                        set_value(poc_states[s_expr[2]], dsr) ;
+                                                 },
+                                         verbal: function (s_expr) 
+                                                 {
+                                                    var bus_ab = get_value(poc_states[s_expr[1]]) ;
+                                                    var ddr    = get_value(poc_states[s_expr[3]]) ;
+                                                    var dsr    = get_value(poc_states[s_expr[4]]) ;
+
+                                                    if (bus_ab == DDR_ID)
+                                                        return "try to read from the screen the DDR value " + ddr ;
+                                                    if (bus_ab == DDR_ID)
+                                                        return "try to read into the screen the DSR value " + dsr ;
+                                                 }
                                 };
 
         poc_behaviors.SCR_IOW     = { nparameters: 6,
-                                     types: ["E", "E", "E", "E", "E"],
-                                     operation: function (s_expr) 
-                                                {
+                                      types: ["E", "E", "E", "E", "E"],
+                                      operation: function (s_expr) 
+                                                 {
                                                       var bus_ab = get_value(poc_states[s_expr[1]]) ;
                                                       var bus_db = get_value(poc_states[s_expr[2]]) ;
                                                       var clk    = get_value(poc_states[s_expr[5]]) ;
@@ -166,7 +177,20 @@
                                                       set_value(poc_states[s_expr[3]], bus_db) ;
                                                       set_value(poc_states[s_expr[4]], 1) ;
                                                       poc_events.screen[clk] = bus_db ;
-                                                }
+                                                 },
+                                         verbal: function (s_expr) 
+                                                 {
+                                                      var bus_ab = get_value(poc_states[s_expr[1]]) ;
+                                                      var bus_db = get_value(poc_states[s_expr[2]]) ;
+                                                      var clk    = get_value(poc_states[s_expr[5]]) ;
+                                                      var ch     = String.fromCharCode(bus_db);
+
+                                                      if (bus_ab != DDR_ID) {
+                                                          return;
+                                                      }
+
+                                                      return "try to write into the screen the code " + ch + " at clock cycle " + clk ;
+                                                 }
                                 };
 
         poc_behaviors.SCR_RESET = { nparameters: 1,
@@ -174,6 +198,10 @@
                                                  {
 						     // reset events.screen
                                                      poc_events.screen = {} ;
+                                                 },
+                                         verbal: function (s_expr) 
+                                                 {
+                                                    return "reset the screen content" ;
                                                  }
                                   };
 

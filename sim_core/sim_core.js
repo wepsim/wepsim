@@ -24,20 +24,41 @@
         /**
          * Initialize simulator core and UI.
          * @param {boolean} with_ui - initialize with UI support
+         * @param {string} simhw_name - hardware name
          */
 
-        function sim_core_init ( with_ui )
+        function sim_core_init ( with_ui, simhw_name )
         {
 	    var ret = {} ;
-	        ret.msg     = "" ;
-	        ret.ok      = true ;
+	        ret.msg = "" ;
+	        ret.ok  = true ;
 
+            // hardware
+	    var hwid = simhw_getActiveByName(simhw_name) ;
+	    if (hwid < 0) 
+	    {
+	        ret.msg = "ERROR: unknown hardware: " + simhw_name + ".\n" ;
+	        ret.ok  = false ;
+	        return ret ;
+	    }
+
+            // cfg
             if ( with_ui ) {
 		 restore_cfg() ;
 	    }
 	    else {
                  reset_cfg() ;
                  stop_drawing() ;
+	    }
+	    simhw_setActive(hwid) ;
+
+            // ui
+	    var ret1 = sim_core_init_ui('', '', '', '', '', '') ;
+	    if (false == ret1.ok) 
+	    {
+                ret.msg = ret.msg ;
+                ret.ok  = false ;
+	        return ret ;
 	    }
 
             return ret ;
@@ -54,11 +75,11 @@
          * @param {string} cpuall_id - associated div
          * @param {string} configall_id - associated div
          */
-        function sim_core_init_panel ( stateall_id, statebr_id, ioall_id, cpuall_id, configmp_id, configio_id )
+        function sim_core_init_ui ( stateall_id, statebr_id, ioall_id, cpuall_id, configmp_id, configio_id )
         {
 	    var ret = {} ;
-	        ret.msg     = "" ;
-	        ret.ok      = true ;
+	        ret.msg = "" ;
+	        ret.ok  = true ;
 
             // default information holders as disabled
             var msg_default = '<div class="bg-warning"><b>Not available in this hardware</b></div>' ;
@@ -221,8 +242,8 @@
         function sim_core_reset ( )
         {
     	    var ret = {} ;
-    	        ret.msg     = "" ;
-    	        ret.ok      = true ;
+    	        ret.msg = "" ;
+    	        ret.ok  = true ;
     
             // current elements
 	    var SIMWARE        = get_simware() ;
@@ -585,4 +606,4 @@
     
             return ret ;
         }
-    
+

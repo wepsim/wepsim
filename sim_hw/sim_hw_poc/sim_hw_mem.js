@@ -82,29 +82,29 @@
 	 *  Internal States
 	 */
 
-        poc_internal_states.segments     = {} ;
-        poc_internal_states.MP           = {} ;
-        poc_internal_states.MP_wc        = 0 ;
+        poc_internal_states.segments  = {} ;
+        poc_internal_states.MP        = {} ;
+        poc_internal_states.MP_wc     = 0 ;
 
 
         /*
          *  Signals
          */
 
-        poc_signals.MRDY      = { name: "MRDY", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+        poc_signals.MRDY     = { name: "MRDY", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                  depends_on: ["CLK"],
 		                 behavior: ["FIRE_IFCHANGED MRDY C", "FIRE_IFCHANGED MRDY C"],
                                  fire_name: ['svg_p:tspan3916'], 
                                  draw_data: [[], ['svg_p:path3895','svg_p:path3541']], 
                                  draw_name: [[], []]};
 
-        poc_signals.R         = { name: "R", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+        poc_signals.R        = { name: "R", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		                 behavior: ["NOP", "MEM_READ BUS_AB BUS_DB BWA MRDY CLK; FIRE MRDY"],
                                  fire_name: ['svg_p:text3533-5-2','svg_p:text3713'], 
                                  draw_data: [[], ['svg_p:path3557','svg_p:path3571']], 
                                  draw_name: [[], []]};
 
-        poc_signals.W         = { name: "W", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+        poc_signals.W        = { name: "W", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		                 behavior: ["NOP", "MEM_WRITE BUS_AB BUS_DB BWA MRDY CLK; FIRE MRDY"],
                                  fire_name: ['svg_p:text3533-5-08','svg_p:text3527','svg_p:text3431-7'], 
                                  draw_data: [[], ['svg_p:path3559','svg_p:path3575','svg_p:path3447-7']], 
@@ -115,7 +115,7 @@
          *  Syntax of behaviors
          */
 
-        poc_behaviors.MEM_READ       = { nparameters: 6, 
+        poc_behaviors.MEM_READ      = { nparameters: 6, 
                                         types: ["E", "E", "S", "S", "E"],
                                         operation: function (s_expr) 
                                                    {
@@ -168,10 +168,27 @@
                                                       poc_states[s_expr[2]].value = (dbvalue >>> 0);
                                                      poc_signals[s_expr[4]].value = 1;
 				                      show_main_memory(poc_internal_states.MP, address, false, false) ;
-                                                   }
-                                   };
+                                                   },
+                                           verbal: function (s_expr) 
+                                                   {
+						      var address = poc_states[s_expr[1]].value;
+                                                      var dbvalue = poc_states[s_expr[2]].value;
+                                                      var bw      = poc_signals[s_expr[3]].value;
+                                                      var clk     = get_value(poc_states[s_expr[5]].value) ;
 
-        poc_behaviors.MEM_WRITE       = { nparameters: 6, 
+						      var value = poc_internal_states.MP[address];
+
+					              var bw_type = "word" ;
+                                                        if ( 0 == (bw & 0x0000000C) )
+							     bw_type = "byte" ;
+                                                      else ( 1 == (bw & 0x0000000C) )
+							     bw_type = "half" ;
+
+                                                      return "try to read a " + bw_type + " from memory at address " + address + " with value " + value ;
+                                                   }
+                                      };
+
+        poc_behaviors.MEM_WRITE      = { nparameters: 6, 
                                          types: ["E", "E", "S", "S", "E"],
                                          operation: function (s_expr) 
                                                     {
@@ -224,14 +241,35 @@
 						      poc_internal_states.MP[address] = (value >>> 0);
                                                       poc_signals[s_expr[4]].value = 1;
 				                      show_main_memory(poc_internal_states.MP, address, false, true) ;
-                                                    }
-                                   };
+                                                   },
+                                           verbal: function (s_expr) 
+                                                   {
+						      var address = poc_states[s_expr[1]].value;
+                                                      var dbvalue = poc_states[s_expr[2]].value;
+                                                      var bw      = poc_signals[s_expr[3]].value;
+                                                      var clk     = get_value(poc_states[s_expr[5]].value) ;
 
-        poc_behaviors.MEM_RESET  = { nparameters: 1,
-                                       operation: function (s_expr) 
-                                                  {
-						     // reset events.mem
-                                                     poc_events.mem = {} ;
-                                                  }
+						      var value = poc_internal_states.MP[address];
+
+					              var bw_type = "word" ;
+                                                        if ( 0 == (bw & 0x0000000C) )
+							     bw_type = "byte" ;
+                                                      else ( 1 == (bw & 0x0000000C) )
+							     bw_type = "half" ;
+
+                                                      return "try to write a " + bw_type + " to memory at address " + address + " with value " + value ;
+                                                   }
+                                    };
+
+        poc_behaviors.MEM_RESET   = { nparameters: 1,
+                                        operation: function (s_expr) 
+                                                   {
+						      // reset events.mem
+                                                      poc_events.mem = {} ;
+                                                   },
+                                           verbal: function (s_expr) 
+                                                   {
+                                                      return "reset the memory (all values will be zeroes)" ;
+                                                   }
                                    };
 
