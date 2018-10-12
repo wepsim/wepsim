@@ -43,6 +43,11 @@
 	    if (ntf_delay != 0) {
 		window.setTimeout(function() { alert1.alert("close") }, ntf_delay);     
 	    }
+
+	    // audio
+            var msg = "Notification type " + ntf_type + " and title " + ntf_title + ":" + ntf_message + ". " ;
+            msg = $("</p>").html(msg).text() ;
+            simcoreui_voice_speak(msg) ;
         }
 
 

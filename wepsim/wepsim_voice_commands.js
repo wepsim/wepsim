@@ -63,7 +63,7 @@
 
 	 // speak...
          var msg = "Current processor has been reset." ;
-	 wepsim_voice_speak(msg) ;
+	 simcoreui_voice_speak(msg) ;
     } ;
 
     wepsim_voice_commands['next'] = function()
@@ -72,7 +72,7 @@
 
 	 // speak...
          var msg = "Next executed." ;
-	 wepsim_voice_speak(msg) ;
+	 simcoreui_voice_speak(msg) ;
     } ;
 
     wepsim_voice_commands['next micro(instruction)'] = function()
@@ -81,7 +81,7 @@
 
 	 // speak...
          var msg = "Next microinstruction executed. Associated actions are: " + get_verbal_from_current_mpc() ;
-	 wepsim_voice_speak(msg) ;
+	 simcoreui_voice_speak(msg) ;
     } ;
 
     wepsim_voice_commands['play'] = function()
@@ -107,6 +107,6 @@
 
 	 // speak...
          var msg = $("</p>").html(vc_list).text() ;
-	 wepsim_voice_speak(msg) ;
+	 simcoreui_voice_speak(msg) ;
     } ;
 
