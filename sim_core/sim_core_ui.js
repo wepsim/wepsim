@@ -877,13 +877,23 @@
 
     	    if (simcoreui_voice_canSpeak())
 	    {
-	         ssu = new SpeechSynthesisUtterance(msg);
-	         ssu.lang = 'es-ES' ;
-                 if ('en' == get_cfg('ws_idiom')) {
-		     ssu.lang = 'en-US' ;
-		 }
+	         ssu = new SpeechSynthesisUtterance(msg) ;
 
-	         window.speechSynthesis.speak(ssu);
+	         ssu.lang = 'es-ES' ;
+                 if ('en' == get_cfg('ws_idiom'))
+		      ssu.lang = 'en-US' ;
+                 if ('es' == get_cfg('ws_idiom'))
+		      ssu.lang = 'es-EN' ;
+
+	         window.speechSynthesis.speak(ssu) ;
+	    }
+        }
+
+        function simcoreui_voice_stopSpeak ( )
+        {
+    	    if (simcoreui_voice_canSpeak())
+	    {
+	         window.speechSynthesis.cancel() ;
 	    }
         }
 

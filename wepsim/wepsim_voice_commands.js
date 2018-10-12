@@ -94,6 +94,8 @@
          wepsim_execute_stop('#qbp') ;
     } ;
 
+
+    // control
     wepsim_voice_commands['list'] =  function() 
     {
 	 var vc_list = "available commands:<br>" ;
@@ -108,5 +110,10 @@
 	 // speak...
          var msg = $("</p>").html(vc_list).text() ;
 	 simcoreui_voice_speak(msg) ;
+    } ;
+
+    wepsim_voice_commands['silence'] = function()
+    {
+	 simcoreui_voice_stopSpeak() ;
     } ;
 
