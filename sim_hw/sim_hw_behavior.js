@@ -294,17 +294,28 @@
 
         function compute_signal_verbals ( signal_name, signal_value )
         {
-            var verbal = "" ;
+            var verbal  = "" ;
+            var sig_ref = null ;
+
+            // check params...
+            sig_ref = simhw_sim_signal(signal_name) ;
+            if (typeof sig_ref.behavior == "undefined") {
+		return verbal ;
+	    }
 
             // common signals...
-            var index = simhw_sim_signal(signal_name).behavior.length - 1 ;
-	    if (index > 1) index -- ;
-	    if (signal_value < index) index = signal_value ;
+            var index = sig_ref.behavior.length - 1 ;
+	    if (index > 1) {
+		index -- ;
+	    }
+	    if (signal_value < index) {
+		index = signal_value ;
+	    }
 
             // compute verbal...
             if (jit_behaviors)
-                 verbal =                simhw_sim_signal(signal_name).verbal_fn[index]();
-            else verbal = compute_verbal(simhw_sim_signal(signal_name).behavior[index]) ;
+                 verbal = sig_ref.verbal_fn[index]();
+            else verbal = compute_verbal(sig_ref.behavior[index]) ;
 
 	    return verbal ;
         }

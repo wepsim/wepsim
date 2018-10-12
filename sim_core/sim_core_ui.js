@@ -812,18 +812,6 @@
                 return curr_firm.assembly[hexstrpc].source ;
         }
 
-	function get_verbal_from_current_mpc ( )
-	{
-	        var verbal = "" ;
-
-	        var mins = get_value(simhw_sim_state('REG_MICROINS')) ;
-	        for (var key in mins) {
-	   	     verbal = verbal + compute_signal_verbals(key, mins[key]) ;
-	        }
-
-	        return verbal ;
-        }
-
 
         /* 
          * Show signal dependencies
@@ -863,5 +851,52 @@
                                     nodes: { borderWidth: 2, shadow:true },
                                     edges: { width: 2, shadow:true } } ;
 	    jit_dep_network = new vis.Network(jit_dep_container, jit_dep_data, jit_dep_options) ;
+        }
+
+
+        /*
+	 *  Voice (speak)
+	 */
+
+        function simcoreui_voice_canSpeak ( )
+        {
+    	    if (typeof window.speechSynthesis == "undefined") {
+                return false ;
+            }
+
+            if (false == get_cfg('use_voice')) {
+                return false ;
+            }
+
+            return true ;
+        }
+
+        function simcoreui_voice_speak ( msg )
+        {
+	    var ssu = null ;
+
+    	    if (simcoreui_voice_canSpeak())
+	    {
+	         ssu = new SpeechSynthesisUtterance(msg);
+	         ssu.lang = 'es-ES' ;
+                 if ('en' == get_cfg('ws_idiom')) {
+		     ssu.lang = 'en-US' ;
+		 }
+
+	         window.speechSynthesis.speak(ssu);
+	    }
+        }
+
+
+	function get_verbal_from_current_mpc ( )
+	{
+	     var verbal = "" ;
+
+	     var mins = get_value(simhw_sim_state('REG_MICROINS')) ;
+	     for (var key in mins) {
+	   	  verbal = verbal + compute_signal_verbals(key, mins[key]) ;
+	     }
+
+             return verbal ;
         }
 

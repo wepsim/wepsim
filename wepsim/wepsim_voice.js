@@ -71,25 +71,3 @@
 	 return true ;
     }
 
-    function wepsim_voice_canSpeak ( )
-    {
-	if (typeof window.speechSynthesis == "undefined") {
-            return false ;
-        }
-
-        if (false == get_cfg('use_voice')) {
-            return false ;
-        }
-
-        return true ;
-    }
-
-    function wepsim_voice_speak ( msg )
-    {
-	if (wepsim_voice_canSpeak())
-	{
-	     var ssu = new SpeechSynthesisUtterance(msg);
-	     window.speechSynthesis.speak(ssu);
-	}
-    }
-
