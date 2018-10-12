@@ -45,7 +45,9 @@
 	    }
 
 	    // audio
-            simcoreui_voice_speak("Notification type " + ntf_type + " and title " + ntf_title + ":" + ntf_message + ". ") ;
+            var msg = "Notification type " + ntf_type + " and title " + ntf_title + ":" + ntf_message + ". " ;
+            msg = $("</p>").html(msg).text() ;
+            simcoreui_voice_speak(msg) ;
         }
 
 
