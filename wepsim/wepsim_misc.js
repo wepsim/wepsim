@@ -463,6 +463,7 @@
 	     tour = introJs();
 	     tour.setOptions({ steps: tour_steps[ti] }) ;
 	     tour.onbeforechange(tour_steps.onbeforechange) ;
+	     tour.onexit(tour_steps.onexit) ;
 	     tour.start() ;
     }
 

@@ -77,7 +77,7 @@
 		/*
 		 *  simulation screen: Notification, etc.
 		 */
-               WSCFG.NOTIF_delay         = { value:1500,               type:"int"} ;
+               WSCFG.NOTIF_delay         = { value:1000,               type:"int"} ;
                WSCFG.CPUCU_size          = { value:6,                  type:"int"} ;
                WSCFG.C1C2_size           = { value:8,                  type:"int"} ;
 
@@ -95,7 +95,7 @@
                // some mobile-tuning
                if (is_mobile())
                {
-                   WSCFG.NOTIF_delay.value = 1750 ;
+                   WSCFG.NOTIF_delay.value = 2000 ;
                    WSCFG.ICON_theme.value  = 'cat1' ;
                    WSCFG.CPUCU_size.value  = 6 ;
                    WSCFG.C1C2_size.value   = 12 ;

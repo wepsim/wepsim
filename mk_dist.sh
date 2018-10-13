@@ -106,7 +106,7 @@ cat external/popper.min.js \
     external/annyang.min.js \
     external/speechkitt/speechkitt.min.js \
     external/dropify/dropify.min.js \
-    external/fontawesome5/all.js > ws_dist/min.external.js
+    external/fontawesome/all.min.js > ws_dist/min.external.js
 
 cat external/bootstrap.min.css \
     external/bootstrap-theme.min.css \
@@ -120,10 +120,16 @@ cat external/bootstrap.min.css \
     external/introjs/introjs.min.css \
     external/speech-input.css \
     external/dropify/dropify.min.css \
-    external/fontawesome5/all.css > ws_dist/min.external.css
+    external/fontawesome/all.css > ws_dist/min.external.css
 
-cp -a external/dropify     ws_dist/external/
-cp -a external/speechkitt  ws_dist/external/
+mkdir -p ws_dist/external/fontawesome/
+   touch ws_dist/external/fontawesome/index.html
+cp    -a external/fontawesome/webfonts  ws_dist/external/fontawesome
+                                  touch ws_dist/external/fontawesome/webfonts/index.html
+cp    -a external/dropify               ws_dist/external/
+                                  touch ws_dist/external/dropify/index.html
+cp    -a external/speechkitt            ws_dist/external/
+                                  touch ws_dist/external/speechkitt/index.html
 
 #  examples, docs, etc.
 cp -a examples  ws_dist/
