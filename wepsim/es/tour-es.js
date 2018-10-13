@@ -1,5 +1,4 @@
 
-var tour_steps = {} ;
 
     tour_steps.onbeforechange = function () {
 	                            if (this._currentStep === 1)
@@ -54,6 +53,12 @@ var tour_steps = {} ;
 					tour.refresh() ;
 			                return true ;
 			            }
+	                        };
+
+    tour_steps.onexit = function () {
+					set_cfg('ws_mode', 'intro') ;
+                                        save_cfg() ;
+                                        wepsim_change_mode('intro', '#select4') ;
 	                        };
 
     tour_steps.es = [

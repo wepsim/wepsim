@@ -457,6 +457,16 @@
 	$("#tab21").show() ;
     }
 
+    function wepsim_newbie_tour ( )
+    {
+         var ti = get_cfg('ws_idiom') ;
+	     tour = introJs();
+	     tour.setOptions({ steps: tour_steps[ti] }) ;
+	     tour.onbeforechange(tour_steps.onbeforechange) ;
+	     tour.onexit(tour_steps.onexit) ;
+	     tour.start() ;
+    }
+
     function wepsim_change_mode ( optValue, cssLayer )
     {
           var hwid = -1 ;
@@ -498,11 +508,7 @@
 	  // newbie mode...
           if ('newbie' == optValue)
           {
-              var ti = get_cfg('ws_idiom') ;
-                  tour = introJs();
-                  tour.setOptions({ steps: tour_steps[ti] }) ;
-                  tour.onbeforechange(tour_steps.onbeforechange) ;
-                  tour.start() ;
+              wepsim_newbie_tour() ;
               return ;
           }
     }

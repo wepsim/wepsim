@@ -144,11 +144,11 @@
                                                       var iodr   = get_value(ep_states[s_expr[5]]) ;
 
                                                       if (bus_ab == IOSR_ID) 
-                                                          verbal = "I/O device read at IOSR of value " + iosr ;
+                                                          verbal = "I/O device read at IOSR of value " + iosr + ". " ;
                                                       if (bus_ab == IOCR_ID) 
-                                                          verbal = "I/O device read at IOCR of value " + iocr ;
+                                                          verbal = "I/O device read at IOCR of value " + iocr + ". " ;
                                                       if (bus_ab == IODR_ID) 
-                                                          verbal = "I/O device read at IODR of value " + iodr ;
+                                                          verbal = "I/O device read at IODR of value " + iodr + ". " ;
 
                                                       return verbal ;
                                                    }
@@ -194,11 +194,11 @@
                                                       var bus_db = get_value(ep_states[s_expr[2]]) ;
 
                                                       if (bus_ab == IOSR_ID) 
-                                                          verbal = "I/O device write at IOSR with value " + bus_db ;
+                                                          verbal = "I/O device write at IOSR with value " + bus_db + ". " ;
                                                       if (bus_ab == IOCR_ID) 
-                                                          verbal = "I/O device write at IOCR with value " + bus_db ;
+                                                          verbal = "I/O device write at IOCR with value " + bus_db + ". " ;
                                                       if (bus_ab == IODR_ID) 
-                                                          verbal = "I/O device write at IODR with value " + bus_db ;
+                                                          verbal = "I/O device write at IODR with value " + bus_db + ". " ;
 
                                                       return verbal ;
                                                    }
@@ -240,7 +240,7 @@
                                                    },
                                            verbal: function (s_expr) 
                                                    {
-                                                      return "Check I/O Interruption" ;
+                                                      return "Check I/O Interruption. " ;
                                                    }
                                       };
 
@@ -278,7 +278,7 @@
                                                    },
                                            verbal: function (s_expr) 
                                                    {
-                                                      return "signal an interruption ACK" ;
+                                                      return "Signal an interruption ACK. " ;
                                                    }
                                       };
 
@@ -297,7 +297,7 @@
                                                   },
                                           verbal: function (s_expr) 
                                                   {
-                                                     return "reset the I/O device" ;
+                                                     return "Reset the I/O device. " ;
                                                   }
                                      };
 

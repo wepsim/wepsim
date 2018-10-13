@@ -4,6 +4,7 @@
 
 <head>
     <title>WepSIM</title>
+    <meta name="Description" content="The Web Elemental Processor SIMulator (WepSIM) for microprogramming and assembly programming">
 
     <meta http-equiv="cache-control" content="max-age=0" />
     <meta http-equiv="cache-control" content="no-cache" />
@@ -313,7 +314,7 @@
                               <a id="tab26" href="#eltos_cpu" 
                                  class="nav-link active" data-toggle="tab" role="tab"
                                  style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"
-				 aria-controls="processor"
+				 aria-label="processor"
                                  onclick="start_drawing(); 
                                           refresh();"><em class="fas fa-microchip"></em>&nbsp;Processor</a>
                           </li>
@@ -321,7 +322,7 @@
                               <a id="tab24" href="#eltos_dbg"  
                                  class="nav-link" data-toggle="tab" role="tab"
                                  style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"
-				 aria-controls="assembly debugger"
+				 aria-label="assembly debugger"
                                  onclick="stop_drawing(); 
                                           var o1 = fullshow_asmdbg_pc();
                                           var obj_byid = $('#asm_debugger_container');
@@ -1413,7 +1414,7 @@
 					   '  <em class="fas fa-flag"></em> &nbsp;' + 
 					   '  <a class="btn btn-sm btn-outline-secondary col-10" href="#" ' + 
                                            '     onclick="simcoreui_notify_notifications(); ' + 
-					   '              $(\'#po1\').popover(\'hide\');">Show Notifications</a>' + 
+					   '              $(\'#po1\').popover(\'hide\');">Show Notifications...</a>' + 
 					   '</li>' + 
 					   '<li class="list-group-item p-2"> ' + 
 					   '  <em class="fas fa-microphone"></em> &nbsp;' + 
@@ -1428,7 +1429,12 @@
 					   '  <em class="fas fa-magic"></em> &nbsp;' + 
 					   '  <a class="btn btn-sm btn-outline-secondary col-10" href="#" ' + 
 					   '     onclick="$(\'#about2\').modal(\'show\'); ' + 
-					   '              $(\'#po1\').popover(\'hide\');">About WepSIM</a>' + 
+					   '              $(\'#po1\').popover(\'hide\');">About WepSIM...</a>' + 
+					   '</li>' + 
+					   '<li class="list-group-item p-2"> ' + 
+					   '  <em class="fas fa-book-reader"></em> &nbsp;' + 
+					   '  <a class="btn btn-sm btn-outline-secondary col-10" href="#" ' + 
+					   '     onclick="wepsim_newbie_tour();">Initial intro...</a>' + 
 					   '</li>' + 
 				           '</ul>' ;
                                         }

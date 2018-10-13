@@ -56,6 +56,12 @@ var tour_steps = {} ;
 			            }
 	                        };
 
+    tour_steps.onexit = function () {
+					set_cfg('ws_mode', 'intro') ;
+                                        save_cfg() ;
+                                        wepsim_change_mode('intro', '#select4') ;
+	                        };
+
     tour_steps.en = [
                         // 0
 			{
