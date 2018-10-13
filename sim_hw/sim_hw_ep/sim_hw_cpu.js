@@ -47,7 +47,7 @@
 						      }
 						  }
 
-					          for (var i=0; i<internal_reg.length; i++)
+					          for (i=0; i<internal_reg.length; i++)
 						  {
 						      value = parseInt(ep_states['REG_' + internal_reg[i]].value) ;
 						      if (value != 0) {
@@ -1561,9 +1561,9 @@
                                                 verbal: function (s_expr) 
                                                         {
                                                            return "Update flags N-Z-V-C to " + 
-								  ep_internal_states.alu_flags.flag_n + ", "
-								  ep_internal_states.alu_flags.flag_z + ", "
-								  ep_internal_states.alu_flags.flag_v + ", "
+								  ep_internal_states.alu_flags.flag_n + " " +
+								  ep_internal_states.alu_flags.flag_z + " " +
+								  ep_internal_states.alu_flags.flag_v + " " +
 								  ep_internal_states.alu_flags.flag_c + ". " ;
                                                         }
 					   };

@@ -106,7 +106,8 @@ cat external/popper.min.js \
     external/annyang.min.js \
     external/speechkitt/speechkitt.min.js \
     external/dropify/dropify.min.js \
-    external/fontawesome/all.min.js > ws_dist/min.external.js
+    external/fontawesome/brands.min.js \
+    external/fontawesome/solid.min.js > ws_dist/min.external.js
 
 cat external/bootstrap.min.css \
     external/bootstrap-theme.min.css \
