@@ -137,9 +137,9 @@
                                                     var dsr    = get_value(ep_states[s_expr[4]]) ;
 
                                                     if (bus_ab == DDR_ID)
-                                                        verbal = "try to read from the screen the DDR value " + ddr ;
+                                                        verbal = "Try to read from the screen the DDR value " + ddr + ". " ;
                                                     if (bus_ab == DDR_ID)
-                                                        verbal = "try to read into the screen the DSR value " + dsr ;
+                                                        verbal = "Try to read into the screen the DSR value " + dsr + ". " ;
 
                                                     return verbal ;
                                                  }
@@ -192,7 +192,7 @@
                                                       var ch     = String.fromCharCode(bus_db);
 
                                                       if (bus_ab == DDR_ID)
-                                                          verbal = "try to write into the screen the code " + ch + " at clock cycle " + clk ;
+                                                          verbal = "Try to write into the screen the code " + ch + " at clock cycle " + clk + ". " ;
 
                                                       return verbal ;
                                                  }
@@ -206,7 +206,7 @@
                                                  },
                                          verbal: function (s_expr) 
                                                  {
-                                                    return "reset the screen content" ;
+                                                    return "Reset the screen content. " ;
                                                  }
                                   };
 

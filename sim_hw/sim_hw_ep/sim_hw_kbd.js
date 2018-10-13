@@ -127,9 +127,9 @@
                                                       var clk    = get_value(ep_states[s_expr[5]]) ;
 
 						      if (bus_ab == KBDR_ID)
-                                                          verbal = "read the screen data: " + ep_states[s_expr[2]] ;
+                                                          verbal = "Read the screen data: " + ep_states[s_expr[2]] + ". " ;
 						      if (bus_ab == KBSR_ID)
-                                                          verbal = "read the screen state: " + ep_states[s_expr[2]] ;
+                                                          verbal = "Read the screen state: " + ep_states[s_expr[2]] + ". " ;
 
 					              return verbal ;
                                                    }
@@ -143,7 +143,7 @@
                                                   },
                                           verbal: function (s_expr) 
                                                   {
-                                                     return "reset the keyboard content" ;
+                                                     return "Reset the keyboard content. " ;
                                                   }
                                    };
 

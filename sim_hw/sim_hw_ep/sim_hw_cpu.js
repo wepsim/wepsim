@@ -753,7 +753,7 @@
                                      types: ["X", "X"],
                                      operation: function(s_expr)
                                                 {
-                                                   r = s_expr[2].split('/');
+                                                   r = s_expr[2].split('/') ;
 
 						   sim_elto_dst = get_reference(s_expr[1]) ;
 						   sim_elto_org = get_reference(r[0]) ;
@@ -767,9 +767,16 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   var r = s_expr[2].split('/');
+                                                   var r = s_expr[2].split('/') ;
 
-                                                   return "Move from " + r[0] + " to " + s_expr[1] + ". " ;
+						   var sim_elto_dst = get_reference(s_expr[1]) ;
+						   var sim_elto_org = get_reference(r[0]) ;
+
+                                                   var newval = get_value(sim_elto_org) ;
+                                                   if (1 != r.length) 
+						       newval = newval[r[1]] ;
+
+                                                   return "Move value " + newval + " to " + s_expr[1] + " (from " + r[0] + "). " ;
                                                 }
                                    };
 	ep_behaviors["NOT_ES"]   = { nparameters: 3,
@@ -779,7 +786,9 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ;
+						   var value = Math.abs(get_value(ep_states[s_expr[2]]) - 1) ;
+
+                                                   return "Set " + s_expr[1] + " with value " + value + " (Logical NOT of " + s_expr[2] + "). " ;
                                                 }
 				   };
 	ep_behaviors["GET"]      = { nparameters: 4,
@@ -789,7 +798,9 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ;
+						   var value = get_value(ep_states[s_expr[2]][ep_signals[s_expr[3]].value]) ;
+
+                                                   return "Set " + s_expr[1] + " with value " + value + " (Register File " + s_expr[3] + "). " ;
                                                 }
 				   };
 	ep_behaviors["SET"]      = { nparameters: 4,
@@ -799,7 +810,9 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ;
+						   var value = get_value(ep_states[s_expr[3]]) ;
+
+                                                   return "Set Register File " + s_expr[3] + " with value " + value + ". " ;
                                                 }
 				   };
 	ep_behaviors["AND"]      = { nparameters: 4,
@@ -816,7 +829,9 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ;
+				                   var result = get_value(ep_states[s_expr[2]]) & get_value(ep_states[s_expr[3]]) ;
+
+                                                   return "ALU AND with result " + result + ". " ;
                                                 }
 				   };
 	ep_behaviors["OR"]       = { nparameters: 4,
@@ -833,7 +848,9 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ;
+				                   var result = get_value(ep_states[s_expr[2]]) | get_value(ep_states[s_expr[3]]) ;
+
+                                                   return "ALU OR with result " + result + ". " ;
                                                 }
 				   };
 	ep_behaviors["NOT"]      = { nparameters: 3,
@@ -850,7 +867,9 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ;
+				                   var result = ~(get_value(ep_states[s_expr[2]])) ;
+
+                                                   return "ALU NOT with result " + result + ". " ;
                                                 }
 				   };
 	ep_behaviors["XOR"]      = { nparameters: 4,
@@ -867,7 +886,9 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ;
+				                   var result = get_value(ep_states[s_expr[2]]) ^ get_value(ep_states[s_expr[3]]) ;
+
+                                                   return "ALU XOR with result " + result + ". " ;
                                                 }
 				   };
 	ep_behaviors["SRL"]      = { nparameters: 3,
@@ -884,7 +905,9 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ;
+				                   var result = (get_value(ep_states[s_expr[2]])) >>> 1 ;
+
+                                                   return "ALU Shift Right Logical with result " + result + ". " ;
                                                 }
 				   };
 	ep_behaviors["SRA"]      = { nparameters: 3,
@@ -901,7 +924,9 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ;
+				                   var result = (get_value(ep_states[s_expr[2]])) >> 1 ;
+
+                                                   return "ALU Shift Right Arithmetic with result " + result + ". " ;
                                                 }
 				   };
 	ep_behaviors["SL"]       = { nparameters: 3,
@@ -918,7 +943,9 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ;
+				                   var result = (get_value(ep_states[s_expr[2]])) << 1 ;
+
+                                                   return "ALU Shift Left with result " + result + ". " ;
                                                 }
 				   };
 	ep_behaviors["RR"]       = { nparameters: 3,
@@ -935,14 +962,15 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ;
+				                   var result = ((get_value(ep_states[s_expr[2]])) >>> 1) | (((get_value(ep_states[s_expr[2]])) & 1) << 31) ;
+
+                                                   return "ALU Right Rotation with result " + result + ". " ;
                                                 }
 				   };
 	ep_behaviors["RL"]       = { nparameters: 3,
 				     types: ["E", "E"],
 				     operation: function(s_expr) {
-				                   var result = ((get_value(ep_states[s_expr[2]])) << 1) | 
-                                                                 (((get_value(ep_states[s_expr[2]])) & 0X80000000) >>> 31) ;
+				                   var result = ((get_value(ep_states[s_expr[2]])) << 1) | (((get_value(ep_states[s_expr[2]])) & 0X80000000) >>> 31) ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
 						   ep_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
@@ -953,7 +981,9 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ;
+				                   var result = ((get_value(ep_states[s_expr[2]])) << 1) | (((get_value(ep_states[s_expr[2]])) & 0X80000000) >>> 31) ;
+
+                                                   return "ALU Left Rotation with result " + result + ". " ;
                                                 }
 				   };
 	ep_behaviors["ADD"]      = { nparameters: 4,
@@ -978,7 +1008,11 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ;
+						   var a = get_value(ep_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(ep_states[s_expr[3]]) << 0 ;
+						   var result = a + b ;
+
+                                                   return "ALU ADD with result " + result + ". " ;
                                                 }
 				   };
 	ep_behaviors["SUB"]      = { nparameters: 4,
@@ -1003,7 +1037,11 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ;
+						   var a = get_value(ep_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(ep_states[s_expr[3]]) << 0 ;
+						   var result = a - b ;
+
+                                                   return "ALU SUB with result " + result + ". " ;
                                                 }
 				   };
 	ep_behaviors["MUL"]      = { nparameters: 4,
@@ -1028,7 +1066,11 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ;
+						   var a = get_value(ep_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(ep_states[s_expr[3]]) << 0 ;
+						   var result = a * b ;
+
+                                                   return "ALU MUL with result " + result + ". " ;
                                                 }
 				   };
 	ep_behaviors["DIV"]      = { nparameters: 4,
@@ -1058,7 +1100,12 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ;
+						   if (0 == b) {
+                                                       return "ALU DIV zero by zero (oops!). " ;
+						   }
+
+				                   var result = Math.floor(a / b) ;
+                                                   return "ALU DIV with result " + result + ". " ;
                                                 }
 				   };
 	ep_behaviors["MOD"]      = { nparameters: 4,
@@ -1075,7 +1122,9 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ;
+						   var result = (get_value(ep_states[s_expr[2]]) << 0) % (get_value(ep_states[s_expr[3]]) << 0) ;
+
+                                                   return "ALU MOD with result " + result + ". " ;
                                                 }
 				   };
 	ep_behaviors["LUI"]      = { nparameters: 3,
@@ -1092,7 +1141,9 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ;
+						   var result = (get_value(ep_states[s_expr[2]])) << 16 ;
+
+                                                   return "ALU Load Upper Immediate with result " + result + ". " ;
                                                 }
 				   };
 	ep_behaviors["MBIT"]     = { nparameters: 5,
@@ -1327,7 +1378,7 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ;
+                                                   return "Decode instruction. " ;
                                                 }
 				   };
 
@@ -1471,7 +1522,7 @@
                                                         },
                                                 verbal: function (s_expr) 
                                                         {
-                                                           return "" ;
+                                                           return "Reset CPU. " ;
                                                         }
 					   };
 
@@ -1509,7 +1560,11 @@
                                                         },
                                                 verbal: function (s_expr) 
                                                         {
-                                                           return "" ;
+                                                           return "Update flags N-Z-V-C to " + 
+								  ep_internal_states.alu_flags.flag_n + ", "
+								  ep_internal_states.alu_flags.flag_z + ", "
+								  ep_internal_states.alu_flags.flag_v + ", "
+								  ep_internal_states.alu_flags.flag_c + ". " ;
                                                         }
 					   };
 
