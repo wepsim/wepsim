@@ -906,7 +906,7 @@
 	     var mins = get_value(simhw_sim_state('REG_MICROINS')) ;
 	     for (var key in mins) 
 	     {
-		  active_signals = active_signals + mins + " ";
+		  active_signals = active_signals + key + " ";
 	   	  active_verbal  = active_verbal  + compute_signal_verbals(key, mins[key]) ;
 	     }
 
