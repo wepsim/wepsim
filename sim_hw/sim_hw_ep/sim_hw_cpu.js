@@ -776,7 +776,8 @@
                                                    if (1 != r.length) 
 						       newval = newval[r[1]] ;
 
-                                                   return "Move value " + newval + " to " + s_expr[1] + " (from " + r[0] + "). " ;
+                                                   return "Move from " + r[0] + " to " + s_expr[1] + " value " + newval + ". " ;
+                                                 //return "Move value " + newval + " to " + s_expr[1] + " (from " + r[0] + "). " ;
                                                 }
                                    };
 	ep_behaviors["NOT_ES"]   = { nparameters: 3,

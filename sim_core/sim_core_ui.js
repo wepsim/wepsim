@@ -900,13 +900,16 @@
 
 	function get_verbal_from_current_mpc ( )
 	{
-	     var verbal = "" ;
+	     var active_signals = "" ;
+	     var active_verbal  = "" ;
 
 	     var mins = get_value(simhw_sim_state('REG_MICROINS')) ;
-	     for (var key in mins) {
-	   	  verbal = verbal + compute_signal_verbals(key, mins[key]) ;
+	     for (var key in mins) 
+	     {
+		  active_signals = active_signals + mins + " ";
+	   	  active_verbal  = active_verbal  + compute_signal_verbals(key, mins[key]) ;
 	     }
 
-             return verbal ;
+             return "Activated signals are: " + active_signals + ". Associated actions are: " + active_verbal + ". " ;
         }
 
