@@ -171,23 +171,27 @@
                                                    },
                                            verbal: function (s_expr) 
                                                    {
-						      var address = poc_states[s_expr[1]].value;
-                                                      var dbvalue = poc_states[s_expr[2]].value;
-                                                      var bw      = poc_signals[s_expr[3]].value;
-                                                      var clk     = get_value(poc_states[s_expr[5]].value) ;
+					              var verbal = "" ;
+
+						      var address = ep_states[s_expr[1]].value;
+                                                      var dbvalue = ep_states[s_expr[2]].value;
+                                                      var bw      = ep_signals[s_expr[3]].value;
+                                                      var clk     = get_value(ep_states[s_expr[5]].value) ;
 
 					              var bw_type = "word" ;
                                                            if ( 0 == (bw & 0x0000000C) )
-							        bw_type = "byte" ;
+							  bw_type = "byte" ;
                                                       else if ( 1 == (bw & 0x0000000C) )
-							        bw_type = "half" ;
+							  bw_type = "half" ;
 
 						      var value = 0 ;
-					              if (typeof poc_internal_states.MP[address] != "undefined")
-							  value = poc_internal_states.MP[address] ;
+					              if (typeof ep_internal_states.MP[address] != "undefined")
+							  value = ep_internal_states.MP[address] ;
 
-                                                      return "Try to read a " + bw_type + " from memory " +
-							     "at address 0x"  + address.toString(16) + " with value " + value.toString(16) + ". " ;
+                                                      verbal = "Try to read a " + bw_type + " from memory " + 
+							       "at address 0x"  + address.toString(16) + " with value " + value.toString(16) + ". " ;
+
+                                                      return verbal ;
                                                    }
                                       };
 
@@ -247,23 +251,27 @@
                                                    },
                                            verbal: function (s_expr) 
                                                    {
-						      var address = poc_states[s_expr[1]].value;
-                                                      var dbvalue = poc_states[s_expr[2]].value;
-                                                      var bw      = poc_signals[s_expr[3]].value;
-                                                      var clk     = get_value(poc_states[s_expr[5]].value) ;
+					              var verbal = "" ;
+
+						      var address = ep_states[s_expr[1]].value;
+                                                      var dbvalue = ep_states[s_expr[2]].value;
+                                                      var bw      = ep_signals[s_expr[3]].value;
+                                                      var clk     = get_value(ep_states[s_expr[5]].value) ;
 
 					              var bw_type = "word" ;
                                                            if ( 0 == (bw & 0x0000000C) )
-							        bw_type = "byte" ;
+							  bw_type = "byte" ;
                                                       else if ( 1 == (bw & 0x0000000C) )
-							        bw_type = "half" ;
+							  bw_type = "half" ;
 
 						      var value = 0 ;
-					              if (typeof poc_internal_states.MP[address] != "undefined")
-							  value = poc_internal_states.MP[address] ;
+					              if (typeof ep_internal_states.MP[address] != "undefined")
+							  value = ep_internal_states.MP[address] ;
 
-                                                      return "Try to write a " + bw_type + " to memory " +
-							     "at address 0x"  + address.toString(16) + " with value " + value.toString(16) + ". " ;
+                                                      verbal = "Try to write a " + bw_type + " to memory " + 
+							       "at address 0x"  + address.toString(16) + " with value " + value.toString(16) + ". " ;
+
+                                                      return verbal ;
                                                    }
                                     };
 

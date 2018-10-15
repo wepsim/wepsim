@@ -121,17 +121,17 @@
                                                    },
                                            verbal: function (s_expr) 
                                                    {
-                                                      var bus_ab = get_value(poc_states[s_expr[1]]) ;
-                                                      var clk    = get_value(poc_states[s_expr[5]]) ;
+					              var verbal = "" ;
 
-                                                      if ( (bus_ab != KBDR_ID) && (bus_ab != KBSR_ID) ) {
-                                                              return; 
-                                                      }
+                                                      var bus_ab = get_value(ep_states[s_expr[1]]) ;
+                                                      var clk    = get_value(ep_states[s_expr[5]]) ;
 
 						      if (bus_ab == KBDR_ID)
-                                                          return "read the screen data: " + poc_states[s_expr[2]] ;
+                                                          verbal = "Read the screen data: " + ep_states[s_expr[2]] + ". " ;
 						      if (bus_ab == KBSR_ID)
-                                                          return "read the screen state: " + poc_states[s_expr[2]] ;
+                                                          verbal = "Read the screen state: " + ep_states[s_expr[2]] + ". " ;
+
+					              return verbal ;
                                                    }
                                    } ;
 
@@ -143,7 +143,7 @@
                                                   },
                                           verbal: function (s_expr) 
                                                   {
-                                                     return "reset the keyboard content" ;
+                                                     return "Reset the keyboard content. " ;
                                                   }
                                    };
 

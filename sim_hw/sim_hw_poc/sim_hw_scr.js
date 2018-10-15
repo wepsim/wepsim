@@ -135,9 +135,9 @@
                                                     var dsr    = get_value(poc_states[s_expr[4]]) ;
 
                                                     if (bus_ab == DDR_ID)
-                                                        return "try to read from the screen the DDR value " + ddr ;
+                                                        return "Try to read from the screen the DDR value " + ddr + ". " ;
                                                     if (bus_ab == DDR_ID)
-                                                        return "try to read into the screen the DSR value " + dsr ;
+                                                        return "Try to read into the screen the DSR value " + dsr + ". " ;
                                                  }
                                 };
 
@@ -180,16 +180,17 @@
                                                  },
                                          verbal: function (s_expr) 
                                                  {
-                                                      var bus_ab = get_value(poc_states[s_expr[1]]) ;
-                                                      var bus_db = get_value(poc_states[s_expr[2]]) ;
-                                                      var clk    = get_value(poc_states[s_expr[5]]) ;
+					              var verbal = "" ;
+
+                                                      var bus_ab = get_value(ep_states[s_expr[1]]) ;
+                                                      var bus_db = get_value(ep_states[s_expr[2]]) ;
+                                                      var clk    = get_value(ep_states[s_expr[5]]) ;
                                                       var ch     = String.fromCharCode(bus_db);
 
-                                                      if (bus_ab != DDR_ID) {
-                                                          return;
-                                                      }
+                                                      if (bus_ab == DDR_ID)
+                                                          verbal = "Try to write into the screen the code " + ch + " at clock cycle " + clk + ". " ;
 
-                                                      return "try to write into the screen the code " + ch + " at clock cycle " + clk ;
+                                                      return verbal ;
                                                  }
                                 };
 
@@ -201,7 +202,7 @@
                                                  },
                                          verbal: function (s_expr) 
                                                  {
-                                                    return "reset the screen content" ;
+                                                    return "Reset the screen content. " ;
                                                  }
                                   };
 

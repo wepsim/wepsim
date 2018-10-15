@@ -80,7 +80,7 @@
          wepsim_execute_microinstruction() ;
 
 	 // speak...
-         var msg = "Next microinstruction executed. Associated actions are: " + get_verbal_from_current_mpc() ;
+         var msg = "Next microinstruction executed. " + get_verbal_from_current_mpc() ;
 	 simcoreui_voice_speak(msg) ;
     } ;
 

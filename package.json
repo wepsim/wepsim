@@ -11,11 +11,5 @@
     "test-wepsim-node":   "cd ws_dist ; ../ws_travis/wepsimnode.sh"
   },
   "dependencies": {
-    "jshint": "^2.6.0",
-    "jquery": "^3.3.1",
-    "bootstrap": "^4.1.0",
-    "knockout": "^3.4.2",
-    "vis": "^4.21.0",
-    "CodeMirror": "^5.39.2"
   }
 }
