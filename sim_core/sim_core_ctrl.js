@@ -327,6 +327,7 @@
                                       str_checked = ' checked="checked" ' ;
                                  else str_checked = ' ' ;
 
+				 /* option-A  /
                                  behav_str = simhw_sim_signal(key).behavior[k].split(";") ;
                                  if (simhw_sim_signal(key).default_value != k)
                                       str_bolded =         behav_str[0] ;
@@ -337,6 +338,16 @@
                                      n = simhw_sim_signal(key).behavior[k].length;
                                  str_bolded = '&nbsp;' + str_bolded +
                                               '<span style="color:#CCCCCC">' + simhw_sim_signal(key).behavior[k].substring(n) + '</span>' ;
+				 /  option-A */
+
+				 /* option-B */
+				 behav_str = compute_verbal(simhw_sim_signal(key).behavior[k]) ; 
+				 if ("" == behav_str.trim())
+				     behav_str = "&lt;nothing to be done&gt;" ;
+                                 if (simhw_sim_signal(key).default_value != k)
+                                      str_bolded =    '&nbsp;' + behav_str ;
+                                 else str_bolded = '<b>&nbsp;' + behav_str + '</b>' ;
+				 /* option-B */
 
                                  n = k.toString(10) ;
 				 input_help += '<li><label>' +

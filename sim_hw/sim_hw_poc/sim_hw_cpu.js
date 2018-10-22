@@ -428,7 +428,7 @@
 			       draw_data: [['svg_p:path3063','svg_p:path3061','svg_p:path3059'], ['svg_p:path3057','svg_p:path3641','svg_p:path3419','svg_p:path3583']],
 			       draw_name: [[], ['svg_p:path3447']] };
 	 poc_signals["M2"]  = { name: "M2", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
-			       behavior: ["MV M2_C2 BUS_IB", "ADD M2_C2 REG_PC VAL_FOUR"],
+			       behavior: ["MV M2_C2 BUS_IB", "PLUS4 M2_C2 REG_PC"],
                                depends_on: ["C2"],
 			       fire_name: ['svg_p:text3471'],
 			       draw_data: [['svg_p:path3217', 'svg_p:path3215', 'svg_p:path3213', 'svg_p:path3213-9'],
@@ -779,19 +779,24 @@
                                                        set_value(sim_elto_dst, newval);
 						},
 					verbal: function (s_expr) 
-						{
+		                                {
                                                    var r = s_expr[2].split('/') ;
 
 						   var sim_elto_dst = get_reference(s_expr[1]) ;
 						   var sim_elto_org = get_reference(r[0]) ;
 
-                                                   var newval = get_value(sim_elto_org) ;
-                                                   if (1 != r.length) 
-						       newval = newval[r[1]] ;
+						   var org_name = r[0] ;
+                                                   var newval   = get_value(sim_elto_org) ;
+                                                   if (1 != r.length) {
+						       org_name = org_name + "/" + r[1] ;
+						       newval   = newval[r[1]] ;
+                                                       if (typeof newval == "undefined")
+							   newval = "0" ;
+						   }
 
-                                                   return "Move from " + r[0] + " to " + s_expr[1] + " value " + newval + ". " ;
+                                                   return "Move from " + org_name + " to " + s_expr[1] + " value " + newval + ". " ;
                                                  //return "Move value " + newval + " to " + s_expr[1] + " (from " + r[0] + "). " ;
-						}
+                                                }
                                    };
 	poc_behaviors["NOT_ES"]   = { nparameters: 3,
 				     types: ["S", "E"],
@@ -802,7 +807,7 @@
 						{
 						   var value = Math.abs(get_value(ep_states[s_expr[2]]) - 1) ;
 
-                                                   return "Set " + s_expr[1] + " with value " + value + " (Logical NOT of " + s_expr[2] + "). " ;
+                                                   return "Set " + s_expr[1] + " with value 0x" + value.toString(16) + " (Logical NOT of " + s_expr[2] + "). " ;
 						}
 				   };
 	poc_behaviors["GET"]     = { nparameters: 4,
@@ -814,7 +819,7 @@
 						{
 						   var value = get_value(ep_states[s_expr[2]][ep_signals[s_expr[3]].value]) ;
 
-                                                   return "Set " + s_expr[1] + " with value " + value + " (Register File " + s_expr[3] + "). " ;
+                                                   return "Set " + s_expr[1] + " with value 0x" + value.toString(16) + " (Register File " + s_expr[3] + "). " ;
 						}
 				   };
 	poc_behaviors["SET"]     = { nparameters: 4,
@@ -826,7 +831,7 @@
 						{
 						   var value = get_value(ep_states[s_expr[3]]) ;
 
-                                                   return "Set Register File " + s_expr[3] + " with value " + value + ". " ;
+                                                   return "Set Register File " + s_expr[2] + " with value 0x" + value.toString(16) + ". " ;
 						}
 				   };
 	poc_behaviors["AND"]     = { nparameters: 4,
@@ -841,7 +846,7 @@
 						{
 				                   var result = get_value(ep_states[s_expr[2]]) & get_value(ep_states[s_expr[3]]) ;
 
-                                                   return "ALU AND with result " + result + ". " ;
+                                                   return "ALU AND with result 0x" + result.toString(16) + ". " ;
 						}
 				   };
 	poc_behaviors["OR"]      = { nparameters: 4,
@@ -856,7 +861,7 @@
 						{
 				                   var result = get_value(ep_states[s_expr[2]]) | get_value(ep_states[s_expr[3]]) ;
 
-                                                   return "ALU OR with result " + result + ". " ;
+                                                   return "ALU OR with result 0x" + result.toString(16) + ". " ;
 						}
 				   };
 	poc_behaviors["NOT"]     = { nparameters: 3,
@@ -871,7 +876,7 @@
 						{
 				                   var result = ~(get_value(ep_states[s_expr[2]])) ;
 
-                                                   return "ALU NOT with result " + result + ". " ;
+                                                   return "ALU NOT with result 0x" + result.toString(16) + ". " ;
 						}
 				   };
 	poc_behaviors["XOR"]     = { nparameters: 4,
@@ -886,7 +891,7 @@
 						{
 				                   var result = get_value(ep_states[s_expr[2]]) ^ get_value(ep_states[s_expr[3]]) ;
 
-                                                   return "ALU XOR with result " + result + ". " ;
+                                                   return "ALU XOR with result 0x" + result.toString(16) + ". " ;
 						}
 				   };
 	poc_behaviors["SRL"]     = { nparameters: 3,
@@ -901,7 +906,7 @@
 						{
 				                   var result = (get_value(ep_states[s_expr[2]])) >>> 1 ;
 
-                                                   return "ALU Shift Right Logical with result " + result + ". " ;
+                                                   return "ALU Shift Right Logical with result 0x" + result.toString(16) + ". " ;
 						}
 				   };
 	poc_behaviors["SRA"]     = { nparameters: 3,
@@ -916,7 +921,7 @@
 						{
 				                   var result = (get_value(ep_states[s_expr[2]])) >> 1 ;
 
-                                                   return "ALU Shift Right Arithmetic with result " + result + ". " ;
+                                                   return "ALU Shift Right Arithmetic with result 0x" + result.toString(16) + ". " ;
 						}
 				   };
 	poc_behaviors["SL"]      = { nparameters: 3,
@@ -931,7 +936,7 @@
 						{
 				                   var result = (get_value(ep_states[s_expr[2]])) << 1 ;
 
-                                                   return "ALU Shift Left with result " + result + ". " ;
+                                                   return "ALU Shift Left with result 0x" + result.toString(16) + ". " ;
 						}
 				   };
 	poc_behaviors["RR"]      = { nparameters: 3,
@@ -946,7 +951,7 @@
 						{
 				                   var result = ((get_value(ep_states[s_expr[2]])) >>> 1) | (((get_value(ep_states[s_expr[2]])) & 1) << 31) ;
 
-                                                   return "ALU Right Rotation with result " + result + ". " ;
+                                                   return "ALU Right Rotation with result 0x" + result.toString(16) + ". " ;
 						}
 				   };
 	poc_behaviors["RL"]      = { nparameters: 3,
@@ -961,7 +966,7 @@
 						{
 				                   var result = ((get_value(ep_states[s_expr[2]])) << 1) | (((get_value(ep_states[s_expr[2]])) & 0X80000000) >>> 31) ;
 
-                                                   return "ALU Left Rotation with result " + result + ". " ;
+                                                   return "ALU Left Rotation with result 0x" + result.toString(16) + ". " ;
 						}
 				   };
 	poc_behaviors["ADD"]     = { nparameters: 4,
@@ -990,7 +995,7 @@
                                                    var b = get_value(ep_states[s_expr[3]]) << 0 ;
 						   var result = a + b ;
 
-                                                   return "ALU ADD with result " + result + ". " ;
+                                                   return "ALU ADD with result 0x" + result.toString(16) + ". " ;
 						}
 				   };
 	poc_behaviors["SUB"]     = { nparameters: 4,
@@ -1019,7 +1024,7 @@
                                                    var b = get_value(ep_states[s_expr[3]]) << 0 ;
 						   var result = a - b ;
 
-                                                   return "ALU SUB with result " + result + ". " ;
+                                                   return "ALU SUB with result 0x" + result.toString(16) + ". " ;
 						}
 				   };
 	poc_behaviors["MUL"]     = { nparameters: 4,
@@ -1048,7 +1053,7 @@
                                                    var b = get_value(ep_states[s_expr[3]]) << 0 ;
 						   var result = a * b ;
 
-                                                   return "ALU MUL with result " + result + ". " ;
+                                                   return "ALU MUL with result 0x" + result.toString(16) + ". " ;
 						}
 				   };
 	poc_behaviors["DIV"]     = { nparameters: 4,
@@ -1069,12 +1074,15 @@
 						},
 					verbal: function (s_expr) 
 						{
+						   var a = get_value(ep_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(ep_states[s_expr[3]]) << 0 ;
+
 						   if (0 == b) {
                                                        return "ALU DIV zero by zero (oops!). " ;
 						   }
 
 				                   var result = Math.floor(a / b) ;
-                                                   return "ALU DIV with result " + result + ". " ;
+                                                   return "ALU DIV with result 0x" + result.toString(16) + ". " ;
 						}
 				   };
 	poc_behaviors["MOD"]     = { nparameters: 4,
@@ -1087,9 +1095,12 @@
 						},
 					verbal: function (s_expr) 
 						{
-						   var result = (get_value(ep_states[s_expr[2]]) << 0) % (get_value(ep_states[s_expr[3]]) << 0) ;
+						   var a = get_value(ep_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(ep_states[s_expr[3]]) << 0 ;
 
-                                                   return "ALU MOD with result " + result + ". " ;
+						   var result = a % b ;
+
+                                                   return "ALU MOD with result 0x" + result.toString(16) + ". " ;
 						}
 				   };
 	poc_behaviors["LUI"]     = { nparameters: 3,
@@ -1104,7 +1115,7 @@
 						{
 						   var result = (get_value(ep_states[s_expr[2]])) << 16 ;
 
-                                                   return "ALU Load Upper Immediate with result " + result + ". " ;
+                                                   return "ALU Load Upper Immediate with result 0x" + result.toString(16) + ". " ;
 						}
 				   };
 	poc_behaviors["ADDFOUR"] = { nparameters: 3,
@@ -1131,7 +1142,7 @@
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
 						   var result = a + 4 ;
 
-                                                   return "ALU ADD 4 with result " + result + ". " ;
+                                                   return "ALU ADD 4 with result 0x" + result.toString(16) + ". " ;
 						}
 				   };
 	poc_behaviors["ADDONE"]  = { nparameters: 3,
@@ -1158,7 +1169,7 @@
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
 						   var result = a + 1 ;
 
-                                                   return "ALU ADD 4 with result " + result + ". " ;
+                                                   return "ALU ADD 4 with result 0x" + result.toString(16) + ". " ;
 						}
 				   };
 	poc_behaviors["FADD"]    = { nparameters: 4,
@@ -1290,6 +1301,21 @@
 						   return "" ;
 						}
 				   };
+	poc_behaviors["PLUS4"]   = { nparameters: 3,
+				     types: ["E", "E"],
+				     operation: function(s_expr) {
+						   var a = get_value(ep_states[s_expr[2]]) << 0 ;
+						   var result = a + 4 ;
+						   set_value(ep_states[s_expr[1]], result >>> 0) ;
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+						   var a = get_value(ep_states[s_expr[2]]) << 0 ;
+						   var result = a + 4 ;
+
+                                                   return "ADD 4 with result 0x" + result.toString(16) + ". " ;
+                                                }
+				   };
 	poc_behaviors["MBIT"]     = { nparameters: 5,
 				     types: ["X", "X", "I", "I"],
 				     operation: function (s_expr) 
@@ -1356,9 +1382,12 @@
 						   set_value(sim_elto_dst, (new_value >>> 0));
 						},
 					verbal: function (s_expr) 
-						{
-						   return "" ;
-						}
+                                                {
+						   sim_elto_org = get_reference(s_expr[2]) ;
+						   sim_elto_dst = get_reference(s_expr[1]) ;
+
+                                                   return "Set bit " + s_expr[3] + " of " + s_expr[1] + " to value " + sim_elto_org.value + ". " ;
+                                                }
 				   };
 	poc_behaviors["MBITS"]    = { nparameters: 8,
 				     types: ["E", "I", "E", "S", "S", "I", "S"],
