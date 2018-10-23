@@ -312,31 +312,34 @@
                     if (r[1] == event.currentTarget.id)
                     {
                         var checkvalue  = (simhw_sim_signal(key).value >>> 0) ;
-                        var str_bolded  = '';
-                        var str_checked = '';
-                        var input_help  = '<ol start="0" class="list-group list-group-flush">';
-                        var behav_raw   = '';
-                        var behav_str   = '';
+                        var str_bolded  = '' ;
+                        var str_checked = '' ;
+                        var input_help  = '' ;
+                        var behav_raw   = '' ;
+                        var behav_str   = '' ;
                         var n = 0;
 
                         var nvalues = Math.pow(2, simhw_sim_signal(key).nbits) ;
                         if (simhw_sim_signal(key).behavior.length == nvalues)
                         {
+                            input_help = '<ol start="0" class="list-group list-group-flush">' ;
+
                             for (var k = 0; k < simhw_sim_signal(key).behavior.length; k++)
                             {
-                                 if (k == checkvalue)
-                                      str_checked = ' checked="checked" ' ;
-                                 else str_checked = ' ' ;
+                                 str_checked = ' ' ;
+                                 if (k == checkvalue) {
+                                     str_checked = ' checked="checked" ' ;
+				 }
+				 str_bolded = ' ' ;
+                                 if (k == simhw_sim_signal(key).default_value) {
+				     str_bolded = '<span class="badge badge-info">default value</span>' ;
+				 }
 
                                  behav_raw = simhw_sim_signal(key).behavior[k] ;
 				 behav_str = compute_verbal(behav_raw) ; 
-				 if ("" == behav_str.trim()) {
-				     behav_str = "&lt;nothing to be done&gt;" ;
+				 if ('' == behav_str.trim()) {
+				     behav_str = '&lt;nothing to be done&gt;' ;
 				 }
-
-                                 if (simhw_sim_signal(key).default_value != k) 
-				      str_bolded =         behav_raw ;
-				 else str_bolded = '<b>' + behav_raw + '</b>' ;
 
                                  n = k.toString(10) ;
 				 input_help += '<li class="list-group-item p-1">' + 
@@ -345,19 +348,21 @@
                                                '         value="' + n + '" ' + str_checked + ' />' + 
 					       '  <span class="badge badge-secondary badge-pill">' + n + '</span>' + '&nbsp;' + 
 					       '  <span>' + behav_str + '</span>' + 
-					       '  <p class="mb-1 bg-light"><small>' + str_bolded + '</small></p>' +
+					       '  <p class="m-0 ml-3 bg-light"><small>' + behav_raw + '&nbsp;' + str_bolded + '</small></p>' +
                                                '</label>' + 
 					       '</li>' ;
                             }
-			    input_help += '</ul>' ;
+
+			    input_help += '</ol>' ;
                         }
-                        else {
-				 input_help += '<ol start="0">' +
-					       '<span><center><label>' +
-                                               '<input aria-label="value for ' + key + '" type="number" size=4 min=0 max=' + (nvalues - 1) + ' class=dial ' +
-                                               '       name="ask_svalue" value="' + simhw_sim_signal(key).value + '"/>' + '&nbsp;&nbsp;' + ' 0 - ' + (nvalues - 1) +
-                                               '</center></label></span>\n' +
-                                               '</ol>' ;
+                        else 
+			{
+			    input_help += '<ol start="0">' +
+					  '<span><center><label>' +
+                                          '<input aria-label="value for ' + key + '" type="number" size=4 min=0 max=' + (nvalues - 1) + ' class=dial ' +
+                                          '       name="ask_svalue" value="' + simhw_sim_signal(key).value + '"/>' + '&nbsp;&nbsp;' + ' 0 - ' + (nvalues - 1) +
+                                          '</center></label></span>\n' +
+                                          '</ol>' ;
                         }
 
                         var curr_hw = simhw_short_name() ;
