@@ -312,10 +312,11 @@
                     if (r[1] == event.currentTarget.id)
                     {
                         var checkvalue  = (simhw_sim_signal(key).value >>> 0) ;
-                        var str_bolded  = "";
-                        var str_checked = "";
-                        var input_help  = "";
-                        var behav_str   = new Array();
+                        var str_bolded  = '';
+                        var str_checked = '';
+                        var input_help  = '<ol start="0" class="list-group list-group-flush">';
+                        var behav_raw   = '';
+                        var behav_str   = '';
                         var n = 0;
 
                         var nvalues = Math.pow(2, simhw_sim_signal(key).nbits) ;
@@ -327,40 +328,36 @@
                                       str_checked = ' checked="checked" ' ;
                                  else str_checked = ' ' ;
 
-				 /* option-A  /
-                                 behav_str = simhw_sim_signal(key).behavior[k].split(";") ;
-                                 if (simhw_sim_signal(key).default_value != k)
-                                      str_bolded =         behav_str[0] ;
-                                 else str_bolded = '<b>' + behav_str[0] + '</b>' ;
-
-                                 n = simhw_sim_signal(key).behavior[k].indexOf(";");
-                                 if (-1 == n)
-                                     n = simhw_sim_signal(key).behavior[k].length;
-                                 str_bolded = '&nbsp;' + str_bolded +
-                                              '<span style="color:#CCCCCC">' + simhw_sim_signal(key).behavior[k].substring(n) + '</span>' ;
-				 /  option-A */
-
-				 /* option-B */
-				 behav_str = compute_verbal(simhw_sim_signal(key).behavior[k]) ; 
-				 if ("" == behav_str.trim())
+                                 behav_raw = simhw_sim_signal(key).behavior[k] ;
+				 behav_str = compute_verbal(behav_raw) ; 
+				 if ("" == behav_str.trim()) {
 				     behav_str = "&lt;nothing to be done&gt;" ;
-                                 if (simhw_sim_signal(key).default_value != k)
-                                      str_bolded =    '&nbsp;' + behav_str ;
-                                 else str_bolded = '<b>&nbsp;' + behav_str + '</b>' ;
-				 /* option-B */
+				 }
+
+                                 if (simhw_sim_signal(key).default_value != k) 
+				      str_bolded =         behav_raw ;
+				 else str_bolded = '<b>' + behav_raw + '</b>' ;
 
                                  n = k.toString(10) ;
-				 input_help += '<li><label>' +
-                                               '<input aria-label="value ' + n + '" type="radio" name="ask_svalue" ' +
-                                               '       value="' + n + '" ' + str_checked + ' />' + str_bolded +
-                                               '</label></li>' ;
+				 input_help += '<li class="list-group-item p-1">' + 
+					       '<label class="m-1">' +
+                                               '  <input aria-label="value ' + n + '" type="radio" name="ask_svalue" ' +
+                                               '         value="' + n + '" ' + str_checked + ' />' + 
+					       '  <span class="badge badge-secondary badge-pill">' + n + '</span>' + '&nbsp;' + 
+					       '  <span>' + behav_str + '</span>' + 
+					       '  <p class="mb-1 bg-light"><small>' + str_bolded + '</small></p>' +
+                                               '</label>' + 
+					       '</li>' ;
                             }
+			    input_help += '</ul>' ;
                         }
                         else {
-				 input_help += '<div><center><label>' +
+				 input_help += '<ol start="0">' +
+					       '<span><center><label>' +
                                                '<input aria-label="value for ' + key + '" type="number" size=4 min=0 max=' + (nvalues - 1) + ' class=dial ' +
                                                '       name="ask_svalue" value="' + simhw_sim_signal(key).value + '"/>' + '&nbsp;&nbsp;' + ' 0 - ' + (nvalues - 1) +
-                                               '</center></label></div>\n' ;
+                                               '</center></label></span>\n' +
+                                               '</ol>' ;
                         }
 
                         var curr_hw = simhw_short_name() ;
@@ -396,12 +393,10 @@
                                         '  <div class="carousel-inner" role="listbox">' +
                                         '    <div class="carousel-item active">' +
                                         '         <div style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">' +
-                                        '         <form class="form-horizontal" style="white-space:nowrap;">' +
+                                        '         <form class="form-horizontal" style="white-space:wrap;">' +
                                         '         <input aria-label="value for ' + key     + '" id="ask_skey"  name="ask_skey"  type="hidden" value="' + key     + '" class="form-control input-md"> ' +
                                         '         <input aria-label="value for ' + curr_hw + '" id="ask_shard" name="ask_shard" type="hidden" value="' + curr_hw + '" class="form-control input-md"> ' +
-                                        '         <ol start="0">' +
                                                   input_help +
-                                        '         </ol>' +
                                         '         </form>' +
                                         '         </div>' +
                                         '    </div>' +
