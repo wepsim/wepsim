@@ -781,7 +781,7 @@
 							   newval = "0" ;
 						   }
 
-                                                   return "Move from " + org_name + " to " + s_expr[1] + " value 0x" + newval.toString(16) + ". " ;
+                                                   return "Move from " + org_name + " to " + s_expr[1] + " value " + show_value(newval) + ". " ;
                                                 }
                                    };
 	ep_behaviors["NOT_ES"]   = { nparameters: 3,
@@ -793,7 +793,7 @@
                                                 {
 						   var value = Math.abs(get_value(ep_states[s_expr[2]]) - 1) ;
 
-                                                   return "Set " + s_expr[1] + " with value 0x" + value.toString(16) + " (Logical NOT of " + s_expr[2] + "). " ;
+                                                   return "Set " + s_expr[1] + " with value " + show_value(value) + " (Logical NOT of " + s_expr[2] + "). " ;
                                                 }
 				   };
 	ep_behaviors["GET"]      = { nparameters: 4,
@@ -805,7 +805,7 @@
                                                 {
 						   var value = get_value(ep_states[s_expr[2]][ep_signals[s_expr[3]].value]) ;
 
-                                                   return "Set " + s_expr[1] + " with value 0x" + value.toString(16) + " (Register File " + s_expr[3] + "). " ;
+                                                   return "Set " + s_expr[1] + " with value " + show_value(value) + " (Register File " + s_expr[3] + "). " ;
                                                 }
 				   };
 	ep_behaviors["SET"]      = { nparameters: 4,
@@ -817,7 +817,7 @@
                                                 {
 						   var value = get_value(ep_states[s_expr[3]]) ;
 
-                                                   return "Set Register File " + s_expr[2] + " with value 0x" + value.toString(16) + ". " ;
+                                                   return "Set Register File " + s_expr[2] + " with value " + show_value(value) + ". " ;
                                                 }
 				   };
 	ep_behaviors["AND"]      = { nparameters: 4,
@@ -836,7 +836,7 @@
                                                 {
 				                   var result = get_value(ep_states[s_expr[2]]) & get_value(ep_states[s_expr[3]]) ;
 
-                                                   return "ALU AND with result 0x" + result.toString(16) + ". " ;
+                                                   return "ALU AND with result " + show_value(result) + ". " ;
                                                 }
 				   };
 	ep_behaviors["OR"]       = { nparameters: 4,
@@ -855,7 +855,7 @@
                                                 {
 				                   var result = get_value(ep_states[s_expr[2]]) | get_value(ep_states[s_expr[3]]) ;
 
-                                                   return "ALU OR with result 0x" + result.toString(16) + ". " ;
+                                                   return "ALU OR with result " + show_value(result) + ". " ;
                                                 }
 				   };
 	ep_behaviors["NOT"]      = { nparameters: 3,
@@ -874,7 +874,7 @@
                                                 {
 				                   var result = ~(get_value(ep_states[s_expr[2]])) ;
 
-                                                   return "ALU NOT with result 0x" + result.toString(16) + ". " ;
+                                                   return "ALU NOT with result " + show_value(result) + ". " ;
                                                 }
 				   };
 	ep_behaviors["XOR"]      = { nparameters: 4,
@@ -893,7 +893,7 @@
                                                 {
 				                   var result = get_value(ep_states[s_expr[2]]) ^ get_value(ep_states[s_expr[3]]) ;
 
-                                                   return "ALU XOR with result 0x" + result.toString(16) + ". " ;
+                                                   return "ALU XOR with result " + show_value(result) + ". " ;
                                                 }
 				   };
 	ep_behaviors["SRL"]      = { nparameters: 3,
@@ -912,7 +912,7 @@
                                                 {
 				                   var result = (get_value(ep_states[s_expr[2]])) >>> 1 ;
 
-                                                   return "ALU Shift Right Logical with result 0x" + result.toString(16) + ". " ;
+                                                   return "ALU Shift Right Logical with result " + show_value(result) + ". " ;
                                                 }
 				   };
 	ep_behaviors["SRA"]      = { nparameters: 3,
@@ -931,7 +931,7 @@
                                                 {
 				                   var result = (get_value(ep_states[s_expr[2]])) >> 1 ;
 
-                                                   return "ALU Shift Right Arithmetic with result 0x" + result.toString(16) + ". " ;
+                                                   return "ALU Shift Right Arithmetic with result " + show_value(result) + ". " ;
                                                 }
 				   };
 	ep_behaviors["SL"]       = { nparameters: 3,
@@ -950,7 +950,7 @@
                                                 {
 				                   var result = (get_value(ep_states[s_expr[2]])) << 1 ;
 
-                                                   return "ALU Shift Left with result 0x" + result.toString(16) + ". " ;
+                                                   return "ALU Shift Left with result " + show_value(result) + ". " ;
                                                 }
 				   };
 	ep_behaviors["RR"]       = { nparameters: 3,
@@ -969,7 +969,7 @@
                                                 {
 				                   var result = ((get_value(ep_states[s_expr[2]])) >>> 1) | (((get_value(ep_states[s_expr[2]])) & 1) << 31) ;
 
-                                                   return "ALU Right Rotation with result 0x" + result.toString(16) + ". " ;
+                                                   return "ALU Right Rotation with result " + show_value(result) + ". " ;
                                                 }
 				   };
 	ep_behaviors["RL"]       = { nparameters: 3,
@@ -988,7 +988,7 @@
                                                 {
 				                   var result = ((get_value(ep_states[s_expr[2]])) << 1) | (((get_value(ep_states[s_expr[2]])) & 0X80000000) >>> 31) ;
 
-                                                   return "ALU Left Rotation with result 0x" + result.toString(16) + ". " ;
+                                                   return "ALU Left Rotation with result " + show_value(result) + ". " ;
                                                 }
 				   };
 	ep_behaviors["ADD"]      = { nparameters: 4,
@@ -1017,7 +1017,7 @@
                                                    var b = get_value(ep_states[s_expr[3]]) << 0 ;
 						   var result = a + b ;
 
-                                                   return "ALU ADD with result 0x" + result.toString(16) + ". " ;
+                                                   return "ALU ADD with result " + show_value(result) + ". " ;
                                                 }
 				   };
 	ep_behaviors["SUB"]      = { nparameters: 4,
@@ -1046,7 +1046,7 @@
                                                    var b = get_value(ep_states[s_expr[3]]) << 0 ;
 						   var result = a - b ;
 
-                                                   return "ALU SUB with result 0x" + result.toString(16) + ". " ;
+                                                   return "ALU SUB with result " + show_value(result) + ". " ;
                                                 }
 				   };
 	ep_behaviors["MUL"]      = { nparameters: 4,
@@ -1075,7 +1075,7 @@
                                                    var b = get_value(ep_states[s_expr[3]]) << 0 ;
 						   var result = a * b ;
 
-                                                   return "ALU MUL with result 0x" + result.toString(16) + ". " ;
+                                                   return "ALU MUL with result " + show_value(result) + ". " ;
                                                 }
 				   };
 	ep_behaviors["DIV"]      = { nparameters: 4,
@@ -1113,7 +1113,7 @@
 						   }
 
 				                   var result = Math.floor(a / b) ;
-                                                   return "ALU DIV with result 0x" + result.toString(16) + ". " ;
+                                                   return "ALU DIV with result " + show_value(result) + ". " ;
                                                 }
 				   };
 	ep_behaviors["MOD"]      = { nparameters: 4,
@@ -1134,7 +1134,7 @@
                                                    var b = get_value(ep_states[s_expr[3]]) << 0 ;
 
 						   var result = a % b ;
-                                                   return "ALU MOD with result 0x" + result.toString(16) + ". " ;
+                                                   return "ALU MOD with result " + show_value(result) + ". " ;
                                                 }
 				   };
 	ep_behaviors["LUI"]      = { nparameters: 3,
@@ -1153,7 +1153,7 @@
                                                 {
 						   var result = (get_value(ep_states[s_expr[2]])) << 16 ;
 
-                                                   return "ALU Load Upper Immediate with result 0x" + result.toString(16) + ". " ;
+                                                   return "ALU Load Upper Immediate with result " + show_value(result) + ". " ;
                                                 }
 				   };
 	ep_behaviors["PLUS4"]    = { nparameters: 3,
@@ -1168,7 +1168,7 @@
 						   var a = get_value(ep_states[s_expr[2]]) << 0 ;
 						   var result = a + 4 ;
 
-                                                   return "ADD 4 with result 0x" + result.toString(16) + ". " ;
+                                                   return "ADD 4 with result " + show_value(result) + ". " ;
                                                 }
 				   };
 	ep_behaviors["MBIT"]     = { nparameters: 5,

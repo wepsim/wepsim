@@ -1,8 +1,9 @@
 
 1.9.3 -> 1.9.5:
+* New panel with all notifications (in case you miss one)
+* Signal description improved
 * Improved voice support 
 * Formal introduction of the WepSIM engine API (example in README.md) 
-* New panel with all notifications (in case you miss one)
 * Minor clean-up on external dependencies
 
 1.9.2 -> 1.9.3:
