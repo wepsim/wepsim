@@ -781,12 +781,13 @@
 							   newval = "0" ;
 						   }
 
-                                                   return "Move from " + org_name + " to " + s_expr[1] + " value " + show_value(newval) + ". " ;
+                                                   return "Copy from " + org_name + " to " + s_expr[1] + " value " + show_value(newval) + ". " ;
                                                 }
                                    };
 	ep_behaviors["NOT_ES"]   = { nparameters: 3,
 				     types: ["S", "E"],
-				     operation: function (s_expr) {
+				     operation: function (s_expr) 
+		                                {
 						   set_value( ep_signals[s_expr[1]], Math.abs(get_value(ep_states[s_expr[2]]) - 1));
                                                 },
                                         verbal: function (s_expr) 
@@ -798,7 +799,8 @@
 				   };
 	ep_behaviors["GET"]      = { nparameters: 4,
 				     types: ["E", "E", "S"],
-				     operation: function(s_expr) {
+				     operation: function(s_expr) 
+		                                {
 						   set_value(ep_states[s_expr[1]], get_value(ep_states[s_expr[2]][ ep_signals[s_expr[3]].value]));
                                                 },
                                         verbal: function (s_expr) 
@@ -810,19 +812,21 @@
 				   };
 	ep_behaviors["SET"]      = { nparameters: 4,
 				     types: ["E", "S", "E"],
-				     operation: function(s_expr) {
+				     operation: function(s_expr) 
+		                                {
 						   set_value(ep_states[s_expr[1]][ ep_signals[s_expr[2]].value], get_value(ep_states[s_expr[3]]));
                                                 },
                                         verbal: function (s_expr) 
                                                 {
 						   var value = get_value(ep_states[s_expr[3]]) ;
 
-                                                   return "Set Register File " + s_expr[2] + " with value " + show_value(value) + ". " ;
+                                                   return "Copy to Register File " + s_expr[2] + " the value " + show_value(value) + ". " ;
                                                 }
 				   };
 	ep_behaviors["AND"]      = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) {
+				     operation: function(s_expr) 
+		                                {
 				                   var result = get_value(ep_states[s_expr[2]]) & get_value(ep_states[s_expr[3]]) ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
@@ -841,7 +845,8 @@
 				   };
 	ep_behaviors["OR"]       = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) {
+				     operation: function(s_expr) 
+		                                {
 				                   var result = get_value(ep_states[s_expr[2]]) | get_value(ep_states[s_expr[3]]) ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
@@ -860,7 +865,8 @@
 				   };
 	ep_behaviors["NOT"]      = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) {
+				     operation: function(s_expr) 
+		                                {
 				                   var result = ~(get_value(ep_states[s_expr[2]])) ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
@@ -879,7 +885,8 @@
 				   };
 	ep_behaviors["XOR"]      = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) {
+				     operation: function(s_expr) 
+		                                {
 				                   var result = get_value(ep_states[s_expr[2]]) ^ get_value(ep_states[s_expr[3]]) ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
@@ -898,7 +905,8 @@
 				   };
 	ep_behaviors["SRL"]      = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) {
+				     operation: function(s_expr) 
+		                                {
 				                   var result = (get_value(ep_states[s_expr[2]])) >>> 1 ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
@@ -917,7 +925,8 @@
 				   };
 	ep_behaviors["SRA"]      = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) {
+				     operation: function(s_expr) 
+		                                {
 				                   var result = (get_value(ep_states[s_expr[2]])) >> 1 ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
@@ -936,7 +945,8 @@
 				   };
 	ep_behaviors["SL"]       = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) {
+				     operation: function(s_expr) 
+		                                {
 				                   var result = (get_value(ep_states[s_expr[2]])) << 1 ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
@@ -955,7 +965,8 @@
 				   };
 	ep_behaviors["RR"]       = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) {
+				     operation: function(s_expr) 
+		                                {
 				                   var result = ((get_value(ep_states[s_expr[2]])) >>> 1) | (((get_value(ep_states[s_expr[2]])) & 1) << 31) ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
@@ -974,7 +985,8 @@
 				   };
 	ep_behaviors["RL"]       = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) {
+				     operation: function(s_expr) 
+		                                {
 				                   var result = ((get_value(ep_states[s_expr[2]])) << 1) | (((get_value(ep_states[s_expr[2]])) & 0X80000000) >>> 31) ;
 				                   set_value(ep_states[s_expr[1]], result) ;
 
@@ -993,7 +1005,8 @@
 				   };
 	ep_behaviors["ADD"]      = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) {
+				     operation: function(s_expr) 
+		                                {
 						   var a = get_value(ep_states[s_expr[2]]) << 0 ;
                                                    var b = get_value(ep_states[s_expr[3]]) << 0 ;
 						   var result = a + b ;
@@ -1022,7 +1035,8 @@
 				   };
 	ep_behaviors["SUB"]      = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) {
+				     operation: function(s_expr) 
+		                                {
 						   var a = get_value(ep_states[s_expr[2]]) << 0 ;
                                                    var b = get_value(ep_states[s_expr[3]]) << 0 ;
 						   var result = a - b ;
@@ -1051,7 +1065,8 @@
 				   };
 	ep_behaviors["MUL"]      = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) {
+				     operation: function(s_expr) 
+		                                {
 						   var a = get_value(ep_states[s_expr[2]]) << 0 ;
                                                    var b = get_value(ep_states[s_expr[3]]) << 0 ;
 						   var result = a * b ;
@@ -1080,7 +1095,8 @@
 				   };
 	ep_behaviors["DIV"]      = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) {
+				     operation: function(s_expr) 
+		                                {
 						   var a = (get_value(ep_states[s_expr[2]]) << 0) ;
 						   var b = (get_value(ep_states[s_expr[3]]) << 0) ;
 
@@ -1118,7 +1134,8 @@
 				   };
 	ep_behaviors["MOD"]      = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) {
+				     operation: function(s_expr) 
+		                                {
 						   var result = (get_value(ep_states[s_expr[2]]) << 0) % (get_value(ep_states[s_expr[3]]) << 0) ;
 						   set_value(ep_states[s_expr[1]], result) ;
 
@@ -1139,7 +1156,8 @@
 				   };
 	ep_behaviors["LUI"]      = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) {
+				     operation: function(s_expr) 
+		                                {
 						   var result = (get_value(ep_states[s_expr[2]])) << 16 ;
 						   set_value(ep_states[s_expr[1]], result) ;
 
@@ -1158,7 +1176,8 @@
 				   };
 	ep_behaviors["PLUS4"]    = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) {
+				     operation: function(s_expr) 
+		                                {
 						   var a = get_value(ep_states[s_expr[2]]) << 0 ;
 						   var result = a + 4 ;
 						   set_value(ep_states[s_expr[1]], result >>> 0) ;
@@ -1168,33 +1187,44 @@
 						   var a = get_value(ep_states[s_expr[2]]) << 0 ;
 						   var result = a + 4 ;
 
-                                                   return "ADD 4 with result " + show_value(result) + ". " ;
+                                                   return "ADD 4 to " + s_expr[2] + " with result " + show_value(result) + ". " ;
                                                 }
 				   };
 	ep_behaviors["MBIT"]     = { nparameters: 5,
 				     types: ["X", "X", "I", "I"],
 				     operation: function (s_expr) 
 		                                {
-						   sim_elto_org = get_reference(s_expr[2]) ;
-						   sim_elto_dst = get_reference(s_expr[1]) ;
-
-						   var offset = parseInt(s_expr[3]) ;
-						   var size   = parseInt(s_expr[4]) ;
+						   var sim_elto_dst = get_reference(s_expr[1]) ;
+						   var sim_elto_org = get_reference(s_expr[2]) ;
+						   var offset       = parseInt(s_expr[3]) ;
+						   var size         = parseInt(s_expr[4]) ;
 
 						   var n1 = get_value(sim_elto_org).toString(2); // to binary
 						   var n2 = "00000000000000000000000000000000".substring(0, 32-n1.length) + n1;
-						   n2 = n2.substr(31 - (offset + size - 1), size);
+						       n2 = n2.substr(31 - (offset + size - 1), size);
 
 						   set_value(sim_elto_dst, parseInt(n2, 2));
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ;
+						   var sim_elto_dst = get_reference(s_expr[1]) ;
+						   var sim_elto_org = get_reference(s_expr[2]) ;
+						   var offset       = parseInt(s_expr[3]) ;
+						   var size         = parseInt(s_expr[4]) ;
+
+						   var n1 = get_value(sim_elto_org).toString(2) ; // to binary
+						   var n2 = "00000000000000000000000000000000".substring(0, 32-n1.length) + n1 ;
+						       n2 = n2.substr(31 - (offset + size - 1), size) ;
+						   var n3 = parseInt(n2, 2) ;
+
+                                                   return "Copy from " + s_expr[2] + " to " + s_expr[1] + " value " + show_value(n3) +
+                                                          " (copied " + size + " bits from bit " + offset + "). " ;
                                                 }
 				   };
 	ep_behaviors["MBIT_SN"]  = { nparameters: 5,
 				     types: ["S", "E", "E", "I"],
-				     operation: function (s_expr) {
+				     operation: function (s_expr) 
+		                                {
 						   var base = 0;
 						   var r = s_expr[3].split('/');
 						   if (1 == r.length)
@@ -1220,7 +1250,7 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ;
+                                                   return "" ; // TODO
                                                 }
 				   };
 	ep_behaviors["SBIT"]     = { nparameters: 4,
@@ -1248,8 +1278,8 @@
 				     types: ["E", "I", "E", "S", "S", "I", "S"],
 				     operation: function(s_expr)
 						{
-						   var offset = parseInt( ep_signals[s_expr[4]].value) ;
-						   var size   = parseInt( ep_signals[s_expr[5]].value) ;
+						   var offset = parseInt(ep_signals[s_expr[4]].value) ;
+						   var size   = parseInt(ep_signals[s_expr[5]].value) ;
 
 						   var n1 = get_value(ep_states[s_expr[3]]).toString(2); // to binary
 						   var n2 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1) ;
@@ -1265,13 +1295,30 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ;
+						   var offset = parseInt(ep_signals[s_expr[4]].value) ;
+						   var size   = parseInt(ep_signals[s_expr[5]].value) ;
+
+						   var n1 = get_value(ep_states[s_expr[3]]).toString(2); // to binary
+						   var n2 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1) ;
+						       n2 = n2.substr(31 - (offset + size - 1), size);
+
+						   var n3 =  "00000000000000000000000000000000".substring(0, 32 - n2.length) + n2;
+						   if ( ("1" ==  ep_signals[s_expr[7]].value) && ("1" == n2.substr(0, 1)))
+                                                   {    // check signed-extension
+							n3 = "11111111111111111111111111111111".substring(0, 32 - n2.length) + n2;
+						   }
+
+						   n1 = parseInt(n3, 2) ;
+
+                                                   return "Copy from " + s_expr[3] + " to " + s_expr[1] + " value " + show_value(n1) +
+                                                          " (copied " + size + " bits from bit " + offset + "). " ;
                                                 }
 				   };
 
 	ep_behaviors["BSEL"] =  { nparameters: 6,
 				     types: ["E", "I", "I", "E", "I"],
-				     operation: function (s_expr) {
+				     operation: function (s_expr) 
+		                                {
 						   var posd = parseInt(s_expr[2]) ;
 						   var poso = parseInt(s_expr[5]) ;
 						   var len  = parseInt(s_expr[3]) ;
@@ -1287,12 +1334,26 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ;
+						   var posd = parseInt(s_expr[2]) ;
+						   var len  = parseInt(s_expr[3]) ;
+						   var poso = parseInt(s_expr[5]) ;
+
+						   var n1 = get_value(ep_states[s_expr[4]]).toString(2); // to binary
+						   var n2 = "00000000000000000000000000000000".substring(0, 32 - n1.length) + n1 ;
+						       n2 = n2.substr(31 - (poso + len) + 1, len);
+						   var n3 = "00000000000000000000000000000000".substring(0, 32 - n2.length) + n2;
+						   var n4 = "00000000000000000000000000000000".substr(0, posd);
+						       n3 = n3 + n4;
+						   var n5 = parseInt(n3, 2) ;
+
+                                                   return "Copy from " + s_expr[4] + " to " + s_expr[1] + " value " + show_value(n5) +
+                                                          " (copied " + len + " bits from bit " + poso + "). " ;
                                                 }
 				   };
 	ep_behaviors["EXT_SIG"] =  { nparameters: 3,
 				     types: ["E", "I"],
-				     operation: function (s_expr) {
+				     operation: function (s_expr) 
+		                                {
 						   var n1 = get_value(ep_states[s_expr[1]]).toString(2); // to binary
 						   var n2 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1) ;
 						   var n3 = n2.substr(31 - s_expr[2], 31);
@@ -1305,12 +1366,13 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ;
+                                                   return "" ; // TODO
                                                 }
 				   };
 	ep_behaviors["MOVE_BITS"] =  { nparameters: 5,
 				     types: ["S", "I", "I","S"],
-				     operation: function (s_expr) {
+				     operation: function (s_expr) 
+		                                {
 						   var posd = parseInt(s_expr[2]) ;
 						   var poso = 0 ;
 						   var len  = parseInt(s_expr[3]) ;
@@ -1329,13 +1391,30 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ;
+						   var posd = parseInt(s_expr[2]) ;
+						   var poso = 0 ;
+						   var len  = parseInt(s_expr[3]) ;
+
+						   var n1 =  ep_signals[s_expr[4]].value.toString(2); // to binary signal origin
+						   n1 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1);
+						   n1 = n1.substr(31 - poso - len + 1, len);
+
+						   var n2 =  ep_signals[s_expr[1]].value.toString(2); // to binary signal destiny
+						   n2 = ("00000000000000000000000000000000".substring(0, 32 - n2.length) + n2) ;
+						   var m1 = n2.substr(0, 32 - (posd + len));
+						   var m2 = n2.substr(31 - posd + 1, posd);
+						   var n3 = m1 + n1 + m2;
+						   var n4 = parseInt(n3, 2) ;
+
+                                                   return "Copy from " + s_expr[4] + " to " + s_expr[1] + " value " + show_value(n4) +
+                                                          " (copied " + len + " bits from bit " + poso + "). " ;
                                                 }
 				   };
 	ep_behaviors["MOVE_BITSE"] = {
 					  nparameters: 6,
 				    types: ["S", "I", "I", "E", "I"],
-				    operation: function (s_expr) {
+				    operation: function (s_expr) 
+		                               {
 						   var posd = parseInt(s_expr[2]) ;
 						   var poso = parseInt(s_expr[5]) ;
 						   var len  = parseInt(s_expr[3]) ;
@@ -1354,7 +1433,7 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ;
+                                                   return "" ; // TODO
                                                 }
 				  };
 	ep_behaviors["DECO"]    = { nparameters: 1,
