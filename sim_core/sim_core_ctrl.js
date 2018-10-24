@@ -348,7 +348,7 @@
                                                '         value="' + n + '" ' + str_checked + ' />' + 
 					       '  <span class="badge badge-secondary badge-pill">' + n + '</span>' + '&nbsp;' + 
 					       '  <span>' + behav_str + '</span>' + 
-					       '  <p class="m-0 ml-3 bg-light"><small>' + behav_raw + '&nbsp;' + str_bolded + '</small></p>' +
+					       '  <p class="m-0 ml-3 bg-light collapse show bh-all"><small>' + behav_raw + '&nbsp;' + str_bolded + '</small></p>' +
                                                '</label>' + 
 					       '</li>' ;
                             }
@@ -414,6 +414,15 @@
                                animate: false,
                                size:    'large',
 			       buttons: {
+					    description: {
+						label:     '&plusmn; Desc<span class="d-none d-sm-inline-flex">ription</span>',
+						className: 'btn-outline-dark btn-sm col-xs-3 col-sm-3 col-lg-2',
+						callback: function() 
+						          {
+							     $('.bh-all').collapse('toggle') ;
+							     return false ;
+						          }
+					    },
 					    success: {
 						label: "Save",
 						className: "btn-primary btn-sm col-xs-3 col-sm-2 float-right",

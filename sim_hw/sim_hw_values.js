@@ -149,8 +149,9 @@
 
         function show_value ( value )
         {
-	    if (isNaN(value))
+	    if (isNaN(value)) {
 		return "NaN" ;
+	    }
 
 	    return "0x" + (value >>> 0).toString(16) ;
         }
