@@ -144,8 +144,25 @@
 
 
         /*
-         *  Show value
+         *  Show verbal key & value
          */
+
+        function show_verbal ( key )
+        {
+            // key -> obj ?
+	    var vn = simhw_sim_state(key) ;
+            if (typeof vn == "undefined")
+	        vn = simhw_sim_signal(key) ;
+
+            // default to key
+            if ("undefined" == typeof vn)
+                 return key ;
+            if ("undefined" == typeof vn.verbal)
+                 return key ;
+
+            // otherwise to verbal
+            return vn.verbal ;
+        }
 
         function show_value ( value )
         {

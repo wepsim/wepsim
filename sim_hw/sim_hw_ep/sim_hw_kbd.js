@@ -54,15 +54,18 @@
          *  States
          */
 
-        ep_states.KBDR   = { name: "KBDR",    visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-        ep_states.KBSR   = { name: "KBSR",    visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+        ep_states.KBDR   = { name: "KBDR", verbal: "Keyboard Data Register",
+                             visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+        ep_states.KBSR   = { name: "KBSR", verbal: "Keyboard Status Register",
+                             visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
 
 
         /*
          *  Signals
          */
 
-         ep_signals.KBD_IOR = { name: "IOR", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+         ep_signals.KBD_IOR    = { name: "IOR", 
+                                   visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		                   behavior: ["NOP", "KBD_IOR BUS_AB BUS_DB KBDR KBSR CLK; FIRE SBWA"],
                                    fire_name: ['svg_p:tspan4057'], 
                                    draw_data: [[], ['svg_p:path3863', 'svg_p:path3847']], 
@@ -73,7 +76,7 @@
          *  Syntax of behaviors
          */
 
-        ep_behaviors.KBD_IOR = { nparameters: 6,
+        ep_behaviors.KBD_IOR   = { nparameters: 6,
                                         types: ["E", "E", "E", "E", "E"],
                                         operation: function (s_expr) 
                                                    {

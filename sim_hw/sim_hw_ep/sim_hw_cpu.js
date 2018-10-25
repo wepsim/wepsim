@@ -140,109 +140,186 @@
 
 	/* REGISTER FILE STATES */
 	ep_states.BR = [] ;
-	ep_states.BR[0]          = {name:"R0",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[1]          = {name:"R1",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[2]          = {name:"R2",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[3]          = {name:"R3",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[4]          = {name:"R4",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[5]          = {name:"R5",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[6]          = {name:"R6",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[7]          = {name:"R7",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[8]          = {name:"R8",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[9]          = {name:"R9",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[10]         = {name:"R10",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[11]         = {name:"R11",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[12]         = {name:"R12",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[13]         = {name:"R13",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[14]         = {name:"R14",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[15]         = {name:"R15",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[16]         = {name:"R16",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[17]         = {name:"R17",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[18]         = {name:"R18",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[19]         = {name:"R19",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[20]         = {name:"R20",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[21]         = {name:"R21",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[22]         = {name:"R22",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[23]         = {name:"R23",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[24]         = {name:"R24",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[25]         = {name:"R25",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[26]         = {name:"R26",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[27]         = {name:"R27",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[28]         = {name:"R28",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[29]         = {name:"R29",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[30]         = {name:"R30",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states.BR[31]         = {name:"R31",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[0]          = { name:"R0", verbal: "Register 0",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[1]          = { name:"R1", verbal: "Register 1",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[2]          = { name:"R2", verbal: "Register 2",
+                                    visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[3]          = { name:"R3", verbal: "Register 3",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[4]          = { name:"R4", verbal: "Register 4",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[5]          = { name:"R5", verbal: "Register 5",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[6]          = { name:"R6", verbal: "Register 6",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[7]          = { name:"R7", verbal: "Register 7",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[8]          = { name:"R8", verbal: "Register 8",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[9]          = { name:"R9", verbal: "Register 9",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[10]         = { name:"R10", verbal: "Register 10",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[11]         = { name:"R11", verbal: "Register 11",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[12]         = { name:"R12", verbal: "Register 12",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[13]         = { name:"R13", verbal: "Register 13",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[14]         = { name:"R14", verbal: "Register 14",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[15]         = { name:"R15", verbal: "Register 15",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[16]         = { name:"R16", verbal: "Register 16",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[17]         = { name:"R17", verbal: "Register 17",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[18]         = { name:"R18", verbal: "Register 18",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[19]         = { name:"R19", verbal: "Register 19",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[20]         = { name:"R20", verbal: "Register 20",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[21]         = { name:"R21", verbal: "Register 21",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[22]         = { name:"R22", verbal: "Register 22",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[23]         = { name:"R23", verbal: "Register 23",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[24]         = { name:"R24", verbal: "Register 24",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[25]         = { name:"R25", verbal: "Register 25",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[26]         = { name:"R26", verbal: "Register 26",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[27]         = { name:"R27", verbal: "Register 27",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[28]         = { name:"R28", verbal: "Register 28",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[29]         = { name:"R29", verbal: "Register 29",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[30]         = { name:"R30", verbal: "Register 30",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states.BR[31]         = { name:"R31", verbal: "Register 31",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
-	ep_states["REG_PC"]         = {name:"PC",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states["REG_MAR"]        = {name:"MAR",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states["REG_MBR"]        = {name:"MBR",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states["REG_IR"]         = {name:"IR",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states["REG_RT1"]        = {name:"RT1",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states["REG_RT2"]        = {name:"RT2",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states["REG_RT3"]        = {name:"RT3",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states["REG_SR"]         = {name:"SR",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states["REG_PC"]      = { name:"PC",  verbal: "Program Couter Register",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states["REG_MAR"]     = { name:"MAR", verbal: "Memory Address Register",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states["REG_MBR"]     = { name:"MBR", verbal: "Memory Data Register",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states["REG_IR"]      = { name:"IR",  verbal: "Instruction Register",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states["REG_RT1"]     = { name:"RT1", verbal: "Temporal 1 Register",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states["REG_RT2"]     = { name:"RT2", verbal: "Temporal 2 Register",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states["REG_RT3"]     = { name:"RT3", verbal: "Temporal 3 Register",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states["REG_SR"]      = { name:"SR", verbal: "State Register",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
 	/* BUSES */
-	ep_states["BUS_IB"]         = {name:"I_BUS",            visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states["BUS_AB"]         = {name:"A_BUS",            visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states["BUS_CB"]         = {name:"C_BUS",            visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states["BUS_DB"]         = {name:"D_BUS",            visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states["BUS_IB"]      = { name:"I_BUS", verbal: "Internal Bus",
+                                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states["BUS_AB"]      = { name:"A_BUS", verbal: "Address Bus",
+                                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states["BUS_CB"]      = { name:"C_BUS", verbal: "Control Bus",
+                                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states["BUS_DB"]      = { name:"D_BUS", verbal: "Data Bus",
+                                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
 	/* REGISTER PC (RELATED) STATES */
-	ep_states["C2_T2"]          = {name: "C2_T2",           visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+	ep_states["C2_T2"]       = { name: "C2_T2", verbal: "Output of PC",
+                                     visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
 	/* REGISTER FILE (RELATED) STATES */
-	ep_states["RA_T9"]          = {name: "RA_T9",           visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
-	ep_states["RB_T10"]         = {name: "RB_T10",          visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+	ep_states["RA_T9"]       = { name: "RA_T9", verbal: "Input of T9 Tristate",
+                                     visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+	ep_states["RB_T10"]      = { name: "RB_T10", verbal: "Input of T10 Tristate",
+                                     visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
 	/* (RELATED) SELEC STATES */
-	ep_states["SELEC_T3"]       = { name: "SELEC_T3",       visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
-	ep_states["SELP_M7"]        = { name: "SELP_M7",        visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+	ep_states["SELEC_T3"]    = { name: "SELEC_T3", verbal: "Input of T3 Tristate",
+                                     visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+	ep_states["SELP_M7"]     = { name: "SELP_M7", verbal: "Output of MUX SelP",
+                                     visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
-	ep_states["SUM4_M2"]        = {name:"SUM4_M2",          visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states["ALU_C6"]         = {name:"ALU_C6",           visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states["MA_ALU"]         = {name:"MA_ALU",           visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states["MB_ALU"]         = {name:"MB_ALU",           visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states["ALU_C6"]      = { name:"ALU_C6", verbal: "Input to Temporal 3 Register",
+                                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states["MA_ALU"]      = { name:"MA_ALU", verbal: "Input ALU via MA",
+                                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states["MB_ALU"]      = { name:"MB_ALU", verbal: "Input ALU via MB",
+                                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
-	ep_states["FLAG_C"]         = { name: "FLAG_C",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	ep_states["FLAG_V"]         = { name: "FLAG_V",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	ep_states["FLAG_N"]         = { name: "FLAG_N",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	ep_states["FLAG_Z"]         = { name: "FLAG_Z",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	ep_states["FLAG_I"]         = { name: "FLAG_I",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	ep_states["FLAG_U"]         = { name: "FLAG_U",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+	ep_states["FLAG_C"]      = { name: "FLAG_C", verbal: "Flag Carry",
+                                     visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+	ep_states["FLAG_V"]      = { name: "FLAG_V", verbal: "Flag Overflow",
+                                     visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+	ep_states["FLAG_N"]      = { name: "FLAG_N", verbal: "Flag Negative",
+                                     visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+	ep_states["FLAG_Z"]      = { name: "FLAG_Z", verbal: "Flag Zero",
+                                     visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+	ep_states["FLAG_I"]      = { name: "FLAG_I", verbal: "Flag Interruption",
+                                     visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+	ep_states["FLAG_U"]      = { name: "FLAG_U", verbal: "Flag User",
+                                     visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
 
 	/* CONTROL UNIT */
-	ep_states["REG_MICROADDR"]  = { name: "µADDR",          visible:true, nbits: "12", value:0,  default_value:0,  draw_data: ['svg_cu:text4667']};
-	ep_states["REG_MICROINS"]   = { name: "µINS",           visible:true, nbits: "77", value:{}, default_value:{}, draw_data: [] };
+	ep_states["REG_MICROADDR"]  = { name: "µADDR", verbal: "Microaddress Register",
+                                        visible:true, nbits: "12", value:0,  default_value:0,  draw_data: ['svg_cu:text4667']};
+	ep_states["REG_MICROINS"]   = { name: "µINS", verbal: "Microinstruction Register",
+                                        visible:true, nbits: "77", value:{}, default_value:{}, draw_data: [] };
 
-	ep_states["FETCH"]          = { name: "FETCH",          visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
-	ep_states["ROM_MUXA"]       = { name: "ROM_MUXA",       visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
-	ep_states["SUM_ONE"]        = { name: "SUM_ONE",        visible:false, nbits: "12", value:1, default_value:1, draw_data: [] };
-	ep_states["MUXA_MICROADDR"] = { name: "MUXA_MICROADDR", visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
+	ep_states["FETCH"]          = { name: "FETCH",          verbal: "Input Fetch ",
+                                        visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
+	ep_states["ROM_MUXA"]       = { name: "ROM_MUXA",       verbal: "Input ROM ",
+                                        visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
+	ep_states["SUM_ONE"]        = { name: "SUM_ONE",        verbal: "Input next microinstruction ",
+                                        visible:false, nbits: "12", value:1, default_value:1, draw_data: [] };
+	ep_states["MUXA_MICROADDR"] = { name: "MUXA_MICROADDR", verbal: "Input microaddress from microinstruction",
+                                        visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
 
-	ep_states["MUXC_MUXB"]      = { name: "MUXC_MUXB",      visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
-	ep_states["INEX"]           = { name: "INEX",           visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
+	ep_states["MUXC_MUXB"]      = { name: "MUXC_MUXB", verbal: "Output of MUX C",
+                                        visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
+	ep_states["INEX"]           = { name: "INEX",      verbal: "Illegal Instruction Exception",
+                                        visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
 
 	/* DEVICES AND MEMORY */
-	ep_states["BS_M1"]          = { name: "BS_M1",          visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
-	ep_states["BS_TD"]          = { name: "BS_TD",          visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+	ep_states["BS_M1"]          = { name: "BS_M1", verbal: "Output of Byte Selector",
+                                        visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+	ep_states["BS_TD"]          = { name: "BS_TD", verbal: "Output of Byte Selector to Memory",
+                                        visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
-	ep_states["INTV"]           = { name: "INTV",           visible:false, nbits: "8",  value:0, default_value:0, draw_data: [] };
+	ep_states["INTV"]           = { name: "INTV", verbal: "Interruption Vector",
+                                        visible:false, nbits: "8",  value:0, default_value:0, draw_data: [] };
 
 
 	/* MUX A (RELATED) STATES */
-	ep_states["M2_C2"]          = { name:"M2_C2",           visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states["M1_C1"]          = { name:"M1_C1",           visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states["M7_C7"]          = { name:"M7_C7",           visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states["M2_C2"]          = { name:"M2_C2", verbal: "Input to Program Counter",
+                                        visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states["M1_C1"]          = { name:"M1_C1", verbal: "Input to Memory Data Register",
+                                        visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states["M7_C7"]          = { name:"M7_C7", verbal: "Input to State Register",
+                                        visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
-	ep_states["VAL_ZERO"]       = { name: "VAL_ZERO",       visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
-	ep_states["VAL_ONE"]        = { name: "VAL_ONE",        visible:false, nbits: "32", value:1, default_value:1, draw_data: [] };
-	ep_states["VAL_FOUR"]       = { name: "VAL_FOUR",       visible:false, nbits: "32", value:4, default_value:4, draw_data: [] };
+	ep_states["VAL_ZERO"]       = { name: "VAL_ZERO", verbal: "Wired Zero",
+                                        visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
+	ep_states["VAL_ONE"]        = { name: "VAL_ONE",  verbal: "Wired One",
+                                        visible:false, nbits: "32", value:1, default_value:1, draw_data: [] };
+	ep_states["VAL_FOUR"]       = { name: "VAL_FOUR", verbal: "Wired Four",
+                                        visible:false, nbits: "32", value:4, default_value:4, draw_data: [] };
 
 	/* VIRTUAL */
-	ep_states["REG_IR_DECO"]    = {name:"IR_DECO",          visible:true,  nbits:"0",  value:0,  default_value:0, draw_data: [] };
-	ep_states["DECO_INS"]       = {name:"DECO_INS",         visible:true,  nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states["CLK"]            = {name:"CLK",              visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states["REG_IR_DECO"]    = { name:"IR_DECO",  verbal: "Instruction Decoded",
+                                        visible:true,  nbits:"0",  value:0,  default_value:0, draw_data: [] };
+	ep_states["DECO_INS"]       = { name:"DECO_INS", verbal: "Instruction decoded in binary",
+                                        visible:true,  nbits:"32", value:0,  default_value:0, draw_data: [] };
+	ep_states["CLK"]            = { name:"CLK",      verbal: "Clock",
+                                        visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
 
 	/*
@@ -772,16 +849,16 @@
 						   var sim_elto_dst = get_reference(s_expr[1]) ;
 						   var sim_elto_org = get_reference(r[0]) ;
 
-						   var org_name = r[0] ;
+						   var org_name = show_verbal(r[0]) ;
                                                    var newval   = get_value(sim_elto_org) ;
                                                    if (1 != r.length) {
-						       org_name = org_name + "/" + r[1] ;
+						       org_name = "Field " + r[1] + " of " + org_name ;
 						       newval   = newval[r[1]] ;
                                                        if (typeof newval == "undefined")
-							   newval = "0" ;
+							   newval = 0 ;
 						   }
 
-                                                   return "Copy from " + org_name + " to " + s_expr[1] + " value " + show_value(newval) + ". " ;
+                                                   return "Copy from " + org_name + " to " + show_verbal(s_expr[1]) + " value " + show_value(newval) + ". " ;
                                                 }
                                    };
 	ep_behaviors["NOT_ES"]   = { nparameters: 3,
@@ -794,7 +871,7 @@
                                                 {
 						   var value = Math.abs(get_value(ep_states[s_expr[2]]) - 1) ;
 
-                                                   return "Set " + s_expr[1] + " with value " + show_value(value) + " (Logical NOT of " + s_expr[2] + "). " ;
+                                                   return "Set " + show_verbal(s_expr[1]) + " with value " + show_value(value) + " (Logical NOT of " + s_expr[2] + "). " ;
                                                 }
 				   };
 	ep_behaviors["GET"]      = { nparameters: 4,
@@ -807,7 +884,7 @@
                                                 {
 						   var value = get_value(ep_states[s_expr[2]][ep_signals[s_expr[3]].value]) ;
 
-                                                   return "Set " + s_expr[1] + " with value " + show_value(value) + " (Register File " + s_expr[3] + "). " ;
+                                                   return "Set " + show_verbal(s_expr[1]) + " with value " + show_value(value) + " (Register File " + s_expr[3] + "). " ;
                                                 }
 				   };
 	ep_behaviors["SET"]      = { nparameters: 4,
@@ -820,7 +897,7 @@
                                                 {
 						   var value = get_value(ep_states[s_expr[3]]) ;
 
-                                                   return "Copy to Register File " + s_expr[2] + " the value " + show_value(value) + ". " ;
+                                                   return "Copy to " + show_verbal(s_expr[2]) + " the value " + show_value(value) + ". " ;
                                                 }
 				   };
 	ep_behaviors["AND"]      = { nparameters: 4,
@@ -1187,7 +1264,7 @@
 						   var a = get_value(ep_states[s_expr[2]]) << 0 ;
 						   var result = a + 4 ;
 
-                                                   return "ADD 4 to " + s_expr[2] + " with result " + show_value(result) + ". " ;
+                                                   return "Add four to " + show_verbal(s_expr[2]) + " with result " + show_value(result) + ". " ;
                                                 }
 				   };
 	ep_behaviors["MBIT"]     = { nparameters: 5,
@@ -1217,8 +1294,7 @@
 						       n2 = n2.substr(31 - (offset + size - 1), size) ;
 						   var n3 = parseInt(n2, 2) ;
 
-                                                   return "Copy from " + s_expr[2] + " to " + s_expr[1] + " value " + show_value(n3) +
-                                                          " (copied " + size + " bits from bit " + offset + "). " ;
+                                                   return "Copy from " + show_verbal(s_expr[2]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(n3) + " (copied " + size + " bits from bit " + offset + "). " ;
                                                 }
 				   };
 	ep_behaviors["MBIT_SN"]  = { nparameters: 5,
@@ -1271,7 +1347,7 @@
 						   sim_elto_org = get_reference(s_expr[2]) ;
 						   sim_elto_dst = get_reference(s_expr[1]) ;
 
-                                                   return "Set bit " + s_expr[3] + " of " + s_expr[1] + " to value " + sim_elto_org.value + ". " ;
+                                                   return "Set bit " + show_verbal(s_expr[3]) + " of " + show_verbal(s_expr[1]) + " to value " + sim_elto_org.value + ". " ;
                                                 }
 				   };
 	ep_behaviors["MBITS"]    = { nparameters: 8,
@@ -1310,8 +1386,7 @@
 
 						   n1 = parseInt(n3, 2) ;
 
-                                                   return "Copy from " + s_expr[3] + " to " + s_expr[1] + " value " + show_value(n1) +
-                                                          " (copied " + size + " bits from bit " + offset + "). " ;
+                                                   return "Copy from " + show_verbal(s_expr[3]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(n1) + " (copied " + size + " bits from bit " + offset + "). " ;
                                                 }
 				   };
 
@@ -1346,8 +1421,7 @@
 						       n3 = n3 + n4;
 						   var n5 = parseInt(n3, 2) ;
 
-                                                   return "Copy from " + s_expr[4] + " to " + s_expr[1] + " value " + show_value(n5) +
-                                                          " (copied " + len + " bits from bit " + poso + "). " ;
+                                                   return "Copy from " + show_verbal(s_expr[4]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(n5) + " (copied " + len + " bits from bit " + poso + "). " ;
                                                 }
 				   };
 	ep_behaviors["EXT_SIG"] =  { nparameters: 3,
@@ -1391,23 +1465,7 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-						   var posd = parseInt(s_expr[2]) ;
-						   var poso = 0 ;
-						   var len  = parseInt(s_expr[3]) ;
-
-						   var n1 =  ep_signals[s_expr[4]].value.toString(2); // to binary signal origin
-						   n1 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1);
-						   n1 = n1.substr(31 - poso - len + 1, len);
-
-						   var n2 =  ep_signals[s_expr[1]].value.toString(2); // to binary signal destiny
-						   n2 = ("00000000000000000000000000000000".substring(0, 32 - n2.length) + n2) ;
-						   var m1 = n2.substr(0, 32 - (posd + len));
-						   var m2 = n2.substr(31 - posd + 1, posd);
-						   var n3 = m1 + n1 + m2;
-						   var n4 = parseInt(n3, 2) ;
-
-                                                   return "Copy from " + s_expr[4] + " to " + s_expr[1] + " value " + show_value(n4) +
-                                                          " (copied " + len + " bits from bit " + poso + "). " ;
+                                                   return "" ;
                                                 }
 				   };
 	ep_behaviors["MOVE_BITSE"] = {
@@ -1433,7 +1491,7 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ; // TODO
+                                                   return "" ;
                                                 }
 				  };
 	ep_behaviors["DECO"]    = { nparameters: 1,
