@@ -237,7 +237,7 @@
                                      visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
 	/* REGISTER FILE (RELATED) STATES */
-	ep_states["RA_T9"]       = { name: "RA_T9", verbal: "Input of T9 Tristate",
+	ep_states["RA_T9"]       = { name: "RA_T9",  verbal: "Input of T9 Tristate",
                                      visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 	ep_states["RB_T10"]      = { name: "RB_T10", verbal: "Input of T10 Tristate",
                                      visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
@@ -245,10 +245,10 @@
 	/* (RELATED) SELEC STATES */
 	ep_states["SELEC_T3"]    = { name: "SELEC_T3", verbal: "Input of T3 Tristate",
                                      visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
-	ep_states["SELP_M7"]     = { name: "SELP_M7", verbal: "Output of MUX SelP",
+	ep_states["SELP_M7"]     = { name: "SELP_M7",  verbal: "Output of MUX SelP",
                                      visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
-	ep_states["ALU_C6"]      = { name:"ALU_C6", verbal: "Input to Temporal 3 Register",
+	ep_states["ALU_C6"]      = { name:"ALU_C6", verbal: "Input of Temporal 3 Register",
                                      visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	ep_states["MA_ALU"]      = { name:"MA_ALU", verbal: "Input ALU via MA",
                                      visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
@@ -289,9 +289,9 @@
                                         visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
 
 	/* DEVICES AND MEMORY */
-	ep_states["BS_M1"]          = { name: "BS_M1", verbal: "Output of Byte Selector",
+	ep_states["BS_M1"]          = { name: "BS_M1", verbal: "from Memory",
                                         visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
-	ep_states["BS_TD"]          = { name: "BS_TD", verbal: "Output of Byte Selector to Memory",
+	ep_states["BS_TD"]          = { name: "BS_TD", verbal: "to Memory",
                                         visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
 	ep_states["INTV"]           = { name: "INTV", verbal: "Interruption Vector",
@@ -299,11 +299,11 @@
 
 
 	/* MUX A (RELATED) STATES */
-	ep_states["M2_C2"]          = { name:"M2_C2", verbal: "Input to Program Counter",
+	ep_states["M2_C2"]          = { name:"M2_C2", verbal: "Input of Program Counter",
                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states["M1_C1"]          = { name:"M1_C1", verbal: "Input to Memory Data Register",
+	ep_states["M1_C1"]          = { name:"M1_C1", verbal: "Input of Memory Data Register",
                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	ep_states["M7_C7"]          = { name:"M7_C7", verbal: "Input to State Register",
+	ep_states["M7_C7"]          = { name:"M7_C7", verbal: "Input of State Register",
                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
 	ep_states["VAL_ZERO"]       = { name: "VAL_ZERO", verbal: "Wired Zero",
@@ -896,8 +896,13 @@
                                         verbal: function (s_expr) 
                                                 {
 						   var value = get_value(ep_states[s_expr[3]]) ;
+						   var o_ref = ep_states[s_expr[1]][ep_signals[s_expr[2]].value] ;
 
-                                                   return "Copy to " + show_verbal(s_expr[2]) + " the value " + show_value(value) + ". " ;
+						   var o_verbal = o_ref.name ;
+						   if (typeof o_ref.verbal != "undefined")
+						       o_verbal = o_ref.verbal ;
+
+                                                   return "Copy to " + o_verbal + " the value " + show_value(value) + ". " ;
                                                 }
 				   };
 	ep_behaviors["AND"]      = { nparameters: 4,
