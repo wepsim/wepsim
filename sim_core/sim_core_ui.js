@@ -910,6 +910,6 @@
 	   	  active_verbal  = active_verbal  + compute_signal_verbals(key, mins[key]) ;
 	     }
 
-             return "Activated signals are: " + active_signals + ". Associated actions are: " + active_verbal + ". " ;
+             return "Activated signals are: " + active_signals + ". Associated actions are: " + active_verbal ;
         }
 

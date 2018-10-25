@@ -338,7 +338,7 @@
                                  behav_raw = simhw_sim_signal(key).behavior[k] ;
 				 behav_str = compute_verbal(behav_raw) ; 
 				 if ('' == behav_str.trim()) {
-				     behav_str = '&lt;nothing to be done&gt;' ;
+				     behav_str = '&lt;without main effect&gt;' ;
 				 }
 
                                  n = k.toString(10) ;
