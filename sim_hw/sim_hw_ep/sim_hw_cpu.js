@@ -376,7 +376,7 @@
 			       draw_name: [[]] };
 	 ep_signals["A0A1"] = { name: "A0A1", visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
 				behavior: ["ADD MUXA_MICROADDR REG_MICROADDR SUM_ONE",
-					   "MV MUXA_MICROADDR REG_MICROINS/MADDR",
+					   "CP_FIELD MUXA_MICROADDR REG_MICROINS/MADDR",
 					   "MV MUXA_MICROADDR ROM_MUXA",
 					   "MV MUXA_MICROADDR FETCH"],
                                 depends_on: ["CLK"],
@@ -389,42 +389,42 @@
 
 	/* REGISTER LOAD */
 	 ep_signals["C0"] = { name: "C0", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV REG_MAR BUS_IB"],
+			       behavior: ["NOP", "LOAD REG_MAR BUS_IB"],
 			       fire_name: ['svg_p:text3077'],
 			       draw_data: [['svg_p:path3081']],
 			       draw_name: [['svg_p:path3075']] };
 	 ep_signals["C1"] = { name: "C1", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV REG_MBR M1_C1"],
+			       behavior: ["NOP", "LOAD REG_MBR M1_C1"],
 			       fire_name: ['svg_p:text3079'],
 			       draw_data: [['svg_p:path3055']],
 			       draw_name: [['svg_p:path3073']] };
 	 ep_signals["C2"] = { name: "C2", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV REG_PC M2_C2; UPDATEDPC"],
+			       behavior: ["NOP", "LOAD REG_PC M2_C2; UPDATEDPC"],
 			       fire_name: ['svg_p:text3179'],
 			       draw_data: [['svg_p:path3485']],
 			       draw_name: [['svg_p:path3177']] };
 	 ep_signals["C3"] = { name: "C3", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV REG_IR BUS_IB; DECO; FIRE_IFSET C 10"],
+			       behavior: ["NOP", "LOAD REG_IR BUS_IB; DECO; FIRE_IFSET C 10"],
 			       fire_name: ['svg_p:text3439'],
 			       draw_data: [['svg_p:path3339']],
 			       draw_name: [['svg_p:path3337']] };
 	 ep_signals["C4"] = { name: "C4", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV REG_RT1 BUS_IB"],
+			       behavior: ["NOP", "LOAD REG_RT1 BUS_IB"],
 			       fire_name: ['svg_p:text3441'],
 			       draw_data: [['svg_p:path3263']],
 			       draw_name: [['svg_p:path3255']] };
 	 ep_signals["C5"] = { name: "C5", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV REG_RT2 BUS_IB"],
+			       behavior: ["NOP", "LOAD REG_RT2 BUS_IB"],
 			       fire_name: ['svg_p:text3443'],
 			       draw_data: [['svg_p:path3277']],
 			       draw_name: [['svg_p:path3269']] };
 	 ep_signals["C6"] = { name: "C6", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV REG_RT3 ALU_C6"],
+			       behavior: ["NOP", "LOAD REG_RT3 ALU_C6"],
 			       fire_name: ['svg_p:text3445'],
 			       draw_data: [['svg_p:path3325', 'svg_p:path3323']],
 			       draw_name: [['svg_p:path3245']] };
 	 ep_signals["C7"] = { name: "C7", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV REG_SR M7_C7; FIRE C"],
+			       behavior: ["NOP", "LOAD REG_SR M7_C7; FIRE C"],
 			       fire_name: ['svg_p:text3655'],
 			       draw_data: [['svg_p:path3651-9']],
 			       draw_name: [['svg_p:path3681']] };
@@ -491,7 +491,7 @@
 			       draw_data: [['svg_p:path3145', 'svg_p:path3141','svg_p:path3049','svg_p:path3145-5']],
 			       draw_name: [['svg_p:path3137']] };
 	 ep_signals["T11"] = { name: "T11", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV BUS_IB REG_MICROINS/EXCODE; FIRE M7; FIRE M2; FIRE M1"],
+			       behavior: ["NOP", "CP_FIELD BUS_IB REG_MICROINS/EXCODE; FIRE M7; FIRE M2; FIRE M1"],
 			       fire_name: ['svg_p:text3147-5','svg_cu:tspan4426'],
 			       draw_data: [['svg_p:path3145', 'svg_p:path3081-3','svg_p:path3139-7','svg_p:path3049','svg_cu:path3081-3','svg_cu:path3139-7','svg_cu:path3502']],
 			       draw_name: [['svg_p:path3133-6','svg_cu:path3133-6']] };
@@ -636,7 +636,7 @@
 
 	 ep_signals["MC"]  = { name: "MC", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ['MBIT COP REG_IR 0 4; FIRE_IFCHANGED COP MC',
-					  'MV COP REG_MICROINS/SELCOP; FIRE_IFCHANGED COP MC'],
+					  'CP_FIELD COP REG_MICROINS/SELCOP; FIRE_IFCHANGED COP MC'],
                                depends_on: ["SELCOP"],
 			       fire_name: ['svg_cu:text3322','svg_cu:text3172-1-5'],
 			       draw_data: [['svg_cu:path3320', 'svg_cu:path3142'],['svg_cu:path3318', 'svg_cu:path3502-6', 'svg_cu:path3232-6']],
@@ -656,19 +656,19 @@
 			       draw_name: [[],['svg_cu:path3220','svg_cu:path3240','svg_cu:path3252']] };
 	 ep_signals["MR_RA"] = { name: "MR_RA", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			         behavior: ['MBIT_SN RA REG_IR REG_MICROINS/SELA 5; FIRE RA;',
-					    'MV RA REG_MICROINS/SELA; FIRE RA;'],
+					    'CP_FIELD RA REG_MICROINS/SELA; FIRE RA;'],
 			         fire_name: [],
 			         draw_data: [[]],
 			         draw_name: [[]] };
 	 ep_signals["MR_RB"] = { name: "MR_RB", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			         behavior: ['MBIT_SN RB REG_IR REG_MICROINS/SELB 5; FIRE RB;',
-					    'MV RB REG_MICROINS/SELB; FIRE RB;'],
+					    'CP_FIELD RB REG_MICROINS/SELB; FIRE RB;'],
 			         fire_name: [],
 			         draw_data: [[]],
 			         draw_name: [[]] };
 	 ep_signals["MR_RC"] = { name: "MR_RC", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			         behavior: ['MBIT_SN RC REG_IR REG_MICROINS/SELC 5; FIRE RC;',
-					    'MV RC REG_MICROINS/SELC; FIRE RC;'],
+					    'CP_FIELD RC REG_MICROINS/SELC; FIRE RC;'],
 			         fire_name: [],
 			         draw_data: [[]],
 			         draw_name: [[]] };
@@ -835,35 +835,66 @@
                                      types: ["X", "X"],
                                      operation: function(s_expr)
                                                 {
-                                                   r = s_expr[2].split('/') ;
-
+						   sim_elto_org = get_reference(s_expr[2]) ;
 						   sim_elto_dst = get_reference(s_expr[1]) ;
+                                                   newval       = get_value(sim_elto_org) ;
+                                                   set_value(sim_elto_dst, newval) ;
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+						   var sim_elto_org = get_reference(s_expr[2]) ;
+                                                   var newval       = get_value(sim_elto_org) ;
+
+                                                   return "Copy from " + show_verbal(s_expr[2]) + 
+							  " to " + show_verbal(s_expr[1]) + " value " + show_value(newval) + ". " ;
+                                                }
+                                   };
+        ep_behaviors["LOAD"]     = { nparameters: 3,
+                                     types: ["X", "X"],
+                                     operation: function(s_expr)
+                                                {
+						   sim_elto_org = get_reference(s_expr[2]) ;
+						   sim_elto_dst = get_reference(s_expr[1]) ;
+                                                   newval       = get_value(sim_elto_org) ;
+                                                   set_value(sim_elto_dst, newval) ;
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+						   var sim_elto_org = get_reference(s_expr[2]) ;
+                                                   var newval       = get_value(sim_elto_org) ;
+
+                                                   return "Load from " + show_verbal(s_expr[2]) + 
+							  " to " + show_verbal(s_expr[1]) + " value " + show_value(newval) + ". " ;
+                                                }
+                                   };
+        ep_behaviors["CP_FIELD"] = { nparameters: 3,
+                                     types: ["X", "X"],
+                                     operation: function(s_expr)
+                                                {
+                                                   r = s_expr[2].split('/') ;
 						   sim_elto_org = get_reference(r[0]) ;
 
                                                    newval = get_value(sim_elto_org) ;
-                                                   if (1 != r.length) 
-						       newval = newval[r[1]] ;
-
-                                                   if (typeof newval != "undefined")
+						   newval = newval[r[1]] ;
+                                                   if (typeof newval != "undefined") 
+						   {
+						       sim_elto_dst = get_reference(s_expr[1]) ;
                                                        set_value(sim_elto_dst, newval);
+						   }
                                                 },
                                         verbal: function (s_expr) 
                                                 {
                                                    var r = s_expr[2].split('/') ;
-
-						   var sim_elto_dst = get_reference(s_expr[1]) ;
 						   var sim_elto_org = get_reference(r[0]) ;
 
-						   var org_name = show_verbal(r[0]) ;
-                                                   var newval   = get_value(sim_elto_org) ;
-                                                   if (1 != r.length) {
-						       org_name = "Field " + r[1] + " of " + org_name ;
-						       newval   = newval[r[1]] ;
-                                                       if (typeof newval == "undefined")
-							   newval = 0 ;
+                                                   var newval = get_value(sim_elto_org) ;
+						       newval = newval[r[1]] ;
+                                                   if (typeof newval == "undefined") {
+						       return "" ;
 						   }
 
-                                                   return "Copy from " + org_name + " to " + show_verbal(s_expr[1]) + " value " + show_value(newval) + ". " ;
+                                                   return "Copy from Field " + r[1] + " of " + show_verbal(r[0]) + 
+							  " to " + show_verbal(s_expr[1]) + " value " + show_value(newval) + ". " ;
                                                 }
                                    };
 	ep_behaviors["NOT_ES"]   = { nparameters: 3,
@@ -1396,7 +1427,8 @@
 
 						   n1 = parseInt(n3, 2) ;
 
-                                                   return "Copy from " + show_verbal(s_expr[3]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(n1) + " (copied " + size + " bits from bit " + offset + "). " ;
+                                                   return "Copy from " + show_verbal(s_expr[3]) + " to " + show_verbal(s_expr[1]) + 
+						          " value " + show_value(n1) + " (copied " + size + " bits from bit " + offset + "). " ;
                                                 }
 				   };
 
