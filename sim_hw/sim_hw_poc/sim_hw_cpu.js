@@ -140,140 +140,188 @@
 
 	/* REGISTER FILE STATES */
 	poc_states.BR = [] ;
-	poc_states.BR[0]          = {name:"R0",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[1]          = {name:"R1",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[2]          = {name:"R2",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[3]          = {name:"R3",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[4]          = {name:"R4",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[5]          = {name:"R5",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[6]          = {name:"R6",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[7]          = {name:"R7",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[8]          = {name:"R8",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[9]          = {name:"R9",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[10]         = {name:"R10",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[11]         = {name:"R11",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[12]         = {name:"R12",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[13]         = {name:"R13",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[14]         = {name:"R14",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[15]         = {name:"R15",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[16]         = {name:"R16",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[17]         = {name:"R17",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[18]         = {name:"R18",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[19]         = {name:"R19",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[20]         = {name:"R20",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[21]         = {name:"R21",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[22]         = {name:"R22",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[23]         = {name:"R23",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[24]         = {name:"R24",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[25]         = {name:"R25",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[26]         = {name:"R26",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[27]         = {name:"R27",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[28]         = {name:"R28",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[29]         = {name:"R29",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[30]         = {name:"R30",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[31]         = {name:"R31",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[32]         = {name:"R32",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[33]         = {name:"R33",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[34]         = {name:"R34",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[35]         = {name:"R35",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[36]         = {name:"R36",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[37]         = {name:"R37",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[38]         = {name:"R38",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[39]         = {name:"R39",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[40]         = {name:"R40",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[41]         = {name:"R41",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[42]         = {name:"R42",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[43]         = {name:"R43",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[44]         = {name:"R44",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[45]         = {name:"R45",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[46]         = {name:"R46",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[47]         = {name:"R47",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[48]         = {name:"R48",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[49]         = {name:"R49",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[50]         = {name:"R50",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[51]         = {name:"R51",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[52]         = {name:"R52",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[53]         = {name:"R53",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[54]         = {name:"R54",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[55]         = {name:"R55",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[56]         = {name:"R56",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[57]         = {name:"R57",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[58]         = {name:"R58",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[59]         = {name:"R59",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[60]         = {name:"R60",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[61]         = {name:"R61",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[62]         = {name:"R62",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states.BR[63]         = {name:"R63",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[0]          = {name:"R0",    verbal: "Register  0",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[1]          = {name:"R1",    verbal: "Register  1",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[2]          = {name:"R2",    verbal: "Register  2",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[3]          = {name:"R3",    verbal: "Register  3",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[4]          = {name:"R4",    verbal: "Register  4",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[5]          = {name:"R5",    verbal: "Register  5",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[6]          = {name:"R6",    verbal: "Register  6",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[7]          = {name:"R7",    verbal: "Register  7",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[8]          = {name:"R8",    verbal: "Register  8",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[9]          = {name:"R9",    verbal: "Register  9",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[10]         = {name:"R10",   verbal: "Register 10",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[11]         = {name:"R11",   verbal: "Register 11",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[12]         = {name:"R12",   verbal: "Register 12",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[13]         = {name:"R13",   verbal: "Register 13",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[14]         = {name:"R14",   verbal: "Register 14",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[15]         = {name:"R15",   verbal: "Register 15",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[16]         = {name:"R16",   verbal: "Register 16",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[17]         = {name:"R17",   verbal: "Register 17",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[18]         = {name:"R18",   verbal: "Register 18",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[19]         = {name:"R19",   verbal: "Register 19",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[20]         = {name:"R20",   verbal: "Register 20",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[21]         = {name:"R21",   verbal: "Register 21",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[22]         = {name:"R22",   verbal: "Register 22",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[23]         = {name:"R23",   verbal: "Register 23",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[24]         = {name:"R24",   verbal: "Register 24",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[25]         = {name:"R25",   verbal: "Register 25",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[26]         = {name:"R26",   verbal: "Register 26",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[27]         = {name:"R27",   verbal: "Register 27",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[28]         = {name:"R28",   verbal: "Register 28",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[29]         = {name:"R29",   verbal: "Register 29",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[30]         = {name:"R30",   verbal: "Register 30",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[31]         = {name:"R31",   verbal: "Register 31",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[32]         = {name:"R32",   verbal: "Register 32",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[33]         = {name:"R33",   verbal: "Register 33",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[34]         = {name:"R34",   verbal: "Register 34",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[35]         = {name:"R35",   verbal: "Register 35",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[36]         = {name:"R36",   verbal: "Register 36",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[37]         = {name:"R37",   verbal: "Register 37",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[38]         = {name:"R38",   verbal: "Register 38",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[39]         = {name:"R39",   verbal: "Register 39",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[40]         = {name:"R40",   verbal: "Register 40",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[41]         = {name:"R41",   verbal: "Register 41",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[42]         = {name:"R42",   verbal: "Register 42",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[43]         = {name:"R43",   verbal: "Register 43",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[44]         = {name:"R44",   verbal: "Register 44",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[45]         = {name:"R45",   verbal: "Register 45",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[46]         = {name:"R46",   verbal: "Register 46",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[47]         = {name:"R47",   verbal: "Register 47",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[48]         = {name:"R48",   verbal: "Register 48",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[49]         = {name:"R49",   verbal: "Register 49",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[50]         = {name:"R50",   verbal: "Register 50",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[51]         = {name:"R51",   verbal: "Register 51",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[52]         = {name:"R52",   verbal: "Register 52",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[53]         = {name:"R53",   verbal: "Register 53",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[54]         = {name:"R54",   verbal: "Register 54",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[55]         = {name:"R55",   verbal: "Register 55",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[56]         = {name:"R56",   verbal: "Register 56",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[57]         = {name:"R57",   verbal: "Register 57",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[58]         = {name:"R58",   verbal: "Register 58",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[59]         = {name:"R59",   verbal: "Register 59",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[60]         = {name:"R60",   verbal: "Register 60",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[61]         = {name:"R61",   verbal: "Register 61",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[62]         = {name:"R62",   verbal: "Register 62",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states.BR[63]         = {name:"R63",   verbal: "Register 63",  visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
-	poc_states["REG_PC"]         = {name:"PC",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states["REG_MAR"]        = {name:"MAR",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states["REG_MBR"]        = {name:"MBR",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states["REG_IR"]         = {name:"IR",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states["REG_RT1"]        = {name:"RT1",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states["REG_RT2"]        = {name:"RT2",              visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states["REG_SR"]         = {name:"SR",               visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states["REG_PC"]     = { name:"PC",  verbal: "Program Counter Register",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states["REG_MAR"]    = { name:"MAR", verbal: "Memory Address Register",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states["REG_MBR"]    = { name:"MBR", verbal: "Memory Data Register",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states["REG_IR"]     = { name:"IR",  verbal: "Instruction Register",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states["REG_RT1"]    = { name:"RT1", verbal: "Temporal 1 Register",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states["REG_RT2"]    = { name:"RT2", verbal: "Temporal 2 Register",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states["REG_RT3"]    = { name:"RT3", verbal: "Temporal 3 Register",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states["REG_SR"]     = { name:"SR", verbal: "State Register",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
 	/* BUSES */
-	poc_states["BUS_IB"]         = {name:"I_BUS",            visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states["BUS_AB"]         = {name:"A_BUS",            visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states["BUS_CB"]         = {name:"C_BUS",            visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states["BUS_DB"]         = {name:"D_BUS",            visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states["BUS_IB"]     = { name:"I_BUS", verbal: "Internal Bus",
+                                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states["BUS_AB"]     = { name:"A_BUS", verbal: "Address Bus",
+                                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states["BUS_CB"]     = { name:"C_BUS", verbal: "Control Bus",
+                                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states["BUS_DB"]     = { name:"D_BUS", verbal: "Data Bus",
+                                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
 	/* REGISTER PC (RELATED) STATES */
-	poc_states["C2_T2"]          = {name: "C2_T2",           visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+	poc_states["C2_T2"]      = { name: "C2_T2", verbal: "Output of PC",
+                                     visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
 	/* REGISTER FILE (RELATED) STATES */
-	poc_states["RA_T9"]          = {name: "RA_T9",           visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
-	poc_states["RB_T10"]         = {name: "RB_T10",          visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+	poc_states["RA_T9"]      = { name: "RA_T9",  verbal: "Input of T9 Tristate",
+                                     visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+	poc_states["RB_T10"]     = { name: "RB_T10", verbal: "Input of T10 Tristate",
+                                     visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
 	/* (RELATED) SELEC STATES */
-	poc_states["SELEC_T3"]       = { name: "SELEC_T3",       visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
-	poc_states["SELP_M7"]        = { name: "SELP_M7",        visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+	poc_states["SELEC_T3"]   = { name: "SELEC_T3", verbal: "Input of T3 Tristate",
+                                     visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+	poc_states["SELP_M7"]    = { name: "SELP_M7",  verbal: "Output of MUX SelP",
+                                     visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
-	poc_states["SUM4_M2"]        = {name:"SUM4_M2",          visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states["ALU_C6"]         = {name:"ALU_C6",           visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states["MA_ALU"]         = {name:"MA_ALU",           visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states["MB_ALU"]         = {name:"MB_ALU",           visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states["SUM4_M2"]    = { name:"SUM4_M2", verbal: "Input of MUX 2 with +4",
+		                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states["ALU_C6"]     = { name:"ALU_C6",  verbal: "Input of Temporal 3 Register",
+                                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states["MA_ALU"]     = { name:"MA_ALU",  verbal: "Input ALU via MA",
+                                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states["MB_ALU"]     = { name:"MB_ALU",  verbal: "Input ALU via MB",
+                                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
-	poc_states["FLAG_C"]         = { name: "FLAG_C",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	poc_states["FLAG_V"]         = { name: "FLAG_V",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	poc_states["FLAG_N"]         = { name: "FLAG_N",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	poc_states["FLAG_Z"]         = { name: "FLAG_Z",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	poc_states["FLAG_I"]         = { name: "FLAG_I",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	poc_states["FLAG_U"]         = { name: "FLAG_U",         visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+	poc_states["FLAG_C"]     = { name: "FLAG_C", verbal: "Flag Carry",
+                                     visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+	poc_states["FLAG_V"]     = { name: "FLAG_V", verbal: "Flag Overflow",
+                                     visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+	poc_states["FLAG_N"]     = { name: "FLAG_N", verbal: "Flag Negative",
+                                     visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+	poc_states["FLAG_Z"]     = { name: "FLAG_Z", verbal: "Flag Zero",
+                                     visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+	poc_states["FLAG_I"]     = { name: "FLAG_I", verbal: "Flag Interruption",
+                                     visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
+	poc_states["FLAG_U"]     = { name: "FLAG_U", verbal: "Flag User",
+                                     visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
 
 	/* CONTROL UNIT */
-	poc_states["REG_MICROADDR"]  = { name: "µADDR",          visible:true, nbits: "12", value:0,  default_value:0,  draw_data: ['svg_cu:text4667']};
-	poc_states["REG_MICROINS"]   = { name: "µINS",           visible:true, nbits: "77", value:{}, default_value:{}, draw_data: [] };
+	poc_states["REG_MICROADDR"]  = { name: "µADDR", verbal: "Microaddress Register",
+                                         visible:true, nbits: "12", value:0,  default_value:0,  draw_data: ['svg_cu:text4667']};
+	poc_states["REG_MICROINS"]   = { name: "µINS", verbal: "Microinstruction Register",
+                                         visible:true, nbits: "77", value:{}, default_value:{}, draw_data: [] };
 
-	poc_states["FETCH"]          = { name: "FETCH",          visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
-	poc_states["ROM_MUXA"]       = { name: "ROM_MUXA",       visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
-	poc_states["SUM_ONE"]        = { name: "SUM_ONE",        visible:false, nbits: "12", value:1, default_value:1, draw_data: [] };
-	poc_states["MUXA_MICROADDR"] = { name: "MUXA_MICROADDR", visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
+	poc_states["FETCH"]          = { name: "FETCH",          verbal: "Input Fetch ",
+                                         visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
+	poc_states["ROM_MUXA"]       = { name: "ROM_MUXA",       verbal: "Input ROM ",
+                                         visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
+	poc_states["SUM_ONE"]        = { name: "SUM_ONE",        verbal: "Input next microinstruction ",
+                                         visible:false, nbits: "12", value:1, default_value:1, draw_data: [] };
+	poc_states["MUXA_MICROADDR"] = { name: "MUXA_MICROADDR", verbal: "Input microaddress from microinstruction",
+                                         visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
 
-	poc_states["MUXC_MUXB"]      = { name: "MUXC_MUXB",      visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
-	poc_states["INEX"]           = { name: "INEX",           visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
+	poc_states["MUXC_MUXB"]      = { name: "MUXC_MUXB", verbal: "Output of MUX C",
+                                         visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
+	poc_states["INEX"]           = { name: "INEX",      verbal: "Illegal Instruction Exception",
+                                         visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
 
 	/* DEVICES AND MEMORY */
-	poc_states["BS_M1"]          = { name: "BS_M1",          visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
-	poc_states["BS_TD"]          = { name: "BS_TD",          visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+	poc_states["BS_M1"]          = { name: "BS_M1", verbal: "from Memory",
+                                         visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
+	poc_states["BS_TD"]          = { name: "BS_TD", verbal: "Memory",
+                                         visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
-	poc_states["INTV"]           = { name: "INTV",           visible:false, nbits: "8",  value:0, default_value:0, draw_data: [] };
+	poc_states["INTV"]           = { name: "INTV", verbal: "Interruption Vector",
+                                         visible:false, nbits: "8",  value:0, default_value:0, draw_data: [] };
 
 
 	/* MUX A (RELATED) STATES */
-	poc_states["M2_C2"]          = { name:"M2_C2",           visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states["M1_C1"]          = { name:"M1_C1",           visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states["M7_C7"]          = { name:"M7_C7",           visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states["M2_C2"]          = { name:"M2_C2", verbal: "Input of Program Counter",
+                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states["M1_C1"]          = { name:"M1_C1", verbal: "Input of Memory Data Register",
+                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states["M7_C7"]          = { name:"M7_C7", verbal: "Input of State Register",
+                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
-	poc_states["VAL_ZERO"]       = { name: "VAL_ZERO",       visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
-	poc_states["VAL_ONE"]        = { name: "VAL_ONE",        visible:false, nbits: "32", value:1, default_value:1, draw_data: [] };
-	poc_states["VAL_FOUR"]       = { name: "VAL_FOUR",       visible:false, nbits: "32", value:4, default_value:4, draw_data: [] };
+	poc_states["VAL_ZERO"]       = { name: "VAL_ZERO", verbal: "Wired Zero",
+                                         visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
+	poc_states["VAL_ONE"]        = { name: "VAL_ONE",  verbal: "Wired One",
+                                         visible:false, nbits: "32", value:1, default_value:1, draw_data: [] };
+	poc_states["VAL_FOUR"]       = { name: "VAL_FOUR", verbal: "Wired Four",
+                                         visible:false, nbits: "32", value:4, default_value:4, draw_data: [] };
 
 	/* VIRTUAL */
-	poc_states["REG_IR_DECO"]    = {name:"IR_DECO",          visible:true,  nbits:"0",  value:0,  default_value:0, draw_data: [] };
-	poc_states["DECO_INS"]       = {name:"DECO_INS",         visible:true,  nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states["CLK"]            = {name:"CLK",              visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states["REG_IR_DECO"]    = { name:"IR_DECO",  verbal: "Instruction Decoded",
+                                         visible:true,  nbits:"0",  value:0,  default_value:0, draw_data: [] };
+	poc_states["DECO_INS"]       = { name:"DECO_INS", verbal: "Instruction decoded in binary",
+                                         visible:true,  nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states["CLK"]            = { name:"CLK",      verbal: "Clock",
+                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
 
 	/*
@@ -805,7 +853,7 @@
 						},
 					verbal: function (s_expr) 
 						{
-						   var value = Math.abs(get_value(ep_states[s_expr[2]]) - 1) ;
+						   var value = Math.abs(get_value(poc_states[s_expr[2]]) - 1) ;
 
                                                    return "Set " + s_expr[1] + " with value " + show_value(value) + " (Logical NOT of " + s_expr[2] + "). " ;
 						}
@@ -818,7 +866,7 @@
 						},
 					verbal: function (s_expr) 
 						{
-						   var value = get_value(ep_states[s_expr[2]][ep_signals[s_expr[3]].value]) ;
+						   var value = get_value(poc_states[s_expr[2]][poc_signals[s_expr[3]].value]) ;
 
                                                    return "Set " + s_expr[1] + " with value " + show_value(value) + " (Register File " + s_expr[3] + "). " ;
 						}
@@ -831,7 +879,7 @@
 						},
 					verbal: function (s_expr) 
 						{
-						   var value = get_value(ep_states[s_expr[3]]) ;
+						   var value = get_value(poc_states[s_expr[3]]) ;
 
                                                    return "Copy to Register File " + s_expr[2] + " the value " + show_value(value) + ". " ;
 						}
@@ -847,7 +895,7 @@
 						},
 					verbal: function (s_expr) 
 						{
-				                   var result = get_value(ep_states[s_expr[2]]) & get_value(ep_states[s_expr[3]]) ;
+				                   var result = get_value(poc_states[s_expr[2]]) & get_value(poc_states[s_expr[3]]) ;
 
                                                    return "ALU AND with result " + show_value(result) + ". " ;
 						}
@@ -863,7 +911,7 @@
 						},
 					verbal: function (s_expr) 
 						{
-				                   var result = get_value(ep_states[s_expr[2]]) | get_value(ep_states[s_expr[3]]) ;
+				                   var result = get_value(poc_states[s_expr[2]]) | get_value(poc_states[s_expr[3]]) ;
 
                                                    return "ALU OR with result " + show_value(result) + ". " ;
 						}
@@ -879,7 +927,7 @@
 						},
 					verbal: function (s_expr) 
 						{
-				                   var result = ~(get_value(ep_states[s_expr[2]])) ;
+				                   var result = ~(get_value(poc_states[s_expr[2]])) ;
 
                                                    return "ALU NOT with result " + show_value(result) + ". " ;
 						}
@@ -895,7 +943,7 @@
 						},
 					verbal: function (s_expr) 
 						{
-				                   var result = get_value(ep_states[s_expr[2]]) ^ get_value(ep_states[s_expr[3]]) ;
+				                   var result = get_value(poc_states[s_expr[2]]) ^ get_value(poc_states[s_expr[3]]) ;
 
                                                    return "ALU XOR with result " + show_value(result) + ". " ;
 						}
@@ -911,7 +959,7 @@
 						},
 					verbal: function (s_expr) 
 						{
-				                   var result = (get_value(ep_states[s_expr[2]])) >>> 1 ;
+				                   var result = (get_value(poc_states[s_expr[2]])) >>> 1 ;
 
                                                    return "ALU Shift Right Logical with result " + show_value(result) + ". " ;
 						}
@@ -927,7 +975,7 @@
 						},
 					verbal: function (s_expr) 
 						{
-				                   var result = (get_value(ep_states[s_expr[2]])) >> 1 ;
+				                   var result = (get_value(poc_states[s_expr[2]])) >> 1 ;
 
                                                    return "ALU Shift Right Arithmetic with result " + show_value(result) + ". " ;
 						}
@@ -943,7 +991,7 @@
 						},
 					verbal: function (s_expr) 
 						{
-				                   var result = (get_value(ep_states[s_expr[2]])) << 1 ;
+				                   var result = (get_value(poc_states[s_expr[2]])) << 1 ;
 
                                                    return "ALU Shift Left with result " + show_value(result) + ". " ;
 						}
@@ -959,7 +1007,7 @@
 						},
 					verbal: function (s_expr) 
 						{
-				                   var result = ((get_value(ep_states[s_expr[2]])) >>> 1) | (((get_value(ep_states[s_expr[2]])) & 1) << 31) ;
+				                   var result = ((get_value(poc_states[s_expr[2]])) >>> 1) | (((get_value(poc_states[s_expr[2]])) & 1) << 31) ;
 
                                                    return "ALU Right Rotation with result " + show_value(result) + ". " ;
 						}
@@ -975,7 +1023,7 @@
 						},
 					verbal: function (s_expr) 
 						{
-				                   var result = ((get_value(ep_states[s_expr[2]])) << 1) | (((get_value(ep_states[s_expr[2]])) & 0X80000000) >>> 31) ;
+				                   var result = ((get_value(poc_states[s_expr[2]])) << 1) | (((get_value(poc_states[s_expr[2]])) & 0X80000000) >>> 31) ;
 
                                                    return "ALU Left Rotation with result " + show_value(result) + ". " ;
 						}
@@ -1003,8 +1051,8 @@
 						},
 					verbal: function (s_expr) 
 						{
-						   var a = get_value(ep_states[s_expr[2]]) << 0 ;
-                                                   var b = get_value(ep_states[s_expr[3]]) << 0 ;
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(poc_states[s_expr[3]]) << 0 ;
 						   var result = a + b ;
 
                                                    return "ALU ADD with result " + show_value(result) + ". " ;
@@ -1033,8 +1081,8 @@
 						},
 					verbal: function (s_expr) 
 						{
-						   var a = get_value(ep_states[s_expr[2]]) << 0 ;
-                                                   var b = get_value(ep_states[s_expr[3]]) << 0 ;
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(poc_states[s_expr[3]]) << 0 ;
 						   var result = a - b ;
 
                                                    return "ALU SUB with result " + show_value(result) + ". " ;
@@ -1063,8 +1111,8 @@
 						},
 					verbal: function (s_expr) 
 						{
-						   var a = get_value(ep_states[s_expr[2]]) << 0 ;
-                                                   var b = get_value(ep_states[s_expr[3]]) << 0 ;
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(poc_states[s_expr[3]]) << 0 ;
 						   var result = a * b ;
 
                                                    return "ALU MUL with result " + show_value(result) + ". " ;
@@ -1089,8 +1137,8 @@
 						},
 					verbal: function (s_expr) 
 						{
-						   var a = get_value(ep_states[s_expr[2]]) << 0 ;
-                                                   var b = get_value(ep_states[s_expr[3]]) << 0 ;
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(poc_states[s_expr[3]]) << 0 ;
 
 						   if (0 == b) {
                                                        return "ALU DIV zero by zero (oops!). " ;
@@ -1111,8 +1159,8 @@
 						},
 					verbal: function (s_expr) 
 						{
-						   var a = get_value(ep_states[s_expr[2]]) << 0 ;
-                                                   var b = get_value(ep_states[s_expr[3]]) << 0 ;
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(poc_states[s_expr[3]]) << 0 ;
 
 						   var result = a % b ;
 
@@ -1130,7 +1178,7 @@
 						},
 					verbal: function (s_expr) 
 						{
-						   var result = (get_value(ep_states[s_expr[2]])) << 16 ;
+						   var result = (get_value(poc_states[s_expr[2]])) << 16 ;
 
                                                    return "ALU Load Upper Immediate with result " + show_value(result) + ". " ;
 						}
@@ -1330,13 +1378,13 @@
 				     types: ["E", "E"],
 				     operation: function(s_expr) 
 		                                {
-						   var a = get_value(ep_states[s_expr[2]]) << 0 ;
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
 						   var result = a + 4 ;
-						   set_value(ep_states[s_expr[1]], result >>> 0) ;
+						   set_value(poc_states[s_expr[1]], result >>> 0) ;
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-						   var a = get_value(ep_states[s_expr[2]]) << 0 ;
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
 						   var result = a + 4 ;
 
                                                    return "ADD 4 to " + s_expr[2] + " with result " + show_value(result) + ". " ;
@@ -1447,15 +1495,15 @@
 						},
 					verbal: function (s_expr) 
 						{
-						   var offset = parseInt(ep_signals[s_expr[4]].value) ;
-						   var size   = parseInt(ep_signals[s_expr[5]].value) ;
+						   var offset = parseInt(poc_signals[s_expr[4]].value) ;
+						   var size   = parseInt(poc_signals[s_expr[5]].value) ;
 
-						   var n1 = get_value(ep_states[s_expr[3]]).toString(2); // to binary
+						   var n1 = get_value(poc_states[s_expr[3]]).toString(2); // to binary
 						   var n2 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1) ;
 						       n2 = n2.substr(31 - (offset + size - 1), size);
 
 						   var n3 =  "00000000000000000000000000000000".substring(0, 32 - n2.length) + n2;
-						   if ( ("1" ==  ep_signals[s_expr[7]].value) && ("1" == n2.substr(0, 1)))
+						   if ( ("1" ==  poc_signals[s_expr[7]].value) && ("1" == n2.substr(0, 1)))
                                                    {    // check signed-extension
 							n3 = "11111111111111111111111111111111".substring(0, 32 - n2.length) + n2;
 						   }
@@ -1490,7 +1538,7 @@
 						   var len  = parseInt(s_expr[3]) ;
 						   var poso = parseInt(s_expr[5]) ;
 
-						   var n1 = get_value(ep_states[s_expr[4]]).toString(2); // to binary
+						   var n1 = get_value(poc_states[s_expr[4]]).toString(2); // to binary
 						   var n2 = "00000000000000000000000000000000".substring(0, 32 - n1.length) + n1 ;
 						       n2 = n2.substr(31 - (poso + len) + 1, len);
 						   var n3 = "00000000000000000000000000000000".substring(0, 32 - n2.length) + n2;
@@ -1547,11 +1595,11 @@
 						   var poso = 0 ;
 						   var len  = parseInt(s_expr[3]) ;
 
-						   var n1 =  ep_signals[s_expr[4]].value.toString(2); // to binary signal origin
+						   var n1 =  poc_signals[s_expr[4]].value.toString(2); // to binary signal origin
 						   n1 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1);
 						   n1 = n1.substr(31 - poso - len + 1, len);
 
-						   var n2 =  ep_signals[s_expr[1]].value.toString(2); // to binary signal destiny
+						   var n2 =  poc_signals[s_expr[1]].value.toString(2); // to binary signal destiny
 						   n2 = ("00000000000000000000000000000000".substring(0, 32 - n2.length) + n2) ;
 						   var m1 = n2.substr(0, 32 - (posd + len));
 						   var m2 = n2.substr(31 - posd + 1, posd);

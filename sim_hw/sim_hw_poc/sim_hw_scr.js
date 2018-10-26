@@ -90,25 +90,29 @@
          *  States
          */
 
-        poc_states.DDR   = { name: "DDR",    visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-        poc_states.DSR   = { name: "DSR",    visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+        poc_states.DDR   = { name: "DDR", verbal: "Display Data Register", 
+                             visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+        poc_states.DSR   = { name: "DSR", verbal: "Display State Register", 
+                             visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
 
 
         /*
          *  Signals
          */
 
-        poc_signals.SCR_IOR = { name: "IOR", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-		               behavior: ["NOP", "SCR_IOR BUS_AB BUS_DB DDR DSR CLK"],
-                               fire_name: ['svg_p:tspan4004'], 
-                               draw_data: [[], ['svg_p:path3871', 'svg_p:path3857']], 
-                               draw_name: [[], []]};
+        poc_signals.SCR_IOR = { name: "IOR", 
+		                visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+		                behavior: ["NOP", "SCR_IOR BUS_AB BUS_DB DDR DSR CLK"],
+                                fire_name: ['svg_p:tspan4004'], 
+                                draw_data: [[], ['svg_p:path3871', 'svg_p:path3857']], 
+                                draw_name: [[], []]};
 
-        poc_signals.SCR_IOW = { name: "IOW", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-		               behavior: ["NOP", "SCR_IOW BUS_AB BUS_DB DDR DSR CLK"],
-                               fire_name: ['svg_p:tspan4006'], 
-                               draw_data: [[], ['svg_p:path3873', 'svg_p:path3857']], 
-                               draw_name: [[], []]};
+        poc_signals.SCR_IOW = { name: "IOW", 
+		                visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+		                behavior: ["NOP", "SCR_IOW BUS_AB BUS_DB DDR DSR CLK"],
+                                fire_name: ['svg_p:tspan4006'], 
+                                draw_data: [[], ['svg_p:path3873', 'svg_p:path3857']], 
+                                draw_name: [[], []]};
 
 
         /*
@@ -182,9 +186,9 @@
                                                  {
 					              var verbal = "" ;
 
-                                                      var bus_ab = get_value(ep_states[s_expr[1]]) ;
-                                                      var bus_db = get_value(ep_states[s_expr[2]]) ;
-                                                      var clk    = get_value(ep_states[s_expr[5]]) ;
+                                                      var bus_ab = get_value(poc_states[s_expr[1]]) ;
+                                                      var bus_db = get_value(poc_states[s_expr[2]]) ;
+                                                      var clk    = get_value(poc_states[s_expr[5]]) ;
                                                       var ch     = String.fromCharCode(bus_db);
 
                                                       if (bus_ab == DDR_ID)

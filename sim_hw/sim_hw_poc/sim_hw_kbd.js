@@ -54,15 +54,18 @@
          *  States
          */
 
-        poc_states.KBDR   = { name: "KBDR",    visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-        poc_states.KBSR   = { name: "KBSR",    visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+        poc_states.KBDR   = { name: "KBDR", verbal: "Keyboard Data Register",
+                              visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+        poc_states.KBSR   = { name: "KBSR", verbal: "Keyboard Status Register",
+                              visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
 
 
         /*
          *  Signals
          */
 
-         poc_signals.KBD_IOR = { name: "IOR", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+         poc_signals.KBD_IOR   = { name: "IOR", 
+		                   visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		                   behavior: ["NOP", "KBD_IOR BUS_AB BUS_DB KBDR KBSR CLK; FIRE SBWA"],
                                    fire_name: ['svg_p:tspan4057'], 
                                    draw_data: [[], ['svg_p:path3863', 'svg_p:path3847']], 
@@ -123,13 +126,13 @@
                                                    {
 					              var verbal = "" ;
 
-                                                      var bus_ab = get_value(ep_states[s_expr[1]]) ;
-                                                      var clk    = get_value(ep_states[s_expr[5]]) ;
+                                                      var bus_ab = get_value(poc_states[s_expr[1]]) ;
+                                                      var clk    = get_value(poc_states[s_expr[5]]) ;
 
 						      if (bus_ab == KBDR_ID)
-                                                          verbal = "Read the screen data: " + ep_states[s_expr[2]] + ". " ;
+                                                          verbal = "Read the screen data: " + poc_states[s_expr[2]] + ". " ;
 						      if (bus_ab == KBSR_ID)
-                                                          verbal = "Read the screen state: " + ep_states[s_expr[2]] + ". " ;
+                                                          verbal = "Read the screen state: " + poc_states[s_expr[2]] + ". " ;
 
 					              return verbal ;
                                                    }
