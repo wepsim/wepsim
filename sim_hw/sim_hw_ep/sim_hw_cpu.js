@@ -674,7 +674,12 @@
 			         draw_name: [[]] };
 
 	/* W-Byte & R-Byte Selector */
-	 ep_signals["BW"] =  { name: "BW", visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
+	 ep_signals["BW"] =  { name: "BW", 
+		               verbal: ['Select one byte (based on A1A0) from Word', 
+                                        'Select two bytes (one Half Word based on A1A0) from Word', 
+                                        '', 
+                                        'Select the full Word'],
+                               visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
 		               behavior: ['MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BW; FIRE SBWA; RESET_CHANGED BW',
 				          'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BW; FIRE SBWA; RESET_CHANGED BW',
 				          'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BW; FIRE SBWA; RESET_CHANGED BW',
