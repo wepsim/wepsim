@@ -134,14 +134,18 @@
                                                  },
                                          verbal: function (s_expr) 
                                                  {
+					            var verbal = "" ;
+
                                                     var bus_ab = get_value(poc_states[s_expr[1]]) ;
                                                     var ddr    = get_value(poc_states[s_expr[3]]) ;
                                                     var dsr    = get_value(poc_states[s_expr[4]]) ;
 
                                                     if (bus_ab == DDR_ID)
-                                                        return "Try to read from the screen the DDR value " + ddr + ". " ;
+                                                        verbal = "Try to read from the screen the DDR value " + ddr + ". " ;
                                                     if (bus_ab == DDR_ID)
-                                                        return "Try to read into the screen the DSR value " + dsr + ". " ;
+                                                        verbal = "Try to read into the screen the DSR value " + dsr + ". " ;
+
+                                                    return verbal ;
                                                  }
                                 };
 

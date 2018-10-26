@@ -347,8 +347,8 @@
                                                '  <input aria-label="value ' + n + '" type="radio" name="ask_svalue" ' +
                                                '         value="' + n + '" ' + str_checked + ' />' + 
 					       '  <span class="badge badge-secondary badge-pill">' + n + '</span>' + '&nbsp;' + 
-					       '  <span>' + behav_str + '</span>' + 
-					       '  <p class="m-0 ml-3 bg-light collapse show bh-all"><small>' + behav_raw + '&nbsp;' + str_bolded + '</small></p>' +
+					       '  <span>' + behav_str + '</span>&nbsp;' + str_bolded +
+					       '  <p class="m-0 ml-3 bg-light collapse bh-all"><small>' + behav_raw + '</small></p>' +
                                                '</label>' + 
 					       '</li>' ;
                             }

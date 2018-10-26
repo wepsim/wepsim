@@ -378,7 +378,7 @@
 			       draw_name: [[]] };
 	 poc_signals["A0A1"] = { name: "A0A1", visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
 				behavior: ["ADD MUXA_MICROADDR REG_MICROADDR SUM_ONE",
-					   "MV MUXA_MICROADDR REG_MICROINS/MADDR",
+					   "CP_FIELD MUXA_MICROADDR REG_MICROINS/MADDR",
 					   "MV MUXA_MICROADDR ROM_MUXA",
 					   "MV MUXA_MICROADDR FETCH"],
                                 depends_on: ["CLK"],
@@ -463,7 +463,7 @@
 			       draw_data: [['svg_p:path3145', 'svg_p:path3141','svg_p:path3049','svg_p:path3145-5']],
 			       draw_name: [['svg_p:path3137']] };
 	 poc_signals["T11"] = { name: "T11", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV BUS_IB REG_MICROINS/EXCODE; FIRE M7; FIRE M2; FIRE M1"],
+			       behavior: ["NOP", "CP_FIELD BUS_IB REG_MICROINS/EXCODE; FIRE M7; FIRE M2; FIRE M1"],
 			       fire_name: ['svg_p:text3147-5','svg_cu:tspan4426'],
 			       draw_data: [['svg_p:path3145', 'svg_p:path3081-3','svg_p:path3139-7','svg_p:path3049','svg_cu:path3081-3','svg_cu:path3139-7','svg_cu:path3502']],
 			       draw_name: [['svg_p:path3133-6','svg_cu:path3133-6']] };
@@ -624,7 +624,7 @@
 
 	 poc_signals["MC"]  = { name: "MC", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ['MBIT COP REG_IR 0 5; FIRE_IFCHANGED COP MC',
-					  'MV COP REG_MICROINS/SELCOP; FIRE_IFCHANGED COP MC'],
+					  'CP_FIELD COP REG_MICROINS/SELCOP; FIRE_IFCHANGED COP MC'],
                                depends_on: ["SELCOP"],
 			       fire_name: ['svg_cu:text3322','svg_cu:text3172-1-5'],
 			       draw_data: [['svg_cu:path3320', 'svg_cu:path3142'],['svg_cu:path3318', 'svg_cu:path3502-6', 'svg_cu:path3232-6']],
@@ -644,19 +644,19 @@
 			       draw_name: [[],['svg_cu:path3220','svg_cu:path3240','svg_cu:path3252']] };
 	 poc_signals["MR_RA"] = { name: "MR_RA", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			         behavior: ['MBIT_SN RA REG_IR REG_MICROINS/SELA 6; FIRE RA;',
-					    'MV RA REG_MICROINS/SELA; FIRE RA;'],
+					    'CP_FIELD RA REG_MICROINS/SELA; FIRE RA;'],
 			         fire_name: [],
 			         draw_data: [[]],
 			         draw_name: [[]] };
 	 poc_signals["MR_RB"] = { name: "MR_RB", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			         behavior: ['MBIT_SN RB REG_IR REG_MICROINS/SELB 6; FIRE RB;',
-					    'MV RB REG_MICROINS/SELB; FIRE RB;'],
+					    'CP_FIELD RB REG_MICROINS/SELB; FIRE RB;'],
 			         fire_name: [],
 			         draw_data: [[]],
 			         draw_name: [[]] };
 	 poc_signals["MR_RC"] = { name: "MR_RC", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			         behavior: ['MBIT_SN RC REG_IR REG_MICROINS/SELC 6; FIRE RC;',
-					    'MV RC REG_MICROINS/SELC; FIRE RC;'],
+					    'CP_FIELD RC REG_MICROINS/SELC; FIRE RC;'],
 			         fire_name: [],
 			         draw_data: [[]],
 			         draw_name: [[]] };
@@ -814,35 +814,66 @@
                                      types: ["X", "X"],
                                      operation: function(s_expr)
                                                 {
-                                                   r = s_expr[2].split('/');
-
+						   sim_elto_org = get_reference(s_expr[2]) ;
 						   sim_elto_dst = get_reference(s_expr[1]) ;
+                                                   newval       = get_value(sim_elto_org) ;
+                                                   set_value(sim_elto_dst, newval) ;
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+						   var sim_elto_org = get_reference(s_expr[2]) ;
+                                                   var newval       = get_value(sim_elto_org) ;
+
+                                                   return "Copy from " + show_verbal(s_expr[2]) + 
+							  " to " + show_verbal(s_expr[1]) + " value " + show_value(newval) + ". " ;
+                                                }
+                                   };
+        poc_behaviors["LOAD"]    = { nparameters: 3,
+                                     types: ["X", "X"],
+                                     operation: function(s_expr)
+                                                {
+						   sim_elto_org = get_reference(s_expr[2]) ;
+						   sim_elto_dst = get_reference(s_expr[1]) ;
+                                                   newval       = get_value(sim_elto_org) ;
+                                                   set_value(sim_elto_dst, newval) ;
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+						   var sim_elto_org = get_reference(s_expr[2]) ;
+                                                   var newval       = get_value(sim_elto_org) ;
+
+                                                   return "Load from " + show_verbal(s_expr[2]) + 
+							  " to " + show_verbal(s_expr[1]) + " value " + show_value(newval) + ". " ;
+                                                }
+                                   };
+        poc_behaviors["CP_FIELD"] = { nparameters: 3,
+                                     types: ["X", "X"],
+                                     operation: function(s_expr)
+                                                {
+                                                   r = s_expr[2].split('/') ;
 						   sim_elto_org = get_reference(r[0]) ;
 
                                                    newval = get_value(sim_elto_org) ;
-                                                   if (1 != r.length) 
-						       newval = newval[r[1]] ;
-
-                                                   if (typeof newval != "undefined")
+						   newval = newval[r[1]] ;
+                                                   if (typeof newval != "undefined") 
+						   {
+						       sim_elto_dst = get_reference(s_expr[1]) ;
                                                        set_value(sim_elto_dst, newval);
-						},
-					verbal: function (s_expr) 
-		                                {
+						   }
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
                                                    var r = s_expr[2].split('/') ;
-
-						   var sim_elto_dst = get_reference(s_expr[1]) ;
 						   var sim_elto_org = get_reference(r[0]) ;
 
-						   var org_name = r[0] ;
-                                                   var newval   = get_value(sim_elto_org) ;
-                                                   if (1 != r.length) {
-						       org_name = org_name + "/" + r[1] ;
-						       newval   = newval[r[1]] ;
-                                                       if (typeof newval == "undefined")
-							   newval = "0" ;
+                                                   var newval = get_value(sim_elto_org) ;
+						       newval = newval[r[1]] ;
+                                                   if (typeof newval == "undefined") {
+						       return "" ;
 						   }
 
-                                                   return "Copy from " + org_name + " to " + s_expr[1] + " value " + newval + ". " ;
+                                                   return "Copy from Field " + r[1] + " of " + show_verbal(r[0]) + 
+							  " to " + show_verbal(s_expr[1]) + " value " + show_value(newval) + ". " ;
                                                 }
                                    };
 	poc_behaviors["NOT_ES"]   = { nparameters: 3,
@@ -855,7 +886,7 @@
 						{
 						   var value = Math.abs(get_value(poc_states[s_expr[2]]) - 1) ;
 
-                                                   return "Set " + s_expr[1] + " with value " + show_value(value) + " (Logical NOT of " + s_expr[2] + "). " ;
+                                                   return "Set " + show_verbal(s_expr[1]) + " with value " + show_value(value) + " (Logical NOT of " + s_expr[2] + "). " ;
 						}
 				   };
 	poc_behaviors["GET"]     = { nparameters: 4,
@@ -868,7 +899,7 @@
 						{
 						   var value = get_value(poc_states[s_expr[2]][poc_signals[s_expr[3]].value]) ;
 
-                                                   return "Set " + s_expr[1] + " with value " + show_value(value) + " (Register File " + s_expr[3] + "). " ;
+                                                   return "Set " + show_verbal(s_expr[1]) + " with value " + show_value(value) + " (Register File " + s_expr[3] + "). " ;
 						}
 				   };
 	poc_behaviors["SET"]     = { nparameters: 4,
@@ -880,8 +911,13 @@
 					verbal: function (s_expr) 
 						{
 						   var value = get_value(poc_states[s_expr[3]]) ;
+						   var o_ref = poc_states[s_expr[1]][poc_signals[s_expr[2]].value] ;
 
-                                                   return "Copy to Register File " + s_expr[2] + " the value " + show_value(value) + ". " ;
+						   var o_verbal = o_ref.name ;
+						   if (typeof o_ref.verbal != "undefined")
+						       o_verbal = o_ref.verbal ;
+
+                                                   return "Copy to " + o_verbal + " the value " + show_value(value) + ". " ;
 						}
 				   };
 	poc_behaviors["AND"]     = { nparameters: 4,
@@ -1371,7 +1407,9 @@
 						},
 					verbal: function (s_expr) 
 						{
-						   return "" ; // TODO
+						   var result = (get_value(poc_states[s_expr[2]])) << 16 ;
+
+                                                   return "ALU Load Upper Immediate with result " + show_value(result) + ". " ;
 						}
 				   };
 	poc_behaviors["PLUS4"]   = { nparameters: 3,
@@ -1387,7 +1425,7 @@
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
 						   var result = a + 4 ;
 
-                                                   return "ADD 4 to " + s_expr[2] + " with result " + show_value(result) + ". " ;
+                                                   return "Add four to " + show_verbal(s_expr[2]) + " and copy to " + show_verbal(s_expr[1]) + " with result " + show_value(result) + ". " ;
                                                 }
 				   };
 	poc_behaviors["MBIT"]     = { nparameters: 5,
@@ -1417,8 +1455,7 @@
 						       n2 = n2.substr(31 - (offset + size - 1), size) ;
 						   var n3 = parseInt(n2, 2) ;
 
-                                                   return "Copy from " + s_expr[2] + " to " + s_expr[1] + " value " + show_value(n3) +
-                                                          " (copied " + size + " bits from bit " + offset + "). " ;
+                                                   return "Copy from " + show_verbal(s_expr[2]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(n3) + " (copied " + size + " bits from bit " + offset + "). " ;
 						}
 				   };
 	poc_behaviors["MBIT_SN"]  = { nparameters: 5,
@@ -1471,7 +1508,7 @@
 						   sim_elto_org = get_reference(s_expr[2]) ;
 						   sim_elto_dst = get_reference(s_expr[1]) ;
 
-                                                   return "Set bit " + s_expr[3] + " of " + s_expr[1] + " to value " + sim_elto_org.value + ". " ;
+                                                   return "Set bit " + show_verbal(s_expr[3]) + " of " + show_verbal(s_expr[1]) + " to value " + sim_elto_org.value + ". " ;
                                                 }
 				   };
 	poc_behaviors["MBITS"]    = { nparameters: 8,
@@ -1510,8 +1547,8 @@
 
 						   n1 = parseInt(n3, 2) ;
 
-                                                   return "Copy from " + s_expr[3] + " to " + s_expr[1] + " value " + show_value(n1) +
-                                                          " (copied " + size + " bits from bit " + offset + "). " ;
+                                                   return "Copy from " + show_verbal(s_expr[3]) + " to " + show_verbal(s_expr[1]) + 
+						          " value " + show_value(n1) + " (copied " + size + " bits from bit " + offset + "). " ;
 						}
 				   };
 
@@ -1546,8 +1583,8 @@
 						       n3 = n3 + n4;
 						   var n5 = parseInt(n3, 2) ;
 
-                                                   return "Copy from " + s_expr[4] + " to " + s_expr[1] + " value " + show_value(n5) +
-                                                          " (copied " + len + " bits from bit " + poso + "). " ;
+                                                   return "Copy from " + show_verbal(s_expr[4]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(n5) + 
+						          " (copied " + len + " bits, from bit " + poso + " of " + s_expr[4] + " to bit " + posd + " of " + s_expr[1] + "). " ;
 						}
 				   };
 	poc_behaviors["EXT_SIG"] =  { nparameters: 3,
@@ -1566,7 +1603,16 @@
 						},
 					verbal: function (s_expr) 
 						{
-						   return "" ; // TODO
+						   var n1 = get_value(poc_states[s_expr[1]]).toString(2); // to binary
+						   var n2 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1) ;
+						   var n3 = n2.substr(31 - s_expr[2], 31);
+						   var n4 = n3;
+						   if ("1" == n2[31 - s_expr[2]]) {  // check signed-extension
+						       n4 = "11111111111111111111111111111111".substring(0, 32 - n3.length) + n4;
+						   }
+                                                   var n5 = parseInt(n4, 2) ;
+
+                                                   return "Sign Extension with value " + show_value(n5) + ". " ;
 						}
 				   };
 	poc_behaviors["MOVE_BITS"] =  { nparameters: 5,
@@ -1591,23 +1637,7 @@
 						},
 					verbal: function (s_expr) 
 						{
-						   var posd = parseInt(s_expr[2]) ;
-						   var poso = 0 ;
-						   var len  = parseInt(s_expr[3]) ;
-
-						   var n1 =  poc_signals[s_expr[4]].value.toString(2); // to binary signal origin
-						   n1 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1);
-						   n1 = n1.substr(31 - poso - len + 1, len);
-
-						   var n2 =  poc_signals[s_expr[1]].value.toString(2); // to binary signal destiny
-						   n2 = ("00000000000000000000000000000000".substring(0, 32 - n2.length) + n2) ;
-						   var m1 = n2.substr(0, 32 - (posd + len));
-						   var m2 = n2.substr(31 - posd + 1, posd);
-						   var n3 = m1 + n1 + m2;
-						   var n4 = parseInt(n3, 2) ;
-
-                                                   return "Copy from " + s_expr[4] + " to " + s_expr[1] + " value " + show_value(n4) +
-                                                          " (copied " + len + " bits from bit " + poso + "). " ;
+                                                   return "" ;
 						}
 				   };
 	poc_behaviors["MOVE_BITSE"] = {
@@ -1633,7 +1663,7 @@
 						},
 					verbal: function (s_expr) 
 						{
-						   return "" ; // TODO
+						   return "" ;
 						}
 				  };
 	poc_behaviors["DECO"]    = { nparameters: 1,
@@ -1866,7 +1896,11 @@
                                                         },
                                                 verbal: function (s_expr) 
                                                         {
-                                                           return "" ;
+                                                           return "Update flags N-Z-V-C to " + 
+								  poc_internal_states.alu_flags.flag_n + " " +
+								  poc_internal_states.alu_flags.flag_z + " " +
+								  poc_internal_states.alu_flags.flag_v + " " +
+								  poc_internal_states.alu_flags.flag_c + ". " ;
                                                         }
 					   };
 
