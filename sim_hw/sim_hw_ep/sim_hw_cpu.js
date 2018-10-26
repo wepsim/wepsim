@@ -205,7 +205,7 @@
 	ep_states.BR[31]         = { name:"R31", verbal: "Register 31",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
-	ep_states["REG_PC"]      = { name:"PC",  verbal: "Program Couter Register",
+	ep_states["REG_PC"]      = { name:"PC",  verbal: "Program Counter Register",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	ep_states["REG_MAR"]     = { name:"MAR", verbal: "Memory Address Register",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
@@ -291,7 +291,7 @@
 	/* DEVICES AND MEMORY */
 	ep_states["BS_M1"]          = { name: "BS_M1", verbal: "from Memory",
                                         visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
-	ep_states["BS_TD"]          = { name: "BS_TD", verbal: "to Memory",
+	ep_states["BS_TD"]          = { name: "BS_TD", verbal: "Memory",
                                         visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
 	ep_states["INTV"]           = { name: "INTV", verbal: "Interruption Vector",
@@ -1269,7 +1269,7 @@
 						   var a = get_value(ep_states[s_expr[2]]) << 0 ;
 						   var result = a + 4 ;
 
-                                                   return "Add four to " + show_verbal(s_expr[2]) + " with result " + show_value(result) + ". " ;
+                                                   return "Copy to " + show_verbal(s_expr[1]) + " " + show_verbal(s_expr[2]) + " plus four with result " + show_value(result) + ". " ;
                                                 }
 				   };
 	ep_behaviors["MBIT"]     = { nparameters: 5,

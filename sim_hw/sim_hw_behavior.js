@@ -268,7 +268,7 @@
             jit_verbals = true ;
         }
 
-        function compute_verbal (input_behavior)
+        function compute_verbal ( input_behavior )
         {
 	    var verbal = "" ;
 
@@ -312,7 +312,14 @@
 		index = signal_value ;
 	    }
 
-            // compute verbal...
+            // if already exits...
+            if ( (typeof sig_ref.verbal        != "undefined") &&
+                 (typeof sig_ref.verbal[index] != "undefined") ) 
+            {
+		  return sig_ref.verbal[index] ;
+	    }
+
+            // otherwise, compute verbal from behaviors...
             if (jit_behaviors)
                  verbal = sig_ref.verbal_fn[index]();
             else verbal = compute_verbal(sig_ref.behavior[index]) ;
