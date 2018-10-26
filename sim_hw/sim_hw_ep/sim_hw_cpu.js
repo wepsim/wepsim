@@ -674,7 +674,12 @@
 			         draw_name: [[]] };
 
 	/* W-Byte & R-Byte Selector */
-	 ep_signals["BW"] =  { name: "BW", visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
+	 ep_signals["BW"] =  { name: "BW", 
+		               verbal: ['Select one byte (based on A1A0) from Word', 
+                                        'Select two bytes (one Half Word based on A1A0) from Word', 
+                                        '', 
+                                        'Select the full Word'],
+                               visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
 		               behavior: ['MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BW; FIRE SBWA; RESET_CHANGED BW',
 				          'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BW; FIRE SBWA; RESET_CHANGED BW',
 				          'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BW; FIRE SBWA; RESET_CHANGED BW',
@@ -1426,7 +1431,8 @@
 						       n3 = n3 + n4;
 						   var n5 = parseInt(n3, 2) ;
 
-                                                   return "Copy from " + show_verbal(s_expr[4]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(n5) + " (copied " + len + " bits from bit " + poso + "). " ;
+                                                   return "Copy from " + show_verbal(s_expr[4]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(n5) + 
+						          " (copied " + len + " bits, from bit " + poso + " of " + s_expr[4] + " to bit " + posd + " of " + s_expr[1] + "). " ;
                                                 }
 				   };
 	ep_behaviors["EXT_SIG"] =  { nparameters: 3,
@@ -1445,7 +1451,16 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ; // TODO
+						   var n1 = get_value(ep_states[s_expr[1]]).toString(2); // to binary
+						   var n2 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1) ;
+						   var n3 = n2.substr(31 - s_expr[2], 31);
+						   var n4 = n3;
+						   if ("1" == n2[31 - s_expr[2]]) {  // check signed-extension
+						       n4 = "11111111111111111111111111111111".substring(0, 32 - n3.length) + n4;
+						   }
+                                                   var n5 = parseInt(n4, 2) ;
+
+                                                   return "Sign Extension with value " + show_value(n5) + ". " ;
                                                 }
 				   };
 	ep_behaviors["MOVE_BITS"] =  { nparameters: 5,

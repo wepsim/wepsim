@@ -305,9 +305,6 @@
 
             // common signals...
             var index = sig_ref.behavior.length - 1 ;
-	    if (index > 1) {
-		index -- ;
-	    }
 	    if (signal_value < index) {
 		index = signal_value ;
 	    }

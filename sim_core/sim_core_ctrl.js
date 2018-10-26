@@ -336,7 +336,7 @@
 				 }
 
                                  behav_raw = simhw_sim_signal(key).behavior[k] ;
-				 behav_str = compute_verbal(behav_raw) ; 
+				 behav_str = compute_signal_verbals(key, k) ; 
 				 if ('' == behav_str.trim()) {
 				     behav_str = '&lt;without main effect&gt;' ;
 				 }
