@@ -462,6 +462,7 @@
          var ti = get_cfg('ws_idiom') ;
 	     tour = introJs();
 	     tour.setOptions({ steps: tour_steps[ti] }) ;
+	     tour.setOption("overlayOpacity", "0.2") ;
 	     tour.onbeforechange(tour_steps.onbeforechange) ;
 	     tour.onexit(tour_steps.onexit) ;
 	     tour.start() ;

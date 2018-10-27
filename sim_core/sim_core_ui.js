@@ -918,6 +918,9 @@
              var pc = get_value(ep_states['REG_PC']) - 4 ;
              var decins = get_deco_from_pc(pc) ;
 
-             return "Current instruction is: " + decins + " and PC points to " + pc + ". " ;
+	     if ("" == decins.trim())
+		 decins = "not jet defined" ;
+
+             return "Current instruction is: " + decins + " and PC points to " + show_value(pc) + ". " ;
         }
 
