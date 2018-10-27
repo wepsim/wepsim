@@ -28,17 +28,24 @@
 
 
     // dialog
-    wepsim_voice_commands['configuration'] = function()
+    wepsim_voice_commands['hello'] = function()
+    {
+	 // speak...
+         var msg = "Hello" ;
+	 simcoreui_voice_speak(msg) ;
+    } ;
+
+    wepsim_voice_commands['(show) configuration'] = function()
     {
 	 wepsim_open_config_index() ;
     } ;
 
-    wepsim_voice_commands['examples'] = function()
+    wepsim_voice_commands['(show) examples'] = function()
     {
          wepsim_open_examples_index() ;
     } ;
 
-    wepsim_voice_commands['help'] = function()
+    wepsim_voice_commands['(show) help'] = function()
     {
          wepsim_open_help_index() ;
          wepsim_help_refresh() ;
@@ -80,7 +87,7 @@
          wepsim_execute_microinstruction() ;
 
 	 // speak...
-         var msg = "Next microinstruction executed. " + get_verbal_from_current_mpc() ;
+         var msg = "Next microinstruction executed. " ;
 	 simcoreui_voice_speak(msg) ;
     } ;
 
@@ -92,6 +99,22 @@
     wepsim_voice_commands['stop'] = function()
     {
          wepsim_execute_stop('#qbp') ;
+    } ;
+
+
+    // info
+    wepsim_voice_commands['describe micro(instruction)'] = function()
+    {
+	 // speak...
+         var msg = get_verbal_from_current_mpc() ;
+	 simcoreui_voice_speak(msg) ;
+    } ;
+
+    wepsim_voice_commands['describe instruction'] = function()
+    {
+	 // speak...
+         var msg = get_verbal_from_current_pc() ;
+	 simcoreui_voice_speak(msg) ;
     } ;
 
 
