@@ -32,9 +32,9 @@
        console.log(' * Check that some example actually does not works:') ;
        console.log('   ./wepsim_node.sh check                 ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt ./examples/ep/exampleChecklistS1E2.txt') ;
        console.log('') ;
-       console.log('Additional Examples:') ;
+       console.log('Additional Example:') ;
        console.log(' * Run some example and describe on each microinstruction the actions performed:') ;
-       console.log('   ./wepsim_node.sh microstepbymicrostep  ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt') ;
+       console.log('   ./wepsim_node.sh microstepverbalized   ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt') ;
        console.log('') ;
 
        return true ;
