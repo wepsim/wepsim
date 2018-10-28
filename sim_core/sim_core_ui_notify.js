@@ -70,8 +70,6 @@
 
 	    // add to notifications
 	    simcoreui_notifications.push({ 
-		                         // title:   ntf_title, 
-		                         // message: ntf_message, 
 		                            title:   $('<p>').html(ntf_title).text(),
 		                            message: $('<p>').html(ntf_message).text(),
 		                            type:    ntf_type,
@@ -90,7 +88,8 @@
             var   t = null ;
 
 	    // setup content...
-	    acc  += '<br>' + 
+	    acc  += '<br>' +
+		    '<div class="alert alert-light p-0 m-0" role="alert">+ Recent</div>' +
 		    '<div class="card" style="max-height:80vh; overflow:auto; -webkit-overflow-scrolling: touch;">' + 
 		    '<ul class="list-group list-group-flush">' ;
 	    for (var i=simcoreui_notifications.length-1; i!=0; i--) 
@@ -99,10 +98,10 @@
 
                  acc += '<li class="list-group-item list-group-item-' + simcoreui_notifications[i].type + '">' + 
 			'<h5 class="m-0">' +
-			'<span class="badge">[' + t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + ']</span>' + 
 			'<span class="badge">(' + 
-                            t.getHours()    + ':' + t.getMinutes()   + ':' + t.getSeconds() + '-' + t.getMilliseconds() +
+                            t.getHours()    + ':' + t.getMinutes()   + ':' + t.getSeconds() + '.' + t.getMilliseconds() +
 			')</span>' + 
+			'<span class="badge">[' + t.getFullYear() + '-' + (t.getMonth()+1) + '-' + t.getDate() + ']</span>' + 
 			'</h5>' +
 			'<span class="text-monospace">' +
 			    simcoreui_notifications[i].title + ':' + 
@@ -110,8 +109,9 @@
 			    simcoreui_notifications[i].message + 
 			'</li>' ;
 	    }
-	    acc += '</ul>' +
-		   '</div>' ;
+	    acc  += '</ul>' +
+		    '</div>' +
+                    '<div class="alert alert-light p-0 m-0" role="alert">- Recent</div>' ;
 
 	    // display notifications...
             simcoreui_notify_close() ;
