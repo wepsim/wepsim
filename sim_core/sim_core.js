@@ -396,6 +396,12 @@
 		       if (3 == verbosity) {
 		           before_state = simstate_current2state() ;
 		       }
+		       else
+		       if (4 == verbosity) {
+                           curr_mpc    = '0x' + cur_addr.toString(16) ;
+                           ret.msg     = ret.msg + 'micropc at ' + curr_mpc + '.\t' + 
+				         get_verbal_from_current_mpc() + '\n' ;
+		       }
 
                     compute_general_behavior("CLOCK") ;
 
@@ -442,7 +448,7 @@
 
         /**
          * Execute the assembly previously compiled and loaded.
-         * @param {boolean} verbosity - Return the intermediated states
+         * @param {integer} verbosity - Return the intermediated states
          * @param {integer} ins_limit - The limit of instructions to be executed
          * @param {integer} clk_limit - The limit of clock cycles per instruction
          */
@@ -494,15 +500,20 @@
     		       return ret1 ;
     	           }
     
-		     if (3 == verbosity) {
-                         ret.msg   = ret.msg + ret1.msg ;
-		     }
 		     if (2 == verbosity) {
 		         after_state = simstate_current2state() ;
                          curr_pc     = '0x' + reg_pc.toString(16) ;
                          ret.msg     = ret.msg + 'pc(' + curr_pc + '):\t' + 
 				       SIMWARE.assembly[curr_pc].source_original + ':\t\t\t' +
                                        simstate_diff_states(before_state,after_state) + '\n' ;
+		     }
+		     else
+		     if (3 == verbosity) {
+                         ret.msg   = ret.msg + ret1.msg ;
+		     }
+		     else
+		     if (4 == verbosity) {
+                         ret.msg   = ret.msg + ret1.msg ;
 		     }
 
     	           ins_executed++ ; 
