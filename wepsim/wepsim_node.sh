@@ -32,6 +32,10 @@
        console.log(' * Check that some example actually does not works:') ;
        console.log('   ./wepsim_node.sh check                 ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt ./examples/ep/exampleChecklistS1E2.txt') ;
        console.log('') ;
+       console.log('Additional Examples:') ;
+       console.log(' * Run some example and describe on each microinstruction the actions performed:') ;
+       console.log('   ./wepsim_node.sh microstepbymicrostep  ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt') ;
+       console.log('') ;
 
        return true ;
    }
@@ -154,6 +158,33 @@
 
        ws.wepsim_nodejs_init(simhw_name) ;
        var ret = ws.wepsim_nodejs_run(3, data_microcode, data_asmcode, cfg_instruction_limit, cfg_cycles_limit) ;
+
+       console.log(ret.msg);
+       return ret.ok ;
+       // if (ret.ok == false) throw 'ERROR...' ;
+   }
+
+
+   //
+   // action == microstepverbalized
+   //
+
+   if ("MICROSTEPVERBALIZED" == process.argv[2].toUpperCase())
+   {
+       var simhw_name     = process.argv[3] ;
+       var data_microcode = fs.readFileSync(process.argv[4], 'utf8') ;
+       var data_asmcode   = fs.readFileSync(process.argv[5], 'utf8') ;
+
+       cfg_instruction_limit = 1000 ;
+       if (process.argv.length > 6)
+           cfg_instruction_limit = parseInt(process.argv[6]) ;
+
+       cfg_cycles_limit = 1024 ;
+       if (process.argv.length > 7)
+           cfg_cycles_limit = parseInt(process.argv[7]) ;
+
+       ws.wepsim_nodejs_init(simhw_name) ;
+       var ret = ws.wepsim_nodejs_run(4, data_microcode, data_asmcode, cfg_instruction_limit, cfg_cycles_limit) ;
 
        console.log(ret.msg);
        return ret.ok ;

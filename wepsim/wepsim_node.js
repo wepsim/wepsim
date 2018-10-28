@@ -167,7 +167,7 @@
 	}
 
 	// 5) show a final report
-	switch (verbosity) 
+	switch (verbosity)
 	{
            case 0:
                 ret1.msg = "OK: Firmware + Assembly + Execution." ;
@@ -178,6 +178,7 @@
                 break ;
            case 2:
            case 3:
+           case 4:
                 ret1.msg = ret.msg ;
                 break ;
            default:

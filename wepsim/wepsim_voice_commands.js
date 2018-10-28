@@ -31,7 +31,7 @@
     wepsim_voice_commands['hello'] = function()
     {
 	 // speak...
-         var msg = "Hello" ;
+         var msg = "Hello, I am WepSIM, nice to meet you. " ;
 	 simcoreui_voice_speak(msg) ;
     } ;
 
