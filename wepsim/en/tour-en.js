@@ -46,10 +46,6 @@ var tour_steps = {} ;
 			            }
 	                            else if (this._currentStep === 8)
 	                            {
-					set_cfg('ws_mode', 'intro') ;
-                                        save_cfg() ;
-                                        wepsim_change_mode('intro', '#select4') ;
-
 			                $("#example1").modal('hide'); 
 					tour.refresh() ;
 			                return true ;
@@ -57,9 +53,17 @@ var tour_steps = {} ;
 	                        };
 
     tour_steps.onexit = function () {
-					set_cfg('ws_mode', 'intro') ;
-                                        save_cfg() ;
-                                        wepsim_change_mode('intro', '#select4') ;
+			                $("#config2").modal('hide'); 
+			                $("#help1").modal('hide'); 
+			                $("#example1").modal('hide'); 
+
+					if (get_cfg('ws_mode') != 'intro') 
+	                                {
+					    set_cfg('ws_mode', 'intro') ;
+                                            save_cfg() ;
+                                            wepsim_change_mode('intro', '#select4') ;
+					}
+			                return true ;
 	                        };
 
     tour_steps.en = [
