@@ -385,7 +385,7 @@
 			   </center>
 
 		           <div id="asm_debugger_container" 
-                                style="overflow-y:auto; overflow-x:auto; height:70vh !important; -webkit-overflow-scrolling:touch;">
+                                style="overflow-y:auto; overflow-x:auto; height:65vh !important; -webkit-overflow-scrolling:touch;">
                                 <div id="asm_debugger" style="min-width:700px;">
                                 </div>
 		           </div>
@@ -1226,8 +1226,8 @@
                                   <a class="btn text-vertical-lr p-0 text-primary"
                                      id="fgarcia">F&eacute;lix Garc&iacute;a Carballeira</a>
                                 </div>
-			        <div id="cf-fgarcia" class="card-footer p-1 collapse cf-all bg-white">
-				  <div class="list-group">
+			        <div id="cf-fgarcia" class="card-footer p-1 collapse cf-all bg-white text-left">
+				  <div class="list-group list-group-flush">
 		                  <a class='card-link list-group-item p-1'
                                      ><span class="fab fa-linkedin"></span> linkedin</a>
 		                  <a class='card-link list-group-item p-1 m-0'
@@ -1245,8 +1245,8 @@
                                   <a class="btn text-vertical-lr p-0 text-primary"
                                      id="acaldero">Alejandro Calder&oacute;n Mateos</a>
                                 </div>
-			        <div id="cf-acaldero" class="card-footer p-1 collapse cf-all bg-white">
-				  <div class="list-group">
+			        <div id="cf-acaldero" class="card-footer p-1 collapse cf-all bg-white text-left">
+				  <div class="list-group list-group-flush">
 		                  <a class='card-link list-group-item p-1'
                                      href='https://www.linkedin.com/in/alejandro-calderon-mateos/'><span class="fab fa-linkedin"></span> linkedin</a>
 		                  <a class='card-link list-group-item p-1 m-0'
@@ -1264,8 +1264,8 @@
                                   <a class="btn text-vertical-lr p-0 text-primary"
                                      id="jprieto">Javier Prieto Cepeda</a>
                                 </div>
-			        <div id="cf-jprieto" class="card-footer p-1 collapse cf-all bg-white">
-				  <div class="list-group">
+			        <div id="cf-jprieto" class="card-footer p-1 collapse cf-all bg-white text-left">
+				  <div class="list-group list-group-flush">
 		                  <a class='card-link list-group-item p-1'
                                      href='https://www.linkedin.com/in/javier-prieto-cepeda'><span class="fab fa-linkedin"></span> linkedin</a>
 		                  <a class='card-link list-group-item p-1 m-0'
@@ -1283,8 +1283,8 @@
                                   <a class="btn text-vertical-lr p-0 text-primary"
                                      id="salonso">Sa&uacute;l Alonso Monsalve</a>
                                 </div>
-			        <div id="cf-salonso" class="card-footer p-1 collapse cf-all bg-white">
-				  <div class="list-group">
+			        <div id="cf-salonso" class="card-footer p-1 collapse cf-all bg-white text-left">
+				  <div class="list-group list-group-flush">
 		                  <a class='card-link list-group-item p-1'
                                      href='https://www.linkedin.com/in/salonsom/'><span class="fab fa-linkedin"></span> linkedin</a>
 		                  <a class='card-link list-group-item p-1 m-0'
@@ -1398,7 +1398,9 @@
 			    html:       true,
 			    placement: 'auto',
                             container: 'body',
-                            template:  '<div class="popover shadow border border-secondary" role="tooltip"><div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>',
+                            template:  '<div class="popover shadow border border-secondary" role="tooltip">' + 
+			               '<div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div>' + 
+			               '</div>',
 			    animation:  false,
 			    content:    function() { 
                                     return '<ul class="list-group list-group-flush">' + 
@@ -1411,14 +1413,14 @@
 					   '<li class="list-group-item p-2"> ' + 
 					   '  <em class="fas fa-bars"></em> &nbsp;' + 
                                            '  <span class="btn-group-toggle" data-toggle="buttons">' +
-					   '  <label class="btn btn-sm btn-outline-secondary col-10 text-left active" data-toggle="collapse" href=".multi-collapse-1">' + 
+					   '  <label class="btn btn-sm btn-outline-secondary col-10 text-left" data-toggle="collapse" href=".multi-collapse-1">' + 
 					   '  <input type="checkbox" checked="" autocomplete="off"> Show/Hide ActionBar</label>' + 
 					   '  </span>' + 
 					   '</li>' + 
 					   '<li class="list-group-item p-2"> ' + 
 					   '  <em class="fas fa-sliders-h"></em> &nbsp;' + 
                                            '  <span class="btn-group-toggle" data-toggle="buttons">' +
-					   '  <label class="btn btn-sm btn-outline-secondary col-10 text-left active" data-toggle="collapse" href=".multi-collapse-2">' + 
+					   '  <label class="btn btn-sm btn-outline-secondary col-10 text-left" data-toggle="collapse" href=".multi-collapse-2">' + 
 					   '  <input type="checkbox" checked="" autocomplete="off"> Show/Hide Sliders</label>' + 
 					   '  </span>' + 
 					   '</li>' + 
