@@ -230,7 +230,7 @@ ERROR: Execution: different results: cpu[R1]='0' (expected '0xf'), cpu[R2]='0x2'
 
 
         /*
-         * Output: the final state
+         * Output: the final state (or error found)
          */
 
         console.log(ret.msg) ;
