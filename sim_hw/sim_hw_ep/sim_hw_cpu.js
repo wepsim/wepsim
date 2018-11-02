@@ -47,7 +47,7 @@
 						      }
 						  }
 
-					          for (var i=0; i<internal_reg.length; i++)
+					          for (i=0; i<internal_reg.length; i++)
 						  {
 						      value = parseInt(ep_states['REG_' + internal_reg[i]].value) ;
 						      if (value != 0) {
@@ -427,7 +427,7 @@
 			       draw_data: [['svg_p:path3063','svg_p:path3061','svg_p:path3059'], ['svg_p:path3057','svg_p:path3641','svg_p:path3419','svg_p:path3583']],
 			       draw_name: [[], ['svg_p:path3447']] };
 	 ep_signals["M2"]  = { name: "M2", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
-			       behavior: ["MV M2_C2 BUS_IB", "ADD M2_C2 REG_PC VAL_FOUR"],
+			       behavior: ["MV M2_C2 BUS_IB", "PLUS4 M2_C2 REG_PC"],
                                depends_on: ["C2"],
 			       fire_name: ['svg_p:text3471'],
 			       draw_data: [['svg_p:path3217', 'svg_p:path3215', 'svg_p:path3213', 'svg_p:path3213-9'],
@@ -572,10 +572,10 @@
 			       fire_name: ['svg_cu:text3222','svg_cu:text3242','svg_cu:text3254','svg_cu:text3172-1'],
 			       draw_data: [['svg_cu:path3494','svg_cu:path3492','svg_cu:path3490','svg_cu:path3142b','svg_cu:path3188',
                                             'svg_cu:path3190','svg_cu:path3192','svg_cu:path3194','svg_cu:path3276','svg_cu:path3290',
-                                            'svg_cu:path3260','svg_cu:path3196','svg_cu:path3502','svg_cu:path3278','svg_cu:path3232','svg_cu:path3292'],
-					   ['svg_cu:path3270','svg_cu:path3282','svg_cu:path3300', 'svg_cu:path3258', 'svg_cu:path3260','svg_cu:path3258-4', 
-                                            'svg_cu:path3278', 'svg_cu:path3196', 'svg_cu:path3502',
-					    'svg_cu:path3294', 'svg_cu:path3292', 'svg_cu:path3288', 'svg_cu:path3232', 'svg_cu:path3280']],
+                                            'svg_cu:path3260','svg_cu:path3196','svg_cu:path3278','svg_cu:path3232','svg_cu:path3292'],
+					   ['svg_cu:path3270','svg_cu:path3282','svg_cu:path3300','svg_cu:path3258','svg_cu:path3260','svg_cu:path3258-4', 
+                                            'svg_cu:path3278','svg_cu:path3196',
+					    'svg_cu:path3294','svg_cu:path3292','svg_cu:path3288','svg_cu:path3232','svg_cu:path3280']],
 			       draw_name: [[],['svg_cu:path3220','svg_cu:path3240','svg_cu:path3252']] };
 	 ep_signals["MR_RA"] = { name: "MR_RA", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			         behavior: ['MBIT_SN RA REG_IR REG_MICROINS/SELA 5; FIRE RA;',
@@ -1011,6 +1011,15 @@
 						   ep_internal_states.alu_flags.flag_c = 0 ;
                                                    ep_behaviors["UPDATE_NZVC"].operation() ;
 						}
+				   };
+	ep_behaviors["PLUS4"]    = { nparameters: 3,
+				     types: ["E", "E"],
+				     operation: function(s_expr) 
+		                                {
+						   var a = get_value(ep_states[s_expr[2]]) << 0 ;
+						   var result = a + 4 ;
+						   set_value(ep_states[s_expr[1]], result >>> 0) ;
+                                                }
 				   };
 	ep_behaviors["MBIT"]     = { nparameters: 5,
 				     types: ["X", "X", "I", "I"],
