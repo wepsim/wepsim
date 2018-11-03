@@ -123,6 +123,14 @@
                        description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: strlen_2 + skipasciicode_2.<br>" 
                      });
 
+    examples.es.push({
+                       id: 'S4E4',
+                       title: "Para completar",
+                       level: "Especial",
+                       hardware: "ep",
+                       description: "Ejemplo para pruebas.<br>"
+                     });
+
     // POC
 
     examples.es.push({ 

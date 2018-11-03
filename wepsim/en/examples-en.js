@@ -124,6 +124,14 @@
                        description: "Application-specific extension: strlen_2 + skipasciicode_2.<br>" 
                      });
 
+    examples.en.push({
+                       id: 'S4E4',
+                       title: "Dummy instruction",
+                       level: "Special",
+                       hardware: "ep",
+                       description: "Test example.<br>"
+                     });
+
     // POC
 
     examples.en.push({ 
