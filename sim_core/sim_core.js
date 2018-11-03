@@ -399,7 +399,7 @@
 		       else
 		       if (4 == verbosity) {
                            curr_mpc    = '0x' + cur_addr.toString(16) ;
-                           ret.msg     = ret.msg + 'micropc at ' + curr_mpc + '.\t' + 
+                           ret.msg     = ret.msg + 'Micropc at ' + curr_mpc + '.\t' + 
 				         get_verbal_from_current_mpc() + '\n' ;
 		       }
 

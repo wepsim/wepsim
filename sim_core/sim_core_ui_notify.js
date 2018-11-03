@@ -90,7 +90,7 @@
 	    // setup content...
 	    acc  += '<br>' +
 		    '<div class="alert alert-light p-0 m-0" role="alert">+ Recent</div>' +
-		    '<div class="card" style="max-height:80vh; overflow:auto; -webkit-overflow-scrolling: touch;">' + 
+		    '<div class="card" style="max-height:70vh; overflow:auto; -webkit-overflow-scrolling: touch;">' + 
 		    '<ul class="list-group list-group-flush">' ;
 	    for (var i=simcoreui_notifications.length-1; i!=0; i--) 
 	    {
