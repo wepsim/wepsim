@@ -5,6 +5,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/9efc2957158b5c67f775/maintainability)](https://codeclimate.com/github/acaldero/wepsim/maintainability)
  [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
  
+
 ## Table of contents
 
 - [Getting WepSIM](#getting-wepsim)
@@ -12,6 +13,7 @@
 - [Getting Started](#getting-started)
 - [Getting Started: Command Line](#getting-started-command-line)
 - [Getting Started: WepSIM API](#getting-started-wepsim-api)
+
 
 ## Getting WepSIM
 
@@ -28,6 +30,7 @@
 + WepSIM Source Code:
    * https://github.com/acaldero/wepsim
 
+
 ## Install WepSIM as Progressive Web Application
 
 + Install on iOS, Android, Windows, Linux, etc.:
@@ -38,6 +41,7 @@ Step   | iOS                       |  Android                  | Action to perfo
 2      | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_ios002.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_android002.jpg) | Move within share options until 'add to home screen' option and click on it.
 3      | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_ios003.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_android003.jpg) | Finally, click in the 'add' option.
 4      | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_ios004.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_android004.jpg) | Then, WepSIM can be launched from the home screen icon.    
+
 
 ## Getting Started
 
@@ -66,6 +70,7 @@ Step   | iOS                       |  Android                  | Action to perfo
 + WepSIM also has a 'state management':
    + From the execution toolbar, clicking over the 'state' button to show the state manager:
      ![screen:configuration](https://raw.githubusercontent.com/acaldero/wepsim/master/help/welcome/states_usage.gif)
+
 
 ## Getting Started: Command Line
 
@@ -152,6 +157,46 @@ screen>
 screen>
 ERROR: Execution: different results: cpu[R1]='0' (expected '0xf'), cpu[R2]='0x2' (expected '0xf'), memory[0x1000]='0' (expected '0xa07ff0f'), memory[0x1004]='0' (expected '0x10061'), memory[0x1008]='0' (expected '0x7ffff'), memory[0x100c]='0' (expected '0x61000a'), memory[0x1010]='0' (expected '0xf'), memory[0x1014]='0' (expected '0xffffffff'), memory[0x1018]='0' (expected '0x7'), memory[0x101c]='0' (expected '0x12345678'), memory[0x1020]='0' (expected '0x61'), memory[0x1024]='0' (expected '0x6c6c6568'), memory[0x1028]='0' (expected '0x726f776f'), memory[0x102c]='0' (expected '0x646c'), memory[0x8000]='0x8400002' (expected '0x20201000'), memory[0x8004]='0x8600001' (expected '0x10601010'), memory[0x8008]='0xa21809' (expected '0x820000f'), memory[0x800c]='0x8400002' (expected '0x24201000'), memory[0x8010]='0x8600001' (expected '0x840000f'), memory[0x8014]='0xa2180a' (expected '0x14401010')
 ```
+
++ And finally, it is possible to execute microstep by microstep but with a more verbose description:
+
+```bash
+./wepsim_node.sh microstepverbalized ep ./examples/ep/exampleMicrocodeS1E1.txt ./examples/ep/exampleCodeS1E1.txt
+screen> 
+screen> 
+screen> 
+Micropc at 0x0.	Activated signals are: T2 C0. Associated actions are: Copy from Program Counter Register to Internal Bus value 0x8000. Load from Internal Bus to Memory Address Register value 0x8000. 
+Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Copy from Memory Address Register to Address Bus value 0x8000. Try to read a word from memory at address 0x8000 with value 8400002. Select the full Word. Copy from from Memory to Input of Memory Data Register value 0x8400002. Load from Input of Memory Data Register to Memory Data Register value 0x8400002. 
+Micropc at 0x2.	Activated signals are: M2 C2 T1 C3. Associated actions are: Copy to Input of Program Counter Program Counter Register plus four with result 0x8004. Load from Input of Program Counter to Program Counter Register value 0x8004. Copy from Memory Data Register to Internal Bus value 0x8400002. Load from Internal Bus to Instruction Register value 0x8400002. Decode instruction. 
+Micropc at 0x3.	Activated signals are: A0 B C. Associated actions are: Set bit 1 of A0A1 to value 1. Copy from Output of MUX C to A1 value 0x0. Copy from Wired Zero to Output of MUX C value 0x0. 
+Micropc at 0x53.	Activated signals are: SE OFFSET SIZE T3 LC MR SELC A0 B C. Associated actions are: Copy from Instruction Register to Input of T3 Tristate value 0x2 (copied 16 bits from bit 0). Copy from Instruction Register to Input of T3 Tristate value 0x2 (copied 16 bits from bit 0). Copy from Instruction Register to Input of T3 Tristate value 0x2 (copied 16 bits from bit 0). Copy from Input of T3 Tristate to Internal Bus value 0x2. Copy to Register 2 the value 0x2. Copy from IR[SelA], from IR[SelB], and from IR[SelB] into RA, RB, and RC. Set bit 1 of A0A1 to value 1. Set A1 with value 0x1 (Logical NOT of MUXC_MUXB). Copy from Wired Zero to Output of MUX C value 0x0. 
+Micropc at 0x0.	Activated signals are: T2 C0. Associated actions are: Copy from Program Counter Register to Internal Bus value 0x8004. Load from Internal Bus to Memory Address Register value 0x8004. 
+Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Copy from Memory Address Register to Address Bus value 0x8004. Try to read a word from memory at address 0x8004 with value 8600001. Select the full Word. Copy from from Memory to Input of Memory Data Register value 0x8600001. Load from Input of Memory Data Register to Memory Data Register value 0x8600001. 
+Micropc at 0x2.	Activated signals are: M2 C2 T1 C3. Associated actions are: Copy to Input of Program Counter Program Counter Register plus four with result 0x8008. Load from Input of Program Counter to Program Counter Register value 0x8008. Copy from Memory Data Register to Internal Bus value 0x8600001. Load from Internal Bus to Instruction Register value 0x8600001. Decode instruction. 
+Micropc at 0x3.	Activated signals are: A0 B C. Associated actions are: Set bit 1 of A0A1 to value 1. Copy from Output of MUX C to A1 value 0x0. Copy from Wired Zero to Output of MUX C value 0x0. 
+Micropc at 0x53.	Activated signals are: SE OFFSET SIZE T3 LC MR SELC A0 B C. Associated actions are: Copy from Instruction Register to Input of T3 Tristate value 0x1 (copied 16 bits from bit 0). Copy from Instruction Register to Input of T3 Tristate value 0x1 (copied 16 bits from bit 0). Copy from Instruction Register to Input of T3 Tristate value 0x1 (copied 16 bits from bit 0). Copy from Input of T3 Tristate to Internal Bus value 0x1. Copy to Register 3 the value 0x1. Copy from IR[SelA], from IR[SelB], and from IR[SelB] into RA, RB, and RC. Set bit 1 of A0A1 to value 1. Set A1 with value 0x1 (Logical NOT of MUXC_MUXB). Copy from Wired Zero to Output of MUX C value 0x0. 
+Micropc at 0x0.	Activated signals are: T2 C0. Associated actions are: Copy from Program Counter Register to Internal Bus value 0x8008. Load from Internal Bus to Memory Address Register value 0x8008. 
+Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Copy from Memory Address Register to Address Bus value 0x8008. Try to read a word from memory at address 0x8008 with value a21809. Select the full Word. Copy from from Memory to Input of Memory Data Register value 0xa21809. Load from Input of Memory Data Register to Memory Data Register value 0xa21809. 
+Micropc at 0x2.	Activated signals are: M2 C2 T1 C3. Associated actions are: Copy to Input of Program Counter Program Counter Register plus four with result 0x800c. Load from Input of Program Counter to Program Counter Register value 0x800c. Copy from Memory Data Register to Internal Bus value 0xa21809. Load from Internal Bus to Instruction Register value 0xa21809. Decode instruction. 
+Micropc at 0x3.	Activated signals are: A0 B C. Associated actions are: Set bit 1 of A0A1 to value 1. Copy from Output of MUX C to A1 value 0x0. Copy from Wired Zero to Output of MUX C value 0x0. 
+Micropc at 0x35.	Activated signals are: MC MR SELA SELB MA MB SELCOP T6 SELC LC SELP M7 C7 A0 B C. Associated actions are: Copy from Field SELCOP of Microinstruction Register to COP value 0xa. Copy from IR[SelA], from IR[SelB], and from IR[SelB] into RA, RB, and RC. Copy from Input of T9 Tristate to Input ALU via MA value 0x1. Copy from Input of T10 Tristate to Input ALU via MB value 0x2. Copy from Input of Temporal 3 Register to Internal Bus value 0x3. Copy to Register 5 the value 0x3. Copy from State Register to Output of MUX SelP value 0x0. Set bit 31 of Output of MUX SelP to value 0. Set bit 30 of Output of MUX SelP to value 0. Set bit 29 of Output of MUX SelP to value 0. Set bit 28 of Output of MUX SelP to value 0. Copy from Output of MUX SelP to Input of State Register value 0x0. Load from Input of State Register to State Register value 0x0. Set bit 1 of A0A1 to value 1. Set A1 with value 0x1 (Logical NOT of MUXC_MUXB). Copy from Wired Zero to Output of MUX C value 0x0. 
+Micropc at 0x0.	Activated signals are: T2 C0. Associated actions are: Copy from Program Counter Register to Internal Bus value 0x800c. Load from Internal Bus to Memory Address Register value 0x800c. 
+Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Copy from Memory Address Register to Address Bus value 0x800c. Try to read a word from memory at address 0x800c with value 8400002. Select the full Word. Copy from from Memory to Input of Memory Data Register value 0x8400002. Load from Input of Memory Data Register to Memory Data Register value 0x8400002. 
+Micropc at 0x2.	Activated signals are: M2 C2 T1 C3. Associated actions are: Copy to Input of Program Counter Program Counter Register plus four with result 0x8010. Load from Input of Program Counter to Program Counter Register value 0x8010. Copy from Memory Data Register to Internal Bus value 0x8400002. Load from Internal Bus to Instruction Register value 0x8400002. Decode instruction. 
+Micropc at 0x3.	Activated signals are: A0 B C. Associated actions are: Set bit 1 of A0A1 to value 1. Copy from Output of MUX C to A1 value 0x0. Copy from Wired Zero to Output of MUX C value 0x0. 
+Micropc at 0x53.	Activated signals are: SE OFFSET SIZE T3 LC MR SELC A0 B C. Associated actions are: Copy from Instruction Register to Input of T3 Tristate value 0x2 (copied 16 bits from bit 0). Copy from Instruction Register to Input of T3 Tristate value 0x2 (copied 16 bits from bit 0). Copy from Instruction Register to Input of T3 Tristate value 0x2 (copied 16 bits from bit 0). Copy from Input of T3 Tristate to Internal Bus value 0x2. Copy to Register 2 the value 0x2. Copy from IR[SelA], from IR[SelB], and from IR[SelB] into RA, RB, and RC. Set bit 1 of A0A1 to value 1. Set A1 with value 0x1 (Logical NOT of MUXC_MUXB). Copy from Wired Zero to Output of MUX C value 0x0. 
+Micropc at 0x0.	Activated signals are: T2 C0. Associated actions are: Copy from Program Counter Register to Internal Bus value 0x8010. Load from Internal Bus to Memory Address Register value 0x8010. 
+Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Copy from Memory Address Register to Address Bus value 0x8010. Try to read a word from memory at address 0x8010 with value 8600001. Select the full Word. Copy from from Memory to Input of Memory Data Register value 0x8600001. Load from Input of Memory Data Register to Memory Data Register value 0x8600001. 
+Micropc at 0x2.	Activated signals are: M2 C2 T1 C3. Associated actions are: Copy to Input of Program Counter Program Counter Register plus four with result 0x8014. Load from Input of Program Counter to Program Counter Register value 0x8014. Copy from Memory Data Register to Internal Bus value 0x8600001. Load from Internal Bus to Instruction Register value 0x8600001. Decode instruction. 
+Micropc at 0x3.	Activated signals are: A0 B C. Associated actions are: Set bit 1 of A0A1 to value 1. Copy from Output of MUX C to A1 value 0x0. Copy from Wired Zero to Output of MUX C value 0x0. 
+Micropc at 0x53.	Activated signals are: SE OFFSET SIZE T3 LC MR SELC A0 B C. Associated actions are: Copy from Instruction Register to Input of T3 Tristate value 0x1 (copied 16 bits from bit 0). Copy from Instruction Register to Input of T3 Tristate value 0x1 (copied 16 bits from bit 0). Copy from Instruction Register to Input of T3 Tristate value 0x1 (copied 16 bits from bit 0). Copy from Input of T3 Tristate to Internal Bus value 0x1. Copy to Register 3 the value 0x1. Copy from IR[SelA], from IR[SelB], and from IR[SelB] into RA, RB, and RC. Set bit 1 of A0A1 to value 1. Set A1 with value 0x1 (Logical NOT of MUXC_MUXB). Copy from Wired Zero to Output of MUX C value 0x0. 
+Micropc at 0x0.	Activated signals are: T2 C0. Associated actions are: Copy from Program Counter Register to Internal Bus value 0x8014. Load from Internal Bus to Memory Address Register value 0x8014. 
+Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Copy from Memory Address Register to Address Bus value 0x8014. Try to read a word from memory at address 0x8014 with value a2180a. Select the full Word. Copy from from Memory to Input of Memory Data Register value 0xa2180a. Load from Input of Memory Data Register to Memory Data Register value 0xa2180a. 
+Micropc at 0x2.	Activated signals are: M2 C2 T1 C3. Associated actions are: Copy to Input of Program Counter Program Counter Register plus four with result 0x8018. Load from Input of Program Counter to Program Counter Register value 0x8018. Copy from Memory Data Register to Internal Bus value 0xa2180a. Load from Internal Bus to Instruction Register value 0xa2180a. Decode instruction. 
+Micropc at 0x3.	Activated signals are: A0 B C. Associated actions are: Set bit 1 of A0A1 to value 1. Copy from Output of MUX C to A1 value 0x0. Copy from Wired Zero to Output of MUX C value 0x0. 
+Micropc at 0x3f.	Activated signals are: MC MR SELB SELA MA MB SELCOP T6 SELC LC SELP M7 C7 A0 B C. Associated actions are: Copy from Field SELCOP of Microinstruction Register to COP value 0xb. Copy from IR[SelA], from IR[SelB], and from IR[SelB] into RA, RB, and RC. Copy from Input of T9 Tristate to Input ALU via MA value 0x2. Copy from Input of T10 Tristate to Input ALU via MB value 0x1. Copy from Input of Temporal 3 Register to Internal Bus value 0x1. Copy to Register 5 the value 0x1. Copy from State Register to Output of MUX SelP value 0x0. Set bit 31 of Output of MUX SelP to value 0. Set bit 30 of Output of MUX SelP to value 0. Set bit 29 of Output of MUX SelP to value 0. Set bit 28 of Output of MUX SelP to value 0. Copy from Output of MUX SelP to Input of State Register value 0x0. Load from Input of State Register to State Register value 0x0. Set bit 1 of A0A1 to value 1. Set A1 with value 0x1 (Logical NOT of MUXC_MUXB). Copy from Wired Zero to Output of MUX C value 0x0. 
+```
+
 
 ## Getting Started: WepSIM API
 
