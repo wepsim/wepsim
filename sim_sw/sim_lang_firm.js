@@ -536,8 +536,10 @@ function loadFirmware (text)
 		   firmaUsuario = firmaUsuario + ' ';
 	       }
 
-	       firma = firma.substr(0, firma.length-1);
+	       firma = firma.substr(0, firma.length-1) ;
+	       firma = firma.replace(",,", ",") ;
 	       firmaUsuario = firmaUsuario.substr(0, firmaUsuario.length-1);
+	       firmaUsuario = firmaUsuario.replace(",,", ",") ;
 	       instruccionAux["signature"]       = firma;
                instruccionAux["signatureGlobal"] = firma;
 	       instruccionAux["signatureUser"]   = firmaUsuario;
