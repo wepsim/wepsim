@@ -51,6 +51,8 @@
     {
 	 // check if voice is available...
          if (!annyang) {
+              wepsim_notify_error('<h4>Warning:<br/>' + 'annyang not available' + '</h4>',
+                                  'Voice support is not available in this platform.') ;
 	     return false ;
          }
 

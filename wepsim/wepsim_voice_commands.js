@@ -45,6 +45,14 @@
          wepsim_open_examples_index() ;
     } ;
 
+    wepsim_voice_commands['load example :id (from) :level'] = function ( id, level )
+    {
+         var ex_id = parseInt(id) ;
+         var ex_lv = parseInt(level) ;
+
+         load_from_example_firmware("ep:S" + ex_lv + "E" + ex_lv, true) ;
+    } ;
+
     wepsim_voice_commands['(show) help'] = function()
     {
          wepsim_open_help_index() ;

@@ -76,7 +76,7 @@
         appearance: none;
         width: 35px;
         height: 25px;
-        border-radius: 50%; 
+        border-radius: 50%;
         background: #4CAF50;
         cursor: pointer;
     }
@@ -120,7 +120,7 @@
     .ui-helper-hidden-accessible {
         display: none;
     }
-    
+   
     // bootbox for bootstrap 4 trick
     .bootbox .modal-header h5 {
 	 order: 0;
@@ -190,18 +190,18 @@
 	    <span class="navbar-brand mr-auto">
                <a class="ui-title pl-2 mx-2 text-primary" style="text-decoration: none"
 	          id="po1"
-		  data-container="body" 
-		  data-toggle="popover0" 
-		  data-html="true" 
+		  data-container="body"
+		  data-toggle="popover0"
+		  data-html="true"
 		  data-placement="bottom">WepSIM&nbsp;<span class="badge badge-pill badge-secondary"><div class="wsversion">loading ...</div></span>
 	       </a>
             </span>
-            <button class="navbar-toggler ml-auto btn-outline-secondary" data-toggle="collapse" 
+            <button class="navbar-toggler ml-auto btn-outline-secondary" data-toggle="collapse"
                     data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		<em class="fas fa-bars"></em>
             </button>
-            <div id="navbarSupportedContent" 
+            <div id="navbarSupportedContent"
 	         class="collapse navbar-collapse mx-auto py-0" style="background-color: #EAEAEA">
 	    <ul class="nav nav-pills ml-auto p-1">
 	       <li class="nav-item ml-auto"><img alt="ARCOS logo" src="images/arcos.svg" style="height:30pt" class="img-fluid rounded m-0 p-1" /></li>
@@ -242,12 +242,12 @@
                     <div id="slider_cpucu" class="col-sm p-0 collapse show multi-collapse-2">
 			    <form id="slider2f" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">
 				 <label class="my-0" for="slider2b" style="min-width:95%">processor:</label>
-				 <input aria-label="Show CPU/CU" type="range" name="slider2b" id="slider2b" 
+				 <input aria-label="Show CPU/CU" type="range" name="slider2b" id="slider2b"
 					min="0" max="12" value="7" step="1"
 				        data-show-value="false"
                                         class="custom-range slider col mx-0 px-0"
                                         oninput="set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', this.value);
-					         set_cfg('CPUCU_size', this.value); 
+					         set_cfg('CPUCU_size', this.value);
                                                  save_cfg();">
 			    </form>
                     </div>
@@ -261,22 +261,22 @@
                                 id="btn_example1"
                                 onclick="wepsim_open_examples_index();"><strong>Examples</strong></button>
 		        <button class="btn btn-light shadow-sm my-1 col-auto"
-		                style="border-width:1 1 1 1px; border-color:#CCCCCC; 
+		                style="border-width:1 1 1 1px; border-color:#CCCCCC;
                                        background-color:#D4DB17;"
                                 id="btn_help1"
 		                onclick="wepsim_open_help_index();
                                          wepsim_help_refresh();"><strong>Help</strong></button>
 			<label class="my-1 p-0 col" for="select4">
 			<select class="custom-select btn btn-light shadow-sm"
-				aria-label="Execution mode" 
-                                name="select4" id="select4" 
+				aria-label="Execution mode"
+                                name="select4" id="select4"
 				onchange="var opt = $(this).find('option:selected');
 					  var optValue = opt.val();
-					  set_cfg('ws_mode', optValue); 
+					  set_cfg('ws_mode', optValue);
 					  save_cfg();
                                           wepsim_change_mode(optValue, '#select4') ;
-	                                  sim_core_init_ui('#states_ALL', '#states_BR', '#io_ALL', 
-                                                           '#cpu_ALL', '#config_MP', '#config_IO'); 
+	                                  sim_core_init_ui('#states_ALL', '#states_BR', '#io_ALL',
+                                                           '#cpu_ALL', '#config_MP', '#config_IO');
 					  return false;">
 				<option value="intro"    >Welcome...</option>
 				<option value="tutorial" >Instructive</option>
@@ -293,7 +293,7 @@
                     <div class="col-sm p-0 collapse show multi-collapse-2">
 			    <form id="slider2e" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">
 				 <label class="my-0" for="slider2a" style="min-width:95%">details:</label>
-				 <input aria-label="Show Main/Info" type="range" name="slider2a" id="slider2a" 
+				 <input aria-label="Show Main/Info" type="range" name="slider2a" id="slider2a"
 					min="0" max="12" value="7" step="1"
 				        data-show-value="false"
                                         class="custom-range slider col mx-0 px-0"
@@ -311,22 +311,22 @@
                       <!-- Nav tabs -->
 		      <ul class="nav nav-tabs nav-justified nav-tabs">
 		          <li class="nav-item">
-                              <a id="tab26" href="#eltos_cpu" 
+                              <a id="tab26" href="#eltos_cpu"
                                  class="nav-link active" data-toggle="tab" role="tab"
                                  style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"
 				 aria-label="processor"
-                                 onclick="start_drawing(); 
+                                 onclick="start_drawing();
                                           refresh();"><em class="fas fa-microchip"></em>&nbsp;Processor</a>
                           </li>
 		          <li class="nav-item">
-                              <a id="tab24" href="#eltos_dbg"  
+                              <a id="tab24" href="#eltos_dbg" 
                                  class="nav-link" data-toggle="tab" role="tab"
                                  style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"
 				 aria-label="assembly debugger"
-                                 onclick="stop_drawing(); 
+                                 onclick="stop_drawing();
                                           var o1 = fullshow_asmdbg_pc();
                                           var obj_byid = $('#asm_debugger_container');
-                                          if (typeof o1[0] == 'undefined') 
+                                          if (typeof o1[0] == 'undefined')
                                               return;
                                           obj_byid[0].scrollTop = o1[0].offsetTop;"><em class="fas fa-bug"></em>&nbsp;<span class="d-sm-none">Assembly</span><span class="d-none d-sm-inline-flex">Assembly Debugger</span></a>
                           </li>
@@ -340,19 +340,19 @@
 			     <div class="container-fluid" style="margin:10 0 0 0">
 			     <div class="row">
 				<div class="col" id="eltos_cpu_a" style="padding:0 5 0 0;">
-				    <object id="svg_p" 
-					    title="processor" 
-					    data="images/ep/processor6.svg" 
-					    type="image/svg+xml" 
+				    <object id="svg_p"
+					    title="processor"
+					    data="images/ep/processor6.svg"
+					    type="image/svg+xml"
 					    style="transform:translate3d(0,0,0);">
 					Your browser doesn't support SVG
 				    </object>
 				</div>
 				<div class="col" id="eltos_cpu_b" style="padding:0 5 0 5;">
-				    <object id="svg_cu" 
-					    title="control unit" 
-					    data="images/ep/controlunit6.svg" 
-					    type="image/svg+xml" 
+				    <object id="svg_cu"
+					    title="control unit"
+					    data="images/ep/controlunit6.svg"
+					    type="image/svg+xml"
 					    style="transform:translate3d(0,0,0);">
 					Your browser doesn't support SVG
 				    </object>
@@ -370,7 +370,7 @@
 		   	   <thead>
 			   <tr>
 			   <th width="1%">
-			   <a href="#" data-toggle="popover2" id="popover2_asm">&plusmn;</a>
+			   <a tabindex="0" href="#" data-toggle="popover2" id="popover2_asm">&plusmn;</a>
 			   </th>
 			   <th width="10%" class="asm_break show"               ><span>break</span><span class="d-none d-md-inline"><small>points</small></span></th>
 			   <th width="15%" class="asm_addr show"                ><span>addr</span><span class="d-none d-sm-inline-flex">ess</span></th>
@@ -384,7 +384,7 @@
 		   	   </div>
 			   </center>
 
-		           <div id="asm_debugger_container" 
+		           <div id="asm_debugger_container"
                                 style="overflow-y:auto; overflow-x:auto; height:65vh !important; -webkit-overflow-scrolling:touch;">
                                 <div id="asm_debugger" style="min-width:700px;">
                                 </div>
@@ -427,12 +427,12 @@
                           <select class="custom-select btn btn-light shadow-sm"
                                   style="border-color: #CCCCCC; flex-grow:2;"
 				  aria-label="select CPU, MM or DEV element to work with"
-				  name="select5a" id="select5a" 
+				  name="select5a" id="select5a"
                                   onchange="var val = this.value;
 				            $('#tab' + val).trigger('click');
 				            if ('11' == val)
 					         show_rf_values();
-				            else show_memories_values();"> 
+				            else show_memories_values();">
 				  <optgroup label="CPU">
                                       <option id="11" value="11" selected><div class="bg-primary text-white">CPU</div> - Registers</option>
                                       <option id="16" value="16"><div class="bg-primary text-white">CPU</div> - Control Memory</option>
@@ -500,9 +500,9 @@
                     </ul>
                     <div class="tab-content mt-3">
                          <div class="tab-pane mx-1 my-2 active" role="tabpanel" id="all">
-				 <div id="states_ALL" style="width:inherit; overflow-y:auto;" 
+				 <div id="states_ALL" style="width:inherit; overflow-y:auto;"
                                       class="container container-fluid pb-2"></div>
-				 <div id="states_BR" style="width: inherit; overflow-y: auto;" 
+				 <div id="states_BR" style="width: inherit; overflow-y: auto;"
                                       class="container container-fluid"></div>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="mp">
@@ -516,14 +516,14 @@
 				 <img alt="monitor" height="55" src="images/monitor2.png" />
 				 </label>
 				 <textarea aria-label="monitor"
-					   style="width:100%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 8 0" 
+					   style="width:100%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 8 0"
 					   placeholder="WepSIM" id="kdb_con" rows="8" readonly></textarea>
 
 				 <label class="my-0" for="kdb_key" style="min-width:95%">
 				 <img alt="keyboard" height="35" src="images/keyboard1.png" />
 				 </label>
 				 <textarea aria-label="keyboard"
-					   style="min-width:100%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 0 0" 
+					   style="min-width:100%; overflow-y:auto; -webkit-overflow-scrolling: touch; margin:0 0 0 0"
 					   placeholder="WepSIM" id="kdb_key" rows="2"></textarea>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="io">
@@ -588,7 +588,7 @@
                                              var ok = wepsim_compile_firmware(textToMCompile);
                                              if (true == ok) {
                                                  wepsim_show_binary_microcode('#bin2','#compile_results');
-			                         wepsim_notify_success('<strong>INFO</strong>', 
+			                         wepsim_notify_success('<strong>INFO</strong>',
 	                                                               'Please remember to recompile the assembly code if needed.');
                                              }">
                                              <strong><em class="fas fa-memory"></em>&nbsp;<span class="d-none d-sm-inline-flex">Show co2&#181;addr + control memory</span><span class="d-sm-none">co2&#181;addr + c.m.</span></strong>
@@ -611,7 +611,7 @@
 
 	    </div>
 
-	    <div id="t3_firm" class="ui-body-d ui-content px-2 py-0" 
+	    <div id="t3_firm" class="ui-body-d ui-content px-2 py-0"
                  style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
 		     <label class="my-0" for="inputFirmware">microcode:</label>
 		     <textarea aria-label="microcode"
@@ -732,12 +732,12 @@
      </div>
      <div class="modal-body">
         <label for="inputFileNameToSaveAs"><em>Please write the file name:</em></label>
-	<p><input aria-label="filename to save content" id="inputFileNameToSaveAs" 
+	<p><input aria-label="filename to save content" id="inputFileNameToSaveAs"
                   class="form-control btn-outline-dark" placeholder="File name where microcode will be saved" style="min-width: 90%;"/></p>
      </div>
      <div class="modal-footer" style="flex-wrap: wrap">
 	<button class="btn btn-sm btn-dark my-1"
-		onclick="if (confirm('Do you want me to save the current Control Memory contents rather than the editor contents?.\n\n' + 
+		onclick="if (confirm('Do you want me to save the current Control Memory contents rather than the editor contents?.\n\n' +
 				     'Please notice three things:\n' +
 				     '* The current Control Memory will replace the editor contents.\n' +
 				     '* The comments outside the microcode will be removed.\n' +
@@ -746,7 +746,7 @@
 			     var SIMWARE = get_simware() ;
 			     var simware_as_text = saveFirmware(SIMWARE);
 			     if (simware_as_text.trim() == '')
-				  alert('The Microcode loaded in memory is empty!\n' + 
+				  alert('The Microcode loaded in memory is empty!\n' +
 					'Please load a Microcode first in memory in order to save it.');
 			     else inputfirm.setValue(simware_as_text);
 			     var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
@@ -800,7 +800,7 @@
      </div>
      <div class="modal-body">
         <label for="inputFileNameToSaveAs2"><em>Please write the file name:</em></label>
-	<p><input aria-label="filename to save content" id="inputFileNameToSaveAs2" 
+	<p><input aria-label="filename to save content" id="inputFileNameToSaveAs2"
                   class="form-control btn-outline-dark" placeholder="File name where assembly will be saved" style="min-width: 90%;"/></p>
      </div>
      <div class="modal-footer">
@@ -824,17 +824,17 @@
 		<div class="mx-auto">
 		   <div class="btn-group">
 		     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled>Config<span class="d-none d-sm-inline-flex">uration</span></button>
-		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" 
+		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
 			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			 <span class="caret"></span>
 			 <span class="sr-only">Toggle Help Idiom</span>
 		     </button>
 		     <div class="dropdown-menu" style="z-index:100000;">
-			 <a class="dropdown-item" href="#" 
-			    onclick="set_cfg('ws_idiom','es'); save_cfg(); 
+			 <a class="dropdown-item" href="#"
+			    onclick="set_cfg('ws_idiom','es'); save_cfg();
                                      wepsim_open_config_index();">ES<span class="d-none d-sm-inline-flex">&nbsp;(Spanish)</span></a>
-			 <a class="dropdown-item" href="#" 
-			    onclick="set_cfg('ws_idiom','en'); save_cfg(); 
+			 <a class="dropdown-item" href="#"
+			    onclick="set_cfg('ws_idiom','en'); save_cfg();
                                      wepsim_open_config_index();">EN<span class="d-none d-sm-inline-flex">&nbsp;(English)</span></a>
 		     </div>
 		   </div>
@@ -843,7 +843,7 @@
 	   </div>
 
 	   <div class="modal-body">
-		<div id="container-config2" class="container-fluid" 
+		<div id="container-config2" class="container-fluid"
 		     style="max-height:75vh; padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
 		</div>
 	   </div>
@@ -851,7 +851,7 @@
 	   <div class="modal-footer">
 		 <button type="button" class="btn btn-outline-dark  btn-sm col-xs-4 col-sm-3 float-left mr-auto"
                          data-toggle="collapse" data-target=".collapse7">&plusmn; Desc<span class="d-none d-sm-inline-flex">ription</span></button>
-		 <button type="button" class="btn btn-danger        btn-sm col-xs-3 col-sm-2 float-right"  
+		 <button type="button" class="btn btn-danger        btn-sm col-xs-3 col-sm-2 float-right" 
                          data-dismiss="modal">Close</button>
 	   </div><!-- /footer -->
 	</div>
@@ -872,7 +872,7 @@
 	   </div>
 	   <div class="modal-body">
 
-		<div id="bin2-container" class="container-fluid" 
+		<div id="bin2-container" class="container-fluid"
 		     style="padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
 
 		      <div class="ui-body-d ui-content" style="padding: 2px 2px 2px 2px;">
@@ -905,17 +905,17 @@
 		   	   onclick="wepsim_open_help_index(); wepsim_help_refresh();">Help Index</button>
 		   <div class="btn-group">
 		     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled>Help</button>
-		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" 
+		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
 			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			 <span class="caret"></span>
 			 <span class="sr-only">Toggle Help Idiom</span>
 		     </button>
 		     <div class="dropdown-menu" style="z-index:100000;">
-			 <a class="dropdown-item" href="#" 
-			    onclick="set_cfg('ws_idiom','es'); save_cfg(); 
+			 <a class="dropdown-item" href="#"
+			    onclick="set_cfg('ws_idiom','es'); save_cfg();
                                      wepsim_help_refresh();">ES<span class="d-none d-sm-inline-flex">&nbsp;(Spanish)</span></a>
-			 <a class="dropdown-item" href="#" 
-			    onclick="set_cfg('ws_idiom','en'); save_cfg(); 
+			 <a class="dropdown-item" href="#"
+			    onclick="set_cfg('ws_idiom','en'); save_cfg();
                                      wepsim_help_refresh();">EN<span class="d-none d-sm-inline-flex">&nbsp;(English)</span></a>
 		     </div>
 		   </div>
@@ -925,7 +925,7 @@
 
 	   <div class="modal-body">
                  <div id="help1_ref" style="display:none;"></div>
-                 <div class="ui-body-d ui-content" 
+                 <div class="ui-body-d ui-content"
                       style="padding: 2px 2px 2px 2px; min-height:50vh; max-height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
                       <div id="iframe_help1" style="min-height:50vh;"></div>
                  </div>
@@ -934,7 +934,7 @@
 	   <div class="modal-footer">
 		 <button type="button" class="btn btn-outline-dark  btn-sm col-xs-4 col-sm-3 float-left mr-auto"
                          data-toggle="collapse" data-target=".collapse7">&plusmn; Desc<span class="d-none d-sm-inline-flex">ription</span></button>
-		 <button type="button" class="btn btn-danger        btn-sm col-xs-3 col-sm-2 float-right"  
+		 <button type="button" class="btn btn-danger        btn-sm col-xs-3 col-sm-2 float-right" 
                          data-dismiss="modal">Close</button>
 	   </div><!-- /footer -->
 	</div>
@@ -950,17 +950,17 @@
 		<div class="mx-auto">
 		   <div class="btn-group">
 		     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled>Examples</button>
-		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split" 
+		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
 			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			 <span class="caret"></span>
 			 <span class="sr-only">Toggle Help Idiom</span>
 		     </button>
 		     <div class="dropdown-menu" style="z-index:100000;">
-			 <a class="dropdown-item" href="#" 
-			    onclick="set_cfg('ws_idiom','es'); save_cfg(); 
+			 <a class="dropdown-item" href="#"
+			    onclick="set_cfg('ws_idiom','es'); save_cfg();
                                      wepsim_open_examples_index();">ES<span class="d-none d-sm-inline-flex">&nbsp;(Spanish)</span></a>
-			 <a class="dropdown-item" href="#" 
-			    onclick="set_cfg('ws_idiom','en'); save_cfg(); 
+			 <a class="dropdown-item" href="#"
+			    onclick="set_cfg('ws_idiom','en'); save_cfg();
                                      wepsim_open_examples_index();">EN<span class="d-none d-sm-inline-flex">&nbsp;(English)</span></a>
 		     </div>
 		   </div>
@@ -969,7 +969,7 @@
 	   </div>
 
 	   <div class="modal-body">
-		<div id="container-example1" class="container-fluid" 
+		<div id="container-example1" class="container-fluid"
 		     style="max-height:75vh; padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
 		</div>
 	   </div>
@@ -994,17 +994,17 @@
          <div class="mx-auto">
                <div class="btn-group">
                   <button onclick="$('#bot_check1').carousel(0);"
-                          type="button" 
+                          type="button"
                           class="btn btn-dark px-3 py-1">States</button>
                   <button onclick="$('#bot_check1').carousel(1);
                                    update_checker_loadhelp('#help3a','help_dumper');"
-                          type="button" 
+                          type="button"
                           class="btn btn-success px-3 py-1">Help</button>
-                  <button type="button" 
+                  <button type="button"
                           class="btn btn-success dropdown-toggle dropdown-toggle-split"
-                          data-toggle="dropdown" 
-                          aria-haspopup="true" 
-                          aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>   
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>  
 		  <div class="dropdown-menu" style="z-index:100000;">
                      <a href="#" class="dropdown-item"
 				 onclick="set_cfg('ws_idiom','es'); save_cfg();
@@ -1036,8 +1036,8 @@
 			     <div class="col-auto text-center flex-column d-flex pr-0">
 				    <strong class="m-2">
 					<span class="badge badge-pill border-secondary border shadow">
-						<a class="col-auto p-0" 
-					           data-toggle="collapse" data-target="#collapse_X" 
+						<a class="col-auto p-0"
+					           data-toggle="collapse" data-target="#collapse_X"
 						   target="_blank" href="#" id="curr_clk_maddr">now</a>
 					</span>
 				    </strong>
@@ -1045,7 +1045,7 @@
 			     <div class="col pt-2 pl-0">
 				<div class="btn-group float-none" role="group" aria-label="State information for now">
                                           <button class="btn btn-outline-dark btn-sm col float-right"
-					          onclick="CopyFromTextarea('end_state1'); 
+					          onclick="CopyFromTextarea('end_state1');
 	                                                   wepsim_state_results_empty();
 	                                                   var curr_tag = $('#curr_clk_maddr').html();
 	                                                   $('#s_clip').html(curr_tag);
@@ -1063,21 +1063,21 @@
                                                   type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>
                                 </div>
 				<div id="collapse_X" class="mt-2 collapse show">
-					<form id="end_state_form1" 
+					<form id="end_state_form1"
 					      class="form-horizontal mb-2"
 					      style="white-space:wrap; overflow-y:auto; -webkit-overflow-scrolling:touch; width:100%;">
 		                           <label class="my-0" for="end_state1">state:</label>
-					   <textarea aria-label="current_state" 
-						     placeholder="Default..." 
-						     id="end_state1" 
-						     name="end_state1" 
-						     data-allowediting="true" 
-						     data-allowpasting="false" 
-						     data-limit="0" 
-						     data-createtokensonblur="false" 
-						     data-delimiter=";" 
-						     data-beautify="true" 
-						     class="form-control input-xs" 
+					   <textarea aria-label="current_state"
+						     placeholder="Default..."
+						     id="end_state1"
+						     name="end_state1"
+						     data-allowediting="true"
+						     data-allowpasting="false"
+						     data-limit="0"
+						     data-createtokensonblur="false"
+						     data-delimiter=";"
+						     data-beautify="true"
+						     class="form-control input-xs"
 						     rows="5"></textarea>
 					</form>
 				</div>
@@ -1099,7 +1099,7 @@
 			<h4 class="mt-1">
 			    <a data-toggle="collapse" href="#check_results_scroll1">Differences</a>:&nbsp;
 			    <span class="btn btn-outline-dark btn-sm"
-			          onclick="CopyFromDiv('check_results_scroll1'); 
+			          onclick="CopyFromDiv('check_results_scroll1');
 	                                   return false;"
 			          data-inline="true">Copy to clipboard</span>
                         </h4>
@@ -1120,7 +1120,7 @@
 		        </div>
                   </div>
                   <div class="carousel-item">
-                       <div id="help3a" 
+                       <div id="help3a"
                             style="max-height:70vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">Loading...</div>
                   </div>
                </div>
@@ -1179,11 +1179,11 @@
          </div>
       </div>
       <div class="modal-footer">
-           <button type="button" 
+           <button type="button"
                    onclick="$('#current_state2').modal('hide');
 		            wepsim_dialog_current_state();"
                    class="btn btn-secondary col-xs-3 pull-left shadow-none mr-auto">States</button>
-           <button type="button" 
+           <button type="button"
                    onclick="$('#current_state2').modal('hide');"
                    class="btn btn-primary col-xs-3 pull-right shadow-none">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
       </div>
@@ -1205,7 +1205,7 @@
 	   </div>
 	   <div class="modal-body">
 
-		<div id="container-about1" class="container-fluid" 
+		<div id="container-about1" class="container-fluid"
 		     style="max-height:80vh; overflow:auto; -webkit-overflow-scrolling:touch;">
 
 			<div class="row pb-2">
@@ -1299,7 +1299,7 @@
 		</div>
 	   </div>
            <div class="modal-footer">
-		 <button type="button" 
+		 <button type="button"
 	                 class="btn btn-outline-dark  btn-sm col-xs-4 col-sm-3 float-left mr-auto"
                          data-toggle="collapse" data-target=".cf-all">&plusmn; Desc<span class="d-none d-sm-inline-flex">ription</span></button>
 		 <button type="button" data-dismiss="modal"
@@ -1318,14 +1318,14 @@
 
 
 <script type="text/javascript">
-    window.addEventListener("beforeunload", 
+    window.addEventListener("beforeunload",
 	                    function (e) {
 			         var confirmationMessage = "\o/";
 			         (e || window.event).returnValue = confirmationMessage; // Gecko + IE
 			         return confirmationMessage;                            // Webkit, Safari, Chrome
 			    });
 
-    try 
+    try
     {
 	    sim_core_init(true, 'ep') ;
 
@@ -1338,7 +1338,7 @@
 		    if (typeof ko != "undefined")
                         ko.options.deferUpdates = true;
 
-		    inputfirm = CodeMirror.fromTextArea(document.getElementById("inputFirmware"), 
+		    inputfirm = CodeMirror.fromTextArea(document.getElementById("inputFirmware"),
                                 {
 				   value: "\n\n\n\n\n\n\n\n\n\n\n\n",
 				   lineNumbers: true,
@@ -1352,7 +1352,7 @@
 				});
                     sim_prepare_editor(inputfirm);
 
-		    inputasm = CodeMirror.fromTextArea(document.getElementById("inputAssembly"), 
+		    inputasm = CodeMirror.fromTextArea(document.getElementById("inputAssembly"),
                                     {
 					value: "\n\n\n\n\n\n\n\n\n\n\n\n",
 					lineNumbers: true,
@@ -1397,73 +1397,28 @@
 		    $("[data-toggle=popover0]").popover({
 			    html:       true,
 			    placement: 'auto',
-                            container: 'body',
-                            template:  '<div class="popover shadow border border-secondary" role="tooltip">' + 
-			               '<div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div>' + 
-			               '</div>',
 			    animation:  false,
-			    content:    function() { 
-                                    return '<ul class="list-group list-group-flush">' + 
-					   '<li class="list-group-item p-2"> ' + 
-					   '  <em class="fas fa-flag"></em> &nbsp;' + 
-					   '  <a class="btn btn-sm btn-outline-secondary col-10 text-left" href="#" ' + 
-                                           '     onclick="simcoreui_notify_notifications(); ' + 
-					   '              $(\'#po1\').popover(\'hide\');">Show Notifications...</a>' + 
-					   '</li>' + 
-					   '<li class="list-group-item p-2"> ' + 
-					   '  <em class="fas fa-bars"></em> &nbsp;' + 
-                                           '  <span class="btn-group-toggle" data-toggle="buttons">' +
-					   '  <label class="btn btn-sm btn-outline-secondary col-10 text-left" data-toggle="collapse" href=".multi-collapse-1">' + 
-					   '  <input type="checkbox" checked="" autocomplete="off"> Show/Hide ActionBar</label>' + 
-					   '  </span>' + 
-					   '</li>' + 
-					   '<li class="list-group-item p-2"> ' + 
-					   '  <em class="fas fa-sliders-h"></em> &nbsp;' + 
-                                           '  <span class="btn-group-toggle" data-toggle="buttons">' +
-					   '  <label class="btn btn-sm btn-outline-secondary col-10 text-left" data-toggle="collapse" href=".multi-collapse-2">' + 
-					   '  <input type="checkbox" checked="" autocomplete="off"> Show/Hide Sliders</label>' + 
-					   '  </span>' + 
-					   '</li>' + 
-					   '<li class="list-group-item p-2"> ' + 
-					   '  <em class="fas fa-microphone"></em> &nbsp;' + 
-                                           '  <span class="btn-group-toggle" data-toggle="buttons">' +
-					   '  <label class="btn btn-sm btn-outline-secondary col-10 ml-1 text-left" href="#" ' + 
-                                           '     onclick="var now = get_cfg(\'use_voice\'); ' +
-                                           '              update_cfg(\'use_voice\', !now); ' +
-                                           '              if (now) ' +
-                                           '                   wepsim_voice_stop(); ' +
-                                           '              else wepsim_voice_start();">' + 
-					   '  <input type="checkbox" checked="" autocomplete="off"> Active/Deactive Voice</label>' + 
-					   '  </span>' + 
-					   '</li>' + 
-					   '<li class="list-group-item p-2"> ' + 
-					   '  <em class="fas fa-magic"></em> &nbsp;' + 
-					   '  <a class="btn btn-sm btn-outline-secondary col-10 text-left" href="#" ' + 
-					   '     onclick="$(\'#about2\').modal(\'show\'); ' + 
-					   '              $(\'#po1\').popover(\'hide\');">About WepSIM...</a>' + 
-					   '</li>' + 
-					   '<li class="list-group-item p-2"> ' + 
-					   '  <em class="fas fa-book-reader"></em> &nbsp;' + 
-					   '  <a class="btn btn-sm btn-outline-secondary col-10 text-left" href="#" ' + 
-					   '     onclick="wepsim_newbie_tour(); ' + 
-					   '              $(\'#po1\').popover(\'hide\');">Initial intro...</a>' + 
-					   '</li>' + 
-				           '</ul>' ;
+                            container: 'body',
+                            template:  '<div class="popover shadow border border-secondary" role="tooltip">' +
+			               '<div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div>' +
+			               '</div>',
+			    content:    function() {
+                                           return wepsim_show_quick_menu('po1') ;
                                         }
 		    });
 		    $('a[data-toggle="popover1"]').popover({
 			     placement: 'bottom',
-			     trigger:   'focus, hover',
 			     animation: false,
-			     delay: { "show": 500, "hide": 100 } 
+			     trigger:   'focus, hover',
+			     delay: { "show": 500, "hide": 100 }
 		    }) ;
 		    $("[data-toggle=popover2]").popover({
 			    html:       true,
 			    placement: 'auto',
-                            container: 'body',
 			    animation:  false,
-			    content:    function() { 
-                                           return wepsim_show_asm_columns_checked('popover2_asm'); 
+                            container: 'body',
+			    content:    function() {
+                                           return wepsim_show_asm_columns_checked('popover2_asm') ;
                                         }
 		    });
 		    $("[data-toggle=popover3]").popover({
@@ -1495,9 +1450,9 @@
 
 		    var ws_mode = get_cfg('ws_mode');
 		    wepsim_change_mode(ws_mode, '#select4') ;
-		    sim_core_init_ui("#states_ALL", "#states_BR", "#io_ALL", 
-				     "#cpu_ALL", "#config_MP", "#config_IO"); 
-		    sim_core_reset(); 
+		    sim_core_init_ui("#states_ALL", "#states_BR", "#io_ALL",
+				     "#cpu_ALL", "#config_MP", "#config_IO");
+		    sim_core_reset();
 
 		    wepsim_voice_init() ;
 		    if (false == get_cfg('use_voice')) {
@@ -1509,7 +1464,7 @@
 	    if ( (false == is_mobile()) && ('serviceWorker' in navigator) )
             {
 		navigator.serviceWorker.register('./min.wepsim_pwa.js').catch(function() {
-		    wepsim_notify_error("<h4>Warning:" + 
+		    wepsim_notify_error("<h4>Warning:" +
 		  		        "<br/>WepSIM was used over a HTTP connection.</h4>",
 		                        "Progressive Web Applications requires a HTTPS connection " +
 		                        "with a valid certificate, so PWA is disabled.<br/>" +
@@ -1518,11 +1473,11 @@
 	    }
 
             // Firefox OS
-	    if ('mozApps' in navigator) 
+	    if ('mozApps' in navigator)
 	    {
 		    var manifest_url = location.href + 'manifest.webapp';
 		    var installCheck = navigator.mozApps.checkInstalled(manifest_url);
-		    installCheck.onsuccess = function() 
+		    installCheck.onsuccess = function()
 		    {
 		        if (!installCheck.result)
 		        {
@@ -1539,12 +1494,12 @@
 		    } ;
             }
     }
-    catch(err) 
+    catch(err)
     {
           $("#ws_loader").collapse('hide') ;
 
-          alert("WepSIM was improperly used:\n" + err.message + "\n" + 
-		"\n" + 
+          alert("WepSIM was improperly used:\n" + err.message + "\n" +
+		"\n" +
 		"More details:\n" + err.stack);
     }
 </script>

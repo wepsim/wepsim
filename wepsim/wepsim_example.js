@@ -186,10 +186,10 @@
                         '    <span class="badge badge-pill badge-light">' + (m+1) + '</span>' +
                         '</div>' +
                         '<div class="col-sm-3">' +
-		        '   <span style="padding:0 0 0 0; margin:0 8 0 0; cursor:pointer;" ' + 
+		        '   <span style="cursor:pointer;" ' + 
 		        '         onclick="$(\'#example1\').modal(\'hide\'); ' + 
                         '                  load_from_example_firmware(\'' + e_hw + ":" + e_id + '\',true);" ' + 
-		        '         class="bg-info text-white">' + e_title + '</span>' +
+		        '         class="bg-info text-white p-0 mr-2">' + e_title + '</span>' +
                         '</div>' +
                         '<div class="col-sm collapse7 show">' +
                         '    <c>' + e_description + '</c>' +
@@ -199,13 +199,11 @@
 		        '     <div class="btn-group btn-group-justified btn-group-md">' +
 		        '         <a onclick="$(\'#example1\').modal(\'hide\'); ' + 
                         '                    load_from_example_assembly(\'' + e_hw + ":" + e_id + '\',false);"' + 
-                        '            style="padding:0 0 0 0; margin:0 8 0 0;"' +
-		        '            class="bg-dark text-white">' +
+		        '            class="bg-dark text-white p-0 mr-2">' +
 		        '            <c>Assembly</c></a>' +
 		        '         <a onclick="$(\'#example1\').modal(\'hide\'); ' + 
                         '                    load_from_example_firmware(\'' + e_hw + ":" + e_id + '\',false);"' + 
-                        '            style="padding:0 0 0 0; margin:0 7 0 0;"' +
-		        '            class="bg-dark text-white">' +
+		        '            class="bg-dark text-white p-0 mr-2">' +
 		        '            <c>Firmware</c></a>' +
 		        '     </div>' +
                         '</div>' ;

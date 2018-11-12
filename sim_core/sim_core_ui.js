@@ -684,7 +684,7 @@
 
             o1 += "<div class='col-12' style='padding:0 0 10 0;'>" +
                   "<div class='card bg-light'>" +
-                  "<div class='card-body' id='mempanel' style='padding:0 0 0 0;'>" +
+                  "<div class='card-body p-0' id='mempanel'>" +
                   "<table class='table table-hover table-sm table-bordered' " +
                   "       style='margin:0'>" +
                   "<tbody class='no-ui-mini'>" +
@@ -729,7 +729,7 @@
             var o1 = "<div class='container-fluid'>" +
                      "<div class='row'>" ;
 
-               o1 += "<div class='col-12' style='padding:0 0 0 0;'>" +
+               o1 += "<div class='col-12 p-0'>" +
                      "<div class='card bg-light' style='margin:0 0 0 0;'>" +
                      "<div class='card-body' id='iopanel' style='padding: 0 0 0 0'>" ;
                o1 += "<center>" +
@@ -753,17 +753,17 @@
             for (var i=0; i<8; i++)
             {
                o1 += "<tr>" +
-                     "<td align=center style='padding:0 0 0 0; vertical-align: middle !important'>" +
-                     "<span style='padding:0 0 0 0; margin:0 0 0 0'>" + i + "</span>" + 
+                     "<td align='center' style='padding:0 0 0 0; vertical-align: middle !important'>" +
+                     "<span class='p-0 m-0'>" + i + "</span>" + 
                      "</td>" +
-                     "<td align=center style='padding:0 0 0 0'>" +
+                     "<td align='center' class='p-0'>" +
                      "<div id='int" + i + "_per' style='margin:0 3 0 3'>" +
                      "<input type=number data-bind='value: period' min='0' max='99999999'>" +
                      "</div>" +
                      "</td>" +
-                     "<td align=center style='padding:0 0 0 0'>" +
+                     "<td align='center' class='p-0'>" +
                      "<div id='int" + i + "_pro' style='margin:0 3 0 3'>" +
-                     "<input type=number data-bind='value: probability' min='0' max='1' step='.05'>" +
+                     "<input type='number' data-bind='value: probability' min='0' max='1' step='.05'>" +
                      "</div>" +
                      "</td>" +
                      "</tr>" ;

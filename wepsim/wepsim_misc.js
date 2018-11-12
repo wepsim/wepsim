@@ -157,7 +157,7 @@
     {
             if ( (typeof $.mobile                             != "undefined") &&
                  (typeof $.mobile.pageContainer               != "undefined") &&
-                 (typeof $.mobile.pageContainer.pagecontainer != "undefined") ) 
+                 (typeof $.mobile.pageContainer.pagecontainer != "undefined") )
             {
                   $.mobile.pageContainer.pagecontainer('change', page_id);
             }
@@ -208,7 +208,7 @@
             return false;
         }
 
-        wepsim_notify_success('<strong>INFO</strong>', 
+        wepsim_notify_success('<strong>INFO</strong>',
                               'Assembly was compiled and loaded.') ;
 
         // update memory and segments
@@ -234,7 +234,7 @@
         }
 
         // update UI
-        wepsim_notify_success('<strong>INFO</strong>', 
+        wepsim_notify_success('<strong>INFO</strong>',
                               'Microcode was compiled and loaded.') ;
 
 	sim_core_reset() ;
@@ -289,7 +289,7 @@
 
             wepsim_notify_error('<strong>ERROR</strong>',
                                 errorMsg + '<br>' + '<center>' + lineMsg +
-                                '<button type="button" class="btn btn-danger" ' + 
+                                '<button type="button" class="btn btn-danger" ' +
                                 '        onclick="wepsim_notify_close();">Close</button>' +
                                 '</center>') ;
     }
@@ -399,11 +399,11 @@
 	    }, false);
 
             // info + warning
-	    wepsim_notify_warning('<strong>WARNING</strong>', 
+	    wepsim_notify_warning('<strong>WARNING</strong>',
                                  'Please remember the current firmware and assembly could need to be reloaded.') ;
-	    wepsim_notify_warning('<strong>WARNING</strong>', 
+	    wepsim_notify_warning('<strong>WARNING</strong>',
                                  'Pass working session with the simulated hardware are not kept.') ;
-	    wepsim_notify_success('<strong>INFO</strong>', 
+	    wepsim_notify_success('<strong>INFO</strong>',
                                   '"' + simhw_active().sim_name + '" has been activated.') ;
 
             // update UI
@@ -475,14 +475,14 @@
 	  // switch active hardware by name...
           switch (optValue)
           {
-	      case 'newbie': 
-	      case 'intro': 
-	      case 'wepmips': 
-	      case 'tutorial': 
+	      case 'newbie':
+	      case 'intro':
+	      case 'wepmips':
+	      case 'tutorial':
                                hwid = simhw_getActiveByName('ep') ;
                                wepsim_activehw(hwid) ;
                                break;
-	      default: 
+	      default:
 	                       hwid = simhw_getActiveByName(optValue) ;
                                wepsim_activehw(hwid) ;
                                break;
@@ -500,7 +500,7 @@
 	  }
 
 	  // intro mode...
-	  if ('intro' == optValue) 
+	  if ('intro' == optValue)
 	  {
 	      sim_tutorial_showframe('welcome', 0);
               return ;
@@ -514,43 +514,103 @@
           }
     }
 
-    function wepsim_show_asm_columns_checked ( asm_div )
+
+    /*
+     *  Popovers
+     */
+
+    function wepsim_show_asm_columns_checked ( asm_po )
     {
         var o = '<ul class="list-group">' +
-                '<li class="list-group-item py-0"><label class="m-1">' + 
-		'<input aria-label="Show breakpoint" type="checkbox" value="1" id="asm_break" ' + 
-                '    checked="checked" data-toggle="collapse" data-target=".asm_break">' + 
-                '&nbsp;<span>breakpoints</span>' + 
+                '<li class="list-group-item py-0"><label class="m-1">' +
+		'<input aria-label="Show breakpoint" type="checkbox" value="1" id="asm_break" ' +
+                '    checked="checked" data-toggle="collapse" data-target=".asm_break">' +
+                '&nbsp;<span>breakpoints</span>' +
 		'</label></li>' +
-		'<li class="list-group-item py-0"><label class="m-1">' + 
-		'<input aria-label="Show address"    type="checkbox" value="1" id="asm_addr"    ' + 
-		'    checked="checked" data-toggle="collapse" data-target=".asm_addr">' + 
-                '&nbsp;<span>address</span>' + 
+		'<li class="list-group-item py-0"><label class="m-1">' +
+		'<input aria-label="Show address"    type="checkbox" value="1" id="asm_addr"    ' +
+		'    checked="checked" data-toggle="collapse" data-target=".asm_addr">' +
+                '&nbsp;<span>address</span>' +
 		'</label></li>' +
-		'<li class="list-group-item py-0"><label class="m-1">' + 
-		'<input aria-label="Show label"      type="checkbox" value="1" id="asm_label2"  ' + 
-		'    checked="checked" data-toggle="collapse" data-target=".asm_label2">' + 
-                '&nbsp;<span>labels</span>' + 
+		'<li class="list-group-item py-0"><label class="m-1">' +
+		'<input aria-label="Show label"      type="checkbox" value="1" id="asm_label2"  ' +
+		'    checked="checked" data-toggle="collapse" data-target=".asm_label2">' +
+                '&nbsp;<span>labels</span>' +
 		'</label></li>' +
-                '<li class="list-group-item py-0"><label class="m-1">' + 
-		'<input aria-label="Show pseudo-instruction" type="checkbox" value="1" id="asm_pins" ' + 
-		'    checked="checked" data-toggle="collapse" data-target=".asm_pins">' + 
-                '&nbsp;<span>pseudo</span><span class="d-none d-md-inline">-instructions</span>' + 
+                '<li class="list-group-item py-0"><label class="m-1">' +
+		'<input aria-label="Show pseudo-instruction" type="checkbox" value="1" id="asm_pins" ' +
+		'    checked="checked" data-toggle="collapse" data-target=".asm_pins">' +
+                '&nbsp;<span>pseudo</span><span class="d-none d-md-inline">-instructions</span>' +
 		'</label></li>' +
-		'<li class="list-group-item py-0"><label class="m-1">' + 
-		'<input aria-label="Show label"              type="checkbox" value="1" id="asm_label1"  ' + 
-		' checked="checked" data-toggle="collapse" data-target=".asm_label1">' + 
-                '&nbsp;<span>labels</span>' + 
+		'<li class="list-group-item py-0"><label class="m-1">' +
+		'<input aria-label="Show label"              type="checkbox" value="1" id="asm_label1"  ' +
+		' checked="checked" data-toggle="collapse" data-target=".asm_label1">' +
+                '&nbsp;<span>labels</span>' +
 		'</label></li>' +
-		'<li class="list-group-item py-0"><label class="m-1">' + 
-		'<input aria-label="Show instruction"        type="checkbox" value="1" id="asm_ins"     ' + 
-		' checked="checked" data-toggle="collapse" data-target=".asm_ins">' + 
-                '&nbsp;<span>assembly</span>' + 
+		'<li class="list-group-item py-0"><label class="m-1">' +
+		'<input aria-label="Show instruction"        type="checkbox" value="1" id="asm_ins"     ' +
+		' checked="checked" data-toggle="collapse" data-target=".asm_ins">' +
+                '&nbsp;<span>assembly</span>' +
 		'</label></li>' +
 		'</ul>' +
                 '<button type="button" id="close" data-role="none" ' +
-                '        class="btn btn-sm btn-danger w-100 p-0" ' +
-                '        onclick="$(\'#' + asm_div + '\').popover(\'hide\');">Close</button>' ;
+                '        class="btn btn-sm btn-danger w-100 p-0 mt-2" ' +
+                '        onclick="$(\'#' + asm_po + '\').popover(\'hide\');">Close</button>' ;
+
+        return o ;
+    }
+
+    function wepsim_show_quick_menu ( quick_po )
+    {
+        var o = '<ul class="list-group list-group-flush">' +
+		'<li class="list-group-item p-2"> ' +
+		'  <em class="fas fa-flag"></em> &nbsp;' +
+		'  <a class="btn btn-sm btn-outline-secondary col-10 text-left" href="#" ' +
+                '     onclick="simcoreui_notify_notifications(); ' +
+		'              $(\'#' + quick_po + '\').popover(\'hide\');">Show Notifications...</a>' +
+		'</li>' +
+		'<li class="list-group-item p-2"> ' +
+		'  <em class="fas fa-bars"></em> &nbsp;' +
+                '  <span class="btn-group-toggle" data-toggle="buttons">' +
+		'  <label class="btn btn-sm btn-outline-secondary col-10 text-left" data-toggle="collapse" href=".multi-collapse-1">' +
+		'  <input type="checkbox" checked="" autocomplete="off"> Show/Hide ActionBar</label>' +
+		'  </span>' +
+		'</li>' +
+		'<li class="list-group-item p-2"> ' +
+		'  <em class="fas fa-sliders-h"></em> &nbsp;' +
+                '  <span class="btn-group-toggle" data-toggle="buttons">' +
+		'  <label class="btn btn-sm btn-outline-secondary col-10 text-left" data-toggle="collapse" href=".multi-collapse-2">' +
+		'  <input type="checkbox" checked="" autocomplete="off"> Show/Hide Sliders</label>' +
+		'  </span>' +
+		'</li>' +
+		'<li class="list-group-item p-2"> ' +
+		'  <em class="fas fa-microphone"></em> &nbsp;' +
+                '  <span class="btn-group-toggle" data-toggle="buttons">' +
+		'  <label class="btn btn-sm btn-outline-secondary col-10 ml-1 text-left" href="#" ' +
+                '     onclick="var now = get_cfg(\'use_voice\'); ' +
+                '              update_cfg(\'use_voice\', !now); ' +
+                '              if (now) ' +
+                '                   wepsim_voice_stop(); ' +
+                '              else wepsim_voice_start();">' +
+		'  <input type="checkbox" checked="" autocomplete="off"> Active/Deactive Voice</label>' +
+		'  </span>' +
+		'</li>' +
+		'<li class="list-group-item p-2"> ' +
+		'  <em class="fas fa-magic"></em> &nbsp;' +
+		'  <a class="btn btn-sm btn-outline-secondary col-10 text-left" href="#" ' +
+		'     onclick="$(\'#about2\').modal(\'show\'); ' +
+		'              $(\'#' + quick_po + '\').popover(\'hide\');">About WepSIM...</a>' +
+		'</li>' +
+		'<li class="list-group-item p-2"> ' +
+		'  <em class="fas fa-book-reader"></em> &nbsp;' +
+		'  <a class="btn btn-sm btn-outline-secondary col-10 text-left" href="#" ' +
+		'     onclick="wepsim_newbie_tour(); ' +
+		'              $(\'#' + quick_po + '\').popover(\'hide\');">Initial intro...</a>' +
+		'</li>' +
+	        '<button type="button" id="close" data-role="none" ' + 
+		'        class="btn btn-sm btn-danger w-100 p-0 mt-2" ' +
+		'        onclick="$(\'#' + quick_po + '\').popover(\'hide\');">Close</button>' +
+		'</ul>' ;
 
         return o ;
     }
