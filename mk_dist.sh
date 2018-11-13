@@ -143,9 +143,11 @@ cp -a help      ws_dist/
           touch ws_dist/help/index.html
 
 #  user interface
-sed "s/WEPSIM_ROOT/ws_dist/g" wepsim/wepsim.html    > index.html
-sed "s/WEPSIM_ROOT/\./g"      wepsim/wepsim.html    > ws_dist/index.html
-sed "s/WEPSIM_ROOT/\./g"      wepsim/wepsim_pwa.js  > ws_dist/min.wepsim_pwa.js
+sed "s/WEPSIM_ROOT/ws_dist/g" wepsim/wepsim-compact.html    > compact.html
+
+sed "s/WEPSIM_ROOT/ws_dist/g" wepsim/wepsim-classic.html    > index.html
+sed "s/WEPSIM_ROOT/\./g"      wepsim/wepsim-classic.html    > ws_dist/index.html
+sed "s/WEPSIM_ROOT/\./g"      wepsim/wepsim_pwa.js          > ws_dist/min.wepsim_pwa.js
 
 cp manifest.webapp        ws_dist/
 cp wepsim/wepsim_node.sh  ws_dist/
