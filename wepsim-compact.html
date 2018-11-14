@@ -1268,11 +1268,11 @@
 </div> <!-- /.modal -->
 
 
-    <link async href="WEPSIM_ROOT/min.external.css" rel="stylesheet">
-    <script      src="WEPSIM_ROOT/min.external.js"></script><noscript>Your browser does not support JavaScript!</noscript>
+    <link async href="ws_dist/min.external.css" rel="stylesheet">
+    <script      src="ws_dist/min.external.js"></script><noscript>Your browser does not support JavaScript!</noscript>
 
-    <script src="WEPSIM_ROOT/min.sim_all.js"   ></script><noscript>Your browser does not support JavaScript!</noscript>
-    <script src="WEPSIM_ROOT/min.wepsim_web.js"></script><noscript>Your browser does not support JavaScript!</noscript>
+    <script src="ws_dist/min.sim_all.js"   ></script><noscript>Your browser does not support JavaScript!</noscript>
+    <script src="ws_dist/min.wepsim_web.js"></script><noscript>Your browser does not support JavaScript!</noscript>
 
 
 <script type="text/javascript">
@@ -1423,7 +1423,7 @@
             // progressive web application
 	    if ( (false == is_mobile()) && ('serviceWorker' in navigator) )
             {
-		navigator.serviceWorker.register('WEPSIM_ROOT/min.wepsim_pwa.js').catch(function() {
+		navigator.serviceWorker.register('ws_dist/min.wepsim_pwa.js').catch(function() {
 		    wepsim_notify_error("<h4>Warning:" +
 		  		        "<br/>WepSIM was used over a HTTP connection.</h4>",
 		                        "Progressive Web Applications requires a HTTPS connection " +
