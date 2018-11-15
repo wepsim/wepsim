@@ -146,9 +146,11 @@ cp -a help      ws_dist/
           touch ws_dist/help/index.html
 
 #  user interface
-sed "s/WEPSIM_ROOT/ws_dist/g" wepsim/wepsim-classic.html    > index.html
 sed "s/WEPSIM_ROOT/ws_dist/g" wepsim/wepsim-classic.html    > wepsim-classic.html
 sed "s/WEPSIM_ROOT/ws_dist/g" wepsim/wepsim-compact.html    > wepsim-compact.html
+rm -fr index.html
+ln -s wepsim-classic.html index.html
+#sed "s/WEPSIM_ROOT/ws_dist/g" wepsim/wepsim-classic.html    > index.html
 
 sed "s/WEPSIM_ROOT/\./g"      wepsim/wepsim-classic.html    > ws_dist/index.html
 sed "s/WEPSIM_ROOT/\./g"      wepsim/wepsim-classic.html    > ws_dist/wepsim-classic.html
