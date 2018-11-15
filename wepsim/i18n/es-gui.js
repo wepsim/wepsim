@@ -1,13 +1,13 @@
 
     i18n.gui.es = {
 			"Loading WepSIM...": 		     		"Cargando WepSIM...",
-			"Configuration": 		     		"Configuraci&oacute;n",
+			"Configuration": 		     		"Configuraci'on",
 			"Examples": 			     		"Ejemplos",
 			"Help": 			     		"Ayuda",
 			"Processor": 			     		"Procesador",
 			"Assembly Debugger": 		     		"Depurador de Ensamblador",
 			"Reset": 			     		"Resetear",
-			"Instruction": 			     		"Instrucci&oacute;n",
+			"Instruction": 			     		"Instrucci'on",
 			"Run": 				     		"Ejecutar",
 			"States": 			     		"Estados",
 			"Refresh": 			     		"Refrescar",
