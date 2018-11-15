@@ -316,7 +316,7 @@
                                  style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"
 				 aria-label="processor"
                                  onclick="start_drawing();
-                                          refresh();"><em class="fas fa-microchip"></em>&nbsp;Processor</a>
+                                          refresh();"><em class="fas fa-microchip"></em>&nbsp;<span data-langkey='Processor'>Processor</span></a>
                           </li>
 		          <li class="nav-item">
                               <a id="tab24" href="#eltos_dbg" 
@@ -328,7 +328,7 @@
                                           var obj_byid = $('#asm_debugger_container');
                                           if (typeof o1[0] == 'undefined')
                                               return;
-                                          obj_byid[0].scrollTop = o1[0].offsetTop;"><em class="fas fa-bug"></em>&nbsp;<span class="d-sm-none">Assembly</span><span class="d-none d-sm-inline-flex">Assembly Debugger</span></a>
+                                          obj_byid[0].scrollTop = o1[0].offsetTop;"><em class="fas fa-bug"></em>&nbsp;<span class="d-sm-none" data-langkey='Assembly'>Assembly</span><span class="d-none d-sm-inline-flex">Assembly Debugger</span></a>
                           </li>
 		      </ul>
 
@@ -399,13 +399,13 @@
                     <div class="btn-toolbar btn-block" role="toolbar">
 			    <button          style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
-			            onclick="wepsim_execute_reset(true, true);"><em class="fa fa-power-off"></em><strong><br/>Reset</strong></button>
+			            onclick="wepsim_execute_reset(true, true);"><em class="fa fa-power-off"></em><strong><br/><span data-langkey='Reset'>Reset</span></strong></button>
 			    <button id="nm1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
-			            onclick="wepsim_execute_microinstruction();"><em class="fa fa-step-forward"></em><strong><br/>&#181;<span class="d-none d-sm-inline-flex">Instruction</span><span class="d-sm-none">Instr.</span></strong></button>
+			            onclick="wepsim_execute_microinstruction();"><em class="fa fa-step-forward"></em><strong><br/>&#181;<span class="d-none d-sm-inline-flex" data-langkey='Instruction'>Instruction</span><span class="d-sm-none">Instr.</span></strong></button>
 			    <button id="ni1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
-			            onclick="wepsim_execute_instruction();"><em class="fa fa-fast-forward"></em><strong><br/><span class="d-none d-sm-inline-flex">Instruction</span><span class="d-sm-none">Instr.</span></strong></button>
+			            onclick="wepsim_execute_instruction();"><em class="fa fa-fast-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey='Instruction'>Instruction</span><span class="d-sm-none">Instr.</span></strong></button>
 			    <button id="qbp" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
                                     onclick="var mode = get_cfg('ws_mode');
@@ -414,7 +414,7 @@
                                                                        'Tutorial mode on. Use the configuration to change it.');
                                              }
                                              wepsim_execute_toggle_play('#qbp', (mode == 'tutorial'));
-                                             return false;"><em class="fa fa-play"></em><strong><br/>Run</strong></button>
+                                             return false;"><em class="fa fa-play"></em><strong><br/><span data-langkey='Run'>Run</span></strong></button>
                     </div>
                     </div>
 
@@ -422,7 +422,7 @@
                     <div class="btn-toolbar btn-block" role="toolbar">
 		          <button class="btn btn-light shadow-sm col"
 		                  style="border-color: #CCCCCC; flex-grow:1;"
-		                  onclick="wepsim_dialog_current_state();"><em class="fas fa-camera"></em>&nbsp;States</button>
+		                  onclick="wepsim_dialog_current_state();"><em class="fas fa-camera"></em>&nbsp;<span data-langkey='States'>States</span></button>
 			  <label  for="select5a" class="col p-0 m-0" style="flex-grow:2;">
                           <select class="custom-select btn btn-light shadow-sm"
                                   style="border-color: #CCCCCC; flex-grow:2;"
@@ -603,7 +603,7 @@
                             <button style="background-color: #D4DB17"
 		                    class="btn btn-light shadow-sm col"
 				    onclick="wepsim_help_set_relative('#help_firmware_format'); wepsim_help_refresh();"
-				    ><em class="fas fa-info-circle"></em>&nbsp;<strong>Help</strong></button>
+				    ><em class="fas fa-info-circle"></em>&nbsp;<strong data-langkey="Help">Help</strong></button>
 		      </div>
 
 		</div>
@@ -673,7 +673,7 @@
                             <button style="background-color: #D4DB17"
 		                    class="btn btn-light shadow-sm col"
 				    onclick="wepsim_help_set_relative('#help_assembly_format'); wepsim_help_refresh();"
-				    ><em class="fas fa-info-circle"></em>&nbsp;<strong>Help</strong></button>
+				    ><em class="fas fa-info-circle"></em>&nbsp;<strong data-langkey="Help">Help</strong></button>
 		      </div>
 
 		</div>
