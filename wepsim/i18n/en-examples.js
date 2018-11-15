@@ -1,7 +1,4 @@
 
-    var examples    = {};
-        examples.en = [];
-
     // EP
 
     examples.en.push({ 

@@ -1,6 +1,4 @@
 
-        examples.es = [];
-
     // EP
 
     examples.es.push({ 

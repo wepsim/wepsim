@@ -1,7 +1,7 @@
 
-var tour_steps = {} ;
 
-    tour_steps.onbeforechange = function () {
+    tour_steps.onbeforechange = function () 
+                                {
 	                            if (this._currentStep === 1)
 	                            {
 			                $("#select4").click(); 
