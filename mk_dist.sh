@@ -44,6 +44,7 @@ rm -fr ws_dist/sim_all.js
 cat wepsim/i18n/i18n.js \
     wepsim/i18n/es.js \
     wepsim/i18n/en.js \
+    wepsim/tutorials.js \
     wepsim/en/welcome-en.js \
     wepsim/en/simpleusage-en.js \
     wepsim/en/tour-en.js \
@@ -59,15 +60,14 @@ cat wepsim/i18n/i18n.js \
     wepsim/wepsim_example.js \
     wepsim/wepsim_help.js \
     wepsim/wepsim_config.js \
+    wepsim/wepsim_tutorial.js \
     wepsim/wepsim_native.js \
     wepsim/wepsim_state.js \
-    wepsim/wepsim_tutorial.js \
     wepsim/wepsim_url.js \
     wepsim/wepsim_voice.js \
     wepsim/wepsim_voice_commands.js \
     wepsim/wepsim_execute.js \
     wepsim/wepsim_misc.js \
-    wepsim/tutorials.js \
     wepsim/breakpointicons.js > ws_dist/wepsim_web.js
 /usr/bin/yui-compressor -o ws_dist/min.wepsim_web.js ws_dist/wepsim_web.js
 rm -fr ws_dist/wepsim_web.js
