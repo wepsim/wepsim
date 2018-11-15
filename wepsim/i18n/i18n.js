@@ -1,14 +1,6 @@
 
 
     /*
-     * Define i18n_components and langs...
-     */
-
-    var i18n_eltos = [ "gui", "misc" ] ;
-    var i18n_lang  = [ "es", "en" ] ;
-
-
-    /*
      * Initialize...
      */
 
@@ -43,4 +35,23 @@
 
     // tour
     var tour_steps = {} ;
+
+
+    /*
+     * Initialize...
+     */
+
+    function i18n_update_tags ( lang )
+    {
+	var tags = document.querySelectorAll('span,strong') ;
+
+	Array.from(tags).forEach(function(value, index) 
+		                 {
+                         	     var key = value.dataset.langkey ;
+                         	     if (i18n.gui[lang][key]) 
+				     {
+                                         value.innerText = i18n.gui[lang][key] ;
+				     }
+                         	 }) ;
+    }
 
