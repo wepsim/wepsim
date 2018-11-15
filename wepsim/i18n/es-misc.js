@@ -1,19 +1,5 @@
 
-        i18n.es = {
-	             "_section1": "simulator",
-			"Loading WepSIM...": 		     		"Cargando WepSIM...",
-			"Configuration": 		     		"Configuraci&oacute;n",
-			"Examples": 			     		"Ejemplos",
-			"Help": 			     		"Ayuda",
-			"Processor": 			     		"Procesador",
-			"Assembly Debugger": 		     		"Depurador de Ensamblador",
-			"Reset": 			     		"Resetear",
-			"Instruction": 			     		"Instrucci&oacute;n",
-			"Run": 				     		"Ejecutar",
-			"States": 			     		"Estados",
-			"Refresh": 			     		"Refrescar",
-
-	             "_section2": "cfg",
+   i18n.misc.es = {
                         "Idiom for help, examples, etc.": 		"Idioma para ayuda, ejemplos, etc.",
  		        "Slow": 					"Lento",
  		        "Fast": 					"Veloz",
@@ -54,6 +40,5 @@
                         "Running speed: execution speed": 			     "Velocidad de ejecuci&oacute;n",
  		        "Notification delay: normal": 				     "Notificacion: normal",
  		        "Notification delay: fast": 				     "Notificacion: veloz",
-	             "_section3": "none"
-    } ;
+                  } ;
 

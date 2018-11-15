@@ -1,7 +1,4 @@
 
-    var help    = {} ;
-        help.en = [] ;
-
     help.en.push({
                      id:          "simulator",
                      title:       "Welcome tutorial",

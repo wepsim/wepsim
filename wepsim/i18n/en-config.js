@@ -1,7 +1,4 @@
 
-    var config    = {} ;
-        config.en = [] ;
-
     config.en.push({
                       id:          "select7",
                       type:        "General",
@@ -10,7 +7,8 @@
 				   "	     aria-label='idiom for examples and help' " +
 				   "	     onchange=\"var opt = $(this).find('option:selected');" +
 				   "	 	        var optValue = opt.val();" +
-				   "		        update_cfg('ws_idiom',optValue);" +
+				   "		        update_cfg('ws_idiom', optValue);" +
+	                           "                    i18n_update_tags(optValue);" +
 				   "		        wepsim_open_config_index();\"" +
 				   "	     data-native-menu='false'>" +
 				   "	<option value='es'>Spanish</option>" +

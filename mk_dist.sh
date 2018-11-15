@@ -42,21 +42,26 @@ rm -fr ws_dist/sim_all.js
 
 #  WepSIM web engine
 cat wepsim/i18n/i18n.js \
-    wepsim/i18n/es.js \
-    wepsim/i18n/en.js \
-    wepsim/tutorials.js \
-    wepsim/en/welcome-en.js \
-    wepsim/en/simpleusage-en.js \
-    wepsim/en/tour-en.js \
-     wepsim/en/help-en.js \
-     wepsim/en/config-en.js \
-     wepsim/en/examples-en.js \
-    wepsim/es/welcome-es.js \
-    wepsim/es/simpleusage-es.js \
-    wepsim/es/tour-es.js \
-     wepsim/es/help-es.js \
-     wepsim/es/config-es.js \
-     wepsim/es/examples-es.js \
+    \
+    wepsim/i18n/es-gui.js \
+    wepsim/i18n/es-misc.js \
+    wepsim/i18n/es-tutorial-welcome.js \
+    wepsim/i18n/es-tutorial-simpleusage.js \
+    wepsim/i18n/es-tour.js \
+    wepsim/i18n/es-config.js \
+    wepsim/i18n/es-help.js \
+    wepsim/i18n/es-examples.js \
+    \
+    wepsim/i18n/en-gui.js \
+    wepsim/i18n/en-misc.js \
+    wepsim/i18n/en-tutorial-welcome.js \
+    wepsim/i18n/en-tutorial-simpleusage.js \
+    wepsim/i18n/en-tour.js \
+    wepsim/i18n/en-config.js \
+    wepsim/i18n/en-help.js \
+    wepsim/i18n/en-examples.js \
+    \
+    wepsim/wepsim_breakpointicons.js \
     wepsim/wepsim_example.js \
     wepsim/wepsim_help.js \
     wepsim/wepsim_config.js \
@@ -67,8 +72,7 @@ cat wepsim/i18n/i18n.js \
     wepsim/wepsim_voice.js \
     wepsim/wepsim_voice_commands.js \
     wepsim/wepsim_execute.js \
-    wepsim/wepsim_misc.js \
-    wepsim/breakpointicons.js > ws_dist/wepsim_web.js
+    wepsim/wepsim_misc.js > ws_dist/wepsim_web.js
 /usr/bin/yui-compressor -o ws_dist/min.wepsim_web.js ws_dist/wepsim_web.js
 rm -fr ws_dist/wepsim_web.js
 
