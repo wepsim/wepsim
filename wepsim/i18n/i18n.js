@@ -9,6 +9,9 @@
 	i18n.gui = {} ;
 	i18n.gui.es = {} ;
 	i18n.gui.en = {} ;
+	i18n.cfg = {} ;
+	i18n.cfg.es = {} ;
+	i18n.cfg.en = {} ;
 	i18n.misc = {} ;
 	i18n.misc.es = {} ;
 	i18n.misc.en = {} ;
@@ -52,8 +55,8 @@
 
 	Array.from(tags).forEach(function(value, index) {
                          	     var key = value.dataset.langkey ;
-                         	     if (i18n.gui[lang][key]) {
-                                         value.innerHTML = i18n.gui[lang][key] ;
+                         	     if (i18n[component][lang][key]) {
+                                         value.innerHTML = i18n[component][lang][key] ;
 				     }
                          	 }) ;
     }

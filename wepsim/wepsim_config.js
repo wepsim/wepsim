@@ -25,7 +25,8 @@
 
     function wepsim_open_config_index ( )
     {
-        var config_xx = config[get_cfg('ws_idiom')] ;
+        var config_xx = ws_config ;
+	var  idiom_xx = get_cfg('ws_idiom') ;
 
 	$('#container-config2').html(table_config_html(config_xx)) ;
         for (m=0; m<config_xx.length; m++) {
@@ -39,7 +40,7 @@
 	     delay: { "show": 500, "hide": 100 }
         }) ;
 
-      //$('#config2').trigger('updatelayout') ;
+	i18n_update_tags('cfg', idiom_xx) ;
 	$('#config2').modal('show') ;
     }
 
@@ -78,7 +79,7 @@
 	        fmt_header = "" ;
 	        if (e_type != config[m].type) {
 		    fmt_header = "<div class='float-none text-right text-capitalize font-weight-bold col-12 border-bottom border-secondary bg-white sticky-top'>" + 
-			         config[m].type + 
+			         "<span data-langkey='" + config[m].type + "'>" + config[m].type + "</span>" +
 			         "</div>" ;
 		}
 
