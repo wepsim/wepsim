@@ -9,19 +9,14 @@
 	i18n.gui = {} ;
 	i18n.gui.es = {} ;
 	i18n.gui.en = {} ;
-	i18n.misc = {} ;
-	i18n.misc.es = {} ;
-	i18n.misc.en = {} ;
+	i18n.cfg = {} ;
+	i18n.cfg.es = {} ;
+	i18n.cfg.en = {} ;
 
     // tutorials
     var tutorials             = {} ;
         tutorials.welcome     = {} ;
         tutorials.simpleusage = {} ;
-
-    // config
-    var config    = {} ;
-        config.en = [] ;
-        config.es = [] ;
 
     // examples
     var examples    = {};
@@ -41,16 +36,19 @@
      * Initialize...
      */
 
-    function i18n_update_tags ( lang )
+    // i18n_update_tags('gui',...
+    function i18n_update_tags ( component, lang )
     {
-	var tags = document.querySelectorAll('span,strong') ;
+        if (typeof i18n[component] == "undefined") {
+	    return ;
+	}
 
-	Array.from(tags).forEach(function(value, index) 
-		                 {
+	var tags = document.querySelectorAll('span') ;
+
+	Array.from(tags).forEach(function(value, index) {
                          	     var key = value.dataset.langkey ;
-                         	     if (i18n.gui[lang][key]) 
-				     {
-                                         value.innerHTML = i18n.gui[lang][key] ;
+                         	     if (i18n[component][lang][key]) {
+                                         value.innerHTML = i18n[component][lang][key] ;
 				     }
                          	 }) ;
     }

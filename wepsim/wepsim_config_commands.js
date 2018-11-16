@@ -1,5 +1,7 @@
 
-    config.en.push({
+    var ws_config = [] ;
+
+    ws_config.push({
                       id:          "select7",
                       type:        "General",
                       code_cfg:    "<div class='form-group' style='margin:0 0 0 0;'>" +
@@ -8,7 +10,7 @@
 				   "	     onchange=\"var opt = $(this).find('option:selected');" +
 				   "	 	        var optValue = opt.val();" +
 				   "		        update_cfg('ws_idiom', optValue);" +
-	                           "                    i18n_update_tags(optValue);" +
+	                           "                    i18n_update_tags('gui', optValue);" +
 				   "		        wepsim_open_config_index();\"" +
 				   "	     data-native-menu='false'>" +
 				   "	<option value='es'>Spanish</option>" +
@@ -16,10 +18,10 @@
 				   " </select>" +
 			           "</div>",
                       code_init:   function() { $('#select7').val(get_cfg('ws_idiom')); },
-                      description: "Idiom for help, examples, etc."
+                      description: "<span data-langkey='Idiom for help, examples, etc.'>Idiom for help, examples, etc.</span>"
                    });
 
-    config.en.push({
+    ws_config.push({
                       id:          "radio11",
                       type:        "General",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
@@ -37,10 +39,10 @@
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() { $('#radio11-' +        get_cfg('use_voice')).click(); },
-                      description: "Active voice: experimental voice control"
+                      description: "<span data-langkey='Active voice: experimental voice control'>Active voice: experimental voice control</span>"
                    });
 
-    config.en.push({
+    ws_config.push({
                       id:          "slider3",
                       type:        "General",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
@@ -64,10 +66,10 @@
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() { $('#radio8-' + get_cfg('NOTIF_delay')).click(); },
-                      description: "Notification speed: time before disapear"
+                      description: "<span data-langkey='Notification speed: time before disapear'>Notification speed: time before disapear</span>"
                    });
 
-    config.en.push({
+    ws_config.push({
                       id:          "radio7",
                       type:        "Editor",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
@@ -76,21 +78,21 @@
 				   "		   onclick=\"update_cfg('editor_theme','default');" +
 				   "			     sim_cfg_editor_theme(inputfirm) ;" +
 				   "			     sim_cfg_editor_theme(inputasm) ;\">" +
-				   "		<input type='radio' name='options' id='radio7-default' aria-label='Editor theme: light' autocomplete='off' >Light" +
+				   "		<input type='radio' name='options' id='radio7-default' aria-label='Editor theme: light' autocomplete='off' ><span data-langkey='Light'>Light</span>" +
 				   "	    </label>" +
 				   "	    <label id='label7-blackboard'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;' " +
 				   "		   onclick=\"update_cfg('editor_theme','blackboard');" +
 				   "			     sim_cfg_editor_theme(inputfirm) ;" +
 				   "			     sim_cfg_editor_theme(inputasm) ;\">" +
-				   "		<input type='radio' name='options' id='radio7-blackboard' aria-label='Editor theme: dark' autocomplete='off' >Dark" +
+				   "		<input type='radio' name='options' id='radio7-blackboard' aria-label='Editor theme: dark' autocomplete='off' ><span data-langkey='Dark'>Dark</span>" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() { $('#radio7-' +      get_cfg('editor_theme')).click(); },
-                      description: "Editor theme: light or dark"
+                      description: "<span data-langkey='Editor theme: light or dark'>Editor theme: light or dark</span>"
                    });
 
-    config.en.push({
+    ws_config.push({
                       id:          "select2",
                       type:        "Editor",
                       code_cfg:    "<div class='form-group' style='margin:0 0 0 0;'>" +
@@ -109,10 +111,10 @@
 			           "    </select>" +
 			           "</div>",
                       code_init:   function() { $('#select2').val(get_cfg('editor_mode')); },
-                      description: "Editor mode: vim, emacs, etc."
+                      description: "<span data-langkey='Editor mode: vim, emacs, etc.'>Editor mode: vim, emacs, etc.</span>"
                    });
 
-    config.en.push({
+    ws_config.push({
                       id:          "radio12",
                       type:        "Execution",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
@@ -120,26 +122,26 @@
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Speed: slow'" +
 				   "		   onclick=\"update_cfg('DBG_delay', 50);\">" +
-				   "		<input type='radio' name='options' id='radio12-50'   autocomplete='off' >Slow" +
+				   "		<input type='radio' name='options' id='radio12-50'   autocomplete='off' ><span data-langkey='Slow'>Slow</span>" +
 				   "	    </label>" +
 				   "	    <label id='label12-5'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Speed: normal'" +
 				   "		   onclick=\"update_cfg('DBG_delay', 5);\">" +
-				   "		<input type='radio' name='options' id='radio12-5'  autocomplete='off' >Normal" +
+				   "		<input type='radio' name='options' id='radio12-5'  autocomplete='off' ><span data-langkey='Normal'>Normal</span>" +
 				   "	    </label>" +
 				   "	    <label id='label12-1'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Speed: fast'" +
 				   "		   onclick=\"update_cfg('DBG_delay', 1);\">" +
-				   "		<input type='radio' name='options' id='radio12-1'  autocomplete='off' >Fast" +
+				   "		<input type='radio' name='options' id='radio12-1'  autocomplete='off' ><span data-langkey='Fast'>Fast</span>" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() { $('#radio12-' +        get_cfg('DBG_delay')).click(); },
-                      description: "Running speed: execution speed"
+                      description: "<span data-langkey='Running speed: execution speed'>Running speed: execution speed</span>"
                    });
 
-    config.en.push({
+    ws_config.push({
                       id:          "radio1",
                       type:        "Execution",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
@@ -148,21 +150,21 @@
 				   "		   aria-label='Execution unit: instruction'" +
 				   "		   onclick=\"update_cfg('DBG_level','instruction');\">" +
 				   "		<input type='radio' name='options' id='radio1-instruction'   autocomplete='off' >" +
-				   "		<span class='d-none d-sm-inline-flex'>Instructions</span><span class='d-sm-none'>Instruc.</span></label>" +
+				   "		<span class='d-none d-sm-inline-flex' data-langkey='Instructions'>Instructions</span><span class='d-sm-none'>Instruc.</span></label>" +
 				   "	    </label>" +
 				   "	    <label id='label1-microinstruction'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Execution unit: microinstruction'" +
 				   "		   onclick=\"update_cfg('DBG_level','microinstruction');\">" +
 				   "		<input type='radio' name='options' id='radio1-microinstruction'  autocomplete='off' >" +
-				   "		<span class='d-none d-sm-inline-flex'>&#181;instructions</span><span class='d-sm-none'>&#181;instruc.</span></label>" +
+				   "		<span class='d-none d-sm-inline-flex' data-langkey='&#181;instructions'>&#181;instructions</span><span class='d-sm-none'>&#181;instruc.</span></label>" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() { $('#radio1-' +         get_cfg('DBG_level')).click(); },
-                      description: "Step-by-step: element in run mode"
+                      description: "<span data-langkey='Step-by-step: element in run mode'>Step-by-step: element in run mode</span>"
                    });
 
-    config.en.push({
+    ws_config.push({
                       id:          "select1",
                       type:        "Execution",
                       code_cfg:    "<a href='#' id='breakpointicon1' title='Please select breakpoint icon' tabindex='0'" +
@@ -171,10 +173,10 @@
 			           "                 style='position:relative; left:10px; height:30px !important; width:30px !important;'>" +
 			           "</a>",
                       code_init:   function() { $('#img_select1').attr("src","images/stop/stop_" +  get_cfg('ICON_theme') + ".gif"); $('#breakpointicon1').popover({ html: true, content: wepsim_show_breakpoint_icon_list }); },
-                      description: "Breakpoint icon: icon to be used for breakpoints"
+                      description: "<span data-langkey='Breakpoint icon: icon to be used for breakpoints'>Breakpoint icon: icon to be used for breakpoints</span>"
                    });
 
-    config.en.push({
+    ws_config.push({
                       id:          "select6",
                       type:        "Execution",
                       code_cfg:    " <div class='form-group' style='margin:0 0 0 0;'>" +
@@ -193,10 +195,10 @@
 				   "	    </select>" +
 				   "	 </div>",
                       code_init:   function() { $('#select6').val(get_cfg('DBG_limitins')); },
-                      description: "Limit instructions: number of instructions to be executed"
+                      description: "<span data-langkey='Limit instructions: number of instructions to be executed'>Limit instructions: number of instructions to be executed</span>"
                    });
 
-    config.en.push({
+    ws_config.push({
                       id:          "select3",
                       type:        "Execution",
                       code_cfg:    " <div class='form-group' style='margin:0 0 0 0;'>" +
@@ -215,10 +217,10 @@
 				   "	    </select>" +
 				   "	 </div>",
                       code_init:   function() { $('#select3').val(get_cfg('DBG_limitick')); },
-                      description: "Limit instruction ticks: to limit clock ticks"
+                      description: "<span data-langkey='Limit instruction ticks: to limit clock ticks'>Limit instruction ticks: to limit clock ticks</span>"
                    });
 
-    config.en.push({
+    ws_config.push({
                       id:          "radio2",
                       type:        "Register file",
                       code_cfg:    " <div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
@@ -242,12 +244,12 @@
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() { $('#radio2-' + get_cfg('RF_display_format')).click(); },
-                      description: "Display format&nbsp;" +
+                      description: "<span data-langkey='Display format'>Display format</span>&nbsp;" +
                                    "<a href='#' data-toggle='popover1' title='Example of display formats' data-html='true' " +
                                    "   data-content='<img alt=\"register file example\" src=\"images/cfg-rf.gif\" class=\"img-fluid\">'>(example)</a>"
                    });
 
-    config.en.push({
+    ws_config.push({
                       id:          "radio3",
                       type:        "Register file",
                       code_cfg:    " <div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
@@ -255,20 +257,20 @@
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display name (number)'" +
 				   "		   onclick=\"update_cfg('RF_display_name','numerical'); show_rf_names();\">" +
-				   "		<input type='radio' name='options' id='radio3-numerical'  autocomplete='off' >Numbers" +
+				   "		<input type='radio' name='options' id='radio3-numerical'  autocomplete='off' ><span data-langkey='Numbers'>Numbers</span>" +
 				   "	    </label>" +
 				   "	    <label id='label3-logical'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display name (user identification)'" +
 				   "		   onclick=\"update_cfg('RF_display_name','logical'); show_rf_names();\">" +
-				   "		<input type='radio' name='options' id='radio3-logical' autocomplete='off' >Labels" +
+				   "		<input type='radio' name='options' id='radio3-logical' autocomplete='off' ><span data-langkey='Labels'>Labels</span>" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() { $('#radio3-' +   get_cfg('RF_display_name')).click(); },
-                      description: "Register file names"
+                      description: "<span data-langkey='Register file names'>Register file names</span>"
                    });
 
-    config.en.push({
+    ws_config.push({
                       id:          "radio9",
                       type:        "Register file",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
@@ -286,10 +288,10 @@
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() { $('#radio9-' +       get_cfg('is_editable')).click(); },
-                      description: "Editable registers: edit register file values"
+                      description: "<span data-langkey='Editable registers: edit register file values'>Editable registers: edit register file values</span>"
                    });
 
-    config.en.push({
+    ws_config.push({
                       id:          "colorpicker1",
                       type:        "Circuitry simulation",
                       code_cfg:    "<fieldset data-role='controlgroup' data-type='horizontal' data-mini='true' style='margin:0 0 0 0'>" +
@@ -301,10 +303,10 @@
 				   "		onchange=\"update_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh();\">" +
 				   "</fieldset>",
 		      code_init:   function() { $('#colorpicker1').spectrum({ preferredFormat: 'hex', color: get_cfg('color_data_active')}); },
-                      description: "Data-path color <a href='#' data-toggle='popover1' title='Example of data-path color' data-html='true' data-content='<img alt=\"register file example\" src=\"images/cfg-colors.gif\" class=\"img-fluid\">'>(example)</a>"
+                      description: "<span data-langkey='Data-path color'>Data-path color</span> <a href='#' data-toggle='popover1' title='Example of data-path color' data-html='true' data-content='<img alt=\"register file example\" src=\"images/cfg-colors.gif\" class=\"img-fluid\">'>(example)</a>"
                    });
 
-    config.en.push({
+    ws_config.push({
                       id:          "colorpicker2",
                       type:        "Circuitry simulation",
                       code_cfg:    "<fieldset data-role='controlgroup' data-type='horizontal' data-mini='true' style='margin:0 0 0 0'>" +
@@ -316,10 +318,10 @@
 				   "		onchange=\"update_cfg('color_name_active', $('#colorpicker2').spectrum('get')); refresh();\">" +
 				   "	 </fieldset> ",
 		      code_init:   function() { $('#colorpicker2').spectrum({ preferredFormat: 'hex', color: get_cfg('color_name_active')}); },
-                      description: "Signal color"
+                      description: "<span data-langkey='Signal color'>Signal color</span>"
                    });
 
-    config.en.push({
+    ws_config.push({
                       id:          "radio10",
                       type:        "Circuitry simulation",
                       code_cfg:    " <div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
@@ -337,10 +339,10 @@
 				   "	    </label>" +
 				   "	</div> ",
 		      code_init:   function() { $('#radio10-' +       get_cfg('is_byvalue')).click(); },
-                      description: "Show by value or by activation"
+                      description: "<span data-langkey='Show by value or by activation'>Show by value or by activation</span>"
                    });
 
-    config.en.push({
+    ws_config.push({
                       id:          "radio5",
                       type:        "Circuitry simulation",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
@@ -358,6 +360,6 @@
 				   "	    </label>" +
 				   "	</div> ",
 		      code_init:   function() { $('#radio5-' +    get_cfg('is_interactive')).click(); },
-                      description: "Interactive mode: signal value can be updated"
+                      description: "<span data-langkey='Interactive mode: signal value can be updated'>Interactive mode: signal value can be updated</span>"
                    });
 
