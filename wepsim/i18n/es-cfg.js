@@ -32,6 +32,7 @@
                       "Show by value or by activation": 		             "Mostrar por valor o por activaci&oacute;n",
                       "Value": 		                     		             "Valor",
                       "Activation": 		                     		     "Activaci&oacute;n",
-                      "Interactive mode: signal value can be updated": 		     "Modo interactivo: valores de las seńales puede actualizarse"
+                      "Interactive mode: signal value can be updated": 		     "Modo interactivo: valores de las seńales puede actualizarse",
+                      "(example)": 					             "(ejemplo)"
                   } ;
 

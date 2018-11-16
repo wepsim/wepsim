@@ -33,5 +33,6 @@
                       "Value": 		                     		             "Value",
                       "Activation": 		                     		     "Activation",
                       "Interactive mode: signal value can be updated": 		     "Interactive mode: signal value can be updated",
+                      "(example)": 					             "(example)"
                   } ;
 

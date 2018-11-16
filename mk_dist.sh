@@ -44,7 +44,6 @@ rm -fr ws_dist/sim_all.js
 cat wepsim/i18n/i18n.js \
     \
     wepsim/i18n/es-gui.js \
-    wepsim/i18n/es-misc.js \
     wepsim/i18n/es-tutorial-welcome.js \
     wepsim/i18n/es-tutorial-simpleusage.js \
     wepsim/i18n/es-tour.js \
@@ -53,7 +52,6 @@ cat wepsim/i18n/i18n.js \
     wepsim/i18n/es-examples.js \
     \
     wepsim/i18n/en-gui.js \
-    wepsim/i18n/en-misc.js \
     wepsim/i18n/en-tutorial-welcome.js \
     wepsim/i18n/en-tutorial-simpleusage.js \
     wepsim/i18n/en-tour.js \

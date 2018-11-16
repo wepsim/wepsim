@@ -12,19 +12,11 @@
 	i18n.cfg = {} ;
 	i18n.cfg.es = {} ;
 	i18n.cfg.en = {} ;
-	i18n.misc = {} ;
-	i18n.misc.es = {} ;
-	i18n.misc.en = {} ;
 
     // tutorials
     var tutorials             = {} ;
         tutorials.welcome     = {} ;
         tutorials.simpleusage = {} ;
-
-    // config
-    var config    = {} ;
-        config.en = [] ;
-        config.es = [] ;
 
     // examples
     var examples    = {};
