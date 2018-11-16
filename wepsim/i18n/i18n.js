@@ -41,15 +41,18 @@
      * Initialize...
      */
 
-    function i18n_update_tags ( lang )
+    // i18n_update_tags('gui',...
+    function i18n_update_tags ( component, lang )
     {
-	var tags = document.querySelectorAll('span,strong') ;
+        if (typeof i18n[component] == "undefined") {
+	    return ;
+	}
 
-	Array.from(tags).forEach(function(value, index) 
-		                 {
+	var tags = document.querySelectorAll('span') ;
+
+	Array.from(tags).forEach(function(value, index) {
                          	     var key = value.dataset.langkey ;
-                         	     if (i18n.gui[lang][key]) 
-				     {
+                         	     if (i18n.gui[lang][key]) {
                                          value.innerHTML = i18n.gui[lang][key] ;
 				     }
                          	 }) ;
