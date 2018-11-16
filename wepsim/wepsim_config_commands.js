@@ -78,14 +78,14 @@
 				   "		   onclick=\"update_cfg('editor_theme','default');" +
 				   "			     sim_cfg_editor_theme(inputfirm) ;" +
 				   "			     sim_cfg_editor_theme(inputasm) ;\">" +
-				   "		<input type='radio' name='options' id='radio7-default' aria-label='Editor theme: light' autocomplete='off' >Light" +
+				   "		<input type='radio' name='options' id='radio7-default' aria-label='Editor theme: light' autocomplete='off' ><span data-langkey='Light'>Light</span>" +
 				   "	    </label>" +
 				   "	    <label id='label7-blackboard'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;' " +
 				   "		   onclick=\"update_cfg('editor_theme','blackboard');" +
 				   "			     sim_cfg_editor_theme(inputfirm) ;" +
 				   "			     sim_cfg_editor_theme(inputasm) ;\">" +
-				   "		<input type='radio' name='options' id='radio7-blackboard' aria-label='Editor theme: dark' autocomplete='off' >Dark" +
+				   "		<input type='radio' name='options' id='radio7-blackboard' aria-label='Editor theme: dark' autocomplete='off' ><span data-langkey='Dark'>Dark</span>" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() { $('#radio7-' +      get_cfg('editor_theme')).click(); },
@@ -122,19 +122,19 @@
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Speed: slow'" +
 				   "		   onclick=\"update_cfg('DBG_delay', 50);\">" +
-				   "		<input type='radio' name='options' id='radio12-50'   autocomplete='off' >Slow" +
+				   "		<input type='radio' name='options' id='radio12-50'   autocomplete='off' ><span data-langkey='Slow'>Slow</span>" +
 				   "	    </label>" +
 				   "	    <label id='label12-5'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Speed: normal'" +
 				   "		   onclick=\"update_cfg('DBG_delay', 5);\">" +
-				   "		<input type='radio' name='options' id='radio12-5'  autocomplete='off' >Normal" +
+				   "		<input type='radio' name='options' id='radio12-5'  autocomplete='off' ><span data-langkey='Normal'>Normal</span>" +
 				   "	    </label>" +
 				   "	    <label id='label12-1'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Speed: fast'" +
 				   "		   onclick=\"update_cfg('DBG_delay', 1);\">" +
-				   "		<input type='radio' name='options' id='radio12-1'  autocomplete='off' >Fast" +
+				   "		<input type='radio' name='options' id='radio12-1'  autocomplete='off' ><span data-langkey='Fast'>Fast</span>" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() { $('#radio12-' +        get_cfg('DBG_delay')).click(); },
@@ -150,14 +150,14 @@
 				   "		   aria-label='Execution unit: instruction'" +
 				   "		   onclick=\"update_cfg('DBG_level','instruction');\">" +
 				   "		<input type='radio' name='options' id='radio1-instruction'   autocomplete='off' >" +
-				   "		<span class='d-none d-sm-inline-flex'>Instructions</span><span class='d-sm-none'>Instruc.</span></label>" +
+				   "		<span class='d-none d-sm-inline-flex' data-langkey='Instructions'>Instructions</span><span class='d-sm-none'>Instruc.</span></label>" +
 				   "	    </label>" +
 				   "	    <label id='label1-microinstruction'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Execution unit: microinstruction'" +
 				   "		   onclick=\"update_cfg('DBG_level','microinstruction');\">" +
 				   "		<input type='radio' name='options' id='radio1-microinstruction'  autocomplete='off' >" +
-				   "		<span class='d-none d-sm-inline-flex'>&#181;instructions</span><span class='d-sm-none'>&#181;instruc.</span></label>" +
+				   "		<span class='d-none d-sm-inline-flex' data-langkey='&#181;instructions'>&#181;instructions</span><span class='d-sm-none'>&#181;instruc.</span></label>" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() { $('#radio1-' +         get_cfg('DBG_level')).click(); },
@@ -244,7 +244,7 @@
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() { $('#radio2-' + get_cfg('RF_display_format')).click(); },
-                      description: "Display format&nbsp;" +
+                      description: "<span data-langkey='Display format'>Display format</span>&nbsp;" +
                                    "<a href='#' data-toggle='popover1' title='Example of display formats' data-html='true' " +
                                    "   data-content='<img alt=\"register file example\" src=\"images/cfg-rf.gif\" class=\"img-fluid\">'>(example)</a>"
                    });
@@ -257,13 +257,13 @@
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display name (number)'" +
 				   "		   onclick=\"update_cfg('RF_display_name','numerical'); show_rf_names();\">" +
-				   "		<input type='radio' name='options' id='radio3-numerical'  autocomplete='off' >Numbers" +
+				   "		<input type='radio' name='options' id='radio3-numerical'  autocomplete='off' ><span data-langkey='Numbers'>Numbers</span>" +
 				   "	    </label>" +
 				   "	    <label id='label3-logical'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display name (user identification)'" +
 				   "		   onclick=\"update_cfg('RF_display_name','logical'); show_rf_names();\">" +
-				   "		<input type='radio' name='options' id='radio3-logical' autocomplete='off' >Labels" +
+				   "		<input type='radio' name='options' id='radio3-logical' autocomplete='off' ><span data-langkey='Labels'>Labels</span>" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() { $('#radio3-' +   get_cfg('RF_display_name')).click(); },
@@ -303,7 +303,7 @@
 				   "		onchange=\"update_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh();\">" +
 				   "</fieldset>",
 		      code_init:   function() { $('#colorpicker1').spectrum({ preferredFormat: 'hex', color: get_cfg('color_data_active')}); },
-                      description: "Data-path color <a href='#' data-toggle='popover1' title='Example of data-path color' data-html='true' data-content='<img alt=\"register file example\" src=\"images/cfg-colors.gif\" class=\"img-fluid\">'>(example)</a>"
+                      description: "<span data-langkey='Data-path color'>Data-path color</span> <a href='#' data-toggle='popover1' title='Example of data-path color' data-html='true' data-content='<img alt=\"register file example\" src=\"images/cfg-colors.gif\" class=\"img-fluid\">'>(example)</a>"
                    });
 
     ws_config.push({
