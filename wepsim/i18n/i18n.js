@@ -50,7 +50,7 @@
                          	     var key = value.dataset.langkey ;
                          	     if (i18n.gui[lang][key]) 
 				     {
-                                         value.innerText = i18n.gui[lang][key] ;
+                                         value.innerHTML = i18n.gui[lang][key] ;
 				     }
                          	 }) ;
     }
