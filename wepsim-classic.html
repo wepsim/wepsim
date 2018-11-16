@@ -180,7 +180,7 @@
 		<tr>
 		<td align="center">
 	        <img src="images/ajax-loader.gif" style="min-height:5vh" alt="loading icon" />
-		<br/><span class="text-primary font-weight-bold p-3"><strong>Loading WepSIM...</strong></span>
+		<br/><span class="text-primary font-weight-bold p-3"><strong><span data-langkey='Loading WepSIM...'>Loading WepSIM...</span></strong></span>
 		</td>
 		</tr>
 		</table>
@@ -228,7 +228,7 @@
                                 id="btn_micro1"
                                 onclick="sim_change_workspace_microcode();"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				><strong><span class="d-none d-sm-inline-flex">MicroCode</span><span class="d-sm-none">&#181;code</span></strong></button>
+				><strong><span class="d-none d-sm-inline-flex" data-langkey='Microcode'>MicroCode</span><span class="d-sm-none">&#181;code</span></strong></button>
 		        <button class="btn btn-light shadow-sm my-1 mr-2"
                                 id="btn_asm1"
                                 onclick="sim_change_workspace_assembly();"
@@ -241,7 +241,7 @@
 
                     <div id="slider_cpucu" class="col-sm p-0 collapse show multi-collapse-2">
 			    <form id="slider2f" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">
-				 <label class="my-0" for="slider2b" style="min-width:95%">processor:</label>
+				 <label class="my-0" for="slider2b" style="min-width:95%"><span data-langkey='processor'>processor</span>:</label>
 				 <input aria-label="Show CPU/CU" type="range" name="slider2b" id="slider2b"
 					min="0" max="12" value="7" step="1"
 				        data-show-value="false"
@@ -259,13 +259,13 @@
 		        <button class="btn btn-light shadow-sm my-1 col-auto"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                 id="btn_example1"
-                                onclick="wepsim_open_examples_index();"><strong data-langkey="Examples">Examples</strong></button>
+                                onclick="wepsim_open_examples_index();"><strong><span data-langkey="Examples">Examples</span></strong></button>
 		        <button class="btn btn-light shadow-sm my-1 col-auto"
 		                style="border-width:1 1 1 1px; border-color:#CCCCCC;
                                        background-color:#D4DB17;"
                                 id="btn_help1"
 		                onclick="wepsim_open_help_index();
-                                         wepsim_help_refresh();"><strong data-langkey="Help">Help</strong></button>
+                                         wepsim_help_refresh();"><strong><span data-langkey="Help">Help</span></strong></button>
 			<label class="my-1 p-0 col" for="select4">
 			<select class="custom-select btn btn-light shadow-sm"
 				aria-label="Execution mode"
@@ -292,7 +292,7 @@
 
                     <div class="col-sm p-0 collapse show multi-collapse-2">
 			    <form id="slider2e" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">
-				 <label class="my-0" for="slider2a" style="min-width:95%">details:</label>
+				 <label class="my-0" for="slider2a" style="min-width:95%"><span data-langkey='details'>details</span>:</label>
 				 <input aria-label="Show Main/Info" type="range" name="slider2a" id="slider2a"
 					min="0" max="12" value="7" step="1"
 				        data-show-value="false"
@@ -559,11 +559,11 @@
 		            <button class="btn btn-light shadow-sm col"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                     onclick="sim_change_workspace_assembly();"
-				    data-transition="none" data-inline="true"><strong data-langkey='Assembly'>Assembly</strong></button>
+				    data-transition="none" data-inline="true"><strong><span data-langkey='Assembly'>Assembly</span></strong></button>
 		            <button class="btn btn-light shadow-sm col"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                     onclick="sim_change_workspace_simulator();"
-				    data-transition="none" data-inline="true"><strong>Simulator</strong></button>
+				    data-transition="none" data-inline="true"><strong><span data-langkey='Simulator'>Simulator</span></strong></button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
@@ -603,7 +603,7 @@
                             <button style="background-color: #D4DB17"
 		                    class="btn btn-light shadow-sm col"
 				    onclick="wepsim_help_set_relative('#help_firmware_format'); wepsim_help_refresh();"
-				    ><em class="fas fa-info-circle"></em>&nbsp;<strong data-langkey="Help">Help</strong></button>
+				    ><em class="fas fa-info-circle"></em>&nbsp;<strong><span data-langkey="Help">Help</span></strong></button>
 		      </div>
 
 		</div>
@@ -637,12 +637,12 @@
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                     onclick="sim_change_workspace_microcode();"
 				    data-transition="none" data-inline="true">
-			    <strong><span class="d-none d-sm-inline-flex">MicroCode</span><span class="d-sm-none">&#181;code</span></strong>
+			    <strong><span class="d-none d-sm-inline-flex" data-langkey='Microcode'>MicroCode</span><span class="d-sm-none">&#181;code</span></strong>
 			    </button>
 		            <button class="btn btn-light shadow-sm col"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                     onclick="sim_change_workspace_simulator();"
-				    data-transition="none" data-inline="true"><strong>Simulator</strong></button>
+				    data-transition="none" data-inline="true"><strong><span data-langkey="Simulator">Simulator</span></strong></button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
@@ -673,7 +673,7 @@
                             <button style="background-color: #D4DB17"
 		                    class="btn btn-light shadow-sm col"
 				    onclick="wepsim_help_set_relative('#help_assembly_format'); wepsim_help_refresh();"
-				    ><em class="fas fa-info-circle"></em>&nbsp;<strong data-langkey="Help">Help</strong></button>
+				    ><em class="fas fa-info-circle"></em>&nbsp;<strong><span data-langkey="Help">Help</span></strong></button>
 		      </div>
 
 		</div>
@@ -906,7 +906,7 @@
 		   <button type="button" class="btn btn-success px-3 py-1"
 		   	   onclick="wepsim_open_help_index(); wepsim_help_refresh();">Help Index</button>
 		   <div class="btn-group">
-		     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled>Help</button>
+		     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled><span data-langkey="Help">Help</span></button>
 		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
 			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			 <span class="caret"></span>
@@ -1001,11 +1001,11 @@
                <div class="btn-group">
                   <button onclick="$('#bot_check1').carousel(0);"
                           type="button"
-                          class="btn btn-dark px-3 py-1">States</button>
+                          class="btn btn-dark px-3 py-1"><span data-langkey='States'>States</span></button>
                   <button onclick="$('#bot_check1').carousel(1);
                                    update_checker_loadhelp('#help3a','help_dumper');"
                           type="button"
-                          class="btn btn-success px-3 py-1">Help</button>
+                          class="btn btn-success px-3 py-1"><span data-langkey="Help">Help</span></button>
                   <button type="button"
                           class="btn btn-success dropdown-toggle dropdown-toggle-split"
                           data-toggle="dropdown"
@@ -1335,8 +1335,14 @@
 
     try
     {
+	    // basic initialization of wepsim...
 	    sim_core_init(true, 'ep') ;
 
+	    // adapt to idiom
+	    var ws_idiom = get_cfg('ws_idiom');
+	    i18n_update_tags(ws_idiom) ;
+
+	    // ...after jquery-ready, the rest
 	    $(document).ready(function()
 	    {
                     $("#ws_loader").collapse('hide') ;
