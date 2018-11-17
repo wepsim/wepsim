@@ -70,19 +70,19 @@
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Notification delay: slow'" +
 				   "		   onclick=\"update_cfg('NOTIF_delay', 2000);\">" +
-				   "		<input type='radio' name='options' id='radio8-2000'   autocomplete='off' >Slow" +
+				   "		<input type='radio' name='options' id='radio8-2000'   autocomplete='off' ><span data-langkey='Slow'>Slow</span>" +
 				   "	    </label>" +
 				   "	    <label id='label8-1000'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Notification delay: normal'" +
 				   "		   onclick=\"update_cfg('NOTIF_delay', 1000);\">" +
-				   "		<input type='radio' name='options' id='radio8-1000'  autocomplete='off' >Normal" +
+				   "		<input type='radio' name='options' id='radio8-1000'  autocomplete='off' ><span data-langkey='Normal'>Normal</span>" +
 				   "	    </label>" +
 				   "	    <label id='label8-100'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Notification delay: fast'" +
 				   "		   onclick=\"update_cfg('NOTIF_delay', 100);\">" +
-				   "		<input type='radio' name='options' id='radio8-100'  autocomplete='off' >Fast" +
+				   "		<input type='radio' name='options' id='radio8-100'  autocomplete='off' ><span data-langkey='Fast'>Fast</span>" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() { $('#radio8-' + get_cfg('NOTIF_delay')).click(); },
@@ -266,7 +266,7 @@
 		      code_init:   function() { $('#radio2-' + get_cfg('RF_display_format')).click(); },
                       description: "<span data-langkey='Display format'>Display format</span>&nbsp;" +
                                    "<a href='#' data-toggle='popover1' title='Example of display formats' data-html='true' " +
-                                   "   data-content='<img alt=\"register file example\" src=\"images/cfg-rf.gif\" class=\"img-fluid\">'>(example)</a>"
+                                   "   data-content='<img alt=\"register file example\" src=\"images/cfg-rf.gif\" class=\"img-fluid\">'><span <span data-langkey='(example)'>(example)</span></a>"
                    });
 
     ws_config.push({
@@ -323,7 +323,7 @@
 				   "		onchange=\"update_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh();\">" +
 				   "</fieldset>",
 		      code_init:   function() { $('#colorpicker1').spectrum({ preferredFormat: 'hex', color: get_cfg('color_data_active')}); },
-                      description: "<span data-langkey='Data-path color'>Data-path color</span> <a href='#' data-toggle='popover1' title='Example of data-path color' data-html='true' data-content='<img alt=\"register file example\" src=\"images/cfg-colors.gif\" class=\"img-fluid\">'>(example)</a>"
+                      description: "<span data-langkey='Data-path color'>Data-path color</span> <a href='#' data-toggle='popover1' title='Example of data-path color' data-html='true' data-content='<img alt=\"register file example\" src=\"images/cfg-colors.gif\" class=\"img-fluid\">'><span <span data-langkey='(example)'>(example)</span></a>"
                    });
 
     ws_config.push({

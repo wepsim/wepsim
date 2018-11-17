@@ -26,6 +26,8 @@
 			"Assembly": 		     			"Assembly",
 			"Simulator": 		     			"Simulator",
 			"Examples":  			                "Examples",
+			"Load":  			        	"Load",
+			"Save":  			        	"Save",
 			"Help":  			                "Help",
 			"Processor":  			                "Processor",
 			"Assembly Debugger":  			        "Assembly Debugger",
@@ -34,6 +36,9 @@
 			"Run":  			                "Run",
 			"States":  			                "States",
 			"Refresh":  			                "Refresh",
+			"Current State":  			        "Current State",
+			"History":  			                "History",
+			"Differences":  			        "Differences",
 			"processor":  			                "processor",
 			"details":  			                "details"
                   } ;

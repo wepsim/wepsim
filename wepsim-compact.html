@@ -547,10 +547,10 @@
 					      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 						    <button data-target="#lsload" data-toggle="modal"
 							    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-							    class="btn btn-light shadow-sm col"><em class="fas fa-file-upload"></em>&nbsp;<strong>Load</strong></button>
+							    class="btn btn-light shadow-sm col"><em class="fas fa-file-upload"></em>&nbsp;<strong><span data-langkey="Load">Load</span></strong></button>
 						    <button data-target="#lssave" data-toggle="modal"
 							    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-							    class="btn btn-light shadow-sm col"><em class="fas fa-file-download"></em>&nbsp;<strong>Save</strong></button>
+							    class="btn btn-light shadow-sm col"><em class="fas fa-file-download"></em>&nbsp;<strong><span data-langkey="Save">Save</span></strong></button>
 					      </div>
 
 					      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
@@ -598,10 +598,10 @@
 					      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 						    <button data-target="#lsload2" data-toggle="modal"
 							    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-							    class="btn btn-light shadow-sm col"><em class="fas fa-file-upload"></em>&nbsp;<strong>Load</strong></button>
+							    class="btn btn-light shadow-sm col"><em class="fas fa-file-upload"></em>&nbsp;<strong><span data-langkey="Load">Load</span></strong></button>
 						    <button data-target="#lssave2" data-toggle="modal"
 							    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-							    class="btn btn-light shadow-sm col"><em class="fas fa-file-download"></em>&nbsp;<strong>Save</strong></button>
+							    class="btn btn-light shadow-sm col"><em class="fas fa-file-download"></em>&nbsp;<strong><span data-langkey="Save">Save</span></strong></button>
 					      </div>
 
 					      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
@@ -781,7 +781,9 @@
 	   <div class="modal-header">
 		<div class="mx-auto">
 		   <div class="btn-group">
-		     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled>Config<span class="d-none d-sm-inline-flex">uration</span></button>
+		     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled>
+                             <span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Config.</span>
+		     </button>
 		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
 			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			 <span class="caret"></span>
@@ -994,7 +996,7 @@
                   <div class="carousel-item active">
 
 			<h4 class="mt-1 mb-0">
-			    <a data-toggle="collapse" href="#states3">Current State</a>:
+			    <a data-toggle="collapse" href="#states3"><span data-langkey="Current State">Current State</span></a>:
                         </h4>
                         <div class="container-fluid ml-1 pb-0 collapse show" id="states3"
 			     style="max-height:50vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
@@ -1052,7 +1054,7 @@
 			</div>
 
 			<h4 class="mt-1">
-			    <a data-toggle="collapse" href="#history3">History</a>:
+			    <a data-toggle="collapse" href="#history3"><span data-langkey="History">History</span></a>:
                         </h4>
                         <div class="container-fluid ml-1 pb-2 collapse show" id="history3"
 			     style="max-height:40vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
@@ -1063,7 +1065,7 @@
 			</div>
 
 			<h4 class="mt-1">
-			    <a data-toggle="collapse" href="#check_results_scroll1">Differences</a>:&nbsp;
+			    <a data-toggle="collapse" href="#check_results_scroll1"><span data-langkey="Differences">Differences</span></a>:&nbsp;
 			    <span class="btn btn-outline-dark btn-sm"
 			          onclick="CopyFromDiv('check_results_scroll1');
 	                                   return false;"
