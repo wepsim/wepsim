@@ -26,6 +26,8 @@
 			"Assembly": 		     			"Ensamblador",
 			"Simulator": 		     			"Simulador",
 			"Examples": 			     		"Ejemplos",
+			"Load":  			        	"Cargar",
+			"Save":  			        	"Guardar",
 			"Help": 			     		"Ayuda",
 			"Processor": 			     		"Procesador",
 			"Assembly Debugger": 		     		"Depurador de Ensamblador",
@@ -34,6 +36,9 @@
 			"Run": 				     		"Ejecutar",
 			"States": 			     		"Estados",
 			"Refresh": 			     		"Refrescar",
+			"Current State":  			        "Estado Actual",
+			"History":  			                "Historia",
+			"Differences":  			        "Diferencias",
 			"processor":  			                "procesador",
 			"details":  			                "detalles"
                   } ;
