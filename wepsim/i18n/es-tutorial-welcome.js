@@ -19,8 +19,6 @@
  */
 
 
-    tutorials.welcome.es = [] ;
-
     tutorials.welcome.es.push({
                      id:          "welcome",
                      title:       "¡Bienvenidos al simulador WepSIM!",

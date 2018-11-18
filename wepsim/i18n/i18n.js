@@ -23,39 +23,45 @@
      * Initialize...
      */
 
-    // i18n
     var i18n = {} ;
+
+    // main-screen user interface
 	i18n.gui = {} ;
 	i18n.gui.es = {} ;
 	i18n.gui.en = {} ;
+
+    // configuration dialog
 	i18n.cfg = {} ;
 	i18n.cfg.es = {} ;
 	i18n.cfg.en = {} ;
 
-    // tutorials
-    var tutorials             = {} ;
-        tutorials.welcome     = {} ;
-        tutorials.simpleusage = {} ;
-
-    // examples
+    // examples dialog
     var examples    = {};
         examples.en = [];
         examples.es = [];
 
-    // help
+    // help dialog
     var help    = {} ;
         help.en = [] ;
         help.es = [] ;
+
+    // tutorials
+    var tutorials = {} ;
+        tutorials.welcome = {} ;
+        tutorials.welcome.en = [] ;
+        tutorials.welcome.es = [] ;
+        tutorials.simpleusage = {} ;
+        tutorials.simpleusage.en = [] ;
+        tutorials.simpleusage.es = [] ;
 
     // tour
     var tour_steps = {} ;
 
 
     /*
-     * Initialize...
+     *  i18n Interface
      */
 
-    // i18n_update_tags('gui',...
     function i18n_update_tags ( component, lang )
     {
         if (typeof i18n[component] == "undefined") {
