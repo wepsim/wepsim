@@ -19,68 +19,16 @@
  */
 
 
-    tour_steps.onbeforechange = function () 
-                                {
-	                            if (this._currentStep === 1)
-	                            {
-			                $("#select4").click(); 
-					tour.refresh() ;
-			                return true ;
-			            }
-	                            else if (this._currentStep === 2)
-	                            {
-			                $("#select4").click(); 
-					tour.refresh() ;
-			                return true ;
-			            }
-	                            else if (this._currentStep === 3)
-	                            {
-			                $("#btn_cfg1").click(); 
-					tour.refresh() ;
-			                return true ;
-			            }
-	                            else if (this._currentStep === 4)
-	                            {
-			                $("#config2").modal('hide'); 
-					tour.refresh() ;
-			                return true ;
-			            }
-	                            else if (this._currentStep === 5)
-	                            {
-			                $("#btn_help1").click(); 
-					tour.refresh() ;
-			                return true ;
-			            }
-	                            else if (this._currentStep === 6)
-	                            {
-			                $("#help1").modal('hide'); 
-					tour.refresh() ;
-			                return true ;
-			            }
-	                            else if (this._currentStep === 7)
-	                            {
-			                $("#btn_example1").click(); 
-					tour.refresh() ;
-			                return true ;
-			            }
-	                            else if (this._currentStep === 8)
-	                            {
-			                $("#example1").modal('hide'); 
-					tour.refresh() ;
-			                return true ;
-			            }
-	                        };
-
-    tour_steps.onexit = function () {
+    tour_steps.onexit         = function () {
 			                $("#config2").modal('hide'); 
 			                $("#help1").modal('hide'); 
 			                $("#example1").modal('hide'); 
 
-					if (get_cfg('ws_mode') != 'intro') 
-	                                {
-					    set_cfg('ws_mode', 'intro') ;
+					if (get_cfg('ws_mode') != 'ep') 
+	                                { // ws_mode: intro, tutorial, ep, poc, ...
+					    set_cfg('ws_mode', 'ep') ;
                                             save_cfg() ;
-                                            wepsim_change_mode('intro', '#select4') ;
+                                            wepsim_change_mode('ep', '#select4') ;
 					}
 			                return true ;
 	                        };
@@ -89,53 +37,105 @@
                         // 0
 			{
 			   intro: "It seems this is the first time on WepSIM, Welcome!<br>" +
-                                  "This brief tour introduces the interface for getting help, modifiying the configuration, and using examples."
+                                  "This brief tour introduces the interface for getting help, modifiying the configuration, and using examples.",
+			   do_before: function ()
+	                              {
+			                  return true ;
+			              }
 			},
                         // 1
 			{
 			   element: '#select4',
                            intro: "On the top-right, the 'execution mode' lets you select the tutorial mode " + 
-                                  "(recommended at the beginning) or the hardware to work with."
+                                  "(recommended at the beginning) or the hardware to work with.",
+			   do_before: function ()
+	                              {
+			                  $("#select4").click(); 
+					  tour.refresh() ;
+			                  return true ;
+			              }
 			},
                         // 2
 			{
 			   element: '#btn_cfg1',
                            intro: "On the top-left, the 'configuration' button opens the configuration dialog...",
-			   position: 'auto'
+			   position: 'auto',
+			   do_before: function ()
+	                              {
+			                  $("#select4").click(); 
+					  tour.refresh() ;
+			                  return true ;
+			              }
 			},
                         // 3
 			{
                            intro: "... The configuration let users to adapt several aspects of the execution, user interface, preferences, etc.",
-			   position: 'auto'
+			   position: 'auto',
+			   do_before: function ()
+	                              {
+			                $("#btn_cfg1").click(); 
+					tour.refresh() ;
+			                return true ;
+			              }
 			},
                         // 4
 			{
 			   element: '#btn_help1',
                            intro: "On the top-right, the 'help' button opens the associated dialog...",
-			   position: 'auto'
+			   position: 'auto',
+			   do_before: function ()
+	                              {
+			                $("#config2").modal('hide'); 
+					tour.refresh() ;
+			                return true ;
+			              }
 			},
                         // 5
 			{
                            intro: "... The help dialog summary the tutorials, descriptions, information, etc.",
-			   position: 'auto'
+			   position: 'auto',
+			   do_before: function ()
+	                              {
+			                $("#btn_help1").click(); 
+					tour.refresh() ;
+			                return true ;
+			              }
 			},
                         // 6
 			{
 			   element: '#btn_example1',
                            intro: "And on the left, the 'examples' button open the example dialog...",
-			   position: 'auto'
+			   position: 'auto',
+			   do_before: function ()
+	                              {
+			                $("#help1").modal('hide'); 
+					tour.refresh() ;
+			                return true ;
+			              }
 			},
                         // 7
 			{
                            intro: "... The example dialog list several examples ordered by difficulty.<br>" + 
                                   "There are many examples that can be used to learn incrementally.",
-			   position: 'auto'
+			   position: 'auto',
+			   do_before: function ()
+	                              {
+			                $("#btn_example1").click(); 
+					tour.refresh() ;
+			                return true ;
+			              }
 			},
                         // 8
 			{
                            intro: "WepSIM let users to better understand how a computer works.<br>" + 
 				  "From the 'Help' dialog you can access the 'Welcome tutorial' whenever you need it, welcome!",
-			   position: 'auto'
+			   position: 'auto',
+			   do_before: function ()
+	                              {
+			                $("#example1").modal('hide'); 
+					tour.refresh() ;
+			                return true ;
+			              }
 			}
 		    ] ;
 
