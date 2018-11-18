@@ -460,11 +460,31 @@
     function wepsim_newbie_tour ( )
     {
          var ti = get_cfg('ws_idiom') ;
-	     tour = introJs();
+	     tour = introJs() ;
+
 	     tour.setOptions({ steps: tour_steps[ti] }) ;
-	     tour.setOption("overlayOpacity", "0.2") ;
-	     tour.onbeforechange(tour_steps.onbeforechange) ;
-	     tour.onexit(tour_steps.onexit) ;
+	     tour.setOption("overlayOpacity", "0.1") ;
+
+	     tour.onbeforechange(function () {
+                                        tour_steps.en[this._currentStep].do_before() ;
+	                         }) ;
+
+	     tour.onexit(function () {
+			                $("#config2").modal('hide'); 
+			                $("#help1").modal('hide'); 
+			                $("#example1").modal('hide'); 
+
+					// ws_mode: intro, tutorial, ep, poc, ...
+					if (get_cfg('ws_mode') != 'ep') 
+	                                { 
+					    set_cfg('ws_mode', 'ep') ;
+                                            save_cfg() ;
+                                            wepsim_change_mode('ep', '#select4') ;
+					}
+
+			                return true ;
+	                }) ;
+
 	     tour.start() ;
     }
 
