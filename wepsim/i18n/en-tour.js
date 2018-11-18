@@ -76,14 +76,12 @@
 			                $("#help1").modal('hide'); 
 			                $("#example1").modal('hide'); 
 
-	                                /*
-					if (get_cfg('ws_mode') != 'intro') 
-	                                {
-					    set_cfg('ws_mode', 'intro') ;
+					if (get_cfg('ws_mode') != 'ep') 
+	                                { // ws_mode: intro, tutorial, ep, poc, ...
+					    set_cfg('ws_mode', 'ep') ;
                                             save_cfg() ;
-                                            wepsim_change_mode('intro', '#select4') ;
+                                            wepsim_change_mode('ep', '#select4') ;
 					}
-					*/
 			                return true ;
 	                        };
 
