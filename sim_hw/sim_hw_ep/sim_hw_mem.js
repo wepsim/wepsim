@@ -223,7 +223,7 @@
 
 						      ep_internal_states.MP[address] = (value >>> 0);
                                                       ep_signals[s_expr[4]].value = 1;
-				                      show_main_memory(ep_internal_states.MP, address, false, true) ;
+				                      show_main_memory(ep_internal_states.MP, address, true, true) ;
                                                     }
                                    };
 
