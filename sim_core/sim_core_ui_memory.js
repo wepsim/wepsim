@@ -28,7 +28,7 @@
 
         function show_main_memory ( memory, index, redraw, updates )
         {
-            if (get_cfg('DBG_delay') > 5) 
+            if (get_cfg('DBG_delay') > 3)
                 show_main_memory_redraw  = redraw || show_main_memory_redraw ;
 
             if (null != show_main_memory_deferred)
