@@ -19,27 +19,12 @@
  */
 
 
-    tour_steps.onexit         = function () {
-			                $("#config2").modal('hide'); 
-			                $("#help1").modal('hide'); 
-			                $("#example1").modal('hide'); 
-
-					if (get_cfg('ws_mode') != 'ep') 
-	                                { // ws_mode: intro, tutorial, ep, poc, ...
-					    set_cfg('ws_mode', 'ep') ;
-                                            save_cfg() ;
-                                            wepsim_change_mode('ep', '#select4') ;
-					}
-			                return true ;
-	                        };
-
     tour_steps.en = [
                         // 0
 			{
 			   intro: "It seems this is the first time on WepSIM, Welcome!<br>" +
                                   "This brief tour introduces the interface for getting help, modifiying the configuration, and using examples.",
-			   do_before: function ()
-	                              {
+			   do_before: function () {
 			                  return true ;
 			              }
 			},

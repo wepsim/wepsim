@@ -19,8 +19,6 @@
  */
 
 
-    tutorials.simpleusage.es = [] ;
-
     tutorials.simpleusage.es.push({
                      id:          "simpleusage",
                      title:       "WepSIM: microprogramar, ensamblar y simular",
