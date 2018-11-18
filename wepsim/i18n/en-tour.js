@@ -76,12 +76,14 @@
 			                $("#help1").modal('hide'); 
 			                $("#example1").modal('hide'); 
 
+	                                /*
 					if (get_cfg('ws_mode') != 'intro') 
 	                                {
 					    set_cfg('ws_mode', 'intro') ;
                                             save_cfg() ;
                                             wepsim_change_mode('intro', '#select4') ;
 					}
+					*/
 			                return true ;
 	                        };
 
