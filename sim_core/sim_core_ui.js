@@ -367,7 +367,7 @@
                           "</div>" ;
 	    }
 
-            $(jqdiv).html("<div class='row justify-content-around pt-1'>" + o1_rf + "</div>");
+            $(jqdiv).html("<div class='d-flex flex-row flex-wrap justify-content-around pt-1'>" + o1_rf + "</div>");
 
 	    $("[data-toggle=popover-up]").popover({
 	    	    html:      true,
@@ -475,8 +475,8 @@
 		    if (part2.length > 0)
                         showkey = part1 + '<span class="d-none d-sm-inline-flex">' + part2 + '</span>' ;
 
-		    if (showkey.length < 3)
-			showkey = showkey + '<span class="text-monospace" style="opacity: 0.0;">_</span>' ;
+		    //if (showkey.length < 3)
+	            //	  showkey = showkey + '<span class="text-monospace" style="opacity: 0.0;">_</span>' ;
 	        }
 
                 var divclass = filter[i].split(",")[1] ;
@@ -494,7 +494,7 @@
                       "</div>" ;
             }
 
-            $(jqdiv).html("<div class='row justify-content-around pt-1'>" + o1 + "</div>");
+            $(jqdiv).html("<div class='d-flex flex-row flex-wrap justify-content-around pt-1'>" + o1 + "</div>");
 
 	    $("[data-toggle=popover-bottom]").popover({
 	    	    html:      true,
