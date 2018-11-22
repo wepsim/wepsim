@@ -477,8 +477,6 @@
 
 		    if (showkey.length < 3)
 			showkey = showkey + '<span class="text-monospace" style="opacity: 0.0;">_</span>' ;
-		    if (showkey.length < 4)
-			showkey = showkey + '<span class="text-monospace" style="opacity: 0.0;">_</span>' ;
 	        }
 
                 var divclass = filter[i].split(",")[1] ;
