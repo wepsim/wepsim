@@ -19,7 +19,7 @@
  */
 
 
-    function simstate_checklist2state ( checklist )
+    function simcore_simstate_checklist2state ( checklist )
     {
         var o = {} ;
 	var ret = false ;
@@ -58,7 +58,7 @@
         return o ;
     }   
 
-    function simstate_current2state ( )
+    function simcore_simstate_current2state ( )
     {
 	var o = {} ;
 	for (var index in simhw_sim_components()) {
@@ -68,7 +68,7 @@
         return o ;
     }
 
-    function simstate_state2checklist ( s_obj )
+    function simcore_simstate_state2checklist ( s_obj )
     {
 	var ret = "" ;
         for (var component in s_obj) 
@@ -82,7 +82,7 @@
         return ret ;
     }
 
-    function simstate_check_results ( expected_result, obtained_result, newones_too )
+    function simcore_simstate_check_results ( expected_result, obtained_result, newones_too )
     {
         var d = {} ;
         d.result = [] ;
@@ -169,19 +169,19 @@
         return d ;
     }
 
-    function simstate_diff_results ( expected_result, obtained_result )
+    function simcore_simstate_diff_results ( expected_result, obtained_result )
     {
-        return simstate_check_results(expected_result, obtained_result, true) ;
+        return simcore_simstate_check_results(expected_result, obtained_result, true) ;
     }
 
-    function simstate_diff_states ( before_state_obj, after_state_obj )
+    function simcore_simstate_diff_states ( before_state_obj, after_state_obj )
     {
-	var before_arr = simstate_state2checklist(before_state_obj).split(";") ;
-	var after_arr  = simstate_state2checklist(after_state_obj).split(";") ;
+	var before_arr = simcore_simstate_state2checklist(before_state_obj).split(";") ;
+	var after_arr  = simcore_simstate_state2checklist(after_state_obj).split(";") ;
 	return after_arr.filter(function(elto) { return !before_arr.includes(elto); }).join(";").trim() ;
     }
 
-    function simstate_checkreport2txt ( checklist )
+    function simcore_simstate_checkreport2txt ( checklist )
     {
         var o = "";
 
@@ -196,7 +196,7 @@
         return o;
     }
 
-    function simstate_checkreport2html ( checklist, only_errors )
+    function simcore_simstate_checkreport2html ( checklist, only_errors )
     {
         var o = "" ;
         var color = "green" ;

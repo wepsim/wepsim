@@ -220,13 +220,13 @@
                                               SIMWAREaddon.seg, SIMWAREaddon.assembly));
         showhideAsmElements();
 
-	sim_core_reset();
+	simcore_reset();
         return true;
     }
 
     function wepsim_compile_firmware ( textToMCompile )
     {
-	var ret = sim_core_compile_firmware(textToMCompile) ;
+	var ret = simcore_compile_firmware(textToMCompile) ;
 	if (false == ret.ok)
         {
             showError(ret.msg, "inputfirm") ;
@@ -237,7 +237,7 @@
         wepsim_notify_success('<strong>INFO</strong>',
                               'Microcode was compiled and loaded.') ;
 
-	sim_core_reset() ;
+	simcore_reset() ;
         return true;
     }
 
@@ -387,14 +387,14 @@
 	    var a = document.getElementById("svg_p");
 	    a.addEventListener("load",function() {
 		sim_prepare_svg_p();
-		sim_core_init_eventlistener("svg_p");
+		simcore_init_eventlistener("svg_p");
 		refresh();
 	    }, false);
 
 	    var b = document.getElementById("svg_cu");
 	    b.addEventListener("load",function() {
 		sim_prepare_svg_cu();
-		sim_core_init_eventlistener("svg_cu");
+		simcore_init_eventlistener("svg_cu");
 		refresh();
 	    }, false);
 
@@ -409,7 +409,7 @@
             // update UI
             var SIMWARE = get_simware() ;
     	    update_memories(SIMWARE) ;
-            sim_core_reset() ;
+            simcore_reset() ;
 
             var asmdbg_content = "<br/>" +
                                  "<ol>" +

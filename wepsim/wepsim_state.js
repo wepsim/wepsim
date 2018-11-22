@@ -116,9 +116,9 @@
     function wepsim_state_history_add ( )
     {
          var ret       = wepsim_state_get_clk() ;
-         var state_obj = simstate_current2state() ;
+         var state_obj = simcore_simstate_current2state() ;
 
-         ret.content = simstate_state2checklist(state_obj) ;
+         ret.content = simcore_simstate_state2checklist(state_obj) ;
          state_history.push(ret) ;
     }
 
@@ -197,9 +197,9 @@
                   '                           type="button">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>' +
                   '                   <button class="btn btn-outline-dark btn-sm col float-right"' + 
                   '                           onclick="var txt_chklst1 = get_clipboard_copy();' +
-                  '                                    var obj_exp1    = simstate_checklist2state(txt_chklst1);' +
+                  '                                    var obj_exp1    = simcore_simstate_checklist2state(txt_chklst1);' +
                   '                                    var txt_chklst2 = $(\'#ta_state_'+i+'\').val();' +
-                  '                                    var obj_exp2    = simstate_checklist2state(txt_chklst2);' +
+                  '                                    var obj_exp2    = simcore_simstate_checklist2state(txt_chklst2);' +
                   '                                    wepsim_dialog_check_state(\'check_results1\', obj_exp1, obj_exp2);' +
                   '                                    $(\'#s_ref\').html(\'' + state_history[i].title_short + '\'); ' + 
                   '                                    $(\'#check_results_scroll1\').collapse(\'show\');"' +
@@ -251,8 +251,8 @@
               $('#curr_clk_maddr').html(ret.title_short) ;
 
 	      // current state
-	      var state_obj     = simstate_current2state() ;
-	      var txt_checklist = simstate_state2checklist(state_obj) ;
+	      var state_obj     = simcore_simstate_current2state() ;
+	      var txt_checklist = simcore_simstate_state2checklist(state_obj) ;
 	      $('#end_state1').tokenfield('setTokens', txt_checklist);
 
               wepsim_notify_close() ;
@@ -284,7 +284,7 @@
 
     function wepsim_dialog_check_state ( id_result, obj_chklst_expected, obj_chklst_current )
     {
-        var obj_result = simstate_diff_results(obj_chklst_expected, obj_chklst_current) ;
+        var obj_result = simcore_simstate_diff_results(obj_chklst_expected, obj_chklst_current) ;
 
         // dialog
         var msg = "" ;
@@ -292,7 +292,7 @@
     	     msg = "&emsp;<br><span style='background-color:#7CFC00'>" + 
                    "Meets the specified requirements" + 
                    "</span><br>" ;
-        else msg = simstate_checkreport2html(obj_result.result, true) ;
+        else msg = simcore_simstate_checkreport2html(obj_result.result, true) ;
 
         $('#' + id_result).html(msg);
 

@@ -27,7 +27,7 @@
          * @param {string} simhw_name - hardware name
          */
 
-        function sim_core_init ( with_ui, simhw_name )
+        function simcore_init ( with_ui, simhw_name )
         {
 	    var ret = {} ;
 	        ret.msg = "" ;
@@ -53,7 +53,7 @@
 	    simhw_setActive(hwid) ;
 
             // ui
-	    var ret1 = sim_core_init_ui('', '', '', '', '', '') ;
+	    var ret1 = simcore_init_ui('', '', '', '', '', '') ;
 	    if (false == ret1.ok) 
 	    {
                 ret.msg = ret.msg ;
@@ -75,7 +75,7 @@
          * @param {string} cpuall_id - associated div
          * @param {string} configall_id - associated div
          */
-        function sim_core_init_ui ( stateall_id, statebr_id, ioall_id, cpuall_id, configmp_id, configio_id )
+        function simcore_init_ui ( stateall_id, statebr_id, ioall_id, cpuall_id, configmp_id, configio_id )
         {
 	    var ret = {} ;
 	        ret.msg = "" ;
@@ -129,7 +129,7 @@
          * Initialize simulator event handler.
          * @param {string} context - associated context
          */
-        function sim_core_init_eventlistener ( context )
+        function simcore_init_eventlistener ( context )
         {
             // 3.- for every signal, set the click event handler
             for (var key in simhw_sim_signals())
@@ -165,7 +165,7 @@
          * Check if simulation can be executed
          * @param {boolean} with_ui - if there is UI available
          */
-        function sim_core_check_if_can_execute ( )
+        function simcore_check_if_can_execute ( )
         {
 	        var ret = {} ;
 	            ret.msg = "" ;
@@ -199,7 +199,7 @@
         /**
          * Check if simulation can continue its execution
          */
-        function sim_core_check_if_can_continue ( )
+        function simcore_check_if_can_continue ( )
         {
 		var ret = {} ;
 		    ret.ok  = true ;
@@ -239,7 +239,7 @@
         /**
          * Reset the WepSIM simulation.
          */
-        function sim_core_reset ( )
+        function simcore_reset ( )
         {
     	    var ret = {} ;
     	        ret.msg = "" ;
@@ -339,9 +339,9 @@
         /**
          * Execute the next microinstruction.
          */
-        function sim_core_execute_microinstruction ( )
+        function simcore_execute_microinstruction ( )
         {
-	    var ret = sim_core_check_if_can_continue() ;
+	    var ret = simcore_check_if_can_continue() ;
 	    if (false == ret.ok) {
 		return ret ;
 	    }
@@ -360,9 +360,9 @@
         /**
          * Execute the next instruction.
          */
-        function sim_core_execute_microprogram ( verbosity, limit_clks )
+        function simcore_execute_microprogram ( verbosity, limit_clks )
         {
-	        var ret = sim_core_check_if_can_continue() ;
+	        var ret = simcore_check_if_can_continue() ;
 	        if (false == ret.ok) {
 		    return ret ;
 	        }
@@ -394,7 +394,7 @@
 		do
             	{
 		       if (3 == verbosity) {
-		           before_state = simstate_current2state() ;
+		           before_state = simcore_simstate_current2state() ;
 		       }
 		       else
 		       if (4 == verbosity) {
@@ -406,11 +406,11 @@
                     compute_general_behavior("CLOCK") ;
 
 		       if (3 == verbosity) {
-		           after_state = simstate_current2state() ;
+		           after_state = simcore_simstate_current2state() ;
                            curr_mpc    = '0x' + cur_addr.toString(16) ;
                            ret.msg     = ret.msg + 'micropc(' + curr_mpc + '):\t' + 
 				         controlmemory_lineToString(curr_MC, cur_addr).trim() + ':\t\t\t' +
-                                         simstate_diff_states(before_state,after_state) + '\n' ;
+                                         simcore_simstate_diff_states(before_state,after_state) + '\n' ;
 		       }
 
                     i_clks++;
@@ -452,7 +452,7 @@
          * @param {integer} ins_limit - The limit of instructions to be executed
          * @param {integer} clk_limit - The limit of clock cycles per instruction
          */
-        function sim_core_execute_program ( verbosity, ins_limit, clk_limit )
+        function simcore_execute_program ( verbosity, ins_limit, clk_limit )
         {
     	    var ret = {} ;
     	        ret.ok  = true ;
@@ -492,20 +492,20 @@
                   )
     	    {
 		     if (2 == verbosity) {
-		         before_state = simstate_current2state() ;
+		         before_state = simcore_simstate_current2state() ;
 		     }
 
-    	           ret1 = sim_core_execute_microprogram(verbosity, clk_limit) ;
+    	           ret1 = simcore_execute_microprogram(verbosity, clk_limit) ;
                    if (false == ret1.ok) {
     		       return ret1 ;
     	           }
     
 		     if (2 == verbosity) {
-		         after_state = simstate_current2state() ;
+		         after_state = simcore_simstate_current2state() ;
                          curr_pc     = '0x' + reg_pc.toString(16) ;
                          ret.msg     = ret.msg + 'pc(' + curr_pc + '):\t' + 
 				       SIMWARE.assembly[curr_pc].source_original + ':\t\t\t' +
-                                       simstate_diff_states(before_state,after_state) + '\n' ;
+                                       simcore_simstate_diff_states(before_state,after_state) + '\n' ;
 		     }
 		     else
 		     if (3 == verbosity) {
@@ -538,7 +538,7 @@
          * Compile Firmware.
          * @param {string} textToMCompile - The firmware to be compile and loaded into memory
          */
-        function sim_core_compile_firmware ( textToMCompile )
+        function simcore_compile_firmware ( textToMCompile )
         {
     	    var ret = {} ;
     	        ret.msg = "" ;
@@ -577,7 +577,7 @@
     
             // update with loaded microcode
             update_memories(preSM);
-    	    sim_core_reset() ;
+    	    simcore_reset() ;
             return ret ;
         }
     
@@ -585,7 +585,7 @@
          * Compile Assembly.
          * @param {string} textToCompile - The assembly to be compile and loaded into memory
          */
-        function sim_core_compile_assembly ( textToCompile )
+        function simcore_compile_assembly ( textToCompile )
         {
     	    var ret = {} ;
     	        ret.msg = "" ;
@@ -613,7 +613,7 @@
             // update memory and segments
             set_simware(SIMWAREaddon) ;
     	    update_memories(SIMWARE) ;
-    	    sim_core_reset() ;
+    	    simcore_reset() ;
     
             return ret ;
         }

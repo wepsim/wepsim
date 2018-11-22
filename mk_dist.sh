@@ -30,13 +30,14 @@ cat sim_hw/sim_hw_index.js \
     sim_sw/sim_lang_asm.js \
     sim_core/sim_cfg.js \
     sim_core/sim_core_ctrl.js \
-    sim_core/sim_stateshots.js \
     sim_core/sim_core_ui.js \
+    sim_core/sim_api_core.js \
+    sim_core/sim_api_native.js \
+    sim_core/sim_api_stateshots.js \
     sim_core/sim_core_ui_console.js \
     sim_core/sim_core_ui_memory.js \
     sim_core/sim_core_ui_help.js \
-    sim_core/sim_core_ui_notify.js \
-    sim_core/sim_core.js > ws_dist/sim_all.js
+    sim_core/sim_core_ui_notify.js > ws_dist/sim_all.js
 /usr/bin/yui-compressor -o ws_dist/min.sim_all.js ws_dist/sim_all.js
 rm -fr ws_dist/sim_all.js
 
@@ -65,7 +66,6 @@ cat wepsim/i18n/i18n.js \
     wepsim/wepsim_config.js \
     wepsim/wepsim_config_commands.js \
     wepsim/wepsim_tutorial.js \
-    wepsim/wepsim_native.js \
     wepsim/wepsim_state.js \
     wepsim/wepsim_url.js \
     wepsim/wepsim_voice.js \
