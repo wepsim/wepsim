@@ -251,20 +251,20 @@
 		    trpin = "<img alt='stop icon' height='22' src='images/stop/stop_" + icon_theme + ".gif'>" ;
 
 		if (key == index)
-		     o1 += "<tr id='maddr" + key + "' " +
+		     o1 += "<tr id='maddr" + key + "' class='d-flex' " +
                            "    style='color:blue; font-size:small; font-weight:bold' " +
 			   "    onclick='dbg_set_breakpoint(" + key + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
-			   "<td width='15%' align='right'>" + maddr + "</td>" +
-			   "<td width='1%' id='mcpin" + key + "' style='padding:5 0 0 0;'>" + trpin + "</td>" +
-			   "<td>" + value + "</td></tr>";
-		else o1 += "<tr id='maddr" + key + "' " +
+			   "<td             class='col-3 col-md-2 py-1' align='right'>" + maddr + "</td>" +
+			   "<td width='1%'  class='col-auto py-1 px-0' id='mcpin" + key + "'>" + trpin + "</td>" +
+			   "<td             class='col py-1'>" + value + "</td></tr>";
+		else o1 += "<tr id='maddr" + key + "' class='d-flex' " +
                            "    style='color:black; font-size:small; font-weight:normal' " +
 			   "    onclick='dbg_set_breakpoint(" + key + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
-			   "<td width='15%' align='right'>" + maddr + "</td>" +
-			   "<td width='1%' id='mcpin" + key + "' style='padding:5 0 0 0;'>" + trpin + "</td>" +
-			   "<td>" + value + "</td></tr>";
+			   "<td             class='col-3 col-md-2 py-1' align='right'>" + maddr + "</td>" +
+			   "<td width='1%'  class='col-auto py-1 px-0' id='mcpin" + key + "'>" + trpin + "</td>" +
+			   "<td             class='col py-1'>" + value + "</td></tr>";
             }
 
 	    if (typeof memory[index] == "undefined") {
