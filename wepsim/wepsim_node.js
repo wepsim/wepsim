@@ -29,7 +29,7 @@
 	    ret1.msg = "" ;
 	    ret1.ok  = true ;
 
-        var ret = sim_core_init(false, simhw_name) ;
+        var ret = simcore_init(false, simhw_name) ;
 	if (false == ret.ok) 
 	{
             ret1.msg = "ERROR: initialize: " + ret.msg + ".\n" ;
@@ -37,7 +37,7 @@
 	    return ret1 ;
 	}
 
-	ret = sim_core_init_ui('', '', '', '', '', '') ;
+	ret = simcore_init_ui('', '', '', '', '', '') ;
 	if (false == ret.ok) 
 	{
             ret1.msg = "ERROR: initialize: " + ret.msg + ".\n" ;
@@ -89,10 +89,10 @@
             ret1.msg = "" ;
 
 	// 1) initialize ws
-        sim_core_reset() ;
+        simcore_reset() ;
 
 	// 2) load firmware
-        var ret = sim_core_compile_firmware(str_firmware) ;
+        var ret = simcore_compile_firmware(str_firmware) ;
 	if (false == ret.ok) 
 	{
             ret1.msg = "ERROR: Firmware: " + ret.msg + ".\n" ;
@@ -101,7 +101,7 @@
 	}
 
 	// 3) load assembly
-        ret = sim_core_compile_assembly(str_assembly) ;
+        ret = simcore_compile_assembly(str_assembly) ;
 	if (false == ret.ok) 
         {
             ret1.msg = "ERROR: Assembly: " + ret.msg + ".\n" ;
@@ -110,7 +110,7 @@
 	}
 
 	// 4) execute firmware-assembly
-	ret = sim_core_execute_program(0, max_instructions, max_cycles) ;
+	ret = simcore_execute_program(0, max_instructions, max_cycles) ;
 	if (false == ret.ok) 
 	{
             ret1.msg = "ERROR: Execution: " + ret.msg + ".\n" ;
@@ -137,10 +137,10 @@
             ret1.msg = "" ;
 
 	// 1) initialize ws
-        sim_core_reset() ;
+        simcore_reset() ;
 
 	// 2) load firmware
-        var ret = sim_core_compile_firmware(str_firmware) ;
+        var ret = simcore_compile_firmware(str_firmware) ;
 	if (false == ret.ok) 
 	{
             ret1.msg = "ERROR: Firmware: " + ret.msg + ".\n" ;
@@ -149,7 +149,7 @@
 	}
 
 	// 3) load assembly
-        ret = sim_core_compile_assembly(str_assembly) ;
+        ret = simcore_compile_assembly(str_assembly) ;
 	if (false == ret.ok) 
         {
             ret1.msg = "ERROR: Assembly: " + ret.msg + ".\n" ;
@@ -158,7 +158,7 @@
 	}
 
 	// 4) execute firmware-assembly
-	ret = sim_core_execute_program(verbosity, max_instructions, max_cycles) ;
+	ret = simcore_execute_program(verbosity, max_instructions, max_cycles) ;
 	if (false == ret.ok) 
 	{
             ret1.msg = "ERROR: Execution: " + ret.msg + ".\n" ;

@@ -275,7 +275,7 @@
 					  set_cfg('ws_mode', optValue);
 					  save_cfg();
                                           wepsim_change_mode(optValue, '#select4') ;
-	                                  sim_core_init_ui('#states_ALL', '#states_BR', '#io_ALL',
+	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL',
                                                            '#cpu_ALL', '#config_MP', '#config_IO');
 					  return false;">
 				<option value="intro"    >Welcome...</option>
@@ -1338,7 +1338,7 @@
     try
     {
 	    // basic initialization of wepsim...
-	    sim_core_init(true, 'ep') ;
+	    simcore_init(true, 'ep') ;
 
 	    // adapt to idiom
 	    var ws_idiom = get_cfg('ws_idiom');
@@ -1466,9 +1466,9 @@
 
 		    var ws_mode = get_cfg('ws_mode');
 		    wepsim_change_mode(ws_mode, '#select4') ;
-		    sim_core_init_ui("#states_ALL", "#states_BR", "#io_ALL",
+		    simcore_init_ui("#states_ALL", "#states_BR", "#io_ALL",
 				     "#cpu_ALL", "#config_MP", "#config_IO");
-		    sim_core_reset();
+		    simcore_reset();
 
 		    wepsim_voice_init() ;
 		    if (false == get_cfg('use_voice')) {

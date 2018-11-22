@@ -36,13 +36,13 @@
 
         if (true == reset_cpu) 
         {
-	    sim_core_reset() ;
+	    simcore_reset() ;
         }
     }
 
     function wepsim_execute_instruction ( )
     {
-	var ret = sim_core_check_if_can_execute() ;
+	var ret = simcore_check_if_can_execute() ;
 	if (false == ret.ok) 
 	{
 	    alert(ret.msg) ;
@@ -51,7 +51,7 @@
 
         var clklimit = get_cfg('DBG_limitick') ;
 
-	ret = sim_core_execute_microprogram(0, clklimit) ;
+	ret = simcore_execute_microprogram(0, clklimit) ;
 	if (false == ret.ok) 
 	{
             wepsim_show_stopbyevent("Info", ret.msg) ;
@@ -63,14 +63,14 @@
 
     function wepsim_execute_microinstruction ( )
     {
-	var ret = sim_core_check_if_can_execute() ;
+	var ret = simcore_check_if_can_execute() ;
 	if (false == ret.ok) 
 	{
 	    alert(ret.msg) ;
 	    return false ;
         }
 
-	ret = sim_core_execute_microinstruction() ;
+	ret = simcore_execute_microinstruction() ;
 	if (false == ret.ok) {
             wepsim_show_stopbyevent("Info", ret.msg) ;
 	    return false ;
@@ -98,7 +98,7 @@
 
     function wepsim_execute_play ( btn1, run_notifications )
     {
-	var ret = sim_core_check_if_can_execute() ;
+	var ret = simcore_check_if_can_execute() ;
 	if (false == ret.ok) 
 	{
 	    alert(ret.msg) ;
@@ -195,7 +195,7 @@
             var clklimit  = get_cfg('DBG_limitick') ;
             for (i=0; i<chunk; i++)
             {
-		    ret = sim_core_execute_microprogram(0, clklimit) ;
+		    ret = simcore_execute_microprogram(0, clklimit) ;
 		    if (ret.ok === false) {
                         wepsim_show_stopbyevent("Info", ret.msg) ;
 			wepsim_execute_stop(btn1) ;
@@ -217,7 +217,7 @@
             {
 		    wepsim_check_state_firm() ;
 
-		    ret = sim_core_execute_microinstruction() ;
+		    ret = simcore_execute_microinstruction() ;
 		    if (false == ret.ok) {
 		        wepsim_show_stopbyevent("Info", ret.msg) ;
 			wepsim_execute_stop(btn1) ;
@@ -302,7 +302,7 @@
 	var ret = false ;
         for (var i=0; i<max_turbo; i++)
         {
-		ret = sim_core_execute_microinstruction() ;
+		ret = simcore_execute_microinstruction() ;
 		if (false == ret.ok) {
 		    wepsim_show_stopbyevent("Info", ret.msg) ;
 		    wepsim_execute_stop(btn1) ;

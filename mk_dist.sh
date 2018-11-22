@@ -29,11 +29,11 @@ cat sim_hw/sim_hw_index.js \
     sim_sw/sim_lang_firm.js \
     sim_sw/sim_lang_asm.js \
     sim_core/sim_cfg.js \
+    sim_core/sim_core_ctrl.js \
+    sim_core/sim_core_ui.js \
     sim_core/sim_api_core.js \
     sim_core/sim_api_native.js \
     sim_core/sim_api_stateshots.js \
-    sim_core/sim_core_ctrl.js \
-    sim_core/sim_core_ui.js \
     sim_core/sim_core_ui_console.js \
     sim_core/sim_core_ui_memory.js \
     sim_core/sim_core_ui_help.js \
