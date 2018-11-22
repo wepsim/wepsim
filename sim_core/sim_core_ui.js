@@ -352,7 +352,7 @@
             {
 		 o1_rn = "R"  + index ;
                  if (index < 10)
-                     o1_rn = o1_rn + '<span style="opacity: 0.0;">_</span>' ;
+                     o1_rn = o1_rn + '<span class="text-monospace" style="opacity: 0.0;">_</span>' ;
 
 		 o1_rf += "<div class='col pb-1 px-1'>" +
                           "<button type='button' class='btn py-0 px-0 ml-0' " + 
@@ -367,7 +367,7 @@
                           "</div>" ;
 	    }
 
-            $(jqdiv).html("<div class='row justify-content-center pt-1'>" + o1_rf + "</div>");
+            $(jqdiv).html("<div class='row justify-content-around pt-1'>" + o1_rf + "</div>");
 
 	    $("[data-toggle=popover-up]").popover({
 	    	    html:      true,
@@ -440,7 +440,7 @@
             {
 		 br_value = "R"  + index ;
                  if (index < 10)
-                     br_value = br_value + '<span style="opacity: 0.0;">_</span>' ;
+                     br_value = br_value + '<span class="text-monospace" style="opacity: 0.0;">_</span>' ;
 
 	         if ('logical' == get_cfg('RF_display_name'))
 		     if (typeof SIMWARE['registers'][index] != "undefined")
@@ -476,7 +476,9 @@
                         showkey = part1 + '<span class="d-none d-sm-inline-flex">' + part2 + '</span>' ;
 
 		    if (showkey.length < 3)
-			showkey = showkey + '<span style="opacity: 0.0;">__</span>' ;
+			showkey = showkey + '<span class="text-monospace" style="opacity: 0.0;">_</span>' ;
+		    if (showkey.length < 4)
+			showkey = showkey + '<span class="text-monospace" style="opacity: 0.0;">_</span>' ;
 	        }
 
                 var divclass = filter[i].split(",")[1] ;
@@ -494,7 +496,7 @@
                       "</div>" ;
             }
 
-            $(jqdiv).html("<div class='row justify-content-center pt-1'>" + o1 + "</div>");
+            $(jqdiv).html("<div class='row justify-content-around pt-1'>" + o1 + "</div>");
 
 	    $("[data-toggle=popover-bottom]").popover({
 	    	    html:      true,
