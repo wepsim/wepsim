@@ -1063,9 +1063,9 @@
 					          data-inline="true">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>
                                           <button class="btn btn-outline-dark btn-sm col float-right"
                                                   onclick="var txt_chklst1 = get_clipboard_copy();
-                                                           var obj_exp1    = simstate_checklist2state(txt_chklst1);
+                                                           var obj_exp1    = simcore_simstate_checklist2state(txt_chklst1);
                                                            var txt_chklst2 = $('#end_state1').val();
-                                                           var obj_exp2    = simstate_checklist2state(txt_chklst2);
+                                                           var obj_exp2    = simcore_simstate_checklist2state(txt_chklst2);
 	                                                   var ref_tag     = $('#curr_clk_maddr').html();
 	                                                   $('#s_ref').html(ref_tag);
                                                            wepsim_dialog_check_state('check_results1', obj_exp1, obj_exp2);

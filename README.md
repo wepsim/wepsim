@@ -269,8 +269,8 @@ Micropc at 0x3f.	Activated signals are: MC MR SELB SELA MA MB SELCOP T6 SELC LC 
 
 	// 6) show a final report
 	if (false != ret.ok) {
-	    var state_obj = simstate_current2state() ;
-	    ret.msg = simstate_state2checklist(state_obj) ;
+	    var state_obj = simcore_simstate_current2state() ;
+	    ret.msg = simcore_simstate_state2checklist(state_obj) ;
         }
 
 

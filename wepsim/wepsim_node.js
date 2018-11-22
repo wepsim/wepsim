@@ -54,12 +54,12 @@
 	    ret.msg = "" ;
 	    ret.ok  = true ;
 
-	var data3_bin   = simstate_checklist2state(checklist_ok) ;
-	var obj_current = simstate_current2state();
-	var obj_result  = simstate_check_results(data3_bin, obj_current, newones_too ) ;
+	var data3_bin   = simcore_simstate_checklist2state(checklist_ok) ;
+	var obj_current = simcore_simstate_current2state();
+	var obj_result  = simcore_simstate_check_results(data3_bin, obj_current, newones_too ) ;
 
-        ret.msg  = simstate_checkreport2txt(obj_result.result) ;
-        ret.html = simstate_checkreport2html(obj_result.result, true) ;
+        ret.msg  = simcore_simstate_checkreport2txt(obj_result.result) ;
+        ret.html = simcore_simstate_checkreport2html(obj_result.result, true) ;
         ret.ok   = (0 == obj_result.errors) ;
         return ret ;
     }
@@ -70,8 +70,8 @@
 	    ret.msg = "" ;
 	    ret.ok  = true ;
 
-        var state_obj = simstate_current2state() ;
-              ret.msg = simstate_state2checklist(state_obj) ;
+        var state_obj = simcore_simstate_current2state() ;
+              ret.msg = simcore_simstate_state2checklist(state_obj) ;
 
         return ret ;
     }

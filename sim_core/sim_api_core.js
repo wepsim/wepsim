@@ -394,7 +394,7 @@
 		do
             	{
 		       if (3 == verbosity) {
-		           before_state = simstate_current2state() ;
+		           before_state = simcore_simstate_current2state() ;
 		       }
 		       else
 		       if (4 == verbosity) {
@@ -406,11 +406,11 @@
                     compute_general_behavior("CLOCK") ;
 
 		       if (3 == verbosity) {
-		           after_state = simstate_current2state() ;
+		           after_state = simcore_simstate_current2state() ;
                            curr_mpc    = '0x' + cur_addr.toString(16) ;
                            ret.msg     = ret.msg + 'micropc(' + curr_mpc + '):\t' + 
 				         controlmemory_lineToString(curr_MC, cur_addr).trim() + ':\t\t\t' +
-                                         simstate_diff_states(before_state,after_state) + '\n' ;
+                                         simcore_simstate_diff_states(before_state,after_state) + '\n' ;
 		       }
 
                     i_clks++;
@@ -492,7 +492,7 @@
                   )
     	    {
 		     if (2 == verbosity) {
-		         before_state = simstate_current2state() ;
+		         before_state = simcore_simstate_current2state() ;
 		     }
 
     	           ret1 = sim_core_execute_microprogram(verbosity, clk_limit) ;
@@ -501,11 +501,11 @@
     	           }
     
 		     if (2 == verbosity) {
-		         after_state = simstate_current2state() ;
+		         after_state = simcore_simstate_current2state() ;
                          curr_pc     = '0x' + reg_pc.toString(16) ;
                          ret.msg     = ret.msg + 'pc(' + curr_pc + '):\t' + 
 				       SIMWARE.assembly[curr_pc].source_original + ':\t\t\t' +
-                                       simstate_diff_states(before_state,after_state) + '\n' ;
+                                       simcore_simstate_diff_states(before_state,after_state) + '\n' ;
 		     }
 		     else
 		     if (3 == verbosity) {
