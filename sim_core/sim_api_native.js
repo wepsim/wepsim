@@ -23,19 +23,19 @@
      * Native microcode support
      */
 
-    function sim_core_get_signal ( elto )
+    function simcore_native_get_signal ( elto )
     {
         return (get_value(simhw_sim_signal(elto)) >>> 0) ;
     }
 
-    function sim_core_set_signal ( elto, value )
+    function simcore_native_set_signal ( elto, value )
     {
         set_value(simhw_sim_signal(elto), value) ;
 	compute_behavior("FIRE " + elto) ;
 	return value ;
     }
 
-    function sim_core_get_value ( component, elto )
+    function simcore_native_get_value ( component, elto )
     {
         var index = 0 ;
 
@@ -78,7 +78,7 @@
         return false ;
     }
 
-    function sim_core_set_value ( component, elto, value )
+    function simcore_native_set_value ( component, elto, value )
     {
         var index = 0 ;
 
@@ -129,7 +129,7 @@
         return false ;
     }
 
-    function sim_core_get_fields ( signature_raw )
+    function simcore_native_get_fields ( signature_raw )
     {
         var SIMWARE = get_simware() ;
 
@@ -140,7 +140,7 @@
         }
     }
 
-    function sim_core_get_field_from_ir ( fields, index )
+    function simcore_native_get_field_from_ir ( fields, index )
     {
         if (typeof fields[index] == "undefined")
             return false ;
@@ -156,23 +156,23 @@
         return value ;
     }
 
-    function sim_core_deco ( )
+    function simcore_native_deco ( )
     {
         compute_behavior('DECO') ;
     }
 
-    function sim_core_go_maddr ( maddr )
+    function simcore_native_go_maddr ( maddr )
     {
         set_value(simhw_sim_state('MUXA_MICROADDR'), maddr) ;
     }
 
-    function sim_core_go_opcode ( )
+    function simcore_native_go_opcode ( )
     {
 	var maddr = get_value(simhw_sim_state('ROM_MUXA')) ;
         set_value(simhw_sim_state('MUXA_MICROADDR'), maddr) ;
     }
 
-    function sim_core_go_instruction ( signature_raw )
+    function simcore_native_go_instruction ( signature_raw )
     {
         var SIMWARE = get_simware() ;
 
