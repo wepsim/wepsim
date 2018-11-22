@@ -935,7 +935,7 @@ function loadFirmware (text)
 			{
 			    mk_native += "context.instrucciones[" + i + "][\"microcode\"][" + j + "][\"NATIVE_JIT\"] = " + 
 			                 " function() {\n" +
-					 "\t var fields = wepsim_native_get_fields(\"" + ins["signatureRaw"] + "\");\n" + 
+					 "\t var fields = sim_core_get_fields(\"" + ins["signatureRaw"] + "\");\n" + 
 					     ins["microcode"][j].NATIVE + 
 					 "\n};\n " ;
 			}
