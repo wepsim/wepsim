@@ -235,16 +235,28 @@
 
             var maddr = "" ;
             var trpin = "" ;
+            var htmllabel = "" ;
+            var htmlfill = 0 ;
             for (var key in memory)
             {
                 value = controlmemory_lineToString(memory, key) ;
                 maddr = "0x" + parseInt(key).toString(16) ;
-                if (typeof revlabels[key] != "undefined")
+                if (typeof revlabels[key] != "undefined") 
+		{
+                    htmllabel = revlabels[key] ;
+		    htmlfill  = 5 - htmllabel.length ;
+		    if (htmlfill > 0) {
+			for (var i=0; i<htmlfill; i++) {
+                             htmllabel = htmllabel + "&nbsp;" ;
+			}
+		    }
+
                     maddr = '<span>' +
-                            '<span class="badge badge-pill badge-info" ' + 
-                            '      style="position:relative;top:4px;">' + revlabels[key] + '</span>' +
+                            '<span class="badge badge-pill badge-info text-monospace" ' + 
+                            '      style="position:relative;top:4px;">' + htmllabel + '</span>' +
                             '<span style="border:1px solid gray;">' + maddr + '</span>' +
                             '</span>' ;
+	        }
 
 		trpin = "&nbsp;" ;
 		if (true == memory_dashboard[key].breakpoint)
@@ -255,16 +267,16 @@
                            "    style='color:blue; font-size:small; font-weight:bold' " +
 			   "    onclick='dbg_set_breakpoint(" + key + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
-			   "<td             class='col-3 col-md-2 py-1' align='right'>" + maddr + "</td>" +
-			   "<td width='1%'  class='col-auto py-1 px-0' id='mcpin" + key + "'>" + trpin + "</td>" +
-			   "<td             class='col py-1'>" + value + "</td></tr>";
+			   "<td             class='col-3 col-md-2 py-0' align='right'>" + maddr + "</td>" +
+			   "<td width='1%'  class='col-auto py-0 px-0' id='mcpin" + key + "'>" + trpin + "</td>" +
+			   "<td             class='col py-0'>" + value + "</td></tr>";
 		else o1 += "<tr id='maddr" + key + "' class='d-flex' " +
                            "    style='color:black; font-size:small; font-weight:normal' " +
 			   "    onclick='dbg_set_breakpoint(" + key + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
-			   "<td             class='col-3 col-md-2 py-1' align='right'>" + maddr + "</td>" +
-			   "<td width='1%'  class='col-auto py-1 px-0' id='mcpin" + key + "'>" + trpin + "</td>" +
-			   "<td             class='col py-1'>" + value + "</td></tr>";
+			   "<td             class='col-3 col-md-2 py-0' align='right'>" + maddr + "</td>" +
+			   "<td width='1%'  class='col-auto py-0 px-0' id='mcpin" + key + "'>" + trpin + "</td>" +
+			   "<td             class='col py-0'>" + value + "</td></tr>";
             }
 
 	    if (typeof memory[index] == "undefined") {
