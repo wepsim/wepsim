@@ -553,16 +553,6 @@
                simhw_internalState_set('MP', kx, kv) ;
 	    }
 
-            /// bugfix safari bug 10.1.2
-            /*
-	    for (var e in MP) {
-	         if (isNaN(MP[e])) {
-	    	     delete MP[e];
-                 }
-            }
-            */
-            /// end bugfix 
-
 	    // 5.- load the segments from SIMWARE['seg']
             simhw_internalState_reset('segments', {}) ;
 	    for (var key in SIMWARE['seg'])
