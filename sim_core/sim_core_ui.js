@@ -352,22 +352,22 @@
             {
 		 o1_rn = "R"  + index ;
                  if (index < 10)
-                     o1_rn = o1_rn + '<span class="text-monospace" style="opacity: 0.0;">_</span>' ;
+                     o1_rn = o1_rn + '&nbsp;' ;
 
 		 o1_rf += "<div class='col pb-1 px-1'>" +
-                          "<button type='button' class='btn py-0 px-0 ml-0' " + 
+                          "<button type='button' class='btn p-0 ml-0' " + 
 			  "        style='width:inherit; border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
                           "        data-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
-                          "  <span id='name_RF" + index + "' style='float:center; padding:0 0 0 0; color:black;'>" + o1_rn + "</span>" +
-                          "  <span class='badge badge-secondary' style='background-color:#CEECF5; color:black;' id='tbl_RF"  + index + "'>" +
+                          "<span id='name_RF" + index + "' class='p-0 text-monospace' style='float:center; color:black;'>" + o1_rn + "</span>&nbsp;" +
+                          "<span class='badge badge-secondary' style='background-color:#CEECF5; color:black;' id='tbl_RF"  + index + "'>" +
                           (get_value(simhw_sim_states()['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() +
-                          "  </span>" +
+                          "</span>" +
                           "</button>" +
                           "</div>" ;
 	    }
 
-            $(jqdiv).html("<div class='d-flex flex-row flex-wrap justify-content-around pt-1'>" + o1_rf + "</div>");
+            $(jqdiv).html("<div class='d-flex flex-row flex-wrap justify-content-around'>" + o1_rf + "</div>");
 
 	    $("[data-toggle=popover-up]").popover({
 	    	    html:      true,
@@ -440,7 +440,7 @@
             {
 		 br_value = "R"  + index ;
                  if (index < 10)
-                     br_value = br_value + '<span class="text-monospace" style="opacity: 0.0;">_</span>' ;
+                     br_value = br_value + '&nbsp;' ;
 
 	         if ('logical' == get_cfg('RF_display_name'))
 		     if (typeof SIMWARE['registers'][index] != "undefined")
@@ -472,29 +472,31 @@
 	        {
                     part1 = showkey.substring(0, 3) ;
                     part2 = showkey.substring(3, showkey.length) ;
-		    if (part2.length > 0)
-                        showkey = part1 + '<span class="d-none d-sm-inline-flex">' + part2 + '</span>' ;
 
-		    //if (showkey.length < 3)
-	            //	  showkey = showkey + '<span class="text-monospace" style="opacity: 0.0;">_</span>' ;
+		    if (showkey.length < 3)
+                         showkey = '<span class="text-monospace">' + part1 + '&nbsp;</span>' ;
+		    else showkey = '<span class="text-monospace">' + part1 + '</span>' ;
+
+		    if (part2.length > 0)
+                        showkey += '<span class="d-none d-sm-inline-flex text-monospace">' + part2 + '</span>' ;
 	        }
 
                 var divclass = filter[i].split(",")[1] ;
 
                 o1 += "<div class='" + divclass + " pb-1 px-1'>" +
-                      "<button type='button' class='btn py-0 px-0 ml-0' " + 
+                      "<button type='button' class='btn p-0 ml-0' " + 
 		      "        style='width:inherit; border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
                       "        data-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +
                       showkey +
-                      "<span class='badge badge-secondary' style='background-color:#CEECF5; color:black;' id='tbl_"  + s + "'>" +
+                      " <span class='badge badge-secondary' style='background-color:#CEECF5; color:black;' id='tbl_"  + s + "'>" +
                       sim_eltos[s].value.toString(get_cfg('RF_display_format')) +
                       "</span>" +
                       "</button>" +
                       "</div>" ;
             }
 
-            $(jqdiv).html("<div class='d-flex flex-row flex-wrap justify-content-around pt-1'>" + o1 + "</div>");
+            $(jqdiv).html("<div class='d-flex flex-row flex-wrap justify-content-around'>" + o1 + "</div>");
 
 	    $("[data-toggle=popover-bottom]").popover({
 	    	    html:      true,
