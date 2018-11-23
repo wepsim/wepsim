@@ -298,7 +298,7 @@
 			       draw_data: [['svg_cu:path3094'], ['svg_cu:path3094']],
 			       draw_name: [[]] };
 	 ep_signals["A0A1"] = { name: "A0A1", visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
-				behavior: ["ADD MUXA_MICROADDR REG_MICROADDR SUM_ONE",
+				behavior: ["PLUS1 MUXA_MICROADDR REG_MICROADDR",
 					   "MV MUXA_MICROADDR REG_MICROINS/MADDR",
 					   "MV MUXA_MICROADDR ROM_MUXA",
 					   "MV MUXA_MICROADDR FETCH"],
@@ -1011,6 +1011,15 @@
 						   ep_internal_states.alu_flags.flag_c = 0 ;
                                                    ep_behaviors["UPDATE_NZVC"].operation() ;
 						}
+				   };
+	ep_behaviors["PLUS1"]    = { nparameters: 3,
+				     types: ["E", "E"],
+				     operation: function(s_expr) 
+		                                {
+						   var a = get_value(ep_states[s_expr[2]]) << 0 ;
+						   var result = a + 1 ;
+						   set_value(ep_states[s_expr[1]], result >>> 0) ;
+                                                }
 				   };
 	ep_behaviors["PLUS4"]    = { nparameters: 3,
 				     types: ["E", "E"],
