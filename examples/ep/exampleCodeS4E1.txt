@@ -40,11 +40,8 @@ sys_prt_int: li   $1 1
              b f3
          f2: reti
 
-sys_prt_ch:  li   $0 0
-         b6: beq  $27 $0 fin3
-             out  $a0 0x1000
-             b  b6
-       fin3: reti
+sys_prt_ch:  out  $a0 0x1000
+             reti
 
 sys_rd_str:  li   $0  0
              li   $1  4
@@ -155,6 +152,11 @@ sys_rd_ch:   li   $0  0
 
            la  $a0 enter
            li  $v0 4
+           syscall
+
+           # test syscall 11
+           li  $a0 'a'
+           li  $v0 11
            syscall
 
            # the end
