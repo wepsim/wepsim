@@ -19,6 +19,11 @@ sys_prt_int: li   $1 1
              # push_byte('\0')
              sb   $0 ($sp)
              sub  $sp $sp $1
+             bge  $26 $0 b3
+             li  $1  '-'
+             out $1  0x1000
+             li  $1  -1
+             mul $26 $26 $1
          b3: # push_byte(rem(x,10)+48)
              # x = div(x,10)
              li   $1 10
