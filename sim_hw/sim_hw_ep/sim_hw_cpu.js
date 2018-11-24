@@ -770,25 +770,25 @@
         /* Virtual Signals, for UI */
 	 ep_signals["TEST_C"] = { name: "TEST_C", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
 		  	          behavior: ["MV FLAG_C VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_C VAL_ONE; FIRE_IFSET SELP 3"],
-                                  depends_on: ["SELCOP"],
+                                  depends_on: ["SELCOP", "COP"],
 		  	          fire_name: ['svg_p:text3701-3'],
 			          draw_data: [['svg_p:text3701-3']],
 			          draw_name: [[]] };
 	 ep_signals["TEST_V"] = { name: "TEST_V", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
 		  	          behavior: ["MV FLAG_V VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_V VAL_ONE; FIRE_IFSET SELP 3"],
-                                  depends_on: ["SELCOP"],
+                                  depends_on: ["SELCOP", "COP"],
 		  	          fire_name: ['svg_p:text3701-3-1'],
 			          draw_data: [['svg_p:text3701-3-1']],
 			          draw_name: [[]] };
 	 ep_signals["TEST_N"] = { name: "TEST_N", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
 		  	          behavior: ["MV FLAG_N VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_N VAL_ONE; FIRE_IFSET SELP 3"],
-                                  depends_on: ["SELCOP"],
+                                  depends_on: ["SELCOP", "COP"],
 		  	          fire_name: ['svg_p:text3701-3-2'],
 			          draw_data: [['svg_p:text3701-3-2']],
 			          draw_name: [[]] };
 	 ep_signals["TEST_Z"] = { name: "TEST_Z", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
 		  	          behavior: ["MV FLAG_Z VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_Z VAL_ONE; FIRE_IFSET SELP 3"],
-                                  depends_on: ["SELCOP"],
+                                  depends_on: ["SELCOP", "COP"],
 		  	          fire_name: ['svg_p:text3701-3-5'],
 			          draw_data: [['svg_p:text3701-3-5']],
 			          draw_name: [[]] };
@@ -1774,10 +1774,10 @@
 							   set_value(simhw_sim_signal("TEST_C"),  
 								     ep_internal_states.alu_flags.flag_c);
 
-							   fn_updateL_now("TEST_N") ;
-							   fn_updateL_now("TEST_Z") ;
-							   fn_updateL_now("TEST_V") ;
-							   fn_updateL_now("TEST_C") ;
+							   update_draw(ep_signals["TEST_N"], ep_signals["TEST_N"].value) ;
+							   update_draw(ep_signals["TEST_Z"], ep_signals["TEST_Z"].value) ;
+							   update_draw(ep_signals["TEST_V"], ep_signals["TEST_V"].value) ;
+							   update_draw(ep_signals["TEST_C"], ep_signals["TEST_C"].value) ;
                                                         },
                                                 verbal: function (s_expr) 
                                                         {
