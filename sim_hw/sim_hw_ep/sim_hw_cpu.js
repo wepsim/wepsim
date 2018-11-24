@@ -375,7 +375,7 @@
 			       draw_data: [['svg_cu:path3094'], ['svg_cu:path3094']],
 			       draw_name: [[]] };
 	 ep_signals["A0A1"] = { name: "A0A1", visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
-				behavior: ["PLUS1 MUXA_MICROADDR REG_MICROADDR",
+				behavior: ["ADD MUXA_MICROADDR REG_MICROADDR VAL_ONE",
 					   "CP_FIELD MUXA_MICROADDR REG_MICROINS/MADDR",
 					   "MV MUXA_MICROADDR ROM_MUXA",
 					   "MV MUXA_MICROADDR FETCH"],
@@ -504,7 +504,7 @@
 			       draw_data: [['svg_p:path3063','svg_p:path3061','svg_p:path3059'], ['svg_p:path3057','svg_p:path3641','svg_p:path3419','svg_p:path3583']],
 			       draw_name: [[], ['svg_p:path3447']] };
 	 ep_signals["M2"]  = { name: "M2", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
-			       behavior: ["MV M2_C2 BUS_IB", "PLUS4 M2_C2 REG_PC"],
+			       behavior: ["MV M2_C2 BUS_IB", "ADD M2_C2 REG_PC VAL_FOUR"],
                                depends_on: ["C2"],
 			       fire_name: ['svg_p:text3471'],
 			       draw_data: [['svg_p:path3217', 'svg_p:path3215', 'svg_p:path3213', 'svg_p:path3213-9'],
@@ -531,21 +531,21 @@
 			       draw_name: [[], ['svg_p:path3425', 'svg_p:path3427']] };
 	 ep_signals["COP"] = { name: "COP", visible: true, type: "L", value: 0, default_value:0, nbits: "4", forbidden: true,
 			       behavior: ["NOP_ALU",
-                                          "AND ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "OR ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "NOT ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "XOR ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "SRL ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "SRA ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "SL ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "RR ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "RL ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "SUB ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "MUL ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "DIV ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "MOD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "LUI ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3"],
+                                          "AND ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "OR ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "NOT ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "XOR ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "SRL ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "SRA ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "SL ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "RR ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "RL ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "ADD ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "SUB ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "MUL ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "DIV ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "MOD ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+					  "LUI ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3"],
                                depends_on: ["SELCOP"],
 			       fire_name: ['svg_p:text3303'],
 			       draw_data: [['svg_p:path3237', 'svg_p:path3239', 
@@ -770,25 +770,25 @@
         /* Virtual Signals, for UI */
 	 ep_signals["TEST_C"] = { name: "TEST_C", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
 		  	          behavior: ["MV FLAG_C VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_C VAL_ONE; FIRE_IFSET SELP 3"],
-                                  depends_on: ["SELCOP"],
+                                  depends_on: ["SELCOP", "COP"],
 		  	          fire_name: ['svg_p:text3701-3'],
 			          draw_data: [['svg_p:text3701-3']],
 			          draw_name: [[]] };
 	 ep_signals["TEST_V"] = { name: "TEST_V", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
 		  	          behavior: ["MV FLAG_V VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_V VAL_ONE; FIRE_IFSET SELP 3"],
-                                  depends_on: ["SELCOP"],
+                                  depends_on: ["SELCOP", "COP"],
 		  	          fire_name: ['svg_p:text3701-3-1'],
 			          draw_data: [['svg_p:text3701-3-1']],
 			          draw_name: [[]] };
 	 ep_signals["TEST_N"] = { name: "TEST_N", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
 		  	          behavior: ["MV FLAG_N VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_N VAL_ONE; FIRE_IFSET SELP 3"],
-                                  depends_on: ["SELCOP"],
+                                  depends_on: ["SELCOP", "COP"],
 		  	          fire_name: ['svg_p:text3701-3-2'],
 			          draw_data: [['svg_p:text3701-3-2']],
 			          draw_name: [[]] };
 	 ep_signals["TEST_Z"] = { name: "TEST_Z", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
 		  	          behavior: ["MV FLAG_Z VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_Z VAL_ONE; FIRE_IFSET SELP 3"],
-                                  depends_on: ["SELCOP"],
+                                  depends_on: ["SELCOP", "COP"],
 		  	          fire_name: ['svg_p:text3701-3-5'],
 			          draw_data: [['svg_p:text3701-3-5']],
 			          draw_name: [[]] };
@@ -827,7 +827,6 @@
                                                    ep_internal_states.alu_flags.flag_z = 0 ;
                                                    ep_internal_states.alu_flags.flag_c = 0 ;
                                                    ep_internal_states.alu_flags.flag_v = 0 ;
-                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
                                                 },
                                         verbal: function (s_expr) 
                                                 {
@@ -955,7 +954,6 @@
 						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
 						   ep_internal_states.alu_flags.flag_v = 0 ;
 						   ep_internal_states.alu_flags.flag_c = 0 ;
-                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
                                                 },
                                         verbal: function (s_expr) 
                                                 {
@@ -975,7 +973,6 @@
 						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
 						   ep_internal_states.alu_flags.flag_v = 0 ;
 						   ep_internal_states.alu_flags.flag_c = 0 ;
-                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
                                                 },
                                         verbal: function (s_expr) 
                                                 {
@@ -995,7 +992,6 @@
 						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
 						   ep_internal_states.alu_flags.flag_v = 0 ;
 						   ep_internal_states.alu_flags.flag_c = 0 ;
-                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
                                                 },
                                         verbal: function (s_expr) 
                                                 {
@@ -1015,7 +1011,6 @@
 						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
 						   ep_internal_states.alu_flags.flag_v = 0 ;
 						   ep_internal_states.alu_flags.flag_c = 0 ;
-                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
                                                 },
                                         verbal: function (s_expr) 
                                                 {
@@ -1035,7 +1030,6 @@
 						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
 						   ep_internal_states.alu_flags.flag_v = 0 ;
 						   ep_internal_states.alu_flags.flag_c = 0 ;
-                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
                                                 },
                                         verbal: function (s_expr) 
                                                 {
@@ -1055,7 +1049,6 @@
 						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
 						   ep_internal_states.alu_flags.flag_v = 0 ;
 						   ep_internal_states.alu_flags.flag_c = 0 ;
-                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
                                                 },
                                         verbal: function (s_expr) 
                                                 {
@@ -1075,7 +1068,6 @@
 						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
 						   ep_internal_states.alu_flags.flag_v = 0 ;
 						   ep_internal_states.alu_flags.flag_c = ((result) >>> 31) ;
-                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
                                                 },
                                         verbal: function (s_expr) 
                                                 {
@@ -1095,7 +1087,6 @@
 						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
 						   ep_internal_states.alu_flags.flag_v = 0 ;
 						   ep_internal_states.alu_flags.flag_c = 0 ;
-                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
                                                 },
                                         verbal: function (s_expr) 
                                                 {
@@ -1115,7 +1106,6 @@
 						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
 						   ep_internal_states.alu_flags.flag_v = 0 ;
 						   ep_internal_states.alu_flags.flag_c = 0 ;
-                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
                                                 },
                                         verbal: function (s_expr) 
                                                 {
@@ -1142,8 +1132,6 @@
 							ep_internal_states.alu_flags.flag_v = 1 ;
 						   if ( (result >= 0) && (a <  0) && (b <  0) )
 							ep_internal_states.alu_flags.flag_v = 1 ;
-
-                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
                                                 },
                                         verbal: function (s_expr) 
                                                 {
@@ -1172,8 +1160,6 @@
 							ep_internal_states.alu_flags.flag_v = 1 ;
 						   if ( (result >= 0) && (a <  0) && (b <  0) )
 							ep_internal_states.alu_flags.flag_v = 1 ;
-
-                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
                                                 },
                                         verbal: function (s_expr) 
                                                 {
@@ -1202,8 +1188,6 @@
 							ep_internal_states.alu_flags.flag_v = 1 ;
 						   if ( (result >= 0) && (a <  0) && (b <  0) )
 							ep_internal_states.alu_flags.flag_v = 1 ;
-
-                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
                                                 },
                                         verbal: function (s_expr) 
                                                 {
@@ -1228,7 +1212,6 @@
 						       ep_internal_states.alu_flags.flag_z = 1 ;
 						       ep_internal_states.alu_flags.flag_v = 1 ;
 						       ep_internal_states.alu_flags.flag_c = 0 ;
-                                                       ep_behaviors["UPDATE_NZVC"].operation() ;
                                                        return ;
                                                    }
 
@@ -1238,7 +1221,6 @@
 						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
 						   ep_internal_states.alu_flags.flag_v = 0 ;
 						   ep_internal_states.alu_flags.flag_c = 0 ;
-                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
                                                 },
                                         verbal: function (s_expr) 
                                                 {
@@ -1264,7 +1246,6 @@
 						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
 						   ep_internal_states.alu_flags.flag_v = 0 ;
 						   ep_internal_states.alu_flags.flag_c = 0 ;
-                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
                                                 },
                                         verbal: function (s_expr) 
                                                 {
@@ -1286,7 +1267,6 @@
 						   ep_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
 						   ep_internal_states.alu_flags.flag_v = 0 ;
 						   ep_internal_states.alu_flags.flag_c = 0 ;
-                                                   ep_behaviors["UPDATE_NZVC"].operation() ;
                                                 },
                                         verbal: function (s_expr) 
                                                 {
@@ -1630,7 +1610,7 @@
 							    ep_internal_states.fire_stack.push(s_expr[1]) ;
 
 							    // 1.- update draw
-							    update_draw( ep_signals[s_expr[1]],  ep_signals[s_expr[1]].value) ;
+							    update_draw(ep_signals[s_expr[1]], ep_signals[s_expr[1]].value) ;
 
 							    // 2.- for Level signals, propage it
 							    if ("L" ==  ep_signals[s_expr[1]].type)
@@ -1785,7 +1765,6 @@
 							   set_value(simhw_sim_state("FLAG_C"),   
 								     ep_internal_states.alu_flags.flag_c);
 
-								/*
 							   set_value(simhw_sim_signal("TEST_N"),  
 								     ep_internal_states.alu_flags.flag_n);
 							   set_value(simhw_sim_signal("TEST_Z"),  
@@ -1794,15 +1773,21 @@
 								     ep_internal_states.alu_flags.flag_v);
 							   set_value(simhw_sim_signal("TEST_C"),  
 								     ep_internal_states.alu_flags.flag_c);
-								     */
+
+							   update_draw(ep_signals["TEST_N"], ep_signals["TEST_N"].value) ;
+							   update_draw(ep_signals["TEST_Z"], ep_signals["TEST_Z"].value) ;
+							   update_draw(ep_signals["TEST_V"], ep_signals["TEST_V"].value) ;
+							   update_draw(ep_signals["TEST_C"], ep_signals["TEST_C"].value) ;
                                                         },
                                                 verbal: function (s_expr) 
                                                         {
-                                                           return "Update flags N-Z-V-C to " + 
+                                                           return "Update flags N-Z-V-C." ;
+/*
 								  ep_internal_states.alu_flags.flag_n + " " +
 								  ep_internal_states.alu_flags.flag_z + " " +
 								  ep_internal_states.alu_flags.flag_v + " " +
 								  ep_internal_states.alu_flags.flag_c + ". " ;
+*/
                                                         }
 					   };
 
