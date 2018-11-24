@@ -1610,7 +1610,7 @@
 							    ep_internal_states.fire_stack.push(s_expr[1]) ;
 
 							    // 1.- update draw
-							    update_draw( ep_signals[s_expr[1]],  ep_signals[s_expr[1]].value) ;
+							    update_draw(ep_signals[s_expr[1]], ep_signals[s_expr[1]].value) ;
 
 							    // 2.- for Level signals, propage it
 							    if ("L" ==  ep_signals[s_expr[1]].type)
@@ -1773,14 +1773,21 @@
 								     ep_internal_states.alu_flags.flag_v);
 							   set_value(simhw_sim_signal("TEST_C"),  
 								     ep_internal_states.alu_flags.flag_c);
+
+							   fn_updateL_now("TEST_N") ;
+							   fn_updateL_now("TEST_Z") ;
+							   fn_updateL_now("TEST_V") ;
+							   fn_updateL_now("TEST_C") ;
                                                         },
                                                 verbal: function (s_expr) 
                                                         {
-                                                           return "Update flags N-Z-V-C to " + 
+                                                           return "Update flags N-Z-V-C." ;
+/*
 								  ep_internal_states.alu_flags.flag_n + " " +
 								  ep_internal_states.alu_flags.flag_z + " " +
 								  ep_internal_states.alu_flags.flag_v + " " +
 								  ep_internal_states.alu_flags.flag_c + ". " ;
+*/
                                                         }
 					   };
 
