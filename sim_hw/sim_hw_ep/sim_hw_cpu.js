@@ -1765,7 +1765,6 @@
 							   set_value(simhw_sim_state("FLAG_C"),   
 								     ep_internal_states.alu_flags.flag_c);
 
-							/*
 							   set_value(simhw_sim_signal("TEST_N"),  
 								     ep_internal_states.alu_flags.flag_n);
 							   set_value(simhw_sim_signal("TEST_Z"),  
@@ -1774,7 +1773,6 @@
 								     ep_internal_states.alu_flags.flag_v);
 							   set_value(simhw_sim_signal("TEST_C"),  
 								     ep_internal_states.alu_flags.flag_c);
-							 */
                                                         },
                                                 verbal: function (s_expr) 
                                                         {
