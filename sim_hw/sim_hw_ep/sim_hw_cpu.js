@@ -685,25 +685,25 @@
         /* Virtual Signals, for UI */
 	 ep_signals["TEST_C"] = { name: "TEST_C", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
 		  	          behavior: ["MV FLAG_C VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_C VAL_ONE; FIRE_IFSET SELP 3"],
-                                  depends_on: ["SELCOP"],
+                                  depends_on: ["SELCOP", "COP"],
 		  	          fire_name: ['svg_p:text3701-3'],
 			          draw_data: [['svg_p:text3701-3']],
 			          draw_name: [[]] };
 	 ep_signals["TEST_V"] = { name: "TEST_V", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
 		  	          behavior: ["MV FLAG_V VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_V VAL_ONE; FIRE_IFSET SELP 3"],
-                                  depends_on: ["SELCOP"],
+                                  depends_on: ["SELCOP", "COP"],
 		  	          fire_name: ['svg_p:text3701-3-1'],
 			          draw_data: [['svg_p:text3701-3-1']],
 			          draw_name: [[]] };
 	 ep_signals["TEST_N"] = { name: "TEST_N", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
 		  	          behavior: ["MV FLAG_N VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_N VAL_ONE; FIRE_IFSET SELP 3"],
-                                  depends_on: ["SELCOP"],
+                                  depends_on: ["SELCOP", "COP"],
 		  	          fire_name: ['svg_p:text3701-3-2'],
 			          draw_data: [['svg_p:text3701-3-2']],
 			          draw_name: [[]] };
 	 ep_signals["TEST_Z"] = { name: "TEST_Z", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
 		  	          behavior: ["MV FLAG_Z VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_Z VAL_ONE; FIRE_IFSET SELP 3"],
-                                  depends_on: ["SELCOP"],
+                                  depends_on: ["SELCOP", "COP"],
 		  	          fire_name: ['svg_p:text3701-3-5'],
 			          draw_data: [['svg_p:text3701-3-5']],
 			          draw_name: [[]] };
