@@ -119,30 +119,30 @@
 
     examples.es.push({ 
                        id: 'S4E1',
+                       title: "addv + seqv.",
+                       level: "Laboratorio",
+                       hardware: "ep",
+                       description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: addv + seqv.<br>" 
+                     });
+
+    examples.es.push({ 
+                       id: 'S4E2',
+                       title: "strlen_2 + skipasciicode_2",
+                       level: "Laboratorio",
+                       hardware: "ep",
+                       description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: strlen_2 + skipasciicode_2.<br>" 
+                     });
+
+    examples.es.push({
+                       id: 'S5E1',
                        title: "syscall 1, 4-5, 8, 11-12",
                        level: "Especial",
                        hardware: "ep",
                        description: "Ejemplo de llamada al sistema para imprimir/leer entero y cadena de caracteres.<br>" 
                      });
 
-    examples.es.push({ 
-                       id: 'S4E2',
-                       title: "addv + seqv.",
-                       level: "Especial",
-                       hardware: "ep",
-                       description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: addv + seqv.<br>" 
-                     });
-
-    examples.es.push({ 
-                       id: 'S4E3',
-                       title: "strlen_2 + skipasciicode_2",
-                       level: "Especial",
-                       hardware: "ep",
-                       description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: strlen_2 + skipasciicode_2.<br>" 
-                     });
-
     examples.es.push({
-                       id: 'S4E4',
+                       id: 'S5E2',
                        title: "Para completar",
                        level: "Especial",
                        hardware: "ep",
