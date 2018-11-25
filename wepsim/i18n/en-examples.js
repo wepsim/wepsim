@@ -133,7 +133,6 @@
                        description: "Application-specific extension: strlen_2 + skipasciicode_2.<br>"
                      });
 
-/*
     examples.en.push({
                        id: 'S4E3',
                        title: "madd, mmul, mma",
@@ -141,7 +140,6 @@
                        hardware: "ep",
                        description: "Application-specific extension: madd + mmul + mma.<br>"
                      });
-*/
 
     examples.en.push({
                        id: 'S5E1',
