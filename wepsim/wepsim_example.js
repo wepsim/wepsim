@@ -161,13 +161,17 @@
        var e_id          = "" ;
 
        var lang = get_cfg('ws_idiom') ;
+       var mode = get_cfg('ws_mode') ;
 
        o = o + '<div class="container grid-striped border border-light">' ;
        for (var m=0; m<examples[lang].length; m++)
        {
 	       fmt_header = "" ;
 	       if (e_level != examples[lang][m].level) {
-                   fmt_header = "<div class='col-sm-12 border-bottom border-secondary text-right text-capitalize font-weight-bold bg-white sticky-top'>" + examples[lang][m].hardware.toUpperCase() + ": " + examples[lang][m].level + "</div>" ;
+                   fmt_header = "<div class='col-sm-12 border-bottom border-secondary text-right text-capitalize font-weight-bold bg-white sticky-top'>" + 
+			        examples[lang][m].hardware.toUpperCase() + ": " + 
+			        examples[lang][m].level + 
+			        "</div>" ;
                }
 
 	       e_title       = examples[lang][m].title ;
@@ -175,6 +179,12 @@
 	       e_hw          = examples[lang][m].hardware ;
 	       e_description = examples[lang][m].description ;
 	       e_id          = examples[lang][m].id ;
+
+	        if (! e_hw.split(",").includes(mode)) 
+	        {
+                    e_level = "" ;
+		    continue ;
+	        }
 
 	        if (fmt_toggle == "")
 	            fmt_toggle = "bg-light" ;
