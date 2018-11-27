@@ -155,7 +155,7 @@
                        id: 'S5E2',
                        title: "Dummy instruction",
                        level: "Special",
-                       hardware: "ep",
+                       hardware: "ep,poc",
                        description: "Test example.<br>"
                      });
 

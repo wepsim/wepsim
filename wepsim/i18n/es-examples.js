@@ -155,7 +155,7 @@
                        id: 'S5E2',
                        title: "Para completar",
                        level: "Especial",
-                       hardware: "ep",
+                       hardware: "ep,poc",
                        description: "Ejemplo para pruebas.<br>"
                      });
 
