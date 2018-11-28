@@ -180,10 +180,12 @@
 	       e_description = examples[lang][m].description ;
 	       e_id          = examples[lang][m].id ;
 
-	        if (! e_hw.split(",").includes(mode)) 
-	        {
+	        if (! e_hw.split(",").includes(mode)) {
                     e_level = "" ;
 		    continue ;
+	        }
+                else {
+                    e_hw = e_hw.split(",") ;
 	        }
 
 	        if (fmt_toggle == "")
