@@ -185,7 +185,7 @@
 		    continue ;
 	        }
                 else {
-                    e_hw = e_hw.split(",") ;
+                    e_hw = e_hw.split(",")[0] ;
 	        }
 
 	        if (fmt_toggle == "")
