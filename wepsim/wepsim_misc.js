@@ -178,7 +178,7 @@
 
 	    setTimeout(function(){
 		          inputfirm.refresh() ; 
-	               }, 250) ;
+	               }, 50) ;
     }
 
     function sim_change_workspace_assembly ( )
@@ -187,7 +187,7 @@
 
 	    setTimeout(function(){
 		          inputasm.refresh() ; 
-	               }, 250) ;
+	               }, 50) ;
     }
 
 
