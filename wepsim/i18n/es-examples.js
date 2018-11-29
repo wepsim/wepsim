@@ -144,19 +144,11 @@
 */
 
     examples.es.push({
-                       id: 'S5E1',
+                       id: 'S4E4',
                        title: "syscall 1, 4-5, 8, 11-12",
-                       level: "Especial",
+                       level: "Laboratorio",
                        hardware: "ep",
                        description: "Ejemplo de llamada al sistema para imprimir/leer entero y cadena de caracteres.<br>"
-                     });
-
-    examples.es.push({
-                       id: 'S5E2',
-                       title: "Para completar",
-                       level: "Especial",
-                       hardware: "ep,poc",
-                       description: "Ejemplo para pruebas.<br>"
                      });
 
     // POC
@@ -167,5 +159,15 @@
                        level: "Inicial",
                        hardware: "poc",
                        description: "Ejemplo simple.<br>"
+                     });
+
+    // EP + POC
+
+    examples.es.push({
+                       id: 'S5E1',
+                       title: "Para completar",
+                       level: "Especial",
+                       hardware: "ep,poc",
+                       description: "Ejemplo para pruebas.<br>"
                      });
 

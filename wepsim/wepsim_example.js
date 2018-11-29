@@ -150,7 +150,16 @@
 
     function table_examples_html ( examples )
     {
-       var o = "" ;
+       // harware
+       var mode = get_cfg('ws_mode') ;
+       var ahw  = mode ;
+
+       var ep_modes = ['newbie', 'intro', 'wepmips', 'tutorial'] ;
+       if (ep_modes.includes(mode))
+           ahw  = 'ep' ;
+
+       // examples
+       var lang = get_cfg('ws_idiom') ;
 
        var fmt_toggle    = "" ;
        var fmt_header    = "" ;
@@ -160,16 +169,13 @@
        var e_description = "" ;
        var e_id          = "" ;
 
-       var lang = get_cfg('ws_idiom') ;
-       var mode = get_cfg('ws_mode') ;
-
-       o = o + '<div class="container grid-striped border border-light">' ;
+       var o = "" ;
        for (var m=0; m<examples[lang].length; m++)
        {
 	       fmt_header = "" ;
 	       if (e_level != examples[lang][m].level) {
                    fmt_header = "<div class='col-sm-12 border-bottom border-secondary text-right text-capitalize font-weight-bold bg-white sticky-top'>" + 
-			        examples[lang][m].hardware.toUpperCase() + ": " + 
+			        ahw.toUpperCase() + ": " + 
 			        examples[lang][m].level + 
 			        "</div>" ;
                }
@@ -180,7 +186,7 @@
 	       e_description = examples[lang][m].description ;
 	       e_id          = examples[lang][m].id ;
 
-	        if (! e_hw.split(",").includes(mode)) {
+	        if (! e_hw.split(",").includes(ahw)) {
                     e_level = "" ;
 		    continue ;
 	        }
@@ -222,8 +228,12 @@
 	      
 	       o = o + '</div>' ;
        }
-       o = o + '</div>' ;
 
+       if (o.trim() == '') {
+	   o = '&lt;No examples are available for the selected hardware&gt;' ;
+       }
+
+       o = '<div class="container grid-striped border border-light">' + o + '</div>' ;
        return o ;
     }
 

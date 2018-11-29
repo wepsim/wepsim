@@ -144,19 +144,11 @@
 */
 
     examples.en.push({
-                       id: 'S5E1',
+                       id: 'S4E4',
                        title: "syscall 1, 4-5, 8, 11-12",
-                       level: "Special",
+                       level: "Laboratory",
                        hardware: "ep",
                        description: "Example of syscall for printing/reading integer and string.<br>"
-                     });
-
-    examples.en.push({
-                       id: 'S5E2',
-                       title: "Dummy instruction",
-                       level: "Special",
-                       hardware: "ep,poc",
-                       description: "Test example.<br>"
                      });
 
     // POC
@@ -167,5 +159,15 @@
                        level: "Initial",
                        hardware: "poc",
                        description: "Simple example.<br>"
+                     });
+
+    // EP + POC
+
+    examples.en.push({
+                       id: 'S5E1',
+                       title: "Dummy instruction",
+                       level: "Special",
+                       hardware: "ep,poc",
+                       description: "Test example.<br>"
                      });
 
