@@ -4141,19 +4141,19 @@
             <ul>
             <li><b>C</b>: Carry</li>
 		    <ul>
-		    <li><b>Add</b>: (a &gt;&gt;&gt; 31) && (b &gt;&gt;&gt; 31)</li>
+		    <li><b>Add a b</b>: (a &gt;&gt;&gt; 31) && (b &gt;&gt;&gt; 31)</li>
 		    </ul>
             <li><b>V</b>: oVerflow</li>
 		    <ul>
-		    <li><b>Add</b>: ( (result &lt; 0) && (a &gt;= 0) && (b &gt;= 0) ) || ( (result &gt;= 0) && (a &lt;  0) && (b &lt;  0) )</li>
+		    <li><b>Add a b</b>: (a+b &lt; 0) && (a &gt;= 0) && (b &gt;= 0) ) || ( (a+b &gt;= 0) && (a &lt;  0) && (b &lt;  0)</li>
 		    </ul>
             <li><b>N</b>: Negative</li>
 		    <ul>
-		    <li><b>Add</b>: (result  &lt; 0) ? 1 : 0</li>
+		    <li><b>Add a b</b>: (a+b  &lt; 0)</li>
 		    </ul>
             <li><b>Z</b>: Zero</li>
 		    <ul>
-		    <li><b>Add</b>: (result == 0) ? 1 : 0</li>
+		    <li><b>Add a b</b>: (a+b == 0)</li>
 		    </ul>
 	    <br>
             <li><b>I</b>: Interruption enable</li>
