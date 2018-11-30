@@ -24,9 +24,9 @@
 	 */
 
         poc_components["CPU"] = {
-		                  name: "CPU", 
-		                  version: "1", 
-		                  abilities: ["CPU"], 
+		                  name: "CPU",
+		                  version: "1",
+		                  abilities: ["CPU"],
 		                  write_state:  function ( vec ) {
                                                   if (typeof vec.CPU == "undefined")
                                                       vec.CPU = {} ;
@@ -39,10 +39,10 @@
 						  {
 						      value = parseInt(poc_states.BR[i].value) ;
 						      if (value != 0) {
-							  vec.CPU["R" + i] = {"type":  "register", 
+							  vec.CPU["R" + i] = {"type":  "register",
 								              "default_value": 0x0,
-								              "id":    "R" + i, 
-								              "op":    "=", 
+								              "id":    "R" + i,
+								              "op":    "=",
 								              "value": "0x" + value.toString(16)} ;
 						      }
 						  }
@@ -51,10 +51,10 @@
 						  {
 						      value = parseInt(poc_states['REG_' + internal_reg[i]].value) ;
 						      if (value != 0) {
-							  vec.CPU[internal_reg[i]] = {"type":  "register", 
+							  vec.CPU[internal_reg[i]] = {"type":  "register",
 								                      "default_value": 0x0,
-								                      "id":    internal_reg[i], 
-								                      "op":    "=", 
+								                      "id":    internal_reg[i],
+								                      "op":    "=",
 								                      "value": "0x" + value.toString(16)} ;
 						      }
 						  }
@@ -69,10 +69,10 @@
 					          var val = parseInt(check["value"]).toString(16) ;
 					          if ("REGISTER" == check["type"].toUpperCase().trim())
                                                   {
-						      vec.CPU[key] = {"type":  "register", 
-								      "default_value": 0, 
+						      vec.CPU[key] = {"type":  "register",
+								      "default_value": 0,
 								      "id":    key,
-								      "op":    check["condition"], 
+								      "op":    check["condition"],
 								      "value": "0x" + val} ;
                                                       return true ;
                                                   }
@@ -120,16 +120,15 @@
         poc_internal_states.fire_visible    = { 'databus': false, 'internalbus': false } ;
         poc_internal_states.filter_states   = [ "REG_IR_DECO,col-12",
                                                 "REG_IR,col",  "REG_PC,col",  "REG_SR,col",
-                                                "REG_RT1,col", "REG_RT2,col",
                                                 "REG_MAR,col", "REG_MBR,col", "REG_MICROADDR,col" ] ;
-        poc_internal_states.filter_signals  = [ "A0,0",   "B,0",    "C,0",   
+        poc_internal_states.filter_signals  = [ "A0,0",   "B,0",    "C,0",  
                                                 "SELA,5", "SELB,5", "SELC,2", "SELCOP,0", "MR,0", "MC,0",
 				        "C0,0", "C1,0",   "C2,0",   "C3,0",   "C7,0",
 				        "T1,0", "T2,0",   "T3,0",   "T6,0",   "T8,0",
                                         "T9,0", "T10,0", "T11,0",
-				                "M1,0",   "M2,0",   "M7,0",  "MA,0",   "MB,0", 
-                                                "SELP,0", "LC,0",   "SE,0",  "SIZE,0", "OFFSET,0",
-                                                "BW,0",   "R,0",    "W,0",   "TA,0",   "TD,0",   "IOR,0","IOW,0", 
+				                "M1,0",   "M7,0",  "MA,0",   "MB,0",
+                                                "LC,0",   "SE,0",  "SIZE,0", "OFFSET,0",
+                                                "BW,0",   "R,0",    "W,0",   "TA,0",   "TD,0",   "IOR,0","IOW,0",
                                                 "TEST_I,0", "TEST_U,0"  ] ;
         poc_internal_states.alu_flags       = { 'flag_n': 0, 'flag_z': 0, 'flag_v': 0, 'flag_c': 0 } ;
 
@@ -213,12 +212,6 @@
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	poc_states["REG_IR"]     = { name:"IR",  verbal: "Instruction Register",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states["REG_RT1"]    = { name:"RT1", verbal: "Temporal 1 Register",
-                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states["REG_RT2"]    = { name:"RT2", verbal: "Temporal 2 Register",
-                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
-	poc_states["REG_RT3"]    = { name:"RT3", verbal: "Temporal 3 Register",
-                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	poc_states["REG_SR"]     = { name:"SR", verbal: "State Register",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
@@ -232,10 +225,6 @@
 	poc_states["BUS_DB"]     = { name:"D_BUS", verbal: "Data Bus",
                                      visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
-	/* REGISTER PC (RELATED) STATES */
-	poc_states["C2_T2"]      = { name: "C2_T2", verbal: "Output of PC",
-                                     visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
-
 	/* REGISTER FILE (RELATED) STATES */
 	poc_states["RA_T9"]      = { name: "RA_T9",  verbal: "Input of T9 Tristate",
                                      visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
@@ -245,11 +234,7 @@
 	/* (RELATED) SELEC STATES */
 	poc_states["SELEC_T3"]   = { name: "SELEC_T3", verbal: "Input of T3 Tristate",
                                      visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
-	poc_states["SELP_M7"]    = { name: "SELP_M7",  verbal: "Output of MUX SelP",
-                                     visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
-	poc_states["SUM4_M2"]    = { name:"SUM4_M2", verbal: "Input of MUX 2 with +4",
-		                     visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	poc_states["ALU_C6"]     = { name:"ALU_C6",  verbal: "Input of Temporal 3 Register",
                                      visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	poc_states["MA_ALU"]     = { name:"MA_ALU",  verbal: "Input ALU via MA",
@@ -301,8 +286,6 @@
 
 
 	/* MUX A (RELATED) STATES */
-	poc_states["M2_C2"]          = { name:"M2_C2", verbal: "Input of Program Counter",
-                                         visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	poc_states["M1_C1"]          = { name:"M1_C1", verbal: "Input of Memory Data Register",
                                          visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	poc_states["M7_C7"]          = { name:"M7_C7", verbal: "Input of State Register",
@@ -401,9 +384,9 @@
 			       draw_data: [['svg_p:path3055']],
 			       draw_name: [['svg_p:path3073']] };
 	 poc_signals["C2"] = { name: "C2", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV REG_PC M2_C2; UPDATEDPC"],
+			       behavior: ["NOP", "MV REG_PC BUS_IB; UPDATEDPC"],
 			       fire_name: ['svg_p:text3179'],
-			       draw_data: [['svg_p:path3485']],
+			       draw_data: [['svg_p:path3217']],
 			       draw_name: [['svg_p:path3177']] };
 	 poc_signals["C3"] = { name: "C3", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV REG_IR BUS_IB; DECO; FIRE_IFSET C 10"],
@@ -428,42 +411,42 @@
 			       draw_data: [['svg_p:path3101','svg_p:path3587','svg_p:path3515','svg_p:path3071','svg_p:path3419','svg_p:path3099','svg_p:path3097','svg_p:path3559-5','svg_p:path3419-1-0','svg_p:path3583','svg_p:path3419-1','svg_p:path3493','svg_p:path3641','svg_p:path3541']],
 			       draw_name: [['svg_p:path3095']] };
 	 poc_signals["T1"]  = { name: "T1",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV BUS_IB REG_MBR; FIRE M7; FIRE M2; FIRE M1"],
+			       behavior: ["NOP", "MV BUS_IB REG_MBR; FIRE M7; FIRE M1"],
 			       fire_name: ['svg_p:text3105'],
 			       draw_data: [['svg_p:path3071', 'svg_p:path3069','svg_p:path3049','svg_p:path3063-9', 'svg_p:path3071']],
 			       draw_name: [['svg_p:path3067']] };
 	 poc_signals["T2"]  = { name: "T2",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV BUS_IB REG_PC; FIRE M7; FIRE M2; FIRE M1"],
+			       behavior: ["NOP", "MV BUS_IB REG_PC; FIRE M7; FIRE M1"],
 			       fire_name: ['svg_p:text3449'],
 			       draw_data: [['svg_p:path3199', 'svg_p:path3201','svg_p:path3049']],
 			       draw_name: [['svg_p:path3329']] };
 	 poc_signals["T3"]  = { name: "T3",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV BUS_IB SELEC_T3; FIRE M7; FIRE M2; FIRE M1"],
+			       behavior: ["NOP", "MV BUS_IB SELEC_T3; FIRE M7; FIRE M1"],
 			       fire_name: ['svg_p:text3451'],
 			       draw_data: [['svg_p:path3349', 'svg_p:path3931', 'svg_p:path3345','svg_p:path3049']],
 			       draw_name: [['svg_p:path3351']] };
 	 poc_signals["T6"]  = { name: "T6",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV BUS_IB ALU_C6; FIRE M7; FIRE M2; FIRE M1"],
+			       behavior: ["NOP", "MV BUS_IB ALU_C6; FIRE M7; FIRE M1"],
 			       fire_name: ['svg_p:text3457'],
 			       draw_data: [['svg_p:path3589', 'svg_p:path3317', 'svg_p:path3163-2','svg_p:path3049']],
 			       draw_name: [['svg_p:path3319']] };
 	 poc_signals["T8"]  = { name: "T8",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV BUS_IB REG_SR; FIRE M7; FIRE M2; FIRE M1"],
+			       behavior: ["NOP", "MV BUS_IB REG_SR; FIRE M7; FIRE M1"],
 			       fire_name: ['svg_p:text3657'],
 			       draw_data: [['svg_p:path3651', 'svg_p:path3647','svg_p:path3049']],
 			       draw_name: [['svg_p:path3649']] };
 	 poc_signals["T9"]  = { name: "T9",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV BUS_IB RA_T9; FIRE M7; FIRE M2; FIRE M1"],
+			       behavior: ["NOP", "MV BUS_IB RA_T9; FIRE M7; FIRE M1"],
 			       fire_name: ['svg_p:text3147'],
 			       draw_data: [['svg_p:path3143', 'svg_p:path3139','svg_p:path3049','svg_p:path3143-9']],
 			       draw_name: [['svg_p:path3133']] };
 	 poc_signals["T10"] = { name: "T10", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV BUS_IB RB_T10; FIRE M7; FIRE M2; FIRE M1"],
+			       behavior: ["NOP", "MV BUS_IB RB_T10; FIRE M7; FIRE M1"],
 			       fire_name: ['svg_p:text3149'],
 			       draw_data: [['svg_p:path3145', 'svg_p:path3141','svg_p:path3049','svg_p:path3145-5']],
 			       draw_name: [['svg_p:path3137']] };
 	 poc_signals["T11"] = { name: "T11", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "CP_FIELD BUS_IB REG_MICROINS/EXCODE; FIRE M7; FIRE M2; FIRE M1"],
+			       behavior: ["NOP", "CP_FIELD BUS_IB REG_MICROINS/EXCODE; FIRE M7; FIRE M1"],
 			       fire_name: ['svg_p:text3147-5','svg_cu:tspan4426'],
 			       draw_data: [['svg_p:path3145', 'svg_p:path3081-3','svg_p:path3139-7','svg_p:path3049','svg_cu:path3081-3','svg_cu:path3139-7','svg_cu:path3502']],
 			       draw_name: [['svg_p:path3133-6','svg_cu:path3133-6']] };
@@ -475,15 +458,8 @@
 			       fire_name: ['svg_p:text3469'],
 			       draw_data: [['svg_p:path3063','svg_p:path3061','svg_p:path3059'], ['svg_p:path3057','svg_p:path3641','svg_p:path3419','svg_p:path3583']],
 			       draw_name: [[], ['svg_p:path3447']] };
-	 poc_signals["M2"]  = { name: "M2", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
-			       behavior: ["MV M2_C2 BUS_IB", "PLUS4 M2_C2 REG_PC"],
-                               depends_on: ["C2"],
-			       fire_name: ['svg_p:text3471'],
-			       draw_data: [['svg_p:path3217', 'svg_p:path3215', 'svg_p:path3213', 'svg_p:path3213-9'],
-					   ['svg_p:path3211', 'svg_p:path3209', 'svg_p:path3193', 'svg_p:path3207', 'svg_p:path3197', 'svg_p:path3201']],
-			       draw_name: [[], ['svg_p:path3467', 'svg_p:path3467']]};
 	 poc_signals["M7"]  = { name: "M7", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
-			       behavior: ["MV M7_C7 BUS_IB", "MV M7_C7 SELP_M7"],
+			       behavior: ["MV M7_C7 BUS_IB", "MV M7_C7 REG_SR; SBIT M7_C7 FLAG_C 31; SBIT M7_C7 FLAG_V 30; SBIT M7_C7 FLAG_N 29; SBIT M7_C7 FLAG_Z 28"],
                                depends_on: ["C7"],
 			       fire_name: ['svg_p:text3673'],
 			       draw_data: [['svg_p:path3691', 'svg_p:path3693', 'svg_p:path3659'], ['svg_p:path3695']],
@@ -495,36 +471,36 @@
 			       draw_data: [['svg_p:path3249', 'svg_p:path3161', 'svg_p:path3165'], ['svg_p:path3279']],
 			       draw_name: [[], ['svg_p:path3423']] };
 	 poc_signals["MB"]  = { name: "MB",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["MV MB_ALU RB_T10; FIRE COP", "MV MB_ALU BUS_IB; FIRE COP"],
+			       behavior: ["MV MB_ALU RB_T10; FIRE COP", "MV MB_ALU REG_PC; FIRE COP"],
                                depends_on: ["SELA","SELB"],
 			       fire_name: ['svg_p:text3465'],
-			       draw_data: [['svg_p:path3281', 'svg_p:path3171', 'svg_p:path3169'], 
+			       draw_data: [['svg_p:path3281', 'svg_p:path3171', 'svg_p:path3169'],
                                            ['svg_p:path3283']],
 			       draw_name: [[], ['svg_p:path3425', 'svg_p:path3427']] };
 	 poc_signals["COP"] = { name: "COP", visible: true, type: "L", value: 0, default_value:0, nbits: "5", forbidden: true,
 			       behavior: ["NOP_ALU",
-                                          "AND ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "OR ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "NOT ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "XOR ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "SRL ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "SRA ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "SL ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "RR ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "RL ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "SUB ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "MUL ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "DIV ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "MOD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "LUI ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "ADDFOUR ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "ADDONE ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "FADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "FSUB ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "FMUL ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "FDIV ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-					  "FMOD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
+                                          "AND ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "OR ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "NOT ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "XOR ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "SRL ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "SRA ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "SL ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "RR ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "RL ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "SUB ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "MUL ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "DIV ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "MOD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "LUI ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "ADDFOUR ALU_C6 MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "ADDONE ALU_C6 MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "FADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "FSUB ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "FMUL ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "FDIV ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "FMOD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
 					  "NOP_ALU",
 					  "NOP_ALU",
 					  "NOP_ALU",
@@ -536,18 +512,9 @@
 					  "NOP_ALU"],
                                depends_on: ["SELCOP"],
 			       fire_name: ['svg_p:text3303'],
-			       draw_data: [['svg_p:path3237', 'svg_p:path3239', 
+			       draw_data: [['svg_p:path3237', 'svg_p:path3239',
                                             'svg_p:path3261-8', 'svg_p:path3321', 'svg_p:path3901-6', 'svg_p:path3317-9']],
 			       draw_name: [['svg_p:path3009', 'svg_p:path3301']] };
-	 poc_signals["SELP"] = { name: "SELP",   visible: true, type: "L", value: 0, default_value:0, nbits: "2",
-				behavior: ['NOP',
-				     'MV SELP_M7 REG_SR; SBIT SELP_M7 FLAG_U 0; FIRE M7',
-				     'MV SELP_M7 REG_SR; SBIT SELP_M7 FLAG_I 1; FIRE M7',
-				     'MV SELP_M7 REG_SR; SBIT SELP_M7 FLAG_C 31; SBIT SELP_M7 FLAG_V 30; SBIT SELP_M7 FLAG_N 29; SBIT SELP_M7 FLAG_Z 28; FIRE M7'],
-				fire_name: ['svg_p:text3703'],
-				draw_data: [[],['svg_p:path3643'],['svg_p:path3705'],['svg_p:path3675', 'svg_p:path3331']],
-				draw_name: [[], ['svg_p:path3697']] };
-
 	 poc_signals["SELA"] = { name: "SELA", visible: true, type: "L", value: 0, default_value:0, nbits: "6",
 			        behavior: ["FIRE_IFCHANGED MR_RA SELA; RESET_CHANGED SELA"],
                                 depends_on: ["RA"],
@@ -638,7 +605,7 @@
 			       draw_data: [['svg_cu:path3494','svg_cu:path3492','svg_cu:path3490','svg_cu:path3142b','svg_cu:path3188',
                                             'svg_cu:path3190','svg_cu:path3192','svg_cu:path3194','svg_cu:path3276','svg_cu:path3290',
                                             'svg_cu:path3260','svg_cu:path3196','svg_cu:path3502','svg_cu:path3278','svg_cu:path3232','svg_cu:path3292'],
-					   ['svg_cu:path3270','svg_cu:path3282','svg_cu:path3300', 'svg_cu:path3258', 'svg_cu:path3260', 
+					   ['svg_cu:path3270','svg_cu:path3282','svg_cu:path3300', 'svg_cu:path3258', 'svg_cu:path3260',
                                             'svg_cu:path3278', 'svg_cu:path3196', 'svg_cu:path3502',
 					    'svg_cu:path3294', 'svg_cu:path3292', 'svg_cu:path3288', 'svg_cu:path3232', 'svg_cu:path3280']],
 			       draw_name: [[],['svg_cu:path3220','svg_cu:path3240','svg_cu:path3252']] };
@@ -749,46 +716,40 @@
 
         /* Virtual Signals, for UI */
 	 poc_signals["TEST_C"] = { name: "TEST_C", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
-		  	          behavior: ["MV FLAG_C VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_C VAL_ONE; FIRE_IFSET SELP 3"],
+		  	          behavior: ["MV FLAG_C VAL_ZERO; FIRE M7", "MV FLAG_C VAL_ONE; FIRE M7"],
                                   depends_on: ["SELCOP"],
 		  	          fire_name: ['svg_p:text3701-3'],
 			          draw_data: [['svg_p:text3701-3']],
 			          draw_name: [[]] };
 	 poc_signals["TEST_V"] = { name: "TEST_V", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
-		  	          behavior: ["MV FLAG_V VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_V VAL_ONE; FIRE_IFSET SELP 3"],
+		  	          behavior: ["MV FLAG_V VAL_ZERO; FIRE M7", "MV FLAG_V VAL_ONE; FIRE M7"],
                                   depends_on: ["SELCOP"],
 		  	          fire_name: ['svg_p:text3701-3-1'],
 			          draw_data: [['svg_p:text3701-3-1']],
 			          draw_name: [[]] };
 	 poc_signals["TEST_N"] = { name: "TEST_N", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
-		  	          behavior: ["MV FLAG_N VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_N VAL_ONE; FIRE_IFSET SELP 3"],
+		  	          behavior: ["MV FLAG_N VAL_ZERO; FIRE M7", "MV FLAG_N VAL_ONE; FIRE M7"],
                                   depends_on: ["SELCOP"],
 		  	          fire_name: ['svg_p:text3701-3-2'],
 			          draw_data: [['svg_p:text3701-3-2']],
 			          draw_name: [[]] };
 	 poc_signals["TEST_Z"] = { name: "TEST_Z", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
-		  	          behavior: ["MV FLAG_Z VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_Z VAL_ONE; FIRE_IFSET SELP 3"],
+		  	          behavior: ["MV FLAG_Z VAL_ZERO; FIRE M7", "MV FLAG_Z VAL_ONE; FIRE M7"],
                                   depends_on: ["SELCOP"],
 		  	          fire_name: ['svg_p:text3701-3-5'],
 			          draw_data: [['svg_p:text3701-3-5']],
 			          draw_name: [[]] };
 	 poc_signals["TEST_I"] = { name: "TEST_I", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-		  	          behavior: ["MV FLAG_I VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_I VAL_ONE; FIRE_IFSET SELP 2"],
+		  	          behavior: ["MV FLAG_I VAL_ZERO; FIRE M7", "MV FLAG_I VAL_ONE; FIRE M7"],
                                   depends_on: ["CLK"],
-		  	          fire_name: ['svg_p:text3669'],
-			          draw_data: [['svg_p:text3669']],
+		  	          fire_name: ['svg_cu:text3440'],
+			          draw_data: [['svg_cu:text3440']],
 			          draw_name: [[]] };
 	 poc_signals["TEST_U"] = { name: "TEST_U", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			          behavior: ["MV FLAG_U VAL_ZERO; FIRE_IFSET SELP 1", "MV FLAG_U VAL_ONE; FIRE_IFSET SELP 1"],
+			          behavior: ["MV FLAG_U VAL_ZERO; FIRE M7", "MV FLAG_U VAL_ONE; FIRE M7"],
                                   depends_on: ["CLK"],
-			          fire_name: ['svg_p:text3669-1'],
-			          draw_data: [['svg_p:text3669-1']],
-			          draw_name: [[]] };
-	 poc_signals["TEST_INTV"] = { name: "TEST_INTV", visible: true, type: "L", value: 0, default_value:0, nbits: "8", forbidden: true,
-			          behavior: ["MBIT INTV TEST_INTV 0 32"],
-                                  depends_on: ["INT"],
-			          fire_name: ['svg_p:tspan4225'],
-			          draw_data: [['svg_p:path3749']],
+			          fire_name: ['svg_cu:text3442'],
+			          draw_data: [['svg_cu:text3442']],
 			          draw_name: [[]] };
 
 
@@ -801,11 +762,11 @@
 				        verbal: function(s_expr) { return "" ; }
 				   };
 	poc_behaviors["NOP_ALU"] = { nparameters: 1,
-				     operation: function(s_expr) 
-		                                { 
+				     operation: function(s_expr)
+		                                {
 						   poc_update_nzvc(0, 0, 0, 0);
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 						   return "" ;
 						}
@@ -819,12 +780,12 @@
                                                    newval       = get_value(sim_elto_org) ;
                                                    set_value(sim_elto_dst, newval) ;
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 						   var sim_elto_org = get_reference(s_expr[2]) ;
                                                    var newval       = get_value(sim_elto_org) ;
 
-                                                   return "Copy from " + show_verbal(s_expr[2]) + 
+                                                   return "Copy from " + show_verbal(s_expr[2]) +
 							  " to " + show_verbal(s_expr[1]) + " value " + show_value(newval) + ". " ;
                                                 }
                                    };
@@ -837,12 +798,12 @@
                                                    newval       = get_value(sim_elto_org) ;
                                                    set_value(sim_elto_dst, newval) ;
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 						   var sim_elto_org = get_reference(s_expr[2]) ;
                                                    var newval       = get_value(sim_elto_org) ;
 
-                                                   return "Load from " + show_verbal(s_expr[2]) + 
+                                                   return "Load from " + show_verbal(s_expr[2]) +
 							  " to " + show_verbal(s_expr[1]) + " value " + show_value(newval) + ". " ;
                                                 }
                                    };
@@ -855,13 +816,13 @@
 
                                                    newval = get_value(sim_elto_org) ;
 						   newval = newval[r[1]] ;
-                                                   if (typeof newval != "undefined") 
+                                                   if (typeof newval != "undefined")
 						   {
 						       sim_elto_dst = get_reference(s_expr[1]) ;
                                                        set_value(sim_elto_dst, newval);
 						   }
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
                                                    var r = s_expr[2].split('/') ;
 						   var sim_elto_org = get_reference(r[0]) ;
@@ -872,17 +833,17 @@
 						       return "" ;
 						   }
 
-                                                   return "Copy from Field " + r[1] + " of " + show_verbal(r[0]) + 
+                                                   return "Copy from Field " + r[1] + " of " + show_verbal(r[0]) +
 							  " to " + show_verbal(s_expr[1]) + " value " + show_value(newval) + ". " ;
                                                 }
                                    };
 	poc_behaviors["NOT_ES"]   = { nparameters: 3,
 				     types: ["S", "E"],
-				     operation: function (s_expr) 
+				     operation: function (s_expr)
 		                                {
 						   set_value( poc_signals[s_expr[1]], Math.abs(get_value(poc_states[s_expr[2]]) - 1));
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 						   var value = Math.abs(get_value(poc_states[s_expr[2]]) - 1) ;
 
@@ -891,11 +852,11 @@
 				   };
 	poc_behaviors["GET"]     = { nparameters: 4,
 				     types: ["E", "E", "S"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 						   set_value(poc_states[s_expr[1]], get_value(poc_states[s_expr[2]][ poc_signals[s_expr[3]].value]));
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 						   var value = get_value(poc_states[s_expr[2]][poc_signals[s_expr[3]].value]) ;
 
@@ -904,11 +865,11 @@
 				   };
 	poc_behaviors["SET"]     = { nparameters: 4,
 				     types: ["E", "S", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 						   set_value(poc_states[s_expr[1]][ poc_signals[s_expr[2]].value], get_value(poc_states[s_expr[3]]));
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 						   var value = get_value(poc_states[s_expr[3]]) ;
 						   var o_ref = poc_states[s_expr[1]][poc_signals[s_expr[2]].value] ;
@@ -922,14 +883,14 @@
 				   };
 	poc_behaviors["AND"]     = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 				                   var result = get_value(poc_states[s_expr[2]]) & get_value(poc_states[s_expr[3]]) ;
 				                   set_value(poc_states[s_expr[1]], result) ;
 
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 				                   var result = get_value(poc_states[s_expr[2]]) & get_value(poc_states[s_expr[3]]) ;
 
@@ -938,14 +899,14 @@
 				   };
 	poc_behaviors["OR"]      = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 				                   var result = get_value(poc_states[s_expr[2]]) | get_value(poc_states[s_expr[3]]) ;
 				                   set_value(poc_states[s_expr[1]], result) ;
 
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 				                   var result = get_value(poc_states[s_expr[2]]) | get_value(poc_states[s_expr[3]]) ;
 
@@ -954,14 +915,14 @@
 				   };
 	poc_behaviors["NOT"]     = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 				                   var result = ~(get_value(poc_states[s_expr[2]])) ;
 				                   set_value(poc_states[s_expr[1]], result) ;
 
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 				                   var result = ~(get_value(poc_states[s_expr[2]])) ;
 
@@ -970,14 +931,14 @@
 				   };
 	poc_behaviors["XOR"]     = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 				                   var result = get_value(poc_states[s_expr[2]]) ^ get_value(poc_states[s_expr[3]]) ;
 				                   set_value(poc_states[s_expr[1]], result) ;
 
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 				                   var result = get_value(poc_states[s_expr[2]]) ^ get_value(poc_states[s_expr[3]]) ;
 
@@ -986,14 +947,14 @@
 				   };
 	poc_behaviors["SRL"]     = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 				                   var result = (get_value(poc_states[s_expr[2]])) >>> 1 ;
 				                   set_value(poc_states[s_expr[1]], result) ;
 
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 				                   var result = (get_value(poc_states[s_expr[2]])) >>> 1 ;
 
@@ -1002,14 +963,14 @@
 				   };
 	poc_behaviors["SRA"]     = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 				                   var result = (get_value(poc_states[s_expr[2]])) >> 1 ;
 				                   set_value(poc_states[s_expr[1]], result) ;
 
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 				                   var result = (get_value(poc_states[s_expr[2]])) >> 1 ;
 
@@ -1018,14 +979,14 @@
 				   };
 	poc_behaviors["SL"]      = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 				                   var result = (get_value(poc_states[s_expr[2]])) << 1 ;
 				                   set_value(poc_states[s_expr[1]], result) ;
 
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, (result) >>> 31) ;
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 				                   var result = (get_value(poc_states[s_expr[2]])) << 1 ;
 
@@ -1034,14 +995,14 @@
 				   };
 	poc_behaviors["RR"]      = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 				                   var result = ((get_value(poc_states[s_expr[2]])) >>> 1) | (((get_value(poc_states[s_expr[2]])) & 1) << 31) ;
 				                   set_value(poc_states[s_expr[1]], result) ;
 
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 				                   var result = ((get_value(poc_states[s_expr[2]])) >>> 1) | (((get_value(poc_states[s_expr[2]])) & 1) << 31) ;
 
@@ -1050,14 +1011,14 @@
 				   };
 	poc_behaviors["RL"]      = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 				                   var result = ((get_value(poc_states[s_expr[2]])) << 1) | (((get_value(poc_states[s_expr[2]])) & 0X80000000) >>> 31) ;
 				                   set_value(poc_states[s_expr[1]], result) ;
 
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 				                   var result = ((get_value(poc_states[s_expr[2]])) << 1) | (((get_value(poc_states[s_expr[2]])) & 0X80000000) >>> 31) ;
 
@@ -1066,7 +1027,7 @@
 				   };
 	poc_behaviors["ADD"]     = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
                                                    var b = get_value(poc_states[s_expr[3]]) << 0 ;
@@ -1085,7 +1046,7 @@
 
 			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
                                                    var b = get_value(poc_states[s_expr[3]]) << 0 ;
@@ -1096,7 +1057,7 @@
 				   };
 	poc_behaviors["SUB"]     = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
                                                    var b = get_value(poc_states[s_expr[3]]) << 0 ;
@@ -1115,7 +1076,7 @@
 
 			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
                                                    var b = get_value(poc_states[s_expr[3]]) << 0 ;
@@ -1126,7 +1087,7 @@
 				   };
 	poc_behaviors["MUL"]     = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
                                                    var b = get_value(poc_states[s_expr[3]]) << 0 ;
@@ -1145,7 +1106,7 @@
 
 			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
                                                    var b = get_value(poc_states[s_expr[3]]) << 0 ;
@@ -1156,7 +1117,7 @@
 				   };
 	poc_behaviors["DIV"]     = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 						   var a = (get_value(poc_states[s_expr[2]]) << 0) ;
 						   var b = (get_value(poc_states[s_expr[3]]) << 0) ;
@@ -1171,7 +1132,7 @@
 				                   set_value(poc_states[s_expr[1]], result) ;
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
                                                    var b = get_value(poc_states[s_expr[3]]) << 0 ;
@@ -1186,14 +1147,14 @@
 				   };
 	poc_behaviors["MOD"]     = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 						   var result = (get_value(poc_states[s_expr[2]]) << 0) % (get_value(poc_states[s_expr[3]]) << 0) ;
 						   set_value(poc_states[s_expr[1]], result) ;
 
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
                                                    var b = get_value(poc_states[s_expr[3]]) << 0 ;
@@ -1205,14 +1166,14 @@
 				   };
 	poc_behaviors["LUI"]     = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 						   var result = (get_value(poc_states[s_expr[2]])) << 16 ;
 						   set_value(poc_states[s_expr[1]], result) ;
 
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 						   var result = (get_value(poc_states[s_expr[2]])) << 16 ;
 
@@ -1221,7 +1182,7 @@
 				   };
 	poc_behaviors["ADDFOUR"] = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
 						   var result = a + 4 ;
@@ -1239,7 +1200,7 @@
 
 			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
 						   var result = a + 4 ;
@@ -1249,7 +1210,7 @@
 				   };
 	poc_behaviors["ADDONE"]  = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
 						   var result = a + 1 ;
@@ -1267,7 +1228,7 @@
 
 			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
 						   var result = a + 1 ;
@@ -1277,7 +1238,7 @@
 				   };
 	poc_behaviors["FADD"]    = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                { // Dummy code added for testing only...
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
                                                    var b = get_value(poc_states[s_expr[3]]) << 0 ;
@@ -1297,14 +1258,14 @@
 
 			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 						   return "" ; // TODO
 						}
 				   };
 	poc_behaviors["FSUB"]    = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                { // Dummy code added for testing only...
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
                                                    var b = get_value(poc_states[s_expr[3]]) << 0 ;
@@ -1323,14 +1284,14 @@
 
 			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 						   return "" ; // TODO
 						}
 				   };
 	poc_behaviors["FMUL"]    = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                { // Dummy code added for testing only...
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
                                                    var b = get_value(poc_states[s_expr[3]]) << 0 ;
@@ -1349,14 +1310,14 @@
 
 			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 						   return "" ; // TODO
 						}
 				   };
 	poc_behaviors["FDIV"]    = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                { // Dummy code added for testing only...
 						   var a = (get_value(poc_states[s_expr[2]]) << 0) ;
 						   var b = (get_value(poc_states[s_expr[3]]) << 0) ;
@@ -1369,43 +1330,43 @@
 
 				                   var result = Math.floor(a / b) ;
 				                   set_value(poc_states[s_expr[1]], result) ;
-			                           poc_update_nzvc((result  < 0.0) ? 1 : 0, 
-                                                                   (result == 0.0) ? 1 : 0, 
-                                                                   0, 
+			                           poc_update_nzvc((result  < 0.0) ? 1 : 0,
+                                                                   (result == 0.0) ? 1 : 0,
+                                                                   0,
                                                                    0) ;
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 						   return "" ; // TODO
 						}
 				   };
 	poc_behaviors["FMOD"]    = { nparameters: 4,
 				     types: ["E", "E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                { // Dummy code added for testing only...
 						   var result = (get_value(poc_states[s_expr[2]]) << 0) % (get_value(poc_states[s_expr[3]]) << 0) ;
 						   set_value(poc_states[s_expr[1]], result) ;
 
-			                           poc_update_nzvc((result  < 0.0) ? 1 : 0, 
-                                                                   (result == 0.0) ? 1 : 0, 
-                                                                   0, 
+			                           poc_update_nzvc((result  < 0.0) ? 1 : 0,
+                                                                   (result == 0.0) ? 1 : 0,
+                                                                   0,
                                                                    0) ;
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 						   return "" ; // TODO
 						}
 				   };
 	poc_behaviors["LUI"]     = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 						   var result = (get_value(poc_states[s_expr[2]])) << 16 ;
 						   set_value(poc_states[s_expr[1]], result) ;
 
 			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 						   var result = (get_value(poc_states[s_expr[2]])) << 16 ;
 
@@ -1414,13 +1375,13 @@
 				   };
 	poc_behaviors["PLUS1"]   = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
 						   var result = a + 1 ;
 						   set_value(poc_states[s_expr[1]], result >>> 0) ;
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
 						   var result = a + 1 ;
@@ -1430,13 +1391,13 @@
 				   };
 	poc_behaviors["PLUS4"]   = { nparameters: 3,
 				     types: ["E", "E"],
-				     operation: function(s_expr) 
+				     operation: function(s_expr)
 		                                {
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
 						   var result = a + 4 ;
 						   set_value(poc_states[s_expr[1]], result >>> 0) ;
                                                 },
-                                        verbal: function (s_expr) 
+                                        verbal: function (s_expr)
                                                 {
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
 						   var result = a + 4 ;
@@ -1446,7 +1407,7 @@
 				   };
 	poc_behaviors["MBIT"]     = { nparameters: 5,
 				     types: ["X", "X", "I", "I"],
-				     operation: function (s_expr) 
+				     operation: function (s_expr)
 		                                {
 						   var sim_elto_dst = get_reference(s_expr[1]) ;
 						   var sim_elto_org = get_reference(s_expr[2]) ;
@@ -1459,7 +1420,7 @@
 
 						   set_value(sim_elto_dst, parseInt(n2, 2));
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 						   var sim_elto_dst = get_reference(s_expr[1]) ;
 						   var sim_elto_org = get_reference(s_expr[2]) ;
@@ -1476,7 +1437,7 @@
 				   };
 	poc_behaviors["MBIT_SN"]  = { nparameters: 5,
 				     types: ["S", "E", "E", "I"],
-				     operation: function (s_expr) 
+				     operation: function (s_expr)
 		                                {
 						   var base = 0;
 						   var r = s_expr[3].split('/');
@@ -1501,25 +1462,25 @@
 
 						   set_value( poc_signals[s_expr[1]], parseInt(n3, 2));
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 						   return "" ; // TODO
 						}
 				   };
 	poc_behaviors["SBIT"]     = { nparameters: 4,
 				     types: ["X", "X", "I"],
-				     operation: function (s_expr) 
+				     operation: function (s_expr)
 		                                {
 						   sim_elto_org = get_reference(s_expr[2]) ;
 						   sim_elto_dst = get_reference(s_expr[1]) ;
 
 						   //    0      1    2  3
 						   //   SBIT  A0A1  A1  0
-						   var new_value = (sim_elto_dst.value & ~(1 << s_expr[3])) | 
+						   var new_value = (sim_elto_dst.value & ~(1 << s_expr[3])) |
 						                         (sim_elto_org.value << s_expr[3]);
 						   set_value(sim_elto_dst, (new_value >>> 0));
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
                                                 {
 						   sim_elto_org = get_reference(s_expr[2]) ;
 						   sim_elto_dst = get_reference(s_expr[1]) ;
@@ -1546,7 +1507,7 @@
 
 						   set_value(poc_states[s_expr[1]], parseInt(n3, 2));
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 						   var offset = parseInt(poc_signals[s_expr[4]].value) ;
 						   var size   = parseInt(poc_signals[s_expr[5]].value) ;
@@ -1563,14 +1524,14 @@
 
 						   n1 = parseInt(n3, 2) ;
 
-                                                   return "Copy from " + show_verbal(s_expr[3]) + " to " + show_verbal(s_expr[1]) + 
+                                                   return "Copy from " + show_verbal(s_expr[3]) + " to " + show_verbal(s_expr[1]) +
 						          " value " + show_value(n1) + " (copied " + size + " bits from bit " + offset + "). " ;
 						}
 				   };
 
 	poc_behaviors["BSEL"] =  { nparameters: 6,
 				     types: ["E", "I", "I", "E", "I"],
-				     operation: function (s_expr) 
+				     operation: function (s_expr)
 		                                {
 						   var posd = parseInt(s_expr[2]) ;
 						   var poso = parseInt(s_expr[5]) ;
@@ -1585,7 +1546,7 @@
 
 						   set_value(poc_states[s_expr[1]], parseInt(n3, 2));
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 						   var posd = parseInt(s_expr[2]) ;
 						   var len  = parseInt(s_expr[3]) ;
@@ -1599,13 +1560,13 @@
 						       n3 = n3 + n4;
 						   var n5 = parseInt(n3, 2) ;
 
-                                                   return "Copy from " + show_verbal(s_expr[4]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(n5) + 
+                                                   return "Copy from " + show_verbal(s_expr[4]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(n5) +
 						          " (copied " + len + " bits, from bit " + poso + " of " + s_expr[4] + " to bit " + posd + " of " + s_expr[1] + "). " ;
 						}
 				   };
 	poc_behaviors["EXT_SIG"] =  { nparameters: 3,
 				     types: ["E", "I"],
-				     operation: function (s_expr) 
+				     operation: function (s_expr)
 		                                {
 						   var n1 = get_value(poc_states[s_expr[1]]).toString(2); // to binary
 						   var n2 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1) ;
@@ -1617,7 +1578,7 @@
 
 						   set_value(poc_states[s_expr[1]], parseInt(n4, 2));
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 						   var n1 = get_value(poc_states[s_expr[1]]).toString(2); // to binary
 						   var n2 = ("00000000000000000000000000000000".substring(0, 32 - n1.length) + n1) ;
@@ -1633,7 +1594,7 @@
 				   };
 	poc_behaviors["MOVE_BITS"] =  { nparameters: 5,
 				     types: ["S", "I", "I","S"],
-				     operation: function (s_expr) 
+				     operation: function (s_expr)
 		                                {
 						   var posd = parseInt(s_expr[2]) ;
 						   var poso = 0 ;
@@ -1651,7 +1612,7 @@
 
 						   set_value( poc_signals[s_expr[1]], parseInt(n3, 2));
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
                                                    return "" ;
 						}
@@ -1659,7 +1620,7 @@
 	poc_behaviors["MOVE_BITSE"] = {
 					  nparameters: 6,
 				     types: ["S", "I", "I", "E", "I"],
-				     operation: function (s_expr) 
+				     operation: function (s_expr)
 		                                {
 						   var posd = parseInt(s_expr[2]) ;
 						   var poso = parseInt(s_expr[5]) ;
@@ -1677,7 +1638,7 @@
 
 						   set_value( poc_signals[s_expr[1]], parseInt(n3, 2));
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
 						   return "" ;
 						}
@@ -1688,13 +1649,13 @@
 						    poc_states['INEX'].value = 0 ;
 
 						    // 1.- IR -> oi
-						    var oi = decode_instruction(poc_internal_states.FIRMWARE, 
+						    var oi = decode_instruction(poc_internal_states.FIRMWARE,
                                                                                 poc_ir,
 						                                get_value(poc_states['REG_IR'])) ;
 						    if (null == oi.oinstruction)
                                                     {
                                                          alert('ERROR: undefined instruction code in firmware (' +
-							       'co:'  +  oi.op_code.toString(2) + ', ' + 
+							       'co:'  +  oi.op_code.toString(2) + ', ' +
 							       'cop:' + oi.cop_code.toString(2) + ')') ;
 							 poc_states['ROM_MUXA'].value = 0 ;
 							 poc_states['INEX'].value = 1 ;
@@ -1710,7 +1671,7 @@
 						    // 2.- ! poc_internal_states['ROM'][rom_addr] -> error
 						    if (typeof poc_internal_states['ROM'][rom_addr] == "undefined")
 						    {
-							 alert('ERROR: undefined rom address ' + rom_addr + 
+							 alert('ERROR: undefined rom address ' + rom_addr +
                                                                ' in firmware') ;
 							 poc_states['ROM_MUXA'].value = 0 ;
 							 return -1;
@@ -1729,7 +1690,7 @@
 						    set_value(poc_states['REG_IR_DECO'], decins) ;
                                                     show_dbg_ir(get_value(poc_states['REG_IR_DECO']));
 						},
-					verbal: function (s_expr) 
+					verbal: function (s_expr)
 						{
                                                    return "Decode instruction. " ;
 						}
@@ -1760,7 +1721,7 @@
 							    // 3.- check conflicts
                                                             check_buses(s_expr[1]);
 							},
-						verbal: function (s_expr) 
+						verbal: function (s_expr)
 							{
                                                            return "" ;
 							}
@@ -1776,7 +1737,7 @@
 
                                                             poc_behaviors["FIRE"].operation(s_expr) ;
 							},
-						verbal: function (s_expr) 
+						verbal: function (s_expr)
 							{
 							   return "" ;
 							}
@@ -1792,7 +1753,7 @@
 
 							    poc_behaviors["FIRE"].operation(s_expr) ;
 							},
-						verbal: function (s_expr) 
+						verbal: function (s_expr)
 							{
 							   return "" ;
 							}
@@ -1805,7 +1766,7 @@
 						            sim_elto = get_reference(s_expr[1]) ;
 							    sim_elto.changed = false ; // todo: comment this line
 							},
-						verbal: function (s_expr) 
+						verbal: function (s_expr)
 							{
 							   return "" ;
 							}
@@ -1837,7 +1798,7 @@
                                                             // 4.- update signals
 							    for (var key in poc_signals)
 							    {
-								 if (typeof new_mins[key] != "undefined") 
+								 if (typeof new_mins[key] != "undefined")
 								      set_value(poc_signals[key],   new_mins[key]);
 								 else set_value(poc_signals[key], poc_signals[key].default_value);
 							    }
@@ -1855,7 +1816,7 @@
 						            else if (typeof new_mins.NATIVE != "undefined")
 							             eval(new_mins.NATIVE) ;
                                                         },
-                                                verbal: function (s_expr) 
+                                                verbal: function (s_expr)
                                                         {
                                                            return "" ;
                                                         }
@@ -1872,7 +1833,7 @@
 								 reset_value(poc_signals[key]) ;
                                                             }
                                                         },
-                                                verbal: function (s_expr) 
+                                                verbal: function (s_expr)
                                                         {
                                                            return "Reset CPU. " ;
                                                         }
@@ -1883,7 +1844,7 @@
 							{
                                                             show_asmdbg_pc();
                                                         },
-                                                verbal: function (s_expr) 
+                                                verbal: function (s_expr)
                                                         {
                                                            return "" ;
                                                         }
@@ -1892,33 +1853,39 @@
 	poc_behaviors["UPDATE_NZVC"]  = { nparameters: 1,
 				            operation: function(s_expr)
 							{
-							   set_value(simhw_sim_state("FLAG_N"),   
+							   set_value(simhw_sim_state("FLAG_N"),  
 								     poc_internal_states.alu_flags.flag_n);
-							   set_value(simhw_sim_state("FLAG_Z"),   
+							   set_value(simhw_sim_state("FLAG_Z"),  
 								     poc_internal_states.alu_flags.flag_z);
-							   set_value(simhw_sim_state("FLAG_V"),   
+							   set_value(simhw_sim_state("FLAG_V"),  
 								     poc_internal_states.alu_flags.flag_v);
-							   set_value(simhw_sim_state("FLAG_C"),   
+							   set_value(simhw_sim_state("FLAG_C"),  
 								     poc_internal_states.alu_flags.flag_c);
 
-								/*
-							   set_value(simhw_sim_signal("TEST_N"),  
+							   set_value(simhw_sim_signal("TEST_N"), 
 								     poc_internal_states.alu_flags.flag_n);
-							   set_value(simhw_sim_signal("TEST_Z"),  
+							   set_value(simhw_sim_signal("TEST_Z"), 
 								     poc_internal_states.alu_flags.flag_z);
-							   set_value(simhw_sim_signal("TEST_V"),  
+							   set_value(simhw_sim_signal("TEST_V"), 
 								     poc_internal_states.alu_flags.flag_v);
-							   set_value(simhw_sim_signal("TEST_C"),  
+							   set_value(simhw_sim_signal("TEST_C"), 
 								     poc_internal_states.alu_flags.flag_c);
-								     */
+
+							   update_draw(poc_signals["TEST_N"], poc_signals["TEST_N"].value) ;
+							   update_draw(poc_signals["TEST_Z"], poc_signals["TEST_Z"].value) ;
+							   update_draw(poc_signals["TEST_V"], poc_signals["TEST_V"].value) ;
+							   update_draw(poc_signals["TEST_C"], poc_signals["TEST_C"].value) ;
                                                         },
-                                                verbal: function (s_expr) 
+                                                verbal: function (s_expr)
                                                         {
-                                                           return "Update flags N-Z-V-C to " + 
+                                                           return "Update flags N-Z-V-C." ;
+							  /*
+                                                                  + " to " +
 								  poc_internal_states.alu_flags.flag_n + " " +
 								  poc_internal_states.alu_flags.flag_z + " " +
 								  poc_internal_states.alu_flags.flag_v + " " +
 								  poc_internal_states.alu_flags.flag_c + ". " ;
+							  */
                                                         }
 					   };
 

@@ -151,6 +151,14 @@
                        description: "Ejemplo de llamada al sistema para imprimir/leer entero y cadena de caracteres.<br>"
                      });
 
+    examples.es.push({
+                       id: 'S5E1',
+                       title: "Para completar",
+                       level: "Especial",
+                       hardware: "ep",
+                       description: "Ejemplo para pruebas.<br>"
+                     });
+
     // POC
 
     examples.es.push({
@@ -161,13 +169,11 @@
                        description: "Ejemplo simple.<br>"
                      });
 
-    // EP + POC
-
     examples.es.push({
                        id: 'S5E1',
                        title: "Para completar",
                        level: "Especial",
-                       hardware: "ep,poc",
+                       hardware: "poc",
                        description: "Ejemplo para pruebas.<br>"
                      });
 

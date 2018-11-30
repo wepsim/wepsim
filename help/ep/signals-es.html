@@ -4132,9 +4132,29 @@
             <b>TEST_C, ..., TEST_U</b><b>           </b> 1 bit              
           </p>
           <p>
-            Permite al usuario cambiar al vuelo los valores de C-V-N-Z-I-U como si hubieran sido generados por el hardware.
-            C: acarreo, V: desbordamiento, N: negativo, Z: cero, I: interrupciones habilitadas, U: espacio de usuario.<br>
-            <br>
+            Permite al usuario cambiar al vuelo los valores de C-V-N-Z-I-U como si hubieran sido generados por el hardware.<br>
+            Las banderas (flags) disponibles actualmente son:
+            <ul>
+            <li><b>C</b>: acarreo</li>
+		    <ul>
+		    <li><b>Suma a b</b>: (a &gt;&gt;&gt; 31) && (b &gt;&gt;&gt; 31)</li>
+		    </ul>
+            <li><b>V</b>: desbordamiento</li>
+		    <ul>
+		    <li><b>Suma a b</b>: (a+b &lt; 0) && (a &gt;= 0) && (b &gt;= 0) || (a+b &gt;= 0) && (a <  0) && (b &lt; 0)</li>
+		    </ul>
+            <li><b>N</b>: Negativo</li>
+		    <ul>
+		    <li><b>Suma a b</b>: (a+b &lt; 0)</li>
+		    </ul>
+            <li><b>Z</b>: Cero</li>
+		    <ul>
+		    <li><b>Suma a b</b>: (a+b == 0)</li>
+		    </ul>
+	    <br>
+            <li><b>I</b>: Interrupciones habilitadas</li>
+            <li><b>U</b>: Espacio de usuario</li>
+            </ul>
           </p>
         </div>
         </div>

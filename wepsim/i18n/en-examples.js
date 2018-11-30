@@ -151,6 +151,14 @@
                        description: "Example of syscall for printing/reading integer and string.<br>"
                      });
 
+    examples.en.push({
+                       id: 'S5E1',
+                       title: "Dummy instruction",
+                       level: "Special",
+                       hardware: "ep",
+                       description: "Test example.<br>"
+                     });
+
     // POC
 
     examples.en.push({
@@ -161,13 +169,11 @@
                        description: "Simple example.<br>"
                      });
 
-    // EP + POC
-
     examples.en.push({
                        id: 'S5E1',
                        title: "Dummy instruction",
                        level: "Special",
-                       hardware: "ep,poc",
+                       hardware: "poc",
                        description: "Test example.<br>"
                      });
 
