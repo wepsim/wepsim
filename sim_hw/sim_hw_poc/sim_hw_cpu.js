@@ -394,7 +394,7 @@
 	 poc_signals["C3"] = { name: "C3", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV REG_IR BUS_IB; DECO; FIRE_IFSET C 10"],
 			       fire_name: ['svg_p:text3439'],
-			       draw_data: [['svg_p:path3339,svg_p:path3913-4']],
+			       draw_data: [['svg_p:path3339', 'svg_p:path3913-4']],
 			       draw_name: [['svg_p:path3337']] };
 	 poc_signals["C4"] = { name: "C4", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV REG_RT1 BUS_IB"],
@@ -581,7 +581,7 @@
 			       behavior: ["MBITS SELEC_T3 0 REG_RT1 OFFSET SIZE 0 SE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE_IFCHANGED SBWA SE",
 			                  "MBITS SELEC_T3 0 REG_RT1 OFFSET SIZE 0 SE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE_IFCHANGED SBWA SE"],
                                depends_on: ["T3"],
-			       fire_name: ['svg_p:text3593', 'svg_p:text3431'],
+			       fire_name: ['svg_p:text3593'],
 			       draw_data: [[]],
 			       draw_name: [['svg_p:path3591','svg_p:path3447-7-7']] };
 	 poc_signals["SIZE"] = { name: "SIZE",   visible: true, type: "L", value: 0, default_value:0, nbits: "5",
@@ -642,7 +642,7 @@
 				          'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BW; FIRE SBWA; RESET_CHANGED BW',
 				          'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BW; FIRE SBWA; RESET_CHANGED BW',
 				          'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BW; FIRE SBWA; RESET_CHANGED BW'],
-				fire_name: ['svg_p:text3433'],
+				fire_name: [],
 				draw_data: [['svg_p:path3061-2-6','svg_p:path3101-8','svg_p:path3535-8']],
 				draw_name: [[],[]] };
 	 poc_signals["A1A0"] = { name: "A1A0", visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
@@ -650,7 +650,7 @@
 					   'MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA',
 					   'MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA',
 					   'MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA'],
-				fire_name: ['svg_p:text3603'],
+				fire_name: [],
 				draw_data: [[],[]],
 				draw_name: [[],[]] };
 	 poc_signals["BWA"] = { name: "BWA", visible: false, type: "L", value: 0, default_value: 0, nbits: "4",
@@ -670,7 +670,7 @@
 					   'MV BS_TD REG_MBR; FIRE TD; FIRE R; FIRE W',
 					   'MV BS_TD REG_MBR; FIRE TD; FIRE R; FIRE W',
 					   'MV BS_TD REG_MBR; FIRE TD; FIRE R; FIRE W'],
-				 fire_name: ['svg_p:text3533-5'],
+				 fire_name: [],
 				 draw_data: [[],[]],
 				 draw_name: [[],[]] };
 	 poc_signals["SBWA"] = { name: "SBWA", visible: false, type: "L", value: 0, default_value: 0, nbits: "5",

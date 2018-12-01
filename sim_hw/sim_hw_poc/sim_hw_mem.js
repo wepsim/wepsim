@@ -109,7 +109,7 @@
         poc_signals.W        = { name: "W", 
 		                 visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		                 behavior: ["NOP", "MEM_WRITE BUS_AB BUS_DB BWA MRDY CLK; FIRE MRDY"],
-                                 fire_name: ['svg_p:text3533-5-08','svg_p:text3527','svg_p:text3431-7'], 
+                                 fire_name: ['svg_p:text3533-5-08','svg_p:text3527'], 
                                  draw_data: [[], ['svg_p:path3559','svg_p:path3575','svg_p:path3447-7']], 
                                  draw_name: [[], []] };
 
