@@ -1,7 +1,7 @@
 begin
 {
     fetch:          (T2, C0),
-                    (TA, R, BW=11, M1=1, C1=1,   MB=1, SelCop=10000, MC, T6, C2),
+                    (TA, R, M1=1, C1=1,   MB=1, SelCop=10000, MC, T6, C2),
                     (T1, C3, C4),
                     (A0, B=0, C=0)
 }

@@ -101,14 +101,14 @@
 
         poc_signals.R        = { name: "R", 
 		                 visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-		                 behavior: ["NOP", "MEM_READ BUS_AB BUS_DB BWA MRDY CLK; FIRE MRDY"],
+		                 behavior: ["NOP", "MEM_READ BUS_AB BUS_DB MRDY CLK; FIRE MRDY"],
                                  fire_name: ['svg_p:text3533-5-2','svg_p:text3713'], 
                                  draw_data: [[], ['svg_p:path3557','svg_p:path3571']], 
                                  draw_name: [[], []]};
 
         poc_signals.W        = { name: "W", 
 		                 visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-		                 behavior: ["NOP", "MEM_WRITE BUS_AB BUS_DB BWA MRDY CLK; FIRE MRDY"],
+		                 behavior: ["NOP", "MEM_WRITE BUS_AB BUS_DB MRDY CLK; FIRE MRDY"],
                                  fire_name: ['svg_p:text3533-5-08','svg_p:text3527'], 
                                  draw_data: [[], ['svg_p:path3559','svg_p:path3575','svg_p:path3447-7']], 
                                  draw_name: [[], []] };
@@ -119,15 +119,15 @@
          */
 
         poc_behaviors.MEM_READ      = { nparameters: 6, 
-                                        types: ["E", "E", "S", "S", "E"],
+                                        types: ["E", "E", "S", "E"],
                                         operation: function (s_expr) 
                                                    {
 						      var address = poc_states[s_expr[1]].value;
                                                       var dbvalue = poc_states[s_expr[2]].value;
-                                                      var bw      = poc_signals[s_expr[3]].value;
-                                                      var clk     = get_value(poc_states[s_expr[5]].value) ;
+                                                      var bw      = 12;
+                                                      var clk     = get_value(poc_states[s_expr[4]].value) ;
 
-                                                      poc_signals[s_expr[4]].value = 0;
+                                                      poc_signals[s_expr[3]].value = 0;
 						      var remain = get_value(poc_internal_states.MP_wc);
 						      if ( 
                                                            (typeof poc_events.mem[clk-1] != "undefined") &&
@@ -136,13 +136,15 @@
 						              remain = poc_events.mem[clk-1] - 1;
                                                            }
 						      poc_events.mem[clk] = remain;
-                                                      if (remain > 0)
+                                                      if (remain > 0) {
                                                           return;
+						      }
 
 						      var value   = 0;
                                                       address = address & 0xFFFFFFFC;
-						      if (typeof  poc_internal_states.MP[address] != "undefined")
+						      if (typeof  poc_internal_states.MP[address] != "undefined") {
 						   	  value = poc_internal_states.MP[address];
+						      }
 
                                                       // TABLES
                                                       if ( 0 == (bw & 0x0000000C) )
@@ -169,7 +171,7 @@
                                                       }
 
                                                       poc_states[s_expr[2]].value = (dbvalue >>> 0);
-                                                     poc_signals[s_expr[4]].value = 1;
+                                                     poc_signals[s_expr[3]].value = 1;
 				                      show_main_memory(poc_internal_states.MP, address, false, false) ;
                                                    },
                                            verbal: function (s_expr) 
@@ -178,8 +180,8 @@
 
 						      var address = poc_states[s_expr[1]].value;
                                                       var dbvalue = poc_states[s_expr[2]].value;
-                                                      var bw      = poc_signals[s_expr[3]].value;
-                                                      var clk     = get_value(poc_states[s_expr[5]].value) ;
+                                                      var bw      = 12;
+                                                      var clk     = get_value(poc_states[s_expr[4]].value) ;
 
 					              var bw_type = "word" ;
                                                            if ( 0 == (bw & 0x0000000C) )
@@ -199,15 +201,15 @@
                                       };
 
         poc_behaviors.MEM_WRITE      = { nparameters: 6, 
-                                         types: ["E", "E", "S", "S", "E"],
+                                         types: ["E", "E", "S", "E"],
                                          operation: function (s_expr) 
                                                     {
 						      var address = poc_states[s_expr[1]].value;
                                                       var dbvalue = poc_states[s_expr[2]].value;
-                                                      var bw      = poc_signals[s_expr[3]].value;
-                                                      var clk     = get_value(poc_states[s_expr[5]].value) ;
+                                                      var bw      = 12;
+                                                      var clk     = get_value(poc_states[s_expr[4]].value) ;
 
-                                                      poc_signals[s_expr[4]].value = 0;
+                                                      poc_signals[s_expr[3]].value = 0;
 						      var remain = get_value(poc_internal_states.MP_wc);
 						      if ( 
                                                            (typeof poc_events.mem[clk-1] != "undefined") &&
@@ -249,7 +251,7 @@
                                                       }
 
 						      poc_internal_states.MP[address] = (value >>> 0);
-                                                      poc_signals[s_expr[4]].value = 1;
+                                                      poc_signals[s_expr[3]].value = 1;
 				                      show_main_memory(poc_internal_states.MP, address, false, true) ;
                                                    },
                                            verbal: function (s_expr) 
@@ -258,8 +260,8 @@
 
 						      var address = poc_states[s_expr[1]].value;
                                                       var dbvalue = poc_states[s_expr[2]].value;
-                                                      var bw      = poc_signals[s_expr[3]].value;
-                                                      var clk     = get_value(poc_states[s_expr[5]].value) ;
+                                                      var bw      = 12;
+                                                      var clk     = get_value(poc_states[s_expr[4]].value) ;
 
 					              var bw_type = "word" ;
                                                            if ( 0 == (bw & 0x0000000C) )
