@@ -93,7 +93,7 @@
 		if (o != null) o = o.contentDocument;
 		if (o != null) o = o.getElementById('databus_fire');
 		if (o != null) o.setAttributeNS(null, "visibility", "hidden");
-	      //if (o != null) o.visibility = "hidden";
+	        if (o != null) o.style.visibility = "hidden";
 
                 simhw_internalState_set('fire_visible', 'databus', false) ;
             }
@@ -103,7 +103,7 @@
 		if (o != null) o = o.contentDocument;
 		if (o != null) o = o.getElementById('databus_fire');
 		if (o != null) o.setAttributeNS(null, "visibility", "visible");
-              //if (o != null) o.visibility = "visible";
+                if (o != null) o.style.visibility = "visible";
 
                 simhw_internalState_set('fire_visible', 'databus', true) ;
                 simhw_sim_state("BUS_DB").value = 0xFFFFFFFF;
@@ -143,7 +143,7 @@
 		if (o != null) o = o.contentDocument;
 		if (o != null) o = o.getElementById('internalbus_fire');
 		if (o != null) o.setAttributeNS(null, "visibility", "hidden");
-              //if (o != null) o.visibility = "hidden";
+                if (o != null) o.style.visibility = "hidden";
 
                 simhw_internalState_set('fire_visible', 'internalbus', false) ;
             }
@@ -153,7 +153,7 @@
 		if (o != null) o = o.contentDocument;
 		if (o != null) o = o.getElementById('internalbus_fire');
 		if (o != null) o.setAttributeNS(null, "visibility", "visible");
-              //if (o != null) o.visibility = "visible";
+                if (o != null) o.style.visibility = "visible";
 
                 simhw_internalState_set('fire_visible', 'internalbus', true) ;
                 simhw_sim_state("BUS_IB").value = 0xFFFFFFFF;
