@@ -63,8 +63,8 @@
        y="210.0"
        x="480.0" /></text>
   <image
-     sodipodi:absref="C:\Temp\poc\../../images/fire.gif"
-     xlink:href="../../images/fire.gif"
+       sodipodi:absref="x:\work\docencia\grado\info-ec\2017-2018\sim\fire.gif"
+       xlink:href="/wepsim/images/fire.gif"
      style="visibility:hidden"
      visibility="hidden"
      id="internalbus_fire"
@@ -73,8 +73,8 @@
      y="350"
      x="85" />
   <image
-     sodipodi:absref="C:\Temp\poc\../../images/fire.gif"
-     xlink:href="../../images/fire.gif"
+       sodipodi:absref="x:\work\docencia\grado\info-ec\2017-2018\sim\fire.gif"
+       xlink:href="/wepsim/images/fire.gif"
      style="visibility:hidden"
      visibility="hidden"
      id="databus_fire"
