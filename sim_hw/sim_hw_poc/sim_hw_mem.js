@@ -101,7 +101,7 @@
 
         poc_signals.R        = { name: "R", 
 		                 visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-		                 behavior: ["NOP", "MEM_READ BUS_AB BUS_DB MRDY CLK; FIRE MRDY"],
+		                 behavior: ["NOP", "MEM_READ BUS_AB BUS_DB MRDY CLK; FIRE MRDY; FIRE M1"],
                                  fire_name: ['svg_p:text3533-5-2','svg_p:text3713'], 
                                  draw_data: [[], ['svg_p:path3557','svg_p:path3571']], 
                                  draw_name: [[], []]};
@@ -124,11 +124,10 @@
                                                    {
 						      var address = poc_states[s_expr[1]].value;
                                                       var dbvalue = poc_states[s_expr[2]].value;
-                                                      var bw      = 12;
-                                                      var clk     = get_value(poc_states[s_expr[4]].value) ;
+                                                      var clk     = get_value(poc_states[s_expr[4]]) ;
 
                                                       poc_signals[s_expr[3]].value = 0;
-						      var remain = get_value(poc_internal_states.MP_wc);
+						      var remain = get_var(poc_internal_states.MP_wc);
 						      if ( 
                                                            (typeof poc_events.mem[clk-1] != "undefined") &&
 						           (poc_events.mem[clk-1] > 0) 
@@ -146,29 +145,7 @@
 						   	  value = poc_internal_states.MP[address];
 						      }
 
-                                                      // TABLES
-                                                      if ( 0 == (bw & 0x0000000C) )
-                                                      {  // byte
-                                                           if ( 0 == (bw & 0x00000003) )
-                                                                dbvalue = (dbvalue & 0xFFFFFF00) | (value & 0x000000FF);
-                                                           if ( 1 == (bw & 0x00000003) )
-                                                                dbvalue = (dbvalue & 0xFFFF00FF) | (value & 0x0000FF00);
-                                                           if ( 2 == (bw & 0x00000003) )
-                                                                dbvalue = (dbvalue & 0xFF00FFFF) | (value & 0x00FF0000);
-                                                           if ( 3 == (bw & 0x00000003) )
-                                                                dbvalue = (dbvalue & 0x00FFFFFF) | (value & 0xFF000000);
-                                                      }
-                                                      else if ( 1 == (bw & 0x0000000C) )
-                                                      {  // half
-                                                           if ( 0 == (bw & 0x00000002) )
-                                                                dbvalue = (dbvalue & 0xFFFF0000) | (value & 0x0000FFFF);
-                                                           if ( 1 == (bw & 0x00000002) )
-                                                                dbvalue = (dbvalue & 0x0000FFFF) | (value & 0xFFFF0000);
-                                                      }
-                                                      else
-                                                      {  // word
-                                                           dbvalue = value;
-                                                      }
+                                                      dbvalue = value;
 
                                                       poc_states[s_expr[2]].value = (dbvalue >>> 0);
                                                      poc_signals[s_expr[3]].value = 1;
@@ -180,20 +157,13 @@
 
 						      var address = poc_states[s_expr[1]].value;
                                                       var dbvalue = poc_states[s_expr[2]].value;
-                                                      var bw      = 12;
-                                                      var clk     = get_value(poc_states[s_expr[4]].value) ;
-
-					              var bw_type = "word" ;
-                                                           if ( 0 == (bw & 0x0000000C) )
-							  bw_type = "byte" ;
-                                                      else if ( 1 == (bw & 0x0000000C) )
-							  bw_type = "half" ;
+                                                      var clk     = get_value(poc_states[s_expr[4]]) ;
 
 						      var value = 0 ;
 					              if (typeof poc_internal_states.MP[address] != "undefined")
 							  value = poc_internal_states.MP[address] ;
 
-                                                      verbal = "Try to read a " + bw_type + " from memory " + 
+                                                      verbal = "Try to read a word from memory " + 
 							       "at address 0x"  + address.toString(16) + " with value " + value.toString(16) + ". " ;
 
                                                       return verbal ;
@@ -206,11 +176,10 @@
                                                     {
 						      var address = poc_states[s_expr[1]].value;
                                                       var dbvalue = poc_states[s_expr[2]].value;
-                                                      var bw      = 12;
-                                                      var clk     = get_value(poc_states[s_expr[4]].value) ;
+                                                      var clk     = get_value(poc_states[s_expr[4]]) ;
 
                                                       poc_signals[s_expr[3]].value = 0;
-						      var remain = get_value(poc_internal_states.MP_wc);
+						      var remain = get_var(poc_internal_states.MP_wc);
 						      if ( 
                                                            (typeof poc_events.mem[clk-1] != "undefined") &&
 						           (poc_events.mem[clk-1] > 0) 
@@ -226,29 +195,7 @@
 						      if (typeof  poc_internal_states.MP[address] != "undefined")
 						   	  value = poc_internal_states.MP[address];
 
-                                                      // TABLES
-                                                      if ( 0 == (bw & 0x0000000C) )
-                                                      {  // byte
-                                                           if ( 0 == (bw & 0x00000003) )
-                                                                value = (value & 0xFFFFFF00) | (dbvalue & 0x000000FF);
-                                                           if ( 1 == (bw & 0x00000003) )
-                                                                value = (value & 0xFFFF00FF) | (dbvalue & 0x0000FF00);
-                                                           if ( 2 == (bw & 0x00000003) )
-                                                                value = (value & 0xFF00FFFF) | (dbvalue & 0x00FF0000);
-                                                           if ( 3 == (bw & 0x00000003) )
-                                                                value = (value & 0x00FFFFFF) | (dbvalue & 0xFF000000);
-                                                      }
-                                                      else if ( 1 == (bw & 0x0000000C) )
-                                                      {  // half
-                                                           if ( 0 == (bw & 0x00000002) )
-                                                                value = (value & 0xFFFF0000) | (dbvalue & 0x0000FFFF);
-                                                           if ( 1 == (bw & 0x00000002) )
-                                                                value = (value & 0x0000FFFF) | (dbvalue & 0xFFFF0000);
-                                                      }
-                                                      else
-                                                      {  // word
-                                                           value = dbvalue;
-                                                      }
+                                                      value = dbvalue;
 
 						      poc_internal_states.MP[address] = (value >>> 0);
                                                       poc_signals[s_expr[3]].value = 1;
@@ -260,20 +207,13 @@
 
 						      var address = poc_states[s_expr[1]].value;
                                                       var dbvalue = poc_states[s_expr[2]].value;
-                                                      var bw      = 12;
-                                                      var clk     = get_value(poc_states[s_expr[4]].value) ;
-
-					              var bw_type = "word" ;
-                                                           if ( 0 == (bw & 0x0000000C) )
-							  bw_type = "byte" ;
-                                                      else if ( 1 == (bw & 0x0000000C) )
-							  bw_type = "half" ;
+                                                      var clk     = get_value(poc_states[s_expr[4]]) ;
 
 						      var value = 0 ;
 					              if (typeof poc_internal_states.MP[address] != "undefined")
 							  value = poc_internal_states.MP[address] ;
 
-                                                      verbal = "Try to write a " + bw_type + " to memory " + 
+                                                      verbal = "Try to write a word to memory " + 
 							       "at address 0x"  + address.toString(16) + " with value " + value.toString(16) + ". " ;
 
                                                       return verbal ;
