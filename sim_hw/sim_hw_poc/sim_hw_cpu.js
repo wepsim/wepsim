@@ -606,8 +606,8 @@
 			       draw_name: [[],['svg_cu:path3306']] }; /*path3210 print red color line of rest of control signals*/
 
 	 poc_signals["MR"]  = { name: "MR", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ['MV MR_RA MR; FIRE_IFCHANGED MR_RA MR; MV MR_RB MR; FIRE_IFCHANGED MR_RB MR; MV MR_RC MR; FIRE_IFCHANGED MR_RC MR; RESET_CHANGED MR',
-			                  'MV MR_RA MR; FIRE_IFCHANGED MR_RA MR; MV MR_RB MR; FIRE_IFCHANGED MR_RB MR; MV MR_RC MR; FIRE_IFCHANGED MR_RC MR; RESET_CHANGED MR'],
+			       behavior: ['MV MR_RA MR; FIRE MR_RA; MV MR_RB MR; FIRE MR_RB; MV MR_RC MR; FIRE MR_RC',
+			                  'MV MR_RA MR; FIRE MR_RA; MV MR_RB MR; FIRE MR_RB; MV MR_RC MR; FIRE MR_RC'],
                                depends_on: ["SELA","SELB","SELC"],
 			       fire_name: ['svg_cu:text3222','svg_cu:text3242','svg_cu:text3254','svg_cu:text3172-1'],
 			       draw_data: [['svg_cu:path3494','svg_cu:path3492','svg_cu:path3490','svg_cu:path3142b','svg_cu:path3188',
