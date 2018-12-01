@@ -120,10 +120,11 @@
         poc_internal_states.fire_visible    = { 'databus': false, 'internalbus': false } ;
         poc_internal_states.filter_states   = [ "REG_IR_DECO,col-12",
                                                 "REG_IR,col",  "REG_PC,col",  "REG_SR,col",
+                                                "REG_RT1,col",  
                                                 "REG_MAR,col", "REG_MBR,col", "REG_MICROADDR,col" ] ;
         poc_internal_states.filter_signals  = [ "A0,0",   "B,0",    "C,0",  
                                                 "SELA,5", "SELB,5", "SELC,2", "SELCOP,0", "MR,0", "MC,0",
-				        "C0,0", "C1,0",   "C2,0",   "C3,0",   "C7,0",
+				        "C0,0", "C1,0",   "C2,0",   "C3,0",   "C4,0",     "C7,0",
 				        "T1,0", "T2,0",   "T3,0",   "T6,0",   "T8,0",
                                         "T9,0", "T10,0", "T11,0",
 				                "M1,0",   "M7,0",  "MA,0",   "MB,0",
@@ -214,6 +215,8 @@
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	poc_states["REG_SR"]     = { name:"SR", verbal: "State Register",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states["REG_RT1"]    = { name:"RT1",  verbal: "Temporal Register 1",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
 	/* BUSES */
 	poc_states["BUS_IB"]     = { name:"I_BUS", verbal: "Internal Bus",
@@ -235,7 +238,7 @@
 	poc_states["SELEC_T3"]   = { name: "SELEC_T3", verbal: "Input of T3 Tristate",
                                      visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
-	poc_states["ALU_C6"]     = { name:"ALU_C6",  verbal: "Input of Temporal 3 Register",
+	poc_states["ALU_T6"]     = { name:"ALU_T6",  verbal: "Input of T6 Tristate",
                                      visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	poc_states["MA_ALU"]     = { name:"MA_ALU",  verbal: "Input ALU via MA",
                                      visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
@@ -391,8 +394,13 @@
 	 poc_signals["C3"] = { name: "C3", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV REG_IR BUS_IB; DECO; FIRE_IFSET C 10"],
 			       fire_name: ['svg_p:text3439'],
-			       draw_data: [['svg_p:path3339']],
+			       draw_data: [['svg_p:path3339', 'svg_p:path3913-4']],
 			       draw_name: [['svg_p:path3337']] };
+	 poc_signals["C4"] = { name: "C4", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
+			       behavior: ["NOP", "MV REG_RT1 BUS_IB"],
+			       fire_name: ['svg_p:tspan482'],
+			       draw_data: [['svg_p:path3339-4']],
+			       draw_name: [['svg_p:path3337-0']] };
 	 poc_signals["C7"] = { name: "C7", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV REG_SR M7_C7; FIRE C"],
 			       fire_name: ['svg_p:text3655'],
@@ -401,14 +409,14 @@
 
 	/* TRI-STATES */
 	 poc_signals["TA"]  = { name: "TA",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV BUS_AB REG_MAR; MOVE_BITSE A1A0 0 2 BUS_AB 0; FIRE_IFCHANGED A1A0 A1A0"],
+			       behavior: ["NOP", "MV BUS_AB REG_MAR"],
 			       fire_name: ['svg_p:text3091'],
 			       draw_data: [['svg_p:path3089', 'svg_p:path3597', 'svg_p:path3513', 'svg_p:path3601', 'svg_p:path3601-2', 'svg_p:path3187', 'svg_p:path3087', 'svg_p:path2995','svg_p:path3535']],
 			       draw_name: [['svg_p:path3085']] };
 	 poc_signals["TD"]  = { name: "TD",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV BUS_DB BS_TD; MOVE_BITSE A1A0 0 2 BUS_AB 0; FIRE_IFCHANGED A1A0 A1A0"],
+			       behavior: ["NOP", "MV BUS_DB REG_MBR; FIRE R; FIRE W"],
 			       fire_name: ['svg_p:text3103'],
-			       draw_data: [['svg_p:path3101','svg_p:path3587','svg_p:path3515','svg_p:path3071','svg_p:path3419','svg_p:path3099','svg_p:path3097','svg_p:path3559-5','svg_p:path3419-1-0','svg_p:path3583','svg_p:path3419-1','svg_p:path3493','svg_p:path3641','svg_p:path3541']],
+			       draw_data: [['svg_p:path3101','svg_p:path3587','svg_p:path3419-8','svg_p:path3071','svg_p:path3099','svg_p:path3097','svg_p:path3559-5','svg_p:path3419-1-0','svg_p:path3583','svg_p:path3419-1','svg_p:path3493','svg_p:path3641','svg_p:path3541']],
 			       draw_name: [['svg_p:path3095']] };
 	 poc_signals["T1"]  = { name: "T1",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV BUS_IB REG_MBR; FIRE M7; FIRE M1"],
@@ -426,7 +434,7 @@
 			       draw_data: [['svg_p:path3349', 'svg_p:path3931', 'svg_p:path3345','svg_p:path3049']],
 			       draw_name: [['svg_p:path3351']] };
 	 poc_signals["T6"]  = { name: "T6",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV BUS_IB ALU_C6; FIRE M7; FIRE M1"],
+			       behavior: ["NOP", "MV BUS_IB ALU_T6; FIRE M7; FIRE M1"],
 			       fire_name: ['svg_p:text3457'],
 			       draw_data: [['svg_p:path3589', 'svg_p:path3317', 'svg_p:path3163-2','svg_p:path3049']],
 			       draw_name: [['svg_p:path3319']] };
@@ -453,7 +461,7 @@
 
 	/* MUX. */
 	 poc_signals["M1"]  = { name: "M1", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
-			       behavior: ["MV M1_C1 BUS_IB", "MV M1_C1 BS_M1"],
+			       behavior: ["MV M1_C1 BUS_IB", "MV M1_C1 BUS_DB"],
                                depends_on: ["C1"],
 			       fire_name: ['svg_p:text3469'],
 			       draw_data: [['svg_p:path3063','svg_p:path3061','svg_p:path3059'], ['svg_p:path3057','svg_p:path3641','svg_p:path3419','svg_p:path3583']],
@@ -478,29 +486,29 @@
                                            ['svg_p:path3283']],
 			       draw_name: [[], ['svg_p:path3425', 'svg_p:path3427']] };
 	 poc_signals["COP"] = { name: "COP", visible: true, type: "L", value: 0, default_value:0, nbits: "5", forbidden: true,
-			       behavior: ["NOP_ALU",
-                                          "AND ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "OR ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "NOT ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "XOR ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "SRL ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "SRA ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "SL ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "RR ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "RL ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "SUB ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "MUL ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "DIV ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "MOD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "LUI ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "ADDFOUR ALU_C6 MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "ADDONE ALU_C6 MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "FADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "FSUB ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "FMUL ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "FDIV ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "FMOD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+			       behavior: ["NOP_ALU; UPDATE_NZVC",
+                                          "AND ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "OR ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "NOT ALU_T6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "XOR ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "SRL ALU_T6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "SRA ALU_T6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "SL ALU_T6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "RR ALU_T6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "RL ALU_T6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "ADD ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "SUB ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "MUL ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "DIV ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "MOD ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "LUI ALU_T6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "ADDFOUR ALU_T6 MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "ADDONE ALU_T6 MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "FADD ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "FSUB ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "FMUL ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "FDIV ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "FMOD ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
 					  "NOP_ALU",
 					  "NOP_ALU",
 					  "NOP_ALU",
@@ -570,20 +578,20 @@
 			       draw_name: [['svg_p:path3121']] };
 
 	 poc_signals["SE"]  = { name: "SE",     visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE_IFCHANGED SBWA SE",
-			                  "MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE_IFCHANGED SBWA SE"],
+			       behavior: ["MBITS SELEC_T3 0 REG_RT1 OFFSET SIZE 0 SE; FIRE T3",
+			                  "MBITS SELEC_T3 0 REG_RT1 OFFSET SIZE 0 SE; FIRE T3"],
                                depends_on: ["T3"],
-			       fire_name: ['svg_p:text3593', 'svg_p:text3431'],
+			       fire_name: ['svg_p:text3593'],
 			       draw_data: [[]],
 			       draw_name: [['svg_p:path3591','svg_p:path3447-7-7']] };
 	 poc_signals["SIZE"] = { name: "SIZE",   visible: true, type: "L", value: 0, default_value:0, nbits: "5",
-			       behavior: ['MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3'],
+			       behavior: ['MBITS SELEC_T3 0 REG_RT1 OFFSET SIZE 0 SE; FIRE T3'],
                                depends_on: ["T3"],
 			       fire_name: ['svg_p:text3363'],
 			       draw_data: [[]],
 			       draw_name: [['svg_p:path3355']] };
 	 poc_signals["OFFSET"] = { name: "OFFSET", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
-			       behavior: ['MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3'],
+			       behavior: ['MBITS SELEC_T3 0 REG_RT1 OFFSET SIZE 0 SE; FIRE T3'],
                                depends_on: ["T3"],
 			       fire_name: ['svg_p:text3707'],
 			       draw_data: [[]],
@@ -627,80 +635,6 @@
 			         fire_name: [],
 			         draw_data: [[]],
 			         draw_name: [[]] };
-
-	/* W-Byte & R-Byte Selector */
-	 poc_signals["BW"] =  { name: "BW", visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
-		               behavior: ['MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BW; FIRE SBWA; RESET_CHANGED BW',
-				          'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BW; FIRE SBWA; RESET_CHANGED BW',
-				          'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BW; FIRE SBWA; RESET_CHANGED BW',
-				          'MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BW; FIRE SBWA; RESET_CHANGED BW'],
-				fire_name: ['svg_p:text3433'],
-				draw_data: [['svg_p:path3061-2-6','svg_p:path3101-8','svg_p:path3535-8']],
-				draw_name: [[],[]] };
-	 poc_signals["A1A0"] = { name: "A1A0", visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
-				behavior: ['MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA',
-					   'MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA',
-					   'MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA',
-					   'MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA'],
-				fire_name: ['svg_p:text3603'],
-				draw_data: [[],[]],
-				draw_name: [[],[]] };
-	 poc_signals["BWA"] = { name: "BWA", visible: false, type: "L", value: 0, default_value: 0, nbits: "4",
-				behavior: ['BSEL BS_TD 0 8 REG_MBR 0; FIRE TD; FIRE R; FIRE W',
-					   'BSEL BS_TD 8 8 REG_MBR 0; FIRE TD; FIRE R; FIRE W',
-					   'BSEL BS_TD 16 8 REG_MBR 0; FIRE TD; FIRE R; FIRE W',
-					   'BSEL BS_TD 24 8 REG_MBR 0; FIRE TD; FIRE R; FIRE W',
-					   'BSEL BS_TD 0 16 REG_MBR 0; FIRE TD; FIRE R; FIRE W',
-					   'BSEL BS_TD 0 16 REG_MBR 0; FIRE TD; FIRE R; FIRE W',
-					   'BSEL BS_TD 0 16 REG_MBR 0; FIRE TD; FIRE R; FIRE W',
-					   'BSEL BS_TD 0 16 REG_MBR 0; FIRE TD; FIRE R; FIRE W',
-					   'BSEL BS_TD 16 16 REG_MBR 0; FIRE TD; FIRE R; FIRE W',
-					   'BSEL BS_TD 16 16 REG_MBR 0; FIRE TD; FIRE R; FIRE W',
-					   'BSEL BS_TD 16 16 REG_MBR 0; FIRE TD; FIRE R; FIRE W',
-					   'BSEL BS_TD 16 16 REG_MBR 0; FIRE TD; FIRE R; FIRE W',
-					   'MV BS_TD REG_MBR; FIRE TD; FIRE R; FIRE W',
-					   'MV BS_TD REG_MBR; FIRE TD; FIRE R; FIRE W',
-					   'MV BS_TD REG_MBR; FIRE TD; FIRE R; FIRE W',
-					   'MV BS_TD REG_MBR; FIRE TD; FIRE R; FIRE W'],
-				 fire_name: ['svg_p:text3533-5'],
-				 draw_data: [[],[]],
-				 draw_name: [[],[]] };
-	 poc_signals["SBWA"] = { name: "SBWA", visible: false, type: "L", value: 0, default_value: 0, nbits: "5",
-				behavior: ['BSEL BS_M1 0 8 BUS_DB 0; FIRE M1',
-					   'BSEL BS_M1 0 8 BUS_DB 8; FIRE M1',
-					   'BSEL BS_M1 0 8 BUS_DB 16; FIRE M1',
-					   'BSEL BS_M1 0 8 BUS_DB 24; FIRE M1',
-					   'BSEL BS_M1 0 16 BUS_DB 0; FIRE M1',
-					   'BSEL BS_M1 0 16 BUS_DB 0; FIRE M1',
-					   'BSEL BS_M1 0 16 BUS_DB 0; FIRE M1',
-					   'BSEL BS_M1 0 16 BUS_DB 0; FIRE M1',
-					   'BSEL BS_M1 0 16 BUS_DB 16; FIRE M1',
-					   'BSEL BS_M1 0 16 BUS_DB 16; FIRE M1',
-					   'BSEL BS_M1 0 16 BUS_DB 16; FIRE M1',
-					   'BSEL BS_M1 0 16 BUS_DB 16; FIRE M1',
-					   'MV BS_M1 BUS_DB; FIRE M1',
-					   'MV BS_M1 BUS_DB; FIRE M1',
-					   'MV BS_M1 BUS_DB; FIRE M1',
-					   'MV BS_M1 BUS_DB; FIRE M1',
-					   'BSEL BS_M1 0 8 BUS_DB 0; EXT_SIG BS_M1 7; FIRE M1',
-					   'BSEL BS_M1 0 8 BUS_DB 8; EXT_SIG BS_M1 7; FIRE M1',
-					   'BSEL BS_M1 0 8 BUS_DB 16; EXT_SIG BS_M1 7; FIRE M1',
-					   'BSEL BS_M1 0 8 BUS_DB 24; EXT_SIG BS_M1 7; FIRE M1',
-					   'BSEL BS_M1 0 16 BUS_DB 0; EXT_SIG BS_M1 15; FIRE M1',
-					   'BSEL BS_M1 0 16 BUS_DB 0; EXT_SIG BS_M1 15; FIRE M1',
-					   'BSEL BS_M1 0 16 BUS_DB 0; EXT_SIG BS_M1 15; FIRE M1',
-					   'BSEL BS_M1 0 16 BUS_DB 0; EXT_SIG BS_M1 15; FIRE M1',
-					   'BSEL BS_M1 0 16 BUS_DB 16; EXT_SIG BS_M1 15; FIRE M1',
-					   'BSEL BS_M1 0 16 BUS_DB 16; EXT_SIG BS_M1 15; FIRE M1',
-					   'BSEL BS_M1 0 16 BUS_DB 16; EXT_SIG BS_M1 15; FIRE M1',
-					   'BSEL BS_M1 0 16 BUS_DB 16; EXT_SIG BS_M1 15; FIRE M1',
-					   'MV BS_M1 BUS_DB; FIRE M1',
-					   'MV BS_M1 BUS_DB; FIRE M1',
-					   'MV BS_M1 BUS_DB; FIRE M1',
-					   'MV BS_M1 BUS_DB; FIRE M1'],
-				fire_name: [],
-				draw_data: [[],[]],
-				draw_name: [[],[]] };
 
 	/* I/O Devices */
 	 poc_signals["IOR"]   = { name: "IOR", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
@@ -1853,6 +1787,7 @@
 	poc_behaviors["UPDATE_NZVC"]  = { nparameters: 1,
 				            operation: function(s_expr)
 							{
+								/*
 							   set_value(simhw_sim_state("FLAG_N"),  
 								     poc_internal_states.alu_flags.flag_n);
 							   set_value(simhw_sim_state("FLAG_Z"),  
@@ -1870,6 +1805,7 @@
 								     poc_internal_states.alu_flags.flag_v);
 							   set_value(simhw_sim_signal("TEST_C"), 
 								     poc_internal_states.alu_flags.flag_c);
+								     */
 
 							   update_draw(poc_signals["TEST_N"], poc_signals["TEST_N"].value) ;
 							   update_draw(poc_signals["TEST_Z"], poc_signals["TEST_Z"].value) ;
