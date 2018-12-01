@@ -235,7 +235,7 @@
 	poc_states["SELEC_T3"]   = { name: "SELEC_T3", verbal: "Input of T3 Tristate",
                                      visible:false, nbits: "32", value:0, default_value:0, draw_data: [] };
 
-	poc_states["ALU_C6"]     = { name:"ALU_C6",  verbal: "Input of Temporal 3 Register",
+	poc_states["ALU_T6"]     = { name:"ALU_T6",  verbal: "Input of T6 Tristate",
                                      visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	poc_states["MA_ALU"]     = { name:"MA_ALU",  verbal: "Input ALU via MA",
                                      visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
@@ -426,7 +426,7 @@
 			       draw_data: [['svg_p:path3349', 'svg_p:path3931', 'svg_p:path3345','svg_p:path3049']],
 			       draw_name: [['svg_p:path3351']] };
 	 poc_signals["T6"]  = { name: "T6",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["NOP", "MV BUS_IB ALU_C6; FIRE M7; FIRE M1"],
+			       behavior: ["NOP", "MV BUS_IB ALU_T6; FIRE M7; FIRE M1"],
 			       fire_name: ['svg_p:text3457'],
 			       draw_data: [['svg_p:path3589', 'svg_p:path3317', 'svg_p:path3163-2','svg_p:path3049']],
 			       draw_name: [['svg_p:path3319']] };
@@ -478,29 +478,29 @@
                                            ['svg_p:path3283']],
 			       draw_name: [[], ['svg_p:path3425', 'svg_p:path3427']] };
 	 poc_signals["COP"] = { name: "COP", visible: true, type: "L", value: 0, default_value:0, nbits: "5", forbidden: true,
-			       behavior: ["NOP_ALU",
-                                          "AND ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "OR ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "NOT ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "XOR ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "SRL ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "SRA ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "SL ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "RR ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "RL ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "ADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "SUB ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "MUL ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "DIV ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "MOD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "LUI ALU_C6 MA_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "ADDFOUR ALU_C6 MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "ADDONE ALU_C6 MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "FADD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "FSUB ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "FMUL ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "FDIV ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "FMOD ALU_C6 MA_ALU MB_ALU; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+			       behavior: ["NOP_ALU; UPDATE_NZVC",
+                                          "AND ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "OR ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "NOT ALU_T6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "XOR ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "SRL ALU_T6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "SRA ALU_T6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "SL ALU_T6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "RR ALU_T6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "RL ALU_T6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "ADD ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "SUB ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "MUL ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "DIV ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "MOD ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "LUI ALU_T6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "ADDFOUR ALU_T6 MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "ADDONE ALU_T6 MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "FADD ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "FSUB ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "FMUL ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "FDIV ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "FMOD ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
 					  "NOP_ALU",
 					  "NOP_ALU",
 					  "NOP_ALU",
@@ -1853,6 +1853,7 @@
 	poc_behaviors["UPDATE_NZVC"]  = { nparameters: 1,
 				            operation: function(s_expr)
 							{
+								/*
 							   set_value(simhw_sim_state("FLAG_N"),  
 								     poc_internal_states.alu_flags.flag_n);
 							   set_value(simhw_sim_state("FLAG_Z"),  
@@ -1870,6 +1871,7 @@
 								     poc_internal_states.alu_flags.flag_v);
 							   set_value(simhw_sim_signal("TEST_C"), 
 								     poc_internal_states.alu_flags.flag_c);
+								     */
 
 							   update_draw(poc_signals["TEST_N"], poc_signals["TEST_N"].value) ;
 							   update_draw(poc_signals["TEST_Z"], poc_signals["TEST_Z"].value) ;
