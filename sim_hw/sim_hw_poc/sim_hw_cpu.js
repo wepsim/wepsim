@@ -120,10 +120,11 @@
         poc_internal_states.fire_visible    = { 'databus': false, 'internalbus': false } ;
         poc_internal_states.filter_states   = [ "REG_IR_DECO,col-12",
                                                 "REG_IR,col",  "REG_PC,col",  "REG_SR,col",
+                                                "REG_RT1,col",  
                                                 "REG_MAR,col", "REG_MBR,col", "REG_MICROADDR,col" ] ;
         poc_internal_states.filter_signals  = [ "A0,0",   "B,0",    "C,0",  
                                                 "SELA,5", "SELB,5", "SELC,2", "SELCOP,0", "MR,0", "MC,0",
-				        "C0,0", "C1,0",   "C2,0",   "C3,0",   "C7,0",
+				        "C0,0", "C1,0",   "C2,0",   "C3,0",   "C4,0",     "C7,0",
 				        "T1,0", "T2,0",   "T3,0",   "T6,0",   "T8,0",
                                         "T9,0", "T10,0", "T11,0",
 				                "M1,0",   "M7,0",  "MA,0",   "MB,0",
@@ -213,6 +214,8 @@
 	poc_states["REG_IR"]     = { name:"IR",  verbal: "Instruction Register",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 	poc_states["REG_SR"]     = { name:"SR", verbal: "State Register",
+                                     visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
+	poc_states["REG_RT1"]    = { name:"RT1",  verbal: "Temporal Register 1",
                                      visible:true, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
 	/* BUSES */
@@ -391,8 +394,13 @@
 	 poc_signals["C3"] = { name: "C3", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV REG_IR BUS_IB; DECO; FIRE_IFSET C 10"],
 			       fire_name: ['svg_p:text3439'],
-			       draw_data: [['svg_p:path3339']],
+			       draw_data: [['svg_p:path3339,svg_p:path3913-4']],
 			       draw_name: [['svg_p:path3337']] };
+	 poc_signals["C4"] = { name: "C4", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
+			       behavior: ["NOP", "MV REG_RT1 BUS_IB"],
+			       fire_name: ['svg_p:tspan482'],
+			       draw_data: [['svg_p:path3339-4']],
+			       draw_name: [['svg_p:path3337-0']] };
 	 poc_signals["C7"] = { name: "C7", visible: true, type: "E", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV REG_SR M7_C7; FIRE C"],
 			       fire_name: ['svg_p:text3655'],
@@ -408,7 +416,7 @@
 	 poc_signals["TD"]  = { name: "TD",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV BUS_DB BS_TD; MOVE_BITSE A1A0 0 2 BUS_AB 0; FIRE_IFCHANGED A1A0 A1A0"],
 			       fire_name: ['svg_p:text3103'],
-			       draw_data: [['svg_p:path3101','svg_p:path3587','svg_p:path3515','svg_p:path3071','svg_p:path3419','svg_p:path3099','svg_p:path3097','svg_p:path3559-5','svg_p:path3419-1-0','svg_p:path3583','svg_p:path3419-1','svg_p:path3493','svg_p:path3641','svg_p:path3541']],
+			       draw_data: [['svg_p:path3101','svg_p:path3587','svg_p:path3419-8','svg_p:path3071','svg_p:path3099','svg_p:path3097','svg_p:path3559-5','svg_p:path3419-1-0','svg_p:path3583','svg_p:path3419-1','svg_p:path3493','svg_p:path3641','svg_p:path3541']],
 			       draw_name: [['svg_p:path3095']] };
 	 poc_signals["T1"]  = { name: "T1",  visible: true, type: "L", value: 0, default_value:0, nbits: "1",
 			       behavior: ["NOP", "MV BUS_IB REG_MBR; FIRE M7; FIRE M1"],
@@ -570,20 +578,20 @@
 			       draw_name: [['svg_p:path3121']] };
 
 	 poc_signals["SE"]  = { name: "SE",     visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE_IFCHANGED SBWA SE",
-			                  "MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE_IFCHANGED SBWA SE"],
+			       behavior: ["MBITS SELEC_T3 0 REG_RT1 OFFSET SIZE 0 SE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE_IFCHANGED SBWA SE",
+			                  "MBITS SELEC_T3 0 REG_RT1 OFFSET SIZE 0 SE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE_IFCHANGED SBWA SE"],
                                depends_on: ["T3"],
 			       fire_name: ['svg_p:text3593', 'svg_p:text3431'],
 			       draw_data: [[]],
 			       draw_name: [['svg_p:path3591','svg_p:path3447-7-7']] };
 	 poc_signals["SIZE"] = { name: "SIZE",   visible: true, type: "L", value: 0, default_value:0, nbits: "5",
-			       behavior: ['MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3'],
+			       behavior: ['MBITS SELEC_T3 0 REG_RT1 OFFSET SIZE 0 SE; FIRE T3'],
                                depends_on: ["T3"],
 			       fire_name: ['svg_p:text3363'],
 			       draw_data: [[]],
 			       draw_name: [['svg_p:path3355']] };
 	 poc_signals["OFFSET"] = { name: "OFFSET", visible: true, type: "L", value: 0, default_value:0, nbits: "5",
-			       behavior: ['MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3'],
+			       behavior: ['MBITS SELEC_T3 0 REG_RT1 OFFSET SIZE 0 SE; FIRE T3'],
                                depends_on: ["T3"],
 			       fire_name: ['svg_p:text3707'],
 			       draw_data: [[]],
