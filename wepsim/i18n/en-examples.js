@@ -118,40 +118,6 @@
                      });
 
     examples.en.push({
-                       id: 'S4E1',
-                       title: "addv + seqv.",
-                       level: "Laboratory",
-                       hardware: "ep",
-                       description: "Application-specific extension: addv + seqv.<br>"
-                     });
-
-    examples.en.push({
-                       id: 'S4E2',
-                       title: "strlen_2 + skipasciicode_2",
-                       level: "Laboratory",
-                       hardware: "ep",
-                       description: "Application-specific extension: strlen_2 + skipasciicode_2.<br>"
-                     });
-
-/*
-    examples.en.push({
-                       id: 'S4E3',
-                       title: "madd, mmul, mma",
-                       level: "Laboratory",
-                       hardware: "ep",
-                       description: "Application-specific extension: madd + mmul + mma.<br>"
-                     });
-*/
-
-    examples.en.push({
-                       id: 'S4E4',
-                       title: "syscall 1, 4-5, 8, 11-12",
-                       level: "Laboratory",
-                       hardware: "ep",
-                       description: "Example of syscall for printing/reading integer and string.<br>"
-                     });
-
-    examples.en.push({
                        id: 'S5E1',
                        title: "Dummy instruction",
                        level: "Special",

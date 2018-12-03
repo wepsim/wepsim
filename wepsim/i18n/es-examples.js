@@ -118,40 +118,6 @@
                      });
 
     examples.es.push({
-                       id: 'S4E1',
-                       title: "addv + seqv.",
-                       level: "Laboratorio",
-                       hardware: "ep",
-                       description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: addv + seqv.<br>"
-                     });
-
-    examples.es.push({
-                       id: 'S4E2',
-                       title: "strlen_2 + skipasciicode_2",
-                       level: "Laboratorio",
-                       hardware: "ep",
-                       description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: strlen_2 + skipasciicode_2.<br>"
-                     });
-
-/*
-    examples.es.push({
-                       id: 'S4E3',
-                       title: "madd, mmul, mma",
-                       level: "Laboratorio",
-                       hardware: "ep",
-                       description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: madd + mmul + mma.<br>"
-                     });
-*/
-
-    examples.es.push({
-                       id: 'S4E4',
-                       title: "syscall 1, 4-5, 8, 11-12",
-                       level: "Laboratorio",
-                       hardware: "ep",
-                       description: "Ejemplo de llamada al sistema para imprimir/leer entero y cadena de caracteres.<br>"
-                     });
-
-    examples.es.push({
                        id: 'S5E1',
                        title: "Para completar",
                        level: "Especial",
