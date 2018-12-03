@@ -82,29 +82,32 @@
 	 *  Internal States
 	 */
 
-        ep_internal_states.segments     = {} ;
-        ep_internal_states.MP           = {} ;
-        ep_internal_states.MP_wc        = 0 ;
+        ep_internal_states.segments  = {} ;
+        ep_internal_states.MP        = {} ;
+        ep_internal_states.MP_wc     = 0 ;
 
 
         /*
          *  Signals
          */
 
-        ep_signals.MRDY      = { name: "MRDY", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+        ep_signals.MRDY      = { name: "MRDY", 
+                                 visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                  depends_on: ["CLK"],
 		                 behavior: ["FIRE_IFCHANGED MRDY C", "FIRE_IFCHANGED MRDY C"],
                                  fire_name: ['svg_p:tspan3916','svg_p:text3909'], 
                                  draw_data: [[], ['svg_p:path3895','svg_p:path3541']], 
                                  draw_name: [[], []]};
 
-        ep_signals.R         = { name: "R", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+        ep_signals.R         = { name: "R", 
+                                 visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		                 behavior: ["NOP", "MEM_READ BUS_AB BUS_DB BWA MRDY CLK; FIRE MRDY"],
                                  fire_name: ['svg_p:text3533-5-2','svg_p:text3713'], 
                                  draw_data: [[], ['svg_p:path3557','svg_p:path3571']], 
                                  draw_name: [[], []]};
 
-        ep_signals.W         = { name: "W", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+        ep_signals.W         = { name: "W", 
+                                 visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
 		                 behavior: ["NOP", "MEM_WRITE BUS_AB BUS_DB BWA MRDY CLK; FIRE MRDY"],
                                  fire_name: ['svg_p:text3533-5-08','svg_p:text3527','svg_p:text3431-7'], 
                                  draw_data: [[], ['svg_p:path3559','svg_p:path3575','svg_p:path3447-7']], 
@@ -133,8 +136,9 @@
 						              remain = ep_events.mem[clk-1] - 1;
                                                            }
 						      ep_events.mem[clk] = remain;
-                                                      if (remain > 0)
+                                                      if (remain > 0) {
                                                           return;
+                                                      }
 
 						      var value   = 0;
                                                       address = address & 0xFFFFFFFC;
@@ -168,13 +172,37 @@
                                                       ep_states[s_expr[2]].value = (dbvalue >>> 0);
                                                      ep_signals[s_expr[4]].value = 1;
 				                      show_main_memory(ep_internal_states.MP, address, false, false) ;
-                                                   }
-                                   };
+                                                   },
+                                           verbal: function (s_expr) 
+                                                   {
+					              var verbal = "" ;
 
-        ep_behaviors.MEM_WRITE       = { nparameters: 6, 
-                                         types: ["E", "E", "S", "S", "E"],
-                                         operation: function (s_expr) 
-                                                    {
+						      var address = ep_states[s_expr[1]].value;
+                                                      var dbvalue = ep_states[s_expr[2]].value;
+                                                      var bw      = ep_signals[s_expr[3]].value;
+                                                      var clk     = get_value(ep_states[s_expr[5]].value) ;
+
+					              var bw_type = "word" ;
+                                                           if ( 0 == (bw & 0x0000000C) )
+							  bw_type = "byte" ;
+                                                      else if ( 1 == (bw & 0x0000000C) )
+							  bw_type = "half" ;
+
+						      var value = 0 ;
+					              if (typeof ep_internal_states.MP[address] != "undefined")
+							  value = ep_internal_states.MP[address] ;
+
+                                                      verbal = "Try to read a " + bw_type + " from memory " + 
+							       "at address 0x"  + address.toString(16) + " with value " + value.toString(16) + ". " ;
+
+                                                      return verbal ;
+                                                   }
+                                      };
+
+        ep_behaviors.MEM_WRITE      = { nparameters: 6, 
+                                        types: ["E", "E", "S", "S", "E"],
+                                        operation: function (s_expr) 
+                                                   {
 						      var address = ep_states[s_expr[1]].value;
                                                       var dbvalue = ep_states[s_expr[2]].value;
                                                       var bw      = ep_signals[s_expr[3]].value;
@@ -224,14 +252,42 @@
 						      ep_internal_states.MP[address] = (value >>> 0);
                                                       ep_signals[s_expr[4]].value = 1;
 				                      show_main_memory(ep_internal_states.MP, address, true, true) ;
-                                                    }
-                                   };
+                                                   },
+                                           verbal: function (s_expr) 
+                                                   {
+					              var verbal = "" ;
 
-        ep_behaviors.MEM_RESET   = { nparameters: 1,
-                                       operation: function (s_expr) 
-                                                  {
-						     // reset events.mem
-                                                     ep_events.mem = {} ;
-                                                  }
+						      var address = ep_states[s_expr[1]].value;
+                                                      var dbvalue = ep_states[s_expr[2]].value;
+                                                      var bw      = ep_signals[s_expr[3]].value;
+                                                      var clk     = get_value(ep_states[s_expr[5]].value) ;
+
+					              var bw_type = "word" ;
+                                                           if ( 0 == (bw & 0x0000000C) )
+							  bw_type = "byte" ;
+                                                      else if ( 1 == (bw & 0x0000000C) )
+							  bw_type = "half" ;
+
+						      var value = 0 ;
+					              if (typeof ep_internal_states.MP[address] != "undefined")
+							  value = ep_internal_states.MP[address] ;
+
+                                                      verbal = "Try to write a " + bw_type + " to memory " + 
+							       "at address 0x"  + address.toString(16) + " with value " + value.toString(16) + ". " ;
+
+                                                      return verbal ;
+                                                   }
+                                    };
+
+        ep_behaviors.MEM_RESET    = { nparameters: 1,
+                                        operation: function (s_expr) 
+                                                   {
+						       // reset events.mem
+                                                       ep_events.mem = {} ;
+                                                   },
+                                           verbal: function (s_expr) 
+                                                   {
+                                                       return "Reset the memory (all values will be zeroes). " ;
+                                                   }
                                    };
 

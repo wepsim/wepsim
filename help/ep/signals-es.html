@@ -3965,6 +3965,12 @@
           <div id="RB">
           <div id="RC">
           <div id="LC">
+		<p>
+		    <b>
+		    NOTA: este mecanismo es solo para pruebas. No debe ser usado para la versi&oacute;n final del microc&oacute;digo.<br>
+                    Por favor no use directamente RA, RB, RC y Cop dado que su valor se genera a partir de SelA (SelB, SelC o SelCop) junto con MR.<br>
+		    </b>
+		</p>
                 <p>
                   <b>RA</b><b>     </b>             5 bits
                 </p>
@@ -3980,7 +3986,6 @@
                 <p>
                   Permiten seleccionar un registro para que su valor salga por A (RA) o por B (RB) o para actualizar el valor del registro seleccionado (RC). 
                   En el caso de actualizar el registro, adem&aacute;s de usar la senal RC hay que usar la senal LC con valor a 1.<br>
-                  <b>Por favor no use directamente RA, RB, RC y Cop dado que su valor se genera a partir de SelA (SelB, SelC o SelCop) junto con MR.</b>
                 </p>
                 <p>
                    
@@ -4118,13 +4123,38 @@
         <div id="TEST_I">
         <div id="TEST_U">
           <p>
+            <b>
+	    NOTA: este mecanismo es solo para pruebas. No debe ser usado para la versi&oacute;n final del microc&oacute;digo.<br>
+	    Los valores de TEST_C... son generados por la ALU.
+	    </b>
+          </p>
+          <p>
             <b>TEST_C, ..., TEST_U</b><b>           </b> 1 bit              
           </p>
           <p>
-            Permite al usuario cambiar al vuelo los valores de C-V-N-Z-I-U como si hubieran sido generados por el hardware.
-            C: acarreo, V: desbordamiento, N: negativo, Z: cero, I: interrupciones habilitadas, U: espacio de usuario.<br>
-            <br>
-            <b>NOTA: este mecanismo es solo para pruebas. No debe ser usado para la versi&oacute;n final del microc&oacute;digo.</b>
+            Permite al usuario cambiar al vuelo los valores de C-V-N-Z-I-U como si hubieran sido generados por el hardware.<br>
+            Las banderas (flags) disponibles actualmente son:
+            <ul>
+            <li><b>C</b>: acarreo</li>
+		    <ul>
+		    <li><b>Suma a b</b>: (a &gt;&gt;&gt; 31) && (b &gt;&gt;&gt; 31)</li>
+		    </ul>
+            <li><b>V</b>: desbordamiento</li>
+		    <ul>
+		    <li><b>Suma a b</b>: (a+b &lt; 0) && (a &gt;= 0) && (b &gt;= 0) || (a+b &gt;= 0) && (a <  0) && (b &lt; 0)</li>
+		    </ul>
+            <li><b>N</b>: Negativo</li>
+		    <ul>
+		    <li><b>Suma a b</b>: (a+b &lt; 0)</li>
+		    </ul>
+            <li><b>Z</b>: Cero</li>
+		    <ul>
+		    <li><b>Suma a b</b>: (a+b == 0)</li>
+		    </ul>
+	    <br>
+            <li><b>I</b>: Interrupciones habilitadas</li>
+            <li><b>U</b>: Espacio de usuario</li>
+            </ul>
           </p>
         </div>
         </div>

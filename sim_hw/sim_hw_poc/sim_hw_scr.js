@@ -90,25 +90,29 @@
          *  States
          */
 
-        poc_states.DDR   = { name: "DDR",    visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
-        poc_states.DSR   = { name: "DSR",    visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+        poc_states.DDR   = { name: "DDR", verbal: "Display Data Register", 
+                             visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
+        poc_states.DSR   = { name: "DSR", verbal: "Display State Register", 
+                             visible:false, nbits: "32", value: 0, default_value: 0, draw_data: [] };
 
 
         /*
          *  Signals
          */
 
-        poc_signals.SCR_IOR = { name: "IOR", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-		               behavior: ["NOP", "SCR_IOR BUS_AB BUS_DB DDR DSR CLK"],
-                               fire_name: ['svg_p:tspan4004'], 
-                               draw_data: [[], ['svg_p:path3871', 'svg_p:path3857']], 
-                               draw_name: [[], []]};
+        poc_signals.SCR_IOR = { name: "IOR", 
+		                visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+		                behavior: ["NOP", "SCR_IOR BUS_AB BUS_DB DDR DSR CLK"],
+                                fire_name: ['svg_p:tspan4004'], 
+                                draw_data: [[], ['svg_p:path3871', 'svg_p:path3857']], 
+                                draw_name: [[], []]};
 
-        poc_signals.SCR_IOW = { name: "IOW", visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-		               behavior: ["NOP", "SCR_IOW BUS_AB BUS_DB DDR DSR CLK"],
-                               fire_name: ['svg_p:tspan4006'], 
-                               draw_data: [[], ['svg_p:path3873', 'svg_p:path3857']], 
-                               draw_name: [[], []]};
+        poc_signals.SCR_IOW = { name: "IOW", 
+		                visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+		                behavior: ["NOP", "SCR_IOW BUS_AB BUS_DB DDR DSR CLK"],
+                                fire_name: ['svg_p:tspan4006'], 
+                                draw_data: [[], ['svg_p:path3873', 'svg_p:path3857']], 
+                                draw_name: [[], []]};
 
 
         /*
@@ -116,24 +120,39 @@
          */
 
         poc_behaviors.SCR_IOR     = { nparameters: 6,
-                                     types: ["E", "E", "E", "E", "E"],
-                                     operation: function (s_expr) 
-                                                {
-                                                   var bus_ab = get_value(poc_states[s_expr[1]]) ;
-                                                   var ddr    = get_value(poc_states[s_expr[3]]) ;
-                                                   var dsr    = get_value(poc_states[s_expr[4]]) ;
+                                      types: ["E", "E", "E", "E", "E"],
+                                      operation: function (s_expr) 
+                                                 {
+                                                    var bus_ab = get_value(poc_states[s_expr[1]]) ;
+                                                    var ddr    = get_value(poc_states[s_expr[3]]) ;
+                                                    var dsr    = get_value(poc_states[s_expr[4]]) ;
 
-                                                   if (bus_ab == DDR_ID)
-                                                       set_value(poc_states[s_expr[2]], ddr) ;
-                                                   if (bus_ab == DSR_ID)
-                                                       set_value(poc_states[s_expr[2]], dsr) ;
-                                                }
+                                                    if (bus_ab == DDR_ID)
+                                                        set_value(poc_states[s_expr[2]], ddr) ;
+                                                    if (bus_ab == DSR_ID)
+                                                        set_value(poc_states[s_expr[2]], dsr) ;
+                                                 },
+                                         verbal: function (s_expr) 
+                                                 {
+					            var verbal = "" ;
+
+                                                    var bus_ab = get_value(poc_states[s_expr[1]]) ;
+                                                    var ddr    = get_value(poc_states[s_expr[3]]) ;
+                                                    var dsr    = get_value(poc_states[s_expr[4]]) ;
+
+                                                    if (bus_ab == DDR_ID)
+                                                        verbal = "Try to read from the screen the DDR value " + ddr + ". " ;
+                                                    if (bus_ab == DDR_ID)
+                                                        verbal = "Try to read into the screen the DSR value " + dsr + ". " ;
+
+                                                    return verbal ;
+                                                 }
                                 };
 
         poc_behaviors.SCR_IOW     = { nparameters: 6,
-                                     types: ["E", "E", "E", "E", "E"],
-                                     operation: function (s_expr) 
-                                                {
+                                      types: ["E", "E", "E", "E", "E"],
+                                      operation: function (s_expr) 
+                                                 {
                                                       var bus_ab = get_value(poc_states[s_expr[1]]) ;
                                                       var bus_db = get_value(poc_states[s_expr[2]]) ;
                                                       var clk    = get_value(poc_states[s_expr[5]]) ;
@@ -166,7 +185,21 @@
                                                       set_value(poc_states[s_expr[3]], bus_db) ;
                                                       set_value(poc_states[s_expr[4]], 1) ;
                                                       poc_events.screen[clk] = bus_db ;
-                                                }
+                                                 },
+                                         verbal: function (s_expr) 
+                                                 {
+					              var verbal = "" ;
+
+                                                      var bus_ab = get_value(poc_states[s_expr[1]]) ;
+                                                      var bus_db = get_value(poc_states[s_expr[2]]) ;
+                                                      var clk    = get_value(poc_states[s_expr[5]]) ;
+                                                      var ch     = String.fromCharCode(bus_db);
+
+                                                      if (bus_ab == DDR_ID)
+                                                          verbal = "Try to write into the screen the code " + ch + " at clock cycle " + clk + ". " ;
+
+                                                      return verbal ;
+                                                 }
                                 };
 
         poc_behaviors.SCR_RESET = { nparameters: 1,
@@ -174,6 +207,10 @@
                                                  {
 						     // reset events.screen
                                                      poc_events.screen = {} ;
+                                                 },
+                                         verbal: function (s_expr) 
+                                                 {
+                                                    return "Reset the screen content. " ;
                                                  }
                                   };
 

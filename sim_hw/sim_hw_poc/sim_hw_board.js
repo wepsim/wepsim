@@ -29,7 +29,11 @@
                                  operation: function(s_expr)
                                             {
                                                  console.log(s_expr[1] + ': 0x' + poc_signals[s_expr[1]].value.toString(16));
-                                            }
+					    },
+				    verbal: function (s_expr)
+				   	    {
+					         return "Print value of signal " + s_expr[1] + ': 0x' + poc_signals[s_expr[1]].value.toString(16) + ". " ;
+					    }
                                };
 
         // Print State
@@ -38,6 +42,10 @@
                                  operation: function(s_expr)
                                             {
                                                  console.log(s_expr[1] + ': 0x' + poc_states[s_expr[1]].value.toString(16));
-                                            }
+					    },
+				    verbal: function (s_expr)
+				   	    {
+					         return "Print value of state " + s_expr[1] + ': 0x' + poc_states[s_expr[1]].value.toString(16) + ". " ;
+					    }
                                };
 

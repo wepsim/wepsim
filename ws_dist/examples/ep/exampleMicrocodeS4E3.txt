@@ -59,7 +59,7 @@ syscall {
         nwords=1,
         {
                     # RT1 <- ExCode=2
-                    (ExCode=10, T11, C4),
+                    (ExCode=1, T11, C4),
                     # csw_rt1(2)
                     (A0=0, B=1, C=0, MADDR=csw_rt1)
         }
@@ -166,7 +166,7 @@ div reg1 reg2 reg3 {
                     # reg1 = reg2 / reg3, go fetch
                     (MC=1, MR=0, SELB=1011, SELA=10000, MA=0, MB=0, SELCOP=1101, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0),
               fpe1: # RT1 <- ExCode=1
-                    (ExCode=1, T11, C4),
+                    (ExCode=0, T11, C4),
                     # csw_rt1(2)
                     (A0=0, B=1, C=0, MADDR=csw_rt1)
             }
@@ -567,65 +567,69 @@ jr reg1 {
 
 
 #
-# Experimental
+# m* instructions
 #
 
-strlen_2 reg1 reg2 {
-            co=011011,
+madd (rs1), (rs2), (rs3) 
+{
+            co=011000,
             nwords=1,
-            reg1 = reg(25,21),
-            reg2 = reg(20,16),
+            rs1=reg(25,21),
+            rs2=reg(20,16),
+            rs3=reg(15,11),
             {
-                #      rt2 <- sr
-                #      mar, reg1 <- reg2
-                # b10: m(mar) -> mbr
-                #      mbr -> rt1
-                #      rt1 * 1, -> sr
-                #      bz f10
-                #      mar, reg1 <- reg1 + 1
-                #      b b10
-                # f10: r1 <- r1 - r2
-                #      rt2 -> sr, salto a fetch
-
-                ( T8, C5 ),
-                ( MR=0, SELA=10000, T9, SELC=10101, LC=1, C0 ),
-           b10: ( TA, R, BW=00, M1=1, C1=1 ),
-                ( T1, C4 ),
-                ( MA=1, MB=11, MC=1, SELCOP=1100, SELP=11, M7, C7),
-                ( A0=0, B=0, C=110, MADDR=f10 ),
-                ( MR=0, SELA=10101, MA=0, MB=11, MC=1, SELCOP=1010, T6, SELC=10101, LC, C0 ),
-                ( A0=0, B=1, C=0, MADDR=b10 ),
-           f10: ( MR=0, SELA=10101, SELB=10000, MA=0, MB=0, MC=1, SELCOP=1011, T6, SELC=10101, LC=1),
-                ( T5, M7=0, C7, A0=1, B=1, C=0 )
+                # TODO: add microcode...
+                (A0=1, B=1, C=0)
             }
 }
 
-skipasciicode_2 reg1 reg2 val1 {
+mmul (rs1), (rs2), (rs3) 
+{
+            co=011001,
+            nwords=1,
+            rs1=reg(25,21),
+            rs2=reg(20,16),
+            rs3=reg(15,11),
+            {
+                # TODO: add microcode...
+                (A0=1, B=1, C=0)
+            }
+}
+
+mxch (rs1), (rs2) 
+{
             co=011010,
             nwords=1,
-            reg1 = reg(25,21),
-            reg2 = reg(20,16),
-            val1 = inm(7,0),
+            rs1=reg(25,21),
+            rs2=reg(20,16),
             {
-                #      rt1 <- sr
-                #      {mar, reg1} <- reg2, rt3 <- rt1
-                # b12: m(mar) -> mbr, rt2 <- val1
-                #      mbr -> rt1
-                #      rt1 - rt2 -> sr
-                #      bnz f12
-                #      mar, reg1 <- reg1 + 1
-                #      b b12
-                # f12: rt3 -> sr, salto a fetch
+                # TODO: add microcode...
+                (A0=1, B=1, C=0)
+            }
+}
 
-                ( T8, C4 ),
-                ( MR=0, SELA=10000, T9, SELC=10101, LC=1, C0, MA=1, MB=11, MC=1, SELCOP=1100, C6 ),
-           b12: ( TA, R, BW=00, M1=1, C1=1, SE=0, SIZE=1000, OFFSET=0, T3, C5 ),
-                ( T1, C4 ),
-                ( MA=1, MB=1, MC=1, SELCOP=1011, SELP=11, M7, C7),
-                ( A0=0, B=1, C=110, MADDR=f12 ),
-                ( MR=0, SELA=10101, MA=0, MB=11, MC=1, SELCOP=1010, T6, SELC=10101, LC, C0 ),
-                ( A0=0, B=1, C=0, MADDR=b12 ),
-           f12: ( T7, M7=0, C7, A0=1, B=1, C=0 )
+mmv (rs1), (rs2) 
+{
+            co=011011,
+            nwords=1,
+            rs1=reg(25,21),
+            rs2=reg(20,16),
+            {
+                # TODO: add microcode...
+                (A0=1, B=1, C=0)
+            }
+}
+
+mma (rs1), (rs2), (rs3) 
+{
+            co=011100,
+            nwords=1,
+            rs1=reg(25,21),
+            rs2=reg(20,16),
+            rs3=reg(15,11),
+            {
+                # TODO: add microcode...
+                (A0=1, B=1, C=0)
             }
 }
 

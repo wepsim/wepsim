@@ -26,28 +26,26 @@
     function sim_tutorial_showframe ( tutorial_name, step )
     {
         // 0.- get reference
-        if (typeof tutorials[tutorial_name] == "undefined")
+        if (typeof tutorials[tutorial_name] == "undefined") {
             return ;
+	}
         var tutorial = tutorials[tutorial_name][get_cfg('ws_idiom')] ;
-        if (typeof tutorial == "undefined")
+        if (typeof tutorial == "undefined") {
             return ;
+	}
 
         // 1.- check if
-	if (step == tutorial.length)
+	if (step == tutorial.length) {
 	    return ;
-	if (step < 0) 
+	}
+	if (step < 0) {
 	    return ;
+	}
 
         ga('send', 'event', 'help', 'help.tutorial', 'help.tutorial.name=' + tutorial_name + ',step=' + step);
 
         // 2.- code_pre
         tutorial[step].code_pre();
-        if (wepsim_voice_canSpeak())
-        {
-	    tut_msg1 = new SpeechSynthesisUtterance(tutorial[step].title.replace(/<[^>]*>/g, '') + ". " + 
-		                                    tutorial[step].message.replace(/<[^>]*>/g, ''));
-	    tut_msg1.lang = 'en-US';
-        }
 
         // 3.- dialog +
         //     code_post (next button) | cancel tutorials
@@ -61,7 +59,7 @@
                         save_cfg();
 			$("#select4").val('ep') ;
                         tutbox.modal("hide") ;
-                        if (wepsim_voice_canSpeak())
+                        if (simcoreui_voice_canSpeak())
 			    window.speechSynthesis.cancel() ;
 		    }
 		} ;
@@ -75,7 +73,7 @@
 			setTimeout(function(){ 
 					sim_tutorial_showframe(tutorial_name, step - 1) ;
 				   }, tutorial[step].wait_next);
-                        if (wepsim_voice_canSpeak())
+                        if (simcoreui_voice_canSpeak())
 			    window.speechSynthesis.cancel() ;
 		    }
 		};
@@ -89,7 +87,7 @@
 			setTimeout(function(){ 
 					sim_tutorial_showframe(tutorial_name, step + 1) ;
 				   }, tutorial[step].wait_next);
-                        if (wepsim_voice_canSpeak())
+                        if (simcoreui_voice_canSpeak())
 			    window.speechSynthesis.cancel() ;
 		    }
 		};
@@ -102,7 +100,7 @@
 			setTimeout(function(){ 
 					sim_tutorial_showframe(tutorial_name, step + 1) ;
 				   }, tutorial[step].wait_next);
-                        if (wepsim_voice_canSpeak())
+                        if (simcoreui_voice_canSpeak())
 			    window.speechSynthesis.cancel() ;
 		    }
 		};
@@ -115,7 +113,7 @@
             animate: false
 	});
 
-        if (wepsim_voice_canSpeak())
-	    window.speechSynthesis.speak(tut_msg1);
+	simcoreui_voice_speak(tutorial[step].title.replace(/<[^>]*>/g, '') + ". " + 
+		              tutorial[step].message.replace(/<[^>]*>/g, ''));
     }
 

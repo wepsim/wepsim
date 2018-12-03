@@ -150,7 +150,16 @@
 
     function table_examples_html ( examples )
     {
-       var o = "" ;
+       // harware
+       var mode = get_cfg('ws_mode') ;
+       var ahw  = mode ;
+
+       var ep_modes = ['newbie', 'intro', 'wepmips', 'tutorial'] ;
+       if (ep_modes.includes(mode))
+           ahw  = 'ep' ;
+
+       // examples
+       var lang = get_cfg('ws_idiom') ;
 
        var fmt_toggle    = "" ;
        var fmt_header    = "" ;
@@ -160,14 +169,15 @@
        var e_description = "" ;
        var e_id          = "" ;
 
-       var lang = get_cfg('ws_idiom') ;
-
-       o = o + '<div class="container grid-striped border border-light">' ;
+       var o = "" ;
        for (var m=0; m<examples[lang].length; m++)
        {
 	       fmt_header = "" ;
 	       if (e_level != examples[lang][m].level) {
-                   fmt_header = "<div class='col-sm-12 border-bottom border-secondary text-right text-capitalize font-weight-bold bg-white sticky-top'>" + examples[lang][m].hardware.toUpperCase() + ": " + examples[lang][m].level + "</div>" ;
+                   fmt_header = "<div class='col-sm-12 border-bottom border-secondary text-right text-capitalize font-weight-bold bg-white sticky-top'>" + 
+			        ahw.toUpperCase() + ": " + 
+			        examples[lang][m].level + 
+			        "</div>" ;
                }
 
 	       e_title       = examples[lang][m].title ;
@@ -175,6 +185,14 @@
 	       e_hw          = examples[lang][m].hardware ;
 	       e_description = examples[lang][m].description ;
 	       e_id          = examples[lang][m].id ;
+
+	        if (! e_hw.split(",").includes(ahw)) {
+                    e_level = "" ;
+		    continue ;
+	        }
+                else {
+                    e_hw = e_hw.split(",")[0] ;
+	        }
 
 	        if (fmt_toggle == "")
 	            fmt_toggle = "bg-light" ;
@@ -186,10 +204,10 @@
                         '    <span class="badge badge-pill badge-light">' + (m+1) + '</span>' +
                         '</div>' +
                         '<div class="col-sm-3">' +
-		        '   <span style="padding:0 0 0 0; margin:0 8 0 0; cursor:pointer;" ' + 
+		        '   <span style="cursor:pointer;" ' + 
 		        '         onclick="$(\'#example1\').modal(\'hide\'); ' + 
                         '                  load_from_example_firmware(\'' + e_hw + ":" + e_id + '\',true);" ' + 
-		        '         class="bg-info text-white">' + e_title + '</span>' +
+		        '         class="bg-info text-white p-0 mr-2">' + e_title + '</span>' +
                         '</div>' +
                         '<div class="col-sm collapse7 show">' +
                         '    <c>' + e_description + '</c>' +
@@ -199,21 +217,23 @@
 		        '     <div class="btn-group btn-group-justified btn-group-md">' +
 		        '         <a onclick="$(\'#example1\').modal(\'hide\'); ' + 
                         '                    load_from_example_assembly(\'' + e_hw + ":" + e_id + '\',false);"' + 
-                        '            style="padding:0 0 0 0; margin:0 8 0 0;"' +
-		        '            class="bg-dark text-white">' +
+		        '            class="bg-dark text-white p-0 mr-2">' +
 		        '            <c>Assembly</c></a>' +
 		        '         <a onclick="$(\'#example1\').modal(\'hide\'); ' + 
                         '                    load_from_example_firmware(\'' + e_hw + ":" + e_id + '\',false);"' + 
-                        '            style="padding:0 0 0 0; margin:0 7 0 0;"' +
-		        '            class="bg-dark text-white">' +
+		        '            class="bg-dark text-white p-0 mr-2">' +
 		        '            <c>Firmware</c></a>' +
 		        '     </div>' +
                         '</div>' ;
 	      
 	       o = o + '</div>' ;
        }
-       o = o + '</div>' ;
 
+       if (o.trim() == '') {
+	   o = '&lt;No examples are available for the selected hardware&gt;' ;
+       }
+
+       o = '<div class="container grid-striped border border-light">' + o + '</div>' ;
        return o ;
     }
 

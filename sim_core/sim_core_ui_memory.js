@@ -28,7 +28,7 @@
 
         function show_main_memory ( memory, index, redraw, updates )
         {
-            if (get_cfg('DBG_delay') > 3)
+            if (get_cfg('DBG_delay') > 3) 
                 show_main_memory_redraw  = redraw || show_main_memory_redraw ;
 
             if (null != show_main_memory_deferred)
@@ -235,36 +235,48 @@
 
             var maddr = "" ;
             var trpin = "" ;
+            var htmllabel = "" ;
+            var htmlfill = 0 ;
             for (var key in memory)
             {
                 value = controlmemory_lineToString(memory, key) ;
                 maddr = "0x" + parseInt(key).toString(16) ;
-                if (typeof revlabels[key] != "undefined")
+                if (typeof revlabels[key] != "undefined") 
+		{
+                    htmllabel = revlabels[key] ;
+		    htmlfill  = 5 - htmllabel.length ;
+		    if (htmlfill > 0) {
+			for (var i=0; i<htmlfill; i++) {
+                             htmllabel = htmllabel + "&nbsp;" ;
+			}
+		    }
+
                     maddr = '<span>' +
-                            '<span class="badge badge-pill badge-info" ' + 
-                            '      style="position:relative;top:4px;">' + revlabels[key] + '</span>' +
+                            '<span class="badge badge-pill badge-info text-monospace" ' + 
+                            '      style="position:relative;top:4px;">' + htmllabel + '</span>' +
                             '<span style="border:1px solid gray;">' + maddr + '</span>' +
                             '</span>' ;
+	        }
 
 		trpin = "&nbsp;" ;
 		if (true == memory_dashboard[key].breakpoint)
 		    trpin = "<img alt='stop icon' height='22' src='images/stop/stop_" + icon_theme + ".gif'>" ;
 
 		if (key == index)
-		     o1 += "<tr id='maddr" + key + "' " +
+		     o1 += "<tr id='maddr" + key + "' class='d-flex' " +
                            "    style='color:blue; font-size:small; font-weight:bold' " +
 			   "    onclick='dbg_set_breakpoint(" + key + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
-			   "<td width='15%' align='right'>" + maddr + "</td>" +
-			   "<td width='1%' id='mcpin" + key + "' style='padding:5 0 0 0;'>" + trpin + "</td>" +
-			   "<td>" + value + "</td></tr>";
-		else o1 += "<tr id='maddr" + key + "' " +
+			   "<td             class='col-3 col-md-2 py-0' align='right'>" + maddr + "</td>" +
+			   "<td width='1%'  class='col-auto py-0 px-0' id='mcpin" + key + "'>" + trpin + "</td>" +
+			   "<td             class='col py-0'>" + value + "</td></tr>";
+		else o1 += "<tr id='maddr" + key + "' class='d-flex' " +
                            "    style='color:black; font-size:small; font-weight:normal' " +
 			   "    onclick='dbg_set_breakpoint(" + key + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
-			   "<td width='15%' align='right'>" + maddr + "</td>" +
-			   "<td width='1%' id='mcpin" + key + "' style='padding:5 0 0 0;'>" + trpin + "</td>" +
-			   "<td>" + value + "</td></tr>";
+			   "<td             class='col-3 col-md-2 py-0' align='right'>" + maddr + "</td>" +
+			   "<td width='1%'  class='col-auto py-0 px-0' id='mcpin" + key + "'>" + trpin + "</td>" +
+			   "<td             class='col py-0'>" + value + "</td></tr>";
             }
 
 	    if (typeof memory[index] == "undefined") {
@@ -774,8 +786,9 @@
 
 	function show_dbg_ir ( decins )
 	{
-            if (null != show_dbg_ir_deferred)
-                return;
+            if (null != show_dbg_ir_deferred) {
+                return ;
+            }
 
             show_dbg_ir_deferred = setTimeout(function() {
                                                    fullshow_dbg_ir(decins);
@@ -785,8 +798,9 @@
 
 	function fullshow_dbg_ir ( decins )
 	{
-	     if (typeof document == "undefined")
+	     if (typeof document == "undefined") {
 	         return ;
+             }
 
 	     var o = document.getElementById('svg_p');
 	     if (o != null) o = o.contentDocument;

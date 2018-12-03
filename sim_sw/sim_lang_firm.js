@@ -536,7 +536,7 @@ function loadFirmware (text)
 		   firmaUsuario = firmaUsuario + ' ';
 	       }
 
-	       firma = firma.substr(0, firma.length-1) ;
+	       firma = firma.substr(0, firma.length-1);
 	       firma = firma.replace(/,,/g, ",") ;
 	       firmaUsuario = firmaUsuario.substr(0, firmaUsuario.length-1);
 	       firmaUsuario = firmaUsuario.replace(/  /g, " ") ;
@@ -935,7 +935,7 @@ function loadFirmware (text)
 			{
 			    mk_native += "context.instrucciones[" + i + "][\"microcode\"][" + j + "][\"NATIVE_JIT\"] = " + 
 			                 " function() {\n" +
-					 "\t var fields = wepsim_native_get_fields(\"" + ins["signatureRaw"] + "\");\n" + 
+					 "\t var fields = simcore_native_get_fields(\"" + ins["signatureRaw"] + "\");\n" + 
 					     ins["microcode"][j].NATIVE + 
 					 "\n};\n " ;
 			}

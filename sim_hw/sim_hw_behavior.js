@@ -96,6 +96,7 @@
          */
 
         var jit_behaviors   = false ;
+        var jit_verbals     = false ;
         var jit_fire_dep    = null ;
         var jit_fire_order  = null ;
 	var jit_dep_network = null ;
@@ -128,6 +129,7 @@
             }
         }
 
+        // behaviors
         function compile_behaviors ()
         {
             var jit_bes = "";
@@ -225,5 +227,100 @@
             if (jit_behaviors)
                  simhw_sim_signal(signal_name).behavior_fn[signal_value]();
             else compute_behavior(simhw_sim_signal(signal_name).behavior[signal_value]) ;
+        }
+
+        // verbals
+        function compile_verbals ()
+        {
+            var jit_vbl = "";
+
+            for (var sig in simhw_sim_signals())
+            {
+		 jit_vbl += "simhw_sim_signal('" + sig + "').verbal_fn = new Array();\n" ;
+
+                 for (var val in simhw_sim_signal(sig).behavior)
+                 {
+                      var input_behavior = simhw_sim_signal(sig).behavior[val] ;
+                      var jit_be = " var r = \"\"; ";
+
+		      // 1.- Split several behaviors, e.g.: "MV D1 O1; MV D2 O2"
+		      var s_exprs = input_behavior.split(";");
+
+		      // 2.- For every behavior...
+		      for (var i=0; i<s_exprs.length; i++)
+		      {
+			    // 2.1.- ...to remove white spaces from both sides, e.g.: "  MV D1 O1  " (skip empty expression, i.e. "")
+			    s_exprs[i] = s_exprs[i].trim() ;
+			    if ("" == s_exprs[i]) continue ;
+
+			    // 2.2.- ...to split into expression, e.g.: "MV D1 O1"
+			    var s_expr = s_exprs[i].split(" ");
+
+			    // 2.3a.- ...to do the operation
+			    jit_be += " r = r + simhw_syntax_behavior('" + s_expr[0] + "').verbal(" + JSON.stringify(s_expr) + ");\t" ;
+		      }
+
+		      jit_vbl += "simhw_sim_signal('" + sig + "').verbal_fn[" + val + "] = \t function() {" + jit_be + " return r; };\n" ;
+                 }
+            }
+
+	    eval(jit_vbl) ;
+            jit_verbals = true ;
+        }
+
+        function compute_verbal ( input_behavior )
+        {
+	    var verbal = "" ;
+
+            // 1.- Split several behaviors, e.g.: "MV D1 O1; MV D2 O2"
+            var s_exprs = input_behavior.split(";");
+
+            // 2.- For every behavior...
+            for (var i=0; i<s_exprs.length; i++)
+            {
+                    // 2.1.- ...to remove white spaces from both sides, e.g.: "  MV D1 O1  " (skip empty expression, i.e. "")
+		    s_exprs[i] = s_exprs[i].trim() ;
+                    if ("" == s_exprs[i]) continue ;
+
+                    // 2.2.- ...to split into expression, e.g.: "MV D1 O1"
+		    var s_expr = s_exprs[i].split(" ");
+
+                    // 2.3.- ...to do the operation
+		    verbal = verbal + simhw_syntax_behavior(s_expr[0]).verbal(s_expr);
+            }
+
+            return verbal ;
+        }
+
+        function compute_signal_verbals ( signal_name, signal_value )
+        {
+            var verbal  = "" ;
+            var sig_ref = null ;
+
+            // check params...
+            sig_ref = simhw_sim_signal(signal_name) ;
+            if (typeof sig_ref.behavior == "undefined") {
+		return verbal ;
+	    }
+
+            // common signals...
+            var index = sig_ref.behavior.length - 1 ;
+	    if (signal_value < index) {
+		index = signal_value ;
+	    }
+
+            // if already exits...
+            if ( (typeof sig_ref.verbal        != "undefined") &&
+                 (typeof sig_ref.verbal[index] != "undefined") ) 
+            {
+		  return sig_ref.verbal[index] ;
+	    }
+
+            // otherwise, compute verbal from behaviors...
+            if (jit_behaviors)
+                 verbal = sig_ref.verbal_fn[index]();
+            else verbal = compute_verbal(sig_ref.behavior[index]) ;
+
+	    return verbal ;
         }
 

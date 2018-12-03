@@ -26,33 +26,22 @@
     function wepsim_voice_init ( )
     {
 	 // check if voice is available...
-         if (!annyang) 
+         if (!annyang) {
 	     return false ;
+         }
 
 	 // setup annyang + speechkitt...
-         var commands = {
-               'reset':                    function() { wepsim_execute_reset(true, true); },
-               'next instruction':         wepsim_execute_instruction,
-               'next micro(instruction)':  wepsim_execute_microinstruction,
-               'play':                     function() { wepsim_execute_play('#qbp', false); },
-               'stop':                     function() { wepsim_execute_stop('#qbp'); },
-
-               'help':                     wepsim_open_help_index,
-               'examples':                 function() { wepsim_open_examples_index(); },
-               'configuration':            function() { $('#config2').modal('show'); },
-               'close':                    function() { wepsim_close_help(); 
-		                                        wepsim_close_examples(); 
-		                                        $('#config2').modal('show'); }
-         };
-         annyang.addCommands(commands);
+         annyang.addCommands(wepsim_voice_commands);
          annyang.addCallback('errorNetwork', 
                              function () {
 	                         annyang.abort() ;
                                  alert('Sorry but some network connection is needed in order to use the voice recognition engine.');
                              });
 
+         // setting up SpeachKITT...
          SpeechKITT.annyang();
-         SpeechKITT.setStylesheet('external/speechkitt.css');
+         SpeechKITT.setStylesheet('external/speechkitt/themes/flat.css');
+         SpeechKITT.setInstructionsText('What can I help you with? (list)');
          SpeechKITT.vroom();
 
 	 return true ;
@@ -61,8 +50,11 @@
     function wepsim_voice_start ( )
     {
 	 // check if voice is available...
-         if (!annyang) 
+         if (!annyang) {
+              wepsim_notify_error('<h4>Warning:<br/>' + 'annyang not available' + '</h4>',
+                                  'Voice support is not available in this platform.') ;
 	     return false ;
+         }
 
 	 //annyang.resume() ;
          SpeechKITT.show();
@@ -72,22 +64,12 @@
     function wepsim_voice_stop ( )
     {
 	 // check if voice is available...
-         if (!annyang) 
+         if (!annyang) {
 	     return false ;
+         }
 
          SpeechKITT.hide();
 	 //annyang.pause() ;
 	 return true ;
-    }
-
-    function wepsim_voice_canSpeak ( )
-    {
-	if (typeof window.speechSynthesis == "undefined")
-            return false ;
-
-        if (false == get_cfg('use_voice'))
-            return false ;
-
-        return true ;
     }
 

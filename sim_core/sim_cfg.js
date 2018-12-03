@@ -20,7 +20,7 @@
 
 
         var WSCFG = {} ;
-        WSCFG.version = { value:"1.9.3", type:"string"} ;
+        WSCFG.version = { value:"1.9.5", type:"string"} ;
 
         function get_cfg ( field )
         {
@@ -77,13 +77,13 @@
 		/*
 		 *  simulation screen: Notification, etc.
 		 */
-               WSCFG.NOTIF_delay         = { value:1500,               type:"int"} ;
+               WSCFG.NOTIF_delay         = { value:1000,               type:"int"} ;
                WSCFG.CPUCU_size          = { value:6,                  type:"int"} ;
                WSCFG.C1C2_size           = { value:8,                  type:"int"} ;
 
                WSCFG.is_interactive      = { value:true,               type:"boolean"};
                WSCFG.ws_idiom            = { value:'en',               type:"string"};
-               WSCFG.ws_mode             = { value:'intro',            type:"string"};
+               WSCFG.ws_mode             = { value:'newbie',           type:"string"};
                WSCFG.use_voice           = { value:false,              type:"boolean"};
 
 		/*
@@ -95,7 +95,7 @@
                // some mobile-tuning
                if (is_mobile())
                {
-                   WSCFG.NOTIF_delay.value = 1750 ;
+                   WSCFG.NOTIF_delay.value = 2000 ;
                    WSCFG.ICON_theme.value  = 'cat1' ;
                    WSCFG.CPUCU_size.value  = 6 ;
                    WSCFG.C1C2_size.value   = 12 ;

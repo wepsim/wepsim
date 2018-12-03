@@ -25,21 +25,26 @@
 
     function wepsim_nodejs_init ( simhw_name )
     {
-	var ret = {} ;
-	    ret.msg = "" ;
-	    ret.ok  = true ;
+	var ret1 = {} ;
+	    ret1.msg = "" ;
+	    ret1.ok  = true ;
 
-        var hwid = simhw_getActiveByName(simhw_name) ;
-        if (hwid < 0) 
+        var ret = simcore_init(false, simhw_name) ;
+	if (false == ret.ok) 
 	{
-            ret.msg = "ERROR: unknown hardware: " + simhw_name + ".\n" ;
-            ret.ok  = false ;
-	    return ret ;
+            ret1.msg = "ERROR: initialize: " + ret.msg + ".\n" ;
+            ret1.ok  = false ;
+	    return ret1 ;
 	}
 
-        sim_core_init(false) ;
-        simhw_setActive(hwid) ;
-	sim_core_init_panel('', '', '', '', '', '') ;
+	ret = simcore_init_ui('', '', '', '', '', '') ;
+	if (false == ret.ok) 
+	{
+            ret1.msg = "ERROR: initialize: " + ret.msg + ".\n" ;
+            ret1.ok  = false ;
+	    return ret1 ;
+	}
+
 	return ret ;
     }
 
@@ -49,12 +54,12 @@
 	    ret.msg = "" ;
 	    ret.ok  = true ;
 
-	var data3_bin   = simstate_checklist2state(checklist_ok) ;
-	var obj_current = simstate_current2state();
-	var obj_result  = simstate_check_results(data3_bin, obj_current, newones_too ) ;
+	var data3_bin   = simcore_simstate_checklist2state(checklist_ok) ;
+	var obj_current = simcore_simstate_current2state();
+	var obj_result  = simcore_simstate_check_results(data3_bin, obj_current, newones_too ) ;
 
-        ret.msg  = simstate_checkreport2txt(obj_result.result) ;
-        ret.html = simstate_checkreport2html(obj_result.result, true) ;
+        ret.msg  = simcore_simstate_checkreport2txt(obj_result.result) ;
+        ret.html = simcore_simstate_checkreport2html(obj_result.result, true) ;
         ret.ok   = (0 == obj_result.errors) ;
         return ret ;
     }
@@ -65,8 +70,8 @@
 	    ret.msg = "" ;
 	    ret.ok  = true ;
 
-        var state_obj = simstate_current2state() ;
-              ret.msg = simstate_state2checklist(state_obj) ;
+        var state_obj = simcore_simstate_current2state() ;
+              ret.msg = simcore_simstate_state2checklist(state_obj) ;
 
         return ret ;
     }
@@ -84,32 +89,32 @@
             ret1.msg = "" ;
 
 	// 1) initialize ws
-        sim_core_reset() ;
+        simcore_reset() ;
 
 	// 2) load firmware
-        var ret = sim_core_compile_firmware(str_firmware) ;
+        var ret = simcore_compile_firmware(str_firmware) ;
 	if (false == ret.ok) 
 	{
             ret1.msg = "ERROR: Firmware: " + ret.msg + ".\n" ;
-            ret1.ok = false ;
+            ret1.ok  = false ;
 	    return ret1 ;
 	}
 
 	// 3) load assembly
-        ret = sim_core_compile_assembly(str_assembly) ;
+        ret = simcore_compile_assembly(str_assembly) ;
 	if (false == ret.ok) 
         {
             ret1.msg = "ERROR: Assembly: " + ret.msg + ".\n" ;
-            ret1.ok = false ;
+            ret1.ok  = false ;
 	    return ret1 ;
 	}
 
 	// 4) execute firmware-assembly
-	ret = sim_core_execute_program(0, max_instructions, max_cycles) ;
+	ret = simcore_execute_program(0, max_instructions, max_cycles) ;
 	if (false == ret.ok) 
 	{
             ret1.msg = "ERROR: Execution: " + ret.msg + ".\n" ;
-            ret1.ok = false ;
+            ret1.ok  = false ;
 	    return ret1 ;
 	}
 
@@ -118,7 +123,7 @@
 	if (false == ret.ok)
 	{
             ret1.msg = "ERROR: Execution: different results: " + ret.msg + "\n" ;
-            ret1.ok = false ;
+            ret1.ok  = false ;
 	    return ret1 ;
         }
 
@@ -128,41 +133,41 @@
     function wepsim_nodejs_run ( verbosity, str_firmware, str_assembly, max_instructions, max_cycles )
     {
         var ret1 = {} ;
-            ret1.ok = true ;
+            ret1.ok  = true ;
             ret1.msg = "" ;
 
 	// 1) initialize ws
-        sim_core_reset() ;
+        simcore_reset() ;
 
 	// 2) load firmware
-        var ret = sim_core_compile_firmware(str_firmware) ;
+        var ret = simcore_compile_firmware(str_firmware) ;
 	if (false == ret.ok) 
 	{
             ret1.msg = "ERROR: Firmware: " + ret.msg + ".\n" ;
-            ret1.ok = false ;
+            ret1.ok  = false ;
 	    return ret1 ;
 	}
 
 	// 3) load assembly
-        ret = sim_core_compile_assembly(str_assembly) ;
+        ret = simcore_compile_assembly(str_assembly) ;
 	if (false == ret.ok) 
         {
             ret1.msg = "ERROR: Assembly: " + ret.msg + ".\n" ;
-            ret1.ok = false ;
+            ret1.ok  = false ;
 	    return ret1 ;
 	}
 
 	// 4) execute firmware-assembly
-	ret = sim_core_execute_program(verbosity, max_instructions, max_cycles) ;
+	ret = simcore_execute_program(verbosity, max_instructions, max_cycles) ;
 	if (false == ret.ok) 
 	{
             ret1.msg = "ERROR: Execution: " + ret.msg + ".\n" ;
-            ret1.ok = false ;
+            ret1.ok  = false ;
 	    return ret1 ;
 	}
 
 	// 5) show a final report
-	switch (verbosity) 
+	switch (verbosity)
 	{
            case 0:
                 ret1.msg = "OK: Firmware + Assembly + Execution." ;
@@ -173,6 +178,7 @@
                 break ;
            case 2:
            case 3:
+           case 4:
                 ret1.msg = ret.msg ;
                 break ;
            default:

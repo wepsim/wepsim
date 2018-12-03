@@ -23,7 +23,7 @@
  * cache versioning
  */
 
-var cacheName = 'v193a_static';
+var cacheName = 'v195b_static';
 
 
 /*
@@ -76,7 +76,7 @@ self.addEventListener('install',
                                         './images/ep/processor6.svg',
                                         './images/ep/cpu6.svg',
                                         './images/poc/controlunit2.svg',
-                                        './images/poc/processor2.svg',
+                                        './images/poc/processor3.svg',
                                         './images/poc/cpu2.svg',
                                         './docs/manifest.json',
                                         './docs/gpl.txt',
