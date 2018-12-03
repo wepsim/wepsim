@@ -568,7 +568,7 @@ jr reg1 {
 # m* instructions
 #
 
-madd (rs1), (rs2), (rs3) 
+madd (reg1), (reg2), (reg3) 
 {
             co=011000,
             nwords=1,
@@ -592,7 +592,7 @@ madd (rs1), (rs2), (rs3)
             }
 }
 
-mmul (rs1), (rs2), (rs3) 
+mmul (reg1), (reg2), (reg3) 
 {
             co=011001,
             nwords=1,
@@ -616,12 +616,12 @@ mmul (rs1), (rs2), (rs3)
             }
 }
 
-mxch (rs1), (rs2) 
+mxch (reg1), (reg2) 
 {
             co=011010,
             nwords=1,
-            rs1=reg(25,21),
-            rs2=reg(20,16),
+            reg1=reg(25,21),
+            reg2=reg(20,16),
             {
                  # (reg2) -> rt1
                 (MR=0, SELA=10000, T9, C0),
@@ -655,7 +655,7 @@ mmv (reg1), (reg2)
             }
 }
 
-mma (rs1), (rs2), (rs3) 
+mma (reg1), (reg2), (reg3) 
 {
             co=011100,
             nwords=1,
