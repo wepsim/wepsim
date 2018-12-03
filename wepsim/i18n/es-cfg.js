@@ -39,7 +39,7 @@
                       "&#181;instructions": 		                   	     "&#181;instrucciones",
                       "Breakpoint icon: icon to be used for breakpoints":            "Icono a ser usado en puntos de ruptura",
                       "Limit instructions: number of instructions to be executed":   "L&iacute;mite instrucciones: n&uacute;mero de instrucciones a ser ejecutadas",
-                      "Limit instruction ticks: to limit clock ticks": 	             "L&iacute;mite ticks: limitaci&oacute;n de ticks de reloj",
+                      "Limit instruction ticks: to limit clock ticks": 	             "L&iacute;mite ticks: limitaci&oacute;n de ticks de reloj por instrucci&oacute;n",
 	             "Register file": "Banco de registros",
                       "Display format": 		                     	     "Formato de presentaci&oacute;n",
                       "Register file names": 		                             "Nombre de los registros",

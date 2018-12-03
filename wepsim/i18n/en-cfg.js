@@ -39,7 +39,7 @@
                       "&#181;instructions": 		                   	     "&#181;instructions",
                       "Breakpoint icon: icon to be used for breakpoints":            "Breakpoint icon: icon to be used for breakpoints",
                       "Limit instructions: number of instructions to be executed":   "Limit instructions: number of instructions to be executed",
-                      "Limit instruction ticks: to limit clock ticks": 	             "Limit instruction ticks: to limit clock ticks",
+                      "Limit instruction ticks: to limit clock ticks": 	             "Limit instruction ticks: clock ticks limit per instruction",
 	             "Register file": "Register file",
                       "Display format": 		                     	     "Display format",
                       "Register file names": 		                             "Register file names",
