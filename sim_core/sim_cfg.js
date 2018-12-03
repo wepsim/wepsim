@@ -20,7 +20,7 @@
 
 
         var WSCFG = {} ;
-        WSCFG.version = { value:"1.9.5", type:"string"} ;
+        WSCFG.version = { value:"1.9.6", type:"string"} ;
 
         function get_cfg ( field )
         {

@@ -1,4 +1,7 @@
 
+1.9.5 -> 1.9.6:
+* New example added
+
 1.9.3 -> 1.9.5:
 * New panel with all notifications (in case you miss one)
 * Signal description improved
