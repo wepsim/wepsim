@@ -1167,7 +1167,7 @@
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
 						   var result = a + 1 ;
 
-                                                   return "ALU ADD 4 with result " + show_value(result) + ". " ;
+                                                   return "ALU ADD 1 with result " + show_value(result) + ". " ;
 						}
 				   };
 	poc_behaviors["FADD"]    = { nparameters: 4,
@@ -1194,7 +1194,11 @@
 						},
 					verbal: function (s_expr)
 						{
-						   return "" ; // TODO
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(poc_states[s_expr[3]]) << 0 ;
+						   var result = a.toFixed(2) + b.toFixed(2) ;
+
+                                                   return "ALU Float ADD with result " + result + ". " ;
 						}
 				   };
 	poc_behaviors["FSUB"]    = { nparameters: 4,
@@ -1220,7 +1224,11 @@
 						},
 					verbal: function (s_expr)
 						{
-						   return "" ; // TODO
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(poc_states[s_expr[3]]) << 0 ;
+						   var result = a.toFixed(2) - b.toFixed(2) ;
+
+                                                   return "ALU Float SUB with result " + result + ". " ;
 						}
 				   };
 	poc_behaviors["FMUL"]    = { nparameters: 4,
@@ -1246,7 +1254,11 @@
 						},
 					verbal: function (s_expr)
 						{
-						   return "" ; // TODO
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(poc_states[s_expr[3]]) << 0 ;
+						   var result = a.toFixed(2) * b.toFixed(2) ;
+
+                                                   return "ALU Float MUL with result " + result + ". " ;
 						}
 				   };
 	poc_behaviors["FDIV"]    = { nparameters: 4,
@@ -1271,7 +1283,11 @@
 						},
 					verbal: function (s_expr)
 						{
-						   return "" ; // TODO
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(poc_states[s_expr[3]]) << 0 ;
+						   var result = a.toFixed(2) / b.toFixed(2) ;
+
+                                                   return "ALU Float DIV with result " + result + ". " ;
 						}
 				   };
 	poc_behaviors["FMOD"]    = { nparameters: 4,
@@ -1288,7 +1304,11 @@
 						},
 					verbal: function (s_expr)
 						{
-						   return "" ; // TODO
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(poc_states[s_expr[3]]) << 0 ;
+						   var result = a.toFixed(2) % b.toFixed(2) ;
+
+                                                   return "ALU Float MOD with result " + result + ". " ;
 						}
 				   };
 	poc_behaviors["LUI"]     = { nparameters: 3,
@@ -1787,7 +1807,6 @@
 	poc_behaviors["UPDATE_NZVC"]  = { nparameters: 1,
 				            operation: function(s_expr)
 							{
-								/*
 							   set_value(simhw_sim_state("FLAG_N"),  
 								     poc_internal_states.alu_flags.flag_n);
 							   set_value(simhw_sim_state("FLAG_Z"),  
@@ -1805,7 +1824,6 @@
 								     poc_internal_states.alu_flags.flag_v);
 							   set_value(simhw_sim_signal("TEST_C"), 
 								     poc_internal_states.alu_flags.flag_c);
-								     */
 
 							   update_draw(poc_signals["TEST_N"], poc_signals["TEST_N"].value) ;
 							   update_draw(poc_signals["TEST_Z"], poc_signals["TEST_Z"].value) ;
