@@ -291,7 +291,7 @@
                                     "Number of executed instructions limit reached.<br>" +
                                     "<br>" +
                                     "See related configuration options about limits:<br>" + 
-                                    "<img height='100vh' src='./help/simulator/simulator018.jpg'>" );
+                                    "<img height='100vw' src='./help/simulator/simulator018.jpg'>" );
 	    wepsim_execute_stop(btn1) ;
 
             return ;
