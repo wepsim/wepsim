@@ -1037,8 +1037,16 @@
                <div class="carousel-inner" role="listbox">
                   <div class="carousel-item active">
 
-			<h4 class="mt-1 mb-0">
-			    <a data-toggle="collapse" href="#states3"><span data-langkey="Current State">Current State</span></a>:
+			<h4 class="mt-1 mb-0 bg-light">
+			    <a data-toggle="collapse" href="#states3"><span data-langkey="Current State">Current State</span></a>:&nbsp;
+			    <span class="btn btn-outline-dark btn-sm"
+				  onclick="wepsim_state_history_add();
+					   wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
+					   wepsim_state_history_list();
+					   wepsim_dialog_current_state();
+					   $('#states3').collapse('show');
+					   return false;"
+				  data-inline="true">Add <span class='d-none d-sm-inline-flex'>'Current State' to History</span></span>
                         </h4>
                         <div class="container-fluid ml-1 pb-0 collapse show" id="states3"
 			     style="max-height:50vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
@@ -1095,8 +1103,14 @@
 			     </div>
 			</div>
 
-			<h4 class="mt-1">
-			    <a data-toggle="collapse" href="#history3"><span data-langkey="History">History</span></a>:
+			<h4 class="mt-1 bg-light">
+			    <a data-toggle="collapse" href="#history3"><span data-langkey="History">History</span></a>:&nbsp;
+			    <span class="btn btn-outline-dark btn-sm"
+				  onclick="wepsim_state_history_reset();
+					   wepsim_notify_success('<strong>INFO</strong>', 'Removed all !.');
+					   wepsim_state_history_list() ;
+					   return false;"
+			          data-inline="true">Reset <span class='d-none d-sm-inline-flex'>history</span></span>
                         </h4>
                         <div class="container-fluid ml-1 pb-2 collapse show" id="history3"
 			     style="max-height:40vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
@@ -1106,7 +1120,7 @@
 			     </div>
 			</div>
 
-			<h4 class="mt-1">
+			<h4 class="mt-1 bg-light">
 			    <a data-toggle="collapse" href="#check_results_scroll1"><span data-langkey="Differences">Differences</span></a>:&nbsp;
 			    <span class="btn btn-outline-dark btn-sm"
 			          onclick="CopyFromDiv('check_results_scroll1');
@@ -1128,6 +1142,7 @@
 			     </div>
 			     </div>
 		        </div>
+
                   </div>
                   <div class="carousel-item">
                        <div id="help3a"
@@ -1138,21 +1153,7 @@
          </div>
       </div>
       <div class="modal-footer">
-	   <button class="btn btn-dark btn-sm col-auto float-right"
-	   	   onclick="wepsim_state_history_reset();
-			    wepsim_notify_success('<strong>INFO</strong>', 'Removed all !.');
-			    wepsim_state_history_list() ;
-			    return false;"
-		   type="button"><em class="fa fa-trash" aria-hidden="true"></em> Reset <span class='d-none d-sm-inline-flex'>history</span></button>
-	   <button class="btn btn-dark btn-sm col-auto float-right"
-		   onclick="wepsim_state_history_add();
-			    wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
-			    wepsim_state_history_list();
-                            wepsim_dialog_current_state();
-			    $('#states3').collapse('show');
-			    return false;"
-		   type="button"><em class="fa fa-plus" aria-hidden="true"></em> Add <span class='d-none d-sm-inline-flex'>'Current State' to History</span></button>
-           <button class="btn btn-danger btn-sm col-auto pull-right shadow-none"
+           <button class="btn btn-danger btn-sm col-xs-3 col-sm-2 float-right shadow-none"
                    onclick="$('#current_state1').modal('hide');"
                    type="button">Close</button>
       </div>
