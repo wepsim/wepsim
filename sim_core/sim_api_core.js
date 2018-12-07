@@ -153,7 +153,8 @@
                                continue;
                            }
 
-  			   u.addEventListener('click', update_signal, false);
+  			   u.addEventListener('dblclick', update_signal,       false);
+  			   u.addEventListener('click',    update_signal_quick, false);
                 }
             }
         }
