@@ -1271,13 +1271,16 @@
 	<div id="R">
 	<div id="W">
         <div id="BE">
+	<div id="MRDY">
                   <p>
                     <b>W</b><b>       </b> 1 bit <br>
                     <b>R</b><b>       </b> 1 bit <br>
                     <b>BE</b><b>      </b> 4 bits <br>
+                    <b>MRdy</b><b>    </b> 1 bit <br>
                   </p>
                   <p>
-                    Senales de entrada a la memoria: R para lectura, W para escritura y BE para selecci&oacute;n de byte
+		      Se&ntilde;ales de entrada a la memoria: R para lectura, W para escritura y BE para selecci&oacute;n de byte.<br>
+		      Por defecto la memoria lee y escribe en un solo ciclo de reloj. Si se configura para varios ciclos, la se&ntilde;al MRdy indica cuando se termina la petici&oacute;n de L/E.
                   </p>
                   <p>
                     BE3=BW1,    BE2=BW0,    BE1=A1,       BE0=A0
@@ -2343,14 +2346,11 @@
         </div>
         </div>
         </div>
+        </div>
 
                   <p>
                   </p>
                   <br clear="all">
-                  <p>
-                  </p>
-                  <p>
-                  </p>
                   <p>
                   </p>
 
@@ -4152,8 +4152,8 @@
 		    <li><b>Suma a b</b>: (a+b == 0)</li>
 		    </ul>
 	    <br>
-            <li><b>I</b>: Interrupciones habilitadas</li>
-            <li><b>U</b>: Espacio de usuario</li>
+            <li><b>I</b>: Interrupciones habilitadas / deshabilitadas</li>
+            <li><b>U</b>: Modo usuario / Modo n&uacute;cleo</li>
             </ul>
           </p>
         </div>
@@ -4163,6 +4163,35 @@
         </div>
         </div>
 
+        <p class="cleanuphtml-1"> </p>
+        <div id="EXCODE">
+          <p>
+            <b>ExCode</b><b>           </b> 4 bits
+          </p>
+          <p>
+             Permite indicar un valor inmediato que activando la se&ntilde;al T11 se copiar&aacute; en el bus interno de datos.
+          </p>
+        </div>
+
+
+      <h2>Los elementos de Entrada/Salida</h2>
+      <p class="cleanuphtml-1"></p>
+        <div id="IORDY">
+	<div id="IOR">
+	<div id="IOW">
+                  <p>
+                    <b>IOR</b><b>       </b> 1 bit <br>
+                    <b>IOW</b><b>       </b> 1 bit <br>
+                    <b>IORdy</b><b>     </b> 1 bit <br>
+                  </p>
+                  <p>
+                      Se&ntilde;ales de control para los dispositivos de E/S: IOR para lectura, IOW para escritura y si el dispositivo es as&iacute;ncrono entonces la se&ntilde;al IORdy indica que ha terminado la operaci&oacute;n.
+                  </p>
+                  <p>
+                  </p>
+        </div>
+        </div>
+        </div>
 
 </body>
 </html>
