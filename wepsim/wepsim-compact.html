@@ -405,49 +405,58 @@
 
                     <div class="row row pl-2 pr-3 pt-1">
                     <div class="btn-toolbar btn-block" role="toolbar">
-		          <button class="btn btn-light shadow-sm col"
+		          <button class="col-4 btn btn-light shadow-sm"
 		                  style="border-color: #CCCCCC; flex-grow:1;"
 		                  onclick="wepsim_dialog_current_state();"><em class="fas fa-camera"></em>&nbsp;<span data-langkey='States'>States</span></button>
-			  <label  for="select5a" class="col p-0 m-0" style="flex-grow:2;">
-                          <select class="custom-select btn btn-light shadow-sm"
-                                  style="border-color: #CCCCCC; flex-grow:2;"
-				  aria-label="select CPU, MM or DEV element to work with"
-				  name="select5a" id="select5a"
-                                  onchange="var val = this.value;
-				            $('#tab' + val).trigger('click');
-				            if ('20' == val)
-				                inputfirm.refresh() ;
-				            if ('21' == val)
-				                inputasm.refresh() ;
-				            if ('11' == val)
-					         show_rf_values();
-				            else show_memories_values();">
-				  <optgroup label="CPU">
-                                      <option id="11" value="11" selected><div class="bg-primary text-white">CPU</div> - Registers</option>
-                                      <option id="16" value="16"><div class="bg-primary text-white">CPU</div> - Control Memory</option>
-                                      <option id="17" value="17"><div class="bg-primary text-white">CPU</div> - Stats</option>
-                                      <option id="20" value="20"><div class="bg-primary text-white">CPU</div> - MicroCode</option>
-				  </optgroup>
-				  <optgroup label="Main Memory">
-                                      <option id="14" value="14"><div class="bg-primary text-white">MM</div> - Memory</option>
-                                      <option id="18" value="18"><div class="bg-primary text-white">MM</div> - Configuration</option>
-                                      <option id="21" value="21"><div class="bg-primary text-white">MM</div> - Assembly</option>
-				  </optgroup>
-				  <optgroup label="Devices">
-                                      <option id="12" value="12"><div class="bg-primary text-white">Dev</div> - Keyboard+Display</option>
-                                      <option id="15" value="15"><div class="bg-primary text-white">Dev</div> - I/O Stats</option>
-                                      <option id="19" value="19"><div class="bg-primary text-white">Dev</div> - I/O Configuration</option>
-				  </optgroup>
-			  </select>
-			  </label>
-		          <button class="btn btn-light shadow-sm col"
-                                  style="border-color: #CCCCCC; flex-grow:1;"
-                                  onclick="var val = $('#select5a').val();
-				           $('#tab' + val).trigger('click');
-				           if ('11' == val)
-					        show_rf_values();
-				           else show_memories_values();
-					   wepsim_reset_max_turbo();"><em class="fas fa-sync-alt"></em>&nbsp;<span data-langkey='Refresh'>Refresh</span></button>
+
+			  <div class="col-8 btn-group p-0">
+			    <button type="button" class="col-12 btn btn-light shadow-sm"
+                                    style="border-color: #CCCCCC;"
+				    id="select5b"
+                                    onclick="var val = $('#select5a').val();
+				             $('#tab' + val).trigger('click');
+				             if ('11' == val)
+				  	          show_rf_values();
+				             else show_memories_values();
+				  	     wepsim_reset_max_turbo();">Refresh</button>
+			    <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" 
+                                    style="border-color: #CCCCCC;"
+				    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			        <span class="sr-only">Toggle Dropdown</span>
+			    </button>
+			    <div class="dropdown-menu">
+			      <h6 class="CPU">CPU</h6>
+			      <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="#" id="11" value="11"
+				 onclick="$('#tab11').trigger('click'); var ed=$('#11').html();$('#select5b').html(ed); show_rf_values();"><span class="bg-dark text-white">CPU</span> - Registers</a>
+                              <a class="dropdown-item" href="#" id="16" value="16"
+				 onclick="$('#tab16').trigger('click'); var ed=$('#16').html();$('#select5b').html(ed); show_memories_values();"><span class="bg-dark text-white">CPU</span> - Control Memory</a>
+                              <a class="dropdown-item" href="#" id="17" value="17"
+				 onclick="$('#tab17').trigger('click'); var ed=$('#17').html();$('#select5b').html(ed); show_memories_values();"><span class="bg-dark text-white">CPU</span> - Stats</a>
+                              <a class="dropdown-item" href="#" id="20" value="20"
+				 onclick="$('#tab20').trigger('click'); var ed=$('#20').html();$('#select5b').html(ed); inputfirm.refresh();"><span class="bg-dark text-white">CPU</span> - MicroCode</a>
+
+			      <div class="dropdown-divider"></div>
+			      <h6 class="Main Memory">Main Memory</h6>
+			      <div class="dropdown-divider"></div>
+			      <a class="dropdown-item" href="#" id="14" value="14"
+				 onclick="$('#tab14').trigger('click'); var ed=$('#14').html();$('#select5b').html(ed); show_memories_values();"><span class="bg-dark text-white">MM</span> - Memory</a>
+			      <a class="dropdown-item" href="#" id="18" value="18"
+				 onclick="$('#tab18').trigger('click'); var ed=$('#18').html();$('#select5b').html(ed); show_memories_values();"><span class="bg-dark text-white">MM</span> - Configuration</a>
+			      <a class="dropdown-item" href="#" id="21" value="21"
+				 onclick="$('#tab21').trigger('click'); var ed=$('#21').html();$('#select5b').html(ed); inputasm.refresh();"><span class="bg-dark text-white">MM</span> - Assembly</a>
+
+			      <div class="dropdown-divider"></div>
+			      <h6 class="Devices">Devices</h6>
+			      <div class="dropdown-divider"></div>
+			      <a class="dropdown-item" href="#" id="12" value="12"
+				 onclick="$('#tab12').trigger('click'); var ed=$('#12').html();$('#select5b').html(ed); show_memories_values();"><span class="bg-dark text-white">Dev</span> - Keyboard+Display</a>
+			      <a class="dropdown-item" href="#" id="15" value="15"
+				 onclick="$('#tab15').trigger('click'); var ed=$('#15').html();$('#select5b').html(ed); show_memories_values();"><span class="bg-dark text-white">Dev</span> - I/O Stats</a>
+			      <a class="dropdown-item" href="#" id="19" value="19"
+				 onclick="$('#tab19').trigger('click'); var ed=$('#19').html();$('#select5b').html(ed); show_memories_values();"><span class="bg-dark text-white">Dev</span> - I/O Configuration</a>
+			    </div>
+			  </div>
                     </div>
                     </div>
 
@@ -497,7 +506,7 @@
                              data-toggle="tab" id="tab21" href="#ed_mp">Assembly</a>
                       </li>
                     </ul>
-                    <div class="tab-content mt-3">
+                    <div class="tab-content mt-3" style="min-height:70vh;">
                          <div class="tab-pane mx-1 my-2 active" role="tabpanel" id="all">
 				 <div id="states_ALL" style="width:inherit; overflow-y:auto;"
                                       class="container container-fluid pb-2"></div>
@@ -1348,7 +1357,7 @@
 		    sim_change_workspace_simulator();
 		    $('#tab26').trigger('click');
 		    $('#tab11').trigger('click');
-		    $('#select5a').val(11);
+		    $('#11').click(); // <-old-> $('#select5a').val(11);
                     $("#select4").val(get_cfg('ws_mode')) ;
                     $("#slider2a").val(get_cfg('C1C2_size'));
                     $('#slider2b').val(get_cfg('CPUCU_size'));
