@@ -131,8 +131,6 @@
          */
         function simcore_init_eventlistener ( context )
         {
-	    var qck_interactive = get_cfg('is_quick_interactive');
-
             // 3.- for every signal, set the click event handler
             for (var key in simhw_sim_signals())
             {
@@ -155,13 +153,8 @@
                                continue;
                            }
 
-			   if (qck_interactive) {
-  			      u.addEventListener('dblclick', update_signal,       false);
-  			      u.addEventListener('click',    update_signal_quick, false);
-			   }
-			   else {
-                              u.addEventListener('click',    update_signal,       false);
-			   }
+                           u.addEventListener('click',    update_signal,       false);
+                           u.addEventListener('dblclick', update_signal,       false);
                 }
             }
         }

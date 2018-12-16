@@ -383,3 +383,24 @@
                       description: "<span data-langkey='Interactive mode: signal value can be updated'>Interactive mode: signal value can be updated</span>"
                    });
 
+    ws_config.push({
+                      id:          "radio6",
+                      type:        "Circuitry simulation",
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+				   "	    <label id='label6-true'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   aria-label='Is quick interactive: true'" +
+				   "		   onclick=\"update_cfg('is_quick_interactive',true);\">" +
+				   "		<input type='radio' name='options' id='radio6-true'   autocomplete='off' >On" +
+				   "	    </label>" +
+				   "	    <label id='label6-false'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   aria-label='Is quick interactive: false'" +
+				   "		   onclick=\"update_cfg('is_quick_interactive',false);\">" +
+				   "		<input type='radio' name='options' id='radio6-false'  autocomplete='off' >Off" +
+				   "	    </label>" +
+				   "	</div> ",
+		      code_init:   function() { $('#radio6-' +    get_cfg('is_quick_interactive')).click(); },
+                      description: "<span data-langkey='Quick interactive mode: quick update of signal value'>Quick interactive mode: quick update of signal value</span>"
+                   });
+

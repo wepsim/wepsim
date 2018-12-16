@@ -309,6 +309,10 @@
                 return;
 	    }
 
+            if ( (true === get_cfg('is_quick_interactive')) && (event.type = 'click') ) {
+                  return update_signal_quick(event) ;
+	    }
+
             for (var key in simhw_sim_signals())
             {
                 for (var j=0; j<simhw_sim_signal(key).fire_name.length; j++)
@@ -471,10 +475,6 @@
 
         function update_signal_quick (event)
         {
-	    if (false === get_cfg('is_interactive')) {
-                return;
-	    }
-
             for (var key in simhw_sim_signals())
             {
                 for (var j=0; j<simhw_sim_signal(key).fire_name.length; j++)
