@@ -81,10 +81,11 @@
                WSCFG.CPUCU_size          = { value:6,                  type:"int"} ;
                WSCFG.C1C2_size           = { value:8,                  type:"int"} ;
 
-               WSCFG.is_interactive      = { value:true,               type:"boolean"};
-               WSCFG.ws_idiom            = { value:'en',               type:"string"};
-               WSCFG.ws_mode             = { value:'newbie',           type:"string"};
-               WSCFG.use_voice           = { value:false,              type:"boolean"};
+               WSCFG.is_interactive       = { value:true,               type:"boolean"};
+               WSCFG.is_quick_interactive = { value:false,              type:"boolean"};
+               WSCFG.ws_idiom             = { value:'en',               type:"string"};
+               WSCFG.ws_mode              = { value:'newbie',           type:"string"};
+               WSCFG.use_voice            = { value:false,              type:"boolean"};
 
 		/*
 		 *  micro/assembly screen: editor
