@@ -305,8 +305,13 @@
 
         function update_signal (event)
         {
-	    if (false === get_cfg('is_interactive'))
+	    if (false === get_cfg('is_interactive')) {
                 return;
+	    }
+
+            if ( (true === get_cfg('is_quick_interactive')) && (event.type = 'click') ) {
+                  return update_signal_quick(event) ;
+	    }
 
             for (var key in simhw_sim_signals())
             {
@@ -442,32 +447,7 @@
 
 							     simhw_sim_signal(key).value = user_input ;
 
-	                                                     if (true === get_cfg('is_interactive'))
-							     {
-								 // update REG_MICROINS
-                                                                 if (simhw_sim_signal(key).value != simhw_sim_signal(key).default_value)
-								      simhw_sim_state("REG_MICROINS").value[key] = simhw_sim_signal(key).value ;
-								 else delete(simhw_sim_state("REG_MICROINS").value[key]);
-
-								 // update MC[uADDR]
-								 var curr_maddr = get_value(simhw_sim_state("REG_MICROADDR")) ;
-								 if (typeof simhw_internalState_get('MC', curr_maddr) == "undefined") {
-								     simhw_internalState_set('MC', curr_maddr, new Object()) ;
-								     simhw_internalState_set('MC_dashboard', curr_maddr, new Object()) ;
-								 }
-                                                                 simhw_internalState_get('MC', curr_maddr)[key] = simhw_sim_signal(key).value ;
-								 simhw_internalState_get('MC_dashboard', curr_maddr)[key] = { comment: "", breakpoint: false, state: false, notify: new Array() };
-
-								 // update ROM[..]
-								 update_signal_firmware(key) ;
-
-								 // update save-as...
-								 var SIMWARE = get_simware() ;
-								 document.getElementById("inputFirmware").value = saveFirmware(SIMWARE) ;
-							     }
-							
-							     // fire signal
-							     compute_behavior('FIRE ' + key) ;
+                                                             propage_signal_update(key) ;
 							  }
 					    },
 					    close: {
@@ -491,6 +471,64 @@
 
 	    show_states();
 	    show_rf_values();
+        }
+
+        function update_signal_quick (event)
+        {
+            for (var key in simhw_sim_signals())
+            {
+                for (var j=0; j<simhw_sim_signal(key).fire_name.length; j++)
+                {
+	            var r = simhw_sim_signal(key).fire_name[j].split(':') ;
+                    if (r[1] == event.currentTarget.id)
+                    {
+                        var curr_hw = simhw_short_name() ;
+                        if ("" == curr_hw) {
+                            curr_hw = "ep" ;
+	                }
+
+                        var nvalues = Math.pow(2, simhw_sim_signal(key).nbits) ;
+			var user_input = simhw_sim_signal(key).value ;
+			user_input = (user_input + 1) % nvalues ;
+			simhw_sim_signal(key).value = user_input ;
+
+                        propage_signal_update(key) ;
+                    } 
+                } 
+            } 
+
+	    show_states();
+	    show_rf_values();
+        }
+
+        function propage_signal_update ( key )
+        {
+	    if (true === get_cfg('is_interactive'))
+	    {
+		 // update REG_MICROINS
+		 if (simhw_sim_signal(key).value != simhw_sim_signal(key).default_value)
+		      simhw_sim_state("REG_MICROINS").value[key] = simhw_sim_signal(key).value ;
+		 else delete(simhw_sim_state("REG_MICROINS").value[key]);
+
+		 // update MC[uADDR]
+		 var curr_maddr = get_value(simhw_sim_state("REG_MICROADDR")) ;
+		 if (typeof simhw_internalState_get('MC', curr_maddr) == "undefined") {
+		     simhw_internalState_set('MC', curr_maddr, new Object()) ;
+		     simhw_internalState_set('MC_dashboard', curr_maddr, new Object()) ;
+		 }
+		 simhw_internalState_get('MC', curr_maddr)[key] = simhw_sim_signal(key).value ;
+		 simhw_internalState_get('MC_dashboard', curr_maddr)[key] = { comment: "", breakpoint: false, state: false, notify: new Array() };
+
+		 // update ROM[..]
+		 update_signal_firmware(key) ;
+
+		 // update save-as...
+		 var SIMWARE = get_simware() ;
+		 document.getElementById("inputFirmware").value = saveFirmware(SIMWARE) ;
+	    }
+
+	    // fire signal
+	    compute_behavior('FIRE ' + key) ;
         }
 
         function update_memories ( preSIMWARE )
