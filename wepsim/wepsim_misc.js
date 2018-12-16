@@ -36,42 +36,49 @@
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab11').trigger('click');
+                                                     $('#11').trigger('click');
 						     $('#select5a').val(11);
                                                   }, false);
 	            o  = ref_p.getElementById('text3029');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab11').trigger('click');
+                                                     $('#11').trigger('click');
 						     $('#select5a').val(11);
                                                   }, false);
 	            o  = ref_p.getElementById('text3031');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab11').trigger('click');
+                                                     $('#11').trigger('click');
 						     $('#select5a').val(11);
                                                   }, false);
 	            o  = ref_p.getElementById('text3001');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab14').trigger('click');
+                                                     $('#14').trigger('click');
 						     $('#select5a').val(14);
                                                   }, false);
 	            o  = ref_p.getElementById('text3775');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab15').trigger('click');
+                                                     $('#15').trigger('click');
 						     $('#select5a').val(15);
                                                   }, false);
 	            o  = ref_p.getElementById('text3829');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab12').trigger('click');
+                                                     $('#12').trigger('click');
 						     $('#select5a').val(12);
                                                   }, false);
 	            o  = ref_p.getElementById('text3845');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab12').trigger('click');
+                                                     $('#12').trigger('click');
 						     $('#select5a').val(12);
                                                   }, false);
                     o  = ref_p.getElementById('text3459-7');
@@ -91,6 +98,7 @@
 	        if (o != null) o.addEventListener('click',
                                                   function() {
                                                      $('#tab16').trigger('click');
+                                                     $('#16').trigger('click');
 						     $('#select5a').val(16);
                                                   }, false);
                     o  = ref_cu.getElementById('text4138');
