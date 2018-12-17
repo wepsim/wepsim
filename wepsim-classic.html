@@ -1329,17 +1329,24 @@
 
 
 <script type="text/javascript">
-    window.addEventListener("beforeunload",
-	                    function (e) {
-			         var confirmationMessage = "\o/";
-			         (e || window.event).returnValue = confirmationMessage; // Gecko + IE
-			         return confirmationMessage;                            // Webkit, Safari, Chrome
-			    });
-
     try
     {
 	    // basic initialization of wepsim...
 	    simcore_init(true, 'ep') ;
+
+	    // go to wepsim UI skin...
+	    var optValue = get_cfg('ws_skin') ;
+	    if (optValue != 'classic') {
+	        window.location='wepsim-' + optValue + '.html' ;
+	    }
+
+	    // ...then install protection for accidental close.
+	    window.addEventListener("beforeunload",
+				    function (e) {
+					 var confirmationMessage = "\o/";
+					 (e || window.event).returnValue = confirmationMessage; // Gecko + IE
+					 return confirmationMessage;                            // Webkit, Safari, Chrome
+				    });
 
 	    // adapt to idiom
 	    var ws_idiom = get_cfg('ws_idiom');
