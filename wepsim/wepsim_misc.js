@@ -27,6 +27,14 @@
      * Initialize
      */
 
+    function simui_select_details ( opt )
+    {
+	     $('#' + opt).trigger('click');
+
+	     $('#tab' + opt).trigger('click');
+	     $('#select5a').val(opt);
+    }
+
     function sim_prepare_svg_p ( )
     {
 	    var ref_p = document.getElementById('svg_p').contentDocument ;
@@ -35,51 +43,37 @@
                 var o  = ref_p.getElementById('text3495');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
-                                                     $('#tab11').trigger('click');
-                                                     $('#11').trigger('click');
-						     $('#select5a').val(11);
+                                                     simui_select_details(11) ;
                                                   }, false);
 	            o  = ref_p.getElementById('text3029');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
-                                                     $('#tab11').trigger('click');
-                                                     $('#11').trigger('click');
-						     $('#select5a').val(11);
+                                                     simui_select_details(11) ;
                                                   }, false);
 	            o  = ref_p.getElementById('text3031');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
-                                                     $('#tab11').trigger('click');
-                                                     $('#11').trigger('click');
-						     $('#select5a').val(11);
+                                                     simui_select_details(11) ;
                                                   }, false);
 	            o  = ref_p.getElementById('text3001');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
-                                                     $('#tab14').trigger('click');
-                                                     $('#14').trigger('click');
-						     $('#select5a').val(14);
+                                                     simui_select_details(14) ;
                                                   }, false);
 	            o  = ref_p.getElementById('text3775');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
-                                                     $('#tab15').trigger('click');
-                                                     $('#15').trigger('click');
-						     $('#select5a').val(15);
+                                                     simui_select_details(15) ;
                                                   }, false);
 	            o  = ref_p.getElementById('text3829');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
-                                                     $('#tab12').trigger('click');
-                                                     $('#12').trigger('click');
-						     $('#select5a').val(12);
+                                                     simui_select_details(12) ;
                                                   }, false);
 	            o  = ref_p.getElementById('text3845');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
-                                                     $('#tab12').trigger('click');
-                                                     $('#12').trigger('click');
-						     $('#select5a').val(12);
+                                                     simui_select_details(12) ;
                                                   }, false);
                     o  = ref_p.getElementById('text3459-7');
                 if (o != null) o.addEventListener('click',
@@ -97,9 +91,7 @@
 	        var o  = ref_cu.getElementById('text3010');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
-                                                     $('#tab16').trigger('click');
-                                                     $('#16').trigger('click');
-						     $('#select5a').val(16);
+                                                     simui_select_details(16) ;
                                                   }, false);
                     o  = ref_cu.getElementById('text4138');
                 if (o != null) o.addEventListener('click',
@@ -634,6 +626,16 @@
 		'  <a class="btn btn-sm btn-outline-secondary col-10 text-left" href="#" ' +
 		'     onclick="$(\'#about2\').modal(\'show\'); ' +
 		'              $(\'#' + quick_po + '\').popover(\'hide\');">About WepSIM...</a>' +
+		'</li>' +
+		'<li class="list-group-item p-2"> ' +
+		'  <em class="fas fa-university"></em> &nbsp;' +
+		'  <a class="btn btn-sm btn-outline-secondary col-10 text-left" href="#" ' +
+		'     onclick="window.location=\'wepsim-classic.html\';">Classic view</a>' +
+		'</li>' +
+		'<li class="list-group-item p-2"> ' +
+		'  <em class="fas fa-university"></em> &nbsp;' +
+		'  <a class="btn btn-sm btn-outline-secondary col-10 text-left" href="#" ' +
+		'     onclick="window.location=\'wepsim-compact.html\';">Compact view</a>' +
 		'</li>' +
 		'<li class="list-group-item p-2"> ' +
 		'  <em class="fas fa-book-reader"></em> &nbsp;' +
