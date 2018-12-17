@@ -628,16 +628,6 @@
 		'              $(\'#' + quick_po + '\').popover(\'hide\');">About WepSIM...</a>' +
 		'</li>' +
 		'<li class="list-group-item p-2"> ' +
-		'  <em class="fas fa-university"></em> &nbsp;' +
-		'  <a class="btn btn-sm btn-outline-secondary col-10 text-left" href="#" ' +
-		'     onclick="window.location=\'wepsim-classic.html\';">Classic view</a>' +
-		'</li>' +
-		'<li class="list-group-item p-2"> ' +
-		'  <em class="fas fa-university"></em> &nbsp;' +
-		'  <a class="btn btn-sm btn-outline-secondary col-10 text-left" href="#" ' +
-		'     onclick="window.location=\'wepsim-compact.html\';">Compact view</a>' +
-		'</li>' +
-		'<li class="list-group-item p-2"> ' +
 		'  <em class="fas fa-book-reader"></em> &nbsp;' +
 		'  <a class="btn btn-sm btn-outline-secondary col-10 text-left" href="#" ' +
 		'     onclick="wepsim_newbie_tour(); ' +

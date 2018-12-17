@@ -42,6 +42,26 @@
                    });
 
     ws_config.push({
+                      id:          "select8",
+                      type:        "General",
+                      code_cfg:    "<div class='form-group' style='margin:0 0 0 0;'>" +
+				   " <select name='select8' id='select8' class='form-control form-control-sm custom-select'" +
+				   "	     aria-label='User Interface for WepSIM' " +
+				   "	     onchange=\"var opt = $(this).find('option:selected');" +
+				   "	 	        var optValue = opt.val();" +
+				   "		        update_cfg('ws_skin', optValue);" +
+				   "		        window.location='wepsim-' + optValue + '.html';\"" +
+				   "	     data-native-menu='false'>" +
+				   "	<option value='classic'>Classic</option>" +
+				   "	<option value='compact'>Compact</option>" +
+				   " </select>" +
+			           "</div>",
+                      code_init:   function() { $('#select8').val(get_cfg('ws_skin')); },
+                      description: "<span data-langkey='WepSIM User Interface Skin'>WepSIM User Interface Skin</span>"
+                   });
+
+/*
+    ws_config.push({
                       id:          "radio11",
                       type:        "General",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
@@ -61,6 +81,7 @@
 		      code_init:   function() { $('#radio11-' +        get_cfg('use_voice')).click(); },
                       description: "<span data-langkey='Active voice: experimental voice control'>Active voice: experimental voice control</span>"
                    });
+*/
 
     ws_config.push({
                       id:          "slider3",

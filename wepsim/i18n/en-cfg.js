@@ -54,6 +54,7 @@
                       "Activation": 		                     		     "Activation",
                       "Interactive mode: signal value can be updated": 		     "Interactive mode: signal value can be updated",
                       "Quick interactive mode: quick update of signal value":	     "Quick interactive mode: quick update of signal value",
+                      "WepSIM User Interface Skin": 		                     "WepSIM User Interface Skin",
                       "(example)": 					             "(example)"
                   } ;
 
