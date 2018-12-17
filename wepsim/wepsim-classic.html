@@ -272,9 +272,7 @@
                                 name="select4" id="select4"
 				onchange="var opt = $(this).find('option:selected');
 					  var optValue = opt.val();
-					  set_cfg('ws_mode', optValue);
-					  save_cfg();
-                                          wepsim_change_mode(optValue, '#select4') ;
+				          simui_select_main(optValue);
 	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL',
                                                            '#cpu_ALL', '#config_MP', '#config_IO');
 					  return false;">
@@ -1473,7 +1471,7 @@
 		    $("div.wsversion").replaceWith(get_cfg('version'));
 
 		    var ws_mode = get_cfg('ws_mode');
-		    wepsim_change_mode(ws_mode, '#select4') ;
+		    simui_select_main(ws_mode);
 		    simcore_init_ui("#states_ALL", "#states_BR", "#io_ALL",
 				     "#cpu_ALL", "#config_MP", "#config_IO");
 		    simcore_reset();

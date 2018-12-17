@@ -29,10 +29,26 @@
 
     function simui_select_details ( opt )
     {
-	     $('#' + opt).trigger('click');
+	     $('#' + opt).trigger('click') ;
 
-	     $('#tab' + opt).trigger('click');
-	     $('#select5a').val(opt);
+	     $('#tab' + opt).trigger('click') ;
+	     $('#select5a').val(opt) ;
+    }
+
+    function simui_select_main ( opt )
+    {
+	     // save ws_mode
+	     set_cfg('ws_mode', opt) ;
+	     save_cfg() ;
+
+	     // update select4
+	     wepsim_change_mode(opt) ;
+
+	     // tutorial mode -> set green background...
+	     $('#select4').css('background-color', '#F6F6F6') ;
+	     if ('tutorial' == opt) {
+	         $('#select4').css('background-color', '#D4DB17') ;
+	     }
     }
 
     function sim_prepare_svg_p ( )
@@ -481,11 +497,8 @@
 			                $("#example1").modal('hide'); 
 
 					// ws_mode: intro, tutorial, ep, poc, ...
-					if (get_cfg('ws_mode') != 'ep') 
-	                                { 
-					    set_cfg('ws_mode', 'ep') ;
-                                            save_cfg() ;
-                                            wepsim_change_mode('ep', '#select4') ;
+					if (get_cfg('ws_mode') != 'ep') { 
+					    simui_select_main('ep') ;
 					}
 
 			                return true ;
@@ -494,7 +507,7 @@
 	     tour.start() ;
     }
 
-    function wepsim_change_mode ( optValue, cssLayer )
+    function wepsim_change_mode ( optValue )
     {
           var hwid = -1 ;
 
@@ -518,12 +531,6 @@
 	  if ('wepmips' == optValue)
 	       wepsim_show_wepmips() ;
 	  else wepsim_hide_wepmips() ;
-
-	  // tutorial mode...
-	  $(cssLayer).css('background-color', '#F6F6F6') ;
-	  if ('tutorial' == optValue) {
-	      $(cssLayer).css('background-color', '#D4DB17') ;
-	  }
 
 	  // intro mode...
 	  if ('intro' == optValue)
