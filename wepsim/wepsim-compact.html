@@ -428,11 +428,8 @@
 			    <button type="button" class="col-12 btn btn-light shadow-sm"
                                     style="border-color: #CCCCCC;"
 				    id="select5b"
-                                    onclick="var val = $('#select5a').val();
-				             $('#tab' + val).trigger('click');
-				             if ('11' == val)
-				  	          show_rf_values();
-				             else show_memories_values();
+                                    onclick="show_rf_values();
+				             show_memories_values();
 				  	     wepsim_reset_max_turbo();">Refresh</button>
 			    <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" 
                                     style="border-color: #CCCCCC;"
@@ -441,32 +438,32 @@
 			    </button>
 			    <div class="dropdown-menu">
 			      <h6 class="text-secondary">CPU</h6>
-                              <a class="dropdown-item" href="#" id="11" value="11"
-				 onclick="$('#tab11').trigger('click'); var ed=$('#11').html();$('#select5b').html(ed); show_rf_values();"><span class="bg-dark text-white">CPU</span> Registers</a>
-                              <a class="dropdown-item" href="#" id="16" value="16"
-				 onclick="$('#tab16').trigger('click'); var ed=$('#16').html();$('#select5b').html(ed); show_memories_values();"><span class="bg-dark text-white">CPU</span> Control Memory</a>
-                              <a class="dropdown-item" href="#" id="17" value="17"
-				 onclick="$('#tab17').trigger('click'); var ed=$('#17').html();$('#select5b').html(ed); show_memories_values();"><span class="bg-dark text-white">CPU</span> Stats</a>
-                              <a class="dropdown-item" href="#" id="20" value="20"
-				 onclick="$('#tab20').trigger('click'); var ed=$('#20').html();$('#select5b').html(ed); inputfirm.refresh();"><span class="bg-dark text-white">CPU</span> MicroCode</a>
+                              <a class="dropdown-item" href="#" id="s5b_11" value="11"
+				 onclick="simui_select_details(11); show_rf_values();"><span class="bg-dark text-white">CPU</span> Registers</a>
+                              <a class="dropdown-item" href="#" id="s5b_16" value="16"
+				 onclick="simui_select_details(16); show_memories_values();"><span class="bg-dark text-white">CPU</span> Control Memory</a>
+                              <a class="dropdown-item" href="#" id="s5b_17" value="17"
+				 onclick="simui_select_details(17); show_memories_values();"><span class="bg-dark text-white">CPU</span> Stats</a>
+                              <a class="dropdown-item" href="#" id="s5b_20" value="20"
+				 onclick="simui_select_details(20); inputfirm.refresh();"><span class="bg-dark text-white">CPU</span> MicroCode</a>
 
 			      <div class="dropdown-divider"></div>
 			      <h6 class="text-secondary">Main Memory</h6>
-			      <a class="dropdown-item" href="#" id="14" value="14"
-				 onclick="$('#tab14').trigger('click'); var ed=$('#14').html();$('#select5b').html(ed); show_memories_values();"><span class="bg-dark text-white">MM</span> Memory</a>
-			      <a class="dropdown-item" href="#" id="18" value="18"
-				 onclick="$('#tab18').trigger('click'); var ed=$('#18').html();$('#select5b').html(ed); show_memories_values();"><span class="bg-dark text-white">MM</span> Configuration</a>
-			      <a class="dropdown-item" href="#" id="21" value="21"
-				 onclick="$('#tab21').trigger('click'); var ed=$('#21').html();$('#select5b').html(ed); inputasm.refresh();"><span class="bg-dark text-white">MM</span> Assembly</a>
+			      <a class="dropdown-item" href="#" id="s5b_14" value="14"
+				 onclick="simui_select_details(14); show_memories_values();"><span class="bg-dark text-white">MM</span> Memory</a>
+			      <a class="dropdown-item" href="#" id="s5b_18" value="18"
+				 onclick="simui_select_details(18); show_memories_values();"><span class="bg-dark text-white">MM</span> Configuration</a>
+			      <a class="dropdown-item" href="#" id="s5b_21" value="21"
+				 onclick="simui_select_details(21); inputasm.refresh();"><span class="bg-dark text-white">MM</span> Assembly</a>
 
 			      <div class="dropdown-divider"></div>
 			      <h6 class="text-secondary">Devices</h6>
-			      <a class="dropdown-item" href="#" id="12" value="12"
-				 onclick="$('#tab12').trigger('click'); var ed=$('#12').html();$('#select5b').html(ed); show_memories_values();"><span class="bg-dark text-white">Dev</span> Keyboard+Display</a>
-			      <a class="dropdown-item" href="#" id="15" value="15"
-				 onclick="$('#tab15').trigger('click'); var ed=$('#15').html();$('#select5b').html(ed); show_memories_values();"><span class="bg-dark text-white">Dev</span> I/O Stats</a>
-			      <a class="dropdown-item" href="#" id="19" value="19"
-				 onclick="$('#tab19').trigger('click'); var ed=$('#19').html();$('#select5b').html(ed); show_memories_values();"><span class="bg-dark text-white">Dev</span> I/O Configuration</a>
+			      <a class="dropdown-item" href="#" id="s5b_12" value="12"
+				 onclick="simui_select_details(12); show_memories_values();"><span class="bg-dark text-white">Dev</span> Keyboard+Display</a>
+			      <a class="dropdown-item" href="#" id="s5b_15" value="15"
+				 onclick="simui_select_details(15); show_memories_values();"><span class="bg-dark text-white">Dev</span> I/O Stats</a>
+			      <a class="dropdown-item" href="#" id="s5b_19" value="19"
+				 onclick="simui_select_details(19); show_memories_values();"><span class="bg-dark text-white">Dev</span> I/O Configuration</a>
 			    </div>
 			  </div>
                     </div>

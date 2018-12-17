@@ -24,15 +24,18 @@
     //
 
     /*
-     * Initialize
+     * Update selects
      */
 
     function simui_select_details ( opt )
     {
-	     $('#' + opt).trigger('click') ;
-
-	     $('#tab' + opt).trigger('click') ;
+	     // update interface
+	     $('#tab'  + opt).trigger('click') ;
 	     $('#select5a').val(opt) ;
+
+	     // set button label...
+	     var ed=$('#s5b_' + opt).html() ;
+	     $('#select5b').html(ed) ;
     }
 
     function simui_select_main ( opt )
@@ -54,6 +57,11 @@
 	     var ed = $('#s4_' + opt).html() ;
 	     $('#select4').html(ed) ;
     }
+
+
+    /*
+     * Initialize
+     */
 
     function sim_prepare_svg_p ( )
     {
