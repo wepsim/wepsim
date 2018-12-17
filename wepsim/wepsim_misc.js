@@ -49,6 +49,10 @@
 	     if ('tutorial' == opt) {
 	         $('#select4').css('background-color', '#D4DB17') ;
 	     }
+
+	     // set button label...
+	     var ed = $('#s4_' + opt).html() ;
+	     $('#select4').html(ed) ;
     }
 
     function sim_prepare_svg_p ( )

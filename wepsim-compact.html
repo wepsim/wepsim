@@ -244,23 +244,39 @@
                                 id="btn_help1"
 		                onclick="wepsim_open_help_index();
                                          wepsim_help_refresh();"><strong><span data-langkey='Help'>Help</span></strong></button>
-			<label class="my-1 p-0 col" for="select4">
-			<select class="custom-select btn btn-light shadow-sm"
-				aria-label="Execution mode"
-                                name="select4" id="select4"
-				onchange="var opt = $(this).find('option:selected');
-					  var optValue = opt.val();
-				          simui_select_main(optValue) ;
-	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL',
-                                                           '#cpu_ALL', '#config_MP', '#config_IO');
-					  return false;">
-				<option value="intro"    >Welcome...</option>
-				<option value="tutorial" >Instructive</option>
-				<option value="ep"       >WepSIM (EP)</option>
-				<option value="poc"      >WepSIM (POC)</option>
-				<option value="wepmips"  >WepMIPS</option>
-			</select>
-			</label>
+			<div class="btn-group p-0 my-1 col-auto" style="flex-grow:2;">
+			    <button type="button" class="col-12 btn btn-light shadow-sm"
+                                    style="border-color: #CCCCCC;"
+				    id="select4"
+                                    onclick="return false;">Refresh</button>
+			    <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" 
+                                    style="border-color: #CCCCCC;"
+				    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			        <span class="sr-only">Toggle Dropdown</span>
+			    </button>
+			    <div class="dropdown-menu">
+                              <a class="dropdown-item" href="#" id="s4_intro" value="intro"
+				 onclick="simui_select_main('intro');
+	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
+					  return false;">Welcome...</a>
+                              <a class="dropdown-item" href="#" id="s4_tutorial" value="tutorial"
+				 onclick="simui_select_main('tutorial');
+	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
+					  return false;">Instructive</a>
+                              <a class="dropdown-item" href="#" id="s4_ep" value="ep"
+				 onclick="simui_select_main('ep');
+	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
+					  return false;">WepSIM (EP)</a>
+                              <a class="dropdown-item" href="#" id="s4_poc" value="poc"
+				 onclick="simui_select_main('poc');
+	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
+					  return false;">WepSIM (POC)</a>
+                              <a class="dropdown-item" href="#" id="s4_wepmips" value="wepmips"
+				 onclick="simui_select_main('wepmips');
+	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
+					  return false;">WepMIPS</a>
+			    </div>
+			</div>
                     </div>
 		    </div>
 
@@ -1362,7 +1378,6 @@
 		    $('#tab26').trigger('click');
 		    simui_select_details(11) ;
 
-                    $("#select4").val(get_cfg('ws_mode')) ;
                     $("#slider2a").val(get_cfg('C1C2_size'));
                     $('#slider2b').val(get_cfg('CPUCU_size'));
                     set_ab_size('#col1',        '#col2',        get_cfg('C1C2_size'));
