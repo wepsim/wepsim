@@ -247,7 +247,7 @@
 			<div class="btn-group p-0 my-1 col-auto" style="flex-grow:2;">
 			    <button type="button" class="col-12 btn btn-light shadow-sm"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
-				    title="This button shows the current execution mode, <br>the dropdown on the right change the execution mode."
+				    title="This button shows the current execution mode, <br>the dropdown on the right changes the execution mode."
                                     style="border-color: #CCCCCC;"
 				    id="select4"
                                     onclick="return false;">Refresh</button>
@@ -430,7 +430,7 @@
 			  <div class="col btn-group p-0" style="flex-grow:2;">
 			    <button type="button" class="col-12 btn btn-light shadow-sm"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
-			            title="This button refresh the details (and might move the scrollbar), <br>the dropdown on the right change the element to show its details."
+			            title="This button refresh the details (and might move the scrollbar), <br>the dropdown on the right changes the element to show its details."
                                     style="border-color: #CCCCCC;"
 				    id="select5b"
                                     onclick="show_rf_values();
@@ -1376,16 +1376,16 @@
 				    });
                     sim_prepare_editor(inputasm) ;
 
-		    sim_change_workspace_simulator();
-		    $('#tab26').trigger('click');
+		    sim_change_workspace_simulator() ;
+		    $('#tab26').trigger('click') ;
 		    simui_select_details(11) ;
 
-                    $("#slider2a").val(get_cfg('C1C2_size'));
-                    $('#slider2b').val(get_cfg('CPUCU_size'));
-                    set_ab_size('#col1',        '#col2',        get_cfg('C1C2_size'));
-                    set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', get_cfg('CPUCU_size'));
+                    $("#slider2a").val(get_cfg('C1C2_size')) ;
+                    $('#slider2b').val(get_cfg('CPUCU_size')) ;
+                    set_ab_size('#col1',        '#col2',        get_cfg('C1C2_size')) ;
+                    set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', get_cfg('CPUCU_size')) ;
 
-                    showhideAsmElements();
+                    showhideAsmElements() ;
 		    $("input:checkbox").click(function(){
 		        var name = $(this).attr("name") ;
 		        var column = "table ." + name ;

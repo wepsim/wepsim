@@ -254,35 +254,55 @@
 
 		    <div class="w-100 d-md-block d-lg-none"></div>
 
-                    <div class="col-sm p-1">
+                    <div class="col-sm-auto p-1">
                     <div class="btn-toolbar btn-block" role="toolbar">
 		        <button class="btn btn-light shadow-sm my-1 col-auto"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                 id="btn_example1"
-                                onclick="wepsim_open_examples_index();"><strong><span data-langkey="Examples">Examples</span></strong></button>
+				onclick="wepsim_open_examples_index();"><strong><span data-langkey='Examples'>Examples</span></strong></button>
 		        <button class="btn btn-light shadow-sm my-1 col-auto"
 		                style="border-width:1 1 1 1px; border-color:#CCCCCC;
                                        background-color:#D4DB17;"
                                 id="btn_help1"
 		                onclick="wepsim_open_help_index();
-                                         wepsim_help_refresh();"><strong><span data-langkey="Help">Help</span></strong></button>
-			<label class="my-1 p-0 col" for="select4">
-			<select class="custom-select btn btn-light shadow-sm"
-				aria-label="Execution mode"
-                                name="select4" id="select4"
-				onchange="var opt = $(this).find('option:selected');
-					  var optValue = opt.val();
-				          simui_select_main(optValue);
-	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL',
-                                                           '#cpu_ALL', '#config_MP', '#config_IO');
-					  return false;">
-				<option value="intro"    >Welcome...</option>
-				<option value="tutorial" >Instructive</option>
-				<option value="ep"       >WepSIM (EP)</option>
-				<option value="poc"      >WepSIM (POC)</option>
-				<option value="wepmips"  >WepMIPS</option>
-			</select>
-			</label>
+                                         wepsim_help_refresh();"><strong><span data-langkey='Help'>Help</span></strong></button>
+			<div class="btn-group p-0 my-1 col-auto" style="flex-grow:2;">
+			    <button type="button" class="col-12 btn btn-light shadow-sm"
+			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
+				    title="This button shows the current execution mode, <br>the dropdown on the right changes the execution mode."
+                                    style="border-color: #CCCCCC;"
+				    id="select4"
+                                    onclick="return false;">Refresh</button>
+			    <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" 
+                                    style="border-color: #CCCCCC;"
+				    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			      <span class="sr-only">Toggle Dropdown</span>
+			    </button>
+			    <div class="dropdown-menu border border-secondary">
+                              <a class="dropdown-item" href="#" id="s4_intro" value="intro"
+				 onclick="simui_select_main('intro');
+	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
+					  return false;">Welcome...</a>
+                              <a class="dropdown-item" href="#" id="s4_tutorial" value="tutorial"
+				 onclick="simui_select_main('tutorial');
+	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
+					  return false;"><span style="background-color:#D4DB17">Instructive</span></a>
+			      <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="#" id="s4_ep" value="ep"
+				 onclick="simui_select_main('ep');
+	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
+					  return false;"><em class="fas fa-microchip"></em>&nbsp;WepSIM (EP)</a>
+                              <a class="dropdown-item" href="#" id="s4_poc" value="poc"
+				 onclick="simui_select_main('poc');
+	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
+					  return false;"><em class="fas fa-microchip"></em>&nbsp;WepSIM (POC)</a>
+			      <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="#" id="s4_wepmips" value="wepmips"
+				 onclick="simui_select_main('wepmips');
+	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
+					  return false;">WepMIPS</a>
+			    </div>
+			</div>
                     </div>
 		    </div>
 
@@ -421,40 +441,47 @@
 		          <button class="btn btn-light shadow-sm col"
 		                  style="border-color: #CCCCCC; flex-grow:1;"
 		                  onclick="wepsim_dialog_current_state();"><em class="fas fa-camera"></em>&nbsp;<span data-langkey='States'>States</span></button>
-			  <label  for="select5a" class="col p-0 m-0" style="flex-grow:2;">
-                          <select class="custom-select btn btn-light shadow-sm"
-                                  style="border-color: #CCCCCC; flex-grow:2;"
-				  aria-label="select CPU, MM or DEV element to work with"
-				  name="select5a" id="select5a"
-                                  onchange="var val = this.value;
-				            $('#tab' + val).trigger('click');
-				            if ('11' == val)
-					         show_rf_values();
-				            else show_memories_values();">
-				  <optgroup label="CPU">
-                                      <option id="11" value="11" selected><span class="bg-primary text-white">CPU</span> - Registers</option>
-                                      <option id="16" value="16"><span class="bg-primary text-white">CPU</span> - Control Memory</option>
-                                      <option id="17" value="17"><span class="bg-primary text-white">CPU</span> - Stats</option>
-				  </optgroup>
-				  <optgroup label="Main Memory">
-                                      <option id="14" value="14"><span class="bg-primary text-white">MM</span> - Memory</option>
-                                      <option id="18" value="18"><span class="bg-primary text-white">MM</span> - Configuration</option>
-				  </optgroup>
-				  <optgroup label="Devices">
-                                      <option id="12" value="12"><span class="bg-primary text-white">Dev</span> - Keyboard+Display</option>
-                                      <option id="15" value="15"><span class="bg-primary text-white">Dev</span> - I/O Stats</option>
-                                      <option id="19" value="19"><span class="bg-primary text-white">Dev</span> - I/O Configuration</option>
-				  </optgroup>
-			  </select>
-			  </label>
-		          <button class="btn btn-light shadow-sm col"
-                                  style="border-color: #CCCCCC; flex-grow:1;"
-                                  onclick="var val = $('#select5a').val();
-				           $('#tab' + val).trigger('click');
-				           if ('11' == val)
-					        show_rf_values();
-				           else show_memories_values();
-					   wepsim_reset_max_turbo();"><em class="fas fa-sync-alt"></em>&nbsp;<span data-langkey='Refresh'>Refresh</span></button>
+
+			  <div class="col btn-group p-0" style="flex-grow:2;">
+			    <button type="button" class="col-12 btn btn-light shadow-sm"
+			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			            title="This button refresh the details (and might move the scrollbar), <br>the dropdown on the right changes the element to show its details."
+                                    style="border-color: #CCCCCC;"
+				    id="select5b"
+                                    onclick="show_rf_values();
+				             show_memories_values();
+				  	     wepsim_reset_max_turbo();">Refresh</button>
+			    <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" 
+                                    style="border-color: #CCCCCC;"
+				    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			      <span class="sr-only">Toggle Dropdown</span>
+			    </button>
+			    <div class="dropdown-menu border border-secondary">
+			      <h6 class="text-secondary">CPU</h6>
+                              <a class="dropdown-item" href="#" id="s5b_11" value="11"
+				 onclick="simui_select_details(11); show_rf_values();"><span class="bg-dark text-white">CPU</span> Registers</a>
+                              <a class="dropdown-item" href="#" id="s5b_16" value="16"
+				 onclick="simui_select_details(16); show_memories_values();"><span class="bg-dark text-white">CPU</span> Control Memory</a>
+                              <a class="dropdown-item" href="#" id="s5b_17" value="17"
+				 onclick="simui_select_details(17); show_memories_values();"><span class="bg-dark text-white">CPU</span> Stats</a>
+
+			      <div class="dropdown-divider"></div>
+			      <h6 class="text-secondary">Main Memory</h6>
+			      <a class="dropdown-item" href="#" id="s5b_14" value="14"
+				 onclick="simui_select_details(14); show_memories_values();"><span class="bg-dark text-white">MM</span> Memory</a>
+			      <a class="dropdown-item" href="#" id="s5b_18" value="18"
+				 onclick="simui_select_details(18); show_memories_values();"><span class="bg-dark text-white">MM</span> Configuration</a>
+
+			      <div class="dropdown-divider"></div>
+			      <h6 class="text-secondary">Devices</h6>
+			      <a class="dropdown-item" href="#" id="s5b_12" value="12"
+				 onclick="simui_select_details(12); show_memories_values();"><span class="bg-dark text-white">Dev</span> Keyboard+Display</a>
+			      <a class="dropdown-item" href="#" id="s5b_15" value="15"
+				 onclick="simui_select_details(15); show_memories_values();"><span class="bg-dark text-white">Dev</span> I/O Stats</a>
+			      <a class="dropdown-item" href="#" id="s5b_19" value="19"
+				 onclick="simui_select_details(19); show_memories_values();"><span class="bg-dark text-white">Dev</span> I/O Configuration</a>
+			    </div>
+			  </div>
                     </div>
                     </div>
 
@@ -1397,17 +1424,18 @@
 				    });
                     sim_prepare_editor(inputasm) ;
 
-		    sim_change_workspace_simulator();
-		    $('#tab26').trigger('click');
-		    $('#tab11').trigger('click');
-		    $('#select5a').val(11);
-                    $("#select4").val(get_cfg('ws_mode')) ;
-                    $("#slider2a").val(get_cfg('C1C2_size'));
-                    $('#slider2b').val(get_cfg('CPUCU_size'));
-                    set_ab_size('#col1',        '#col2',        get_cfg('C1C2_size'));
-                    set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', get_cfg('CPUCU_size'));
+		    sim_change_workspace_simulator() ;
+		    $('#tab26').trigger('click') ;
+		    simui_select_details(11) ;
+		    //$('#tab11').trigger('click') ;
+		    //$('#select5a').val(11) ;
 
-                    showhideAsmElements();
+                    $("#slider2a").val(get_cfg('C1C2_size')) ;
+                    $('#slider2b').val(get_cfg('CPUCU_size')) ;
+                    set_ab_size('#col1',        '#col2',        get_cfg('C1C2_size')) ;
+                    set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', get_cfg('CPUCU_size')) ;
+
+                    showhideAsmElements() ;
 		    $("input:checkbox").click(function(){
 		        var name = $(this).attr("name") ;
 		        var column = "table ." + name ;
@@ -1415,6 +1443,8 @@
 		             $(column).hide() ;
 		        else $(column).show() ;
 		    });
+
+		    $('[data-toggle="tooltip"]').tooltip() ;
 
 		    $("[data-toggle=popover0]").popover({
 			    html:       true,
