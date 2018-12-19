@@ -234,16 +234,22 @@
 
                     <div class="col-sm-auto p-1">
                     <div class="btn-toolbar btn-block" role="toolbar">
-		        <button class="btn btn-light shadow-sm my-1 col-auto"
-		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-                                id="btn_example1"
-				onclick="wepsim_open_examples_index();"><strong><span data-langkey='Examples'>Examples</span></strong></button>
-		        <button class="btn btn-light shadow-sm my-1 col-auto"
-		                style="border-width:1 1 1 1px; border-color:#CCCCCC;
-                                       background-color:#D4DB17;"
-                                id="btn_help1"
-		                onclick="wepsim_open_help_index();
-                                         wepsim_help_refresh();"><strong><span data-langkey='Help'>Help</span></strong></button>
+		            <button class="btn btn-light shadow-sm my-1 col-auto"
+		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+                                    id="btn_example1"
+			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			            title="This button opens the 'Examples' dialog."
+			    	    onclick="wepsim_open_examples_index();"><strong><span data-langkey='Examples'>Examples</span></strong></button>
+
+		            <button class="btn btn-light shadow-sm my-1 col-auto"
+		                    style="border-width:1 1 1 1px; border-color:#CCCCCC;
+                                           background-color:#D4DB17;"
+                                    id="btn_help1"
+			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			            title="This button opens the 'Help' dialog."
+		                    onclick="wepsim_open_help_index();
+                                             wepsim_help_refresh();"><strong><span data-langkey='Help'>Help</span></strong></button>
+
 			<div class="btn-group p-0 my-1 col-auto" style="flex-grow:2;">
 			    <button type="button" class="col-12 btn btn-light shadow-sm"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
@@ -418,14 +424,18 @@
 
                     <div class="row row pl-2 pr-3 pt-1">
                     <div class="btn-toolbar btn-block" role="toolbar">
-		          <button class="col btn btn-light shadow-sm"
-                                  id="btn_cfg1"
-		    	          style="border-color: #CCCCCC; flex-grow:1;"
-                                  onclick="wepsim_open_config_index();"><em class="fas fa-users-cog"></em>&nbsp;<span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></button>
+		            <button class="col btn btn-light shadow-sm"
+                                    id="btn_cfg1"
+		    	            style="border-color: #CCCCCC; flex-grow:1;"
+			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			            title="This button opens the 'Configuration' dialog."
+                                    onclick="wepsim_open_config_index();"><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
 
-		          <button class="col btn btn-light shadow-sm"
-		                  style="border-color: #CCCCCC; flex-grow:1;"
-		                  onclick="wepsim_dialog_current_state();"><em class="fas fa-camera"></em>&nbsp;<span data-langkey='States'>States</span></button>
+		            <button class="col btn btn-light shadow-sm"
+		                    style="border-color: #CCCCCC; flex-grow:1;"
+			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			            title="This button opens the 'state management' dialog: it shows the current state, save the current state, and show the differences between two states."
+		                    onclick="wepsim_dialog_current_state();"><em class="fas fa-camera"></em>&nbsp;<span data-langkey='States'>States</span></button>
 
 			  <div class="col btn-group p-0" style="flex-grow:2;">
 			    <button type="button" class="col-12 btn btn-light shadow-sm"
