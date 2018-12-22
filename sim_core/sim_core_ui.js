@@ -354,8 +354,7 @@
                  if (index < 10)
                      o1_rn = o1_rn + '&nbsp;' ;
 
-		 o1_rf += "<div class='col-auto pb-1 px-1'>" +
-                          "<button type='button' class='btn p-0 ml-0' " + 
+		 o1_rf += "<button type='button' class='btn py-0 px-1 my-1 col-auto' " + 
 			  "        style='width:inherit; border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
                           "        data-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
@@ -363,8 +362,7 @@
                           "<span class='badge badge-secondary' style='background-color:#CEECF5; color:black;' id='tbl_RF"  + index + "'>" +
                           (get_value(simhw_sim_states()['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() +
                           "</span>" +
-                          "</button>" +
-                          "</div>" ;
+                          "</button>" ;
 	    }
 
             $(jqdiv).html("<div class='d-flex flex-row flex-wrap justify-content-around'>" + o1_rf + "</div>");
@@ -483,8 +481,7 @@
 
                 var divclass = filter[i].split(",")[1] ;
 
-                o1 += "<div class='" + divclass + " pb-1 px-1'>" +
-                      "<button type='button' class='btn p-0 ml-0' " + 
+                o1 += "<button type='button' class='btn py-0 px-1 my-1 " + divclass + "' " + 
 		      "        style='width:inherit; border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
                       "        data-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +
@@ -492,8 +489,7 @@
                       " <span class='badge badge-secondary' style='background-color:#CEECF5; color:black;' id='tbl_"  + s + "'>" +
                       sim_eltos[s].value.toString(get_cfg('RF_display_format')) +
                       "</span>" +
-                      "</button>" +
-                      "</div>" ;
+                      "</button>" ;
             }
 
             $(jqdiv).html("<div class='d-flex flex-row flex-wrap justify-content-around'>" + o1 + "</div>");
