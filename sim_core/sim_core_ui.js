@@ -354,7 +354,7 @@
                  if (index < 10)
                      o1_rn = o1_rn + '&nbsp;' ;
 
-		 o1_rf += "<div class='col pb-1 px-1'>" +
+		 o1_rf += "<div class='col-auto pb-1 px-1'>" +
                           "<button type='button' class='btn p-0 ml-0' " + 
 			  "        style='width:inherit; border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
                           "        data-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +

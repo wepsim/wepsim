@@ -608,30 +608,30 @@
     function wepsim_show_quick_menu ( quick_po )
     {
         var o = '<ul class="list-group list-group-flush">' +
-		'<li class="list-group-item p-2"> ' +
+		'<li class="list-group-item px-0 pt-1"> ' +
 		'  <em class="fas fa-flag"></em> &nbsp;' +
-		'  <a class="btn btn-sm btn-outline-secondary col-10 text-left" href="#" ' +
+		'  <a class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" href="#" ' +
                 '     onclick="simcoreui_notify_notifications(); ' +
 		'              $(\'#' + quick_po + '\').popover(\'hide\');">Show Notifications...</a>' +
 		'</li>' +
-		'<li class="list-group-item p-2"> ' +
+		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-bars"></em> &nbsp;' +
                 '  <span class="btn-group-toggle" data-toggle="buttons">' +
-		'  <label class="btn btn-sm btn-outline-secondary col-10 text-left" data-toggle="collapse" href=".multi-collapse-1">' +
+		'  <label class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" data-toggle="collapse" href=".multi-collapse-1">' +
 		'  <input type="checkbox" checked="" autocomplete="off"> Show/Hide ActionBar</label>' +
 		'  </span>' +
 		'</li>' +
-		'<li class="list-group-item p-2"> ' +
+		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-sliders-h"></em> &nbsp;' +
                 '  <span class="btn-group-toggle" data-toggle="buttons">' +
-		'  <label class="btn btn-sm btn-outline-secondary col-10 text-left" data-toggle="collapse" href=".multi-collapse-2">' +
+		'  <label class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" data-toggle="collapse" href=".multi-collapse-2">' +
 		'  <input type="checkbox" checked="" autocomplete="off"> Show/Hide Sliders</label>' +
 		'  </span>' +
 		'</li>' +
-		'<li class="list-group-item p-2"> ' +
+		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-microphone"></em> &nbsp;' +
                 '  <span class="btn-group-toggle" data-toggle="buttons">' +
-		'  <label class="btn btn-sm btn-outline-secondary col-10 ml-1 text-left" href="#" ' +
+		'  <label class="btn btn-sm btn-outline-secondary col-10 p-1 ml-1 text-left" href="#" ' +
                 '     onclick="var now = get_cfg(\'use_voice\'); ' +
                 '              update_cfg(\'use_voice\', !now); ' +
                 '              if (now) ' +
@@ -640,15 +640,15 @@
 		'  <input type="checkbox" checked="" autocomplete="off"> Active/Deactive Voice</label>' +
 		'  </span>' +
 		'</li>' +
-		'<li class="list-group-item p-2"> ' +
+		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-magic"></em> &nbsp;' +
-		'  <a class="btn btn-sm btn-outline-secondary col-10 text-left" href="#" ' +
+		'  <a class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" href="#" ' +
 		'     onclick="$(\'#about2\').modal(\'show\'); ' +
 		'              $(\'#' + quick_po + '\').popover(\'hide\');">About WepSIM...</a>' +
 		'</li>' +
-		'<li class="list-group-item p-2"> ' +
+		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-book-reader"></em> &nbsp;' +
-		'  <a class="btn btn-sm btn-outline-secondary col-10 text-left" href="#" ' +
+		'  <a class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" href="#" ' +
 		'     onclick="wepsim_newbie_tour(); ' +
 		'              $(\'#' + quick_po + '\').popover(\'hide\');">Initial intro...</a>' +
 		'</li>' +

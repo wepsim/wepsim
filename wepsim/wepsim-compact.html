@@ -406,7 +406,7 @@
 			            onclick="wepsim_execute_reset(true, true);"><em class="fa fa-power-off"></em><strong><br/><span data-langkey='Reset'>Reset</span></strong></button>
 			    <button id="nm1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
-			            onclick="wepsim_execute_microinstruction();"><em class="fa fa-step-forward"></em><strong><br/>&#181;<span class="d-none d-sm-inline-flex" data-langkey='Instruction'>Instruction</span><span class="d-sm-none">Instr.</span></strong></button>
+			            onclick="wepsim_execute_microinstruction();"><em class="fa fa-step-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey='Instruction'>&#181;Instruction</span><span class="d-sm-none">&#181;Instr.</span></strong></button>
 			    <button id="ni1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
 			            onclick="wepsim_execute_instruction();"><em class="fa fa-fast-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey='Instruction'>Instruction</span><span class="d-sm-none">Instr.</span></strong></button>
@@ -580,21 +580,21 @@
 					      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 						    <button data-target="#lsload" data-toggle="modal"
 							    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-							    class="btn btn-light shadow-sm col"><em class="fas fa-file-upload"></em>&nbsp;<strong><span data-langkey="Load">Load</span></strong></button>
+							    class="btn btn-light shadow-sm col-auto"><em class="fas fa-file-upload"></em>&nbsp;<strong><span data-langkey="Load">Load</span></strong></button>
 						    <button data-target="#lssave" data-toggle="modal"
 							    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-							    class="btn btn-light shadow-sm col"><em class="fas fa-file-download"></em>&nbsp;<strong><span data-langkey="Save">Save</span></strong></button>
+							    class="btn btn-light shadow-sm col-auto"><em class="fas fa-file-download"></em>&nbsp;<strong><span data-langkey="Save">Save</span></strong></button>
 					      </div>
 
 					      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 						    <button style="background-color: #CCCCCC"
-							    class="btn btn-light shadow-sm col"
+							    class="btn btn-light shadow-sm col-auto"
 							    data-transition="none" data-inline="true"
 							    onclick="var textToMCompile = inputfirm.getValue();
 								     wepsim_compile_firmware(textToMCompile);
 								     $('#asm_debugger').html('<br/>After updates on the microcode, assembler has to be compiled against it.');"><em class="fas fa-sign-out-alt"></em>&nbsp;<strong>&#181;compile</strong></button>
 						    <button style="background-color: #DDDDDD"
-							    class="btn btn-light shadow-sm col"
+							    class="btn btn-light shadow-sm col-auto"
 							    onclick="var textToMCompile = inputfirm.getValue();
 								     var ok = wepsim_compile_firmware(textToMCompile);
 								     if (true == ok) {
@@ -631,20 +631,20 @@
 					      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 						    <button data-target="#lsload2" data-toggle="modal"
 							    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-							    class="btn btn-light shadow-sm col"><em class="fas fa-file-upload"></em>&nbsp;<strong><span data-langkey="Load">Load</span></strong></button>
+							    class="btn btn-light shadow-sm col-auto"><em class="fas fa-file-upload"></em>&nbsp;<strong><span data-langkey="Load">Load</span></strong></button>
 						    <button data-target="#lssave2" data-toggle="modal"
 							    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-							    class="btn btn-light shadow-sm col"><em class="fas fa-file-download"></em>&nbsp;<strong><span data-langkey="Save">Save</span></strong></button>
+							    class="btn btn-light shadow-sm col-auto"><em class="fas fa-file-download"></em>&nbsp;<strong><span data-langkey="Save">Save</span></strong></button>
 					      </div>
 
 					      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 						    <button style="background-color: #CCCCCC"
-							    class="btn btn-light shadow-sm col"
+							    class="btn btn-light shadow-sm col-auto"
 							    data-transition="none" data-inline="true"
 							    onclick="var textToCompile = inputasm.getValue() ;
 								     var ok = wepsim_compile_assembly(textToCompile);"><em class="fas fa-sign-out-alt"></em>&nbsp;<strong>Compile</strong></button>
 						    <button style="background-color: #DDDDDD"
-							    class="btn btn-light shadow-sm col"
+							    class="btn btn-light shadow-sm col-auto"
 							    onclick="var textToCompile = inputasm.getValue();
 								     var ok = wepsim_compile_assembly(textToCompile);
 								     if (true == ok) {
@@ -1028,8 +1028,16 @@
                <div class="carousel-inner" role="listbox">
                   <div class="carousel-item active">
 
-			<h4 class="mt-1 mb-0">
+			<h4 class="mt-1 mb-0 bg-light">
 			    <a data-toggle="collapse" href="#states3"><span data-langkey="Current State">Current State</span></a>:
+			    <span class="btn btn-outline-dark btn-sm"
+				  onclick="wepsim_state_history_add();
+					   wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
+					   wepsim_state_history_list();
+					   wepsim_dialog_current_state();
+					   $('#states3').collapse('show');
+					   return false;"
+				  data-inline="true">Add <span class='d-none d-sm-inline-flex'>'Current State' to History</span></span>
                         </h4>
                         <div class="container-fluid ml-1 pb-0 collapse show" id="states3"
 			     style="max-height:50vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
@@ -1037,22 +1045,20 @@
 			     <div class="col-auto text-center flex-column d-flex pr-0">
 				    <strong class="m-2">
 					<span class="badge badge-pill border-secondary border shadow">
-						<a class="col-auto p-0"
-					           data-toggle="collapse" data-target="#collapse_X"
-						   target="_blank" href="#" id="curr_clk_maddr">now</a>
+					<span class="col-auto p-0" id="curr_clk_maddr">now</span>
 					</span>
 				    </strong>
 			     </div>
 			     <div class="col pt-2 pl-0">
 				<div class="btn-group float-none" role="group" aria-label="State information for now">
-                                          <button class="btn btn-outline-dark btn-sm col float-right"
+                                          <button class="btn btn-outline-dark btn-sm col-auto float-right"
 					          onclick="CopyFromTextarea('end_state1');
 	                                                   wepsim_state_results_empty();
 	                                                   var curr_tag = $('#curr_clk_maddr').html();
 	                                                   $('#s_clip').html(curr_tag);
 	                                                   return false;"
 					          data-inline="true">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>
-                                          <button class="btn btn-outline-dark btn-sm col float-right"
+                                          <button class="btn btn-outline-dark btn-sm col-auto float-right"
                                                   onclick="var txt_chklst1 = get_clipboard_copy();
                                                            var obj_exp1    = simcore_simstate_checklist2state(txt_chklst1);
                                                            var txt_chklst2 = $('#end_state1').val();
@@ -1062,6 +1068,8 @@
                                                            wepsim_dialog_check_state('check_results1', obj_exp1, obj_exp2);
 						           $('#check_results_scroll1').collapse('show');"
                                                   type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>
+					  <button class="btn btn-outline-dark btn-sm col-auto float-right"
+                                                  data-toggle="collapse" data-target="#collapse_X">&plusmn; Show</button>
                                 </div>
 				<div id="collapse_X" class="mt-2 collapse show">
 					<form id="end_state_form1"
@@ -1086,8 +1094,14 @@
 			     </div>
 			</div>
 
-			<h4 class="mt-1">
+			<h4 class="mt-1 bg-light">
 			    <a data-toggle="collapse" href="#history3"><span data-langkey="History">History</span></a>:
+			    <span class="btn btn-outline-dark btn-sm"
+				  onclick="wepsim_state_history_reset();
+					   wepsim_notify_success('<strong>INFO</strong>', 'Removed all !.');
+					   wepsim_state_history_list() ;
+					   return false;"
+			          data-inline="true">Reset <span class='d-none d-sm-inline-flex'>history</span></span>
                         </h4>
                         <div class="container-fluid ml-1 pb-2 collapse show" id="history3"
 			     style="max-height:40vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
@@ -1097,8 +1111,8 @@
 			     </div>
 			</div>
 
-			<h4 class="mt-1">
-			    <a data-toggle="collapse" href="#check_results_scroll1"><span data-langkey="Differences">Differences</span></a>:&nbsp;
+			<h4 class="mt-1 bg-light">
+			    <a data-toggle="collapse" href="#check_results_scroll1"><span data-langkey="Differences">Differences</span></a>:
 			    <span class="btn btn-outline-dark btn-sm"
 			          onclick="CopyFromDiv('check_results_scroll1');
 	                                   return false;"
@@ -1404,7 +1418,12 @@
 		        else $(column).show() ;
 		    });
 
-		    $('[data-toggle="tooltip"]').tooltip() ;
+		    $('[data-toggle="tooltip"]').tooltip({
+                        trigger:   'hover'
+                    }) ;
+		    $('#carousel-8').carousel({
+                        touch: false
+                    })
 
 		    $("[data-toggle=popover0]").popover({
 			    html:       true,
