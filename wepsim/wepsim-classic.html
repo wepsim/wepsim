@@ -1073,110 +1073,134 @@
                <div class="carousel-inner" role="listbox">
                   <div class="carousel-item active">
 
-			<h4 class="mt-1 mb-0 bg-light">
-			    <a data-toggle="collapse" href="#states3"><span data-langkey="Current State">Current State</span></a>:&nbsp;
-			    <span class="btn btn-outline-dark btn-sm"
-				  onclick="wepsim_state_history_add();
-					   wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
-					   wepsim_state_history_list();
-					   wepsim_dialog_current_state();
-					   $('#states3').collapse('show');
-					   return false;"
-				  data-inline="true">Add <span class='d-none d-sm-inline-flex'>'Current State' to History</span></span>
-                        </h4>
-                        <div class="container-fluid ml-1 pb-0 collapse show" id="states3"
-			     style="max-height:50vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
-			     <div class="row">
-			     <div class="col-auto text-center flex-column d-flex pr-0">
-				    <strong class="m-2">
-					<span class="badge badge-pill border-secondary border shadow">
-					<span class="col-auto p-0" id="curr_clk_maddr">now</span>
-					</span>
-				    </strong>
-			     </div>
-			     <div class="col pt-2 pl-0">
-				<div class="btn-group float-none" role="group" aria-label="State information for now">
-                                          <button class="btn btn-outline-dark btn-sm col-auto float-right"
-					          onclick="CopyFromTextarea('end_state1');
-	                                                   wepsim_state_results_empty();
-	                                                   var curr_tag = $('#curr_clk_maddr').html();
-	                                                   $('#s_clip').html(curr_tag);
-	                                                   return false;"
-					          data-inline="true">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>
-                                          <button class="btn btn-outline-dark btn-sm col-auto float-right"
-                                                  onclick="var txt_chklst1 = get_clipboard_copy();
-                                                           var obj_exp1    = simcore_simstate_checklist2state(txt_chklst1);
-                                                           var txt_chklst2 = $('#end_state1').val();
-                                                           var obj_exp2    = simcore_simstate_checklist2state(txt_chklst2);
-	                                                   var ref_tag     = $('#curr_clk_maddr').html();
-	                                                   $('#s_ref').html(ref_tag);
-                                                           wepsim_dialog_check_state('check_results1', obj_exp1, obj_exp2);
-						           $('#check_results_scroll1').collapse('show');"
-                                                  type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>
-					  <button class="btn btn-outline-dark btn-sm col-auto float-right"
-                                                  data-toggle="collapse" data-target="#collapse_X">&plusmn; Show</button>
-                                </div>
-				<div id="collapse_X" class="mt-2 collapse show">
-					<form id="end_state_form1"
-					      class="form-horizontal mb-2"
-					      style="white-space:wrap; overflow-y:auto; -webkit-overflow-scrolling:touch; width:100%;">
-		                           <label class="my-0" for="end_state1">state:</label>
-					   <textarea aria-label="current_state"
-						     placeholder="Default..."
-						     id="end_state1"
-						     name="end_state1"
-						     data-allowediting="true"
-						     data-allowpasting="false"
-						     data-limit="0"
-						     data-createtokensonblur="false"
-						     data-delimiter=";"
-						     data-beautify="true"
-						     class="form-control input-xs"
-						     rows="5"></textarea>
-					</form>
+		        <div class="card mb-1">
+		          <div class="card-header p-1" id="state_header_1">
+		            <h4 class="m-0">
+				    <a data-toggle="collapse" href="#states3"><span data-langkey="Current State">Current State</span></a>:&nbsp;
+				    <span class="btn btn-secondary btn-sm float-right"
+					  onclick="wepsim_state_history_add();
+						   wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
+						   wepsim_state_history_list();
+						   wepsim_dialog_current_state();
+						   $('#states3').collapse('show');
+						   return false;"
+					  data-inline="true">Add <span class='d-none d-sm-inline-flex'>'Current State' to History</span></span>
+		            </h4>
+		          </div>
+			  <div id="states3b" class="collapse show" aria-labelledby="state_header_1">
+		            <div class="card-body p-0">
+				<div class="container-fluid ml-1 pb-0 collapse show" id="states3"
+				     style="max-height:50vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
+				     <div class="row">
+				     <div class="col-auto text-center flex-column d-flex pr-0">
+					    <strong class="m-2">
+						<span class="badge badge-pill border-secondary border shadow">
+						<span class="col-auto p-0" id="curr_clk_maddr">now</span>
+						</span>
+					    </strong>
+				     </div>
+				     <div class="col pt-2 pl-0">
+					<div class="btn-group float-none" role="group" aria-label="State information for now">
+						  <button class="btn btn-outline-dark btn-sm col-auto float-right"
+							  onclick="CopyFromTextarea('end_state1');
+								   wepsim_state_results_empty();
+								   var curr_tag = $('#curr_clk_maddr').html();
+								   $('#s_clip').html(curr_tag);
+								   return false;"
+							  data-inline="true">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>
+						  <button class="btn btn-outline-dark btn-sm col-auto float-right"
+							  onclick="var txt_chklst1 = get_clipboard_copy();
+								   var obj_exp1    = simcore_simstate_checklist2state(txt_chklst1);
+								   var txt_chklst2 = $('#end_state1').val();
+								   var obj_exp2    = simcore_simstate_checklist2state(txt_chklst2);
+								   var ref_tag     = $('#curr_clk_maddr').html();
+								   $('#s_ref').html(ref_tag);
+								   wepsim_dialog_check_state('check_results1', obj_exp1, obj_exp2);
+								   $('#check_results_scroll1').collapse('show');"
+							  type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>
+						  <button class="btn btn-outline-dark btn-sm col-auto float-right"
+							  data-toggle="collapse" data-target="#collapse_X">&plusmn; Show</button>
+					</div>
+					<div id="collapse_X" class="mt-2 collapse show">
+						<form id="end_state_form1"
+						      class="form-horizontal mb-2"
+						      style="white-space:wrap; overflow-y:auto; -webkit-overflow-scrolling:touch; width:100%;">
+						   <label class="my-0" for="end_state1">state:</label>
+						   <textarea aria-label="current_state"
+							     placeholder="Default..."
+							     id="end_state1"
+							     name="end_state1"
+							     data-allowediting="true"
+							     data-allowpasting="false"
+							     data-limit="0"
+							     data-createtokensonblur="false"
+							     data-delimiter=";"
+							     data-beautify="true"
+							     class="form-control input-xs"
+							     rows="5"></textarea>
+						</form>
+					</div>
+				     </div>
+				     </div>
 				</div>
-			     </div>
-			     </div>
-			</div>
+		            </div>
+		          </div>
+		        </div>
 
-			<h4 class="mt-1 bg-light">
-			    <a data-toggle="collapse" href="#history3"><span data-langkey="History">History</span></a>:&nbsp;
-			    <span class="btn btn-outline-dark btn-sm"
-				  onclick="wepsim_state_history_reset();
-					   wepsim_notify_success('<strong>INFO</strong>', 'Removed all !.');
-					   wepsim_state_history_list() ;
-					   return false;"
-			          data-inline="true">Reset <span class='d-none d-sm-inline-flex'>history</span></span>
-                        </h4>
-                        <div class="container-fluid ml-1 pb-2 collapse show" id="history3"
-			     style="max-height:40vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
-                             <div id="history1">
-				  <div class="pt-2"></div>
-  		 	          <span style="background-color:#FCFC00">&lt;Empty history&gt;</span>
-			     </div>
-			</div>
+		        <div class="card mb-1">
+		          <div class="card-header p-1" id="state_header_2">
+		            <h4 class="m-0">
+				    <a data-toggle="collapse" href="#history3"><span data-langkey="History">History</span></a>:&nbsp;
+				    <span class="btn btn-secondary btn-sm float-right"
+					  onclick="wepsim_state_history_reset();
+						   wepsim_notify_success('<strong>INFO</strong>', 'Removed all !.');
+						   wepsim_state_history_list() ;
+						   return false;"
+					  data-inline="true">Reset <span class='d-none d-sm-inline-flex'>history</span></span>
+		            </h4>
+		          </div>
+			  <div id="history3b" class="collapse show" aria-labelledby="state_header_2">
+		            <div class="card-body p-1">
+				<div class="container-fluid ml-1 pb-2 collapse show" id="history3"
+				     style="max-height:40vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
+				     <div id="history1">
+					  <div class="pt-2"></div>
+					  <span style="background-color:#FCFC00">&lt;Empty history&gt;</span>
+				     </div>
+				</div>
+		            </div>
+		          </div>
+		        </div>
 
-			<h4 class="mt-1 bg-light">
-			    <a data-toggle="collapse" href="#check_results_scroll1"><span data-langkey="Differences">Differences</span></a>:
-			    <span class="btn btn-outline-dark btn-sm"
-			          onclick="CopyFromDiv('check_results_scroll1');
-	                                   return false;"
-			          data-inline="true">Copy to clipboard</span>
-                        </h4>
-                        <div class="container-fluid ml-1 pb-2 collapse show" id="check_results_scroll1"
-		             style="max-height:40vh; width:inherit; overflow-y:auto; -webkit-overflow-scrolling:touch;" >
-			     <div class="row align-items-center">
-			     <div class="col-auto text-center flex-column d-flex pr-0">
-				  <span id="s_clip" class="badge badge-pill border-secondary border m-2 shadow">clipboard</span>
-				  <div class="row" style="max-height:16vh"><div class="col border-right border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>
-				  <span id="s_ref"  class="badge badge-pill border-secondary border m-2 shadow">reference</span>
-			     </div>
-			     <div class="col py-2 pl-2">
-				  <div id="check_results1">
-				       <span style="background-color:#FCFC00">&lt;Empty (only modified values are shown)&gt;</span>
-				  </div>
-			     </div>
-			     </div>
+		        <div class="card mb-1">
+		          <div class="card-header p-1" id="state_header_3">
+		            <h4 class="m-0">
+				    <a data-toggle="collapse" href="#check_results_scroll1"><span data-langkey="Differences">Differences</span></a>:
+				    <span class="btn btn-secondary btn-sm float-right"
+					  onclick="CopyFromDiv('check_results_scroll1');
+						   return false;"
+					  data-inline="true">Copy to clipboard</span>
+		            </h4>
+		          </div>
+			  <div id="check_results_scroll1b" class="collapse show" aria-labelledby="state_header_3">
+		            <div class="card-body p-1">
+				<div class="container-fluid ml-1 pb-2 collapse show" id="check_results_scroll1"
+				     style="max-height:40vh; width:inherit; overflow-y:auto; -webkit-overflow-scrolling:touch;" >
+				     <div class="row align-items-center">
+				     <div class="col-auto text-center flex-column d-flex pr-0">
+					  <span id="s_clip" class="badge badge-pill border-secondary border m-2 shadow">clipboard</span>
+					  <div class="row" style="max-height:16vh"><div class="col border-right border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>
+					  <span id="s_ref"  class="badge badge-pill border-secondary border m-2 shadow">reference</span>
+				     </div>
+				     <div class="col py-2 pl-2">
+					  <div id="check_results1">
+					       <span style="background-color:#FCFC00">&lt;Empty (only modified values are shown)&gt;</span>
+					  </div>
+				     </div>
+				     </div>
+				</div>
+		            </div>
+		          </div>
 		        </div>
 
                   </div>

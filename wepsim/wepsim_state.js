@@ -178,13 +178,10 @@
 	     o += '  <div class="row">' +
                   '       <div class="col-auto text-center flex-column d-flex pr-0">' +
                   '              <strong class="m-2">' + 
-/*
 		  '              <span class="badge badge-pill border-secondary border shadow">' + 
 		  '  		       <a data-toggle="collapse" data-target="#collapse_'+i+'" ' + 
-		  '                       class="col-auto p-0" target="_blank" href="#">' + state_history[i].title_short + '</a>' +
+		  '                       class="col-auto p-0 text-decoration-none text-reset" target="_blank" href="#">' + state_history[i].title_short + '</a>' +
 		  '              </span>' + 
-*/
-		  '              <span class="badge badge-pill border-secondary border shadow">' + state_history[i].title_short + '</span>' + 
 		  '              </strong>' +
 		 	         vrow +
                   '       </div>' +
@@ -217,7 +214,7 @@
                   '             </div>' +
 			        tt +
                   '             <div id="collapse_' + i + '" class="border border-secondary mt-2 collapse">' +
-                  '                   <div class="card-body p-1" ' + 
+                  '                   <div class="card-body p-1 small" ' + 
                   '                        id="state_' + i + '">' + state_history[i].content + '</div>' +
                   '                   <textarea aria-label="hidden-state"  style="display:none"' +
                   '                             id="ta_state_'+i+'" readonly>' + state_history[i].content + '</textarea>' +
