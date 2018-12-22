@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015-2018 Saul Alonso Monsalve, Javier Prieto Cepeda, Felix Garcia Carballeira, Alejandro Calderon Mateos
+ *  Copyright 2015-2019 Saul Alonso Monsalve, Javier Prieto Cepeda, Felix Garcia Carballeira, Alejandro Calderon Mateos
  *
  *  This file is part of WepSIM.
  * 
