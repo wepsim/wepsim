@@ -119,7 +119,7 @@
                      o1_rn = o1_rn + '&nbsp;' ;
 
 		 o1_rf += "<button type='button' class='btn py-0 px-1 mt-1 col-auto' " + 
-			  "        style='width:inherit; border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
+			  "        style='border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
                           "        data-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
                           "<span id='name_RF" + index + "' class='p-0 text-monospace' style='float:center; color:black;'>" + o1_rn + "</span>&nbsp;" +
@@ -129,7 +129,7 @@
                           "</button>" ;
 	    }
 
-            $(jqdiv).html("<div class='d-flex flex-row flex-wrap justify-content-between'>" + o1_rf + "</div>");
+            $(jqdiv).html("<div class='d-flex flex-row flex-wrap justify-content-sm-around justify-content-between'>" + o1_rf + "</div>");
 
 	    $("[data-toggle=popover-up]").popover({
 	    	    html:      true,
@@ -246,7 +246,7 @@
                 var divclass = filter[i].split(",")[1] ;
 
                 o1 += "<button type='button' class='btn py-0 px-1 mt-1 " + divclass + "' " + 
-		      "        style='width:inherit; border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
+		      "        style='border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
                       "        data-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +
                       showkey +
@@ -256,7 +256,7 @@
                       "</button>" ;
             }
 
-            $(jqdiv).html("<div class='d-flex flex-row flex-wrap justify-content-between'>" + o1 + "</div>");
+            $(jqdiv).html("<div class='d-flex flex-row flex-wrap justify-content-sm-around justify-content-between'>" + o1 + "</div>");
 
 	    $("[data-toggle=popover-bottom]").popover({
 	    	    html:      true,
