@@ -574,6 +574,9 @@
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="iocfg">
 		              <div id="config_IO" style="width: inherit; overflow-y: auto;"></div>
                          </div>
+                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_hw">
+		              <div id="config_HW" style="height:55vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
+                         </div>
                     </div>
 
                 </div>
@@ -591,7 +594,7 @@
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button class="btn btn-light shadow-sm col"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-                                    onclick="wepsim_open_config_index();"><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></button>
+                                    onclick="wepsim_open_config_index();"><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
 		            <button class="btn btn-light shadow-sm col"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                     onclick="sim_change_workspace_assembly();"
@@ -1381,11 +1384,11 @@
 </div> <!-- /.modal -->
 
 
-    <link async href="./min.external.css" rel="stylesheet">
-    <script      src="./min.external.js"></script><noscript>Your browser does not support JavaScript!</noscript>
+    <link async href="min.external.css" rel="stylesheet">
+    <script      src="min.external.js"></script><noscript>Your browser does not support JavaScript!</noscript>
 
-    <script src="./min.sim_all.js"   ></script><noscript>Your browser does not support JavaScript!</noscript>
-    <script src="./min.wepsim_web.js"></script><noscript>Your browser does not support JavaScript!</noscript>
+    <script src="min.sim_all.js"   ></script><noscript>Your browser does not support JavaScript!</noscript>
+    <script src="min.wepsim_web.js"></script><noscript>Your browser does not support JavaScript!</noscript>
 
 
 <script type="text/javascript">
@@ -1553,7 +1556,7 @@
             // progressive web application
 	    if ( (false == is_mobile()) && ('serviceWorker' in navigator) )
             {
-		navigator.serviceWorker.register('./min.wepsim_pwa.js').catch(function() {
+		navigator.serviceWorker.register('WEPSIM_ROOT/min.wepsim_pwa.js').catch(function() {
 		    wepsim_notify_error("<h4>Warning:" +
 		  		        "<br/>WepSIM was used over a HTTP connection.</h4>",
 		                        "Progressive Web Applications requires a HTTPS connection " +

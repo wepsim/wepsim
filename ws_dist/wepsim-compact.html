@@ -581,7 +581,7 @@
 		              <div id="config_IO" style="width: inherit; overflow-y: auto;"></div>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_hw">
-		              <div id="config_HW" style="width: inherit; overflow-y: auto; height: 55vh;"></div>
+		              <div id="config_HW" style="height:55vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_mc">
 		              <div id="edit_MC" style="width: inherit; overflow-y: auto; overflow-x:hidden;">
@@ -1354,11 +1354,11 @@
 </div> <!-- /.modal -->
 
 
-    <link async href="./min.external.css" rel="stylesheet">
-    <script      src="./min.external.js"></script><noscript>Your browser does not support JavaScript!</noscript>
+    <link async href="min.external.css" rel="stylesheet">
+    <script      src="min.external.js"></script><noscript>Your browser does not support JavaScript!</noscript>
 
-    <script src="./min.sim_all.js"   ></script><noscript>Your browser does not support JavaScript!</noscript>
-    <script src="./min.wepsim_web.js"></script><noscript>Your browser does not support JavaScript!</noscript>
+    <script src="min.sim_all.js"   ></script><noscript>Your browser does not support JavaScript!</noscript>
+    <script src="min.wepsim_web.js"></script><noscript>Your browser does not support JavaScript!</noscript>
 
 
 <script type="text/javascript">
@@ -1523,7 +1523,7 @@
             // progressive web application
 	    if ( (false == is_mobile()) && ('serviceWorker' in navigator) )
             {
-		navigator.serviceWorker.register('./min.wepsim_pwa.js').catch(function() {
+		navigator.serviceWorker.register('WEPSIM_ROOT/min.wepsim_pwa.js').catch(function() {
 		    wepsim_notify_error("<h4>Warning:" +
 		  		        "<br/>WepSIM was used over a HTTP connection.</h4>",
 		                        "Progressive Web Applications requires a HTTPS connection " +

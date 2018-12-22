@@ -214,8 +214,6 @@ self.addEventListener('install',
 
 self.addEventListener('fetch', 
 	              function(event) {
-			  // OLD: event.respondWith(fetch(event.request)) ;
-
 			  // NEW: https://developer.mozilla.org/es/docs/Web/API/FetchEvent
 			  if (event.request.method != 'GET') {
 			      event.respondWith(fetch(event.request)) ;
