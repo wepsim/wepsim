@@ -354,7 +354,7 @@
                  if (index < 10)
                      o1_rn = o1_rn + '&nbsp;' ;
 
-		 o1_rf += "<button type='button' class='btn py-0 px-1 my-1 col-auto' " + 
+		 o1_rf += "<button type='button' class='btn py-0 px-1 mt-1 col-auto' " + 
 			  "        style='width:inherit; border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
                           "        data-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
@@ -481,7 +481,7 @@
 
                 var divclass = filter[i].split(",")[1] ;
 
-                o1 += "<button type='button' class='btn py-0 px-1 my-1 " + divclass + "' " + 
+                o1 += "<button type='button' class='btn py-0 px-1 mt-1 " + divclass + "' " + 
 		      "        style='width:inherit; border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
                       "        data-toggle='popover-bottom' data-popover-content='" + s + "' data-container='body' " +
                       "        id='rp" + s + "'>" +

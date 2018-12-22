@@ -1,10 +1,12 @@
 
 1.9.5 -> 1.9.6:
 * Interface:
-  ** Quick interative signal updates
-  ** New compact view
-* Minor help updates
-* New example added
+  + Update to Bootstrap 4.2.1
+  + Quick interative signal updates
+  + New compact view
+* Content:
+  + Minor help updates
+  + New example added
 
 1.9.3 -> 1.9.5:
 * New panel with all notifications (in case you miss one)
