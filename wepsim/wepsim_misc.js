@@ -617,7 +617,7 @@
 		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-bars"></em> &nbsp;' +
                 '  <span class="btn-group-toggle" data-toggle="buttons">' +
-		'  <label class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" data-toggle="collapse" href=".multi-collapse-1">' +
+		'  <label class="btn btn-sm btn-outline-secondary col-auto p-1 text-left" data-toggle="collapse" href=".multi-collapse-1">' +
 		'  <input type="checkbox" checked="" autocomplete="off"> Show/Hide ActionBar</label>' +
 		'  </span>' +
 		'</li>' +
@@ -631,7 +631,7 @@
 		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-microphone"></em> &nbsp;' +
                 '  <span class="btn-group-toggle" data-toggle="buttons">' +
-		'  <label class="btn btn-sm btn-outline-secondary col-10 p-1 ml-1 text-left" href="#" ' +
+		'  <label class="btn btn-sm btn-outline-secondary col-auto p-1 ml-1 text-left" href="#" ' +
                 '     onclick="var now = get_cfg(\'use_voice\'); ' +
                 '              update_cfg(\'use_voice\', !now); ' +
                 '              if (now) ' +
