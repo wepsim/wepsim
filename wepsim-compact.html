@@ -259,7 +259,9 @@
 				    title="This button shows the current execution mode, <br>the dropdown on the right changes the execution mode."
                                     style="border-color: #CCCCCC;"
 				    id="select4"
-                                    onclick="return false;">Refresh</button>
+                                    onclick="simui_select_details(22);
+					     simcoreui_init_hw('#config_HW') ;
+					     return false;">Refresh</button>
 			    <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" 
                                     style="border-color: #CCCCCC;"
 				    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -455,15 +457,9 @@
 			      <span class="sr-only">Toggle Dropdown</span>
 			    </button>
 			    <div class="dropdown-menu border border-secondary">
-			      <h6 class="text-secondary mb-1">User Defined</h6>
-                              <a class="dropdown-item" href="#" id="s5b_22" value="22"
-				 onclick="simui_select_details(22);"><span class="bg-dark text-white">HW</span> Hardware</a>
-                              <a class="dropdown-item" href="#" id="s5b_20" value="20"
-				 onclick="simui_select_details(20); inputfirm.refresh();"><span class="bg-dark text-white">CPU</span> MicroCode</a>
-			      <a class="dropdown-item" href="#" id="s5b_21" value="21"
-				 onclick="simui_select_details(21); inputasm.refresh();"><span class="bg-dark text-white">MM</span> Assembly</a>
+                              <a class="dropdown-item d-none" href="#" id="s5b_22" value="22"
+				 onclick="simui_select_details(22);"><em class="fas fa-microchip"></em> Hardware</a>
 
-			      <div class="dropdown-divider m-1"></div>
 			      <h6 class="text-secondary mb-1">CPU</h6>
                               <a class="dropdown-item" href="#" id="s5b_11" value="11"
 				 onclick="simui_select_details(11); show_rf_values();"><span class="bg-dark text-white">CPU</span> Registers</a>
@@ -471,14 +467,18 @@
 				 onclick="simui_select_details(16); show_memories_values();"><span class="bg-dark text-white">CPU</span> Control Memory</a>
                               <a class="dropdown-item" href="#" id="s5b_17" value="17"
 				 onclick="simui_select_details(17); show_memories_values();"><span class="bg-dark text-white">CPU</span> Stats</a>
+                              <a class="dropdown-item" href="#" id="s5b_20" value="20"
+				 onclick="simui_select_details(20); inputfirm.refresh();"><span class="bg-dark text-white">CPU</span> MicroCode</a>
 
-			      <h6 class="text-secondary mb-1">Main Memory</h6>
+			      <h6 class="text-secondary mt-2 mb-1">Main Memory</h6>
 			      <a class="dropdown-item" href="#" id="s5b_14" value="14"
 				 onclick="simui_select_details(14); show_memories_values();"><span class="bg-dark text-white">MM</span> Memory</a>
 			      <a class="dropdown-item" href="#" id="s5b_18" value="18"
 				 onclick="simui_select_details(18); show_memories_values();"><span class="bg-dark text-white">MM</span> Configuration</a>
+			      <a class="dropdown-item" href="#" id="s5b_21" value="21"
+				 onclick="simui_select_details(21); inputasm.refresh();"><span class="bg-dark text-white">MM</span> Assembly</a>
 
-			      <h6 class="text-secondary mb-1">Devices</h6>
+			      <h6 class="text-secondary mt-2 mb-1">Devices</h6>
 			      <a class="dropdown-item" href="#" id="s5b_12" value="12"
 				 onclick="simui_select_details(12); show_memories_values();"><span class="bg-dark text-white">Dev</span> Keyboard+Display</a>
 			      <a class="dropdown-item" href="#" id="s5b_15" value="15"
@@ -581,7 +581,7 @@
 		              <div id="config_IO" style="width: inherit; overflow-y: auto;"></div>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_hw">
-		              <div id="config_HW" style="width: inherit; overflow-y: auto;"></div>
+		              <div id="config_HW" style="width: inherit; overflow-y: auto; height: 55vh;"></div>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_mc">
 		              <div id="edit_MC" style="width: inherit; overflow-y: auto; overflow-x:hidden;">
@@ -1518,11 +1518,6 @@
 		    if (false == get_cfg('use_voice')) {
 			wepsim_voice_stop() ;
 		    }
-
-		    // debug
-		    var aa = simhw_active() ;
-		    $("#config_HW").html("<pre>" + JSON.stringify(aa, null, 2) + "</pre>") ;
-		    // /debug
 	    }) ;
 
             // progressive web application
