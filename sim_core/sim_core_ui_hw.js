@@ -119,6 +119,11 @@
 	      c = '<span class="container-fluid"><span class="row justify-content-between">' ;
 	      for (elto in ahw.signals) 
               {
+                   elto_n  = elto ;
+
+	           if (ahw.states[elto].value != 0)
+                       elto_n = '<strong>' + elto + '</strong>' ;
+
 		   c = c + '<span class="col">' +
 		           '<a href="#" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
 			   'name: '            + ahw.signals[elto].name + ',<br> ' +
@@ -127,7 +132,7 @@
 			   'nbits: '           + ahw.signals[elto].nbits + ',<br> ' +
 			   'type: '            + ahw.signals[elto].type + ',<br> ' +
 			   'visible: '         + ahw.signals[elto].visible +
-			   '">' + elto + '</a></span>' ;
+			   '">' + elto_n + '</a></span>' ;
 	      }
 	      c = c + '</span></span>' ;
 
