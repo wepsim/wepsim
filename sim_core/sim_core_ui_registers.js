@@ -129,7 +129,7 @@
                           "</button>" ;
 	    }
 
-            $(jqdiv).html("<div class='d-flex flex-row flex-wrap justify-content-sm-around justify-content-between'>" + o1_rf + "</div>");
+            $(jqdiv).html("<div class='d-flex flex-row flex-wrap justify-content-around justify-content-sm-between'>" + o1_rf + "</div>");
 
 	    $("[data-toggle=popover-up]").popover({
 	    	    html:      true,
@@ -256,7 +256,7 @@
                       "</button>" ;
             }
 
-            $(jqdiv).html("<div class='d-flex flex-row flex-wrap justify-content-sm-around justify-content-between'>" + o1 + "</div>");
+            $(jqdiv).html("<div class='d-flex flex-row flex-wrap justify-content-around justify-content-sm-between'>" + o1 + "</div>");
 
 	    $("[data-toggle=popover-bottom]").popover({
 	    	    html:      true,

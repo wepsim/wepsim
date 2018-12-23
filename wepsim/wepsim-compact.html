@@ -1523,7 +1523,7 @@
             // progressive web application
 	    if ( (false == is_mobile()) && ('serviceWorker' in navigator) )
             {
-		navigator.serviceWorker.register('WEPSIM_ROOT/min.wepsim_pwa.js').catch(function() {
+		navigator.serviceWorker.register('min.wepsim_pwa.js').catch(function() {
 		    wepsim_notify_error("<h4>Warning:" +
 		  		        "<br/>WepSIM was used over a HTTP connection.</h4>",
 		                        "Progressive Web Applications requires a HTTPS connection " +
