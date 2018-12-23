@@ -25,8 +25,101 @@
 
         function simcoreui_init_hw ( div_hw )
         {
-              var ahw = simhw_active();
+              var ahw = simhw_active() ;
 
-              $(div_hw).html('<pre>' + JSON.stringify(ahw, null, 2) + '</pre>');
+              var o = '' ;
+              var c = '' ;
+
+	      // summary
+	      o += '<div class="card">' +
+		   '    <div class="card-body">' +
+		   '      <h5 class="card-title">' + ahw.sim_name + ' (' + ahw.sim_short_name + ')' + '</h5>' +
+		   '      <p class="card-text">' + 
+		   '      <span class="row">' + 
+		   '      <img src="' + ahw.sim_img_processor +   '" class="col p-0 mr-1" alt="sim_img_processor">' +
+		   '      <img src="' + ahw.sim_img_controlunit + '" class="col p-0"      alt="sim_img_controlunit">' +
+		   '      </span>' +
+		   '      </p>' +
+		   '    </div>' +
+		   '</div>' ;
+
+	      // components
+	      c = '' ;
+	      for (elto in ahw.components) {
+		   c = c + '<a href="#" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
+			   'name: '            + ahw.components[elto].name + ',<br> ' +
+			   'version: '         + ahw.components[elto].version + ',<br> ' +
+			   'abilities: '       + ahw.components[elto].abilities.join(" ") + 
+			   '">' + elto + '</a>&nbsp;' ;
+	      }
+
+	      o += '  <div class="card mt-1">' +
+		   '    <div class="card-body">' +
+		   '      <h5 class="card-title">Components</h5>' +
+		   '      <p class="card-text">' + c + '</p>' +
+		   '    </div>' +
+		   '  </div>' ;
+
+	      // states
+	      c = '' ;
+	      for (elto in ahw.states) {
+		   c = c + '<a href="#" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
+			   'name: '            + ahw.states[elto].name + ',<br> ' +
+			   'visible: '         + ahw.states[elto].visible + ',<br> ' +
+			   'default_value: '   + ahw.states[elto].default_value + ',<br> ' +
+			   'nbits: '           + ahw.states[elto].nbits +
+			   '">' + elto + '</a>&nbsp;' ;
+	      }
+
+	      o += '  <div class="card mt-1">' +
+		   '    <div class="card-body">' +
+		   '      <h5 class="card-title">States</h5>' +
+		   '      <p class="card-text">' + c + '</p>' +
+		   '    </div>' +
+		   '  </div>' ;
+
+	      // signals
+	      c = '' ;
+	      for (elto in ahw.signals) {
+		   c = c + '<a href="#" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
+			   'name: '            + ahw.signals[elto].name + ',<br> ' +
+			   'visible: '         + ahw.signals[elto].visible + ',<br> ' +
+			   'type: '            + ahw.signals[elto].type + ',<br> ' +
+			   'default_value: '   + ahw.signals[elto].default_value + ',<br> ' +
+			   'nbits: '           + ahw.signals[elto].nbits +
+			   '">' + elto + '</a>&nbsp;' ;
+	      }
+
+	      o += '  <div class="card mt-1">' +
+		   '    <div class="card-body">' +
+		   '      <h5 class="card-title">Signals</h5>' +
+		   '      <p class="card-text">' + c + '</p>' +
+		   '    </div>' +
+		   '  </div>' ;
+
+	      // behaviors
+	      c = '' ;
+	      for (elto in ahw.behaviors) {
+		   c = c + '<a href="#" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
+			   'name: '            + elto + ',<br> ' +
+			   'nparameters: '     + ahw.behaviors[elto].nparameters + ',<br> ' +
+			   '">' + elto + '</a>&nbsp;' ;
+	      }
+
+	      o += '  <div class="card mt-1">' +
+		   '    <div class="card-body">' +
+		   '      <h5 class="card-title">Behaviors</h5>' +
+		   '      <p class="card-text">' + c + '</p>' +
+		   '    </div>' +
+		   '  </div>' ;
+
+	      // debug
+              //o = '<pre>' + JSON.stringify(ahw, null, 2) + '</pre>' ;
+
+	      // set and go
+              $(div_hw).html(o) ;
+              $('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' }) ;
+
+	      return true ;
         }
 
