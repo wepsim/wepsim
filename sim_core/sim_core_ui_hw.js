@@ -35,23 +35,32 @@
 		   '    <div class="card-body p-2">' +
 		   '      <h5 class="card-title">' + ahw.sim_name + ' (' + ahw.sim_short_name + ')' + '</h5>' +
 		   '      <p class="card-text">' + 
-		   '      <span class="row">' + 
-		   '      <img src="' + ahw.sim_img_processor +   '" class="col p-0 mr-1" alt="sim_img_processor">' +
-		   '      <img src="' + ahw.sim_img_controlunit + '" class="col p-0"      alt="sim_img_controlunit">' +
+		   '      <span class="container-fluid">' + 
+		   '        <span class="row">' + 
+		   '        <span class="col p-0 mr-1">' + 
+		   '           <img src="' + ahw.sim_img_processor + '" class="p-0" alt="sim_img_processor">' +
+		   '        </span>' +
+		   '        <span class="col p-0">' + 
+		   '           <img src="' + ahw.sim_img_controlunit + '" class="p-0" alt="sim_img_controlunit">' +
+		   '        </span>' +
+		   '        </span>' +
 		   '      </span>' +
 		   '      </p>' +
 		   '    </div>' +
 		   '</div>' ;
 
 	      // components
-	      c = '' ;
-	      for (elto in ahw.components) {
-		   c = c + '<a href="#" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
+	      c = '<span class="container-fluid"><span class="row justify-content-between">' ;
+	      for (elto in ahw.components) 
+              {
+		   c = c + '<span class="col">' +
+                           '<a href="#" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
 			   'name: '            + ahw.components[elto].name + ',<br> ' +
 			   'version: '         + ahw.components[elto].version + ',<br> ' +
-			   'abilities: '       + ahw.components[elto].abilities.join(" ") + 
-			   '">' + elto + '</a>&nbsp;' ;
+			   'abilities: '       + ahw.components[elto].abilities.join(" + ") + 
+			   '">' + elto + '</a></span>' ;
 	      }
+	      c = c + '</span></span>' ;
 
 	      o += '  <div class="card m-2">' +
 		   '    <div class="card-body p-2">' +
@@ -61,15 +70,43 @@
 		   '  </div>' ;
 
 	      // states
-	      c = '' ;
-	      for (elto in ahw.states) {
-		   c = c + '<a href="#" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
-			   'name: '            + ahw.states[elto].name + ',<br> ' +
-			   'visible: '         + ahw.states[elto].visible + ',<br> ' +
-			   'default_value: '   + ahw.states[elto].default_value + ',<br> ' +
-			   'nbits: '           + ahw.states[elto].nbits +
-			   '">' + elto + '</a>&nbsp;' ;
+              var elto_n  = '' ;
+              var elto_v  = '' ;
+              var elto_dv = '' ;
+              var elto_nb = '' ;
+              var elto_vi = '' ;
+
+	      c = '<span class="container-fluid"><span class="row justify-content-between">' ;
+	      for (elto in ahw.states) 
+              {
+                   elto_n  = elto ;
+                   elto_v  = "object" ;
+                   elto_dv = "object" ;
+                   elto_nb = "-" ;
+                   elto_vi = "-" ;
+
+                   if (typeof ahw.states[elto].value != 'undefined')
+                       elto_v  = ahw.states[elto].value ;
+                   if (typeof ahw.states[elto].default_value != 'undefined')
+                       elto_dv = ahw.states[elto].default_value ;
+                   if (typeof ahw.states[elto].nbits != 'undefined')
+                       elto_nb = ahw.states[elto].nbits ;
+                   if (typeof ahw.states[elto].visible != 'undefined')
+                       elto_vi = ahw.states[elto].visible ;
+
+	           if (ahw.states[elto].value != 0)
+                       elto_n = '<strong>' + elto + '</strong>' ;
+
+		   c = c + '<span class="col">' +
+		           '<a href="#" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
+			   'name: '            + elto + ',<br> ' +
+			   'value: '           + elto_v + ',<br> ' +
+			   'default_value: '   + elto_dv + ',<br> ' +
+			   'nbits: '           + elto_nb + ',<br> ' +
+			   'visible: '         + elto_vi + 
+			   '">' + elto_n + '</a></span>' ;
 	      }
+	      c = c + '</span></span>' ;
 
 	      o += '  <div class="card m-2">' +
 		   '    <div class="card-body p-2">' +
@@ -79,16 +116,20 @@
 		   '  </div>' ;
 
 	      // signals
-	      c = '' ;
-	      for (elto in ahw.signals) {
-		   c = c + '<a href="#" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
+	      c = '<span class="container-fluid"><span class="row justify-content-between">' ;
+	      for (elto in ahw.signals) 
+              {
+		   c = c + '<span class="col">' +
+		           '<a href="#" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
 			   'name: '            + ahw.signals[elto].name + ',<br> ' +
-			   'visible: '         + ahw.signals[elto].visible + ',<br> ' +
-			   'type: '            + ahw.signals[elto].type + ',<br> ' +
+			   'value: '           + ahw.signals[elto].value + ',<br> ' +
 			   'default_value: '   + ahw.signals[elto].default_value + ',<br> ' +
-			   'nbits: '           + ahw.signals[elto].nbits +
-			   '">' + elto + '</a>&nbsp;' ;
+			   'nbits: '           + ahw.signals[elto].nbits + ',<br> ' +
+			   'type: '            + ahw.signals[elto].type + ',<br> ' +
+			   'visible: '         + ahw.signals[elto].visible +
+			   '">' + elto + '</a></span>' ;
 	      }
+	      c = c + '</span></span>' ;
 
 	      o += '  <div class="card m-2">' +
 		   '    <div class="card-body p-2">' +
@@ -98,13 +139,18 @@
 		   '  </div>' ;
 
 	      // behaviors
-	      c = '' ;
-	      for (elto in ahw.behaviors) {
-		   c = c + '<a href="#" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
+	      c = '<span class="container-fluid"><span class="row justify-content-between">' ;
+	      for (elto in ahw.behaviors) 
+              {
+		   c = c + '<span class="col">' +
+		           '<a href="#" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
 			   'name: '            + elto + ',<br> ' +
 			   'nparameters: '     + ahw.behaviors[elto].nparameters + ',<br> ' +
-			   '">' + elto + '</a>&nbsp;' ;
+			// 'operation: '       + ahw.behaviors[elto].operation.toString() + ',<br> ' +
+			// 'verbal: '          + ahw.behaviors[elto].verbal.toString() + ',<br> ' +
+			   '">' + elto + '</a></span>' ;
 	      }
+	      c = c + '</span></span>' ;
 
 	      o += '  <div class="card m-2">' +
 		   '    <div class="card-body p-2">' +
