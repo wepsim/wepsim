@@ -23,15 +23,10 @@
          *  General Hardware
          */
 
-        function simcoreui_init_hw ( div_hw )
+        function simcoreui_init_hw_summary ( ahw )
         {
-              var ahw = simhw_active() ;
-
-              var o = '' ;
-              var c = '' ;
-
-	      // summary + components
-	      c = '<span class="row justify-content-between">' ;
+              // list of components
+	      var c = '<span class="row justify-content-between">' ;
 	      for (elto in ahw.components) 
               {
 		   c = c + '<span class="col">' +
@@ -43,6 +38,8 @@
 	      }
 	      c = c + '</span>' ;
 
+              // card with signal list
+              var o = '' ;
 	      o += '<div class="card m-2">' +
 		   '    <div class="card-body p-2">' +
                    '' +
@@ -71,14 +68,56 @@
 		   '    </div>' +
 		   '</div>' ;
 
-	      // states
+	      return o ;
+        }
+
+        function simcoreui_init_hw_signals ( ahw )
+        {
+              // list of signals
+              var elto_n  = '' ;
+
+	      var c = '<span class="row justify-content-between">' ;
+	      for (elto in ahw.signals) 
+              {
+                   elto_n  = elto ;
+
+	           if (ahw.signals[elto].value != 0) {
+                       elto_n = '<strong>' + elto + '</strong>' ;
+                   }
+
+		   c = c + '<span class="col">' +
+		           '<a href="#" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
+			   'name: '            + ahw.signals[elto].name + ',<br> ' +
+			   'value: '           + ahw.signals[elto].value + ',<br> ' +
+			   'default_value: '   + ahw.signals[elto].default_value + ',<br> ' +
+			   'nbits: '           + ahw.signals[elto].nbits + ',<br> ' +
+			   'type: '            + ahw.signals[elto].type + ',<br> ' +
+			   'visible: '         + ahw.signals[elto].visible +
+			   '">' + elto_n + '</a></span>' ;
+	      }
+	      c = c + '</span>' ;
+
+              // card with signal list
+	      var o = '  <div class="card m-2">' +
+		      '    <div class="card-body p-2">' +
+		      '      <h5 class="card-title">Signals</h5>' +
+		      '      <p class="card-text">' + c + '</p>' +
+		      '    </div>' +
+		      '  </div>' ;
+
+	      return o ;
+        }
+
+        function simcoreui_init_hw_states ( ahw )
+        {
+              // list of states
               var elto_n  = '' ;
               var elto_v  = '' ;
               var elto_dv = '' ;
               var elto_nb = '' ;
               var elto_vi = '' ;
 
-	      c = '<span class="row justify-content-between">' ;
+	      var c = '<span class="row justify-content-between">' ;
 	      for (elto in ahw.states) 
               {
                    elto_n  = elto ;
@@ -96,8 +135,9 @@
                    if (typeof ahw.states[elto].visible != 'undefined')
                        elto_vi = ahw.states[elto].visible ;
 
-	           if (ahw.states[elto].value != 0)
+	           if (ahw.states[elto].value != 0) {
                        elto_n = '<strong>' + elto + '</strong>' ;
+		   }
 
 		   c = c + '<span class="col">' +
 		           '<a href="#" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
@@ -110,43 +150,21 @@
 	      }
 	      c = c + '</span>' ;
 
-	      o += '  <div class="card m-2">' +
-		   '    <div class="card-body p-2">' +
-		   '      <h5 class="card-title">States</h5>' +
-		   '      <p class="card-text">' + c + '</p>' +
-		   '    </div>' +
-		   '  </div>' ;
+              // card with state list
+	      var o = '  <div class="card m-2">' +
+		      '    <div class="card-body p-2">' +
+		      '      <h5 class="card-title">States</h5>' +
+		      '      <p class="card-text">' + c + '</p>' +
+		      '    </div>' +
+		      '  </div>' ;
 
-	      // signals
-	      c = '<span class="row justify-content-between">' ;
-	      for (elto in ahw.signals) 
-              {
-                   elto_n  = elto ;
+	      return o ;
+        }
 
-	           if (ahw.signals[elto].value != 0)
-                       elto_n = '<strong>' + elto + '</strong>' ;
-
-		   c = c + '<span class="col">' +
-		           '<a href="#" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
-			   'name: '            + ahw.signals[elto].name + ',<br> ' +
-			   'value: '           + ahw.signals[elto].value + ',<br> ' +
-			   'default_value: '   + ahw.signals[elto].default_value + ',<br> ' +
-			   'nbits: '           + ahw.signals[elto].nbits + ',<br> ' +
-			   'type: '            + ahw.signals[elto].type + ',<br> ' +
-			   'visible: '         + ahw.signals[elto].visible +
-			   '">' + elto_n + '</a></span>' ;
-	      }
-	      c = c + '</span>' ;
-
-	      o += '  <div class="card m-2">' +
-		   '    <div class="card-body p-2">' +
-		   '      <h5 class="card-title">Signals</h5>' +
-		   '      <p class="card-text">' + c + '</p>' +
-		   '    </div>' +
-		   '  </div>' ;
-
-	      // behaviors
-	      c = '<span class="row justify-content-between">' ;
+        function simcoreui_init_hw_behaviors ( ahw )
+        {
+              // list of behaviors
+	      var c = '<span class="row justify-content-between">' ;
 	      for (elto in ahw.behaviors) 
               {
 		   c = c + '<span class="col">' +
@@ -159,12 +177,27 @@
 	      }
 	      c = c + '</span>' ;
 
-	      o += '  <div class="card m-2">' +
-		   '    <div class="card-body p-2">' +
-		   '      <h5 class="card-title">Behaviors</h5>' +
-		   '      <p class="card-text">' + c + '</p>' +
-		   '    </div>' +
-		   '  </div>' ;
+              // card with behaviors list
+	      var o = '  <div class="card m-2">' +
+		      '    <div class="card-body p-2">' +
+		      '      <h5 class="card-title">Behaviors</h5>' +
+		      '      <p class="card-text">' + c + '</p>' +
+		      '    </div>' +
+		      '  </div>' ;
+
+	      return o ;
+        }
+
+        function simcoreui_init_hw ( div_hw )
+        {
+              var ahw = simhw_active() ;
+
+	      // get make-up
+              var o = '' ;
+              o += simcoreui_init_hw_summary(ahw) ;
+              o += simcoreui_init_hw_signals(ahw) ;
+              o += simcoreui_init_hw_states(ahw) ;
+              o += simcoreui_init_hw_behaviors(ahw) ;
 
 	      // set and go
               $(div_hw).html(o) ;
