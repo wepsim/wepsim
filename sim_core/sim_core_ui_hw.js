@@ -121,7 +121,7 @@
               {
                    elto_n  = elto ;
 
-	           if (ahw.states[elto].value != 0)
+	           if (ahw.signals[elto].value != 0)
                        elto_n = '<strong>' + elto + '</strong>' ;
 
 		   c = c + '<span class="col">' +
