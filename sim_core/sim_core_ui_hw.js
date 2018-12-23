@@ -30,27 +30,8 @@
               var o = '' ;
               var c = '' ;
 
-	      // summary
-	      o += '<div class="card m-2">' +
-		   '    <div class="card-body p-2">' +
-		   '      <h5 class="card-title">' + ahw.sim_name + ' (' + ahw.sim_short_name + ')' + '</h5>' +
-		   '      <p class="card-text">' + 
-		   '      <span class="container-fluid">' + 
-		   '        <span class="row">' + 
-		   '        <span class="col p-0 mr-1">' + 
-		   '           <img src="' + ahw.sim_img_processor + '" class="p-0" alt="sim_img_processor">' +
-		   '        </span>' +
-		   '        <span class="col p-0">' + 
-		   '           <img src="' + ahw.sim_img_controlunit + '" class="p-0" alt="sim_img_controlunit">' +
-		   '        </span>' +
-		   '        </span>' +
-		   '      </span>' +
-		   '      </p>' +
-		   '    </div>' +
-		   '</div>' ;
-
-	      // components
-	      c = '<span class="container-fluid"><span class="row justify-content-between">' ;
+	      // summary + components
+	      c = '<span class="row justify-content-between">' ;
 	      for (elto in ahw.components) 
               {
 		   c = c + '<span class="col">' +
@@ -60,14 +41,35 @@
 			   'abilities: '       + ahw.components[elto].abilities.join(" + ") + 
 			   '">' + elto + '</a></span>' ;
 	      }
-	      c = c + '</span></span>' ;
+	      c = c + '</span>' ;
 
-	      o += '  <div class="card m-2">' +
+	      o += '<div class="card m-2">' +
 		   '    <div class="card-body p-2">' +
-		   '      <h5 class="card-title">Components</h5>' +
-		   '      <p class="card-text">' + c + '</p>' +
+                   '' +
+		   '      <h5 class="card-title">' + 
+		   '        <span class="row">' + 
+		   '          <span class="col-6">' + ahw.sim_name + ' (' + ahw.sim_short_name + ')</span>' +
+                   '          <a data-toggle="collapse" href="#th_processor" role="button"   class="col w-25" ' + 
+                   'aria-expanded="false" aria-controls="th_processor">' + 
+		   '<img src="' + ahw.sim_img_processor + '" class="img-thumbnail" alt="sim_img_processor"></a>' +
+                   '          <a data-toggle="collapse" href="#th_controlunit" role="button" class="col w-25" ' + 
+                   'aria-expanded="false" aria-controls="th_controlunit">' + 
+		   '<img src="' + ahw.sim_img_controlunit + '" class="img-thumbnail" alt="sim_img_controlunit"></a>' +
+		   '        </span>' +
+                   '      </h5>' +
+                   '' +
+		   '      <p class="card-text">' + 
+                   '      <span class="collapse multi-collapse" id="th_processor">' +
+		   '<img src="' + ahw.sim_img_processor + '" class="img-thumbnail" alt="sim_img_processor"></a>' +
+		   '      </span>' +
+                   '      <span class="collapse multi-collapse" id="th_controlunit">' +
+		   '<img src="' + ahw.sim_img_controlunit + '" class="img-thumbnail" alt="sim_img_controlunit"></a>' +
+		   '      </span>' +
+		          c + 
+		   '      </p>' +
+                   '' +
 		   '    </div>' +
-		   '  </div>' ;
+		   '</div>' ;
 
 	      // states
               var elto_n  = '' ;
@@ -76,7 +78,7 @@
               var elto_nb = '' ;
               var elto_vi = '' ;
 
-	      c = '<span class="container-fluid"><span class="row justify-content-between">' ;
+	      c = '<span class="row justify-content-between">' ;
 	      for (elto in ahw.states) 
               {
                    elto_n  = elto ;
@@ -106,7 +108,7 @@
 			   'visible: '         + elto_vi + 
 			   '">' + elto_n + '</a></span>' ;
 	      }
-	      c = c + '</span></span>' ;
+	      c = c + '</span>' ;
 
 	      o += '  <div class="card m-2">' +
 		   '    <div class="card-body p-2">' +
@@ -116,7 +118,7 @@
 		   '  </div>' ;
 
 	      // signals
-	      c = '<span class="container-fluid"><span class="row justify-content-between">' ;
+	      c = '<span class="row justify-content-between">' ;
 	      for (elto in ahw.signals) 
               {
                    elto_n  = elto ;
@@ -134,7 +136,7 @@
 			   'visible: '         + ahw.signals[elto].visible +
 			   '">' + elto_n + '</a></span>' ;
 	      }
-	      c = c + '</span></span>' ;
+	      c = c + '</span>' ;
 
 	      o += '  <div class="card m-2">' +
 		   '    <div class="card-body p-2">' +
@@ -144,7 +146,7 @@
 		   '  </div>' ;
 
 	      // behaviors
-	      c = '<span class="container-fluid"><span class="row justify-content-between">' ;
+	      c = '<span class="row justify-content-between">' ;
 	      for (elto in ahw.behaviors) 
               {
 		   c = c + '<span class="col">' +
@@ -155,7 +157,7 @@
 			// 'verbal: '          + ahw.behaviors[elto].verbal.toString() + ',<br> ' +
 			   '">' + elto + '</a></span>' ;
 	      }
-	      c = c + '</span></span>' ;
+	      c = c + '</span>' ;
 
 	      o += '  <div class="card m-2">' +
 		   '    <div class="card-body p-2">' +
@@ -163,9 +165,6 @@
 		   '      <p class="card-text">' + c + '</p>' +
 		   '    </div>' +
 		   '  </div>' ;
-
-	      // debug
-              //o = '<pre>' + JSON.stringify(ahw, null, 2) + '</pre>' ;
 
 	      // set and go
               $(div_hw).html(o) ;
