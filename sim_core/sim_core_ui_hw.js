@@ -31,8 +31,8 @@
               var c = '' ;
 
 	      // summary
-	      o += '<div class="card">' +
-		   '    <div class="card-body">' +
+	      o += '<div class="card m-2">' +
+		   '    <div class="card-body p-2">' +
 		   '      <h5 class="card-title">' + ahw.sim_name + ' (' + ahw.sim_short_name + ')' + '</h5>' +
 		   '      <p class="card-text">' + 
 		   '      <span class="row">' + 
@@ -53,8 +53,8 @@
 			   '">' + elto + '</a>&nbsp;' ;
 	      }
 
-	      o += '  <div class="card mt-1">' +
-		   '    <div class="card-body">' +
+	      o += '  <div class="card m-2">' +
+		   '    <div class="card-body p-2">' +
 		   '      <h5 class="card-title">Components</h5>' +
 		   '      <p class="card-text">' + c + '</p>' +
 		   '    </div>' +
@@ -71,8 +71,8 @@
 			   '">' + elto + '</a>&nbsp;' ;
 	      }
 
-	      o += '  <div class="card mt-1">' +
-		   '    <div class="card-body">' +
+	      o += '  <div class="card m-2">' +
+		   '    <div class="card-body p-2">' +
 		   '      <h5 class="card-title">States</h5>' +
 		   '      <p class="card-text">' + c + '</p>' +
 		   '    </div>' +
@@ -90,8 +90,8 @@
 			   '">' + elto + '</a>&nbsp;' ;
 	      }
 
-	      o += '  <div class="card mt-1">' +
-		   '    <div class="card-body">' +
+	      o += '  <div class="card m-2">' +
+		   '    <div class="card-body p-2">' +
 		   '      <h5 class="card-title">Signals</h5>' +
 		   '      <p class="card-text">' + c + '</p>' +
 		   '    </div>' +
@@ -106,8 +106,8 @@
 			   '">' + elto + '</a>&nbsp;' ;
 	      }
 
-	      o += '  <div class="card mt-1">' +
-		   '    <div class="card-body">' +
+	      o += '  <div class="card m-2">' +
+		   '    <div class="card-body p-2">' +
 		   '      <h5 class="card-title">Behaviors</h5>' +
 		   '      <p class="card-text">' + c + '</p>' +
 		   '    </div>' +
