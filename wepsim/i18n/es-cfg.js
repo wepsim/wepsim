@@ -22,7 +22,7 @@
     i18n.cfg.es = {
 	             "General": "General",
                       "Idiom for help, examples, etc.": 		             "Idioma para ayuda, ejemplos, etc.",
-                      "Active voice: experimental voice control": 	             "Activar voz: control por voz experimental",
+                      "Active voice: external voice control": 	                     "Activar voz: control por voz (externo)",
                       "Notification speed: time before disapear": 	             "Velocidad en notificaciones: tiempo en desaparecer",
 	             "Editor": "Editor",
                       "Editor theme: light or dark": 		                     "Tema de editor: claro u oscuro",

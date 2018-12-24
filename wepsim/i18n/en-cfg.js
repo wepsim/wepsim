@@ -22,7 +22,7 @@
     i18n.cfg.en = {
 	             "General": "General",
                       "Idiom for help, examples, etc.": 		             "Idiom for help, examples, etc.",
-                      "Active voice: experimental voice control": 	             "Active voice: experimental voice control",
+                      "Active voice: external voice control": 	                     "Active voice: external voice control",
                       "Notification speed: time before disapear": 	             "Notification speed: time before disapear",
 	             "Editor": "Editor",
                       "Editor theme: light or dark": 		                     "Editor theme: light or dark",
