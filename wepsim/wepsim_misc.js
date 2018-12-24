@@ -610,7 +610,7 @@
         var o = '<ul class="list-group list-group-flush">' +
 		'<li class="list-group-item px-0 pt-1"> ' +
 		'  <em class="fas fa-flag"></em> &nbsp;' +
-		'  <a class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" href="#" ' +
+		'  <a class="btn btn-sm btn-outline-secondary col-auto p-1 text-left" href="#" ' +
                 '     onclick="simcoreui_notify_notifications(); ' +
 		'              $(\'#' + quick_po + '\').popover(\'hide\');">Show Notifications...</a>' +
 		'</li>' +
