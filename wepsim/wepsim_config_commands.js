@@ -60,29 +60,6 @@
                       description: "<span data-langkey='WepSIM User Interface Skin'>WepSIM User Interface Skin</span>"
                    });
 
-/*
-    ws_config.push({
-                      id:          "radio11",
-                      type:        "General",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
-				   "	    <label id='label11-true'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
-				   "		   aria-label='Active voice: true'" +
-				   "		   onclick=\"update_cfg('use_voice',true); wepsim_voice_start();\">" +
-				   "		<input type='radio' name='options' id='radio11-true'   autocomplete='off' >On" +
-				   "	    </label>" +
-				   "	    <label id='label11-false'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
-				   "		   aria-label='Active voice: false'" +
-				   "		   onclick=\"update_cfg('use_voice',false); wepsim_voice_stop();\">" +
-				   "		<input type='radio' name='options' id='radio11-false'  autocomplete='off' >Off" +
-				   "	    </label>" +
-				   "	</div>",
-		      code_init:   function() { $('#radio11-' +        get_cfg('use_voice')).click(); },
-                      description: "<span data-langkey='Active voice: experimental voice control'>Active voice: experimental voice control</span>"
-                   });
-*/
-
     ws_config.push({
                       id:          "slider3",
                       type:        "General",
@@ -108,6 +85,27 @@
 				   "	</div>",
 		      code_init:   function() { $('#radio8-' + get_cfg('NOTIF_delay')).click(); },
                       description: "<span data-langkey='Notification speed: time before disapear'>Notification speed: time before disapear</span>"
+                   });
+
+    ws_config.push({
+                      id:          "radio11",
+                      type:        "General",
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+				   "	    <label id='label11-true'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   aria-label='Active voice: true'" +
+				   "		   onclick=\"update_cfg('use_voice',true); wepsim_voice_start();\">" +
+				   "		<input type='radio' name='options' id='radio11-true'   autocomplete='off' >On" +
+				   "	    </label>" +
+				   "	    <label id='label11-false'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   aria-label='Active voice: false'" +
+				   "		   onclick=\"update_cfg('use_voice',false); wepsim_voice_stop();\">" +
+				   "		<input type='radio' name='options' id='radio11-false'  autocomplete='off' >Off" +
+				   "	    </label>" +
+				   "	</div>",
+		      code_init:   function() { $('#radio11-' +        get_cfg('use_voice')).click(); },
+                      description: "<span data-langkey='Active voice: external voice control'>Active voice: external voice control</span>"
                    });
 
     ws_config.push({

@@ -133,15 +133,13 @@
                        description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: strlen_2 + skipasciicode_2.<br>"
                      });
 
-/*
     examples.es.push({
                        id: 'S4E3',
-                       title: "madd, mmul, mma",
+                       title: "madd, mmul, mxch",
                        level: "Laboratorio",
                        hardware: "ep",
-                       description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: madd + mmul + mma.<br>"
+                       description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: madd + mmul + mxch.<br>"
                      });
- */
 
     examples.es.push({
                        id: 'S4E4',

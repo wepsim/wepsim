@@ -610,7 +610,7 @@
         var o = '<ul class="list-group list-group-flush">' +
 		'<li class="list-group-item px-0 pt-1"> ' +
 		'  <em class="fas fa-flag"></em> &nbsp;' +
-		'  <a class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" href="#" ' +
+		'  <a class="btn btn-sm btn-outline-secondary col-auto p-1 text-left" href="#" ' +
                 '     onclick="simcoreui_notify_notifications(); ' +
 		'              $(\'#' + quick_po + '\').popover(\'hide\');">Show Notifications...</a>' +
 		'</li>' +
@@ -626,18 +626,6 @@
                 '  <span class="btn-group-toggle" data-toggle="buttons">' +
 		'  <label class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" data-toggle="collapse" href=".multi-collapse-2">' +
 		'  <input type="checkbox" checked="" autocomplete="off"> Show/Hide Sliders</label>' +
-		'  </span>' +
-		'</li>' +
-		'<li class="list-group-item px-0"> ' +
-		'  <em class="fas fa-microphone"></em> &nbsp;' +
-                '  <span class="btn-group-toggle" data-toggle="buttons">' +
-		'  <label class="btn btn-sm btn-outline-secondary col-auto p-1 ml-1 text-left" href="#" ' +
-                '     onclick="var now = get_cfg(\'use_voice\'); ' +
-                '              update_cfg(\'use_voice\', !now); ' +
-                '              if (now) ' +
-                '                   wepsim_voice_stop(); ' +
-                '              else wepsim_voice_start();">' +
-		'  <input type="checkbox" checked="" autocomplete="off"> Active/Deactive Voice</label>' +
 		'  </span>' +
 		'</li>' +
 		'<li class="list-group-item px-0"> ' +
