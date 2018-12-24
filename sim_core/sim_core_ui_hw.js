@@ -30,7 +30,7 @@
 	      for (elto in ahw.components) 
               {
 		   c = c + '<span class="col">' +
-                           '<a href="#" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
+                           '<a href="#" class="hwtooltip" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
 			   'name: '            + ahw.components[elto].name + ',<br> ' +
 			   'version: '         + ahw.components[elto].version + ',<br> ' +
 			   'abilities: '       + ahw.components[elto].abilities.join(" + ") + 
@@ -86,7 +86,7 @@
                    }
 
 		   c = c + '<span class="col">' +
-		           '<a href="#" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
+		           '<a href="#" class="hwtooltip" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
 			   'name: '            + ahw.signals[elto].name + ',<br> ' +
 			   'value: '           + ahw.signals[elto].value + ',<br> ' +
 			   'default_value: '   + ahw.signals[elto].default_value + ',<br> ' +
@@ -120,27 +120,36 @@
 	      var c = '<span class="row justify-content-between">' ;
 	      for (elto in ahw.states) 
               {
-                   elto_n  = elto ;
-                   elto_v  = "object" ;
-                   elto_dv = "object" ;
-                   elto_nb = "-" ;
-                   elto_vi = "-" ;
-
-                   if (typeof ahw.states[elto].value != 'undefined')
+	           // value
+                   elto_v  = "-" ;
+                   elto_dv = "-" ;
+                   if (typeof ahw.states[elto].value != 'undefined') 
+		   {
                        elto_v  = ahw.states[elto].value ;
-                   if (typeof ahw.states[elto].default_value != 'undefined')
                        elto_dv = ahw.states[elto].default_value ;
-                   if (typeof ahw.states[elto].nbits != 'undefined')
-                       elto_nb = ahw.states[elto].nbits ;
-                   if (typeof ahw.states[elto].visible != 'undefined')
-                       elto_vi = ahw.states[elto].visible ;
 
-	           if (ahw.states[elto].value != 0) {
-                       elto_n = '<strong>' + elto + '</strong>' ;
+                       if (typeof elto_v == 'object') {
+                           elto_v  = 'object' ;
+                           elto_dv = 'object' ;
+		       }
 		   }
 
+	           if (elto_v != 0)
+                        elto_n = '<strong>' + elto + '</strong>' ;
+		   else elto_n = elto ;
+
+	           // nbits, and visible
+                   if (typeof ahw.states[elto].nbits != 'undefined')
+                        elto_nb = ahw.states[elto].nbits ;
+		   else elto_nb = "-" ;
+
+                   if (typeof ahw.states[elto].visible != 'undefined')
+                        elto_vi = ahw.states[elto].visible ;
+		   else elto_vi = "-" ;
+
+	           // compound
 		   c = c + '<span class="col">' +
-		           '<a href="#" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
+		           '<a href="#" class="hwtooltip" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
 			   'name: '            + elto + ',<br> ' +
 			   'value: '           + elto_v + ',<br> ' +
 			   'default_value: '   + elto_dv + ',<br> ' +
@@ -168,7 +177,7 @@
 	      for (elto in ahw.behaviors) 
               {
 		   c = c + '<span class="col">' +
-		           '<a href="#" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
+		           '<a href="#" class="hwtooltip" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
 			   'name: '            + elto + ',<br> ' +
 			   'nparameters: '     + ahw.behaviors[elto].nparameters + ',<br> ' +
 			// 'operation: '       + ahw.behaviors[elto].operation.toString() + ',<br> ' +
@@ -201,7 +210,7 @@
 
 	      // set and go
               $(div_hw).html(o) ;
-              $('[data-toggle="tooltip"]').tooltip({ trigger: 'hover' }) ;
+              $('.hwtooltip').tooltip({ trigger: 'hover' }) ;
 
 	      return true ;
         }
