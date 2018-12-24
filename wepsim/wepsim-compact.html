@@ -436,6 +436,8 @@
                     <div class="btn-toolbar btn-block" role="toolbar">
 		            <button class="col btn btn-light shadow-sm"
                                     id="btn_cfg1"
+			              data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			              title="This button opens the 'Configuration' dialog."
 		    	            style="border-color: #CCCCCC; flex-grow:1;"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			            title="This button opens the 'Configuration' dialog."
@@ -443,14 +445,14 @@
 
 		            <button class="col btn btn-light shadow-sm"
 		                    style="border-color: #CCCCCC; flex-grow:2;"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
-			            title="This button opens the 'state management' dialog: it shows the current state, save the current state, and show the differences between two states."
+			              data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			              title="This button opens the 'state management' dialog: it shows the current state, saves the current state, and shows the differences between two states."
 		                    onclick="wepsim_dialog_current_state();"><em class="fas fa-camera"></em>&nbsp;<span data-langkey='States'>States</span></button>
 
 			  <div class="col btn-group p-0" style="flex-grow:6;">
 			    <button type="button" class="col-12 btn btn-light shadow-sm"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
-			            title="This button refresh the details (and might move the scrollbar), <br>the dropdown on the right changes the element to show its details."
+			              data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			              title="This button refresh the details (and might move the scrollbar), <br>the dropdown on the right changes the element to show its details."
                                     style="border-color: #CCCCCC;"
 				    id="select5b"
                                     onclick="show_rf_values();
