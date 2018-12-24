@@ -87,12 +87,14 @@
 
 		   c = c + '<span class="col">' +
 		           '<a href="#" class="hwtooltip" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
+			   '<p style=\'text-align:left\'>' +
 			   'name: '            + ahw.signals[elto].name + ',<br> ' +
 			   'value: '           + ahw.signals[elto].value + ',<br> ' +
 			   'default_value: '   + ahw.signals[elto].default_value + ',<br> ' +
 			   'nbits: '           + ahw.signals[elto].nbits + ',<br> ' +
 			   'type: '            + ahw.signals[elto].type + ',<br> ' +
 			   'visible: '         + ahw.signals[elto].visible +
+			   '</p>' +
 			   '">' + elto_n + '</a></span>' ;
 	      }
 	      c = c + '</span>' ;
@@ -128,7 +130,8 @@
                        elto_v  = ahw.states[elto].value ;
                        elto_dv = ahw.states[elto].default_value ;
 
-                       if (typeof elto_v == 'object') {
+                       if (typeof elto_v == 'object') 
+		       {
                            elto_v  = 'object' ;
                            elto_dv = 'object' ;
 		       }
@@ -150,11 +153,13 @@
 	           // compound
 		   c = c + '<span class="col">' +
 		           '<a href="#" class="hwtooltip" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
+			   '<p style=\'text-align:left\'>' +
 			   'name: '            + elto + ',<br> ' +
 			   'value: '           + elto_v + ',<br> ' +
 			   'default_value: '   + elto_dv + ',<br> ' +
 			   'nbits: '           + elto_nb + ',<br> ' +
 			   'visible: '         + elto_vi + 
+			   '</p>' +
 			   '">' + elto_n + '</a></span>' ;
 	      }
 	      c = c + '</span>' ;
@@ -178,10 +183,12 @@
               {
 		   c = c + '<span class="col">' +
 		           '<a href="#" class="hwtooltip" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
+			   '<p style=\'text-align:left\'>' +
 			   'name: '            + elto + ',<br> ' +
 			   'nparameters: '     + ahw.behaviors[elto].nparameters + ',<br> ' +
 			// 'operation: '       + ahw.behaviors[elto].operation.toString() + ',<br> ' +
 			// 'verbal: '          + ahw.behaviors[elto].verbal.toString() + ',<br> ' +
+			   '</p>' +
 			   '">' + elto + '</a></span>' ;
 	      }
 	      c = c + '</span>' ;
