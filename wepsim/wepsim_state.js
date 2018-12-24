@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -180,14 +180,14 @@
                   '              <strong class="m-2">' + 
 		  '              <span class="badge badge-pill border-secondary border shadow">' + 
 		  '  		       <a data-toggle="collapse" data-target="#collapse_'+i+'" ' + 
-		  '                       class="col-auto p-0" target="_blank" href="#">' + state_history[i].title_short + '</a>' +
+		  '                       class="col-auto p-0 text-decoration-none text-reset" target="_blank" href="#">' + state_history[i].title_short + '</a>' +
 		  '              </span>' + 
 		  '              </strong>' +
 		 	         vrow +
                   '       </div>' +
                   '       <div class="col py-2 pl-0">' +
                   '             <div class="btn-group float-none" role="group" aria-label="State information for ' + it + '">' +
-                  '                   <button class="btn btn-outline-dark btn-sm col float-right"' + 
+                  '                   <button class="btn btn-outline-dark btn-sm col-auto float-right"' + 
                   '                           onclick="wepsim_state_results_empty();  ' + 
                   '                                    $(\'#collapse_' + i + '\').collapse(\'show\'); ' + 
                   '                                    CopyFromDiv(\'state_' + i + '\');  ' + 
@@ -195,7 +195,7 @@
                   '                                    $(\'#s_clip\').html(\'' + state_history[i].title_short + '\'); ' + 
                   '                                    $(\'#s_ref\').html(\'reference\'); " ' + 
                   '                           type="button">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>' +
-                  '                   <button class="btn btn-outline-dark btn-sm col float-right"' + 
+                  '                   <button class="btn btn-outline-dark btn-sm col-auto float-right"' + 
                   '                           onclick="var txt_chklst1 = get_clipboard_copy();' +
                   '                                    var obj_exp1    = simcore_simstate_checklist2state(txt_chklst1);' +
                   '                                    var txt_chklst2 = $(\'#ta_state_'+i+'\').val();' +
@@ -204,13 +204,17 @@
                   '                                    $(\'#s_ref\').html(\'' + state_history[i].title_short + '\'); ' + 
                   '                                    $(\'#check_results_scroll1\').collapse(\'show\');"' +
                   '                           type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>' +
-                  '                   <button class="btn btn-outline-dark btn-sm col float-right"' + 
+                  '                   <button class="btn btn-outline-dark btn-sm col-auto float-right"' + 
+		  '  		              data-toggle="collapse" data-target="#collapse_'+i+'">&plusmn; Show</button>' +
+/*
+                  '                   <button class="btn btn-outline-dark btn-sm col-auto float-right"' + 
                   '                           data-toggle="popover4" data-html="true" type="button" ' + 
                   '                           id="' + it + '">+Info</button>' +
+*/
                   '             </div>' +
 			        tt +
                   '             <div id="collapse_' + i + '" class="border border-secondary mt-2 collapse">' +
-                  '                   <div class="card-body p-1" ' + 
+                  '                   <div class="card-body p-1 small" ' + 
                   '                        id="state_' + i + '">' + state_history[i].content + '</div>' +
                   '                   <textarea aria-label="hidden-state"  style="display:none"' +
                   '                             id="ta_state_'+i+'" readonly>' + state_history[i].content + '</textarea>' +

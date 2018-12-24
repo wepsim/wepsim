@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -23,7 +23,7 @@
  * cache versioning
  */
 
-var cacheName = 'v195b_static';
+var cacheName = 'v196a_static';
 
 
 /*
@@ -214,8 +214,6 @@ self.addEventListener('install',
 
 self.addEventListener('fetch', 
 	              function(event) {
-			  // OLD: event.respondWith(fetch(event.request)) ;
-
 			  // NEW: https://developer.mozilla.org/es/docs/Web/API/FetchEvent
 			  if (event.request.method != 'GET') {
 			      event.respondWith(fetch(event.request)) ;

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -42,6 +42,26 @@
                    });
 
     ws_config.push({
+                      id:          "select8",
+                      type:        "General",
+                      code_cfg:    "<div class='form-group' style='margin:0 0 0 0;'>" +
+				   " <select name='select8' id='select8' class='form-control form-control-sm custom-select'" +
+				   "	     aria-label='User Interface for WepSIM' " +
+				   "	     onchange=\"var opt = $(this).find('option:selected');" +
+				   "	 	        var optValue = opt.val();" +
+				   "		        update_cfg('ws_skin', optValue);" +
+				   "		        window.location='wepsim-' + optValue + '.html';\"" +
+				   "	     data-native-menu='false'>" +
+				   "	<option value='classic'>Classic</option>" +
+				   "	<option value='compact'>Compact</option>" +
+				   " </select>" +
+			           "</div>",
+                      code_init:   function() { $('#select8').val(get_cfg('ws_skin')); },
+                      description: "<span data-langkey='WepSIM User Interface Skin'>WepSIM User Interface Skin</span>"
+                   });
+
+/*
+    ws_config.push({
                       id:          "radio11",
                       type:        "General",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
@@ -61,6 +81,7 @@
 		      code_init:   function() { $('#radio11-' +        get_cfg('use_voice')).click(); },
                       description: "<span data-langkey='Active voice: experimental voice control'>Active voice: experimental voice control</span>"
                    });
+*/
 
     ws_config.push({
                       id:          "slider3",
@@ -381,5 +402,26 @@
 				   "	</div> ",
 		      code_init:   function() { $('#radio5-' +    get_cfg('is_interactive')).click(); },
                       description: "<span data-langkey='Interactive mode: signal value can be updated'>Interactive mode: signal value can be updated</span>"
+                   });
+
+    ws_config.push({
+                      id:          "radio6",
+                      type:        "Circuitry simulation",
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+				   "	    <label id='label6-true'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   aria-label='Is quick interactive: true'" +
+				   "		   onclick=\"update_cfg('is_quick_interactive',true);\">" +
+				   "		<input type='radio' name='options' id='radio6-true'   autocomplete='off' >On" +
+				   "	    </label>" +
+				   "	    <label id='label6-false'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   aria-label='Is quick interactive: false'" +
+				   "		   onclick=\"update_cfg('is_quick_interactive',false);\">" +
+				   "		<input type='radio' name='options' id='radio6-false'  autocomplete='off' >Off" +
+				   "	    </label>" +
+				   "	</div> ",
+		      code_init:   function() { $('#radio6-' +    get_cfg('is_quick_interactive')).click(); },
+                      description: "<span data-langkey='Quick interactive mode: quick update of signal value'>Quick interactive mode: quick update of signal value</span>"
                    });
 

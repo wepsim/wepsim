@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -39,7 +39,7 @@
                       "&#181;instructions": 		                   	     "&#181;instructions",
                       "Breakpoint icon: icon to be used for breakpoints":            "Breakpoint icon: icon to be used for breakpoints",
                       "Limit instructions: number of instructions to be executed":   "Limit instructions: number of instructions to be executed",
-                      "Limit instruction ticks: to limit clock ticks": 	             "Limit instruction ticks: to limit clock ticks",
+                      "Limit instruction ticks: to limit clock ticks": 	             "Limit instruction ticks: clock ticks limit per instruction",
 	             "Register file": "Register file",
                       "Display format": 		                     	     "Display format",
                       "Register file names": 		                             "Register file names",
@@ -53,6 +53,8 @@
                       "Value": 		                     		             "Value",
                       "Activation": 		                     		     "Activation",
                       "Interactive mode: signal value can be updated": 		     "Interactive mode: signal value can be updated",
+                      "Quick interactive mode: quick update of signal value":	     "Quick interactive mode: quick update of signal value",
+                      "WepSIM User Interface Skin": 		                     "WepSIM User Interface Skin",
                       "(example)": 					             "(example)"
                   } ;
 

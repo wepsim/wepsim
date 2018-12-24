@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -23,7 +23,7 @@
  * cache versioning
  */
 
-var cacheName = 'v195b_static';
+var cacheName = 'v196a_static';
 
 
 /*
@@ -36,11 +36,11 @@ self.addEventListener('install',
 				caches.open(cacheName).then(function(cache) {
 				    return cache.addAll([
                                         './external/jquery.min.js',
-                                        'WEPSIM_ROOT/min.wepsim_pwa.js',
-                                        'WEPSIM_ROOT/min.external.css',
-                                        'WEPSIM_ROOT/min.external.js',
-                                        'WEPSIM_ROOT/min.sim_all.js',
-                                        'WEPSIM_ROOT/min.wepsim_web.js',
+                                        './min.wepsim_pwa.js',
+                                        './min.external.css',
+                                        './min.external.js',
+                                        './min.sim_all.js',
+                                        './min.wepsim_web.js',
                                         './images/ajax-loader.gif',
                                         './images/reset.svg',
                                         './images/author_salonso.png',
@@ -214,8 +214,6 @@ self.addEventListener('install',
 
 self.addEventListener('fetch', 
 	              function(event) {
-			  // OLD: event.respondWith(fetch(event.request)) ;
-
 			  // NEW: https://developer.mozilla.org/es/docs/Web/API/FetchEvent
 			  if (event.request.method != 'GET') {
 			      event.respondWith(fetch(event.request)) ;

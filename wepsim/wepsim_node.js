@@ -1,7 +1,7 @@
 /*
- *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
- *  This file is part of WepSIM tester.
+ *  This file is part of WepSIM.
  *
  *  WepSIM is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published by

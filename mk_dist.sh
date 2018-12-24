@@ -34,8 +34,12 @@ cat sim_hw/sim_hw_index.js \
     sim_core/sim_api_core.js \
     sim_core/sim_api_native.js \
     sim_core/sim_api_stateshots.js \
+    sim_core/sim_core_ui_registers.js \
     sim_core/sim_core_ui_console.js \
     sim_core/sim_core_ui_memory.js \
+    sim_core/sim_core_ui_io.js \
+    sim_core/sim_core_ui_hw.js \
+    sim_core/sim_core_ui_voice.js \
     sim_core/sim_core_ui_help.js \
     sim_core/sim_core_ui_notify.js > ws_dist/sim_all.js
 /usr/bin/yui-compressor -o ws_dist/min.sim_all.js ws_dist/sim_all.js
@@ -149,16 +153,10 @@ cp -a help      ws_dist/
           touch ws_dist/help/index.html
 
 #  user interface
-sed "s/WEPSIM_ROOT/ws_dist/g" wepsim/wepsim-classic.html    > wepsim-classic.html
-sed "s/WEPSIM_ROOT/ws_dist/g" wepsim/wepsim-compact.html    > wepsim-compact.html
-rm -fr index.html
-ln -s wepsim-classic.html index.html
-#sed "s/WEPSIM_ROOT/ws_dist/g" wepsim/wepsim-classic.html    > index.html
-
-sed "s/WEPSIM_ROOT/\./g"      wepsim/wepsim-classic.html    > ws_dist/index.html
-sed "s/WEPSIM_ROOT/\./g"      wepsim/wepsim-classic.html    > ws_dist/wepsim-classic.html
-sed "s/WEPSIM_ROOT/\./g"      wepsim/wepsim-compact.html    > ws_dist/wepsim-compact.html
-sed "s/WEPSIM_ROOT/\./g"      wepsim/wepsim_pwa.js          > ws_dist/min.wepsim_pwa.js
+cp   wepsim/wepsim-classic.html   ws_dist/index.html
+cp   wepsim/wepsim-classic.html   ws_dist/wepsim-classic.html
+cp   wepsim/wepsim-compact.html   ws_dist/wepsim-compact.html
+cp   wepsim/wepsim_pwa.js         ws_dist/min.wepsim_pwa.js
 
 cp manifest.webapp        ws_dist/
 cp wepsim/wepsim_node.sh  ws_dist/

@@ -1,5 +1,5 @@
 /*      
- *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  * 
@@ -20,7 +20,7 @@
 
 
         var WSCFG = {} ;
-        WSCFG.version = { value:"1.9.5", type:"string"} ;
+        WSCFG.version = { value:"1.9.6", type:"string"} ;
 
         function get_cfg ( field )
         {
@@ -81,10 +81,12 @@
                WSCFG.CPUCU_size          = { value:6,                  type:"int"} ;
                WSCFG.C1C2_size           = { value:8,                  type:"int"} ;
 
-               WSCFG.is_interactive      = { value:true,               type:"boolean"};
-               WSCFG.ws_idiom            = { value:'en',               type:"string"};
-               WSCFG.ws_mode             = { value:'newbie',           type:"string"};
-               WSCFG.use_voice           = { value:false,              type:"boolean"};
+               WSCFG.is_interactive       = { value:true,               type:"boolean"};
+               WSCFG.is_quick_interactive = { value:false,              type:"boolean"};
+               WSCFG.ws_idiom             = { value:'en',               type:"string"};
+               WSCFG.ws_mode              = { value:'newbie',           type:"string"};
+               WSCFG.use_voice            = { value:false,              type:"boolean"};
+               WSCFG.ws_skin              = { value:'classic',          type:"string"};
 
 		/*
 		 *  micro/assembly screen: editor

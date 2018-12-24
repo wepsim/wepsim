@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -273,19 +273,27 @@
             t0 = performance.now() ;
 
         var ret = wepsim_execute_chunk(btn1, turbo) ;
-        if (false == ret)
+        if (false == ret) {
             return ;
+        }
 
-        if (max_turbo == 5) 
+        if (max_turbo == 5) {
             t1 = performance.now() ;
-        if (max_turbo == 5) 
+        }
+        if (max_turbo == 5) {
             max_turbo = 3000/(t1-t0) ;
+        }
 
 	DBG_limit_instruction += turbo ;
         if (DBG_limit_instruction > get_cfg('DBG_limitins')) 
 	{
-            wepsim_show_stopbyevent("Limit", "Number of executed instructions limit reached.");
+            wepsim_show_stopbyevent("Limit", 
+                                    "Number of executed instructions limit reached.<br>" +
+                                    "<br>" +
+                                    "See related configuration options about limits:<br>" + 
+                                    "<img height='100vw' src='./help/simulator/simulator018.jpg'>" );
 	    wepsim_execute_stop(btn1) ;
+
             return ;
 	}
 
