@@ -141,7 +141,7 @@
                        hardware: "ep",
                        description: "Application-specific extension: madd + mmul + mma.<br>"
                      });
- */
+*/
 
     examples.en.push({
                        id: 'S4E4',
