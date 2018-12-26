@@ -130,14 +130,18 @@
                        elto_v  = ahw.states[elto].value ;
                        elto_dv = ahw.states[elto].default_value ;
 
-                       if (typeof elto_v == 'object') 
+                       if (typeof elto_v == 'function') 
+		       {
+                           elto_v  = elto_v() ;
+		       }
+	          else if (typeof elto_v == 'object') 
 		       {
                            elto_v  = 'object' ;
                            elto_dv = 'object' ;
 		       }
 		   }
 
-	           if (elto_v != 0)
+	           if (elto_v != elto_dv)
                         elto_n = '<strong>' + elto + '</strong>' ;
 		   else elto_n = elto ;
 
