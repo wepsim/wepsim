@@ -57,10 +57,10 @@
                    '' +
 		   '      <p class="card-text">' + 
                    '      <span class="collapse multi-collapse" id="th_processor">' +
-		   '<img src="' + ahw.sim_img_processor + '" class="img-thumbnail" alt="sim_img_processor"></a>' +
+		   '<img src="' + ahw.sim_img_processor + '"   class="img-thumbnail mb-2" alt="sim_img_processor"></a>' +
 		   '      </span>' +
                    '      <span class="collapse multi-collapse" id="th_controlunit">' +
-		   '<img src="' + ahw.sim_img_controlunit + '" class="img-thumbnail" alt="sim_img_controlunit"></a>' +
+		   '<img src="' + ahw.sim_img_controlunit + '" class="img-thumbnail mb-2" alt="sim_img_controlunit"></a>' +
 		   '      </span>' +
 		          c + 
 		   '      </p>' +
@@ -75,24 +75,27 @@
         {
               // list of signals
               var elto_n  = '' ;
+              var elto_v  = '' ;
+              var elto_dv = '' ;
 
 	      var c = '<span class="row justify-content-between">' ;
 	      for (elto in ahw.signals) 
               {
-                   elto_n  = elto ;
+                   elto_v  = ahw.signals[elto].value ;
+                   elto_dv = ahw.signals[elto].default_value ;
 
-	           if (ahw.signals[elto].value != 0) {
-                       elto_n = '<strong>' + elto + '</strong>' ;
-                   }
+	           if (elto_v != elto_dv)
+                        elto_n = '<strong>' + elto + '</strong>' ;
+		   else elto_n  = elto ;
 
 		   c = c + '<span class="col">' +
 		           '<a href="#" class="hwtooltip" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
 			   '<p style=\'text-align:left\'>' +
-			   'name: '            + ahw.signals[elto].name + ',<br> ' +
-			   'value: '           + ahw.signals[elto].value + ',<br> ' +
-			   'default_value: '   + ahw.signals[elto].default_value + ',<br> ' +
+			   'name: '            + ahw.signals[elto].name  + ',<br> ' +
+			   'value: '           + elto_v                  + ',<br> ' +
+			   'default_value: '   + elto_dv                 + ',<br> ' +
 			   'nbits: '           + ahw.signals[elto].nbits + ',<br> ' +
-			   'type: '            + ahw.signals[elto].type + ',<br> ' +
+			   'type: '            + ahw.signals[elto].type  + ',<br> ' +
 			   'visible: '         + ahw.signals[elto].visible +
 			   '</p>' +
 			   '">' + elto_n + '</a></span>' ;
