@@ -25,8 +25,7 @@
 
     function wepsim_open_examples_index ( )
     {
-        $("#container-example1").html(table_examples_html(examples));
-      //$('#example1').trigger('updatelayout') ;
+        $("#container-example1").html(table_examples_html(examples)) ;
 	$('#example1').modal('show') ;
     }
 
@@ -138,10 +137,10 @@
                            }
                            else {
                                show_memories_values();
-                           }
 
-                           wepsim_notify_success('<strong>INFO</strong>', 
-                                                 'Example ready to be used.') ;
+                               wepsim_notify_success('<strong>INFO</strong>', 
+                                                     'Example ready to be used.') ;
+                           }
                       };
         wepsim_load_from_url(url, do_next) ;
 

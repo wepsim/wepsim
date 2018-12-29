@@ -20,7 +20,7 @@
 
 
         /*
-         *  General Hardware
+         *  Init Hardware Information Panel
          */
 
         function simcoreui_init_hw_summary ( ahw )
@@ -81,24 +81,26 @@
 	      var c = '<span class="row justify-content-between">' ;
 	      for (elto in ahw.signals) 
               {
+	           // value
                    elto_v  = ahw.signals[elto].value ;
                    elto_dv = ahw.signals[elto].default_value ;
 
+	           // v != dv
 	           if (elto_v != elto_dv)
-                        elto_n = '<strong>' + elto + '</strong>' ;
-		   else elto_n  = elto ;
+                        elto_n = 'font-weight-bold' ;
+		   else elto_n = 'font-weight-normal' ;
 
 		   c = c + '<span class="col">' +
-		           '<a href="#" class="hwtooltip" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
+		           '<a href="#" id="hw_signal_tt_' + elto + '" class="hwtooltip" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
 			   '<p style=\'text-align:left\'>' +
-			   'name: '            + ahw.signals[elto].name  + ',<br> ' +
-			   'value: '           + elto_v                  + ',<br> ' +
-			   'default_value: '   + elto_dv                 + ',<br> ' +
-			   'nbits: '           + ahw.signals[elto].nbits + ',<br> ' +
-			   'type: '            + ahw.signals[elto].type  + ',<br> ' +
-			   'visible: '         + ahw.signals[elto].visible +
+			   'name: '                                        + ahw.signals[elto].name  + ',<br>' +
+			   'value: <span id=hw_signal_value_' + elto + '>' + elto_v + '</span>,<br>' +
+			   'default_value: '                               + elto_dv                 + ',<br>' +
+			   'nbits: '                                       + ahw.signals[elto].nbits + ',<br>' +
+			   'type: '                                        + ahw.signals[elto].type  + ',<br>' +
+			   'visible: '                                     + ahw.signals[elto].visible +
 			   '</p>' +
-			   '">' + elto_n + '</a></span>' ;
+			   '"><span id="hw_signal_strong_' + elto + '" class="' + elto_n + '">' + elto + '</span></a></span>' ;
 	      }
 	      c = c + '</span>' ;
 
@@ -133,20 +135,26 @@
                        elto_v  = ahw.states[elto].value ;
                        elto_dv = ahw.states[elto].default_value ;
 
-                       if (typeof elto_v == 'function') 
-		       {
-                           elto_v  = elto_v() ;
-		       }
-	          else if (typeof elto_v == 'object') 
+	               if (typeof elto_v == 'object') 
 		       {
                            elto_v  = 'object' ;
                            elto_dv = 'object' ;
 		       }
+	               else 
+		       {
+                           if (typeof elto_v == 'function') {
+                               elto_v  = elto_v() ;
+			   }
+
+			   elto_v  = '0x' +  elto_v.toString(16) ;
+			   elto_dv = '0x' + elto_dv.toString(16) ;
+		       }
 		   }
 
+	           // v != dv
 	           if (elto_v != elto_dv)
-                        elto_n = '<strong>' + elto + '</strong>' ;
-		   else elto_n = elto ;
+                        elto_n = 'font-weight-bold' ;
+		   else elto_n = 'font-weight-normal' ;
 
 	           // nbits, and visible
                    if (typeof ahw.states[elto].nbits != 'undefined')
@@ -159,15 +167,15 @@
 
 	           // compound
 		   c = c + '<span class="col">' +
-		           '<a href="#" class="hwtooltip" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
+		           '<a href="#" id="hw_state_tt_' + elto + '" class="hwtooltip" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
 			   '<p style=\'text-align:left\'>' +
-			   'name: '            + elto + ',<br> ' +
-			   'value: '           + elto_v + ',<br> ' +
-			   'default_value: '   + elto_dv + ',<br> ' +
-			   'nbits: '           + elto_nb + ',<br> ' +
-			   'visible: '         + elto_vi + 
+			   'name: '                                       + elto + ',<br>' +
+			   'value: <span id=hw_state_value_' + elto + '>' + elto_v + '</span>,<br>' +
+			   'default_value: '                              + elto_dv + ',<br>' +
+			   'nbits: '                                      + elto_nb + ',<br>' +
+			   'visible: '                                    + elto_vi + 
 			   '</p>' +
-			   '">' + elto_n + '</a></span>' ;
+			   '"><span id="hw_state_strong_' + elto + '" class="' + elto_n + '">' + elto + '</span></a></span>' ;
 	      }
 	      c = c + '</span>' ;
 
@@ -225,6 +233,75 @@
 	      // set and go
               $(div_hw).html(o) ;
               $('.hwtooltip').tooltip({ trigger: 'hover' }) ;
+
+	      return true ;
+        }
+
+
+        /*
+         *  Update Hardware Information Panel
+         */
+
+        function simcoreui_show_hw ( )
+        {
+              var ahw = simhw_active() ;
+
+	      var elto    = {} ;
+              var elto_n  = '' ;
+              var elto_v  = '' ;
+              var elto_dv = '' ;
+
+	      // signals (active + values)
+	      for (elto in ahw.signals) 
+              {
+	           // value
+                   elto_v  = ahw.signals[elto].value ;
+                   elto_dv = ahw.signals[elto].default_value ;
+
+	           // v != df
+	           if (elto_v != elto_dv)
+                        elto_n = 'font-weight-bold' ;
+		   else elto_n = 'font-weight-normal' ;
+
+	           $("#hw_signal_strong_" + elto).attr('class', elto_n) ;
+	           $("#hw_signal_value_"  + elto).html(elto_v) ;
+              }
+
+	      // states (active + values)
+	      for (elto in ahw.states) 
+              {
+	           // value
+                   elto_v  = "-" ;
+                   elto_dv = "-" ;
+                   if (typeof ahw.states[elto].value != 'undefined') 
+		   {
+                       elto_v  = ahw.states[elto].value ;
+                       elto_dv = ahw.states[elto].default_value ;
+
+	               if (typeof elto_v == 'object') 
+		       {
+                           elto_v  = 'object' ;
+                           elto_dv = 'object' ;
+		       }
+	               else 
+		       {
+                           if (typeof elto_v == 'function') {
+                               elto_v  = elto_v() ;
+			   }
+
+			   elto_v  = '0x' +  elto_v.toString(16) ;
+			   elto_dv = '0x' + elto_dv.toString(16) ;
+		       }
+		   }
+
+	           // v != df
+	           if (elto_v != elto_dv)
+                        elto_n = 'font-weight-bold' ;
+		   else elto_n = 'font-weight-normal' ;
+
+	           $("#hw_state_strong_" + elto).attr('class', elto_n) ;
+	           $("#hw_state_value_"  + elto).html(elto_v) ;
+              }
 
 	      return true ;
         }
