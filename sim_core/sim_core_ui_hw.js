@@ -41,7 +41,7 @@
               // card with signal list
               var o = '' ;
 	      o += '<div class="card m-2">' +
-		   '    <div class="card-body p-2">' +
+		   '    <div class="card-body border border-secondary p-2">' +
                    '' +
 		   '      <h5 class="card-title">' + 
 		   '        <span class="row">' + 
@@ -94,7 +94,7 @@
                         elto_n = 'font-weight-bold' ;
 		   else elto_n = 'font-weight-normal' ;
 
-		   e =     '<span style=\'text-align:left\' class=\'bg-dark text-white\'>' +
+		   e =     '<span style=\'text-align:left\'>' +
 			   'name: '            + ahw.signals[elto].name  + '<br>' +
 			   'value: '           + elto_v                  + '<br>' +
 			   'default_value: '   + elto_dv                 + '<br>' +
@@ -117,7 +117,7 @@
 
               // card with signal list
 	      var o = '  <div class="card m-2">' +
-		      '    <div class="card-body p-2">' +
+		      '    <div class="card-body border border-secondary p-2">' +
 		      '      <h5 class="card-title">Signals</h5>' +
 		      '      <p class="card-text">' + c + '</p>' +
 		      '    </div>' +
@@ -178,7 +178,7 @@
 		   else elto_vi = "-" ;
 
 	           // compound
-		   e =     '<span style=\'text-align:left\' class=\'bg-dark text-white\'>' +
+		   e =     '<span style=\'text-align:left\'>' +
 			   'name: '                                       + elto + '<br>' +
 			   'value: <span id=hw_state_value_' + elto + '>' + elto_v + '</span><br>' +
 			   'default_value: '                              + elto_dv + '<br>' +
@@ -200,7 +200,7 @@
 
               // card with state list
 	      var o = '  <div class="card m-2">' +
-		      '    <div class="card-body p-2">' +
+		      '    <div class="card-body border border-secondary p-2">' +
 		      '      <h5 class="card-title">States</h5>' +
 		      '      <p class="card-text">' + c + '</p>' +
 		      '    </div>' +
@@ -217,7 +217,7 @@
               {
 		   c = c + '<span class="col">' +
 		           '<a href="#" class="hwpopover" data-toggle="popover" data-html="true" title="" data-content="' + 
-			   '<span style=\'text-align:left\' class=\'bg-dark text-white\'>' +
+			   '<span style=\'text-align:left\'>' +
 			   'name: '            + elto + '<br> ' +
 			   'nparameters: '     + ahw.behaviors[elto].nparameters + '<br> ' +
 			// 'operation: '       + ahw.behaviors[elto].operation.toString() + '<br> ' +
@@ -229,7 +229,7 @@
 
               // card with behaviors list
 	      var o = '  <div class="card m-2">' +
-		      '    <div class="card-body p-2">' +
+		      '    <div class="card-body border border-secondary p-2">' +
 		      '      <h5 class="card-title">Behaviors</h5>' +
 		      '      <p class="card-text">' + c + '</p>' +
 		      '    </div>' +
@@ -251,7 +251,11 @@
 
 	      // set and go
               $(div_hw).html(o) ;
-              $('.hwpopover').popover({ trigger: 'hover' }) ;
+              $('.hwpopover').popover({ 
+		                        trigger:'hover', 
+		                        placement:'auto',
+		                        template: '<div class="popover" role="tooltip"><div class="arrow border-dark"></div><h3 class="popover-header"></h3><div class="popover-body bg-dark text-white border-dark"></div></div>'
+	                              }) ;
 
 	      return true ;
         }
