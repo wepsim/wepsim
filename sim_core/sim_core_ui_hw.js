@@ -30,7 +30,7 @@
 	      for (elto in ahw.components) 
               {
 		   c = c + '<span class="col">' +
-                           '<a href="#" class="hwpopover" data-toggle="popover" data-html="true" title="" data-content="' + 
+                           '<a href="#" class="hwpopover" data-toggle="popover" data-html="true" onclick="event.preventDefault();" title="" data-content="' + 
 			   'name: '            + ahw.components[elto].name + '<br> ' +
 			   'version: '         + ahw.components[elto].version + '<br> ' +
 			   'abilities: '       + ahw.components[elto].abilities.join(" + ") + 
@@ -103,7 +103,7 @@
 			   'visible: '         + ahw.signals[elto].visible +
 			   '</span>' ;
 		   c = c + '<span class="col">' + 
-		           '<a href="#" id="hw_signal_tt_' + elto + '" class="hwpopover" data-toggle="popover" ' + 
+		           '<a href="#" id="hw_signal_tt_' + elto + '" class="hwpopover" data-toggle="popover" onclick="event.preventDefault();" ' + 
 			   '   data-html="true" title="" data-content="' + e + '"><span id="hw_signal_strong_' + elto + '" class="' + elto_n + '">' + elto + '</span></a>' +
 			   '</span>' ;
 
@@ -186,8 +186,8 @@
 			   'visible: '                                    + elto_vi + 
 			   '</span>' ;
 		   c = c + '<span class="col">' + 
-		           '<a href="#" id="hw_state_tt_' + elto + '" class="hwpopover" data-toggle="popover" data-html="true" title="" ' + 
-			   '   data-content="' + e + '"><span id="hw_state_strong_' + elto + '" class="' + elto_n + '">' + elto + '</span></a>' + 
+		           '<a href="#" id="hw_state_tt_' + elto + '" class="hwpopover" data-toggle="popover" onclick="event.preventDefault();" ' + 
+			   '   data-html="true" title="" data-content="' + e + '"><span id="hw_state_strong_' + elto + '" class="' + elto_n + '">' + elto + '</span></a>' + 
 			   '</span>' ;
 
                    if (true == update)
@@ -216,7 +216,8 @@
 	      for (elto in ahw.behaviors) 
               {
 		   c = c + '<span class="col">' +
-		           '<a href="#" class="hwpopover" data-toggle="popover" data-html="true" title="" data-content="' + 
+		           '<a href="#" class="hwpopover" data-toggle="popover" onclick="event.preventDefault();" ' + 
+			   '   data-html="true" title="" data-content="' + 
 			   '<span style=\'text-align:left\'>' +
 			   'name: '            + elto + '<br> ' +
 			   'nparameters: '     + ahw.behaviors[elto].nparameters + '<br> ' +
@@ -252,9 +253,14 @@
 	      // set and go
               $(div_hw).html(o) ;
               $('.hwpopover').popover({ 
-		                        trigger:'hover', 
+		                        trigger:'hover click', 
+		                        container:'body',
 		                        placement:'auto',
-		                        template: '<div class="popover" role="tooltip"><div class="arrow border-dark"></div><h3 class="popover-header"></h3><div class="popover-body bg-dark text-white border-dark"></div></div>'
+		                        template: '<div class="popover" role="tooltip">' + 
+		                                  '<div class="arrow border-dark" style="border-right-color:black !important;"></div>' + 
+		                                  '<h3 class="popover-header"></h3>' + 
+		                                  '<div class="popover-body bg-dark text-white border-dark"></div>' + 
+		                                  '</div>'
 	                              }) ;
 
 	      return true ;
