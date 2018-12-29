@@ -36,7 +36,7 @@
                        title: "Acceso a memoria",
                        level: "Inicial",
                        hardware:  "ep",
-                       microcode: "ep_s1_e2",
+                       microcode: "ep_s1_e1",
                        assembly:  "ep_s1_e2",
                        description: "Ejemplo simple con fetch, acceso a memoria y segmento de c&oacute;digo/datos b&aacute;sico.<br>"
                      });

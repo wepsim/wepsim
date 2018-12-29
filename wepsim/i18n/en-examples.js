@@ -36,7 +36,7 @@
                        title: "Memory access",
                        level: "Initial",
                        hardware:  "ep",
-                       microcode: "ep_s1_e2",
+                       microcode: "ep_s1_e1",
                        assembly:  "ep_s1_e2",
                        description: "Simple example with fetch, memory access, and basic .text/.data segment.<br>"
                      });
