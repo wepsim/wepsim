@@ -26,8 +26,8 @@
                        title: "Instructions",
                        level: "Initial",
                        hardware:  "ep",
-                       microcode: "s1e1",
-                       assembly:  "s1e1",
+                       microcode: "ep_s1_e1",
+                       assembly:  "ep_s1_e1",
                        description: "Simple example with fetch, arithmetic instructions, and basic .text segment.<br>"
                      });
 
@@ -36,8 +36,8 @@
                        title: "Memory access",
                        level: "Initial",
                        hardware:  "ep",
-                       microcode: "s1e2",
-                       assembly:  "s1e2",
+                       microcode: "ep_s1_e2",
+                       assembly:  "ep_s1_e2",
                        description: "Simple example with fetch, memory access, and basic .text/.data segment.<br>"
                      });
 
@@ -46,8 +46,8 @@
                        title: "Looping",
                        level: "Initial",
                        hardware:  "ep",
-                       microcode: "s1e3",
-                       assembly:  "s1e3",
+                       microcode: "ep_s1_e3",
+                       assembly:  "ep_s1_e3",
                        description: "Simple example with fetch, branch, and basic .text segment.<br>"
                      });
 
@@ -56,8 +56,8 @@
                        title: "Vector",
                        level: "Initial",
                        hardware:  "ep",
-                       microcode: "s1e4",
-                       assembly:  "s1e4",
+                       microcode: "ep_s1_e4",
+                       assembly:  "ep_s1_e4",
                        description: "Simple example with fetch, branch, and basic .text/.data segment.<br>"
                      });
 
@@ -66,8 +66,8 @@
                        title: "I/O",
                        level: "Intermediate",
                        hardware:  "ep",
-                       microcode: "s2e1",
-                       assembly:  "s2e1",
+                       microcode: "ep_s2_e1",
+                       assembly:  "ep_s2_e1",
                        description: "Example with programmed I/O access, and basic .text/.data segment.<br>"
                      });
 
@@ -76,8 +76,8 @@
                        title: "Subrutine",
                        level: "Intermediate",
                        hardware:  "ep",
-                       microcode: "s2e2",
-                       assembly:  "s2e2",
+                       microcode: "ep_s2_e2",
+                       assembly:  "ep_s2_e2",
                        description: "Extended example with more instructions and I/O (keyboard, display).<br>"
                      });
 
@@ -86,8 +86,8 @@
                        title: "Masks & shift",
                        level: "Intermediate",
                        hardware:  "ep",
-                       microcode: "s2e3",
-                       assembly:  "s2e3",
+                       microcode: "ep_s2_e3",
+                       assembly:  "ep_s2_e3",
                        description: "More extended example with masks, shift, and basic .text/.data segment.<br>"
                      });
 
@@ -96,8 +96,8 @@
                        title: "Matrix",
                        level: "Intermediate",
                        hardware:  "ep",
-                       microcode: "s2e4",
-                       assembly:  "s2e4",
+                       microcode: "ep_s2_e4",
+                       assembly:  "ep_s2_e4",
                        description: "Extended example with subrutine and matrix.<br>"
                      });
 
@@ -106,8 +106,8 @@
                        title: "Interruptions",
                        level: "Advanced",
                        hardware:  "ep",
-                       microcode: "s3e1",
-                       assembly:  "s3e1",
+                       microcode: "ep_s3_e1",
+                       assembly:  "ep_s3_e1",
                        description: "<b>Instructive</b> example with interruptions support: fetch, RETI, and .ktext/.kdata.<br>"
                      });
 
@@ -116,8 +116,8 @@
                        title: "System call",
                        level: "Advanced",
                        hardware:  "ep",
-                       microcode: "s3e2",
-                       assembly:  "s3e2",
+                       microcode: "ep_s3_e2",
+                       assembly:  "ep_s3_e2",
                        description: "<b>Instructive</b> example with system call support.<br>"
                      });
 
@@ -126,8 +126,8 @@
                        title: "Exception",
                        level: "Advanced",
                        hardware:  "ep",
-                       microcode: "s3e3",
-                       assembly:  "s3e3",
+                       microcode: "ep_s3_e3",
+                       assembly:  "ep_s3_e3",
                        description: "<b>Instructive</b> example with floating point exception.<br>"
                      });
 
@@ -136,8 +136,8 @@
                        title: "Int. + syscall + except.",
                        level: "Advanced",
                        hardware:  "ep",
-                       microcode: "s3e4",
-                       assembly:  "s3e4",
+                       microcode: "ep_s3_e4",
+                       assembly:  "ep_s3_e4",
                        description: "Advanced example with interruption, system call, and exception.<br>"
                      });
 
@@ -146,8 +146,8 @@
                        title: "addv + seqv.",
                        level: "Laboratory",
                        hardware:  "ep",
-                       microcode: "s4e1",
-                       assembly:  "s4e1",
+                       microcode: "ep_s4_e1",
+                       assembly:  "ep_s4_e1",
                        description: "Application-specific extension: addv + seqv.<br>"
                      });
 
@@ -156,8 +156,8 @@
                        title: "strlen_2 + skipasciicode_2",
                        level: "Laboratory",
                        hardware:  "ep",
-                       microcode: "s4e2",
-                       assembly:  "s4e2",
+                       microcode: "ep_s4_e2",
+                       assembly:  "ep_s4_e2",
                        description: "Application-specific extension: strlen_2 + skipasciicode_2.<br>"
                      });
 
@@ -166,8 +166,8 @@
                        title: "madd, mmul, mxch",
                        level: "Laboratory",
                        hardware:  "ep",
-                       microcode: "s4e3",
-                       assembly:  "s4e3",
+                       microcode: "ep_s4_e3",
+                       assembly:  "ep_s4_e3",
                        description: "Application-specific extension: madd + mmul + mxch.<br>"
                      });
 
@@ -176,8 +176,8 @@
                        title: "syscall 1, 4-5, 8, 11-12",
                        level: "Laboratory",
                        hardware:  "ep",
-                       microcode: "s4e4",
-                       assembly:  "s4e4",
+                       microcode: "ep_s4_e4",
+                       assembly:  "ep_s4_e4",
                        description: "Example of syscall for printing/reading integer and string.<br>"
                      });
 
@@ -186,8 +186,8 @@
                        title: "Dummy instruction",
                        level: "Special",
                        hardware:  "ep",
-                       microcode: "s5e1",
-                       assembly:  "s5e1",
+                       microcode: "ep_s5_e1",
+                       assembly:  "ep_s5_e1",
                        description: "Test example.<br>"
                      });
 
@@ -198,8 +198,8 @@
                        title: "Instructions",
                        level: "Initial",
                        hardware:  "poc",
-                       microcode: "s1e1",
-                       assembly:  "s1e1",
+                       microcode: "poc_s1_e1",
+                       assembly:  "poc_s1_e1",
                        description: "Simple example.<br>"
                      });
 
@@ -208,8 +208,8 @@
                        title: "Dummy instruction",
                        level: "Special",
                        hardware:  "poc",
-                       microcode: "s5e1",
-                       assembly:  "s5e1",
+                       microcode: "poc_s5_e1",
+                       assembly:  "poc_s5_e1",
                        description: "Test example.<br>"
                      });
 

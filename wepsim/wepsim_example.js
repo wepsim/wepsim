@@ -62,7 +62,7 @@
              sample_asm = sid[2] ;
         else console.log("warning: example without assembly id") ;
 
-	var url = "examples/assembly/asm-" + sample_hw + "-" + sample_asm + ".txt" ;
+	var url = "examples/assembly/asm-" + sample_asm + ".txt" ;
 
 	// do next
         var do_next = function( mcode ) {
@@ -123,7 +123,7 @@
              sample_asm = sid[2] ;
         else console.log("warning: example without assembly id") ;
 
-	var url = "examples/microcode/mc-" + sample_hw + "-" + sample_mc + ".txt" ;
+	var url = "examples/microcode/mc-" + sample_mc + ".txt" ;
 	inputfirm.setOption('readOnly', false);
 
 	// do next
