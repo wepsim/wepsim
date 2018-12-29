@@ -41,7 +41,7 @@
               // card with signal list
               var o = '' ;
 	      o += '<div class="card m-2">' +
-		   '    <div class="card-body border border-secondary p-2">' +
+		   '    <div class="card-body border border-light p-2">' +
                    '' +
 		   '      <h5 class="card-title">' + 
 		   '        <span class="row">' + 
@@ -117,7 +117,7 @@
 
               // card with signal list
 	      var o = '  <div class="card m-2">' +
-		      '    <div class="card-body border border-secondary p-2">' +
+		      '    <div class="card-body border border-light p-2">' +
 		      '      <h5 class="card-title">Signals</h5>' +
 		      '      <p class="card-text">' + c + '</p>' +
 		      '    </div>' +
@@ -200,7 +200,7 @@
 
               // card with state list
 	      var o = '  <div class="card m-2">' +
-		      '    <div class="card-body border border-secondary p-2">' +
+		      '    <div class="card-body border border-light p-2">' +
 		      '      <h5 class="card-title">States</h5>' +
 		      '      <p class="card-text">' + c + '</p>' +
 		      '    </div>' +
@@ -230,7 +230,7 @@
 
               // card with behaviors list
 	      var o = '  <div class="card m-2">' +
-		      '    <div class="card-body border border-secondary p-2">' +
+		      '    <div class="card-body border border-light p-2">' +
 		      '      <h5 class="card-title">Behaviors</h5>' +
 		      '      <p class="card-text">' + c + '</p>' +
 		      '    </div>' +
