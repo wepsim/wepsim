@@ -41,7 +41,7 @@
 
 	    // if delay was passed, set up a timeout to close the alert
 	    if (ntf_delay != 0) {
-		window.setTimeout(function() { alert1.alert("close") }, ntf_delay);     
+		window.setTimeout(function() { alert1.alert("close"); }, ntf_delay);     
 	    }
 
 	    // audio

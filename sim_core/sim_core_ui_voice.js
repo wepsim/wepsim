@@ -80,7 +80,7 @@
 
 	function get_verbal_from_current_pc ( )
 	{
-             var pc = get_value(ep_states['REG_PC']) - 4 ;
+             var pc = get_value(ep_states.REG_PC) - 4 ;
              var decins = get_deco_from_pc(pc) ;
 
 	     if ("" == decins.trim())

@@ -27,7 +27,7 @@
         {
               // list of components
 	      var c = '<span class="row justify-content-between">' ;
-	      for (elto in ahw.components) 
+	      for (var elto in ahw.components) 
               {
 		   c = c + '<span class="col">' +
                            '<a href="#" class="hwpopover" data-toggle="popover" data-html="true" onclick="event.preventDefault();" title="" data-content="' + 
@@ -80,7 +80,7 @@
 
               var e = '' ;
 	      var c = '<span class="row justify-content-between">' ;
-	      for (elto in ahw.signals) 
+	      for (var elto in ahw.signals) 
               {
 	           // value
                    elto_v  = ahw.signals[elto].value ;
@@ -137,7 +137,7 @@
 
               var e = '' ;
 	      var c = '<span class="row justify-content-between">' ;
-	      for (elto in ahw.states) 
+	      for (var elto in ahw.states) 
               {
 	           // value
                    elto_v  = "-" ;
@@ -213,7 +213,7 @@
         {
               // list of behaviors
 	      var c = '<span class="row justify-content-between">' ;
-	      for (elto in ahw.behaviors) 
+	      for (var elto in ahw.behaviors) 
               {
 		   c = c + '<span class="col">' +
 		           '<a href="#" class="hwpopover" data-toggle="popover" onclick="event.preventDefault();" ' + 
