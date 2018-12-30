@@ -56,8 +56,8 @@
                        title: "Vector",
                        level: "Initial",
                        hardware:  "ep",
-                       microcode: "ep_s1_e4",
-                       assembly:  "ep_s1_e4",
+                       microcode: "ep_s1_e3",
+                       assembly:  "ep_s1_e3",
                        description: "Simple example with fetch, branch, and basic .text/.data segment.<br>"
                      });
 
