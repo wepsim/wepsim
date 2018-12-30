@@ -120,7 +120,9 @@
 		      '      <h5 class="card-title m-0">' + 
 		      '       <span class="row">' + 
 		      '        <span class="col-8">Signals</span>' + 
-		      '        <span class="col-auto btn btn-sm btn-outline-secondary" onclick="$(\'#depgraph1c\').collapse(\'toggle\'); show_visgraph(jit_fire_dep, jit_fire_order);">Dependencies</span>' +
+		      '        <span class="col-auto btn btn-sm btn-outline-secondary" ' + 
+		      '              data-toggle="tooltip" data-html="true" title="Graph of the signal dependencies <br>(it needs several seconds to be displayed)."' +
+	              '              onclick="$(\'#depgraph1c\').collapse(\'toggle\'); show_visgraph(jit_fire_dep, jit_fire_order);">Dependencies</span>' +
 		      '       </span>' +
 		      '      </h5>' +
 		      '    </div>' +
@@ -265,6 +267,11 @@
 
 	      // set and go
               $(div_hw).html(o) ;
+
+	      $('[data-toggle="tooltip"]').tooltip({
+	  	  trigger:   'hover'
+	      }) ;
+
               $('.hwpopover').popover({ 
 		                        trigger:'hover click', 
 		                        container:'body',
