@@ -399,6 +399,7 @@
 	    var jit_dep_data    = { nodes: jit_dep_nodes, 
                                     edges: jit_dep_edges } ;
 	    var jit_dep_options = { interaction: {hover:true},
+                                    height: '255px',
                                     nodes: { borderWidth: 2, shadow:true },
                                     edges: { width: 2, shadow:true } } ;
 	    jit_dep_network = new vis.Network(jit_dep_container, jit_dep_data, jit_dep_options) ;

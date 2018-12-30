@@ -34,6 +34,9 @@
 			   'name: '            + ahw.components[elto].name + '<br> ' +
 			   'version: '         + ahw.components[elto].version + '<br> ' +
 			   'abilities: '       + ahw.components[elto].abilities.join(" + ") + 
+			   '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
+                           '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
+                           '        onclick=$(\'.hwpopover\').popover(\'hide\');>Close</button>' +
 			   '">' + elto + '</a></span>' ;
 	      }
 	      c = c + '</span>' ;
@@ -100,6 +103,9 @@
 			   'nbits: '           + ahw.signals[elto].nbits + '<br>' +
 			   'type: '            + ahw.signals[elto].type  + '<br>' +
 			   'visible: '         + ahw.signals[elto].visible +
+			   '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
+                           '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
+                           '        onclick=$(\'.hwpopover\').popover(\'hide\');>Close</button>' +
 			   '</span>' ;
 		   c = c + '<span class="col">' + 
 		           '<a href="#" id="hw_signal_tt_' + elto + '" class="hwpopover" data-toggle="popover" onclick="event.preventDefault();" ' + 
@@ -118,16 +124,20 @@
 	      var o = '  <div class="card m-2">' +
 		      '    <div class="card-header border border-light p-2">' +
 		      '      <h5 class="card-title m-0">' + 
+		      '       <div class="container">' + 
 		      '       <span class="row">' + 
-		      '        <span class="col-8">Signals</span>' + 
-		      '        <span class="col-auto btn btn-sm btn-outline-secondary" ' + 
+		      '        <span class="col-auto pl-0">Signals</span>' + 
+		      '        <span class="col-auto btn btn-sm btn-outline-secondary ml-auto" ' + 
 		      '              data-toggle="tooltip" data-html="true" title="Graph of the signal dependencies <br>(it needs several seconds to be displayed)."' +
-	              '              onclick="$(\'#depgraph1c\').collapse(\'toggle\'); show_visgraph(jit_fire_dep, jit_fire_order);">Dependencies</span>' +
+	              '              onclick="$(\'#depgraph1c\').collapse(\'toggle\'); ' + 
+                      '                       show_visgraph(jit_fire_dep, jit_fire_order);">Dependencies</span>' +
 		      '       </span>' +
+		      '       </div>' +
 		      '      </h5>' +
 		      '    </div>' +
 		      '    <div class="card-body border border-light p-2">' +
-		      '      <div id="depgraph1c" class="m-2 p-0 border h-75 collapse" style="max-height:55vh; overflow:auto;">' + 
+		      '      <div id="depgraph1c" class="m-2 p-0 border collapse h-100" ' + 
+                      '           style="max-height:65vh; overflow:auto; resize:both;">' + 
                       '         <span id="depgraph1">Loading...</span>' +
 		      '      </div>' +
 		      '      <p class="card-text">' + c + '</p>' +
@@ -195,6 +205,9 @@
 			   'default_value: '                              + elto_dv + '<br>' +
 			   'nbits: '                                      + elto_nb + '<br>' +
 			   'visible: '                                    + elto_vi + 
+			   '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
+                           '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
+                           '        onclick=$(\'.hwpopover\').popover(\'hide\');>Close</button>' +
 			   '</span>' ;
 		   c = c + '<span class="col">' + 
 		           '<a href="#" id="hw_state_tt_' + elto + '" class="hwpopover" data-toggle="popover" onclick="event.preventDefault();" ' + 
@@ -236,6 +249,9 @@
 			   'nparameters: '     + ahw.behaviors[elto].nparameters + '<br> ' +
 			// 'operation: '       + ahw.behaviors[elto].operation.toString() + '<br> ' +
 			// 'verbal: '          + ahw.behaviors[elto].verbal.toString() + '<br> ' +
+			   '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
+                           '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
+                           '        onclick=$(\'.hwpopover\').popover(\'hide\');>Close</button>' +
 			   '</span>' +
 			   '">' + elto + '</a></span>' ;
 	      }
@@ -273,15 +289,15 @@
 	      }) ;
 
               $('.hwpopover').popover({ 
-		                        trigger:'hover click', 
-		                        container:'body',
-		                        placement:'auto',
-		                        template: '<div class="popover" role="tooltip">' + 
-		                                  '<div class="arrow border-dark" style="border-right-color:black !important;"></div>' + 
-		                                  '<h3 class="popover-header"></h3>' + 
-		                                  '<div class="popover-body bg-dark text-white border-dark"></div>' + 
-		                                  '</div>'
-	                              }) ;
+		  trigger:'hover click', 
+		  container:'body',
+		  placement:'auto',
+		  template: '<div class="popover" role="tooltip">' + 
+			    '<div class="arrow border-dark" style="border-right-color:black !important;"></div>' + 
+			    '<h3 class="popover-header"></h3>' + 
+			    '<div class="popover-body bg-dark text-white border-dark"></div>' + 
+			    '</div>'
+	      }) ;
 
 	      return true ;
         }

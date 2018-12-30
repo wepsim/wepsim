@@ -227,6 +227,12 @@ self.addEventListener('fetch',
 			  event.respondWith(async function() {
 			      const cache = await caches.open(cacheName);
 			      const cachedResponse = await cache.match(event.request);
+
+			      if ( (event.request.cache === 'only-if-cached') && 
+                                   (event.request.mode  !== 'same-origin') ) {
+			            return;
+			      }
+
 			      if (cachedResponse) {
 			          event.waitUntil(cache.add(event.request));
 			          return cachedResponse;
