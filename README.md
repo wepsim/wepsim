@@ -151,7 +151,7 @@ OK: Execution: no error reported
 + You can check if the state at the end of the execution is the same as the one stored on file 'checklist-ep_s1_e1.txt'. You can 'run' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_s1_e1.txt' microcode (**and if it fails to match the expected state then the output is going to be**):
 
 ```bash
-./wepsim_node.sh check ep ./examples/microcode/mc-ep_s1_e1.txt ./examples/assembly/asm-ep_s1_e1.txt ./examples/checklist/cl-s1_e2.txt
+./wepsim_node.sh check ep ./examples/microcode/mc-ep_s1_e1.txt ./examples/assembly/asm-ep_s1_e1.txt ./examples/checklist/cl-ep_s1_e2.txt
 screen>
 screen>
 screen>
