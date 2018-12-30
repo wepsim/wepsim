@@ -480,6 +480,9 @@
 	$("#tab26").hide() ;
 	$("#tab21").hide() ;
 	$("#tab24").click() ;
+
+        inputfirm.setOption('readOnly', true) ;
+        $("#btn_micro1").addClass('d-none') ;
     }
 
     function wepsim_hide_wepmips ( )
@@ -489,6 +492,9 @@
 
 	$("#tab26").show() ;
 	$("#tab21").show() ;
+
+        inputfirm.setOption('readOnly', false) ;
+        $("#btn_micro1").removeClass('d-none') ;
     }
 
     function wepsim_newbie_tour ( )
