@@ -195,6 +195,11 @@
 			        "</div>" ;
                }
 
+	       e_modes = examples[lang][m].modes ;
+	       if (! e_modes.split(",").includes(mode)) {
+		   continue ;
+	       }
+
 	       e_title       = examples[lang][m].title ;
 	       e_level       = examples[lang][m].level ;
 	       e_hw          = examples[lang][m].hardware ;
@@ -202,14 +207,6 @@
 	       e_asm         = examples[lang][m].assembly ;
 	       e_description = examples[lang][m].description ;
 	       e_id          = examples[lang][m].id ;
-
-	        if (! e_hw.split(",").includes(ahw)) {
-                    e_level = "" ;
-		    continue ;
-	        }
-                else {
-                    e_hw = e_hw.split(",")[0] ;
-	        }
 
 		if ('wepmips' == mode)
                      t_hwmcasm = e_hw + ":" + e_hw + "_mips:" + e_asm ;
