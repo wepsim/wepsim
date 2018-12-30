@@ -41,8 +41,7 @@
               // card with signal list
               var o = '' ;
 	      o += '<div class="card m-2">' +
-		   '    <div class="card-body border border-light p-2">' +
-                   '' +
+		   '    <div class="card-header border border-light p-2">' +
 		   '      <h5 class="card-title">' + 
 		   '        <span class="row">' + 
 		   '          <span class="col-6">' + ahw.sim_name + ' (' + ahw.sim_short_name + ')</span>' +
@@ -54,7 +53,8 @@
 		   '<img src="' + ahw.sim_img_controlunit + '" class="img-thumbnail" alt="sim_img_controlunit"></a>' +
 		   '        </span>' +
                    '      </h5>' +
-                   '' +
+		   '    </div>' +
+		   '    <div class="card-body border border-light p-2">' +
 		   '      <p class="card-text">' + 
                    '      <span class="collapse multi-collapse" id="th_processor">' +
 		   '<img src="' + ahw.sim_img_processor + '"   class="img-thumbnail mb-2" alt="sim_img_processor"></a>' +
@@ -64,7 +64,6 @@
 		   '      </span>' +
 		          c + 
 		   '      </p>' +
-                   '' +
 		   '    </div>' +
 		   '</div>' ;
 
@@ -118,13 +117,18 @@
               // card with signal list
 	      var o = '  <div class="card m-2">' +
 		      '    <div class="card-header border border-light p-2">' +
-		      '      <h5 class="card-title m-0">Signals</h5>' +
+		      '      <h5 class="card-title m-0">' + 
+		      '       <span class="row">' + 
+		      '        <span class="col-8">Signals</span>' + 
+		      '        <span class="col-auto btn btn-sm btn-outline-secondary" onclick="$(\'#depgraph1c\').collapse(\'toggle\'); show_visgraph(jit_fire_dep, jit_fire_order);">Dependencies</span>' +
+		      '       </span>' +
+		      '      </h5>' +
 		      '    </div>' +
 		      '    <div class="card-body border border-light p-2">' +
+		      '      <div id="depgraph1c" class="m-2 p-0 border h-75 collapse" style="max-height:55vh; overflow:auto;">' + 
+                      '         <span id="depgraph1">Loading...</span>' +
+		      '      </div>' +
 		      '      <p class="card-text">' + c + '</p>' +
-		      '    </div>' +
-		      '    <div class="card-footer border border-light p-2 text-right bg-white">' +
-		      '      <span onclick="wepsim_open_help_content(\'<div id=depgraph1 style=height:70vh;>Loading...</div>\'); show_visgraph(jit_fire_dep, jit_fire_order);">Dependencies</span>' +
 		      '    </div>' +
 		      '  </div>' ;
 
