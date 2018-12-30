@@ -117,9 +117,14 @@
 
               // card with signal list
 	      var o = '  <div class="card m-2">' +
+		      '    <div class="card-header border border-light p-2">' +
+		      '      <h5 class="card-title m-0">Signals</h5>' +
+		      '    </div>' +
 		      '    <div class="card-body border border-light p-2">' +
-		      '      <h5 class="card-title">Signals</h5>' +
 		      '      <p class="card-text">' + c + '</p>' +
+		      '    </div>' +
+		      '    <div class="card-footer border border-light p-2 text-right">' +
+		      '      <span onclick="wepsim_open_help_content(\'<div id=depgraph1 style=height:70vh;>Loading...</div>\'); show_visgraph(jit_fire_dep, jit_fire_order);">Dependencies</span>' +
 		      '    </div>' +
 		      '  </div>' ;
 
@@ -200,8 +205,10 @@
 
               // card with state list
 	      var o = '  <div class="card m-2">' +
+		      '    <div class="card-header border border-light p-2">' +
+		      '      <h5 class="card-title m-0">States</h5>' +
+		      '    </div>' +
 		      '    <div class="card-body border border-light p-2">' +
-		      '      <h5 class="card-title">States</h5>' +
 		      '      <p class="card-text">' + c + '</p>' +
 		      '    </div>' +
 		      '  </div>' ;
@@ -230,8 +237,10 @@
 
               // card with behaviors list
 	      var o = '  <div class="card m-2">' +
+		      '    <div class="card-header border border-light p-2">' +
+		      '      <h5 class="card-title m-0">Behaviors</h5>' +
+		      '    </div>' +
 		      '    <div class="card-body border border-light p-2">' +
-		      '      <h5 class="card-title">Behaviors</h5>' +
 		      '      <p class="card-text">' + c + '</p>' +
 		      '    </div>' +
 		      '  </div>' ;
