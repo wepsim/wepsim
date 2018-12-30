@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -119,9 +119,9 @@
         poc_internal_states.tri_state_names = [ "T1","T2","T3","T6","T8","T9","T10","T11" ] ;
         poc_internal_states.fire_visible    = { 'databus': false, 'internalbus': false } ;
         poc_internal_states.filter_states   = [ "REG_IR_DECO,col-12",
-                                                "REG_IR,col",  "REG_PC,col",  "REG_SR,col",
-                                                "REG_RT1,col",  
-                                                "REG_MAR,col", "REG_MBR,col", "REG_MICROADDR,col" ] ;
+                                                "REG_IR,col-auto",  "REG_PC,col-auto",  "REG_SR,col-auto",
+                                                "REG_RT1,col-auto",  
+                                                "REG_MAR,col-auto", "REG_MBR,col-auto", "REG_MICROADDR,col-auto" ] ;
         poc_internal_states.filter_signals  = [ "A0,0",   "B,0",    "C,0",  
                                                 "SELA,5", "SELB,5", "SELC,2", "SELCOP,0", "MR,0", "MC,0",
 				        "C0,0", "C1,0",   "C2,0",   "C3,0",   "C4,0",     "C7,0",
@@ -1167,7 +1167,7 @@
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
 						   var result = a + 1 ;
 
-                                                   return "ALU ADD 4 with result " + show_value(result) + ". " ;
+                                                   return "ALU ADD 1 with result " + show_value(result) + ". " ;
 						}
 				   };
 	poc_behaviors["FADD"]    = { nparameters: 4,
@@ -1194,7 +1194,11 @@
 						},
 					verbal: function (s_expr)
 						{
-						   return "" ; // TODO
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(poc_states[s_expr[3]]) << 0 ;
+						   var result = a.toFixed(2) + b.toFixed(2) ;
+
+                                                   return "ALU Float ADD with result " + result + ". " ;
 						}
 				   };
 	poc_behaviors["FSUB"]    = { nparameters: 4,
@@ -1220,7 +1224,11 @@
 						},
 					verbal: function (s_expr)
 						{
-						   return "" ; // TODO
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(poc_states[s_expr[3]]) << 0 ;
+						   var result = a.toFixed(2) - b.toFixed(2) ;
+
+                                                   return "ALU Float SUB with result " + result + ". " ;
 						}
 				   };
 	poc_behaviors["FMUL"]    = { nparameters: 4,
@@ -1246,7 +1254,11 @@
 						},
 					verbal: function (s_expr)
 						{
-						   return "" ; // TODO
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(poc_states[s_expr[3]]) << 0 ;
+						   var result = a.toFixed(2) * b.toFixed(2) ;
+
+                                                   return "ALU Float MUL with result " + result + ". " ;
 						}
 				   };
 	poc_behaviors["FDIV"]    = { nparameters: 4,
@@ -1271,7 +1283,11 @@
 						},
 					verbal: function (s_expr)
 						{
-						   return "" ; // TODO
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(poc_states[s_expr[3]]) << 0 ;
+						   var result = a.toFixed(2) / b.toFixed(2) ;
+
+                                                   return "ALU Float DIV with result " + result + ". " ;
 						}
 				   };
 	poc_behaviors["FMOD"]    = { nparameters: 4,
@@ -1288,7 +1304,11 @@
 						},
 					verbal: function (s_expr)
 						{
-						   return "" ; // TODO
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(poc_states[s_expr[3]]) << 0 ;
+						   var result = a.toFixed(2) % b.toFixed(2) ;
+
+                                                   return "ALU Float MOD with result " + result + ". " ;
 						}
 				   };
 	poc_behaviors["LUI"]     = { nparameters: 3,
@@ -1787,7 +1807,6 @@
 	poc_behaviors["UPDATE_NZVC"]  = { nparameters: 1,
 				            operation: function(s_expr)
 							{
-								/*
 							   set_value(simhw_sim_state("FLAG_N"),  
 								     poc_internal_states.alu_flags.flag_n);
 							   set_value(simhw_sim_state("FLAG_Z"),  
@@ -1805,7 +1824,6 @@
 								     poc_internal_states.alu_flags.flag_v);
 							   set_value(simhw_sim_signal("TEST_C"), 
 								     poc_internal_states.alu_flags.flag_c);
-								     */
 
 							   update_draw(poc_signals["TEST_N"], poc_signals["TEST_N"].value) ;
 							   update_draw(poc_signals["TEST_Z"], poc_signals["TEST_Z"].value) ;

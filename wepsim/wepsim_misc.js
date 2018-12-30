@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -24,6 +24,42 @@
     //
 
     /*
+     * Update selects
+     */
+
+    function simui_select_details ( opt )
+    {
+	     // update interface
+	     $('#tab'  + opt).trigger('click') ;
+	     $('#select5a').val(opt) ;
+
+	     // set button label...
+	     var ed=$('#s5b_' + opt).html() ;
+	     $('#select5b').html(ed) ;
+    }
+
+    function simui_select_main ( opt )
+    {
+	     // save ws_mode
+	     set_cfg('ws_mode', opt) ;
+	     save_cfg() ;
+
+	     // update select4
+	     wepsim_change_mode(opt) ;
+
+	     // tutorial mode -> set green background...
+	     $('#select4').css('background-color', '#F6F6F6') ;
+	     if ('tutorial' == opt) {
+	         $('#select4').css('background-color', '#D4DB17') ;
+	     }
+
+	     // set button label...
+	     var ed = $('#s4_' + opt).html() ;
+	     $('#select4').html(ed) ;
+    }
+
+
+    /*
      * Initialize
      */
 
@@ -35,44 +71,37 @@
                 var o  = ref_p.getElementById('text3495');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
-                                                     $('#tab11').trigger('click');
-						     $('#select5a').val(11);
+                                                     simui_select_details(11) ;
                                                   }, false);
 	            o  = ref_p.getElementById('text3029');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
-                                                     $('#tab11').trigger('click');
-						     $('#select5a').val(11);
+                                                     simui_select_details(11) ;
                                                   }, false);
 	            o  = ref_p.getElementById('text3031');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
-                                                     $('#tab11').trigger('click');
-						     $('#select5a').val(11);
+                                                     simui_select_details(11) ;
                                                   }, false);
 	            o  = ref_p.getElementById('text3001');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
-                                                     $('#tab14').trigger('click');
-						     $('#select5a').val(14);
+                                                     simui_select_details(14) ;
                                                   }, false);
 	            o  = ref_p.getElementById('text3775');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
-                                                     $('#tab15').trigger('click');
-						     $('#select5a').val(15);
+                                                     simui_select_details(15) ;
                                                   }, false);
 	            o  = ref_p.getElementById('text3829');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
-                                                     $('#tab12').trigger('click');
-						     $('#select5a').val(12);
+                                                     simui_select_details(12) ;
                                                   }, false);
 	            o  = ref_p.getElementById('text3845');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
-                                                     $('#tab12').trigger('click');
-						     $('#select5a').val(12);
+                                                     simui_select_details(12) ;
                                                   }, false);
                     o  = ref_p.getElementById('text3459-7');
                 if (o != null) o.addEventListener('click',
@@ -90,8 +119,7 @@
 	        var o  = ref_cu.getElementById('text3010');
 	        if (o != null) o.addEventListener('click',
                                                   function() {
-                                                     $('#tab16').trigger('click');
-						     $('#select5a').val(16);
+                                                     simui_select_details(16) ;
                                                   }, false);
                     o  = ref_cu.getElementById('text4138');
                 if (o != null) o.addEventListener('click',
@@ -452,6 +480,9 @@
 	$("#tab26").hide() ;
 	$("#tab21").hide() ;
 	$("#tab24").click() ;
+
+        inputfirm.setOption('readOnly', true) ;
+        $("#btn_micro1").addClass('d-none') ;
     }
 
     function wepsim_hide_wepmips ( )
@@ -461,6 +492,9 @@
 
 	$("#tab26").show() ;
 	$("#tab21").show() ;
+
+        inputfirm.setOption('readOnly', false) ;
+        $("#btn_micro1").removeClass('d-none') ;
     }
 
     function wepsim_newbie_tour ( )
@@ -481,11 +515,8 @@
 			                $("#example1").modal('hide'); 
 
 					// ws_mode: intro, tutorial, ep, poc, ...
-					if (get_cfg('ws_mode') != 'ep') 
-	                                { 
-					    set_cfg('ws_mode', 'ep') ;
-                                            save_cfg() ;
-                                            wepsim_change_mode('ep', '#select4') ;
+					if (get_cfg('ws_mode') != 'ep') { 
+					    simui_select_main('ep') ;
 					}
 
 			                return true ;
@@ -494,7 +525,7 @@
 	     tour.start() ;
     }
 
-    function wepsim_change_mode ( optValue, cssLayer )
+    function wepsim_change_mode ( optValue )
     {
           var hwid = -1 ;
 
@@ -518,12 +549,6 @@
 	  if ('wepmips' == optValue)
 	       wepsim_show_wepmips() ;
 	  else wepsim_hide_wepmips() ;
-
-	  // tutorial mode...
-	  $(cssLayer).css('background-color', '#F6F6F6') ;
-	  if ('tutorial' == optValue) {
-	      $(cssLayer).css('background-color', '#D4DB17') ;
-	  }
 
 	  // intro mode...
 	  if ('intro' == optValue)
@@ -589,47 +614,35 @@
     function wepsim_show_quick_menu ( quick_po )
     {
         var o = '<ul class="list-group list-group-flush">' +
-		'<li class="list-group-item p-2"> ' +
+		'<li class="list-group-item px-0 pt-1"> ' +
 		'  <em class="fas fa-flag"></em> &nbsp;' +
-		'  <a class="btn btn-sm btn-outline-secondary col-10 text-left" href="#" ' +
+		'  <a class="btn btn-sm btn-outline-secondary col-auto p-1 text-left" href="#" ' +
                 '     onclick="simcoreui_notify_notifications(); ' +
 		'              $(\'#' + quick_po + '\').popover(\'hide\');">Show Notifications...</a>' +
 		'</li>' +
-		'<li class="list-group-item p-2"> ' +
+		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-bars"></em> &nbsp;' +
                 '  <span class="btn-group-toggle" data-toggle="buttons">' +
-		'  <label class="btn btn-sm btn-outline-secondary col-10 text-left" data-toggle="collapse" href=".multi-collapse-1">' +
+		'  <label class="btn btn-sm btn-outline-secondary col-auto p-1 text-left" data-toggle="collapse" href=".multi-collapse-1">' +
 		'  <input type="checkbox" checked="" autocomplete="off"> Show/Hide ActionBar</label>' +
 		'  </span>' +
 		'</li>' +
-		'<li class="list-group-item p-2"> ' +
+		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-sliders-h"></em> &nbsp;' +
                 '  <span class="btn-group-toggle" data-toggle="buttons">' +
-		'  <label class="btn btn-sm btn-outline-secondary col-10 text-left" data-toggle="collapse" href=".multi-collapse-2">' +
+		'  <label class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" data-toggle="collapse" href=".multi-collapse-2">' +
 		'  <input type="checkbox" checked="" autocomplete="off"> Show/Hide Sliders</label>' +
 		'  </span>' +
 		'</li>' +
-		'<li class="list-group-item p-2"> ' +
-		'  <em class="fas fa-microphone"></em> &nbsp;' +
-                '  <span class="btn-group-toggle" data-toggle="buttons">' +
-		'  <label class="btn btn-sm btn-outline-secondary col-10 ml-1 text-left" href="#" ' +
-                '     onclick="var now = get_cfg(\'use_voice\'); ' +
-                '              update_cfg(\'use_voice\', !now); ' +
-                '              if (now) ' +
-                '                   wepsim_voice_stop(); ' +
-                '              else wepsim_voice_start();">' +
-		'  <input type="checkbox" checked="" autocomplete="off"> Active/Deactive Voice</label>' +
-		'  </span>' +
-		'</li>' +
-		'<li class="list-group-item p-2"> ' +
+		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-magic"></em> &nbsp;' +
-		'  <a class="btn btn-sm btn-outline-secondary col-10 text-left" href="#" ' +
+		'  <a class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" href="#" ' +
 		'     onclick="$(\'#about2\').modal(\'show\'); ' +
 		'              $(\'#' + quick_po + '\').popover(\'hide\');">About WepSIM...</a>' +
 		'</li>' +
-		'<li class="list-group-item p-2"> ' +
+		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-book-reader"></em> &nbsp;' +
-		'  <a class="btn btn-sm btn-outline-secondary col-10 text-left" href="#" ' +
+		'  <a class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" href="#" ' +
 		'     onclick="wepsim_newbie_tour(); ' +
 		'              $(\'#' + quick_po + '\').popover(\'hide\');">Initial intro...</a>' +
 		'</li>' +

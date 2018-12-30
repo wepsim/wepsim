@@ -1,5 +1,5 @@
 /*     
- *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -41,7 +41,7 @@
 
 	    // if delay was passed, set up a timeout to close the alert
 	    if (ntf_delay != 0) {
-		window.setTimeout(function() { alert1.alert("close") }, ntf_delay);     
+		window.setTimeout(function() { alert1.alert("close"); }, ntf_delay);     
 	    }
 
 	    // audio

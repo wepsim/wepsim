@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -111,6 +111,7 @@
                      description: "Reference card for the simulated elemental processor hardware.<br>"
                   });
 
+/*
     help.en.push({
                      id:          "simulator",
                      title:       "Signal dependencies",
@@ -120,6 +121,7 @@
                                   "show_visgraph(jit_fire_dep, jit_fire_order);",
                      description: "Graph of the signal dependencies (it needs several seconds to be displayed).<br>"
                   });
+*/
 
     help.en.push({
                      id:          "about",

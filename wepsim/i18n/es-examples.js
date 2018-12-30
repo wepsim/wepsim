@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -25,7 +25,10 @@
                        id: 'S1E1',
                        title: "Instrucciones",
                        level: "Inicial",
-                       hardware: "ep",
+                       modes:  "newbie,intro,tutorial,ep",
+                       hardware:  "ep",
+                       microcode: "ep_s1_e1",
+                       assembly:  "ep_s1_e1",
                        description: "Ejemplo simple con fetch, instrucciones aritm&eacute;ticas y segmento de c&oacute;digo b&aacute;sico.<br>"
                      });
 
@@ -33,7 +36,10 @@
                        id: 'S1E2',
                        title: "Acceso a memoria",
                        level: "Inicial",
-                       hardware: "ep",
+                       modes:  "newbie,intro,tutorial,ep",
+                       hardware:  "ep",
+                       microcode: "ep_s1_e1",
+                       assembly:  "ep_s1_e2",
                        description: "Ejemplo simple con fetch, acceso a memoria y segmento de c&oacute;digo/datos b&aacute;sico.<br>"
                      });
 
@@ -41,7 +47,10 @@
                        id: 'S1E3',
                        title: "Bucles",
                        level: "Inicial",
-                       hardware: "ep",
+                       modes:  "newbie,intro,tutorial,ep",
+                       hardware:  "ep",
+                       microcode: "ep_s1_e3",
+                       assembly:  "ep_s1_e3",
                        description: "Ejemplo simple con fetch, salto y segmento de c&oacute;digo b&aacute;sico.<br>"
                      });
 
@@ -49,7 +58,10 @@
                        id: 'S1E4',
                        title: "Vector",
                        level: "Inicial",
-                       hardware: "ep",
+                       modes:  "newbie,intro,tutorial,ep",
+                       hardware:  "ep",
+                       microcode: "ep_s1_e3",
+                       assembly:  "ep_s1_e3",
                        description: "Ejemplo simple con fetch, salto y segmento de datos/c&oacute;digo b&aacute;sico.<br>"
                      });
 
@@ -57,7 +69,10 @@
                        id: 'S2E1',
                        title: "E/S",
                        level: "Intermedio",
-                       hardware: "ep",
+                       modes:  "newbie,intro,tutorial,ep",
+                       hardware:  "ep",
+                       microcode: "ep_s2_e1",
+                       assembly:  "ep_s2_e1",
                        description: "Ejemplo ampliado con E/S programada, segmento de datos/c&oacute;digo b&aacute;sico.<br>"
                      });
 
@@ -65,7 +80,10 @@
                        id: 'S2E2',
                        title: "Subrutina",
                        level: "Intermedio",
-                       hardware: "ep",
+                       modes:  "newbie,intro,tutorial,ep",
+                       hardware:  "ep",
+                       microcode: "ep_s2_e2",
+                       assembly:  "ep_s2_e2",
                        description: "Ejemplo ampliado con m&aacute;s instrucciones y E/S (keyboard, display).<br>"
                      });
 
@@ -73,7 +91,10 @@
                        id: 'S2E3',
                        title: "M&aacute;scaras y desplazamientos",
                        level: "Intermedio",
-                       hardware: "ep",
+                       modes:  "newbie,intro,tutorial,ep",
+                       hardware:  "ep",
+                       microcode: "ep_s2_e3",
+                       assembly:  "ep_s2_e3",
                        description: "Ejemplo ampliado con m&aacute;scaras, desplazamientos y segmento de datos/c&oacute;digo b&aacute;sico.<br>"
                      });
 
@@ -81,7 +102,10 @@
                        id: 'S2E4',
                        title: "Matriz",
                        level: "Intermedio",
-                       hardware: "ep",
+                       modes:  "newbie,intro,tutorial,ep",
+                       hardware:  "ep",
+                       microcode: "ep_s2_e4",
+                       assembly:  "ep_s2_e4",
                        description: "Ejemplo ampliado con subrutina y matriz.<br>"
                      });
 
@@ -89,7 +113,10 @@
                        id: 'S3E1',
                        title: "Interrupciones",
                        level: "Avanzado",
-                       hardware: "ep",
+                       modes:  "newbie,intro,tutorial,ep",
+                       hardware:  "ep",
+                       microcode: "ep_s3_e1",
+                       assembly:  "ep_s3_e1",
                        description: "<b>Instructive</b> example con interrupciones: fetch, RETI y .ktext/.kdata.<br>"
                      });
 
@@ -97,7 +124,10 @@
                        id: 'S3E2',
                        title: "Llamada al sistema",
                        level: "Avanzado",
-                       hardware: "ep",
+                       modes:  "newbie,intro,tutorial,ep",
+                       hardware:  "ep",
+                       microcode: "ep_s3_e2",
+                       assembly:  "ep_s3_e2",
                        description: "<b>Instructive</b> example con llamada al sistema.<br>"
                      });
 
@@ -105,7 +135,10 @@
                        id: 'S3E3',
                        title: "Excepci&oacute;n",
                        level: "Avanzado",
-                       hardware: "ep",
+                       modes:  "newbie,intro,tutorial,ep",
+                       hardware:  "ep",
+                       microcode: "ep_s3_e3",
+                       assembly:  "ep_s3_e3",
                        description: "<b>Instructive</b> example con excepci&oacute;n de coma flotante.<br>"
                      });
 
@@ -113,15 +146,68 @@
                        id: 'S3E4',
                        title: "Int. + syscall + except.",
                        level: "Avanzado",
-                       hardware: "ep",
+                       modes:  "newbie,intro,tutorial,ep",
+                       hardware:  "ep",
+                       microcode: "ep_s3_e4",
+                       assembly:  "ep_s3_e4",
                        description: "Ejemplo avanzado con interrupci&oacute;n, llamada al sistema y excepci&oacute;n.<br>"
                      });
 
     examples.es.push({
+<<<<<<< HEAD
+=======
+                       id: 'S4E1',
+                       title: "addv + seqv.",
+                       level: "Laboratorio",
+                       modes:  "newbie,intro,tutorial,ep",
+                       hardware:  "ep",
+                       microcode: "ep_s4_e1",
+                       assembly:  "ep_s4_e1",
+                       description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: addv + seqv.<br>"
+                     });
+
+    examples.es.push({
+                       id: 'S4E2',
+                       title: "strlen_2 + skipasciicode_2",
+                       level: "Laboratorio",
+                       modes:  "newbie,intro,tutorial,ep",
+                       hardware:  "ep",
+                       microcode: "ep_s4_e2",
+                       assembly:  "ep_s4_e2",
+                       description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: strlen_2 + skipasciicode_2.<br>"
+                     });
+
+    examples.es.push({
+                       id: 'S4E3',
+                       title: "madd, mmul, mxch",
+                       level: "Laboratorio",
+                       modes:  "newbie,intro,tutorial,ep",
+                       hardware:  "ep",
+                       microcode: "ep_s4_e3",
+                       assembly:  "ep_s4_e3",
+                       description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: madd + mmul + mxch.<br>"
+                     });
+
+    examples.es.push({
+                       id: 'S4E4',
+                       title: "syscall 1, 4-5, 8, 11-12",
+                       level: "Laboratorio",
+                       modes:  "newbie,intro,tutorial,ep",
+                       hardware:  "ep",
+                       microcode: "ep_s4_e4",
+                       assembly:  "ep_s4_e4",
+                       description: "Ejemplo de llamada al sistema para imprimir/leer entero y cadena de caracteres.<br>"
+                     });
+
+    examples.es.push({
+>>>>>>> 1.9.6
                        id: 'S5E1',
                        title: "Para completar",
                        level: "Especial",
-                       hardware: "ep",
+                       modes:  "newbie,intro,tutorial,ep",
+                       hardware:  "ep",
+                       microcode: "ep_s5_e1",
+                       assembly:  "ep_s5_e1",
                        description: "Ejemplo para pruebas.<br>"
                      });
 
@@ -131,7 +217,10 @@
                        id: 'S1E1',
                        title: "Instrucciones",
                        level: "Inicial",
-                       hardware: "poc",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_s1_e1",
+                       assembly:  "poc_s1_e1",
                        description: "Ejemplo simple.<br>"
                      });
 
@@ -139,7 +228,166 @@
                        id: 'S5E1',
                        title: "Para completar",
                        level: "Especial",
-                       hardware: "poc",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_s5_e1",
+                       assembly:  "poc_s5_e1",
                        description: "Ejemplo para pruebas.<br>"
+                     });
+
+    // EP+MIPS
+
+    examples.es.push({
+                       id: 'S1E1',
+                       title: "Instrucciones",
+                       level: "Inicial",
+                       modes:  "newbie,intro,wepmips,tutorial",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s1_e1",
+                       description: "Ejemplo simple con fetch, instrucciones aritm&eacute;ticas y segmento de c&oacute;digo b&aacute;sico.<br>"
+                     });
+
+    examples.es.push({
+                       id: 'S1E2',
+                       title: "Acceso a memoria",
+                       level: "Inicial",
+                       modes:  "newbie,intro,wepmips,tutorial",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s1_e2",
+                       description: "Ejemplo simple con fetch, acceso a memoria y segmento de c&oacute;digo/datos b&aacute;sico.<br>"
+                     });
+
+    examples.es.push({
+                       id: 'S1E3',
+                       title: "Bucles",
+                       level: "Inicial",
+                       modes:  "newbie,intro,wepmips,tutorial",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s1_e3",
+                       description: "Ejemplo simple con fetch, salto y segmento de c&oacute;digo b&aacute;sico.<br>"
+                     });
+
+    examples.es.push({
+                       id: 'S1E4',
+                       title: "Vector",
+                       level: "Inicial",
+                       modes:  "newbie,intro,wepmips,tutorial",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s1_e3",
+                       description: "Ejemplo simple con fetch, salto y segmento de datos/c&oacute;digo b&aacute;sico.<br>"
+                     });
+
+    examples.es.push({
+                       id: 'S2E1',
+                       title: "E/S",
+                       level: "Intermedio",
+                       modes:  "newbie,intro,wepmips,tutorial",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s2_e1",
+                       description: "Ejemplo ampliado con E/S programada, segmento de datos/c&oacute;digo b&aacute;sico.<br>"
+                     });
+
+    examples.es.push({
+                       id: 'S2E2',
+                       title: "Subrutina",
+                       level: "Intermedio",
+                       modes:  "newbie,intro,wepmips,tutorial",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s2_e2",
+                       description: "Ejemplo ampliado con m&aacute;s instrucciones y E/S (keyboard, display).<br>"
+                     });
+
+    examples.es.push({
+                       id: 'S2E3',
+                       title: "M&aacute;scaras y desplazamientos",
+                       level: "Intermedio",
+                       modes:  "newbie,intro,wepmips,tutorial",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s2_e3",
+                       description: "Ejemplo ampliado con m&aacute;scaras, desplazamientos y segmento de datos/c&oacute;digo b&aacute;sico.<br>"
+                     });
+
+    examples.es.push({
+                       id: 'S2E4',
+                       title: "Matriz",
+                       level: "Intermedio",
+                       modes:  "newbie,intro,wepmips,tutorial",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s2_e4",
+                       description: "Ejemplo ampliado con subrutina y matriz.<br>"
+                     });
+
+    examples.es.push({
+                       id: 'S3E1',
+                       title: "Interrupciones",
+                       level: "Avanzado",
+                       modes:  "newbie,intro,wepmips,tutorial",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s3_e1",
+                       description: "Ejemplo con interrupciones: fetch, RETI y .ktext/.kdata.<br>"
+                     });
+
+    examples.es.push({
+                       id: 'S3E2',
+                       title: "Llamada al sistema",
+                       level: "Avanzado",
+                       modes:  "newbie,intro,wepmips,tutorial",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s3_e2",
+                       description: "Ejemplo con llamada al sistema.<br>"
+                     });
+
+    examples.es.push({
+                       id: 'S3E3',
+                       title: "Excepci&oacute;n",
+                       level: "Avanzado",
+                       modes:  "newbie,intro,wepmips,tutorial",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s3_e3",
+                       description: "Ejemplo con excepci&oacute;n de coma flotante.<br>"
+                     });
+
+    examples.es.push({
+                       id: 'S3E4',
+                       title: "Int. + syscall + except.",
+                       level: "Avanzado",
+                       modes:  "newbie,intro,wepmips,tutorial",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s3_e4",
+                       description: "Ejemplo avanzado con interrupci&oacute;n, llamada al sistema y excepci&oacute;n.<br>"
+                     });
+
+    examples.es.push({
+                       id: 'S4E2',
+                       title: "strlen_2 + skipasciicode_2",
+                       level: "Laboratorio",
+                       modes:  "newbie,intro,wepmips,tutorial",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s4_e2",
+                       description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: strlen_2 + skipasciicode_2.<br>"
+                     });
+
+    examples.es.push({
+                       id: 'S4E4',
+                       title: "syscall 1, 4-5, 8, 11-12",
+                       level: "Laboratorio",
+                       modes:  "newbie,intro,wepmips,tutorial",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s4_e4",
+                       description: "Ejemplo de llamada al sistema para imprimir/leer entero y cadena de caracteres.<br>"
                      });
 

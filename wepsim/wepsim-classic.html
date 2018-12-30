@@ -148,7 +148,7 @@
 
     <meta name="apple-mobile-web-app-capable"          content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title"            content="WepSIM 1.9.5" />
+    <meta name="apple-mobile-web-app-title"            content="WepSIM 1.9.6" />
     <meta name="msapplication-TileImage"               content="images/arcos.svg" />
     <meta name="msapplication-TileColor"               content="#2F3BA2" />
     <meta name="theme-color"                           content="#ffffff" />
@@ -179,8 +179,11 @@
 		<table style="width:100%; height:100%; position:fixed; background-color: white;  z-index:100;">
 		<tr>
 		<td align="center">
-	        <img src="images/ajax-loader.gif" style="min-height:5vh" alt="loading icon" />
-		<br/><span class="text-primary font-weight-bold p-3"><strong><span data-langkey='Loading WepSIM...'>Loading WepSIM...</span></strong></span>
+		    <div class="spinner-border spinner-border-xl text-success" role="status">
+	              <span class="sr-only">Loading...</span>
+		    </div>
+		    <br/><br/>
+		    <span class="text-primary font-weight-bold p-3"><strong><span data-langkey='Loading WepSIM...'>Loading WepSIM...</span></strong></span>
 		</td>
 		</tr>
 		</table>
@@ -221,16 +224,22 @@
                     <div class="btn-toolbar btn-block" role="toolbar">
 		        <button class="btn btn-light shadow-sm my-1"
                                 id="btn_cfg1"
+			         data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			         title="This button opens the 'Configuration' dialog."
                                 onclick="wepsim_open_config_index();"
 		    	        style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                 ><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
 		        <button class="btn btn-light shadow-sm my-1"
                                 id="btn_micro1"
+			         data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			         title="This button switches into the 'Microcode' editor."
                                 onclick="sim_change_workspace_microcode();"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				><strong><span class="d-none d-sm-inline-flex" data-langkey='MicroCode'>MicroCode</span><span class="d-sm-none">&#181;code</span></strong></button>
 		        <button class="btn btn-light shadow-sm my-1 mr-2"
                                 id="btn_asm1"
+			         data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			         title="This button switches into the 'Assembly' editor."
                                 onclick="sim_change_workspace_assembly();"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				><strong><span class="d-none d-sm-inline-flex" data-langkey='Assembly'>Assembly</span><span class="d-sm-none" data-langkey='Assembly'>Assembly</span></strong></button>
@@ -254,8 +263,9 @@
 
 		    <div class="w-100 d-md-block d-lg-none"></div>
 
-                    <div class="col-sm p-1">
+                    <div class="col-sm-auto p-1">
                     <div class="btn-toolbar btn-block" role="toolbar">
+<<<<<<< HEAD
 		        <button class="btn btn-light shadow-sm my-1 col-auto"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                 id="btn_example1"
@@ -284,6 +294,71 @@
 				<option value="poc"      >WepSIM (POC)</option>
 			</select>
 			</label>
+=======
+		            <button class="btn btn-light shadow-sm my-1 col"
+		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC; flex-grow:1;"
+                                    id="btn_example1"
+			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			            title="This button opens the 'Examples' dialog."
+				    onclick="wepsim_open_examples_index();"><strong><span data-langkey='Examples'>Examples</span></strong></button>
+
+		            <button class="btn btn-light shadow-sm my-1 col"
+		                    style="border-width:1 1 1 1px; border-color:#CCCCCC; background-color:#D4DB17; flex-grow:1;"
+                                    id="btn_help1"
+			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			            title="This button opens the 'Help' dialog."
+		                    onclick="wepsim_open_help_index();
+                                             wepsim_help_refresh();"><strong><span data-langkey='Help'>Help</span></strong></button>
+
+			<div class="btn-group p-0 my-1 col" style="flex-grow:6;">
+			    <button type="button" class="col-12 btn btn-light shadow-sm"
+			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
+				    title="This button shows the current execution mode, <br>the dropdown on the right changes the execution mode."
+                                    style="border-color: #CCCCCC;"
+				    id="select4"
+                                    onclick="simui_select_details(22);
+					     simcoreui_init_hw('#config_HW') ;
+					     return false;">Refresh</button>
+			    <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" 
+                                    style="border-color: #CCCCCC;"
+				    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			      <span class="sr-only">Toggle Dropdown</span>
+			    </button>
+			    <div class="dropdown-menu border border-secondary">
+
+			      <h6 class="text-secondary mb-1">WepSIM</h6>
+                              <a class="dropdown-item" href="#" id="s4_ep" value="ep"
+				 onclick="simui_select_main('ep');
+	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
+					  simcoreui_init_hw('#config_HW') ;
+					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP</a>
+                              <a class="dropdown-item" href="#" id="s4_poc" value="poc"
+				 onclick="simui_select_main('poc');
+	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
+					  simcoreui_init_hw('#config_HW') ;
+					  return false;"><em class="fas fa-microchip"></em>&nbsp;POC</a>
+
+			      <div class="dropdown-divider"></div>
+			      <h6 class="text-secondary mb-1">Assembly only</h6>
+                              <a class="dropdown-item" href="#" id="s4_wepmips" value="wepmips"
+				 onclick="simui_select_main('wepmips');
+	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
+					  return false;">EP + MIPS</a>
+
+			      <div class="dropdown-divider"></div>
+			      <h6 class="text-secondary mb-1">Tutorial</h6>
+                              <a class="dropdown-item" href="#" id="s4_tutorial" value="tutorial"
+				 onclick="simui_select_main('tutorial');
+	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
+					  return false;"><span style="background-color:#D4DB17">Instructive</span></a>
+                              <a class="dropdown-item" href="#" id="s4_intro" value="intro"
+				 onclick="simui_select_main('intro');
+	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
+					  return false;">Welcome...</a>
+
+			    </div>
+			</div>
+>>>>>>> 1.9.6
                     </div>
 		    </div>
 
@@ -401,10 +476,14 @@
 			            onclick="wepsim_execute_reset(true, true);"><em class="fa fa-power-off"></em><strong><br/><span data-langkey='Reset'>Reset</span></strong></button>
 			    <button id="nm1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
-			            onclick="wepsim_execute_microinstruction();"><em class="fa fa-step-forward"></em><strong><br/>&#181;<span class="d-none d-sm-inline-flex" data-langkey='Instruction'>Instruction</span><span class="d-sm-none">Instr.</span></strong></button>
+			            onclick="wepsim_execute_microinstruction();
+	                                     simcoreui_show_hw();
+                                             return false;"><em class="fa fa-step-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey='Instruction'>&#181;Instruction</span><span class="d-sm-none">&#181;Instr.</span></strong></button>
 			    <button id="ni1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
-			            onclick="wepsim_execute_instruction();"><em class="fa fa-fast-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey='Instruction'>Instruction</span><span class="d-sm-none">Instr.</span></strong></button>
+			            onclick="wepsim_execute_instruction();
+					     simcoreui_init_hw('#config_HW');
+                                             return false;"><em class="fa fa-fast-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey='Instruction'>Instruction</span><span class="d-sm-none">Instr.</span></strong></button>
 			    <button id="qbp" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
                                     onclick="var mode = get_cfg('ws_mode');
@@ -419,43 +498,55 @@
 
                     <div class="row row pl-2 pr-3 pt-1">
                     <div class="btn-toolbar btn-block" role="toolbar">
-		          <button class="btn btn-light shadow-sm col"
-		                  style="border-color: #CCCCCC; flex-grow:1;"
-		                  onclick="wepsim_dialog_current_state();"><em class="fas fa-camera"></em>&nbsp;<span data-langkey='States'>States</span></button>
-			  <label  for="select5a" class="col p-0 m-0" style="flex-grow:2;">
-                          <select class="custom-select btn btn-light shadow-sm"
-                                  style="border-color: #CCCCCC; flex-grow:2;"
-				  aria-label="select CPU, MM or DEV element to work with"
-				  name="select5a" id="select5a"
-                                  onchange="var val = this.value;
-				            $('#tab' + val).trigger('click');
-				            if ('11' == val)
-					         show_rf_values();
-				            else show_memories_values();">
-				  <optgroup label="CPU">
-                                      <option id="11" value="11" selected><span class="bg-primary text-white">CPU</span> - Registers</option>
-                                      <option id="16" value="16"><span class="bg-primary text-white">CPU</span> - Control Memory</option>
-                                      <option id="17" value="17"><span class="bg-primary text-white">CPU</span> - Stats</option>
-				  </optgroup>
-				  <optgroup label="Main Memory">
-                                      <option id="14" value="14"><span class="bg-primary text-white">MM</span> - Memory</option>
-                                      <option id="18" value="18"><span class="bg-primary text-white">MM</span> - Configuration</option>
-				  </optgroup>
-				  <optgroup label="Devices">
-                                      <option id="12" value="12"><span class="bg-primary text-white">Dev</span> - Keyboard+Display</option>
-                                      <option id="15" value="15"><span class="bg-primary text-white">Dev</span> - I/O Stats</option>
-                                      <option id="19" value="19"><span class="bg-primary text-white">Dev</span> - I/O Configuration</option>
-				  </optgroup>
-			  </select>
-			  </label>
-		          <button class="btn btn-light shadow-sm col"
-                                  style="border-color: #CCCCCC; flex-grow:1;"
-                                  onclick="var val = $('#select5a').val();
-				           $('#tab' + val).trigger('click');
-				           if ('11' == val)
-					        show_rf_values();
-				           else show_memories_values();
-					   wepsim_reset_max_turbo();"><em class="fas fa-sync-alt"></em>&nbsp;<span data-langkey='Refresh'>Refresh</span></button>
+		            <button class="btn btn-light shadow-sm col"
+		                    style="border-color: #CCCCCC; flex-grow:1;"
+			             data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			             title="This button opens the 'state management' dialog: it shows the current state, saves the current state, and shows the differences between two states."
+		                    onclick="wepsim_dialog_current_state();"><em class="fas fa-camera"></em>&nbsp;<span data-langkey='States'>States</span></button>
+
+			  <div class="col btn-group p-0" style="flex-grow:2;">
+			    <button type="button" class="col-12 btn btn-light shadow-sm"
+			             data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			             title="This button refresh the details (and might move the scrollbar), <br>the dropdown on the right changes the element to show its details."
+                                    style="border-color: #CCCCCC;"
+				    id="select5b"
+                                    onclick="show_rf_values();
+				             show_memories_values();
+				  	     wepsim_reset_max_turbo();">Refresh</button>
+			    <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" 
+                                    style="border-color: #CCCCCC;"
+				    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			      <span class="sr-only">Toggle Dropdown</span>
+			    </button>
+			    <div class="dropdown-menu border border-secondary">
+                              <a class="dropdown-item d-none" href="#" id="s5b_22" value="22"
+				 onclick="simui_select_details(22);"><em class="fas fa-microchip"></em> Hardware</a>
+
+			      <h6 class="text-secondary mb-1">CPU</h6>
+                              <a class="dropdown-item" href="#" id="s5b_11" value="11"
+				 onclick="simui_select_details(11); show_rf_values();"><span class="bg-dark text-white">CPU</span> Registers</a>
+                              <a class="dropdown-item" href="#" id="s5b_16" value="16"
+				 onclick="simui_select_details(16); show_memories_values();"><span class="bg-dark text-white">CPU</span> Control Memory</a>
+                              <a class="dropdown-item" href="#" id="s5b_17" value="17"
+				 onclick="simui_select_details(17); show_memories_values();"><span class="bg-dark text-white">CPU</span> Stats</a>
+
+			      <div class="dropdown-divider m-1"></div>
+			      <h6 class="text-secondary mb-1">Main Memory</h6>
+			      <a class="dropdown-item" href="#" id="s5b_14" value="14"
+				 onclick="simui_select_details(14); show_memories_values();"><span class="bg-dark text-white">MM</span> Memory</a>
+			      <a class="dropdown-item" href="#" id="s5b_18" value="18"
+				 onclick="simui_select_details(18); show_memories_values();"><span class="bg-dark text-white">MM</span> Configuration</a>
+
+			      <div class="dropdown-divider m-1"></div>
+			      <h6 class="text-secondary mb-1">Devices</h6>
+			      <a class="dropdown-item" href="#" id="s5b_12" value="12"
+				 onclick="simui_select_details(12); show_memories_values();"><span class="bg-dark text-white">Dev</span> Keyboard+Display</a>
+			      <a class="dropdown-item" href="#" id="s5b_15" value="15"
+				 onclick="simui_select_details(15); show_memories_values();"><span class="bg-dark text-white">Dev</span> I/O Stats</a>
+			      <a class="dropdown-item" href="#" id="s5b_19" value="19"
+				 onclick="simui_select_details(19); show_memories_values();"><span class="bg-dark text-white">Dev</span> I/O Configuration</a>
+			    </div>
+			  </div>
                     </div>
                     </div>
 
@@ -496,9 +587,13 @@
                           <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
                              data-toggle="tab" id="tab19" href="#iocfg">I/O configuration</a>
                       </li>
+                      <li class="nav-item">
+                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+                             data-toggle="tab" id="tab22" href="#ed_hw">Hardware</a>
+                      </li>
                     </ul>
                     <div class="tab-content mt-3">
-                         <div class="tab-pane mx-1 my-2 active" role="tabpanel" id="all">
+                         <div class="tab-pane mx-0 my-2 active" role="tabpanel" id="all">
 				 <div id="states_ALL" style="width:inherit; overflow-y:auto;"
                                       class="container container-fluid px-1 pb-1"></div>
 				 <div id="states_BR" style="width: inherit; overflow-y: auto;"
@@ -537,6 +632,9 @@
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="iocfg">
 		              <div id="config_IO" style="width: inherit; overflow-y: auto;"></div>
                          </div>
+                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_hw">
+		              <div id="config_HW" style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
+                         </div>
                     </div>
 
                 </div>
@@ -568,21 +666,21 @@
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button data-target="#lsload" data-toggle="modal"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-		                    class="btn btn-light shadow-sm col"><em class="fas fa-file-upload"></em>&nbsp;<strong><span data-langkey="Load">Load</span></strong></button>
+		                    class="btn btn-light shadow-sm col-auto"><em class="fas fa-file-upload"></em>&nbsp;<strong><span data-langkey="Load">Load</span></strong></button>
 		            <button data-target="#lssave" data-toggle="modal"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				    class="btn btn-light shadow-sm col"><em class="fas fa-file-download"></em>&nbsp;<strong><span data-langkey="Save">Save</span></strong></button>
+				    class="btn btn-light shadow-sm col-auto"><em class="fas fa-file-download"></em>&nbsp;<strong><span data-langkey="Save">Save</span></strong></button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button style="background-color: #CCCCCC"
-		                    class="btn btn-light shadow-sm col"
+		                    class="btn btn-light shadow-sm col-auto"
 				    data-transition="none" data-inline="true"
 				    onclick="var textToMCompile = inputfirm.getValue();
                                              wepsim_compile_firmware(textToMCompile);
 				 	     $('#asm_debugger').html('<br/>After updates on the microcode, assembler has to be compiled against it.');"><em class="fas fa-sign-out-alt"></em>&nbsp;<strong>&#181;compile</strong></button>
 		            <button style="background-color: #DDDDDD"
-		                    class="btn btn-light shadow-sm col"
+		                    class="btn btn-light shadow-sm col-auto"
 				    onclick="var textToMCompile = inputfirm.getValue();
                                              var ok = wepsim_compile_firmware(textToMCompile);
                                              if (true == ok) {
@@ -596,11 +694,11 @@
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
                             <button style="background-color: #D4DB17"
-		                    class="btn btn-light shadow-sm col"
+		                    class="btn btn-light shadow-sm col-auto"
                                     onclick="wepsim_open_help_content('<object id=svg_p2 data=\'images/ep/cpu6.svg?time=20180808\' type=image/svg+xml>Your browser does not support SVG</object>');"
 				    ><em class="fas fa-microchip"></em>&nbsp;<strong>Hardware Summary</strong></button>
                             <button style="background-color: #D4DB17"
-		                    class="btn btn-light shadow-sm col"
+		                    class="btn btn-light shadow-sm col-auto"
 				    onclick="wepsim_help_set_relative('#help_firmware_format'); wepsim_help_refresh();"
 				    ><em class="fas fa-info-circle"></em>&nbsp;<strong><span data-langkey="Help">Help</span></strong></button>
 		      </div>
@@ -647,20 +745,20 @@
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button data-target="#lsload2" data-toggle="modal"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				    class="btn btn-light shadow-sm col"><em class="fas fa-file-upload"></em>&nbsp;<strong><span data-langkey="Load">Load</span></strong></button>
+				    class="btn btn-light shadow-sm col-auto"><em class="fas fa-file-upload"></em>&nbsp;<strong><span data-langkey="Load">Load</span></strong></button>
 		            <button data-target="#lssave2" data-toggle="modal"
 		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				    class="btn btn-light shadow-sm col"><em class="fas fa-file-download"></em>&nbsp;<strong><span data-langkey="Save">Save</span></strong></button>
+				    class="btn btn-light shadow-sm col-auto"><em class="fas fa-file-download"></em>&nbsp;<strong><span data-langkey="Save">Save</span></strong></button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button style="background-color: #CCCCCC"
-		                    class="btn btn-light shadow-sm col"
+		                    class="btn btn-light shadow-sm col-auto"
 				    data-transition="none" data-inline="true"
 				    onclick="var textToCompile = inputasm.getValue() ;
                                              var ok = wepsim_compile_assembly(textToCompile);"><em class="fas fa-sign-out-alt"></em>&nbsp;<strong>Compile</strong></button>
 		            <button style="background-color: #DDDDDD"
-		                    class="btn btn-light shadow-sm col"
+		                    class="btn btn-light shadow-sm col-auto"
 				    onclick="var textToCompile = inputasm.getValue();
                                              var ok = wepsim_compile_assembly(textToCompile);
                                              if (true == ok) {
@@ -670,7 +768,7 @@
 
                       <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">
                             <button style="background-color: #D4DB17"
-		                    class="btn btn-light shadow-sm col"
+		                    class="btn btn-light shadow-sm col-auto"
 				    onclick="wepsim_help_set_relative('#help_assembly_format'); wepsim_help_refresh();"
 				    ><em class="fas fa-info-circle"></em>&nbsp;<strong><span data-langkey="Help">Help</span></strong></button>
 		      </div>
@@ -1036,97 +1134,138 @@
                <div class="carousel-inner" role="listbox">
                   <div class="carousel-item active">
 
-			<h4 class="mt-1 mb-0">
-			    <a data-toggle="collapse" href="#states3"><span data-langkey="Current State">Current State</span></a>:
-                        </h4>
-                        <div class="container-fluid ml-1 pb-0 collapse show" id="states3"
-			     style="max-height:50vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
-			     <div class="row">
-			     <div class="col-auto text-center flex-column d-flex pr-0">
-				    <strong class="m-2">
-					<span class="badge badge-pill border-secondary border shadow">
-						<a class="col-auto p-0"
-					           data-toggle="collapse" data-target="#collapse_X"
-						   target="_blank" href="#" id="curr_clk_maddr">now</a>
-					</span>
-				    </strong>
-			     </div>
-			     <div class="col pt-2 pl-0">
-				<div class="btn-group float-none" role="group" aria-label="State information for now">
-                                          <button class="btn btn-outline-dark btn-sm col float-right"
-					          onclick="CopyFromTextarea('end_state1');
-	                                                   wepsim_state_results_empty();
-	                                                   var curr_tag = $('#curr_clk_maddr').html();
-	                                                   $('#s_clip').html(curr_tag);
-	                                                   return false;"
-					          data-inline="true">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>
-                                          <button class="btn btn-outline-dark btn-sm col float-right"
-                                                  onclick="var txt_chklst1 = get_clipboard_copy();
-                                                           var obj_exp1    = simcore_simstate_checklist2state(txt_chklst1);
-                                                           var txt_chklst2 = $('#end_state1').val();
-                                                           var obj_exp2    = simcore_simstate_checklist2state(txt_chklst2);
-	                                                   var ref_tag     = $('#curr_clk_maddr').html();
-	                                                   $('#s_ref').html(ref_tag);
-                                                           wepsim_dialog_check_state('check_results1', obj_exp1, obj_exp2);
-						           $('#check_results_scroll1').collapse('show');"
-                                                  type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>
-                                </div>
-				<div id="collapse_X" class="mt-2 collapse show">
-					<form id="end_state_form1"
-					      class="form-horizontal mb-2"
-					      style="white-space:wrap; overflow-y:auto; -webkit-overflow-scrolling:touch; width:100%;">
-		                           <label class="my-0" for="end_state1">state:</label>
-					   <textarea aria-label="current_state"
-						     placeholder="Default..."
-						     id="end_state1"
-						     name="end_state1"
-						     data-allowediting="true"
-						     data-allowpasting="false"
-						     data-limit="0"
-						     data-createtokensonblur="false"
-						     data-delimiter=";"
-						     data-beautify="true"
-						     class="form-control input-xs"
-						     rows="5"></textarea>
-					</form>
+		        <div class="card mb-1">
+		          <div class="card-header p-1" id="state_header_1">
+		            <h4 class="m-0">
+				    <a data-toggle="collapse" href="#states3"><span data-langkey="Current State">Current State</span></a>:&nbsp;
+				    <span class="btn btn-secondary btn-sm float-right"
+					  onclick="wepsim_state_history_add();
+						   wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
+						   wepsim_state_history_list();
+						   wepsim_dialog_current_state();
+						   $('#states3').collapse('show');
+						   return false;"
+					  data-inline="true">Add <span class='d-none d-sm-inline-flex'>'Current State' to History</span></span>
+		            </h4>
+		          </div>
+			  <div id="states3b" class="collapse show" aria-labelledby="state_header_1">
+		            <div class="card-body p-0">
+				<div class="container-fluid ml-1 pb-0 collapse show" id="states3"
+				     style="max-height:50vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
+				     <div class="row">
+				     <div class="col-auto text-center flex-column d-flex pr-0">
+					    <strong class="m-2">
+						<span class="badge badge-pill border-secondary border shadow">
+							<a class="col-auto p-0 text-decoration-none text-reset"
+							   data-toggle="collapse" data-target="#collapse_X"
+							   target="_blank" href="#" id="curr_clk_maddr">now</a>
+						</span>
+					    </strong>
+				     </div>
+				     <div class="col pt-2 pl-0">
+					<div class="btn-group float-none" role="group" aria-label="State information for now">
+						  <button class="btn btn-outline-dark btn-sm col-auto float-right"
+							  onclick="CopyFromTextarea('end_state1');
+								   wepsim_state_results_empty();
+								   var curr_tag = $('#curr_clk_maddr').html();
+								   $('#s_clip').html(curr_tag);
+								   return false;"
+							  data-inline="true">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>
+						  <button class="btn btn-outline-dark btn-sm col-auto float-right"
+							  onclick="var txt_chklst1 = get_clipboard_copy();
+								   var obj_exp1    = simcore_simstate_checklist2state(txt_chklst1);
+								   var txt_chklst2 = $('#end_state1').val();
+								   var obj_exp2    = simcore_simstate_checklist2state(txt_chklst2);
+								   var ref_tag     = $('#curr_clk_maddr').html();
+								   $('#s_ref').html(ref_tag);
+								   wepsim_dialog_check_state('check_results1', obj_exp1, obj_exp2);
+								   $('#check_results_scroll1').collapse('show');"
+							  type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>
+						  <button class="btn btn-outline-dark btn-sm col-auto float-right"
+							  data-toggle="collapse" data-target="#collapse_X">&plusmn; Show</button>
+					</div>
+					<div id="collapse_X" class="mt-2 collapse show">
+						<form id="end_state_form1"
+						      class="form-horizontal mb-2"
+						      style="white-space:wrap; overflow-y:auto; -webkit-overflow-scrolling:touch; width:100%;">
+						   <label class="my-0" for="end_state1">state:</label>
+						   <textarea aria-label="current_state"
+							     placeholder="Default..."
+							     id="end_state1"
+							     name="end_state1"
+							     data-allowediting="true"
+							     data-allowpasting="false"
+							     data-limit="0"
+							     data-createtokensonblur="false"
+							     data-delimiter=";"
+							     data-beautify="true"
+							     class="form-control input-xs"
+							     rows="5"></textarea>
+						</form>
+					</div>
+				     </div>
+				     </div>
 				</div>
-			     </div>
-			     </div>
-			</div>
-
-			<h4 class="mt-1">
-			    <a data-toggle="collapse" href="#history3"><span data-langkey="History">History</span></a>:
-                        </h4>
-                        <div class="container-fluid ml-1 pb-2 collapse show" id="history3"
-			     style="max-height:40vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
-                             <div id="history1">
-				  <div class="pt-2"></div>
-  		 	          <span style="background-color:#FCFC00">&lt;Empty history&gt;</span>
-			     </div>
-			</div>
-
-			<h4 class="mt-1">
-			    <a data-toggle="collapse" href="#check_results_scroll1"><span data-langkey="Differences">Differences</span></a>:&nbsp;
-			    <span class="btn btn-outline-dark btn-sm"
-			          onclick="CopyFromDiv('check_results_scroll1');
-	                                   return false;"
-			          data-inline="true">Copy to clipboard</span>
-                        </h4>
-                        <div class="container-fluid ml-1 pb-2 collapse show" id="check_results_scroll1"
-		             style="max-height:40vh; width:inherit; overflow-y:auto; -webkit-overflow-scrolling:touch;" >
-			     <div class="row align-items-center">
-			     <div class="col-auto text-center flex-column d-flex pr-0">
-				  <span id="s_clip" class="badge badge-pill border-secondary border m-2 shadow">clipboard</span>
-				  <div class="row" style="max-height:16vh"><div class="col border-right border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>
-				  <span id="s_ref"  class="badge badge-pill border-secondary border m-2 shadow">reference</span>
-			     </div>
-			     <div class="col py-2 pl-2">
-				  <div id="check_results1">
-				       <span style="background-color:#FCFC00">&lt;Empty (only modified values are shown)&gt;</span>
-				  </div>
-			     </div>
-			     </div>
+		            </div>
+		          </div>
 		        </div>
+
+		        <div class="card mb-1">
+		          <div class="card-header p-1" id="state_header_2">
+		            <h4 class="m-0">
+				    <a data-toggle="collapse" href="#history3"><span data-langkey="History">History</span></a>:&nbsp;
+				    <span class="btn btn-secondary btn-sm float-right"
+					  onclick="wepsim_state_history_reset();
+						   wepsim_notify_success('<strong>INFO</strong>', 'Removed all !.');
+						   wepsim_state_history_list() ;
+						   return false;"
+					  data-inline="true">Reset <span class='d-none d-sm-inline-flex'>history</span></span>
+		            </h4>
+		          </div>
+			  <div id="history3b" class="collapse show" aria-labelledby="state_header_2">
+		            <div class="card-body p-1">
+				<div class="container-fluid ml-1 pb-2 collapse show" id="history3"
+				     style="max-height:40vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
+				     <div id="history1">
+					  <div class="pt-2"></div>
+					  <span style="background-color:#FCFC00">&lt;Empty history&gt;</span>
+				     </div>
+				</div>
+		            </div>
+		          </div>
+		        </div>
+
+		        <div class="card mb-1">
+		          <div class="card-header p-1" id="state_header_3">
+		            <h4 class="m-0">
+				    <a data-toggle="collapse" href="#check_results_scroll1"><span data-langkey="Differences">Differences</span></a>:
+				    <span class="btn btn-secondary btn-sm float-right"
+					  onclick="CopyFromDiv('check_results_scroll1');
+						   return false;"
+					  data-inline="true">Copy to clipboard</span>
+		            </h4>
+		          </div>
+			  <div id="check_results_scroll1b" class="collapse show" aria-labelledby="state_header_3">
+		            <div class="card-body p-1">
+				<div class="container-fluid ml-1 pb-2 collapse show" id="check_results_scroll1"
+				     style="max-height:40vh; width:inherit; overflow-y:auto; -webkit-overflow-scrolling:touch;" >
+				     <div class="row align-items-center">
+				     <div class="col-auto text-center flex-column d-flex pr-0">
+					  <span id="s_clip" class="badge badge-pill border-secondary border m-2 shadow">clipboard</span>
+					  <div class="row" style="max-height:16vh"><div class="col border-right border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>
+					  <span id="s_ref"  class="badge badge-pill border-secondary border m-2 shadow">reference</span>
+				     </div>
+				     <div class="col py-2 pl-2">
+					  <div id="check_results1">
+					       <span style="background-color:#FCFC00">&lt;Empty (only modified values are shown)&gt;</span>
+					  </div>
+				     </div>
+				     </div>
+				</div>
+		            </div>
+		          </div>
+		        </div>
+
                   </div>
                   <div class="carousel-item">
                        <div id="help3a"
@@ -1137,21 +1276,7 @@
          </div>
       </div>
       <div class="modal-footer">
-	   <button class="btn btn-dark btn-sm col-auto float-right"
-	   	   onclick="wepsim_state_history_reset();
-			    wepsim_notify_success('<strong>INFO</strong>', 'Removed all !.');
-			    wepsim_state_history_list() ;
-			    return false;"
-		   type="button"><em class="fa fa-trash" aria-hidden="true"></em> Reset <span class='d-none d-sm-inline-flex'>history</span></button>
-	   <button class="btn btn-dark btn-sm col-auto float-right"
-		   onclick="wepsim_state_history_add();
-			    wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
-			    wepsim_state_history_list();
-                            wepsim_dialog_current_state();
-			    $('#states3').collapse('show');
-			    return false;"
-		   type="button"><em class="fa fa-plus" aria-hidden="true"></em> Add <span class='d-none d-sm-inline-flex'>'Current State' to History</span></button>
-           <button class="btn btn-danger btn-sm col-auto pull-right shadow-none"
+           <button class="btn btn-danger btn-sm col-xs-3 col-sm-2 float-right"
                    onclick="$('#current_state1').modal('hide');"
                    type="button">Close</button>
       </div>
@@ -1319,25 +1444,32 @@
 </div> <!-- /.modal -->
 
 
-    <link async href="WEPSIM_ROOT/min.external.css" rel="stylesheet">
-    <script      src="WEPSIM_ROOT/min.external.js"></script><noscript>Your browser does not support JavaScript!</noscript>
+    <link async href="min.external.css" rel="stylesheet">
+    <script      src="min.external.js"></script><noscript>Your browser does not support JavaScript!</noscript>
 
-    <script src="WEPSIM_ROOT/min.sim_all.js"   ></script><noscript>Your browser does not support JavaScript!</noscript>
-    <script src="WEPSIM_ROOT/min.wepsim_web.js"></script><noscript>Your browser does not support JavaScript!</noscript>
+    <script src="min.sim_all.js"   ></script><noscript>Your browser does not support JavaScript!</noscript>
+    <script src="min.wepsim_web.js"></script><noscript>Your browser does not support JavaScript!</noscript>
 
 
 <script type="text/javascript">
-    window.addEventListener("beforeunload",
-	                    function (e) {
-			         var confirmationMessage = "\o/";
-			         (e || window.event).returnValue = confirmationMessage; // Gecko + IE
-			         return confirmationMessage;                            // Webkit, Safari, Chrome
-			    });
-
     try
     {
 	    // basic initialization of wepsim...
 	    simcore_init(true, 'ep') ;
+
+	    // go to wepsim UI skin...
+	    var optValue = get_cfg('ws_skin') ;
+	    if (optValue != 'classic') {
+	        window.location='wepsim-' + optValue + '.html' ;
+	    }
+
+	    // ...then install protection for accidental close.
+	    window.addEventListener("beforeunload",
+				    function (e) {
+					 var confirmationMessage = "\o/";
+					 (e || window.event).returnValue = confirmationMessage; // Gecko + IE
+					 return confirmationMessage;                            // Webkit, Safari, Chrome
+				    });
 
 	    // adapt to idiom
 	    var ws_idiom = get_cfg('ws_idiom');
@@ -1390,17 +1522,16 @@
 				    });
                     sim_prepare_editor(inputasm) ;
 
-		    sim_change_workspace_simulator();
-		    $('#tab26').trigger('click');
-		    $('#tab11').trigger('click');
-		    $('#select5a').val(11);
-                    $("#select4").val(get_cfg('ws_mode')) ;
-                    $("#slider2a").val(get_cfg('C1C2_size'));
-                    $('#slider2b').val(get_cfg('CPUCU_size'));
-                    set_ab_size('#col1',        '#col2',        get_cfg('C1C2_size'));
-                    set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', get_cfg('CPUCU_size'));
+		    sim_change_workspace_simulator() ;
+		    $('#tab26').trigger('click') ;
+		    simui_select_details(11) ;
 
-                    showhideAsmElements();
+                    $("#slider2a").val(get_cfg('C1C2_size')) ;
+                    $('#slider2b').val(get_cfg('CPUCU_size')) ;
+                    set_ab_size('#col1',        '#col2',        get_cfg('C1C2_size')) ;
+                    set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', get_cfg('CPUCU_size')) ;
+
+                    showhideAsmElements() ;
 		    $("input:checkbox").click(function(){
 		        var name = $(this).attr("name") ;
 		        var column = "table ." + name ;
@@ -1408,6 +1539,13 @@
 		             $(column).hide() ;
 		        else $(column).show() ;
 		    });
+
+		    $('[data-toggle="tooltip"]').tooltip({
+                        trigger:   'hover'
+                    }) ;
+		    $('#carousel-8').carousel({
+                        touch: false
+                    })
 
 		    $("[data-toggle=popover0]").popover({
 			    html:       true,
@@ -1464,7 +1602,7 @@
 		    $("div.wsversion").replaceWith(get_cfg('version'));
 
 		    var ws_mode = get_cfg('ws_mode');
-		    wepsim_change_mode(ws_mode, '#select4') ;
+		    simui_select_main(ws_mode);
 		    simcore_init_ui("#states_ALL", "#states_BR", "#io_ALL",
 				     "#cpu_ALL", "#config_MP", "#config_IO");
 		    simcore_reset();
@@ -1478,7 +1616,7 @@
             // progressive web application
 	    if ( (false == is_mobile()) && ('serviceWorker' in navigator) )
             {
-		navigator.serviceWorker.register('WEPSIM_ROOT/min.wepsim_pwa.js').catch(function() {
+		navigator.serviceWorker.register('min.wepsim_pwa.js').catch(function() {
 		    wepsim_notify_error("<h4>Warning:" +
 		  		        "<br/>WepSIM was used over a HTTP connection.</h4>",
 		                        "Progressive Web Applications requires a HTTPS connection " +

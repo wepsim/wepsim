@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -23,7 +23,7 @@
  * cache versioning
  */
 
-var cacheName = 'v195b_static';
+var cacheName = 'v196b_static';
 
 
 /*
@@ -36,11 +36,11 @@ self.addEventListener('install',
 				caches.open(cacheName).then(function(cache) {
 				    return cache.addAll([
                                         './external/jquery.min.js',
-                                        'WEPSIM_ROOT/min.wepsim_pwa.js',
-                                        'WEPSIM_ROOT/min.external.css',
-                                        'WEPSIM_ROOT/min.external.js',
-                                        'WEPSIM_ROOT/min.sim_all.js',
-                                        'WEPSIM_ROOT/min.wepsim_web.js',
+                                        './min.wepsim_pwa.js',
+                                        './min.external.css',
+                                        './min.external.js',
+                                        './min.sim_all.js',
+                                        './min.wepsim_web.js',
                                         './images/ajax-loader.gif',
                                         './images/reset.svg',
                                         './images/author_salonso.png',
@@ -81,39 +81,43 @@ self.addEventListener('install',
                                         './docs/manifest.json',
                                         './docs/gpl.txt',
                                         './docs/lgpl.txt',
-                                        './examples/ep/exampleMicrocodeS1E1.txt',
-                                        './examples/ep/exampleMicrocodeS1E2.txt',
-                                        './examples/ep/exampleMicrocodeS1E3.txt',
-                                        './examples/ep/exampleMicrocodeS1E4.txt',
-                                        './examples/ep/exampleMicrocodeS2E1.txt',
-                                        './examples/ep/exampleMicrocodeS2E2.txt',
-                                        './examples/ep/exampleMicrocodeS2E3.txt',
-                                        './examples/ep/exampleMicrocodeS2E4.txt',
-                                        './examples/ep/exampleMicrocodeS3E1.txt',
-                                        './examples/ep/exampleMicrocodeS3E2.txt',
-                                        './examples/ep/exampleMicrocodeS3E3.txt',
-                                        './examples/ep/exampleMicrocodeS3E4.txt',
-                                        './examples/ep/exampleMicrocodeS4E1.txt',
-                                        './examples/ep/exampleMicrocodeS4E2.txt',
-                                        './examples/ep/exampleMicrocodeS4E3.txt',
-                                        './examples/ep/exampleMicrocodeMIPS.txt',
-                                        './examples/ep/exampleCodeS1E1.txt',
-                                        './examples/ep/exampleCodeS1E2.txt',
-                                        './examples/ep/exampleCodeS1E3.txt',
-                                        './examples/ep/exampleCodeS1E4.txt',
-                                        './examples/ep/exampleCodeS2E1.txt',
-                                        './examples/ep/exampleCodeS2E2.txt',
-                                        './examples/ep/exampleCodeS2E3.txt',
-                                        './examples/ep/exampleCodeS2E4.txt',
-                                        './examples/ep/exampleCodeS3E1.txt',
-                                        './examples/ep/exampleCodeS3E2.txt',
-                                        './examples/ep/exampleCodeS3E3.txt',
-                                        './examples/ep/exampleCodeS3E4.txt',
-                                        './examples/ep/exampleCodeS4E1.txt',
-                                        './examples/ep/exampleCodeS4E2.txt',
-                                        './examples/ep/exampleCodeS4E3.txt',
-                                        './examples/poc/exampleMicrocodeS1E1.txt',
-                                        './examples/poc/exampleCodeS1E1.txt',
+                                        './examples/assembly/asm-ep_s4_e4.txt',
+                                        './examples/assembly/asm-ep_s2_e3.txt',
+                                        './examples/assembly/asm-ep_s1_e4.txt',
+                                        './examples/assembly/asm-ep_s1_e1.txt',
+                                        './examples/assembly/asm-ep_s4_e2.txt',
+                                        './examples/assembly/asm-ep_s3_e3.txt',
+                                        './examples/assembly/asm-ep_s3_e4.txt',
+                                        './examples/assembly/asm-ep_s1_e3.txt',
+                                        './examples/assembly/asm-ep_s2_e4.txt',
+                                        './examples/assembly/asm-ep_s3_e1.txt',
+                                        './examples/assembly/asm-ep_s1_e2.txt',
+                                        './examples/assembly/asm-ep_s2_e1.txt',
+                                        './examples/assembly/asm-ep_s4_e3.txt',
+                                        './examples/assembly/asm-ep_s2_e2.txt',
+                                        './examples/assembly/asm-ep_s5_e1.txt',
+                                        './examples/assembly/asm-ep_s4_e1.txt',
+                                        './examples/assembly/asm-ep_s3_e2.txt',
+                                        './examples/assembly/asm-poc_s1_e1.txt',
+                                        './examples/assembly/asm-poc_s5_e1.txt',
+                                        './examples/microcode/mc-ep_s2_e4.txt',
+                                        './examples/microcode/mc-ep_s2_e1.txt',
+                                        './examples/microcode/mc-ep_s4_e1.txt',
+                                        './examples/microcode/mc-ep_s4_e2.txt',
+                                        './examples/microcode/mc-ep_s2_e2.txt',
+                                        './examples/microcode/mc-ep_s1_e3.txt',
+                                        './examples/microcode/mc-ep_s3_e3.txt',
+                                        './examples/microcode/mc-ep_s3_e1.txt',
+                                        './examples/microcode/mc-ep_s4_e3.txt',
+                                        './examples/microcode/mc-ep_s3_e4.txt',
+                                        './examples/microcode/mc-ep_s3_e2.txt',
+                                        './examples/microcode/mc-ep_s5_e1.txt',
+                                        './examples/microcode/mc-ep_s2_e3.txt',
+                                        './examples/microcode/mc-ep_s1_e1.txt',
+                                        './examples/microcode/mc-ep_s4_e4.txt',
+                                        './examples/microcode/mc-ep_mips.txt',
+                                        './examples/microcode/mc-poc_s1_e1.txt',
+                                        './examples/microcode/mc-poc_s5_e1.txt',
                                         './help/about-es.html',
                                         './help/about-en.html',
                                         './help/welcome/help_usage.gif',
@@ -214,8 +218,6 @@ self.addEventListener('install',
 
 self.addEventListener('fetch', 
 	              function(event) {
-			  // OLD: event.respondWith(fetch(event.request)) ;
-
 			  // NEW: https://developer.mozilla.org/es/docs/Web/API/FetchEvent
 			  if (event.request.method != 'GET') {
 			      event.respondWith(fetch(event.request)) ;

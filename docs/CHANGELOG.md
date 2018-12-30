@@ -1,4 +1,16 @@
 
+1.9.5 -> 1.9.6:
+* Interface:
+  + Update to Bootstrap 4.2.1
+  + Quick interative signal updates
+  + New compact view
+* Content:
+  + Minor help updates
+  + Examples' engine revamped
+  + New example added
+* Deployment:
+  `Packing on 'ws_dist' directory only
+
 1.9.3 -> 1.9.5:
 * New panel with all notifications (in case you miss one)
 * Signal description improved

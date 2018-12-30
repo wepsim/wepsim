@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -22,7 +22,7 @@
     i18n.cfg.es = {
 	             "General": "General",
                       "Idiom for help, examples, etc.": 		             "Idioma para ayuda, ejemplos, etc.",
-                      "Active voice: experimental voice control": 	             "Activar voz: control por voz experimental",
+                      "Active voice: external voice control": 	                     "Activar voz: control por voz (externo)",
                       "Notification speed: time before disapear": 	             "Velocidad en notificaciones: tiempo en desaparecer",
 	             "Editor": "Editor",
                       "Editor theme: light or dark": 		                     "Tema de editor: claro u oscuro",
@@ -39,7 +39,7 @@
                       "&#181;instructions": 		                   	     "&#181;instrucciones",
                       "Breakpoint icon: icon to be used for breakpoints":            "Icono a ser usado en puntos de ruptura",
                       "Limit instructions: number of instructions to be executed":   "L&iacute;mite instrucciones: n&uacute;mero de instrucciones a ser ejecutadas",
-                      "Limit instruction ticks: to limit clock ticks": 	             "L&iacute;mite ticks: limitaci&oacute;n de ticks de reloj",
+                      "Limit instruction ticks: to limit clock ticks": 	             "L&iacute;mite ticks: limitaci&oacute;n de ticks de reloj por instrucci&oacute;n",
 	             "Register file": "Banco de registros",
                       "Display format": 		                     	     "Formato de presentaci&oacute;n",
                       "Register file names": 		                             "Nombre de los registros",
@@ -53,6 +53,8 @@
                       "Value": 		                     		             "Valor",
                       "Activation": 		                     		     "Activaci&oacute;n",
                       "Interactive mode: signal value can be updated": 		     "Modo interactivo: valores de las seńales puede actualizarse",
+                      "Quick interactive mode: quick update of signal value":	     "Modo interactivo-r&aacute;pido: actualizaci&oacute;n r&aacute;pida de valores de seńales",
+                      "WepSIM User Interface Skin": 		                     "Variante de Interfaz de Usuario para WepSIM",
                       "(example)": 					             "(ejemplo)"
                   } ;
 

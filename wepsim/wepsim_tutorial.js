@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -55,9 +55,7 @@
 		    label: 'Disable tutorials',
 		    className: 'btn-danger col float-right',
 		    callback: function() {
-			set_cfg('ws_mode','ep') ;
-                        save_cfg();
-			$("#select4").val('ep') ;
+			simui_select_main('ep') ;
                         tutbox.modal("hide") ;
                         if (simcoreui_voice_canSpeak())
 			    window.speechSynthesis.cancel() ;

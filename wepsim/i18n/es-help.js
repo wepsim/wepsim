@@ -1,5 +1,5 @@
 /*
- *  Copyright 2015-2018 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
  *
@@ -111,6 +111,7 @@
                      description: "Resumen del hardware del procesador elemental simulado.<br>"
                   });
 
+/*
     help.es.push({
                      id:          "simulator",
                      title:       "Dependencias entre señales",
@@ -120,6 +121,7 @@
                                   "show_visgraph(jit_fire_dep, jit_fire_order);",
                      description: "Gráfico de las dependencias entre señales (puede necesitar varios segundos para generarse).<br>"
                   });
+*/
 
     help.es.push({
                      id:          "about",
