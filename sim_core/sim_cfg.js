@@ -85,7 +85,7 @@
                WSCFG.is_quick_interactive = { value:false,              type:"boolean"};
                WSCFG.ws_idiom             = { value:'en',               type:"string"};
                WSCFG.ws_mode              = { value:'newbie',           type:"string"};
-               WSCFG.use_voice            = { value:true,               type:"boolean"};
+               WSCFG.use_voice            = { value:false,              type:"boolean"};
                WSCFG.ws_skin              = { value:'classic',          type:"string"};
 
 		/*
