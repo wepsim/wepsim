@@ -34,6 +34,9 @@
 			   'name: '            + ahw.components[elto].name + '<br> ' +
 			   'version: '         + ahw.components[elto].version + '<br> ' +
 			   'abilities: '       + ahw.components[elto].abilities.join(" + ") + 
+			   '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
+                           '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
+                           '        onclick=$(\'.hwpopover\').popover(\'hide\');>Close</button>' +
 			   '">' + elto + '</a></span>' ;
 	      }
 	      c = c + '</span>' ;
@@ -100,6 +103,9 @@
 			   'nbits: '           + ahw.signals[elto].nbits + '<br>' +
 			   'type: '            + ahw.signals[elto].type  + '<br>' +
 			   'visible: '         + ahw.signals[elto].visible +
+			   '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
+                           '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
+                           '        onclick=$(\'.hwpopover\').popover(\'hide\');>Close</button>' +
 			   '</span>' ;
 		   c = c + '<span class="col">' + 
 		           '<a href="#" id="hw_signal_tt_' + elto + '" class="hwpopover" data-toggle="popover" onclick="event.preventDefault();" ' + 
@@ -127,7 +133,7 @@
 		      '      </h5>' +
 		      '    </div>' +
 		      '    <div class="card-body border border-light p-2">' +
-		      '      <div id="depgraph1c" class="m-2 p-0 border h-75 collapse" style="max-height:55vh; overflow:auto;">' + 
+		      '      <div id="depgraph1c" class="m-2 p-0 border h-75 collapse" style="max-height:55vh; overflow:auto; resize:both;">' + 
                       '         <span id="depgraph1">Loading...</span>' +
 		      '      </div>' +
 		      '      <p class="card-text">' + c + '</p>' +
@@ -195,6 +201,9 @@
 			   'default_value: '                              + elto_dv + '<br>' +
 			   'nbits: '                                      + elto_nb + '<br>' +
 			   'visible: '                                    + elto_vi + 
+			   '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
+                           '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
+                           '        onclick=$(\'.hwpopover\').popover(\'hide\');>Close</button>' +
 			   '</span>' ;
 		   c = c + '<span class="col">' + 
 		           '<a href="#" id="hw_state_tt_' + elto + '" class="hwpopover" data-toggle="popover" onclick="event.preventDefault();" ' + 
@@ -236,6 +245,9 @@
 			   'nparameters: '     + ahw.behaviors[elto].nparameters + '<br> ' +
 			// 'operation: '       + ahw.behaviors[elto].operation.toString() + '<br> ' +
 			// 'verbal: '          + ahw.behaviors[elto].verbal.toString() + '<br> ' +
+			   '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
+                           '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
+                           '        onclick=$(\'.hwpopover\').popover(\'hide\');>Close</button>' +
 			   '</span>' +
 			   '">' + elto + '</a></span>' ;
 	      }
