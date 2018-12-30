@@ -108,7 +108,8 @@ cat external/popper.min.js \
     external/codemirror/codemirror.fold/markdown-fold.js \
     external/codemirror/codemirror.show-hint/codemirror.show-hint.js \
     external/codemirror/codemirror.runmode/colorize.js \
-    external/vis.min.js \
+    external/vis/vis.min.js \
+    external/vis/vis-network.min.js \
     external/async.js \
     external/bootstrap-tokenfield.js \
     external/introjs/introjs.min.js \
@@ -126,7 +127,8 @@ cat external/bootstrap.min.css \
     external/codemirror/codemirror.theme/blackboard.css \
     external/codemirror/codemirror.fold/foldgutter.css \
     external/codemirror/codemirror.show-hint/codemirror.show-hint.css \
-    external/vis-network.min.css \
+    external/vis/vis.min.css \
+    external/vis/vis-network.min.css \
     external/bootstrap-tokenfield.css \
     external/introjs/introjs.min.css \
     external/speech-input.css \

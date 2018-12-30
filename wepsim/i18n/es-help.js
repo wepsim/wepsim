@@ -111,6 +111,7 @@
                      description: "Resumen del hardware del procesador elemental simulado.<br>"
                   });
 
+/*
     help.es.push({
                      id:          "simulator",
                      title:       "Dependencias entre señales",
@@ -120,6 +121,7 @@
                                   "show_visgraph(jit_fire_dep, jit_fire_order);",
                      description: "Gráfico de las dependencias entre señales (puede necesitar varios segundos para generarse).<br>"
                   });
+*/
 
     help.es.push({
                      id:          "about",

@@ -25,14 +25,17 @@
 
         function init_io ( jqdiv )
         {
+	    var i = 0 ;
+
             var curr_iointfactory = simhw_internalState('io_int_factory') ;
-	    if (typeof curr_iointfactory == "undefined")
+	    if (typeof curr_iointfactory == "undefined") {
                 return ;
+	    }
 
 	    // without ui...
             if (jqdiv == "")
             {
-		    for (var i=0; i<curr_iointfactory.length; i++) 
+		    for (i=0; i<curr_iointfactory.length; i++) 
 		    {
 		         curr_iointfactory[i].accumulated = ko_observable(curr_iointfactory[i].accumulated) ;
 		         curr_iointfactory[i].active      = ko_observable(curr_iointfactory[i].active) ;
@@ -44,7 +47,7 @@
             // stats holder
             var o1 = "<div class='col-12'>" +
                      "<table class='table table-hover table-sm table-bordered'>" ;
-            for (var i=0; i<curr_iointfactory.length; i++)
+            for (i=0; i<curr_iointfactory.length; i++)
             {
                o1 += "<tr id='int" + i + "_context'>" +
                      "<td align=center width=50%>" +
@@ -60,7 +63,7 @@
             $(jqdiv).html("<div class='row'>" + o1 + "</div>");
 
             // knockout binding
-            for (var i=0; i<curr_iointfactory.length; i++)
+            for (i=0; i<curr_iointfactory.length; i++)
             {
                  if (typeof curr_iointfactory[i].accumulated != "function")
                      curr_iointfactory[i].accumulated = ko_observable(curr_iointfactory[i].accumulated) ;
@@ -74,6 +77,8 @@
 
         function init_config_io ( jqdiv )
         {
+	    var i = 0 ;
+
             var curr_iointfactory = simhw_internalState('io_int_factory') ;
 	    if (typeof curr_iointfactory == "undefined")
                 return ;
@@ -81,7 +86,7 @@
             // without ui
             if (jqdiv == "")
             {
-		    for (var i=0; i<curr_iointfactory.length; i++) 
+		    for (i=0; i<curr_iointfactory.length; i++) 
 		    {
 		        curr_iointfactory[i].period      = ko_observable(curr_iointfactory[i].period);
 		        curr_iointfactory[i].probability = ko_observable(curr_iointfactory[i].probability);
@@ -114,7 +119,7 @@
                      "  <span class='d-sm-none'>Probability <br>(0 - 1)</span>" +
                      "</td>" +
                      "</tr>" ;
-            for (var i=0; i<8; i++)
+            for (i=0; i<8; i++)
             {
                o1 += "<tr>" +
                      "<td align='center' style='padding:0 0 0 0; vertical-align: middle !important'>" +
@@ -142,17 +147,18 @@
             $(jqdiv).html(o1);
 
             // knockout binding
-            for (var i=0; i<curr_iointfactory.length; i++)
+            var ko_context = {} ;
+            for (i=0; i<curr_iointfactory.length; i++)
             {
                  if (typeof curr_iointfactory[i].period != "function")
                      curr_iointfactory[i].period = ko_observable(curr_iointfactory[i].period) ;
-                 var ko_context = document.getElementById('int' + i + '_per');
+                 ko_context = document.getElementById('int' + i + '_per');
                  ko.cleanNode(ko_context);
                  ko.applyBindings(curr_iointfactory[i], ko_context);
  
                  if (typeof curr_iointfactory[i].probability != "function")
                      curr_iointfactory[i].probability = ko_observable(curr_iointfactory[i].probability) ;
-                 var ko_context = document.getElementById('int' + i + '_pro');
+                 ko_context = document.getElementById('int' + i + '_pro');
                  ko.cleanNode(ko_context);
                  ko.applyBindings(curr_iointfactory[i], ko_context);
             }

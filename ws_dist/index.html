@@ -446,12 +446,12 @@
 			    <button id="nm1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
 			            onclick="wepsim_execute_microinstruction();
-					     simcoreui_init_hw('#config_HW') ;
+	                                     simcoreui_show_hw();
                                              return false;"><em class="fa fa-step-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey='Instruction'>&#181;Instruction</span><span class="d-sm-none">&#181;Instr.</span></strong></button>
 			    <button id="ni1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
 			            onclick="wepsim_execute_instruction();
-					     simcoreui_init_hw('#config_HW') ;
+					     simcoreui_init_hw('#config_HW');
                                              return false;"><em class="fa fa-fast-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey='Instruction'>Instruction</span><span class="d-sm-none">Instr.</span></strong></button>
 			    <button id="qbp" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
@@ -1125,7 +1125,9 @@
 				     <div class="col-auto text-center flex-column d-flex pr-0">
 					    <strong class="m-2">
 						<span class="badge badge-pill border-secondary border shadow">
-						<span class="col-auto p-0" id="curr_clk_maddr">now</span>
+							<a class="col-auto p-0 text-decoration-none text-reset"
+							   data-toggle="collapse" data-target="#collapse_X"
+							   target="_blank" href="#" id="curr_clk_maddr">now</a>
 						</span>
 					    </strong>
 				     </div>

@@ -419,7 +419,7 @@
 			    <button id="nm1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
 			            onclick="wepsim_execute_microinstruction();
-					     simcoreui_init_hw('#config_HW') ;
+	                                     simcoreui_show_hw();
                                              return false;"><em class="fa fa-step-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey='Instruction'>&#181;Instruction</span><span class="d-sm-none">&#181;Instr.</span></strong></button>
 			    <button id="ni1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
@@ -561,10 +561,10 @@
                                       class="container container-fluid px-0"></div>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="mp">
-		              <div id="memory_MP" style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
+		              <div id="memory_MP" style="height:60vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="mc">
-		              <div id="memory_MC" style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
+		              <div id="memory_MC" style="height:60vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="con">
 				 <label class="my-0" for="kdb_con" style="min-width:95%">
@@ -594,31 +594,29 @@
 		              <div id="config_IO" style="width: inherit; overflow-y: auto;"></div>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_hw">
-		              <div id="config_HW" style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
+		              <div id="config_HW" style="height:60vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_mc">
 		              <div id="edit_MC" style="width: inherit; overflow-y: auto; overflow-x:hidden;">
 
-				    <div class="row py-0 px-1">
+				    <div class="row p-0">
 					<div class="container col-12" role="none">
 					<div class="col-sm px-1"      role="toolbar" aria-label="MicroCode Toolbar">
 
-					      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
+					      <div class="btn-group m-1" role="group"   aria-label="Toolbar load and save buttons">
 						    <button data-target="#lsload" data-toggle="modal"
 							    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-							    class="btn btn-light shadow-sm col-auto"><em class="fas fa-file-upload"></em>&nbsp;<strong><span data-langkey="Load">Load</span></strong></button>
+							    class="btn btn-light shadow-sm col-auto"><em class="fas fa-file-upload"></em><br><strong><span data-langkey="Load">Load</span></strong></button>
 						    <button data-target="#lssave" data-toggle="modal"
 							    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-							    class="btn btn-light shadow-sm col-auto"><em class="fas fa-file-download"></em>&nbsp;<strong><span data-langkey="Save">Save</span></strong></button>
-					      </div>
+							    class="btn btn-light shadow-sm col-auto"><em class="fas fa-file-download"></em><br><strong><span data-langkey="Save">Save</span></strong></button>
 
-					      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 						    <button style="background-color: #CCCCCC"
-							    class="btn btn-light shadow-sm col-auto"
+							    class="btn btn-light shadow-sm col-auto ml-1"
 							    data-transition="none" data-inline="true"
 							    onclick="var textToMCompile = inputfirm.getValue();
 								     wepsim_compile_firmware(textToMCompile);
-								     $('#asm_debugger').html('<br/>After updates on the microcode, assembler has to be compiled against it.');"><em class="fas fa-sign-out-alt"></em>&nbsp;<strong>&#181;compile</strong></button>
+								     $('#asm_debugger').html('<br/>After updates on the microcode, assembler has to be compiled against it.');"><em class="fas fa-sign-out-alt"></em><br><strong>&#181;compile</strong></button>
 						    <button style="background-color: #DDDDDD"
 							    class="btn btn-light shadow-sm col-auto"
 							    onclick="var textToMCompile = inputfirm.getValue();
@@ -628,7 +626,7 @@
 									 wepsim_notify_success('<strong>INFO</strong>',
 											       'Please remember to recompile the assembly code if needed.');
 								     }">
-								     <strong><em class="fas fa-memory"></em>&nbsp;<span class="d-none d-sm-inline-flex">Show co2&#181;addr + C.M.</span><span class="d-sm-none">co2&#181;addr + c.m.</span></strong>
+								     <strong><em class="fas fa-memory"></em><br><span class="d-none d-sm-inline-flex">Show co2&#181;addr + C.M.</span><span class="d-sm-none">co2&#181;a+c.m.</span></strong>
 								     </button>
 					      </div>
 
@@ -654,28 +652,26 @@
 					<div class="container col-12" role="none">
 					<div class="col-sm px-1"      role="toolbar" aria-label="Assembly Toolbar">
 
-					      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
+					      <div class="btn-group m-1" role="group"   aria-label="Toolbar load and save buttons">
 						    <button data-target="#lsload2" data-toggle="modal"
 							    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-							    class="btn btn-light shadow-sm col-auto"><em class="fas fa-file-upload"></em>&nbsp;<strong><span data-langkey="Load">Load</span></strong></button>
+							    class="btn btn-light shadow-sm col-auto"><em class="fas fa-file-upload"></em><br><strong><span data-langkey="Load">Load</span></strong></button>
 						    <button data-target="#lssave2" data-toggle="modal"
 							    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-							    class="btn btn-light shadow-sm col-auto"><em class="fas fa-file-download"></em>&nbsp;<strong><span data-langkey="Save">Save</span></strong></button>
-					      </div>
+							    class="btn btn-light shadow-sm col-auto"><em class="fas fa-file-download"></em><br><strong><span data-langkey="Save">Save</span></strong></button>
 
-					      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 						    <button style="background-color: #CCCCCC"
-							    class="btn btn-light shadow-sm col-auto"
+							    class="btn btn-light shadow-sm col-auto ml-1"
 							    data-transition="none" data-inline="true"
 							    onclick="var textToCompile = inputasm.getValue() ;
-								     var ok = wepsim_compile_assembly(textToCompile);"><em class="fas fa-sign-out-alt"></em>&nbsp;<strong>Compile</strong></button>
+								     var ok = wepsim_compile_assembly(textToCompile);"><em class="fas fa-sign-out-alt"></em><br><strong>Compile</strong></button>
 						    <button style="background-color: #DDDDDD"
 							    class="btn btn-light shadow-sm col-auto"
 							    onclick="var textToCompile = inputasm.getValue();
 								     var ok = wepsim_compile_assembly(textToCompile);
 								     if (true == ok) {
 									 wepsim_show_binary_code('#bin2','#compile_results');
-								     }"><em class="fas fa-memory"></em>&nbsp;<strong><span class="d-none d-sm-inline-flex">Show Main Memory</span><span class="d-sm-none">Show Main Mem.</span></strong></button>
+								     }"><em class="fas fa-memory"></em><br><strong><span class="d-none d-sm-inline-flex">Show Main Memory</span><span class="d-sm-none">Layout</span></strong></button>
 					      </div>
 
 					</div>
@@ -1067,7 +1063,9 @@
 				     <div class="col-auto text-center flex-column d-flex pr-0">
 					    <strong class="m-2">
 						<span class="badge badge-pill border-secondary border shadow">
-						<span class="col-auto p-0" id="curr_clk_maddr">now</span>
+							<a class="col-auto p-0 text-decoration-none text-reset"
+							   data-toggle="collapse" data-target="#collapse_X"
+							   target="_blank" href="#" id="curr_clk_maddr">now</a>
 						</span>
 					    </strong>
 				     </div>

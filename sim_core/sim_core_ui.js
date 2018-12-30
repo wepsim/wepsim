@@ -79,6 +79,10 @@
                 return ;
 	    }
 
+	    var i = 0 ;
+	    var j = 0 ;
+	    var k = 0 ;
+
 	    var draw_it = get_cfg('is_byvalue'); // 'is_byvalue' belongs to the sim_cfg.js
 
             /* 1) Check if draw it */
@@ -88,7 +92,7 @@
 
 	    if ( (false == draw_it) && (typeof obj.depends_on != "undefined") )
 	    {
-		for (var k=0; k<obj.depends_on.length; k++)
+		for (k=0; k<obj.depends_on.length; k++)
 		{
 		     var sname = obj.depends_on[k] ;
 		     if (typeof simhw_sim_state("REG_MICROINS").value[sname] != "undefined") {
@@ -109,8 +113,8 @@
 	    if (obj.draw_data.length > 1)
 	    // (different draws)
 	    {
-		    for (var i=0; i<obj.draw_data.length; i++)
-		    for (var j=0; j<obj.draw_data[i].length; j++) {
+		    for (i=0; i<obj.draw_data.length; i++)
+		    for (j=0; j<obj.draw_data[i].length; j++) {
 	                   obj_draw(obj.draw_data[i][j],
                                     (i==value) && draw_it,
                                     get_cfg('color_data_active'),
@@ -122,7 +126,7 @@
 	    else if (obj.nbits == 1)
 	    // (same draw) && (nbits == 1)
 	    {
-		    for (var j=0; j<obj.draw_data[0].length; j++) {
+		    for (j=0; j<obj.draw_data[0].length; j++) {
 	                   obj_draw(obj.draw_data[0][j],
                                     (0!=value) && draw_it,
                                     get_cfg('color_data_active'),
@@ -134,7 +138,7 @@
 	    else if (obj.draw_data.length == 1)
 	    // (same draw) && (nbits > 1)
 	    {
-		    for (var j=0; j<obj.draw_data[0].length; j++) {
+		    for (j=0; j<obj.draw_data[0].length; j++) {
 	                   obj_draw(obj.draw_data[0][j],
                                     draw_it,
                                     get_cfg('color_data_active'),
@@ -148,8 +152,8 @@
 	    if (obj.draw_name.length > 1)
 	    // (different draws)
 	    {
-		    for (var i=0; i<obj.draw_name.length; i++)
-		    for (var j=0; j<obj.draw_name[i].length; j++) {
+		    for (i=0; i<obj.draw_name.length; i++)
+		    for (j=0; j<obj.draw_name[i].length; j++) {
 	                   obj_draw(obj.draw_name[i][j],
                                     (i==value) && draw_it,
                                     get_cfg('color_name_active'),
@@ -161,7 +165,7 @@
 	    else if (obj.nbits == 1)
 	    // (same draw) && (nbits == 1)
 	    {
-		    for (var j=0; j<obj.draw_name[0].length; j++) {
+		    for (j=0; j<obj.draw_name[0].length; j++) {
 	                   obj_draw(obj.draw_name[0][j],
                                     (0!=value) && draw_it,
                                     get_cfg('color_name_active'),
@@ -173,7 +177,7 @@
 	    else if (obj.draw_name.length == 1)
 	    // (same draw) && (nbits > 1)
 	    {
-		    for (var j=0; j<obj.draw_name[0].length; j++) {
+		    for (j=0; j<obj.draw_name[0].length; j++) {
 	                   obj_draw(obj.draw_name[0][j],
                                     draw_it,
                                     get_cfg('color_name_active'),
@@ -221,7 +225,7 @@
 
         function hex2char8 ( hexvalue )
         {
-                var valuec = new Array();
+                var valuec = [] ;
 
 		valuec[0] = String.fromCharCode((hexvalue & 0xFF000000) >> 24) ;
 		valuec[1] = String.fromCharCode((hexvalue & 0x00FF0000) >> 16) ;
@@ -363,10 +367,12 @@
          */
         function show_visgraph ( jit_fire_dep, jit_fire_order )
         {
-            var tmp_hash  = new Object();
-            var tmp_nodes = new Array();
+	    var sig = {} ;
+            var tmp_hash  = {} ;
+            var tmp_nodes = [] ;
             var tmp_id    = 0;
-            for (var sig in simhw_sim_signals())
+
+            for (sig in simhw_sim_signals())
             {
                  tmp_hash[sig] = tmp_id ;
                  tmp_nodes.push({id: tmp_id, 
@@ -379,12 +385,12 @@
             }
 	    var jit_dep_nodes = new vis.DataSet(tmp_nodes) ;
 
-            var tmp_edges = new Array();
-            for (var sig in simhw_sim_signals()) {
-                for (var sigorg in jit_fire_dep[sig]) {
-                     tmp_edges.push({from: tmp_hash[sigorg], 
-                                     to: tmp_hash[sig], 
-                                     arrows: 'to'}) ;
+            var tmp_edges = [] ;
+            for (sig in simhw_sim_signals()) {
+                 for (var sigorg in jit_fire_dep[sig]) {
+                      tmp_edges.push({from: tmp_hash[sigorg], 
+                                      to: tmp_hash[sig], 
+                                      arrows: 'to'}) ;
                 }
             }
 	    var jit_dep_edges = new vis.DataSet(tmp_edges) ;

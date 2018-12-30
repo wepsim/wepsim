@@ -20,19 +20,19 @@
 
 
         /*
-         *  General Hardware
+         *  Init Hardware Information Panel
          */
 
         function simcoreui_init_hw_summary ( ahw )
         {
               // list of components
 	      var c = '<span class="row justify-content-between">' ;
-	      for (elto in ahw.components) 
+	      for (var elto in ahw.components) 
               {
 		   c = c + '<span class="col">' +
-                           '<a href="#" class="hwtooltip" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
-			   'name: '            + ahw.components[elto].name + ',<br> ' +
-			   'version: '         + ahw.components[elto].version + ',<br> ' +
+                           '<a href="#" class="hwpopover" data-toggle="popover" data-html="true" onclick="event.preventDefault();" title="" data-content="' + 
+			   'name: '            + ahw.components[elto].name + '<br> ' +
+			   'version: '         + ahw.components[elto].version + '<br> ' +
 			   'abilities: '       + ahw.components[elto].abilities.join(" + ") + 
 			   '">' + elto + '</a></span>' ;
 	      }
@@ -41,8 +41,7 @@
               // card with signal list
               var o = '' ;
 	      o += '<div class="card m-2">' +
-		   '    <div class="card-body p-2">' +
-                   '' +
+		   '    <div class="card-header border border-light p-2">' +
 		   '      <h5 class="card-title">' + 
 		   '        <span class="row">' + 
 		   '          <span class="col-6">' + ahw.sim_name + ' (' + ahw.sim_short_name + ')</span>' +
@@ -54,7 +53,8 @@
 		   '<img src="' + ahw.sim_img_controlunit + '" class="img-thumbnail" alt="sim_img_controlunit"></a>' +
 		   '        </span>' +
                    '      </h5>' +
-                   '' +
+		   '    </div>' +
+		   '    <div class="card-body border border-light p-2">' +
 		   '      <p class="card-text">' + 
                    '      <span class="collapse multi-collapse" id="th_processor">' +
 		   '<img src="' + ahw.sim_img_processor + '"   class="img-thumbnail mb-2" alt="sim_img_processor"></a>' +
@@ -64,48 +64,70 @@
 		   '      </span>' +
 		          c + 
 		   '      </p>' +
-                   '' +
 		   '    </div>' +
 		   '</div>' ;
 
 	      return o ;
         }
 
-        function simcoreui_init_hw_signals ( ahw )
+        function simcoreui_init_hw_signals ( ahw, update )
         {
               // list of signals
               var elto_n  = '' ;
               var elto_v  = '' ;
               var elto_dv = '' ;
 
+              var e = '' ;
 	      var c = '<span class="row justify-content-between">' ;
-	      for (elto in ahw.signals) 
+	      for (var elto in ahw.signals) 
               {
+	           // value
                    elto_v  = ahw.signals[elto].value ;
                    elto_dv = ahw.signals[elto].default_value ;
 
-	           if (elto_v != elto_dv)
-                        elto_n = '<strong>' + elto + '</strong>' ;
-		   else elto_n  = elto ;
+		   elto_v  = '0x' +  elto_v.toString(16) ;
+		   elto_dv = '0x' + elto_dv.toString(16) ;
 
-		   c = c + '<span class="col">' +
-		           '<a href="#" class="hwtooltip" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
-			   '<p style=\'text-align:left\'>' +
-			   'name: '            + ahw.signals[elto].name  + ',<br> ' +
-			   'value: '           + elto_v                  + ',<br> ' +
-			   'default_value: '   + elto_dv                 + ',<br> ' +
-			   'nbits: '           + ahw.signals[elto].nbits + ',<br> ' +
-			   'type: '            + ahw.signals[elto].type  + ',<br> ' +
+	           // v != dv
+	           if (elto_v != elto_dv)
+                        elto_n = 'font-weight-bold' ;
+		   else elto_n = 'font-weight-normal' ;
+
+		   e =     '<span style=\'text-align:left\'>' +
+			   'name: '            + ahw.signals[elto].name  + '<br>' +
+			   'value: '           + elto_v                  + '<br>' +
+			   'default_value: '   + elto_dv                 + '<br>' +
+			   'nbits: '           + ahw.signals[elto].nbits + '<br>' +
+			   'type: '            + ahw.signals[elto].type  + '<br>' +
 			   'visible: '         + ahw.signals[elto].visible +
-			   '</p>' +
-			   '">' + elto_n + '</a></span>' ;
+			   '</span>' ;
+		   c = c + '<span class="col">' + 
+		           '<a href="#" id="hw_signal_tt_' + elto + '" class="hwpopover" data-toggle="popover" onclick="event.preventDefault();" ' + 
+			   '   data-html="true" title="" data-content="' + e + '"><span id="hw_signal_strong_' + elto + '" class="' + elto_n + '">' + elto + '</span></a>' +
+			   '</span>' ;
+
+                   if (true == update)
+                   {
+	               $("#hw_signal_strong_" + elto).attr('class',        elto_n) ;
+	               $("#hw_signal_tt_"     + elto).attr('data-content', e) ;
+                   }
 	      }
 	      c = c + '</span>' ;
 
               // card with signal list
 	      var o = '  <div class="card m-2">' +
-		      '    <div class="card-body p-2">' +
-		      '      <h5 class="card-title">Signals</h5>' +
+		      '    <div class="card-header border border-light p-2">' +
+		      '      <h5 class="card-title m-0">' + 
+		      '       <span class="row">' + 
+		      '        <span class="col-8">Signals</span>' + 
+		      '        <span class="col-auto btn btn-sm btn-outline-secondary" onclick="$(\'#depgraph1c\').collapse(\'toggle\'); show_visgraph(jit_fire_dep, jit_fire_order);">Dependencies</span>' +
+		      '       </span>' +
+		      '      </h5>' +
+		      '    </div>' +
+		      '    <div class="card-body border border-light p-2">' +
+		      '      <div id="depgraph1c" class="m-2 p-0 border h-75 collapse" style="max-height:55vh; overflow:auto;">' + 
+                      '         <span id="depgraph1">Loading...</span>' +
+		      '      </div>' +
 		      '      <p class="card-text">' + c + '</p>' +
 		      '    </div>' +
 		      '  </div>' ;
@@ -113,7 +135,7 @@
 	      return o ;
         }
 
-        function simcoreui_init_hw_states ( ahw )
+        function simcoreui_init_hw_states ( ahw, update )
         {
               // list of states
               var elto_n  = '' ;
@@ -122,8 +144,9 @@
               var elto_nb = '' ;
               var elto_vi = '' ;
 
+              var e = '' ;
 	      var c = '<span class="row justify-content-between">' ;
-	      for (elto in ahw.states) 
+	      for (var elto in ahw.states) 
               {
 	           // value
                    elto_v  = "-" ;
@@ -133,20 +156,26 @@
                        elto_v  = ahw.states[elto].value ;
                        elto_dv = ahw.states[elto].default_value ;
 
-                       if (typeof elto_v == 'function') 
-		       {
-                           elto_v  = elto_v() ;
-		       }
-	          else if (typeof elto_v == 'object') 
+	               if (typeof elto_v == 'object') 
 		       {
                            elto_v  = 'object' ;
                            elto_dv = 'object' ;
 		       }
+	               else 
+		       {
+                           if (typeof elto_v == 'function') {
+                               elto_v  = elto_v() ;
+			   }
+
+			   elto_v  = '0x' +  elto_v.toString(16) ;
+			   elto_dv = '0x' + elto_dv.toString(16) ;
+		       }
 		   }
 
+	           // v != dv
 	           if (elto_v != elto_dv)
-                        elto_n = '<strong>' + elto + '</strong>' ;
-		   else elto_n = elto ;
+                        elto_n = 'font-weight-bold' ;
+		   else elto_n = 'font-weight-normal' ;
 
 	           // nbits, and visible
                    if (typeof ahw.states[elto].nbits != 'undefined')
@@ -158,23 +187,32 @@
 		   else elto_vi = "-" ;
 
 	           // compound
-		   c = c + '<span class="col">' +
-		           '<a href="#" class="hwtooltip" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
-			   '<p style=\'text-align:left\'>' +
-			   'name: '            + elto + ',<br> ' +
-			   'value: '           + elto_v + ',<br> ' +
-			   'default_value: '   + elto_dv + ',<br> ' +
-			   'nbits: '           + elto_nb + ',<br> ' +
-			   'visible: '         + elto_vi + 
-			   '</p>' +
-			   '">' + elto_n + '</a></span>' ;
+		   e =     '<span style=\'text-align:left\'>' +
+			   'name: '                                       + elto + '<br>' +
+			   'value: <span id=hw_state_value_' + elto + '>' + elto_v + '</span><br>' +
+			   'default_value: '                              + elto_dv + '<br>' +
+			   'nbits: '                                      + elto_nb + '<br>' +
+			   'visible: '                                    + elto_vi + 
+			   '</span>' ;
+		   c = c + '<span class="col">' + 
+		           '<a href="#" id="hw_state_tt_' + elto + '" class="hwpopover" data-toggle="popover" onclick="event.preventDefault();" ' + 
+			   '   data-html="true" title="" data-content="' + e + '"><span id="hw_state_strong_' + elto + '" class="' + elto_n + '">' + elto + '</span></a>' + 
+			   '</span>' ;
+
+                   if (true == update)
+                   {
+	               $("#hw_state_strong_" + elto).attr('class',        elto_n) ;
+	               $("#hw_state_tt_"     + elto).attr('data-content', e) ;
+                   }
 	      }
 	      c = c + '</span>' ;
 
               // card with state list
 	      var o = '  <div class="card m-2">' +
-		      '    <div class="card-body p-2">' +
-		      '      <h5 class="card-title">States</h5>' +
+		      '    <div class="card-header border border-light p-2">' +
+		      '      <h5 class="card-title m-0">States</h5>' +
+		      '    </div>' +
+		      '    <div class="card-body border border-light p-2">' +
 		      '      <p class="card-text">' + c + '</p>' +
 		      '    </div>' +
 		      '  </div>' ;
@@ -186,24 +224,27 @@
         {
               // list of behaviors
 	      var c = '<span class="row justify-content-between">' ;
-	      for (elto in ahw.behaviors) 
+	      for (var elto in ahw.behaviors) 
               {
 		   c = c + '<span class="col">' +
-		           '<a href="#" class="hwtooltip" data-toggle="tooltip" data-html="true" title="" data-original-title="' + 
-			   '<p style=\'text-align:left\'>' +
-			   'name: '            + elto + ',<br> ' +
-			   'nparameters: '     + ahw.behaviors[elto].nparameters + ',<br> ' +
-			// 'operation: '       + ahw.behaviors[elto].operation.toString() + ',<br> ' +
-			// 'verbal: '          + ahw.behaviors[elto].verbal.toString() + ',<br> ' +
-			   '</p>' +
+		           '<a href="#" class="hwpopover" data-toggle="popover" onclick="event.preventDefault();" ' + 
+			   '   data-html="true" title="" data-content="' + 
+			   '<span style=\'text-align:left\'>' +
+			   'name: '            + elto + '<br> ' +
+			   'nparameters: '     + ahw.behaviors[elto].nparameters + '<br> ' +
+			// 'operation: '       + ahw.behaviors[elto].operation.toString() + '<br> ' +
+			// 'verbal: '          + ahw.behaviors[elto].verbal.toString() + '<br> ' +
+			   '</span>' +
 			   '">' + elto + '</a></span>' ;
 	      }
 	      c = c + '</span>' ;
 
               // card with behaviors list
 	      var o = '  <div class="card m-2">' +
-		      '    <div class="card-body p-2">' +
-		      '      <h5 class="card-title">Behaviors</h5>' +
+		      '    <div class="card-header border border-light p-2">' +
+		      '      <h5 class="card-title m-0">Behaviors</h5>' +
+		      '    </div>' +
+		      '    <div class="card-body border border-light p-2">' +
 		      '      <p class="card-text">' + c + '</p>' +
 		      '    </div>' +
 		      '  </div>' ;
@@ -218,13 +259,38 @@
 	      // get make-up
               var o = '' ;
               o += simcoreui_init_hw_summary(ahw) ;
-              o += simcoreui_init_hw_signals(ahw) ;
-              o += simcoreui_init_hw_states(ahw) ;
+              o += simcoreui_init_hw_signals(ahw, false) ;
+              o += simcoreui_init_hw_states(ahw, false) ;
               o += simcoreui_init_hw_behaviors(ahw) ;
 
 	      // set and go
               $(div_hw).html(o) ;
-              $('.hwtooltip').tooltip({ trigger: 'hover' }) ;
+              $('.hwpopover').popover({ 
+		                        trigger:'hover click', 
+		                        container:'body',
+		                        placement:'auto',
+		                        template: '<div class="popover" role="tooltip">' + 
+		                                  '<div class="arrow border-dark" style="border-right-color:black !important;"></div>' + 
+		                                  '<h3 class="popover-header"></h3>' + 
+		                                  '<div class="popover-body bg-dark text-white border-dark"></div>' + 
+		                                  '</div>'
+	                              }) ;
+
+	      return true ;
+        }
+
+
+        /*
+         *  Update Hardware Information Panel
+         */
+
+        function simcoreui_show_hw ( )
+        {
+              var ahw = simhw_active() ;
+
+	      // set new make-up
+              simcoreui_init_hw_signals(ahw, true) ;
+              simcoreui_init_hw_states(ahw, true) ;
 
 	      return true ;
         }
