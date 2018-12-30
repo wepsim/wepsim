@@ -154,8 +154,6 @@
                      });
 
     examples.en.push({
-<<<<<<< HEAD
-=======
                        id: 'S4E1',
                        title: "addv + seqv.",
                        level: "Laboratory",
@@ -200,7 +198,6 @@
                      });
 
     examples.en.push({
->>>>>>> 1.9.6
                        id: 'S5E1',
                        title: "Dummy instruction",
                        level: "Special",

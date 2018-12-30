@@ -154,8 +154,6 @@
                      });
 
     examples.es.push({
-<<<<<<< HEAD
-=======
                        id: 'S4E1',
                        title: "addv + seqv.",
                        level: "Laboratorio",
@@ -200,7 +198,6 @@
                      });
 
     examples.es.push({
->>>>>>> 1.9.6
                        id: 'S5E1',
                        title: "Para completar",
                        level: "Especial",
