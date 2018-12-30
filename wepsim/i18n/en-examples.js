@@ -25,7 +25,7 @@
                        id: 'S1E1',
                        title: "Instructions",
                        level: "Initial",
-                       modes:  "newbie,intro,wepmips,tutorial,ep",
+                       modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s1_e1",
                        assembly:  "ep_s1_e1",
@@ -36,7 +36,7 @@
                        id: 'S1E2',
                        title: "Memory access",
                        level: "Initial",
-                       modes:  "newbie,intro,wepmips,tutorial,ep",
+                       modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s1_e1",
                        assembly:  "ep_s1_e2",
@@ -47,7 +47,7 @@
                        id: 'S1E3',
                        title: "Looping",
                        level: "Initial",
-                       modes:  "newbie,intro,wepmips,tutorial,ep",
+                       modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s1_e3",
                        assembly:  "ep_s1_e3",
@@ -58,7 +58,7 @@
                        id: 'S1E4',
                        title: "Vector",
                        level: "Initial",
-                       modes:  "newbie,intro,wepmips,tutorial,ep",
+                       modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s1_e3",
                        assembly:  "ep_s1_e3",
@@ -69,7 +69,7 @@
                        id: 'S2E1',
                        title: "I/O",
                        level: "Intermediate",
-                       modes:  "newbie,intro,wepmips,tutorial,ep",
+                       modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s2_e1",
                        assembly:  "ep_s2_e1",
@@ -80,7 +80,7 @@
                        id: 'S2E2',
                        title: "Subrutine",
                        level: "Intermediate",
-                       modes:  "newbie,intro,wepmips,tutorial,ep",
+                       modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s2_e2",
                        assembly:  "ep_s2_e2",
@@ -91,7 +91,7 @@
                        id: 'S2E3',
                        title: "Masks & shift",
                        level: "Intermediate",
-                       modes:  "newbie,intro,wepmips,tutorial,ep",
+                       modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s2_e3",
                        assembly:  "ep_s2_e3",
@@ -102,7 +102,7 @@
                        id: 'S2E4',
                        title: "Matrix",
                        level: "Intermediate",
-                       modes:  "newbie,intro,wepmips,tutorial,ep",
+                       modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s2_e4",
                        assembly:  "ep_s2_e4",
@@ -113,7 +113,7 @@
                        id: 'S3E1',
                        title: "Interruptions",
                        level: "Advanced",
-                       modes:  "newbie,intro,wepmips,tutorial,ep",
+                       modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s3_e1",
                        assembly:  "ep_s3_e1",
@@ -124,7 +124,7 @@
                        id: 'S3E2',
                        title: "System call",
                        level: "Advanced",
-                       modes:  "newbie,intro,wepmips,tutorial,ep",
+                       modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s3_e2",
                        assembly:  "ep_s3_e2",
@@ -135,7 +135,7 @@
                        id: 'S3E3',
                        title: "Exception",
                        level: "Advanced",
-                       modes:  "newbie,intro,wepmips,tutorial,ep",
+                       modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s3_e3",
                        assembly:  "ep_s3_e3",
@@ -146,7 +146,7 @@
                        id: 'S3E4',
                        title: "Int. + syscall + except.",
                        level: "Advanced",
-                       modes:  "newbie,intro,wepmips,tutorial,ep",
+                       modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s3_e4",
                        assembly:  "ep_s3_e4",
@@ -168,7 +168,7 @@
                        id: 'S4E2',
                        title: "strlen_2 + skipasciicode_2",
                        level: "Laboratory",
-                       modes:  "newbie,intro,wepmips,tutorial,ep",
+                       modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s4_e2",
                        assembly:  "ep_s4_e2",
@@ -190,7 +190,7 @@
                        id: 'S4E4',
                        title: "syscall 1, 4-5, 8, 11-12",
                        level: "Laboratory",
-                       modes:  "newbie,intro,wepmips,tutorial,ep",
+                       modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s4_e4",
                        assembly:  "ep_s4_e4",
@@ -201,7 +201,7 @@
                        id: 'S5E1',
                        title: "Dummy instruction",
                        level: "Special",
-                       modes:  "newbie,intro,wepmips,tutorial,ep",
+                       modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s5_e1",
                        assembly:  "ep_s5_e1",
@@ -230,5 +230,161 @@
                        microcode: "poc_s5_e1",
                        assembly:  "poc_s5_e1",
                        description: "Test example.<br>"
+                     });
+
+    // EP+MIPS
+
+    examples.en.push({
+                       id: 'S1E1',
+                       title: "Instructions",
+                       level: "Initial",
+                       modes:  "newbie,intro,wepmips,tutorial",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s1_e1",
+                       description: "Simple example with fetch, arithmetic instructions, and basic .text segment.<br>"
+                     });
+
+    examples.en.push({
+                       id: 'S1E2',
+                       title: "Memory access",
+                       level: "Initial",
+                       modes:  "newbie,intro,wepmips,tutorial",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s1_e2",
+                       description: "Simple example with fetch, memory access, and basic .text/.data segment.<br>"
+                     });
+
+    examples.en.push({
+                       id: 'S1E3',
+                       title: "Looping",
+                       level: "Initial",
+                       modes:  "newbie,intro,wepmips,tutorial",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s1_e3",
+                       description: "Simple example with fetch, branch, and basic .text segment.<br>"
+                     });
+
+    examples.en.push({
+                       id: 'S1E4',
+                       title: "Vector",
+                       level: "Initial",
+                       modes:  "newbie,intro,wepmips,tutorial",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s1_e3",
+                       description: "Simple example with fetch, branch, and basic .text/.data segment.<br>"
+                     });
+
+    examples.en.push({
+                       id: 'S2E1',
+                       title: "I/O",
+                       level: "Intermediate",
+                       modes:  "newbie,intro,wepmips,tutorial",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s2_e1",
+                       description: "Example with programmed I/O access, and basic .text/.data segment.<br>"
+                     });
+
+    examples.en.push({
+                       id: 'S2E2',
+                       title: "Subrutine",
+                       level: "Intermediate",
+                       modes:  "newbie,intro,wepmips,tutorial",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s2_e2",
+                       description: "Extended example with more instructions and I/O (keyboard, display).<br>"
+                     });
+
+    examples.en.push({
+                       id: 'S2E3',
+                       title: "Masks & shift",
+                       level: "Intermediate",
+                       modes:  "newbie,intro,wepmips,tutorial",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s2_e3",
+                       description: "More extended example with masks, shift, and basic .text/.data segment.<br>"
+                     });
+
+    examples.en.push({
+                       id: 'S2E4',
+                       title: "Matrix",
+                       level: "Intermediate",
+                       modes:  "newbie,intro,wepmips,tutorial",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s2_e4",
+                       description: "Extended example with subrutine and matrix.<br>"
+                     });
+
+    examples.en.push({
+                       id: 'S3E1',
+                       title: "Interruptions",
+                       level: "Advanced",
+                       modes:  "newbie,intro,wepmips,tutorial",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s3_e1",
+                       description: "Example with interruptions support: fetch, RETI, and .ktext/.kdata.<br>"
+                     });
+
+    examples.en.push({
+                       id: 'S3E2',
+                       title: "System call",
+                       level: "Advanced",
+                       modes:  "newbie,intro,wepmips,tutorial",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s3_e2",
+                       description: "Example with system call support.<br>"
+                     });
+
+    examples.en.push({
+                       id: 'S3E3',
+                       title: "Exception",
+                       level: "Advanced",
+                       modes:  "newbie,intro,wepmips,tutorial",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s3_e3",
+                       description: "Example with floating point exception.<br>"
+                     });
+
+    examples.en.push({
+                       id: 'S3E4',
+                       title: "Int. + syscall + except.",
+                       level: "Advanced",
+                       modes:  "newbie,intro,wepmips,tutorial",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s3_e4",
+                       description: "Advanced example with interruption, system call, and exception.<br>"
+                     });
+
+    examples.en.push({
+                       id: 'S4E2',
+                       title: "strlen_2 + skipasciicode_2",
+                       level: "Laboratory",
+                       modes:  "newbie,intro,wepmips,tutorial",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s4_e2",
+                       description: "Application-specific extension: strlen_2 + skipasciicode_2.<br>"
+                     });
+
+    examples.en.push({
+                       id: 'S4E4',
+                       title: "syscall 1, 4-5, 8, 11-12",
+                       level: "Laboratory",
+                       modes:  "newbie,intro,wepmips,tutorial",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s4_e4",
+                       description: "Example of syscall for printing/reading integer and string.<br>"
                      });
 

@@ -208,9 +208,7 @@
 	       e_description = examples[lang][m].description ;
 	       e_id          = examples[lang][m].id ;
 
-		if ('wepmips' == mode)
-                     t_hwmcasm = e_hw + ":" + e_hw + "_mips:" + e_asm ;
-		else t_hwmcasm = e_hw + ":" + e_mc + ":"      + e_asm ;
+	       t_hwmcasm = e_hw + ":" + e_mc + ":" + e_asm ;
 
 	        if (fmt_toggle == "")
 	            fmt_toggle = "bg-light" ;
