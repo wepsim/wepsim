@@ -123,7 +123,7 @@
 		      '    <div class="card-body border border-light p-2">' +
 		      '      <p class="card-text">' + c + '</p>' +
 		      '    </div>' +
-		      '    <div class="card-footer border border-light p-2 text-right">' +
+		      '    <div class="card-footer border border-light p-2 text-right bg-white">' +
 		      '      <span onclick="wepsim_open_help_content(\'<div id=depgraph1 style=height:70vh;>Loading...</div>\'); show_visgraph(jit_fire_dep, jit_fire_order);">Dependencies</span>' +
 		      '    </div>' +
 		      '  </div>' ;
