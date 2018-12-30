@@ -9,7 +9,7 @@
   + Examples' engine revamped
   + New example added
 * Deployment:
-  `Packing on 'ws_dist' directory only
+  +Packing on 'ws_dist' directory only
 
 1.9.3 -> 1.9.5:
 * New panel with all notifications (in case you miss one)
