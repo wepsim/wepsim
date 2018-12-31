@@ -106,8 +106,7 @@
 	                     } ;
         poc_ctrl_states.sp = {
 		                name:  "SP",
-		                state: "BR",
-		                elto:   29
+		                state: "BR.29"
 	                     } ;
         poc_ctrl_states.ir = { 
 		                name:  "IR",
