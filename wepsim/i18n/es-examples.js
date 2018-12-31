@@ -216,7 +216,7 @@
                        level: "Inicial",
                        modes:  "newbie,intro,tutorial,poc",
                        hardware:  "poc",
-                       microcode: "poc_s1_e1",
+                       microcode: "poc_base",
                        assembly:  "poc_s1_e1",
                        description: "Ejemplo simple.<br>"
                      });
@@ -227,7 +227,7 @@
                        level: "Especial",
                        modes:  "newbie,intro,tutorial,poc",
                        hardware:  "poc",
-                       microcode: "poc_s5_e1",
+                       microcode: "poc_bare",
                        assembly:  "poc_s5_e1",
                        description: "Ejemplo para pruebas.<br>"
                      });
