@@ -97,11 +97,24 @@
 
 
 	/*
-	 *  Default elements at the Instruction Register (IR)
+	 *  Control States, and Default elements at the Instruction Register (IR)
 	 */
 
-        ep_ir.default_eltos = {  "co": { "begin":  0, "end":  5, "length": 6 },
-			        "cop": { "begin": 28, "end": 31, "length": 4 } } ;
+        ep_ctrl_states.pc = {
+		               name:  "PC",
+		               state: "REG_PC"
+	                    } ;
+        ep_ctrl_states.sp = {
+		               name:  "SP",
+		               state: "BR",
+		               elto:   29
+	                    } ;
+        ep_ctrl_states.ir = { 
+		               name:  "IR",
+		               state: "REG_IR",
+		               default_eltos: {  "co": { "begin":  0, "end":  5, "length": 6 },
+			                        "cop": { "begin": 28, "end": 31, "length": 4 } }
+	                    } ;
 
 
 	/*
@@ -1552,7 +1565,7 @@
 
 						    // 1.- IR -> oi
 						    var oi = decode_instruction(ep_internal_states.FIRMWARE, 
-                                                                                ep_ir,
+                                                                                ep_ctrl_states.ir,
 						                                get_value(ep_states['REG_IR'])) ;
 						    if (null == oi.oinstruction)
                                                     {

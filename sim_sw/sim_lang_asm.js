@@ -215,12 +215,12 @@ function assembly_replacement(machineCode, num_bits, startbit, stopbit, free_spa
 
 function assembly_co_cop(machineCode, co, cop)
 {		
-        var ir_info = simhw_sim_irInfo() ;
+        var xr_info = simhw_sim_ctrlStates_get() ;
 
 	if (co !== false) 
 	    machineCode = assembly_replacement(machineCode, co, WORD_LENGTH, WORD_LENGTH-6, 0); 	
 	if (cop !== false)
-	    machineCode = assembly_replacement(machineCode, cop, ir_info.default_eltos.cop.length, 0, 0);
+	    machineCode = assembly_replacement(machineCode, cop, xr_info.ir.default_eltos.cop.length, 0, 0);
 
 	return machineCode;
 }
