@@ -245,7 +245,7 @@
 		      '      </h5>' +
 		      '    </div>' +
 		      '    <div class="card-body border border-light p-2">' +
-		      '      <div id="ctrlstates1" class="m-2 p-0 border collapse h-100" ' +
+		      '      <div id="ctrlstates1" class="m-2 p-0 border collapse" ' +
                       '           style="max-height:65vh; overflow:auto; resize:both;">' +
                       '         <span id="ctrlstates1">' + 
 		      '         PC &rarr; ' + ahw.ctrl_states.pc.state + '<br>' +
