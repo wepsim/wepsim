@@ -478,7 +478,7 @@
 	    show_rf_values();
         }
 
-        function update_signal_quick ( event_current_id )
+        function update_signal_quick ( key )
         {
 		var curr_hw = simhw_short_name() ;
 		if ("" == curr_hw) {
