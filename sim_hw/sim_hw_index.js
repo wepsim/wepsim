@@ -171,10 +171,10 @@
             sim.active.internal_states[name] = ep_internal_states[name] ;
         }
 
-        // ir_info
+        // ctrl_states
 
-        function simhw_sim_irInfo ( )
+        function simhw_sim_ctrlStates_get ( )
         {
-            return sim.active.ir_info ;
+            return sim.active.ctrl_states ;
         }
 

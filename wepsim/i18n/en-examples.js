@@ -27,7 +27,7 @@
                        level: "Initial",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
-                       microcode: "ep_s1_e1",
+                       microcode: "ep_base",
                        assembly:  "ep_s1_e1",
                        description: "Simple example with fetch, arithmetic instructions, and basic .text segment.<br>"
                      });
@@ -38,7 +38,7 @@
                        level: "Initial",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
-                       microcode: "ep_s1_e1",
+                       microcode: "ep_base",
                        assembly:  "ep_s1_e2",
                        description: "Simple example with fetch, memory access, and basic .text/.data segment.<br>"
                      });
@@ -216,7 +216,7 @@
                        level: "Initial",
                        modes:  "newbie,intro,tutorial,poc",
                        hardware:  "poc",
-                       microcode: "poc_s1_e1",
+                       microcode: "poc_base",
                        assembly:  "poc_s1_e1",
                        description: "Simple example.<br>"
                      });
@@ -227,7 +227,7 @@
                        level: "Special",
                        modes:  "newbie,intro,tutorial,poc",
                        hardware:  "poc",
-                       microcode: "poc_s5_e1",
+                       microcode: "poc_bare",
                        assembly:  "poc_s5_e1",
                        description: "Test example.<br>"
                      });

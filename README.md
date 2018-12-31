@@ -74,20 +74,20 @@ Step   | iOS                       |  Android                  | Action to perfo
 
 ## Getting Started: Command Line
 
-+ From the command line it is possible to 'run' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_s1_e1.txt' microcode, and print the final state:
++ From the command line it is possible to 'run' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_base.txt' microcode, and print the final state:
 
 ```bash
-./wepsim_node.sh run ep ./examples/microcode/mc-ep_s1_e1.txt ./examples/assembly/asm-ep_s1_e1.txt
+./wepsim_node.sh run ep ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt
 screen>
 screen>
 screen>
 register R2 = 0x2; register R3 = 0x1; register R5 = 0x1; register R29 = 0xffff; register PC = 0x8018; memory 0x8000 = 0x8400002; memory 0x8004 = 0x8600001; memory 0x8008 = 0xa21809; memory 0x800c = 0x8400002; memory 0x8010 = 0x8600001; memory 0x8014 = 0xa2180a;
 ```
 
-+ It is also possible to 'run' 'step by step' the 'asm-ep-S1E1.txt' assembly for the 'ep' architecture with the 'mc-ep_s1_e1.txt' microcode, and print for each assembly instruction the state elementes that modify its value:
++ It is also possible to 'run' 'step by step' the 'asm-ep-S1E1.txt' assembly for the 'ep' architecture with the 'mc-ep_base.txt' microcode, and print for each assembly instruction the state elementes that modify its value:
 
 ```bash
-./wepsim_node.sh stepbystep ep ./examples/microcode/mc-ep_s1_e1.txt ./examples/assembly/asm-ep_s1_e1.txt
+./wepsim_node.sh stepbystep ep ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt
 screen>
 screen>
 screen>
@@ -99,10 +99,10 @@ pc(0x8010):	li $3 1:			register PC = 0x8014
 pc(0x8014):	sub $5 $2 $3:			register R5 = 0x1; register PC = 0x8018
 ```
 
-+ And to 'run' 'microstep by microstep' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_s1_e1.txt' microcode, and print for each microinstruction the state elementes that modify its value:
++ And to 'run' 'microstep by microstep' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_base.txt' microcode, and print for each microinstruction the state elementes that modify its value:
 
 ```bash
-./wepsim_node.sh microstepbymicrostep  ep ./examples/microcode/mc-ep_s1_e1.txt ./examples/assembly/asm-ep_s1_e1.txt
+./wepsim_node.sh microstepbymicrostep  ep ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt
 screen>
 screen>
 screen>
@@ -138,20 +138,20 @@ micropc(0x3):	A0 B=0 C=0:
 micropc(0x3f):	MC MR=0 SELB=1011 SELA=10000 MA=0 MB=0 SELCOP=1011 T6 SELC=10101 LC SELP=11 M7 C7 A0 B C=0: register R5 = 0x1
 ```
 
-+ You can check if the state at the end of the execution is the same as the one stored on file 'checklist-ep_s1_e1.txt'. You can 'run' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_s1_e1.txt' microcode (**and if it matchs the expected state then the output is going to be**):
++ You can check if the state at the end of the execution is the same as the one stored on file 'cl-ep_s1_e1.txt'. You can 'run' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_base.txt' microcode (**and if it matchs the expected state then the output is going to be**):
 
 ```bash
-./wepsim_node.sh check ep ./examples/microcode/mc-ep_s1_e1.txt ./examples/assembly/asm-ep_s1_e1.txt ./examples/checklist/cl-ep_s1_e1.txt
+./wepsim_node.sh check ep ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt ./examples/checklist/cl-ep_s1_e1.txt
 screen>
 screen>
 screen>
 OK: Execution: no error reported
 ```
 
-+ You can check if the state at the end of the execution is the same as the one stored on file 'checklist-ep_s1_e1.txt'. You can 'run' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_s1_e1.txt' microcode (**and if it fails to match the expected state then the output is going to be**):
++ You can check if the state at the end of the execution is the same as the one stored on file 'cl-ep_s1_e1.txt'. You can 'run' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_base.txt' microcode (**and if it fails to match the expected state then the output is going to be**):
 
 ```bash
-./wepsim_node.sh check ep ./examples/microcode/mc-ep_s1_e1.txt ./examples/assembly/asm-ep_s1_e1.txt ./examples/checklist/cl-ep_s1_e2.txt
+./wepsim_node.sh check ep ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt ./examples/checklist/cl-ep_s1_e2.txt
 screen>
 screen>
 screen>
@@ -161,7 +161,7 @@ ERROR: Execution: different results: cpu[R1]='0' (expected '0xf'), cpu[R2]='0x2'
 + And finally, it is possible to execute microstep by microstep but with a more verbose description:
 
 ```bash
-./wepsim_node.sh microstepverbalized ep ./examples/microcode/mc-ep_s1_e1.txt ./examples/assembly/asm-ep_s1_e1.txt
+./wepsim_node.sh microstepverbalized ep ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt
 screen> 
 screen> 
 screen> 

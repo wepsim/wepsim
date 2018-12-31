@@ -200,8 +200,8 @@ function read_native ( context )
 
 function loadFirmware (text)
 {
-           var     ir_info = simhw_sim_irInfo() ;
-           var all_ones_co = "1".repeat(ir_info.default_eltos.co.length) ;
+           var     xr_info = simhw_sim_ctrlStates_get() ;
+           var all_ones_co = "1".repeat(xr_info.ir.default_eltos.co.length) ;
 
            var context = {} ;
 	   context.line           	= 1 ;
@@ -571,7 +571,7 @@ function loadFirmware (text)
 
 	       // semantic check: valid value
 	       if (    (getToken(context).match("[01]*")[0] != getToken(context)) 
-                    || (getToken(context).length != ir_info.default_eltos.co.length) ) 
+                    || (getToken(context).length != xr_info.ir.default_eltos.co.length) ) 
                {
 	           return langError(context, "Incorrect binary format on 'co': " + getToken(context)) ;
                }
@@ -624,7 +624,7 @@ function loadFirmware (text)
 
 		       // semantic check: valid value
 		       if (    (getToken(context).match("[01]*")[0] != getToken(context)) 
-                            || (getToken(context).length != ir_info.default_eltos.cop.length) )
+                            || (getToken(context).length != xr_info.ir.default_eltos.cop.length) )
                        {
 		            return langError(context, "Incorrect binary format on 'cop': " + getToken(context)) ;
                        }
@@ -1133,7 +1133,7 @@ function decode_ram ( )
 {
     var sram = "\n" ;
 
-    var curr_ircfg = simhw_sim_irInfo() ;
+    var curr_ircfg = simhw_sim_ctrlStates_get().ir ;
     var curr_firm  = simhw_internalState('FIRMWARE') ;
     var curr_MP    = simhw_internalState('MP') ;
     for (var address in curr_MP)
