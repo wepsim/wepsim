@@ -73,6 +73,12 @@
 	      return o ;
         }
 
+        function simcoreui_signal_dialog ( ahw_elto_name )
+        {
+	      update_signal_dialog(ahw_elto_name) ;
+              $(".hwpopover").popover("hide") ;
+        }
+
         function simcoreui_init_hw_signals ( ahw, update )
         {
               // list of signals
@@ -100,6 +106,8 @@
 			   'name: '            + ahw.signals[elto].name  + '<br>' +
 			   'value: '           + elto_v                  + '<br>' +
 			   'default_value: '   + elto_dv                 + '<br>' +
+			   'value: <span onclick=simcoreui_signal_dialog(\'' + 
+		                    ahw.signals[elto].name + '\');>' + elto_v + '</span><br>' +
 			   'nbits: '           + ahw.signals[elto].nbits + '<br>' +
 			   'type: '            + ahw.signals[elto].type  + '<br>' +
 			   'visible: '         + ahw.signals[elto].visible +
