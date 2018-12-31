@@ -27,7 +27,7 @@
                        level: "Inicial",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
-                       microcode: "ep_s1_e1",
+                       microcode: "ep_base",
                        assembly:  "ep_s1_e1",
                        description: "Ejemplo simple con fetch, instrucciones aritm&eacute;ticas y segmento de c&oacute;digo b&aacute;sico.<br>"
                      });
@@ -38,7 +38,7 @@
                        level: "Inicial",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
-                       microcode: "ep_s1_e1",
+                       microcode: "ep_base",
                        assembly:  "ep_s1_e2",
                        description: "Ejemplo simple con fetch, acceso a memoria y segmento de c&oacute;digo/datos b&aacute;sico.<br>"
                      });
