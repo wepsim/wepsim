@@ -109,13 +109,11 @@
 
         if ( (typeof rel != "undefined") && (rel != "") )
         {
-             helpurl = 'examples/hardware/' + seg_hardw + '/help/' + 
-		       'simulator-' + seg_idiom + '.html' ;
+             helpurl = 'help/simulator-' + seg_idiom + '.html' ;
 	     $('#help1').modal('show');
              resolve_html_url(helpdiv, helpurl, rel, function() { }) ;
 
-             ga('send', 'event', 'help', 'help.simulator-' + seg_hardw, 
-		                         'help.simulator-' + seg_hardw + '.' + rel);
+             ga('send', 'event', 'help', 'help.simulator', 'help.simulator.' + rel);
 
              return ;
         }
