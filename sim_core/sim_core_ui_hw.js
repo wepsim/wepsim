@@ -249,9 +249,9 @@
 		      '      <div id="ctrlstates1" class="m-2 p-0 border collapse" ' +
                       '           style="max-height:65vh; overflow:auto; resize:both;">' +
                       '         <span id="ctrlstates1">' + 
-		      '         PC &rarr; ' + ahw.ctrl_states.pc.state + '<br>' +
-		      '         IR &rarr; ' + ahw.ctrl_states.ir.state + '<br>' +
-		      '         SP &rarr; ' + ahw.ctrl_states.sp.state + '<br>' +
+		      '         Program Counter      (PC) &rarr; ' + ahw.ctrl_states.pc.state + '<br>' +
+		      '         Instruction Register (IR) &rarr; ' + ahw.ctrl_states.ir.state + '<br>' +
+		      '         Stack Pointer        (SP) &rarr; ' + ahw.ctrl_states.sp.state + '<br>' +
 		      '      </span>' +
 		      '      </div>' +
 		      '      <p class="card-text">' + c + '</p>' +
