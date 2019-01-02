@@ -107,7 +107,12 @@
                      title:       "Resumen del Hardware",
                      i_type:      "code",
                      u_type:      "procesador simulado",
-                     reference:   "wepsim_open_help_content(\'<object id=svg_p2 data=\\'./examples/hardware/ep/images/cpu6.svg?time=20180108\\' type=image/svg+xml>Your browser does not support SVG</object>\');",
+                     reference:   "var ahw1 = simhw_active().sim_short_name ; " +
+                                  "var img1 = 'examples/hardware/' + ahw1 + '/images/cpu6.svg?time=20190102' ; " +
+                                  "var txt1 = 'Your browser does not support SVG' ;" +
+                                  "var lyt1 = '<object id=\\'svg_p2\\' data=\\'' + img1 + '\\' " +
+                                  "                    type=\\'image/svg+xml\\'>' + txt1 +  '</object>'; " +
+                                  "wepsim_open_help_content(lyt1) ;",
                      description: "Resumen del hardware del procesador elemental simulado.<br>"
                   });
 
@@ -117,8 +122,10 @@
                      title:       "Dependencias entre señales",
                      i_type:      "code",
                      u_type:      "info",
-                     reference:   "wepsim_open_help_content('<div id=\\'depgraph1\\' style=\\'height:70vh;\\'>Cargando...</div>'); " +
-                                  "show_visgraph(jit_fire_dep, jit_fire_order);",
+                     reference:   "var lyt1='<div id=\\'depgraph1\\' " +
+                                  "               style=\\'height:70vh;\\'>Loading...</div>'; " +
+                                  "wepsim_open_help_content(lyt1) ;" +
+                                  "show_visgraph(jit_fire_dep, jit_fire_order) ;",
                      description: "Gráfico de las dependencias entre señales (puede necesitar varios segundos para generarse).<br>"
                   });
 */
@@ -126,9 +133,9 @@
     help.es.push({
                      id:          "about",
                      title:       "Licencia, plataformas, etc.",
-                     i_type:      "absolute",
+                     i_type:      "relative",
                      u_type:      "info",
-                     reference:   "about",
+                     reference:   "about#",
                      description: "Licencia de WepSIM, plataformas disponibles, tecnologías usadas.<br>"
                   });
 

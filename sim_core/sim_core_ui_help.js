@@ -80,8 +80,8 @@
      function update_signal_loadhelp ( helpdiv, simhw, key )
      {
 	     var curr_idiom = get_cfg('ws_idiom') ;
-	     var help_base = 'help/' + simhw + '/signals-' + curr_idiom + '.html' ;
 
+	     var help_base = 'examples/hardware/' + simhw + '/help/signals-' + curr_idiom + '.html' ;
              resolve_html_url(helpdiv, help_base, '#'+key, function() { $(helpdiv).trigger('create') ; }) ;
 
              ga('send', 'event', 'help', 'help.signal', 'help.signal.' + simhw + '.' + key);

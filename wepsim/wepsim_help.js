@@ -101,19 +101,20 @@
     function wepsim_help_refresh ( )
     {
         var helpdiv = '#iframe_help1' ;
-        var rel     = $('#help1_ref').data('relative') ;
 
         var helpurl = '' ;
 	var seg_idiom = get_cfg('ws_idiom') ;
 	var seg_hardw = simhw_active().sim_short_name ;
 
+        var rel = $('#help1_ref').data('relative') ;
         if ( (typeof rel != "undefined") && (rel != "") )
         {
-             helpurl = 'help/simulator-' + seg_idiom + '.html' ;
-	     $('#help1').modal('show');
-             resolve_html_url(helpdiv, helpurl, rel, function() { }) ;
+             var r = rel.split("#") ;
+             helpurl = 'help/' + r[0] + '-' + seg_idiom + '.html' ;
+	     $('#help1').modal('show') ;
+             resolve_html_url(helpdiv, helpurl, '#' + r[1], function() { }) ;
 
-             ga('send', 'event', 'help', 'help.simulator', 'help.simulator.' + rel);
+             ga('send', 'event', 'help', 'help.simulator', 'help.simulator.' + rel) ;
 
              return ;
         }
@@ -126,7 +127,7 @@
 	     $('#help1').modal('show');
              resolve_html_url(helpdiv, helpurl, '', function() { }) ;
 
-            ga('send', 'event', 'help', 'help.' + ab1, 'help.' + ab1 + '.*');
+            ga('send', 'event', 'help', 'help.' + ab1, 'help.' + ab1 + '.*') ;
 
             return ;
         }
@@ -134,7 +135,7 @@
         var cod1 = $('#help1_ref').data('code') ;
         if ( (typeof cod1 != "undefined") && (cod1 == "true") )
         {
-            ga('send', 'event', 'help', 'help.code', 'help.code.*');
+            ga('send', 'event', 'help', 'help.code', 'help.code.*') ;
             return ;
         }
 
