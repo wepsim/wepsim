@@ -104,10 +104,11 @@
 
 		   e =     '<span style=\'text-align:left\'>' +
 			   'name: '            + ahw.signals[elto].name  + '<br>' +
-			   'value: '           + elto_v                  + '<br>' +
+			   'value: '           + '<span' + 
+			                         ' onclick=simcoreui_signal_dialog(\'' + ahw.signals[elto].name + '\'); ' + 
+			                         ' class=\'font-weight-bold\'>' + elto_v + 
+			                         '</span><br>' +
 			   'default_value: '   + elto_dv                 + '<br>' +
-			   'value: <span onclick=simcoreui_signal_dialog(\'' + 
-		                    ahw.signals[elto].name + '\');>' + elto_v + '</span><br>' +
 			   'nbits: '           + ahw.signals[elto].nbits + '<br>' +
 			   'type: '            + ahw.signals[elto].type  + '<br>' +
 			   'visible: '         + ahw.signals[elto].visible +
