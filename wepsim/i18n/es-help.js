@@ -107,7 +107,7 @@
                      title:       "Resumen del Hardware",
                      i_type:      "code",
                      u_type:      "procesador elemental",
-                     reference:   "wepsim_open_help_content(\'<object id=svg_p2 data=\\'./images/ep/cpu6.svg?time=20180108\\' type=image/svg+xml>Your browser does not support SVG</object>\');",
+                     reference:   "wepsim_open_help_content(\'<object id=svg_p2 data=\\'./examples/hardware/ep/images/cpu6.svg?time=20180108\\' type=image/svg+xml>Your browser does not support SVG</object>\');",
                      description: "Resumen del hardware del procesador elemental simulado.<br>"
                   });
 

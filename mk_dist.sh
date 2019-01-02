@@ -146,13 +146,9 @@ cp    -a external/speechkitt            ws_dist/external/
 
 #  examples, docs, etc.
 cp -a examples  ws_dist/
-          touch ws_dist/examples/index.html
 cp -a docs      ws_dist/
-          touch ws_dist/docs/index.html
 cp -a images    ws_dist/
-          touch ws_dist/images/index.html
 cp -a help      ws_dist/
-          touch ws_dist/help/index.html
 
 #  user interface
 cp   wepsim/wepsim-classic.html   ws_dist/index.html

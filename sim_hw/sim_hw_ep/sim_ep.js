@@ -40,9 +40,9 @@
         var ep_def = {
                        sim_name:            "Elemental Processor",
                        sim_short_name:      "ep",
-                       sim_img_processor:   "images/ep/processor6.svg",
-                       sim_img_controlunit: "images/ep/controlunit6.svg",
-                       sim_img_cpu:         "images/ep/cpu6.svg",
+                       sim_img_processor:   "examples/hardware/ep/images/processor6.svg",
+                       sim_img_controlunit: "examples/hardware/ep/images/controlunit6.svg",
+                       sim_img_cpu:         "examples/hardware/ep/images/cpu6.svg",
 
                        components:          ep_components,
                        states:              ep_states,
@@ -55,4 +55,8 @@
 	             } ;
 
         simhw_add(ep_def) ;
+
+        // ep_def_json = $.getJSON({'url': "examples/hardware/ep/ep_def.json", 'async': false}) ;
+        // ep_def_obj  = JSON.parse(ep_def_json.responseText) ;
+        // simhw_add(ep_def_obj) ;
 
