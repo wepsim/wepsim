@@ -102,14 +102,20 @@
     {
         var helpdiv = '#iframe_help1' ;
         var rel     = $('#help1_ref').data('relative') ;
+
         var helpurl = '' ;
+	var seg_idiom = get_cfg('ws_idiom') ;
+	var seg_hardw = simhw_active().sim_short_name ;
+
         if ( (typeof rel != "undefined") && (rel != "") )
         {
-             helpurl = 'help/simulator-' + get_cfg('ws_idiom') + '.html' ;
+             helpurl = 'examples/hardware/' + seg_hardw + '/help/' + 
+		       'simulator-' + seg_idiom + '.html' ;
 	     $('#help1').modal('show');
              resolve_html_url(helpdiv, helpurl, rel, function() { }) ;
 
-             ga('send', 'event', 'help', 'help.simulator', 'help.simulator.' + rel);
+             ga('send', 'event', 'help', 'help.simulator-' + seg_hardw, 
+		                         'help.simulator-' + seg_hardw + '.' + rel);
 
              return ;
         }
@@ -117,7 +123,8 @@
         var ab1 = $('#help1_ref').data('absolute') ;
         if ( (typeof ab1 != "undefined") && (ab1 != "") )
         {
-             helpurl = 'help/' + ab1 + '-' + get_cfg('ws_idiom') + '.html' ;
+             helpurl = 'examples/hardware/' + seg_hardw + '/help/' + 
+		       ab1 + '-' + seg_idiom + '.html' ;
 	     $('#help1').modal('show');
              resolve_html_url(helpdiv, helpurl, '', function() { }) ;
 

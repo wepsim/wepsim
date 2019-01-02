@@ -89,7 +89,7 @@
                      title:       "Arquitectura del simulador",
                      i_type:      "absolute",
                      u_type:      "procesador elemental",
-                     reference:   "examples/hardware/ep/help/ep",
+                     reference:   "ep",
                      description: "Descripción de la arquitectura del procesador elemental.<br>"
                   });
 
@@ -98,7 +98,7 @@
                      title:       "Señales simuladas",
                      i_type:      "absolute",
                      u_type:      "procesador elemental",
-                     reference:   "examples/hardware/ep/help/signals",
+                     reference:   "signals",
                      description: "Resumen de las señales principales del procesador elemental.<br>"
                   });
 
