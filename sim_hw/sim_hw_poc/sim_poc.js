@@ -56,6 +56,10 @@
 
         simhw_add(poc_def) ;
 
+        // poc_def_json = $.getJSON({'url': "examples/hardware/poc/poc_def.json", 'async': false}) ;
+        // poc_def_obj  = JSON.parse(poc_def_json.responseText) ;
+        // simhw_add(poc_def_obj) ;
+
 
         /*
          *  Elemental Processor: Private
