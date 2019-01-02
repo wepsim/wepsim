@@ -89,7 +89,7 @@
                      title:       "Simulated architecture",
                      i_type:      "absolute",
                      u_type:      "elemental processor",
-                     reference:   "ep/ep",
+                     reference:   "examples/hardware/ep/help/ep",
                      description: "Description of the elemental processor architecture.<br>"
                   });
 
@@ -98,7 +98,7 @@
                      title:       "Simulated signals",
                      i_type:      "absolute",
                      u_type:      "elemental processor",
-                     reference:   "ep/signals",
+                     reference:   "examples/hardware/ep/help/signals",
                      description: "Main signals summary of the simulated elemental processor.<br>"
                   });
 
