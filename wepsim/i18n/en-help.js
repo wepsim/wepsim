@@ -44,7 +44,7 @@
                      title:       "Simulator: firmware",
                      i_type:      "relative",
                      u_type:      "simulator",
-                     reference:   "#help_simulator_firmware",
+                     reference:   "simulator#help_simulator_firmware",
                      description: "How to work with the firmware to be loaded into the control memory.<br>"
                   });
 
@@ -53,7 +53,7 @@
                      title:       "Microcode format",
                      i_type:      "relative",
                      u_type:      "simulator",
-                     reference:   "#help_firmware_format",
+                     reference:   "simulator#help_firmware_format",
                      description: "Syntax of the microcode used.<br>"
                   });
 
@@ -62,7 +62,7 @@
                      title:       "Simulator: assembly",
                      i_type:      "relative",
                      u_type:      "simulator",
-                     reference:   "#help_simulator_assembly",
+                     reference:   "simulator#help_simulator_assembly",
                      description: "How to work with the assembly that use the aforementioned firmware.<br>"
                   });
 
@@ -71,7 +71,7 @@
                      title:       "Assembly format",
                      i_type:      "relative",
                      u_type:      "simulator",
-                     reference:   "#help_assembly_format",
+                     reference:   "simulator#help_assembly_format",
                      description: "Syntax of the assembly elements.<br>"
                   });
 
@@ -80,7 +80,7 @@
                      title:       "Simulator: execution",
                      i_type:      "relative",
                      u_type:      "simulator",
-                     reference:   "#help_simulator_execution",
+                     reference:   "simulator#help_simulator_execution",
                      description: "How the simulator can execute the assembly and firmware.<br>"
                   });
 
@@ -88,17 +88,17 @@
                      id:          "architecture",
                      title:       "Simulated architecture",
                      i_type:      "absolute",
-                     u_type:      "elemental processor",
-                     reference:   "examples/hardware/ep/help/ep",
-                     description: "Description of the elemental processor architecture.<br>"
+                     u_type:      "simulated processor",
+                     reference:   "hardware",
+                     description: "Description of the simulated processor architecture.<br>"
                   });
 
     help.en.push({
                      id:          "architecture",
                      title:       "Simulated signals",
                      i_type:      "absolute",
-                     u_type:      "elemental processor",
-                     reference:   "examples/hardware/ep/help/signals",
+                     u_type:      "simulated processor",
+                     reference:   "signals",
                      description: "Main signals summary of the simulated elemental processor.<br>"
                   });
 
@@ -106,8 +106,13 @@
                      id:          "architecture",
                      title:       "Hardware summary",
                      i_type:      "code",
-                     u_type:      "elemental processor",
-                     reference:   "wepsim_open_help_content(\'<object id=svg_p2 data=\\'./examples/hardware/ep/images/cpu6.svg?time=20180108\\' type=image/svg+xml>Your browser does not support SVG</object>\');",
+                     u_type:      "simulated processor",
+                     reference:   "var ahw1 = simhw_active().sim_short_name ; " +
+                                  "var img1 = 'examples/hardware/' + ahw1 + '/images/cpu6.svg?time=20190102' ; " +
+                                  "var txt1 = 'Your browser does not support SVG' ;" +
+                                  "var lyt1 = '<object id=\\'svg_p2\\' data=\\'' + img1 + '\\' " +
+                                  "                    type=\\'image/svg+xml\\'>' + txt1 +  '</object>'; " +
+                                  "wepsim_open_help_content(lyt1) ;",
                      description: "Reference card for the simulated elemental processor hardware.<br>"
                   });
 
@@ -117,8 +122,10 @@
                      title:       "Signal dependencies",
                      i_type:      "code",
                      u_type:      "info",
-                     reference:   "wepsim_open_help_content('<div id=\\'depgraph1\\' style=\\'height:70vh;\\'>Loading...</div>'); " +
-                                  "show_visgraph(jit_fire_dep, jit_fire_order);",
+                     reference:   "var lyt1='<div id=\\'depgraph1\\' " +
+                                  "               style=\\'height:70vh;\\'>Loading...</div>'; " +
+                                  "wepsim_open_help_content(lyt1) ;" +
+                                  "show_visgraph(jit_fire_dep, jit_fire_order) ;",
                      description: "Graph of the signal dependencies (it needs several seconds to be displayed).<br>"
                   });
 */
@@ -126,9 +133,9 @@
     help.en.push({
                      id:          "about",
                      title:       "License, platforms, etc.",
-                     i_type:      "absolute",
+                     i_type:      "relative",
                      u_type:      "info",
-                     reference:   "about",
+                     reference:   "about#help_about",
                      description: "WepSIM license, supported platforms, technologies used.<br>"
                   });
 

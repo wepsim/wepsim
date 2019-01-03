@@ -44,7 +44,7 @@
                      title:       "Simulador: microc&oacute;digo",
                      i_type:      "relative",
                      u_type:      "simulador",
-                     reference:   "#help_simulator_firmware",
+                     reference:   "simulator#help_simulator_firmware",
                      description: "Descripción de cómo trabajar en el simulador con el microc&oacute;digo.<br>"
                   });
 
@@ -53,7 +53,7 @@
                      title:       "Formato del microcódigo",
                      i_type:      "relative",
                      u_type:      "simulador",
-                     reference:   "#help_firmware_format",
+                     reference:   "simulator#help_firmware_format",
                      description: "Sintáxis del microcódigo usado.<br>"
                   });
 
@@ -62,7 +62,7 @@
                      title:       "Simulador: ensamblador",
                      i_type:      "relative",
                      u_type:      "simulador",
-                     reference:   "#help_simulator_assembly",
+                     reference:   "simulator#help_simulator_assembly",
                      description: "Descripción de cómo trabajar en el simulador con el ensamblador.<br>"
                   });
 
@@ -71,7 +71,7 @@
                      title:       "Formato del ensamblador",
                      i_type:      "relative",
                      u_type:      "simulador",
-                     reference:   "#help_assembly_format",
+                     reference:   "simulator#help_assembly_format",
                      description: "Sintáxis del ensamblador.<br>"
                   });
 
@@ -80,7 +80,7 @@
                      title:       "Simulador: ejecuci&oacute;n",
                      i_type:      "relative",
                      u_type:      "simulador",
-                     reference:   "#help_simulator_execution",
+                     reference:   "simulator#help_simulator_execution",
                      description: "Descripción de cómo ejecutar en el simulador el ensamblador y microc&oacute;digo.<br>"
                   });
 
@@ -88,17 +88,17 @@
                      id:          "architecture",
                      title:       "Arquitectura del simulador",
                      i_type:      "absolute",
-                     u_type:      "procesador elemental",
-                     reference:   "examples/hardware/ep/help/ep",
-                     description: "Descripción de la arquitectura del procesador elemental.<br>"
+                     u_type:      "procesador simulado",
+                     reference:   "hardware",
+                     description: "Descripción de la arquitectura del procesador simulado.<br>"
                   });
 
     help.es.push({
                      id:          "architecture",
                      title:       "Señales simuladas",
                      i_type:      "absolute",
-                     u_type:      "procesador elemental",
-                     reference:   "examples/hardware/ep/help/signals",
+                     u_type:      "procesador simulado",
+                     reference:   "signals",
                      description: "Resumen de las señales principales del procesador elemental.<br>"
                   });
 
@@ -106,8 +106,13 @@
                      id:          "architecture",
                      title:       "Resumen del Hardware",
                      i_type:      "code",
-                     u_type:      "procesador elemental",
-                     reference:   "wepsim_open_help_content(\'<object id=svg_p2 data=\\'./examples/hardware/ep/images/cpu6.svg?time=20180108\\' type=image/svg+xml>Your browser does not support SVG</object>\');",
+                     u_type:      "procesador simulado",
+                     reference:   "var ahw1 = simhw_active().sim_short_name ; " +
+                                  "var img1 = 'examples/hardware/' + ahw1 + '/images/cpu6.svg?time=20190102' ; " +
+                                  "var txt1 = 'Your browser does not support SVG' ;" +
+                                  "var lyt1 = '<object id=\\'svg_p2\\' data=\\'' + img1 + '\\' " +
+                                  "                    type=\\'image/svg+xml\\'>' + txt1 +  '</object>'; " +
+                                  "wepsim_open_help_content(lyt1) ;",
                      description: "Resumen del hardware del procesador elemental simulado.<br>"
                   });
 
@@ -117,8 +122,10 @@
                      title:       "Dependencias entre señales",
                      i_type:      "code",
                      u_type:      "info",
-                     reference:   "wepsim_open_help_content('<div id=\\'depgraph1\\' style=\\'height:70vh;\\'>Cargando...</div>'); " +
-                                  "show_visgraph(jit_fire_dep, jit_fire_order);",
+                     reference:   "var lyt1='<div id=\\'depgraph1\\' " +
+                                  "               style=\\'height:70vh;\\'>Loading...</div>'; " +
+                                  "wepsim_open_help_content(lyt1) ;" +
+                                  "show_visgraph(jit_fire_dep, jit_fire_order) ;",
                      description: "Gráfico de las dependencias entre señales (puede necesitar varios segundos para generarse).<br>"
                   });
 */
@@ -126,9 +133,9 @@
     help.es.push({
                      id:          "about",
                      title:       "Licencia, plataformas, etc.",
-                     i_type:      "absolute",
+                     i_type:      "relative",
                      u_type:      "info",
-                     reference:   "about",
+                     reference:   "about#help_about",
                      description: "Licencia de WepSIM, plataformas disponibles, tecnologías usadas.<br>"
                   });
 

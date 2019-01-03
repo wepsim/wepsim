@@ -71,7 +71,7 @@
                        level: "Intermediate",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
-                       microcode: "ep_s2_e1",
+                       microcode: "ep_mipsx",
                        assembly:  "ep_s2_e1",
                        description: "Example with programmed I/O access, and basic .text/.data segment.<br>"
                      });
@@ -82,7 +82,7 @@
                        level: "Intermediate",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
-                       microcode: "ep_s2_e2",
+                       microcode: "ep_mipsx",
                        assembly:  "ep_s2_e2",
                        description: "Extended example with more instructions and I/O (keyboard, display).<br>"
                      });
@@ -203,7 +203,7 @@
                        level: "Special",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
-                       microcode: "ep_s5_e1",
+                       microcode: "ep_bare",
                        assembly:  "ep_s5_e1",
                        description: "Test example.<br>"
                      });
