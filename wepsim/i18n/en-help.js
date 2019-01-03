@@ -135,7 +135,7 @@
                      title:       "License, platforms, etc.",
                      i_type:      "relative",
                      u_type:      "info",
-                     reference:   "about#",
+                     reference:   "about#help_about",
                      description: "WepSIM license, supported platforms, technologies used.<br>"
                   });
 
