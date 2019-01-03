@@ -664,11 +664,18 @@
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
                             <button style="background-color: #D4DB17"
 		                    class="btn btn-light shadow-sm col-auto"
-                                    onclick="wepsim_open_help_content('<object id=svg_p2 data=\'examples/hardware/ep/images/cpu6.svg?time=20180808\' type=image/svg+xml>Your browser does not support SVG</object>');"
+                                    onclick="var ahw2 = simhw_active().sim_short_name ;
+                                             var img2 = 'examples/hardware/' + ahw2 + '/images/cpu6.svg?time=20190102' ;
+                                             var lyr2 = '<object id=svg_p2 ' + 
+                                                        '        data=\'' + img2 + '\' ' + 
+                                                        '        type=\'image/svg+xml\'>' + 
+                                                        'Your browser does not support SVG' + 
+                                                        '</object>' ;
+                                             wepsim_open_help_content(lyr2) ;"
 				    ><em class="fas fa-microchip"></em>&nbsp;<strong>Hardware Summary</strong></button>
                             <button style="background-color: #D4DB17"
 		                    class="btn btn-light shadow-sm col-auto"
-				    onclick="wepsim_help_set_relative('#help_firmware_format'); wepsim_help_refresh();"
+				    onclick="wepsim_help_set_relative('simulator#help_firmware_format'); wepsim_help_refresh();"
 				    ><em class="fas fa-info-circle"></em>&nbsp;<strong><span data-langkey="Help">Help</span></strong></button>
 		      </div>
 
@@ -738,7 +745,7 @@
                       <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">
                             <button style="background-color: #D4DB17"
 		                    class="btn btn-light shadow-sm col-auto"
-				    onclick="wepsim_help_set_relative('#help_assembly_format'); wepsim_help_refresh();"
+				    onclick="wepsim_help_set_relative('simulator#help_assembly_format'); wepsim_help_refresh();"
 				    ><em class="fas fa-info-circle"></em>&nbsp;<strong><span data-langkey="Help">Help</span></strong></button>
 		      </div>
 
@@ -1314,7 +1321,7 @@
 			<div class="row pb-2">
 			  <div class="col-sm-12 p-0">
 			         <span class="float-left mr-auto text-primary"
-                                       onclick="wepsim_help_set_absolute('about');
+                                       onclick="wepsim_help_set_relative('about#');
                                                 wepsim_help_refresh();
                                                 $('#about2').modal('hide');">GNU Lesser General Public 3</span>
 			  </div>

@@ -44,7 +44,7 @@
                      title:       "Simulador: microc&oacute;digo",
                      i_type:      "relative",
                      u_type:      "simulador",
-                     reference:   "#help_simulator_firmware",
+                     reference:   "simulator#help_simulator_firmware",
                      description: "Descripción de cómo trabajar en el simulador con el microc&oacute;digo.<br>"
                   });
 
@@ -53,7 +53,7 @@
                      title:       "Formato del microcódigo",
                      i_type:      "relative",
                      u_type:      "simulador",
-                     reference:   "#help_firmware_format",
+                     reference:   "simulator#help_firmware_format",
                      description: "Sintáxis del microcódigo usado.<br>"
                   });
 
@@ -62,7 +62,7 @@
                      title:       "Simulador: ensamblador",
                      i_type:      "relative",
                      u_type:      "simulador",
-                     reference:   "#help_simulator_assembly",
+                     reference:   "simulator#help_simulator_assembly",
                      description: "Descripción de cómo trabajar en el simulador con el ensamblador.<br>"
                   });
 
@@ -71,7 +71,7 @@
                      title:       "Formato del ensamblador",
                      i_type:      "relative",
                      u_type:      "simulador",
-                     reference:   "#help_assembly_format",
+                     reference:   "simulator#help_assembly_format",
                      description: "Sintáxis del ensamblador.<br>"
                   });
 
@@ -80,7 +80,7 @@
                      title:       "Simulador: ejecuci&oacute;n",
                      i_type:      "relative",
                      u_type:      "simulador",
-                     reference:   "#help_simulator_execution",
+                     reference:   "simulator#help_simulator_execution",
                      description: "Descripción de cómo ejecutar en el simulador el ensamblador y microc&oacute;digo.<br>"
                   });
 
@@ -89,8 +89,8 @@
                      title:       "Arquitectura del simulador",
                      i_type:      "absolute",
                      u_type:      "procesador simulado",
-                     reference:   "ep",
-                     description: "Descripción de la arquitectura del procesador elemental.<br>"
+                     reference:   "hardware",
+                     description: "Descripción de la arquitectura del procesador simulado.<br>"
                   });
 
     help.es.push({

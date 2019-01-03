@@ -89,8 +89,8 @@
                      title:       "Simulated architecture",
                      i_type:      "absolute",
                      u_type:      "simulated processor",
-                     reference:   "ep",
-                     description: "Description of the elemental processor architecture.<br>"
+                     reference:   "hardware",
+                     description: "Description of the simulated processor architecture.<br>"
                   });
 
     help.en.push({
