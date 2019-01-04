@@ -54,9 +54,5 @@
                        ctrl_states:         ep_ctrl_states
 	             } ;
 
-        simhw_add(ep_def) ;
-
-        // ep_def_json = $.getJSON({'url': "examples/hardware/ep/ep_def.json", 'async': false}) ;
-        // ep_def_obj  = JSON.parse(ep_def_json.responseText) ;
-        // simhw_add(ep_def_obj) ;
+            simhw_add(ep_def) ;
 

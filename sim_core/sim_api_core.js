@@ -33,15 +33,6 @@
 	        ret.msg = "" ;
 	        ret.ok  = true ;
 
-            // hardware
-	    var hwid = simhw_getActiveByName(simhw_name) ;
-	    if (hwid < 0) 
-	    {
-	        ret.msg = "ERROR: unknown hardware: " + simhw_name + ".\n" ;
-	        ret.ok  = false ;
-	        return ret ;
-	    }
-
             // cfg
             if ( with_ui ) {
 		 restore_cfg() ;
@@ -49,6 +40,15 @@
 	    else {
                  reset_cfg() ;
                  stop_drawing() ;
+	    }
+
+            // hardware
+	    var hwid = simhw_getActiveByName(simhw_name) ;
+	    if (hwid < 0) 
+	    {
+	        ret.msg = "ERROR: unknown hardware: " + simhw_name + ".\n" ;
+	        ret.ok  = false ;
+	        return ret ;
 	    }
 	    simhw_setActive(hwid) ;
 
