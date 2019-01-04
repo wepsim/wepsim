@@ -414,7 +414,7 @@
 	    // load ep hardware...
 	    ep_def_json = $.getJSON({'url': "examples/hardware/ep/hw_def.json", 'async': false}) ;
             // based on: https://stackoverflow.com/questions/36517173/how-to-store-a-javascript-function-in-json
-	    ep_def_obj  = JSON.parse(ep_def_json.responseText,
+	    ep_def      = JSON.parse(ep_def_json.responseText,
 				      function(key, value) {
 					  if (typeof value === "string" &&
 					      value.startsWith("/Function(") &&
@@ -425,11 +425,11 @@
 					  return value;
 				      }
                                     ) ;
-	    simhw_add(ep_def_obj) ;
+	    simhw_add(ep_def) ;
 
 	    // load poc hardware...
 	    poc_def_json = $.getJSON({'url': "examples/hardware/poc/hw_def.json", 'async': false}) ;
-	    poc_def_obj  = JSON.parse(poc_def_json.responseText,
+	    poc_def      = JSON.parse(poc_def_json.responseText,
             // based on: https://stackoverflow.com/questions/36517173/how-to-store-a-javascript-function-in-json
 				      function(key, value) {
 					  if (typeof value === "string" &&
@@ -441,7 +441,7 @@
 					  return value;
 				      }
                                      ) ;
-	    simhw_add(poc_def_obj) ;
+	    simhw_add(poc_def) ;
 */
 
 	    return true ;
