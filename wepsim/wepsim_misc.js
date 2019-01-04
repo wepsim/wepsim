@@ -405,6 +405,25 @@
 	else $(divb).addClass('col-12 order-2');
     }
 
+
+    // hardware
+
+    function wepsim_inithw ( )
+    {
+	    /*
+	    // load...
+	    ep_def_json = $.getJSON({'url': "examples/hardware/ep/ep_def.json", 'async': false}) ;
+	    ep_def_obj  = JSON.parse(ep_def_json.responseText) ;
+	    simhw_add(ep_def_obj) ;
+
+	    poc_def_json = $.getJSON({'url': "examples/hardware/poc/poc_def.json", 'async': false}) ;
+	    poc_def_obj  = JSON.parse(poc_def_json.responseText) ;
+	    simhw_add(poc_def_obj) ;
+	    */
+
+	    return true ;
+    }
+
     function wepsim_activehw ( mode )
     {
 	    simhw_setActive(mode) ;
@@ -434,9 +453,8 @@
 
             // info + warning
 	    wepsim_notify_warning('<strong>WARNING</strong>',
-                                 'Please remember the current firmware and assembly could need to be reloaded.') ;
-	    wepsim_notify_warning('<strong>WARNING</strong>',
-                                 'Pass working session with the simulated hardware are not kept.') ;
+                                  'Please remember the current firmware and assembly might need to be reloaded, ' +
+                                  'because previous working session of the simulated hardware are not kept.') ;
 	    wepsim_notify_success('<strong>INFO</strong>',
                                   '"' + simhw_active().sim_name + '" has been activated.') ;
 
