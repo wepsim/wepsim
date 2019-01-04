@@ -411,11 +411,12 @@
     function wepsim_inithw ( )
     {
 	    /*
-	    // load...
+	    // load ep hardware...
 	    ep_def_json = $.getJSON({'url': "examples/hardware/ep/ep_def.json", 'async': false}) ;
 	    ep_def_obj  = JSON.parse(ep_def_json.responseText) ;
 	    simhw_add(ep_def_obj) ;
 
+	    // load poc hardware...
 	    poc_def_json = $.getJSON({'url': "examples/hardware/poc/poc_def.json", 'async': false}) ;
 	    poc_def_obj  = JSON.parse(poc_def_json.responseText) ;
 	    simhw_add(poc_def_obj) ;
