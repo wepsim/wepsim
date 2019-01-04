@@ -288,7 +288,7 @@
 				    id="select4"
                                     onclick="simui_select_details(22);
 					     simcoreui_init_hw('#config_HW') ;
-					     return false;">Refresh</button>
+					     return false;">HW</button>
 			    <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" 
                                     style="border-color: #CCCCCC;"
 				    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -442,7 +442,9 @@
                     <div class="btn-toolbar btn-block" role="toolbar">
 			    <button          style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
-			            onclick="wepsim_execute_reset(true, true);"><em class="fa fa-power-off"></em><strong><br/><span data-langkey='Reset'>Reset</span></strong></button>
+			            onclick="wepsim_execute_reset(true, true);
+	                                     simcoreui_show_hw();
+	                                     return false;"><em class="fa fa-power-off"></em><strong><br/><span data-langkey='Reset'>Reset</span></strong></button>
 			    <button id="nm1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
 			            onclick="wepsim_execute_microinstruction();
