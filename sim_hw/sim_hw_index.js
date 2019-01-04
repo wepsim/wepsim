@@ -167,8 +167,15 @@
 
         function simhw_internalState_reset ( name, val )
         {
-            ep_internal_states[name] = val ;
-            sim.active.internal_states[name] = ep_internal_states[name] ;
+            if (typeof ep_internal_states != "undefined")
+            {
+                 ep_internal_states[name] = val ;
+                 sim.active.internal_states[name] = ep_internal_states[name] ;
+            }
+            else 
+            {
+                 sim.active.internal_states[name] = val ;
+            }
         }
 
         // ctrl_states
