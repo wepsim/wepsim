@@ -410,17 +410,39 @@
 
     function wepsim_inithw ( )
     {
-	    /*
+/*
 	    // load ep hardware...
-	    ep_def_json = $.getJSON({'url': "examples/hardware/ep/ep_def.json", 'async': false}) ;
-	    ep_def_obj  = JSON.parse(ep_def_json.responseText) ;
+	    ep_def_json = $.getJSON({'url': "examples/hardware/ep/hw_def.json", 'async': false}) ;
+            // based on: https://stackoverflow.com/questions/36517173/how-to-store-a-javascript-function-in-json
+	    ep_def_obj  = JSON.parse(ep_def_json.responseText,
+				      function(key, value) {
+					  if (typeof value === "string" &&
+					      value.startsWith("/Function(") &&
+					      value.endsWith(")/")) {
+					    value = value.substring(10, value.length - 2);
+					    return eval("(" + value + ")");
+					  }
+					  return value;
+				      }
+                                    ) ;
 	    simhw_add(ep_def_obj) ;
 
 	    // load poc hardware...
-	    poc_def_json = $.getJSON({'url': "examples/hardware/poc/poc_def.json", 'async': false}) ;
-	    poc_def_obj  = JSON.parse(poc_def_json.responseText) ;
+	    poc_def_json = $.getJSON({'url': "examples/hardware/poc/hw_def.json", 'async': false}) ;
+	    poc_def_obj  = JSON.parse(poc_def_json.responseText,
+            // based on: https://stackoverflow.com/questions/36517173/how-to-store-a-javascript-function-in-json
+				      function(key, value) {
+					  if (typeof value === "string" &&
+					      value.startsWith("/Function(") &&
+					      value.endsWith(")/")) {
+					    value = value.substring(10, value.length - 2);
+					    return eval("(" + value + ")");
+					  }
+					  return value;
+				      }
+                                     ) ;
 	    simhw_add(poc_def_obj) ;
-	    */
+*/
 
 	    return true ;
     }

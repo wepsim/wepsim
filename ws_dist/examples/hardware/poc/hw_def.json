@@ -1,53 +1,56 @@
 {
-  "sim_name": "Elemental Processor",
-  "sim_short_name": "ep",
-  "sim_img_processor": "examples/hardware/ep/images/processor6.svg",
-  "sim_img_controlunit": "examples/hardware/ep/images/controlunit6.svg",
-  "sim_img_cpu": "examples/hardware/ep/images/cpu6.svg",
+  "sim_name": "Proof-Of-Concept Processor",
+  "sim_short_name": "poc",
+  "sim_img_processor": "examples/hardware/poc/images/processor6.svg",
+  "sim_img_controlunit": "examples/hardware/poc/images/controlunit6.svg",
+  "sim_img_cpu": "examples/hardware/poc/images/cpu6.svg",
   "components": {
     "CPU": {
       "name": "CPU",
       "version": "1",
       "abilities": [
         "CPU"
-      ]
+      ],
+      "write_state": "/Function(function(e){if(typeof e.CPU==\"undefined\"){e.CPU={}}var a=[\"PC\",\"SR\"];var f=0;for(var d=0;d<poc_states.BR.length;d++){f=parseInt(poc_states.BR[d].value);if(f!=0){e.CPU[\"R\"+d]={type:\"register\",default_value:0,id:\"R\"+d,op:\"=\",value:\"0x\"+f.toString(16)}}}for(var d=0;d<a.length;d++){f=parseInt(poc_states[\"REG_\"+a[d]].value);if(f!=0){e.CPU[a[d]]={type:\"register\",default_value:0,id:a[d],op:\"=\",value:\"0x\"+f.toString(16)}}}return e})/",
+      "read_state": "/Function(function(e,a){if(typeof e.CPU==\"undefined\"){e.CPU={}}var d=a.id.toUpperCase().trim();var f=parseInt(a.value).toString(16);if(\"REGISTER\"==a.type.toUpperCase().trim()){e.CPU[d]={type:\"register\",default_value:0,id:d,op:a.condition,value:\"0x\"+f};return true}return false})/",
+      "get_state": "/Function(function(d){var e=d.toUpperCase().trim();if(typeof poc_states[\"REG_\"+e]!=\"undefined\"){return\"0x\"+get_value(poc_states[\"REG_\"+e]).toString(16)}e=e.replace(\"R\",\"\");var a=parseInt(e);if(typeof poc_states.BR[a]!=\"undefined\"){return\"0x\"+get_value(poc_states.BR[a]).toString(16)}return null})/"
     },
     "MEMORY": {
       "name": "MEMORY",
       "version": "1",
       "abilities": [
-        "MEMORY",
-        "MEMORY_CONFIG"
-      ]
-    },
-    "IO": {
-      "name": "IO",
-      "version": "1",
-      "abilities": [
-        "IO",
-        "IO_CONFIG"
-      ]
+        "MEMORY"
+      ],
+      "write_state": "/Function(function(e){if(typeof e.MEMORY==\"undefined\"){e.MEMORY={}}var d=0;var f=0;for(var a in poc_internal_states.MP){f=parseInt(poc_internal_states.MP[a]);if(f!=0){d=parseInt(a).toString(16);e.MEMORY[\"0x\"+d]={type:\"memory\",default_value:0,id:\"0x\"+d,op:\"=\",value:\"0x\"+f.toString(16)}}}return e})/",
+      "read_state": "/Function(function(e,a){if(typeof e.MEMORY==\"undefined\"){e.MEMORY={}}var d=parseInt(a.id).toString(16);var f=parseInt(a.value).toString(16);if(\"MEMORY\"==a.type.toUpperCase().trim()){e.MEMORY[\"0x\"+d]={type:\"memory\",default_value:0,id:\"0x\"+d,op:a.condition,value:\"0x\"+f};return true}return false})/",
+      "get_state": "/Function(function(d){var a=parseInt(d);if(typeof poc_internal_states.MP[a]!=\"undefined\"){return\"0x\"+parseInt(poc_internal_states.MP[a]).toString(16)}return null})/"
     },
     "KBD": {
       "name": "KBD",
       "version": "1",
       "abilities": [
         "KBD"
-      ]
+      ],
+      "write_state": "/Function(function(a){return a})/",
+      "read_state": "/Function(function(d,a){return false})/",
+      "get_state": "/Function(function(a){return null})/"
     },
     "SCREEN": {
       "name": "SCREEN",
       "version": "1",
       "abilities": [
         "SCREEN"
-      ]
+      ],
+      "write_state": "/Function(function(d){if(typeof d.SCREEN==\"undefined\"){d.SCREEN={}}var f=get_screen_content();var e=f.trim().split(\"\\n\");for(var a=0;a<e.length;a++){value=e[a];if(value!=\"\"){d.SCREEN[a]={type:\"screen\",default_value:\"\",id:a,op:\"==\",value:value}}}return d})/",
+      "read_state": "/Function(function(d,a){if(typeof d.SCREEN==\"undefined\"){d.SCREEN={}}if(\"SCREEN\"==a.type.toUpperCase().trim()){d.SCREEN[a.id]={type:\"screen\",default_value:\"\",id:a.id,op:a.condition,value:a.value};return true}return false})/",
+      "get_state": "/Function(function(a){var f=get_screen_content();var e=f.trim().split(\"\\n\");var d=parseInt(a);if(typeof e[d]!=\"undefined\"){return e[d]}return null})/"
     }
   },
   "states": {
     "BR": [
       {
         "name": "R0",
-        "verbal": "Register 0",
+        "verbal": "Register  0",
         "visible": true,
         "nbits": "32",
         "value": 0,
@@ -56,7 +59,7 @@
       },
       {
         "name": "R1",
-        "verbal": "Register 1",
+        "verbal": "Register  1",
         "visible": true,
         "nbits": "32",
         "value": 0,
@@ -65,7 +68,7 @@
       },
       {
         "name": "R2",
-        "verbal": "Register 2",
+        "verbal": "Register  2",
         "visible": true,
         "nbits": "32",
         "value": 0,
@@ -74,7 +77,7 @@
       },
       {
         "name": "R3",
-        "verbal": "Register 3",
+        "verbal": "Register  3",
         "visible": true,
         "nbits": "32",
         "value": 0,
@@ -83,7 +86,7 @@
       },
       {
         "name": "R4",
-        "verbal": "Register 4",
+        "verbal": "Register  4",
         "visible": true,
         "nbits": "32",
         "value": 0,
@@ -92,7 +95,7 @@
       },
       {
         "name": "R5",
-        "verbal": "Register 5",
+        "verbal": "Register  5",
         "visible": true,
         "nbits": "32",
         "value": 0,
@@ -101,7 +104,7 @@
       },
       {
         "name": "R6",
-        "verbal": "Register 6",
+        "verbal": "Register  6",
         "visible": true,
         "nbits": "32",
         "value": 0,
@@ -110,7 +113,7 @@
       },
       {
         "name": "R7",
-        "verbal": "Register 7",
+        "verbal": "Register  7",
         "visible": true,
         "nbits": "32",
         "value": 0,
@@ -119,7 +122,7 @@
       },
       {
         "name": "R8",
-        "verbal": "Register 8",
+        "verbal": "Register  8",
         "visible": true,
         "nbits": "32",
         "value": 0,
@@ -128,7 +131,7 @@
       },
       {
         "name": "R9",
-        "verbal": "Register 9",
+        "verbal": "Register  9",
         "visible": true,
         "nbits": "32",
         "value": 0,
@@ -332,6 +335,294 @@
         "value": 0,
         "default_value": 0,
         "draw_data": []
+      },
+      {
+        "name": "R32",
+        "verbal": "Register 32",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R33",
+        "verbal": "Register 33",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R34",
+        "verbal": "Register 34",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R35",
+        "verbal": "Register 35",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R36",
+        "verbal": "Register 36",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R37",
+        "verbal": "Register 37",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R38",
+        "verbal": "Register 38",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R39",
+        "verbal": "Register 39",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R40",
+        "verbal": "Register 40",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R41",
+        "verbal": "Register 41",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R42",
+        "verbal": "Register 42",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R43",
+        "verbal": "Register 43",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R44",
+        "verbal": "Register 44",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R45",
+        "verbal": "Register 45",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R46",
+        "verbal": "Register 46",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R47",
+        "verbal": "Register 47",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R48",
+        "verbal": "Register 48",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R49",
+        "verbal": "Register 49",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R50",
+        "verbal": "Register 50",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R51",
+        "verbal": "Register 51",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R52",
+        "verbal": "Register 52",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R53",
+        "verbal": "Register 53",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R54",
+        "verbal": "Register 54",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R55",
+        "verbal": "Register 55",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R56",
+        "verbal": "Register 56",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R57",
+        "verbal": "Register 57",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R58",
+        "verbal": "Register 58",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R59",
+        "verbal": "Register 59",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R60",
+        "verbal": "Register 60",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R61",
+        "verbal": "Register 61",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R62",
+        "verbal": "Register 62",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
+      },
+      {
+        "name": "R63",
+        "verbal": "Register 63",
+        "visible": true,
+        "nbits": "32",
+        "value": 0,
+        "default_value": 0,
+        "draw_data": []
       }
     ],
     "REG_PC": {
@@ -341,8 +632,7 @@
       "nbits": "32",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "REG_MAR": {
       "name": "MAR",
@@ -351,8 +641,7 @@
       "nbits": "32",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "REG_MBR": {
       "name": "MBR",
@@ -361,8 +650,7 @@
       "nbits": "32",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "REG_IR": {
       "name": "IR",
@@ -371,38 +659,7 @@
       "nbits": "32",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
-    },
-    "REG_RT1": {
-      "name": "RT1",
-      "verbal": "Temporal 1 Register",
-      "visible": true,
-      "nbits": "32",
-      "value": 0,
-      "default_value": 0,
-      "draw_data": [],
-      "changed": false
-    },
-    "REG_RT2": {
-      "name": "RT2",
-      "verbal": "Temporal 2 Register",
-      "visible": true,
-      "nbits": "32",
-      "value": 0,
-      "default_value": 0,
-      "draw_data": [],
-      "changed": false
-    },
-    "REG_RT3": {
-      "name": "RT3",
-      "verbal": "Temporal 3 Register",
-      "visible": true,
-      "nbits": "32",
-      "value": 0,
-      "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "REG_SR": {
       "name": "SR",
@@ -411,8 +668,16 @@
       "nbits": "32",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
+    },
+    "REG_RT1": {
+      "name": "RT1",
+      "verbal": "Temporal Register 1",
+      "visible": true,
+      "nbits": "32",
+      "value": 0,
+      "default_value": 0,
+      "draw_data": []
     },
     "BUS_IB": {
       "name": "I_BUS",
@@ -421,8 +686,7 @@
       "nbits": "32",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "BUS_AB": {
       "name": "A_BUS",
@@ -431,8 +695,7 @@
       "nbits": "32",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "BUS_CB": {
       "name": "C_BUS",
@@ -441,8 +704,7 @@
       "nbits": "32",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "BUS_DB": {
       "name": "D_BUS",
@@ -451,18 +713,7 @@
       "nbits": "32",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
-    },
-    "C2_T2": {
-      "name": "C2_T2",
-      "verbal": "Output of PC",
-      "visible": false,
-      "nbits": "32",
-      "value": 0,
-      "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "RA_T9": {
       "name": "RA_T9",
@@ -471,8 +722,7 @@
       "nbits": "32",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "RB_T10": {
       "name": "RB_T10",
@@ -481,8 +731,7 @@
       "nbits": "32",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "SELEC_T3": {
       "name": "SELEC_T3",
@@ -491,28 +740,16 @@
       "nbits": "32",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
-    "SELP_M7": {
-      "name": "SELP_M7",
-      "verbal": "Output of MUX SelP",
+    "ALU_T6": {
+      "name": "ALU_T6",
+      "verbal": "Input of T6 Tristate",
       "visible": false,
       "nbits": "32",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
-    },
-    "ALU_C6": {
-      "name": "ALU_C6",
-      "verbal": "Input of Temporal 3 Register",
-      "visible": false,
-      "nbits": "32",
-      "value": 0,
-      "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "MA_ALU": {
       "name": "MA_ALU",
@@ -521,8 +758,7 @@
       "nbits": "32",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "MB_ALU": {
       "name": "MB_ALU",
@@ -531,8 +767,7 @@
       "nbits": "32",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "FLAG_C": {
       "name": "FLAG_C",
@@ -541,8 +776,7 @@
       "nbits": "1",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "FLAG_V": {
       "name": "FLAG_V",
@@ -551,8 +785,7 @@
       "nbits": "1",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "FLAG_N": {
       "name": "FLAG_N",
@@ -561,8 +794,7 @@
       "nbits": "1",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "FLAG_Z": {
       "name": "FLAG_Z",
@@ -571,8 +803,7 @@
       "nbits": "1",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "FLAG_I": {
       "name": "FLAG_I",
@@ -581,8 +812,7 @@
       "nbits": "1",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "FLAG_U": {
       "name": "FLAG_U",
@@ -591,8 +821,7 @@
       "nbits": "1",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "REG_MICROADDR": {
       "name": "µADDR",
@@ -603,8 +832,7 @@
       "default_value": 0,
       "draw_data": [
         "svg_cu:text4667"
-      ],
-      "changed": false
+      ]
     },
     "REG_MICROINS": {
       "name": "µINS",
@@ -613,8 +841,7 @@
       "nbits": "77",
       "value": {},
       "default_value": {},
-      "draw_data": [],
-      "changed": true
+      "draw_data": []
     },
     "FETCH": {
       "name": "FETCH",
@@ -623,8 +850,7 @@
       "nbits": "12",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "ROM_MUXA": {
       "name": "ROM_MUXA",
@@ -633,8 +859,7 @@
       "nbits": "12",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "SUM_ONE": {
       "name": "SUM_ONE",
@@ -643,18 +868,16 @@
       "nbits": "12",
       "value": 1,
       "default_value": 1,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "MUXA_MICROADDR": {
       "name": "MUXA_MICROADDR",
       "verbal": "Input microaddress from microinstruction",
       "visible": false,
       "nbits": "12",
-      "value": 1,
+      "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": true
+      "draw_data": []
     },
     "MUXC_MUXB": {
       "name": "MUXC_MUXB",
@@ -663,8 +886,7 @@
       "nbits": "1",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "INEX": {
       "name": "INEX",
@@ -673,8 +895,7 @@
       "nbits": "1",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "BS_M1": {
       "name": "BS_M1",
@@ -683,8 +904,7 @@
       "nbits": "32",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "BS_TD": {
       "name": "BS_TD",
@@ -693,8 +913,7 @@
       "nbits": "32",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "INTV": {
       "name": "INTV",
@@ -703,18 +922,7 @@
       "nbits": "8",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
-    },
-    "M2_C2": {
-      "name": "M2_C2",
-      "verbal": "Input of Program Counter",
-      "visible": false,
-      "nbits": "32",
-      "value": 0,
-      "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "M1_C1": {
       "name": "M1_C1",
@@ -723,8 +931,7 @@
       "nbits": "32",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "M7_C7": {
       "name": "M7_C7",
@@ -733,8 +940,7 @@
       "nbits": "32",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "VAL_ZERO": {
       "name": "VAL_ZERO",
@@ -743,8 +949,7 @@
       "nbits": "1",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "VAL_ONE": {
       "name": "VAL_ONE",
@@ -753,8 +958,7 @@
       "nbits": "32",
       "value": 1,
       "default_value": 1,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "VAL_FOUR": {
       "name": "VAL_FOUR",
@@ -763,8 +967,7 @@
       "nbits": "32",
       "value": 4,
       "default_value": 4,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "REG_IR_DECO": {
       "name": "IR_DECO",
@@ -773,56 +976,25 @@
       "nbits": "0",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "DECO_INS": {
       "name": "DECO_INS",
       "verbal": "Instruction decoded in binary",
       "visible": true,
       "nbits": "32",
+      "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "CLK": {
       "name": "CLK",
       "verbal": "Clock",
       "visible": false,
       "nbits": "32",
-      "default_value": 0,
-      "draw_data": [],
-      "changed": true
-    },
-    "IOSR": {
-      "name": "IOSR",
-      "verbal": "IO State Register",
-      "visible": false,
-      "nbits": "32",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
-    },
-    "IOCR": {
-      "name": "IOCR",
-      "verbal": "IO Control Register",
-      "visible": false,
-      "nbits": "32",
-      "value": 0,
-      "default_value": 0,
-      "draw_data": [],
-      "changed": false
-    },
-    "IODR": {
-      "name": "IODR",
-      "verbal": "IO Data Register",
-      "visible": false,
-      "nbits": "32",
-      "value": 0,
-      "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "KBDR": {
       "name": "KBDR",
@@ -831,8 +1003,7 @@
       "nbits": "32",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "KBSR": {
       "name": "KBSR",
@@ -841,8 +1012,7 @@
       "nbits": "32",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "DDR": {
       "name": "DDR",
@@ -851,8 +1021,7 @@
       "nbits": "32",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     },
     "DSR": {
       "name": "DSR",
@@ -861,8 +1030,7 @@
       "nbits": "32",
       "value": 0,
       "default_value": 0,
-      "draw_data": [],
-      "changed": false
+      "draw_data": []
     }
   },
   "signals": {
@@ -874,17 +1042,17 @@
       "default_value": 0,
       "nbits": "4",
       "behavior": [
-        "MV MUXC_MUXB VAL_ZERO; FIRE B;",
-        "MBIT MUXC_MUXB INT 0 1; FIRE B;",
-        "MBIT MUXC_MUXB IORDY 0 1; FIRE B;",
-        "MBIT MUXC_MUXB MRDY 0 1; FIRE B;",
-        "MBIT MUXC_MUXB REG_SR 0 1; FIRE B;",
-        "MBIT MUXC_MUXB REG_SR 1 1; FIRE B;",
-        "MBIT MUXC_MUXB REG_SR 28 1; FIRE B;",
-        "MBIT MUXC_MUXB REG_SR 29 1; FIRE B;",
-        "MBIT MUXC_MUXB REG_SR 30 1; FIRE B;",
-        "MBIT MUXC_MUXB REG_SR 31 1; FIRE B;",
-        "MV MUXC_MUXB INEX; FIRE B;"
+        "MV MUXC_MUXB VAL_ZERO; FIRE_IFCHANGED B MUXC_MUXB; RESET_CHANGED MUXC_MUXB",
+        "MBIT MUXC_MUXB INT 0 1; FIRE_IFCHANGED B MUXC_MUXB; RESET_CHANGED MUXC_MUXB",
+        "MBIT MUXC_MUXB IORDY 0 1; FIRE_IFCHANGED B MUXC_MUXB; RESET_CHANGED MUXC_MUXB",
+        "MBIT MUXC_MUXB MRDY 0 1; FIRE_IFCHANGED B MUXC_MUXB; RESET_CHANGED MUXC_MUXB",
+        "MBIT MUXC_MUXB REG_SR 0 1; FIRE_IFCHANGED B MUXC_MUXB; RESET_CHANGED MUXC_MUXB",
+        "MBIT MUXC_MUXB REG_SR 1 1; FIRE_IFCHANGED B MUXC_MUXB; RESET_CHANGED MUXC_MUXB",
+        "MBIT MUXC_MUXB REG_SR 28 1; FIRE_IFCHANGED B MUXC_MUXB; RESET_CHANGED MUXC_MUXB",
+        "MBIT MUXC_MUXB REG_SR 29 1; FIRE_IFCHANGED B MUXC_MUXB; RESET_CHANGED MUXC_MUXB",
+        "MBIT MUXC_MUXB REG_SR 30 1; FIRE_IFCHANGED B MUXC_MUXB; RESET_CHANGED MUXC_MUXB",
+        "MBIT MUXC_MUXB REG_SR 31 1; FIRE_IFCHANGED B MUXC_MUXB; RESET_CHANGED MUXC_MUXB",
+        "MV MUXC_MUXB INEX; FIRE_IFCHANGED B MUXC_MUXB; RESET_CHANGED MUXC_MUXB"
       ],
       "fire_name": [
         "svg_cu:text3410"
@@ -933,33 +1101,6 @@
           "svg_cu:path3414",
           "svg_cu:path3194-08"
         ]
-      ],
-      "behavior_fn": [
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
       ]
     },
     "B": {
@@ -999,15 +1140,6 @@
           "svg_cu:path3138-8",
           "svg_cu:path3498-6"
         ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "A0": {
@@ -1042,15 +1174,6 @@
           "svg_cu:path3098-2",
           "svg_cu:path3124-2-5"
         ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "A1": {
@@ -1078,15 +1201,6 @@
       ],
       "draw_name": [
         []
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "A0A1": {
@@ -1097,7 +1211,7 @@
       "default_value": 0,
       "nbits": "2",
       "behavior": [
-        "ADD MUXA_MICROADDR REG_MICROADDR VAL_ONE",
+        "PLUS1 MUXA_MICROADDR REG_MICROADDR",
         "CP_FIELD MUXA_MICROADDR REG_MICROINS/MADDR",
         "MV MUXA_MICROADDR ROM_MUXA",
         "MV MUXA_MICROADDR FETCH"
@@ -1131,19 +1245,6 @@
       ],
       "draw_name": [
         []
-      ],
-      "behavior_fn": [
-        null,
-        null,
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null,
-        null,
-        null
       ]
     },
     "C0": {
@@ -1155,7 +1256,7 @@
       "nbits": "1",
       "behavior": [
         "NOP",
-        "LOAD REG_MAR BUS_IB"
+        "MV REG_MAR BUS_IB"
       ],
       "fire_name": [
         "svg_p:text3077"
@@ -1169,15 +1270,6 @@
         [
           "svg_p:path3075"
         ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "C1": {
@@ -1189,7 +1281,7 @@
       "nbits": "1",
       "behavior": [
         "NOP",
-        "LOAD REG_MBR M1_C1"
+        "MV REG_MBR M1_C1"
       ],
       "fire_name": [
         "svg_p:text3079"
@@ -1203,15 +1295,6 @@
         [
           "svg_p:path3073"
         ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "C2": {
@@ -1223,29 +1306,20 @@
       "nbits": "1",
       "behavior": [
         "NOP",
-        "LOAD REG_PC M2_C2; UPDATEDPC"
+        "MV REG_PC BUS_IB; UPDATEDPC"
       ],
       "fire_name": [
         "svg_p:text3179"
       ],
       "draw_data": [
         [
-          "svg_p:path3485"
+          "svg_p:path3217"
         ]
       ],
       "draw_name": [
         [
           "svg_p:path3177"
         ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "C3": {
@@ -1257,29 +1331,21 @@
       "nbits": "1",
       "behavior": [
         "NOP",
-        "LOAD REG_IR BUS_IB; DECO; FIRE_IFSET C 10"
+        "MV REG_IR BUS_IB; DECO; FIRE_IFSET C 10"
       ],
       "fire_name": [
         "svg_p:text3439"
       ],
       "draw_data": [
         [
-          "svg_p:path3339"
+          "svg_p:path3339",
+          "svg_p:path3913-4"
         ]
       ],
       "draw_name": [
         [
           "svg_p:path3337"
         ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "C4": {
@@ -1291,98 +1357,20 @@
       "nbits": "1",
       "behavior": [
         "NOP",
-        "LOAD REG_RT1 BUS_IB"
+        "MV REG_RT1 BUS_IB"
       ],
       "fire_name": [
-        "svg_p:text3441"
+        "svg_p:tspan482"
       ],
       "draw_data": [
         [
-          "svg_p:path3263"
+          "svg_p:path3339-4"
         ]
       ],
       "draw_name": [
         [
-          "svg_p:path3255"
+          "svg_p:path3337-0"
         ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
-      ]
-    },
-    "C5": {
-      "name": "C5",
-      "visible": true,
-      "type": "E",
-      "value": 0,
-      "default_value": 0,
-      "nbits": "1",
-      "behavior": [
-        "NOP",
-        "LOAD REG_RT2 BUS_IB"
-      ],
-      "fire_name": [
-        "svg_p:text3443"
-      ],
-      "draw_data": [
-        [
-          "svg_p:path3277"
-        ]
-      ],
-      "draw_name": [
-        [
-          "svg_p:path3269"
-        ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
-      ]
-    },
-    "C6": {
-      "name": "C6",
-      "visible": true,
-      "type": "E",
-      "value": 0,
-      "default_value": 0,
-      "nbits": "1",
-      "behavior": [
-        "NOP",
-        "LOAD REG_RT3 ALU_C6"
-      ],
-      "fire_name": [
-        "svg_p:text3445"
-      ],
-      "draw_data": [
-        [
-          "svg_p:path3325",
-          "svg_p:path3323"
-        ]
-      ],
-      "draw_name": [
-        [
-          "svg_p:path3245"
-        ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "C7": {
@@ -1394,7 +1382,7 @@
       "nbits": "1",
       "behavior": [
         "NOP",
-        "LOAD REG_SR M7_C7; FIRE C"
+        "MV REG_SR M7_C7; FIRE C"
       ],
       "fire_name": [
         "svg_p:text3655"
@@ -1408,15 +1396,6 @@
         [
           "svg_p:path3681"
         ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "TA": {
@@ -1428,7 +1407,7 @@
       "nbits": "1",
       "behavior": [
         "NOP",
-        "MV BUS_AB REG_MAR; MOVE_BITSE A1A0 0 2 BUS_AB 0; FIRE_IFCHANGED A1A0 A1A0"
+        "MV BUS_AB REG_MAR"
       ],
       "fire_name": [
         "svg_p:text3091"
@@ -1450,15 +1429,6 @@
         [
           "svg_p:path3085"
         ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "TD": {
@@ -1470,7 +1440,7 @@
       "nbits": "1",
       "behavior": [
         "NOP",
-        "MV BUS_DB BS_TD; MOVE_BITSE A1A0 0 2 BUS_AB 0; FIRE_IFCHANGED A1A0 A1A0"
+        "MV BUS_DB REG_MBR; FIRE R; FIRE W"
       ],
       "fire_name": [
         "svg_p:text3103"
@@ -1479,9 +1449,8 @@
         [
           "svg_p:path3101",
           "svg_p:path3587",
-          "svg_p:path3515",
+          "svg_p:path3419-8",
           "svg_p:path3071",
-          "svg_p:path3419",
           "svg_p:path3099",
           "svg_p:path3097",
           "svg_p:path3559-5",
@@ -1497,15 +1466,6 @@
         [
           "svg_p:path3095"
         ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "T1": {
@@ -1517,7 +1477,7 @@
       "nbits": "1",
       "behavior": [
         "NOP",
-        "MV BUS_IB REG_MBR; FIRE M7; FIRE M2; FIRE M1"
+        "MV BUS_IB REG_MBR; FIRE M7; FIRE M1"
       ],
       "fire_name": [
         "svg_p:text3105"
@@ -1528,7 +1488,6 @@
           "svg_p:path3069",
           "svg_p:path3049",
           "svg_p:path3063-9",
-          "svg_p:path3071",
           "svg_p:path3071"
         ]
       ],
@@ -1536,15 +1495,6 @@
         [
           "svg_p:path3067"
         ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "T2": {
@@ -1556,7 +1506,7 @@
       "nbits": "1",
       "behavior": [
         "NOP",
-        "MV BUS_IB REG_PC; FIRE M7; FIRE M2; FIRE M1"
+        "MV BUS_IB REG_PC; FIRE M7; FIRE M1"
       ],
       "fire_name": [
         "svg_p:text3449"
@@ -1572,15 +1522,6 @@
         [
           "svg_p:path3329"
         ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "T3": {
@@ -1592,7 +1533,7 @@
       "nbits": "1",
       "behavior": [
         "NOP",
-        "MV BUS_IB SELEC_T3; FIRE M7; FIRE M2; FIRE M1"
+        "MV BUS_IB SELEC_T3; FIRE M7; FIRE M1"
       ],
       "fire_name": [
         "svg_p:text3451"
@@ -1609,87 +1550,6 @@
         [
           "svg_p:path3351"
         ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
-      ]
-    },
-    "T4": {
-      "name": "T4",
-      "visible": true,
-      "type": "L",
-      "value": 0,
-      "default_value": 0,
-      "nbits": "1",
-      "behavior": [
-        "NOP",
-        "MV BUS_IB REG_RT1; FIRE M7; FIRE M2; FIRE M1"
-      ],
-      "fire_name": [
-        "svg_p:text3453"
-      ],
-      "draw_data": [
-        [
-          "svg_p:path3261",
-          "svg_p:path3259",
-          "svg_p:path3049"
-        ]
-      ],
-      "draw_name": [
-        [
-          "svg_p:path3305"
-        ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
-      ]
-    },
-    "T5": {
-      "name": "T5",
-      "visible": true,
-      "type": "L",
-      "value": 0,
-      "default_value": 0,
-      "nbits": "1",
-      "behavior": [
-        "NOP",
-        "MV BUS_IB REG_RT2; FIRE M7; FIRE M2; FIRE M1"
-      ],
-      "fire_name": [
-        "svg_p:text3455"
-      ],
-      "draw_data": [
-        [
-          "svg_p:path3275",
-          "svg_p:path3273",
-          "svg_p:path3049"
-        ]
-      ],
-      "draw_name": [
-        [
-          "svg_p:path3307"
-        ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "T6": {
@@ -1701,7 +1561,7 @@
       "nbits": "1",
       "behavior": [
         "NOP",
-        "MV BUS_IB ALU_C6; FIRE M7; FIRE M2; FIRE M1"
+        "MV BUS_IB ALU_T6; FIRE M7; FIRE M1"
       ],
       "fire_name": [
         "svg_p:text3457"
@@ -1711,58 +1571,16 @@
           "svg_p:path3589",
           "svg_p:path3317",
           "svg_p:path3163-2",
-          "svg_p:path3049"
+          "svg_p:path3049",
+          "svg_p:path3317-9",
+          "svg_p:path3321",
+          "svg_p:path3261-8"
         ]
       ],
       "draw_name": [
         [
           "svg_p:path3319"
         ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
-      ]
-    },
-    "T7": {
-      "name": "T7",
-      "visible": true,
-      "type": "L",
-      "value": 0,
-      "default_value": 0,
-      "nbits": "1",
-      "behavior": [
-        "NOP",
-        "MV BUS_IB REG_RT3; FIRE M7; FIRE M2; FIRE M1"
-      ],
-      "fire_name": [
-        "svg_p:text3459"
-      ],
-      "draw_data": [
-        [
-          "svg_p:path3327",
-          "svg_p:path3311",
-          "svg_p:path3049"
-        ]
-      ],
-      "draw_name": [
-        [
-          "svg_p:path3313"
-        ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "T8": {
@@ -1774,7 +1592,7 @@
       "nbits": "1",
       "behavior": [
         "NOP",
-        "MV BUS_IB REG_SR; FIRE M7; FIRE M2; FIRE M1"
+        "MV BUS_IB REG_SR; FIRE M7; FIRE M1"
       ],
       "fire_name": [
         "svg_p:text3657"
@@ -1790,15 +1608,6 @@
         [
           "svg_p:path3649"
         ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "T9": {
@@ -1810,7 +1619,7 @@
       "nbits": "1",
       "behavior": [
         "NOP",
-        "MV BUS_IB RA_T9; FIRE M7; FIRE M2; FIRE M1"
+        "MV BUS_IB RA_T9; FIRE M7; FIRE M1"
       ],
       "fire_name": [
         "svg_p:text3147"
@@ -1827,15 +1636,6 @@
         [
           "svg_p:path3133"
         ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "T10": {
@@ -1847,7 +1647,7 @@
       "nbits": "1",
       "behavior": [
         "NOP",
-        "MV BUS_IB RB_T10; FIRE M7; FIRE M2; FIRE M1"
+        "MV BUS_IB RB_T10; FIRE M7; FIRE M1"
       ],
       "fire_name": [
         "svg_p:text3149"
@@ -1864,15 +1664,6 @@
         [
           "svg_p:path3137"
         ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "T11": {
@@ -1884,7 +1675,7 @@
       "nbits": "1",
       "behavior": [
         "NOP",
-        "CP_FIELD BUS_IB REG_MICROINS/EXCODE; FIRE M7; FIRE M2; FIRE M1"
+        "CP_FIELD BUS_IB REG_MICROINS/EXCODE; FIRE M7; FIRE M1"
       ],
       "fire_name": [
         "svg_p:text3147-5",
@@ -1892,7 +1683,6 @@
       ],
       "draw_data": [
         [
-          "svg_p:path3145",
           "svg_p:path3081-3",
           "svg_p:path3139-7",
           "svg_p:path3049",
@@ -1906,15 +1696,6 @@
           "svg_p:path3133-6",
           "svg_cu:path3133-6"
         ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "M1": {
@@ -1926,7 +1707,7 @@
       "nbits": "1",
       "behavior": [
         "MV M1_C1 BUS_IB",
-        "MV M1_C1 BS_M1"
+        "MV M1_C1 BUS_DB"
       ],
       "depends_on": [
         "C1"
@@ -1952,65 +1733,6 @@
         [
           "svg_p:path3447"
         ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
-      ]
-    },
-    "M2": {
-      "name": "M2",
-      "visible": true,
-      "type": "L",
-      "value": 0,
-      "default_value": 0,
-      "nbits": "1",
-      "behavior": [
-        "MV M2_C2 BUS_IB",
-        "ADD M2_C2 REG_PC VAL_FOUR"
-      ],
-      "depends_on": [
-        "C2"
-      ],
-      "fire_name": [
-        "svg_p:text3471"
-      ],
-      "draw_data": [
-        [
-          "svg_p:path3217",
-          "svg_p:path3215",
-          "svg_p:path3213",
-          "svg_p:path3213-9"
-        ],
-        [
-          "svg_p:path3211",
-          "svg_p:path3209",
-          "svg_p:path3193",
-          "svg_p:path3207",
-          "svg_p:path3197",
-          "svg_p:path3201"
-        ]
-      ],
-      "draw_name": [
-        [],
-        [
-          "svg_p:path3467",
-          "svg_p:path3467"
-        ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "M7": {
@@ -2022,7 +1744,7 @@
       "nbits": "1",
       "behavior": [
         "MV M7_C7 BUS_IB",
-        "MV M7_C7 SELP_M7"
+        "MV M7_C7 REG_SR; SBIT M7_C7 FLAG_C 31; SBIT M7_C7 FLAG_V 30; SBIT M7_C7 FLAG_N 29; SBIT M7_C7 FLAG_Z 28"
       ],
       "depends_on": [
         "C7"
@@ -2045,15 +1767,6 @@
         [
           "svg_p:path3667"
         ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "MA": {
@@ -2065,7 +1778,7 @@
       "nbits": "1",
       "behavior": [
         "MV MA_ALU RA_T9; FIRE COP",
-        "MV MA_ALU REG_RT1; FIRE COP"
+        "MV MA_ALU BUS_IB; FIRE COP"
       ],
       "depends_on": [
         "SELA",
@@ -2089,15 +1802,6 @@
         [
           "svg_p:path3423"
         ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "MB": {
@@ -2106,12 +1810,10 @@
       "type": "L",
       "value": 0,
       "default_value": 0,
-      "nbits": "2",
+      "nbits": "1",
       "behavior": [
         "MV MB_ALU RB_T10; FIRE COP",
-        "MV MB_ALU REG_RT2; FIRE COP",
-        "MV MB_ALU VAL_FOUR; FIRE COP",
-        "MV MB_ALU VAL_ONE; FIRE COP"
+        "MV MB_ALU REG_PC; FIRE COP"
       ],
       "depends_on": [
         "SELA",
@@ -2128,14 +1830,6 @@
         ],
         [
           "svg_p:path3283"
-        ],
-        [
-          "svg_p:path3295",
-          "svg_p:path3293"
-        ],
-        [
-          "svg_p:path3297",
-          "svg_p:path3299"
         ]
       ],
       "draw_name": [
@@ -2144,19 +1838,6 @@
           "svg_p:path3425",
           "svg_p:path3427"
         ]
-      ],
-      "behavior_fn": [
-        null,
-        null,
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null,
-        null,
-        null
       ]
     },
     "COP": {
@@ -2165,25 +1846,41 @@
       "type": "L",
       "value": 0,
       "default_value": 0,
-      "nbits": "4",
+      "nbits": "5",
       "forbidden": true,
       "behavior": [
         "NOP_ALU; UPDATE_NZVC",
-        "AND ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-        "OR ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-        "NOT ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-        "XOR ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-        "SRL ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-        "SRA ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-        "SL ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-        "RR ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-        "RL ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-        "ADD ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-        "SUB ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-        "MUL ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-        "DIV ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-        "MOD ALU_C6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3",
-        "LUI ALU_C6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET SELP 3"
+        "AND ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+        "OR ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+        "NOT ALU_T6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+        "XOR ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+        "SRL ALU_T6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+        "SRA ALU_T6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+        "SL ALU_T6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+        "RR ALU_T6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+        "RL ALU_T6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+        "ADD ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+        "SUB ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+        "MUL ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+        "DIV ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+        "MOD ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+        "LUI ALU_T6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+        "ADDFOUR ALU_T6 MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+        "ADDONE ALU_T6 MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+        "FADD ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+        "FSUB ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+        "FMUL ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+        "FDIV ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+        "FMOD ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+        "NOP_ALU",
+        "NOP_ALU",
+        "NOP_ALU",
+        "NOP_ALU",
+        "NOP_ALU",
+        "NOP_ALU",
+        "NOP_ALU",
+        "NOP_ALU",
+        "NOP_ALU"
       ],
       "depends_on": [
         "SELCOP"
@@ -2206,92 +1903,6 @@
           "svg_p:path3009",
           "svg_p:path3301"
         ]
-      ],
-      "behavior_fn": [
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ]
-    },
-    "SELP": {
-      "name": "SELP",
-      "visible": true,
-      "type": "L",
-      "value": 0,
-      "default_value": 0,
-      "nbits": "2",
-      "behavior": [
-        "NOP",
-        "MV SELP_M7 REG_SR; SBIT SELP_M7 FLAG_U 0; FIRE M7",
-        "MV SELP_M7 REG_SR; SBIT SELP_M7 FLAG_I 1; FIRE M7",
-        "MV SELP_M7 REG_SR; SBIT SELP_M7 FLAG_C 31; SBIT SELP_M7 FLAG_V 30; SBIT SELP_M7 FLAG_N 29; SBIT SELP_M7 FLAG_Z 28; FIRE M7"
-      ],
-      "fire_name": [
-        "svg_p:text3703"
-      ],
-      "draw_data": [
-        [],
-        [
-          "svg_p:path3643"
-        ],
-        [
-          "svg_p:path3705"
-        ],
-        [
-          "svg_p:path3675",
-          "svg_p:path3331"
-        ]
-      ],
-      "draw_name": [
-        [],
-        [
-          "svg_p:path3697"
-        ]
-      ],
-      "behavior_fn": [
-        null,
-        null,
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null,
-        null,
-        null
       ]
     },
     "SELA": {
@@ -2300,9 +1911,9 @@
       "type": "L",
       "value": 0,
       "default_value": 0,
-      "nbits": "5",
+      "nbits": "6",
       "behavior": [
-        "FIRE MR_RA;"
+        "FIRE_IFCHANGED MR_RA SELA; RESET_CHANGED SELA"
       ],
       "depends_on": [
         "RA"
@@ -2315,13 +1926,6 @@
       ],
       "draw_name": [
         []
-      ],
-      "behavior_fn": [
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null
       ]
     },
     "SELB": {
@@ -2330,9 +1934,9 @@
       "type": "L",
       "value": 0,
       "default_value": 0,
-      "nbits": "5",
+      "nbits": "6",
       "behavior": [
-        "FIRE MR_RB;"
+        "FIRE_IFCHANGED MR_RB SELB; RESET_CHANGED SELB"
       ],
       "depends_on": [
         "RB"
@@ -2345,13 +1949,6 @@
       ],
       "draw_name": [
         []
-      ],
-      "behavior_fn": [
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null
       ]
     },
     "SELC": {
@@ -2360,9 +1957,9 @@
       "type": "L",
       "value": 0,
       "default_value": 0,
-      "nbits": "5",
+      "nbits": "6",
       "behavior": [
-        "FIRE MR_RC;"
+        "FIRE_IFCHANGED MR_RC SELC; RESET_CHANGED SELC"
       ],
       "depends_on": [
         "RC"
@@ -2375,13 +1972,6 @@
       ],
       "draw_name": [
         []
-      ],
-      "behavior_fn": [
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null
       ]
     },
     "SELCOP": {
@@ -2390,9 +1980,9 @@
       "type": "L",
       "value": 0,
       "default_value": 0,
-      "nbits": "4",
+      "nbits": "5",
       "behavior": [
-        "FIRE MC;"
+        "FIRE_IFCHANGED MC SELCOP; RESET_CHANGED SELCOP"
       ],
       "depends_on": [
         "COP"
@@ -2405,13 +1995,6 @@
       ],
       "draw_name": [
         []
-      ],
-      "behavior_fn": [
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null
       ]
     },
     "EXCODE": {
@@ -2432,13 +2015,6 @@
       ],
       "draw_name": [
         []
-      ],
-      "behavior_fn": [
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null
       ]
     },
     "RA": {
@@ -2447,7 +2023,7 @@
       "type": "L",
       "value": 0,
       "default_value": 0,
-      "nbits": "5",
+      "nbits": "6",
       "forbidden": true,
       "behavior": [
         "GET RA_T9 BR RA; FIRE_IFSET T9 1; FIRE_IFSET MA 0"
@@ -2465,13 +2041,6 @@
         [
           "svg_p:path3109"
         ]
-      ],
-      "behavior_fn": [
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null
       ]
     },
     "RB": {
@@ -2480,7 +2049,7 @@
       "type": "L",
       "value": 0,
       "default_value": 0,
-      "nbits": "5",
+      "nbits": "6",
       "forbidden": true,
       "behavior": [
         "GET RB_T10 BR RB; FIRE_IFSET T10 1; FIRE_IFSET MB 0"
@@ -2498,13 +2067,6 @@
         [
           "svg_p:path3113"
         ]
-      ],
-      "behavior_fn": [
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null
       ]
     },
     "RC": {
@@ -2513,7 +2075,7 @@
       "type": "L",
       "value": 0,
       "default_value": 0,
-      "nbits": "5",
+      "nbits": "6",
       "forbidden": true,
       "behavior": [
         "FIRE LC"
@@ -2531,13 +2093,6 @@
         [
           "svg_p:path3117"
         ]
-      ],
-      "behavior_fn": [
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null
       ]
     },
     "LC": {
@@ -2565,15 +2120,6 @@
         [
           "svg_p:path3121"
         ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "SE": {
@@ -2584,15 +2130,14 @@
       "default_value": 0,
       "nbits": "1",
       "behavior": [
-        "MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE_IFCHANGED SBWA SE",
-        "MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3; MOVE_BITS SBWA 4 1 SE; FIRE_IFCHANGED SBWA SE"
+        "MBITS SELEC_T3 0 REG_RT1 OFFSET SIZE 0 SE; FIRE T3",
+        "MBITS SELEC_T3 0 REG_RT1 OFFSET SIZE 0 SE; FIRE T3"
       ],
       "depends_on": [
         "T3"
       ],
       "fire_name": [
-        "svg_p:text3593",
-        "svg_p:text3431"
+        "svg_p:text3593"
       ],
       "draw_data": [
         []
@@ -2602,15 +2147,6 @@
           "svg_p:path3591",
           "svg_p:path3447-7-7"
         ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "SIZE": {
@@ -2621,7 +2157,7 @@
       "default_value": 0,
       "nbits": "5",
       "behavior": [
-        "MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3"
+        "MBITS SELEC_T3 0 REG_RT1 OFFSET SIZE 0 SE; FIRE T3"
       ],
       "depends_on": [
         "T3"
@@ -2636,13 +2172,6 @@
         [
           "svg_p:path3355"
         ]
-      ],
-      "behavior_fn": [
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null
       ]
     },
     "OFFSET": {
@@ -2653,7 +2182,7 @@
       "default_value": 0,
       "nbits": "5",
       "behavior": [
-        "MBITS SELEC_T3 0 REG_IR OFFSET SIZE 0 SE; FIRE T3"
+        "MBITS SELEC_T3 0 REG_RT1 OFFSET SIZE 0 SE; FIRE T3"
       ],
       "depends_on": [
         "T3"
@@ -2668,13 +2197,6 @@
         [
           "svg_p:path3359"
         ]
-      ],
-      "behavior_fn": [
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null
       ]
     },
     "MC": {
@@ -2685,8 +2207,8 @@
       "default_value": 0,
       "nbits": "1",
       "behavior": [
-        "MBIT COP REG_IR 0 4; FIRE COP;",
-        "CP_FIELD COP REG_MICROINS/SELCOP; FIRE COP;"
+        "MBIT COP REG_IR 0 5; FIRE_IFCHANGED COP MC",
+        "CP_FIELD COP REG_MICROINS/SELCOP; FIRE_IFCHANGED COP MC"
       ],
       "depends_on": [
         "SELCOP"
@@ -2711,31 +2233,18 @@
         [
           "svg_cu:path3306"
         ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "MR": {
       "name": "MR",
-      "verbal": [
-        "Copy from IR[SelA], from IR[SelB], and from IR[SelB] into RA, RB, and RC. ",
-        "Copy SelA, SelB, and SelB into RA, RB, and RC. "
-      ],
       "visible": true,
       "type": "L",
       "value": 0,
       "default_value": 0,
       "nbits": "1",
       "behavior": [
-        "MV MR_RA MR; FIRE MR_RA; MV MR_RB MR; FIRE MR_RB; MV MR_RC MR; FIRE MR_RC;",
-        "MV MR_RA MR; FIRE MR_RA; MV MR_RB MR; FIRE MR_RB; MV MR_RC MR; FIRE MR_RC;"
+        "MV MR_RA MR; FIRE MR_RA; MV MR_RB MR; FIRE MR_RB; MV MR_RC MR; FIRE MR_RC",
+        "MV MR_RA MR; FIRE MR_RA; MV MR_RB MR; FIRE MR_RB; MV MR_RC MR; FIRE MR_RC"
       ],
       "depends_on": [
         "SELA",
@@ -2762,6 +2271,7 @@
           "svg_cu:path3290",
           "svg_cu:path3260",
           "svg_cu:path3196",
+          "svg_cu:path3502",
           "svg_cu:path3278",
           "svg_cu:path3232",
           "svg_cu:path3292"
@@ -2772,9 +2282,9 @@
           "svg_cu:path3300",
           "svg_cu:path3258",
           "svg_cu:path3260",
-          "svg_cu:path3258-4",
           "svg_cu:path3278",
           "svg_cu:path3196",
+          "svg_cu:path3502",
           "svg_cu:path3294",
           "svg_cu:path3292",
           "svg_cu:path3288",
@@ -2789,15 +2299,6 @@
           "svg_cu:path3240",
           "svg_cu:path3252"
         ]
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "MR_RA": {
@@ -2808,7 +2309,7 @@
       "default_value": 0,
       "nbits": "1",
       "behavior": [
-        "MBIT_SN RA REG_IR REG_MICROINS/SELA 5; FIRE RA;",
+        "MBIT_SN RA REG_IR REG_MICROINS/SELA 6; FIRE RA;",
         "CP_FIELD RA REG_MICROINS/SELA; FIRE RA;"
       ],
       "fire_name": [],
@@ -2817,15 +2318,6 @@
       ],
       "draw_name": [
         []
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "MR_RB": {
@@ -2836,7 +2328,7 @@
       "default_value": 0,
       "nbits": "1",
       "behavior": [
-        "MBIT_SN RB REG_IR REG_MICROINS/SELB 5; FIRE RB;",
+        "MBIT_SN RB REG_IR REG_MICROINS/SELB 6; FIRE RB;",
         "CP_FIELD RB REG_MICROINS/SELB; FIRE RB;"
       ],
       "fire_name": [],
@@ -2845,15 +2337,6 @@
       ],
       "draw_name": [
         []
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "MR_RC": {
@@ -2864,7 +2347,7 @@
       "default_value": 0,
       "nbits": "1",
       "behavior": [
-        "MBIT_SN RC REG_IR REG_MICROINS/SELC 5; FIRE RC;",
+        "MBIT_SN RC REG_IR REG_MICROINS/SELC 6; FIRE RC;",
         "CP_FIELD RC REG_MICROINS/SELC; FIRE RC;"
       ],
       "fire_name": [],
@@ -2873,294 +2356,6 @@
       ],
       "draw_name": [
         []
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
-      ]
-    },
-    "BW": {
-      "name": "BW",
-      "verbal": [
-        "Select one byte (based on A1A0) from Word. ",
-        "Select two bytes (one Half Word based on A1A0) from Word. ",
-        "",
-        "Select the full Word. "
-      ],
-      "visible": true,
-      "type": "L",
-      "value": 0,
-      "default_value": 0,
-      "nbits": "2",
-      "behavior": [
-        "MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BW; FIRE SBWA; RESET_CHANGED BW",
-        "MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BW; FIRE SBWA; RESET_CHANGED BW",
-        "MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BW; FIRE SBWA; RESET_CHANGED BW",
-        "MOVE_BITS BWA 2 2 BW; MOVE_BITS SBWA 2 2 BW; FIRE_IFCHANGED BWA BW; FIRE SBWA; RESET_CHANGED BW"
-      ],
-      "fire_name": [
-        "svg_p:text3433"
-      ],
-      "draw_data": [
-        [
-          "svg_p:path3061-2-6",
-          "svg_p:path3101-8",
-          "svg_p:path3535-8"
-        ]
-      ],
-      "draw_name": [
-        [],
-        []
-      ],
-      "behavior_fn": [
-        null,
-        null,
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null,
-        null,
-        null
-      ]
-    },
-    "A1A0": {
-      "name": "A1A0",
-      "visible": true,
-      "type": "L",
-      "value": 0,
-      "default_value": 0,
-      "nbits": "2",
-      "behavior": [
-        "MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA",
-        "MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA",
-        "MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA",
-        "MOVE_BITS BWA 0 2 A1A0; MOVE_BITS SBWA 0 2 A1A0; FIRE BWA; FIRE SBWA"
-      ],
-      "fire_name": [
-        "svg_p:text3603"
-      ],
-      "draw_data": [
-        [],
-        []
-      ],
-      "draw_name": [
-        [],
-        []
-      ],
-      "behavior_fn": [
-        null,
-        null,
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null,
-        null,
-        null
-      ]
-    },
-    "BWA": {
-      "name": "BWA",
-      "visible": false,
-      "type": "L",
-      "value": 0,
-      "default_value": 0,
-      "nbits": "4",
-      "behavior": [
-        "BSEL BS_TD 0 8 REG_MBR 0; FIRE TD; FIRE R; FIRE W",
-        "BSEL BS_TD 8 8 REG_MBR 0; FIRE TD; FIRE R; FIRE W",
-        "BSEL BS_TD 16 8 REG_MBR 0; FIRE TD; FIRE R; FIRE W",
-        "BSEL BS_TD 24 8 REG_MBR 0; FIRE TD; FIRE R; FIRE W",
-        "BSEL BS_TD 0 16 REG_MBR 0; FIRE TD; FIRE R; FIRE W",
-        "BSEL BS_TD 0 16 REG_MBR 0; FIRE TD; FIRE R; FIRE W",
-        "BSEL BS_TD 0 16 REG_MBR 0; FIRE TD; FIRE R; FIRE W",
-        "BSEL BS_TD 0 16 REG_MBR 0; FIRE TD; FIRE R; FIRE W",
-        "BSEL BS_TD 16 16 REG_MBR 0; FIRE TD; FIRE R; FIRE W",
-        "BSEL BS_TD 16 16 REG_MBR 0; FIRE TD; FIRE R; FIRE W",
-        "BSEL BS_TD 16 16 REG_MBR 0; FIRE TD; FIRE R; FIRE W",
-        "BSEL BS_TD 16 16 REG_MBR 0; FIRE TD; FIRE R; FIRE W",
-        "MV BS_TD REG_MBR; FIRE TD; FIRE R; FIRE W",
-        "MV BS_TD REG_MBR; FIRE TD; FIRE R; FIRE W",
-        "MV BS_TD REG_MBR; FIRE TD; FIRE R; FIRE W",
-        "MV BS_TD REG_MBR; FIRE TD; FIRE R; FIRE W"
-      ],
-      "fire_name": [
-        "svg_p:text3533-5"
-      ],
-      "draw_data": [
-        [],
-        []
-      ],
-      "draw_name": [
-        [],
-        []
-      ],
-      "behavior_fn": [
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ]
-    },
-    "SBWA": {
-      "name": "SBWA",
-      "visible": false,
-      "type": "L",
-      "value": 0,
-      "default_value": 0,
-      "nbits": "5",
-      "behavior": [
-        "BSEL BS_M1 0 8 BUS_DB 0; FIRE M1",
-        "BSEL BS_M1 0 8 BUS_DB 8; FIRE M1",
-        "BSEL BS_M1 0 8 BUS_DB 16; FIRE M1",
-        "BSEL BS_M1 0 8 BUS_DB 24; FIRE M1",
-        "BSEL BS_M1 0 16 BUS_DB 0; FIRE M1",
-        "BSEL BS_M1 0 16 BUS_DB 0; FIRE M1",
-        "BSEL BS_M1 0 16 BUS_DB 0; FIRE M1",
-        "BSEL BS_M1 0 16 BUS_DB 0; FIRE M1",
-        "BSEL BS_M1 0 16 BUS_DB 16; FIRE M1",
-        "BSEL BS_M1 0 16 BUS_DB 16; FIRE M1",
-        "BSEL BS_M1 0 16 BUS_DB 16; FIRE M1",
-        "BSEL BS_M1 0 16 BUS_DB 16; FIRE M1",
-        "MV BS_M1 BUS_DB; FIRE M1",
-        "MV BS_M1 BUS_DB; FIRE M1",
-        "MV BS_M1 BUS_DB; FIRE M1",
-        "MV BS_M1 BUS_DB; FIRE M1",
-        "BSEL BS_M1 0 8 BUS_DB 0; EXT_SIG BS_M1 7; FIRE M1",
-        "BSEL BS_M1 0 8 BUS_DB 8; EXT_SIG BS_M1 7; FIRE M1",
-        "BSEL BS_M1 0 8 BUS_DB 16; EXT_SIG BS_M1 7; FIRE M1",
-        "BSEL BS_M1 0 8 BUS_DB 24; EXT_SIG BS_M1 7; FIRE M1",
-        "BSEL BS_M1 0 16 BUS_DB 0; EXT_SIG BS_M1 15; FIRE M1",
-        "BSEL BS_M1 0 16 BUS_DB 0; EXT_SIG BS_M1 15; FIRE M1",
-        "BSEL BS_M1 0 16 BUS_DB 0; EXT_SIG BS_M1 15; FIRE M1",
-        "BSEL BS_M1 0 16 BUS_DB 0; EXT_SIG BS_M1 15; FIRE M1",
-        "BSEL BS_M1 0 16 BUS_DB 16; EXT_SIG BS_M1 15; FIRE M1",
-        "BSEL BS_M1 0 16 BUS_DB 16; EXT_SIG BS_M1 15; FIRE M1",
-        "BSEL BS_M1 0 16 BUS_DB 16; EXT_SIG BS_M1 15; FIRE M1",
-        "BSEL BS_M1 0 16 BUS_DB 16; EXT_SIG BS_M1 15; FIRE M1",
-        "MV BS_M1 BUS_DB; FIRE M1",
-        "MV BS_M1 BUS_DB; FIRE M1",
-        "MV BS_M1 BUS_DB; FIRE M1",
-        "MV BS_M1 BUS_DB; FIRE M1"
-      ],
-      "fire_name": [],
-      "draw_data": [
-        [],
-        []
-      ],
-      "draw_name": [
-        [],
-        []
-      ],
-      "behavior_fn": [
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
       ]
     },
     "IOR": {
@@ -3188,15 +2383,6 @@
       "draw_name": [
         [],
         []
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "IOW": {
@@ -3208,7 +2394,7 @@
       "nbits": "1",
       "behavior": [
         "NOP",
-        "MOVE_BITS SCR_IOW 0 1 IOW; FIRE SCR_IOW; MOVE_BITS IO_IOW 0 1 IOW; FIRE IO_IOW;"
+        "MOVE_BITS SCR_IOW 0 1 IOW; FIRE SCR_IOW;"
       ],
       "fire_name": [
         "svg_p:text3717"
@@ -3224,15 +2410,6 @@
       "draw_name": [
         [],
         []
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "TEST_C": {
@@ -3244,12 +2421,11 @@
       "nbits": "1",
       "forbidden": true,
       "behavior": [
-        "MV FLAG_C VAL_ZERO; FIRE_IFSET SELP 2",
-        "MV FLAG_C VAL_ONE; FIRE_IFSET SELP 3"
+        "MV FLAG_C VAL_ZERO; FIRE M7",
+        "MV FLAG_C VAL_ONE; FIRE M7"
       ],
       "depends_on": [
-        "SELCOP",
-        "COP"
+        "SELCOP"
       ],
       "fire_name": [
         "svg_p:text3701-3"
@@ -3261,15 +2437,6 @@
       ],
       "draw_name": [
         []
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "TEST_V": {
@@ -3281,12 +2448,11 @@
       "nbits": "1",
       "forbidden": true,
       "behavior": [
-        "MV FLAG_V VAL_ZERO; FIRE_IFSET SELP 2",
-        "MV FLAG_V VAL_ONE; FIRE_IFSET SELP 3"
+        "MV FLAG_V VAL_ZERO; FIRE M7",
+        "MV FLAG_V VAL_ONE; FIRE M7"
       ],
       "depends_on": [
-        "SELCOP",
-        "COP"
+        "SELCOP"
       ],
       "fire_name": [
         "svg_p:text3701-3-1"
@@ -3298,15 +2464,6 @@
       ],
       "draw_name": [
         []
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "TEST_N": {
@@ -3318,12 +2475,11 @@
       "nbits": "1",
       "forbidden": true,
       "behavior": [
-        "MV FLAG_N VAL_ZERO; FIRE_IFSET SELP 2",
-        "MV FLAG_N VAL_ONE; FIRE_IFSET SELP 3"
+        "MV FLAG_N VAL_ZERO; FIRE M7",
+        "MV FLAG_N VAL_ONE; FIRE M7"
       ],
       "depends_on": [
-        "SELCOP",
-        "COP"
+        "SELCOP"
       ],
       "fire_name": [
         "svg_p:text3701-3-2"
@@ -3335,15 +2491,6 @@
       ],
       "draw_name": [
         []
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "TEST_Z": {
@@ -3355,12 +2502,11 @@
       "nbits": "1",
       "forbidden": true,
       "behavior": [
-        "MV FLAG_Z VAL_ZERO; FIRE_IFSET SELP 2",
-        "MV FLAG_Z VAL_ONE; FIRE_IFSET SELP 3"
+        "MV FLAG_Z VAL_ZERO; FIRE M7",
+        "MV FLAG_Z VAL_ONE; FIRE M7"
       ],
       "depends_on": [
-        "SELCOP",
-        "COP"
+        "SELCOP"
       ],
       "fire_name": [
         "svg_p:text3701-3-5"
@@ -3372,15 +2518,6 @@
       ],
       "draw_name": [
         []
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "TEST_I": {
@@ -3391,31 +2528,22 @@
       "default_value": 0,
       "nbits": "1",
       "behavior": [
-        "MV FLAG_I VAL_ZERO; FIRE_IFSET SELP 2",
-        "MV FLAG_I VAL_ONE; FIRE_IFSET SELP 2"
+        "MV FLAG_I VAL_ZERO; FIRE M7",
+        "MV FLAG_I VAL_ONE; FIRE M7"
       ],
       "depends_on": [
         "CLK"
       ],
       "fire_name": [
-        "svg_p:text3669"
+        "svg_cu:text3440"
       ],
       "draw_data": [
         [
-          "svg_p:text3669"
+          "svg_cu:text3440"
         ]
       ],
       "draw_name": [
         []
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "TEST_U": {
@@ -3426,64 +2554,22 @@
       "default_value": 0,
       "nbits": "1",
       "behavior": [
-        "MV FLAG_U VAL_ZERO; FIRE_IFSET SELP 1",
-        "MV FLAG_U VAL_ONE; FIRE_IFSET SELP 1"
+        "MV FLAG_U VAL_ZERO; FIRE M7",
+        "MV FLAG_U VAL_ONE; FIRE M7"
       ],
       "depends_on": [
         "CLK"
       ],
       "fire_name": [
-        "svg_p:text3669-1"
+        "svg_cu:text3442"
       ],
       "draw_data": [
         [
-          "svg_p:text3669-1"
+          "svg_cu:text3442"
         ]
       ],
       "draw_name": [
         []
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
-      ]
-    },
-    "TEST_INTV": {
-      "name": "TEST_INTV",
-      "visible": true,
-      "type": "L",
-      "value": 0,
-      "default_value": 0,
-      "nbits": "8",
-      "forbidden": true,
-      "behavior": [
-        "MBIT INTV TEST_INTV 0 32"
-      ],
-      "depends_on": [
-        "INT"
-      ],
-      "fire_name": [
-        "svg_p:tspan4225"
-      ],
-      "draw_data": [
-        [
-          "svg_p:path3749"
-        ]
-      ],
-      "draw_name": [
-        []
-      ],
-      "behavior_fn": [
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null
       ]
     },
     "MRDY": {
@@ -3501,8 +2587,7 @@
         "FIRE_IFCHANGED MRDY C"
       ],
       "fire_name": [
-        "svg_p:tspan3916",
-        "svg_p:text3909"
+        "svg_p:tspan3916"
       ],
       "draw_data": [
         [],
@@ -3514,15 +2599,6 @@
       "draw_name": [
         [],
         []
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "R": {
@@ -3534,7 +2610,7 @@
       "nbits": "1",
       "behavior": [
         "NOP",
-        "MEM_READ BUS_AB BUS_DB BWA MRDY CLK; FIRE MRDY"
+        "MEM_READ BUS_AB BUS_DB MRDY CLK; FIRE MRDY; FIRE M1"
       ],
       "fire_name": [
         "svg_p:text3533-5-2",
@@ -3550,15 +2626,6 @@
       "draw_name": [
         [],
         []
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "W": {
@@ -3570,12 +2637,11 @@
       "nbits": "1",
       "behavior": [
         "NOP",
-        "MEM_WRITE BUS_AB BUS_DB BWA MRDY CLK; FIRE MRDY"
+        "MEM_WRITE BUS_AB BUS_DB MRDY CLK; FIRE MRDY"
       ],
       "fire_name": [
         "svg_p:text3533-5-08",
-        "svg_p:text3527",
-        "svg_p:text3431-7"
+        "svg_p:text3527"
       ],
       "draw_data": [
         [],
@@ -3588,226 +2654,6 @@
       "draw_name": [
         [],
         []
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
-      ]
-    },
-    "INT": {
-      "name": "INT",
-      "visible": true,
-      "type": "L",
-      "value": 0,
-      "default_value": 0,
-      "nbits": "1",
-      "depends_on": [
-        "CLK"
-      ],
-      "behavior": [
-        "FIRE C",
-        "FIRE C"
-      ],
-      "fire_name": [
-        "svg_p:tspan4199"
-      ],
-      "draw_data": [
-        [],
-        [
-          "svg_p:path3809"
-        ]
-      ],
-      "draw_name": [
-        [],
-        []
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
-      ]
-    },
-    "IORDY": {
-      "name": "IORDY",
-      "visible": true,
-      "type": "L",
-      "value": 0,
-      "default_value": 0,
-      "nbits": "1",
-      "depends_on": [
-        "CLK"
-      ],
-      "behavior": [
-        "FIRE_IFCHANGED IORDY C",
-        "FIRE_IFCHANGED IORDY C"
-      ],
-      "fire_name": [
-        "svg_p:tspan4089",
-        "svg_p:path3793",
-        "svg_p:text3911"
-      ],
-      "draw_data": [
-        [],
-        [
-          "svg_p:path3897"
-        ]
-      ],
-      "draw_name": [
-        [],
-        []
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
-      ]
-    },
-    "IO_IOR": {
-      "name": "IO_IOR",
-      "visible": true,
-      "type": "L",
-      "value": 0,
-      "default_value": 0,
-      "nbits": "1",
-      "behavior": [
-        "NOP",
-        "IO_IOR BUS_AB BUS_DB IOSR IOCR IODR CLK; FIRE SBWA"
-      ],
-      "fire_name": [
-        "svg_p:tspan4173"
-      ],
-      "draw_data": [
-        [],
-        [
-          "svg_p:path3795",
-          "svg_p:path3733"
-        ]
-      ],
-      "draw_name": [
-        [],
-        []
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
-      ]
-    },
-    "IO_IOW": {
-      "name": "IO_IOW",
-      "visible": true,
-      "type": "L",
-      "value": 0,
-      "default_value": 0,
-      "nbits": "1",
-      "behavior": [
-        "NOP",
-        "IO_IOW BUS_AB BUS_DB IOSR IOCR IODR CLK; FIRE SBWA"
-      ],
-      "fire_name": [
-        "svg_p:text3785-0-6-0-5-5"
-      ],
-      "draw_data": [
-        [],
-        [
-          "svg_p:path3805",
-          "svg_p:path3733"
-        ]
-      ],
-      "draw_name": [
-        [],
-        []
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
-      ]
-    },
-    "IO_IE": {
-      "name": "IO_IE",
-      "visible": true,
-      "type": "L",
-      "value": 1,
-      "default_value": 1,
-      "nbits": "1",
-      "behavior": [
-        "NOP",
-        "IO_CHK_I CLK INT INTV; FIRE C"
-      ],
-      "fire_name": [],
-      "draw_data": [
-        [],
-        []
-      ],
-      "draw_name": [
-        [],
-        []
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
-      ]
-    },
-    "INTA": {
-      "name": "INTA",
-      "visible": true,
-      "type": "L",
-      "value": 0,
-      "default_value": 0,
-      "nbits": "1",
-      "behavior": [
-        "NOP",
-        "INTA CLK INT INTA BUS_DB INTV; FIRE BW; FIRE C"
-      ],
-      "fire_name": [
-        "svg_p:text3785-0-6-0-5-5-1-1"
-      ],
-      "draw_data": [
-        [],
-        [
-          "svg_p:path3807",
-          "svg_p:path3737"
-        ]
-      ],
-      "draw_name": [
-        [],
-        []
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": true,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "KBD_IOR": {
@@ -3819,7 +2665,7 @@
       "nbits": "1",
       "behavior": [
         "NOP",
-        "KBD_IOR BUS_AB BUS_DB KBDR KBSR CLK; FIRE SBWA"
+        "KBD_IOR BUS_AB BUS_DB KBDR KBSR CLK; FIRE M1"
       ],
       "fire_name": [
         "svg_p:tspan4057"
@@ -3834,15 +2680,6 @@
       "draw_name": [
         [],
         []
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "SCR_IOR": {
@@ -3869,15 +2706,6 @@
       "draw_name": [
         [],
         []
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     },
     "SCR_IOW": {
@@ -3904,15 +2732,6 @@
       "draw_name": [
         [],
         []
-      ],
-      "behavior_fn": [
-        null,
-        null
-      ],
-      "changed": false,
-      "verbal_fn": [
-        null,
-        null
       ]
     }
   },
@@ -3921,47 +2740,63 @@
       "nparameters": 2,
       "types": [
         "S"
-      ]
+      ],
+      "operation": "/Function(function(a){console.log(a[1]+\": 0x\"+poc_signals[a[1]].value.toString(16))})/",
+      "verbal": "/Function(function(a){return\"Print value of signal \"+a[1]+\": 0x\"+poc_signals[a[1]].value.toString(16)+\". \"})/"
     },
     "PRINT_E": {
       "nparameters": 2,
       "types": [
         "E"
-      ]
+      ],
+      "operation": "/Function(function(a){console.log(a[1]+\": 0x\"+poc_states[a[1]].value.toString(16))})/",
+      "verbal": "/Function(function(a){return\"Print value of state \"+a[1]+\": 0x\"+poc_states[a[1]].value.toString(16)+\". \"})/"
     },
     "NOP": {
-      "nparameters": 1
+      "nparameters": 1,
+      "operation": "/Function(function(a){})/",
+      "verbal": "/Function(function(a){return\"\"})/"
     },
     "NOP_ALU": {
-      "nparameters": 1
+      "nparameters": 1,
+      "operation": "/Function(function(a){poc_update_nzvc(0,0,0,0)})/",
+      "verbal": "/Function(function(a){return\"Reset ALU flags. \"})/"
     },
     "MV": {
       "nparameters": 3,
       "types": [
         "X",
         "X"
-      ]
+      ],
+      "operation": "/Function(function(a){sim_elto_org=get_reference(a[2]);sim_elto_dst=get_reference(a[1]);newval=get_value(sim_elto_org);set_value(sim_elto_dst,newval)})/",
+      "verbal": "/Function(function(a){var d=get_reference(a[2]);var e=get_value(d);return\"Copy from \"+show_verbal(a[2])+\" to \"+show_verbal(a[1])+\" value \"+show_value(e)+\". \"})/"
     },
     "LOAD": {
       "nparameters": 3,
       "types": [
         "X",
         "X"
-      ]
+      ],
+      "operation": "/Function(function(a){sim_elto_org=get_reference(a[2]);sim_elto_dst=get_reference(a[1]);newval=get_value(sim_elto_org);set_value(sim_elto_dst,newval)})/",
+      "verbal": "/Function(function(a){var d=get_reference(a[2]);var e=get_value(d);return\"Load from \"+show_verbal(a[2])+\" to \"+show_verbal(a[1])+\" value \"+show_value(e)+\". \"})/"
     },
     "CP_FIELD": {
       "nparameters": 3,
       "types": [
         "X",
         "X"
-      ]
+      ],
+      "operation": "/Function(function(a){r=a[2].split(\"/\");sim_elto_org=get_reference(r[0]);newval=get_value(sim_elto_org);newval=newval[r[1]];if(typeof newval!=\"undefined\"){sim_elto_dst=get_reference(a[1]);set_value(sim_elto_dst,newval)}})/",
+      "verbal": "/Function(function(a){var e=a[2].split(\"/\");var d=get_reference(e[0]);var f=get_value(d);f=f[e[1]];if(typeof f==\"undefined\"){return\"\"}return\"Copy from Field \"+e[1]+\" of \"+show_verbal(e[0])+\" to \"+show_verbal(a[1])+\" value \"+show_value(f)+\". \"})/"
     },
     "NOT_ES": {
       "nparameters": 3,
       "types": [
         "S",
         "E"
-      ]
+      ],
+      "operation": "/Function(function(a){set_value(poc_signals[a[1]],Math.abs(get_value(poc_states[a[2]])-1))})/",
+      "verbal": "/Function(function(a){var d=Math.abs(get_value(poc_states[a[2]])-1);return\"Set \"+show_verbal(a[1])+\" with value \"+show_value(d)+\" (Logical NOT of \"+a[2]+\"). \"})/"
     },
     "GET": {
       "nparameters": 4,
@@ -3969,7 +2804,9 @@
         "E",
         "E",
         "S"
-      ]
+      ],
+      "operation": "/Function(function(a){set_value(poc_states[a[1]],get_value(poc_states[a[2]][poc_signals[a[3]].value]))})/",
+      "verbal": "/Function(function(a){var d=get_value(poc_states[a[2]][poc_signals[a[3]].value]);return\"Set \"+show_verbal(a[1])+\" with value \"+show_value(d)+\" (Register File \"+a[3]+\"). \"})/"
     },
     "SET": {
       "nparameters": 4,
@@ -3977,7 +2814,9 @@
         "E",
         "S",
         "E"
-      ]
+      ],
+      "operation": "/Function(function(a){set_value(poc_states[a[1]][poc_signals[a[2]].value],get_value(poc_states[a[3]]))})/",
+      "verbal": "/Function(function(e){var f=get_value(poc_states[e[3]]);var d=poc_states[e[1]][poc_signals[e[2]].value];var a=d.name;if(typeof d.verbal!=\"undefined\"){a=d.verbal}return\"Copy to \"+a+\" the value \"+show_value(f)+\". \"})/"
     },
     "AND": {
       "nparameters": 4,
@@ -3985,7 +2824,9 @@
         "E",
         "E",
         "E"
-      ]
+      ],
+      "operation": "/Function(function(d){var a=get_value(poc_states[d[2]])&get_value(poc_states[d[3]]);set_value(poc_states[d[1]],a);poc_update_nzvc((a<0)?1:0,(a==0)?1:0,0,0)})/",
+      "verbal": "/Function(function(d){var a=get_value(poc_states[d[2]])&get_value(poc_states[d[3]]);return\"ALU AND with result \"+show_value(a)+\". \"})/"
     },
     "OR": {
       "nparameters": 4,
@@ -3993,14 +2834,18 @@
         "E",
         "E",
         "E"
-      ]
+      ],
+      "operation": "/Function(function(d){var a=get_value(poc_states[d[2]])|get_value(poc_states[d[3]]);set_value(poc_states[d[1]],a);poc_update_nzvc((a<0)?1:0,(a==0)?1:0,0,0)})/",
+      "verbal": "/Function(function(d){var a=get_value(poc_states[d[2]])|get_value(poc_states[d[3]]);return\"ALU OR with result \"+show_value(a)+\". \"})/"
     },
     "NOT": {
       "nparameters": 3,
       "types": [
         "E",
         "E"
-      ]
+      ],
+      "operation": "/Function(function(d){var a=~(get_value(poc_states[d[2]]));set_value(poc_states[d[1]],a);poc_update_nzvc((a<0)?1:0,(a==0)?1:0,0,0)})/",
+      "verbal": "/Function(function(d){var a=~(get_value(poc_states[d[2]]));return\"ALU NOT with result \"+show_value(a)+\". \"})/"
     },
     "XOR": {
       "nparameters": 4,
@@ -4008,42 +2853,54 @@
         "E",
         "E",
         "E"
-      ]
+      ],
+      "operation": "/Function(function(d){var a=get_value(poc_states[d[2]])^get_value(poc_states[d[3]]);set_value(poc_states[d[1]],a);poc_update_nzvc((a<0)?1:0,(a==0)?1:0,0,0)})/",
+      "verbal": "/Function(function(d){var a=get_value(poc_states[d[2]])^get_value(poc_states[d[3]]);return\"ALU XOR with result \"+show_value(a)+\". \"})/"
     },
     "SRL": {
       "nparameters": 3,
       "types": [
         "E",
         "E"
-      ]
+      ],
+      "operation": "/Function(function(d){var a=(get_value(poc_states[d[2]]))>>>1;set_value(poc_states[d[1]],a);poc_update_nzvc((a<0)?1:0,(a==0)?1:0,0,0)})/",
+      "verbal": "/Function(function(d){var a=(get_value(poc_states[d[2]]))>>>1;return\"ALU Shift Right Logical with result \"+show_value(a)+\". \"})/"
     },
     "SRA": {
       "nparameters": 3,
       "types": [
         "E",
         "E"
-      ]
+      ],
+      "operation": "/Function(function(d){var a=(get_value(poc_states[d[2]]))>>1;set_value(poc_states[d[1]],a);poc_update_nzvc((a<0)?1:0,(a==0)?1:0,0,0)})/",
+      "verbal": "/Function(function(d){var a=(get_value(poc_states[d[2]]))>>1;return\"ALU Shift Right Arithmetic with result \"+show_value(a)+\". \"})/"
     },
     "SL": {
       "nparameters": 3,
       "types": [
         "E",
         "E"
-      ]
+      ],
+      "operation": "/Function(function(d){var a=(get_value(poc_states[d[2]]))<<1;set_value(poc_states[d[1]],a);poc_update_nzvc((a<0)?1:0,(a==0)?1:0,0,(a)>>>31)})/",
+      "verbal": "/Function(function(d){var a=(get_value(poc_states[d[2]]))<<1;return\"ALU Shift Left with result \"+show_value(a)+\". \"})/"
     },
     "RR": {
       "nparameters": 3,
       "types": [
         "E",
         "E"
-      ]
+      ],
+      "operation": "/Function(function(d){var a=((get_value(poc_states[d[2]]))>>>1)|(((get_value(poc_states[d[2]]))&1)<<31);set_value(poc_states[d[1]],a);poc_update_nzvc((a<0)?1:0,(a==0)?1:0,0,0)})/",
+      "verbal": "/Function(function(d){var a=((get_value(poc_states[d[2]]))>>>1)|(((get_value(poc_states[d[2]]))&1)<<31);return\"ALU Right Rotation with result \"+show_value(a)+\". \"})/"
     },
     "RL": {
       "nparameters": 3,
       "types": [
         "E",
         "E"
-      ]
+      ],
+      "operation": "/Function(function(d){var a=((get_value(poc_states[d[2]]))<<1)|(((get_value(poc_states[d[2]]))&2147483648)>>>31);set_value(poc_states[d[1]],a);poc_update_nzvc((a<0)?1:0,(a==0)?1:0,0,0)})/",
+      "verbal": "/Function(function(d){var a=((get_value(poc_states[d[2]]))<<1)|(((get_value(poc_states[d[2]]))&2147483648)>>>31);return\"ALU Left Rotation with result \"+show_value(a)+\". \"})/"
     },
     "ADD": {
       "nparameters": 4,
@@ -4051,7 +2908,9 @@
         "E",
         "E",
         "E"
-      ]
+      ],
+      "operation": "/Function(function(m){var k=get_value(poc_states[m[2]])<<0;var f=get_value(poc_states[m[3]])<<0;var e=k+f;set_value(poc_states[m[1]],e>>>0);var h=(e<0)?1:0;var d=(e==0)?1:0;var g=(k>>>31)&&(f>>>31);var n=0;if((e<0)&&(k>=0)&&(f>=0)){n=1}if((e>=0)&&(k<0)&&(f<0)){n=1}poc_update_nzvc(h,d,n,g)})/",
+      "verbal": "/Function(function(g){var f=get_value(poc_states[g[2]])<<0;var e=get_value(poc_states[g[3]])<<0;var d=f+e;return\"ALU ADD with result \"+show_value(d)+\". \"})/"
     },
     "SUB": {
       "nparameters": 4,
@@ -4059,7 +2918,9 @@
         "E",
         "E",
         "E"
-      ]
+      ],
+      "operation": "/Function(function(m){var k=get_value(poc_states[m[2]])<<0;var f=get_value(poc_states[m[3]])<<0;var e=k-f;set_value(poc_states[m[1]],e>>>0);var h=(e<0)?1:0;var d=(e==0)?1:0;var g=(k>>>31)&&(f>>>31);var n=0;if((e<0)&&(k>=0)&&(f>=0)){n=1}if((e>=0)&&(k<0)&&(f<0)){n=1}poc_update_nzvc(h,d,n,g)})/",
+      "verbal": "/Function(function(g){var f=get_value(poc_states[g[2]])<<0;var e=get_value(poc_states[g[3]])<<0;var d=f-e;return\"ALU SUB with result \"+show_value(d)+\". \"})/"
     },
     "MUL": {
       "nparameters": 4,
@@ -4067,7 +2928,9 @@
         "E",
         "E",
         "E"
-      ]
+      ],
+      "operation": "/Function(function(m){var k=get_value(poc_states[m[2]])<<0;var f=get_value(poc_states[m[3]])<<0;var e=k*f;set_value(poc_states[m[1]],e>>>0);var h=(e<0)?1:0;var d=(e==0)?1:0;var g=0;var n=0;if((e<0)&&(k>=0)&&(f>=0)){n=1}if((e>=0)&&(k<0)&&(f<0)){n=1}poc_update_nzvc(h,d,n,g)})/",
+      "verbal": "/Function(function(g){var f=get_value(poc_states[g[2]])<<0;var e=get_value(poc_states[g[3]])<<0;var d=f*e;return\"ALU MUL with result \"+show_value(d)+\". \"})/"
     },
     "DIV": {
       "nparameters": 4,
@@ -4075,7 +2938,9 @@
         "E",
         "E",
         "E"
-      ]
+      ],
+      "operation": "/Function(function(g){var f=(get_value(poc_states[g[2]])<<0);var e=(get_value(poc_states[g[3]])<<0);if(0==e){set_value(poc_states[g[1]],0);poc_update_nzvc(0,1,1,0);return}var d=Math.floor(f/e);set_value(poc_states[g[1]],d);poc_update_nzvc((d<0)?1:0,(d==0)?1:0,0,0)})/",
+      "verbal": "/Function(function(g){var f=get_value(poc_states[g[2]])<<0;var e=get_value(poc_states[g[3]])<<0;if(0==e){return\"ALU DIV zero by zero (oops!). \"}var d=Math.floor(f/e);return\"ALU DIV with result \"+show_value(d)+\". \"})/"
     },
     "MOD": {
       "nparameters": 4,
@@ -4083,28 +2948,104 @@
         "E",
         "E",
         "E"
-      ]
+      ],
+      "operation": "/Function(function(d){var a=(get_value(poc_states[d[2]])<<0)%(get_value(poc_states[d[3]])<<0);set_value(poc_states[d[1]],a);poc_update_nzvc((a<0)?1:0,(a==0)?1:0,0,0)})/",
+      "verbal": "/Function(function(g){var f=get_value(poc_states[g[2]])<<0;var e=get_value(poc_states[g[3]])<<0;var d=f%e;return\"ALU MOD with result \"+show_value(d)+\". \"})/"
     },
     "LUI": {
       "nparameters": 3,
       "types": [
         "E",
         "E"
-      ]
+      ],
+      "operation": "/Function(function(d){var a=(get_value(poc_states[d[2]]))<<16;set_value(poc_states[d[1]],a);poc_update_nzvc((a<0)?1:0,(a==0)?1:0,0,0)})/",
+      "verbal": "/Function(function(d){var a=(get_value(poc_states[d[2]]))<<16;return\"ALU Load Upper Immediate with result \"+show_value(a)+\". \"})/"
+    },
+    "ADDFOUR": {
+      "nparameters": 3,
+      "types": [
+        "E",
+        "E"
+      ],
+      "operation": "/Function(function(k){var h=get_value(poc_states[k[2]])<<0;var e=h+4;set_value(poc_states[k[1]],e>>>0);var g=(e<0)?1:0;var d=(e==0)?1:0;var f=(h>>>31)&&(b>>>31);var m=0;if((e<0)&&(h>=0)&&(b>=0)){m=1}if((e>=0)&&(h<0)&&(b<0)){m=1}poc_update_nzvc(g,d,m,f)})/",
+      "verbal": "/Function(function(f){var e=get_value(poc_states[f[2]])<<0;var d=e+4;return\"ALU ADD 4 with result \"+show_value(d)+\". \"})/"
+    },
+    "ADDONE": {
+      "nparameters": 3,
+      "types": [
+        "E",
+        "E"
+      ],
+      "operation": "/Function(function(k){var h=get_value(poc_states[k[2]])<<0;var e=h+1;set_value(poc_states[k[1]],e>>>0);var g=(e<0)?1:0;var d=(e==0)?1:0;var f=(h>>>31)&&(b>>>31);var m=0;if((e<0)&&(h>=0)&&(b>=0)){m=1}if((e>=0)&&(h<0)&&(b<0)){m=1}poc_update_nzvc(g,d,m,f)})/",
+      "verbal": "/Function(function(f){var e=get_value(poc_states[f[2]])<<0;var d=e+1;return\"ALU ADD 1 with result \"+show_value(d)+\". \"})/"
+    },
+    "FADD": {
+      "nparameters": 4,
+      "types": [
+        "E",
+        "E",
+        "E"
+      ],
+      "operation": "/Function(function(m){var k=get_value(poc_states[m[2]])<<0;var f=get_value(poc_states[m[3]])<<0;var e=k.toFixed(2)+f.toFixed(2);set_value(poc_states[m[1]],e>>>0);var h=(e<0)?1:0;var d=(e==0)?1:0;var g=0;var n=0;if((e<0)&&(k>=0)&&(f>=0)){n=1}if((e>=0)&&(k<0)&&(f<0)){n=1}poc_update_nzvc(h,d,n,g)})/",
+      "verbal": "/Function(function(g){var f=get_value(poc_states[g[2]])<<0;var e=get_value(poc_states[g[3]])<<0;var d=f.toFixed(2)+e.toFixed(2);return\"ALU Float ADD with result \"+d+\". \"})/"
+    },
+    "FSUB": {
+      "nparameters": 4,
+      "types": [
+        "E",
+        "E",
+        "E"
+      ],
+      "operation": "/Function(function(m){var k=get_value(poc_states[m[2]])<<0;var f=get_value(poc_states[m[3]])<<0;var e=k.toFixed(2)-f.toFixed(2);set_value(poc_states[m[1]],e>>>0);var h=(e<0)?1:0;var d=(e==0)?1:0;var g=0;var n=0;if((e<0)&&(k>=0)&&(f>=0)){n=1}if((e>=0)&&(k<0)&&(f<0)){n=1}poc_update_nzvc(h,d,n,g)})/",
+      "verbal": "/Function(function(g){var f=get_value(poc_states[g[2]])<<0;var e=get_value(poc_states[g[3]])<<0;var d=f.toFixed(2)-e.toFixed(2);return\"ALU Float SUB with result \"+d+\". \"})/"
+    },
+    "FMUL": {
+      "nparameters": 4,
+      "types": [
+        "E",
+        "E",
+        "E"
+      ],
+      "operation": "/Function(function(m){var k=get_value(poc_states[m[2]])<<0;var f=get_value(poc_states[m[3]])<<0;var e=k.toFixed(2)*f.toFixed(2);set_value(poc_states[m[1]],e>>>0);var h=(e<0)?1:0;var d=(e==0)?1:0;var g=0;var n=0;if((e<0)&&(k>=0)&&(f>=0)){n=1}if((e>=0)&&(k<0)&&(f<0)){n=1}poc_update_nzvc(h,d,n,g)})/",
+      "verbal": "/Function(function(g){var f=get_value(poc_states[g[2]])<<0;var e=get_value(poc_states[g[3]])<<0;var d=f.toFixed(2)*e.toFixed(2);return\"ALU Float MUL with result \"+d+\". \"})/"
+    },
+    "FDIV": {
+      "nparameters": 4,
+      "types": [
+        "E",
+        "E",
+        "E"
+      ],
+      "operation": "/Function(function(g){var f=(get_value(poc_states[g[2]])<<0);var e=(get_value(poc_states[g[3]])<<0);if(0==e){set_value(poc_states[g[1]],0);poc_update_nzvc(0,1,1,0);return}var d=Math.floor(f/e);set_value(poc_states[g[1]],d);poc_update_nzvc((d<0)?1:0,(d==0)?1:0,0,0)})/",
+      "verbal": "/Function(function(g){var f=get_value(poc_states[g[2]])<<0;var e=get_value(poc_states[g[3]])<<0;var d=f.toFixed(2)/e.toFixed(2);return\"ALU Float DIV with result \"+d+\". \"})/"
+    },
+    "FMOD": {
+      "nparameters": 4,
+      "types": [
+        "E",
+        "E",
+        "E"
+      ],
+      "operation": "/Function(function(d){var a=(get_value(poc_states[d[2]])<<0)%(get_value(poc_states[d[3]])<<0);set_value(poc_states[d[1]],a);poc_update_nzvc((a<0)?1:0,(a==0)?1:0,0,0)})/",
+      "verbal": "/Function(function(g){var f=get_value(poc_states[g[2]])<<0;var e=get_value(poc_states[g[3]])<<0;var d=f.toFixed(2)%e.toFixed(2);return\"ALU Float MOD with result \"+d+\". \"})/"
     },
     "PLUS1": {
       "nparameters": 3,
       "types": [
         "E",
         "E"
-      ]
+      ],
+      "operation": "/Function(function(f){var e=get_value(poc_states[f[2]])<<0;var d=e+1;set_value(poc_states[f[1]],d>>>0)})/",
+      "verbal": "/Function(function(f){var e=get_value(poc_states[f[2]])<<0;var d=e+1;return\"Add one to \"+show_verbal(f[2])+\" and copy to \"+show_verbal(f[1])+\" with result \"+show_value(d)+\". \"})/"
     },
     "PLUS4": {
       "nparameters": 3,
       "types": [
         "E",
         "E"
-      ]
+      ],
+      "operation": "/Function(function(f){var e=get_value(poc_states[f[2]])<<0;var d=e+4;set_value(poc_states[f[1]],d>>>0)})/",
+      "verbal": "/Function(function(f){var e=get_value(poc_states[f[2]])<<0;var d=e+4;return\"Add four to \"+show_verbal(f[2])+\" and copy to \"+show_verbal(f[1])+\" with result \"+show_value(d)+\". \"})/"
     },
     "MBIT": {
       "nparameters": 5,
@@ -4113,7 +3054,9 @@
         "X",
         "I",
         "I"
-      ]
+      ],
+      "operation": "/Function(function(a){var h=get_reference(a[1]);var g=get_reference(a[2]);var k=parseInt(a[3]);var e=parseInt(a[4]);var f=get_value(g).toString(2);var d=\"00000000000000000000000000000000\".substring(0,32-f.length)+f;d=d.substr(31-(k+e-1),e);set_value(h,parseInt(d,2))})/",
+      "verbal": "/Function(function(d){var k=get_reference(d[1]);var h=get_reference(d[2]);var m=parseInt(d[3]);var f=parseInt(d[4]);var g=get_value(h).toString(2);var e=\"00000000000000000000000000000000\".substring(0,32-g.length)+g;e=e.substr(31-(m+f-1),f);var a=parseInt(e,2);return\"Copy from \"+show_verbal(d[2])+\" to \"+show_verbal(d[1])+\" value \"+show_value(a)+\" (copied \"+f+\" bits from bit \"+m+\"). \"})/"
     },
     "MBIT_SN": {
       "nparameters": 5,
@@ -4122,7 +3065,9 @@
         "E",
         "E",
         "I"
-      ]
+      ],
+      "operation": "/Function(function(d){var h=0;var g=d[3].split(\"/\");if(1==g.length){h=get_value(poc_states[d[3]])}else{if(typeof poc_states[g[0]].value[g[1]]!=\"undefined\"){h=poc_states[g[0]].value[g[1]]}else{if(typeof poc_signals[g[1]].default_value!=\"undefined\"){h=poc_signals[g[1]].default_value}else{if(typeof poc_states[g[1]].default_value!=\"undefined\"){h=poc_states[g[1]].default_value}else{alert(\"WARN: undefined state/field pair -> \"+g[0]+\"/\"+g[1])}}}}var k=parseInt(d[4]);var f=get_value(poc_states[d[2]]).toString(2);var e=\"00000000000000000000000000000000\".substring(0,32-f.length)+f;var a=e.substr(31-(h+k-1),k);set_value(poc_signals[d[1]],parseInt(a,2))})/",
+      "verbal": "/Function(function(a){return\"\"})/"
     },
     "SBIT": {
       "nparameters": 4,
@@ -4130,7 +3075,9 @@
         "X",
         "X",
         "I"
-      ]
+      ],
+      "operation": "/Function(function(a){sim_elto_org=get_reference(a[2]);sim_elto_dst=get_reference(a[1]);var d=(sim_elto_dst.value&~(1<<a[3]))|(sim_elto_org.value<<a[3]);set_value(sim_elto_dst,(d>>>0))})/",
+      "verbal": "/Function(function(a){sim_elto_org=get_reference(a[2]);sim_elto_dst=get_reference(a[1]);return\"Set bit \"+show_verbal(a[3])+\" of \"+show_verbal(a[1])+\" to value \"+sim_elto_org.value+\". \"})/"
     },
     "MBITS": {
       "nparameters": 8,
@@ -4142,7 +3089,9 @@
         "S",
         "I",
         "S"
-      ]
+      ],
+      "operation": "/Function(function(d){var h=parseInt(poc_signals[d[4]].value);var f=parseInt(poc_signals[d[5]].value);var g=get_value(poc_states[d[3]]).toString(2);var e=(\"00000000000000000000000000000000\".substring(0,32-g.length)+g);e=e.substr(31-(h+f-1),f);var a=\"00000000000000000000000000000000\".substring(0,32-e.length)+e;if((\"1\"==poc_signals[d[7]].value)&&(\"1\"==e.substr(0,1))){a=\"11111111111111111111111111111111\".substring(0,32-e.length)+e}set_value(poc_states[d[1]],parseInt(a,2))})/",
+      "verbal": "/Function(function(d){var h=parseInt(poc_signals[d[4]].value);var f=parseInt(poc_signals[d[5]].value);var g=get_value(poc_states[d[3]]).toString(2);var e=(\"00000000000000000000000000000000\".substring(0,32-g.length)+g);e=e.substr(31-(h+f-1),f);var a=\"00000000000000000000000000000000\".substring(0,32-e.length)+e;if((\"1\"==poc_signals[d[7]].value)&&(\"1\"==e.substr(0,1))){a=\"11111111111111111111111111111111\".substring(0,32-e.length)+e}g=parseInt(a,2);return\"Copy from \"+show_verbal(d[3])+\" to \"+show_verbal(d[1])+\" value \"+show_value(g)+\" (copied \"+f+\" bits from bit \"+h+\"). \"})/"
     },
     "BSEL": {
       "nparameters": 6,
@@ -4152,14 +3101,18 @@
         "I",
         "E",
         "I"
-      ]
+      ],
+      "operation": "/Function(function(f){var m=parseInt(f[2]);var k=parseInt(f[5]);var a=parseInt(f[3]);var h=get_value(poc_states[f[4]]).toString(2);var g=\"00000000000000000000000000000000\".substring(0,32-h.length)+h;g=g.substr(31-(k+a)+1,a);var e=\"00000000000000000000000000000000\".substring(0,32-g.length)+g;var d=\"00000000000000000000000000000000\".substr(0,m);e=e+d;set_value(poc_states[f[1]],parseInt(e,2))})/",
+      "verbal": "/Function(function(n){var g=parseInt(n[2]);var k=parseInt(n[3]);var a=parseInt(n[5]);var m=get_value(poc_states[n[4]]).toString(2);var h=\"00000000000000000000000000000000\".substring(0,32-m.length)+m;h=h.substr(31-(a+k)+1,k);var f=\"00000000000000000000000000000000\".substring(0,32-h.length)+h;var e=\"00000000000000000000000000000000\".substr(0,g);f=f+e;var d=parseInt(f,2);return\"Copy from \"+show_verbal(n[4])+\" to \"+show_verbal(n[1])+\" value \"+show_value(d)+\" (copied \"+k+\" bits, from bit \"+a+\" of \"+n[4]+\" to bit \"+g+\" of \"+n[1]+\"). \"})/"
     },
     "EXT_SIG": {
       "nparameters": 3,
       "types": [
         "E",
         "I"
-      ]
+      ],
+      "operation": "/Function(function(e){var g=get_value(poc_states[e[1]]).toString(2);var f=(\"00000000000000000000000000000000\".substring(0,32-g.length)+g);var d=f.substr(31-e[2],31);var a=d;if(\"1\"==f[31-e[2]]){a=\"11111111111111111111111111111111\".substring(0,32-d.length)+a}set_value(poc_states[e[1]],parseInt(a,2))})/",
+      "verbal": "/Function(function(f){var h=get_value(poc_states[f[1]]).toString(2);var g=(\"00000000000000000000000000000000\".substring(0,32-h.length)+h);var e=g.substr(31-f[2],31);var d=e;if(\"1\"==g[31-f[2]]){d=\"11111111111111111111111111111111\".substring(0,32-e.length)+d}var a=parseInt(d,2);return\"Sign Extension with value \"+show_value(a)+\". \"})/"
     },
     "MOVE_BITS": {
       "nparameters": 5,
@@ -4168,7 +3121,9 @@
         "I",
         "I",
         "S"
-      ]
+      ],
+      "operation": "/Function(function(k){var e=parseInt(k[2]);var a=0;var g=parseInt(k[3]);var h=poc_signals[k[4]].value.toString(2);h=(\"00000000000000000000000000000000\".substring(0,32-h.length)+h);h=h.substr(31-a-g+1,g);var f=poc_signals[k[1]].value.toString(2);f=(\"00000000000000000000000000000000\".substring(0,32-f.length)+f);var n=f.substr(0,32-(e+g));var m=f.substr(31-e+1,e);var d=n+h+m;set_value(poc_signals[k[1]],parseInt(d,2))})/",
+      "verbal": "/Function(function(a){return\"\"})/"
     },
     "MOVE_BITSE": {
       "nparameters": 6,
@@ -4178,48 +3133,68 @@
         "I",
         "E",
         "I"
-      ]
+      ],
+      "operation": "/Function(function(k){var e=parseInt(k[2]);var a=parseInt(k[5]);var g=parseInt(k[3]);var h=get_value(poc_states[k[4]]).toString(2);h=(\"00000000000000000000000000000000\".substring(0,32-h.length)+h);h=h.substr(31-a-g+1,g);var f=poc_signals[k[1]].value.toString(2);f=(\"00000000000000000000000000000000\".substring(0,32-f.length)+f);var n=f.substr(0,32-(e+g));var m=f.substr(31-e+1,e);var d=n+h+m;set_value(poc_signals[k[1]],parseInt(d,2))})/",
+      "verbal": "/Function(function(a){return\"\"})/"
     },
     "DECO": {
-      "nparameters": 1
+      "nparameters": 1,
+      "operation": "/Function(function(d){poc_states.INEX.value=0;var g=decode_instruction(poc_internal_states.FIRMWARE,poc_ctrl_states.ir,get_value(poc_states.REG_IR));if(null==g.oinstruction){alert(\"ERROR: undefined instruction code in firmware (co:\"+g.op_code.toString(2)+\", cop:\"+g.cop_code.toString(2)+\")\");poc_states.ROM_MUXA.value=0;poc_states.INEX.value=1;return -1}var f=g.op_code<<6;if(typeof g.oinstruction.cop!=\"undefined\"){f=f+g.cop_code}if(typeof poc_internal_states.ROM[f]==\"undefined\"){alert(\"ERROR: undefined rom address \"+f+\" in firmware\");poc_states.ROM_MUXA.value=0;return -1}poc_states.ROM_MUXA.value=poc_internal_states.ROM[f];var h=get_value(poc_states.DECO_INS);set_value(poc_states.DECO_INS,h+1);var a=get_value(poc_states.REG_PC)-4;var e=get_deco_from_pc(a);set_value(poc_states.REG_IR_DECO,e);show_dbg_ir(get_value(poc_states.REG_IR_DECO))})/",
+      "verbal": "/Function(function(a){return\"Decode instruction. \"})/"
     },
     "FIRE": {
       "nparameters": 2,
       "types": [
         "S"
-      ]
+      ],
+      "operation": "/Function(function(a){if(poc_internal_states.fire_stack.indexOf(a[1])!=-1){return}poc_internal_states.fire_stack.push(a[1]);update_draw(poc_signals[a[1]],poc_signals[a[1]].value);if(\"L\"==poc_signals[a[1]].type){update_state(a[1])}poc_internal_states.fire_stack.pop(a[1]);check_buses(a[1])})/",
+      "verbal": "/Function(function(a){return\"\"})/"
     },
     "FIRE_IFSET": {
       "nparameters": 3,
       "types": [
         "S",
         "I"
-      ]
+      ],
+      "operation": "/Function(function(a){if(get_value(poc_signals[a[1]])!=parseInt(a[2])){return}poc_behaviors.FIRE.operation(a)})/",
+      "verbal": "/Function(function(a){return\"\"})/"
     },
     "FIRE_IFCHANGED": {
       "nparameters": 3,
       "types": [
         "S",
         "X"
-      ]
+      ],
+      "operation": "/Function(function(a){sim_elto=get_reference(a[2]);if(sim_elto.changed==false){return}poc_behaviors.FIRE.operation(a)})/",
+      "verbal": "/Function(function(a){return\"\"})/"
     },
     "RESET_CHANGED": {
       "nparameters": 2,
       "types": [
         "X"
-      ]
+      ],
+      "operation": "/Function(function(a){sim_elto=get_reference(a[1]);sim_elto.changed=false})/",
+      "verbal": "/Function(function(a){return\"\"})/"
     },
     "CLOCK": {
-      "nparameters": 1
+      "nparameters": 1,
+      "operation": "/Function(function(s_expr){var val=get_value(poc_states.CLK);set_value(poc_states.CLK,val+1);for(var i=0;i<jit_fire_order.length;i++){fn_updateE_now(jit_fire_order[i])}var new_maddr=get_value(poc_states.MUXA_MICROADDR);set_value(poc_states.REG_MICROADDR,new_maddr);if(typeof poc_internal_states.MC[new_maddr]!=\"undefined\"){var new_mins=Object.create(poc_internal_states.MC[new_maddr])}else{var new_mins=Object.create(poc_states.REG_MICROINS.default_value)}poc_states.REG_MICROINS.value=new_mins;for(var key in poc_signals){if(typeof new_mins[key]!=\"undefined\"){set_value(poc_signals[key],new_mins[key])}else{set_value(poc_signals[key],poc_signals[key].default_value)}}for(var i=0;i<jit_fire_order.length;i++){fn_updateL_now(jit_fire_order[i])}if(typeof new_mins.NATIVE_JIT!=\"undefined\"){new_mins.NATIVE_JIT()}else{if(typeof new_mins.NATIVE!=\"undefined\"){eval(new_mins.NATIVE)}}})/",
+      "verbal": "/Function(function(a){return\"\"})/"
     },
     "RESET": {
-      "nparameters": 1
+      "nparameters": 1,
+      "operation": "/Function(function(a){for(var d in poc_states){reset_value(poc_states[d])}for(var d in poc_signals){reset_value(poc_signals[d])}})/",
+      "verbal": "/Function(function(a){return\"Reset CPU. \"})/"
     },
     "UPDATEDPC": {
-      "nparameters": 1
+      "nparameters": 1,
+      "operation": "/Function(function(a){show_asmdbg_pc()})/",
+      "verbal": "/Function(function(a){return\"\"})/"
     },
     "UPDATE_NZVC": {
-      "nparameters": 1
+      "nparameters": 1,
+      "operation": "/Function(function(a){set_value(simhw_sim_state(\"FLAG_N\"),poc_internal_states.alu_flags.flag_n);set_value(simhw_sim_state(\"FLAG_Z\"),poc_internal_states.alu_flags.flag_z);set_value(simhw_sim_state(\"FLAG_V\"),poc_internal_states.alu_flags.flag_v);set_value(simhw_sim_state(\"FLAG_C\"),poc_internal_states.alu_flags.flag_c);set_value(simhw_sim_signal(\"TEST_N\"),poc_internal_states.alu_flags.flag_n);set_value(simhw_sim_signal(\"TEST_Z\"),poc_internal_states.alu_flags.flag_z);set_value(simhw_sim_signal(\"TEST_V\"),poc_internal_states.alu_flags.flag_v);set_value(simhw_sim_signal(\"TEST_C\"),poc_internal_states.alu_flags.flag_c);update_draw(poc_signals.TEST_N,poc_signals.TEST_N.value);update_draw(poc_signals.TEST_Z,poc_signals.TEST_Z.value);update_draw(poc_signals.TEST_V,poc_signals.TEST_V.value);update_draw(poc_signals.TEST_C,poc_signals.TEST_C.value)})/",
+      "verbal": "/Function(function(a){return\"Update flags N-Z-V-C.\"})/"
     },
     "MEM_READ": {
       "nparameters": 6,
@@ -4227,9 +3202,10 @@
         "E",
         "E",
         "S",
-        "S",
         "E"
-      ]
+      ],
+      "operation": "/Function(function(d){var a=poc_states[d[1]].value;var e=poc_states[d[2]].value;var g=get_value(poc_states[d[4]]);poc_signals[d[3]].value=0;var h=get_var(poc_internal_states.MP_wc);if((typeof poc_events.mem[g-1]!=\"undefined\")&&(poc_events.mem[g-1]>0)){h=poc_events.mem[g-1]-1}poc_events.mem[g]=h;if(h>0){return}var f=0;a=a&4294967292;if(typeof poc_internal_states.MP[a]!=\"undefined\"){f=poc_internal_states.MP[a]}e=f;poc_states[d[2]].value=(e>>>0);poc_signals[d[3]].value=1;show_main_memory(poc_internal_states.MP,a,false,false)})/",
+      "verbal": "/Function(function(d){var f=\"\";var a=poc_states[d[1]].value;var e=poc_states[d[2]].value;var h=get_value(poc_states[d[4]]);var g=0;if(typeof poc_internal_states.MP[a]!=\"undefined\"){g=poc_internal_states.MP[a]}f=\"Try to read a word from memory at address 0x\"+a.toString(16)+\" with value \"+g.toString(16)+\". \";return f})/"
     },
     "MEM_WRITE": {
       "nparameters": 6,
@@ -4237,55 +3213,15 @@
         "E",
         "E",
         "S",
-        "S",
         "E"
-      ]
+      ],
+      "operation": "/Function(function(d){var a=poc_states[d[1]].value;var e=poc_states[d[2]].value;var g=get_value(poc_states[d[4]]);poc_signals[d[3]].value=0;var h=get_var(poc_internal_states.MP_wc);if((typeof poc_events.mem[g-1]!=\"undefined\")&&(poc_events.mem[g-1]>0)){h=poc_events.mem[g-1]-1}poc_events.mem[g]=h;if(h>0){return}var f=0;a=a&4294967292;if(typeof poc_internal_states.MP[a]!=\"undefined\"){f=poc_internal_states.MP[a]}f=e;poc_internal_states.MP[a]=(f>>>0);poc_signals[d[3]].value=1;show_main_memory(poc_internal_states.MP,a,false,true)})/",
+      "verbal": "/Function(function(d){var f=\"\";var a=poc_states[d[1]].value;var e=poc_states[d[2]].value;var h=get_value(poc_states[d[4]]);var g=0;if(typeof poc_internal_states.MP[a]!=\"undefined\"){g=poc_internal_states.MP[a]}f=\"Try to write a word to memory at address 0x\"+a.toString(16)+\" with value \"+g.toString(16)+\". \";return f})/"
     },
     "MEM_RESET": {
-      "nparameters": 1
-    },
-    "IO_IOR": {
-      "nparameters": 7,
-      "types": [
-        "E",
-        "E",
-        "E",
-        "E",
-        "E",
-        "E"
-      ]
-    },
-    "IO_IOW": {
-      "nparameters": 7,
-      "types": [
-        "E",
-        "E",
-        "E",
-        "E",
-        "E",
-        "E"
-      ]
-    },
-    "IO_CHK_I": {
-      "nparameters": 4,
-      "types": [
-        "E",
-        "S",
-        "E"
-      ]
-    },
-    "INTA": {
-      "nparameters": 6,
-      "types": [
-        "E",
-        "S",
-        "S",
-        "E",
-        "E"
-      ]
-    },
-    "IO_RESET": {
-      "nparameters": 1
+      "nparameters": 1,
+      "operation": "/Function(function(a){poc_events.mem={}})/",
+      "verbal": "/Function(function(a){return\"Reset the memory (all values will be zeroes). \"})/"
     },
     "KBD_IOR": {
       "nparameters": 6,
@@ -4295,10 +3231,14 @@
         "E",
         "E",
         "E"
-      ]
+      ],
+      "operation": "/Function(function(e){var g=get_value(poc_states[e[1]]);var f=get_value(poc_states[e[5]]);if((g!=KBDR_ID)&&(g!=KBSR_ID)){return}if(typeof poc_events.keybd[f]!=\"undefined\"){if(g==KBDR_ID){set_value(poc_states[e[2]],poc_events.keybd[f])}if(g==KBSR_ID){set_value(poc_states[e[2]],1)}return}if(get_value(poc_states[e[4]])==0){var d=get_keyboard_content();if(d.length!=0){var a=d.substr(1,d.length-1);set_keyboard_content(a);set_value(poc_states[e[4]],1);set_value(poc_states[e[3]],d[0].charCodeAt(0))}}if(get_value(poc_states[e[4]])==1){poc_events.keybd[f]=get_value(poc_states[e[3]])}if(g==KBSR_ID){set_value(poc_states[e[2]],get_value(poc_states[e[4]]))}if(g==KBDR_ID){if(get_value(poc_states[e[4]])==1){set_value(poc_states[e[2]],get_value(poc_states[e[3]]))}set_value(poc_states[e[4]],0)}})/",
+      "verbal": "/Function(function(a){var d=\"\";var f=get_value(poc_states[a[1]]);var e=get_value(poc_states[a[5]]);if(f==KBDR_ID){d=\"Read the screen data: \"+poc_states[a[2]]+\". \"}if(f==KBSR_ID){d=\"Read the screen state: \"+poc_states[a[2]]+\". \"}return d})/"
     },
     "KBD_RESET": {
-      "nparameters": 1
+      "nparameters": 1,
+      "operation": "/Function(function(a){poc_events.keybd={}})/",
+      "verbal": "/Function(function(a){return\"Reset the keyboard content. \"})/"
     },
     "SCR_IOR": {
       "nparameters": 6,
@@ -4308,7 +3248,9 @@
         "E",
         "E",
         "E"
-      ]
+      ],
+      "operation": "/Function(function(d){var f=get_value(poc_states[d[1]]);var e=get_value(poc_states[d[3]]);var a=get_value(poc_states[d[4]]);if(f==DDR_ID){set_value(poc_states[d[2]],e)}if(f==DSR_ID){set_value(poc_states[d[2]],a)}})/",
+      "verbal": "/Function(function(d){var f=\"\";var g=get_value(poc_states[d[1]]);var e=get_value(poc_states[d[3]]);var a=get_value(poc_states[d[4]]);if(g==DDR_ID){f=\"Try to read from the screen the DDR value \"+e+\". \"}if(g==DDR_ID){f=\"Try to read into the screen the DSR value \"+a+\". \"}return f})/"
     },
     "SCR_IOW": {
       "nparameters": 6,
@@ -4318,54 +3260,34 @@
         "E",
         "E",
         "E"
-      ]
+      ],
+      "operation": "/Function(function(e){var m=get_value(poc_states[e[1]]);var g=get_value(poc_states[e[2]]);var k=get_value(poc_states[e[5]]);var h=String.fromCharCode(g);if(m!=DDR_ID){return}if(h==String.fromCharCode(7)){timbre.reset();var f=T(\"sin\",{freq:440,mul:0.5});var d=T(\"sin\",{freq:660,mul:0.5});T(\"perc\",{r:500},f,d).on(\"ended\",function(){this.pause()}).bang().play()}else{var a=get_screen_content();if(typeof poc_events.screen[k]!=\"undefined\"){a=a.substr(0,a.length-1)}set_screen_content(a+String.fromCharCode(g))}set_value(poc_states[e[3]],g);set_value(poc_states[e[4]],1);poc_events.screen[k]=g})/",
+      "verbal": "/Function(function(a){var f=\"\";var h=get_value(poc_states[a[1]]);var d=get_value(poc_states[a[2]]);var g=get_value(poc_states[a[5]]);var e=String.fromCharCode(d);if(h==DDR_ID){f=\"Try to write into the screen the code \"+e+\" at clock cycle \"+g+\". \"}return f})/"
     },
     "SCR_RESET": {
-      "nparameters": 1
+      "nparameters": 1,
+      "operation": "/Function(function(a){poc_events.screen={}})/",
+      "verbal": "/Function(function(a){return\"Reset the screen content. \"})/"
     }
   },
-  "events": {
-    "mem": {},
-    "io": {},
-    "keybd": {},
-    "screen": {}
-  },
+  "events": {},
   "internal_states": {
     "MC": {},
     "MC_dashboard": {},
     "ROM": {},
-    "FIRMWARE": {
-      "firmware": [],
-      "mp": {},
-      "seg": {},
-      "assembly": {},
-      "labels": {},
-      "labels2": {},
-      "labels_firm": {},
-      "registers": {},
-      "pseudoInstructions": {},
-      "stackRegister": {},
-      "cihash": {},
-      "cocop_hash": {}
-    },
+    "FIRMWARE": {},
     "io_hash": {
       "256": "KBDR",
       "260": "KBSR",
       "4096": "DDR",
-      "4100": "DSR",
-      "4352": "IOSR",
-      "4356": "IOCR",
-      "4360": "IODR"
+      "4100": "DSR"
     },
     "fire_stack": [],
     "tri_state_names": [
       "T1",
       "T2",
       "T3",
-      "T4",
-      "T5",
       "T6",
-      "T7",
       "T8",
       "T9",
       "T10",
@@ -4379,12 +3301,10 @@
       "REG_IR_DECO,col-12",
       "REG_IR,col-auto",
       "REG_PC,col-auto",
+      "REG_SR,col-auto",
+      "REG_RT1,col-auto",
       "REG_MAR,col-auto",
       "REG_MBR,col-auto",
-      "REG_RT1,col-auto",
-      "REG_RT2,col-auto",
-      "REG_RT3,col-auto",
-      "REG_SR,col-auto",
       "REG_MICROADDR,col-auto"
     ],
     "filter_signals": [
@@ -4402,26 +3322,19 @@
       "C2,0",
       "C3,0",
       "C4,0",
-      "C5,0",
-      "C6,0",
       "C7,0",
       "T1,0",
       "T2,0",
       "T3,0",
-      "T4,0",
-      "T5,0",
       "T6,0",
-      "T7,0",
       "T8,0",
       "T9,0",
       "T10,0",
       "T11,0",
       "M1,0",
-      "M2,0",
       "M7,0",
       "MA,0",
       "MB,0",
-      "SELP,0",
       "LC,0",
       "SE,0",
       "SIZE,0",
@@ -4444,16 +3357,7 @@
     },
     "segments": {},
     "MP": {},
-    "io_int_factory": [
-      {},
-      {},
-      {},
-      {},
-      {},
-      {},
-      {},
-      {}
-    ]
+    "MP_wc": 0
   },
   "ctrl_states": {
     "pc": {
@@ -4474,9 +3378,9 @@
           "length": 6
         },
         "cop": {
-          "begin": 28,
+          "begin": 27,
           "end": 31,
-          "length": 4
+          "length": 5
         }
       }
     }
