@@ -173,37 +173,12 @@
     function wepsim_load_hw ( )
     {
 /*
-	    // load ep hardware...
+	    // load hardware...
 	    ep_def_json = $.getJSON({'url': "examples/hardware/ep/hw_def.json", 'async': false}) ;
-            // based on: https://stackoverflow.com/questions/36517173/how-to-store-a-javascript-function-in-json
-	    ep_def      = JSON.parse(ep_def_json.responseText,
-				      function(key, value) {
-					  if (typeof value === "string" &&
-					      value.startsWith("/Function(") &&
-					      value.endsWith(")/")) {
-					    value = value.substring(10, value.length - 2);
-					    return eval("(" + value + ")");
-					  }
-					  return value;
-				      }
-                                    ) ;
-	    simhw_add(ep_def) ;
+            simcore_hardware_import(ep_def_json.responseText) ;
 
-	    // load poc hardware...
 	    poc_def_json = $.getJSON({'url': "examples/hardware/poc/hw_def.json", 'async': false}) ;
-	    poc_def      = JSON.parse(poc_def_json.responseText,
-            // based on: https://stackoverflow.com/questions/36517173/how-to-store-a-javascript-function-in-json
-				      function(key, value) {
-					  if (typeof value === "string" &&
-					      value.startsWith("/Function(") &&
-					      value.endsWith(")/")) {
-					    value = value.substring(10, value.length - 2);
-					    return eval("(" + value + ")");
-					  }
-					  return value;
-				      }
-                                     ) ;
-	    simhw_add(poc_def) ;
+            simcore_hardware_import(poc_def_json.responseText) ;
 */
 
 	    return true ;
