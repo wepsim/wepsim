@@ -222,32 +222,32 @@
 
                     <div class="col-sm-auto p-1">
                     <div class="btn-toolbar btn-block" role="toolbar">
-		        <button class="btn btn-light shadow-sm my-1"
+		        <button class="btn btn-light shadow-sm my-1 mx-0"
                                 id="btn_cfg1"
 			         data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			         title="This button opens the 'Configuration' dialog."
                                 onclick="wepsim_open_config_index(); 
 				         $('[data-toggle=tooltip]').tooltip('hide');
 					 return false;"
-		    	        style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+		    	        style="border-width:1 1 1 1px; border-color: #CCCCCC;"
                                 ><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
-		        <button class="btn btn-light shadow-sm my-1"
+		        <button class="btn btn-light shadow-sm my-1 mx-0"
                                 id="btn_micro1"
 			         data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			         title="This button switches into the 'Microcode' editor."
                                 onclick="sim_change_workspace_microcode(); 
 				         $('[data-toggle=tooltip]').tooltip('hide');
 					 return false;"
-		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+		                style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 				><strong><span class="d-none d-sm-inline-flex" data-langkey='MicroCode'>MicroCode</span><span class="d-sm-none">&#181;code</span></strong></button>
-		        <button class="btn btn-light shadow-sm my-1 mr-2"
+		        <button class="btn btn-light shadow-sm my-1 mx-0 mr-2"
                                 id="btn_asm1"
 			         data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			         title="This button switches into the 'Assembly' editor."
                                 onclick="sim_change_workspace_assembly(); 
 				         $('[data-toggle=tooltip]').tooltip('hide');
 					 return false;"
-		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+		                style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 				><strong><span class="d-none d-sm-inline-flex" data-langkey='Assembly'>Assembly</span><span class="d-sm-none" data-langkey='Assembly'>Assembly</span></strong></button>
                     </div>
                     </div>
@@ -271,8 +271,8 @@
 
                     <div class="col-sm-auto p-1">
                     <div class="btn-toolbar btn-block" role="toolbar">
-		            <button class="btn btn-light shadow-sm my-1 col"
-		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC; flex-grow:1;"
+		            <button class="btn btn-light shadow-sm my-1 mx-0 col"
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC; flex-grow:1;"
                                     id="btn_example1"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			            title="This button opens the 'Examples' dialog."
@@ -307,7 +307,7 @@
 			    </button>
 			    <div class="dropdown-menu border border-secondary">
 
-			      <h6 class="text-secondary mb-1">WepSIM</h6>
+			      <h6 class="text-secondary mb-1">WepSIM hardware</h6>
                               <a class="dropdown-item" href="#" id="s4_ep" value="ep"
 				 onclick="simui_select_main('ep');
 	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
@@ -324,7 +324,7 @@
                               <a class="dropdown-item" href="#" id="s4_wepmips" value="wepmips"
 				 onclick="simui_select_main('wepmips');
 	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
-					  return false;">EP + MIPS</a>
+					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP+MIPS32</a>
 
 			      <div class="dropdown-divider"></div>
 			      <h6 class="text-secondary mb-1">Tutorial</h6>
@@ -632,26 +632,26 @@
 		<div class="col-sm px-1"      role="toolbar" aria-label="MicroCode Toolbar">
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
-		            <button class="btn btn-light shadow-sm col"
-		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+		            <button class="btn btn-light shadow-sm col m-0"
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
                                     onclick="wepsim_open_config_index();"><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
-		            <button class="btn btn-light shadow-sm col"
-		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+		            <button class="btn btn-light shadow-sm col m-0"
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
                                     onclick="sim_change_workspace_assembly();"
 				    data-transition="none" data-inline="true"><strong><span data-langkey='Assembly'>Assembly</span></strong></button>
-		            <button class="btn btn-light shadow-sm col"
-		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+		            <button class="btn btn-light shadow-sm col m-0"
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
                                     onclick="sim_change_workspace_simulator();"
 				    data-transition="none" data-inline="true"><strong><span data-langkey='Simulator'>Simulator</span></strong></button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button data-target="#lsload" data-toggle="modal"
-		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-		                    class="btn btn-light shadow-sm col-auto"><em class="fas fa-file-upload"></em>&nbsp;<strong><span data-langkey="Load">Load</span></strong></button>
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+		                    class="btn btn-light shadow-sm col-auto m-0"><em class="fas fa-file-upload"></em>&nbsp;<strong><span data-langkey="Load">Load</span></strong></button>
 		            <button data-target="#lssave" data-toggle="modal"
-		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				    class="btn btn-light shadow-sm col-auto"><em class="fas fa-file-download"></em>&nbsp;<strong><span data-langkey="Save">Save</span></strong></button>
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+				    class="btn btn-light shadow-sm col-auto m-0"><em class="fas fa-file-download"></em>&nbsp;<strong><span data-langkey="Save">Save</span></strong></button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
@@ -660,7 +660,7 @@
 				    data-transition="none" data-inline="true"
 				    onclick="var textToMCompile = inputfirm.getValue();
                                              wepsim_compile_firmware(textToMCompile);
-				 	     $('#asm_debugger').html('<br/>After updates on the microcode, assembler has to be compiled against it.');"><em class="fas fa-sign-out-alt"></em>&nbsp;<strong>&#181;compile</strong></button>
+				 	     $('#asm_debugger').html('<br/>After updates on the microcode, assembler has to be compiled against it.');"><em class="fas fa-sign-out-alt"></em>&nbsp;<strong><span class="d-none d-sm-inline-flex">&#181;compile</span><span class="d-sm-none">&#181;c.</span></strong></button>
 		            <button style="background-color: #DDDDDD"
 		                    class="btn btn-light shadow-sm col-auto"
 				    onclick="var textToMCompile = inputfirm.getValue();
@@ -670,7 +670,7 @@
 			                         wepsim_notify_success('<strong>INFO</strong>',
 	                                                               'Please remember to recompile the assembly code if needed.');
                                              }">
-                                             <strong><em class="fas fa-memory"></em>&nbsp;<span class="d-none d-sm-inline-flex">Show co2&#181;addr + control memory</span><span class="d-sm-none">co2&#181;addr + c.m.</span></strong>
+                                             <strong><em class="fas fa-memory"></em>&nbsp;<span class="d-none d-sm-inline-flex">Show co2&#181;a. + control memory</span><span class="d-sm-none">co2&#181;addr + c.m.</span></strong>
 			                     </button>
 		      </div>
 
@@ -716,28 +716,28 @@
 		<div class="col-sm px-1"      role="toolbar" aria-label="Assembly Toolbar">
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
-		            <button class="btn btn-light shadow-sm col"
-		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+		            <button class="btn btn-light shadow-sm col m-0"
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
                                     onclick="wepsim_open_config_index();"><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
-		            <button class="btn btn-light shadow-sm col"
-		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+		            <button class="btn btn-light shadow-sm col m-0"
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
                                     onclick="sim_change_workspace_microcode();"
 				    data-transition="none" data-inline="true">
 			    <strong><span class="d-none d-sm-inline-flex" data-langkey='MicroCode'>MicroCode</span><span class="d-sm-none">&#181;code</span></strong>
 			    </button>
-		            <button class="btn btn-light shadow-sm col"
-		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+		            <button class="btn btn-light shadow-sm col m-0"
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
                                     onclick="sim_change_workspace_simulator();"
 				    data-transition="none" data-inline="true"><strong><span data-langkey="Simulator">Simulator</span></strong></button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button data-target="#lsload2" data-toggle="modal"
-		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				    class="btn btn-light shadow-sm col-auto"><em class="fas fa-file-upload"></em>&nbsp;<strong><span data-langkey="Load">Load</span></strong></button>
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+				    class="btn btn-light shadow-sm col-auto m-0"><em class="fas fa-file-upload"></em>&nbsp;<strong><span data-langkey="Load">Load</span></strong></button>
 		            <button data-target="#lssave2" data-toggle="modal"
-		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				    class="btn btn-light shadow-sm col-auto"><em class="fas fa-file-download"></em>&nbsp;<strong><span data-langkey="Save">Save</span></strong></button>
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+				    class="btn btn-light shadow-sm col-auto m-0"><em class="fas fa-file-download"></em>&nbsp;<strong><span data-langkey="Save">Save</span></strong></button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">

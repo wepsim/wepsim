@@ -237,8 +237,8 @@
 
                     <div class="col-sm-auto p-1">
                     <div class="btn-toolbar btn-block" role="toolbar">
-		            <button class="btn btn-light shadow-sm my-1 col"
-		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC; flex-grow:1;"
+		            <button class="btn btn-light shadow-sm my-1 mx-0 col"
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC; flex-grow:1;"
                                     id="btn_example1"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			            title="This button opens the 'Examples' dialog."
@@ -273,7 +273,7 @@
 			    </button>
 			    <div class="dropdown-menu border border-secondary">
 
-			      <h6 class="text-secondary mb-1">WepSIM</h6>
+			      <h6 class="text-secondary mb-1">WepSIM hardware</h6>
                               <a class="dropdown-item" href="#" id="s4_ep" value="ep"
 				 onclick="simui_select_main('ep');
 	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
@@ -290,7 +290,7 @@
                               <a class="dropdown-item" href="#" id="s4_wepmips" value="wepmips"
 				 onclick="simui_select_main('wepmips');
 	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
-					  return false;">EP+MIPS</a>
+					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP+MIPS32</a>
 
 			      <div class="dropdown-divider"></div>
 			      <h6 class="text-secondary mb-1">Help</h6>
@@ -454,13 +454,17 @@
 		    	            style="border-color: #CCCCCC; flex-grow:1;"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			            title="This button opens the 'Configuration' dialog."
-                                    onclick="wepsim_open_config_index();"><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></button>
+                                    onclick="wepsim_open_config_index();
+					     $('[data-toggle=tooltip]').tooltip('hide');
+				             return false;"><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></button>
 
 		            <button class="col btn btn-light shadow-sm"
 		                    style="border-color: #CCCCCC; flex-grow:2;"
 			              data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			              title="This button opens the 'state management' dialog: it shows the current state, saves the current state, and shows the differences between two states."
-		                    onclick="wepsim_dialog_current_state();"><em class="fas fa-camera"></em>&nbsp;<span data-langkey='States'>States</span></button>
+		                    onclick="wepsim_dialog_current_state();
+					     $('[data-toggle=tooltip]').tooltip('hide');
+				             return false;"><em class="fas fa-camera"></em>&nbsp;<span data-langkey='States'>States</span></button>
 
 			  <div class="col btn-group p-0" style="flex-grow:6;">
 			    <button type="button" class="col-12 btn btn-light shadow-sm"
@@ -470,7 +474,9 @@
 				    id="select5b"
                                     onclick="show_rf_values();
 				             show_memories_values();
-				  	     wepsim_reset_max_turbo();">Refresh</button>
+				  	     wepsim_reset_max_turbo();
+					     $('[data-toggle=tooltip]').tooltip('hide');
+					     return false;">HW</button>
 			    <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" 
                                     style="border-color: #CCCCCC;"
 				    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -612,20 +618,20 @@
 
 					      <div class="btn-group m-1 d-flex flex-wrap" role="group"   aria-label="Toolbar load and save buttons">
 						    <button data-target="#lsload" data-toggle="modal"
-							    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-							    class="btn btn-light shadow-sm col-auto"><em class="fas fa-file-upload"></em><br><strong><span data-langkey="Load">Load</span></strong></button>
+							    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file-upload"></em><br><strong><span data-langkey="Load">Load</span></strong></button>
 						    <button data-target="#lssave" data-toggle="modal"
-							    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-							    class="btn btn-light shadow-sm col-auto"><em class="fas fa-file-download"></em><br><strong><span data-langkey="Save">Save</span></strong></button>
+							    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file-download"></em><br><strong><span data-langkey="Save">Save</span></strong></button>
 
 						    <button style="background-color: #CCCCCC"
-							    class="btn btn-light shadow-sm col-auto ml-1"
+							    class="btn btn-light shadow-sm col-auto px-0 py-1 ml-1"
 							    data-transition="none" data-inline="true"
 							    onclick="var textToMCompile = inputfirm.getValue();
 								     wepsim_compile_firmware(textToMCompile);
-								     $('#asm_debugger').html('<br/>After updates on the microcode, assembler has to be compiled against it.');"><em class="fas fa-sign-out-alt"></em><br><strong>&#181;compile</strong></button>
+								     $('#asm_debugger').html('<br/>After updates on the microcode, assembler has to be compiled against it.');"><em class="fas fa-sign-out-alt"></em><br><strong><span class="d-none d-sm-inline-flex">&#181;compile</span><span class="d-sm-none">&#181;c.</span></strong></button>
 						    <button style="background-color: #DDDDDD"
-							    class="btn btn-light shadow-sm col-auto"
+							    class="btn btn-light shadow-sm col-auto px-0 py-1"
 							    onclick="var textToMCompile = inputfirm.getValue();
 								     var ok = wepsim_compile_firmware(textToMCompile);
 								     if (true == ok) {
@@ -633,7 +639,7 @@
 									 wepsim_notify_success('<strong>INFO</strong>',
 											       'Please remember to recompile the assembly code if needed.');
 								     }">
-								     <strong><em class="fas fa-memory"></em><br><span class="d-none d-sm-inline-flex">Show co2&#181;addr + C.M.</span><span class="d-sm-none">co2&#181;a+c.m.</span></strong>
+								     <strong><em class="fas fa-memory"></em><br><span class="d-none d-sm-inline-flex">Show co2&#181;a. + C.M.</span><span class="d-sm-none">co2&#181;a+c.m.</span></strong>
 								     </button>
 					      </div>
 
@@ -661,19 +667,19 @@
 
 					      <div class="btn-group m-1 d-flex flex-wrap" role="group"   aria-label="Toolbar load and save buttons">
 						    <button data-target="#lsload2" data-toggle="modal"
-							    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-							    class="btn btn-light shadow-sm col-auto"><em class="fas fa-file-upload"></em><br><strong><span data-langkey="Load">Load</span></strong></button>
+							    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file-upload"></em><br><strong><span data-langkey="Load">Load</span></strong></button>
 						    <button data-target="#lssave2" data-toggle="modal"
-							    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-							    class="btn btn-light shadow-sm col-auto"><em class="fas fa-file-download"></em><br><strong><span data-langkey="Save">Save</span></strong></button>
+							    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file-download"></em><br><strong><span data-langkey="Save">Save</span></strong></button>
 
 						    <button style="background-color: #CCCCCC"
-							    class="btn btn-light shadow-sm col-auto ml-1"
+							    class="btn btn-light shadow-sm col-auto px-0 py-1 ml-1"
 							    data-transition="none" data-inline="true"
 							    onclick="var textToCompile = inputasm.getValue() ;
 								     var ok = wepsim_compile_assembly(textToCompile);"><em class="fas fa-sign-out-alt"></em><br><strong>Compile</strong></button>
 						    <button style="background-color: #DDDDDD"
-							    class="btn btn-light shadow-sm col-auto"
+							    class="btn btn-light shadow-sm col-auto px-0 py-1"
 							    onclick="var textToCompile = inputasm.getValue();
 								     var ok = wepsim_compile_assembly(textToCompile);
 								     if (true == ok) {
