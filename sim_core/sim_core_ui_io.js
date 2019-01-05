@@ -99,11 +99,10 @@
                      "<div class='row'>" ;
 
                o1 += "<div class='col-12 p-0'>" +
-                     "<div class='card bg-light' style='margin:0 0 0 0;'>" +
-                     "<div class='card-body' id='iopanel' style='padding: 0 0 0 0'>" ;
+                     "<div class='card bg-light m-0'>" +
+                     "<div class='card-body p-0' id='iopanel'>" ;
                o1 += "<center>" +
-                     "<table class='table table-hover table-sm table-bordered' " +
-                     "       style='margin:0'>" +
+                     "<table class='table table-hover table-sm table-bordered m-0'>" +
                      "<tbody class='no-ui-mini'>" +
                      "<tr>" +
                      "<td align=center width='33%'>" +

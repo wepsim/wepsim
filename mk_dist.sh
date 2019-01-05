@@ -75,6 +75,8 @@ cat wepsim/i18n/i18n.js \
     wepsim/wepsim_voice.js \
     wepsim/wepsim_voice_commands.js \
     wepsim/wepsim_execute.js \
+    wepsim/wepsim_ws_simulator.js \
+    wepsim/wepsim_ws_editor.js \
     wepsim/wepsim_misc.js > ws_dist/wepsim_web.js
 /usr/bin/yui-compressor -o ws_dist/min.wepsim_web.js ws_dist/wepsim_web.js
 rm -fr ws_dist/wepsim_web.js

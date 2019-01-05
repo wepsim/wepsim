@@ -222,26 +222,32 @@
 
                     <div class="col-sm-auto p-1">
                     <div class="btn-toolbar btn-block" role="toolbar">
-		        <button class="btn btn-light shadow-sm my-1"
+		        <button class="btn btn-light shadow-sm my-1 mx-0"
                                 id="btn_cfg1"
 			         data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			         title="This button opens the 'Configuration' dialog."
-                                onclick="wepsim_open_config_index();"
-		    	        style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+                                onclick="wepsim_open_config_index(); 
+				         $('[data-toggle=tooltip]').tooltip('hide');
+					 return false;"
+		    	        style="border-width:1 1 1 1px; border-color: #CCCCCC;"
                                 ><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
-		        <button class="btn btn-light shadow-sm my-1"
+		        <button class="btn btn-light shadow-sm my-1 mx-0"
                                 id="btn_micro1"
 			         data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			         title="This button switches into the 'Microcode' editor."
-                                onclick="sim_change_workspace_microcode();"
-		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+                                onclick="sim_change_workspace_microcode(); 
+				         $('[data-toggle=tooltip]').tooltip('hide');
+					 return false;"
+		                style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 				><strong><span class="d-none d-sm-inline-flex" data-langkey='MicroCode'>MicroCode</span><span class="d-sm-none">&#181;code</span></strong></button>
-		        <button class="btn btn-light shadow-sm my-1 mr-2"
+		        <button class="btn btn-light shadow-sm my-1 mx-0 mr-2"
                                 id="btn_asm1"
 			         data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			         title="This button switches into the 'Assembly' editor."
-                                onclick="sim_change_workspace_assembly();"
-		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+                                onclick="sim_change_workspace_assembly(); 
+				         $('[data-toggle=tooltip]').tooltip('hide');
+					 return false;"
+		                style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 				><strong><span class="d-none d-sm-inline-flex" data-langkey='Assembly'>Assembly</span><span class="d-sm-none" data-langkey='Assembly'>Assembly</span></strong></button>
                     </div>
                     </div>
@@ -265,12 +271,14 @@
 
                     <div class="col-sm-auto p-1">
                     <div class="btn-toolbar btn-block" role="toolbar">
-		            <button class="btn btn-light shadow-sm my-1 col"
-		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC; flex-grow:1;"
+		            <button class="btn btn-light shadow-sm my-1 mx-0 col"
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC; flex-grow:1;"
                                     id="btn_example1"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			            title="This button opens the 'Examples' dialog."
-				    onclick="wepsim_open_examples_index();"><strong><span data-langkey='Examples'>Examples</span></strong></button>
+				    onclick="wepsim_open_examples_index(); 
+				             $('[data-toggle=tooltip]').tooltip('hide');
+					     return false;"><strong><span data-langkey='Examples'>Examples</span></strong></button>
 
 		            <button class="btn btn-light shadow-sm my-1 col"
 		                    style="border-width:1 1 1 1px; border-color:#CCCCCC; background-color:#D4DB17; flex-grow:1;"
@@ -278,7 +286,9 @@
 			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			            title="This button opens the 'Help' dialog."
 		                    onclick="wepsim_open_help_index();
-                                             wepsim_help_refresh();"><strong><span data-langkey='Help'>Help</span></strong></button>
+                                             wepsim_help_refresh(); 
+					     $('[data-toggle=tooltip]').tooltip('hide');
+					     return false;"><strong><span data-langkey='Help'>Help</span></strong></button>
 
 			<div class="btn-group p-0 my-1 col" style="flex-grow:6;">
 			    <button type="button" class="col-12 btn btn-light shadow-sm"
@@ -288,6 +298,7 @@
 				    id="select4"
                                     onclick="simui_select_details(22);
 					     simcoreui_init_hw('#config_HW') ;
+					     $('[data-toggle=tooltip]').tooltip('hide');
 					     return false;">HW</button>
 			    <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" 
                                     style="border-color: #CCCCCC;"
@@ -296,7 +307,7 @@
 			    </button>
 			    <div class="dropdown-menu border border-secondary">
 
-			      <h6 class="text-secondary mb-1">WepSIM</h6>
+			      <h6 class="text-secondary mb-1">WepSIM hardware</h6>
                               <a class="dropdown-item" href="#" id="s4_ep" value="ep"
 				 onclick="simui_select_main('ep');
 	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
@@ -313,7 +324,7 @@
                               <a class="dropdown-item" href="#" id="s4_wepmips" value="wepmips"
 				 onclick="simui_select_main('wepmips');
 	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
-					  return false;">EP + MIPS</a>
+					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP+MIPS32</a>
 
 			      <div class="dropdown-divider"></div>
 			      <h6 class="text-secondary mb-1">Tutorial</h6>
@@ -621,26 +632,26 @@
 		<div class="col-sm px-1"      role="toolbar" aria-label="MicroCode Toolbar">
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
-		            <button class="btn btn-light shadow-sm col"
-		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+		            <button class="btn btn-light shadow-sm col m-0"
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
                                     onclick="wepsim_open_config_index();"><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
-		            <button class="btn btn-light shadow-sm col"
-		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+		            <button class="btn btn-light shadow-sm col m-0"
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
                                     onclick="sim_change_workspace_assembly();"
 				    data-transition="none" data-inline="true"><strong><span data-langkey='Assembly'>Assembly</span></strong></button>
-		            <button class="btn btn-light shadow-sm col"
-		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+		            <button class="btn btn-light shadow-sm col m-0"
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
                                     onclick="sim_change_workspace_simulator();"
 				    data-transition="none" data-inline="true"><strong><span data-langkey='Simulator'>Simulator</span></strong></button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button data-target="#lsload" data-toggle="modal"
-		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-		                    class="btn btn-light shadow-sm col-auto"><em class="fas fa-file-upload"></em>&nbsp;<strong><span data-langkey="Load">Load</span></strong></button>
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+		                    class="btn btn-light shadow-sm col-auto m-0"><em class="fas fa-file-upload"></em>&nbsp;<strong><span data-langkey="Load">Load</span></strong></button>
 		            <button data-target="#lssave" data-toggle="modal"
-		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				    class="btn btn-light shadow-sm col-auto"><em class="fas fa-file-download"></em>&nbsp;<strong><span data-langkey="Save">Save</span></strong></button>
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+				    class="btn btn-light shadow-sm col-auto m-0"><em class="fas fa-file-download"></em>&nbsp;<strong><span data-langkey="Save">Save</span></strong></button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
@@ -649,7 +660,7 @@
 				    data-transition="none" data-inline="true"
 				    onclick="var textToMCompile = inputfirm.getValue();
                                              wepsim_compile_firmware(textToMCompile);
-				 	     $('#asm_debugger').html('<br/>After updates on the microcode, assembler has to be compiled against it.');"><em class="fas fa-sign-out-alt"></em>&nbsp;<strong>&#181;compile</strong></button>
+				 	     $('#asm_debugger').html('<br/>After updates on the microcode, assembler has to be compiled against it.');"><em class="fas fa-sign-out-alt"></em>&nbsp;<strong><span class="d-none d-sm-inline-flex">&#181;compile</span><span class="d-sm-none">&#181;c.</span></strong></button>
 		            <button style="background-color: #DDDDDD"
 		                    class="btn btn-light shadow-sm col-auto"
 				    onclick="var textToMCompile = inputfirm.getValue();
@@ -659,7 +670,7 @@
 			                         wepsim_notify_success('<strong>INFO</strong>',
 	                                                               'Please remember to recompile the assembly code if needed.');
                                              }">
-                                             <strong><em class="fas fa-memory"></em>&nbsp;<span class="d-none d-sm-inline-flex">Show co2&#181;addr + control memory</span><span class="d-sm-none">co2&#181;addr + c.m.</span></strong>
+                                             <strong><em class="fas fa-memory"></em>&nbsp;<span class="d-none d-sm-inline-flex">Show co2&#181;a. + control memory</span><span class="d-sm-none">co2&#181;addr + c.m.</span></strong>
 			                     </button>
 		      </div>
 
@@ -705,28 +716,28 @@
 		<div class="col-sm px-1"      role="toolbar" aria-label="Assembly Toolbar">
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
-		            <button class="btn btn-light shadow-sm col"
-		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+		            <button class="btn btn-light shadow-sm col m-0"
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
                                     onclick="wepsim_open_config_index();"><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
-		            <button class="btn btn-light shadow-sm col"
-		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+		            <button class="btn btn-light shadow-sm col m-0"
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
                                     onclick="sim_change_workspace_microcode();"
 				    data-transition="none" data-inline="true">
 			    <strong><span class="d-none d-sm-inline-flex" data-langkey='MicroCode'>MicroCode</span><span class="d-sm-none">&#181;code</span></strong>
 			    </button>
-		            <button class="btn btn-light shadow-sm col"
-		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
+		            <button class="btn btn-light shadow-sm col m-0"
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
                                     onclick="sim_change_workspace_simulator();"
 				    data-transition="none" data-inline="true"><strong><span data-langkey="Simulator">Simulator</span></strong></button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button data-target="#lsload2" data-toggle="modal"
-		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				    class="btn btn-light shadow-sm col-auto"><em class="fas fa-file-upload"></em>&nbsp;<strong><span data-langkey="Load">Load</span></strong></button>
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+				    class="btn btn-light shadow-sm col-auto m-0"><em class="fas fa-file-upload"></em>&nbsp;<strong><span data-langkey="Load">Load</span></strong></button>
 		            <button data-target="#lssave2" data-toggle="modal"
-		                    style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
-				    class="btn btn-light shadow-sm col-auto"><em class="fas fa-file-download"></em>&nbsp;<strong><span data-langkey="Save">Save</span></strong></button>
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+				    class="btn btn-light shadow-sm col-auto m-0"><em class="fas fa-file-download"></em>&nbsp;<strong><span data-langkey="Save">Save</span></strong></button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
@@ -1113,10 +1124,10 @@
                   <div class="carousel-item active">
 
 		        <div class="card mb-1">
-		          <div class="card-header p-1" id="state_header_1">
-		            <h4 class="m-0">
-				    <a data-toggle="collapse" href="#states3"><span data-langkey="Current State">Current State</span></a>:&nbsp;
-				    <span class="btn btn-secondary btn-sm float-right"
+		          <div class="card-header text-white bg-dark p-1" id="state_header_1">
+		            <h5 class="m-0">
+				    <a data-toggle="collapse" href="#states3"><span class="text-white bg-dark" data-langkey="Current State">Current State</span></a>:&nbsp;
+				    <span class="btn btn-light btn-sm float-right py-0"
 					  onclick="wepsim_state_history_add();
 						   wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
 						   wepsim_state_history_list();
@@ -1124,7 +1135,7 @@
 						   $('#states3').collapse('show');
 						   return false;"
 					  data-inline="true">Add <span class='d-none d-sm-inline-flex'>'Current State' to History</span></span>
-		            </h4>
+		            </h5>
 		          </div>
 			  <div id="states3b" class="collapse show" aria-labelledby="state_header_1">
 		            <div class="card-body p-0">
@@ -1189,16 +1200,16 @@
 		        </div>
 
 		        <div class="card mb-1">
-		          <div class="card-header p-1" id="state_header_2">
-		            <h4 class="m-0">
-				    <a data-toggle="collapse" href="#history3"><span data-langkey="History">History</span></a>:&nbsp;
-				    <span class="btn btn-secondary btn-sm float-right"
+		          <div class="card-header text-white bg-dark p-1" id="state_header_2">
+		            <h5 class="m-0">
+				    <a data-toggle="collapse" href="#history3"><span class="text-white bg-dark" data-langkey="History">History</span></a>:&nbsp;
+				    <span class="btn btn-light btn-sm float-right py-0"
 					  onclick="wepsim_state_history_reset();
 						   wepsim_notify_success('<strong>INFO</strong>', 'Removed all !.');
 						   wepsim_state_history_list() ;
 						   return false;"
 					  data-inline="true">Reset <span class='d-none d-sm-inline-flex'>history</span></span>
-		            </h4>
+		            </h5>
 		          </div>
 			  <div id="history3b" class="collapse show" aria-labelledby="state_header_2">
 		            <div class="card-body p-1">
@@ -1214,14 +1225,14 @@
 		        </div>
 
 		        <div class="card mb-1">
-		          <div class="card-header p-1" id="state_header_3">
-		            <h4 class="m-0">
-				    <a data-toggle="collapse" href="#check_results_scroll1"><span data-langkey="Differences">Differences</span></a>:
-				    <span class="btn btn-secondary btn-sm float-right"
+		          <div class="card-header text-white bg-dark p-1" id="state_header_3">
+		            <h5 class="m-0">
+				    <a data-toggle="collapse" href="#check_results_scroll1"><span class="text-white bg-dark" data-langkey="Differences">Differences</span></a>:
+				    <span class="btn btn-light btn-sm float-right py-0"
 					  onclick="CopyFromDiv('check_results_scroll1');
 						   return false;"
 					  data-inline="true">Copy to clipboard</span>
-		            </h4>
+		            </h5>
 		          </div>
 			  <div id="check_results_scroll1b" class="collapse show" aria-labelledby="state_header_3">
 		            <div class="card-body p-1">
@@ -1464,24 +1475,29 @@
 		    if (typeof ko != "undefined")
                         ko.options.deferUpdates = true;
 
-		    inputfirm = CodeMirror.fromTextArea(document.getElementById("inputFirmware"),
-                                {
-				   value: "\n\n\n\n\n\n\n\n\n\n\n\n",
-				   lineNumbers: true,
-				   matchBrackets: true,
-				   tabSize: 2,
-				   foldGutter: {
-					rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.brace, CodeMirror.fold.comment)
-				   },
-				   gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
-				   mode: "text/javascript"
-				});
-                    sim_prepare_editor(inputfirm);
 
-		    inputasm = CodeMirror.fromTextArea(document.getElementById("inputAssembly"),
-                                    {
+		    // init-ui: microcode + assembly workspace
+
+		    $('.dropify').dropify();
+
+		    inputfirm_cfg = {
+				      value: "\n\n\n\n\n\n\n\n\n\n\n\n",
+				      lineNumbers: true,
+				      lineWrapping: true,
+				      matchBrackets: true,
+				      tabSize: 2,
+				      foldGutter: {
+					rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.brace, CodeMirror.fold.comment)
+				      },
+				      gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+				      mode: "text/javascript"
+				    } ;
+                    inputfirm = sim_init_editor("inputFirmware", inputfirm_cfg) ;
+
+		    inputasm_cfg = {
 					value: "\n\n\n\n\n\n\n\n\n\n\n\n",
 					lineNumbers: true,
+				        lineWrapping: true,
 					matchBrackets: true,
 					tabSize: 2,
 					extraKeys: {
@@ -1490,16 +1506,21 @@
 						      var simware = get_simware();
 						      var cur = cm.getCursor();
 						      var result = new Array();
-						      for (var i=0; i<simware.firmware.length; i++)
-							   if(simware.firmware[i].name != "begin")
-								result.push(simware.firmware[i].signatureUser);
-						      return { list: result, from: cur, to: cur };
+						      for (var i=0; i<simware.firmware.length; i++) {
+							   if (simware.firmware[i].name != "begin") {
+								result.push(simware.firmware[i].signatureUser) ;
+	                                                   }
+	                                              }
+						      return { list: result, from: cur, to: cur } ;
 					      });
 					  }
 					},
 					mode: "gas"
-				    });
-                    sim_prepare_editor(inputasm) ;
+				    } ;
+                    inputasm = sim_init_editor("inputAssembly", inputasm_cfg) ;
+
+
+		    // init-ui: simulator
 
 		    sim_change_workspace_simulator() ;
 		    $('#tab26').trigger('click') ;
@@ -1519,13 +1540,27 @@
 		        else $(column).show() ;
 		    });
 
+		    var target = $("#asm_table");
+		    $("#asm_debugger_container").scroll(function() {
+		       target.prop("scrollTop", this.scrollTop).prop("scrollLeft", this.scrollLeft);
+		    });
+
+                    wepsim_init_state_dialog('end_state1', 'end_state2') ;
+
+
+		    // init-ui: general
+
+		    $("div.wsversion").replaceWith(get_cfg('version'));
+
+		    // carousel: touch swipe disabled
+		    $('.carousel').carousel({ touch: false })
+
+		    // tooltip: trigger by hover
 		    $('[data-toggle="tooltip"]').tooltip({
                         trigger:   'hover'
                     }) ;
-		    $('#carousel-8').carousel({
-                        touch: false
-                    })
 
+		    // popover...
 		    $("[data-toggle=popover0]").popover({
 			    html:       true,
 			    placement: 'auto',
@@ -1553,33 +1588,9 @@
                                            return wepsim_show_asm_columns_checked('popover2_asm') ;
                                         }
 		    });
-		    $("[data-toggle=popover3]").popover({
-			    html:    true,
-			    content: function() {
-			                  var id = $(this).attr('id')
-			                  return $('#popover-content-' + id).html();
-			             }
-		    });
 
-		    var target = $("#asm_table");
-		    $("#asm_debugger_container").scroll(function() {
-		       target.prop("scrollTop", this.scrollTop).prop("scrollLeft", this.scrollLeft);
-		    });
 
-		    $('.dropify').dropify();
-
-		    $('#end_state1').tokenfield({ inputType: 'textarea' }) ;
-		    //A1/ var inputEls = document.getElementById('end_state1');
-		    //A1/ if (null != inputEls)
-		    //A1/     setup_speech_input(inputEls) ;
-
-		    $('#end_state2').tokenfield({ inputType: 'textarea' }) ;
-		    //A1/ var inputEls = document.getElementById('end_state2');
-		    //A1/ if (null != inputEls)
-		    //A1/     setup_speech_input(inputEls) ;
-
-		    $("div.wsversion").replaceWith(get_cfg('version'));
-
+		    // init: general
 		    var ws_mode = get_cfg('ws_mode');
 		    simui_select_main(ws_mode);
 		    simcore_init_ui("#states_ALL", "#states_BR", "#io_ALL",
@@ -1630,7 +1641,9 @@
     {
           $("#ws_loader").collapse('hide') ;
 
-          alert("WepSIM was improperly used:\n" + err.message + "\n" +
+          alert("Please try to cleanup the browser cache and try again (just in case).\n" +
+		"\n" +
+                "WepSIM was improperly used:\n" + err.message + "\n" +
 		"\n" +
 		"More details:\n" + err.stack);
     }

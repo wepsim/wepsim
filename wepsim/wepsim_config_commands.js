@@ -24,7 +24,7 @@
     ws_config.push({
                       id:          "select7",
                       type:        "General",
-                      code_cfg:    "<div class='form-group' style='margin:0 0 0 0;'>" +
+                      code_cfg:    "<div class='form-group m-0'>" +
 				   " <select name='select7' id='select7' class='form-control form-control-sm custom-select'" +
 				   "	     aria-label='idiom for examples and help' " +
 				   "	     onchange=\"var opt = $(this).find('option:selected');" +
@@ -44,7 +44,7 @@
     ws_config.push({
                       id:          "select8",
                       type:        "General",
-                      code_cfg:    "<div class='form-group' style='margin:0 0 0 0;'>" +
+                      code_cfg:    "<div class='form-group m-0'>" +
 				   " <select name='select8' id='select8' class='form-control form-control-sm custom-select'" +
 				   "	     aria-label='User Interface for WepSIM' " +
 				   "	     onchange=\"var opt = $(this).find('option:selected');" +
@@ -134,7 +134,7 @@
     ws_config.push({
                       id:          "select2",
                       type:        "Editor",
-                      code_cfg:    "<div class='form-group' style='margin:0 0 0 0;'>" +
+                      code_cfg:    "<div class='form-group m-0'>" +
 			           "   <select name='select2' id='select2' class='form-control form-control-sm custom-select'" +
 			           "	    aria-label='Editor mode'    " +
 			           "	    onchange=\"var opt = $(this).find('option:selected');" +
@@ -218,7 +218,7 @@
     ws_config.push({
                       id:          "select6",
                       type:        "Execution",
-                      code_cfg:    " <div class='form-group' style='margin:0 0 0 0;'>" +
+                      code_cfg:    " <div class='form-group m-0'>" +
 				   "	    <select name='select6' id='select6' class='form-control form-control-sm custom-select'" +
 				   "		    aria-label='max. ticks per instruction' " +
 				   "		    onchange=\"var opt = $(this).find('option:selected');" +
@@ -240,7 +240,7 @@
     ws_config.push({
                       id:          "select3",
                       type:        "Execution",
-                      code_cfg:    " <div class='form-group' style='margin:0 0 0 0;'>" +
+                      code_cfg:    " <div class='form-group m-0'>" +
 				   "	    <select name='select3' id='select3' class='form-control form-control-sm custom-select'" +
 				   "		    aria-label='max. ticks per instruction' " +
 				   "		    onchange=\"var opt = $(this).find('option:selected');" +
@@ -338,7 +338,7 @@
 				   "		aria-label='Color for active data'" +
 				   "		id='colorpicker1'" +
 				   "		data-show-value='false'" +
-				   "		class='noshadow-d' style='margin:0 0 0 0'" +
+				   "		class='noshadow-d m-0' " +
 				   "		onchange=\"update_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh();\">" +
 				   "</fieldset>",
 		      code_init:   function() { $('#colorpicker1').spectrum({ preferredFormat: 'hex', color: get_cfg('color_data_active')}); },
@@ -353,7 +353,7 @@
 				   "		aria-label='Color for active signal name'" +
 				   "		id='colorpicker2'" +
 				   "		data-show-value='false'" +
-				   "		class='noshadow-d' style='margin:0 0 0 0'" +
+				   "		class='noshadow-d m-0' " +
 				   "		onchange=\"update_cfg('color_name_active', $('#colorpicker2').spectrum('get')); refresh();\">" +
 				   "	 </fieldset> ",
 		      code_init:   function() { $('#colorpicker2').spectrum({ preferredFormat: 'hex', color: get_cfg('color_name_active')}); },
