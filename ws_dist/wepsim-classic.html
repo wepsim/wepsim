@@ -226,21 +226,27 @@
                                 id="btn_cfg1"
 			         data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			         title="This button opens the 'Configuration' dialog."
-                                onclick="wepsim_open_config_index();"
+                                onclick="wepsim_open_config_index(); 
+				         $('[data-toggle=tooltip]').tooltip('hide');
+					 return false;"
 		    	        style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
                                 ><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
 		        <button class="btn btn-light shadow-sm my-1"
                                 id="btn_micro1"
 			         data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			         title="This button switches into the 'Microcode' editor."
-                                onclick="sim_change_workspace_microcode();"
+                                onclick="sim_change_workspace_microcode(); 
+				         $('[data-toggle=tooltip]').tooltip('hide');
+					 return false;"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				><strong><span class="d-none d-sm-inline-flex" data-langkey='MicroCode'>MicroCode</span><span class="d-sm-none">&#181;code</span></strong></button>
 		        <button class="btn btn-light shadow-sm my-1 mr-2"
                                 id="btn_asm1"
 			         data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			         title="This button switches into the 'Assembly' editor."
-                                onclick="sim_change_workspace_assembly();"
+                                onclick="sim_change_workspace_assembly(); 
+				         $('[data-toggle=tooltip]').tooltip('hide');
+					 return false;"
 		                style="border-width:1 1 1 1px; margin:0 0 0 0; border-color: #CCCCCC;"
 				><strong><span class="d-none d-sm-inline-flex" data-langkey='Assembly'>Assembly</span><span class="d-sm-none" data-langkey='Assembly'>Assembly</span></strong></button>
                     </div>
@@ -270,7 +276,9 @@
                                     id="btn_example1"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			            title="This button opens the 'Examples' dialog."
-				    onclick="wepsim_open_examples_index();"><strong><span data-langkey='Examples'>Examples</span></strong></button>
+				    onclick="wepsim_open_examples_index(); 
+				             $('[data-toggle=tooltip]').tooltip('hide');
+					     return false;"><strong><span data-langkey='Examples'>Examples</span></strong></button>
 
 		            <button class="btn btn-light shadow-sm my-1 col"
 		                    style="border-width:1 1 1 1px; border-color:#CCCCCC; background-color:#D4DB17; flex-grow:1;"
@@ -278,7 +286,9 @@
 			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			            title="This button opens the 'Help' dialog."
 		                    onclick="wepsim_open_help_index();
-                                             wepsim_help_refresh();"><strong><span data-langkey='Help'>Help</span></strong></button>
+                                             wepsim_help_refresh(); 
+					     $('[data-toggle=tooltip]').tooltip('hide');
+					     return false;"><strong><span data-langkey='Help'>Help</span></strong></button>
 
 			<div class="btn-group p-0 my-1 col" style="flex-grow:6;">
 			    <button type="button" class="col-12 btn btn-light shadow-sm"
@@ -288,6 +298,7 @@
 				    id="select4"
                                     onclick="simui_select_details(22);
 					     simcoreui_init_hw('#config_HW') ;
+					     $('[data-toggle=tooltip]').tooltip('hide');
 					     return false;">HW</button>
 			    <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" 
                                     style="border-color: #CCCCCC;"
@@ -1464,24 +1475,29 @@
 		    if (typeof ko != "undefined")
                         ko.options.deferUpdates = true;
 
-		    inputfirm = CodeMirror.fromTextArea(document.getElementById("inputFirmware"),
-                                {
-				   value: "\n\n\n\n\n\n\n\n\n\n\n\n",
-				   lineNumbers: true,
-				   matchBrackets: true,
-				   tabSize: 2,
-				   foldGutter: {
-					rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.brace, CodeMirror.fold.comment)
-				   },
-				   gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
-				   mode: "text/javascript"
-				});
-                    sim_prepare_editor(inputfirm);
 
-		    inputasm = CodeMirror.fromTextArea(document.getElementById("inputAssembly"),
-                                    {
+		    // init-ui: microcode + assembly workspace
+
+		    $('.dropify').dropify();
+
+		    inputfirm_cfg = {
+				      value: "\n\n\n\n\n\n\n\n\n\n\n\n",
+				      lineNumbers: true,
+				      lineWrapping: true,
+				      matchBrackets: true,
+				      tabSize: 2,
+				      foldGutter: {
+					rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.brace, CodeMirror.fold.comment)
+				      },
+				      gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
+				      mode: "text/javascript"
+				    } ;
+                    inputfirm = sim_init_editor("inputFirmware", inputfirm_cfg) ;
+
+		    inputasm_cfg = {
 					value: "\n\n\n\n\n\n\n\n\n\n\n\n",
 					lineNumbers: true,
+				        lineWrapping: true,
 					matchBrackets: true,
 					tabSize: 2,
 					extraKeys: {
@@ -1490,16 +1506,21 @@
 						      var simware = get_simware();
 						      var cur = cm.getCursor();
 						      var result = new Array();
-						      for (var i=0; i<simware.firmware.length; i++)
-							   if(simware.firmware[i].name != "begin")
-								result.push(simware.firmware[i].signatureUser);
-						      return { list: result, from: cur, to: cur };
+						      for (var i=0; i<simware.firmware.length; i++) {
+							   if (simware.firmware[i].name != "begin") {
+								result.push(simware.firmware[i].signatureUser) ;
+	                                                   }
+	                                              }
+						      return { list: result, from: cur, to: cur } ;
 					      });
 					  }
 					},
 					mode: "gas"
-				    });
-                    sim_prepare_editor(inputasm) ;
+				    } ;
+                    inputasm = sim_init_editor("inputAssembly", inputasm_cfg) ;
+
+
+		    // init-ui: simulator
 
 		    sim_change_workspace_simulator() ;
 		    $('#tab26').trigger('click') ;
@@ -1519,13 +1540,27 @@
 		        else $(column).show() ;
 		    });
 
+		    var target = $("#asm_table");
+		    $("#asm_debugger_container").scroll(function() {
+		       target.prop("scrollTop", this.scrollTop).prop("scrollLeft", this.scrollLeft);
+		    });
+
+                    wepsim_init_state_dialog('end_state1', 'end_state2') ;
+
+
+		    // init-ui: general
+
+		    $("div.wsversion").replaceWith(get_cfg('version'));
+
+		    // carousel: touch swipe disabled
+		    $('.carousel').carousel({ touch: false })
+
+		    // tooltip: trigger by hover
 		    $('[data-toggle="tooltip"]').tooltip({
                         trigger:   'hover'
                     }) ;
-		    $('#carousel-8').carousel({
-                        touch: false
-                    })
 
+		    // popover...
 		    $("[data-toggle=popover0]").popover({
 			    html:       true,
 			    placement: 'auto',
@@ -1553,33 +1588,9 @@
                                            return wepsim_show_asm_columns_checked('popover2_asm') ;
                                         }
 		    });
-		    $("[data-toggle=popover3]").popover({
-			    html:    true,
-			    content: function() {
-			                  var id = $(this).attr('id')
-			                  return $('#popover-content-' + id).html();
-			             }
-		    });
 
-		    var target = $("#asm_table");
-		    $("#asm_debugger_container").scroll(function() {
-		       target.prop("scrollTop", this.scrollTop).prop("scrollLeft", this.scrollLeft);
-		    });
 
-		    $('.dropify').dropify();
-
-		    $('#end_state1').tokenfield({ inputType: 'textarea' }) ;
-		    //A1/ var inputEls = document.getElementById('end_state1');
-		    //A1/ if (null != inputEls)
-		    //A1/     setup_speech_input(inputEls) ;
-
-		    $('#end_state2').tokenfield({ inputType: 'textarea' }) ;
-		    //A1/ var inputEls = document.getElementById('end_state2');
-		    //A1/ if (null != inputEls)
-		    //A1/     setup_speech_input(inputEls) ;
-
-		    $("div.wsversion").replaceWith(get_cfg('version'));
-
+		    // init: general
 		    var ws_mode = get_cfg('ws_mode');
 		    simui_select_main(ws_mode);
 		    simcore_init_ui("#states_ALL", "#states_BR", "#io_ALL",
@@ -1630,7 +1641,9 @@
     {
           $("#ws_loader").collapse('hide') ;
 
-          alert("WepSIM was improperly used:\n" + err.message + "\n" +
+          alert("Please try to cleanup the browser cache and try again (just in case).\n" +
+		"\n" +
+                "WepSIM was improperly used:\n" + err.message + "\n" +
 		"\n" +
 		"More details:\n" + err.stack);
     }

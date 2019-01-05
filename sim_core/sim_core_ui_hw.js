@@ -30,13 +30,13 @@
 	      for (var elto in ahw.components)
               {
 		   c = c + '<span class="col">' +
-                           '<a href="#" class="hwpopover" data-toggle="popover" data-html="true" onclick="event.preventDefault();" title="" data-content="' +
+                           '<a href="#" class="popover_hw" data-toggle="popover" data-html="true" onclick="event.preventDefault();" title="" data-content="' +
 			   'name: '            + ahw.components[elto].name + '<br> ' +
 			   'version: '         + ahw.components[elto].version + '<br> ' +
 			   'abilities: '       + ahw.components[elto].abilities.join(" + ") +
 			   '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
                            '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
-                           '        onclick=$(\'.hwpopover\').popover(\'hide\');>Close</button>' +
+                           '        onclick=$(\'.popover_hw\').popover(\'hide\');>Close</button>' +
 			   '">' + elto + '</a></span>' ;
 	      }
 	      c = c + '</span>' ;
@@ -76,7 +76,7 @@
         function simcoreui_signal_dialog ( ahw_elto_name )
         {
 	      update_signal_dialog(ahw_elto_name) ;
-              $(".hwpopover").popover("hide") ;
+              $(".popover_hw").popover("hide") ;
         }
 
         function simcoreui_init_hw_signals ( ahw, update )
@@ -114,10 +114,10 @@
 			   'visible: '         + ahw.signals[elto].visible +
 			   '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
                            '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
-                           '        onclick=$(\'.hwpopover\').popover(\'hide\');>Close</button>' +
+                           '        onclick=$(\'.popover_hw\').popover(\'hide\');>Close</button>' +
 			   '</span>' ;
 		   c = c + '<span class="col">' +
-		           '<a href="#" id="hw_signal_tt_' + elto + '" class="hwpopover" data-toggle="popover" onclick="event.preventDefault();" ' +
+		           '<a href="#" id="hw_signal_tt_' + elto + '" class="popover_hw" data-toggle="popover" onclick="event.preventDefault();" ' +
 			   '   data-html="true" title="" data-content="' + e + '"><span id="hw_signal_strong_' + elto + '" class="' + elto_n + '">' + elto + '</span></a>' +
 			   '</span>' ;
 
@@ -216,10 +216,10 @@
 			   'visible: '                                    + elto_vi +
 			   '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
                            '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
-                           '        onclick=$(\'.hwpopover\').popover(\'hide\');>Close</button>' +
+                           '        onclick=$(\'.popover_hw\').popover(\'hide\');>Close</button>' +
 			   '</span>' ;
 		   c = c + '<span class="col">' +
-		           '<a href="#" id="hw_state_tt_' + elto + '" class="hwpopover" data-toggle="popover" onclick="event.preventDefault();" ' +
+		           '<a href="#" id="hw_state_tt_' + elto + '" class="popover_hw" data-toggle="popover" onclick="event.preventDefault();" ' +
 			   '   data-html="true" title="" data-content="' + e + '"><span id="hw_state_strong_' + elto + '" class="' + elto_n + '">' + elto + '</span></a>' +
 			   '</span>' ;
 
@@ -268,7 +268,7 @@
 	      for (var elto in ahw.behaviors)
               {
 		   c = c + '<span class="col">' +
-		           '<a href="#" class="hwpopover" data-toggle="popover" onclick="event.preventDefault();" ' +
+		           '<a href="#" class="popover_hw" data-toggle="popover" onclick="event.preventDefault();" ' +
 			   '   data-html="true" title="" data-content="' +
 			   '<span style=\'text-align:left\'>' +
 			   'name: '            + elto + '<br> ' +
@@ -277,7 +277,7 @@
 			// 'verbal: '          + ahw.behaviors[elto].verbal.toString() + '<br> ' +
 			   '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
                            '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
-                           '        onclick=$(\'.hwpopover\').popover(\'hide\');>Close</button>' +
+                           '        onclick=$(\'.popover_hw\').popover(\'hide\');>Close</button>' +
 			   '</span>' +
 			   '">' + elto + '</a></span>' ;
 	      }
@@ -314,7 +314,7 @@
 	  	  trigger:   'hover'
 	      }) ;
 
-              $('.hwpopover').popover({
+              $('.popover_hw').popover({
 		  trigger:'hover click',
 		  container:'body',
 		  placement:'auto',
