@@ -1388,17 +1388,18 @@
 <script type="text/javascript">
     try
     {
-            wepsim_load_hw() ;
-
 	    // basic initialization of wepsim...
 	    simcore_init(true) ;
-	    simcore_init_hw('ep') ;
 
 	    // go to wepsim UI skin...
 	    var optValue = get_cfg('ws_skin') ;
 	    if (optValue != 'compact') {
 	        window.location='wepsim-' + optValue + '.html' ;
             }
+
+	    // initialization of wepsim...
+            wepsim_load_hw() ;
+	    simcore_init_hw('ep') ;
 
 	    // ...then install protection for accidental close.
 	    window.addEventListener("beforeunload",
