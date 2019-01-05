@@ -41,19 +41,6 @@
                  stop_drawing() ;
 	    }
 
-            // ui
-            if ( with_ui ) 
-            {
-                 var msg_default = '<div class="bg-light"></div>' ;
-
-                 $(stateall_id).html(msg_default) ;
-                 $(statebr_id).html(msg_default) ;
-                 $(ioall_id).html(msg_default) ;
-                 $(cpuall_id).html(msg_default) ;
-                 $(configmp_id).html(msg_default) ;
-                 $(configio_id).html(msg_default) ;
-	    }
-
             return ret ;
         }
 
