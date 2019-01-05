@@ -24,10 +24,9 @@
         /**
          * Initialize simulator core and UI.
          * @param {boolean} with_ui - initialize with UI support
-         * @param {string} simhw_name - hardware name
          */
 
-        function simcore_init ( with_ui, simhw_name )
+        function simcore_init ( with_ui )
         {
 	    var ret = {} ;
 	        ret.msg = "" ;
@@ -41,6 +40,33 @@
                  reset_cfg() ;
                  stop_drawing() ;
 	    }
+
+            // ui
+            if ( with_ui ) 
+            {
+                 var msg_default = '<div class="bg-light"></div>' ;
+
+                 $(stateall_id).html(msg_default) ;
+                 $(statebr_id).html(msg_default) ;
+                 $(ioall_id).html(msg_default) ;
+                 $(cpuall_id).html(msg_default) ;
+                 $(configmp_id).html(msg_default) ;
+                 $(configio_id).html(msg_default) ;
+	    }
+
+            return ret ;
+        }
+
+        /**
+         * Initialize simulator Hardware.
+         * @param {string} simhw_name - hardware name
+         */
+
+        function simcore_init_hw ( simhw_name )
+        {
+	    var ret = {} ;
+	        ret.msg = "" ;
+	        ret.ok  = true ;
 
             // hardware
 	    var hwid = simhw_getActiveByName(simhw_name) ;

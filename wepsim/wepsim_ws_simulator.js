@@ -170,7 +170,7 @@
 
     // hardware
 
-    function wepsim_inithw ( )
+    function wepsim_load_hw ( )
     {
 /*
 	    // load ep hardware...

@@ -1443,9 +1443,11 @@
 <script type="text/javascript">
     try
     {
+            wepsim_load_hw() ;
+
 	    // basic initialization of wepsim...
-            wepsim_inithw() ;
-	    simcore_init(true, 'ep') ;
+	    simcore_init(true) ;
+	    simcore_init_hw('ep') ;
 
 	    // go to wepsim UI skin...
 	    var optValue = get_cfg('ws_skin') ;

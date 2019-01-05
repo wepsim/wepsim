@@ -29,7 +29,7 @@
 	    ret1.msg = "" ;
 	    ret1.ok  = true ;
 
-        var ret = simcore_init(false, simhw_name) ;
+        var ret = simcore_init(false) ;
 	if (false == ret.ok) 
 	{
             ret1.msg = "ERROR: initialize: " + ret.msg + ".\n" ;
@@ -37,7 +37,7 @@
 	    return ret1 ;
 	}
 
-	ret = simcore_init_ui('', '', '', '', '', '') ;
+        var ret = simcore_init_hw(simhw_name) ;
 	if (false == ret.ok) 
 	{
             ret1.msg = "ERROR: initialize: " + ret.msg + ".\n" ;
