@@ -24,10 +24,9 @@
         /**
          * Initialize simulator core and UI.
          * @param {boolean} with_ui - initialize with UI support
-         * @param {string} simhw_name - hardware name
          */
 
-        function simcore_init ( with_ui, simhw_name )
+        function simcore_init ( with_ui )
         {
 	    var ret = {} ;
 	        ret.msg = "" ;
@@ -41,6 +40,20 @@
                  reset_cfg() ;
                  stop_drawing() ;
 	    }
+
+            return ret ;
+        }
+
+        /**
+         * Initialize simulator Hardware.
+         * @param {string} simhw_name - hardware name
+         */
+
+        function simcore_init_hw ( simhw_name )
+        {
+	    var ret = {} ;
+	        ret.msg = "" ;
+	        ret.ok  = true ;
 
             // hardware
 	    var hwid = simhw_getActiveByName(simhw_name) ;
@@ -153,8 +166,8 @@
                                continue;
                            }
 
-                           u.addEventListener('click',    update_signal,       false);
-                           u.addEventListener('dblclick', update_signal,       false);
+                           u.addEventListener('click',    update_signal, false);
+                           u.addEventListener('dblclick', update_signal, false);
                 }
             }
         }
@@ -616,6 +629,62 @@
     	    update_memories(SIMWARE) ;
     	    simcore_reset() ;
     
+            return ret ;
+        }
+
+
+        /* 6) Hardware */
+    
+        /**
+         * Export Hardware to JSON string
+         * @param {string} hw_obj - The object with the Hardware description
+         */
+
+        function simcore_hardware_export ( hw_obj )
+        {
+	    var ret = {} ;
+	        ret.msg = "{}" ;
+	        ret.ok  = true ;
+
+            // export to json
+            // based on: https://stackoverflow.com/questions/36517173/how-to-store-a-javascript-function-in-json
+	    ret.msg = JSON.stringify(hw_obj, 
+                                     function(key, value) {
+					  if (typeof value === "function") {
+					      return "/Function(" + value.toString() + ")/" ;
+					  }
+					  return value ;
+                                     }) ;
+
+            return ret ;
+        }
+
+        /**
+         * Import Hardware from JSON string
+         * @param {string} hw_json - The JSON string with the Hardware description
+         */
+
+        function simcore_hardware_import ( hw_json )
+        {
+	    var ret = {} ;
+	        ret.msg = "" ;
+	        ret.ok  = true ;
+
+            // import json
+            // based on: https://stackoverflow.com/questions/36517173/how-to-store-a-javascript-function-in-json
+	    hw_obj = JSON.parse( hw_json,
+				 function(key, value) {
+					  if (typeof value === "string" &&
+					      value.startsWith("/Function(") &&
+					      value.endsWith(")/")) 
+                                          {
+					     value = value.substring(10, value.length - 2) ;
+					     return eval("(" + value + ")") ;
+					  }
+					  return value ;
+				 }) ;
+	    simhw_add(hw_obj) ;
+
             return ret ;
         }
 

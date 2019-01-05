@@ -242,7 +242,12 @@ Micropc at 0x3f.	Activated signals are: MC MR SELB SELA MA MB SELCOP T6 SELC LC 
          */
 
 	// 1) initialize WepSIM engine
-        var ret = simcore_init(false, 'ep') ;
+        var ret = simcore_init(false) ;
+
+	if (false != ret.ok) {
+            ret = simcore_init_hw('ep') ;
+        }
+
 	if (false != ret.ok) {
 	    simcore_init_ui('', '', '', '', '', '') ;
         }

@@ -49,7 +49,7 @@
     try
     {
 	    // basic initialization of wepsim...
-	    simcore_init(true, 'ep') ;
+	    simcore_init(true) ;
 
 	    // go to wepsim UI skin...
 	    var optValue = get_cfg('ws_skin') ;
@@ -57,9 +57,11 @@
     }
     catch(err)
     {
-          alert("WepSIM was improperly used:\n" + err.message + "\n" +
+          alert("Please try to cleanup the browser cache and try again (just in case).\n" +
 		"\n" +
-		"More details:\n" + err.stack);
+                "WepSIM was improperly used:\n" + err.message + "\n" +
+		"\n" +
+		"More details:\n" + err.stack) ;
     }
 </script>
 <noscript>Your browser does not support JavaScript!</noscript>
