@@ -1,4 +1,4 @@
-/*     
+/*    
  *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
@@ -28,14 +28,14 @@
 
         function show_main_memory ( memory, index, redraw, updates )
         {
-            if (get_cfg('DBG_delay') > 3) 
+            if (get_cfg('DBG_delay') > 3)
                 show_main_memory_redraw  = redraw || show_main_memory_redraw ;
 
             if (null != show_main_memory_deferred)
                 return;
 
             show_main_memory_redraw = redraw ;
-            show_main_memory_deferred = setTimeout(function () 
+            show_main_memory_deferred = setTimeout(function ()
                                                    {
 						        if (show_main_memory_redraw == false)
 						    	    light_refresh_main_memory(memory, index, updates);
@@ -80,18 +80,18 @@
                 if (typeof sname != "undefined")
                     o1 += '<div style="position:sticky;top:0px;z-index:1;width:50%;background:#FFFFFF;"><b><small>' + sname + '</small></b></div>' ;
 
-                taddr = '<small>0x</small>' + pack5(valkeys[3]) + '<span class="d-none d-sm-inline-flex"> </span>-' + 
+                taddr = '<small>0x</small>' + pack5(valkeys[3]) + '<span class="d-none d-sm-inline-flex"> </span>-' +
                         '<span class="d-none d-sm-inline-flex"><small> 0x</small></span>' + pack5(valkeys[0]) ;
 		if (key == index)
 		     o1 += "<div class='row' id='addr" + key + "'" +
                            "     style='color:blue; font-size:small; font-weight:bold;    border-bottom: 1px solid lightgray !important'>" +
-			   "<div class='col-6 pr-2' align='right'  style='padding:5'>" + taddr + "</div>" + 
-                           "<div class='col-6'      align='left'   style='padding:5' id='mpval" + key + "'>" + value + "</div>" + 
+			   "<div class='col-6 pr-2' align='right'  style='padding:5'>" + taddr + "</div>" +
+                           "<div class='col-6'      align='left'   style='padding:5' id='mpval" + key + "'>" + value + "</div>" +
                            "</div>" ;
 		else o1 += "<div class='row' id='addr" + key + "'" +
                            "     style='color:black; font-size:small; font-weight:normal; border-bottom: 1px solid lightgray !important'>" +
-			   "<div class='col-6 pr-2' align='right'  style='padding:5'>" + taddr + "</div>" + 
-                           "<div class='col-6'      align='left'   style='padding:5' id='mpval" + key + "'>" + value + "</div>" + 
+			   "<div class='col-6 pr-2' align='right'  style='padding:5'>" + taddr + "</div>" +
+                           "<div class='col-6'      align='left'   style='padding:5' id='mpval" + key + "'>" + value + "</div>" +
                            "</div>" ;
             }
 
@@ -99,7 +99,7 @@
 		o1 += "<div class='row' id='addr" + index + "'" +
                       "     style='color:blue; font-size:small; font-weight:bold; border-bottom: 1px solid lightgray !important'>" +
 		      "<div class='col-6 pr-2' align='right'  style='padding:5'>" + "0x" + parseInt(index).toString(16) + "</div>" +
-		      "<div class='col-6'      align='left'   style='padding:5' id='mpval>" + index + "'>" + "00 00 00 00" + "</div>"+ 
+		      "<div class='col-6'      align='left'   style='padding:5' id='mpval>" + index + "'>" + "00 00 00 00" + "</div>"+
                       "</div>";
 
             $("#memory_MP").html("<div class='container-fluid'>" + o1 + "</div>");
@@ -132,7 +132,7 @@
                 }
 
                 value2 = '' ;
-                for (i=0; i<4; i++) 
+                for (i=0; i<4; i++)
                 {
                      labeli = revlabels["0x" + valkeys[3-i]] ;
                      valuei = value[i*2] + value[i*2+1] ;
@@ -140,7 +140,7 @@
                      if (typeof labeli != "undefined")
                           value2 += '<span>' +
                                     '<span style="border:1px solid gray;">' + valuei + '</span>' +
-                                    '<span class="badge badge-pill badge-info" ' + 
+                                    '<span class="badge badge-pill badge-info" ' +
                                     '     style="position:relative;top:-8px;">' + labeli + '</span>' +
                                     '</span>' ;
                      else value2 += valuei + ' ' ;
@@ -241,7 +241,7 @@
             {
                 value = controlmemory_lineToString(memory, key) ;
                 maddr = "0x" + parseInt(key).toString(16) ;
-                if (typeof revlabels[key] != "undefined") 
+                if (typeof revlabels[key] != "undefined")
 		{
                     htmllabel = revlabels[key] ;
 		    htmlfill  = 5 - htmllabel.length ;
@@ -252,7 +252,7 @@
 		    }
 
                     maddr = '<span>' +
-                            '<span class="badge badge-pill badge-info text-monospace" ' + 
+                            '<span class="badge badge-pill badge-info text-monospace" ' +
                             '      style="position:relative;top:4px;">' + htmllabel + '</span>' +
                             '<span style="border:1px solid gray;">' + maddr + '</span>' +
                             '</span>' ;
@@ -281,8 +281,8 @@
 
 	    if (typeof memory[index] == "undefined") {
 		o1 += "<tr>" +
-		      "<td width='15%'><font style='color:blue; font-size:small; font-weight:bold'>0x" + 
-                      parseInt(index).toString(16) + 
+		      "<td width='15%'><font style='color:blue; font-size:small; font-weight:bold'>0x" +
+                      parseInt(index).toString(16) +
                       "</font></td>" +
 		      "<td><font style='color:blue; font-size:small; font-weight:bold'><b>&nbsp;</b></font></td></tr>";
             }
@@ -365,7 +365,7 @@
 
                          line = "";
                          if (j==0)
-                              line += "<td style='border-style: solid; border-width:0px; border-color:lightgray;'>" + 
+                              line += "<td style='border-style: solid; border-width:0px; border-color:lightgray;'>" +
 				      "<span class='badge badge-pill badge-secondary float-left'>" + isignature + "</span>&nbsp;</td>" +
                                       "<td style='border-style: solid; border-width:1px; border-color:lightgray;'>" + ico + "</td>" ;
                          else line += "<td style='border-style: solid; border-width:0px; border-color:lightgray;'>&nbsp;</td>" +
@@ -614,6 +614,7 @@
                 var  s_label = "" ;
                 var s1_instr = "" ;
                 var s2_instr = "" ;
+                var s3_hex   = "" ;
                 var bgc = "#F0F0F0" ;
                 var o = "" ;
 
@@ -642,6 +643,7 @@
                      // instruction
                      s1_instr = asm[l].source ;
                      s2_instr = asm[l].source_original ;
+                     s3_hex   = '0x' + parseInt(asm[l].binary, 2).toString(16) ;
 
                      // labels
                      s_label = "" ;
@@ -660,13 +662,18 @@
                      o +=  "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'" +
                            "    onclick='asmdbg_set_breakpoint(" + l + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
-                           "<td                                             width='2%'></td>" +
-                           "<td class='asm_break show'  style='line-height:0.9; padding:5 0 0 0;' width='10%' align='center' id='bp" + l + "'>&nbsp;</td>" +
-                           "<td class='asm_addr show'   style='line-height:0.9;' width='15%'>" + l + "</td>" +
-                           "<td class='asm_label2 show' style='line-height:0.9;' width='10%' align=right>" + s_label + "</td>" +
-                           "<td class='asm_pins show'   style='line-height:0.9;' width='20%' align=left>"  + s2_instr + "</td>" +
-                           "<td class='asm_label1 show' style='line-height:0.9;' width='10%' align=right>" + s_label + "</td>" +
-                           "<td class='asm_ins show'    style='line-height:0.9;' width='25%' align=left>"  + s1_instr + "</td>" +
+                           "<td class='asm_label  text-monospace show' " +
+                           "    style='line-height:0.9;' width='20%' align=right>" + s_label + "</td>" +
+                           "<td class='asm_addr   text-monospace show' " +
+                           "    style='line-height:0.9;' width='15%'>" + l +
+                           "<span class='show col-auto py-0 px-0' align='center' id='bp" + l + "'></span>" +
+                           "</td>" +
+                           "<td class='asm_hex    text-monospace show' " +
+                           "    style='line-height:0.9;' width='15%'>" + s3_hex + "</td>" +
+                           "<td class='asm_ins    text-monospace show' " +
+                           "    style='line-height:0.9;' width='25%' align=left>"  + s1_instr + "</td>" +
+                           "<td class='asm_pins   text-monospace show text-secondary' " +
+                           "    style='line-height:0.9;' width='25%' align=left>"  + s2_instr + "</td>" +
                            "</tr>" ;
                 }
                 o += "</tbody></table></center>" ;
@@ -769,7 +776,7 @@
 
                 if ( bp_state && ('instruction' == get_cfg('DBG_level')) )
                 {
-                     wepsim_notify_success('<strong>INFO</strong>', 
+                     wepsim_notify_success('<strong>INFO</strong>',
                                            'Please remember to change configuration to execute at microinstruction level.') ;
                 }
         }
