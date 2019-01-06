@@ -666,14 +666,14 @@
                            "    style='line-height:0.9;' width='20%' align=right>" + s_label + "</td>" +
                            "<td class='asm_addr   text-monospace show' " +
                            "    style='line-height:0.9;' width='15%'>" + l +
-                           "<span class='show col-auto py-0 px-0' align='center' id='bp" + l + "'></span>" +
+                           "<span class='py-0 px-2' align='center' id='bp" + l + "'></span>" +
                            "</td>" +
                            "<td class='asm_hex    text-monospace show' " +
                            "    style='line-height:0.9;' width='15%'>" + s3_hex + "</td>" +
                            "<td class='asm_ins    text-monospace show' " +
-                           "    style='line-height:0.9;' width='25%' align=left>"  + s1_instr + "</td>" +
+                           "    style='line-height:0.9;' width='25%' align=left>" + s1_instr + "</td>" +
                            "<td class='asm_pins   text-monospace show text-secondary' " +
-                           "    style='line-height:0.9;' width='25%' align=left>"  + s2_instr + "</td>" +
+                           "    style='line-height:0.9;' width='25%' align=left>" + s2_instr + "</td>" +
                            "</tr>" ;
                 }
                 o += "</tbody></table></center>" ;
