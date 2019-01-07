@@ -654,26 +654,31 @@
                      }
 
                      // join the pieces...
-                     if (typeof a2s[l] != "undefined")
+                     if (typeof a2s[l] != "undefined") {
                          o += "<tr bgcolor='#FEFEFE'>" +
                               "<td colspan='7' style='line-height:0.3;' align='left'><small><font color='gray'>" + a2s[l] + "</font></small></td>"
                               "</tr>" ;
+		     }
+
+		     if (s1_instr == s2_instr) {
+			 s2_instr = '<span class="text-secondary">' + s2_instr + '</span>' ;
+		     }
 
                      o +=  "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'" +
                            "    onclick='asmdbg_set_breakpoint(" + l + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
-                           "<td class='asm_label  text-monospace show' " +
-                           "    style='line-height:0.9;' width='20%' align=right>" + s_label + "</td>" +
-                           "<td class='asm_addr   text-monospace show' " +
-                           "    style='line-height:0.9;' width='15%'>" + l +
-                           "<span class='py-0 px-2' align='center' id='bp" + l + "'></span>" +
-                           "</td>" +
-                           "<td class='asm_hex    text-monospace show' " +
-                           "    style='line-height:0.9;' width='15%'>" + s3_hex + "</td>" +
-                           "<td class='asm_ins    text-monospace show' " +
-                           "    style='line-height:0.9;' width='25%' align=left>" + s1_instr + "</td>" +
-                           "<td class='asm_pins   text-monospace show text-secondary' " +
-                           "    style='line-height:0.9;' width='25%' align=left>" + s2_instr + "</td>" +
+                           "<td class='asm_label  text-monospace collapse show col-auto' " +
+                           "    style='line-height:0.9;' align=right>" + s_label + "</td>" +
+                           "<td class='asm_addr   text-monospace collapse show col-auto' " +
+                           "    style='line-height:0.9;'>" + l + "</td>" +
+                           "<td class='asm_break  text-monospace collapse show col-1 py-0 px-2' " +
+                           "    style='line-height:0.9;' id='bp" + l + "'>" + "</td>" +
+                           "<td class='asm_hex    text-monospace collapse      col-auto' " +
+                           "    style='line-height:0.9;'>" + s3_hex + "</td>" +
+                           "<td class='asm_ins    text-monospace collapse show col-auto' " +
+                           "    style='line-height:0.9;' align=left>" + s1_instr + "</td>" +
+                           "<td class='asm_pins   text-monospace collapse show col-auto' " +
+                           "    style='line-height:0.9;' align=left>" + s2_instr + "</td>" +
                            "</tr>" ;
                 }
                 o += "</tbody></table></center>" ;
