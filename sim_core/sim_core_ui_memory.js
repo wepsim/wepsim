@@ -676,7 +676,7 @@
                            "    style='line-height:0.9;'>" + l + "</td>" +
                            "<td class='asm_break  text-monospace col-auto collapse show py-0 px-2' " +
                            "    style='line-height:0.9;' id='bp" + l + "' width='1%'>" + "</td>" +
-                           "<td class='asm_hex    text-monospace col-auto collapse     ' " +
+                           "<td class='asm_hex    text-monospace col-auto collapse show' " +
                            "    style='line-height:0.9;'>" + s3_hex + "</td>" +
                            "<td class='asm_ins    text-monospace col-auto collapse show' " +
                            "    style='line-height:0.9;' align=left>" + s1_instr + "</td>" +
