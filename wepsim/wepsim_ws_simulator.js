@@ -291,8 +291,8 @@
                 '&nbsp;<span>address</span>' +
 		'</label></li>' +
 		'<li class="list-group-item py-0"><label class="m-1">' +
-		'<input aria-label="Show content"    type="checkbox" value="0" id="asm_hex"    ' +
-		'                      data-toggle="collapse" data-target=".asm_hex">' +
+		'<input aria-label="Show content"    type="checkbox" value="1" id="asm_hex"    ' +
+		'    checked="checked" data-toggle="collapse" data-target=".asm_hex">' +
                 '&nbsp;<span>content</span>' +
 		'</label></li>' +
 		'<li class="list-group-item py-0"><label class="m-1">' +
