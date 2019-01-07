@@ -645,7 +645,8 @@
                      // instruction
                      s1_instr = asm[l].source ;
                      s2_instr = asm[l].source_original ;
-                     s3_hex   = '0x' + parseInt(asm[l].binary, 2).toString(16) ;
+                     s3_hex   = parseInt(asm[l].binary, 2).toString(16) ;
+                     s3_hex   = "0x" + "00000000".substring(0, 8 - s3_hex.length) + s3_hex ;
 
                      // labels
                      s_label = "" ;
