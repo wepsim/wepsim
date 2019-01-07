@@ -280,10 +280,10 @@
     function wepsim_show_asm_columns_checked ( asm_po )
     {
         var o = '<ul class="list-group">' +
-                '<li class="list-group-item py-0"><label class="m-1">' +
-		'<input aria-label="Show breakpoint" type="checkbox" value="1" id="asm_break" ' +
-                '    checked="checked" data-toggle="collapse" data-target=".asm_break">' +
-                '&nbsp;<span>breakpoints</span>' +
+		'<li class="list-group-item py-0"><label class="m-1">' +
+		'<input aria-label="Show label"              type="checkbox" value="1" id="asm_label"  ' +
+		' checked="checked" data-toggle="collapse" data-target=".asm_label">' +
+                '&nbsp;<span>labels</span>' +
 		'</label></li>' +
 		'<li class="list-group-item py-0"><label class="m-1">' +
 		'<input aria-label="Show address"    type="checkbox" value="1" id="asm_addr"    ' +
@@ -291,24 +291,19 @@
                 '&nbsp;<span>address</span>' +
 		'</label></li>' +
 		'<li class="list-group-item py-0"><label class="m-1">' +
-		'<input aria-label="Show label"      type="checkbox" value="1" id="asm_label2"  ' +
-		'    checked="checked" data-toggle="collapse" data-target=".asm_label2">' +
-                '&nbsp;<span>labels</span>' +
-		'</label></li>' +
-                '<li class="list-group-item py-0"><label class="m-1">' +
-		'<input aria-label="Show pseudo-instruction" type="checkbox" value="1" id="asm_pins" ' +
-		'    checked="checked" data-toggle="collapse" data-target=".asm_pins">' +
-                '&nbsp;<span>pseudo</span><span class="d-none d-md-inline">-instructions</span>' +
-		'</label></li>' +
-		'<li class="list-group-item py-0"><label class="m-1">' +
-		'<input aria-label="Show label"              type="checkbox" value="1" id="asm_label1"  ' +
-		' checked="checked" data-toggle="collapse" data-target=".asm_label1">' +
-                '&nbsp;<span>labels</span>' +
+		'<input aria-label="Show content"    type="checkbox" value="0" id="asm_hex"    ' +
+		'                      data-toggle="collapse" data-target=".asm_hex">' +
+                '&nbsp;<span>content</span>' +
 		'</label></li>' +
 		'<li class="list-group-item py-0"><label class="m-1">' +
 		'<input aria-label="Show instruction"        type="checkbox" value="1" id="asm_ins"     ' +
 		' checked="checked" data-toggle="collapse" data-target=".asm_ins">' +
                 '&nbsp;<span>assembly</span>' +
+		'</label></li>' +
+                '<li class="list-group-item py-0"><label class="m-1">' +
+		'<input aria-label="Show pseudo-instruction" type="checkbox" value="1" id="asm_pins" ' +
+		'    checked="checked" data-toggle="collapse" data-target=".asm_pins">' +
+                '&nbsp;<span>pseudo</span><span class="d-none d-md-inline">-instructions</span>' +
 		'</label></li>' +
 		'</ul>' +
                 '<button type="button" id="close" data-role="none" ' +
