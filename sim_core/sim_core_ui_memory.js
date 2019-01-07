@@ -631,7 +631,9 @@
                      a2s[laddr] = l;
                 }
 
-                o += "<center><table data-role='table' class='table ui-responsive table-sm'><tbody>" ;
+                o += "<center>" + 
+                     "<table data-role='table' class='table table-sm'>" + 
+                     "<tbody>" ;
                 for (l in asm)
                 {
                      if  (bgc == "#F0F0F0")
@@ -681,7 +683,9 @@
                            "    style='line-height:0.9;' align=left>" + s2_instr + "</td>" +
                            "</tr>" ;
                 }
-                o += "</tbody></table></center>" ;
+                o += "</tbody>" + 
+                     "</table>" + 
+                     "</center>" ;
 
                 return o ;
 	}
