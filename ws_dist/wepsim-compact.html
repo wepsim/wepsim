@@ -263,8 +263,12 @@
                                     style="border-color: #CCCCCC;"
 				    id="select4"
                                     onclick="simui_select_details(22);
-					     simcoreui_init_hw('#config_HW') ;
 					     $('[data-toggle=tooltip]').tooltip('hide');
+					      // initialize hw
+					      simcoreui_init_hw('#config_HW') ;
+					      // adapt to idiom
+					      var ws_idiom = get_cfg('ws_idiom');
+					      i18n_update_tags('gui', ws_idiom) ;
 					     return false;">HW</button>
 			    <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" 
                                     style="border-color: #CCCCCC;"
@@ -276,13 +280,21 @@
 			      <h6 class="text-secondary mb-1">WepSIM hardware</h6>
                               <a class="dropdown-item" href="#" id="s4_ep" value="ep"
 				 onclick="simui_select_main('ep');
-	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
-					  simcoreui_init_hw('#config_HW') ;
+					    // initialize hw
+	                                    simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
+					    simcoreui_init_hw('#config_HW') ;
+					    // adapt to idiom
+					    var ws_idiom = get_cfg('ws_idiom');
+					    i18n_update_tags('gui', ws_idiom) ;
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP</a>
                               <a class="dropdown-item" href="#" id="s4_poc" value="poc"
 				 onclick="simui_select_main('poc');
-	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
-					  simcoreui_init_hw('#config_HW') ;
+					    // initialize hw
+	                                    simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
+					    simcoreui_init_hw('#config_HW') ;
+					    // adapt to idiom
+					    var ws_idiom = get_cfg('ws_idiom');
+					    i18n_update_tags('gui', ws_idiom) ;
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;POC</a>
 
 			      <div class="dropdown-divider"></div>
@@ -426,7 +438,7 @@
 		                    class="btn btn-light col"
 			            onclick="wepsim_execute_microinstruction();
 	                                     simcoreui_show_hw();
-                                             return false;"><em class="fa fa-step-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey='Instruction'>&#181;Instruction</span><span class="d-sm-none">&#181;Instr.</span></strong></button>
+                                             return false;"><em class="fa fa-step-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey='microInstruction'>&#181;Instruction</span><span class="d-sm-none">&#181;Instr.</span></strong></button>
 			    <button id="ni1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
 			            onclick="wepsim_execute_instruction();
@@ -1408,10 +1420,6 @@
 					 return confirmationMessage;                            // Webkit, Safari, Chrome
 				    });
 
-	    // adapt to idiom
-	    var ws_idiom = get_cfg('ws_idiom');
-	    i18n_update_tags('gui', ws_idiom) ;
-
 	    $(document).ready(function()
 	    {
                     $("#ws_loader").collapse('hide') ;
@@ -1546,6 +1554,10 @@
 		    if (false == get_cfg('use_voice')) {
 			wepsim_voice_stop() ;
 		    }
+
+		    // adapt to idiom
+		    var ws_idiom = get_cfg('ws_idiom');
+		    i18n_update_tags('gui', ws_idiom) ;
 	    }) ;
 
             // progressive web application

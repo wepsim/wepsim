@@ -40,6 +40,11 @@
 			"History":  			                "Historia",
 			"Differences":  			        "Diferencias",
 			"processor":  			                "procesador",
-			"details":  			                "detalles"
+			"details":  			                "detalles",
+                        "Signals": 		                     	"Se&ntilde;ales",
+                        "States": 		                     	"Estados",
+                        "Behaviors": 		                     	"Comportamientos",
+                        "Control States": 	                     	"Estados de Control",
+                        "Dependencies": 		                "Dependencias"
                   } ;
 

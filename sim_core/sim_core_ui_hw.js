@@ -135,11 +135,11 @@
 		      '      <h5 class="card-title m-0">' +
 		      '       <div class="container">' +
 		      '       <span class="row">' +
-		      '        <span class="col-auto pl-0">Signals</span>' +
+		      '        <span class="col-auto pl-0" data-langkey="Signals">Signals</span>' +
 		      '        <span class="col-auto btn btn-sm btn-outline-secondary ml-auto" ' +
 		      '              data-toggle="tooltip" data-html="true" title="Graph of the signal dependencies <br>(it needs several seconds to be displayed)."' +
 	              '              onclick="$(\'#depgraph1c\').collapse(\'toggle\'); ' +
-                      '                       show_visgraph(jit_fire_dep, jit_fire_order);">Dependencies</span>' +
+                      '                       show_visgraph(jit_fire_dep, jit_fire_order);" data-langkey="Dependencies">Dependencies</span>' +
 		      '       </span>' +
 		      '       </div>' +
 		      '      </h5>' +
@@ -237,10 +237,10 @@
 		      '      <h5 class="card-title m-0">' +
 		      '       <div class="container">' +
 		      '       <span class="row">' +
-		      '        <span class="col-auto pl-0">States</span>' +
+		      '        <span class="col-auto pl-0" data-langkey="States">States</span>' +
 		      '        <span class="col-auto btn btn-sm btn-outline-secondary ml-auto" ' +
 		      '              data-toggle="tooltip" data-html="true" title="It shows the control states: PC, IR, and SP."' +
-	              '              onclick="$(\'#ctrlstates1\').collapse(\'toggle\');">Control States</span>' +
+	              '              onclick="$(\'#ctrlstates1\').collapse(\'toggle\');" data-langkey="Control States">Control States</span>' +
 		      '       </span>' +
 		      '       </div>' +
 		      '      </h5>' +
@@ -286,7 +286,7 @@
               // card with behaviors list
 	      var o = '  <div class="card m-2">' +
 		      '    <div class="card-header border border-light p-2">' +
-		      '      <h5 class="card-title m-0">Behaviors</h5>' +
+		      '      <h5 class="card-title m-0"><span data-langkey="Behaviors">Behaviors</span></h5>' +
 		      '    </div>' +
 		      '    <div class="card-body border border-light p-2">' +
 		      '      <p class="card-text">' + c + '</p>' +
