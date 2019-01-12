@@ -17,6 +17,7 @@ jshint ./sim_sw/sim_lang.js
 
 jshint ./sim_hw/sim_hw_index.js
 jshint ./sim_hw/sim_hw_values.js
+jshint ./sim_hw/sim_hw_behavior.js
 jshint ./sim_hw/sim_hw_poc/sim_poc.js
 jshint ./sim_hw/sim_hw_poc/sim_hw_mem.js
 jshint ./sim_hw/sim_hw_poc/sim_hw_board.js
@@ -39,6 +40,8 @@ jshint ./wepsim/wepsim_misc.js
 jshint ./wepsim/wepsim_url.js
 jshint ./wepsim/wepsim_breakpointicons.js
 jshint ./wepsim/wepsim_config_commands.js
+jshint ./wepsim/wepsim_ws_editor.js
+jshint ./wepsim/wepsim_ws_simulator.js
 
 jshint ./wepsim/i18n/i18n.js
 jshint ./wepsim/i18n/es-gui.js

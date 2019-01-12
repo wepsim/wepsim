@@ -42,7 +42,6 @@
 			"processor":  			                "processor",
 			"details":  			                "details",
                         "Signals": 		                     	"Signals",
-                        "States": 		                     	"States",
                         "Behaviors": 		                     	"Behaviors",
                         "Control States": 	                     	"Control States",
                         "Dependencies": 		                "Dependencies"
