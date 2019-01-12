@@ -289,6 +289,7 @@
                        description: "Ejemplo ampliado con E/S programada, segmento de datos/c&oacute;digo b&aacute;sico.<br>"
                      });
 
+/*
     examples.es.push({
                        id: 'S2E2',
                        title: "Subrutina",
@@ -299,6 +300,7 @@
                        assembly:  "ep_s2_e2",
                        description: "Ejemplo ampliado con m&aacute;s instrucciones y E/S (keyboard, display).<br>"
                      });
+*/
 
     examples.es.push({
                        id: 'S2E3',

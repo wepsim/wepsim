@@ -1,15 +1,16 @@
 
 1.9.5 -> 1.9.6:
 * Interface:
-  + Update to Bootstrap 4.2.1
-  + Quick interative signal updates
-  + New compact view
+  + Updated to the new Bootstrap 4.2.1
+  + Added a new compact view for the main screen
+  + Added a new quick interative signal updates
 * Content:
-  + Minor help updates
-  + Examples' engine revamped
   + New example added
+  + Minor help updates
+  + Examples' engine revamped internally
 * Deployment:
-  + Packing on 'ws_dist' directory only
+  + Simpler deployment: packing into 'ws_dist' directory only
+  + Boot time improved
 
 1.9.3 -> 1.9.5:
 * New panel with all notifications (in case you miss one)

@@ -105,8 +105,8 @@
         function firedep_to_fireorder ( jit_fire_dep )
         {
             var allfireto = false;
-            jit_fire_order = new Array();
-            jit_fire_ndep  = new Array();
+            jit_fire_order = [];
+            jit_fire_ndep  = [];
             for (var sig in simhw_sim_signals())
             {
                 if (typeof jit_fire_dep[sig] == "undefined") {
@@ -133,7 +133,7 @@
         function compile_behaviors ()
         {
             var jit_bes = "";
-            jit_fire_dep = new Object();
+            jit_fire_dep = {};
 
 	    var  sig_obj = null ;
 	    var expr_obj = null ;
@@ -177,7 +177,7 @@
                                 else if (sig_obj.type == expr_obj.type)
                                 {
                                     if (typeof jit_fire_dep[s_expr[1]] == "undefined")
-                                        jit_fire_dep[s_expr[1]] = new Object();
+                                        jit_fire_dep[s_expr[1]] = {};
 
                                     if (typeof jit_fire_dep[s_expr[1]][sig] == "undefined")
                                         jit_fire_dep[s_expr[1]][sig] = 0;

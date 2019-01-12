@@ -289,6 +289,7 @@
                        description: "Example with programmed I/O access, and basic .text/.data segment.<br>"
                      });
 
+/*
     examples.en.push({
                        id: 'S2E2',
                        title: "Subrutine",
@@ -299,6 +300,7 @@
                        assembly:  "ep_s2_e2",
                        description: "Extended example with more instructions and I/O (keyboard, display).<br>"
                      });
+*/
 
     examples.en.push({
                        id: 'S2E3',

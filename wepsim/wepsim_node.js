@@ -37,7 +37,7 @@
 	    return ret1 ;
 	}
 
-        var ret = simcore_init_hw(simhw_name) ;
+        ret = simcore_init_hw(simhw_name) ;
 	if (false == ret.ok) 
 	{
             ret1.msg = "ERROR: initialize: " + ret.msg + ".\n" ;
