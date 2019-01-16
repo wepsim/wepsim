@@ -221,6 +221,7 @@
                         '</div>' +
                         '<div class="col-sm-3">' +
 		        '   <span style="cursor:pointer;" ' + 
+		        '         id="example_' + m + '" ' + 
 		        '         onclick="$(\'#example1\').modal(\'hide\'); ' + 
                         '                  load_from_example_firmware(\'' + t_hwmcasm + '\',true);" ' + 
 		        '         class="bg-info text-white p-0 mr-2">' + e_title + '</span>' +

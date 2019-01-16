@@ -22,8 +22,9 @@
     tour_steps.es = [
                         // 0
 			{
-			   intro: "Parece que es la primera vez en WepSIM, ¡Bienvenido+a!<br>" + 
-                                  "Este breve tour le muestra d&oacute;nde pedir ayuda, modificar la configuraci&oacute;n o usar ejemplos."
+			   intro: "¡Bienvenido+a a WepSIM!<br>" + 
+                                  "WepSIM le ayudar&aacute; a entender mejor c&oacute;mo funciona un computador.<br>" + 
+                                  "Este breve tour le muestra las partes clave de WepSIM que le ayudar&aacute;n."
 			},
                         // 1
 			{
@@ -68,8 +69,14 @@
 			},
                         // 8
 			{
-                           intro: "WepSIM le ayudar&aacute; a entender mejor c&oacute;mo funciona un computador.<br>" + 
-				  "Desde el panel de 'Ayuda' simpre puede acceder al 'Tutorial de bienvenida', ¡Bienvenida+o!",
+			   element: '#example_0',
+                           intro: "Por favor haga click en el t&iacute;tulo del ejemplo para cargar su microc&oacute;digo y ensamblador asociado.<br>" +
+                                  "Inicialmente se puede usar tal cual pero tambi&eacute;n puede probar c&oacute;mo se comportan distintas modificaciones.",
+			   position: 'auto'
+			},
+                        // 9
+			{
+                           intro: "Desde el panel de 'Ayuda' simpre puede acceder al 'Tutorial de bienvenida', ¡Bienvenida+o!",
 			   position: 'auto'
 			}
 		    ] ;

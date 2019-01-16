@@ -22,8 +22,9 @@
     tour_steps.en = [
                         // 0
 			{
-			   intro: "It seems this is the first time on WepSIM, Welcome!<br>" +
-                                  "This brief tour introduces the interface for getting help, modifiying the configuration, and using examples.",
+			   intro: "Welcome to WepSIM!<br>" +
+                                  "WepSIM let users to better understand how a computer works.<br>" +
+                                  "This brief tour introduces the interface for the key elements.",
 			   do_before: function () {
 			                  return true ;
 			              }
@@ -31,11 +32,12 @@
                         // 1
 			{
 			   element: '#select4',
-                           intro: "On the top-right, the 'execution mode' lets you select the tutorial mode " + 
-                                  "(recommended at the beginning) or the hardware to work with.",
+                           intro: "This button on the top-right let users choose the 'execution mode'.<br>" +
+                                  "Usually it is the hardware to work with (the elemental processor or EP)." +
+                                  "But the tutorial mode is recommended at the beginning.",
 			   do_before: function ()
 	                              {
-			                  $("#select4").click(); 
+                                          simui_select_main('ep') ;
 					  tour.refresh() ;
 			                  return true ;
 			              }
@@ -47,7 +49,6 @@
 			   position: 'auto',
 			   do_before: function ()
 	                              {
-			                  $("#select4").click(); 
 					  tour.refresh() ;
 			                  return true ;
 			              }
@@ -58,7 +59,7 @@
 			   position: 'auto',
 			   do_before: function ()
 	                              {
-			                $("#btn_cfg1").click(); 
+			                $("#btn_cfg1").click();
 					tour.refresh() ;
 			                return true ;
 			              }
@@ -70,7 +71,7 @@
 			   position: 'auto',
 			   do_before: function ()
 	                              {
-			                $("#config2").modal('hide'); 
+			                $("#config2").modal('hide');
 					tour.refresh() ;
 			                return true ;
 			              }
@@ -81,7 +82,7 @@
 			   position: 'auto',
 			   do_before: function ()
 	                              {
-			                $("#btn_help1").click(); 
+			                $("#btn_help1").click();
 					tour.refresh() ;
 			                return true ;
 			              }
@@ -93,31 +94,43 @@
 			   position: 'auto',
 			   do_before: function ()
 	                              {
-			                $("#help1").modal('hide'); 
+			                $("#help1").modal('hide');
 					tour.refresh() ;
 			                return true ;
 			              }
 			},
                         // 7
 			{
-                           intro: "... The example dialog list several examples ordered by difficulty.<br>" + 
+                           intro: "... The example dialog list several examples ordered by difficulty.<br>" +
                                   "There are many examples that can be used to learn incrementally.",
 			   position: 'auto',
 			   do_before: function ()
 	                              {
-			                $("#btn_example1").click(); 
+			                $("#btn_example1").click();
 					tour.refresh() ;
 			                return true ;
 			              }
 			},
                         // 8
 			{
-                           intro: "WepSIM let users to better understand how a computer works.<br>" + 
-				  "From the 'Help' dialog you can access the 'Welcome tutorial' whenever you need it, welcome!",
+			   element: '#example_0',
+                           intro: "Please click in the title of the example in order to load its associated microcode and assembly.<br>" +
+                                  "You can initially use the example as it, but you can also modify in different ways.",
 			   position: 'auto',
 			   do_before: function ()
 	                              {
-			                $("#example1").modal('hide'); 
+					tour.refresh() ;
+			                return true ;
+			              }
+			},
+                        // 9
+			{
+                           intro: "From the 'Help' dialog you can access the 'Welcome tutorial' whenever you need it, welcome!",
+			   position: 'auto',
+			   do_before: function ()
+	                              {
+			                $("#example_0").click();
+			                $("#example1").modal('hide');
 					tour.refresh() ;
 			                return true ;
 			              }

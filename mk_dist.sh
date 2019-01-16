@@ -51,7 +51,7 @@ cat wepsim/i18n/i18n.js \
     wepsim/i18n/es-gui.js \
     wepsim/i18n/es-tutorial-welcome.js \
     wepsim/i18n/es-tutorial-simpleusage.js \
-    wepsim/i18n/es-tour.js \
+    wepsim/i18n/es-tour-intro.js \
     wepsim/i18n/es-cfg.js \
     wepsim/i18n/es-help.js \
     wepsim/i18n/es-examples.js \
@@ -59,7 +59,7 @@ cat wepsim/i18n/i18n.js \
     wepsim/i18n/en-gui.js \
     wepsim/i18n/en-tutorial-welcome.js \
     wepsim/i18n/en-tutorial-simpleusage.js \
-    wepsim/i18n/en-tour.js \
+    wepsim/i18n/en-tour-intro.js \
     wepsim/i18n/en-cfg.js \
     wepsim/i18n/en-help.js \
     wepsim/i18n/en-examples.js \
