@@ -61,13 +61,6 @@
 			},
                         // 5
 			{
-			   element: '#example1',
-                           intro: "Por favor haga click en el t&iacute;tulo del ejemplo para cargar su microc&oacute;digo y ensamblador asociado.<br>" +
-                                  "Inicialmente se puede usar tal cual pero tambi&eacute;n puede probar c&oacute;mo se comportan distintas modificaciones.",
-			   position: 'auto'
-			},
-                        // 6
-			{
                            intro: "¡Felicidades!. Ya conoce las partes clave de la interfaz de WepSIM.<br>" +
                                   "Desde el panel de 'Ayuda' puede acceder al 'Tutorial de bienvenida'. para continuar aprendiendo.<br>",
 			   position: 'auto'

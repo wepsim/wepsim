@@ -85,25 +85,12 @@
 			},
                         // 5
 			{
-			   element: '#example1',
-                           intro: "Please click in the title of the example in order to load its associated microcode and assembly.<br>" +
-                                  "You can initially use the example as it, but you can also modify in different ways.",
-			   position: 'auto',
-			   do_before: function ()
-	                              {
-			                $("#btn_example1").click();
-					tour.refresh() ;
-			                return true ;
-			              }
-			},
-                        // 6
-			{
                            intro: "Congrat! You know the key elements in the WepSIM interface.<br>" +
                                   "From the 'Help' dialog you can access the 'Welcome tutorial' to continue learning.<br>",
 			   position: 'auto',
 			   do_before: function ()
 	                              {
-			                $("#example_0").click();
+			                $("#btn_example1").click();
 					tour.refresh() ;
 			                return true ;
 			              }
