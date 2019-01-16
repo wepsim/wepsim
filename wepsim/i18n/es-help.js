@@ -108,7 +108,7 @@
                      i_type:      "code",
                      u_type:      "procesador simulado",
                      reference:   "var ahw1 = simhw_active().sim_short_name ; " +
-                                  "var img1 = 'examples/hardware/' + ahw1 + '/images/cpu6.svg?time=20190102' ; " +
+                                  "var img1 = 'examples/hardware/' + ahw1 + '/images/cpu.svg?time=20190102' ; " +
                                   "var txt1 = 'Your browser does not support SVG' ;" +
                                   "var lyt1 = '<object id=\\'svg_p2\\' data=\\'' + img1 + '\\' " +
                                   "                    type=\\'image/svg+xml\\'>' + txt1 +  '</object>'; " +
