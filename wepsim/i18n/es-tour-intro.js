@@ -37,26 +37,26 @@
 			},
                         // 2
 			{
-			   element: '#btn_cfg1',
-                           intro: "En la esquina superior izquierda est&aacute; el bot&oacute;n de configuracion que abre el cuadro de di&aacute;logo de la configuraci&oacute;n.<br>" +
-                                  "<br>" +
-                                  "Con la configuraci&oacute;ón se puede adaptar distintos aspectos de ejecuci&oacute;n, interfaz de usuario/a, preferencias, etc.",
-			   position: 'auto'
-			},
-                        // 3
-			{
 			   element: '#btn_help1',
                            intro: "En la esquina superior derecha el bot&oacute;n de ayuda abre el panel de ayuda asociado.<br>" +
                                   "<br>" +
                                   "El cuadro de di&aacute;logo permite el acceso a tutoriales, informaci&oacute;n, etc.",
 			   position: 'auto'
 			},
-                        // 4
+                        // 3
 			{
 			   element: '#btn_example1',
                            intro: "En la esquina superior izquierda, el bot&oacute;n de 'ejemplos' abre el panel asociado.<br>" +
                                   "<br>" +
                                   "Hay muchos ejemplos muy &uacute;tiles para el aprendizaje incremental.",
+			   position: 'auto'
+			},
+                        // 4
+			{
+			   element: '#btn_cfg1',
+                           intro: "En la esquina superior izquierda est&aacute; el bot&oacute;n de configuracion que abre el cuadro de di&aacute;logo de la configuraci&oacute;n.<br>" +
+                                  "<br>" +
+                                  "Con la configuraci&oacute;ón se puede adaptar distintos aspectos de ejecuci&oacute;n, interfaz de usuario/a, preferencias, etc.",
 			   position: 'auto'
 			},
                         // 5
