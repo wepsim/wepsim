@@ -46,19 +46,6 @@
 			},
                         // 2
 			{
-			   element: '#btn_cfg1',
-                           intro: "On the top-left, the 'configuration' button opens the configuration dialog.<br>" +
-                                  "<br>" +
-                                  "It let users to adapt several aspects of the execution, user interface, preferences, etc.",
-			   position: 'auto',
-			   do_before: function ()
-	                              {
-					  tour.refresh() ;
-			                  return true ;
-			              }
-			},
-                        // 3
-			{
 			   element: '#btn_help1',
                            intro: "On the top-right, the 'help' button opens the associated dialog.<br>" +
                                   "<br>" +
@@ -70,7 +57,7 @@
 			                return true ;
 			              }
 			},
-                        // 4
+                        // 3
 			{
 			   element: '#btn_example1',
                            intro: "And on the left, the 'examples' button open the example dialog.<br>" +
@@ -83,6 +70,19 @@
 			                return true ;
 			              }
 			},
+                        // 4
+			{
+			   element: '#btn_cfg1',
+                           intro: "On the top-left, the 'configuration' button opens the configuration dialog.<br>" +
+                                  "<br>" +
+                                  "It let users to adapt several aspects of the execution, user interface, preferences, etc.",
+			   position: 'auto',
+			   do_before: function ()
+	                              {
+					  tour.refresh() ;
+			                  return true ;
+			              }
+			},
                         // 5
 			{
                            intro: "Congrat! You know the key elements in the WepSIM interface.<br>" +
@@ -90,7 +90,6 @@
 			   position: 'auto',
 			   do_before: function ()
 	                              {
-			                $("#btn_example1").click();
 					tour.refresh() ;
 			                return true ;
 			              }
