@@ -49,7 +49,7 @@
                        level: "Initial",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
-                       microcode: "ep_s1_e3",
+                       microcode: "ep_enhanced",
                        assembly:  "ep_s1_e3",
                        description: "Simple example with fetch, branch, and basic .text segment.<br>"
                      });
@@ -60,8 +60,8 @@
                        level: "Initial",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
-                       microcode: "ep_s1_e3",
-                       assembly:  "ep_s1_e3",
+                       microcode: "ep_enhanced",
+                       assembly:  "ep_s1_e4",
                        description: "Simple example with fetch, branch, and basic .text/.data segment.<br>"
                      });
 
@@ -71,7 +71,7 @@
                        level: "Intermediate",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
-                       microcode: "ep_mipsx",
+                       microcode: "ep_enhanced",
                        assembly:  "ep_s2_e1",
                        description: "Example with programmed I/O access, and basic .text/.data segment.<br>"
                      });
@@ -82,7 +82,7 @@
                        level: "Intermediate",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
-                       microcode: "ep_mipsx",
+                       microcode: "ep_enhanced",
                        assembly:  "ep_s2_e2",
                        description: "Extended example with more instructions and I/O (keyboard, display).<br>"
                      });
@@ -208,30 +208,6 @@
                        description: "Test example.<br>"
                      });
 
-    // POC
-
-    examples.en.push({
-                       id: 'S1E1',
-                       title: "Instructions",
-                       level: "Initial",
-                       modes:  "newbie,intro,tutorial,poc",
-                       hardware:  "poc",
-                       microcode: "poc_base",
-                       assembly:  "poc_s1_e1",
-                       description: "Simple example.<br>"
-                     });
-
-    examples.en.push({
-                       id: 'S5E1',
-                       title: "Dummy instruction",
-                       level: "Special",
-                       modes:  "newbie,intro,tutorial,poc",
-                       hardware:  "poc",
-                       microcode: "poc_bare",
-                       assembly:  "poc_s5_e1",
-                       description: "Test example.<br>"
-                     });
-
     // EP+MIPS
 
     examples.en.push({
@@ -274,7 +250,7 @@
                        modes:  "newbie,intro,wepmips,tutorial",
                        hardware:  "ep",
                        microcode: "ep_mips",
-                       assembly:  "ep_s1_e3",
+                       assembly:  "ep_s1_e4",
                        description: "Simple example with fetch, branch, and basic .text/.data segment.<br>"
                      });
 
@@ -388,5 +364,64 @@
                        microcode: "ep_mips",
                        assembly:  "ep_s4_e4",
                        description: "Example of syscall for printing/reading integer and string.<br>"
+                     });
+
+    // POC
+
+    examples.en.push({
+                       id: 'S1E1',
+                       title: "Instructions",
+                       level: "Initial",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_base",
+                       assembly:  "poc_s1_e1",
+                       description: "Simple example.<br>"
+                     });
+
+/*
+    examples.en.push({
+                       id: 'S1E2',
+                       title: "Memory access",
+                       level: "Initial",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_base",
+                       assembly:  "ep_s1_e2",
+                       description: "Simple example with fetch, memory access, and basic .text/.data segment.<br>"
+                     });
+*/
+
+    examples.en.push({
+                       id: 'S1E3',
+                       title: "Looping",
+                       level: "Initial",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_base",
+                       assembly:  "ep_s1_e3",
+                       description: "Simple example with fetch, branch, and basic .text segment.<br>"
+                     });
+
+    examples.en.push({
+                       id: 'S1E4',
+                       title: "Vector",
+                       level: "Initial",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_base",
+                       assembly:  "ep_s1_e4",
+                       description: "Simple example with fetch, branch, and basic .text/.data segment.<br>"
+                     });
+
+    examples.en.push({
+                       id: 'S5E1',
+                       title: "Dummy instruction",
+                       level: "Special",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_bare",
+                       assembly:  "poc_s5_e1",
+                       description: "Test example.<br>"
                      });
 

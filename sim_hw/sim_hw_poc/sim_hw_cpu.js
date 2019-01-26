@@ -710,7 +710,10 @@
 	poc_behaviors["NOP_ALU"] = { nparameters: 1,
 				     operation: function(s_expr)
 		                                {
-						   poc_update_nzvc(0, 0, 0, 0);
+						   poc_internal_states.alu_flags.flag_n = 0 ;
+						   poc_internal_states.alu_flags.flag_z = 0 ;
+						   poc_internal_states.alu_flags.flag_v = 0 ;
+						   poc_internal_states.alu_flags.flag_c = 0 ;
 						},
 					verbal: function (s_expr)
 						{
@@ -834,7 +837,10 @@
 				                   var result = get_value(poc_states[s_expr[2]]) & get_value(poc_states[s_expr[3]]) ;
 				                   set_value(poc_states[s_expr[1]], result) ;
 
-			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						   poc_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_v = 0 ;
+						   poc_internal_states.alu_flags.flag_c = 0 ;
 						},
 					verbal: function (s_expr)
 						{
@@ -850,7 +856,10 @@
 				                   var result = get_value(poc_states[s_expr[2]]) | get_value(poc_states[s_expr[3]]) ;
 				                   set_value(poc_states[s_expr[1]], result) ;
 
-			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						   poc_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_v = 0 ;
+						   poc_internal_states.alu_flags.flag_c = 0 ;
 						},
 					verbal: function (s_expr)
 						{
@@ -866,7 +875,10 @@
 				                   var result = ~(get_value(poc_states[s_expr[2]])) ;
 				                   set_value(poc_states[s_expr[1]], result) ;
 
-			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						   poc_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_v = 0 ;
+						   poc_internal_states.alu_flags.flag_c = 0 ;
 						},
 					verbal: function (s_expr)
 						{
@@ -882,7 +894,10 @@
 				                   var result = get_value(poc_states[s_expr[2]]) ^ get_value(poc_states[s_expr[3]]) ;
 				                   set_value(poc_states[s_expr[1]], result) ;
 
-			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						   poc_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_v = 0 ;
+						   poc_internal_states.alu_flags.flag_c = 0 ;
 						},
 					verbal: function (s_expr)
 						{
@@ -898,7 +913,10 @@
 				                   var result = (get_value(poc_states[s_expr[2]])) >>> 1 ;
 				                   set_value(poc_states[s_expr[1]], result) ;
 
-			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						   poc_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_v = 0 ;
+						   poc_internal_states.alu_flags.flag_c = 0 ;
 						},
 					verbal: function (s_expr)
 						{
@@ -914,7 +932,10 @@
 				                   var result = (get_value(poc_states[s_expr[2]])) >> 1 ;
 				                   set_value(poc_states[s_expr[1]], result) ;
 
-			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						   poc_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_v = 0 ;
+						   poc_internal_states.alu_flags.flag_c = 0 ;
 						},
 					verbal: function (s_expr)
 						{
@@ -930,7 +951,10 @@
 				                   var result = (get_value(poc_states[s_expr[2]])) << 1 ;
 				                   set_value(poc_states[s_expr[1]], result) ;
 
-			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, (result) >>> 31) ;
+						   poc_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_v = 0 ;
+						   poc_internal_states.alu_flags.flag_c = 0 ;
 						},
 					verbal: function (s_expr)
 						{
@@ -946,7 +970,10 @@
 				                   var result = ((get_value(poc_states[s_expr[2]])) >>> 1) | (((get_value(poc_states[s_expr[2]])) & 1) << 31) ;
 				                   set_value(poc_states[s_expr[1]], result) ;
 
-			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						   poc_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_v = 0 ;
+						   poc_internal_states.alu_flags.flag_c = 0 ;
 						},
 					verbal: function (s_expr)
 						{
@@ -962,7 +989,10 @@
 				                   var result = ((get_value(poc_states[s_expr[2]])) << 1) | (((get_value(poc_states[s_expr[2]])) & 0X80000000) >>> 31) ;
 				                   set_value(poc_states[s_expr[1]], result) ;
 
-			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						   poc_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_v = 0 ;
+						   poc_internal_states.alu_flags.flag_c = 0 ;
 						},
 					verbal: function (s_expr)
 						{
@@ -980,17 +1010,15 @@
 						   var result = a + b ;
 						   set_value(poc_states[s_expr[1]], result >>> 0) ;
 
-						   var flag_n = (result < 0) ? 1 : 0 ;
-						   var flag_z = (result == 0) ? 1 : 0 ;
-						   var flag_c = (a >>> 31) && (b >>> 31) ;
+						   poc_internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_c = (a >>> 31) && (b >>> 31) ;
 
-						   var flag_v = 0 ;
+						   poc_internal_states.alu_flags.flag_v = 0 ;
 						   if ( (result < 0) && (a >= 0) && (b >= 0) )
-							flag_v = 1 ;
+							poc_internal_states.alu_flags.flag_v = 1 ;
 						   if ( (result >= 0) && (a <  0) && (b <  0) )
-							flag_v = 1 ;
-
-			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
+							poc_internal_states.alu_flags.flag_v = 1 ;
 						},
 					verbal: function (s_expr)
 						{
@@ -1010,17 +1038,15 @@
 						   var result = a - b ;
 						   set_value(poc_states[s_expr[1]], result >>> 0) ;
 
-						   var flag_n = (result < 0) ? 1 : 0 ;
-						   var flag_z = (result == 0) ? 1 : 0 ;
-						   var flag_c = (a >>> 31) && (b >>> 31) ;
+						   poc_internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_c = (a >>> 31) && (b >>> 31) ;
 
-						   var flag_v = 0 ;
+						   poc_internal_states.alu_flags.flag_v = 0 ;
 						   if ( (result < 0) && (a >= 0) && (b >= 0) )
-							flag_v = 1 ;
+							poc_internal_states.alu_flags.flag_v = 1 ;
 						   if ( (result >= 0) && (a <  0) && (b <  0) )
-							flag_v = 1 ;
-
-			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
+							poc_internal_states.alu_flags.flag_v = 1 ;
 						},
 					verbal: function (s_expr)
 						{
@@ -1040,17 +1066,15 @@
 						   var result = a * b ;
 						   set_value(poc_states[s_expr[1]], result >>> 0) ;
 
-						   var flag_n = (result < 0) ? 1 : 0 ;
-						   var flag_z = (result == 0) ? 1 : 0 ;
-						   var flag_c = 0 ;
+						   poc_internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_c = 0 ;
 
-						   var flag_v = 0 ;
+						   poc_internal_states.alu_flags.flag_v = 0 ;
 						   if ( (result < 0) && (a >= 0) && (b >= 0) )
-							flag_v = 1 ;
+							poc_internal_states.alu_flags.flag_v = 1 ;
 						   if ( (result >= 0) && (a <  0) && (b <  0) )
-							flag_v = 1 ;
-
-			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
+							poc_internal_states.alu_flags.flag_v = 1 ;
 						},
 					verbal: function (s_expr)
 						{
@@ -1070,13 +1094,20 @@
 
 						   if (0 == b) {
 						       set_value(poc_states[s_expr[1]], 0) ;
-			                               poc_update_nzvc(0, 1, 1, 0) ;
+
+						       poc_internal_states.alu_flags.flag_n = 0 ;
+						       poc_internal_states.alu_flags.flag_z = 1 ;
+						       poc_internal_states.alu_flags.flag_v = 1 ;
+						       poc_internal_states.alu_flags.flag_c = 0 ;
                                                        return ;
                                                    }
 
 				                   var result = Math.floor(a / b) ;
 				                   set_value(poc_states[s_expr[1]], result) ;
-			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						   poc_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_v = 0 ;
+						   poc_internal_states.alu_flags.flag_c = 0 ;
 						},
 					verbal: function (s_expr)
 						{
@@ -1098,7 +1129,11 @@
 						   var result = (get_value(poc_states[s_expr[2]]) << 0) % (get_value(poc_states[s_expr[3]]) << 0) ;
 						   set_value(poc_states[s_expr[1]], result) ;
 
-			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+
+						   poc_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_v = 0 ;
+						   poc_internal_states.alu_flags.flag_c = 0 ;
 						},
 					verbal: function (s_expr)
 						{
@@ -1117,7 +1152,10 @@
 						   var result = (get_value(poc_states[s_expr[2]])) << 16 ;
 						   set_value(poc_states[s_expr[1]], result) ;
 
-			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						   poc_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_v = 0 ;
+						   poc_internal_states.alu_flags.flag_c = 0 ;
 						},
 					verbal: function (s_expr)
 						{
@@ -1134,17 +1172,15 @@
 						   var result = a + 4 ;
 						   set_value(poc_states[s_expr[1]], result >>> 0) ;
 
-						   var flag_n = (result < 0) ? 1 : 0 ;
-						   var flag_z = (result == 0) ? 1 : 0 ;
-						   var flag_c = (a >>> 31) && (b >>> 31) ;
+						   poc_internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_c = (a >>> 31) && (b >>> 31) ;
 
-						   var flag_v = 0 ;
+						   poc_internal_states.alu_flags.flag_v = 0 ;
 						   if ( (result < 0) && (a >= 0) && (b >= 0) )
-							flag_v = 1 ;
+							poc_internal_states.alu_flags.flag_v = 1 ;
 						   if ( (result >= 0) && (a <  0) && (b <  0) )
-							flag_v = 1 ;
-
-			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
+							poc_internal_states.alu_flags.flag_v = 1 ;
 						},
 					verbal: function (s_expr)
 						{
@@ -1162,17 +1198,15 @@
 						   var result = a + 1 ;
 						   set_value(poc_states[s_expr[1]], result >>> 0) ;
 
-						   var flag_n = (result < 0) ? 1 : 0 ;
-						   var flag_z = (result == 0) ? 1 : 0 ;
-						   var flag_c = (a >>> 31) && (b >>> 31) ;
+						   poc_internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_c = (a >>> 31) && (b >>> 31) ;
 
-						   var flag_v = 0 ;
+						   poc_internal_states.alu_flags.flag_v = 0 ;
 						   if ( (result < 0) && (a >= 0) && (b >= 0) )
-							flag_v = 1 ;
+							poc_internal_states.alu_flags.flag_v = 1 ;
 						   if ( (result >= 0) && (a <  0) && (b <  0) )
-							flag_v = 1 ;
-
-			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
+							poc_internal_states.alu_flags.flag_v = 1 ;
 						},
 					verbal: function (s_expr)
 						{
@@ -1192,17 +1226,15 @@
 
 						   set_value(poc_states[s_expr[1]], result >>> 0) ;
 
-						   var flag_n = (result  < 0.0) ? 1 : 0 ;
-						   var flag_z = (result == 0.0) ? 1 : 0 ;
-						   var flag_c = 0 ;
+						   poc_internal_states.alu_flags.flag_n = (result  < 0.0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0.0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_c = 0 ;
 
-						   var flag_v = 0 ;
+						   poc_internal_states.alu_flags.flag_v = 0 ;
 						   if ( (result < 0.0) && (a >= 0.0) && (b >= 0.0) )
-							flag_v = 1 ;
+							poc_internal_states.alu_flags.flag_v = 1 ;
 						   if ( (result >= 0.0) && (a <  0.0) && (b <  0.0) )
-							flag_v = 1 ;
-
-			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
+							poc_internal_states.alu_flags.flag_v = 1 ;
 						},
 					verbal: function (s_expr)
 						{
@@ -1222,17 +1254,15 @@
 						   var result = a.toFixed(2) - b.toFixed(2) ;
 						   set_value(poc_states[s_expr[1]], result >>> 0) ;
 
-						   var flag_n = (result  < 0.0) ? 1 : 0 ;
-						   var flag_z = (result == 0.0) ? 1 : 0 ;
-						   var flag_c = 0 ;
+						   poc_internal_states.alu_flags.flag_n = (result  < 0.0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0.0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_c = 0 ;
 
-						   var flag_v = 0 ;
+						   poc_internal_states.alu_flags.flag_v = 0 ;
 						   if ( (result < 0) && (a >= 0) && (b >= 0) )
-							flag_v = 1 ;
+							poc_internal_states.alu_flags.flag_v = 1 ;
 						   if ( (result >= 0) && (a <  0) && (b <  0) )
-							flag_v = 1 ;
-
-			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
+							poc_internal_states.alu_flags.flag_v = 1 ;
 						},
 					verbal: function (s_expr)
 						{
@@ -1252,17 +1282,15 @@
 						   var result = a.toFixed(2) * b.toFixed(2) ;
 						   set_value(poc_states[s_expr[1]], result >>> 0) ;
 
-						   var flag_n = (result  < 0.0) ? 1 : 0 ;
-						   var flag_z = (result == 0.0) ? 1 : 0 ;
-						   var flag_c = 0 ;
+						   poc_internal_states.alu_flags.flag_n = (result  < 0.0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0.0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_c = 0 ;
 
-						   var flag_v = 0 ;
+						   poc_internal_states.alu_flags.flag_v = 0 ;
 						   if ( (result < 0) && (a >= 0) && (b >= 0) )
-							flag_v = 1 ;
+							poc_internal_states.alu_flags.flag_v = 1 ;
 						   if ( (result >= 0) && (a <  0) && (b <  0) )
-							flag_v = 1 ;
-
-			                           poc_update_nzvc(flag_n, flag_z, flag_v, flag_c) ;
+							poc_internal_states.alu_flags.flag_v = 1 ;
 						},
 					verbal: function (s_expr)
 						{
@@ -1282,16 +1310,19 @@
 
 						   if (0 == b) {
 						       set_value(poc_states[s_expr[1]], 0) ;
-			                               poc_update_nzvc(0, 1, 1, 0) ;
+						       poc_internal_states.alu_flags.flag_n = 0 ;
+						       poc_internal_states.alu_flags.flag_z = 1 ;
+						       poc_internal_states.alu_flags.flag_v = 1 ;
+						       poc_internal_states.alu_flags.flag_c = 0 ;
                                                        return ;
                                                    }
 
 				                   var result = Math.floor(a / b) ;
 				                   set_value(poc_states[s_expr[1]], result) ;
-			                           poc_update_nzvc((result  < 0.0) ? 1 : 0,
-                                                                   (result == 0.0) ? 1 : 0,
-                                                                   0,
-                                                                   0) ;
+						   poc_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_v = 0 ;
+						   poc_internal_states.alu_flags.flag_c = 0 ;
 						},
 					verbal: function (s_expr)
 						{
@@ -1309,10 +1340,10 @@
 						   var result = (get_value(poc_states[s_expr[2]]) << 0) % (get_value(poc_states[s_expr[3]]) << 0) ;
 						   set_value(poc_states[s_expr[1]], result) ;
 
-			                           poc_update_nzvc((result  < 0.0) ? 1 : 0,
-                                                                   (result == 0.0) ? 1 : 0,
-                                                                   0,
-                                                                   0) ;
+						   poc_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_v = 0 ;
+						   poc_internal_states.alu_flags.flag_c = 0 ;
 						},
 					verbal: function (s_expr)
 						{
@@ -1330,7 +1361,10 @@
 						   var result = (get_value(poc_states[s_expr[2]])) << 16 ;
 						   set_value(poc_states[s_expr[1]], result) ;
 
-			                           poc_update_nzvc((result < 0) ? 1 : 0, (result == 0) ? 1 : 0, 0, 0) ;
+						   poc_internal_states.alu_flags.flag_n = (result  < 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_v = 0 ;
+						   poc_internal_states.alu_flags.flag_c = 0 ;
 						},
 					verbal: function (s_expr)
 						{
