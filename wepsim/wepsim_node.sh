@@ -10,7 +10,7 @@
    if (2 == process.argv.length)
    {
        console.log('') ;
-       console.log('WepSIM-lite 1.0') ;
+       console.log('WepSIM 1.0') ;
        console.log('+ Simplified version of the wepsim simulator for the command line.') ;
        console.log('') ;
        console.log('Usage:') ;
