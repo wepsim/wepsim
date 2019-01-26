@@ -9,6 +9,7 @@ set -x
 cp external/jquery.min.js    ws_dist/external
 
 #  hardware model + software model + core (simulation ctrl + UI)
+  # sim_hw/sim_hw_poc/sim_hw_io.js \
 cat sim_hw/sim_hw_index.js \
     sim_hw/sim_hw_values.js \
     sim_hw/sim_hw_behavior.js \
