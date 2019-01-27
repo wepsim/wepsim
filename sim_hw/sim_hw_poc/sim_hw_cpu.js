@@ -516,6 +516,9 @@
 					  "LUI ALU_T6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
 					  "ADDFOUR ALU_T6 MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
 					  "ADDONE ALU_T6 MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "MERGE8 ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "MERGE16 ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "MERGE24 ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
 					  "FADD ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
 					  "FSUB ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
 					  "FMUL ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
@@ -1214,6 +1217,90 @@
 						   var result = a + 1 ;
 
                                                    return "ALU ADD 1 with result " + show_value(result) + ". " ;
+						}
+				   };
+	poc_behaviors["MERGE8"]  = { nparameters: 4,
+				     types: ["E", "E", "E"],
+				     operation: function(s_expr)
+		                                {
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(poc_states[s_expr[3]]) << 0 ;
+					           var result = (a & 0xFFFFFF00) | (b & 0x000000FF) ;
+						   set_value(poc_states[s_expr[1]], result >>> 0) ;
+
+						   poc_internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_c = (a >>> 31) && (b >>> 31) ;
+
+						   poc_internal_states.alu_flags.flag_v = 0 ;
+						   if ( (result < 0) && (a >= 0) && (b >= 0) )
+							poc_internal_states.alu_flags.flag_v = 1 ;
+						   if ( (result >= 0) && (a <  0) && (b <  0) )
+							poc_internal_states.alu_flags.flag_v = 1 ;
+						},
+					verbal: function (s_expr)
+						{
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(poc_states[s_expr[3]]) << 0 ;
+					           var result = (a & 0xFFFFFF00) | (b & 0x000000FF) ;
+
+                                                   return "ALU MERGE low 8 bits, with result " + show_value(result) + ". " ;
+						}
+				   };
+	poc_behaviors["MERGE16"] = { nparameters: 4,
+				     types: ["E", "E", "E"],
+				     operation: function(s_expr)
+		                                {
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(poc_states[s_expr[3]]) << 0 ;
+					           var result = (a & 0xFFFF0000) | (b & 0x0000FFFF) ;
+						   set_value(poc_states[s_expr[1]], result >>> 0) ;
+
+						   poc_internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_c = (a >>> 31) && (b >>> 31) ;
+
+						   poc_internal_states.alu_flags.flag_v = 0 ;
+						   if ( (result < 0) && (a >= 0) && (b >= 0) )
+							poc_internal_states.alu_flags.flag_v = 1 ;
+						   if ( (result >= 0) && (a <  0) && (b <  0) )
+							poc_internal_states.alu_flags.flag_v = 1 ;
+						},
+					verbal: function (s_expr)
+						{
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(poc_states[s_expr[3]]) << 0 ;
+					           var result = (a & 0xFFFF0000) | (b & 0x0000FFFF) ;
+
+                                                   return "ALU MERGE low 16 bits, with result " + show_value(result) + ". " ;
+						}
+				   };
+	poc_behaviors["MERGE24"] = { nparameters: 4,
+				     types: ["E", "E", "E"],
+				     operation: function(s_expr)
+		                                {
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(poc_states[s_expr[3]]) << 0 ;
+					           var result = (a & 0xFF000000) | (b & 0x00FFFFFF) ;
+						   set_value(poc_states[s_expr[1]], result >>> 0) ;
+
+						   poc_internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_c = (a >>> 31) && (b >>> 31) ;
+
+						   poc_internal_states.alu_flags.flag_v = 0 ;
+						   if ( (result < 0) && (a >= 0) && (b >= 0) )
+							poc_internal_states.alu_flags.flag_v = 1 ;
+						   if ( (result >= 0) && (a <  0) && (b <  0) )
+							poc_internal_states.alu_flags.flag_v = 1 ;
+						},
+					verbal: function (s_expr)
+						{
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+                                                   var b = get_value(poc_states[s_expr[3]]) << 0 ;
+					           var result = (a & 0xFF000000) | (b & 0x00FFFFFF) ;
+
+                                                   return "ALU MERGE low 24 bits, with result " + show_value(result) + ". " ;
 						}
 				   };
 	poc_behaviors["FADD"]    = { nparameters: 4,
