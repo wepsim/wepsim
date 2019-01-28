@@ -71,7 +71,7 @@
                        level: "Intermedio",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
-                       microcode: "ep_enhanced",
+                       microcode: "ep_base",
                        assembly:  "ep_s2_e1",
                        description: "Ejemplo ampliado con E/S programada, segmento de datos/c&oacute;digo b&aacute;sico.<br>"
                      });
@@ -410,6 +410,17 @@
                        microcode: "poc_base",
                        assembly:  "ep_s1_e4",
                        description: "Ejemplo simple con fetch, salto y segmento de datos/c&oacute;digo b&aacute;sico.<br>"
+                     });
+
+    examples.es.push({
+                       id: 'S2E1',
+                       title: "E/S",
+                       level: "Intermedio",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_base",
+                       assembly:  "ep_s2_e1",
+                       description: "Ejemplo ampliado con E/S programada, segmento de datos/c&oacute;digo b&aacute;sico.<br>"
                      });
 
     examples.es.push({

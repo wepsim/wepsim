@@ -71,7 +71,7 @@
                        level: "Intermediate",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
-                       microcode: "ep_enhanced",
+                       microcode: "ep_base",
                        assembly:  "ep_s2_e1",
                        description: "Example with programmed I/O access, and basic .text/.data segment.<br>"
                      });
@@ -410,6 +410,17 @@
                        microcode: "poc_base",
                        assembly:  "ep_s1_e4",
                        description: "Simple example with fetch, branch, and basic .text/.data segment.<br>"
+                     });
+
+    examples.en.push({
+                       id: 'S2E1',
+                       title: "I/O",
+                       level: "Intermediate",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_base",
+                       assembly:  "ep_s2_e1",
+                       description: "Example with programmed I/O access, and basic .text/.data segment.<br>"
                      });
 
     examples.en.push({
