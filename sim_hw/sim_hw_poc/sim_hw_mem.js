@@ -157,27 +157,48 @@
                                                           return;
                                                       }
 
-						      var value   = 0;
-                                                      address = address & 0xFFFFFFFC;
-						      if (typeof  poc_internal_states.MP[address] != "undefined")
-						   	  value = poc_internal_states.MP[address];
+						      var value = 0;
+                                                      var wordress = address & 0xFFFFFFFC;
+						      if (typeof  poc_internal_states.MP[wordress] != "undefined")
+						   	  value = poc_internal_states.MP[wordress];
 
                                                       // bit-width
 						      switch (bw) 
 					              {
-					                 case 0: dbvalue = (value & 0x000000FF) ;
+					                 case 0: // byte
+								 if ( 0 == (address & 0x00000003) )
+									dbvalue = (value & 0x000000FF) ;
+								 if ( 1 == (address & 0x00000003) )
+									dbvalue = (value & 0x0000FF00) >> 8 ;
+								 if ( 2 == (address & 0x00000003) )
+									dbvalue = (value & 0x00FF0000) >> 16 ;
+								 if ( 3 == (address & 0x00000003) )
+									dbvalue = (value & 0xFF000000) >> 24 ;
 								 break ;
-					                 case 1: dbvalue = (value & 0x0000FFFF) ;
+					                 case 1: // half
+								 if ( 0 == (address & 0x00000003) )
+									dbvalue = (value & 0x0000FFFF) ;
+								 if ( 1 == (address & 0x00000003) )
+									dbvalue = (value & 0x0000FFFF) ;
+								 if ( 2 == (address & 0x00000003) )
+									dbvalue = (value & 0xFFFF0000) >> 16 ;
+								 if ( 3 == (address & 0x00000003) )
+									dbvalue = (value & 0xFFFF0000) >> 16 ;
 								 break ;
-					                 case 2: dbvalue = (value & 0x00FFFFFF) ;
+					                 case 2: // 3-bytes (for 0, 1)
+								 if ( 0 == (address & 0x00000003) )
+									dbvalue = (value & 0x00FFFFFF) ;
+								 if ( 1 == (address & 0x00000003) )
+									dbvalue = (value & 0xFFFFFF00) ;
 								 break ;
-					                 case 3: dbvalue = (value & 0xFFFFFFFF) ;
+					                 case 3: // word
+								 dbvalue = value ;
 								 break ;
 						      }
 
                                                       poc_states[s_expr[2]].value = (dbvalue >>> 0);
                                                      poc_signals[s_expr[4]].value = 1;
-				                      show_main_memory(poc_internal_states.MP, address, false, false) ;
+				                      show_main_memory(poc_internal_states.MP, wordress, false, false) ;
                                                    },
                                            verbal: function (s_expr) 
                                                    {
@@ -233,27 +254,48 @@
                                                       if (remain > 0)
                                                           return;
 
-						      var value   = 0;
-                                                      address = address & 0xFFFFFFFC;
-						      if (typeof  poc_internal_states.MP[address] != "undefined")
-						   	  value = poc_internal_states.MP[address];
+						      var value    = 0;
+                                                      var wordress = address & 0xFFFFFFFC;
+						      if (typeof  poc_internal_states.MP[wordress] != "undefined")
+						   	  value = poc_internal_states.MP[wordress];
 
                                                       // bit-width
 						      switch (bw) 
 					              {
-					                 case 0: value = (value & 0xFFFFFF00) | (dbvalue & 0x000000FF) ;
+					                 case 0: // byte
+								 if ( 0 == (address & 0x00000003) )
+									value = (value & 0xFFFFFF00) | (dbvalue & 0x000000FF) ;
+								 if ( 1 == (address & 0x00000003) )
+									value = (value & 0xFFFF00FF) | (dbvalue & 0x000000FF) ;
+								 if ( 2 == (address & 0x00000003) )
+									value = (value & 0xFF00FFFF) | (dbvalue & 0x000000FF) ;
+								 if ( 3 == (address & 0x00000003) )
+									value = (value & 0x00FFFFFF) | (dbvalue & 0x000000FF) ;
 								 break ;
-					                 case 1: value = (value & 0xFFFF0000) | (dbvalue & 0x0000FFFF) ;
+					                 case 1: // half
+								 if ( 0 == (address & 0x00000003) )
+									value = (value & 0xFFFF0000) | (dbvalue & 0x0000FFFF) ;
+								 if ( 1 == (address & 0x00000003) )
+									value = (value & 0xFFFF0000) | (dbvalue & 0x0000FFFF) ;
+								 if ( 2 == (address & 0x00000003) )
+									value = (value & 0x0000FFFF) | (dbvalue & 0x0000FFFF) ;
+								 if ( 3 == (address & 0x00000003) )
+									value = (value & 0x0000FFFF) | (dbvalue & 0x0000FFFF) ;
 								 break ;
-					                 case 2: value = (value & 0xFF000000) | (dbvalue & 0x00FFFFFF) ;
+					                 case 2: // 3-bytes (for 0, 1)
+								 if ( 0 == (address & 0x00000003) )
+									value = (value & 0xFF000000) | (dbvalue & 0x00FFFFFF) ;
+								 if ( 1 == (address & 0x00000003) )
+									value = (value & 0x000000FF) | (dbvalue & 0xFFFFFF00) ;
 								 break ;
-					                 case 3: value = (value & 0x00000000) | (dbvalue & 0xFFFFFFFF) ;
+					                 case 3: // word
+								 value = dbvalue ;
 								 break ;
 						      }
 
-						      poc_internal_states.MP[address] = (value >>> 0) ;
+						      poc_internal_states.MP[wordress] = (value >>> 0) ;
                                                          poc_signals[s_expr[4]].value = 1 ;
-				                      show_main_memory(poc_internal_states.MP, address, true, true) ;
+				                      show_main_memory(poc_internal_states.MP, wordress, true, true) ;
                                                    },
                                            verbal: function (s_expr) 
                                                    {
