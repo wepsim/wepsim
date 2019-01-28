@@ -697,6 +697,12 @@
 			          fire_name: ['svg_cu:text3442'],
 			          draw_data: [['svg_cu:text3442']],
 			          draw_name: [[]] };
+	 poc_signals["TEST_INTV"] = { name: "TEST_INTV", visible: true, type: "L", value: 0, default_value:0, nbits: "8", forbidden: true,
+			          behavior: ["MBIT INTV TEST_INTV 0 32"],
+                                  depends_on: ["INT"],
+			          fire_name: ['svg_p:tspan4225'],
+			          draw_data: [['svg_p:path3749']],
+			          draw_name: [[]] };
 
 
 	/*
