@@ -1269,8 +1269,7 @@
         </div>
         
 
-        <div id="SBWA">
-        <div id="BWA">
+        <div id="BW">
 	<div id="R">
 	<div id="W">
 	<div id="MRDY">
@@ -1278,14 +1277,15 @@
                     <b>R</b><b>       </b> 1 bit <br>
                     <b>W</b><b>       </b> 1 bit <br>
                     <b>MRdy</b><b>    </b> 1 bit <br>
+                    <b>BW</b><b>      </b> 2 bits <br>
                   </p>
                   <p>
 		      Control signals of the main memory: R for read, W for write. <br>
+		      BW controls the number of bytes to be read/write: 0 for one byte, 1 for two bytes (half-word), 2 for three bytes, and 3 for four bytes (a word). <br>
 		      By default memory reads or writes in one clock cycle. If memory is configured for several clock cycles, the MRdy signal is set when memory ends the R/W request.
                   </p>
                   <p>
                   </p>
-        </div>
         </div>
         </div>
         </div>

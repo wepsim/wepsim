@@ -379,7 +379,6 @@
                        description: "Simple example.<br>"
                      });
 
-/*
     examples.en.push({
                        id: 'S1E2',
                        title: "Memory access",
@@ -390,7 +389,6 @@
                        assembly:  "ep_s1_e2",
                        description: "Simple example with fetch, memory access, and basic .text/.data segment.<br>"
                      });
-*/
 
     examples.en.push({
                        id: 'S1E3',
