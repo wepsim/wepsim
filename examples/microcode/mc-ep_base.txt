@@ -1,3 +1,8 @@
+
+##
+## Microcode Section
+##
+
 begin
 {
     fetch:          (T2, C0),
@@ -431,6 +436,10 @@ nop {
         }
 }
 
+
+##
+## Register Section
+##
 
 registers
 {

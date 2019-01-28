@@ -26,7 +26,7 @@
         poc_components.MEMORY = {
 		                  name: "MEMORY", 
 		                  version: "1", 
-		                  abilities: ["MEMORY"], 
+		                  abilities: ["MEMORY", "MEMORY_CONFIG"], 
 		                  write_state: function ( vec ) {
                                                   if (typeof vec.MEMORY == "undefined")
                                                       vec.MEMORY = {} ;
@@ -92,26 +92,43 @@
          */
 
         poc_signals.MRDY     = { name: "MRDY", 
-		                 visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+                                 visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
                                  depends_on: ["CLK"],
-		                 behavior: ["FIRE_IFCHANGED MRDY C", "FIRE_IFCHANGED MRDY C"],
-                                 fire_name: ['svg_p:tspan3916'], 
+		                 behavior: ["FIRE_IFCHANGED MRDY C", 
+					    "FIRE_IFCHANGED MRDY C"],
+                                 fire_name: ['svg_p:tspan3916','svg_p:tspan3916'], 
                                  draw_data: [[], ['svg_p:path3895','svg_p:path3541']], 
                                  draw_name: [[], []]};
 
         poc_signals.R        = { name: "R", 
-		                 visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-		                 behavior: ["NOP", "MEM_READ BUS_AB BUS_DB MRDY CLK; FIRE MRDY; FIRE M1"],
-                                 fire_name: ['svg_p:text3533-5-2','svg_p:text3713'], 
+                                 visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+		                 behavior: ["NOP", 
+					    "MEM_READ BUS_AB BUS_DB BW MRDY CLK; FIRE M1; FIRE MRDY"],
+                                 fire_name: ['svg_p:text3533-5-2'], 
                                  draw_data: [[], ['svg_p:path3557','svg_p:path3571']], 
                                  draw_name: [[], []]};
 
         poc_signals.W        = { name: "W", 
-		                 visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
-		                 behavior: ["NOP", "MEM_WRITE BUS_AB BUS_DB MRDY CLK; FIRE MRDY"],
-                                 fire_name: ['svg_p:text3533-5-08','svg_p:text3527'], 
+                                 visible: true, type: "L", value: 0, default_value:0, nbits: "1", 
+		                 behavior: ["NOP", 
+					    "MEM_WRITE BUS_AB BUS_DB BW MRDY CLK; FIRE M1; FIRE MRDY"],
+                                 fire_name: ['svg_p:text3533-5-08'], 
                                  draw_data: [[], ['svg_p:path3559','svg_p:path3575','svg_p:path3447-7']], 
                                  draw_name: [[], []] };
+
+        poc_signals.BW       = { name: "BW", 
+                                 verbal: ['Access to one byte from memory. ',
+                                          'Access to two bytes from memory. ',
+                                          'Access to three bytes from memory. ',
+                                          'Access to a word from memory. '],
+                                 visible: true, type: "L", value: 0, default_value: 0, nbits: "2",
+                                 behavior: ['FIRE R; FIRE W', 
+					    'FIRE R; FIRE W', 
+					    'FIRE R; FIRE W', 
+					    'FIRE R; FIRE W'],
+                                 fire_name: ['svg_p:text3533-5-2-8'],
+                                 draw_data: [['svg_p:path3557-0']],
+                                 draw_name: [[],[]] };
 
 
         /*
@@ -119,14 +136,15 @@
          */
 
         poc_behaviors.MEM_READ      = { nparameters: 6, 
-                                        types: ["E", "E", "S", "E"],
+                                        types: ["E", "E", "S", "S", "E"],
                                         operation: function (s_expr) 
                                                    {
 						      var address = poc_states[s_expr[1]].value;
                                                       var dbvalue = poc_states[s_expr[2]].value;
-                                                      var clk     = get_value(poc_states[s_expr[4]]) ;
+                                                      var bw      = poc_signals[s_expr[3]].value;
+                                                      var clk     = get_value(poc_states[s_expr[5]].value) ;
 
-                                                      poc_signals[s_expr[3]].value = 0;
+                                                      poc_signals[s_expr[4]].value = 0;
 						      var remain = get_var(poc_internal_states.MP_wc);
 						      if ( 
                                                            (typeof poc_events.mem[clk-1] != "undefined") &&
@@ -137,18 +155,28 @@
 						      poc_events.mem[clk] = remain;
                                                       if (remain > 0) {
                                                           return;
-						      }
+                                                      }
 
 						      var value   = 0;
                                                       address = address & 0xFFFFFFFC;
-						      if (typeof  poc_internal_states.MP[address] != "undefined") {
+						      if (typeof  poc_internal_states.MP[address] != "undefined")
 						   	  value = poc_internal_states.MP[address];
+
+                                                      // bit-width
+						      switch (bw) 
+					              {
+					                 case 0: dbvalue = (value & 0x000000FF) ;
+								 break ;
+					                 case 1: dbvalue = (value & 0x0000FFFF) ;
+								 break ;
+					                 case 2: dbvalue = (value & 0x00FFFFFF) ;
+								 break ;
+					                 case 3: dbvalue = (value & 0xFFFFFFFF) ;
+								 break ;
 						      }
 
-                                                      dbvalue = value;
-
                                                       poc_states[s_expr[2]].value = (dbvalue >>> 0);
-                                                     poc_signals[s_expr[3]].value = 1;
+                                                     poc_signals[s_expr[4]].value = 1;
 				                      show_main_memory(poc_internal_states.MP, address, false, false) ;
                                                    },
                                            verbal: function (s_expr) 
@@ -157,28 +185,43 @@
 
 						      var address = poc_states[s_expr[1]].value;
                                                       var dbvalue = poc_states[s_expr[2]].value;
-                                                      var clk     = get_value(poc_states[s_expr[4]]) ;
+                                                      var bw      = poc_signals[s_expr[3]].value;
+                                                      var clk     = get_value(poc_states[s_expr[5]].value) ;
+
+                                                      // bit-width
+						      switch (bw) 
+					              {
+					                 case 0: bw_type = "byte" ;
+								 break ;
+					                 case 1: bw_type = "half" ;
+								 break ;
+					                 case 2: bw_type = "three bytes" ;
+								 break ;
+					                 case 3: bw_type = "word" ;
+								 break ;
+						      }
 
 						      var value = 0 ;
 					              if (typeof poc_internal_states.MP[address] != "undefined")
 							  value = poc_internal_states.MP[address] ;
 
-                                                      verbal = "Try to read a word from memory " + 
+                                                      verbal = "Try to read a " + bw_type + " from memory " + 
 							       "at address 0x"  + address.toString(16) + " with value " + value.toString(16) + ". " ;
 
                                                       return verbal ;
                                                    }
                                       };
 
-        poc_behaviors.MEM_WRITE      = { nparameters: 6, 
-                                         types: ["E", "E", "S", "E"],
-                                         operation: function (s_expr) 
-                                                    {
+        poc_behaviors.MEM_WRITE     = { nparameters: 6, 
+                                        types: ["E", "E", "S", "S", "E"],
+                                        operation: function (s_expr) 
+                                                   {
 						      var address = poc_states[s_expr[1]].value;
                                                       var dbvalue = poc_states[s_expr[2]].value;
-                                                      var clk     = get_value(poc_states[s_expr[4]]) ;
+                                                      var bw      = poc_signals[s_expr[3]].value;
+                                                      var clk     = get_value(poc_states[s_expr[5]].value) ;
 
-                                                      poc_signals[s_expr[3]].value = 0;
+                                                      poc_signals[s_expr[4]].value = 0;
 						      var remain = get_var(poc_internal_states.MP_wc);
 						      if ( 
                                                            (typeof poc_events.mem[clk-1] != "undefined") &&
@@ -195,11 +238,22 @@
 						      if (typeof  poc_internal_states.MP[address] != "undefined")
 						   	  value = poc_internal_states.MP[address];
 
-                                                      value = dbvalue;
+                                                      // bit-width
+						      switch (bw) 
+					              {
+					                 case 0: value = (value & 0xFFFFFF00) | (dbvalue & 0x000000FF) ;
+								 break ;
+					                 case 1: value = (value & 0xFFFF0000) | (dbvalue & 0x0000FFFF) ;
+								 break ;
+					                 case 2: value = (value & 0xFF000000) | (dbvalue & 0x00FFFFFF) ;
+								 break ;
+					                 case 3: value = (value & 0x00000000) | (dbvalue & 0xFFFFFFFF) ;
+								 break ;
+						      }
 
-						      poc_internal_states.MP[address] = (value >>> 0);
-                                                      poc_signals[s_expr[3]].value = 1;
-				                      show_main_memory(poc_internal_states.MP, address, false, true) ;
+						      poc_internal_states.MP[address] = (value >>> 0) ;
+                                                         poc_signals[s_expr[4]].value = 1 ;
+				                      show_main_memory(poc_internal_states.MP, address, true, true) ;
                                                    },
                                            verbal: function (s_expr) 
                                                    {
@@ -207,13 +261,27 @@
 
 						      var address = poc_states[s_expr[1]].value;
                                                       var dbvalue = poc_states[s_expr[2]].value;
-                                                      var clk     = get_value(poc_states[s_expr[4]]) ;
+                                                      var bw      = poc_signals[s_expr[3]].value;
+                                                      var clk     = get_value(poc_states[s_expr[5]].value) ;
+
+                                                      // bit-width
+						      switch (bw) 
+					              {
+					                 case 0: bw_type = "byte" ;
+								 break ;
+					                 case 1: bw_type = "half" ;
+								 break ;
+					                 case 2: bw_type = "three bytes" ;
+								 break ;
+					                 case 3: bw_type = "word" ;
+								 break ;
+						      }
 
 						      var value = 0 ;
 					              if (typeof poc_internal_states.MP[address] != "undefined")
 							  value = poc_internal_states.MP[address] ;
 
-                                                      verbal = "Try to write a word to memory " + 
+                                                      verbal = "Try to write a " + bw_type + " to memory " + 
 							       "at address 0x"  + address.toString(16) + " with value " + value.toString(16) + ". " ;
 
                                                       return verbal ;
