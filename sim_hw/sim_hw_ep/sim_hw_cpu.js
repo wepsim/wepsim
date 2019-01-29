@@ -779,6 +779,18 @@
 				 draw_data: [[], ['svg_p:path3735', 'svg_p:path3491', 'svg_p:text3717']],
 				 draw_name: [[], []]};
 
+	/* I & U signals */
+	 ep_signals["I"]     = { name: "I", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+		  	         behavior: ["MV FLAG_I VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_I VAL_ONE; FIRE_IFSET SELP 2"],
+				 fire_name: [],
+				 draw_data: [[], []],
+				 draw_name: [[], []]};
+	 ep_signals["U"]     = { name: "U", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+		  	         behavior: ["MV FLAG_U VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_U VAL_ONE; FIRE_IFSET SELP 2"],
+				 fire_name: [],
+				 draw_data: [[], []],
+				 draw_name: [[], []]};
+
         /* Virtual Signals, for UI */
 	 ep_signals["TEST_C"] = { name: "TEST_C", visible: true, type: "L", value: 0, default_value:0, nbits: "1", forbidden: true,
 		  	          behavior: ["MV FLAG_C VAL_ZERO; FIRE_IFSET SELP 2", "MV FLAG_C VAL_ONE; FIRE_IFSET SELP 3"],
