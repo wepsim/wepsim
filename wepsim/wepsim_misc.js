@@ -43,6 +43,11 @@
     function sim_change_workspace_simulator ( )
     {
 	    sim_change_workspace('#main1', 0) ;
+
+	    setTimeout(function(){
+			    // stats about ui
+			    ga('send', 'event', 'ui', 'ui.workspace', 'ui.workspace.simulator');
+	               }, 50) ;
     }
 
     function sim_change_workspace_microcode ( )
@@ -50,7 +55,10 @@
 	    sim_change_workspace('#main3', 1) ;
 
 	    setTimeout(function(){
-		          inputfirm.refresh() ; 
+		            inputfirm.refresh() ; 
+
+			    // stats about ui
+			    ga('send', 'event', 'ui', 'ui.workspace', 'ui.workspace.microcode');
 	               }, 50) ;
     }
 
@@ -59,7 +67,10 @@
 	    sim_change_workspace('#main4', 2) ;
 
 	    setTimeout(function(){
-		          inputasm.refresh() ; 
+		            inputasm.refresh() ; 
+
+			    // stats about ui
+			    ga('send', 'event', 'ui', 'ui.workspace', 'ui.workspace.assembly');
 	               }, 50) ;
     }
 
@@ -114,6 +125,9 @@
 	                }) ;
 
 	     tour.start() ;
+
+	     // stats about ui
+             ga('send', 'event', 'ui', 'ui.tour', 'ui.tour.newbie');
     }
 
     function wepsim_change_mode ( optValue )

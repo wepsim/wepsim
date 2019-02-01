@@ -11,19 +11,31 @@
       "abilities": [
         "CPU"
       ],
-      "write_state": "/Function(function(e){if(typeof e.CPU==\"undefined\"){e.CPU={}}var a=[\"PC\",\"SR\"];var f=0;for(var d=0;d<poc_def.states.BR.length;d++){f=parseInt(poc_def.states.BR[d].value);if(f!=0){e.CPU[\"R\"+d]={type:\"register\",default_value:0,id:\"R\"+d,op:\"=\",value:\"0x\"+f.toString(16)}}}for(var d=0;d<a.length;d++){f=parseInt(poc_def.states[\"REG_\"+a[d]].value);if(f!=0){e.CPU[a[d]]={type:\"register\",default_value:0,id:a[d],op:\"=\",value:\"0x\"+f.toString(16)}}}return e})/",
+      "write_state": "/Function(function(e){if(typeof e.CPU==\"undefined\"){e.CPU={}}var a=[\"PC\",\"SR\"];var f=0;for(var d=0;d<poc_states.BR.length;d++){f=parseInt(poc_states.BR[d].value);if(f!=0){e.CPU[\"R\"+d]={type:\"register\",default_value:0,id:\"R\"+d,op:\"=\",value:\"0x\"+f.toString(16)}}}for(var d=0;d<a.length;d++){f=parseInt(poc_states[\"REG_\"+a[d]].value);if(f!=0){e.CPU[a[d]]={type:\"register\",default_value:0,id:a[d],op:\"=\",value:\"0x\"+f.toString(16)}}}return e})/",
       "read_state": "/Function(function(e,a){if(typeof e.CPU==\"undefined\"){e.CPU={}}var d=a.id.toUpperCase().trim();var f=parseInt(a.value).toString(16);if(\"REGISTER\"==a.type.toUpperCase().trim()){e.CPU[d]={type:\"register\",default_value:0,id:d,op:a.condition,value:\"0x\"+f};return true}return false})/",
-      "get_state": "/Function(function(d){var e=d.toUpperCase().trim();if(typeof poc_def.states[\"REG_\"+e]!=\"undefined\"){return\"0x\"+get_value(poc_def.states[\"REG_\"+e]).toString(16)}e=e.replace(\"R\",\"\");var a=parseInt(e);if(typeof poc_def.states.BR[a]!=\"undefined\"){return\"0x\"+get_value(poc_def.states.BR[a]).toString(16)}return null})/"
+      "get_state": "/Function(function(d){var e=d.toUpperCase().trim();if(typeof poc_states[\"REG_\"+e]!=\"undefined\"){return\"0x\"+get_value(poc_states[\"REG_\"+e]).toString(16)}e=e.replace(\"R\",\"\");var a=parseInt(e);if(typeof poc_states.BR[a]!=\"undefined\"){return\"0x\"+get_value(poc_states.BR[a]).toString(16)}return null})/"
     },
     "MEMORY": {
       "name": "MEMORY",
       "version": "1",
       "abilities": [
-        "MEMORY"
+        "MEMORY",
+        "MEMORY_CONFIG"
       ],
-      "write_state": "/Function(function(e){if(typeof e.MEMORY==\"undefined\"){e.MEMORY={}}var d=0;var f=0;for(var a in poc_def.internal_states.MP){f=parseInt(poc_def.internal_states.MP[a]);if(f!=0){d=parseInt(a).toString(16);e.MEMORY[\"0x\"+d]={type:\"memory\",default_value:0,id:\"0x\"+d,op:\"=\",value:\"0x\"+f.toString(16)}}}return e})/",
+      "write_state": "/Function(function(e){if(typeof e.MEMORY==\"undefined\"){e.MEMORY={}}var d=0;var f=0;for(var a in poc_internal_states.MP){f=parseInt(poc_internal_states.MP[a]);if(f!=0){d=parseInt(a).toString(16);e.MEMORY[\"0x\"+d]={type:\"memory\",default_value:0,id:\"0x\"+d,op:\"=\",value:\"0x\"+f.toString(16)}}}return e})/",
       "read_state": "/Function(function(e,a){if(typeof e.MEMORY==\"undefined\"){e.MEMORY={}}var d=parseInt(a.id).toString(16);var f=parseInt(a.value).toString(16);if(\"MEMORY\"==a.type.toUpperCase().trim()){e.MEMORY[\"0x\"+d]={type:\"memory\",default_value:0,id:\"0x\"+d,op:a.condition,value:\"0x\"+f};return true}return false})/",
-      "get_state": "/Function(function(d){var a=parseInt(d);if(typeof poc_def.internal_states.MP[a]!=\"undefined\"){return\"0x\"+parseInt(poc_def.internal_states.MP[a]).toString(16)}return null})/"
+      "get_state": "/Function(function(d){var a=parseInt(d);if(typeof poc_internal_states.MP[a]!=\"undefined\"){return\"0x\"+parseInt(poc_internal_states.MP[a]).toString(16)}return null})/"
+    },
+    "IO": {
+      "name": "IO",
+      "version": "1",
+      "abilities": [
+        "IO",
+        "IO_CONFIG"
+      ],
+      "write_state": "/Function(function(a){return a})/",
+      "read_state": "/Function(function(d,a){return false})/",
+      "get_state": "/Function(function(a){return null})/"
     },
     "KBD": {
       "name": "KBD",
@@ -824,7 +836,7 @@
       "draw_data": []
     },
     "REG_MICROADDR": {
-      "name": "ÂµADDR",
+      "name": "µADDR",
       "verbal": "Microaddress Register",
       "visible": true,
       "nbits": "12",
@@ -835,7 +847,7 @@
       ]
     },
     "REG_MICROINS": {
-      "name": "ÂµINS",
+      "name": "µINS",
       "verbal": "Microinstruction Register",
       "visible": true,
       "nbits": "77",
@@ -990,6 +1002,33 @@
     "CLK": {
       "name": "CLK",
       "verbal": "Clock",
+      "visible": false,
+      "nbits": "32",
+      "value": 0,
+      "default_value": 0,
+      "draw_data": []
+    },
+    "IOSR": {
+      "name": "IOSR",
+      "verbal": "IO State Register",
+      "visible": false,
+      "nbits": "32",
+      "value": 0,
+      "default_value": 0,
+      "draw_data": []
+    },
+    "IOCR": {
+      "name": "IOCR",
+      "verbal": "IO Control Register",
+      "visible": false,
+      "nbits": "32",
+      "value": 0,
+      "default_value": 0,
+      "draw_data": []
+    },
+    "IODR": {
+      "name": "IODR",
+      "verbal": "IO Data Register",
       "visible": false,
       "nbits": "32",
       "value": 0,
@@ -2369,9 +2408,7 @@
         "NOP",
         "MOVE_BITS KBD_IOR 0 1 IOR; MOVE_BITS SCR_IOR 0 1 IOR; FIRE KBD_IOR; FIRE SCR_IOR"
       ],
-      "fire_name": [
-        "svg_p:text3715"
-      ],
+      "fire_name": [],
       "draw_data": [
         [],
         [
@@ -2396,9 +2433,7 @@
         "NOP",
         "MOVE_BITS SCR_IOW 0 1 IOW; FIRE SCR_IOW;"
       ],
-      "fire_name": [
-        "svg_p:text3717"
-      ],
+      "fire_name": [],
       "draw_data": [
         [],
         [
@@ -2572,6 +2607,32 @@
         []
       ]
     },
+    "TEST_INTV": {
+      "name": "TEST_INTV",
+      "visible": true,
+      "type": "L",
+      "value": 0,
+      "default_value": 0,
+      "nbits": "8",
+      "forbidden": true,
+      "behavior": [
+        "MBIT INTV TEST_INTV 0 32"
+      ],
+      "depends_on": [
+        "INT"
+      ],
+      "fire_name": [
+        "svg_p:tspan4225"
+      ],
+      "draw_data": [
+        [
+          "svg_p:path3749"
+        ]
+      ],
+      "draw_name": [
+        []
+      ]
+    },
     "MRDY": {
       "name": "MRDY",
       "visible": true,
@@ -2587,6 +2648,7 @@
         "FIRE_IFCHANGED MRDY C"
       ],
       "fire_name": [
+        "svg_p:tspan3916",
         "svg_p:tspan3916"
       ],
       "draw_data": [
@@ -2610,11 +2672,10 @@
       "nbits": "1",
       "behavior": [
         "NOP",
-        "MEM_READ BUS_AB BUS_DB MRDY CLK; FIRE MRDY; FIRE M1"
+        "MEM_READ BUS_AB BUS_DB BW MRDY CLK; FIRE M1; FIRE MRDY"
       ],
       "fire_name": [
-        "svg_p:text3533-5-2",
-        "svg_p:text3713"
+        "svg_p:text3533-5-2"
       ],
       "draw_data": [
         [],
@@ -2637,11 +2698,10 @@
       "nbits": "1",
       "behavior": [
         "NOP",
-        "MEM_WRITE BUS_AB BUS_DB MRDY CLK; FIRE MRDY"
+        "MEM_WRITE BUS_AB BUS_DB BW MRDY CLK; FIRE M1; FIRE MRDY"
       ],
       "fire_name": [
-        "svg_p:text3533-5-08",
-        "svg_p:text3527"
+        "svg_p:text3533-5-08"
       ],
       "draw_data": [
         [],
@@ -2649,6 +2709,195 @@
           "svg_p:path3559",
           "svg_p:path3575",
           "svg_p:path3447-7"
+        ]
+      ],
+      "draw_name": [
+        [],
+        []
+      ]
+    },
+    "BW": {
+      "name": "BW",
+      "verbal": [
+        "Access to one byte from memory. ",
+        "Access to two bytes from memory. ",
+        "Access to three bytes from memory. ",
+        "Access to a word from memory. "
+      ],
+      "visible": true,
+      "type": "L",
+      "value": 0,
+      "default_value": 0,
+      "nbits": "2",
+      "behavior": [
+        "FIRE R; FIRE W",
+        "FIRE R; FIRE W",
+        "FIRE R; FIRE W",
+        "FIRE R; FIRE W"
+      ],
+      "fire_name": [
+        "svg_p:text3533-5-2-8"
+      ],
+      "draw_data": [
+        [
+          "svg_p:path3557-0"
+        ]
+      ],
+      "draw_name": [
+        [],
+        []
+      ]
+    },
+    "INT": {
+      "name": "INT",
+      "visible": true,
+      "type": "L",
+      "value": 0,
+      "default_value": 0,
+      "nbits": "1",
+      "depends_on": [
+        "CLK"
+      ],
+      "behavior": [
+        "FIRE C",
+        "FIRE C"
+      ],
+      "fire_name": [
+        "svg_p:tspan4199"
+      ],
+      "draw_data": [
+        [],
+        [
+          "svg_p:path3809"
+        ]
+      ],
+      "draw_name": [
+        [],
+        []
+      ]
+    },
+    "IORDY": {
+      "name": "IORDY",
+      "visible": true,
+      "type": "L",
+      "value": 0,
+      "default_value": 0,
+      "nbits": "1",
+      "depends_on": [
+        "CLK"
+      ],
+      "behavior": [
+        "FIRE_IFCHANGED IORDY C",
+        "FIRE_IFCHANGED IORDY C"
+      ],
+      "fire_name": [
+        "svg_p:tspan4089",
+        "svg_p:path3793",
+        "svg_p:tspan4089"
+      ],
+      "draw_data": [
+        [],
+        [
+          "svg_p:path3897"
+        ]
+      ],
+      "draw_name": [
+        [],
+        []
+      ]
+    },
+    "IO_IOR": {
+      "name": "IO_IOR",
+      "visible": true,
+      "type": "L",
+      "value": 0,
+      "default_value": 0,
+      "nbits": "1",
+      "behavior": [
+        "NOP",
+        "IO_IOR BUS_AB BUS_DB IOSR IOCR IODR CLK; FIRE M1"
+      ],
+      "fire_name": [
+        "svg_p:tspan4173"
+      ],
+      "draw_data": [
+        [],
+        [
+          "svg_p:path3795",
+          "svg_p:path3733"
+        ]
+      ],
+      "draw_name": [
+        [],
+        []
+      ]
+    },
+    "IO_IOW": {
+      "name": "IO_IOW",
+      "visible": true,
+      "type": "L",
+      "value": 0,
+      "default_value": 0,
+      "nbits": "1",
+      "behavior": [
+        "NOP",
+        "IO_IOW BUS_AB BUS_DB IOSR IOCR IODR CLK; FIRE M1"
+      ],
+      "fire_name": [
+        "svg_p:text3785-0-6-0-5-5"
+      ],
+      "draw_data": [
+        [],
+        [
+          "svg_p:path3805",
+          "svg_p:path3733"
+        ]
+      ],
+      "draw_name": [
+        [],
+        []
+      ]
+    },
+    "IO_IE": {
+      "name": "IO_IE",
+      "visible": true,
+      "type": "L",
+      "value": 1,
+      "default_value": 1,
+      "nbits": "1",
+      "behavior": [
+        "NOP",
+        "IO_CHK_I CLK INT INTV; FIRE C"
+      ],
+      "fire_name": [],
+      "draw_data": [
+        [],
+        []
+      ],
+      "draw_name": [
+        [],
+        []
+      ]
+    },
+    "INTA": {
+      "name": "INTA",
+      "visible": true,
+      "type": "L",
+      "value": 1,
+      "default_value": 0,
+      "nbits": "1",
+      "behavior": [
+        "NOP",
+        "INTA CLK INT INTA BUS_DB INTV; FIRE M1; FIRE C"
+      ],
+      "fire_name": [
+        "svg_p:text3785-0-6-0-5-5-1-1"
+      ],
+      "draw_data": [
+        [],
+        [
+          "svg_p:path3807",
+          "svg_p:path3737"
         ]
       ],
       "draw_name": [
@@ -2741,16 +2990,16 @@
       "types": [
         "S"
       ],
-      "operation": "/Function(function(a){console.log(a[1]+\": 0x\"+poc_def.signals[a[1]].value.toString(16))})/",
-      "verbal": "/Function(function(a){return\"Print value of signal \"+a[1]+\": 0x\"+poc_def.signals[a[1]].value.toString(16)+\". \"})/"
+      "operation": "/Function(function(a){console.log(a[1]+\": 0x\"+poc_signals[a[1]].value.toString(16))})/",
+      "verbal": "/Function(function(a){return\"Print value of signal \"+a[1]+\": 0x\"+poc_signals[a[1]].value.toString(16)+\". \"})/"
     },
     "PRINT_E": {
       "nparameters": 2,
       "types": [
         "E"
       ],
-      "operation": "/Function(function(a){console.log(a[1]+\": 0x\"+poc_def.states[a[1]].value.toString(16))})/",
-      "verbal": "/Function(function(a){return\"Print value of state \"+a[1]+\": 0x\"+poc_def.states[a[1]].value.toString(16)+\". \"})/"
+      "operation": "/Function(function(a){console.log(a[1]+\": 0x\"+poc_states[a[1]].value.toString(16))})/",
+      "verbal": "/Function(function(a){return\"Print value of state \"+a[1]+\": 0x\"+poc_states[a[1]].value.toString(16)+\". \"})/"
     },
     "NOP": {
       "nparameters": 1,
@@ -2759,7 +3008,7 @@
     },
     "NOP_ALU": {
       "nparameters": 1,
-      "operation": "/Function(function(a){poc_update_nzvc(0,0,0,0)})/",
+      "operation": "/Function(function(a){poc_internal_states.alu_flags.flag_n=0;poc_internal_states.alu_flags.flag_z=0;poc_internal_states.alu_flags.flag_v=0;poc_internal_states.alu_flags.flag_c=0})/",
       "verbal": "/Function(function(a){return\"Reset ALU flags. \"})/"
     },
     "MV": {
@@ -2795,8 +3044,8 @@
         "S",
         "E"
       ],
-      "operation": "/Function(function(a){set_value(poc_def.signals[a[1]],Math.abs(get_value(poc_def.states[a[2]])-1))})/",
-      "verbal": "/Function(function(a){var d=Math.abs(get_value(poc_def.states[a[2]])-1);return\"Set \"+show_verbal(a[1])+\" with value \"+show_value(d)+\" (Logical NOT of \"+a[2]+\"). \"})/"
+      "operation": "/Function(function(a){set_value(poc_signals[a[1]],Math.abs(get_value(poc_states[a[2]])-1))})/",
+      "verbal": "/Function(function(a){var d=Math.abs(get_value(poc_states[a[2]])-1);return\"Set \"+show_verbal(a[1])+\" with value \"+show_value(d)+\" (Logical NOT of \"+a[2]+\"). \"})/"
     },
     "GET": {
       "nparameters": 4,
@@ -2805,8 +3054,8 @@
         "E",
         "S"
       ],
-      "operation": "/Function(function(a){set_value(poc_def.states[a[1]],get_value(poc_def.states[a[2]][poc_def.signals[a[3]].value]))})/",
-      "verbal": "/Function(function(a){var d=get_value(poc_def.states[a[2]][poc_def.signals[a[3]].value]);return\"Set \"+show_verbal(a[1])+\" with value \"+show_value(d)+\" (Register File \"+a[3]+\"). \"})/"
+      "operation": "/Function(function(a){set_value(poc_states[a[1]],get_value(poc_states[a[2]][poc_signals[a[3]].value]))})/",
+      "verbal": "/Function(function(a){var d=get_value(poc_states[a[2]][poc_signals[a[3]].value]);return\"Set \"+show_verbal(a[1])+\" with value \"+show_value(d)+\" (Register File \"+a[3]+\"). \"})/"
     },
     "SET": {
       "nparameters": 4,
@@ -2815,8 +3064,8 @@
         "S",
         "E"
       ],
-      "operation": "/Function(function(a){set_value(poc_def.states[a[1]][poc_def.signals[a[2]].value],get_value(poc_def.states[a[3]]))})/",
-      "verbal": "/Function(function(e){var f=get_value(poc_def.states[e[3]]);var d=poc_def.states[e[1]][poc_def.signals[e[2]].value];var a=d.name;if(typeof d.verbal!=\"undefined\"){a=d.verbal}return\"Copy to \"+a+\" the value \"+show_value(f)+\". \"})/"
+      "operation": "/Function(function(a){set_value(poc_states[a[1]][poc_signals[a[2]].value],get_value(poc_states[a[3]]))})/",
+      "verbal": "/Function(function(e){var f=get_value(poc_states[e[3]]);var d=poc_states[e[1]][poc_signals[e[2]].value];var a=d.name;if(typeof d.verbal!=\"undefined\"){a=d.verbal}return\"Copy to \"+a+\" the value \"+show_value(f)+\". \"})/"
     },
     "AND": {
       "nparameters": 4,
@@ -2825,8 +3074,8 @@
         "E",
         "E"
       ],
-      "operation": "/Function(function(d){var a=get_value(poc_def.states[d[2]])&get_value(poc_def.states[d[3]]);set_value(poc_def.states[d[1]],a);poc_update_nzvc((a<0)?1:0,(a==0)?1:0,0,0)})/",
-      "verbal": "/Function(function(d){var a=get_value(poc_def.states[d[2]])&get_value(poc_def.states[d[3]]);return\"ALU AND with result \"+show_value(a)+\". \"})/"
+      "operation": "/Function(function(d){var a=get_value(poc_states[d[2]])&get_value(poc_states[d[3]]);set_value(poc_states[d[1]],a);poc_internal_states.alu_flags.flag_n=(a<0)?1:0;poc_internal_states.alu_flags.flag_z=(a==0)?1:0;poc_internal_states.alu_flags.flag_v=0;poc_internal_states.alu_flags.flag_c=0})/",
+      "verbal": "/Function(function(d){var a=get_value(poc_states[d[2]])&get_value(poc_states[d[3]]);return\"ALU AND with result \"+show_value(a)+\". \"})/"
     },
     "OR": {
       "nparameters": 4,
@@ -2835,8 +3084,8 @@
         "E",
         "E"
       ],
-      "operation": "/Function(function(d){var a=get_value(poc_def.states[d[2]])|get_value(poc_def.states[d[3]]);set_value(poc_def.states[d[1]],a);poc_update_nzvc((a<0)?1:0,(a==0)?1:0,0,0)})/",
-      "verbal": "/Function(function(d){var a=get_value(poc_def.states[d[2]])|get_value(poc_def.states[d[3]]);return\"ALU OR with result \"+show_value(a)+\". \"})/"
+      "operation": "/Function(function(d){var a=get_value(poc_states[d[2]])|get_value(poc_states[d[3]]);set_value(poc_states[d[1]],a);poc_internal_states.alu_flags.flag_n=(a<0)?1:0;poc_internal_states.alu_flags.flag_z=(a==0)?1:0;poc_internal_states.alu_flags.flag_v=0;poc_internal_states.alu_flags.flag_c=0})/",
+      "verbal": "/Function(function(d){var a=get_value(poc_states[d[2]])|get_value(poc_states[d[3]]);return\"ALU OR with result \"+show_value(a)+\". \"})/"
     },
     "NOT": {
       "nparameters": 3,
@@ -2844,8 +3093,8 @@
         "E",
         "E"
       ],
-      "operation": "/Function(function(d){var a=~(get_value(poc_def.states[d[2]]));set_value(poc_def.states[d[1]],a);poc_update_nzvc((a<0)?1:0,(a==0)?1:0,0,0)})/",
-      "verbal": "/Function(function(d){var a=~(get_value(poc_def.states[d[2]]));return\"ALU NOT with result \"+show_value(a)+\". \"})/"
+      "operation": "/Function(function(d){var a=~(get_value(poc_states[d[2]]));set_value(poc_states[d[1]],a);poc_internal_states.alu_flags.flag_n=(a<0)?1:0;poc_internal_states.alu_flags.flag_z=(a==0)?1:0;poc_internal_states.alu_flags.flag_v=0;poc_internal_states.alu_flags.flag_c=0})/",
+      "verbal": "/Function(function(d){var a=~(get_value(poc_states[d[2]]));return\"ALU NOT with result \"+show_value(a)+\". \"})/"
     },
     "XOR": {
       "nparameters": 4,
@@ -2854,8 +3103,8 @@
         "E",
         "E"
       ],
-      "operation": "/Function(function(d){var a=get_value(poc_def.states[d[2]])^get_value(poc_def.states[d[3]]);set_value(poc_def.states[d[1]],a);poc_update_nzvc((a<0)?1:0,(a==0)?1:0,0,0)})/",
-      "verbal": "/Function(function(d){var a=get_value(poc_def.states[d[2]])^get_value(poc_def.states[d[3]]);return\"ALU XOR with result \"+show_value(a)+\". \"})/"
+      "operation": "/Function(function(d){var a=get_value(poc_states[d[2]])^get_value(poc_states[d[3]]);set_value(poc_states[d[1]],a);poc_internal_states.alu_flags.flag_n=(a<0)?1:0;poc_internal_states.alu_flags.flag_z=(a==0)?1:0;poc_internal_states.alu_flags.flag_v=0;poc_internal_states.alu_flags.flag_c=0})/",
+      "verbal": "/Function(function(d){var a=get_value(poc_states[d[2]])^get_value(poc_states[d[3]]);return\"ALU XOR with result \"+show_value(a)+\". \"})/"
     },
     "SRL": {
       "nparameters": 3,
@@ -2863,8 +3112,8 @@
         "E",
         "E"
       ],
-      "operation": "/Function(function(d){var a=(get_value(poc_def.states[d[2]]))>>>1;set_value(poc_def.states[d[1]],a);poc_update_nzvc((a<0)?1:0,(a==0)?1:0,0,0)})/",
-      "verbal": "/Function(function(d){var a=(get_value(poc_def.states[d[2]]))>>>1;return\"ALU Shift Right Logical with result \"+show_value(a)+\". \"})/"
+      "operation": "/Function(function(d){var a=(get_value(poc_states[d[2]]))>>>1;set_value(poc_states[d[1]],a);poc_internal_states.alu_flags.flag_n=(a<0)?1:0;poc_internal_states.alu_flags.flag_z=(a==0)?1:0;poc_internal_states.alu_flags.flag_v=0;poc_internal_states.alu_flags.flag_c=0})/",
+      "verbal": "/Function(function(d){var a=(get_value(poc_states[d[2]]))>>>1;return\"ALU Shift Right Logical with result \"+show_value(a)+\". \"})/"
     },
     "SRA": {
       "nparameters": 3,
@@ -2872,8 +3121,8 @@
         "E",
         "E"
       ],
-      "operation": "/Function(function(d){var a=(get_value(poc_def.states[d[2]]))>>1;set_value(poc_def.states[d[1]],a);poc_update_nzvc((a<0)?1:0,(a==0)?1:0,0,0)})/",
-      "verbal": "/Function(function(d){var a=(get_value(poc_def.states[d[2]]))>>1;return\"ALU Shift Right Arithmetic with result \"+show_value(a)+\". \"})/"
+      "operation": "/Function(function(d){var a=(get_value(poc_states[d[2]]))>>1;set_value(poc_states[d[1]],a);poc_internal_states.alu_flags.flag_n=(a<0)?1:0;poc_internal_states.alu_flags.flag_z=(a==0)?1:0;poc_internal_states.alu_flags.flag_v=0;poc_internal_states.alu_flags.flag_c=0})/",
+      "verbal": "/Function(function(d){var a=(get_value(poc_states[d[2]]))>>1;return\"ALU Shift Right Arithmetic with result \"+show_value(a)+\". \"})/"
     },
     "SL": {
       "nparameters": 3,
@@ -2881,8 +3130,8 @@
         "E",
         "E"
       ],
-      "operation": "/Function(function(d){var a=(get_value(poc_def.states[d[2]]))<<1;set_value(poc_def.states[d[1]],a);poc_update_nzvc((a<0)?1:0,(a==0)?1:0,0,(a)>>>31)})/",
-      "verbal": "/Function(function(d){var a=(get_value(poc_def.states[d[2]]))<<1;return\"ALU Shift Left with result \"+show_value(a)+\". \"})/"
+      "operation": "/Function(function(d){var a=(get_value(poc_states[d[2]]))<<1;set_value(poc_states[d[1]],a);poc_internal_states.alu_flags.flag_n=(a<0)?1:0;poc_internal_states.alu_flags.flag_z=(a==0)?1:0;poc_internal_states.alu_flags.flag_v=0;poc_internal_states.alu_flags.flag_c=0})/",
+      "verbal": "/Function(function(d){var a=(get_value(poc_states[d[2]]))<<1;return\"ALU Shift Left with result \"+show_value(a)+\". \"})/"
     },
     "RR": {
       "nparameters": 3,
@@ -2890,8 +3139,8 @@
         "E",
         "E"
       ],
-      "operation": "/Function(function(d){var a=((get_value(poc_def.states[d[2]]))>>>1)|(((get_value(poc_def.states[d[2]]))&1)<<31);set_value(poc_def.states[d[1]],a);poc_update_nzvc((a<0)?1:0,(a==0)?1:0,0,0)})/",
-      "verbal": "/Function(function(d){var a=((get_value(poc_def.states[d[2]]))>>>1)|(((get_value(poc_def.states[d[2]]))&1)<<31);return\"ALU Right Rotation with result \"+show_value(a)+\". \"})/"
+      "operation": "/Function(function(d){var a=((get_value(poc_states[d[2]]))>>>1)|(((get_value(poc_states[d[2]]))&1)<<31);set_value(poc_states[d[1]],a);poc_internal_states.alu_flags.flag_n=(a<0)?1:0;poc_internal_states.alu_flags.flag_z=(a==0)?1:0;poc_internal_states.alu_flags.flag_v=0;poc_internal_states.alu_flags.flag_c=0})/",
+      "verbal": "/Function(function(d){var a=((get_value(poc_states[d[2]]))>>>1)|(((get_value(poc_states[d[2]]))&1)<<31);return\"ALU Right Rotation with result \"+show_value(a)+\". \"})/"
     },
     "RL": {
       "nparameters": 3,
@@ -2899,8 +3148,8 @@
         "E",
         "E"
       ],
-      "operation": "/Function(function(d){var a=((get_value(poc_def.states[d[2]]))<<1)|(((get_value(poc_def.states[d[2]]))&2147483648)>>>31);set_value(poc_def.states[d[1]],a);poc_update_nzvc((a<0)?1:0,(a==0)?1:0,0,0)})/",
-      "verbal": "/Function(function(d){var a=((get_value(poc_def.states[d[2]]))<<1)|(((get_value(poc_def.states[d[2]]))&2147483648)>>>31);return\"ALU Left Rotation with result \"+show_value(a)+\". \"})/"
+      "operation": "/Function(function(d){var a=((get_value(poc_states[d[2]]))<<1)|(((get_value(poc_states[d[2]]))&2147483648)>>>31);set_value(poc_states[d[1]],a);poc_internal_states.alu_flags.flag_n=(a<0)?1:0;poc_internal_states.alu_flags.flag_z=(a==0)?1:0;poc_internal_states.alu_flags.flag_v=0;poc_internal_states.alu_flags.flag_c=0})/",
+      "verbal": "/Function(function(d){var a=((get_value(poc_states[d[2]]))<<1)|(((get_value(poc_states[d[2]]))&2147483648)>>>31);return\"ALU Left Rotation with result \"+show_value(a)+\". \"})/"
     },
     "ADD": {
       "nparameters": 4,
@@ -2909,8 +3158,8 @@
         "E",
         "E"
       ],
-      "operation": "/Function(function(m){var k=get_value(poc_def.states[m[2]])<<0;var f=get_value(poc_def.states[m[3]])<<0;var e=k+f;set_value(poc_def.states[m[1]],e>>>0);var h=(e<0)?1:0;var d=(e==0)?1:0;var g=(k>>>31)&&(f>>>31);var n=0;if((e<0)&&(k>=0)&&(f>=0)){n=1}if((e>=0)&&(k<0)&&(f<0)){n=1}poc_update_nzvc(h,d,n,g)})/",
-      "verbal": "/Function(function(g){var f=get_value(poc_def.states[g[2]])<<0;var e=get_value(poc_def.states[g[3]])<<0;var d=f+e;return\"ALU ADD with result \"+show_value(d)+\". \"})/"
+      "operation": "/Function(function(g){var f=get_value(poc_states[g[2]])<<0;var e=get_value(poc_states[g[3]])<<0;var d=f+e;set_value(poc_states[g[1]],d>>>0);poc_internal_states.alu_flags.flag_n=(d<0)?1:0;poc_internal_states.alu_flags.flag_z=(d==0)?1:0;poc_internal_states.alu_flags.flag_c=(f>>>31)&&(e>>>31);poc_internal_states.alu_flags.flag_v=0;if((d<0)&&(f>=0)&&(e>=0)){poc_internal_states.alu_flags.flag_v=1}if((d>=0)&&(f<0)&&(e<0)){poc_internal_states.alu_flags.flag_v=1}})/",
+      "verbal": "/Function(function(g){var f=get_value(poc_states[g[2]])<<0;var e=get_value(poc_states[g[3]])<<0;var d=f+e;return\"ALU ADD with result \"+show_value(d)+\". \"})/"
     },
     "SUB": {
       "nparameters": 4,
@@ -2919,8 +3168,8 @@
         "E",
         "E"
       ],
-      "operation": "/Function(function(m){var k=get_value(poc_def.states[m[2]])<<0;var f=get_value(poc_def.states[m[3]])<<0;var e=k-f;set_value(poc_def.states[m[1]],e>>>0);var h=(e<0)?1:0;var d=(e==0)?1:0;var g=(k>>>31)&&(f>>>31);var n=0;if((e<0)&&(k>=0)&&(f>=0)){n=1}if((e>=0)&&(k<0)&&(f<0)){n=1}poc_update_nzvc(h,d,n,g)})/",
-      "verbal": "/Function(function(g){var f=get_value(poc_def.states[g[2]])<<0;var e=get_value(poc_def.states[g[3]])<<0;var d=f-e;return\"ALU SUB with result \"+show_value(d)+\". \"})/"
+      "operation": "/Function(function(g){var f=get_value(poc_states[g[2]])<<0;var e=get_value(poc_states[g[3]])<<0;var d=f-e;set_value(poc_states[g[1]],d>>>0);poc_internal_states.alu_flags.flag_n=(d<0)?1:0;poc_internal_states.alu_flags.flag_z=(d==0)?1:0;poc_internal_states.alu_flags.flag_c=(f>>>31)&&(e>>>31);poc_internal_states.alu_flags.flag_v=0;if((d<0)&&(f>=0)&&(e>=0)){poc_internal_states.alu_flags.flag_v=1}if((d>=0)&&(f<0)&&(e<0)){poc_internal_states.alu_flags.flag_v=1}})/",
+      "verbal": "/Function(function(g){var f=get_value(poc_states[g[2]])<<0;var e=get_value(poc_states[g[3]])<<0;var d=f-e;return\"ALU SUB with result \"+show_value(d)+\". \"})/"
     },
     "MUL": {
       "nparameters": 4,
@@ -2929,8 +3178,8 @@
         "E",
         "E"
       ],
-      "operation": "/Function(function(m){var k=get_value(poc_def.states[m[2]])<<0;var f=get_value(poc_def.states[m[3]])<<0;var e=k*f;set_value(poc_def.states[m[1]],e>>>0);var h=(e<0)?1:0;var d=(e==0)?1:0;var g=0;var n=0;if((e<0)&&(k>=0)&&(f>=0)){n=1}if((e>=0)&&(k<0)&&(f<0)){n=1}poc_update_nzvc(h,d,n,g)})/",
-      "verbal": "/Function(function(g){var f=get_value(poc_def.states[g[2]])<<0;var e=get_value(poc_def.states[g[3]])<<0;var d=f*e;return\"ALU MUL with result \"+show_value(d)+\". \"})/"
+      "operation": "/Function(function(g){var f=get_value(poc_states[g[2]])<<0;var e=get_value(poc_states[g[3]])<<0;var d=f*e;set_value(poc_states[g[1]],d>>>0);poc_internal_states.alu_flags.flag_n=(d<0)?1:0;poc_internal_states.alu_flags.flag_z=(d==0)?1:0;poc_internal_states.alu_flags.flag_c=0;poc_internal_states.alu_flags.flag_v=0;if((d<0)&&(f>=0)&&(e>=0)){poc_internal_states.alu_flags.flag_v=1}if((d>=0)&&(f<0)&&(e<0)){poc_internal_states.alu_flags.flag_v=1}})/",
+      "verbal": "/Function(function(g){var f=get_value(poc_states[g[2]])<<0;var e=get_value(poc_states[g[3]])<<0;var d=f*e;return\"ALU MUL with result \"+show_value(d)+\". \"})/"
     },
     "DIV": {
       "nparameters": 4,
@@ -2939,8 +3188,8 @@
         "E",
         "E"
       ],
-      "operation": "/Function(function(g){var f=(get_value(poc_def.states[g[2]])<<0);var e=(get_value(poc_def.states[g[3]])<<0);if(0==e){set_value(poc_def.states[g[1]],0);poc_update_nzvc(0,1,1,0);return}var d=Math.floor(f/e);set_value(poc_def.states[g[1]],d);poc_update_nzvc((d<0)?1:0,(d==0)?1:0,0,0)})/",
-      "verbal": "/Function(function(g){var f=get_value(poc_def.states[g[2]])<<0;var e=get_value(poc_def.states[g[3]])<<0;if(0==e){return\"ALU DIV zero by zero (oops!). \"}var d=Math.floor(f/e);return\"ALU DIV with result \"+show_value(d)+\". \"})/"
+      "operation": "/Function(function(g){var f=(get_value(poc_states[g[2]])<<0);var e=(get_value(poc_states[g[3]])<<0);if(0==e){set_value(poc_states[g[1]],0);poc_internal_states.alu_flags.flag_n=0;poc_internal_states.alu_flags.flag_z=1;poc_internal_states.alu_flags.flag_v=1;poc_internal_states.alu_flags.flag_c=0;return}var d=Math.floor(f/e);set_value(poc_states[g[1]],d);poc_internal_states.alu_flags.flag_n=(d<0)?1:0;poc_internal_states.alu_flags.flag_z=(d==0)?1:0;poc_internal_states.alu_flags.flag_v=0;poc_internal_states.alu_flags.flag_c=0})/",
+      "verbal": "/Function(function(g){var f=get_value(poc_states[g[2]])<<0;var e=get_value(poc_states[g[3]])<<0;if(0==e){return\"ALU DIV zero by zero (oops!). \"}var d=Math.floor(f/e);return\"ALU DIV with result \"+show_value(d)+\". \"})/"
     },
     "MOD": {
       "nparameters": 4,
@@ -2949,8 +3198,8 @@
         "E",
         "E"
       ],
-      "operation": "/Function(function(d){var a=(get_value(poc_def.states[d[2]])<<0)%(get_value(poc_def.states[d[3]])<<0);set_value(poc_def.states[d[1]],a);poc_update_nzvc((a<0)?1:0,(a==0)?1:0,0,0)})/",
-      "verbal": "/Function(function(g){var f=get_value(poc_def.states[g[2]])<<0;var e=get_value(poc_def.states[g[3]])<<0;var d=f%e;return\"ALU MOD with result \"+show_value(d)+\". \"})/"
+      "operation": "/Function(function(d){var a=(get_value(poc_states[d[2]])<<0)%(get_value(poc_states[d[3]])<<0);set_value(poc_states[d[1]],a);poc_internal_states.alu_flags.flag_n=(a<0)?1:0;poc_internal_states.alu_flags.flag_z=(a==0)?1:0;poc_internal_states.alu_flags.flag_v=0;poc_internal_states.alu_flags.flag_c=0})/",
+      "verbal": "/Function(function(g){var f=get_value(poc_states[g[2]])<<0;var e=get_value(poc_states[g[3]])<<0;var d=f%e;return\"ALU MOD with result \"+show_value(d)+\". \"})/"
     },
     "LUI": {
       "nparameters": 3,
@@ -2958,8 +3207,8 @@
         "E",
         "E"
       ],
-      "operation": "/Function(function(d){var a=(get_value(poc_def.states[d[2]]))<<16;set_value(poc_def.states[d[1]],a);poc_update_nzvc((a<0)?1:0,(a==0)?1:0,0,0)})/",
-      "verbal": "/Function(function(d){var a=(get_value(poc_def.states[d[2]]))<<16;return\"ALU Load Upper Immediate with result \"+show_value(a)+\". \"})/"
+      "operation": "/Function(function(d){var a=(get_value(poc_states[d[2]]))<<16;set_value(poc_states[d[1]],a);poc_internal_states.alu_flags.flag_n=(a<0)?1:0;poc_internal_states.alu_flags.flag_z=(a==0)?1:0;poc_internal_states.alu_flags.flag_v=0;poc_internal_states.alu_flags.flag_c=0})/",
+      "verbal": "/Function(function(d){var a=(get_value(poc_states[d[2]]))<<16;return\"ALU Load Upper Immediate with result \"+show_value(a)+\". \"})/"
     },
     "ADDFOUR": {
       "nparameters": 3,
@@ -2967,8 +3216,8 @@
         "E",
         "E"
       ],
-      "operation": "/Function(function(k){var h=get_value(poc_def.states[k[2]])<<0;var e=h+4;set_value(poc_def.states[k[1]],e>>>0);var g=(e<0)?1:0;var d=(e==0)?1:0;var f=(h>>>31)&&(b>>>31);var m=0;if((e<0)&&(h>=0)&&(b>=0)){m=1}if((e>=0)&&(h<0)&&(b<0)){m=1}poc_update_nzvc(g,d,m,f)})/",
-      "verbal": "/Function(function(f){var e=get_value(poc_def.states[f[2]])<<0;var d=e+4;return\"ALU ADD 4 with result \"+show_value(d)+\". \"})/"
+      "operation": "/Function(function(f){var e=get_value(poc_states[f[2]])<<0;var d=e+4;set_value(poc_states[f[1]],d>>>0);poc_internal_states.alu_flags.flag_n=(d<0)?1:0;poc_internal_states.alu_flags.flag_z=(d==0)?1:0;poc_internal_states.alu_flags.flag_c=(e>>>31)&&(b>>>31);poc_internal_states.alu_flags.flag_v=0;if((d<0)&&(e>=0)&&(b>=0)){poc_internal_states.alu_flags.flag_v=1}if((d>=0)&&(e<0)&&(b<0)){poc_internal_states.alu_flags.flag_v=1}})/",
+      "verbal": "/Function(function(f){var e=get_value(poc_states[f[2]])<<0;var d=e+4;return\"ALU ADD 4 with result \"+show_value(d)+\". \"})/"
     },
     "ADDONE": {
       "nparameters": 3,
@@ -2976,8 +3225,8 @@
         "E",
         "E"
       ],
-      "operation": "/Function(function(k){var h=get_value(poc_def.states[k[2]])<<0;var e=h+1;set_value(poc_def.states[k[1]],e>>>0);var g=(e<0)?1:0;var d=(e==0)?1:0;var f=(h>>>31)&&(b>>>31);var m=0;if((e<0)&&(h>=0)&&(b>=0)){m=1}if((e>=0)&&(h<0)&&(b<0)){m=1}poc_update_nzvc(g,d,m,f)})/",
-      "verbal": "/Function(function(f){var e=get_value(poc_def.states[f[2]])<<0;var d=e+1;return\"ALU ADD 1 with result \"+show_value(d)+\". \"})/"
+      "operation": "/Function(function(f){var e=get_value(poc_states[f[2]])<<0;var d=e+1;set_value(poc_states[f[1]],d>>>0);poc_internal_states.alu_flags.flag_n=(d<0)?1:0;poc_internal_states.alu_flags.flag_z=(d==0)?1:0;poc_internal_states.alu_flags.flag_c=(e>>>31)&&(b>>>31);poc_internal_states.alu_flags.flag_v=0;if((d<0)&&(e>=0)&&(b>=0)){poc_internal_states.alu_flags.flag_v=1}if((d>=0)&&(e<0)&&(b<0)){poc_internal_states.alu_flags.flag_v=1}})/",
+      "verbal": "/Function(function(f){var e=get_value(poc_states[f[2]])<<0;var d=e+1;return\"ALU ADD 1 with result \"+show_value(d)+\". \"})/"
     },
     "FADD": {
       "nparameters": 4,
@@ -2986,8 +3235,8 @@
         "E",
         "E"
       ],
-      "operation": "/Function(function(m){var k=get_value(poc_def.states[m[2]])<<0;var f=get_value(poc_def.states[m[3]])<<0;var e=k.toFixed(2)+f.toFixed(2);set_value(poc_def.states[m[1]],e>>>0);var h=(e<0)?1:0;var d=(e==0)?1:0;var g=0;var n=0;if((e<0)&&(k>=0)&&(f>=0)){n=1}if((e>=0)&&(k<0)&&(f<0)){n=1}poc_update_nzvc(h,d,n,g)})/",
-      "verbal": "/Function(function(g){var f=get_value(poc_def.states[g[2]])<<0;var e=get_value(poc_def.states[g[3]])<<0;var d=f.toFixed(2)+e.toFixed(2);return\"ALU Float ADD with result \"+d+\". \"})/"
+      "operation": "/Function(function(g){var f=get_value(poc_states[g[2]])<<0;var e=get_value(poc_states[g[3]])<<0;var d=f.toFixed(2)+e.toFixed(2);set_value(poc_states[g[1]],d>>>0);poc_internal_states.alu_flags.flag_n=(d<0)?1:0;poc_internal_states.alu_flags.flag_z=(d==0)?1:0;poc_internal_states.alu_flags.flag_c=0;poc_internal_states.alu_flags.flag_v=0;if((d<0)&&(f>=0)&&(e>=0)){poc_internal_states.alu_flags.flag_v=1}if((d>=0)&&(f<0)&&(e<0)){poc_internal_states.alu_flags.flag_v=1}})/",
+      "verbal": "/Function(function(g){var f=get_value(poc_states[g[2]])<<0;var e=get_value(poc_states[g[3]])<<0;var d=f.toFixed(2)+e.toFixed(2);return\"ALU Float ADD with result \"+d+\". \"})/"
     },
     "FSUB": {
       "nparameters": 4,
@@ -2996,8 +3245,8 @@
         "E",
         "E"
       ],
-      "operation": "/Function(function(m){var k=get_value(poc_def.states[m[2]])<<0;var f=get_value(poc_def.states[m[3]])<<0;var e=k.toFixed(2)-f.toFixed(2);set_value(poc_def.states[m[1]],e>>>0);var h=(e<0)?1:0;var d=(e==0)?1:0;var g=0;var n=0;if((e<0)&&(k>=0)&&(f>=0)){n=1}if((e>=0)&&(k<0)&&(f<0)){n=1}poc_update_nzvc(h,d,n,g)})/",
-      "verbal": "/Function(function(g){var f=get_value(poc_def.states[g[2]])<<0;var e=get_value(poc_def.states[g[3]])<<0;var d=f.toFixed(2)-e.toFixed(2);return\"ALU Float SUB with result \"+d+\". \"})/"
+      "operation": "/Function(function(g){var f=get_value(poc_states[g[2]])<<0;var e=get_value(poc_states[g[3]])<<0;var d=f.toFixed(2)-e.toFixed(2);set_value(poc_states[g[1]],d>>>0);poc_internal_states.alu_flags.flag_n=(d<0)?1:0;poc_internal_states.alu_flags.flag_z=(d==0)?1:0;poc_internal_states.alu_flags.flag_c=0;poc_internal_states.alu_flags.flag_v=0;if((d<0)&&(f>=0)&&(e>=0)){poc_internal_states.alu_flags.flag_v=1}if((d>=0)&&(f<0)&&(e<0)){poc_internal_states.alu_flags.flag_v=1}})/",
+      "verbal": "/Function(function(g){var f=get_value(poc_states[g[2]])<<0;var e=get_value(poc_states[g[3]])<<0;var d=f.toFixed(2)-e.toFixed(2);return\"ALU Float SUB with result \"+d+\". \"})/"
     },
     "FMUL": {
       "nparameters": 4,
@@ -3006,8 +3255,8 @@
         "E",
         "E"
       ],
-      "operation": "/Function(function(m){var k=get_value(poc_def.states[m[2]])<<0;var f=get_value(poc_def.states[m[3]])<<0;var e=k.toFixed(2)*f.toFixed(2);set_value(poc_def.states[m[1]],e>>>0);var h=(e<0)?1:0;var d=(e==0)?1:0;var g=0;var n=0;if((e<0)&&(k>=0)&&(f>=0)){n=1}if((e>=0)&&(k<0)&&(f<0)){n=1}poc_update_nzvc(h,d,n,g)})/",
-      "verbal": "/Function(function(g){var f=get_value(poc_def.states[g[2]])<<0;var e=get_value(poc_def.states[g[3]])<<0;var d=f.toFixed(2)*e.toFixed(2);return\"ALU Float MUL with result \"+d+\". \"})/"
+      "operation": "/Function(function(g){var f=get_value(poc_states[g[2]])<<0;var e=get_value(poc_states[g[3]])<<0;var d=f.toFixed(2)*e.toFixed(2);set_value(poc_states[g[1]],d>>>0);poc_internal_states.alu_flags.flag_n=(d<0)?1:0;poc_internal_states.alu_flags.flag_z=(d==0)?1:0;poc_internal_states.alu_flags.flag_c=0;poc_internal_states.alu_flags.flag_v=0;if((d<0)&&(f>=0)&&(e>=0)){poc_internal_states.alu_flags.flag_v=1}if((d>=0)&&(f<0)&&(e<0)){poc_internal_states.alu_flags.flag_v=1}})/",
+      "verbal": "/Function(function(g){var f=get_value(poc_states[g[2]])<<0;var e=get_value(poc_states[g[3]])<<0;var d=f.toFixed(2)*e.toFixed(2);return\"ALU Float MUL with result \"+d+\". \"})/"
     },
     "FDIV": {
       "nparameters": 4,
@@ -3016,8 +3265,8 @@
         "E",
         "E"
       ],
-      "operation": "/Function(function(g){var f=(get_value(poc_def.states[g[2]])<<0);var e=(get_value(poc_def.states[g[3]])<<0);if(0==e){set_value(poc_def.states[g[1]],0);poc_update_nzvc(0,1,1,0);return}var d=Math.floor(f/e);set_value(poc_def.states[g[1]],d);poc_update_nzvc((d<0)?1:0,(d==0)?1:0,0,0)})/",
-      "verbal": "/Function(function(g){var f=get_value(poc_def.states[g[2]])<<0;var e=get_value(poc_def.states[g[3]])<<0;var d=f.toFixed(2)/e.toFixed(2);return\"ALU Float DIV with result \"+d+\". \"})/"
+      "operation": "/Function(function(g){var f=(get_value(poc_states[g[2]])<<0);var e=(get_value(poc_states[g[3]])<<0);if(0==e){set_value(poc_states[g[1]],0);poc_internal_states.alu_flags.flag_n=0;poc_internal_states.alu_flags.flag_z=1;poc_internal_states.alu_flags.flag_v=1;poc_internal_states.alu_flags.flag_c=0;return}var d=Math.floor(f/e);set_value(poc_states[g[1]],d);poc_internal_states.alu_flags.flag_n=(d<0)?1:0;poc_internal_states.alu_flags.flag_z=(d==0)?1:0;poc_internal_states.alu_flags.flag_v=0;poc_internal_states.alu_flags.flag_c=0})/",
+      "verbal": "/Function(function(g){var f=get_value(poc_states[g[2]])<<0;var e=get_value(poc_states[g[3]])<<0;var d=f.toFixed(2)/e.toFixed(2);return\"ALU Float DIV with result \"+d+\". \"})/"
     },
     "FMOD": {
       "nparameters": 4,
@@ -3026,8 +3275,8 @@
         "E",
         "E"
       ],
-      "operation": "/Function(function(d){var a=(get_value(poc_def.states[d[2]])<<0)%(get_value(poc_def.states[d[3]])<<0);set_value(poc_def.states[d[1]],a);poc_update_nzvc((a<0)?1:0,(a==0)?1:0,0,0)})/",
-      "verbal": "/Function(function(g){var f=get_value(poc_def.states[g[2]])<<0;var e=get_value(poc_def.states[g[3]])<<0;var d=f.toFixed(2)%e.toFixed(2);return\"ALU Float MOD with result \"+d+\". \"})/"
+      "operation": "/Function(function(d){var a=(get_value(poc_states[d[2]])<<0)%(get_value(poc_states[d[3]])<<0);set_value(poc_states[d[1]],a);poc_internal_states.alu_flags.flag_n=(a<0)?1:0;poc_internal_states.alu_flags.flag_z=(a==0)?1:0;poc_internal_states.alu_flags.flag_v=0;poc_internal_states.alu_flags.flag_c=0})/",
+      "verbal": "/Function(function(g){var f=get_value(poc_states[g[2]])<<0;var e=get_value(poc_states[g[3]])<<0;var d=f.toFixed(2)%e.toFixed(2);return\"ALU Float MOD with result \"+d+\". \"})/"
     },
     "PLUS1": {
       "nparameters": 3,
@@ -3035,8 +3284,8 @@
         "E",
         "E"
       ],
-      "operation": "/Function(function(f){var e=get_value(poc_def.states[f[2]])<<0;var d=e+1;set_value(poc_def.states[f[1]],d>>>0)})/",
-      "verbal": "/Function(function(f){var e=get_value(poc_def.states[f[2]])<<0;var d=e+1;return\"Add one to \"+show_verbal(f[2])+\" and copy to \"+show_verbal(f[1])+\" with result \"+show_value(d)+\". \"})/"
+      "operation": "/Function(function(f){var e=get_value(poc_states[f[2]])<<0;var d=e+1;set_value(poc_states[f[1]],d>>>0)})/",
+      "verbal": "/Function(function(f){var e=get_value(poc_states[f[2]])<<0;var d=e+1;return\"Add one to \"+show_verbal(f[2])+\" and copy to \"+show_verbal(f[1])+\" with result \"+show_value(d)+\". \"})/"
     },
     "PLUS4": {
       "nparameters": 3,
@@ -3044,8 +3293,8 @@
         "E",
         "E"
       ],
-      "operation": "/Function(function(f){var e=get_value(poc_def.states[f[2]])<<0;var d=e+4;set_value(poc_def.states[f[1]],d>>>0)})/",
-      "verbal": "/Function(function(f){var e=get_value(poc_def.states[f[2]])<<0;var d=e+4;return\"Add four to \"+show_verbal(f[2])+\" and copy to \"+show_verbal(f[1])+\" with result \"+show_value(d)+\". \"})/"
+      "operation": "/Function(function(f){var e=get_value(poc_states[f[2]])<<0;var d=e+4;set_value(poc_states[f[1]],d>>>0)})/",
+      "verbal": "/Function(function(f){var e=get_value(poc_states[f[2]])<<0;var d=e+4;return\"Add four to \"+show_verbal(f[2])+\" and copy to \"+show_verbal(f[1])+\" with result \"+show_value(d)+\". \"})/"
     },
     "MBIT": {
       "nparameters": 5,
@@ -3066,7 +3315,7 @@
         "E",
         "I"
       ],
-      "operation": "/Function(function(d){var h=0;var g=d[3].split(\"/\");if(1==g.length){h=get_value(poc_def.states[d[3]])}else{if(typeof poc_def.states[g[0]].value[g[1]]!=\"undefined\"){h=poc_def.states[g[0]].value[g[1]]}else{if(typeof poc_def.signals[g[1]].default_value!=\"undefined\"){h=poc_def.signals[g[1]].default_value}else{if(typeof poc_def.states[g[1]].default_value!=\"undefined\"){h=poc_def.states[g[1]].default_value}else{alert(\"WARN: undefined state/field pair -> \"+g[0]+\"/\"+g[1])}}}}var k=parseInt(d[4]);var f=get_value(poc_def.states[d[2]]).toString(2);var e=\"00000000000000000000000000000000\".substring(0,32-f.length)+f;var a=e.substr(31-(h+k-1),k);set_value(poc_def.signals[d[1]],parseInt(a,2))})/",
+      "operation": "/Function(function(d){var h=0;var g=d[3].split(\"/\");if(1==g.length){h=get_value(poc_states[d[3]])}else{if(typeof poc_states[g[0]].value[g[1]]!=\"undefined\"){h=poc_states[g[0]].value[g[1]]}else{if(typeof poc_signals[g[1]].default_value!=\"undefined\"){h=poc_signals[g[1]].default_value}else{if(typeof poc_states[g[1]].default_value!=\"undefined\"){h=poc_states[g[1]].default_value}else{alert(\"WARN: undefined state/field pair -> \"+g[0]+\"/\"+g[1])}}}}var k=parseInt(d[4]);var f=get_value(poc_states[d[2]]).toString(2);var e=\"00000000000000000000000000000000\".substring(0,32-f.length)+f;var a=e.substr(31-(h+k-1),k);set_value(poc_signals[d[1]],parseInt(a,2))})/",
       "verbal": "/Function(function(a){return\"\"})/"
     },
     "SBIT": {
@@ -3090,8 +3339,8 @@
         "I",
         "S"
       ],
-      "operation": "/Function(function(d){var h=parseInt(poc_def.signals[d[4]].value);var f=parseInt(poc_def.signals[d[5]].value);var g=get_value(poc_def.states[d[3]]).toString(2);var e=(\"00000000000000000000000000000000\".substring(0,32-g.length)+g);e=e.substr(31-(h+f-1),f);var a=\"00000000000000000000000000000000\".substring(0,32-e.length)+e;if((\"1\"==poc_def.signals[d[7]].value)&&(\"1\"==e.substr(0,1))){a=\"11111111111111111111111111111111\".substring(0,32-e.length)+e}set_value(poc_def.states[d[1]],parseInt(a,2))})/",
-      "verbal": "/Function(function(d){var h=parseInt(poc_def.signals[d[4]].value);var f=parseInt(poc_def.signals[d[5]].value);var g=get_value(poc_def.states[d[3]]).toString(2);var e=(\"00000000000000000000000000000000\".substring(0,32-g.length)+g);e=e.substr(31-(h+f-1),f);var a=\"00000000000000000000000000000000\".substring(0,32-e.length)+e;if((\"1\"==poc_def.signals[d[7]].value)&&(\"1\"==e.substr(0,1))){a=\"11111111111111111111111111111111\".substring(0,32-e.length)+e}g=parseInt(a,2);return\"Copy from \"+show_verbal(d[3])+\" to \"+show_verbal(d[1])+\" value \"+show_value(g)+\" (copied \"+f+\" bits from bit \"+h+\"). \"})/"
+      "operation": "/Function(function(d){var h=parseInt(poc_signals[d[4]].value);var f=parseInt(poc_signals[d[5]].value);var g=get_value(poc_states[d[3]]).toString(2);var e=(\"00000000000000000000000000000000\".substring(0,32-g.length)+g);e=e.substr(31-(h+f-1),f);var a=\"00000000000000000000000000000000\".substring(0,32-e.length)+e;if((\"1\"==poc_signals[d[7]].value)&&(\"1\"==e.substr(0,1))){a=\"11111111111111111111111111111111\".substring(0,32-e.length)+e}set_value(poc_states[d[1]],parseInt(a,2))})/",
+      "verbal": "/Function(function(d){var h=parseInt(poc_signals[d[4]].value);var f=parseInt(poc_signals[d[5]].value);var g=get_value(poc_states[d[3]]).toString(2);var e=(\"00000000000000000000000000000000\".substring(0,32-g.length)+g);e=e.substr(31-(h+f-1),f);var a=\"00000000000000000000000000000000\".substring(0,32-e.length)+e;if((\"1\"==poc_signals[d[7]].value)&&(\"1\"==e.substr(0,1))){a=\"11111111111111111111111111111111\".substring(0,32-e.length)+e}g=parseInt(a,2);return\"Copy from \"+show_verbal(d[3])+\" to \"+show_verbal(d[1])+\" value \"+show_value(g)+\" (copied \"+f+\" bits from bit \"+h+\"). \"})/"
     },
     "BSEL": {
       "nparameters": 6,
@@ -3102,8 +3351,8 @@
         "E",
         "I"
       ],
-      "operation": "/Function(function(f){var m=parseInt(f[2]);var k=parseInt(f[5]);var a=parseInt(f[3]);var h=get_value(poc_def.states[f[4]]).toString(2);var g=\"00000000000000000000000000000000\".substring(0,32-h.length)+h;g=g.substr(31-(k+a)+1,a);var e=\"00000000000000000000000000000000\".substring(0,32-g.length)+g;var d=\"00000000000000000000000000000000\".substr(0,m);e=e+d;set_value(poc_def.states[f[1]],parseInt(e,2))})/",
-      "verbal": "/Function(function(n){var g=parseInt(n[2]);var k=parseInt(n[3]);var a=parseInt(n[5]);var m=get_value(poc_def.states[n[4]]).toString(2);var h=\"00000000000000000000000000000000\".substring(0,32-m.length)+m;h=h.substr(31-(a+k)+1,k);var f=\"00000000000000000000000000000000\".substring(0,32-h.length)+h;var e=\"00000000000000000000000000000000\".substr(0,g);f=f+e;var d=parseInt(f,2);return\"Copy from \"+show_verbal(n[4])+\" to \"+show_verbal(n[1])+\" value \"+show_value(d)+\" (copied \"+k+\" bits, from bit \"+a+\" of \"+n[4]+\" to bit \"+g+\" of \"+n[1]+\"). \"})/"
+      "operation": "/Function(function(f){var m=parseInt(f[2]);var k=parseInt(f[5]);var a=parseInt(f[3]);var h=get_value(poc_states[f[4]]).toString(2);var g=\"00000000000000000000000000000000\".substring(0,32-h.length)+h;g=g.substr(31-(k+a)+1,a);var e=\"00000000000000000000000000000000\".substring(0,32-g.length)+g;var d=\"00000000000000000000000000000000\".substr(0,m);e=e+d;set_value(poc_states[f[1]],parseInt(e,2))})/",
+      "verbal": "/Function(function(n){var g=parseInt(n[2]);var k=parseInt(n[3]);var a=parseInt(n[5]);var m=get_value(poc_states[n[4]]).toString(2);var h=\"00000000000000000000000000000000\".substring(0,32-m.length)+m;h=h.substr(31-(a+k)+1,k);var f=\"00000000000000000000000000000000\".substring(0,32-h.length)+h;var e=\"00000000000000000000000000000000\".substr(0,g);f=f+e;var d=parseInt(f,2);return\"Copy from \"+show_verbal(n[4])+\" to \"+show_verbal(n[1])+\" value \"+show_value(d)+\" (copied \"+k+\" bits, from bit \"+a+\" of \"+n[4]+\" to bit \"+g+\" of \"+n[1]+\"). \"})/"
     },
     "EXT_SIG": {
       "nparameters": 3,
@@ -3111,8 +3360,8 @@
         "E",
         "I"
       ],
-      "operation": "/Function(function(e){var g=get_value(poc_def.states[e[1]]).toString(2);var f=(\"00000000000000000000000000000000\".substring(0,32-g.length)+g);var d=f.substr(31-e[2],31);var a=d;if(\"1\"==f[31-e[2]]){a=\"11111111111111111111111111111111\".substring(0,32-d.length)+a}set_value(poc_def.states[e[1]],parseInt(a,2))})/",
-      "verbal": "/Function(function(f){var h=get_value(poc_def.states[f[1]]).toString(2);var g=(\"00000000000000000000000000000000\".substring(0,32-h.length)+h);var e=g.substr(31-f[2],31);var d=e;if(\"1\"==g[31-f[2]]){d=\"11111111111111111111111111111111\".substring(0,32-e.length)+d}var a=parseInt(d,2);return\"Sign Extension with value \"+show_value(a)+\". \"})/"
+      "operation": "/Function(function(e){var g=get_value(poc_states[e[1]]).toString(2);var f=(\"00000000000000000000000000000000\".substring(0,32-g.length)+g);var d=f.substr(31-e[2],31);var a=d;if(\"1\"==f[31-e[2]]){a=\"11111111111111111111111111111111\".substring(0,32-d.length)+a}set_value(poc_states[e[1]],parseInt(a,2))})/",
+      "verbal": "/Function(function(f){var h=get_value(poc_states[f[1]]).toString(2);var g=(\"00000000000000000000000000000000\".substring(0,32-h.length)+h);var e=g.substr(31-f[2],31);var d=e;if(\"1\"==g[31-f[2]]){d=\"11111111111111111111111111111111\".substring(0,32-e.length)+d}var a=parseInt(d,2);return\"Sign Extension with value \"+show_value(a)+\". \"})/"
     },
     "MOVE_BITS": {
       "nparameters": 5,
@@ -3122,7 +3371,7 @@
         "I",
         "S"
       ],
-      "operation": "/Function(function(k){var e=parseInt(k[2]);var a=0;var g=parseInt(k[3]);var h=poc_def.signals[k[4]].value.toString(2);h=(\"00000000000000000000000000000000\".substring(0,32-h.length)+h);h=h.substr(31-a-g+1,g);var f=poc_def.signals[k[1]].value.toString(2);f=(\"00000000000000000000000000000000\".substring(0,32-f.length)+f);var n=f.substr(0,32-(e+g));var m=f.substr(31-e+1,e);var d=n+h+m;set_value(poc_def.signals[k[1]],parseInt(d,2))})/",
+      "operation": "/Function(function(k){var e=parseInt(k[2]);var a=0;var g=parseInt(k[3]);var h=poc_signals[k[4]].value.toString(2);h=(\"00000000000000000000000000000000\".substring(0,32-h.length)+h);h=h.substr(31-a-g+1,g);var f=poc_signals[k[1]].value.toString(2);f=(\"00000000000000000000000000000000\".substring(0,32-f.length)+f);var n=f.substr(0,32-(e+g));var m=f.substr(31-e+1,e);var d=n+h+m;set_value(poc_signals[k[1]],parseInt(d,2))})/",
       "verbal": "/Function(function(a){return\"\"})/"
     },
     "MOVE_BITSE": {
@@ -3134,12 +3383,12 @@
         "E",
         "I"
       ],
-      "operation": "/Function(function(k){var e=parseInt(k[2]);var a=parseInt(k[5]);var g=parseInt(k[3]);var h=get_value(poc_def.states[k[4]]).toString(2);h=(\"00000000000000000000000000000000\".substring(0,32-h.length)+h);h=h.substr(31-a-g+1,g);var f=poc_def.signals[k[1]].value.toString(2);f=(\"00000000000000000000000000000000\".substring(0,32-f.length)+f);var n=f.substr(0,32-(e+g));var m=f.substr(31-e+1,e);var d=n+h+m;set_value(poc_def.signals[k[1]],parseInt(d,2))})/",
+      "operation": "/Function(function(k){var e=parseInt(k[2]);var a=parseInt(k[5]);var g=parseInt(k[3]);var h=get_value(poc_states[k[4]]).toString(2);h=(\"00000000000000000000000000000000\".substring(0,32-h.length)+h);h=h.substr(31-a-g+1,g);var f=poc_signals[k[1]].value.toString(2);f=(\"00000000000000000000000000000000\".substring(0,32-f.length)+f);var n=f.substr(0,32-(e+g));var m=f.substr(31-e+1,e);var d=n+h+m;set_value(poc_signals[k[1]],parseInt(d,2))})/",
       "verbal": "/Function(function(a){return\"\"})/"
     },
     "DECO": {
       "nparameters": 1,
-      "operation": "/Function(function(d){poc_def.states.INEX.value=0;var g=decode_instruction(poc_def.internal_states.FIRMWARE,poc_def.ctrl_states.ir,get_value(poc_def.states.REG_IR));if(null==g.oinstruction){alert(\"ERROR: undefined instruction code in firmware (co:\"+g.op_code.toString(2)+\", cop:\"+g.cop_code.toString(2)+\")\");poc_def.states.ROM_MUXA.value=0;poc_def.states.INEX.value=1;return -1}var f=g.op_code<<6;if(typeof g.oinstruction.cop!=\"undefined\"){f=f+g.cop_code}if(typeof poc_def.internal_states.ROM[f]==\"undefined\"){alert(\"ERROR: undefined rom address \"+f+\" in firmware\");poc_def.states.ROM_MUXA.value=0;return -1}poc_def.states.ROM_MUXA.value=poc_def.internal_states.ROM[f];var h=get_value(poc_def.states.DECO_INS);set_value(poc_def.states.DECO_INS,h+1);var a=get_value(poc_def.states.REG_PC)-4;var e=get_deco_from_pc(a);set_value(poc_def.states.REG_IR_DECO,e);show_dbg_ir(get_value(poc_def.states.REG_IR_DECO))})/",
+      "operation": "/Function(function(d){poc_states.INEX.value=0;var g=decode_instruction(poc_internal_states.FIRMWARE,poc_ctrl_states.ir,get_value(poc_states.REG_IR));if(null==g.oinstruction){alert(\"ERROR: undefined instruction code in firmware (co:\"+g.op_code.toString(2)+\", cop:\"+g.cop_code.toString(2)+\")\");poc_states.ROM_MUXA.value=0;poc_states.INEX.value=1;return -1}var f=g.op_code<<6;if(typeof g.oinstruction.cop!=\"undefined\"){f=f+g.cop_code}if(typeof poc_internal_states.ROM[f]==\"undefined\"){alert(\"ERROR: undefined rom address \"+f+\" in firmware\");poc_states.ROM_MUXA.value=0;return -1}poc_states.ROM_MUXA.value=poc_internal_states.ROM[f];var h=get_value(poc_states.DECO_INS);set_value(poc_states.DECO_INS,h+1);var a=get_value(poc_states.REG_PC)-4;var e=get_deco_from_pc(a);set_value(poc_states.REG_IR_DECO,e);show_dbg_ir(get_value(poc_states.REG_IR_DECO))})/",
       "verbal": "/Function(function(a){return\"Decode instruction. \"})/"
     },
     "FIRE": {
@@ -3147,7 +3396,7 @@
       "types": [
         "S"
       ],
-      "operation": "/Function(function(a){if(poc_def.internal_states.fire_stack.indexOf(a[1])!=-1){return}poc_def.internal_states.fire_stack.push(a[1]);update_draw(poc_def.signals[a[1]],poc_def.signals[a[1]].value);if(\"L\"==poc_def.signals[a[1]].type){update_state(a[1])}poc_def.internal_states.fire_stack.pop(a[1]);check_buses(a[1])})/",
+      "operation": "/Function(function(a){if(poc_internal_states.fire_stack.indexOf(a[1])!=-1){return}poc_internal_states.fire_stack.push(a[1]);update_draw(poc_signals[a[1]],poc_signals[a[1]].value);if(\"L\"==poc_signals[a[1]].type){update_state(a[1])}poc_internal_states.fire_stack.pop(a[1]);check_buses(a[1])})/",
       "verbal": "/Function(function(a){return\"\"})/"
     },
     "FIRE_IFSET": {
@@ -3156,7 +3405,7 @@
         "S",
         "I"
       ],
-      "operation": "/Function(function(a){if(get_value(poc_def.signals[a[1]])!=parseInt(a[2])){return}poc_def.behaviors.FIRE.operation(a)})/",
+      "operation": "/Function(function(a){if(get_value(poc_signals[a[1]])!=parseInt(a[2])){return}poc_behaviors.FIRE.operation(a)})/",
       "verbal": "/Function(function(a){return\"\"})/"
     },
     "FIRE_IFCHANGED": {
@@ -3165,7 +3414,7 @@
         "S",
         "X"
       ],
-      "operation": "/Function(function(a){sim_elto=get_reference(a[2]);if(sim_elto.changed==false){return}poc_def.behaviors.FIRE.operation(a)})/",
+      "operation": "/Function(function(a){sim_elto=get_reference(a[2]);if(sim_elto.changed==false){return}poc_behaviors.FIRE.operation(a)})/",
       "verbal": "/Function(function(a){return\"\"})/"
     },
     "RESET_CHANGED": {
@@ -3178,12 +3427,12 @@
     },
     "CLOCK": {
       "nparameters": 1,
-      "operation": "/Function(function(s_expr){var val=get_value(poc_def.states.CLK);set_value(poc_def.states.CLK,val+1);for(var i=0;i<jit_fire_order.length;i++){fn_updateE_now(jit_fire_order[i])}var new_maddr=get_value(poc_def.states.MUXA_MICROADDR);set_value(poc_def.states.REG_MICROADDR,new_maddr);if(typeof poc_def.internal_states.MC[new_maddr]!=\"undefined\"){var new_mins=Object.create(poc_def.internal_states.MC[new_maddr])}else{var new_mins=Object.create(poc_def.states.REG_MICROINS.default_value)}poc_def.states.REG_MICROINS.value=new_mins;for(var key in poc_def.signals){if(typeof new_mins[key]!=\"undefined\"){set_value(poc_def.signals[key],new_mins[key])}else{set_value(poc_def.signals[key],poc_def.signals[key].default_value)}}for(var i=0;i<jit_fire_order.length;i++){fn_updateL_now(jit_fire_order[i])}if(typeof new_mins.NATIVE_JIT!=\"undefined\"){new_mins.NATIVE_JIT()}else{if(typeof new_mins.NATIVE!=\"undefined\"){eval(new_mins.NATIVE)}}})/",
+      "operation": "/Function(function(s_expr){var val=get_value(poc_states.CLK);set_value(poc_states.CLK,val+1);for(var i=0;i<jit_fire_order.length;i++){fn_updateE_now(jit_fire_order[i])}var new_maddr=get_value(poc_states.MUXA_MICROADDR);set_value(poc_states.REG_MICROADDR,new_maddr);if(typeof poc_internal_states.MC[new_maddr]!=\"undefined\"){var new_mins=Object.create(poc_internal_states.MC[new_maddr])}else{var new_mins=Object.create(poc_states.REG_MICROINS.default_value)}poc_states.REG_MICROINS.value=new_mins;for(var key in poc_signals){if(typeof new_mins[key]!=\"undefined\"){set_value(poc_signals[key],new_mins[key])}else{set_value(poc_signals[key],poc_signals[key].default_value)}}for(var i=0;i<jit_fire_order.length;i++){fn_updateL_now(jit_fire_order[i])}if(typeof new_mins.NATIVE_JIT!=\"undefined\"){new_mins.NATIVE_JIT()}else{if(typeof new_mins.NATIVE!=\"undefined\"){eval(new_mins.NATIVE)}}})/",
       "verbal": "/Function(function(a){return\"\"})/"
     },
     "RESET": {
       "nparameters": 1,
-      "operation": "/Function(function(a){for(var d in poc_def.states){reset_value(poc_def.states[d])}for(var d in poc_def.signals){reset_value(poc_def.signals[d])}})/",
+      "operation": "/Function(function(a){for(var d in poc_states){reset_value(poc_states[d])}for(var d in poc_signals){reset_value(poc_signals[d])}})/",
       "verbal": "/Function(function(a){return\"Reset CPU. \"})/"
     },
     "UPDATEDPC": {
@@ -3193,7 +3442,7 @@
     },
     "UPDATE_NZVC": {
       "nparameters": 1,
-      "operation": "/Function(function(a){set_value(simhw_sim_state(\"FLAG_N\"),poc_def.internal_states.alu_flags.flag_n);set_value(simhw_sim_state(\"FLAG_Z\"),poc_def.internal_states.alu_flags.flag_z);set_value(simhw_sim_state(\"FLAG_V\"),poc_def.internal_states.alu_flags.flag_v);set_value(simhw_sim_state(\"FLAG_C\"),poc_def.internal_states.alu_flags.flag_c);set_value(simhw_sim_signal(\"TEST_N\"),poc_def.internal_states.alu_flags.flag_n);set_value(simhw_sim_signal(\"TEST_Z\"),poc_def.internal_states.alu_flags.flag_z);set_value(simhw_sim_signal(\"TEST_V\"),poc_def.internal_states.alu_flags.flag_v);set_value(simhw_sim_signal(\"TEST_C\"),poc_def.internal_states.alu_flags.flag_c);update_draw(poc_def.signals.TEST_N,poc_def.signals.TEST_N.value);update_draw(poc_def.signals.TEST_Z,poc_def.signals.TEST_Z.value);update_draw(poc_def.signals.TEST_V,poc_def.signals.TEST_V.value);update_draw(poc_def.signals.TEST_C,poc_def.signals.TEST_C.value)})/",
+      "operation": "/Function(function(a){set_value(simhw_sim_state(\"FLAG_N\"),poc_internal_states.alu_flags.flag_n);set_value(simhw_sim_state(\"FLAG_Z\"),poc_internal_states.alu_flags.flag_z);set_value(simhw_sim_state(\"FLAG_V\"),poc_internal_states.alu_flags.flag_v);set_value(simhw_sim_state(\"FLAG_C\"),poc_internal_states.alu_flags.flag_c);set_value(simhw_sim_signal(\"TEST_N\"),poc_internal_states.alu_flags.flag_n);set_value(simhw_sim_signal(\"TEST_Z\"),poc_internal_states.alu_flags.flag_z);set_value(simhw_sim_signal(\"TEST_V\"),poc_internal_states.alu_flags.flag_v);set_value(simhw_sim_signal(\"TEST_C\"),poc_internal_states.alu_flags.flag_c);update_draw(poc_signals.TEST_N,poc_signals.TEST_N.value);update_draw(poc_signals.TEST_Z,poc_signals.TEST_Z.value);update_draw(poc_signals.TEST_V,poc_signals.TEST_V.value);update_draw(poc_signals.TEST_C,poc_signals.TEST_C.value)})/",
       "verbal": "/Function(function(a){return\"Update flags N-Z-V-C.\"})/"
     },
     "MEM_READ": {
@@ -3202,10 +3451,11 @@
         "E",
         "E",
         "S",
+        "S",
         "E"
       ],
-      "operation": "/Function(function(d){var a=poc_def.states[d[1]].value;var e=poc_def.states[d[2]].value;var g=get_value(poc_def.states[d[4]]);poc_def.signals[d[3]].value=0;var h=get_var(poc_def.internal_states.MP_wc);if((typeof poc_def.events.mem[g-1]!=\"undefined\")&&(poc_def.events.mem[g-1]>0)){h=poc_def.events.mem[g-1]-1}poc_def.events.mem[g]=h;if(h>0){return}var f=0;a=a&4294967292;if(typeof poc_def.internal_states.MP[a]!=\"undefined\"){f=poc_def.internal_states.MP[a]}e=f;poc_def.states[d[2]].value=(e>>>0);poc_def.signals[d[3]].value=1;show_main_memory(poc_def.internal_states.MP,a,false,false)})/",
-      "verbal": "/Function(function(d){var f=\"\";var a=poc_def.states[d[1]].value;var e=poc_def.states[d[2]].value;var h=get_value(poc_def.states[d[4]]);var g=0;if(typeof poc_def.internal_states.MP[a]!=\"undefined\"){g=poc_def.internal_states.MP[a]}f=\"Try to read a word from memory at address 0x\"+a.toString(16)+\" with value \"+g.toString(16)+\". \";return f})/"
+      "operation": "/Function(function(d){var a=poc_states[d[1]].value;var f=poc_states[d[2]].value;var m=poc_signals[d[3]].value;var h=get_value(poc_states[d[5]].value);poc_signals[d[4]].value=0;var k=get_var(poc_internal_states.MP_wc);if((typeof poc_events.mem[h-1]!=\"undefined\")&&(poc_events.mem[h-1]>0)){k=poc_events.mem[h-1]-1}poc_events.mem[h]=k;if(k>0){return}var g=0;var e=a&4294967292;if(typeof poc_internal_states.MP[e]!=\"undefined\"){g=poc_internal_states.MP[e]}switch(m){case 0:if(0==(a&3)){f=(g&255)}if(1==(a&3)){f=(g&65280)>>8}if(2==(a&3)){f=(g&16711680)>>16}if(3==(a&3)){f=(g&4278190080)>>24}break;case 1:if(0==(a&3)){f=(g&65535)}if(1==(a&3)){f=(g&65535)}if(2==(a&3)){f=(g&4294901760)>>16}if(3==(a&3)){f=(g&4294901760)>>16}break;case 2:if(0==(a&3)){f=(g&16777215)}if(1==(a&3)){f=(g&4294967040)}break;case 3:f=g;break}poc_states[d[2]].value=(f>>>0);poc_signals[d[4]].value=1;show_main_memory(poc_internal_states.MP,e,false,false)})/",
+      "verbal": "/Function(function(d){var f=\"\";var a=poc_states[d[1]].value;var e=poc_states[d[2]].value;var k=poc_signals[d[3]].value;var h=get_value(poc_states[d[5]].value);switch(k){case 0:bw_type=\"byte\";break;case 1:bw_type=\"half\";break;case 2:bw_type=\"three bytes\";break;case 3:bw_type=\"word\";break}var g=0;if(typeof poc_internal_states.MP[a]!=\"undefined\"){g=poc_internal_states.MP[a]}f=\"Try to read a \"+bw_type+\" from memory at address 0x\"+a.toString(16)+\" with value \"+g.toString(16)+\". \";return f})/"
     },
     "MEM_WRITE": {
       "nparameters": 6,
@@ -3213,15 +3463,69 @@
         "E",
         "E",
         "S",
+        "S",
         "E"
       ],
-      "operation": "/Function(function(d){var a=poc_def.states[d[1]].value;var e=poc_def.states[d[2]].value;var g=get_value(poc_def.states[d[4]]);poc_def.signals[d[3]].value=0;var h=get_var(poc_def.internal_states.MP_wc);if((typeof poc_def.events.mem[g-1]!=\"undefined\")&&(poc_def.events.mem[g-1]>0)){h=poc_def.events.mem[g-1]-1}poc_def.events.mem[g]=h;if(h>0){return}var f=0;a=a&4294967292;if(typeof poc_def.internal_states.MP[a]!=\"undefined\"){f=poc_def.internal_states.MP[a]}f=e;poc_def.internal_states.MP[a]=(f>>>0);poc_def.signals[d[3]].value=1;show_main_memory(poc_def.internal_states.MP,a,false,true)})/",
-      "verbal": "/Function(function(d){var f=\"\";var a=poc_def.states[d[1]].value;var e=poc_def.states[d[2]].value;var h=get_value(poc_def.states[d[4]]);var g=0;if(typeof poc_def.internal_states.MP[a]!=\"undefined\"){g=poc_def.internal_states.MP[a]}f=\"Try to write a word to memory at address 0x\"+a.toString(16)+\" with value \"+g.toString(16)+\". \";return f})/"
+      "operation": "/Function(function(d){var a=poc_states[d[1]].value;var f=poc_states[d[2]].value;var m=poc_signals[d[3]].value;var h=get_value(poc_states[d[5]].value);poc_signals[d[4]].value=0;var k=get_var(poc_internal_states.MP_wc);if((typeof poc_events.mem[h-1]!=\"undefined\")&&(poc_events.mem[h-1]>0)){k=poc_events.mem[h-1]-1}poc_events.mem[h]=k;if(k>0){return}var g=0;var e=a&4294967292;if(typeof poc_internal_states.MP[e]!=\"undefined\"){g=poc_internal_states.MP[e]}switch(m){case 0:if(0==(a&3)){g=(g&4294967040)|(f&255)}if(1==(a&3)){g=(g&4294902015)|(f&255)}if(2==(a&3)){g=(g&4278255615)|(f&255)}if(3==(a&3)){g=(g&16777215)|(f&255)}break;case 1:if(0==(a&3)){g=(g&4294901760)|(f&65535)}if(1==(a&3)){g=(g&4294901760)|(f&65535)}if(2==(a&3)){g=(g&65535)|(f&65535)}if(3==(a&3)){g=(g&65535)|(f&65535)}break;case 2:if(0==(a&3)){g=(g&4278190080)|(f&16777215)}if(1==(a&3)){g=(g&255)|(f&4294967040)}break;case 3:g=f;break}poc_internal_states.MP[e]=(g>>>0);poc_signals[d[4]].value=1;show_main_memory(poc_internal_states.MP,e,true,true)})/",
+      "verbal": "/Function(function(d){var f=\"\";var a=poc_states[d[1]].value;var e=poc_states[d[2]].value;var k=poc_signals[d[3]].value;var h=get_value(poc_states[d[5]].value);switch(k){case 0:bw_type=\"byte\";break;case 1:bw_type=\"half\";break;case 2:bw_type=\"three bytes\";break;case 3:bw_type=\"word\";break}var g=0;if(typeof poc_internal_states.MP[a]!=\"undefined\"){g=poc_internal_states.MP[a]}f=\"Try to write a \"+bw_type+\" to memory at address 0x\"+a.toString(16)+\" with value \"+g.toString(16)+\". \";return f})/"
     },
     "MEM_RESET": {
       "nparameters": 1,
-      "operation": "/Function(function(a){poc_def.events.mem={}})/",
+      "operation": "/Function(function(a){poc_events.mem={}})/",
       "verbal": "/Function(function(a){return\"Reset the memory (all values will be zeroes). \"})/"
+    },
+    "IO_IOR": {
+      "nparameters": 7,
+      "types": [
+        "E",
+        "E",
+        "E",
+        "E",
+        "E",
+        "E"
+      ],
+      "operation": "/Function(function(a){var g=get_value(poc_states[a[1]]);var d=get_value(poc_states[a[3]]);var e=get_value(poc_states[a[4]]);var f=get_value(poc_states[a[5]]);if(g==IOSR_ID){set_value(poc_states[a[2]],d)}if(g==IOCR_ID){set_value(poc_states[a[2]],e)}if(g==IODR_ID){set_value(poc_states[a[2]],f)}})/",
+      "verbal": "/Function(function(a){var f=\"\";var h=get_value(poc_states[a[1]]);var d=get_value(poc_states[a[3]]);var e=get_value(poc_states[a[4]]);var g=get_value(poc_states[a[5]]);if(h==IOSR_ID){f=\"I/O device read at IOSR of value \"+d+\". \"}if(h==IOCR_ID){f=\"I/O device read at IOCR of value \"+e+\". \"}if(h==IODR_ID){f=\"I/O device read at IODR of value \"+g+\". \"}return f})/"
+    },
+    "IO_IOW": {
+      "nparameters": 7,
+      "types": [
+        "E",
+        "E",
+        "E",
+        "E",
+        "E",
+        "E"
+      ],
+      "operation": "/Function(function(d){var g=get_value(poc_states[d[1]]);var e=get_value(poc_states[d[2]]);if((g!=IOSR_ID)&&(g!=IOCR_ID)&&(g!=IODR_ID)){return}if(g==IOSR_ID){set_value(poc_states[d[3]],e)}if(g==IOCR_ID){set_value(poc_states[d[4]],e)}if(g==IODR_ID){set_value(poc_states[d[5]],e)}var a=get_value(poc_states[d[4]]);var f=get_value(poc_states[d[5]]);if((a<0)||(a>7)){return}set_var(poc_internal_states.io_int_factory[a].period,f);set_var(poc_internal_states.io_int_factory[a].probability,1);if(0==f){set_var(poc_internal_states.io_int_factory[a].probability,0)}})/",
+      "verbal": "/Function(function(a){var e=\"\";var f=get_value(poc_states[a[1]]);var d=get_value(poc_states[a[2]]);if(f==IOSR_ID){e=\"I/O device write at IOSR with value \"+d+\". \"}if(f==IOCR_ID){e=\"I/O device write at IOCR with value \"+d+\". \"}if(f==IODR_ID){e=\"I/O device write at IODR with value \"+d+\". \"}return e})/"
+    },
+    "IO_CHK_I": {
+      "nparameters": 4,
+      "types": [
+        "E",
+        "S",
+        "E"
+      ],
+      "operation": "/Function(function(a){var e=get_value(poc_states[a[1]]);for(var d=poc_internal_states.io_int_factory.length-1;d>=0;d--){if(get_var(poc_internal_states.io_int_factory[d].period)==0){continue}if(get_var(poc_internal_states.io_int_factory[d].active)==true){set_value(poc_signals[a[2]],1);set_value(poc_states[a[3]],d)}if((e%get_var(poc_internal_states.io_int_factory[d].period))==0){if(Math.random()>get_var(poc_internal_states.io_int_factory[d].probability)){continue}set_var(poc_internal_states.io_int_factory[d].accumulated,get_var(poc_internal_states.io_int_factory[d].accumulated)+1);set_var(poc_internal_states.io_int_factory[d].active,true);if(typeof poc_events.io[e]==\"undefined\"){poc_events.io[e]=[]}poc_events.io[e].push(d);set_value(poc_signals[a[2]],1);set_value(poc_states[a[3]],d)}}})/",
+      "verbal": "/Function(function(a){return\"Check I/O Interruption. \"})/"
+    },
+    "INTA": {
+      "nparameters": 6,
+      "types": [
+        "E",
+        "S",
+        "S",
+        "E",
+        "E"
+      ],
+      "operation": "/Function(function(a){var e=get_value(poc_states[a[1]]);if(typeof poc_events.io[e]!=\"undefined\"){set_value(poc_states[a[4]],poc_events.io[e][0]);return}set_value(poc_signals[a[2]],0);set_value(poc_states[a[5]],0);for(var d=0;d<poc_internal_states.io_int_factory.length;d++){if(get_var(poc_internal_states.io_int_factory[d].active)){set_value(poc_signals[a[2]],0);set_value(poc_states[a[5]],d);set_value(poc_states[a[4]],d);if(typeof poc_events.io[e]==\"undefined\"){poc_events.io[e]=[]}poc_events.io[e].push(d);set_var(poc_internal_states.io_int_factory[d].active,false);break}}})/",
+      "verbal": "/Function(function(a){return\"Signal an interruption ACK. \"})/"
+    },
+    "IO_RESET": {
+      "nparameters": 1,
+      "operation": "/Function(function(a){poc_events.io={};for(var d=0;d<poc_internal_states.io_int_factory.length;d++){set_var(poc_internal_states.io_int_factory[d].accumulated,0);set_var(poc_internal_states.io_int_factory[d].active,false)}})/",
+      "verbal": "/Function(function(a){return\"Reset the I/O device. \"})/"
     },
     "KBD_IOR": {
       "nparameters": 6,
@@ -3232,12 +3536,12 @@
         "E",
         "E"
       ],
-      "operation": "/Function(function(e){var g=get_value(poc_def.states[e[1]]);var f=get_value(poc_def.states[e[5]]);if((g!=KBDR_ID)&&(g!=KBSR_ID)){return}if(typeof poc_def.events.keybd[f]!=\"undefined\"){if(g==KBDR_ID){set_value(poc_def.states[e[2]],poc_def.events.keybd[f])}if(g==KBSR_ID){set_value(poc_def.states[e[2]],1)}return}if(get_value(poc_def.states[e[4]])==0){var d=get_keyboard_content();if(d.length!=0){var a=d.substr(1,d.length-1);set_keyboard_content(a);set_value(poc_def.states[e[4]],1);set_value(poc_def.states[e[3]],d[0].charCodeAt(0))}}if(get_value(poc_def.states[e[4]])==1){poc_def.events.keybd[f]=get_value(poc_def.states[e[3]])}if(g==KBSR_ID){set_value(poc_def.states[e[2]],get_value(poc_def.states[e[4]]))}if(g==KBDR_ID){if(get_value(poc_def.states[e[4]])==1){set_value(poc_def.states[e[2]],get_value(poc_def.states[e[3]]))}set_value(poc_def.states[e[4]],0)}})/",
-      "verbal": "/Function(function(a){var d=\"\";var f=get_value(poc_def.states[a[1]]);var e=get_value(poc_def.states[a[5]]);if(f==KBDR_ID){d=\"Read the screen data: \"+poc_def.states[a[2]]+\". \"}if(f==KBSR_ID){d=\"Read the screen state: \"+poc_def.states[a[2]]+\". \"}return d})/"
+      "operation": "/Function(function(e){var g=get_value(poc_states[e[1]]);var f=get_value(poc_states[e[5]]);if((g!=KBDR_ID)&&(g!=KBSR_ID)){return}if(typeof poc_events.keybd[f]!=\"undefined\"){if(g==KBDR_ID){set_value(poc_states[e[2]],poc_events.keybd[f])}if(g==KBSR_ID){set_value(poc_states[e[2]],1)}return}if(get_value(poc_states[e[4]])==0){var d=get_keyboard_content();if(d.length!=0){var a=d.substr(1,d.length-1);set_keyboard_content(a);set_value(poc_states[e[4]],1);set_value(poc_states[e[3]],d[0].charCodeAt(0))}}if(get_value(poc_states[e[4]])==1){poc_events.keybd[f]=get_value(poc_states[e[3]])}if(g==KBSR_ID){set_value(poc_states[e[2]],get_value(poc_states[e[4]]))}if(g==KBDR_ID){if(get_value(poc_states[e[4]])==1){set_value(poc_states[e[2]],get_value(poc_states[e[3]]))}set_value(poc_states[e[4]],0)}})/",
+      "verbal": "/Function(function(a){var d=\"\";var f=get_value(poc_states[a[1]]);var e=get_value(poc_states[a[5]]);if(f==KBDR_ID){d=\"Read the screen data: \"+poc_states[a[2]]+\". \"}if(f==KBSR_ID){d=\"Read the screen state: \"+poc_states[a[2]]+\". \"}return d})/"
     },
     "KBD_RESET": {
       "nparameters": 1,
-      "operation": "/Function(function(a){poc_def.events.keybd={}})/",
+      "operation": "/Function(function(a){poc_events.keybd={}})/",
       "verbal": "/Function(function(a){return\"Reset the keyboard content. \"})/"
     },
     "SCR_IOR": {
@@ -3249,8 +3553,8 @@
         "E",
         "E"
       ],
-      "operation": "/Function(function(d){var f=get_value(poc_def.states[d[1]]);var e=get_value(poc_def.states[d[3]]);var a=get_value(poc_def.states[d[4]]);if(f==DDR_ID){set_value(poc_def.states[d[2]],e)}if(f==DSR_ID){set_value(poc_def.states[d[2]],a)}})/",
-      "verbal": "/Function(function(d){var f=\"\";var g=get_value(poc_def.states[d[1]]);var e=get_value(poc_def.states[d[3]]);var a=get_value(poc_def.states[d[4]]);if(g==DDR_ID){f=\"Try to read from the screen the DDR value \"+e+\". \"}if(g==DDR_ID){f=\"Try to read into the screen the DSR value \"+a+\". \"}return f})/"
+      "operation": "/Function(function(d){var f=get_value(poc_states[d[1]]);var e=get_value(poc_states[d[3]]);var a=get_value(poc_states[d[4]]);if(f==DDR_ID){set_value(poc_states[d[2]],e)}if(f==DSR_ID){set_value(poc_states[d[2]],a)}})/",
+      "verbal": "/Function(function(d){var f=\"\";var g=get_value(poc_states[d[1]]);var e=get_value(poc_states[d[3]]);var a=get_value(poc_states[d[4]]);if(g==DDR_ID){f=\"Try to read from the screen the DDR value \"+e+\". \"}if(g==DDR_ID){f=\"Try to read into the screen the DSR value \"+a+\". \"}return f})/"
     },
     "SCR_IOW": {
       "nparameters": 6,
@@ -3261,12 +3565,12 @@
         "E",
         "E"
       ],
-      "operation": "/Function(function(e){var m=get_value(poc_def.states[e[1]]);var g=get_value(poc_def.states[e[2]]);var k=get_value(poc_def.states[e[5]]);var h=String.fromCharCode(g);if(m!=DDR_ID){return}if(h==String.fromCharCode(7)){timbre.reset();var f=T(\"sin\",{freq:440,mul:0.5});var d=T(\"sin\",{freq:660,mul:0.5});T(\"perc\",{r:500},f,d).on(\"ended\",function(){this.pause()}).bang().play()}else{var a=get_screen_content();if(typeof poc_def.events.screen[k]!=\"undefined\"){a=a.substr(0,a.length-1)}set_screen_content(a+String.fromCharCode(g))}set_value(poc_def.states[e[3]],g);set_value(poc_def.states[e[4]],1);poc_def.events.screen[k]=g})/",
-      "verbal": "/Function(function(a){var f=\"\";var h=get_value(poc_def.states[a[1]]);var d=get_value(poc_def.states[a[2]]);var g=get_value(poc_def.states[a[5]]);var e=String.fromCharCode(d);if(h==DDR_ID){f=\"Try to write into the screen the code \"+e+\" at clock cycle \"+g+\". \"}return f})/"
+      "operation": "/Function(function(e){var m=get_value(poc_states[e[1]]);var g=get_value(poc_states[e[2]]);var k=get_value(poc_states[e[5]]);var h=String.fromCharCode(g);if(m!=DDR_ID){return}if(h==String.fromCharCode(7)){timbre.reset();var f=T(\"sin\",{freq:440,mul:0.5});var d=T(\"sin\",{freq:660,mul:0.5});T(\"perc\",{r:500},f,d).on(\"ended\",function(){this.pause()}).bang().play()}else{var a=get_screen_content();if(typeof poc_events.screen[k]!=\"undefined\"){a=a.substr(0,a.length-1)}set_screen_content(a+String.fromCharCode(g))}set_value(poc_states[e[3]],g);set_value(poc_states[e[4]],1);poc_events.screen[k]=g})/",
+      "verbal": "/Function(function(a){var f=\"\";var h=get_value(poc_states[a[1]]);var d=get_value(poc_states[a[2]]);var g=get_value(poc_states[a[5]]);var e=String.fromCharCode(d);if(h==DDR_ID){f=\"Try to write into the screen the code \"+e+\" at clock cycle \"+g+\". \"}return f})/"
     },
     "SCR_RESET": {
       "nparameters": 1,
-      "operation": "/Function(function(a){poc_def.events.screen={}})/",
+      "operation": "/Function(function(a){poc_events.screen={}})/",
       "verbal": "/Function(function(a){return\"Reset the screen content. \"})/"
     }
   },
@@ -3280,7 +3584,10 @@
       "256": "KBDR",
       "260": "KBSR",
       "4096": "DDR",
-      "4100": "DSR"
+      "4100": "DSR",
+      "4352": "IOSR",
+      "4356": "IOCR",
+      "4360": "IODR"
     },
     "fire_stack": [],
     "tri_state_names": [
@@ -3357,7 +3664,57 @@
     },
     "segments": {},
     "MP": {},
-    "MP_wc": 0
+    "MP_wc": 0,
+    "io_int_factory": [
+      {
+        "period": 0,
+        "probability": 0.5,
+        "accumulated": 0,
+        "active": false
+      },
+      {
+        "period": 0,
+        "probability": 0.5,
+        "accumulated": 0,
+        "active": false
+      },
+      {
+        "period": 0,
+        "probability": 0.5,
+        "accumulated": 0,
+        "active": false
+      },
+      {
+        "period": 0,
+        "probability": 0.5,
+        "accumulated": 0,
+        "active": false
+      },
+      {
+        "period": 0,
+        "probability": 0.5,
+        "accumulated": 0,
+        "active": false
+      },
+      {
+        "period": 0,
+        "probability": 0.5,
+        "accumulated": 0,
+        "active": false
+      },
+      {
+        "period": 0,
+        "probability": 0.5,
+        "accumulated": 0,
+        "active": false
+      },
+      {
+        "period": 0,
+        "probability": 0.5,
+        "accumulated": 0,
+        "active": false
+      }
+    ]
   },
   "ctrl_states": {
     "pc": {

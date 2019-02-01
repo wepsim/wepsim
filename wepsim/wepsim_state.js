@@ -206,11 +206,6 @@
                   '                           type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>' +
                   '                   <button class="btn btn-outline-dark btn-sm col-auto float-right"' + 
 		  '  		              data-toggle="collapse" data-target="#collapse_'+i+'">&plusmn; Show</button>' +
-/*
-                  '                   <button class="btn btn-outline-dark btn-sm col-auto float-right"' + 
-                  '                           data-toggle="popover4" data-html="true" type="button" ' + 
-                  '                           id="' + it + '">+Info</button>' +
-*/
                   '             </div>' +
 			        tt +
                   '             <div id="collapse_' + i + '" class="border border-secondary mt-2 collapse">' +

@@ -116,20 +116,6 @@
                      description: "Resumen del hardware del procesador elemental simulado.<br>"
                   });
 
-/*
-    help.es.push({
-                     id:          "simulator",
-                     title:       "Dependencias entre señales",
-                     i_type:      "code",
-                     u_type:      "info",
-                     reference:   "var lyt1='<div id=\\'depgraph1\\' " +
-                                  "               style=\\'height:70vh;\\'>Loading...</div>'; " +
-                                  "wepsim_open_help_content(lyt1) ;" +
-                                  "show_visgraph(jit_fire_dep, jit_fire_order) ;",
-                     description: "Gráfico de las dependencias entre señales (puede necesitar varios segundos para generarse).<br>"
-                  });
-*/
-
     help.es.push({
                      id:          "about",
                      title:       "Licencia, plataformas, etc.",
