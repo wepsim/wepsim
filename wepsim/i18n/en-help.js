@@ -116,20 +116,6 @@
                      description: "Reference card for the simulated elemental processor hardware.<br>"
                   });
 
-/*
-    help.en.push({
-                     id:          "simulator",
-                     title:       "Signal dependencies",
-                     i_type:      "code",
-                     u_type:      "info",
-                     reference:   "var lyt1='<div id=\\'depgraph1\\' " +
-                                  "               style=\\'height:70vh;\\'>Loading...</div>'; " +
-                                  "wepsim_open_help_content(lyt1) ;" +
-                                  "show_visgraph(jit_fire_dep, jit_fire_order) ;",
-                     description: "Graph of the signal dependencies (it needs several seconds to be displayed).<br>"
-                  });
-*/
-
     help.en.push({
                      id:          "about",
                      title:       "License, platforms, etc.",

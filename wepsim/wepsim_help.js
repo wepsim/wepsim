@@ -152,8 +152,10 @@
 	$('#help1_ref').data('absolute','') ;
 	$('#help1_ref').data('code','false') ;
 
-      //$('#help1').trigger('updatelayout') ;
 	$('#help1').modal('show') ;
+
+	// stats about ui
+        ga('send', 'event', 'ui', 'ui.dialog', 'ui.dialog.help');
     }
 
     function wepsim_open_help_content ( content )
@@ -164,7 +166,6 @@
 	$('#help1_ref').data('absolute', '') ;
 	$('#help1_ref').data('code','true') ;
 
-      //$('#help1').trigger('updatelayout') ;
         $('#help1').modal('show') ;
     }
 

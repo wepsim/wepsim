@@ -27,6 +27,9 @@
     {
         $("#container-example1").html(table_examples_html(examples)) ;
 	$('#example1').modal('show') ;
+
+	// stats about ui
+        ga('send', 'event', 'ui', 'ui.dialog', 'ui.dialog.example');
     }
 
     function wepsim_close_examples ( )

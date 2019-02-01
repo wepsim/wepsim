@@ -42,6 +42,9 @@
 
 	i18n_update_tags('cfg', idiom_xx) ;
 	$('#config2').modal('show') ;
+
+	// stats about ui
+        ga('send', 'event', 'ui', 'ui.dialog', 'ui.dialog.config');
     }
 
     function wepsim_close_config ( )
