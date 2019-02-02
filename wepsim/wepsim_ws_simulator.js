@@ -63,75 +63,46 @@
      * Initialize
      */
 
-    function sim_prepare_svg_p ( )
-    {
-	    var ref_p = document.getElementById('svg_p').contentDocument ;
-	    if (ref_p != null)
-            {
-                var o  = ref_p.getElementById('text3495');
-	        if (o != null) o.addEventListener('click',
-                                                  function() {
-                                                     simui_select_details(11) ;
-                                                  }, false);
-	            o  = ref_p.getElementById('text3029');
-	        if (o != null) o.addEventListener('click',
-                                                  function() {
-                                                     simui_select_details(11) ;
-                                                  }, false);
-	            o  = ref_p.getElementById('text3031');
-	        if (o != null) o.addEventListener('click',
-                                                  function() {
-                                                     simui_select_details(11) ;
-                                                  }, false);
-	            o  = ref_p.getElementById('text3001');
-	        if (o != null) o.addEventListener('click',
-                                                  function() {
-                                                     simui_select_details(14) ;
-                                                  }, false);
-	            o  = ref_p.getElementById('text3775');
-	        if (o != null) o.addEventListener('click',
-                                                  function() {
-                                                     simui_select_details(15) ;
-                                                  }, false);
-	            o  = ref_p.getElementById('text3829');
-	        if (o != null) o.addEventListener('click',
-                                                  function() {
-                                                     simui_select_details(12) ;
-                                                  }, false);
-	            o  = ref_p.getElementById('text3845');
-	        if (o != null) o.addEventListener('click',
-                                                  function() {
-                                                     simui_select_details(12) ;
-                                                  }, false);
-                    o  = ref_p.getElementById('text3459-7');
-                if (o != null) o.addEventListener('click',
-                                                  function() {
-                                                     wepsim_execute_microinstruction();
-                                                  }, false);
-            }
-    }
+    var hash_detail2action = {
+	    "CLOCK":          function(){ wepsim_execute_microinstruction(); },
+	    "REGISTER_FILE":  function(){ simui_select_details(11); },
+	    "CONTROL_MEMORY": function(){ simui_select_details(16); },
+	    "CPU_STATS":      function(){ simui_select_details(17); },
+	    "MEMORY":         function(){ simui_select_details(14); }, 
+	    "MEMORY_CONFIG":  function(){ simui_select_details(18); },
+	    "KEYBOARD":       function(){ simui_select_details(12); },
+	    "SCREEN":         function(){ simui_select_details(12); },
+	    "IO_STATS":       function(){ simui_select_details(15); }, 
+	    "IO_CONFIG":      function(){ simui_select_details(19); } 
+    } ;
 
-    function sim_prepare_svg_cu ( )
+    function sim_prepare_svg ( svg_id )
     {
-	    var ref_cu = document.getElementById('svg_cu').contentDocument ;
-	    if (ref_cu != null)
-            {
-	        var o  = ref_cu.getElementById('text3010');
-	        if (o != null) o.addEventListener('click',
-                                                  function() {
-                                                     simui_select_details(16) ;
-                                                  }, false);
-                    o  = ref_cu.getElementById('text4138');
-                if (o != null) o.addEventListener('click',
-                                                  function() {
-                                                     wepsim_execute_microinstruction();
-                                                  }, false);
-                    o  = ref_cu.getElementById('text4138-7');
-                if (o != null) o.addEventListener('click',
-                                                  function() {
-                                                     wepsim_execute_microinstruction();
-                                                  }, false);
-            }
+	    var ref_id = document.getElementById(svg_id).contentDocument ;
+
+	    var sim_components = simhw_sim_components() ;
+	    for (var elto in sim_components)
+	    {
+		 for (var index in sim_components[elto].details_name)
+		 {
+		      var firename = sim_components[elto].details_name[index] ;
+		      if (typeof hash_detail2action[firename] === "undefined") {
+		          continue ;
+		      }
+
+		      for (var fireindex in sim_components[elto].details_fire[index])
+		      {
+			   var fireelto  = sim_components[elto].details_fire[index][fireindex] ;
+			   var firesplit = fireelto.split(':') ;
+			   if ( (firesplit[0] === svg_id) && (ref_id != null) )
+			   {
+				var o = ref_id.getElementById(firesplit[1]) ;
+				if (o != null) 
+				    o.addEventListener('click', hash_detail2action[firename], false) ;
+			   }
+		      }
+		 }
+	    }
     }
 
 
@@ -199,14 +170,14 @@
             // reload images event-handlers
 	    var a = document.getElementById("svg_p");
 	    a.addEventListener("load",function() {
-		sim_prepare_svg_p();
+                sim_prepare_svg('svg_p');
 		simcore_init_eventlistener("svg_p");
 		refresh();
 	    }, false);
 
 	    var b = document.getElementById("svg_cu");
 	    b.addEventListener("load",function() {
-		sim_prepare_svg_cu();
+                sim_prepare_svg('svg_cu');
 		simcore_init_eventlistener("svg_cu");
 		refresh();
 	    }, false);

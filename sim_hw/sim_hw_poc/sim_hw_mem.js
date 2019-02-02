@@ -26,7 +26,9 @@
         poc_components.MEMORY = {
 		                  name: "MEMORY", 
 		                  version: "1", 
-		                  abilities: ["MEMORY", "MEMORY_CONFIG"], 
+		                  abilities:    [ "MEMORY" ],
+				  details_name: [ "MEMORY", "MEMORY_CONFIG" ],
+				  details_fire: [ ['svg_p:text3001'], [] ],
 		                  write_state: function ( vec ) {
                                                   if (typeof vec.MEMORY == "undefined")
                                                       vec.MEMORY = {} ;
@@ -96,7 +98,7 @@
                                  depends_on: ["CLK"],
 		                 behavior: ["FIRE_IFCHANGED MRDY C", 
 					    "FIRE_IFCHANGED MRDY C"],
-                                 fire_name: ['svg_p:tspan3916','svg_p:tspan3916'], 
+                                 fire_name: ['svg_p:tspan3916'], 
                                  draw_data: [[], ['svg_p:path3895','svg_p:path3541']], 
                                  draw_name: [[], []]};
 

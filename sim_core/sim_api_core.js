@@ -56,7 +56,7 @@
 	        ret.ok  = true ;
 
             // hardware
-	    var hwid = simhw_getActiveByName(simhw_name) ;
+	    var hwid = simhw_getIdByName(simhw_name) ;
 	    if (hwid < 0) 
 	    {
 	        ret.msg = "ERROR: unknown hardware: " + simhw_name + ".\n" ;
@@ -94,6 +94,14 @@
 	        ret.msg = "" ;
 	        ret.ok  = true ;
 
+	    var hash_detail2init = {
+		    "CPU_STATS":     function() { init_states(stateall_id); init_cpu(cpuall_id); },
+		    "REGISTER_FILE": function() { init_rf(statebr_id); },
+		    "MEMORY_CONFIG": function() { init_config_mp(configmp_id); },
+		    "IO_STATS":      function() { init_io(ioall_id); },
+		    "IO_CONFIG":     function() { init_config_io(configio_id); }
+		} ;
+
             // default information holders as disabled
             var msg_default = '<div class="bg-warning"><b>Not available in this hardware</b></div>' ;
             if ('' != stateall_id)  $(stateall_id).html(msg_default) ;
@@ -104,34 +112,15 @@
             if ('' != configio_id)  $(configio_id).html(msg_default) ;
 
             // display the information holders
+	    var detail_id = 0 ;
             var sim_components = simhw_sim_components() ;
             for (var elto in sim_components)
             {
-		 for (var index in sim_components[elto].abilities)
+		 for (var index in sim_components[elto].details_name)
 		 {
-		      switch (sim_components[elto].abilities[index]) 
-                      {
-		         case "CPU":
-			      init_states(stateall_id) ;
-			      init_rf(statebr_id) ;
-			      init_cpu(cpuall_id) ;
-			      break;
-
-		         case "MEMORY_CONFIG":
-			      init_config_mp(configmp_id) ;
-			      break;
-
-		         case "IO":
-			      init_io(ioall_id) ;
-			      break;
-
-		         case "IO_CONFIG":
-			      init_config_io(configio_id) ;
-			      break;
-
-		         default:
-			      break;
-		      }
+	              detail_id = sim_components[elto].details_name[index] ;
+	              if (typeof hash_detail2init[detail_id] !== "undefined")
+	                  hash_detail2init[detail_id]() ;
 		 }
             }
 
@@ -637,17 +626,23 @@
     
         /**
          * Export Hardware to JSON string
-         * @param {string} hw_obj - The object with the Hardware description
+         * @param {string} hw_name - The name of the Hardware (e.g. 'ep')
          */
 
-        function simcore_hardware_export ( hw_obj )
+        function simcore_hardware_export ( hw_name )
         {
 	    var ret = {} ;
 	        ret.msg = "{}" ;
-	        ret.ok  = true ;
+	        ret.ok  = false ;
+
+            var hw_obj = simhw_getObjByName(hw_name) ;
+            if (null === hw_obj) {
+		return ret ;
+            }
 
             // export to json
             // based on: https://stackoverflow.com/questions/36517173/how-to-store-a-javascript-function-in-json
+	    ret.ok  = true ;
 	    ret.msg = JSON.stringify(hw_obj, 
                                      function(key, value) {
 					  if (typeof value === "function") {

@@ -26,7 +26,9 @@
         ep_components.KBD = {
 		                  name: "KBD", 
 		                  version: "1", 
-		                  abilities: ["KBD"], 
+		                  abilities:    [ "KEYBOARD" ], 
+		                  details_name: [ "KEYBOARD" ],
+                                  details_fire: [ ['svg_p:text3829'] ],
 		                  write_state: function ( vec ) {
 						  return vec;
 				               },

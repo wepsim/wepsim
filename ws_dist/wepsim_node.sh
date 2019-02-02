@@ -7,7 +7,7 @@
    // Usage
    //
 
-   if (2 == process.argv.length)
+   if (process.argv.length < 3)
    {
        console.log('') ;
        console.log('WepSIM 1.0') ;
@@ -79,7 +79,7 @@
            // throw 'ERROR...' ;
        }
 
-       console.log("OK: Execution: no error reported");
+       console.log("OK: Execution: no error reported\n");
        return true ;
    }
 
@@ -90,9 +90,18 @@
 
    if ("RUN" == process.argv[2].toUpperCase())
    {
-       var simhw_name     = process.argv[3] ;
-       var data_microcode = fs.readFileSync(process.argv[4], 'utf8') ;
-       var data_asmcode   = fs.readFileSync(process.argv[5], 'utf8') ;
+       try 
+       {
+           var simhw_name     = process.argv[3] ;
+           var data_microcode = fs.readFileSync(process.argv[4], 'utf8') ;
+           var data_asmcode   = fs.readFileSync(process.argv[5], 'utf8') ;
+       }
+       catch (e)
+       {
+           console.log(e);
+           return false ;
+           // throw 'ERROR...' ;
+       }
 
        cfg_instruction_limit = 1000 ;
        if (process.argv.length > 6)
@@ -117,9 +126,18 @@
 
    if ("STEPBYSTEP" == process.argv[2].toUpperCase())
    {
-       var simhw_name     = process.argv[3] ;
-       var data_microcode = fs.readFileSync(process.argv[4], 'utf8') ;
-       var data_asmcode   = fs.readFileSync(process.argv[5], 'utf8') ;
+       try
+       {
+           var simhw_name     = process.argv[3] ;
+           var data_microcode = fs.readFileSync(process.argv[4], 'utf8') ;
+           var data_asmcode   = fs.readFileSync(process.argv[5], 'utf8') ;
+       }
+       catch (e)
+       {
+           console.log(e);
+           return false ;
+           // throw 'ERROR...' ;
+       }
 
        cfg_instruction_limit = 1000 ;
        if (process.argv.length > 6)
@@ -144,9 +162,18 @@
 
    if ("MICROSTEPBYMICROSTEP" == process.argv[2].toUpperCase())
    {
-       var simhw_name     = process.argv[3] ;
-       var data_microcode = fs.readFileSync(process.argv[4], 'utf8') ;
-       var data_asmcode   = fs.readFileSync(process.argv[5], 'utf8') ;
+       try
+       {
+           var simhw_name     = process.argv[3] ;
+           var data_microcode = fs.readFileSync(process.argv[4], 'utf8') ;
+           var data_asmcode   = fs.readFileSync(process.argv[5], 'utf8') ;
+       }
+       catch (e)
+       {
+           console.log(e);
+           return false ;
+           // throw 'ERROR...' ;
+       }
 
        cfg_instruction_limit = 1000 ;
        if (process.argv.length > 6)
@@ -171,9 +198,18 @@
 
    if ("MICROSTEPVERBALIZED" == process.argv[2].toUpperCase())
    {
-       var simhw_name     = process.argv[3] ;
-       var data_microcode = fs.readFileSync(process.argv[4], 'utf8') ;
-       var data_asmcode   = fs.readFileSync(process.argv[5], 'utf8') ;
+       try
+       {
+           var simhw_name     = process.argv[3] ;
+           var data_microcode = fs.readFileSync(process.argv[4], 'utf8') ;
+           var data_asmcode   = fs.readFileSync(process.argv[5], 'utf8') ;
+       }
+       catch (e)
+       {
+           console.log(e);
+           return false ;
+           // throw 'ERROR...' ;
+       }
 
        cfg_instruction_limit = 1000 ;
        if (process.argv.length > 6)
@@ -185,6 +221,31 @@
 
        ws.wepsim_nodejs_init(simhw_name) ;
        var ret = ws.wepsim_nodejs_run(4, data_microcode, data_asmcode, cfg_instruction_limit, cfg_cycles_limit) ;
+
+       console.log(ret.msg);
+       return ret.ok ;
+       // if (ret.ok == false) throw 'ERROR...' ;
+   }
+
+
+   //
+   // action == exporthardware
+   //
+
+   if ("EXPORTHARDWARE" == process.argv[2].toUpperCase())
+   {
+       try 
+       {
+          var simhw_name = process.argv[3] ;
+       }
+       catch (e)
+       {
+           console.log(e);
+           return false ;
+           // throw 'ERROR...' ;
+       }
+
+       var ret = ws.wepsim_nodejs_exporthw(simhw_name) ;
 
        console.log(ret.msg);
        return ret.ok ;

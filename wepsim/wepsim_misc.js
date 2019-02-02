@@ -141,11 +141,11 @@
 	      case 'intro':
 	      case 'wepmips':
 	      case 'tutorial':
-                               hwid = simhw_getActiveByName('ep') ;
+                               hwid = simhw_getIdByName('ep') ;
                                wepsim_activehw(hwid) ;
                                break;
 	      default:
-	                       hwid = simhw_getActiveByName(optValue) ;
+	                       hwid = simhw_getIdByName(optValue) ;
                                wepsim_activehw(hwid) ;
                                break;
           }

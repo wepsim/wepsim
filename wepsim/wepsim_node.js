@@ -170,3 +170,5 @@
     module.exports.wepsim_nodejs_check                   = wepsim_nodejs_check ;
     module.exports.wepsim_nodejs_run                     = wepsim_nodejs_run ;
 
+    module.exports.wepsim_nodejs_exporthw                = simcore_hardware_export ;
+

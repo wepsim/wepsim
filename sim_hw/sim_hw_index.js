@@ -71,7 +71,7 @@
             compile_verbals() ;
         }
 
-        function simhw_getActiveByName ( short_name )
+        function simhw_getIdByName ( short_name )
         {
             for (var m=0; m<sim.systems.length; m++) 
             {
@@ -81,6 +81,18 @@
             }
 
             return -1 ;
+        }
+
+        function simhw_getObjByName ( short_name )
+        {
+            for (var m=0; m<sim.systems.length; m++) 
+            {
+                 if (sim.systems[m].sim_short_name == short_name) {
+                     return sim.systems[m] ;
+                 }
+            }
+
+            return null ;
         }
 
 
