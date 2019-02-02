@@ -79,7 +79,7 @@
            // throw 'ERROR...' ;
        }
 
-       console.log("OK: Execution: no error reported");
+       console.log("OK: Execution: no error reported\n");
        return true ;
    }
 

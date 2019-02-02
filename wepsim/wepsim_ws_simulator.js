@@ -170,16 +170,14 @@
             // reload images event-handlers
 	    var a = document.getElementById("svg_p");
 	    a.addEventListener("load",function() {
-		//sim_prepare_svg_p();
-                sim_prepare_svg('svg_p')
+                sim_prepare_svg('svg_p');
 		simcore_init_eventlistener("svg_p");
 		refresh();
 	    }, false);
 
 	    var b = document.getElementById("svg_cu");
 	    b.addEventListener("load",function() {
-		//sim_prepare_svg_cu();
-                sim_prepare_svg('svg_cu')
+                sim_prepare_svg('svg_cu');
 		simcore_init_eventlistener("svg_cu");
 		refresh();
 	    }, false);
