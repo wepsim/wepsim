@@ -26,7 +26,9 @@
         ep_components.IO = {
 		                  name: "IO", 
 		                  version: "1", 
-		                  abilities: ["IO", "IO_CONFIG"], 
+		                  abilities:    [ "IO_TIMER" ],
+		                  details_name: [ "IO_STATS", "IO_CONFIG" ],
+                                  details_fire: [ ['svg_p:text3775'], [] ],
 		                  write_state: function ( vec ) {
 						  return vec;
 				               },

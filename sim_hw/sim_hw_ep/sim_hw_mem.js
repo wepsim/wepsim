@@ -26,7 +26,9 @@
         ep_components.MEMORY = {
 		                  name: "MEMORY", 
 		                  version: "1", 
-		                  abilities: ["MEMORY", "MEMORY_CONFIG"], 
+		                  abilities:    [ "MEMORY" ],
+                                  details_name: [ "MEMORY", "MEMORY_CONFIG" ],
+                                  details_fire: [ ['svg_p:text3001'], [] ],
 		                  write_state: function ( vec ) {
                                                   if (typeof vec.MEMORY == "undefined")
                                                       vec.MEMORY = {} ;

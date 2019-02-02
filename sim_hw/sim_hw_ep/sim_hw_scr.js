@@ -26,10 +26,13 @@
         ep_components.SCREEN = {
 		                  name: "SCREEN", 
 		                  version: "1", 
-		                  abilities: ["SCREEN"], 
+		                  abilities:    [ "SCREEN" ],
+                                  details_name: [ "SCREEN" ],
+                                  details_fire: [ ['svg_p:text3845'] ],
 		                  write_state: function ( vec ) {
-                                                  if (typeof vec.SCREEN == "undefined")
+                                                  if (typeof vec.SCREEN == "undefined") {
                                                       vec.SCREEN = {} ;
+				                  }
 
 					          var sim_screen = get_screen_content() ;
 					          var sim_lines  = sim_screen.trim().split("\n") ;

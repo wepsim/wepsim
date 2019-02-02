@@ -26,7 +26,9 @@
         ep_components["CPU"] = {
 		                  name: "CPU", 
 		                  version: "1", 
-		                  abilities: ["CPU"], 
+		                  abilities:    [ "CPU" ],
+		                  details_name: [ "REGISTER_FILE", "CONTROL_MEMORY", "CLOCK", "CPU_STATS" ],
+                                  details_fire: [ ['svg_p:text3029', 'svg_p:text3031'], ['svg_cu:text3010'], ['svg_p:text3459-7', 'svg_p:text4138', 'svg_p:text4138-7'], ['svg_p:text3495'] ],
 		                  write_state:  function ( vec ) {
                                                   if (typeof vec.CPU == "undefined")
                                                       vec.CPU = {} ;
