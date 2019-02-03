@@ -424,6 +424,17 @@
                      });
 
     examples.en.push({
+                       id: 'S2E2',
+                       title: "Subrutine",
+                       level: "Intermediate",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_base",
+                       assembly:  "ep_s2_e2",
+                       description: "Extended example with more instructions and I/O (keyboard, display).<br>"
+                     });
+
+    examples.en.push({
                        id: 'S3E1',
                        title: "Interruptions",
                        level: "Advanced",

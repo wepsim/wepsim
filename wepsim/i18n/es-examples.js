@@ -424,6 +424,17 @@
                      });
 
     examples.es.push({
+                       id: 'S2E2',
+                       title: "Subrutina",
+                       level: "Intermedio",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_base",
+                       assembly:  "ep_s2_e2",
+                       description: "Ejemplo ampliado con m&aacute;s instrucciones y E/S (keyboard, display).<br>"
+                     });
+
+    examples.es.push({
                        id: 'S3E1',
                        title: "Interrupciones",
                        level: "Avanzado",

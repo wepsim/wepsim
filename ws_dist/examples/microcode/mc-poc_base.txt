@@ -428,3 +428,15 @@ registers
         63=$r32
 }
 
+pseudoinstructions
+{
+        lii reg num
+        {
+            li reg sel(31,16,num) ;
+            # sl reg reg 16 ;
+            # li $0 sel(15,0,num) ;
+            # or reg reg $0
+        }
+
+}
+
