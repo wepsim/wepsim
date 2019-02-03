@@ -131,34 +131,84 @@
          * Initialize simulator event handler.
          * @param {string} context - associated context
          */
+
+         var hash_detail2action = {
+	         "CLOCK":          function(){ wepsim_execute_microinstruction(); },
+	         "REGISTER_FILE":  function(){ simui_select_details(11); show_rf_values(); },
+	         "CONTROL_MEMORY": function(){ simui_select_details(16); show_memories_values(); },
+	         "CPU_STATS":      function(){ simui_select_details(17); show_memories_values(); },
+	         "MEMORY":         function(){ simui_select_details(14); show_memories_values(); }, 
+	         "MEMORY_CONFIG":  function(){ simui_select_details(18); show_memories_values(); },
+	         "KEYBOARD":       function(){ simui_select_details(12); show_memories_values(); },
+	         "SCREEN":         function(){ simui_select_details(12); show_memories_values(); },
+	         "IO_STATS":       function(){ simui_select_details(15); show_memories_values(); }, 
+	         "IO_CONFIG":      function(){ simui_select_details(19); show_memories_values(); } 
+         } ;
+
         function simcore_init_eventlistener ( context )
         {
-            // 3.- for every signal, set the click event handler
-            for (var key in simhw_sim_signals())
+	    var context_obj = null ;
+	    var r = [] ;
+	    var o = null ;
+
+	    // 1.- check parameters...
+	    context_obj = document.getElementById(context).contentDocument ;
+	    if (null == context_obj)  
+            {
+	        console.log('warning: unreferenced graphic element context named "' + r[0] + '".') ;
+	        return ;
+	    }
+
+            // 2.- for every signal, set the click event handler
+            var sim_signals = simhw_sim_signals() ;
+            for (var key in sim_signals)
             {
                 for (var j=0; j<simhw_sim_signal(key).fire_name.length; j++)
                 {
-			   var r = simhw_sim_signal(key).fire_name[j].split(':') ;
-			   if (r[0] != context) {
+			   r = simhw_sim_signal(key).fire_name[j].split(':') ;
+			   if (r[0] !== context) {
 			       continue;
                            }
 
-  			   var o = document.getElementById(r[0]).contentDocument ;
-                           if (null == o)  {
-                               console.log('warning: unreferenced graphic element context named "' + r[0] + '".');
-                               continue;
-                           }
-
-  			   var u = o.getElementById(r[1]) ;
-                           if (null == u)  {
+  			   o = context_obj.getElementById(r[1]) ;
+                           if (null === o)  {
                                console.log('warning: unreferenced graphic element named "' + r[0] + ':' + r[1] + '".');
                                continue;
                            }
 
-                           u.addEventListener('click',    update_signal, false);
-                           u.addEventListener('dblclick', update_signal, false);
+                           o.addEventListener('click',    update_signal, false);
+                           o.addEventListener('dblclick', update_signal, false);
                 }
             }
+
+            // 3.- for every 'hardware detail' component, set the click event handler to show the associated detail panel
+	    var sim_components = simhw_sim_components() ;
+	    for (var elto in sim_components)
+	    {
+		 for (var index in sim_components[elto].details_name)
+		 {
+		      var firename = sim_components[elto].details_name[index] ;
+		      if (typeof hash_detail2action[firename] === "undefined") {
+		          continue ;
+		      }
+
+		      for (var fireindex in sim_components[elto].details_fire[index])
+		      {
+			   r = sim_components[elto].details_fire[index][fireindex].split(':') ;
+			   if (r[0] !== context) {
+			       continue;
+                           }
+
+			   o = context_obj.getElementById(r[1]) ;
+                           if (null === o)  {
+                               console.log('warning: unreferenced graphic element named "' + r[0] + ':' + r[1] + '".');
+                               continue;
+                           }
+
+			   o.addEventListener('click', hash_detail2action[firename], false) ;
+		      }
+		 }
+	    }
         }
 
 
