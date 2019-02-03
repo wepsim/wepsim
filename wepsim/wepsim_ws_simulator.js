@@ -63,51 +63,6 @@
      * Initialize
      */
 
-    var hash_detail2action = {
-	    "CLOCK":          function(){ wepsim_execute_microinstruction(); },
-	    "REGISTER_FILE":  function(){ simui_select_details(11); },
-	    "CONTROL_MEMORY": function(){ simui_select_details(16); },
-	    "CPU_STATS":      function(){ simui_select_details(17); },
-	    "MEMORY":         function(){ simui_select_details(14); }, 
-	    "MEMORY_CONFIG":  function(){ simui_select_details(18); },
-	    "KEYBOARD":       function(){ simui_select_details(12); },
-	    "SCREEN":         function(){ simui_select_details(12); },
-	    "IO_STATS":       function(){ simui_select_details(15); }, 
-	    "IO_CONFIG":      function(){ simui_select_details(19); } 
-    } ;
-
-    function sim_prepare_svg ( svg_id )
-    {
-	    var ref_id = document.getElementById(svg_id).contentDocument ;
-
-	    var sim_components = simhw_sim_components() ;
-	    for (var elto in sim_components)
-	    {
-		 for (var index in sim_components[elto].details_name)
-		 {
-		      var firename = sim_components[elto].details_name[index] ;
-		      if (typeof hash_detail2action[firename] === "undefined") {
-		          continue ;
-		      }
-
-		      for (var fireindex in sim_components[elto].details_fire[index])
-		      {
-			   var fireelto  = sim_components[elto].details_fire[index][fireindex] ;
-			   var firesplit = fireelto.split(':') ;
-			   if ( (firesplit[0] === svg_id) && (ref_id != null) )
-			   {
-				var o = ref_id.getElementById(firesplit[1]) ;
-				if (o != null) 
-				    o.addEventListener('click', hash_detail2action[firename], false) ;
-			   }
-		      }
-		 }
-	    }
-    }
-
-
-    // Misc.
-
     function showhideAsmElements ( )
     {
 	$("input:checkbox:checked").each(function() {
@@ -170,14 +125,12 @@
             // reload images event-handlers
 	    var a = document.getElementById("svg_p");
 	    a.addEventListener("load",function() {
-                sim_prepare_svg('svg_p');
 		simcore_init_eventlistener("svg_p");
 		refresh();
 	    }, false);
 
 	    var b = document.getElementById("svg_cu");
 	    b.addEventListener("load",function() {
-                sim_prepare_svg('svg_cu');
 		simcore_init_eventlistener("svg_cu");
 		refresh();
 	    }, false);
