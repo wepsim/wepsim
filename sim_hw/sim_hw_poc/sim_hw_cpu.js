@@ -633,19 +633,19 @@
 					    'svg_cu:path3294', 'svg_cu:path3292', 'svg_cu:path3288', 'svg_cu:path3232', 'svg_cu:path3280']],
 			       draw_name: [[],['svg_cu:path3220','svg_cu:path3240','svg_cu:path3252']] };
 	 poc_signals["MR_RA"] = { name: "MR_RA", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			         behavior: ['MBIT_SN RA REG_IR REG_MICROINS/SELA 6; FIRE RA;',
+			         behavior: ['MBIT_SN RA REG_IR REG_MICROINS/SELA 5; FIRE RA;',
 					    'CP_FIELD RA REG_MICROINS/SELA; FIRE RA;'],
 			         fire_name: [],
 			         draw_data: [[]],
 			         draw_name: [[]] };
 	 poc_signals["MR_RB"] = { name: "MR_RB", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			         behavior: ['MBIT_SN RB REG_IR REG_MICROINS/SELB 6; FIRE RB;',
+			         behavior: ['MBIT_SN RB REG_IR REG_MICROINS/SELB 5; FIRE RB;',
 					    'CP_FIELD RB REG_MICROINS/SELB; FIRE RB;'],
 			         fire_name: [],
 			         draw_data: [[]],
 			         draw_name: [[]] };
 	 poc_signals["MR_RC"] = { name: "MR_RC", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-			         behavior: ['MBIT_SN RC REG_IR REG_MICROINS/SELC 6; FIRE RC;',
+			         behavior: ['MBIT_SN RC REG_IR REG_MICROINS/SELC 5; FIRE RC;',
 					    'CP_FIELD RC REG_MICROINS/SELC; FIRE RC;'],
 			         fire_name: [],
 			         draw_data: [[]],
@@ -653,12 +653,12 @@
 
 	/* I/O Devices */
 	 poc_signals["IOR"]   = { name: "IOR", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-				 behavior: ["NOP", "MOVE_BITS KBD_IOR 0 1 IOR; MOVE_BITS SCR_IOR 0 1 IOR; FIRE KBD_IOR; FIRE SCR_IOR"],
+				 behavior: ["NOP", "MOVE_BITS SCR_IOR 0 1 IOR; FIRE SCR_IOR; MOVE_BITS IO_IOR 0 1 IOR; FIRE IO_IOR; MOVE_BITS KBD_IOR 0 1 IOR; FIRE KBD_IOR"],
 				 fire_name: [],
 				 draw_data: [[], ['svg_p:path3733', 'svg_p:path3491', 'svg_p:text3715']],
 				 draw_name: [[], []]};
 	 poc_signals["IOW"]   = { name: "IOW", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-				 behavior: ["NOP", "MOVE_BITS SCR_IOW 0 1 IOW; FIRE SCR_IOW;"],
+		                 behavior: ["NOP", "MOVE_BITS SCR_IOW 0 1 IOW; FIRE SCR_IOW; MOVE_BITS IO_IOW 0 1 IOW; FIRE IO_IOW"],
 				 fire_name: [],
 				 draw_data: [[], ['svg_p:path3735', 'svg_p:path3491', 'svg_p:text3717']],
 				 draw_name: [[], []]};
