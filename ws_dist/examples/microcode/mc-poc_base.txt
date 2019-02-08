@@ -70,7 +70,7 @@ sub reg1 reg2 reg3 {
             reg2=reg(20,16),
             reg3=reg(15,11),
             {
-                (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=1011, T6=1, SELC=10101, LC=1,  M7, C7, A0=1, B=1, C=0)
+                (MC=1, MR=0, SELA=10000, SELB=1011, MA=0, MB=0, SELCOP=1011, T6=1, SELC=10101, LC=1,  M7, C7, A0=1, B=1, C=0)
             }
 }
 
@@ -278,7 +278,7 @@ beq reg reg offset {
             nwords=1,
             reg=reg(25,21),
             reg=reg(20,16),
-            offset=address(13,0)rel,
+            offset=address(15,0)rel,
             {
                 (T8, SELC=110111, MR=1, LC=1),
                 (SELA=10101, SELB=10000, MC=1, SELCOP=1011, M7, C7),
@@ -296,7 +296,7 @@ bne reg reg offset {
             nwords=1,
             reg=reg(25,21),
             reg=reg(20,16),
-            offset=address(13,0)rel,
+            offset=address(15,0)rel,
             {
                 (T8, SELC=110111, MR=1, LC=1),
                 (SELA=10101, SELB=10000, MC=1, SELCOP=1011, M7, C7),
@@ -314,7 +314,7 @@ bge reg reg offset {
             nwords=1,
             reg=reg(25,21),
             reg=reg(20,16),
-            offset=address(13,0)rel,
+            offset=address(15,0)rel,
             {
                 (T8, SELC=110111, MR=1, LC=1),
                 (SELA=10101, SELB=10000, MC=1, SELCOP=1011, M7, C7),
