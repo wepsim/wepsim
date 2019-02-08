@@ -434,6 +434,30 @@
                        description: "Ejemplo ampliado con m&aacute;s instrucciones y E/S (keyboard, display).<br>"
                      });
 
+/*
+    examples.es.push({
+                       id: 'S2E3',
+                       title: "M&aacute;scaras y desplazamientos",
+                       level: "Intermedio",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_base",
+                       assembly:  "ep_s2_e3",
+                       description: "Ejemplo ampliado con m&aacute;scaras, desplazamientos y segmento de datos/c&oacute;digo b&aacute;sico.<br>"
+                     });
+*/
+
+    examples.es.push({
+                       id: 'S2E4',
+                       title: "Matriz",
+                       level: "Intermedio",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_base",
+                       assembly:  "ep_s2_e4",
+                       description: "Ejemplo ampliado con subrutina y matriz.<br>"
+                     });
+
     examples.es.push({
                        id: 'S3E1',
                        title: "Interrupciones",

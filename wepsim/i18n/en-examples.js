@@ -434,6 +434,30 @@
                        description: "Extended example with more instructions and I/O (keyboard, display).<br>"
                      });
 
+/*
+    examples.en.push({
+                       id: 'S2E3',
+                       title: "Masks & shift",
+                       level: "Intermediate",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_base",
+                       assembly:  "ep_s2_e3",
+                       description: "More extended example with masks, shift, and basic .text/.data segment.<br>"
+                     });
+*/
+
+    examples.en.push({
+                       id: 'S2E4',
+                       title: "Matrix",
+                       level: "Intermediate",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_base",
+                       assembly:  "ep_s2_e4",
+                       description: "Extended example with subrutine and matrix.<br>"
+                     });
+
     examples.en.push({
                        id: 'S3E1',
                        title: "Interruptions",
