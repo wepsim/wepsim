@@ -1,4 +1,8 @@
 
+1.9.6 -> 1.9.7:
+* POC processor improved
+  + More examples
+
 1.9.5 -> 1.9.6:
 * Interface:
   + Updated to the new Bootstrap 4.2.1

@@ -424,6 +424,85 @@
                      });
 
     examples.es.push({
+                       id: 'S2E2',
+                       title: "Subrutina",
+                       level: "Intermedio",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_base",
+                       assembly:  "ep_s2_e2",
+                       description: "Ejemplo ampliado con m&aacute;s instrucciones y E/S (keyboard, display).<br>"
+                     });
+
+/*
+    examples.es.push({
+                       id: 'S2E3',
+                       title: "M&aacute;scaras y desplazamientos",
+                       level: "Intermedio",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_base",
+                       assembly:  "ep_s2_e3",
+                       description: "Ejemplo ampliado con m&aacute;scaras, desplazamientos y segmento de datos/c&oacute;digo b&aacute;sico.<br>"
+                     });
+*/
+
+    examples.es.push({
+                       id: 'S2E4',
+                       title: "Matriz",
+                       level: "Intermedio",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_base",
+                       assembly:  "ep_s2_e4",
+                       description: "Ejemplo ampliado con subrutina y matriz.<br>"
+                     });
+
+    examples.es.push({
+                       id: 'S3E1',
+                       title: "Interrupciones",
+                       level: "Avanzado",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_s3",
+                       assembly:  "ep_s3_e1",
+                       description: "<b>Instructive</b> example con interrupciones: fetch, RETI y .ktext/.kdata.<br>"
+                     });
+
+    examples.es.push({
+                       id: 'S3E2',
+                       title: "Llamada al sistema",
+                       level: "Avanzado",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_s3",
+                       assembly:  "ep_s3_e2",
+                       description: "<b>Instructive</b> example con llamada al sistema.<br>"
+                     });
+
+    examples.es.push({
+                       id: 'S3E3',
+                       title: "Excepci&oacute;n",
+                       level: "Avanzado",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_s3",
+                       assembly:  "ep_s3_e3",
+                       description: "<b>Instructive</b> example con excepci&oacute;n de coma flotante.<br>"
+                     });
+
+    examples.es.push({
+                       id: 'S3E4',
+                       title: "Int. + syscall + except.",
+                       level: "Avanzado",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_s3",
+                       assembly:  "ep_s3_e4",
+                       description: "Ejemplo avanzado con interrupci&oacute;n, llamada al sistema y excepci&oacute;n.<br>"
+                     });
+
+    examples.es.push({
                        id: 'S5E1',
                        title: "Para completar",
                        level: "Especial",

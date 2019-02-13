@@ -424,6 +424,85 @@
                      });
 
     examples.en.push({
+                       id: 'S2E2',
+                       title: "Subrutine",
+                       level: "Intermediate",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_base",
+                       assembly:  "ep_s2_e2",
+                       description: "Extended example with more instructions and I/O (keyboard, display).<br>"
+                     });
+
+/*
+    examples.en.push({
+                       id: 'S2E3',
+                       title: "Masks & shift",
+                       level: "Intermediate",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_base",
+                       assembly:  "ep_s2_e3",
+                       description: "More extended example with masks, shift, and basic .text/.data segment.<br>"
+                     });
+*/
+
+    examples.en.push({
+                       id: 'S2E4',
+                       title: "Matrix",
+                       level: "Intermediate",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_base",
+                       assembly:  "ep_s2_e4",
+                       description: "Extended example with subrutine and matrix.<br>"
+                     });
+
+    examples.en.push({
+                       id: 'S3E1',
+                       title: "Interruptions",
+                       level: "Advanced",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_s3",
+                       assembly:  "ep_s3_e1",
+                       description: "<b>Instructive</b> example with interruptions support: fetch, RETI, and .ktext/.kdata.<br>"
+                     });
+
+    examples.en.push({
+                       id: 'S3E2',
+                       title: "System call",
+                       level: "Advanced",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_s3",
+                       assembly:  "ep_s3_e2",
+                       description: "<b>Instructive</b> example with system call support.<br>"
+                     });
+
+    examples.en.push({
+                       id: 'S3E3',
+                       title: "Exception",
+                       level: "Advanced",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_s3",
+                       assembly:  "ep_s3_e3",
+                       description: "<b>Instructive</b> example with floating point exception.<br>"
+                     });
+
+    examples.en.push({
+                       id: 'S3E4',
+                       title: "Int. + syscall + except.",
+                       level: "Advanced",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_s3",
+                       assembly:  "ep_s3_e4",
+                       description: "Advanced example with interruption, system call, and exception.<br>"
+                     });
+
+    examples.en.push({
                        id: 'S5E1',
                        title: "Dummy instruction",
                        level: "Special",
