@@ -38,12 +38,22 @@
 			"Refresh": 			     		"Refrescar",
 			"Current State":  			        "Estado Actual",
 			"History":  			                "Historia",
+			"Empty history":  			        "Historia vac&iacute;a",
 			"Differences":  			        "Diferencias",
+			"differences with clipboard state":  	        "diferencias con estado en portapapeles",
 			"processor":  			                "procesador",
 			"details":  			                "detalles",
                         "Signals": 		                     	"Se&ntilde;ales",
                         "Behaviors": 		                     	"Comportamientos",
                         "Control States": 	                     	"Estados de Control",
-                        "Dependencies": 		                "Dependencias"
+                        "Dependencies": 		                "Dependencias",
+                        "Close": 		                	"Cerrar",
+                        "Show": 		                	"Mostrar",
+                        "history": 		                	"historial",
+                        "Add": 		                	        "A&ntilde;adir",
+                        "'Current State' to History": 		        "'Estado Actual' al historial",
+                        "Check": 		                	"Comprobar",
+                        "Copy": 		                	"Copiar",
+                        "to clipboard": 		                "al portapapeles"
                   } ;
 

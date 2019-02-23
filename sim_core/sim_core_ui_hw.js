@@ -36,7 +36,7 @@
 			   'abilities: '       + ahw.components[elto].abilities.join(" + ") +
 			   '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
                            '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
-                           '        onclick=$(\'.popover_hw\').popover(\'hide\');>Close</button>' +
+                           '        onclick=$(\'.popover_hw\').popover(\'hide\');><span data-langkey=\'Close\'>Close</span></button>' +
 			   '">' + elto + '</a></span>' ;
 	      }
 	      c = c + '</span>' ;
@@ -114,7 +114,7 @@
 			   'visible: '         + ahw.signals[elto].visible +
 			   '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
                            '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
-                           '        onclick=$(\'.popover_hw\').popover(\'hide\');>Close</button>' +
+                           '        onclick=$(\'.popover_hw\').popover(\'hide\');><span data-langkey=\'Close\'>Close</span></button>' +
 			   '</span>' ;
 		   c = c + '<span class="col">' +
 		           '<a href="#" id="hw_signal_tt_' + elto + '" class="popover_hw" data-toggle="popover" onclick="event.preventDefault();" ' +
@@ -216,7 +216,7 @@
 			   'visible: '                                    + elto_vi +
 			   '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
                            '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
-                           '        onclick=$(\'.popover_hw\').popover(\'hide\');>Close</button>' +
+                           '        onclick=$(\'.popover_hw\').popover(\'hide\');><span data-langkey=\'Close\'>Close</span></button>' +
 			   '</span>' ;
 		   c = c + '<span class="col">' +
 		           '<a href="#" id="hw_state_tt_' + elto + '" class="popover_hw" data-toggle="popover" onclick="event.preventDefault();" ' +
@@ -277,7 +277,7 @@
 			// 'verbal: '          + ahw.behaviors[elto].verbal.toString() + '<br> ' +
 			   '<button type=\'button\' id=\'close\' data-role=\'none\' ' +
                            '        class=\'btn btn-sm btn-danger w-100 p-0 mt-2\' ' +
-                           '        onclick=$(\'.popover_hw\').popover(\'hide\');>Close</button>' +
+                           '        onclick=$(\'.popover_hw\').popover(\'hide\');><span data-langkey=\'Close\'>Close</span></button>' +
 			   '</span>' +
 			   '">' + elto + '</a></span>' ;
 	      }
@@ -311,7 +311,10 @@
               $(div_hw).html(o) ;
 
 	      $('[data-toggle="tooltip"]').tooltip({
-	  	  trigger:   'hover'
+	  	  trigger:   'hover',
+		  sanitizeFn: function (content) {
+                                 return content ; // DOMPurify.sanitize(content) ;
+                              }
 	      }) ;
 
               $('.popover_hw').popover({
@@ -322,7 +325,10 @@
 			    '<div class="arrow border-dark" style="border-right-color:black !important;"></div>' +
 			    '<h3 class="popover-header"></h3>' +
 			    '<div class="popover-body bg-dark text-white border-dark"></div>' +
-			    '</div>'
+			    '</div>',
+		  sanitizeFn: function (content) {
+                                 return content ; // DOMPurify.sanitize(content) ;
+                              }
 	      }) ;
 
 	      return true ;

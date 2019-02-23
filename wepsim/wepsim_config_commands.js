@@ -37,7 +37,9 @@
 				   "	<option value='en'>English</option>" +
 				   " </select>" +
 			           "</div>",
-                      code_init:   function() { $('#select7').val(get_cfg('ws_idiom')); },
+                      code_init:   function() { 
+			               $('#select7').val(get_cfg('ws_idiom')); 
+		                   },
                       description: "<span data-langkey='Idiom for help, examples, etc.'>Idiom for help, examples, etc.</span>"
                    });
 
@@ -56,7 +58,9 @@
 				   "	<option value='compact'>Compact</option>" +
 				   " </select>" +
 			           "</div>",
-                      code_init:   function() { $('#select8').val(get_cfg('ws_skin')); },
+                      code_init:   function() { 
+			               $('#select8').val(get_cfg('ws_skin')); 
+		                   },
                       description: "<span data-langkey='WepSIM User Interface Skin'>WepSIM User Interface Skin</span>"
                    });
 
@@ -83,7 +87,9 @@
 				   "		<input type='radio' name='options' id='radio8-100'  autocomplete='off' ><span data-langkey='Fast'>Fast</span>" +
 				   "	    </label>" +
 				   "	</div>",
-		      code_init:   function() { $('#label8-' + get_cfg('NOTIF_delay')).button('toggle'); },
+		      code_init:   function() { 
+			               $('#label8-' + get_cfg('NOTIF_delay')).button('toggle'); 
+		                   },
                       description: "<span data-langkey='Notification speed: time before disapear'>Notification speed: time before disapear</span>"
                    });
 
@@ -104,7 +110,9 @@
 				   "		<input type='radio' name='options' id='radio11-false'  autocomplete='off' >Off" +
 				   "	    </label>" +
 				   "	</div>",
-		      code_init:   function() { $('#label11-' +        get_cfg('use_voice')).button('toggle'); },
+		      code_init:   function() { 
+			               $('#label11-' +        get_cfg('use_voice')).button('toggle'); 
+		                   },
                       description: "<span data-langkey='Active voice: external voice control'>Active voice: external voice control</span>"
                    });
 
@@ -127,7 +135,9 @@
 				   "		<input type='radio' name='options' id='radio7-blackboard' aria-label='Editor theme: dark' autocomplete='off' ><span data-langkey='Dark'>Dark</span>" +
 				   "	    </label>" +
 				   "	</div>",
-		      code_init:   function() { $('#label7-' +      get_cfg('editor_theme')).button('toggle'); },
+		      code_init:   function() { 
+			               $('#label7-' +      get_cfg('editor_theme')).button('toggle'); 
+		                   },
                       description: "<span data-langkey='Editor theme: light or dark'>Editor theme: light or dark</span>"
                    });
 
@@ -149,7 +159,9 @@
 			           "	<option value='sublime'>Sublime</option>" +
 			           "    </select>" +
 			           "</div>",
-                      code_init:   function() { $('#select2').val(get_cfg('editor_mode')); },
+                      code_init:   function() { 
+			               $('#select2').val(get_cfg('editor_mode')); 
+		                   },
                       description: "<span data-langkey='Editor mode: vim, emacs, etc.'>Editor mode: vim, emacs, etc.</span>"
                    });
 
@@ -176,7 +188,9 @@
 				   "		<input type='radio' name='options' id='radio12-1'  autocomplete='off' ><span data-langkey='Fast'>Fast</span>" +
 				   "	    </label>" +
 				   "	</div>",
-		      code_init:   function() { $('#label12-' +        get_cfg('DBG_delay')).button('toggle'); },
+		      code_init:   function() { 
+			               $('#label12-' +        get_cfg('DBG_delay')).button('toggle'); 
+		                   },
                       description: "<span data-langkey='Running speed: execution speed'>Running speed: execution speed</span>"
                    });
 
@@ -199,7 +213,9 @@
 				   "		<span class='d-none d-sm-inline-flex' data-langkey='&#181;instructions'>&#181;instructions</span><span class='d-sm-none'>&#181;instruc.</span></label>" +
 				   "	    </label>" +
 				   "	</div>",
-		      code_init:   function() { $('#label1-' +         get_cfg('DBG_level')).button('toggle'); },
+		      code_init:   function() { 
+			               $('#label1-' +         get_cfg('DBG_level')).button('toggle'); 
+		                   },
                       description: "<span data-langkey='Step-by-step: element in run mode'>Step-by-step: element in run mode</span>"
                    });
 
@@ -211,7 +227,10 @@
 		                   "   		<img alt='stop icon' id='img_select1' src='images/stop/stop_classic.gif' " +
 			           "                 style='position:relative; left:10px; height:30px !important; width:30px !important;'>" +
 			           "</a>",
-                      code_init:   function() { $('#img_select1').attr("src","images/stop/stop_" +  get_cfg('ICON_theme') + ".gif"); $('#breakpointicon1').popover({ html: true, content: wepsim_show_breakpoint_icon_list }); },
+                      code_init:   function() { 
+			               $('#img_select1').attr("src","images/stop/stop_" +  get_cfg('ICON_theme') + ".gif"); 
+			               $('#breakpointicon1').popover({ html: true, content: wepsim_show_breakpoint_icon_list, sanitizeFn: function(content){return content;}  }); 
+		                   },
                       description: "<span data-langkey='Breakpoint icon: icon to be used for breakpoints'>Breakpoint icon: icon to be used for breakpoints</span>"
                    });
 
@@ -233,7 +252,9 @@
 				   "		<option value='50000'>50000</option>" +
 				   "	    </select>" +
 				   "	 </div>",
-                      code_init:   function() { $('#select6').val(get_cfg('DBG_limitins')); },
+                      code_init:   function() { 
+			               $('#select6').val(get_cfg('DBG_limitins')); 
+		                   },
                       description: "<span data-langkey='Limit instructions: number of instructions to be executed'>Limit instructions: number of instructions to be executed</span>"
                    });
 
@@ -255,7 +276,9 @@
 				   "		<option value='50000'>50000</option>" +
 				   "	    </select>" +
 				   "	 </div>",
-                      code_init:   function() { $('#select3').val(get_cfg('DBG_limitick')); },
+                      code_init:   function() { 
+			               $('#select3').val(get_cfg('DBG_limitick')); 
+		                   },
                       description: "<span data-langkey='Limit instruction ticks: to limit clock ticks'>Limit instruction ticks: to limit clock ticks</span>"
                    });
 
@@ -282,7 +305,9 @@
 				   "		<input type='radio' name='options' id='radio2-8'  autocomplete='off' >Oct." +
 				   "	    </label>" +
 				   "	</div>",
-		      code_init:   function() { $('#label2-' + get_cfg('RF_display_format')).button('toggle'); },
+		      code_init:   function() { 
+			               $('#label2-' + get_cfg('RF_display_format')).button('toggle'); 
+		                   },
                       description: "<span data-langkey='Display format'>Display format</span>&nbsp;" +
                                    "<a href='#' data-toggle='popover1' title='Example of display formats' data-html='true' " +
                                    "   data-content='<img alt=\"register file example\" src=\"images/cfg-rf.gif\" class=\"img-fluid\">'><span <span data-langkey='(example)'>(example)</span></a>"
@@ -305,7 +330,9 @@
 				   "		<input type='radio' name='options' id='radio3-logical' autocomplete='off' ><span data-langkey='Labels'>Labels</span>" +
 				   "	    </label>" +
 				   "	</div>",
-		      code_init:   function() { $('#label3-' +   get_cfg('RF_display_name')).button('toggle'); },
+		      code_init:   function() { 
+			               $('#label3-' +   get_cfg('RF_display_name')).button('toggle'); 
+		                   },
                       description: "<span data-langkey='Register file names'>Register file names</span>"
                    });
 
@@ -326,7 +353,9 @@
 				   "		<input type='radio' name='options' id='radio9-false' aria-label='Is editable: false' autocomplete='off' >Off" +
 				   "	    </label>" +
 				   "	</div>",
-		      code_init:   function() { $('#label9-' +       get_cfg('is_editable')).button('toggle'); },
+		      code_init:   function() { 
+			               $('#label9-' +       get_cfg('is_editable')).button('toggle'); 
+		                   },
                       description: "<span data-langkey='Editable registers: edit register file values'>Editable registers: edit register file values</span>"
                    });
 
@@ -341,7 +370,9 @@
 				   "		class='noshadow-d m-0' " +
 				   "		onchange=\"update_cfg('color_data_active', $('#colorpicker1').spectrum('get')); refresh();\">" +
 				   "</fieldset>",
-		      code_init:   function() { $('#colorpicker1').spectrum({ preferredFormat: 'hex', color: get_cfg('color_data_active')}); },
+		      code_init:   function() { 
+			               $('#colorpicker1').spectrum({ preferredFormat: 'hex', color: get_cfg('color_data_active')}); 
+		                   },
                       description: "<span data-langkey='Data-path color'>Data-path color</span> <a href='#' data-toggle='popover1' title='Example of data-path color' data-html='true' data-content='<img alt=\"register file example\" src=\"images/cfg-colors.gif\" class=\"img-fluid\">'><span <span data-langkey='(example)'>(example)</span></a>"
                    });
 
@@ -356,7 +387,9 @@
 				   "		class='noshadow-d m-0' " +
 				   "		onchange=\"update_cfg('color_name_active', $('#colorpicker2').spectrum('get')); refresh();\">" +
 				   "	 </fieldset> ",
-		      code_init:   function() { $('#colorpicker2').spectrum({ preferredFormat: 'hex', color: get_cfg('color_name_active')}); },
+		      code_init:   function() { 
+			               $('#colorpicker2').spectrum({ preferredFormat: 'hex', color: get_cfg('color_name_active')}); 
+		                   },
                       description: "<span data-langkey='Signal color'>Signal color</span>"
                    });
 
@@ -377,7 +410,9 @@
 				   "		<input type='radio' name='options' id='radio10-false'  autocomplete='off' >Activation" +
 				   "	    </label>" +
 				   "	</div> ",
-		      code_init:   function() { $('#label10-' +       get_cfg('is_byvalue')).button('toggle'); },
+		      code_init:   function() { 
+			               $('#label10-' +       get_cfg('is_byvalue')).button('toggle'); 
+		                   },
                       description: "<span data-langkey='Show by value or by activation'>Show by value or by activation</span>"
                    });
 
@@ -398,7 +433,9 @@
 				   "		<input type='radio' name='options' id='radio5-false'  autocomplete='off' >Off" +
 				   "	    </label>" +
 				   "	</div> ",
-		      code_init:   function() { $('#label5-' +    get_cfg('is_interactive')).button('toggle'); },
+		      code_init:   function() { 
+			               $('#label5-' +    get_cfg('is_interactive')).button('toggle'); 
+		                   },
                       description: "<span data-langkey='Interactive mode: signal value can be updated'>Interactive mode: signal value can be updated</span>"
                    });
 
@@ -419,7 +456,9 @@
 				   "		<input type='radio' name='options' id='radio6-false'  autocomplete='off' >Off" +
 				   "	    </label>" +
 				   "	</div> ",
-		      code_init:   function() { $('#label6-' +    get_cfg('is_quick_interactive')).button('toggle'); },
+		      code_init:   function() { 
+			               $('#label6-' +    get_cfg('is_quick_interactive')).button('toggle'); 
+		                   },
                       description: "<span data-langkey='Quick interactive mode: quick update of signal value'>Quick interactive mode: quick update of signal value</span>"
                    });
 

@@ -153,7 +153,10 @@
 		        return '<span class="text-dark"><strong>R' + index + '</strong></span>' +
                                '<button type="button" id="close" class="close" ' +
                                '        onclick="$(' + id_button + ').click();">&times;</button>';
-		    }
+		    },
+		    sanitizeFn: function (content) {
+                        return content ; // DOMPurify.sanitize(content) ;
+                    }
 	    });
         }
 
@@ -273,7 +276,10 @@
 		        return '<span class="text-dark"><strong>' + simhw_sim_states()[index].name + '</strong></span>' +
                                '<button type="button" id="close" class="close" ' +
                                '        onclick="$(' + id_button + ').click();">&times;</button>';
-		    }
+		    },
+		    sanitizeFn: function (content) {
+                        return content ; // DOMPurify.sanitize(content) ;
+                    }
 	    });
         }
 

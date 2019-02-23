@@ -95,7 +95,7 @@
             wepsim_notify_error('<strong>ERROR</strong>',
                                 errorMsg + '<br>' + '<center>' + lineMsg +
                                 '<button type="button" class="btn btn-danger" ' +
-                                '        onclick="wepsim_notify_close();">Close</button>' +
+                                '        onclick="wepsim_notify_close();"><span data-langkey="Close">Close</span></button>' +
                                 '</center>') ;
     }
 

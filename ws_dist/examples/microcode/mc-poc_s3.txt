@@ -5,38 +5,50 @@
 
 begin
 {
-                    # if (INT) go mrti
-                    (A0=0, B=0, C=1, MADDR=mrti),
+                  # if (NOT INT) go fetch
+                    (A0=0, B=1, C=1, MADDR=fetch),
+                  # MBR <- DB <- INTV
+                    (INTA, BW=11, M1=1, C1),
+                  # RT1 <- MBR
+                    (T1, C4),
+                  # csw_rt1(intv)
+                    (A0=0, B=1, C=0, MADDR=csw_rt1)
 
-    fetch:          (T2, C0),
+    fetch:        
+                  # MAR <- PC
+                    (T2, C0),
+                  # MBR <- M[MAR], PC <- PC+4
                     (TA, R, BW=11, M1=1, C1=1, MB=1, SelCop=10000, MC, T6, C2),
+                  # RI <- MBR, RT1 <- MBR
                     (T1, C3, C4),
+                  # go co2maddr
                     (A0, B=0, C=0)
 
-    mrti:           # MBR <- DB <- INTV
-                    (INTA, BW=11, M1=1, C1),
-                    # RT1 <- MBR
-                    (T1, C4),
-
-    csw_rt1:        # push PC
+    csw_rt1:        
+                  # push PC
                     (ExCode=100, T11, MR, SELC=100000, LC)
                     (MR, SELA=11101, MA=0, SELB=100000, MB=0, MC, SELCOP=1011, T6=1, SELC=11101, LC, C0),
                     (T2, M1=0, C1),
                     (BW=11, TA, TD, W)
-                    # push SR
+                  # push SR
                     (ExCode=100, T11, MR, SELC=100000, LC)
                     (MR, SELA=11101, MA=0, SELB=100000, MB=0, MC, SELCOP=1011, T6=1, SELC=11101, LC, C0),
                     (T8, M1=0, C1),
                     (BW=11, TA, TD, W),
-                    # MAR <- RT1*4
+                  # SR.U=0
+                    (MR, SELC=100000, LC, T8),
+                    (MR, SELC=100000, LC, MA=0, MC=1, SELCOP=101, T6),
+                    (MR, SELC=100000, LC, MA=0, MC=1, SELCOP=111, T6),
+                    (MR, SELA=100000, T9, M7=0, C7),
+                  # MAR <- RT1*4
                     (ExCode=100, T11, MR, SELC=100000, LC)
                     (SIZE=10000, T3,  MR, SELC=100001, LC)
                     (MR, SELA=100001, SELB=100000, MA=0, MB=0, MC, SELCOP=1100, T6=1, C0),
-                    # MBR <- MP[MAR]
+                  # MBR <- MP[MAR]
                     (TA, R, BW=11, M1=1, C1=1),
-                    # PC <- MAR
+                  # PC <- MAR
                     (T1, C2),
-                    # go fetch
+                  # go fetch
                     (A0=0, B=1, C=0, MADDR=fetch)
 }
 
@@ -61,6 +73,7 @@ reti {
               (T1, C2),
               (MR, SELB=11101, MB=0, MC, SELCOP=10000, T6=1, SELC=11101, LC),
 
+              # go begin
               (A0=1, B=1 ,C=0)
         }
 }
@@ -71,6 +84,7 @@ syscall {
         {
                     # RT1 <- ExCode=2
                     (ExCode=10, T11, C4),
+
                     # csw_rt1(2)
                     (A0=0, B=1, C=0, MADDR=csw_rt1)
         }
