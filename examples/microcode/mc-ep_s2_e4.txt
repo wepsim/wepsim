@@ -1,27 +1,34 @@
 begin
 {
+                  # if (NOT INT) go fetch
                     (A0=0, B=1, C=1, MADDR=fetch),
-                    # push PC
+                  # push PC
                     (MR=1, SELA=11101, MA=0, MB=10, MC=1, SELCOP=1011, T6=1, SELC=11101, LC=1, C0),
                     (T2=1, M1=0, C1),
                     (BW=11, TA=1, TD=1, W=1)
-                    # push SR
+                  # push SR
                     (MR=1, SELA=11101, MA=0, MB=10, MC=1, SELCOP=1011, T6=1, SELC=11101, LC=1, C0),
                     (T8=1, M1=0, C1),
                     (BW=11, TA=1, TD=1, W=1),
-                    # MBR <- DB <- INTV
+                  # MBR <- DB <- INTV
                     (INTA, BW=11, M1=1, C1=1),
-                    # RT1 <- MBR
+                  # RT1 <- MBR
                     (T1=1, C4=1),
-                    # MAR <- RT1*4
+                  # MAR <- RT1*4
                     (MA=1, MB=10, MC=1, SELCOP=1100, T6, M2=0, C0),
-                    # MBR <- MP[MAR]
+                  # MBR <- MP[MAR]
                     (TA=1, R=1, BW=11, M1=1, C1=1),
-                    # PC <- MAR
+                  # PC <- MAR
                     (T1, M2=0, C2),
-    fetch:          (T2, C0),
+
+    fetch:         
+                  # MAR <- PC
+                    (T2, C0),
+                  # MBR <- M[MAR]
                     (TA, R, BW=11, M1=1, C1=1),
+                  # RI <- MBR, PC <- PC + 4
                     (M2, C2, T1, C3),
+                  # go co2maddr
                     (A0, B=0, C=0)
 }
 
