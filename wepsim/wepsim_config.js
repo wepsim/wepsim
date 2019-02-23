@@ -140,7 +140,7 @@
 	        '<div class="row mt-2 p-1 border-top border-secondary">' +
                 '<button type="button" id="close" data-role="none" ' +
                 '        class="btn btn-sm btn-danger w-100 p-0" ' +
-                '        onclick="$(\'#breakpointicon1\').popover(\'hide\');">Close</button>' +
+                '        onclick="$(\'#breakpointicon1\').popover(\'hide\');"><span data-langkey="Close">Close</span></button>' +
 	        '</div>' +
 	        '</div>';
 

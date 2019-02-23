@@ -176,7 +176,7 @@
 <body>
 
 	<span id="ws_loader" class="collapse show">
-		<table style="width:100%; height:100%; position:fixed; background-color: white;  z-index:100;">
+		<table style="width:100%; height:100%; position:fixed; background-color: white; z-index:100;">
 		<tr>
 		<td align="center">
 		    <div class="spinner-border spinner-border-xl text-success" role="status">
@@ -963,7 +963,7 @@
 		 <button type="button" class="btn btn-outline-dark  btn-sm col-xs-4 col-sm-3 float-left mr-auto"
                          data-toggle="collapse" data-target=".collapse7">&plusmn; Desc<span class="d-none d-sm-inline-flex">ription</span></button>
 		 <button type="button" class="btn btn-danger        btn-sm col-xs-3 col-sm-2 float-right" 
-                         data-dismiss="modal">Close</button>
+			 data-dismiss="modal"><span data-langkey="Close">Close</span></button>
 	   </div><!-- /footer -->
 	</div>
      </div>
@@ -1048,7 +1048,7 @@
 		 <button type="button" class="btn btn-outline-dark  btn-sm col-xs-4 col-sm-3 float-left mr-auto"
                          data-toggle="collapse" data-target=".collapse7">&plusmn; Desc<span class="d-none d-sm-inline-flex">ription</span></button>
 		 <button type="button" class="btn btn-danger        btn-sm col-xs-3 col-sm-2 float-right" 
-                         data-dismiss="modal">Close</button>
+			 data-dismiss="modal"><span data-langkey="Close">Close</span></button>
 	   </div><!-- /footer -->
 	</div>
      </div>
@@ -1095,7 +1095,7 @@
 		 <button type="button" class="btn btn-outline-dark  btn-sm col-xs-4 col-sm-3 float-left mr-auto"
                          data-toggle="collapse" data-target=".collapse8">&plusmn; Ind<span class="d-none d-sm-inline-flex">ividual</span></button>
 		 <button type="button" class="btn btn-danger        btn-sm col-xs-3 col-sm-2 float-right"
-                         data-dismiss="modal">Close</button>
+			 data-dismiss="modal"><span data-langkey="Close">Close</span></button>
 	   </div><!-- /footer -->
 	</div>
      </div>
@@ -1155,7 +1155,7 @@
 						   wepsim_dialog_current_state();
 						   $('#states3').collapse('show');
 						   return false;"
-					  data-inline="true">Add <span class='d-none d-sm-inline-flex'>'Current State' to History</span></span>
+					  data-inline="true"><span data-langkey="Add">Add</span> <span class='d-none d-sm-inline-flex'><span data-langkey="'Current State' to History">'Current State' to History</span></span></span>
 		            </h5>
 		          </div>
 			  <div id="states3b" class="collapse show" aria-labelledby="state_header_1">
@@ -1180,7 +1180,7 @@
 								   var curr_tag = $('#curr_clk_maddr').html();
 								   $('#s_clip').html(curr_tag);
 								   return false;"
-							  data-inline="true">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>
+							  data-inline="true"><span data-langkey="Copy">Copy</span><span class="d-none d-sm-inline-flex">&nbsp;<span data-langkey="to clipboard">to clipboard</span></span></button>
 						  <button class="btn btn-outline-dark btn-sm col-auto float-right"
 							  onclick="var txt_chklst1 = get_clipboard_copy();
 								   var obj_exp1    = simcore_simstate_checklist2state(txt_chklst1);
@@ -1190,9 +1190,9 @@
 								   $('#s_ref').html(ref_tag);
 								   wepsim_dialog_check_state('check_results1', obj_exp1, obj_exp2);
 								   $('#check_results_scroll1').collapse('show');"
-							  type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>
+							  type="button"><span data-langkey="Check">Check</span> <span class="d-none d-md-inline-flex"><span data-langkey="differences with clipboard state">differences with clipboard state</span></span></button>
 						  <button class="btn btn-outline-dark btn-sm col-auto float-right"
-							  data-toggle="collapse" data-target="#collapse_X">&plusmn; Show</button>
+							  data-toggle="collapse" data-target="#collapse_X">&plusmn; <span data-langkey="Show">Show</span></button>
 					</div>
 					<div id="collapse_X" class="mt-2 collapse show">
 						<form id="end_state_form1"
@@ -1229,7 +1229,7 @@
 						   wepsim_notify_success('<strong>INFO</strong>', 'Removed all !.');
 						   wepsim_state_history_list() ;
 						   return false;"
-					  data-inline="true">Reset <span class='d-none d-sm-inline-flex'>history</span></span>
+					  data-inline="true"><span data-langkey='Reset'>Reset</span> <span class='d-none d-sm-inline-flex'><span data-langkey='history'>history</span></span></span>
 		            </h5>
 		          </div>
 			  <div id="history3b" class="collapse show" aria-labelledby="state_header_2">
@@ -1238,7 +1238,7 @@
 				     style="max-height:40vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
 				     <div id="history1">
 					  <div class="pt-2"></div>
-					  <span style="background-color:#FCFC00">&lt;Empty history&gt;</span>
+					  <span style="background-color:#FCFC00">&lt;<span data-langkey="Empty history">Empty history</span>&gt;</span>
 				     </div>
 				</div>
 		            </div>
@@ -1252,7 +1252,10 @@
 				    <span class="btn btn-light btn-sm float-right py-0"
 					  onclick="CopyFromDiv('check_results_scroll1');
 						   return false;"
-					  data-inline="true">Copy to clipboard</span>
+					  data-inline="true">
+					  <span data-langkey='Copy'>Copy</span>
+					  <span class="d-none d-sm-inline-flex">&nbsp;<span data-langkey='to clipboard'>to clipboard</span></span>
+				    </span>
 		            </h5>
 		          </div>
 			  <div id="check_results_scroll1b" class="collapse show" aria-labelledby="state_header_3">
@@ -1288,7 +1291,7 @@
       <div class="modal-footer">
            <button class="btn btn-danger btn-sm col-xs-3 col-sm-2 float-right"
                    onclick="$('#current_state1').modal('hide');"
-                   type="button">Close</button>
+		   type="button"><span data-langkey="Close">Close</span></button>
       </div>
    </div>
 </div>

@@ -133,7 +133,7 @@
 
     function wepsim_state_history_empty ( )
     {
-         var empty_history = '<span style="background-color:#FCFC00">&lt;Empty history&gt;</span>' ;
+         var empty_history = '<span style="background-color:#FCFC00">&lt;<span data-langkey="Empty history">Empty history</span>&gt;</span>' ;
 
          $('#history1').html(empty_history) ;
     }
@@ -168,7 +168,7 @@
                   'Hour: ' + t.getHours()    + ':' + t.getMinutes()   + ':' + t.getSeconds() + '-' + t.getMilliseconds() + '<br>' +
 		  '<button type="button" id="close" data-role="none" ' +
                   '        class="btn btn-sm btn-danger w-100 p-0" ' + 
-		  '        onclick="$(\'#' + it + '\').popover(\'hide\');">Close</button>' +
+		  '        onclick="$(\'#' + it + '\').popover(\'hide\');"><span data-langkey="Close">Close</span></button>' +
                   '</div>' ;
 
 	     vrow = '' ;
@@ -194,7 +194,7 @@
                   '                                    $(\'#collapse_' + i + '\').collapse(\'hide\'); ' + 
                   '                                    $(\'#s_clip\').html(\'' + state_history[i].title_short + '\'); ' + 
                   '                                    $(\'#s_ref\').html(\'reference\'); " ' + 
-                  '                           type="button">Copy<span class="d-none d-sm-inline-flex">&nbsp;to clipboard</span></button>' +
+                  '                           type="button"><span data-langkey="Copy">Copy</span><span class="d-none d-sm-inline-flex">&nbsp;<span data-langkey="to clipboard">to clipboard</span></span></button>' +
                   '                   <button class="btn btn-outline-dark btn-sm col-auto float-right"' + 
                   '                           onclick="var txt_chklst1 = get_clipboard_copy();' +
                   '                                    var obj_exp1    = simcore_simstate_checklist2state(txt_chklst1);' +
@@ -203,9 +203,9 @@
                   '                                    wepsim_dialog_check_state(\'check_results1\', obj_exp1, obj_exp2);' +
                   '                                    $(\'#s_ref\').html(\'' + state_history[i].title_short + '\'); ' + 
                   '                                    $(\'#check_results_scroll1\').collapse(\'show\');"' +
-                  '                           type="button">Check <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>' +
+                  '                           type="button"><span data-langkey="Check">Check</span> <span class="d-none d-md-inline-flex">differences with clipboard state</span></button>' +
                   '                   <button class="btn btn-outline-dark btn-sm col-auto float-right"' + 
-		  '  		              data-toggle="collapse" data-target="#collapse_'+i+'">&plusmn; Show</button>' +
+		  '  		              data-toggle="collapse" data-target="#collapse_'+i+'">&plusmn; <span data-langkey="Show">Show</span></button>' +
                   '             </div>' +
 			        tt +
                   '             <div id="collapse_' + i + '" class="border border-secondary mt-2 collapse">' +

@@ -232,7 +232,7 @@
 		'</ul>' +
                 '<button type="button" id="close" data-role="none" ' +
                 '        class="btn btn-sm btn-danger w-100 p-0 mt-2" ' +
-                '        onclick="$(\'#' + asm_po + '\').popover(\'hide\');">Close</button>' ;
+                '        onclick="$(\'#' + asm_po + '\').popover(\'hide\');"><span data-langkey="Close">Close</span></button>' ;
 
         return o ;
     }
@@ -274,7 +274,7 @@
 		'</li>' +
 	        '<button type="button" id="close" data-role="none" ' + 
 		'        class="btn btn-sm btn-danger w-100 p-0 mt-2" ' +
-		'        onclick="$(\'#' + quick_po + '\').popover(\'hide\');">Close</button>' +
+		'        onclick="$(\'#' + quick_po + '\').popover(\'hide\');"><span data-langkey="Close">Close</span></button>' +
 		'</ul>' ;
 
         return o ;

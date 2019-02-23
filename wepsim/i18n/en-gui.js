@@ -38,12 +38,22 @@
 			"Refresh":  			                "Refresh",
 			"Current State":  			        "Current State",
 			"History":  			                "History",
+			"Empty history":  			        "Empty history",
 			"Differences":  			        "Differences",
+			"differences with clipboard state":  	        "differences with clipboard state",
 			"processor":  			                "processor",
 			"details":  			                "details",
                         "Signals": 		                     	"Signals",
                         "Behaviors": 		                     	"Behaviors",
                         "Control States": 	                     	"Control States",
-                        "Dependencies": 		                "Dependencies"
+                        "Dependencies": 		                "Dependencies",
+                        "Close": 		                	"Close",
+                        "Show": 		                	"Show",
+                        "history": 		                	"history",
+                        "Add": 		                	        "Add",
+                        "'Current State' to History": 		        "'Current State' to History",
+                        "Check": 		                	"Check",
+                        "Copy": 		                	"Copy",
+                        "to clipboard": 		                "to clipboard"
                   } ;
 
