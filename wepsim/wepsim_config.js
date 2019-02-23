@@ -34,10 +34,13 @@
         }
 	$("#container-config2").scrollTop(0);
         $('a[data-toggle="popover1"]').popover({
-	     placement: 'bottom',
-	     trigger: 'focus, hover',
-	     animation: false,
-	     delay: { "show": 500, "hide": 100 }
+	          placement:  'bottom',
+	          trigger:    'focus, hover',
+	          animation:  false,
+	          delay:      { "show": 500, "hide": 100 },
+		  sanitizeFn: function (content) {
+                                  return content ; // DOMPurify.sanitize(content) ;
+                              }
         }) ;
 
 	i18n_update_tags('cfg', idiom_xx) ;

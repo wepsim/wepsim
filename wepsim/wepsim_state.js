@@ -229,10 +229,13 @@
 	          trigger:   'click',
 	          container: 'body',
 		  animation:  false,
-                  content: function() {
-                                 var id = $(this).attr('id') ;
-                                 return $('#popover-content-' + id).html() ;
-                           }
+                  content:    function() {
+                                  var id = $(this).attr('id') ;
+                                  return $('#popover-content-' + id).html() ;
+                              },
+		  sanitizeFn: function (content) {
+                                  return content ; // DOMPurify.sanitize(content) ;
+                              }
 	 });
     }
 

@@ -1513,7 +1513,10 @@
 
 		    // tooltip: trigger by hover
 		    $('[data-toggle="tooltip"]').tooltip({
-                        trigger:   'hover'
+                            trigger:   'hover',
+			    sanitizeFn: function (content) {
+					   return content ; // DOMPurify.sanitize(content) ;
+				        }
                     }) ;
 
 		    // popover...
@@ -1527,13 +1530,19 @@
 			               '</div>',
 			    content:    function() {
                                            return wepsim_show_quick_menu('po1') ;
-                                        }
+                                        },
+			    sanitizeFn: function (content) {
+					   return content ; // DOMPurify.sanitize(content) ;
+				        }
 		    });
 		    $('a[data-toggle="popover1"]').popover({
-			     placement: 'bottom',
-			     animation: false,
-			     trigger:   'focus, hover',
-			     delay: { "show": 500, "hide": 100 }
+			    placement: 'bottom',
+			    animation: false,
+			    trigger:   'focus, hover',
+			    delay: { "show": 500, "hide": 100 },
+			    sanitizeFn: function (content) {
+					   return content ; // DOMPurify.sanitize(content) ;
+				        }
 		    }) ;
 		    $("[data-toggle=popover2]").popover({
 			    html:       true,
@@ -1542,7 +1551,10 @@
                             container: 'body',
 			    content:    function() {
                                            return wepsim_show_asm_columns_checked('popover2_asm') ;
-                                        }
+                                        },
+			    sanitizeFn: function (content) {
+					   return content ; // DOMPurify.sanitize(content) ;
+				        }
 		    });
 
 		    // init: general

@@ -311,7 +311,10 @@
               $(div_hw).html(o) ;
 
 	      $('[data-toggle="tooltip"]').tooltip({
-	  	  trigger:   'hover'
+	  	  trigger:   'hover',
+		  sanitizeFn: function (content) {
+                                 return content ; // DOMPurify.sanitize(content) ;
+                              }
 	      }) ;
 
               $('.popover_hw').popover({
@@ -322,7 +325,10 @@
 			    '<div class="arrow border-dark" style="border-right-color:black !important;"></div>' +
 			    '<h3 class="popover-header"></h3>' +
 			    '<div class="popover-body bg-dark text-white border-dark"></div>' +
-			    '</div>'
+			    '</div>',
+		  sanitizeFn: function (content) {
+                                 return content ; // DOMPurify.sanitize(content) ;
+                              }
 	      }) ;
 
 	      return true ;
