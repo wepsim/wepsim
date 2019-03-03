@@ -198,17 +198,6 @@
                      });
 
     examples.en.push({
-                       id: 'S4E5',
-                       title: "Coroutines",
-                       level: "Laboratory",
-                       modes:  "newbie,intro,tutorial,ep",
-                       hardware:  "ep",
-                       microcode: "ep_s4_e5",
-                       assembly:  "ep_s4_e5",
-                       description: "Example of corrutines.<br>"
-                     });
-
-    examples.en.push({
                        id: 'S5E1',
                        title: "Dummy instruction",
                        level: "Special",
@@ -217,6 +206,17 @@
                        microcode: "ep_bare",
                        assembly:  "ep_s5_e1",
                        description: "Test example.<br>"
+                     });
+
+    examples.en.push({
+                       id: 'S5E2',
+                       title: "Coroutines",
+                       level: "Special",
+                       modes:  "newbie,intro,tutorial,ep",
+                       hardware:  "ep",
+                       microcode: "ep_s5_e2",
+                       assembly:  "ep_s5_e2",
+                       description: "Example of corrutines.<br>"
                      });
 
     // EP+MIPS
