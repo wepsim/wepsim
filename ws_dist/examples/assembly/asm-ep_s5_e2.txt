@@ -14,12 +14,12 @@
    ptable:    # slice + address + next as offset + free slot
              .word 5
              .word coroutine1
-             .word 20
+             .word 16
              .word 0
               # slice + address + next as offset + free slot
              .word 5
              .word coroutine2
-             .word -20
+             .word -16
              .word 0
 
    current:  .word 0
@@ -47,37 +47,38 @@ sys_clone:   lw $26 ($29)
              reti
 
 sys_exit:    # pA->free = true
-             li  $26 12
+             li  $1 12
              lw  $27 current
-             add $27 $27 $26
+             add $27 $27 $1
              li  $26 1
              sw  $26 ($27)
              # pA = scheduler() // pA->next
-             li  $26 8
+             li  $1 8
              lw  $27 current
-             add $27 $27 $26
+             add $27 $27 $1
              lw  $26 ($27)
              lw  $27 current
              add $27 $27 $26
              sw  $27 current
              # if pA->free == true return
-             li  $26 12
+             li  $1 12
              lw  $27 current
-             add $27 $27 $26
+             add $27 $27 $1
              lw  $26 ($27)
-             li  $27 1
-             beq $27 $26 end2
+             li  $1 1
+             beq $26 $1 end2
              # cpu.pc = pA->pc
-             li  $26 4
+             li  $1 4
              lw  $27 current
-             add $27 $27 $26
+             add $27 $27 $1
              lw $26 ($27)
              sw $26 ($29)
              # return
              reti
-       end2: li $26 0
+       end2: # exit from both coroutines
+             li $26 0
              sw $26 current
-             la $26 end_rr
+             lw $26 previous
              sw $26 ($29)
              # return
              reti
@@ -100,40 +101,36 @@ sys_exit:    # pA->free = true
              # if pA == NULL return
              li  $26 0
              lw  $27 current
-             lw  $27 ($27)
              beq $27 $26 e_i0
              # pA->r = pA->r - 1
-             li  $26 1
-             lw  $27 current
-             lw  $27 ($27)
-             sub $27 $27 $26
-             lw  $26 current
-             sw  $27 ($26)
-             # if pA->r == 0 return
-             li  $26 0
-             bne $27 $26 e_i0
-       r_i0: # pA->r = 500
-             li  $26 5 # SLICE=5
-             lw  $27 current
              lw  $26 ($27)
+             li  $1 1
+             sub $26 $26 $1
+             sw  $26 ($27)
+             # if pA->r == 0 return
+             li  $1 0
+             bne $26 $1 e_i0
+       r_i0: # pA->r = 5 (SLICE=5)
+             li  $26 5
+             sw  $26 ($27)
              # pA->pc = cpu.pc
-             li  $26 4
+             li  $1 4
              lw  $27 current
-             add $27 $27 $26
+             add $27 $27 $1
              lw $26 ($29)
              sw $26 ($27)
              # pA = scheduler() // pA->next
-             li  $26 4
+             li  $1 8
              lw  $27 current
-             add $27 $27 $26
+             add $27 $27 $1
              lw  $26 ($27)
              lw  $27 current
              add $27 $27 $26
              sw  $27 current
              # cpu.pc = pA->pc
-             li  $26 4
+             li  $1 4
              lw  $27 current
-             add $27 $27 $26
+             add $27 $27 $1
              lw $26 ($27)
              sw $26 ($29)
              # return
@@ -174,7 +171,7 @@ sys_exit:    # pA->free = true
     coroutine1:
            # coroutine 1
            li $t0 0
-       c1: li $t1 10000
+       c1: li $t1 101
            bge $t0 $t1 e1
            # print 'a'
            li  $a0 'a'
@@ -184,12 +181,13 @@ sys_exit:    # pA->free = true
            li  $t1 1
            add $t0 $t0 $t1
            b c1
-       e1: jr $ra
+       e1: li $v0 10
+           syscall
 
     coroutine2:
            # coroutine 2
            li $t2 0
-       c2: li $t3 5000
+       c2: li $t3 102
            bge $t2 $t3 e2
            # print 'b'
            li  $a0 'b'
@@ -199,5 +197,6 @@ sys_exit:    # pA->free = true
            li  $t3 1
            add $t2 $t2 $t3
            b c2
-       e2: jr $ra
+       e2: li $v0 10
+           syscall
 
