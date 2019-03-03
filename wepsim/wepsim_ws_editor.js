@@ -75,6 +75,17 @@
 
     // Error dialog
 
+    function goError ( editor, pos )
+    {
+         editor.setCursor({ line: pos-1, ch: 0 }) ;
+         var marked = editor.addLineClass(pos-1, 'background', 'CodeMirror-selected') ;
+         setTimeout(function(){ editor.removeLineClass(marked, 'background', 'CodeMirror-selected'); }, 3000) ;
+
+   	 var t = editor.charCoords({line: pos, ch: 0}, 'local').top ;
+   	 var middleHeight = editor.getScrollerElement().offsetHeight / 2 ;
+   	 editor.scrollTo(null, t - middleHeight - 5) ;
+    }
+
     function showError ( Msg, editor )
     {
             var errorMsg = Msg.replace(/\t/g,' ').replace(/   /g,' ');
@@ -84,12 +95,10 @@
             if (null != pos) {
                 pos = parseInt(pos[0].match(/\d+/)[0]);
                 lineMsg += '<button type="button" class="btn btn-danger" ' +
-                           '        onclick="wepsim_notify_close();' +
-                           '                      var marked = ' + editor + '.addLineClass(' + (pos-1) + ', \'background\', \'CodeMirror-selected\');' +
-                           '                 setTimeout(function() { ' + editor + '.removeLineClass(marked, \'background\', \'CodeMirror-selected\'); }, 3000);' +
-		           '		     var t = ' + editor + '.charCoords({line: ' + pos + ', ch: 0}, \'local\').top;' +
-		           '		     var middleHeight = ' + editor + '.getScrollerElement().offsetHeight / 2;' +
-		           '		     ' + editor + '.scrollTo(null, t - middleHeight - 5);">Go line ' + pos + '</button>&nbsp;' ;
+                           '        onclick="wepsim_notify_close(); ' + 
+                           '                 goError(' + editor + ', ' + pos + ');">' + 
+                           ' Go line ' + pos + 
+                           '</button>&nbsp;' ;
             }
 
             wepsim_notify_error('<strong>ERROR</strong>',

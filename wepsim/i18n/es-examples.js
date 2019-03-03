@@ -199,13 +199,13 @@
 
     examples.es.push({
                        id: 'S4E5',
-                       title: "syscall y fibras",
+                       title: "corrutinas",
                        level: "Laboratorio",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s4_e5",
                        assembly:  "ep_s4_e5",
-                       description: "Ejemplo de fibras.<br>"
+                       description: "Ejemplo de corrutinas.<br>"
                      });
 
     examples.es.push({

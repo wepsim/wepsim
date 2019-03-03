@@ -7,12 +7,12 @@
 
    ptable:  # slide + address + next as offset + free slot
             .word 500
-            .word fiber1
+            .word corrutine1
             .word 20
             .word 0
             # slide + address + next as offset + free slot
             .word 500
-            .word fiber2
+            .word corrutine2
             .word -20
             .word 0
 
@@ -210,37 +210,41 @@ sys_exit:    # pA->free = true
 
 
 .text
-    fiber1:
-           # fiber 1
+    corrutine1:
+           # corrutine 1
            li $t0 0
-           li $t1 10000
-       f1: bge $t0 $t1 e1
+       c1: li $t1 10000
+           bge $t0 $t1 e1
            # print 'a'
            li  $a0 'a'
            li  $v0 11
            syscall
            # +1
-           add $t0 $t0 1
-           b f1
+           li  $t1 1
+           add $t0 $t0 $t1
+           b c1
        e1: jr $ra
 
-    fiber2:
-           # fiber 2
+    corrutine2:
+           # corrutine 2
            li $t2 0
-           li $t3 5000
-       f2: bge $t2 $t3 e2
+       c2: li $t3 5000
+           bge $t2 $t3 e2
            # print 'b'
            li  $a0 'b'
            li  $v0 11
            syscall
            # +1
-           add $t2 $t2 1
-           b f2
+           li  $t3 1
+           add $t2 $t2 $t3
+           b c2
        e2: jr $ra
 
     main:  # FIFO
-           jal fiber 1
-           jal fiber 2
+           jal corrutine1
+           jal corrutine2
+
+           # TODO: proper bootstrap into RR...
 
            # RR
            # enable i0
@@ -248,14 +252,14 @@ sys_exit:    # pA->free = true
            out $t0 0x1104
            li  $t0 700
            out $t0 0x1108
-           # TODO: RR
-           jal fiber 1
+           jal corrutine1
 
    e_main: # disable i0
            li  $t0 0
            out $t0 0x1104
            li  $t0 0
            out $t0 0x1108
+
            # the end
            jr $ra
 
