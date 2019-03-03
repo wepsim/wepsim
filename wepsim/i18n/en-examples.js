@@ -199,7 +199,7 @@
 
     examples.en.push({
                        id: 'S4E5',
-                       title: "coroutines",
+                       title: "Coroutines",
                        level: "Laboratory",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",

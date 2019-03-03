@@ -1,22 +1,31 @@
+
+#
+# KERNEL: 
+#  + vector:  event handler table (vector
+#  + ptable:  processes table 
+#  + current: point to the process table entry of the running coroutine
+#
+
 .kdata
    vector:  .word rt_i0
             .word rt_div0
             .word rt_sys
 
-   msgi1:   .asciiz "FPE: / by 0\n"
-
    ptable:  # slide + address + next as offset + free slot
             .word 500
-            .word corrutine1
+            .word coroutine1
             .word 20
             .word 0
             # slide + address + next as offset + free slot
             .word 500
-            .word corrutine2
+            .word coroutine2
             .word -20
             .word 0
 
    current: .word 0
+
+   msgi1:   .asciiz "FPE: / by 0\n"
+
 
 .ktext
 sys_prt_str: li   $1 1
@@ -60,48 +69,6 @@ sys_prt_int: li   $1 1
 sys_prt_ch:  out  $a0 0x1000
              reti
 
-sys_rd_str:  li   $0  0
-             li   $1  4
-             sub  $sp $sp $1
-             sw   $a1 ($sp)
-             li   $1  1
-  notready1: beq  $a1 $0 eos1
-             # ch=get_char()
-             in   $27 0x0104
-             beq  $27 $0 notready1
-             in   $27 0x0100
-             out  $27 0x1000 # echo
-             # str[] = ch
-             sb   $27 ($26)
-             add  $26 $26 $1
-             sub  $a1 $a1 $1
-             b notready1
-       eos1: # str[] = '\0'
-             sb   $0 ($26)
-             li   $1  4
-             lw  $a1 ($sp)
-             add $sp $sp $1
-             reti
-
-sys_rd_int:  li   $0  0
-             li   $v0 0
-  notready2: # ch = get_char()
-             in   $27 0x0104
-             beq  $27 $0 notready2
-             in   $27 0x0100
-             out  $27 0x1000 # echo             
-             # if (ch<'0') || (ch>'9') -> eos2
-             li   $1  57
-             bgt  $27 $1 eos2
-             li   $1  48
-             blt  $27 $1 eos2
-             # $v0 = $v0*10 + (ch-48)
-             sub  $27 $27 $1
-             li   $1  10
-             mul  $v0 $v0 $1
-             add  $v0 $v0 $27
-             b notready2
-       eos2: reti
 
 sys_rd_ch:   li   $0  0
   notready3: # ch=get_char()
@@ -142,7 +109,7 @@ sys_exit:    # pA->free = true
              reti
  e_sys_exit: li $26 0
              sw $26 current
-             la $26 e_main
+             la $26 end_rr
              sw $26 ($29)
              # return
              reti
@@ -153,10 +120,6 @@ sys_exit:    # pA->free = true
              beq  $v0 $27 sys_prt_str
              li   $27 1
              beq  $v0 $27 sys_prt_int
-             li   $27 8
-             beq  $v0 $27 sys_rd_str
-             li   $27 5
-             beq  $v0 $27 sys_rd_int
              li   $27 10
              beq  $v0 $27 sys_exit
              li   $27 11
@@ -209,9 +172,37 @@ sys_exit:    # pA->free = true
              b    sys_prt_str
 
 
+   kmain:    
+   begin_rr: # 1.- enable i0
+             li  $t0 0
+             out $t0 0x1104
+             li  $t0 700
+             out $t0 0x1108
+
+             # 2.- setting initial context for coroutine 1
+             la $t0 ptable
+             sw $t0 current
+             # TODO: update 'jal ...' with something else
+             jal coroutine1
+
+   end_rr:   # 3.- disable i0
+             li  $t0 0
+             out $t0 0x1104
+             li  $t0 0
+             out $t0 0x1108
+
+             # 4.- the end
+             jr $ra
+
+
+#
+# USER: 
+#  + coroutine1 + coroutine2
+#
+
 .text
-    corrutine1:
-           # corrutine 1
+    coroutine1:
+           # coroutine 1
            li $t0 0
        c1: li $t1 10000
            bge $t0 $t1 e1
@@ -225,8 +216,8 @@ sys_exit:    # pA->free = true
            b c1
        e1: jr $ra
 
-    corrutine2:
-           # corrutine 2
+    coroutine2:
+           # coroutine 2
            li $t2 0
        c2: li $t3 5000
            bge $t2 $t3 e2
@@ -239,27 +230,4 @@ sys_exit:    # pA->free = true
            add $t2 $t2 $t3
            b c2
        e2: jr $ra
-
-    main:  # FIFO
-           jal corrutine1
-           jal corrutine2
-
-           # TODO: proper bootstrap into RR...
-
-           # RR
-           # enable i0
-           li  $t0 0
-           out $t0 0x1104
-           li  $t0 700
-           out $t0 0x1108
-           jal corrutine1
-
-   e_main: # disable i0
-           li  $t0 0
-           out $t0 0x1104
-           li  $t0 0
-           out $t0 0x1108
-
-           # the end
-           jr $ra
 
