@@ -204,6 +204,7 @@ self.addEventListener('install',
                                         './examples/microcode/mc-ep_base.txt',
                                         './examples/microcode/mc-ep_s2_e3.txt',
                                         './examples/microcode/mc-ep_s4_e4.txt',
+                                        './examples/microcode/mc-ep_s4_e5.txt',
                                         './examples/microcode/mc-poc_bare.txt',
                                         './examples/microcode/mc-poc_s3.txt',
 					'./index.html'
