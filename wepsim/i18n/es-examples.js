@@ -208,6 +208,17 @@
                        description: "Ejemplo para pruebas.<br>"
                      });
 
+    examples.es.push({
+                       id: 'S5E2',
+                       title: "Corrutinas",
+                       level: "Especial",
+                       modes:  "newbie,intro,tutorial,ep",
+                       hardware:  "ep",
+                       microcode: "ep_s5_e2",
+                       assembly:  "ep_s5_e2",
+                       description: "Ejemplo de corrutinas.<br>"
+                     });
+
     // EP+MIPS
 
     examples.es.push({

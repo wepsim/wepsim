@@ -1,0 +1,202 @@
+
+#
+# KERNEL: 
+#  + vector:  event handler table (vector
+#  + ptable:  processes table 
+#  + current: point to the process table entry of the running coroutine
+#
+
+.kdata
+   vector:   .word rt_i0
+             .word rt_div0
+             .word rt_sys
+
+   ptable:    # slice + address + next as offset + free slot
+             .word 5
+             .word coroutine1
+             .word 16
+             .word 0
+              # slice + address + next as offset + free slot
+             .word 5
+             .word coroutine2
+             .word -16
+             .word 0
+
+   current:  .word 0
+   previous: .word 0
+
+
+.ktext
+sys_prt_str: li   $1 1
+             li   $0 0
+             beq  $26 $0 fin1
+         b5: lb   $27 ($26)
+             beq  $27 $0 fin1
+             out  $27 0x1000
+             add  $26 $26 $1
+             b  b5
+       fin1: reti
+      
+sys_prt_ch:  out  $a0 0x1000
+             reti
+
+
+sys_clone:   lw $26 ($29)
+             sw $26 previous
+             sw $a0 ($29)
+             reti
+
+sys_exit:    # pA->free = true
+             li  $1 12
+             lw  $27 current
+             add $27 $27 $1
+             li  $26 1
+             sw  $26 ($27)
+             # pA = scheduler() // pA->next
+             li  $1 8
+             lw  $27 current
+             add $27 $27 $1
+             lw  $26 ($27)
+             lw  $27 current
+             add $27 $27 $26
+             sw  $27 current
+             # if pA->free == true return
+             li  $1 12
+             lw  $27 current
+             add $27 $27 $1
+             lw  $26 ($27)
+             li  $1 1
+             beq $26 $1 end2
+             # cpu.pc = pA->pc
+             li  $1 4
+             lw  $27 current
+             add $27 $27 $1
+             lw $26 ($27)
+             sw $26 ($29)
+             # return
+             reti
+       end2: # exit from both coroutines
+             li $26 0
+             sw $26 current
+             lw $26 previous
+             sw $26 ($29)
+             # return
+             reti
+
+   rt_div0:  reti 
+
+   rt_sys:   # 1.- syscall
+             move $26 $a0
+             li   $27 4
+             beq  $v0 $27 sys_prt_str
+             li   $27 11
+             beq  $v0 $27 sys_prt_ch
+             li   $27 20
+             beq  $v0 $27 sys_clone
+             li   $27 10
+             beq  $v0 $27 sys_exit
+             reti 
+
+   rt_i0:    # 2.- interrupt
+             # if pA == NULL return
+             li  $26 0
+             lw  $27 current
+             beq $27 $26 e_i0
+             # pA->r = pA->r - 1
+             lw  $26 ($27)
+             li  $1 1
+             sub $26 $26 $1
+             sw  $26 ($27)
+             # if pA->r == 0 return
+             li  $1 0
+             bne $26 $1 e_i0
+       r_i0: # pA->r = 5 (SLICE=5)
+             li  $26 5
+             sw  $26 ($27)
+             # pA->pc = cpu.pc
+             li  $1 4
+             lw  $27 current
+             add $27 $27 $1
+             lw $26 ($29)
+             sw $26 ($27)
+             # pA = scheduler() // pA->next
+             li  $1 8
+             lw  $27 current
+             add $27 $27 $1
+             lw  $26 ($27)
+             lw  $27 current
+             add $27 $27 $26
+             sw  $27 current
+             # cpu.pc = pA->pc
+             li  $1 4
+             lw  $27 current
+             add $27 $27 $1
+             lw $26 ($27)
+             sw $26 ($29)
+             # return
+       e_i0: reti 
+
+
+   kmain:    # 1.- setup data structures
+             la $t0 ptable
+             sw $t0 current
+
+             # 2.- enable i0
+   begin_rr: li  $t0 0
+             out $t0 0x1104
+             li  $t0 500
+             out $t0 0x1108
+
+             # 3.- clone for coroutine 1
+             la $a0 coroutine1
+             li $v0 20
+             syscall
+
+             # 4.- disable i0
+   end_rr:   li  $t0 0
+             out $t0 0x1104
+             li  $t0 0
+             out $t0 0x1108
+
+             # 5.- the end
+             jr $ra
+
+
+#
+# USER: 
+#  + coroutine1 + coroutine2
+#
+
+.text
+    coroutine1:
+           # coroutine 1
+           li $t0 0
+       c1: li $t1 101
+           bge $t0 $t1 e1
+           # print 'a'
+           li  $a0 'a'
+           li  $v0 11
+           syscall
+           # +1
+           li  $t1 1
+           add $t0 $t0 $t1
+           b c1
+       e1: li $v0 10
+           syscall
+
+    coroutine2:
+           # coroutine 2
+           li $t2 0
+       c2: li $t3 102
+           bge $t2 $t3 e2
+           # print 'b'
+           li  $a0 'b'
+           li  $v0 11
+           syscall
+           # +1
+           li  $t3 1
+           add $t2 $t2 $t3
+           b c2
+       e2: li $v0 10
+           syscall
+

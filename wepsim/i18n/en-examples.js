@@ -208,6 +208,17 @@
                        description: "Test example.<br>"
                      });
 
+    examples.en.push({
+                       id: 'S5E2',
+                       title: "Coroutines",
+                       level: "Special",
+                       modes:  "newbie,intro,tutorial,ep",
+                       hardware:  "ep",
+                       microcode: "ep_s5_e2",
+                       assembly:  "ep_s5_e2",
+                       description: "Example of corrutines.<br>"
+                     });
+
     // EP+MIPS
 
     examples.en.push({
