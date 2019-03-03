@@ -1,9 +1,10 @@
 
 1.9.6 -> 1.9.7:
-* Bootstrap 4.3.1 (2019)
-* POC processor improved:
-  + More examples
-* Improved missing UI translation
+* Interface:
+  + Bootstrap 4.3.1 (2019)
+  + Improved missing UI translation in state dialog
+* Content:
+  + Improved POC processor examples
 
 1.9.5 -> 1.9.6:
 * Interface:

@@ -198,6 +198,17 @@
                      });
 
     examples.en.push({
+                       id: 'S4E5',
+                       title: "syscall and fibers",
+                       level: "Laboratory",
+                       modes:  "newbie,intro,tutorial,ep",
+                       hardware:  "ep",
+                       microcode: "ep_s4_e5",
+                       assembly:  "ep_s4_e5",
+                       description: "Example of fibers.<br>"
+                     });
+
+    examples.en.push({
                        id: 'S5E1',
                        title: "Dummy instruction",
                        level: "Special",
