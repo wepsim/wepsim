@@ -170,7 +170,7 @@
                        level: "Sistemas Operativos",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
-                       microcode: "ep_s4_e3",
+                       microcode: "ep_s4_e2",
                        assembly:  "ep_s4_e3",
                        description: "Ejemplo de corrutinas.<br>"
                      });
