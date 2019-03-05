@@ -1,34 +1,12 @@
 
-#
-# KERNEL: 
-#  + vector:  event handler table (vector
-#  + ptable:  processes table 
-#  + current: point to the process table entry of the running coroutine
-#
-
 .kdata
-   vector:   .word rt_i0
-             .word rt_div0
-             .word rt_sys
-
-   ptable:    # slice + address + next as offset + free slot
-             .word 5
-             .word 0x1FFFFFFF
-             .word 16
-             .word 0
-              # slice + address + next as offset + free slot
-             .word 5
-             .word 0x2FFFFFFF
-             .word -16
-             .word 0
-
-   current:  .word 0
-   previous: .word 0
-
+   vector:  .word -1
+            .word -1
+            .word rt_sys
 
 .ktext
-sys_prt_str: li   $1 1
-             li   $0 0
+sys_prt_str: li   $1  1
+             li   $0  0
              beq  $26 $0 fin1
          b5: lb   $27 ($26)
              beq  $27 $0 fin1
@@ -37,175 +15,132 @@ sys_prt_str: li   $1 1
              b  b5
        fin1: reti
       
-sys_prt_ch:  out  $a0 0x1000
-             reti
-
-
-sys_start:   sw $29 previous
-             move $29 $a0
-             reti
-
-sys_exit:    # pA->free = true
-             li  $1 12
-             lw  $27 current
-             add $27 $27 $1
-             li  $26 1
-             sw  $26 ($27)
-             # pA = scheduler() // pA->next
-             li  $1 8
-             lw  $27 current
-             add $27 $27 $1
-             lw  $26 ($27)
-             lw  $27 current
-             add $27 $27 $26
-             sw  $27 current
-             # if pA->free == true return
-             li  $1 12
-             lw  $27 current
-             add $27 $27 $1
-             lw  $26 ($27)
-             li  $1 1
-             beq $26 $1 end2
-             # cpu.sp = pA->sp
-             li  $1 4
-             lw  $27 current
-             add $27 $27 $1
-             lw $29 ($27)
-             # return
-             reti
-       end2: # exit from both coroutines
-             li $26 0
-             sw $26 current
-             lw $29 previous
-             # return
-             reti
-
-   rt_div0:  reti 
+sys_prt_int: li   $1 1
+             # push_byte('\0')
+             sb   $0 ($sp)
+             sub  $sp $sp $1
+             bge  $26 $0 b3
+             li  $1  '-'
+             out $1  0x1000
+             li  $1  -1
+             mul $26 $26 $1
+         b3: # push_byte(rem(x,10)+48)
+             # x = div(x,10)
+             li   $1 10
+             rem  $27 $26 $1
+             div  $26 $26 $1
+             li   $1 48
+             add  $27 $27 $1
+             li   $1 1
+             sb   $27 ($sp)
+             sub  $sp $sp $1
+             bne  $26 $0 b3
+         f3: # print_string($sp)
+             add  $sp $sp $1
+             lb   $27 ($sp)
+             beq  $27 $0 f2
+             out  $27 0x1000
+             b f3
+         f2: reti
 
    rt_sys:   # 1.- syscall
              move $26 $a0
              li   $27 4
              beq  $v0 $27 sys_prt_str
-             li   $27 11
-             beq  $v0 $27 sys_prt_ch
-             li   $27 20
-             beq  $v0 $27 sys_start
-             li   $27 10
-             beq  $v0 $27 sys_exit
+             li   $27 1
+             beq  $v0 $27 sys_prt_int
              reti 
 
-   rt_i0:    # 2.- interrupt
-             # if pA == NULL return
-             li  $26 0
-             lw  $27 current
-             beq $27 $26 e_i0
-             # pA->r = pA->r - 1
-             lw  $26 ($27)
-             li  $1 1
-             sub $26 $26 $1
-             sw  $26 ($27)
-             # if pA->r == 0 return
-             li  $1 0
-             bne $26 $1 e_i0
-       r_i0: # pA->r = 5 (SLICE=5)
-             li  $26 5
-             sw  $26 ($27)
-             # pA->sp = cpu.sp
-             li  $1 4
-             lw  $27 current
-             add $27 $27 $1
-             sw $29 ($27)
-             # pA = scheduler() // pA->next
-             li  $1 8
-             lw  $27 current
-             add $27 $27 $1
-             lw  $26 ($27)
-             lw  $27 current
-             add $27 $27 $26
-             sw  $27 current
-             # cpu.sp = pA->sp
-             li  $1 4
-             lw  $27 current
-             add $27 $27 $1
-             lw $29 ($27)
-             # return
-       e_i0: reti 
-
-
-   kmain:    # 1.- setup data structures
-             la $t0 ptable
-             sw $t0 current
-
-             la $a0 0x1FFFFFFF
-	     la $1 coroutine1
-	     sw $1 ($a0)
-	     li $1 4
-	     add $a0 $a0 $1
-	     sw $0 ($a0)
-
-             la $a0 0x2FFFFFFF
-	     la $1 coroutine2
-	     sw $1 ($a0)
-	     li $1 4
-	     add $a0 $a0 $1
-	     sw $0 ($a0)
-
-             # 2.- enable i0
-   begin_rr: li  $t0 0
-             out $t0 0x1104
-             li  $t0 500
-             out $t0 0x1108
-
-             # 3.- clone for coroutine 1
-             la $a0 0x1FFFFFFF
-             li $v0 20
-             syscall
-
-             # 4.- disable i0
-   end_rr:   li  $t0 0
-             out $t0 0x1104
-             li  $t0 0
-             out $t0 0x1108
-
-             # 5.- the end
-             jr $ra
-
-
-#
-# USER: 
-#  + coroutine1 + coroutine2
-#
+.data
+         w1:    .asciiz  "   hello"
+         w2:    .asciiz  "hello"
+         w3:    .asciiz  ""
+         ver2:  .asciiz  "mprog:\t"
+         enter: .asciiz  "\n"
 
 .text
-    coroutine1:
-           # coroutine 1
-           li $t0 0
-       c1: li $t1 101
-           bge $t0 $t1 e1
-           # print 'a'
-           li  $a0 'a'
-           li  $v0 11
+    main:  # save $ra
+           li  $t0 4
+           sub $sp $sp $t0
+           sw  $ra ($sp)
+
+           # test strlen_2: "  ..."
+           la $a0 ver2
+           li $v0 4
            syscall
-           # +1
-           li  $t1 1
-           add $t0 $t0 $t1
-           b c1
-       e1: li $v0 10
+           la $t1 w1
+           strlen_2 $a0 $t1
+           li $v0 1
+           syscall
+           la $a0 enter
+           li $v0 4
            syscall
 
-    coroutine2:
-           # coroutine 2
-           li $t2 0
-       c2: li $t3 102
-           bge $t2 $t3 e2
-           # print 'b'
-           li  $a0 'b'
-           li  $v0 11
+           # test strlen_2: "..."
+           la $a0 ver2
+           li $v0 4
            syscall
-           # +1
-           li  $t3 1
-           add $t2 $t2 $t3
-           b c2
-       e2: li $v0 10
+           la $t1 w2
+           strlen_2 $a0 $t1
+           li $v0 1
            syscall
+           la $a0 enter
+           li $v0 4
+           syscall
+
+           # test strlen_2: ""
+           la $a0 ver2
+           li $v0 4
+           syscall
+           la $t1 w3
+           strlen_2 $a0 $t1
+           li $v0 1
+           syscall
+           la $a0 enter
+           li $v0 4
+           syscall
+
+           # test skipasciicode_2: "  ..."
+           la $a0 ver2
+           li $v0 4
+           syscall
+           la $t1 w1
+           skipasciicode_2 $a0 $t1 32
+           li $v0 4
+           syscall
+           la $a0 enter
+           li $v0 4
+           syscall
+
+           # test skipasciicode_2: "..."
+           la $a0 ver2
+           li $v0 4
+           syscall
+           la $t1 w2
+           skipasciicode_2 $a0 $t1 32
+           li $v0 4
+           syscall
+           la $a0 enter
+           li $v0 4
+           syscall
+
+           # test skipasciicode_2: ""
+           la $a0 ver2
+           li $v0 4
+           syscall
+           la $t1 w3
+           skipasciicode_2 $a0 $t1 32
+           li $v0 4
+           syscall
+           la $a0 enter
+           li $v0 4
+           syscall
+
+           # restore $ra
+           li  $t0 4
+           lw  $ra ($sp)
+           add $sp $sp $t0
+
+           # the end
+           jr $ra
 
