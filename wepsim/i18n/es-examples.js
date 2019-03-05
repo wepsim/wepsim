@@ -143,81 +143,82 @@
                      });
 
     examples.es.push({
-                       id: 'S3E4',
-                       title: "Int. + syscall + except.",
-                       level: "Avanzado",
-                       modes:  "newbie,intro,tutorial,ep",
-                       hardware:  "ep",
-                       microcode: "ep_s3_e4",
-                       assembly:  "ep_s3_e4",
-                       description: "Ejemplo avanzado con interrupci&oacute;n, llamada al sistema y excepci&oacute;n.<br>"
-                     });
-
-    examples.es.push({
                        id: 'S4E1',
-                       title: "addv + seqv.",
-                       level: "Laboratorio",
+                       title: "Int. + S.C. + Exc.",
+                       level: "Sistemas Operativos",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s4_e1",
                        assembly:  "ep_s4_e1",
-                       description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: addv + seqv.<br>"
+                       description: "Ejemplo avanzado con interrupci&oacute;n, llamada al sistema y excepci&oacute;n.<br>"
                      });
 
     examples.es.push({
                        id: 'S4E2',
-                       title: "strlen_2 + skipasciicode_2",
-                       level: "Laboratorio",
+                       title: "SC 1, 4-5, 8, 11-12",
+                       level: "Sistemas Operativos",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s4_e2",
                        assembly:  "ep_s4_e2",
-                       description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: strlen_2 + skipasciicode_2.<br>"
-                     });
-
-    examples.es.push({
-                       id: 'S4E3',
-                       title: "madd, mmul, mxch",
-                       level: "Laboratorio",
-                       modes:  "newbie,intro,tutorial,ep",
-                       hardware:  "ep",
-                       microcode: "ep_s4_e3",
-                       assembly:  "ep_s4_e3",
-                       description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: madd + mmul + mxch.<br>"
-                     });
-
-    examples.es.push({
-                       id: 'S4E4',
-                       title: "syscall 1, 4-5, 8, 11-12",
-                       level: "Laboratorio",
-                       modes:  "newbie,intro,tutorial,ep",
-                       hardware:  "ep",
-                       microcode: "ep_s4_e4",
-                       assembly:  "ep_s4_e4",
                        description: "Ejemplo de llamada al sistema para imprimir/leer entero y cadena de caracteres.<br>"
                      });
 
     examples.es.push({
+                       id: 'S4E3',
+                       title: "Corrutinas",
+                       level: "Sistemas Operativos",
+                       modes:  "newbie,intro,tutorial,ep",
+                       hardware:  "ep",
+                       microcode: "ep_s4_e2",
+                       assembly:  "ep_s4_e3",
+                       description: "Ejemplo de corrutinas.<br>"
+                     });
+
+    examples.es.push({
                        id: 'S5E1',
+                       title: "addv + seqv.",
+                       level: "Laboratorio",
+                       modes:  "newbie,intro,tutorial,ep",
+                       hardware:  "ep",
+                       microcode: "ep_s5_e1",
+                       assembly:  "ep_s5_e1",
+                       description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: addv + seqv.<br>"
+                     });
+
+    examples.es.push({
+                       id: 'S5E2',
+                       title: "strlen_2 + skipasciicode_2",
+                       level: "Laboratorio",
+                       modes:  "newbie,intro,tutorial,ep",
+                       hardware:  "ep",
+                       microcode: "ep_s5_e2",
+                       assembly:  "ep_s5_e2",
+                       description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: strlen_2 + skipasciicode_2.<br>"
+                     });
+
+    examples.es.push({
+                       id: 'S5E3',
+                       title: "madd, mmul, mxch",
+                       level: "Laboratorio",
+                       modes:  "newbie,intro,tutorial,ep",
+                       hardware:  "ep",
+                       microcode: "ep_s5_e3",
+                       assembly:  "ep_s5_e3",
+                       description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: madd + mmul + mxch.<br>"
+                     });
+
+    examples.es.push({
+                       id: 'S6E1',
                        title: "Para completar",
                        level: "Especial",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_bare",
-                       assembly:  "ep_s5_e1",
+                       assembly:  "ep_s6_e1",
                        description: "Ejemplo para pruebas.<br>"
                      });
 
-    examples.es.push({
-                       id: 'S5E2',
-                       title: "Corrutinas",
-                       level: "Especial",
-                       modes:  "newbie,intro,tutorial,ep",
-                       hardware:  "ep",
-                       microcode: "ep_s5_e2",
-                       assembly:  "ep_s5_e2",
-                       description: "Ejemplo de corrutinas.<br>"
-                     });
 
     // EP+MIPS
 

@@ -1,10 +1,11 @@
 
-1.9.6 -> 1.9.7:
+1.9.6 -> 2.0.1:
 * Interface:
   + Bootstrap 4.3.1 (2019)
   + Improved missing UI translation in state dialog
 * Content:
   + Improved POC processor examples
+  + Added EP example: round-robin with two co-routines
 
 1.9.5 -> 1.9.6:
 * Interface:
