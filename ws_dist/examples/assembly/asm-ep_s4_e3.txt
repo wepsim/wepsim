@@ -137,18 +137,18 @@ sys_exit:    # pA->free = true
              sw $t0 current
 
              la $a0 0x1FFFFFFF
-	     sw $0 ($a0)
-	     li $1 4
-	     add $a0 $a0 $1
-	     la $1 coroutine1
-	     sw $1 ($a0)
+             sw $0 ($a0)
+             li $1 4
+             add $a0 $a0 $1
+             la $1 coroutine1
+             sw $1 ($a0)
 
              la $a0 0x2FFFFFFF
-	     sw $0 ($a0)
-	     li $1 4
-	     add $a0 $a0 $1
-	     la $1 coroutine2
-	     sw $1 ($a0)
+             sw $0 ($a0)
+             li $1 4
+             add $a0 $a0 $1
+             la $1 coroutine2
+             sw $1 ($a0)
 
              # 2.- enable i0
    begin_rr: li  $t0 0
