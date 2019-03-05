@@ -13,12 +13,12 @@
 
    ptable:    # slice + address + next as offset + free slot
              .word 5
-             .word coroutine1
+             .word 0x1FFFFFFF
              .word 16
              .word 0
               # slice + address + next as offset + free slot
              .word 5
-             .word coroutine2
+             .word 0x2FFFFFFF
              .word -16
              .word 0
 
@@ -41,9 +41,8 @@ sys_prt_ch:  out  $a0 0x1000
              reti
 
 
-sys_clone:   lw $26 ($29)
-             sw $26 previous
-             sw $a0 ($29)
+sys_start:   sw $29 previous
+             move $29 $a0
              reti
 
 sys_exit:    # pA->free = true
@@ -67,19 +66,17 @@ sys_exit:    # pA->free = true
              lw  $26 ($27)
              li  $1 1
              beq $26 $1 end2
-             # cpu.pc = pA->pc
+             # cpu.sp = pA->sp
              li  $1 4
              lw  $27 current
              add $27 $27 $1
-             lw $26 ($27)
-             sw $26 ($29)
+             lw $29 ($27)
              # return
              reti
        end2: # exit from both coroutines
              li $26 0
              sw $26 current
-             lw $26 previous
-             sw $26 ($29)
+             lw $29 previous
              # return
              reti
 
@@ -92,7 +89,7 @@ sys_exit:    # pA->free = true
              li   $27 11
              beq  $v0 $27 sys_prt_ch
              li   $27 20
-             beq  $v0 $27 sys_clone
+             beq  $v0 $27 sys_start
              li   $27 10
              beq  $v0 $27 sys_exit
              reti 
@@ -113,12 +110,11 @@ sys_exit:    # pA->free = true
        r_i0: # pA->r = 5 (SLICE=5)
              li  $26 5
              sw  $26 ($27)
-             # pA->pc = cpu.pc
+             # pA->sp = cpu.sp
              li  $1 4
              lw  $27 current
              add $27 $27 $1
-             lw $26 ($29)
-             sw $26 ($27)
+             sw $29 ($27)
              # pA = scheduler() // pA->next
              li  $1 8
              lw  $27 current
@@ -127,12 +123,11 @@ sys_exit:    # pA->free = true
              lw  $27 current
              add $27 $27 $26
              sw  $27 current
-             # cpu.pc = pA->pc
+             # cpu.sp = pA->sp
              li  $1 4
              lw  $27 current
              add $27 $27 $1
-             lw $26 ($27)
-             sw $26 ($29)
+             lw $29 ($27)
              # return
        e_i0: reti 
 
@@ -141,6 +136,20 @@ sys_exit:    # pA->free = true
              la $t0 ptable
              sw $t0 current
 
+             la $a0 0x1FFFFFFF
+	     la $1 coroutine1
+	     sw $1 ($a0)
+	     li $1 4
+	     add $a0 $a0 $1
+	     sw $0 ($a0)
+
+             la $a0 0x2FFFFFFF
+	     la $1 coroutine2
+	     sw $1 ($a0)
+	     li $1 4
+	     add $a0 $a0 $1
+	     sw $0 ($a0)
+
              # 2.- enable i0
    begin_rr: li  $t0 0
              out $t0 0x1104
@@ -148,7 +157,7 @@ sys_exit:    # pA->free = true
              out $t0 0x1108
 
              # 3.- clone for coroutine 1
-             la $a0 coroutine1
+             la $a0 0x1FFFFFFF
              li $v0 20
              syscall
 
