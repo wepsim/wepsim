@@ -159,7 +159,7 @@
                        level: "Operating Systems",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
-                       microcode: "ep_s4_e2",
+                       microcode: "ep_os",
                        assembly:  "ep_s4_e2",
                        description: "Example of syscall for printing/reading integer and string.<br>"
                      });
@@ -170,9 +170,20 @@
                        level: "Operating Systems",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
-                       microcode: "ep_s4_e2",
+                       microcode: "ep_os",
                        assembly:  "ep_s4_e3",
                        description: "Example of coroutines.<br>"
+                     });
+
+    examples.en.push({
+                       id: 'S4E4',
+                       title: "Alloc.s",
+                       level: "Operating Systems",
+                       modes:  "newbie,intro,tutorial,ep",
+                       hardware:  "ep",
+                       microcode: "ep_os",
+                       assembly:  "ep_s4_e4",
+                       description: "Example of malloc + free.<br>"
                      });
 
     examples.en.push({

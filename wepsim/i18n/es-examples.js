@@ -159,7 +159,7 @@
                        level: "Sistemas Operativos",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
-                       microcode: "ep_s4_e2",
+                       microcode: "ep_os",
                        assembly:  "ep_s4_e2",
                        description: "Ejemplo de llamada al sistema para imprimir/leer entero y cadena de caracteres.<br>"
                      });
@@ -170,9 +170,20 @@
                        level: "Sistemas Operativos",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
-                       microcode: "ep_s4_e2",
+                       microcode: "ep_os",
                        assembly:  "ep_s4_e3",
                        description: "Ejemplo de corrutinas.<br>"
+                     });
+
+    examples.es.push({
+                       id: 'S4E4',
+                       title: "Alloc.s",
+                       level: "Sistemas Operativos",
+                       modes:  "newbie,intro,tutorial,ep",
+                       hardware:  "ep",
+                       microcode: "ep_os",
+                       assembly:  "ep_s4_e4",
+                       description: "Ejemplo de malloc y free.<br>"
                      });
 
     examples.es.push({
