@@ -3,31 +3,22 @@
 # Alejandro Calderon Mateos, Felix Garcia-Carballeira
 #
 
-#
-# KERNEL: 
-#  + vector:  event handler table (vector
-#  + ptable:  processes table 
-#  + current: point to the process table entry of the running coroutine
-#
-
 .kdata
-   vector:   .word rt_i0
-             .word rt_div0
-             .word rt_sys
+   # event handler table
+     vector:   .word rt_i0
+               .word rt_div0
+               .word rt_sys
 
-   ptable:    # slice + address + next as offset + free slot
-             .word 5
-             .word 0x1FFFFFFF
-             .word 16
-             .word 0
-              # slice + address + next as offset + free slot
-             .word 5
-             .word 0x2FFFFFFF
-             .word -16
-             .word 0
+   # point to the process table entry of the running thread
+     previous: .word 0
+   # point to the kmain stack
+     current:  .word 0
 
-   current:  .word 0
-   previous: .word 0
+   # number of process in ptable
+     pcounter: .word 0
+   # processes table (slice + address + id + free slot) x n
+     ptable:   .word 5, 0x1FFFFFFF, 1, 0
+               .word 5, 0x2FFFFFFF, 2, 0
 
 
 .ktext
@@ -43,18 +34,52 @@ sys_prt_str: li   $0 0
 sys_prt_ch:  out  $a0 0x1000
              reti
 
-
-sys_start:   sw $29 previous
-             move $29 $a0
+sys_thcreat: # pcounter++
+             lw  $1 pcounter 
+             add $1 $1 1
+             sw  $1 pcounter
+             # $27 = &(ptable[pcounter])
+             sub $1 $1 1
+             mul $1 $1 16
+             la  $27 ptable
+             add $27 $27 $1
+             # *($27) = { 5, $a0, pcounter, 0 }
+             li $1 5
+             sw $1  0($27)
+             sw $a0 4($27)
+             lw $1 pcounter 
+             sw $1  8($27)
+             li $1 0
+             sw $1 12($27)
+             # default stack: 0, pc
+             sw $0  0($a0)
+             sw $a1 4($a0)
+             # return
              reti
 
-sys_exit:    # pA->free = true
+sys_thstart: # id -> PCB address
+             move $1 $a0
+             sub  $1 $1 1
+             mul  $1 $1 16
+             la   $27 ptable
+             add  $27 $27 $1
+             sw   $27 current
+             # previous <-> thread
+             lw   $26 4($27)
+             sw   $29 previous
+             move $29 $26
+             reti
+
+sys_thexit:  # pA->free = true
              lw  $27 current
              li  $26 1
              sw  $26 12($27)
              # pA = scheduler() // pA->next
              lw  $26 8($27)
-             lw  $27 current
+             lw  $27 pcounter
+             rem $26 $26 $27
+             mul $26 $26 16
+             la  $27 ptable
              add $27 $27 $26
              sw  $27 current
              # if pA->free == true return
@@ -67,7 +92,7 @@ sys_exit:    # pA->free = true
              lw  $29 4($27)
              # return
              reti
-       end2: # exit from both coroutines
+       end2: # exit from both threads
              li $26 0
              sw $26 current
              lw $29 previous
@@ -82,10 +107,12 @@ sys_exit:    # pA->free = true
              beq  $v0 $27 sys_prt_str
              li   $27 11
              beq  $v0 $27 sys_prt_ch
+             li   $27 30
+             beq  $v0 $27 sys_thcreat
              li   $27 20
-             beq  $v0 $27 sys_start
+             beq  $v0 $27 sys_thstart
              li   $27 10
-             beq  $v0 $27 sys_exit
+             beq  $v0 $27 sys_thexit
              reti 
 
    rt_i0:    # 2.- interrupt
@@ -96,7 +123,7 @@ sys_exit:    # pA->free = true
              lw  $26 ($27)
              sub $26 $26 1
              sw  $26 ($27)
-             # if pA->r == 0 return
+             # if pA->r != 0 return
              bne $26 $0 e_i0
        r_i0: # pA->r = 5 (SLICE=5)
              li  $26 5
@@ -105,6 +132,10 @@ sys_exit:    # pA->free = true
              sw  $29 4($27)
              # pA = scheduler() // pA->next
              lw  $26 8($27)
+             lw  $27 pcounter
+             rem $26 $26 $27
+             mul $26 $26 16
+             la  $27 ptable
              add $27 $27 $26
              sw  $27 current
              # cpu.sp = pA->sp
@@ -114,28 +145,25 @@ sys_exit:    # pA->free = true
        e_i0: reti 
 
 
-   kmain:    # 1.- setup data structures
-             la $t0 ptable
-             sw $t0 current
-
+   kmain:    # 1.- setup process table
              la $a0 0x1FFFFFFF
-             sw $0 ($a0)
-             la $1 coroutine1
-             sw $1 4($a0)
+             la $a1 thread1
+             li $v0 30
+             syscall
 
              la $a0 0x2FFFFFFF
-             sw $0 ($a0)
-             la $1 coroutine2
-             sw $1 4($a0)
+             la $a1 thread2
+             li $v0 30
+             syscall
 
-             # 2.- enable i0
+             # 2.- enable i0 each 500 ticks
    begin_rr: li  $t0 0
              out $t0 0x1104
              li  $t0 500
              out $t0 0x1108
 
-             # 3.- clone for coroutine 1
-             la $a0 0x1FFFFFFF
+             # 3.- start for thread 1
+             la $a0 1
              li $v0 20
              syscall
 
@@ -149,14 +177,9 @@ sys_exit:    # pA->free = true
              jr $ra
 
 
-#
-# USER: 
-#  + coroutine1 + coroutine2
-#
-
 .text
-    coroutine1:
-           # coroutine 1
+    thread1:
+           # thread 1
            li $t0 0
        c1: li $t1 101
            bge $t0 $t1 e1
@@ -170,8 +193,8 @@ sys_exit:    # pA->free = true
        e1: li $v0 10
            syscall
 
-    coroutine2:
-           # coroutine 2
+    thread2:
+           # thread 2
            li $t2 0
        c2: li $t3 102
            bge $t2 $t3 e2
@@ -184,4 +207,3 @@ sys_exit:    # pA->free = true
            b c2
        e2: li $v0 10
            syscall
-

@@ -166,13 +166,13 @@
 
     examples.es.push({
                        id: 'S4E3',
-                       title: "Corrutinas",
+                       title: "Hilos",
                        level: "Sistemas Operativos",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_os",
                        assembly:  "ep_s4_e3",
-                       description: "Ejemplo de corrutinas.<br>"
+                       description: "Ejemplo de hilos.<br>"
                      });
 
     examples.es.push({

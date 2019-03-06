@@ -166,13 +166,13 @@
 
     examples.en.push({
                        id: 'S4E3',
-                       title: "Coroutines",
+                       title: "Threads",
                        level: "Operating Systems",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_os",
                        assembly:  "ep_s4_e3",
-                       description: "Example of coroutines.<br>"
+                       description: "Example of threads.<br>"
                      });
 
     examples.en.push({
