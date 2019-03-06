@@ -148,7 +148,7 @@
 
     <meta name="apple-mobile-web-app-capable"          content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title"            content="WepSIM 2.0.0" />
+    <meta name="apple-mobile-web-app-title"            content="WepSIM 2.0.1" />
     <meta name="msapplication-TileImage"               content="images/arcos.svg" />
     <meta name="msapplication-TileColor"               content="#2F3BA2" />
     <meta name="theme-color"                           content="#ffffff" />
@@ -286,6 +286,22 @@
 					    var ws_idiom = get_cfg('ws_idiom');
 					    i18n_update_tags('gui', ws_idiom) ;
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP</a>
+                              <a class="dropdown-item" href="#" id="s4_poc" value="poc"
+				 onclick="simui_select_main('poc');
+					    // initialize hw
+	                                    simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
+					    simcoreui_init_hw('#config_HW') ;
+					    // adapt to idiom
+					    var ws_idiom = get_cfg('ws_idiom');
+					    i18n_update_tags('gui', ws_idiom) ;
+					  return false;"><em class="fas fa-microchip"></em>&nbsp;POC</a>
+
+			      <div class="dropdown-divider"></div>
+			      <h6 class="text-secondary mb-1">Assembly only</h6>
+                              <a class="dropdown-item" href="#" id="s4_wepmips" value="wepmips"
+				 onclick="simui_select_main('wepmips');
+	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
+					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP+MIPS32</a>
 
 			      <div class="dropdown-divider"></div>
 			      <h6 class="text-secondary mb-1">Help</h6>
