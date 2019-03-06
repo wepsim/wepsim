@@ -128,6 +128,18 @@ add reg1 reg2 reg3 {
             }
 }
 
+add reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            val  = inm(15,0),
+            {
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, C4=1),
+                (MC=1, MR=0, SELB=10000, MA=1, MB=0, SELCOP=1010, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+            }
+}
+
 sub reg1 reg2 reg3 {
             co=000000,
             cop=1010,
@@ -137,6 +149,18 @@ sub reg1 reg2 reg3 {
             reg3=reg(15,11),
             {
                 (MC=1, MR=0, SELB=1011, SELA=10000, MA=0, MB=0, SELCOP=1011, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
+            }
+}
+
+sub reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            val  = inm(15,0),
+            {
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
+                (MC=1, MR=0, SELA=10000, MA=0, MB=1, SELCOP=1011, T6=1, SELC=10101, LC=1, SELP=11, M7, C7, A0=1, B=1, C=0)
             }
 }
 
@@ -193,11 +217,28 @@ srl reg1 reg2 val {
             {
                 (SE=1, OFFSET=0, SIZE=110, T3=1, C4=1),
                 (MC=1, MR=0, SELA=10000, MA=0, MB=11, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
-         loop9: (A0=0, B=0, C=110, MADDR=bck2ftch),
+         loop9: (A0=0, B=0, C=110, MADDR=bck9ftch),
                 (MC=1, MR=0, SELA=10101, SELB=10101, MA=0, MB=0, SELCOP=101, T6=1, LC=1, SELC=10101),
                 (MC=1, MR=0, MA=1, MB=11, SELCOP=1011, T6=1, C4=1, SELP=11, M7, C7),
                 (A0=0, B=1, C=0, MADDR=loop9),
       bck9ftch: (A0=1, B=1, C=0)
+            }
+}
+
+sll reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            val=inm(5,0),
+            {
+                (SE=1, OFFSET=0, SIZE=110, T3=1, C4=1),
+                (MC=1, MR=0, SELA=10000, MA=0, MB=11, SELCOP=1100, T6=1, SELC=10101, LC=1, SELP=11, M7, C7),
+        loop10: (A0=0, B=0, C=110, MADDR=bck10ftch),
+                (MC=1, MR=0, SELA=10101, SELB=10101, MA=0, MB=0, SELCOP=111, T6=1, LC=1, SELC=10101),
+                (MC=1, MR=0, MA=1, MB=11, SELCOP=1011, T6=1, C4=1, SELP=11, M7, C7),
+                (A0=0, B=1, C=0, MADDR=loop10),
+     bck10ftch: (A0=1, B=1, C=0)
             }
 }
 
@@ -366,6 +407,34 @@ sw reg1 (reg2) {
             reg2 = reg(20,16),
             {
                 (MR=0,  SELA=10000, T9=1, C0=1),
+                (MR=0,  SELA=10101, T9=1, M1=0, C1=1),
+                (BW=11, TA=1, TD=1, W=1,  A0=1, B=1, C=0)
+            }
+}
+
+lw reg1 val(reg2) {
+            co=111111,
+            nwords=1,
+            reg1 = reg(25,21),
+            val  = inm(15,0),
+            reg2 = reg(20,16),
+            {
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
+                (MR=0, SELA=10000, MA=0, MB=1, MC=1, SELCOP=1010, T6=1, C0=1),
+                (TA=1, R=1, BW=11, M1=1, C1=1),
+                (T1=1, LC=1, MR=0, SELC=10101, SE=1, A0=1, B=1, C=0)
+            }
+}
+
+sw reg1 val(reg2) {
+            co=111111,
+            nwords=1,
+            reg1 = reg(25,21),
+            val  = inm(15,0),
+            reg2 = reg(20,16),
+            {
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, C5=1),
+                (MR=0, SELA=10000, MA=0, MB=1, MC=1, SELCOP=1010, T6=1, C0=1),
                 (MR=0,  SELA=10101, T9=1, M1=0, C1=1),
                 (BW=11, TA=1, TD=1, W=1,  A0=1, B=1, C=0)
             }
