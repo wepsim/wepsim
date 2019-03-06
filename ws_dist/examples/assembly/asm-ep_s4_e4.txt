@@ -11,6 +11,17 @@
    msgi0:   .asciiz "INT: 0\n"
    msgi1:   .asciiz "FPE: */0\n"
 
+   bucket0: .word 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            .word 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            .word 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            .word 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            .word 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            .word 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            .word 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            .word 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            .word 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+            .word 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
 
 .ktext
 sys_print:  li   $0 0
@@ -23,18 +34,23 @@ sys_print:  li   $0 0
             b  b5
       fin1: reti
 
+sys_sbrk:   la  $v0 bucket0
+            reti
+
   rt_i0:    # 1.- interruption
-            la   $26 msgi0
-            b    sys_print
+            la  $26 msgi0
+            b   sys_print
 
   rt_div0:  # 2.- exception
-            la   $26 msgi1
-            b    sys_print
+            la  $26 msgi1
+            b   sys_print
 
   rt_sys:   # 3.- syscall
             move $26 $a0
             li   $27 4
             beq  $v0 $27 sys_print
+            li   $27 9
+            beq  $v0 $27 sys_sbrk
             reti 
 
 
