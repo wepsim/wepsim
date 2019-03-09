@@ -34,6 +34,34 @@ sys_print:  li   $0 0
             b  b5
       fin1: reti
 
+sys_prt_int: li   $1 1
+             # push_byte('\0')
+             sb   $0 ($sp)
+             sub  $sp $sp $1
+             bge  $26 $0 b3
+             li  $1  '-'
+             out $1  0x1000
+             li  $1  -1
+             mul $26 $26 $1
+         b3: # push_byte(rem(x,10)+48)
+             # x = div(x,10)
+             li   $1 10
+             rem  $27 $26 $1
+             div  $26 $26 $1
+             li   $1 48
+             add  $27 $27 $1
+             li   $1 1
+             sb   $27 ($sp)
+             sub  $sp $sp $1
+             bne  $26 $0 b3
+         f3: # print_string($sp)
+             add  $sp $sp $1
+             lb   $27 ($sp)
+             beq  $27 $0 f2
+             out  $27 0x1000
+             b f3
+         f2: reti
+
 sys_sbrk:   la  $v0 bucket0
             reti
 
@@ -47,6 +75,8 @@ sys_sbrk:   la  $v0 bucket0
 
   rt_sys:   # 3.- syscall
             move $26 $a0
+            li   $27 1
+            beq  $v0 $27 sys_prt_int
             li   $27 4
             beq  $v0 $27 sys_print
             li   $27 9
@@ -63,7 +93,7 @@ sys_sbrk:   la  $v0 bucket0
         msg_enterenter:   .asciiz "\n\n"
         msg_bucket_ptr:   .asciiz "ptr = "
         msg_bucket_size:  .asciiz "size = "
-        msg_walk_mark:    .asciiz "<_______________________>"
+        msg_walk_mark:    .asciiz "<_____________>"
         msg_null:         .asciiz "NULL"
 
         .align 4

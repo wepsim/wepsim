@@ -144,7 +144,7 @@
 
     examples.en.push({
                        id: 'S4E1',
-                       title: "Int. + S.C. + Exc.",
+                       title: "Int. + syscall + except.",
                        level: "Operating Systems",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
@@ -515,13 +515,13 @@
                      });
 
     examples.en.push({
-                       id: 'S3E4',
+                       id: 'S4E1',
                        title: "Int. + syscall + except.",
-                       level: "Advanced",
+                       level: "Operating Systems",
                        modes:  "newbie,intro,tutorial,poc",
                        hardware:  "poc",
-                       microcode: "poc_s3",
-                       assembly:  "ep_s3_e4",
+                       microcode: "poc_os",
+                       assembly:  "ep_s4_e1",
                        description: "Advanced example with interruption, system call, and exception.<br>"
                      });
 

@@ -515,13 +515,13 @@
                      });
 
     examples.es.push({
-                       id: 'S3E4',
+                       id: 'S4E1',
                        title: "Int. + syscall + except.",
-                       level: "Avanzado",
+                       level: "Sistemas Operativos",
                        modes:  "newbie,intro,tutorial,poc",
                        hardware:  "poc",
-                       microcode: "poc_s3",
-                       assembly:  "ep_s3_e4",
+                       microcode: "poc_os",
+                       assembly:  "ep_s4_e1",
                        description: "Ejemplo avanzado con interrupci&oacute;n, llamada al sistema y excepci&oacute;n.<br>"
                      });
 
