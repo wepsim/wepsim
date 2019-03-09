@@ -525,6 +525,30 @@
                        description: "Ejemplo avanzado con interrupci&oacute;n, llamada al sistema y excepci&oacute;n.<br>"
                      });
 
+/*
+    examples.es.push({
+                       id: 'S4E3',
+                       title: "Hilos",
+                       level: "Sistemas Operativos",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_os",
+                       assembly:  "ep_s4_e3",
+                       description: "Ejemplo de hilos.<br>"
+                     });
+
+    examples.es.push({
+                       id: 'S4E4',
+                       title: "Alloc.s",
+                       level: "Sistemas Operativos",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_os",
+                       assembly:  "ep_s4_e4",
+                       description: "Ejemplo de malloc y free.<br>"
+                     });
+*/
+
     examples.es.push({
                        id: 'S5E1',
                        title: "Para completar",
