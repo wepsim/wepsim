@@ -648,6 +648,19 @@ jr reg1 {
 
 
 #
+# Misc
+#
+
+nop {
+        co=010110,
+        nwords=1,
+        {
+                (A0=1, B=1, C=0)
+        }
+}
+
+
+#
 # Register naming
 #
 
