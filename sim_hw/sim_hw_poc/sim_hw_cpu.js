@@ -519,13 +519,13 @@
 					  "LUI ALU_T6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
 					  "ADDFOUR ALU_T6 MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
 					  "ADDONE ALU_T6 MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "SUBFOUR ALU_T6 MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "SUBONE ALU_T6 MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
 					  "FADD ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
 					  "FSUB ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
 					  "FMUL ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
 					  "FDIV ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
 					  "FMOD ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "NOP_ALU",
-					  "NOP_ALU",
 					  "NOP_ALU",
 					  "NOP_ALU",
 					  "NOP_ALU",
@@ -1228,6 +1228,58 @@
 						   var result = a + 1 ;
 
                                                    return "ALU ADD 1 with result " + show_value(result) + ". " ;
+						}
+				   };
+	poc_behaviors["SUBFOUR"] = { nparameters: 3,
+				     types: ["E", "E"],
+				     operation: function(s_expr)
+		                                {
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+						   var result = a - 4 ;
+						   set_value(poc_states[s_expr[1]], result >>> 0) ;
+
+						   poc_internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_c = (a >>> 31) && (b >>> 31) ;
+
+						   poc_internal_states.alu_flags.flag_v = 0 ;
+						   if ( (result < 0) && (a >= 0) && (b >= 0) )
+							poc_internal_states.alu_flags.flag_v = 1 ;
+						   if ( (result >= 0) && (a <  0) && (b <  0) )
+							poc_internal_states.alu_flags.flag_v = 1 ;
+						},
+					verbal: function (s_expr)
+						{
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+						   var result = a - 4 ;
+
+                                                   return "ALU SUB 4 with result " + show_value(result) + ". " ;
+						}
+				   };
+	poc_behaviors["SUBONE"]  = { nparameters: 3,
+				     types: ["E", "E"],
+				     operation: function(s_expr)
+		                                {
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+						   var result = a - 1 ;
+						   set_value(poc_states[s_expr[1]], result >>> 0) ;
+
+						   poc_internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_c = (a >>> 31) && (b >>> 31) ;
+
+						   poc_internal_states.alu_flags.flag_v = 0 ;
+						   if ( (result < 0) && (a >= 0) && (b >= 0) )
+							poc_internal_states.alu_flags.flag_v = 1 ;
+						   if ( (result >= 0) && (a <  0) && (b <  0) )
+							poc_internal_states.alu_flags.flag_v = 1 ;
+						},
+					verbal: function (s_expr)
+						{
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+						   var result = a - 1 ;
+
+                                                   return "ALU SUB 1 with result " + show_value(result) + ". " ;
 						}
 				   };
 	poc_behaviors["FADD"]    = { nparameters: 4,

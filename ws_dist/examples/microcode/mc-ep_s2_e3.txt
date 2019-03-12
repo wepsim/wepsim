@@ -520,7 +520,7 @@ srl reg1 reg2 val {
             }
 }
 
-sl reg1 reg2 val {
+sll reg1 reg2 val {
             co=011000,
             nwords=1,
             reg1=reg(25,21),

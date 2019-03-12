@@ -457,7 +457,6 @@
                        description: "Ejemplo ampliado con m&aacute;s instrucciones y E/S (keyboard, display).<br>"
                      });
 
-/*
     examples.es.push({
                        id: 'S2E3',
                        title: "M&aacute;scaras y desplazamientos",
@@ -468,7 +467,6 @@
                        assembly:  "ep_s2_e3",
                        description: "Ejemplo ampliado con m&aacute;scaras, desplazamientos y segmento de datos/c&oacute;digo b&aacute;sico.<br>"
                      });
-*/
 
     examples.es.push({
                        id: 'S2E4',
@@ -536,7 +534,6 @@
                        description: "Ejemplo de llamada al sistema para imprimir/leer entero y cadena de caracteres.<br>"
                      });
 
-/*
     examples.es.push({
                        id: 'S4E3',
                        title: "Hilos",
@@ -547,7 +544,6 @@
                        assembly:  "ep_s4_e3",
                        description: "Ejemplo de hilos.<br>"
                      });
-*/
 
     examples.es.push({
                        id: 'S4E4',

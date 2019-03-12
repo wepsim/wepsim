@@ -457,7 +457,6 @@
                        description: "Extended example with more instructions and I/O (keyboard, display).<br>"
                      });
 
-/*
     examples.en.push({
                        id: 'S2E3',
                        title: "Masks & shift",
@@ -468,7 +467,6 @@
                        assembly:  "ep_s2_e3",
                        description: "More extended example with masks, shift, and basic .text/.data segment.<br>"
                      });
-*/
 
     examples.en.push({
                        id: 'S2E4',
@@ -547,7 +545,6 @@
                        description: "Example of threads.<br>"
                      });
 
-/*
     examples.en.push({
                        id: 'S4E4',
                        title: "Alloc.s",
@@ -558,7 +555,6 @@
                        assembly:  "ep_s4_e4",
                        description: "Example of malloc + free.<br>"
                      });
-*/
 
     examples.en.push({
                        id: 'S5E1',
