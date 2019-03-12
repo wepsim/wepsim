@@ -26,24 +26,24 @@ begin
 
     csw_rt1:        
                   # push PC
-                    (ExCode=100, T11, MR, SELC=100000, LC)
-                    (MR, SELA=11101, MA=0, SELB=100000, MB=0, MC, SELCOP=1011, T6=1, SELC=11101, LC, C0),
+                    (ExCode=100, T11, MRC, SELC=100000, LC)
+                    (MRA, SELA=11101, MA=0, MRB, SELB=100000, MB=0, MC, SELCOP=1011, T6=1, MRC, SELC=11101, LC, C0),
                     (T2, M1=0, C1),
                     (BW=11, TA, TD, W)
                   # push SR
-                    (ExCode=100, T11, MR, SELC=100000, LC)
-                    (MR, SELA=11101, MA=0, SELB=100000, MB=0, MC, SELCOP=1011, T6=1, SELC=11101, LC, C0),
+                    (ExCode=100, T11, MRC, SELC=100000, LC)
+                    (MRA, SELA=11101, MA=0, MRB, SELB=100000, MB=0, MC, SELCOP=1011, T6=1, MRC, SELC=11101, LC, C0),
                     (T8, M1=0, C1),
                     (BW=11, TA, TD, W),
                   # SR.U=0
-                    (MR, SELC=100000, LC, T8),
-                    (MR, SELC=100000, LC, MA=0, MC=1, SELCOP=101, T6),
-                    (MR, SELC=100000, LC, MA=0, MC=1, SELCOP=111, T6),
-                    (MR, SELA=100000, T9, M7=0, C7),
+                    (MRC, SELC=100000, LC, T8),
+                    (MRC, SELC=100000, LC, MA=0, MC=1, SELCOP=101, T6),
+                    (MRC, SELC=100000, LC, MA=0, MC=1, SELCOP=111, T6),
+                    (MRA, SELA=100000, T9, M7=0, C7),
                   # MAR <- RT1*4
-                    (ExCode=100, T11, MR, SELC=100000, LC)
-                    (SIZE=10000, T3,  MR, SELC=100001, LC)
-                    (MR, SELA=100001, SELB=100000, MA=0, MB=0, MC, SELCOP=1100, T6=1, C0),
+                    (ExCode=100, T11, MRC, SELC=100000, LC)
+                    (SIZE=10000, T3,  MRC, SELC=100001, LC)
+                    (MRA, SELA=100001, MRB, SELB=100000, MA=0, MB=0, MC, SELCOP=1100, T6=1, C0),
                   # MBR <- MP[MAR]
                     (TA, R, BW=11, M1=1, C1=1),
                   # PC <- MAR
@@ -62,16 +62,16 @@ reti {
         nwords=1,
         {
               # pop SR
-              (MR=1, SELA=11101, T9, C0),
+              (MRA=1, SELA=11101, T9, C0),
               (TA, R, BW=11, M1, C1),
               (T1, M7=0, C7),
-              (MR, SELB=11101, MB=0, MC, SELCOP=10000, T6=1, SELC=11101, LC),
+              (MRB, SELB=11101, MB=0, MC, SELCOP=10000, T6=1, MRC, SELC=11101, LC),
 
               # pop PC
-              (MR=1, SELA=11101, T9, C0),
+              (MRA, SELA=11101, T9, C0),
               (TA=1, R=1, BW=11, M1=1, C1),
               (T1, C2),
-              (MR, SELB=11101, MB=0, MC, SELCOP=10000, T6=1, SELC=11101, LC),
+              (MRB, SELB=11101, MB=0, MC, SELCOP=10000, T6=1, MRC, SELC=11101, LC),
 
               # go begin
               (A0=1, B=1 ,C=0)
@@ -103,7 +103,7 @@ and reg1 reg2 reg3 {
             reg2=reg(20,16),
             reg3=reg(15,11),
             {
-                (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=1, T6=1, SELC=10101, LC=1,  M7, C7, A0=1, B=1, C=0)
+                (MC=1, MRA=0, SELA=1011, MRB=0, SELB=10000, MA=0, MB=0, SELCOP=1, T6=1, SELC=10101, LC=1,  M7, C7, A0=1, B=1, C=0)
             }
 }
 
@@ -115,7 +115,7 @@ or reg1 reg2 reg3 {
             reg2=reg(20,16),
             reg3=reg(15,11),
             {
-                (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=10, T6=1, SELC=10101, LC=1,  M7, C7, A0=1, B=1, C=0)
+                (MC=1, MRA=0, SELA=1011, MRB=0, SELB=10000, MA=0, MB=0, SELCOP=10, T6=1, SELC=10101, LC=1,  M7, C7, A0=1, B=1, C=0)
             }
 }
 
@@ -125,7 +125,7 @@ not reg {
             nwords=1,
             reg=reg(25,21),
             {
-                (MC=1, MR=0, SELA=010100, MA=0, SELCOP=11, T6=1, SELC=10101, LC=1,  M7, C7, A0=1, B=1, C=0)
+                (MC=1, MRA=0, SELA=010100, MA=0, SELCOP=11, T6=1, MRC=0, SELC=10101, LC=1,  M7, C7, A0=1, B=1, C=0)
             }
 }
 
@@ -137,7 +137,7 @@ add reg1 reg2 reg3 {
             reg2=reg(20,16),
             reg3=reg(15,11),
             {
-                (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=1010, T6=1, SELC=10101, LC=1,  M7, C7, A0=1, B=1, C=0)
+                (MC=1, MRA=0, SELA=1011, MRB=0, SELB=10000, MA=0, MB=0, SELCOP=1010, T6=1, MRC=0, SELC=10101, LC=1,  M7, C7, A0=1, B=1, C=0)
             }
 }
 
@@ -148,11 +148,11 @@ add reg1 reg2 val {
             reg2 = reg(20,16),
             val  = inm(15,0),
             {
-                (MR=0, SELB=10000,                                              T10=1, M1=0, C1=1),
-                (                              T1=1, MR=1, SELC=100000, LC=1),
-                (SE=1, OFFSET=0, SIZE=10000,   T3=1, MR=1, SELC=100001, LC=1),
-                (MC=1, MR=1, SELA=100000, SELB=100001, MA=0, MB=0, SELCOP=1010, T6=1,  M1=0, C1=1, M7, C7),
-                (                              T1=1, MR=0, SELC=10101,  LC=1, A0=1, B=1, C=0)
+                (MRB=0, SELB=10000,                                              T10=1, M1=0, C1=1),
+                (                              T1=1, MRC, SELC=100000, LC=1),
+                (SE=1, OFFSET=0, SIZE=10000,   T3=1, MRC, SELC=100001, LC=1),
+                (MC=1, MRA, SELA=100000, MRB, SELB=100001, MA=0, MB=0, SELCOP=1010, T6=1,  M1=0, C1=1, M7, C7),
+                (                              T1=1, MRC=0, SELC=10101,  LC=1, A0=1, B=1, C=0)
             }
 }
 
@@ -164,7 +164,7 @@ sub reg1 reg2 reg3 {
             reg2=reg(20,16),
             reg3=reg(15,11),
             {
-                (MC=1, MR=0, SELA=10000, SELB=1011, MA=0, MB=0, SELCOP=1011, T6=1, SELC=10101, LC=1,  M7, C7, A0=1, B=1, C=0)
+                (MC=1, MRA=0, SELA=10000, MRB=0, SELB=1011, MA=0, MB=0, SELCOP=1011, T6=1, SELC=10101, LC=1,  M7, C7, A0=1, B=1, C=0)
             }
 }
 
@@ -175,11 +175,11 @@ sub reg1 reg2 val {
             reg2 = reg(20,16),
             val  = inm(15,0),
             {
-                (MR=0, SELB=10000,                                              T10=1, M1=0, C1=1),
-                (                              T1=1, MR=1, SELC=100000, LC=1),
-                (SE=1, OFFSET=0, SIZE=10000,   T3=1, MR=1, SELC=100001, LC=1),
-                (MC=1, MR=1, SELA=100000, SELB=100001, MA=0, MB=0, SELCOP=1011, T6=1,  M1=0, C1=1, M7, C7),
-                (                              T1=1, MR=0, SELC=10101,  LC=1, A0=1, B=1, C=0)
+                (MRB=0, SELB=10000,                                              T10=1, M1=0, C1=1),
+                (                              T1=1, MRC=1, SELC=100000, LC=1),
+                (SE=1, OFFSET=0, SIZE=10000,   T3=1, MRC=1, SELC=100001, LC=1),
+                (MC=1, MRA=1, SELA=100000, MRB=1, SELB=100001, MA=0, MB=0, SELCOP=1011, T6=1,  M1=0, C1=1, M7, C7),
+                (                              T1=1, MRC=0, SELC=10101,  LC=1, A0=1, B=1, C=0)
             }
 }
 
@@ -191,7 +191,7 @@ mul reg1 reg2 reg3 {
             reg2=reg(20,16),
             reg3=reg(15,11),
             {
-                (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=1100, T6=1, SELC=10101, LC=1,  M7, C7, A0=1, B=1, C=0)
+                (MC=1, MRA=0, SELA=1011, MRB=0, SELB=10000, MA=0, MB=0, SELCOP=1100, T6=1, SELC=10101, LC=1,  M7, C7, A0=1, B=1, C=0)
             }
 }
 
@@ -202,11 +202,11 @@ mul reg1 reg2 val {
             reg2 = reg(20,16),
             val  = inm(15,0),
             {
-                (MR=0, SELB=10000,                                              T10=1, M1=0, C1=1),
-                (                              T1=1, MR=1, SELC=100000, LC=1),
-                (SE=1, OFFSET=0, SIZE=10000,   T3=1, MR=1, SELC=100001, LC=1),
-                (MC=1, MR=1, SELA=100000, SELB=100001, MA=0, MB=0, SELCOP=1100, T6=1,  M1=0, C1=1, M7, C7),
-                (                              T1=1, MR=0, SELC=10101,  LC=1, A0=1, B=1, C=0)
+                (MRB=0, SELB=10000,                                              T10=1, M1=0, C1=1),
+                (                              T1=1, MRC=1, SELC=100000, LC=1),
+                (SE=1, OFFSET=0, SIZE=10000,   T3=1, MRC=1, SELC=100001, LC=1),
+                (MC=1, MRA=1, SELA=100000, MRB=1, SELB=100001, MA=0, MB=0, SELCOP=1100, T6=1,  M1=0, C1=1, M7, C7),
+                (                              T1=1, MRC=0, SELC=10101,  LC=1, A0=1, B=1, C=0)
             }
 }
 
@@ -219,10 +219,10 @@ div reg1 reg2 reg3 {
             reg3=reg(15,11),
             {
                     # if (reg3 == 0)
-                    (MR=0, SELA=1011, SELB=1011, MA=0, MB=0, MC, SELCOP=10, M7, C7),
+                    (MRA=0, SELA=1011, MRB=0, SELB=1011, MA=0, MB=0, MC, SELCOP=10, M7, C7),
                     (A0=0, B=0, C=110, MADDR=fpe1),
                     # reg1 = reg2 / reg3, go fetch
-                    (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=1101, T6=1, SELC=10101, LC=1,  M7, C7, A0=1, B=1, C=0)
+                    (MC=1, MRA=0, SELA=10000, MRB=0, SELB=1011, MA=0, MB=0, SELCOP=1101, T6=1, SELC=10101, LC=1,  M7, C7, A0=1, B=1, C=0)
               fpe1: # RT1 <- ExCode=1
                     (ExCode=1, T11, C4),
                     # csw_rt1(2)
@@ -238,7 +238,7 @@ rem reg1 reg2 reg3 {
             reg2=reg(20,16),
             reg3=reg(15,11),
             {
-                (MC=1, MR=0, SELA=1011, SELB=10000, MA=0, MB=0, SELCOP=1110, T6=1, SELC=10101, LC=1,  M7, C7, A0=1, B=1, C=0)
+                (MC=1, MRA=0, SELA=1011, MRB=0, SELB=10000, MA=0, MB=0, SELCOP=1110, T6=1, SELC=10101, LC=1,  M7, C7, A0=1, B=1, C=0)
             }
 }
 
@@ -263,7 +263,7 @@ li reg val {
             reg=reg(25,21),
             val=inm(15,0),
             {
-                (SE=1, OFFSET=0, SIZE=10000, SE=1, T3=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
+                (SE=1, OFFSET=0, SIZE=10000, SE=1, T3=1, LC=1, MRC=0, SELC=10101, A0=1, B=1, C=0)
             }
 }
 
@@ -273,7 +273,7 @@ la  reg addr {
             reg=reg(25,21),
             addr=address(15,0)abs,
             {
-                (SE=0, OFFSET=0, SIZE=10000, T3=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
+                (SE=0, OFFSET=0, SIZE=10000, T3=1, LC=1, MRC=0, SELC=10101, A0=1, B=1, C=0)
             }
 }
 
@@ -285,7 +285,7 @@ lw reg addr {
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
                 (TA=1, R=1, BW=11, M1=1, C1=1),
-                (T1=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
+                (T1=1, LC=1, MRC=0, SELC=10101, A0=1, B=1, C=0)
             }
 }
 
@@ -296,7 +296,7 @@ sw reg addr {
             addr=address(15,0)abs,
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
-                (MR=0, SELA=10101, T9=1, M1=0, C1=1),
+                (MRA=0, SELA=10101, T9=1, M1=0, C1=1),
                 (TA=1, TD=1, BW=11, W=1, A0=1, B=1, C=0)
             }
 }
@@ -309,7 +309,7 @@ lb reg addr {
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
                 (TA=1, R=1, BW=0, M1=1, C1=1),
-                (T1=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
+                (T1=1, LC=1, MRC=0, SELC=10101, A0=1, B=1, C=0)
             }
 }
 
@@ -320,7 +320,7 @@ sb reg addr {
             addr=address(15,0)abs,
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
-                (MR=0, SELA=10101, T9=1, M1=0, C1=1),
+                (MRA=0, SELA=10101, T9=1, M1=0, C1=1),
                 (TA=1, TD=1, BW=0, W=1, A0=1, B=1, C=0)
             }
 }
@@ -331,9 +331,9 @@ lb reg1 (reg2) {
             reg1 = reg(25,21),
             reg2 = reg(20,16),
             {
-                (MR=0, SELA=10000, T9=1, C0),
+                (MRA=0, SELA=10000, T9=1, C0),
                 (TA=1, R=1, BW=0, M1=1, C1=1),
-                (T1=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
+                (T1=1, LC=1, MRC=0, SELC=10101, A0=1, B=1, C=0)
             }
 }
 
@@ -343,8 +343,8 @@ sb reg1 (reg2) {
             reg1 = reg(25,21),
             reg2 = reg(20,16),
             {
-                (MR=0, SELA=10000, T9=1, C0),
-                (MR=0, SELA=10101, T9=1, M1=0, C1=1),
+                (MRA=0, SELA=10000, T9=1, C0),
+                (MRA=0, SELA=10101, T9=1, M1=0, C1=1),
                 (TA=1, TD=1, BW=0, W=1, A0=1, B=1, C=0)
             }
 }
@@ -355,9 +355,9 @@ lw reg1 (reg2) {
             reg1 = reg(25,21),
             reg2 = reg(20,16),
             {
-                (MR=0, SELA=10000, T9=1, C0),
+                (MRA=0, SELA=10000, T9=1, C0),
                 (TA=1, R=1, M1=1, C1=1),
-                (T1=1, LC=1, MR=0, SELC=10101, SE=1, A0=1, B=1, C=0)
+                (T1=1, LC=1, MRC=0, SELC=10101, SE=1, A0=1, B=1, C=0)
             }
 }
 
@@ -367,8 +367,8 @@ sw reg1 (reg2) {
             reg1 = reg(25,21),
             reg2 = reg(20,16),
             {
-                (MR=0, SELA=10000, T9=1, C0),
-                (MR=0, SELA=10101, T9=1, M1=0, C1=1),
+                (MRA=0, SELA=10000, T9=1, C0),
+                (MRA=0, SELA=10101, T9=1, M1=0, C1=1),
                 (TA=1, TD=1, BW=11, W=1, A0=1, B=1, C=0)
             }
 }
@@ -380,12 +380,12 @@ lw reg1 val(reg2) {
             val  = inm(15,0),
             reg2 = reg(20,16),
             {
-                (SE=1, OFFSET=0, SIZE=10000,  T3=1, MR=1, SELC=100000, LC),
-                (MR=0, SELA=10000, T9=1, M1=0, C1=1),
-                (T1=1, MR=1, SELC=100001, LC),
-                (MR=1, SELA=100000, SELB=100001, MA=0, MB=0, MC=1, SELCOP=1010, T6=1, C0=1),
+                (SE=1, OFFSET=0, SIZE=10000,  T3=1, MRC=1, SELC=100000, LC),
+                (MRA=0, SELA=10000, T9=1, M1=0, C1=1),
+                (T1=1, MRC=1, SELC=100001, LC),
+                (MRA=1, SELA=100000, MRB=1, SELB=100001, MA=0, MB=0, MC=1, SELCOP=1010, T6=1, C0=1),
                 (TA=1, R=1, M1=1, C1=1),
-                (T1=1, LC=1, MR=0, SELC=10101, A0=1, B=1, C=0)
+                (T1=1, LC=1, MRC=0, SELC=10101, A0=1, B=1, C=0)
             }
 }
 
@@ -396,11 +396,11 @@ sw reg1 val(reg2) {
             val  = inm(15,0),
             reg2 = reg(20,16),
             {
-                (SE=1, OFFSET=0, SIZE=10000,  T3=1, MR=1, SELC=100000, LC),
-                (MR=0, SELA=10000, T9=1, M1=0, C1=1),
-                (T1=1, MR=1, SELC=100001, LC),
-                (MR=1, SELA=100000, SELB=100001, MA=0, MB=0, MC=1, SELCOP=1010, T6=1, C0=1),
-                (MR=0, SELA=10101, T9=1, M1=0, C1=1),
+                (SE=1, OFFSET=0, SIZE=10000,  T3=1, MRC=1, SELC=100000, LC),
+                (MRA=0, SELA=10000, T9=1, M1=0, C1=1),
+                (T1=1, MRC=1, SELC=100001, LC),
+                (MRA, SELA=100000, MRB, SELB=100001, MA=0, MB=0, MC=1, SELCOP=1010, T6=1, C0=1),
+                (MRA=0, SELA=10101, T9=1, M1=0, C1=1),
                 (TA=1, TD=1, W=1, A0=1, B=1, C=0)
             }
 }
@@ -418,7 +418,7 @@ in reg val {
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C0=1),
                 (TA=1, IOR=1,    M1=1, C1=1),
-                (T1=1, LC=1,     MR=0, SELC=10101, A0=1, B=1, C=0)
+                (T1=1, LC=1,     MRC=0, SELC=10101, A0=1, B=1, C=0)
             }
 }
 
@@ -429,7 +429,7 @@ out reg val {
             val=inm(15,0),
             {
                 (SE=0, OFFSET=0,   SIZE=10000, T3=1, C0=1),
-                (MR=0, SELA=10101, T9=1,       M1=0, C1=1),
+                (MRA=0, SELA=10101, T9=1,       M1=0, C1=1),
                 (TA=1, TD=1,       IOW=1,      A0=1, B=1, C=0)
             }
 }
@@ -444,8 +444,8 @@ b offset {
             nwords=1,
             offset=address(15,0)rel,
             {
-                (SE=1, OFFSET=0, SIZE=10000, T3, SELC=110111, MR=1, LC=1),
-                (SELA=110111, MR=1, MA=0, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0)
+                (SE=1, OFFSET=0, SIZE=10000, T3, SELC=110111, MRC=1, LC=1),
+                (SELA=110111, MRA=1, MA=0, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0)
             }
 }
 
@@ -456,13 +456,13 @@ beq reg reg offset {
             reg=reg(20,16),
             offset=address(13,0)rel,
             {
-                (T8, SELC=110111, MR=1, LC=1),
+                (T8, SELC=110111, MRC=1, LC=1),
                 (SELA=10101, SELB=10000, MC=1, SELCOP=1011, M7, C7),
                 (A0=0, B=1, C=110, MADDR=bck2ftch),
-                (SELA=110111, MR=1, M7=0, C7),
-                (SE=1, OFFSET=0, SIZE=1101, T3, SELC=110111, MR=1, LC=1),
-                (MA=0, SELA=110111, MR=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
-      bck2ftch: (SELA=110111, MR=1, M7=0, C7),
+                (SELA=110111, MRA=1, M7=0, C7),
+                (SE=1, OFFSET=0, SIZE=1101, T3, SELC=110111, MRC=1, LC=1),
+                (MA=0, SELA=110111, MRA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
+      bck2ftch: (SELA=110111, MRA=1, M7=0, C7),
                 (A0=1, B=1, C=0)
             }
 }
@@ -474,13 +474,13 @@ bne reg reg offset {
             reg=reg(20,16),
             offset=address(13,0)rel,
             {
-                (T8, SELC=110111, MR=1, LC=1),
+                (T8, SELC=110111, MRC=1, LC=1),
                 (SELA=10101, SELB=10000, MC=1, SELCOP=1011, M7, C7),
                 (A0=0, B=0, C=110, MADDR=bck3ftch),
-                (SELA=110111, MR=1, M7=0, C7),
-                (SE=1, OFFSET=0, SIZE=1101, T3, SELC=110111, MR=1, LC=1),
-                (MA=0, SELA=110111, MR=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
-      bck3ftch: (SELA=110111, MR=1, M7=0, C7),
+                (SELA=110111, MRA=1, M7=0, C7),
+                (SE=1, OFFSET=0, SIZE=1101, T3, SELC=110111, MRC=1, LC=1),
+                (MA=0, SELA=110111, MRA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
+      bck3ftch: (SELA=110111, MRA=1, M7=0, C7),
                 (A0=1, B=1, C=0)
             }
 }
@@ -492,13 +492,13 @@ bge reg reg offset {
             reg=reg(20,16),
             offset=address(13,0)rel,
             {
-                (T8, SELC=110111, MR=1, LC=1),
+                (T8, SELC=110111, MRC=1, LC=1),
                 (SELA=10101, SELB=10000, MC=1, SELCOP=1011, M7, C7),
                 (A0=0, B=0, C=111, MADDR=bck4ftch),
-                (SELA=110111, MR=1, M7=0, C7),
-                (SE=1, OFFSET=0, SIZE=1101, T3, SELC=110111, MR=1, LC=1),
-                (MA=0, SELA=110111, MR=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
-      bck4ftch: (SELA=110111, MR=1, M7=0, C7),
+                (SELA=110111, MRA=1, M7=0, C7),
+                (SE=1, OFFSET=0, SIZE=1101, T3, SELC=110111, MRC=1, LC=1),
+                (MA=0, SELA=110111, MRA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
+      bck4ftch: (SELA=110111, MRA=1, M7=0, C7),
                 (A0=1, B=1, C=0)
             }
 }
@@ -522,7 +522,7 @@ jal addr {
             nwords=1,
             addr=address(15,0)abs,
             {
-                (T2, SELC=11111, MR=1, LC),
+                (T2, SELC=11111, MRC=1, LC),
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, C2=1, A0=1, B=1, C=0)
             }
 }
@@ -532,7 +532,7 @@ jr reg1 {
             nwords=1,
             reg1=reg(25,21),
             {
-                (SELA=10101, MR=0, T9=1, C2=1, A0=1, B=1, C=0)
+                (SELA=10101, MRA=0, T9=1, C2=1, A0=1, B=1, C=0)
             }
 }
 
