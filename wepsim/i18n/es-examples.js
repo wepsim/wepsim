@@ -536,6 +536,7 @@
                        assembly:  "ep_s4_e3",
                        description: "Ejemplo de hilos.<br>"
                      });
+*/
 
     examples.es.push({
                        id: 'S4E4',
@@ -547,7 +548,6 @@
                        assembly:  "ep_s4_e4",
                        description: "Ejemplo de malloc y free.<br>"
                      });
-*/
 
     examples.es.push({
                        id: 'S5E1',

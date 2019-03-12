@@ -525,7 +525,6 @@
                        description: "Advanced example with interruption, system call, and exception.<br>"
                      });
 
-/*
     examples.en.push({
                        id: 'S4E3',
                        title: "Threads",
@@ -537,6 +536,7 @@
                        description: "Example of threads.<br>"
                      });
 
+/*
     examples.en.push({
                        id: 'S4E4',
                        title: "Alloc.s",
