@@ -526,6 +526,17 @@
                      });
 
     examples.en.push({
+                       id: 'S4E2',
+                       title: "SC 1, 4-5, 8, 11-12",
+                       level: "Operating Systems",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_os",
+                       assembly:  "ep_s4_e2",
+                       description: "Example of syscall for printing/reading integer and string.<br>"
+                     });
+
+    examples.en.push({
                        id: 'S4E3',
                        title: "Threads",
                        level: "Operating Systems",

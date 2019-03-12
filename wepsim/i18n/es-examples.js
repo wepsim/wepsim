@@ -525,6 +525,17 @@
                        description: "Ejemplo avanzado con interrupci&oacute;n, llamada al sistema y excepci&oacute;n.<br>"
                      });
 
+    examples.es.push({
+                       id: 'S4E2',
+                       title: "SC 1, 4-5, 8, 11-12",
+                       level: "Sistemas Operativos",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_os",
+                       assembly:  "ep_s4_e2",
+                       description: "Ejemplo de llamada al sistema para imprimir/leer entero y cadena de caracteres.<br>"
+                     });
+
 /*
     examples.es.push({
                        id: 'S4E3',
