@@ -27,12 +27,12 @@ begin
     csw_rt1:        
                   # push PC
                     (ExCode=100, T11, MRC, SELC=100000, LC)
-                    (MRA, SELA=11101, MA=0, MRB, SELB=100000, MB=0, MC, SELCOP=1011, T6=1, SELC=11101, LC, C0),
+                    (MRA, SELA=11101, MA=0, MRB, SELB=100000, MB=0, MC, SELCOP=1011, T6=1, MRC, SELC=11101, LC, C0),
                     (T2, M1=0, C1),
                     (BW=11, TA, TD, W)
                   # push SR
                     (ExCode=100, T11, MRC, SELC=100000, LC)
-                    (MRA, SELA=11101, MA=0, MRB, SELB=100000, MB=0, MC, SELCOP=1011, T6=1, SELC=11101, LC, C0),
+                    (MRA, SELA=11101, MA=0, MRB, SELB=100000, MB=0, MC, SELCOP=1011, T6=1, MRC, SELC=11101, LC, C0),
                     (T8, M1=0, C1),
                     (BW=11, TA, TD, W),
                   # SR.U=0
@@ -62,7 +62,7 @@ reti {
         nwords=1,
         {
               # pop SR
-              (MRA, SELA=11101, T9, C0),
+              (MRA=1, SELA=11101, T9, C0),
               (TA, R, BW=11, M1, C1),
               (T1, M7=0, C7),
               (MRB, SELB=11101, MB=0, MC, SELCOP=10000, T6=1, MRC, SELC=11101, LC),
@@ -125,7 +125,7 @@ not reg {
             nwords=1,
             reg=reg(25,21),
             {
-                (MC=1, MRA=0, SELA=010100, MA=0, SELCOP=11, T6=1, SELC=10101, LC=1,  M7, C7, A0=1, B=1, C=0)
+                (MC=1, MRA=0, SELA=010100, MA=0, SELCOP=11, T6=1, MRC=0, SELC=10101, LC=1,  M7, C7, A0=1, B=1, C=0)
             }
 }
 
@@ -137,7 +137,22 @@ add reg1 reg2 reg3 {
             reg2=reg(20,16),
             reg3=reg(15,11),
             {
-                (MC=1, MRA=0, SELA=1011, MRB=0, SELB=10000, MA=0, MB=0, SELCOP=1010, T6=1, SELC=10101, LC=1,  M7, C7, A0=1, B=1, C=0)
+                (MC=1, MRA=0, SELA=1011, MRB=0, SELB=10000, MA=0, MB=0, SELCOP=1010, T6=1, MRC=0, SELC=10101, LC=1,  M7, C7, A0=1, B=1, C=0)
+            }
+}
+
+add reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            val  = inm(15,0),
+            {
+                (MRB=0, SELB=10000,                                              T10=1, M1=0, C1=1),
+                (                              T1=1, MRC, SELC=100000, LC=1),
+                (SE=1, OFFSET=0, SIZE=10000,   T3=1, MRC, SELC=100001, LC=1),
+                (MC=1, MRA, SELA=100000, MRB, SELB=100001, MA=0, MB=0, SELCOP=1010, T6=1,  M1=0, C1=1, M7, C7),
+                (                              T1=1, MRC=0, SELC=10101,  LC=1, A0=1, B=1, C=0)
             }
 }
 
@@ -153,6 +168,21 @@ sub reg1 reg2 reg3 {
             }
 }
 
+sub reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            val  = inm(15,0),
+            {
+                (MRB=0, SELB=10000,                                              T10=1, M1=0, C1=1),
+                (                              T1=1, MRC=1, SELC=100000, LC=1),
+                (SE=1, OFFSET=0, SIZE=10000,   T3=1, MRC=1, SELC=100001, LC=1),
+                (MC=1, MRA=1, SELA=100000, MRB=1, SELB=100001, MA=0, MB=0, SELCOP=1011, T6=1,  M1=0, C1=1, M7, C7),
+                (                              T1=1, MRC=0, SELC=10101,  LC=1, A0=1, B=1, C=0)
+            }
+}
+
 mul reg1 reg2 reg3 {
             co=000000,
             cop=01011,
@@ -162,6 +192,21 @@ mul reg1 reg2 reg3 {
             reg3=reg(15,11),
             {
                 (MC=1, MRA=0, SELA=1011, MRB=0, SELB=10000, MA=0, MB=0, SELCOP=1100, T6=1, SELC=10101, LC=1,  M7, C7, A0=1, B=1, C=0)
+            }
+}
+
+mul reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1 = reg(25,21),
+            reg2 = reg(20,16),
+            val  = inm(15,0),
+            {
+                (MRB=0, SELB=10000,                                              T10=1, M1=0, C1=1),
+                (                              T1=1, MRC=1, SELC=100000, LC=1),
+                (SE=1, OFFSET=0, SIZE=10000,   T3=1, MRC=1, SELC=100001, LC=1),
+                (MC=1, MRA=1, SELA=100000, MRB=1, SELB=100001, MA=0, MB=0, SELCOP=1100, T6=1,  M1=0, C1=1, M7, C7),
+                (                              T1=1, MRC=0, SELC=10101,  LC=1, A0=1, B=1, C=0)
             }
 }
 
@@ -182,6 +227,52 @@ div reg1 reg2 reg3 {
                     (ExCode=1, T11, C4),
                     # csw_rt1(2)
                     (A0=0, B=1, C=0, MADDR=csw_rt1)
+            }
+}
+
+rem reg1 reg2 reg3 {
+            co=000000,
+            cop=01110,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            reg3=reg(15,11),
+            {
+                (MC=1, MRA=0, SELA=10000, MRB=0, SELB=1011, MA=0, MB=0, SELCOP=1110, T6=1, SELC=10101, LC=1,  M7, C7, A0=1, B=1, C=0)
+            }
+}
+
+srl reg1 reg2 val {
+            co=010111,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            val=inm(5,0),
+            {
+                (SE=1, OFFSET=0, SIZE=110, T3=1, MRC=1, LC=1, SELC=110111),
+                (MC=1, SELA=10000, MA=0, SELB=10000, MB=0, SELCOP=10, T6=1, MRC=0, SELC=10101, LC=1, M7, C7),
+         loop9: (A0=0, B=0, C=110, MADDR=bck9ftch),
+                (MC=1, SELA=10101, SELB=10101, MA=0, MB=0, SELCOP=101, T6=1, LC=1, SELC=10101),
+                (MRB=1, SELB=110111, MB=0, MC=1, SELCOP=10011, T6=1, MRC=1, LC=1, SELC=110111, M7, C7),
+                (A0=0, B=1, C=0, MADDR=loop9),
+      bck9ftch: (A0=1, B=1, C=0)
+            }
+}
+
+sll reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            val=inm(5,0),
+            {
+                (SE=1, OFFSET=0, SIZE=110, T3=1, MRC=1, LC=1, SELC=110111),
+                (MC=1, SELA=10000, MA=0, SELB=10000, MB=0, SELCOP=10, T6=1, MRC=0, SELC=10101, LC=1, M7, C7),
+        loop10: (A0=0, B=0, C=110, MADDR=bck10ftch),
+                (MC=1, SELA=10101, SELB=10101, MA=0, MB=0, SELCOP=111, T6=1, LC=1, SELC=10101),
+                (MRB=1, SELB=110111, MB=0, MC=1, SELCOP=10011, T6=1, MRC=1, LC=1, SELC=110111, M7, C7),
+                (A0=0, B=1, C=0, MADDR=loop10),
+     bck10ftch: (A0=1, B=1, C=0)
             }
 }
 
@@ -217,6 +308,18 @@ la  reg addr {
             addr=address(15,0)abs,
             {
                 (SE=0, OFFSET=0, SIZE=10000, T3=1, LC=1, MRC=0, SELC=10101, A0=1, B=1, C=0)
+            }
+}
+
+la  reg addr {
+            co=111111,
+            nwords=2,
+            reg=reg(25,21),
+            addr=address(63,32)abs,
+            {
+                (T2, C0),
+                (TA, R, BW=11, M1=1, C1=1, MB=1, SelCop=10000, MC, T6, C2),
+                (T1, LC=1, MRC=0, SELC=10101, A0=1, B=1, C=0)
             }
 }
 
@@ -316,6 +419,34 @@ sw reg1 (reg2) {
             }
 }
 
+lw reg1 val(reg2) {
+            co=111111,
+            nwords=1,
+            reg1 = reg(25,21),
+            val  = inm(15,0),
+            reg2 = reg(20,16),
+            {
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, MRC=1, SELC=100000, LC),
+                (MRA=1, SELA=100000, MRB=0, SELB=10000, MA=0, MB=0, MC=1, SELCOP=1010, T6=1, C0=1),
+                (TA=1, R=1, BW=11, M1=1, C1=1),
+                (T1=1, LC=1, MRC=0, SELC=10101, A0=1, B=1, C=0)
+            }
+}
+
+sw reg1 val(reg2) {
+            co=111111,
+            nwords=1,
+            reg1 = reg(25,21),
+            val  = inm(15,0),
+            reg2 = reg(20,16),
+            {
+                (SE=1, OFFSET=0, SIZE=10000, T3=1, MRC=1, SELC=100000, LC),
+                (MRA=1, SELA=100000, MRB=0, SELB=10000, MA=0, MB=0, MC=1, SELCOP=1010, T6=1, C0=1),
+                (MRA=0, SELA=10101, T9=1, M1=0, C1=1),
+                (TA=1, TD=1, W=1, BW=11, A0=1, B=1, C=0)
+            }
+}
+
 
 #
 # IN/OUT
@@ -410,6 +541,61 @@ bge reg reg offset {
                 (SE=1, OFFSET=0, SIZE=1101, T3, SELC=110111, MRC=1, LC=1),
                 (MA=0, SELA=110111, MRA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
       bck4ftch: (SELA=110111, MRA=1, M7=0, C7),
+                (A0=1, B=1, C=0)
+            }
+}
+
+ble reg reg offset {
+            co=010010,
+            nwords=1,
+            reg=reg(25,21),
+            reg=reg(20,16),
+            offset=address(13,0)rel,
+            {
+                (T8, SELC=110111, MRC=1, LC=1),
+                (SELA=10101, SELB=10000, MC=1, SELCOP=1011, M7, C7),
+                (A0=0, B=0, C=111, MADDR=ble_ys),
+                (A0=0, B=0, C=110, MADDR=ble_ys),
+                (SELA=110111, MRA=1, M7=0, C7),
+                (A0=1, B=1, C=0),
+        ble_ys: (SELA=110111, MRA=1, M7=0, C7),
+                (SE=1, OFFSET=0, SIZE=10000, T3, MA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0)
+            }
+}
+
+blt reg reg offset {
+            co=010000,
+            nwords=1,
+            reg=reg(25,21),
+            reg=reg(20,16),
+            offset=address(13,0)rel,
+            {
+                (T8, SELC=110111, MRC=1, LC=1),
+                (SELA=10101, SELB=10000, MC=1, SELCOP=1011, M7, C7),
+                (A0=0, B=1, C=111, MADDR=bck5ftch),
+                (SELA=110111, MRA=1, M7=0, C7),
+                (SE=1, OFFSET=0, SIZE=1101, T3, SELC=110111, MRC=1, LC=1),
+                (MA=0, SELA=110111, MRA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
+      bck5ftch: (SELA=110111, MRA=1, M7=0, C7),
+                (A0=1, B=1, C=0)
+            }
+}
+
+bgt reg reg offset {
+            co=010001,
+            nwords=1,
+            reg=reg(25,21),
+            reg=reg(20,16),
+            offset=address(13,0)rel,
+            {
+                (T8, SELC=110111, MRC=1, LC=1),
+                (SELA=10101, SELB=10000, MC=1, SELCOP=1011, M7, C7),
+                (A0=0, B=0, C=111, MADDR=bck6ftch),
+                (A0=0, B=0, C=110, MADDR=bck6ftch),
+                (SELA=110111, MRA=1, M7=0, C7),
+                (SE=1, OFFSET=0, SIZE=1101, T3, SELC=110111, MRC=1, LC=1),
+                (MA=0, SELA=110111, MRA=1, MB=1, MC=1, SELCOP=1010, T6, C2, A0=1, B=1, C=0),
+      bck6ftch: (SELA=110111, MRA=1, M7=0, C7),
                 (A0=1, B=1, C=0)
             }
 }

@@ -372,14 +372,16 @@
           <div id="SELC">
           <div id="MR">
           <p>
-            <b>MR</b><b>       </b>             1 bit<br>
+            <b>MRA</b><b>      </b>             1 bit<br>
+            <b>MRB</b><b>      </b>             1 bit<br>
+            <b>MRC</b><b>      </b>             1 bit<br>
             <b>SELA</b><b>     </b>             6 bits<br>
             <b>SELB</b><b>     </b>             6 bits<br>
             <b>SELC</b><b>     </b>             6 bits
           </p>
           <p>
             Permiten seleccionar el valor para RA, RB y RC.
-            Si MR es igual a 1 entonces el valor SELA representar&aacute; el identificador del registro del banco de registro que se desea usar:
+            Si MRx es igual a 1 entonces el valor SELx representar&aacute; el identificador del registro del banco de registro que se desea usar:
           </p>
           <p class="cleanuphtml-3">
             <img style="max-width:90%;" id="Imagen 82" src="examples/hardware/poc/help/signals/image009.png" name="Imagen 92" alt="">
@@ -389,7 +391,7 @@
           </p>
 
           <p>
-            Si MR es igual a 0 entonces el valor SELA representa el desplazamiento dentro del registro de instrucci&oacute;n 
+            Si MRx es igual a 0 entonces el valor SELx representa el desplazamiento dentro del registro de instrucci&oacute;n 
 	    a partir del cual se toman 6 bits, y el valor de esos 6 bits es el identificador del registro en el banco de registro:
           </p>
           <p class="cleanuphtml-3">
@@ -401,6 +403,8 @@
 
           <p>
           </p>
+        </div>
+        </div>
         </div>
         </div>
         </div>

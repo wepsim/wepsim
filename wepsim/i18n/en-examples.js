@@ -457,7 +457,6 @@
                        description: "Extended example with more instructions and I/O (keyboard, display).<br>"
                      });
 
-/*
     examples.en.push({
                        id: 'S2E3',
                        title: "Masks & shift",
@@ -468,7 +467,6 @@
                        assembly:  "ep_s2_e3",
                        description: "More extended example with masks, shift, and basic .text/.data segment.<br>"
                      });
-*/
 
     examples.en.push({
                        id: 'S2E4',
@@ -548,6 +546,39 @@
                        description: "Example of malloc + free.<br>"
                      });
 */
+
+    examples.en.push({
+                       id: 'S4E2',
+                       title: "SC 1, 4-5, 8, 11-12",
+                       level: "Operating Systems",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_os",
+                       assembly:  "ep_s4_e2",
+                       description: "Example of syscall for printing/reading integer and string.<br>"
+                     });
+
+    examples.en.push({
+                       id: 'S4E3',
+                       title: "Threads",
+                       level: "Operating Systems",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_os",
+                       assembly:  "ep_s4_e3",
+                       description: "Example of threads.<br>"
+                     });
+
+    examples.en.push({
+                       id: 'S4E4',
+                       title: "Alloc.s",
+                       level: "Operating Systems",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_os",
+                       assembly:  "ep_s4_e4",
+                       description: "Example of malloc + free.<br>"
+                     });
 
     examples.en.push({
                        id: 'S5E1',

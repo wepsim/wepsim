@@ -373,16 +373,20 @@
           <div id="SELA">
           <div id="SELB">
           <div id="SELC">
-          <div id="MR">
+          <div id="MRA">
+          <div id="MRB">
+          <div id="MRC">
           <p>
-            <b>MR</b><b>       </b>             1 bit<br>
+            <b>MRA</b><b>      </b>             1 bit<br>
+            <b>MRB</b><b>      </b>             1 bit<br>
+            <b>MRC</b><b>      </b>             1 bit<br>
             <b>SELA</b><b>     </b>             6 bits<br>
             <b>SELB</b><b>     </b>             6 bits<br>
             <b>SELC</b><b>     </b>             6 bits
           </p>
           <p>
             It allows to select the value for RA, RB and RC. 
-            If MR equals 1 then the SELA value will represent the register id. of the register file that you want to use:
+            If MRx equals 1 then the SELx value will represent the register id. of the register file that you want to use:
           </p>
           <p class="cleanuphtml-3">
             <img style="max-width:90%" id="Imagen 82" src="examples/hardware/poc/help/signals/image009.png" name="Imagen 92" alt="">
@@ -392,7 +396,7 @@
           </p>
 
           <p>
-            If MR equals 0 then the SELA value represents the offset within the instruction register from which 6 bits are taken, 
+            If MRx equals 0 then the SELx value represents the offset within the instruction register from which 6 bits are taken, 
             and the value of those 6 bits is the identifier of the register in the register file:
           </p>
           <p class="cleanuphtml-3">
@@ -404,6 +408,8 @@
 
           <p>
           </p>
+        </div>
+        </div>
         </div>
         </div>
         </div>

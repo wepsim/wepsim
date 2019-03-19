@@ -90,7 +90,7 @@ cat ws_dist/min.sim_all.js \
 #  external
 cat external/popper.min.js \
     external/bootstrap.min.js \
-    external/knockout-3.4.2.js \
+    external/knockout-3.5.0.js \
     external/jquery.knob.min.js \
     external/bootbox.min.js \
     external/spectrum.min.js \
