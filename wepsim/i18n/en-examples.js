@@ -523,6 +523,30 @@
                        description: "Advanced example with interruption, system call, and exception.<br>"
                      });
 
+/*
+    examples.en.push({
+                       id: 'S4E3',
+                       title: "Threads",
+                       level: "Operating Systems",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_os",
+                       assembly:  "ep_s4_e3",
+                       description: "Example of threads.<br>"
+                     });
+
+    examples.en.push({
+                       id: 'S4E4',
+                       title: "Alloc.s",
+                       level: "Operating Systems",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_os",
+                       assembly:  "ep_s4_e4",
+                       description: "Example of malloc + free.<br>"
+                     });
+*/
+
     examples.en.push({
                        id: 'S4E2',
                        title: "SC 1, 4-5, 8, 11-12",
