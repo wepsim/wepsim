@@ -670,17 +670,17 @@
                      o +=  "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'" +
                            "    onclick='asmdbg_set_breakpoint(" + l + "); " +
                            "             if (event.stopPropagation) event.stopPropagation();'>" +
-                           "<td class='asm_label  text-monospace col-auto collapse show' " +
+                           "<td class='asm_label  text-monospace col-auto collapse' " +
                            "    style='line-height:0.9;' align=right>" + s_label + "</td>" +
-                           "<td class='asm_addr   text-monospace col-auto collapse show' " +
+                           "<td class='asm_addr   text-monospace col-auto collapse' " +
                            "    style='line-height:0.9;'>" + l + "</td>" +
-                           "<td class='asm_break  text-monospace col-auto collapse show py-0 px-2' " +
+                           "<td class='asm_break  text-monospace col-auto show collapse py-0 px-0' " +
                            "    style='line-height:0.9;' id='bp" + l + "' width='1%'>" + "</td>" +
-                           "<td class='asm_hex    text-monospace col-auto collapse show' " +
+                           "<td class='asm_hex    text-monospace col-auto collapse' " +
                            "    style='line-height:0.9;'>" + s3_hex + "</td>" +
-                           "<td class='asm_ins    text-monospace col-auto collapse show' " +
+                           "<td class='asm_ins    text-monospace col-auto collapse' " +
                            "    style='line-height:0.9;' align=left>" + s1_instr + "</td>" +
-                           "<td class='asm_pins   text-monospace col-auto collapse show' " +
+                           "<td class='asm_pins   text-monospace col-auto collapse' " +
                            "    style='line-height:0.9;' align=left>" + s2_instr + "</td>" +
                            "</tr>" ;
                 }

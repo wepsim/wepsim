@@ -457,7 +457,6 @@
                        description: "Ejemplo ampliado con m&aacute;s instrucciones y E/S (keyboard, display).<br>"
                      });
 
-/*
     examples.es.push({
                        id: 'S2E3',
                        title: "M&aacute;scaras y desplazamientos",
@@ -468,7 +467,6 @@
                        assembly:  "ep_s2_e3",
                        description: "Ejemplo ampliado con m&aacute;scaras, desplazamientos y segmento de datos/c&oacute;digo b&aacute;sico.<br>"
                      });
-*/
 
     examples.es.push({
                        id: 'S2E4',
@@ -525,7 +523,17 @@
                        description: "Ejemplo avanzado con interrupci&oacute;n, llamada al sistema y excepci&oacute;n.<br>"
                      });
 
-/*
+    examples.es.push({
+                       id: 'S4E2',
+                       title: "SC 1, 4-5, 8, 11-12",
+                       level: "Sistemas Operativos",
+                       modes:  "newbie,intro,tutorial,poc",
+                       hardware:  "poc",
+                       microcode: "poc_os",
+                       assembly:  "ep_s4_e2",
+                       description: "Ejemplo de llamada al sistema para imprimir/leer entero y cadena de caracteres.<br>"
+                     });
+
     examples.es.push({
                        id: 'S4E3',
                        title: "Hilos",
@@ -547,7 +555,6 @@
                        assembly:  "ep_s4_e4",
                        description: "Ejemplo de malloc y free.<br>"
                      });
-*/
 
     examples.es.push({
                        id: 'S5E1',

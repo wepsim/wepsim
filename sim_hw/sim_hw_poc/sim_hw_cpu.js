@@ -519,13 +519,13 @@
 					  "LUI ALU_T6 MA_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
 					  "ADDFOUR ALU_T6 MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
 					  "ADDONE ALU_T6 MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "SUBFOUR ALU_T6 MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
+					  "SUBONE ALU_T6 MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
 					  "FADD ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
 					  "FSUB ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
 					  "FMUL ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
 					  "FDIV ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
 					  "FMOD ALU_T6 MA_ALU MB_ALU; UPDATE_NZVC; FIRE_IFSET T6 1; FIRE_IFSET M7 1",
-					  "NOP_ALU",
-					  "NOP_ALU",
 					  "NOP_ALU",
 					  "NOP_ALU",
 					  "NOP_ALU",
@@ -539,19 +539,19 @@
                                             'svg_p:path3261-8', 'svg_p:path3321', 'svg_p:path3901-6', 'svg_p:path3317-9']],
 			       draw_name: [['svg_p:path3009', 'svg_p:path3301']] };
 	 poc_signals["SELA"] = { name: "SELA", visible: true, type: "L", value: 0, default_value:0, nbits: "6",
-			        behavior: ["FIRE_IFCHANGED MR_RA SELA; RESET_CHANGED SELA"],
+			        behavior: ["FIRE_IFCHANGED MRA SELA; RESET_CHANGED SELA"],
                                 depends_on: ["RA"],
 			        fire_name: ['svg_cu:text3164'],
 			        draw_data: [[]],
 			        draw_name: [[]] };
 	 poc_signals["SELB"] = { name: "SELB", visible: true, type: "L", value: 0, default_value:0, nbits: "6",
-			        behavior: ["FIRE_IFCHANGED MR_RB SELB; RESET_CHANGED SELB"],
+			        behavior: ["FIRE_IFCHANGED MRB SELB; RESET_CHANGED SELB"],
                                 depends_on: ["RB"],
 			        fire_name: ['svg_cu:text3168'],
 			        draw_data: [[]],
 			        draw_name: [[]] };
 	 poc_signals["SELC"] = { name: "SELC", visible: true, type: "L", value: 0, default_value:0, nbits: "6",
-			        behavior: ["FIRE_IFCHANGED MR_RC SELC; RESET_CHANGED SELC"],
+			        behavior: ["FIRE_IFCHANGED MRC SELC; RESET_CHANGED SELC"],
                                 depends_on: ["RC"],
 			        fire_name: ['svg_cu:text3172'],
 			        draw_data: [[]],
@@ -620,38 +620,41 @@
 			       draw_data: [['svg_cu:path3320', 'svg_cu:path3142'],['svg_cu:path3318', 'svg_cu:path3502-6', 'svg_cu:path3232-6']],
 			       draw_name: [[],['svg_cu:path3306']] }; /*path3210 print red color line of rest of control signals*/
 
-	 poc_signals["MR"]  = { name: "MR", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-                               verbal: ['Copy from IR[SelA], from IR[SelB], and from IR[SelB] into RA, RB, and RC. ',
-                                        'Copy SelA, SelB, and SelB into RA, RB, and RC. '],
-			       behavior: ['MV MR_RA MR; FIRE MR_RA; MV MR_RB MR; FIRE MR_RB; MV MR_RC MR; FIRE MR_RC',
-			                  'MV MR_RA MR; FIRE MR_RA; MV MR_RB MR; FIRE MR_RB; MV MR_RC MR; FIRE MR_RC'],
-                               depends_on: ["SELA","SELB","SELC"],
-			       fire_name: ['svg_cu:text3222','svg_cu:text3242','svg_cu:text3254','svg_cu:text3172-1'],
-			       draw_data: [['svg_cu:path3494','svg_cu:path3492','svg_cu:path3490','svg_cu:path3142b','svg_cu:path3188',
-                                            'svg_cu:path3190','svg_cu:path3192','svg_cu:path3194','svg_cu:path3276','svg_cu:path3290',
-                                            'svg_cu:path3260','svg_cu:path3196','svg_cu:path3502','svg_cu:path3278','svg_cu:path3232','svg_cu:path3292'],
-					   ['svg_cu:path3270','svg_cu:path3282','svg_cu:path3300', 'svg_cu:path3258', 'svg_cu:path3260',
-                                            'svg_cu:path3278', 'svg_cu:path3196', 'svg_cu:path3502',
-					    'svg_cu:path3294', 'svg_cu:path3292', 'svg_cu:path3288', 'svg_cu:path3232', 'svg_cu:path3280']],
-			       draw_name: [[],['svg_cu:path3220','svg_cu:path3240','svg_cu:path3252']] };
-	 poc_signals["MR_RA"] = { name: "MR_RA", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+	 poc_signals["MRA"]  = { name: "MRA", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+                                 verbal: ['Copy from IR[SelA] into RA. ',
+				          'Copy SelA into RA. '],
 			         behavior: ['MBIT_SN RA REG_IR REG_MICROINS/SELA 5; FIRE RA;',
 					    'CP_FIELD RA REG_MICROINS/SELA; FIRE RA;'],
-			         fire_name: [],
-			         draw_data: [[]],
-			         draw_name: [[]] };
-	 poc_signals["MR_RB"] = { name: "MR_RB", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+                                 depends_on: ["SELA"],
+			         fire_name: ['svg_cu:text3222'],
+			         draw_data: [['svg_cu:path3494','svg_cu:path3492','svg_cu:path3490','svg_cu:path3142b','svg_cu:path3188',
+                                              'svg_cu:path3190','svg_cu:path3192','svg_cu:path3194','svg_cu:path3276','svg_cu:path3290',
+                                              'svg_cu:path3260'],
+				  	     ['svg_cu:path3270','svg_cu:path3258','svg_cu:path3260',
+				  	      'svg_cu:path3294','svg_cu:path3288','svg_cu:path3280']],
+			         draw_name: [[],['svg_cu:path3220']] };
+	 poc_signals["MRB"]  = { name: "MRB", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+                                 verbal: ['Copy from IR[SelB] into RB. ',
+				          'Copy SelB into RB. '],
 			         behavior: ['MBIT_SN RB REG_IR REG_MICROINS/SELB 5; FIRE RB;',
 					    'CP_FIELD RB REG_MICROINS/SELB; FIRE RB;'],
-			         fire_name: [],
-			         draw_data: [[]],
-			         draw_name: [[]] };
-	 poc_signals["MR_RC"] = { name: "MR_RC", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+                                 depends_on: ["SELB"],
+			         fire_name: ['svg_cu:text3242'],
+			         draw_data: [['svg_cu:path3196','svg_cu:path3278','svg_cu:path3292'],
+				  	     ['svg_cu:path3282','svg_cu:path3258-4','svg_cu:path3278','svg_cu:path3196']],
+			         draw_name: [[],['svg_cu:path3240']] };
+	 poc_signals["MRC"]  = { name: "MRC", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
+                                 verbal: ['Copy from IR[SelC] into RC. ',
+				          'Copy SelC into RC. '],
 			         behavior: ['MBIT_SN RC REG_IR REG_MICROINS/SELC 5; FIRE RC;',
 					    'CP_FIELD RC REG_MICROINS/SELC; FIRE RC;'],
-			         fire_name: [],
-			         draw_data: [[]],
-			         draw_name: [[]] };
+                                 depends_on: ["SELC"],
+			         fire_name: ['svg_cu:text3254'],
+			         draw_data: [['svg_cu:path3494','svg_cu:path3492','svg_cu:path3490','svg_cu:path3142b','svg_cu:path3188',
+                                              'svg_cu:path3190','svg_cu:path3192','svg_cu:path3194','svg_cu:path3276','svg_cu:path3290',
+                                              'svg_cu:path3232','svg_cu:path3292'],
+				  	     ['svg_cu:path3300','svg_cu:path3294','svg_cu:path3292','svg_cu:path3288','svg_cu:path3232']],
+			         draw_name: [[],['svg_cu:path3252']] };
 
 	/* I/O Devices */
 	 poc_signals["IOR"]   = { name: "IOR", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
@@ -1225,6 +1228,58 @@
 						   var result = a + 1 ;
 
                                                    return "ALU ADD 1 with result " + show_value(result) + ". " ;
+						}
+				   };
+	poc_behaviors["SUBFOUR"] = { nparameters: 3,
+				     types: ["E", "E"],
+				     operation: function(s_expr)
+		                                {
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+						   var result = a - 4 ;
+						   set_value(poc_states[s_expr[1]], result >>> 0) ;
+
+						   poc_internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_c = (a >>> 31) && (b >>> 31) ;
+
+						   poc_internal_states.alu_flags.flag_v = 0 ;
+						   if ( (result < 0) && (a >= 0) && (b >= 0) )
+							poc_internal_states.alu_flags.flag_v = 1 ;
+						   if ( (result >= 0) && (a <  0) && (b <  0) )
+							poc_internal_states.alu_flags.flag_v = 1 ;
+						},
+					verbal: function (s_expr)
+						{
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+						   var result = a - 4 ;
+
+                                                   return "ALU SUB 4 with result " + show_value(result) + ". " ;
+						}
+				   };
+	poc_behaviors["SUBONE"]  = { nparameters: 3,
+				     types: ["E", "E"],
+				     operation: function(s_expr)
+		                                {
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+						   var result = a - 1 ;
+						   set_value(poc_states[s_expr[1]], result >>> 0) ;
+
+						   poc_internal_states.alu_flags.flag_n = (result < 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_z = (result == 0) ? 1 : 0 ;
+						   poc_internal_states.alu_flags.flag_c = (a >>> 31) && (b >>> 31) ;
+
+						   poc_internal_states.alu_flags.flag_v = 0 ;
+						   if ( (result < 0) && (a >= 0) && (b >= 0) )
+							poc_internal_states.alu_flags.flag_v = 1 ;
+						   if ( (result >= 0) && (a <  0) && (b <  0) )
+							poc_internal_states.alu_flags.flag_v = 1 ;
+						},
+					verbal: function (s_expr)
+						{
+						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
+						   var result = a - 1 ;
+
+                                                   return "ALU SUB 1 with result " + show_value(result) + ". " ;
 						}
 				   };
 	poc_behaviors["FADD"]    = { nparameters: 4,

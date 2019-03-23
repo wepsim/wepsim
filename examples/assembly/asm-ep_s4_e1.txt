@@ -1,6 +1,6 @@
 
 #
-# Alejandro Calderon Mateos, Felix Garcia-Carballeira
+# WepSIM (https://wepsim.github.io/wepsim/)
 #
 
 .kdata

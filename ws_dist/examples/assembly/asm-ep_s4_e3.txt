@@ -1,6 +1,6 @@
 
 #
-# Alejandro Calderon Mateos, Felix Garcia-Carballeira
+# WepSIM (https://wepsim.github.io/wepsim/)
 #
 
 .kdata
@@ -156,10 +156,10 @@ sys_thexit:  # pA->free = true
              li $v0 30
              syscall
 
-             # 2.- enable i0 each 500 ticks
+             # 2.- enable i0 each 550 ticks
    begin_rr: li  $t0 0
              out $t0 0x1104
-             li  $t0 500
+             li  $t0 550
              out $t0 0x1108
 
              # 3.- start for thread 1

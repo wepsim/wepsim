@@ -20,7 +20,7 @@
 
 
         var WSCFG = {} ;
-        WSCFG.version = { value:"2.0.0", type:"string"} ;
+        WSCFG.version = { value:"2.0.2", type:"string"} ;
 
         function get_cfg ( field )
         {
@@ -77,22 +77,28 @@
 		/*
 		 *  simulation screen: Notification, etc.
 		 */
-               WSCFG.NOTIF_delay         = { value:1000,               type:"int"} ;
-               WSCFG.CPUCU_size          = { value:6,                  type:"int"} ;
-               WSCFG.C1C2_size           = { value:8,                  type:"int"} ;
+               WSCFG.NOTIF_delay          = { value:1000,               type:"int"} ;
+               WSCFG.CPUCU_size           = { value:6,                  type:"int"} ;
+               WSCFG.C1C2_size            = { value:8,                  type:"int"} ;
 
-               WSCFG.is_interactive       = { value:true,               type:"boolean"};
-               WSCFG.is_quick_interactive = { value:false,              type:"boolean"};
-               WSCFG.ws_idiom             = { value:'en',               type:"string"};
-               WSCFG.ws_mode              = { value:'newbie',           type:"string"};
-               WSCFG.use_voice            = { value:false,              type:"boolean"};
-               WSCFG.ws_skin              = { value:'classic',          type:"string"};
+               WSCFG.SHOWCODE_label       = { value:true,               type:"boolean"} ;
+               WSCFG.SHOWCODE_addr        = { value:true,               type:"boolean"} ;
+               WSCFG.SHOWCODE_hex         = { value:true,               type:"boolean"} ;
+               WSCFG.SHOWCODE_ins         = { value:true,               type:"boolean"} ;
+               WSCFG.SHOWCODE_pins        = { value:true,               type:"boolean"} ;
+
+               WSCFG.is_interactive       = { value:true,               type:"boolean"} ;
+               WSCFG.is_quick_interactive = { value:false,              type:"boolean"} ;
+               WSCFG.ws_idiom             = { value:'en',               type:"string"} ;
+               WSCFG.ws_mode              = { value:'newbie',           type:"string"} ;
+               WSCFG.use_voice            = { value:false,              type:"boolean"} ;
+               WSCFG.ws_skin              = { value:'classic',          type:"string"} ;
 
 		/*
 		 *  micro/assembly screen: editor
 		 */
-               WSCFG.editor_theme        = { value:'default',          type:"string"};
-               WSCFG.editor_mode         = { value:'default',          type:"string"};
+               WSCFG.editor_theme        = { value:'default',          type:"string"} ;
+               WSCFG.editor_mode         = { value:'default',          type:"string"} ;
 
                // some mobile-tuning
                if (is_mobile())

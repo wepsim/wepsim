@@ -148,7 +148,7 @@
 
     <meta name="apple-mobile-web-app-capable"          content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title"            content="WepSIM 2.0.0" />
+    <meta name="apple-mobile-web-app-title"            content="WepSIM 2.0.2" />
     <meta name="msapplication-TileImage"               content="images/arcos.svg" />
     <meta name="msapplication-TileColor"               content="#2F3BA2" />
     <meta name="theme-color"                           content="#ffffff" />
@@ -286,6 +286,22 @@
 					    var ws_idiom = get_cfg('ws_idiom');
 					    i18n_update_tags('gui', ws_idiom) ;
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP</a>
+                              <a class="dropdown-item" href="#" id="s4_poc" value="poc"
+				 onclick="simui_select_main('poc');
+					    // initialize hw
+	                                    simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
+					    simcoreui_init_hw('#config_HW') ;
+					    // adapt to idiom
+					    var ws_idiom = get_cfg('ws_idiom');
+					    i18n_update_tags('gui', ws_idiom) ;
+					  return false;"><em class="fas fa-microchip"></em>&nbsp;POC</a>
+
+			      <div class="dropdown-divider"></div>
+			      <h6 class="text-secondary mb-1">Assembly only</h6>
+                              <a class="dropdown-item" href="#" id="s4_wepmips" value="wepmips"
+				 onclick="simui_select_main('wepmips');
+	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
+					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP+MIPS32</a>
 
 			      <div class="dropdown-divider"></div>
 			      <h6 class="text-secondary mb-1">Help</h6>
@@ -388,11 +404,11 @@
 			   <th width="1%">
 			   <a tabindex="0" href="#" data-toggle="popover2" id="popover2_asm">&plusmn;</a>
 			   </th>
-                           <th width="10%" class="asm_label collapse show" align="right"><span>labels</span></th>
-			   <th width="15%" class="asm_addr  collapse show"              ><span>addr</span><span class="d-none d-sm-inline-flex">ess</span></th>
-                           <th width="15%" class="asm_hex   collapse show" align="right"><span>content</span></th>
-                           <th width="30%" class="asm_ins   collapse show" align="left" ><span>assembly</span></th>
-                           <th width="30%" class="asm_pins  collapse show" align="left" ><span>pseudo</span><span class="d-none d-md-inline"><small>instructions</small></span></th>
+                           <th width="10%" class="asm_label collapse" align="right"><span>labels</span></th>
+			   <th width="15%" class="asm_addr  collapse"              ><span>addr</span><span class="d-none d-sm-inline-flex">ess</span></th>
+                           <th width="15%" class="asm_hex   collapse" align="right"><span>content</span></th>
+                           <th width="30%" class="asm_ins   collapse" align="left" ><span>assembly</span></th>
+                           <th width="30%" class="asm_pins  collapse" align="left" ><span>pseudo</span><span class="d-none d-md-inline"><small>instructions</small></span></th>
 			   </tr>
 			   </thead>
 			   </table>
@@ -1475,13 +1491,6 @@
                     set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', get_cfg('CPUCU_size')) ;
 
                     showhideAsmElements() ;
-		    $("input:checkbox").click(function(){
-		        var name = $(this).attr("name") ;
-		        var column = "table ." + name ;
-                        if (!$("#" + name).is(':checked'))
-		             $(column).hide() ;
-		        else $(column).show() ;
-		    });
 
 		    var target = $("#asm_table");
 		    $("#asm_debugger_container").scroll(function() {
@@ -1542,7 +1551,9 @@
 			    sanitizeFn: function (content) {
 					   return content ; // DOMPurify.sanitize(content) ;
 				        }
-		    });
+		    }).on('shown.bs.popover', function(shownEvent) {
+                           showhideAsmHeader() ;
+                    });
 
 		    // init: general
 		    var ws_mode = get_cfg('ws_mode');

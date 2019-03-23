@@ -1,3 +1,8 @@
+
+#
+# WepSIM (https://wepsim.github.io/wepsim/)
+#
+
 .data
         msg: .asciiz "Please, press letter '0' to end the 'echo' effect.\n"
 
