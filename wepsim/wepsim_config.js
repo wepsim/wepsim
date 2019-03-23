@@ -112,7 +112,7 @@
        return o ;
     }
 
-    function wepsim_show_breakpoint_icon_list ()
+    function wepsim_show_breakpoint_icon_list ( )
     {
 	var o = "<div class='container'>" +
 	        "<div class='row'>" ;
@@ -134,7 +134,8 @@
 		        "     class='img-thumbnail col-3 mx-2 d-block'" +
 		        "     style='height:6vh; min-height:30px;'" +
 		        "     onclick=\"$('#img_select1').attr('src','images/stop/stop_" + breakpoint_icon_list[i].shortname + ".gif');" +
-		        "	        set_cfg('ICON_theme','" + breakpoint_icon_list[i].shortname + "'); save_cfg();\">" ;
+		        "	        set_cfg('ICON_theme','" + breakpoint_icon_list[i].shortname + "'); save_cfg();" +
+                        "               $('#breakpointicon1').popover('hide');\">" ;
 	}
         o = o + '</div>' +
 	        '<div class="row mt-2 p-1 border-top border-secondary">' +
