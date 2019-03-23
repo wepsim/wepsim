@@ -1618,7 +1618,9 @@
 			    sanitizeFn: function (content) {
 					   return content ; // DOMPurify.sanitize(content) ;
 				        }
-		    });
+		    }).on('shown.bs.popover', function(shownEvent) {
+                           showhideAsmHeader() ;
+                    });
 
 
 		    // init: general
