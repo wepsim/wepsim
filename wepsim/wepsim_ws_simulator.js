@@ -223,39 +223,34 @@
     function wepsim_show_asm_columns_checked ( asm_po )
     {
         var o = '<ul class="list-group">' +
-		'<li class="list-group-item py-0"><label class="m-1">' +
-		'<input type="checkbox" value="1" id="asm_label" aria-label="Show label" ' +
-		'       onclick="wepsim_click_asm_columns(\'label\'); return false;" ' +
-		'       checked="checked" data-toggle="collapse" data-target=".asm_label">' +
-                '&nbsp;<span>labels</span>' +
-		'</label></li>' +
-		'<li class="list-group-item py-0"><label class="m-1">' +
-		'<input type="checkbox" value="1" id="asm_addr" aria-label="Show address" ' +
-		'       onclick="wepsim_click_asm_columns(\'addr\'); return false;" ' +
-		'       checked="checked" data-toggle="collapse" data-target=".asm_addr">' +
-                '&nbsp;<span>address</span>' +
-		'</label></li>' +
-		'<li class="list-group-item py-0"><label class="m-1">' +
-		'<input type="checkbox" value="1" id="asm_hex" aria-label="Show content" ' +
-		'       onclick="wepsim_click_asm_columns(\'hex\'); return false;" ' +
-		'       checked="checked" data-toggle="collapse" data-target=".asm_hex">' +
-                '&nbsp;<span>content</span>' +
-		'</label></li>' +
-		'<li class="list-group-item py-0"><label class="m-1">' +
-		'<input type="checkbox" value="1" id="asm_ins" aria-label="Show instruction" ' +
-		'       onclick="wepsim_click_asm_columns(\'ins\'); return false;" ' +
-		'       checked="checked" data-toggle="collapse" data-target=".asm_ins">' +
-                '&nbsp;<span>assembly</span>' +
-		'</label></li>' +
-                '<li class="list-group-item py-0"><label class="m-1">' +
-		'<input type="checkbox" value="1" id="asm_pins" aria-label="Show pseudoinstruction" ' +
-		'       onclick="wepsim_click_asm_columns(\'pins\'); return false;" ' +
-		'       checked="checked" data-toggle="collapse" data-target=".asm_pins">' +
-                '&nbsp;<span>pseudo</span><span class="d-none d-md-inline">-instructions</span>' +
-		'</label></li>' +
+		'<li class="list-group-item p-0">' +
+		'<span id="asm_label" aria-label="Show label" ' +
+		'      onclick="wepsim_click_asm_columns(\'label\'); return false;" ' +
+		'      class="btn btn-sm btn-block btn-secondary mb-1">labels</span>' +
+		'</li>' +
+		'<li class="list-group-item p-0">' +
+		'<span id="asm_addr" aria-label="Show address" ' +
+		'      onclick="wepsim_click_asm_columns(\'addr\'); return false;" ' +
+                '      class="btn btn-sm btn-block btn-secondary mb-1">address</span>' +
+		'</li>' +
+		'<li class="list-group-item p-0">' +
+		'<span id="asm_hex" aria-label="Show content" ' +
+		'      onclick="wepsim_click_asm_columns(\'hex\'); return false;" ' +
+                '      class="btn btn-sm btn-block btn-secondary mb-1">content</span>' +
+		'</li>' +
+		'<li class="list-group-item p-0">' +
+		'<span id="asm_ins" aria-label="Show instruction" ' +
+		'      onclick="wepsim_click_asm_columns(\'ins\'); return false;" ' +
+                '      class="btn btn-sm btn-block btn-secondary mb-1">assembly</span>' +
+		'</li>' +
+                '<li class="list-group-item p-0">' +
+		'<span id="asm_pins" aria-label="Show pseudoinstruction" ' +
+		'      onclick="wepsim_click_asm_columns(\'pins\'); return false;" ' +
+                '      class="btn btn-sm btn-block btn-secondary mb-1">pseudo<span class="d-none d-md-inline">-instructions</span></span>' +
+		'</li>' +
 		'</ul>' +
                 '<button type="button" id="close" data-role="none" ' +
-                '        class="btn btn-sm btn-danger w-100 p-0 mt-2" ' +
+                '        class="btn btn-sm btn-danger w-100 p-0 mt-1" ' +
                 '        onclick="$(\'#' + asm_po + '\').popover(\'hide\');"' + 
 	        '><span data-langkey="Close">Close</span></button>' ;
 
