@@ -1,5 +1,5 @@
 
-1.9.6 -> 2.0.1:
+1.9.6 -> 2.0.2:
 * Interface:
   + Bootstrap 4.3.1 (2019)
   + Improved missing UI translation in state dialog

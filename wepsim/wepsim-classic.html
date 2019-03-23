@@ -148,7 +148,7 @@
 
     <meta name="apple-mobile-web-app-capable"          content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title"            content="WepSIM 2.0.1" />
+    <meta name="apple-mobile-web-app-title"            content="WepSIM 2.0.2" />
     <meta name="msapplication-TileImage"               content="images/arcos.svg" />
     <meta name="msapplication-TileColor"               content="#2F3BA2" />
     <meta name="theme-color"                           content="#ffffff" />
@@ -438,11 +438,11 @@
 			   <th width="1%">
 			   <a tabindex="0" href="#" data-toggle="popover2" id="popover2_asm">&plusmn;</a>
 			   </th>
-                           <th width="10%" class="asm_label collapse show" align="right"><span>labels</span></th>
-			   <th width="15%" class="asm_addr  collapse show"              ><span>addr</span><span class="d-none d-sm-inline-flex">ess</span></th>
-                           <th width="15%" class="asm_hex   collapse show" align="right"><span>content</span></th>
-                           <th width="30%" class="asm_ins   collapse show" align="left" ><span>assembly</span></th>
-                           <th width="30%" class="asm_pins  collapse show" align="left" ><span>pseudo</span><span class="d-none d-md-inline"><small>instructions</small></span></th>
+                           <th width="10%" class="asm_label collapse" align="right"><span>labels</span></th>
+			   <th width="15%" class="asm_addr  collapse"              ><span>addr</span><span class="d-none d-sm-inline-flex">ess</span></th>
+                           <th width="15%" class="asm_hex   collapse" align="right"><span>content</span></th>
+                           <th width="30%" class="asm_ins   collapse" align="left" ><span>assembly</span></th>
+                           <th width="30%" class="asm_pins  collapse" align="left" ><span>pseudo</span><span class="d-none d-md-inline"><small>instructions</small></span></th>
 			   </tr>
 			   </thead>
 			   </table>
@@ -1558,13 +1558,6 @@
                     set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', get_cfg('CPUCU_size')) ;
 
                     showhideAsmElements() ;
-		    $("input:checkbox").click(function(){
-		        var name = $(this).attr("name") ;
-		        var column = "table ." + name ;
-                        if (!$("#" + name).is(':checked'))
-		             $(column).hide() ;
-		        else $(column).show() ;
-		    });
 
 		    var target = $("#asm_table");
 		    $("#asm_debugger_container").scroll(function() {

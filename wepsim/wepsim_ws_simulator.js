@@ -65,15 +65,18 @@
 
     function showhideAsmElements ( )
     {
-	$("input:checkbox:checked").each(function() {
-		var column = "table ." + $(this).attr("name");
-		$(column).show();
-	});
+	var tlabel = [ "label", "addr", "hex", "ins", "pins" ] ;
 
-	$("input:checkbox:not(:checked)").each(function() {
-		var column = "table ." + $(this).attr("name");
-		$(column).hide();
-	});
+	for (var tli=0; tli<tlabel.length; tli++)
+	{
+             var label_name  = "SHOWCODE_"   + tlabel[tli] ;
+             var column_name = "table .asm_" + tlabel[tli] ;
+             var column_show = get_cfg(label_name) ;
+
+	     if (column_show !== false)
+	          $(column_name).show() ;
+	     else $(column_name).hide() ;
+	}
     }
 
     function set_ab_size ( diva, divb, new_value )
@@ -201,38 +204,60 @@
 
     // Popovers
 
+    function wepsim_click_asm_columns ( name )
+    {
+        var label_name  = "SHOWCODE_"   + name ;
+        var column_name = "table .asm_" + name ;
+        var column_show = get_cfg(label_name) ;
+
+	column_show = !column_show ;
+
+        if (column_show !== false)
+   	     $(column_name).show() ;
+        else $(column_name).hide() ;
+
+	set_cfg(label_name, column_show) ;
+	save_cfg() ;
+    }
+
     function wepsim_show_asm_columns_checked ( asm_po )
     {
         var o = '<ul class="list-group">' +
 		'<li class="list-group-item py-0"><label class="m-1">' +
-		'<input aria-label="Show label"              type="checkbox" value="1" id="asm_label"  ' +
-		' checked="checked" data-toggle="collapse" data-target=".asm_label">' +
+		'<input type="checkbox" value="1" id="asm_label" aria-label="Show label" ' +
+		'       onclick="wepsim_click_asm_columns(\'label\'); return false;" ' +
+		'       checked="checked" data-toggle="collapse" data-target=".asm_label">' +
                 '&nbsp;<span>labels</span>' +
 		'</label></li>' +
 		'<li class="list-group-item py-0"><label class="m-1">' +
-		'<input aria-label="Show address"    type="checkbox" value="1" id="asm_addr"    ' +
-		'    checked="checked" data-toggle="collapse" data-target=".asm_addr">' +
+		'<input type="checkbox" value="1" id="asm_addr" aria-label="Show address" ' +
+		'       onclick="wepsim_click_asm_columns(\'addr\'); return false;" ' +
+		'       checked="checked" data-toggle="collapse" data-target=".asm_addr">' +
                 '&nbsp;<span>address</span>' +
 		'</label></li>' +
 		'<li class="list-group-item py-0"><label class="m-1">' +
-		'<input aria-label="Show content"    type="checkbox" value="1" id="asm_hex"    ' +
-		'    checked="checked" data-toggle="collapse" data-target=".asm_hex">' +
+		'<input type="checkbox" value="1" id="asm_hex" aria-label="Show content" ' +
+		'       onclick="wepsim_click_asm_columns(\'hex\'); return false;" ' +
+		'       checked="checked" data-toggle="collapse" data-target=".asm_hex">' +
                 '&nbsp;<span>content</span>' +
 		'</label></li>' +
 		'<li class="list-group-item py-0"><label class="m-1">' +
-		'<input aria-label="Show instruction"        type="checkbox" value="1" id="asm_ins"     ' +
-		' checked="checked" data-toggle="collapse" data-target=".asm_ins">' +
+		'<input type="checkbox" value="1" id="asm_ins" aria-label="Show instruction" ' +
+		'       onclick="wepsim_click_asm_columns(\'ins\'); return false;" ' +
+		'       checked="checked" data-toggle="collapse" data-target=".asm_ins">' +
                 '&nbsp;<span>assembly</span>' +
 		'</label></li>' +
                 '<li class="list-group-item py-0"><label class="m-1">' +
-		'<input aria-label="Show pseudo-instruction" type="checkbox" value="1" id="asm_pins" ' +
-		'    checked="checked" data-toggle="collapse" data-target=".asm_pins">' +
+		'<input type="checkbox" value="1" id="asm_pins" aria-label="Show pseudoinstruction" ' +
+		'       onclick="wepsim_click_asm_columns(\'pins\'); return false;" ' +
+		'       checked="checked" data-toggle="collapse" data-target=".asm_pins">' +
                 '&nbsp;<span>pseudo</span><span class="d-none d-md-inline">-instructions</span>' +
 		'</label></li>' +
 		'</ul>' +
                 '<button type="button" id="close" data-role="none" ' +
                 '        class="btn btn-sm btn-danger w-100 p-0 mt-2" ' +
-                '        onclick="$(\'#' + asm_po + '\').popover(\'hide\');"><span data-langkey="Close">Close</span></button>' ;
+                '        onclick="$(\'#' + asm_po + '\').popover(\'hide\');"' + 
+	        '><span data-langkey="Close">Close</span></button>' ;
 
         return o ;
     }
