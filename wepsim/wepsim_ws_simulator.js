@@ -131,6 +131,107 @@
 	    return true ;
     }
 
+    function default_asmdbg_content_horizontal ( )
+    {
+	 var o = "<div class='card m-3 pt-3'>" +
+		 "  <div class='row no-gutters'>" +
+		 "  <div class='col-md-4'>" +
+		 "  <img class='card-img-top' alt='microcode work area' src='help/simulator/firmware002.jpg'>" +
+		 "  </div>" +
+		 "  <div class='col-md-8'>" +
+		 "  <div class='card-body'>" +
+		 "    <p class='card-text'>" + 
+		 "    <span data-langkey='simulator intro 1'>" + 
+		 "    First, you need to load the microcode to be used." +
+		 "    You can use an example of microcode, load it from a file or you can edit a new one." +
+		 "    </span>" +
+		 "    </p>" +
+		 "  </div>" +
+		 "  </div>" +
+		 "  </div>" +
+		 "</div>" +
+		 "<div class='card m-3'>" +
+		 "  <div class='row no-gutters'>" +
+		 "  <div class='col-md-4'>" +
+		 "  <img class='card-img-top' alt='microcode work area' src='help/simulator/firmware002.jpg'>" +
+		 "  </div>" +
+		 "  <div class='col-md-8'>" +
+		 "  <div class='card-body'>" +
+		 "    <p class='card-text'>" + 
+		 "    <span data-langkey='simulator intro 2'>" + 
+		 "    Next, you need to load the assembly code to be used." +
+		 "    You can use an assembly example, load it from a file or you can edit a new one." +
+		 "    </span>" +
+		 "    </p>" +
+		 "  </div>" +
+		 "  </div>" +
+		 "  </div>" +
+		 "</div>" +
+		 "<div class='card m-3'>" +
+		 "  <div class='row no-gutters'>" +
+		 "  <div class='col-md-4'>" +
+		 "  <img class='card-img-top' alt='microcode work area' src='help/welcome/simulation_xinstruction.gif'>" +
+		 "  </div>" +
+		 "  <div class='col-md-8'>" +
+		 "  <div class='card-body'>" +
+		 "    <p class='card-text'>" + 
+		 "    <span data-langkey='simulator intro 3'>" + 
+		 "    Finally, in the simulator you are able to execute the microcode plus assembly loaded before." +
+		 "    It can be executed step by step at microinstruction level or assembly instruction level." +
+		 "    </span>" +
+		 "    </p>" +
+		 "  </div>" +
+		 "  </div>" +
+		 "  </div>" +
+		 "</div>" ;
+
+	 return o ;
+    }
+
+    function default_asmdbg_content_vertical ( )
+    {
+	 var o = "<br>" +
+		 "<div class='container-fluid border bg-light'>" +
+		 "<div class='card-column row'>" +
+		 "<div class='card m-2 col-sm'>" +
+		 "  <img class='card-img-top' alt='microcode work area' src='help/simulator/firmware002.jpg'>" +
+		 "  <div class='card-body h-50'>" +
+		 "    <p class='card-text'>" + 
+		 "    <div class='badge badge-primary'>1</div>" +
+		 "    <span data-langkey='simulator intro 1'>" + 
+		 "    First, you need to load the microcode to be used." +
+		 "    </span>" +
+		 "    </p>" +
+		 "  </div>" +
+		 "</div>" +
+		 "<div class='card m-2 col-sm'>" +
+		 "  <img class='card-img-top' alt='microcode work area' src='help/simulator/firmware002.jpg'>" +
+		 "  <div class='card-body h-50'>" +
+		 "    <p class='card-text'>" + 
+		 "    <div class='badge badge-primary'>2</div>" +
+		 "    <span data-langkey='simulator intro 2'>" + 
+		 "    Next, you need to load the assembly code to be used." +
+		 "    </span>" +
+		 "    </p>" +
+		 "  </div>" +
+		 "</div>" +
+		 "<div class='card m-2 col-sm'>" +
+		 "  <img class='card-img-top' alt='microcode work area' src='help/welcome/simulation_xinstruction.gif'>" +
+		 "  <div class='card-body h-50'>" +
+		 "    <p class='card-text'>" + 
+		 "    <div class='badge badge-primary'>3</div>" +
+		 "    <span data-langkey='simulator intro 3'>" + 
+		 "    Finally, in the simulator you are able to execute the microcode plus assembly loaded before." +
+		 "    </span>" +
+		 "    </p>" +
+		 "  </div>" +
+		 "</div>" +
+		 "</div>" +
+		 "</div>" ;
+
+	 return o ;
+    }
+
     function wepsim_activehw ( mode )
     {
 	    simhw_setActive(mode) ;
@@ -168,23 +269,7 @@
     	    update_memories(SIMWARE) ;
             simcore_reset() ;
 
-            var asmdbg_content = "<br/>" +
-                                 "<ol>" +
-                                 "<li>Load the microcode to be used.</li>" +
-                                 "    <ul>" +
-                                 "    <li>You can use an example of microcode, load it from a file or you can edit one.</li>" +
-                                 "    </ul>" +
-                                 "<br/>" +
-                                 "<li>Load the assembly to be used.</li>" +
-                                 "    <ul>" +
-                                 "    <li>You can use an assembly example, load it from a file or you can edit one.</li>" +
-                                 "   </ul>" +
-                                 "<br/>" +
-                                 "<li>Come back to the simulator in order to execute the microcode+assembly loaded before.</li>" +
-                                 "    <ul>" +
-                                 "    <li>Each step could be executed at microinstruction or instruction level.</li>" +
-                                 "    </ul>" +
-                                 "</ol>" ;
+            var asmdbg_content = default_asmdbg_content_vertical() ;
 	    for (var l in SIMWARE.assembly) // <===> if (SIMWARE.assembly != {})
 	    {
                  asmdbg_content = assembly2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg, SIMWARE.assembly) ;
