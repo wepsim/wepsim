@@ -398,70 +398,52 @@
         return o ;
     }
 
+
+    // preload
+
     function wepsim_preload ( parameters )
     {
+	    // mode
+	    var mode_reference = parameters.get('mode') ;
+            simui_select_main(mode_reference) ;
+
 	    // example
 	    var example_reference = parameters.get('example') ;
-
-	    if (
-		 (example_reference !== null) &&
-	         (example_reference.split(":").length === 3)
-	       )
+	    if (example_reference !== null)
 	    {
-	        load_from_example_firmware(example_reference, true) ;
+		var example_index = parseInt(example_reference) ;
+		var example_obj   = examples.en[example_index] ;
+	        if (typeof example_obj !== "undefined") 
+		{
+		    var example_uri   = example_obj.hardware + ":" + example_obj.microcode + ":" + example_obj.assembly ;
+	            load_from_example_firmware(example_uri, true) ;
+		}
 	    }
 
-	    // panel
-	    var panel_reference = parameters.get('panel') ;
-	    if (
-		 (panel_reference !== null) &&
-	         (panel_reference.split(":").length === 3)
-	       )
+	    // simulator UI
+	    var panels_reference = parameters.get('simulator') ;
+
+	    var panels = [] ;
+	    if (panels_reference !== null) {
+	        panels = panels_reference.split(":") ;
+            }
+
+	    if (typeof panels[0] !== "undefined")
 	    {
-	        var panels = panel_reference.split(":") ;
-
-		switch (panels[1]) 
-		{
-                   case "microcode":
-	                $("#tab26").click() ;
-                        break ;
-                   case "assembly":
-	                $("#tab24").click() ;
-	                $("#tab24").click() ;
-                        break ;
-                   default:
+		if (panels[0] === "microcode") {
+	            $("#tab26").click() ;
                 }
+		if (panels[0] === "assembly") {
+	            $("#tab24").click() ;
+                }
+	    }
 
-		switch (panels[2]) 
-		{
-                   case "register_file":
-			simui_select_details(11); show_rf_values() ;
-                        break ;
-                   case "control_memory":
-		        simui_select_details(16); show_memories_values() ;
-                        break ;
-                   case "cpu_stats":
-	                simui_select_details(17); show_memories_values() ;
-                        break ;
-                   case "memory":
-                        simui_select_details(14); show_memories_values() ;
-                        break ;
-                   case "memory_config":
-                        simui_select_details(18); show_memories_values() ;
-                        break ;
-                   case "keyboard":
-                        simui_select_details(12); show_memories_values() ;
-                        break ;
-                   case "screen":
-                        simui_select_details(12); show_memories_values() ;
-                        break ;
-                   case "io_stats":
-                        simui_select_details(15); show_memories_values() ;
-                        break ;
-                   case "io_config":
-                        simui_select_details(19); show_memories_values() ;
-                        break ;
-                   default:
+	    if (typeof panels[1] !== "undefined")
+	    {
+		var panel2_ref  = panels[1].toUpperCase() ;
+		var evt_handler = hash_detail2action[panel2_ref] ;
+		if (typeof evt_handler !== "undefined") {
+		    evt_handler() ;
                 }
 	    }
     }
