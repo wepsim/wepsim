@@ -1570,6 +1570,10 @@
 		    // adapt to idiom
 		    var ws_idiom = get_cfg('ws_idiom');
 		    i18n_update_tags('gui', ws_idiom) ;
+
+		    // pre-load example
+		    var url_parameters = new URL(window.location).searchParams ;
+		    wepsim_preload(url_parameters) ;
 	    }) ;
 
             // progressive web application

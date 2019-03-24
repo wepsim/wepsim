@@ -395,3 +395,71 @@
         return o ;
     }
 
+    function wepsim_preload ( parameters )
+    {
+	    // example
+	    var example_reference = parameters.get('example') ;
+
+	    if (
+		 (example_reference !== null) &&
+	         (example_reference.split(":").length === 3)
+	       )
+	    {
+	        load_from_example_firmware(example_reference, true) ;
+	    }
+
+	    // panel
+	    var panel_reference = parameters.get('panel') ;
+	    if (
+		 (panel_reference !== null) &&
+	         (panel_reference.split(":").length === 3)
+	       )
+	    {
+	        var panels = panel_reference.split(":") ;
+
+		switch (panels[1]) 
+		{
+                   case "microcode":
+	                $("#tab26").click() ;
+                        break ;
+                   case "assembly":
+	                $("#tab24").click() ;
+	                $("#tab24").click() ;
+                        break ;
+                   default:
+                }
+
+		switch (panels[2]) 
+		{
+                   case "register_file":
+			simui_select_details(11); show_rf_values() ;
+                        break ;
+                   case "control_memory":
+		        simui_select_details(16); show_memories_values() ;
+                        break ;
+                   case "cpu_stats":
+	                simui_select_details(17); show_memories_values() ;
+                        break ;
+                   case "memory":
+                        simui_select_details(14); show_memories_values() ;
+                        break ;
+                   case "memory_config":
+                        simui_select_details(18); show_memories_values() ;
+                        break ;
+                   case "keyboard":
+                        simui_select_details(12); show_memories_values() ;
+                        break ;
+                   case "screen":
+                        simui_select_details(12); show_memories_values() ;
+                        break ;
+                   case "io_stats":
+                        simui_select_details(15); show_memories_values() ;
+                        break ;
+                   case "io_config":
+                        simui_select_details(19); show_memories_values() ;
+                        break ;
+                   default:
+                }
+	    }
+    }
+
