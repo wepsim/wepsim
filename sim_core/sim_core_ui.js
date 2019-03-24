@@ -28,13 +28,13 @@
 	   var r = obj_name.split(':') ;
 
 	   var o = document.getElementById(r[0]) ;
-           if (o == null) return;
+           if (o === null) return;
 
 	   o = o.contentDocument;
-           if (o == null) return;
+           if (o === null) return;
 
 	   o = o.getElementById(r[1]);
-           if (o == null) return;
+           if (o === null) return;
 
            if (active)
            {
@@ -44,7 +44,7 @@
            }
            else
            {
-               if (o.style.getPropertyValue("stroke") == color_inactive)
+               if (o.style.getPropertyValue("stroke") === color_inactive)
                    return;
 
                o.style.setProperty("stroke",       color_inactive, "");
@@ -75,7 +75,7 @@
 
 	function update_draw ( obj, value )
         {
-            if (true == DRAW_stop) {
+            if (true === DRAW_stop) {
                 return ;
 	    }
 
@@ -90,7 +90,7 @@
 		draw_it = true;
 	    }
 
-	    if ( (false == draw_it) && (typeof obj.depends_on != "undefined") )
+	    if ( (false === draw_it) && (typeof obj.depends_on != "undefined") )
 	    {
 		for (k=0; k<obj.depends_on.length; k++)
 		{
@@ -99,7 +99,7 @@
 			     draw_it = true;
 			     break;
 		     }
-		     else if ("CLK" == sname) {
+		     else if ("CLK" === sname) {
                              // MRdy/IORdy/etc. (related hw. activated signals) relay on this trick.
                              // Otherwise are not shown because they are not user-set in the microinstruction,
                              // but they are set dynamically by hardware
@@ -116,15 +116,15 @@
 		    for (i=0; i<obj.draw_data.length; i++)
 		    for (j=0; j<obj.draw_data[i].length; j++) {
 	                   obj_draw(obj.draw_data[i][j],
-                                    (i==value) && draw_it,
+                                    (i===value) && draw_it,
                                     get_cfg('color_data_active'),
                                     get_cfg('color_data_inactive'),
                                     get_cfg('size_active'),
                                     get_cfg('size_inactive'));
 		    }
 	    }
-	    else if (obj.nbits == 1)
-	    // (same draw) && (nbits == 1)
+	    else if (obj.nbits === 1)
+	    // (same draw) && (nbits === 1)
 	    {
 		    for (j=0; j<obj.draw_data[0].length; j++) {
 	                   obj_draw(obj.draw_data[0][j],
@@ -135,7 +135,7 @@
                                     get_cfg('size_inactive'));
 		    }
 	    }
-	    else if (obj.draw_data.length == 1)
+	    else if (obj.draw_data.length === 1)
 	    // (same draw) && (nbits > 1)
 	    {
 		    for (j=0; j<obj.draw_data[0].length; j++) {
@@ -155,15 +155,15 @@
 		    for (i=0; i<obj.draw_name.length; i++)
 		    for (j=0; j<obj.draw_name[i].length; j++) {
 	                   obj_draw(obj.draw_name[i][j],
-                                    (i==value) && draw_it,
+                                    (i===value) && draw_it,
                                     get_cfg('color_name_active'),
                                     get_cfg('color_name_inactive'),
                                     get_cfg('size_active'),
                                     get_cfg('size_inactive'));
 		    }
 	    }
-	    else if (obj.nbits == 1)
-	    // (same draw) && (nbits == 1)
+	    else if (obj.nbits === 1)
+	    // (same draw) && (nbits === 1)
 	    {
 		    for (j=0; j<obj.draw_name[0].length; j++) {
 	                   obj_draw(obj.draw_name[0][j],
@@ -174,7 +174,7 @@
                                     get_cfg('size_inactive'));
 		    }
 	    }
-	    else if (obj.draw_name.length == 1)
+	    else if (obj.draw_name.length === 1)
 	    // (same draw) && (nbits > 1)
 	    {
 		    for (j=0; j<obj.draw_name[0].length; j++) {
@@ -211,13 +211,13 @@
 		var mantissa = 1 + ((hexvalue & 0x7fffff) / 0x800000);
 
 		var valuef = sign * mantissa * Math.pow(2, exponent);
-		if (-127 == exponent)
-		    if (1 == mantissa)
-			 valuef = (sign == 1) ? "+0" : "-0" ;
+		if (-127 === exponent)
+		    if (1 === mantissa)
+			 valuef = (sign === 1) ? "+0" : "-0" ;
 		    else valuef = sign * ((hexvalue & 0x7fffff) / 0x7fffff) * Math.pow(2, -126) ;
-		if (128 == exponent)
-		    if (1 == mantissa)
-			 valuef = (sign == 1) ? "+Inf" : "-Inf" ;
+		if (128 === exponent)
+		    if (1 === mantissa)
+			 valuef = (sign === 1) ? "+Inf" : "-Inf" ;
 		    else valuef = "NaN" ;
 
 		return valuef ;
@@ -271,7 +271,7 @@
         function init_cpu ( jqdiv )
         {
 	    // without ui
-            if (jqdiv == "")
+            if (jqdiv === "")
             {       
 		simhw_sim_state('CLK').value      = ko_observable(simhw_sim_state('CLK').value);
 		simhw_sim_state('DECO_INS').value = ko_observable(simhw_sim_state('DECO_INS').value);
@@ -306,7 +306,7 @@
         function init_config_mp ( jqdiv )
         {
             // without ui
-            if (jqdiv == "")
+            if (jqdiv === "")
             {
                     simhw_internalState_reset('MP_wc', ko_observable(0)) ;
                     return ;
@@ -351,9 +351,9 @@
 	        var hexstrpc  = "0x" + pc.toString(16) ;
                 var curr_firm = simhw_internalState('FIRMWARE') ;
 
-	        if ( (typeof curr_firm.assembly                  == "undefined") ||
-	             (typeof curr_firm.assembly[hexstrpc]        == "undefined") ||
-	             (typeof curr_firm.assembly[hexstrpc].source == "undefined") )
+	        if ( (typeof curr_firm.assembly                  === "undefined") ||
+	             (typeof curr_firm.assembly[hexstrpc]        === "undefined") ||
+	             (typeof curr_firm.assembly[hexstrpc].source === "undefined") )
                 {
                       return "";
                 }

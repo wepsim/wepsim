@@ -89,9 +89,10 @@
              var btn_show   = get_cfg(label_name) ;
              var btn_name   = "#asm_" + tlabel[tli] ;
 
-	     if (btn_show !== false) {
-                 $(btn_name).removeClass('btn-outline-secondary').addClass('btn-secondary') ;
-             }
+             $(btn_name).removeClass('btn-outline-secondary').removeClass('btn-dark') ;
+	     if (btn_show !== false) 
+                  $(btn_name).addClass('btn-dark') ;
+	     else $(btn_name).addClass('btn-outline-secondary') ;
 	}
     }
 
@@ -237,26 +238,26 @@
 	save_cfg() ;
 
         var btn_name = "#asm_" + name ;
-	$(btn_name).removeClass('btn-outline-secondary').removeClass('btn-secondary') ;
+	$(btn_name).removeClass('btn-outline-secondary').removeClass('btn-dark') ;
         if (show_elto !== false)
-	     $(btn_name).addClass('btn-secondary') ;
+	     $(btn_name).addClass('btn-dark') ;
 	else $(btn_name).addClass('btn-outline-secondary') ;
     }
 
     function wepsim_show_asm_columns_checked ( asm_po )
     {
-        var o = '<span id="asm_label" aria-label="Show label" ' +
-		'      onclick="wepsim_click_asm_columns(\'label\'); return false;" ' +
-		'      class="btn btn-sm btn-block btn-outline-secondary mb-1">labels</span>' +
-		'<span id="asm_hex" aria-label="Show content" ' +
-		'      onclick="wepsim_click_asm_columns(\'hex\'); return false;" ' +
-                '      class="btn btn-sm btn-block btn-outline-secondary mb-1">content</span>' +
-		'<span id="asm_ins" aria-label="Show instruction" ' +
-		'      onclick="wepsim_click_asm_columns(\'ins\'); return false;" ' +
-                '      class="btn btn-sm btn-block btn-outline-secondary mb-1">assembly</span>' +
-		'<span id="asm_pins" aria-label="Show pseudoinstruction" ' +
-		'      onclick="wepsim_click_asm_columns(\'pins\'); return false;" ' +
-                '      class="btn btn-sm btn-block btn-outline-secondary mb-1">pseudo<span class="d-none d-md-inline">-instructions</span></span>' +
+        var o = '<button type="button" id="asm_label" aria-label="Show label" ' +
+		'        onclick="wepsim_click_asm_columns(\'label\'); return false;" ' +
+		'        class="btn btn-sm btn-block btn-outline-secondary mb-1">labels</button>' +
+		'<button type="button" id="asm_hex" aria-label="Show content" ' +
+		'        onclick="wepsim_click_asm_columns(\'hex\'); return false;" ' +
+                '        class="btn btn-sm btn-block btn-outline-secondary mb-1">content</button>' +
+		'<button type="button" id="asm_ins" aria-label="Show instruction" ' +
+		'        onclick="wepsim_click_asm_columns(\'ins\'); return false;" ' +
+                '        class="btn btn-sm btn-block btn-outline-secondary mb-1">assembly</button>' +
+		'<button type="button" id="asm_pins" aria-label="Show pseudoinstruction" ' +
+		'        onclick="wepsim_click_asm_columns(\'pins\'); return false;" ' +
+                '        class="btn btn-sm btn-block btn-outline-secondary mb-1">pseudo<span class="d-none d-md-inline">-instructions</span></button>' +
                 '<button type="button" id="close" data-role="none" ' +
                 '        class="btn btn-sm btn-danger w-100 p-0 mt-1" ' +
                 '        onclick="$(\'#' + asm_po + '\').popover(\'hide\');"' + 
