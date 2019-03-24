@@ -39,7 +39,7 @@
     {
         var index = 0 ;
 
-        if ( ("CPU" == component) || ("BR" == component) )
+        if ( ("CPU" === component) || ("BR" === component) )
         {
             if (Number.isInteger(elto))
                  index = elto ;
@@ -51,12 +51,12 @@
             return (get_value(simhw_sim_states().BR[index]) >>> 0) ;
         }
 
-        if ("MEMORY" == component)
+        if ("MEMORY" === component)
         {
             return (simhw_internalState_get('MP',elto) >>> 0) ;
         }
 
-        if ("DEVICE" == component)
+        if ("DEVICE" === component)
         {
             var associated_state = simhw_internalState_get('io_hash',elto) ;
             var value = (get_value(simhw_sim_state(associated_state)) >>> 0) ;
@@ -69,7 +69,7 @@
             return value ;
         }
 
-        if ("SCREEN" == component)
+        if ("SCREEN" === component)
         {
             var screen = get_screen_content() ;
             return screen ;
@@ -82,7 +82,7 @@
     {
         var index = 0 ;
 
-        if ( ("CPU" == component) || ("BR" == component) )
+        if ( ("CPU" === component) || ("BR" === component) )
         {
             if (Number.isInteger(elto))
                  index = elto ;
@@ -91,7 +91,7 @@
             if (isNaN(index)) 
             {
                 set_value(simhw_sim_state(elto), value) ;
-                if ("REG_PC" == elto) {
+                if ("REG_PC" === elto) {
                     show_asmdbg_pc() ;
 		}
 
@@ -101,13 +101,13 @@
             return set_value(simhw_sim_states().BR[index], value) ;
         }
 
-        if ("MEMORY" == component)
+        if ("MEMORY" === component)
         {
             simhw_internalState_set('MP', elto, value) ;
             return value ;
         }
 
-        if ("DEVICE" == component)
+        if ("DEVICE" === component)
         {
             var associated_state = simhw_internalState_get('io_hash',elto) ;
             set_value(simhw_sim_state(associated_state), value) ;
@@ -120,7 +120,7 @@
             return value ;
         }
 
-        if ("SCREEN" == component)
+        if ("SCREEN" === component)
         {
             set_screen_content(value) ;
             return value ;
@@ -134,7 +134,7 @@
         var SIMWARE = get_simware() ;
 
         for (var key in SIMWARE.firmware) {
-             if (SIMWARE.firmware[key].signatureRaw == signature_raw) {
+             if (SIMWARE.firmware[key].signatureRaw === signature_raw) {
                  return SIMWARE.firmware[key].fields ;
              }
         }
@@ -142,7 +142,7 @@
 
     function simcore_native_get_field_from_ir ( fields, index )
     {
-        if (typeof fields[index] == "undefined")
+        if (typeof fields[index] === "undefined")
             return false ;
 
         var value = get_value(simhw_sim_state('REG_IR')) ;
@@ -178,7 +178,7 @@
 
         for (var key in SIMWARE.firmware) 
         {
-             if (SIMWARE.firmware[key].signatureRaw == signature_raw) 
+             if (SIMWARE.firmware[key].signatureRaw === signature_raw) 
              {
                  var maddr = SIMWARE.firmware[key]["mc-start"] ;
                  set_value(simhw_sim_state('MUXA_MICROADDR'), maddr) ;

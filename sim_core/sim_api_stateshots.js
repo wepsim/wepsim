@@ -34,7 +34,7 @@
         for (var i=0; i<lines.length; i++)
         {
              var line = lines[i].trim() ;
-	     if ("" == line)
+	     if ("" === line)
 		 continue ;
 
              var parts = line.split(" ") ;
@@ -48,10 +48,10 @@
              for (var index in simhw_sim_components()) 
              {
 	          ret = simhw_sim_component(index).read_state(o, check) ;
-                  if (true == ret) break ;
+                  if (true === ret) break ;
              }
 
-             if (false == ret)
+             if (false === ret)
                  console.log("ERROR in checklist at component " + check.type + ": " + line) ;
         }
 
@@ -117,19 +117,19 @@
 			 diff.elto_op   = expected_result[compo][elto].op ;
 
 		         diff.fulfill   = false ;
-			      if ("=" == expected_result[compo][elto].op)
+			      if ("=" === expected_result[compo][elto].op)
 			          diff.fulfill = (parseInt(diff.obtained) == parseInt(diff.expected)) ;
-			 else if (">" == expected_result[compo][elto].op)
+			 else if (">" === expected_result[compo][elto].op)
 			          diff.fulfill = (parseInt(diff.obtained)  > parseInt(diff.expected)) ;
-			 else if ("<" == expected_result[compo][elto].op)
+			 else if ("<" === expected_result[compo][elto].op)
 			          diff.fulfill = (parseInt(diff.obtained)  < parseInt(diff.expected)) ;
-			 else if (">=" == expected_result[compo][elto].op)
+			 else if (">=" === expected_result[compo][elto].op)
 			          diff.fulfill = (parseInt(diff.obtained) >= parseInt(diff.expected)) ;
-			 else if ("<=" == expected_result[compo][elto].op)
+			 else if ("<=" === expected_result[compo][elto].op)
 			          diff.fulfill = (parseInt(diff.obtained) <= parseInt(diff.expected)) ;
-			 else if ("==" == expected_result[compo][elto].op)
+			 else if ("==" === expected_result[compo][elto].op)
 			          diff.fulfill = (diff.expected == diff.obtained) ;
-			 else if ("!=" == expected_result[compo][elto].op)
+			 else if ("!=" === expected_result[compo][elto].op)
 			          diff.fulfill = (diff.expected != diff.obtained) ;
 
 			 d.result.push(diff) ;
@@ -154,7 +154,7 @@
 			 diff = {} ;
 			 diff.expected  = obtained_result[compo][elto].default_value ;
 			 diff.obtained  = obtained_result[compo][elto].value ;
-			 diff.fulfill   = (diff.expected == diff.obtained) ;
+			 diff.fulfill   = (diff.expected === diff.obtained) ;
 			 diff.elto_type = compo.toLowerCase() ;
 			 diff.elto_id   = obtained_result[compo][elto].id ;
 			 diff.elto_op   = "=" ;
