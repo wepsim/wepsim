@@ -139,7 +139,8 @@
 		// "  <div class='col-md-4'>" +
 		// "  <img class='card-img-top' alt='microcode work area' src='help/simulator/firmware002.jpg'>" +
 		// "  </div>" +
-		 "  <div class='col-md-8'>" +
+		// "  <div class='col-md-8'>" + // +
+		 "  <div class='col-md-12'>" + // -
 		 "  <div class='card-body py-0'>" +
 		 "    <p class='card-text'>" + 
 		 "    <div class='badge badge-primary'>1</div>" +
@@ -156,7 +157,8 @@
 		// "  <div class='col-md-4'>" +
 		// "  <img class='card-img-top' alt='microcode work area' src='help/simulator/firmware002.jpg'>" +
 		// "  </div>" +
-		 "  <div class='col-md-8'>" +
+		// "  <div class='col-md-8'>" + // +
+		 "  <div class='col-md-12'>" + // -
 		 "  <div class='card-body py-0'>" +
 		 "    <p class='card-text'>" + 
 		 "    <div class='badge badge-primary'>2</div>" +
@@ -173,7 +175,8 @@
 		// "  <div class='col-md-4'>" +
 		// "  <img class='card-img-top' alt='microcode work area' src='help/welcome/simulation_xinstruction.gif'>" +
 		// "  </div>" +
-		 "  <div class='col-md-8'>" +
+		// "  <div class='col-md-8'>" + // +
+		 "  <div class='col-md-12'>" + // -
 		 "  <div class='card-body py-0'>" +
 		 "    <p class='card-text'>" + 
 		 "    <div class='badge badge-primary'>3</div>" +
