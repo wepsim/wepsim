@@ -405,7 +405,10 @@
     {
 	    // mode
 	    var mode_reference = parameters.get('mode') ;
-            simui_select_main(mode_reference) ;
+	    if (mode_reference !== null)
+	    {
+                simui_select_main(mode_reference) ;
+	    }
 
 	    // example
 	    var example_reference = parameters.get('example') ;

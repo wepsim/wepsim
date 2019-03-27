@@ -104,8 +104,12 @@
          var ti = get_cfg('ws_idiom') ;
 	     tour = introJs() ;
 
-	     tour.setOptions({ steps: tour_steps[ti] }) ;
-	     tour.setOption("overlayOpacity", "0.1") ;
+	     tour.setOptions({ 
+                                steps: tour_steps[ti],
+				keyboardNavigation: true,
+				showProgress: true,
+	                        overlayOpacity: "0.1"
+                             }) ;
 
 	     tour.onbeforechange(function () {
                                         tour_steps.en[this._currentStep].do_before() ;

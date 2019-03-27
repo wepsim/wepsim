@@ -113,7 +113,7 @@
                                 "<li>El compilador de ensamblador.</li>" +
                                 "<li>El visualizador de mapa de memoria y ayuda.</li>" +
                                 "</ul>" +
-                                "Asegure antes de ir a la pantalla del simulador que sud c&oacute;digo este listo (editado y compilado sin errores)." +
+                                "Asegure antes de ir a la pantalla del simulador que su c&oacute;digo este listo (editado y compilado sin errores)." +
                                 "</h5>",
                      code_pre:  function() { },
                      code_post: function() { },
