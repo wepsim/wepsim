@@ -26,6 +26,7 @@
                                   "WepSIM helps to better understand how a computer works.<br>" +
                                   "<br>" +
                                   "This brief tour introduces the interface for the key elements.",
+			   position: 'auto',
 			   do_before: function () {
 			                  return true ;
 			              }
@@ -37,6 +38,7 @@
                                   "<br>" +
                                   "For example, the hardware to work with (e.g. the elemental processor or EP).<br>" +
                                   "Or the tutorial mode, recommended at the beginning.",
+			   position: 'auto',
 			   do_before: function ()
 	                              {
                                           simui_select_main('ep') ;

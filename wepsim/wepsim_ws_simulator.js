@@ -133,6 +133,8 @@
 
     function default_asmdbg_content_horizontal ( )
     {
+	 var wsi = get_cfg('ws_idiom') ;
+
 	 var o = "<br>" +
 	         "<div class='card m-3'>" +
 		 "  <div class='row no-gutters'>" +
@@ -145,7 +147,7 @@
 		 "    <p class='card-text'>" + 
 		 "    <div class='badge badge-primary'>1</div>" +
 		 "    <span data-langkey='simulator intro 1'>" + 
-		 "    First, you need to load the microcode to be used." +
+	         i18n.gui[wsi]['simulator intro 1'] +
 		 "    </span>" +
 		 "    </p>" +
 		 "  </div>" +
@@ -163,7 +165,7 @@
 		 "    <p class='card-text'>" + 
 		 "    <div class='badge badge-primary'>2</div>" +
 		 "    <span data-langkey='simulator intro 2'>" + 
-		 "    Next, you need to load the assembly code to be used." +
+	         i18n.gui[wsi]['simulator intro 2'] +
 		 "    </span>" +
 		 "    </p>" +
 		 "  </div>" +
@@ -181,7 +183,7 @@
 		 "    <p class='card-text'>" + 
 		 "    <div class='badge badge-primary'>3</div>" +
 		 "    <span data-langkey='simulator intro 3'>" + 
-		 "    Finally, in the simulator you are able to execute the microcode plus assembly loaded before." +
+	         i18n.gui[wsi]['simulator intro 3'] +
 		 "    </span>" +
 		 "    </p>" +
 		 "  </div>" +
