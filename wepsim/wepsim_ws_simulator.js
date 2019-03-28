@@ -405,11 +405,14 @@
 
     function wepsim_preload ( parameters )
     {
+	    var o = '' ;
+
 	    // parameter: mode
 	    var mode_reference = parameters.get('mode') ;
 	    if (mode_reference !== null)
 	    {
                 simui_select_main(mode_reference) ;
+	        o += '<li>Mode set to ' + mode_reference + '.</li> ' ;
 	    }
 
 	    // parameter: example
@@ -422,6 +425,7 @@
 		{
 		    var example_uri   = example_obj.hardware + ":" + example_obj.microcode + ":" + example_obj.assembly ;
 	            load_from_example_firmware(example_uri, true) ;
+	            o += '<li>Example ' + example_index + ' loaded.</li> ' ;
 		}
 	    }
 
@@ -431,6 +435,7 @@
 	    var panels = [] ;
 	    if (panels_reference !== null) {
 	        panels = panels_reference.split(":") ;
+	        o += '<li>User interface adapted to the example.</li> ' ;
             }
 
 	    if (typeof panels[0] !== "undefined")
@@ -450,6 +455,15 @@
 		if (typeof evt_handler !== "undefined") {
 		    evt_handler() ;
                 }
+	    }
+
+	    // notify the user of the preloaded work
+	    if (o !== '') {
+		o = 'WepSIM has been instructed to preload some work for you:<br><ul>' + 
+		    o + 
+		    '</ul>' + 
+	            'Now you can, for example, press the <strong>Run</strong> button to execute the example and see the results.' ;
+	        simcoreui_notify('WepSIM preloads some work', o, 'info', 0) ;
 	    }
 
 	    // return ok

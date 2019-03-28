@@ -166,12 +166,13 @@
     function table_examples_html ( examples )
     {
        // harware
-       var mode = get_cfg('ws_mode') ;
-       var ahw  = mode ;
-
+       var ahw      = 'ep' ;
        var ep_modes = ['newbie', 'intro', 'wepmips', 'tutorial'] ;
-       if (ep_modes.includes(mode))
-           ahw  = 'ep' ;
+
+       var mode = get_cfg('ws_mode') ;
+       if ( (mode !== "null") && (! ep_modes.includes(mode)) ) {
+             ahw = mode ;
+       }
 
        // examples
        var lang = get_cfg('ws_idiom') ;
