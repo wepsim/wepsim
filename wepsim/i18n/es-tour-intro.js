@@ -23,9 +23,12 @@
                         // 0
 			{
 			   intro: "¡Bienvenido+a a WepSIM!<br>" + 
-                                  "WepSIM ayudar&aacute; a entender mejor c&oacute;mo funciona un computador.<br>" + 
                                   "<br>" +
-                                  "Este breve tour le muestra las partes clave de WepSIM que necesita.",
+                                  "WepSIM ayudar&aacute; a entender mejor c&oacute;mo funciona un computador: " + 
+                                  "es visual, interactivo, integra interrupciones, llamadas al sistema, etc. <br>" +
+                                  "<br>" +
+                                  "Nosotros realmente creemos que WepSIM es una herramienta revolucionaria. " +
+                                  "Este breve tour le muestra las partes clave de la interfaz de WepSIM.",
 			   position: 'top'
 			},
                         // 1

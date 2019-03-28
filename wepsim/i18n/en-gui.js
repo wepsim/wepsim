@@ -60,6 +60,9 @@
                         "simulator intro 2": 		                "Next, you need to load and compile the assembly code to be executed. " +
 									"You can use an assembly example, load it from a file or you can edit a new one.",
                         "simulator intro 3": 		                "Finally, in the simulator you are able to execute the microcode plus assembly loaded before. " +
-									"It can be executed step by step at microinstruction level or assembly instruction level."
+									"It can be executed step by step at microinstruction level or assembly instruction level.",
+                        "Prev.": 		                	"Prev.",
+                        "Next": 		                	"Next",
+                        "Disable tutorial mode": 		        "Disable tutorial mode"
                   } ;
 

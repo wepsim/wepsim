@@ -25,29 +25,12 @@
                      message:     "<center><img alt='wepsim screenshot' src='help/simulator/simulator012.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                   "<p>" +
                                   "<h5>" +
-                                  "WepSIM permite a estudiantes y profesores definir un juego de instrucciones, " + 
-                                  "y crear cualquier programa de ensamblador que use dicho juego de instrucciones. " + 
-                                  "Dado que WepSIM es visual, e integra interrupciones, llamadas al sistema, etc." + 
-                                  "nosotros realmente creemos que WepSIM es una herramienta revolucionaria. " + 
-                                  "<br>" +
-                                  "</h5>",
-                     code_pre:    function() { },
-                     code_post:   function() { },
-                     wait_next:   100
-                  });
-
-    tutorials.welcome.es.push({
-                     id:          "welcome",
-                     title:       "¡Bienvenidos al simulador WepSIM!",
-                     message:     "<center><img alt='wepsim screenshot' src='help/simulator/simulator012.jpg' style='max-width:100%; max-height:40vh;'></center>" +
-                                  "<p>" +
-                                  "<h5>" +
                                   "Este breve tutorial le mostrar&aacute;:" +
                                   "<ol>" +
-                                  "<li>Carga de un ejemplo.</li>" +
-                                  "<li>Ejecución de ejemplo.</li>" +
-                                  "<li>Configuraci&oacute;n del simulador.</li>" +
-                                  "<li>Obtener ayuda.</li>" +
+                                  "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,1);'>Carga de un ejemplo.</a></li>" +
+                                  "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,2);'>Ejecución de ejemplo.</a></li>" +
+                                  "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,3);'>Configuraci&oacute;n del simulador.</a></li>" +
+                                  "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,4);'>Obtener ayuda.</a></li>" +
                                   "</ol>" +
                                   "</h5>",
                      code_pre:    function() { },

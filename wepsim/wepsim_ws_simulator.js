@@ -405,27 +405,27 @@
 
     function wepsim_preload ( parameters )
     {
-	    // mode
+	    // parameter: mode
 	    var mode_reference = parameters.get('mode') ;
 	    if (mode_reference !== null)
 	    {
                 simui_select_main(mode_reference) ;
 	    }
 
-	    // example
+	    // parameter: example
 	    var example_reference = parameters.get('example') ;
 	    if (example_reference !== null)
 	    {
 		var example_index = parseInt(example_reference) ;
 		var example_obj   = examples.en[example_index] ;
-	        if (typeof example_obj !== "undefined") 
+	        if (typeof example_obj !== "undefined")
 		{
 		    var example_uri   = example_obj.hardware + ":" + example_obj.microcode + ":" + example_obj.assembly ;
 	            load_from_example_firmware(example_uri, true) ;
 		}
 	    }
 
-	    // simulator UI
+	    // parameter: simulator UI
 	    var panels_reference = parameters.get('simulator') ;
 
 	    var panels = [] ;
@@ -451,5 +451,8 @@
 		    evt_handler() ;
                 }
 	    }
+
+	    // return ok
+	    return 0 ;
     }
 
