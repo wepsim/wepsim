@@ -34,6 +34,7 @@
 			"Reset":  			                "Reset",
 			"Instruction":  			        "Instruction",
 			"Run":  			                "Run",
+			"Hardware Summary":  			        "Hardware Summary",
 			"States":  			                "States",
 			"Refresh":  			                "Refresh",
 			"Current State":  			        "Current State",

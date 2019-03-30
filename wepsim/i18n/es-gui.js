@@ -34,6 +34,7 @@
 			"Reset": 			     		"Reiniciar",
 			"Instruction": 			     		"Instrucci&oacute;n",
 			"Run": 				     		"Ejecutar",
+			"Hardware Summary":  			        "Hardware Resumido",
 			"States": 			     		"Estados",
 			"Refresh": 			     		"Refrescar",
 			"Current State":  			        "Estado Actual",
