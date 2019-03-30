@@ -63,6 +63,11 @@
 									"Se puede ejecutar paso a paso a nivel de ensamblador o microinstrucci&oacute;n.",
                         "Prev.": 		                	"Anterior",
                         "Next": 		                	"Siguiente",
-                        "Disable tutorial mode": 		        "Deshabilitar modo tutorial"
+                        "Disable tutorial mode": 		        "Deshabilitar modo tutorial",
+                        "Show Notifications":                           "Mostrar notificaciones",
+                        "Show/Hide ActionBar":                          "Mostrar/Ocultar barra",
+                        "Show/Hide Slider":                             "Mostrar/Ocultar slider",
+                        "About WepSIM":                                 "Sobre WepSIM",
+                        "Initial intro":                                "Intro inicial"
                   } ;
 

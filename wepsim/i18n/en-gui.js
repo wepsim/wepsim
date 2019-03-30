@@ -63,6 +63,11 @@
 									"It can be executed step by step at microinstruction level or assembly instruction level.",
                         "Prev.": 		                	"Prev.",
                         "Next": 		                	"Next",
-                        "Disable tutorial mode": 		        "Disable tutorial mode"
+                        "Disable tutorial mode": 		        "Disable tutorial mode",
+                        "Show Notifications":                           "Show Notifications",
+                        "Show/Hide ActionBar":                          "Show/Hide ActionBar",
+                        "Show/Hide Slider":                             "Show/Hide Slider",
+                        "About WepSIM":                                 "About WepSIM",
+                        "Initial intro":                                "Initial intro"
                   } ;
 

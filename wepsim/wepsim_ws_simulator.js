@@ -359,42 +359,51 @@
 
     function wepsim_show_quick_menu ( quick_po )
     {
+        var wsi = get_cfg('ws_idiom') ;
+
         var o = '<ul class="list-group list-group-flush">' +
 		'<li class="list-group-item px-0 pt-1"> ' +
 		'  <em class="fas fa-flag"></em> &nbsp;' +
 		'  <a class="btn btn-sm btn-outline-secondary col-auto p-1 text-left" href="#" ' +
                 '     onclick="simcoreui_notify_notifications(); ' +
-		'              $(\'#' + quick_po + '\').popover(\'hide\');">Show Notifications...</a>' +
+		'              $(\'#' + quick_po + '\').popover(\'hide\');">' +
+		i18n.gui[wsi]['Show Notifications'] + '...</a>' +
 		'</li>' +
 		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-bars"></em> &nbsp;' +
                 '  <span class="btn-group-toggle" data-toggle="buttons">' +
 		'  <label class="btn btn-sm btn-outline-secondary col-auto p-1 text-left" data-toggle="collapse" href=".multi-collapse-1">' +
-		'  <input type="checkbox" checked="" autocomplete="off"> Show/Hide ActionBar</label>' +
+		'  <input type="checkbox" checked="" autocomplete="off">' +
+		i18n.gui[wsi]['Show/Hide ActionBar'] + '</label>' +
 		'  </span>' +
 		'</li>' +
 		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-sliders-h"></em> &nbsp;' +
                 '  <span class="btn-group-toggle" data-toggle="buttons">' +
 		'  <label class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" data-toggle="collapse" href=".multi-collapse-2">' +
-		'  <input type="checkbox" checked="" autocomplete="off"> Show/Hide Sliders</label>' +
+		'  <input type="checkbox" checked="" autocomplete="off">' +
+		i18n.gui[wsi]['Show/Hide Slider'] + '</label>' +
 		'  </span>' +
 		'</li>' +
 		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-magic"></em> &nbsp;' +
 		'  <a class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" href="#" ' +
 		'     onclick="$(\'#about2\').modal(\'show\'); ' +
-		'              $(\'#' + quick_po + '\').popover(\'hide\');">About WepSIM...</a>' +
+		'              $(\'#' + quick_po + '\').popover(\'hide\');">' +
+		i18n.gui[wsi]['About WepSIM'] + '...</a>' +
 		'</li>' +
 		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-book-reader"></em> &nbsp;' +
 		'  <a class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" href="#" ' +
 		'     onclick="wepsim_newbie_tour(); ' +
-		'              $(\'#' + quick_po + '\').popover(\'hide\');">Initial intro...</a>' +
+		'              $(\'#' + quick_po + '\').popover(\'hide\');">' +
+		i18n.gui[wsi]['Initial intro'] + '...</a>' +
 		'</li>' +
 	        '<button type="button" id="close" data-role="none" ' + 
 		'        class="btn btn-sm btn-danger w-100 p-0 mt-2" ' +
-		'        onclick="$(\'#' + quick_po + '\').popover(\'hide\');"><span data-langkey="Close">Close</span></button>' +
+		'        onclick="$(\'#' + quick_po + '\').popover(\'hide\');">' +
+		i18n.gui[wsi]['Close'] +
+                '</button>' +
 		'</ul>' ;
 
         return o ;

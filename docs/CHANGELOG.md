@@ -2,7 +2,7 @@
 2.0.2 -> 2.0.3:
 * Initial support for preloading work
 * Tutorials with initial index
-* Improved translation on tutorial buttons and initial assembly content
+* Improved translation 
 
 1.9.6 -> 2.0.2:
 * Interface:
