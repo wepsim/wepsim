@@ -892,23 +892,32 @@ function read_text ( context, datosCU, ret )
 		}
 
 		// store pseudo_fields[field]=value, and continue 
-		if (isPseudo){
-			if(counter == -1){
-				var s_ori = "";
-				for (i=0; i<s.length; i++)
-					s_ori = s_ori + s[i] + " " ;
-				s_ori = s_ori.substring(0,s_ori.length-1);	 
-				for(i=0; i<signature_fields[candidate].length; i++){
-					pseudo_fields[signature_fields[candidate][i]] = s[i+1];
+		if (isPseudo)
+		{
+			if (counter == -1)
+			{
+				var s_ori = "" ;
+				for (i=0; i<s.length; i++) {
+				     s_ori = s_ori + s[i] + " " ;
 				}
-				counter++;
-				continue;
+				s_ori = s_ori.substring(0, s_ori.length-1) ;
+
+				for (i=0; i<signature_fields[candidate].length; i++){
+				     pseudo_fields[signature_fields[candidate][i]] = s[i+1] ;
+				}
+
+				counter++ ;
+				continue ;
 			}
-			else npseudoInstructions++;
-			if(npseudoInstructions > 1) 
-				s_ori = "&nbsp;"; // s_ori = "---"; 
-			if(finish[candidate][counter] == "\n")
-				counter++;
+
+			npseudoInstructions++ ;
+			if (npseudoInstructions > 1) {
+			    s_ori = "&nbsp;" ; // s_ori = "---"; 
+			}
+
+			if (finish[candidate][counter] == "\n") {
+			    counter++ ;
+			}
 		}
 
 		var machineCode = reset_assembly(firmware[instruction][candidate].nwords);
@@ -940,7 +949,8 @@ function read_text ( context, datosCU, ret )
 
 		// fix instruction format
 		s_def = s[0];
-		for (i=0, j=1; i<signature_user_fields[candidate].length; i++, j++){
+		for (i=0, j=1; i<signature_user_fields[candidate].length; i++, j++)
+		{
 			switch(signature_user_fields[candidate][i]){
 				case "address":
 				case "inm":
@@ -954,30 +964,40 @@ function read_text ( context, datosCU, ret )
 			}		
 		}
 
-		if(!isPseudo)
-			var s_ori = s_def;
+		if (!isPseudo) {
+		     var s_ori = s_def ;
+		}
 
 		// process machine code with several words...
 		for (i=firmware[instruction][candidate].nwords-1; i>=0; i--)
                 {
-			if (i<firmware[instruction][candidate].nwords-1) s_def="---";
-			ret.assembly["0x" + seg_ptr.toString(16)] = { breakpoint:false, binary:machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH), source:s_def, source_original:s_ori } ; 
+			if (i<firmware[instruction][candidate].nwords-1) {
+			    s_def = "" ;
+			}
+			ret.assembly["0x" + seg_ptr.toString(16)] = { 
+				                                      breakpoint: false, 
+				                                      binary: machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH), 
+				                                      source: s_def, 
+				                                      source_original: s_ori 
+			                                            } ; 
 			ret.mp["0x" + seg_ptr.toString(16)] = machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH) ;
                 	seg_ptr = seg_ptr + WORD_BYTES ;
 		}
 	
-		if (!isPseudo && max_length == signature_fields[candidate].length)
-			nextToken(context);
-
-		// pseudoinstruction finished
-		if(isPseudo && counter == finish[candidate].length){
-			counter = -1;
-			npseudoInstructions = 0;
-			isPseudo = false;
-			nextToken(context);
+		if (!isPseudo && max_length == signature_fields[candidate].length) {
+			nextToken(context) ;
 		}
 
-		if (context.t >= context.text.length) break;
+		// pseudoinstruction finished
+		if(isPseudo && counter == finish[candidate].length) {
+			counter = -1 ;
+			npseudoInstructions = 0 ;
+			isPseudo = false ;
+			nextToken(context) ;
+		}
+
+		if (context.t >= context.text.length) 
+		    break ;
            }
 
            ret.seg[seg_name].end = seg_ptr ;  // end of segment is just last pointer value...
