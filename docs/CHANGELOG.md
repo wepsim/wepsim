@@ -1,4 +1,9 @@
 
+2.0.2 -> 2.0.3:
+* Initial support for preloading work
+* Tutorials with initial index
+* Improved translation on tutorial buttons and initial assembly content
+
 1.9.6 -> 2.0.2:
 * Interface:
   + Bootstrap 4.3.1 (2019)
