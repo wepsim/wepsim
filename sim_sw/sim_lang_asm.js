@@ -892,23 +892,32 @@ function read_text ( context, datosCU, ret )
 		}
 
 		// store pseudo_fields[field]=value, and continue 
-		if (isPseudo){
-			if(counter == -1){
-				var s_ori = "";
-				for (i=0; i<s.length; i++)
-					s_ori = s_ori + s[i] + " " ;
-				s_ori = s_ori.substring(0,s_ori.length-1);	 
-				for(i=0; i<signature_fields[candidate].length; i++){
-					pseudo_fields[signature_fields[candidate][i]] = s[i+1];
+		if (isPseudo)
+		{
+			if (counter == -1)
+			{
+				var s_ori = "" ;
+				for (i=0; i<s.length; i++) {
+				     s_ori = s_ori + s[i] + " " ;
 				}
-				counter++;
-				continue;
+				s_ori = s_ori.substring(0, s_ori.length-1) ;
+
+				for (i=0; i<signature_fields[candidate].length; i++){
+				     pseudo_fields[signature_fields[candidate][i]] = s[i+1] ;
+				}
+
+				counter++ ;
+				continue ;
 			}
-			else npseudoInstructions++;
-			if(npseudoInstructions > 1) 
-				s_ori = "&nbsp;"; // s_ori = "---"; 
-			if(finish[candidate][counter] == "\n")
-				counter++;
+
+			npseudoInstructions++ ;
+			if (npseudoInstructions > 1) {
+			    s_ori = "&nbsp;" ; // s_ori = "---"; 
+			}
+
+			if (finish[candidate][counter] == "\n") {
+			    counter++ ;
+			}
 		}
 
 		var machineCode = reset_assembly(firmware[instruction][candidate].nwords);
@@ -955,16 +964,15 @@ function read_text ( context, datosCU, ret )
 			}		
 		}
 
-		var s_ori = "" ;
 		if (!isPseudo) {
-		     s_ori = s_def ;
+		     var s_ori = s_def ;
 		}
 
 		// process machine code with several words...
 		for (i=firmware[instruction][candidate].nwords-1; i>=0; i--)
                 {
 			if (i<firmware[instruction][candidate].nwords-1) {
-			    s_def = "---" ;
+			    s_def = "" ;
 			}
 			ret.assembly["0x" + seg_ptr.toString(16)] = { 
 				                                      breakpoint: false, 
