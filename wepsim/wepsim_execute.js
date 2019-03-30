@@ -20,7 +20,7 @@
 
 
     /*
-     * Play/stop
+     * Run/Stop
      */
 
     function wepsim_execute_reset ( reset_cpu, reset_memory )
@@ -89,7 +89,7 @@
 
     function wepsim_execute_stop ( btn1 )
     {
-	$(btn1).html("<i class='fa fa-play'></i><br><b>Play</b>") ;
+	$(btn1).html("<i class='fa fa-play'></i><br><b>Run</b>") ;
 	$(btn1).css("backgroundColor", "#CCCCCC") ;
 
 	DBG_stop = true;
