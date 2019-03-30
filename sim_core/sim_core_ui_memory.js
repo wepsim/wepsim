@@ -664,7 +664,7 @@
 		     }
 
 		     if (s1_instr == s2_instr) {
-			 s2_instr = '<span class="text-secondary">' + s2_instr + '</span>' ;
+			 s2_instr = '<span class="text-dark">' + s2_instr + '</span>' ;
 		     }
 
                      o +=  "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'" +

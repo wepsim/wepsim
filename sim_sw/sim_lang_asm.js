@@ -940,7 +940,8 @@ function read_text ( context, datosCU, ret )
 
 		// fix instruction format
 		s_def = s[0];
-		for (i=0, j=1; i<signature_user_fields[candidate].length; i++, j++){
+		for (i=0, j=1; i<signature_user_fields[candidate].length; i++, j++)
+		{
 			switch(signature_user_fields[candidate][i]){
 				case "address":
 				case "inm":
@@ -954,30 +955,41 @@ function read_text ( context, datosCU, ret )
 			}		
 		}
 
-		if(!isPseudo)
-			var s_ori = s_def;
+		var s_ori = "" ;
+		if (!isPseudo) {
+		     s_ori = s_def ;
+		}
 
 		// process machine code with several words...
 		for (i=firmware[instruction][candidate].nwords-1; i>=0; i--)
                 {
-			if (i<firmware[instruction][candidate].nwords-1) s_def="---";
-			ret.assembly["0x" + seg_ptr.toString(16)] = { breakpoint:false, binary:machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH), source:s_def, source_original:s_ori } ; 
+			if (i<firmware[instruction][candidate].nwords-1) {
+			    s_def = "---" ;
+			}
+			ret.assembly["0x" + seg_ptr.toString(16)] = { 
+				                                      breakpoint: false, 
+				                                      binary: machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH), 
+				                                      source: s_def, 
+				                                      source_original: s_ori 
+			                                            } ; 
 			ret.mp["0x" + seg_ptr.toString(16)] = machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH) ;
                 	seg_ptr = seg_ptr + WORD_BYTES ;
 		}
 	
-		if (!isPseudo && max_length == signature_fields[candidate].length)
-			nextToken(context);
-
-		// pseudoinstruction finished
-		if(isPseudo && counter == finish[candidate].length){
-			counter = -1;
-			npseudoInstructions = 0;
-			isPseudo = false;
-			nextToken(context);
+		if (!isPseudo && max_length == signature_fields[candidate].length) {
+			nextToken(context) ;
 		}
 
-		if (context.t >= context.text.length) break;
+		// pseudoinstruction finished
+		if(isPseudo && counter == finish[candidate].length) {
+			counter = -1 ;
+			npseudoInstructions = 0 ;
+			isPseudo = false ;
+			nextToken(context) ;
+		}
+
+		if (context.t >= context.text.length) 
+		    break ;
            }
 
            ret.seg[seg_name].end = seg_ptr ;  // end of segment is just last pointer value...
