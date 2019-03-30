@@ -656,15 +656,20 @@
                          }
                      }
 
+		     // mark pseudo + n-words
+		     if (s1_instr == '') {
+			 s2_instr = '<span class="text-secondary">' + s2_instr + '</span>' ;
+		     }
+		else if (s1_instr != s2_instr) {
+			 s1_instr = '<span class="text-primary">' + s1_instr + '</span>' ;
+			 s2_instr = '<span class="text-primary">' + s2_instr + '</span>' ;
+		     }
+
                      // join the pieces...
                      if (typeof a2s[l] != "undefined") {
                          o += "<tr bgcolor='#FEFEFE'>" +
                               "<td colspan='7' style='line-height:0.3;' align='left'><small><font color='gray'>" + a2s[l] + "</font></small></td>"
                               "</tr>" ;
-		     }
-
-		     if (s1_instr == s2_instr) {
-			 s2_instr = '<span class="text-secondary">' + s2_instr + '</span>' ;
 		     }
 
                      o +=  "<tr id='asmdbg" + l + "' bgcolor='" + asm[l].bgcolor + "'" +
