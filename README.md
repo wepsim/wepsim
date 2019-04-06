@@ -54,7 +54,7 @@ Step   | iOS                       |  Android                  | Action to perfo
    3 You can modify the microcode (if you wish) and microcompile it: 
      ![screen:microcode](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/firmware002.jpg)
    4 Later, you could go to the assembly editor workspace: 
-     ![screen:menu](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/assembly002.jpg)
+     ![screen:menu](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/assembly002a.jpg)
    5 You can modify (if you wish) your assembly code (by using the instructions defined in the previous microcode) and compile it: 
      ![screen:code](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/assembly003.jpg)
    6 Finally, go back to the simulator workspace, and you can execute step by step and analyze the state of the components.

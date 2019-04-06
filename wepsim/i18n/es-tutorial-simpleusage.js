@@ -73,7 +73,7 @@
     tutorials.simpleusage.es.push({
                      id:        "simpleusage",
                      title:     "WepSIM: microprogramar, ensamblar y simular",
-                     message:   "<center><img alt='wepsim screenshot' src='help/simulator/assembly002.jpg' style='max-width:100%; max-height:40vh;'></center>" +
+                     message:   "<center><img alt='wepsim screenshot' src='help/simulator/assembly002b.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
                                 "El segundo paso es programar el ensamblador a ser ejecutado. " +

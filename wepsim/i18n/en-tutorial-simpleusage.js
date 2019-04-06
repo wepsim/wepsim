@@ -73,7 +73,7 @@
     tutorials.simpleusage.en.push({
                      id:        "simpleusage",
                      title:     "Simple WepSIM experience: microprogramming and programming",
-                     message:   "<center><img alt='wepsim screenshot' src='help/simulator/assembly002.jpg' style='max-width:100%; max-height:40vh;'></center>" +
+                     message:   "<center><img alt='wepsim screenshot' src='help/simulator/assembly002b.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
                                 "The second step is to programming the assembly to be executed. " +
