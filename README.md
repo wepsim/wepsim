@@ -17,23 +17,20 @@
 
 ## Getting WepSIM
 
-+ Web version (Google Chrome 65+, Mozilla Firefox 60+, Microsoft Edge 40+, and Apple Safari 11+):
-     * Release version: **https://wepsim.github.io/wepsim**
-     * Nightly build: https://acaldero.github.io/wepsim
+### Run WepSIM
 
-+ Android version (Android 5.0+):
-     * Install from: https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim
++ From Web (Google Chrome 65+, Mozilla Firefox 60+, Microsoft Edge 40+, and Apple Safari 11+):
+     * Please, load in your Web Browser the link:
+        * **https://wepsim.github.io/wepsim** (Release version)
+        * https://acaldero.github.io/wepsim (Nightly build)
 
-+ Linux/Unix version (Node 8.10.0+ and Bash 4.4.19+):
-     * Install from: https://github.com/wepsim/wepsim.github.io/raw/master/wepsim-cl-lite.zip
++ From Linux/Unix command line (Node 8.10.0+ and Bash 4.4.19+):
+     * Please, uncompress https://github.com/wepsim/wepsim.github.io/raw/master/wepsim-cl-lite.zip and then execute ./wepsim_node.sh
 
-+ WepSIM Source Code:
-   * https://github.com/acaldero/wepsim
+### Install WepSIM
 
-
-## Install WepSIM as Progressive Web Application
-
-+ Install on iOS, Android, Windows, Linux, etc.:
++ WepSIM as Progressive Web Application on iOS, Android, Windows, Linux, etc.:
+    * Please, the following actions must be taken:
 
 Step   | iOS                       |  Android                  | Action to perform
 ------:|:-------------------------:|:-------------------------:|:------------------
@@ -42,24 +39,45 @@ Step   | iOS                       |  Android                  | Action to perfo
 3      | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_ios003.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_android003.jpg) | Finally, click in the 'add' option.
 4      | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_ios004.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_android004.jpg) | Then, WepSIM can be launched from the home screen icon.    
 
++ WepSIM on Android 5.0+:
+    * Please, install from the official Goole Play Store link: https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim
+
+### WepSIM Source Code
+
++ WepSIM GitHub Repository:
+   * https://github.com/acaldero/wepsim
+
 
 ## Getting Started
 
+### To learn with some WepSIM example
+
++ Please, follow these these steps:
+
+   1 First, we need to load WepSIM in your favorite web browser. Then click on the Examples button to open the Examples dialog:
+     ![screen:example1](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/simulator021.jpg)
+   2 In the Examples dialog please click on the colored 'title' of the example and WepSIM will load and compile the associated microcode and assembly code:
+     ![screen:example2](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/simulator022.jpg)
+   3 In the simulator workspace you can execute step by step and analyze the state of the components. It is possible to work both, at assembly level or at microcode level: 
+     ![screen:simulation1](https://raw.githubusercontent.com/acaldero/wepsim/master/help/welcome/simulation_xinstruction.gif)
+
+### You can modify an existing example or build your own
+
 + The typical workflow consists in the following steps:
 
-   1 From the menu, there are different examples available (click on the dark blue 'title' of the example you want to work with):
-     ![screen:example](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/simulator015.jpg)
-   2 Then you could go to the microcode editor workspace: 
-     ![screen:menu](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/firmware001.jpg)
-   3 You can modify the microcode (if you wish) and microcompile it: 
-     ![screen:microcode](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/firmware002.jpg)
-   4 Later, you could go to the assembly editor workspace: 
-     ![screen:menu](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/assembly002a.jpg)
-   5 You can modify (if you wish) your assembly code (by using the instructions defined in the previous microcode) and compile it: 
-     ![screen:code](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/assembly003.jpg)
-   6 Finally, go back to the simulator workspace, and you can execute step by step and analyze the state of the components.
+   1 First, we need to load WepSIM in your web browser. Then you should go to the microcode editor workspace:
+     ![screen:firmware1](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/firmware001.jpg)
+   2 You can load an existing microcode or edit a new one. You have to microcompile the microcode to load the binary into the CPU's control memory:
+     ![screen:firmware2](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/firmware002.jpg)
+   3 Next, you could go to the assembly editor workspace. In the editor workspace you can load an existing assembly code or edit a new one:
+     ![screen:firmware3](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/assembly002b.jpg)
+   4 The instructions set defined in the previous microcode is used to create your assembly code. You have to compile the assembly code to load the binary into the main memory:
+     ![screen:assembly1](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/assembly003.jpg)
+   5 Finally, go back to the simulator workspace, and you can execute step by step and analyze the state of the components.
      It is possible to work at assembly level or at microcode level: 
      ![screen:simulation cpu](https://raw.githubusercontent.com/acaldero/wepsim/master/help/welcome/simulation_xinstruction.gif)
+
+### Configure WepSIM
 
 + There are two main options to configure WepSIM (and make it more personal):
    + From the general toolbar, the configuration button let users to personalize several options:
@@ -67,7 +85,9 @@ Step   | iOS                       |  Android                  | Action to perfo
    + From the general toolbar, please use the left-upper slider to change the CPU/CU size:
      ![screen:configuration](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/simulator013.jpg)
 
-+ WepSIM also has a 'state management':
+### WepSIM and its 'state management'
+
++ The values of every visible hardware element is the state in a clock cycle. WepSIM has also a 'state management' dialog where users can see the current state, and check the differences between two states:
    + From the execution toolbar, clicking over the 'state' button to show the state manager:
      ![screen:configuration](https://raw.githubusercontent.com/acaldero/wepsim/master/help/welcome/states_usage.gif)
 
