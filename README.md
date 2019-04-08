@@ -17,23 +17,20 @@
 
 ## Getting WepSIM
 
-+ Web version (Google Chrome 65+, Mozilla Firefox 60+, Microsoft Edge 40+, and Apple Safari 11+):
-     * Release version: **https://wepsim.github.io/wepsim**
-     * Nightly build: https://acaldero.github.io/wepsim
+### Run WepSIM
 
-+ Android version (Android 5.0+):
-     * Install from: https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim
++ From Web (Google Chrome 65+, Mozilla Firefox 60+, Microsoft Edge 40+, and Apple Safari 11+):
+     * Please, load in your Web Browser the link:
+        * **https://wepsim.github.io/wepsim** (Release version)
+        * https://acaldero.github.io/wepsim (Nightly build)
 
-+ Linux/Unix version (Node 8.10.0+ and Bash 4.4.19+):
-     * Install from: https://github.com/wepsim/wepsim.github.io/raw/master/wepsim-cl-lite.zip
++ From Linux/Unix command line (Node 8.10.0+ and Bash 4.4.19+):
+     * Please, uncompress https://github.com/wepsim/wepsim.github.io/raw/master/wepsim-cl-lite.zip and then execute ./wepsim_node.sh
 
-+ WepSIM Source Code:
-   * https://github.com/acaldero/wepsim
+### Install WepSIM
 
-
-## Install WepSIM as Progressive Web Application
-
-+ Install on iOS, Android, Windows, Linux, etc.:
++ WepSIM as Progressive Web Application on iOS, Android, Windows, Linux, etc.:
+    * Please, the following actions must be taken:
 
 Step   | iOS                       |  Android                  | Action to perform
 ------:|:-------------------------:|:-------------------------:|:------------------
@@ -42,24 +39,45 @@ Step   | iOS                       |  Android                  | Action to perfo
 3      | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_ios003.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_android003.jpg) | Finally, click in the 'add' option.
 4      | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_ios004.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_android004.jpg) | Then, WepSIM can be launched from the home screen icon.    
 
++ WepSIM on Android 5.0+:
+    * Please, install from the official Goole Play Store link: https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim
+
+### WepSIM Source Code
+
++ WepSIM GitHub Repository:
+   * https://github.com/acaldero/wepsim
+
 
 ## Getting Started
 
+### To learn with some WepSIM example
+
++ Please, follow these these steps:
+
+   1 First, we need to load WepSIM in your favorite web browser. Then click on the Examples button to open the Examples dialog:
+     ![screen:example1](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/simulator021.jpg)
+   2 In the Examples dialog please click on the colored 'title' of the example and WepSIM will load and compile the associated microcode and assembly code:
+     ![screen:example2](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/simulator022.jpg)
+   3 In the simulator workspace you can execute step by step and analyze the state of the components. It is possible to work both, at assembly level or at microcode level: 
+     ![screen:simulation1](https://raw.githubusercontent.com/acaldero/wepsim/master/help/welcome/simulation_xinstruction.gif)
+
+### You can modify an existing example or build your own
+
 + The typical workflow consists in the following steps:
 
-   1 From the menu, there are different examples available (click on the dark blue 'title' of the example you want to work with):
-     ![screen:example](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/simulator015.jpg)
-   2 Then you could go to the microcode editor workspace: 
-     ![screen:menu](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/firmware001.jpg)
-   3 You can modify the microcode (if you wish) and microcompile it: 
-     ![screen:microcode](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/firmware002.jpg)
-   4 Later, you could go to the assembly editor workspace: 
-     ![screen:menu](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/assembly002a.jpg)
-   5 You can modify (if you wish) your assembly code (by using the instructions defined in the previous microcode) and compile it: 
-     ![screen:code](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/assembly003.jpg)
-   6 Finally, go back to the simulator workspace, and you can execute step by step and analyze the state of the components.
+   1 First, we need to load WepSIM in your web browser. Then you should go to the microcode editor workspace:
+     ![screen:firmware1](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/firmware001.jpg)
+   2 You can load an existing microcode or edit a new one. You have to microcompile the microcode to load the binary into the CPU's control memory:
+     ![screen:firmware2](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/firmware002.jpg)
+   3 Next, you could go to the assembly editor workspace. In the editor workspace you can load an existing assembly code or edit a new one:
+     ![screen:firmware3](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/assembly002b.jpg)
+   4 The instructions set defined in the previous microcode is used to create your assembly code. You have to compile the assembly code to load the binary into the main memory:
+     ![screen:assembly1](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/assembly003.jpg)
+   5 Finally, go back to the simulator workspace, and you can execute step by step and analyze the state of the components.
      It is possible to work at assembly level or at microcode level: 
      ![screen:simulation cpu](https://raw.githubusercontent.com/acaldero/wepsim/master/help/welcome/simulation_xinstruction.gif)
+
+### Configure WepSIM
 
 + There are two main options to configure WepSIM (and make it more personal):
    + From the general toolbar, the configuration button let users to personalize several options:
@@ -67,12 +85,16 @@ Step   | iOS                       |  Android                  | Action to perfo
    + From the general toolbar, please use the left-upper slider to change the CPU/CU size:
      ![screen:configuration](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/simulator013.jpg)
 
-+ WepSIM also has a 'state management':
-   + From the execution toolbar, clicking over the 'state' button to show the state manager:
+### WepSIM and its 'state management'
+
++ The values of every visible hardware element is the state in a clock cycle. WepSIM has also a 'state management' dialog where users can see the current state, and check the differences between two states.
++ From the execution toolbar, please click over the 'state' button to show the state manager dialog:
      ![screen:configuration](https://raw.githubusercontent.com/acaldero/wepsim/master/help/welcome/states_usage.gif)
 
 
 ## Getting Started: Command Line
+
+### Run
 
 + From the command line it is possible to 'run' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_base.txt' microcode, and print the final state:
 
@@ -83,6 +105,8 @@ screen>
 screen>
 register R2 = 0x2; register R3 = 0x1; register R5 = 0x1; register R29 = 0xffff; register PC = 0x8018; memory 0x8000 = 0x8400002; memory 0x8004 = 0x8600001; memory 0x8008 = 0xa21809; memory 0x800c = 0x8400002; memory 0x8010 = 0x8600001; memory 0x8014 = 0xa2180a;
 ```
+
+### Step by step
 
 + It is also possible to 'run' 'step by step' the 'asm-ep-S1E1.txt' assembly for the 'ep' architecture with the 'mc-ep_base.txt' microcode, and print for each assembly instruction the state elementes that modify its value:
 
@@ -98,6 +122,8 @@ pc(0x800c):	li $2 2:			register PC = 0x8010
 pc(0x8010):	li $3 1:			register PC = 0x8014
 pc(0x8014):	sub $5 $2 $3:			register R5 = 0x1; register PC = 0x8018
 ```
+
+### Microstep by microstep
 
 + And to 'run' 'microstep by microstep' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_base.txt' microcode, and print for each microinstruction the state elementes that modify its value:
 
@@ -138,6 +164,8 @@ micropc(0x3):	A0 B=0 C=0:
 micropc(0x3f):	MC MR=0 SELB=1011 SELA=10000 MA=0 MB=0 SELCOP=1011 T6 SELC=10101 LC SELP=11 M7 C7 A0 B C=0: register R5 = 0x1
 ```
 
+### Run & check (o.k.)
+
 + You can check if the state at the end of the execution is the same as the one stored on file 'cl-ep_s1_e1.txt'. You can 'run' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_base.txt' microcode (**and if it matchs the expected state then the output is going to be**):
 
 ```bash
@@ -148,6 +176,8 @@ screen>
 OK: Execution: no error reported
 ```
 
+### Run & check (k.o.)
+
 + You can check if the state at the end of the execution is the same as the one stored on file 'cl-ep_s1_e1.txt'. You can 'run' the 'asm-ep_s1_e1.txt' assembly for the 'ep' architecture with the 'mc-ep_base.txt' microcode (**and if it fails to match the expected state then the output is going to be**):
 
 ```bash
@@ -157,6 +187,8 @@ screen>
 screen>
 ERROR: Execution: different results: cpu[R1]='0' (expected '0xf'), cpu[R2]='0x2' (expected '0xf'), memory[0x1000]='0' (expected '0xa07ff0f'), memory[0x1004]='0' (expected '0x10061'), memory[0x1008]='0' (expected '0x7ffff'), memory[0x100c]='0' (expected '0x61000a'), memory[0x1010]='0' (expected '0xf'), memory[0x1014]='0' (expected '0xffffffff'), memory[0x1018]='0' (expected '0x7'), memory[0x101c]='0' (expected '0x12345678'), memory[0x1020]='0' (expected '0x61'), memory[0x1024]='0' (expected '0x6c6c6568'), memory[0x1028]='0' (expected '0x726f776f'), memory[0x102c]='0' (expected '0x646c'), memory[0x8000]='0x8400002' (expected '0x20201000'), memory[0x8004]='0x8600001' (expected '0x10601010'), memory[0x8008]='0xa21809' (expected '0x820000f'), memory[0x800c]='0x8400002' (expected '0x24201000'), memory[0x8010]='0x8600001' (expected '0x840000f'), memory[0x8014]='0xa2180a' (expected '0x14401010')
 ```
+
+### Verbalized
 
 + And finally, it is possible to execute microstep by microstep but with a more verbose description:
 
