@@ -34,10 +34,10 @@
 
 Step   | iOS                       |  Android                  | Action to perform
 ------:|:-------------------------:|:-------------------------:|:------------------
-1      | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_ios001.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_android001.jpg) | First, open Safari (iOS, MacOS) or Chrome (Android, Windows, Linux) and load https://acaldero.github.io/wepsim. From the top-right corner tap on the share icon (Safari) or the menu icon (Chrome). 
-2      | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_ios002.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_android002.jpg) | Move within share options until 'add to home screen' option and click on it.
-3      | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_ios003.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_android003.jpg) | Finally, click in the 'add' option.
-4      | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_ios004.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_android004.jpg) | Then, WepSIM can be launched from the home screen icon.    
+1      | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_ios001.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_android001_short.jpg) | First, open Safari (iOS, MacOS) or Chrome (Android, Windows, Linux) and load https://acaldero.github.io/wepsim. From the top-right corner tap on the share icon (Safari) or the menu icon (Chrome). 
+2      | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_ios002.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_android002_short.jpg) | Move within share options until 'add to home screen' option and click on it.
+3      | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_ios003.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_android003_short.jpg) | Finally, click in the 'add' option.
+4      | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_ios004.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_android004_short.jpg) | Then, WepSIM can be launched from the home screen icon.    
 
 + WepSIM on Android 5.0+:
     * Please, install from the official Goole Play Store link: https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim
@@ -54,36 +54,35 @@ Step   | iOS                       |  Android                  | Action to perfo
 
 + Please, follow these these steps:
 
-   1 First, we need to load WepSIM in your favorite web browser. Then click on the Examples button to open the Examples dialog:
-     ![screen:example1](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/simulator021.jpg)
-   2 In the Examples dialog please click on the colored 'title' of the example and WepSIM will load and compile the associated microcode and assembly code:
-     ![screen:example2](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/simulator022.jpg)
-   3 In the simulator workspace you can execute step by step and analyze the state of the components. It is possible to work both, at assembly level or at microcode level: 
-     ![screen:simulation1](https://raw.githubusercontent.com/acaldero/wepsim/master/help/welcome/simulation_xinstruction.gif)
+  1. First, we need to load WepSIM in your favorite web browser. Then click on the Examples button to open the Examples dialog:
+    ![screen:example1](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/simulator021.jpg)
+  2. In the Examples dialog please click on the colored 'title' of the example and WepSIM will load and compile the associated microcode and assembly code:
+    ![screen:example2](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/simulator022.jpg)
+  3. In the simulator workspace you can execute step by step and analyze the state of the components. It is possible to work both, at assembly level or at microcode level: 
+    ![screen:simulation1](https://raw.githubusercontent.com/acaldero/wepsim/master/help/welcome/simulation_xinstruction.gif)
 
 ### You can modify an existing example or build your own
 
 + The typical workflow consists in the following steps:
 
-   1 First, we need to load WepSIM in your web browser. Then you should go to the microcode editor workspace:
+   1. First, we need to load WepSIM in your web browser. Then you should go to the microcode editor workspace:
      ![screen:firmware1](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/firmware001.jpg)
-   2 You can load an existing microcode or edit a new one. You have to microcompile the microcode to load the binary into the CPU's control memory:
+   2. You can load an existing microcode or edit a new one. You have to microcompile the microcode to load the binary into the CPU's control memory:
      ![screen:firmware2](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/firmware002.jpg)
-   3 Next, you could go to the assembly editor workspace. In the editor workspace you can load an existing assembly code or edit a new one:
+   3. Next, you could go to the assembly editor workspace. In the editor workspace you can load an existing assembly code or edit a new one:
      ![screen:firmware3](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/assembly002b.jpg)
-   4 The instructions set defined in the previous microcode is used to create your assembly code. You have to compile the assembly code to load the binary into the main memory:
+   4. The instructions set defined in the previous microcode is used to create your assembly code. You have to compile the assembly code to load the binary into the main memory:
      ![screen:assembly1](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/assembly003.jpg)
-   5 Finally, go back to the simulator workspace, and you can execute step by step and analyze the state of the components.
+   5. Finally, go back to the simulator workspace, and you can execute step by step and analyze the state of the components.
      It is possible to work at assembly level or at microcode level: 
      ![screen:simulation cpu](https://raw.githubusercontent.com/acaldero/wepsim/master/help/welcome/simulation_xinstruction.gif)
 
 ### Configure WepSIM
 
-+ There are two main options to configure WepSIM (and make it more personal):
-   + From the general toolbar, the configuration button let users to personalize several options:
-     ![screen:configuration](https://raw.githubusercontent.com/acaldero/wepsim/master/help/welcome/config_usage.gif)
-   + From the general toolbar, please use the left-upper slider to change the CPU/CU size:
-     ![screen:configuration](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/simulator013.jpg)
++ From the general toolbar, the configuration button let users to personalize several options:
+  ![screen:configuration](https://raw.githubusercontent.com/acaldero/wepsim/master/help/welcome/config_usage.gif)
++ From the general toolbar, please use the left-upper slider to change the CPU/CU size:
+  ![screen:configuration](https://raw.githubusercontent.com/acaldero/wepsim/master/help/simulator/simulator013.jpg)
 
 ### WepSIM and its 'state management'
 
