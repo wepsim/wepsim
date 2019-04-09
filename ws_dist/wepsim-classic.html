@@ -819,7 +819,8 @@
      <div class="modal-footer">
 	<button class="btn btn-sm btn-dark"
 		onclick="var fileToLoad = document.getElementById('fileToLoad').files[0];
-			 wepsim_load_from_file(fileToLoad, inputfirm);
+		         wepsim_load_from_file(fileToLoad, 
+                                               function(txt){ inputfirm.setValue(txt); });
 			 $('#lsload').modal('hide');">Load from this File</button>
 	<button class="btn btn-sm btn-danger"
 		type="button" data-dismiss="modal">Cancel</button>
@@ -891,7 +892,8 @@
      <div class="modal-footer">
 	<button class="btn btn-sm btn-dark"
 		onclick="var fileToLoad = document.getElementById('fileToLoad2').files[0];
-			 wepsim_load_from_file(fileToLoad, inputasm);
+		         wepsim_load_from_file(fileToLoad, 
+                                               function(txt){ inputasm.setValue(txt); });
 			 $('#lsload2').modal('hide');">Load from this File</button>
 	<button class="btn btn-sm btn-danger"
 		type="button" data-dismiss="modal">Cancel</button>
@@ -930,7 +932,7 @@
 
 <!-- load/save microcode+assembly+comment -->
 <div class="modal" id="lssave3" tabindex="-1" role="dialog" aria-labelledby="lssave3" aria-hidden="true">
-     <div class="modal-dialog">
+     <div class="modal-dialog modal-lg">
      <div class="modal-content">
      <div class="modal-header bg-dark">
 	<strong class="modal-title text-white">Question</strong>
@@ -939,23 +941,65 @@
         </button>
      </div>
      <div class="modal-body">
-        <label for="FileNameToSaveAs"><em>Please write the file name:</em></label>
-	<p><input aria-label="filename to save content" id="FileNameToSaveAs"
-                  class="form-control btn-outline-dark" placeholder="File name where microcode will be saved" style="min-width: 90%;"/></p>
-        <label for="questionToSave"><em>Please write the question to save (if any):</em></label>
-	<p><input aria-label="question to save" id="questionToSave"
-                  class="form-control btn-outline-dark" placeholder="Question to save (if any)" style="min-width: 90%;"/></p>
+	<div class="card-deck">
+	   <div class="card">
+	      <div class="card-header">
+		<h5 class="card-title m-0">Save Question</h5>
+	      </div>
+	      <div class="card-body">
+			<label for="FileNameToSaveAs"><em>Please write the file name:</em></label>
+			<p><input aria-label="filename to save content" id="FileNameToSaveAs"
+				  class="form-control btn-outline-dark" placeholder="File name where microcode will be saved" style="min-width: 90%;"/></p>
+			<label for="questionToSave"><em>Please write the question to save (if any):</em></label>
+			<p><input aria-label="question to save" id="questionToSave"
+				  class="form-control btn-outline-dark" placeholder="Question to save (if any)" style="min-width: 90%;"/></p>
+	      </div>
+	      <div class="card-footer">
+		<button class="btn btn-sm btn-dark mx-auto"
+			onclick="var FileNameToSaveAs = document.getElementById('FileNameToSaveAs').value;
+				 var questionToSave   = document.getElementById('questionToSave').value;
+				 var state_obj   = simcore_simstate_current2state();
+				 var questionObj = { firmware:inputfirm.getValue(), 
+						     assembly:inputasm.getValue(), 
+						     state:state_obj, 
+						     question:questionToSave };
+				 wepsim_save_to_file(JSON.stringify(questionObj, null, 2), FileNameToSaveAs);
+				 return false;">Save File</button>
+	      </div>
+	   </div>
+	   <div class="card">
+	      <div class="card-header">
+		<h5 class="card-title m-0">Restore Question</h5>
+	      </div>
+	      <div class="card-body">
+			<label for="fileToLoad3"><em>Please select the file to be loaded:</em></label>
+			<p><input aria-label="file to load" type="file" id="fileToLoad3" class="dropify"/></p>
+	      </div>
+	      <div class="card-footer">
+		<button class="btn btn-sm btn-dark mx-auto"
+			onclick="var fileToLoad = document.getElementById('fileToLoad3').files[0];
+				 wepsim_load_from_file(fileToLoad,
+						       function(textLoaded) {
+							     var questionObj = JSON.parse(textLoaded);
+							     inputfirm.setValue(questionObj.firmware);
+							      inputasm.setValue(questionObj.assembly);
+							     document.getElementById('questionToSave').value   = questionObj.question;
+							     document.getElementById('FileNameToSaveAs').value = fileToLoad.name;
+							     // TODO: to restore questionObj.state
+							     // TODO: to restore questionObj.ui-state (simulator:screen)
+							     wepsim_compile_firmware(questionObj.firmware);
+							     wepsim_compile_assembly(questionObj.assembly);
+	                                                     simcoreui_notify('Question', questionObj.question, 'info', 0) ;
+						       });
+			         $('#lssave3').modal('hide');
+				 return false;">Load from this File</button>
+	      </div>
+	    </div>
+	</div>
      </div>
      <div class="modal-footer" style="flex-wrap: wrap">
-	<button class="btn btn-sm btn-dark my-1"
-		onclick="var FileNameToSaveAs = document.getElementById('FileNameToSaveAs').value;
-		         var questionToSave   = document.getElementById('questionToSave').value;
-                         var state_obj   = simcore_simstate_current2state();
-			 var questionObj = { firmware:inputfirm.getValue(), assembly:inputasm.getValue(), state:state_obj, question:questionToSave };
-			 wepsim_save_to_file(JSON.stringify(questionObj, null, 2), FileNameToSaveAs);
-                         return false;">Save File</button>
 	<button class="btn btn-sm btn-danger my-1"
-		type="button" data-dismiss="modal">Cancel</button>
+		type="button" data-dismiss="modal"><span data-langkey="Close">Close</span></button>
      </div>
      </div>
      </div>
