@@ -20,12 +20,14 @@
 ### Run WepSIM
 
 + From Web (Google Chrome 65+, Mozilla Firefox 60+, Microsoft Edge 40+, and Apple Safari 11+):
-     * Please, load in your Web Browser the link:
-        * **https://wepsim.github.io/wepsim** (Release version)
-        * https://acaldero.github.io/wepsim (Nightly build)
+     * Please, load in your Web Browser the link: https://wepsim.github.io/wepsim
+       * A nightly build version is available too: https://acaldero.github.io/wepsim
 
 + From Linux/Unix command line (Node 8.10.0+ and Bash 4.4.19+):
-     * Please, uncompress https://github.com/wepsim/wepsim.github.io/raw/master/wepsim-cl-lite.zip and then execute ./wepsim_node.sh
+     * wget https://github.com/acaldero/wepsim/releases/download/2.0.2/wepsim-202.zip
+     * unzip wepsim-202.zip 
+     * cd wepsim
+     * ./wepsim_node.sh
 
 ### Install WepSIM
 
@@ -34,10 +36,10 @@
 
 Step   | iOS                       |  Android                  | Action to perform
 ------:|:-------------------------:|:-------------------------:|:------------------
-1      | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_ios001.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_android001_short.jpg) | First, open Safari (iOS, MacOS) or Chrome (Android, Windows, Linux) and load https://acaldero.github.io/wepsim. From the top-right corner tap on the share icon (Safari) or the menu icon (Chrome). 
-2      | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_ios002.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_android002_short.jpg) | Move within share options until 'add to home screen' option and click on it.
-3      | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_ios003.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_android003_short.jpg) | Finally, click in the 'add' option.
-4      | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_ios004.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_android004_short.jpg) | Then, WepSIM can be launched from the home screen icon.    
+ **1** | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_ios001.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_android001_short.jpg) | First, open Safari (iOS, MacOS) or Chrome (Android, Windows, Linux) and load https://acaldero.github.io/wepsim. From the top-right corner tap on the share icon (Safari) or the menu icon (Chrome). 
+ **2** | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_ios002.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_android002_short.jpg) | Move within share options until 'add to home screen' option and click on it.
+ **3** | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_ios003.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_android003_short.jpg) | Finally, click in the 'add' option.
+ **4** | ![screen:pwa_ios](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_ios004.jpg) | ![screen:pwa_android](https://raw.githubusercontent.com/acaldero/wepsim/master/help/pwa/pwa_android004_short.jpg) | Then, WepSIM can be launched from the home screen icon.    
 
 + WepSIM on Android 5.0+:
     * Please, install from the official Goole Play Store link: https://play.google.com/store/apps/details?id=es.uc3m.inf.arcos.wepsim
