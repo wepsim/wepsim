@@ -852,16 +852,20 @@
 			 {
 			     var SIMWARE = get_simware() ;
 			     var simware_as_text = saveFirmware(SIMWARE);
-			     if (simware_as_text.trim() == '')
+			     if (simware_as_text.trim() === '')
 				  alert('The Microcode loaded in memory is empty!\n' +
 					'Please load a Microcode first in memory in order to save it.');
 			     else inputfirm.setValue(simware_as_text);
 			     var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
-			     wepsim_save_to_file(inputfirm, fileNameToSaveAs);
-			 }">Save control memory to File</button>
+                             var textToWrite      = inputfirm.getValue();
+                             wepsim_save_to_file(textToWrite, fileNameToSaveAs);
+			 }
+			 return false;">Save control memory to File</button>
 	<button class="btn btn-sm btn-dark my-1"
 		onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
-			 wepsim_save_to_file(inputfirm, fileNameToSaveAs);">Save Editor content to File</button>
+                         var textToWrite      = inputfirm.getValue();
+                         wepsim_save_to_file(textToWrite, fileNameToSaveAs);
+			 return false;">Save Editor content to File</button>
 	<button class="btn btn-sm btn-danger my-1"
 		type="button" data-dismiss="modal">Cancel</button>
      </div>
@@ -913,8 +917,44 @@
      <div class="modal-footer">
 	<button class="btn btn-sm btn-dark"
 		onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs2').value;
-			 wepsim_save_to_file(inputasm, fileNameToSaveAs);">Save to File</button>
+                         var textToWrite      = inputasm.getValue();
+			 wepsim_save_to_file(textToWrite, fileNameToSaveAs);
+			 return false;">Save to File</button>
 	<button class="btn btn-sm btn-danger"
+		type="button" data-dismiss="modal">Cancel</button>
+     </div>
+     </div>
+     </div>
+</div>
+
+
+<!-- load/save microcode+assembly+comment -->
+<div class="modal" id="lssave3" tabindex="-1" role="dialog" aria-labelledby="lssave3" aria-hidden="true">
+     <div class="modal-dialog">
+     <div class="modal-content">
+     <div class="modal-header bg-dark">
+	<strong class="modal-title text-white">Question</strong>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="text-white font-weight-bold">&times;</span>
+        </button>
+     </div>
+     <div class="modal-body">
+        <label for="FileNameToSaveAs"><em>Please write the file name:</em></label>
+	<p><input aria-label="filename to save content" id="FileNameToSaveAs"
+                  class="form-control btn-outline-dark" placeholder="File name where microcode will be saved" style="min-width: 90%;"/></p>
+        <label for="questionToSave"><em>Please write the question to save (if any):</em></label>
+	<p><input aria-label="question to save" id="questionToSave"
+                  class="form-control btn-outline-dark" placeholder="Question to save (if any)" style="min-width: 90%;"/></p>
+     </div>
+     <div class="modal-footer" style="flex-wrap: wrap">
+	<button class="btn btn-sm btn-dark my-1"
+		onclick="var FileNameToSaveAs = document.getElementById('FileNameToSaveAs').value;
+		         var questionToSave   = document.getElementById('questionToSave').value;
+                         var state_obj   = simcore_simstate_current2state();
+			 var questionObj = { firmware:inputfirm.getValue(), assembly:inputasm.getValue(), state:state_obj, question:questionToSave };
+			 wepsim_save_to_file(JSON.stringify(questionObj, null, 2), FileNameToSaveAs);
+                         return false;">Save File</button>
+	<button class="btn btn-sm btn-danger my-1"
 		type="button" data-dismiss="modal">Cancel</button>
      </div>
      </div>

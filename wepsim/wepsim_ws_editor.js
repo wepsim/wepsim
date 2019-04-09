@@ -34,7 +34,7 @@
 	    editor.getWrapperElement().style['text-shadow'] = '0.0em 0.0em';
 	    editor.getWrapperElement().style['font-weight'] = 'bold';
 
-	    if (theme == 'blackboard') {
+	    if (theme === 'blackboard') {
 		editor.getWrapperElement().style['font-weight'] = 'normal';
 	    }
 
@@ -45,11 +45,11 @@
     {
 	    var edt_mode = get_cfg('editor_mode');
 
-	    if (edt_mode == 'vim')
+	    if (edt_mode === 'vim')
 		editor.setOption('keyMap','vim');
-	    if (edt_mode == 'emacs')
+	    if (edt_mode === 'emacs')
 		editor.setOption('keyMap','emacs');
-	    if (edt_mode == 'sublime')
+	    if (edt_mode === 'sublime')
 		editor.setOption('keyMap','sublime');
     }
 
@@ -161,7 +161,7 @@
     {
         // get SIMWARE.firmware
         var SIMWARE = get_simware() ;
-	if (SIMWARE.firmware.length == 0)
+	if (SIMWARE.firmware.length === 0)
         {
             alert('WARNING: please load the microcode first.');
             sim_change_workspace('#main3') ;
@@ -195,7 +195,7 @@
     function wepsim_compile_firmware ( textToMCompile )
     {
 	var ret = simcore_compile_firmware(textToMCompile) ;
-	if (false == ret.ok)
+	if (false === ret.ok)
         {
             showError(ret.msg, "inputfirm") ;
             return false;
