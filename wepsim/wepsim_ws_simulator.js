@@ -434,7 +434,7 @@
 		{
 		    var example_uri = example_obj.hardware + ":" + example_obj.microcode + ":" + example_obj.assembly ;
 	            load_from_example_firmware(example_uri, true) ;
-	            o += '<li>Example <strong>' + example_index + '</strong> loaded.</li> ' ;
+	            o += '<li>Example titled <strong>' + example_obj.title + '</strong> has been loaded.</li> ' ;
 		}
 	    }
 
@@ -442,7 +442,7 @@
 	    var panels = [] ;
 	    if (hash['simulator'] !== null) {
 	        panels = hash['simulator'].split(":") ;
-	        o += '<li>User interface adapted to the example.</li> ' ;
+	        o += '<li>User interface has been adapted.</li> ' ;
             }
 
 	    if (typeof panels[0] !== "undefined")
@@ -468,9 +468,10 @@
 	    if (o !== '') {
 		o = 'WepSIM has been instructed to preload some work for you:<br>' + 
 		    '<ul>' + o + '</ul>' + 
-		    'To close this notification please press in the "X". <br>' +
+		    'To close this notification please press in the ' +
+                    '<span class="btn btn-sm btn-info py-0" data-dismiss="alert">X</span> mark. <br>' +
 	            'In order to execute an example please press the ' + 
-		    '<span class="btn btn-sm btn-info py-0" onclick="wepsim_execute_toggle_play(\'#qbp\',false);">Run</span> ' + 'button. <br>' ;
+		    '<span class="btn btn-sm btn-info py-0" onclick="wepsim_execute_toggle_play(\'#qbp\',false);">Run</span> button.<br>' ;
 
 	        simcoreui_notify('WepSIM preloads some work', o, 'info', 0) ;
 	    }
