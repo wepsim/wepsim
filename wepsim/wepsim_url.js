@@ -37,9 +37,8 @@
         fileReader.readAsText(fileToLoad, "UTF-8");
     }
 
-    function wepsim_save_to_file ( inputEditor, fileNameToSaveAs )
+    function wepsim_save_to_file ( textToWrite, fileNameToSaveAs )
     {
-            var textToWrite = inputEditor.getValue();
             var textFileAsBlob = new Blob([textToWrite], { type: 'text/plain' });
 
             var downloadLink = document.createElement("a");

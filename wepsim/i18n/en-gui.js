@@ -69,6 +69,7 @@
                         "Show/Hide ActionBar":                          "Show/Hide ActionBar",
                         "Show/Hide Slider":                             "Show/Hide Slider",
                         "About WepSIM":                                 "About WepSIM",
+                        "Make Question":                                "Make Question",
                         "Initial intro":                                "Initial intro"
                   } ;
 

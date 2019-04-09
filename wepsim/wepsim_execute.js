@@ -27,14 +27,14 @@
     {
         wepsim_state_history_reset();
 
-        if (true == reset_memory) 
+        if (true === reset_memory) 
         {
             var SIMWARE = get_simware() ;
 	    if (SIMWARE.firmware.length != 0)
                 update_memories(SIMWARE) ;
         }
 
-        if (true == reset_cpu) 
+        if (true === reset_cpu) 
         {
 	    simcore_reset() ;
         }
@@ -43,7 +43,7 @@
     function wepsim_execute_instruction ( )
     {
 	var ret = simcore_check_if_can_execute() ;
-	if (false == ret.ok) 
+	if (false === ret.ok) 
 	{
 	    alert(ret.msg) ;
 	    return false ;
@@ -52,7 +52,7 @@
         var clklimit = get_cfg('DBG_limitick') ;
 
 	ret = simcore_execute_microprogram(0, clklimit) ;
-	if (false == ret.ok) 
+	if (false === ret.ok) 
 	{
             wepsim_show_stopbyevent("Info", ret.msg) ;
     	    return false ;
@@ -64,14 +64,14 @@
     function wepsim_execute_microinstruction ( )
     {
 	var ret = simcore_check_if_can_execute() ;
-	if (false == ret.ok) 
+	if (false === ret.ok) 
 	{
 	    alert(ret.msg) ;
 	    return false ;
         }
 
 	ret = simcore_execute_microinstruction() ;
-	if (false == ret.ok) {
+	if (false === ret.ok) {
             wepsim_show_stopbyevent("Info", ret.msg) ;
 	    return false ;
         }
@@ -99,7 +99,7 @@
     function wepsim_execute_play ( btn1, run_notifications )
     {
 	var ret = simcore_check_if_can_execute() ;
-	if (false == ret.ok) 
+	if (false === ret.ok) 
 	{
 	    alert(ret.msg) ;
 	    return false ;
@@ -111,14 +111,14 @@
         DBG_stop = false ;
         DBG_limit_instruction = 0 ;
 
-        if (false == run_notifications)
+        if (false === run_notifications)
              wepsim_execute_chainplay(btn1) ;
         else wepsim_execute_chainnotify(btn1) ;
     }
 
     function wepsim_execute_toggle_play ( btn1, run_notifications )
     {
-        if (DBG_stop == false) 
+        if (DBG_stop === false) 
         {
             DBG_stop = true ; // will help to execute_play stop playing
         } 
@@ -138,7 +138,7 @@
         var reg_maddr = get_value(simhw_sim_state('REG_MICROADDR')) ;
         var curr_addr = "0x" + reg_maddr.toString(16) ;
 
-        if (typeof simhw_internalState_get('MC_dashboard', reg_maddr) == "undefined") {
+        if (typeof simhw_internalState_get('MC_dashboard', reg_maddr) === "undefined") {
             return false ;
         }
 
@@ -151,7 +151,7 @@
 	var curr_addr = "0x" + reg_pc.toString(16) ;
         var curr_firm = simhw_internalState('FIRMWARE') ;
 
-	if (typeof curr_firm.assembly[curr_addr] == "undefined") {
+	if (typeof curr_firm.assembly[curr_addr] === "undefined") {
             return false ;
         }
 
@@ -177,7 +177,7 @@
     function wepsim_check_state_firm ( )
     {
         var reg_maddr = get_value(simhw_sim_state('REG_MICROADDR')) ;
-        if (false == simhw_internalState_get('MC_dashboard', reg_maddr).state)
+        if (false === simhw_internalState_get('MC_dashboard', reg_maddr).state)
             return false ;
 
         wepsim_state_history_add() ;
@@ -190,7 +190,7 @@
         var i = 0 ;
 
 	var playlevel = get_cfg('DBG_level') ;
-	if (playlevel == "instruction")  
+	if (playlevel === "instruction")  
 	{
             var clklimit  = get_cfg('DBG_limitick') ;
             for (i=0; i<chunk; i++)
@@ -203,7 +203,7 @@
 		    }
 
 		    ret = wepsim_check_stopbybreakpoint_asm() ;
-		    if (true == ret) {
+		    if (true === ret) {
                         wepsim_show_stopbyevent("Breakpoint", "Instruction is going to be fetched.") ;
 			wepsim_execute_stop(btn1) ;
 			return false ;
@@ -218,14 +218,14 @@
 		    wepsim_check_state_firm() ;
 
 		    ret = simcore_execute_microinstruction() ;
-		    if (false == ret.ok) {
+		    if (false === ret.ok) {
 		        wepsim_show_stopbyevent("Info", ret.msg) ;
 			wepsim_execute_stop(btn1) ;
 			return false ;
 		    }
 
                     ret = wepsim_check_stopbybreakpoint_firm() ;
-		    if (true == ret)
+		    if (true === ret)
 		    {
 		        wepsim_show_stopbyevent("Breakpoint", "Microinstruction is going to be issue.") ;
 			wepsim_execute_stop(btn1) ;
@@ -233,10 +233,10 @@
 		    }
 
 		    reg_maddr = get_value(simhw_sim_state('REG_MICROADDR')) ;
-                    if (0 == reg_maddr) 
+                    if (0 === reg_maddr) 
                     {
 		        ret = wepsim_check_stopbybreakpoint_asm() ;
-		        if (true == ret) {
+		        if (true === ret) {
                             wepsim_show_stopbyevent("Breakpoint", "Instruction is going to be fetched.") ;
 		    	    wepsim_execute_stop(btn1) ;
 			    return false ;
@@ -269,18 +269,18 @@
         var turbo = 1;
 	if (get_cfg('DBG_delay') < 5)
             turbo = max_turbo ;
-        if (max_turbo == 5) 
+        if (max_turbo === 5) 
             t0 = performance.now() ;
 
         var ret = wepsim_execute_chunk(btn1, turbo) ;
-        if (false == ret) {
+        if (false === ret) {
             return ;
         }
 
-        if (max_turbo == 5) {
+        if (max_turbo === 5) {
             t1 = performance.now() ;
         }
-        if (max_turbo == 5) {
+        if (max_turbo === 5) {
             max_turbo = 3000/(t1-t0) ;
         }
 
@@ -311,7 +311,7 @@
         for (var i=0; i<max_turbo; i++)
         {
 		ret = simcore_execute_microinstruction() ;
-		if (false == ret.ok) {
+		if (false === ret.ok) {
 		    wepsim_show_stopbyevent("Info", ret.msg) ;
 		    wepsim_execute_stop(btn1) ;
 		    return ;

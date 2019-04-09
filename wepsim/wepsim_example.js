@@ -80,13 +80,13 @@
 			    }
 
                             // stop here if error is found
-			    if (false == ok) {
+			    if (false === ok) {
 			        sim_change_workspace_assembly() ;
                                 return ;
 			    }
 
                             // chain to next task
-                            if (true == chain_next_step) {
+                            if (true === chain_next_step) {
 				setTimeout(function() {
 					      sim_change_workspace_simulator() ;
                                               show_memories_values();
@@ -137,13 +137,13 @@
 			   var ok = wepsim_compile_firmware(mcode);
 
                             // stop here if error is found
-			    if (false == ok) {
+			    if (false === ok) {
                                 sim_change_workspace_microcode();
                                 return ;
 			    }
 
                            // chain to next task
-                           if (true == chain_next_step) 
+                           if (true === chain_next_step) 
                            {
                                setTimeout(function() {
                                              load_from_example_assembly(example_id, chain_next_step);
@@ -214,7 +214,7 @@
 
 	       t_hwmcasm = e_hw + ":" + e_mc + ":" + e_asm ;
 
-	        if (fmt_toggle == "")
+	        if (fmt_toggle === "")
 	            fmt_toggle = "bg-light" ;
 	       else fmt_toggle = "" ;
 
@@ -250,7 +250,7 @@
 	       o = o + '</div>' ;
        }
 
-       if (o.trim() == '') {
+       if (o.trim() === '') {
 	   o = '&lt;No examples are available for the selected hardware&gt;' ;
        }
 
