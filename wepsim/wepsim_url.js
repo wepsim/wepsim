@@ -23,13 +23,13 @@
      * File/URL
      */
 
-    function wepsim_load_from_file ( fileToLoad, inputEditor )
+    function wepsim_load_from_file ( fileToLoad, functionOnLoad )
     {
         var fileReader = new FileReader();
         fileReader.onload  = function (fileLoadedEvent) {
-                                            var textFromFileLoaded = fileLoadedEvent.target.result;
-                                            if (null != inputEditor)
-					        inputEditor.setValue(textFromFileLoaded);
+                                var textFromFileLoaded = fileLoadedEvent.target.result;
+                                if (null !== functionOnLoad)
+			            functionOnLoad(textFromFileLoaded);
                              };
 	fileReader.onerror = function(e) {
 			        console.error("File could not be read! Code " + e.target.error.code);
