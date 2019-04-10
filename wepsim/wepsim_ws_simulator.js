@@ -393,11 +393,11 @@
 		i18n.gui[wsi]['About WepSIM'] + '...</a>' +
 		'</li>' +
 		'<li class="list-group-item px-0"> ' +
-		'  <em class="fas fa-comment"></em> &nbsp;' +
+		'  <em class="fas fa-bookmark"></em> &nbsp;' +
 		'  <a class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" href="#" ' +
 		'     onclick="$(\'#lssave3\').modal(\'show\'); ' +
 		'              $(\'#' + quick_po + '\').popover(\'hide\');">' +
-		i18n.gui[wsi]['Make Question'] + '...</a>' +
+		i18n.gui[wsi]['Checkpoint'] + '...</a>' +
 		'</li>' +
 		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-book-reader"></em> &nbsp;' +
