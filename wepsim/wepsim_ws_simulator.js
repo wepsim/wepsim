@@ -394,14 +394,14 @@
 		'</li>' +
 		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-bookmark"></em> &nbsp;' +
-		'  <a class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" href="#" ' +
+		'  <a class="btn btn-sm btn-outline-secondary col-10 pr-2 text-left" href="#" ' +
 		'     onclick="$(\'#lssave3\').modal(\'show\'); ' +
 		'              $(\'#' + quick_po + '\').popover(\'hide\');">' +
 		i18n.gui[wsi]['Checkpoint'] + '...</a>' +
 		'</li>' +
 		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-book-reader"></em> &nbsp;' +
-		'  <a class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" href="#" ' +
+		'  <a class="btn btn-sm btn-outline-secondary col-10 pr-2 text-left" href="#" ' +
 		'     onclick="wepsim_newbie_tour(); ' +
 		'              $(\'#' + quick_po + '\').popover(\'hide\');">' +
 		i18n.gui[wsi]['Initial intro'] + '...</a>' +
@@ -528,5 +528,88 @@
 
 	    // 2.b.- hash
 	    wepsim_preload_hash(hash) ;
+    }
+
+
+    /*
+     * Checkpointing
+     */
+
+    function wepsim_checkpoint_save ( id_filename, id_tagname )
+    {
+	    // get & check params
+            var obj_fileName = document.getElementById(id_filename) ;
+	    var obj_tagName  = document.getElementById(id_tagname) ;
+
+	    if ( (obj_fileName === null) || (obj_tagName === null) )
+	    {
+		return false ;
+	    }
+
+	    // build checkpoint as json
+	    var ret       = wepsim_state_get_clk() ;
+	    var state_obj = simcore_simstate_current2state() ;
+	      ret.content = simcore_simstate_state2checklist(state_obj) ;
+
+	    var checkpointObj = { 
+		                  firmware: inputfirm.getValue(), 
+				  assembly: inputasm.getValue(), 
+				  state:    ret,
+				  tag:      obj_tagName.value
+	                        } ;
+	    var checkpointStr = JSON.stringify(checkpointObj, null, 2) ;
+
+	    // save checkpoint
+	    wepsim_save_to_file(checkpointStr, obj_fileName.value) ;
+	    return true ;
+    }
+
+    function wepsim_checkpoint_load ( id_filename, id_tagname, id_file_to_load )
+    {
+	    // get & check params
+            var obj_fileName   = document.getElementById(id_filename) ;
+	    var obj_tagName    = document.getElementById(id_tagname) ;
+	    var obj_fileToLoad = document.getElementById(id_file_to_load).files[0] ;
+
+	    if ( (obj_fileName === null) || (obj_tagName === null) || (obj_fileToLoad === null) )
+	    {
+		return false ;
+	    }
+
+	    // lambda (auxiliar) function
+	    var function_after_loaded = function (textLoaded)
+	                                {
+				           var checkpointObj = JSON.parse(textLoaded) ;
+
+				           // load into forms
+				           inputfirm.setValue(checkpointObj.firmware) ;
+				            inputasm.setValue(checkpointObj.assembly) ;
+
+				           // restore saved checkpoint
+				           obj_fileName.value = obj_fileToLoad.name ;
+				           obj_tagName.value  = checkpointObj.tag ;
+
+					   wepsim_state_history_reset() ;
+					   state_history.push(checkpointObj.state) ;
+					   wepsim_state_history_list() ;
+
+					   // Future Works:
+				           // + update internal state based on txt_checklist
+
+				           // compile
+					   if (checkpointObj.firmware.trim() !== "")
+				               wepsim_compile_firmware(checkpointObj.firmware) ;
+					   if (checkpointObj.assembly.trim() !== "")
+				               wepsim_compile_assembly(checkpointObj.assembly) ;
+
+				           // notify
+				           simcoreui_notify('Restored Checkpoint', 
+						            'Tag: ' + checkpointObj.tag, 
+						            'info', 
+						            0) ;
+			                } ;
+
+	    // load checkpoint
+	    wepsim_load_from_file(obj_fileToLoad, function_after_loaded) ;
     }
 
