@@ -224,30 +224,41 @@
                         '    <span class="badge badge-pill badge-light">' + (m+1) + '</span>' +
                         '</div>' +
                         '<div class="col-sm-3">' +
-		        '   <span style="cursor:pointer;" ' + 
-		        '         id="example_' + m + '" ' + 
-		        '         onclick="$(\'#example1\').modal(\'hide\'); ' + 
-                        '                  load_from_example_firmware(\'' + t_hwmcasm + '\',true);" ' + 
-		        '         class="bg-info text-white p-0 mr-2">' + e_title + '</span>' +
+                        '     <span style="cursor:pointer;" ' + 
+		        '           id="example_' + m + '" ' + 
+		        '           onclick="$(\'#example1\').modal(\'hide\'); ' + 
+                        '                    load_from_example_firmware(\'' + t_hwmcasm + '\',true);" ' + 
+		        '           class="bg-info text-white p-0 mr-2">' + e_title + '</span>' +
                         '</div>' +
                         '<div class="col-sm collapse7 show">' +
                         '    <c>' + e_description + '</c>' +
-                        '</div>' ;
-
-	       o = o + '<div class="col-sm-auto collapse8 collapse">' +
-		        '     <div class="btn-group btn-group-justified btn-group-md">' +
-		        '         <a onclick="$(\'#example1\').modal(\'hide\'); ' + 
-                        '                    load_from_example_assembly(\'' + t_hwmcasm + '\',false);"' + 
-		        '            class="bg-dark text-white p-0 mr-2">' +
-		        '            <c>Assembly</c></a>' +
-		        '         <a onclick="$(\'#example1\').modal(\'hide\'); ' + 
-                        '                    load_from_example_firmware(\'' + t_hwmcasm + '\',false);"' + 
-		        '            class="bg-dark text-white p-0 mr-2">' +
-		        '            <c>Firmware</c></a>' +
+                        '</div>' +
+                        '<div class="col-sm-auto">' +
+		        '     <span id="example_reference_' + e_id + '" class="d-none">' +
+		        'https://acaldero.github.io/wepsim/ws_dist/wepsim-classic.html?mode=' + e_hw + '&example=' + e_id +
+		        '     </span>' +
+		        '     <div class="btn-group btn-group-justified btn-group-md border border-dark">' +
+                        '           <button type="button" ' + 
+		        '                   class="btn btn-sm btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+                        '              <span class="sr-only">Toggle Dropdown</span>' +
+                        '           </button>' +
+                        '           <div class="dropdown-menu bg-info">' +
+		        '             <a onclick="$(\'#example1\').modal(\'hide\'); ' + 
+                        '                        load_from_example_assembly(\'' + t_hwmcasm + '\',false);' + 
+		        '                        return false;"' + 
+		        '                class="dropdown-item text-white bg-info" href="#"><c>Load Assembly only</c></a>' +
+		        '             <a onclick="$(\'#example1\').modal(\'hide\'); ' + 
+                        '                        load_from_example_firmware(\'' + t_hwmcasm + '\',false);' + 
+		        '                        return false;"' + 
+		        '                class="dropdown-item text-white bg-info" href="#"><c>Load Firmware only</c></a>' +
+		        '             <a onclick="$(\'#example1\').modal(\'hide\'); ' + 
+		        '                        CopyFromDiv(\'#example_reference_' + e_id + '\');' +
+                        '                        return false;"' + 
+		        '                class="dropdown-item text-white bg-info" href="#"><c>Copy reference to clipboard</c></a>' +
+                        '           </div>' +
 		        '     </div>' +
-                        '</div>' ;
-	      
-	       o = o + '</div>' ;
+                        '</div>' +
+	                '</div>' ;
        }
 
        if (o.trim() === '') {
