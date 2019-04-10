@@ -23,10 +23,15 @@
                         // 0
 			{
 			   intro: "Welcome to WepSIM!<br>" +
-                                  "WepSIM helps to better understand how a computer works.<br>" +
                                   "<br>" +
-                                  "This brief tour introduces the interface for the key elements.",
+                                  "WepSIM helps to better understand how a computer works: " +
+                                  "it is visual, interactive, integrates from signals up to interruptions, system calls, exceptions, etc. <br> " +
+                                  "<br>" +
+                                  "We really believe WepSIM is a revolutionary teaching tool. " +
+                                  "This brief tour introduces the key elements of its interface.",
+			   position: 'auto',
 			   do_before: function () {
+                                          simui_select_main('ep') ;
 			                  return true ;
 			              }
 			},
@@ -36,10 +41,10 @@
                            intro: "This button on the top-right let users choose the 'execution mode'.<br>" +
                                   "<br>" +
                                   "For example, the hardware to work with (e.g. the elemental processor or EP).<br>" +
-                                  "Or the tutorial mode, recommended at the beginning.",
+                                  "Or the tutorial mode, recommended at the beginning ;-).",
+			   position: 'auto',
 			   do_before: function ()
 	                              {
-                                          simui_select_main('ep') ;
 					  tour.refresh() ;
 			                  return true ;
 			              }

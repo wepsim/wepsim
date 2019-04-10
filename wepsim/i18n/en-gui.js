@@ -34,6 +34,7 @@
 			"Reset":  			                "Reset",
 			"Instruction":  			        "Instruction",
 			"Run":  			                "Run",
+			"Hardware Summary":  			        "Hardware Summary",
 			"States":  			                "States",
 			"Refresh":  			                "Refresh",
 			"Current State":  			        "Current State",
@@ -54,6 +55,23 @@
                         "'Current State' to History": 		        "'Current State' to History",
                         "Check": 		                	"Check",
                         "Copy": 		                	"Copy",
-                        "to clipboard": 		                "to clipboard"
+                        "to clipboard": 		                "to clipboard",
+                        "simulator intro 1": 		                "First, you are going to load and microcompile the microcode that defines the instruction set to be used. " +
+									"You can use an example of microcode, load it from a file or you can edit a new one.",
+                        "simulator intro 2": 		                "Next, you need to load and compile the assembly code to be executed. " +
+									"You can use an assembly example, load it from a file or you can edit a new one.",
+                        "simulator intro 3": 		                "Finally, in the simulator you are able to execute the microcode plus assembly loaded before. " +
+									"It can be executed step by step at microinstruction level or assembly instruction level.",
+                        "Prev.": 		                	"Prev.",
+                        "Next": 		                	"Next",
+                        "Disable tutorial mode": 		        "Disable tutorial mode",
+                        "Show Notifications":                           "Show Notifications",
+                        "Show/Hide ActionBar":                          "Show/Hide ActionBar",
+                        "Show/Hide Slider":                             "Show/Hide Slider",
+                        "About WepSIM":                                 "About WepSIM",
+                        "Checkpoint":                                   "Checkpoint",
+                        "Initial intro":                                "Initial intro",
+                        "Restore Checkpoint":                           "Restore Checkpoint",
+                        "Save Checkpoint":                              "Save Checkpoint"
                   } ;
 

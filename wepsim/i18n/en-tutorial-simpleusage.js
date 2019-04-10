@@ -20,23 +20,6 @@
 
 
     tutorials.simpleusage.en.push({
-                     id:          "simpleusage",
-                     title:       "Simple WepSIM experience: microprogramming and programming",
-                     message:     "<center><img alt='wepsim screenshot' src='help/simulator/simulator012.jpg' style='max-width:100%; max-height:40vh;'></center>" +
-                                  "<p>" +
-                                  "<h5>" +
-                                  "WepSIM allows students and teacher to define the instruction set, " + 
-                                  "and create any assembly program using the defined instruction set. " + 
-                                  "Because WepSIM is visual, and integrates interruptions, system call, " + 
-                                  "and exceptions, we really believe WepSIM is a revolutionary teaching tool. " + 
-                                  "<br>" +
-                                  "</h5>",
-                     code_pre:    function() { },
-                     code_post:   function() { },
-                     wait_next:   100
-                  });
-
-    tutorials.simpleusage.en.push({
                      id:        "simpleusage",
                      title:     "Simple WepSIM experience: microprogramming and programming",
                      message:   "<center><img alt='wepsim screenshot' src='help/simulator/simulator011.jpg' style='max-width:100%; max-height:40vh;'></center>" +
@@ -44,9 +27,9 @@
                                 "<h5>" +
                                 "This brief tutorial is going to show you how to:" +
                                 "<ol>" +
-                                "<li>You can edit your microcode.</li>" +
-                                "<li>You can edit your assembly (based on the previous microcode).</li>" +
-                                "<li>Execution of the former assembly in the simulation.</li>" +
+                                "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,1);'>Edit your microcode.</a></li>" +
+                                "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,3);'>Edit your assembly (based on the previous microcode).</a></li>" +
+                                "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,5);'>Execute the assembly+microcode in the simulation.</a></li>" +
                                 "</ol>" +
                                 "</h5>",
                      code_pre:  function() { },
@@ -90,7 +73,7 @@
     tutorials.simpleusage.en.push({
                      id:        "simpleusage",
                      title:     "Simple WepSIM experience: microprogramming and programming",
-                     message:   "<center><img alt='wepsim screenshot' src='help/simulator/assembly002.jpg' style='max-width:100%; max-height:40vh;'></center>" +
+                     message:   "<center><img alt='wepsim screenshot' src='help/simulator/assembly002b.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
                                 "The second step is to programming the assembly to be executed. " +
@@ -126,7 +109,7 @@
                      message:   "<center><img alt='wepsim screenshot' src='help/simulator/simulator010.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
-                                "The third step is to execute the assembly code in the simulator." +
+                                "The third step is to execute the assembly code in the simulator.<br> " +
                                 "The simulator screen provides:" +
                                 "<ul>" +
                                 "<li>The assembly and hardware view.</li>" +

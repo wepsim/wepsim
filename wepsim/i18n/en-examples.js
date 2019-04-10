@@ -29,7 +29,7 @@
                        hardware:  "ep",
                        microcode: "ep_base",
                        assembly:  "ep_s1_e1",
-                       description: "Simple example with fetch, arithmetic instructions, and basic .text segment.<br>"
+                       description: "Simple example with fetch, arithmetic instructions, and basic .text segment."
                      });
 
     examples.en.push({
@@ -40,7 +40,7 @@
                        hardware:  "ep",
                        microcode: "ep_base",
                        assembly:  "ep_s1_e2",
-                       description: "Simple example with fetch, memory access, and basic .text/.data segment.<br>"
+                       description: "Simple example with fetch, memory access, and basic .text/.data segment."
                      });
 
     examples.en.push({
@@ -51,7 +51,7 @@
                        hardware:  "ep",
                        microcode: "ep_enhanced",
                        assembly:  "ep_s1_e3",
-                       description: "Simple example with fetch, branch, and basic .text segment.<br>"
+                       description: "Simple example with fetch, branch, and basic .text segment."
                      });
 
     examples.en.push({
@@ -62,7 +62,7 @@
                        hardware:  "ep",
                        microcode: "ep_enhanced",
                        assembly:  "ep_s1_e4",
-                       description: "Simple example with fetch, branch, and basic .text/.data segment.<br>"
+                       description: "Simple example with fetch, branch, and basic .text/.data segment."
                      });
 
     examples.en.push({
@@ -73,7 +73,7 @@
                        hardware:  "ep",
                        microcode: "ep_base",
                        assembly:  "ep_s2_e1",
-                       description: "Example with programmed I/O access, and basic .text/.data segment.<br>"
+                       description: "Example with programmed I/O access, and basic .text/.data segment."
                      });
 
     examples.en.push({
@@ -84,7 +84,7 @@
                        hardware:  "ep",
                        microcode: "ep_enhanced",
                        assembly:  "ep_s2_e2",
-                       description: "Extended example with more instructions and I/O (keyboard, display).<br>"
+                       description: "Extended example with more instructions and I/O (keyboard, display)."
                      });
 
     examples.en.push({
@@ -95,7 +95,7 @@
                        hardware:  "ep",
                        microcode: "ep_s2_e3",
                        assembly:  "ep_s2_e3",
-                       description: "More extended example with masks, shift, and basic .text/.data segment.<br>"
+                       description: "More extended example with masks, shift, and basic .text/.data segment."
                      });
 
     examples.en.push({
@@ -106,7 +106,7 @@
                        hardware:  "ep",
                        microcode: "ep_s2_e4",
                        assembly:  "ep_s2_e4",
-                       description: "Extended example with subrutine and matrix.<br>"
+                       description: "Extended example with subrutine and matrix."
                      });
 
     examples.en.push({
@@ -117,7 +117,7 @@
                        hardware:  "ep",
                        microcode: "ep_s3_e1",
                        assembly:  "ep_s3_e1",
-                       description: "<b>Instructive</b> example with interruptions support: fetch, RETI, and .ktext/.kdata.<br>"
+                       description: "<b>Instructive</b> example with interruptions support: fetch, RETI, and .ktext/.kdata."
                      });
 
     examples.en.push({
@@ -128,7 +128,7 @@
                        hardware:  "ep",
                        microcode: "ep_s3_e2",
                        assembly:  "ep_s3_e2",
-                       description: "<b>Instructive</b> example with system call support.<br>"
+                       description: "<b>Instructive</b> example with system call support."
                      });
 
     examples.en.push({
@@ -139,7 +139,7 @@
                        hardware:  "ep",
                        microcode: "ep_s3_e3",
                        assembly:  "ep_s3_e3",
-                       description: "<b>Instructive</b> example with floating point exception.<br>"
+                       description: "<b>Instructive</b> example with floating point exception."
                      });
 
     examples.en.push({
@@ -150,7 +150,7 @@
                        hardware:  "ep",
                        microcode: "ep_s4_e1",
                        assembly:  "ep_s4_e1",
-                       description: "Advanced example with interruption, system call, and exception.<br>"
+                       description: "Advanced example with interruption, system call, and exception."
                      });
 
     examples.en.push({
@@ -161,7 +161,7 @@
                        hardware:  "ep",
                        microcode: "ep_os",
                        assembly:  "ep_s4_e2",
-                       description: "Example of syscall for printing/reading integer and string.<br>"
+                       description: "Example of syscall for printing/reading integer and string."
                      });
 
     examples.en.push({
@@ -172,7 +172,7 @@
                        hardware:  "ep",
                        microcode: "ep_os",
                        assembly:  "ep_s4_e3",
-                       description: "Example of threads.<br>"
+                       description: "Example of threads."
                      });
 
     examples.en.push({
@@ -183,7 +183,7 @@
                        hardware:  "ep",
                        microcode: "ep_os",
                        assembly:  "ep_s4_e4",
-                       description: "Example of malloc + free.<br>"
+                       description: "Example of malloc + free."
                      });
 
     examples.en.push({
@@ -194,7 +194,7 @@
                        hardware:  "ep",
                        microcode: "ep_s5_e1",
                        assembly:  "ep_s5_e1",
-                       description: "Application-specific extension: addv + seqv.<br>"
+                       description: "Application-specific extension: addv + seqv."
                      });
 
     examples.en.push({
@@ -205,7 +205,7 @@
                        hardware:  "ep",
                        microcode: "ep_s5_e2",
                        assembly:  "ep_s5_e2",
-                       description: "Application-specific extension: strlen_2 + skipasciicode_2.<br>"
+                       description: "Application-specific extension: strlen_2 + skipasciicode_2."
                      });
 
     examples.en.push({
@@ -216,7 +216,7 @@
                        hardware:  "ep",
                        microcode: "ep_s5_e3",
                        assembly:  "ep_s5_e3",
-                       description: "Application-specific extension: madd + mmul + mxch.<br>"
+                       description: "Application-specific extension: madd + mmul + mxch."
                      });
 
     examples.en.push({
@@ -227,7 +227,7 @@
                        hardware:  "ep",
                        microcode: "ep_bare",
                        assembly:  "ep_s6_e1",
-                       description: "Test example.<br>"
+                       description: "Test example."
                      });
 
 
@@ -241,7 +241,7 @@
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s1_e1",
-                       description: "Simple example with fetch, arithmetic instructions, and basic .text segment.<br>"
+                       description: "Simple example with fetch, arithmetic instructions, and basic .text segment."
                      });
 
     examples.en.push({
@@ -252,7 +252,7 @@
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s1_e2",
-                       description: "Simple example with fetch, memory access, and basic .text/.data segment.<br>"
+                       description: "Simple example with fetch, memory access, and basic .text/.data segment."
                      });
 
     examples.en.push({
@@ -263,7 +263,7 @@
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s1_e3",
-                       description: "Simple example with fetch, branch, and basic .text segment.<br>"
+                       description: "Simple example with fetch, branch, and basic .text segment."
                      });
 
     examples.en.push({
@@ -274,7 +274,7 @@
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s1_e4",
-                       description: "Simple example with fetch, branch, and basic .text/.data segment.<br>"
+                       description: "Simple example with fetch, branch, and basic .text/.data segment."
                      });
 
     examples.en.push({
@@ -285,7 +285,7 @@
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s2_e1",
-                       description: "Example with programmed I/O access, and basic .text/.data segment.<br>"
+                       description: "Example with programmed I/O access, and basic .text/.data segment."
                      });
 
 /*
@@ -297,7 +297,7 @@
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s2_e2",
-                       description: "Extended example with more instructions and I/O (keyboard, display).<br>"
+                       description: "Extended example with more instructions and I/O (keyboard, display)."
                      });
 */
 
@@ -309,7 +309,7 @@
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s2_e3",
-                       description: "More extended example with masks, shift, and basic .text/.data segment.<br>"
+                       description: "More extended example with masks, shift, and basic .text/.data segment."
                      });
 
     examples.en.push({
@@ -320,7 +320,7 @@
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s2_e4",
-                       description: "Extended example with subrutine and matrix.<br>"
+                       description: "Extended example with subrutine and matrix."
                      });
 
     examples.en.push({
@@ -331,7 +331,7 @@
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s3_e1",
-                       description: "Example with interruptions support: fetch, RETI, and .ktext/.kdata.<br>"
+                       description: "Example with interruptions support: fetch, RETI, and .ktext/.kdata."
                      });
 
     examples.en.push({
@@ -342,7 +342,7 @@
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s3_e2",
-                       description: "Example with system call support.<br>"
+                       description: "Example with system call support."
                      });
 
     examples.en.push({
@@ -353,7 +353,7 @@
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s3_e3",
-                       description: "Example with floating point exception.<br>"
+                       description: "Example with floating point exception."
                      });
 
     examples.en.push({
@@ -364,7 +364,7 @@
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s3_e4",
-                       description: "Advanced example with interruption, system call, and exception.<br>"
+                       description: "Advanced example with interruption, system call, and exception."
                      });
 
     examples.en.push({
@@ -375,7 +375,7 @@
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s4_e2",
-                       description: "Application-specific extension: strlen_2 + skipasciicode_2.<br>"
+                       description: "Application-specific extension: strlen_2 + skipasciicode_2."
                      });
 
     examples.en.push({
@@ -386,7 +386,7 @@
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s4_e4",
-                       description: "Example of syscall for printing/reading integer and string.<br>"
+                       description: "Example of syscall for printing/reading integer and string."
                      });
 
     // POC
@@ -399,7 +399,7 @@
                        hardware:  "poc",
                        microcode: "poc_base",
                        assembly:  "poc_s1_e1",
-                       description: "Simple example.<br>"
+                       description: "Simple example."
                      });
 
     examples.en.push({
@@ -410,7 +410,7 @@
                        hardware:  "poc",
                        microcode: "poc_base",
                        assembly:  "ep_s1_e2",
-                       description: "Simple example with fetch, memory access, and basic .text/.data segment.<br>"
+                       description: "Simple example with fetch, memory access, and basic .text/.data segment."
                      });
 
     examples.en.push({
@@ -421,7 +421,7 @@
                        hardware:  "poc",
                        microcode: "poc_base",
                        assembly:  "ep_s1_e3",
-                       description: "Simple example with fetch, branch, and basic .text segment.<br>"
+                       description: "Simple example with fetch, branch, and basic .text segment."
                      });
 
     examples.en.push({
@@ -432,7 +432,7 @@
                        hardware:  "poc",
                        microcode: "poc_base",
                        assembly:  "ep_s1_e4",
-                       description: "Simple example with fetch, branch, and basic .text/.data segment.<br>"
+                       description: "Simple example with fetch, branch, and basic .text/.data segment."
                      });
 
     examples.en.push({
@@ -443,7 +443,7 @@
                        hardware:  "poc",
                        microcode: "poc_base",
                        assembly:  "ep_s2_e1",
-                       description: "Example with programmed I/O access, and basic .text/.data segment.<br>"
+                       description: "Example with programmed I/O access, and basic .text/.data segment."
                      });
 
     examples.en.push({
@@ -454,7 +454,7 @@
                        hardware:  "poc",
                        microcode: "poc_base",
                        assembly:  "ep_s2_e2",
-                       description: "Extended example with more instructions and I/O (keyboard, display).<br>"
+                       description: "Extended example with more instructions and I/O (keyboard, display)."
                      });
 
     examples.en.push({
@@ -465,7 +465,7 @@
                        hardware:  "poc",
                        microcode: "poc_base",
                        assembly:  "ep_s2_e3",
-                       description: "More extended example with masks, shift, and basic .text/.data segment.<br>"
+                       description: "More extended example with masks, shift, and basic .text/.data segment."
                      });
 
     examples.en.push({
@@ -476,7 +476,7 @@
                        hardware:  "poc",
                        microcode: "poc_base",
                        assembly:  "ep_s2_e4",
-                       description: "Extended example with subrutine and matrix.<br>"
+                       description: "Extended example with subrutine and matrix."
                      });
 
     examples.en.push({
@@ -487,7 +487,7 @@
                        hardware:  "poc",
                        microcode: "poc_s3",
                        assembly:  "ep_s3_e1",
-                       description: "<b>Instructive</b> example with interruptions support: fetch, RETI, and .ktext/.kdata.<br>"
+                       description: "<b>Instructive</b> example with interruptions support: fetch, RETI, and .ktext/.kdata."
                      });
 
     examples.en.push({
@@ -498,7 +498,7 @@
                        hardware:  "poc",
                        microcode: "poc_s3",
                        assembly:  "ep_s3_e2",
-                       description: "<b>Instructive</b> example with system call support.<br>"
+                       description: "<b>Instructive</b> example with system call support."
                      });
 
     examples.en.push({
@@ -509,7 +509,7 @@
                        hardware:  "poc",
                        microcode: "poc_s3",
                        assembly:  "ep_s3_e3",
-                       description: "<b>Instructive</b> example with floating point exception.<br>"
+                       description: "<b>Instructive</b> example with floating point exception."
                      });
 
     examples.en.push({
@@ -520,7 +520,7 @@
                        hardware:  "poc",
                        microcode: "poc_os",
                        assembly:  "ep_s4_e1",
-                       description: "Advanced example with interruption, system call, and exception.<br>"
+                       description: "Advanced example with interruption, system call, and exception."
                      });
 
     examples.en.push({
@@ -531,7 +531,7 @@
                        hardware:  "poc",
                        microcode: "poc_os",
                        assembly:  "ep_s4_e2",
-                       description: "Example of syscall for printing/reading integer and string.<br>"
+                       description: "Example of syscall for printing/reading integer and string."
                      });
 
     examples.en.push({
@@ -542,7 +542,7 @@
                        hardware:  "poc",
                        microcode: "poc_os",
                        assembly:  "ep_s4_e3",
-                       description: "Example of threads.<br>"
+                       description: "Example of threads."
                      });
 
     examples.en.push({
@@ -553,7 +553,7 @@
                        hardware:  "poc",
                        microcode: "poc_os",
                        assembly:  "ep_s4_e4",
-                       description: "Example of malloc + free.<br>"
+                       description: "Example of malloc + free."
                      });
 
     examples.en.push({
@@ -564,6 +564,6 @@
                        hardware:  "poc",
                        microcode: "poc_bare",
                        assembly:  "poc_s5_e1",
-                       description: "Test example.<br>"
+                       description: "Test example."
                      });
 

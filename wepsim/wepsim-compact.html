@@ -148,7 +148,7 @@
 
     <meta name="apple-mobile-web-app-capable"          content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title"            content="WepSIM 2.0.2" />
+    <meta name="apple-mobile-web-app-title"            content="WepSIM 2.0.3" />
     <meta name="msapplication-TileImage"               content="images/arcos.svg" />
     <meta name="msapplication-TileColor"               content="#2F3BA2" />
     <meta name="theme-color"                           content="#ffffff" />
@@ -723,7 +723,8 @@
      <div class="modal-footer">
 	<button class="btn btn-sm btn-dark"
 		onclick="var fileToLoad = document.getElementById('fileToLoad').files[0];
-			 wepsim_load_from_file(fileToLoad, inputfirm);
+		         wepsim_load_from_file(fileToLoad, 
+                                               function(txt){ inputfirm.setValue(txt); });
 			 $('#lsload').modal('hide');">Load from this File</button>
 	<button class="btn btn-sm btn-danger"
 		type="button" data-dismiss="modal">Cancel</button>
@@ -761,11 +762,13 @@
 					'Please load a Microcode first in memory in order to save it.');
 			     else inputfirm.setValue(simware_as_text);
 			     var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
-			     wepsim_save_to_file(inputfirm, fileNameToSaveAs);
+                             var textToWrite      = inputfirm.getValue();
+			     wepsim_save_to_file(textToWrite, fileNameToSaveAs);
 			 }">Save control memory to File</button>
 	<button class="btn btn-sm btn-dark my-1"
 		onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
-			 wepsim_save_to_file(inputfirm, fileNameToSaveAs);">Save Editor content to File</button>
+                         var textToWrite      = inputfirm.getValue();
+			 wepsim_save_to_file(textToWrite, fileNameToSaveAs);">Save Editor content to File</button>
 	<button class="btn btn-sm btn-danger my-1"
 		type="button" data-dismiss="modal">Cancel</button>
      </div>
@@ -791,7 +794,8 @@
      <div class="modal-footer">
 	<button class="btn btn-sm btn-dark"
 		onclick="var fileToLoad = document.getElementById('fileToLoad2').files[0];
-			 wepsim_load_from_file(fileToLoad, inputasm);
+		         wepsim_load_from_file(fileToLoad, 
+                                               function(txt){ inputasm.setValue(txt); });
 			 $('#lsload2').modal('hide');">Load from this File</button>
 	<button class="btn btn-sm btn-danger"
 		type="button" data-dismiss="modal">Cancel</button>
@@ -817,9 +821,92 @@
      <div class="modal-footer">
 	<button class="btn btn-sm btn-dark"
 		onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs2').value;
-			 wepsim_save_to_file(inputasm, fileNameToSaveAs);">Save to File</button>
+                         var textToWrite      = inputasm.getValue();
+			 wepsim_save_to_file(textToWrite, fileNameToSaveAs);">Save to File</button>
 	<button class="btn btn-sm btn-danger"
 		type="button" data-dismiss="modal">Cancel</button>
+     </div>
+     </div>
+     </div>
+</div>
+
+
+<!-- load/save microcode+assembly+comment -->
+<div class="modal" id="lssave3" tabindex="-1" role="dialog" aria-labelledby="lssave3" aria-hidden="true">
+     <div class="modal-dialog modal-lg">
+     <div class="modal-content">
+     <div class="modal-header bg-dark">
+	<strong class="modal-title text-white"><span data-langkey="Checkpoint">Checkpoint</span></strong>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true" class="text-white font-weight-bold">&times;</span>
+        </button>
+     </div>
+     <div class="modal-body">
+	<div class="card-deck">
+	   <div class="card">
+	      <div class="card-header">
+		<h5 class="card-title m-0"><span data-langkey="Save Checkpoint">Save Checkpoint</span></h5>
+	      </div>
+	      <div class="card-body">
+			<label for="FileNameToSaveAs"><em>Please write the file name:</em></label>
+			<p><input aria-label="filename to save content" id="FileNameToSaveAs"
+				  class="form-control btn-outline-dark" placeholder="File name where checkpoint will be saved" style="min-width: 90%;"/></p>
+			<label for="tagToSave"><em>Please write the associated tag (if any):</em></label>
+			<p><input aria-label="tag to save" id="tagToSave"
+				  class="form-control btn-outline-dark" placeholder="Tag associated to save (if any)" style="min-width: 90%;"/></p>
+	      </div>
+	      <div class="card-footer">
+		<button class="btn btn-sm btn-dark mx-auto d-flex justify-content-cente"
+			onclick="var FileNameToSaveAs = document.getElementById('FileNameToSaveAs').value;
+				 var tagToSave        = document.getElementById('tagToSave').value;
+				 var state_obj        = simcore_simstate_current2state();
+				 var checkpointObj    = { firmware:inputfirm.getValue(), 
+						          assembly:inputasm.getValue(), 
+						          state:state_obj, 
+						          tag:tagToSave };
+				 wepsim_save_to_file(JSON.stringify(checkpointObj, null, 2), FileNameToSaveAs);
+				 return false;">Save File</button>
+	      </div>
+	   </div>
+	   <div class="card">
+	      <div class="card-header">
+		<h5 class="card-title m-0"><span data-langkey="Restore Checkpoint">Restore Checkpoint</span></h5>
+	      </div>
+	      <div class="card-body">
+			<label for="fileToLoad3"><em>Please select the file to be loaded:</em></label>
+			<p><input aria-label="file to load" type="file" id="fileToLoad3" class="dropify"/></p>
+	      </div>
+	      <div class="card-footer">
+		<button class="btn btn-sm btn-dark mx-auto d-flex justify-content-cente"
+			onclick="var fileToLoad = document.getElementById('fileToLoad3').files[0];
+				 wepsim_load_from_file(fileToLoad,
+						       function(textLoaded) {
+							     var checkpointObj = JSON.parse(textLoaded);
+                                                             // load into forms
+							     inputfirm.setValue(checkpointObj.firmware);
+							      inputasm.setValue(checkpointObj.assembly);
+							     var txt_checklist = simcore_simstate_state2checklist(checkpointObj.state) ;
+							     $('#end_state1').tokenfield('setTokens', txt_checklist);
+                                                             // copy to save-checkpoint part
+							     document.getElementById('tagToSave').value        = checkpointObj.tag;
+							     document.getElementById('FileNameToSaveAs').value = fileToLoad.name;
+							     // restore checkpointObj.ui-state (simulator:screen)
+							        // TODO
+                                                             // compile
+							     wepsim_compile_firmware(checkpointObj.firmware);
+							     wepsim_compile_assembly(checkpointObj.assembly);
+                                                             // notify
+	                                                     simcoreui_notify('Tag', checkpointObj.tag, 'info', 0) ;
+						       });
+			         $('#lssave3').modal('hide');
+				 return false;">Load from this File</button>
+	      </div>
+	    </div>
+	</div>
+     </div>
+     <div class="modal-footer" style="flex-wrap: wrap">
+	<button class="btn btn-sm btn-danger my-1"
+		type="button" data-dismiss="modal"><span data-langkey="Close">Close</span></button>
      </div>
      </div>
      </div>
@@ -994,10 +1081,8 @@
 	   </div>
 
 	   <div class="modal-footer">
-		 <button type="button" class="btn btn-outline-dark  btn-sm col-xs-4 col-sm-3 float-left"
-                         data-toggle="collapse" data-target=".collapse7">&plusmn; Desc<span class="d-none d-sm-inline-flex">ription</span></button>
 		 <button type="button" class="btn btn-outline-dark  btn-sm col-xs-4 col-sm-3 float-left mr-auto"
-                         data-toggle="collapse" data-target=".collapse8">&plusmn; Ind<span class="d-none d-sm-inline-flex">ividual</span></button>
+                         data-toggle="collapse" data-target=".collapse7">&plusmn; Desc<span class="d-none d-sm-inline-flex">ription</span></button>
 		 <button type="button" class="btn btn-danger        btn-sm col-xs-3 col-sm-2 float-right"
 			 data-dismiss="modal"><span data-langkey="Close">Close</span></button>
 	   </div><!-- /footer -->
@@ -1554,6 +1639,10 @@
 		    // adapt to idiom
 		    var ws_idiom = get_cfg('ws_idiom');
 		    i18n_update_tags('gui', ws_idiom) ;
+
+		    // pre-load example
+		    var url_parameters = new URL(window.location).searchParams ;
+		    wepsim_preload_get(url_parameters) ;
 	    }) ;
 
             // progressive web application

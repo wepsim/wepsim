@@ -131,6 +131,113 @@
 	    return true ;
     }
 
+    function default_asmdbg_content_horizontal ( )
+    {
+	 var wsi = get_cfg('ws_idiom') ;
+
+	 var o = "<br>" +
+	         "<div class='card m-3'>" +
+		 "  <div class='row no-gutters'>" +
+		// "  <div class='col-md-4'>" +
+		// "  <img class='card-img-top' alt='microcode work area' src='help/simulator/firmware002.jpg'>" +
+		// "  </div>" +
+		// "  <div class='col-md-8'>" + // +
+		 "  <div class='col-md-12'>" + // -
+		 "  <div class='card-body py-0'>" +
+		 "    <p class='card-text'>" + 
+		 "    <div class='badge badge-primary'>1</div>" +
+		 "    <span data-langkey='simulator intro 1'>" + 
+	         i18n.gui[wsi]['simulator intro 1'] +
+		 "    </span>" +
+		 "    </p>" +
+		 "  </div>" +
+		 "  </div>" +
+		 "  </div>" +
+		 "</div>" +
+		 "<div class='card m-3'>" +
+		 "  <div class='row no-gutters'>" +
+		// "  <div class='col-md-4'>" +
+		// "  <img class='card-img-top' alt='microcode work area' src='help/simulator/firmware002.jpg'>" +
+		// "  </div>" +
+		// "  <div class='col-md-8'>" + // +
+		 "  <div class='col-md-12'>" + // -
+		 "  <div class='card-body py-0'>" +
+		 "    <p class='card-text'>" + 
+		 "    <div class='badge badge-primary'>2</div>" +
+		 "    <span data-langkey='simulator intro 2'>" + 
+	         i18n.gui[wsi]['simulator intro 2'] +
+		 "    </span>" +
+		 "    </p>" +
+		 "  </div>" +
+		 "  </div>" +
+		 "  </div>" +
+		 "</div>" +
+		 "<div class='card m-3'>" +
+		 "  <div class='row no-gutters'>" +
+		// "  <div class='col-md-4'>" +
+		// "  <img class='card-img-top' alt='microcode work area' src='help/welcome/simulation_xinstruction.gif'>" +
+		// "  </div>" +
+		// "  <div class='col-md-8'>" + // +
+		 "  <div class='col-md-12'>" + // -
+		 "  <div class='card-body py-0'>" +
+		 "    <p class='card-text'>" + 
+		 "    <div class='badge badge-primary'>3</div>" +
+		 "    <span data-langkey='simulator intro 3'>" + 
+	         i18n.gui[wsi]['simulator intro 3'] +
+		 "    </span>" +
+		 "    </p>" +
+		 "  </div>" +
+		 "  </div>" +
+		 "  </div>" +
+		 "</div>" ;
+
+	 return o ;
+    }
+
+    function default_asmdbg_content_vertical ( )
+    {
+	 var o = "<br>" +
+		 "<div class='container-fluid'>" +
+		 "<div class='card-column row'>" +
+		 "<div class='card m-2 col-sm'>" +
+		// "  <img class='card-img-top' alt='microcode work area' src='help/simulator/firmware002.jpg'>" +
+		 "  <div class='card-body h-50 py-0'>" +
+		 "    <p class='card-text'>" + 
+		 "    <div class='badge badge-primary'>1</div>" +
+		 "    <span data-langkey='simulator intro 1'>" + 
+		 "    First, you need to load the microcode to be used." +
+		 "    </span>" +
+		 "    </p>" +
+		 "  </div>" +
+		 "</div>" +
+		 "<div class='card m-2 col-sm'>" +
+		// "  <img class='card-img-top' alt='microcode work area' src='help/simulator/firmware002.jpg'>" +
+		 "  <div class='card-body h-50 py-0'>" +
+		 "    <p class='card-text'>" + 
+		 "    <div class='badge badge-primary'>2</div>" +
+		 "    <span data-langkey='simulator intro 2'>" + 
+		 "    Next, you need to load the assembly code to be used." +
+		 "    </span>" +
+		 "    </p>" +
+		 "  </div>" +
+		 "</div>" +
+		 "<div class='card m-2 col-sm'>" +
+		// "  <img class='card-img-top' alt='microcode work area' src='help/welcome/simulation_xinstruction.gif'>" +
+		 "  <div class='card-body h-50 py-0'>" +
+		 "    <p class='card-text'>" + 
+		 "    <div class='badge badge-primary'>3</div>" +
+		 "    <span data-langkey='simulator intro 3'>" + 
+		 "    Finally, in the simulator you are able to execute the microcode plus assembly loaded before." +
+		 "    </span>" +
+		 "    </p>" +
+		 "  </div>" +
+		 "</div>" +
+		 "</div>" +
+		 "</div>" ;
+
+	 return o ;
+    }
+
     function wepsim_activehw ( mode )
     {
 	    simhw_setActive(mode) ;
@@ -168,23 +275,7 @@
     	    update_memories(SIMWARE) ;
             simcore_reset() ;
 
-            var asmdbg_content = "<br/>" +
-                                 "<ol>" +
-                                 "<li>Load the microcode to be used.</li>" +
-                                 "    <ul>" +
-                                 "    <li>You can use an example of microcode, load it from a file or you can edit one.</li>" +
-                                 "    </ul>" +
-                                 "<br/>" +
-                                 "<li>Load the assembly to be used.</li>" +
-                                 "    <ul>" +
-                                 "    <li>You can use an assembly example, load it from a file or you can edit one.</li>" +
-                                 "   </ul>" +
-                                 "<br/>" +
-                                 "<li>Come back to the simulator in order to execute the microcode+assembly loaded before.</li>" +
-                                 "    <ul>" +
-                                 "    <li>Each step could be executed at microinstruction or instruction level.</li>" +
-                                 "    </ul>" +
-                                 "</ol>" ;
+            var asmdbg_content = default_asmdbg_content_horizontal() ;
 	    for (var l in SIMWARE.assembly) // <===> if (SIMWARE.assembly != {})
 	    {
                  asmdbg_content = assembly2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg, SIMWARE.assembly) ;
@@ -268,44 +359,174 @@
 
     function wepsim_show_quick_menu ( quick_po )
     {
+        var wsi = get_cfg('ws_idiom') ;
+
         var o = '<ul class="list-group list-group-flush">' +
 		'<li class="list-group-item px-0 pt-1"> ' +
 		'  <em class="fas fa-flag"></em> &nbsp;' +
 		'  <a class="btn btn-sm btn-outline-secondary col-auto p-1 text-left" href="#" ' +
                 '     onclick="simcoreui_notify_notifications(); ' +
-		'              $(\'#' + quick_po + '\').popover(\'hide\');">Show Notifications...</a>' +
+		'              $(\'#' + quick_po + '\').popover(\'hide\');">' +
+		i18n.gui[wsi]['Show Notifications'] + '...</a>' +
 		'</li>' +
 		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-bars"></em> &nbsp;' +
                 '  <span class="btn-group-toggle" data-toggle="buttons">' +
 		'  <label class="btn btn-sm btn-outline-secondary col-auto p-1 text-left" data-toggle="collapse" href=".multi-collapse-1">' +
-		'  <input type="checkbox" checked="" autocomplete="off"> Show/Hide ActionBar</label>' +
+		'  <input type="checkbox" checked="" autocomplete="off">' +
+		i18n.gui[wsi]['Show/Hide ActionBar'] + '</label>' +
 		'  </span>' +
 		'</li>' +
 		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-sliders-h"></em> &nbsp;' +
                 '  <span class="btn-group-toggle" data-toggle="buttons">' +
 		'  <label class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" data-toggle="collapse" href=".multi-collapse-2">' +
-		'  <input type="checkbox" checked="" autocomplete="off"> Show/Hide Sliders</label>' +
+		'  <input type="checkbox" checked="" autocomplete="off">' +
+		i18n.gui[wsi]['Show/Hide Slider'] + '</label>' +
 		'  </span>' +
 		'</li>' +
 		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-magic"></em> &nbsp;' +
 		'  <a class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" href="#" ' +
 		'     onclick="$(\'#about2\').modal(\'show\'); ' +
-		'              $(\'#' + quick_po + '\').popover(\'hide\');">About WepSIM...</a>' +
+		'              $(\'#' + quick_po + '\').popover(\'hide\');">' +
+		i18n.gui[wsi]['About WepSIM'] + '...</a>' +
+		'</li>' +
+		'<li class="list-group-item px-0"> ' +
+		'  <em class="fas fa-bookmark"></em> &nbsp;' +
+		'  <a class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" href="#" ' +
+		'     onclick="$(\'#lssave3\').modal(\'show\'); ' +
+		'              $(\'#' + quick_po + '\').popover(\'hide\');">' +
+		i18n.gui[wsi]['Checkpoint'] + '...</a>' +
 		'</li>' +
 		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-book-reader"></em> &nbsp;' +
 		'  <a class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" href="#" ' +
 		'     onclick="wepsim_newbie_tour(); ' +
-		'              $(\'#' + quick_po + '\').popover(\'hide\');">Initial intro...</a>' +
+		'              $(\'#' + quick_po + '\').popover(\'hide\');">' +
+		i18n.gui[wsi]['Initial intro'] + '...</a>' +
 		'</li>' +
 	        '<button type="button" id="close" data-role="none" ' + 
 		'        class="btn btn-sm btn-danger w-100 p-0 mt-2" ' +
-		'        onclick="$(\'#' + quick_po + '\').popover(\'hide\');"><span data-langkey="Close">Close</span></button>' +
+		'        onclick="$(\'#' + quick_po + '\').popover(\'hide\');">' +
+		i18n.gui[wsi]['Close'] +
+                '</button>' +
 		'</ul>' ;
 
         return o ;
+    }
+
+
+    /*
+     * Preload work
+     */
+
+    function wepsim_preload_hash ( hash )
+    {
+	    var o = '' ;
+
+	    // parameter: mode
+	    if (hash['mode'] !== null)
+	    {
+                simui_select_main(hash['mode']) ;
+	        o += '<li>Mode set to <strong>' + hash['mode'] + '</strong>.</li> ' ;
+	    }
+
+	    // parameter: example
+	    if (hash['example'] !== null)
+	    {
+		var example_index = parseInt(hash['example']) ;
+		var example_obj   = examples.en[example_index] ;
+	        if (typeof example_obj !== "undefined")
+		{
+		    var example_uri = example_obj.hardware + ":" + example_obj.microcode + ":" + example_obj.assembly ;
+	            load_from_example_firmware(example_uri, true) ;
+	            o += '<li>Example titled <strong>' + example_obj.title + '</strong> has been loaded.</li> ' ;
+		}
+	    }
+
+	    // parameter: simulator UI
+	    var panels = [] ;
+	    if (hash['simulator'] !== null) {
+	        panels = hash['simulator'].split(":") ;
+	        o += '<li>User interface has been adapted.</li> ' ;
+            }
+
+	    if (typeof panels[0] !== "undefined")
+	    {
+		if (panels[0] === "microcode") {
+	            $("#tab26").click() ;
+                }
+		if (panels[0] === "assembly") {
+	            $("#tab24").click() ;
+                }
+	    }
+
+	    if (typeof panels[1] !== "undefined")
+	    {
+		var panel2_ref  = panels[1].toUpperCase() ;
+		var evt_handler = hash_detail2action[panel2_ref] ;
+		if (typeof evt_handler !== "undefined") {
+		    evt_handler() ;
+                }
+	    }
+
+	    // notify the user of the preloaded work
+	    if (o !== '') {
+		o = 'WepSIM has been instructed to preload some work for you:<br>' + 
+		    '<ul>' + o + '</ul>' + 
+		    'To close this notification please press in the ' +
+                    '<span class="btn btn-sm btn-info py-0" data-dismiss="alert">X</span> mark. <br>' +
+	            'In order to execute an example please press the ' + 
+		    '<span class="btn btn-sm btn-info py-0" onclick="wepsim_execute_toggle_play(\'#qbp\',false);">Run</span> button.<br>' ;
+
+	        simcoreui_notify('WepSIM preloads some work', o, 'info', 0) ;
+	    }
+
+	    // return ok
+	    return 0 ;
+    }
+
+    function wepsim_preload_json ( json_url )
+    {
+	    var size = 0 ;
+	    var max_size = 8*1024 ;
+
+	    // preload json_url only if file_size(json_url) < 8 KB
+	    var xhr = new XMLHttpRequest() ;
+	    xhr.open("HEAD", json_url, true) ;
+
+	    xhr.onreadystatechange = function() {
+		if (this.readyState == this.DONE) {
+		    size = parseInt(xhr.getResponseHeader("Content-Length")) ;
+		    if (size < max_size) {
+	                $.getJSON(json_url, wepsim_preload_hash) ;
+		    }
+		}
+	    } ;
+
+	    xhr.send();
+    }
+
+    function wepsim_preload_get ( parameters )
+    {
+	    var hash = {} ;
+
+	    // 1.- get parameters
+	    hash['mode']      = parameters.get('mode') ;
+	    hash['example']   = parameters.get('example') ;
+	    hash['simulator'] = parameters.get('simulator') ;
+	    hash['preload']   = parameters.get('preload') ;
+
+	    // 2.a.- json
+	    if (hash['preload'] !== null) 
+	    {
+	        var uri_obj = new URL(hash['preload']) ;
+	        wepsim_preload_json(uri_obj.pathname) ;
+		return ;
+	    }
+
+	    // 2.b.- hash
+	    wepsim_preload_hash(hash) ;
     }
 

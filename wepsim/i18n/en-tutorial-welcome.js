@@ -25,29 +25,12 @@
                      message:     "<center><img alt='wepsim screenshot' src='help/simulator/simulator012.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                   "<p>" +
                                   "<h5>" +
-                                  "WepSIM allows students and teacher to define the instruction set, " + 
-                                  "and create any assembly program using the defined instruction set. " + 
-                                  "Because WepSIM is visual, and integrates interruptions, system call, " + 
-                                  "and exceptions, we really believe WepSIM is a revolutionary teaching tool. " + 
-                                  "<br>" +
-                                  "</h5>",
-                     code_pre:    function() { },
-                     code_post:   function() { },
-                     wait_next:   100
-                  });
-
-    tutorials.welcome.en.push({
-                     id:          "welcome",
-                     title:       "Welcome to the WepSIM simulator!",
-                     message:     "<center><img alt='wepsim screenshot' src='help/simulator/simulator012.jpg' style='max-width:100%; max-height:40vh;'></center>" +
-                                  "<p>" +
-                                  "<h5>" +
                                   "This brief tutorial is going to show you how to:" +
                                   "<ol>" +
-                                  "<li>Load an example.</li>" +
-                                  "<li>Execute an example.</li>" +
-                                  "<li>Configure the simulation.</li>" +
-                                  "<li>Get help.</li>" +
+                                  "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,1);'>Load an example.</a></li>" +
+                                  "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,2);'>Execute an example.</a></li>" +
+                                  "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,3);'>Configure the simulation.</a></li>" +
+                                  "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,4);'>Get help.</a></li>" +
                                   "</ol>" +
                                   "</h5>",
                      code_pre:    function() { },

@@ -20,23 +20,6 @@
 
 
     tutorials.simpleusage.es.push({
-                     id:          "simpleusage",
-                     title:       "WepSIM: microprogramar, ensamblar y simular",
-                     message:     "<center><img alt='wepsim screenshot' src='help/simulator/simulator012.jpg' style='max-max-width:100%; max-height:40vh;'></center>" +
-                                  "<p>" +
-                                  "<h5>" +
-                                  "WepSIM permite a estudiantes y profesores definir un juego de instrucciones, " + 
-                                  "y crear cualquier programa de ensamblador que use dicho juego de instrucciones. " + 
-                                  "Dado que WepSIM es visual, e integra interrupciones, llamadas al sistema, etc." + 
-                                  "nosotros realmente creemos que WepSIM es una herramienta revolucionaria. " + 
-                                  "<br>" +
-                                  "</h5>",
-                     code_pre:    function() { },
-                     code_post:   function() { },
-                     wait_next:   100
-                  });
-
-    tutorials.simpleusage.es.push({
                      id:        "simpleusage",
                      title:     "WepSIM: microprogramar, ensamblar y simular",
                      message:   "<center><img alt='wepsim screenshot' src='help/simulator/simulator011.jpg' style='max-width:100%; max-height:40vh;'></center>" +
@@ -44,9 +27,9 @@
                                 "<h5>" +
                                 "Este breve tutorial le mostrar&aacute;:" +
                                 "<ol>" +
-                                "<li>La edici&oacute;n de microc&oacute;digo.</li>" +
-                                "<li>La edici&oacute;n de c&oacute;digo ensamblador.</li>" +
-                                "<li>Ejecución del anterior ensamblador definido anteriormente.</li>" +
+                                "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,1);'>La edici&oacute;n de microc&oacute;digo.</a></li>" +
+                                "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,3);'>La edici&oacute;n de c&oacute;digo ensamblador.</a></li>" +
+                                "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,5);'>Ejecución del anterior ensamblador definido anteriormente.</a></li>" +
                                 "</ol>" +
                                 "</h5>",
                      code_pre:  function() { },
@@ -90,7 +73,7 @@
     tutorials.simpleusage.es.push({
                      id:        "simpleusage",
                      title:     "WepSIM: microprogramar, ensamblar y simular",
-                     message:   "<center><img alt='wepsim screenshot' src='help/simulator/assembly002.jpg' style='max-width:100%; max-height:40vh;'></center>" +
+                     message:   "<center><img alt='wepsim screenshot' src='help/simulator/assembly002b.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
                                 "El segundo paso es programar el ensamblador a ser ejecutado. " +
@@ -113,7 +96,7 @@
                                 "<li>El compilador de ensamblador.</li>" +
                                 "<li>El visualizador de mapa de memoria y ayuda.</li>" +
                                 "</ul>" +
-                                "Asegure antes de ir a la pantalla del simulador que sud c&oacute;digo este listo (editado y compilado sin errores)." +
+                                "Asegure antes de ir a la pantalla del simulador que su c&oacute;digo este listo (editado y compilado sin errores)." +
                                 "</h5>",
                      code_pre:  function() { },
                      code_post: function() { },
@@ -126,7 +109,7 @@
                      message:   "<center><img alt='wepsim screenshot' src='help/simulator/simulator010.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
-                                "El tercer paso es ejecutar el c&oacute;digo ensamblador en el ensamblador." +
+                                "El tercer paso es ejecutar el c&oacute;digo ensamblador en el ensamblador.<br>" +
                                 "La pantalla de simulación ofrece:" +
                                 "<ul>" +
                                 "<li>Las vista de ensamblador y hardware.</li>" +

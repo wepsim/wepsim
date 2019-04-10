@@ -80,13 +80,13 @@
 			    }
 
                             // stop here if error is found
-			    if (false == ok) {
+			    if (false === ok) {
 			        sim_change_workspace_assembly() ;
                                 return ;
 			    }
 
                             // chain to next task
-                            if (true == chain_next_step) {
+                            if (true === chain_next_step) {
 				setTimeout(function() {
 					      sim_change_workspace_simulator() ;
                                               show_memories_values();
@@ -137,13 +137,13 @@
 			   var ok = wepsim_compile_firmware(mcode);
 
                             // stop here if error is found
-			    if (false == ok) {
+			    if (false === ok) {
                                 sim_change_workspace_microcode();
                                 return ;
 			    }
 
                            // chain to next task
-                           if (true == chain_next_step) 
+                           if (true === chain_next_step) 
                            {
                                setTimeout(function() {
                                              load_from_example_assembly(example_id, chain_next_step);
@@ -166,12 +166,13 @@
     function table_examples_html ( examples )
     {
        // harware
-       var mode = get_cfg('ws_mode') ;
-       var ahw  = mode ;
-
+       var ahw      = 'ep' ;
        var ep_modes = ['newbie', 'intro', 'wepmips', 'tutorial'] ;
-       if (ep_modes.includes(mode))
-           ahw  = 'ep' ;
+
+       var mode = get_cfg('ws_mode') ;
+       if ( (mode !== "null") && (! ep_modes.includes(mode)) ) {
+             ahw = mode ;
+       }
 
        // examples
        var lang = get_cfg('ws_idiom') ;
@@ -213,7 +214,7 @@
 
 	       t_hwmcasm = e_hw + ":" + e_mc + ":" + e_asm ;
 
-	        if (fmt_toggle == "")
+	        if (fmt_toggle === "")
 	            fmt_toggle = "bg-light" ;
 	       else fmt_toggle = "" ;
 
@@ -223,33 +224,46 @@
                         '    <span class="badge badge-pill badge-light">' + (m+1) + '</span>' +
                         '</div>' +
                         '<div class="col-sm-3">' +
-		        '   <span style="cursor:pointer;" ' + 
-		        '         id="example_' + m + '" ' + 
-		        '         onclick="$(\'#example1\').modal(\'hide\'); ' + 
-                        '                  load_from_example_firmware(\'' + t_hwmcasm + '\',true);" ' + 
-		        '         class="bg-info text-white p-0 mr-2">' + e_title + '</span>' +
+                        '     <span style="cursor:pointer;" ' + 
+		        '           id="example_' + m + '" ' + 
+		        '           onclick="$(\'#example1\').modal(\'hide\'); ' + 
+                        '                    load_from_example_firmware(\'' + t_hwmcasm + '\',true);" ' + 
+		        '           class="bg-info text-white p-0 mr-2">' + e_title + '</span>' +
                         '</div>' +
                         '<div class="col-sm collapse7 show">' +
                         '    <c>' + e_description + '</c>' +
-                        '</div>' ;
-
-	       o = o + '<div class="col-sm-auto collapse8 collapse">' +
-		        '     <div class="btn-group btn-group-justified btn-group-md">' +
-		        '         <a onclick="$(\'#example1\').modal(\'hide\'); ' + 
-                        '                    load_from_example_assembly(\'' + t_hwmcasm + '\',false);"' + 
-		        '            class="bg-dark text-white p-0 mr-2">' +
-		        '            <c>Assembly</c></a>' +
-		        '         <a onclick="$(\'#example1\').modal(\'hide\'); ' + 
-                        '                    load_from_example_firmware(\'' + t_hwmcasm + '\',false);"' + 
-		        '            class="bg-dark text-white p-0 mr-2">' +
-		        '            <c>Firmware</c></a>' +
-		        '     </div>' +
-                        '</div>' ;
-	      
-	       o = o + '</div>' ;
+                        '</div>' +
+                        '<div class="col-sm-auto">' +
+		        '    <span id="example_reference_' + e_id + '" class="d-none">' +
+		        'https://acaldero.github.io/wepsim/ws_dist/wepsim-classic.html?mode=' + e_hw + '&example=' + e_id +
+		        '    </span>' +
+		        '    <div class="btn-group btn-group-md float-right align-top">' +
+                        '           <button type="button" ' + 
+		        '                   class="btn btn-md btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+                        '              <span class="sr-only">Toggle Dropdown</span>' +
+                        '           </button>' +
+                        '           <div class="dropdown-menu bg-info" style="z-index:1024;">' +
+		        '             <a onclick="$(\'#example1\').modal(\'hide\'); ' + 
+                        '                        load_from_example_assembly(\'' + t_hwmcasm + '\',false);' + 
+		        '                        return false;"' + 
+		        '                class="dropdown-item text-white bg-info" href="#"><c>Load Assembly only</c></a>' +
+		        '             <a onclick="$(\'#example1\').modal(\'hide\'); ' + 
+                        '                        load_from_example_firmware(\'' + t_hwmcasm + '\',false);' + 
+		        '                        return false;"' + 
+		        '                class="dropdown-item text-white bg-info" href="#"><c>Load Firmware only</c></a>' +
+		        '             <a onclick="$(\'#example_reference_' + e_id + '\').removeClass(\'d-none\');' +
+		        '                         CopyFromDiv(\'example_reference_' + e_id + '\');' +
+		        '                         $(\'#example_reference_' + e_id + '\').addClass(\'d-none\');' +
+		        '                         $(\'#example1\').modal(\'hide\'); ' + 
+                        '                         return false;"' + 
+		        '                class="dropdown-item text-white bg-info" href="#"><c>Copy reference to clipboard</c></a>' +
+                        '           </div>' +
+		        '    </div>' +
+                        '</div>' +
+	                '</div>' ;
        }
 
-       if (o.trim() == '') {
+       if (o.trim() === '') {
 	   o = '&lt;No examples are available for the selected hardware&gt;' ;
        }
 

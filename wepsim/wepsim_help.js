@@ -39,7 +39,7 @@
         var utypes = [] ;
         for (var m=0; m<helps.length; m++)
         {
-	    if (false == array_includes(utypes, helps[m].u_type)) {
+	    if (false === array_includes(utypes, helps[m].u_type)) {
 	         utypes.push(helps[m].u_type) ;
             }
         }
@@ -61,16 +61,16 @@
 		e_id          = helps[m].id ;
 
 		var onclick_code = "" ;
-		if ("relative" == e_itype) 
+		if ("relative" === e_itype) 
 		    onclick_code = 'wepsim_help_set_relative(\'' + e_reference + '\');' + 
 				   'wepsim_help_refresh();' ;
-		if ("absolute" == e_itype) 
+		if ("absolute" === e_itype) 
 		    onclick_code = 'wepsim_help_set_absolute(\'' + e_reference + '\');' + 
 				   'wepsim_help_refresh();' ;
-		if ("code" == e_itype) 
+		if ("code" === e_itype) 
 		    onclick_code = e_reference ;
 
-	        if (fmt_toggle == "")
+	        if (fmt_toggle === "")
 	            fmt_toggle = "bg-light" ;
 	       else fmt_toggle = "" ;
 
@@ -133,7 +133,7 @@
         }
 
         var cod1 = $('#help1_ref').data('code') ;
-        if ( (typeof cod1 != "undefined") && (cod1 == "true") )
+        if ( (typeof cod1 != "undefined") && (cod1 === "true") )
         {
             ga('send', 'event', 'help', 'help.code', 'help.code.*') ;
             return ;

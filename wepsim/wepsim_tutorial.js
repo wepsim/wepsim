@@ -23,6 +23,41 @@
     // Tutorials
     //
 
+    function sim_tutorial_goframe ( tutorial_name, from_step, to_step )
+    {
+        // 0.- get reference
+        if (typeof tutorials[tutorial_name] == "undefined") {
+            return ;
+	}
+        var tutorial = tutorials[tutorial_name][get_cfg('ws_idiom')] ;
+        if (typeof tutorial == "undefined") {
+            return ;
+	}
+
+	// 1.- do transition
+	tutorial[from_step].code_post() ;
+
+	tutbox.modal("hide") ;
+	setTimeout(function(){ sim_tutorial_showframe(tutorial_name, to_step); }, 
+		   tutorial[from_step].wait_next) ;
+
+	if (simcoreui_voice_canSpeak()) {
+	    window.speechSynthesis.cancel() ;
+        }
+    }
+
+    function sim_tutorial_cancelframe ( )
+    {
+	var ws_mode = get_cfg('ws_mode');
+        simui_select_main(ws_mode);
+
+	tutbox.modal("hide") ;
+
+	if (simcoreui_voice_canSpeak()) {
+	    window.speechSynthesis.cancel() ;
+        }
+    }
+
     function sim_tutorial_showframe ( tutorial_name, step )
     {
         // 0.- get reference
@@ -49,44 +84,32 @@
 
         // 3.- dialog +
         //     code_post (next button) | cancel tutorials
+        var wsi = get_cfg('ws_idiom') ;
         var bbbt = {} ;
 
         bbbt.cancel = {
-		    label: 'Disable tutorials',
+		    label: i18n.gui[wsi]['Disable tutorial mode'],
 		    className: 'btn-danger col float-right',
 		    callback: function() {
-			simui_select_main('ep') ;
-                        tutbox.modal("hide") ;
-                        if (simcoreui_voice_canSpeak())
-			    window.speechSynthesis.cancel() ;
+                        sim_tutorial_cancelframe() ;
 		    }
 		} ;
 
         if (step != 0)
             bbbt.prev = {
-		    label: 'Prev.',
+		    label: i18n.gui[wsi]['Prev.'],
 		    className: 'btn-success col float-right',
 		    callback: function() {
-			tutorial[step].code_post() ;
-			setTimeout(function(){ 
-					sim_tutorial_showframe(tutorial_name, step - 1) ;
-				   }, tutorial[step].wait_next);
-                        if (simcoreui_voice_canSpeak())
-			    window.speechSynthesis.cancel() ;
+                        sim_tutorial_goframe(tutorial_name, step, step - 1) ;
 		    }
 		};
 
 	if (step != (tutorial.length - 1))
             bbbt.next = {
-		    label: 'Next',
+		    label: i18n.gui[wsi]['Next'],
 		    className: 'btn-success col float-right',
 		    callback: function() {
-			tutorial[step].code_post() ;
-			setTimeout(function(){ 
-					sim_tutorial_showframe(tutorial_name, step + 1) ;
-				   }, tutorial[step].wait_next);
-                        if (simcoreui_voice_canSpeak())
-			    window.speechSynthesis.cancel() ;
+                        sim_tutorial_goframe(tutorial_name, step, step + 1) ;
 		    }
 		};
 	else
@@ -94,12 +117,7 @@
 		    label: 'End',
 		    className: 'btn-success col float-right',
 		    callback: function() {
-			tutorial[step].code_post() ;
-			setTimeout(function(){ 
-					sim_tutorial_showframe(tutorial_name, step + 1) ;
-				   }, tutorial[step].wait_next);
-                        if (simcoreui_voice_canSpeak())
-			    window.speechSynthesis.cancel() ;
+                        sim_tutorial_goframe(tutorial_name, step, step + 1) ;
 		    }
 		};
 
@@ -107,7 +125,7 @@
 	    title:   tutorial[step].title,
 	    message: tutorial[step].message,
 	    buttons: bbbt,
-	    size: "large",
+	    size:    "large",
             animate: false
 	});
 

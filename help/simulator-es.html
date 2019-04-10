@@ -408,7 +408,7 @@
 	        <br />
 	      </p>
 	      <p>
-	        <img max-width="90%" width="90%" id="Imagen 3" src="help/simulator/assembly002.jpg" alt="" name="Imagen 3" />
+	        <img max-width="90%" width="90%" id="Imagen 3" src="help/simulator/assembly002a.jpg" alt="" name="Imagen 3" />
 	      </p>
 	      <p class="cleanuphtml-2">
 	        <a name="_Toc438322909"></a><a class="cleanuphtml-1" name="_Toc434155501">Figura</a> <b>20</b> <b>Pantalla principal: opci&oacute;n de carga de c&oacute;digo ensamblador</b>
@@ -564,37 +564,31 @@ register 5 >= 8 ; memory 1 = 0x10; screen 0 == first_line
 
       <div id="help_dumper">
 
-              El panel 'Current state' muestra a los usuarios el estado actual como
-              una lista de los valores en los distintos elementos del hardware que no son cero.
+              El panel 'Current state' muestra por defecto el estado actual de la m&aacute;quina simulada.
+	      El estado de la m&aacute; simulada es una lista de los distintos elementos del hardware y su valor asociado.
+	      Para simplificar, esta lista se define como los valores que no son cero.
               Por defecto toda posición de memoria, valor de registro, etc. vale cero (y no se muestra),
-              pero los valores que sean distintos de cero son mostrados en el panel.
-
-              Dicha lista también puede verse como los requisitos principales tras la ejecuci&oacute;n 
-              de un c&oacute;digo, por lo que sirve para comparar y comprobar que es correcto 
-              (igual al estado esperado).
-
-              En este panel los usuarios pueden copiar estos requisitos al portapapeles o
-              también almacenar estos requisitos en el historial ('History').
-	      <ul>
-	        Por ejemplo:<br>
-	        <textarea aria-label="checks to perform" rows="2">
+	      pero los valores que sean distintos de cero son mostrados en el panel.<br>
+	      Por ejemplo:<br>
+	        <textarea aria-label="checks to perform" rows="2" class="w-50">
 register 5 >= 8 ; memory 1 = 0x10; screen 0 == first_line
 	        </textarea>
-	      </ul>
-
-              El panel 'History' permite a los usuarios llevar la pista con conjuntos de 
-              requisitos principales en diferentes ciclos de reloj de CPU.
-              Puede usarse para ver las diferencias del estado del procesador en dos momentos del tiempo.
-              Los requisitos principales en un instante pueden copiarse al portapapeles, 
-              y también se puede comparar los requisitos principales con los almacenados en el portapapeles.
-	      <p>
-
-              Por favor recuerde tres detalles importantes:
+	      <br>
 	      <ul>
-	         <li><em>Los puntos y coma son necesarios como separador de requisitos.</em></li>
-	         <li><em>Tenga cuidado porque las barras de scroll suelen estar ocultas.</em></li>
-	         <li><em>Solo se muestran los valores distintos entre dos estados.</em></li>
+                Por favor recuerde dos detalles importantes:
+	        <li><em>Los puntos y coma son necesarios como separador de requisitos.</em></li>
+	        <li><em>Tenga cuidado porque las barras de scroll suelen estar ocultas.</em></li>
 	      </ul>
+
+	      Este 'Estado actual' puede modificarse, copiarse al portapapeles o almacenarse en el panel de 'Historial'.
+              El panel 'History' permite a los usuarios llevar la pista de los estados en diferentes ciclos de reloj de CPU.
+              El panel de 'Difference' permite mostrar las diferencias entre dos estados.
+              Solo se muestran los valores distintos entre dos estados.
+
+	      <p>
+              Los pasos t&iacute;picos para el uso son:<br>
+	      <img class="w-75" 
+	           src="https://raw.githubusercontent.com/acaldero/wepsim/master/help/welcome/states_usage.gif">
 
       </div>
 
