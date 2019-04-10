@@ -38,11 +38,14 @@
             , text = doc.getElementById(element)
             , range, selection
         ;    
-        if (doc.body.createTextRange) {
+        if (doc.body.createTextRange) 
+	{
             range = document.body.createTextRange();
             range.moveToElementText(text);
             range.select();
-        } else if (window.getSelection) {
+        } 
+	else if (window.getSelection) 
+	{
             selection = window.getSelection();        
             range = document.createRange();
             range.selectNodeContents(text);
@@ -53,16 +56,22 @@
 
     function CopyFromDiv ( element_name )
     {
-	    var msg = 'successful' ;
+	    var msg = 'unsuccessful' ;
 
-	    try {
+	    try
+	    {
                  SelectText(element_name) ;
-                 document.execCommand('copy') ;
-		 clipboard_copy = $('#' + element_name).text() ;
+
+                 if (document.execCommand('copy')) 
+		 {
+		     clipboard_copy = $('#' + element_name).text() ;
+		     msg = 'successful' ;
+		 }
 	    } 
-            catch (err) {
-		 msg = 'unsuccessful' ;
-	    }
+	    catch (e)
+	    {
+		 msg += msg + ' because ' + e ;
+	    } 
 
 	    wepsim_notify_success('<strong>INFO</strong>', 
                                   'Copied ' + msg + '!.') ;

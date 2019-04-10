@@ -239,10 +239,10 @@
 		        '    </span>' +
 		        '    <div class="btn-group btn-group-md float-right align-top">' +
                         '           <button type="button" ' + 
-		        '                   class="btn btn-sm btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+		        '                   class="btn btn-md btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                         '              <span class="sr-only">Toggle Dropdown</span>' +
                         '           </button>' +
-                        '           <div class="dropdown-menu bg-info">' +
+                        '           <div class="dropdown-menu bg-info" style="z-index:1024;">' +
 		        '             <a onclick="$(\'#example1\').modal(\'hide\'); ' + 
                         '                        load_from_example_assembly(\'' + t_hwmcasm + '\',false);' + 
 		        '                        return false;"' + 
@@ -251,7 +251,9 @@
                         '                        load_from_example_firmware(\'' + t_hwmcasm + '\',false);' + 
 		        '                        return false;"' + 
 		        '                class="dropdown-item text-white bg-info" href="#"><c>Load Firmware only</c></a>' +
-		        '             <a onclick="CopyFromDiv(\'#example_reference_' + e_id + '\');' +
+		        '             <a onclick="$(\'#example_reference_' + e_id + '\').removeClass(\'d-none\');' +
+		        '                         CopyFromDiv(\'example_reference_' + e_id + '\');' +
+		        '                         $(\'#example_reference_' + e_id + '\').addClass(\'d-none\');' +
 		        '                         $(\'#example1\').modal(\'hide\'); ' + 
                         '                         return false;"' + 
 		        '                class="dropdown-item text-white bg-info" href="#"><c>Copy reference to clipboard</c></a>' +
