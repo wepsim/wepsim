@@ -932,81 +932,72 @@
 
 <!-- load/save microcode+assembly+comment -->
 <div class="modal" id="lssave3" tabindex="-1" role="dialog" aria-labelledby="lssave3" aria-hidden="true">
-     <div class="modal-dialog modal-lg">
+     <div class="modal-dialog modal-lg" style="height:80vh;">
      <div class="modal-content">
+
      <div class="modal-header bg-dark">
 	<strong class="modal-title text-white"><span data-langkey="Checkpoint">Checkpoint</span></strong>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" class="text-white font-weight-bold">&times;</span>
         </button>
      </div>
+
      <div class="modal-body">
-	<div class="card-deck">
-	   <div class="card">
-	      <div class="card-header">
-		<h5 class="card-title m-0"><span data-langkey="Save Checkpoint">Save Checkpoint</span></h5>
+	<div class="container-fluid" style="max-height:75vh; padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
+	<div class="card-deck m-0">
+	   <div class="card border-secondary">
+	      <div class="card-header border-secondary p-2">
+		<h5 class="card-title m-0">
+			<span data-langkey="Save Checkpoint">Save Checkpoint</span>
+		        <button class="btn btn-sm btn-dark mx-auto float-right d-sm-none d-xs-block"
+		  	        onclick="wepsim_checkpoint_save('FileNameToSaveAs', 'tagToSave');
+				         return false;"><span data-langkey="Save">Save</span></button>
+		</h5>
 	      </div>
 	      <div class="card-body">
-			<label for="FileNameToSaveAs"><em>Please write the file name:</em></label>
+			<label for="FileNameToSaveAs"><em>File name:</em></label>
 			<p><input aria-label="filename to save content" id="FileNameToSaveAs"
 				  class="form-control btn-outline-dark" placeholder="File name where checkpoint will be saved" style="min-width: 90%;"/></p>
-			<label for="tagToSave"><em>Please write the associated tag (if any):</em></label>
-			<p><input aria-label="tag to save" id="tagToSave"
-				  class="form-control btn-outline-dark" placeholder="Tag associated to save (if any)" style="min-width: 90%;"/></p>
+			<label for="tagToSave"><em>Tag for checkpoint:</em></label>
+			<p><input aria-label="associated tag to be saved" id="tagToSave"
+				  class="form-control btn-outline-dark" placeholder="Associated tag to be saved (if any)" style="min-width: 90%;"/></p>
 	      </div>
-	      <div class="card-footer">
-		<button class="btn btn-sm btn-dark mx-auto d-flex justify-content-cente"
-			onclick="var FileNameToSaveAs = document.getElementById('FileNameToSaveAs').value;
-				 var tagToSave        = document.getElementById('tagToSave').value;
-				 var state_obj        = simcore_simstate_current2state();
-				 var checkpointObj    = { firmware:inputfirm.getValue(), 
-						          assembly:inputasm.getValue(), 
-						          state:state_obj, 
-						          tag:tagToSave };
-				 wepsim_save_to_file(JSON.stringify(checkpointObj, null, 2), FileNameToSaveAs);
+	      <div class="card-footer border-secondary d-none d-sm-block">
+		<button class="btn btn-dark mx-auto d-flex justify-content-center"
+			onclick="wepsim_checkpoint_save('FileNameToSaveAs', 'tagToSave');
 				 return false;">Save File</button>
 	      </div>
 	   </div>
-	   <div class="card">
-	      <div class="card-header">
-		<h5 class="card-title m-0"><span data-langkey="Restore Checkpoint">Restore Checkpoint</span></h5>
+	   <div class="card border-secondary">
+	      <div class="card-header border-secondary p-2">
+		<h5 class="card-title m-0">
+			<span data-langkey="Restore Checkpoint">Restore Checkpoint</span>
+		        <button class="btn btn-sm btn-dark mx-auto float-right d-sm-none d-xs-block"
+				onclick="wepsim_checkpoint_load('FileNameToSaveAs', 'tagToSave', 'fileToLoad3');
+					 $('#lssave3').modal('hide');
+					 return false;"><span data-langkey="Load">Load</span></button>
+		</h5>
 	      </div>
 	      <div class="card-body">
-			<label for="fileToLoad3"><em>Please select the file to be loaded:</em></label>
+			<label for="fileToLoad3"><em>File to be loaded:</em></label>
 			<p><input aria-label="file to load" type="file" id="fileToLoad3" class="dropify"/></p>
 	      </div>
-	      <div class="card-footer">
-		<button class="btn btn-sm btn-dark mx-auto d-flex justify-content-cente"
-			onclick="var fileToLoad = document.getElementById('fileToLoad3').files[0];
-				 wepsim_load_from_file(fileToLoad,
-						       function(textLoaded) {
-							     var checkpointObj = JSON.parse(textLoaded);
-                                                             // load into forms
-							     inputfirm.setValue(checkpointObj.firmware);
-							      inputasm.setValue(checkpointObj.assembly);
-							     var txt_checklist = simcore_simstate_state2checklist(checkpointObj.state) ;
-							     $('#end_state1').tokenfield('setTokens', txt_checklist);
-                                                             // copy to save-checkpoint part
-							     document.getElementById('tagToSave').value        = checkpointObj.tag;
-							     document.getElementById('FileNameToSaveAs').value = fileToLoad.name;
-							     // restore checkpointObj.ui-state (simulator:screen)
-							        // TODO
-                                                             // compile
-							     wepsim_compile_firmware(checkpointObj.firmware);
-							     wepsim_compile_assembly(checkpointObj.assembly);
-                                                             // notify
-	                                                     simcoreui_notify('Tag', checkpointObj.tag, 'info', 0) ;
-						       });
+	      <div class="card-footer border-secondary d-none d-sm-block">
+		<button class="btn btn-dark mx-auto d-flex justify-content-center"
+			onclick="wepsim_checkpoint_load('FileNameToSaveAs', 'tagToSave', 'fileToLoad3');
 			         $('#lssave3').modal('hide');
 				 return false;">Load from this File</button>
 	      </div>
 	    </div>
 	</div>
+	</div>
      </div>
+
      <div class="modal-footer" style="flex-wrap: wrap">
-	<button class="btn btn-sm btn-danger my-1"
+	<button class="btn btn-danger my-1"
 		type="button" data-dismiss="modal"><span data-langkey="Close">Close</span></button>
      </div>
+
      </div>
      </div>
 </div>
