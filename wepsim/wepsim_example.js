@@ -234,10 +234,10 @@
                         '    <c>' + e_description + '</c>' +
                         '</div>' +
                         '<div class="col-sm-auto">' +
-		        '     <span id="example_reference_' + e_id + '" class="d-none">' +
+		        '    <span id="example_reference_' + e_id + '" class="d-none">' +
 		        'https://acaldero.github.io/wepsim/ws_dist/wepsim-classic.html?mode=' + e_hw + '&example=' + e_id +
-		        '     </span>' +
-		        '     <div class="btn-group btn-group-justified btn-group-md border border-dark">' +
+		        '    </span>' +
+		        '    <div class="btn-group btn-group-md float-right align-top">' +
                         '           <button type="button" ' + 
 		        '                   class="btn btn-sm btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                         '              <span class="sr-only">Toggle Dropdown</span>' +
@@ -251,12 +251,12 @@
                         '                        load_from_example_firmware(\'' + t_hwmcasm + '\',false);' + 
 		        '                        return false;"' + 
 		        '                class="dropdown-item text-white bg-info" href="#"><c>Load Firmware only</c></a>' +
-		        '             <a onclick="$(\'#example1\').modal(\'hide\'); ' + 
-		        '                        CopyFromDiv(\'#example_reference_' + e_id + '\');' +
-                        '                        return false;"' + 
+		        '             <a onclick="CopyFromDiv(\'#example_reference_' + e_id + '\');' +
+		        '                         $(\'#example1\').modal(\'hide\'); ' + 
+                        '                         return false;"' + 
 		        '                class="dropdown-item text-white bg-info" href="#"><c>Copy reference to clipboard</c></a>' +
                         '           </div>' +
-		        '     </div>' +
+		        '    </div>' +
                         '</div>' +
 	                '</div>' ;
        }
