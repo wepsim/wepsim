@@ -29,7 +29,7 @@
                        hardware:  "ep",
                        microcode: "ep_base",
                        assembly:  "ep_s1_e1",
-                       description: "Ejemplo simple con fetch, instrucciones aritm&eacute;ticas y segmento de c&oacute;digo b&aacute;sico.<br>"
+                       description: "Ejemplo simple con fetch, instrucciones aritm&eacute;ticas y segmento de c&oacute;digo b&aacute;sico."
                      });
 
     examples.es.push({
@@ -40,7 +40,7 @@
                        hardware:  "ep",
                        microcode: "ep_base",
                        assembly:  "ep_s1_e2",
-                       description: "Ejemplo simple con fetch, acceso a memoria y segmento de c&oacute;digo/datos b&aacute;sico.<br>"
+                       description: "Ejemplo simple con fetch, acceso a memoria y segmento de c&oacute;digo/datos b&aacute;sico."
                      });
 
     examples.es.push({
@@ -51,7 +51,7 @@
                        hardware:  "ep",
                        microcode: "ep_enhanced",
                        assembly:  "ep_s1_e3",
-                       description: "Ejemplo simple con fetch, salto y segmento de c&oacute;digo b&aacute;sico.<br>"
+                       description: "Ejemplo simple con fetch, salto y segmento de c&oacute;digo b&aacute;sico."
                      });
 
     examples.es.push({
@@ -62,7 +62,7 @@
                        hardware:  "ep",
                        microcode: "ep_enhanced",
                        assembly:  "ep_s1_e4",
-                       description: "Ejemplo simple con fetch, salto y segmento de datos/c&oacute;digo b&aacute;sico.<br>"
+                       description: "Ejemplo simple con fetch, salto y segmento de datos/c&oacute;digo b&aacute;sico."
                      });
 
     examples.es.push({
@@ -73,7 +73,7 @@
                        hardware:  "ep",
                        microcode: "ep_base",
                        assembly:  "ep_s2_e1",
-                       description: "Ejemplo ampliado con E/S programada, segmento de datos/c&oacute;digo b&aacute;sico.<br>"
+                       description: "Ejemplo ampliado con E/S programada, segmento de datos/c&oacute;digo b&aacute;sico."
                      });
 
     examples.es.push({
@@ -84,7 +84,7 @@
                        hardware:  "ep",
                        microcode: "ep_enhanced",
                        assembly:  "ep_s2_e2",
-                       description: "Ejemplo ampliado con m&aacute;s instrucciones y E/S (keyboard, display).<br>"
+                       description: "Ejemplo ampliado con m&aacute;s instrucciones y E/S (keyboard, display)."
                      });
 
     examples.es.push({
@@ -95,7 +95,7 @@
                        hardware:  "ep",
                        microcode: "ep_s2_e3",
                        assembly:  "ep_s2_e3",
-                       description: "Ejemplo ampliado con m&aacute;scaras, desplazamientos y segmento de datos/c&oacute;digo b&aacute;sico.<br>"
+                       description: "Ejemplo ampliado con m&aacute;scaras, desplazamientos y segmento de datos/c&oacute;digo b&aacute;sico."
                      });
 
     examples.es.push({
@@ -106,7 +106,7 @@
                        hardware:  "ep",
                        microcode: "ep_s2_e4",
                        assembly:  "ep_s2_e4",
-                       description: "Ejemplo ampliado con subrutina y matriz.<br>"
+                       description: "Ejemplo ampliado con subrutina y matriz."
                      });
 
     examples.es.push({
@@ -117,7 +117,7 @@
                        hardware:  "ep",
                        microcode: "ep_s3_e1",
                        assembly:  "ep_s3_e1",
-                       description: "<b>Instructive</b> example con interrupciones: fetch, RETI y .ktext/.kdata.<br>"
+                       description: "<b>Instructive</b> example con interrupciones: fetch, RETI y .ktext/.kdata."
                      });
 
     examples.es.push({
@@ -128,7 +128,7 @@
                        hardware:  "ep",
                        microcode: "ep_s3_e2",
                        assembly:  "ep_s3_e2",
-                       description: "<b>Instructive</b> example con llamada al sistema.<br>"
+                       description: "<b>Instructive</b> example con llamada al sistema."
                      });
 
     examples.es.push({
@@ -139,7 +139,7 @@
                        hardware:  "ep",
                        microcode: "ep_s3_e3",
                        assembly:  "ep_s3_e3",
-                       description: "<b>Instructive</b> example con excepci&oacute;n de coma flotante.<br>"
+                       description: "<b>Instructive</b> example con excepci&oacute;n de coma flotante."
                      });
 
     examples.es.push({
@@ -150,7 +150,7 @@
                        hardware:  "ep",
                        microcode: "ep_s4_e1",
                        assembly:  "ep_s4_e1",
-                       description: "Ejemplo avanzado con interrupci&oacute;n, llamada al sistema y excepci&oacute;n.<br>"
+                       description: "Ejemplo avanzado con interrupci&oacute;n, llamada al sistema y excepci&oacute;n."
                      });
 
     examples.es.push({
@@ -161,7 +161,7 @@
                        hardware:  "ep",
                        microcode: "ep_os",
                        assembly:  "ep_s4_e2",
-                       description: "Ejemplo de llamada al sistema para imprimir/leer entero y cadena de caracteres.<br>"
+                       description: "Ejemplo de llamada al sistema para imprimir/leer entero y cadena de caracteres."
                      });
 
     examples.es.push({
@@ -172,7 +172,7 @@
                        hardware:  "ep",
                        microcode: "ep_os",
                        assembly:  "ep_s4_e3",
-                       description: "Ejemplo de hilos.<br>"
+                       description: "Ejemplo de hilos."
                      });
 
     examples.es.push({
@@ -183,7 +183,7 @@
                        hardware:  "ep",
                        microcode: "ep_os",
                        assembly:  "ep_s4_e4",
-                       description: "Ejemplo de malloc y free.<br>"
+                       description: "Ejemplo de malloc y free."
                      });
 
     examples.es.push({
@@ -194,7 +194,7 @@
                        hardware:  "ep",
                        microcode: "ep_s5_e1",
                        assembly:  "ep_s5_e1",
-                       description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: addv + seqv.<br>"
+                       description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: addv + seqv."
                      });
 
     examples.es.push({
@@ -205,7 +205,7 @@
                        hardware:  "ep",
                        microcode: "ep_s5_e2",
                        assembly:  "ep_s5_e2",
-                       description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: strlen_2 + skipasciicode_2.<br>"
+                       description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: strlen_2 + skipasciicode_2."
                      });
 
     examples.es.push({
@@ -216,7 +216,7 @@
                        hardware:  "ep",
                        microcode: "ep_s5_e3",
                        assembly:  "ep_s5_e3",
-                       description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: madd + mmul + mxch.<br>"
+                       description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: madd + mmul + mxch."
                      });
 
     examples.es.push({
@@ -227,7 +227,7 @@
                        hardware:  "ep",
                        microcode: "ep_bare",
                        assembly:  "ep_s6_e1",
-                       description: "Ejemplo para pruebas.<br>"
+                       description: "Ejemplo para pruebas."
                      });
 
 
@@ -241,7 +241,7 @@
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s1_e1",
-                       description: "Ejemplo simple con fetch, instrucciones aritm&eacute;ticas y segmento de c&oacute;digo b&aacute;sico.<br>"
+                       description: "Ejemplo simple con fetch, instrucciones aritm&eacute;ticas y segmento de c&oacute;digo b&aacute;sico."
                      });
 
     examples.es.push({
@@ -252,7 +252,7 @@
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s1_e2",
-                       description: "Ejemplo simple con fetch, acceso a memoria y segmento de c&oacute;digo/datos b&aacute;sico.<br>"
+                       description: "Ejemplo simple con fetch, acceso a memoria y segmento de c&oacute;digo/datos b&aacute;sico."
                      });
 
     examples.es.push({
@@ -263,7 +263,7 @@
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s1_e3",
-                       description: "Ejemplo simple con fetch, salto y segmento de c&oacute;digo b&aacute;sico.<br>"
+                       description: "Ejemplo simple con fetch, salto y segmento de c&oacute;digo b&aacute;sico."
                      });
 
     examples.es.push({
@@ -274,7 +274,7 @@
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s1_e4",
-                       description: "Ejemplo simple con fetch, salto y segmento de datos/c&oacute;digo b&aacute;sico.<br>"
+                       description: "Ejemplo simple con fetch, salto y segmento de datos/c&oacute;digo b&aacute;sico."
                      });
 
     examples.es.push({
@@ -285,7 +285,7 @@
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s2_e1",
-                       description: "Ejemplo ampliado con E/S programada, segmento de datos/c&oacute;digo b&aacute;sico.<br>"
+                       description: "Ejemplo ampliado con E/S programada, segmento de datos/c&oacute;digo b&aacute;sico."
                      });
 
 /*
@@ -297,7 +297,7 @@
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s2_e2",
-                       description: "Ejemplo ampliado con m&aacute;s instrucciones y E/S (keyboard, display).<br>"
+                       description: "Ejemplo ampliado con m&aacute;s instrucciones y E/S (keyboard, display)."
                      });
 */
 
@@ -309,7 +309,7 @@
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s2_e3",
-                       description: "Ejemplo ampliado con m&aacute;scaras, desplazamientos y segmento de datos/c&oacute;digo b&aacute;sico.<br>"
+                       description: "Ejemplo ampliado con m&aacute;scaras, desplazamientos y segmento de datos/c&oacute;digo b&aacute;sico."
                      });
 
     examples.es.push({
@@ -320,7 +320,7 @@
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s2_e4",
-                       description: "Ejemplo ampliado con subrutina y matriz.<br>"
+                       description: "Ejemplo ampliado con subrutina y matriz."
                      });
 
     examples.es.push({
@@ -331,7 +331,7 @@
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s3_e1",
-                       description: "Ejemplo con interrupciones: fetch, RETI y .ktext/.kdata.<br>"
+                       description: "Ejemplo con interrupciones: fetch, RETI y .ktext/.kdata."
                      });
 
     examples.es.push({
@@ -342,7 +342,7 @@
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s3_e2",
-                       description: "Ejemplo con llamada al sistema.<br>"
+                       description: "Ejemplo con llamada al sistema."
                      });
 
     examples.es.push({
@@ -353,7 +353,7 @@
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s3_e3",
-                       description: "Ejemplo con excepci&oacute;n de coma flotante.<br>"
+                       description: "Ejemplo con excepci&oacute;n de coma flotante."
                      });
 
     examples.es.push({
@@ -364,7 +364,7 @@
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s3_e4",
-                       description: "Ejemplo avanzado con interrupci&oacute;n, llamada al sistema y excepci&oacute;n.<br>"
+                       description: "Ejemplo avanzado con interrupci&oacute;n, llamada al sistema y excepci&oacute;n."
                      });
 
     examples.es.push({
@@ -375,7 +375,7 @@
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s4_e2",
-                       description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: strlen_2 + skipasciicode_2.<br>"
+                       description: "Extensiones espec&iacute;ficas de aplicaci&oacute;n: strlen_2 + skipasciicode_2."
                      });
 
     examples.es.push({
@@ -386,7 +386,7 @@
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s4_e4",
-                       description: "Ejemplo de llamada al sistema para imprimir/leer entero y cadena de caracteres.<br>"
+                       description: "Ejemplo de llamada al sistema para imprimir/leer entero y cadena de caracteres."
                      });
 
     // POC
@@ -399,7 +399,7 @@
                        hardware:  "poc",
                        microcode: "poc_base",
                        assembly:  "poc_s1_e1",
-                       description: "Ejemplo simple.<br>"
+                       description: "Ejemplo simple."
                      });
 
     examples.es.push({
@@ -410,7 +410,7 @@
                        hardware:  "poc",
                        microcode: "poc_base",
                        assembly:  "ep_s1_e2",
-                       description: "Ejemplo simple con fetch, acceso a memoria y segmento de c&oacute;digo/datos b&aacute;sico.<br>"
+                       description: "Ejemplo simple con fetch, acceso a memoria y segmento de c&oacute;digo/datos b&aacute;sico."
                      });
 
     examples.es.push({
@@ -421,7 +421,7 @@
                        hardware:  "poc",
                        microcode: "poc_base",
                        assembly:  "ep_s1_e3",
-                       description: "Ejemplo simple con fetch, salto y segmento de c&oacute;digo b&aacute;sico.<br>"
+                       description: "Ejemplo simple con fetch, salto y segmento de c&oacute;digo b&aacute;sico."
                      });
 
     examples.es.push({
@@ -432,7 +432,7 @@
                        hardware:  "poc",
                        microcode: "poc_base",
                        assembly:  "ep_s1_e4",
-                       description: "Ejemplo simple con fetch, salto y segmento de datos/c&oacute;digo b&aacute;sico.<br>"
+                       description: "Ejemplo simple con fetch, salto y segmento de datos/c&oacute;digo b&aacute;sico."
                      });
 
     examples.es.push({
@@ -443,7 +443,7 @@
                        hardware:  "poc",
                        microcode: "poc_base",
                        assembly:  "ep_s2_e1",
-                       description: "Ejemplo ampliado con E/S programada, segmento de datos/c&oacute;digo b&aacute;sico.<br>"
+                       description: "Ejemplo ampliado con E/S programada, segmento de datos/c&oacute;digo b&aacute;sico."
                      });
 
     examples.es.push({
@@ -454,7 +454,7 @@
                        hardware:  "poc",
                        microcode: "poc_base",
                        assembly:  "ep_s2_e2",
-                       description: "Ejemplo ampliado con m&aacute;s instrucciones y E/S (keyboard, display).<br>"
+                       description: "Ejemplo ampliado con m&aacute;s instrucciones y E/S (keyboard, display)."
                      });
 
     examples.es.push({
@@ -465,7 +465,7 @@
                        hardware:  "poc",
                        microcode: "poc_base",
                        assembly:  "ep_s2_e3",
-                       description: "Ejemplo ampliado con m&aacute;scaras, desplazamientos y segmento de datos/c&oacute;digo b&aacute;sico.<br>"
+                       description: "Ejemplo ampliado con m&aacute;scaras, desplazamientos y segmento de datos/c&oacute;digo b&aacute;sico."
                      });
 
     examples.es.push({
@@ -476,7 +476,7 @@
                        hardware:  "poc",
                        microcode: "poc_base",
                        assembly:  "ep_s2_e4",
-                       description: "Ejemplo ampliado con subrutina y matriz.<br>"
+                       description: "Ejemplo ampliado con subrutina y matriz."
                      });
 
     examples.es.push({
@@ -487,7 +487,7 @@
                        hardware:  "poc",
                        microcode: "poc_s3",
                        assembly:  "ep_s3_e1",
-                       description: "<b>Instructive</b> example con interrupciones: fetch, RETI y .ktext/.kdata.<br>"
+                       description: "<b>Instructive</b> example con interrupciones: fetch, RETI y .ktext/.kdata."
                      });
 
     examples.es.push({
@@ -498,7 +498,7 @@
                        hardware:  "poc",
                        microcode: "poc_s3",
                        assembly:  "ep_s3_e2",
-                       description: "<b>Instructive</b> example con llamada al sistema.<br>"
+                       description: "<b>Instructive</b> example con llamada al sistema."
                      });
 
     examples.es.push({
@@ -509,7 +509,7 @@
                        hardware:  "poc",
                        microcode: "poc_s3",
                        assembly:  "ep_s3_e3",
-                       description: "<b>Instructive</b> example con excepci&oacute;n de coma flotante.<br>"
+                       description: "<b>Instructive</b> example con excepci&oacute;n de coma flotante."
                      });
 
     examples.es.push({
@@ -520,7 +520,7 @@
                        hardware:  "poc",
                        microcode: "poc_os",
                        assembly:  "ep_s4_e1",
-                       description: "Ejemplo avanzado con interrupci&oacute;n, llamada al sistema y excepci&oacute;n.<br>"
+                       description: "Ejemplo avanzado con interrupci&oacute;n, llamada al sistema y excepci&oacute;n."
                      });
 
     examples.es.push({
@@ -531,7 +531,7 @@
                        hardware:  "poc",
                        microcode: "poc_os",
                        assembly:  "ep_s4_e2",
-                       description: "Ejemplo de llamada al sistema para imprimir/leer entero y cadena de caracteres.<br>"
+                       description: "Ejemplo de llamada al sistema para imprimir/leer entero y cadena de caracteres."
                      });
 
     examples.es.push({
@@ -542,7 +542,7 @@
                        hardware:  "poc",
                        microcode: "poc_os",
                        assembly:  "ep_s4_e3",
-                       description: "Ejemplo de hilos.<br>"
+                       description: "Ejemplo de hilos."
                      });
 
     examples.es.push({
@@ -553,7 +553,7 @@
                        hardware:  "poc",
                        microcode: "poc_os",
                        assembly:  "ep_s4_e4",
-                       description: "Ejemplo de malloc y free.<br>"
+                       description: "Ejemplo de malloc y free."
                      });
 
     examples.es.push({
@@ -564,6 +564,6 @@
                        hardware:  "poc",
                        microcode: "poc_bare",
                        assembly:  "poc_s5_e1",
-                       description: "Ejemplo para pruebas.<br>"
+                       description: "Ejemplo para pruebas."
                      });
 
