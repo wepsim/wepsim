@@ -251,9 +251,9 @@
                         '                        load_from_example_firmware(\'' + t_hwmcasm + '\',false);' + 
 		        '                        return false;"' + 
 		        '                class="dropdown-item text-white bg-info" href="#"><c>Load Firmware only</c></a>' +
-		        '             <a onclick="$(\'#example1\').modal(\'hide\'); ' + 
-		        '                        CopyFromDiv(\'#example_reference_' + e_id + '\');' +
-                        '                        return false;"' + 
+		        '             <a onclick="CopyFromDiv(\'#example_reference_' + e_id + '\');' +
+		        '                         $(\'#example1\').modal(\'hide\'); ' + 
+                        '                         return false;"' + 
 		        '                class="dropdown-item text-white bg-info" href="#"><c>Copy reference to clipboard</c></a>' +
                         '           </div>' +
 		        '    </div>' +
