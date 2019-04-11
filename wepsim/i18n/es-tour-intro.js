@@ -22,16 +22,26 @@
     tour_steps.es = [
                         // 0
 			{
-			   intro: "¡Bienvenido+a a WepSIM!<br>" + 
+			   intro: " Welcome to WepSIM!<br>" +
+                                  " ¡Bienvenido a WepSIM!<br> " +
                                   "<br>" +
-                                  "WepSIM ayudar&aacute; a entender mejor c&oacute;mo funciona un computador: " + 
+                                  "<a class=\"btn btn-sm btn-outline-dark mx-2\" href=\"#\"" +
+                                  "   onclick=\"set_cfg('ws_idiom','es'); save_cfg(); i18n_update_tags('gui','es'); tour.exit(); wepsim_newbie_tour();\">Spanish</a>" +
+                                  "<a class=\"btn btn-sm btn-outline-dark mx-2\" href=\"#\"" +
+                                   "  onclick=\"set_cfg('ws_idiom','en'); save_cfg(); i18n_update_tags('gui','en'); tour.exit(); wepsim_newbie_tour();\">English</a>" +
+                                  "<br>",
+			   position: 'auto'
+			},
+                        // 1
+			{
+			   intro: "WepSIM ayudar&aacute; a entender mejor c&oacute;mo funciona un computador: " + 
                                   "es visual, interactivo, integra interrupciones, llamadas al sistema, etc. <br>" +
                                   "<br>" +
                                   "Nosotros realmente creemos que WepSIM es una herramienta revolucionaria. " +
                                   "Este breve tour le muestra las partes clave de la interfaz de WepSIM.",
 			   position: 'top'
 			},
-                        // 1
+                        // 2
 			{
 			   element: '#select4',
                            intro: "En la esquina superior derecha est&aacute; el selector de 'modo de ejecuci&oacute;n'.<br>" + 
@@ -40,7 +50,7 @@
                                   "O tambi&eacute;n el tutorial inicial, recomendado para principiantes.",
 			   position: 'top'
 			},
-                        // 2
+                        // 3
 			{
 			   element: '#btn_help1',
                            intro: "En la esquina superior derecha el bot&oacute;n de ayuda abre el panel de ayuda asociado.<br>" +
@@ -48,7 +58,7 @@
                                   "El cuadro de di&aacute;logo permite el acceso a tutoriales, informaci&oacute;n, etc.",
 			   position: 'top'
 			},
-                        // 3
+                        // 4
 			{
 			   element: '#btn_example1',
                            intro: "En la esquina superior izquierda, el bot&oacute;n de 'ejemplos' abre el panel asociado.<br>" +
@@ -56,7 +66,7 @@
                                   "Hay muchos ejemplos muy &uacute;tiles para el aprendizaje incremental.",
 			   position: 'top'
 			},
-                        // 4
+                        // 5
 			{
 			   element: '#btn_cfg1',
                            intro: "En la esquina superior izquierda est&aacute; el bot&oacute;n de configuracion que abre el cuadro de di&aacute;logo de la configuraci&oacute;n.<br>" +
@@ -64,7 +74,7 @@
                                   "Con la configuraci&oacute;ón se puede adaptar distintos aspectos de ejecuci&oacute;n, interfaz de usuario/a, preferencias, etc.",
 			   position: 'top'
 			},
-                        // 5
+                        // 6
 			{
                            intro: "¡Felicidades!. Ya conoce las partes clave de la interfaz de WepSIM.<br>" +
                                   "Desde el panel de 'Ayuda' puede acceder al 'Tutorial de bienvenida'. para continuar aprendiendo.<br>",
