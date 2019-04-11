@@ -879,7 +879,7 @@
 			<p><input aria-label="associated tag to be saved" id="tagToSave"
 				  class="form-control btn-outline-dark" placeholder="Associated tag to be saved (if any)" style="min-width: 90%;"/></p>
 	      </div>
-	      <div class="card-footer border-secondary d-none d-sm-block">
+	      <div class="card-footer border-secondary d-none d-sm-block p-2">
 		  <button class="btn btn-dark mx-auto d-flex justify-content-center"
 		  	  onclick="wepsim_checkpoint_save('FileNameToSaveAs', 'tagToSave');
 				   return false;">Save File</button>
@@ -897,9 +897,9 @@
 	      </div>
 	      <div class="card-body">
 			<label for="fileToLoad3"><em>File to be loaded:</em></label>
-			<p><input aria-label="file to load" type="file" id="fileToLoad3" class="dropify"/></p>
+			<p><input aria-label="file to load" type="file" id="fileToLoad3" class="dropify" data-height="25vh" /></p>
 	      </div>
-	      <div class="card-footer border-secondary d-none d-sm-block">
+	      <div class="card-footer border-secondary d-none d-sm-block p-2">
 		  <button class="btn btn-dark mx-auto d-flex justify-content-center"
 			  onclick="wepsim_checkpoint_load('FileNameToSaveAs', 'tagToSave', 'fileToLoad3');
 			           $('#lssave3').modal('hide');
