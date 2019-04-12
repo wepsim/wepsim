@@ -72,15 +72,16 @@ cat wepsim_i18n/i18n.js \
     wepsim_core/wepsim_example.js \
     wepsim_core/wepsim_execute.js \
     wepsim_core/wepsim_help.js \
+    wepsim_core/wepsim_clipboard.js \
     wepsim_core/wepsim_state.js \
     wepsim_core/wepsim_tutorial.js \
     wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_voice_commands.js \
     wepsim_core/wepsim_voice.js \
     \
-    wepsim/wepsim_ws_simulator.js \
-    wepsim/wepsim_ws_editor.js \
-    wepsim/wepsim_misc.js > ws_dist/wepsim_web.js
+    wepsim/wepsim_web_simulator.js \
+    wepsim/wepsim_web_editor.js \
+    wepsim/wepsim_web_misc.js > ws_dist/wepsim_web.js
 /usr/bin/yui-compressor -o ws_dist/min.wepsim_web.js ws_dist/wepsim_web.js
 rm -fr ws_dist/wepsim_web.js
 
@@ -156,10 +157,10 @@ cp -a images    ws_dist/
 cp -a help      ws_dist/
 
 #  user interface
-cp   wepsim/wepsim-classic.html   ws_dist/index.html
-cp   wepsim/wepsim-classic.html   ws_dist/wepsim-classic.html
-cp   wepsim/wepsim-compact.html   ws_dist/wepsim-compact.html
-cp   wepsim/wepsim_pwa.js         ws_dist/min.wepsim_pwa.js
+cp   wepsim/wepsim_web_classic.html   ws_dist/index.html
+cp   wepsim/wepsim_web_classic.html   ws_dist/wepsim-classic.html
+cp   wepsim/wepsim_web_compact.html   ws_dist/wepsim-compact.html
+cp   wepsim/wepsim_web_pwa.js         ws_dist/min.wepsim_web_pwa.js
 
 cp manifest.webapp        ws_dist/
 cp wepsim/wepsim_node.sh  ws_dist/

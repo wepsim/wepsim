@@ -33,15 +33,16 @@ jshint ./sim_hw/sim_hw_ep/sim_hw_scr.js
 jshint ./wepsim_core/wepsim_tutorial.js
 jshint ./wepsim_core/wepsim_voice.js
 jshint ./wepsim_core/wepsim_help.js
+jshint ./wepsim_core/wepsim_state.js
 jshint ./wepsim_core/wepsim_config.js
 jshint ./wepsim_core/wepsim_example.js
 jshint ./wepsim_core/wepsim_url.js
 jshint ./wepsim_core/wepsim_breakpointicons.js
 jshint ./wepsim_core/wepsim_config_commands.js
 
-jshint ./wepsim/wepsim_misc.js
-jshint ./wepsim/wepsim_ws_editor.js
-#jshint ./wepsim/wepsim_ws_simulator.js
+jshint ./wepsim/wepsim_web_misc.js
+jshint ./wepsim/wepsim_web_editor.js
+#jshint ./wepsim/wepsim_web_simulator.js
 jshint ./wepsim/wepsim_node.js
 
 jshint ./wepsim_i18n/i18n.js

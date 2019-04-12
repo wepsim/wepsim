@@ -252,7 +252,7 @@
 		        '                        return false;"' + 
 		        '                class="dropdown-item text-white bg-info" href="#"><c>Load Firmware only</c></a>' +
 		        '             <a onclick="$(\'#example_reference_' + e_id + '\').removeClass(\'d-none\');' +
-		        '                         CopyFromDiv(\'example_reference_' + e_id + '\');' +
+		        '                         wepsim_clipboard_CopyFromDiv(\'example_reference_' + e_id + '\');' +
 		        '                         $(\'#example_reference_' + e_id + '\').addClass(\'d-none\');' +
 		        '                         $(\'#example1\').modal(\'hide\'); ' + 
                         '                         return false;"' + 

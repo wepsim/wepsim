@@ -20,83 +20,6 @@
 
 
     /*
-     * Copy to clipboard
-     */
-
-    var clipboard_copy = '' ;
-
-    function get_clipboard_copy ( ) 
-    {
-        return clipboard_copy ;
-    }
-
-    // credit for the SelectText function: 
-    // https://stackoverflow.com/questions/985272/selecting-text-in-an-element-akin-to-highlighting-with-your-mouse
-    function SelectText (element) 
-    {
-        var doc = document
-            , text = doc.getElementById(element)
-            , range, selection
-        ;    
-        if (doc.body.createTextRange) 
-	{
-            range = document.body.createTextRange();
-            range.moveToElementText(text);
-            range.select();
-        } 
-	else if (window.getSelection) 
-	{
-            selection = window.getSelection();        
-            range = document.createRange();
-            range.selectNodeContents(text);
-            selection.removeAllRanges();
-            selection.addRange(range);
-        }
-    }
-
-    function CopyFromDiv ( element_name )
-    {
-	    var msg = 'unsuccessful' ;
-
-	    try
-	    {
-                 SelectText(element_name) ;
-
-                 if (document.execCommand('copy')) 
-		 {
-		     clipboard_copy = $('#' + element_name).text() ;
-		     msg = 'successful' ;
-		 }
-	    } 
-	    catch (e)
-	    {
-		 msg += msg + ' because ' + e ;
-	    } 
-
-	    wepsim_notify_success('<strong>INFO</strong>', 
-                                  'Copied ' + msg + '!.') ;
-    }
-
-    function CopyFromTextarea ( element_name )
-    {
-	    var msg = 'successful' ;
-
-	    try {
-		 var copyTextarea = document.getElementById(element_name);
-		 copyTextarea.select();
-                 document.execCommand('copy') ;
-		 clipboard_copy = $('#' + element_name).val() ;
-	    } 
-            catch (err) {
-		 msg = 'unsuccessful' ;
-	    }
-
-	    wepsim_notify_success('<strong>INFO</strong>', 
-                                  'Copied ' + msg + '!.') ;
-    }
-
-
-    /*
      * Check state
      */
 
@@ -199,7 +122,7 @@
                   '                   <button class="btn btn-outline-dark btn-sm col-auto float-right"' + 
                   '                           onclick="wepsim_state_results_empty();  ' + 
                   '                                    $(\'#collapse_' + i + '\').collapse(\'show\'); ' + 
-                  '                                    CopyFromDiv(\'state_' + i + '\');  ' + 
+                  '                                    wepsim_clipboard_CopyFromDiv(\'state_' + i + '\');  ' + 
                   '                                    $(\'#collapse_' + i + '\').collapse(\'hide\'); ' + 
                   '                                    $(\'#s_clip\').html(\'' + state_history[i].title_short + '\'); ' + 
                   '                                    $(\'#s_ref\').html(\'reference\'); " ' + 
