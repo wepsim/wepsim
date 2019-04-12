@@ -78,3 +78,8 @@
                          	 }) ;
     }
 
+    function i18n_get ( component, lang, key )
+    {
+	return i18n[component][lang][key] ;
+    }
+

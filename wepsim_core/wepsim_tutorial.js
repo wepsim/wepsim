@@ -88,7 +88,7 @@
         var bbbt = {} ;
 
         bbbt.cancel = {
-		    label: i18n.gui[wsi]['Disable tutorial mode'],
+		    label: i18n_get('gui',wsi,'Disable tutorial mode'),
 		    className: 'btn-danger col float-right',
 		    callback: function() {
                         sim_tutorial_cancelframe() ;
@@ -97,7 +97,7 @@
 
         if (step != 0)
             bbbt.prev = {
-		    label: i18n.gui[wsi]['Prev.'],
+		    label: i18n_get('gui',wsi,'Prev.'),
 		    className: 'btn-success col float-right',
 		    callback: function() {
                         sim_tutorial_goframe(tutorial_name, step, step - 1) ;
@@ -106,7 +106,7 @@
 
 	if (step != (tutorial.length - 1))
             bbbt.next = {
-		    label: i18n.gui[wsi]['Next'],
+		    label: i18n_get('gui',wsi,'Next'),
 		    className: 'btn-success col float-right',
 		    callback: function() {
                         sim_tutorial_goframe(tutorial_name, step, step + 1) ;
