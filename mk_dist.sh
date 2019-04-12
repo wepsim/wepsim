@@ -67,21 +67,22 @@ cat wepsim_i18n/i18n.js \
     \
     wepsim_core/wepsim_breakpointicons.js \
     wepsim_core/wepsim_checkpoint.js \
+    wepsim_core/wepsim_clipboard.js \
     wepsim_core/wepsim_config.js \
     wepsim_core/wepsim_config_commands.js \
     wepsim_core/wepsim_example.js \
     wepsim_core/wepsim_execute.js \
     wepsim_core/wepsim_help.js \
-    wepsim_core/wepsim_clipboard.js \
+    wepsim_core/wepsim_notify.js \
     wepsim_core/wepsim_state.js \
     wepsim_core/wepsim_tutorial.js \
+    wepsim_core/wepsim_tour.js \
     wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_voice_commands.js \
     wepsim_core/wepsim_voice.js \
     \
     wepsim/wepsim_web_simulator.js \
-    wepsim/wepsim_web_editor.js \
-    wepsim/wepsim_web_misc.js > ws_dist/wepsim_web.js
+    wepsim/wepsim_web_editor.js > ws_dist/wepsim_web.js
 /usr/bin/yui-compressor -o ws_dist/min.wepsim_web.js ws_dist/wepsim_web.js
 rm -fr ws_dist/wepsim_web.js
 
