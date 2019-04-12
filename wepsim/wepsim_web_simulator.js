@@ -23,9 +23,99 @@
     // WepSIM API
     //
 
-    /*
-     * Update selects
-     */
+    //  Workspaces
+
+    function sim_change_workspace ( page_id, carousel_id )
+    {
+            if ( (typeof $.mobile                             != "undefined") &&
+                 (typeof $.mobile.pageContainer               != "undefined") &&
+                 (typeof $.mobile.pageContainer.pagecontainer != "undefined") )
+            {
+                  $.mobile.pageContainer.pagecontainer('change', page_id);
+            }
+            else
+            {
+                  $('#carousel-8').carousel(carousel_id) ;
+            }
+    }
+
+    function sim_change_workspace_simulator ( )
+    {
+	    sim_change_workspace('#main1', 0) ;
+
+	    setTimeout(function(){
+			    // stats about ui
+			    ga('send', 'event', 'ui', 'ui.workspace', 'ui.workspace.simulator');
+	               }, 50) ;
+    }
+
+    function sim_change_workspace_microcode ( )
+    {
+	    sim_change_workspace('#main3', 1) ;
+
+	    setTimeout(function(){
+		            inputfirm.refresh() ; 
+
+			    // stats about ui
+			    ga('send', 'event', 'ui', 'ui.workspace', 'ui.workspace.microcode');
+	               }, 50) ;
+    }
+
+    function sim_change_workspace_assembly ( )
+    {
+	    sim_change_workspace('#main4', 2) ;
+
+	    setTimeout(function(){
+		            inputasm.refresh() ; 
+
+			    // stats about ui
+			    ga('send', 'event', 'ui', 'ui.workspace', 'ui.workspace.assembly');
+	               }, 50) ;
+    }
+
+    // Mode
+
+    function wepsim_change_mode ( optValue )
+    {
+          var hwid = -1 ;
+
+	  // switch active hardware by name...
+          switch (optValue)
+          {
+	      case 'newbie':
+	      case 'intro':
+	      case 'wepmips':
+	      case 'tutorial':
+                               hwid = simhw_getIdByName('ep') ;
+                               wepsim_activehw(hwid) ;
+                               break;
+	      default:
+	                       hwid = simhw_getIdByName(optValue) ;
+                               wepsim_activehw(hwid) ;
+                               break;
+          }
+
+	  // show/hide wepmips...
+	  if ('wepmips' == optValue)
+	       wepsim_show_wepmips() ;
+	  else wepsim_hide_wepmips() ;
+
+	  // intro mode...
+	  if ('intro' == optValue)
+	  {
+	      sim_tutorial_showframe('welcome', 0);
+              return ;
+	  }
+
+	  // newbie mode...
+          if ('newbie' == optValue)
+          {
+              wepsim_newbie_tour() ;
+              return ;
+          }
+    }
+
+    // Selects
 
     function simui_select_details ( opt )
     {
@@ -58,10 +148,7 @@
 	     $('#select4').html(ed) ;
     }
 
-
-    /*
-     * Initialize
-     */
+    // show/hide Assembly elements/header
 
     function showhideAsmElements ( )
     {
@@ -94,41 +181,6 @@
                   $(btn_name).addClass('btn-dark') ;
 	     else $(btn_name).addClass('btn-outline-secondary') ;
 	}
-    }
-
-
-    function set_ab_size ( diva, divb, new_value )
-    {
-	var a = new_value;
-    	var b = 12 - a;
-
-	$(diva).removeClass();
-	$(divb).removeClass();
-
-	if (a != 0)
-             $(diva).addClass('col-' + a);
-	else $(diva).addClass('col-12 order-1');
-
-	if (b != 0)
-	     $(divb).addClass('col-' + b);
-	else $(divb).addClass('col-12 order-2');
-    }
-
-
-    // hardware
-
-    function wepsim_load_hw ( )
-    {
-/*
-	    // load hardware...
-	    ep_def_json = $.getJSON({'url': "examples/hardware/ep/hw_def.json", 'async': false}) ;
-            simcore_hardware_import(ep_def_json.responseText) ;
-
-	    poc_def_json = $.getJSON({'url': "examples/hardware/poc/hw_def.json", 'async': false}) ;
-            simcore_hardware_import(poc_def_json.responseText) ;
-*/
-
-	    return true ;
     }
 
     function default_asmdbg_content_horizontal ( )
@@ -311,6 +363,22 @@
         $("#btn_micro1").removeClass('d-none') ;
     }
 
+    // hardware
+
+    function wepsim_load_hw ( )
+    {
+/*
+	    // load hardware...
+	    ep_def_json = $.getJSON({'url': "examples/hardware/ep/hw_def.json", 'async': false}) ;
+            simcore_hardware_import(ep_def_json.responseText) ;
+
+	    poc_def_json = $.getJSON({'url': "examples/hardware/poc/hw_def.json", 'async': false}) ;
+            simcore_hardware_import(poc_def_json.responseText) ;
+*/
+
+	    return true ;
+    }
+
     // Popovers
 
     function wepsim_click_asm_columns ( name )
@@ -416,10 +484,26 @@
         return o ;
     }
 
+    // sliders
 
-    /*
-     * Preload work
-     */
+    function set_ab_size ( diva, divb, new_value )
+    {
+	var a = new_value;
+    	var b = 12 - a;
+
+	$(diva).removeClass();
+	$(divb).removeClass();
+
+	if (a != 0)
+             $(diva).addClass('col-' + a);
+	else $(diva).addClass('col-12 order-1');
+
+	if (b != 0)
+	     $(divb).addClass('col-' + b);
+	else $(divb).addClass('col-12 order-2');
+    }
+
+    // Preload work
 
     function wepsim_preload_hash ( hash )
     {
