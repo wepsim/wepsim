@@ -1273,7 +1273,7 @@
 				     <div class="col pt-2 pl-0">
 					<div class="btn-group float-none" role="group" aria-label="State information for now">
 						  <button class="btn btn-outline-dark btn-sm col-auto float-right"
-							  onclick="CopyFromTextarea('end_state1');
+							  onclick="wepsim_clipboard_CopyFromTextarea('end_state1');
 								   wepsim_state_results_empty();
 								   var curr_tag = $('#curr_clk_maddr').html();
 								   $('#s_clip').html(curr_tag);
@@ -1348,7 +1348,7 @@
 		            <h5 class="m-0">
 				    <a data-toggle="collapse" href="#check_results_scroll1"><span class="text-white bg-dark" data-langkey="Differences">Differences</span></a>:
 				    <span class="btn btn-light btn-sm float-right py-0"
-					  onclick="CopyFromDiv('check_results_scroll1');
+					  onclick="wepsim_clipboard_CopyFromDiv('check_results_scroll1');
 						   return false;"
 					  data-inline="true">
 					  <span data-langkey='Copy'>Copy</span>
@@ -1745,7 +1745,7 @@
             // progressive web application
 	    if ( (false == is_mobile()) && ('serviceWorker' in navigator) )
             {
-		navigator.serviceWorker.register('min.wepsim_pwa.js').catch(function() {
+		navigator.serviceWorker.register('min.wepsim_web_pwa.js').catch(function() {
 		    wepsim_notify_error("<h4>Warning:" +
 		  		        "<br/>WepSIM was used over a HTTP connection.</h4>",
 		                        "Progressive Web Applications requires a HTTPS connection " +

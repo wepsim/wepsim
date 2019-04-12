@@ -33,6 +33,7 @@ jshint ./sim_hw/sim_hw_ep/sim_hw_scr.js
 jshint ./wepsim_core/wepsim_tutorial.js
 jshint ./wepsim_core/wepsim_voice.js
 jshint ./wepsim_core/wepsim_help.js
+jshint ./wepsim_core/wepsim_state.js
 jshint ./wepsim_core/wepsim_config.js
 jshint ./wepsim_core/wepsim_example.js
 jshint ./wepsim_core/wepsim_url.js

@@ -36,7 +36,7 @@ self.addEventListener('install',
 				caches.open(cacheName).then(function(cache) {
 				    return cache.addAll([
                                         './external/jquery.min.js',
-                                        './min.wepsim_pwa.js',
+                                        './min.wepsim_web_pwa.js',
                                         './min.external.css',
                                         './min.external.js',
                                         './min.sim_all.js',
