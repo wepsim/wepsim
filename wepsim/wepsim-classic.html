@@ -935,20 +935,37 @@
      <div class="modal-dialog modal-lg">
      <div class="modal-content">
 
-     <div class="modal-header bg-dark">
-	<strong class="modal-title text-white"><span data-langkey="Checkpoint">Checkpoint</span></strong>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true" class="text-white font-weight-bold">&times;</span>
-        </button>
+     <div class="modal-header">
+	<div class="mx-auto">
+	   <div class="btn-group">
+	     <button type="button" class="btn btn-dark px-3 py-1" disabled>
+		     <span class="d-none d-sm-inline-flex" data-langkey='Checkpoint'>Checkpoint</span><span class="d-sm-none">Chkpnt.</span>
+	     </button>
+	     <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split"
+		     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		 <span class="caret"></span>
+		 <span class="sr-only">Toggle Help Idiom</span>
+	     </button>
+	     <div class="dropdown-menu" style="z-index:100000;">
+		 <a class="dropdown-item" href="#"
+		    onclick="set_cfg('ws_idiom','es'); save_cfg();
+			     i18n_update_tags('gui', 'es');">ES<span class="d-none d-sm-inline-flex">&nbsp;(Spanish)</span></a>
+		 <a class="dropdown-item" href="#"
+		    onclick="set_cfg('ws_idiom','en'); save_cfg();
+			     i18n_update_tags('gui', 'en');">EN<span class="d-none d-sm-inline-flex">&nbsp;(English)</span></a>
+	     </div>
+	   </div>
+	</div>
+	<button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
      </div>
 
      <div class="modal-body">
-	<div class="container-fluid" style="max-height:75vh; padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
+	<div class="container-fluid" style="max-height:80vh; padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
 	<div class="card-deck m-0">
 	   <div class="card border-secondary">
 	      <div class="card-header border-secondary text-white bg-dark p-1">
 		<h5 class="card-title m-0">
-			<span data-langkey="Save Checkpoint">Save Checkpoint</span>
+			<span data-langkey="Save">Save</span>
 		        <button class="btn btn-sm btn-light mx-auto float-right d-sm-none d-xs-block py-0"
 		  	        onclick="wepsim_checkpoint_save('FileNameToSaveAs', 'tagToSave');
 				         return false;"><span data-langkey="Save">Save</span></button>
@@ -965,13 +982,13 @@
 	      <div class="card-footer border-secondary d-none d-sm-block p-1">
 		<button class="btn btn-sm btn-dark mx-auto d-flex justify-content-center col-6"
 			onclick="wepsim_checkpoint_save('FileNameToSaveAs', 'tagToSave');
-				 return false;">Save File</button>
+				 return false;">Save to File</button>
 	      </div>
 	   </div>
 	   <div class="card border-secondary">
 	      <div class="card-header border-secondary text-white bg-dark p-1">
 		<h5 class="card-title m-0">
-			<span data-langkey="Restore Checkpoint">Restore Checkpoint</span>
+			<span data-langkey="Restore">Restore</span>
 		        <button class="btn btn-sm btn-light mx-auto float-right d-sm-none d-xs-block py-0"
 				onclick="wepsim_checkpoint_load('FileNameToSaveAs', 'tagToSave', 'fileToLoad3');
 					 $('#lssave3').modal('hide');

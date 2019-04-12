@@ -28,6 +28,7 @@
 			"Examples":  			                "Examples",
 			"Load":  			        	"Load",
 			"Save":  			        	"Save",
+                        "Restore":                                      "Restore",
 			"Help":  			                "Help",
 			"Processor":  			                "Processor",
 			"Assembly Debugger":  			        "Assembly Debugger",
@@ -70,8 +71,6 @@
                         "Show/Hide Slider":                             "Show/Hide Slider",
                         "About WepSIM":                                 "About WepSIM",
                         "Checkpoint":                                   "Checkpoint",
-                        "Initial intro":                                "Initial intro",
-                        "Restore Checkpoint":                           "Restore Checkpoint",
-                        "Save Checkpoint":                              "Save Checkpoint"
+                        "Initial intro":                                "Initial intro"
                   } ;
 
