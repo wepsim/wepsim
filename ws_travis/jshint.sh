@@ -39,9 +39,9 @@ jshint ./wepsim_core/wepsim_url.js
 jshint ./wepsim_core/wepsim_breakpointicons.js
 jshint ./wepsim_core/wepsim_config_commands.js
 
-jshint ./wepsim/wepsim_misc.js
-jshint ./wepsim/wepsim_ws_editor.js
-#jshint ./wepsim/wepsim_ws_simulator.js
+jshint ./wepsim/wepsim_web_misc.js
+jshint ./wepsim/wepsim_web_editor.js
+#jshint ./wepsim/wepsim_web_simulator.js
 jshint ./wepsim/wepsim_node.js
 
 jshint ./wepsim_i18n/i18n.js
