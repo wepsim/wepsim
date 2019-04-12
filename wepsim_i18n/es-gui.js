@@ -57,6 +57,10 @@
                         "Check": 		                	"Comprobar",
                         "Copy": 		                	"Copiar",
                         "to clipboard": 		                "al portapapeles",
+	                "labels":                                       "etiquetas",
+	                "content":                                      "contenido",
+	                "assembly":                                     "ensamblador",
+	                "instructions":                                 "instrucciones",
                         "simulator intro 1": 		                "Primero se ha de cargar y microcompilar el microc&oacute;digo que define el conjunto de instrucciones a usar. " +
 									"Puede usar el microc&oacute;digo de un ejemplo, cargar uno desde fichero o editar uno nuevo.",
                         "simulator intro 2": 		                "A continuaci&oacute;n ha de cargar y compilar el c&oacute;digo ensamblador a ser ejecutado. " +

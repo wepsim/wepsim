@@ -57,6 +57,10 @@
                         "Check": 		                	"Check",
                         "Copy": 		                	"Copy",
                         "to clipboard": 		                "to clipboard",
+	                "labels":                                       "labels",
+	                "content":                                      "content",
+	                "assembly":                                     "assembly",
+	                "instructions":                                 "instructions",
                         "simulator intro 1": 		                "First, you are going to load and microcompile the microcode that defines the instruction set to be used. " +
 									"You can use an example of microcode, load it from a file or you can edit a new one.",
                         "simulator intro 2": 		                "Next, you need to load and compile the assembly code to be executed. " +
