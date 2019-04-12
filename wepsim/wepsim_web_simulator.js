@@ -147,7 +147,7 @@
 		 "    <p class='card-text'>" + 
 		 "    <div class='badge badge-primary'>1</div>" +
 		 "    <span data-langkey='simulator intro 1'>" + 
-	         i18n.gui[wsi]['simulator intro 1'] +
+	         i18n_get('gui',wsi,'simulator intro 1') +
 		 "    </span>" +
 		 "    </p>" +
 		 "  </div>" +
@@ -165,7 +165,7 @@
 		 "    <p class='card-text'>" + 
 		 "    <div class='badge badge-primary'>2</div>" +
 		 "    <span data-langkey='simulator intro 2'>" + 
-	         i18n.gui[wsi]['simulator intro 2'] +
+	         i18n_get('gui',wsi,'simulator intro 2') +
 		 "    </span>" +
 		 "    </p>" +
 		 "  </div>" +
@@ -183,7 +183,7 @@
 		 "    <p class='card-text'>" + 
 		 "    <div class='badge badge-primary'>3</div>" +
 		 "    <span data-langkey='simulator intro 3'>" + 
-	         i18n.gui[wsi]['simulator intro 3'] +
+	         i18n_get('gui',wsi,'simulator intro 3') +
 		 "    </span>" +
 		 "    </p>" +
 		 "  </div>" +
@@ -367,14 +367,14 @@
 		'  <a class="btn btn-sm btn-outline-secondary col-auto p-1 text-left" href="#" ' +
                 '     onclick="simcoreui_notify_notifications(); ' +
 		'              $(\'#' + quick_po + '\').popover(\'hide\');">' +
-		i18n.gui[wsi]['Show Notifications'] + '...</a>' +
+		i18n_get('gui',wsi,'Show Notifications') + '...</a>' +
 		'</li>' +
 		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-bars"></em> &nbsp;' +
                 '  <span class="btn-group-toggle" data-toggle="buttons">' +
 		'  <label class="btn btn-sm btn-outline-secondary col-auto p-1 text-left" data-toggle="collapse" href=".multi-collapse-1">' +
 		'  <input type="checkbox" checked="" autocomplete="off">' +
-		i18n.gui[wsi]['Show/Hide ActionBar'] + '</label>' +
+		i18n_get('gui',wsi,'Show/Hide ActionBar') + '</label>' +
 		'  </span>' +
 		'</li>' +
 		'<li class="list-group-item px-0"> ' +
@@ -382,34 +382,34 @@
                 '  <span class="btn-group-toggle" data-toggle="buttons">' +
 		'  <label class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" data-toggle="collapse" href=".multi-collapse-2">' +
 		'  <input type="checkbox" checked="" autocomplete="off">' +
-		i18n.gui[wsi]['Show/Hide Slider'] + '</label>' +
+		i18n_get('gui',wsi,'Show/Hide Slider') + '</label>' +
 		'  </span>' +
-		'</li>' +
-		'<li class="list-group-item px-0"> ' +
-		'  <em class="fas fa-magic"></em> &nbsp;' +
-		'  <a class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" href="#" ' +
-		'     onclick="$(\'#about2\').modal(\'show\'); ' +
-		'              $(\'#' + quick_po + '\').popover(\'hide\');">' +
-		i18n.gui[wsi]['About WepSIM'] + '...</a>' +
 		'</li>' +
 		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-bookmark"></em> &nbsp;' +
 		'  <a class="btn btn-sm btn-outline-secondary col-10 pr-2 text-left" href="#" ' +
 		'     onclick="$(\'#lssave3\').modal(\'show\'); ' +
 		'              $(\'#' + quick_po + '\').popover(\'hide\');">' +
-		i18n.gui[wsi]['Checkpoint'] + '...</a>' +
+		i18n_get('gui',wsi,'Checkpoint') + '...</a>' +
+		'</li>' +
+		'<li class="list-group-item px-0"> ' +
+		'  <em class="fas fa-magic"></em> &nbsp;' +
+		'  <a class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" href="#" ' +
+		'     onclick="$(\'#about2\').modal(\'show\'); ' +
+		'              $(\'#' + quick_po + '\').popover(\'hide\');">' +
+		i18n_get('gui',wsi,'About WepSIM') + '...</a>' +
 		'</li>' +
 		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-book-reader"></em> &nbsp;' +
 		'  <a class="btn btn-sm btn-outline-secondary col-10 pr-2 text-left" href="#" ' +
 		'     onclick="wepsim_newbie_tour(); ' +
 		'              $(\'#' + quick_po + '\').popover(\'hide\');">' +
-		i18n.gui[wsi]['Initial intro'] + '...</a>' +
+		i18n_get('gui',wsi,'Initial intro') + '...</a>' +
 		'</li>' +
 	        '<button type="button" id="close" data-role="none" ' + 
 		'        class="btn btn-sm btn-danger w-100 p-0 mt-2" ' +
 		'        onclick="$(\'#' + quick_po + '\').popover(\'hide\');">' +
-		i18n.gui[wsi]['Close'] +
+		i18n_get('gui',wsi,'Close') +
                 '</button>' +
 		'</ul>' ;
 
