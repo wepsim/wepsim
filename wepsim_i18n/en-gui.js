@@ -71,6 +71,8 @@
                         "Show/Hide Slider":                             "Show/Hide Slider",
                         "About WepSIM":                                 "About WepSIM",
                         "Checkpoint":                                   "Checkpoint",
-                        "Initial intro":                                "Initial intro"
+                        "Initial intro":                                "Initial intro",
+	                "Save to File":                                 "Save to File",
+	                "Load from this File":                          "Load from this File"
                   } ;
 

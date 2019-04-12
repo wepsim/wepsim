@@ -938,10 +938,10 @@
      <div class="modal-header">
 	<div class="mx-auto">
 	   <div class="btn-group">
-	     <button type="button" class="btn btn-outline-dark btn-light px-3 py-1" disabled>
+	     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled>
 		     <span class="text-dark" data-langkey='Checkpoint'>Checkpoint</span>
 	     </button>
-	     <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split"
+	     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
 		     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		 <span class="caret"></span>
 		 <span class="sr-only">Toggle Help Idiom</span>
@@ -982,7 +982,7 @@
 	      <div class="card-footer border-secondary d-none d-sm-block p-1">
 		<button class="btn btn-sm btn-dark mx-auto d-flex justify-content-center col-6"
 			onclick="wepsim_checkpoint_save('FileNameToSaveAs', 'tagToSave');
-				 return false;">Save to File</button>
+				 return false;"><span data-langkey="Save to File">Save to File</span></button>
 	      </div>
 	   </div>
 	   <div class="card border-secondary">
@@ -997,15 +997,15 @@
 	      </div>
 	      <div class="card-body">
 			<label for="fileToLoad3"><em>File to be loaded:</em></label>
-			<p>
-                        <input aria-label="file to load" 
-                               type="file" id="fileToLoad3" class="dropify" data-max-height="20vh" /></p>
+			<br>
+                        <input data-max-height="20vh"
+	                       aria-label="file to load" type="file" id="fileToLoad3" class="dropify" /></p>
 	      </div>
 	      <div class="card-footer border-secondary d-none d-sm-block p-1">
 		<button class="btn btn-sm btn-dark mx-auto d-flex justify-content-center col-6"
 			onclick="wepsim_checkpoint_load('FileNameToSaveAs', 'tagToSave', 'fileToLoad3');
 			         $('#lssave3').modal('hide');
-				 return false;">Load from this File</button>
+				 return false;"><span data-langkey="Load from this File">Load from this File</span></button>
 	      </div>
 	    </div>
 	</div>
