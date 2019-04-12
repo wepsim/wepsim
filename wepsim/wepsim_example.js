@@ -235,7 +235,7 @@
                         '</div>' +
                         '<div class="col-sm-auto">' +
 		        '    <span id="example_reference_' + e_id + '" class="d-none">' +
-		        'https://acaldero.github.io/wepsim/ws_dist/wepsim-classic.html?mode=' + e_hw + '&example=' + e_id +
+		        'https://wepsim.github.io/wepsim/ws_dist/wepsim-classic.html?mode=' + e_hw + '&example=' + m +
 		        '    </span>' +
 		        '    <div class="btn-group btn-group-md float-right align-top">' +
                         '           <button type="button" ' + 

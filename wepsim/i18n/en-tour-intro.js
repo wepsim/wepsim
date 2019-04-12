@@ -22,9 +22,22 @@
     tour_steps.en = [
                         // 0
 			{
-			   intro: "Welcome to WepSIM!<br>" +
+			   intro: " Welcome to WepSIM!<br>" +
+                                  " ¡Bienvenido a WepSIM!<br> " +
                                   "<br>" +
-                                  "WepSIM helps to better understand how a computer works: " +
+                                  "<a class=\"btn btn-sm btn-outline-dark mx-2\" href=\"#\"" +
+                                  "   onclick=\"set_cfg('ws_idiom','es'); save_cfg(); i18n_update_tags('gui','es'); tour.exit(); wepsim_newbie_tour();\">Spanish</a>" +
+                                  "<a class=\"btn btn-sm btn-outline-dark mx-2\" href=\"#\"" +
+                                   "  onclick=\"set_cfg('ws_idiom','en'); save_cfg(); i18n_update_tags('gui','en'); tour.exit(); wepsim_newbie_tour();\">English</a>" +
+                                  "<br>",
+			   position: 'auto',
+			   do_before: function () {
+			                  return true ;
+			              }
+			},
+                        // 1
+			{
+			   intro: "WepSIM helps to better understand how a computer works: " +
                                   "it is visual, interactive, integrates from signals up to interruptions, system calls, exceptions, etc. <br> " +
                                   "<br>" +
                                   "We really believe WepSIM is a revolutionary teaching tool. " +
@@ -35,7 +48,7 @@
 			                  return true ;
 			              }
 			},
-                        // 1
+                        // 2
 			{
 			   element: '#select4',
                            intro: "This button on the top-right let users choose the 'execution mode'.<br>" +
@@ -49,7 +62,7 @@
 			                  return true ;
 			              }
 			},
-                        // 2
+                        // 3
 			{
 			   element: '#btn_help1',
                            intro: "On the top-right, the 'help' button opens the associated dialog.<br>" +
@@ -62,7 +75,7 @@
 			                return true ;
 			              }
 			},
-                        // 3
+                        // 4
 			{
 			   element: '#btn_example1',
                            intro: "And on the left, the 'examples' button open the example dialog.<br>" +
@@ -75,7 +88,7 @@
 			                return true ;
 			              }
 			},
-                        // 4
+                        // 5
 			{
 			   element: '#btn_cfg1',
                            intro: "On the top-left, the 'configuration' button opens the configuration dialog.<br>" +
@@ -88,7 +101,7 @@
 			                  return true ;
 			              }
 			},
-                        // 5
+                        // 6
 			{
                            intro: "Congrat! You know the key elements in the WepSIM interface.<br>" +
                                   "From the 'Help' dialog you can access the 'Welcome tutorial' to continue learning.<br>",
