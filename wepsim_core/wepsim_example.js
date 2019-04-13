@@ -25,7 +25,12 @@
 
     function wepsim_open_examples_index ( )
     {
-        $("#container-example1").html(table_examples_html(examples)) ;
+        var examples_xx = ws_examples ;
+	var    idiom_xx = get_cfg('ws_idiom') ;
+
+        $("#container-example1").html(table_examples_html(examples_xx)) ;
+
+	i18n_update_tags('examples', idiom_xx) ;
 	$('#example1').modal('show') ;
 
 	// stats about ui
@@ -175,7 +180,6 @@
        }
 
        // examples
-       var lang     = get_cfg('ws_idiom') ;
        var base_url = get_cfg('base_url') ;
 
        var fmt_toggle    = "" ;
@@ -190,28 +194,28 @@
        var e_id          = "" ;
 
        var o = "" ;
-       for (var m=0; m<examples[lang].length; m++)
+       for (var m=0; m<examples.length; m++)
        {
 	       fmt_header = "" ;
-	       if (e_level != examples[lang][m].level) {
+	       if (e_level != examples[m].level) {
                    fmt_header = "<div class='col-sm-12 border-bottom border-secondary text-right text-capitalize font-weight-bold bg-white sticky-top'>" + 
 			        ahw.toUpperCase() + ": " + 
-			        examples[lang][m].level + 
+			        examples[m].level + 
 			        "</div>" ;
                }
 
-	       e_modes = examples[lang][m].modes ;
+	       e_modes = examples[m].modes ;
 	       if (! e_modes.split(",").includes(mode)) {
 		   continue ;
 	       }
 
-	       e_title       = examples[lang][m].title ;
-	       e_level       = examples[lang][m].level ;
-	       e_hw          = examples[lang][m].hardware ;
-	       e_mc          = examples[lang][m].microcode ;
-	       e_asm         = examples[lang][m].assembly ;
-	       e_description = examples[lang][m].description ;
-	       e_id          = examples[lang][m].id ;
+	       e_title       = examples[m].title ;
+	       e_level       = examples[m].level ;
+	       e_hw          = examples[m].hardware ;
+	       e_mc          = examples[m].microcode ;
+	       e_asm         = examples[m].assembly ;
+	       e_description = examples[m].description ;
+	       e_id          = examples[m].id ;
 
 	       t_hwmcasm = e_hw + ":" + e_mc + ":" + e_asm ;
 
