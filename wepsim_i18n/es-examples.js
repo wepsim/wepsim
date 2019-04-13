@@ -22,7 +22,7 @@
     i18n.examples.es = {
              "addv + seqv.":						"addv + seqv.",
              "Alloc.s":							"Alloc.s",
-             "Dummy instruction":					"Instrucci&oacute; vac&iacute;a",
+             "Dummy instruction":					"Instrucci&oacute;n vac&iacute;a",
              "Exception":						"Excepci&oacute;n",
              "Instructions":						"Instrucciones",
              "Interruptions":						"Interrupciones",
@@ -58,11 +58,19 @@
              "example_02_02":				"Ejemplo extendido con m&aacute;s instrucciones y E/S (teclado y pantalla).",
              "example_02_04":				"Ejemplo extendido con subrutina y matriz.",
              "example_02_03":				"Ejemplo extendido con m&aacute;scaras, desplazamiento y segmentos b&aacute;sicos.",
-             "Simple example":				"Ejemplo simple.",
              "example_01_01":				"Ejemplo simple con fetch, instrucciones artim&eacute;ticas y segmentos b&aacute;sicos.",
              "example_01_04":				"Ejemplo simple con fetch, salto y segmento b&aacute;sico de .text/.data.",
              "example_01_03":				"Ejemplo simple con fetch, salto y segmento b&aacute;sico de .text.",
              "example_01_02":				"Ejemplo simple con fetch, acceso a memoria, y segmento b&aacute;sico de .text/.data.",
-             "example_06_01":				"Ejemplo de prueba."
+             "example_06_01":				"Ejemplo de prueba.",
+
+             "Advanced":				"Avanzado",
+             "Initial":					"Inicial",
+             "Intermediate":				"Intermedio",
+             "Laboratory":				"Laboratorio",
+             "Operating Systems":			"Sistemas Operativos",
+             "Special":					"Especial",
+
+             "Simple example":				"Ejemplo simple."
     } ;
 

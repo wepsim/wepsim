@@ -58,11 +58,19 @@
              "example_02_02":				"Extended example with more instructions and I/O (keyboard, display).",
              "example_02_04":				"Extended example with subrutine and matrix.",
              "example_02_03":				"More extended example with masks, shift, and basic .text/.data segment.",
-             "Simple example":				"Simple example.",
              "example_01_01":				"Simple example with fetch, arithmetic instructions, and basic .text segment.",
              "example_01_04":				"Simple example with fetch, branch, and basic .text/.data segment.",
              "example_01_03":				"Simple example with fetch, branch, and basic .text segment.",
              "example_01_02":				"Simple example with fetch, memory access, and basic .text/.data segment.",
-             "example_06_01":				"Test example."
+             "example_06_01":				"Test example.",
+
+             "Advanced":				"Advanced",
+             "Initial":					"Initial",
+             "Intermediate":				"Intermediate",
+             "Laboratory":				"Laboratory",
+             "Operating Systems":			"Operating Systems",
+             "Special":					"Special",
+
+             "Simple example":				"Simple example."
     } ;
 
