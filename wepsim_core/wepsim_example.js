@@ -175,7 +175,8 @@
        }
 
        // examples
-       var lang = get_cfg('ws_idiom') ;
+       var lang     = get_cfg('ws_idiom') ;
+       var base_url = get_cfg('base_url') ;
 
        var fmt_toggle    = "" ;
        var fmt_header    = "" ;
@@ -234,9 +235,7 @@
                         '    <c>' + e_description + '</c>' +
                         '</div>' +
                         '<div class="col-sm-auto">' +
-		        '    <span id="example_reference_' + e_id + '" class="d-none">' +
-		        'https://acaldero.github.io/wepsim/ws_dist/wepsim-classic.html?mode=' + e_hw + '&example=' + m +
-		        '    </span>' +
+		        '    <span id="example_reference_' + e_id + '" class="d-none">' + base_url + '?mode=' + e_hw + '&example=' + m + '</span>' +
 		        '    <div class="btn-group btn-group-md float-right align-top">' +
                         '           <button type="button" ' + 
 		        '                   class="btn btn-md btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +

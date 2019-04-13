@@ -42,9 +42,11 @@
 
         function reset_cfg ( )
         {
-		/*
-		 *  simulation screen: SVG
-		 */
+	       /*
+	        *  base configuration
+	        */
+
+	       /*  simulation screen: SVG */
                WSCFG.color_data_active   = { value:"#0066FF",          type:"string"} ;
                WSCFG.color_data_inactive = { value:"rgb(0, 0, 0)",     type:"string"} ; // "black"
 
@@ -56,17 +58,13 @@
 
                WSCFG.is_byvalue          = { value:false,              type:"boolean"};
 
-		/*
-		 *  simulation screen: Register File
-		 */
+	       /* simulation screen: Register File */
                WSCFG.RF_display_format   = { value:16,                 type:"int"} ;
                WSCFG.RF_display_name     = { value:'numerical',        type:"string"} ;
 
                WSCFG.is_editable         = { value:true,               type:"boolean"};
 
-		/*
-		 *  simulation screen: Execution
-		 */
+	       /* simulation screen: Execution */
                WSCFG.DBG_delay           = { value:5,                  type:"int"} ;
                WSCFG.DBG_level           = { value:"instruction",      type:"string"} ;
 
@@ -74,9 +72,7 @@
                WSCFG.DBG_limitick        = { value:1000,               type:"int"} ;
                WSCFG.ICON_theme          = { value:'classic',          type:"string"} ;
 
-		/*
-		 *  simulation screen: Notification, etc.
-		 */
+	       /* simulation screen: Notification, etc. */
                WSCFG.NOTIF_delay          = { value:1000,               type:"int"} ;
                WSCFG.CPUCU_size           = { value:6,                  type:"int"} ;
                WSCFG.C1C2_size            = { value:8,                  type:"int"} ;
@@ -94,11 +90,16 @@
                WSCFG.use_voice            = { value:false,              type:"boolean"} ;
                WSCFG.ws_skin              = { value:'classic',          type:"string"} ;
 
-		/*
-		 *  micro/assembly screen: editor
-		 */
+	       /* micro/assembly screen: editor */
                WSCFG.editor_theme        = { value:'default',          type:"string"} ;
                WSCFG.editor_mode         = { value:'default',          type:"string"} ;
+
+	       /* base url */
+               WSCFG.base_url            = { value:'https://wepsim.github.io/wepsim/ws_dist/wepsim-classic.html',   type:"string"} ;
+
+	       /*
+	        *  secondary configuration
+	        */
 
                // some mobile-tuning
                if (is_mobile())

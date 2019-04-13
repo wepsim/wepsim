@@ -1,6 +1,7 @@
 
 2.0.3 -> 2.0.5:
 * Initial support for Checkpoint
+* Improved translation 
 
 2.0.2 -> 2.0.3:
 * Initial support for preloading work

@@ -68,6 +68,7 @@
 	    var function_after_loaded = function (textLoaded)
 	                                {
 				           var checkpointObj = JSON.parse(textLoaded) ;
+					   var o = '<li>Tag: ' + checkpointObj.tag + '</li>' ;
 
 				           // load into forms
 				           inputfirm.setValue(checkpointObj.firmware) ;
@@ -91,10 +92,18 @@
 				               wepsim_compile_assembly(checkpointObj.assembly) ;
 
 				           // notify
-				           simcoreui_notify('Restored Checkpoint', 
-						            'Tag: ' + checkpointObj.tag, 
-						            'info', 
-						            0) ;
+					   if (o !== '') {
+					       o = 'WepSIM has been instructed to restore a checkpoint for you:<br>' +
+						   '<ul>' + 
+					           o + 
+					           '</ul>' +
+						   'To close this notification please press in the ' +
+						   '<span class="btn btn-sm btn-info py-0" data-dismiss="alert">X</span> mark. <br>' +
+						   'In order to execute an example please press the ' +
+						   '<span class="btn btn-sm btn-info py-0" onclick="wepsim_execute_toggle_play(\'#qbp\',false);">Run</span> button.<br>' ;
+					   }
+
+				           simcoreui_notify('Restored Checkpoint', o, 'info', 0) ;
 			                } ;
 
 	    // load checkpoint
