@@ -69,35 +69,74 @@
 	                                {
 				           var checkpointObj = JSON.parse(textLoaded) ;
 
-				           // load into forms
-				           inputfirm.setValue(checkpointObj.firmware) ;
-				            inputasm.setValue(checkpointObj.assembly) ;
-
-				           // restore saved checkpoint
-				           obj_fileName.value = obj_fileToLoad.name ;
-				           obj_tagName.value  = checkpointObj.tag ;
-
-					   wepsim_state_history_reset() ;
-					   state_history.push(checkpointObj.state) ;
-					   wepsim_state_history_list() ;
-
-					   // Future Works:
-				           // + update internal state based on txt_checklist
-
-				           // compile
-					   if (checkpointObj.firmware.trim() !== "")
-				               wepsim_compile_firmware(checkpointObj.firmware) ;
-					   if (checkpointObj.assembly.trim() !== "")
-				               wepsim_compile_assembly(checkpointObj.assembly) ;
-
-				           // notify
-				           simcoreui_notify('Restored Checkpoint', 
-						            'Tag: ' + checkpointObj.tag, 
-						            'info', 
-						            0) ;
+                                           wepsim_checkpoint_load_aux(checkpointObj, 
+						                      obj_fileName, obj_tagName, obj_fileToLoad) ;
 			                } ;
 
 	    // load checkpoint
 	    wepsim_load_from_file(obj_fileToLoad, function_after_loaded) ;
+    }
+
+    function wepsim_checkpoint_load_aux ( checkpointObj, obj_fileName, obj_tagName, obj_fileToLoad )
+    {
+	   var o = '' ;
+	   var u = '' ;
+
+	   // check params
+	   if (checkpointObj === null) 
+	       return o ;
+
+	   // load tag
+	   obj_fileName.value = obj_fileToLoad.name ;
+	   obj_tagName.value  = checkpointObj.tag ;
+
+	   o += '<li>Tag: <strong>' + checkpointObj.tag + '</strong></li>' ;
+
+	   // firmware + assembly: load into editor
+	   inputfirm.setValue(checkpointObj.firmware) ;
+	    inputasm.setValue(checkpointObj.assembly) ;
+
+	   o += '<li>Firmware and Assembly: Loaded' ;
+
+	   // firmware + assembly: compile
+	   u = '' ;
+	   if (checkpointObj.firmware.trim() !== "") {
+	       wepsim_compile_firmware(checkpointObj.firmware) ;
+	       u += 'Firmware' ;
+
+	   }
+	   if (checkpointObj.assembly.trim() !== "") {
+	       wepsim_compile_assembly(checkpointObj.assembly) ;
+	       u += ' + Assembly' ;
+	   }
+
+	   if (u !== '') {
+	       o += ' + Compiled' ;
+	   }
+	   o += '.</li>' ;
+
+	   // restore saved checkpoint
+	   wepsim_state_history_reset() ;
+	   state_history.push(checkpointObj.state) ;
+	   wepsim_state_history_list() ;
+
+	   o += '<li>State: Saved into the state history.</li>' ;
+
+	   // Future Works:
+	   // + update internal state based on txt_checklist
+
+	   // notify
+	   if (o !== '') {
+	       o = 'WepSIM has been instructed to restore a checkpoint:<br>' +
+		   '<ul>' + 
+		   o + 
+		   '</ul>' +
+		   'To close this notification please press in the ' +
+		   '<span class="btn btn-sm btn-info py-0" data-dismiss="alert">X</span> mark. <br>' +
+		   'In order to execute please press the ' +
+		   '<span class="btn btn-sm btn-info py-0" onclick="wepsim_execute_toggle_play(\'#qbp\',false);">Run</span> button.<br>' ;
+	   }
+
+	   simcoreui_notify('Restored Checkpoint', o, 'info', 0) ;
     }
 
