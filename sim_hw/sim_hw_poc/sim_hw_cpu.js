@@ -103,20 +103,24 @@
 	 *  Control States, and Default elements at the Instruction Register (IR)
 	 */
 
-        poc_ctrl_states.pc = {
-		                name:  "PC",
-		                state: "REG_PC"
-	                     } ;
-        poc_ctrl_states.sp = {
-		                name:  "SP",
-		                state: "BR.29"
-	                     } ;
-        poc_ctrl_states.ir = { 
-		                name:  "IR",
-		                state: "REG_IR",
-		                default_eltos: {  "co": { "begin":  0, "end":  5, "length": 6 },
-			                         "cop": { "begin": 27, "end": 31, "length": 5 } }
-	                     } ;
+        poc_ctrl_states.pc  = {
+		                 name:  "PC",
+		                 state: "REG_PC"
+	                      } ;
+        poc_ctrl_states.sp  = {
+		                 name:  "SP",
+		                 state: "BR.29"
+	                      } ;
+        poc_ctrl_states.ir  = { 
+		                 name:  "IR",
+		                 state: "REG_IR",
+		                 default_eltos: {  "co": { "begin":  0, "end":  5, "length": 6 },
+			                          "cop": { "begin": 27, "end": 31, "length": 5 } }
+	                      } ;
+        poc_ctrl_states.mpc = {
+		                 name:  "mPC",
+		                 state: "REG_MICROADDR"
+	                      } ;
 
 
 	/*
