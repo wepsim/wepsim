@@ -81,6 +81,7 @@
     function simcore_native_set_value ( component, elto, value )
     {
         var index = 0 ;
+        var pc_name = simhw_sim_ctrlStates_get().pc.state ;
 
         if ( ("CPU" === component) || ("BR" === component) )
         {
@@ -91,7 +92,8 @@
             if (isNaN(index)) 
             {
                 set_value(simhw_sim_state(elto), value) ;
-                if ("REG_PC" === elto) {
+
+                if (pc_name === elto) {
                     show_asmdbg_pc() ;
 		}
 

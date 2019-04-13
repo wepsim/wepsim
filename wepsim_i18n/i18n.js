@@ -36,9 +36,9 @@
 	i18n.cfg.en = {} ;
 
     // examples dialog
-    var examples    = {};
-        examples.en = [];
-        examples.es = [];
+        i18n.examples = {} ;
+        i18n.examples.en = {} ;
+        i18n.examples.es = {} ;
 
     // help dialog
     var help    = {} ;

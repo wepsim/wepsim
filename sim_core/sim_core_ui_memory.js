@@ -722,12 +722,14 @@
 
 	function fullshow_asmdbg_pc ( )
 	{
-		if (typeof document == "undefined")
+		if (typeof document == "undefined") {
 		    return ;
+		}
 
                 var o1 = null ;
 
-                var reg_pc    = get_value(simhw_sim_state("REG_PC")) ;
+	        var pc_name = simhw_sim_ctrlStates_get().pc.state ;
+	        var reg_pc  = get_value(simhw_sim_state(pc_name)) ;
                 var curr_addr = "0x" + reg_pc.toString(16) ;
                 var curr_firm = simhw_internalState('FIRMWARE') ;
 
@@ -798,9 +800,12 @@
 
 	function show_dbg_mpc ( )
 	{
+	        var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
+	        var reg_maddr  = get_value(simhw_sim_state(maddr_name)) ;
+
                 show_control_memory(simhw_internalState('MC'),
                                     simhw_internalState('MC_dashboard'),
-                                    get_value(simhw_sim_state('REG_MICROADDR')),
+			            reg_maddr,
                                     false) ;
 	}
 

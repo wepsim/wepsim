@@ -354,6 +354,26 @@ srl reg1 reg2 val {
             }
 }
 
+sll reg1 reg2 val {
+            co=111111,
+            nwords=1,
+            reg1=reg(25,21),
+            reg2=reg(20,16),
+            val=inm(5,0),
+            native,
+            {
+                // fields is a default parameter with the instruction field information
+                var reg1 = simcore_native_get_field_from_ir(fields, 0) ;
+                var reg2 = simcore_native_get_field_from_ir(fields, 1) ;
+                var val1 = simcore_native_get_field_from_ir(fields, 2) ;
+
+                var result = simcore_native_get_value("BR", reg2) <<< val1 ;
+                simcore_native_set_value("BR", reg1, result) ;
+
+                simcore_native_go_maddr(0) ;
+            }
+}
+
 
 #
 # MOVE/LI/LA

@@ -231,25 +231,22 @@
 
         function show_memories_values ( )
         {
-		/*
-               show_main_memory(simhw_internalState('MP'),               
-                                get_value(simhw_sim_state('REG_PC')),        true, true) ;
-            show_control_memory(simhw_internalState('MC'),
-                                simhw_internalState('MC_dashboard'), 
-                                get_value(simhw_sim_state('REG_MICROADDR')), true, true) ;
-		*/
+            var f1 = new Promise(function(resolve, reject) 
+		     {
+			 var pc_name = simhw_sim_ctrlStates_get().pc.state ;
+			 var reg_pc  = get_value(simhw_sim_state(pc_name)) ;
 
-            var f1 = new Promise(function(resolve, reject) {
-                 show_main_memory(simhw_internalState('MP'), 
-                                  get_value(simhw_sim_state('REG_PC')), true, true) ;
-                 resolve(1);
-            });
-            var f2 = new Promise(function(resolve, reject) {
-                 show_control_memory(simhw_internalState('MC'), 
-                                     simhw_internalState('MC_dashboard'), 
-                                     get_value(simhw_sim_state('REG_MICROADDR')), true) ;
-                 resolve(1);
-            });
+			 show_main_memory(simhw_internalState('MP'), reg_pc, true, true) ;
+			 resolve(1);
+                     });
+            var f2 = new Promise(function(resolve, reject) 
+		     {
+			 var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
+			 var reg_maddr  = get_value(simhw_sim_state(maddr_name)) ;
+
+			 show_control_memory(simhw_internalState('MC'), simhw_internalState('MC_dashboard'), reg_maddr, true) ;
+			 resolve(1);
+		     });
 
             Promise.all([f1, f2]);
 	}
@@ -257,10 +254,12 @@
         function update_signal_firmware ( key )
         {
             var SIMWARE = get_simware() ;
+	    var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
+	    var reg_maddr  = get_value(simhw_sim_state(maddr_name)) ;
 
 	    var assoc_i = -1;
             for (var i=0; i<SIMWARE['firmware'].length; i++) {
-		 if (parseInt(SIMWARE['firmware'][i]["mc-start"]) > get_value(simhw_sim_state("REG_MICROADDR"))) { break; }
+		 if (parseInt(SIMWARE['firmware'][i]["mc-start"]) > reg_maddr) { break; }
 		 assoc_i = i ;
             }
 
@@ -284,7 +283,7 @@
                 assoc_i = SIMWARE['firmware'].length - 1 ;
             }
 
-	    var pos = get_value(simhw_sim_state("REG_MICROADDR")) - parseInt(SIMWARE['firmware'][assoc_i]["mc-start"]) ;
+	    var pos = reg_maddr - parseInt(SIMWARE['firmware'][assoc_i]["mc-start"]) ;
 	    if (typeof SIMWARE['firmware'][assoc_i]["microcode"][pos] == "undefined") {
 		SIMWARE['firmware'][assoc_i]["microcode"][pos]     = new Object() ;
 		SIMWARE['firmware'][assoc_i]["microcomments"][pos] = "" ;
@@ -506,7 +505,8 @@
 		 else delete(simhw_sim_state("REG_MICROINS").value[key]);
 
 		 // update MC[uADDR]
-		 var curr_maddr = get_value(simhw_sim_state("REG_MICROADDR")) ;
+	         var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
+		 var curr_maddr = get_value(simhw_sim_state(maddr_name)) ;
 		 if (typeof simhw_internalState_get('MC', curr_maddr) == "undefined") {
 		     simhw_internalState_set('MC', curr_maddr, new Object()) ;
 		     simhw_internalState_set('MC_dashboard', curr_maddr, new Object()) ;
