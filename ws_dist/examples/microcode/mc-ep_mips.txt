@@ -367,7 +367,7 @@ sll reg1 reg2 val {
                 var reg2 = simcore_native_get_field_from_ir(fields, 1) ;
                 var val1 = simcore_native_get_field_from_ir(fields, 2) ;
 
-                var result = simcore_native_get_value("BR", reg2) <<< val1 ;
+                var result = simcore_native_get_value("BR", reg2) << val1 ;
                 simcore_native_set_value("BR", reg1, result) ;
 
                 simcore_native_go_maddr(0) ;
