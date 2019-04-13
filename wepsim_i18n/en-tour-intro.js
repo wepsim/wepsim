@@ -44,7 +44,7 @@
                                   "This brief tour introduces the key elements of its interface.",
 			   position: 'auto',
 			   do_before: function () {
-                                          simui_select_main('ep') ;
+					  tour.refresh() ;
 			                  return true ;
 			              }
 			},
@@ -58,6 +58,7 @@
 			   position: 'auto',
 			   do_before: function ()
 	                              {
+                                          simui_select_main('ep') ;
 					  tour.refresh() ;
 			                  return true ;
 			              }
