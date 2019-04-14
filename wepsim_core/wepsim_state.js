@@ -38,6 +38,11 @@
 
     var state_history = [] ;
 
+    function wepsim_state_history_get ( )
+    {
+         return state_history ;
+    }
+
     function wepsim_state_history_reset ( )
     {
 	 $("[data-toggle=popover4]").popover('hide') ;
