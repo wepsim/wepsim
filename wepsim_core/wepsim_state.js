@@ -110,7 +110,7 @@
 
 	     vrow = '' ;
 	     if (i != 0)
-                 vrow = '<div class="row" style="max-height:12vh"><div class="col border-right border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>' ;
+                 vrow = '<div class="row h-100"><div class="col border-right border-dark">&nbsp;</div><div class="col">&nbsp;</div></div>' ;
 
 	     o += '  <div class="row">' +
                   '       <div class="col-auto text-center flex-column d-flex pr-0">' +
