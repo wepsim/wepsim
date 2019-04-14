@@ -23,6 +23,8 @@
      * Checkpointing
      */
 
+    var current_checkpoint = null ;
+
     function wepsim_checkpoint_save ( id_filename, id_tagname )
     {
 	    // get & check params
@@ -39,12 +41,13 @@
 	    var state_obj = simcore_simstate_current2state() ;
 	      ret.content = simcore_simstate_state2checklist(state_obj) ;
 
-	    var checkpointObj = { 
+	    var checkpointObj = [{ 
 		                  firmware: inputfirm.getValue(), 
 				  assembly: inputasm.getValue(), 
 				  state:    ret,
-				  tag:      obj_tagName.value
-	                        } ;
+				  tag:      obj_tagName.value,
+				  notify:   true
+	                        }] ;
 	    var checkpointStr = JSON.stringify(checkpointObj, null, 2) ;
 
 	    // save checkpoint
@@ -67,10 +70,11 @@
 	    // lambda (auxiliar) function
 	    var function_after_loaded = function (textLoaded)
 	                                {
-				           var checkpointObj = JSON.parse(textLoaded) ;
+				           current_checkpoint = JSON.parse(textLoaded) ;
 
-                                           wepsim_checkpoint_load_aux(checkpointObj, 
-						                      obj_fileName, obj_tagName, obj_fileToLoad) ;
+					   if (current_checkpoint !== null) {
+                                               wepsim_checkpoint_load_aux(current_checkpoint[0], obj_fileName, obj_tagName, obj_fileToLoad) ;
+					   }
 			                } ;
 
 	    // load checkpoint
@@ -83,8 +87,9 @@
 	   var u = '' ;
 
 	   // check params
-	   if (checkpointObj === null) 
+	   if (checkpointObj === null) {
 	       return o ;
+	   }
 
 	   // load tag
 	   obj_fileName.value = obj_fileToLoad.name ;
@@ -137,6 +142,8 @@
 		   '<span class="btn btn-sm btn-info py-0" onclick="wepsim_execute_toggle_play(\'#qbp\',false);">Run</span> button.<br>' ;
 	   }
 
-	   simcoreui_notify('Restored Checkpoint', o, 'info', 0) ;
+	   if (checkpointObj.notify === true) {
+	       simcoreui_notify('Restored Checkpoint', o, 'info', 0) ;
+	   }
     }
 
