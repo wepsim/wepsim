@@ -887,7 +887,8 @@
 		<h5 class="card-title m-0">
 			<span data-langkey="Save">Save</span>
 		        <button class="btn btn-sm btn-light mx-auto float-right d-sm-none d-xs-block py-0"
-		  	        onclick="wepsim_checkpoint_save('FileNameToSaveAs', 'tagToSave');
+		  	        onclick="var checkpointObj = wepsim_checkpoint_getCurrent('tagToSave'); 
+	                                 wepsim_checkpoint_save('FileNameToSaveAs', 'tagToSave', checkpointObj);
 				         return false;"><span data-langkey="Save">Save</span></button>
 		</h5>
 	      </div>
@@ -901,7 +902,8 @@
 	      </div>
 	      <div class="card-footer border-secondary d-none d-sm-block p-1">
 		  <button class="btn btn-sm btn-dark mx-auto d-flex justify-content-center col-6"
-		  	  onclick="wepsim_checkpoint_save('FileNameToSaveAs', 'tagToSave');
+		  	  onclick="var checkpointObj = wepsim_checkpoint_getCurrent('tagToSave'); 
+                                   wepsim_checkpoint_save('FileNameToSaveAs', 'tagToSave', checkpointObj);
 				   return false;"><span data-langkey="Save to File">Save to File</span></button>
 	      </div>
 	   </div>
