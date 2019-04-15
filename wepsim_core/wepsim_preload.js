@@ -92,12 +92,12 @@
 	    return 0 ;
     }
 
-    function wepsim_preload_json ( json_url )
+    function wepsim_preload_json ( json_url, do_after )
     {
 	    var size = 0 ;
 	    var max_size = 8*1024 ;
 
-	    // preload json_url only if file_size(json_url) < 8 KB
+	    // preload json_url only if file_size(json_url) < max_size bytes
 	    var xhr = new XMLHttpRequest() ;
 	    xhr.open("HEAD", json_url, true) ;
 
@@ -105,7 +105,7 @@
 		if (this.readyState == this.DONE) {
 		    size = parseInt(xhr.getResponseHeader("Content-Length")) ;
 		    if (size < max_size) {
-	                $.getJSON(json_url, wepsim_preload_hash) ;
+	                $.getJSON(json_url, do_after) ;
 		    }
 		}
 	    } ;
@@ -118,33 +118,43 @@
 	    var hash = {} ;
 
 	    // 1.a.- get parameters
-	    hash['mode']      = parameters.get('mode') ;
-	    hash['example']   = parameters.get('example') ;
-	    hash['simulator'] = parameters.get('simulator') ;
-	    hash['preload']   = parameters.get('preload') ;
-	    hash['notify']    = parameters.get('notify') ;
+	    hash['preload']    = parameters.get('preload') ;
+	    hash['mode']       = parameters.get('mode') ;
+	    hash['example']    = parameters.get('example') ;
+	    hash['simulator']  = parameters.get('simulator') ;
+	    hash['notify']     = parameters.get('notify') ;
+	    hash['checkpoint'] = parameters.get('checkpoint') ;
 
 	    // 1.b.- overwrite null with default values
-	    if (hash['mode'] === null)
-	        hash['mode']      = '' ;
-	    if (hash['example'] === null)
-	        hash['example']   = '' ;
-	    if (hash['simulator'] === null)
-	        hash['simulator'] = '' ;
 	    if (hash['preload'] === null)
-	        hash['preload']   = '' ;
+	        hash['preload']    = '' ;
+	    if (hash['mode'] === null)
+	        hash['mode']       = '' ;
+	    if (hash['example'] === null)
+	        hash['example']    = '' ;
+	    if (hash['simulator'] === null)
+	        hash['simulator']  = '' ;
 	    if (hash['notify'] === null)
-	        hash['notify']    = 'true' ;
+	        hash['notify']     = 'true' ;
+	    if (hash['checkpoint'] === null)
+	        hash['checkpoint'] = '' ;
 	    
-	    // 1.c.- overwrite with json-defined
+	    // 1.c.- get parameters from json
 	    if (hash['preload'] !== '') 
 	    {
 	        var uri_obj = new URL(hash['preload']) ;
-	        wepsim_preload_json(uri_obj.pathname) ;
+	        wepsim_preload_json(uri_obj.pathname, wepsim_preload_hash) ;
 		return ;
 	    }
 
 	    // 2.- hash
 	    wepsim_preload_hash(hash) ;
+
+	    // 3.- checkpoint
+	    if (hash['checkpoint'] !== '') 
+	    {
+	        var uri_obj = new URL(hash['checkpoint']) ;
+	        wepsim_preload_json(uri_obj.pathname, wepsim_checkpoint_load_aux) ;
+	    }
     }
 
