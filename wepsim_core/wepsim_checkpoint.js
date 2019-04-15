@@ -116,15 +116,15 @@
 	    var function_after_loaded = function (textLoaded)
 	                                {
 				           var current_checkpoint = JSON.parse(textLoaded) ;
-                                           wepsim_checkpoint_load_aux(current_checkpoint, 
-						                      obj_fileName, obj_tagName, obj_fileToLoad) ;
+                                           wepsim_checkpoint_loadFromObj(current_checkpoint, 
+						                         obj_fileName, obj_tagName, obj_fileToLoad) ;
 			                } ;
 
 	    // load checkpoint
 	    wepsim_load_from_file(obj_fileToLoad, function_after_loaded) ;
     }
 
-    function wepsim_checkpoint_load_aux ( checkpointObj, obj_fileName, obj_tagName, obj_fileToLoad )
+    function wepsim_checkpoint_loadFromObj ( checkpointObj, obj_fileName, obj_tagName, obj_fileToLoad )
     {
 	   var o = '' ;
 	   var u = '' ;
@@ -185,8 +185,12 @@
 	   // 4.- restore user interface elements
 
 		// load tag
-		obj_fileName.value = obj_fileToLoad.name ;
-		obj_tagName.value  = checkpointObj[0].tag ;
+	        if ((typeof obj_fileName !== "undefined") && (obj_fileName !== null)) {
+		     obj_fileName.value = obj_fileToLoad.name ;
+		}
+	        if ((typeof obj_fileName !== "undefined") && (obj_tagName !== null)) {
+		     obj_tagName.value  = checkpointObj[0].tag ;
+		}
 
 		o += '<li>Tag: <strong>' + checkpointObj.tag + '</strong></li>' ;
 
