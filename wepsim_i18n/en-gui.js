@@ -51,6 +51,7 @@
                         "Dependencies": 		                "Dependencies",
                         "Close": 		                	"Close",
                         "Show": 		                	"Show",
+
                         "history": 		                	"history",
                         "Add": 		                	        "Add",
                         "'Current State' to History": 		        "'Current State' to History",
@@ -61,6 +62,7 @@
 	                "content":                                      "content",
 	                "assembly":                                     "assembly",
 	                "instructions":                                 "instructions",
+
                         "simulator intro 1": 		                "First, you are going to load and microcompile the microcode that defines the instruction set to be used. " +
 									"You can use an example of microcode, load it from a file or you can edit a new one.",
                         "simulator intro 2": 		                "Next, you need to load and compile the assembly code to be executed. " +
@@ -70,11 +72,17 @@
                         "Prev.": 		                	"Prev.",
                         "Next": 		                	"Next",
                         "Disable tutorial mode": 		        "Disable tutorial mode",
+
                         "Show Notifications":                           "Show Notifications",
                         "Show/Hide ActionBar":                          "Show/Hide ActionBar",
                         "Show/Hide Slider":                             "Show/Hide Slider",
                         "About WepSIM":                                 "About WepSIM",
+                        "Recent":                                       "Recent",
+
                         "Checkpoint":                                   "Checkpoint",
+                        "File name":                                    "File name",
+                        "Tag for checkpoint":                           "Tag for checkpoint",
+                        "File to be loaded":                            "File to be loaded",
                         "Initial intro":                                "Initial intro",
 	                "Save to File":                                 "Save to File",
 	                "Load from this File":                          "Load from this File"
