@@ -73,7 +73,7 @@
 					firmware: firmwareValue,
 					assembly: assemblyValue,
 					state:    s_h[i],
-				        tag:      obj_tagName.value + ' (Step ' + i + ')',
+				        tag:      obj_tagName.value + ' (Step ' + (i+1) + ')',
 					notify:   false
 				    }) ;
 	    }
