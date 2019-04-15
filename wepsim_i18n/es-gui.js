@@ -51,6 +51,7 @@
                         "Dependencies": 		                "Dependencias",
                         "Close": 		                	"Cerrar",
                         "Show": 		                	"Mostrar",
+
                         "history": 		                	"historial",
                         "Add": 		                	        "A&ntilde;adir",
                         "'Current State' to History": 		        "'Estado Actual' al historial",
@@ -70,12 +71,18 @@
                         "Prev.": 		                	"Anterior",
                         "Next": 		                	"Siguiente",
                         "Disable tutorial mode": 		        "Deshabilitar modo tutorial",
+
                         "Show Notifications":                           "Mostrar notificaciones",
                         "Show/Hide ActionBar":                          "Mostrar/Ocultar barra",
                         "Show/Hide Slider":                             "Mostrar/Ocultar slider",
                         "About WepSIM":                                 "Sobre WepSIM",
+                        "Recent":                                       "Reciente",
+
                         "Checkpoint":                                   "Checkpoint",
-                        "Initial intro":                                "Initial intro",
+                        "File name":                                    "Nombre de fichero",
+                        "Tag for checkpoint":                           "Etiqueta para checkpoint",
+                        "File to be loaded":                            "Fichero a cargar",
+                        "Initial intro":                                "Intro inicial",
 	                "Save to File":                                 "Guardar a fichero",
 	                "Load from this File":                          "Cargar de este fichero"
                   } ;

@@ -32,12 +32,14 @@
 	    }
 
 	    // insert current in the checkpoint array
+	    var ws_mode   = get_cfg('ws_mode') ;
 	    var ret       = wepsim_state_get_clk() ;
 	    var state_obj = simcore_simstate_current2state() ;
 	      ret.content = simcore_simstate_state2checklist(state_obj) ;
 
 	    var checkpointObj = [] ;
 	    checkpointObj.push({
+		                  mode:     ws_mode,
 		                  firmware: inputfirm.getValue(), 
 				  assembly: inputasm.getValue(), 
 				  state:    ret,
@@ -58,6 +60,7 @@
 	    }
 
 	    // insert history in the checkpoint array
+	    var ws_mode   = get_cfg('ws_mode') ;
 	    var firmwareValue = inputfirm.getValue() ;
 	    var assemblyValue = inputasm.getValue() ;
 	    var s_h = wepsim_state_history_get() ;
@@ -66,10 +69,11 @@
 	    for (var i=0; i<s_h.length; i++) 
 	    {
 		 checkpointObj.push({
+		                        mode:     ws_mode,
 					firmware: firmwareValue,
 					assembly: assemblyValue,
 					state:    s_h[i],
-				        tag:      obj_tagName.value,
+				        tag:      obj_tagName.value + ' (Step ' + i + ')',
 					notify:   false
 				    }) ;
 	    }
@@ -127,8 +131,18 @@
 
 	   // 1.- check params
 	   if (checkpointObj === null) {
-	       return o ;
+	       return 'null checkpoint' ;
 	   }
+	   if (checkpointObj.length === 0) {
+	       return 'zero-length checkpoint' ;
+	   }
+
+	   if (typeof checkpointObj[0].mode     === 'undefined')
+	       checkpointObj[0].mode = 'ep' ;
+	   if (typeof checkpointObj[0].firmware === 'undefined')
+	       checkpointObj[0].firmware = '' ;
+	   if (typeof checkpointObj[0].assembly === 'undefined')
+	       checkpointObj[0].assembly = '' ;
 
 	   // 2.- restore state(s)
 
@@ -142,6 +156,9 @@
 	        o += '<li>State: restored into the state history.</li>' ;
 
 	   // 3.- restore firmware + assembly
+
+		// set associated mode
+	        simui_select_main(checkpointObj[0].mode) ;
 
 		// firmware + assembly: load into editor
 		inputfirm.setValue(checkpointObj[0].firmware) ;
@@ -191,5 +208,8 @@
 	   if (checkpointObj[0].notify === true) {
 	       simcoreui_notify('Restored Checkpoint', o, 'info', 0) ;
 	   }
+
+	   // return
+	   return o ;
     }
 
