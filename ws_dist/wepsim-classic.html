@@ -933,108 +933,6 @@
 </div>
 
 
-<!-- load/save microcode+assembly+comment -->
-<div class="modal" id="lssave3" tabindex="-1" role="dialog" aria-labelledby="lssave3" aria-hidden="true">
-     <div class="modal-dialog modal-lg">
-     <div class="modal-content">
-
-     <div class="modal-header">
-	<div class="mx-auto">
-	   <div class="btn-group">
-	     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled>
-		     <span class="text-dark" data-langkey='Checkpoint'>Checkpoint</span>
-	     </button>
-	     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
-		     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-		 <span class="caret"></span>
-		 <span class="sr-only">Toggle Help Idiom</span>
-	     </button>
-	     <div class="dropdown-menu" style="z-index:100000;">
-		 <a class="dropdown-item" href="#"
-		    onclick="set_cfg('ws_idiom','es'); save_cfg();
-			     i18n_update_tags('gui', 'es');">ES<span class="d-none d-sm-inline-flex">&nbsp;(Spanish)</span></a>
-		 <a class="dropdown-item" href="#"
-		    onclick="set_cfg('ws_idiom','en'); save_cfg();
-			     i18n_update_tags('gui', 'en');">EN<span class="d-none d-sm-inline-flex">&nbsp;(English)</span></a>
-	     </div>
-	   </div>
-	</div>
-	<button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
-     </div>
-
-     <div class="modal-body">
-	<div class="container-fluid" style="max-height:80vh; padding:0 0 0 0; overflow:auto; -webkit-overflow-scrolling:touch;">
-	<div class="card-deck m-0">
-	   <div class="card border-secondary">
-	      <div class="card-header border-secondary text-white bg-dark p-1">
-		<h5 class="card-title m-0">
-			<span data-langkey="Save">Save</span>
-		        <button class="btn btn-sm btn-light mx-auto float-right d-sm-none d-xs-block py-0"
-			        onclick="var action = $('#lssave3').data('action') ;
-					 var checkpointObj = null;
-					 if (action === 'current')
-					      checkpointObj = wepsim_checkpoint_getCurrent('tagToSave'); 
-					 else checkpointObj = wepsim_checkpoint_getHistory('tagToSave'); 
-	                                 wepsim_checkpoint_save('FileNameToSaveAs', 'tagToSave', checkpointObj);
-				         return false;"><span data-langkey="Save">Save</span></button>
-		</h5>
-	      </div>
-	      <div class="card-body">
-		        <label for="FileNameToSaveAs"><em><span data-langkey="File name">File name</span>:</em></label>
-			<p><input aria-label="filename to save content" id="FileNameToSaveAs"
-				  class="form-control btn-outline-dark" placeholder="File name where checkpoint will be saved" style="min-width: 90%;"/></p>
-			<label for="tagToSave"><em><span data-langkey="Tag for checkpoint">Tag for checkpoint</span>:</em></label>
-			<p><input aria-label="associated tag to be saved" id="tagToSave"
-				  class="form-control btn-outline-dark" placeholder="Associated tag to be saved (if any)" style="min-width: 90%;"/></p>
-	      </div>
-	      <div class="card-footer border-secondary d-none d-sm-block p-1">
-		<button class="btn btn-sm btn-dark mx-auto d-flex justify-content-center col-6"
-			onclick="var action = $('#lssave3').data('action') ;
-				 var checkpointObj = null;
-				 if (action === 'current')
-				      checkpointObj = wepsim_checkpoint_getCurrent('tagToSave'); 
-				 else checkpointObj = wepsim_checkpoint_getHistory('tagToSave'); 
-                                 wepsim_checkpoint_save('FileNameToSaveAs', 'tagToSave', checkpointObj);
-				 return false;"><span data-langkey="Save to File">Save to File</span></button>
-	      </div>
-	   </div>
-	   <div class="card border-secondary">
-	      <div class="card-header border-secondary text-white bg-dark p-1">
-		<h5 class="card-title m-0">
-			<span data-langkey="Restore">Restore</span>
-		        <button class="btn btn-sm btn-light mx-auto float-right d-sm-none d-xs-block py-0"
-				onclick="wepsim_checkpoint_load('FileNameToSaveAs', 'tagToSave', 'fileToLoad3');
-					 $('#lssave3').modal('hide');
-					 return false;"><span data-langkey="Load">Load</span></button>
-		</h5>
-	      </div>
-	      <div class="card-body">
-		        <label for="fileToLoad3"><em><span data-langkey="File to be loaded">File to be loaded</span>:</em></label>
-			<br>
-                        <input data-max-height="20vh"
-	                       aria-label="file to load" type="file" id="fileToLoad3" class="dropify" /></p>
-	      </div>
-	      <div class="card-footer border-secondary d-none d-sm-block p-1">
-		<button class="btn btn-sm btn-dark mx-auto d-flex justify-content-center col-6"
-			onclick="wepsim_checkpoint_load('FileNameToSaveAs', 'tagToSave', 'fileToLoad3');
-			         $('#lssave3').modal('hide');
-				 return false;"><span data-langkey="Load from this File">Load from this File</span></button>
-	      </div>
-	    </div>
-	</div>
-	</div>
-     </div>
-
-     <div class="modal-footer" style="flex-wrap: wrap">
-	<button class="btn btn-sm btn-danger col-xs-3 col-sm-2 float-right"
-		type="button" data-dismiss="modal"><span data-langkey="Close">Close</span></button>
-     </div>
-
-     </div>
-     </div>
-</div>
-
-
 <!-- configuration -->
 <div id="config2" class="modal">
     <div class="modal-dialog modal-lg" style="height:80vh;">
@@ -1221,8 +1119,11 @@
                <div class="btn-group">
                   <button onclick="$('#bot_check1').carousel(0);"
                           type="button"
+                          class="btn btn-secondary px-3 py-1"><span data-langkey='Checkpoint'>Checkpoint</span></button>
+                  <button onclick="$('#bot_check1').carousel(1);"
+                          type="button"
                           class="btn btn-dark px-3 py-1"><span data-langkey='States'>States</span></button>
-                  <button onclick="$('#bot_check1').carousel(1);
+                  <button onclick="$('#bot_check1').carousel(2);
                                    update_checker_loadhelp('#help3a','help_dumper');"
                           type="button"
                           class="btn btn-success px-3 py-1"><span data-langkey="Help">Help</span></button>
@@ -1253,13 +1154,129 @@
          <div class="bootbox-body">
             <div id="bot_check1" class="carousel" data-ride="carousel" data-interval="false">
                <div class="carousel-inner" role="listbox">
+
+                  <div class="carousel-item">
+
+		        <div class="card mb-1">
+		          <div class="card-header text-white bg-dark p-1" id="state_header_3_1">
+		            <h5 class="m-0">
+				    <a data-toggle="collapse" href="#states3_1"><span class="text-white bg-dark" data-langkey="Current State">Current State</span></a>:&nbsp;
+		            </h5>
+		          </div>
+			  <div class="collapse show" aria-labelledby="state_header_3_1">
+		            <div class="card-body p-1">
+				<div class="container-fluid ml-1 pb-0 collapse show" id="states3_1"
+				     style="max-height:50vh; width:inherit;">
+
+					<div class="card-deck m-2">
+					   <div class="card border-secondary">
+					      <div class="card-header border-secondary text-white bg-secondary p-1">
+						<h5 class="card-title m-0">
+							<span data-langkey="Save">Save</span>
+							<button class="btn btn-sm btn-light mx-auto float-right py-0"
+								onclick="var checkpointObj = wepsim_checkpoint_getCurrent('tagToSave1'); 
+									 wepsim_checkpoint_save('FileNameToSaveAs1', 'tagToSave1', checkpointObj);
+						                         wepsim_notify_success('<strong>INFO</strong>', 'Save requested!.');
+									 return false;"><span data-langkey="Save">Save</span></button>
+						</h5>
+					      </div>
+					      <div class="card-body">
+							<label for="FileNameToSaveAs1"><em><span data-langkey="File name">File name</span>:</em></label>
+							<p><input aria-label="filename to save content" id="FileNameToSaveAs1"
+								  class="form-control btn-outline-dark" placeholder="File name where checkpoint will be saved" style="min-width: 90%;"/></p>
+							<label for="tagToSave1"><em><span data-langkey="Tag for checkpoint">Tag for checkpoint</span>:</em></label>
+							<p><input aria-label="associated tag to be saved" id="tagToSave1"
+								  class="form-control btn-outline-dark" placeholder="Associated tag to be saved (if any)" style="min-width: 90%;"/></p>
+					      </div>
+					   </div>
+					   <div class="card border-secondary">
+					      <div class="card-header border-secondary text-white bg-secondary p-1">
+						<h5 class="card-title m-0">
+							<span data-langkey="Restore">Restore</span>
+							<button class="btn btn-sm btn-light mx-auto float-right py-0"
+								onclick="wepsim_checkpoint_load('FileNameToSaveAs1', 'tagToSave1', 'fileToLoad31');
+						                         wepsim_notify_success('<strong>INFO</strong>', 'Load requested!.');
+									 return false;"><span data-langkey="Load">Load</span></button>
+						</h5>
+					      </div>
+					      <div class="card-body">
+							<label for="fileToLoad31"><em><span data-langkey="File to be loaded">File to be loaded</span>:</em></label>
+							<br>
+							<input data-max-height="20vh"
+							       aria-label="file to load" type="file" id="fileToLoad31" class="dropify" /></p>
+					      </div>
+					    </div>
+					</div>
+
+		                </div>
+		            </div>
+		          </div>
+		        </div>
+
+		        <div class="card mb-1">
+		          <div class="card-header text-white bg-dark p-1" id="state_header_3_2">
+		            <h5 class="m-0">
+				    <a data-toggle="collapse" href="#history3_1"><span class="text-white bg-dark" data-langkey="History">History</span></a>:&nbsp;
+		            </h5>
+		          </div>
+			  <div class="collapse show" aria-labelledby="state_header_3_2">
+		            <div class="card-body p-1">
+				<div class="container-fluid ml-1 pb-0 collapse show" id="history3_1"
+				     style="max-height:50vh; width:inherit;">
+
+					<div class="card-deck m-2">
+					   <div class="card border-secondary">
+					      <div class="card-header border-secondary text-white bg-secondary p-1">
+						<h5 class="card-title m-0">
+							<span data-langkey="Save">Save</span>
+							<button class="btn btn-sm btn-light mx-auto float-right py-0"
+								onclick="var checkpointObj = wepsim_checkpoint_getCurrent('tagToSave2'); 
+									 wepsim_checkpoint_save('FileNameToSaveAs2', 'tagToSave2', checkpointObj);
+						                         wepsim_notify_success('<strong>INFO</strong>', 'Save requested!.');
+									 return false;"><span data-langkey="Save">Save</span></button>
+						</h5>
+					      </div>
+					      <div class="card-body">
+							<label for="FileNameToSaveAs2"><em><span data-langkey="File name">File name</span>:</em></label>
+							<p><input aria-label="filename to save content" id="FileNameToSaveAs2"
+								  class="form-control btn-outline-dark" placeholder="File name where checkpoint will be saved" style="min-width: 90%;"/></p>
+							<label for="tagToSave2"><em><span data-langkey="Tag for checkpoint">Tag for checkpoint</span>:</em></label>
+							<p><input aria-label="associated tag to be saved" id="tagToSave2"
+								  class="form-control btn-outline-dark" placeholder="Associated tag to be saved (if any)" style="min-width: 90%;"/></p>
+					      </div>
+					   </div>
+					   <div class="card border-secondary">
+					      <div class="card-header border-secondary text-white bg-secondary p-1">
+						<h5 class="card-title m-0">
+							<span data-langkey="Restore">Restore</span>
+							<button class="btn btn-sm btn-light mx-auto float-right py-0"
+								onclick="wepsim_checkpoint_load('FileNameToSaveAs2', 'tagToSave2', 'fileToLoad32');
+						                         wepsim_notify_success('<strong>INFO</strong>', 'Load requested!.');
+									 return false;"><span data-langkey="Load">Load</span></button>
+						</h5>
+					      </div>
+					      <div class="card-body">
+							<label for="fileToLoad32"><em><span data-langkey="File to be loaded">File to be loaded</span>:</em></label>
+							<br>
+							<input data-max-height="20vh"
+							       aria-label="file to load" type="file" id="fileToLoad32" class="dropify" /></p>
+					      </div>
+					    </div>
+					</div>
+
+		                </div>
+		            </div>
+		          </div>
+		        </div>
+
+                  </div>
+
                   <div class="carousel-item active">
 
 		        <div class="card mb-1">
 		          <div class="card-header text-white bg-dark p-1" id="state_header_1">
 		            <h5 class="m-0">
-				    <a data-toggle="collapse" href="#states3"><span class="text-white bg-dark" data-langkey="Current State">Current State</span></a>
-				    :&nbsp;
+				    <a data-toggle="collapse" href="#states3"><span class="text-white bg-dark" data-langkey="Current State">Current State</span></a>:&nbsp;
 				    <span class="btn btn-light btn-sm float-right py-0"
 					  onclick="wepsim_state_history_add();
 						   wepsim_notify_success('<strong>INFO</strong>', 'Added !.');
@@ -1268,12 +1285,6 @@
 						   $('#states3').collapse('show');
 						   return false;"
 					  data-inline="true"><span data-langkey="Add">Add</span> <span class='d-none d-sm-inline-flex'><span data-langkey="'Current State' to History">'Current State' to History</span></span></span>
-				    <span class="btn btn-light btn-sm float-right py-0 mx-2"
-					  onclick="$('#lssave3').data('action', 'current');
-					           $('#lssave3').modal('show'); 
-                                                   $('#current_state1').modal('hide'); 
-                                                   return false;"
-					  data-inline="true"><span data-langkey='Checkpoint'>Checkpoint</span></span>
 		            </h5>
 		          </div>
 			  <div id="states3b" class="collapse show" aria-labelledby="state_header_1">
@@ -1356,12 +1367,6 @@
 						   wepsim_state_history_list() ;
 						   return false;"
 					  data-inline="true"><span data-langkey='Reset'>Reset</span> <span class='d-none d-sm-inline-flex'><span data-langkey='history'>history</span></span></span>
-				    <span class="btn btn-light btn-sm float-right py-0 mx-2"
-					  onclick="$('#lssave3').data('action', 'history');
-					           $('#lssave3').modal('show'); 
-                                                   $('#current_state1').modal('hide'); 
-                                                   return false;"
-					  data-inline="true"><span data-langkey='Checkpoint'>Checkpoint</span></span>
 		            </h5>
 		          </div>
 			  <div id="history3b" class="collapse show" aria-labelledby="state_header_2">
