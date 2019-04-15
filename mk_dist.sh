@@ -75,6 +75,7 @@ cat wepsim_i18n/i18n.js \
     wepsim_core/wepsim_execute.js \
     wepsim_core/wepsim_help.js \
     wepsim_core/wepsim_notify.js \
+    wepsim_core/wepsim_preload.js \
     wepsim_core/wepsim_state.js \
     wepsim_core/wepsim_tutorial.js \
     wepsim_core/wepsim_tour.js \

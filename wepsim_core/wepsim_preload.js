@@ -1,0 +1,150 @@
+/*
+ *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+ *
+ *  This file is part of WepSIM.
+ *
+ *  WepSIM is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU Lesser General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  WepSIM is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU Lesser General Public License for more details.
+ *
+ *  You should have received a copy of the GNU Lesser General Public License
+ *  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ */
+
+
+    //
+    // Preload work
+    //
+
+    function wepsim_preload_hash ( hash )
+    {
+	    var o = '' ;
+
+	    // parameter: mode
+	    if (hash['mode'] !== '')
+	    {
+                simui_select_main(hash['mode']) ;
+	        o += '<li>Mode set to <strong>' + hash['mode'] + '</strong>.</li> ' ;
+	    }
+
+	    // parameter: example
+	    if (hash['example'] !== '')
+	    {
+		var example_index = parseInt(hash['example']) ;
+		var example_obj   = ws_examples[example_index] ;
+	        if (typeof example_obj !== "undefined")
+		{
+		    var example_uri = example_obj.hardware + ":" + example_obj.microcode + ":" + example_obj.assembly ;
+	            load_from_example_firmware(example_uri, true) ;
+	            o += '<li>Example titled <strong>' + example_obj.title + '</strong> has been loaded.</li> ' ;
+		}
+	    }
+
+	    // parameter: simulator UI
+	    var panels = [] ;
+	    if (hash['simulator'] !== '') {
+	        panels = hash['simulator'].split(":") ;
+	        o += '<li>User interface has been adapted.</li> ' ;
+            }
+
+	    if (typeof panels[0] !== "undefined")
+	    {
+		if (panels[0] === "microcode") {
+	            $("#tab26").click() ;
+                }
+		if (panels[0] === "assembly") {
+	            $("#tab24").click() ;
+                }
+	    }
+
+	    if (typeof panels[1] !== "undefined")
+	    {
+		var panel2_ref  = panels[1].toUpperCase() ;
+		var evt_handler = hash_detail2action[panel2_ref] ;
+		if (typeof evt_handler !== "undefined") {
+		    evt_handler() ;
+                }
+	    }
+
+	    // notify the user of the preloaded work
+	    if (o !== '') 
+	    {
+		o = 'WepSIM has been instructed to preload some work for you:<br>' + 
+		    '<ul>' + o + '</ul>' + 
+		    'To close this notification please press in the ' +
+                    '<span class="btn btn-sm btn-info py-0" data-dismiss="alert">X</span> mark. <br>' +
+	            'In order to execute an example please press the ' + 
+		    '<span class="btn btn-sm btn-info py-0" onclick="wepsim_execute_toggle_play(\'#qbp\',false);">Run</span> button.<br>' ;
+
+	        if (hash['notify'] !== 'false') {
+	            simcoreui_notify('WepSIM preloads some work', o, 'info', 0) ;
+		}
+	    }
+
+	    // return ok
+	    return 0 ;
+    }
+
+    function wepsim_preload_json ( json_url )
+    {
+	    var size = 0 ;
+	    var max_size = 8*1024 ;
+
+	    // preload json_url only if file_size(json_url) < 8 KB
+	    var xhr = new XMLHttpRequest() ;
+	    xhr.open("HEAD", json_url, true) ;
+
+	    xhr.onreadystatechange = function() {
+		if (this.readyState == this.DONE) {
+		    size = parseInt(xhr.getResponseHeader("Content-Length")) ;
+		    if (size < max_size) {
+	                $.getJSON(json_url, wepsim_preload_hash) ;
+		    }
+		}
+	    } ;
+
+	    xhr.send();
+    }
+
+    function wepsim_preload_get ( parameters )
+    {
+	    var hash = {} ;
+
+	    // 1.a.- get parameters
+	    hash['mode']      = parameters.get('mode') ;
+	    hash['example']   = parameters.get('example') ;
+	    hash['simulator'] = parameters.get('simulator') ;
+	    hash['preload']   = parameters.get('preload') ;
+	    hash['notify']    = parameters.get('notify') ;
+
+	    // 1.b.- overwrite null with default values
+	    if (hash['mode'] === null)
+	        hash['mode']      = '' ;
+	    if (hash['example'] === null)
+	        hash['example']   = '' ;
+	    if (hash['simulator'] === null)
+	        hash['simulator'] = '' ;
+	    if (hash['preload'] === null)
+	        hash['preload']   = '' ;
+	    if (hash['notify'] === null)
+	        hash['notify']    = 'true' ;
+	    
+	    // 1.c.- overwrite with json-defined
+	    if (hash['preload'] !== '') 
+	    {
+	        var uri_obj = new URL(hash['preload']) ;
+	        wepsim_preload_json(uri_obj.pathname) ;
+		return ;
+	    }
+
+	    // 2.- hash
+	    wepsim_preload_hash(hash) ;
+    }
+
