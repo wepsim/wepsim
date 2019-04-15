@@ -94,7 +94,6 @@
 
     function wepsim_preload_json ( json_url, do_after )
     {
-	    var size = 0 ;
 	    var max_size = 1*1024*1024 ;
 
 	    // preload json_url only if file_size(json_url) < max_size bytes
@@ -102,10 +101,19 @@
 	    xhr.open("HEAD", json_url, true) ;
 
 	    xhr.onreadystatechange = function() {
-		if (this.readyState == this.DONE) {
-		    size = parseInt(xhr.getResponseHeader("Content-Length")) ;
+		if (this.readyState == this.DONE) 
+	        {
+	            var size = 0 ;
+
+		    var content_length = xhr.getResponseHeader("Content-Length") ;
+		    if (content_length !== null) {
+		        size = parseInt(content_length) ;
+		    }
+
 		    if (size < max_size) {
-	                $.getJSON(json_url, do_after) ;
+	                $.getJSON(json_url, do_after).fail(function(e) { 
+				                              simcoreui_notify('getJSON', 'There was some problem for getting ' + json_url, 'warning', 0); 
+			                                   }) ;
 		    }
 		}
 	    } ;
@@ -159,7 +167,8 @@
 	    {
 		try {
 		   var uri_obj = new URL(hash['checkpoint']) ;
-		   wepsim_preload_json(uri_obj.pathname, wepsim_checkpoint_loadFromObj) ;
+		   wepsim_preload_json(uri_obj.href, 
+			               function(data){ wepsim_checkpoint_loadFromObj(data, null, null, null); }) ;
 		}
 		catch (e) { }
 	    }
