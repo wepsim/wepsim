@@ -95,7 +95,7 @@
     function wepsim_preload_json ( json_url, do_after )
     {
 	    var size = 0 ;
-	    var max_size = 8*1024 ;
+	    var max_size = 1*1024*1024 ;
 
 	    // preload json_url only if file_size(json_url) < max_size bytes
 	    var xhr = new XMLHttpRequest() ;
@@ -142,8 +142,12 @@
 	    // 1.c.- get parameters from json
 	    if (hash['preload'] !== '') 
 	    {
-	        var uri_obj = new URL(hash['preload']) ;
-	        wepsim_preload_json(uri_obj.pathname, wepsim_preload_hash) ;
+		try {
+	           var uri_obj = new URL(hash['preload']) ;
+	           wepsim_preload_json(uri_obj.pathname, wepsim_preload_hash) ;
+		}
+		catch (e) { }
+
 		return ;
 	    }
 
@@ -153,8 +157,11 @@
 	    // 3.- checkpoint
 	    if (hash['checkpoint'] !== '') 
 	    {
-	        var uri_obj = new URL(hash['checkpoint']) ;
-	        wepsim_preload_json(uri_obj.pathname, wepsim_checkpoint_load_aux) ;
+		try {
+		   var uri_obj = new URL(hash['checkpoint']) ;
+		   wepsim_preload_json(uri_obj.pathname, wepsim_checkpoint_loadFromObj) ;
+		}
+		catch (e) { }
 	    }
     }
 
