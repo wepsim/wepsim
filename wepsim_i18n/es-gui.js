@@ -30,6 +30,7 @@
 			"Save":  			        	"Guardar",
                         "Restore":                                      "Restaurar",
 			"Help": 			     		"Ayuda",
+			"Help Index":  			                "&Iacute;ndice ayuda",
 			"Processor": 			     		"Procesador",
 			"Assembly Debugger": 		     		"Depurador de Ensamblador",
 			"Reset": 			     		"Reiniciar",
@@ -38,9 +39,11 @@
 			"Hardware Summary":  			        "Hardware Resumido",
 			"States": 			     		"Estados",
 			"Refresh": 			     		"Refrescar",
+			"Current":  			                "Actual",
 			"Current State":  			        "Estado Actual",
 			"History":  			                "Historia",
 			"Empty history":  			        "Historia vac&iacute;a",
+			"Empty (only modified values are shown)":       "Vac&iacute;o (solo se muestra los valores modificados)",
 			"Differences":  			        "Diferencias",
 			"differences with clipboard state":  	        "diferencias con estado en portapapeles",
 			"processor":  			                "procesador",
@@ -51,6 +54,7 @@
                         "Dependencies": 		                "Dependencias",
                         "Close": 		                	"Cerrar",
                         "Show": 		                	"Mostrar",
+                        "Show Main Memory": 		               	"Mostrar Memoria Principal",
 
                         "history": 		                	"historial",
                         "Add": 		                	        "A&ntilde;adir",
@@ -59,6 +63,8 @@
                         "Copy": 		                	"Copiar",
                         "to clipboard": 		                "al portapapeles",
 	                "labels":                                       "etiquetas",
+	                "addr":                                         "dir",
+	                "ess":                                          "ecci&oacute;n",
 	                "content":                                      "contenido",
 	                "assembly":                                     "ensamblador",
 	                "instructions":                                 "instrucciones",
@@ -84,6 +90,7 @@
                         "File to be loaded":                            "Fichero a cargar",
                         "Initial intro":                                "Intro inicial",
 	                "Save to File":                                 "Guardar a fichero",
+	                "State(s) to checkpoint":                       "Estado(s) a guardar",
 	                "Load from this File":                          "Cargar de este fichero"
                   } ;
 

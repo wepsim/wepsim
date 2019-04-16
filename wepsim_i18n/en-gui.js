@@ -30,6 +30,7 @@
 			"Save":  			        	"Save",
                         "Restore":                                      "Restore",
 			"Help":  			                "Help",
+			"Help Index":  			                "Help Index",
 			"Processor":  			                "Processor",
 			"Assembly Debugger":  			        "Assembly Debugger",
 			"Reset":  			                "Reset",
@@ -38,9 +39,11 @@
 			"Hardware Summary":  			        "Hardware Summary",
 			"States":  			                "States",
 			"Refresh":  			                "Refresh",
+			"Current":  			                "Current",
 			"Current State":  			        "Current State",
 			"History":  			                "History",
 			"Empty history":  			        "Empty history",
+			"Empty (only modified values are shown)":       "Empty (only modified values are shown)",
 			"Differences":  			        "Differences",
 			"differences with clipboard state":  	        "differences with clipboard state",
 			"processor":  			                "processor",
@@ -51,6 +54,7 @@
                         "Dependencies": 		                "Dependencies",
                         "Close": 		                	"Close",
                         "Show": 		                	"Show",
+                        "Show Main Memory": 		               	"Show Main Memory",
 
                         "history": 		                	"history",
                         "Add": 		                	        "Add",
@@ -59,6 +63,8 @@
                         "Copy": 		                	"Copy",
                         "to clipboard": 		                "to clipboard",
 	                "labels":                                       "labels",
+	                "addr":                                         "addr",
+	                "ess":                                          "ess",
 	                "content":                                      "content",
 	                "assembly":                                     "assembly",
 	                "instructions":                                 "instructions",
@@ -85,6 +91,7 @@
                         "File to be loaded":                            "File to be loaded",
                         "Initial intro":                                "Initial intro",
 	                "Save to File":                                 "Save to File",
+	                "State(s) to checkpoint":                       "State(s) to checkpoint",
 	                "Load from this File":                          "Load from this File"
                   } ;
 

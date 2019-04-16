@@ -439,7 +439,7 @@
 			   <a tabindex="0" href="#" data-toggle="popover2" id="popover2_asm">&plusmn;</a>
 			   </th>
                            <th width="10%" class="asm_label collapse" align="right"><span data-langkey='labels'>labels</span></th>
-			   <th width="15%" class="asm_addr  collapse"              ><span>addr</span><span class="d-none d-sm-inline-flex">ess</span></th>
+			   <th width="15%" class="asm_addr  collapse"              ><span><span data-langkey='addr'>addr</span></span><span class="d-none d-sm-inline-flex"><span data-langkey='ess'>ess</span></span></th>
                            <th width="15%" class="asm_hex   collapse" align="right"><span data-langkey='content'>content</span></th>
                            <th width="30%" class="asm_ins   collapse" align="left" ><span data-langkey='assembly'>assembly</span></th>
 			   <th width="30%" class="asm_pins  collapse" align="left" ><span>pseudo</span><span class="d-none d-md-inline"><small><span data-langkey='instructions'>instructions</span></small></span></th>
@@ -776,7 +776,7 @@
                                              var ok = wepsim_compile_assembly(textToCompile);
                                              if (true == ok) {
                                                  wepsim_show_binary_code('#bin2','#compile_results');
-                                             }"><em class="fas fa-memory"></em>&nbsp;<strong><span class="d-none d-sm-inline-flex">Show Main Memory</span><span class="d-sm-none">Show Main Mem.</span></strong></button>
+                                             }"><em class="fas fa-memory"></em>&nbsp;<strong><span class="d-none d-sm-inline-flex"><span data-langkey="Show Main Memory">Show Main Memory</span></span><span class="d-sm-none">Show Main Mem.</span></strong></button>
 		      </div>
 
                       <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">
@@ -1024,7 +1024,7 @@
 	   <div class="modal-header">
 		<div class="mx-auto">
 		   <button type="button" class="btn btn-success px-3 py-1"
-		   	   onclick="wepsim_open_help_index(); wepsim_help_refresh();">Help Index</button>
+		   	   onclick="wepsim_open_help_index(); wepsim_help_refresh();"><span data-langkey="Help Index">Help Index</span></button>
 		   <div class="btn-group">
 		     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled><span data-langkey="Help">Help</span></button>
 		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
@@ -1172,13 +1172,13 @@
 					<label for="tagToSave1"><em><span data-langkey="Tag for checkpoint">Tag for checkpoint</span>:</em></label>
 					<p><input aria-label="associated tag to be saved" id="tagToSave1"
 						  class="form-control btn-outline-dark" placeholder="Associated tag to be saved (if any)" style="min-width: 90%;"/></p>
-					<label for="stateToSave1"><em><span data-langkey="State for checkpoint">State(s) to checkpoint</span>:</em></label>
+					<label for="stateToSave1"><em><span data-langkey="State(s) to checkpoint">State(s) to checkpoint</span>:</em></label>
 					<div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
 					  <label class="btn btn-outline-dark active">
-					    <input type="radio" name="stateToSave1" id="current" autocomplete="off" value="current" checked>Current
+					    <input type="radio" name="stateToSave1" id="current" autocomplete="off" value="current" checked><span data-langkey="Current">Current</span>
 					  </label>
 					  <label class="btn btn-outline-dark">
-					    <input type="radio" name="stateToSave1" id="history" autocomplete="off" value="history">History
+					    <input type="radio" name="stateToSave1" id="history" autocomplete="off" value="history"><span data-langkey="History">History</span>
 					  </label>
 					</div>
 			      </div>
@@ -1354,7 +1354,7 @@
 				     </div>
 				     <div class="col py-2 pl-2">
 					  <div id="check_results1">
-					       <span style="background-color:#FCFC00">&lt;Empty (only modified values are shown)&gt;</span>
+					       <span style="background-color:#FCFC00">&lt;<span data-langkey="Empty (only modified values are shown)">Empty (only modified values are shown)</span>&gt;</span>
 					  </div>
 				     </div>
 				     </div>
