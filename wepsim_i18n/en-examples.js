@@ -71,6 +71,10 @@
              "Operating Systems":			"Operating Systems",
              "Special":					"Special",
 
+             "Load Assembly only": 			"Load Assembly only",
+             "Load Firmware only": 			"Load Firmware only",
+             "Copy reference to clipboard": 		"Copy reference to clipboard",
+	     "No examples available...": 		"No examples are available for the selected hardware",
              "Simple example":				"Simple example."
     } ;
 

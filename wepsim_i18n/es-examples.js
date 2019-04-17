@@ -71,6 +71,10 @@
              "Operating Systems":			"Sistemas Operativos",
              "Special":					"Especial",
 
+             "Load Assembly only": 			"Cargar Ensamblador solo",
+             "Load Firmware only": 			"Cargar Firmware solo",
+             "Copy reference to clipboard": 		"Copiar referencia al portapapeles",
+	     "No examples available...": 		"No examples are available for the selected hardware",
              "Simple example":				"Ejemplo simple."
     } ;
 

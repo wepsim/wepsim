@@ -249,17 +249,17 @@
 		        '             <a onclick="$(\'#example1\').modal(\'hide\'); ' + 
                         '                        load_from_example_assembly(\'' + t_hwmcasm + '\',false);' + 
 		        '                        return false;"' + 
-		        '                class="dropdown-item text-white bg-info" href="#"><c>Load Assembly only</c></a>' +
+		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Load Assembly only">Load Assembly only</span></c></a>' +
 		        '             <a onclick="$(\'#example1\').modal(\'hide\'); ' + 
                         '                        load_from_example_firmware(\'' + t_hwmcasm + '\',false);' + 
 		        '                        return false;"' + 
-		        '                class="dropdown-item text-white bg-info" href="#"><c>Load Firmware only</c></a>' +
+		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Load Firmware only">Load Firmware only</span></c></a>' +
 		        '             <a onclick="$(\'#example_reference_' + e_id + '\').removeClass(\'d-none\');' +
 		        '                         wepsim_clipboard_CopyFromDiv(\'example_reference_' + e_id + '\');' +
 		        '                         $(\'#example_reference_' + e_id + '\').addClass(\'d-none\');' +
 		        '                         $(\'#example1\').modal(\'hide\'); ' + 
                         '                         return false;"' + 
-		        '                class="dropdown-item text-white bg-info" href="#"><c>Copy reference to clipboard</c></a>' +
+		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Copy reference to clipboard">Copy reference to clipboard</span></c></a>' +
                         '           </div>' +
 		        '    </div>' +
                         '</div>' +
@@ -267,7 +267,7 @@
        }
 
        if (o.trim() === '') {
-	   o = '&lt;No examples are available for the selected hardware&gt;' ;
+	   o = '&lt;<span data-langkey="No examples available...">No examples are available for the selected hardware</span>&gt;' ;
        }
 
        o = '<div class="container grid-striped border border-light">' + o + '</div>' ;
