@@ -25,12 +25,9 @@
 
     function wepsim_open_examples_index ( )
     {
-        var examples_xx = ws_examples ;
-	var    idiom_xx = get_cfg('ws_idiom') ;
+        $("#container-example1").html(table_examples_html(ws_examples)) ;
 
-        $("#container-example1").html(table_examples_html(examples_xx)) ;
-
-	i18n_update_tags('examples', idiom_xx) ;
+	i18n_update_tags('examples') ;
 	$('#example1').modal('show') ;
 
 	// stats about ui

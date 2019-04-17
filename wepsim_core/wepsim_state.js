@@ -70,7 +70,9 @@
 
     function wepsim_state_history_empty ( )
     {
-         var empty_history = '<span style="background-color:#FCFC00">&lt;<span data-langkey="Empty history">Empty history</span>&gt;</span>' ;
+         var empty_history = '<span style="background-color:#FCFC00">' + 
+                             '&lt;<span data-langkey="Empty history">Empty history</span>&gt;' + 
+                             '</span>' ;
 
          $('#history1').html(empty_history) ;
     }
@@ -178,11 +180,14 @@
 
     function wepsim_dialog_current_state ( )
     {
-         // show dialog
+         // show dialog-box first...
          wepsim_notify_success('<strong>INFO</strong>', 
                                'Loading, please wait...') ;
+
+	 i18n_update_tags('states') ;
          $('#current_state1').modal('show');
 
+         // ...then update contents
 	 setTimeout(function() {
 
 	      // current clk+maddr
@@ -229,7 +234,7 @@
         var msg = "" ;
         if (0 == obj_result.errors)
     	     msg = "&emsp;<br><span style='background-color:#7CFC00'>" + 
-                   "Meets the specified requirements" + 
+                   "<span data-langkey='Meets the specified requirements'>Meets the specified requirements</span>" + 
                    "</span><br>" ;
         else msg = simcore_simstate_checkreport2html(obj_result.result, true) ;
 

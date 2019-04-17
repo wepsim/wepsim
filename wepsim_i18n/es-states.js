@@ -28,6 +28,7 @@
 			"Empty (only modified values are shown)":       "Vac&iacute;o (solo se muestra los valores modificados)",
 			"Differences":  			        "Diferencias",
 			"differences with clipboard state":  	        "diferencias con estado en portapapeles",
+			"Meets the specified requirements": 	        "Iguales (cumple los requisitos)",
 
                         "history": 		                	"historial",
                         "Add": 		                	        "A&ntilde;adir",
@@ -40,7 +41,6 @@
                         "File name":                                    "Nombre de fichero",
                         "Tag for checkpoint":                           "Etiqueta para checkpoint",
                         "File to be loaded":                            "Fichero a cargar",
-                        "Initial intro":                                "Intro inicial",
 	                "Save to File":                                 "Guardar a fichero",
 	                "State(s) to checkpoint":                       "Estado(s) a guardar",
 	                "Load from this File":                          "Cargar de este fichero"

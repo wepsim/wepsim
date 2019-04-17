@@ -30,7 +30,7 @@
 				   "	     onchange=\"var opt = $(this).find('option:selected');" +
 				   "	 	        var optValue = opt.val();" +
 				   "		        update_cfg('ws_idiom', optValue);" +
-	                           "                    i18n_update_tags('gui', optValue);" +
+	                           "                    i18n_update_tagsFor('gui', optValue);" +
 				   "		        wepsim_open_config_index();\"" +
 				   "	     data-native-menu='false'>" +
 				   "	<option value='es'>Spanish</option>" +

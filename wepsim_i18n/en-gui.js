@@ -67,7 +67,9 @@
                         "Show Notifications":                           "Show Notifications",
                         "Show/Hide ActionBar":                          "Show/Hide ActionBar",
                         "Show/Hide Slider":                             "Show/Hide Slider",
+                        "Initial intro":                                "Initial intro",
                         "About WepSIM":                                 "About WepSIM",
+
                         "Recent":                                       "Recent",
 			"Refresh":  			                "Refresh"
                   } ;

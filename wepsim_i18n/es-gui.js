@@ -66,7 +66,9 @@
                         "Show Notifications":                           "Mostrar notificaciones",
                         "Show/Hide ActionBar":                          "Mostrar/Ocultar barra",
                         "Show/Hide Slider":                             "Mostrar/Ocultar slider",
+                        "Initial intro":                                "Intro inicial",
                         "About WepSIM":                                 "Sobre WepSIM",
+
                         "Recent":                                       "Reciente",
 			"Refresh": 			     		"Refrescar"
                   } ;

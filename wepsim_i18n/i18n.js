@@ -67,7 +67,14 @@
      *  i18n Interface
      */
 
-    function i18n_update_tags ( component, lang )
+    function i18n_update_tags ( component )
+    {
+        var ws_idiom = get_cfg('ws_idiom') ;
+
+        i18n_update_tagsFor(component, ws_idiom) ;
+    }
+
+    function i18n_update_tagsFor ( component, lang )
     {
         if (typeof i18n[component] == "undefined") {
 	    return ;
