@@ -55,6 +55,7 @@ cat wepsim_i18n/i18n.js \
     wepsim_i18n/es-tour-intro.js \
     wepsim_i18n/es-cfg.js \
     wepsim_i18n/es-help.js \
+    wepsim_i18n/es-states.js \
     wepsim_i18n/es-examples.js \
     \
     wepsim_i18n/en-gui.js \
@@ -63,6 +64,7 @@ cat wepsim_i18n/i18n.js \
     wepsim_i18n/en-tour-intro.js \
     wepsim_i18n/en-cfg.js \
     wepsim_i18n/en-help.js \
+    wepsim_i18n/en-states.js \
     wepsim_i18n/en-examples.js \
     \
     wepsim_core/wepsim_breakpointicons.js \

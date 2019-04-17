@@ -37,15 +37,6 @@
 			"Instruction":  			        "Instruction",
 			"Run":  			                "Run",
 			"Hardware Summary":  			        "Hardware Summary",
-			"States":  			                "States",
-			"Refresh":  			                "Refresh",
-			"Current":  			                "Current",
-			"Current State":  			        "Current State",
-			"History":  			                "History",
-			"Empty history":  			        "Empty history",
-			"Empty (only modified values are shown)":       "Empty (only modified values are shown)",
-			"Differences":  			        "Differences",
-			"differences with clipboard state":  	        "differences with clipboard state",
 			"processor":  			                "processor",
 			"details":  			                "details",
                         "Signals": 		                     	"Signals",
@@ -56,12 +47,6 @@
                         "Show": 		                	"Show",
                         "Show Main Memory": 		               	"Show Main Memory",
 
-                        "history": 		                	"history",
-                        "Add": 		                	        "Add",
-                        "'Current State' to History": 		        "'Current State' to History",
-                        "Check": 		                	"Check",
-                        "Copy": 		                	"Copy",
-                        "to clipboard": 		                "to clipboard",
 	                "labels":                                       "labels",
 	                "addr":                                         "addr",
 	                "ess":                                          "ess",
@@ -84,14 +69,6 @@
                         "Show/Hide Slider":                             "Show/Hide Slider",
                         "About WepSIM":                                 "About WepSIM",
                         "Recent":                                       "Recent",
-
-                        "Checkpoint":                                   "Checkpoint",
-                        "File name":                                    "File name",
-                        "Tag for checkpoint":                           "Tag for checkpoint",
-                        "File to be loaded":                            "File to be loaded",
-                        "Initial intro":                                "Initial intro",
-	                "Save to File":                                 "Save to File",
-	                "State(s) to checkpoint":                       "State(s) to checkpoint",
-	                "Load from this File":                          "Load from this File"
+			"Refresh":  			                "Refresh"
                   } ;
 

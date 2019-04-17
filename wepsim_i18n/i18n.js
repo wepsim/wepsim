@@ -40,6 +40,11 @@
         i18n.examples.en = {} ;
         i18n.examples.es = {} ;
 
+    // states dialog
+	i18n.states = {} ;
+	i18n.states.es = {} ;
+	i18n.states.en = {} ;
+
     // help dialog
     var help    = {} ;
         help.en = [] ;
