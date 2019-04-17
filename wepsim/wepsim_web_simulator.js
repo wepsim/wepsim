@@ -434,7 +434,9 @@
 		'  <em class="fas fa-flag"></em> &nbsp;' +
 		'  <a class="btn btn-sm btn-outline-secondary col-auto p-1 text-left" href="#" ' +
                 '     onclick="simcoreui_notify_notifications(); ' +
-		'              $(\'#' + quick_po + '\').popover(\'hide\');">' +
+		'              $(\'#' + quick_po + '\').popover(\'hide\');' +
+                '              i18n_update_tags(); ' +
+		'              return false;">' +
 		i18n_get('gui',wsi,'Show Notifications') + '...</a>' +
 		'</li>' +
 		'<li class="list-group-item px-0"> ' +

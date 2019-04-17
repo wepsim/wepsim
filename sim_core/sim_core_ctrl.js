@@ -401,12 +401,12 @@
 				'   </button>' +
 				'   <div class="dropdown-menu">' +
 				'        <a href="#" class="dropdown-item" ' + 
-				'                    onclick="set_cfg(\'ws_idiom\',\'es\'); save_cfg(); i18n_update_tags(\'gui\', \'es\'); ' +
+				'                    onclick="set_cfg(\'ws_idiom\',\'es\'); save_cfg(); i18n_update_tags(\'gui\'); ' +
 				'                             $(\'#bot_signal\').carousel(1); ' +
 				'                             update_signal_loadhelp(\'#help2\',$(\'#ask_shard\').val(),$(\'#ask_skey\').val());" ' + 
 				'        >ES<span class="d-none d-sm-inline-flex">&nbsp;(Spanish)</span></a>' +
 				'        <a href="#" class="dropdown-item" ' + 
-				'                    onclick="set_cfg(\'ws_idiom\',\'en\'); save_cfg(); i18n_update_tags(\'gui\', \'en\'); ' +
+				'                    onclick="set_cfg(\'ws_idiom\',\'en\'); save_cfg(); i18n_update_tags(\'gui\'); ' +
 				'                             $(\'#bot_signal\').carousel(1); ' +
 				'                             update_signal_loadhelp(\'#help2\',$(\'#ask_shard\').val(),$(\'#ask_skey\').val());" ' +
 				'        >EN<span class="d-none d-sm-inline-flex">&nbsp;(English)</span></a>' +

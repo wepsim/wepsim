@@ -28,6 +28,7 @@
 			"Empty (only modified values are shown)":       "Empty (only modified values are shown)",
 			"Differences":  			        "Differences",
 			"differences with clipboard state":  	        "differences with clipboard state",
+			"Meets the specified requirements": 	        "Meets the specified requirements",
 
                         "history": 		                	"history",
                         "Add": 		                	        "Add",
@@ -40,7 +41,6 @@
                         "File name":                                    "File name",
                         "Tag for checkpoint":                           "Tag for checkpoint",
                         "File to be loaded":                            "File to be loaded",
-                        "Initial intro":                                "Initial intro",
 	                "Save to File":                                 "Save to File",
 	                "State(s) to checkpoint":                       "State(s) to checkpoint",
 	                "Load from this File":                          "Load from this File"

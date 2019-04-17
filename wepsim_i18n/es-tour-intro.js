@@ -26,9 +26,9 @@
                                   " ¡Bienvenido a WepSIM!<br> " +
                                   "<br>" +
                                   "<a class=\"btn btn-sm btn-outline-dark mx-2\" href=\"#\"" +
-                                  "   onclick=\"set_cfg('ws_idiom','es'); save_cfg(); i18n_update_tags('gui','es'); tour.exit(); wepsim_newbie_tour();\">Spanish</a>" +
+                                  "   onclick=\"set_cfg('ws_idiom','es'); save_cfg(); i18n_update_tags('gui'); tour.exit(); wepsim_newbie_tour();\">Spanish</a>" +
                                   "<a class=\"btn btn-sm btn-outline-dark mx-2\" href=\"#\"" +
-                                   "  onclick=\"set_cfg('ws_idiom','en'); save_cfg(); i18n_update_tags('gui','en'); tour.exit(); wepsim_newbie_tour();\">English</a>" +
+                                   "  onclick=\"set_cfg('ws_idiom','en'); save_cfg(); i18n_update_tags('gui'); tour.exit(); wepsim_newbie_tour();\">English</a>" +
                                   "<br>",
 			   position: 'auto'
 			},

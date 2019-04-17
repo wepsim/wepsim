@@ -25,12 +25,9 @@
 
     function wepsim_open_config_index ( )
     {
-        var config_xx = ws_config ;
-	var  idiom_xx = get_cfg('ws_idiom') ;
-
-	$('#container-config2').html(table_config_html(config_xx)) ;
-        for (m=0; m<config_xx.length; m++) {
-	     config_xx[m].code_init() ;
+	$('#container-config2').html(table_config_html(ws_config)) ;
+        for (m=0; m<ws_config.length; m++) {
+	     ws_config[m].code_init() ;
         }
 	$("#container-config2").scrollTop(0);
         $('a[data-toggle="popover1"]').popover({
@@ -43,7 +40,7 @@
                               }
         }) ;
 
-	i18n_update_tags('cfg', idiom_xx) ;
+	i18n_update_tags('cfg') ;
 	$('#config2').modal('show') ;
 
 	// stats about ui

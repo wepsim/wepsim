@@ -144,16 +144,13 @@
 
     function wepsim_open_help_index ( )
     {
-        var  help_xx = ws_help ;
-	var idiom_xx = get_cfg('ws_idiom') ;
-
-	$('#iframe_help1').html(table_helps_html(help_xx)) ;
+	$('#iframe_help1').html(table_helps_html(ws_help)) ;
 
 	$('#help1_ref').data('relative','') ;
 	$('#help1_ref').data('absolute','') ;
 	$('#help1_ref').data('code','false') ;
 
-	i18n_update_tags('help', idiom_xx) ;
+	i18n_update_tags('help') ;
 	$('#help1').modal('show') ;
 
 	// stats about ui
