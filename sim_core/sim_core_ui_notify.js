@@ -89,7 +89,7 @@
 
 	    // setup content...
 	    acc  += '<br>' +
-		    '<div class="alert alert-light p-0 m-0" role="alert">+ Recent</div>' +
+		    '<div class="alert alert-light p-0 m-0" role="alert">+ <span data-langkey="Recent">Recent</span></div>' +
 		    '<div class="card" style="max-height:70vh; overflow:auto; -webkit-overflow-scrolling: touch;">' + 
 		    '<ul class="list-group list-group-flush">' ;
 	    for (var i=simcoreui_notifications.length-1; i!=0; i--) 
@@ -111,7 +111,7 @@
 	    }
 	    acc  += '</ul>' +
 		    '</div>' +
-                    '<div class="alert alert-light p-0 m-0" role="alert">- Recent</div>' ;
+                    '<div class="alert alert-light p-0 m-0" role="alert">- <span data-langkey="Recent">Recent</span></div>' ;
 
 	    // display notifications...
             simcoreui_notify_close() ;

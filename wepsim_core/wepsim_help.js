@@ -144,7 +144,8 @@
 
     function wepsim_open_help_index ( )
     {
-        var help_xx = help[get_cfg('ws_idiom')] ;
+        var  help_xx = ws_help ;
+	var idiom_xx = get_cfg('ws_idiom') ;
 
 	$('#iframe_help1').html(table_helps_html(help_xx)) ;
 
@@ -152,6 +153,7 @@
 	$('#help1_ref').data('absolute','') ;
 	$('#help1_ref').data('code','false') ;
 
+	i18n_update_tags('help', idiom_xx) ;
 	$('#help1').modal('show') ;
 
 	// stats about ui

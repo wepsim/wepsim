@@ -68,7 +68,8 @@
 	     var active_signals = "" ;
 	     var active_verbal  = "" ;
 
-	     var mins = get_value(simhw_sim_state('REG_MICROINS')) ;
+	     var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
+	     var mins       = get_value(simhw_sim_state(maddr_name)) ;
 	     for (var key in mins) 
 	     {
 		  active_signals = active_signals + key + " ";
@@ -80,11 +81,15 @@
 
 	function get_verbal_from_current_pc ( )
 	{
-             var pc = get_value(ep_states.REG_PC) - 4 ;
+	     var pc_name = simhw_sim_ctrlStates_get().pc.state ;
+	     var reg_pc  = get_value(simhw_sim_state(pc_name)) ;
+
+             var pc = parseInt(reg_pc) - 4 ;
              var decins = get_deco_from_pc(pc) ;
 
-	     if ("" == decins.trim())
+	     if ("" == decins.trim()) {
 		 decins = "not jet defined" ;
+	     }
 
              return "Current instruction is: " + decins + " and PC points to " + show_value(pc) + ". " ;
         }

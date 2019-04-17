@@ -47,38 +47,47 @@ cat sim_hw/sim_hw_index.js \
 rm -fr ws_dist/sim_all.js
 
 #  WepSIM web engine
-cat wepsim/i18n/i18n.js \
+cat wepsim_i18n/i18n.js \
     \
-    wepsim/i18n/es-gui.js \
-    wepsim/i18n/es-tutorial-welcome.js \
-    wepsim/i18n/es-tutorial-simpleusage.js \
-    wepsim/i18n/es-tour-intro.js \
-    wepsim/i18n/es-cfg.js \
-    wepsim/i18n/es-help.js \
-    wepsim/i18n/es-examples.js \
+    wepsim_i18n/es-gui.js \
+    wepsim_i18n/es-tutorial-welcome.js \
+    wepsim_i18n/es-tutorial-simpleusage.js \
+    wepsim_i18n/es-tour-intro.js \
+    wepsim_i18n/es-cfg.js \
+    wepsim_i18n/es-help.js \
+    wepsim_i18n/es-states.js \
+    wepsim_i18n/es-examples.js \
     \
-    wepsim/i18n/en-gui.js \
-    wepsim/i18n/en-tutorial-welcome.js \
-    wepsim/i18n/en-tutorial-simpleusage.js \
-    wepsim/i18n/en-tour-intro.js \
-    wepsim/i18n/en-cfg.js \
-    wepsim/i18n/en-help.js \
-    wepsim/i18n/en-examples.js \
+    wepsim_i18n/en-gui.js \
+    wepsim_i18n/en-tutorial-welcome.js \
+    wepsim_i18n/en-tutorial-simpleusage.js \
+    wepsim_i18n/en-tour-intro.js \
+    wepsim_i18n/en-cfg.js \
+    wepsim_i18n/en-help.js \
+    wepsim_i18n/en-states.js \
+    wepsim_i18n/en-examples.js \
     \
-    wepsim/wepsim_breakpointicons.js \
-    wepsim/wepsim_example.js \
-    wepsim/wepsim_help.js \
-    wepsim/wepsim_config.js \
-    wepsim/wepsim_config_commands.js \
-    wepsim/wepsim_tutorial.js \
-    wepsim/wepsim_state.js \
-    wepsim/wepsim_url.js \
-    wepsim/wepsim_voice.js \
-    wepsim/wepsim_voice_commands.js \
-    wepsim/wepsim_execute.js \
-    wepsim/wepsim_ws_simulator.js \
-    wepsim/wepsim_ws_editor.js \
-    wepsim/wepsim_misc.js > ws_dist/wepsim_web.js
+    wepsim_core/wepsim_breakpointicons.js \
+    wepsim_core/wepsim_checkpoint.js \
+    wepsim_core/wepsim_clipboard.js \
+    wepsim_core/wepsim_config.js \
+    wepsim_core/wepsim_config_commands.js \
+    wepsim_core/wepsim_example.js \
+    wepsim_core/wepsim_example_commands.js \
+    wepsim_core/wepsim_execute.js \
+    wepsim_core/wepsim_help.js \
+    wepsim_core/wepsim_help_commands.js \
+    wepsim_core/wepsim_notify.js \
+    wepsim_core/wepsim_preload.js \
+    wepsim_core/wepsim_state.js \
+    wepsim_core/wepsim_tutorial.js \
+    wepsim_core/wepsim_tour.js \
+    wepsim_core/wepsim_url.js \
+    wepsim_core/wepsim_voice_commands.js \
+    wepsim_core/wepsim_voice.js \
+    \
+    wepsim/wepsim_web_simulator.js \
+    wepsim/wepsim_web_editor.js > ws_dist/wepsim_web.js
 /usr/bin/yui-compressor -o ws_dist/min.wepsim_web.js ws_dist/wepsim_web.js
 rm -fr ws_dist/wepsim_web.js
 
@@ -154,10 +163,10 @@ cp -a images    ws_dist/
 cp -a help      ws_dist/
 
 #  user interface
-cp   wepsim/wepsim-classic.html   ws_dist/index.html
-cp   wepsim/wepsim-classic.html   ws_dist/wepsim-classic.html
-cp   wepsim/wepsim-compact.html   ws_dist/wepsim-compact.html
-cp   wepsim/wepsim_pwa.js         ws_dist/min.wepsim_pwa.js
+cp   wepsim/wepsim_web_classic.html   ws_dist/index.html
+cp   wepsim/wepsim_web_classic.html   ws_dist/wepsim-classic.html
+cp   wepsim/wepsim_web_compact.html   ws_dist/wepsim-compact.html
+cp   wepsim/wepsim_web_pwa.js         ws_dist/min.wepsim_web_pwa.js
 
 cp manifest.webapp        ws_dist/
 cp wepsim/wepsim_node.sh  ws_dist/

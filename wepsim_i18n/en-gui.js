@@ -28,20 +28,15 @@
 			"Examples":  			                "Examples",
 			"Load":  			        	"Load",
 			"Save":  			        	"Save",
+                        "Restore":                                      "Restore",
 			"Help":  			                "Help",
+			"Help Index":  			                "Help Index",
 			"Processor":  			                "Processor",
 			"Assembly Debugger":  			        "Assembly Debugger",
 			"Reset":  			                "Reset",
 			"Instruction":  			        "Instruction",
 			"Run":  			                "Run",
 			"Hardware Summary":  			        "Hardware Summary",
-			"States":  			                "States",
-			"Refresh":  			                "Refresh",
-			"Current State":  			        "Current State",
-			"History":  			                "History",
-			"Empty history":  			        "Empty history",
-			"Differences":  			        "Differences",
-			"differences with clipboard state":  	        "differences with clipboard state",
 			"processor":  			                "processor",
 			"details":  			                "details",
                         "Signals": 		                     	"Signals",
@@ -50,12 +45,15 @@
                         "Dependencies": 		                "Dependencies",
                         "Close": 		                	"Close",
                         "Show": 		                	"Show",
-                        "history": 		                	"history",
-                        "Add": 		                	        "Add",
-                        "'Current State' to History": 		        "'Current State' to History",
-                        "Check": 		                	"Check",
-                        "Copy": 		                	"Copy",
-                        "to clipboard": 		                "to clipboard",
+                        "Show Main Memory": 		               	"Show Main Memory",
+
+	                "labels":                                       "labels",
+	                "addr":                                         "addr",
+	                "ess":                                          "ess",
+	                "content":                                      "content",
+	                "assembly":                                     "assembly",
+	                "instructions":                                 "instructions",
+
                         "simulator intro 1": 		                "First, you are going to load and microcompile the microcode that defines the instruction set to be used. " +
 									"You can use an example of microcode, load it from a file or you can edit a new one.",
                         "simulator intro 2": 		                "Next, you need to load and compile the assembly code to be executed. " +
@@ -65,13 +63,12 @@
                         "Prev.": 		                	"Prev.",
                         "Next": 		                	"Next",
                         "Disable tutorial mode": 		        "Disable tutorial mode",
+
                         "Show Notifications":                           "Show Notifications",
                         "Show/Hide ActionBar":                          "Show/Hide ActionBar",
                         "Show/Hide Slider":                             "Show/Hide Slider",
                         "About WepSIM":                                 "About WepSIM",
-                        "Checkpoint":                                   "Checkpoint",
-                        "Initial intro":                                "Initial intro",
-                        "Restore Checkpoint":                           "Restore Checkpoint",
-                        "Save Checkpoint":                              "Save Checkpoint"
+                        "Recent":                                       "Recent",
+			"Refresh":  			                "Refresh"
                   } ;
 

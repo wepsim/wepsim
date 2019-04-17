@@ -36,14 +36,19 @@
 	i18n.cfg.en = {} ;
 
     // examples dialog
-    var examples    = {};
-        examples.en = [];
-        examples.es = [];
+        i18n.examples = {} ;
+        i18n.examples.en = {} ;
+        i18n.examples.es = {} ;
+
+    // states dialog
+	i18n.states = {} ;
+	i18n.states.es = {} ;
+	i18n.states.en = {} ;
 
     // help dialog
-    var help    = {} ;
-        help.en = [] ;
-        help.es = [] ;
+        i18n.help    = {} ;
+        i18n.help.en = {} ;
+        i18n.help.es = {} ;
 
     // tutorials
     var tutorials = {} ;
@@ -76,5 +81,10 @@
                                          value.innerHTML = i18n[component][lang][key] ;
 				     }
                          	 }) ;
+    }
+
+    function i18n_get ( component, lang, key )
+    {
+	return i18n[component][lang][key] ;
     }
 

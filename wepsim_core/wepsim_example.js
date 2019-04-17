@@ -25,7 +25,12 @@
 
     function wepsim_open_examples_index ( )
     {
-        $("#container-example1").html(table_examples_html(examples)) ;
+        var examples_xx = ws_examples ;
+	var    idiom_xx = get_cfg('ws_idiom') ;
+
+        $("#container-example1").html(table_examples_html(examples_xx)) ;
+
+	i18n_update_tags('examples', idiom_xx) ;
 	$('#example1').modal('show') ;
 
 	// stats about ui
@@ -175,7 +180,7 @@
        }
 
        // examples
-       var lang = get_cfg('ws_idiom') ;
+       var base_url = get_cfg('base_url') ;
 
        var fmt_toggle    = "" ;
        var fmt_header    = "" ;
@@ -189,28 +194,28 @@
        var e_id          = "" ;
 
        var o = "" ;
-       for (var m=0; m<examples[lang].length; m++)
+       for (var m=0; m<examples.length; m++)
        {
 	       fmt_header = "" ;
-	       if (e_level != examples[lang][m].level) {
+	       if (e_level != examples[m].level) {
                    fmt_header = "<div class='col-sm-12 border-bottom border-secondary text-right text-capitalize font-weight-bold bg-white sticky-top'>" + 
 			        ahw.toUpperCase() + ": " + 
-			        examples[lang][m].level + 
+			        examples[m].level + 
 			        "</div>" ;
                }
 
-	       e_modes = examples[lang][m].modes ;
+	       e_modes = examples[m].modes ;
 	       if (! e_modes.split(",").includes(mode)) {
 		   continue ;
 	       }
 
-	       e_title       = examples[lang][m].title ;
-	       e_level       = examples[lang][m].level ;
-	       e_hw          = examples[lang][m].hardware ;
-	       e_mc          = examples[lang][m].microcode ;
-	       e_asm         = examples[lang][m].assembly ;
-	       e_description = examples[lang][m].description ;
-	       e_id          = examples[lang][m].id ;
+	       e_title       = examples[m].title ;
+	       e_level       = examples[m].level ;
+	       e_hw          = examples[m].hardware ;
+	       e_mc          = examples[m].microcode ;
+	       e_asm         = examples[m].assembly ;
+	       e_description = examples[m].description ;
+	       e_id          = examples[m].id ;
 
 	       t_hwmcasm = e_hw + ":" + e_mc + ":" + e_asm ;
 
@@ -234,9 +239,7 @@
                         '    <c>' + e_description + '</c>' +
                         '</div>' +
                         '<div class="col-sm-auto">' +
-		        '    <span id="example_reference_' + e_id + '" class="d-none">' +
-		        'https://wepsim.github.io/wepsim/ws_dist/wepsim-classic.html?mode=' + e_hw + '&example=' + m +
-		        '    </span>' +
+		        '    <span id="example_reference_' + e_id + '" class="d-none">' + base_url + '?mode=' + e_hw + '&example=' + m + '</span>' +
 		        '    <div class="btn-group btn-group-md float-right align-top">' +
                         '           <button type="button" ' + 
 		        '                   class="btn btn-md btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
@@ -246,17 +249,17 @@
 		        '             <a onclick="$(\'#example1\').modal(\'hide\'); ' + 
                         '                        load_from_example_assembly(\'' + t_hwmcasm + '\',false);' + 
 		        '                        return false;"' + 
-		        '                class="dropdown-item text-white bg-info" href="#"><c>Load Assembly only</c></a>' +
+		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Load Assembly only">Load Assembly only</span></c></a>' +
 		        '             <a onclick="$(\'#example1\').modal(\'hide\'); ' + 
                         '                        load_from_example_firmware(\'' + t_hwmcasm + '\',false);' + 
 		        '                        return false;"' + 
-		        '                class="dropdown-item text-white bg-info" href="#"><c>Load Firmware only</c></a>' +
+		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Load Firmware only">Load Firmware only</span></c></a>' +
 		        '             <a onclick="$(\'#example_reference_' + e_id + '\').removeClass(\'d-none\');' +
-		        '                         CopyFromDiv(\'example_reference_' + e_id + '\');' +
+		        '                         wepsim_clipboard_CopyFromDiv(\'example_reference_' + e_id + '\');' +
 		        '                         $(\'#example_reference_' + e_id + '\').addClass(\'d-none\');' +
 		        '                         $(\'#example1\').modal(\'hide\'); ' + 
                         '                         return false;"' + 
-		        '                class="dropdown-item text-white bg-info" href="#"><c>Copy reference to clipboard</c></a>' +
+		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Copy reference to clipboard">Copy reference to clipboard</span></c></a>' +
                         '           </div>' +
 		        '    </div>' +
                         '</div>' +
@@ -264,7 +267,7 @@
        }
 
        if (o.trim() === '') {
-	   o = '&lt;No examples are available for the selected hardware&gt;' ;
+	   o = '&lt;<span data-langkey="No examples available...">No examples are available for the selected hardware</span>&gt;' ;
        }
 
        o = '<div class="container grid-striped border border-light">' + o + '</div>' ;

@@ -258,7 +258,11 @@
 		    ret.ok  = true ;
 		    ret.msg = "" ;
 
-		var reg_maddr = get_value(simhw_sim_state('REG_MICROADDR')) ;
+                var pc_name     = simhw_sim_ctrlStates_get().pc.state ;
+		var reg_pc      = parseInt(get_value(simhw_sim_state(pc_name)));
+                var maddr_name  = simhw_sim_ctrlStates_get().mpc.state ;
+		var reg_maddr   = get_value(simhw_sim_state(maddr_name)) ;
+
                 if (typeof simhw_internalState_get('MC', reg_maddr) == "undefined") {
 		    ret.ok  = false ;
 		    ret.msg = "Error: undefined microinstruction at " + reg_maddr + "." ;
@@ -272,12 +276,11 @@
 		}
 
                 var curr_segments = simhw_internalState('segments') ;
-		var reg_pc = parseInt(get_value(simhw_sim_state('REG_PC')));
 		if ( (reg_pc < curr_segments['.ktext'].end) && (reg_pc >= curr_segments['.ktext'].begin)) {
-                    return ret;
+                      return ret;
 		}
 		if ( (reg_pc <  curr_segments['.text'].end) && (reg_pc >=  curr_segments['.text'].begin)) {
-                    return ret;
+                      return ret;
 		}
 
                 // if (reg_maddr == 0) && (outside *text) -> cannot continue
@@ -304,6 +307,11 @@
             var curr_segments  = simhw_internalState('segments') ;
             var sim_components = simhw_sim_components() ;
 
+            var pc_name   = simhw_sim_ctrlStates_get().pc.state ;
+	    var pc_state  = simhw_sim_state(pc_name) ;
+            var sp_name   = curr_firm.stackRegister ;
+            var sp_state  = simhw_sim_states().BR[sp_name] ;
+
             // Hardware
             for (var elto in sim_components)
             {
@@ -312,22 +320,20 @@
 		    case "CPU":
 			 compute_general_behavior("RESET") ;
 
-			 if ((typeof curr_segments['.ktext'] != "undefined") && (SIMWARE.labels2.kmain))
+			 if ((typeof curr_segments['.ktext'] !== "undefined") && (SIMWARE.labels2.kmain))
 			 {
-			      set_value(simhw_sim_state('REG_PC'), parseInt(SIMWARE.labels2.kmain));
+			      set_value(pc_state, parseInt(SIMWARE.labels2.kmain));
 			      show_asmdbg_pc() ;
 			 }
-			 else if ((typeof curr_segments['.text'] != "undefined") && (SIMWARE.labels2.main))
+			 else if ((typeof curr_segments['.text'] !== "undefined") && (SIMWARE.labels2.main))
 			 {
-			      set_value(simhw_sim_state('REG_PC'), parseInt(SIMWARE.labels2.main));
+			      set_value(pc_state, parseInt(SIMWARE.labels2.main));
 			      show_asmdbg_pc() ;
 			 }
 		    
-			 if ( (typeof curr_segments['.stack'] != "undefined") &&
-			      (typeof simhw_sim_states().BR[curr_firm.stackRegister] != "undefined") )
+			 if ( (typeof curr_segments['.stack'] !== "undefined") && (typeof sp_state !== "undefined") )
 			 {
-				set_value(simhw_sim_states().BR[curr_firm.stackRegister], 
-					  parseInt(curr_segments['.stack'].begin));
+			      set_value(sp_state, parseInt(curr_segments['.stack'].begin));
 			 }
 			 break;
 
@@ -441,6 +447,8 @@
 	        var  after_state = null ;
 	        var  curr_mpc    = "" ;
                 var  curr_MC     = simhw_internalState('MC') ;
+                var  maddr_name  = simhw_sim_ctrlStates_get().mpc.state ;
+                var  maddr_state = simhw_sim_state(maddr_name) ;
 
                 var i_clks = 0 ;
                 var cur_addr = 0 ;
@@ -478,7 +486,7 @@
 			break ;
 	            }
 
-                    cur_addr = get_value(simhw_sim_state('REG_MICROADDR')) ;
+                    cur_addr = get_value(maddr_state) ;
                     if (typeof curr_MC[cur_addr] == "undefined")
 		    {
 		        ret.msg = "Error: undefined microinstruction at " + cur_addr + "." ;
@@ -513,9 +521,11 @@
     
             // execute firmware-assembly
             var curr_segments = simhw_internalState('segments') ;
+            var pc_name   = simhw_sim_ctrlStates_get().pc.state ;
+	    var pc_state  = simhw_sim_state(pc_name) ;
 
-    	    var reg_pc        = get_value(simhw_sim_state('REG_PC')) ;
-    	    var reg_pc_before = get_value(simhw_sim_state('REG_PC')) - 4 ;
+    	    var reg_pc        = get_value(pc_state) ;
+    	    var reg_pc_before = get_value(pc_state) - 4 ;
     
     	    var code_begin  = 0 ;
     	    if ( (typeof curr_segments['.text'] != "undefined") && (typeof curr_segments['.text'].begin != "undefined") )
@@ -578,7 +588,7 @@
     	           }
     
     	           reg_pc_before = reg_pc ;
-    	           reg_pc = get_value(simhw_sim_state('REG_PC')) ;
+    	           reg_pc = get_value(pc_state) ;
     	    }
     
             return ret ;

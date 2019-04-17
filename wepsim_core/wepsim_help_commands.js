@@ -19,92 +19,94 @@
  */
 
 
-    help.en.push({
+    var ws_help = [] ;
+
+    ws_help.push({
                      id:          "simulator",
-                     title:       "Welcome tutorial",
+                     title:       "<span data-langkey='Welcome tutorial'>Welcome tutorial</span>",
                      i_type:      "code",
                      u_type:      "tutorial",
                      reference:   "wepsim_close_help(); " + 
                                   "sim_tutorial_showframe('welcome', 0);",
-                     description: "Open the welcome tutorial.<br>"
+                     description: "<span data-langkey='help_01_01'>Open the welcome tutorial</span>.<br>"
                   });
 
-    help.en.push({
+    ws_help.push({
                      id:          "simulator",
-                     title:       "Simple usage tutorial",
+                     title:       "<span data-langkey='Simple usage tutorial'>Simple usage tutorial</span>",
                      i_type:      "code",
                      u_type:      "tutorial",
                      reference:   "wepsim_close_help(); " + 
                                   "sim_tutorial_showframe('simpleusage', 0);",
-                     description: "Open the simple usage tutorial, for microprogramming and assembly programming.<br>"
+                     description: "<span data-langkey='help_01_02'>Open the simple usage tutorial, for microprogramming and assembly programming</span>.<br>"
                   });
 
-    help.en.push({
+    ws_help.push({
                      id:          "simulator",
-                     title:       "Simulator: firmware",
+                     title:       "<span data-langkey='Simulator: firmware'>Simulator: firmware</span>",
                      i_type:      "relative",
                      u_type:      "simulator",
                      reference:   "simulator#help_simulator_firmware",
-                     description: "How to work with the firmware to be loaded into the control memory.<br>"
+                     description: "<span data-langkey='help_02_01'>How to work with the firmware to be loaded into the control memory</span>.<br>"
                   });
 
-    help.en.push({
+    ws_help.push({
                      id:          "microcode",
-                     title:       "Microcode format",
+                     title:       "<span data-langkey='Microcode format'>Microcode format</span>",
                      i_type:      "relative",
                      u_type:      "simulator",
                      reference:   "simulator#help_firmware_format",
-                     description: "Syntax of the microcode used.<br>"
+                     description: "<span data-langkey='help_02_02'>Syntax of the microcode used</span>.<br>"
                   });
 
-    help.en.push({
+    ws_help.push({
                      id:          "simulator",
-                     title:       "Simulator: assembly",
+                     title:       "<span data-langkey='Simulator: assembly'>Simulator: assembly</span>",
                      i_type:      "relative",
                      u_type:      "simulator",
                      reference:   "simulator#help_simulator_assembly",
-                     description: "How to work with the assembly that use the aforementioned firmware.<br>"
+                     description: "<span data-langkey='help_02_03'>How to work with the assembly that use the aforementioned firmware</span>.<br>"
                   });
 
-    help.en.push({
+    ws_help.push({
                      id:          "assembly",
-                     title:       "Assembly format",
+                     title:       "<span data-langkey='Assembly format'>Assembly format</span>",
                      i_type:      "relative",
                      u_type:      "simulator",
                      reference:   "simulator#help_assembly_format",
-                     description: "Syntax of the assembly elements.<br>"
+                     description: "<span data-langkey='help_02_04'>Syntax of the assembly elements</span>.<br>"
                   });
 
-    help.en.push({
+    ws_help.push({
                      id:          "simulator",
-                     title:       "Simulator: execution",
+                     title:       "<span data-langkey='Simulator: execution'>Simulator: execution</span>",
                      i_type:      "relative",
                      u_type:      "simulator",
                      reference:   "simulator#help_simulator_execution",
-                     description: "How the simulator can execute the assembly and firmware.<br>"
+                     description: "<span data-langkey='help_02_05'>How the simulator can execute the assembly and firmware</span>.<br>"
                   });
 
-    help.en.push({
+    ws_help.push({
                      id:          "architecture",
-                     title:       "Simulated architecture",
+                     title:       "<span data-langkey='Simulated architecture'>Simulated architecture</span>",
                      i_type:      "absolute",
                      u_type:      "simulated processor",
                      reference:   "hardware",
-                     description: "Description of the simulated processor architecture.<br>"
+                     description: "<span data-langkey='help_03_01'>Description of the simulated processor architecture</span>.<br>"
                   });
 
-    help.en.push({
+    ws_help.push({
                      id:          "architecture",
-                     title:       "Simulated signals",
+                     title:       "<span data-langkey='Simulated signals'>Simulated signals</span>",
                      i_type:      "absolute",
                      u_type:      "simulated processor",
                      reference:   "signals",
-                     description: "Main signals summary of the simulated elemental processor.<br>"
+                     description: "<span data-langkey='help_03_02'>Main signals summary of the simulated elemental processor</span>.<br>"
                   });
 
-    help.en.push({
+    ws_help.push({
                      id:          "architecture",
-                     title:       "Hardware summary",
+                     title:       "<span data-langkey='Hardware summary'>Hardware summary</span>",
                      i_type:      "code",
                      u_type:      "simulated processor",
                      reference:   "var ahw1 = simhw_active().sim_short_name ; " +
@@ -113,24 +115,24 @@
                                   "var lyt1 = '<object id=\\'svg_p2\\' data=\\'' + img1 + '\\' " +
                                   "                    type=\\'image/svg+xml\\'>' + txt1 +  '</object>'; " +
                                   "wepsim_open_help_content(lyt1) ;",
-                     description: "Reference card for the simulated elemental processor hardware.<br>"
+                     description: "<span data-langkey='help_03_03'>Reference card for the simulated elemental processor hardware</span>.<br>"
                   });
 
-    help.en.push({
+    ws_help.push({
                      id:          "about",
-                     title:       "License, platforms, etc.",
+                     title:       "<span data-langkey='License, platforms, etc.'>License, platforms, etc.</span>",
                      i_type:      "relative",
                      u_type:      "info",
                      reference:   "about#help_about",
-                     description: "WepSIM license, supported platforms, technologies used.<br>"
+                     description: "<span data-langkey='help_04_01'>WepSIM license, supported platforms, technologies used</span>.<br>"
                   });
 
-    help.en.push({
+    ws_help.push({
                      id:          "authors",
-                     title:       "Authors",
+                     title:       "<span data-langkey='Authors'>Authors</span>",
                      i_type:      "code",
                      u_type:      "info",
                      reference:   "wepsim_close_help(); $('#about2').modal(open);",
-                     description: "Authors of WepSIM.<br>"
+                     description: "<span data-langkey='help_04_02'>Authors of WepSIM</span>.<br>"
                   });
 

@@ -30,32 +30,41 @@ jshint ./sim_hw/sim_hw_ep/sim_hw_board.js
 jshint ./sim_hw/sim_hw_ep/sim_hw_kbd.js
 jshint ./sim_hw/sim_hw_ep/sim_hw_scr.js
 
-jshint ./wepsim/wepsim_tutorial.js
-jshint ./wepsim/wepsim_voice.js
-jshint ./wepsim/wepsim_help.js
-jshint ./wepsim/wepsim_config.js
+jshint ./wepsim_core/wepsim_breakpointicons.js
+jshint ./wepsim_core/wepsim_state.js
+jshint ./wepsim_core/wepsim_config.js
+jshint ./wepsim_core/wepsim_config_commands.js
+jshint ./wepsim_core/wepsim_checkpoint.js
+#jshint ./wepsim_core/wepsim_clipboard.js
+jshint ./wepsim_core/wepsim_example.js
+jshint ./wepsim_core/wepsim_help.js
+#jshint ./wepsim_core/wepsim_execute.js
+jshint ./wepsim_core/wepsim_notify.js
+jshint ./wepsim_core/wepsim_tour.js
+jshint ./wepsim_core/wepsim_tutorial.js
+jshint ./wepsim_core/wepsim_url.js
+#jshint ./wepsim_core/wepsim_voice_commands.js
+jshint ./wepsim_core/wepsim_voice.js
+
 jshint ./wepsim/wepsim_node.js
-jshint ./wepsim/wepsim_example.js
-jshint ./wepsim/wepsim_misc.js
-jshint ./wepsim/wepsim_url.js
-jshint ./wepsim/wepsim_breakpointicons.js
-jshint ./wepsim/wepsim_config_commands.js
-jshint ./wepsim/wepsim_ws_editor.js
-jshint ./wepsim/wepsim_ws_simulator.js
+jshint ./wepsim/wepsim_web_editor.js
+#jshint ./wepsim/wepsim_web_simulator.js
+#jshint ./wepsim/wepsim_web_pwa.js
 
-jshint ./wepsim/i18n/i18n.js
-jshint ./wepsim/i18n/es-gui.js
-jshint ./wepsim/i18n/es-tour-intro.js
-jshint ./wepsim/i18n/es-help.js
-jshint ./wepsim/i18n/es-examples.js
-jshint ./wepsim/i18n/es-cfg.js
-jshint ./wepsim/i18n/es-tutorial-welcome.js
-jshint ./wepsim/i18n/es-tutorial-simpleusage.js
+jshint ./wepsim_i18n/i18n.js
+jshint ./wepsim_i18n/en-cfg.js
+jshint ./wepsim_i18n/en-examples.js
+jshint ./wepsim_i18n/en-gui.js
+jshint ./wepsim_i18n/en-help.js
+jshint ./wepsim_i18n/en-tour-intro.js
+jshint ./wepsim_i18n/en-tutorial-simpleusage.js
+jshint ./wepsim_i18n/en-tutorial-welcome.js
 
-jshint ./wepsim/i18n/en-gui.js
-jshint ./wepsim/i18n/en-tour-intro.js
-jshint ./wepsim/i18n/en-help.js
-jshint ./wepsim/i18n/en-examples.js
-jshint ./wepsim/i18n/en-cfg.js
-jshint ./wepsim/i18n/en-tutorial-simpleusage.js
-jshint ./wepsim/i18n/en-tutorial-welcome.js
+jshint ./wepsim_i18n/es-cfg.js
+jshint ./wepsim_i18n/es-examples.js
+jshint ./wepsim_i18n/es-gui.js
+jshint ./wepsim_i18n/es-help.js
+jshint ./wepsim_i18n/es-tour-intro.js
+jshint ./wepsim_i18n/es-tutorial-simpleusage.js
+jshint ./wepsim_i18n/es-tutorial-welcome.js
+
