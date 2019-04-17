@@ -94,29 +94,6 @@
                    });
 
     ws_config.push({
-                      id:          "radio11",
-                      type:        "General",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
-				   "	    <label id='label11-true'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
-				   "		   aria-label='Active voice: true'" +
-				   "		   onclick=\"update_cfg('use_voice',true); wepsim_voice_start();\">" +
-				   "		<input type='radio' name='options' id='radio11-true'   autocomplete='off' >On" +
-				   "	    </label>" +
-				   "	    <label id='label11-false'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
-				   "		   aria-label='Active voice: false'" +
-				   "		   onclick=\"update_cfg('use_voice',false); wepsim_voice_stop();\">" +
-				   "		<input type='radio' name='options' id='radio11-false'  autocomplete='off' >Off" +
-				   "	    </label>" +
-				   "	</div>",
-		      code_init:   function() { 
-			               $('#label11-' +        get_cfg('use_voice')).button('toggle'); 
-		                   },
-                      description: "<span data-langkey='Active voice: external voice control'>Active voice: external voice control</span>"
-                   });
-
-    ws_config.push({
                       id:          "radio7",
                       type:        "Editor",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
@@ -460,5 +437,51 @@
 			               $('#label6-' +    get_cfg('is_quick_interactive')).button('toggle'); 
 		                   },
                       description: "<span data-langkey='Quick interactive mode: quick update of signal value'>Quick interactive mode: quick update of signal value</span>"
+                   });
+
+    ws_config.push({
+                      id:          "radio11",
+                      type:        "Accesibility",
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+				   "	    <label id='label11-true'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   aria-label='Active voice: true'" +
+				   "		   onclick=\"update_cfg('use_voice',true); wepsim_voice_start();\">" +
+				   "		<input type='radio' name='options' id='radio11-true'   autocomplete='off' >On" +
+				   "	    </label>" +
+				   "	    <label id='label11-false'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   aria-label='Active voice: false'" +
+				   "		   onclick=\"update_cfg('use_voice',false); wepsim_voice_stop();\">" +
+				   "		<input type='radio' name='options' id='radio11-false'  autocomplete='off' >Off" +
+				   "	    </label>" +
+				   "	</div>",
+		      code_init:   function() { 
+			               $('#label11-' +        get_cfg('use_voice')).button('toggle'); 
+		                   },
+                      description: "<span data-langkey='Active voice: external voice control'>Active voice: external voice control</span>"
+                   });
+
+    ws_config.push({
+                      id:          "radio13",
+                      type:        "Accesibility",
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+				   "	    <label id='label13-text'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   aria-label='Verbose: text'" +
+				   "		   onclick=\"update_cfg('verbal_verbose','text');\">" +
+				   "		<input type='radio' name='options' id='radio13-text'   autocomplete='off' >Text" +
+				   "	    </label>" +
+				   "	    <label id='label13-math'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   aria-label='Verbose: math'" +
+				   "		   onclick=\"update_cfg('verbal_verbose','math');\">" +
+				   "		<input type='radio' name='options' id='radio13-math'  autocomplete='off' >Math" +
+				   "	    </label>" +
+				   "	</div>",
+		      code_init:   function() { 
+			               $('#label13-' + get_cfg('verbal_verbose')).button('toggle'); 
+		                   },
+                      description: "<span data-langkey='Verbalization: textual or mathematical'>Verbalization: textual or mathematical</span>"
                    });
 
