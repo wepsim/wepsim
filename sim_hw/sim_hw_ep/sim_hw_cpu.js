@@ -877,8 +877,15 @@
 						   var sim_elto_org = get_reference(s_expr[2]) ;
                                                    var newval       = get_value(sim_elto_org) ;
 
-                                                   return "Copy from " + show_verbal(s_expr[2]) + 
-							  " to " + show_verbal(s_expr[1]) + " value " + show_value(newval) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "Copy from " + show_verbal(s_expr[2]) + 
+						              " to " + show_verbal(s_expr[1]) + 
+                                                              " value " + show_value(newval) + ". " ;
+                                                   }
+
+                                                   return show_verbal(s_expr[1]) + " = " + 
+                                                          show_verbal(s_expr[2]) + " ("+show_value(newval)+"). ";
                                                 }
                                    };
         ep_behaviors["LOAD"]     = { nparameters: 3,
@@ -895,8 +902,16 @@
 						   var sim_elto_org = get_reference(s_expr[2]) ;
                                                    var newval       = get_value(sim_elto_org) ;
 
-                                                   return "Load from " + show_verbal(s_expr[2]) + 
-							  " to " + show_verbal(s_expr[1]) + " value " + show_value(newval) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "Load from " + show_verbal(s_expr[2]) + 
+						    	      " to " + show_verbal(s_expr[1]) + 
+                                                              " value " + show_value(newval) + ". " ;
+                                                   }
+
+                                                   return show_verbal(s_expr[1]) + " = " + 
+                                                          show_verbal(s_expr[2]) + 
+                                                          " (" + show_value(newval) + "). " ;
                                                 }
                                    };
         ep_behaviors["CP_FIELD"] = { nparameters: 3,
@@ -925,8 +940,16 @@
 						       return "" ;
 						   }
 
-                                                   return "Copy from Field " + r[1] + " of " + show_verbal(r[0]) + 
-							  " to " + show_verbal(s_expr[1]) + " value " + show_value(newval) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "Copy from Field " + r[1] + " of " + show_verbal(r[0]) + 
+							      " to " + show_verbal(s_expr[1]) + 
+                                                              " value " + show_value(newval) + ". " ;
+                                                   }
+
+                                                   return show_verbal(s_expr[1]) + " = " +
+                                                          show_verbal(r[0]) + "." + r[1] + 
+                                                          " (" + show_value(newval) + "). " ;
                                                 }
                                    };
 	ep_behaviors["NOT_ES"]   = { nparameters: 3,
@@ -939,7 +962,13 @@
                                                 {
 						   var value = Math.abs(get_value(ep_states[s_expr[2]]) - 1) ;
 
-                                                   return "Set " + show_verbal(s_expr[1]) + " with value " + show_value(value) + " (Logical NOT of " + s_expr[2] + "). " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "Set " + show_verbal(s_expr[1]) + " with value " + show_value(value) + " (Logical NOT of " + s_expr[2] + "). " ;
+                                                   }
+
+                                                   return show_verbal(s_expr[1]) + " = " + show_value(value) + 
+                                                          " (Logical NOT " + s_expr[2] + "). " ;
                                                 }
 				   };
 	ep_behaviors["GET"]      = { nparameters: 4,
@@ -952,7 +981,13 @@
                                                 {
 						   var value = get_value(ep_states[s_expr[2]][ep_signals[s_expr[3]].value]) ;
 
-                                                   return "Set " + show_verbal(s_expr[1]) + " with value " + show_value(value) + " (Register File " + s_expr[3] + "). " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "Set " + show_verbal(s_expr[1]) + " with value " + show_value(value) + " (Register File " + s_expr[3] + "). " ;
+                                                   }
+
+                                                   return show_verbal(s_expr[1]) + " = " + show_value(value) + 
+                                                          " (Register File " + s_expr[3] + "). " ;
                                                 }
 				   };
 	ep_behaviors["SET"]      = { nparameters: 4,
@@ -970,7 +1005,12 @@
 						   if (typeof o_ref.verbal != "undefined")
 						       o_verbal = o_ref.verbal ;
 
-                                                   return "Copy to " + o_verbal + " the value " + show_value(value) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "Copy to " + o_verbal + " the value " + show_value(value) + ". " ;
+                                                   }
+
+                                                   return o_verbal + " = " + show_value(value) + ". " ;
                                                 }
 				   };
 	ep_behaviors["AND"]      = { nparameters: 4,
@@ -989,7 +1029,12 @@
                                                 {
 				                   var result = get_value(ep_states[s_expr[2]]) & get_value(ep_states[s_expr[3]]) ;
 
-                                                   return "ALU AND with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU AND with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (AND). " ;
                                                 }
 				   };
 	ep_behaviors["OR"]       = { nparameters: 4,
@@ -1008,7 +1053,12 @@
                                                 {
 				                   var result = get_value(ep_states[s_expr[2]]) | get_value(ep_states[s_expr[3]]) ;
 
-                                                   return "ALU OR with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU OR with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (OR). " ;
                                                 }
 				   };
 	ep_behaviors["NOT"]      = { nparameters: 3,
@@ -1027,7 +1077,12 @@
                                                 {
 				                   var result = ~(get_value(ep_states[s_expr[2]])) ;
 
-                                                   return "ALU NOT with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU NOT with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (NOT). " ;
                                                 }
 				   };
 	ep_behaviors["XOR"]      = { nparameters: 4,
@@ -1046,7 +1101,12 @@
                                                 {
 				                   var result = get_value(ep_states[s_expr[2]]) ^ get_value(ep_states[s_expr[3]]) ;
 
-                                                   return "ALU XOR with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU XOR with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (XOR). " ;
                                                 }
 				   };
 	ep_behaviors["SRL"]      = { nparameters: 3,
@@ -1065,7 +1125,12 @@
                                                 {
 				                   var result = (get_value(ep_states[s_expr[2]])) >>> 1 ;
 
-                                                   return "ALU Shift Right Logical with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU Shift Right Logical with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (SRL). " ;
                                                 }
 				   };
 	ep_behaviors["SRA"]      = { nparameters: 3,
@@ -1084,7 +1149,12 @@
                                                 {
 				                   var result = (get_value(ep_states[s_expr[2]])) >> 1 ;
 
-                                                   return "ALU Shift Right Arithmetic with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU Shift Right Arithmetic with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (SRA). " ;
                                                 }
 				   };
 	ep_behaviors["SL"]       = { nparameters: 3,
@@ -1103,7 +1173,12 @@
                                                 {
 				                   var result = (get_value(ep_states[s_expr[2]])) << 1 ;
 
-                                                   return "ALU Shift Left with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU Shift Left with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (SL). " ;
                                                 }
 				   };
 	ep_behaviors["RR"]       = { nparameters: 3,
@@ -1122,7 +1197,12 @@
                                                 {
 				                   var result = ((get_value(ep_states[s_expr[2]])) >>> 1) | (((get_value(ep_states[s_expr[2]])) & 1) << 31) ;
 
-                                                   return "ALU Right Rotation with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU Right Rotation with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (RR). " ;
                                                 }
 				   };
 	ep_behaviors["RL"]       = { nparameters: 3,
@@ -1141,7 +1221,12 @@
                                                 {
 				                   var result = ((get_value(ep_states[s_expr[2]])) << 1) | (((get_value(ep_states[s_expr[2]])) & 0X80000000) >>> 31) ;
 
-                                                   return "ALU Left Rotation with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU Left Rotation with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (LR). " ;
                                                 }
 				   };
 	ep_behaviors["ADD"]      = { nparameters: 4,
@@ -1169,7 +1254,12 @@
                                                    var b = get_value(ep_states[s_expr[3]]) << 0 ;
 						   var result = a + b ;
 
-                                                   return "ALU ADD with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU ADD with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (ADD). " ;
                                                 }
 				   };
 	ep_behaviors["SUB"]      = { nparameters: 4,
@@ -1197,7 +1287,12 @@
                                                    var b = get_value(ep_states[s_expr[3]]) << 0 ;
 						   var result = a - b ;
 
-                                                   return "ALU SUB with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU SUB with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (SUB). " ;
                                                 }
 				   };
 	ep_behaviors["MUL"]      = { nparameters: 4,
@@ -1225,7 +1320,12 @@
                                                    var b = get_value(ep_states[s_expr[3]]) << 0 ;
 						   var result = a * b ;
 
-                                                   return "ALU MUL with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU MUL with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (MUL). " ;
                                                 }
 				   };
 	ep_behaviors["DIV"]      = { nparameters: 4,
@@ -1262,7 +1362,13 @@
 						   }
 
 				                   var result = Math.floor(a / b) ;
-                                                   return "ALU DIV with result " + show_value(result) + ". " ;
+
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU DIV with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (DIV). " ;
                                                 }
 				   };
 	ep_behaviors["MOD"]      = { nparameters: 4,
@@ -1283,7 +1389,13 @@
                                                    var b = get_value(ep_states[s_expr[3]]) << 0 ;
 
 						   var result = a % b ;
-                                                   return "ALU MOD with result " + show_value(result) + ". " ;
+
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU MOD with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (MOD). " ;
                                                 }
 				   };
 	ep_behaviors["LUI"]      = { nparameters: 3,
@@ -1302,7 +1414,12 @@
                                                 {
 						   var result = (get_value(ep_states[s_expr[2]])) << 16 ;
 
-                                                   return "ALU Load Upper Immediate with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU Load Upper Immediate with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (LUI). " ;
                                                 }
 				   };
 	ep_behaviors["PLUS1"]    = { nparameters: 3,
@@ -1318,7 +1435,16 @@
 						   var a = get_value(ep_states[s_expr[2]]) << 0 ;
 						   var result = a + 1 ;
 
-                                                   return "Copy to " + show_verbal(s_expr[1]) + " " + show_verbal(s_expr[2]) + " plus one with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "Copy to " + show_verbal(s_expr[1]) + " " +
+                                                              show_verbal(s_expr[2]) + " plus one with result " + 
+                                                              show_value(result) + ". " ;
+                                                   }
+
+                                                   return show_verbal(s_expr[1]) + " = " + 
+                                                          show_verbal(s_expr[2]) + " + 1" + 
+                                                          " (" + show_value(result) + "). " ;
                                                 }
 				   };
 	ep_behaviors["PLUS4"]    = { nparameters: 3,
@@ -1334,7 +1460,16 @@
 						   var a = get_value(ep_states[s_expr[2]]) << 0 ;
 						   var result = a + 4 ;
 
-                                                   return "Copy to " + show_verbal(s_expr[1]) + " " + show_verbal(s_expr[2]) + " plus four with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "Copy to " + show_verbal(s_expr[1]) + " " + 
+                                                             show_verbal(s_expr[2]) + " plus four with result " + 
+                                                             show_value(result) + ". " ;
+                                                   }
+
+                                                   return show_verbal(s_expr[1]) + " = " + 
+                                                          show_verbal(s_expr[2]) + " + 4" + 
+                                                          " (" + show_value(result) + "). " ;
                                                 }
 				   };
 	ep_behaviors["MBIT"]     = { nparameters: 5,
@@ -1417,7 +1552,13 @@
 						   sim_elto_org = get_reference(s_expr[2]) ;
 						   sim_elto_dst = get_reference(s_expr[1]) ;
 
-                                                   return "Set bit " + show_verbal(s_expr[3]) + " of " + show_verbal(s_expr[1]) + " to value " + sim_elto_org.value + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "Set bit " + show_verbal(s_expr[3]) + " of " + show_verbal(s_expr[1]) + " to value " + sim_elto_org.value + ". " ;
+                                                   }
+
+                                                   return show_verbal(s_expr[1]) + "." + show_verbal(s_expr[3]) +
+                                                          " = " + sim_elto_org.value + ". " ;
                                                 }
 				   };
 	ep_behaviors["MBITS"]    = { nparameters: 8,

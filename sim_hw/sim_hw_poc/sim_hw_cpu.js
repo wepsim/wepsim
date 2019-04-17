@@ -752,8 +752,14 @@
 						   var sim_elto_org = get_reference(s_expr[2]) ;
                                                    var newval       = get_value(sim_elto_org) ;
 
-                                                   return "Copy from " + show_verbal(s_expr[2]) +
-							  " to " + show_verbal(s_expr[1]) + " value " + show_value(newval) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'short') {
+                                                       return "Copy from " + show_verbal(s_expr[2]) +
+							      " to " + show_verbal(s_expr[1]) + " value " + show_value(newval) + ". " ;
+                                                   }
+                                                   return show_verbal(s_expr[1]) + " = " + 
+                                                          show_verbal(s_expr[2]) + 
+                                                          " (" + show_value(newval) + "). " ;
                                                 }
                                    };
         poc_behaviors["LOAD"]    = { nparameters: 3,

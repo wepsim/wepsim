@@ -91,11 +91,12 @@
                WSCFG.ws_skin              = { value:'classic',          type:"string"} ;
 
 	       /* micro/assembly screen: editor */
-               WSCFG.editor_theme        = { value:'default',          type:"string"} ;
-               WSCFG.editor_mode         = { value:'default',          type:"string"} ;
+               WSCFG.editor_theme         = { value:'default',          type:"string"} ;
+               WSCFG.editor_mode          = { value:'default',          type:"string"} ;
 
-	       /* base url */
-               WSCFG.base_url            = { value:'https://wepsim.github.io/wepsim/ws_dist/wepsim-classic.html',   type:"string"} ;
+	       /* misc. */
+               WSCFG.verbal_verbose       = { value:'math',             type:"string"} ;
+               WSCFG.base_url             = { value:'https://wepsim.github.io/wepsim/ws_dist/wepsim-classic.html',   type:"string"} ;
 
 	       /*
 	        *  secondary configuration
