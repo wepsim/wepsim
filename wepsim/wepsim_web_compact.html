@@ -945,7 +945,9 @@
 	   <div class="modal-header">
 		<div class="mx-auto">
 		   <button type="button" class="btn btn-success px-3 py-1"
-		   	   onclick="wepsim_open_help_index(); wepsim_help_refresh();"><span data-langkey="Help Index">Help Index</span></button>
+		   	   onclick="wepsim_open_help_index(); 
+                                    wepsim_help_refresh();
+                                    return false;"><span data-langkey="Help Index">Help Index</span></button>
 		   <div class="btn-group">
 		     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled>Help</button>
 		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"

@@ -153,7 +153,7 @@
 	$('#help1_ref').data('absolute','') ;
 	$('#help1_ref').data('code','false') ;
 
-	i18n_update_tags('cfg', idiom_xx) ;
+	i18n_update_tags('help', idiom_xx) ;
 	$('#help1').modal('show') ;
 
 	// stats about ui
