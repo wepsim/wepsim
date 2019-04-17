@@ -194,8 +194,15 @@
 					              if (typeof ep_internal_states.MP[address] != "undefined")
 							  value = ep_internal_states.MP[address] ;
 
-                                                      verbal = "Try to read a " + bw_type + " from memory " + 
-							       "at address 0x"  + address.toString(16) + " with value " + value.toString(16) + ". " ;
+                                                      var verbose = get_cfg('verbal_verbose') ;
+                                                      if (verbose !== 'math') {
+                                                          verbal = "Try to read a " + bw_type + " from memory " + 
+							           "at address 0x"  + address.toString(16) + " with value 0x" + value.toString(16) + ". " ;
+                                                      }
+
+                                                      verbal = "Memory output = 0x" + value.toString(16) + 
+                                                               "(Read a " + bw_type + 
+							       " from 0x" + address.toString(16)  + "). " ;
 
                                                       return verbal ;
                                                    }
@@ -274,8 +281,17 @@
 					              if (typeof ep_internal_states.MP[address] != "undefined")
 							  value = ep_internal_states.MP[address] ;
 
-                                                      verbal = "Try to write a " + bw_type + " to memory " + 
-							       "at address 0x"  + address.toString(16) + " with value " + value.toString(16) + ". " ;
+                                                      var verbose = get_cfg('verbal_verbose') ;
+                                                      if (verbose !== 'math') {
+                                                          verbal = "Try to write a " + bw_type + " to memory " + 
+							           "at address 0x"  + address.toString(16) + 
+                                                                   " with value " + value.toString(16) + ". " ;
+                                                      }
+
+                                                      verbal = "Memory[0x" + address.toString(16) + "] = " +
+							       "0x" + value.toString(16) + 
+                                                               "(Write a " + bw_type + 
+							       " to 0x" + address.toString(16)  + "). " ;
 
                                                       return verbal ;
                                                    }
@@ -289,7 +305,7 @@
                                                    },
                                            verbal: function (s_expr) 
                                                    {
-                                                       return "Reset the memory (all values will be zeroes). " ;
+                                                       return "Reset main memory (all values will be zeroes). " ;
                                                    }
                                    };
 

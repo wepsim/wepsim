@@ -522,7 +522,7 @@
 			       draw_data: [['svg_p:path3063','svg_p:path3061','svg_p:path3059'], ['svg_p:path3057','svg_p:path3641','svg_p:path3419','svg_p:path3583']],
 			       draw_name: [[], ['svg_p:path3447']] };
 	 ep_signals["M2"]  = { name: "M2", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
-			       behavior: ["MV M2_C2 BUS_IB", "ADD M2_C2 REG_PC VAL_FOUR"],
+			       behavior: ["MV M2_C2 BUS_IB", "PLUS4 M2_C2 REG_PC"],
                                depends_on: ["C2"],
 			       fire_name: ['svg_p:text3471'],
 			       draw_data: [['svg_p:path3217', 'svg_p:path3215', 'svg_p:path3213', 'svg_p:path3213-9'],
@@ -1499,7 +1499,15 @@
 						       n2 = n2.substr(31 - (offset + size - 1), size) ;
 						   var n3 = parseInt(n2, 2) ;
 
-                                                   return "Copy from " + show_verbal(s_expr[2]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(n3) + " (copied " + size + " bits from bit " + offset + "). " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "Copy from " + show_verbal(s_expr[2]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(n3) + " (copied " + size + " bits from bit " + offset + "). " ;
+                                                   }
+
+                                                   return show_verbal(s_expr[1]) + " = " + 
+                                                          show_verbal(s_expr[2]) + 
+                                                          " (" + show_value(n3) + ", " + 
+                                                                 size + " bits from bit " + offset + "). " ;
                                                 }
 				   };
 	ep_behaviors["MBIT_SN"]  = { nparameters: 5,
@@ -1597,8 +1605,17 @@
 
 						   n1 = parseInt(n3, 2) ;
 
-                                                   return "Copy from " + show_verbal(s_expr[3]) + " to " + show_verbal(s_expr[1]) + 
-						          " value " + show_value(n1) + " (copied " + size + " bits from bit " + offset + "). " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return " Copy from " + show_verbal(s_expr[3]) + 
+                                                         " to " + show_verbal(s_expr[1]) + 
+						         " value " + show_value(n1) + 
+                                                         " (copied " + size + " bits from bit " + offset + "). " ;
+                                                   }
+
+                                                   return show_verbal(s_expr[1]) + " = " +
+							  show_verbal(s_expr[3]) + " (" + show_value(n1) + 
+						  	  ", " +size+ " bits from bit " +offset+ "). " ;
                                                 }
 				   };
 
@@ -1633,8 +1650,15 @@
 						       n3 = n3 + n4;
 						   var n5 = parseInt(n3, 2) ;
 
-                                                   return "Copy from " + show_verbal(s_expr[4]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(n5) + 
-						          " (copied " + len + " bits, from bit " + poso + " of " + s_expr[4] + " to bit " + posd + " of " + s_expr[1] + "). " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "Copy from " + show_verbal(s_expr[4]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(n5) + 
+						              " (copied " + len + " bits, from bit " + poso + " of " + s_expr[4] + " to bit " + posd + " of " + s_expr[1] + "). " ;
+                                                   }
+
+                                                   return show_verbal(s_expr[1])+" = "+show_verbal(s_expr[4]) + 
+						          " (" + show_value(n5) + ", " + len + " bits, from bit " + poso + 
+						          " of " + s_expr[4] + " to bit " + posd + " of " + s_expr[1] + "). " ;
                                                 }
 				   };
 	ep_behaviors["EXT_SIG"] =  { nparameters: 3,
