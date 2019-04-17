@@ -19,118 +19,43 @@
  */
 
 
-    help.es.push({
-                     id:          "simulator",
-                     title:       "Tutorial de bienvenida",
-                     i_type:      "code",
-                     u_type:      "tutorial",
-                     reference:   "wepsim_close_help(); " + 
-                                  "sim_tutorial_showframe('welcome', 0);",
-                     description: "Tutorial de bienvenida.<br>"
-                  });
+    i18n.help.es = {
 
-    help.es.push({
-                     id:          "simulator",
-                     title:       "Tutorial simple de uso",
-                     i_type:      "code",
-                     u_type:      "tutorial",
-                     reference:   "wepsim_close_help(); " + 
-                                  "sim_tutorial_showframe('simpleusage', 0);",
-                     description: "Tutorial de uso simple, ejemplo básico para microprogramar y programar en ensamblador.<br>"
-                  });
+	"Welcome tutorial":		"Tutorial de bienvenida",
+	"help_01_01":			"Abre el tutorial de bienvenida",
 
-    help.es.push({
-                     id:          "simulator",
-                     title:       "Simulador: microc&oacute;digo",
-                     i_type:      "relative",
-                     u_type:      "simulador",
-                     reference:   "simulator#help_simulator_firmware",
-                     description: "Descripción de cómo trabajar en el simulador con el microc&oacute;digo.<br>"
-                  });
+	"Simple usage tutorial":	"Tutorial simple de uso",
+	"help_01_02":			"Tutorial de uso simple, ejemplo básico para microprogramar y programar en ensamblador",
 
-    help.es.push({
-                     id:          "microcode",
-                     title:       "Formato del microcódigo",
-                     i_type:      "relative",
-                     u_type:      "simulador",
-                     reference:   "simulator#help_firmware_format",
-                     description: "Sintáxis del microcódigo usado.<br>"
-                  });
+	"Simulator: firmware":		"Simulador: microc&oacute;digo",
+	"help_02_01":			"Descripci&oacute;n de c&oacute;mo trabajar en el simulador con el microc&oacute;digo",
 
-    help.es.push({
-                     id:          "simulator",
-                     title:       "Simulador: ensamblador",
-                     i_type:      "relative",
-                     u_type:      "simulador",
-                     reference:   "simulator#help_simulator_assembly",
-                     description: "Descripción de cómo trabajar en el simulador con el ensamblador.<br>"
-                  });
+	"Microcode format":		"Formato del microc&oacute;digo",
+	"help_02_02":			"Sint&aacute;xis del microc&oacute;digo usado",
 
-    help.es.push({
-                     id:          "assembly",
-                     title:       "Formato del ensamblador",
-                     i_type:      "relative",
-                     u_type:      "simulador",
-                     reference:   "simulator#help_assembly_format",
-                     description: "Sintáxis del ensamblador.<br>"
-                  });
+	"Simulator: assembly":		"Simulador: ensamblador",
+	"help_02_03":			"Descripción de cómo trabajar en el simulador con el ensamblador",
 
-    help.es.push({
-                     id:          "simulator",
-                     title:       "Simulador: ejecuci&oacute;n",
-                     i_type:      "relative",
-                     u_type:      "simulador",
-                     reference:   "simulator#help_simulator_execution",
-                     description: "Descripción de cómo ejecutar en el simulador el ensamblador y microc&oacute;digo.<br>"
-                  });
+	"Assembly format":		"Formato del ensamblador",
+	"help_02_04":			"Sintáxis del ensamblador",
 
-    help.es.push({
-                     id:          "architecture",
-                     title:       "Arquitectura del simulador",
-                     i_type:      "absolute",
-                     u_type:      "procesador simulado",
-                     reference:   "hardware",
-                     description: "Descripción de la arquitectura del procesador simulado.<br>"
-                  });
+	"Simulator: execution":		"Simulador: ejecuci&oacute;n",
+	"help_02_05":			"Descripción de cómo ejecutar en el simulador el ensamblador y microc&oacute;digo",
 
-    help.es.push({
-                     id:          "architecture",
-                     title:       "Señales simuladas",
-                     i_type:      "absolute",
-                     u_type:      "procesador simulado",
-                     reference:   "signals",
-                     description: "Resumen de las señales principales del procesador elemental.<br>"
-                  });
+	"Simulated architecture":	"Arquitectura del simulador",
+	"help_03_01":			"Descripción de la arquitectura del procesador simulado",
 
-    help.es.push({
-                     id:          "architecture",
-                     title:       "Resumen del Hardware",
-                     i_type:      "code",
-                     u_type:      "procesador simulado",
-                     reference:   "var ahw1 = simhw_active().sim_short_name ; " +
-                                  "var img1 = 'examples/hardware/' + ahw1 + '/images/cpu.svg?time=20190102' ; " +
-                                  "var txt1 = 'Your browser does not support SVG' ;" +
-                                  "var lyt1 = '<object id=\\'svg_p2\\' data=\\'' + img1 + '\\' " +
-                                  "                    type=\\'image/svg+xml\\'>' + txt1 +  '</object>'; " +
-                                  "wepsim_open_help_content(lyt1) ;",
-                     description: "Resumen del hardware del procesador elemental simulado.<br>"
-                  });
+	"Simulated signals":		"Señales simuladas",
+	"help_03_02":			"Resumen de las señales principales del procesador elemental",
 
-    help.es.push({
-                     id:          "about",
-                     title:       "Licencia, plataformas, etc.",
-                     i_type:      "relative",
-                     u_type:      "info",
-                     reference:   "about#help_about",
-                     description: "Licencia de WepSIM, plataformas disponibles, tecnologías usadas.<br>"
-                  });
+	"Hardware summary":		"Resumen del Hardware",
+	"help_03_03":			"Resumen del hardware del procesador elemental simulado",
 
-    help.es.push({
-                     id:          "authors",
-                     title:       "Authors",
-                     i_type:      "code",
-                     u_type:      "info",
-                     reference:   "wepsim_close_help(); $('#about2').modal(open);",
-                     description: "Autores de WepSIM.<br>"
-                  });
+	"License, platforms, etc.":	"Licencia, plataformas, etc.",
+	"help_04_01":			"Licencia de WepSIM, plataformas disponibles, tecnologías usadas",
+
+	"Authors":			"Autores",
+	"help_04_02":			"Autores de WepSIM"
+
+    } ;
 

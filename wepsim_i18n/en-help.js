@@ -19,118 +19,43 @@
  */
 
 
-    help.en.push({
-                     id:          "simulator",
-                     title:       "Welcome tutorial",
-                     i_type:      "code",
-                     u_type:      "tutorial",
-                     reference:   "wepsim_close_help(); " + 
-                                  "sim_tutorial_showframe('welcome', 0);",
-                     description: "Open the welcome tutorial.<br>"
-                  });
+    i18n.help.en = {
 
-    help.en.push({
-                     id:          "simulator",
-                     title:       "Simple usage tutorial",
-                     i_type:      "code",
-                     u_type:      "tutorial",
-                     reference:   "wepsim_close_help(); " + 
-                                  "sim_tutorial_showframe('simpleusage', 0);",
-                     description: "Open the simple usage tutorial, for microprogramming and assembly programming.<br>"
-                  });
+	"Welcome tutorial":		"Welcome tutorial",
+	"help_01_01":			"Open the welcome tutorial",
 
-    help.en.push({
-                     id:          "simulator",
-                     title:       "Simulator: firmware",
-                     i_type:      "relative",
-                     u_type:      "simulator",
-                     reference:   "simulator#help_simulator_firmware",
-                     description: "How to work with the firmware to be loaded into the control memory.<br>"
-                  });
+	"Simple usage tutorial":	"Simple usage tutorial",
+	"help_01_02":			"Open the simple usage tutorial, for microprogramming and assembly programming",
 
-    help.en.push({
-                     id:          "microcode",
-                     title:       "Microcode format",
-                     i_type:      "relative",
-                     u_type:      "simulator",
-                     reference:   "simulator#help_firmware_format",
-                     description: "Syntax of the microcode used.<br>"
-                  });
+	"Simulator: firmware":		"Simulator: firmware",
+	"help_02_01":			"How to work with the firmware to be loaded into the control memory",
 
-    help.en.push({
-                     id:          "simulator",
-                     title:       "Simulator: assembly",
-                     i_type:      "relative",
-                     u_type:      "simulator",
-                     reference:   "simulator#help_simulator_assembly",
-                     description: "How to work with the assembly that use the aforementioned firmware.<br>"
-                  });
+	"Microcode format":		"Microcode format",
+	"help_02_02":			"Syntax of the microcode used",
 
-    help.en.push({
-                     id:          "assembly",
-                     title:       "Assembly format",
-                     i_type:      "relative",
-                     u_type:      "simulator",
-                     reference:   "simulator#help_assembly_format",
-                     description: "Syntax of the assembly elements.<br>"
-                  });
+	"Simulator: assembly":		"Simulator: assembly",
+	"help_02_03":			"How to work with the assembly that use the aforementioned firmware",
 
-    help.en.push({
-                     id:          "simulator",
-                     title:       "Simulator: execution",
-                     i_type:      "relative",
-                     u_type:      "simulator",
-                     reference:   "simulator#help_simulator_execution",
-                     description: "How the simulator can execute the assembly and firmware.<br>"
-                  });
+	"Assembly format":		"Assembly format",
+	"help_02_04":			"Syntax of the assembly elements",
 
-    help.en.push({
-                     id:          "architecture",
-                     title:       "Simulated architecture",
-                     i_type:      "absolute",
-                     u_type:      "simulated processor",
-                     reference:   "hardware",
-                     description: "Description of the simulated processor architecture.<br>"
-                  });
+	"Simulator: execution":		"Simulator: execution",
+	"help_02_05":			"How the simulator can execute the assembly and firmware",
 
-    help.en.push({
-                     id:          "architecture",
-                     title:       "Simulated signals",
-                     i_type:      "absolute",
-                     u_type:      "simulated processor",
-                     reference:   "signals",
-                     description: "Main signals summary of the simulated elemental processor.<br>"
-                  });
+	"Simulated architecture":	"Simulated architecture",
+	"help_03_01":			"Description of the simulated processor architecture",
 
-    help.en.push({
-                     id:          "architecture",
-                     title:       "Hardware summary",
-                     i_type:      "code",
-                     u_type:      "simulated processor",
-                     reference:   "var ahw1 = simhw_active().sim_short_name ; " +
-                                  "var img1 = 'examples/hardware/' + ahw1 + '/images/cpu.svg?time=20190102' ; " +
-                                  "var txt1 = 'Your browser does not support SVG' ;" +
-                                  "var lyt1 = '<object id=\\'svg_p2\\' data=\\'' + img1 + '\\' " +
-                                  "                    type=\\'image/svg+xml\\'>' + txt1 +  '</object>'; " +
-                                  "wepsim_open_help_content(lyt1) ;",
-                     description: "Reference card for the simulated elemental processor hardware.<br>"
-                  });
+	"Simulated signals":		"Simulated signals",
+	"help_03_02":			"Main signals summary of the simulated elemental processor",
 
-    help.en.push({
-                     id:          "about",
-                     title:       "License, platforms, etc.",
-                     i_type:      "relative",
-                     u_type:      "info",
-                     reference:   "about#help_about",
-                     description: "WepSIM license, supported platforms, technologies used.<br>"
-                  });
+	"Hardware summary":		"Hardware summary",
+	"help_03_03":			"Reference card for the simulated elemental processor hardware",
 
-    help.en.push({
-                     id:          "authors",
-                     title:       "Authors",
-                     i_type:      "code",
-                     u_type:      "info",
-                     reference:   "wepsim_close_help(); $('#about2').modal(open);",
-                     description: "Authors of WepSIM.<br>"
-                  });
+	"License, platforms, etc.":	"License, platforms, etc.",
+	"help_04_01":			"WepSIM license, supported platforms, technologies used",
+
+	"Authors":			"Authors",
+	"help_04_02":			"Authors of WepSIM"
+
+    } ;
 

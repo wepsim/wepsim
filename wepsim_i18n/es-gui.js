@@ -37,7 +37,6 @@
 			"Instruction": 			     		"Instrucci&oacute;n",
 			"Run": 				     		"Ejecutar",
 			"Hardware Summary":  			        "Hardware Resumido",
-			"Refresh": 			     		"Refrescar",
 			"processor":  			                "procesador",
 			"details":  			                "detalles",
                         "Signals": 		                     	"Se&ntilde;ales",

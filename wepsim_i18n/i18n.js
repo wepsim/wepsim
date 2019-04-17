@@ -46,9 +46,9 @@
 	i18n.states.en = {} ;
 
     // help dialog
-    var help    = {} ;
-        help.en = [] ;
-        help.es = [] ;
+        i18n.help    = {} ;
+        i18n.help.en = {} ;
+        i18n.help.es = {} ;
 
     // tutorials
     var tutorials = {} ;
