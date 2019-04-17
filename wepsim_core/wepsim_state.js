@@ -178,11 +178,15 @@
 
     function wepsim_dialog_current_state ( )
     {
-         // show dialog
+         // show dialog-box first...
          wepsim_notify_success('<strong>INFO</strong>', 
                                'Loading, please wait...') ;
+
+	 var idiom_xx = get_cfg('ws_idiom') ;
+	 i18n_update_tags('states', idiom_xx) ;
          $('#current_state1').modal('show');
 
+         // ...then update contents
 	 setTimeout(function() {
 
 	      // current clk+maddr
