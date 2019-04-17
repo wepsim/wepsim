@@ -95,7 +95,7 @@
                WSCFG.editor_mode          = { value:'default',          type:"string"} ;
 
 	       /* misc. */
-               WSCFG.verbal_verbose       = { value:'math',             type:"string"} ;
+               WSCFG.verbal_verbose       = { value:'text',             type:"string"} ;
                WSCFG.base_url             = { value:'https://wepsim.github.io/wepsim/ws_dist/wepsim-classic.html',   type:"string"} ;
 
 	       /*

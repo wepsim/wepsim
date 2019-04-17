@@ -201,7 +201,7 @@
                                                       }
 
                                                       verbal = "Memory output = 0x" + value.toString(16) + 
-                                                               "(Read a " + bw_type + 
+                                                               " (Read a " + bw_type + 
 							       " from 0x" + address.toString(16)  + "). " ;
 
                                                       return verbal ;
@@ -290,7 +290,7 @@
 
                                                       verbal = "Memory[0x" + address.toString(16) + "] = " +
 							       "0x" + value.toString(16) + 
-                                                               "(Write a " + bw_type + 
+                                                               " (Write a " + bw_type + 
 							       " to 0x" + address.toString(16)  + "). " ;
 
                                                       return verbal ;

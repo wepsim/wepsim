@@ -1615,7 +1615,7 @@
 
                                                    return show_verbal(s_expr[1]) + " = " +
 							  show_verbal(s_expr[3]) + " (" + show_value(n1) + 
-						  	  ", " +size+ " bits from bit " +offset+ "). " ;
+						  	  ", " + size + " bits from bit " + offset + "). " ;
                                                 }
 				   };
 

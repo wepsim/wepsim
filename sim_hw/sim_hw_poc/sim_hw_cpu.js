@@ -776,8 +776,15 @@
 						   var sim_elto_org = get_reference(s_expr[2]) ;
                                                    var newval       = get_value(sim_elto_org) ;
 
-                                                   return "Load from " + show_verbal(s_expr[2]) +
-							  " to " + show_verbal(s_expr[1]) + " value " + show_value(newval) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "Load from " + show_verbal(s_expr[2]) +
+							      " to " + show_verbal(s_expr[1]) + " value " + show_value(newval) + ". " ;
+                                                   }
+
+                                                   return show_verbal(s_expr[1]) + " = " + 
+							  show_value(newval) + " ( " + 
+						          show_verbal(s_expr[2]) + "). " ;
                                                 }
                                    };
         poc_behaviors["CP_FIELD"] = { nparameters: 3,
@@ -806,8 +813,15 @@
 						       return "" ;
 						   }
 
-                                                   return "Copy from Field " + r[1] + " of " + show_verbal(r[0]) +
-							  " to " + show_verbal(s_expr[1]) + " value " + show_value(newval) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "Copy from Field " + r[1] + " of " + show_verbal(r[0]) +
+							      " to " + show_verbal(s_expr[1]) + " value " + show_value(newval) + ". " ;
+                                                   }
+
+                                                   return show_verbal(s_expr[1]) + " = " +
+                                                          show_verbal(r[0]) + "." + r[1] + 
+                                                          " (" + show_value(newval) + "). " ;
                                                 }
                                    };
 	poc_behaviors["NOT_ES"]   = { nparameters: 3,
@@ -820,7 +834,15 @@
 						{
 						   var value = Math.abs(get_value(poc_states[s_expr[2]]) - 1) ;
 
-                                                   return "Set " + show_verbal(s_expr[1]) + " with value " + show_value(value) + " (Logical NOT of " + s_expr[2] + "). " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "Set " + show_verbal(s_expr[1]) + 
+						              " with value " + show_value(value) + 
+						              " (Logical NOT of " + s_expr[2] + "). " ;
+                                                   }
+
+                                                   return show_verbal(s_expr[1]) + " = " + show_value(value) + 
+                                                          " (Logical NOT " + s_expr[2] + "). " ;
 						}
 				   };
 	poc_behaviors["GET"]     = { nparameters: 4,
@@ -833,7 +855,13 @@
 						{
 						   var value = get_value(poc_states[s_expr[2]][poc_signals[s_expr[3]].value]) ;
 
-                                                   return "Set " + show_verbal(s_expr[1]) + " with value " + show_value(value) + " (Register File " + s_expr[3] + "). " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "Set " + show_verbal(s_expr[1]) + " with value " + show_value(value) + " (Register File " + s_expr[3] + "). " ;
+                                                   }
+
+                                                   return show_verbal(s_expr[1]) + " = " + show_value(value) + 
+                                                          " (Register File " + s_expr[3] + "). " ;
 						}
 				   };
 	poc_behaviors["SET"]     = { nparameters: 4,
@@ -851,7 +879,12 @@
 						   if (typeof o_ref.verbal != "undefined")
 						       o_verbal = o_ref.verbal ;
 
-                                                   return "Copy to " + o_verbal + " the value " + show_value(value) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "Copy to " + o_verbal + " the value " + show_value(value) + ". " ;
+                                                   }
+
+                                                   return o_verbal + " = " + show_value(value) + ". " ;
 						}
 				   };
 	poc_behaviors["AND"]     = { nparameters: 4,
@@ -870,7 +903,12 @@
 						{
 				                   var result = get_value(poc_states[s_expr[2]]) & get_value(poc_states[s_expr[3]]) ;
 
-                                                   return "ALU AND with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU AND with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (AND). " ;
 						}
 				   };
 	poc_behaviors["OR"]      = { nparameters: 4,
@@ -889,7 +927,12 @@
 						{
 				                   var result = get_value(poc_states[s_expr[2]]) | get_value(poc_states[s_expr[3]]) ;
 
-                                                   return "ALU OR with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU OR with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (OR). " ;
 						}
 				   };
 	poc_behaviors["NOT"]     = { nparameters: 3,
@@ -908,7 +951,12 @@
 						{
 				                   var result = ~(get_value(poc_states[s_expr[2]])) ;
 
-                                                   return "ALU NOT with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU NOT with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (NOT). " ;
 						}
 				   };
 	poc_behaviors["XOR"]     = { nparameters: 4,
@@ -927,7 +975,12 @@
 						{
 				                   var result = get_value(poc_states[s_expr[2]]) ^ get_value(poc_states[s_expr[3]]) ;
 
-                                                   return "ALU XOR with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU XOR with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (XOR). " ;
 						}
 				   };
 	poc_behaviors["SRL"]     = { nparameters: 3,
@@ -946,7 +999,12 @@
 						{
 				                   var result = (get_value(poc_states[s_expr[2]])) >>> 1 ;
 
-                                                   return "ALU Shift Right Logical with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU Shift Right Logical with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (SRL). " ;
 						}
 				   };
 	poc_behaviors["SRA"]     = { nparameters: 3,
@@ -965,7 +1023,12 @@
 						{
 				                   var result = (get_value(poc_states[s_expr[2]])) >> 1 ;
 
-                                                   return "ALU Shift Right Arithmetic with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU Shift Right Arithmetic with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (SRA). " ;
 						}
 				   };
 	poc_behaviors["SL"]      = { nparameters: 3,
@@ -984,7 +1047,12 @@
 						{
 				                   var result = (get_value(poc_states[s_expr[2]])) << 1 ;
 
-                                                   return "ALU Shift Left with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU Shift Left with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (SL). " ;
 						}
 				   };
 	poc_behaviors["RR"]      = { nparameters: 3,
@@ -1003,7 +1071,12 @@
 						{
 				                   var result = ((get_value(poc_states[s_expr[2]])) >>> 1) | (((get_value(poc_states[s_expr[2]])) & 1) << 31) ;
 
-                                                   return "ALU Right Rotation with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU Right Rotation with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (RR). " ;
 						}
 				   };
 	poc_behaviors["RL"]      = { nparameters: 3,
@@ -1022,7 +1095,12 @@
 						{
 				                   var result = ((get_value(poc_states[s_expr[2]])) << 1) | (((get_value(poc_states[s_expr[2]])) & 0X80000000) >>> 31) ;
 
-                                                   return "ALU Left Rotation with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU Left Rotation with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (LR). " ;
 						}
 				   };
 	poc_behaviors["ADD"]     = { nparameters: 4,
@@ -1050,7 +1128,12 @@
                                                    var b = get_value(poc_states[s_expr[3]]) << 0 ;
 						   var result = a + b ;
 
-                                                   return "ALU ADD with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU ADD with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (ADD). " ;
 						}
 				   };
 	poc_behaviors["SUB"]     = { nparameters: 4,
@@ -1078,7 +1161,12 @@
                                                    var b = get_value(poc_states[s_expr[3]]) << 0 ;
 						   var result = a - b ;
 
-                                                   return "ALU SUB with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU SUB with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (SUB). " ;
 						}
 				   };
 	poc_behaviors["MUL"]     = { nparameters: 4,
@@ -1106,7 +1194,12 @@
                                                    var b = get_value(poc_states[s_expr[3]]) << 0 ;
 						   var result = a * b ;
 
-                                                   return "ALU MUL with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU MUL with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (MUL). " ;
 						}
 				   };
 	poc_behaviors["DIV"]     = { nparameters: 4,
@@ -1143,7 +1236,13 @@
 						   }
 
 				                   var result = Math.floor(a / b) ;
-                                                   return "ALU DIV with result " + show_value(result) + ". " ;
+
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU DIV with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (DIV). " ;
 						}
 				   };
 	poc_behaviors["MOD"]     = { nparameters: 4,
@@ -1166,7 +1265,12 @@
 
 						   var result = a % b ;
 
-                                                   return "ALU MOD with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU MOD with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (MOD). " ;
 						}
 				   };
 	poc_behaviors["LUI"]     = { nparameters: 3,
@@ -1185,7 +1289,12 @@
 						{
 						   var result = (get_value(poc_states[s_expr[2]])) << 16 ;
 
-                                                   return "ALU Load Upper Immediate with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "ALU Load Upper Immediate with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return "ALU output = " + show_value(result) + " (LUI). " ;
 						}
 				   };
 	poc_behaviors["ADDFOUR"] = { nparameters: 3,
@@ -1462,7 +1571,16 @@
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
 						   var result = a + 1 ;
 
-                                                   return "Add one to " + show_verbal(s_expr[2]) + " and copy to " + show_verbal(s_expr[1]) + " with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "Add one to " + show_verbal(s_expr[2]) + 
+							      " and copy to " + show_verbal(s_expr[1]) + 
+							      " with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return show_verbal(s_expr[1]) + " = " + 
+                                                          show_verbal(s_expr[2]) + " + 1" + 
+                                                          " (" + show_value(result) + "). " ;
                                                 }
 				   };
 	poc_behaviors["PLUS4"]   = { nparameters: 3,
@@ -1478,7 +1596,16 @@
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
 						   var result = a + 4 ;
 
-                                                   return "Add four to " + show_verbal(s_expr[2]) + " and copy to " + show_verbal(s_expr[1]) + " with result " + show_value(result) + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "Add four to " + show_verbal(s_expr[2]) + 
+							      " and copy to " + show_verbal(s_expr[1]) + 
+							      " with result " + show_value(result) + ". " ;
+                                                   }
+
+                                                   return show_verbal(s_expr[1]) + " = " + 
+                                                          show_verbal(s_expr[2]) + " + 4" + 
+                                                          " (" + show_value(result) + "). " ;
                                                 }
 				   };
 	poc_behaviors["MBIT"]     = { nparameters: 5,
@@ -1508,7 +1635,15 @@
 						       n2 = n2.substr(31 - (offset + size - 1), size) ;
 						   var n3 = parseInt(n2, 2) ;
 
-                                                   return "Copy from " + show_verbal(s_expr[2]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(n3) + " (copied " + size + " bits from bit " + offset + "). " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "Copy from " + show_verbal(s_expr[2]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(n3) + " (copied " + size + " bits from bit " + offset + "). " ;
+                                                   }
+
+                                                   return show_verbal(s_expr[1]) + " = " + 
+                                                          show_verbal(s_expr[2]) + 
+                                                          " (" + show_value(n3) + ", " + 
+                                                                 size + " bits from bit " + offset + "). " ;
 						}
 				   };
 	poc_behaviors["MBIT_SN"]  = { nparameters: 5,
@@ -1561,7 +1696,13 @@
 						   sim_elto_org = get_reference(s_expr[2]) ;
 						   sim_elto_dst = get_reference(s_expr[1]) ;
 
-                                                   return "Set bit " + show_verbal(s_expr[3]) + " of " + show_verbal(s_expr[1]) + " to value " + sim_elto_org.value + ". " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "Set bit " + show_verbal(s_expr[3]) + " of " + show_verbal(s_expr[1]) + " to value " + sim_elto_org.value + ". " ;
+                                                   }
+
+                                                   return show_verbal(s_expr[1]) + "." + show_verbal(s_expr[3]) +
+                                                          " = " + sim_elto_org.value + ". " ;
                                                 }
 				   };
 	poc_behaviors["MBITS"]    = { nparameters: 8,
@@ -1600,8 +1741,17 @@
 
 						   n1 = parseInt(n3, 2) ;
 
-                                                   return "Copy from " + show_verbal(s_expr[3]) + " to " + show_verbal(s_expr[1]) +
-						          " value " + show_value(n1) + " (copied " + size + " bits from bit " + offset + "). " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return " Copy from " + show_verbal(s_expr[3]) + 
+                                                         " to " + show_verbal(s_expr[1]) + 
+						         " value " + show_value(n1) + 
+                                                         " (copied " + size + " bits from bit " + offset + "). " ;
+                                                   }
+
+                                                   return show_verbal(s_expr[1]) + " = " +
+							  show_verbal(s_expr[3]) + " (" + show_value(n1) + 
+						  	  ", " + size + " bits from bit " + offset + "). " ;
 						}
 				   };
 
@@ -1636,8 +1786,15 @@
 						       n3 = n3 + n4;
 						   var n5 = parseInt(n3, 2) ;
 
-                                                   return "Copy from " + show_verbal(s_expr[4]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(n5) +
-						          " (copied " + len + " bits, from bit " + poso + " of " + s_expr[4] + " to bit " + posd + " of " + s_expr[1] + "). " ;
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "Copy from " + show_verbal(s_expr[4]) + " to " + show_verbal(s_expr[1]) + " value " + show_value(n5) + 
+						              " (copied " + len + " bits, from bit " + poso + " of " + s_expr[4] + " to bit " + posd + " of " + s_expr[1] + "). " ;
+                                                   }
+
+                                                   return show_verbal(s_expr[1])+" = "+show_verbal(s_expr[4]) + 
+						          " (" + show_value(n5) + ", " + len + " bits, from bit " + poso + 
+						          " of " + s_expr[4] + " to bit " + posd + " of " + s_expr[1] + "). " ;
 						}
 				   };
 	poc_behaviors["EXT_SIG"] =  { nparameters: 3,
