@@ -131,6 +131,49 @@
 	    $('[data-toggle=tooltip]').tooltip('hide') ;
     }
 
+    //  Workspace simulator: Selects
+
+    function wsweb_set_details_select ( opt )
+    {
+	     // update interface
+	     $('#tab'  + opt).trigger('click') ;
+	     $('#select5a').val(opt) ;
+
+	     // set button label...
+	     var ed=$('#s5b_' + opt).html() ;
+	     $('#select5b').html(ed) ;
+    }
+
+    var hash_detail2action = {
+	    "CLOCK":          function(){ wepsim_execute_microinstruction(); },
+	    "REGISTER_FILE":  function(){ wsweb_set_details_select(11); show_rf_values(); },
+	    "CONTROL_MEMORY": function(){ wsweb_set_details_select(16); show_memories_values(); },
+	    "CPU_STATS":      function(){ wsweb_set_details_select(17); show_memories_values(); },
+	    "MEMORY":         function(){ wsweb_set_details_select(14); show_memories_values(); }, 
+	    "MEMORY_CONFIG":  function(){ wsweb_set_details_select(18); show_memories_values(); },
+	    "KEYBOARD":       function(){ wsweb_set_details_select(12); show_memories_values(); },
+	    "SCREEN":         function(){ wsweb_set_details_select(12); show_memories_values(); },
+	    "IO_STATS":       function(){ wsweb_set_details_select(15); show_memories_values(); }, 
+	    "IO_CONFIG":      function(){ wsweb_set_details_select(19); show_memories_values(); },
+
+	    "FRM_EDITOR":     function(){ wsweb_set_details_select(20); inputfirm.refresh(); },
+	    "ASM_EDITOR":     function(){ wsweb_set_details_select(21); inputasm.refresh(); },
+	    "HARDWARE":       function(){ wsweb_set_details_select(22); 
+					  $('[data-toggle=tooltip]').tooltip('hide');
+					  simcoreui_init_hw('#config_HW') ;
+					  var ws_idiom = get_cfg('ws_idiom');
+					  i18n_update_tags('gui', ws_idiom) ;
+                                        }
+        } ;
+
+    function wsweb_set_details ( opt )
+    {
+        if (typeof hash_detail2action[opt] !== "undefined") {
+            hash_detail2action[opt]() ;
+        }
+    }
+
+
     //  Workspace simulator: Mode
 
     function wepsim_show_wepmips ( )
@@ -173,13 +216,13 @@
             // reload images event-handlers
 	    var a = document.getElementById("svg_p");
 	    a.addEventListener("load",function() {
-		simcore_init_eventlistener("svg_p");
+		simcore_init_eventlistener("svg_p", hash_detail2action);
 		refresh();
 	    }, false);
 
 	    var b = document.getElementById("svg_cu");
 	    b.addEventListener("load",function() {
-		simcore_init_eventlistener("svg_cu");
+		simcore_init_eventlistener("svg_cu", hash_detail2action);
 		refresh();
 	    }, false);
 
@@ -299,19 +342,6 @@
 
 	    set_cfg('C1C2_size', new_value);
 	    save_cfg() ;
-    }
-
-    //  Workspace simulator: Selects
-
-    function simui_select_details ( opt )
-    {
-	     // update interface
-	     $('#tab'  + opt).trigger('click') ;
-	     $('#select5a').val(opt) ;
-
-	     // set button label...
-	     var ed=$('#s5b_' + opt).html() ;
-	     $('#select5b').html(ed) ;
     }
 
 

@@ -291,13 +291,7 @@
 				    title="This button shows the current execution mode, <br>the dropdown on the right changes the execution mode."
                                     style="border-color: #CCCCCC;"
 				    id="select4"
-                                    onclick="simui_select_details(22);
-					     $('[data-toggle=tooltip]').tooltip('hide');
-					      // initialize hw
-					      simcoreui_init_hw('#config_HW') ;
-					      // adapt to idiom
-					      var ws_idiom = get_cfg('ws_idiom');
-					      i18n_update_tags('gui', ws_idiom) ;
+                                    onclick="wsweb_set_details('HARDWARE');
 					     return false;">HW</button>
 			    <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" 
                                     style="border-color: #CCCCCC;"
@@ -488,39 +482,40 @@
 			    </button>
 			    <div class="dropdown-menu border border-secondary">
                               <a class="dropdown-item d-none" href="#" id="s5b_22" value="22"
-				 onclick="simui_select_details(22);"><em class="fas fa-microchip"></em> Hardware</a>
+                                 onclick="wsweb_set_details('HARDWARE');
+                                          return false;"><em class="fas fa-microchip"></em> Hardware</a>
 
 			      <h6 class="text-secondary mb-1">CPU</h6>
                               <a class="dropdown-item" href="#" id="s5b_11" value="11"
-				 onclick="simui_select_details(11); 
-                                          show_rf_values();"><span class="bg-dark text-white">CPU</span> Registers</a>
+				 onclick="wsweb_set_details('REGISTER_FILE');
+                                          return false;"><span class="bg-dark text-white">CPU</span> Registers</a>
                               <a class="dropdown-item" href="#" id="s5b_16" value="16"
-				 onclick="simui_select_details(16); 
-                                          show_memories_values();"><span class="bg-dark text-white">CPU</span> Control Memory</a>
+				 onclick="wsweb_set_details('CONTROL_MEMORY');
+                                          return false;"><span class="bg-dark text-white">CPU</span> Control Memory</a>
                               <a class="dropdown-item" href="#" id="s5b_17" value="17"
-				 onclick="simui_select_details(17); 
-                                          show_memories_values();"><span class="bg-dark text-white">CPU</span> Stats</a>
+				 onclick="wsweb_set_details('CPU_STATS');
+                                          return false;"><span class="bg-dark text-white">CPU</span> Stats</a>
 
 			      <div class="dropdown-divider m-1"></div>
 			      <h6 class="text-secondary mb-1">Main Memory</h6>
 			      <a class="dropdown-item" href="#" id="s5b_14" value="14"
-				 onclick="simui_select_details(14); 
-                                          show_memories_values();"><span class="bg-dark text-white">MM</span> Memory</a>
+				 onclick="wsweb_set_details('MEMORY');
+                                          return false;"><span class="bg-dark text-white">MM</span> Memory</a>
 			      <a class="dropdown-item" href="#" id="s5b_18" value="18"
-				 onclick="simui_select_details(18); 
-                                          show_memories_values();"><span class="bg-dark text-white">MM</span> Configuration</a>
+				 onclick="wsweb_set_details('MEMORY_CONFIG');
+                                          return false;"><span class="bg-dark text-white">MM</span> Configuration</a>
 
 			      <div class="dropdown-divider m-1"></div>
 			      <h6 class="text-secondary mb-1">Devices</h6>
 			      <a class="dropdown-item" href="#" id="s5b_12" value="12"
-				 onclick="simui_select_details(12); 
-                                          show_memories_values();"><span class="bg-dark text-white">Dev</span> Keyboard+Display</a>
+				 onclick="wsweb_set_details('SCREEN');
+                                          return false;"><span class="bg-dark text-white">Dev</span> Keyboard+Display</a>
 			      <a class="dropdown-item" href="#" id="s5b_15" value="15"
-				 onclick="simui_select_details(15); 
-                                          show_memories_values();"><span class="bg-dark text-white">Dev</span> I/O Stats</a>
+				 onclick="wsweb_set_details('IO_STATS');
+                                          return false;"><span class="bg-dark text-white">Dev</span> I/O Stats</a>
 			      <a class="dropdown-item" href="#" id="s5b_19" value="19"
-				 onclick="simui_select_details(19); 
-                                          show_memories_values();"><span class="bg-dark text-white">Dev</span> I/O Configuration</a>
+				 onclick="wsweb_set_details('IO_CONFIG');
+                                          return false;"><span class="bg-dark text-white">Dev</span> I/O Configuration</a>
 			    </div>
 			  </div>
                     </div>
@@ -1621,7 +1616,7 @@
 
 		    wsweb_change_workspace_simulator() ;
 		    $('#tab26').trigger('click') ;
-		    simui_select_details(11) ;
+		    wsweb_set_details('REGISTER_FILE') ;
 
 		    wsweb_set_cpucu_size(get_cfg('CPUCU_size')) ;
 		    wsweb_set_c1c2_size(get_cfg('C1C2_size')) ;
