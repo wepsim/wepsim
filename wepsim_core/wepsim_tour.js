@@ -44,7 +44,7 @@
 
 					// ws_mode: intro, tutorial, ep, poc, ...
 					if (get_cfg('ws_mode') != 'ep') { 
-					    simui_select_main('ep') ;
+					    wsweb_select_main('ep') ;
 					}
 
 			                return true ;

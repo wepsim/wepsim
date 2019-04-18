@@ -131,7 +131,7 @@
 	    $('[data-toggle=tooltip]').tooltip('hide') ;
     }
 
-    // Mode
+    //  Workspace simulator: Mode
 
     function wepsim_show_wepmips ( )
     {
@@ -156,6 +156,55 @@
 
         inputfirm.setOption('readOnly', false) ;
         $("#btn_micro1").removeClass('d-none') ;
+    }
+
+    function wepsim_activehw ( mode )
+    {
+	    simhw_setActive(mode) ;
+
+            // reload images
+	    var o = document.getElementById('svg_p') ;
+	    if (o != null) o.setAttribute('data',  simhw_active().sim_img_processor) ;
+	        o = document.getElementById('svg_cu') ;
+	    if (o != null) o.setAttribute('data', simhw_active().sim_img_controlunit) ;
+	        o = document.getElementById('svg_p2') ;
+	    if (o != null) o.setAttribute('data', simhw_active().sim_img_cpu) ;
+
+            // reload images event-handlers
+	    var a = document.getElementById("svg_p");
+	    a.addEventListener("load",function() {
+		simcore_init_eventlistener("svg_p");
+		refresh();
+	    }, false);
+
+	    var b = document.getElementById("svg_cu");
+	    b.addEventListener("load",function() {
+		simcore_init_eventlistener("svg_cu");
+		refresh();
+	    }, false);
+
+            // info + warning
+	    wepsim_notify_warning('<strong>WARNING</strong>',
+                                  'Please remember the current firmware and assembly might need to be reloaded, ' +
+                                  'because previous working session of the simulated hardware are not kept.') ;
+	    wepsim_notify_success('<strong>INFO</strong>',
+                                  '"' + simhw_active().sim_name + '" has been activated.') ;
+
+            // update UI
+            var SIMWARE = get_simware() ;
+    	    update_memories(SIMWARE) ;
+            simcore_reset() ;
+
+            // update asmdbg
+            var asmdbg_content = default_asmdbg_content_horizontal() ;
+	    for (var l in SIMWARE.assembly) // <===> if (SIMWARE.assembly != {})
+	    {
+                 asmdbg_content = assembly2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg, SIMWARE.assembly) ;
+		 break ;
+	    }
+            $("#asm_debugger").html(asmdbg_content);
+
+            showhideAsmElements();
     }
 
     function wepsim_change_mode ( optValue )
@@ -198,7 +247,7 @@
           }
     }
 
-    function simui_select_main ( opt )
+    function wsweb_select_main ( opt )
     {
 	     // save ws_mode
 	     set_cfg('ws_mode', opt) ;
@@ -220,18 +269,39 @@
 
     function wsweb_mode_update ( new_mode )
     {
-          simui_select_main(new_mode);
+          wsweb_select_main(new_mode);
 
 	  // initialize hw
-	  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
+	  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', 
+                          '#cpu_ALL',    '#config_MP', '#config_IO') ;
 	  simcoreui_init_hw('#config_HW') ;
 
 	  // adapt to idiom
-	  var ws_idiom = get_cfg('ws_idiom');
+	  var ws_idiom = get_cfg('ws_idiom') ;
 	  i18n_update_tags('gui', ws_idiom) ;
     }
 
-    // Selects
+    //  Workspace simulator: Sliders
+
+    function wsweb_set_cpucu_size ( new_value )
+    {
+	    $('#slider2b').val(new_value) ;
+	    set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', new_value) ;
+
+	    set_cfg('CPUCU_size', new_value) ;
+	    save_cfg() ;
+    }
+
+    function wsweb_set_c1c2_size ( new_value )
+    {
+	    $("#slider2a").val(new_value) ;
+	    set_ab_size('#col1', '#col2', new_value);
+
+	    set_cfg('C1C2_size', new_value);
+	    save_cfg() ;
+    }
+
+    //  Workspace simulator: Selects
 
     function simui_select_details ( opt )
     {
@@ -244,69 +314,10 @@
 	     $('#select5b').html(ed) ;
     }
 
-    function wepsim_activehw ( mode )
-    {
-	    simhw_setActive(mode) ;
 
-            // reload images
-	    var o = document.getElementById('svg_p') ;
-	    if (o != null) o.setAttribute('data',  simhw_active().sim_img_processor) ;
-	        o = document.getElementById('svg_cu') ;
-	    if (o != null) o.setAttribute('data', simhw_active().sim_img_controlunit) ;
-	        o = document.getElementById('svg_p2') ;
-	    if (o != null) o.setAttribute('data', simhw_active().sim_img_cpu) ;
-
-            // reload images event-handlers
-	    var a = document.getElementById("svg_p");
-	    a.addEventListener("load",function() {
-		simcore_init_eventlistener("svg_p");
-		refresh();
-	    }, false);
-
-	    var b = document.getElementById("svg_cu");
-	    b.addEventListener("load",function() {
-		simcore_init_eventlistener("svg_cu");
-		refresh();
-	    }, false);
-
-            // info + warning
-	    wepsim_notify_warning('<strong>WARNING</strong>',
-                                  'Please remember the current firmware and assembly might need to be reloaded, ' +
-                                  'because previous working session of the simulated hardware are not kept.') ;
-	    wepsim_notify_success('<strong>INFO</strong>',
-                                  '"' + simhw_active().sim_name + '" has been activated.') ;
-
-            // update UI
-            var SIMWARE = get_simware() ;
-    	    update_memories(SIMWARE) ;
-            simcore_reset() ;
-
-            var asmdbg_content = default_asmdbg_content_horizontal() ;
-	    for (var l in SIMWARE.assembly) // <===> if (SIMWARE.assembly != {})
-	    {
-                 asmdbg_content = assembly2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg, SIMWARE.assembly) ;
-		 break ;
-	    }
-            $("#asm_debugger").html(asmdbg_content);
-
-            showhideAsmElements();
-    }
-
-    // hardware
-
-    function wepsim_load_hw ( )
-    {
-/*
-	    // load hardware...
-	    ep_def_json = $.getJSON({'url': "examples/hardware/ep/hw_def.json", 'async': false}) ;
-            simcore_hardware_import(ep_def_json.responseText) ;
-
-	    poc_def_json = $.getJSON({'url': "examples/hardware/poc/hw_def.json", 'async': false}) ;
-            simcore_hardware_import(poc_def_json.responseText) ;
-*/
-
-	    return true ;
-    }
+    //
+    // WepSIM private API
+    //
 
     // Popovers
 
@@ -383,28 +394,9 @@
 	    });
     }
 
-    // sliders
-
-    function set_ab_size ( diva, divb, new_value )
-    {
-	var a = new_value;
-    	var b = 12 - a;
-
-	$(diva).removeClass();
-	$(divb).removeClass();
-
-	if (a != 0)
-             $(diva).addClass('col-' + a);
-	else $(diva).addClass('col-12 order-1');
-
-	if (b != 0)
-	     $(divb).addClass('col-' + b);
-	else $(divb).addClass('col-12 order-2');
-    }
-
     // asmdbg
 
-    function wepsim_init_asmdbg ( )
+    function wsweb_init_asmdbg ( )
     {
             // asmdbg content
 	    showhideAsmElements() ;
@@ -429,5 +421,56 @@
 	    }).on('shown.bs.popover', function(shownEvent) {
 		   showhideAsmHeader() ;
 	    });
+    }
+
+    // hardware
+
+    function wepsim_load_hw ( )
+    {
+/*
+	    // load hardware...
+	    ep_def_json = $.getJSON({'url': "examples/hardware/ep/hw_def.json", 'async': false}) ;
+            simcore_hardware_import(ep_def_json.responseText) ;
+
+	    poc_def_json = $.getJSON({'url': "examples/hardware/poc/hw_def.json", 'async': false}) ;
+            simcore_hardware_import(poc_def_json.responseText) ;
+*/
+
+	    return true ;
+    }
+
+    // sliders
+
+    function set_ab_size ( diva, divb, new_value )
+    {
+	var a = new_value;
+    	var b = 12 - a;
+
+	$(diva).removeClass();
+	$(divb).removeClass();
+
+	if (a != 0)
+             $(diva).addClass('col-' + a);
+	else $(diva).addClass('col-12 order-1');
+
+	if (b != 0)
+	     $(divb).addClass('col-' + b);
+	else $(divb).addClass('col-12 order-2');
+    }
+
+    // states
+
+    function wsweb_init_state_dialog ( id_div_state1, id_div_state2 )
+    {
+	    $('#' + id_div_state1).tokenfield({ inputType: 'textarea' }) ;
+	    //A1/ var inputEls = document.getElementById(id_div_state1);
+	    //A1/ if (null != inputEls)
+	    //A1/     setup_speech_input(inputEls) ;
+
+	    $('#' + id_div_state2).tokenfield({ inputType: 'textarea' }) ;
+	    //A1/ var inputEls = document.getElementById(id_div_state2);
+	    //A1/ if (null != inputEls)
+	    //A1/     setup_speech_input(inputEls) ;
+
     }
 

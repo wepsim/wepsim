@@ -58,7 +58,7 @@
 			   position: 'auto',
 			   do_before: function ()
 	                              {
-                                          simui_select_main('ep') ;
+                                          wsweb_select_main('ep') ;
 					  tour.refresh() ;
 			                  return true ;
 			              }

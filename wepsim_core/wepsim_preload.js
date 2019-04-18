@@ -30,7 +30,7 @@
 	    // parameter: mode
 	    if (hash['mode'] !== '')
 	    {
-                simui_select_main(hash['mode']) ;
+                wsweb_select_main(hash['mode']) ;
 	        o += '<li>Mode set to <strong>' + hash['mode'] + '</strong>.</li> ' ;
 	    }
 

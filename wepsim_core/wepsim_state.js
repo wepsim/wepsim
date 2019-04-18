@@ -260,17 +260,3 @@
 	return true ;
     }
 
-    function wepsim_init_state_dialog ( id_div_state1, id_div_state2 )
-    {
-	    $('#' + id_div_state1).tokenfield({ inputType: 'textarea' }) ;
-	    //A1/ var inputEls = document.getElementById(id_div_state1);
-	    //A1/ if (null != inputEls)
-	    //A1/     setup_speech_input(inputEls) ;
-
-	    $('#' + id_div_state2).tokenfield({ inputType: 'textarea' }) ;
-	    //A1/ var inputEls = document.getElementById(id_div_state2);
-	    //A1/ if (null != inputEls)
-	    //A1/     setup_speech_input(inputEls) ;
-
-    }
-

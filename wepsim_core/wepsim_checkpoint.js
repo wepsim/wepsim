@@ -158,7 +158,7 @@
 	   // 3.- restore firmware + assembly
 
 		// set associated mode
-	        simui_select_main(checkpointObj[0].mode) ;
+	        wsweb_select_main(checkpointObj[0].mode) ;
 
 		// firmware + assembly: load into editor
 		inputfirm.setValue(checkpointObj[0].firmware) ;
