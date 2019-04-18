@@ -226,8 +226,7 @@
                                 id="btn_cfg1"
 			         data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			         title="This button opens the 'Configuration' dialog."
-                                onclick="wepsim_open_config_index(); 
-				         $('[data-toggle=tooltip]').tooltip('hide');
+                                onclick="wsweb_dialogbox_open_config();
 					 return false;"
 		    	        style="border-width:1 1 1 1px; border-color: #CCCCCC;"
                                 ><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
@@ -235,7 +234,7 @@
                                 id="btn_micro1"
 			         data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			         title="This button switches into the 'Microcode' editor."
-                                onclick="sim_change_workspace_microcode(); 
+                                onclick="wsweb_change_workspace_microcode(); 
 				         $('[data-toggle=tooltip]').tooltip('hide');
 					 return false;"
 		                style="border-width:1 1 1 1px; border-color: #CCCCCC;"
@@ -244,7 +243,7 @@
                                 id="btn_asm1"
 			         data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			         title="This button switches into the 'Assembly' editor."
-                                onclick="sim_change_workspace_assembly(); 
+                                onclick="wsweb_change_workspace_assembly(); 
 				         $('[data-toggle=tooltip]').tooltip('hide');
 					 return false;"
 		                style="border-width:1 1 1 1px; border-color: #CCCCCC;"
@@ -276,8 +275,7 @@
                                     id="btn_example1"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			            title="This button opens the 'Examples' dialog."
-				    onclick="wepsim_open_examples_index(); 
-				             $('[data-toggle=tooltip]').tooltip('hide');
+				    onclick="wsweb_dialogbox_open_examples();
 					     return false;"><strong><span data-langkey='Examples'>Examples</span></strong></button>
 
 		            <button class="btn btn-light shadow-sm my-1 col"
@@ -285,9 +283,7 @@
                                     id="btn_help1"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			            title="This button opens the 'Help' dialog."
-		                    onclick="wepsim_open_help_index();
-                                             wepsim_help_refresh(); 
-					     $('[data-toggle=tooltip]').tooltip('hide');
+		                    onclick="wsweb_dialogbox_open_help();
 					     return false;"><strong><span data-langkey='Help'>Help</span></strong></button>
 
 			<div class="btn-group p-0 my-1 col" style="flex-grow:6;">
@@ -313,22 +309,10 @@
 
 			      <h6 class="text-secondary mb-1">WepSIM hardware</h6>
                               <a class="dropdown-item" href="#" id="s4_ep" value="ep"
-				 onclick="simui_select_main('ep');
-					    // initialize hw
-	                                    simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
-					    simcoreui_init_hw('#config_HW') ;
-					    // adapt to idiom
-					    var ws_idiom = get_cfg('ws_idiom');
-					    i18n_update_tags('gui', ws_idiom) ;
+				 onclick="wsweb_mode_update('ep');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP</a>
                               <a class="dropdown-item" href="#" id="s4_poc" value="poc"
-				 onclick="simui_select_main('poc');
-					    // initialize hw
-	                                    simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
-					    simcoreui_init_hw('#config_HW') ;
-					    // adapt to idiom
-					    var ws_idiom = get_cfg('ws_idiom');
-					    i18n_update_tags('gui', ws_idiom) ;
+				 onclick="wsweb_mode_update('poc');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;POC</a>
 
 			      <div class="dropdown-divider"></div>
@@ -464,27 +448,19 @@
                     <div class="btn-toolbar btn-block" role="toolbar">
 			    <button          style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
-			            onclick="wepsim_execute_reset(true, true);
-	                                     simcoreui_show_hw();
+			            onclick="wsweb_execution_reset();
 	                                     return false;"><em class="fa fa-power-off"></em><strong><br/><span data-langkey='Reset'>Reset</span></strong></button>
 			    <button id="nm1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
-			            onclick="wepsim_execute_microinstruction();
-	                                     simcoreui_show_hw();
+			            onclick="wsweb_execution_microinstruction();
                                              return false;"><em class="fa fa-step-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey='microInstruction'>&#181;Instruction</span><span class="d-sm-none">&#181;Instr.</span></strong></button>
 			    <button id="ni1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
-			            onclick="wepsim_execute_instruction();
-					     simcoreui_init_hw('#config_HW');
+			            onclick="wsweb_execution_instruction();
                                              return false;"><em class="fa fa-fast-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey='Instruction'>Instruction</span><span class="d-sm-none">Instr.</span></strong></button>
 			    <button id="qbp" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
-                                    onclick="var mode = get_cfg('ws_mode');
-                                             if ('tutorial' == mode) {
-                                                 wepsim_notify_success('<strong>INFO</strong>',
-                                                                       'Tutorial mode on. Use the configuration to change it.');
-                                             }
-                                             wepsim_execute_toggle_play('#qbp', (mode == 'tutorial'));
+                                    onclick="wsweb_execution_run();
                                              return false;"><em class="fa fa-play"></em><strong><br/><span data-langkey='Run'>Run</span></strong></button>
                     </div>
                     </div>
@@ -495,8 +471,7 @@
 		                    style="border-color: #CCCCCC; flex-grow:1;"
 			             data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			             title="This button opens the 'state management' dialog: it shows the current state, saves the current state, and shows the differences between two states."
-		                    onclick="wepsim_dialog_current_state();
-					     $('[data-toggle=tooltip]').tooltip('hide');
+		                    onclick="wsweb_dialogbox_open_state();
                                              return false;"><em class="fas fa-camera"></em>&nbsp;<span data-langkey='States'>States</span></button>
 
 			  <div class="col btn-group p-0" style="flex-grow:2;">
@@ -655,14 +630,15 @@
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button class="btn btn-light shadow-sm col m-0"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                    onclick="wepsim_open_config_index();"><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
+                                    onclick="wsweb_dialogbox_open_config();
+					     return false;"><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
 		            <button class="btn btn-light shadow-sm col m-0"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                    onclick="sim_change_workspace_assembly();"
+                                    onclick="wsweb_change_workspace_assembly();"
 				    data-transition="none" data-inline="true"><strong><span data-langkey='Assembly'>Assembly</span></strong></button>
 		            <button class="btn btn-light shadow-sm col m-0"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                    onclick="sim_change_workspace_simulator();"
+                                    onclick="wsweb_change_workspace_simulator();"
 				    data-transition="none" data-inline="true"><strong><span data-langkey='Simulator'>Simulator</span></strong></button>
 		      </div>
 
@@ -742,16 +718,17 @@
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button class="btn btn-light shadow-sm col m-0"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                    onclick="wepsim_open_config_index();"><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
+                                    onclick="wsweb_dialogbox_open_config();
+					     return false;"><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
 		            <button class="btn btn-light shadow-sm col m-0"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                    onclick="sim_change_workspace_microcode();"
+                                    onclick="wsweb_change_workspace_microcode();"
 				    data-transition="none" data-inline="true">
 			    <strong><span class="d-none d-sm-inline-flex" data-langkey='MicroCode'>MicroCode</span><span class="d-sm-none">&#181;code</span></strong>
 			    </button>
 		            <button class="btn btn-light shadow-sm col m-0"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                    onclick="sim_change_workspace_simulator();"
+                                    onclick="wsweb_change_workspace_simulator();"
 				    data-transition="none" data-inline="true"><strong><span data-langkey="Simulator">Simulator</span></strong></button>
 		      </div>
 
@@ -954,13 +931,11 @@
 			    onclick="set_cfg('ws_idiom','es'); save_cfg();
                                      i18n_update_tags('gui', 'es') ;
                                      i18n_update_tags('cfg', 'es') ;
-                                     //wepsim_open_config_index();
                                      return false;">ES<span class="d-none d-sm-inline-flex">&nbsp;(Spanish)</span></a>
 			 <a class="dropdown-item" href="#"
 			    onclick="set_cfg('ws_idiom','en'); save_cfg();
                                      i18n_update_tags('gui', 'en') ;
                                      i18n_update_tags('cfg', 'en') ;
-                                     //wepsim_open_config_index();
                                      return false;">EN<span class="d-none d-sm-inline-flex">&nbsp;(English)</span></a>
 		     </div>
 		   </div>
@@ -1646,7 +1621,7 @@
 
 		    // init-ui: simulator
 
-		    sim_change_workspace_simulator() ;
+		    wsweb_change_workspace_simulator() ;
 		    $('#tab26').trigger('click') ;
 		    simui_select_details(11) ;
 
@@ -1674,21 +1649,7 @@
                     }) ;
 
 		    // popover...
-		    $("[data-toggle=popover0]").popover({
-			    html:       true,
-			    placement: 'auto',
-			    animation:  false,
-			    container: 'body',
-			    template:  '<div class="popover shadow border border-secondary" role="tooltip">' +
-				       '<div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div>' +
-				       '</div>',
-			    content:    function() {
-					   return wepsim_show_quick_menu('po1') ;
-					},
-			    sanitizeFn: function (content) {
-					   return content ; // DOMPurify.sanitize(content) ;
-					}
-		    });
+    		    wsweb_init_quick_menu() ;
 		    $('a[data-toggle="popover1"]').popover({
 			    placement: 'bottom',
 			    animation: false,

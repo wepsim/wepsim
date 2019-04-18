@@ -23,7 +23,7 @@
     // WepSIM API
     //
 
-    //  Workspaces
+    //  To change Workspaces
 
     function sim_change_workspace ( page_id, carousel_id )
     {
@@ -39,7 +39,7 @@
             }
     }
 
-    function sim_change_workspace_simulator ( )
+    function wsweb_change_workspace_simulator ( )
     {
 	    sim_change_workspace('#main1', 0) ;
 
@@ -49,7 +49,7 @@
 	               }, 50) ;
     }
 
-    function sim_change_workspace_microcode ( )
+    function wsweb_change_workspace_microcode ( )
     {
 	    sim_change_workspace('#main3', 1) ;
 
@@ -61,7 +61,7 @@
 	               }, 50) ;
     }
 
-    function sim_change_workspace_assembly ( )
+    function wsweb_change_workspace_assembly ( )
     {
 	    sim_change_workspace('#main4', 2) ;
 
@@ -73,7 +73,90 @@
 	               }, 50) ;
     }
 
+    //  Workspace simulator: execution
+
+    function wsweb_execution_reset ( )
+    {
+	    wepsim_execute_reset(true, true) ;
+	    simcoreui_show_hw() ;
+    }
+
+    function wsweb_execution_microinstruction ( )
+    {
+	    wepsim_execute_microinstruction() ;
+	    simcoreui_show_hw() ;
+    }
+
+    function wsweb_execution_instruction ( )
+    {
+	    wepsim_execute_instruction() ;
+	    simcoreui_init_hw('#config_HW') ;
+    }
+
+    function wsweb_execution_run ( )
+    {
+            var mode = get_cfg('ws_mode') ;
+	    if ('tutorial' == mode) {
+		 wepsim_notify_success('<strong>INFO</strong>',
+				       'Tutorial mode on. Use the configuration to change it.') ;
+	    }
+
+	    wepsim_execute_toggle_play('#qbp', (mode == 'tutorial')) ;
+    }
+
+    //  Workspace simulator: dialog-boxes
+
+    function wsweb_dialogbox_open_examples ( )
+    {
+            wepsim_open_examples_index(); 
+	    $('[data-toggle=tooltip]').tooltip('hide');
+    }
+
+    function wsweb_dialogbox_open_help ( )
+    {
+	    wepsim_open_help_index();
+	    wepsim_help_refresh(); 
+	    $('[data-toggle=tooltip]').tooltip('hide');
+    }
+
+    function wsweb_dialogbox_open_config ( )
+    {
+	    wepsim_open_config_index() ;
+	    $('[data-toggle=tooltip]').tooltip('hide') ;
+    }
+
+    function wsweb_dialogbox_open_state ( )
+    {
+            wepsim_dialog_current_state() ;
+	    $('[data-toggle=tooltip]').tooltip('hide') ;
+    }
+
     // Mode
+
+    function wepsim_show_wepmips ( )
+    {
+        $(".multi-collapse-2").collapse("show") ;
+	$("#slider_cpucu").hide() ;
+
+	$("#tab26").hide() ;
+	$("#tab21").hide() ;
+	$("#tab24").click() ;
+
+        inputfirm.setOption('readOnly', true) ;
+        $("#btn_micro1").addClass('d-none') ;
+    }
+
+    function wepsim_hide_wepmips ( )
+    {
+        $(".multi-collapse-2").collapse("show") ;
+	$("#slider_cpucu").show() ;
+
+	$("#tab26").show() ;
+	$("#tab21").show() ;
+
+        inputfirm.setOption('readOnly', false) ;
+        $("#btn_micro1").removeClass('d-none') ;
+    }
 
     function wepsim_change_mode ( optValue )
     {
@@ -115,19 +198,6 @@
           }
     }
 
-    // Selects
-
-    function simui_select_details ( opt )
-    {
-	     // update interface
-	     $('#tab'  + opt).trigger('click') ;
-	     $('#select5a').val(opt) ;
-
-	     // set button label...
-	     var ed=$('#s5b_' + opt).html() ;
-	     $('#select5b').html(ed) ;
-    }
-
     function simui_select_main ( opt )
     {
 	     // save ws_mode
@@ -146,6 +216,32 @@
 	     // set button label...
 	     var ed = $('#s4_' + opt).html() ;
 	     $('#select4').html(ed) ;
+    }
+
+    function wsweb_mode_update ( new_mode )
+    {
+          simui_select_main(new_mode);
+
+	  // initialize hw
+	  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
+	  simcoreui_init_hw('#config_HW') ;
+
+	  // adapt to idiom
+	  var ws_idiom = get_cfg('ws_idiom');
+	  i18n_update_tags('gui', ws_idiom) ;
+    }
+
+    // Selects
+
+    function simui_select_details ( opt )
+    {
+	     // update interface
+	     $('#tab'  + opt).trigger('click') ;
+	     $('#select5a').val(opt) ;
+
+	     // set button label...
+	     var ed=$('#s5b_' + opt).html() ;
+	     $('#select5b').html(ed) ;
     }
 
     function wepsim_activehw ( mode )
@@ -194,31 +290,6 @@
             $("#asm_debugger").html(asmdbg_content);
 
             showhideAsmElements();
-    }
-
-    function wepsim_show_wepmips ( )
-    {
-        $(".multi-collapse-2").collapse("show") ;
-	$("#slider_cpucu").hide() ;
-
-	$("#tab26").hide() ;
-	$("#tab21").hide() ;
-	$("#tab24").click() ;
-
-        inputfirm.setOption('readOnly', true) ;
-        $("#btn_micro1").addClass('d-none') ;
-    }
-
-    function wepsim_hide_wepmips ( )
-    {
-        $(".multi-collapse-2").collapse("show") ;
-	$("#slider_cpucu").show() ;
-
-	$("#tab26").show() ;
-	$("#tab21").show() ;
-
-        inputfirm.setOption('readOnly', false) ;
-        $("#btn_micro1").removeClass('d-none') ;
     }
 
     // hardware
@@ -291,6 +362,25 @@
 		'</ul>' ;
 
         return o ;
+    }
+
+    function wsweb_init_quick_menu ( )
+    {
+	    $("[data-toggle=popover0]").popover({
+		    html:       true,
+		    placement: 'auto',
+		    animation:  false,
+		    container: 'body',
+		    template:  '<div class="popover shadow border border-secondary" role="tooltip">' +
+			       '<div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div>' +
+			       '</div>',
+		    content:    function() {
+				   return wepsim_show_quick_menu('po1') ;
+				},
+		    sanitizeFn: function (content) {
+				   return content ; // DOMPurify.sanitize(content) ;
+				}
+	    });
     }
 
     // sliders
