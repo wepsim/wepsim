@@ -1263,6 +1263,10 @@
 						   var a = get_value(poc_states[s_expr[2]]) << 0 ;
                                                    var b = get_value(poc_states[s_expr[3]]) << 0 ;
 
+                                                   if (0 == b) {
+                                                       return "ALU MOD zero by zero (oops!). " ;
+                                                   }
+
 						   var result = a % b ;
 
                                                    var verbose = get_cfg('verbal_verbose') ;

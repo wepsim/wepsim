@@ -25,18 +25,11 @@
 
         function get_value ( sim_obj )
         {
-	   if (typeof sim_obj.value == "function")
-	   {
+	   if (typeof sim_obj.value == "function") {
 	       return sim_obj.value() ;
-	   }
-	   else if (typeof sim_obj.default_value == "object")
-	   {
-	       return sim_obj.value ;
-	   }
-	   else
-	   {
-	       return sim_obj.value ;
-	   }
+           }
+
+	   return sim_obj.value ;
         }
 
         function set_value ( sim_obj, value )
@@ -47,13 +40,6 @@
 	           sim_obj.changed = true ;
 
 	       sim_obj.value(value) ;
-           }
-	   else if (typeof sim_obj.default_value == "object")
-	   {
-	       if (sim_obj.value != value)
-	           sim_obj.changed = true ;
-
-	       sim_obj.value = value ;
            }
 	   else
 	   {
@@ -172,4 +158,49 @@
 
 	    return "0x" + (value >>> 0).toString(16) ;
         }
+
+
+
+/*
+        function get_value ( sim_obj )
+        {
+	   if (typeof sim_obj.value == "function")
+	   {
+	       return sim_obj.value() ;
+	   }
+	   else if (typeof sim_obj.default_value == "object")
+	   {
+	       return sim_obj.value ;
+	   }
+	   else
+	   {
+	       return sim_obj.value ;
+	   }
+        }
+
+        function set_value ( sim_obj, value )
+        {
+	   if (typeof sim_obj.value == "function") 
+	   {
+	       if (sim_obj.value() != value)
+	           sim_obj.changed = true ;
+
+	       sim_obj.value(value) ;
+           }
+	   else if (typeof sim_obj.default_value == "object")
+	   {
+	       if (sim_obj.value != value)
+	           sim_obj.changed = true ;
+
+	       sim_obj.value = value ;
+           }
+	   else
+	   {
+	       if (sim_obj.value != value)
+	           sim_obj.changed = true ;
+
+	       sim_obj.value = value ;
+           }
+        }
+*/
 
