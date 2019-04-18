@@ -19,12 +19,12 @@
 
 ### Run WepSIM
 
-+ From Web (Google Chrome 65+, Mozilla Firefox 60+, Microsoft Edge 40+, and Apple Safari 11+):
++ From Web (Google Chrome 70+, Mozilla Firefox 64+, Microsoft Edge 40+, and Apple Safari 11+):
      * Please, load in your Web Browser the link: https://wepsim.github.io/wepsim
        * A nightly build version is available too: https://acaldero.github.io/wepsim
 
 + From Linux/Unix command line (Node 8.10.0+ and Bash 4.4.19+):
-     * wget https://github.com/acaldero/wepsim/releases/download/2.0.2/wepsim-202.zip
+     * wget https://github.com/acaldero/wepsim/releases/download/v2.0.6/wepsim-206.zip
      * unzip wepsim-202.zip 
      * cd wepsim
      * ./wepsim_node.sh
