@@ -326,30 +326,27 @@ Micropc at 0x3f.	Activated signals are: MC MR SELB SELA MA MB SELCOP T6 SELC LC 
   The following example use the WepSIM control API (wsweb_*) for build a tutorial:
 
 ```html
-        <div class="container p-0">
+        <div class="container">
 
 	    <nav class="nav nav-pills nav-justified">
 		  <a href="#"
-		     class="nav-item nav-link mx-2 border border-secondary"
-		     onclick="var ws_base       = 'https://acaldero.github.io/wepsim/' ;
-	                      var ws_mainpage   = ws_base + '/ws_dist/wepsim-classic.html' ;
-	                      var ws_checkpoint = ws_base + '/examples/checkpoint/tutorial_1.txt' ;
-			      var context1 = document.getElementById('iframe1');
-			      context1.src = ws_mainpage + '?' +
-					     'notify=false&' + 
-					     'simulator=assembly:screen&' + 
-					     'checkpoint=' + ws_checkpoint ;
+		     class="nav-item nav-link border border-secondary"
+		     onclick="var context1 = document.getElementById('iframe1');
+			      context1.src = 'https://acaldero.github.io/wepsim/ws_dist/wepsim-classic.html?' +
+					     'notify=false&' +
+                                             'example=13&' +
+					     'simulator=assembly:screen';
 			      return false;">Step 1.- Load Example</a>
 
 		  <a href="#"
-		     class="nav-item nav-link mx-2 border border-secondary"
+		     class="nav-item nav-link border border-secondary"
 		     onclick="var context1 = document.getElementById('iframe1').contentWindow;
 			      context1.wsweb_execution_run();
 			      return false;">Step 2.- Run</a>
             </nav>
 
             <div class="row">
-                <div class="col-12 py-2 px-0">
+                <div class="col-12">
 			<div class="embed-responsive embed-responsive-4by3">
 		        <iframe class="w-100 border border-secondary embed-responsive-item"
 		                id="iframe1" src=""></iframe>
