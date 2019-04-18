@@ -498,3 +498,23 @@
 	else $(divb).addClass('col-12 order-2');
     }
 
+    //  backport from 2.0.6
+    //  Workspace simulator: execution
+
+    function wsweb_execution_reset ( )
+    {
+	    wepsim_execute_reset(true, true) ;
+	    simcoreui_show_hw() ;
+    }
+
+    function wsweb_execution_run ( )
+    {
+            var mode = get_cfg('ws_mode') ;
+	    if ('tutorial' == mode) {
+		 wepsim_notify_success('<strong>INFO</strong>',
+				       'Tutorial mode on. Use the configuration to change it.') ;
+	    }
+
+	    wepsim_execute_toggle_play('#qbp', (mode == 'tutorial')) ;
+    }
+
