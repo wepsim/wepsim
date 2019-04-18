@@ -231,9 +231,9 @@ Micropc at 0x3f.	Activated signals are: MC MR SELB SELA MA MB SELCOP T6 SELC LC 
 ```
 
 
-## Getting Started: WepSIM API
+## Getting Started: WepSIM engine API
 
-+ If you want to use WepSIM within your App, there is a WepSIM API in JavaScript available too. 
++ If you want to use the WepSIM engine within your App, there is a WepSIM API in JavaScript available too. 
   You will need to include the WepSIM engine in your proyect:
 
 ```javascript
@@ -317,5 +317,46 @@ Micropc at 0x3f.	Activated signals are: MC MR SELB SELA MA MB SELCOP T6 SELC LC 
          */
 
         console.log(ret.msg) ;
+```
+
+## Getting Started: WepSIM control API
+
++ If you want to control an WepSIM instance, there is a WepSIM API in JavaScript available. 
+
+  The following example use the WepSIM control API (wsweb_*) for build a tutorial:
+
+```html
+        <div class="container p-0">
+
+	    <nav class="nav nav-pills nav-justified">
+		  <a href="#"
+		     class="nav-item nav-link mx-2 border border-secondary"
+		     onclick="var ws_base       = 'https://acaldero.github.io/wepsim/' ;
+	                      var ws_mainpage   = ws_base + '/ws_dist/wepsim-classic.html' ;
+	                      var ws_checkpoint = ws_base + '/examples/checkpoint/tutorial_1.txt' ;
+			      var context1 = document.getElementById('iframe1');
+			      context1.src = ws_mainpage + '?' +
+					     'notify=false&' + 
+					     'simulator=assembly:screen&' + 
+					     'checkpoint=' + ws_checkpoint ;
+			      return false;">Step 1.- Load Example</a>
+
+		  <a href="#"
+		     class="nav-item nav-link mx-2 border border-secondary"
+		     onclick="var context1 = document.getElementById('iframe1').contentWindow;
+			      context1.wsweb_execution_run();
+			      return false;">Step 2.- Run</a>
+            </nav>
+
+            <div class="row">
+                <div class="col-12 py-2 px-0">
+			<div class="embed-responsive embed-responsive-4by3">
+		        <iframe class="w-100 border border-secondary embed-responsive-item"
+		                id="iframe1" src=""></iframe>
+			</div>
+                </div>
+            </div>
+
+        </div>
 ```
 
