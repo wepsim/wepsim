@@ -49,7 +49,7 @@
     function sim_tutorial_cancelframe ( )
     {
 	var ws_mode = get_cfg('ws_mode');
-        simui_select_main(ws_mode);
+        wsweb_select_main(ws_mode);
 
 	tutbox.modal("hide") ;
 

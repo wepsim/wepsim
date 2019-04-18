@@ -23,7 +23,7 @@
     // WepSIM API
     //
 
-    //  Workspaces
+    //  To change Workspaces
 
     function sim_change_workspace ( page_id, carousel_id )
     {
@@ -39,7 +39,7 @@
             }
     }
 
-    function sim_change_workspace_simulator ( )
+    function wsweb_change_workspace_simulator ( )
     {
 	    sim_change_workspace('#main1', 0) ;
 
@@ -49,7 +49,7 @@
 	               }, 50) ;
     }
 
-    function sim_change_workspace_microcode ( )
+    function wsweb_change_workspace_microcode ( )
     {
 	    sim_change_workspace('#main3', 1) ;
 
@@ -61,7 +61,7 @@
 	               }, 50) ;
     }
 
-    function sim_change_workspace_assembly ( )
+    function wsweb_change_workspace_assembly ( )
     {
 	    sim_change_workspace('#main4', 2) ;
 
@@ -73,7 +73,182 @@
 	               }, 50) ;
     }
 
-    // Mode
+    //  Workspace simulator: execution
+
+    function wsweb_execution_reset ( )
+    {
+	    wepsim_execute_reset(true, true) ;
+	    simcoreui_show_hw() ;
+    }
+
+    function wsweb_execution_microinstruction ( )
+    {
+	    wepsim_execute_microinstruction() ;
+	    simcoreui_show_hw() ;
+    }
+
+    function wsweb_execution_instruction ( )
+    {
+	    wepsim_execute_instruction() ;
+	    simcoreui_init_hw('#config_HW') ;
+    }
+
+    function wsweb_execution_run ( )
+    {
+            var mode = get_cfg('ws_mode') ;
+	    if ('tutorial' == mode) {
+		 wepsim_notify_success('<strong>INFO</strong>',
+				       'Tutorial mode on. Use the configuration to change it.') ;
+	    }
+
+	    wepsim_execute_toggle_play('#qbp', (mode == 'tutorial')) ;
+    }
+
+    //  Workspace simulator: dialog-boxes
+
+    function wsweb_dialogbox_open_examples ( )
+    {
+            wepsim_open_examples_index(); 
+	    $('[data-toggle=tooltip]').tooltip('hide');
+    }
+
+    function wsweb_dialogbox_open_help ( )
+    {
+	    wepsim_open_help_index();
+	    wepsim_help_refresh(); 
+	    $('[data-toggle=tooltip]').tooltip('hide');
+    }
+
+    function wsweb_dialogbox_open_config ( )
+    {
+	    wepsim_open_config_index() ;
+	    $('[data-toggle=tooltip]').tooltip('hide') ;
+    }
+
+    function wsweb_dialogbox_open_state ( )
+    {
+            wepsim_dialog_current_state() ;
+	    $('[data-toggle=tooltip]').tooltip('hide') ;
+    }
+
+    //  Workspace simulator: Selects
+
+    function wsweb_set_details_select ( opt )
+    {
+	     // update interface
+	     $('#tab'  + opt).trigger('click') ;
+	     $('#select5a').val(opt) ;
+
+	     // set button label...
+	     var ed=$('#s5b_' + opt).html() ;
+	     $('#select5b').html(ed) ;
+    }
+
+    var hash_detail2action = {
+	    "CLOCK":          function(){ wepsim_execute_microinstruction(); },
+	    "REGISTER_FILE":  function(){ wsweb_set_details_select(11); show_rf_values(); },
+	    "CONTROL_MEMORY": function(){ wsweb_set_details_select(16); show_memories_values(); },
+	    "CPU_STATS":      function(){ wsweb_set_details_select(17); show_memories_values(); },
+	    "MEMORY":         function(){ wsweb_set_details_select(14); show_memories_values(); }, 
+	    "MEMORY_CONFIG":  function(){ wsweb_set_details_select(18); show_memories_values(); },
+	    "KEYBOARD":       function(){ wsweb_set_details_select(12); show_memories_values(); },
+	    "SCREEN":         function(){ wsweb_set_details_select(12); show_memories_values(); },
+	    "IO_STATS":       function(){ wsweb_set_details_select(15); show_memories_values(); }, 
+	    "IO_CONFIG":      function(){ wsweb_set_details_select(19); show_memories_values(); },
+
+	    "FRM_EDITOR":     function(){ wsweb_set_details_select(20); inputfirm.refresh(); },
+	    "ASM_EDITOR":     function(){ wsweb_set_details_select(21); inputasm.refresh(); },
+	    "HARDWARE":       function(){ wsweb_set_details_select(22); 
+					  $('[data-toggle=tooltip]').tooltip('hide');
+					  simcoreui_init_hw('#config_HW') ;
+					  var ws_idiom = get_cfg('ws_idiom');
+					  i18n_update_tags('gui', ws_idiom) ;
+                                        }
+        } ;
+
+    function wsweb_set_details ( opt )
+    {
+        if (typeof hash_detail2action[opt] !== "undefined") {
+            hash_detail2action[opt]() ;
+        }
+    }
+
+
+    //  Workspace simulator: Mode
+
+    function wepsim_show_wepmips ( )
+    {
+        $(".multi-collapse-2").collapse("show") ;
+	$("#slider_cpucu").hide() ;
+
+	$("#tab26").hide() ;
+	$("#tab21").hide() ;
+	$("#tab24").click() ;
+
+        inputfirm.setOption('readOnly', true) ;
+        $("#btn_micro1").addClass('d-none') ;
+    }
+
+    function wepsim_hide_wepmips ( )
+    {
+        $(".multi-collapse-2").collapse("show") ;
+	$("#slider_cpucu").show() ;
+
+	$("#tab26").show() ;
+	$("#tab21").show() ;
+
+        inputfirm.setOption('readOnly', false) ;
+        $("#btn_micro1").removeClass('d-none') ;
+    }
+
+    function wepsim_activehw ( mode )
+    {
+	    simhw_setActive(mode) ;
+
+            // reload images
+	    var o = document.getElementById('svg_p') ;
+	    if (o != null) o.setAttribute('data',  simhw_active().sim_img_processor) ;
+	        o = document.getElementById('svg_cu') ;
+	    if (o != null) o.setAttribute('data', simhw_active().sim_img_controlunit) ;
+	        o = document.getElementById('svg_p2') ;
+	    if (o != null) o.setAttribute('data', simhw_active().sim_img_cpu) ;
+
+            // reload images event-handlers
+	    var a = document.getElementById("svg_p");
+	    a.addEventListener("load",function() {
+		simcore_init_eventlistener("svg_p", hash_detail2action);
+		refresh();
+	    }, false);
+
+	    var b = document.getElementById("svg_cu");
+	    b.addEventListener("load",function() {
+		simcore_init_eventlistener("svg_cu", hash_detail2action);
+		refresh();
+	    }, false);
+
+            // info + warning
+	    wepsim_notify_warning('<strong>WARNING</strong>',
+                                  'Please remember the current firmware and assembly might need to be reloaded, ' +
+                                  'because previous working session of the simulated hardware are not kept.') ;
+	    wepsim_notify_success('<strong>INFO</strong>',
+                                  '"' + simhw_active().sim_name + '" has been activated.') ;
+
+            // update UI
+            var SIMWARE = get_simware() ;
+    	    update_memories(SIMWARE) ;
+            simcore_reset() ;
+
+            // update asmdbg
+            var asmdbg_content = default_asmdbg_content_horizontal() ;
+	    for (var l in SIMWARE.assembly) // <===> if (SIMWARE.assembly != {})
+	    {
+                 asmdbg_content = assembly2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg, SIMWARE.assembly) ;
+		 break ;
+	    }
+            $("#asm_debugger").html(asmdbg_content);
+
+            showhideAsmElements();
+    }
 
     function wepsim_change_mode ( optValue )
     {
@@ -115,20 +290,7 @@
           }
     }
 
-    // Selects
-
-    function simui_select_details ( opt )
-    {
-	     // update interface
-	     $('#tab'  + opt).trigger('click') ;
-	     $('#select5a').val(opt) ;
-
-	     // set button label...
-	     var ed=$('#s5b_' + opt).html() ;
-	     $('#select5b').html(ed) ;
-    }
-
-    function simui_select_main ( opt )
+    function wsweb_select_main ( opt )
     {
 	     // save ws_mode
 	     set_cfg('ws_mode', opt) ;
@@ -148,282 +310,46 @@
 	     $('#select4').html(ed) ;
     }
 
-    // show/hide Assembly elements/header
-
-    function showhideAsmElements ( )
+    function wsweb_mode_update ( new_mode )
     {
-	var tlabel = [ "label", "addr", "hex", "ins", "pins" ] ;
+          wsweb_select_main(new_mode);
 
-	for (var tli=0; tli<tlabel.length; tli++)
-	{
-             var label_name  = "SHOWCODE_"   + tlabel[tli] ;
-             var column_name = "table .asm_" + tlabel[tli] ;
-             var column_show = get_cfg(label_name) ;
+	  // initialize hw
+	  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', 
+                          '#cpu_ALL',    '#config_MP', '#config_IO') ;
+	  simcoreui_init_hw('#config_HW') ;
 
-	     if (column_show !== false)
-	          $(column_name).show() ;
-	     else $(column_name).hide() ;
-	}
+	  // adapt to idiom
+	  var ws_idiom = get_cfg('ws_idiom') ;
+	  i18n_update_tags('gui', ws_idiom) ;
     }
 
-    function showhideAsmHeader ( )
+    //  Workspace simulator: Sliders
+
+    function wsweb_set_cpucu_size ( new_value )
     {
-	var tlabel = [ "label", "addr", "hex", "ins", "pins" ] ;
+	    $('#slider2b').val(new_value) ;
+	    set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', new_value) ;
 
-	for (var tli=0; tli<tlabel.length; tli++)
-	{
-             var label_name = "SHOWCODE_"   + tlabel[tli] ;
-             var btn_show   = get_cfg(label_name) ;
-             var btn_name   = "#asm_" + tlabel[tli] ;
-
-             $(btn_name).removeClass('btn-outline-secondary').removeClass('btn-dark') ;
-	     if (btn_show !== false) 
-                  $(btn_name).addClass('btn-dark') ;
-	     else $(btn_name).addClass('btn-outline-secondary') ;
-	}
+	    set_cfg('CPUCU_size', new_value) ;
+	    save_cfg() ;
     }
 
-    function default_asmdbg_content_horizontal ( )
+    function wsweb_set_c1c2_size ( new_value )
     {
-	 var wsi = get_cfg('ws_idiom') ;
+	    $("#slider2a").val(new_value) ;
+	    set_ab_size('#col1', '#col2', new_value);
 
-	 var o = "<br>" +
-	         "<div class='card m-3'>" +
-		 "  <div class='row no-gutters'>" +
-		// "  <div class='col-md-4'>" +
-		// "  <img class='card-img-top' alt='microcode work area' src='help/simulator/firmware002.jpg'>" +
-		// "  </div>" +
-		// "  <div class='col-md-8'>" + // +
-		 "  <div class='col-md-12'>" + // -
-		 "  <div class='card-body py-0'>" +
-		 "    <p class='card-text'>" + 
-		 "    <div class='badge badge-primary'>1</div>" +
-		 "    <span data-langkey='simulator intro 1'>" + 
-	         i18n_get('gui',wsi,'simulator intro 1') +
-		 "    </span>" +
-		 "    </p>" +
-		 "  </div>" +
-		 "  </div>" +
-		 "  </div>" +
-		 "</div>" +
-		 "<div class='card m-3'>" +
-		 "  <div class='row no-gutters'>" +
-		// "  <div class='col-md-4'>" +
-		// "  <img class='card-img-top' alt='microcode work area' src='help/simulator/firmware002.jpg'>" +
-		// "  </div>" +
-		// "  <div class='col-md-8'>" + // +
-		 "  <div class='col-md-12'>" + // -
-		 "  <div class='card-body py-0'>" +
-		 "    <p class='card-text'>" + 
-		 "    <div class='badge badge-primary'>2</div>" +
-		 "    <span data-langkey='simulator intro 2'>" + 
-	         i18n_get('gui',wsi,'simulator intro 2') +
-		 "    </span>" +
-		 "    </p>" +
-		 "  </div>" +
-		 "  </div>" +
-		 "  </div>" +
-		 "</div>" +
-		 "<div class='card m-3'>" +
-		 "  <div class='row no-gutters'>" +
-		// "  <div class='col-md-4'>" +
-		// "  <img class='card-img-top' alt='microcode work area' src='help/welcome/simulation_xinstruction.gif'>" +
-		// "  </div>" +
-		// "  <div class='col-md-8'>" + // +
-		 "  <div class='col-md-12'>" + // -
-		 "  <div class='card-body py-0'>" +
-		 "    <p class='card-text'>" + 
-		 "    <div class='badge badge-primary'>3</div>" +
-		 "    <span data-langkey='simulator intro 3'>" + 
-	         i18n_get('gui',wsi,'simulator intro 3') +
-		 "    </span>" +
-		 "    </p>" +
-		 "  </div>" +
-		 "  </div>" +
-		 "  </div>" +
-		 "</div>" ;
-
-	 return o ;
+	    set_cfg('C1C2_size', new_value);
+	    save_cfg() ;
     }
 
-    function default_asmdbg_content_vertical ( )
-    {
-	 var o = "<br>" +
-		 "<div class='container-fluid'>" +
-		 "<div class='card-column row'>" +
-		 "<div class='card m-2 col-sm'>" +
-		// "  <img class='card-img-top' alt='microcode work area' src='help/simulator/firmware002.jpg'>" +
-		 "  <div class='card-body h-50 py-0'>" +
-		 "    <p class='card-text'>" + 
-		 "    <div class='badge badge-primary'>1</div>" +
-		 "    <span data-langkey='simulator intro 1'>" + 
-		 "    First, you need to load the microcode to be used." +
-		 "    </span>" +
-		 "    </p>" +
-		 "  </div>" +
-		 "</div>" +
-		 "<div class='card m-2 col-sm'>" +
-		// "  <img class='card-img-top' alt='microcode work area' src='help/simulator/firmware002.jpg'>" +
-		 "  <div class='card-body h-50 py-0'>" +
-		 "    <p class='card-text'>" + 
-		 "    <div class='badge badge-primary'>2</div>" +
-		 "    <span data-langkey='simulator intro 2'>" + 
-		 "    Next, you need to load the assembly code to be used." +
-		 "    </span>" +
-		 "    </p>" +
-		 "  </div>" +
-		 "</div>" +
-		 "<div class='card m-2 col-sm'>" +
-		// "  <img class='card-img-top' alt='microcode work area' src='help/welcome/simulation_xinstruction.gif'>" +
-		 "  <div class='card-body h-50 py-0'>" +
-		 "    <p class='card-text'>" + 
-		 "    <div class='badge badge-primary'>3</div>" +
-		 "    <span data-langkey='simulator intro 3'>" + 
-		 "    Finally, in the simulator you are able to execute the microcode plus assembly loaded before." +
-		 "    </span>" +
-		 "    </p>" +
-		 "  </div>" +
-		 "</div>" +
-		 "</div>" +
-		 "</div>" ;
 
-	 return o ;
-    }
-
-    function wepsim_activehw ( mode )
-    {
-	    simhw_setActive(mode) ;
-
-            // reload images
-	    var o = document.getElementById('svg_p') ;
-	    if (o != null) o.setAttribute('data',  simhw_active().sim_img_processor) ;
-	        o = document.getElementById('svg_cu') ;
-	    if (o != null) o.setAttribute('data', simhw_active().sim_img_controlunit) ;
-	        o = document.getElementById('svg_p2') ;
-	    if (o != null) o.setAttribute('data', simhw_active().sim_img_cpu) ;
-
-            // reload images event-handlers
-	    var a = document.getElementById("svg_p");
-	    a.addEventListener("load",function() {
-		simcore_init_eventlistener("svg_p");
-		refresh();
-	    }, false);
-
-	    var b = document.getElementById("svg_cu");
-	    b.addEventListener("load",function() {
-		simcore_init_eventlistener("svg_cu");
-		refresh();
-	    }, false);
-
-            // info + warning
-	    wepsim_notify_warning('<strong>WARNING</strong>',
-                                  'Please remember the current firmware and assembly might need to be reloaded, ' +
-                                  'because previous working session of the simulated hardware are not kept.') ;
-	    wepsim_notify_success('<strong>INFO</strong>',
-                                  '"' + simhw_active().sim_name + '" has been activated.') ;
-
-            // update UI
-            var SIMWARE = get_simware() ;
-    	    update_memories(SIMWARE) ;
-            simcore_reset() ;
-
-            var asmdbg_content = default_asmdbg_content_horizontal() ;
-	    for (var l in SIMWARE.assembly) // <===> if (SIMWARE.assembly != {})
-	    {
-                 asmdbg_content = assembly2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg, SIMWARE.assembly) ;
-		 break ;
-	    }
-            $("#asm_debugger").html(asmdbg_content);
-
-            showhideAsmElements();
-    }
-
-    function wepsim_show_wepmips ( )
-    {
-        $(".multi-collapse-2").collapse("show") ;
-	$("#slider_cpucu").hide() ;
-
-	$("#tab26").hide() ;
-	$("#tab21").hide() ;
-	$("#tab24").click() ;
-
-        inputfirm.setOption('readOnly', true) ;
-        $("#btn_micro1").addClass('d-none') ;
-    }
-
-    function wepsim_hide_wepmips ( )
-    {
-        $(".multi-collapse-2").collapse("show") ;
-	$("#slider_cpucu").show() ;
-
-	$("#tab26").show() ;
-	$("#tab21").show() ;
-
-        inputfirm.setOption('readOnly', false) ;
-        $("#btn_micro1").removeClass('d-none') ;
-    }
-
-    // hardware
-
-    function wepsim_load_hw ( )
-    {
-/*
-	    // load hardware...
-	    ep_def_json = $.getJSON({'url': "examples/hardware/ep/hw_def.json", 'async': false}) ;
-            simcore_hardware_import(ep_def_json.responseText) ;
-
-	    poc_def_json = $.getJSON({'url': "examples/hardware/poc/hw_def.json", 'async': false}) ;
-            simcore_hardware_import(poc_def_json.responseText) ;
-*/
-
-	    return true ;
-    }
+    //
+    // WepSIM private API
+    //
 
     // Popovers
-
-    function wepsim_click_asm_columns ( name )
-    {
-        var label_name = "SHOWCODE_" + name ;
-        var show_elto  = get_cfg(label_name) ;
-
-	show_elto = !show_elto ;
-
-        var column_name = "table .asm_" + name ;
-        if (show_elto !== false)
-   	     $(column_name).show() ;
-        else $(column_name).hide() ;
-
-	set_cfg(label_name, show_elto) ;
-	save_cfg() ;
-
-        var btn_name = "#asm_" + name ;
-	$(btn_name).removeClass('btn-outline-secondary').removeClass('btn-dark') ;
-        if (show_elto !== false)
-	     $(btn_name).addClass('btn-dark') ;
-	else $(btn_name).addClass('btn-outline-secondary') ;
-    }
-
-    function wepsim_show_asm_columns_checked ( asm_po )
-    {
-        var o = '<button type="button" id="asm_label" aria-label="Show label" ' +
-		'        onclick="wepsim_click_asm_columns(\'label\'); return false;" ' +
-		'        class="btn btn-sm btn-block btn-outline-secondary mb-1">labels</button>' +
-		'<button type="button" id="asm_hex" aria-label="Show content" ' +
-		'        onclick="wepsim_click_asm_columns(\'hex\'); return false;" ' +
-                '        class="btn btn-sm btn-block btn-outline-secondary mb-1">content</button>' +
-		'<button type="button" id="asm_ins" aria-label="Show instruction" ' +
-		'        onclick="wepsim_click_asm_columns(\'ins\'); return false;" ' +
-                '        class="btn btn-sm btn-block btn-outline-secondary mb-1">assembly</button>' +
-		'<button type="button" id="asm_pins" aria-label="Show pseudoinstruction" ' +
-		'        onclick="wepsim_click_asm_columns(\'pins\'); return false;" ' +
-                '        class="btn btn-sm btn-block btn-outline-secondary mb-1">pseudo<span class="d-none d-md-inline">-instructions</span></button>' +
-                '<button type="button" id="close" data-role="none" ' +
-                '        class="btn btn-sm btn-danger w-100 p-0 mt-1" ' +
-                '        onclick="$(\'#' + asm_po + '\').popover(\'hide\');"' + 
-	        '><span data-langkey="Close">Close</span></button>' ;
-
-        return o ;
-    }
 
     function wepsim_show_quick_menu ( quick_po )
     {
@@ -479,6 +405,70 @@
         return o ;
     }
 
+    function wsweb_init_quick_menu ( )
+    {
+	    $("[data-toggle=popover0]").popover({
+		    html:       true,
+		    placement: 'auto',
+		    animation:  false,
+		    container: 'body',
+		    template:  '<div class="popover shadow border border-secondary" role="tooltip">' +
+			       '<div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div>' +
+			       '</div>',
+		    content:    function() {
+				   return wepsim_show_quick_menu('po1') ;
+				},
+		    sanitizeFn: function (content) {
+				   return content ; // DOMPurify.sanitize(content) ;
+				}
+	    });
+    }
+
+    // asmdbg
+
+    function wsweb_init_asmdbg ( )
+    {
+            // asmdbg content
+	    showhideAsmElements() ;
+
+	    var target = $("#asm_table");
+	    $("#asm_debugger_container").scroll(function() {
+	       target.prop("scrollTop", this.scrollTop).prop("scrollLeft", this.scrollLeft);
+	    });
+
+            // asmdbg popover
+	    $("[data-toggle=popover2]").popover({
+		    html:       true,
+		    placement: 'auto',
+		    animation:  false,
+		    container: 'body',
+		    content:    function() {
+				   return wepsim_show_asm_columns_checked('popover2_asm') ;
+				},
+		    sanitizeFn: function (content) {
+				   return content ; // DOMPurify.sanitize(content) ;
+				}
+	    }).on('shown.bs.popover', function(shownEvent) {
+		   showhideAsmHeader() ;
+	    });
+    }
+
+    // hardware
+
+    function wepsim_load_hw ( )
+    {
+/*
+	    // load hardware...
+	    ep_def_json = $.getJSON({'url': "examples/hardware/ep/hw_def.json", 'async': false}) ;
+            simcore_hardware_import(ep_def_json.responseText) ;
+
+	    poc_def_json = $.getJSON({'url': "examples/hardware/poc/hw_def.json", 'async': false}) ;
+            simcore_hardware_import(poc_def_json.responseText) ;
+*/
+
+	    return true ;
+    }
+
     // sliders
 
     function set_ab_size ( diva, divb, new_value )
@@ -496,5 +486,21 @@
 	if (b != 0)
 	     $(divb).addClass('col-' + b);
 	else $(divb).addClass('col-12 order-2');
+    }
+
+    // states
+
+    function wsweb_init_state_dialog ( id_div_state1, id_div_state2 )
+    {
+	    $('#' + id_div_state1).tokenfield({ inputType: 'textarea' }) ;
+	    //A1/ var inputEls = document.getElementById(id_div_state1);
+	    //A1/ if (null != inputEls)
+	    //A1/     setup_speech_input(inputEls) ;
+
+	    $('#' + id_div_state2).tokenfield({ inputType: 'textarea' }) ;
+	    //A1/ var inputEls = document.getElementById(id_div_state2);
+	    //A1/ if (null != inputEls)
+	    //A1/     setup_speech_input(inputEls) ;
+
     }
 

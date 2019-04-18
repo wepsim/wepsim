@@ -148,7 +148,7 @@
 
     <meta name="apple-mobile-web-app-capable"          content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title"            content="WepSIM 2.0.5" />
+    <meta name="apple-mobile-web-app-title"            content="WepSIM 2.0.6" />
     <meta name="msapplication-TileImage"               content="images/arcos.svg" />
     <meta name="msapplication-TileColor"               content="#2F3BA2" />
     <meta name="theme-color"                           content="#ffffff" />
@@ -226,9 +226,8 @@
 					min="0" max="12" value="7" step="1"
 				        data-show-value="false"
                                         class="custom-range slider col mx-0 px-0"
-                                        oninput="set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', this.value);
-					         set_cfg('CPUCU_size', this.value);
-                                                 save_cfg();">
+                                        oninput="wsweb_set_cpucu_size(this.value) ;
+                                                 return false;">
 			    </form>
                     </div>
 
@@ -241,8 +240,7 @@
                                     id="btn_example1"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			            title="This button opens the 'Examples' dialog."
-			    	    onclick="wepsim_open_examples_index();
-					     $('[data-toggle=tooltip]').tooltip('hide');
+				    onclick="wsweb_dialogbox_open_examples();
 				             return false;"><strong><span data-langkey='Examples'>Examples</span></strong></button>
 
 		            <button class="btn btn-light shadow-sm my-1 col"
@@ -250,9 +248,7 @@
                                     id="btn_help1"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			            title="This button opens the 'Help' dialog."
-		                    onclick="wepsim_open_help_index();
-                                             wepsim_help_refresh();
-					     $('[data-toggle=tooltip]').tooltip('hide');
+		                    onclick="wsweb_dialogbox_open_help();
 					     return false;"><strong><span data-langkey='Help'>Help</span></strong></button>
 
 			<div class="btn-group p-0 my-1 col" style="flex-grow:6;">
@@ -261,13 +257,7 @@
 				    title="This button shows the current execution mode, <br>the dropdown on the right changes the execution mode."
                                     style="border-color: #CCCCCC;"
 				    id="select4"
-                                    onclick="simui_select_details(22);
-					     $('[data-toggle=tooltip]').tooltip('hide');
-					      // initialize hw
-					      simcoreui_init_hw('#config_HW') ;
-					      // adapt to idiom
-					      var ws_idiom = get_cfg('ws_idiom');
-					      i18n_update_tags('gui', ws_idiom) ;
+                                    onclick="wsweb_set_details('HARDWARE');
 					     return false;">HW</button>
 			    <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" 
                                     style="border-color: #CCCCCC;"
@@ -278,39 +268,27 @@
 
 			      <h6 class="text-secondary mb-1">WepSIM hardware</h6>
                               <a class="dropdown-item" href="#" id="s4_ep" value="ep"
-				 onclick="simui_select_main('ep');
-					    // initialize hw
-	                                    simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
-					    simcoreui_init_hw('#config_HW') ;
-					    // adapt to idiom
-					    var ws_idiom = get_cfg('ws_idiom');
-					    i18n_update_tags('gui', ws_idiom) ;
+				 onclick="wsweb_mode_update('ep');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP</a>
                               <a class="dropdown-item" href="#" id="s4_poc" value="poc"
-				 onclick="simui_select_main('poc');
-					    // initialize hw
-	                                    simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
-					    simcoreui_init_hw('#config_HW') ;
-					    // adapt to idiom
-					    var ws_idiom = get_cfg('ws_idiom');
-					    i18n_update_tags('gui', ws_idiom) ;
+				 onclick="wsweb_mode_update('poc');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;POC</a>
 
 			      <div class="dropdown-divider"></div>
 			      <h6 class="text-secondary mb-1">Assembly only</h6>
                               <a class="dropdown-item" href="#" id="s4_wepmips" value="wepmips"
-				 onclick="simui_select_main('wepmips');
+				 onclick="wsweb_select_main('wepmips');
 	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP+MIPS32</a>
 
 			      <div class="dropdown-divider"></div>
 			      <h6 class="text-secondary mb-1">Help</h6>
                               <a class="dropdown-item" href="#" id="s4_tutorial" value="tutorial"
-				 onclick="simui_select_main('tutorial');
+				 onclick="wsweb_select_main('tutorial');
 	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
 					  return false;"><span style="background-color:#D4DB17">Instructive</span></a>
                               <a class="dropdown-item" href="#" id="s4_intro" value="intro"
-				 onclick="simui_select_main('intro');
+				 onclick="wsweb_select_main('intro');
 	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
 					  return false;">Welcome...</a>
 			    </div>
@@ -327,9 +305,8 @@
 					min="0" max="12" value="7" step="1"
 				        data-show-value="false"
                                         class="custom-range slider col mx-0 px-0"
-                                        oninput="set_ab_size('#col1', '#col2', this.value);
-					         set_cfg('C1C2_size', this.value);
-                                                 save_cfg();">
+                                        oninput="wsweb_set_c1c2_size(this.value) ;
+                                                 return false;">
 			    </form>
                     </div>
 
@@ -430,27 +407,19 @@
                     <div class="btn-toolbar btn-block" role="toolbar">
 			    <button          style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
-			            onclick="wepsim_execute_reset(true, true);
-	                                     simcoreui_show_hw();
+			            onclick="wsweb_execution_reset();
 	                                     return false;"><em class="fa fa-power-off"></em><strong><br/><span data-langkey='Reset'>Reset</span></strong></button>
 			    <button id="nm1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
-			            onclick="wepsim_execute_microinstruction();
-	                                     simcoreui_show_hw();
+			            onclick="wsweb_execution_microinstruction();
                                              return false;"><em class="fa fa-step-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey='microInstruction'>&#181;Instruction</span><span class="d-sm-none">&#181;Instr.</span></strong></button>
 			    <button id="ni1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
-			            onclick="wepsim_execute_instruction();
-					     simcoreui_init_hw('#config_HW') ;
+			            onclick="wsweb_execution_instruction();
                                              return false;"><em class="fa fa-fast-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey='Instruction'>Instruction</span><span class="d-sm-none">Instr.</span></strong></button>
 			    <button id="qbp" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
-                                    onclick="var mode = get_cfg('ws_mode');
-                                             if ('tutorial' == mode) {
-                                                 wepsim_notify_success('<strong>INFO</strong>',
-                                                                       'Tutorial mode on. Use the configuration to change it.');
-                                             }
-                                             wepsim_execute_toggle_play('#qbp', (mode == 'tutorial'));
+                                    onclick="wsweb_execution_run();
                                              return false;"><em class="fa fa-play"></em><strong><br/><span data-langkey='Run'>Run</span></strong></button>
                     </div>
                     </div>
@@ -464,16 +433,14 @@
 		    	            style="border-color: #CCCCCC; flex-grow:1;"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			            title="This button opens the 'Configuration' dialog."
-                                    onclick="wepsim_open_config_index();
-					     $('[data-toggle=tooltip]').tooltip('hide');
+                                    onclick="wsweb_dialogbox_open_config();
 				             return false;"><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></button>
 
 		            <button class="col btn btn-light shadow-sm"
 		                    style="border-color: #CCCCCC; flex-grow:2;"
 			              data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			              title="This button opens the 'state management' dialog: it shows the current state, saves the current state, and shows the differences between two states."
-		                    onclick="wepsim_dialog_current_state();
-					     $('[data-toggle=tooltip]').tooltip('hide');
+		                    onclick="wsweb_dialogbox_open_state();
 				             return false;"><em class="fas fa-camera"></em>&nbsp;<span data-langkey='States'>States</span></button>
 
 			  <div class="col btn-group p-0" style="flex-grow:6;">
@@ -494,33 +461,44 @@
 			    </button>
 			    <div class="dropdown-menu border border-secondary">
                               <a class="dropdown-item d-none" href="#" id="s5b_22" value="22"
-				 onclick="simui_select_details(22);"><em class="fas fa-microchip"></em> Hardware</a>
+                                 onclick="wsweb_set_details('HARDWARE');
+                                          return false;"><em class="fas fa-microchip"></em> Hardware</a>
 
 			      <h6 class="text-secondary mb-1">CPU</h6>
                               <a class="dropdown-item" href="#" id="s5b_11" value="11"
-				 onclick="simui_select_details(11); show_rf_values();"><span class="bg-dark text-white">CPU</span> Registers</a>
+				 onclick="wsweb_set_details('REGISTER_FILE');
+				          return false;"><span class="bg-dark text-white">CPU</span> Registers</a>
                               <a class="dropdown-item" href="#" id="s5b_16" value="16"
-				 onclick="simui_select_details(16); show_memories_values();"><span class="bg-dark text-white">CPU</span> Control Memory</a>
+				 onclick="wsweb_set_details('CONTROL_MEMORY');
+				          return false;"><span class="bg-dark text-white">CPU</span> Control Memory</a>
                               <a class="dropdown-item" href="#" id="s5b_17" value="17"
-				 onclick="simui_select_details(17); show_memories_values();"><span class="bg-dark text-white">CPU</span> Stats</a>
+				 onclick="wsweb_set_details('CPU_STATS');
+                                          return false;"><span class="bg-dark text-white">CPU</span> Stats</a>
                               <a class="dropdown-item" href="#" id="s5b_20" value="20"
-				 onclick="simui_select_details(20); inputfirm.refresh();"><span class="bg-dark text-white">CPU</span> MicroCode</a>
+				 onclick="wsweb_set_details('FRM_EDITOR');
+                                          return false;"><span class="bg-dark text-white">CPU</span> MicroCode</a>
 
 			      <h6 class="text-secondary mt-2 mb-1">Main Memory</h6>
 			      <a class="dropdown-item" href="#" id="s5b_14" value="14"
-				 onclick="simui_select_details(14); show_memories_values();"><span class="bg-dark text-white">MM</span> Memory</a>
+				 onclick="wsweb_set_details('MEMORY');
+                                          return false;"><span class="bg-dark text-white">MM</span> Memory</a>
 			      <a class="dropdown-item" href="#" id="s5b_18" value="18"
-				 onclick="simui_select_details(18); show_memories_values();"><span class="bg-dark text-white">MM</span> Configuration</a>
+				 onclick="wsweb_set_details('MEMORY_CONFIG');
+                                          return false;"><span class="bg-dark text-white">MM</span> Configuration</a>
 			      <a class="dropdown-item" href="#" id="s5b_21" value="21"
-				 onclick="simui_select_details(21); inputasm.refresh();"><span class="bg-dark text-white">MM</span> Assembly</a>
+				 onclick="wsweb_set_details('ASM_EDITOR');
+                                          return false;"><span class="bg-dark text-white">MM</span> Assembly</a>
 
 			      <h6 class="text-secondary mt-2 mb-1">Devices</h6>
 			      <a class="dropdown-item" href="#" id="s5b_12" value="12"
-				 onclick="simui_select_details(12); show_memories_values();"><span class="bg-dark text-white">Dev</span> Keyboard+Display</a>
+				 onclick="wsweb_set_details('SCREEN');
+                                          return false;"><span class="bg-dark text-white">Dev</span> Keyboard+Display</a>
 			      <a class="dropdown-item" href="#" id="s5b_15" value="15"
-				 onclick="simui_select_details(15); show_memories_values();"><span class="bg-dark text-white">Dev</span> I/O Stats</a>
+				 onclick="wsweb_set_details('IO_STATS');
+                                          return false;"><span class="bg-dark text-white">Dev</span> I/O Stats</a>
 			      <a class="dropdown-item" href="#" id="s5b_19" value="19"
-				 onclick="simui_select_details(19); show_memories_values();"><span class="bg-dark text-white">Dev</span> I/O Configuration</a>
+				 onclick="wsweb_set_details('IO_CONFIG');
+                                          return false;"><span class="bg-dark text-white">Dev</span> I/O Configuration</a>
 			    </div>
 			  </div>
                     </div>
@@ -871,13 +849,11 @@
 			    onclick="set_cfg('ws_idiom','es'); save_cfg();
                                      i18n_update_tags('gui', 'es') ;
                                      i18n_update_tags('cfg', 'es') ;
-                                     //wepsim_open_config_index();
                                      return false;">ES<span class="d-none d-sm-inline-flex">&nbsp;(Spanish)</span></a>
 			 <a class="dropdown-item" href="#"
 			    onclick="set_cfg('ws_idiom','en'); save_cfg();
                                      i18n_update_tags('gui', 'en') ;
                                      i18n_update_tags('cfg', 'en') ;
-                                     //wepsim_open_config_index();
                                      return false;">EN<span class="d-none d-sm-inline-flex">&nbsp;(English)</span></a>
 		     </div>
 		   </div>
@@ -1575,24 +1551,16 @@
 
 		    // init-ui: simulator
 
-		    sim_change_workspace_simulator() ;
+		    wsweb_change_workspace_simulator() ;
 		    $('#tab26').trigger('click') ;
-		    simui_select_details(11) ;
+		    wsweb_set_details('REGISTER_FILE') ;
 
-                    $("#slider2a").val(get_cfg('C1C2_size')) ;
-                    $('#slider2b').val(get_cfg('CPUCU_size')) ;
-                    set_ab_size('#col1',        '#col2',        get_cfg('C1C2_size')) ;
-                    set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', get_cfg('CPUCU_size')) ;
+		    wsweb_set_cpucu_size(get_cfg('CPUCU_size')) ;
+		    wsweb_set_c1c2_size(get_cfg('C1C2_size')) ;
 
-                    showhideAsmElements() ;
-
-		    var target = $("#asm_table");
-		    $("#asm_debugger_container").scroll(function() {
-		       target.prop("scrollTop", this.scrollTop).prop("scrollLeft", this.scrollLeft);
-		    });
-
-                    wepsim_init_state_dialog('end_state1', 'end_state2') ;
-
+                    wsweb_init_asmdbg() ;
+    		    wsweb_init_quick_menu() ;
+                    wsweb_init_state_dialog('end_state1', 'end_state2') ;
 
 		    // init-ui: general
 
@@ -1610,21 +1578,6 @@
                     }) ;
 
 		    // popover...
-		    $("[data-toggle=popover0]").popover({
-			    html:       true,
-			    placement: 'auto',
-			    animation:  false,
-                            container: 'body',
-                            template:  '<div class="popover shadow border border-secondary" role="tooltip">' +
-			               '<div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div>' +
-			               '</div>',
-			    content:    function() {
-                                           return wepsim_show_quick_menu('po1') ;
-                                        },
-			    sanitizeFn: function (content) {
-					   return content ; // DOMPurify.sanitize(content) ;
-				        }
-		    });
 		    $('a[data-toggle="popover1"]').popover({
 			    placement: 'bottom',
 			    animation: false,
@@ -1634,36 +1587,16 @@
 					   return content ; // DOMPurify.sanitize(content) ;
 				        }
 		    }) ;
-		    $("[data-toggle=popover2]").popover({
-			    html:       true,
-			    placement: 'auto',
-			    animation:  false,
-                            container: 'body',
-			    content:    function() {
-                                           return wepsim_show_asm_columns_checked('popover2_asm') ;
-                                        },
-			    sanitizeFn: function (content) {
-					   return content ; // DOMPurify.sanitize(content) ;
-				        }
-		    }).on('shown.bs.popover', function(shownEvent) {
-                           showhideAsmHeader() ;
-                    });
 
 		    // init: general
 		    var ws_mode = get_cfg('ws_mode');
-		    simui_select_main(ws_mode);
-		    simcore_init_ui("#states_ALL", "#states_BR", "#io_ALL",
-				     "#cpu_ALL", "#config_MP", "#config_IO");
+		    wsweb_mode_update(ws_mode) ;
 		    simcore_reset();
 
 		    wepsim_voice_init() ;
 		    if (false == get_cfg('use_voice')) {
 			wepsim_voice_stop() ;
 		    }
-
-		    // adapt to idiom
-		    var ws_idiom = get_cfg('ws_idiom');
-		    i18n_update_tags('gui', ws_idiom) ;
 
 		    // pre-load example
 		    var url_parameters = new URL(window.location).searchParams ;
