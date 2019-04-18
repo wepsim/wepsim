@@ -67,6 +67,7 @@ cat wepsim_i18n/i18n.js \
     wepsim_i18n/en-states.js \
     wepsim_i18n/en-examples.js \
     \
+    wepsim_core/wepsim_asmdbg.js \
     wepsim_core/wepsim_breakpointicons.js \
     wepsim_core/wepsim_checkpoint.js \
     wepsim_core/wepsim_clipboard.js \

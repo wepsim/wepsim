@@ -1655,15 +1655,8 @@
                     set_ab_size('#col1',        '#col2',        get_cfg('C1C2_size')) ;
                     set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', get_cfg('CPUCU_size')) ;
 
-                    showhideAsmElements() ;
-
-		    var target = $("#asm_table");
-		    $("#asm_debugger_container").scroll(function() {
-		       target.prop("scrollTop", this.scrollTop).prop("scrollLeft", this.scrollLeft);
-		    });
-
+                    wepsim_init_asmdbg() ;
                     wepsim_init_state_dialog('end_state1', 'end_state2') ;
-
 
 		    // init-ui: general
 
@@ -1685,16 +1678,16 @@
 			    html:       true,
 			    placement: 'auto',
 			    animation:  false,
-                            container: 'body',
-                            template:  '<div class="popover shadow border border-secondary" role="tooltip">' +
-			               '<div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div>' +
-			               '</div>',
+			    container: 'body',
+			    template:  '<div class="popover shadow border border-secondary" role="tooltip">' +
+				       '<div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div>' +
+				       '</div>',
 			    content:    function() {
-                                           return wepsim_show_quick_menu('po1') ;
-                                        },
+					   return wepsim_show_quick_menu('po1') ;
+					},
 			    sanitizeFn: function (content) {
 					   return content ; // DOMPurify.sanitize(content) ;
-				        }
+					}
 		    });
 		    $('a[data-toggle="popover1"]').popover({
 			    placement: 'bottom',
@@ -1703,22 +1696,8 @@
 			    delay: { "show": 500, "hide": 100 },
 			    sanitizeFn: function (content) {
 					   return content ; // DOMPurify.sanitize(content) ;
-				        }
+					}
 		    }) ;
-		    $("[data-toggle=popover2]").popover({
-			    html:       true,
-			    placement: 'auto',
-			    animation:  false,
-                            container: 'body',
-			    content:    function() {
-                                           return wepsim_show_asm_columns_checked('popover2_asm') ;
-                                        },
-			    sanitizeFn: function (content) {
-					   return content ; // DOMPurify.sanitize(content) ;
-				        }
-		    }).on('shown.bs.popover', function(shownEvent) {
-                           showhideAsmHeader() ;
-                    });
 
 
 		    // init: general
