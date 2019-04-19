@@ -615,21 +615,13 @@
 						    <button style="background-color: #CCCCCC"
 							    class="btn btn-light shadow-sm col-auto px-0 py-1 ml-1"
 							    data-transition="none" data-inline="true"
-							    onclick="var textToMCompile = inputfirm.getValue();
-								     wepsim_compile_firmware(textToMCompile);
-	                                                             var o = '<div class=\'card m-3 border\'><div class=\'card-body m-1\'>' + 
-						                             'Please remember that after updates on the microcode, the assembly code has be re-compiled too.' +
-									     '</div></div>' ;
-								     $('#asm_debugger').html(o);"><em class="fas fa-sign-out-alt"></em><br><strong><span class="d-none d-sm-inline-flex">&#181;<span data-langkey="compile">compile</span></span><span class="d-sm-none">&#181;c.</span></strong></button>
+							    onclick="wsweb_firmware_compile();
+								     return false;">
+							    <em class="fas fa-sign-out-alt"></em><br><strong><span class="d-none d-sm-inline-flex">&#181;<span data-langkey="compile">compile</span></span><span class="d-sm-none">&#181;c.</span></strong></button>
 						    <button style="background-color: #DDDDDD"
 							    class="btn btn-light shadow-sm col-auto px-0 py-1"
-							    onclick="var textToMCompile = inputfirm.getValue();
-								     var ok = wepsim_compile_firmware(textToMCompile);
-								     if (true == ok) {
-									 wepsim_show_binary_microcode('#bin2','#compile_results');
-									 wepsim_notify_success('<strong>INFO</strong>',
-											       'Please remember to recompile the assembly code if needed.');
-								     }">
+							    onclick="wsweb_dialogbox_open_binary_firmware();
+								     return false;">
 								     <strong><em class="fas fa-memory"></em><br><span class="d-none d-sm-inline-flex"><span data-langkey="Show">Show</span>&nbsp;co2&#181;a. + C.M.</span><span class="d-sm-none">co2&#181;a+c.m.</span></strong>
 								     </button>
 					      </div>
@@ -667,15 +659,14 @@
 						    <button style="background-color: #CCCCCC"
 							    class="btn btn-light shadow-sm col-auto px-0 py-1 ml-1"
 							    data-transition="none" data-inline="true"
-							    onclick="var textToCompile = inputasm.getValue() ;
-								     var ok = wepsim_compile_assembly(textToCompile);"><em class="fas fa-sign-out-alt"></em><br><strong><span data-langkey="Compile">Compile</span></strong></button>
+							    onclick="wsweb_assembly_compile();
+								     return false;">
+								<em class="fas fa-sign-out-alt"></em><br><strong><span data-langkey="Compile">Compile</span></strong></button>
 						    <button style="background-color: #DDDDDD"
 							    class="btn btn-light shadow-sm col-auto px-0 py-1"
-							    onclick="var textToCompile = inputasm.getValue();
-								     var ok = wepsim_compile_assembly(textToCompile);
-								     if (true == ok) {
-									 wepsim_show_binary_code('#bin2','#compile_results');
-								     }"><em class="fas fa-memory"></em><br><strong><span class="d-none d-sm-inline-flex"><span data-langkey="Show Main Memory">Show Main Memory</span></span><span class="d-sm-none">Layout</span></strong></button>
+							    onclick="wsweb_dialogbox_open_binary_assembly();
+								     return false;">
+							<em class="fas fa-memory"></em><br><strong><span class="d-none d-sm-inline-flex"><span data-langkey="Show Main Memory">Show Main Memory</span></span><span class="d-sm-none">Layout</span></strong></button>
 					      </div>
 
 					</div>
@@ -724,7 +715,7 @@
                                                function(txt){ inputfirm.setValue(txt); });
 			 $('#lsload').modal('hide');">Load from this File</button>
 	<button class="btn btn-sm btn-danger"
-		type="button" data-dismiss="modal">Cancel</button>
+		type="button" data-dismiss="modal"><span data-langkey="Close">Close</span></button>
      </div>
      </div>
      </div>
@@ -740,7 +731,7 @@
         </button>
      </div>
      <div class="modal-body">
-        <label for="inputFileNameToSaveAs"><em>Please write the file name:</em></label>
+        <label for="inputFileNameToSaveAs"><em><span data-langkey="Please write the file name">Please write the file name</span>:</em></label>
 	<p><input aria-label="filename to save content" id="inputFileNameToSaveAs"
                   class="form-control btn-outline-dark" placeholder="File name where microcode will be saved" style="min-width: 90%;"/></p>
      </div>
@@ -767,7 +758,7 @@
                          var textToWrite      = inputfirm.getValue();
 			 wepsim_save_to_file(textToWrite, fileNameToSaveAs);">Save Editor content to File</button>
 	<button class="btn btn-sm btn-danger my-1"
-		type="button" data-dismiss="modal">Cancel</button>
+		type="button" data-dismiss="modal"><span data-langkey="Close">Close</span></button>
      </div>
      </div>
      </div>
@@ -795,7 +786,7 @@
                                                function(txt){ inputasm.setValue(txt); });
 			 $('#lsload2').modal('hide');">Load from this File</button>
 	<button class="btn btn-sm btn-danger"
-		type="button" data-dismiss="modal">Cancel</button>
+		type="button" data-dismiss="modal"><span data-langkey="Close">Close</span></button>
      </div>
      </div>
      </div>
@@ -811,7 +802,7 @@
         </button>
      </div>
      <div class="modal-body">
-        <label for="inputFileNameToSaveAs2"><em>Please write the file name:</em></label>
+        <label for="inputFileNameToSaveAs2"><em><span data-langkey="Please write the file name">Please write the file name</span>:</em></label>
 	<p><input aria-label="filename to save content" id="inputFileNameToSaveAs2"
                   class="form-control btn-outline-dark" placeholder="File name where assembly will be saved" style="min-width: 90%;"/></p>
      </div>
@@ -821,7 +812,7 @@
                          var textToWrite      = inputasm.getValue();
 			 wepsim_save_to_file(textToWrite, fileNameToSaveAs);">Save to File</button>
 	<button class="btn btn-sm btn-danger"
-		type="button" data-dismiss="modal">Cancel</button>
+		type="button" data-dismiss="modal"><span data-langkey="Close">Close</span></button>
      </div>
      </div>
      </div>

@@ -50,6 +50,7 @@
                         "Show Main Memory": 		               	"Mostrar Memoria Principal",
 			"compile":  			                "compilar",
 			"Compile":  			                "Compilar",
+			"Please write the file name": 		        "Por favor indique el nombre de fichero",
 
 	                "labels":                                       "etiquetas",
 	                "addr":                                         "dir",
