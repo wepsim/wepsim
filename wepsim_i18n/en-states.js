@@ -42,7 +42,6 @@
                         "Tag for checkpoint":                           "Tag for checkpoint",
                         "File to be loaded":                            "File to be loaded",
 	                "Save to File":                                 "Save to File",
-	                "State(s) to checkpoint":                       "State(s) to checkpoint",
-	                "Load from this File":                          "Load from this File"
+	                "State(s) to checkpoint":                       "State(s) to checkpoint"
                   } ;
 

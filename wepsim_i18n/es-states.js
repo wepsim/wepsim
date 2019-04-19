@@ -42,7 +42,6 @@
                         "Tag for checkpoint":                           "Etiqueta para checkpoint",
                         "File to be loaded":                            "Fichero a cargar",
 	                "Save to File":                                 "Guardar a fichero",
-	                "State(s) to checkpoint":                       "Estado(s) a guardar",
-	                "Load from this File":                          "Cargar de este fichero"
+	                "State(s) to checkpoint":                       "Estado(s) a guardar"
                   } ;
 

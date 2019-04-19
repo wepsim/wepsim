@@ -50,6 +50,8 @@
                         "Show Main Memory": 		               	"Show Main Memory",
 			"compile":  			                "compile",
 			"Compile":  			                "Compile",
+			"Please write the file name": 		        "Please write the file name",
+	                "Load from this File":                          "Load from this File",
 
 	                "labels":                                       "labels",
 	                "addr":                                         "addr",
