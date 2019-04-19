@@ -73,6 +73,18 @@
 	               }, 50) ;
     }
 
+    function wsweb_change_show_processor ( )
+    {
+	$("#tab26").click() ;
+     // $('#tab26').trigger('click') ;
+    }
+
+    function wsweb_change_show_asmdbg ( )
+    {
+	$("#tab24").click() ;
+     // $('#tab24').trigger('click') ;
+    }
+
     //  Workspace simulator: execution
 
     function wsweb_execution_reset ( )

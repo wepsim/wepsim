@@ -57,20 +57,17 @@
 	    if (typeof panels[0] !== "undefined")
 	    {
 		if (panels[0] === "microcode") {
-	            $("#tab26").click() ;
+		    wsweb_change_show_processor() ;
                 }
 		if (panels[0] === "assembly") {
-	            $("#tab24").click() ;
+                    wsweb_change_show_asmdbg() ;
                 }
 	    }
 
 	    if (typeof panels[1] !== "undefined")
 	    {
 		var panel2_ref  = panels[1].toUpperCase() ;
-		var evt_handler = hash_detail2action[panel2_ref] ;
-		if (typeof evt_handler !== "undefined") {
-		    evt_handler() ;
-                }
+                wsweb_set_details(panel2_ref) ;
 	    }
 
 	    // notify the user of the preloaded work
