@@ -130,6 +130,7 @@
         /**
          * Initialize simulator event handler.
          * @param {string} context - associated context
+         * @param {hash} hash_detail2action - actions to hook
          */
 
         function simcore_init_eventlistener ( context, hash_detail2action )
