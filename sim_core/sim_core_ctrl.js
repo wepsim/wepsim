@@ -435,7 +435,7 @@
 		       buttons: {
 				    description: {
 					label:     '&plusmn; Desc<span class="d-none d-sm-inline-flex">ription</span>',
-					className: 'btn-outline-dark btn-sm col-xs-3 col-sm-3 col-lg-2',
+					className: 'btn-outline-dark btn-sm col-xs-3 col-sm-3 col-lg-2 mr-auto',
 					callback: function() 
 						  {
 						     $('.bh-all').collapse('toggle') ;

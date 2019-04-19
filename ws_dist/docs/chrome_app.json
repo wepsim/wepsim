@@ -1,0 +1,15 @@
+{
+  "name": "WepSIM",
+  "description": "WepSIM simulator as Chrome App.",
+  "version": "2.0.6",
+  "manifest_version": 2,
+  "app": {
+    "background": {
+      "scripts": ["../docs/chrome_app.js"]
+    }
+  },
+  "icons": { 
+       "16": "../images/icons/favicon-16x16.png", 
+      "128": "../images/icons/favicon-180x180.png" 
+  }
+}

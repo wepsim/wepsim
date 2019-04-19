@@ -128,7 +128,7 @@
 		 "    <p class='card-text'>" + 
 		 "    <div class='badge badge-primary'>1</div>" +
 		 "    <span data-langkey='simulator intro 1'>" + 
-		 "    First, you need to load the microcode to be used." +
+	         i18n_get('gui',wsi,'simulator intro 1') +
 		 "    </span>" +
 		 "    </p>" +
 		 "  </div>" +
@@ -139,7 +139,7 @@
 		 "    <p class='card-text'>" + 
 		 "    <div class='badge badge-primary'>2</div>" +
 		 "    <span data-langkey='simulator intro 2'>" + 
-		 "    Next, you need to load the assembly code to be used." +
+	         i18n_get('gui',wsi,'simulator intro 2') +
 		 "    </span>" +
 		 "    </p>" +
 		 "  </div>" +
@@ -150,7 +150,7 @@
 		 "    <p class='card-text'>" + 
 		 "    <div class='badge badge-primary'>3</div>" +
 		 "    <span data-langkey='simulator intro 3'>" + 
-		 "    Finally, in the simulator you are able to execute the microcode plus assembly loaded before." +
+	         i18n_get('gui',wsi,'simulator intro 3') +
 		 "    </span>" +
 		 "    </p>" +
 		 "  </div>" +
