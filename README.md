@@ -326,7 +326,7 @@ Micropc at 0x3f.	Activated signals are: MC MR SELB SELA MA MB SELCOP T6 SELC LC 
   The following fragment uses the WepSIM control API (wsweb_*) for building a tutorial:
 
 ```html
-        <div class="container">
+    <div class="container">
 
 	    <nav class="nav nav-pills nav-justified">
 		  <a href="#"
@@ -334,7 +334,7 @@ Micropc at 0x3f.	Activated signals are: MC MR SELB SELA MA MB SELCOP T6 SELC LC 
 		     onclick="var context1 = document.getElementById('iframe1');
 			      context1.src = 'https://acaldero.github.io/wepsim/ws_dist/wepsim-classic.html?' +
 					     'notify=false&' +
-                                             'example=13&' +
+                                         'example=13&' +
 					     'simulator=assembly:screen';
 			      return false;">Step 1.- Load Example</a>
 
@@ -343,17 +343,17 @@ Micropc at 0x3f.	Activated signals are: MC MR SELB SELA MA MB SELCOP T6 SELC LC 
 		     onclick="var context1 = document.getElementById('iframe1').contentWindow;
 			      context1.wsweb_execution_run();
 			      return false;">Step 2.- Run</a>
-            </nav>
+        </nav>
 
-            <div class="row">
-                <div class="col-12">
+        <div class="row">
+            <div class="col-12">
 			<div class="embed-responsive embed-responsive-4by3">
 		        <iframe class="w-100 border border-secondary embed-responsive-item"
 		                id="iframe1" src=""></iframe>
 			</div>
-                </div>
             </div>
-
         </div>
+
+    </div>
 ```
 
