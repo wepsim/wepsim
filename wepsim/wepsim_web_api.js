@@ -87,8 +87,9 @@
 
     function wsweb_change_show_processor ( )
     {
-    	    $("#tab26").click() ;
-         // $('#tab26').trigger('click') ;
+	    $("#tab26").tab('show') ;
+	    start_drawing() ;
+	    refresh() ;
 
             // return ok
             return true ;
@@ -96,8 +97,16 @@
 
     function wsweb_change_show_asmdbg ( )
     {
-	    $("#tab24").click() ;
-         // $('#tab24').trigger('click') ;
+            stop_drawing() ;
+	    $("#tab24").tab('show') ;
+
+	    var o1 = fullshow_asmdbg_pc() ;
+	    if (typeof o1[0] == 'undefined') {
+	        return true ;
+            }
+
+	    var obj_byid = $('#asm_debugger_container') ;
+	    obj_byid[0].scrollTop = o1[0].offsetTop ;
 
             // return ok
             return true ;
@@ -206,6 +215,21 @@
 		 wepsim_notify_success('<strong>INFO</strong>',
 				       'Please remember to recompile the assembly code if needed.') ;
 	    }
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_dialogbox_open_hardware_summary ( )
+    {
+            var ahw2 = simhw_active().sim_short_name ;
+	    var img2 = 'examples/hardware/' + ahw2 + '/images/cpu.svg?time=20190102' ;
+	    var lyr2 =  '<object id=svg_p2 ' + 
+			'        data=\'' + img2 + '\' ' + 
+			'        type=\'image/svg+xml\'>' + 
+			'Your browser does not support SVG' + 
+			'</object>' ;
+	    wepsim_open_help_content(lyr2) ;
 
             // return ok
             return true ;
@@ -473,6 +497,31 @@
 		    'Please remember that after updates on the microcode, the assembly code has be re-compiled too.' +
 		    '</div></div>' ;
 	    $('#asm_debugger').html(o);
+
+            // return ok
+            return true ;
+    }
+
+    //  Workspace simulator: Files
+
+    function wsweb_save_controlmemory_to_file ( )
+    {
+            var q = 'Do you want me to save the current Control Memory contents ' + 
+                    ' rather than the editor contents?.\n\n' ;
+            if (confirm(q))
+	    {
+	        var SIMWARE = get_simware() ;
+	        var simware_as_text = saveFirmware(SIMWARE);
+	        if (simware_as_text.trim() == '') {
+		    alert('The Microcode loaded in memory is empty!\n' +
+	   	   	  'Please load a Microcode first in memory in order to save it.');
+                }
+	        else inputfirm.setValue(simware_as_text);
+
+	        var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
+	        var textToWrite      = inputfirm.getValue();
+	        wepsim_save_to_file(textToWrite, fileNameToSaveAs);
+	    }
 
             // return ok
             return true ;

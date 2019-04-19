@@ -324,20 +324,16 @@
                                  class="nav-link active" data-toggle="tab" role="tab"
                                  style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"
 				 aria-label="processor"
-                                 onclick="start_drawing();
-                                          refresh();"><em class="fas fa-microchip"></em>&nbsp;<span data-langkey='Processor'>Processor</span></a>
+                                 onclick="wsweb_change_show_processor();
+                                          return false;"><em class="fas fa-microchip"></em>&nbsp;<span data-langkey='Processor'>Processor</span></a>
                           </li>
 		          <li class="nav-item">
                               <a id="tab24" href="#eltos_dbg" 
                                  class="nav-link" data-toggle="tab" role="tab"
                                  style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"
 				 aria-label="assembly debugger"
-                                 onclick="stop_drawing();
-                                          var o1 = fullshow_asmdbg_pc();
-                                          var obj_byid = $('#asm_debugger_container');
-                                          if (typeof o1[0] == 'undefined')
-                                              return;
-                                          obj_byid[0].scrollTop = o1[0].offsetTop;"><em class="fas fa-bug"></em>&nbsp;<span class="d-sm-none" data-langkey='Assembly'>Assembly</span><span class="d-none d-sm-inline-flex" data-langkey='Assembly Debugger'>Assembly Debugger</span></a>
+                                 onclick="wsweb_change_show_asmdbg();
+                                          return false;"><em class="fas fa-bug"></em>&nbsp;<span class="d-sm-none" data-langkey='Assembly'>Assembly</span><span class="d-none d-sm-inline-flex" data-langkey='Assembly Debugger'>Assembly Debugger</span></a>
                           </li>
 		      </ul>
 
@@ -705,7 +701,7 @@
         </button>
      </div>
      <div class="modal-body">
-	<label for="fileToLoad"><em>Please select the microcode file to be loaded:</em></label>
+	<label for="fileToLoad"><em><span data-langkey="Load from this File">Load from this File</span>:</em></label>
 	<p><input aria-label="file to load" type="file" id="fileToLoad" class="dropify"/></p>
      </div>
      <div class="modal-footer">
@@ -713,7 +709,10 @@
 		onclick="var fileToLoad = document.getElementById('fileToLoad').files[0];
 		         wepsim_load_from_file(fileToLoad, 
                                                function(txt){ inputfirm.setValue(txt); });
-			 $('#lsload').modal('hide');">Load from this File</button>
+			 $('#lsload').modal('hide');
+                         return false;">
+        <span data-langkey="Load from this File">Load from this File</span></button>
+        </button>
 	<button class="btn btn-sm btn-danger"
 		type="button" data-dismiss="modal"><span data-langkey="Close">Close</span></button>
      </div>
@@ -737,22 +736,8 @@
      </div>
      <div class="modal-footer" style="flex-wrap: wrap">
 	<button class="btn btn-sm btn-dark my-1"
-		onclick="if (confirm('Do you want me to save the current Control Memory contents rather than the editor contents?.\n\n' +
-				     'Please notice three things:\n' +
-				     '* The current Control Memory will replace the editor contents.\n' +
-				     '* The comments outside the microcode will be removed.\n' +
-				     '* Pseudo-instructions will be not included.'))
-			 {
-			     var SIMWARE = get_simware() ;
-			     var simware_as_text = saveFirmware(SIMWARE);
-			     if (simware_as_text.trim() == '')
-				  alert('The Microcode loaded in memory is empty!\n' +
-					'Please load a Microcode first in memory in order to save it.');
-			     else inputfirm.setValue(simware_as_text);
-			     var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
-                             var textToWrite      = inputfirm.getValue();
-			     wepsim_save_to_file(textToWrite, fileNameToSaveAs);
-			 }">Save control memory to File</button>
+		onclick="wsweb_save_controlmemory_to_file();
+			 return false;">Save control memory to File</button>
 	<button class="btn btn-sm btn-dark my-1"
 		onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
                          var textToWrite      = inputfirm.getValue();
@@ -776,7 +761,7 @@
         </button>
      </div>
      <div class="modal-body">
-        <label for="fileToLoad2"><em>Please select the assembly file to be loaded:</em></label>
+	<label for="fileToLoad2"><em><span data-langkey="Load from this File">Load from this File</span>:</em></label>
 	<p><input aria-label="file to load" type="file" id="fileToLoad2" class="dropify"/></p>
      </div>
      <div class="modal-footer">
@@ -784,7 +769,10 @@
 		onclick="var fileToLoad = document.getElementById('fileToLoad2').files[0];
 		         wepsim_load_from_file(fileToLoad, 
                                                function(txt){ inputasm.setValue(txt); });
-			 $('#lsload2').modal('hide');">Load from this File</button>
+			 $('#lsload2').modal('hide');
+                         return false;">
+        <span data-langkey="Load from this File">Load from this File</span></button>
+        </button>
 	<button class="btn btn-sm btn-danger"
 		type="button" data-dismiss="modal"><span data-langkey="Close">Close</span></button>
      </div>
