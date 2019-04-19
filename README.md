@@ -323,7 +323,7 @@ Micropc at 0x3f.	Activated signals are: MC MR SELB SELA MA MB SELCOP T6 SELC LC 
 
 + If you want to control an WepSIM instance, there is a WepSIM API in JavaScript available. 
 
-  The following example use the WepSIM control API (wsweb_*) for build a tutorial:
+  The following fragment uses the WepSIM control API (wsweb_*) for building a tutorial:
 
 ```html
         <div class="container">
