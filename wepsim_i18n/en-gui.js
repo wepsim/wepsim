@@ -39,13 +39,17 @@
 			"Hardware Summary":  			        "Hardware Summary",
 			"processor":  			                "processor",
 			"details":  			                "details",
+			"microcode":  			                "microcode",
                         "Signals": 		                     	"Signals",
                         "Behaviors": 		                     	"Behaviors",
+                        "States": 	                     	        "States",
                         "Control States": 	                     	"Control States",
                         "Dependencies": 		                "Dependencies",
                         "Close": 		                	"Close",
                         "Show": 		                	"Show",
                         "Show Main Memory": 		               	"Show Main Memory",
+			"compile":  			                "compile",
+			"Compile":  			                "Compile",
 
 	                "labels":                                       "labels",
 	                "addr":                                         "addr",
@@ -54,10 +58,10 @@
 	                "assembly":                                     "assembly",
 	                "instructions":                                 "instructions",
 
-                        "simulator intro 1": 		                "First, you are going to load and microcompile the microcode that defines the instruction set to be used. " +
-									"You can use an example of microcode, load it from a file or you can edit a new one.",
-                        "simulator intro 2": 		                "Next, you need to load and compile the assembly code to be executed. " +
-									"You can use an assembly example, load it from a file or you can edit a new one.",
+                        "simulator intro 1": 		                "First, you are going to load and microcompile the microcode that defines the instruction set to be used.<br>" +
+									"You can use an example, load it from a file or you can edit a new one.",
+                        "simulator intro 2": 		                "Next, you need to load and compile the assembly code to be executed.<br>" +
+									"You can use an example, load it from a file or you can edit a new one.",
                         "simulator intro 3": 		                "Finally, in the simulator you are able to execute the microcode plus assembly loaded before. " +
 									"It can be executed step by step at microinstruction level or assembly instruction level.",
                         "Prev.": 		                	"Prev.",

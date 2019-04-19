@@ -39,13 +39,17 @@
 			"Hardware Summary":  			        "Hardware Resumido",
 			"processor":  			                "procesador",
 			"details":  			                "detalles",
+			"microcode":  			                "microc&oacute;digo",
                         "Signals": 		                     	"Se&ntilde;ales",
                         "Behaviors": 		                     	"Comportamientos",
+                        "States": 	                     	        "Estados",
                         "Control States": 	                     	"Estados de Control",
                         "Dependencies": 		                "Dependencias",
                         "Close": 		                	"Cerrar",
                         "Show": 		                	"Mostrar",
                         "Show Main Memory": 		               	"Mostrar Memoria Principal",
+			"compile":  			                "compilar",
+			"Compile":  			                "Compilar",
 
 	                "labels":                                       "etiquetas",
 	                "addr":                                         "dir",
@@ -53,10 +57,10 @@
 	                "content":                                      "contenido",
 	                "assembly":                                     "ensamblador",
 	                "instructions":                                 "instrucciones",
-                        "simulator intro 1": 		                "Primero se ha de cargar y microcompilar el microc&oacute;digo que define el conjunto de instrucciones a usar. " +
-									"Puede usar el microc&oacute;digo de un ejemplo, cargar uno desde fichero o editar uno nuevo.",
-                        "simulator intro 2": 		                "A continuaci&oacute;n ha de cargar y compilar el c&oacute;digo ensamblador a ser ejecutado. " +
-									"Puede usar el ensamblador de un ejemplo, cargar uno desde fichero o editar uno nuevo.",
+                        "simulator intro 1": 		                "Primero se ha de cargar y microcompilar el microc&oacute;digo que define el conjunto de instrucciones a usar.<br>" +
+									"Puede usar un ejemplo, cargar uno desde fichero o editar uno nuevo.",
+                        "simulator intro 2": 		                "A continuaci&oacute;n ha de cargar y compilar el c&oacute;digo ensamblador a ser ejecutado.<br>" +
+									"Puede usar un ejemplo, cargar uno desde fichero o editar uno nuevo.",
                         "simulator intro 3": 		                "En la pantalla de simulaci&oacute;n, puede ejecutar el microcode+assembly cargardo anteriormente. " +
 									"Se puede ejecutar paso a paso a nivel de ensamblador o microinstrucci&oacute;n.",
                         "Prev.": 		                	"Anterior",

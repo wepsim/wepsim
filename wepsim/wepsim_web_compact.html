@@ -583,16 +583,16 @@
 					   placeholder="WepSIM" id="kdb_key" rows="2"></textarea>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="io">
-		              <div id="io_ALL" style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
+		              <div id="io_ALL"    style="height:58vh; width: inherit; overflow-y: auto;" class="container container-fluid"></div>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="cpu">
-		              <div id="cpu_ALL" style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
+		              <div id="cpu_ALL"   style="height:58vh; width: inherit; overflow-y: auto;" class="container container-fluid"></div>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="mpcfg">
-		              <div id="config_MP" style="width: inherit;" class="container container-fluid"></div>
+		              <div id="config_MP" style="height:58vh; width: inherit;" class="container container-fluid"></div>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="iocfg">
-		              <div id="config_IO" style="width: inherit; overflow-y: auto;"></div>
+		              <div id="config_IO" style="height:58vh; width: inherit; overflow-y: auto;"></div>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_hw">
 		              <div id="config_HW" style="height:60vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
@@ -620,7 +620,7 @@
 	                                                             var o = '<div class=\'card m-3 border\'><div class=\'card-body m-1\'>' + 
 						                             'Please remember that after updates on the microcode, the assembly code has be re-compiled too.' +
 									     '</div></div>' ;
-								     $('#asm_debugger').html(o);"><em class="fas fa-sign-out-alt"></em><br><strong><span class="d-none d-sm-inline-flex">&#181;compile</span><span class="d-sm-none">&#181;c.</span></strong></button>
+								     $('#asm_debugger').html(o);"><em class="fas fa-sign-out-alt"></em><br><strong><span class="d-none d-sm-inline-flex">&#181;<span data-langkey="compile">compile</span></span><span class="d-sm-none">&#181;c.</span></strong></button>
 						    <button style="background-color: #DDDDDD"
 							    class="btn btn-light shadow-sm col-auto px-0 py-1"
 							    onclick="var textToMCompile = inputfirm.getValue();
@@ -630,7 +630,7 @@
 									 wepsim_notify_success('<strong>INFO</strong>',
 											       'Please remember to recompile the assembly code if needed.');
 								     }">
-								     <strong><em class="fas fa-memory"></em><br><span class="d-none d-sm-inline-flex">Show co2&#181;a. + C.M.</span><span class="d-sm-none">co2&#181;a+c.m.</span></strong>
+								     <strong><em class="fas fa-memory"></em><br><span class="d-none d-sm-inline-flex"><span data-langkey="Show">Show</span>&nbsp;co2&#181;a. + C.M.</span><span class="d-sm-none">co2&#181;a+c.m.</span></strong>
 								     </button>
 					      </div>
 
@@ -640,7 +640,7 @@
 
 				    <div id="t3_firm" class="ui-body-d ui-content p-0"
 					 style="height:60vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
-					     <label class="my-0" for="inputFirmware">microcode:</label>
+		                             <label class="my-0" for="inputFirmware"><span data-langkey='microcode'>microcode</span>:</label>
 					     <textarea aria-label="microcode"
 						       style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
 						       placeholder="Please select 'Example' or 'Load' first in order to have an initial Microcode."
@@ -668,7 +668,7 @@
 							    class="btn btn-light shadow-sm col-auto px-0 py-1 ml-1"
 							    data-transition="none" data-inline="true"
 							    onclick="var textToCompile = inputasm.getValue() ;
-								     var ok = wepsim_compile_assembly(textToCompile);"><em class="fas fa-sign-out-alt"></em><br><strong>Compile</strong></button>
+								     var ok = wepsim_compile_assembly(textToCompile);"><em class="fas fa-sign-out-alt"></em><br><strong><span data-langkey="Compile">Compile</span></strong></button>
 						    <button style="background-color: #DDDDDD"
 							    class="btn btn-light shadow-sm col-auto px-0 py-1"
 							    onclick="var textToCompile = inputasm.getValue();
@@ -684,7 +684,7 @@
 
 				    <div id="t4_asm" class="ui-body-d ui-content p-0"
 					 style="height:60vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
-					     <label class="my-0" for="inputAssembly">assembly:</label>
+					     <label class="my-0" for="inputAssembly"><span data-langkey='assembly'>assembly</span>:</label>
 					     <textarea aria-label="assembly"
 						       style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
 						       placeholder="Please select 'Load' first to have the assembly code to work with."
@@ -1552,7 +1552,7 @@
 		    // init-ui: simulator
 
 		    wsweb_change_workspace_simulator() ;
-		    $('#tab26').trigger('click') ;
+		    wsweb_change_show_processor() ;
 		    wsweb_set_details('REGISTER_FILE') ;
 
 		    wsweb_set_cpucu_size(get_cfg('CPUCU_size')) ;
