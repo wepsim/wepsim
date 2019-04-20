@@ -190,3 +190,15 @@
 
     }
 
+    // dialogbox
+
+    function wepsim_dialogbox_close_all ( )
+    {
+	    // Close all dialogbox
+	          $('#example1').modal('hide') ;
+	             $('#help1').modal('hide') ;
+	           $('#config2').modal('hide') ;
+	    $('#current_state1').modal('hide');
+	              $('#bin2').modal('hide');
+    }
+

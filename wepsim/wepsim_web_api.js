@@ -169,7 +169,12 @@
 
     function wsweb_dialogbox_open_examples ( )
     {
-	    // TODO: to close all dialogbox before open this one
+	    // Close all dialogbox before open this one
+	          $('#example1').modal('hide') ;
+	             $('#help1').modal('hide') ;
+	           $('#config2').modal('hide') ;
+	    $('#current_state1').modal('hide');
+	              $('#bin2').modal('hide');
 
             wepsim_open_examples_index(); 
 	    $('[data-toggle=tooltip]').tooltip('hide');
@@ -183,7 +188,8 @@
 
     function wsweb_dialogbox_open_help ( )
     {
-	    // TODO: to close all dialogbox before open this one
+	    // close all dialogbox before open this one
+	    wepsim_dialogbox_close_all() ;
 
 	    wepsim_open_help_index();
 	    wepsim_help_refresh(); 
@@ -198,7 +204,8 @@
 
     function wsweb_dialogbox_open_config ( )
     {
-	    // TODO: to close all dialogbox before open this one
+	    // close all dialogbox before open this one
+	    wepsim_dialogbox_close_all() ;
 
 	    wepsim_open_config_index() ;
 	    $('[data-toggle=tooltip]').tooltip('hide') ;
@@ -212,7 +219,8 @@
 
     function wsweb_dialogbox_open_state ( )
     {
-	    // TODO: to close all dialogbox before open this one
+	    // close all dialogbox before open this one
+	    wepsim_dialogbox_close_all() ;
 
             wepsim_dialog_current_state() ;
 	    $('[data-toggle=tooltip]').tooltip('hide') ;
@@ -226,7 +234,8 @@
 
     function wsweb_dialogbox_open_binary_assembly ( )
     {
-	    // TODO: to close all dialogbox before open this one
+	    // close all dialogbox before open this one
+	    wepsim_dialogbox_close_all() ;
 
             var textToCompile = inputasm.getValue() ;
 	    var ok = wepsim_compile_assembly(textToCompile) ;
@@ -243,7 +252,8 @@
 
     function wsweb_dialogbox_open_binary_firmware ( )
     {
-	    // TODO: to close all dialogbox before open this one
+	    // close all dialogbox before open this one
+	    wepsim_dialogbox_close_all() ;
 
             var textToMCompile = inputfirm.getValue() ;
 	    var ok = wepsim_compile_firmware(textToMCompile) ;
@@ -262,7 +272,8 @@
 
     function wsweb_dialogbox_open_hardware_summary ( )
     {
-	    // TODO: to close all dialogbox before open this one
+	    // close all dialogbox before open this one
+	    wepsim_dialogbox_close_all() ;
 
             var ahw2 = simhw_active().sim_short_name ;
 	    var img2 = 'examples/hardware/' + ahw2 + '/images/cpu.svg?time=20190102' ;
@@ -275,6 +286,17 @@
 
             // add if recording
             wepsim_record_add_stringcode('wsweb_dialogbox_open_hardware_summary();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_dialogbox_close_state ( )
+    {
+	    $('#current_state1').modal('hide') ;
+
+            // add if recording
+            wepsim_record_add_stringcode('wsweb_dialogbox_close_state();\n') ;
 
             // return ok
             return true ;
