@@ -1142,21 +1142,11 @@
 					    <input type="radio" name="stateToSave1" id="history" autocomplete="off" value="history"><span data-langkey="History">History</span>
 					  </label>
 					</div>
-
-					<label for="recordToSave1"><em><span data-langkey="Record to checkpoint">Record to checkpoint</span>:</em></label>
-					<div class="btn-group btn-group-toggle w-100 mb-2" data-toggle="buttons">
-					  <label class="btn btn-outline-dark active">
-					    <input type="radio" name="recordToSave1" id="none"    autocomplete="off" value="none" checked><span data-langkey="None">None</span>
-					  </label>
-					  <label class="btn btn-outline-dark">
-					    <input type="radio" name="recordToSave1" id="current" autocomplete="off" value="current"><span data-langkey="Current">Current</span>
-					  </label>
-					</div>
 			      </div>
 			      <div class="card-footer border-secondary text-white bg-secondary p-1">
 					<button class="btn btn-light mx-auto float-right py-0 col-xs-8 col-md-3"
 						onclick="var checkpointObj = null ;
-						         var stateToSave = $('input[name=stateToSave1]:checked').val();
+						         var stateToSave =  $('input[name=stateToSave1]:checked').val();
                                                          if (stateToSave === 'current')
                                                               checkpointObj = wepsim_checkpoint_getCurrent('tagToSave1'); 
                                                          else checkpointObj = wepsim_checkpoint_getHistory('tagToSave1'); 

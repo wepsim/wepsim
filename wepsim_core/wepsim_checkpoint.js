@@ -43,6 +43,7 @@
 		                  firmware: inputfirm.getValue(), 
 				  assembly: inputasm.getValue(), 
 				  state:    ret,
+				  record:   wepsim_record_get(),
 				  tag:      obj_tagName.value,
 				  notify:   true
 	                       }) ;
@@ -60,9 +61,10 @@
 	    }
 
 	    // insert history in the checkpoint array
-	    var ws_mode   = get_cfg('ws_mode') ;
+	    var ws_mode = get_cfg('ws_mode') ;
 	    var firmwareValue = inputfirm.getValue() ;
 	    var assemblyValue = inputasm.getValue() ;
+            var recordValue   = wepsim_record_get() ;
 	    var s_h = wepsim_state_history_get() ;
 
 	    var checkpointObj = [] ;
@@ -73,6 +75,7 @@
 					firmware: firmwareValue,
 					assembly: assemblyValue,
 					state:    s_h[i],
+				        record:   recordValue,
 				        tag:      obj_tagName.value + ' (Step ' + (i+1) + ')',
 					notify:   false
 				    }) ;
@@ -197,7 +200,10 @@
 		// Future Works:
 		// + update internal state based on txt_checklist
 
-	   // 5.- notify
+	   // 5.- restore record
+           wepsim_record_set(checkpointObj[0].record) ;
+
+	   // 6.- notify
 	   if (o !== '') {
 	       o = 'WepSIM has been instructed to restore a checkpoint:<br>' +
 		   '<ul>' + 
