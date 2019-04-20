@@ -68,6 +68,20 @@
 		'  </span>' +
 		'</li>' +
 		'<li class="list-group-item px-0"> ' +
+		'  <a class="btn btn-sm btn-outline-danger col-2 p-1" href="#" ' +
+		'     onclick="wepsim_record_reset(); ' +
+		'              $(\'#' + quick_po + '\').popover(\'hide\');"><em class="fas fa-times"></em></a>' +
+		'  <a class="btn btn-sm btn-outline-secondary col-3 p-1" href="#" ' +
+		'     onclick="wepsim_record_play(); ' +
+		'              $(\'#' + quick_po + '\').popover(\'hide\');"><em class="fas fa-play"></em></a>' +
+		'  <a class="btn btn-sm btn-outline-dark col-3 p-1" href="#" ' +
+		'     onclick="wepsim_record_off(); ' +
+		'              $(\'#' + quick_po + '\').popover(\'hide\');"><em class="fas fa-square"></em></a>' +
+		'  <a class="btn btn-sm btn-outline-dark col-3 p-1" href="#" ' +
+		'     onclick="wepsim_record_on(); ' +
+		'              $(\'#' + quick_po + '\').popover(\'hide\');"><em class="fas fa-circle"></em></a>' +
+		'</li>' +
+		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-magic"></em> &nbsp;' +
 		'  <a class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" href="#" ' +
 		'     onclick="$(\'#about2\').modal(\'show\'); ' +

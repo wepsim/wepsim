@@ -49,6 +49,11 @@
                    }, 500);
     }
 
+    function wepsim_record_set ( records )
+    {
+        ws_records = records ;
+    }
+
 
     /*
      * Record: public API
@@ -64,6 +69,11 @@
     function wepsim_record_off ( )
     {
         ws_is_recording = false ;
+    }
+
+    function wepsim_record_toggle ( )
+    {
+        ws_is_recording = !ws_is_recording ;
     }
 
     function wepsim_record_isRecording ( )

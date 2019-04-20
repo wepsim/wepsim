@@ -23,7 +23,7 @@
      * Checkpointing
      */
 
-    function wepsim_checkpoint_getCurrent ( id_tagname )
+    function wepsim_checkpoint_get ( id_tagname )
     {
 	    // get & check params
 	    var obj_tagName = document.getElementById(id_tagname) ;
@@ -31,52 +31,24 @@
 		return false ;
 	    }
 
-	    // insert current in the checkpoint array
-	    var ws_mode   = get_cfg('ws_mode') ;
-	    var ret       = wepsim_state_get_clk() ;
-	    var state_obj = simcore_simstate_current2state() ;
-	      ret.content = simcore_simstate_state2checklist(state_obj) ;
+	    // get mode
+	    var ws_mode           = get_cfg('ws_mode') ;
+	    // get current state
+	    var state_current     = wepsim_state_get_clk() ;
+	    var state_obj         = simcore_simstate_current2state() ;
+	    state_current.content = simcore_simstate_state2checklist(state_obj) ;
+	    // get history state
 
-	    var checkpointObj = [] ;
-	    checkpointObj.push({
-		                  mode:     ws_mode,
-		                  firmware: inputfirm.getValue(), 
-				  assembly: inputasm.getValue(), 
-				  state:    ret,
-				  tag:      obj_tagName.value,
-				  notify:   true
-	                       }) ;
-
-	    // return object
-	    return checkpointObj ;
-    }
-
-    function wepsim_checkpoint_getHistory ( id_tagname )
-    {
-	    // get & check params
-	    var obj_tagName = document.getElementById(id_tagname) ;
-	    if (obj_tagName === null) {
-		return false ;
-	    }
-
-	    // insert history in the checkpoint array
-	    var ws_mode   = get_cfg('ws_mode') ;
-	    var firmwareValue = inputfirm.getValue() ;
-	    var assemblyValue = inputasm.getValue() ;
-	    var s_h = wepsim_state_history_get() ;
-
-	    var checkpointObj = [] ;
-	    for (var i=0; i<s_h.length; i++) 
-	    {
-		 checkpointObj.push({
-		                        mode:     ws_mode,
-					firmware: firmwareValue,
-					assembly: assemblyValue,
-					state:    s_h[i],
-				        tag:      obj_tagName.value + ' (Step ' + (i+1) + ')',
-					notify:   false
-				    }) ;
-	    }
+	    var checkpointObj = {
+		                  mode:          ws_mode,
+		                  firmware:      inputfirm.getValue(), 
+				  assembly:      inputasm.getValue(), 
+				  state_current: state_current,
+				  state_history: wepsim_state_history_get(),
+				  record:        wepsim_record_get(),
+				  tag:           obj_tagName.value,
+				  notify:        true
+	                        } ;
 
 	    // return object
 	    return checkpointObj ;
@@ -133,23 +105,22 @@
 	   if (checkpointObj === null) {
 	       return 'null checkpoint' ;
 	   }
-	   if (checkpointObj.length === 0) {
-	       return 'zero-length checkpoint' ;
-	   }
 
-	   if (typeof checkpointObj[0].mode     === 'undefined')
-	       checkpointObj[0].mode = 'ep' ;
-	   if (typeof checkpointObj[0].firmware === 'undefined')
-	       checkpointObj[0].firmware = '' ;
-	   if (typeof checkpointObj[0].assembly === 'undefined')
-	       checkpointObj[0].assembly = '' ;
+	   if (typeof checkpointObj.mode     === 'undefined')
+	       checkpointObj.mode = 'ep' ;
+	   if (typeof checkpointObj.firmware === 'undefined')
+	       checkpointObj.firmware = '' ;
+	   if (typeof checkpointObj.assembly === 'undefined')
+	       checkpointObj.assembly = '' ;
+	   if (typeof checkpointObj.state_history === 'undefined')
+	       checkpointObj.state_history = [] ;
 
 	   // 2.- restore state(s)
 
 		// all saved states are loaded into state history
 	        wepsim_state_history_reset() ;
-	        for (var i=0; i<checkpointObj.length; i++) {
-	             state_history.push(checkpointObj[i].state) ;
+	        for (var i=0; i<checkpointObj.state_history.length; i++) {
+	             state_history.push(checkpointObj.state_history[i]) ;
 	        }
 	        wepsim_state_history_list() ;
 
@@ -158,22 +129,22 @@
 	   // 3.- restore firmware + assembly
 
 		// set associated mode
-	        wsweb_select_main(checkpointObj[0].mode) ;
+	        wsweb_select_main(checkpointObj.mode) ;
 
 		// firmware + assembly: load into editor
-		inputfirm.setValue(checkpointObj[0].firmware) ;
-		 inputasm.setValue(checkpointObj[0].assembly) ;
+		inputfirm.setValue(checkpointObj.firmware) ;
+		 inputasm.setValue(checkpointObj.assembly) ;
 
 		o += '<li>Firmware and Assembly: Loaded' ;
 
 		// firmware + assembly: compile
 		u = '' ;
-		if (checkpointObj[0].firmware.trim() !== "") {
-		    wepsim_compile_firmware(checkpointObj[0].firmware) ;
+		if (checkpointObj.firmware.trim() !== "") {
+		    wepsim_compile_firmware(checkpointObj.firmware) ;
 		    u += 'Firmware' ;
 		}
-		if (checkpointObj[0].assembly.trim() !== "") {
-		    wepsim_compile_assembly(checkpointObj[0].assembly) ;
+		if (checkpointObj.assembly.trim() !== "") {
+		    wepsim_compile_assembly(checkpointObj.assembly) ;
 		    u += ' + Assembly' ;
 		}
 
@@ -189,7 +160,7 @@
 		     obj_fileName.value = obj_fileToLoad.name ;
 		}
 	        if ((typeof obj_fileName !== "undefined") && (obj_tagName !== null)) {
-		     obj_tagName.value  = checkpointObj[0].tag ;
+		     obj_tagName.value  = checkpointObj.tag ;
 		}
 
 		o += '<li>Tag: <strong>' + checkpointObj.tag + '</strong></li>' ;
@@ -197,19 +168,22 @@
 		// Future Works:
 		// + update internal state based on txt_checklist
 
-	   // 5.- notify
+	   // 5.- restore record
+
+		// set the saved record
+                wepsim_record_set(checkpointObj.record) ;
+
+	   // 6.- notify
 	   if (o !== '') {
 	       o = 'WepSIM has been instructed to restore a checkpoint:<br>' +
 		   '<ul>' + 
 		   o + 
 		   '</ul>' +
 		   'To close this notification please press in the ' +
-		   '<span class="btn btn-sm btn-info py-0" data-dismiss="alert">X</span> mark. <br>' +
-		   'In order to execute please press the ' +
-		   '<span class="btn btn-sm btn-info py-0" onclick="wepsim_execute_toggle_play(\'#qbp\',false);">Run</span> button.<br>' ;
+		   '<span class="btn btn-sm btn-info py-0" data-dismiss="alert">X</span> mark. <br>' ;
 	   }
 
-	   if (checkpointObj[0].notify === true) {
+	   if (checkpointObj.notify === true) {
 	       simcoreui_notify('Restored Checkpoint', o, 'info', 0) ;
 	   }
 
