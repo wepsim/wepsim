@@ -24,6 +24,7 @@
 			"Current":  			                "Actual",
 			"Current State":  			        "Estado Actual",
 			"History":  			                "Historia",
+			"None":  			                "Ninguno",
 			"Empty history":  			        "Historia vac&iacute;a",
 			"Empty (only modified values are shown)":       "Vac&iacute;o (solo se muestra los valores modificados)",
 			"Differences":  			        "Diferencias",
@@ -42,6 +43,7 @@
                         "Tag for checkpoint":                           "Etiqueta para checkpoint",
                         "File to be loaded":                            "Fichero a cargar",
 	                "Save to File":                                 "Guardar a fichero",
-	                "State(s) to checkpoint":                       "Estado(s) a guardar"
+	                "State(s) to checkpoint":                       "Estados para checkpoint",
+	                "Record to checkpoint":                         "Grabaci&oacute;n para checkpoint"
                   } ;
 
