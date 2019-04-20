@@ -20,11 +20,39 @@
 
 
     /*
-     * Record
+     * Record: private API
      */
 
     var ws_is_recording = false ;
     var ws_records      = [] ;
+
+    function wepsim_record_push ( elto )
+    {
+        var record = { 
+		       timestamp: Date.now(),
+		       element:   elto
+	             } ;
+
+        ws_records.push(record) ;
+    }
+
+    function wepsim_record_play_at ( index )
+    {
+	// execute current step...
+	if (index < ws_records.length) {
+	    eval(ws_records[index].element) ;
+	}
+
+	// ... and set next one
+        setTimeout(function() {
+	               wepsim_record_play_at(index + 1) ;
+                   }, 500);
+    }
+
+
+    /*
+     * Record: public API
+     */
 
     // start, pause
 
@@ -55,16 +83,6 @@
         ws_records = [] ;
     }
 
-    function wepsim_record_push ( elto )
-    {
-        var record = { 
-		       timestamp: Date.now(),
-		       element:   elto
-	             } ;
-
-        ws_records.push(record) ;
-    }
-
     function wepsim_record_add_stringcode ( elto )
     {
         if (ws_is_recording === true) {
@@ -84,5 +102,10 @@
             ownName = ownName.substr(0, ownName.indexOf('(')) ;   // trim off everything after the function name
 
         wepsim_record_push(ownName) ;
+    }
+
+    function wepsim_record_play ( )
+    {
+        wepsim_record_play_at(0) ;
     }
 
