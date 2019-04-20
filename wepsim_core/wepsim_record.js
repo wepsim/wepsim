@@ -49,6 +49,11 @@
                    }, 500);
     }
 
+    function wepsim_record_set ( records )
+    {
+        ws_records = records ;
+    }
+
 
     /*
      * Record: public API
