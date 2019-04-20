@@ -19,6 +19,22 @@
  */
 
 
+    // workspaces
+
+    function sim_change_workspace ( page_id, carousel_id )
+    {
+            if ( (typeof $.mobile                             != "undefined") &&
+                 (typeof $.mobile.pageContainer               != "undefined") &&
+                 (typeof $.mobile.pageContainer.pagecontainer != "undefined") )
+            {
+                  $.mobile.pageContainer.pagecontainer('change', page_id);
+            }
+            else
+            {
+                  $('#carousel-8').carousel(carousel_id) ;
+            }
+    }
+
     // Popovers
 
     function wepsim_show_quick_menu ( quick_po )

@@ -25,23 +25,6 @@
 
     //  To change Workspaces
 
-    function sim_change_workspace ( page_id, carousel_id )
-    {
-            if ( (typeof $.mobile                             != "undefined") &&
-                 (typeof $.mobile.pageContainer               != "undefined") &&
-                 (typeof $.mobile.pageContainer.pagecontainer != "undefined") )
-            {
-                  $.mobile.pageContainer.pagecontainer('change', page_id);
-            }
-            else
-            {
-                  $('#carousel-8').carousel(carousel_id) ;
-            }
-
-            // return ok
-            return true ;
-    }
-
     function wsweb_change_workspace_simulator ( )
     {
 	    sim_change_workspace('#main1', 0) ;
@@ -50,6 +33,9 @@
 			    // stats about ui
 			    ga('send', 'event', 'ui', 'ui.workspace', 'ui.workspace.simulator');
 	               }, 50) ;
+
+            // add if recording
+            wepsim_record_add_stringcode('wsweb_change_workspace_simulator();\n') ;
 
             // return ok
             return true ;
@@ -66,6 +52,9 @@
 			    ga('send', 'event', 'ui', 'ui.workspace', 'ui.workspace.microcode');
 	               }, 50) ;
 
+            // add if recording
+            wepsim_record_add_stringcode('wsweb_change_workspace_microcode();\n') ;
+
             // return ok
             return true ;
     }
@@ -81,6 +70,9 @@
 			    ga('send', 'event', 'ui', 'ui.workspace', 'ui.workspace.assembly');
 	               }, 50) ;
 
+            // add if recording
+            wepsim_record_add_stringcode('wsweb_change_workspace_assembly();\n') ;
+
             // return ok
             return true ;
     }
@@ -90,6 +82,9 @@
 	    $("#tab26").tab('show') ;
 	    start_drawing() ;
 	    refresh() ;
+
+            // add if recording
+            wepsim_record_add_stringcode('wsweb_change_show_processor();\n') ;
 
             // return ok
             return true ;
@@ -108,6 +103,9 @@
 	    var obj_byid = $('#asm_debugger_container') ;
 	    obj_byid[0].scrollTop = o1[0].offsetTop ;
 
+            // add if recording
+            wepsim_record_add_stringcode('wsweb_change_show_asmdbg();\n') ;
+
             // return ok
             return true ;
     }
@@ -119,6 +117,9 @@
 	    wepsim_execute_reset(true, true) ;
 	    simcoreui_show_hw() ;
 
+            // add if recording
+            wepsim_record_add_stringcode('wsweb_execution_reset();\n') ;
+
             // return ok
             return true ;
     }
@@ -128,6 +129,9 @@
 	    wepsim_execute_microinstruction() ;
 	    simcoreui_show_hw() ;
 
+            // add if recording
+            wepsim_record_add_stringcode('wsweb_execution_microinstruction();\n') ;
+
             // return ok
             return true ;
     }
@@ -136,6 +140,9 @@
     {
 	    wepsim_execute_instruction() ;
 	    simcoreui_init_hw('#config_HW') ;
+
+            // add if recording
+            wepsim_record_add_stringcode('wsweb_execution_instruction();\n') ;
 
             // return ok
             return true ;
@@ -151,6 +158,9 @@
 
 	    wepsim_execute_toggle_play('#qbp', (mode == 'tutorial')) ;
 
+            // add if recording
+            wepsim_record_add_stringcode('wsweb_execution_run();\n') ;
+
             // return ok
             return true ;
     }
@@ -159,8 +169,13 @@
 
     function wsweb_dialogbox_open_examples ( )
     {
+	    // TODO: to close all dialogbox before open this one
+
             wepsim_open_examples_index(); 
 	    $('[data-toggle=tooltip]').tooltip('hide');
+
+            // add if recording
+            wepsim_record_add_stringcode('wsweb_dialogbox_open_examples();\n') ;
 
             // return ok
             return true ;
@@ -168,9 +183,14 @@
 
     function wsweb_dialogbox_open_help ( )
     {
+	    // TODO: to close all dialogbox before open this one
+
 	    wepsim_open_help_index();
 	    wepsim_help_refresh(); 
 	    $('[data-toggle=tooltip]').tooltip('hide');
+
+            // add if recording
+            wepsim_record_add_stringcode('wsweb_dialogbox_open_help();\n') ;
 
             // return ok
             return true ;
@@ -178,8 +198,13 @@
 
     function wsweb_dialogbox_open_config ( )
     {
+	    // TODO: to close all dialogbox before open this one
+
 	    wepsim_open_config_index() ;
 	    $('[data-toggle=tooltip]').tooltip('hide') ;
+
+            // add if recording
+            wepsim_record_add_stringcode('wsweb_dialogbox_open_config();\n') ;
 
             // return ok
             return true ;
@@ -187,8 +212,13 @@
 
     function wsweb_dialogbox_open_state ( )
     {
+	    // TODO: to close all dialogbox before open this one
+
             wepsim_dialog_current_state() ;
 	    $('[data-toggle=tooltip]').tooltip('hide') ;
+
+            // add if recording
+            wepsim_record_add_stringcode('wsweb_dialogbox_open_state();\n') ;
 
             // return ok
             return true ;
@@ -196,11 +226,16 @@
 
     function wsweb_dialogbox_open_binary_assembly ( )
     {
+	    // TODO: to close all dialogbox before open this one
+
             var textToCompile = inputasm.getValue() ;
 	    var ok = wepsim_compile_assembly(textToCompile) ;
 	    if (true == ok) {
 		 wepsim_show_binary_code('#bin2', '#compile_results') ;
 	    }
+
+            // add if recording
+            wepsim_record_add_stringcode('wsweb_dialogbox_open_binary_assembly();\n') ;
 
             // return ok
             return true ;
@@ -208,6 +243,8 @@
 
     function wsweb_dialogbox_open_binary_firmware ( )
     {
+	    // TODO: to close all dialogbox before open this one
+
             var textToMCompile = inputfirm.getValue() ;
 	    var ok = wepsim_compile_firmware(textToMCompile) ;
 	    if (true == ok) {
@@ -216,12 +253,17 @@
 				       'Please remember to recompile the assembly code if needed.') ;
 	    }
 
+            // add if recording
+            wepsim_record_add_stringcode('wsweb_dialogbox_open_binary_firmware();\n') ;
+
             // return ok
             return true ;
     }
 
     function wsweb_dialogbox_open_hardware_summary ( )
     {
+	    // TODO: to close all dialogbox before open this one
+
             var ahw2 = simhw_active().sim_short_name ;
 	    var img2 = 'examples/hardware/' + ahw2 + '/images/cpu.svg?time=20190102' ;
 	    var lyr2 =  '<object id=svg_p2 ' + 
@@ -230,6 +272,9 @@
 			'Your browser does not support SVG' + 
 			'</object>' ;
 	    wepsim_open_help_content(lyr2) ;
+
+            // add if recording
+            wepsim_record_add_stringcode('wsweb_dialogbox_open_hardware_summary();\n') ;
 
             // return ok
             return true ;
@@ -246,6 +291,9 @@
 	    // set button label...
 	    var ed=$('#s5b_' + opt).html() ;
 	    $('#select5b').html(ed) ;
+
+            // add if recording
+            wepsim_record_add_stringcode('wsweb_set_details_select(' + opt + ');\n') ;
 
             // return ok
             return true ;
@@ -279,6 +327,9 @@
                 hash_detail2action[opt]() ;
             }
 
+            // add if recording
+            wepsim_record_add_stringcode('wsweb_set_details();\n') ;
+
             // return ok
             return true ;
     }
@@ -298,6 +349,9 @@
             inputfirm.setOption('readOnly', true) ;
             $("#btn_micro1").addClass('d-none') ;
 
+            // add if recording
+            wepsim_record_add_stringcode('wepsim_show_wepmips();\n') ;
+
             // return ok
             return true ;
     }
@@ -312,6 +366,9 @@
 
             inputfirm.setOption('readOnly', false) ;
             $("#btn_micro1").removeClass('d-none') ;
+
+            // add if recording
+            wepsim_record_add_stringcode('wepsim_hide_wepmips();\n') ;
 
             // return ok
             return true ;
@@ -365,6 +422,9 @@
 
             showhideAsmElements();
 
+            // add if recording
+            wepsim_record_add_stringcode('wepsim_activehw();\n') ;
+
             // return ok
             return true ;
     }
@@ -408,6 +468,9 @@
                 return ;
             }
 
+            // add if recording
+            wepsim_record_add_stringcode('wepsim_change_mode();\n') ;
+
             // return ok
             return true ;
     }
@@ -431,6 +494,9 @@
 	    var ed = $('#s4_' + opt).html() ;
 	    $('#select4').html(ed) ;
 
+            // add if recording
+            wepsim_record_add_stringcode('wsweb_select_main();\n') ;
+
             // return ok
             return true ;
     }
@@ -448,6 +514,9 @@
 	    var ws_idiom = get_cfg('ws_idiom') ;
 	    i18n_update_tags('gui', ws_idiom) ;
 
+            // add if recording
+            wepsim_record_add_stringcode('wsweb_mode_update();\n') ;
+
             // return ok
             return true ;
     }
@@ -462,6 +531,9 @@
 	    set_cfg('CPUCU_size', new_value) ;
 	    save_cfg() ;
 
+            // add if recording
+            wepsim_record_add_stringcode('wsweb_set_cpucu_size();\n') ;
+
             // return ok
             return true ;
     }
@@ -474,6 +546,9 @@
 	    set_cfg('C1C2_size', new_value);
 	    save_cfg() ;
 
+            // add if recording
+            wepsim_record_add_stringcode('wsweb_set_c1c2_size();\n') ;
+
             // return ok
             return true ;
     }
@@ -484,6 +559,9 @@
     {
             var textToCompile = inputasm.getValue() ;
 	    var ok = wepsim_compile_assembly(textToCompile) ;
+
+            // add if recording
+            wepsim_record_add_stringcode('wsweb_assembly_compile();\n') ;
 
             // return ok
             return true ;
@@ -497,6 +575,9 @@
 		    'Please remember that after updates on the microcode, the assembly code has be re-compiled too.' +
 		    '</div></div>' ;
 	    $('#asm_debugger').html(o);
+
+            // add if recording
+            wepsim_record_add_stringcode('wsweb_firmware_compile();\n') ;
 
             // return ok
             return true ;
@@ -522,6 +603,9 @@
 	        var textToWrite      = inputfirm.getValue();
 	        wepsim_save_to_file(textToWrite, fileNameToSaveAs);
 	    }
+
+            // add if recording
+            wepsim_record_add_stringcode('wsweb_save_controlmemory_to_file();\n') ;
 
             // return ok
             return true ;
