@@ -24,6 +24,7 @@
 			"Current":  			                "Current",
 			"Current State":  			        "Current State",
 			"History":  			                "History",
+			"None":  			                "None",
 			"Empty history":  			        "Empty history",
 			"Empty (only modified values are shown)":       "Empty (only modified values are shown)",
 			"Differences":  			        "Differences",
@@ -43,6 +44,6 @@
                         "File to be loaded":                            "File to be loaded",
 	                "Save to File":                                 "Save to File",
 	                "State(s) to checkpoint":                       "State(s) to checkpoint",
-	                "Load from this File":                          "Load from this File"
+	                "Record to checkpoint":                         "Record to checkpoint"
                   } ;
 

@@ -83,14 +83,14 @@
 
                             // stop here if error is found
 			    if (false === ok) {
-			        sim_change_workspace_assembly() ;
+			        wsweb_change_workspace_assembly() ;
                                 return ;
 			    }
 
                             // chain to next task
                             if (true === chain_next_step) {
 				setTimeout(function() {
-					      sim_change_workspace_simulator() ;
+					      wsweb_change_workspace_simulator() ;
                                               show_memories_values();
 				           }, 50);
                              }
@@ -140,7 +140,7 @@
 
                             // stop here if error is found
 			    if (false === ok) {
-                                sim_change_workspace_microcode();
+                                wsweb_change_workspace_microcode();
                                 return ;
 			    }
 

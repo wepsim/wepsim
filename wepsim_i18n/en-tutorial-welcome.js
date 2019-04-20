@@ -103,7 +103,6 @@
                      message:     "<center><img alt='wepsim screenshot' src='help/welcome/help_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
-                                  "<br>" +
                                   "Please explorer the help sections for more information. <br>" + 
                                   "If you click on the end button of this tutorial, WepSIM is going to load the first example for you. Enjoy!" + 
                                   "<br>" +

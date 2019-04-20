@@ -67,6 +67,7 @@ cat wepsim_i18n/i18n.js \
     wepsim_i18n/en-states.js \
     wepsim_i18n/en-examples.js \
     \
+    wepsim_core/wepsim_asmdbg.js \
     wepsim_core/wepsim_breakpointicons.js \
     wepsim_core/wepsim_checkpoint.js \
     wepsim_core/wepsim_clipboard.js \
@@ -79,6 +80,7 @@ cat wepsim_i18n/i18n.js \
     wepsim_core/wepsim_help_commands.js \
     wepsim_core/wepsim_notify.js \
     wepsim_core/wepsim_preload.js \
+    wepsim_core/wepsim_record.js \
     wepsim_core/wepsim_state.js \
     wepsim_core/wepsim_tutorial.js \
     wepsim_core/wepsim_tour.js \
@@ -87,7 +89,8 @@ cat wepsim_i18n/i18n.js \
     wepsim_core/wepsim_voice.js \
     \
     wepsim/wepsim_web_simulator.js \
-    wepsim/wepsim_web_editor.js > ws_dist/wepsim_web.js
+    wepsim/wepsim_web_editor.js \
+    wepsim/wepsim_web_api.js > ws_dist/wepsim_web.js
 /usr/bin/yui-compressor -o ws_dist/min.wepsim_web.js ws_dist/wepsim_web.js
 rm -fr ws_dist/wepsim_web.js
 
@@ -168,7 +171,7 @@ cp   wepsim/wepsim_web_classic.html   ws_dist/wepsim-classic.html
 cp   wepsim/wepsim_web_compact.html   ws_dist/wepsim-compact.html
 cp   wepsim/wepsim_web_pwa.js         ws_dist/min.wepsim_web_pwa.js
 
-cp manifest.webapp        ws_dist/
-cp wepsim/wepsim_node.sh  ws_dist/
+cp   docs/manifest.webapp  ws_dist/
+cp wepsim/wepsim_node.sh   ws_dist/
 chmod a+x ws_dist/*.sh
 

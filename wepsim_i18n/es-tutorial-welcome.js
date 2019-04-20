@@ -102,7 +102,6 @@
                      message:     "<center><img alt='wepsim screenshot' src='help/welcome/help_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
-                                  "<br>" +
                                   "Por favor explorer las secciones de la ayuda para m&aacute;s informaci&oacute;n. <br>" + 
                                   "Si hace click en el bot&oacute;n 'end' del tutorial entonces WepSIM cargar&aacute; el primer ejemplo por usted. ¡Diviertase aprendiendo!" + 
                                   "<br>" +

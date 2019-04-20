@@ -148,7 +148,7 @@
 
     <meta name="apple-mobile-web-app-capable"          content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title"            content="WepSIM 2.0.5" />
+    <meta name="apple-mobile-web-app-title"            content="WepSIM 2.0.6" />
     <meta name="msapplication-TileImage"               content="images/arcos.svg" />
     <meta name="msapplication-TileColor"               content="#2F3BA2" />
     <meta name="theme-color"                           content="#ffffff" />
@@ -226,8 +226,7 @@
                                 id="btn_cfg1"
 			         data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			         title="This button opens the 'Configuration' dialog."
-                                onclick="wepsim_open_config_index(); 
-				         $('[data-toggle=tooltip]').tooltip('hide');
+                                onclick="wsweb_dialogbox_open_config();
 					 return false;"
 		    	        style="border-width:1 1 1 1px; border-color: #CCCCCC;"
                                 ><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
@@ -235,7 +234,7 @@
                                 id="btn_micro1"
 			         data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			         title="This button switches into the 'Microcode' editor."
-                                onclick="sim_change_workspace_microcode(); 
+                                onclick="wsweb_change_workspace_microcode(); 
 				         $('[data-toggle=tooltip]').tooltip('hide');
 					 return false;"
 		                style="border-width:1 1 1 1px; border-color: #CCCCCC;"
@@ -244,7 +243,7 @@
                                 id="btn_asm1"
 			         data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			         title="This button switches into the 'Assembly' editor."
-                                onclick="sim_change_workspace_assembly(); 
+                                onclick="wsweb_change_workspace_assembly(); 
 				         $('[data-toggle=tooltip]').tooltip('hide');
 					 return false;"
 		                style="border-width:1 1 1 1px; border-color: #CCCCCC;"
@@ -261,9 +260,8 @@
 					min="0" max="12" value="7" step="1"
 				        data-show-value="false"
                                         class="custom-range slider col mx-0 px-0"
-                                        oninput="set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', this.value);
-					         set_cfg('CPUCU_size', this.value);
-                                                 save_cfg();">
+                                        oninput="wsweb_set_cpucu_size(this.value) ;
+                                                 return false;">
 			    </form>
                     </div>
 
@@ -276,8 +274,7 @@
                                     id="btn_example1"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			            title="This button opens the 'Examples' dialog."
-				    onclick="wepsim_open_examples_index(); 
-				             $('[data-toggle=tooltip]').tooltip('hide');
+				    onclick="wsweb_dialogbox_open_examples();
 					     return false;"><strong><span data-langkey='Examples'>Examples</span></strong></button>
 
 		            <button class="btn btn-light shadow-sm my-1 col"
@@ -285,9 +282,7 @@
                                     id="btn_help1"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			            title="This button opens the 'Help' dialog."
-		                    onclick="wepsim_open_help_index();
-                                             wepsim_help_refresh(); 
-					     $('[data-toggle=tooltip]').tooltip('hide');
+		                    onclick="wsweb_dialogbox_open_help();
 					     return false;"><strong><span data-langkey='Help'>Help</span></strong></button>
 
 			<div class="btn-group p-0 my-1 col" style="flex-grow:6;">
@@ -296,13 +291,7 @@
 				    title="This button shows the current execution mode, <br>the dropdown on the right changes the execution mode."
                                     style="border-color: #CCCCCC;"
 				    id="select4"
-                                    onclick="simui_select_details(22);
-					     $('[data-toggle=tooltip]').tooltip('hide');
-					      // initialize hw
-					      simcoreui_init_hw('#config_HW') ;
-					      // adapt to idiom
-					      var ws_idiom = get_cfg('ws_idiom');
-					      i18n_update_tags('gui', ws_idiom) ;
+                                    onclick="wsweb_set_details('HARDWARE');
 					     return false;">HW</button>
 			    <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" 
                                     style="border-color: #CCCCCC;"
@@ -313,39 +302,17 @@
 
 			      <h6 class="text-secondary mb-1">WepSIM hardware</h6>
                               <a class="dropdown-item" href="#" id="s4_ep" value="ep"
-				 onclick="simui_select_main('ep');
-					    // initialize hw
-	                                    simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
-					    simcoreui_init_hw('#config_HW') ;
-					    // adapt to idiom
-					    var ws_idiom = get_cfg('ws_idiom');
-					    i18n_update_tags('gui', ws_idiom) ;
+				 onclick="wsweb_mode_update('ep');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP</a>
-                              <a class="dropdown-item" href="#" id="s4_poc" value="poc"
-				 onclick="simui_select_main('poc');
-					    // initialize hw
-	                                    simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
-					    simcoreui_init_hw('#config_HW') ;
-					    // adapt to idiom
-					    var ws_idiom = get_cfg('ws_idiom');
-					    i18n_update_tags('gui', ws_idiom) ;
-					  return false;"><em class="fas fa-microchip"></em>&nbsp;POC</a>
-
-			      <div class="dropdown-divider"></div>
-			      <h6 class="text-secondary mb-1">Assembly only</h6>
-                              <a class="dropdown-item" href="#" id="s4_wepmips" value="wepmips"
-				 onclick="simui_select_main('wepmips');
-	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
-					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP+MIPS32</a>
 
 			      <div class="dropdown-divider"></div>
 			      <h6 class="text-secondary mb-1">Tutorial</h6>
                               <a class="dropdown-item" href="#" id="s4_tutorial" value="tutorial"
-				 onclick="simui_select_main('tutorial');
+				 onclick="wsweb_select_main('tutorial');
 	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
 					  return false;"><span style="background-color:#D4DB17">Instructive</span></a>
                               <a class="dropdown-item" href="#" id="s4_intro" value="intro"
-				 onclick="simui_select_main('intro');
+				 onclick="wsweb_select_main('intro');
 	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
 					  return false;">Welcome...</a>
 
@@ -363,9 +330,8 @@
 					min="0" max="12" value="7" step="1"
 				        data-show-value="false"
                                         class="custom-range slider col mx-0 px-0"
-                                        oninput="set_ab_size('#col1', '#col2', this.value);
-					         set_cfg('C1C2_size', this.value);
-                                                 save_cfg();">
+                                        oninput="wsweb_set_c1c2_size(this.value) ;
+                                                 return false;">
 			    </form>
                     </div>
 
@@ -381,20 +347,16 @@
                                  class="nav-link active" data-toggle="tab" role="tab"
                                  style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"
 				 aria-label="processor"
-                                 onclick="start_drawing();
-                                          refresh();"><em class="fas fa-microchip"></em>&nbsp;<span data-langkey='Processor'>Processor</span></a>
+                                 onclick="wsweb_change_show_processor();
+                                          return false;"><em class="fas fa-microchip"></em>&nbsp;<span data-langkey='Processor'>Processor</span></a>
                           </li>
 		          <li class="nav-item">
                               <a id="tab24" href="#eltos_dbg" 
                                  class="nav-link" data-toggle="tab" role="tab"
                                  style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"
 				 aria-label="assembly debugger"
-                                 onclick="stop_drawing();
-                                          var o1 = fullshow_asmdbg_pc();
-                                          var obj_byid = $('#asm_debugger_container');
-                                          if (typeof o1[0] == 'undefined')
-                                              return;
-                                          obj_byid[0].scrollTop = o1[0].offsetTop;"><em class="fas fa-bug"></em>&nbsp;<span class="d-sm-none" data-langkey='Assembly'>Assembly</span><span class="d-none d-sm-inline-flex" data-langkey='Assembly Debugger'>Assembly Debugger</span></a>
+                                 onclick="wsweb_change_show_asmdbg();
+                                          return false;"><em class="fas fa-bug"></em>&nbsp;<span class="d-sm-none" data-langkey='Assembly'>Assembly</span><span class="d-none d-sm-inline-flex" data-langkey='Assembly Debugger'>Assembly Debugger</span></a>
                           </li>
 		      </ul>
 
@@ -464,27 +426,19 @@
                     <div class="btn-toolbar btn-block" role="toolbar">
 			    <button          style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
-			            onclick="wepsim_execute_reset(true, true);
-	                                     simcoreui_show_hw();
+			            onclick="wsweb_execution_reset();
 	                                     return false;"><em class="fa fa-power-off"></em><strong><br/><span data-langkey='Reset'>Reset</span></strong></button>
 			    <button id="nm1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
-			            onclick="wepsim_execute_microinstruction();
-	                                     simcoreui_show_hw();
+			            onclick="wsweb_execution_microinstruction();
                                              return false;"><em class="fa fa-step-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey='microInstruction'>&#181;Instruction</span><span class="d-sm-none">&#181;Instr.</span></strong></button>
 			    <button id="ni1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
-			            onclick="wepsim_execute_instruction();
-					     simcoreui_init_hw('#config_HW');
+			            onclick="wsweb_execution_instruction();
                                              return false;"><em class="fa fa-fast-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey='Instruction'>Instruction</span><span class="d-sm-none">Instr.</span></strong></button>
 			    <button id="qbp" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
 		                    class="btn btn-light col"
-                                    onclick="var mode = get_cfg('ws_mode');
-                                             if ('tutorial' == mode) {
-                                                 wepsim_notify_success('<strong>INFO</strong>',
-                                                                       'Tutorial mode on. Use the configuration to change it.');
-                                             }
-                                             wepsim_execute_toggle_play('#qbp', (mode == 'tutorial'));
+                                    onclick="wsweb_execution_run();
                                              return false;"><em class="fa fa-play"></em><strong><br/><span data-langkey='Run'>Run</span></strong></button>
                     </div>
                     </div>
@@ -495,8 +449,7 @@
 		                    style="border-color: #CCCCCC; flex-grow:1;"
 			             data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			             title="This button opens the 'state management' dialog: it shows the current state, saves the current state, and shows the differences between two states."
-		                    onclick="wepsim_dialog_current_state();
-					     $('[data-toggle=tooltip]').tooltip('hide');
+		                    onclick="wsweb_dialogbox_open_state();
                                              return false;"><em class="fas fa-camera"></em>&nbsp;<span data-langkey='States'>States</span></button>
 
 			  <div class="col btn-group p-0" style="flex-grow:2;">
@@ -515,39 +468,40 @@
 			    </button>
 			    <div class="dropdown-menu border border-secondary">
                               <a class="dropdown-item d-none" href="#" id="s5b_22" value="22"
-				 onclick="simui_select_details(22);"><em class="fas fa-microchip"></em> Hardware</a>
+                                 onclick="wsweb_set_details('HARDWARE');
+                                          return false;"><em class="fas fa-microchip"></em> Hardware</a>
 
 			      <h6 class="text-secondary mb-1">CPU</h6>
                               <a class="dropdown-item" href="#" id="s5b_11" value="11"
-				 onclick="simui_select_details(11); 
-                                          show_rf_values();"><span class="bg-dark text-white">CPU</span> Registers</a>
+				 onclick="wsweb_set_details('REGISTER_FILE');
+                                          return false;"><span class="bg-dark text-white">CPU</span> Registers</a>
                               <a class="dropdown-item" href="#" id="s5b_16" value="16"
-				 onclick="simui_select_details(16); 
-                                          show_memories_values();"><span class="bg-dark text-white">CPU</span> Control Memory</a>
+				 onclick="wsweb_set_details('CONTROL_MEMORY');
+                                          return false;"><span class="bg-dark text-white">CPU</span> Control Memory</a>
                               <a class="dropdown-item" href="#" id="s5b_17" value="17"
-				 onclick="simui_select_details(17); 
-                                          show_memories_values();"><span class="bg-dark text-white">CPU</span> Stats</a>
+				 onclick="wsweb_set_details('CPU_STATS');
+                                          return false;"><span class="bg-dark text-white">CPU</span> Stats</a>
 
 			      <div class="dropdown-divider m-1"></div>
 			      <h6 class="text-secondary mb-1">Main Memory</h6>
 			      <a class="dropdown-item" href="#" id="s5b_14" value="14"
-				 onclick="simui_select_details(14); 
-                                          show_memories_values();"><span class="bg-dark text-white">MM</span> Memory</a>
+				 onclick="wsweb_set_details('MEMORY');
+                                          return false;"><span class="bg-dark text-white">MM</span> Memory</a>
 			      <a class="dropdown-item" href="#" id="s5b_18" value="18"
-				 onclick="simui_select_details(18); 
-                                          show_memories_values();"><span class="bg-dark text-white">MM</span> Configuration</a>
+				 onclick="wsweb_set_details('MEMORY_CONFIG');
+                                          return false;"><span class="bg-dark text-white">MM</span> Configuration</a>
 
 			      <div class="dropdown-divider m-1"></div>
 			      <h6 class="text-secondary mb-1">Devices</h6>
 			      <a class="dropdown-item" href="#" id="s5b_12" value="12"
-				 onclick="simui_select_details(12); 
-                                          show_memories_values();"><span class="bg-dark text-white">Dev</span> Keyboard+Display</a>
+				 onclick="wsweb_set_details('SCREEN');
+                                          return false;"><span class="bg-dark text-white">Dev</span> Keyboard+Display</a>
 			      <a class="dropdown-item" href="#" id="s5b_15" value="15"
-				 onclick="simui_select_details(15); 
-                                          show_memories_values();"><span class="bg-dark text-white">Dev</span> I/O Stats</a>
+				 onclick="wsweb_set_details('IO_STATS');
+                                          return false;"><span class="bg-dark text-white">Dev</span> I/O Stats</a>
 			      <a class="dropdown-item" href="#" id="s5b_19" value="19"
-				 onclick="simui_select_details(19); 
-                                          show_memories_values();"><span class="bg-dark text-white">Dev</span> I/O Configuration</a>
+				 onclick="wsweb_set_details('IO_CONFIG');
+                                          return false;"><span class="bg-dark text-white">Dev</span> I/O Configuration</a>
 			    </div>
 			  </div>
                     </div>
@@ -624,16 +578,16 @@
 					   placeholder="WepSIM" id="kdb_key" rows="2"></textarea>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="io">
-		              <div id="io_ALL" style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
+		              <div id="io_ALL"    style="height:58vh; width: inherit; overflow-y: auto;" class="container container-fluid"></div>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="cpu">
-		              <div id="cpu_ALL" style="width: inherit; overflow-y: auto;" class="container container-fluid"></div>
+		              <div id="cpu_ALL"   style="height:58vh; width: inherit; overflow-y: auto;" class="container container-fluid"></div>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="mpcfg">
-		              <div id="config_MP" style="width: inherit;" class="container container-fluid"></div>
+		              <div id="config_MP" style="height:58vh; width: inherit;" class="container container-fluid"></div>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="iocfg">
-		              <div id="config_IO" style="width: inherit; overflow-y: auto;"></div>
+		              <div id="config_IO" style="height:58vh; width: inherit; overflow-y: auto;"></div>
                          </div>
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_hw">
 		              <div id="config_HW" style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
@@ -655,14 +609,15 @@
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button class="btn btn-light shadow-sm col m-0"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                    onclick="wepsim_open_config_index();"><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
+                                    onclick="wsweb_dialogbox_open_config();
+					     return false;"><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
 		            <button class="btn btn-light shadow-sm col m-0"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                    onclick="sim_change_workspace_assembly();"
+                                    onclick="wsweb_change_workspace_assembly();"
 				    data-transition="none" data-inline="true"><strong><span data-langkey='Assembly'>Assembly</span></strong></button>
 		            <button class="btn btn-light shadow-sm col m-0"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                    onclick="sim_change_workspace_simulator();"
+                                    onclick="wsweb_change_workspace_simulator();"
 				    data-transition="none" data-inline="true"><strong><span data-langkey='Simulator'>Simulator</span></strong></button>
 		      </div>
 
@@ -679,40 +634,28 @@
 		            <button style="background-color: #CCCCCC"
 		                    class="btn btn-light shadow-sm col-auto"
 				    data-transition="none" data-inline="true"
-				    onclick="var textToMCompile = inputfirm.getValue();
-                                             wepsim_compile_firmware(textToMCompile);
-	                                     var o = '<div class=\'card m-3 border\'><div class=\'card-body m-1\'>' + 
-						     'Please remember that after updates on the microcode, the assembly code has be re-compiled too.' +
-						     '</div></div>' ;
-				 	     $('#asm_debugger').html(o);"><em class="fas fa-sign-out-alt"></em>&nbsp;<strong><span class="d-none d-sm-inline-flex">&#181;compile</span><span class="d-sm-none">&#181;c.</span></strong></button>
+				    onclick="wsweb_firmware_compile();
+                                             return false;">
+                                    <em class="fas fa-sign-out-alt"></em>&nbsp;<strong><span class="d-none d-sm-inline-flex">&#181;<span data-langkey="compile">compile</span></span><span class="d-sm-none">&#181;c.</span></strong></button>
 		            <button style="background-color: #DDDDDD"
 		                    class="btn btn-light shadow-sm col-auto"
-				    onclick="var textToMCompile = inputfirm.getValue();
-                                             var ok = wepsim_compile_firmware(textToMCompile);
-                                             if (true == ok) {
-                                                 wepsim_show_binary_microcode('#bin2','#compile_results');
-			                         wepsim_notify_success('<strong>INFO</strong>',
-	                                                               'Please remember to recompile the assembly code if needed.');
-                                             }">
-                                             <strong><em class="fas fa-memory"></em>&nbsp;<span class="d-none d-sm-inline-flex">Show co2&#181;a. + control memory</span><span class="d-sm-none">co2&#181;addr + c.m.</span></strong>
+				    onclick="wsweb_dialogbox_open_binary_firmware();
+                                             return false;">
+                                             <strong><em class="fas fa-memory"></em>&nbsp;<span class="d-none d-sm-inline-flex"><span data-langkey="Show">Show</span>&nbsp;co2&#181;a. + control memory</span><span class="d-sm-none">co2&#181;addr + c.m.</span></strong>
 			                     </button>
 		      </div>
 
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
                             <button style="background-color: #D4DB17"
 		                    class="btn btn-light shadow-sm col-auto"
-                                    onclick="var ahw2 = simhw_active().sim_short_name ;
-                                             var img2 = 'examples/hardware/' + ahw2 + '/images/cpu.svg?time=20190102' ;
-                                             var lyr2 = '<object id=svg_p2 ' + 
-                                                        '        data=\'' + img2 + '\' ' + 
-                                                        '        type=\'image/svg+xml\'>' + 
-                                                        'Your browser does not support SVG' + 
-                                                        '</object>' ;
-                                             wepsim_open_help_content(lyr2) ;"
+                                    onclick="wsweb_dialogbox_open_hardware_summary();
+                                             return false;"
 				    ><em class="fas fa-microchip"></em>&nbsp;<strong><span data-langkey="Hardware Summary">Hardware Summary</span></strong></button>
                             <button style="background-color: #D4DB17"
 		                    class="btn btn-light shadow-sm col-auto"
-				    onclick="wepsim_help_set_relative('simulator#help_firmware_format'); wepsim_help_refresh();"
+				    onclick="wepsim_help_set_relative('simulator#help_firmware_format'); 
+                                             wepsim_help_refresh();
+                                             return false;"
 				    ><em class="fas fa-info-circle"></em>&nbsp;<strong><span data-langkey="Help">Help</span></strong></button>
 		      </div>
 
@@ -723,7 +666,7 @@
 
 	    <div id="t3_firm" class="ui-body-d ui-content px-2 py-0"
                  style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
-		     <label class="my-0" for="inputFirmware">microcode:</label>
+		     <label class="my-0" for="inputFirmware"><span data-langkey='microcode'>microcode</span>:</label>
 		     <textarea aria-label="microcode"
 		               style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
                                placeholder="Please select 'Example' or 'Load' first in order to have an initial Microcode."
@@ -742,16 +685,19 @@
                       <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
 		            <button class="btn btn-light shadow-sm col m-0"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                    onclick="wepsim_open_config_index();"><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
+                                    onclick="wsweb_dialogbox_open_config();
+					     return false;"><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
 		            <button class="btn btn-light shadow-sm col m-0"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                    onclick="sim_change_workspace_microcode();"
+                                    onclick="wsweb_change_workspace_microcode();
+                                             return false;"
 				    data-transition="none" data-inline="true">
 			    <strong><span class="d-none d-sm-inline-flex" data-langkey='MicroCode'>MicroCode</span><span class="d-sm-none">&#181;code</span></strong>
 			    </button>
 		            <button class="btn btn-light shadow-sm col m-0"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                    onclick="sim_change_workspace_simulator();"
+                                    onclick="wsweb_change_workspace_simulator();
+                                             return false;"
 				    data-transition="none" data-inline="true"><strong><span data-langkey="Simulator">Simulator</span></strong></button>
 		      </div>
 
@@ -768,21 +714,22 @@
 		            <button style="background-color: #CCCCCC"
 		                    class="btn btn-light shadow-sm col-auto"
 				    data-transition="none" data-inline="true"
-				    onclick="var textToCompile = inputasm.getValue() ;
-                                             var ok = wepsim_compile_assembly(textToCompile);"><em class="fas fa-sign-out-alt"></em>&nbsp;<strong>Compile</strong></button>
+				    onclick="wsweb_assembly_compile();
+                                             return false;">
+                                    <em class="fas fa-sign-out-alt"></em>&nbsp;<strong><span data-langkey="Compile">Compile</span></strong></button>
 		            <button style="background-color: #DDDDDD"
 		                    class="btn btn-light shadow-sm col-auto"
-				    onclick="var textToCompile = inputasm.getValue();
-                                             var ok = wepsim_compile_assembly(textToCompile);
-                                             if (true == ok) {
-                                                 wepsim_show_binary_code('#bin2','#compile_results');
-                                             }"><em class="fas fa-memory"></em>&nbsp;<strong><span class="d-none d-sm-inline-flex"><span data-langkey="Show Main Memory">Show Main Memory</span></span><span class="d-sm-none">Show Main Mem.</span></strong></button>
+				    onclick="wsweb_dialogbox_open_binary_assembly();
+                                             return false;">
+                                    <em class="fas fa-memory"></em>&nbsp;<strong><span class="d-none d-sm-inline-flex"><span data-langkey="Show Main Memory">Show Main Memory</span></span><span class="d-sm-none">Show Main Mem.</span></strong></button>
 		      </div>
 
                       <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">
                             <button style="background-color: #D4DB17"
 		                    class="btn btn-light shadow-sm col-auto"
-				    onclick="wepsim_help_set_relative('simulator#help_assembly_format'); wepsim_help_refresh();"
+				    onclick="wepsim_help_set_relative('simulator#help_assembly_format'); 
+                                             wepsim_help_refresh();
+                                             return false;"
 				    ><em class="fas fa-info-circle"></em>&nbsp;<strong><span data-langkey="Help">Help</span></strong></button>
 		      </div>
 
@@ -793,7 +740,7 @@
 
 	    <div id="t4_asm" class="ui-body-d ui-content px-2 py-0"
                  style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
-		     <label class="my-0" for="inputAssembly">assembly:</label>
+		     <label class="my-0" for="inputAssembly"><span data-langkey='assembly'>assembly</span>:</label>
 		     <textarea aria-label="assembly"
                                style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
                                placeholder="Please select 'Load' first to have the assembly code to work with."
@@ -816,7 +763,7 @@
         </button>
      </div>
      <div class="modal-body">
-	<label for="fileToLoad"><em>Please select the microcode file to be loaded:</em></label>
+	<label for="fileToLoad"><em><span data-langkey="Load from this File">Load from this File</span>:</em></label>
 	<p><input aria-label="file to load" type="file" id="fileToLoad" class="dropify"/></p>
      </div>
      <div class="modal-footer">
@@ -824,9 +771,12 @@
 		onclick="var fileToLoad = document.getElementById('fileToLoad').files[0];
 		         wepsim_load_from_file(fileToLoad, 
                                                function(txt){ inputfirm.setValue(txt); });
-			 $('#lsload').modal('hide');">Load from this File</button>
+			 $('#lsload').modal('hide');
+                         return false;">
+        <span data-langkey="Load from this File">Load from this File</span></button>
+        </button>
 	<button class="btn btn-sm btn-danger"
-		type="button" data-dismiss="modal">Cancel</button>
+		type="button" data-dismiss="modal"><span data-langkey="Close">Close</span></button>
      </div>
      </div>
      </div>
@@ -842,28 +792,13 @@
         </button>
      </div>
      <div class="modal-body">
-        <label for="inputFileNameToSaveAs"><em>Please write the file name:</em></label>
+        <label for="inputFileNameToSaveAs"><em><span data-langkey="Please write the file name">Please write the file name</span>:</em></label>
 	<p><input aria-label="filename to save content" id="inputFileNameToSaveAs"
                   class="form-control btn-outline-dark" placeholder="File name where microcode will be saved" style="min-width: 90%;"/></p>
      </div>
      <div class="modal-footer" style="flex-wrap: wrap">
 	<button class="btn btn-sm btn-dark my-1"
-		onclick="if (confirm('Do you want me to save the current Control Memory contents rather than the editor contents?.\n\n' +
-				     'Please notice three things:\n' +
-				     '* The current Control Memory will replace the editor contents.\n' +
-				     '* The comments outside the microcode will be removed.\n' +
-				     '* Pseudo-instructions will be not included.'))
-			 {
-			     var SIMWARE = get_simware() ;
-			     var simware_as_text = saveFirmware(SIMWARE);
-			     if (simware_as_text.trim() === '')
-				  alert('The Microcode loaded in memory is empty!\n' +
-					'Please load a Microcode first in memory in order to save it.');
-			     else inputfirm.setValue(simware_as_text);
-			     var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
-                             var textToWrite      = inputfirm.getValue();
-                             wepsim_save_to_file(textToWrite, fileNameToSaveAs);
-			 }
+		onclick="wsweb_save_controlmemory_to_file();
 			 return false;">Save control memory to File</button>
 	<button class="btn btn-sm btn-dark my-1"
 		onclick="var fileNameToSaveAs = document.getElementById('inputFileNameToSaveAs').value;
@@ -871,7 +806,7 @@
                          wepsim_save_to_file(textToWrite, fileNameToSaveAs);
 			 return false;">Save Editor content to File</button>
 	<button class="btn btn-sm btn-danger my-1"
-		type="button" data-dismiss="modal">Cancel</button>
+		type="button" data-dismiss="modal"><span data-langkey="Close">Close</span></button>
      </div>
      </div>
      </div>
@@ -889,7 +824,7 @@
         </button>
      </div>
      <div class="modal-body">
-        <label for="fileToLoad2"><em>Please select the assembly file to be loaded:</em></label>
+	<label for="fileToLoad2"><em><span data-langkey="Load from this File">Load from this File</span>:</em></label>
 	<p><input aria-label="file to load" type="file" id="fileToLoad2" class="dropify"/></p>
      </div>
      <div class="modal-footer">
@@ -897,9 +832,11 @@
 		onclick="var fileToLoad = document.getElementById('fileToLoad2').files[0];
 		         wepsim_load_from_file(fileToLoad, 
                                                function(txt){ inputasm.setValue(txt); });
-			 $('#lsload2').modal('hide');">Load from this File</button>
+			 $('#lsload2').modal('hide');
+                         return false;">
+        <span data-langkey="Load from this File">Load from this File</span></button>
 	<button class="btn btn-sm btn-danger"
-		type="button" data-dismiss="modal">Cancel</button>
+		type="button" data-dismiss="modal"><span data-langkey="Close">Close</span></button>
      </div>
      </div>
      </div>
@@ -915,7 +852,7 @@
         </button>
      </div>
      <div class="modal-body">
-        <label for="inputFileNameToSaveAs2"><em>Please write the file name:</em></label>
+        <label for="inputFileNameToSaveAs2"><em><span data-langkey="Please write the file name">Please write the file name</span>:</em></label>
 	<p><input aria-label="filename to save content" id="inputFileNameToSaveAs2"
                   class="form-control btn-outline-dark" placeholder="File name where assembly will be saved" style="min-width: 90%;"/></p>
      </div>
@@ -926,7 +863,7 @@
 			 wepsim_save_to_file(textToWrite, fileNameToSaveAs);
 			 return false;">Save to File</button>
 	<button class="btn btn-sm btn-danger"
-		type="button" data-dismiss="modal">Cancel</button>
+		type="button" data-dismiss="modal"><span data-langkey="Close">Close</span></button>
      </div>
      </div>
      </div>
@@ -954,13 +891,11 @@
 			    onclick="set_cfg('ws_idiom','es'); save_cfg();
                                      i18n_update_tags('gui', 'es') ;
                                      i18n_update_tags('cfg', 'es') ;
-                                     //wepsim_open_config_index();
                                      return false;">ES<span class="d-none d-sm-inline-flex">&nbsp;(Spanish)</span></a>
 			 <a class="dropdown-item" href="#"
 			    onclick="set_cfg('ws_idiom','en'); save_cfg();
                                      i18n_update_tags('gui', 'en') ;
                                      i18n_update_tags('cfg', 'en') ;
-                                     //wepsim_open_config_index();
                                      return false;">EN<span class="d-none d-sm-inline-flex">&nbsp;(English)</span></a>
 		     </div>
 		   </div>
@@ -1172,7 +1107,7 @@
                   <div class="carousel-item">
 
 			<div class="card-deck m-2"
-                             style="height:70vh; overflow:auto; -webkit-overflow-scrolling:touch;">
+                             style="max-height:70vh; overflow:auto; -webkit-overflow-scrolling:touch;">
 			   <div class="card border-secondary mx-2">
 			      <div class="card-header border-secondary text-white bg-secondary p-1">
 		                  <h5 class="m-0">
@@ -1183,26 +1118,15 @@
 					<label for="FileNameToSaveAs1"><em><span data-langkey="File name">File name</span>:</em></label>
 					<p><input aria-label="filename to save content" id="FileNameToSaveAs1"
 						  class="form-control btn-outline-dark" placeholder="File name where checkpoint will be saved" style="min-width: 90%;"/></p>
+
 					<label for="tagToSave1"><em><span data-langkey="Tag for checkpoint">Tag for checkpoint</span>:</em></label>
 					<p><input aria-label="associated tag to be saved" id="tagToSave1"
 						  class="form-control btn-outline-dark" placeholder="Associated tag to be saved (if any)" style="min-width: 90%;"/></p>
-					<label for="stateToSave1"><em><span data-langkey="State(s) to checkpoint">State(s) to checkpoint</span>:</em></label>
-					<div class="btn-group btn-group-toggle w-100" data-toggle="buttons">
-					  <label class="btn btn-outline-dark active">
-					    <input type="radio" name="stateToSave1" id="current" autocomplete="off" value="current" checked><span data-langkey="Current">Current</span>
-					  </label>
-					  <label class="btn btn-outline-dark">
-					    <input type="radio" name="stateToSave1" id="history" autocomplete="off" value="history"><span data-langkey="History">History</span>
-					  </label>
-					</div>
 			      </div>
 			      <div class="card-footer border-secondary text-white bg-secondary p-1">
 					<button class="btn btn-light mx-auto float-right py-0 col-xs-8 col-md-3"
-						onclick="var checkpointObj = null ;
-						         var stateToSave = $('input[name=stateToSave1]:checked').val();
-                                                         if (stateToSave === 'current')
-                                                              checkpointObj = wepsim_checkpoint_getCurrent('tagToSave1'); 
-                                                         else checkpointObj = wepsim_checkpoint_getHistory('tagToSave1'); 
+						onclick="var stateToSave   = $('input[name=stateToSave1]:checked').val();
+                                                         var checkpointObj = wepsim_checkpoint_get('tagToSave1'); 
 							 wepsim_checkpoint_save('FileNameToSaveAs1', 'tagToSave1', checkpointObj);
 							 wepsim_notify_success('<strong>INFO</strong>', 'Save requested!.');
 							 return false;"><span data-langkey="Save">Save</span></button>
@@ -1388,7 +1312,8 @@
       </div>
       <div class="modal-footer">
            <button class="btn btn-danger btn-sm col-xs-3 col-sm-2 float-right"
-                   onclick="$('#current_state1').modal('hide');"
+                   onclick="wsweb_dialogbox_close_state();
+		            return false;"
 		   type="button"><span data-langkey="Close">Close</span></button>
       </div>
    </div>
@@ -1646,24 +1571,16 @@
 
 		    // init-ui: simulator
 
-		    sim_change_workspace_simulator() ;
-		    $('#tab26').trigger('click') ;
-		    simui_select_details(11) ;
+		    wsweb_change_workspace_simulator() ;
+		    wsweb_change_show_processor() ;
+		    wsweb_set_details('REGISTER_FILE') ;
 
-                    $("#slider2a").val(get_cfg('C1C2_size')) ;
-                    $('#slider2b').val(get_cfg('CPUCU_size')) ;
-                    set_ab_size('#col1',        '#col2',        get_cfg('C1C2_size')) ;
-                    set_ab_size('#eltos_cpu_a', '#eltos_cpu_b', get_cfg('CPUCU_size')) ;
+		    wsweb_set_cpucu_size(get_cfg('CPUCU_size')) ;
+		    wsweb_set_c1c2_size(get_cfg('C1C2_size')) ;
 
-                    showhideAsmElements() ;
-
-		    var target = $("#asm_table");
-		    $("#asm_debugger_container").scroll(function() {
-		       target.prop("scrollTop", this.scrollTop).prop("scrollLeft", this.scrollLeft);
-		    });
-
-                    wepsim_init_state_dialog('end_state1', 'end_state2') ;
-
+                    wsweb_init_asmdbg() ;
+    		    wsweb_init_quick_menu() ;
+                    wsweb_init_state_dialog('end_state1', 'end_state2') ;
 
 		    // init-ui: general
 
@@ -1681,21 +1598,6 @@
                     }) ;
 
 		    // popover...
-		    $("[data-toggle=popover0]").popover({
-			    html:       true,
-			    placement: 'auto',
-			    animation:  false,
-                            container: 'body',
-                            template:  '<div class="popover shadow border border-secondary" role="tooltip">' +
-			               '<div class="arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div>' +
-			               '</div>',
-			    content:    function() {
-                                           return wepsim_show_quick_menu('po1') ;
-                                        },
-			    sanitizeFn: function (content) {
-					   return content ; // DOMPurify.sanitize(content) ;
-				        }
-		    });
 		    $('a[data-toggle="popover1"]').popover({
 			    placement: 'bottom',
 			    animation: false,
@@ -1703,39 +1605,18 @@
 			    delay: { "show": 500, "hide": 100 },
 			    sanitizeFn: function (content) {
 					   return content ; // DOMPurify.sanitize(content) ;
-				        }
+					}
 		    }) ;
-		    $("[data-toggle=popover2]").popover({
-			    html:       true,
-			    placement: 'auto',
-			    animation:  false,
-                            container: 'body',
-			    content:    function() {
-                                           return wepsim_show_asm_columns_checked('popover2_asm') ;
-                                        },
-			    sanitizeFn: function (content) {
-					   return content ; // DOMPurify.sanitize(content) ;
-				        }
-		    }).on('shown.bs.popover', function(shownEvent) {
-                           showhideAsmHeader() ;
-                    });
-
 
 		    // init: general
 		    var ws_mode = get_cfg('ws_mode');
-		    simui_select_main(ws_mode);
-		    simcore_init_ui("#states_ALL", "#states_BR", "#io_ALL",
-				     "#cpu_ALL", "#config_MP", "#config_IO");
+		    wsweb_mode_update(ws_mode) ;
 		    simcore_reset();
 
 		    wepsim_voice_init() ;
 		    if (false == get_cfg('use_voice')) {
 			wepsim_voice_stop() ;
 		    }
-
-		    // adapt to idiom
-		    var ws_idiom = get_cfg('ws_idiom');
-		    i18n_update_tags('gui', ws_idiom) ;
 
 		    // pre-load example
 		    var url_parameters = new URL(window.location).searchParams ;
@@ -1785,6 +1666,8 @@
                 "WepSIM was improperly used:\n" + err.message + "\n" +
 		"\n" +
 		"More details:\n" + err.stack) ;
+
+	  location.reload(true) ;
     }
 </script>
 <noscript>Your browser does not support JavaScript!</noscript>

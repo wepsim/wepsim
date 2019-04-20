@@ -19,12 +19,12 @@
 
 ### Run WepSIM
 
-+ From Web (Google Chrome 65+, Mozilla Firefox 60+, Microsoft Edge 40+, and Apple Safari 11+):
++ From Web (Google Chrome 70+, Mozilla Firefox 64+, Microsoft Edge 40+, and Apple Safari 11+):
      * Please, load in your Web Browser the link: https://wepsim.github.io/wepsim
        * A nightly build version is available too: https://acaldero.github.io/wepsim
 
 + From Linux/Unix command line (Node 8.10.0+ and Bash 4.4.19+):
-     * wget https://github.com/acaldero/wepsim/releases/download/2.0.2/wepsim-202.zip
+     * wget https://github.com/acaldero/wepsim/releases/download/v2.0.6/wepsim-206.zip
      * unzip wepsim-202.zip 
      * cd wepsim
      * ./wepsim_node.sh
@@ -231,9 +231,9 @@ Micropc at 0x3f.	Activated signals are: MC MR SELB SELA MA MB SELCOP T6 SELC LC 
 ```
 
 
-## Getting Started: WepSIM API
+## Getting Started: WepSIM engine API
 
-+ If you want to use WepSIM within your App, there is a WepSIM API in JavaScript available too. 
++ If you want to use the WepSIM engine within your App, there is a WepSIM API in JavaScript available too. 
   You will need to include the WepSIM engine in your proyect:
 
 ```javascript
@@ -317,5 +317,44 @@ Micropc at 0x3f.	Activated signals are: MC MR SELB SELA MA MB SELCOP T6 SELC LC 
          */
 
         console.log(ret.msg) ;
+```
+
+## Getting Started: WepSIM control API
+
++ If you want to control an WepSIM instance, there is a WepSIM API in JavaScript available (WepSIM 2.0.6+).
+  For example, It might be used for building a tutorial.
+
+  The following fragment uses the WepSIM control API (wsweb_*):
+
+```html
+    <div class="container">
+
+	    <nav class="nav nav-pills nav-justified">
+		  <a href="#"
+		     class="nav-item nav-link border border-secondary"
+		     onclick="var context1 = document.getElementById('iframe1');
+			      context1.src = 'https://acaldero.github.io/wepsim/ws_dist/wepsim-classic.html?' +
+					     'notify=false&' +
+                                         'example=13&' +
+					     'simulator=assembly:screen';
+			      return false;">Step 1.- Load Example</a>
+
+		  <a href="#"
+		     class="nav-item nav-link border border-secondary"
+		     onclick="var context1 = document.getElementById('iframe1').contentWindow;
+			      context1.wsweb_execution_run();
+			      return false;">Step 2.- Run</a>
+        </nav>
+
+        <div class="row">
+            <div class="col-12">
+			<div class="embed-responsive embed-responsive-4by3">
+		        <iframe class="w-100 border border-secondary embed-responsive-item"
+		                id="iframe1" src=""></iframe>
+			</div>
+            </div>
+        </div>
+
+    </div>
 ```
 

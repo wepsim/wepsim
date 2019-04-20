@@ -130,22 +130,10 @@
         /**
          * Initialize simulator event handler.
          * @param {string} context - associated context
+         * @param {hash} hash_detail2action - actions to hook
          */
 
-         var hash_detail2action = {
-	         "CLOCK":          function(){ wepsim_execute_microinstruction(); },
-	         "REGISTER_FILE":  function(){ simui_select_details(11); show_rf_values(); },
-	         "CONTROL_MEMORY": function(){ simui_select_details(16); show_memories_values(); },
-	         "CPU_STATS":      function(){ simui_select_details(17); show_memories_values(); },
-	         "MEMORY":         function(){ simui_select_details(14); show_memories_values(); }, 
-	         "MEMORY_CONFIG":  function(){ simui_select_details(18); show_memories_values(); },
-	         "KEYBOARD":       function(){ simui_select_details(12); show_memories_values(); },
-	         "SCREEN":         function(){ simui_select_details(12); show_memories_values(); },
-	         "IO_STATS":       function(){ simui_select_details(15); show_memories_values(); }, 
-	         "IO_CONFIG":      function(){ simui_select_details(19); show_memories_values(); } 
-         } ;
-
-        function simcore_init_eventlistener ( context )
+        function simcore_init_eventlistener ( context, hash_detail2action )
         {
 	    var context_obj = null ;
 	    var r = [] ;
