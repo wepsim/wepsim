@@ -19,6 +19,22 @@
  */
 
 
+    // workspaces
+
+    function sim_change_workspace ( page_id, carousel_id )
+    {
+            if ( (typeof $.mobile                             != "undefined") &&
+                 (typeof $.mobile.pageContainer               != "undefined") &&
+                 (typeof $.mobile.pageContainer.pagecontainer != "undefined") )
+            {
+                  $.mobile.pageContainer.pagecontainer('change', page_id);
+            }
+            else
+            {
+                  $('#carousel-8').carousel(carousel_id) ;
+            }
+    }
+
     // Popovers
 
     function wepsim_show_quick_menu ( quick_po )
@@ -172,5 +188,17 @@
 	    //A1/ if (null != inputEls)
 	    //A1/     setup_speech_input(inputEls) ;
 
+    }
+
+    // dialogbox
+
+    function wepsim_dialogbox_close_all ( )
+    {
+	    // Close all dialogbox
+	          $('#example1').modal('hide') ;
+	             $('#help1').modal('hide') ;
+	           $('#config2').modal('hide') ;
+	    $('#current_state1').modal('hide');
+	              $('#bin2').modal('hide');
     }
 
