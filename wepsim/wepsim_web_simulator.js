@@ -70,6 +70,20 @@
 		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-magic"></em> &nbsp;' +
 		'  <a class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" href="#" ' +
+		'     onclick="wepsim_record_toggle(); ' +
+		'              $(\'#' + quick_po + '\').popover(\'hide\');">' +
+		i18n_get('gui',wsi,'Start/Stop Record') + '...</a>' +
+		'</li>' +
+		'<li class="list-group-item px-0"> ' +
+		'  <em class="fas fa-magic"></em> &nbsp;' +
+		'  <a class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" href="#" ' +
+		'     onclick="wepsim_record_play(); ' +
+		'              $(\'#' + quick_po + '\').popover(\'hide\');">' +
+		i18n_get('gui',wsi,'Play Record') + '...</a>' +
+		'</li>' +
+		'<li class="list-group-item px-0"> ' +
+		'  <em class="fas fa-magic"></em> &nbsp;' +
+		'  <a class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" href="#" ' +
 		'     onclick="$(\'#about2\').modal(\'show\'); ' +
 		'              $(\'#' + quick_po + '\').popover(\'hide\');">' +
 		i18n_get('gui',wsi,'About WepSIM') + '...</a>' +

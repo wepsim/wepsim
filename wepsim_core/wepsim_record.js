@@ -66,6 +66,11 @@
         ws_is_recording = false ;
     }
 
+    function wepsim_record_toggle ( )
+    {
+        ws_is_recording = !ws_is_recording ;
+    }
+
     function wepsim_record_isRecording ( )
     {
         return ws_is_recording ;

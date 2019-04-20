@@ -73,6 +73,8 @@
                         "Show Notifications":                           "Show Notifications",
                         "Show/Hide ActionBar":                          "Show/Hide ActionBar",
                         "Show/Hide Slider":                             "Show/Hide Slider",
+                        "Start/Stop Record":                            "Start/Stop Record",
+                        "Play Record":                                  "Play Record",
                         "Initial intro":                                "Initial intro",
                         "About WepSIM":                                 "About WepSIM",
 
