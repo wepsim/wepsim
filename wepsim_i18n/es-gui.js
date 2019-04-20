@@ -72,8 +72,6 @@
                         "Show Notifications":                           "Mostrar notificaciones",
                         "Show/Hide ActionBar":                          "Mostrar/Ocultar barra",
                         "Show/Hide Slider":                             "Mostrar/Ocultar slider",
-                        "Start/Stop Record":                            "Activar/Parar grabaci&oacute;n",
-                        "Play Record":                                  "Reproducir grabaci&oacute;n",
                         "Initial intro":                                "Intro inicial",
                         "About WepSIM":                                 "Sobre WepSIM",
 
