@@ -1,6 +1,8 @@
 
 2.0.5 -> 2.0.6:
-* Initial support for wepsim-web API
+* Initial support for the WepSIM control API
+* Initial support for recording
+* Improved support for Checkpoint
 
 2.0.3 -> 2.0.5:
 * Initial support for Checkpoint

@@ -26,11 +26,12 @@
     var ws_is_recording = false ;
     var ws_records      = [] ;
 
-    function wepsim_record_push ( elto )
+    function wepsim_record_push ( desc, elto )
     {
         var record = { 
-		       timestamp: Date.now(),
-		       element:   elto
+		       timestamp:   Date.now(),
+		       description: desc,
+		       element:     elto
 	             } ;
 
         ws_records.push(record) ;
@@ -93,10 +94,10 @@
         ws_records = [] ;
     }
 
-    function wepsim_record_add_stringcode ( elto )
+    function wepsim_record_add_stringcode ( description, elto )
     {
         if (ws_is_recording === true) {
-            wepsim_record_push(elto) ;
+            wepsim_record_push(description, elto) ;
 	}
     }
 
@@ -111,7 +112,7 @@
             ownName = ownName.substr('function '.length) ;        // trim off "function "
             ownName = ownName.substr(0, ownName.indexOf('(')) ;   // trim off everything after the function name
 
-        wepsim_record_push(ownName) ;
+        wepsim_record_push('', ownName) ;
     }
 
     function wepsim_record_play ( )
