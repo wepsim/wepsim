@@ -116,6 +116,7 @@
 
     function wepsim_record_play ( )
     {
+        ws_is_recording = false ;
         wepsim_record_play_at(0) ;
     }
 
