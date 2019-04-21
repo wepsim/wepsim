@@ -24,13 +24,15 @@
      */
 
     var ws_is_recording = false ;
+    var ws_is_playing   = false ;
     var ws_records      = [] ;
 
-    function wepsim_record_push ( elto )
+    function wepsim_record_push ( desc, elto )
     {
         var record = { 
-		       timestamp: Date.now(),
-		       element:   elto
+		       timestamp:   Date.now(),
+		       description: desc,
+		       element:     elto
 	             } ;
 
         ws_records.push(record) ;
@@ -38,15 +40,25 @@
 
     function wepsim_record_play_at ( index )
     {
+	// user stop playing...
+        if (ws_is_playing === false) {
+	    return ;
+	}
+
 	// execute current step...
 	if (index < ws_records.length) {
 	    eval(ws_records[index].element) ;
 	}
 
 	// ... and set next one
+	var wait_time = 500 ;
+	if (typeof ws_records[index + 1] !== "undefined") {
+	    wait_time = ws_records[index + 1].timestamp - ws_records[index].timestamp ;
+	}
+
         setTimeout(function() {
 	               wepsim_record_play_at(index + 1) ;
-                   }, 500);
+                   }, wait_time);
     }
 
     function wepsim_record_set ( records )
@@ -63,11 +75,13 @@
 
     function wepsim_record_on ( )
     {
+        ws_is_playing   = false ;
         ws_is_recording = true ;
     }
 
     function wepsim_record_off ( )
     {
+        ws_is_playing   = false ;
         ws_is_recording = false ;
     }
 
@@ -93,10 +107,10 @@
         ws_records = [] ;
     }
 
-    function wepsim_record_add_stringcode ( elto )
+    function wepsim_record_add_stringcode ( description, elto )
     {
         if (ws_is_recording === true) {
-            wepsim_record_push(elto) ;
+            wepsim_record_push(description, elto) ;
 	}
     }
 
@@ -111,11 +125,13 @@
             ownName = ownName.substr('function '.length) ;        // trim off "function "
             ownName = ownName.substr(0, ownName.indexOf('(')) ;   // trim off everything after the function name
 
-        wepsim_record_push(ownName) ;
+        wepsim_record_push('', ownName) ;
     }
 
     function wepsim_record_play ( )
     {
+        ws_is_recording = false ;
+        ws_is_playing   = true ;
         wepsim_record_play_at(0) ;
     }
 
