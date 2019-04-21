@@ -317,6 +317,7 @@
 	             $('#help1').modal('hide') ;
 	           $('#config2').modal('hide') ;
 	    $('#current_state1').modal('hide');
+	    $('#current_state2').modal('hide');
 	              $('#bin2').modal('hide');
 
             // add if recording
@@ -377,7 +378,7 @@
 
             // add if recording
             wepsim_record_add_stringcode('set details to ' + opt,
-		                         'wsweb_set_details(' + opt + ');\n') ;
+		                         'wsweb_set_details(\'' + opt + '\');\n') ;
 
             // return ok
             return true ;
