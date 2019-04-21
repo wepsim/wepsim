@@ -41,11 +41,19 @@
     function wepsim_record_play_at ( div_obj, index )
     {
 	// 1.- stop playing...
-        if (ws_is_playing === false) {
-	    return ;
+        if (ws_is_playing === false) 
+	{
+		if (typeof div_obj.html !== "undefined")
+		    div_obj.html('<em>' + index + '/' + ws_records.length + '</em>&nbsp;Stopped by user.') ;
+
+	        return ;
 	}
-	if (index >= ws_records.length) {
-	    return ;
+	if (index >= ws_records.length) 
+	{
+		if (typeof div_obj.html !== "undefined")
+		    div_obj.html('<em>' + ws_records.length + '/' + ws_records.length + '</em>&nbsp;Done.') ;
+
+	        return ;
 	}
 
 	// 2.- execute current step 
@@ -53,17 +61,19 @@
 	eval(ws_records[index].element) ;
 
 	//     b) show message
-	if (typeof div_obj.html !== "undefined")
-	    div_obj.html(ws_records[index].description) ;
+	if (typeof div_obj.html !== "undefined") {
+	    div_obj.html('<em>' + (index+1) + '/' + ws_records.length + '</em>&nbsp;' + ws_records[index].description) ;
+	}
 
 	// 3.- set next one
 	var wait_time = 500 ;
 	if (typeof ws_records[index + 1] !== "undefined") {
 	    wait_time = ws_records[index + 1].timestamp - ws_records[index].timestamp ;
 	}
+	wait_time = (wait_time < 500) ? 500 : wait_time ;
 
         setTimeout(function() {
-	               wepsim_record_play_at(index + 1) ;
+	               wepsim_record_play_at(div_obj, index + 1) ;
                    }, wait_time);
     }
 

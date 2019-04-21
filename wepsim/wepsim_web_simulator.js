@@ -68,7 +68,7 @@
 		'  </span>' +
 		'</li>' +
 		'<li class="list-group-item px-0"> ' +
-		'  <em class="fas fa-circle"></em> &nbsp;' +
+		'  <em class="fas fa-clipboard"></em> &nbsp;' +
 		'  <button class="navbar-toggle btn btn-sm btn-outline-secondary col-10 p-1 text-left" ' +
 		'          type="button" data-toggle="collapse" data-target="#record_div">' +
 		i18n_get('gui',wsi,'Show/Hide Record') +

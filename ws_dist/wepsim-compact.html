@@ -212,37 +212,37 @@
 	          <li class="nav-item"><img alt="Computer Science and Engineering Departament logo" src="images/dptoinf.png" style="height:28pt" class="img-fluid rounded m-0 p-0" /></li>
 	       </ul>
 
-	       <div id="record_div" class="navbar collapse">
+	       <div id="record_div" class="navbar collapse py-0">
 	       <ul class="nav nav-pills ml-auto">
 		  <li class="nav-item">
-		  <a class="btn btn-sm btn-outline-danger mx-2" href="#" 
-		     onclick="wepsim_record_reset();
+		  <a class="btn btn-sm btn-outline-danger px-3 mx-2" href="#" 
+		     onclick="wsweb_record_reset();
 			      $('#po1').popover('hide');
 			      return false;"><em class="fas fa-times"></em>
 		  </a>
                   </li>
 		  <li class="nav-item">
-		  <a class="btn btn-sm btn-outline-dark mx-2" href="#" 
-		     onclick="wepsim_record_play();
+		  <a class="btn btn-sm btn-outline-dark px-3 mx-2" href="#" 
+		     onclick="wsweb_record_play('record_msg');
 			      $('#po1').popover('hide');
 			      return false;"><em class="fas fa-play"></em>
 		  </a>
                   </li>
 		  <li class="nav-item">
-		  <a class="btn btn-sm btn-outline-dark mx-2" href="#" 
-		     onclick="wepsim_record_off();
+		  <a class="btn btn-sm btn-outline-dark px-3 mx-2" href="#" 
+		     onclick="wsweb_record_off();
 			      $('#po1').popover('hide');
 			      return false;"><em class="fas fa-square"></em>
 		  </a>
                   </li>
 		  <li class="nav-item">
-		  <a class="btn btn-sm btn-outline-dark mx-2" href="#" 
-		     onclick="wepsim_record_on();
+		  <a class="btn btn-sm btn-outline-dark px-3 mx-2" href="#" 
+		     onclick="wsweb_record_on();
 			      $('#po1').popover('hide');
 			      return false;"><em class="fas fa-circle"></em>
 		  </a>
                   </li>
-		  <li class="nav-item">
+		  <li class="nav-item w-100">
 	          <div id="record_msg" class="">&nbsp;</div>
                   </li>
                </ul>
