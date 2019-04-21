@@ -72,6 +72,7 @@
                         "Show Notifications":                           "Mostrar notificaciones",
                         "Show/Hide ActionBar":                          "Mostrar/Ocultar barra",
                         "Show/Hide Slider":                             "Mostrar/Ocultar slider",
+                        "Show/Hide Record":                             "Mostrar/Ocultar Grabaci&oacute;n",
                         "Initial intro":                                "Intro inicial",
                         "About WepSIM":                                 "Sobre WepSIM",
 
