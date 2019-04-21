@@ -52,7 +52,9 @@
 				   "	     onchange=\"var opt = $(this).find('option:selected');" +
 				   "	 	        var optValue = opt.val();" +
 				   "		        update_cfg('ws_skin', optValue);" +
-				   "		        window.location='wepsim-' + optValue + '.html';\"" +
+	                           "                    window.removeEventListener('beforeunload', wepsim_confirm_exit);" +
+				   "		        window.location='wepsim-' + optValue + '.html';" +
+				   "		        return false;\"" +
 				   "	     data-native-menu='false'>" +
 				   "	<option value='classic'>Classic</option>" +
 				   "	<option value='compact'>Compact</option>" +
