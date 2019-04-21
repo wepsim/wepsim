@@ -68,18 +68,11 @@
 		'  </span>' +
 		'</li>' +
 		'<li class="list-group-item px-0"> ' +
-		'  <a class="btn btn-sm btn-outline-danger col-2 p-1" href="#" ' +
-		'     onclick="wepsim_record_reset(); ' +
-		'              $(\'#' + quick_po + '\').popover(\'hide\');"><em class="fas fa-times"></em></a>' +
-		'  <a class="btn btn-sm btn-outline-secondary col-3 p-1" href="#" ' +
-		'     onclick="wepsim_record_play(); ' +
-		'              $(\'#' + quick_po + '\').popover(\'hide\');"><em class="fas fa-play"></em></a>' +
-		'  <a class="btn btn-sm btn-outline-dark col-3 p-1" href="#" ' +
-		'     onclick="wepsim_record_off(); ' +
-		'              $(\'#' + quick_po + '\').popover(\'hide\');"><em class="fas fa-square"></em></a>' +
-		'  <a class="btn btn-sm btn-outline-dark col-3 p-1" href="#" ' +
-		'     onclick="wepsim_record_on(); ' +
-		'              $(\'#' + quick_po + '\').popover(\'hide\');"><em class="fas fa-circle"></em></a>' +
+		'  <em class="fas fa-circle"></em> &nbsp;' +
+		'  <button class="navbar-toggle btn btn-sm btn-outline-secondary col-10 p-1 text-left" ' +
+		'          type="button" data-toggle="collapse" data-target="#record_div">' +
+		i18n_get('gui',wsi,'Show/Hide Record') +
+		'  </button>' +
 		'</li>' +
 		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-magic"></em> &nbsp;' +
@@ -214,5 +207,14 @@
 	           $('#config2').modal('hide') ;
 	    $('#current_state1').modal('hide');
 	              $('#bin2').modal('hide');
+    }
+
+    // confirm exit
+
+    function wepsim_confirm_exit ( e )
+    {
+	    var confirmationMessage = "\o/";
+	    (e || window.event).returnValue = confirmationMessage; // Gecko + IE
+	    return confirmationMessage;                            // Webkit, Safari, Chrome
     }
 

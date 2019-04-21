@@ -198,18 +198,55 @@
 		  data-placement="bottom">WepSIM&nbsp;<span class="badge badge-pill badge-secondary"><div class="wsversion">loading ...</div></span>
 	       </a>
             </span>
+
             <button class="navbar-toggler ml-auto btn-outline-secondary" data-toggle="collapse"
                     data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		<em class="fas fa-bars"></em>
             </button>
-            <div id="navbarSupportedContent"
-	         class="collapse navbar-collapse mx-auto py-0" style="background-color: #EAEAEA">
-	    <ul class="nav nav-pills ml-auto p-1">
-	       <li class="nav-item ml-auto"><img alt="ARCOS logo" src="images/arcos.svg" style="height:30pt" class="img-fluid rounded m-0 p-1" /></li>
-	       <li class="nav-item"><strong>.</strong></li>
-	       <li class="nav-item"><img alt="Computer Science and Engineering Departament logo" src="images/dptoinf.png" style="height:28pt" class="img-fluid rounded m-0 p-0" /></li>
-	    </ul>
+
+            <div id="navbarSupportedContent" class="collapse navbar-collapse mx-auto py-0" style="background-color: #EAEAEA">
+	       <ul class="nav nav-pills ml-auto p-1">
+	          <li class="nav-item ml-auto"><img alt="ARCOS logo" src="images/arcos.svg" style="height:30pt" class="img-fluid rounded m-0 p-1" /></li>
+	          <li class="nav-item"><strong>.</strong></li>
+	          <li class="nav-item"><img alt="Computer Science and Engineering Departament logo" src="images/dptoinf.png" style="height:28pt" class="img-fluid rounded m-0 p-0" /></li>
+	       </ul>
+
+	       <div id="record_div" class="navbar collapse">
+	       <ul class="nav nav-pills ml-auto">
+		  <li class="nav-item">
+		  <a class="btn btn-sm btn-outline-danger mx-2" href="#" 
+		     onclick="wepsim_record_reset();
+			      $('#po1').popover('hide');
+			      return false;"><em class="fas fa-times"></em>
+		  </a>
+                  </li>
+		  <li class="nav-item">
+		  <a class="btn btn-sm btn-outline-dark mx-2" href="#" 
+		     onclick="wepsim_record_play();
+			      $('#po1').popover('hide');
+			      return false;"><em class="fas fa-play"></em>
+		  </a>
+                  </li>
+		  <li class="nav-item">
+		  <a class="btn btn-sm btn-outline-dark mx-2" href="#" 
+		     onclick="wepsim_record_off();
+			      $('#po1').popover('hide');
+			      return false;"><em class="fas fa-square"></em>
+		  </a>
+                  </li>
+		  <li class="nav-item">
+		  <a class="btn btn-sm btn-outline-dark mx-2" href="#" 
+		     onclick="wepsim_record_on();
+			      $('#po1').popover('hide');
+			      return false;"><em class="fas fa-circle"></em>
+		  </a>
+                  </li>
+		  <li class="nav-item">
+	          <div id="record_msg" class="">&nbsp;</div>
+                  </li>
+               </ul>
+               </div>
             </div>
 	</nav>
 
@@ -1458,12 +1495,7 @@
 	    simcore_init_hw('ep') ;
 
 	    // ...then install protection for accidental close.
-	    window.addEventListener("beforeunload",
-				    function (e) {
-					 var confirmationMessage = "\o/";
-					 (e || window.event).returnValue = confirmationMessage; // Gecko + IE
-					 return confirmationMessage;                            // Webkit, Safari, Chrome
-				    });
+	    window.addEventListener("beforeunload", wepsim_confirm_exit) ;
 
 	    $(document).ready(function()
 	    {

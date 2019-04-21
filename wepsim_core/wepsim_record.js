@@ -38,19 +38,25 @@
         ws_records.push(record) ;
     }
 
-    function wepsim_record_play_at ( index )
+    function wepsim_record_play_at ( div_obj, index )
     {
-	// user stop playing...
+	// 1.- stop playing...
         if (ws_is_playing === false) {
 	    return ;
 	}
-
-	// execute current step...
-	if (index < ws_records.length) {
-	    eval(ws_records[index].element) ;
+	if (index >= ws_records.length) {
+	    return ;
 	}
 
-	// ... and set next one
+	// 2.- execute current step 
+	//     a) execute step 
+	eval(ws_records[index].element) ;
+
+	//     b) show message
+	if (typeof div_obj.html !== "undefined")
+	    div_obj.html(ws_records[index].description) ;
+
+	// 3.- set next one
 	var wait_time = 500 ;
 	if (typeof ws_records[index + 1] !== "undefined") {
 	    wait_time = ws_records[index + 1].timestamp - ws_records[index].timestamp ;
@@ -128,10 +134,12 @@
         wepsim_record_push('', ownName) ;
     }
 
-    function wepsim_record_play ( )
+    function wepsim_record_play ( div_id )
     {
         ws_is_recording = false ;
         ws_is_playing   = true ;
-        wepsim_record_play_at(0) ;
+
+        var div_obj = $('#' + div_id) ;
+        wepsim_record_play_at(div_obj, 0) ;
     }
 
