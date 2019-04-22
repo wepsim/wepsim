@@ -212,38 +212,40 @@
 	          <li class="nav-item"><img alt="Computer Science and Engineering Departament logo" src="images/dptoinf.png" style="height:28pt" class="img-fluid rounded m-0 p-0" /></li>
 	       </ul>
 
-	       <div id="record_div" class="navbar-nav mt-0 ml-auto collapse col-md-4">
-	       <ul class="nav nav-pills ml-auto">
-		  <li class="nav-item ml-auto">
-		  <a class="btn btn-sm btn-outline-danger px-3 mx-2" href="#" 
+	       <div class="navbar-nav p-0 m-0 collapse col-md-4" id="record_div">
+	       <ul class="nav nav-pills justify-content-center px-2 shadow-sm rounded w-100" style="background-color: #DFDFDF;">
+		  <li class="nav-item">
+		  <a class="btn btn-sm btn-outline-danger px-3 mx-4" href="#" 
 		     onclick="wsweb_record_reset();
-			      $('#po1').popover('hide');
 			      return false;"><em class="fas fa-times"></em>
 		  </a>
                   </li>
 		  <li class="nav-item">
 		  <a class="btn btn-sm btn-outline-dark px-3 mx-2" href="#" 
+		     onclick="wsweb_record_pause('record_msg');
+			      return false;"><em class="fas fa-pause"></em>
+		  </a>
+                  </li>
+		  <li class="nav-item">
+		  <a class="btn btn-sm btn-outline-dark px-3 mx-2" href="#" 
 		     onclick="wsweb_record_play('record_msg');
-			      $('#po1').popover('hide');
 			      return false;"><em class="fas fa-play"></em>
 		  </a>
                   </li>
 		  <li class="nav-item">
 		  <a class="btn btn-sm btn-outline-dark px-3 mx-2" href="#" 
 		     onclick="wsweb_record_off();
-			      $('#po1').popover('hide');
 			      return false;"><em class="fas fa-square"></em>
 		  </a>
                   </li>
 		  <li class="nav-item">
 		  <a class="btn btn-sm btn-outline-dark px-3 mx-2" href="#" 
 		     onclick="wsweb_record_on();
-			      $('#po1').popover('hide');
 			      return false;"><em class="fas fa-circle"></em>
 		  </a>
                   </li>
 		  <li class="nav-item w-100">
-		  <small><div id="record_msg" class="text-right">&lt;empty recording&gt;</div></small>
+		  <small><div id="record_msg" class="text-left text-truncate">&lt;empty recording&gt;</div></small>
                   </li>
                </ul>
                </div>
