@@ -118,9 +118,10 @@
 	    xhr.send();
     }
 
-    function wepsim_preload_get ( parameters )
+    function wepsim_preload_get ( parameters, id_filename, id_tagname, id_recordname )
     {
 	    var hash = {} ;
+	    var uri_obj = null ;
 
 	    // 1.a.- get parameters
 	    hash['preload']    = parameters.get('preload') ;
@@ -148,7 +149,7 @@
 	    if (hash['preload'] !== '') 
 	    {
 		try {
-	           var uri_obj = new URL(hash['preload']) ;
+	           uri_obj = new URL(hash['preload']) ;
 	           wepsim_preload_json(uri_obj.pathname, wepsim_preload_hash) ;
 		}
 		catch (e) { }
@@ -162,10 +163,18 @@
 	    // 3.- checkpoint
 	    if (hash['checkpoint'] !== '') 
 	    {
-		try {
-		   var uri_obj = new URL(hash['checkpoint']) ;
+		try 
+		{
+		   uri_obj = new URL(hash['checkpoint']) ;
+
 		   wepsim_preload_json(uri_obj.href, 
-			               function(data){ wepsim_checkpoint_loadFromObj(data, null, null, null); }) ;
+			               function(data) {
+					   var obj_fileName = document.getElementById(id_filename) ;
+					   var obj_tagName  = document.getElementById(id_tagname) ;
+					   var obj_refName  = { name: uri_obj.href } ;
+					   wepsim_checkpoint_loadFromObj(data, obj_fileName, obj_tagName, obj_refName, id_recordname) ;
+
+				       }) ;
 		}
 		catch (e) { }
 	    }
