@@ -674,14 +674,6 @@
 
     //  Workspace simulator: record
 
-    function wsweb_record_play ( div_id )
-    {
-	    wepsim_record_play(div_id) ;
-
-            // return ok
-            return true ;
-    }
-
     function wsweb_record_on ( )
     {
 	    wepsim_record_on() ;
@@ -701,6 +693,22 @@
     function wsweb_record_reset ( )
     {
 	    wepsim_record_reset() ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_record_play ( div_id )
+    {
+	    wepsim_record_play(div_id) ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_record_pause ( div_id )
+    {
+	    wepsim_record_pause(div_id) ;
 
             // return ok
             return true ;

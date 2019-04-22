@@ -23,11 +23,12 @@
      * Record: private API
      */
 
+    var ws_records      = [] ;
     var ws_is_recording = false ;
     var ws_is_playing   = false ;
-    var ws_records      = [] ;
+    var ws_last_played  = 0 ;
 
-    function wepsim_record_push ( desc, elto )
+    function wepsim_record_pushElto ( desc, elto )
     {
         var record = { 
 		       timestamp:   Date.now(),
@@ -38,7 +39,7 @@
         ws_records.push(record) ;
     }
 
-    function wepsim_record_play_at ( div_obj, index )
+    function wepsim_record_playAt ( div_obj, index )
     {
 	// 1.- stop playing...
         if (ws_is_playing === false) 
@@ -65,6 +66,9 @@
 	    div_obj.html('<em>' + (index+1) + '/' + ws_records.length + '</em>&nbsp;' + ws_records[index].description) ;
 	}
 
+	//     c) set last played
+        ws_last_played = index ;
+
 	// 3.- set next one
 	var wait_time = 500 ;
 	if (typeof ws_records[index + 1] !== "undefined") {
@@ -73,13 +77,8 @@
 	wait_time = (wait_time < 500) ? 500 : wait_time ;
 
         setTimeout(function() {
-	               wepsim_record_play_at(div_obj, index + 1) ;
+	               wepsim_record_playAt(div_obj, index + 1) ;
                    }, wait_time);
-    }
-
-    function wepsim_record_set ( records )
-    {
-        ws_records = records ;
     }
 
 
@@ -87,7 +86,7 @@
      * Record: public API
      */
 
-    // start, pause
+    // recording (on, off, ...)
 
     function wepsim_record_on ( )
     {
@@ -101,14 +100,38 @@
         ws_is_recording = false ;
     }
 
-    function wepsim_record_toggle ( )
-    {
-        ws_is_recording = !ws_is_recording ;
-    }
-
     function wepsim_record_isRecording ( )
     {
         return ws_is_recording ;
+    }
+
+    // playing (play, pause)
+
+    function wepsim_record_play ( div_id )
+    {
+        var div_obj = $('#' + div_id) ;
+
+        ws_is_recording = false ;
+        ws_is_playing   = true ;
+        ws_last_played  = 0 ;
+
+        wepsim_record_playAt(div_obj, ws_last_played) ;
+    }
+
+    function wepsim_record_pause ( div_id )
+    {
+        ws_is_playing = !ws_is_playing ;
+
+        if (ws_is_playing === true) 
+	{
+            var div_obj = $('#' + div_id) ;
+            wepsim_record_playAt(div_obj, ws_last_played) ;
+	}
+    }
+
+    function wepsim_record_isPlaying ( )
+    {
+        return ws_is_playing ;
     }
 
     // recording object
@@ -116,6 +139,11 @@
     function wepsim_record_get ( )
     {
         return ws_records ;
+    }
+
+    function wepsim_record_set ( records )
+    {
+        ws_records = records ;
     }
 
     function wepsim_record_reset ( )
@@ -126,30 +154,7 @@
     function wepsim_record_add_stringcode ( description, elto )
     {
         if (ws_is_recording === true) {
-            wepsim_record_push(description, elto) ;
+            wepsim_record_pushElto(description, elto) ;
 	}
-    }
-
-    function wepsim_record_add_function ( elto )
-    {
-        if (ws_is_recording === false) {
-	    return ;
-	}
-
-	// base on code from https://stackoverflow.com/questions/1013239/can-i-get-the-name-of-the-currently-running-function-in-javascript
-        var ownName = arguments.callee.toString() ;
-            ownName = ownName.substr('function '.length) ;        // trim off "function "
-            ownName = ownName.substr(0, ownName.indexOf('(')) ;   // trim off everything after the function name
-
-        wepsim_record_push('', ownName) ;
-    }
-
-    function wepsim_record_play ( div_id )
-    {
-        ws_is_recording = false ;
-        ws_is_playing   = true ;
-
-        var div_obj = $('#' + div_id) ;
-        wepsim_record_play_at(div_obj, 0) ;
     }
 
