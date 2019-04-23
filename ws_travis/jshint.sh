@@ -52,7 +52,7 @@ jshint ./wepsim_core/wepsim_url.js
 jshint ./wepsim_core/wepsim_voice.js
 
 jshint ./wepsim/wepsim_web_editor.js
-#jshint ./wepsim/wepsim_web_simulator.js
+jshint ./wepsim/wepsim_web_simulator.js
 jshint ./wepsim/wepsim_web_api.js
 #jshint ./wepsim/wepsim_web_pwa.js
 jshint ./wepsim/wepsim_node.js
