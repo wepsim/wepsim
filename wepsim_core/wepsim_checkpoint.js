@@ -96,6 +96,33 @@
 	    wepsim_load_from_file(obj_fileToLoad, function_after_loaded) ;
     }
 
+    function wepsim_checkpoint_loadURI ( obj_uri, id_filename, id_tagname, id_recordname )
+    {
+	    // get & check params
+	    var obj_fileName = document.getElementById(id_filename) ;
+	    var obj_tagName  = document.getElementById(id_tagname) ;
+
+	    if ( (obj_fileName === null) || (obj_tagName === null) || (obj_uri === null) )
+	    {
+		return false ;
+	    }
+
+	    // load checkpoint
+	    try 
+	    {
+	        wepsim_preload_json(uri_obj.href, 
+			            function(data) {
+	                                var obj_refName  = { name: obj_uri.href } ;
+				        wepsim_checkpoint_loadFromObj(data, 
+					                              obj_fileName, obj_tagName, obj_refName, id_recordname) ;
+			            }) ;
+	        return true ;
+	    }
+	    catch (e) {
+		return false ;
+	    }
+    }
+
     function wepsim_checkpoint_loadFromObj ( checkpointObj, obj_fileName, obj_tagName, obj_fileToLoad, id_recordName )
     {
 	   var o = '' ;

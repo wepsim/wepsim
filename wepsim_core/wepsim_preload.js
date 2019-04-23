@@ -163,20 +163,8 @@
 	    // 3.- checkpoint
 	    if (hash['checkpoint'] !== '') 
 	    {
-		try 
-		{
-		   uri_obj = new URL(hash['checkpoint']) ;
-
-		   wepsim_preload_json(uri_obj.href, 
-			               function(data) {
-					   var obj_fileName = document.getElementById(id_filename) ;
-					   var obj_tagName  = document.getElementById(id_tagname) ;
-					   var obj_refName  = { name: uri_obj.href } ;
-					   wepsim_checkpoint_loadFromObj(data, obj_fileName, obj_tagName, obj_refName, id_recordname) ;
-
-				       }) ;
-		}
-		catch (e) { }
+		uri_obj = new URL(hash['checkpoint']) ;
+                wepsim_checkpoint_loadURI(uri_obj, id_filename, id_tagname, id_recordname) ;
 	    }
     }
 
