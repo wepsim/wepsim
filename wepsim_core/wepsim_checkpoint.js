@@ -110,7 +110,7 @@
 	    // load checkpoint
 	    try 
 	    {
-	        wepsim_preload_json(uri_obj.href, 
+	        wepsim_preload_json(obj_uri.href, 
 			            function(data) {
 	                                var obj_refName  = { name: obj_uri.href } ;
 				        wepsim_checkpoint_loadFromObj(data, 
