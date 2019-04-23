@@ -132,11 +132,11 @@
 	 var vc_list = "available commands:<br>" ;
 
 	 for (var vc in wepsim_voice_commands) {
-	      vc_list = vc_list + " * '" + vc + "'<br>";
+	      vc_list = vc_list + " * '" + vc + "'<br>" ;
 	 }
 
-	 wepsim_voice_dialog = bootbox.alert(vc_list)
-	 wepsim_voice_dialog.modal('show');
+	 wepsim_voice_dialog = bootbox.alert(vc_list) ;
+	 wepsim_voice_dialog.modal('show') ;
 
 	 // speak...
          var msg = $("</p>").html(vc_list).text() ;
