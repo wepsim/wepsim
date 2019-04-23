@@ -214,51 +214,46 @@
 	          <li class="nav-item"><img alt="Computer Science and Engineering Departament logo" src="images/dptoinf.png" style="height:28pt" class="img-fluid rounded m-0 p-0" /></li>
 	       </ul>
 	       </div>
+            </div>
+	</nav>
 
-	       <div class="navbar-nav p-0 m-0 collapse col-lg-4" id="record_div">
-	       <ul class="nav nav-pills justify-content-center px-2 shadow-sm rounded border border-secondary w-100" style="background-color: #DFDFDF;">
-		  <li class="nav-item">
+
+	<div class="row-fluid p-2 rounded w-100 collapse" id="record_div"
+	     style="position:fixed; left:0; bottom:0; z-index:1024; background-color:#DFDFDF;">
+
+	     <div class="text-left col">
+		  <span id="record_msg" class="text-left text-truncate">&lt;empty recording&gt;</span>
+             </div>
+	     <div class="btn-group col">
 		  <a class="btn btn-sm btn-outline-danger bg-light px-3 mr-3" href="#" 
 		     data-toggle="tooltip" data-placement="bottom" title="Reset recorded session"
 		     onclick="wsweb_record_reset();
 			      return false;"><em class="fas fa-times"></em>
 		  </a>
-                  </li>
-		  <li class="nav-item">
-		  <a class="btn btn-sm btn-outline-dark btn-light px-3 mx-2" href="#" 
+		  <a class="btn btn-sm btn-outline-secondary btn-light px-3 mx-2" href="#" 
 		     data-toggle="tooltip" data-placement="bottom" title="Pause/Continue play"
 		     onclick="wsweb_record_pause('record_msg');
 			      return false;"><em class="fas fa-pause"></em>
 		  </a>
-                  </li>
-		  <li class="nav-item">
-		  <a class="btn btn-sm btn-outline-dark btn-light px-3 ml-2 mr-3" href="#" 
+		  <a class="btn btn-sm btn-outline-secondary btn-light px-3 ml-2 mr-3" href="#" 
 		     data-toggle="tooltip" data-placement="bottom" title="Play"
 		     onclick="wsweb_record_play('record_msg');
 			      return false;"><em class="fas fa-play"></em>
 		  </a>
-                  </li>
-		  <li class="nav-item">
-		  <a class="btn btn-sm btn-outline-dark btn-light px-3 mx-2" href="#" 
+		  <a class="btn btn-sm btn-outline-secondary btn-light px-3 mx-2" href="#" 
 		     data-toggle="tooltip" data-placement="bottom" title="Stop"
 		     onclick="wsweb_record_off();
 			      return false;"><em class="fas fa-square"></em>
 		  </a>
-                  </li>
-		  <li class="nav-item">
-		  <a class="btn btn-sm btn-outline-dark btn-light px-3 ml-2" href="#" 
+		  <a class="btn btn-sm btn-outline-secondary btn-light px-3 ml-2" href="#" 
 		     data-toggle="tooltip" data-placement="bottom" title="Record session"
 		     onclick="wsweb_record_on();
 			      return false;"><em class="fas fa-circle"></em>
 		  </a>
-                  </li>
-		  <li class="nav-item w-100">
-		  <small><kbd id="record_msg" class="text-left text-truncate">&lt;empty recording&gt;</kbd></small>
-                  </li>
-               </ul>
-               </div>
-            </div>
-	</nav>
+	     </div>
+
+	</div>
+
 
 	<div id="carousel-8" class="carousel" data-interval="false" data-touch="false">
 	  <div class="carousel-inner">
