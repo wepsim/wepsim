@@ -19,7 +19,7 @@
  */
 
 
-    i18n.help.es = {
+    i18n.eltos.help.es = {
 
 	"Welcome tutorial":		"Tutorial de bienvenida",
 	"help_01_01":			"Abre el tutorial de bienvenida",

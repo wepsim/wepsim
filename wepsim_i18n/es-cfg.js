@@ -19,7 +19,7 @@
  */
 
 
-    i18n.cfg.es = {
+    i18n.eltos.cfg.es = {
 	             "General": "General",
                       "Idiom for help, examples, etc.": 		             "Idioma para ayuda, ejemplos, etc.",
                       "Notification speed: time before disapear": 	             "Velocidad en notificaciones: tiempo en desaparecer",
