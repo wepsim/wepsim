@@ -72,7 +72,7 @@
 	    return true ;
     }
 
-    function wepsim_checkpoint_load ( id_filename, id_tagname, id_file_to_load )
+    function wepsim_checkpoint_load ( id_filename, id_tagname, id_file_to_load, id_recordname )
     {
 	    // get & check params
             var obj_fileName   = document.getElementById(id_filename) ;
@@ -89,14 +89,41 @@
 	                                {
 				           var current_checkpoint = JSON.parse(textLoaded) ;
                                            wepsim_checkpoint_loadFromObj(current_checkpoint, 
-						                         obj_fileName, obj_tagName, obj_fileToLoad) ;
+						                         obj_fileName, obj_tagName, obj_fileToLoad, id_recordname) ;
 			                } ;
 
 	    // load checkpoint
 	    wepsim_load_from_file(obj_fileToLoad, function_after_loaded) ;
     }
 
-    function wepsim_checkpoint_loadFromObj ( checkpointObj, obj_fileName, obj_tagName, obj_fileToLoad )
+    function wepsim_checkpoint_loadURI ( obj_uri, id_filename, id_tagname, id_recordname )
+    {
+	    // get & check params
+	    var obj_fileName = document.getElementById(id_filename) ;
+	    var obj_tagName  = document.getElementById(id_tagname) ;
+
+	    if ( (obj_fileName === null) || (obj_tagName === null) || (obj_uri === null) )
+	    {
+		return false ;
+	    }
+
+	    // load checkpoint
+	    try 
+	    {
+	        wepsim_preload_json(uri_obj.href, 
+			            function(data) {
+	                                var obj_refName  = { name: obj_uri.href } ;
+				        wepsim_checkpoint_loadFromObj(data, 
+					                              obj_fileName, obj_tagName, obj_refName, id_recordname) ;
+			            }) ;
+	        return true ;
+	    }
+	    catch (e) {
+		return false ;
+	    }
+    }
+
+    function wepsim_checkpoint_loadFromObj ( checkpointObj, obj_fileName, obj_tagName, obj_fileToLoad, id_recordName )
     {
 	   var o = '' ;
 	   var u = '' ;
@@ -165,13 +192,10 @@
 
 		o += '<li>Tag: <strong>' + checkpointObj.tag + '</strong></li>' ;
 
-		// Future Works:
-		// + update internal state based on txt_checklist
-
 	   // 5.- restore record
 
 		// set the saved record
-                wepsim_record_set(checkpointObj.record) ;
+                wepsim_record_set(checkpointObj.record, id_recordName) ;
 
 	   // 6.- notify
 	   if (o !== '') {

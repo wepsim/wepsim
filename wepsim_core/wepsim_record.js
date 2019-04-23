@@ -44,15 +44,17 @@
 	// 1.- stop playing...
         if (ws_is_playing === false) 
 	{
-		if (typeof div_obj.html !== "undefined")
+		if (typeof div_obj.html !== "undefined") {
 		    div_obj.html('<em>' + index + '/' + ws_records.length + '</em>&nbsp;Stopped by user.') ;
+		}
 
 	        return ;
 	}
 	if (index >= ws_records.length) 
 	{
-		if (typeof div_obj.html !== "undefined")
+		if (typeof div_obj.html !== "undefined") {
 		    div_obj.html('<em>' + ws_records.length + '/' + ws_records.length + '</em>&nbsp;Done.') ;
+		}
 
 	        return ;
 	}
@@ -141,9 +143,14 @@
         return ws_records ;
     }
 
-    function wepsim_record_set ( records )
+    function wepsim_record_set ( records, div_id )
     {
         ws_records = records ;
+
+        var div_obj = $('#' + div_id) ;
+	if (typeof div_obj.html !== "undefined") {
+	    div_obj.html('<em>0' + '/' + ws_records.length + '</em>&nbsp;record ready.') ;
+	}
     }
 
     function wepsim_record_reset ( )

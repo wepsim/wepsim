@@ -212,40 +212,45 @@
 	          <li class="nav-item"><img alt="Computer Science and Engineering Departament logo" src="images/dptoinf.png" style="height:28pt" class="img-fluid rounded m-0 p-0" /></li>
 	       </ul>
 
-	       <div class="navbar-nav p-0 m-0 collapse col-md-4" id="record_div">
-	       <ul class="nav nav-pills justify-content-center px-2 shadow-sm rounded w-100" style="background-color: #DFDFDF;">
+	       <div class="navbar-nav p-0 m-0 collapse col-lg-4" id="record_div">
+	       <ul class="nav nav-pills justify-content-center px-2 shadow-sm rounded border border-secondary w-100" style="background-color: #DFDFDF;">
 		  <li class="nav-item">
-		  <a class="btn btn-sm btn-outline-danger px-3 mx-4" href="#" 
+		  <a class="btn btn-sm btn-outline-danger bg-light px-3 mr-2" href="#" 
+		     data-toggle="tooltip" data-placement="bottom" title="Reset recorded session"
 		     onclick="wsweb_record_reset();
 			      return false;"><em class="fas fa-times"></em>
 		  </a>
                   </li>
 		  <li class="nav-item">
-		  <a class="btn btn-sm btn-outline-dark px-3 mx-2" href="#" 
+		  <a class="btn btn-sm btn-outline-dark btn-light px-3 mx-2" href="#" 
+		     data-toggle="tooltip" data-placement="bottom" title="Pause/Continue play"
 		     onclick="wsweb_record_pause('record_msg');
 			      return false;"><em class="fas fa-pause"></em>
 		  </a>
                   </li>
 		  <li class="nav-item">
-		  <a class="btn btn-sm btn-outline-dark px-3 mx-2" href="#" 
+		  <a class="btn btn-sm btn-outline-dark btn-light px-3 ml-2 mr-3" href="#" 
+		     data-toggle="tooltip" data-placement="bottom" title="Play"
 		     onclick="wsweb_record_play('record_msg');
 			      return false;"><em class="fas fa-play"></em>
 		  </a>
                   </li>
 		  <li class="nav-item">
-		  <a class="btn btn-sm btn-outline-dark px-3 mx-2" href="#" 
+		  <a class="btn btn-sm btn-outline-dark btn-light px-3 mx-2" href="#" 
+		     data-toggle="tooltip" data-placement="bottom" title="Stop"
 		     onclick="wsweb_record_off();
 			      return false;"><em class="fas fa-square"></em>
 		  </a>
                   </li>
 		  <li class="nav-item">
-		  <a class="btn btn-sm btn-outline-dark px-3 mx-2" href="#" 
+		  <a class="btn btn-sm btn-outline-dark btn-light px-3 mr-2" href="#" 
+		     data-toggle="tooltip" data-placement="bottom" title="Record session"
 		     onclick="wsweb_record_on();
 			      return false;"><em class="fas fa-circle"></em>
 		  </a>
                   </li>
 		  <li class="nav-item w-100">
-		  <small><div id="record_msg" class="text-left text-truncate">&lt;empty recording&gt;</div></small>
+		  <small><kbd id="record_msg" class="text-left text-truncate">&lt;empty recording&gt;</kbd></small>
                   </li>
                </ul>
                </div>
@@ -1112,7 +1117,7 @@
 			      </div>
 			      <div class="card-footer border-secondary text-white bg-secondary p-1">
 					<button class="btn btn-light mx-auto float-right py-0 col-xs-8 col-md-3"
-						onclick="wepsim_checkpoint_load('FileNameToSaveAs1', 'tagToSave1', 'fileToLoad31');
+						onclick="wepsim_checkpoint_load('FileNameToSaveAs1', 'tagToSave1', 'fileToLoad31', 'record_msg');
 							 wepsim_notify_success('<strong>INFO</strong>', 'Load requested!.');
 							 return false;"><span data-langkey="Load">Load</span></button>
 			      </div>
@@ -1594,7 +1599,7 @@
 
 		    // pre-load example
 		    var url_parameters = new URL(window.location).searchParams ;
-		    wepsim_preload_get(url_parameters) ;
+		    wepsim_preload_get(url_parameters, 'FileNameToSaveAs1', 'tagToSave1', 'record_msg') ;
 	    }) ;
 
             // progressive web application
