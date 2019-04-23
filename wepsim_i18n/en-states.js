@@ -19,7 +19,7 @@
  */
 
 
-    i18n.states.en = {
+    i18n.eltos.states.en = {
 			"States":  			                "States",
 			"Current":  			                "Current",
 			"Current State":  			        "Current State",

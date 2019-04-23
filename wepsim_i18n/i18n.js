@@ -23,32 +23,24 @@
      * Initialize...
      */
 
-    var i18n = {} ;
-
-    // main-screen user interface
-	i18n.gui = {} ;
-	i18n.gui.es = {} ;
-	i18n.gui.en = {} ;
-
-    // configuration dialog
-	i18n.cfg = {} ;
-	i18n.cfg.es = {} ;
-	i18n.cfg.en = {} ;
-
-    // examples dialog
-        i18n.examples = {} ;
-        i18n.examples.en = {} ;
-        i18n.examples.es = {} ;
-
-    // states dialog
-	i18n.states = {} ;
-	i18n.states.es = {} ;
-	i18n.states.en = {} ;
-
-    // help dialog
-        i18n.help    = {} ;
-        i18n.help.en = {} ;
-        i18n.help.es = {} ;
+    var i18n = {
+	          lang:  {
+			    es: "Espa&ntilde;ol", 
+			    en: "English" 
+		         },
+	          eltos: { 
+                            // main-screen user interface
+			    gui: {}, 
+			    // configuration dialog
+			    cfg: {}, 
+			    // examples dialog
+			    examples: {}, 
+			    // states dialog
+			    states: {},
+			    // help dialog
+			    help: {} 
+		         }
+               } ;
 
     // tutorials
     var tutorials = {} ;
@@ -64,7 +56,27 @@
 
 
     /*
-     *  i18n Interface
+     *  i18n Private Interface
+     */
+
+    function i18n_init ( )
+    {
+	for (var l in i18n.lang) 
+	{
+	     for (var e in i18n.eltos) 
+             {
+	          i18n.eltos[e][l] = {} ;
+	     }
+	}
+
+	return true ;
+    }
+
+    i18n_init() ;
+
+
+    /*
+     *  i18n Public Interface
      */
 
     function i18n_update_tags ( component )
@@ -76,7 +88,7 @@
 
     function i18n_update_tagsFor ( component, lang )
     {
-        if (typeof i18n[component] == "undefined") {
+        if (typeof i18n.eltos[component] == "undefined") {
 	    return ;
 	}
 
@@ -84,14 +96,14 @@
 
 	Array.from(tags).forEach(function(value, index) {
                          	     var key = value.dataset.langkey ;
-                         	     if (i18n[component][lang][key]) {
-                                         value.innerHTML = i18n[component][lang][key] ;
+                         	     if (i18n.eltos[component][lang][key]) {
+                                         value.innerHTML = i18n.eltos[component][lang][key] ;
 				     }
                          	 }) ;
     }
 
     function i18n_get ( component, lang, key )
     {
-	return i18n[component][lang][key] ;
+	return i18n.eltos[component][lang][key] ;
     }
 
