@@ -937,7 +937,7 @@
 			 <span class="caret"></span>
 			 <span class="sr-only">Toggle Help Idiom</span>
 		     </button>
-		     <div class="dropdown-menu" style="z-index:100000;">
+		     <div id="config2_lang" class="dropdown-menu" style="z-index:100000;">
 			 <a class="dropdown-item" href="#"
 			    onclick="set_cfg('ws_idiom','es'); save_cfg();
                                      i18n_update_tags('gui', 'es') ;
@@ -1024,18 +1024,18 @@
 			 <span class="caret"></span>
 			 <span class="sr-only">Toggle Help Idiom</span>
 		     </button>
-		     <div class="dropdown-menu" style="z-index:100000;">
+		     <div id="help1_lang" class="dropdown-menu" style="z-index:100000;">
 			 <a class="dropdown-item" href="#"
 			    onclick="set_cfg('ws_idiom','es'); save_cfg();
                                      i18n_update_tags('gui',  'es');
                                      i18n_update_tags('help', 'es');
-                                     //wepsim_help_refresh();
+                                     wepsim_help_refresh();
                                      return false;">ES<span class="d-none d-sm-inline-flex">&nbsp;(Spanish)</span></a>
 			 <a class="dropdown-item" href="#"
 			    onclick="set_cfg('ws_idiom','en'); save_cfg();
                                      i18n_update_tags('gui',  'en') ;
                                      i18n_update_tags('help', 'en');
-                                     //wepsim_help_refresh();
+                                     wepsim_help_refresh();
                                      return false;">EN<span class="d-none d-sm-inline-flex">&nbsp;(English)</span></a>
 		     </div>
 		   </div>
@@ -1075,7 +1075,7 @@
 			 <span class="caret"></span>
 			 <span class="sr-only">Toggle Help Idiom</span>
 		     </button>
-		     <div class="dropdown-menu" style="z-index:100000;">
+		     <div id="example1_lang" class="dropdown-menu" style="z-index:100000;">
 			 <a class="dropdown-item" href="#"
 			    onclick="set_cfg('ws_idiom','es'); save_cfg();
                                      i18n_update_tags('gui',      'es');
@@ -1130,7 +1130,7 @@
                           data-toggle="dropdown"
                           aria-haspopup="true"
                           aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>  
-		  <div class="dropdown-menu" style="z-index:100000;">
+		  <div id="current_state1_lang" class="dropdown-menu" style="z-index:100000;">
                      <a href="#" class="dropdown-item"
 				 onclick="set_cfg('ws_idiom','es'); save_cfg();
                                           i18n_update_tags('gui',    'es') ;

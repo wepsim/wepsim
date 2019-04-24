@@ -107,3 +107,24 @@
 	return i18n.eltos[component][lang][key] ;
     }
 
+
+    function i18n_get_dropdown ( components, post_code )
+    {
+        var o = '' ;
+
+	for (var l in i18n.lang)
+	{
+           o += ' <a class="dropdown-item" href="#"' +
+                '    onclick="set_cfg(\'ws_idiom\',\'' + l + '\'); save_cfg();' ;
+	   for (var i=0; i<components.length; i++)
+	   {
+           o += '             i18n_update_tags(\'' + components[i] + '\', \'' + l + '\') ;' ;
+	   }
+	   o += post_code ;
+           o += '             return false;">' + l.toUpperCase() + '<span class="d-none d-sm-inline-flex">&nbsp;(' + i18n.lang[l] + ')</span>' + 
+	        '</a>' ;
+	}
+
+	return o ;
+    }
+
