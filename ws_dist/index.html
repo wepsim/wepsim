@@ -222,7 +222,7 @@
 	     style="position:fixed; left:0; bottom:0; z-index:1024; background-color:#DFDFDF;">
 
 	     <div class="text-left col">
-		  <span id="record_msg" class="text-left text-truncate">&lt;empty recording&gt;</span>
+		  <span id="record_msg" class="text-left text-truncate"><em>0/0</em>&nbsp;&lt;empty recording&gt;</span>
              </div>
 	     <div class="btn-group col">
 		  <a class="btn btn-sm btn-outline-danger bg-light px-3 mr-3" href="#" 
@@ -232,12 +232,12 @@
 		  </a>
 		  <a class="btn btn-sm btn-outline-secondary btn-light px-3 mx-2" href="#" 
 		     data-toggle="tooltip" data-placement="bottom" title="Pause/Continue play"
-		     onclick="wsweb_record_pause('record_msg');
+		     onclick="wsweb_record_pause();
 			      return false;"><em class="fas fa-pause"></em>
 		  </a>
 		  <a class="btn btn-sm btn-outline-secondary btn-light px-3 ml-2 mr-3" href="#" 
 		     data-toggle="tooltip" data-placement="bottom" title="Play"
-		     onclick="wsweb_record_play('record_msg');
+		     onclick="wsweb_record_play();
 			      return false;"><em class="fas fa-play"></em>
 		  </a>
 		  <a class="btn btn-sm btn-outline-secondary btn-light px-3 mx-2" href="#" 
