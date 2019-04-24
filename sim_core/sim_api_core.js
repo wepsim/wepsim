@@ -425,8 +425,9 @@
                 }
 
                 var limitless = false;
-                if (options.cycles_limit < 0)
+                if (options.cycles_limit < 0) {
                     limitless = true;
+		}
 
                 // 1.- do-while the microaddress register doesn't store the fetch address (0): 
                 //              execute micro-instructions
@@ -497,9 +498,10 @@
 
         /**
          * Execute the assembly previously compiled and loaded.
-         * @param {integer} options.verbosity         - Instruct to return the intermediated states
          * @param {integer} options.instruction_limit - Set the limit of instructions to be executed
          * @param {integer} options.cycles_limit      - The limit of clock cycles per instruction
+         * @param {integer} options.verbosity         - Instruct to return the intermediated states [0...4]
+         * @param {string}  options.verbalize         - Textual or mathematical type of description for each signal [text|math]
          */
         function simcore_execute_program ( options )
         {
@@ -534,6 +536,10 @@
 	    var  after_state = null ;
 	    var curr_pc      = "" ;
 	    var SIMWARE      = get_simware() ;
+
+                if (typeof options.verbalize !== "undefined") {
+		    set_cfg('verbal_verbose', options.verbalize) ;
+		}
 
     	    var ins_executed = 0 ; 
     	    while (
