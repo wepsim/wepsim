@@ -35,7 +35,8 @@
 	               }, 50) ;
 
             // add if recording
-            wepsim_record_add_stringcode('change to workspace simulator',
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Change to workspace simulator',
 		                         'wsweb_change_workspace_simulator();\n') ;
 
             // return ok
@@ -54,7 +55,8 @@
 	               }, 50) ;
 
             // add if recording
-            wepsim_record_add_stringcode('change to workspace microcode',
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Change to workspace microcode',
 		                         'wsweb_change_workspace_microcode();\n') ;
 
             // return ok
@@ -73,7 +75,8 @@
 	               }, 50) ;
 
             // add if recording
-            wepsim_record_add_stringcode('change to workspace assembly',
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Change to workspace assembly',
 		                         'wsweb_change_workspace_assembly();\n') ;
 
             // return ok
@@ -87,7 +90,8 @@
 	    refresh() ;
 
             // add if recording
-            wepsim_record_add_stringcode('show processor details',
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Show processor details',
 		                         'wsweb_change_show_processor();\n') ;
 
             // return ok
@@ -99,6 +103,12 @@
             stop_drawing() ;
 	    $("#tab24").tab('show') ;
 
+            // add if recording
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Show assembly debugger',
+		                         'wsweb_change_show_asmdbg();\n') ;
+
+            // if code then move scroll
 	    var o1 = fullshow_asmdbg_pc() ;
 	    if (typeof o1[0] == 'undefined') {
 	        return true ;
@@ -106,10 +116,6 @@
 
 	    var obj_byid = $('#asm_debugger_container') ;
 	    obj_byid[0].scrollTop = o1[0].offsetTop ;
-
-            // add if recording
-            wepsim_record_add_stringcode('show assembly debugger',
-		                         'wsweb_change_show_asmdbg();\n') ;
 
             // return ok
             return true ;
@@ -123,7 +129,8 @@
 	    simcoreui_show_hw() ;
 
             // add if recording
-            wepsim_record_add_stringcode('reset',
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Reset',
 		                         'wsweb_execution_reset();\n') ;
 
             // return ok
@@ -136,7 +143,8 @@
 	    simcoreui_show_hw() ;
 
             // add if recording
-            wepsim_record_add_stringcode('execute microinstruction',
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Execute microinstruction',
 		                         'wsweb_execution_microinstruction();\n') ;
 
             // return ok
@@ -149,7 +157,8 @@
 	    simcoreui_init_hw('#config_HW') ;
 
             // add if recording
-            wepsim_record_add_stringcode('execute instruction',
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Execute instruction',
 		                         'wsweb_execution_instruction();\n') ;
 
             // return ok
@@ -167,10 +176,11 @@
 	    wepsim_execute_toggle_play('#qbp', (mode == 'tutorial')) ;
 
             // add if recording
-            wepsim_record_add_stringcode('run',
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Run',
 		                         'wsweb_execution_run();\n') ;
 	    $("#current_state2").on("hidden.bs.modal", 
-		                     function () { wepsim_record_add_stringcode('close execution summary', 'wsweb_dialogbox_close_all();\n'); });
+		                     function () { wepsim_record_add_stringcode('record_msg', 'Close execution summary', 'wsweb_dialogbox_close_all();\n'); });
 
             // return ok
             return true ;
@@ -184,10 +194,11 @@
 	    $('[data-toggle=tooltip]').tooltip('hide');
 
             // add if recording
-            wepsim_record_add_stringcode('open examples',
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Open examples',
 		                         'wsweb_dialogbox_open_examples();\n') ;
 	    $("#example1").on("hidden.bs.modal", 
-		               function () { wepsim_record_add_stringcode('close examples', 'wsweb_dialogbox_close_all();\n'); });
+		               function () { wepsim_record_add_stringcode('record_msg', 'Close examples', 'wsweb_dialogbox_close_all();\n'); });
 
             // return ok
             return true ;
@@ -200,10 +211,11 @@
 	    $('[data-toggle=tooltip]').tooltip('hide');
 
             // add if recording
-            wepsim_record_add_stringcode('open help',
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Open help',
 		                         'wsweb_dialogbox_open_help();\n') ;
 	    $("#help1").on("hidden.bs.modal", 
-		            function () { wepsim_record_add_stringcode('close help', 'wsweb_dialogbox_close_all();\n'); });
+		            function () { wepsim_record_add_stringcode('record_msg', 'Close help', 'wsweb_dialogbox_close_all();\n'); });
 
             // return ok
             return true ;
@@ -215,10 +227,11 @@
 	    $('[data-toggle=tooltip]').tooltip('hide') ;
 
             // add if recording
-            wepsim_record_add_stringcode('open configuration',
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Open configuration',
 		                         'wsweb_dialogbox_open_config();\n') ;
 	    $("#config2").on("hidden.bs.modal", 
-		              function () { wepsim_record_add_stringcode('close configuration', 'wsweb_dialogbox_close_all();\n'); });
+		              function () { wepsim_record_add_stringcode('record_msg', 'Close configuration', 'wsweb_dialogbox_close_all();\n'); });
 
             // return ok
             return true ;
@@ -230,10 +243,11 @@
 	    $('[data-toggle=tooltip]').tooltip('hide') ;
 
             // add if recording
-            wepsim_record_add_stringcode('open state',
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Open state',
 		                         'wsweb_dialogbox_open_state();\n') ;
 	    $("#current_state1").on("hidden.bs.modal", 
-		                     function () { wepsim_record_add_stringcode('close state', 'wsweb_dialogbox_close_all();\n'); });
+		                     function () { wepsim_record_add_stringcode('record_msg', 'Close state', 'wsweb_dialogbox_close_all();\n'); });
 
             // return ok
             return true ;
@@ -248,10 +262,11 @@
 	    }
 
             // add if recording
-            wepsim_record_add_stringcode('open binary assembly',
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Open binary assembly',
 		                         'wsweb_dialogbox_open_binary_assembly();\n') ;
 	    $("#bin2").on("hidden.bs.modal", 
-		           function () { wepsim_record_add_stringcode('close binary assembly', 'wsweb_dialogbox_close_all();\n'); });
+		           function () { wepsim_record_add_stringcode('record_msg', 'Close binary assembly', 'wsweb_dialogbox_close_all();\n'); });
 
             // return ok
             return true ;
@@ -268,10 +283,11 @@
 	    }
 
             // add if recording
-            wepsim_record_add_stringcode('open binary firmware',
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Open binary firmware',
 		                         'wsweb_dialogbox_open_binary_firmware();\n') ;
 	    $("#bin2").on("hidden.bs.modal", 
-		           function () { wepsim_record_add_stringcode('close binary firmware', 'wsweb_dialogbox_close_all();\n'); });
+		           function () { wepsim_record_add_stringcode('record_msg', 'Close binary firmware', 'wsweb_dialogbox_close_all();\n'); });
 
             // return ok
             return true ;
@@ -289,10 +305,11 @@
 	    wepsim_open_help_content(lyr2) ;
 
             // add if recording
-            wepsim_record_add_stringcode('open hardware summary',
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Open hardware summary',
 		                         'wsweb_dialogbox_open_hardware_summary();\n') ;
 	    $("#help1").on("hidden.bs.modal", 
-		            function () { wepsim_record_add_stringcode('open hardware summary', 'wsweb_dialogbox_close_all();\n'); });
+		            function () { wepsim_record_add_stringcode('record_msg', 'Open hardware summary', 'wsweb_dialogbox_close_all();\n'); });
 
             // return ok
             return true ;
@@ -303,7 +320,8 @@
 	    $('#current_state1').modal('hide') ;
 
             // add if recording
-            wepsim_record_add_stringcode('close states dialogbox',
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Close states dialogbox',
 		                         'wsweb_dialogbox_close_state();\n') ;
 
             // return ok
@@ -321,7 +339,8 @@
 	              $('#bin2').modal('hide');
 
             // add if recording
-            wepsim_record_add_stringcode('close all dialogboxes',
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Close all dialogboxes',
 		                         'wsweb_dialogbox_close_all();\n') ;
 
             // return ok
@@ -341,7 +360,8 @@
 	    $('#select5b').html(ed) ;
 
             // add if recording
-            wepsim_record_add_stringcode('change select details to ' + opt,
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Change select details to ' + opt,
 		                         'wsweb_set_details_select(' + opt + ');\n') ;
 
             // return ok
@@ -377,7 +397,8 @@
             }
 
             // add if recording
-            wepsim_record_add_stringcode('set details to ' + opt,
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Set details to ' + opt,
 		                         'wsweb_set_details(\'' + opt + '\');\n') ;
 
             // return ok
@@ -400,7 +421,8 @@
             $("#btn_micro1").addClass('d-none') ;
 
             // add if recording
-            wepsim_record_add_stringcode('set wepmips mode',
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Set wepmips mode',
 		                         'wepsim_show_wepmips();\n') ;
 
             // return ok
@@ -419,7 +441,8 @@
             $("#btn_micro1").removeClass('d-none') ;
 
             // add if recording
-            wepsim_record_add_stringcode('reset wepmips mode',
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Reset wepmips mode',
 		                         'wepsim_hide_wepmips();\n') ;
 
             // return ok
@@ -475,7 +498,8 @@
             showhideAsmElements();
 
             // add if recording
-            wepsim_record_add_stringcode('set a new work mode to ' + mode,
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Set a new work mode to ' + mode,
 		                         'wepsim_activehw(' + mode + ');\n') ;
 
             // return ok
@@ -484,9 +508,13 @@
 
     function wepsim_change_mode ( optValue )
     {
-            var hwid = -1 ;
+            // add if recording
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Change work mode to ' + optValue,
+		                         'wepsim_change_mode(' + optValue + ');\n') ;
 
 	    // switch active hardware by name...
+            var hwid = -1 ;
             switch (optValue)
             {
 	      case 'newbie':
@@ -511,19 +539,15 @@
 	    if ('intro' == optValue)
 	    {
 	        sim_tutorial_showframe('welcome', 0);
-                return ;
+                return true ;
 	    }
 
 	    // newbie mode...
             if ('newbie' == optValue)
             {
                 wepsim_newbie_tour() ;
-                return ;
+                return true ;
             }
-
-            // add if recording
-            wepsim_record_add_stringcode('change work mode to ' + optValue,
-		                         'wepsim_change_mode(' + optValue + ');\n') ;
 
             // return ok
             return true ;
@@ -549,7 +573,8 @@
 	    $('#select4').html(ed) ;
 
             // add if recording
-            wepsim_record_add_stringcode('set main work mode to ' + opt,
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Set main work mode to ' + opt,
 		                         'wsweb_select_main(' + opt + ');\n') ;
 
             // return ok
@@ -570,7 +595,8 @@
 	    i18n_update_tags('gui', ws_idiom) ;
 
             // add if recording
-            wepsim_record_add_stringcode('update work mode to ' + new_mode,
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Update work mode to ' + new_mode,
 		                         'wsweb_mode_update(' + new_mode + ');\n') ;
 
             // return ok
@@ -588,7 +614,8 @@
 	    save_cfg() ;
 
             // add if recording
-            wepsim_record_add_stringcode('set cpu-cu size to ' + new_value,
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Set cpu-cu size to ' + new_value,
 		                         'wsweb_set_cpucu_size(' + new_value + ');\n') ;
 
             // return ok
@@ -604,7 +631,8 @@
 	    save_cfg() ;
 
             // add if recording
-            wepsim_record_add_stringcode('set c1-c2 size to ' + new_value,
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Set c1-c2 size to ' + new_value,
 		                         'wsweb_set_c1c2_size(' + new_value + ');\n') ;
 
             // return ok
@@ -619,7 +647,8 @@
 	    var ok = wepsim_compile_assembly(textToCompile) ;
 
             // add if recording
-            wepsim_record_add_stringcode('compile assembly',
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Compile assembly',
 		                         'wsweb_assembly_compile();\n') ;
 
             // return ok
@@ -636,7 +665,8 @@
 	    $('#asm_debugger').html(o);
 
             // add if recording
-            wepsim_record_add_stringcode('compile firmware',
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Compile firmware',
 		                         'wsweb_firmware_compile();\n') ;
 
             // return ok
@@ -665,7 +695,8 @@
 	    }
 
             // add if recording
-            wepsim_record_add_stringcode('save control memory to file',
+            wepsim_record_add_stringcode('record_msg',
+		    			 'Save control memory to file',
 		                         'wsweb_save_controlmemory_to_file();\n') ;
 
             // return ok
@@ -676,7 +707,7 @@
 
     function wsweb_record_on ( )
     {
-	    wepsim_record_on() ;
+	    wepsim_record_on('record_msg') ;
 
             // return ok
             return true ;
@@ -684,7 +715,7 @@
 
     function wsweb_record_off ( )
     {
-	    wepsim_record_off() ;
+	    wepsim_record_off('record_msg') ;
 
             // return ok
             return true ;
@@ -692,23 +723,23 @@
 
     function wsweb_record_reset ( )
     {
-	    wepsim_record_reset() ;
+	    wepsim_record_reset('record_msg') ;
 
             // return ok
             return true ;
     }
 
-    function wsweb_record_play ( div_id )
+    function wsweb_record_play ( )
     {
-	    wepsim_record_play(div_id) ;
+	    wepsim_record_play('record_msg') ;
 
             // return ok
             return true ;
     }
 
-    function wsweb_record_pause ( div_id )
+    function wsweb_record_pause ( )
     {
-	    wepsim_record_pause(div_id) ;
+	    wepsim_record_pause('record_msg') ;
 
             // return ok
             return true ;
