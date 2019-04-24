@@ -20,14 +20,18 @@
 
 
     /*
-     * Record: private API
+     * Record: private
      */
 
+    // Private data
     var ws_records      = [] ;
-    var ws_is_recording = false ;
-    var ws_is_playing   = false ;
     var ws_last_played  = 0 ;
 
+    var ws_is_recording = false ;
+    var ws_is_playing   = false ;
+
+
+    // Private API
     function wepsim_record_pushElto ( desc, elto )
     {
         var record = { 
@@ -39,37 +43,33 @@
         ws_records.push(record) ;
     }
 
-    function wepsim_record_playAt ( div_obj, index )
+    function wepsim_record_showMsg ( div_id, index, msg )
+    {
+        var div_obj = $('#' + div_id) ;
+
+	if (typeof div_obj.html !== "undefined") {
+	    div_obj.html('<em>' + index + '/' + ws_records.length + '</em>&nbsp;' + msg) ;
+	}
+    }
+
+    function wepsim_record_playAt ( div_id, index )
     {
 	// 1.- stop playing...
         if (ws_is_playing === false) 
 	{
-		if (typeof div_obj.html !== "undefined") {
-		    div_obj.html('<em>' + index + '/' + ws_records.length + '</em>&nbsp;Stopped by user.') ;
-		}
-
+                wepsim_record_showMsg(div_id, ws_last_played, 'Stopped by user.') ;
 	        return ;
 	}
+        ws_last_played = index ;
 	if (index >= ws_records.length) 
 	{
-		if (typeof div_obj.html !== "undefined") {
-		    div_obj.html('<em>' + ws_records.length + '/' + ws_records.length + '</em>&nbsp;Done.') ;
-		}
-
+                wepsim_record_showMsg(div_id, ws_records.length, 'Done.') ;
 	        return ;
 	}
 
-	// 2.- execute current step 
-	//     a) execute step 
+	// 2.- execute current step, show message, and set last played
 	eval(ws_records[index].element) ;
-
-	//     b) show message
-	if (typeof div_obj.html !== "undefined") {
-	    div_obj.html('<em>' + (index+1) + '/' + ws_records.length + '</em>&nbsp;' + ws_records[index].description) ;
-	}
-
-	//     c) set last played
-        ws_last_played = index ;
+        wepsim_record_showMsg(div_id, index+1, ws_records[index].description) ;
 
 	// 3.- set next one
 	var wait_time = 500 ;
@@ -79,7 +79,7 @@
 	wait_time = (wait_time < 500) ? 500 : wait_time ;
 
         setTimeout(function() {
-	               wepsim_record_playAt(div_obj, index + 1) ;
+	               wepsim_record_playAt(div_id, index + 1) ;
                    }, wait_time);
     }
 
@@ -90,16 +90,22 @@
 
     // recording (on, off, ...)
 
-    function wepsim_record_on ( )
+    function wepsim_record_on ( div_id )
     {
         ws_is_playing   = false ;
         ws_is_recording = true ;
+        ws_last_played  = 0 ;
+
+        wepsim_record_showMsg(div_id, ws_last_played, 'Recording...') ;
     }
 
-    function wepsim_record_off ( )
+    function wepsim_record_off ( div_id )
     {
         ws_is_playing   = false ;
         ws_is_recording = false ;
+        ws_last_played  = 0 ;
+
+        wepsim_record_showMsg(div_id, ws_last_played, 'Stopped by user.') ;
     }
 
     function wepsim_record_isRecording ( )
@@ -111,23 +117,19 @@
 
     function wepsim_record_play ( div_id )
     {
-        var div_obj = $('#' + div_id) ;
-
         ws_is_recording = false ;
         ws_is_playing   = true ;
-        ws_last_played  = 0 ;
 
-        wepsim_record_playAt(div_obj, ws_last_played) ;
+        wepsim_record_playAt(div_id, ws_last_played) ;
     }
 
     function wepsim_record_pause ( div_id )
     {
-        ws_is_playing = !ws_is_playing ;
+        ws_is_recording = false ;
+        ws_is_playing   = !ws_is_playing ;
 
-        if (ws_is_playing === true) 
-	{
-            var div_obj = $('#' + div_id) ;
-            wepsim_record_playAt(div_obj, ws_last_played) ;
+        if (ws_is_playing === true) {
+            wepsim_record_playAt(div_id, ws_last_played) ;
 	}
     }
 
@@ -147,21 +149,22 @@
     {
         ws_records = records ;
 
-        var div_obj = $('#' + div_id) ;
-	if (typeof div_obj.html !== "undefined") {
-	    div_obj.html('<em>0' + '/' + ws_records.length + '</em>&nbsp;record ready.') ;
-	}
+        wepsim_record_showMsg(div_id, 0, 'Record restored.') ;
     }
 
-    function wepsim_record_reset ( )
+    function wepsim_record_reset ( div_id )
     {
         ws_records = [] ;
+
+        wepsim_record_showMsg(div_id, 0, 'Empty record') ;
     }
 
-    function wepsim_record_add_stringcode ( description, elto )
+    function wepsim_record_add_stringcode ( div_id, description, elto )
     {
-        if (ws_is_recording === true) {
+        if (ws_is_recording === true) 
+	{
             wepsim_record_pushElto(description, elto) ;
+            wepsim_record_showMsg(div_id, 0, 'Recording...') ;
 	}
     }
 
