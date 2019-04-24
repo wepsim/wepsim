@@ -49,9 +49,12 @@
 	    return false ;
         }
 
-        var clklimit = get_cfg('DBG_limitick') ;
+	var options = {
+			 verbosity:    0,
+			 cycles_limit: get_cfg('DBG_limitick')
+	              } ;
 
-	ret = simcore_execute_microprogram(0, clklimit) ;
+	ret = simcore_execute_microprogram(options) ;
 	if (false === ret.ok) 
 	{
             wepsim_show_stopbyevent("Info", ret.msg) ;
@@ -192,10 +195,14 @@
 	var playlevel = get_cfg('DBG_level') ;
 	if (playlevel === "instruction")  
 	{
-            var clklimit  = get_cfg('DBG_limitick') ;
+	    var options = {
+			     verbosity:    0,
+			     cycles_limit: get_cfg('DBG_limitick')
+	                  } ;
+
             for (i=0; i<chunk; i++)
             {
-		    ret = simcore_execute_microprogram(0, clklimit) ;
+		    ret = simcore_execute_microprogram(options) ;
 		    if (ret.ok === false) {
                         wepsim_show_stopbyevent("Info", ret.msg) ;
 			wepsim_execute_stop(btn1) ;

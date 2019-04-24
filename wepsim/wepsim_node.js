@@ -79,7 +79,6 @@
     {
 	// 1) initialize ws
         simcore_reset() ;
-	set_cfg('verbal_verbose', options.verbalize) ;
 
 	// 2) load firmware
         var ret = simcore_compile_firmware(str_firmware) ;
@@ -96,7 +95,8 @@
 	}
 
 	// 4) execute firmware-assembly
-	ret = simcore_execute_program(0, options.instruction_limit, options.cycles_limit) ;
+	options.verbosity = 0 ;
+	ret = simcore_execute_program(options) ;
 	if (false == ret.ok) 
 	{
 	    return wepsim_nodejs_retfill(false, "ERROR: Execution: " + ret.msg + ".\n") ;
@@ -116,7 +116,6 @@
     {
 	// 1) initialize ws
         simcore_reset() ;
-	set_cfg('verbal_verbose', options.verbalize) ;
 
 	// 2) load firmware
         var ret = simcore_compile_firmware(str_firmware) ;
@@ -133,7 +132,7 @@
 	}
 
 	// 4) execute firmware-assembly
-	ret = simcore_execute_program(options.verbosity, options.instruction_limit, options.cycles_limit) ;
+	ret = simcore_execute_program(options) ;
 	if (false == ret.ok) 
 	{
 	    return wepsim_nodejs_retfill(false, "ERROR: Execution: " + ret.msg + ".\n") ;

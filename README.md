@@ -302,7 +302,12 @@ Micropc at 0x3f.	Activated signals are: MC MR SELB SELA MA MB SELCOP T6 SELC LC 
 
 	// 5) execute firmware-assembly
 	if (false != ret.ok) {
-	    ret = simcore_execute_program(1, 1024, 10240) ;
+	    var options = {
+                             verbosity:             1, 
+                             instruction_limit:  1024, 
+                             cycles_limit:      10240
+		          } ;
+	    ret = simcore_execute_program(options) ;
         }
 
 	// 6) show a final report
