@@ -75,8 +75,7 @@
      * WepSIM nodejs API
      */
 
-    function wepsim_nodejs_check ( str_firmware, str_assembly, str_resultok, 
-                                   max_instructions, max_cycles )
+    function wepsim_nodejs_check ( str_firmware, str_assembly, str_resultok, options )
     {
 	// 1) initialize ws
         simcore_reset() ;
@@ -96,7 +95,8 @@
 	}
 
 	// 4) execute firmware-assembly
-	ret = simcore_execute_program(0, max_instructions, max_cycles) ;
+	options.verbosity = 0 ;
+	ret = simcore_execute_program(options) ;
 	if (false == ret.ok) 
 	{
 	    return wepsim_nodejs_retfill(false, "ERROR: Execution: " + ret.msg + ".\n") ;
@@ -112,7 +112,7 @@
 	return wepsim_nodejs_retfill(true, "") ;
     }
 
-    function wepsim_nodejs_run ( verbosity, str_firmware, str_assembly, max_instructions, max_cycles )
+    function wepsim_nodejs_run ( str_firmware, str_assembly, options )
     {
 	// 1) initialize ws
         simcore_reset() ;
@@ -132,7 +132,7 @@
 	}
 
 	// 4) execute firmware-assembly
-	ret = simcore_execute_program(verbosity, max_instructions, max_cycles) ;
+	ret = simcore_execute_program(options) ;
 	if (false == ret.ok) 
 	{
 	    return wepsim_nodejs_retfill(false, "ERROR: Execution: " + ret.msg + ".\n") ;
@@ -140,7 +140,7 @@
 
 	// 5) show a final report
         var ret_msg = "" ;
-	switch (verbosity)
+	switch (options.verbosity)
 	{
            case 0:
                 ret_msg = "OK: Firmware + Assembly + Execution." ;
@@ -155,7 +155,7 @@
                 ret_msg = ret.msg ;
                 break ;
            default:
-                ret_msg = "Unknow verbosity value: " +  verbosity ;
+                ret_msg = "Unknow verbosity value: " +  options.verbosity ;
         }
 
 	return wepsim_nodejs_retfill(true, ret_msg) ;

@@ -19,7 +19,7 @@
  */
 
 
-    i18n.states.es = {
+    i18n.eltos.states.es = {
 			"States": 			     		"Estados",
 			"Current":  			                "Actual",
 			"Current State":  			        "Estado Actual",

@@ -19,7 +19,7 @@
  */
 
 
-    i18n.cfg.en = {
+    i18n.eltos.cfg.en = {
 	             "General": "General",
                       "Idiom for help, examples, etc.": 		             "Idiom for help, examples, etc.",
                       "Notification speed: time before disapear": 	             "Notification speed: time before disapear",

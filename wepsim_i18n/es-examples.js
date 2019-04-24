@@ -19,7 +19,7 @@
  */
 
 
-    i18n.examples.es = {
+    i18n.eltos.examples.es = {
              "addv + seqv.":						"addv + seqv.",
              "Alloc.s":							"Alloc.s",
              "Dummy instruction":					"Instrucci&oacute;n vac&iacute;a",

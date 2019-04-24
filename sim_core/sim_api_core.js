@@ -407,7 +407,7 @@
         /**
          * Execute the next instruction.
          */
-        function simcore_execute_microprogram ( verbosity, limit_clks )
+        function simcore_execute_microprogram ( options )
         {
 	        var ret = simcore_check_if_can_continue() ;
 	        if (false == ret.ok) {
@@ -425,8 +425,9 @@
                 }
 
                 var limitless = false;
-                if (limit_clks < 0)
+                if (options.cycles_limit < 0) {
                     limitless = true;
+		}
 
                 // 1.- do-while the microaddress register doesn't store the fetch address (0): 
                 //              execute micro-instructions
@@ -442,11 +443,11 @@
                 var cur_addr = 0 ;
 		do
             	{
-		       if (3 == verbosity) {
+		       if (3 == options.verbosity) {
 		           before_state = simcore_simstate_current2state() ;
 		       }
 		       else
-		       if (4 == verbosity) {
+		       if (4 == options.verbosity) {
                            curr_mpc    = '0x' + cur_addr.toString(16) ;
                            ret.msg     = ret.msg + 'Micropc at ' + curr_mpc + '.\t' + 
 				         get_verbal_from_current_mpc() + '\n' ;
@@ -454,7 +455,7 @@
 
                     compute_general_behavior("CLOCK") ;
 
-		       if (3 == verbosity) {
+		       if (3 == options.verbosity) {
 		           after_state = simcore_simstate_current2state() ;
                            curr_mpc    = '0x' + cur_addr.toString(16) ;
                            ret.msg     = ret.msg + 'micropc(' + curr_mpc + '):\t' + 
@@ -465,9 +466,9 @@
                     i_clks++;
                     if (limitless) 
 		    {
-                        limit_clks = i_clks + 1;
+                        options.cycles_limit = i_clks + 1;
 		    }
-                    if (i_clks >= limit_clks) 
+                    if (i_clks >= options.cycles_limit) 
 		    {
 		        ret.msg = 'Warning: clock cycles limit reached in a single instruction.' ;
 		        ret.ok  = false ;
@@ -482,7 +483,7 @@
 			break ;
 	            }
             	}
-		while ( (i_clks < limit_clks) && (0 != cur_addr) );
+		while ( (i_clks < options.cycles_limit) && (0 != cur_addr) );
 
                 // 2.- to show states
 		show_states();
@@ -497,11 +498,12 @@
 
         /**
          * Execute the assembly previously compiled and loaded.
-         * @param {integer} verbosity - Return the intermediated states
-         * @param {integer} ins_limit - The limit of instructions to be executed
-         * @param {integer} clk_limit - The limit of clock cycles per instruction
+         * @param {integer} options.instruction_limit - Set the limit of instructions to be executed
+         * @param {integer} options.cycles_limit      - The limit of clock cycles per instruction
+         * @param {integer} options.verbosity         - Instruct to return the intermediated states [0...4]
+         * @param {string}  options.verbalize         - Textual or mathematical type of description for each signal [text|math]
          */
-        function simcore_execute_program ( verbosity, ins_limit, clk_limit )
+        function simcore_execute_program ( options )
         {
     	    var ret = {} ;
     	        ret.ok  = true ;
@@ -535,6 +537,10 @@
 	    var curr_pc      = "" ;
 	    var SIMWARE      = get_simware() ;
 
+                if (typeof options.verbalize !== "undefined") {
+		    set_cfg('verbal_verbose', options.verbalize) ;
+		}
+
     	    var ins_executed = 0 ; 
     	    while (
                          (reg_pc != reg_pc_before)  &&
@@ -542,16 +548,16 @@
                         ((reg_pc < kcode_end) && (reg_pc >= kcode_begin)) )
                   )
     	    {
-		     if (2 == verbosity) {
+		     if (2 == options.verbosity) {
 		         before_state = simcore_simstate_current2state() ;
 		     }
 
-    	           ret1 = simcore_execute_microprogram(verbosity, clk_limit) ;
+    	           ret1 = simcore_execute_microprogram(options) ;
                    if (false == ret1.ok) {
     		       return ret1 ;
     	           }
     
-		     if (2 == verbosity) {
+		     if (2 == options.verbosity) {
 		         after_state = simcore_simstate_current2state() ;
                          curr_pc     = '0x' + reg_pc.toString(16) ;
                          ret.msg     = ret.msg + 'pc(' + curr_pc + '):\t' + 
@@ -559,19 +565,19 @@
                                        simcore_simstate_diff_states(before_state,after_state) + '\n' ;
 		     }
 		     else
-		     if (3 == verbosity) {
+		     if (3 == options.verbosity) {
                          ret.msg   = ret.msg + ret1.msg ;
 		     }
 		     else
-		     if (4 == verbosity) {
+		     if (4 == options.verbosity) {
                          ret.msg   = ret.msg + ret1.msg ;
 		     }
 
     	           ins_executed++ ; 
-                   if (ins_executed > ins_limit) 
+                   if (ins_executed > options.instruction_limit) 
     	           {
     	               ret.ok  = false ;
-    	               ret.msg = "more than " + ins_limit + " instructions executed before application ends.";
+    	               ret.msg = "more than " + options.instruction_limit + " instructions executed before application ends.";
     		       return ret ;
     	           }
     
