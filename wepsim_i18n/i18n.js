@@ -108,19 +108,6 @@
     }
 
 
-    //
-    // var o = "" ;
-    // o = i18n_get_dropdown(['gui','cfg'], '') ;
-    // $("#config2_lang").html(o) ;
-    // o = i18n_get_dropdown(['gui','help'], 
-    //                       "wepsim_help_refresh();") ;
-    // $("#help1_lang").html(o) ;
-    // o = i18n_get_dropdown(['gui','examples'], "") ;
-    // $("#example1_lang").html(o) ;
-    // o = i18n_get_dropdown(['gui','states'], 
-    //                       "update_checker_loadhelp('#help3a','help_dumper');") ;
-    // $("#current_state1_lang").html(o) ;
-    //
     function i18n_get_dropdown ( components, post_code )
     {
         var o = '' ;
