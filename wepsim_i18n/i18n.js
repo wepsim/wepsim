@@ -107,3 +107,37 @@
 	return i18n.eltos[component][lang][key] ;
     }
 
+
+    //
+    // var o = "" ;
+    // o = i18n_get_dropdown(['gui','cfg'], '') ;
+    // $("#config2_lang").html(o) ;
+    // o = i18n_get_dropdown(['gui','help'], 
+    //                       "wepsim_help_refresh();") ;
+    // $("#help1_lang").html(o) ;
+    // o = i18n_get_dropdown(['gui','examples'], "") ;
+    // $("#example1_lang").html(o) ;
+    // o = i18n_get_dropdown(['gui','states'], 
+    //                       "update_checker_loadhelp('#help3a','help_dumper');") ;
+    // $("#current_state1_lang").html(o) ;
+    //
+    function i18n_get_dropdown ( components, post_code )
+    {
+        var o = '' ;
+
+	for (var l in i18n.lang)
+	{
+           o += ' <a class="dropdown-item" href="#"' +
+                '    onclick="set_cfg(\'ws_idiom\',\'' + l + '\'); save_cfg();' ;
+	   for (var i=0; i<components.length; i++)
+	   {
+           o += '             i18n_update_tags(\'' + components[i] + '\', \'' + l + '\') ;' ;
+	   }
+	   o += post_code ;
+           o += '             return false;">' + l.toUpperCase() + '<span class="d-none d-sm-inline-flex">&nbsp;(' + i18n.lang[l] + ')</span>' + 
+	        '</a>' ;
+	}
+
+	return o ;
+    }
+
