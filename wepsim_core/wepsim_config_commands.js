@@ -73,20 +73,22 @@
 				   "	    <label id='label14-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Beta: true'" +
-				   "		   onclick=\"update_cfg('enable_beta', true);\">" +
+				   "		   onclick=\"update_cfg('enable_beta', true);" +
+				   "		             $('.enabled_beta').removeClass('d-none');\">" +
 				   "		<input type='radio' name='beta' id='radio14-true'  aria-label='enable_beta: true'  autocomplete='off' >On" +
 				   "	    </label>" +
 				   "	    <label id='label14-false'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='Beta: false'" +
-				   "		   onclick=\"update_cfg('enable_beta', false);\">" +
+				   "		   onclick=\"update_cfg('enable_beta', false);" +
+				   "		             $('.enabled_beta').addClass('d-none');\">" +
 				   "		<input type='radio' name='beta' id='radio14-false' aria-label='enable_beta: false' autocomplete='off' >Off" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() { 
 			               $('#label14-' + get_cfg('enable_beta')).button('toggle');
 		                   },
-                      description: "<span data-langkey='Enable beta: Enable experimental features'>Enable beta: Enable experimental features</span>"
+                      description: "<span data-langkey='Enable experimental features'>Enable experimental features</span>"
                    });
 
     ws_config.push({

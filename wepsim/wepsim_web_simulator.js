@@ -69,7 +69,7 @@
 		'</li>' ;
 
        if (get_cfg('enable_beta') === true)
-	   o += '<li class="list-group-item px-0"> ' +
+	   o += '<li class="list-group-item px-0 enabled_beta"> ' +
 		'  <em class="fas fa-clipboard"></em> &nbsp;' +
 		'  <button class="navbar-toggle btn btn-sm btn-outline-secondary col-10 p-1 text-left" type="button" ' +
 		'          onclick="$(\'#record_div\').collapse(\'toggle\');' +
@@ -119,6 +119,13 @@
 				   return content ; // DOMPurify.sanitize(content) ;
 				}
 	    });
+    }
+
+    function wsweb_init_mode_menu ( )
+    {
+	    var val = get_cfg('enable_beta') ;
+	    if (val === false)
+		$('.enabled_beta').addClass('d-none');
     }
 
     // asmdbg
