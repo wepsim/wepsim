@@ -26,6 +26,7 @@
     // Private data
     var ws_records      = [] ;
     var ws_last_played  = 0 ;
+    var ws_last_time    = 0 ;
 
     var ws_is_recording = false ;
     var ws_is_playing   = false ;
@@ -34,13 +35,16 @@
     // Private API
     function wepsim_record_pushElto ( desc, elto )
     {
+	// add a new record
         var record = { 
-		       timestamp:   Date.now(),
+		       timestamp:   (Date.now() - ws_last_time),
 		       description: desc,
 		       element:     elto
 	             } ;
-
         ws_records.push(record) ;
+
+	// update timestamp
+        ws_last_time = Date.now() ;
     }
 
     function wepsim_record_showMsg ( div_id, index, msg )
@@ -72,14 +76,15 @@
         wepsim_record_showMsg(div_id, index+1, ws_records[index].description) ;
 
 	// 3.- set next one
-	var wait_time = 500 ;
-	if (typeof ws_records[index + 1] !== "undefined") {
-	    wait_time = ws_records[index + 1].timestamp - ws_records[index].timestamp ;
+	var next_index = index + 1 ;
+	var wait_time  = 500 ;
+	if (next_index < ws_records.length) {
+	    wait_time = ws_records[next_index].timestamp ;
 	}
 	wait_time = (wait_time < 500) ? 500 : wait_time ;
 
         setTimeout(function() {
-	               wepsim_record_playAt(div_id, index + 1) ;
+	               wepsim_record_playAt(div_id, next_index) ;
                    }, wait_time);
     }
 
@@ -95,6 +100,7 @@
         ws_is_playing   = false ;
         ws_is_recording = true ;
         ws_last_played  = 0 ;
+        ws_last_time    = Date.now() ;
 
         wepsim_record_showMsg(div_id, ws_last_played, 'Recording...') ;
     }
@@ -159,7 +165,7 @@
         wepsim_record_showMsg(div_id, 0, 'Empty record') ;
     }
 
-    function wepsim_record_add_stringcode ( div_id, description, elto )
+    function wepsim_record_add ( div_id, description, elto )
     {
         if (ws_is_recording === true) 
 	{
