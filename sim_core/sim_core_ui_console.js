@@ -40,7 +40,11 @@
 
               if (typeof document == "undefined") 
 	      {
-		  console.log("screen> " + screen_content) ;
+		/* 
+                  // TODO: uncomment if you want to see the progressive output
+		  var screen_log =  "screen>" + screen_content.split('\n').join("screen>") ;
+		  console.log(screen_log) ;
+		*/
 	          return ;
 	      }
 

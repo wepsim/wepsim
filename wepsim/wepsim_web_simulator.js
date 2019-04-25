@@ -66,16 +66,19 @@
 		'  <input type="checkbox" checked="" autocomplete="off">' +
 		i18n_get('gui',wsi,'Show/Hide Slider') + '</label>' +
 		'  </span>' +
-		'</li>' +
-		'<li class="list-group-item px-0"> ' +
+		'</li>' ;
+
+       if (get_cfg('enable_beta') === true)
+	   o += '<li class="list-group-item px-0 enabled_beta"> ' +
 		'  <em class="fas fa-clipboard"></em> &nbsp;' +
 		'  <button class="navbar-toggle btn btn-sm btn-outline-secondary col-10 p-1 text-left" type="button" ' +
 		'          onclick="$(\'#record_div\').collapse(\'toggle\');' +
 		'                   return false;">' +
 		i18n_get('gui',wsi,'Show/Hide Record') +
 		'  </button>' +
-		'</li>' +
-		'<li class="list-group-item px-0"> ' +
+		'</li>' ;
+
+	   o += '<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-magic"></em> &nbsp;' +
 		'  <a class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" href="#" ' +
 		'     onclick="$(\'#about2\').modal(\'show\'); ' +
@@ -116,6 +119,13 @@
 				   return content ; // DOMPurify.sanitize(content) ;
 				}
 	    });
+    }
+
+    function wsweb_init_mode_menu ( )
+    {
+	    var val = get_cfg('enable_beta') ;
+	    if (val === false)
+		$('.enabled_beta').addClass('d-none');
     }
 
     // asmdbg

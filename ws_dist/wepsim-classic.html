@@ -339,19 +339,19 @@
 				    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			      <span class="sr-only">Toggle Dropdown</span>
 			    </button>
-			    <div class="dropdown-menu border border-secondary">
+			    <div id="mode_menu" class="dropdown-menu border border-secondary">
 
 			      <h6 class="text-secondary mb-1">WepSIM hardware</h6>
                               <a class="dropdown-item" href="#" id="s4_ep" value="ep"
 				 onclick="wsweb_mode_update('ep');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP</a>
-                              <a class="dropdown-item" href="#" id="s4_poc" value="poc"
+                              <a class="dropdown-item enabled_beta" href="#" id="s4_poc" value="poc"
 				 onclick="wsweb_mode_update('poc');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;POC</a>
 
-			      <div class="dropdown-divider"></div>
-			      <h6 class="text-secondary mb-1">Assembly only</h6>
-                              <a class="dropdown-item" href="#" id="s4_wepmips" value="wepmips"
+			      <div class="dropdown-divider enabled_beta"></div>
+			      <h6 class="text-secondary mb-1 enabled_beta">Assembly only</h6>
+                              <a class="dropdown-item enabled_beta" href="#" id="s4_wepmips" value="wepmips"
 				 onclick="wsweb_select_main('wepmips');
 	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP+MIPS32</a>
@@ -1626,6 +1626,7 @@
 
                     wsweb_init_asmdbg() ;
     		    wsweb_init_quick_menu() ;
+    		    wsweb_init_mode_menu() ;
                     wsweb_init_state_dialog('end_state1', 'end_state2') ;
 
 		    // init-ui: general
