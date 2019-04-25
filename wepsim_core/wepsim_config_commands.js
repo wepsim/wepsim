@@ -67,32 +67,28 @@
                    });
 
     ws_config.push({
-                      id:          "slider3",
+                      id:          "radio14",
                       type:        "General",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
-				   "	    <label id='label8-2000'" +
+				   "	    <label id='label14-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
-				   "		   aria-label='Notification delay: slow'" +
-				   "		   onclick=\"update_cfg('NOTIF_delay', 2000);\">" +
-				   "		<input type='radio' name='options' id='radio8-2000'   autocomplete='off' ><span data-langkey='Slow'>Slow</span>" +
+				   "		   aria-label='Beta: true'" +
+				   "		   onclick=\"update_cfg('enable_beta', true);" +
+				   "		             $('.enabled_beta').removeClass('d-none');\">" +
+				   "		<input type='radio' name='beta' id='radio14-true'  aria-label='enable_beta: true'  autocomplete='off' >On" +
 				   "	    </label>" +
-				   "	    <label id='label8-1000'" +
+				   "	    <label id='label14-false'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
-				   "		   aria-label='Notification delay: normal'" +
-				   "		   onclick=\"update_cfg('NOTIF_delay', 1000);\">" +
-				   "		<input type='radio' name='options' id='radio8-1000'  autocomplete='off' ><span data-langkey='Normal'>Normal</span>" +
-				   "	    </label>" +
-				   "	    <label id='label8-100'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
-				   "		   aria-label='Notification delay: fast'" +
-				   "		   onclick=\"update_cfg('NOTIF_delay', 100);\">" +
-				   "		<input type='radio' name='options' id='radio8-100'  autocomplete='off' ><span data-langkey='Fast'>Fast</span>" +
+				   "		   aria-label='Beta: false'" +
+				   "		   onclick=\"update_cfg('enable_beta', false);" +
+				   "		             $('.enabled_beta').addClass('d-none');\">" +
+				   "		<input type='radio' name='beta' id='radio14-false' aria-label='enable_beta: false' autocomplete='off' >Off" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() { 
-			               $('#label8-' + get_cfg('NOTIF_delay')).button('toggle'); 
+			               $('#label14-' + get_cfg('enable_beta')).button('toggle');
 		                   },
-                      description: "<span data-langkey='Notification speed: time before disapear'>Notification speed: time before disapear</span>"
+                      description: "<span data-langkey='Enable experimental features'>Enable experimental features</span>"
                    });
 
     ws_config.push({
@@ -485,5 +481,34 @@
 			               $('#label13-' + get_cfg('verbal_verbose')).button('toggle'); 
 		                   },
                       description: "<span data-langkey='Verbalization: textual or mathematical'>Verbalization: textual or mathematical</span>"
+                   });
+
+    ws_config.push({
+                      id:          "slider3",
+                      type:        "Accesibility",
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+				   "	    <label id='label8-2000'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   aria-label='Notification delay: slow'" +
+				   "		   onclick=\"update_cfg('NOTIF_delay', 2000);\">" +
+				   "		<input type='radio' name='options' id='radio8-2000'   autocomplete='off' ><span data-langkey='Slow'>Slow</span>" +
+				   "	    </label>" +
+				   "	    <label id='label8-1000'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   aria-label='Notification delay: normal'" +
+				   "		   onclick=\"update_cfg('NOTIF_delay', 1000);\">" +
+				   "		<input type='radio' name='options' id='radio8-1000'  autocomplete='off' ><span data-langkey='Normal'>Normal</span>" +
+				   "	    </label>" +
+				   "	    <label id='label8-100'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   aria-label='Notification delay: fast'" +
+				   "		   onclick=\"update_cfg('NOTIF_delay', 100);\">" +
+				   "		<input type='radio' name='options' id='radio8-100'  autocomplete='off' ><span data-langkey='Fast'>Fast</span>" +
+				   "	    </label>" +
+				   "	</div>",
+		      code_init:   function() { 
+			               $('#label8-' + get_cfg('NOTIF_delay')).button('toggle'); 
+		                   },
+                      description: "<span data-langkey='Notification speed: time before disapear'>Notification speed: time before disapear</span>"
                    });
 

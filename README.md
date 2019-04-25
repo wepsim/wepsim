@@ -101,9 +101,6 @@ Step   | iOS                       |  Android                  | Action to perfo
 
 ```bash
 ./wepsim_node.sh run ep ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt
-screen>
-screen>
-screen>
 register R2 = 0x2; register R3 = 0x1; register R5 = 0x1; register R29 = 0xffff; register PC = 0x8018; memory 0x8000 = 0x8400002; memory 0x8004 = 0x8600001; memory 0x8008 = 0xa21809; memory 0x800c = 0x8400002; memory 0x8010 = 0x8600001; memory 0x8014 = 0xa2180a;
 ```
 
@@ -113,9 +110,6 @@ register R2 = 0x2; register R3 = 0x1; register R5 = 0x1; register R29 = 0xffff; 
 
 ```bash
 ./wepsim_node.sh stepbystep ep ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt
-screen>
-screen>
-screen>
 pc(0x8000):	li $2 2:			register R2 = 0x2; register R29 = 0xffff; register PC = 0x8004
 pc(0x8004):	li $3 1:			register R3 = 0x1; register PC = 0x8008
 pc(0x8008):	add $5 $2 $3:			register R5 = 0x3; register PC = 0x800c
@@ -130,9 +124,6 @@ pc(0x8014):	sub $5 $2 $3:			register R5 = 0x1; register PC = 0x8018
 
 ```bash
 ./wepsim_node.sh microstepbymicrostep  ep ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt
-screen>
-screen>
-screen>
 micropc(0x0):	T2 C0:
 micropc(0x1):	TA R BW=11 M1 C1:
 micropc(0x2):	M2 C2 T1 C3:			register PC = 0x8004
@@ -171,9 +162,6 @@ micropc(0x3f):	MC MR=0 SELB=1011 SELA=10000 MA=0 MB=0 SELCOP=1011 T6 SELC=10101 
 
 ```bash
 ./wepsim_node.sh check ep ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt ./examples/checklist/cl-ep_s1_e1.txt
-screen>
-screen>
-screen>
 OK: Execution: no error reported
 ```
 
@@ -183,9 +171,6 @@ OK: Execution: no error reported
 
 ```bash
 ./wepsim_node.sh check ep ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt ./examples/checklist/cl-ep_s1_e2.txt
-screen>
-screen>
-screen>
 ERROR: Execution: different results: cpu[R1]='0' (expected '0xf'), cpu[R2]='0x2' (expected '0xf'), memory[0x1000]='0' (expected '0xa07ff0f'), memory[0x1004]='0' (expected '0x10061'), memory[0x1008]='0' (expected '0x7ffff'), memory[0x100c]='0' (expected '0x61000a'), memory[0x1010]='0' (expected '0xf'), memory[0x1014]='0' (expected '0xffffffff'), memory[0x1018]='0' (expected '0x7'), memory[0x101c]='0' (expected '0x12345678'), memory[0x1020]='0' (expected '0x61'), memory[0x1024]='0' (expected '0x6c6c6568'), memory[0x1028]='0' (expected '0x726f776f'), memory[0x102c]='0' (expected '0x646c'), memory[0x8000]='0x8400002' (expected '0x20201000'), memory[0x8004]='0x8600001' (expected '0x10601010'), memory[0x8008]='0xa21809' (expected '0x820000f'), memory[0x800c]='0x8400002' (expected '0x24201000'), memory[0x8010]='0x8600001' (expected '0x840000f'), memory[0x8014]='0xa2180a' (expected '0x14401010')
 ```
 
@@ -195,9 +180,6 @@ ERROR: Execution: different results: cpu[R1]='0' (expected '0xf'), cpu[R2]='0x2'
 
 ```bash
 ./wepsim_node.sh microstepverbalized ep ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt
-screen> 
-screen> 
-screen> 
 Micropc at 0x0.	Activated signals are: T2 C0. Associated actions are: Copy from Program Counter Register to Internal Bus value 0x8000. Load from Internal Bus to Memory Address Register value 0x8000. 
 Micropc at 0x1.	Activated signals are: TA R BW M1 C1. Associated actions are: Copy from Memory Address Register to Address Bus value 0x8000. Try to read a word from memory at address 0x8000 with value 8400002. Select the full Word. Copy from from Memory to Input of Memory Data Register value 0x8400002. Load from Input of Memory Data Register to Memory Data Register value 0x8400002. 
 Micropc at 0x2.	Activated signals are: M2 C2 T1 C3. Associated actions are: Copy to Input of Program Counter Program Counter Register plus four with result 0x8004. Load from Input of Program Counter to Program Counter Register value 0x8004. Copy from Memory Data Register to Internal Bus value 0x8400002. Load from Internal Bus to Instruction Register value 0x8400002. Decode instruction. 
