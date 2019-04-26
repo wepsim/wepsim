@@ -28,11 +28,13 @@
 
         function show_main_memory ( memory, index, redraw, updates )
         {
-            if (get_cfg('DBG_delay') > 3)
+            if (get_cfg('DBG_delay') > 3) {
                 show_main_memory_redraw  = redraw || show_main_memory_redraw ;
+	    }
 
-            if (null != show_main_memory_deferred)
-                return;
+            if (null != show_main_memory_deferred) {
+                return ;
+	    }
 
             show_main_memory_redraw = redraw ;
             show_main_memory_deferred = setTimeout(function ()
@@ -259,8 +261,9 @@
 	        }
 
 		trpin = "&nbsp;" ;
-		if (true == memory_dashboard[key].breakpoint)
-		    trpin = "<img alt='stop icon' height='22' src='images/stop/stop_" + icon_theme + ".gif'>" ;
+		if (true == memory_dashboard[key].breakpoint) {
+                    trpin = sim_core_breakpointicon_get(icon_theme) ;
+		}
 
 		if (key == index)
 		     o1 += "<tr id='maddr" + key + "' class='d-flex' " +
@@ -768,15 +771,21 @@
                     o1.innerHTML = "&nbsp;" ;
                 } else {
                     bp_state = true ;
-                    o1.innerHTML = "<img alt='stop icon' height=22 src='images/stop/stop_" + icon_theme + ".gif'>" ;
+                    o1.innerHTML = sim_core_breakpointicon_get(icon_theme) ;
                 }
 
                 curr_firm.assembly[hexaddr].breakpoint = bp_state ;
+
+		// add if recording
+                simcore_record_add('Set assembly breakpoint at ' + addr,
+                                   'asmdbg_set_breakpoint(' + addr + ');\n') ;
+
         }
 
         function dbg_set_breakpoint ( addr )
         {
                 var icon_theme = get_cfg('ICON_theme') ;
+                var dbg_level  = get_cfg('DBG_level') ;
 
                 var o1       = document.getElementById("mcpin" + addr) ;
                 var bp_state = simhw_internalState_get('MC_dashboard', addr).breakpoint ;
@@ -786,16 +795,22 @@
                     o1.innerHTML = "&nbsp;" ;
                 } else {
                     bp_state = true ;
-                    o1.innerHTML = "<img alt='stop icon' height='22' src='images/stop/stop_" + icon_theme + ".gif'>" ;
+                    o1.innerHTML = sim_core_breakpointicon_get(icon_theme) ;
                 }
 
                 simhw_internalState_get('MC_dashboard', addr).breakpoint = bp_state ;
 
-                if ( bp_state && ('instruction' == get_cfg('DBG_level')) )
+                if ( bp_state && ('instruction' === dbg_level) )
                 {
-                     wepsim_notify_success('<strong>INFO</strong>',
-                                           'Please remember to change configuration to execute at microinstruction level.') ;
+                     simcoreui_notify('<strong>INFO</strong>',
+                                      'Please remember to change configuration to execute at microinstruction level.',
+		                      'success', 
+			              get_cfg('NOTIF_delay')) ;
                 }
+
+		// add if recording
+                simcore_record_add('Set firmware breakpoint at ' + addr,
+                                   'dbg_set_breakpoint(' + addr + ');\n') ;
         }
 
 	function show_dbg_mpc ( )

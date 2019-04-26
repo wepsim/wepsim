@@ -70,25 +70,36 @@
 	return wepsim_nodejs_retfill(true, ret_msg) ;
     }
 
+    function wepsim_nodejs_show_record ( records )
+    {
+	var ret_msg = '' ;
+	for (var i=0; i<records.lenght; i++)
+	{
+	     ret_msg += records[i].description ;
+	}
+
+	return wepsim_nodejs_retfill(true, ret_msg) ;
+    }
+
 
     /**
      * WepSIM nodejs API
      */
 
-    function wepsim_nodejs_check ( str_firmware, str_assembly, str_resultok, options )
+    function wepsim_nodejs_check ( data, options )
     {
 	// 1) initialize ws
         simcore_reset() ;
 
 	// 2) load firmware
-        var ret = simcore_compile_firmware(str_firmware) ;
+        var ret = simcore_compile_firmware(data.firmware) ;
 	if (false == ret.ok) 
 	{
 	    return wepsim_nodejs_retfill(false, "ERROR: Firmware: " + ret.msg + ".\n") ;
 	}
 
 	// 3) load assembly
-        ret = simcore_compile_assembly(str_assembly) ;
+        ret = simcore_compile_assembly(data.assembly) ;
 	if (false == ret.ok) 
         {
 	    return wepsim_nodejs_retfill(false, "ERROR: Assembly: " + ret.msg + ".\n") ;
@@ -103,7 +114,7 @@
 	}
 
 	// 5) compare with expected results
-        ret = wepsim_nodejs_show_checkresults(str_resultok, false) ;
+        ret = wepsim_nodejs_show_checkresults(data.result_ok, false) ;
 	if (false == ret.ok)
 	{
 	    return wepsim_nodejs_retfill(false, "ERROR: Execution: different results: " + ret.msg + "\n") ;
@@ -112,20 +123,20 @@
 	return wepsim_nodejs_retfill(true, "") ;
     }
 
-    function wepsim_nodejs_run ( str_firmware, str_assembly, options )
+    function wepsim_nodejs_run ( data, options )
     {
 	// 1) initialize ws
         simcore_reset() ;
 
 	// 2) load firmware
-        var ret = simcore_compile_firmware(str_firmware) ;
+        var ret = simcore_compile_firmware(data.firmware) ;
 	if (false == ret.ok) 
 	{
 	    return wepsim_nodejs_retfill(false, "ERROR: Firmware: " + ret.msg + ".\n") ;
 	}
 
 	// 3) load assembly
-        ret = simcore_compile_assembly(str_assembly) ;
+        ret = simcore_compile_assembly(data.assembly) ;
 	if (false == ret.ok) 
         {
 	    return wepsim_nodejs_retfill(false, "ERROR: Assembly: " + ret.msg + ".\n") ;
@@ -154,6 +165,10 @@
            case 4:
                 ret_msg = ret.msg ;
                 break ;
+           case 5:
+                ret_msg = ret.msg + 
+		          wepsim_nodejs_show_record(data.record) ;
+                break ;
            default:
                 ret_msg = "Unknow verbosity value: " +  options.verbosity ;
         }
@@ -170,5 +185,5 @@
     module.exports.wepsim_nodejs_check                   = wepsim_nodejs_check ;
     module.exports.wepsim_nodejs_run                     = wepsim_nodejs_run ;
 
-    module.exports.wepsim_nodejs_exporthw                = simcore_hardware_export ;
+    module.exports.wepsim_nodejs_exportHW                = simcore_hardware_export ;
 

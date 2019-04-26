@@ -1122,7 +1122,7 @@
 			      </div>
 			      <div class="card-footer border-secondary text-white bg-secondary p-1">
 					<button class="btn btn-light mx-auto float-right py-0 col-xs-8 col-md-3"
-						onclick="wepsim_checkpoint_load('FileNameToSaveAs1', 'tagToSave1', 'fileToLoad31', 'record_msg');
+						onclick="wepsim_checkpoint_load('FileNameToSaveAs1', 'tagToSave1', 'fileToLoad31');
 							 wepsim_notify_success('<strong>INFO</strong>', 'Load requested!.');
 							 return false;"><span data-langkey="Load">Load</span></button>
 			      </div>
@@ -1598,14 +1598,18 @@
 		    wsweb_mode_update(ws_mode) ;
 		    simcore_reset();
 
+		    // init: voice 
 		    wepsim_voice_init() ;
 		    if (false == get_cfg('use_voice')) {
 			wepsim_voice_stop() ;
 		    }
 
-		    // pre-load example
+		    // init: record 
+	            wsweb_record_init() ;
+
+		    // pre-load work
 		    var url_parameters = new URL(window.location).searchParams ;
-		    wepsim_preload_get(url_parameters, 'FileNameToSaveAs1', 'tagToSave1', 'record_msg') ;
+		    wepsim_preload_get(url_parameters, 'FileNameToSaveAs1', 'tagToSave1') ;
 	    }) ;
 
             // progressive web application

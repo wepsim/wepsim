@@ -45,7 +45,7 @@
 				  assembly:      inputasm.getValue(), 
 				  state_current: state_current,
 				  state_history: wepsim_state_history_get(),
-				  record:        wepsim_record_get(),
+				  record:        simcore_record_get(),
 				  tag:           obj_tagName.value,
 				  notify:        true
 	                        } ;
@@ -72,7 +72,7 @@
 	    return true ;
     }
 
-    function wepsim_checkpoint_load ( id_filename, id_tagname, id_file_to_load, id_recordname )
+    function wepsim_checkpoint_load ( id_filename, id_tagname, id_file_to_load )
     {
 	    // get & check params
             var obj_fileName   = document.getElementById(id_filename) ;
@@ -89,14 +89,14 @@
 	                                {
 				           var current_checkpoint = JSON.parse(textLoaded) ;
                                            wepsim_checkpoint_loadFromObj(current_checkpoint, 
-						                         obj_fileName, obj_tagName, obj_fileToLoad, id_recordname) ;
+						                         obj_fileName, obj_tagName, obj_fileToLoad) ;
 			                } ;
 
 	    // load checkpoint
 	    wepsim_load_from_file(obj_fileToLoad, function_after_loaded) ;
     }
 
-    function wepsim_checkpoint_loadURI ( obj_uri, id_filename, id_tagname, id_recordname )
+    function wepsim_checkpoint_loadURI ( obj_uri, id_filename, id_tagname )
     {
 	    // get & check params
 	    var obj_fileName = document.getElementById(id_filename) ;
@@ -114,7 +114,7 @@
 			            function(data) {
 	                                var obj_refName  = { name: obj_uri.href } ;
 				        wepsim_checkpoint_loadFromObj(data, 
-					                              obj_fileName, obj_tagName, obj_refName, id_recordname) ;
+					                              obj_fileName, obj_tagName, obj_refName) ;
 			            }) ;
 	        return true ;
 	    }
@@ -123,7 +123,7 @@
 	    }
     }
 
-    function wepsim_checkpoint_loadFromObj ( checkpointObj, obj_fileName, obj_tagName, obj_fileToLoad, id_recordName )
+    function wepsim_checkpoint_loadFromObj ( checkpointObj, obj_fileName, obj_tagName, obj_fileToLoad )
     {
 	   var o = '' ;
 	   var u = '' ;
@@ -195,7 +195,7 @@
 	   // 5.- restore record
 
 		// set the saved record
-                wepsim_record_set(checkpointObj.record, id_recordName) ;
+                simcore_record_set(checkpointObj.record) ;
 
 	   // 6.- notify
 	   if (o !== '') {

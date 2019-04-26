@@ -82,10 +82,10 @@
 
         /**
          * Initialize simulator core and UI.
-         * @param {string} stateall_id - associated div
-         * @param {string} statebr_id - associated div
-         * @param {string} ioall_id - associated div
-         * @param {string} cpuall_id - associated div
+         * @param {string} stateall_id  - associated div
+         * @param {string} statebr_id   - associated div
+         * @param {string} ioall_id     - associated div
+         * @param {string} cpuall_id    - associated div
          * @param {string} configall_id - associated div
          */
         function simcore_init_ui ( stateall_id, statebr_id, ioall_id, cpuall_id, configmp_id, configio_id )

@@ -14,8 +14,10 @@
        console.log('+ WepSIM simulator v2.0.6 for command line.') ;
        console.log('') ;
        console.log('Usage:') ;
-       console.log('+ ./wepsim_node.sh <command> <hardware name> <microcode file> <assembly file> [<checklist file>] [text | math] [max. instructions] [max. cycles]') ;
-       console.log('+ ./wepsim_node.sh <command> <checkpoint>    <checkpoint file>                [<checklist file>] [text | math] [max. instructions] [max. cycles]') ;
+       console.log('+ ./wepsim_node.sh <command> <hardware name> <microcode file> <assembly file> [<checklist file>] [options*]') ;
+       console.log('+ ./wepsim_node.sh <command> <checkpoint>    <checkpoint file>                [<checklist file>] [options*]') ;
+       console.log('') ;
+       console.log('+                  [options*] = verbal-<text|math> maxi-<max. instructions> maxc-<max. cycles>') ;
        console.log('') ;
        console.log('Examples:') ;
        console.log(' * Run some example and show the final state:') ;
@@ -44,11 +46,12 @@
    //
 
    var data =    {
-                    action:   process.argv[2].toUpperCase(),
-                    mode:     process.argv[3],
-		    firmware: null,
-		    assembly: null,
-		    result_ok: null
+                    action:    process.argv[2].toUpperCase(),
+                    mode:      process.argv[3],
+		    firmware:  null,
+		    assembly:  null,
+		    result_ok: null,
+		    record:    []
 	         } ;
 
    var options = {
@@ -67,7 +70,7 @@
  
    try 
    {
-       if ("EXPORTHARDWARE" !== data.action)
+       if ("EXPORT-HARDWARE" !== data.action)
        {
 	       if ("CHECKPOINT" !== data.mode.toUpperCase())
 	       {
@@ -100,25 +103,29 @@
        // throw 'ERROR...' ;
    }
 
-   if (process.argv.length > (arg_last+1))
+   var option = [] ;
+   while (process.argv.length > (arg_last+1))
    {
 	   arg_last++ ;
+	   option = process.argv[arg_last].toUpperCase().split('-') ;
 
-	   if ("MATH" === process.argv[arg_last].toUpperCase()) {
-                options.verbalize = 'math' ;
+	   switch (option[0])
+	   {
+	      case "VERBAL": if (option.length !== 2)
+	                         console.log('[ERROR] Option without value: ' + option[0]);
+		             if ("MATH" === option[1])
+				 options.verbalize = 'math' ;
+		             break;
+			     
+	      case "MAXC":   options.cycles_limit      = parseInt(option[1]) ;
+		             break;
+
+	      case "MAXI":   options.instruction_limit = parseInt(option[1]) ;
+		             break;
+
+	      default:       console.log('[ERROR] Unknown option: ' + option[0]);
+		             break;
 	   }
-   }
-
-   if (process.argv.length > (arg_last+1))
-   {
-	   arg_last++ ;
-           options.instruction_limit = parseInt(process.argv[arg_last]) ;
-   }
-
-   if (process.argv.length > (arg_last+1))
-   {
-	   arg_last++ ;
-           options.cycles_limit      = parseInt(process.argv[arg_last]) ;
    }
 
 
@@ -129,7 +136,7 @@
    if ("CHECK" == data.action)
    {
        ws.wepsim_nodejs_init(data.mode) ;
-       var ret = ws.wepsim_nodejs_check(data.firmware, data.assembly, data.result_ok, options) ;
+       var ret = ws.wepsim_nodejs_check(data, options) ;
        if (false == ret.ok) 
        {
            console.log(ret.msg);
@@ -151,7 +158,7 @@
        options.verbosity = 1 ;
 
        ws.wepsim_nodejs_init(data.mode) ;
-       var ret = ws.wepsim_nodejs_run(data.firmware, data.assembly, options) ;
+       var ret = ws.wepsim_nodejs_run(data, options) ;
 
        console.log(ret.msg);
        return ret.ok ;
@@ -168,7 +175,7 @@
        options.verbosity = 2 ;
 
        ws.wepsim_nodejs_init(data.mode) ;
-       var ret = ws.wepsim_nodejs_run(data.firmware, data.assembly, options) ;
+       var ret = ws.wepsim_nodejs_run(data, options) ;
 
        console.log(ret.msg);
        return ret.ok ;
@@ -185,7 +192,7 @@
        options.verbosity = 3 ;
 
        ws.wepsim_nodejs_init(data.mode) ;
-       var ret = ws.wepsim_nodejs_run(data.firmware, data.assembly, options) ;
+       var ret = ws.wepsim_nodejs_run(data, options) ;
 
        console.log(ret.msg);
        return ret.ok ;
@@ -202,7 +209,7 @@
        options.verbosity = 4 ;
 
        ws.wepsim_nodejs_init(data.mode) ;
-       var ret = ws.wepsim_nodejs_run(data.firmware, data.assembly, options) ;
+       var ret = ws.wepsim_nodejs_run(data, options) ;
 
        console.log(ret.msg);
        return ret.ok ;
@@ -211,12 +218,29 @@
 
 
    //
-   // data.action == exporthardware
+   // data.action == export-hardware
    //
 
-   if ("EXPORTHARDWARE" == data.action)
+   if ("EXPORT-HARDWARE" == data.action)
    {
-       var ret = ws.wepsim_nodejs_exporthw(data.mode) ;
+       var ret = ws.wepsim_nodejs_exportHW(data.mode) ;
+
+       console.log(ret.msg);
+       return ret.ok ;
+       // if (ret.ok == false) throw 'ERROR...' ;
+   }
+
+
+   //
+   // data.action == export-record
+   //
+
+   if ("EXPORT-RECORD" == data.action)
+   {
+       options.verbosity = 5 ;
+
+       ws.wepsim_nodejs_init(data.mode) ;
+       var ret = ws.wepsim_nodejs_run(data, options) ;
 
        console.log(ret.msg);
        return ret.ok ;

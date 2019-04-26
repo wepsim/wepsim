@@ -25,15 +25,19 @@
 
     // Private data
     var ws_records      = [] ;
+
     var ws_last_played  = 0 ;
     var ws_last_time    = 0 ;
 
     var ws_is_recording = false ;
     var ws_is_playing   = false ;
 
+    var ws_record_div_name = '' ;
+    var ws_record_div_obj  = null ;
+
 
     // Private API
-    function wepsim_record_pushElto ( desc, elto )
+    function simcore_record_pushElto ( desc, elto )
     {
 	// add a new record
         var record = { 
@@ -47,33 +51,31 @@
         ws_last_time = Date.now() ;
     }
 
-    function wepsim_record_showMsg ( div_id, index, msg )
+    function simcore_record_showMsg ( index, msg )
     {
-        var div_obj = $('#' + div_id) ;
-
-	if (typeof div_obj.html !== "undefined") {
-	    div_obj.html('<em>' + index + '/' + ws_records.length + '</em>&nbsp;' + msg) ;
+	if (ws_record_div_obj !== null) {
+	    ws_record_div_obj.html('<em>' + index + '/' + ws_records.length + '</em>&nbsp;' + msg) ;
 	}
     }
 
-    function wepsim_record_playAt ( div_id, index )
+    function simcore_record_playAt ( index )
     {
 	// 1.- stop playing...
         if (ws_is_playing === false) 
 	{
-                wepsim_record_showMsg(div_id, ws_last_played, 'Stopped by user.') ;
+                simcore_record_showMsg(ws_last_played, 'Stopped by user.') ;
 	        return ;
 	}
         ws_last_played = index ;
 	if (index >= ws_records.length) 
 	{
-                wepsim_record_showMsg(div_id, ws_records.length, 'Done.') ;
+                simcore_record_showMsg(ws_records.length, 'Done.') ;
 	        return ;
 	}
 
 	// 2.- execute current step, show message, and set last played
 	eval(ws_records[index].element) ;
-        wepsim_record_showMsg(div_id, index+1, ws_records[index].description) ;
+        simcore_record_showMsg(index+1, ws_records[index].description) ;
 
 	// 3.- set next one
 	var next_index = index + 1 ;
@@ -84,7 +86,7 @@
 	wait_time = (wait_time < 500) ? 500 : wait_time ;
 
         setTimeout(function() {
-	               wepsim_record_playAt(div_id, next_index) ;
+	               simcore_record_playAt(next_index) ;
                    }, wait_time);
     }
 
@@ -93,84 +95,104 @@
      * Record: public API
      */
 
+    // init
+
+    function simcore_record_init ( div_id )
+    {
+	ws_records = [] ;
+
+	ws_last_played  = 0 ;
+	ws_last_time    = 0 ;
+
+	ws_is_recording = false ;
+	ws_is_playing   = false ;
+
+	ws_record_div_name = div_id ;
+
+        ws_record_div_obj  = $('#' + div_id) ;
+	if (typeof ws_record_div_obj.html === "undefined") {
+            ws_record_div_obj = null ;
+	}
+    }
+
     // recording (on, off, ...)
 
-    function wepsim_record_on ( div_id )
+    function simcore_record_on ( )
     {
         ws_is_playing   = false ;
         ws_is_recording = true ;
         ws_last_played  = 0 ;
         ws_last_time    = Date.now() ;
 
-        wepsim_record_showMsg(div_id, ws_last_played, 'Recording...') ;
+        simcore_record_showMsg(ws_last_played, 'Recording...') ;
     }
 
-    function wepsim_record_off ( div_id )
+    function simcore_record_off ( )
     {
         ws_is_playing   = false ;
         ws_is_recording = false ;
         ws_last_played  = 0 ;
 
-        wepsim_record_showMsg(div_id, ws_last_played, 'Stopped by user.') ;
+        simcore_record_showMsg(ws_last_played, 'Stopped by user.') ;
     }
 
-    function wepsim_record_isRecording ( )
+    function simcore_record_isRecording ( )
     {
         return ws_is_recording ;
     }
 
     // playing (play, pause)
 
-    function wepsim_record_play ( div_id )
+    function simcore_record_play ( )
     {
         ws_is_recording = false ;
         ws_is_playing   = true ;
 
-        wepsim_record_playAt(div_id, ws_last_played) ;
+        simcore_record_playAt(ws_last_played) ;
     }
 
-    function wepsim_record_pause ( div_id )
+    function simcore_record_pause ( )
     {
         ws_is_recording = false ;
         ws_is_playing   = !ws_is_playing ;
 
         if (ws_is_playing === true) {
-            wepsim_record_playAt(div_id, ws_last_played) ;
+            simcore_record_playAt(ws_last_played) ;
 	}
     }
 
-    function wepsim_record_isPlaying ( )
+    function simcore_record_isPlaying ( )
     {
         return ws_is_playing ;
     }
 
     // recording object
 
-    function wepsim_record_get ( )
+    function simcore_record_get ( )
     {
         return ws_records ;
     }
 
-    function wepsim_record_set ( records, div_id )
+    function simcore_record_set ( records )
     {
         ws_records = records ;
 
-        wepsim_record_showMsg(div_id, 0, 'Record restored.') ;
+        simcore_record_showMsg(0, 'Record restored.') ;
     }
 
-    function wepsim_record_reset ( div_id )
+    function simcore_record_reset ( )
     {
         ws_records = [] ;
 
-        wepsim_record_showMsg(div_id, 0, 'Empty record') ;
+        simcore_record_showMsg(0, 'Empty record') ;
     }
 
-    function wepsim_record_add ( div_id, description, elto )
+    function simcore_record_add ( description, elto )
     {
         if (ws_is_recording === true) 
 	{
-            wepsim_record_pushElto(description, elto) ;
-            wepsim_record_showMsg(div_id, 0, 'Recording...') ;
+            simcore_record_pushElto(description, elto) ;
+            simcore_record_showMsg(0, 'Recording...') ;
 	}
     }
 

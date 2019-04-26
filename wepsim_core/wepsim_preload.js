@@ -118,7 +118,7 @@
 	    xhr.send();
     }
 
-    function wepsim_preload_get ( parameters, id_filename, id_tagname, id_recordname )
+    function wepsim_preload_get ( parameters, id_filename, id_tagname )
     {
 	    var hash = {} ;
 	    var uri_obj = null ;
@@ -164,7 +164,7 @@
 	    if (hash['checkpoint'] !== '') 
 	    {
 		uri_obj = new URL(hash['checkpoint']) ;
-                wepsim_checkpoint_loadURI(uri_obj, id_filename, id_tagname, id_recordname) ;
+                wepsim_checkpoint_loadURI(uri_obj, id_filename, id_tagname) ;
 	    }
     }
 
