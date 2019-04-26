@@ -195,7 +195,7 @@
 	   // 5.- restore record
 
 		// set the saved record
-                simcore_record_get(checkpointObj.record) ;
+                simcore_record_set(checkpointObj.record) ;
 
 	   // 6.- notify
 	   if (o !== '') {
