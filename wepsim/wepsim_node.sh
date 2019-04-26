@@ -17,7 +17,7 @@
        console.log('+ ./wepsim_node.sh <command> <hardware name> <microcode file> <assembly file> [<checklist file>] [options*]') ;
        console.log('+ ./wepsim_node.sh <command> <checkpoint>    <checkpoint file>                [<checklist file>] [options*]') ;
        console.log('') ;
-       console.log('+                  [options*] = verbal-<text|math> maxi-<max. instructions> maxc-<max. cycles>') ;
+       console.log('                   [options*] = verbal-<text|math> maxi-<max. instructions> maxc-<max. cycles>') ;
        console.log('') ;
        console.log('Examples:') ;
        console.log(' * Run some example and show the final state:') ;
@@ -86,6 +86,7 @@
 		   data.mode     = obj_checkpoint.mode ;
 		   data.firmware = obj_checkpoint.firmware ;
 		   data.assembly = obj_checkpoint.assembly ;
+		   data.record   = obj_checkpoint.record ;
 		   arg_last      = 4 ;
 	       }
        }
