@@ -574,7 +574,7 @@
 
             // add if recording
             simcore_record_add('Set main work mode to ' + opt,
-		               'wsweb_select_main(' + opt + ');\n') ;
+		               'wsweb_select_main("' + opt + '");\n') ;
 
             // return ok
             return true ;
@@ -595,7 +595,7 @@
 
             // add if recording
             simcore_record_add('Update work mode to ' + new_mode,
-		               'wsweb_mode_update(' + new_mode + ');\n') ;
+		               'wsweb_mode_update("' + new_mode + '");\n') ;
 
             // return ok
             return true ;

@@ -777,7 +777,7 @@
                 curr_firm.assembly[hexaddr].breakpoint = bp_state ;
 
 		// add if recording
-                simcore_record_add('Set assembly breakpoint',
+                simcore_record_add('Set assembly breakpoint at ' + addr,
                                    'asmdbg_set_breakpoint(' + addr + ');\n') ;
 
         }
@@ -809,7 +809,7 @@
                 }
 
 		// add if recording
-                simcore_record_add('Set firmware breakpoint',
+                simcore_record_add('Set firmware breakpoint at ' + addr,
                                    'dbg_set_breakpoint(' + addr + ');\n') ;
         }
 
