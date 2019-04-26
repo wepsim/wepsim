@@ -30,11 +30,13 @@ cat sim_hw/sim_hw_index.js \
     sim_sw/sim_lang_firm.js \
     sim_sw/sim_lang_asm.js \
     sim_core/sim_cfg.js \
+    sim_core/sim_core_record.js \
     sim_core/sim_core_ctrl.js \
     sim_core/sim_core_ui.js \
     sim_core/sim_api_core.js \
     sim_core/sim_api_native.js \
     sim_core/sim_api_stateshots.js \
+    sim_core/sim_core_breakpointicons.js \
     sim_core/sim_core_ui_registers.js \
     sim_core/sim_core_ui_console.js \
     sim_core/sim_core_ui_memory.js \
@@ -68,7 +70,6 @@ cat wepsim_i18n/i18n.js \
     wepsim_i18n/en-examples.js \
     \
     wepsim_core/wepsim_asmdbg.js \
-    wepsim_core/wepsim_breakpointicons.js \
     wepsim_core/wepsim_checkpoint.js \
     wepsim_core/wepsim_clipboard.js \
     wepsim_core/wepsim_config.js \
@@ -80,7 +81,6 @@ cat wepsim_i18n/i18n.js \
     wepsim_core/wepsim_help_commands.js \
     wepsim_core/wepsim_notify.js \
     wepsim_core/wepsim_preload.js \
-    wepsim_core/wepsim_record.js \
     wepsim_core/wepsim_state.js \
     wepsim_core/wepsim_tutorial.js \
     wepsim_core/wepsim_tour.js \

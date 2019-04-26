@@ -1598,12 +1598,16 @@
 		    wsweb_mode_update(ws_mode) ;
 		    simcore_reset();
 
+		    // init: voice 
 		    wepsim_voice_init() ;
 		    if (false == get_cfg('use_voice')) {
 			wepsim_voice_stop() ;
 		    }
 
-		    // pre-load example
+		    // init: record 
+	            wsweb_record_init() ;
+
+		    // pre-load work
 		    var url_parameters = new URL(window.location).searchParams ;
 		    wepsim_preload_get(url_parameters, 'FileNameToSaveAs1', 'tagToSave1', 'record_msg') ;
 	    }) ;

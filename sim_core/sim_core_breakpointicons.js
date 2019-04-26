@@ -37,3 +37,8 @@
                     { type: "films",   shortname: "hp1",	origin: "http://www.logosclicks.com/logos/harry-potter-name-logo-46a93c.html" }
     ] ;
 
+    function sim_core_breakpointicon_get ( icon_name )
+    {
+	  return "<img alt='stop icon' height=22 src='images/stop/stop_" + icon_name + ".gif'>" ;
+    }
+
