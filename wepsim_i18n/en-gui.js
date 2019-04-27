@@ -68,6 +68,7 @@
 									"It can be executed step by step at microinstruction level or assembly instruction level.",
                         "Prev.": 		                	"Prev.",
                         "Next": 		                	"Next",
+                        "End": 		                		"End",
                         "Disable tutorial mode": 		        "Disable tutorial mode",
 
                         "Show Notifications":                           "Show Notifications",

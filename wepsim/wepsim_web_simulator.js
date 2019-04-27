@@ -197,7 +197,7 @@
 		ko.options.deferUpdates = true;
 
 	    // carousel: touch swipe disabled
-	    $('.carousel').carousel({ touch: false })
+	    $('.carousel').carousel({ touch: false }) ;
 
 	    // initialize dropify
 	    $('.dropify').dropify();
@@ -307,7 +307,7 @@
 				      CodeMirror.showHint(cm, function(cm, options) {
 					      var simware = get_simware();
 					      var cur = cm.getCursor();
-					      var result = new Array();
+					      var result = [];
 					      for (var i=0; i<simware.firmware.length; i++) {
 						   if (simware.firmware[i].name != "begin") {
 							result.push(simware.firmware[i].signatureUser) ;
