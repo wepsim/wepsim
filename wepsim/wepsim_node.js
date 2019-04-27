@@ -166,8 +166,10 @@
                 ret_msg = ret.msg ;
                 break ;
            case 5:
-                ret_msg = ret.msg + 
-		          wepsim_nodejs_show_record(data.record) ;
+                ret_msg = wepsim_nodejs_show_record(data.record) ;
+                break ;
+           case 6:
+                ret_msg = get_screen_content() ;
                 break ;
            default:
                 ret_msg = "Unknow verbosity value: " +  options.verbosity ;
