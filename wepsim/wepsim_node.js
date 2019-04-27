@@ -73,12 +73,12 @@
     function wepsim_nodejs_show_record ( records )
     {
 	var ret_msg = '' ;
-	for (var i=0; i<records.lenght; i++)
+	for (var i=0; i<records.length; i++)
 	{
-	     ret_msg += records[i].description ;
+	     ret_msg += '[' + i + '] ' + records[i].description + '\n' ;
 	}
 
-	return wepsim_nodejs_retfill(true, ret_msg) ;
+	return ret_msg ;
     }
 
 
