@@ -104,7 +104,13 @@
 
     function i18n_get ( component, lang, key )
     {
-	return i18n.eltos[component][lang][key] ;
+	var translation = i18n.eltos[component][lang][key] ;
+
+	if (typeof translation === "undefined") {
+	    translation = key ;
+	}
+
+	return translation ;
     }
 
 

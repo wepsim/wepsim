@@ -696,6 +696,80 @@
             return true ;
     }
 
+    //  simulator: notify
+
+    var wsweb_nfbox = null ;
+
+    function wsweb_notifyuser_show ( title, message )
+    {
+            var wsi = get_cfg('ws_idiom') ;
+
+            wsweb_nfbox = bootbox.dialog({
+			     title:   title,
+			     message: message,
+			     buttons: {
+		              cancel: {
+				 label: i18n_get('gui',wsi,'Cancel'),
+				 className: 'btn-danger col-auto float-right'
+			      }
+			     },
+			     size:    "large",
+			     animate: false
+			  });
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_notifyuser_add ( )
+    {
+            var wsi = get_cfg('ws_idiom') ;
+
+            var bbbt = {} ;
+            bbbt.cancel = {
+		    label: i18n_get('gui',wsi,'Close'),
+		    className: 'btn-danger col-auto float-right',
+	    };
+            bbbt.end = {
+		    label: i18n_get('gui',wsi,'Save'),
+		    className: 'btn-success col-auto float-right',
+		    callback: function() {
+			    var nf_title    = $("#frm_title1").val() ;
+			    var nf_message  = $("#frm_message1").val() ;
+			    var nf_duration = 1000 * parseInt($("#frm_duration1").val()) ;
+
+			    // add if recording
+			    simcore_record_addAlways('Notification with title ' + nf_title + ' and message ' + nf_message,
+					             'wsweb_notifyuser_show("'  + nf_title + '", "' +          nf_message + '");\n') ;
+			    simcore_record_addAlways('Close notification',
+					             'window.setTimeout(function(){ wsweb_nfbox.modal("hide"); }, ' + nf_duration + ');\n') ;
+		    }
+	    };
+
+	    var bbmsg = '<div class="container">' +
+		        '<label for="frm_title1"><em>'    + i18n_get('gui',wsi,'Title') + ':</em></label>' +
+			'<p><input aria-label="title" id="frm_title1" ' +
+			'	  class="form-control btn-outline-dark" placeholder="Title for the notification" style="min-width: 90%;"/></p>' +
+		        '<label for="frm_message1"><em>'  + i18n_get('gui',wsi,'Message') + ':</em></label>' +
+			'<p><textarea aria-label="message" id="frm_message1" ' +
+			'	      class="form-control btn-outline-dark" placeholder="Message for the notification" style="min-width: 90%;"/></p>' +
+		        '<label for="frm_duration1"><em>' + i18n_get('gui',wsi,'Duration') + ':</em></label>' +
+			'<p><input aria-label="duration" id="frm_duration1" type="number" ' +
+			'	  class="form-control btn-outline-dark" placeholder="Duration for the notification in seconds" style="min-width: 90%;"/></p>' +
+		        '</div>' ;
+
+            wsweb_nfbox = bootbox.dialog({
+			     title:   'Form to add notification during playback...',
+			     message: bbmsg,
+			     buttons: bbbt,
+			     size:    "large",
+			     animate: false
+			  });
+
+            // return ok
+            return true ;
+    }
+
     //  Workspace simulator: record
 
     function wsweb_record_init ( )
@@ -705,6 +779,7 @@
             // return ok
             return true ;
     }
+
     function wsweb_record_on ( )
     {
 	    simcore_record_on() ;
