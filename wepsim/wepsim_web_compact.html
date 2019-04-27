@@ -1496,102 +1496,21 @@
             wepsim_load_hw() ;
 	    simcore_init_hw('ep') ;
 
-	    // ...then install protection for accidental close.
-	    window.addEventListener("beforeunload", wepsim_confirm_exit) ;
-
+	    // ...after jquery-ready
 	    $(document).ready(function()
 	    {
                     $("#ws_loader").collapse('hide') ;
 
-		    if (typeof jQuery.fx != "undefined")
-		        jQuery.fx.off = true;
-		    if (typeof ko != "undefined")
-                        ko.options.deferUpdates = true;
+		    // init UI
+                    wsweb_init_ui() ;
 
-
-		    // init-ui: microcode + assembly workspace
-
-		    $('.dropify').dropify();
-
-		    inputfirm_cfg = {
-				      value: "\n\n\n\n\n\n\n\n\n\n\n\n",
-				      lineNumbers: true,
-				      lineWrapping: true,
-				      matchBrackets: true,
-				      tabSize: 2,
-				      foldGutter: {
-					rangeFinder: new CodeMirror.fold.combine(CodeMirror.fold.brace, CodeMirror.fold.comment)
-				      },
-				      gutters: ["CodeMirror-linenumbers", "CodeMirror-foldgutter"],
-				      mode: "text/javascript"
-				    } ;
-                    inputfirm = sim_init_editor("inputFirmware", inputfirm_cfg) ;
-
-		    inputasm_cfg = {
-					value: "\n\n\n\n\n\n\n\n\n\n\n\n",
-					lineNumbers: true,
-				        lineWrapping: true,
-					matchBrackets: true,
-					tabSize: 2,
-					extraKeys: {
-					  "Ctrl-Space": function(cm) {
-					      CodeMirror.showHint(cm, function(cm, options) {
-						      var simware = get_simware();
-						      var cur = cm.getCursor();
-						      var result = new Array();
-						      for (var i=0; i<simware.firmware.length; i++) {
-							   if (simware.firmware[i].name != "begin") {
-								result.push(simware.firmware[i].signatureUser) ;
-	                                                   }
-	                                              }
-						      return { list: result, from: cur, to: cur } ;
-					      });
-					  }
-					},
-					mode: "gas"
-				    } ;
-                    inputasm = sim_init_editor("inputAssembly", inputasm_cfg) ;
-
-
-		    // init-ui: simulator
-
+		    // set default view
 		    wsweb_change_workspace_simulator() ;
 		    wsweb_change_show_processor() ;
 		    wsweb_set_details('REGISTER_FILE') ;
 
 		    wsweb_set_cpucu_size(get_cfg('CPUCU_size')) ;
 		    wsweb_set_c1c2_size(get_cfg('C1C2_size')) ;
-
-                    wsweb_init_asmdbg() ;
-    		    wsweb_init_quick_menu() ;
-    		    wsweb_init_mode_menu() ;
-                    wsweb_init_state_dialog('end_state1', 'end_state2') ;
-
-		    // init-ui: general
-
-		    $("div.wsversion").replaceWith(get_cfg('version'));
-
-		    // carousel: touch swipe disabled
-		    $('.carousel').carousel({ touch: false })
-
-		    // tooltip: trigger by hover
-		    $('[data-toggle="tooltip"]').tooltip({
-                            trigger:   'hover',
-			    sanitizeFn: function (content) {
-					   return content ; // DOMPurify.sanitize(content) ;
-				        }
-                    }) ;
-
-		    // popover...
-		    $('a[data-toggle="popover1"]').popover({
-			    placement: 'bottom',
-			    animation: false,
-			    trigger:   'focus, hover',
-			    delay: { "show": 500, "hide": 100 },
-			    sanitizeFn: function (content) {
-					   return content ; // DOMPurify.sanitize(content) ;
-				        }
-		    }) ;
 
 		    // init: general
 		    var ws_mode = get_cfg('ws_mode');
@@ -1603,9 +1522,6 @@
 		    if (false == get_cfg('use_voice')) {
 			wepsim_voice_stop() ;
 		    }
-
-		    // init: record 
-	            wsweb_record_init() ;
 
 		    // pre-load work
 		    var url_parameters = new URL(window.location).searchParams ;

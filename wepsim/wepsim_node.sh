@@ -233,10 +233,10 @@
 
 
    //
-   // data.action == export-record
+   // data.action == show-record
    //
 
-   if ("EXPORT-RECORD" == data.action)
+   if ("SHOW-RECORD" == data.action)
    {
        options.verbosity = 5 ;
 
@@ -253,7 +253,7 @@
    // data.action == unknown
    //
 
-   console.log("ERROR: wepsim_checker: unknown data.action");
+   console.log('ERROR: wepsim_checker: unknown action ' + data.action) ;
    return false ;
    // throw 'ERROR...' ;
 
