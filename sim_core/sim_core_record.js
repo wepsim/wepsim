@@ -196,3 +196,9 @@
 	}
     }
 
+    function simcore_record_addAlways ( description, elto )
+    {
+        simcore_record_pushElto(description, elto) ;
+        simcore_record_showMsg(0, 'Recorded') ;
+    }
+

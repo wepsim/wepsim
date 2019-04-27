@@ -67,6 +67,7 @@
 									"Se puede ejecutar paso a paso a nivel de ensamblador o microinstrucci&oacute;n.",
                         "Prev.": 		                	"Anterior",
                         "Next": 		                	"Siguiente",
+                        "End": 		                		"Fin",
                         "Disable tutorial mode": 		        "Deshabilitar modo tutorial",
 
                         "Show Notifications":                           "Mostrar notificaciones",

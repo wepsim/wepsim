@@ -250,6 +250,23 @@
 
 
    //
+   // data.action == show-console
+   //
+
+   if ("SHOW-CONSOLE" == data.action)
+   {
+       options.verbosity = 6 ;
+
+       ws.wepsim_nodejs_init(data.mode) ;
+       var ret = ws.wepsim_nodejs_run(data, options) ;
+
+       console.log(ret.msg);
+       return ret.ok ;
+       // if (ret.ok == false) throw 'ERROR...' ;
+   }
+
+
+   //
    // data.action == unknown
    //
 

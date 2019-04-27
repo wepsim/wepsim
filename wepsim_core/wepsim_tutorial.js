@@ -114,7 +114,7 @@
 		};
 	else
             bbbt.end = {
-		    label: 'End',
+		    label: i18n_get('gui',wsi,'End'),
 		    className: 'btn-success col float-right',
 		    callback: function() {
                         sim_tutorial_goframe(tutorial_name, step, step + 1) ;
