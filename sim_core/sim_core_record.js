@@ -145,6 +145,10 @@
 
     function simcore_record_play ( )
     {
+        if (ws_is_playing === true) {
+	    return ;
+	}
+
         ws_is_recording = false ;
         ws_is_playing   = true ;
 
@@ -189,7 +193,7 @@
 
     function simcore_record_add ( description, elto )
     {
-        if (ws_is_recording === true) 
+        if (ws_is_recording === true)
 	{
             simcore_record_pushElto(description, elto) ;
             simcore_record_showMsg(0, 'Recording...') ;
