@@ -323,5 +323,8 @@
 
 	    // init: record 
 	    wsweb_record_init() ;
+
+	    // init: help idiom selectors 
+            wepsim_init_helpDropdown() ;
     }
 

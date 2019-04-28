@@ -39,6 +39,11 @@
     // Private API
     function simcore_record_pushElto ( desc, elto )
     {
+	// check params
+        if (elto === '') {
+	    elto = '&lt;empty&gt;' ;
+	}
+
 	// add a new record
         var record = { 
 		       timestamp:   (Date.now() - ws_last_time),
