@@ -107,8 +107,8 @@
 		'  <em class="fas fa-flag"></em> &nbsp;' +
 		'  <a class="btn btn-sm btn-outline-secondary col-auto p-1 text-left" href="#" ' +
 		'     onclick="simcoreui_notify_notifications(); ' +
-		'              $(\'#' + quick_po + '\').popover(\'hide\');' +
 		'              i18n_update_tags(); ' +
+		'              wsweb_quickmenu_close(); ' +
 		'              return false;">' +
 		i18n_get('gui',wsi,'Show Notifications') + '...</a>' +
 		'</li>' +
@@ -133,7 +133,7 @@
 	   o += '<li class="list-group-item px-0 enabled_beta"> ' +
 		'  <em class="fas fa-clipboard"></em> &nbsp;' +
 		'  <button class="navbar-toggle btn btn-sm btn-outline-secondary col-10 p-1 text-left" type="button" ' +
-		'          onclick="$(\'#record_div\').collapse(\'toggle\');' +
+		'          onclick="wsweb_recordbar_toggle(); ' +
 		'                   return false;">' +
 		i18n_get('gui',wsi,'Show/Hide Record') +
 		'  </button>' +
@@ -142,20 +142,23 @@
 	   o += '<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-magic"></em> &nbsp;' +
 		'  <a class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" href="#" ' +
-		'     onclick="$(\'#about2\').modal(\'show\'); ' +
-		'              $(\'#' + quick_po + '\').popover(\'hide\');">' +
+		'     onclick="wsweb_about_show(); ' +
+		'              wsweb_quickmenu_close(); ' +
+		'              return false;">' +
 		i18n_get('gui',wsi,'About WepSIM') + '...</a>' +
 		'</li>' +
 		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-book-reader"></em> &nbsp;' +
 		'  <a class="btn btn-sm btn-outline-secondary col-10 pr-2 text-left" href="#" ' +
 		'     onclick="wepsim_newbie_tour(); ' +
-		'              $(\'#' + quick_po + '\').popover(\'hide\');">' +
+		'              wsweb_quickmenu_close(); ' +
+		'              return false;">' +
 		i18n_get('gui',wsi,'Initial intro') + '...</a>' +
 		'</li>' +
 		'<button type="button" id="close" data-role="none" ' + 
 		'        class="btn btn-sm btn-danger w-100 p-0 mt-2" ' +
-		'        onclick="$(\'#' + quick_po + '\').popover(\'hide\');">' +
+		'        onclick="wsweb_quickmenu_close(); ' +
+		'                 return false;">' +
 		i18n_get('gui',wsi,'Close') +
 		'</button>' +
 		'</ul>' ;
@@ -223,7 +226,8 @@
 	       //A1/     setup_speech_input(inputEls) ;
 
 	    // init: quick-menu 
-	    $("[data-toggle=popover0]").popover({
+	    $("#po1").popover({
+		    trigger:   'manual',
 		    html:       true,
 		    placement: 'auto',
 		    animation:  false,
@@ -323,5 +327,8 @@
 
 	    // init: record 
 	    wsweb_record_init() ;
+
+	    // init: help idiom selectors 
+            wepsim_init_helpDropdown() ;
     }
 

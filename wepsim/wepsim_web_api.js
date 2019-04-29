@@ -841,3 +841,103 @@
             return true ;
     }
 
+    //  All workspaces: popovers and modals from quick-menu...
+
+    // about
+    function wsweb_about_show ( )
+    {
+	    $('#about2').modal('show') ;
+
+            // add if recording
+            simcore_record_add('Open the "about" dialogbox',
+		               'wsweb_about_show();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_about_close ( )
+    {
+	    $('#about2').modal('hide') ;
+
+            // add if recording
+            simcore_record_add('Close the "about" dialogbox',
+		               'wsweb_about_close();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    // quick menu
+    function wsweb_quickmenu_show ( )
+    {
+	    $('#po1').popover('show') ;
+
+            // add if recording
+            simcore_record_add('Open the "quick menu"',
+		               'wsweb_quickmenu_show();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_quickmenu_close ( )
+    {
+	    $('#po1').popover('hide') ;
+
+            // add if recording
+            simcore_record_add('Close the "quick menu"',
+		               'wsweb_quickmenu_close();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_quickmenu_toggle ( )
+    {
+	    $('#po1').popover('toggle') ;
+
+            // add if recording
+            simcore_record_add('Toggle the "quick menu"',
+		               'wsweb_quickmenu_toggle();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    // recordbar
+    function wsweb_recordbar_toggle ( )
+    {
+	    $('#record_div').collapse('toggle') ;
+
+            // add if recording
+            simcore_record_add('Toggle the "record toolbar"',
+		               'wsweb_recordbar_toggle();\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    // scroll in Div
+
+    function wsweb_scroll_to ( div_id, div_pos ) 
+    { 
+	    var div_obj = $(div_id) ; 
+	    div_obj.scrollTop(div_pos) ; 
+    }
+
+    function wsweb_scroll_record ( container_id ) 
+    { 
+	    var container_obj = $(container_id) ; 
+	    var div_pos = container_obj.scrollTop() ; 
+
+            container_obj.scroll(function() { 
+	         div_pos = container_obj.scrollTop() ; 
+	         simcore_record_add('Scroll content', 
+			            'wsweb_scroll_to("' + container_id + '", ' + div_pos + ');\n') ; 
+            });
+
+	    // In order to record the scroll movements in '#container-example1' just add:
+            // wsweb_scroll_record('#container-example1') ;
+    }
+
