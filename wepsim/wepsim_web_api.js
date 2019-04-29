@@ -190,11 +190,14 @@
             // add if recording
             simcore_record_add('Open examples',
 		               'wsweb_dialogbox_open_examples();\n') ;
+
+            // intercept events...
 	    $("#example1").on("hidden.bs.modal",
 		               function () {
 				   simcore_record_add('Close examples',
 					              'wsweb_dialogbox_close_all();\n');
 			       });
+            wsweb_scroll_record('#container-example1') ;
 
             // return ok
             return true ;
@@ -209,6 +212,8 @@
             // add if recording
             simcore_record_add('Open help',
 		               'wsweb_dialogbox_open_help();\n') ;
+
+            // intercept events...
 	    $("#help1").on("hidden.bs.modal",
 		            function () {
 				simcore_record_add('Close help',
@@ -227,11 +232,14 @@
             // add if recording
             simcore_record_add('Open configuration',
 		               'wsweb_dialogbox_open_config();\n') ;
+
+            // intercept events...
 	    $("#config2").on("hidden.bs.modal",
 		              function () {
 				  simcore_record_add('Close configuration',
 					             'wsweb_dialogbox_close_all();\n');
 			      });
+            wsweb_scroll_record('#container-config2') ;
 
             // return ok
             return true ;
@@ -245,6 +253,8 @@
             // add if recording
             simcore_record_add('Open state',
 		               'wsweb_dialogbox_open_state();\n') ;
+
+            // intercept events...
 	    $("#current_state1").on("hidden.bs.modal",
 		                     function () {
 					 simcore_record_add('Close state',
@@ -266,6 +276,8 @@
             // add if recording
             simcore_record_add('Open binary assembly',
 		               'wsweb_dialogbox_open_binary_assembly();\n') ;
+
+            // intercept events...
 	    $("#bin2").on("hidden.bs.modal",
 		           function () {
 			       simcore_record_add('Close binary assembly',
@@ -289,6 +301,8 @@
             // add if recording
             simcore_record_add('Open binary firmware',
 		               'wsweb_dialogbox_open_binary_firmware();\n') ;
+
+            // intercept events...
 	    $("#bin2").on("hidden.bs.modal",
 		           function () {
 			       simcore_record_add('Close binary firmware',
@@ -313,6 +327,8 @@
             // add if recording
             simcore_record_add('Open hardware summary',
 		               'wsweb_dialogbox_open_hardware_summary();\n') ;
+
+            // intercept events...
 	    $("#help1").on("hidden.bs.modal",
 		            function () {
 				simcore_record_add('Open hardware summary',
@@ -928,24 +944,30 @@
 
     // scroll in Div
 
-    function wsweb_scroll_to ( div_id, div_pos ) 
-    { 
-	    var div_obj = $(div_id) ; 
-	    div_obj.scrollTop(div_pos) ; 
+    var wsweb_scroll_timer = null;
+
+    function wsweb_scroll_to ( div_id, div_pos )
+    {
+	    var div_obj = $(div_id) ;
+	    div_obj.scrollTop(div_pos) ;
     }
 
-    function wsweb_scroll_record ( container_id ) 
-    { 
-	    var container_obj = $(container_id) ; 
-	    var div_pos = container_obj.scrollTop() ; 
+    function wsweb_scroll_record ( container_id )
+    {
+	    var container_obj = $(container_id) ;
+	    var add_scroll_to = function() {
+				     var div_pos = container_obj.scrollTop() ;
+				     simcore_record_add('Scroll content',
+						        'wsweb_scroll_to("' + container_id + '", ' + div_pos + ');\n') ;
+				};
 
-            container_obj.scroll(function() { 
-	         div_pos = container_obj.scrollTop() ; 
-	         simcore_record_add('Scroll content', 
-			            'wsweb_scroll_to("' + container_id + '", ' + div_pos + ');\n') ; 
-            });
+            container_obj.scroll(function() {
 
-	    // In order to record the scroll movements in '#container-example1' just add:
-            // wsweb_scroll_record('#container-example1') ;
+				    if (wsweb_scroll_timer !== null) {
+					clearTimeout(wsweb_scroll_timer) ;
+				    }
+
+				    wsweb_scroll_timer = setTimeout(add_scroll_to, 150);
+				 });
     }
 
