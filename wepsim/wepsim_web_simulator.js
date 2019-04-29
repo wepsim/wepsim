@@ -105,7 +105,7 @@
 	var o = '<ul class="list-group list-group-flush">' +
 		'<li class="list-group-item px-0 pt-1"> ' +
 		'  <em class="fas fa-flag"></em> &nbsp;' +
-		'  <a class="btn btn-sm btn-outline-secondary col-auto p-1 text-left" href="#" ' +
+		'  <a class="btn btn-sm btn-outline-secondary col-auto p-1 text-left float-right" href="#" ' +
 		'     onclick="simcoreui_notify_notifications(); ' +
 		'              i18n_update_tags(); ' +
 		'              wsweb_quickmenu_close(); ' +
@@ -115,7 +115,7 @@
 		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-bars"></em> &nbsp;' +
 		'  <span class="btn-group-toggle" data-toggle="buttons">' +
-		'  <label class="btn btn-sm btn-outline-secondary col-auto p-1 text-left" data-toggle="collapse" href=".multi-collapse-1">' +
+		'  <label class="btn btn-sm btn-outline-secondary col-auto p-1 text-left float-right" data-toggle="collapse" href=".multi-collapse-1">' +
 		'  <input type="checkbox" checked="" autocomplete="off">' +
 		i18n_get('gui',wsi,'Show/Hide ActionBar') + '</label>' +
 		'  </span>' +
@@ -123,7 +123,7 @@
 		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-sliders-h"></em> &nbsp;' +
 		'  <span class="btn-group-toggle" data-toggle="buttons">' +
-		'  <label class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" data-toggle="collapse" href=".multi-collapse-2">' +
+		'  <label class="btn btn-sm btn-outline-secondary col-10 p-1 text-left float-right" data-toggle="collapse" href=".multi-collapse-2">' +
 		'  <input type="checkbox" checked="" autocomplete="off">' +
 		i18n_get('gui',wsi,'Show/Hide Slider') + '</label>' +
 		'  </span>' +
@@ -132,7 +132,7 @@
        if (get_cfg('enable_beta') === true)
 	   o += '<li class="list-group-item px-0 enabled_beta"> ' +
 		'  <em class="fas fa-clipboard"></em> &nbsp;' +
-		'  <button class="navbar-toggle btn btn-sm btn-outline-secondary col-10 p-1 text-left" type="button" ' +
+		'  <button class="navbar-toggle btn btn-sm btn-outline-secondary col-10 p-1 text-left float-right" type="button" ' +
 		'          onclick="wsweb_recordbar_toggle(); ' +
 		'                   return false;">' +
 		i18n_get('gui',wsi,'Show/Hide Record') +
@@ -141,7 +141,7 @@
 
 	   o += '<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-magic"></em> &nbsp;' +
-		'  <a class="btn btn-sm btn-outline-secondary col-10 p-1 text-left" href="#" ' +
+		'  <a class="btn btn-sm btn-outline-secondary col-10 p-1 text-left float-right" href="#" ' +
 		'     onclick="wsweb_about_show(); ' +
 		'              wsweb_quickmenu_close(); ' +
 		'              return false;">' +
@@ -149,7 +149,7 @@
 		'</li>' +
 		'<li class="list-group-item px-0"> ' +
 		'  <em class="fas fa-book-reader"></em> &nbsp;' +
-		'  <a class="btn btn-sm btn-outline-secondary col-10 pr-2 text-left" href="#" ' +
+		'  <a class="btn btn-sm btn-outline-secondary col-10 pr-2 text-left float-right" href="#" ' +
 		'     onclick="wepsim_newbie_tour(); ' +
 		'              wsweb_quickmenu_close(); ' +
 		'              return false;">' +

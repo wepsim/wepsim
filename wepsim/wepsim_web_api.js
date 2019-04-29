@@ -702,8 +702,16 @@
 
     function wsweb_notifyuser_show ( title, message )
     {
-            var wsi = get_cfg('ws_idiom') ;
+	    // check params
+	    if (title.trim() === '') {
+		title = '&lt;empty title&gt;' ;
+	    }
+	    if (message.trim() === '') {
+		message = '&lt;empty message&gt;' ;
+	    }
 
+	    // show dialogbox
+                var wsi = get_cfg('ws_idiom') ;
             wsweb_nfbox = bootbox.dialog({
 			     title:   title,
 			     message: message,
