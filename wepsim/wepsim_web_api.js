@@ -918,3 +918,26 @@
             return true ;
     }
 
+    // scroll in Div
+
+    function wsweb_scroll_to ( div_id, div_pos ) 
+    { 
+	    var div_obj = $(div_id) ; 
+	    div_obj.scrollTop(div_pos) ; 
+    }
+
+    function wsweb_scroll_record ( container_id ) 
+    { 
+	    var container_obj = $(container_id) ; 
+	    var div_pos = container_obj.scrollTop() ; 
+
+            container_obj.scroll(function() { 
+	         div_pos = container_obj.scrollTop() ; 
+	         simcore_record_add('Scroll content', 
+			            'wsweb_scroll_to("' + container_id + '", ' + div_pos + ');\n') ; 
+            });
+
+	    // In order to record the scroll movements in '#container-example1' just add:
+            // wsweb_scroll_record('#container-example1') ;
+    }
+
