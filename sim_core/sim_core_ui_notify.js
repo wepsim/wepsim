@@ -20,7 +20,7 @@
 
 
         /*
-         *  notifications
+         *  Notifications: private API
          */
 
         function simcoreui_do_notify ( ntf_title, ntf_message, ntf_type, ntf_delay )
@@ -35,7 +35,7 @@
 	    }
 
 	    // create the alert div
-            var btn1   = $('<button type="button" class="close" data-dismiss="alert">') ;
+            var btn1   = $('<button type="button" class="close" onclick="simcoreui_notify_close(); return false;">') ;
 	    var alert1 = $('<div class="alert alert-' + ntf_type + ' shadow">') ;
 	    ac.prepend(alert1.append(btn1.append("&times;")).append(ntf_message)) ;
 
@@ -51,6 +51,10 @@
         }
 
 
+        /*
+         *  Notifications: public API
+         */
+
         var simcoreui_notifications = [] ;
 
         function simcoreui_notifications_get ( )
@@ -63,23 +67,41 @@
             simcoreui_notifications = [] ;
         }
 
+        function simcoreui_notifications_add ( ntf )
+        {
+	    simcoreui_notifications.push({
+		                            title:   ntf.title,
+		                            message: ntf.message,
+		                            type:    ntf.type,
+		                            date:    ntf.date
+	                                 }) ;
+        }
+
+
+        /*
+         *  Notifications: public user inteface API
+         */
+
         function simcoreui_notify ( ntf_title, ntf_message, ntf_type, ntf_delay )
         {
-	    // notify
-            simcoreui_do_notify(ntf_title, ntf_message, ntf_type, ntf_delay) ;
-
 	    // add to notifications
-	    simcoreui_notifications.push({ 
+	    simcoreui_notifications_add({ 
 		                            title:   $('<p>').html(ntf_title).text(),
 		                            message: $('<p>').html(ntf_message).text(),
 		                            type:    ntf_type,
 		                            date:    new Date().getTime()
 	                                 }) ;
+	    // notify
+            simcoreui_do_notify(ntf_title, ntf_message, ntf_type, ntf_delay) ;
         }
 
         function simcoreui_notify_close ( )
         {
             $(".alert").alert('close') ;
+
+            // add if recording
+            simcore_record_add('Close all notifications',
+                               'simcoreui_notify_close();\n') ;
         }
 
         function simcoreui_notify_notifications ( )
@@ -116,5 +138,9 @@
 	    // display notifications...
             simcoreui_notify_close() ;
             simcoreui_do_notify('notifications', acc, 'light', 0) ;
+
+            // add if recording
+            simcore_record_add('Open notification list',
+                               'simcoreui_notify_notifications();') ;
         }
 
