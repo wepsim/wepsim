@@ -52,6 +52,131 @@
 	    return true ;
     }
 
+    function wepsim_show_wepmips ( )
+    {
+            $(".multi-collapse-2").collapse("show") ;
+	    $("#slider_cpucu").hide() ;
+
+	    $("#tab26").hide() ;
+	    $("#tab21").hide() ;
+	    $("#tab24").click() ;
+
+            inputfirm.setOption('readOnly', true) ;
+            $("#btn_micro1").addClass('d-none') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wepsim_hide_wepmips ( )
+    {
+            $(".multi-collapse-2").collapse("show") ;
+	    $("#slider_cpucu").show() ;
+
+	    $("#tab26").show() ;
+	    $("#tab21").show() ;
+
+            inputfirm.setOption('readOnly', false) ;
+            $("#btn_micro1").removeClass('d-none') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wepsim_activehw ( mode )
+    {
+	    simhw_setActive(mode) ;
+
+            // reload images
+	    var o = document.getElementById('svg_p') ;
+	    if (o != null) o.setAttribute('data',  simhw_active().sim_img_processor) ;
+	        o = document.getElementById('svg_cu') ;
+	    if (o != null) o.setAttribute('data', simhw_active().sim_img_controlunit) ;
+	        o = document.getElementById('svg_p2') ;
+	    if (o != null) o.setAttribute('data', simhw_active().sim_img_cpu) ;
+
+            // reload images event-handlers
+	    var a = document.getElementById("svg_p");
+	    a.addEventListener("load",function() {
+		simcore_init_eventlistener("svg_p", hash_detail2action);
+		refresh();
+	    }, false);
+
+	    var b = document.getElementById("svg_cu");
+	    b.addEventListener("load",function() {
+		simcore_init_eventlistener("svg_cu", hash_detail2action);
+		refresh();
+	    }, false);
+
+            // info + warning
+	    wepsim_notify_warning('<strong>WARNING</strong>',
+                                  'Please remember the current firmware and assembly might need to be reloaded, ' +
+                                  'because previous working session of the simulated hardware are not kept.') ;
+	    wepsim_notify_success('<strong>INFO</strong>',
+                                  '"' + simhw_active().sim_name + '" has been activated.') ;
+
+            // update UI
+            var SIMWARE = get_simware() ;
+    	    update_memories(SIMWARE) ;
+            simcore_reset() ;
+
+            // update asmdbg
+            var asmdbg_content = default_asmdbg_content_horizontal() ;
+	    for (var l in SIMWARE.assembly) // <===> if (SIMWARE.assembly != {})
+	    {
+                 asmdbg_content = assembly2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg, SIMWARE.assembly) ;
+		 break ;
+	    }
+            $("#asm_debugger").html(asmdbg_content);
+
+            showhideAsmElements();
+
+            // return ok
+            return true ;
+    }
+
+    function wepsim_change_mode ( optValue )
+    {
+	    // switch active hardware by name...
+            var hwid = -1 ;
+            switch (optValue)
+            {
+	      case 'newbie':
+	      case 'intro':
+	      case 'wepmips':
+	      case 'tutorial':
+                               hwid = simhw_getIdByName('ep') ;
+                               wepsim_activehw(hwid) ;
+                               break;
+	      default:
+	                       hwid = simhw_getIdByName(optValue) ;
+                               wepsim_activehw(hwid) ;
+                               break;
+            }
+
+	    // show/hide wepmips...
+	    if ('wepmips' == optValue)
+	         wepsim_show_wepmips() ;
+	    else wepsim_hide_wepmips() ;
+
+	    // intro mode...
+	    if ('intro' == optValue)
+	    {
+	        sim_tutorial_showframe('welcome', 0);
+                return true ;
+	    }
+
+	    // newbie mode...
+            if ('newbie' == optValue)
+            {
+                wepsim_newbie_tour() ;
+                return true ;
+            }
+
+            // return ok
+            return true ;
+    }
+
     // sliders
 
     function set_ab_size ( diva, divb, new_value )
@@ -88,6 +213,21 @@
     //
     // Auxiliar function
     //
+
+    // button 'glowing' effect
+    function wepsim_btn_glowing ( btn_id )
+    {
+	    if (simcore_record_isPlaying())
+	    {
+		    // add class and...
+		    $(btn_id).addClass('btn-warning') ;
+
+		    // ...remove it after 150ms 
+		    setTimeout(function(){ 
+				   $(btn_id).removeClass('btn-warning'); 
+			       }, 150);
+	    }
+    }
 
     // confirm exit
     function wepsim_confirm_exit ( e )
