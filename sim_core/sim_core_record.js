@@ -168,7 +168,7 @@
 
     // recording (on, off, ...)
 
-    function simcore_record_on ( )
+    function simcore_record_start ( )
     {
         ws_is_playing   = false ;
         ws_is_recording = true ;
@@ -179,7 +179,7 @@
         simcore_record_showMsg(ws_last_played, 'Recording...') ;
     }
 
-    function simcore_record_off ( )
+    function simcore_record_stop ( )
     {
         ws_is_playing   = false ;
         ws_is_recording = false ;
@@ -198,8 +198,13 @@
 
     function simcore_record_play ( )
     {
-        if (ws_is_playing === true) {
-	    return ;
+        if (ws_is_playing === true) 
+	{
+            if (ws_last_played < ws_records.length) {
+	        return ;
+	    }
+
+            simcore_record_stop() ;
 	}
 
         ws_is_playing   = true ;

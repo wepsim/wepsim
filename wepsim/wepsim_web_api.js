@@ -684,7 +684,7 @@
 
     function wsweb_record_on ( )
     {
-	    simcore_record_on() ;
+	    simcore_record_start() ;
 
             // return ok
             return true ;
@@ -692,7 +692,7 @@
 
     function wsweb_record_off ( )
     {
-	    simcore_record_off() ;
+	    simcore_record_stop() ;
 
             // return ok
             return true ;
