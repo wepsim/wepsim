@@ -172,7 +172,7 @@
 		               'wsweb_execution_run();\n') ;
 
             // intercept events...
-	    $("#current_state2").on("hidden.bs.modal",
+	    $("#current_state2").one("hidden.bs.modal",
 		                     function () {
 					 simcore_record_add('Close execution summary',
 						            'wsweb_dialogbox_close_all();\n');
@@ -194,7 +194,7 @@
 		               'wsweb_dialogbox_open_examples();\n') ;
 
             // intercept events...
-	    $("#example1").on("hidden.bs.modal",
+	    $("#example1").one("hidden.bs.modal",
 		               function () {
 				   simcore_record_add('Close examples',
 					              'wsweb_dialogbox_close_all();\n');
@@ -217,7 +217,7 @@
 		               'wsweb_dialogbox_open_help();\n') ;
 
             // intercept events...
-	    $("#help1").on("hidden.bs.modal",
+	    $("#help1").one("hidden.bs.modal",
 		            function () {
 				simcore_record_add('Close help',
 					           'wsweb_dialogbox_close_all();\n');
@@ -238,7 +238,7 @@
 		               'wsweb_dialogbox_open_config();\n') ;
 
             // intercept events...
-	    $("#config2").on("hidden.bs.modal",
+	    $("#config2").one("hidden.bs.modal",
 		              function () {
 				  simcore_record_add('Close configuration',
 					             'wsweb_dialogbox_close_all();\n');
@@ -260,7 +260,7 @@
 		               'wsweb_dialogbox_open_state();\n') ;
 
             // intercept events...
-	    $("#current_state1").on("hidden.bs.modal",
+	    $("#current_state1").one("hidden.bs.modal",
 		                     function () {
 					 simcore_record_add('Close state',
 						            'wsweb_dialogbox_close_all();\n');
@@ -284,7 +284,7 @@
 		               'wsweb_dialogbox_open_binary_assembly();\n') ;
 
             // intercept events...
-	    $("#bin2").on("hidden.bs.modal",
+	    $("#bin2").one("hidden.bs.modal",
 		           function () {
 			       simcore_record_add('Close binary assembly',
 				                  'wsweb_dialogbox_close_all();\n');
@@ -309,7 +309,7 @@
 		               'wsweb_dialogbox_open_binary_firmware();\n') ;
 
             // intercept events...
-	    $("#bin2").on("hidden.bs.modal",
+	    $("#bin2").one("hidden.bs.modal",
 		           function () {
 			       simcore_record_add('Close binary firmware',
 				                  'wsweb_dialogbox_close_all();\n');
@@ -335,7 +335,7 @@
 		               'wsweb_dialogbox_open_hardware_summary();\n') ;
 
             // intercept events...
-	    $("#help1").on("hidden.bs.modal",
+	    $("#help1").one("hidden.bs.modal",
 		            function () {
 				simcore_record_add('Open hardware summary',
 					           'wsweb_dialogbox_close_all();\n');
