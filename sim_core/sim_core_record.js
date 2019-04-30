@@ -40,7 +40,7 @@
     function simcore_record_pushElto ( desc, elto )
     {
 	// add a new record
-        var record = { 
+        var record = {
 		       timestamp:   (Date.now() - ws_last_time),
 		       description: desc,
 		       element:     elto
@@ -61,13 +61,13 @@
     function simcore_record_playAt ( index )
     {
 	// 1.- stop playing...
-        if (ws_is_playing === false) 
+        if (ws_is_playing === false)
 	{
                 simcore_record_showMsg(ws_last_played, 'Stopped by user.') ;
 	        return ;
 	}
         ws_last_played = index ;
-	if (index >= ws_records.length) 
+	if (index >= ws_records.length)
 	{
                 simcore_record_showMsg(ws_records.length, 'Done.') ;
 	        return ;
@@ -90,6 +90,48 @@
                    }, wait_time);
     }
 
+    function simcore_record_glowing ( ui_id )
+    {
+         // check params
+	 var ui_obj = $(ui_id) ;
+	 if (ui_obj === null) {
+	     return ;
+	 }
+
+         // add class and...
+         ui_obj.addClass('btn-warning') ;
+
+         // ...remove it after 250 ms.
+         setTimeout(function() {
+		       ui_obj.removeClass('btn-warning') ;
+	            }, 250) ;
+    }
+
+    function simcore_record_glowAdd ( )
+    {
+	 var ui_obj = $(this) ;
+	 var ui_id  = ui_obj.attr('id') ;
+
+	 if (typeof ui_id !== 'undefined') {
+             simcore_record_add('Click',
+		                'simcore_record_glowing("#' + ui_id + '");\n') ;
+	 }
+    }
+
+    function simcore_record_glow ( is_on )
+    {
+	if (is_on)
+	{
+	         $(".btn").on("click", simcore_record_glowAdd) ;
+	    $(".nav-link").on("click", simcore_record_glowAdd) ;
+	}
+	else
+	{
+                 $(".btn").off("click", simcore_record_glowAdd) ;
+	    $(".nav-link").off("click", simcore_record_glowAdd) ;
+	}
+    }
+
 
     /*
      * Record: public API
@@ -104,8 +146,9 @@
 	ws_last_played  = 0 ;
 	ws_last_time    = 0 ;
 
-	ws_is_recording = false ;
 	ws_is_playing   = false ;
+	ws_is_recording = false ;
+        simcore_record_glow(false) ;
 
 	ws_record_div_name = div_id ;
 
@@ -115,12 +158,27 @@
 	}
     }
 
+    function simcore_record_reinit ( )
+    {
+	ws_records = [] ;
+
+	ws_last_played  = 0 ;
+	ws_last_time    = 0 ;
+
+	ws_is_playing   = false ;
+	ws_is_recording = false ;
+        simcore_record_glow(false) ;
+    }
+
+
     // recording (on, off, ...)
 
     function simcore_record_on ( )
     {
         ws_is_playing   = false ;
         ws_is_recording = true ;
+        simcore_record_glow(true) ;
+
         ws_last_played  = 0 ;
         ws_last_time    = Date.now() ;
 
@@ -131,6 +189,8 @@
     {
         ws_is_playing   = false ;
         ws_is_recording = false ;
+        simcore_record_glow(false) ;
+
         ws_last_played  = 0 ;
 
         simcore_record_showMsg(ws_last_played, 'Stopped by user.') ;
@@ -149,18 +209,21 @@
 	    return ;
 	}
 
-        ws_is_recording = false ;
         ws_is_playing   = true ;
+        ws_is_recording = false ;
+        simcore_record_glow(false) ;
 
         simcore_record_playAt(ws_last_played) ;
     }
 
     function simcore_record_pause ( )
     {
-        ws_is_recording = false ;
         ws_is_playing   = !ws_is_playing ;
+        ws_is_recording = false ;
+        simcore_record_glow(false) ;
 
-        if (ws_is_playing === true) {
+        if (ws_is_playing === true)
+	{
             simcore_record_playAt(ws_last_played) ;
 	}
     }
@@ -179,15 +242,17 @@
 
     function simcore_record_set ( records )
     {
-        ws_records = records ;
+        simcore_record_reinit() ;
 
+        ws_records = records ;
         simcore_record_showMsg(0, 'Record restored.') ;
     }
 
     function simcore_record_reset ( )
     {
-        ws_records = [] ;
+        simcore_record_reinit() ;
 
+        ws_records = [] ;
         simcore_record_showMsg(0, 'Empty record') ;
     }
 

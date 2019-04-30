@@ -82,10 +82,6 @@
 
     function wsweb_change_show_processor ( )
     {
-            // btn 'glows'
-            wepsim_btn_glowing('#tab26') ;
-
-            // do action
 	    $("#tab26").tab('show') ;
 	    start_drawing() ;
 	    refresh() ;
@@ -100,10 +96,6 @@
 
     function wsweb_change_show_asmdbg ( )
     {
-            // btn 'glows'
-            wepsim_btn_glowing('#tab24') ;
-
-            // do action
             stop_drawing() ;
 	    $("#tab24").tab('show') ;
 
@@ -128,10 +120,6 @@
 
     function wsweb_execution_reset ( )
     {
-            // btn 'glows'
-            wepsim_btn_glowing('#rs1') ;
-
-	    // do action
 	    wepsim_execute_reset(true, true) ;
 	    simcoreui_show_hw() ;
 
@@ -145,10 +133,6 @@
 
     function wsweb_execution_microinstruction ( )
     {
-            // btn 'glows'
-            wepsim_btn_glowing('#nm1') ;
-
-	    // do action
 	    wepsim_execute_microinstruction() ;
 	    simcoreui_show_hw() ;
 
@@ -162,10 +146,6 @@
 
     function wsweb_execution_instruction ( )
     {
-            // btn 'glows'
-            wepsim_btn_glowing('#ni1') ;
-
-	    // do action
 	    wepsim_execute_instruction() ;
 	    simcoreui_init_hw('#config_HW') ;
 
@@ -179,10 +159,6 @@
 
     function wsweb_execution_run ( )
     {
-            // btn 'glows'
-            wepsim_btn_glowing('#qbp') ;
-
-	    // do action
             var mode = get_cfg('ws_mode') ;
 	    if ('tutorial' == mode) {
 		 wepsim_notify_success('<strong>INFO</strong>',
@@ -252,9 +228,6 @@
 
     function wsweb_dialogbox_open_config ( )
     {
-            // btn 'glows'
-            wepsim_btn_glowing('#btn_cfg1') ;
-
 	    wepsim_open_config_index() ;
 	    $('[data-toggle=tooltip]').tooltip('hide') ;
 
@@ -402,9 +375,6 @@
 
     function wsweb_set_details_select ( opt )
     {
-            // btn 'glows'
-            wepsim_btn_glowing('#dd2') ;
-
 	    // update interface
 	    $('#tab'  + opt).trigger('click') ;
 	    $('#select5a').val(opt) ;
@@ -462,9 +432,6 @@
 
     function wsweb_select_main ( opt )
     {
-            // btn 'glows'
-            wepsim_btn_glowing('#dd1') ;
-
 	    // save ws_mode
 	    set_cfg('ws_mode', opt) ;
 	    save_cfg() ;
