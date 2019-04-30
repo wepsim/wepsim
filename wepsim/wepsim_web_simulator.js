@@ -214,21 +214,6 @@
     // Auxiliar function
     //
 
-    // button 'glowing' effect
-    function wepsim_btn_glowing ( btn_id )
-    {
-	    if (simcore_record_isPlaying())
-	    {
-		    // add class and...
-		    $(btn_id).addClass('btn-warning') ;
-
-		    // ...remove it after 150ms 
-		    setTimeout(function(){ 
-				   $(btn_id).removeClass('btn-warning'); 
-			       }, 150);
-	    }
-    }
-
     // confirm exit
     function wepsim_confirm_exit ( e )
     {
