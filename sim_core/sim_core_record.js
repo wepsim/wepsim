@@ -114,10 +114,19 @@
 	 var ui_obj = $(this) ;
 	 var ui_id  = ui_obj.attr('id') ;
 
-	 if (typeof ui_id !== 'undefined') {
-             simcore_record_addToLast('Click',
-		                      'simcore_record_glowing("#' + ui_id + '");\n') ;
+         // check params
+	 if (typeof ui_id === 'undefined') {
+             return ;
 	 }
+         if (ws_is_recording === false) {
+             return ;
+	 }
+
+         // add a new record
+	 ui_obj.one("click", simcore_record_glowAdd) ;
+
+         simcore_record_addToLast('Click',
+		                  'simcore_record_glowing("#' + ui_id + '");\n') ;
     }
 
 
@@ -160,14 +169,8 @@
 
     function simcore_record_captureInit ( )
     {
-             $(".btn").off("click", simcore_record_glowAdd) ;
-	$(".nav-link").off("click", simcore_record_glowAdd) ;
-
-	if (ws_is_recording)
-	{
-	         $(".btn").on("click", simcore_record_glowAdd) ;
-	    $(".nav-link").on("click", simcore_record_glowAdd) ;
-	}
+	     $(".btn").one("click", simcore_record_glowAdd) ;
+	$(".nav-link").one("click", simcore_record_glowAdd) ;
     }
 
 
@@ -282,7 +285,7 @@
 
 	    if (last_timestamp !== 0)
 	         last_timestamp = 0 ;
-	    else last_timestamp = (Date.now() - ws_last_time) ;
+	    else last_timestamp = 500 ;
 
             // simcore_record_pushElto...
 	    var record = {
