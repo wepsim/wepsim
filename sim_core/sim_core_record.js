@@ -145,7 +145,6 @@
 
 	ws_is_playing   = false ;
 	ws_is_recording = false ;
-        simcore_record_captureInit() ;
 
 	ws_record_div_name = div_id ;
 
@@ -155,22 +154,15 @@
 	}
     }
 
-    function simcore_record_reInit ( )
-    {
-	ws_records = [] ;
-
-	ws_last_played  = 0 ;
-	ws_last_time    = 0 ;
-
-	ws_is_playing   = false ;
-	ws_is_recording = false ;
-        simcore_record_captureInit() ;
-    }
-
     function simcore_record_captureInit ( )
     {
-	     $(".btn").one("click", simcore_record_glowAdd) ;
+	$(".nav-link").off("click", simcore_record_glowAdd) ;
+        $(".btn-like").off("click", simcore_record_glowAdd) ;
+	     $(".btn").off("click", simcore_record_glowAdd) ;
+
 	$(".nav-link").one("click", simcore_record_glowAdd) ;
+        $(".btn-like").one("click", simcore_record_glowAdd) ;
+	     $(".btn").one("click", simcore_record_glowAdd) ;
     }
 
 
@@ -180,7 +172,6 @@
     {
         ws_is_playing   = false ;
         ws_is_recording = true ;
-        simcore_record_captureInit() ;
 
         ws_last_played  = 0 ;
         ws_last_time    = Date.now() ;
@@ -192,7 +183,6 @@
     {
         ws_is_playing   = false ;
         ws_is_recording = false ;
-        simcore_record_captureInit() ;
 
         ws_last_played  = 0 ;
 
@@ -214,7 +204,6 @@
 
         ws_is_playing   = true ;
         ws_is_recording = false ;
-        simcore_record_captureInit() ;
 
         simcore_record_playAt(ws_last_played) ;
     }
@@ -223,7 +212,6 @@
     {
         ws_is_playing   = !ws_is_playing ;
         ws_is_recording = false ;
-        simcore_record_captureInit() ;
 
         if (ws_is_playing === true)
 	{
@@ -245,7 +233,11 @@
 
     function simcore_record_set ( records )
     {
-        simcore_record_reInit() ;
+	ws_last_played  = 0 ;
+	ws_last_time    = 0 ;
+
+	ws_is_playing   = false ;
+	ws_is_recording = false ;
 
         ws_records = records ;
         simcore_record_showMsg(0, 'Record restored.') ;
@@ -253,7 +245,11 @@
 
     function simcore_record_reset ( )
     {
-        simcore_record_reInit() ;
+	ws_last_played  = 0 ;
+	ws_last_time    = 0 ;
+
+	ws_is_playing   = false ;
+	ws_is_recording = false ;
 
         ws_records = [] ;
         simcore_record_showMsg(0, 'Empty record') ;
@@ -280,8 +276,9 @@
 	{
             // if (last timestamp !== 0) then join
 	    var last_timestamp = 0 ;
-	    if (ws_records.length !== 0)
+	    if (ws_records.length !== 0) {
 	        last_timestamp = ws_records[ws_records.length - 1].timestamp ;
+	    }
 
 	    if (last_timestamp !== 0)
 	         last_timestamp = 0 ;

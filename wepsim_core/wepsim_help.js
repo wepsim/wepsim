@@ -80,7 +80,7 @@
 			'    <span class="badge badge-pill badge-light">' + (m+1) + '</span>' +
 			'</div>' +
 			'<div class="col-md-4">' +
-			'    <span class="bg-success text-white" style="cursor:pointer;" ' +
+			'    <span class="btn-like bg-success text-white" style="cursor:pointer;" ' +
 			'          onclick="' + onclick_code + '">' + e_title + '</span>' +
 			'</div>' +
 			'<div class="col-md collapse7 show">' +
