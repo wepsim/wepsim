@@ -200,6 +200,7 @@
 					              'wsweb_dialogbox_close_all();\n');
 			       });
             wsweb_scroll_record('#container-example1') ;
+	    simcore_record_captureInit() ;
 
             // return ok
             return true ;
@@ -221,6 +222,7 @@
 				simcore_record_add('Close help',
 					           'wsweb_dialogbox_close_all();\n');
 			    });
+	    simcore_record_captureInit() ;
 
             // return ok
             return true ;
@@ -242,6 +244,7 @@
 					             'wsweb_dialogbox_close_all();\n');
 			      });
             wsweb_scroll_record('#container-config2') ;
+	    simcore_record_captureInit() ;
 
             // return ok
             return true ;
@@ -262,6 +265,7 @@
 					 simcore_record_add('Close state',
 						            'wsweb_dialogbox_close_all();\n');
 				     });
+	    simcore_record_captureInit() ;
 
             // return ok
             return true ;

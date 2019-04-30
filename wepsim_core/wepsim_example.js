@@ -238,7 +238,7 @@
 		        '           id="example_' + m + '" ' + 
 		        '           onclick="$(\'#example1\').modal(\'hide\'); ' + 
                         '                    load_from_example_firmware(\'' + t_hwmcasm + '\',true);" ' + 
-		        '           class="bg-info text-white p-0 mr-2">' + e_title + '</span>' +
+		        '           class="btn rounded-0 bg-info text-white p-0 mr-2">' + e_title + '</span>' +
                         '</div>' +
                         '<div class="col-sm collapse7 show">' +
                         '    <c>' + e_description + '</c>' +
