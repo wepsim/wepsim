@@ -236,8 +236,9 @@
                         '<div class="col-sm-3">' +
                         '     <span style="cursor:pointer;" ' + 
 		        '           id="example_' + m + '" ' + 
-		        '           onclick="$(\'#example1\').modal(\'hide\'); ' + 
-                        '                    load_from_example_firmware(\'' + t_hwmcasm + '\',true);" ' + 
+		        '           onclick="load_from_example_firmware(\'' + t_hwmcasm + '\',true); ' + 
+		        '                    $(\'#example1\').modal(\'hide\'); ' + 
+		        '                    return false;" ' + 
 		        '           class="btn rounded-0 bg-info text-white p-0 mr-2">' + e_title + '</span>' +
                         '</div>' +
                         '<div class="col-sm collapse7 show">' +
@@ -251,13 +252,13 @@
                         '              <span class="sr-only">Toggle Dropdown</span>' +
                         '           </button>' +
                         '           <div class="dropdown-menu bg-info" style="z-index:1024;">' +
-		        '             <a onclick="$(\'#example1\').modal(\'hide\'); ' + 
-                        '                        load_from_example_assembly(\'' + t_hwmcasm + '\',false);' + 
-		        '                        return false;"' + 
+		        '             <a onclick="load_from_example_assembly(\'' + t_hwmcasm + '\',false);' + 
+		        '                         $(\'#example1\').modal(\'hide\'); ' + 
+		        '                         return false;"' + 
 		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Load Assembly only">Load Assembly only</span></c></a>' +
-		        '             <a onclick="$(\'#example1\').modal(\'hide\'); ' + 
-                        '                        load_from_example_firmware(\'' + t_hwmcasm + '\',false);' + 
-		        '                        return false;"' + 
+		        '             <a onclick="load_from_example_firmware(\'' + t_hwmcasm + '\',false);' + 
+		        '                         $(\'#example1\').modal(\'hide\'); ' + 
+		        '                         return false;"' + 
 		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Load Firmware only">Load Firmware only</span></c></a>' +
 		        '             <a onclick="$(\'#example_reference_' + e_id + '\').removeClass(\'d-none\');' +
 		        '                         wepsim_clipboard_CopyFromDiv(\'example_reference_' + e_id + '\');' +
