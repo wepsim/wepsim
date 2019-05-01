@@ -236,22 +236,6 @@
 		'              return false;">' +
 		'<em class="fas fa-flag col-1 pl-1 float-left"></em>' +
 		'<span class="col-11">' + i18n_get('gui',wsi,'Show Notifications') + '...</span></a>' +
-		'</li>' +
-		'<li class="list-group-item px-0"> ' +
-		'  <span class="btn-group-toggle" data-toggle="buttons">' +
-		'  <label class="btn btn-sm btn-outline-dark col p-1 text-left float-right" data-toggle="collapse" href=".multi-collapse-1">' +
-		'  <input type="checkbox" checked="" autocomplete="off">' +
-		'<em class="fas fa-bars col-1 pl-1 float-left"></em>' +
-		'<span class="col-11">' + i18n_get('gui',wsi,'Show/Hide ActionBar') + '</span></label>' +
-		'  </span>' +
-		'</li>' +
-		'<li class="list-group-item px-0"> ' +
-		'  <span class="btn-group-toggle" data-toggle="buttons">' +
-		'  <label class="btn btn-sm btn-outline-dark col p-1 text-left float-right" data-toggle="collapse" href=".multi-collapse-2">' +
-		'  <input type="checkbox" checked="" autocomplete="off">' +
-		'<em class="fas fa-sliders-h col-1 pl-1 float-left"></em>' +
-		'<span class="col-11">' + i18n_get('gui',wsi,'Show/Hide Slider') + '</span></label>' +
-		'  </span>' +
 		'</li>' ;
 
        if (get_cfg('enable_beta') === true)
@@ -265,22 +249,42 @@
 		'</li>' ;
 
 	   o += '<li class="list-group-item px-0"> ' +
+		'  <span class="btn-group-toggle" data-toggle="buttons">' +
+		'  <label class="btn btn-sm btn-outline-dark col p-1 text-left float-right" data-toggle="collapse" href=".multi-collapse-1">' +
+		'  <input type="checkbox" checked="" autocomplete="off">' +
+		'<em class="fas fa-bars col-1 pl-1 float-left"></em>' +
+		'<span class="col-11">' + i18n_get('gui',wsi,'Show/Hide ActionBar') + '</span></label>' +
+		'  </span>' +
+		'</li>' ;
+
+	   o += '<li class="list-group-item px-0"> ' +
+		'  <span class="btn-group-toggle" data-toggle="buttons">' +
+		'  <label class="btn btn-sm btn-outline-dark col p-1 text-left float-right" data-toggle="collapse" href=".multi-collapse-2">' +
+		'  <input type="checkbox" checked="" autocomplete="off">' +
+		'<em class="fas fa-sliders-h col-1 pl-1 float-left"></em>' +
+		'<span class="col-11">' + i18n_get('gui',wsi,'Show/Hide Slider') + '</span></label>' +
+		'  </span>' +
+		'</li>' ;
+
+	   o += '<li class="list-group-item px-0"> ' +
 		'  <a class="btn btn-sm btn-outline-dark col p-1 text-left float-right" href="#" ' +
 		'     onclick="wsweb_about_show(); ' +
 		'              wsweb_quickmenu_close(); ' +
 		'              return false;">' +
 		'<em class="fas fa-magic col-1 pl-1 float-left"></em>' +
 		'<span class="col-11">' + i18n_get('gui',wsi,'About WepSIM') + '...</span></a>' +
-		'</li>' +
-		'<li class="list-group-item px-0"> ' +
-		'  <a class="btn btn-sm btn-outline-dark col pr-2 text-left float-right" href="#" ' +
+		'</li>' ;
+
+	   o += '<li class="list-group-item px-0"> ' +
+		'  <a class="btn btn-sm btn-outline-dark col p-1 text-left float-right" href="#" ' +
 		'     onclick="wepsim_newbie_tour(); ' +
 		'              wsweb_quickmenu_close(); ' +
 		'              return false;">' +
 		'<em class="fas fa-book-reader col-1 pl-1 float-left"></em>' +
 		'<span class="col-11">' + i18n_get('gui',wsi,'Initial intro') + '...</span></a>' +
-		'</li>' +
-		'<button type="button" id="close" data-role="none" ' + 
+		'</li>' ;
+
+	   o += '<button type="button" id="close" data-role="none" ' + 
 		'        class="btn btn-sm btn-danger w-100 p-0 mt-2" ' +
 		'        onclick="wsweb_quickmenu_close(); ' +
 		'                 return false;">' +
