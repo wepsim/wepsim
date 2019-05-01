@@ -194,7 +194,9 @@
                <a class="ui-title pl-2 mx-2 text-primary" style="text-decoration: none"
 	          id="po1"
 		  data-container="body"
-                  onclick="wsweb_quickmenu_toggle(); return false;"
+                  onclick="if (typeof wsweb_quickmenu_toggle === 'function') 
+		               wsweb_quickmenu_toggle(); 
+		           return false;"
 		  data-html="true"
 		  data-placement="bottom">WepSIM&nbsp;<span class="badge badge-pill badge-secondary"><div class="wsversion">loading ...</div></span>
 	       </a>
@@ -218,7 +220,7 @@
 	</nav>
 
 
-	<div class="row-fluid p-2 rounded w-100 collapse" id="record_div"
+	<div class="row-fluid px-2 pb-2 pt-0 rounded w-100 collapse" id="record_div"
 	     style="position:fixed; left:0; bottom:0; z-index:1024; background-color:#DFDFDF; overflow:auto; -webkit-overflow-scrolling:touch;">
 
 	     <div class="progress col" style="height:1px;">
