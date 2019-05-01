@@ -39,24 +39,28 @@
 
 
     // Private API
-    function simcore_record_pushElto ( desc, elto )
+    function simcore_record_pushElto ( desc, elto, distance )
     {
 	// add a new record
         var record = {
-		       timestamp:   (Date.now() - ws_last_time),
+		       timestamp:   distance,
 		       description: desc,
 		       element:     elto
 	             } ;
-        ws_records.push(record) ;
 
-	// update timestamp
-        ws_last_time = Date.now() ;
+        ws_records.push(record) ;
     }
 
     function simcore_record_showMsg ( index, msg )
     {
 	if (ws_record_msg_obj !== null) {
 	    ws_record_msg_obj.html('<em>' + index + '/' + ws_records.length + '</em>&nbsp;' + msg) ;
+	}
+
+        if (ws_record_pb_obj !== null) 
+	{
+	    var next_pbval = (100 * index) / ws_records.length ;
+	    ws_record_pb_obj.css('width', next_pbval +'%').attr('aria-valuenow', next_pbval) ;
 	}
     }
 
@@ -75,16 +79,11 @@
 	        return ;
 	}
 
-	var next_index = index + 1 ;
-	var next_pbval = (100 * next_index) / ws_records.length ;
-
 	// 2.- execute current step, show message, and set last played
 	eval(ws_records[index].element) ;
-        simcore_record_showMsg(next_index, ws_records[index].description) ;
 
-        if (ws_record_pb_obj !== null) {
-	    ws_record_pb_obj.css('width', next_pbval +'%').attr('aria-valuenow', next_pbval) ;
-	}
+	var next_index = index + 1 ;
+        simcore_record_showMsg(next_index, ws_records[index].description) ;
 
 	// 3.- set next one
 	var wait_time  = 500 ;
@@ -134,8 +133,9 @@
          // add a new record
 	 ui_obj.one("click", simcore_record_glowAdd) ;
 
-         simcore_record_addToLast('Click',
-		                  'simcore_record_glowing("#' + ui_id + '");\n') ;
+         simcore_record_setTimeBeforeNow(0) ;
+         simcore_record_append_new('Click on UI element ' + ui_id,
+		                   'simcore_record_glowing("#' + ui_id + '");\n') ;
     }
 
 
@@ -274,45 +274,27 @@
         simcore_record_showMsg(0, 'Empty record') ;
     }
 
-    function simcore_record_add ( description, elto )
+    function simcore_record_append_new ( description, elto )
     {
         if (ws_is_recording === true)
 	{
-            simcore_record_pushElto(description, elto) ;
+	    var distance = Date.now() - ws_last_time ;
+            ws_last_time = Date.now() ;
+
+            simcore_record_pushElto(description, elto, distance) ;
             simcore_record_showMsg(0, 'Recording...') ;
 	}
     }
 
-    function simcore_record_addAlways ( description, elto )
+    // recording time
+
+    function simcore_record_setTimeBeforeNow ( distance )
     {
-        simcore_record_pushElto(description, elto) ;
-        simcore_record_showMsg(0, 'Recorded') ;
+            ws_last_time = Date.now() - distance ;
     }
 
-    function simcore_record_addToLast ( description, elto )
+    function simcore_record_addTimeAfterLast ( distance )
     {
-        if (ws_is_recording === true)
-	{
-            // if (last timestamp !== 0) then join
-	    var last_timestamp = 0 ;
-	    if (ws_records.length !== 0) {
-	        last_timestamp = ws_records[ws_records.length - 1].timestamp ;
-	    }
-
-	    if (last_timestamp !== 0)
-	         last_timestamp = 0 ;
-	    else last_timestamp = 500 ;
-
-            // simcore_record_pushElto...
-	    var record = {
-			    timestamp:   last_timestamp,
-			    description: description,
-			    element:     elto
-		         } ;
-	    ws_records.push(record) ;
-
-            // update UI
-            simcore_record_showMsg(0, 'Recording...') ;
-	}
+            ws_last_time = ws_last_time + distance ;
     }
 

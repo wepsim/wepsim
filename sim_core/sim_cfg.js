@@ -207,8 +207,8 @@
              WSCFG[field].value = value ;
 
              // add if recording
-             simcore_record_add('Set configuration option ' + field + ' to ' + value,
-                                'update_cfg("' + field + '",' + value + ');\n') ;
+             simcore_record_append_new('Set configuration option ' + field + ' to ' + value,
+                                       'update_cfg("' + field + '",' + value + ');\n') ;
 
              ga('send', 'event', 'config', 
                 'config.' + WSCFG.version.value, 
