@@ -101,8 +101,8 @@
         wepsim_load_from_url(url, do_next) ;
 
         // add if recording
-        simcore_record_add('Load assembly from example ' + example_id,
-                           'load_from_example_assembly("' + example_id + '", ' + chain_next_step + ');\n') ;
+        simcore_record_append_new('Load assembly from example ' + example_id,
+                                  'load_from_example_assembly("' + example_id + '", ' + chain_next_step + ');\n') ;
 
 	// stats about examples
         ga('send', 'event', 'example', 'example.assembly', 
@@ -165,8 +165,8 @@
         wepsim_load_from_url(url, do_next) ;
 
         // add if recording
-        simcore_record_add('Load firmware from example ' + example_id,
-                           'load_from_example_firmware("' + example_id + '", false);\n') ;
+        simcore_record_append_new('Load firmware from example ' + example_id,
+                                  'load_from_example_firmware("' + example_id + '", false);\n') ;
 
 	// stats about examples
         ga('send', 'event', 'example', 'example.firmware', 
