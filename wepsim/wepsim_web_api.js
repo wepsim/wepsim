@@ -651,10 +651,12 @@
 			         nf_duration = 5000 ;
 			    else nf_duration = 1000 * nf_duration ;
 
+			    var nf_message_encoded = nf_message.replace(new RegExp('\r?\n','g'), '<br/>') ;
+
 			    // add if recording
 			    simcore_record_setTimeBeforeNow(500) ;
 			    simcore_record_append_new('Message with title "'      + nf_title + '" and message "' + nf_message + '".',
-					              'wsweb_notifyuser_show("'   + nf_title + '", "'            + nf_message + '");\n') ;
+					              'wsweb_notifyuser_show("'   + nf_title + '", "'            + nf_message_encoded + '");\n') ;
 			    simcore_record_setTimeBeforeNow(nf_duration) ;
 			    simcore_record_append_new('Close message with title ' + nf_title,
 				                      'wsweb_notifyuser_hide();\n') ;
@@ -666,7 +668,7 @@
 			'<p><input aria-label="title" id="frm_title1" ' +
 			'	  class="form-control btn-outline-dark" placeholder="Title for the notification" style="min-width: 90%;"/></p>' +
 		        '<label for="frm_message1"><em>'  + i18n_get('gui',wsi,'Message') + ':</em></label>' +
-			'<p><textarea aria-label="message" id="frm_message1" ' +
+			'<p><textarea aria-label="message" id="frm_message1" rows="5" ' +
 			'	      class="form-control btn-outline-dark" placeholder="Message for the notification" style="min-width: 90%;"/></p>' +
 		        '<label for="frm_duration1"><em>' + i18n_get('gui',wsi,'Duration') + ':</em></label>' +
 			'<p><input aria-label="duration" id="frm_duration1" type="number" ' +
