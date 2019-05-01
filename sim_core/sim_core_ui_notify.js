@@ -100,8 +100,8 @@
             $(".alert").alert('close') ;
 
             // add if recording
-            simcore_record_add('Close all notifications',
-                               'simcoreui_notify_close();\n') ;
+            simcore_record_append_new('Close all notifications',
+                                      'simcoreui_notify_close();\n') ;
         }
 
         function simcoreui_notify_notifications ( )
@@ -140,7 +140,7 @@
             simcoreui_do_notify('notifications', acc, 'light', 0) ;
 
             // add if recording
-            simcore_record_add('Open notification list',
-                               'simcoreui_notify_notifications();') ;
+            simcore_record_append_new('Open notification list',
+                                      'simcoreui_notify_notifications();') ;
         }
 
