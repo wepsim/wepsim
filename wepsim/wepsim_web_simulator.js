@@ -451,7 +451,7 @@
 	    inputasm = sim_init_editor("inputAssembly", inputasm_cfg) ;
 
 	    // init: record 
-	    simcore_record_init('record_msg') ;
+	    simcore_record_init('record_msg', 'record_pb') ;
             simcore_record_captureInit() ;
 
 	    // init: help idiom selectors 
