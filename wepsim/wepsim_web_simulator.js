@@ -238,13 +238,12 @@
 		'<span class="col-11">' + i18n_get('gui',wsi,'Show Notifications') + '...</span></a>' +
 		'</li>' ;
 
-       if (get_cfg('enable_beta') === true)
 	   o += '<li class="list-group-item px-0 enabled_beta"> ' +
 		'  <button class="navbar-toggle btn btn-sm btn-outline-dark col p-1 text-left float-right" type="button" ' +
 		'          onclick="wsweb_recordbar_toggle(); ' +
 		'                   return false;">' +
 		'<em class="fas fa-clipboard col-1 pl-1 float-left"></em>' +
-		'<span class="col-11">' + i18n_get('gui',wsi,'Show/Hide Record') + '</span>' +
+		'<span class="col-11">' + i18n_get('gui',wsi,'Show/Hide RecordBar') + '</span>' +
 		'  </button>' +
 		'</li>' ;
 
