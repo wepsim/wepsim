@@ -229,56 +229,56 @@
 
 	var o = '<ul class="list-group list-group-flush">' +
 		'<li class="list-group-item px-0 pt-1"> ' +
-		'  <em class="fas fa-flag"></em> &nbsp;' +
-		'  <a class="btn btn-sm btn-outline-secondary col-auto p-1 text-left float-right" href="#" ' +
+		'  <a class="btn btn-sm btn-outline-dark col p-1 text-left float-right" href="#" ' +
 		'     onclick="simcoreui_notify_notifications(); ' +
 		'              i18n_update_tags(); ' +
 		'              wsweb_quickmenu_close(); ' +
 		'              return false;">' +
-		i18n_get('gui',wsi,'Show Notifications') + '...</a>' +
+		'<em class="fas fa-flag col-1 pl-1 float-left"></em>' +
+		'<span class="col-11">' + i18n_get('gui',wsi,'Show Notifications') + '...</span></a>' +
 		'</li>' +
 		'<li class="list-group-item px-0"> ' +
-		'  <em class="fas fa-bars"></em> &nbsp;' +
 		'  <span class="btn-group-toggle" data-toggle="buttons">' +
-		'  <label class="btn btn-sm btn-outline-secondary col-auto p-1 text-left float-right" data-toggle="collapse" href=".multi-collapse-1">' +
+		'  <label class="btn btn-sm btn-outline-dark col p-1 text-left float-right" data-toggle="collapse" href=".multi-collapse-1">' +
 		'  <input type="checkbox" checked="" autocomplete="off">' +
-		i18n_get('gui',wsi,'Show/Hide ActionBar') + '</label>' +
+		'<em class="fas fa-bars col-1 pl-1 float-left"></em>' +
+		'<span class="col-11">' + i18n_get('gui',wsi,'Show/Hide ActionBar') + '</span></label>' +
 		'  </span>' +
 		'</li>' +
 		'<li class="list-group-item px-0"> ' +
-		'  <em class="fas fa-sliders-h"></em> &nbsp;' +
 		'  <span class="btn-group-toggle" data-toggle="buttons">' +
-		'  <label class="btn btn-sm btn-outline-secondary col-10 p-1 text-left float-right" data-toggle="collapse" href=".multi-collapse-2">' +
+		'  <label class="btn btn-sm btn-outline-dark col p-1 text-left float-right" data-toggle="collapse" href=".multi-collapse-2">' +
 		'  <input type="checkbox" checked="" autocomplete="off">' +
-		i18n_get('gui',wsi,'Show/Hide Slider') + '</label>' +
+		'<em class="fas fa-sliders-h col-1 pl-1 float-left"></em>' +
+		'<span class="col-11">' + i18n_get('gui',wsi,'Show/Hide Slider') + '</span></label>' +
 		'  </span>' +
 		'</li>' ;
 
        if (get_cfg('enable_beta') === true)
 	   o += '<li class="list-group-item px-0 enabled_beta"> ' +
-		'  <em class="fas fa-clipboard"></em> &nbsp;' +
-		'  <button class="navbar-toggle btn btn-sm btn-outline-secondary col-10 p-1 text-left float-right" type="button" ' +
+		'  <button class="navbar-toggle btn btn-sm btn-outline-dark col p-1 text-left float-right" type="button" ' +
 		'          onclick="wsweb_recordbar_toggle(); ' +
 		'                   return false;">' +
-		i18n_get('gui',wsi,'Show/Hide Record') +
+		'<em class="fas fa-clipboard col-1 pl-1 float-left"></em>' +
+		'<span class="col-11">' + i18n_get('gui',wsi,'Show/Hide Record') + '</span>' +
 		'  </button>' +
 		'</li>' ;
 
 	   o += '<li class="list-group-item px-0"> ' +
-		'  <em class="fas fa-magic"></em> &nbsp;' +
-		'  <a class="btn btn-sm btn-outline-secondary col-10 p-1 text-left float-right" href="#" ' +
+		'  <a class="btn btn-sm btn-outline-dark col p-1 text-left float-right" href="#" ' +
 		'     onclick="wsweb_about_show(); ' +
 		'              wsweb_quickmenu_close(); ' +
 		'              return false;">' +
-		i18n_get('gui',wsi,'About WepSIM') + '...</a>' +
+		'<em class="fas fa-magic col-1 pl-1 float-left"></em>' +
+		'<span class="col-11">' + i18n_get('gui',wsi,'About WepSIM') + '...</span></a>' +
 		'</li>' +
 		'<li class="list-group-item px-0"> ' +
-		'  <em class="fas fa-book-reader"></em> &nbsp;' +
-		'  <a class="btn btn-sm btn-outline-secondary col-10 pr-2 text-left float-right" href="#" ' +
+		'  <a class="btn btn-sm btn-outline-dark col pr-2 text-left float-right" href="#" ' +
 		'     onclick="wepsim_newbie_tour(); ' +
 		'              wsweb_quickmenu_close(); ' +
 		'              return false;">' +
-		i18n_get('gui',wsi,'Initial intro') + '...</a>' +
+		'<em class="fas fa-book-reader col-1 pl-1 float-left"></em>' +
+		'<span class="col-11">' + i18n_get('gui',wsi,'Initial intro') + '...</span></a>' +
 		'</li>' +
 		'<button type="button" id="close" data-role="none" ' + 
 		'        class="btn btn-sm btn-danger w-100 p-0 mt-2" ' +
@@ -313,7 +313,7 @@
     // Initialize UI
     //
 
-    function wsweb_init_ui ( )
+    function wepsim_init_ui ( )
     {
 	    // install protection for accidental close.
 	    window.addEventListener("beforeunload", wepsim_confirm_exit) ;
@@ -451,7 +451,8 @@
 	    inputasm = sim_init_editor("inputAssembly", inputasm_cfg) ;
 
 	    // init: record 
-	    wsweb_record_init() ;
+	    simcore_record_init('record_msg', 'record_pb') ;
+            simcore_record_captureInit() ;
 
 	    // init: help idiom selectors 
             wepsim_init_helpDropdown() ;
