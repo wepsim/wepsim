@@ -218,6 +218,9 @@
 	<div class="row-fluid p-2 rounded w-100 collapse" id="record_div"
 	     style="position:fixed; left:0; bottom:0; z-index:1024; background-color:#DFDFDF; overflow:auto; -webkit-overflow-scrolling:touch;">
 
+	     <div class="progress col" style="height:1px;">
+	          <div id="record_pb" class="progress-bar" role="progressbar" style="width:0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+	     </div>
 	     <div class="text-left col">
 		  <span id="record_msg" class="text-left text-truncate"><em>0/0</em>&nbsp;&lt;empty recording&gt;</span>
              </div>
@@ -653,12 +656,14 @@
 							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file-download"></em><br><strong><span data-langkey="Save">Save</span></strong></button>
 
 						    <button style="background-color: #CCCCCC"
+		                                            id="mcc1"
 							    class="btn btn-light shadow-sm col-auto px-0 py-1 ml-1"
 							    data-transition="none" data-inline="true"
 							    onclick="wsweb_firmware_compile();
 								     return false;">
 							    <em class="fas fa-sign-out-alt"></em><br><strong><span class="d-none d-sm-inline-flex">&#181;<span data-langkey="compile">compile</span></span><span class="d-sm-none">&#181;c.</span></strong></button>
 						    <button style="background-color: #DDDDDD"
+		                                            id="mob1"
 							    class="btn btn-light shadow-sm col-auto px-0 py-1"
 							    onclick="wsweb_dialogbox_open_binary_firmware();
 								     return false;">
@@ -697,12 +702,14 @@
 							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file-download"></em><br><strong><span data-langkey="Save">Save</span></strong></button>
 
 						    <button style="background-color: #CCCCCC"
+                                                            id="acc1"
 							    class="btn btn-light shadow-sm col-auto px-0 py-1 ml-1"
 							    data-transition="none" data-inline="true"
 							    onclick="wsweb_assembly_compile();
 								     return false;">
 								<em class="fas fa-sign-out-alt"></em><br><strong><span data-langkey="Compile">Compile</span></strong></button>
 						    <button style="background-color: #DDDDDD"
+                                                            id="aob1"
 							    class="btn btn-light shadow-sm col-auto px-0 py-1"
 							    onclick="wsweb_dialogbox_open_binary_assembly();
 								     return false;">
@@ -1510,7 +1517,7 @@
                     $("#ws_loader").collapse('hide') ;
 
 		    // init UI
-                    wsweb_init_ui() ;
+                    wepsim_init_ui() ;
 
 		    // set default view
 		    wsweb_change_workspace_simulator() ;
