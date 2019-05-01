@@ -32,8 +32,10 @@
     var ws_is_recording = false ;
     var ws_is_playing   = false ;
 
-    var ws_record_div_name = '' ;
-    var ws_record_div_obj  = null ;
+    var ws_record_msg_name = '' ;
+    var ws_record_msg_obj  = null ;
+    var ws_record_pb_name  = '' ;
+    var ws_record_pb_obj   = null ;
 
 
     // Private API
@@ -53,8 +55,8 @@
 
     function simcore_record_showMsg ( index, msg )
     {
-	if (ws_record_div_obj !== null) {
-	    ws_record_div_obj.html('<em>' + index + '/' + ws_records.length + '</em>&nbsp;' + msg) ;
+	if (ws_record_msg_obj !== null) {
+	    ws_record_msg_obj.html('<em>' + index + '/' + ws_records.length + '</em>&nbsp;' + msg) ;
 	}
     }
 
@@ -73,19 +75,26 @@
 	        return ;
 	}
 
+	var next_index = index + 1 ;
+	var next_pbval = (100 * next_index) / ws_records.length ;
+
 	// 2.- execute current step, show message, and set last played
 	eval(ws_records[index].element) ;
-        simcore_record_showMsg(index+1, ws_records[index].description) ;
+        simcore_record_showMsg(next_index, ws_records[index].description) ;
+
+        if (ws_record_pb_obj !== null) {
+	    ws_record_pb_obj.css('width', next_pbval +'%').attr('aria-valuenow', next_pbval) ;
+	}
 
 	// 3.- set next one
-	var next_index = index + 1 ;
 	var wait_time  = 500 ;
 	if (next_index < ws_records.length) {
 	    wait_time = ws_records[next_index].timestamp ;
 	}
 
-	if (wait_time !== 0)
+	if (wait_time !== 0) {
 	    wait_time = (wait_time < 500) ? 500 : wait_time ;
+	}
 
         setTimeout(function() {
 	               simcore_record_playAt(next_index) ;
@@ -114,10 +123,19 @@
 	 var ui_obj = $(this) ;
 	 var ui_id  = ui_obj.attr('id') ;
 
-	 if (typeof ui_id !== 'undefined') {
-             simcore_record_addToLast('Click',
-		                      'simcore_record_glowing("#' + ui_id + '");\n') ;
+         // check params
+	 if (typeof ui_id === 'undefined') {
+             return ;
 	 }
+         if (ws_is_recording === false) {
+             return ;
+	 }
+
+         // add a new record
+	 ui_obj.one("click", simcore_record_glowAdd) ;
+
+         simcore_record_addToLast('Click',
+		                  'simcore_record_glowing("#' + ui_id + '");\n') ;
     }
 
 
@@ -127,7 +145,7 @@
 
     // init
 
-    function simcore_record_init ( div_id )
+    function simcore_record_init ( div_msg_id, div_pb_id )
     {
 	ws_records = [] ;
 
@@ -136,48 +154,38 @@
 
 	ws_is_playing   = false ;
 	ws_is_recording = false ;
-        simcore_record_captureInit() ;
 
-	ws_record_div_name = div_id ;
-
-        ws_record_div_obj  = $('#' + div_id) ;
-	if (typeof ws_record_div_obj.html === "undefined") {
-            ws_record_div_obj = null ;
+	ws_record_msg_name = div_msg_id ;
+        ws_record_msg_obj  = $('#' + div_msg_id) ;
+	if (typeof ws_record_msg_obj.html === "undefined") {
+            ws_record_msg_obj = null ;
 	}
-    }
 
-    function simcore_record_reInit ( )
-    {
-	ws_records = [] ;
-
-	ws_last_played  = 0 ;
-	ws_last_time    = 0 ;
-
-	ws_is_playing   = false ;
-	ws_is_recording = false ;
-        simcore_record_captureInit() ;
+	ws_record_pb_name = div_pb_id ;
+        ws_record_pb_obj  = $('#' + div_pb_id) ;
+	if (typeof ws_record_pb_obj.html === "undefined") {
+            ws_record_pb_obj = null ;
+	}
     }
 
     function simcore_record_captureInit ( )
     {
-             $(".btn").off("click", simcore_record_glowAdd) ;
 	$(".nav-link").off("click", simcore_record_glowAdd) ;
+        $(".btn-like").off("click", simcore_record_glowAdd) ;
+	     $(".btn").off("click", simcore_record_glowAdd) ;
 
-	if (ws_is_recording)
-	{
-	         $(".btn").on("click", simcore_record_glowAdd) ;
-	    $(".nav-link").on("click", simcore_record_glowAdd) ;
-	}
+	$(".nav-link").one("click", simcore_record_glowAdd) ;
+        $(".btn-like").one("click", simcore_record_glowAdd) ;
+	     $(".btn").one("click", simcore_record_glowAdd) ;
     }
 
 
     // recording (on, off, ...)
 
-    function simcore_record_on ( )
+    function simcore_record_start ( )
     {
         ws_is_playing   = false ;
         ws_is_recording = true ;
-        simcore_record_captureInit() ;
 
         ws_last_played  = 0 ;
         ws_last_time    = Date.now() ;
@@ -185,11 +193,10 @@
         simcore_record_showMsg(ws_last_played, 'Recording...') ;
     }
 
-    function simcore_record_off ( )
+    function simcore_record_stop ( )
     {
         ws_is_playing   = false ;
         ws_is_recording = false ;
-        simcore_record_captureInit() ;
 
         ws_last_played  = 0 ;
 
@@ -205,13 +212,17 @@
 
     function simcore_record_play ( )
     {
-        if (ws_is_playing === true) {
-	    return ;
+        if (ws_is_playing === true) 
+	{
+            if (ws_last_played < ws_records.length) {
+	        return ;
+	    }
+
+            simcore_record_stop() ;
 	}
 
         ws_is_playing   = true ;
         ws_is_recording = false ;
-        simcore_record_captureInit() ;
 
         simcore_record_playAt(ws_last_played) ;
     }
@@ -220,7 +231,6 @@
     {
         ws_is_playing   = !ws_is_playing ;
         ws_is_recording = false ;
-        simcore_record_captureInit() ;
 
         if (ws_is_playing === true)
 	{
@@ -242,7 +252,11 @@
 
     function simcore_record_set ( records )
     {
-        simcore_record_reInit() ;
+	ws_last_played  = 0 ;
+	ws_last_time    = 0 ;
+
+	ws_is_playing   = false ;
+	ws_is_recording = false ;
 
         ws_records = records ;
         simcore_record_showMsg(0, 'Record restored.') ;
@@ -250,7 +264,11 @@
 
     function simcore_record_reset ( )
     {
-        simcore_record_reInit() ;
+	ws_last_played  = 0 ;
+	ws_last_time    = 0 ;
+
+	ws_is_playing   = false ;
+	ws_is_recording = false ;
 
         ws_records = [] ;
         simcore_record_showMsg(0, 'Empty record') ;
@@ -277,12 +295,13 @@
 	{
             // if (last timestamp !== 0) then join
 	    var last_timestamp = 0 ;
-	    if (ws_records.length !== 0)
+	    if (ws_records.length !== 0) {
 	        last_timestamp = ws_records[ws_records.length - 1].timestamp ;
+	    }
 
 	    if (last_timestamp !== 0)
 	         last_timestamp = 0 ;
-	    else last_timestamp = (Date.now() - ws_last_time) ;
+	    else last_timestamp = 500 ;
 
             // simcore_record_pushElto...
 	    var record = {
