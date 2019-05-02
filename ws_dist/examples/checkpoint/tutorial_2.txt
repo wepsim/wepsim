@@ -12,11 +12,11 @@
   "record": [
     {
       "timestamp": 500,
-      "description": "Message with title \"Brief introduction to WepSIM...\" and message \"We are going to:<br/>1) Open the example dialogbox<br/>2) Click on the name of the first example<br/><br/>Please wait, this message is going to be closed automatically.\".",
-      "element": "wsweb_notifyuser_show(\"Brief introduction to WepSIM...\", \"We are going to:<br/>1) Open the example dialogbox<br/>2) Click on the name of the first example<br/><br/>Please wait, this message is going to be closed automatically.\");\n"
+      "description": "Message with title \"Brief introduction to WepSIM...\" and message \"We are going to:...\".",
+      "element": "wsweb_notifyuser_show(\"Brief introduction to WepSIM...\", \"We are going to:<br/>1) Open the example dialogbox<br/>2) Click on the name of the first example<br/><br/>\", 15000);\n"
     },
     {
-      "timestamp": 5000,
+      "timestamp": 15000,
       "description": "Close message with title Brief introduction to WepSIM...",
       "element": "wsweb_notifyuser_hide();\n"
     },
@@ -52,11 +52,11 @@
     },
     {
       "timestamp": 500,
-      "description": "Message with title \"Brief introduction to WepSIM...\" and message \"You can generate each clock cycle and see the signals generated for this clock cycle.<br/><br/>Please wait, this message is going to be closed automatically.\".",
-      "element": "wsweb_notifyuser_show(\"Brief introduction to WepSIM...\", \"You can generate each clock cycle and see the signals generated for this clock cycle.<br/><br/>Please wait, this message is going to be closed automatically.\");\n"
+      "description": "Message with title \"Brief introduction to WepSIM...\" and message \"You can generate each clock cycle and see...\".",
+      "element": "wsweb_notifyuser_show(\"Brief introduction to WepSIM...\", \"You can generate each clock cycle and see the signals generated for this clock cycle.<br/><br/>\", 15000);\n"
     },
     {
-      "timestamp": 3000,
+      "timestamp": 15000,
       "description": "Close message with title Brief introduction to WepSIM...",
       "element": "wsweb_notifyuser_hide();\n"
     },
@@ -132,11 +132,11 @@
     },
     {
       "timestamp": 500,
-      "description": "Message with title \"Brief introduction to WepSIM...\" and message \"And we can also execute at assembly level, instruction by instruction.<br/><br/>Please wait, this message is going to be closed automatically.\".",
-      "element": "wsweb_notifyuser_show(\"Brief introduction to WepSIM...\", \"And we can also execute at assembly level, instruction by instruction.<br/><br/>Please wait, this message is going to be closed automatically.\");\n"
+      "description": "Message with title \"Brief introduction to WepSIM...\" and message \"And we can also execute at assembly level...\".",
+      "element": "wsweb_notifyuser_show(\"Brief introduction to WepSIM...\", \"And we can also execute at assembly level, instruction by instruction.<br/><br/>\", 15000);\n"
     },
     {
-      "timestamp": 3000,
+      "timestamp": 15000,
       "description": "Close message with title Brief introduction to WepSIM...",
       "element": "wsweb_notifyuser_hide();\n"
     },
@@ -182,11 +182,11 @@
     },
     {
       "timestamp": 500,
-      "description": "Message with title \"Brief introduction to WepSIM...\" and message \"You can change the execution speed in the Configuration for large examples.<br/>For example, we are going to execute one example with I/O instructions.<br/><br/>Please wait, this message is going to be closed automatically.\".",
-      "element": "wsweb_notifyuser_show(\"Brief introduction to WepSIM...\", \"You can change the execution speed in the Configuration for large examples.<br/>For example, we are going to execute one example with I/O instructions.<br/><br/>Please wait, this message is going to be closed automatically.\");\n"
+      "description": "Message with title \"Brief introduction to WepSIM...\" and message \"You can change the execution speed in the Configuration...\".",
+      "element": "wsweb_notifyuser_show(\"Brief introduction to WepSIM...\", \"You can change the execution speed in the Configuration for large examples.<br/>For example, we are going to execute one example with I/O instructions.<br/><br/>\", 15000);\n"
     },
     {
-      "timestamp": 3000,
+      "timestamp": 15000,
       "description": "Close message with title Brief introduction to WepSIM...",
       "element": "wsweb_notifyuser_hide();\n"
     },
@@ -337,11 +337,11 @@
     },
     {
       "timestamp": 500,
-      "description": "Message with title \"Brief introduction to WepSIM...\" and message \"Please check the Help dialogbox for more information.<br/>Welcome to WepSIM!<br/><br/>Please wait, this message is going to be closed automatically.\".",
-      "element": "wsweb_notifyuser_show(\"Brief introduction to WepSIM...\", \"Please check the Help dialogbox for more information.<br/>Welcome to WepSIM!<br/><br/>Please wait, this message is going to be closed automatically.\");\n"
+      "description": "Message with title \"Brief introduction to WepSIM...\" and message \"Please check the Help dialogbox for more...\".",
+      "element": "wsweb_notifyuser_show(\"Brief introduction to WepSIM...\", \"Please check the Help dialogbox for more information.<br/>Welcome to WepSIM!<br/><br/>\", 15000);\n"
     },
     {
-      "timestamp": 3000,
+      "timestamp": 15000,
       "description": "Close message with title Brief introduction to WepSIM...",
       "element": "wsweb_notifyuser_hide();\n"
     },
