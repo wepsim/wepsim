@@ -581,7 +581,7 @@
 
     var wsweb_nfbox = null ;
 
-    function wsweb_notifyuser_show ( title, message )
+    function wsweb_notifyuser_show ( title, message, duration )
     {
 	    // check params
 	    if (title.trim() === '') {
@@ -591,20 +591,14 @@
 		message = '&lt;empty message&gt;' ;
 	    }
 
+	    // set content
+	    $("#notifyuser1_title"  ).html(title) ;
+	    $("#notifyuser1_message").html(message) ;
+            wepsim_updatetime_start("#notifyuser1_footer", duration / 1000) ;
+
 	    // show dialogbox
-                var wsi = get_cfg('ws_idiom') ;
-            wsweb_nfbox = bootbox.dialog({
-			     title:   title,
-			     message: message,
-			     buttons: {
-		              cancel: {
-				 label: i18n_get('gui',wsi,'Cancel'),
-				 className: 'btn-danger col-auto float-right'
-			      }
-			     },
-			     size:    "large",
-			     animate: false
-			  });
+	    wsweb_nfbox = $("#notifyuser1") ;
+	    wsweb_nfbox.modal('show') ;
 
             // return ok
             return true ;
@@ -631,11 +625,11 @@
 
             bbbt.cancel = {
 		    label: i18n_get('gui',wsi,'Close'),
-		    className: 'btn-danger col-auto float-left mr-auto',
+		    className: 'btn-danger col float-left mr-auto',
 	    };
             bbbt.end = {
 		    label: i18n_get('gui',wsi,'Save'),
-		    className: 'btn-success col-auto float-right',
+		    className: 'btn-success col float-right',
 		    callback: function() {
 			    // get values
 			    var nf_title    = $("#frm_title1").val() ;
@@ -643,22 +637,24 @@
 			    var nf_duration = $("#frm_duration1").val() ;
 
 			    // post-process
-			    nf_title    =   nf_title.replace(/<[^>]*>/g, '') ;
-			    nf_message  = nf_message.replace(/<[^>]*>/g, '') ;
-			    nf_duration = parseInt(nf_duration) ;
+			    var w_title    = nf_title.replace(/<[^>]*>/g, '') ;
+			    var s_title    = '<span class=\'inline-block text-truncate w-25\'>' + w_title   + '</span>' ;
 
-			    if (isNaN(nf_duration))
-			         nf_duration = 5000 ;
-			    else nf_duration = 1000 * nf_duration ;
+			    var w_message  = nf_message.replace(/<[^>]*>/g, '') ;
+			    var s_message  = '<span class=\'inline-block text-truncate w-25\'>' + w_message + '</span>' ;
+			    var c_message = w_message.replace(new RegExp('\r?\n','g'), '</br>') ;
 
-			    var nf_message_encoded = nf_message.replace(new RegExp('\r?\n','g'), '<br/>') ;
+			    var w_duration = parseInt(nf_duration) ;
+			    if (isNaN(w_duration))
+			         w_duration = 5000 ;
+			    else w_duration = 1000 * w_duration ;
 
 			    // add if recording
 			    simcore_record_setTimeBeforeNow(500) ;
-			    simcore_record_append_new('Message with title "'      + nf_title + '" and message "' + nf_message + '".',
-					              'wsweb_notifyuser_show("'   + nf_title + '", "'            + nf_message_encoded + '");\n') ;
-			    simcore_record_setTimeBeforeNow(nf_duration) ;
-			    simcore_record_append_new('Close message with title ' + nf_title,
+			    simcore_record_append_new('Show message with title "'  + s_title + '" and body "' + s_message + '".',
+						      'wsweb_notifyuser_show("'    + w_title + '", "'         + c_message + '", "' + w_duration + '");\n') ;
+			    simcore_record_setTimeBeforeNow(w_duration) ;
+			    simcore_record_append_new('Close message with title "' + s_title + '".',
 				                      'wsweb_notifyuser_hide();\n') ;
 		    }
 	    };
@@ -724,6 +720,35 @@
     function wsweb_record_pause ( )
     {
 	    simcore_record_pause() ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_record_confirmReset ( )
+    {
+	    // show dialogbox
+                var wsi = get_cfg('ws_idiom') ;
+            wsweb_nfbox = bootbox.dialog({
+			     title:   "Do you want to remove the actual record?",
+			     message: "Please click on Cancel to keep it, <br>or click on the Reset button to remove it.",
+			     buttons: {
+		                reset: {
+				   label: i18n_get('gui',wsi,'Reset'),
+		                   className: 'btn-dark col float-left',
+		                   callback: function() {
+				                wsweb_record_reset(); 
+				                return true;
+			                     },
+			        },
+		                close: {
+			  	   label: i18n_get('gui',wsi,'Close'),
+				   className: 'btn-danger col float-right'
+			        }
+			     },
+			     keyboard: true,
+			     animate:  false
+			  });
 
             // return ok
             return true ;

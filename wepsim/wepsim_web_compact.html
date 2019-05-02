@@ -217,7 +217,7 @@
 	</nav>
 
 
-	<div class="row-fluid px-2 pb-2 pt-0 rounded w-100 collapse" id="record_div"
+	<div class="row-fluid px-0 pb-2 pt-0 rounded w-100 collapse" id="record_div"
 	     style="position:fixed; left:0; bottom:0; z-index:1024; background-color:#DFDFDF; overflow:auto; -webkit-overflow-scrolling:touch;">
 
 	     <div class="progress col" style="height:1px;">
@@ -227,35 +227,41 @@
 		  <span id="record_msg" class="text-left text-truncate"><em>0/0</em>&nbsp;&lt;empty recording&gt;</span>
              </div>
 	     <div class="btn-group col">
-		  <a class="btn btn-sm btn-outline-danger bg-light shadow-sm px-3 mr-3" href="#" 
+		  <a class="btn btn-sm btn-outline-secondary bg-light shadow-sm rounded px-3 mr-2" href="#" 
 		     data-toggle="tooltip" data-placement="top" data-boundary="window"
                      title="Remove recorded session"
-		     onclick="wsweb_record_reset(); return false;"><em class="fas fa-times"></em>
+		     onclick="wsweb_record_confirmReset(); return false;"><em class="fas fa-times text-danger"></em>
+		     <span class="d-none d-md-inline-flex" data-langkey='Reset'>Reset</span>
 		  </a>
-		  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm px-3 mx-2" href="#" 
+		  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm rounded px-3 mx-2" href="#" 
 		     data-toggle="tooltip" data-placement="top" data-boundary="window"
-                     title="Add comment"
+                     title="(While recording) add a new comment"
 		     onclick="wsweb_notifyuser_add(); return false;"><em class="fas fa-comment"></em>
+		     <span class="d-none d-md-inline-flex" data-langkey='Comment'>Comment</span>
 		  </a>
-		  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm px-3 mx-2" href="#" 
+		  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm rounded px-3 mx-2" href="#" 
 		     data-toggle="tooltip" data-placement="top" data-boundary="window"
                      title="Pause/Continue playback"
 		     onclick="wsweb_record_pause(); return false;"><em class="fas fa-pause"></em>
+		     <span class="d-none d-md-inline-flex" data-langkey='Pause'>Pause</span>
 		  </a>
-		  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm px-3 ml-2 mr-3" href="#" 
+		  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm rounded px-3 mx-2" href="#" 
 		     data-toggle="tooltip" data-placement="top" data-boundary="window"
                      title="Play"
 		     onclick="wsweb_record_play(); return false;"><em class="fas fa-play"></em>
+		     <span class="d-none d-md-inline-flex" data-langkey='Play'>Play</span>
 		  </a>
-		  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm px-3 mx-2" href="#"
+		  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm rounded px-3 mx-2" href="#"
 		     data-toggle="tooltip" data-placement="top" data-boundary="window" data-html="true"
                      title="Stop recording /<br>Reset playback"
 		     onclick="wsweb_record_off(); return false;"><em class="fas fa-square"></em>
+		     <span class="d-none d-md-inline-flex" data-langkey='Stop'>Stop</span>
 		  </a>
-		  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm px-3 ml-2" href="#" 
+		  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm rounded px-3 ml-2" href="#" 
 		     data-toggle="tooltip" data-placement="top" data-boundary="window"
-                     title="Keep recording session"
+                     title="Start recording session"
 		     onclick="wsweb_record_on(); return false;"><em class="fas fa-circle"></em>
+		     <span class="d-none d-md-inline-flex" data-langkey='Record'>Record</span>
 		  </a>
 	     </div>
 
@@ -1482,6 +1488,30 @@
 			 onclick="wsweb_about_close(); return false;"
                          class="btn btn-primary       btn-sm col-xs-4 col-sm-3 float-right shadow-none">OK</button>
 	   </div>
+	</div>
+     </div>
+</div> <!-- /.modal -->
+
+
+<div id="notifyuser1" class="modal">
+     <div class="modal-dialog modal-lg">
+	<div class="modal-content">
+
+	   <div class="modal-header">
+		<h5 id="notifyuser1_title" class="modal-title text-truncate">Un-titled</h5>
+		<button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
+	   </div>
+
+	   <div class="modal-body">
+                 <div id="notifyuser1_message" style="word-wrap:break-word;">Nothing to declare.</div>
+	   </div>
+
+	   <div class="modal-footer">
+                 <div id="notifyuser1_footer" class="float-left mr-auto"></div>
+		 <button type="button" class="btn btn-danger btn-sm col-xs-3 col-sm-2 float-right" 
+			 onclick="wsweb_record_play(); return false;"
+			 data-dismiss="modal"><span data-langkey="Close">Close</span></button>
+	   </div><!-- /footer -->
 	</div>
      </div>
 </div> <!-- /.modal -->
