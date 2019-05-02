@@ -28,6 +28,7 @@
 
     var ws_last_played  = 0 ;
     var ws_last_time    = 0 ;
+    var ws_last_timer   = null ;
 
     var ws_is_recording = false ;
     var ws_is_playing   = false ;
@@ -95,9 +96,9 @@
 	    wait_time = (wait_time < 500) ? 500 : wait_time ;
 	}
 
-        setTimeout(function() {
-	               simcore_record_playAt(next_index) ;
-                   }, wait_time);
+        ws_last_timer = setTimeout(function() {
+				       simcore_record_playAt(next_index) ;
+				   }, wait_time);
     }
 
     function simcore_record_glowing ( ui_id )
@@ -214,11 +215,11 @@
     {
         if (ws_is_playing === true) 
 	{
-            if (ws_last_played < ws_records.length) {
-	        return ;
-	    }
+            clearTimeout(ws_last_timer) ;
 
-            simcore_record_stop() ;
+            if (ws_last_played < ws_records.length) 
+                 ws_last_played = ws_last_played + 1 ;
+	    else ws_last_played = 0 ;
 	}
 
         ws_is_playing   = true ;
