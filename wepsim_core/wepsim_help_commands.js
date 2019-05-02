@@ -47,8 +47,7 @@
                      i_type:      "code",
                      u_type:      "tutorial",
                      reference:   "wepsim_close_help(); " + 
-	                          "wsweb_recordbar_close();" +
-	                          "wsweb_recordbar_toggle();" +
+	                          "wsweb_recordbar_show();" +
                                   "wepsim_checkpoint_loadURI({href:'/wepsim/examples/checkpoint/tutorial_2.txt'}, " + 
 	                          "                          'FileNameToSaveAs1', " + 
 	                          "                          'tagToSave1'); ",

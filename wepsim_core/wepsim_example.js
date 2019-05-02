@@ -236,7 +236,8 @@
                         '<div class="col-sm-3">' +
                         '     <span style="cursor:pointer;" ' + 
 		        '           id="example_' + m + '" ' + 
-		        '           onclick="load_from_example_firmware(\'' + t_hwmcasm + '\',true); ' + 
+		        '           onclick="simcore_record_append_pending(); ' + 
+		        '                    load_from_example_firmware(\'' + t_hwmcasm + '\',true); ' + 
 		        '                    $(\'#example1\').modal(\'hide\'); ' + 
 		        '                    return false;" ' + 
 		        '           class="btn-like rounded-0 bg-info text-white p-0 mr-2">' + e_title + '</span>' +
@@ -252,11 +253,13 @@
                         '              <span class="sr-only">Toggle Dropdown</span>' +
                         '           </button>' +
                         '           <div class="dropdown-menu bg-info" style="z-index:1024;">' +
-		        '             <a onclick="load_from_example_assembly(\'' + t_hwmcasm + '\',false);' + 
+		        '             <a onclick="simcore_record_append_pending();' + 
+		        '                         load_from_example_assembly(\'' + t_hwmcasm + '\',false);' + 
 		        '                         $(\'#example1\').modal(\'hide\'); ' + 
 		        '                         return false;"' + 
 		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Load Assembly only">Load Assembly only</span></c></a>' +
-		        '             <a onclick="load_from_example_firmware(\'' + t_hwmcasm + '\',false);' + 
+		        '             <a onclick="simcore_record_append_pending();' + 
+		        '                         load_from_example_firmware(\'' + t_hwmcasm + '\',false);' + 
 		        '                         $(\'#example1\').modal(\'hide\'); ' + 
 		        '                         return false;"' + 
 		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Load Firmware only">Load Firmware only</span></c></a>' +

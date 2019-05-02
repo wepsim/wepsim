@@ -81,7 +81,8 @@
 			'</div>' +
 			'<div class="col-md-4">' +
 			'    <span class="btn-like bg-success text-white" style="cursor:pointer;" ' +
-			'          onclick="' + onclick_code + '">' + e_title + '</span>' +
+			'          id="help_index_' + m + '" ' +
+		        '          onclick="simcore_record_append_pending(); ' + onclick_code + '">' + e_title + '</span>' +
 			'</div>' +
 			'<div class="col-md collapse7 show">' +
 			'    <c>' + e_description + '</c>' +
