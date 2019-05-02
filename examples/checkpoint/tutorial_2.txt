@@ -26,6 +26,11 @@
       "element": "wsweb_dialogbox_open_examples();\n"
     },
     {
+      "timestamp": 500,
+      "description": "Click on UI element example_0",
+      "element": "simcore_record_glowing(\"#example_0\");\n"
+    },
+    {
       "timestamp": 1262,
       "description": "Load firmware from example ep:ep_base:ep_s1_e1",
       "element": "load_from_example_firmware(\"ep:ep_base:ep_s1_e1\", false);\n"
@@ -34,11 +39,6 @@
       "timestamp": 2,
       "description": "Close examples",
       "element": "wsweb_dialogbox_close_all();\n"
-    },
-    {
-      "timestamp": 0,
-      "description": "Click on UI element example_0",
-      "element": "simcore_record_glowing(\"#example_0\");\n"
     },
     {
       "timestamp": 331,
@@ -201,6 +201,11 @@
       "element": "wsweb_scroll_to(\"#container-example1\", 445);\n"
     },
     {
+      "timestamp": 500,
+      "description": "Click on UI element example_11",
+      "element": "simcore_record_glowing(\"#example_11\");\n"
+    },
+    {
       "timestamp": 824,
       "description": "Load firmware from example ep:ep_s4_e1:ep_s4_e1",
       "element": "load_from_example_firmware(\"ep:ep_s4_e1:ep_s4_e1\", false);\n"
@@ -209,11 +214,6 @@
       "timestamp": 2,
       "description": "Close examples",
       "element": "wsweb_dialogbox_close_all();\n"
-    },
-    {
-      "timestamp": 0,
-      "description": "Click on UI element example_11",
-      "element": "simcore_record_glowing(\"#example_11\");\n"
     },
     {
       "timestamp": 77,
@@ -331,7 +331,7 @@
       "element": "simcore_record_glowing(\"#qbp\");\n"
     },
     {
-      "timestamp": 9167,
+      "timestamp": 15000,
       "description": "Close execution summary",
       "element": "wsweb_dialogbox_close_all();\n"
     },
@@ -371,6 +371,6 @@
       "element": "simcore_record_glowing(\"#rs1\");\n"
     }
   ],
-  "tag": "Tutorial 1",
+  "tag": "Tutorial Example: execution in WepSIM",
   "notify": true
 }

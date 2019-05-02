@@ -80,6 +80,13 @@
 	        return ;
 	}
 
+	// 2.- ignore pending events...
+        if (ws_records[index].description === "_pending event_")
+	{
+                simcore_record_playAt(index + 1) ;
+	        return ;
+	}
+
 	// 2.- execute current step, show message, and set last played
 	eval(ws_records[index].element) ;
 
@@ -131,12 +138,12 @@
              return ;
 	 }
 
-         // add a new record
+         // reload the event handler
 	 ui_obj.one("click", simcore_record_glowAdd) ;
 
-         simcore_record_setTimeBeforeNow(0) ;
-         simcore_record_append_new('Click on UI element ' + ui_id,
-		                   'simcore_record_glowing("#' + ui_id + '");\n') ;
+         // add a new record
+         simcore_record_resolve_pending('Click on UI element ' + ui_id,
+		                        'simcore_record_glowing("#' + ui_id + '");\n') ;
     }
 
 
@@ -283,6 +290,47 @@
             ws_last_time = Date.now() ;
 
             simcore_record_pushElto(description, elto, distance) ;
+            simcore_record_showMsg(0, 'Recording...') ;
+	}
+    }
+
+    function simcore_record_append_pending ( )
+    {
+        if (ws_is_recording === true)
+	{
+	    var distance = Date.now() - ws_last_time ;
+            ws_last_time = Date.now() ;
+
+            simcore_record_pushElto("_pending event_", ";", distance) ;
+	}
+    }
+
+    function simcore_record_resolve_pending ( description, elto )
+    {
+        if (ws_is_recording === true)
+	{
+	    // find last pending
+	    var last_pending = ws_records.length ;
+	    while (last_pending > 0) 
+            {
+		last_pending -- ;
+
+                if (ws_records[last_pending].description === "_pending event_") {
+		    break ;
+		}
+	    }
+
+	    // if there is not pending, insert together to the last one
+	    if (last_pending === 0) 
+	    {
+                simcore_record_setTimeBeforeNow(0) ;
+                simcore_record_append_new(description, elto) ;
+		return ;
+	    }
+
+	    // otherwise, update information for the last pending entry
+            ws_records[last_pending].description = description ;
+            ws_records[last_pending].element     = elto ;
             simcore_record_showMsg(0, 'Recording...') ;
 	}
     }

@@ -819,6 +819,18 @@
     }
 
     // recordbar
+    function wsweb_recordbar_show ( )
+    {
+	    $('#record_div').collapse('show') ;
+
+            // add if recording
+            simcore_record_append_new('Open the "record toolbar"',
+		                      'wsweb_recordbar_show();\n') ;
+
+            // return ok
+            return true ;
+    }
+
     function wsweb_recordbar_toggle ( )
     {
 	    $('#record_div').collapse('toggle') ;

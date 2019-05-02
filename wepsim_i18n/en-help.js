@@ -27,6 +27,9 @@
 	"Simple usage tutorial":	"Simple usage tutorial",
 	"help_01_02":			"Open the simple usage tutorial, for microprogramming and assembly programming",
 
+	"Simulation in WepSIM":		"Simulation in WepSIM",
+	"help_01_03":			"Open an initial usage tutorial, for microprogramming and assembly programming",
+
 	"Simulator: firmware":		"Simulator: firmware",
 	"help_02_01":			"How to work with the firmware to be loaded into the control memory",
 
