@@ -331,7 +331,7 @@
       "element": "simcore_record_glowing(\"#qbp\");\n"
     },
     {
-      "timestamp": 9167,
+      "timestamp": 12000,
       "description": "Close execution summary",
       "element": "wsweb_dialogbox_close_all();\n"
     },
@@ -371,6 +371,6 @@
       "element": "simcore_record_glowing(\"#rs1\");\n"
     }
   ],
-  "tag": "Tutorial 1",
+  "tag": "Tutorial Example: execution in WepSIM",
   "notify": true
 }

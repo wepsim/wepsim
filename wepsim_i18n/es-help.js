@@ -25,7 +25,10 @@
 	"help_01_01":			"Abre el tutorial de bienvenida",
 
 	"Simple usage tutorial":	"Tutorial simple de uso",
-	"help_01_02":			"Tutorial de uso simple, ejemplo básico para microprogramar y programar en ensamblador",
+	"help_01_02":			"Tutorial de uso simple, ejemplo b&aacute;sico para microprogramar y programar en ensamblador",
+
+	"Simulation in WepSIM":		"Simulaci&oacute;n en WepSIM",
+	"help_01_03":			"Tutorial inicial de uso, ejemplo b&aacute;sico de ejecuci&oacute;n de microc&oacute;digo y ensamblador",
 
 	"Simulator: firmware":		"Simulador: microc&oacute;digo",
 	"help_02_01":			"Descripci&oacute;n de c&oacute;mo trabajar en el simulador con el microc&oacute;digo",
@@ -34,16 +37,16 @@
 	"help_02_02":			"Sint&aacute;xis del microc&oacute;digo usado",
 
 	"Simulator: assembly":		"Simulador: ensamblador",
-	"help_02_03":			"Descripción de cómo trabajar en el simulador con el ensamblador",
+	"help_02_03":			"Descripci&oacute;n de c&oacute;mo trabajar en el simulador con el ensamblador",
 
 	"Assembly format":		"Formato del ensamblador",
-	"help_02_04":			"Sintáxis del ensamblador",
+	"help_02_04":			"Sint&aacute;xis del ensamblador",
 
 	"Simulator: execution":		"Simulador: ejecuci&oacute;n",
-	"help_02_05":			"Descripción de cómo ejecutar en el simulador el ensamblador y microc&oacute;digo",
+	"help_02_05":			"Descripci&oacute;n de c&oacute;mo ejecutar en el simulador el ensamblador y microc&oacute;digo",
 
 	"Simulated architecture":	"Arquitectura del simulador",
-	"help_03_01":			"Descripción de la arquitectura del procesador simulado",
+	"help_03_01":			"Descripci&oacute;n de la arquitectura del procesador simulado",
 
 	"Simulated signals":		"Señales simuladas",
 	"help_03_02":			"Resumen de las señales principales del procesador elemental",
@@ -52,7 +55,7 @@
 	"help_03_03":			"Resumen del hardware del procesador elemental simulado",
 
 	"License, platforms, etc.":	"Licencia, plataformas, etc.",
-	"help_04_01":			"Licencia de WepSIM, plataformas disponibles, tecnologías usadas",
+	"help_04_01":			"Licencia de WepSIM, plataformas disponibles, tecnolog&iacute;as usadas",
 
 	"Authors":			"Autores",
 	"help_04_02":			"Autores de WepSIM"
