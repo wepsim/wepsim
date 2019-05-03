@@ -38,7 +38,7 @@
 	tutorial[from_step].code_post() ;
 
 	tutbox.modal("hide") ;
-	setTimeout(function(){ sim_tutorial_showframe(tutorial_name, to_step); }, 
+	setTimeout(function(){ sim_tutorial_showframe(tutorial_name, to_step); },
 		   tutorial[from_step].wait_next) ;
 
 	if (simcoreui_voice_canSpeak()) {
@@ -129,7 +129,30 @@
             animate: false
 	});
 
-	simcoreui_voice_speak(tutorial[step].title.replace(/<[^>]*>/g, '') + ". " + 
+	simcoreui_voice_speak(tutorial[step].title.replace(/<[^>]*>/g, '') + ". " +
 		              tutorial[step].message.replace(/<[^>]*>/g, ''));
+    }
+
+    // from checkpoint
+
+    function sim_tutorial_loadFromCheckpoint ( tutorial_id )
+    {
+	   wsweb_recordbar_show() ;
+
+	   var obj_uri = { 
+                            name: 'examples/checkpoint/tutorial_' + tutorial_id + '.txt' 
+                         } ;
+
+	   wepsim_load_from_url(obj_uri.name,
+	                        function(data_text) {
+	                            var data_obj = null ;
+	                            if (data_text !== '')
+	                                data_obj = JSON.parse(data_text) ;
+
+	                            wepsim_checkpoint_loadFromObj(data_obj, 
+                                                                  'FileNameToSaveAs1', 
+                                                                  'tagToSave1', 
+                                                                  obj_uri) ;
+	                        });
     }
 

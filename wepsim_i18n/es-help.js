@@ -27,9 +27,6 @@
 	"Simple usage tutorial":	"Tutorial simple de uso",
 	"help_01_02":			"Tutorial de uso simple, ejemplo b&aacute;sico para microprogramar y programar en ensamblador",
 
-	"Simulation in WepSIM":		"Simulaci&oacute;n en WepSIM",
-	"help_01_03":			"Tutorial inicial de uso, ejemplo b&aacute;sico de ejecuci&oacute;n de microc&oacute;digo y ensamblador",
-
 	"Simulator: firmware":		"Simulador: microc&oacute;digo",
 	"help_02_01":			"Descripci&oacute;n de c&oacute;mo trabajar en el simulador con el microc&oacute;digo",
 
