@@ -43,24 +43,6 @@
 
     ws_help.push({
                      id:          "simulator",
-                     title:       "<span data-langkey='Simulation in WepSIM'>Simulation in WepSIM</span>",
-                     i_type:      "code",
-                     u_type:      "tutorial",
-                     reference:   "wepsim_close_help(); " + 
-	                          "wsweb_recordbar_show();" +
-	                          "var obj_uri = { name: 'examples/checkpoint/tutorial_2.txt' }; " +
-	                          "wepsim_load_from_url(obj_uri.name, " +
-                                  "                     function(data_text) { " +
-                                  "                         var data_obj = null; " +
-                                  "                         if (data_text !== '') " +
-                                  "                             data_obj = JSON.parse(data_text); " +
-                                  "                         wepsim_checkpoint_loadFromObj(data_obj, 'FileNameToSaveAs1', 'tagToSave1', obj_uri); " +
-                                  "                     });",
-                     description: "<span data-langkey='help_01_03'>Simple tutorial, executing microcode and assembly code</span>.<br>"
-                  });
-
-    ws_help.push({
-                     id:          "simulator",
                      title:       "<span data-langkey='Simulator: firmware'>Simulator: firmware</span>",
                      i_type:      "relative",
                      u_type:      "simulator",
