@@ -203,6 +203,8 @@ self.addEventListener('install',
                                         './examples/microcode/mc-ep_s5_e2.txt',
                                         './examples/microcode/mc-poc_bare.txt',
                                         './examples/microcode/mc-poc_s3.txt',
+                                        './examples/checkpoint/tutorial_1.txt',
+                                        './examples/checkpoint/tutorial_2.txt',
 					'./index.html'
 				    ]).then(function() {
 					self.skipWaiting();
