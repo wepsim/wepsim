@@ -48,9 +48,12 @@
                      u_type:      "tutorial",
                      reference:   "wepsim_close_help(); " + 
 	                          "wsweb_recordbar_show();" +
-                                  "wepsim_checkpoint_loadURI({href:'/wepsim/examples/checkpoint/tutorial_2.txt'}, " + 
-	                          "                          'FileNameToSaveAs1', " + 
-	                          "                          'tagToSave1'); ",
+	                          "var obj_uri = { name: '/wepsim/examples/checkpoint/tutorial_2.txt' }; " +
+	                          "wepsim_load_from_url(obj_uri.name, " +
+                                  "                     function(data_text) { " +
+                                  "                         var data_obj = JSON.parse(data_text); " +
+                                  "                         wepsim_checkpoint_loadFromObj(data_obj, 'FileNameToSaveAs1', 'tagToSave1', obj_uri); " +
+                                  "                     });",
                      description: "<span data-langkey='help_01_03'>Simple tutorial, executing microcode and assembly code</span>.<br>"
                   });
 
@@ -145,7 +148,8 @@
                      title:       "<span data-langkey='Authors'>Authors</span>",
                      i_type:      "code",
                      u_type:      "info",
-                     reference:   "wepsim_close_help(); $('#about2').modal(open);",
+                     reference:   "wepsim_close_help();" + 
+	                          "$('#about2').modal('show');",
                      description: "<span data-langkey='help_04_02'>Authors of WepSIM</span>.<br>"
                   });
 
