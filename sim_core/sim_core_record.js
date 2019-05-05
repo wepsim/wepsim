@@ -65,7 +65,7 @@
 	}
     }
 
-    function simcore_record_playAt ( index )
+    function simcore_record_playAt ( index_current, index_last )
     {
 	// 1.- stop playing...
         if (ws_is_playing === false)
@@ -73,30 +73,30 @@
                 simcore_record_showMsg(ws_last_played, 'Stopped by user.') ;
 	        return ;
 	}
-        ws_last_played = index ;
-	if (index >= ws_records.length)
+        ws_last_played = index_current ;
+	if (index_current >= index_last)
 	{
-                simcore_record_showMsg(ws_records.length, 'Done.') ;
+                simcore_record_showMsg(index_last, 'Done.') ;
 	        return ;
 	}
 
 	// 2.- ignore pending events...
-        if (ws_records[index].description === "_pending event_")
+        if (ws_records[index_current].description === "_pending event_")
 	{
-                simcore_record_playAt(index + 1) ;
+                simcore_record_playAt(index_current + 1, index_last) ;
 	        return ;
 	}
 
 	// 2.- execute current step, show message, and set last played
-	eval(ws_records[index].element) ;
+	eval(ws_records[index_current].element) ;
 
-	var next_index = index + 1 ;
-        simcore_record_showMsg(next_index, ws_records[index].description) ;
+	var index_next = index_current + 1 ;
+        simcore_record_showMsg(index_next, ws_records[index_current].description) ;
 
 	// 3.- set next one
 	var wait_time  = 500 ;
-	if (next_index < ws_records.length) {
-	    wait_time = ws_records[next_index].timestamp ;
+	if (index_next < index_last) {
+	    wait_time = ws_records[index_next].timestamp ;
 	}
 
 	if (wait_time !== 0) {
@@ -104,7 +104,7 @@
 	}
 
         ws_last_timer = setTimeout(function() {
-				       simcore_record_playAt(next_index) ;
+				       simcore_record_playAt(index_next, index_last) ;
 				   }, wait_time);
     }
 
@@ -232,7 +232,28 @@
         ws_is_playing   = true ;
         ws_is_recording = false ;
 
-        simcore_record_playAt(ws_last_played) ;
+        simcore_record_playAt(ws_last_played, ws_records.length) ;
+    }
+
+    function simcore_record_playInterval ( from, to )
+    {
+        if (ws_is_playing === true) 
+	{
+            clearTimeout(ws_last_timer) ;
+
+            if (ws_last_played < to) 
+                 ws_last_played = ws_last_played + 1 ;
+	    else ws_last_played = from ;
+	}
+	else
+	{
+	    ws_last_played = from ;
+	}
+
+        ws_is_playing   = true ;
+        ws_is_recording = false ;
+
+        simcore_record_playAt(ws_last_played, to) ;
     }
 
     function simcore_record_pause ( )
@@ -242,7 +263,7 @@
 
         if (ws_is_playing === true)
 	{
-            simcore_record_playAt(ws_last_played) ;
+            simcore_record_playAt(ws_last_played, ws_records.length) ;
 	}
     }
 
@@ -252,6 +273,11 @@
     }
 
     // recording object
+
+    function simcore_record_length ( )
+    {
+        return ws_records.length ;
+    }
 
     function simcore_record_get ( )
     {

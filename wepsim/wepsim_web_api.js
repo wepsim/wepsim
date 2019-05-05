@@ -552,8 +552,9 @@
 
     function wsweb_save_controlmemory_to_file ( )
     {
-            var q = 'Do you want me to save the current Control Memory contents ' +
-                    ' rather than the editor contents?.\n\n' ;
+            var wsi = get_cfg('ws_idiom') ;
+
+            var q = i18n_get('dialogs',wsi,'Sure Control Memory...') + '\n\n' ;
             if (confirm(q))
 	    {
 	        var SIMWARE = get_simware() ;
@@ -660,13 +661,13 @@
 	    };
 
 	    var bbmsg = '<div class="container">' +
-		        '<label for="frm_title1"><em>'    + i18n_get('gui',wsi,'Title') + ':</em></label>' +
+		        '<label for="frm_title1"><em>'    + i18n_get('dialogs',wsi,'Title') + ':</em></label>' +
 			'<p><input aria-label="title" id="frm_title1" ' +
 			'	  class="form-control btn-outline-dark" placeholder="Title for the notification" style="min-width: 90%;"/></p>' +
-		        '<label for="frm_message1"><em>'  + i18n_get('gui',wsi,'Message') + ':</em></label>' +
+		        '<label for="frm_message1"><em>'  + i18n_get('dialogs',wsi,'Message') + ':</em></label>' +
 			'<p><textarea aria-label="message" id="frm_message1" rows="5" ' +
 			'	      class="form-control btn-outline-dark" placeholder="Message for the notification" style="min-width: 90%;"/></p>' +
-		        '<label for="frm_duration1"><em>' + i18n_get('gui',wsi,'Duration') + ':</em></label>' +
+		        '<label for="frm_duration1"><em>' + i18n_get('dialogs',wsi,'Duration') + ':</em></label>' +
 			'<p><input aria-label="duration" id="frm_duration1" type="number" ' +
 			'	  class="form-control btn-outline-dark" placeholder="Duration for the notification in seconds" style="min-width: 90%;"/></p>' +
 		        '</div>' ;
@@ -725,13 +726,21 @@
             return true ;
     }
 
+    function wsweb_record_playInterval ( from, to )
+    {
+	    simcore_record_playInterval(from, to) ;
+
+            // return ok
+            return true ;
+    }
+
     function wsweb_record_confirmReset ( )
     {
 	    // show dialogbox
                 var wsi = get_cfg('ws_idiom') ;
             wsweb_nfbox = bootbox.dialog({
-			     title:   "Do you want to remove the actual record?",
-			     message: "Please click on Cancel to keep it, <br>or click on the Reset button to remove it.",
+			     title:   i18n_get('dialogs',wsi,'Confirm remove record...'),
+			     message: i18n_get('dialogs',wsi,'Close or Reset...'),
 			     buttons: {
 		                reset: {
 				   label: i18n_get('gui',wsi,'Reset'),

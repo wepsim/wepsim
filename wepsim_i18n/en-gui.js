@@ -71,12 +71,11 @@
                         "End": 		                		"End",
                         "Disable tutorial mode": 		        "Disable tutorial mode",
 
-                        "Show Notifications":                           "Show Notifications",
-                        "Show/Hide ActionBar":                          "Show/Hide ActionBar",
-                        "Show/Hide Slider":                             "Show/Hide Slider",
-                        "Show/Hide Record":                             "Show/Hide Record",
-                        "Initial intro":                                "Initial intro",
-                        "About WepSIM":                                 "About WepSIM",
+                        "Comment":					"Comment",
+                        "Pause":					"Pause",
+                        "Play":						"Play",
+                        "Stop":						"Stop",
+                        "Record":					"Record",
 
                         "Recent":                                       "Recent",
 			"Refresh":  			                "Refresh"

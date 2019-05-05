@@ -38,7 +38,9 @@
 			    // states dialog
 			    states: {},
 			    // help dialog
-			    help: {} 
+			    help: {},
+                            // other dialogs-popovers-tooltips
+			    dialogs: {}
 		         }
                } ;
 
