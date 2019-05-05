@@ -253,7 +253,7 @@
 		'              wsweb_quickmenu_close(); ' +
 		'              return false;">' +
 		'<em class="fas fa-flag col-1 pl-1 float-left"></em>' +
-		'<span class="col-11">' + i18n_get('gui',wsi,'Show Notifications') + '...</span></a>' +
+		'<span class="col-11">' + i18n_get('dialogs',wsi,'Show Notifications') + '...</span></a>' +
 		'</li>' ;
 
 	   o += '<li class="list-group-item px-0 enabled_beta"> ' +
@@ -261,7 +261,7 @@
 		'          onclick="wsweb_recordbar_toggle(); ' +
 		'                   return false;">' +
 		'<em class="fas fa-clipboard col-1 pl-1 float-left"></em>' +
-		'<span class="col-11">' + i18n_get('gui',wsi,'Show/Hide RecordBar') + '</span>' +
+		'<span class="col-11">' + i18n_get('dialogs',wsi,'Show/Hide RecordBar') + '</span>' +
 		'  </button>' +
 		'</li>' ;
 
@@ -270,7 +270,7 @@
 		'  <label class="btn btn-sm btn-outline-dark col p-1 text-left float-right" data-toggle="collapse" href=".multi-collapse-1">' +
 		'  <input type="checkbox" checked="" autocomplete="off">' +
 		'<em class="fas fa-bars col-1 pl-1 float-left"></em>' +
-		'<span class="col-11">' + i18n_get('gui',wsi,'Show/Hide ActionBar') + '</span></label>' +
+		'<span class="col-11">' + i18n_get('dialogs',wsi,'Show/Hide ActionBar') + '</span></label>' +
 		'  </span>' +
 		'</li>' ;
 
@@ -279,7 +279,7 @@
 		'  <label class="btn btn-sm btn-outline-dark col p-1 text-left float-right" data-toggle="collapse" href=".multi-collapse-2">' +
 		'  <input type="checkbox" checked="" autocomplete="off">' +
 		'<em class="fas fa-sliders-h col-1 pl-1 float-left"></em>' +
-		'<span class="col-11">' + i18n_get('gui',wsi,'Show/Hide Slider') + '</span></label>' +
+		'<span class="col-11">' + i18n_get('dialogs',wsi,'Show/Hide Slider') + '</span></label>' +
 		'  </span>' +
 		'</li>' ;
 
@@ -289,7 +289,7 @@
 		'              wsweb_quickmenu_close(); ' +
 		'              return false;">' +
 		'<em class="fas fa-magic col-1 pl-1 float-left"></em>' +
-		'<span class="col-11">' + i18n_get('gui',wsi,'About WepSIM') + '...</span></a>' +
+		'<span class="col-11">' + i18n_get('dialogs',wsi,'About WepSIM') + '...</span></a>' +
 		'</li>' ;
 
 	   o += '<li class="list-group-item px-0"> ' +
@@ -298,14 +298,14 @@
 		'              wsweb_quickmenu_close(); ' +
 		'              return false;">' +
 		'<em class="fas fa-book-reader col-1 pl-1 float-left"></em>' +
-		'<span class="col-11">' + i18n_get('gui',wsi,'Initial intro') + '...</span></a>' +
+		'<span class="col-11">' + i18n_get('dialogs',wsi,'Initial intro') + '...</span></a>' +
 		'</li>' ;
 
 	   o += '<button type="button" id="close" data-role="none" ' + 
 		'        class="btn btn-sm btn-danger w-100 p-0 mt-2" ' +
 		'        onclick="wsweb_quickmenu_close(); ' +
 		'                 return false;">' +
-		i18n_get('gui',wsi,'Close') +
+		i18n_get('dialogs',wsi,'Close') +
 		'</button>' +
 		'</ul>' ;
 

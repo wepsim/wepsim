@@ -59,6 +59,7 @@ cat wepsim_i18n/i18n.js \
     wepsim_i18n/es-help.js \
     wepsim_i18n/es-states.js \
     wepsim_i18n/es-examples.js \
+    wepsim_i18n/es-dialogs.js \
     \
     wepsim_i18n/en-gui.js \
     wepsim_i18n/en-tutorial-welcome.js \
@@ -68,6 +69,7 @@ cat wepsim_i18n/i18n.js \
     wepsim_i18n/en-help.js \
     wepsim_i18n/en-states.js \
     wepsim_i18n/en-examples.js \
+    wepsim_i18n/en-dialogs.js \
     \
     wepsim_core/wepsim_asmdbg.js \
     wepsim_core/wepsim_checkpoint.js \

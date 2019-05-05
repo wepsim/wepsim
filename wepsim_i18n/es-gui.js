@@ -70,12 +70,11 @@
                         "End": 		                		"Fin",
                         "Disable tutorial mode": 		        "Deshabilitar modo tutorial",
 
-                        "Show Notifications":                           "Mostrar notificaciones",
-                        "Show/Hide ActionBar":                          "Mostrar/Ocultar barra",
-                        "Show/Hide Slider":                             "Mostrar/Ocultar slider",
-                        "Show/Hide Record":                             "Mostrar/Ocultar Grabaci&oacute;n",
-                        "Initial intro":                                "Intro inicial",
-                        "About WepSIM":                                 "Sobre WepSIM",
+                        "Comment":					"Comentar",
+                        "Pause":					"Pausar",
+                        "Play":						"Reproducir",
+                        "Stop":						"Parar",
+                        "Record":					"Grabar",
 
                         "Recent":                                       "Reciente",
 			"Refresh": 			     		"Refrescar"
