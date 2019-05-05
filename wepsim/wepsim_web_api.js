@@ -726,6 +726,14 @@
             return true ;
     }
 
+    function wsweb_record_playInterval ( from, to )
+    {
+	    simcore_record_playInterval(from, to) ;
+
+            // return ok
+            return true ;
+    }
+
     function wsweb_record_confirmReset ( )
     {
 	    // show dialogbox
