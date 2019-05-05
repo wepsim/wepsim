@@ -240,6 +240,21 @@
 	    return confirmationMessage;                            // Webkit, Safari, Chrome
     }
 
+    // confirm exit
+    function wepsim_general_exception_handler ( err )
+    {
+          alert("Please try to cleanup the browser cache and try again.\n" +
+                "WepSIM was improperly used and found an error, sorry :-(\n" +
+		"\n" +
+		"Diagnostic:\n" +
+                " * Error message: " + err.message + "\n" +
+		" * Runtime stack:\n" + err.stack + 
+		"\n" +
+		"After close this alert, WepSIM will try to reload and by-pass the cache (just in case).\n") ;
+
+	  location.reload(true) ;
+    }
+
     // popover quick-menu
     function wepsim_show_quick_menu ( quick_po )
     {

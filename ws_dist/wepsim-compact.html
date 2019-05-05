@@ -345,6 +345,7 @@
                               <a class="dropdown-item" href="#" id="s4_intro" value="intro"
 				 onclick="wsweb_select_main('intro');
 	                                  simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL', '#cpu_ALL', '#config_MP', '#config_IO');
+                                          setTimeout(wsweb_record_play, 1000);
 					  return false;">Welcome...</a>
 			    </div>
 			</div>
@@ -1548,31 +1549,38 @@
 	    {
                     $("#ws_loader").collapse('hide') ;
 
-		    // init UI
-                    wepsim_init_ui() ;
+		    try
+		    {
+			    // init UI
+			    wepsim_init_ui() ;
 
-		    // set default view
-		    wsweb_change_workspace_simulator() ;
-		    wsweb_change_show_processor() ;
-		    wsweb_set_details('REGISTER_FILE') ;
+			    // set default view
+			    wsweb_change_workspace_simulator() ;
+			    wsweb_change_show_processor() ;
+			    wsweb_set_details('REGISTER_FILE') ;
 
-		    wsweb_set_cpucu_size(get_cfg('CPUCU_size')) ;
-		    wsweb_set_c1c2_size(get_cfg('C1C2_size')) ;
+			    wsweb_set_cpucu_size(get_cfg('CPUCU_size')) ;
+			    wsweb_set_c1c2_size(get_cfg('C1C2_size')) ;
 
-		    // init: general
-		    var ws_mode = get_cfg('ws_mode');
-		    wsweb_mode_update(ws_mode) ;
-		    simcore_reset();
+			    // init: general
+			    var ws_mode = get_cfg('ws_mode');
+			    wsweb_mode_update(ws_mode) ;
+			    simcore_reset();
 
-		    // init: voice 
-		    wepsim_voice_init() ;
-		    if (false == get_cfg('use_voice')) {
-			wepsim_voice_stop() ;
+			    // init: voice 
+			    wepsim_voice_init() ;
+			    if (false == get_cfg('use_voice')) {
+				wepsim_voice_stop() ;
+			    }
+
+			    // pre-load work
+			    var url_parameters = new URL(window.location).searchParams ;
+			    wepsim_preload_get(url_parameters, 'FileNameToSaveAs1', 'tagToSave1') ;
 		    }
-
-		    // pre-load work
-		    var url_parameters = new URL(window.location).searchParams ;
-		    wepsim_preload_get(url_parameters, 'FileNameToSaveAs1', 'tagToSave1') ;
+		    catch(err)
+		    {
+			  wepsim_general_exception_handler(err) ;
+		    }
 	    }) ;
 
             // progressive web application
@@ -1613,13 +1621,7 @@
     {
           $("#ws_loader").collapse('hide') ;
 
-          alert("Please try to cleanup the browser cache and try again (just in case).\n" +
-		"\n" +
-                "WepSIM was improperly used:\n" + err.message + "\n" +
-		"\n" +
-		"More details:\n" + err.stack) ;
-
-	  location.reload(true) ;
+          wepsim_general_exception_handler(err) ;
     }
 </script>
 <noscript>Your browser does not support JavaScript!</noscript>
