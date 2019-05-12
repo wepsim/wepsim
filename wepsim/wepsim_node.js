@@ -178,6 +178,45 @@
 	return wepsim_nodejs_retfill(true, ret_msg) ;
     }
 
+    function wepsim_nodejs_help_signal ( data, options )
+    {
+	var key    = data.firmware.toUpperCase() ;
+	var signal = simhw_sim_signal(key) ;
+	if (typeof signal === "undefined")
+        {
+	    return wepsim_nodejs_retfill(false, "ERROR: Unknown signal " + key + ".\n") ;
+	}
+
+	var input_help = '' ;
+	var nvalues    = Math.pow(2, simhw_sim_signal(key).nbits) ;
+	if (simhw_sim_signal(key).behavior.length == nvalues)
+	{
+	    input_help += 'Signal ' + key + ' has ' + nvalues + ' possible value:\n' ;
+
+	    for (var k = 0; k < simhw_sim_signal(key).behavior.length; k++)
+	    {
+		 str_bolded = '' ;
+		 if (k == simhw_sim_signal(key).default_value) {
+		     str_bolded = '(default value) ' ;
+		 }
+
+		 behav_str = compute_signal_verbals(key, k) ; 
+		 if ('' == behav_str.trim()) {
+		     behav_str = '<without main effect>' ;
+		 }
+
+		 n = k.toString(10) ;
+		 input_help += ' * ' + n + ' ' + str_bolded + 'for ' + behav_str + '\n' ;
+	    }
+	}
+	else 
+	{
+	    input_help += 'Signal ' + key + ' has a value from 0 up to ' + (nvalues - 1) ;
+	}
+
+	return wepsim_nodejs_retfill(true, input_help) ;
+    }
+
 
     /**
      * Export API
@@ -187,5 +226,6 @@
     module.exports.wepsim_nodejs_check                   = wepsim_nodejs_check ;
     module.exports.wepsim_nodejs_run                     = wepsim_nodejs_run ;
 
+    module.exports.wepsim_nodejs_help_signal             = wepsim_nodejs_help_signal ;
     module.exports.wepsim_nodejs_exportHW                = simcore_hardware_export ;
 

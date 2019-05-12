@@ -92,7 +92,10 @@
 
     function wepsim_execute_stop ( btn1 )
     {
-	$(btn1).html("<i class='fa fa-play'></i><br><b>Run</b>") ;
+	var wsi     = get_cfg('ws_idiom') ;
+        var run_tag = i18n_get('gui',wsi,'Run') ;
+
+	$(btn1).html("<i class='fa fa-play'></i><br><b>" + run_tag + "</b>") ;
 	$(btn1).css("backgroundColor", "#CCCCCC") ;
 
 	DBG_stop = true;
@@ -101,6 +104,9 @@
 
     function wepsim_execute_play ( btn1, run_notifications )
     {
+	var wsi      = get_cfg('ws_idiom') ;
+        var stop_tag = i18n_get('gui',wsi,'Stop') ;
+
 	var ret = simcore_check_if_can_execute() ;
 	if (false === ret.ok) 
 	{
@@ -109,7 +115,7 @@
         }
 
 	$(btn1).css("backgroundColor", 'rgb(51, 136, 204)') ;
-	$(btn1).html("<i class='fa fa-stop'></i><br><b>Stop</b>") ;
+	$(btn1).html("<i class='fa fa-stop'></i><br><b>" + stop_tag + "</b>") ;
 
         DBG_stop = false ;
         DBG_limit_instruction = 0 ;

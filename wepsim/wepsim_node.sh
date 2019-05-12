@@ -10,14 +10,26 @@
    if (process.argv.length < 3)
    {
        console.log('') ;
-       console.log('WepSIM-cl v1.2') ;
+       console.log('WepSIM-cl v1.5') ;
+       console.log('') ;
+       console.log('For more details please use:') ;
+       console.log(' ./wepsim_node.sh help') ;
+       console.log('') ;
+
+       return true ;
+   }
+
+   if (process.argv.length < 4)
+   {
+       console.log('') ;
+       console.log('WepSIM-cl v1.5') ;
        console.log('+ WepSIM simulator v2.0.6 interface for command line.') ;
        console.log('') ;
        console.log('Usage:') ;
-       console.log('+ ./wepsim_node.sh <command> <hardware name> <microcode file> <assembly file> [<checklist file>] [options*]') ;
-       console.log('+ ./wepsim_node.sh <command> checkpoint      <checkpoint file>                [<checklist file>] [options*]') ;
+       console.log(' * ./wepsim_node.sh <command> <hardware name> <microcode file> <assembly file> [<checklist file>] [options*]') ;
+       console.log(' * ./wepsim_node.sh <command> checkpoint      <checkpoint file>                [<checklist file>] [options*]') ;
        console.log('') ;
-       console.log('    <command>         = run | stepbystep | microstepbymicrostep | check | microstepverbalized') ;
+       console.log('    <command>         = run | stepbystep | microstepbymicrostep | check | microstepverbalized | show-console | show-record') ;
        console.log('    <hardware name>   = ep | poc') ;
        console.log('') ;
        console.log('    <checkpoint file> = "path to the checkpoint file" ') ;
@@ -49,6 +61,9 @@
        console.log(' * Run some example and show a description for each microinstruction executed:') ;
        console.log('   ./wepsim_node.sh microstepverbalized   ep         ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt verbal-text') ;
        console.log('   ./wepsim_node.sh microstepverbalized   checkpoint ./examples/checkpoint/tutorial_1.txt                                     verbal-math') ;
+       console.log('') ;
+       console.log(' * Show console output after execution:') ;
+       console.log('   ./wepsim_node.sh show-console          ep         ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt') ;
        console.log('') ;
 
        return true ;
@@ -84,7 +99,7 @@
  
    try 
    {
-       if ("EXPORT-HARDWARE" !== data.action)
+       if (("EXPORT-HARDWARE" !== data.action) && ("HELP" !== data.action))
        {
 	       if ("CHECKPOINT" !== data.mode.toUpperCase())
 	       {
@@ -109,6 +124,12 @@
        {
 	   arg_last++ ;
            data.result_ok = fs.readFileSync(process.argv[arg_last], 'utf8') ;
+       }
+
+       if ("HELP" === data.action)
+       {
+	   data.firmware = process.argv[4] ;
+	   arg_last      = 4 ;
        }
    }
    catch (e)
@@ -273,6 +294,21 @@
 
        ws.wepsim_nodejs_init(data.mode) ;
        var ret = ws.wepsim_nodejs_run(data, options) ;
+
+       console.log(ret.msg);
+       return ret.ok ;
+       // if (ret.ok == false) throw 'ERROR...' ;
+   }
+
+
+   //
+   // data.action == help
+   //
+
+   if ("HELP" == data.action)
+   {
+       ws.wepsim_nodejs_init(data.mode) ;
+       var ret = ws.wepsim_nodejs_help_signal(data, options) ;
 
        console.log(ret.msg);
        return ret.ok ;
