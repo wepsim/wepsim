@@ -123,6 +123,11 @@
 	    var hash = {} ;
 	    var uri_obj = null ;
 
+	    // check params
+	    if (typeof parameters === "undefined") {
+		return ;
+	    }
+
 	    // 1.a.- get parameters
 	    hash['preload']    = parameters.get('preload') ;
 	    hash['mode']       = parameters.get('mode') ;
@@ -132,15 +137,15 @@
 	    hash['checkpoint'] = parameters.get('checkpoint') ;
 
 	    // 1.b.- overwrite null with default values
-	    if (hash['preload'] === null)
+	    if (hash['preload']   === null)
 	        hash['preload']    = '' ;
-	    if (hash['mode'] === null)
+	    if (hash['mode']      === null)
 	        hash['mode']       = '' ;
-	    if (hash['example'] === null)
+	    if (hash['example']   === null)
 	        hash['example']    = '' ;
 	    if (hash['simulator'] === null)
 	        hash['simulator']  = '' ;
-	    if (hash['notify'] === null)
+	    if (hash['notify']    === null)
 	        hash['notify']     = 'true' ;
 	    if (hash['checkpoint'] === null)
 	        hash['checkpoint'] = '' ;
