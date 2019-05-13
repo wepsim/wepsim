@@ -27,6 +27,8 @@
     var ws_records      = [] ;
 
     var ws_last_played  = 0 ;
+    var ws_last_toplay  = 0 ;
+
     var ws_last_time    = 0 ;
     var ws_last_timer   = null ;
 
@@ -207,6 +209,7 @@
         ws_is_recording = false ;
 
         ws_last_played  = 0 ;
+        ws_last_toplay  = ws_records.length ;
 
         simcore_record_showMsg(ws_last_played, 'Stopped by user.') ;
     }
@@ -228,11 +231,15 @@
                  ws_last_played = ws_last_played + 1 ;
 	    else ws_last_played = 0 ;
 	}
+        else
+	{
+	    ws_last_toplay = ws_records.length ;
+	}
 
         ws_is_playing   = true ;
         ws_is_recording = false ;
 
-        simcore_record_playAt(ws_last_played, ws_records.length) ;
+        simcore_record_playAt(ws_last_played, ws_last_toplay) ;
     }
 
     function simcore_record_playInterval ( from, to )
@@ -250,10 +257,12 @@
 	    ws_last_played = from ;
 	}
 
+	ws_last_toplay  = to ;
+
         ws_is_playing   = true ;
         ws_is_recording = false ;
 
-        simcore_record_playAt(ws_last_played, to) ;
+        simcore_record_playAt(ws_last_played, ws_last_toplay) ;
     }
 
     function simcore_record_pause ( )
@@ -263,7 +272,7 @@
 
         if (ws_is_playing === true)
 	{
-            simcore_record_playAt(ws_last_played, ws_records.length) ;
+            simcore_record_playAt(ws_last_played, ws_last_toplay) ;
 	}
     }
 
@@ -299,6 +308,7 @@
     function simcore_record_reset ( )
     {
 	ws_last_played  = 0 ;
+	ws_last_toplay  = 0 ;
 	ws_last_time    = 0 ;
 
 	ws_is_playing   = false ;
