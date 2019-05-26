@@ -58,19 +58,19 @@ set -x
  jshint ./wepsim/wepsim_node.js
 
  jshint ./wepsim_i18n/i18n.js
- jshint ./wepsim_i18n/en-cfg.js
- jshint ./wepsim_i18n/en-examples.js
- jshint ./wepsim_i18n/en-gui.js
- jshint ./wepsim_i18n/en-help.js
- jshint ./wepsim_i18n/en-tour-intro.js
- jshint ./wepsim_i18n/en-tutorial-simpleusage.js
- jshint ./wepsim_i18n/en-tutorial-welcome.js
+ jshint ./wepsim_i18n/en/cfg.js
+ jshint ./wepsim_i18n/en/examples.js
+ jshint ./wepsim_i18n/en/gui.js
+ jshint ./wepsim_i18n/en/help.js
+ jshint ./wepsim_i18n/en/tour-intro.js
+ jshint ./wepsim_i18n/en/tutorial-simpleusage.js
+ jshint ./wepsim_i18n/en/tutorial-welcome.js
 
- jshint ./wepsim_i18n/es-cfg.js
- jshint ./wepsim_i18n/es-examples.js
- jshint ./wepsim_i18n/es-gui.js
- jshint ./wepsim_i18n/es-help.js
- jshint ./wepsim_i18n/es-tour-intro.js
- jshint ./wepsim_i18n/es-tutorial-simpleusage.js
- jshint ./wepsim_i18n/es-tutorial-welcome.js
+ jshint ./wepsim_i18n/es/cfg.js
+ jshint ./wepsim_i18n/es/examples.js
+ jshint ./wepsim_i18n/es/gui.js
+ jshint ./wepsim_i18n/es/help.js
+ jshint ./wepsim_i18n/es/tour-intro.js
+ jshint ./wepsim_i18n/es/tutorial-simpleusage.js
+ jshint ./wepsim_i18n/es/tutorial-welcome.js
 

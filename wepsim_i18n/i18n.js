@@ -40,7 +40,9 @@
 			    // help dialog
 			    help: {},
                             // other dialogs-popovers-tooltips
-			    dialogs: {}
+			    dialogs: {},
+                            // welcome tour
+			    tour_intro: {}
 		         }
                } ;
 
@@ -52,9 +54,6 @@
         tutorials.simpleusage = {} ;
         tutorials.simpleusage.en = [] ;
         tutorials.simpleusage.es = [] ;
-
-    // tour
-    var tour_steps = {} ;
 
 
     /*
@@ -115,6 +114,24 @@
 	return translation ;
     }
 
+
+    function i18n_get_TagFor ( component, key )
+    {
+        var ws_idiom ;
+	try {
+           ws_idiom = get_cfg('ws_idiom') ;
+	}
+	catch (e) {
+           ws_idiom = 'en' ;
+	}
+
+	var translation = key ;
+	if (typeof i18n.eltos[component][ws_idiom][key] !== "undefined") {
+	    translation = i18n.eltos[component][ws_idiom][key] ;
+	}
+
+	return translation ;
+    }
 
     function i18n_get_dropdown ( components, post_code )
     {
