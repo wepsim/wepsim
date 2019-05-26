@@ -23,27 +23,31 @@
 
     function wepsim_newbie_tour ( )
     {
-         var ti = get_cfg('ws_idiom') ;
+	     // setup lang
+	     var ws_idiom = get_cfg('ws_idiom') ;
+             wepsim_newbie_tour_setLang(ws_idiom) ;
+
+	     // setup tour
 	     tour = introJs() ;
 
-	     tour.setOptions({ 
-                                steps: tour_steps[ti],
+	     tour.setOptions({
+                                steps: ws_tour,
 				keyboardNavigation: true,
 				showProgress: true,
 	                        overlayOpacity: "0.1"
                              }) ;
 
 	     tour.onbeforechange(function () {
-                                        tour_steps.en[this._currentStep].do_before() ;
+                                        ws_tour[this._currentStep].do_before() ;
 	                         }) ;
 
 	     tour.onexit(function () {
-			                $("#config2").modal('hide'); 
-			                $("#help1").modal('hide'); 
-			                $("#example1").modal('hide'); 
+			                $("#config2").modal('hide');
+			                $("#help1").modal('hide');
+			                $("#example1").modal('hide');
 
 					// ws_mode: intro, tutorial, ep, poc, ...
-					if (get_cfg('ws_mode') != 'ep') { 
+					if (get_cfg('ws_mode') != 'ep') {
 					    wsweb_select_main('ep') ;
 					}
 
@@ -54,5 +58,28 @@
 
 	     // stats about ui
              ga('send', 'event', 'ui', 'ui.tour', 'ui.tour.newbie');
+    }
+
+    function wepsim_newbie_tour_setLang ( lang )
+    {
+	     var step = '' ;
+	     for (var i=0; i<ws_tour.length; i++) 
+	     {
+		  step = ws_tour[i].step ;
+		  ws_tour[i].intro = i18n.eltos.tour_intro[lang][step] ;
+	     }
+    }
+
+    function wepsim_newbie_tour_reload ( lang )
+    {
+	     // save idiom
+             set_cfg('ws_idiom', lang) ;
+	     save_cfg() ;
+
+	     // update interface
+	     i18n_update_tags('gui') ;
+
+	     tour.exit() ;
+	     wepsim_newbie_tour() ;
     }
 

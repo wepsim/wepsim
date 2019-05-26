@@ -51,25 +51,25 @@ rm -fr ws_dist/sim_all.js
 #  WepSIM web engine
 cat wepsim_i18n/i18n.js \
     \
-    wepsim_i18n/es-gui.js \
-    wepsim_i18n/es-tutorial-welcome.js \
-    wepsim_i18n/es-tutorial-simpleusage.js \
-    wepsim_i18n/es-tour-intro.js \
-    wepsim_i18n/es-cfg.js \
-    wepsim_i18n/es-help.js \
-    wepsim_i18n/es-states.js \
-    wepsim_i18n/es-examples.js \
-    wepsim_i18n/es-dialogs.js \
+    wepsim_i18n/es/gui.js \
+    wepsim_i18n/es/tutorial-welcome.js \
+    wepsim_i18n/es/tutorial-simpleusage.js \
+    wepsim_i18n/es/tour-intro.js \
+    wepsim_i18n/es/cfg.js \
+    wepsim_i18n/es/help.js \
+    wepsim_i18n/es/states.js \
+    wepsim_i18n/es/examples.js \
+    wepsim_i18n/es/dialogs.js \
     \
-    wepsim_i18n/en-gui.js \
-    wepsim_i18n/en-tutorial-welcome.js \
-    wepsim_i18n/en-tutorial-simpleusage.js \
-    wepsim_i18n/en-tour-intro.js \
-    wepsim_i18n/en-cfg.js \
-    wepsim_i18n/en-help.js \
-    wepsim_i18n/en-states.js \
-    wepsim_i18n/en-examples.js \
-    wepsim_i18n/en-dialogs.js \
+    wepsim_i18n/en/gui.js \
+    wepsim_i18n/en/tutorial-welcome.js \
+    wepsim_i18n/en/tutorial-simpleusage.js \
+    wepsim_i18n/en/tour-intro.js \
+    wepsim_i18n/en/cfg.js \
+    wepsim_i18n/en/help.js \
+    wepsim_i18n/en/states.js \
+    wepsim_i18n/en/examples.js \
+    wepsim_i18n/en/dialogs.js \
     \
     wepsim_core/wepsim_asmdbg.js \
     wepsim_core/wepsim_checkpoint.js \
@@ -86,9 +86,10 @@ cat wepsim_i18n/i18n.js \
     wepsim_core/wepsim_state.js \
     wepsim_core/wepsim_tutorial.js \
     wepsim_core/wepsim_tour.js \
+    wepsim_core/wepsim_tour_commands.js \
     wepsim_core/wepsim_url.js \
-    wepsim_core/wepsim_voice_commands.js \
     wepsim_core/wepsim_voice.js \
+    wepsim_core/wepsim_voice_commands.js \
     \
     wepsim/wepsim_web_simulator.js \
     wepsim/wepsim_web_editor.js \
