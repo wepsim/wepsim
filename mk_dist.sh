@@ -48,30 +48,24 @@ cat sim_hw/sim_hw_index.js \
 /usr/bin/yui-compressor -o ws_dist/min.sim_all.js ws_dist/sim_all.js
 rm -fr ws_dist/sim_all.js
 
-#  WepSIM web engine
-cat wepsim_i18n/i18n.js \
-    \
-    wepsim_i18n/es/gui.js \
-    wepsim_i18n/es/tutorial-welcome.js \
-    wepsim_i18n/es/tutorial-simpleusage.js \
-    wepsim_i18n/es/tour-intro.js \
-    wepsim_i18n/es/cfg.js \
-    wepsim_i18n/es/help.js \
-    wepsim_i18n/es/states.js \
-    wepsim_i18n/es/examples.js \
-    wepsim_i18n/es/dialogs.js \
-    \
-    wepsim_i18n/en/gui.js \
-    wepsim_i18n/en/tutorial-welcome.js \
-    wepsim_i18n/en/tutorial-simpleusage.js \
-    wepsim_i18n/en/tour-intro.js \
-    wepsim_i18n/en/cfg.js \
-    wepsim_i18n/en/help.js \
-    wepsim_i18n/en/states.js \
-    wepsim_i18n/en/examples.js \
-    wepsim_i18n/en/dialogs.js \
-    \
-    wepsim_core/wepsim_asmdbg.js \
+#  WepSIM internalization (i18n)
+cat wepsim_i18n/i18n.js > ws_dist/wepsim_i18n.js
+for LANG in es en fr kr; do
+cat wepsim_i18n/$LANG/gui.js \
+    wepsim_i18n/$LANG/tutorial-welcome.js \
+    wepsim_i18n/$LANG/tutorial-simpleusage.js \
+    wepsim_i18n/$LANG/tour-intro.js \
+    wepsim_i18n/$LANG/cfg.js \
+    wepsim_i18n/$LANG/help.js \
+    wepsim_i18n/$LANG/states.js \
+    wepsim_i18n/$LANG/examples.js \
+    wepsim_i18n/$LANG/dialogs.js >> ws_dist/wepsim_i18n.js
+done
+/usr/bin/yui-compressor -o ws_dist/min.wepsim_i18n.js ws_dist/wepsim_i18n.js
+rm -fr ws_dist/wepsim_i18n.js
+
+#  WepSIM web
+cat wepsim_core/wepsim_asmdbg.js \
     wepsim_core/wepsim_checkpoint.js \
     wepsim_core/wepsim_clipboard.js \
     wepsim_core/wepsim_config.js \
@@ -96,6 +90,11 @@ cat wepsim_i18n/i18n.js \
     wepsim/wepsim_web_api.js > ws_dist/wepsim_web.js
 /usr/bin/yui-compressor -o ws_dist/min.wepsim_web.js ws_dist/wepsim_web.js
 rm -fr ws_dist/wepsim_web.js
+
+#  WepSIM web engine
+cat ws_dist/min.wepsim_i18n.js \
+    ws_dist/min.wepsim_web.js > ws_dist/transient.js
+mv ws_dist/transient.js ws_dist/min.wepsim_web.js
 
 #  WepSIM nodejs engine
 cat ws_dist/min.sim_all.js \

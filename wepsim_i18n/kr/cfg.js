@@ -19,34 +19,34 @@
  */
 
 
-    i18n.eltos.cfg.en = {
+    i18n.eltos.cfg.kr = {
 
-	             "General": "General",
+	             "General": "일반",
                       "Idiom for help, examples, etc.": 		             "Idiom for help, examples, etc.",
                       "Notification speed: time before disapear": 	             "Notification speed: time before disapear",
-	             "Editor": "Editor",
+	             "Editor": "편집자",
                       "Editor theme: light or dark": 		                     "Editor theme: light or dark",
-                      "Light": 		                     			     "Light",
-                      "Dark": 		                     		             "Dark",
+                      "Light": 		                     			     "빛",
+                      "Dark": 		                     		             "어두운",
                       "Editor mode: vim, emacs, etc.": 		                     "Editor mode: vim, emacs, etc.",
-	             "Execution": "Execution",
-                      "Running speed: execution speed": 		             "Running speed: execution speed",
-                      "Slow": 		                     			     "Slow",
-                      "Normal": 		                     		     "Normal",
-                      "Fast": 		                     		             "Fast",
-                      "Step-by-step: element in run mode": 		             "Step-by-step: element in run mode",
-                      "Instructions": 		                     		     "Instructions",
-                      "Instruction": 		                     		     "Instruction",
-                      "&#181;instructions": 		                   	     "&#181;instructions",
-                      "microInstruction": 		                   	     "&#181;Instruction",
+	             "Execution": "실행",
+                      "Running speed: execution speed": 		             "실행 속도 : 실행 속도",
+                      "Slow": 		                     			     "느린",
+                      "Normal": 		                     		     "표준",
+                      "Fast": 		                     		             "빠른",
+                      "Step-by-step: element in run mode": 		             "단계별 : 실행 모드의 요소",
+                      "Instructions": 		                     		     "교수",
+                      "Instruction": 		                     		     "교수",
+                      "&#181;instructions": 		                   	     "&#181;교수",
+                      "microInstruction": 		                   	     "&#181;교수",
                       "Breakpoint icon: icon to be used for breakpoints":            "Breakpoint icon: icon to be used for breakpoints",
                       "Limit instructions: number of instructions to be executed":   "Limit instructions: number of instructions to be executed",
                       "Limit instruction ticks: to limit clock ticks": 	             "Limit instruction ticks: clock ticks limit per instruction",
 	             "Register file": "Register file",
                       "Display format": 		                     	     "Display format",
                       "Register file names": 		                             "Register file names",
-                      "Numbers": 		                                     "Numbers",
-                      "Labels": 		                                     "Labels",
+                      "Numbers": 		                                     "번호",
+                      "Labels": 		                                     "레이블",
                       "Editable registers: edit register file values": 	             "Editable registers: edit register file values",
 	             "Circuitry simulation": "Circuitry simulation",
                       "Data-path color": 					     "Data-path color",
@@ -57,11 +57,11 @@
                       "Interactive mode: signal value can be updated": 		     "Interactive mode: signal value can be updated",
                       "Quick interactive mode: quick update of signal value":	     "Quick interactive mode: quick update of signal value",
                       "WepSIM User Interface Skin": 		                     "WepSIM User Interface Skin",
-                      "(example)": 					             "(example)",
+                      "(example)": 					             "(예)",
 	             "Accesibility": "Accesibility",
                       "Active voice: external voice control": 	                     "Active voice: external voice control",
                       "Verbalization: textual or mathematical":      		     "Verbalization: textual or mathematical",
                       "Enable experimental features":      	     		     "Enable experimental features"
 
-    } ;
+                  } ;
 
