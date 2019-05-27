@@ -19,7 +19,9 @@
  */
 
 
-    i18n.eltos.tour_intro.en = {
+    // Translated thanks to Google translate
+
+    i18n.eltos.tour_intro.fr = {
 
 			"step0":  " Welcome to WepSIM!<br>" +
                                   " ¡Bienvenido a WepSIM!<br> " +
@@ -54,5 +56,5 @@
                         "step6":  "Congrat! You know the key elements in the WepSIM interface.<br>" +
                                   "From the 'Help' dialog you can access the 'Welcome tutorial' to continue learning.<br>"
 
-    } ;
+                  } ;
 

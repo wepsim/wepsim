@@ -25,8 +25,10 @@
 
     var i18n = {
 	          lang:  {
+			    en: "English",
 			    es: "Espa&ntilde;ol", 
-			    en: "English" 
+			    fr: "Fran&ccedil;ais",
+			    kr: "한국어" 
 		         },
 	          eltos: { 
                             // main-screen user interface
@@ -51,9 +53,13 @@
         tutorials.welcome = {} ;
         tutorials.welcome.en = [] ;
         tutorials.welcome.es = [] ;
+        tutorials.welcome.fr = [] ;
+        tutorials.welcome.kr = [] ;
         tutorials.simpleusage = {} ;
         tutorials.simpleusage.en = [] ;
         tutorials.simpleusage.es = [] ;
+        tutorials.simpleusage.fr = [] ;
+        tutorials.simpleusage.kr = [] ;
 
 
     /*

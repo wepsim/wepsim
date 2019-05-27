@@ -19,7 +19,7 @@
  */
 
 
-    i18n.eltos.states.en = {
+    i18n.eltos.states.kr = {
 
 			"States":  			                "States",
 			"Current":  			                "Current",
@@ -47,5 +47,5 @@
 	                "State(s) to checkpoint":                       "State(s) to checkpoint",
 	                "Record to checkpoint":                         "Record to checkpoint"
 
-    } ;
+                  } ;
 

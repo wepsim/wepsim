@@ -35,6 +35,8 @@
 				   "	     data-native-menu='false'>" +
 				   "	<option value='es'>Spanish</option>" +
 				   "	<option value='en'>English</option>" +
+				   "	<option value='fr'>French</option>" +
+				   "	<option value='kr'>Korean</option>" +
 				   " </select>" +
 			           "</div>",
                       code_init:   function() { 

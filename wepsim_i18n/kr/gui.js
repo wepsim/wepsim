@@ -19,34 +19,36 @@
  */
 
 
-    i18n.eltos.gui.en = {
+    // Translated thanks to Google translate
 
-			"Loading WepSIM...":  			        "Loading WepSIM...",
-			"Configuration":  			        "Configuration",
-			"MicroCode":  			        	"MicroCode",
-			"Assembly": 		     			"Assembly",
-			"Simulator": 		     			"Simulator",
-			"Examples":  			                "Examples",
-			"Load":  			        	"Load",
-			"Save":  			        	"Save",
-                        "Restore":                                      "Restore",
-			"Help":  			                "Help",
-			"Help Index":  			                "Help Index",
-			"Processor":  			                "Processor",
-			"Assembly Debugger":  			        "Assembly Debugger",
-			"Reset":  			                "Reset",
-			"Instruction":  			        "Instruction",
-			"Run":  			                "Run",
+    i18n.eltos.gui.kr = {
+
+			"Loading WepSIM...":  			        "WepSIM로드 중...",
+			"Configuration":  			        "구성",
+			"MicroCode":  			        	"마이크로 코드",
+			"Assembly": 		     			"어셈블리",
+			"Simulator": 		     			"모의 실험 장치",
+			"Examples":  			                "예제들",
+			"Load":  			        	"하중",
+			"Save":  			        	"구하다",
+                        "Restore":                                      "복원",
+			"Help":  			                "도움",
+			"Help Index":  			                "도움말 색인",
+			"Processor":  			                "프로세서",
+			"Assembly Debugger":  			        "어셈블리 디버거",
+			"Reset":  			                "다시 놓기",
+			"Instruction":  			        "교수",
+			"Run":  			                "조업",
 			"Hardware Summary":  			        "Hardware Summary",
 			"processor":  			                "processor",
 			"details":  			                "details",
 			"microcode":  			                "microcode",
                         "Signals": 		                     	"Signals",
                         "Behaviors": 		                     	"Behaviors",
-                        "States": 	                     	        "States",
+                        "States": 	                     	        "주",
                         "Control States": 	                     	"Control States",
                         "Dependencies": 		                "Dependencies",
-                        "Close": 		                	"Close",
+                        "Close": 		                	"닫기",
                         "Show": 		                	"Show",
                         "Show Main Memory": 		               	"Show Main Memory",
 			"compile":  			                "compile",
@@ -80,5 +82,6 @@
 
                         "Recent":                                       "Recent",
 			"Refresh":  			                "Refresh"
-    } ;
+
+                  } ;
 
