@@ -20,6 +20,7 @@
 
 
     i18n.eltos.gui.en = {
+
 			"Loading WepSIM...":  			        "Loading WepSIM...",
 			"Configuration":  			        "Configuration",
 			"MicroCode":  			        	"MicroCode",
@@ -79,5 +80,5 @@
 
                         "Recent":                                       "Recent",
 			"Refresh":  			                "Refresh"
-                  } ;
+    } ;
 

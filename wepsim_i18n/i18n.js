@@ -25,8 +25,10 @@
 
     var i18n = {
 	          lang:  {
+			    en: "English",
 			    es: "Espa&ntilde;ol", 
-			    en: "English" 
+			    fr: "Fran&ccedil;ais",
+			    kr: "한국어" 
 		         },
 	          eltos: { 
                             // main-screen user interface
@@ -48,12 +50,8 @@
 
     // tutorials
     var tutorials = {} ;
-        tutorials.welcome = {} ;
-        tutorials.welcome.en = [] ;
-        tutorials.welcome.es = [] ;
+        tutorials.welcome     = {} ;
         tutorials.simpleusage = {} ;
-        tutorials.simpleusage.en = [] ;
-        tutorials.simpleusage.es = [] ;
 
 
     /*
@@ -68,6 +66,9 @@
              {
 	          i18n.eltos[e][l] = {} ;
 	     }
+
+             tutorials.welcome[l]     = [] ;
+             tutorials.simpleusage[l] = [] ;
 	}
 
 	return true ;
@@ -149,6 +150,25 @@
            o += '             return false;">' + l.toUpperCase() + '<span class="d-none d-sm-inline-flex">&nbsp;(' + i18n.lang[l] + ')</span>' + 
 	        '</a>' ;
 	}
+
+	return o ;
+    }
+
+    function i18n_get_select ( )
+    {
+        var o  = " <select name='select7' id='select7' class='form-control form-control-sm custom-select'" +
+	         "	     aria-label='idiom for examples and help' " +
+	         "	     onchange=\"var opt = $(this).find('option:selected');" +
+	         "	 	        var optValue = opt.val();" +
+	         "		        update_cfg('ws_idiom', optValue);" +
+	         "                    i18n_update_tagsFor('gui', optValue);" +
+	         "		        wepsim_open_config_index();\"" +
+	         "	     data-native-menu='false'>" ;
+	for (var l in i18n.lang)
+	{
+            o += "	<option value='" + l + "'>" + i18n.lang[l] + "</option>" ;
+	}
+	o += " </select>" ;
 
 	return o ;
     }

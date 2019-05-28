@@ -19,7 +19,7 @@
  */
 
 
-    i18n.eltos.examples.en = {
+    i18n.eltos.examples.kr = {
 
              "addv + seqv.":						"addv + seqv.",
              "Alloc.s":							"Alloc.s",

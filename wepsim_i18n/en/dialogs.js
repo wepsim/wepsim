@@ -20,6 +20,7 @@
 
 
     i18n.eltos.dialogs.en = {
+
                         "Show Notifications":                           "Show Notifications",
                         "Show/Hide RecordBar":                          "Show/Hide RecordBar",
                         "Show/Hide ActionBar":                          "Show/Hide ActionBar",
@@ -36,5 +37,5 @@
                         "Sure Control Memory...":			"Do you want me to save the current Control Memory contents rather than the editor contents?.",
 
                         "Close": 		                	"Close"
-                  } ;
+    } ;
 

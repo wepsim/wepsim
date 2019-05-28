@@ -20,6 +20,7 @@
 
 
     i18n.eltos.states.en = {
+
 			"States":  			                "States",
 			"Current":  			                "Current",
 			"Current State":  			        "Current State",
@@ -45,5 +46,6 @@
 	                "Save to File":                                 "Save to File",
 	                "State(s) to checkpoint":                       "State(s) to checkpoint",
 	                "Record to checkpoint":                         "Record to checkpoint"
-                  } ;
+
+    } ;
 
