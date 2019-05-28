@@ -37,6 +37,7 @@
 			"Processor":  			                "프로세서",
 			"Assembly Debugger":  			        "어셈블리 디버거",
 			"Reset":  			                "다시 놓기",
+                        "microInstruction": 		                "&#181;교수",
 			"Instruction":  			        "교수",
 			"Run":  			                "조업",
 			"Hardware Summary":  			        "하드웨어 요약",
@@ -58,17 +59,17 @@
 
 	                "labels":                                       "라벨",
 	                "addr":                                         "주소",
-	                "ess":                                          "",
+	                "ess":                                          "&nbsp;",
 	                "content":                                      "함유량",
 	                "assembly":                                     "어셈블리",
 	                "instructions":                                 "명령",
 
                         "simulator intro 1": 		                "먼저, 사용할 명령어 세트를 정의하는 마이크로 코드를로드하고 마이크로 컴파일합니다 " +
-									"You can use an example, load it from a file or you can edit a new one.",
+									"예제를 사용하거나, 파일에서로드하거나, 새 예제를 편집 할 수 있습니다.",
                         "simulator intro 2": 		                "다음으로, 실행할 어셈블리 코드를로드하고 컴파일해야합니다. " +
-									"You can use an example, load it from a file or you can edit a new one.",
+									"예제를 사용하거나, 파일에서로드하거나, 새 예제를 편집 할 수 있습니다.",
                         "simulator intro 3": 		                "마지막으로 시뮬레이터에서 이전에로드 된 마이크로 코드 플러스 어셈블리를 실행할 수 있습니다. " +
-									"It can be executed step by step at microinstruction level or assembly instruction level.",
+									"마이크로 인스트럭션 레벨 또는 어셈블리 인스트럭션 레벨에서 단계적으로 실행할 수 있습니다.",
                         "Prev.": 		                	"너무 이른",
                         "Next": 		                	"다음 것",
                         "End": 		                		"끝",

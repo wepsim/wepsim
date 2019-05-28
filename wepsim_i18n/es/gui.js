@@ -34,6 +34,7 @@
 			"Processor": 			     		"Procesador",
 			"Assembly Debugger": 		     		"Depurador de Ensamblador",
 			"Reset": 			     		"Reiniciar",
+                        "microInstruction": 		                "&#181;Instrucci&oacute;n",
 			"Instruction": 			     		"Instrucci&oacute;n",
 			"Run": 				     		"Ejecutar",
 			"Hardware Summary":  			        "Hardware Resumido",
