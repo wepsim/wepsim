@@ -21,21 +21,22 @@
 
     i18n.eltos.dialogs.kr = {
 
-                        "Show Notifications":                           "Show Notifications",
-                        "Show/Hide RecordBar":                          "Show/Hide RecordBar",
-                        "Show/Hide ActionBar":                          "Show/Hide ActionBar",
-                        "Show/Hide Slider":                             "Show/Hide Slider",
-                        "Initial intro":                                "Initial intro",
-                        "About WepSIM":                                 "About WepSIM",
+                        "Show Notifications":                           "알림 표시",
+                        "Show/Hide RecordBar":                          "RecordBar보기 / 가리기",
+                        "Show/Hide ActionBar":                          "ActionBar 표시 / 숨기기",
+                        "Show/Hide Slider":                             "슬라이더 표시 / 숨기기",
+                        "Initial intro":                                "초기 소개",
+                        "About WepSIM":                                 "WepSIM 소개",
 
-                        "Title":                                 	"Title",
-                        "Message":                                 	"Message",
-                        "Duration":                                 	"Duration",
+                        "Title":                                 	"제목",
+                        "Message":                                 	"메시지",
+                        "Duration":                                 	"재생 시간",
 
-			"Confirm remove record...":     		"Do you want to remove the actual record?",
-			"Close or Reset...":    			"Please click on Close to keep it, <br>or click on the Reset button to remove it.",
-                        "Sure Control Memory...":			"Do you want me to save the current Control Memory contents rather than the editor contents?.",
+			"Confirm remove record...":     		"현재 레코드를 제거 하시겠습니까?",
+			"Close or Reset...":    			"계속하려면 닫기를 클릭하고, <br> 단추를 클릭하여 제거하십시오.",
+                        "Sure Control Memory...":			"편집기 내용이 아닌 현재 컨트롤 메모리 내용을 저장 하시겠습니까?",
 
-                        "Close": 		                	"Close"
+                        "Close": 		                	"닫다"
+
                   } ;
 

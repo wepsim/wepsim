@@ -56,12 +56,12 @@
                       "Activation": 		                     		     "Activation",
                       "Interactive mode: signal value can be updated": 		     "Interactive mode: signal value can be updated",
                       "Quick interactive mode: quick update of signal value":	     "Quick interactive mode: quick update of signal value",
-                      "WepSIM User Interface Skin": 		                     "WepSIM User Interface Skin",
+                      "WepSIM User Interface Skin": 		                     "WepSIM 사용자 인터페이스 스킨",
                       "(example)": 					             "(예)",
-	             "Accesibility": "Accesibility",
-                      "Active voice: external voice control": 	                     "Active voice: external voice control",
-                      "Verbalization: textual or mathematical":      		     "Verbalization: textual or mathematical",
-                      "Enable experimental features":      	     		     "Enable experimental features"
+	             "Accesibility": "접근성",
+                      "Active voice: external voice control": 	                     "활성 음성 : 외부 음성 제어",
+                      "Verbalization: textual or mathematical":      		     "언어학 : 텍스트 또는 수학",
+                      "Enable experimental features":      	     		     "실험 사용"
 
                   } ;
 

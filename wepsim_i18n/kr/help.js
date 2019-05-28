@@ -21,41 +21,41 @@
 
     i18n.eltos.help.kr = {
 
-	"Welcome tutorial":		"Welcome tutorial",
-	"help_01_01":			"Open the welcome tutorial",
+	"Welcome tutorial":		"환영 자습서",
+        "help_01_01": 			"환영하는 자습서 열기",
 
-	"Simple usage tutorial":	"Simple usage tutorial",
-	"help_01_02":			"Open the simple usage tutorial, for microprogramming and assembly programming",
+	"Simple usage tutorial":	"간단한 사용법 자습서",
+        "help_01_02": 			"마이크로 프로그래밍 및 어셈블리 프로그래밍을위한 간단한 사용법 자습서 열기",
 
-	"Simulator: firmware":		"Simulator: firmware",
-	"help_02_01":			"How to work with the firmware to be loaded into the control memory",
+	"Simulator: firmware":		"시뮬레이터 : 펌웨어",
+        "help_02_01": 			"펌웨어를 제어 메모리에로드하는 방법",
 
-	"Microcode format":		"Microcode format",
-	"help_02_02":			"Syntax of the microcode used",
+	"Microcode format":		"마이크로 코드 형식",
+        "help_02_02": 			"사용 된 마이크로 코드의 구문",
 
-	"Simulator: assembly":		"Simulator: assembly",
-	"help_02_03":			"How to work with the assembly that use the aforementioned firmware",
+	"Simulator: assembly":		"시뮬레이터 : 어셈블리",
+        "help_02_03": 			"앞서 언급 한 펌웨어를 사용하는 어셈블리 작업 방법",
 
-	"Assembly format":		"Assembly format",
-	"help_02_04":			"Syntax of the assembly elements",
+	"Assembly format":		"어셈블리 형식",
+        "help_02_04": 			"어셈블리 요소의 구문",
 
-	"Simulator: execution":		"Simulator: execution",
-	"help_02_05":			"How the simulator can execute the assembly and firmware",
+	"Simulator: execution":		"시뮬레이터 : 실행",
+        "help_02_05": 			"시뮬레이터가 어셈블리 및 펌웨어를 실행할 수있는 방법",
 
-	"Simulated architecture":	"Simulated architecture",
-	"help_03_01":			"Description of the simulated processor architecture",
+	"Simulated architecture":	"시뮬레이션 된 아키텍처",
+        "help_03_01": 			"시뮬레이트 된 프로세서 아키텍처에 대한 설명",
 
-	"Simulated signals":		"Simulated signals",
-	"help_03_02":			"Main signals summary of the simulated elemental processor",
+	"Simulated signals":		"시뮬레이션 된 신호",
+        "help_03_02": 			"시뮬레이션 된 기본 프로세서의 주요 신호 요약",
 
-	"Hardware summary":		"Hardware summary",
-	"help_03_03":			"Reference card for the simulated elemental processor hardware",
+	"Hardware summary":		"하드웨어 요약",
+        "help_03_03": 			"시뮬레이트 된 기본 프로세서 하드웨어에 대한 참조 카드",
 
-	"License, platforms, etc.":	"License, platforms, etc.",
-	"help_04_01":			"WepSIM license, supported platforms, technologies used",
+	"License, platforms, etc.":	"라이센스, 플랫폼 등",
+        "help_04_01": 			"WEPSIM 라이센스, 지원 플랫폼, 사용 된 기술",
 
-	"Authors":			"Authors",
-	"help_04_02":			"Authors of WepSIM"
+	"Authors":			"저자",
+        "help_04_02": 			"WepSIM의 저자"
 
     } ;
 

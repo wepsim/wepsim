@@ -24,21 +24,7 @@
     ws_config.push({
                       id:          "select7",
                       type:        "General",
-                      code_cfg:    "<div class='form-group m-0'>" +
-				   " <select name='select7' id='select7' class='form-control form-control-sm custom-select'" +
-				   "	     aria-label='idiom for examples and help' " +
-				   "	     onchange=\"var opt = $(this).find('option:selected');" +
-				   "	 	        var optValue = opt.val();" +
-				   "		        update_cfg('ws_idiom', optValue);" +
-	                           "                    i18n_update_tagsFor('gui', optValue);" +
-				   "		        wepsim_open_config_index();\"" +
-				   "	     data-native-menu='false'>" +
-				   "	<option value='es'>Spanish</option>" +
-				   "	<option value='en'>English</option>" +
-				   "	<option value='fr'>French</option>" +
-				   "	<option value='kr'>Korean</option>" +
-				   " </select>" +
-			           "</div>",
+                      code_cfg:    "<div class='form-group m-0'>" + i18n_get_select() + "</div>",
                       code_init:   function() { 
 			               $('#select7').val(get_cfg('ws_idiom')); 
 		                   },
