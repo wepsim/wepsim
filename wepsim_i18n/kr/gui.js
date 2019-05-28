@@ -39,49 +39,49 @@
 			"Reset":  			                "다시 놓기",
 			"Instruction":  			        "교수",
 			"Run":  			                "조업",
-			"Hardware Summary":  			        "Hardware Summary",
-			"processor":  			                "processor",
-			"details":  			                "details",
-			"microcode":  			                "microcode",
-                        "Signals": 		                     	"Signals",
-                        "Behaviors": 		                     	"Behaviors",
+			"Hardware Summary":  			        "하드웨어 요약",
+			"processor":  			                "프로세서",
+			"details":  			                "세부",
+			"microcode":  			                "마이크로 코드",
+                        "Signals": 		                     	"신호",
+                        "Behaviors": 		                     	"행동",
                         "States": 	                     	        "주",
-                        "Control States": 	                     	"Control States",
-                        "Dependencies": 		                "Dependencies",
+                        "Control States": 	                     	"제어 상태",
+                        "Dependencies": 		                "종속성",
                         "Close": 		                	"닫기",
-                        "Show": 		                	"Show",
-                        "Show Main Memory": 		               	"Show Main Memory",
-			"compile":  			                "compile",
-			"Compile":  			                "Compile",
-			"Please write the file name": 		        "Please write the file name",
-	                "Load from this File":                          "Load from this File",
+                        "Show": 		                	"보여주기",
+                        "Show Main Memory": 		               	"주 메모리보기",
+			"compile":  			                "보여주기",
+			"Compile":  			                "보여주기",
+			"Please write the file name": 		        "파일 이름을 적어주세요.",
+	                "Load from this File":                          "이 파일에서로드",
 
-	                "labels":                                       "labels",
-	                "addr":                                         "addr",
-	                "ess":                                          "ess",
-	                "content":                                      "content",
-	                "assembly":                                     "assembly",
-	                "instructions":                                 "instructions",
+	                "labels":                                       "라벨",
+	                "addr":                                         "주소",
+	                "ess":                                          "",
+	                "content":                                      "함유량",
+	                "assembly":                                     "어셈블리",
+	                "instructions":                                 "명령",
 
-                        "simulator intro 1": 		                "First, you are going to load and microcompile the microcode that defines the instruction set to be used.<br>" +
+                        "simulator intro 1": 		                "먼저, 사용할 명령어 세트를 정의하는 마이크로 코드를로드하고 마이크로 컴파일합니다 " +
 									"You can use an example, load it from a file or you can edit a new one.",
-                        "simulator intro 2": 		                "Next, you need to load and compile the assembly code to be executed.<br>" +
+                        "simulator intro 2": 		                "다음으로, 실행할 어셈블리 코드를로드하고 컴파일해야합니다. " +
 									"You can use an example, load it from a file or you can edit a new one.",
-                        "simulator intro 3": 		                "Finally, in the simulator you are able to execute the microcode plus assembly loaded before. " +
+                        "simulator intro 3": 		                "마지막으로 시뮬레이터에서 이전에로드 된 마이크로 코드 플러스 어셈블리를 실행할 수 있습니다. " +
 									"It can be executed step by step at microinstruction level or assembly instruction level.",
-                        "Prev.": 		                	"Prev.",
-                        "Next": 		                	"Next",
-                        "End": 		                		"End",
-                        "Disable tutorial mode": 		        "Disable tutorial mode",
+                        "Prev.": 		                	"너무 이른",
+                        "Next": 		                	"다음 것",
+                        "End": 		                		"끝",
+                        "Disable tutorial mode": 		        "자습서 모드 사용 안함",
 
-                        "Comment":					"Comment",
-                        "Pause":					"Pause",
-                        "Play":						"Play",
-                        "Stop":						"Stop",
-                        "Record":					"Record",
+                        "Comment":					"의견을 남기다",
+                        "Pause":					"일시 정지하다",
+                        "Play":						"연주하다",
+                        "Stop":						"그치다",
+                        "Record":					"기록하다",
 
-                        "Recent":                                       "Recent",
-			"Refresh":  			                "Refresh"
+                        "Recent":                                       "충적세",
+			"Refresh":  			                "새롭게 하다"
 
                   } ;
 
