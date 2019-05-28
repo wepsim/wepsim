@@ -21,11 +21,9 @@
 
     i18n.eltos.tour_intro.es = {
 
-			"step0":  " Welcome to WepSIM!<br>" +
-                                  " ¡Bienvenido a WepSIM!<br> " +
-                                  "<br>" +
-                                  "<a class=\"btn btn-sm btn-outline-dark mx-2\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('es');\">Spanish</a>" +
-                                  "<a class=\"btn btn-sm btn-outline-dark mx-2\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('en');\">English</a>" +
+			"step0":  "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('fr');\">Bienvenue!</a>" +
+                                  "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('es');\">¡Bienvenido/a!</a>" +
+                                  "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('en');\">Welcome!</a>" +
                                   "<br>",
 
 			"step1":  "WepSIM ayudar&aacute; a entender mejor c&oacute;mo funciona un computador: " + 
