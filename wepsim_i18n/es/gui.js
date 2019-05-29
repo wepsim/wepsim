@@ -47,6 +47,7 @@
                         "Control States": 	                     	"Estados de Control",
                         "Dependencies": 		                "Dependencias",
                         "Close": 		                	"Cerrar",
+                        "Description": 		                	"Descripci&oacute;n",
                         "Show": 		                	"Mostrar",
                         "Show Main Memory": 		               	"Mostrar Memoria Principal",
 			"compile":  			                "compilar",

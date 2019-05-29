@@ -50,6 +50,7 @@
                         "Control States": 	                     	"제어 상태",
                         "Dependencies": 		                "종속성",
                         "Close": 		                	"닫기",
+                        "Description": 		                	"기술",
                         "Show": 		                	"보여주기",
                         "Show Main Memory": 		               	"주 메모리보기",
 			"compile":  			                "보여주기",

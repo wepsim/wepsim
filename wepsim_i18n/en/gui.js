@@ -47,6 +47,7 @@
                         "Control States": 	                     	"Control States",
                         "Dependencies": 		                "Dependencies",
                         "Close": 		                	"Close",
+                        "Description": 		                	"Description",
                         "Show": 		                	"Show",
                         "Show Main Memory": 		               	"Show Main Memory",
 			"compile":  			                "compile",
