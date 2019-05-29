@@ -23,22 +23,22 @@
 
     i18n.eltos.dialogs.fr = {
 
-                "Show Notifications":                           "Afficher les notifications",
-                "Show/Hide RecordBar":                          "Afficher/masquer la barre d'enregistrement",
-                "Show/Hide ActionBar":                          "Afficher/masquer la barre d'action",
-                "Show/Hide Slider":                             "Afficher/masquer le curseur",
-                "Initial intro":                                "Intro initiale",
-                "About WepSIM":                                 "À propos de WepSIM",
+			"Show Notifications":                           "Afficher les notifications",
+			"Show/Hide RecordBar":                          "Afficher/masquer la barre d'enregistrement",
+			"Show/Hide ActionBar":                          "Afficher/masquer la barre d'action",
+			"Show/Hide Slider":                             "Afficher/masquer le curseur",
+			"Initial intro":                                "Intro initiale",
+			"About WepSIM":                                 "À propos de WepSIM",
 
-                "Title":                                 	"Titre",
-                "Message":                                 	"Message",
-                "Duration":                                 	"Durée",
+			"Title":                                 	"Titre",
+			"Message":                                 	"Message",
+			"Duration":                                 	"Durée",
 
-		"Confirm remove record...":     		"Voulez-vous supprimer l'enregistrement en cours?",
-		"Close or Reset...":    			"Cliquez sur Fermer pour le conserver, <br> ou cliquez sur le bouton Réinitialiser pour le supprimer.",
-                "Sure Control Memory...":			"Voulez-vous que je sauvegarde le contenu actuel de la mémoire de contrôle plutôt que le contenu de l'éditeur?.",
+			"Confirm remove record...":     		"Voulez-vous supprimer l'enregistrement en cours?",
+			"Close or Reset...":    			"Cliquez sur Fermer pour le conserver, <br> ou cliquez sur le bouton Réinitialiser pour le supprimer.",
+			"Sure Control Memory...":			"Voulez-vous que je sauvegarde le contenu actuel de la mémoire de contrôle plutôt que le contenu de l'éditeur?.",
 
-                "Close": 		                	"Fermer"
+			"Close": 		                	"Fermer"
 
     } ;
 
