@@ -127,37 +127,35 @@
 		       size:    'large',
 		       buttons: {
 				    description: {
-					label:     '&plusmn; Desc<span class="d-none d-sm-inline-flex">ription</span>',
+					label:     '&plusmn; <span data-langkey="Description">Description</span>',
 					className: 'btn-outline-dark btn-sm col-xs-3 col-sm-3 col-lg-2 mr-auto',
-					callback: function() 
-						  {
-						     $('.bh-all').collapse('toggle') ;
-						     return false ;
-						  }
+					callback:  function() 
+						   {
+						      $('.bh-all').collapse('toggle') ;
+						      return false ;
+						   }
 				    },
 				    success: {
-					label: "Save",
-					className: "btn-primary btn-sm col-xs-3 col-sm-2 float-right",
-					callback: function ()
-						  {
-						     key        = $('#ask_skey').val();
-						     user_input = $("input[name='ask_svalue']:checked").val();
-						     if (typeof user_input == "undefined") {
-							 user_input = $("input[name='ask_svalue']").val();
-						     }
+					label:     '<span data-langkey="Save">Save</span>',
+					className: 'btn-primary btn-sm col-xs-3 col-sm-2 float-right',
+					callback:  function ()
+						   {
+						      key        = $('#ask_skey').val();
+						      user_input = $("input[name='ask_svalue']:checked").val();
+						      if (typeof user_input == "undefined") {
+						 	 user_input = $("input[name='ask_svalue']").val();
+						      }
 
-						     simhw_sim_signal(key).value = user_input ;
-						     propage_signal_update(key) ;
-
-						     wsweb_dialogbox_close_updatesignal() ;
-						  }
+                                                      wepsim_update_signal_with_value(key, user_input) ;
+						      wsweb_dialogbox_close_updatesignal() ;
+						   }
 				    },
 				    close: {
-					label: "Close",
-					className: "btn-danger btn-sm col-xs-3 col-sm-2 float-right",
-					callback: function() { 
-						     wsweb_dialogbox_close_updatesignal() ;
-					          }
+					label:     '<span data-langkey="Close">Close</span>',
+					className: 'btn-danger btn-sm col-xs-3 col-sm-2 float-right',
+					callback:  function() { 
+						      wsweb_dialogbox_close_updatesignal() ;
+					           }
 				    }
 				}
 		});
@@ -191,11 +189,21 @@
 		var nvalues = Math.pow(2, simhw_sim_signal(key).nbits) ;
 		var user_input = simhw_sim_signal(key).value ;
 		user_input = (user_input + 1) % nvalues ;
-		simhw_sim_signal(key).value = user_input ;
 
-		propage_signal_update(key) ;
+                wepsim_update_signal_with_value(key, user_input) ;
 
 	    show_states();
 	    show_rf_values();
+        }
+
+        function wepsim_update_signal_with_value ( key, value )
+        {
+                // update signal
+		simhw_sim_signal(key).value = value ;
+		propage_signal_update(key) ;
+
+                // add if recording
+                simcore_record_append_new('Update signal ' + key + ' with value ' + value,
+                                          'wepsim_update_signal_with_value("' + key + '", ' + value + ');\n') ;
         }
 
