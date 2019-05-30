@@ -152,8 +152,18 @@
             var sim_signals = simhw_sim_signals() ;
             for (var key in sim_signals)
             {
-                var f_click    = new Function('hash_signal2action["<all>"]("' + key + '",    "click")') ;
-                var f_dblclick = new Function('hash_signal2action["<all>"]("' + key + '", "dblclick")') ;
+		if (typeof hash_signal2action[key + "click"] === "undefined") 
+		{
+		    hash_signal2action[key + "click"] = function(key_value) {
+			                                   return function() { hash_signal2action["<all>"](key_value,    "click"); };
+		                                        }(key) ;
+		}
+		if (typeof hash_signal2action[key + "dblclick"] === "undefined")
+		{
+		    hash_signal2action[key + "dblclick"] = function(key_value) {
+			                                     return function() { hash_signal2action["<all>"](key_value, "dblclick"); };
+		                                           }(key) ;
+		}
 
                 for (var j=0; j<simhw_sim_signal(key).fire_name.length; j++)
                 {
@@ -168,8 +178,8 @@
                                continue ;
                            }
 
-                           o.addEventListener('click',       f_click, false) ;
-                           o.addEventListener('dblclick', f_dblclick, false) ;
+                           o.addEventListener('click',    hash_signal2action[key +    "click"], false) ;
+                           o.addEventListener('dblclick', hash_signal2action[key + "dblclick"], false) ;
                 }
             }
 
