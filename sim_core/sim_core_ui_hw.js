@@ -75,7 +75,7 @@
 
         function simcoreui_signal_dialog ( ahw_elto_name )
         {
-	      update_signal_dialog(ahw_elto_name) ;
+	      wepsim_update_signal_dialog(ahw_elto_name) ;
               $(".popover_hw").popover("hide") ;
         }
 

@@ -389,8 +389,8 @@
             }
 
 	    if ( (true === get_cfg('is_quick_interactive')) && (event_type = 'click') )
-	          update_signal_quick(key) ;
-	    else update_signal_dialog(key) ;
+	          wepsim_update_signal_quick(key) ;
+	    else wepsim_update_signal_dialog(key) ;
 
 	    show_states();
             show_rf_values();
