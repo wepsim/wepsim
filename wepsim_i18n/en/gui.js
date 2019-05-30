@@ -35,6 +35,7 @@
 			"Processor":  			                "Processor",
 			"Assembly Debugger":  			        "Assembly Debugger",
 			"Reset":  			                "Reset",
+			"microInstruction": 				"&#181;Instruction",
 			"Instruction":  			        "Instruction",
 			"Run":  			                "Run",
 			"Hardware Summary":  			        "Hardware Summary",
