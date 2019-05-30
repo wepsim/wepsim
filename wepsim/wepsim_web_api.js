@@ -647,6 +647,7 @@
 
     function wsweb_notifyuser_hide ( )
     {
+	    wsweb_nfbox = $("#notifyuser1") ;
 	    wsweb_nfbox.modal("hide") ;
 
             // return ok
