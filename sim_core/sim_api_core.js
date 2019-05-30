@@ -130,10 +130,11 @@
         /**
          * Initialize simulator event handler.
          * @param {string} context - associated context
-         * @param {hash} hash_detail2action - actions to hook
+         * @param {hash} hash_detail2action - actions to hook for details
+         * @param {hash} hash_signal2action - actions to hook for signals
          */
 
-        function simcore_init_eventlistener ( context, hash_detail2action )
+        function simcore_init_eventlistener ( context, hash_detail2action, hash_signal2action )
         {
 	    var context_obj = null ;
 	    var r = [] ;
@@ -151,21 +152,24 @@
             var sim_signals = simhw_sim_signals() ;
             for (var key in sim_signals)
             {
+                var f_click    = new Function('hash_signal2action["<all>"]("' + key + '",    "click")') ;
+                var f_dblclick = new Function('hash_signal2action["<all>"]("' + key + '", "dblclick")') ;
+
                 for (var j=0; j<simhw_sim_signal(key).fire_name.length; j++)
                 {
 			   r = simhw_sim_signal(key).fire_name[j].split(':') ;
 			   if (r[0] !== context) {
-			       continue;
+			       continue ;
                            }
 
   			   o = context_obj.getElementById(r[1]) ;
                            if (null === o)  {
-                               console.log('warning: unreferenced graphic element named "' + r[0] + ':' + r[1] + '".');
-                               continue;
+                               console.log('warning: unreferenced graphic element named "' + r[0] + ':' + r[1] + '".') ;
+                               continue ;
                            }
 
-                           o.addEventListener('click',    update_signal, false);
-                           o.addEventListener('dblclick', update_signal, false);
+                           o.addEventListener('click',       f_click, false) ;
+                           o.addEventListener('dblclick', f_dblclick, false) ;
                 }
             }
 

@@ -77,6 +77,7 @@ cat wepsim_core/wepsim_asmdbg.js \
     wepsim_core/wepsim_help_commands.js \
     wepsim_core/wepsim_notify.js \
     wepsim_core/wepsim_preload.js \
+    wepsim_core/wepsim_signal.js \
     wepsim_core/wepsim_state.js \
     wepsim_core/wepsim_tutorial.js \
     wepsim_core/wepsim_tour.js \
