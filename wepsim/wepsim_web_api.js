@@ -375,6 +375,46 @@
             return true ;
     }
 
+    //  Workspace simulator: Signal dialog
+
+    var hash_signal2action = {
+	    "<all>":  function(key, event_type){ wsweb_dialogbox_open_updatesignal(key, event_type); },
+        } ;
+
+    function wsweb_dialogbox_open_updatesignal ( key, event_type )
+    {
+	    // update interface
+            if (false === get_cfg('is_interactive')) {
+                return;
+            }
+
+	    if ( (true === get_cfg('is_quick_interactive')) && (event_type = 'click') )
+	          update_signal_quick(key) ;
+	    else update_signal_dialog(key) ;
+
+	    show_states();
+            show_rf_values();
+
+            // add if recording
+            simcore_record_append_new('Open update signal dialogbox ' + key,
+		                      'wsweb_dialogbox_open_updatesignal(\'' + key + '\',\'' + event_type + '\');\n') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_dialogbox_close_updatesignal ( )
+    {
+	    $('#dlg_updatesignal').modal('hide') ;
+
+            // add if recording
+            simcore_record_append_new('Close update signal dialogbox',
+		                      'wsweb_dialogbox_close_updatesignal();\n') ;
+
+            // return ok
+            return true ;
+    }
+
     //  Workspace simulator: Selects
 
     function wsweb_set_details_select ( opt )
