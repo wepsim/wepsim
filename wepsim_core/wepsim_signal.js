@@ -19,7 +19,7 @@
  */
 
 
-        function update_signal_dialog ( key )
+        function wepsim_update_signal_dialog ( key )
         {
 		// check signal
 		var signal_obj = simhw_sim_signal(key) ;
@@ -87,6 +87,10 @@
 		    curr_hw = "ep" ;
 		}
 
+	        var o_l = i18n_get_dropdown(['gui'], 
+			                    '$(\'#bot_signal\').carousel(1); ' +
+			                    'update_signal_loadhelp(\'#help2\',$(\'#ask_shard\').val(),$(\'#ask_skey\').val());" ') ;
+
 		var bb = bootbox.dialog({
 		       title:   '<center>' + key + ': ' +
 				' <div class="btn-group">' +
@@ -98,19 +102,8 @@
 				'           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
 				'     <span class="caret"></span>' +
 				'     <span class="sr-only">Toggle Help Idiom</span>' +
-				'   </button>' +
-				'   <div class="dropdown-menu">' +
-				'        <a href="#" class="dropdown-item" ' + 
-				'                    onclick="set_cfg(\'ws_idiom\',\'es\'); save_cfg(); i18n_update_tags(\'gui\'); ' +
-				'                             $(\'#bot_signal\').carousel(1); ' +
-				'                             update_signal_loadhelp(\'#help2\',$(\'#ask_shard\').val(),$(\'#ask_skey\').val());" ' + 
-				'        >ES<span class="d-none d-sm-inline-flex">&nbsp;(Spanish)</span></a>' +
-				'        <a href="#" class="dropdown-item" ' + 
-				'                    onclick="set_cfg(\'ws_idiom\',\'en\'); save_cfg(); i18n_update_tags(\'gui\'); ' +
-				'                             $(\'#bot_signal\').carousel(1); ' +
-				'                             update_signal_loadhelp(\'#help2\',$(\'#ask_shard\').val(),$(\'#ask_skey\').val());" ' +
-				'        >EN<span class="d-none d-sm-inline-flex">&nbsp;(English)</span></a>' +
-				'   </div>' +
+				'   </button>' + 
+			        '   <div class="dropdown-menu">' + o_l + '</div>' + 
 				' </div>' +
 				'</center>',
 		       message: '<div id="bot_signal" class="carousel" data-ride="carousel" data-interval="false">' +
@@ -181,7 +174,7 @@
 	    show_rf_values();
         }
 
-        function update_signal_quick ( key )
+        function wepsim_update_signal_quick ( key )
         {
 		// check signal
 		var signal_obj = simhw_sim_signal(key) ;
