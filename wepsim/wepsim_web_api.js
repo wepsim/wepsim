@@ -393,7 +393,7 @@
 	    else wepsim_update_signal_dialog(key) ;
 
 	    show_states();
-            show_rf_values();
+            wepsim_show_rf_values();
 
             // add if recording
             simcore_record_append_new('Open update signal dialogbox ' + key,
@@ -437,7 +437,7 @@
 
     var hash_detail2action = {
 	    "CLOCK":          function(){ wepsim_execute_microinstruction(); },
-	    "REGISTER_FILE":  function(){ wsweb_set_details_select(11); show_rf_values(); },
+	    "REGISTER_FILE":  function(){ wsweb_set_details_select(11); wepsim_show_rf_values(); },
 	    "CONTROL_MEMORY": function(){ wsweb_set_details_select(16); show_memories_values(); },
 	    "CPU_STATS":      function(){ wsweb_set_details_select(17); show_memories_values(); },
 	    "MEMORY":         function(){ wsweb_set_details_select(14); show_memories_values(); },
@@ -501,13 +501,44 @@
             return true ;
     }
 
+
+    var msg_default = '<div class="bg-warning"><b>Not available in this hardware</b></div>' ;
+
+    var hash_detail2init = {
+	    "CPU_STATS":     function() {
+		                $('#states_ALL').html(msg_default) ;
+		                   $('#cpu_ALL').html(msg_default) ;
+
+		                wepsim_init_states('#states_ALL') ;
+		                   wepsim_init_cpu('#cpu_ALL') ;
+
+		                init_states(wepsim_show_states) ;
+	                     },
+	    "REGISTER_FILE": function() {
+		                $('#states_BR').html(msg_default) ;
+
+		                wepsim_init_rf('#states_BR') ;
+
+		                init_rf(wepsim_show_rf_values, wepsim_show_rf_names) ;
+	                     },
+	    "MEMORY_CONFIG": function() {
+		                $('#config_MP').html(msg_default) ;
+		                init_config_mp('#config_MP') ;
+	                     },
+	    "IO_STATS":      function() {
+		                $('#io_ALL').html(msg_default) ;
+		                init_io('#io_ALL') ;
+	                     },
+	    "IO_CONFIG":     function() {
+		                $('#config_IO').html(msg_default) ;
+		                init_config_io('#config_IO') ;
+	                     }
+	} ;
+
     function wsweb_mode_update ( new_mode )
     {
-            wsweb_select_main(new_mode);
-
 	    // initialize hw
-	    simcore_init_ui('#states_ALL', '#states_BR', '#io_ALL',
-                            '#cpu_ALL',    '#config_MP', '#config_IO') ;
+	    simcore_init_ui(hash_detail2init) ;
 	    simcoreui_init_hw('#config_HW') ;
 
 	    // adapt to idiom
@@ -787,7 +818,7 @@
 				   label: i18n_get('gui',wsi,'Reset'),
 		                   className: 'btn-dark col float-left',
 		                   callback: function() {
-				                wsweb_record_reset(); 
+				                wsweb_record_reset();
 				                return true;
 			                     },
 			        },

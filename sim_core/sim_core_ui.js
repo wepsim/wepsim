@@ -268,41 +268,6 @@
          *
          */
 
-        function init_cpu ( jqdiv )
-        {
-	    // without ui
-            if (jqdiv === "")
-            {       
-		simhw_sim_state('CLK').value      = ko_observable(simhw_sim_state('CLK').value);
-		simhw_sim_state('DECO_INS').value = ko_observable(simhw_sim_state('DECO_INS').value);
-
-                return ;
-            }
-
-            // stats holder
-            var o1 = "<div class='col-12'>" +
-                     "<table class='table table-hover table-sm table-bordered'>" +
-                     "<tr>" +
-                     "<td align=center width=50%>Instructions</td>" +
-                     "<td align=center width=50%>" +
-                     "<div id='ins_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
-                     "</td>" +
-                     "</tr>" +
-                     "<tr>" +
-                     "<td align=center width=50%>CLK ticks</td>" +
-                     "<td align=center width=50%>" +
-                     "<div id='clk_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
-                     "</td>" +
-                     "</tr>" +
-                     "</table>" +
-                     "</div>" ;
-            $(jqdiv).html("<div class='row'>" + o1 + "</div>");
-
-            // knockout binding
-            ko_rebind_state('CLK',      'clk_context') ;
-            ko_rebind_state('DECO_INS', 'ins_context') ;
-        }
-
         function init_config_mp ( jqdiv )
         {
             // without ui
@@ -403,5 +368,27 @@
                                     nodes: { borderWidth: 2, shadow:true },
                                     edges: { width: 2, shadow:true } } ;
 	    jit_dep_network = new vis.Network(jit_dep_container, jit_dep_data, jit_dep_options) ;
+        }
+
+
+        function ko_observable ( initial_value )
+        {
+	    if (typeof ko != "undefined") 
+                 return ko.observable(initial_value).extend({rateLimit: cfg_show_rf_refresh_delay}) ;
+	    else return initial_value ;
+        }
+
+        function ko_rebind_state ( state, id_elto )
+        {
+	    if (typeof ko == "undefined") {
+                return ;
+            }
+
+            var state_obj = simhw_sim_state(state) ;
+            if (typeof state_obj.value != "function")
+                state_obj.value = ko.observable(state_obj.value).extend({rateLimit: cfg_show_rf_refresh_delay}) ;
+            var ko_context = document.getElementById(id_elto);
+            ko.cleanNode(ko_context);
+            ko.applyBindings(simhw_sim_state(state), ko_context);
         }
 

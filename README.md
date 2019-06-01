@@ -264,7 +264,8 @@ Micropc at 0x3f.	Activated signals are: MC MR SELB SELA MA MB SELCOP T6 SELC LC 
         }
 
 	if (false != ret.ok) {
-	    simcore_init_ui('', '', '', '', '', '') ;
+	    var ui_cb = {} ;
+	    simcore_init_ui(ui_cb) ;
         }
 
 	// 2) reset hardware
