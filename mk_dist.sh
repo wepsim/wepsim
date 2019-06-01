@@ -40,7 +40,6 @@ cat sim_hw/sim_hw_index.js \
     sim_core/sim_core_ui_registers.js \
     sim_core/sim_core_ui_console.js \
     sim_core/sim_core_ui_memory.js \
-    sim_core/sim_core_ui_io.js \
     sim_core/sim_core_ui_hw.js \
     sim_core/sim_core_ui_voice.js \
     sim_core/sim_core_ui_help.js \
@@ -70,6 +69,7 @@ cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_preload.js \
     wepsim_core/wepsim_ui_registers.js \
     wepsim_core/wepsim_ui_cpu.js \
+    wepsim_core/wepsim_ui_io.js \
     \
     wepsim_core/wepsim_asmdbg.js \
     wepsim_core/wepsim_checkpoint.js \

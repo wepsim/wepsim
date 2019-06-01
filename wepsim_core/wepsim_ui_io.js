@@ -23,7 +23,7 @@
          *  I/O device
          */
 
-        function init_io ( jqdiv )
+        function wepsim_init_io ( jqdiv )
         {
 	    var i = 0 ;
 
@@ -75,7 +75,7 @@
             }
         }
 
-        function init_config_io ( jqdiv )
+        function wepsim_init_config_io ( jqdiv )
         {
 	    var i = 0 ;
 

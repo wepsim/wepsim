@@ -318,8 +318,8 @@
                 return;
 
             show_eltos_deferred = setTimeout(function() {
-                                                   fullshow_eltos(sim_eltos, filter);
-                                                   show_eltos_deferred = null;
+                                                  fullshow_eltos(sim_eltos, filter) ;
+                                                  show_eltos_deferred = null ;
                                              }, cfg_show_eltos_delay);
         }
 

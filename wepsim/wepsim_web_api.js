@@ -527,11 +527,11 @@
 	                     },
 	    "IO_STATS":      function() {
 		                $('#io_ALL').html(msg_default) ;
-		                init_io('#io_ALL') ;
+		                wepsim_init_io('#io_ALL') ;
 	                     },
 	    "IO_CONFIG":     function() {
 		                $('#config_IO').html(msg_default) ;
-		                init_config_io('#config_IO') ;
+		                wepsim_init_config_io('#config_IO') ;
 	                     }
 	} ;
 

@@ -1,0 +1,30 @@
+version: "2"         # required to adjust maintainability checks
+checks:
+  argument-count:
+    config:
+      threshold: 10
+  complex-logic:
+    config:
+      threshold: 8
+  file-lines:
+    config:
+      threshold: 4096
+  method-complexity:
+    config:
+      threshold: 8
+  method-count:
+    config:
+      threshold: 80
+  method-lines:
+    config:
+      threshold: 512
+  nested-control-flow:
+    config:
+      threshold: 8
+  return-statements:
+    config:
+      threshold: 32
+  similar-code:
+    enabled: false
+  identical-code:
+    enabled: false
