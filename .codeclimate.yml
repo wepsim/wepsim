@@ -5,13 +5,13 @@ checks:
       threshold: 10
   complex-logic:
     config:
-      threshold: 8
+      threshold: 512
   file-lines:
     config:
       threshold: 4096
   method-complexity:
     config:
-      threshold: 8
+      threshold: 512
   method-count:
     config:
       threshold: 80
@@ -29,8 +29,10 @@ checks:
   identical-code:
     enabled: false
 exclude_patterns:
-  - "external/"
   - "images/"
+  - "docs/"
+  - "help/"
   - "examples/"
+  - "external/"
   - "ws_dist/"
   - "ws_travis/"
