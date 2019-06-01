@@ -25,7 +25,7 @@
 
         // register callbacks interface
         var callback_getScreenContent   = function () {
-		                             return true;
+		                             return "" ;
 	                                  } ;
         var callback_setScreenContent   = function () {
 					      // begin nodejs_set_screen_content
@@ -53,7 +53,7 @@
 					      }
 					      // end
 
-		                             return true;
+		                             return "" ;
 	                                  } ;
         var callback_setKeyboardContent = function () {
 		                             return true;
@@ -90,7 +90,10 @@
 
 	function get_screen_content ( )
 	{
-	      screen_content = callback_getScreenContent() ;
+	      var ui_screen = callback_getScreenContent() ;
+
+	      if (ui_screen !== "undefined")
+	          screen_content = ui_screen ;
 
 	      return screen_content ;
 	}
@@ -104,7 +107,10 @@
 
 	function get_keyboard_content ( )
 	{
-              keyboard_content = callback_getKeyboardContent() ;
+	      var ui_keyboard = callback_getKeyboardContent() ;
+
+	      if (ui_keyboard !== "undefined")
+	          keyboard_content = ui_keyboard ;
 
 	      return keyboard_content ;
 	}
