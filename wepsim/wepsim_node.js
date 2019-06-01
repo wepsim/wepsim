@@ -34,6 +34,25 @@
         return ret ;
     }
 
+      function wepsim_nodejs_setScreenContent ( msg )
+      {
+	  /*
+	    // TODO: uncomment if you want to see the progressive output
+	    var screen_log =  "screen>" + screen_content.split('\n').join("screen>") ;
+	    console.log(screen_log) ;
+	  */
+
+          return true;
+      }
+
+      function wepsim_nodejs_getKeyboardContent ( )
+      {
+	  var readlineSync = require('readline-sync');
+	  var keys = readlineSync.question('keyboard> ');
+	  keyboard_content = keys.toString() ;
+	  return keyboard_content ;
+      }
+
     function wepsim_nodejs_init ( simhw_name )
     {
         var ret = simcore_init(false) ;
@@ -47,6 +66,9 @@
 	{
 	    return wepsim_nodejs_retfill(false, "ERROR: initialize: " + ret.msg + ".\n") ;
 	}
+
+        init_console_screen(null, wepsim_nodejs_setScreenContent) ;
+        init_console_keyboard(wepsim_nodejs_getKeyboardContent, null) ;
 
 	return wepsim_nodejs_retfill(true, "") ;
     }

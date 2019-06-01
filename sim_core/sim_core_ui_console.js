@@ -27,35 +27,13 @@
         var callback_getScreenContent   = function () {
 		                             return "" ;
 	                                  } ;
-        var callback_setScreenContent   = function () {
-					      // begin nodejs_set_screen_content
-					      if (typeof document == "undefined")
-					      {
-						/*
-						  // TODO: uncomment if you want to see the progressive output
-						  var screen_log =  "screen>" + screen_content.split('\n').join("screen>") ;
-						  console.log(screen_log) ;
-						*/
-						  return ;
-					      }
-					      // end
-
+        var callback_setScreenContent   = function ( newContent ) {
 		                             return true;
 	                                  } ;
         var callback_getKeyboardContent = function () {
-					      // begin nodejs_set_screen_content
-					      if (typeof document == "undefined")
-					      {
-						  var readlineSync = require('readline-sync');
-						  var keys = readlineSync.question('keyboard> ');
-						  keyboard_content = keys.toString() ;
-						  return keyboard_content ;
-					      }
-					      // end
-
 		                             return "" ;
 	                                  } ;
-        var callback_setKeyboardContent = function () {
+        var callback_setKeyboardContent = function ( newContent ) {
 		                             return true;
 	                                  } ;
 
