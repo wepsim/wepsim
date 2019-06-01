@@ -532,6 +532,12 @@
 	    "IO_CONFIG":     function() {
 		                $('#config_IO').html(msg_default) ;
 		                wepsim_init_config_io('#config_IO') ;
+	                     },
+	    "SCREEN":        function() {
+		                  init_console_screen(wepsim_get_screen_content,   wepsim_set_screen_content) ;
+	                     },
+	    "KEYBOARD":      function() {
+		                init_console_keyboard(wepsim_get_keyboard_content, wepsim_set_keyboard_content) ;
 	                     }
 	} ;
 

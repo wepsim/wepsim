@@ -1,4 +1,4 @@
-/*     
+/*
  *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
@@ -19,57 +19,92 @@
  */
 
 
-        // Console (Screen + Keyboard)
-        var screen_content = "" ;
+        /*
+	 *  Console (Screen + Keyboard)
+	 */
+
+        // register callbacks interface
+        var callback_getScreenContent   = function () {
+		                             return true;
+	                                  } ;
+        var callback_setScreenContent   = function () {
+					      // begin nodejs_set_screen_content
+					      if (typeof document == "undefined")
+					      {
+						/*
+						  // TODO: uncomment if you want to see the progressive output
+						  var screen_log =  "screen>" + screen_content.split('\n').join("screen>") ;
+						  console.log(screen_log) ;
+						*/
+						  return ;
+					      }
+					      // end
+
+		                             return true;
+	                                  } ;
+        var callback_getKeyboardContent = function () {
+					      // begin nodejs_set_screen_content
+					      if (typeof document == "undefined")
+					      {
+						  var readlineSync = require('readline-sync');
+						  var keys = readlineSync.question('keyboard> ');
+						  keyboard_content = keys.toString() ;
+						  return keyboard_content ;
+					      }
+					      // end
+
+		                             return true;
+	                                  } ;
+        var callback_setKeyboardContent = function () {
+		                             return true;
+	                                  } ;
+
+        function init_console_screen ( con_get_screen, con_set_screen )
+        {
+            if (con_get_screen !== null) {
+                callback_getScreenContent   = con_get_screen ;
+            }
+            if (con_set_screen !== null) {
+                callback_setScreenContent   = con_set_screen ;
+            }
+
+	    return true ;
+        }
+
+        function init_console_keyboard ( con_get_keyboard, con_set_keyboard )
+        {
+            if (con_get_keyboard !== null) {
+                callback_getKeyboardContent = con_get_keyboard ;
+            }
+            if (con_set_keyboard !== null) {
+                callback_setKeyboardContent = con_set_keyboard ;
+            }
+
+	    return true ;
+        }
+
+
+        // get/set interface
+        var   screen_content = "" ;
         var keyboard_content = "" ;
 
 	function get_screen_content ( )
 	{
-		 var scrobj = null ;
-                 if (typeof document != "undefined")
-		     scrobj = document.getElementById("kdb_con") ;
-                 if (scrobj != null)
-		     screen_content = scrobj.value ;
+	      screen_content = callback_getScreenContent() ;
 
-		 return screen_content ;
+	      return screen_content ;
 	}
 
 	function set_screen_content ( screen )
 	{
 	      screen_content = screen ;
 
-              if (typeof document == "undefined") 
-	      {
-		/* 
-                  // TODO: uncomment if you want to see the progressive output
-		  var screen_log =  "screen>" + screen_content.split('\n').join("screen>") ;
-		  console.log(screen_log) ;
-		*/
-	          return ;
-	      }
-
-	      var scrobj = null ;
-              if (typeof document != "undefined")
-		  scrobj = document.getElementById("kdb_con") ;
-              if (scrobj != null)
-		  scrobj.value = screen ;
+	      callback_setScreenContent(screen) ;
 	}
 
 	function get_keyboard_content ( )
 	{
-              if (typeof document == "undefined") 
-	      {
-		  var readlineSync = require('readline-sync');
-                  var keys = readlineSync.question('keyboard> ');
-	          keyboard_content = keys.toString() ;
-	          return keyboard_content ;
-	      }
-
-	      var keyobj = null ;
-              if (typeof document != "undefined")
-	          keyobj = document.getElementById("kdb_key") ;
-              if (keyobj != null)
-		  keyboard_content = keyobj.value ;
+              keyboard_content = callback_getKeyboardContent() ;
 
 	      return keyboard_content ;
 	}
@@ -78,10 +113,6 @@
 	{
 	      keyboard_content = keystrokes ;
 
-	      var keyobj = null ;
-              if (typeof document != "undefined")
-		  keyobj = document.getElementById("kdb_key") ;
-              if (keyobj != null)
-		  keyobj.value = keystrokes ;
+	      callback_setKeyboardContent(keystrokes) ;
 	}
 
