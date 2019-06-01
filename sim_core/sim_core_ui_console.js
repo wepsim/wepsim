@@ -71,7 +71,7 @@
 	    return true ;
         }
 
-        function init_console_screen ( con_get_keyboard, con_set_keyboard )
+        function init_console_keyboard ( con_get_keyboard, con_set_keyboard )
         {
             if (con_get_keyboard !== null) {
                 callback_getKeyboardContent = con_get_keyboard ;
