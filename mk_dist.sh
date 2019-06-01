@@ -65,9 +65,14 @@ done
 rm -fr ws_dist/wepsim_i18n.js
 
 #  WepSIM web
-cat wepsim_core/wepsim_asmdbg.js \
-    wepsim_core/wepsim_checkpoint.js \
+cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_clipboard.js \
+    wepsim_core/wepsim_preload.js \
+    wepsim_core/wepsim_ui_registers.js \
+    wepsim_core/wepsim_ui_cpu.js \
+    \
+    wepsim_core/wepsim_asmdbg.js \
+    wepsim_core/wepsim_checkpoint.js \
     wepsim_core/wepsim_config.js \
     wepsim_core/wepsim_config_commands.js \
     wepsim_core/wepsim_example.js \
@@ -76,13 +81,11 @@ cat wepsim_core/wepsim_asmdbg.js \
     wepsim_core/wepsim_help.js \
     wepsim_core/wepsim_help_commands.js \
     wepsim_core/wepsim_notify.js \
-    wepsim_core/wepsim_preload.js \
     wepsim_core/wepsim_signal.js \
     wepsim_core/wepsim_state.js \
     wepsim_core/wepsim_tutorial.js \
     wepsim_core/wepsim_tour.js \
     wepsim_core/wepsim_tour_commands.js \
-    wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_voice.js \
     wepsim_core/wepsim_voice_commands.js \
     \

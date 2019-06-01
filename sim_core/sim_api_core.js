@@ -66,7 +66,7 @@
 	    simhw_setActive(hwid) ;
 
             // ui
-	    var ret1 = simcore_init_ui('', '', '', '', '', '') ;
+	    var ret1 = simcore_init_ui({}) ;
 	    if (false == ret1.ok) 
 	    {
                 ret.msg = ret.msg ;
@@ -82,34 +82,13 @@
 
         /**
          * Initialize simulator core and UI.
-         * @param {string} stateall_id  - associated div
-         * @param {string} statebr_id   - associated div
-         * @param {string} ioall_id     - associated div
-         * @param {string} cpuall_id    - associated div
-         * @param {string} configall_id - associated div
+         * @param {hash} hash_detail2init - actions to hook for initialize UI
          */
-        function simcore_init_ui ( stateall_id, statebr_id, ioall_id, cpuall_id, configmp_id, configio_id )
+        function simcore_init_ui ( hash_detail2init )
         {
 	    var ret = {} ;
 	        ret.msg = "" ;
 	        ret.ok  = true ;
-
-	    var hash_detail2init = {
-		    "CPU_STATS":     function() { init_states(stateall_id); init_cpu(cpuall_id); },
-		    "REGISTER_FILE": function() { init_rf(statebr_id); },
-		    "MEMORY_CONFIG": function() { init_config_mp(configmp_id); },
-		    "IO_STATS":      function() { init_io(ioall_id); },
-		    "IO_CONFIG":     function() { init_config_io(configio_id); }
-		} ;
-
-            // default information holders as disabled
-            var msg_default = '<div class="bg-warning"><b>Not available in this hardware</b></div>' ;
-            if ('' != stateall_id)  $(stateall_id).html(msg_default) ;
-            if ('' != statebr_id)    $(statebr_id).html(msg_default) ;
-            if ('' != ioall_id)        $(ioall_id).html(msg_default) ;
-            if ('' != cpuall_id)      $(cpuall_id).html(msg_default) ;
-            if ('' != configmp_id)  $(configmp_id).html(msg_default) ;
-            if ('' != configio_id)  $(configio_id).html(msg_default) ;
 
             // display the information holders
 	    var detail_id = 0 ;
@@ -119,8 +98,9 @@
 		 for (var index in sim_components[elto].details_name)
 		 {
 	              detail_id = sim_components[elto].details_name[index] ;
-	              if (typeof hash_detail2init[detail_id] !== "undefined")
+	              if (typeof hash_detail2init[detail_id] !== "undefined") {
 	                  hash_detail2init[detail_id]() ;
+		      }
 		 }
             }
 

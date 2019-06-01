@@ -169,7 +169,7 @@
 			  .trigger('change');
 
 	    show_states();
-	    show_rf_values();
+	    wepsim_show_rf_values();
         }
 
         function wepsim_update_signal_quick ( key )
@@ -193,7 +193,7 @@
                 wepsim_update_signal_with_value(key, user_input) ;
 
 	    show_states();
-	    show_rf_values();
+	    wepsim_show_rf_values();
         }
 
         function wepsim_update_signal_with_value ( key, value )

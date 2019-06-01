@@ -252,19 +252,19 @@
 				   "	    <label id='label2-16'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: hexadecimal'" +
-				   "		   onclick=\"update_cfg('RF_display_format',16); show_rf_values(); show_states(); show_memories_values();\">" +
+				   "		   onclick=\"update_cfg('RF_display_format',16); wepsim_show_rf_values(); wepsim_show_states(); show_memories_values();\">" +
 				   "		<input type='radio' name='options' id='radio2-16'   autocomplete='off' >Hex." +
 				   "	    </label>" +
 				   "	    <label id='label2-10'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: decimal'" +
-				   "		   onclick=\"update_cfg('RF_display_format',10); show_rf_values(); show_states(); show_memories_values();\">" +
+				   "		   onclick=\"update_cfg('RF_display_format',10); wepsim_show_rf_values(); wepsim_show_states(); show_memories_values();\">" +
 				   "		<input type='radio' name='options' id='radio2-10'  autocomplete='off' >Dec." +
 				   "	    </label>" +
 				   "	    <label id='label2-8'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: octal'" +
-				   "		   onclick=\"update_cfg('RF_display_format',8); show_rf_values(); show_states(); show_memories_values();\">" +
+				   "		   onclick=\"update_cfg('RF_display_format',8); wepsim_show_rf_values(); wepsim_show_states(); show_memories_values();\">" +
 				   "		<input type='radio' name='options' id='radio2-8'  autocomplete='off' >Oct." +
 				   "	    </label>" +
 				   "	</div>",
@@ -283,13 +283,13 @@
 				   "	    <label id='label3-numerical'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display name (number)'" +
-				   "		   onclick=\"update_cfg('RF_display_name','numerical'); show_rf_names();\">" +
+				   "		   onclick=\"update_cfg('RF_display_name','numerical'); wepsim_show_rf_names();\">" +
 				   "		<input type='radio' name='options' id='radio3-numerical'  autocomplete='off' ><span data-langkey='Numbers'>Numbers</span>" +
 				   "	    </label>" +
 				   "	    <label id='label3-logical'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display name (user identification)'" +
-				   "		   onclick=\"update_cfg('RF_display_name','logical'); show_rf_names();\">" +
+				   "		   onclick=\"update_cfg('RF_display_name','logical'); wepsim_show_rf_names();\">" +
 				   "		<input type='radio' name='options' id='radio3-logical' autocomplete='off' ><span data-langkey='Labels'>Labels</span>" +
 				   "	    </label>" +
 				   "	</div>",

@@ -11,6 +11,7 @@
    {
        console.log('') ;
        console.log('WepSIM-cl v1.5') ;
+       console.log('> WepSIM simulator interface for command line.') ;
        console.log('') ;
        console.log('For more details please use:') ;
        console.log(' ./wepsim_node.sh help') ;
@@ -23,7 +24,7 @@
    {
        console.log('') ;
        console.log('WepSIM-cl v1.5') ;
-       console.log('+ WepSIM simulator v2.0.7 interface for command line.') ;
+       console.log('> WepSIM simulator interface for command line.') ;
        console.log('') ;
        console.log('Usage:') ;
        console.log(' * ./wepsim_node.sh <command> <hardware name> <microcode file> <assembly file> [<checklist file>] [options*]') ;
