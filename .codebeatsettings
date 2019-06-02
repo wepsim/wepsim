@@ -5,10 +5,6 @@
     "BLOCK_NESTING":      [5, 8, 12, 18],
     "CYCLO":              [20, 30, 55, 150],
     "LOC":                [80, 100, 150, 200],
- // "RETURN_ARITY":       [a, b, c, d],
- // "TOTAL_COMPLEXITY":   [a, b, c, d],
     "TOTAL_LOC":          [500, 750, 1024, 2048]
- // "TOO_MANY_FUNCTIONS": [a, b, c, d],
- // "TOO_MANY_IVARS":     [a, b, c, d],
   }
 }
