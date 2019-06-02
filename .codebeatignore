@@ -1,0 +1,7 @@
+external/**
+ws_dist/**
+ws_travis/**
+docs/**
+examples/**
+help/**
+images/**

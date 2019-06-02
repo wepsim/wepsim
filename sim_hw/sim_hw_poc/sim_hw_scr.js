@@ -204,7 +204,7 @@
                                                  }
                                 };
 
-        poc_behaviors.SCR_RESET = { nparameters: 1,
+        poc_behaviors.SCREEN_RESET = { nparameters: 1,
                                       operation: function (s_expr) 
                                                  {
 						     // reset events.screen
