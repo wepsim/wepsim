@@ -21,7 +21,7 @@
 
     tutorials.welcome.kr.push({
                      id:          "welcome",
-                     title:       "Welcome to the WepSIM simulator!",
+                     title:       "WepSIM 시뮬레이터에 오신 것을 환영합니다",
                      message:     "<center><img alt='wepsim screenshot' src='help/simulator/simulator012.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                   "<p>" +
                                   "<h5>" +
@@ -40,7 +40,7 @@
 
     tutorials.welcome.kr.push({
                      id:          "welcome",
-                     title:       "How to load some example.",
+                     title:       "몇 가지 예제를로드하는 방법",
                      message:     "<center><img alt='wepsim screenshot' src='help/welcome/example_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
@@ -55,7 +55,7 @@
 
     tutorials.welcome.kr.push({
                      id:          "welcome",
-                     title:       "How to execute an example.",
+                     title:       "예제를 실행하는 방법.",
                      message:     "<center><img alt='wepsim screenshot' src='help/welcome/simulation_xinstruction.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
@@ -70,7 +70,7 @@
 
     tutorials.welcome.kr.push({
                      id:          "welcome",
-                     title:       "How to configure WepSIM.",
+                     title:       "WepSIM을 구성하는 방법",
                      message:     "<center><img alt='wepsim screenshot' src='help/welcome/config_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
@@ -84,7 +84,7 @@
 
     tutorials.welcome.kr.push({
                      id:          "welcome",
-                     title:       "How to get the basic help.",
+                     title:       "기본 도움말을 얻는 방법",
                      message:     "<center><img alt='wepsim screenshot' src='help/welcome/help_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
@@ -99,7 +99,7 @@
 
     tutorials.welcome.kr.push({
                      id:          "welcome",
-                     title:       "Welcome to WepSIM!",
+                     title:       "WepSIM에 오신 것을 환영합니다",
                      message:     "<center><img alt='wepsim screenshot' src='help/welcome/help_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +

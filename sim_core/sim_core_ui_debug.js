@@ -62,7 +62,7 @@
                 }
                 else
                 {
-                     for (l in curr_firm.assembly)
+                     for (var l in curr_firm.assembly)
                      {
                           o1 = $("#asmdbg" + l) ;
                           o1.css('background-color', curr_firm.assembly[l].bgcolor) ;
@@ -168,7 +168,7 @@
 	     if (o != null) o = o.getElementById('tspan3899');
 	     if (o != null) o.innerHTML = decins ;
 
-	     var o = document.getElementById('svg_cu');
+	         o = document.getElementById('svg_cu');
 	     if (o != null) o = o.contentDocument;
 	     if (o != null) o = o.getElementById('text3611');
 	     if (o != null) o.innerHTML = decins ;
