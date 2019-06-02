@@ -169,7 +169,7 @@
 			  .trigger('change');
 
 	    show_states();
-	    show_rf_values();
+	    wepsim_show_rf_values();
         }
 
         function wepsim_update_signal_quick ( key )
@@ -193,7 +193,7 @@
                 wepsim_update_signal_with_value(key, user_input) ;
 
 	    show_states();
-	    show_rf_values();
+	    wepsim_show_rf_values();
         }
 
         function wepsim_update_signal_with_value ( key, value )
@@ -205,5 +205,47 @@
                 // add if recording
                 simcore_record_append_new('Update signal ' + key + ' with value ' + value,
                                           'wepsim_update_signal_with_value("' + key + '", ' + value + ');\n') ;
+        }
+
+        // Show signal dependencies
+
+        function show_visgraph ( jit_fire_dep, jit_fire_order )
+        {
+	    var sig = {} ;
+            var tmp_hash  = {} ;
+            var tmp_nodes = [] ;
+            var tmp_id    = 0;
+
+            for (sig in simhw_sim_signals())
+            {
+                 tmp_hash[sig] = tmp_id ;
+                 tmp_nodes.push({id: tmp_id, 
+                                 label: sig, 
+                                 title: sig}) ;
+                 tmp_id++ ;
+            }
+            for (var i=0; i<jit_fire_order.length; i++) {
+                 tmp_nodes[tmp_hash[jit_fire_order[i]]].color = '#7BE141' ;
+            }
+	    var jit_dep_nodes = new vis.DataSet(tmp_nodes) ;
+
+            var tmp_edges = [] ;
+            for (sig in simhw_sim_signals()) {
+                 for (var sigorg in jit_fire_dep[sig]) {
+                      tmp_edges.push({from: tmp_hash[sigorg], 
+                                      to: tmp_hash[sig], 
+                                      arrows: 'to'}) ;
+                }
+            }
+	    var jit_dep_edges = new vis.DataSet(tmp_edges) ;
+
+	    var jit_dep_container = document.getElementById('depgraph1') ;
+	    var jit_dep_data    = { nodes: jit_dep_nodes, 
+                                    edges: jit_dep_edges } ;
+	    var jit_dep_options = { interaction: {hover:true},
+                                    height: '255px',
+                                    nodes: { borderWidth: 2, shadow:true },
+                                    edges: { width: 2, shadow:true } } ;
+	    jit_dep_network = new vis.Network(jit_dep_container, jit_dep_data, jit_dep_options) ;
         }
 

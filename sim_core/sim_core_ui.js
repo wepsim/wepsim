@@ -263,87 +263,6 @@
                 return valuebin ;
         }
 
-
-        /*
-         *
-         */
-
-        function init_cpu ( jqdiv )
-        {
-	    // without ui
-            if (jqdiv === "")
-            {       
-		simhw_sim_state('CLK').value      = ko_observable(simhw_sim_state('CLK').value);
-		simhw_sim_state('DECO_INS').value = ko_observable(simhw_sim_state('DECO_INS').value);
-
-                return ;
-            }
-
-            // stats holder
-            var o1 = "<div class='col-12'>" +
-                     "<table class='table table-hover table-sm table-bordered'>" +
-                     "<tr>" +
-                     "<td align=center width=50%>Instructions</td>" +
-                     "<td align=center width=50%>" +
-                     "<div id='ins_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
-                     "</td>" +
-                     "</tr>" +
-                     "<tr>" +
-                     "<td align=center width=50%>CLK ticks</td>" +
-                     "<td align=center width=50%>" +
-                     "<div id='clk_context'>" + "<span data-bind='text: value'>&nbsp;</span>" + "</div>" +
-                     "</td>" +
-                     "</tr>" +
-                     "</table>" +
-                     "</div>" ;
-            $(jqdiv).html("<div class='row'>" + o1 + "</div>");
-
-            // knockout binding
-            ko_rebind_state('CLK',      'clk_context') ;
-            ko_rebind_state('DECO_INS', 'ins_context') ;
-        }
-
-        function init_config_mp ( jqdiv )
-        {
-            // without ui
-            if (jqdiv === "")
-            {
-                    simhw_internalState_reset('MP_wc', ko_observable(0)) ;
-                    return ;
-            }
-
-            // html holder
-            var o1 = "<div class='container-fluid'>" +
-                     "<div class='row'>" ;
-
-            o1 += "<div class='col-12' style='padding:0 0 10 0;'>" +
-                  "<div class='card bg-light'>" +
-                  "<div class='card-body p-0' id='mempanel'>" +
-                  "<table class='table table-hover table-sm table-bordered' " +
-                  "       style='margin:0'>" +
-                  "<tbody class='no-ui-mini'>" +
-                  "<tr><td align=center'>Wait cycles (<b>0</b> - &infin;)</td>" +
-                  "    <td align=center'>" + 
-                  "<div id='mp_wc'>" + 
-                  "<input type=number data-bind='value: simhw_internalState(\"MP_wc\")' min='0' max='99999999'>" +
-                  "</div>" + 
-                  "    </td></tr>" +
-                  "</tbody>" +
-                  "</table>" +
-                  "</div>" +
-                  "</div>" +
-                  "</div>" ;
-         
-            $(jqdiv).html(o1);
-
-            // knockout binding
-            simhw_internalState_reset('MP_wc', ko_observable(0)) ;
-            var ko_context = document.getElementById('mp_wc');
-            ko.applyBindings(simhw_internalState('MP_wc'), ko_context);
-        }
-
-
-
         // debug
 
 	function get_deco_from_pc ( pc )
@@ -361,47 +280,26 @@
                 return curr_firm.assembly[hexstrpc].source ;
         }
 
+        // ko binding
 
-        /* 
-         * Show signal dependencies
-         */
-        function show_visgraph ( jit_fire_dep, jit_fire_order )
+        function ko_observable ( initial_value )
         {
-	    var sig = {} ;
-            var tmp_hash  = {} ;
-            var tmp_nodes = [] ;
-            var tmp_id    = 0;
+	    if (typeof ko != "undefined") 
+                 return ko.observable(initial_value).extend({rateLimit: cfg_show_rf_refresh_delay}) ;
+	    else return initial_value ;
+        }
 
-            for (sig in simhw_sim_signals())
-            {
-                 tmp_hash[sig] = tmp_id ;
-                 tmp_nodes.push({id: tmp_id, 
-                                 label: sig, 
-                                 title: sig}) ;
-                 tmp_id++ ;
+        function ko_rebind_state ( state, id_elto )
+        {
+	    if (typeof ko == "undefined") {
+                return ;
             }
-            for (var i=0; i<jit_fire_order.length; i++) {
-                 tmp_nodes[tmp_hash[jit_fire_order[i]]].color = '#7BE141' ;
-            }
-	    var jit_dep_nodes = new vis.DataSet(tmp_nodes) ;
 
-            var tmp_edges = [] ;
-            for (sig in simhw_sim_signals()) {
-                 for (var sigorg in jit_fire_dep[sig]) {
-                      tmp_edges.push({from: tmp_hash[sigorg], 
-                                      to: tmp_hash[sig], 
-                                      arrows: 'to'}) ;
-                }
-            }
-	    var jit_dep_edges = new vis.DataSet(tmp_edges) ;
-
-	    var jit_dep_container = document.getElementById('depgraph1') ;
-	    var jit_dep_data    = { nodes: jit_dep_nodes, 
-                                    edges: jit_dep_edges } ;
-	    var jit_dep_options = { interaction: {hover:true},
-                                    height: '255px',
-                                    nodes: { borderWidth: 2, shadow:true },
-                                    edges: { width: 2, shadow:true } } ;
-	    jit_dep_network = new vis.Network(jit_dep_container, jit_dep_data, jit_dep_options) ;
+            var state_obj = simhw_sim_state(state) ;
+            if (typeof state_obj.value != "function")
+                state_obj.value = ko.observable(state_obj.value).extend({rateLimit: cfg_show_rf_refresh_delay}) ;
+            var ko_context = document.getElementById(id_elto);
+            ko.cleanNode(ko_context);
+            ko.applyBindings(simhw_sim_state(state), ko_context);
         }
 

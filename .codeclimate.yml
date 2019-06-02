@@ -1,0 +1,38 @@
+version: "2"         # https://docs.codeclimate.com/docs/advanced-configuration#section-examples
+checks:
+  argument-count:
+    config:
+      threshold: 10
+  complex-logic:
+    config:
+      threshold: 512
+  file-lines:
+    config:
+      threshold: 4096
+  method-complexity:
+    config:
+      threshold: 512
+  method-count:
+    config:
+      threshold: 80
+  method-lines:
+    config:
+      threshold: 512
+  nested-control-flow:
+    config:
+      threshold: 8
+  return-statements:
+    config:
+      threshold: 64
+  similar-code:
+    enabled: false
+  identical-code:
+    enabled: false
+exclude_patterns:
+  - "images/"
+  - "docs/"
+  - "help/"
+  - "examples/"
+  - "external/"
+  - "ws_dist/"
+  - "ws_travis/"
