@@ -1,7 +1,7 @@
+external/**
+ws_dist/**
+ws_travis/**
 docs/**
 examples/**
 help/**
 images/**
-ws_dist/**
-ws_travis/**
-external/*****
