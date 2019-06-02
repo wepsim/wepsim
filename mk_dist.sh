@@ -37,9 +37,8 @@ cat sim_hw/sim_hw_index.js \
     sim_core/sim_api_native.js \
     sim_core/sim_api_stateshots.js \
     sim_core/sim_core_breakpointicons.js \
-    sim_core/sim_core_ui_registers.js \
-    sim_core/sim_core_ui_console.js \
-    sim_core/sim_core_ui_memory.js \
+    sim_core/sim_core_ui_details.js \
+    sim_core/sim_core_ui_debug.js \
     sim_core/sim_core_ui_hw.js \
     sim_core/sim_core_ui_voice.js \
     sim_core/sim_core_ui_help.js \

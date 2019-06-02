@@ -1,4 +1,4 @@
-/*
+/*     
  *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
@@ -17,6 +17,66 @@
  *  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
+
+
+        /*
+         *  Register File: init_x & show_x
+         */
+
+        var callback_rf_show_values = function () { 
+		                         return true; 
+	                              } ;
+
+        var callback_rf_show_names  = function () { 
+		                         return true; 
+	                              } ;
+
+
+        function init_rf ( rf_show_values, rf_show_names )
+        {
+            if (rf_show_values !== null) {   
+                callback_rf_show_values = rf_show_values ;
+            }
+
+            if (rf_show_names !== null) {   
+                callback_rf_show_names  = rf_show_names ;
+            }
+
+	    return true ;
+        }
+
+        function show_rf_values ( )
+        {
+            return callback_rf_show_values() ;
+        }
+
+        function show_rf_names ( )
+        {
+            return callback_rf_show_names() ;
+        }
+
+
+        /*
+         *  CPU Registers outside RF: init_x & show_x
+         */
+
+        var callback_states_show = function () { 
+		                      return true; 
+	                           } ;
+
+        function init_states ( states_show )
+        {
+            if (states_show !== null) {   
+                callback_states_show = states_show ;
+            }
+
+	    return true ;
+        }
+
+        function show_states ( )
+        {
+            return callback_states_show() ;
+        }
 
 
         /*
@@ -99,4 +159,41 @@
 
 	      callback_setKeyboardContent(keystrokes) ;
 	}
+
+
+        /*
+         *  Show memories
+         */
+
+        var callback_show_main_memory    = function () { 
+		                              return true; 
+	                                   } ;
+
+        var callback_show_control_memory = function () { 
+		                              return true; 
+	                                   } ;
+
+
+        function init_memory ( show_main_memory, show_control_memory )
+        {
+            if (show_main_memory !== null) {   
+                callback_show_main_memory = show_main_memory ;
+            }
+
+            if (show_control_memory !== null) {   
+                callback_show_control_memory  = show_control_memory ;
+            }
+
+	    return true ;
+        }
+
+        function show_main_memory ( memory, index, redraw, updates )
+        {
+            return callback_show_main_memory(memory, index, redraw, updates) ;
+        }
+
+        function show_control_memory ( memory, memory_dashboard, index, redraw )
+        {
+            return callback_show_control_memory(memory, memory_dashboard, index, redraw) ;
+        }
 
