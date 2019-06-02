@@ -297,7 +297,7 @@
                                                    }
                                     };
 
-        ep_behaviors.MEM_RESET    = { nparameters: 1,
+        ep_behaviors.MEMORY_RESET = { nparameters: 1,
                                         operation: function (s_expr) 
                                                    {
 						       // reset events.mem

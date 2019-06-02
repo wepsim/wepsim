@@ -1924,7 +1924,7 @@
                                                         }
 					   };
 
-		ep_behaviors["RESET"]    = { nparameters: 1,
+		ep_behaviors["CPU_RESET"] = { nparameters: 1,
 					     operation: function(s_expr)
 							{
 							    // set states/signals to the default state
