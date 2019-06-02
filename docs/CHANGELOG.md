@@ -1,7 +1,7 @@
 
 2.0.5 -> 2.0.7:
 * Improved translation subsystem
-* Improved device interaction
+* Revamped simcore_init_ui() API function 
 
 2.0.5 -> 2.0.6:
 * Initial support for the WepSIM control API
