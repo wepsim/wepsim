@@ -505,21 +505,22 @@
     var msg_default = '<div class="bg-warning"><b>Not available in this hardware</b></div>' ;
 
     var hash_detail2init = {
-	    "CPU_STATS":     function() {
+	    "REGISTER_FILE": function() {
 		                $('#states_ALL').html(msg_default) ;
-		                   $('#cpu_ALL').html(msg_default) ;
-
 		                wepsim_init_states('#states_ALL') ;
-		                   wepsim_init_cpu('#cpu_ALL') ;
-
 		                init_states(wepsim_show_states) ;
+	                     },
+	    "CPU_STATS":     function() {
+		                $('#cpu_ALL').html(msg_default) ;
+		                wepsim_init_cpu('#cpu_ALL') ;
 	                     },
 	    "REGISTER_FILE": function() {
 		                $('#states_BR').html(msg_default) ;
-
 		                wepsim_init_rf('#states_BR') ;
-
 		                init_rf(wepsim_show_rf_values, wepsim_show_rf_names) ;
+	                     },
+	    "MEMORY":        function() {
+		                init_memory(wepsim_show_main_memory, wepsim_show_control_memory) ;
 	                     },
 	    "MEMORY_CONFIG": function() {
 		                $('#config_MP').html(msg_default) ;
@@ -534,7 +535,7 @@
 		                wepsim_init_config_io('#config_IO') ;
 	                     },
 	    "SCREEN":        function() {
-		                  init_console_screen(wepsim_get_screen_content,   wepsim_set_screen_content) ;
+		                init_console_screen(wepsim_get_screen_content, wepsim_set_screen_content) ;
 	                     },
 	    "KEYBOARD":      function() {
 		                init_console_keyboard(wepsim_get_keyboard_content, wepsim_set_keyboard_content) ;

@@ -71,6 +71,8 @@ cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_ui_registers.js \
     wepsim_core/wepsim_ui_console.js \
     wepsim_core/wepsim_ui_memory.js \
+    wepsim_core/wepsim_ui_control_memory.js \
+    wepsim_core/wepsim_ui_main_memory.js \
     wepsim_core/wepsim_ui_io.js \
     \
     wepsim_core/wepsim_asmdbg.js \
