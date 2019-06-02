@@ -205,7 +205,7 @@
                                                  }
                                 };
 
-        ep_behaviors.SCR_RESET  = { nparameters: 1,
+        ep_behaviors.SCREEN_RESET = { nparameters: 1,
                                       operation: function (s_expr) 
                                                  {
 						     // reset events.screen

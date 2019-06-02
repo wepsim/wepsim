@@ -95,11 +95,18 @@
             var sim_components = simhw_sim_components() ;
             for (var elto in sim_components)
             {
+	         sim_components[elto].details_init = [] ;
+	         sim_components[elto].details_reset = [] ;
+
 		 for (var index in sim_components[elto].details_name)
 		 {
 	              detail_id = sim_components[elto].details_name[index] ;
-	              if (typeof hash_detail2init[detail_id] !== "undefined") {
-	                  hash_detail2init[detail_id]() ;
+	              if (typeof hash_detail2init[detail_id] !== "undefined") 
+		      {
+	                  sim_components[elto].details_init[index]  = hash_detail2init[detail_id].init ;
+	                  sim_components[elto].details_reset[index] = hash_detail2init[detail_id].reset ;
+
+	                  hash_detail2init[detail_id].init() ;
 		      }
 		 }
             }
@@ -294,51 +301,29 @@
             var sp_name   = curr_firm.stackRegister ;
             var sp_state  = simhw_sim_states().BR[sp_name] ;
 
-            // Hardware
+            // Hardware (reset)
             for (var elto in sim_components)
             {
-		 switch (sim_components[elto].name) 
-                 {
-		    case "CPU":
-			 compute_general_behavior("RESET") ;
-
-			 if ((typeof curr_segments['.ktext'] !== "undefined") && (SIMWARE.labels2.kmain))
-			 {
-			      set_value(pc_state, parseInt(SIMWARE.labels2.kmain));
-			      show_asmdbg_pc() ;
-			 }
-			 else if ((typeof curr_segments['.text'] !== "undefined") && (SIMWARE.labels2.main))
-			 {
-			      set_value(pc_state, parseInt(SIMWARE.labels2.main));
-			      show_asmdbg_pc() ;
-			 }
-		    
-			 if ( (typeof curr_segments['.stack'] !== "undefined") && (typeof sp_state !== "undefined") )
-			 {
-			      set_value(sp_state, parseInt(curr_segments['.stack'].begin));
-			 }
-			 break;
-
-		    case "MEMORY":
-			 compute_general_behavior("MEM_RESET") ;
-			 break;
-
-		    case "SCREEN":
-		         compute_general_behavior("SCR_RESET") ;
-			 break;
-
-		    case "KBD":
-			 compute_general_behavior("KBD_RESET") ;
-			 break;
-
-		    case "IO":
-			 compute_general_behavior("IO_RESET") ;
-			 break;
-
-		    default:
-			 break;
-		 }
+		 var reset_signal_name = sim_components[elto].name + "_RESET" ;
+		 compute_general_behavior(reset_signal_name) ;
             }
+
+	    // CPU registers initial values
+	    if ((typeof curr_segments['.ktext'] !== "undefined") && (SIMWARE.labels2.kmain))
+	    {
+	         set_value(pc_state, parseInt(SIMWARE.labels2.kmain));
+	         show_asmdbg_pc() ;
+	    }
+	    else if ((typeof curr_segments['.text'] !== "undefined") && (SIMWARE.labels2.main))
+	    {
+	         set_value(pc_state, parseInt(SIMWARE.labels2.main));
+	         show_asmdbg_pc() ;
+	    }
+    
+	    if ( (typeof curr_segments['.stack'] !== "undefined") && (typeof sp_state !== "undefined") )
+	    {
+	         set_value(sp_state, parseInt(curr_segments['.stack'].begin));
+	    }
 
             // Set mode
 	    var mode = get_cfg('ws_mode');
@@ -346,30 +331,20 @@
                 compute_general_behavior("CLOCK") ;
 	    }
 
-            // User Interface
+            // User Interface Reset
+	    show_dbg_ir(get_value(simhw_sim_state('REG_IR_DECO'))) ;
+
             for (elto in sim_components)
             {
-		 switch (sim_components[elto].name) 
-                 {
-		    case "CPU":
-			 show_states() ;
-			 show_rf_values();
-			 show_rf_names();
-			 show_dbg_ir(get_value(simhw_sim_state('REG_IR_DECO'))) ;
-			 show_control_memory(simhw_internalState('MC'),  
-					     simhw_internalState('MC_dashboard'), 0, true);
-			 break;
+	         if (typeof sim_components[elto].details_reset === "undefined") {
+		     continue ;
+		 }
 
-		    case "MEMORY":
-			 show_main_memory(simhw_internalState('MP'),  0, true, false) ;
-			 break;
-
-		    case "SCREEN":
-			 set_screen_content("") ;
-			 break;
-
-		    default:
-			 break;
+		 for (var index in sim_components[elto].details_name)
+		 {
+	              if (typeof sim_components[elto].details_reset[index] !== "undefined") {
+	                  sim_components[elto].details_reset[index]() ;
+		      }
 		 }
             }
 

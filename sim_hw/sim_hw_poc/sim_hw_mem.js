@@ -332,7 +332,7 @@
                                                    }
                                     };
 
-        poc_behaviors.MEM_RESET   = { nparameters: 1,
+        poc_behaviors.MEMORY_RESET  = { nparameters: 1,
                                         operation: function (s_expr) 
                                                    {
 						      // reset events.mem
