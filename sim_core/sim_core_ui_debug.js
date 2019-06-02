@@ -20,43 +20,6 @@
 
 
         /*
-         *  Show memories
-         */
-
-        var callback_show_main_memory    = function () { 
-		                              return true; 
-	                                   } ;
-
-        var callback_show_control_memory = function () { 
-		                              return true; 
-	                                   } ;
-
-
-        function init_memory ( show_main_memory, show_control_memory )
-        {
-            if (show_main_memory !== null) {   
-                callback_show_main_memory = show_main_memory ;
-            }
-
-            if (show_control_memory !== null) {   
-                callback_show_control_memory  = show_control_memory ;
-            }
-
-	    return true ;
-        }
-
-        function show_main_memory ( memory, index, redraw, updates )
-        {
-            return callback_show_main_memory(memory, index, redraw, updates) ;
-        }
-
-        function show_control_memory ( memory, memory_dashboard, index, redraw )
-        {
-            return callback_show_control_memory(memory, memory_dashboard, index, redraw) ;
-        }
-
-
-        /*
          *  Debug
          */
 

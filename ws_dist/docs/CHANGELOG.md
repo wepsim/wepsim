@@ -1,6 +1,7 @@
 
 2.0.5 -> 2.0.7:
 * Improved translation subsystem
+* Improved initialization of UI details
 
 2.0.5 -> 2.0.6:
 * Initial support for the WepSIM control API
