@@ -25,11 +25,11 @@
                      message:   "<center><img alt='wepsim screenshot' src='help/simulator/simulator011.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
-                                "This brief tutorial is going to show you how to:" +
+                                "이 간단한 튜토리얼은:" +
                                 "<ol>" +
-                                "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,1);'>Edit your microcode.</a></li>" +
-                                "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,3);'>Edit your assembly (based on the previous microcode).</a></li>" +
-                                "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,5);'>Execute the assembly+microcode in the simulation.</a></li>" +
+                                "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,1);'>마이크로 코드 편집.</a></li>" +
+                                "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,3);'>어셈블리 편집 (이전 마이크로 코드 기반).</a></li>" +
+                                "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,5);'>시뮬레이션에서 어셈블리 + 마이크로 코드 실행.</a></li>" +
                                 "</ol>" +
                                 "</h5>",
                      code_pre:  function() { },
@@ -43,8 +43,8 @@
                      message:   "<center><img alt='wepsim screenshot' src='help/simulator/firmware001.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
-                                "The first step is to microprogramming the firmware to be used. " +
-                                "Please use the 'Microcode' button to switch to the microcode screen." +
+                                "첫 번째 단계는 사용할 펌웨어를 마이크로 프로그래밍하는 것입니다." +
+                                "마이크로 코드 화면으로 전환하려면 '마이크로 코드'버튼을 사용하십시오." +
                                 "</h5>",
                      code_pre:  function() { },
                      code_post: function() { },
@@ -57,13 +57,13 @@
                      message:   "<center><img alt='wepsim screenshot' src='help/simulator/firmware002.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
-                                "The microprogramming screen provides:" +
-                                "<ul>" +
-                                "<li>The editor for the microcode.</li>" +
-                                "<li>The microcompiler.</li>" +
-                                "<li>The hardware summary and help.</li>" +
-                                "</ul>" +
-                                "Once your code is ready (compiled without errors), next step is to go to the assembly screen." +
+                                "마이크로 프로그래밍 화면은 다음을 제공합니다."+
+                                "<ul>"+
+                                "<li> 마이크로 코드 편집기. </li>"+
+                                "<li> 마이크로 컴파일러. </li>"+
+                                "<li> 하드웨어 요약 및 도움. </li>"+
+                                "</ul>"+
+                                "일단 코드가 준비되면 (오류없이 컴파일 된) 다음 단계는 어셈블리 화면으로 이동하는 것입니다." +
                                 "</h5>",
                      code_pre:  function() { },
                      code_post: function() { },
@@ -76,8 +76,8 @@
                      message:   "<center><img alt='wepsim screenshot' src='help/simulator/assembly002b.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
-                                "The second step is to programming the assembly to be executed. " +
-                                "Please use the 'Assembly' button from both, the simulator screen or the microcode screen." +
+                                "두 번째 단계는 실행될 어셈블리를 프로그래밍하는 것입니다." +
+                                "시뮬레이터 화면이나 마이크로 코드 화면에서 '어셈블리'버튼을 사용하십시오." +
                                 "</h5>",
                      code_pre:  function() { },
                      code_post: function() { },
@@ -90,13 +90,13 @@
                      message:   "<center><img alt='wepsim screenshot' src='help/simulator/assembly003.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
-                                "The programming screen provides:" +
+                                "프로그래밍 화면에서는 다음을 제공합니다." +
                                 "<ul>" +
-                                "<li>The editor for the assembly code.</li>" +
-                                "<li>The assembly compiler.</li>" +
-                                "<li>The memory map viewer and help.</li>" +
+                                "<li> 어셈블리 코드 편집기. </li>" +
+                                "<li> 어셈블리 컴파일러. </li>" +
+                                "<li> 메모리 맵 뷰어 및 도움말. </li>" +
                                 "</ul>" +
-                                "Once your assebly code is ready (edited and compiled without errors) next step is to go into the simulation screen." +
+                                "일단 당신의 assebly 코드가 준비되면 (오류없이 편집되고 컴파일 된) 다음 단계는 시뮬레이션 화면으로 들어가는 것입니다." +
                                 "</h5>",
                      code_pre:  function() { },
                      code_post: function() { },
@@ -109,14 +109,14 @@
                      message:   "<center><img alt='wepsim screenshot' src='help/simulator/simulator010.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
-                                "The third step is to execute the assembly code in the simulator.<br> " +
-                                "The simulator screen provides:" +
+                                "세 번째 단계는 시뮬레이터에서 어셈블리 코드를 실행하는 것입니다. <br>" +
+                                "시뮬레이터 화면은 다음을 제공합니다 :" +
                                 "<ul>" +
-                                "<li>The assembly and hardware view.</li>" +
-                                "<li>The detail view of registers, control memory, main memory, etc.</li>" +
-                                "<li>The reset, step by step or run until breakpoint/end actions.</li>" +
+                                "<li> 어셈블리 및 하드웨어보기 </li>" +
+                                "<li> 레지스터, 제어 메모리, 메인 메모리 등의 상세보기 </li>" +
+                                "<li> 단계별로 재설정하거나 중단 점 / 종료 작업까지 실행하십시오. </li>" +
                                 "</ul>" +
-                                "This tutorial has introduced the typical usage of WepSIM for students and teachers. Enjoy WepSIM!" +
+                                "이 튜토리얼은 학생 및 교사를위한 WepSIM의 일반적인 사용법을 소개했습니다. WepSIM을 즐기십시오!" +
                                 "</h5>",
                      code_pre:  function() { },
                      code_post: function() { },

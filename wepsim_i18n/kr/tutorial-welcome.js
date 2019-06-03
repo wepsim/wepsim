@@ -25,12 +25,12 @@
                      message:     "<center><img alt='wepsim screenshot' src='help/simulator/simulator012.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                   "<p>" +
                                   "<h5>" +
-                                  "This brief tutorial is going to show you how to:" +
+                                  "이 간단한 튜토리얼은:" +
                                   "<ol>" +
-                                  "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,1);'>Load an example.</a></li>" +
-                                  "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,2);'>Execute an example.</a></li>" +
-                                  "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,3);'>Configure the simulation.</a></li>" +
-                                  "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,4);'>Get help.</a></li>" +
+                                  "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,1);'>예제로드.</a></li>" +
+                                  "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,2);'>예제 실행.</a></li>" +
+                                  "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,3);'>시뮬레이션 구성.</a></li>" +
+                                  "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,4);'>도움 받기.</a></li>" +
                                   "</ol>" +
                                   "</h5>",
                      code_pre:    function() { },
@@ -44,8 +44,8 @@
                      message:     "<center><img alt='wepsim screenshot' src='help/welcome/example_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
-                                  "Click in the 'example' button, then click in the example 'title' name.<br>" +
-                                  "Then the example for microcode and assembly is loaded and microcompiled and compiled.<br>" +
+                                  " '예제'버튼을 클릭하고 예제 'title'이름을 클릭하십시오. <br>" +
+                                  "그런 다음 마이크로 코드 및 어셈블리 예제가로드되고 마이크로 컴파일되고 컴파일됩니다. <br>" +
                                   "<br>" +
                                   "</h5>",
                      code_pre:    function() { },
@@ -59,8 +59,8 @@
                      message:     "<center><img alt='wepsim screenshot' src='help/welcome/simulation_xinstruction.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
-                                  "Click on next instruction/microinstruction to execute step by step. <br>" + 
-		                  "Click on run button to execute until the first breakpoint or the end of the assembly program." +
+                                  "다음 명령어 / 마이크로 명령어를 클릭하면 단계별로 실행됩니다. <br>" +
+                                  "첫 번째 중단 점이나 어셈블리 프로그램이 끝날 때까지 실행하려면 실행 버튼을 클릭하십시오." +
                                   "<br>" +
                                   "</h5>",
                      code_pre:    function() { },
@@ -74,7 +74,7 @@
                      message:     "<center><img alt='wepsim screenshot' src='help/welcome/config_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
-                                  "Click in the 'configuration' button and users are able to customize different parts of WepSIM." +
+                                  " '구성'버튼을 클릭하면 사용자가 WepSIM의 다른 부분을 사용자 정의 할 수 있습니다." +
                                   "<br>" +
                                   "</h5>",
                      code_pre:    function() { },
@@ -88,8 +88,8 @@
                      message:     "<center><img alt='wepsim screenshot' src='help/welcome/help_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
-                                  "Please click in the green 'help' button to reach the help dialog.<br>" +
-                                  "You are able to switch idiom (Spanish/English), go to the help index, or close the help dialog." +
+                                  "녹색 '도움말'버튼을 클릭하면 도움말 대화 상자가 나타납니다. <br>" +
+                                  "관용구 (스페인어 / 영어)를 전환하거나 도움말 색인으로 이동하거나 도움말 대화 상자를 닫을 수 있습니다." +
                                   "<br>" +
                                   "</h5>",
                      code_pre:    function() { },
@@ -103,8 +103,8 @@
                      message:     "<center><img alt='wepsim screenshot' src='help/welcome/help_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
-                                  "Please explorer the help sections for more information. <br>" + 
-                                  "If you click on the end button of this tutorial, WepSIM is going to load the first example for you. Enjoy!" + 
+                                  "자세한 내용은 도움말 섹션을 탐색하십시오. <br>" +
+                                  "이 튜토리얼의 끝 버튼을 클릭하면 WepSIM이 첫 번째 예제를로드합니다. 즐기십시오!" +
                                   "<br>" +
                                   "</h5>",
                      code_pre:    function() {  },
