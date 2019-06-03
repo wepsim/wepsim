@@ -38,6 +38,11 @@
 			"Close or Reset...":    			"Cliquez sur Fermer pour le conserver, <br> ou cliquez sur le bouton Réinitialiser pour le supprimer.",
 			"Sure Control Memory...":			"Voulez-vous que je sauvegarde le contenu actuel de la mémoire de contrôle plutôt que le contenu de l'éditeur?.",
 
+                        "Show/Hide labels":                             "Afficher/masquer les étiquettes",
+                        "Show/Hide content":                            "Afficher/masquer le contenu",
+                        "Show/Hide assembly":                           "Afficher/masquer l'assemblage",
+                        "Show/Hide pseudo-instructions":                "Afficher/masquer les pseudo-instructions",
+
 			"Close": 		                	"Fermer"
 
     } ;

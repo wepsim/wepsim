@@ -23,7 +23,7 @@
 
     tutorials.simpleusage.fr.push({
                      id:        "simpleusage",
-                     title:     "Simple WepSIM experience: microprogramming and programming",
+                     title:     "Expérience WepSIM simple: microprogrammation et programmation",
                      message:   "<center><img alt='wepsim screenshot' src='help/simulator/simulator011.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
@@ -41,7 +41,7 @@
 
     tutorials.simpleusage.fr.push({
                      id:        "simpleusage",
-                     title:     "Simple WepSIM experience: microprogramming and programming",
+                     title:     "Expérience WepSIM simple: microprogrammation et programmation",
                      message:   "<center><img alt='wepsim screenshot' src='help/simulator/firmware001.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
@@ -55,7 +55,7 @@
 
     tutorials.simpleusage.fr.push({
                      id:        "simpleusage",
-                     title:     "Simple WepSIM experience: microprogramming and programming",
+                     title:     "Expérience WepSIM simple: microprogrammation et programmation",
                      message:   "<center><img alt='wepsim screenshot' src='help/simulator/firmware002.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
@@ -74,7 +74,7 @@
 
     tutorials.simpleusage.fr.push({
                      id:        "simpleusage",
-                     title:     "Simple WepSIM experience: microprogramming and programming",
+                     title:     "Expérience WepSIM simple: microprogrammation et programmation",
                      message:   "<center><img alt='wepsim screenshot' src='help/simulator/assembly002b.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
@@ -88,7 +88,7 @@
 
     tutorials.simpleusage.fr.push({
                      id:        "simpleusage",
-                     title:     "Simple WepSIM experience: microprogramming and programming",
+                     title:     "Expérience WepSIM simple: microprogrammation et programmation",
                      message:   "<center><img alt='wepsim screenshot' src='help/simulator/assembly003.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
@@ -107,7 +107,7 @@
 
     tutorials.simpleusage.fr.push({
                      id:        "simpleusage",
-                     title:     "Simple WepSIM experience: microprogramming and programming",
+                     title:     "Expérience WepSIM simple: microprogrammation et programmation",
                      message:   "<center><img alt='wepsim screenshot' src='help/simulator/simulator010.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
