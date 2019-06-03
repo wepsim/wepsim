@@ -1,5 +1,5 @@
 
-2.0.5 -> 2.0.7:
+2.0.6 -> 2.0.7:
 * Improved translation subsystem
 * Revamped simcore_init_ui() API function 
 

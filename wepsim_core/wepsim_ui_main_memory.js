@@ -446,3 +446,47 @@
                 return o ;
 	}
 
+
+        /*
+         *  Main Memory (configuration)
+         */
+
+        function init_config_mp ( jqdiv )
+        {
+            // without ui
+            if (jqdiv === "")
+            {
+                    simhw_internalState_reset('MP_wc', ko_observable(0)) ;
+                    return ;
+            }
+
+            // html holder
+            var o1 = "<div class='container-fluid'>" +
+                     "<div class='row'>" ;
+
+            o1 += "<div class='col-12' style='padding:0 0 10 0;'>" +
+                  "<div class='card bg-light'>" +
+                  "<div class='card-body p-0' id='mempanel'>" +
+                  "<table class='table table-hover table-sm table-bordered' " +
+                  "       style='margin:0'>" +
+                  "<tbody class='no-ui-mini'>" +
+                  "<tr><td align=center'>Wait cycles (<b>0</b> - &infin;)</td>" +
+                  "    <td align=center'>" + 
+                  "<div id='mp_wc'>" + 
+                  "<input type=number data-bind='value: simhw_internalState(\"MP_wc\")' min='0' max='99999999'>" +
+                  "</div>" + 
+                  "    </td></tr>" +
+                  "</tbody>" +
+                  "</table>" +
+                  "</div>" +
+                  "</div>" +
+                  "</div>" ;
+         
+            $(jqdiv).html(o1);
+
+            // knockout binding
+            simhw_internalState_reset('MP_wc', ko_observable(0)) ;
+            var ko_context = document.getElementById('mp_wc');
+            ko.applyBindings(simhw_internalState('MP_wc'), ko_context);
+        }
+

@@ -23,7 +23,7 @@
 
     tutorials.welcome.fr.push({
                      id:          "welcome",
-                     title:       "Welcome to the WepSIM simulator!",
+                     title:       "Bienvenue sur le simulateur WepSIM!",
                      message:     "<center><img alt='wepsim screenshot' src='help/simulator/simulator012.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                   "<p>" +
                                   "<h5>" +
@@ -42,7 +42,7 @@
 
     tutorials.welcome.fr.push({
                      id:          "welcome",
-                     title:       "How to load some example.",
+                     title:       "Comment charger des exemples.",
                      message:     "<center><img alt='wepsim screenshot' src='help/welcome/example_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
@@ -57,7 +57,7 @@
 
     tutorials.welcome.fr.push({
                      id:          "welcome",
-                     title:       "How to execute an example.",
+                     title:       "Comment exécuter un exemple.",
                      message:     "<center><img alt='wepsim screenshot' src='help/welcome/simulation_xinstruction.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
@@ -72,7 +72,7 @@
 
     tutorials.welcome.fr.push({
                      id:          "welcome",
-                     title:       "How to configure WepSIM.",
+                     title:       "Comment configurer WepSIM.",
                      message:     "<center><img alt='wepsim screenshot' src='help/welcome/config_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
@@ -86,7 +86,7 @@
 
     tutorials.welcome.fr.push({
                      id:          "welcome",
-                     title:       "How to get the basic help.",
+                     title:       "Comment obtenir l'aide de base.",
                      message:     "<center><img alt='wepsim screenshot' src='help/welcome/help_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
@@ -101,7 +101,7 @@
 
     tutorials.welcome.fr.push({
                      id:          "welcome",
-                     title:       "Welcome to WepSIM!",
+                     title:       "Bienvenue sur le simulateur WepSIM!",
                      message:     "<center><img alt='wepsim screenshot' src='help/welcome/help_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
