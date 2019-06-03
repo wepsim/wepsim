@@ -54,7 +54,7 @@
                                           'dbg_set_breakpoint(' + addr + ');\n') ;
         }
 
-	function show_dbg_mpc ( )
+	function wepsim_show_dbg_mpc ( )
 	{
 	        var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
 	        var reg_maddr  = get_value(simhw_sim_state(maddr_name)) ;

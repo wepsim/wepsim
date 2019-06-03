@@ -36,7 +36,7 @@
 	                              } ;
 
 
-        function init_rf ( cb_show_dbg_ir, cb_show_dbg_mpc, cb_show_asmdbg_pc )
+        function init_debug ( cb_show_dbg_ir, cb_show_dbg_mpc, cb_show_asmdbg_pc )
         {
             if (cb_show_dbg_ir !== null) {   
                 callback_show_dbg_ir    = cb_show_dbg_ir ;

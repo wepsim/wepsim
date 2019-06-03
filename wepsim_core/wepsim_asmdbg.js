@@ -228,7 +228,7 @@
 	    show_asmdbg_pc_deferred = null;
 	}
 
-	function show_asmdbg_pc ( )
+	function wepsim_show_asmdbg_pc ( )
 	{
             if (get_cfg('DBG_delay') > 5)
 	        return fullshow_asmdbg_pc();
@@ -304,7 +304,7 @@
 
         var show_dbg_ir_deferred = null;
 
-	function show_dbg_ir ( decins )
+	function wepsim_show_dbg_ir ( decins )
 	{
             if (null != show_dbg_ir_deferred) {
                 return ;
