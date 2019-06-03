@@ -36,6 +36,11 @@
 			"Close or Reset...":    			"계속하려면 닫기를 클릭하고, <br> 단추를 클릭하여 제거하십시오.",
                         "Sure Control Memory...":			"편집기 내용이 아닌 현재 컨트롤 메모리 내용을 저장 하시겠습니까?",
 
+                        "Show/Hide labels":                             "레이블 표시 / 숨기기",
+                        "Show/Hide content":                            "콘텐츠 표시 / 숨기기",
+                        "Show/Hide assembly":                           "어셈블리 표시 / 숨기기",
+                        "Show/Hide pseudo-instructions":                "의사 명령어 표시 / 숨기기",
+
                         "Close": 		                	"닫다"
 
                   } ;

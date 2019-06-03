@@ -13,7 +13,6 @@ set -x
  jshint ./sim_core/sim_core_ui_hw.js
  jshint ./sim_core/sim_core_ui_details.js
  jshint ./sim_core/sim_core_breakpointicons.js
-#jshint ./sim_core/sim_core_ui_memory.js
 #jshint ./sim_core/sim_core_ctrl.js
 #jshint ./sim_core/sim_core_record.js
 

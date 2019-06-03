@@ -36,6 +36,11 @@
 			"Close or Reset...":    			"Please click on Close to keep it, <br>or click on the Reset button to remove it.",
                         "Sure Control Memory...":			"Do you want me to save the current Control Memory contents rather than the editor contents?.",
 
+                        "Show/Hide labels":                             "Show/Hide labels",
+                        "Show/Hide content":                            "Show/Hide content",
+                        "Show/Hide assembly":                           "Show/Hide assembly",
+                        "Show/Hide pseudo-instructions":                "Show/Hide pseudo-instructions",
+
                         "Close": 		                	"Close"
     } ;
 
