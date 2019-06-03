@@ -74,6 +74,7 @@ cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_ui_io.js \
     \
     wepsim_core/wepsim_asmdbg.js \
+    wepsim_core/wepsim_mcdbg.js \
     wepsim_core/wepsim_checkpoint.js \
     wepsim_core/wepsim_config.js \
     wepsim_core/wepsim_config_commands.js \
