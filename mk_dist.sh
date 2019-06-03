@@ -39,7 +39,6 @@ cat sim_hw/sim_hw_index.js \
     sim_core/sim_core_breakpointicons.js \
     sim_core/sim_core_ui_details.js \
     sim_core/sim_core_ui_debug.js \
-    sim_core/sim_core_ui_hw.js \
     sim_core/sim_core_ui_voice.js \
     sim_core/sim_core_ui_help.js \
     sim_core/sim_core_ui_notify.js > ws_dist/sim_all.js
@@ -66,25 +65,28 @@ rm -fr ws_dist/wepsim_i18n.js
 cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_clipboard.js \
     wepsim_core/wepsim_preload.js \
+    wepsim_core/wepsim_checkpoint.js \
+    wepsim_core/wepsim_signal.js \
+    wepsim_core/wepsim_state.js \
+    wepsim_core/wepsim_execute.js \
+    wepsim_core/wepsim_notify.js \
+    \
     wepsim_core/wepsim_ui_cpu.js \
     wepsim_core/wepsim_ui_registers.js \
     wepsim_core/wepsim_ui_console.js \
     wepsim_core/wepsim_ui_control_memory.js \
     wepsim_core/wepsim_ui_main_memory.js \
     wepsim_core/wepsim_ui_io.js \
-    \
+    wepsim_core/wepsim_ui_hw.js \
     wepsim_core/wepsim_asmdbg.js \
-    wepsim_core/wepsim_checkpoint.js \
+    wepsim_core/wepsim_mcdbg.js \
+    \
     wepsim_core/wepsim_config.js \
     wepsim_core/wepsim_config_commands.js \
     wepsim_core/wepsim_example.js \
     wepsim_core/wepsim_example_commands.js \
-    wepsim_core/wepsim_execute.js \
     wepsim_core/wepsim_help.js \
     wepsim_core/wepsim_help_commands.js \
-    wepsim_core/wepsim_notify.js \
-    wepsim_core/wepsim_signal.js \
-    wepsim_core/wepsim_state.js \
     wepsim_core/wepsim_tutorial.js \
     wepsim_core/wepsim_tour.js \
     wepsim_core/wepsim_tour_commands.js \

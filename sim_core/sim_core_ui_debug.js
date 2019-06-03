@@ -20,157 +20,51 @@
 
 
         /*
-         *  Debug
+         *  Show mPC, PC and IR
          */
 
-        var show_asmdbg_pc_deferred = null;
+        var callback_show_dbg_ir    = function () { 
+		                         return true; 
+	                              } ;
 
-	function innershow_asmdbg_pc ( )
-	{
-	    fullshow_asmdbg_pc();
-	    show_asmdbg_pc_deferred = null;
-	}
+        var callback_show_dbg_mpc   = function () { 
+		                         return true; 
+	                              } ;
 
-	function show_asmdbg_pc ( )
-	{
-            if (get_cfg('DBG_delay') > 5)
-	        return fullshow_asmdbg_pc();
+        var callback_show_asmdbg_pc = function () { 
+		                         return true; 
+	                              } ;
 
-            if (null == show_asmdbg_pc_deferred)
-                show_asmdbg_pc_deferred = setTimeout(innershow_asmdbg_pc, cfg_show_asmdbg_pc_delay);
-	}
 
-        var old_addr = 0;
-
-	function fullshow_asmdbg_pc ( )
-	{
-		if (typeof document == "undefined") {
-		    return ;
-		}
-
-                var o1 = null ;
-
-	        var pc_name = simhw_sim_ctrlStates_get().pc.state ;
-	        var reg_pc  = get_value(simhw_sim_state(pc_name)) ;
-                var curr_addr = "0x" + reg_pc.toString(16) ;
-                var curr_firm = simhw_internalState('FIRMWARE') ;
-
-                if (typeof curr_firm.assembly[old_addr] != "undefined")
-                {
-                     o1 = $("#asmdbg" + old_addr) ;
-                     o1.css('background-color', curr_firm.assembly[old_addr].bgcolor) ;
-                }
-                else
-                {
-                     for (var l in curr_firm.assembly)
-                     {
-                          o1 = $("#asmdbg" + l) ;
-                          o1.css('background-color', curr_firm.assembly[l].bgcolor) ;
-                     }
-                }
-                old_addr = curr_addr ;
-
-                o1 = $("#asmdbg" + curr_addr) ;
-                o1.css('background-color', '#00EE88') ;
-
-                return o1 ;
-	}
-
-        function asmdbg_set_breakpoint ( addr )
+        function init_debug ( cb_show_dbg_ir, cb_show_dbg_mpc, cb_show_asmdbg_pc )
         {
-                var icon_theme = get_cfg('ICON_theme') ;
-                var hexaddr    = "0x" + addr.toString(16) ;
-                var curr_firm  = simhw_internalState('FIRMWARE') ;
-
-                var o1 = document.getElementById("bp"+hexaddr) ;
-                var bp_state = curr_firm.assembly[hexaddr].breakpoint ;
-
-                if (bp_state === true) {
-                    bp_state = false ;
-                    o1.innerHTML = "&nbsp;" ;
-                } else {
-                    bp_state = true ;
-                    o1.innerHTML = sim_core_breakpointicon_get(icon_theme) ;
-                }
-
-                curr_firm.assembly[hexaddr].breakpoint = bp_state ;
-
-		// add if recording
-                simcore_record_append_new('Set assembly breakpoint at ' + addr,
-                                          'asmdbg_set_breakpoint(' + addr + ');\n') ;
-
-        }
-
-        function dbg_set_breakpoint ( addr )
-        {
-                var icon_theme = get_cfg('ICON_theme') ;
-                var dbg_level  = get_cfg('DBG_level') ;
-
-                var o1       = document.getElementById("mcpin" + addr) ;
-                var bp_state = simhw_internalState_get('MC_dashboard', addr).breakpoint ;
-
-                if (bp_state === true) {
-                    bp_state = false ;
-                    o1.innerHTML = "&nbsp;" ;
-                } else {
-                    bp_state = true ;
-                    o1.innerHTML = sim_core_breakpointicon_get(icon_theme) ;
-                }
-
-                simhw_internalState_get('MC_dashboard', addr).breakpoint = bp_state ;
-
-                if ( bp_state && ('instruction' === dbg_level) )
-                {
-                     simcoreui_notify('<strong>INFO</strong>',
-                                      'Please remember to change configuration to execute at microinstruction level.',
-		                      'success', 
-			              get_cfg('NOTIF_delay')) ;
-                }
-
-		// add if recording
-                simcore_record_append_new('Set firmware breakpoint at ' + addr,
-                                          'dbg_set_breakpoint(' + addr + ');\n') ;
-        }
-
-	function show_dbg_mpc ( )
-	{
-	        var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
-	        var reg_maddr  = get_value(simhw_sim_state(maddr_name)) ;
-
-                show_control_memory(simhw_internalState('MC'),
-                                    simhw_internalState('MC_dashboard'),
-			            reg_maddr,
-                                    false) ;
-	}
-
-        var show_dbg_ir_deferred = null;
-
-	function show_dbg_ir ( decins )
-	{
-            if (null != show_dbg_ir_deferred) {
-                return ;
+            if (cb_show_dbg_ir !== null) {   
+                callback_show_dbg_ir    = cb_show_dbg_ir ;
             }
 
-            show_dbg_ir_deferred = setTimeout(function() {
-                                                   fullshow_dbg_ir(decins);
-                                                   show_dbg_ir_deferred = null;
-                                              }, cfg_show_dbg_ir_delay);
-	}
+            if (cb_show_dbg_mpc !== null) {   
+                callback_show_dbg_mpc   = cb_show_dbg_mpc ;
+            }
 
-	function fullshow_dbg_ir ( decins )
-	{
-	     if (typeof document == "undefined") {
-	         return ;
-             }
+            if (cb_show_asmdbg_pc !== null) {   
+                callback_show_asmdbg_pc = cb_show_asmdbg_pc ;
+            }
 
-	     var o = document.getElementById('svg_p');
-	     if (o != null) o = o.contentDocument;
-	     if (o != null) o = o.getElementById('tspan3899');
-	     if (o != null) o.innerHTML = decins ;
+	    return true ;
+        }
 
-	         o = document.getElementById('svg_cu');
-	     if (o != null) o = o.contentDocument;
-	     if (o != null) o = o.getElementById('text3611');
-	     if (o != null) o.innerHTML = decins ;
-	}
+        function show_dbg_ir ( )
+        {
+            return callback_show_dbg_ir() ;
+        }
+
+        function show_dbg_mpc ( )
+        {
+            return callback_show_dbg_mpc() ;
+        }
+
+        function show_asmdbg_pc ( )
+        {
+            return callback_show_asmdbg_pc() ;
+        }
 

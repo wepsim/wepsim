@@ -40,6 +40,7 @@ set -x
 
  jshint ./wepsim_core/wepsim_ui_io.js
  jshint ./wepsim_core/wepsim_asmdbg.js
+ jshint ./wepsim_core/wepsim_mcdbg.js
  jshint ./wepsim_core/wepsim_checkpoint.js
 #jshint ./wepsim_core/wepsim_clipboard.js
  jshint ./wepsim_core/wepsim_config_commands.js

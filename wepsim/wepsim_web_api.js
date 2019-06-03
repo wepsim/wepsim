@@ -540,6 +540,7 @@
 	    "MEMORY":         {
 		                init:  function() {
 		                          init_memory(wepsim_show_main_memory, wepsim_show_control_memory) ;
+					  init_debug(wepsim_show_dbg_ir, wepsim_show_dbg_mpc, wepsim_show_asmdbg_pc) ;
 	                               },
 		                reset: function() {
 			                  show_main_memory(simhw_internalState('MP'),  0, true, false) ;
