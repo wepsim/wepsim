@@ -10,9 +10,7 @@ set -x
  jshint ./sim_core/sim_core_ui_notify.js
  jshint ./sim_core/sim_core_ui_help.js
  jshint ./sim_core/sim_core_ui_voice.js
- jshint ./sim_core/sim_core_ui_hw.js
  jshint ./sim_core/sim_core_ui_details.js
- jshint ./sim_core/sim_core_breakpointicons.js
 #jshint ./sim_core/sim_core_ctrl.js
 #jshint ./sim_core/sim_core_record.js
 
@@ -38,9 +36,9 @@ set -x
  jshint ./sim_hw/sim_hw_ep/sim_hw_scr.js
 #jshint ./sim_hw/sim_hw_ep/sim_hw_cpu.js
 
- jshint ./wepsim_core/wepsim_ui_io.js
- jshint ./wepsim_core/wepsim_asmdbg.js
- jshint ./wepsim_core/wepsim_mcdbg.js
+ jshint ./wepsim_core/wepsim_dbg_asm.js
+ jshint ./wepsim_core/wepsim_dbg_mc.js
+ jshint ./wepsim_core/wepsim_dbg_breakpointicons.js
  jshint ./wepsim_core/wepsim_checkpoint.js
 #jshint ./wepsim_core/wepsim_clipboard.js
  jshint ./wepsim_core/wepsim_config_commands.js
@@ -62,6 +60,8 @@ set -x
  jshint ./wepsim_core/wepsim_signal.js
 #jshint ./wepsim_core/wepsim_ui_registers.js
  jshint ./wepsim_core/wepsim_ui_cpu.js
+ jshint ./wepsim_core/wepsim_ui_io.js
+ jshint ./wepsim_core/wepsim_ui_hw.js
 
  jshint ./wepsim/wepsim_web_editor.js
  jshint ./wepsim/wepsim_web_simulator.js

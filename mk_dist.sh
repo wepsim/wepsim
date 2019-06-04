@@ -36,7 +36,6 @@ cat sim_hw/sim_hw_index.js \
     sim_core/sim_api_core.js \
     sim_core/sim_api_native.js \
     sim_core/sim_api_stateshots.js \
-    sim_core/sim_core_breakpointicons.js \
     sim_core/sim_core_ui_details.js \
     sim_core/sim_core_ui_debug.js \
     sim_core/sim_core_ui_voice.js \
@@ -78,8 +77,10 @@ cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_ui_main_memory.js \
     wepsim_core/wepsim_ui_io.js \
     wepsim_core/wepsim_ui_hw.js \
-    wepsim_core/wepsim_asmdbg.js \
-    wepsim_core/wepsim_mcdbg.js \
+    \
+    wepsim_core/wepsim_dbg_asm.js \
+    wepsim_core/wepsim_dbg_mc.js \
+    wepsim_core/wepsim_dbg_breakpointicons.js \
     \
     wepsim_core/wepsim_config.js \
     wepsim_core/wepsim_config_commands.js \
