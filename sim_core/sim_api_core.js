@@ -38,7 +38,6 @@
 	    }
 	    else {
                  reset_cfg() ;
-                 stop_drawing() ;
 	    }
 
             return ret ;

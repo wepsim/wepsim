@@ -228,29 +228,6 @@
            compute_signal_behavior(key, index_behavior) ;
         }
 
-
-        function show_memories_values ( )
-        {
-            var f1 = new Promise(function(resolve, reject) 
-		     {
-			 var pc_name = simhw_sim_ctrlStates_get().pc.state ;
-			 var reg_pc  = get_value(simhw_sim_state(pc_name)) ;
-
-			 show_main_memory(simhw_internalState('MP'), reg_pc, true, true) ;
-			 resolve(1);
-                     });
-            var f2 = new Promise(function(resolve, reject) 
-		     {
-			 var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
-			 var reg_maddr  = get_value(simhw_sim_state(maddr_name)) ;
-
-			 show_control_memory(simhw_internalState('MC'), simhw_internalState('MC_dashboard'), reg_maddr, true) ;
-			 resolve(1);
-		     });
-
-            Promise.all([f1, f2]);
-	}
-
         function update_signal_firmware ( key )
         {
             var SIMWARE = get_simware() ;

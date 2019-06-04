@@ -43,10 +43,10 @@
 
                 if ( bp_state && ('instruction' === dbg_level) )
                 {
-                     simcoreui_notify('<strong>INFO</strong>',
-                                      'Please remember to change configuration to execute at microinstruction level.',
-		                      'success', 
-			              get_cfg('NOTIF_delay')) ;
+                     wepsim_notify_do_notify('<strong>INFO</strong>',
+                                             'Please remember to change configuration to execute at microinstruction level.',
+		                             'success', 
+			                     get_cfg('NOTIF_delay')) ;
                 }
 
 		// add if recording
