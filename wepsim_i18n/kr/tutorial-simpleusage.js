@@ -43,7 +43,7 @@
                      message:   "<center><img alt='wepsim screenshot' src='help/simulator/firmware001.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
-                                "첫 번째 단계는 사용할 펌웨어를 마이크로 프로그래밍하는 것입니다." +
+                                "첫 번째 단계는 사용할 펌웨어를 마이크로 프로그래밍하는 것입니다. " +
                                 "마이크로 코드 화면으로 전환하려면 '마이크로 코드'버튼을 사용하십시오." +
                                 "</h5>",
                      code_pre:  function() { },
@@ -76,7 +76,7 @@
                      message:   "<center><img alt='wepsim screenshot' src='help/simulator/assembly002b.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
-                                "두 번째 단계는 실행될 어셈블리를 프로그래밍하는 것입니다." +
+                                "두 번째 단계는 실행될 어셈블리를 프로그래밍하는 것입니다. " +
                                 "시뮬레이터 화면이나 마이크로 코드 화면에서 '어셈블리'버튼을 사용하십시오." +
                                 "</h5>",
                      code_pre:  function() { },

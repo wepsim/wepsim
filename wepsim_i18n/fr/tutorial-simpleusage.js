@@ -27,11 +27,11 @@
                      message:   "<center><img alt='wepsim screenshot' src='help/simulator/simulator011.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
-                                "This brief tutorial is going to show you how to:" +
+                                "Ce bref tutoriel va vous montrer comment:" +
                                 "<ol>" +
-                                "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,1);'>Edit your microcode.</a></li>" +
-                                "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,3);'>Edit your assembly (based on the previous microcode).</a></li>" +
-                                "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,5);'>Execute the assembly+microcode in the simulation.</a></li>" +
+                                "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,1);'>Editez votre microcode.</a></li>" +
+                                "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,3);'>Editez votre assemblage (basé sur le microcode précédent).</a></li>" +
+                                "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,5);'>Exécuter l'assemblage + le microcode dans la simulation.</a></li>" +
                                 "</ol>" +
                                 "</h5>",
                      code_pre:  function() { },
@@ -45,8 +45,8 @@
                      message:   "<center><img alt='wepsim screenshot' src='help/simulator/firmware001.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
-                                "The first step is to microprogramming the firmware to be used. " +
-                                "Please use the 'Microcode' button to switch to the microcode screen." +
+                                "La première étape consiste à microprogrammer le firmware à utiliser. " +
+                                "Veuillez utiliser le bouton 'Microcode' pour passer à l'écran du microcode." +
                                 "</h5>",
                      code_pre:  function() { },
                      code_post: function() { },
@@ -59,13 +59,13 @@
                      message:   "<center><img alt='wepsim screenshot' src='help/simulator/firmware002.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
-                                "The microprogramming screen provides:" +
+                                "L’écran de microprogrammation fournit:" +
                                 "<ul>" +
-                                "<li>The editor for the microcode.</li>" +
-                                "<li>The microcompiler.</li>" +
-                                "<li>The hardware summary and help.</li>" +
+                                "<li>L'éditeur du microcode.</li>" +
+                                "<li>Le microcompilateur.</li>" +
+                                "<li>Résumé du matériel et aide.</li>" +
                                 "</ul>" +
-                                "Once your code is ready (compiled without errors), next step is to go to the assembly screen." +
+                                "Une fois que votre code est prêt (compilé sans erreurs), l'étape suivante consiste à accéder à l'écran d'assemblage." +
                                 "</h5>",
                      code_pre:  function() { },
                      code_post: function() { },
@@ -78,8 +78,8 @@
                      message:   "<center><img alt='wepsim screenshot' src='help/simulator/assembly002b.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
-                                "The second step is to programming the assembly to be executed. " +
-                                "Please use the 'Assembly' button from both, the simulator screen or the microcode screen." +
+                                "La deuxième étape consiste à programmer l'assemblage à exécuter. " +
+                                "Veuillez utiliser le bouton 'Assemblage' de l'écran du simulateur ou de l'écran du microcode." +
                                 "</h5>",
                      code_pre:  function() { },
                      code_post: function() { },
@@ -92,13 +92,13 @@
                      message:   "<center><img alt='wepsim screenshot' src='help/simulator/assembly003.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
-                                "The programming screen provides:" +
+                                "L'écran de programmation fournit:" +
                                 "<ul>" +
-                                "<li>The editor for the assembly code.</li>" +
-                                "<li>The assembly compiler.</li>" +
-                                "<li>The memory map viewer and help.</li>" +
+                                "<li>L'éditeur du code d'assemblage. </li>" +
+                                "<li>Le compilateur d'assemblage. </li>" +
+                                "<li>La visionneuse de carte mémoire et l'aide. </li>" +
                                 "</ul>" +
-                                "Once your assebly code is ready (edited and compiled without errors) next step is to go into the simulation screen." +
+                                "Une fois que votre code définitif est prêt (édité et compilé sans erreur), l'étape suivante consiste à accéder à l'écran de simulation." +
                                 "</h5>",
                      code_pre:  function() { },
                      code_post: function() { },
@@ -111,14 +111,14 @@
                      message:   "<center><img alt='wepsim screenshot' src='help/simulator/simulator010.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
-                                "The third step is to execute the assembly code in the simulator.<br> " +
-                                "The simulator screen provides:" +
+                                "La troisième étape consiste à exécuter le code d'assemblage dans le simulateur. <br>" +
+                                "L'écran du simulateur fournit:" +
                                 "<ul>" +
-                                "<li>The assembly and hardware view.</li>" +
-                                "<li>The detail view of registers, control memory, main memory, etc.</li>" +
-                                "<li>The reset, step by step or run until breakpoint/end actions.</li>" +
+                                "<li>La vue assemblage et matériel. </li>" +
+                                "<li>La vue détaillée des registres, de la mémoire de contrôle, de la mémoire principale, etc. </li>" +
+                                "<li>La réinitialisation, étape par étape ou exécution jusqu'au point d'arrêt / actions de fin. </li>" +
                                 "</ul>" +
-                                "This tutorial has introduced the typical usage of WepSIM for students and teachers. Enjoy WepSIM!" +
+                                "Ce tutoriel a introduit l'utilisation typique de WepSIM pour les étudiants et les enseignants. Profitez de WepSIM!" +
                                 "</h5>",
                      code_pre:  function() { },
                      code_post: function() { },
