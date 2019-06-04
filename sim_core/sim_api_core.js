@@ -95,18 +95,15 @@
             var sim_components = simhw_sim_components() ;
             for (var elto in sim_components)
             {
-	         sim_components[elto].details_init = [] ;
-	         sim_components[elto].details_reset = [] ;
+	         sim_components[elto].details_ui = [] ;
 
 		 for (var index in sim_components[elto].details_name)
 		 {
 	              detail_id = sim_components[elto].details_name[index] ;
 	              if (typeof hash_detail2init[detail_id] !== "undefined") 
 		      {
-	                  sim_components[elto].details_init[index]  = hash_detail2init[detail_id].init ;
-	                  sim_components[elto].details_reset[index] = hash_detail2init[detail_id].reset ;
-
-	                  hash_detail2init[detail_id].init() ;
+	                  sim_components[elto].details_ui[index] = hash_detail2init[detail_id] ;
+	                  sim_components[elto].details_ui[index].init() ;
 		      }
 		 }
             }
@@ -336,14 +333,14 @@
 
             for (elto in sim_components)
             {
-	         if (typeof sim_components[elto].details_reset === "undefined") {
+	         if (typeof sim_components[elto].details_ui === "undefined") {
 		     continue ;
 		 }
 
 		 for (var index in sim_components[elto].details_name)
 		 {
-	              if (typeof sim_components[elto].details_reset[index] !== "undefined") {
-	                  sim_components[elto].details_reset[index]() ;
+	              if (typeof sim_components[elto].details_ui[index] !== "undefined") {
+	                  sim_components[elto].details_ui[index].reset() ;
 		      }
 		 }
             }

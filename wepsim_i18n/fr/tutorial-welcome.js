@@ -27,12 +27,12 @@
                      message:     "<center><img alt='wepsim screenshot' src='help/simulator/simulator012.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                   "<p>" +
                                   "<h5>" +
-                                  "This brief tutorial is going to show you how to:" +
+                                  "Ce bref tutoriel va vous montrer comment:" +
                                   "<ol>" +
-                                  "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,1);'>Load an example.</a></li>" +
-                                  "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,2);'>Execute an example.</a></li>" +
-                                  "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,3);'>Configure the simulation.</a></li>" +
-                                  "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,4);'>Get help.</a></li>" +
+                                  "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,1);'>Charger un exemple.</a></li>" +
+                                  "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,2);'>Exécuter un exemple.</a></li>" +
+                                  "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,3);'>Configurer la simulation.</a></li>" +
+                                  "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,4);'>Obtenir de l'aide.</a></li>" +
                                   "</ol>" +
                                   "</h5>",
                      code_pre:    function() { },
@@ -46,8 +46,8 @@
                      message:     "<center><img alt='wepsim screenshot' src='help/welcome/example_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
-                                  "Click in the 'example' button, then click in the example 'title' name.<br>" +
-                                  "Then the example for microcode and assembly is loaded and microcompiled and compiled.<br>" +
+                                  "Cliquez sur le bouton 'exemple', puis sur le nom de l'exemple 'titre'.<br>" +
+                                  "Ensuite, l'exemple pour le microcode et l'assemblage est chargé, microcompilé et compilé.<br>" +
                                   "<br>" +
                                   "</h5>",
                      code_pre:    function() { },
@@ -61,8 +61,8 @@
                      message:     "<center><img alt='wepsim screenshot' src='help/welcome/simulation_xinstruction.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
-                                  "Click on next instruction/microinstruction to execute step by step. <br>" + 
-		                  "Click on run button to execute until the first breakpoint or the end of the assembly program." +
+                                  "Cliquez sur l'instruction suivante/la microinstruction pour exécuter étape par étape. <br>" +
+                                  "Cliquez sur le bouton Exécuter pour exécuter jusqu'au premier point d'arrêt ou à la fin du programme d'assemblage." +
                                   "<br>" +
                                   "</h5>",
                      code_pre:    function() { },
@@ -76,7 +76,7 @@
                      message:     "<center><img alt='wepsim screenshot' src='help/welcome/config_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
-                                  "Click in the 'configuration' button and users are able to customize different parts of WepSIM." +
+	                          "Cliquez sur le bouton 'Configuration' pour permettre aux utilisateurs de personnaliser différentes parties de WepSIM." +
                                   "<br>" +
                                   "</h5>",
                      code_pre:    function() { },
@@ -90,8 +90,8 @@
                      message:     "<center><img alt='wepsim screenshot' src='help/welcome/help_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
-                                  "Please click in the green 'help' button to reach the help dialog.<br>" +
-                                  "You are able to switch idiom (Spanish/English), go to the help index, or close the help dialog." +
+                                  "Cliquez sur le bouton vert 'aide' pour accéder à la boîte de dialogue d'aide.<br>" +
+                                  "Vous pouvez changer d'idiome (Espagnol/Anglais), accéder à l'index de l'aide ou fermer la boîte de dialogue d'aide." +
                                   "<br>" +
                                   "</h5>",
                      code_pre:    function() { },
@@ -105,8 +105,8 @@
                      message:     "<center><img alt='wepsim screenshot' src='help/welcome/help_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
-                                  "Please explorer the help sections for more information. <br>" + 
-                                  "If you click on the end button of this tutorial, WepSIM is going to load the first example for you. Enjoy!" + 
+                                  "Veuillez explorer les sections d'aide pour plus d'informations. <br>" +
+                                  "Si vous cliquez sur le bouton de fin de ce tutoriel, WepSIM va charger le premier exemple pour vous. Profitez-en!" +
                                   "<br>" +
                                   "</h5>",
                      code_pre:    function() {  },
