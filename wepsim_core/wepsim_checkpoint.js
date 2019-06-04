@@ -208,7 +208,7 @@
 	   }
 
 	   if (checkpointObj.notify === true) {
-	       simcoreui_notify('Restored Checkpoint', o, 'info', get_cfg('NOTIF_delay')) ;
+	       wepsim_notify_do_notify('Restored Checkpoint', o, 'info', get_cfg('NOTIF_delay')) ;
 	   }
 
 	   // return

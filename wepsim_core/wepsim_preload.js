@@ -81,7 +81,7 @@
 		    '<span class="btn btn-sm btn-info py-0" onclick="wepsim_execute_toggle_play(\'#qbp\',false);">Run</span> button.<br>' ;
 
 	        if (hash['notify'] !== 'false') {
-	            simcoreui_notify('WepSIM preloads some work', o, 'info', 0) ;
+	            wepsim_notify_do_notify('WepSIM preloads some work', o, 'info', 0) ;
 		}
 	    }
 
@@ -109,7 +109,7 @@
 
 		    if (size < max_size) {
 	                $.getJSON(json_url, do_after).fail(function(e) { 
-				                              simcoreui_notify('getJSON', 'There was some problem for getting ' + json_url, 'warning', 0); 
+				                              wepsim_notify_do_notify('getJSON', 'There was some problem for getting ' + json_url, 'warning', 0); 
 			                                   }) ;
 		    }
 		}

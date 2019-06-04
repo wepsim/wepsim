@@ -263,7 +263,7 @@
 	var o = '<ul class="list-group list-group-flush">' +
 		'<li class="list-group-item px-0 pt-1"> ' +
 		'  <a class="btn btn-sm btn-outline-dark col p-1 text-left float-right" href="#" ' +
-		'     onclick="simcoreui_notify_notifications(); ' +
+		'     onclick="wepsim_notify_notifications(); ' +
 		'              i18n_update_tags(); ' +
 		'              wsweb_quickmenu_close(); ' +
 		'              return false;">' +
