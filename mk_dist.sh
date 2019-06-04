@@ -71,6 +71,7 @@ cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_notify.js \
     \
     wepsim_core/wepsim_ui_cpu.js \
+    wepsim_core/wepsim_ui_cpu_svg.js \
     wepsim_core/wepsim_ui_registers.js \
     wepsim_core/wepsim_ui_console.js \
     wepsim_core/wepsim_ui_control_memory.js \
