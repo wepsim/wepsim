@@ -83,7 +83,7 @@
     function wsweb_change_show_processor ( )
     {
 	    $("#tab26").tab('show') ;
-	    start_drawing() ;
+	    wepsim_svg_start_drawing() ;
 	    refresh() ;
 
             // add if recording
@@ -96,7 +96,7 @@
 
     function wsweb_change_show_asmdbg ( )
     {
-            stop_drawing() ;
+            wepsim_svg_stop_drawing() ;
 	    $("#tab24").tab('show') ;
 
             // add if recording
@@ -589,9 +589,13 @@
 
     function wsweb_mode_update ( new_mode )
     {
-	    // initialize hw
+	    // initialize hw UI
 	    simcore_init_ui(hash_detail2init) ;
+
+	    init_update_draw(wepsim_svg_update_draw) ;
 	    simcoreui_init_hw('#config_HW') ;
+
+	    // reset
 	    simcore_reset() ;
 
 	    // adapt to idiom
