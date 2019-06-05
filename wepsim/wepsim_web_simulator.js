@@ -111,20 +111,25 @@
 						 	   $('#cpu_ALL').html(msg_default) ;
 						 	   wepsim_init_cpu('#cpu_ALL') ;
 						        },
-						 reset: function() { }
+						 reset: function() { 
+							   return true ;
+						        }
 	                      },
 	    
 	    "CONTROL_MEMORY": {
-						  init: function() { },
+						  init: function() { 
+							   return true ;
+						        },
 						 reset: function() {
 							   show_control_memory(simhw_internalState('MC'),  
 									       simhw_internalState('MC_dashboard'),0,true);
-						        }
+						        },
+					   update_draw: wepsim_svg_update_draw
 	                      },
 	    
 	    "MEMORY":         {
 		                                  init: function() {
-					  init_debug(wepsim_show_dbg_ir, wepsim_show_dbg_mpc, wepsim_show_asmdbg_pc) ;
+					                   init_debug(wepsim_show_dbg_ir, wepsim_show_dbg_mpc, wepsim_show_asmdbg_pc) ; // TODO
 						        },
 						 reset: function() {
 							   show_main_memory(simhw_internalState('MP'), 0, true, false) ;
@@ -138,7 +143,9 @@
 							   $('#config_MP').html(msg_default) ;
 						 	   init_config_mp('#config_MP') ;
 						        },
-						 reset: function() { }
+						 reset: function() { 
+						           return true ;
+						        }
 	                      },
 
 	    "IO_STATS":       {
@@ -146,7 +153,9 @@
 							   $('#io_ALL').html(msg_default) ;
 						 	   wepsim_init_io('#io_ALL') ;
 						        },
-						 reset: function() { }
+						 reset: function() { 
+						           return true ;
+						        }
 	                      },
 
 	    "IO_CONFIG":      {
@@ -154,10 +163,14 @@
 						 	   $('#config_IO').html(msg_default) ;
 							   wepsim_init_config_io('#config_IO') ;
 						        },
-						 reset: function() { }
+						 reset: function() { 
+						           return true ;
+						        }
 	                      },
 	    "SCREEN":         {
-		                                  init: function() { },
+		                                  init: function() { 
+						           return true ;
+						         },
 		                                 reset: function() {
 			                                   wepsim_set_screen_content("") ;
 	                                                },
@@ -166,8 +179,12 @@
 	                      },
 
 	    "KEYBOARD":       {
-		                                  init: function() { },
-		                                 reset: function() { },
+		                                  init: function() { 
+						           return true ;
+						         },
+		                                 reset: function() {
+						           return true ;
+						        },
 		                  get_keyboard_content: wepsim_get_keyboard_content, 
                                   set_keyboard_content: wepsim_set_keyboard_content
 	                      }
@@ -198,6 +215,10 @@
 		refresh() ;
 	    }, false);
 
+	    // initialize hw UI
+	    simcore_init_ui(hash_detail2init) ;
+	    simcoreui_init_hw('#config_HW') ;
+
             // info + warning
 	    wepsim_notify_warning('<strong>WARNING</strong>',
                                   'Please remember the current firmware and assembly might need to be reloaded, ' +
@@ -205,17 +226,12 @@
 	    wepsim_notify_success('<strong>INFO</strong>',
                                   '"' + simhw_active().sim_name + '" has been activated.') ;
 
-	    // initialize hw UI
-	    simcore_init_ui(hash_detail2init) ;
-	    init_update_draw(wepsim_svg_update_draw) ;
-	    simcoreui_init_hw('#config_HW') ;
-
-            // update UI
+            // update UI: memory
             var SIMWARE = get_simware() ;
     	    update_memories(SIMWARE) ;
             simcore_reset() ;
 
-            // update asmdbg
+            // update UI: asmdbg
             var asmdbg_content = default_asmdbg_content_horizontal() ;
 	    for (var l in SIMWARE.assembly) // <===> if (SIMWARE.assembly != {})
 	    {

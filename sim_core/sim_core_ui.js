@@ -20,23 +20,7 @@
 
 
         /*
-         *  draw
-         */
-
-        function refresh()
-        {
-	    for (var key in simhw_sim_signals()) 
-	    {
-		 update_draw(simhw_sim_signals()[key], simhw_sim_signals()[key].value) ;
-                 check_buses(key);
-	    }
-
-	    show_dbg_ir(get_value(simhw_sim_state('REG_IR_DECO'))) ;
-        }
-
-
-        /*
-         *
+         *  Format
          */
 
         function hex2float ( hexvalue )
@@ -98,23 +82,6 @@
                 return valuebin ;
         }
 
-        // debug
-
-	function get_deco_from_pc ( pc )
-	{
-	        var hexstrpc  = "0x" + pc.toString(16) ;
-                var curr_firm = simhw_internalState('FIRMWARE') ;
-
-	        if ( (typeof curr_firm.assembly                  === "undefined") ||
-	             (typeof curr_firm.assembly[hexstrpc]        === "undefined") ||
-	             (typeof curr_firm.assembly[hexstrpc].source === "undefined") )
-                {
-                      return "";
-                }
-
-                return curr_firm.assembly[hexstrpc].source ;
-        }
-
         // ko binding
 
         function ko_observable ( initial_value )
@@ -136,5 +103,184 @@
             var ko_context = document.getElementById(id_elto);
             ko.cleanNode(ko_context);
             ko.applyBindings(simhw_sim_state(state), ko_context);
+        }
+
+
+        /*
+         *  Details
+         */
+
+        // Register File
+
+        function show_rf_values ( )
+        {
+            return simcore_action_ui("CPU", 0, "show_rf_values")() ;
+        }
+
+        function show_rf_names ( )
+        {
+            return simcore_action_ui("CPU", 0, "show_rf_names")() ;
+        }
+
+        function show_states ( )
+        {
+            return simcore_action_ui("CPU", 0, "show_states")() ;
+        }
+
+        // Console (Screen + Keyboard)
+
+        var   screen_content = "" ;
+        var keyboard_content = "" ;
+
+	function get_screen_content ( )
+	{
+	      var ui_screen = simcore_action_ui("SCREEN", 0, "get_screen_content")() ;
+
+	      if (ui_screen !== "undefined")
+	          screen_content = ui_screen ;
+
+	      return screen_content ;
+	}
+
+	function set_screen_content ( screen )
+	{
+	      screen_content = screen ;
+
+	      simcore_action_ui("SCREEN", 0, "set_screen_content")(screen) ;
+	}
+
+	function get_keyboard_content ( )
+	{
+	      var ui_keyboard = simcore_action_ui("KEYBOARD", 0, "get_keyboard_content")() ;
+
+	      if (ui_keyboard !== "undefined")
+	          keyboard_content = ui_keyboard ;
+
+	      return keyboard_content ;
+	}
+
+	function set_keyboard_content ( keystrokes )
+	{
+	      keyboard_content = keystrokes ;
+
+	      simcore_action_ui("KEYBOARD", 0, "set_keyboard_content")(keystrokes) ;
+	}
+
+        // Memory
+
+        function show_main_memory ( memory, index, redraw, updates )
+        {
+	    return simcore_action_ui("MEMORY", 0, "show_main_memory")(memory, index, redraw, updates) ;
+        }
+
+        function show_control_memory ( memory, memory_dashboard, index, redraw )
+        {
+	    return simcore_action_ui("MEMORY", 0, "show_control_memory")(memory, memory_dashboard, index, redraw) ;
+        }
+
+        function show_memories_values ( )
+        {
+            var f1 = new Promise(function(resolve, reject) 
+		     {
+			 var pc_name = simhw_sim_ctrlStates_get().pc.state ;
+			 var reg_pc  = get_value(simhw_sim_state(pc_name)) ;
+
+			 show_main_memory(simhw_internalState('MP'), reg_pc, true, true) ;
+			 resolve(1);
+                     });
+            var f2 = new Promise(function(resolve, reject) 
+		     {
+			 var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
+			 var reg_maddr  = get_value(simhw_sim_state(maddr_name)) ;
+
+			 show_control_memory(simhw_internalState('MC'), simhw_internalState('MC_dashboard'), reg_maddr, true) ;
+			 resolve(1);
+		     });
+
+            Promise.all([f1, f2]);
+	}
+
+        // CPU svg: update_draw
+
+        function refresh()
+        {
+	    for (var key in simhw_sim_signals()) 
+	    {
+		 update_draw(simhw_sim_signals()[key], simhw_sim_signals()[key].value) ;
+                 check_buses(key);
+	    }
+
+	    show_dbg_ir(get_value(simhw_sim_state('REG_IR_DECO'))) ;
+        }
+
+        function update_draw ( obj, value )
+        {
+            return simcore_action_ui("CPU", 1, "update_draw")(obj, value) ;
+        }
+
+
+        /*
+         *  Debug: mPC, PC and IR
+         */
+
+	function get_deco_from_pc ( pc )
+	{
+	        var hexstrpc  = "0x" + pc.toString(16) ;
+                var curr_firm = simhw_internalState('FIRMWARE') ;
+
+	        if ( (typeof curr_firm.assembly                  === "undefined") ||
+	             (typeof curr_firm.assembly[hexstrpc]        === "undefined") ||
+	             (typeof curr_firm.assembly[hexstrpc].source === "undefined") )
+                {
+                      return "";
+                }
+
+                return curr_firm.assembly[hexstrpc].source ;
+        }
+
+
+        var callback_show_dbg_ir    = function () { 
+		                         return true; 
+	                              } ;
+
+        var callback_show_dbg_mpc   = function () { 
+		                         return true; 
+	                              } ;
+
+        var callback_show_asmdbg_pc = function () { 
+		                         return true; 
+	                              } ;
+
+
+        function init_debug ( cb_show_dbg_ir, cb_show_dbg_mpc, cb_show_asmdbg_pc )
+        {
+            if (cb_show_dbg_ir !== null) {   
+                callback_show_dbg_ir    = cb_show_dbg_ir ;
+            }
+
+            if (cb_show_dbg_mpc !== null) {   
+                callback_show_dbg_mpc   = cb_show_dbg_mpc ;
+            }
+
+            if (cb_show_asmdbg_pc !== null) {   
+                callback_show_asmdbg_pc = cb_show_asmdbg_pc ;
+            }
+
+	    return true ;
+        }
+
+        function show_dbg_ir ( )
+        {
+            return callback_show_dbg_ir() ;
+        }
+
+        function show_dbg_mpc ( )
+        {
+            return callback_show_dbg_mpc() ;
+        }
+
+        function show_asmdbg_pc ( )
+        {
+            return callback_show_asmdbg_pc() ;
         }
 
