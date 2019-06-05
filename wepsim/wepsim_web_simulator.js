@@ -83,6 +83,113 @@
             return true ;
     }
 
+    // wepsim_activehw: UI handlers
+
+    var msg_default = '<div class="bg-warning"><b>Not available in this hardware</b></div>' ;
+
+    var hash_detail2init = {
+
+	    "REGISTER_FILE":  {
+						  init: function() {
+							     $('#states_ALL').html(msg_default) ;
+							     wepsim_init_states('#states_ALL') ;
+							     $('#states_BR').html(msg_default) ;
+							     wepsim_init_rf('#states_BR') ;
+							},
+						 reset: function() {
+							     wepsim_show_states() ;
+							     wepsim_show_rf_values();
+							     wepsim_show_rf_names();
+							},
+					   show_states: wepsim_show_states,
+					show_rf_values: wepsim_show_rf_values,
+					 show_rf_names: wepsim_show_rf_names
+	                      },
+
+	    "CPU_STATS":      {
+						  init: function() {
+						 	   $('#cpu_ALL').html(msg_default) ;
+						 	   wepsim_init_cpu('#cpu_ALL') ;
+						        },
+						 reset: function() { 
+							   return true ;
+						        }
+	                      },
+	    
+	    "CONTROL_MEMORY": {
+						  init: function() { 
+							   return true ;
+						        },
+						 reset: function() {
+							   show_control_memory(simhw_internalState('MC'),  
+									       simhw_internalState('MC_dashboard'),0,true);
+						        },
+					   update_draw: wepsim_svg_update_draw
+	                      },
+	    
+	    "MEMORY":         {
+		                                  init: function() {
+					                   init_debug(wepsim_show_dbg_ir, wepsim_show_dbg_mpc, wepsim_show_asmdbg_pc) ; // TODO
+						        },
+						 reset: function() {
+							   show_main_memory(simhw_internalState('MP'), 0, true, false) ;
+						        },
+		                      show_main_memory: wepsim_show_main_memory, 
+                                   show_control_memory: wepsim_show_control_memory
+	                      },
+
+	    "MEMORY_CONFIG":  {
+						  init: function() {
+							   $('#config_MP').html(msg_default) ;
+						 	   init_config_mp('#config_MP') ;
+						        },
+						 reset: function() { 
+						           return true ;
+						        }
+	                      },
+
+	    "IO_STATS":       {
+						  init: function() {
+							   $('#io_ALL').html(msg_default) ;
+						 	   wepsim_init_io('#io_ALL') ;
+						        },
+						 reset: function() { 
+						           return true ;
+						        }
+	                      },
+
+	    "IO_CONFIG":      {
+						  init: function() {
+						 	   $('#config_IO').html(msg_default) ;
+							   wepsim_init_config_io('#config_IO') ;
+						        },
+						 reset: function() { 
+						           return true ;
+						        }
+	                      },
+	    "SCREEN":         {
+		                                  init: function() { 
+						           return true ;
+						         },
+		                                 reset: function() {
+			                                   wepsim_set_screen_content("") ;
+	                                                },
+		                    get_screen_content: wepsim_get_screen_content, 
+                                    set_screen_content: wepsim_set_screen_content
+	                      },
+
+	    "KEYBOARD":       {
+		                                  init: function() { 
+						           return true ;
+						         },
+		                                 reset: function() {
+						           return true ;
+						        },
+		                  get_keyboard_content: wepsim_get_keyboard_content, 
+                                  set_keyboard_content: wepsim_set_keyboard_content
+	                      }
+	} ;
+
     function wepsim_activehw ( mode )
     {
 	    simhw_setActive(mode) ;
@@ -108,6 +215,10 @@
 		refresh() ;
 	    }, false);
 
+	    // initialize hw UI
+	    simcore_init_ui(hash_detail2init) ;
+	    simcoreui_init_hw('#config_HW') ;
+
             // info + warning
 	    wepsim_notify_warning('<strong>WARNING</strong>',
                                   'Please remember the current firmware and assembly might need to be reloaded, ' +
@@ -115,12 +226,12 @@
 	    wepsim_notify_success('<strong>INFO</strong>',
                                   '"' + simhw_active().sim_name + '" has been activated.') ;
 
-            // update UI
+            // update UI: memory
             var SIMWARE = get_simware() ;
     	    update_memories(SIMWARE) ;
             simcore_reset() ;
 
-            // update asmdbg
+            // update UI: asmdbg
             var asmdbg_content = default_asmdbg_content_horizontal() ;
 	    for (var l in SIMWARE.assembly) // <===> if (SIMWARE.assembly != {})
 	    {

@@ -118,13 +118,13 @@
 
         function set_secondary_cfg ( )
         {
-            cfg_show_eltos_delay = 130;
+            cfg_show_eltos_delay = 100;
             if (get_cfg('DBG_delay') < 5)
-                cfg_show_eltos_delay = 390;
+                cfg_show_eltos_delay = 350;
 
-            cfg_show_rf_delay = 125;
+            cfg_show_rf_delay = 100;
             if (get_cfg('DBG_delay') < 5)
-                cfg_show_rf_delay = 375;
+                cfg_show_rf_delay = 350;
 
             cfg_show_main_memory_delay = 150;
             if (get_cfg('DBG_delay') < 5)
@@ -136,7 +136,7 @@
 
             cfg_show_asmdbg_pc_delay = 50;
             if (get_cfg('DBG_delay') < 3)
-                cfg_show_asmdbg_pc_delay = 200;
+                cfg_show_asmdbg_pc_delay = 150;
 
             cfg_show_dbg_ir_delay = 100;
             if (get_cfg('DBG_delay') < 5)
