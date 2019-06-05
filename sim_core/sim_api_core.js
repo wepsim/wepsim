@@ -25,7 +25,6 @@
          * Initialize simulator core and UI.
          * @param {boolean} with_ui - initialize with UI support
          */
-
         function simcore_init ( with_ui )
         {
 	    var ret = {} ;
@@ -47,7 +46,6 @@
          * Initialize simulator Hardware.
          * @param {string} simhw_name - hardware name
          */
-
         function simcore_init_hw ( simhw_name )
         {
 	    var ret = {} ;
@@ -98,6 +96,8 @@
 
 		 for (var index in sim_components[elto].details_name)
 		 {
+	              sim_components[elto].details_ui[index] = {} ;
+
 	              detail_id = sim_components[elto].details_name[index] ;
 	              if (typeof hash_detail2init[detail_id] !== "undefined") 
 		      {
@@ -108,6 +108,27 @@
             }
 
             return ret ;
+        }
+
+        /**
+         * Update UI with some action
+         * @param  {string}  component_name - component name
+         * @param  {integer} detail_id      - detail id
+         * @param  {string}  action_name    - UI action name
+         * @return {function} - action associated
+         */
+
+        var do_nothing = function() { }
+
+        function simcore_action_ui ( component_name, detail_id, action_name )
+        {
+            var sim_components = simhw_sim_components() ;
+
+            if (typeof sim_components[component_name].details_ui[detail_id][action_name] === "undefined") {
+                return do_nothing ;
+            }
+
+            return sim_components[component_name].details_ui[detail_id][action_name] ;
         }
 
         /**
@@ -332,13 +353,9 @@
 
             for (elto in sim_components)
             {
-	         if (typeof sim_components[elto].details_ui === "undefined") {
-		     continue ;
-		 }
-
 		 for (var index in sim_components[elto].details_name)
 		 {
-	              if (typeof sim_components[elto].details_ui[index] !== "undefined") {
+	              if (typeof sim_components[elto].details_ui[index].reset !== "undefined") {
 	                  sim_components[elto].details_ui[index].reset() ;
 		      }
 		 }

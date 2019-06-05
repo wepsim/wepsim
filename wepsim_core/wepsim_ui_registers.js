@@ -167,9 +167,6 @@
 
         function fullshow_rf_values ( )
         {
-	    if (typeof document == "undefined")
-	        return ;
-
 	    for (var index=0; index < simhw_sim_states()['BR'].length; index++)
             {
                  var br_value = (get_value(simhw_sim_states()['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() ;
@@ -198,9 +195,6 @@
 
         function wepsim_show_rf_names ( )
         {
-	    if (typeof document == "undefined")
-	        return ;
-
             var SIMWARE = get_simware() ;
 
             var br_value = "" ;
@@ -288,9 +282,6 @@
 
         function fullshow_eltos ( sim_eltos, filter )
         {
-	    if (typeof document == "undefined")
-	        return ;
-
             for (var i=0; i<filter.length; i++)
             {
                 var r = filter[i].split(",") ;

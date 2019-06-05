@@ -51,9 +51,6 @@
 
         function hard_refresh_main_memory ( memory, index, redraw )
         {
-	    if (typeof document == "undefined")
-	        return ;
-
 	    var o1 = "" ;
             var value = "" ;
             var sname = "" ;
