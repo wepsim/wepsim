@@ -38,7 +38,7 @@ cat sim_hw/sim_hw_index.js \
     sim_core/sim_api_core.js \
     sim_core/sim_api_native.js \
     sim_core/sim_api_stateshots.js \
-    sim_core/sim_core_ui_voice.js \
+    sim_core/sim_core_voice.js \
     sim_core/sim_core_notify.js > ws_dist/sim_all.js
 /usr/bin/yui-compressor -o ws_dist/min.sim_all.js ws_dist/sim_all.js
 rm -fr ws_dist/sim_all.js

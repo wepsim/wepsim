@@ -7,7 +7,7 @@ set -x
 #jshint ./sim_core/sim_api_core.js
  jshint ./sim_core/sim_cfg.js
  jshint ./sim_core/sim_core_ui.js
- jshint ./sim_core/sim_core_ui_voice.js
+ jshint ./sim_core/sim_core_voice.js
 #jshint ./sim_core/sim_core_ctrl.js
 #jshint ./sim_core/sim_core_record.js
 

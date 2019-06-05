@@ -23,6 +23,8 @@
          *  Format
          */
 
+        // numbers
+
         function hex2float ( hexvalue )
         {
 		var sign     = (hexvalue & 0x80000000) ? -1 : 1;
@@ -82,7 +84,73 @@
                 return valuebin ;
         }
 
-        // ko binding
+        // verbal description
+
+	function get_deco_from_pc ( pc )
+	{
+	        var hexstrpc  = "0x" + pc.toString(16) ;
+                var curr_firm = simhw_internalState('FIRMWARE') ;
+
+	        if ( (typeof curr_firm.assembly                  === "undefined") ||
+	             (typeof curr_firm.assembly[hexstrpc]        === "undefined") ||
+	             (typeof curr_firm.assembly[hexstrpc].source === "undefined") )
+                {
+                      return "";
+                }
+
+                return curr_firm.assembly[hexstrpc].source ;
+        }
+
+	function get_verbal_from_current_mpc ( )
+	{
+	     var active_signals = "" ;
+	     var active_verbal  = "" ;
+
+	     var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
+	     var curr_maddr = get_value(simhw_sim_state(maddr_name)) ;
+
+             var mins = simhw_internalState_get('MC', curr_maddr) ;
+	     for (var key in mins) 
+	     {
+		  if ("MADDR" === key) {
+	   	      active_verbal  = active_verbal  + "MADDR is " + mins[key] + ". " ;
+                      continue ;
+		  }
+
+		  active_signals = active_signals + key + " ";
+	   	  active_verbal  = active_verbal  + compute_signal_verbals(key, mins[key]) ;
+	     }
+
+             // set default for empty
+             active_signals = active_signals.trim() ;
+             if (active_signals === "")
+                 active_signals = "<no active signal>" ;
+             if (active_verbal.trim() === "")
+                 active_verbal = "<no actions>" ;
+
+             // return
+             return "Activated signals are: " + active_signals + ". Associated actions are: " + active_verbal ;
+        }
+
+	function get_verbal_from_current_pc ( )
+	{
+	     var pc_name = simhw_sim_ctrlStates_get().pc.state ;
+	     var reg_pc  = get_value(simhw_sim_state(pc_name)) ;
+
+             var pc = parseInt(reg_pc) - 4 ;
+             var decins = get_deco_from_pc(pc) ;
+
+	     if ("" == decins.trim()) {
+		 decins = "not jet defined" ;
+	     }
+
+             return "Current instruction is: " + decins + " and PC points to " + show_value(pc) + ". " ;
+        }
+
+
+        /*
+         *  ko binding
+         */
 
         function ko_observable ( initial_value )
         {
@@ -202,6 +270,11 @@
 
         // CPU svg: update_draw
 
+        function update_draw ( obj, value )
+        {
+            return simcore_action_ui("CPU", 1, "update_draw")(obj, value) ;
+        }
+
         function refresh()
         {
 	    for (var key in simhw_sim_signals()) 
@@ -213,31 +286,10 @@
 	    show_dbg_ir(get_value(simhw_sim_state('REG_IR_DECO'))) ;
         }
 
-        function update_draw ( obj, value )
-        {
-            return simcore_action_ui("CPU", 1, "update_draw")(obj, value) ;
-        }
-
 
         /*
          *  Debug: mPC, PC and IR
          */
-
-	function get_deco_from_pc ( pc )
-	{
-	        var hexstrpc  = "0x" + pc.toString(16) ;
-                var curr_firm = simhw_internalState('FIRMWARE') ;
-
-	        if ( (typeof curr_firm.assembly                  === "undefined") ||
-	             (typeof curr_firm.assembly[hexstrpc]        === "undefined") ||
-	             (typeof curr_firm.assembly[hexstrpc].source === "undefined") )
-                {
-                      return "";
-                }
-
-                return curr_firm.assembly[hexstrpc].source ;
-        }
-
 
         var callback_show_dbg_ir    = function () { 
 		                         return true; 
