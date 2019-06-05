@@ -34,35 +34,36 @@
         return ret ;
     }
 
-      function wepsim_nodejs_setScreenContent ( msg )
-      {
-	  /*
-	    // TODO: uncomment if you want to see the progressive output
-	    var screen_log =  "screen>" + screen_content.split('\n').join("screen>") ;
-	    console.log(screen_log) ;
-	  */
-
-          return true;
-      }
-
-      function wepsim_nodejs_getKeyboardContent ( )
-      {
-	  var readlineSync = require('readline-sync');
-	  var keys = readlineSync.question('keyboard> ');
-	  keyboard_content = keys.toString() ;
-	  return keyboard_content ;
-      }
-
     var hash_detail_ui = {
+
 	    "SCREEN":         {
-		                                  init: function() { return true; },
-		                    get_screen_content: function() { return ""; },
-                                    set_screen_content: wepsim_nodejs_setScreenContent
+		                                  init: function() { 
+							   return true ;
+						        },
+		                    get_screen_content: function() { 
+					                   return "" ;
+				                        },
+                                    set_screen_content: function ( screen_content ) {
+							   /* TIP: uncomment the two lines if you want to see the progressive output */
+							   // var screen_log =  "screen>" + screen_content.split('\n').join("screen>") ;
+							   // console.log(screen_log) ;
+							   return screen_content ;
+					                }
 	                      },
+
 	    "KEYBOARD":       {
-		                                  init: function() { return true; },
-		                  get_keyboard_content: wepsim_nodejs_getKeyboardContent, 
-                                  set_keyboard_content: function() { return ""; }
+		                                  init: function() { 
+							   return true ;
+						        },
+		                  get_keyboard_content: function () {
+							   var readlineSync = require('readline-sync');
+							   var keys = readlineSync.question('keyboard> ');
+							   keyboard_content = keys.toString() ;
+							   return keyboard_content ;
+						        },
+                                  set_keyboard_content: function( kbd_content ) { 
+					                   return "" ;
+				                        }
 	                      }
 	} ;
 
