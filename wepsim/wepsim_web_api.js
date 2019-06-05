@@ -493,113 +493,13 @@
 	    var ed = $('#s4_' + opt).html() ;
 	    $('#select4').html(ed) ;
 
-            // add if recording
-            simcore_record_append_new('Set main work mode to ' + opt,
-		                      'wsweb_select_main("' + opt + '");\n') ;
-
-            // return ok
-            return true ;
-    }
-
-
-    var msg_default = '<div class="bg-warning"><b>Not available in this hardware</b></div>' ;
-
-    var hash_detail2init = {
-	    "REGISTER_FILE":  {
-						  init: function() {
-							     $('#states_ALL').html(msg_default) ;
-							     wepsim_init_states('#states_ALL') ;
-							     $('#states_BR').html(msg_default) ;
-							     wepsim_init_rf('#states_BR') ;
-							},
-						 reset: function() {
-							     wepsim_show_states() ;
-							     wepsim_show_rf_values();
-							     wepsim_show_rf_names();
-							},
-					   show_states: wepsim_show_states,
-					show_rf_values: wepsim_show_rf_values,
-					 show_rf_names: wepsim_show_rf_names
-	                      },
-	    "CPU_STATS":      {
-						  init: function() {
-						 	   $('#cpu_ALL').html(msg_default) ;
-						 	   wepsim_init_cpu('#cpu_ALL') ;
-						        },
-						 reset: function() { }
-	                      },
-	    "CONTROL_MEMORY": {
-						  init: function() { },
-						 reset: function() {
-							   show_control_memory(simhw_internalState('MC'),  
-									       simhw_internalState('MC_dashboard'),0,true);
-						        }
-	                      },
-	    "MEMORY":         {
-		                                  init: function() {
-					  init_debug(wepsim_show_dbg_ir, wepsim_show_dbg_mpc, wepsim_show_asmdbg_pc) ;
-						        },
-						 reset: function() {
-							   show_main_memory(simhw_internalState('MP'), 0, true, false) ;
-						        },
-		                      show_main_memory: wepsim_show_main_memory, 
-                                   show_control_memory: wepsim_show_control_memory
-	                      },
-	    "MEMORY_CONFIG":  {
-						  init: function() {
-							   $('#config_MP').html(msg_default) ;
-						 	   init_config_mp('#config_MP') ;
-						        },
-						 reset: function() { }
-	                      },
-	    "IO_STATS":       {
-						  init: function() {
-							   $('#io_ALL').html(msg_default) ;
-						 	   wepsim_init_io('#io_ALL') ;
-						        },
-						 reset: function() { }
-	                      },
-	    "IO_CONFIG":      {
-						  init: function() {
-						 	   $('#config_IO').html(msg_default) ;
-							   wepsim_init_config_io('#config_IO') ;
-						        },
-						 reset: function() { }
-	                      },
-	    "SCREEN":         {
-		                                  init: function() { },
-		                                 reset: function() {
-			                                   wepsim_set_screen_content("") ;
-	                                                },
-		                    get_screen_content: wepsim_get_screen_content, 
-                                    set_screen_content: wepsim_set_screen_content
-	                      },
-	    "KEYBOARD":       {
-		                                  init: function() { },
-		                                 reset: function() { },
-		                  get_keyboard_content: wepsim_get_keyboard_content, 
-                                  set_keyboard_content: wepsim_set_keyboard_content
-	                      }
-	} ;
-
-    function wsweb_mode_update ( new_mode )
-    {
-	    // initialize hw UI
-	    simcore_init_ui(hash_detail2init) ;
-
-	    init_update_draw(wepsim_svg_update_draw) ;
-	    simcoreui_init_hw('#config_HW') ;
-
-	    // reset
-	    simcore_reset() ;
-
 	    // adapt to idiom
 	    var ws_idiom = get_cfg('ws_idiom') ;
 	    i18n_update_tags('gui', ws_idiom) ;
 
             // add if recording
-            simcore_record_append_new('Update work mode to ' + new_mode,
-		                      'wsweb_mode_update("' + new_mode + '");\n') ;
+            simcore_record_append_new('Set main work mode to ' + opt,
+		                      'wsweb_select_main("' + opt + '");\n') ;
 
             // return ok
             return true ;
