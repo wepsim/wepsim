@@ -67,9 +67,6 @@
 
         function hard_refresh_control_memory ( memory, memory_dashboard, index, redraw )
         {
-	    if (typeof document == "undefined")
-	        return ;
-
 	    var o1 = "" ;
             var value = "" ;
             var icon_theme = get_cfg('ICON_theme') ;

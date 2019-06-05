@@ -53,6 +53,19 @@
 	  return keyboard_content ;
       }
 
+    var hash_detail_ui = {
+	    "SCREEN":         {
+		                                  init: function() { return true; },
+		                    get_screen_content: function() { return ""; },
+                                    set_screen_content: wepsim_nodejs_setScreenContent
+	                      },
+	    "KEYBOARD":       {
+		                                  init: function() { return true; },
+		                  get_keyboard_content: wepsim_nodejs_getKeyboardContent, 
+                                  set_keyboard_content: function() { return ""; }
+	                      }
+	} ;
+
     function wepsim_nodejs_init ( simhw_name )
     {
         var ret = simcore_init(false) ;
@@ -67,8 +80,7 @@
 	    return wepsim_nodejs_retfill(false, "ERROR: initialize: " + ret.msg + ".\n") ;
 	}
 
-        init_console_screen(null, wepsim_nodejs_setScreenContent) ;
-        init_console_keyboard(wepsim_nodejs_getKeyboardContent, null) ;
+        simcore_init_ui(hash_detail_ui) ;
 
 	return wepsim_nodejs_retfill(true, "") ;
     }

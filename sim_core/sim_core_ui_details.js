@@ -20,62 +20,22 @@
 
 
         /*
-         *  Register File: init_x & show_x
+         *  Register File
          */
-
-        var callback_rf_show_values = function () { 
-		                         return true; 
-	                              } ;
-
-        var callback_rf_show_names  = function () { 
-		                         return true; 
-	                              } ;
-
-
-        function init_rf ( rf_show_values, rf_show_names )
-        {
-            if (rf_show_values !== null) {   
-                callback_rf_show_values = rf_show_values ;
-            }
-
-            if (rf_show_names !== null) {   
-                callback_rf_show_names  = rf_show_names ;
-            }
-
-	    return true ;
-        }
 
         function show_rf_values ( )
         {
-            return callback_rf_show_values() ;
+            return simcore_action_ui("CPU", 0, "show_rf_values")() ;
         }
 
         function show_rf_names ( )
         {
-            return callback_rf_show_names() ;
-        }
-
-
-        /*
-         *  CPU Registers outside RF: init_x & show_x
-         */
-
-        var callback_states_show = function () { 
-		                      return true; 
-	                           } ;
-
-        function init_states ( states_show )
-        {
-            if (states_show !== null) {   
-                callback_states_show = states_show ;
-            }
-
-	    return true ;
+            return simcore_action_ui("CPU", 0, "show_rf_names")() ;
         }
 
         function show_states ( )
         {
-            return callback_states_show() ;
+            return simcore_action_ui("CPU", 0, "show_states")() ;
         }
 
 
@@ -83,52 +43,13 @@
 	 *  Console (Screen + Keyboard)
 	 */
 
-        // register callbacks interface
-        var callback_getScreenContent   = function () {
-		                             return "" ;
-	                                  } ;
-        var callback_setScreenContent   = function ( newContent ) {
-		                             return true;
-	                                  } ;
-        var callback_getKeyboardContent = function () {
-		                             return "" ;
-	                                  } ;
-        var callback_setKeyboardContent = function ( newContent ) {
-		                             return true;
-	                                  } ;
-
-        function init_console_screen ( con_get_screen, con_set_screen )
-        {
-            if (con_get_screen !== null) {
-                callback_getScreenContent   = con_get_screen ;
-            }
-            if (con_set_screen !== null) {
-                callback_setScreenContent   = con_set_screen ;
-            }
-
-	    return true ;
-        }
-
-        function init_console_keyboard ( con_get_keyboard, con_set_keyboard )
-        {
-            if (con_get_keyboard !== null) {
-                callback_getKeyboardContent = con_get_keyboard ;
-            }
-            if (con_set_keyboard !== null) {
-                callback_setKeyboardContent = con_set_keyboard ;
-            }
-
-	    return true ;
-        }
-
-
         // get/set interface
         var   screen_content = "" ;
         var keyboard_content = "" ;
 
 	function get_screen_content ( )
 	{
-	      var ui_screen = callback_getScreenContent() ;
+	      var ui_screen = simcore_action_ui("SCREEN", 0, "get_screen_content")() ;
 
 	      if (ui_screen !== "undefined")
 	          screen_content = ui_screen ;
@@ -140,12 +61,12 @@
 	{
 	      screen_content = screen ;
 
-	      callback_setScreenContent(screen) ;
+	      simcore_action_ui("SCREEN", 0, "set_screen_content")(screen) ;
 	}
 
 	function get_keyboard_content ( )
 	{
-	      var ui_keyboard = callback_getKeyboardContent() ;
+	      var ui_keyboard = simcore_action_ui("KEYBOARD", 0, "get_keyboard_content")() ;
 
 	      if (ui_keyboard !== "undefined")
 	          keyboard_content = ui_keyboard ;
@@ -157,7 +78,7 @@
 	{
 	      keyboard_content = keystrokes ;
 
-	      callback_setKeyboardContent(keystrokes) ;
+	      simcore_action_ui("KEYBOARD", 0, "set_keyboard_content")(keystrokes) ;
 	}
 
 
@@ -165,36 +86,14 @@
          *  Show memories
          */
 
-        var callback_show_main_memory    = function () { 
-		                              return true; 
-	                                   } ;
-
-        var callback_show_control_memory = function () { 
-		                              return true; 
-	                                   } ;
-
-
-        function init_memory ( show_main_memory, show_control_memory )
-        {
-            if (show_main_memory !== null) {   
-                callback_show_main_memory = show_main_memory ;
-            }
-
-            if (show_control_memory !== null) {   
-                callback_show_control_memory  = show_control_memory ;
-            }
-
-	    return true ;
-        }
-
         function show_main_memory ( memory, index, redraw, updates )
         {
-            return callback_show_main_memory(memory, index, redraw, updates) ;
+	    return simcore_action_ui("MEMORY", 0, "show_main_memory")(memory, index, redraw, updates) ;
         }
 
         function show_control_memory ( memory, memory_dashboard, index, redraw )
         {
-            return callback_show_control_memory(memory, memory_dashboard, index, redraw) ;
+	    return simcore_action_ui("MEMORY", 0, "show_control_memory")(memory, memory_dashboard, index, redraw) ;
         }
 
         function show_memories_values ( )
