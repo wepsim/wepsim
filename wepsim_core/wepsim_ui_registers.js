@@ -51,19 +51,22 @@
         function hex2values ( hexvalue, index )
         {
                 var rhex = /[0-9A-F]{1,8}/gi;
-                if (!rhex.test(hexvalue))
+                if (!rhex.test(hexvalue)) {
                     hexvalue = 0 ;
+		}
 
 		var valuei   = hexvalue  >> 0;
 		var valueui  = hexvalue >>> 0;
 		var valuec8  = hex2char8(valueui);
 		var valuef   = hex2float(valueui);
                 var valuebin = hex2bin(valueui);
+                var valueoct = valueui.toString(8).toUpperCase() ;
                 var valuehex = valueui.toString(16).toUpperCase() ;
                     valuehex = "0x" + pack8(valuehex) ;
 
 		var valuedt = "" ;
-		if (get_cfg('is_editable') == true) {
+		if (get_cfg('is_editable') == true) 
+		{
 		    valuedt = "<tr><td class='py-1 px-1' colspan='5' align='center'>" + 
                               "<input type='text' id='popover1' value='" + valueui + "' data-mini='true' style='width:65%'>&nbsp;" +
                               "<span class='badge badge-secondary' " +
@@ -73,28 +76,31 @@
 
 		var vtable = "<table class='table table-bordered table-hover table-sm mb-1'>" +
 			     "<tbody>" +
-			     "<tr><td class='p-0 pb-1 pl-1' onclick='update_cfg(\"RF_display_format\",16); show_rf_values(); show_states();'><strong>hex.</strong></td>" +
-                             "    <td class='p-0 pb-1 pl-1'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuehex + "</strong></td>" +
+			     "<tr><td class='p-0 pl-1 align-middle' onclick='update_cfg(\"RF_display_format\",16); show_rf_values(); show_states();'><strong>hex.</strong></td>" +
+                             "    <td class='p-0 pl-1 align-middle'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuehex + "</strong></td>" +
 			     "</tr>" +
-			     "<tr><td class='p-0 pb-1 pl-1'><strong>binary</strong></td>" +
-                             "    <td class='p-0 pb-1 pl-1'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuebin + "</strong></td>" +
+			     "<tr><td class='p-0 pl-1 align-middle' onclick='update_cfg(\"RF_display_format\",8); show_rf_values(); show_states();'><strong>oct.</strong></td>" +
+                             "    <td class='p-0 pl-1 align-middle'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valueoct + "</strong></td>" +
 			     "</tr>" +
-			     "<tr><td class='p-0 pb-1 pl-1'><strong>signed</strong></td>" +
-                             "    <td class='p-0 pb-1 pl-1'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuei   + "</strong></td>" +
+			     "<tr><td class='p-0 pl-1 align-middle'><strong>binary</strong></td>" +
+                             "    <td class='p-0 pl-1 align-middle'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuebin + "</strong></td>" +
 			     "</tr>" +
-			     "<tr><td class='p-0 pb-1 pl-1' onclick='update_cfg(\"RF_display_format\",10); show_rf_values(); show_states();'><strong>unsig.</strong></td>" +
-                             "    <td class='p-0 pb-1 pl-1'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valueui  + "</strong></td>" +
+			     "<tr><td class='p-0 pl-1 align-middle'><strong>signed</strong></td>" +
+                             "    <td class='p-0 pl-1 align-middle'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuei   + "</strong></td>" +
 			     "</tr>" +
-			     "<tr><td class='p-0 pb-1 pl-1'><strong>char</strong></td>" +
-                             "    <td class='p-0 pb-1 pl-1'>" + 
+			     "<tr><td class='p-0 pl-1 align-middle' onclick='update_cfg(\"RF_display_format\",10); show_rf_values(); show_states();'><strong>unsig.</strong></td>" +
+                             "    <td class='p-0 pl-1 align-middle'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valueui  + "</strong></td>" +
+			     "</tr>" +
+			     "<tr><td class='p-0 pl-1 align-middle'><strong>char</strong></td>" +
+                             "    <td class='p-0 pl-1 align-middle'>" + 
 			     "<strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>&nbsp;" + valuec8[0] + "&nbsp;</strong>&nbsp;" + 
 			     "<strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>&nbsp;" + valuec8[1] + "&nbsp;</strong>&nbsp;" + 
 			     "<strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>&nbsp;" + valuec8[2] + "&nbsp;</strong>&nbsp;" + 
 			     "<strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>&nbsp;" + valuec8[3] + "&nbsp;</strong>&nbsp;" + 
 			     "</td>" +
 			     "</tr>" +
-		             "<tr><td class='p-0 pb-1 pl-1'><strong>float</strong></td>" +
-                             "    <td class='p-0 pb-1 pl-1'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuef + "</strong></td>" +
+		             "<tr><td class='p-0 pl-1 align-middle'><strong>float</strong></td>" +
+                             "    <td class='p-0 pl-1 align-middle'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuef + "</strong></td>" +
 			     "</tr>" +
 			     valuedt +
 			     "</tbody>" +
@@ -120,8 +126,9 @@
 	    for (var index=0; index < simhw_sim_states()['BR'].length; index++)
             {
 		 o1_rn = "R"  + index ;
-                 if (index < 10)
+                 if (index < 10) {
                      o1_rn = o1_rn + '&nbsp;' ;
+		 }
 
 		 o1_rf += "<button type='button' class='btn py-0 px-1 mt-1 col-auto' " + 
 			  "        style='border-color:#cecece; background-color:#f5f5f5' data-role='none' " +

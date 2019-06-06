@@ -33,6 +33,7 @@
 	     tour.setOptions({
                                 steps: ws_tour,
 				keyboardNavigation: true,
+				tooltipClass: "tooltip-large",
 				showProgress: true,
 	                        overlayOpacity: "0.1"
                              }) ;

@@ -27,8 +27,8 @@
 	          lang:  {
 			    en: "English",
 			    es: "Espa&ntilde;ol", 
-			    fr: "Fran&ccedil;ais - work-in-progress",
-			    kr: "한국어 - work-in-progress" 
+			    fr: "Fran&ccedil;ais - Google-translate",
+			    kr: "한국어 - Google-translate" 
 		         },
 	          eltos: { 
                             // main-screen user interface
