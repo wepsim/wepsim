@@ -27,8 +27,12 @@
 		                  name: "KBD", 
 		                  version: "1", 
 		                  abilities:    [ "KEYBOARD" ], 
+
+		                  // ui: details
 				  details_name: [ "KEYBOARD" ],
 				  details_fire: [ ['svg_p:text3829'] ],
+
+		                  // state: write_state, read_state, get_state
 		                  write_state: function ( vec ) {
 						  return vec;
 				               },
@@ -37,7 +41,16 @@
 				               },
 		                  get_state:   function ( reg ) {
 					          return null ;
-				               } 
+				               },
+
+		                  // native: get_value, set_value
+                                  get_value:   function ( elto ) {
+						    return get_keyboard_content() ;
+                                               },
+                                  set_value:   function ( elto, value ) {
+						    set_keyboard_content(value) ;
+						    return value ;
+                                               }
                             	};
 
 

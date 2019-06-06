@@ -21,36 +21,40 @@
 
     i18n.eltos.tour_intro.kr = {
 
-			"step0":  "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('fr');\">Bienvenue!</a>" +
-                                  "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('es');\">¡Bienvenido/a!</a>" +
-                                  "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('en');\">Welcome!</a>" +
-                                  "<br>",
+			"step0":  "<div  class=\"container\">" +
+			          "<span class=\"row\">" +
+	                          "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2 col-auto\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('fr');\">Bienvenue!</a>" +
+                                  "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2 col-auto\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('kr');\">환영</a>" +
+                                  "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2 col-auto\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('es');\">¡Bienvenido/a!</a>" +
+                                  "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2 col-auto\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('en');\">Welcome!</a>" +
+                                  "</span>" +
+                                  "</div>",
 
-			"step1":  "WepSIM helps to better understand how a computer works: " +
-                                  "it is visual, interactive, integrates from signals up to interruptions, system calls, exceptions, etc. <br> " +
-                                  "<br>" +
-                                  "We really believe WepSIM is a revolutionary teaching tool. " +
-                                  "This brief tour introduces the key elements of its interface.",
+                        "step1":  "WepSIM을 사용하면 컴퓨터 작동 방식을 더 잘 이해할 수 있습니다." +
+                                  "시각적이며 대화 형이며 신호에서 중단, 시스템 호출, 예외 등을 통합합니다." +
+                                  "<br>" +
+                                  "우리는 WepSIM이 혁신적인 교육 도구라고 믿습니다." +
+                                  "이 간단한 둘러보기는 인터페이스의 핵심 요소를 소개합니다.",
 
-                        "step2":  "This button on the top-right let users choose the 'execution mode'.<br>" +
-                                  "<br>" +
-                                  "For example, the hardware to work with (e.g. the elemental processor or EP).<br>" +
-                                  "Or the tutorial mode, recommended at the beginning ;-).",
+                        "step2":  "오른쪽 상단의이 버튼을 사용하면 '실행 모드'를 선택할 수 있습니다. <br>" +
+                                  "<br>" +
+                                  "예를 들어, 사용할 하드웨어 (예 : 기본 프로세서 또는 EP)." +
+                                  "또는 자습서 모드, 처음에 권장 ;-).",
 
-                        "step3":  "On the top-right, the 'help' button opens the associated dialog.<br>" +
-                                  "<br>" +
-                                  "The help dialog summarizes the tutorials, descriptions, information, etc.",
+                        "step3":  "오른쪽 상단의 '도움말'버튼을 누르면 관련 대화 상자가 열립니다. <br>" +
+                                  "<br>" +
+                                  "도움말 대화 상자는 자습서, 설명, 정보 등을 요약합니다.",
 
-                        "step4":  "And on the left, the 'examples' button open the example dialog.<br>" +
-                                  "<br>" +
-                                  "There are many examples that can be used to learn incrementally.",
+                        "step4":  "왼쪽에는 'examples' 버튼이 예제 대화 상자를 엽니 다. <br>" +
+                                  "<br>" +
+                                  "점진적으로 배우는 데 사용할 수있는 많은 예가 있습니다.",
 
-                        "step5":  "On the top-left, the 'configuration' button opens the configuration dialog.<br>" +
-                                  "<br>" +
-                                  "It let users to adapt several aspects of the execution, user interface, preferences, etc.",
+                        "step5":  "왼쪽 상단에 'configuration' 버튼이 구성 대화 상자를 엽니 다. <br> +" +
+                                  "<br>" +
+                                  "사용자가 실행, 사용자 인터페이스, 환경 설정 등의 여러 측면을 적용 할 수있게 해줍니다.",
 
-                        "step6":  "Congrat! You know the key elements in the WepSIM interface.<br>" +
-                                  "From the 'Help' dialog you can access the 'Welcome tutorial' to continue learning.<br>"
+                        "step6":  "축하합니다! WepSIM 인터페이스의 핵심 요소를 알고 계십니다. <br>" +
+                                  " '도움말'대화 상자에서 '환영 자습서'에 액세스하여 학습을 계속할 수 있습니다. <br>"
 
                   } ;
 

@@ -23,36 +23,40 @@
 
     i18n.eltos.tour_intro.fr = {
 
-			"step0":  "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('fr');\">Bienvenue!</a>" +
-                                  "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('es');\">¡Bienvenido/a!</a>" +
-                                  "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('en');\">Welcome!</a>" +
-                                  "<br>",
+			"step0":  "<div  class=\"container\">" +
+			          "<span class=\"row\">" +
+	                          "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2 col-auto\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('fr');\">Bienvenue!</a>" +
+                                  "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2 col-auto\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('kr');\">환영</a>" +
+                                  "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2 col-auto\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('es');\">¡Bienvenido/a!</a>" +
+                                  "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2 col-auto\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('en');\">Welcome!</a>" +
+                                  "</span>" +
+                                  "</div>",
 
-			"step1":  "WepSIM helps to better understand how a computer works: " +
-                                  "it is visual, interactive, integrates from signals up to interruptions, system calls, exceptions, etc. <br> " +
-                                  "<br>" +
-                                  "We really believe WepSIM is a revolutionary teaching tool. " +
-                                  "This brief tour introduces the key elements of its interface.",
+                        "step1":  "WepSIM aide à mieux comprendre le fonctionnement d'un ordinateur:" +
+                                  "visuel, interactif, il intègre des signaux jusqu’aux interruptions, appels système, exceptions, etc. <br>" +
+                                  "<br>" +
+                                  "Nous pensons vraiment que WepSIM est un outil pédagogique révolutionnaire." +
+                                  "Cette brève visite présente les éléments clés de son interface.",
 
-                        "step2":  "This button on the top-right let users choose the 'execution mode'.<br>" +
-                                  "<br>" +
-                                  "For example, the hardware to work with (e.g. the elemental processor or EP).<br>" +
-                                  "Or the tutorial mode, recommended at the beginning ;-).",
+                        "step2":  "Ce bouton en haut à droite permet aux utilisateurs de choisir le mode d'exécution.<br>" +
+                                  "<br>" +
+                                  "Par exemple, le matériel avec lequel travailler (par exemple, le processeur élémentaire ou EP). <br>" +
+                                  "Ou le mode tutoriel, recommandé au début ;-).",
 
-                        "step3":  "On the top-right, the 'help' button opens the associated dialog.<br>" +
-                                  "<br>" +
-                                  "The help dialog summarizes the tutorials, descriptions, information, etc.",
+                        "step3":  "En haut à droite, le bouton 'aide' ouvre la boîte de dialogue associée. <br>" +
+                                  "<br>" +
+                                  "La boîte de dialogue d'aide récapitule les tutoriels, les descriptions, les informations, etc.",
 
-                        "step4":  "And on the left, the 'examples' button open the example dialog.<br>" +
-                                  "<br>" +
-                                  "There are many examples that can be used to learn incrementally.",
+                        "step4":  "Et à gauche, le bouton 'exemples' ouvre la boîte de dialogue des exemples. <br>" +
+                                  "<br>" +
+                                  "Il existe de nombreux exemples qui peuvent être utilisés pour apprendre progressivement.",
 
-                        "step5":  "On the top-left, the 'configuration' button opens the configuration dialog.<br>" +
-                                  "<br>" +
-                                  "It let users to adapt several aspects of the execution, user interface, preferences, etc.",
+                        "step5":  "En haut à gauche, le bouton 'configuration' ouvre la boîte de dialogue de configuration." +
+                                  "<br>" +
+                                  "Il permet aux utilisateurs d'adapter plusieurs aspects de l'exécution, de l'interface utilisateur, des préférences, etc.",
 
-                        "step6":  "Congrat! You know the key elements in the WepSIM interface.<br>" +
-                                  "From the 'Help' dialog you can access the 'Welcome tutorial' to continue learning.<br>"
+                        "step6":  "Félicitations! Vous connaissez les éléments clés de l'interface WepSIM. <br>" +
+                                  "Dans la boîte de dialogue 'Aide', vous pouvez accéder au 'didacticiel de bienvenue' pour continuer à apprendre. <br>"
 
                   } ;
 
