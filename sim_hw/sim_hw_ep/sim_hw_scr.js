@@ -27,8 +27,12 @@
 		                  name: "SCREEN", 
 		                  version: "1", 
 		                  abilities:    [ "SCREEN" ],
+
+		                  // ui: details
                                   details_name: [ "SCREEN" ],
                                   details_fire: [ ['svg_p:text3845'] ],
+
+		                  // state: write_state, read_state, get_state
 		                  write_state: function ( vec ) {
                                                   if (typeof vec.SCREEN == "undefined") {
                                                       vec.SCREEN = {} ;
@@ -74,7 +78,17 @@
 						      return sim_lines[index] ;
 
 					          return null ;
-				              } 
+				              },
+
+		                  // native: get_value, set_value
+                                  get_value:   function ( elto ) {
+						    var screen = get_screen_content() ;
+						    return screen ;
+                                               },
+                                  set_value:   function ( elto, value ) {
+						    set_screen_content(value) ;
+						    return value ;
+                                               }
                             	};
 
 
