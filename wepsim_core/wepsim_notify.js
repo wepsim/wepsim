@@ -82,7 +82,7 @@
         {
 	    var acc = '' ;
             var   t = null ;
-            var notifications = wepsim_notify_notifications_get() ;
+            var notifications = simcoreui_notifications_get() ;
 
 	    // setup content...
 	    acc  += '<br>' +
