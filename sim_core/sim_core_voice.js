@@ -23,7 +23,7 @@
 	 *  Voice (speak)
 	 */
 
-        function simcoreui_voice_canSpeak ( )
+        function simcore_voice_canSpeak ( )
         {
     	    if (typeof window.speechSynthesis == "undefined") {
                 return false ;
@@ -36,11 +36,11 @@
             return true ;
         }
 
-        function simcoreui_voice_speak ( msg )
+        function simcore_voice_speak ( msg )
         {
 	    var ssu = null ;
 
-    	    if (simcoreui_voice_canSpeak())
+    	    if (simcore_voice_canSpeak())
 	    {
 	         ssu = new SpeechSynthesisUtterance(msg) ;
 
@@ -54,9 +54,9 @@
 	    }
         }
 
-        function simcoreui_voice_stopSpeak ( )
+        function simcore_voice_stopSpeak ( )
         {
-    	    if (simcoreui_voice_canSpeak())
+    	    if (simcore_voice_canSpeak())
 	    {
 	         window.speechSynthesis.cancel() ;
 	    }
