@@ -32,7 +32,7 @@
     {
 	 // speak...
          var msg = "Hello, I am WepSIM, nice to meet you. " ;
-	 simcoreui_voice_speak(msg) ;
+	 simcore_voice_speak(msg) ;
     } ;
 
     wepsim_voice_commands['(show) configuration'] = function()
@@ -78,7 +78,7 @@
 
 	 // speak...
          var msg = "Current processor has been reset." ;
-	 simcoreui_voice_speak(msg) ;
+	 simcore_voice_speak(msg) ;
     } ;
 
     wepsim_voice_commands['next'] = function()
@@ -87,7 +87,7 @@
 
 	 // speak...
          var msg = "Next executed." ;
-	 simcoreui_voice_speak(msg) ;
+	 simcore_voice_speak(msg) ;
     } ;
 
     wepsim_voice_commands['next micro(instruction)'] = function()
@@ -96,7 +96,7 @@
 
 	 // speak...
          var msg = "Next microinstruction executed. " ;
-	 simcoreui_voice_speak(msg) ;
+	 simcore_voice_speak(msg) ;
     } ;
 
     wepsim_voice_commands['play'] = function()
@@ -115,14 +115,14 @@
     {
 	 // speak...
          var msg = get_verbal_from_current_mpc() ;
-	 simcoreui_voice_speak(msg) ;
+	 simcore_voice_speak(msg) ;
     } ;
 
     wepsim_voice_commands['describe instruction'] = function()
     {
 	 // speak...
          var msg = get_verbal_from_current_pc() ;
-	 simcoreui_voice_speak(msg) ;
+	 simcore_voice_speak(msg) ;
     } ;
 
 
@@ -140,11 +140,11 @@
 
 	 // speak...
          var msg = $("</p>").html(vc_list).text() ;
-	 simcoreui_voice_speak(msg) ;
+	 simcore_voice_speak(msg) ;
     } ;
 
     wepsim_voice_commands['silence'] = function()
     {
-	 simcoreui_voice_stopSpeak() ;
+	 simcore_voice_stopSpeak() ;
     } ;
 

@@ -24,7 +24,7 @@
         function wepsim_notify_do_notify ( ntf_title, ntf_message, ntf_type, ntf_delay )
         {
 	    // add to notifications
-	    simcoreui_notifications_add(ntf_title, ntf_message, ntf_type, ntf_delay) ;
+	    simcore_notifications_add(ntf_title, ntf_message, ntf_type, ntf_delay) ;
 
 	    // alerts-container does not exist, create it
 	    var ac = $("#alerts-container") ;
@@ -48,7 +48,7 @@
 	    // audio
             var msg = "Notification type " + ntf_type + " and title " + ntf_title + ":" + ntf_message + ". " ;
             msg = $("</p>").html(msg).text() ;
-            simcoreui_voice_speak(msg) ;
+            simcore_voice_speak(msg) ;
         }
 
         function wepsim_notify_close ( )
@@ -82,7 +82,7 @@
         {
 	    var acc = '' ;
             var   t = null ;
-            var notifications = simcoreui_notifications_get() ;
+            var notifications = simcore_notifications_get() ;
 
 	    // setup content...
 	    acc  += '<br>' +

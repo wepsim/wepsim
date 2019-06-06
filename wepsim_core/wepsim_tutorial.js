@@ -41,7 +41,7 @@
 	setTimeout(function(){ sim_tutorial_showframe(tutorial_name, to_step); },
 		   tutorial[from_step].wait_next) ;
 
-	if (simcoreui_voice_canSpeak()) {
+	if (simcore_voice_canSpeak()) {
 	    window.speechSynthesis.cancel() ;
         }
     }
@@ -53,7 +53,7 @@
 
 	tutbox.modal("hide") ;
 
-	if (simcoreui_voice_canSpeak()) {
+	if (simcore_voice_canSpeak()) {
 	    window.speechSynthesis.cancel() ;
         }
     }
@@ -129,8 +129,8 @@
             animate: false
 	});
 
-	simcoreui_voice_speak(tutorial[step].title.replace(/<[^>]*>/g, '') + ". " +
-		              tutorial[step].message.replace(/<[^>]*>/g, ''));
+	simcore_voice_speak(tutorial[step].title.replace(/<[^>]*>/g, '') + ". " +
+		            tutorial[step].message.replace(/<[^>]*>/g, ''));
     }
 
     // from checkpoint
