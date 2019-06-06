@@ -27,8 +27,12 @@
 		                  name: "MEMORY", 
 		                  version: "1", 
 		                  abilities:    [ "MEMORY" ],
+
+		                  // ui: details
                                   details_name: [ "MEMORY", "MEMORY_CONFIG" ],
                                   details_fire: [ ['svg_p:text3001'], [] ],
+
+		                  // state: write_state, read_state, get_state
 		                  write_state: function ( vec ) {
                                                   if (typeof vec.MEMORY == "undefined")
                                                       vec.MEMORY = {} ;
@@ -76,6 +80,15 @@
 					          }
 
 					          return null ;
+				             },
+
+		                  // native: get_value, set_value
+		                  get_value: function ( elto ) {
+                                                 return (simhw_internalState_get('MP', elto) >>> 0) ;
+				             },
+		                  set_value: function ( elto, value ) {
+						 simhw_internalState_set('MP', elto, value) ;
+						 return value ;
 				             }
                             	};
 

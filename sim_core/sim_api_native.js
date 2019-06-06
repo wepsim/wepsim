@@ -39,41 +39,16 @@
     {
         var index = 0 ;
 
-        if ( ("CPU" === component) || ("BR" === component) )
-        {
-            if (Number.isInteger(elto))
-                 index = elto ;
-            else index = parseInt(elto) ;
+        var sim_components = simhw_sim_components() ;
+	var compo_index = component ;
 
-            if (isNaN(index))
-                return (get_value(simhw_sim_state(elto)) >>> 0) ;
-
-            return (get_value(simhw_sim_states().BR[index]) >>> 0) ;
-        }
-
-        if ("MEMORY" === component)
-        {
-            return (simhw_internalState_get('MP',elto) >>> 0) ;
-        }
-
+        if ("BR" === component)
+	    compo_index = "CPU" ;
         if ("DEVICE" === component)
-        {
-            var associated_state = simhw_internalState_get('io_hash',elto) ;
-            var value = (get_value(simhw_sim_state(associated_state)) >>> 0) ;
+	    compo_index = "IO" ;
 
-            set_value(simhw_sim_state('BUS_AB'), elto) ;
-            set_value(simhw_sim_signal('IOR'), 1) ;
-            compute_behavior("FIRE IOR") ;
-            value = get_value(simhw_sim_state('BUS_DB')) ;
-
-            return value ;
-        }
-
-        if ("SCREEN" === component)
-        {
-            var screen = get_screen_content() ;
-            return screen ;
-        }
+        if (typeof sim_components[compo_index].get_value !== "undefined")
+            return sim_components[compo_index].get_value(elto) ;
 
         return false ;
     }
@@ -81,52 +56,17 @@
     function simcore_native_set_value ( component, elto, value )
     {
         var index = 0 ;
-        var pc_name = simhw_sim_ctrlStates_get().pc.state ;
 
-        if ( ("CPU" === component) || ("BR" === component) )
-        {
-            if (Number.isInteger(elto))
-                 index = elto ;
-            else index = parseInt(elto) ;
+        var sim_components = simhw_sim_components() ;
+	var compo_index = component ;
 
-            if (isNaN(index)) 
-            {
-                set_value(simhw_sim_state(elto), value) ;
-
-                if (pc_name === elto) {
-                    show_asmdbg_pc() ;
-		}
-
-                return value ;
-            }
-
-            return set_value(simhw_sim_states().BR[index], value) ;
-        }
-
-        if ("MEMORY" === component)
-        {
-            simhw_internalState_set('MP', elto, value) ;
-            return value ;
-        }
-
+        if ("BR" === component)
+	    compo_index = "CPU" ;
         if ("DEVICE" === component)
-        {
-            var associated_state = simhw_internalState_get('io_hash',elto) ;
-            set_value(simhw_sim_state(associated_state), value) ;
+	    compo_index = "IO" ;
 
-            set_value(simhw_sim_state('BUS_AB'), elto) ;
-            set_value(simhw_sim_state('BUS_DB'), value) ;
-            set_value(simhw_sim_signal('IOW'), 1) ;
-            compute_behavior("FIRE IOW") ;
-
-            return value ;
-        }
-
-        if ("SCREEN" === component)
-        {
-            set_screen_content(value) ;
-            return value ;
-        }
+        if (typeof sim_components[compo_index].set_value !== "undefined")
+            return sim_components[compo_index].set_value(elto, value) ;
 
         return false ;
     }

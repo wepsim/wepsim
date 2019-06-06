@@ -79,10 +79,10 @@
 			     "<tr><td class='p-0 pb-1 pl-1'><strong>binary</strong></td>" +
                              "    <td class='p-0 pb-1 pl-1'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuebin + "</strong></td>" +
 			     "</tr>" +
-			     "<tr><td class='p-0 pb-1 pl-1' onclick='update_cfg(\"RF_display_format\",10); show_rf_values(); show_states();'><strong>signed</strong></td>" +
+			     "<tr><td class='p-0 pb-1 pl-1'><strong>signed</strong></td>" +
                              "    <td class='p-0 pb-1 pl-1'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuei   + "</strong></td>" +
 			     "</tr>" +
-			     "<tr><td class='p-0 pb-1 pl-1'><strong>unsig.</strong></td>" +
+			     "<tr><td class='p-0 pb-1 pl-1' onclick='update_cfg(\"RF_display_format\",10); show_rf_values(); show_states();'><strong>unsig.</strong></td>" +
                              "    <td class='p-0 pb-1 pl-1'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valueui  + "</strong></td>" +
 			     "</tr>" +
 			     "<tr><td class='p-0 pb-1 pl-1'><strong>char</strong></td>" +

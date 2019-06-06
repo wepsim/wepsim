@@ -219,7 +219,7 @@
 
 	function get_keyboard_content ( )
 	{
-	      var ui_keyboard = simcore_action_ui("KEYBOARD", 0, "get_keyboard_content")() ;
+	      var ui_keyboard = simcore_action_ui("KBD", 0, "get_keyboard_content")() ;
 
 	      if (ui_keyboard !== "undefined")
 	          keyboard_content = ui_keyboard ;
@@ -231,7 +231,7 @@
 	{
 	      keyboard_content = keystrokes ;
 
-	      simcore_action_ui("KEYBOARD", 0, "set_keyboard_content")(keystrokes) ;
+	      simcore_action_ui("KBD", 0, "set_keyboard_content")(keystrokes) ;
 	}
 
         // Memory

@@ -27,8 +27,12 @@
 		                  name: "IO", 
 		                  version: "1", 
 		                  abilities:    [ "IO_TIMER" ],
+
+		                  // ui: details
 		                  details_name: [ "IO_STATS", "IO_CONFIG" ],
                                   details_fire: [ ['svg_p:text3775'], [] ],
+
+		                  // state: write_state, read_state, get_state
 		                  write_state: function ( vec ) {
 						  return vec;
 				               },
@@ -37,7 +41,31 @@
 				               },
 		                  get_state:   function ( reg ) {
 					          return null ;
-				               } 
+				               },
+
+		                  // native: get_value, set_value
+                                  get_value:   function ( elto ) {
+						    var associated_state = simhw_internalState_get('io_hash',elto) ;
+						    var value = (get_value(simhw_sim_state(associated_state)) >>> 0) ;
+
+						    set_value(simhw_sim_state('BUS_AB'), elto) ;
+						    set_value(simhw_sim_signal('IOR'), 1) ;
+						    compute_behavior("FIRE IOR") ;
+						    value = get_value(simhw_sim_state('BUS_DB')) ;
+
+						    return value ;
+                                               },
+                                  set_value:   function ( elto, value ) {
+						    var associated_state = simhw_internalState_get('io_hash',elto) ;
+						    set_value(simhw_sim_state(associated_state), value) ;
+
+						    set_value(simhw_sim_state('BUS_AB'), elto) ;
+						    set_value(simhw_sim_state('BUS_DB'), value) ;
+						    set_value(simhw_sim_signal('IOW'), 1) ;
+						    compute_behavior("FIRE IOW") ;
+
+						    return value ;
+                                               }
                             	};
 
 

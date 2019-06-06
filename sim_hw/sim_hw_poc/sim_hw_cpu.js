@@ -27,9 +27,13 @@
 		                  name: "CPU",
 		                  version: "1",
 		                  abilities:    [ "CPU" ],
+
+		                  // ui: details
 		                  details_name: [ "REGISTER_FILE", "CONTROL_MEMORY", "CLOCK", "CPU_STATS" ],
 				  details_fire: [ ['svg_p:text3495', 'svg_p:text3029', 'svg_p:text3031'], ['svg_cu:text3010'],
 					          ['svg_p:text3459-7', 'svg_cu:text4138', 'svg_cu:text4138-7', 'svg_cu:tspan4140-2'], ['svg_p:text3495'] ],
+
+		                  // state: write_state, read_state, get_state
 		                  write_state:  function ( vec ) {
                                                   if (typeof vec.CPU == "undefined")
                                                       vec.CPU = {} ;
@@ -95,6 +99,38 @@
 					          }
 
 					          return null ;
+				              },
+
+		                  // native: get_value, set_value
+                                  get_value:  function ( elto ) {
+						    if (Number.isInteger(elto))
+							 index = elto ;
+						    else index = parseInt(elto) ;
+
+						    if (isNaN(index))
+							return (get_value(simhw_sim_state(elto)) >>> 0) ;
+
+						    return (get_value(simhw_sim_states().BR[index]) >>> 0) ;
+				              },
+                                  set_value:  function ( elto, value ) {
+						    var pc_name = simhw_sim_ctrlStates_get().pc.state ;
+
+						    if (Number.isInteger(elto))
+							 index = elto ;
+						    else index = parseInt(elto) ;
+
+						    if (isNaN(index)) 
+						    {
+							set_value(simhw_sim_state(elto), value) ;
+
+							if (pc_name === elto) {
+							    show_asmdbg_pc() ;
+							}
+
+							return value ;
+						    }
+
+						    return set_value(simhw_sim_states().BR[index], value) ;
 				              }
                             	};
 
