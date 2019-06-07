@@ -82,41 +82,26 @@
          *  checking & updating
          */
 
-        function set_visibility_bus ( bus_name, value )
-        {
-	    var o = document.getElementById('svg_p') ;
-	    if (o === null) return ;
-
-	    o = o.contentDocument ;
-	    if (o === null) return ;
-
-	    o = o.getElementById(bus_name) ;
-	    if (o === null) return ;
-
-	    o.setAttributeNS(null, "visibility", value) ;
-            o.style.visibility = value ;
-        }
-
         function check_buses ( fired )
         {
             var tri_state_names = simhw_internalState('tri_state_names') ;
 
+            // Ti + Tj
+            if (tri_state_names.indexOf(fired) == -1) {
+                return;
+            }
+
             // TD + R
             if (simhw_internalState_get('fire_visible','databus') == true) 
             {
-                set_visibility_bus('databus_fire', 'hidden') ;
+                update_bus_visibility('databus_fire', 'hidden') ;
                 simhw_internalState_set('fire_visible', 'databus', false) ;
             }
             if ( (simhw_sim_signal("TD").value != 0) && (simhw_sim_signal("R").value != 0) )
             {
-                set_visibility_bus('databus_fire', 'visible') ;
+                update_bus_visibility('databus_fire', 'visible') ;
                 simhw_internalState_set('fire_visible', 'databus', true) ;
                 simhw_sim_state("BUS_DB").value = 0xFFFFFFFF;
-            }
-
-            // Ti + Tj
-            if (tri_state_names.indexOf(fired) == -1) {
-                return;
             }
 
             // 1.- counting the number of active tri-states
@@ -144,12 +129,12 @@
             // 3.- check if more than one tri-state is active
             if (simhw_internalState_get('fire_visible','internalbus') == true)
             {
-                set_visibility_bus('internalbus_fire', 'hidden') ;
+                update_bus_visibility('internalbus_fire', 'hidden') ;
                 simhw_internalState_set('fire_visible', 'internalbus', false) ;
             }
             if (tri_activated > 1) 
             {
-                set_visibility_bus('internalbus_fire', 'visible') ;
+                update_bus_visibility('internalbus_fire', 'visible') ;
                 simhw_internalState_set('fire_visible', 'internalbus', true) ;
                 simhw_sim_state("BUS_IB").value = 0xFFFFFFFF;
             }

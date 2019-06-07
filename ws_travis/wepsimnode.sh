@@ -17,4 +17,5 @@ echo "2) checkpoint"
 ./wepsim_node.sh check                 checkpoint ./examples/checkpoint/tutorial_1.txt                             ./examples/checklist/cl-ep_s1_e1.txt
 ./wepsim_node.sh microstepverbalized   checkpoint ./examples/checkpoint/tutorial_1.txt
 ./wepsim_node.sh show-console          checkpoint ./examples/checkpoint/tutorial_1.txt
+./wepsim_node.sh show-record           checkpoint ./examples/checkpoint/tutorial_1.txt
 

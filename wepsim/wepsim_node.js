@@ -39,12 +39,10 @@
 	    "SCREEN":         {
 		                                  init: simcore_do_nothing_handler,
 		                    get_screen_content: function() {
-					                   return null ;
+					                   return simcore_native_get_value("SCREEN", "content") ;
 				                        },
                                     set_screen_content: function ( screen_content ) {
-							   /* TIP: uncomment the two lines if you want to see a continuous output */
-						        // var screen_log =  "screen>" + screen_content.split('\n').join("screen>") ;
-						        // console.log(screen_log) ;
+                                                           simcore_native_set_value("SCREEN", "content", screen_content) ;
 							   return screen_content ;
 					                }
 	                      },
@@ -54,11 +52,14 @@
 		                  get_keyboard_content: function () {
 							   var readlineSync = require('readline-sync');
 							   var keys = readlineSync.question('keyboard> ');
-							   keyboard_content = keys.toString() ;
-							   return keyboard_content ;
+							   keystrokes = keys.toString() ;
+
+                                                           simcore_native_set_value("KBD", "keystrokes", keystrokes) ;
+							   return keystrokes ;
 						        },
-                                  set_keyboard_content: function( kbd_content ) {
-					                   return "" ;
+                                  set_keyboard_content: function( keystrokes ) {
+                                                           simcore_native_set_value("KBD", "keystrokes", keystrokes) ;
+					                   return keystrokes ;
 				                        }
 	                      }
 	} ;
