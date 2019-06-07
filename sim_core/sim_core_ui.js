@@ -250,6 +250,11 @@
             return simcore_action_ui("CPU", 1, "update_draw")(obj, value) ;
         }
 
+        function update_bus_visibility ( bus_name, value )
+        {
+            return simcore_action_ui("CPU", 1, "update_bus_visibility")(bus_name, value) ;
+        }
+
         function refresh()
         {
 	    for (var key in simhw_sim_signals()) 

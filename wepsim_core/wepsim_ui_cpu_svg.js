@@ -193,3 +193,22 @@
 	    }
 	}
 
+        function wepsim_svg_update_bus_visibility ( bus_name, value )
+        {
+            if (true === DRAW_stop) {
+                return ;
+	    }
+
+	    var o = document.getElementById('svg_p') ;
+	    if (o === null) return ;
+
+	    o = o.contentDocument ;
+	    if (o === null) return ;
+
+	    o = o.getElementById(bus_name) ;
+	    if (o === null) return ;
+
+	    o.setAttributeNS(null, "visibility", value) ;
+            o.style.visibility = value ;
+        }
+
