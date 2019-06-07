@@ -196,41 +196,23 @@
         }
 
         // Console (Screen + Keyboard)
-
-        var   screen_content = "" ;
-        var keyboard_content = "" ;
-
 	function get_screen_content ( )
 	{
-	      var ui_screen = simcore_action_ui("SCREEN", 0, "get_screen_content")() ;
-
-	      if (ui_screen !== null)
-	          screen_content = ui_screen ;
-
-	      return screen_content ;
+	      return simcore_action_ui("SCREEN", 0, "get_screen_content")() ;
 	}
 
 	function set_screen_content ( screen )
 	{
-	      screen_content = screen ;
-
 	      simcore_action_ui("SCREEN", 0, "set_screen_content")(screen) ;
 	}
 
 	function get_keyboard_content ( )
 	{
-	      var ui_keyboard = simcore_action_ui("KBD", 0, "get_keyboard_content")() ;
-
-	      if (ui_keyboard !== null)
-	          keyboard_content = ui_keyboard ;
-
-	      return keyboard_content ;
+	      return simcore_action_ui("KBD", 0, "get_keyboard_content")() ;
 	}
 
 	function set_keyboard_content ( keystrokes )
 	{
-	      keyboard_content = keystrokes ;
-
 	      simcore_action_ui("KBD", 0, "set_keyboard_content")(keystrokes) ;
 	}
 

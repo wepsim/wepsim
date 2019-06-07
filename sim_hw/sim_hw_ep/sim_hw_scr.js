@@ -38,7 +38,7 @@
                                                       vec.SCREEN = {} ;
 				                  }
 
-					          var sim_screen = get_screen_content() ;
+					          var sim_screen = ep_internal_states.screen_content ;
 					          var sim_lines  = sim_screen.trim().split("\n") ;
 					          for (var i=0; i<sim_lines.length; i++)
 					          {
@@ -55,23 +55,24 @@
 						  return vec;
 				              }, 
 		                  read_state: function ( vec, check ) {
-                                                  if (typeof vec.SCREEN == "undefined")
+                                                  if (typeof vec.SCREEN == "undefined") {
                                                       vec.SCREEN = {} ;
+                                                  }
 
 					          if ("SCREEN" == check.type.toUpperCase().trim())
                                                   {
-						      vec.SCREEN[check.id] = {"type":  "screen", 
-								              "default_value": "",
-								              "id":    check.id,
-								              "op":    check.condition, 
-								              "value": check.value} ;
+						      vec.SCREEN[check.id] = { "type":  "screen", 
+								               "default_value": "",
+								               "id":    check.id,
+								               "op":    check.condition, 
+								               "value": check.value } ;
                                                       return true ;
                                                   }
 
                                                   return false ;
 				             },
 		                  get_state: function ( line ) {
-					          var sim_screen = get_screen_content() ;
+					          var sim_screen = ep_internal_states.screen_content ;
 					          var sim_lines  = sim_screen.trim().split("\n") ;
 						  var index = parseInt(line) ;
 						  if (typeof sim_lines[index] != "undefined")
@@ -82,11 +83,10 @@
 
 		                  // native: get_value, set_value
                                   get_value:   function ( elto ) {
-						    var screen = get_screen_content() ;
-						    return screen ;
+        				            return ep_internal_states.screen_content ;
                                                },
                                   set_value:   function ( elto, value ) {
-						    set_screen_content(value) ;
+        				            ep_internal_states.screen_content = value ;
 						    return value ;
                                                }
                             	};
@@ -101,6 +101,13 @@
 
         ep_internal_states.io_hash[DDR_ID] = "DDR" ;
         ep_internal_states.io_hash[DSR_ID] = "DSR" ;
+
+
+	/*
+	 *  Internal States
+	 */
+
+        ep_internal_states.screen_content = "" ;
 
 
         /*

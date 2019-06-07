@@ -28,29 +28,35 @@
 		  screen_content = scrobj.value ;
 	      }
 
+              simcore_native_set_value("SCREEN", "content", screen_content) ;
+
 	      return screen_content ;
 	}
 
-	function wepsim_set_screen_content ( screen )
+	function wepsim_set_screen_content ( screen_content )
 	{
 	      var scrobj = document.getElementById("kdb_con") ;
               if (scrobj != null) {
-		  scrobj.value = screen ;
+		  scrobj.value = screen_content ;
 	      }
 
-	      return true ;
+              simcore_native_set_value("SCREEN", "content", screen_content) ;
+
+	      return screen_content ;
 	}
 
 	function wepsim_get_keyboard_content ( )
 	{
-	      var keyboard_content = "" ;
+	      var keystrokes = "" ;
 
 	      var keyobj = document.getElementById("kdb_key") ;
               if (keyobj != null) {
-		  keyboard_content = keyobj.value ;
+		  keystrokes = keyobj.value ;
 	      }
 
-	      return keyboard_content ;
+              simcore_native_set_value("KBD", "keystrokes", keystrokes) ;
+
+	      return keystrokes ;
 	}
 
 	function wepsim_set_keyboard_content ( keystrokes )
@@ -59,6 +65,8 @@
               if (keyobj != null) {
 		  keyobj.value = keystrokes ;
 	      }
+
+              simcore_native_set_value("KBD", "keystrokes", keystrokes) ;
 
 	      return true ;
 	}
