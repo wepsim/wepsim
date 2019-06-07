@@ -37,24 +37,20 @@
     var hash_detail_ui = {
 
 	    "SCREEN":         {
-		                                  init: function() {
-							   return true ;
-						        },
+		                                  init: simcore_do_nothing_handler,
 		                    get_screen_content: function() {
 					                   return null ;
 				                        },
                                     set_screen_content: function ( screen_content ) {
-							   /* TIP: uncomment the two lines if you want to see the progressive output */
-							   // var screen_log =  "screen>" + screen_content.split('\n').join("screen>") ;
-							   // console.log(screen_log) ;
+							   /* TIP: uncomment the two lines if you want to see a continuous output */
+						        // var screen_log =  "screen>" + screen_content.split('\n').join("screen>") ;
+						        // console.log(screen_log) ;
 							   return screen_content ;
 					                }
 	                      },
 
 	    "KEYBOARD":       {
-		                                  init: function() {
-							   return true ;
-						        },
+		                                  init: simcore_do_nothing_handler,
 		                  get_keyboard_content: function () {
 							   var readlineSync = require('readline-sync');
 							   var keys = readlineSync.question('keyboard> ');
@@ -84,6 +80,25 @@
         simcore_init_ui(hash_detail_ui) ;
 
 	return wepsim_nodejs_retfill(true, "") ;
+    }
+
+    function wepsim_nodejs_show_currentstate ( )
+    {
+        var state_obj = simcore_simstate_current2state() ;
+        var   ret_msg = simcore_simstate_state2checklist(state_obj) ;
+
+	return wepsim_nodejs_retfill(true, ret_msg) ;
+    }
+
+    function wepsim_nodejs_show_record ( records )
+    {
+	var ret_msg = '' ;
+	for (var i=0; i<records.length; i++)
+	{
+	     ret_msg += '[' + i + '] ' + records[i].description + '\n' ;
+	}
+
+	return ret_msg ;
     }
 
     function wepsim_nodejs_show_checkresults ( checklist_ok, newones_too )
@@ -123,8 +138,8 @@
 	}
 
 	// 4) execute firmware-assembly
-        options.verbosity_before = function verbosity_before0(curr_pc) { } ;
-        options.verbosity_after  = function  verbosity_after0(curr_pc) { } ;
+        options.verbosity_before = simcore_do_nothing_handler ;
+        options.verbosity_after  = simcore_do_nothing_handler ;
 
 	ret = simcore_execute_program(options) ;
 	if (false == ret.ok)
@@ -139,7 +154,8 @@
 	    return wepsim_nodejs_retfill(false, "ERROR: Execution: different results: " + ret.msg + "\n") ;
         }
 
-	return wepsim_nodejs_retfill(true, "") ;
+        ret.msg = "OK: Execution: no error reported\n" ;
+	return wepsim_nodejs_retfill(true, ret.msg) ;
     }
 
     function wepsim_nodejs_run ( data, options )
@@ -174,6 +190,9 @@
 	}
         if ("SHOW-RECORD" == data.action) {
             ret.msg = wepsim_nodejs_show_record(data.record) ;
+	}
+        if ("RUN" == data.action) {
+            ret = wepsim_nodejs_show_currentstate() ;
 	}
 
 	return wepsim_nodejs_retfill(true, ret.msg) ;
@@ -220,10 +239,6 @@
 	console.log('Micropc at ' + curr_mpc + '.\t' + get_verbal_from_current_mpc()) ;
     }
 
-    function wepsim_nodejs_after_microinstruction4  ( curr_MC, cur_addr )
-    {
-    }
-
     // help
     function wepsim_nodejs_help_signal ( data, options )
     {
@@ -264,43 +279,22 @@
 	return wepsim_nodejs_retfill(true, input_help) ;
     }
 
-    // show information
-    function wepsim_nodejs_show_currentstate ( )
-    {
-        var state_obj = simcore_simstate_current2state() ;
-        var   ret_msg = simcore_simstate_state2checklist(state_obj) ;
-
-	return wepsim_nodejs_retfill(true, ret_msg) ;
-    }
-
-    function wepsim_nodejs_show_record ( records )
-    {
-	var ret_msg = '' ;
-	for (var i=0; i<records.length; i++)
-	{
-	     ret_msg += '[' + i + '] ' + records[i].description + '\n' ;
-	}
-
-	return ret_msg ;
-    }
-
 
     /**
      * Export API
      */
 
-    module.exports.wepsim_nodejs_init   = wepsim_nodejs_init ;
-    module.exports.wepsim_nodejs_check  = wepsim_nodejs_check ;
-    module.exports.wepsim_nodejs_run    = wepsim_nodejs_run ;
+    module.exports.wepsim_nodejs_init  = wepsim_nodejs_init ;
+    module.exports.wepsim_nodejs_check = wepsim_nodejs_check ;
+    module.exports.wepsim_nodejs_run   = wepsim_nodejs_run ;
 
     module.exports.wepsim_nodejs_before_instruction2      = wepsim_nodejs_before_instruction2 ;
     module.exports.wepsim_nodejs_after_instruction2       = wepsim_nodejs_after_instruction2 ;
     module.exports.wepsim_nodejs_before_microinstruction3 = wepsim_nodejs_before_microinstruction3 ;
     module.exports.wepsim_nodejs_after_microinstruction3  = wepsim_nodejs_after_microinstruction3 ;
     module.exports.wepsim_nodejs_before_microinstruction4 = wepsim_nodejs_before_microinstruction4 ;
-    module.exports.wepsim_nodejs_after_microinstruction4  = wepsim_nodejs_after_microinstruction4 ;
 
-    module.exports.wepsim_nodejs_show_currentstate       = wepsim_nodejs_show_currentstate ;
-    module.exports.wepsim_nodejs_help_signal             = wepsim_nodejs_help_signal ;
-    module.exports.wepsim_nodejs_exportHW                = simcore_hardware_export ;
+    module.exports.wepsim_nodejs_help_signal              = wepsim_nodejs_help_signal ;
+    module.exports.wepsim_nodejs_do_nothing_handler       = simcore_do_nothing_handler ;
+    module.exports.wepsim_nodejs_exportHW                 = simcore_hardware_export ;
 

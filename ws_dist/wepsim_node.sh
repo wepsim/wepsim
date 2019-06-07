@@ -171,17 +171,14 @@
 
    if ("CHECK" == data.action)
    {
-       ws.wepsim_nodejs_init(data.mode) ;
-       var ret = ws.wepsim_nodejs_check(data, options) ;
-       if (false == ret.ok) 
-       {
-           console.log(ret.msg);
-           return false ;
-           // throw 'ERROR...' ;
-       }
+       var ret = null ;
 
-       console.log("OK: Execution: no error reported\n");
-       return true ;
+       // check...
+       ws.wepsim_nodejs_init(data.mode) ;
+       ret = ws.wepsim_nodejs_check(data, options) ;
+
+       console.log(ret.msg);
+       return ret.ok ;
    }
 
 
@@ -194,20 +191,13 @@
        var ret = null ;
 
        // set verbosity handlers
-       options.before_instruction = function before_instruction1(SIMWARE, reg_pc)      { } ;
-       options.after_instruction  = function after_instruction1 (SIMWARE, reg_pc, msg) { } ;
+       options.before_instruction = ws.wepsim_nodejs_do_nothing_handler ;
+       options.after_instruction  = ws.wepsim_nodejs_do_nothing_handler ;
 
        // run...
        ws.wepsim_nodejs_init(data.mode) ;
        ret = ws.wepsim_nodejs_run(data, options) ;
-       if (false == ret.ok) 
-       {
-           console.log(ret.msg);
-           return false ;
-           // throw 'ERROR...' ;
-       }
 
-       ret = ws.wepsim_nodejs_show_currentstate() ;
        console.log(ret.msg);
        return ret.ok ;
    }
@@ -231,7 +221,6 @@
 
        console.log(ret.msg);
        return ret.ok ;
-       // if (ret.ok == false) throw 'ERROR...' ;
    }
 
 
@@ -253,7 +242,6 @@
 
        console.log(ret.msg);
        return ret.ok ;
-       // if (ret.ok == false) throw 'ERROR...' ;
    }
 
 
@@ -267,7 +255,7 @@
 
        // set verbosity handlers
        options.before_microinstruction = ws.wepsim_nodejs_before_microinstruction4 ;
-       options.after_microinstruction  = ws.wepsim_nodejs_after_microinstruction4 ;
+       options.after_microinstruction  = ws.wepsim_nodejs_do_nothing_handler ;
 
        // run...
        ws.wepsim_nodejs_init(data.mode) ;
@@ -275,7 +263,6 @@
 
        console.log(ret.msg);
        return ret.ok ;
-       // if (ret.ok == false) throw 'ERROR...' ;
    }
 
 
@@ -289,7 +276,6 @@
 
        console.log(ret.msg);
        return ret.ok ;
-       // if (ret.ok == false) throw 'ERROR...' ;
    }
 
 
@@ -303,16 +289,9 @@
 
        ws.wepsim_nodejs_init(data.mode) ;
        ret = ws.wepsim_nodejs_run(data, options) ;
-       if (false == ret.ok) 
-       {
-           console.log(ret.msg);
-           return false ;
-           // throw 'ERROR...' ;
-       }
 
        console.log(ret.msg);
        return ret.ok ;
-       // if (ret.ok == false) throw 'ERROR...' ;
    }
 
 
@@ -326,16 +305,9 @@
 
        ws.wepsim_nodejs_init(data.mode) ;
        ret = ws.wepsim_nodejs_run(data, options) ;
-       if (false == ret.ok) 
-       {
-           console.log(ret.msg);
-           return false ;
-           // throw 'ERROR...' ;
-       }
 
        console.log(ret.msg);
        return ret.ok ;
-       // if (ret.ok == false) throw 'ERROR...' ;
    }
 
 
@@ -352,7 +324,6 @@
 
        console.log(ret.msg);
        return ret.ok ;
-       // if (ret.ok == false) throw 'ERROR...' ;
    }
 
 

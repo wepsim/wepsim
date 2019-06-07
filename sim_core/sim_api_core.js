@@ -118,14 +118,12 @@
          * @return {function} - action associated
          */
 
-        var do_nothing = function() { }
-
         function simcore_action_ui ( component_name, detail_id, action_name )
         {
             var sim_components = simhw_sim_components() ;
 
             if (typeof sim_components[component_name].details_ui[detail_id][action_name] === "undefined") {
-                return do_nothing ;
+                return simcore_do_nothing_handler ;
             }
 
             return sim_components[component_name].details_ui[detail_id][action_name] ;
@@ -422,10 +420,10 @@
                 var  maddr_state = simhw_sim_state(maddr_name) ;
 
                 if (typeof options.before_microinstruction === "undefined") {
-		    options.before_microinstruction = do_nothing_handler ;
+		    options.before_microinstruction = simcore_do_nothing_handler ;
 		}
                 if (typeof options.after_microinstruction  === "undefined") {
-		    options.after_microinstruction  = do_nothing_handler ;
+		    options.after_microinstruction  = simcore_do_nothing_handler ;
 		}
 
                 var i_clks = 0 ;
@@ -481,11 +479,6 @@
          * @param {string}  options.verbalize         - Textual or mathematical type of description for each signal [text|math]
          */
 
-        function do_nothing_handler ( )
-        {
-	    return true ;
-        }
-
         function simcore_execute_program ( options )
         {
     	    var ret = {} ;
@@ -525,10 +518,10 @@
 		}
 
                 if (typeof options.before_instruction === "undefined") {
-		    options.before_instruction = do_nothing_handler ;
+		    options.before_instruction = simcore_do_nothing_handler ;
 		}
                 if (typeof options.after_instruction  === "undefined") {
-		    options.after_instruction  = do_nothing_handler ;
+		    options.after_instruction  = simcore_do_nothing_handler ;
 		}
 
     	    var ins_executed = 0 ; 
@@ -564,6 +557,15 @@
     	    }
     
             return ret ;
+        }
+
+        /**
+         * Do nothing function (used as default event handler).
+         */
+
+        function simcore_do_nothing_handler ( )
+        {
+	    return true ;
         }
 
 
