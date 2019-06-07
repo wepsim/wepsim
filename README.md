@@ -287,7 +287,6 @@ Micropc at 0x3f.	Activated signals are: MC MR SELB SELA MA MB SELCOP T6 SELC LC 
 	// 5) execute firmware-assembly
 	if (false != ret.ok) {
 	    var options = {
-                             verbosity:             1, 
                              instruction_limit:  1024, 
                              cycles_limit:      10240
 		          } ;
