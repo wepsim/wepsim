@@ -34,59 +34,61 @@
 
 		                  // state: write_state, read_state, get_state
 		                  write_state: function ( vec ) {
-                                                  if (typeof vec.SCREEN == "undefined")
+                                                  if (typeof vec.SCREEN == "undefined") {
                                                       vec.SCREEN = {} ;
+                                                  }
 
-					          var sim_screen = get_screen_content() ;
+					          var sim_screen = poc_internal_states.screen_content ;
 					          var sim_lines  = sim_screen.trim().split("\n") ;
 					          for (var i=0; i<sim_lines.length; i++)
 					          {
 					               value = sim_lines[i] ;
            					       if (value != "") {
-							   vec.SCREEN[i] = {"type":  "screen", 
-								            "default_value": "",
-								            "id":    i,
-								            "op":    "==", 
-								            "value": value} ;
+							   vec.SCREEN[i] = { "type":  "screen", 
+								             "default_value": "",
+								             "id":    i,
+								             "op":    "==", 
+								             "value": value } ;
    						       }
 					          }
 
 						  return vec;
 				              }, 
 		                  read_state: function ( vec, check ) {
-                                                  if (typeof vec.SCREEN == "undefined")
+                                                  if (typeof vec.SCREEN == "undefined") {
                                                       vec.SCREEN = {} ;
+                                                  }
 
 					          if ("SCREEN" == check.type.toUpperCase().trim())
                                                   {
-						      vec.SCREEN[check.id] = {"type":  "screen", 
-								              "default_value": "",
-								              "id":    check.id,
-								              "op":    check.condition, 
-								              "value": check.value} ;
+						      vec.SCREEN[check.id] = { "type":  "screen", 
+								               "default_value": "",
+								               "id":    check.id,
+								               "op":    check.condition, 
+								               "value": check.value } ;
                                                       return true ;
                                                   }
 
                                                   return false ;
 				             },
 		                  get_state: function ( line ) {
-					          var sim_screen = get_screen_content() ;
+					          var sim_screen = poc_internal_states.screen_content ;
 					          var sim_lines  = sim_screen.trim().split("\n") ;
 						  var index = parseInt(line) ;
-						  if (typeof sim_lines[index] != "undefined")
+						  if (typeof sim_lines[index] != "undefined") {
 						      return sim_lines[index] ;
+						  }
 
 					          return null ;
 				              },
 
 		                  // native: get_value, set_value
                                   get_value:   function ( elto ) {
-						    var screen = get_screen_content() ;
-						    return screen ;
+        				           return poc_internal_states.screen_content ;
                                                },
                                   set_value:   function ( elto, value ) {
-						    set_screen_content(value) ;
-						    return value ;
+        				           poc_internal_states.screen_content = value ;
+						   return value ;
                                                }
                             	};
 
@@ -100,6 +102,13 @@
 
         poc_internal_states.io_hash[DDR_ID] = "DDR" ;
         poc_internal_states.io_hash[DSR_ID] = "DSR" ;
+
+
+	/*
+	 *  Internal States
+	 */
+
+        poc_internal_states.screen_content = "" ;
 
 
         /*

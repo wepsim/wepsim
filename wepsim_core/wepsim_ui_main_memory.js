@@ -110,7 +110,7 @@
 	        var topPos = obj_byid[0].offsetTop ;
 	        var obj_byid = $('#memory_MP') ;
 	        if (obj_byid.length > 0)
-	            obj_byid[0].scrollTop = topPos - 100;
+	            obj_byid[0].scrollTop = topPos - 120;
             }
 
             // update old_main_add for light_update

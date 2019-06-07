@@ -34,21 +34,21 @@
 
 		                  // state: write_state, read_state, get_state
 		                  write_state: function ( vec ) {
-						  return vec;
+						    return vec;
 				               },
 		                  read_state:  function ( o, check ) {
-                                                  return false ;
+                                                    return false ;
 				               },
 		                  get_state:   function ( reg ) {
-					          return null ;
+					            return null ;
 				               },
 
 		                  // native: get_value, set_value
                                   get_value:   function ( elto ) {
-						    return get_keyboard_content() ;
+                                                    return poc_internal_states.keyboard_content ;
                                                },
                                   set_value:   function ( elto, value ) {
-						    set_keyboard_content(value) ;
+                                                    poc_internal_states.keyboard_content = value ;
 						    return value ;
                                                }
                             	};
@@ -63,6 +63,13 @@
 
         poc_internal_states.io_hash[KBDR_ID] = "KBDR" ;
         poc_internal_states.io_hash[KBSR_ID] = "KBSR" ;
+
+
+	/*
+	 *  Internal States
+	 */
+
+        poc_internal_states.keyboard_content = "" ;
 
 
         /*
