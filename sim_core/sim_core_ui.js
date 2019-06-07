@@ -221,7 +221,7 @@
 	{
 	      var ui_keyboard = simcore_action_ui("KBD", 0, "get_keyboard_content")() ;
 
-	      if (ui_keyboard !== "undefined")
+	      if (ui_keyboard !== null)
 	          keyboard_content = ui_keyboard ;
 
 	      return keyboard_content ;
