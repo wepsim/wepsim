@@ -43,6 +43,8 @@
 
 	function wepsim_get_keyboard_content ( )
 	{
+	      var keyboard_content = "" ;
+
 	      var keyobj = document.getElementById("kdb_key") ;
               if (keyobj != null) {
 		  keyboard_content = keyobj.value ;

@@ -121,6 +121,8 @@
                 return ;
             }
 
+	    var rf_val    = 0 ;
+            var rf_format = get_cfg('RF_display_format') ;
             var o1_rf = "" ;
             var o1_rn = "" ;
 	    for (var index=0; index < simhw_sim_states()['BR'].length; index++)
@@ -130,13 +132,15 @@
                      o1_rn = o1_rn + '&nbsp;' ;
 		 }
 
+                 rf_val = (get_value(simhw_sim_states()['BR'][index]) >>> 0).toString(rf_format).toUpperCase() ;
+
 		 o1_rf += "<button type='button' class='btn py-0 px-1 mt-1 col-auto' " + 
 			  "        style='border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
                           "        data-toggle='popover-up' data-popover-content='" + index + "' data-container='body' " +
                           "        id='rf" + index + "'>" +
                           "<span id='name_RF" + index + "' class='p-0 text-monospace' style='float:center; color:black;'>" + o1_rn + "</span>&nbsp;" +
                           "<span class='badge badge-secondary' style='background-color:#CEECF5; color:black;' id='tbl_RF"  + index + "'>" +
-                          (get_value(simhw_sim_states()['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() +
+                          rf_val +
                           "</span>" +
                           "</button>" ;
 	    }
@@ -174,10 +178,12 @@
 
         function fullshow_rf_values ( )
         {
+            var rf_format = get_cfg('RF_display_format') ;
+
 	    for (var index=0; index < simhw_sim_states()['BR'].length; index++)
             {
-                 var br_value = (get_value(simhw_sim_states()['BR'][index]) >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() ;
-                 if (16 == get_cfg('RF_display_format'))
+                 var br_value = (get_value(simhw_sim_states()['BR'][index]) >>> 0).toString(rf_format).toUpperCase() ;
+                 if (16 === rf_format)
                      br_value = pack8(br_value) ;
 
                  $("#tbl_RF" + index).html(br_value);
@@ -289,16 +295,18 @@
 
         function fullshow_eltos ( sim_eltos, filter )
         {
+            var rf_format = get_cfg('RF_display_format') ;
+
             for (var i=0; i<filter.length; i++)
             {
                 var r = filter[i].split(",") ;
                 var key = r[0] ;
-                var value = sim_eltos[key].value.toString(get_cfg('RF_display_format')) ;
+                var value = sim_eltos[key].value.toString(rf_format) ;
 
                 if (sim_eltos[key].nbits > 1) 
 		{
-                    value = (simhw_sim_state(key).value >>> 0).toString(get_cfg('RF_display_format')).toUpperCase() ;
-                    if (16 == get_cfg('RF_display_format'))
+                    value = (simhw_sim_state(key).value >>> 0).toString(rf_format).toUpperCase() ;
+                    if (16 == rf_format)
                         value = pack8(value) ;
                 }
 

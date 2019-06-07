@@ -64,7 +64,7 @@
        console.log('   ./wepsim_node.sh microstepverbalized   checkpoint ./examples/checkpoint/tutorial_1.txt                                     verbal-math') ;
        console.log('') ;
        console.log(' * Show console output after execution:') ;
-       console.log('   ./wepsim_node.sh show-console          ep         ./examples/microcode/mc-ep_base.txt ./examples/assembly/asm-ep_s1_e1.txt') ;
+       console.log('   ./wepsim_node.sh show-console          ep         ./examples/microcode/mc-ep_os.txt ./examples/assembly/asm-ep_s4_e1.txt') ;
        console.log('') ;
 
        return true ;
@@ -87,7 +87,6 @@
    var options = {
 		    instruction_limit: 1000,
 		    cycles_limit:      1024,
-		    verbosity:         0,
 		    verbalize:         'text'
 	         } ;
 
@@ -172,17 +171,14 @@
 
    if ("CHECK" == data.action)
    {
-       ws.wepsim_nodejs_init(data.mode) ;
-       var ret = ws.wepsim_nodejs_check(data, options) ;
-       if (false == ret.ok) 
-       {
-           console.log(ret.msg);
-           return false ;
-           // throw 'ERROR...' ;
-       }
+       var ret = null ;
 
-       console.log("OK: Execution: no error reported\n");
-       return true ;
+       // check...
+       ws.wepsim_nodejs_init(data.mode) ;
+       ret = ws.wepsim_nodejs_check(data, options) ;
+
+       console.log(ret.msg);
+       return ret.ok ;
    }
 
 
@@ -192,14 +188,18 @@
 
    if ("RUN" == data.action)
    {
-       options.verbosity = 1 ;
+       var ret = null ;
 
+       // set verbosity handlers
+       options.before_instruction = ws.wepsim_nodejs_do_nothing_handler ;
+       options.after_instruction  = ws.wepsim_nodejs_do_nothing_handler ;
+
+       // run...
        ws.wepsim_nodejs_init(data.mode) ;
-       var ret = ws.wepsim_nodejs_run(data, options) ;
+       ret = ws.wepsim_nodejs_run(data, options) ;
 
        console.log(ret.msg);
        return ret.ok ;
-       // if (ret.ok == false) throw 'ERROR...' ;
    }
 
 
@@ -209,14 +209,18 @@
 
    if ("STEPBYSTEP" == data.action)
    {
-       options.verbosity = 2 ;
+       var ret = null ;
 
+       // set verbosity handlers
+       options.before_instruction = ws.wepsim_nodejs_before_instruction2 ;
+       options.after_instruction  = ws.wepsim_nodejs_after_instruction2 ;
+
+       // run...
        ws.wepsim_nodejs_init(data.mode) ;
-       var ret = ws.wepsim_nodejs_run(data, options) ;
+       ret = ws.wepsim_nodejs_run(data, options) ;
 
        console.log(ret.msg);
        return ret.ok ;
-       // if (ret.ok == false) throw 'ERROR...' ;
    }
 
 
@@ -226,14 +230,18 @@
 
    if ("MICROSTEPBYMICROSTEP" == data.action)
    {
-       options.verbosity = 3 ;
+       var ret = null ;
 
+       // set verbosity handlers
+       options.before_microinstruction = ws.wepsim_nodejs_before_microinstruction3 ;
+       options.after_microinstruction  = ws.wepsim_nodejs_after_microinstruction3 ;
+
+       // run...
        ws.wepsim_nodejs_init(data.mode) ;
-       var ret = ws.wepsim_nodejs_run(data, options) ;
+       ret = ws.wepsim_nodejs_run(data, options) ;
 
        console.log(ret.msg);
        return ret.ok ;
-       // if (ret.ok == false) throw 'ERROR...' ;
    }
 
 
@@ -243,14 +251,18 @@
 
    if ("MICROSTEPVERBALIZED" == data.action)
    {
-       options.verbosity = 4 ;
+       var ret = null ;
 
+       // set verbosity handlers
+       options.before_microinstruction = ws.wepsim_nodejs_before_microinstruction4 ;
+       options.after_microinstruction  = ws.wepsim_nodejs_do_nothing_handler ;
+
+       // run...
        ws.wepsim_nodejs_init(data.mode) ;
-       var ret = ws.wepsim_nodejs_run(data, options) ;
+       ret = ws.wepsim_nodejs_run(data, options) ;
 
        console.log(ret.msg);
        return ret.ok ;
-       // if (ret.ok == false) throw 'ERROR...' ;
    }
 
 
@@ -264,7 +276,6 @@
 
        console.log(ret.msg);
        return ret.ok ;
-       // if (ret.ok == false) throw 'ERROR...' ;
    }
 
 
@@ -274,14 +285,13 @@
 
    if ("SHOW-RECORD" == data.action)
    {
-       options.verbosity = 5 ;
+       var ret = null ;
 
        ws.wepsim_nodejs_init(data.mode) ;
-       var ret = ws.wepsim_nodejs_run(data, options) ;
+       ret = ws.wepsim_nodejs_run(data, options) ;
 
        console.log(ret.msg);
        return ret.ok ;
-       // if (ret.ok == false) throw 'ERROR...' ;
    }
 
 
@@ -291,14 +301,13 @@
 
    if ("SHOW-CONSOLE" == data.action)
    {
-       options.verbosity = 6 ;
+       var ret = null ;
 
        ws.wepsim_nodejs_init(data.mode) ;
-       var ret = ws.wepsim_nodejs_run(data, options) ;
+       ret = ws.wepsim_nodejs_run(data, options) ;
 
        console.log(ret.msg);
        return ret.ok ;
-       // if (ret.ok == false) throw 'ERROR...' ;
    }
 
 
@@ -308,12 +317,13 @@
 
    if ("HELP" == data.action)
    {
+       var ret = null ;
+
        ws.wepsim_nodejs_init(data.mode) ;
-       var ret = ws.wepsim_nodejs_help_signal(data, options) ;
+       ret = ws.wepsim_nodejs_help_signal(data, options) ;
 
        console.log(ret.msg);
        return ret.ok ;
-       // if (ret.ok == false) throw 'ERROR...' ;
    }
 
 

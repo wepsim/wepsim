@@ -204,7 +204,7 @@
 	{
 	      var ui_screen = simcore_action_ui("SCREEN", 0, "get_screen_content")() ;
 
-	      if (ui_screen !== "undefined")
+	      if (ui_screen !== null)
 	          screen_content = ui_screen ;
 
 	      return screen_content ;
@@ -221,7 +221,7 @@
 	{
 	      var ui_keyboard = simcore_action_ui("KBD", 0, "get_keyboard_content")() ;
 
-	      if (ui_keyboard !== "undefined")
+	      if (ui_keyboard !== null)
 	          keyboard_content = ui_keyboard ;
 
 	      return keyboard_content ;
