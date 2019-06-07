@@ -421,30 +421,26 @@
                 var  maddr_name  = simhw_sim_ctrlStates_get().mpc.state ;
                 var  maddr_state = simhw_sim_state(maddr_name) ;
 
+                if (typeof options.before_microinstruction === "undefined") {
+		    options.before_microinstruction = do_nothing_handler ;
+		}
+                if (typeof options.after_microinstruction  === "undefined") {
+		    options.after_microinstruction  = do_nothing_handler ;
+		}
+
                 var i_clks = 0 ;
                 var cur_addr = 0 ;
 		do
             	{
-		       if (3 == options.verbosity) {
-		           before_state = simcore_simstate_current2state() ;
-		       }
-		       else
-		       if (4 == options.verbosity) {
-                           curr_mpc    = '0x' + cur_addr.toString(16) ;
-                           ret.msg     = ret.msg + 'Micropc at ' + curr_mpc + '.\t' + 
-				         get_verbal_from_current_mpc() + '\n' ;
-		       }
+		    // verbosity before
+		    options.before_microinstruction(curr_MC, cur_addr) ;
 
                     compute_general_behavior("CLOCK") ;
 
-		       if (3 == options.verbosity) {
-		           after_state = simcore_simstate_current2state() ;
-                           curr_mpc    = '0x' + cur_addr.toString(16) ;
-                           ret.msg     = ret.msg + 'micropc(' + curr_mpc + '):\t' + 
-				         controlmemory_lineToString(curr_MC, cur_addr).trim() + ':\t\t\t' +
-                                         simcore_simstate_diff_states(before_state,after_state) + '\n' ;
-		       }
+		    // verbosity after
+		    options.after_microinstruction(curr_MC, cur_addr) ;
 
+		    // next clock cycle...
                     i_clks++;
                     if (limitless) 
 		    {
@@ -482,9 +478,14 @@
          * Execute the assembly previously compiled and loaded.
          * @param {integer} options.instruction_limit - Set the limit of instructions to be executed
          * @param {integer} options.cycles_limit      - The limit of clock cycles per instruction
-         * @param {integer} options.verbosity         - Instruct to return the intermediated states [0...4]
          * @param {string}  options.verbalize         - Textual or mathematical type of description for each signal [text|math]
          */
+
+        function do_nothing_handler ( )
+        {
+	    return true ;
+        }
+
         function simcore_execute_program ( options )
         {
     	    var ret = {} ;
@@ -523,6 +524,13 @@
 		    set_cfg('verbal_verbose', options.verbalize) ;
 		}
 
+                if (typeof options.before_instruction === "undefined") {
+		    options.before_instruction = do_nothing_handler ;
+		}
+                if (typeof options.after_instruction  === "undefined") {
+		    options.after_instruction  = do_nothing_handler ;
+		}
+
     	    var ins_executed = 0 ; 
     	    while (
                          (reg_pc != reg_pc_before)  &&
@@ -530,31 +538,19 @@
                         ((reg_pc < kcode_end) && (reg_pc >= kcode_begin)) )
                   )
     	    {
-		     if (2 == options.verbosity) {
-		         before_state = simcore_simstate_current2state() ;
-		     }
+		   // verbosity before
+		   options.before_instruction(SIMWARE, reg_pc) ;
 
+		   // execute instruction...
     	           ret1 = simcore_execute_microprogram(options) ;
                    if (false == ret1.ok) {
     		       return ret1 ;
     	           }
     
-		     if (2 == options.verbosity) {
-		         after_state = simcore_simstate_current2state() ;
-                         curr_pc     = '0x' + reg_pc.toString(16) ;
-                         ret.msg     = ret.msg + 'pc(' + curr_pc + '):\t' + 
-				       SIMWARE.assembly[curr_pc].source_original + ':\t\t\t' +
-                                       simcore_simstate_diff_states(before_state,after_state) + '\n' ;
-		     }
-		     else
-		     if (3 == options.verbosity) {
-                         ret.msg   = ret.msg + ret1.msg ;
-		     }
-		     else
-		     if (4 == options.verbosity) {
-                         ret.msg   = ret.msg + ret1.msg ;
-		     }
+		   // verbosity after
+		   options.after_instruction(SIMWARE, reg_pc) ;
 
+		   // next instruction...
     	           ins_executed++ ; 
                    if (ins_executed > options.instruction_limit) 
     	           {
