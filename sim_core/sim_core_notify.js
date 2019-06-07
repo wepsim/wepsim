@@ -23,22 +23,22 @@
          *  Notifications: public API
          */
 
-        var simcoreui_notifications = [] ;
+        var simcore_notifications = [] ;
 
 
-        function simcoreui_notifications_get ( )
+        function simcore_notifications_get ( )
         {
-            return simcoreui_notifications ;
+            return simcore_notifications ;
         }
 
-        function simcoreui_notifications_reset ( )
+        function simcore_notifications_reset ( )
         {
-            simcoreui_notifications = [] ;
+            simcore_notifications = [] ;
         }
 
-        function simcoreui_notifications_add2 ( ntf )
+        function simcore_notifications_add2 ( ntf )
         {
-	    simcoreui_notifications.push({
+	    simcore_notifications.push({
 		                            title:   ntf.title,
 		                            message: ntf.message,
 		                            type:    ntf.type,
@@ -46,9 +46,9 @@
 	                                 }) ;
         }
 
-        function simcoreui_notifications_add ( ntf_title, ntf_message, ntf_type, ntf_delay )
+        function simcore_notifications_add ( ntf_title, ntf_message, ntf_type, ntf_delay )
         {
-	    simcoreui_notifications.push({
+	    simcore_notifications.push({
 		                            title:   $('<p>').html(ntf_title).text(),
 		                            message: $('<p>').html(ntf_message).text(),
 		                            type:    ntf_type,
