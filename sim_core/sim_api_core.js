@@ -565,7 +565,7 @@
 
         function simcore_do_nothing_handler ( )
         {
-	    return true ;
+	    return null ;
         }
 
 
