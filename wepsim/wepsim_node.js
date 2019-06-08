@@ -230,7 +230,7 @@
 
 	console.log('micropc(' + curr_mpc + '):\t' +
 		     controlmemory_lineToString(curr_MC, cur_addr).trim() + ':\t\t\t' +
-		     simcore_simstate_diff_states(before_state,after_state)) ;
+		     simcore_simstate_diff_states(before_state, after_state)) ;
     }
 
     function wepsim_nodejs_before_microinstruction4 ( curr_MC, cur_addr )

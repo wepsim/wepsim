@@ -109,6 +109,57 @@
 		return vtable;
         }
 
+        function quick_config_rf ( )
+        {
+		return "<ul class='list-group list-group-flush'>" +
+
+		       "<li class='list-group-item px-0 py-1'>" +
+		       "<buttom class='btn btn-sm btn-outline-dark col p-1 text-right float-right' " +
+		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_16_fill\"); show_rf_values(); show_states(); return true; '>" +
+		       "<span class='col-12'>0x0000001A</span></buttom>" +
+		       "</li>" +
+		       "<li class='list-group-item px-0 py-1'>" +
+		       "<buttom class='btn btn-sm btn-outline-dark col p-1 text-right float-right' " +
+		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_16_nofill\"); show_rf_values(); show_states(); return true; '>" +
+		       "<span class='col-12'>0x1A</span></buttom>" +
+		       "</li>" +
+
+		       "<li class='list-group-item px-0 py-1'>" +
+		       "<buttom class='btn btn-sm btn-outline-dark col p-1 text-right float-right' " +
+		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_8_fill\"); show_rf_values(); show_states(); return true; '>" +
+		       "<span class='col-12'>00000032</span></buttom>" +
+		       "</li>" +
+		       "<li class='list-group-item px-0 py-1'>" +
+		       "<buttom class='btn btn-sm btn-outline-dark col p-1 text-right float-right' " +
+		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_8_nofill\"); show_rf_values(); show_states(); return true; '>" +
+		       "<span class='col-12'>032</span></buttom>" +
+		       "</li>" +
+
+		       "<li class='list-group-item px-0 py-1'>" +
+		       "<buttom class='btn btn-sm btn-outline-dark col p-1 text-right float-right' " +
+		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_10_fill\"); show_rf_values(); show_states(); return true; '>" +
+		       "<span class='col-12'>+00000026</span></buttom>" +
+		       "</li>" +
+		       "<li class='list-group-item px-0 py-1'>" +
+		       "<buttom class='btn btn-sm btn-outline-dark col p-1 text-right float-right' " +
+		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_10_nofill\"); show_rf_values(); show_states(); return true; '>" +
+		       "<span class='col-12'>+26</span></buttom>" +
+		       "</li>" +
+
+		       "<li class='list-group-item px-0 py-1'>" +
+		       "<buttom class='btn btn-sm btn-outline-dark col p-1 text-right float-right' " +
+		       "        onclick='update_cfg(\"RF_display_format\", \"float_10_nofill\"); show_rf_values(); show_states(); return true; '>" +
+		       "<span class='col-12'>3.64e-44</span></buttom>" +
+		       "</li>" +
+
+		       "<li class='list-group-item px-0 py-1'>" +
+		       "<button type='button' id='close' data-role='none' " +
+		       "        class='btn btn-sm btn-danger w-100 p-0 mt-1' " +
+		       "        onclick='$(\"#popover-rfcfg\").popover(\"hide\");'>Close</button>" +
+		       "</li>" +
+		       "</ul>" ;
+        }
+
 
         /*
          *  init_x & show_x
@@ -237,7 +288,8 @@
             }
 
             // Fast UI configuration
-            var o1 = "<a tabindex='0' href='#' data-toggle='popover-rfcfg' id='popover-rfcfg'>&#8984;</a>" ;
+            var o1 = "<a data-toggle='popover-rfcfg' id='popover-rfcfg' " + 
+	             "   tabindex='0' href='#' class='mx-auto'><strong>&equiv;</strong></a>" ;
 
             // Registers
             var rf_format = get_cfg('RF_display_format') ;
@@ -312,58 +364,10 @@
 		               '<div class="popover-body"></div>' +
 		               '</div>',
 		    container: 'body',
-		    content: function() {
-		        return "<ul class='list-group list-group-flush'>" +
-
-			       "<li class='list-group-item px-0 py-1'>" +
-                               "<a class='btn btn-sm btn-outline-dark col p-1 text-left float-right' " +
-                               "   onclick='update_cfg(\"RF_display_format\", \"unsigned_16_fill\"); show_rf_values(); show_states(); return true; '>" +
-                               "<span class='col-12'>hex. (8)</span></a>" +
-			       "</li>" +
-			       "<li class='list-group-item px-0 py-1'>" +
-                               "<a class='btn btn-sm btn-outline-dark col p-1 text-left float-right' " +
-                               "   onclick='update_cfg(\"RF_display_format\", \"unsigned_16_nofill\"); show_rf_values(); show_states(); return true; '>" +
-                               "<span class='col-12'>hex.</span></a>" +
-			       "</li>" +
-
-			       "<li class='list-group-item px-0 py-1'>" +
-                               "<a class='btn btn-sm btn-outline-dark col p-1 text-left float-right' " +
-                               "   onclick='update_cfg(\"RF_display_format\", \"unsigned_8_fill\"); show_rf_values(); show_states(); return true; '>" +
-                               "<span class='col-12'>octal (8)</span></a>" +
-			       "</li>" +
-			       "<li class='list-group-item px-0 py-1'>" +
-                               "<a class='btn btn-sm btn-outline-dark col p-1 text-left float-right' " +
-                               "   onclick='update_cfg(\"RF_display_format\", \"unsigned_8_nofill\"); show_rf_values(); show_states(); return true; '>" +
-                               "<span class='col-12'>octal</span></a>" +
-			       "</li>" +
-
-			       "<li class='list-group-item px-0 py-1'>" +
-                               "<a class='btn btn-sm btn-outline-dark col p-1 text-left float-right' " +
-                               "   onclick='update_cfg(\"RF_display_format\", \"unsigned_10_fill\"); show_rf_values(); show_states(); return true; '>" +
-                               "<span class='col-12'>unsig. (8)</span></a>" +
-			       "</li>" +
-			       "<li class='list-group-item px-0 py-1'>" +
-                               "<a class='btn btn-sm btn-outline-dark col p-1 text-left float-right' " +
-                               "   onclick='update_cfg(\"RF_display_format\", \"unsigned_10_nofill\"); show_rf_values(); show_states(); return true; '>" +
-                               "<span class='col-12'>unsig.</span></a>" +
-			       "</li>" +
-
-			       "<li class='list-group-item px-0 py-1'>" +
-                               "<a class='btn btn-sm btn-outline-dark col p-1 text-left float-right' " +
-                               "   onclick='update_cfg(\"RF_display_format\", \"float_10_nofill\"); show_rf_values(); show_states(); return true; '>" +
-                               "<span class='col-12'>float</span></a>" +
-			       "</li>" +
-
-			       "<li class='list-group-item px-0 py-1'>" +
-			       "<button type='button' id='close' data-role='none' " +
-			       "        class='btn btn-sm btn-danger w-100 p-0 mt-1' " +
-			       "        onclick='$(\"#popover-rfcfg\").popover(\"hide\");'>Close</button>" +
-			       "</li>" +
-			       "</ul>" ;
-		    },
+		    content:    quick_config_rf(),
 		    sanitizeFn: function (content) {
-                        return content ; // DOMPurify.sanitize(content) ;
-                    }
+                                   return content ; // DOMPurify.sanitize(content) ;
+                                }
 	    });
         }
 

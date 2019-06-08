@@ -253,19 +253,19 @@
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: hexadecimal'" +
 				   "		   onclick=\"update_cfg('RF_display_format','unsigned_16_fill'); show_rf_values(); show_states(); show_memories_values();\">" +
-				   "		<input type='radio' name='options' id='radio2-unsigned_16_fill'  autocomplete='off' >Hex." +
+				   "		<input type='radio' name='options' id='radio2-unsigned_16_fill'  autocomplete='off' >0x01A<sub>16</sub>" +
 				   "	    </label>" +
 				   "	    <label id='label2-unsigned_10_fill'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: decimal'" +
 				   "		   onclick=\"update_cfg('RF_display_format','unsigned_10_fill'); show_rf_values(); show_states(); show_memories_values();\">" +
-				   "		<input type='radio' name='options' id='radio2-unsigned_10_fill'  autocomplete='off' >Dec." +
+				   "		<input type='radio' name='options' id='radio2-unsigned_10_fill'  autocomplete='off' >0032<sub>10</sub>" +
 				   "	    </label>" +
 				   "	    <label id='label2-unsigned_8_fill'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: octal'" +
 				   "		   onclick=\"update_cfg('RF_display_format','unsigned_8_fill');  show_rf_values(); show_states(); show_memories_values();\">" +
-				   "		<input type='radio' name='options' id='radio2-unsigned_8_fill'   autocomplete='off' >Oct." +
+				   "		<input type='radio' name='options' id='radio2-unsigned_8_fill'   autocomplete='off' >0026<sub>8</sub>" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() { 
@@ -304,13 +304,13 @@
                       type:        "Register file",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label9-true'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
 				   "		   aria-label='Is editable: true'" +
 				   "		   onclick=\"update_cfg('is_editable',true);\">" +
 				   "		<input type='radio' name='options' id='radio9-true'  aria-label='Is editable: true'  autocomplete='off' >On" +
 				   "	    </label>" +
 				   "	    <label id='label9-false'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
 				   "		   aria-label='Is editable: false'" +
 				   "		   onclick=\"update_cfg('is_editable',false);\">" +
 				   "		<input type='radio' name='options' id='radio9-false' aria-label='Is editable: false' autocomplete='off' >Off" +
