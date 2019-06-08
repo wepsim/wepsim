@@ -249,23 +249,23 @@
                       id:          "radio2",
                       type:        "Register file",
                       code_cfg:    " <div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
-				   "	    <label id='label2-16'" +
+				   "	    <label id='label2-unsigned_16_fill'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: hexadecimal'" +
-				   "		   onclick=\"update_cfg('RF_display_format',16); show_rf_values(); show_states(); show_memories_values();\">" +
-				   "		<input type='radio' name='options' id='radio2-16'   autocomplete='off' >Hex." +
+				   "		   onclick=\"update_cfg('RF_display_format','unsigned_16_fill'); show_rf_values(); show_states(); show_memories_values();\">" +
+				   "		<input type='radio' name='options' id='radio2-unsigned_16_fill'  autocomplete='off' >Hex." +
 				   "	    </label>" +
-				   "	    <label id='label2-10'" +
+				   "	    <label id='label2-unsigned_10_fill'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: decimal'" +
-				   "		   onclick=\"update_cfg('RF_display_format',10); show_rf_values(); show_states(); show_memories_values();\">" +
-				   "		<input type='radio' name='options' id='radio2-10'  autocomplete='off' >Dec." +
+				   "		   onclick=\"update_cfg('RF_display_format','unsigned_10_fill'); show_rf_values(); show_states(); show_memories_values();\">" +
+				   "		<input type='radio' name='options' id='radio2-unsigned_10_fill'  autocomplete='off' >Dec." +
 				   "	    </label>" +
-				   "	    <label id='label2-8'" +
+				   "	    <label id='label2-unsigned_8_fill'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='register file display format: octal'" +
-				   "		   onclick=\"update_cfg('RF_display_format',8); show_rf_values(); show_states(); show_memories_values();\">" +
-				   "		<input type='radio' name='options' id='radio2-8'  autocomplete='off' >Oct." +
+				   "		   onclick=\"update_cfg('RF_display_format','unsigned_8_fill');  show_rf_values(); show_states(); show_memories_values();\">" +
+				   "		<input type='radio' name='options' id='radio2-unsigned_8_fill'   autocomplete='off' >Oct." +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() { 

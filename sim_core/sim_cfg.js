@@ -59,7 +59,7 @@
                WSCFG.is_byvalue          = { value:false,              type:"boolean"};
 
 	       /* simulation screen: Register File */
-               WSCFG.RF_display_format   = { value:16,                 type:"int"} ;
+               WSCFG.RF_display_format   = { value:'unsigned_16_fill', type:"string"} ;
                WSCFG.RF_display_name     = { value:'numerical',        type:"string"} ;
 
                WSCFG.is_editable         = { value:true,               type:"boolean"};

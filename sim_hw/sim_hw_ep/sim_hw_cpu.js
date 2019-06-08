@@ -172,7 +172,7 @@
 
         ep_internal_states.tri_state_names = [ "T1","T2","T3","T4","T5","T6","T7","T8","T9","T10","T11" ] ;
         ep_internal_states.fire_visible    = { 'databus': false, 'internalbus': false } ;
-        ep_internal_states.filter_states   = [ "REG_IR_DECO,col-12", "REG_IR,col-auto",  
+        ep_internal_states.filter_states   = [ "REG_IR_DECO,col-11", "REG_IR,col-auto",  
 		                               "REG_PC,col-auto",    "REG_MAR,col-auto", "REG_MBR,col-auto", 
                                                "REG_RT1,col-auto",   "REG_RT2,col-auto", "REG_RT3,col-auto", 
 		                               "REG_SR,col-auto",    "REG_MICROADDR,col-auto" ] ;

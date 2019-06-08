@@ -76,10 +76,10 @@
 
 		var vtable = "<table class='table table-bordered table-hover table-sm mb-1'>" +
 			     "<tbody>" +
-			     "<tr><td class='p-0 pl-1 align-middle' onclick='update_cfg(\"RF_display_format\",16); show_rf_values(); show_states();'><strong>hex.</strong></td>" +
+			     "<tr><td class='p-0 pl-1 align-middle'><strong>hex.</strong></td>" +
                              "    <td class='p-0 pl-1 align-middle'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuehex + "</strong></td>" +
 			     "</tr>" +
-			     "<tr><td class='p-0 pl-1 align-middle' onclick='update_cfg(\"RF_display_format\",8); show_rf_values(); show_states();'><strong>oct.</strong></td>" +
+			     "<tr><td class='p-0 pl-1 align-middle'><strong>oct.</strong></td>" +
                              "    <td class='p-0 pl-1 align-middle'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valueoct + "</strong></td>" +
 			     "</tr>" +
 			     "<tr><td class='p-0 pl-1 align-middle'><strong>binary</strong></td>" +
@@ -88,7 +88,7 @@
 			     "<tr><td class='p-0 pl-1 align-middle'><strong>signed</strong></td>" +
                              "    <td class='p-0 pl-1 align-middle'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valuei   + "</strong></td>" +
 			     "</tr>" +
-			     "<tr><td class='p-0 pl-1 align-middle' onclick='update_cfg(\"RF_display_format\",10); show_rf_values(); show_states();'><strong>unsig.</strong></td>" +
+			     "<tr><td class='p-0 pl-1 align-middle'><strong>unsig.</strong></td>" +
                              "    <td class='p-0 pl-1 align-middle'><strong class='rounded' style='background-color:#CEECF5; color:black; font-family:monospace;'>" + valueui  + "</strong></td>" +
 			     "</tr>" +
 			     "<tr><td class='p-0 pl-1 align-middle'><strong>char</strong></td>" +
@@ -121,6 +121,7 @@
                 return ;
             }
 
+            // Registers
 	    var rf_val    = 0 ;
             var rf_format = get_cfg('RF_display_format') ;
             var o1_rf = "" ;
@@ -132,7 +133,7 @@
                      o1_rn = o1_rn + '&nbsp;' ;
 		 }
 
-                 rf_val = (get_value(simhw_sim_states()['BR'][index]) >>> 0).toString(rf_format).toUpperCase() ;
+		 rf_val = value2string(rf_format, (get_value(simhw_sim_states()['BR'][index]) >>> 0)) ;
 
 		 o1_rf += "<button type='button' class='btn py-0 px-1 mt-1 col-auto' " + 
 			  "        style='border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
@@ -147,6 +148,7 @@
 
             $(jqdiv).html("<div class='d-flex flex-row flex-wrap justify-content-around justify-content-sm-between'>" + o1_rf + "</div>");
 
+            // Pop-overs
 	    $("[data-toggle=popover-up]").popover({
 	    	    html:      true,
                     placement: 'auto',
@@ -179,12 +181,11 @@
         function fullshow_rf_values ( )
         {
             var rf_format = get_cfg('RF_display_format') ;
+	    var br_value = "" ;
 
 	    for (var index=0; index < simhw_sim_states()['BR'].length; index++)
             {
-                 var br_value = (get_value(simhw_sim_states()['BR'][index]) >>> 0).toString(rf_format).toUpperCase() ;
-                 if (16 === rf_format)
-                     br_value = pack8(br_value) ;
+		 br_value = value2string(rf_format, (get_value(simhw_sim_states()['BR'][index]) >>> 0)) ;
 
                  $("#tbl_RF" + index).html(br_value);
 	    }
@@ -235,7 +236,14 @@
                 return ;
             }
 
-            var o1 = "" ;
+            // Fast UI configuration
+            var o1 = "<a tabindex='0' href='#' data-toggle='popover-rfcfg' id='popover-rfcfg'>&#8984;</a>" ;
+
+            // Registers
+            var rf_format = get_cfg('RF_display_format') ;
+	    var divclass  =  "" ;
+	    var value     =  "" ;
+
             var part1 = "" ;
             var part2 = "" ;
             for (var i=0; i<filter.length; i++)
@@ -256,7 +264,8 @@
                         showkey += '<span class="d-none d-sm-inline-flex text-monospace">' + part2 + '</span>' ;
 	        }
 
-                var divclass = filter[i].split(",")[1] ;
+                divclass = filter[i].split(",")[1] ;
+		value    = value2string(rf_format, sim_eltos[s].value) ;
 
                 o1 += "<button type='button' class='btn py-0 px-1 mt-1 " + divclass + "' " + 
 		      "        style='border-color:#cecece; background-color:#f5f5f5' data-role='none' " +
@@ -264,13 +273,14 @@
                       "        id='rp" + s + "'>" +
                       showkey +
                       " <span class='badge badge-secondary' style='background-color:#CEECF5; color:black;' id='tbl_"  + s + "'>" +
-                      sim_eltos[s].value.toString(get_cfg('RF_display_format')) +
+		      value +
                       "</span>" +
                       "</button>" ;
             }
 
             $(jqdiv).html("<div class='d-flex flex-row flex-wrap justify-content-around justify-content-sm-between'>" + o1 + "</div>");
 
+            // Pop-overs
 	    $("[data-toggle=popover-bottom]").popover({
 	    	    html:      true,
                     placement: 'bottom',
@@ -291,28 +301,90 @@
                         return content ; // DOMPurify.sanitize(content) ;
                     }
 	    });
+
+	    $("[data-toggle=popover-rfcfg]").popover({
+	    	    html:      true,
+                    placement: 'auto',
+                    animation: false,
+                    trigger:   'click',
+		    template:  '<div class="popover shadow" role="tooltip">' + 
+                               '<div class="arrow"></div>' +
+		               '<div class="popover-body"></div>' +
+		               '</div>',
+		    container: 'body',
+		    content: function() {
+		        return "<ul class='list-group list-group-flush'>" +
+
+			       "<li class='list-group-item px-0 py-1'>" +
+                               "<a class='btn btn-sm btn-outline-dark col p-1 text-left float-right' href='#' " +
+                               "   onclick='update_cfg(\"RF_display_format\", \"unsigned_16_fill\"); show_rf_values(); show_states();'>" +
+                               "<span class='col-12'>hex. (8)</span></a>" +
+			       "</li>" +
+			       "<li class='list-group-item px-0 py-1'>" +
+                               "<a class='btn btn-sm btn-outline-dark col p-1 text-left float-right' href='#' " +
+                               "   onclick='update_cfg(\"RF_display_format\", \"unsigned_16_nofill\"); show_rf_values(); show_states();'>" +
+                               "<span class='col-12'>hex.</span></a>" +
+			       "</li>" +
+
+			       "<li class='list-group-item px-0 py-1'>" +
+                               "<a class='btn btn-sm btn-outline-dark col p-1 text-left float-right' href='#' " +
+                               "   onclick='update_cfg(\"RF_display_format\", \"unsigned_8_fill\"); show_rf_values(); show_states();'>" +
+                               "<span class='col-12'>octal (8)</span></a>" +
+			       "</li>" +
+			       "<li class='list-group-item px-0 py-1'>" +
+                               "<a class='btn btn-sm btn-outline-dark col p-1 text-left float-right' href='#' " +
+                               "   onclick='update_cfg(\"RF_display_format\", \"unsigned_8_nofill\"); show_rf_values(); show_states();'>" +
+                               "<span class='col-12'>octal</span></a>" +
+			       "</li>" +
+
+			       "<li class='list-group-item px-0 py-1'>" +
+                               "<a class='btn btn-sm btn-outline-dark col p-1 text-left float-right' href='#' " +
+                               "   onclick='update_cfg(\"RF_display_format\", \"unsigned_10_fill\"); show_rf_values(); show_states();'>" +
+                               "<span class='col-12'>unsig. (8)</span></a>" +
+			       "</li>" +
+			       "<li class='list-group-item px-0 py-1'>" +
+                               "<a class='btn btn-sm btn-outline-dark col p-1 text-left float-right' href='#' " +
+                               "   onclick='update_cfg(\"RF_display_format\", \"unsigned_10_nofill\"); show_rf_values(); show_states();'>" +
+                               "<span class='col-12'>unsig.</span></a>" +
+			       "</li>" +
+
+			       "<li class='list-group-item px-0 py-1'>" +
+                               "<a class='btn btn-sm btn-outline-dark col p-1 text-left float-right' href='#' " +
+                               "   onclick='update_cfg(\"RF_display_format\", \"float_10_nofill\"); show_rf_values(); show_states();'>" +
+                               "<span class='col-12'>float</span></a>" +
+			       "</li>" +
+
+			       "<li class='list-group-item px-0 py-1'>" +
+			       "<button type='button' id='close' data-role='none' " +
+			       "        class='btn btn-sm btn-danger w-100 p-0 mt-1' " +
+			       "        onclick='$(\"#popover-rfcfg\").popover(\"hide\");'>Close</button>" +
+			       "</li>" +
+			       "</ul>" ;
+		    },
+		    sanitizeFn: function (content) {
+                        return content ; // DOMPurify.sanitize(content) ;
+                    }
+	    });
         }
 
         function fullshow_eltos ( sim_eltos, filter )
         {
             var rf_format = get_cfg('RF_display_format') ;
+	    var value = "" ;
+	    var   r = [] ;
+	    var key = "" ;
 
             for (var i=0; i<filter.length; i++)
             {
-                var r = filter[i].split(",") ;
-                var key = r[0] ;
-                var value = sim_eltos[key].value.toString(rf_format) ;
+                  r = filter[i].split(",") ;
+                key = r[0] ;
 
-                if (sim_eltos[key].nbits > 1) 
-		{
-                    value = (simhw_sim_state(key).value >>> 0).toString(rf_format).toUpperCase() ;
-                    if (16 == rf_format)
-                        value = pack8(value) ;
+                value = value2string(rf_format, sim_eltos[key].value) ;
+                if (sim_eltos[key].nbits > 1) {
+		    value = value2string(rf_format, (simhw_sim_state(key).value >>> 0)) ;
                 }
 
-		var obj = document.getElementById("tbl_" + key);
-		if (obj != null)
-                    obj.innerHTML = value ;
+                $("#tbl_" + key).html(value);
             }
         }
 
