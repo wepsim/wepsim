@@ -95,7 +95,7 @@
 				           }, 50);
                              }
 
-                             wepsim_notify_success('<strong>INFO</strong>', 
+                             wepsim_notify_success('<strong>INFO</strong>',
                                                    'Example ready to be used.') ;
                       };
         wepsim_load_from_url(url, do_next) ;
@@ -105,7 +105,7 @@
                                   'load_from_example_assembly("' + example_id + '", ' + chain_next_step + ');\n') ;
 
 	// stats about examples
-        ga('send', 'event', 'example', 'example.assembly', 
+        ga('send', 'event', 'example', 'example.assembly',
            'example.assembly.' + sample_hw + "." + sample_asm);
     }
 
@@ -149,7 +149,7 @@
 			    }
 
                            // chain to next task
-                           if (true === chain_next_step) 
+                           if (true === chain_next_step)
                            {
                                setTimeout(function() {
                                              load_from_example_assembly(example_id, chain_next_step);
@@ -158,7 +158,7 @@
                            else {
                                show_memories_values();
 
-                               wepsim_notify_success('<strong>INFO</strong>', 
+                               wepsim_notify_success('<strong>INFO</strong>',
                                                      'Example ready to be used.') ;
                            }
                       };
@@ -169,7 +169,7 @@
                                   'load_from_example_firmware("' + example_id + '", false);\n') ;
 
 	// stats about examples
-        ga('send', 'event', 'example', 'example.firmware', 
+        ga('send', 'event', 'example', 'example.firmware',
 	   'example.firmware.' + sample_hw + "." + sample_mc);
     }
 
@@ -203,9 +203,9 @@
        {
 	       fmt_header = "" ;
 	       if (e_level != examples[m].level) {
-                   fmt_header = "<div class='col-sm-12 border-bottom border-secondary text-right text-capitalize font-weight-bold bg-white sticky-top'>" + 
-			        ahw.toUpperCase() + ": " + 
-			        examples[m].level + 
+                   fmt_header = "<div class='col-sm-12 border-bottom border-secondary text-right text-capitalize font-weight-bold bg-white sticky-top'>" +
+			        ahw.toUpperCase() + ": " +
+			        examples[m].level +
 			        "</div>" ;
                }
 
@@ -234,12 +234,12 @@
                         '    <span class="badge badge-pill badge-light">' + (m+1) + '</span>' +
                         '</div>' +
                         '<div class="col-sm-3">' +
-                        '     <span style="cursor:pointer;" ' + 
-		        '           id="example_' + m + '" ' + 
-		        '           onclick="simcore_record_append_pending(); ' + 
-		        '                    load_from_example_firmware(\'' + t_hwmcasm + '\',true); ' + 
-		        '                    $(\'#example1\').modal(\'hide\'); ' + 
-		        '                    return false;" ' + 
+                        '     <span style="cursor:pointer;" ' +
+		        '           id="example_' + m + '" ' +
+		        '           onclick="simcore_record_append_pending(); ' +
+		        '                    load_from_example_firmware(\'' + t_hwmcasm + '\',true); ' +
+		        '                    $(\'#example1\').modal(\'hide\'); ' +
+		        '                    return false;" ' +
 		        '           class="btn-like rounded-0 bg-info text-white p-0 mr-2">' + e_title + '</span>' +
                         '</div>' +
                         '<div class="col-sm collapse7 show">' +
@@ -248,27 +248,41 @@
                         '<div class="col-sm-auto">' +
 		        '    <span id="example_reference_' + e_id + '" class="d-none">' + base_url + '?mode=' + e_hw + '&example=' + m + '</span>' +
 		        '    <div class="btn-group btn-group-md float-right align-top">' +
-                        '           <button type="button" ' + 
+                        '           <button type="button" ' +
 		        '                   class="btn btn-md btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
                         '              <span class="sr-only">Toggle Dropdown</span>' +
                         '           </button>' +
                         '           <div class="dropdown-menu bg-info" style="z-index:1024;">' +
-		        '             <a onclick="simcore_record_append_pending();' + 
-		        '                         load_from_example_assembly(\'' + t_hwmcasm + '\',false);' + 
-		        '                         $(\'#example1\').modal(\'hide\'); ' + 
-		        '                         return false;"' + 
+		        '             <a onclick="simcore_record_append_pending();' +
+		        '                         load_from_example_assembly(\'' + t_hwmcasm + '\',false);' +
+		        '                         $(\'#example1\').modal(\'hide\'); ' +
+		        '                         return false;"' +
 		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Load Assembly only">Load Assembly only</span></c></a>' +
-		        '             <a onclick="simcore_record_append_pending();' + 
-		        '                         load_from_example_firmware(\'' + t_hwmcasm + '\',false);' + 
-		        '                         $(\'#example1\').modal(\'hide\'); ' + 
-		        '                         return false;"' + 
+		        '             <a onclick="simcore_record_append_pending();' +
+		        '                         load_from_example_firmware(\'' + t_hwmcasm + '\',false);' +
+		        '                         $(\'#example1\').modal(\'hide\'); ' +
+		        '                         return false;"' +
 		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Load Firmware only">Load Firmware only</span></c></a>' +
 		        '             <a onclick="$(\'#example_reference_' + e_id + '\').removeClass(\'d-none\');' +
 		        '                         wepsim_clipboard_CopyFromDiv(\'example_reference_' + e_id + '\');' +
 		        '                         $(\'#example_reference_' + e_id + '\').addClass(\'d-none\');' +
-		        '                         $(\'#example1\').modal(\'hide\'); ' + 
-                        '                         return false;"' + 
+		        '                         $(\'#example1\').modal(\'hide\'); ' +
+                        '                         return false;"' +
 		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Copy reference to clipboard">Copy reference to clipboard</span></c></a>' +
+		        '             <a onclick="$(\'#example1\').modal(\'hide\'); ' +
+                        '                         if (typeof navigator.canShare !== \'undefined\') { ' +
+                        '                             var data = {} ;' +
+                        '                             data.title = \'example ' + e_id + '\';' +
+                        '                             data.text  = \'example ' + e_id + '\';' +
+                        '                             data.url   = \'' + base_url + '?mode=' + e_hw + '&example=' + m + '\';' +
+                        '                             navigator.share(data)' +
+                        '                                      .then(() => { })' +
+                        '                                      .catch((err) => {' +
+                        '                                          console.log(\'Unsuccessful share: err.message\') ;' +
+                        '                                       });' +
+                        '                         }' +
+                        '                         return false;"' +
+		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Share">Share</span></c></a>' +
                         '           </div>' +
 		        '    </div>' +
                         '</div>' +
