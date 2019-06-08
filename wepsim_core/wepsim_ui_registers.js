@@ -316,41 +316,41 @@
 		        return "<ul class='list-group list-group-flush'>" +
 
 			       "<li class='list-group-item px-0 py-1'>" +
-                               "<a class='btn btn-sm btn-outline-dark col p-1 text-left float-right' href='#' " +
-                               "   onclick='update_cfg(\"RF_display_format\", \"unsigned_16_fill\"); show_rf_values(); show_states();'>" +
+                               "<a class='btn btn-sm btn-outline-dark col p-1 text-left float-right' " +
+                               "   onclick='update_cfg(\"RF_display_format\", \"unsigned_16_fill\"); show_rf_values(); show_states(); return true; '>" +
                                "<span class='col-12'>hex. (8)</span></a>" +
 			       "</li>" +
 			       "<li class='list-group-item px-0 py-1'>" +
-                               "<a class='btn btn-sm btn-outline-dark col p-1 text-left float-right' href='#' " +
-                               "   onclick='update_cfg(\"RF_display_format\", \"unsigned_16_nofill\"); show_rf_values(); show_states();'>" +
+                               "<a class='btn btn-sm btn-outline-dark col p-1 text-left float-right' " +
+                               "   onclick='update_cfg(\"RF_display_format\", \"unsigned_16_nofill\"); show_rf_values(); show_states(); return true; '>" +
                                "<span class='col-12'>hex.</span></a>" +
 			       "</li>" +
 
 			       "<li class='list-group-item px-0 py-1'>" +
-                               "<a class='btn btn-sm btn-outline-dark col p-1 text-left float-right' href='#' " +
-                               "   onclick='update_cfg(\"RF_display_format\", \"unsigned_8_fill\"); show_rf_values(); show_states();'>" +
+                               "<a class='btn btn-sm btn-outline-dark col p-1 text-left float-right' " +
+                               "   onclick='update_cfg(\"RF_display_format\", \"unsigned_8_fill\"); show_rf_values(); show_states(); return true; '>" +
                                "<span class='col-12'>octal (8)</span></a>" +
 			       "</li>" +
 			       "<li class='list-group-item px-0 py-1'>" +
-                               "<a class='btn btn-sm btn-outline-dark col p-1 text-left float-right' href='#' " +
-                               "   onclick='update_cfg(\"RF_display_format\", \"unsigned_8_nofill\"); show_rf_values(); show_states();'>" +
+                               "<a class='btn btn-sm btn-outline-dark col p-1 text-left float-right' " +
+                               "   onclick='update_cfg(\"RF_display_format\", \"unsigned_8_nofill\"); show_rf_values(); show_states(); return true; '>" +
                                "<span class='col-12'>octal</span></a>" +
 			       "</li>" +
 
 			       "<li class='list-group-item px-0 py-1'>" +
-                               "<a class='btn btn-sm btn-outline-dark col p-1 text-left float-right' href='#' " +
-                               "   onclick='update_cfg(\"RF_display_format\", \"unsigned_10_fill\"); show_rf_values(); show_states();'>" +
+                               "<a class='btn btn-sm btn-outline-dark col p-1 text-left float-right' " +
+                               "   onclick='update_cfg(\"RF_display_format\", \"unsigned_10_fill\"); show_rf_values(); show_states(); return true; '>" +
                                "<span class='col-12'>unsig. (8)</span></a>" +
 			       "</li>" +
 			       "<li class='list-group-item px-0 py-1'>" +
-                               "<a class='btn btn-sm btn-outline-dark col p-1 text-left float-right' href='#' " +
-                               "   onclick='update_cfg(\"RF_display_format\", \"unsigned_10_nofill\"); show_rf_values(); show_states();'>" +
+                               "<a class='btn btn-sm btn-outline-dark col p-1 text-left float-right' " +
+                               "   onclick='update_cfg(\"RF_display_format\", \"unsigned_10_nofill\"); show_rf_values(); show_states(); return true; '>" +
                                "<span class='col-12'>unsig.</span></a>" +
 			       "</li>" +
 
 			       "<li class='list-group-item px-0 py-1'>" +
-                               "<a class='btn btn-sm btn-outline-dark col p-1 text-left float-right' href='#' " +
-                               "   onclick='update_cfg(\"RF_display_format\", \"float_10_nofill\"); show_rf_values(); show_states();'>" +
+                               "<a class='btn btn-sm btn-outline-dark col p-1 text-left float-right' " +
+                               "   onclick='update_cfg(\"RF_display_format\", \"float_10_nofill\"); show_rf_values(); show_states(); return true; '>" +
                                "<span class='col-12'>float</span></a>" +
 			       "</li>" +
 
