@@ -460,6 +460,15 @@
            $("#current_state1_lang").html(o) ;
     }
 
+    function wepsim_refresh_beta ( )
+    {
+	   var val = get_cfg('enable_beta') ;
+
+	   if (val === false)
+	        $('.enabled_beta').addClass('d-none');
+	   else $('.enabled_beta').removeClass('d-none');
+    }
+
 
     //
     // Initialize UI
@@ -484,12 +493,6 @@
 
 	    // set wepsim version
 	    $("div.wsversion").replaceWith(get_cfg('version'));
-
-	    // initialize mode-menu
-	    var val = get_cfg('enable_beta') ;
-	    if (val === false) {
-		$('.enabled_beta').addClass('d-none');
-	    }
 
 	    // init: state dialog 
 	    $('#end_state1').tokenfield({ inputType: 'textarea' }) ;
@@ -608,5 +611,8 @@
 
 	    // init: help idiom selectors 
             wepsim_init_helpDropdown() ;
+
+	    // enable/disable beta elements at the end
+            wepsim_refresh_beta() ;
     }
 
