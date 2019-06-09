@@ -188,6 +188,7 @@
     {
             wepsim_open_examples_index();
 	    $('[data-toggle=tooltip]').tooltip('hide');
+	    wepsim_refresh_beta() ;
 
             // add if recording
             simcore_record_append_new('Open examples',
