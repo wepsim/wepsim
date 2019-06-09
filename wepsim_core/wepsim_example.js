@@ -269,12 +269,12 @@
 		        '                         $(\'#example1\').modal(\'hide\'); ' +
                         '                         return false;"' +
 		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Copy reference to clipboard">Copy reference to clipboard</span></c></a>' +
-		        '             <a onclick="$(\'#example1\').modal(\'hide\'); ' +
+	                '             <a onclick="$(\'#example1\').modal(\'hide\'); ' +
+                        '                         var data = {} ;' +
+                        '                         data.title = \'WepSIM example ' + e_id + '...\';' +
+                        '                         data.text  = \'This is a link to the WepSIM example ' + e_id + ' (' + e_description.replace(/<[^>]+>/g,'') + '):\n\';' +
+                        '                         data.url   = \'' + base_url + '?mode=' + e_hw + '&example=' + m + '\';' +
                         '                         if (typeof navigator.canShare !== \'undefined\') { ' +
-                        '                             var data = {} ;' +
-                        '                             data.title = \'WepSIM example ' + e_id + '\';' +
-                        '                             data.text  = \'Quick link to the WepSIM example ' + e_id + ' (' + e_description + '):\n\';' +
-                        '                             data.url   = \'' + base_url + '?mode=' + e_hw + '&example=' + m + '\';' +
                         '                             navigator.share(data)' +
                         '                                      .then(() => { })' +
                         '                                      .catch((err) => {' +
@@ -282,8 +282,8 @@
                         '                                       });' +
                         '                         }' +
                         '                         return false;"' +
-		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Share">Share</span></c></a>' +
-                        '           </div>' +
+		        '                class="dropdown-item text-white bg-info enabled_beta" href="#"><c><span data-langkey="Share">Share</span></c></a>' +
+	                '           </div>' +
 		        '    </div>' +
                         '</div>' +
 	                '</div>' ;
