@@ -116,40 +116,40 @@
 		       "<li class='list-group-item px-0 py-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-dark col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_16_fill\"); show_rf_values(); show_states(); return true; '>" +
-		       "<span class='col-12'>0x0000001A</span></buttom>" +
+		       "<span class='col-12'>0x0000001A<sub>16</sub></span></buttom>" +
 		       "</li>" +
 		       "<li class='list-group-item px-0 py-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-dark col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_16_nofill\"); show_rf_values(); show_states(); return true; '>" +
-		       "<span class='col-12'>0x1A</span></buttom>" +
+		       "<span class='col-12'>0x1A<sub>16</sub></span></buttom>" +
 		       "</li>" +
 
 		       "<li class='list-group-item px-0 py-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-dark col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_8_fill\"); show_rf_values(); show_states(); return true; '>" +
-		       "<span class='col-12'>00000032</span></buttom>" +
+		       "<span class='col-12'>00000032<sub>8</sub></span></buttom>" +
 		       "</li>" +
 		       "<li class='list-group-item px-0 py-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-dark col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_8_nofill\"); show_rf_values(); show_states(); return true; '>" +
-		       "<span class='col-12'>032</span></buttom>" +
+		       "<span class='col-12'>032<sub>8</sub></span></buttom>" +
 		       "</li>" +
 
 		       "<li class='list-group-item px-0 py-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-dark col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_10_fill\"); show_rf_values(); show_states(); return true; '>" +
-		       "<span class='col-12'>+00000026</span></buttom>" +
+		       "<span class='col-12'>+00000026<sub>10</sub></span></buttom>" +
 		       "</li>" +
 		       "<li class='list-group-item px-0 py-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-dark col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_10_nofill\"); show_rf_values(); show_states(); return true; '>" +
-		       "<span class='col-12'>+26</span></buttom>" +
+		       "<span class='col-12'>+26<sub>10</sub></span></buttom>" +
 		       "</li>" +
 
-		       "<li class='list-group-item px-0 py-1'>" +
+		       "<li class='list-group-item px-0 py-1 enabled_beta'>" +
 		       "<buttom class='btn btn-sm btn-outline-dark col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"float_10_nofill\"); show_rf_values(); show_states(); return true; '>" +
-		       "<span class='col-12'>3.64e-44</span></buttom>" +
+		       "<span class='col-12'>3.64e-44<sub>10</sub></span></buttom>" +
 		       "</li>" +
 
 		       "<li class='list-group-item px-0 py-1'>" +
@@ -380,10 +380,10 @@
 
             for (var i=0; i<filter.length; i++)
             {
-                  r = filter[i].split(",") ;
+                  r = filter[i].split(',') ;
                 key = r[0] ;
 
-                value = value2string(rf_format, sim_eltos[key].value) ;
+                value = value2string('text:char:nofill', sim_eltos[key].value) ;
                 if (sim_eltos[key].nbits > 1) {
 		    value = value2string(rf_format, (simhw_sim_state(key).value >>> 0)) ;
                 }

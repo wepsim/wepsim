@@ -76,6 +76,7 @@
              "Load Assembly only": 			"로드 어셈블리 전용",
              "Load Firmware only": 			"펌웨어로드 전용",
              "Copy reference to clipboard": 		"클립 보드에 참조 복사",
+             "Share":					"몫 (Android)",
 	     "No examples available...": 		"선택한 하드웨어에 대한 예제가 없습니다",
              "Simple example":				"간단한 예"
 
