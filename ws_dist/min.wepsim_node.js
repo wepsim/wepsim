@@ -201,10 +201,13 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
 
     // show execution progress
     var before_state = null ;
+    var  after_state = null ;
 
     function wepsim_nodejs_before_instruction2 ( SIMWARE, reg_pc )
     {
-        before_state = simcore_simstate_current2state() ;
+        if (before_state == null)
+             before_state = simcore_simstate_current2state() ;
+	else before_state = after_state ;
     }
 
     function wepsim_nodejs_after_instruction2  ( SIMWARE, reg_pc, ret )
@@ -212,24 +215,37 @@ var sim={systems:[],active:null,index:0};function simhw_add(a){sim.systems.push(
         var curr_pc     = '0x' + reg_pc.toString(16) ;
         var source_line = SIMWARE.assembly[curr_pc].source_original ;
 
-        var after_state = simcore_simstate_current2state() ;
+            after_state = simcore_simstate_current2state() ;
         var diff_states = simcore_simstate_diff_states(before_state, after_state) ;
 
-        console.log('pc(' + curr_pc + '):\t' + source_line + ':\t\t\t' + diff_states) ;
+	// padding
+	var padding1 = 2 ;
+	var padding2 = 5 - (source_line.length / 7) ;
+
+        console.log('pc = ' + curr_pc + ':'.padEnd(padding1, '\t') + 
+		          source_line + ':'.padEnd(padding2, '\t') + 
+		    diff_states) ;
     }
 
     function wepsim_nodejs_before_microinstruction3 ( curr_MC, cur_addr )
     {
-        before_state = simcore_simstate_current2state() ;
+        if (before_state == null)
+             before_state = simcore_simstate_current2state() ;
+	else before_state = after_state ;
     }
 
     function wepsim_nodejs_after_microinstruction3  ( curr_MC, cur_addr )
     {
-	var after_state = simcore_simstate_current2state() ;
+	    after_state = simcore_simstate_current2state() ;
 	var curr_mpc    = '0x' + cur_addr.toString(16) ;
+        var source_line = controlmemory_lineToString(curr_MC, cur_addr).trim() ;
 
-	console.log('micropc(' + curr_mpc + '):\t' +
-		     controlmemory_lineToString(curr_MC, cur_addr).trim() + ':\t\t\t' +
+	// padding
+	var padding1 = 4 - (curr_mpc.length    / 4) ;
+	var padding2 = 7 - (source_line.length / 8) ;
+
+	console.log('micropc = ' + curr_mpc + ':'.padEnd(padding1, '\t') +
+		                source_line + ':'.padEnd(padding2, '\t') +
 		     simcore_simstate_diff_states(before_state, after_state)) ;
     }
 
