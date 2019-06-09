@@ -111,7 +111,7 @@
 
         function quick_config_rf ( )
         {
-		return "<ul class='list-group list-group-flush'>" +
+	       var o = "<ul class='list-group list-group-flush'>" +
 
 		       "<li class='list-group-item px-0 py-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-dark col p-1 text-right float-right' " +
@@ -158,6 +158,8 @@
 		       "        onclick='$(\"#popover-rfcfg\").popover(\"hide\");'>Close</button>" +
 		       "</li>" +
 		       "</ul>" ;
+
+		return o ;
         }
 
 
@@ -368,7 +370,7 @@
 		    sanitizeFn: function (content) {
                                    return content ; // DOMPurify.sanitize(content) ;
                                 }
-	    });
+	    }).on('shown.bs.popover', function(){ wepsim_refresh_beta(); });
         }
 
         function fullshow_eltos ( sim_eltos, filter )
