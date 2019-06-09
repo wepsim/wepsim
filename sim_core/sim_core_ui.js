@@ -84,6 +84,30 @@
                 return valuebin ;
         }
 
+        function value2string ( format, value )
+        {
+                var fmt_value = "" ;
+
+		// formating value
+		var fmt = format.split("_") ;
+
+		switch (fmt[0])
+		{
+		   case "unsigned": fmt_value = value.toString(fmt[1]).toUpperCase() ;
+				    break ;
+		   case "float":    fmt_value = hex2float(value) ;
+				    break ;
+		   default:         fmt_value = value.toString() ;
+		}
+
+		if (fmt[2] === "fill") {
+                    fmt_value = pack8(fmt_value) ;
+		}
+
+		// return formated value
+		return fmt_value ;
+        }
+
         // verbal description
 
 	function get_deco_from_pc ( pc )
@@ -95,7 +119,7 @@
 	             (typeof curr_firm.assembly[hexstrpc]        === "undefined") ||
 	             (typeof curr_firm.assembly[hexstrpc].source === "undefined") )
                 {
-                      return "";
+                      return "" ;
                 }
 
                 return curr_firm.assembly[hexstrpc].source ;
