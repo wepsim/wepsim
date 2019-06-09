@@ -77,7 +77,7 @@
 		"Load Assembly only":				"Charger uniquement l'assemblage",
 		"Load Firmware only":				"Charger uniquement le microprogramme",
 		"Copy reference to clipboard":			"Copier la référence dans le presse-papiers",
-                "Share":					"Partager (mobile)",
+                "Share":					"Partager (Android)",
 		"No examples available...":			"Aucun exemple disponible pour le matériel sélectionné",
 		"Simple example": 				"Exemple simple"
 

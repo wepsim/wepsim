@@ -272,13 +272,13 @@
 		        '             <a onclick="$(\'#example1\').modal(\'hide\'); ' +
                         '                         if (typeof navigator.canShare !== \'undefined\') { ' +
                         '                             var data = {} ;' +
-                        '                             data.title = \'example ' + e_id + '\';' +
-                        '                             data.text  = \'example ' + e_id + '\';' +
+                        '                             data.title = \'WepSIM example ' + e_id + '\';' +
+                        '                             data.text  = \'Quick link to the WepSIM example ' + e_id + ' (' + e_description + '):\n\';' +
                         '                             data.url   = \'' + base_url + '?mode=' + e_hw + '&example=' + m + '\';' +
                         '                             navigator.share(data)' +
                         '                                      .then(() => { })' +
                         '                                      .catch((err) => {' +
-                        '                                          console.log(\'Unsuccessful share: err.message\') ;' +
+                        '                                          alert(\'Sorry, unsuccessful share: err.message\') ;' +
                         '                                       });' +
                         '                         }' +
                         '                         return false;"' +
