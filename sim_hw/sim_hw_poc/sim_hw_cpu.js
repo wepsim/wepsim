@@ -319,15 +319,15 @@
 	poc_states["REG_MICROINS"]   = { name: "µINS", verbal: "Microinstruction Register",
                                          visible:true, nbits: "77", value:{}, default_value:{}, draw_data: [] };
 
-	poc_states["FETCH"]          = { name: "FETCH",          verbal: "Input Fetch ",
+	poc_states["FETCH"]          = { name: "FETCH",          verbal: "Input Fetch",
                                          visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
-	poc_states["ROM_MUXA"]       = { name: "ROM_MUXA",       verbal: "Input ROM ",
+	poc_states["ROM_MUXA"]       = { name: "ROM_MUXA",       verbal: "Input ROM",
                                          visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
-	poc_states["SUM_ONE"]        = { name: "SUM_ONE",        verbal: "Input next microinstruction ",
+	poc_states["SUM_ONE"]        = { name: "SUM_ONE",        verbal: "Input next microinstruction",
                                          visible:false, nbits: "12", value:1, default_value:1, draw_data: [] };
-	poc_states["MUXA_MICROADDR"] = { name: "MUXA_MICROADDR", verbal: "Input microaddress from microinstruction",
-                                         visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
 
+	poc_states["MUXA_MICROADDR"] = { name: "MUXA_MICROADDR", verbal: "Input microaddress",
+                                         visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
 	poc_states["MUXC_MUXB"]      = { name: "MUXC_MUXB", verbal: "Output of MUX C",
                                          visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
 	poc_states["INEX"]           = { name: "INEX",      verbal: "Illegal Instruction Exception",
@@ -843,21 +843,21 @@
                                                    var r = s_expr[2].split('/') ;
 						   var sim_elto_org = get_reference(r[0]) ;
 
-                                                   var newval = get_value(sim_elto_org) ;
-						       newval = newval[r[1]] ;
-                                                   if (typeof newval == "undefined") {
-						       return "" ;
-						   }
+                                                   var  newval = get_value(sim_elto_org) ;
+						        newval = newval[r[1]] ;
+                                                   if (typeof newval == "undefined")
+						        newval = "<undefined>" ;
+						   else newval = show_value(newval) ;
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
                                                        return "Copy from Field " + r[1] + " of " + show_verbal(r[0]) +
-							      " to " + show_verbal(s_expr[1]) + " value " + show_value(newval) + ". " ;
+							      " to " + show_verbal(s_expr[1]) + " value " + newval + ". " ;
                                                    }
 
                                                    return show_verbal(s_expr[1]) + " = " +
                                                           show_verbal(r[0]) + "." + r[1] + 
-                                                          " (" + show_value(newval) + "). " ;
+                                                          " (" + newval + "). " ;
                                                 }
                                    };
 	poc_behaviors["NOT_ES"]   = { nparameters: 3,
@@ -1736,6 +1736,12 @@
 						   sim_elto_org = get_reference(s_expr[2]) ;
 						   sim_elto_dst = get_reference(s_expr[1]) ;
 
+                                                   // return verbal of the compound signal/value
+                                                   var new_value = (sim_elto_dst.value & ~(1 << s_expr[3])) |
+                                                                         (sim_elto_org.value << s_expr[3]);
+                                                   return compute_signal_verbals(s_expr[1], (new_value >>> 0)) ;
+
+						  /*
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
                                                        return "Set bit " + show_verbal(s_expr[3]) + " of " + show_verbal(s_expr[1]) + " to value " + sim_elto_org.value + ". " ;
@@ -1743,6 +1749,7 @@
 
                                                    return show_verbal(s_expr[1]) + "." + show_verbal(s_expr[3]) +
                                                           " = " + sim_elto_org.value + ". " ;
+						  */
                                                 }
 				   };
 	poc_behaviors["MBITS"]    = { nparameters: 8,
