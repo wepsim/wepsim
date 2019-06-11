@@ -309,17 +309,17 @@
 	ep_states["MB_ALU"]      = { name:"MB_ALU", verbal: "Input ALU via MB",
                                      visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
-	ep_states["FLAG_C"]      = { name: "FLAG_C", verbal: "Flag Carry",
+	ep_states["FLAG_C"]      = { name: "FLAG_C", verbal: "Carry Flag",
                                      visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	ep_states["FLAG_V"]      = { name: "FLAG_V", verbal: "Flag Overflow",
+	ep_states["FLAG_V"]      = { name: "FLAG_V", verbal: "Overflow Flag",
                                      visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	ep_states["FLAG_N"]      = { name: "FLAG_N", verbal: "Flag Negative",
+	ep_states["FLAG_N"]      = { name: "FLAG_N", verbal: "Negative Flag",
                                      visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	ep_states["FLAG_Z"]      = { name: "FLAG_Z", verbal: "Flag Zero",
+	ep_states["FLAG_Z"]      = { name: "FLAG_Z", verbal: "Zero Flag",
                                      visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	ep_states["FLAG_I"]      = { name: "FLAG_I", verbal: "Flag Interruption",
+	ep_states["FLAG_I"]      = { name: "FLAG_I", verbal: "Interruption Flag",
                                      visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	ep_states["FLAG_U"]      = { name: "FLAG_U", verbal: "Flag User",
+	ep_states["FLAG_U"]      = { name: "FLAG_U", verbal: "User Flag",
                                      visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
 
 	/* CONTROL UNIT */
@@ -607,9 +607,9 @@
 			       draw_name: [['svg_p:path3009', 'svg_p:path3301']] };
 	 ep_signals["SELP"] = { name: "SELP",   visible: true, type: "L", value: 0, default_value:0, nbits: "2",
 				behavior: ['NOP',
-				     'MV SELP_M7 REG_SR; SBIT SELP_M7 FLAG_U 0; FIRE M7',
-				     'MV SELP_M7 REG_SR; SBIT SELP_M7 FLAG_I 1; FIRE M7',
-				     'MV SELP_M7 REG_SR; SBIT SELP_M7 FLAG_C 31; SBIT SELP_M7 FLAG_V 30; SBIT SELP_M7 FLAG_N 29; SBIT SELP_M7 FLAG_Z 28; FIRE M7'],
+				     'MV SELP_M7 REG_SR; UPDATE_FLAG SELP_M7 FLAG_U 0; FIRE M7',
+				     'MV SELP_M7 REG_SR; UPDATE_FLAG SELP_M7 FLAG_I 1; FIRE M7',
+				     'MV SELP_M7 REG_SR; UPDATE_FLAG SELP_M7 FLAG_C 31; UPDATE_FLAG SELP_M7 FLAG_V 30; UPDATE_FLAG SELP_M7 FLAG_N 29; UPDATE_FLAG SELP_M7 FLAG_Z 28; FIRE M7'],
 				fire_name: ['svg_p:text3703'],
 				draw_data: [[],['svg_p:path3643'],['svg_p:path3705'],['svg_p:path3675', 'svg_p:path3331']],
 				draw_name: [[], ['svg_p:path3697']] };
@@ -1579,7 +1579,44 @@
                                                 },
                                         verbal: function (s_expr) 
                                                 {
-                                                   return "" ; // TODO
+						   // value
+						   var base = 0;
+						   var r = s_expr[3].split('/');
+						   if (1 == r.length)
+							base = get_value(ep_states[s_expr[3]]);
+						   else
+						   if (typeof  ep_states[r[0]].value[r[1]] != "undefined")
+							base = ep_states[r[0]].value[r[1]];
+                                                   // begin: REG_MICROINS/xxx by default is the default_value
+					      else if (typeof   ep_signals[r[1]].default_value != "undefined")
+						        base =  ep_signals[r[1]].default_value;
+					      else if (typeof   ep_states[r[1]].default_value != "undefined")
+						        base =  ep_states[r[1]].default_value;
+                                                   // end: REG_MICROINS/xxx by default is the default_value
+						   else alert('WARN: undefined state/field pair -> ' + r[0] + '/' + r[1]);
+
+						   var offset = parseInt(s_expr[4]) ;
+
+						   var n1 = get_value(ep_states[s_expr[2]]).toString(2); // to binary
+						   var n2 = "00000000000000000000000000000000".substring(0, 32 - n1.length) + n1 ;
+						   var n3 = n2.substr(31 - (base + offset - 1), offset) ;
+
+						   // name
+					           var from_elto = "" ;
+						   if (1 == r.length)
+                                                        from_elto = show_verbal(s_expr[3]) ;
+						   else from_elto = show_verbal(s_expr[2]) + "[" + r[1] + "] " ;
+
+		                                   //          0     1     2         3           4
+	                                           // E.g.: MBIT_SN  RA REG_IR REG_MICROINS/SELA 5
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "Copy from " + from_elto +
+							      "into "      + show_verbal(s_expr[1]) + " " +
+						              "value "     + parseInt(n3, 2) + ". " ;
+                                                   }
+
+                                                   return show_verbal(s_expr[1]) + " = " + from_elto + " (" + parseInt(n3, 2) + "). " ;
                                                 }
 				   };
 	ep_behaviors["SBIT_SIGNAL"] = { nparameters: 4,
@@ -1588,8 +1625,8 @@
 		                                {
 						   sim_elto_dst = get_reference(s_expr[1]) ;
 
-						   //    0      1    2  3
-						   //   SBIT  A0A1   1  0
+						   //    0             1    2  3
+						   //   SBIT_SIGNAL  A0A1   1  0
 						   var new_value = sim_elto_dst.value ;
 						   var mask = (1 << s_expr[3]) ; 
 						   if (s_expr[2] == "1")
@@ -1612,15 +1649,15 @@
                                                    return compute_signal_verbals(s_expr[1], (new_value >>> 0)) ;
                                                 }
 				   };
-	ep_behaviors["SBIT"]     = { nparameters: 4,
+	ep_behaviors["UPDATE_FLAG"] = { nparameters: 4,
 				     types: ["X", "X", "I"],
 				     operation: function (s_expr) 
 		                                {
 						   sim_elto_org = get_reference(s_expr[2]) ;
 						   sim_elto_dst = get_reference(s_expr[1]) ;
 
-						   //    0      1      2    3
-				                   //   SBIT SELP_M7 FLAG_U 0
+						   //    0             1      2    3
+				                   //   UPDATE_FLAG SELP_M7 FLAG_U 0
 						   var new_value = (sim_elto_dst.value & ~(1 << s_expr[3])) | 
 						                         (sim_elto_org.value << s_expr[3]);
 						   set_value(sim_elto_dst, (new_value >>> 0));
@@ -1632,7 +1669,7 @@
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
-                                                       return "Set bit " + show_verbal(s_expr[3]) + " of " + show_verbal(s_expr[1]) + " to value " + sim_elto_org.value + ". " ;
+                                                       return "Update " + show_verbal(s_expr[2]) + " to value " + sim_elto_org.value + ". " ;
                                                    }
 
                                                    return show_verbal(s_expr[1]) + "." + show_verbal(s_expr[3]) +
