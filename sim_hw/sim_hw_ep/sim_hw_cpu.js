@@ -415,15 +415,15 @@
 					   ['svg_cu:path3392','svg_cu:path3372','svg_cu:path3390','svg_cu:path3384','svg_cu:path3108-1','svg_cu:path3100-8-7']],
 			       draw_name: [[],['svg_cu:path3194-0','svg_cu:path3138-8','svg_cu:path3498-6']] };
 	 ep_signals["A0"] = { name: "A0", visible: false, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["SBIT A0A1 A0 1; FIRE A0A1",
-					  "SBIT A0A1 A0 1; FIRE A0A1"],
+			       behavior: ["SBIT_SIGNAL A0A1 0 1; FIRE A0A1",
+					  "SBIT_SIGNAL A0A1 1 1; FIRE A0A1"],
                                depends_on: ["CLK"],
 			       fire_name: ['svg_cu:text3406'],
 			       draw_data: [['svg_cu:path3096'], ['svg_cu:path3096']],
 			       draw_name: [[],['svg_cu:path3138-8-1','svg_cu:path3098-2','svg_cu:path3124-2-5']] };
 	 ep_signals["A1"] = { name: "A1", visible: false, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["SBIT A0A1 A1 0; FIRE A0A1",
-					  "SBIT A0A1 A1 0; FIRE A0A1"],
+			       behavior: ["SBIT_SIGNAL A0A1 0 0; FIRE A0A1",
+					  "SBIT_SIGNAL A0A1 1 0; FIRE A0A1"],
                                depends_on: ["CLK"],
 			       fire_name: [],
 			       draw_data: [['svg_cu:path3094'], ['svg_cu:path3094']],
@@ -973,7 +973,7 @@
                                                    var  newval = get_value(sim_elto_org) ;
 						        newval = newval[r[1]] ;
                                                    if (typeof newval == "undefined")
-						        newval = "<undefined>" ;
+						        newval = "&lt;undefined&gt;" ;
 						   else newval = show_value(newval) ;
 
                                                    var verbose = get_cfg('verbal_verbose') ;
@@ -1582,6 +1582,36 @@
                                                    return "" ; // TODO
                                                 }
 				   };
+	ep_behaviors["SBIT_SIGNAL"] = { nparameters: 4,
+				     types: ["X", "I", "I"],
+				     operation: function (s_expr) 
+		                                {
+						   sim_elto_dst = get_reference(s_expr[1]) ;
+
+						   //    0      1    2  3
+						   //   SBIT  A0A1   1  0
+						   var new_value = sim_elto_dst.value ;
+						   var mask = (1 << s_expr[3]) ; 
+						   if (s_expr[2] == "1")
+							new_value = new_value |  mask ;
+						   else new_value = new_value & ~mask ;
+
+						   set_value(sim_elto_dst, (new_value >>> 0));
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+						   sim_elto_dst = get_reference(s_expr[1]) ;
+
+                                                   // return verbal of the compound signal/value
+						   var new_value = sim_elto_dst.value ;
+						   var mask = (1 << s_expr[3]) ; 
+						   if (s_expr[2] == "1")
+							new_value = new_value |  mask ;
+						   else new_value = new_value & ~mask ;
+
+                                                   return compute_signal_verbals(s_expr[1], (new_value >>> 0)) ;
+                                                }
+				   };
 	ep_behaviors["SBIT"]     = { nparameters: 4,
 				     types: ["X", "X", "I"],
 				     operation: function (s_expr) 
@@ -1589,8 +1619,8 @@
 						   sim_elto_org = get_reference(s_expr[2]) ;
 						   sim_elto_dst = get_reference(s_expr[1]) ;
 
-						   //    0      1    2  3
-						   //   SBIT  A0A1  A1  0
+						   //    0      1      2    3
+				                   //   SBIT SELP_M7 FLAG_U 0
 						   var new_value = (sim_elto_dst.value & ~(1 << s_expr[3])) | 
 						                         (sim_elto_org.value << s_expr[3]);
 						   set_value(sim_elto_dst, (new_value >>> 0));
@@ -1600,12 +1630,6 @@
 						   sim_elto_org = get_reference(s_expr[2]) ;
 						   sim_elto_dst = get_reference(s_expr[1]) ;
 
-                                                   // return verbal of the compound signal/value
-                                                   var new_value = (sim_elto_dst.value & ~(1 << s_expr[3])) |
-                                                                         (sim_elto_org.value << s_expr[3]);
-                                                   return compute_signal_verbals(s_expr[1], (new_value >>> 0)) ;
-
-						  /*
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
                                                        return "Set bit " + show_verbal(s_expr[3]) + " of " + show_verbal(s_expr[1]) + " to value " + sim_elto_org.value + ". " ;
@@ -1613,7 +1637,6 @@
 
                                                    return show_verbal(s_expr[1]) + "." + show_verbal(s_expr[3]) +
                                                           " = " + sim_elto_org.value + ". " ;
-						  */
                                                 }
 				   };
 	ep_behaviors["MBITS"]    = { nparameters: 8,
