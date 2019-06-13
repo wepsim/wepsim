@@ -33,8 +33,8 @@
                                   "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,4);'>Get help.</a></li>" +
                                   "</ol>" +
                                   "</h5>",
-                     code_pre:    function() { },
-                     code_post:   function() { },
+                     code_pre:    simcore_do_nothing_handler,
+                     code_post:   simcore_do_nothing_handler,
                      wait_next:   100
                   });
 
@@ -48,8 +48,8 @@
                                   "Then the example for microcode and assembly is loaded and microcompiled and compiled.<br>" +
                                   "<br>" +
                                   "</h5>",
-                     code_pre:    function() { },
-                     code_post:   function() { },
+                     code_pre:    simcore_do_nothing_handler,
+                     code_post:   simcore_do_nothing_handler,
                      wait_next:   100
                   });
 
@@ -63,8 +63,8 @@
 		                  "Click on run button to execute until the first breakpoint or the end of the assembly program." +
                                   "<br>" +
                                   "</h5>",
-                     code_pre:    function() { },
-                     code_post:   function() { },
+                     code_pre:    simcore_do_nothing_handler,
+                     code_post:   simcore_do_nothing_handler,
                      wait_next:   100
                   });
 
@@ -77,8 +77,8 @@
                                   "Click in the 'configuration' button and users are able to customize different parts of WepSIM." +
                                   "<br>" +
                                   "</h5>",
-                     code_pre:    function() { },
-                     code_post:   function() { },
+                     code_pre:    simcore_do_nothing_handler,
+                     code_post:   simcore_do_nothing_handler,
                      wait_next:   100
                   });
 
@@ -92,8 +92,8 @@
                                   "You are able to switch idiom (Spanish/English), go to the help index, or close the help dialog." +
                                   "<br>" +
                                   "</h5>",
-                     code_pre:    function() { },
-                     code_post:   function() { },
+                     code_pre:    simcore_do_nothing_handler,
+                     code_post:   simcore_do_nothing_handler,
                      wait_next:   100
                   });
 

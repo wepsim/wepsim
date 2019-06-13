@@ -94,6 +94,7 @@
 
 	    // load checkpoint
 	    wepsim_load_from_file(obj_fileToLoad, function_after_loaded) ;
+	    return true ;
     }
 
     function wepsim_checkpoint_loadURI ( obj_uri, id_filename, id_tagname )

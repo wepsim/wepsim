@@ -497,12 +497,12 @@
 	    // init: state dialog 
 	    $('#end_state1').tokenfield({ inputType: 'textarea' }) ;
 	       //A1/ var inputEls = document.getElementById(id_div_state1);
-	       //A1/ if (null != inputEls)
+	       //A1/ if (null !== inputEls)
 	       //A1/     setup_speech_input(inputEls) ;
 
 	    $('#end_state2').tokenfield({ inputType: 'textarea' }) ;
 	       //A1/ var inputEls = document.getElementById(id_div_state2);
-	       //A1/ if (null != inputEls)
+	       //A1/ if (null !== inputEls)
 	       //A1/     setup_speech_input(inputEls) ;
 
 	    // init: quick-menu 

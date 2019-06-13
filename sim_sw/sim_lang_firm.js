@@ -163,7 +163,7 @@ function read_microprg ( context )
 	   }
 
            // semantic check: empty microcode is not valid
-	   if (microprograma.length == 0)
+	   if (microprograma.length === 0)
 	       return langError(context, "Empty microcode") ;
 
 	   // match mandatory }
@@ -571,7 +571,7 @@ function loadFirmware (text)
 
 	       // semantic check: valid value
 	       if (    (getToken(context).match("[01]*")[0] != getToken(context)) 
-                    || (getToken(context).length != xr_info.ir.default_eltos.co.length) ) 
+                    || (getToken(context).length !== xr_info.ir.default_eltos.co.length) ) 
                {
 	           return langError(context, "Incorrect binary format on 'co': " + getToken(context)) ;
                }
@@ -580,7 +580,7 @@ function loadFirmware (text)
 	       if (instruccionAux["co"] != all_ones_co)
 	       {
 	           if ( (typeof context.co_cop[instruccionAux["co"]] != "undefined") &&
-	                       (context.co_cop[instruccionAux["co"]].cop == null) )
+	                       (context.co_cop[instruccionAux["co"]].cop === null) )
 	           {
 	   	         return langError(context,
 			         "'co' is already been used by: " + context.co_cop[instruccionAux.co].signature) ;
@@ -624,7 +624,7 @@ function loadFirmware (text)
 
 		       // semantic check: valid value
 		       if (    (getToken(context).match("[01]*")[0] != getToken(context)) 
-                            || (getToken(context).length != xr_info.ir.default_eltos.cop.length) )
+                            || (getToken(context).length !== xr_info.ir.default_eltos.cop.length) )
                        {
 		            return langError(context, "Incorrect binary format on 'cop': " + getToken(context)) ;
                        }

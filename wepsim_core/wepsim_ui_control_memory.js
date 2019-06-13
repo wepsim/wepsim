@@ -27,7 +27,7 @@
 
         function wepsim_show_control_memory ( memory, memory_dashboard, index, redraw )
         {
-            if (null != show_control_memory_deferred)
+            if (null !== show_control_memory_deferred)
                 return;
 
             show_control_memory_deferred = setTimeout(function () {

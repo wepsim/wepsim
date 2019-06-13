@@ -113,7 +113,7 @@
 			if ((xmlhttp.readyState == 4) && ((xmlhttp.status == 200) || (xmlhttp.status == 0)))
 			{
 			    var textFromFileLoaded = xmlhttp.responseText ;
-			    if (null != do_next)
+			    if (null !== do_next)
 				do_next(textFromFileLoaded);
 			}
 		};

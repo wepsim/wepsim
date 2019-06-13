@@ -178,7 +178,7 @@ function get_candidate ( advance, instruction )
 		}
 	}
 
-	if (Object.keys(signatures).length == 1)
+	if (Object.keys(signatures).length === 1)
         {
 		var min = false;
 		for (var i in candidates)
@@ -881,7 +881,7 @@ function read_text ( context, datosCU, ret )
 		var sum_res = sum_array(advance);	
 		if (sum_res == 0){
 			// No candidate
-			if (advance.length == 1)
+			if (advance.length === 1)
 				return langError(context, error + ". Remember that the instruction format has been defined as: " + format);	
 			return langError(context, "Instruction and fields don't match with microprogram. Remember that the instruction formats have been defined as: " + format + ". Please check the microcode. Probably you forgot to add a field, a number does not fit in its space, or you just used a wrong instruction");
 		}

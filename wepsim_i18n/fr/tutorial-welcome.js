@@ -35,8 +35,8 @@
                                   "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,4);'>Obtenir de l'aide.</a></li>" +
                                   "</ol>" +
                                   "</h5>",
-                     code_pre:    function() { },
-                     code_post:   function() { },
+                     code_pre:    simcore_do_nothing_handler,
+                     code_post:   simcore_do_nothing_handler,
                      wait_next:   100
                   });
 
@@ -50,8 +50,8 @@
                                   "Ensuite, l'exemple pour le microcode et l'assemblage est chargé, microcompilé et compilé.<br>" +
                                   "<br>" +
                                   "</h5>",
-                     code_pre:    function() { },
-                     code_post:   function() { },
+                     code_pre:    simcore_do_nothing_handler,
+                     code_post:   simcore_do_nothing_handler,
                      wait_next:   100
                   });
 
@@ -65,8 +65,8 @@
                                   "Cliquez sur le bouton Exécuter pour exécuter jusqu'au premier point d'arrêt ou à la fin du programme d'assemblage." +
                                   "<br>" +
                                   "</h5>",
-                     code_pre:    function() { },
-                     code_post:   function() { },
+                     code_pre:    simcore_do_nothing_handler,
+                     code_post:   simcore_do_nothing_handler,
                      wait_next:   100
                   });
 
@@ -79,8 +79,8 @@
 	                          "Cliquez sur le bouton 'Configuration' pour permettre aux utilisateurs de personnaliser différentes parties de WepSIM." +
                                   "<br>" +
                                   "</h5>",
-                     code_pre:    function() { },
-                     code_post:   function() { },
+                     code_pre:    simcore_do_nothing_handler,
+                     code_post:   simcore_do_nothing_handler,
                      wait_next:   100
                   });
 
@@ -94,8 +94,8 @@
                                   "Vous pouvez changer d'idiome (Espagnol/Anglais), accéder à l'index de l'aide ou fermer la boîte de dialogue d'aide." +
                                   "<br>" +
                                   "</h5>",
-                     code_pre:    function() { },
-                     code_post:   function() { },
+                     code_pre:    simcore_do_nothing_handler,
+                     code_post:   simcore_do_nothing_handler,
                      wait_next:   100
                   });
 

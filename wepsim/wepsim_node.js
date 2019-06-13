@@ -205,7 +205,7 @@
 
     function wepsim_nodejs_before_instruction2 ( SIMWARE, reg_pc )
     {
-        if (before_state == null)
+        if (before_state === null)
              before_state = simcore_simstate_current2state() ;
 	else before_state = after_state ;
     }
@@ -229,7 +229,7 @@
 
     function wepsim_nodejs_before_microinstruction3 ( curr_MC, cur_addr )
     {
-        if (before_state == null)
+        if (before_state === null)
              before_state = simcore_simstate_current2state() ;
 	else before_state = after_state ;
     }
