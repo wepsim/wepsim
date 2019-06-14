@@ -32,7 +32,7 @@
                 show_main_memory_redraw  = redraw || show_main_memory_redraw ;
 	    }
 
-            if (null != show_main_memory_deferred) {
+            if (null !== show_main_memory_deferred) {
                 return ;
 	    }
 

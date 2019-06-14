@@ -121,7 +121,7 @@
                                                       if (get_value(poc_states[s_expr[4]]) == 0) 
                                                       {
 							      var keybuffer = get_keyboard_content() ;
-							      if (keybuffer.length != 0) 
+							      if (keybuffer.length !== 0) 
 							      {
 								  var keybuffer_rest = keybuffer.substr(1, keybuffer.length-1);
 								  set_keyboard_content(keybuffer_rest) ;

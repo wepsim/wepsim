@@ -32,8 +32,8 @@
                                 "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,5);'>Ejecución del anterior ensamblador definido anteriormente.</a></li>" +
                                 "</ol>" +
                                 "</h5>",
-                     code_pre:  function() { },
-                     code_post: function() { },
+                     code_pre:  simcore_do_nothing_handler,
+                     code_post: simcore_do_nothing_handler,
                      wait_next: 100
                   });
 
@@ -46,8 +46,8 @@
                                 "El primer paso es microprogramar el firmware a ser usado. " +
                                 "Por favor use el bot&oacute;n de 'Microcode' para ir a la pantalla de trabajo del microc&oacute;digo." +
                                 "</h5>",
-                     code_pre:  function() { },
-                     code_post: function() { },
+                     code_pre:  simcore_do_nothing_handler,
+                     code_post: simcore_do_nothing_handler,
                      wait_next: 100
                   });
 
@@ -65,8 +65,8 @@
                                 "</ul>" +
                                 "Una vez que el microc&oacute;digo est&eacute; listo (editado y compile sin errores) el siguiente paso el el c&oacute;digo ensamblador." +
                                 "</h5>",
-                     code_pre:  function() { },
-                     code_post: function() { },
+                     code_pre:  simcore_do_nothing_handler,
+                     code_post: simcore_do_nothing_handler,
                      wait_next: 100
                   });
 
@@ -79,8 +79,8 @@
                                 "El segundo paso es programar el ensamblador a ser ejecutado. " +
                                 "Por favor use el bot&oacute;n de 'Assembly' para ir a la pantalla de ensamblador." +
                                 "</h5>",
-                     code_pre:  function() { },
-                     code_post: function() { },
+                     code_pre:  simcore_do_nothing_handler,
+                     code_post: simcore_do_nothing_handler,
                      wait_next: 100
                   });
 
@@ -98,8 +98,8 @@
                                 "</ul>" +
                                 "Asegure antes de ir a la pantalla del simulador que su c&oacute;digo este listo (editado y compilado sin errores)." +
                                 "</h5>",
-                     code_pre:  function() { },
-                     code_post: function() { },
+                     code_pre:  simcore_do_nothing_handler,
+                     code_post: simcore_do_nothing_handler,
                      wait_next: 100
                   });
 
@@ -118,8 +118,8 @@
                                 "</ul>" +
                                 "Este tutorial ha introducido el uso t&iacute;pico de WepSIM para estudiantes y profesores. ¡Disfrute con WepSIM!." +
                                 "</h5>",
-                     code_pre:  function() { },
-                     code_post: function() { },
+                     code_pre:  simcore_do_nothing_handler,
+                     code_post: simcore_do_nothing_handler,
                      wait_next: 100
                   });
 

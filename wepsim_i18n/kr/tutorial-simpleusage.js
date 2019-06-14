@@ -32,8 +32,8 @@
                                 "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,5);'>시뮬레이션에서 어셈블리 + 마이크로 코드 실행.</a></li>" +
                                 "</ol>" +
                                 "</h5>",
-                     code_pre:  function() { },
-                     code_post: function() { },
+                     code_pre:  simcore_do_nothing_handler,
+                     code_post: simcore_do_nothing_handler,
                      wait_next: 100
                   });
 
@@ -46,8 +46,8 @@
                                 "첫 번째 단계는 사용할 펌웨어를 마이크로 프로그래밍하는 것입니다. " +
                                 "마이크로 코드 화면으로 전환하려면 '마이크로 코드'버튼을 사용하십시오." +
                                 "</h5>",
-                     code_pre:  function() { },
-                     code_post: function() { },
+                     code_pre:  simcore_do_nothing_handler,
+                     code_post: simcore_do_nothing_handler,
                      wait_next: 100
                   });
 
@@ -65,8 +65,8 @@
                                 "</ul>"+
                                 "일단 코드가 준비되면 (오류없이 컴파일 된) 다음 단계는 어셈블리 화면으로 이동하는 것입니다." +
                                 "</h5>",
-                     code_pre:  function() { },
-                     code_post: function() { },
+                     code_pre:  simcore_do_nothing_handler,
+                     code_post: simcore_do_nothing_handler,
                      wait_next: 100
                   });
 
@@ -79,8 +79,8 @@
                                 "두 번째 단계는 실행될 어셈블리를 프로그래밍하는 것입니다. " +
                                 "시뮬레이터 화면이나 마이크로 코드 화면에서 '어셈블리'버튼을 사용하십시오." +
                                 "</h5>",
-                     code_pre:  function() { },
-                     code_post: function() { },
+                     code_pre:  simcore_do_nothing_handler,
+                     code_post: simcore_do_nothing_handler,
                      wait_next: 100
                   });
 
@@ -98,8 +98,8 @@
                                 "</ul>" +
                                 "일단 당신의 assebly 코드가 준비되면 (오류없이 편집되고 컴파일 된) 다음 단계는 시뮬레이션 화면으로 들어가는 것입니다." +
                                 "</h5>",
-                     code_pre:  function() { },
-                     code_post: function() { },
+                     code_pre:  simcore_do_nothing_handler,
+                     code_post: simcore_do_nothing_handler,
                      wait_next: 100
                   });
 
@@ -118,8 +118,8 @@
                                 "</ul>" +
                                 "이 튜토리얼은 학생 및 교사를위한 WepSIM의 일반적인 사용법을 소개했습니다. WepSIM을 즐기십시오!" +
                                 "</h5>",
-                     code_pre:  function() { },
-                     code_post: function() { },
+                     code_pre:  simcore_do_nothing_handler,
+                     code_post: simcore_do_nothing_handler,
                      wait_next: 100
                   });
 

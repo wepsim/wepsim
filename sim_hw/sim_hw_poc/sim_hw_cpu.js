@@ -300,17 +300,17 @@
 	poc_states["MB_ALU"]     = { name:"MB_ALU",  verbal: "Input ALU via MB",
                                      visible:false, nbits:"32", value:0,  default_value:0, draw_data: [] };
 
-	poc_states["FLAG_C"]     = { name: "FLAG_C", verbal: "Flag Carry",
+	poc_states["FLAG_C"]     = { name: "FLAG_C", verbal: "Carry Flag",
                                      visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	poc_states["FLAG_V"]     = { name: "FLAG_V", verbal: "Flag Overflow",
+	poc_states["FLAG_V"]     = { name: "FLAG_V", verbal: "Overflow Flag",
                                      visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	poc_states["FLAG_N"]     = { name: "FLAG_N", verbal: "Flag Negative",
+	poc_states["FLAG_N"]     = { name: "FLAG_N", verbal: "Negative Flag",
                                      visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	poc_states["FLAG_Z"]     = { name: "FLAG_Z", verbal: "Flag Zero",
+	poc_states["FLAG_Z"]     = { name: "FLAG_Z", verbal: "Zero Flag",
                                      visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	poc_states["FLAG_I"]     = { name: "FLAG_I", verbal: "Flag Interruption",
+	poc_states["FLAG_I"]     = { name: "FLAG_I", verbal: "Interruption Flag",
                                      visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
-	poc_states["FLAG_U"]     = { name: "FLAG_U", verbal: "Flag User",
+	poc_states["FLAG_U"]     = { name: "FLAG_U", verbal: "User Flag",
                                      visible:true, nbits: "1", value:0, default_value:0, draw_data: [] };
 
 	/* CONTROL UNIT */
@@ -319,15 +319,15 @@
 	poc_states["REG_MICROINS"]   = { name: "µINS", verbal: "Microinstruction Register",
                                          visible:true, nbits: "77", value:{}, default_value:{}, draw_data: [] };
 
-	poc_states["FETCH"]          = { name: "FETCH",          verbal: "Input Fetch ",
+	poc_states["FETCH"]          = { name: "FETCH",          verbal: "Input Fetch",
                                          visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
-	poc_states["ROM_MUXA"]       = { name: "ROM_MUXA",       verbal: "Input ROM ",
+	poc_states["ROM_MUXA"]       = { name: "ROM_MUXA",       verbal: "Input ROM",
                                          visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
-	poc_states["SUM_ONE"]        = { name: "SUM_ONE",        verbal: "Input next microinstruction ",
+	poc_states["SUM_ONE"]        = { name: "SUM_ONE",        verbal: "Input next microinstruction",
                                          visible:false, nbits: "12", value:1, default_value:1, draw_data: [] };
-	poc_states["MUXA_MICROADDR"] = { name: "MUXA_MICROADDR", verbal: "Input microaddress from microinstruction",
-                                         visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
 
+	poc_states["MUXA_MICROADDR"] = { name: "MUXA_MICROADDR", verbal: "Input microaddress",
+                                         visible:false, nbits: "12", value:0, default_value:0, draw_data: [] };
 	poc_states["MUXC_MUXB"]      = { name: "MUXC_MUXB", verbal: "Output of MUX C",
                                          visible:false, nbits: "1",  value:0, default_value:0, draw_data: [] };
 	poc_states["INEX"]           = { name: "INEX",      verbal: "Illegal Instruction Exception",
@@ -404,15 +404,15 @@
 					   ['svg_cu:path3392','svg_cu:path3372','svg_cu:path3390','svg_cu:path3384','svg_cu:path3108-1','svg_cu:path3100-8-7']],
 			       draw_name: [[],['svg_cu:path3194-0','svg_cu:path3138-8','svg_cu:path3498-6']] };
 	 poc_signals["A0"] = { name: "A0", visible: false, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["SBIT A0A1 A0 1; FIRE A0A1",
-					  "SBIT A0A1 A0 1; FIRE A0A1"],
+			       behavior: ["SBIT_SIGNAL A0A1 0 1; FIRE A0A1",
+					  "SBIT_SIGNAL A0A1 1 1; FIRE A0A1"],
                                depends_on: ["CLK"],
 			       fire_name: ['svg_cu:text3406'],
 			       draw_data: [['svg_cu:path3096'], ['svg_cu:path3096']],
 			       draw_name: [[],['svg_cu:path3138-8-1','svg_cu:path3098-2','svg_cu:path3124-2-5']] };
 	 poc_signals["A1"] = { name: "A1", visible: false, type: "L", value: 0, default_value:0, nbits: "1",
-			       behavior: ["SBIT A0A1 A1 0; FIRE A0A1",
-					  "SBIT A0A1 A1 0; FIRE A0A1"],
+			       behavior: ["SBIT_SIGNAL A0A1 0 0; FIRE A0A1",
+					  "SBIT_SIGNAL A0A1 1 0; FIRE A0A1"],
                                depends_on: ["CLK"],
 			       fire_name: [],
 			       draw_data: [['svg_cu:path3094'], ['svg_cu:path3094']],
@@ -522,7 +522,8 @@
 			       draw_data: [['svg_p:path3063','svg_p:path3061','svg_p:path3059'], ['svg_p:path3057','svg_p:path3641','svg_p:path3419','svg_p:path3583']],
 			       draw_name: [[], ['svg_p:path3447']] };
 	 poc_signals["M7"]  = { name: "M7", visible: true, type: "L",  value: 0, default_value:0, nbits: "1",
-			       behavior: ["MV M7_C7 BUS_IB", "MV M7_C7 REG_SR; SBIT M7_C7 FLAG_C 31; SBIT M7_C7 FLAG_V 30; SBIT M7_C7 FLAG_N 29; SBIT M7_C7 FLAG_Z 28"],
+			       behavior: ["MV M7_C7 BUS_IB", 
+				          "MV M7_C7 REG_SR; UPDATE_FLAG M7_C7 FLAG_C 31; UPDATE_FLAG M7_C7 FLAG_V 30; UPDATE_FLAG M7_C7 FLAG_N 29; UPDATE_FLAG M7_C7 FLAG_Z 28"],
                                depends_on: ["C7"],
 			       fire_name: ['svg_p:text3673'],
 			       draw_data: [['svg_p:path3691', 'svg_p:path3693', 'svg_p:path3659'], ['svg_p:path3695']],
@@ -661,8 +662,6 @@
 			       draw_name: [[],['svg_cu:path3306']] }; /*path3210 print red color line of rest of control signals*/
 
 	 poc_signals["MRA"]  = { name: "MRA", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-                                 verbal: ['Copy from IR[SelA] into RA. ',
-				          'Copy SelA into RA. '],
 			         behavior: ['MBIT_SN RA REG_IR REG_MICROINS/SELA 5; FIRE RA;',
 					    'CP_FIELD RA REG_MICROINS/SELA; FIRE RA;'],
                                  depends_on: ["SELA"],
@@ -674,8 +673,6 @@
 				  	      'svg_cu:path3294','svg_cu:path3288','svg_cu:path3280']],
 			         draw_name: [[],['svg_cu:path3220']] };
 	 poc_signals["MRB"]  = { name: "MRB", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-                                 verbal: ['Copy from IR[SelB] into RB. ',
-				          'Copy SelB into RB. '],
 			         behavior: ['MBIT_SN RB REG_IR REG_MICROINS/SELB 5; FIRE RB;',
 					    'CP_FIELD RB REG_MICROINS/SELB; FIRE RB;'],
                                  depends_on: ["SELB"],
@@ -684,8 +681,6 @@
 				  	     ['svg_cu:path3282','svg_cu:path3258-4','svg_cu:path3278','svg_cu:path3196']],
 			         draw_name: [[],['svg_cu:path3240']] };
 	 poc_signals["MRC"]  = { name: "MRC", visible: true, type: "L", value: 0, default_value:0, nbits: "1",
-                                 verbal: ['Copy from IR[SelC] into RC. ',
-				          'Copy SelC into RC. '],
 			         behavior: ['MBIT_SN RC REG_IR REG_MICROINS/SELC 5; FIRE RC;',
 					    'CP_FIELD RC REG_MICROINS/SELC; FIRE RC;'],
                                  depends_on: ["SELC"],
@@ -843,21 +838,21 @@
                                                    var r = s_expr[2].split('/') ;
 						   var sim_elto_org = get_reference(r[0]) ;
 
-                                                   var newval = get_value(sim_elto_org) ;
-						       newval = newval[r[1]] ;
-                                                   if (typeof newval == "undefined") {
-						       return "" ;
-						   }
+                                                   var  newval = get_value(sim_elto_org) ;
+						        newval = newval[r[1]] ;
+                                                   if (typeof newval == "undefined")
+						        newval = "&lt;undefined&gt;" ;
+						   else newval = show_value(newval) ;
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
-                                                       return "Copy from Field " + r[1] + " of " + show_verbal(r[0]) +
-							      " to " + show_verbal(s_expr[1]) + " value " + show_value(newval) + ". " ;
+                                                       return "Copy from \"" + show_verbal(r[0]) + "\"[" + r[1] + "] " +
+							      "to " + show_verbal(s_expr[1]) + " (value " + newval + "). " ;
                                                    }
 
                                                    return show_verbal(s_expr[1]) + " = " +
                                                           show_verbal(r[0]) + "." + r[1] + 
-                                                          " (" + show_value(newval) + "). " ;
+                                                          " (" + newval + "). " ;
                                                 }
                                    };
 	poc_behaviors["NOT_ES"]   = { nparameters: 3,
@@ -1715,18 +1710,85 @@
 						},
 					verbal: function (s_expr)
 						{
-						   return "" ; // TODO
+						   // value
+						   var base = 0;
+						   var r = s_expr[3].split('/');
+						   if (1 == r.length)
+							base = get_value(ep_states[s_expr[3]]);
+						   else
+						   if (typeof  ep_states[r[0]].value[r[1]] != "undefined")
+							base = ep_states[r[0]].value[r[1]];
+                                                   // begin: REG_MICROINS/xxx by default is the default_value
+					      else if (typeof   ep_signals[r[1]].default_value != "undefined")
+						        base =  ep_signals[r[1]].default_value;
+					      else if (typeof   ep_states[r[1]].default_value != "undefined")
+						        base =  ep_states[r[1]].default_value;
+                                                   // end: REG_MICROINS/xxx by default is the default_value
+						   else alert('WARN: undefined state/field pair -> ' + r[0] + '/' + r[1]);
+
+						   var offset = parseInt(s_expr[4]) ;
+
+						   var n1 = get_value(ep_states[s_expr[2]]).toString(2); // to binary
+						   var n2 = "00000000000000000000000000000000".substring(0, 32 - n1.length) + n1 ;
+						   var n3 = n2.substr(31 - (base + offset - 1), offset) ;
+
+						   // name
+					           var from_elto = "" ;
+						   if (1 == r.length)
+                                                        from_elto = show_verbal(s_expr[3]) ;
+						   else from_elto = "\"" + show_verbal(s_expr[2]) + "\"[" + r[1] + "] " ;
+
+		                                   //          0     1     2         3           4
+	                                           // E.g.: MBIT_SN  RA REG_IR REG_MICROINS/SELA 5
+                                                   var verbose = get_cfg('verbal_verbose') ;
+                                                   if (verbose !== 'math') {
+                                                       return "Copy from " + from_elto +
+							      "into "      + show_verbal(s_expr[1]) + " " +
+						              "value "     + parseInt(n3, 2) + ". " ;
+                                                   }
+
+                                                   return show_verbal(s_expr[1]) + " = " + from_elto + " (" + parseInt(n3, 2) + "). " ;
 						}
 				   };
-	poc_behaviors["SBIT"]     = { nparameters: 4,
+	poc_behaviors["SBIT_SIGNAL"] = { nparameters: 4,
+				     types: ["X", "I", "I"],
+				     operation: function (s_expr) 
+		                                {
+						   sim_elto_dst = get_reference(s_expr[1]) ;
+
+						   //    0             1    2  3
+						   //   SBIT_SIGNAL  A0A1   1  0
+						   var new_value = sim_elto_dst.value ;
+						   var mask = (1 << s_expr[3]) ; 
+						   if (s_expr[2] == "1")
+							new_value = new_value |  mask ;
+						   else new_value = new_value & ~mask ;
+
+						   set_value(sim_elto_dst, (new_value >>> 0));
+                                                },
+                                        verbal: function (s_expr) 
+                                                {
+						   sim_elto_dst = get_reference(s_expr[1]) ;
+
+                                                   // return verbal of the compound signal/value
+						   var new_value = sim_elto_dst.value ;
+						   var mask = (1 << s_expr[3]) ; 
+						   if (s_expr[2] == "1")
+							new_value = new_value |  mask ;
+						   else new_value = new_value & ~mask ;
+
+                                                   return compute_signal_verbals(s_expr[1], (new_value >>> 0)) ;
+                                                }
+				   };
+	poc_behaviors["UPDATE_FLAG"] = { nparameters: 4,
 				     types: ["X", "X", "I"],
 				     operation: function (s_expr)
 		                                {
 						   sim_elto_org = get_reference(s_expr[2]) ;
 						   sim_elto_dst = get_reference(s_expr[1]) ;
 
-						   //    0      1    2  3
-						   //   SBIT  A0A1  A1  0
+						   //    0             1      2    3
+				                   //   UPDATE_FLAG SELP_M7 FLAG_U 0
 						   var new_value = (sim_elto_dst.value & ~(1 << s_expr[3])) |
 						                         (sim_elto_org.value << s_expr[3]);
 						   set_value(sim_elto_dst, (new_value >>> 0));
@@ -1738,7 +1800,7 @@
 
                                                    var verbose = get_cfg('verbal_verbose') ;
                                                    if (verbose !== 'math') {
-                                                       return "Set bit " + show_verbal(s_expr[3]) + " of " + show_verbal(s_expr[1]) + " to value " + sim_elto_org.value + ". " ;
+                                                       return "Update " + show_verbal(s_expr[2]) + " to value " + sim_elto_org.value + ". " ;
                                                    }
 
                                                    return show_verbal(s_expr[1]) + "." + show_verbal(s_expr[3]) +
