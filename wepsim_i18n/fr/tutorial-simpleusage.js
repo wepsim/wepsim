@@ -34,8 +34,8 @@
                                 "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,5);'>Exécuter l'assemblage + le microcode dans la simulation.</a></li>" +
                                 "</ol>" +
                                 "</h5>",
-                     code_pre:  function() { },
-                     code_post: function() { },
+                     code_pre:  simcore_do_nothing_handler,
+                     code_post: simcore_do_nothing_handler,
                      wait_next: 100
                   });
 
@@ -48,8 +48,8 @@
                                 "La première étape consiste à microprogrammer le firmware à utiliser. " +
                                 "Veuillez utiliser le bouton 'Microcode' pour passer à l'écran du microcode." +
                                 "</h5>",
-                     code_pre:  function() { },
-                     code_post: function() { },
+                     code_pre:  simcore_do_nothing_handler,
+                     code_post: simcore_do_nothing_handler,
                      wait_next: 100
                   });
 
@@ -67,8 +67,8 @@
                                 "</ul>" +
                                 "Une fois que votre code est prêt (compilé sans erreurs), l'étape suivante consiste à accéder à l'écran d'assemblage." +
                                 "</h5>",
-                     code_pre:  function() { },
-                     code_post: function() { },
+                     code_pre:  simcore_do_nothing_handler,
+                     code_post: simcore_do_nothing_handler,
                      wait_next: 100
                   });
 
@@ -81,8 +81,8 @@
                                 "La deuxième étape consiste à programmer l'assemblage à exécuter. " +
                                 "Veuillez utiliser le bouton 'Assemblage' de l'écran du simulateur ou de l'écran du microcode." +
                                 "</h5>",
-                     code_pre:  function() { },
-                     code_post: function() { },
+                     code_pre:  simcore_do_nothing_handler,
+                     code_post: simcore_do_nothing_handler,
                      wait_next: 100
                   });
 
@@ -100,8 +100,8 @@
                                 "</ul>" +
                                 "Une fois que votre code définitif est prêt (édité et compilé sans erreur), l'étape suivante consiste à accéder à l'écran de simulation." +
                                 "</h5>",
-                     code_pre:  function() { },
-                     code_post: function() { },
+                     code_pre:  simcore_do_nothing_handler,
+                     code_post: simcore_do_nothing_handler,
                      wait_next: 100
                   });
 
@@ -120,8 +120,8 @@
                                 "</ul>" +
                                 "Ce tutoriel a introduit l'utilisation typique de WepSIM pour les étudiants et les enseignants. Profitez de WepSIM!" +
                                 "</h5>",
-                     code_pre:  function() { },
-                     code_post: function() { },
+                     code_pre:  simcore_do_nothing_handler,
+                     code_post: simcore_do_nothing_handler,
                      wait_next: 100
                   });
 

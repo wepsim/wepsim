@@ -183,7 +183,7 @@
                    set_cfg(item, localStorage.getItem('wepsim_' + item)) ;
                    if (WSCFG[item].type != "string")
                        set_cfg(item, JSON.parse(get_cfg(item)));
-                   if (get_cfg(item) == null)
+                   if (get_cfg(item) === null)
                        throw "null values discarted";
                 }
                 catch(err) 

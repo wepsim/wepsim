@@ -630,7 +630,7 @@
     
             // get SIMWARE.firmware
             var SIMWARE = get_simware() ;
-    	    if (SIMWARE.firmware.length == 0)
+    	    if (SIMWARE.firmware.length === 0)
             {
                 ret.msg = 'Empty microcode, please load the microcode first.' ;
                 ret.ok  = false;

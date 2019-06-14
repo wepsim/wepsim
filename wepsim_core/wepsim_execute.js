@@ -30,7 +30,7 @@
         if (true === reset_memory) 
         {
             var SIMWARE = get_simware() ;
-	    if (SIMWARE.firmware.length != 0)
+	    if (SIMWARE.firmware.length !== 0)
                 update_memories(SIMWARE) ;
         }
 

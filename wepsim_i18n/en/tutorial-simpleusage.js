@@ -32,8 +32,8 @@
                                 "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,5);'>Execute the assembly+microcode in the simulation.</a></li>" +
                                 "</ol>" +
                                 "</h5>",
-                     code_pre:  function() { },
-                     code_post: function() { },
+                     code_pre:  simcore_do_nothing_handler,
+                     code_post: simcore_do_nothing_handler,
                      wait_next: 100
                   });
 
@@ -46,8 +46,8 @@
                                 "The first step is to microprogramming the firmware to be used. " +
                                 "Please use the 'Microcode' button to switch to the microcode screen." +
                                 "</h5>",
-                     code_pre:  function() { },
-                     code_post: function() { },
+                     code_pre:  simcore_do_nothing_handler,
+                     code_post: simcore_do_nothing_handler,
                      wait_next: 100
                   });
 
@@ -65,8 +65,8 @@
                                 "</ul>" +
                                 "Once your code is ready (compiled without errors), next step is to go to the assembly screen." +
                                 "</h5>",
-                     code_pre:  function() { },
-                     code_post: function() { },
+                     code_pre:  simcore_do_nothing_handler,
+                     code_post: simcore_do_nothing_handler,
                      wait_next: 100
                   });
 
@@ -79,8 +79,8 @@
                                 "The second step is to programming the assembly to be executed. " +
                                 "Please use the 'Assembly' button from both, the simulator screen or the microcode screen." +
                                 "</h5>",
-                     code_pre:  function() { },
-                     code_post: function() { },
+                     code_pre:  simcore_do_nothing_handler,
+                     code_post: simcore_do_nothing_handler,
                      wait_next: 100
                   });
 
@@ -98,8 +98,8 @@
                                 "</ul>" +
                                 "Once your assebly code is ready (edited and compiled without errors) next step is to go into the simulation screen." +
                                 "</h5>",
-                     code_pre:  function() { },
-                     code_post: function() { },
+                     code_pre:  simcore_do_nothing_handler,
+                     code_post: simcore_do_nothing_handler,
                      wait_next: 100
                   });
 
@@ -118,8 +118,8 @@
                                 "</ul>" +
                                 "This tutorial has introduced the typical usage of WepSIM for students and teachers. Enjoy WepSIM!" +
                                 "</h5>",
-                     code_pre:  function() { },
-                     code_post: function() { },
+                     code_pre:  simcore_do_nothing_handler,
+                     code_post: simcore_do_nothing_handler,
                      wait_next: 100
                   });
 

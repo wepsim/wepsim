@@ -146,7 +146,7 @@
 		       "<span class='col-12'>+26<sub>10</sub></span></buttom>" +
 		       "</li>" +
 
-		       "<li class='list-group-item px-0 py-1 enabled_beta'>" +
+		       "<li class='list-group-item px-0 py-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-dark col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"float_10_nofill\"); show_rf_values(); show_states(); return true; '>" +
 		       "<span class='col-12'>3.64e-44<sub>10</sub></span></buttom>" +
@@ -254,7 +254,7 @@
 
         function wepsim_show_rf_values ( )
         {
-            if (null != show_rf_values_deferred)
+            if (null !== show_rf_values_deferred)
                 return;
 
             show_rf_values_deferred = setTimeout(innershow_rf_values, cfg_show_rf_delay);
@@ -291,7 +291,7 @@
 
             // Fast UI configuration
             var o1 = "<a data-toggle='popover-rfcfg' id='popover-rfcfg' " + 
-	             "   tabindex='0' href='#' class='mx-auto'><strong>&equiv;</strong></a>" ;
+	             "   tabindex='0' class='mx-auto'><strong>&equiv;</strong></a>" ;
 
             // Registers
             var rf_format = get_cfg('RF_display_format') ;
@@ -370,7 +370,7 @@
 		    sanitizeFn: function (content) {
                                    return content ; // DOMPurify.sanitize(content) ;
                                 }
-	    }).on('shown.bs.popover', function(){ wepsim_refresh_beta(); });
+	    });
         }
 
         function fullshow_eltos ( sim_eltos, filter )
@@ -398,7 +398,7 @@
 
         function show_eltos ( sim_eltos, filter )
         {
-            if (null != show_eltos_deferred)
+            if (null !== show_eltos_deferred)
                 return;
 
             show_eltos_deferred = setTimeout(function() {

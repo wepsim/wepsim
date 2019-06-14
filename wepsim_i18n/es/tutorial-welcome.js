@@ -33,8 +33,8 @@
                                   "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,4);'>Obtener ayuda.</a></li>" +
                                   "</ol>" +
                                   "</h5>",
-                     code_pre:    function() { },
-                     code_post:   function() { },
+                     code_pre:    simcore_do_nothing_handler,
+                     code_post:   simcore_do_nothing_handler,
                      wait_next:   100
                   });
 
@@ -47,8 +47,8 @@
                                   "Haga click en el bot&oacute;n de 'examples' y haga click en el 't&iacute;tulo' del ejemplo que desea cargar." +
                                   "<br>" +
                                   "</h5>",
-                     code_pre:    function() { },
-                     code_post:   function() { },
+                     code_pre:    simcore_do_nothing_handler,
+                     code_post:   simcore_do_nothing_handler,
                      wait_next:   100
                   });
 
@@ -62,8 +62,8 @@
 		                  "Haga click en run para ejecutar hasta el primer punto de ruptura o el fin del programa en ensamblador." +
                                   "<br>" +
                                   "</h5>",
-                     code_pre:    function() { },
-                     code_post:   function() { },
+                     code_pre:    simcore_do_nothing_handler,
+                     code_post:   simcore_do_nothing_handler,
                      wait_next:   100
                   });
 
@@ -76,8 +76,8 @@
                                   "Haga click en el bot&oacute;n de configuraci&oacute;n para configurar diversos aspectos de WepSIM para su comididad." +
                                   "<br>" +
                                   "</h5>",
-                     code_pre:    function() { },
-                     code_post:   function() { },
+                     code_pre:    simcore_do_nothing_handler,
+                     code_post:   simcore_do_nothing_handler,
                      wait_next:   100
                   });
 
@@ -91,8 +91,8 @@
                                   "Puede obtener la ayuda en Spanish/English, ir al &iacute;ndice de la ayuda o cerrar la pantalla de ayuda." +
                                   "<br>" +
                                   "</h5>",
-                     code_pre:    function() { },
-                     code_post:   function() { },
+                     code_pre:    simcore_do_nothing_handler,
+                     code_post:   simcore_do_nothing_handler,
                      wait_next:   100
                   });
 

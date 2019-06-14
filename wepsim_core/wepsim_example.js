@@ -77,7 +77,7 @@
                             // compile it
                             var ok = false ;
                             var SIMWARE = get_simware() ;
-	                    if (SIMWARE.firmware.length != 0) {
+	                    if (SIMWARE.firmware.length !== 0) {
                                 ok = wepsim_compile_assembly(mcode) ;
 			    }
 

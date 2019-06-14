@@ -33,8 +33,8 @@
                                   "<li><a href='#' onclick='sim_tutorial_goframe(\"welcome\",0,4);'>도움 받기.</a></li>" +
                                   "</ol>" +
                                   "</h5>",
-                     code_pre:    function() { },
-                     code_post:   function() { },
+                     code_pre:    simcore_do_nothing_handler,
+                     code_post:   simcore_do_nothing_handler,
                      wait_next:   100
                   });
 
@@ -48,8 +48,8 @@
                                   "그런 다음 마이크로 코드 및 어셈블리 예제가로드되고 마이크로 컴파일되고 컴파일됩니다. <br>" +
                                   "<br>" +
                                   "</h5>",
-                     code_pre:    function() { },
-                     code_post:   function() { },
+                     code_pre:    simcore_do_nothing_handler,
+                     code_post:   simcore_do_nothing_handler,
                      wait_next:   100
                   });
 
@@ -63,8 +63,8 @@
                                   "첫 번째 중단 점이나 어셈블리 프로그램이 끝날 때까지 실행하려면 실행 버튼을 클릭하십시오." +
                                   "<br>" +
                                   "</h5>",
-                     code_pre:    function() { },
-                     code_post:   function() { },
+                     code_pre:    simcore_do_nothing_handler,
+                     code_post:   simcore_do_nothing_handler,
                      wait_next:   100
                   });
 
@@ -77,8 +77,8 @@
                                   " '구성'버튼을 클릭하면 사용자가 WepSIM의 다른 부분을 사용자 정의 할 수 있습니다." +
                                   "<br>" +
                                   "</h5>",
-                     code_pre:    function() { },
-                     code_post:   function() { },
+                     code_pre:    simcore_do_nothing_handler,
+                     code_post:   simcore_do_nothing_handler,
                      wait_next:   100
                   });
 
@@ -92,8 +92,8 @@
                                   "관용구 (스페인어 / 영어)를 전환하거나 도움말 색인으로 이동하거나 도움말 대화 상자를 닫을 수 있습니다." +
                                   "<br>" +
                                   "</h5>",
-                     code_pre:    function() { },
-                     code_post:   function() { },
+                     code_pre:    simcore_do_nothing_handler,
+                     code_post:   simcore_do_nothing_handler,
                      wait_next:   100
                   });
 

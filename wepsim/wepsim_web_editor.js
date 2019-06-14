@@ -92,7 +92,7 @@
 
             var pos = errorMsg.match(/Problem around line \d+/);
             var lineMsg = '' ;
-            if (null != pos) {
+            if (null !== pos) {
                 pos = parseInt(pos[0].match(/\d+/)[0]);
                 lineMsg += '<button type="button" class="btn btn-danger" ' +
                            '        onclick="wepsim_notify_close(); ' + 

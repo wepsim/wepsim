@@ -306,7 +306,7 @@
 
 	function wepsim_show_dbg_ir ( decins )
 	{
-            if (null != show_dbg_ir_deferred) {
+            if (null !== show_dbg_ir_deferred) {
                 return ;
             }
 
