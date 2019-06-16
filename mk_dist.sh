@@ -89,6 +89,8 @@ cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_help.js \
     wepsim_core/wepsim_help_commands.js \
     wepsim_core/wepsim_tutorial.js \
+    wepsim_core/wepsim_tutorial_welcome.js \
+    wepsim_core/wepsim_tutorial_simpleusage.js \
     wepsim_core/wepsim_tour.js \
     wepsim_core/wepsim_tour_commands.js \
     wepsim_core/wepsim_voice.js \

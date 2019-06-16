@@ -43,15 +43,13 @@
 			    help: {},
                             // other dialogs-popovers-tooltips
 			    dialogs: {},
+			    // tutorials
+			    tutorial_welcome: {},
+			    tutorial_simpleusage: {},
                             // welcome tour
 			    tour_intro: {}
 		         }
                } ;
-
-    // tutorials
-    var tutorials = {} ;
-        tutorials.welcome     = {} ;
-        tutorials.simpleusage = {} ;
 
 
     /*
@@ -66,9 +64,6 @@
              {
 	          i18n.eltos[e][l] = {} ;
 	     }
-
-             tutorials.welcome[l]     = [] ;
-             tutorials.simpleusage[l] = [] ;
 	}
 
 	return true ;
