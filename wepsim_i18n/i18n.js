@@ -29,8 +29,10 @@
 			    es: "Espa&ntilde;ol", 
 			    fr: "Fran&ccedil;ais - Google-translate",
 			    kr: "한국어 - Google-translate",
+			    ja: "日本語 - Google-translate",
 			    it: "L'italiano - Google-translate",
-			    pt: "Portugu&ecirc;s - Google-translate" 
+			    pt: "Portugu&ecirc;s - Google-translate",
+			    de: "Deutsch - Google-translate"
 		         },
 	          eltos: { 
                             // main-screen user interface
