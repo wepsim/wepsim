@@ -29,7 +29,7 @@
                 return false ;
             }
 
-            if (false == get_cfg('use_voice')) {
+            if (false === get_cfg('use_voice')) {
                 return false ;
             }
 

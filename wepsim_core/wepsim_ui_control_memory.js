@@ -23,21 +23,6 @@
          *  Control Memory UI
          */
 
-        var show_control_memory_deferred = null;
-
-        function wepsim_show_control_memory ( memory, memory_dashboard, index, redraw )
-        {
-            if (null !== show_control_memory_deferred)
-                return;
-
-            show_control_memory_deferred = setTimeout(function () {
-						         if (false == redraw)
-							      light_refresh_control_memory(memory, memory_dashboard, index);
-                                                         else  hard_refresh_control_memory(memory, memory_dashboard, index, redraw);
-                                                         show_control_memory_deferred = null;
-                                                      }, cfg_show_control_memory_delay);
-        }
-
         function controlmemory_lineToString ( memory, key )
         {
 		var value = "" ;
@@ -162,6 +147,21 @@
             o1 = $("#maddr" + old_mc_addr) ;
             o1.css('color', 'blue') ;
             o1.css('font-weight', 'bold') ;
+        }
+
+        var show_control_memory_deferred = null;
+
+        function wepsim_show_control_memory ( memory, memory_dashboard, index, redraw )
+        {
+            if (null !== show_control_memory_deferred)
+                return;
+
+            show_control_memory_deferred = setTimeout(function () {
+						         if (false === redraw)
+							      light_refresh_control_memory(memory, memory_dashboard, index);
+                                                         else  hard_refresh_control_memory(memory, memory_dashboard, index, redraw);
+                                                         show_control_memory_deferred = null;
+                                                      }, cfg_show_control_memory_delay);
         }
 
 

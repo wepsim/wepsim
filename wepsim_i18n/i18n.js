@@ -29,7 +29,7 @@
 			    es: "Espa&ntilde;ol", 
 			    fr: "Fran&ccedil;ais - Google-translate",
 			    kr: "한국어 - Google-translate",
-			    it: "Italiani - Google-translate" 
+			    it: "L'italiano - Google-translate" 
 		         },
 	          eltos: { 
                             // main-screen user interface
