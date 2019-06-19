@@ -28,7 +28,8 @@
 			    en: "English",
 			    es: "Espa&ntilde;ol", 
 			    fr: "Fran&ccedil;ais - Google-translate",
-			    kr: "한국어 - Google-translate" 
+			    kr: "한국어 - Google-translate",
+			    it: "Italiani - Google-translate" 
 		         },
 	          eltos: { 
                             // main-screen user interface
@@ -43,15 +44,13 @@
 			    help: {},
                             // other dialogs-popovers-tooltips
 			    dialogs: {},
+			    // tutorials
+			    tutorial_welcome: {},
+			    tutorial_simpleusage: {},
                             // welcome tour
 			    tour_intro: {}
 		         }
                } ;
-
-    // tutorials
-    var tutorials = {} ;
-        tutorials.welcome     = {} ;
-        tutorials.simpleusage = {} ;
 
 
     /*
@@ -66,9 +65,6 @@
              {
 	          i18n.eltos[e][l] = {} ;
 	     }
-
-             tutorials.welcome[l]     = [] ;
-             tutorials.simpleusage[l] = [] ;
 	}
 
 	return true ;
