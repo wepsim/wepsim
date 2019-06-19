@@ -488,10 +488,9 @@ i18n_eltos['tutorial_welcome'] = {
 #
 def print_content(L_D, C_N):
     fn = L_D + "/" + C_N + ".js" ;
-    aa = C_N.replace('-','_') ;
-
     f  = open(fn, "w+") ;
 
+    # + print header
     f.write("/*\n") ;
     f.write(" *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve\n") ;
     f.write(" *\n") ;
@@ -512,27 +511,33 @@ def print_content(L_D, C_N):
     f.write(" *\n") ;
     f.write(" */\n") ;
     f.write("\n") ;
+
+    # + print object name
+    aa = C_N.replace('-','_') ;
     f.write("\n") ;
     f.write("    i18n.eltos." + aa + "." + L_D + " = {\n") ;
     f.write("\n") ;
 
-    # Translate
-    translator = Translator() ;
+    # + translate...
+    try:
+        translation_list = []
+        translation_origin = []
+        for key in i18n_eltos[aa]:
+            translation_list.append(i18n_eltos[aa][key])
+            translation_origin.append(key.replace("'", "\\'"))
 
-    tobetranslate = [] ;
-    for key in i18n_eltos[aa]:
-        value = i18n_eltos[aa][key] ;
-        tobetranslate.append(value) ;
+        translator   = Translator() ;
+        translations = translator.translate(translation_list, dest=L_D)
 
-    translations = translator.translate(tobetranslate, dest=L_D)
+        for index in range(len(translation_origin)):
+            translation_destination = translations[index].text.replace("'", "\\'") ;
+            f.write("\t\t'" + translation_origin[index] + "':\t\t'" + translation_destination + "',\n") ;
+    except Exception as e:
+        print("\tERROR: " + str(e))
+        #print("translation list:")
+        #print(translation_list)
 
-    index = 0
-    for key in i18n_eltos[aa]:
-        tobetranslated = key.replace("'","\\'")
-        translated     = translations[index].text.replace("'","\\'") ;
-        f.write("\t\t'" + tobetranslated + "':\t\t'" + translated + "',\n") ;
-        index = index + 1
-
+    # + print last lines
     f.write("\t\t'_last_':\t\t'_last_'\n") ;
     f.write("\n") ;
     f.write("    };\n") ;
@@ -546,25 +551,33 @@ def print_content(L_D, C_N):
 #
 if (len(sys.argv) < 2 or len(sys.argv) > 2):
     print("") ;
-    print("  Usage: " + sys.argv[0] + " <language directory name: it, es, ...>") ;
+    print("  Usage:") ;
+    print("  > " + sys.argv[0] + " <language directory name: it, es, ...>") ;
+    print("") ;
+    print("  Need the googletrans project (https://pypi.org/project/googletrans/):") ;
+    print("  > pip install googletrans") ;
     print("") ;
     sys.exit(0)
 
-#
-# Elements
-#
+# + define elements
 L_D     = sys.argv[1] ;
 L_F_GUI = [ "cfg", "dialogs", "examples", "gui", "help", "states" ] ;
 L_F_TUT = [ "tour-intro",  "tutorial-simpleusage", "tutorial-welcome" ] ;
 
-os.mkdir(L_D) ;
+# + directory
+print("Directory for " + L_D + "...")
+if not os.path.exists(L_D):
+    os.mkdir(L_D) ;
 open(L_D + "/index.html", 'a').close() ;
 
+# + files
 for F1 in L_F_GUI:
+    print("File for " + F1 + "...")
     print_content(L_D, F1) ;
 
-for F2 in L_F_TUT:
-    print_content(L_D, F2) ;
+for F1 in L_F_TUT:
+    print("File for " + F1 + "...")
+    print_content(L_D, F1) ;
 
 sys.exit(0)
 

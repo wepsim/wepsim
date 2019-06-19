@@ -1,6 +1,6 @@
 external/**
 ws_dist/**
-ws_travis/**
+ws_devel/**
 docs/**
 examples/**
 help/**

@@ -67,13 +67,13 @@
     function wepsim_nodejs_init ( simhw_name )
     {
         var ret = simcore_init(false) ;
-	if (false == ret.ok)
+	if (false === ret.ok)
 	{
 	    return wepsim_nodejs_retfill(false, "ERROR: initialize: " + ret.msg + ".\n") ;
 	}
 
         ret = simcore_init_hw(simhw_name) ;
-	if (false == ret.ok)
+	if (false === ret.ok)
 	{
 	    return wepsim_nodejs_retfill(false, "ERROR: initialize: " + ret.msg + ".\n") ;
 	}
@@ -126,14 +126,14 @@
 
 	// 2) load firmware
         var ret = simcore_compile_firmware(data.firmware) ;
-	if (false == ret.ok)
+	if (false === ret.ok)
 	{
 	    return wepsim_nodejs_retfill(false, "ERROR: Firmware: " + ret.msg + ".\n") ;
 	}
 
 	// 3) load assembly
         ret = simcore_compile_assembly(data.assembly) ;
-	if (false == ret.ok)
+	if (false === ret.ok)
         {
 	    return wepsim_nodejs_retfill(false, "ERROR: Assembly: " + ret.msg + ".\n") ;
 	}
@@ -143,14 +143,14 @@
         options.verbosity_after  = simcore_do_nothing_handler ;
 
 	ret = simcore_execute_program(options) ;
-	if (false == ret.ok)
+	if (false === ret.ok)
 	{
 	    return wepsim_nodejs_retfill(false, "ERROR: Execution: " + ret.msg + ".\n") ;
 	}
 
 	// 5) compare with expected results
         ret = wepsim_nodejs_show_checkresults(data.result_ok, false) ;
-	if (false == ret.ok)
+	if (false === ret.ok)
 	{
 	    return wepsim_nodejs_retfill(false, "ERROR: Execution: different results: " + ret.msg + "\n") ;
         }
@@ -166,21 +166,21 @@
 
 	// 2) load firmware
         var ret = simcore_compile_firmware(data.firmware) ;
-	if (false == ret.ok)
+	if (false === ret.ok)
 	{
 	    return wepsim_nodejs_retfill(false, "ERROR: Firmware: " + ret.msg + ".\n") ;
 	}
 
 	// 3) load assembly
         ret = simcore_compile_assembly(data.assembly) ;
-	if (false == ret.ok)
+	if (false === ret.ok)
         {
 	    return wepsim_nodejs_retfill(false, "ERROR: Assembly: " + ret.msg + ".\n") ;
 	}
 
 	// 4) execute firmware-assembly
 	ret = simcore_execute_program(options) ;
-	if (false == ret.ok)
+	if (false === ret.ok)
 	{
 	    return wepsim_nodejs_retfill(false, "ERROR: Execution: " + ret.msg + ".\n") ;
 	}
