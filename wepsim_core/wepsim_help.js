@@ -197,7 +197,7 @@
     {
         var robj = null ;
 
-	if (false == is_mobile()) 
+	if (false === is_mobile()) 
         {
             if (navigator.onLine) 
                  robj = fetch(r_url);

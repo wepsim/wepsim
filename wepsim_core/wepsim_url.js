@@ -88,7 +88,7 @@
 
     function wepsim_load_from_url ( url, do_next )
     {
-	if (false == is_mobile())
+	if (false === is_mobile())
 	{
 		fetchURL(url).then(function(response) 
 				   {

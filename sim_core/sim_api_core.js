@@ -64,7 +64,7 @@
 
             // ui
 	    var ret1 = simcore_init_ui({}) ;
-	    if (false == ret1.ok) 
+	    if (false === ret1.ok) 
 	    {
                 ret.msg = ret.msg ;
                 ret.ok  = false ;
@@ -369,7 +369,7 @@
         function simcore_execute_microinstruction ( )
         {
 	    var ret = simcore_check_if_can_continue() ;
-	    if (false == ret.ok) {
+	    if (false === ret.ok) {
 		return ret ;
 	    }
 
@@ -390,7 +390,7 @@
         function simcore_execute_microprogram ( options )
         {
 	        var ret = simcore_check_if_can_continue() ;
-	        if (false == ret.ok) {
+	        if (false === ret.ok) {
 		    return ret ;
 	        }
 
@@ -536,7 +536,7 @@
 
 		   // execute instruction...
     	           ret1 = simcore_execute_microprogram(options) ;
-                   if (false == ret1.ok) {
+                   if (false === ret1.ok) {
     		       return ret1 ;
     	           }
     
