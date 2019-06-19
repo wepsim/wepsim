@@ -29,7 +29,8 @@
 			    es: "Espa&ntilde;ol", 
 			    fr: "Fran&ccedil;ais - Google-translate",
 			    kr: "한국어 - Google-translate",
-			    it: "L'italiano - Google-translate" 
+			    it: "L'italiano - Google-translate",
+			    pt: "Portugu&ecirc;s - Google-translate" 
 		         },
 	          eltos: { 
                             // main-screen user interface
