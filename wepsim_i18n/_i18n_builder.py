@@ -488,6 +488,8 @@ i18n_eltos['tutorial_welcome'] = {
 #
 def print_content(L_D, C_N):
     fn = L_D + "/" + C_N + ".js" ;
+    aa = C_N.replace('-','_') ;
+
     f  = open(fn, "w+") ;
 
     f.write("/*\n") ;
@@ -511,16 +513,16 @@ def print_content(L_D, C_N):
     f.write(" */\n") ;
     f.write("\n") ;
     f.write("\n") ;
-    f.write("    i18n.eltos." + C_N + "." + L_D + " = {\n") ;
+    f.write("    i18n.eltos." + aa + "." + L_D + " = {\n") ;
     f.write("\n") ;
 
     # Translate
     translator = Translator()
-    for elto in i18n_eltos[C_N]:
-        key   = elto ;
-        value = i18n_eltos[C_N][elto] ;
+    for key in i18n_eltos[aa]:
+        value = i18n_eltos[aa][key] ;
         translations = translator.translate([value], dest=L_D)
-        f.write("\t\t'" + key + "':\t\t'" + translations[0].text + "',\n") ;
+        translated   = translations[0].text.replace("'","\\'") ;
+        f.write("\t\t'" + key + "':\t\t'" + translated + "',\n") ;
     f.write("\t\t'_last_':\t\t'_last_'\n") ;
 
     f.write("\n") ;
@@ -543,7 +545,7 @@ if (len(sys.argv) < 2 or len(sys.argv) > 2):
 # Elements
 #
 L_D     = sys.argv[1] ;
-L_F_GUI = [ "cfg dialogs", "examples", "gui", "help", "states" ] ;
+L_F_GUI = [ "cfg", "dialogs", "examples", "gui", "help", "states" ] ;
 L_F_TUT = [ "tour-intro",  "tutorial-simpleusage", "tutorial-welcome" ] ;
 
 os.mkdir(L_D) ;
