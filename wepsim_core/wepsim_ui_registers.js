@@ -114,25 +114,25 @@
 	       var o = "<div class='container mt-1'>" +
 
 		       "<div class='row'>" +
-		       "<div class='col-sm-7 p-1'>" +
+		       "<div class='col-7 p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_16_fill\"); show_rf_values(); show_states(); return true; '>" +
-		       "<span class='mx-auto px-1 font-weight-bold rounded' style='background-color:#CEECF5; color:black;'>0x0000001A<sub>16</sub></span></buttom>" +
+		       "0x<span class='mx-auto px-1 font-weight-bold rounded' style='background-color:#CEECF5; color:black;'>0000001A<sub>16</sub></span></buttom>" +
 		       "</div>" +
-		       "<div class='col-sm p-1'>" +
+		       "<div class='col p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_16_nofill\"); show_rf_values(); show_states(); return true; '>" +
-		       "<span class='mx-auto px-1 font-weight-bold rounded' style='background-color:#CEECF5; color:black;'>0x1A<sub>16</sub></span></buttom>" +
+		       "0x<span class='mx-auto px-1 font-weight-bold rounded' style='background-color:#CEECF5; color:black;'>1A<sub>16</sub></span></buttom>" +
 		       "</div>" +
 
 		       "<div class='w-100 border border-light'></div>" +
 
-		       "<div class='col-sm-7 p-1'>" +
+		       "<div class='col-7 p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_8_fill\"); show_rf_values(); show_states(); return true; '>" +
 		       "<span class='mx-auto px-1 font-weight-bold rounded' style='background-color:#CEECF5; color:black;'>00000032<sub>8&nbsp;</sub></span></buttom>" +
 		       "</div>" +
-		       "<div class='col-sm p-1'>" +
+		       "<div class='col p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_8_nofill\"); show_rf_values(); show_states(); return true; '>" +
 		       "<span class='mx-auto px-1 font-weight-bold rounded' style='background-color:#CEECF5; color:black;'>032<sub>8&nbsp;</sub></span></buttom>" +
@@ -140,22 +140,22 @@
 
 		       "<div class='w-100 border border-light'></div>" +
 
-		       "<div class='col-sm-7 p-1'>" +
+		       "<div class='col-7 p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_10_fill\"); show_rf_values(); show_states(); return true; '>" +
-		       "<span class='mx-auto px-1 font-weight-bold rounded' style='background-color:#CEECF5; color:black;'>00000026<sub>10</sub></span></buttom>" +
+		       "+<span class='mx-auto px-1 font-weight-bold rounded' style='background-color:#CEECF5; color:black;'>00000026<sub>10</sub></span></buttom>" +
 		       "</div>" +
-		       "<div class='col-sm p-1'>" +
+		       "<div class='col p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_10_nofill\"); show_rf_values(); show_states(); return true; '>" +
-		       "<span class='mx-auto px-1 font-weight-bold rounded' style='background-color:#CEECF5; color:black;'>26<sub>10</sub></span></buttom>" +
+		       "+<span class='mx-auto px-1 font-weight-bold rounded' style='background-color:#CEECF5; color:black;'>26<sub>10</sub></span></buttom>" +
 		       "</div>" +
 
 		       "<div class='w-100 border border-light'></div>" +
 
-		       "<div class='col-sm-7 p-1'>" +
+		       "<div class='col-7 p-1'>" +
 		       "</div>" +
-		       "<div class='col-sm p-1'>" +
+		       "<div class='col p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"float_10_nofill\"); show_rf_values(); show_states(); return true; '>" +
 		       "<span class='mx-auto px-1 font-weight-bold rounded' style='background-color:#CEECF5; color:black;'>3.6e-44<sub>10</sub></span></buttom>" +
@@ -163,7 +163,7 @@
 
 		       "<div class='w-100 border border-light'></div>" +
 
-		       "<div class='col-sm p-1'>" +
+		       "<div class='col p-1'>" +
 		       "<button type='button' id='close' data-role='none' " +
 		       "        class='btn btn-sm btn-danger w-100 p-0 mt-1' " +
 		       "        onclick='$(\"#popover-rfcfg\").popover(\"hide\");'>Close</button>" +
