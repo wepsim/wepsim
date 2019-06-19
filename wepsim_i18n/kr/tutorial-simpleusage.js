@@ -19,10 +19,10 @@
  */
 
 
-    tutorials.simpleusage.kr.push({
-                     id:        "simpleusage",
-                     title:     "간단한 WepSIM 경험 : 마이크로 프로그래밍 및 프로그래밍",
-                     message:   "<center><img alt='wepsim screenshot' src='help/simulator/simulator011.jpg' style='max-width:100%; max-height:40vh;'></center>" +
+    i18n.eltos.tutorial_simpleusage.kr = {
+
+                 "title_0":     "간단한 WepSIM 경험 : 마이크로 프로그래밍 및 프로그래밍",
+                 "message_0":   "<center><img alt='wepsim screenshot' src='help/simulator/simulator011.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
                                 "이 간단한 튜토리얼은:" +
@@ -32,29 +32,17 @@
                                 "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,5);'>시뮬레이션에서 어셈블리 + 마이크로 코드 실행.</a></li>" +
                                 "</ol>" +
                                 "</h5>",
-                     code_pre:  simcore_do_nothing_handler,
-                     code_post: simcore_do_nothing_handler,
-                     wait_next: 100
-                  });
 
-    tutorials.simpleusage.kr.push({
-                     id:        "simpleusage",
-                     title:     "간단한 WepSIM 경험 : 마이크로 프로그래밍 및 프로그래밍",
-                     message:   "<center><img alt='wepsim screenshot' src='help/simulator/firmware001.jpg' style='max-width:100%; max-height:40vh;'></center>" +
+                 "title_1":     "간단한 WepSIM 경험 : 마이크로 프로그래밍 및 프로그래밍",
+                 "message_1":   "<center><img alt='wepsim screenshot' src='help/simulator/firmware001.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
                                 "첫 번째 단계는 사용할 펌웨어를 마이크로 프로그래밍하는 것입니다. " +
                                 "마이크로 코드 화면으로 전환하려면 '마이크로 코드'버튼을 사용하십시오." +
                                 "</h5>",
-                     code_pre:  simcore_do_nothing_handler,
-                     code_post: simcore_do_nothing_handler,
-                     wait_next: 100
-                  });
 
-    tutorials.simpleusage.kr.push({
-                     id:        "simpleusage",
-                     title:     "간단한 WepSIM 경험 : 마이크로 프로그래밍 및 프로그래밍",
-                     message:   "<center><img alt='wepsim screenshot' src='help/simulator/firmware002.jpg' style='max-width:100%; max-height:40vh;'></center>" +
+                 "title_2":     "간단한 WepSIM 경험 : 마이크로 프로그래밍 및 프로그래밍",
+                 "message_2":   "<center><img alt='wepsim screenshot' src='help/simulator/firmware002.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
                                 "마이크로 프로그래밍 화면은 다음을 제공합니다."+
@@ -65,29 +53,17 @@
                                 "</ul>"+
                                 "일단 코드가 준비되면 (오류없이 컴파일 된) 다음 단계는 어셈블리 화면으로 이동하는 것입니다." +
                                 "</h5>",
-                     code_pre:  simcore_do_nothing_handler,
-                     code_post: simcore_do_nothing_handler,
-                     wait_next: 100
-                  });
 
-    tutorials.simpleusage.kr.push({
-                     id:        "simpleusage",
-                     title:     "간단한 WepSIM 경험 : 마이크로 프로그래밍 및 프로그래밍",
-                     message:   "<center><img alt='wepsim screenshot' src='help/simulator/assembly002b.jpg' style='max-width:100%; max-height:40vh;'></center>" +
+                 "title_3":     "간단한 WepSIM 경험 : 마이크로 프로그래밍 및 프로그래밍",
+                 "message_3":   "<center><img alt='wepsim screenshot' src='help/simulator/assembly002b.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
                                 "두 번째 단계는 실행될 어셈블리를 프로그래밍하는 것입니다. " +
                                 "시뮬레이터 화면이나 마이크로 코드 화면에서 '어셈블리'버튼을 사용하십시오." +
                                 "</h5>",
-                     code_pre:  simcore_do_nothing_handler,
-                     code_post: simcore_do_nothing_handler,
-                     wait_next: 100
-                  });
 
-    tutorials.simpleusage.kr.push({
-                     id:        "simpleusage",
-                     title:     "간단한 WepSIM 경험 : 마이크로 프로그래밍 및 프로그래밍",
-                     message:   "<center><img alt='wepsim screenshot' src='help/simulator/assembly003.jpg' style='max-width:100%; max-height:40vh;'></center>" +
+                 "title_4":     "간단한 WepSIM 경험 : 마이크로 프로그래밍 및 프로그래밍",
+                 "message_4":   "<center><img alt='wepsim screenshot' src='help/simulator/assembly003.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
                                 "프로그래밍 화면에서는 다음을 제공합니다." +
@@ -98,15 +74,9 @@
                                 "</ul>" +
                                 "일단 당신의 assebly 코드가 준비되면 (오류없이 편집되고 컴파일 된) 다음 단계는 시뮬레이션 화면으로 들어가는 것입니다." +
                                 "</h5>",
-                     code_pre:  simcore_do_nothing_handler,
-                     code_post: simcore_do_nothing_handler,
-                     wait_next: 100
-                  });
 
-    tutorials.simpleusage.kr.push({
-                     id:        "simpleusage",
-                     title:     "간단한 WepSIM 경험 : 마이크로 프로그래밍 및 프로그래밍",
-                     message:   "<center><img alt='wepsim screenshot' src='help/simulator/simulator010.jpg' style='max-width:100%; max-height:40vh;'></center>" +
+                 "title_5":     "간단한 WepSIM 경험 : 마이크로 프로그래밍 및 프로그래밍",
+                 "message_5":   "<center><img alt='wepsim screenshot' src='help/simulator/simulator010.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
                                 "세 번째 단계는 시뮬레이터에서 어셈블리 코드를 실행하는 것입니다. <br>" +
@@ -117,9 +87,7 @@
                                 "<li> 단계별로 재설정하거나 중단 점 / 종료 작업까지 실행하십시오. </li>" +
                                 "</ul>" +
                                 "이 튜토리얼은 학생 및 교사를위한 WepSIM의 일반적인 사용법을 소개했습니다. WepSIM을 즐기십시오!" +
-                                "</h5>",
-                     code_pre:  simcore_do_nothing_handler,
-                     code_post: simcore_do_nothing_handler,
-                     wait_next: 100
-                  });
+                                "</h5>"
+
+    };
 

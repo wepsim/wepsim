@@ -210,7 +210,7 @@
     		 '<span class="float-left">' + i18n_get('dialogs',wsi,'Show/Hide pseudo-instructions') + '</span>' +
     		 '</button>' +
                      '<button type="button" id="close" data-role="none" ' +
-                     '        class="btn btn-sm btn-danger w-100 p-0 mt-1" ' +
+                     '        class="btn btn-sm btn-danger w-100 p-0 mt-2" ' +
                      '        onclick="$(\'#' + asm_po + '\').popover(\'hide\');">' + 
     		          i18n_get('dialogs',wsi,'Close') +
     		 '</button>' ;

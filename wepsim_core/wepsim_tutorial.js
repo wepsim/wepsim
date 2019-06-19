@@ -23,21 +23,25 @@
     // Tutorials
     //
 
+    tutorials = {} ;
+
     function sim_tutorial_goframe ( tutorial_name, from_step, to_step )
     {
-        // 0.- get reference
-        if (typeof tutorials[tutorial_name] == "undefined") {
-            return ;
-	}
-        var tutorial = tutorials[tutorial_name][get_cfg('ws_idiom')] ;
-        if (typeof tutorial == "undefined") {
+        //var ws_lang  = get_cfg('ws_idiom') ;
+        var tutorial = tutorials[tutorial_name] ;
+
+        // 1.- check parameters
+        if (typeof tutorial === "undefined") {
             return ;
 	}
 
-	// 1.- do transition
+	// 2.- do transition
 	tutorial[from_step].code_post() ;
 
-	tutbox.modal("hide") ;
+	if (typeof tutbox !== "undefined") {
+	    tutbox.modal("hide") ;
+        }
+
 	setTimeout(function(){ sim_tutorial_showframe(tutorial_name, to_step); },
 		   tutorial[from_step].wait_next) ;
 
@@ -60,16 +64,14 @@
 
     function sim_tutorial_showframe ( tutorial_name, step )
     {
-        // 0.- get reference
-        if (typeof tutorials[tutorial_name] == "undefined") {
-            return ;
-	}
-        var tutorial = tutorials[tutorial_name][get_cfg('ws_idiom')] ;
-        if (typeof tutorial == "undefined") {
+        var tutorial = tutorials[tutorial_name] ;
+
+        // 1.- check parameters
+        if (typeof tutorials == "undefined") {
             return ;
 	}
 
-        // 1.- check if
+        // 2.- check if
 	if (step == tutorial.length) {
 	    return ;
 	}
@@ -79,16 +81,16 @@
 
         ga('send', 'event', 'help', 'help.tutorial', 'help.tutorial.name=' + tutorial_name + ',step=' + step);
 
-        // 2.- code_pre
+        // 3.- code_pre
         tutorial[step].code_pre();
 
-        // 3.- dialog +
+        // 4.- dialog +
         //     code_post (next button) | cancel tutorials
         var wsi = get_cfg('ws_idiom') ;
         var bbbt = {} ;
 
         bbbt.cancel = {
-		    label: i18n_get('gui',wsi,'Disable tutorial mode'),
+		    label: i18n_get('gui', wsi, 'Disable tutorial mode'),
 		    className: 'btn-danger col float-right',
 		    callback: function() {
                         sim_tutorial_cancelframe() ;
@@ -97,7 +99,7 @@
 
         if (step != 0)
             bbbt.prev = {
-		    label: i18n_get('gui',wsi,'Prev.'),
+		    label: i18n_get('gui', wsi, 'Prev.'),
 		    className: 'btn-success col float-right',
 		    callback: function() {
                         sim_tutorial_goframe(tutorial_name, step, step - 1) ;
@@ -106,7 +108,7 @@
 
 	if (step != (tutorial.length - 1))
             bbbt.next = {
-		    label: i18n_get('gui',wsi,'Next'),
+		    label: i18n_get('gui', wsi, 'Next'),
 		    className: 'btn-success col float-right',
 		    callback: function() {
                         sim_tutorial_goframe(tutorial_name, step, step + 1) ;
@@ -114,7 +116,7 @@
 		};
 	else
             bbbt.end = {
-		    label: i18n_get('gui',wsi,'End'),
+		    label: i18n_get('gui', wsi, 'End'),
 		    className: 'btn-success col float-right',
 		    callback: function() {
                         sim_tutorial_goframe(tutorial_name, step, step + 1) ;
@@ -131,6 +133,9 @@
 
 	simcore_voice_speak(tutorial[step].title.replace(/<[^>]*>/g, '') + ". " +
 		            tutorial[step].message.replace(/<[^>]*>/g, ''));
+
+	// 5.- do translation
+        i18n_update_tags("tutorial_" + tutorial_name) ;
     }
 
     // from checkpoint

@@ -21,10 +21,10 @@
 
     // Translated thanks to Google translate
 
-    tutorials.simpleusage.fr.push({
-                     id:        "simpleusage",
-                     title:     "Expérience WepSIM simple: microprogrammation et programmation",
-                     message:   "<center><img alt='wepsim screenshot' src='help/simulator/simulator011.jpg' style='max-width:100%; max-height:40vh;'></center>" +
+    i18n.eltos.tutorial_simpleusage.fr = {
+
+                 "title_0":     "Expérience WepSIM simple: microprogrammation et programmation",
+                 "message_0":   "<center><img alt='wepsim screenshot' src='help/simulator/simulator011.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
                                 "Ce bref tutoriel va vous montrer comment:" +
@@ -34,29 +34,17 @@
                                 "<li><a href='#' onclick='sim_tutorial_goframe(\"simpleusage\",0,5);'>Exécuter l'assemblage + le microcode dans la simulation.</a></li>" +
                                 "</ol>" +
                                 "</h5>",
-                     code_pre:  simcore_do_nothing_handler,
-                     code_post: simcore_do_nothing_handler,
-                     wait_next: 100
-                  });
 
-    tutorials.simpleusage.fr.push({
-                     id:        "simpleusage",
-                     title:     "Expérience WepSIM simple: microprogrammation et programmation",
-                     message:   "<center><img alt='wepsim screenshot' src='help/simulator/firmware001.jpg' style='max-width:100%; max-height:40vh;'></center>" +
+                 "title_1":     "Expérience WepSIM simple: microprogrammation et programmation",
+                 "message_1":   "<center><img alt='wepsim screenshot' src='help/simulator/firmware001.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
                                 "La première étape consiste à microprogrammer le firmware à utiliser. " +
                                 "Veuillez utiliser le bouton 'Microcode' pour passer à l'écran du microcode." +
                                 "</h5>",
-                     code_pre:  simcore_do_nothing_handler,
-                     code_post: simcore_do_nothing_handler,
-                     wait_next: 100
-                  });
 
-    tutorials.simpleusage.fr.push({
-                     id:        "simpleusage",
-                     title:     "Expérience WepSIM simple: microprogrammation et programmation",
-                     message:   "<center><img alt='wepsim screenshot' src='help/simulator/firmware002.jpg' style='max-width:100%; max-height:40vh;'></center>" +
+                 "title_2":     "Expérience WepSIM simple: microprogrammation et programmation",
+                 "message_2":   "<center><img alt='wepsim screenshot' src='help/simulator/firmware002.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
                                 "L’écran de microprogrammation fournit:" +
@@ -67,29 +55,17 @@
                                 "</ul>" +
                                 "Une fois que votre code est prêt (compilé sans erreurs), l'étape suivante consiste à accéder à l'écran d'assemblage." +
                                 "</h5>",
-                     code_pre:  simcore_do_nothing_handler,
-                     code_post: simcore_do_nothing_handler,
-                     wait_next: 100
-                  });
 
-    tutorials.simpleusage.fr.push({
-                     id:        "simpleusage",
-                     title:     "Expérience WepSIM simple: microprogrammation et programmation",
-                     message:   "<center><img alt='wepsim screenshot' src='help/simulator/assembly002b.jpg' style='max-width:100%; max-height:40vh;'></center>" +
+                 "title_3":     "Expérience WepSIM simple: microprogrammation et programmation",
+                 "message_3":   "<center><img alt='wepsim screenshot' src='help/simulator/assembly002b.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
                                 "La deuxième étape consiste à programmer l'assemblage à exécuter. " +
                                 "Veuillez utiliser le bouton 'Assemblage' de l'écran du simulateur ou de l'écran du microcode." +
                                 "</h5>",
-                     code_pre:  simcore_do_nothing_handler,
-                     code_post: simcore_do_nothing_handler,
-                     wait_next: 100
-                  });
 
-    tutorials.simpleusage.fr.push({
-                     id:        "simpleusage",
-                     title:     "Expérience WepSIM simple: microprogrammation et programmation",
-                     message:   "<center><img alt='wepsim screenshot' src='help/simulator/assembly003.jpg' style='max-width:100%; max-height:40vh;'></center>" +
+                 "title_4":     "Expérience WepSIM simple: microprogrammation et programmation",
+                 "message_4":   "<center><img alt='wepsim screenshot' src='help/simulator/assembly003.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
                                 "L'écran de programmation fournit:" +
@@ -100,15 +76,9 @@
                                 "</ul>" +
                                 "Une fois que votre code définitif est prêt (édité et compilé sans erreur), l'étape suivante consiste à accéder à l'écran de simulation." +
                                 "</h5>",
-                     code_pre:  simcore_do_nothing_handler,
-                     code_post: simcore_do_nothing_handler,
-                     wait_next: 100
-                  });
 
-    tutorials.simpleusage.fr.push({
-                     id:        "simpleusage",
-                     title:     "Expérience WepSIM simple: microprogrammation et programmation",
-                     message:   "<center><img alt='wepsim screenshot' src='help/simulator/simulator010.jpg' style='max-width:100%; max-height:40vh;'></center>" +
+                 "title_5":     "Expérience WepSIM simple: microprogrammation et programmation",
+                 "message_5":   "<center><img alt='wepsim screenshot' src='help/simulator/simulator010.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
                                 "La troisième étape consiste à exécuter le code d'assemblage dans le simulateur. <br>" +
@@ -119,9 +89,7 @@
                                 "<li>La réinitialisation, étape par étape ou exécution jusqu'au point d'arrêt / actions de fin. </li>" +
                                 "</ul>" +
                                 "Ce tutoriel a introduit l'utilisation typique de WepSIM pour les étudiants et les enseignants. Profitez de WepSIM!" +
-                                "</h5>",
-                     code_pre:  simcore_do_nothing_handler,
-                     code_post: simcore_do_nothing_handler,
-                     wait_next: 100
-                  });
+                                "</h5>"
+
+    };
 
