@@ -517,14 +517,23 @@ def print_content(L_D, C_N):
     f.write("\n") ;
 
     # Translate
-    translator = Translator()
+    translator = Translator() ;
+
+    tobetranslate = [] ;
     for key in i18n_eltos[aa]:
         value = i18n_eltos[aa][key] ;
-        translations = translator.translate([value], dest=L_D)
-        translated   = translations[0].text.replace("'","\\'") ;
-        f.write("\t\t'" + key + "':\t\t'" + translated + "',\n") ;
-    f.write("\t\t'_last_':\t\t'_last_'\n") ;
+        tobetranslate.append(value) ;
 
+    translations = translator.translate(tobetranslate, dest=L_D)
+
+    index = 0
+    for key in i18n_eltos[aa]:
+        tobetranslated = key.replace("'","\\'")
+        translated     = translations[index].text.replace("'","\\'") ;
+        f.write("\t\t'" + tobetranslated + "':\t\t'" + translated + "',\n") ;
+        index = index + 1
+
+    f.write("\t\t'_last_':\t\t'_last_'\n") ;
     f.write("\n") ;
     f.write("    };\n") ;
     f.write("\n") ;
