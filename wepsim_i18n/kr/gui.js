@@ -83,6 +83,7 @@
                         "Record":					"기록하다",
 
                         "Recent":                                       "충적세",
+	                "Welcome":					"환영합니다",
 			"Refresh":  			                "새롭게 하다"
 
                   } ;

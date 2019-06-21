@@ -76,7 +76,9 @@
 			"Stop":				"Arrêt",
 			"Record":			"Enregistrement",
 			"Recent":			"Récent",
-			"Refresh":			"Actualiser"
+			"Refresh":			"Actualiser",
+		        "Welcome":			"Bienvenue",
+		        "_last_":			"_last_"
 
     } ;
 

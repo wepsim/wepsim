@@ -27,10 +27,14 @@
 	          lang:  {
 			    en: "English",
 			    es: "Espa&ntilde;ol", 
-			    fr: "Fran&ccedil;ais - Google-translate",
 			    kr: "한국어 - Google-translate",
+			    hi: "हिन्दी - Google-translate",
+			    fr: "Fran&ccedil;ais - Google-translate",
+			    pt: "Portugu&ecirc;s - Google-translate",
+			    ja: "日本語 - Google-translate",
 			    it: "L'italiano - Google-translate",
-			    pt: "Portugu&ecirc;s - Google-translate" 
+			 zh_cn: "汉语 - Google-translate",
+			    de: "Deutsch - Google-translate"
 		         },
 	          eltos: { 
                             // main-screen user interface
@@ -170,6 +174,23 @@
             o += "	<option value='" + l + "'>" + i18n.lang[l] + "</option>" ;
 	}
 	o += " </select>" ;
+
+	return o ;
+    }
+
+    function i18n_get_welcome ( )
+    {
+        var o = "<div  class=\"container\">" +
+                "<span class=\"row\">" ;
+        for (var key in i18n.lang)
+        {
+            o += "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2 col-auto\" href=\"#\" " + 
+                 "   onclick=\"wepsim_newbie_tour_reload('" + key + "');\">" + 
+                 i18n_get('gui', key, 'Welcome') + 
+                 "</a>" ;
+        }
+        o += "</span>" +
+             "</div>" ;
 
 	return o ;
     }

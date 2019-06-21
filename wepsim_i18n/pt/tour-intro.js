@@ -21,7 +21,6 @@
 
     i18n.eltos.tour_intro.pt = {
 
-		'step0':		'<div class = "container"> <span class = "row"> <a class = "btn btn-sm btn-delinear-escuro mx-2 meu-2 col-auto" href = "#" onclick = "wepsim_newbie_tour_reload ( \'fr\'); "> Bienvenue! </a> <a class =" btn btn-sm btn-contorno-escuro mx-2 meu-2 col-auto "href =" # "onclick =" wepsim_newbie_tour_reload (\'kr\' ); "> 환영 </a> <a class="btn btn-sm btn-outline-dark mx-2 minha-2 col-auto" href="#" onclick="wepsim_newbie_tour_reload(\'es\');"> ¡Bienvenido / a! </a> <a class="btn btn-sm btn-outline-dark mx-2 minha-2 col-auto" href="#" onclick="wepsim_newbie_tour_reload(\'en\');"> Bem-vindo! </a> </ span> </ div>',
 		'step1':		'O WepSIM ajuda a entender melhor como funciona um computador: é visual, interativo, integra desde sinais até interrupções, chamadas de sistema, exceções, etc. <br> <br> Nós realmente acreditamos que o WepSIM é uma ferramenta de ensino revolucionária. Este breve tour apresenta os principais elementos de sua interface.',
 		'step2':		'Este botão no canto superior direito permite que os usuários escolham o \'modo de execução\'. <br> <br> Por exemplo, o hardware para trabalhar (por exemplo, o processador elementar ou EP). <br> Ou o modo tutorial, recomendado no começando ;-).',
 		'step3':		'No canto superior direito, o botão \'ajuda\' abre a caixa de diálogo associada. <br> <br> A caixa de diálogo de ajuda resume os tutoriais, descrições, informações etc.',

@@ -75,6 +75,7 @@
 		'Record':		'Registro',
 		'Recent':		'Recente',
 		'Refresh':		'Atualizar',
+	        'Welcome':		'Bem vindo',
 		'_last_':		'_last_'
 
     };

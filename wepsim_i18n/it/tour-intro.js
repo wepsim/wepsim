@@ -21,7 +21,6 @@
 
     i18n.eltos.tour_intro.it = {
 
-		'step0':		'<div class = "container"> <span class = "row"> <a class = "btn btn-sm btn-outline-dark mx-2 my-2 col-auto" href = "#" onclick = "wepsim_newbie_tour_reload ( \'fr\'); "> Bienvenue! </a> <a class =" btn btn-sm btn-outline-dark mx-2 my-2 col-auto "href =" # "onclick =" wepsim_newbie_tour_reload (\'kr\' ); "> 환영 </a> <a class="btn btn-sm btn-outline-dark mx-2 my-2 col-auto" href="#" onclick="wepsim_newbie_tour_reload(\'es\');"> ¡Bienvenido / a! </a> <a class="btn btn-sm btn-outline-dark mx-2 my-2 col-auto" href="#" onclick="wepsim_newbie_tour_reload(\'en\');"> Benvenuto! </a> </ span> </ div>',
 		'step1':		'WepSIM aiuta a capire meglio come funziona un computer: è visivo, interattivo, si integra da segnali fino a interruzioni, chiamate di sistema, eccezioni, ecc. <br> <br> Crediamo veramente che WepSIM sia uno strumento didattico rivoluzionario. Questo breve tour introduce gli elementi chiave della sua interfaccia.',
 		'step2':		'Questo pulsante in alto a destra consente agli utenti di scegliere la "modalità di esecuzione". <br> <br> Ad esempio, l\'hardware con cui lavorare (ad esempio, il processore elementare o EP). <br> Oppure la modalità tutorial, consigliata al all\'inizio ;-).',
 		'step3':		'In alto a destra, il pulsante "Guida" apre la finestra di dialogo associata. <br> <br> La finestra di dialogo della guida riassume le esercitazioni, le descrizioni, le informazioni, ecc.',

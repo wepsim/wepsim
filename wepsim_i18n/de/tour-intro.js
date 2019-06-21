@@ -21,7 +21,6 @@
 
     i18n.eltos.tour_intro.de = {
 
-		'step0':		'<div class = "container"> <span class = "row"> <a class = "btn btn-sm btn-kontur-dunkel mx-2 my-2 col-auto" href = "#" onclick = "wepsim_newbie_tour_reload ( \'fr\'); "> Bienvenue! </a> <a class =" btn btn-sm btn-umriss-dunkel mx-2 my-2 col-auto "href =" # "onclick =" wepsim_newbie_tour_reload (\'kr\' ); "> 환영 </a> <a class="btn btn-sm btn-outline-dark mx-2 my-2 col-auto" href="#" onclick="wepsim_newbie_tour_reload(\'es\');"> ¡Bienvenido / a! </a> <a class="btn btn-sm btn-outline-dark mx-2 my-2 col-auto" href="#" onclick="wepsim_newbie_tour_reload(\'en\');"> Willkommen! </a> </ span> </ div>',
 		'step1':		'WepSIM hilft dabei, die Funktionsweise eines Computers besser zu verstehen: Es ist visuell, interaktiv, integriert von Signalen bis hin zu Unterbrechungen, Systemaufrufen, Ausnahmen usw. <br> <br> Wir sind der festen Überzeugung, dass WepSIM ein revolutionäres Lehrmittel ist. Diese kurze Tour führt in die wichtigsten Elemente der Benutzeroberfläche ein.',
 		'step2':		'Über diese Schaltfläche oben rechts können Benutzer den Ausführungsmodus auswählen. <br> <br> Zum Beispiel die Hardware, mit der gearbeitet werden soll (z. B. der Elementarprozessor oder die EP). <br> Oder den Lernmodus, der in der empfohlen wird Anfang ;-).',
 		'step3':		'Oben rechts öffnet die Schaltfläche "Hilfe" den zugehörigen Dialog. <br> <br> Der Hilfedialog fasst die Tutorials, Beschreibungen, Informationen usw. zusammen.',

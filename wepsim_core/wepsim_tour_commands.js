@@ -22,8 +22,8 @@
     var ws_tour = [] ;
 
     ws_tour.push({
-                           intro:     "<span data-langkey='step0'>Step 0</span>",
-	                   step:      'step0',
+                           intro:     i18n_get_welcome(),
+	                   step:      '',
 			   position:  'auto',
 			   do_before: function () {
 			                  return true ;
