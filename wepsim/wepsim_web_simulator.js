@@ -558,6 +558,9 @@
 		    content:    function() {
 				   return wepsim_show_asm_columns_checked('popover2_asm') ;
 				},
+		    title:      function() {
+		                   return 'Quick UI Configuration' ;
+		                },
 		    sanitizeFn: function (content) {
 				   return content ; // DOMPurify.sanitize(content) ;
 				}

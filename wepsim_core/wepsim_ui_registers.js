@@ -163,6 +163,19 @@
 
 		       "<div class='w-100 border border-light'></div>" +
 
+		       "<div class='col-7 p-1'>" +
+		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
+		       "        onclick='update_cfg(\"RF_display_name\", \"numerical\"); wepsim_show_rf_names(); return true; '>" +
+		       "<span class='font-weight-bold'>R10</span>&nbsp;<span class='mx-auto px-1 rounded' style='background-color:#CEECF5; color:black;'>0</span></buttom>" +
+		       "</div>" +
+		       "<div class='col p-1'>" +
+		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
+		       "        onclick='update_cfg(\"RF_display_name\", \"logical\"); wepsim_show_rf_names(); return true; '>" +
+		       "<span class='font-weight-bold'>$t0</span>&nbsp;<span class='mx-auto px-1 rounded' style='background-color:#CEECF5; color:black;'>0</span></buttom>" +
+		       "</div>" +
+
+		       "<div class='w-100 border border-light'></div>" +
+
 		       "<div class='col p-1'>" +
 		       "<button type='button' id='close' data-role='none' " +
 		       "        class='btn btn-sm btn-danger w-100 p-0 mt-1' " +
@@ -376,10 +389,14 @@
                     trigger:   'click',
 		    template:  '<div class="popover shadow" role="tooltip">' + 
                                '<div class="arrow"></div>' +
+		               '<h3  class="popover-header"></h3>' +
 		               '<div class="popover-body"></div>' +
 		               '</div>',
 		    container: 'body',
 		    content:    quick_config_rf(),
+		    title:      function() {
+		                   return 'Quick UI Configuration' ;
+		                },
 		    sanitizeFn: function (content) {
                                    return content ; // DOMPurify.sanitize(content) ;
                                 }
