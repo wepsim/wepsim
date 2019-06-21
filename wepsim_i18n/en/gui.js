@@ -81,6 +81,8 @@
                         "Record":					"Record",
 
                         "Recent":                                       "Recent",
-			"Refresh":  			                "Refresh"
+			"Refresh":  			                "Refresh",
+		        "Welcome":					"Welcome",
+		        "_last_":					"_last_"
     } ;
 

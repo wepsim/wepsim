@@ -75,6 +75,7 @@
 		'Record':		'Disco',
 		'Recent':		'Recente',
 		'Refresh':		'ricaricare',
+	        "Welcome":		"Benvenuto",
 		'_last_':		'_last_'
 
     };

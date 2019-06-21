@@ -67,7 +67,9 @@
 	     for (var i=0; i<ws_tour.length; i++) 
 	     {
 		  step = ws_tour[i].step ;
-		  ws_tour[i].intro = i18n.eltos.tour_intro[lang][step] ;
+                  if ("" !== step) {
+		      ws_tour[i].intro = i18n.eltos.tour_intro[lang][step] ;
+                  }
 	     }
     }
 

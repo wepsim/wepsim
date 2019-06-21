@@ -79,6 +79,8 @@
                         "Record":					"Grabar",
 
                         "Recent":                                       "Reciente",
-			"Refresh": 			     		"Refrescar"
+			"Refresh": 			     		"Refrescar",
+		        "Welcome":					"Bienvenido+a",
+		        "_last_":					"_last_"
                   } ;
 
