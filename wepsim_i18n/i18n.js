@@ -33,7 +33,7 @@
 			    pt: "Portugu&ecirc;s - Google-translate",
 			    ja: "日本語 - Google-translate",
 			    it: "L'italiano - Google-translate",
-			 zh_ch: "汉语 - Google-translate",
+			 zh_cn: "汉语 - Google-translate",
 			    de: "Deutsch - Google-translate"
 		         },
 	          eltos: { 
