@@ -75,6 +75,7 @@
 		'Record':		'記録',
 		'Recent':		'最近',
 		'Refresh':		'更新する',
+	        'Welcome':		'ようこそ',
 		'_last_':		'_last_'
 
     };

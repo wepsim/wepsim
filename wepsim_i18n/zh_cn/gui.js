@@ -75,6 +75,7 @@
 		'Record':		'记录',
 		'Recent':		'最近',
 		'Refresh':		'刷新',
+	        'Welcome':		'欢迎',
 		'_last_':		'_last_'
 
     };

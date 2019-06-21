@@ -21,15 +21,6 @@
 
     i18n.eltos.tour_intro.kr = {
 
-			"step0":  "<div  class=\"container\">" +
-			          "<span class=\"row\">" +
-	                          "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2 col-auto\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('fr');\">Bienvenue!</a>" +
-                                  "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2 col-auto\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('kr');\">환영</a>" +
-                                  "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2 col-auto\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('es');\">¡Bienvenido/a!</a>" +
-                                  "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2 col-auto\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('en');\">Welcome!</a>" +
-                                  "</span>" +
-                                  "</div>",
-
                         "step1":  "WepSIM을 사용하면 컴퓨터 작동 방식을 더 잘 이해할 수 있습니다." +
                                   "시각적이며 대화 형이며 신호에서 중단, 시스템 호출, 예외 등을 통합합니다." +
                                   "<br>" +

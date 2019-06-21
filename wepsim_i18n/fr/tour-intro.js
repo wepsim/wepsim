@@ -23,15 +23,6 @@
 
     i18n.eltos.tour_intro.fr = {
 
-			"step0":  "<div  class=\"container\">" +
-			          "<span class=\"row\">" +
-	                          "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2 col-auto\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('fr');\">Bienvenue!</a>" +
-                                  "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2 col-auto\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('kr');\">환영</a>" +
-                                  "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2 col-auto\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('es');\">¡Bienvenido/a!</a>" +
-                                  "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2 col-auto\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('en');\">Welcome!</a>" +
-                                  "</span>" +
-                                  "</div>",
-
                         "step1":  "WepSIM aide à mieux comprendre le fonctionnement d'un ordinateur:" +
                                   "visuel, interactif, il intègre des signaux jusqu’aux interruptions, appels système, exceptions, etc. <br>" +
                                   "<br>" +

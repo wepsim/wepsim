@@ -21,7 +21,6 @@
 
     i18n.eltos.tour_intro.hi = {
 
-		'step0':		'<div class = "container"> <span class = "row"> <a class = "btn btn-sm btn-outline-dark mx-2 my-2 col-auto" href = "#" onclcl = "wepsim_newbie_tour_reload () \'fr\'); "> Bienvenue! </a> <a class =" btn btn-sm btn-outline-dark mx-2 my-2 col-auto "href =" # "onclick =" wequim_newbie_tour_reload (\'kr\') ); ">; </a> <a class="btn btn-sm btn-outline-dark mx-2 my-2 col-auto" href="#" onclick="wepsim_newbie_tour-reload(\'es\');"> ¡Bienvenido / a! </a> <a class="btn btn-sm btn-outline-dark mx-2 my-2 col-auto" href="#" onclick="wepsim_newbie-tour_reload(\'en\');"> आपका स्वागत है! </a> </ span> </ div>',
 		'step1':		'WepSIM बेहतर तरीके से यह समझने में मदद करता है कि कंप्यूटर कैसे काम करता है: यह दृश्य है, इंटरैक्टिव है, संकेतों से लेकर रुकावट, सिस्टम कॉल, अपवाद आदि तक एकीकृत करता है। <br> <br> हम वास्तव में मानते हैं कि WepSIM एक क्रांतिकारी शिक्षण उपकरण है। यह संक्षिप्त दौरा इसके इंटरफेस के प्रमुख तत्वों का परिचय देता है।',
 		'step2':		'शीर्ष-दाईं ओर स्थित यह बटन उपयोगकर्ताओं को \'निष्पादन मोड\' चुनने देता है। <br> <br> <br> उदाहरण के लिए, हार्डवेयर के साथ काम करने के लिए (उदाहरण के लिए प्रोसेसर या ईपी)। <br> या ट्यूटोरियल मोड की सिफारिश की गई है। शुरुआत ;-)।',
 		'step3':		'शीर्ष-दाईं ओर, \'मदद\' बटन संबंधित संवाद खोलता है। <br> <br> मदद संवाद ट्यूटोरियल, विवरण, सूचना, आदि को सारांशित करता है।',

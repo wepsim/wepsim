@@ -75,6 +75,7 @@
 		'Record':		'अभिलेख',
 		'Recent':		'हाल का',
 		'Refresh':		'ताज़ा करना',
+		'Welcome':		'स्वागत',
 		'_last_':		'_last_'
 
     };

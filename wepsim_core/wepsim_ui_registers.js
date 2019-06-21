@@ -114,6 +114,8 @@
 	       var o = "<div class='container mt-1'>" +
 
 		       "<div class='row'>" +
+		       "<div class='col-12 p-0'><span data-langkey='Display format'>Display format</span></div>" +
+
 		       "<div class='col-7 p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_format\", \"unsigned_16_fill\"); show_rf_values(); show_states(); return true; '>" +
@@ -162,16 +164,19 @@
 		       "</div>" +
 
 		       "<div class='w-100 border border-light'></div>" +
+		       "<div class='col-12 p-0'><span data-langkey='Register file names'>Register file names</span></div>" +
 
-		       "<div class='col-7 p-1'>" +
-		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
-		       "        onclick='update_cfg(\"RF_display_name\", \"numerical\"); wepsim_show_rf_names(); return true; '>" +
-		       "<span class='font-weight-bold'>R10</span>&nbsp;<span class='mx-auto px-1 rounded' style='background-color:#CEECF5; color:black;'>0</span></buttom>" +
-		       "</div>" +
-		       "<div class='col p-1'>" +
+		       "<div class='col-6 p-1'>" +
 		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
 		       "        onclick='update_cfg(\"RF_display_name\", \"logical\"); wepsim_show_rf_names(); return true; '>" +
-		       "<span class='font-weight-bold'>$t0</span>&nbsp;<span class='mx-auto px-1 rounded' style='background-color:#CEECF5; color:black;'>0</span></buttom>" +
+		       "<span class='font-weight-bold text-monospace' style='color:black;'>$t0</span>" + "&nbsp;" + 
+                       "<span class='mx-auto px-1 rounded' style='background-color:#CEECF5;'>0</span></buttom>" +
+		       "</div>" +
+		       "<div class='col-6 p-1'>" +
+		       "<buttom class='btn btn-sm btn-outline-secondary col p-1 text-right float-right' " +
+		       "        onclick='update_cfg(\"RF_display_name\", \"numerical\"); wepsim_show_rf_names(); return true; '>" +
+		       "<span class='font-weight-bold text-monospace' style='color:black;'>R10</span>" + "&nbsp;" + 
+                       "<span class='mx-auto px-1 rounded' style='background-color:#CEECF5;'>0</span></buttom>" +
 		       "</div>" +
 
 		       "<div class='w-100 border border-light'></div>" +

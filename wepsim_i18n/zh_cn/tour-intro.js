@@ -21,7 +21,6 @@
 
     i18n.eltos.tour_intro.zh_cn = {
 
-		'step0':		'<div class =“container”> <span class =“row”> <a class =“btn btn-sm btn-outline-dark mx-2 my-2 col-auto”href =“＃”onclick =“wepsim_newbie_tour_reload（ \'fr\'）;“> Bienvenue！</a> <a class =”btn btn-sm btn-outline-dark mx-2 my-2 col-auto“href =”＃“onclick =”wepsim_newbie_tour_reload（\'kr\' ）;“>환영</a> <a class="btn btn-sm btn-outline-dark mx-2 my-2 col-auto" href="#" onclick="wepsim_newbie_tour_reload(\'es\');"> ¡Bienvenido / a！</a> <a class="btn btn-sm btn-outline-dark mx-2 my-2 col-auto" href="#" onclick="wepsim_newbie_tour_reload(\'en\');">欢迎！</A> </ SPAN> </ DIV>',
 		'step1':		'WepSIM有助于更好地理解计算机的工作原理：它是视觉的，交互式的，从信号到中断，系统调用，异常等集成。<br> <br>我们真的相信WepSIM是一种革命性的教学工具。本简短介绍介绍了其界面的关键要素。',
 		'step2':		'右上角的这个按钮让用户选择“执行模式”。<br> <br>例如，要使用的硬件（例如基本处理器或EP）。或者教程模式，建议在开始;-)。',
 		'step3':		'在右上角，“帮助”按钮打开关联的对话框。<br> <br>帮助对话框总结了教程，说明，信息等。',
