@@ -19,7 +19,7 @@
  */
 
 
-    i18n.eltos.help.zh-cn = {
+    i18n.eltos.help.zh_cn = {
 
 		'Welcome tutorial':		'欢迎教程',
 		'help_01_01':		'打开欢迎教程',

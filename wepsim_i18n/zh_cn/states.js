@@ -19,7 +19,7 @@
  */
 
 
-    i18n.eltos.states.zh-cn = {
+    i18n.eltos.states.zh_cn = {
 
 		'States':		'状态',
 		'Current':		'当前',

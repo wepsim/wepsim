@@ -19,7 +19,7 @@
  */
 
 
-    i18n.eltos.dialogs.zh-cn = {
+    i18n.eltos.dialogs.zh_cn = {
 
 		'Show Notifications':		'显示通知',
 		'Show/Hide RecordBar':		'显示/隐藏RecordBar',

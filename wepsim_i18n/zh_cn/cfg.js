@@ -19,7 +19,7 @@
  */
 
 
-    i18n.eltos.cfg.zh-cn = {
+    i18n.eltos.cfg.zh_cn = {
 
 		'General':		'一般',
 		'Idiom for help, examples, etc.':		'成语的帮助，例子等',

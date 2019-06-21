@@ -19,7 +19,7 @@
  */
 
 
-    i18n.eltos.tutorial_simpleusage.zh-cn = {
+    i18n.eltos.tutorial_simpleusage.zh_cn = {
 
 		'title_0':		'简单的WepSIM经验：微程序设计和编程',
 		'message_0':		'<center> <img alt =\'wepsim screenshot\'src =\'help / simulator / simulator011.jpg\'style =\'max-width：100％; max-height：40vh;\'> </ center> <p> <h5>这个简短的教程将向您展示如何：<ol> <li> <a href =\'＃\'onclick =\'sim_tutorial_goframe（“simpleusage” ，0,1）;\'>编辑你的微码。</a> </ li> <li> <a href=\'#\' onclick=\'sim_tutorial_goframe("simpleusage",0,3);\'>编辑你的程序集（基于以前的微码）。</a> </ li> <li> <a href=\'#\' onclick=\'sim_tutorial_goframe("simpleusage",0,5);\'>在模拟中执行程序集+微代码。 </A> </ LI> </ OL> </ H5>',

@@ -19,7 +19,7 @@
  */
 
 
-    i18n.eltos.gui.zh-cn = {
+    i18n.eltos.gui.zh_cn = {
 
 		'Loading WepSIM...':		'正在加载WepSIM ...',
 		'Configuration':		'组态',

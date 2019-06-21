@@ -19,7 +19,7 @@
  */
 
 
-    i18n.eltos.examples.zh-cn = {
+    i18n.eltos.examples.zh_cn = {
 
 		'addv + seqv.':		'addv + seqv。',
 		'Alloc.s':		'Alloc.s',
