@@ -27,11 +27,13 @@
 	          lang:  {
 			    en: "English",
 			    es: "Espa&ntilde;ol", 
-			    fr: "Fran&ccedil;ais - Google-translate",
 			    kr: "한국어 - Google-translate",
+			    hi: "हिन्दी - Google-translate",
+			    fr: "Fran&ccedil;ais - Google-translate",
+			    pt: "Portugu&ecirc;s - Google-translate",
 			    ja: "日本語 - Google-translate",
 			    it: "L'italiano - Google-translate",
-			    pt: "Portugu&ecirc;s - Google-translate",
+			 zh-ch: "汉语 - Google-translate",
 			    de: "Deutsch - Google-translate"
 		         },
 	          eltos: { 
