@@ -34,6 +34,7 @@
 			    ja: "日本語 - Google-translate",
 			    it: "L'italiano - Google-translate",
 			 zh_cn: "汉语 - Google-translate",
+			    ru: "русский язык - Google-translate",
 			    de: "Deutsch - Google-translate"
 		         },
 	          eltos: { 

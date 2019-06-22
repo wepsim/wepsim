@@ -399,9 +399,6 @@
 		               '</div>',
 		    container: 'body',
 		    content:    quick_config_rf(),
-		    title:      function() {
-		                   return 'Quick UI Configuration' ;
-		                },
 		    sanitizeFn: function (content) {
                                    return content ; // DOMPurify.sanitize(content) ;
                                 }

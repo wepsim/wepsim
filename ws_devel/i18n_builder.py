@@ -232,7 +232,8 @@ i18n_eltos['gui'] = {
                         "Record":					"Record",
 
                         "Recent":                                       "Recent",
-			"Refresh":  			                "Refresh"
+			"Refresh":  			                "Refresh",
+			"Welcome":  			                "Welcome"
 } ;
 
 
@@ -309,15 +310,6 @@ i18n_eltos['states'] = {
 
 
 i18n_eltos['tour_intro'] = {
-
-			"step0":  "<div  class=\"container\">" +
-			          "<span class=\"row\">" +
-	                          "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2 col-auto\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('fr');\">Bienvenue!</a>" +
-                                  "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2 col-auto\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('kr');\">환영</a>" +
-                                  "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2 col-auto\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('es');\">¡Bienvenido/a!</a>" +
-                                  "<a class=\"btn btn-sm btn-outline-dark mx-2 my-2 col-auto\" href=\"#\" onclick=\"wepsim_newbie_tour_reload('en');\">Welcome!</a>" +
-                                  "</span>" +
-                                  "</div>",
 
 			"step1":  "WepSIM helps to better understand how a computer works: " +
                                   "it is visual, interactive, integrates from signals up to interruptions, system calls, exceptions, etc. <br> " +
