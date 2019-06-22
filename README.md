@@ -347,50 +347,14 @@ Micropc at 0x3f.	Activated signals are: MC MR SELB SELA MA MB SELCOP T6 SELC LC 
     </div>
 ```
 
-## Have a little fun
+## Have a little fun (Thanks to Javier Prieto for this example)
 
 + You can use the Compiler Explorer in order to compile very small code (such as https://godbolt.org/z/1EQHur) and execute it in WepSIM.
 
 + Please, follow these these steps:
 
-  1. Go to Compiler Explorer Wep page:
-  https://godbolt.org/
-
-  2. Insert the following code:
-
-```html
-#include <stdio.h>
-
-// Type your code here, or load an example.
-int main (int argc, char *argv[]) 
-{
-    int i = 10 ;
-    return i ;
-}
-```
-
-  3. Compiler Explorer with MIPS gcc 5.4 generates the following one:
-
-```html
-main:
-        addiu   $sp,$sp,-24
-        sw      $fp,20($sp)
-        move    $fp,$sp
-        sw      $4,24($fp)
-        sw      $5,28($fp)
-        li      $2,10                 # 0xa
-        sw      $2,8($fp)
-        lw      $2,8($fp)
-        move    $sp,$fp
-        lw      $fp,20($sp)
-        addiu   $sp,$sp,24
-        j       $31
-        nop
-```
-
-  4. You can load directly this example by clicking on https://godbolt.org/z/1EQHur
+  1. Go to Compiler Explorer, you can load directly this example by clicking on https://godbolt.org/z/1EQHur
      ![screen:assembly1](https://raw.githubusercontent.com/acaldero/wepsim/master/help/compiler-explorer/compiler-explorer-example.png)
-
-  5. Then you have to load the example 12 of WepSIM (with the basic MIPS instruction set): https://wepsim.github.io/wepsim/ws_dist/wepsim-classic.html?mode=ep&example=12
-     Finally just substitute the assembly code of the example 12 with the generated MIPS code by Compiler Explorer, and compile it. The code can execute right from WepSIM.
+  2. Then you have to load the example 12 of WepSIM (with the basic MIPS instruction set): https://wepsim.github.io/wepsim/ws_dist/wepsim-classic.html?mode=ep&example=12
+  3. Finally just substitute the assembly code of the example 12 with the generated MIPS code by Compiler Explorer, and compile it. The code can execute right from WepSIM.
 
