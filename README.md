@@ -19,7 +19,7 @@
 
 ## Getting WepSIM
 
-### Run WepSIM
+### Run WepSIM without install
 
 + From Web (Google Chrome 70+, Mozilla Firefox 64+, Microsoft Edge 40+, and Apple Safari 11+):
      * Please, load in your Web Browser the link: https://wepsim.github.io/wepsim
@@ -346,4 +346,15 @@ Micropc at 0x3f.	Activated signals are: MC MR SELB SELA MA MB SELCOP T6 SELC LC 
 
     </div>
 ```
+
+## Have a little fun (Thanks to Javier Prieto for this example)
+
++ You can use the Compiler Explorer in order to compile a simple piece of code and execute it in WepSIM.
+
++ For example:
+
+  1. First you can go to Compiler Explorer Web Page,and load directly this example by clicking on https://godbolt.org/z/1EQHur
+     ![screen:assembly1](https://raw.githubusercontent.com/acaldero/wepsim/master/help/compiler-explorer/compiler-explorer-example.png)
+  2. Then you can load the example 12 of WepSIM (with the basic MIPS instruction set) by clicking on https://wepsim.github.io/wepsim/ws_dist/wepsim-classic.html?mode=ep&example=12
+  3. Finally just substitute the assembly code of the example 12 with the generated MIPS code by Compiler Explorer, and compile it. The code can execute right from WepSIM.
 

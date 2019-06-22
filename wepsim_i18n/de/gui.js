@@ -75,7 +75,7 @@
 		'Record':		'Aufzeichnung',
 		'Recent':		'Kürzlich',
 		'Refresh':		'Aktualisierung',
-		'Welcome':		'Herzlich willkommen!',
+		'Welcome':		'Herzlich willkommen',
 		'_last_':		'_last_'
 
     };
