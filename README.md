@@ -349,12 +349,12 @@ Micropc at 0x3f.	Activated signals are: MC MR SELB SELA MA MB SELCOP T6 SELC LC 
 
 ## Have a little fun (Thanks to Javier Prieto for this example)
 
-+ You can use the Compiler Explorer in order to compile very small code (such as https://godbolt.org/z/1EQHur) and execute it in WepSIM.
++ You can use the Compiler Explorer in order to compile a simple piece of code and execute it in WepSIM.
 
-+ Please, follow these these steps:
++ For example:
 
-  1. Go to Compiler Explorer, you can load directly this example by clicking on https://godbolt.org/z/1EQHur
+  1. First you can go to Compiler Explorer Web Page,and load directly this example by clicking on https://godbolt.org/z/1EQHur
      ![screen:assembly1](https://raw.githubusercontent.com/acaldero/wepsim/master/help/compiler-explorer/compiler-explorer-example.png)
-  2. Then you have to load the example 12 of WepSIM (with the basic MIPS instruction set): https://wepsim.github.io/wepsim/ws_dist/wepsim-classic.html?mode=ep&example=12
+  2. Then you can load the example 12 of WepSIM (with the basic MIPS instruction set) by clicking on https://wepsim.github.io/wepsim/ws_dist/wepsim-classic.html?mode=ep&example=12
   3. Finally just substitute the assembly code of the example 12 with the generated MIPS code by Compiler Explorer, and compile it. The code can execute right from WepSIM.
 
