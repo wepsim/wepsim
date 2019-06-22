@@ -1,8 +1,16 @@
 
 2.0.6 -> 2.0.7:
-* Improved translation subsystem
-* Revamped simcore_init_ui() API function 
-* Improved command line version (progressive output rather than wait to the end)
+* Core:
+  * Revamped simcore_init_ui() API function: it now accepts callbacks functions to update UI.
+  * Improved command line version: progressive output rather than wait to the end for the output.
+* Interface:
+  * New quick UI configuration for registers in the register file
+  * Improved update-signal dialog
+* Deployment:
+  * Improved translation subsystem with i18n_builder.py script:
+    ** Based on googletrans library (https://pypi.org/project/googletrans/), and Google Translate (https://translate.google.com/?hl=es).
+    ** i18n_builder.py used for Italian + Korean + Hindi + Japanese + Portuguese + Chinese + French + German
+  * Codacy + Codebeat
 
 2.0.5 -> 2.0.6:
 * Initial support for the WepSIM control API
@@ -17,7 +25,7 @@
 2.0.2 -> 2.0.3:
 * Initial support for preloading work
 * Tutorials with initial index
-* Improved translation 
+* Improved translation
 
 1.9.6 -> 2.0.2:
 * Interface:
@@ -43,8 +51,8 @@
 1.9.3 -> 1.9.5:
 * New panel with all notifications (in case you miss one)
 * Signal description improved
-* Improved voice support 
-* Formal introduction of the WepSIM engine API (example in README.md) 
+* Improved voice support
+* Formal introduction of the WepSIM engine API (example in README.md)
 * Minor clean-up on external dependencies
 
 1.9.2 -> 1.9.3:
@@ -95,7 +103,7 @@
 1.8.1 -> 1.8.2:
 * Added 'break:' and 'state:' actions at microcode level
 * Updated 'notify:' for tutorials
-* Links to the tutorials in help 
+* Links to the tutorials in help
 * Added 'copy to clipboard' action to the current state dialog
 
 1.8.0 -> 1.8.1:
@@ -132,7 +140,7 @@
 * New addv+seqv example
 
 1.7.2 -> 1.7.3:
-* Up to 50% faster execution 
+* Up to 50% faster execution
 * Edit register values popup shows negative values properly
 * I/O tab renamed to Stats
 * Improved Control Unit image

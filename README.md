@@ -19,7 +19,7 @@
 
 ## Getting WepSIM
 
-### Run WepSIM
+### Run WepSIM without install
 
 + From Web (Google Chrome 70+, Mozilla Firefox 64+, Microsoft Edge 40+, and Apple Safari 11+):
      * Please, load in your Web Browser the link: https://wepsim.github.io/wepsim
