@@ -131,11 +131,11 @@ rut_begin_malloc:          # errores
                            sw   $s0 20($sp) # s0
                            sw   $s1 16($sp) # s1
                            sw   $s2 12($sp) # s2
-                           add  $fp $sp 32
+                           addi $fp $sp 32
 
                            # params crushing
                            srl  $a0 $a0 2
-                           add  $a0 $a0 3 # round(1) + header(2)
+                           addi $a0 $a0 3 # round(1) + header(2)
 
 #
 #   s0 = 0 ;
@@ -240,7 +240,7 @@ rut_begin_malloc:          # errores
 #   return (s2 + 8) ;
 #
                  b_go_ret: sw   $zero 4($s2)
-                           add  $v0 $s2 8
+                           addi $v0 $s2 8
 
 # }
                            # R.A.
@@ -250,7 +250,7 @@ rut_begin_malloc:          # errores
                            lw   $a0 24($sp) # a0
                            lw   $fp 28($sp) # fp
                            lw   $ra 32($sp) # ra
-                           add  $sp $sp 32
+                           addi $sp $sp 32
 
 rut_end_malloc:            jr $ra
 
@@ -284,7 +284,7 @@ rut_begin_free:            # errores
                            sw   $a0 24($sp) # a0
                            sw   $t0 20($sp) # t0
                            sw   $t1 16($sp) # t1
-                           add  $fp $sp 32
+                           addi $fp $sp 32
 
                            # params crushing
                            sub  $a0 $a0 8
@@ -387,7 +387,7 @@ rut_exit_free:             lw   $t1 16($sp) # t1
                            lw   $a0 24($sp) # a0
                            lw   $fp 28($sp) # fp
                            lw   $ra 32($sp) # ra
-                           add  $sp $sp 32
+                           addi $sp $sp 32
 
 rut_end_free:              jr $ra
 
@@ -411,7 +411,7 @@ rut_begin_walk:
                            sw   $a0 24($sp) # a0
                            sw   $t0 20($sp) # t0
                            sw   $t1 16($sp) # t1
-                           add  $fp $sp 32
+                           addi $fp $sp 32
 
 #
 #   t0 = BLIST
@@ -488,7 +488,7 @@ rut_exit_walk:             lw   $t1 16($sp) # t1
                            lw   $a0 24($sp) # a0
                            lw   $fp 28($sp) # fp
                            lw   $ra 32($sp) # ra
-                           add  $sp $sp 32
+                           addi $sp $sp 32
 
 rut_end_walk:              jr $ra
 

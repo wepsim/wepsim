@@ -27,7 +27,7 @@ sys_prt_str: li   $0 0
          b5: lb   $27 ($26)
              beq  $27 $0 fin1
              out  $27 0x1000
-             add  $26 $26 1
+             addi $26 $26 1
              b  b5
        fin1: reti
       
@@ -35,25 +35,25 @@ sys_prt_ch:  out  $a0 0x1000
              reti
 
 sys_thcreat: # pcounter++
-             lw  $1 pcounter 
-             add $1 $1 1
-             sw  $1 pcounter
+             lw   $1 pcounter 
+             addi $1 $1 1
+             sw   $1 pcounter
              # $27 = &(ptable[pcounter])
-             sub $1 $1 1
-             mul $1 $1 16
-             la  $27 ptable
-             add $27 $27 $1
+             sub  $1 $1 1
+             mul  $1 $1 16
+             la   $27 ptable
+             add  $27 $27 $1
              # *($27) = { 5, $a0, pcounter, 0 }
-             li $1 5
-             sw $1  0($27)
-             sw $a0 4($27)
-             lw $1 pcounter 
-             sw $1  8($27)
-             li $1 0
-             sw $1 12($27)
+             li  $1 5
+             sw  $1  0($27)
+             sw  $a0 4($27)
+             lw  $1 pcounter 
+             sw  $1  8($27)
+             li  $1 0
+             sw  $1 12($27)
              # default stack: 0, pc
-             sw $0  0($a0)
-             sw $a1 4($a0)
+             sw  $0  0($a0)
+             sw  $a1 4($a0)
              # return
              reti
 
@@ -180,30 +180,31 @@ sys_thexit:  # pA->free = true
 .text
     thread1:
            # thread 1
-           li $t0 0
-       c1: li $t1 101
-           bge $t0 $t1 e1
+           li  $t0 0
+       c1: li  $t1 101
+           bge  $t0 $t1 e1
            # print 'a'
-           li  $a0 'a'
-           li  $v0 11
+           li   $a0 'a'
+           li   $v0 11
            syscall
            # +1
-           add $t0 $t0 1
+           addi $t0 $t0 1
            b c1
-       e1: li $v0 10
+       e1: li  $v0 10
            syscall
 
     thread2:
            # thread 2
-           li $t2 0
-       c2: li $t3 102
+           li  $t2 0
+       c2: li  $t3 102
            bge $t2 $t3 e2
            # print 'b'
            li  $a0 'b'
            li  $v0 11
            syscall
            # +1
-           add $t2 $t2 1
+           addi $t2 $t2 1
            b c2
-       e2: li $v0 10
+       e2: li  $v0 10
            syscall
+
