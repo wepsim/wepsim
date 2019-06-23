@@ -12,13 +12,12 @@
    msgi1:   .asciiz "FPE: / by 0\n"
 
 .ktext
-sys_prt_str: li   $1 1
-             li   $0 0
+sys_prt_str: li   $0 0
              beq  $26 $0 fin1
          b5: lb   $27 ($26)
              beq  $27 $0 fin1
              out  $27 0x1000
-             add  $26 $26 $1
+             addi $26 $26 1
              b  b5
        fin1: reti
       
@@ -36,8 +35,7 @@ sys_prt_int: li   $1 1
              li   $1 10
              rem  $27 $26 $1
              div  $26 $26 $1
-             li   $1 48
-             add  $27 $27 $1
+             addi $27 $27 48
              li   $1 1
              sb   $27 ($sp)
              sub  $sp $sp $1
@@ -66,14 +64,13 @@ sys_rd_str:  li   $0  0
              out  $27 0x1000 # echo
              # str[] = ch
              sb   $27 ($26)
-             add  $26 $26 $1
+             addi $26 $26 1
              sub  $a1 $a1 $1
              b notready1
        eos1: # str[] = '\0'
              sb   $0 ($26)
-             li   $1  4
-             lw  $a1 ($sp)
-             add $sp $sp $1
+             lw   $a1 ($sp)
+             addi $sp $sp 4
              reti
 
 sys_rd_int:  li   $0  0
