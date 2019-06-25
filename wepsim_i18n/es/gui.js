@@ -78,6 +78,14 @@
                         "Stop":						"Parar",
                         "Record":					"Grabar",
 
+			"Registers":					"Registros",
+			"Control Memory":				"Memoria de Control",
+			"Stats":					"Estad&iacute;sticas",
+			"Memory":					"Memoria",
+			"Keyboard+Display":				"Teclado+Pantalla",
+			"I/O Stats":					"E/S Estad&iacute;sticas",
+			"I/O Configuration":				"E/S Configuraci&oacute;n",
+
                         "Recent":                                       "Reciente",
 			"Refresh": 			     		"Refrescar",
 		        "Welcome":					"Bienvenido+a",

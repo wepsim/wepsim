@@ -338,7 +338,7 @@
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP+MIPS32</a>
 
 			      <div class="dropdown-divider"></div>
-			      <h6 class="text-secondary mb-1">Help</h6>
+			      <h6 class="text-secondary mb-1"><span data-langkey="Help">Help</span></h6>
                               <a class="dropdown-item" href="#" id="s4_tutorial" value="tutorial"
 				 onclick="wsweb_select_main('tutorial');
 					  return false;"><span style="background-color:#D4DB17">Instructive</span></a>
@@ -355,7 +355,7 @@
 
                     <div class="col-sm p-0 collapse show multi-collapse-2">
 			    <form id="slider2e" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">
-				 <label class="my-0" for="slider2a" style="min-width:95%">details:</label>
+				 <label class="my-0" for="slider2a" style="min-width:95%"><span data-langkey='details'>details</span>:</label>
 				 <input aria-label="Show Main/Info" type="range" name="slider2a" id="slider2a"
 					min="0" max="12" value="7" step="1"
 				        data-show-value="false"
@@ -518,13 +518,13 @@
 			      <h6 class="text-secondary mb-1">CPU</h6>
                               <a class="dropdown-item" href="#" id="s5b_11" value="11"
 				 onclick="wsweb_set_details('REGISTER_FILE');
-				          return false;"><span class="bg-dark text-white">CPU</span> Registers</a>
+				          return false;"><span class="bg-dark text-white">CPU</span>&nbsp;<span data-langkey='Registers'>Registers</span></a>
                               <a class="dropdown-item" href="#" id="s5b_16" value="16"
 				 onclick="wsweb_set_details('CONTROL_MEMORY');
-				          return false;"><span class="bg-dark text-white">CPU</span> Control Memory</a>
+				          return false;"><span class="bg-dark text-white">CPU</span>&nbsp;<span data-langkey='Control Memory'>Control Memory</span></a>
                               <a class="dropdown-item" href="#" id="s5b_17" value="17"
 				 onclick="wsweb_set_details('CPU_STATS');
-                                          return false;"><span class="bg-dark text-white">CPU</span> Stats</a>
+                                          return false;"><span class="bg-dark text-white">CPU</span>&nbsp;<span data-langkey='Stats'>Stats</span></a>
                               <a class="dropdown-item" href="#" id="s5b_20" value="20"
 				 onclick="wsweb_set_details('FRM_EDITOR');
                                           return false;"><span class="bg-dark text-white">CPU</span> MicroCode</a>
@@ -532,10 +532,10 @@
 			      <h6 class="text-secondary mt-2 mb-1">Main Memory</h6>
 			      <a class="dropdown-item" href="#" id="s5b_14" value="14"
 				 onclick="wsweb_set_details('MEMORY');
-                                          return false;"><span class="bg-dark text-white">MM</span> Memory</a>
+                                          return false;"><span class="bg-dark text-white">MM</span>&nbsp;<span data-langkey='Memory'>Memory</span></a>
 			      <a class="dropdown-item" href="#" id="s5b_18" value="18"
 				 onclick="wsweb_set_details('MEMORY_CONFIG');
-                                          return false;"><span class="bg-dark text-white">MM</span> Configuration</a>
+                                          return false;"><span class="bg-dark text-white">MM</span>&nbsp;<span data-langkey='Configuration'>Configuration</span></a>
 			      <a class="dropdown-item" href="#" id="s5b_21" value="21"
 				 onclick="wsweb_set_details('ASM_EDITOR');
                                           return false;"><span class="bg-dark text-white">MM</span> Assembly</a>
@@ -543,13 +543,13 @@
 			      <h6 class="text-secondary mt-2 mb-1">Devices</h6>
 			      <a class="dropdown-item" href="#" id="s5b_12" value="12"
 				 onclick="wsweb_set_details('SCREEN');
-                                          return false;"><span class="bg-dark text-white">Dev</span> Keyboard+Display</a>
+                                          return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey='Keyboard+Display'>Keyboard+Display</span></a>
 			      <a class="dropdown-item" href="#" id="s5b_15" value="15"
 				 onclick="wsweb_set_details('IO_STATS');
-                                          return false;"><span class="bg-dark text-white">Dev</span> I/O Stats</a>
+                                          return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey='I/O Stats'>I/O Stats</span></a>
 			      <a class="dropdown-item" href="#" id="s5b_19" value="19"
 				 onclick="wsweb_set_details('IO_CONFIG');
-                                          return false;"><span class="bg-dark text-white">Dev</span> I/O Configuration</a>
+                                          return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey='I/O Configuration'>I/O Configuration</span></a>
 			    </div>
 			  </div>
                     </div>
@@ -885,13 +885,13 @@
 		     <div id="config2_lang" class="dropdown-menu" style="z-index:100000;">
 			 <a class="dropdown-item" href="#"
 			    onclick="set_cfg('ws_idiom','es'); save_cfg();
-                                     i18n_update_tags('gui', 'es') ;
-                                     i18n_update_tags('cfg', 'es') ;
+                                     i18n_update_tags('gui', 'es');
+                                     i18n_update_tags('cfg', 'es');
                                      return false;">ES<span class="d-none d-sm-inline-flex">&nbsp;(Spanish)</span></a>
 			 <a class="dropdown-item" href="#"
 			    onclick="set_cfg('ws_idiom','en'); save_cfg();
-                                     i18n_update_tags('gui', 'en') ;
-                                     i18n_update_tags('cfg', 'en') ;
+                                     i18n_update_tags('gui', 'en');
+                                     i18n_update_tags('cfg', 'en');
                                      return false;">EN<span class="d-none d-sm-inline-flex">&nbsp;(English)</span></a>
 		     </div>
 		   </div>
@@ -963,7 +963,7 @@
                                     wepsim_help_refresh();
                                     return false;"><span data-langkey="Help Index">Help Index</span></button>
 		   <div class="btn-group">
-		     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled>Help</button>
+		     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled><span data-langkey="Help">Help</span></button>
 		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
 			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			 <span class="caret"></span>
@@ -972,14 +972,14 @@
 		     <div id="help1_lang" class="dropdown-menu" style="z-index:100000;">
 			 <a class="dropdown-item" href="#"
 			    onclick="set_cfg('ws_idiom','es'); save_cfg();
-                                     i18n_update_tags('gui',  'es') ;
-                                     i18n_update_tags('help', 'es') ;
+                                     i18n_update_tags('gui',  'es');
+                                     i18n_update_tags('help', 'es');
                                      wepsim_help_refresh();
                                      return false;">ES<span class="d-none d-sm-inline-flex">&nbsp;(Spanish)</span></a>
 			 <a class="dropdown-item" href="#"
 			    onclick="set_cfg('ws_idiom','en'); save_cfg();
-                                     i18n_update_tags('gui',  'en') ;
-                                     i18n_update_tags('help', 'en') ;
+                                     i18n_update_tags('gui',  'en');
+                                     i18n_update_tags('help', 'en');
                                      wepsim_help_refresh();
                                      return false;">EN<span class="d-none d-sm-inline-flex">&nbsp;(English)</span></a>
 		     </div>
@@ -1014,7 +1014,7 @@
 	   <div class="modal-header">
 		<div class="mx-auto">
 		   <div class="btn-group">
-		     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled>Examples</button>
+		     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled><span data-langkey='Examples'>Examples</span></button>
 		     <button type="button" class="btn btn-success dropdown-toggle dropdown-toggle-split"
 			     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			 <span class="caret"></span>
@@ -1065,11 +1065,11 @@
                           class="btn btn-secondary px-3 py-1"><span data-langkey='Checkpoint'>Checkpoint</span></button>
                   <button onclick="$('#bot_check1').carousel(1);"
                           type="button"
-                          class="btn btn-dark px-3 py-1">States</button>
+                          class="btn btn-dark px-3 py-1"><span data-langkey='States'>States</span></button>
                   <button onclick="$('#bot_check1').carousel(2);
                                    update_checker_loadhelp('#help3a','help_dumper');"
                           type="button"
-                          class="btn btn-success px-3 py-1">Help</button>
+			  class="btn btn-success px-3 py-1"><span data-langkey="Help">Help</span></button>
                   <button type="button"
                           class="btn btn-success dropdown-toggle dropdown-toggle-split"
                           data-toggle="dropdown"
@@ -1078,14 +1078,14 @@
 		  <div id="current_state1_lang" class="dropdown-menu" style="z-index:100000;">
                      <a href="#" class="dropdown-item"
 				 onclick="set_cfg('ws_idiom','es'); save_cfg();
-                                          i18n_update_tags('gui',    'es') ;
-                                          i18n_update_tags('states', 'es') ;
+                                          i18n_update_tags('gui',    'es');
+                                          i18n_update_tags('states', 'es');
                                           update_checker_loadhelp('#help3a', 'help_dumper');
                                           return false;">ES<span class="d-none d-sm-inline-flex">&nbsp;(Spanish)</span></a>
                      <a href="#" class="dropdown-item"
 				 onclick="set_cfg('ws_idiom','en'); save_cfg();
-                                          i18n_update_tags('gui',    'en') ;
-                                          i18n_update_tags('states', 'en') ;
+                                          i18n_update_tags('gui',    'en');
+                                          i18n_update_tags('states', 'en');
                                           update_checker_loadhelp('#help3a', 'help_dumper');
                                           return false;">EN<span class="d-none d-sm-inline-flex">&nbsp;(English)</span></a>
                   </div>
@@ -1171,7 +1171,7 @@
 			  <div id="states3b" class="collapse show" aria-labelledby="state_header_1">
 		            <div class="card-body p-0">
 				<div class="container-fluid ml-1 pb-0 collapse show" id="states3"
-				     style="max-height:50vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
+				     style="max-height:50vh; width:inherit;">
 
 				     <div class="row mt-2">
 				     <div class="col-auto text-center pr-0">
@@ -1362,7 +1362,7 @@
            <button type="button"
                    onclick="$('#current_state2').modal('hide');
 		            wepsim_dialog_current_state();"
-                   class="btn btn-secondary col-xs-3 pull-left shadow-none mr-auto">States</button>
+                   class="btn btn-secondary col-xs-3 pull-left shadow-none mr-auto"><span data-langkey='States'>States</span></button>
            <button type="button"
                    onclick="$('#current_state2').modal('hide');"
                    class="btn btn-primary col-xs-3 pull-right shadow-none">&nbsp;&nbsp;OK&nbsp;&nbsp;</button>
@@ -1394,7 +1394,7 @@
 			         <span class="float-left mr-auto text-primary"
                                        onclick="wepsim_help_set_relative('about#');
                                                 wepsim_help_refresh();
-				                wsweb_about_close() ;
+				                wsweb_about_close();
 						return false;">GNU Lesser General Public 3</span>
 			  </div>
 			</div>

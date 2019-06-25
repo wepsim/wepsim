@@ -73,9 +73,16 @@
 		'Play':		'प्ले',
 		'Stop':		'रुकें',
 		'Record':		'अभिलेख',
+		'Registers':		'रजिस्टर',
+		'Control Memory':		'मेमोरी को नियंत्रित करें',
+		'Stats':		'आँकड़े',
+		'Memory':		'याद',
+		'Keyboard+Display':		'कीबोर्ड + प्रदर्शन',
+		'I/O Stats':		'मैं / हे आँकड़े',
+		'I/O Configuration':		'मैं / हे विन्यास',
 		'Recent':		'हाल का',
 		'Refresh':		'ताज़ा करना',
-		'Welcome':		'स्वागत',
+		'Welcome':		'स्वागत हे',
 		'_last_':		'_last_'
 
     };

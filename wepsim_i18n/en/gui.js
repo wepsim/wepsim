@@ -80,6 +80,14 @@
                         "Stop":						"Stop",
                         "Record":					"Record",
 
+			"Registers":					"Registers",
+			"Control Memory":				"Control Memory",
+			"Stats":					"Stats",
+			"Memory":					"Memory",
+			"Keyboard+Display":				"Keyboard+Display",
+			"I/O Stats":					"I/O Stats",
+			"I/O Configuration":				"I/O Configuration",
+
                         "Recent":                                       "Recent",
 			"Refresh":  			                "Refresh",
 		        "Welcome":					"Welcome",
