@@ -82,6 +82,14 @@
                         "Stop":						"그치다",
                         "Record":					"기록하다",
 
+			"Registers":					"등록부",
+			"Control Memory":				"제어 메모리",
+			"Stats":					"통계",
+			"Memory":					"기억",
+			"Keyboard+Display":				"키보드 + 표시",
+			"I/O Stats":					"E/S 통계",
+			"I/O Configuration":				"E/S 구성",
+
                         "Recent":                                       "충적세",
 	                "Welcome":					"환영합니다",
 			"Refresh":  			                "새롭게 하다"

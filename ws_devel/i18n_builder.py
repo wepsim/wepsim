@@ -231,6 +231,14 @@ i18n_eltos['gui'] = {
                         "Stop":						"Stop",
                         "Record":					"Record",
 
+			"Registers":					"Registers",
+			"Control Memory":				"Control Memory",
+			"Stats":					"Stats",
+			"Memory":					"Memory",
+			"Keyboard+Display":				"Keyboard+Display",
+			"I/O Stats":					"I/O Stats",
+			"I/O Configuration":				"I/O Configuration",
+
                         "Recent":                                       "Recent",
 			"Refresh":  			                "Refresh",
 			"Welcome":  			                "Welcome"
@@ -541,13 +549,16 @@ def print_content(L_D, C_N):
 #
 # Check params
 #
-if (len(sys.argv) < 2 or len(sys.argv) > 2):
+if (len(sys.argv) < 2 or len(sys.argv) > 3):
     print("") ;
     print("  Usage:") ;
-    print("  > " + sys.argv[0] + " <language directory name: it, es, ...>") ;
+    print("  > " + sys.argv[0] + " <language> [<component>]") ;
+    print("    * <languaje>:  it, es, en, hi, ...") ;
+    print("    * <component>: cfg, dialogs, examples, gui, help, ...") ;
     print("") ;
-    print("  Need the googletrans project (https://pypi.org/project/googletrans/):") ;
+    print("  Dependency:") ;
     print("  > pip install googletrans") ;
+    print("    * googletrans project (https://pypi.org/project/googletrans/):") ;
     print("") ;
     sys.exit(0)
 
@@ -563,13 +574,18 @@ if not os.path.exists(L_D):
 open(L_D + "/index.html", 'a').close() ;
 
 # + files
+if (len(sys.argv) == 3):
+    print("File for " + sys.argv[2] + "...") ;
+    print_content(L_D, sys.argv[2]) ;
+    sys.exit(0) ;
+
 for F1 in L_F_GUI:
-    print("File for " + F1 + "...")
+    print("File for " + F1 + "...") ;
     print_content(L_D, F1) ;
 
 for F1 in L_F_TUT:
-    print("File for " + F1 + "...")
+    print("File for " + F1 + "...") ;
     print_content(L_D, F1) ;
 
-sys.exit(0)
+sys.exit(0) ;
 
