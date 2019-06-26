@@ -232,6 +232,17 @@
                        description: "<span data-langkey='example_06_01'>Test example.</span>"
                      });
 
+    ws_examples.push({
+                       id: 'S6E2',
+                       title: "<span data-langkey='Compiler Explorer'>Compiler Explorer</span>",
+                       level: "<span data-langkey='Special'>Special</span>",
+                       modes:  "newbie,intro,tutorial,ep",
+                       hardware:  "ep",
+                       microcode: "ep_os",
+                       assembly:  "ep_s6_e2",
+                       description: "<span data-langkey='example_06_02'>Simple Compiler Explorer example</span>"
+                     });
+
 
     // EP+MIPS
 

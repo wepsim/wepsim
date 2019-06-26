@@ -41,6 +41,7 @@
              "System call":						"System call",
              "Threads":							"Threads",
              "Vector":							"Vector",
+	        "Compiler Explorer":				"Compiler Explorer",
 
              "example_04_01":				"중단, 시스템 호출 및 예외가있는 고급 예제",
              "example_05_01":				"응용 프로그램 관련 확장 프로그램 : addv + seqv.",
@@ -65,6 +66,7 @@
              "example_01_03":				"가져 오기, 분기 및 기본 .text 세그먼트가있는 간단한 예제입니다.",
              "example_01_02":				"가져 오기, 메모리 액세스 및 기본. 텍스트 /. 데이터 세그먼트가있는 간단한 예제입니다.",
              "example_06_01":				"테스트 예.",
+	        "example_06_02":	                    	"간단한 컴파일러 탐색기 예제.",
 
              "Advanced":				"많은",
              "Initial":					"머리 글자",
