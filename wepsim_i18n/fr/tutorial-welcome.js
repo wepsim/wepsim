@@ -24,7 +24,7 @@
     i18n.eltos.tutorial_welcome.fr = {
 
                  "title_0":       "Bienvenue sur le simulateur WepSIM!",
-                 "message_0":     "<center><img alt='wepsim screenshot' src='help/simulator/simulator012.jpg' style='max-width:100%; max-height:40vh;'></center>" +
+                 "message_0":     "<center><img alt='wepsim screenshot' src='images/simulator/simulator012.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                   "<p>" +
                                   "<h5>" +
                                   "Ce bref tutoriel va vous montrer comment:" +
@@ -37,7 +37,7 @@
                                   "</h5>",
 
                  "title_1":       "Comment charger des exemples.",
-                 "message_1":     "<center><img alt='wepsim screenshot' src='help/welcome/example_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
+                 "message_1":     "<center><img alt='wepsim screenshot' src='images/welcome/example_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
                                   "Cliquez sur le bouton 'exemple', puis sur le nom de l'exemple 'titre'.<br>" +
@@ -46,7 +46,7 @@
                                   "</h5>",
 
                  "title_2":       "Comment exécuter un exemple.",
-                 "message_2":     "<center><img alt='wepsim screenshot' src='help/welcome/simulation_xinstruction.gif' style='max-width:100%; max-height:60vh'></center>" +
+                 "message_2":     "<center><img alt='wepsim screenshot' src='images/welcome/simulation_xinstruction.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
                                   "Cliquez sur l'instruction suivante/la microinstruction pour exécuter étape par étape. <br>" +
@@ -55,7 +55,7 @@
                                   "</h5>",
 
                  "title_3":       "Comment configurer WepSIM.",
-                 "message_3":     "<center><img alt='wepsim screenshot' src='help/welcome/config_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
+                 "message_3":     "<center><img alt='wepsim screenshot' src='images/welcome/config_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
 	                          "Cliquez sur le bouton 'Configuration' pour permettre aux utilisateurs de personnaliser différentes parties de WepSIM." +
@@ -63,7 +63,7 @@
                                   "</h5>",
 
                  "title_4":       "Comment obtenir l'aide de base.",
-                 "message_4":     "<center><img alt='wepsim screenshot' src='help/welcome/help_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
+                 "message_4":     "<center><img alt='wepsim screenshot' src='images/welcome/help_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
                                   "Cliquez sur le bouton vert 'aide' pour accéder à la boîte de dialogue d'aide.<br>" +
@@ -72,7 +72,7 @@
                                   "</h5>",
 
                  "title_5":       "Bienvenue sur le simulateur WepSIM!",
-                 "message_5":     "<center><img alt='wepsim screenshot' src='help/welcome/help_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
+                 "message_5":     "<center><img alt='wepsim screenshot' src='images/welcome/help_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
                                   "Veuillez explorer les sections d'aide pour plus d'informations. <br>" +

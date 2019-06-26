@@ -1,0 +1,138 @@
+<！DOCTYPE html PUBLIC“ -  // W3C // DTD XHTML 1.0 Transitional // EN”
+    “http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd”>
+<html xmlns =“http://www.w3.org/1999/xhtml”>
+  <HEAD>
+    <TITLE> </ TITLE>
+<meta charset =“UTF-8”>
+<meta http-equiv =“Content-type”content =“text / html; charset = UTF-8”>
+    <style type =“text / css”>
+/ * <！[CDATA [* /
+    ：link {color：＃0563C1}
+    ：visit {color：＃954F72}
+    p.cleanuphtml-5 {margin-bottom：8.0pt; line-height：80％}
+    b.cleanuphtml-4 {font-style：italic}
+    p.cleanuphtml-3 {font-weight：bold}
+    p.cleanuphtml-2 {text-align：center}
+    a.cleanuphtml-1 {font-weight：bold}
+    / *]]> * /
+    </样式>
+
+  <！ - 清理由http://www.cleanuphtml.com/  - >生成的HTML
+<meta name =“Generator”content =“Cleanup HTML”> </ head>
+  <BODY>
+
+      <div id =“help_firmware_format”>
+      <h1> WepSIM中的微代码</ h1>
+
+<P>
+</ p>
+<P>
+                微代码通过文本文件加载，您有三个部分：
+</ p>
+<P>
+1.微程序列表
+</ p>
+<P>
+2.注册命名
+</ p>
+<P>
+3.伪指令
+</ p>
+<P>
+                微程序列表以<b> fetch </ b>的代码开头。
+                基本提取微程序的示例可以是：
+</ p>
+<UL>
+<P>
+开始<br>
+{<br>
+获取：（T2，C0 = 1），<br>
+（Ta，Td，R，BW = 11，C1），<br>
+（M2，C2，T1，C3），<br>
+（A0，B = 0，C = 0000）<br>
+}
+</ p>
+</ UL>
+<p class =“cleanuphtml-2”>
+<a class="cleanuphtml-1" name="_Toc438322900">图</a> <b> 11 </ b> <b> </ b> <b>获取</ b>的说明示例
+</ p>
+<P>
+位于括号（和）之间的控制信号对应于在一个时钟周期中激活的信号。因此，提取需要四个时钟周期，最后一个对应于解码（包括在提取中）。
+</ p>
+<P>
+然后，跟随与每个指令相关联的其余微程序。每个微程序都有这种格式：
+</ p>
+<UL>
+<P>
+inst1 field1 field2 field3 <br>
+{点击
+共= 000000，结果
+nwords = 1，结果
+FIELD1 = REG（25,21），结果，
+FIELD2 = REG（20,16），结果，
+字段3 = REG（15,11），结果，
+{点击
+（Cop = 1001，SelP = 11，C7，T6，LC，SelA = 10100，SelB = 01111，SelC = 10111，<br>
+A0 = 1，B = 1，C = 0）<br>
+}结果
+}结果
+</ p>
+</ UL>
+<p class =“cleanuphtml-2”>
+<a class="cleanuphtml-1" name="_Toc438322901">图</a> <b> 12 </ b> <b>指令的描述格式示例</ b>
+</ p>
+<P>
+
+</ p>
+<P>
+第一行描述命令名称（inst1）和具有（寄存器，立即值等）的参数。然后打开一个块，其中包含用于描述指令的键。
+</ p>
+<P>
+示出的示例中的第一个字段（co）表示唯一标识该指令的6个比特。这对于算术和逻辑指令来说并不完全正确，因为可以共享相同的操作码和字段值cop区分。这种情况的一个例子是：
+</ p>
+<UL>
+<P>
+
+</ p>
+<P>
+inst1 field1 field2 field3 <br>
+{点击
+共= 000000，结果
+<B> COP = 0000，</ b>的结果，
+nwords = 1，结果
+FIELD1 = REG（25,21），结果，
+FIELD2 = REG（20,16），结果，
+字段3 = REG（15,11），结果，
+{点击
+（Cop = 1001，SelP = 11，C7，T6，LC，SelA = 10100，SelB = 01111，SelC = 10111，<br>
+A0 = 1，B = 1，C = 0）
+}结果
+}结果
+</ p>
+</ UL>
+<p class =“cleanuphtml-2”>
+<a class="cleanuphtml-1" name="_Toc438322902">图</a> <b> 13 </ b> <b>说明说明中的详细信息：现场警察</ b>
+</ p>
+<P>
+<br />
+以下字段指示每个参数的类型（注册，立即或地址）以及该参数的值的起始和结束位（从0到31）。
+</ p>
+<P>
+参数类型表示为：
+</ p>
+<UL>
+<LI>
+参数1 = reg（最后一位，第一位），<br>寄存器。
+</ LI>
+<LI>
+parameter1 = inm（last-bit，first-bit），<br>为立即值。
+</ LI>
+<LI>
+parameter1 = addr（last-bit，first-bit）rel，<br>用于相对（到PC寄存器）地址。
+</ LI>
+<LI>
+parameter1 = addr（last-bit，first-bit）abs，<br>表示绝对地址。
+</ LI>
+</ UL>
+<P>
+然后，打开一个新的块，其中的微程序为

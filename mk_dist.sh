@@ -7,6 +7,8 @@ set -x
                     mkdir -p ws_dist/external
                     touch    ws_dist/external/index.html
 cp external/jquery.min.js    ws_dist/external
+                    mkdir -p ws_dist/help
+                    touch    ws_dist/help/index.html
 
 #  hardware model + software model + core (simulation ctrl + UI)
 cat sim_hw/sim_hw_index.js \
@@ -54,7 +56,9 @@ cat wepsim_i18n/$LANG/gui.js \
     wepsim_i18n/$LANG/help.js \
     wepsim_i18n/$LANG/states.js \
     wepsim_i18n/$LANG/examples.js \
-    wepsim_i18n/$LANG/dialogs.js >> ws_dist/wepsim_i18n.js
+    wepsim_i18n/$LANG/dialogs.js  >> ws_dist/wepsim_i18n.js
+cp  wepsim_i18n/$LANG/simulator.html ws_dist/help/simulator-"$LANG".html
+cp  wepsim_i18n/$LANG/about.html     ws_dist/help/about-"$LANG".html
 done
 /usr/bin/yui-compressor -o ws_dist/min.wepsim_i18n.js ws_dist/wepsim_i18n.js
 rm -fr ws_dist/wepsim_i18n.js
@@ -177,7 +181,6 @@ cp    -a external/speechkitt            ws_dist/external/
 cp -a examples  ws_dist/
 cp -a docs      ws_dist/
 cp -a images    ws_dist/
-cp -a help      ws_dist/
 
 #  user interface
 cp   wepsim/wepsim_web_classic.html   ws_dist/index.html

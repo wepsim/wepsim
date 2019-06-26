@@ -22,7 +22,7 @@
     i18n.eltos.tutorial_simpleusage.kr = {
 
                  "title_0":     "간단한 WepSIM 경험 : 마이크로 프로그래밍 및 프로그래밍",
-                 "message_0":   "<center><img alt='wepsim screenshot' src='help/simulator/simulator011.jpg' style='max-width:100%; max-height:40vh;'></center>" +
+                 "message_0":   "<center><img alt='wepsim screenshot' src='images/simulator/simulator011.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
                                 "이 간단한 튜토리얼은:" +
@@ -34,7 +34,7 @@
                                 "</h5>",
 
                  "title_1":     "간단한 WepSIM 경험 : 마이크로 프로그래밍 및 프로그래밍",
-                 "message_1":   "<center><img alt='wepsim screenshot' src='help/simulator/firmware001.jpg' style='max-width:100%; max-height:40vh;'></center>" +
+                 "message_1":   "<center><img alt='wepsim screenshot' src='images/simulator/firmware001.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
                                 "첫 번째 단계는 사용할 펌웨어를 마이크로 프로그래밍하는 것입니다. " +
@@ -42,7 +42,7 @@
                                 "</h5>",
 
                  "title_2":     "간단한 WepSIM 경험 : 마이크로 프로그래밍 및 프로그래밍",
-                 "message_2":   "<center><img alt='wepsim screenshot' src='help/simulator/firmware002.jpg' style='max-width:100%; max-height:40vh;'></center>" +
+                 "message_2":   "<center><img alt='wepsim screenshot' src='images/simulator/firmware002.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
                                 "마이크로 프로그래밍 화면은 다음을 제공합니다."+
@@ -55,7 +55,7 @@
                                 "</h5>",
 
                  "title_3":     "간단한 WepSIM 경험 : 마이크로 프로그래밍 및 프로그래밍",
-                 "message_3":   "<center><img alt='wepsim screenshot' src='help/simulator/assembly002b.jpg' style='max-width:100%; max-height:40vh;'></center>" +
+                 "message_3":   "<center><img alt='wepsim screenshot' src='images/simulator/assembly002b.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
                                 "두 번째 단계는 실행될 어셈블리를 프로그래밍하는 것입니다. " +
@@ -63,7 +63,7 @@
                                 "</h5>",
 
                  "title_4":     "간단한 WepSIM 경험 : 마이크로 프로그래밍 및 프로그래밍",
-                 "message_4":   "<center><img alt='wepsim screenshot' src='help/simulator/assembly003.jpg' style='max-width:100%; max-height:40vh;'></center>" +
+                 "message_4":   "<center><img alt='wepsim screenshot' src='images/simulator/assembly003.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
                                 "프로그래밍 화면에서는 다음을 제공합니다." +
@@ -76,7 +76,7 @@
                                 "</h5>",
 
                  "title_5":     "간단한 WepSIM 경험 : 마이크로 프로그래밍 및 프로그래밍",
-                 "message_5":   "<center><img alt='wepsim screenshot' src='help/simulator/simulator010.jpg' style='max-width:100%; max-height:40vh;'></center>" +
+                 "message_5":   "<center><img alt='wepsim screenshot' src='images/simulator/simulator010.jpg' style='max-width:100%; max-height:40vh;'></center>" +
                                 "<p>" +
                                 "<h5>" +
                                 "세 번째 단계는 시뮬레이터에서 어셈블리 코드를 실행하는 것입니다. <br>" +
