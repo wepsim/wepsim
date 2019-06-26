@@ -1,7 +1,29 @@
 #!/bin/sh
-set -x
+#set -x
+
+
+#*
+#*  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
+#*
+#*  This file is part of WepSIM.
+#*
+#*  WepSIM is free software: you can redistribute it and/or modify
+#*  it under the terms of the GNU Lesser General Public License as published by
+#*  the Free Software Foundation, either version 3 of the License, or
+#*  (at your option) any later version.
+#*
+#*  WepSIM is distributed in the hope that it will be useful,
+#*  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#*  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#*  GNU Lesser General Public License for more details.
+#*
+#*  You should have received a copy of the GNU Lesser General Public License
+#*  along with WepSIM.  If not, see <http://www.gnu.org/licenses/>.
+#*
+
 
 # skeleton
+echo "ws_dist"
                     mkdir -p ws_dist
                     touch    ws_dist/index.html
                     mkdir -p ws_dist/external
@@ -11,6 +33,7 @@ cp external/jquery.min.js    ws_dist/external
                     touch    ws_dist/help/index.html
 
 #  hardware model + software model + core (simulation ctrl + UI)
+echo "ws_dist/min.sim_all.js"
 cat sim_hw/sim_hw_index.js \
     sim_hw/sim_hw_values.js \
     sim_hw/sim_hw_behavior.js \
@@ -46,6 +69,7 @@ cat sim_hw/sim_hw_index.js \
 rm -fr ws_dist/sim_all.js
 
 #  WepSIM internalization (i18n)
+echo "ws_dist/help/..."
 cat wepsim_i18n/i18n.js > ws_dist/wepsim_i18n.js
 for LANG in es en fr kr ja it pt hi zh_cn ru de; do
 cat wepsim_i18n/$LANG/gui.js \
@@ -64,6 +88,7 @@ done
 rm -fr ws_dist/wepsim_i18n.js
 
 #  WepSIM web
+echo "ws_dist/min.wepsim_web.js"
 cat wepsim_core/wepsim_url.js \
     wepsim_core/wepsim_clipboard.js \
     wepsim_core/wepsim_preload.js \
@@ -107,16 +132,19 @@ cat wepsim_core/wepsim_url.js \
 rm -fr ws_dist/wepsim_web.js
 
 #  WepSIM web engine
+echo "ws_dist/min.wepsim_web.js"
 cat ws_dist/min.wepsim_i18n.js \
     ws_dist/min.wepsim_web.js > ws_dist/transient.js
 mv ws_dist/transient.js ws_dist/min.wepsim_web.js
 
 #  WepSIM nodejs engine
+echo "ws_dist/min.wepsim_node.js"
 cat ws_dist/min.sim_all.js \
     ws_dist/min.wepsim_web.js \
     wepsim/wepsim_node.js > ws_dist/min.wepsim_node.js
 
 #  external
+echo "ws_dist/min.external.js"
 cat external/popper.min.js \
     external/bootstrap.min.js \
     external/knockout-3.5.0.js \
@@ -153,6 +181,7 @@ cat external/popper.min.js \
     external/fontawesome/brands.min.js \
     external/fontawesome/solid.min.js > ws_dist/min.external.js
 
+echo "ws_dist/min.external.css"
 cat external/bootstrap.min.css \
     external/bootstrap-theme.min.css \
     external/spectrum.min.css \
@@ -168,6 +197,7 @@ cat external/bootstrap.min.css \
     external/dropify/dropify.min.css \
     external/fontawesome/all.css > ws_dist/min.external.css
 
+echo "ws_dist/external/..."
 mkdir -p ws_dist/external/fontawesome/
    touch ws_dist/external/fontawesome/index.html
 cp    -a external/fontawesome/webfonts  ws_dist/external/fontawesome
@@ -178,16 +208,21 @@ cp    -a external/speechkitt            ws_dist/external/
                                   touch ws_dist/external/speechkitt/index.html
 
 #  examples, docs, etc.
+echo "ws_dist/examples/..."
 cp -a examples  ws_dist/
+echo "ws_dist/docs/..."
 cp -a docs      ws_dist/
+echo "ws_dist/images/..."
 cp -a images    ws_dist/
 
 #  user interface
+echo "ws_dist/*.html"
 cp   wepsim/wepsim_web_classic.html   ws_dist/index.html
 cp   wepsim/wepsim_web_classic.html   ws_dist/wepsim-classic.html
 cp   wepsim/wepsim_web_compact.html   ws_dist/wepsim-compact.html
 cp   wepsim/wepsim_web_pwa.js         ws_dist/min.wepsim_web_pwa.js
 
+echo "ws_dist/*.sh"
 cp   docs/manifest.webapp  ws_dist/
 cp wepsim/wepsim_node.sh   ws_dist/
 chmod a+x ws_dist/*.sh

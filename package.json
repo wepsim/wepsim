@@ -2,13 +2,13 @@
   "name": "wepsim-travisci",
   "description": "Check WepSIM",
   "author": "acaldero@inf.uc3m.es",
-  "version": "1.1.5",
+  "version": "1.1.8",
   "devDependencies": {
     "jshint": "^2.6.0"
   },
   "scripts": {
-    "test-source":        "              ./devel/jshint.sh",
-    "test-wepsim-node":   "cd ws_dist ; ../devel/wepsimnode.sh"
+    "test-source":        "./devel/test_jshint.sh",
+    "test-wepsim-node":   "./devel/test_wepsimnode.sh"
   },
   "dependencies": {
   }

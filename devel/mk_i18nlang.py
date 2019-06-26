@@ -564,8 +564,8 @@ if (len(sys.argv) < 2 or len(sys.argv) > 3):
 
 # + define elements
 L_D     = sys.argv[1] ;
-L_F_GUI = [ "cfg", "dialogs", "examples", "gui", "help", "states" ] ;
-L_F_TUT = [ "tour-intro",  "tutorial-simpleusage", "tutorial-welcome" ] ;
+L_COMPO = [ "cfg", "dialogs", "examples", "gui", "help", "states", 
+            "tour-intro",  "tutorial-simpleusage", "tutorial-welcome" ] ;
 
 # + directory
 print("Directory for " + L_D + "...")
@@ -579,13 +579,10 @@ if (len(sys.argv) == 3):
     print_content(L_D, sys.argv[2]) ;
     sys.exit(0) ;
 
-for F1 in L_F_GUI:
+for F1 in L_COMPO:
     print("File for " + F1 + "...") ;
     print_content(L_D, F1) ;
 
-for F1 in L_F_TUT:
-    print("File for " + F1 + "...") ;
-    print_content(L_D, F1) ;
-
+# + the end
 sys.exit(0) ;
 
