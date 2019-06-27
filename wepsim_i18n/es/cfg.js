@@ -55,7 +55,6 @@
                       "Activation": 		                     		     "Activaci&oacute;n",
                       "Interactive mode: signal value can be updated": 		     "Modo interactivo: valores de las seńales puede actualizarse",
                       "Quick interactive mode: quick update of signal value":	     "Modo interactivo-r&aacute;pido: actualizaci&oacute;n r&aacute;pida de valores de seńales",
-                      "WepSIM User Interface Skin": 		                     "Variante de Interfaz de Usuario para WepSIM",
                       "(example)": 					             "(ejemplo)",
 	             "Accesibility": "Accesibilidad",
                       "Active voice: external voice control": 	                     "Activar voz: control por voz (externo)",

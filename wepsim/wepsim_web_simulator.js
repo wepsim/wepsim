@@ -397,6 +397,43 @@
 		'</li>' ;
 
 	   o += '<li class="list-group-item px-0"> ' +
+		'  <a class="btn btn-sm btn-outline-dark col p-1 text-left float-right" href="#" ' +
+		'     onclick="wepsim_newbie_tour(); ' +
+		'              wsweb_quickmenu_close(); ' +
+		'              return false;">' +
+		'<em class="fas fa-book-reader col-1 pl-1 float-left"></em>' +
+		'<span class="col-11">' + i18n_get('dialogs',wsi,'Initial intro') + '...</span></a>' +
+		'</li>' ;
+
+	   o += '<li class="list-group-item px-0 enabled_beta"> ' +
+		'<div class="btn-group btn-group-toggle col p-1" data-toggle="buttons">' +
+		'  <label id="label4-classic" class="btn btn-sm btn-outline-dark" style="box-shadow:none;" ' +
+                '         onclick=\"update_cfg(\'ws_skin\', \'classic\');' +
+                '                   window.removeEventListener(\'beforeunload\', wepsim_confirm_exit);' +
+                '                   window.location=\'wepsim-classic.html\';' +
+                '                   return false;\">' +
+		'    <input type="radio" name="classic" id="classic" autocomplete="off" checked> Classic' +
+		'  </label>' +
+		'  <label id="label4-compact" class="btn btn-sm btn-outline-dark" style="box-shadow:none;" ' +
+                '         onclick=\"update_cfg(\'ws_skin\', \'compact\');' +
+                '                   window.removeEventListener(\'beforeunload\', wepsim_confirm_exit);' +
+                '                   window.location=\'wepsim-compact.html\';' +
+                '                   return false;\">' +
+		'    <input type="radio" name="compact" id="compact" autocomplete="off"> Compact' +
+		'  </label>' +
+		'</div>' +
+		'</li>' ;
+
+	   o += '<li class="list-group-item px-0"> ' +
+		'  <span class="btn-group-toggle" data-toggle="buttons">' +
+		'  <label class="btn btn-sm btn-outline-dark col p-1 text-left float-right" data-toggle="collapse" href=".multi-collapse-3">' +
+		'  <input type="checkbox" checked="" autocomplete="off">' +
+		'<em class="fas fa-wrench col-1 pl-1 float-left"></em>' +
+		'<span class="col-11">' + i18n_get('dialogs',wsi,'Show/Hide QuickConfig') + '</span></label>' +
+		'  </span>' +
+		'</li>' ;
+
+	   o += '<li class="list-group-item px-0"> ' +
 		'  <span class="btn-group-toggle" data-toggle="buttons">' +
 		'  <label class="btn btn-sm btn-outline-dark col p-1 text-left float-right" data-toggle="collapse" href=".multi-collapse-1">' +
 		'  <input type="checkbox" checked="" autocomplete="off">' +
@@ -421,15 +458,6 @@
 		'              return false;">' +
 		'<em class="fas fa-magic col-1 pl-1 float-left"></em>' +
 		'<span class="col-11">' + i18n_get('dialogs',wsi,'About WepSIM') + '...</span></a>' +
-		'</li>' ;
-
-	   o += '<li class="list-group-item px-0"> ' +
-		'  <a class="btn btn-sm btn-outline-dark col p-1 text-left float-right" href="#" ' +
-		'     onclick="wepsim_newbie_tour(); ' +
-		'              wsweb_quickmenu_close(); ' +
-		'              return false;">' +
-		'<em class="fas fa-book-reader col-1 pl-1 float-left"></em>' +
-		'<span class="col-11">' + i18n_get('dialogs',wsi,'Initial intro') + '...</span></a>' +
 		'</li>' ;
 
 	   o += '<button type="button" id="close" data-role="none" ' + 
@@ -521,7 +549,10 @@
 		    sanitizeFn: function (content) {
 				   return content ; // DOMPurify.sanitize(content) ;
 				}
-	    });
+	    }).on('shown.bs.popover', function () {
+                    $('#label4-' + get_cfg('ws_skin')).button('toggle') ;
+                    wepsim_refresh_beta() ;
+            }) ;
 
 	    // tooltip: trigger by hover
 	    $('[data-toggle="tooltip"]').tooltip({
