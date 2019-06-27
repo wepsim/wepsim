@@ -129,6 +129,7 @@ i18n_eltos['examples'] = {
              "System call":						"System call",
              "Threads":							"Threads",
              "Vector":							"Vector",
+	     "Compiler Explorer":					"Compiler Explorer",
 
              "example_04_01":				"Advanced example with interruption, system call, and exception.",
              "example_05_01":				"Application-specific extension: addv + seqv.",
@@ -152,6 +153,7 @@ i18n_eltos['examples'] = {
              "example_01_03":				"Simple example with fetch, branch, and basic .text segment.",
              "example_01_02":				"Simple example with fetch, memory access, and basic .text/.data segment.",
              "example_06_01":				"Test example.",
+	     "example_06_02":	                    	"Simple Compiler Explorer example.",
 
              "Advanced":				"Advanced",
              "Initial":					"Initial",
