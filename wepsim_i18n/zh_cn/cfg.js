@@ -56,7 +56,6 @@
 		'Activation':		'激活',
 		'Interactive mode: signal value can be updated':		'交互模式：可以更新信号值',
 		'Quick interactive mode: quick update of signal value':		'快速交互模式：快速更新信号值',
-		'WepSIM User Interface Skin':		'WepSIM用户界面皮肤',
 		'(example)':		'（例）',
 		'Accesibility':		'无障碍',
 		'Active voice: external voice control':		'主动语音：外部语音控制',

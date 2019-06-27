@@ -25,6 +25,7 @@
 		'Show/Hide RecordBar':		'Mostra / Nascondi RecordBar',
 		'Show/Hide ActionBar':		'Mostra / Nascondi ActionBar',
 		'Show/Hide Slider':		'Mostra / nascondi cursore',
+		'WepSIM User Interface Skin':	'Skin dell\'interfaccia utente WepSIM',
 		'Initial intro':		'Intro iniziale',
 		'About WepSIM':		'Informazioni su WepSIM',
 		'Title':		'Titolo',

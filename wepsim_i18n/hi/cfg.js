@@ -56,7 +56,6 @@
 		'Activation':		'सक्रियण',
 		'Interactive mode: signal value can be updated':		'इंटरएक्टिव मोड: सिग्नल वैल्यू को अपडेट किया जा सकता है',
 		'Quick interactive mode: quick update of signal value':		'क्विक इंटरैक्टिव मोड: सिग्नल वैल्यू का त्वरित अपडेट',
-		'WepSIM User Interface Skin':		'WepSIM यूजर इंटरफेस स्किन',
 		'(example)':		'(उदाहरण)',
 		'Accesibility':		'सरल उपयोग',
 		'Active voice: external voice control':		'सक्रिय आवाज: बाहरी आवाज नियंत्रण',

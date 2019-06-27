@@ -32,29 +32,6 @@
                    });
 
     ws_config.push({
-                      id:          "select8",
-                      type:        "General",
-                      code_cfg:    "<div class='form-group m-0'>" +
-				   " <select name='select8' id='select8' class='form-control form-control-sm custom-select'" +
-				   "	     aria-label='User Interface for WepSIM' " +
-				   "	     onchange=\"var opt = $(this).find('option:selected');" +
-				   "	 	        var optValue = opt.val();" +
-				   "		        update_cfg('ws_skin', optValue);" +
-	                           "                    window.removeEventListener('beforeunload', wepsim_confirm_exit);" +
-				   "		        window.location='wepsim-' + optValue + '.html';" +
-				   "		        return false;\"" +
-				   "	     data-native-menu='false'>" +
-				   "	<option value='classic'>Classic</option>" +
-				   "	<option value='compact'>Compact</option>" +
-				   " </select>" +
-			           "</div>",
-                      code_init:   function() { 
-			               $('#select8').val(get_cfg('ws_skin')); 
-		                   },
-                      description: "<span data-langkey='WepSIM User Interface Skin'>WepSIM User Interface Skin</span>"
-                   });
-
-    ws_config.push({
                       id:          "radio14",
                       type:        "General",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
@@ -77,55 +54,6 @@
 			               $('#label14-' + get_cfg('enable_beta')).button('toggle');
 		                   },
                       description: "<span data-langkey='Enable experimental features'>Enable experimental features</span>"
-                   });
-
-    ws_config.push({
-                      id:          "radio7",
-                      type:        "Editor",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
-				   "	    <label id='label7-default'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;' " +
-				   "		   onclick=\"update_cfg('editor_theme','default');" +
-				   "			     sim_cfg_editor_theme(inputfirm) ;" +
-				   "			     sim_cfg_editor_theme(inputasm) ;\">" +
-				   "		<input type='radio' name='options' id='radio7-default' aria-label='Editor theme: light' autocomplete='off' ><span data-langkey='Light'>Light</span>" +
-				   "	    </label>" +
-				   "	    <label id='label7-blackboard'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;' " +
-				   "		   onclick=\"update_cfg('editor_theme','blackboard');" +
-				   "			     sim_cfg_editor_theme(inputfirm) ;" +
-				   "			     sim_cfg_editor_theme(inputasm) ;\">" +
-				   "		<input type='radio' name='options' id='radio7-blackboard' aria-label='Editor theme: dark' autocomplete='off' ><span data-langkey='Dark'>Dark</span>" +
-				   "	    </label>" +
-				   "	</div>",
-		      code_init:   function() { 
-			               $('#label7-' +      get_cfg('editor_theme')).button('toggle'); 
-		                   },
-                      description: "<span data-langkey='Editor theme: light or dark'>Editor theme: light or dark</span>"
-                   });
-
-    ws_config.push({
-                      id:          "select2",
-                      type:        "Editor",
-                      code_cfg:    "<div class='form-group m-0'>" +
-			           "   <select name='select2' id='select2' class='form-control form-control-sm custom-select'" +
-			           "	    aria-label='Editor mode'    " +
-			           "	    onchange=\"var opt = $(this).find('option:selected');" +
-			           "		      var optValue = opt.val();" +
-			           "		      update_cfg('editor_mode',optValue);" +
-			           "		      sim_cfg_editor_mode(inputfirm);" +
-			           "		      sim_cfg_editor_mode(inputasm);\"" +
-			           "	    data-native-menu='false'>" +
-			           "	<option value='default'>default</option>" +
-			           "	<option value='vim'>VIM</option>" +
-			           "	<option value='emacs'>Emacs</option>" +
-			           "	<option value='sublime'>Sublime</option>" +
-			           "    </select>" +
-			           "</div>",
-                      code_init:   function() { 
-			               $('#select2').val(get_cfg('editor_mode')); 
-		                   },
-                      description: "<span data-langkey='Editor mode: vim, emacs, etc.'>Editor mode: vim, emacs, etc.</span>"
                    });
 
     ws_config.push({
@@ -243,6 +171,55 @@
 			               $('#select3').val(get_cfg('DBG_limitick')); 
 		                   },
                       description: "<span data-langkey='Limit instruction ticks: to limit clock ticks'>Limit instruction ticks: to limit clock ticks</span>"
+                   });
+
+    ws_config.push({
+                      id:          "radio7",
+                      type:        "Editor",
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+				   "	    <label id='label7-default'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;' " +
+				   "		   onclick=\"update_cfg('editor_theme','default');" +
+				   "			     sim_cfg_editor_theme(inputfirm) ;" +
+				   "			     sim_cfg_editor_theme(inputasm) ;\">" +
+				   "		<input type='radio' name='options' id='radio7-default' aria-label='Editor theme: light' autocomplete='off' ><span data-langkey='Light'>Light</span>" +
+				   "	    </label>" +
+				   "	    <label id='label7-blackboard'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;' " +
+				   "		   onclick=\"update_cfg('editor_theme','blackboard');" +
+				   "			     sim_cfg_editor_theme(inputfirm) ;" +
+				   "			     sim_cfg_editor_theme(inputasm) ;\">" +
+				   "		<input type='radio' name='options' id='radio7-blackboard' aria-label='Editor theme: dark' autocomplete='off' ><span data-langkey='Dark'>Dark</span>" +
+				   "	    </label>" +
+				   "	</div>",
+		      code_init:   function() { 
+			               $('#label7-' +      get_cfg('editor_theme')).button('toggle'); 
+		                   },
+                      description: "<span data-langkey='Editor theme: light or dark'>Editor theme: light or dark</span>"
+                   });
+
+    ws_config.push({
+                      id:          "select2",
+                      type:        "Editor",
+                      code_cfg:    "<div class='form-group m-0'>" +
+			           "   <select name='select2' id='select2' class='form-control form-control-sm custom-select'" +
+			           "	    aria-label='Editor mode'    " +
+			           "	    onchange=\"var opt = $(this).find('option:selected');" +
+			           "		      var optValue = opt.val();" +
+			           "		      update_cfg('editor_mode',optValue);" +
+			           "		      sim_cfg_editor_mode(inputfirm);" +
+			           "		      sim_cfg_editor_mode(inputasm);\"" +
+			           "	    data-native-menu='false'>" +
+			           "	<option value='default'>default</option>" +
+			           "	<option value='vim'>VIM</option>" +
+			           "	<option value='emacs'>Emacs</option>" +
+			           "	<option value='sublime'>Sublime</option>" +
+			           "    </select>" +
+			           "</div>",
+                      code_init:   function() { 
+			               $('#select2').val(get_cfg('editor_mode')); 
+		                   },
+                      description: "<span data-langkey='Editor mode: vim, emacs, etc.'>Editor mode: vim, emacs, etc.</span>"
                    });
 
     ws_config.push({
