@@ -71,7 +71,7 @@ rm -fr ws_dist/sim_all.js
 #  WepSIM internalization (i18n)
 echo "ws_dist/help/..."
 cat wepsim_i18n/i18n.js > ws_dist/wepsim_i18n.js
-for LANG in es en fr kr ja it pt hi zh_cn ru de; do
+for LANG in es en fr kr ja it pt hi zh_cn ru sv de; do
 cat wepsim_i18n/$LANG/gui.js \
     wepsim_i18n/$LANG/tutorial-welcome.js \
     wepsim_i18n/$LANG/tutorial-simpleusage.js \
