@@ -405,7 +405,7 @@
 		'<span class="col-11">' + i18n_get('dialogs',wsi,'Initial intro') + '...</span></a>' +
 		'</li>' ;
 
-	   o += '<li class="list-group-item px-0 enabled_beta"> ' +
+	   o += '<li class="list-group-item px-0 py-2 enabled_beta"> ' +
 		'<div class="btn-group btn-group-toggle col p-1" data-toggle="buttons">' +
 		'  <label id="label4-classic" class="btn btn-sm btn-outline-dark" style="box-shadow:none;" ' +
                 '         onclick=\"update_cfg(\'ws_skin\', \'classic\');' +
