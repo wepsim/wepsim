@@ -322,7 +322,7 @@
 
             // Fast UI configuration
             var o1 = "<a data-toggle='popover-rfcfg' id='popover-rfcfg' " + 
-	             "   tabindex='0' class='mx-auto'><strong>&equiv;</strong></a>" ;
+	             "   tabindex='0' class='m-auto show multi-collapse-3'><strong><strong class='fas fa-wrench text-secondary'></strong></strong></a>" ;
 
             // Registers
             var rf_format = get_cfg('RF_display_format') ;

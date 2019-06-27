@@ -56,7 +56,6 @@
 		'Activation':		'активация',
 		'Interactive mode: signal value can be updated':		'Интерактивный режим: значение сигнала может быть обновлено',
 		'Quick interactive mode: quick update of signal value':		'Быстрый интерактивный режим: быстрое обновление значения сигнала',
-		'WepSIM User Interface Skin':		'Скин интерфейса пользователя WepSIM',
 		'(example)':		'(пример)',
 		'Accesibility':		'доступность',
 		'Active voice: external voice control':		'Активный голос: внешнее голосовое управление',

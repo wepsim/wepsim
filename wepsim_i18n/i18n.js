@@ -35,6 +35,7 @@
 			    it: "L'italiano - Google-translate",
 			 zh_cn: "汉语 - Google-translate",
 			    ru: "русский язык - Google-translate",
+			    sv: "Svenska - Google-translate",
 			    de: "Deutsch - Google-translate"
 		         },
 	          eltos: { 
