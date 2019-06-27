@@ -1,0 +1,582 @@
+<！DOCTYPE html PUBLIC“ -  // W3C // DTD XHTML 1.0 Transitional // EN”
+    “http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd”>
+<html xmlns =“http://www.w3.org/1999/xhtml”>
+  <HEAD>
+    <TITLE> </ TITLE>
+<meta charset =“UTF-8”>
+<meta http-equiv =“Content-type”content =“text/html; charset = UTF-8”>
+    <style type =“text/css”>
+/ * <！[CDATA [* /
+    ：link {color：＃0563C1}
+    ：visit {color：＃954F72}
+    p.cleanuphtml-5 {margin-bottom：8.0pt; line-height：80％}
+    b.cleanuphtml-4 {font-style：italic}
+    p.cleanuphtml-3 {font-weight：bold}
+    p.cleanuphtml-2 {text-align：center}
+    a.cleanuphtml-1 {font-weight：bold}
+    / *]]> * /
+    </样式>
+
+  <！ - 清理由http://www.cleanuphtml.com/  - >生成的HTML
+<meta name =“Generator”content =“Cleanup HTML”> </ head>
+  <BODY>
+
+      <div id =“help_firmware_format”>
+      <h1> WepSIM中的微代码</ h1>
+
+<P>
+</ p>
+<P>
+                微代码通过文本文件加载，您有三个部分：
+</ p>
+<P>
+1.微程序列表
+</ p>
+<P>
+2.注册命名
+</ p>
+<P>
+3.伪指令
+</ p>
+<P>
+                微程序列表以<b> fetch </ b>的代码开头。
+                基本提取微程序的示例可以是：
+</ p>
+<UL>
+<P>
+开始<br>
+{<br>
+获取：（T2，C0 = 1），<br>
+（Ta，Td，R，BW = 11，C1），<br>
+（M2，C2，T1，C3），<br>
+（A0，B = 0，C = 0000）<br>
+}
+</ p>
+</ UL>
+<p class =“cleanuphtml-2”>
+<a class="cleanuphtml-1" name="_Toc438322900">图</a> <b> 11 </ b> <b> </ b> <b>获取</ b>的说明示例
+</ p>
+<P>
+位于括号（和）之间的控制信号对应于在一个时钟周期中激活的信号。因此，提取需要四个时钟周期，最后一个对应于解码（包括在提取中）。
+</ p>
+<P>
+然后，跟随与每个指令相关联的其余微程序。每个微程序都有这种格式：
+</ p>
+<UL>
+<P>
+inst1 field1 field2 field3 <br>
+{点击
+共= 000000，结果
+nwords = 1，结果
+FIELD1 = REG（25,21），结果，
+FIELD2 = REG（20,16），结果，
+字段3 = REG（15,11），结果，
+{点击
+（Cop = 1001，SelP = 11，C7，T6，LC，SelA = 10100，SelB = 01111，SelC = 10111，<br>
+A0 = 1，B = 1，C = 0）<br>
+}结果
+}结果
+</ p>
+</ UL>
+<p class =“cleanuphtml-2”>
+<a class="cleanuphtml-1" name="_Toc438322901">图</a> <b> 12 </ b> <b>指令的描述格式示例</ b>
+</ p>
+<P>
+
+</ p>
+<P>
+第一行描述命令名称（inst1）和具有（寄存器，立即值等）的参数。然后打开一个块，其中包含用于描述指令的键。
+</ p>
+<P>
+示出的示例中的第一个字段（co）表示唯一标识该指令的6个比特。这对于算术和逻辑指令来说并不完全正确，因为可以共享相同的操作码和字段值cop区分。这种情况的一个例子是：
+</ p>
+<UL>
+<P>
+
+</ p>
+<P>
+inst1 field1 field2 field3 <br>
+{点击
+共= 000000，结果
+<B> COP = 0000，</ b>的结果，
+nwords = 1，结果
+FIELD1 = REG（25,21），结果，
+FIELD2 = REG（20,16），结果，
+字段3 = REG（15,11），结果，
+{点击
+（Cop = 1001，SelP = 11，C7，T6，LC，SelA = 10100，SelB = 01111，SelC = 10111，<br>
+A0 = 1，B = 1，C = 0）
+}结果
+}结果
+</ p>
+</ UL>
+<p class =“cleanuphtml-2”>
+<a class="cleanuphtml-1" name="_Toc438322902">图</a> <b> 13 </ b> <b>说明说明中的详细信息：现场警察</ b>
+</ p>
+<P>
+<br />
+以下字段指示每个参数的类型（注册，立即或地址）以及该参数的值的起始和结束位（从0到31）。
+</ p>
+<P>
+参数类型表示为：
+</ p>
+<UL>
+<LI>
+参数1 = reg（最后一位，第一位），<br>寄存器。
+</ LI>
+<LI>
+parameter1 = inm（last-bit，first-bit），<br>为立即值。
+</ LI>
+<LI>
+parameter1 = addr（last-bit，first-bit）rel，<br>用于相对（到PC寄存器）地址。
+</ LI>
+<LI>
+parameter1 = addr（last-bit，first-bit）abs，<br>表示绝对地址。
+</ LI>
+</ UL>
+<P>
+然后，打开一个新的块，其中的微程序为描述了该指令。每个周期的信号都在括号中，这些周期用逗号分隔。如果只有一个循环，则不需要逗号。在括号内，标出了符号和相应的值。只有信号名称才能表示唯一的位信号（这意味着它的值为1）。信号的值应以二进制表示，使用与信号一样多的位。使用逗号分隔信号及其对应值。
+</ p>
+<P>
+寄存器命名要求标签用于寄存器文件的32个寄存器中的每一个。本节的一个例子是：<br />
+<br />
+</ p>
+<UL>
+<P>
+寄存器
+</ p>
+<P>
+{<br>
+0 = $零，<br>
+1 = $ at，<br>
+2 = $ v0，<br>
+3 = $ v1，<br>
+4 = $ a0，<br>
+5 = $ a1，<br>
+6 = $ a2，<br>
+7 = $ a3，<br>
+。点击
+。点击
+。点击
+24 = $ t8，<br>
+25 = $ t9，<br>
+26 = $ k0，<br>
+27 = $ k1，<br>
+28 = $ gp，<br>
+29 = $ sp（stack_pointer），<br>
+30 = $ fp，<br>
+31 = $ ra <br>
+}
+</ p>
+</ UL>
+<p class =“cleanuphtml-2”>
+<a class="cleanuphtml-1" name="_Toc438322903">图</a> <b> 14 </ b> <b>注册命名示例</ b>
+</ p>
+<P>
+<br />
+在最后一个示例中，使用MIPS32体系结构命名的名称。在该示例中，用$ sp标记的寄存器29具有属性“（stack_pointer）”以指示将用作堆栈指针。
+</ p>
+<P>
+
+</ p>
+<P>
+最后，您可以定义伪指令。
+一个例子是伪指令：
+</ p>
+<UL>
+<P>
+伪指令<br />
+{<br />
+li reg num <br />
+{<br />
+lui reg sel（31,16，num）; <br />
+ori reg reg sel（15,0，num）<br />
+} <br />
+}
+</ p>
+<P>
+
+</ p>
+</ UL>
+<p class =“cleanuphtml-2”>
+<a class="cleanuphtml-1" name="_Toc438322904">图</a> <b> 15 </ b> <b>伪指令示例（可选部分）</ b>
+</ p>
+<P>
+<br />
+其中“sel（bit-start，bit-end field）”运算符允许我们从伪指令中选择一个字段的位数。
+</ p>
+<P>
+
+</ p>
+
+      </ DIV>
+
+
+      <div id =“help_assembly_format”>
+      <h1> WepSIM中的汇编程序</ h1>
+
+<P>
+</ p>
+<P>
+                汇编代码在带有第一个数据部分（.data）的文本文件中描述，第二部分带有代码（.text）<br />
+<br />
+在数据部分中，可以定义将保留在主存储器的数据段中的变量和常量。该部分以<i> .data </ i>指令开头。指定可以定义的数据类型的指令是：
+</ p>
+<P>
+＆middot; <b> .ascii：</ b>后跟一个字符串，指示汇编程序创建一个包含数据的内存区域，并在其中存储指示的字符串。
+</ p>
+<P>
+＆middot; <b> .asciiz：</ b>后跟一个字符串，指示汇编程序使用数据创建一个内存区域，并将关联的字符串存储为空终止字符串。
+</ p>
+<P>
+＆middot; <b> .byte：</ b>后跟一个或多个值，这些值构成变量值的一部分。如果有多个值，则这些值用逗号分隔。可以使用的值是：<b>字符，八进制，十六进制和十进制</ b>。
+</ p>
+<P>
+＆middot; <b> .half：</ b>后跟一个或多个值，这些值构成变量值的一部分。如果有多个值，则这些值用逗号分隔。可以使用的值是：<b>八进制，十六进制和十进制</ b>。
+</ p>
+<P>
+＆middot; <b> .word：</ b>后跟一个或多个值，这些值构成变量值的一部分。如果有多个值，则这些值用逗号分隔。可以使用的值是：<b>八进制，十六进制和十进制</ b>。
+</ p>
+<P>
+＆middot; <b> .space：</ b>后面跟着用户想要分配的十进制格式的字节数。
+</ p>
+<P>
+                以前数据类型的值的格式为：
+</ p>
+<P>
+＆middot; <b>字符串：</ b>用双引号括起来的字符序列。<br />
+例如：“hola 123 \ n”
+</ p>
+<P>
+＆middot; <b>字符：</ b>字符被简单的引号包围。<br />
+例如：'c'。</ p>
+<P>
+＆middot; <b>八进制：</ b>以零开头的数字，其数字低于8。
+               例如：012。
+</ p>
+<P>
+＆middot; <b>十六进制：</ b>一个以0x前缀开头且其数字为0到9以及字母a，b，c，d，e和f的数字。<br />
+例如：0x12。
+</ p>
+<P>
+＆middot; <b>十进制：</ b>一个不是八进制或十六进制的数字，其数字介于0和9之间（含）。<br />
+例如：12。
+</ p>
+<P>
+在代码部分中，您可以定义保留在主存储器代码段中的子例程。该部分以<i> .text </ i>指令开头。
+</ p>
+<P>
+
+</ p>
+<P>
+您可以使用＃字符使用行注释。<br />
+汇编程序将忽略跟随此字符到行尾的所有内容。
+</ p>
+<P>
+一个示例程序将是：
+</ p>
+<UL>
+<P>
+。数据
+</ p>
+<P>
+age1：.word 0x12345678,20
+</ p>
+<P>
+age2：.word 20,10
+</ p>
+<P>
+resultado：.word 0
+</ p>
+<P>
+#32位字用十进制初始化
+</ p>
+<P>
+texto：.ascii“Hola \ t”
+</ p>
+<P>
+texto2：.asciiz“Hola \ t”
+</ p>
+<P>
+hueco：.space 16
+</ p>
+<P>
+。文本
+</ p>
+<P>
+.globl主要
+</ p>
+<P>
+主要：li $ 3 2
+</ p>
+<P>
+li $ 4 1
+</ p>
+<P>
+li $ 5 0 <br />
+<br />
+</ p>
+</ UL>
+<p class =“cleanuphtml-2”>
+<a class="cleanuphtml-1" name="_Toc438322908">图</a> <b> 19 </ b> <b>测试微型组件的数据和代码部分示例。 </ b> <b> <br />
+<br /> </ b>
+</ p>
+
+      </ DIV>
+
+
+      <div id =“help_simulator_firmware”>
+      <h1> WepSIM中的微代码管理</ h1>
+
+<P>
+                在Microcode屏幕中加载一个包含三个部分（微代码，寄存器命名和伪指令定义）的文本文件。
+有关微代码格式的更多信息，请参阅“WepSIM中的微代码”。
+要访问此屏幕，您必须使用上部中心的Microcode按钮（参见图<b class =“cleanuphtml-4”>图16 </ b>）
+</ p>
+<P>
+
+</ p>
+<P>
+<img max-width =“90％”width =“90％”id =“Imagen 1”src =“help/simulator/firmware001.jpg”alt =“”name =“Imagen 1”/>
+</ p>
+<p class =“cleanuphtml-2”>
+<a name="_Ref434190846"> </a> <a name="_Toc438322905"> </a> <a class="cleanuphtml-1" name="_Ref434190877">图</a> <b> 16 </ b> <b>主屏幕：加载微码的选项。</ b>
+</ p>
+<P>
+<br />
+                然后，出现带有在线文本编辑器的屏幕，学生可以在其中描述微代码（评论前的三个部分）。用户可以使用上方工具栏上的“加载”按钮加载现有的微码，修改以前加载的微码或使用上方工具栏上的“保存”按钮保存当前微码。一旦微码就绪，单击“μcompile”按钮微编译它并将生成的二进制文件加载到控制存储器中，如<b class =“cleanuphtml-4”>图17 </ b>所示。
+</ p>
+<P>
+<img max-width =“90％”width =“90％”id =“Imagen 2”src =“help/simulator/firmware002.jpg”alt =“”name =“Imagen 2”/>
+</ p>
+<p class =“MsoNormal cleanuphtml-5”> </ p>
+<table cellpadding =“0”cellspacing =“0”align =“left”>
+</ table> <br clear="all“/>
+<p class =“cleanuphtml-2”>
+<a name="_Toc438322906"> </a> <a class="cleanuphtml-1" name="_Ref434191423">图</a> <b> 17 </ b> <b>微代码屏幕：文本框依次排列加载固件。</ b>
+</ p>
+<P>
+<br />
+                正确加载新的微码后，<b class =“cleanuphtml-4”>图18 </ b>中显示的按钮让学生检查加载到控制存储器中的二进制文件。
+</ p>
+<P>
+<img max-width =“90％”width =“90％”id =“Imagen4”src =“help/simulator/firmware004.jpg”alt =“按钮打开控制记忆模式”/>
+</ p>
+<p class =“cleanuphtml-2”>
+<a name="fig4"> </a> <a class="cleanuphtml-1" name="_Ref434191551">图</a> <b> 18 </ b> <b>微代码屏幕：显示控制内存内容</ b>的
+</ p>
+<P>
+<img max-width =“90％”width =“90％”id =“Imagen5”src =“help/simulator/firmware005.jpg”alt =“具有二进制控制存储器内容的模态”/>
+</ p>
+<p class =“cleanuphtml-2”>
+<a name="fig5"> </a> <a class="cleanuphtml-1" name="_Ref434191551">图</a> <b> 19 </ b> <b>微代码屏幕：控制内存中的二进制文件</ b>的
+</ p>
+<P>
+<br />
+                然后ext步骤是加载汇编程序来测试这个微代码，为此你必须单击上方工具栏上的“Assembly”按钮。
+有关详细信息，请查看帮助中的“模拟器：装配”部分。
+</ p>
+<P>
+
+</ p>
+
+      </ DIV>
+
+
+      <div id =“help_simulator_assembly”>
+      <h1> WepSIM中的汇编程序管理</ h1>
+
+<P>
+                在Assembler屏幕上加载一个包含两种类型（数据和代码）的文本文件。
+                要访问此屏幕，学生可以在上方工具栏中选择Assembly按钮（参见<b class =“cleanuphtml-3”>图16 </ b>）。
+<br />
+</ p>
+<P>
+<img max-width =“90％”width =“90％”id =“Imagen 3”src =“help/simulator/assembly002a.jpg”alt =“”name =“Imagen 3”/>
+</ p>
+<p class =“cleanuphtml-2”>
+<a name="_Toc438322909"> </a> <a class="cleanuphtml-1" name="_Toc434155501">图</a> <b> 20 </ b> <b>主屏幕：汇编代码屏幕。 </ b>
+</ p>
+<P>
+                然后，出现一个文本编辑器，可以加载和编辑汇编代码。您可以使用顶部栏上的“加载”按钮加载现有代码，更改先前加载的代码或使用顶部栏上的“保存”按钮保存当前加载的代码。
+</ p>
+<P>
+代码准备好后，您必须单击“编译”按钮将此代码编译为二进制文件并将此二进制文件加载到主内存中，如<b class =“cleanuphtml-3”>图21 </ b >。
+</ p>
+<P>
+
+</ p>
+<P>
+<img max-width =“90％”width =“90％”id =“Imagen 28”src =“help/simulator/assembly003.jpg”alt =“”name =“Imagen 28”/>
+</ p>
+<p class =“cleanuphtml-2”>
+<a name="_Toc438322910"> </a> <a class="cleanuphtml-1" name="_Ref434192102">图</a> <b> 21 </ b> <b>装配屏幕：文本编辑器汇编代码。</ b> <b> <br />
+<br /> </ b>
+</ p>
+<P>
+                编译完成后，它将传递到<b class =“cleanuphtml-3”>图22 </ b>中显示的屏幕，用户可以点击按钮显示，以便以二进制形式探索主存的内容（< b class =“cleanuphtml-3”>图23 </ b>）。
+</ p>
+<P>
+
+</ p>
+<P>
+<img max-width =“90％”width =“90％”id =“Imagen 30”src =“help/simulator/assembly004.jpg”alt =“装配屏幕，按二进制显示装配的按钮”/>
+</ p>
+<p class =“cleanuphtml-2”>
+<a name="_Toc438322912"> </a> <a class="cleanuphtml-1" name="_Ref434192450">图</a> <b> 22 </ b> <b>装配屏幕：按钮浏览主存储器值。</ b>
+</ p>
+<P>
+<img max-width =“90％”width =“90％”id =“Imagen 30”src =“help/simulator/assembly005.jpg”alt =“带二进制汇编的模态”/>
+</ p>
+<p class =“cleanuphtml-2”>
+<a name="_Toc438322912"> </a> <a class="cleanuphtml-1" name="_Ref434192450">图</a> <b> 23 </ b> <b>装配屏幕：二进制值。</b>的
+</ p>
+<P>
+<br />
+                下一步是返回主屏幕以运行加载的微码和组件。
+                为此，您必须按上方工具栏上的“模拟器”按钮。
+</ p>
+<P>
+</ p>
+
+      </ DIV>
+
+
+      <div id =“help_simulator_execution”>
+      <h1> WepSIM中的模拟</ h1>
+
+<P>
+在主屏幕中可以看到：
+</ p>
+<UL>
+<LI>
+控制存储器内容（参见<b>图24 </ b>），每个周期控制信号。
+                为此，学生必须使用主屏幕上方工具栏中的“<i>控制记忆</ i>”按钮。<br />
+                在此选项卡中，当前循环信号以蓝色突出显示（并且字体稍大一些）。<br />
+                使用右侧滚动条可以检查完整的控制存储器内容。
+</ LI>
+<LI>
+                主存储器内容（参见<b class =“cleanuphtml-1”>图25 </ b>），带有要执行的汇编指令。
+                可以通过单击<i>断点</ i>列来设置断点。
+                设置断点后，此列中将显示“停止”图标。
+</ LI>
+</ UL>
+<P>
+<img max-width =“90％”width =“90％”id =“Imagen 1”src =“help/simulator/simulator009.jpg”alt =“”name =“Imagen 1”/>
+</ p>
+<p class =“cleanuphtml-3”>
+<a name="_Toc438322913"> </a> <a class="cleanuphtml-2" name="_Ref434192973">图</a> <b> 24 </ b> <b>主屏幕：控件的可视化存储器中。</ b>的
+</ p>
+<P>
+</ p>
+<P>
+<img max-width =“90％”width =“90％”id =“Imagen 3”src =“help/simulator/simulator010.jpg”alt =“”name =“Imagen 3”/>
+</ p>
+<p class =“cleanuphtml-3”>
+<a name="_Toc438322914"> </a> <a class="cleanuphtml-2" name="_Ref434193222">图</a> <b> 25 </ b> <b>主屏幕：主要内容的可视化记忆码。</ b>
+</ p><P>
+</ p>
+<P>
+                在主屏幕中，可以执行：
+</ p>
+<P>
+·通过单击“ÂμInstrucci＆oacute; n”按钮（参见<b class =“cleanuphtml-1”>图26 </ b>）通过微指令进行微指令，继续前进到下一个时钟周期，并发送相关控件信号。
+</ p>
+<P>
+·通过单击“Instrucci＆oacute; n”按钮（参见<b class =“cleanuphtml-1”>图26 </ b>）按指令进行指令，以便为相应指令的微码生成所有时钟周期，停止在获取的开始。
+</ p>
+<P>
+</ p>
+<P>
+<img max-width =“90％”width =“90％”id =“Imagen 4”src =“help/simulator/simulator011.jpg”alt =“”name =“Imagen 4”/>
+</ p>
+<p class =“cleanuphtml-3”>
+<a name="_Toc438322915"> </a> <a class="cleanuphtml-2" name="_Ref434193775">图</a> <b> 26 </ b> <b>主屏幕：执行选项。</b>的
+</ p>
+<P>
+<br />
+使用主屏幕右上方栏上的“<i>寄存器</ i>”按钮（参见<b class =“cleanuphtml-1”>图26 </ b>），可以看到处理器注册，以及它们在执行过程中如何变化。
+</ p>
+<P>
+                也可以看到控制单元，如<b class =“cleanuphtml-1”>图27 </ b>所示。
+</ p>
+<P>
+</ p>
+<P>
+<img max-width =“90％”width =“90％”id =“Imagen 8”src =“help/simulator/simulator012.jpg”alt =“”name =“Imagen 8”/>
+</ p>
+<p class =“cleanuphtml-3”>
+<a name="_Toc438322916"> </a> <a class="cleanuphtml-2" name="_Ref434194139">图</a> <b> 27 </ b> <b>主屏幕：控制单元可视化。 </ b>
+</ p>
+<P>
+                并且还可以通过单击顶部栏中的“重置”按钮来重置执行。
+</ p>
+<P>
+</ p>
+<P>
+</ p>
+
+      </ DIV>
+
+
+      <div id =“help_checker”>
+
+              可以检查当前状态是否满足我们的要求：
+<P>
+<UL>
+<li>要检查当前状态，请介绍要求并按“检查”。</ li>
+<C>
+例如：<br>
+<textarea aria-label =“检查执行”rows =“2”>
+寄存器5> = 8;存储器1 = 0x10;屏幕0 == first_line
+</ textarea>的
+</ C>
+<li>要清洁要求，请按“清洁”。</ li>
+</ UL>
+<P>
+<b>提示：需要分号。</ b>
+点击
+<b>提示：请小心，因为滚动条用于隐藏。</ b>
+点击
+当提供空要求时，考虑初始状态。
+
+      </ DIV>
+
+
+      <div id =“help_dumper”>
+
+<UL>
+<LI>
+              默认情况下，“当前状态”面板显示当前模拟的机器状态。
+机器状态是硬件中的元素列表及其值。
+为了简化，仅示出了非零值硬件元件。点击
+例如：<br>
+<textarea aria-label =“检查执行”rows =“2”class =“w-50”>
+寄存器5> = 8;存储器1 = 0x10;屏幕0 == first_line
+</ textarea>的
+点击
+              请记住两个重要细节：
+<UL>
+<li> <em>需要分号。</ em>
+                     ';' character表示任何key = value对的结束。</ li>
+<li> <em>滚动条用于隐藏在当前状态和差异上。</ em> </ li>
+</ UL>
+
+可以修改此“当前状态”，复制到剪贴板或存储在“历史记录”面板中。
+<LI>
+              “历史记录”面板允许用户在不同的CPU时钟周期内跟踪状态。
+<LI>
+              “差异”面板可用于显示两种状态之间的差异。
+仅显示两种状态之间不同的值。
+</ UL>
+
+<P>
+<UL>
+              此动画中显示了使用此对话框的典型步骤：<br>
+<img class =“w-75”src =“help/welcome/states_usage.gif”>
+</ UL>
+
+      </ DIV>
+
+  </ BODY>
+</ HTML>

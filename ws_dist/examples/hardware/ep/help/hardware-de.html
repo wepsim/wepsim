@@ -1,0 +1,82 @@
+rot.
+                 Wenn die Wahrscheinlichkeit 0,5 beträgt, wird die zugehörige Unterbrechung mit 50% der Wahrscheinlichkeit ausgelöst.
+                 </li>
+</ul>
+</p>
+
+<h2>
+<a name="_Toc438325788"> Interne Organisation: Kontrollsignale </a>
+</h2>
+<p>
+
+</p>
+<p>
+Die Steuereinheit in WepSIM ist mikroprogrammierbar. Der Steuerspeicher verfügt über 4096 Mikrowörter mit jeweils 76 Bits (siehe <b class = "cleanuphtml-1"> Abbildung 5 </b>).
+</p>
+<p class = "cleanuphtml-3">
+<img max-width = "90%" width = "80%" id = "Imagen 12" src = "images/simulator/simulator005.jpg" alt = "" name = "Imagen 12" />
+</p>
+<br clear="all" />
+<div class = "WordSection2"> </div>
+<br clear="all" />
+<div class = "WordSection3">
+<p class = "cleanuphtml-3">
+<a name="_Toc438322894"> </a> <a class="cleanuphtml-2" name="_Ref434141431"> Abbildung </a> <b> 5 </b> <b> Mikrobefehlsformat </b>
+</p>
+<p>
+                Die allgemeine Nomenklatur zur Bezeichnung der Steuersignale lautet:
+</p>
+<p>
+■ Cx: Signal zum Laden von Daten in das Register X
+</p>
+<p>
+■ Tx: Tristate-Aktivierungssignal für X
+</p>
+<p>
+■ Ry: Registerkennung für den Ausgabewert in Register y
+</p>
+<p>
+■ Mx: Auswahlwert für Multiplexer X
+</p>
+<p>
+Zusätzlich zeigt das LC-Signal die Aktualisierung der Registerdatei an, Cop zeigt die in der ALU auszuführende Operation an, Selp wählt aus, welche Bits im Statusregister (SR) aktualisiert werden, A1A0 sind die zwei niedrigstwertigen Bits einer Speicheradresse, und Mit BW können wir die Größe der Daten angeben, auf die im Speicher zugegriffen wird: ein vollständiges Wort, ein Halbwort oder ein Byte.
+</p>
+<p>
+
+</p>
+<p>
+Der Prozessor (siehe <b class = "cleanuphtml-1"> Abbildung 6 </b>) kann in 7 Teile unterteilt werden: Speicherzugriff (MAR, MBR usw.), Programmzählerregisterverwaltung (PC usw.) , Befehlsregisterverwaltung (IR usw.), Steuereinheit (Steuereinheit), Registerbank (Registerdatei), ALU und Verwaltung des Statusregisters (SR usw.).
+</p>
+<p>
+<img max-width = "90%" width = "90%" id = "Imagen 5" src = "images/simulator/simulator006.jpg" alt = "" name = "Imagen 5" />
+</p>
+<p class = "cleanuphtml-3">
+<a name="_Toc438322895"> </a> <a class="cleanuphtml-2" name="_Ref434141629"> Abbildung </a> <b> 6 </b> <b> Prozessor im Detail </b>
+</p>
+<p>
+<br />
+Die Steuereinheit (siehe <b class = "cleanuphtml-1"> Abbildung 7 </b>) ist in fünf Teile unterteilt: Steuerung der folgenden Mikro-Adresse (MUX A usw.), Umwandlung des Opcodes in die entsprechende Mikro-Adresse (co2uAddr), Steuerung der bedingten Auswahl von Microaddress (MUX B, MUX C usw.), Steuerspeicher mit Mikrobefehlsregister und schließlich Selektoren RA, RB, RC und Cop.
+</p>
+<p>
+<img max-width = "90%" width = "90%" id = "Imagen 7" src = "images/simulator/simulator007.jpg" alt = "" name = "Imagen 7" />
+</p>
+<p class = "cleanuphtml-3">
+<a name="_Toc438322896"> </a> <a class="cleanuphtml-2" name="_Ref434141950"> Abbildung </a> <b> 7 </b> <b> Details zur Steuereinheit </b >
+</p>
+<p>
+Für die Adressierung des Steuerspeichers werden 12 Bit bei impliziter Sequenzierung benötigt. Sie können als Steuerspeicher die Microaddress (siehe <b class = "cleanuphtml-1"> Abbildung 8 </b>) der nächsten Speicherposition oder einen Teil des Mikrobefehls verwenden oder die Ausgabe eines Übersetzungsmoduls (mit dem Start) verwenden Mikroadresse, die einem Operationscode zugeordnet ist, oder Null-Mikroadresse (0), von der der Abruf beginnt.
+</p>
+<p class = "cleanuphtml-3">
+<img max-width = "90%" width = "90%" id = "Imagen 11" src = "images/simulator/simulator008.jpg" alt = "" name = "Imagen 11" />
+</p>
+<p class = "cleanuphtml-3">
+<a name="_Toc438322897"> </a> <a class="cleanuphtml-2" name="_Ref434143860"> Abbildung </a> <b> 8 </b> <b> Optionen für den MUX A </b>
+</p>
+<p class = "cleanuphtml-4"> </p>
+<p class = "cleanuphtml-4"> </p>
+</div>
+
+      </div>
+
+  </body>
+</html>

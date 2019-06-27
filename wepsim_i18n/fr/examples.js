@@ -43,6 +43,7 @@
 		"System call":					"Appel système",
 		"Threads":					"Fils",
 		"Vector":					"Vecteur",
+	        "Compiler Explorer":				"Compiler Explorer",
 
 		"example_04_01":				"Exemple avancé avec interruption, appel système et exception.",
 		"example_05_01":				"Extension spécifique à l'application: addv + seqv.",
@@ -66,6 +67,7 @@
 		"example_01_03":				"Exemple simple avec fetch, branche et segment de base .text.",
 		"example_01_02":				"Exemple simple avec récupération, accès à la mémoire et .text/.data de base segment.",
 		"example_06_01":				"Exemple de test.",
+	        "example_06_02":	                    	"Exemple de l'explorateur de compilateur simple.",
 
 		"Advanced":					"Avancé",
 		"Initial":					"Initiale",
