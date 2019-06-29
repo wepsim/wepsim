@@ -31,6 +31,9 @@
 		'Save':		'Salve ',
 		'Restore':		'Restaurar',
 		'Help':		'Socorro',
+		'Notifications':		'Notificações',
+		'RecordBar':		'Barra de registro',
+
 		'Help Index':		'Índice de Ajuda',
 		'Processor':		'Processador',
 		'Assembly Debugger':		'Depurador de montagem',

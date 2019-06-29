@@ -31,6 +31,9 @@
 		'Save':		'保存',
 		'Restore':		'恢复',
 		'Help':		'救命',
+		'Notifications':		'通知',
+		'RecordBar':		'记录栏',
+
 		'Help Index':		'帮助索引',
 		'Processor':		'处理器',
 		'Assembly Debugger':		'汇编调试器',

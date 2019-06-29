@@ -31,6 +31,9 @@
 		'Save':		'Spara',
 		'Restore':		'Återställa',
 		'Help':		'Hjälp',
+		'Notifications':		'Notifikationer',
+		'RecordBar':		'RecordBar',
+
 		'Help Index':		'Hjälpindex',
 		'Processor':		'processor',
 		'Assembly Debugger':		'Assembly Debugger',

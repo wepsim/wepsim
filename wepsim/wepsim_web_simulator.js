@@ -376,24 +376,15 @@
     {
 	var wsi = get_cfg('ws_idiom') ;
 
-	var o = '<ul class="list-group list-group-flush">' +
-		'<li class="list-group-item px-0 pt-1"> ' +
+	var o = '<ul class="list-group list-group-flush">' ;
+
+	   o += '<li class="list-group-item px-0"> ' +
 		'  <a class="btn btn-sm btn-outline-dark col p-1 text-left float-right" href="#" ' +
-		'     onclick="wepsim_notify_notifications(); ' +
-		'              i18n_update_tags(); ' +
+		'     onclick="wsweb_about_show(); ' +
 		'              wsweb_quickmenu_close(); ' +
 		'              return false;">' +
-		'<em class="fas fa-flag col-1 pl-1 float-left"></em>' +
-		'<span class="col-11">' + i18n_get('dialogs',wsi,'Show Notifications') + '...</span></a>' +
-		'</li>' ;
-
-	   o += '<li class="list-group-item px-0 enabled_beta"> ' +
-		'  <button class="navbar-toggle btn btn-sm btn-outline-dark col p-1 text-left float-right" type="button" ' +
-		'          onclick="wsweb_recordbar_toggle(); ' +
-		'                   return false;">' +
-		'<em class="fas fa-clipboard col-1 pl-1 float-left"></em>' +
-		'<span class="col-11">' + i18n_get('dialogs',wsi,'Show/Hide RecordBar') + '</span>' +
-		'  </button>' +
+		'<em class="fas fa-magic col-1 pl-1 float-left"></em>' +
+		'<span class="col-11">' + i18n_get('dialogs',wsi,'About WepSIM') + '...</span></a>' +
 		'</li>' ;
 
 	   o += '<li class="list-group-item px-0"> ' +
@@ -449,15 +440,6 @@
 		'<em class="fas fa-sliders-h col-1 pl-1 float-left"></em>' +
 		'<span class="col-11">' + i18n_get('dialogs',wsi,'Show/Hide Slider') + '</span></label>' +
 		'  </span>' +
-		'</li>' ;
-
-	   o += '<li class="list-group-item px-0"> ' +
-		'  <a class="btn btn-sm btn-outline-dark col p-1 text-left float-right" href="#" ' +
-		'     onclick="wsweb_about_show(); ' +
-		'              wsweb_quickmenu_close(); ' +
-		'              return false;">' +
-		'<em class="fas fa-magic col-1 pl-1 float-left"></em>' +
-		'<span class="col-11">' + i18n_get('dialogs',wsi,'About WepSIM') + '...</span></a>' +
 		'</li>' ;
 
 	   o += '<button type="button" id="close" data-role="none" ' + 

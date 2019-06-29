@@ -21,8 +21,6 @@
 
     i18n.eltos.dialogs.pt = {
 
-		'Show Notifications':		'Mostrar notificações',
-		'Show/Hide RecordBar':		'Mostrar / Esconder a RecordBar',
 		'Show/Hide ActionBar':		'Mostrar / Ocultar ActionBar',
 		'Show/Hide Slider':		'Mostrar / Ocultar Slider',
 		'WepSIM User Interface Skin':	'Skin da Interface do Usuário WepSIM',

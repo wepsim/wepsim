@@ -31,6 +31,9 @@
 		'Save':		'sparen',
 		'Restore':		'Wiederherstellen',
 		'Help':		'Hilfe',
+		'Notifications':		'Benachrichtigungen',
+		'RecordBar':		'Aufnahmeleiste',
+
 		'Help Index':		'Hilfe-Index',
 		'Processor':		'Prozessor',
 		'Assembly Debugger':		'Assembly Debugger',

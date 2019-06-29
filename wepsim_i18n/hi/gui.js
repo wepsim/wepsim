@@ -31,6 +31,8 @@
 		'Save':		'बचाना',
 		'Restore':		'पुनर्स्थापित',
 		'Help':		'मदद',
+		'Notifications':		'सूचनाएं दिखाएं',
+		'RecordBar':		'रिकॉर्डबोर दिखाएँ / छिपाएँ',
 		'Help Index':		'मदद सूचकांक',
 		'Processor':		'प्रोसेसर',
 		'Assembly Debugger':		'विधानसभा डिबगर',

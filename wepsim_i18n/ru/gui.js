@@ -31,6 +31,9 @@
 		'Save':		'Сохранить',
 		'Restore':		'Восстановить',
 		'Help':		'Помогите',
+		'Notifications':		'Yведомления',
+		'RecordBar':		'Запись бар',
+
 		'Help Index':		'Индекс справки',
 		'Processor':		'процессор',
 		'Assembly Debugger':		'Сборочный отладчик',

@@ -21,8 +21,6 @@
 
     i18n.eltos.dialogs.sv = {
 
-		'Show Notifications':		'Visa notifikationer',
-		'Show/Hide RecordBar':		'Visa / Dölj RecordBar',
 		'Show/Hide ActionBar':		'Visa / Dölj ActionBar',
 		'Show/Hide Slider':		'Visa / Dölj Slider',
 		'Initial intro':		'Inledande intro',

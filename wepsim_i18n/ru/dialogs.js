@@ -21,8 +21,6 @@
 
     i18n.eltos.dialogs.ru = {
 
-		'Show Notifications':		'Показать уведомления',
-		'Show/Hide RecordBar':		'Показать / Скрыть RecordBar',
 		'Show/Hide ActionBar':		'Показать / Скрыть ActionBar',
 		'Show/Hide Slider':		'Показать / Скрыть слайдер',
 		'WepSIM User Interface Skin':	'Скин интерфейса пользователя WepSIM',

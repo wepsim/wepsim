@@ -20,8 +20,6 @@
 
 
     i18n.eltos.dialogs.es = {
-                        "Show Notifications":                           "Mostrar notificaciones",
-                        "Show/Hide RecordBar":                          "Mostrar/Ocultar grabaci&oacute;n",
                         "Show/Hide ActionBar":                          "Mostrar/Ocultar barra",
                         "Show/Hide Slider":                             "Mostrar/Ocultar sliders",
                         "WepSIM User Interface Skin": 		        "Variante de Interfaz de Usuario para WepSIM",

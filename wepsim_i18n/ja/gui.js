@@ -31,6 +31,9 @@
 		'Save':		'保存する',
 		'Restore':		'リストア',
 		'Help':		'助けて',
+		'Notifications':		'通知',
+		'RecordBar':		'レコードバー',
+
 		'Help Index':		'ヘルプインデックス',
 		'Processor':		'プロセッサ',
 		'Assembly Debugger':		'アセンブリデバッガ',

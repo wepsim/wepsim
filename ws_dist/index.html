@@ -277,16 +277,8 @@
 	    <h6 class="pt-3">Simulator</h6>
             <div class="row py-1 px-1 collapse show multi-collapse-1" style="margin:1px">
 
-                    <div class="col-sm-auto p-1">
-                    <div class="btn-toolbar btn-block" role="toolbar">
-		        <button class="btn btn-light shadow-sm my-1 mx-0"
-                                id="btn_cfg1"
-			         data-toggle="tooltip" data-placement="bottom" data-html="true" 
-			         title="This button opens the 'Configuration' dialog."
-                                onclick="wsweb_dialogbox_open_config();
-					 return false;"
-		    	        style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                ><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
+                      <div class="col-sm-auto p-1">
+                      <div class="btn-toolbar btn-block" role="toolbar">
 		        <button class="btn btn-light shadow-sm my-1 mx-0"
                                 id="btn_micro1"
 			         data-toggle="tooltip" data-placement="bottom" data-html="true" 
@@ -305,12 +297,12 @@
 					 return false;"
 		                style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 				><strong><span class="d-none d-sm-inline-flex" data-langkey='Assembly'>Assembly</span><span class="d-sm-none" data-langkey='Assembly'>Assembly</span></strong></button>
-                    </div>
-                    </div>
+                      </div>
+                      </div>
 
-		    <div class="w-100 d-block d-sm-none"></div>
+		      <div class="w-100 d-block d-sm-none"></div>
 
-                    <div id="slider_cpucu" class="col-sm p-0 collapse show multi-collapse-2">
+                      <div id="slider_cpucu" class="col-sm p-0 collapse show multi-collapse-2">
 			    <form id="slider2f" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">
 				 <label class="my-0" for="slider2b" style="min-width:95%"><span data-langkey='processor'>processor</span>:</label>
 				 <input aria-label="Show CPU/CU" type="range" name="slider2b" id="slider2b"
@@ -320,12 +312,12 @@
                                         oninput="wsweb_set_cpucu_size(this.value) ;
                                                  return false;">
 			    </form>
-                    </div>
+                      </div>
 
-		    <div class="w-100 d-md-block d-lg-none"></div>
+		      <div class="w-100 d-md-block d-lg-none"></div>
 
-                    <div class="col-sm-auto p-1">
-                    <div class="btn-toolbar btn-block" role="toolbar">
+                      <div class="col-sm-auto p-1">
+                      <div class="btn-toolbar btn-block" role="toolbar">
 		            <button class="btn btn-light shadow-sm my-1 mx-0 col-auto"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC; flex-grow:1;"
                                     id="btn_example1"
@@ -383,12 +375,12 @@
 
 			    </div>
 			</div>
-                    </div>
-		    </div>
+                      </div>
+		      </div>
 
-		    <div class="w-100 d-xs-block d-sm-none"></div>
+		      <div class="w-100 d-xs-block d-sm-none"></div>
 
-                    <div class="col-sm p-0 collapse show multi-collapse-2">
+                      <div class="col-sm p-0 collapse show multi-collapse-2">
 			    <form id="slider2e" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">
 				 <label class="my-0" for="slider2a" style="min-width:95%"><span data-langkey='details'>details</span>:</label>
 				 <input aria-label="Show Main/Info" type="range" name="slider2a" id="slider2a"
@@ -398,8 +390,36 @@
                                         oninput="wsweb_set_c1c2_size(this.value) ;
                                                  return false;">
 			    </form>
-                    </div>
+                      </div>
 
+                      <div class="col-sm-auto p-1">
+                      <div class="btn-toolbar btn-block" role="toolbar">
+		            <button class="btn btn-light shadow-sm my-1 mx-0"
+		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			            title="This button opens the 'Record' bar."
+                                    onclick="wsweb_recordbar_toggle();
+					     return false;"><strong><span data-langkey='RecordBar'>RecordBar</span></strong></button>
+		            <button class="btn btn-light shadow-sm my-1 mx-0"
+		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			            title="This button opens the 'Notifications' dialog."
+                                    onclick="wepsim_notify_notifications();
+                                             i18n_update_tags();
+					     return false;"><strong><span data-langkey='Notifications'>Notifications</span></strong></button>
+		            <button class="btn btn-light shadow-sm my-1 mx-0"
+		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+                                    id="btn_cfg1"
+			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			            title="This button opens the 'Configuration' dialog."
+                                    onclick="wsweb_dialogbox_open_config();
+				    	     return false;"
+                                    ><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
+		      </div>
+		      </div>
+
+		</div>
+		</div>
             </div>
 
             <div class="row">
@@ -671,11 +691,7 @@
                 <div class="container col-12" role="none">
 		<div class="col-sm px-1"      role="toolbar" aria-label="MicroCode Toolbar">
 
-                      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
-		            <button class="btn btn-light shadow-sm col-auto m-0"
-		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                    onclick="wsweb_dialogbox_open_config();
-					     return false;"><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
+                      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar Assembly, and Simulator buttons">
 		            <button class="btn btn-light shadow-sm col-auto m-0"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
                                     onclick="wsweb_change_workspace_assembly();"
@@ -726,6 +742,23 @@
 				    ><em class="fas fa-info-circle"></em>&nbsp;<strong><span data-langkey="Help">Help</span></strong></button>
 		      </div>
 
+                      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar Record, Notifications, and Configuration buttons">
+		            <button class="btn btn-light shadow-sm col-auto m-0"
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+                                    onclick="wsweb_recordbar_toggle();
+					     return false;"><strong><span data-langkey='RecordBar'>RecordBar</span></strong></button>
+		            <button class="btn btn-light shadow-sm col-auto m-0"
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+                                    onclick="wepsim_notify_notifications();
+                                             i18n_update_tags();
+					     return false;"><strong><span data-langkey='Notifications'>Notifications</span></strong></button>
+		            <button class="btn btn-light shadow-sm col-auto m-0"
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+                                    onclick="wsweb_dialogbox_open_config();
+					     return false;"><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span>
+						            <span class="d-sm-none">Config.</span></strong></button>
+		      </div>
+
 		</div>
 		</div>
 
@@ -749,11 +782,7 @@
                 <div class="container col-12" role="none">
 		<div class="col-sm px-1"      role="toolbar" aria-label="Assembly Toolbar">
 
-                      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
-		            <button class="btn btn-light shadow-sm col-auto m-0"
-		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                    onclick="wsweb_dialogbox_open_config();
-					     return false;"><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
+                      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar Microcode, and assembly buttons">
 		            <button class="btn btn-light shadow-sm col-auto m-0"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
                                     onclick="wsweb_change_workspace_microcode();
@@ -802,6 +831,24 @@
 				    ><em class="fas fa-info-circle"></em>&nbsp;<strong><span data-langkey="Help">Help</span></strong></button>
 		      </div>
 
+                      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar Record, Notifications, and Configuration buttons">
+		            <button class="btn btn-light shadow-sm col-auto m-0"
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+                                    onclick="wsweb_recordbar_toggle();
+					     return false;"><strong><span data-langkey='RecordBar'>RecordBar</span></strong></button>
+		            <button class="btn btn-light shadow-sm col-auto m-0"
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+                                    onclick="wepsim_notify_notifications();
+                                             i18n_update_tags();
+					     return false;"><strong><span data-langkey='Notifications'>Notifications</span></strong></button>
+		            <button class="btn btn-light shadow-sm col-auto m-0"
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+                                    onclick="wsweb_dialogbox_open_config();
+					     return false;"><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span>
+						            <span class="d-sm-none">Config.</span></strong></button>
+		      </div>
+
+		</div>
 		</div>
 		</div>
 
