@@ -353,6 +353,29 @@
             return true ;
     }
 
+    function wsweb_dialogbox_open_notifications ( )
+    {
+            wepsim_notify_notifications() ;
+	    i18n_update_tags() ;
+	    $('[data-toggle=tooltip]').tooltip('hide') ;
+
+            // add if recording
+            simcore_record_append_new('Open notification summary',
+	       	                      'wsweb_dialogbox_open_notifications();\n') ;
+
+            // intercept events...
+	    $("#notifications2").one("close.bs.alert",
+		              function () {
+				  simcore_record_append_new('Close alert',
+					                    'wsweb_alert_close_all();\n');
+			      });
+            wsweb_scroll_record('#container-notifications2') ;
+	    simcore_record_captureInit() ;
+
+            // return ok
+            return true ;
+    }
+
     function wsweb_dialogbox_close_state ( )
     {
 	    $('#current_state1').modal('hide') ;
@@ -367,7 +390,7 @@
 
     function wsweb_dialogbox_close_all ( )
     {
-	    // Close all dialogbox before open this one
+	    // Close all dialogbox
 	          $('#example1').modal('hide') ;
 	             $('#help1').modal('hide') ;
 	           $('#config2').modal('hide') ;
@@ -382,6 +405,20 @@
             // return ok
             return true ;
     }
+
+    function wsweb_alert_close_all ( )
+    {
+	    // Close all alert
+	    $('#notifications2').alert('close') ;
+
+            // add if recording
+	    simcore_record_append_new('Close alert',
+				      'wsweb_alert_close_all();\n');
+
+            // return ok
+            return true ;
+    }
+
 
     //  Workspace simulator: Signal dialog
 

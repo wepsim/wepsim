@@ -19,13 +19,10 @@
  */
 
 
-        // Notification
+        // API
 
-        function wepsim_notify_do_notify ( ntf_title, ntf_message, ntf_type, ntf_delay )
+        function wepsim_notify_show_notify ( ntf_title, ntf_message, ntf_type, ntf_delay )
         {
-	    // add to notifications
-	    simcore_notifications_add(ntf_title, ntf_message, ntf_type, ntf_delay) ;
-
 	    // alerts-container does not exist, create it
 	    var ac = $("#alerts-container") ;
 	    if (ac.length === 0) {
@@ -37,7 +34,7 @@
 
 	    // create the alert div
             var btn1   = $('<button type="button" class="close" onclick="wepsim_notify_close(); return false;">') ;
-	    var alert1 = $('<div class="alert alert-' + ntf_type + ' shadow">') ;
+	    var alert1 = $('<div class="alert alert-' + ntf_type + ' shadow border border-light">') ;
 	    ac.prepend(alert1.append(btn1.append("&times;")).append(ntf_message)) ;
 
 	    // if delay was passed, set up a timeout to close the alert
@@ -51,13 +48,14 @@
             simcore_voice_speak(msg) ;
         }
 
-        function wepsim_notify_close ( )
-        {
-            $(".alert").alert('close') ;
 
-            // add if recording
-            simcore_record_append_new('Close all notifications',
-                                      'wepsim_notify_close();\n') ;
+        function wepsim_notify_do_notify ( ntf_title, ntf_message, ntf_type, ntf_delay )
+        {
+	    // add to notifications
+	    simcore_notifications_add(ntf_title, ntf_message, ntf_type, ntf_delay) ;
+
+	    // show up notifications
+            wepsim_notify_show_notify(ntf_title, ntf_message, ntf_type, ntf_delay) ;
         }
 
 	    function wepsim_notify_success ( ntf_title, ntf_message )
@@ -75,8 +73,14 @@
 		 return wepsim_notify_do_notify(ntf_title, ntf_message, 'warning', get_cfg('NOTIF_delay')) ;
 	    }
 
+        function wepsim_notify_close ( )
+        {
+            $(".alert").alert('close') ;
 
-        // Notifications
+            // add if recording
+            simcore_record_append_new('Close all notifications',
+                                      'wepsim_notify_close();\n') ;
+        }
 
         function wepsim_notify_notifications ( )
         {
@@ -86,14 +90,14 @@
 
 	    // setup content...
 	    acc  += '<br>' +
-		    '<div class="alert alert-light p-0 m-0" role="alert">+ <span data-langkey="Recent">Recent</span></div>' +
-		    '<div class="card" style="max-height:70vh; overflow:auto; -webkit-overflow-scrolling: touch;">' + 
+		    '<div id="notifications2" class="alert alert-light p-0 m-0" role="alert">+ <span data-langkey="Recent">Recent</span></div>' +
+		    '<div id="container-notifications2" class="card" style="max-height:70vh; overflow:auto; -webkit-overflow-scrolling: touch;">' + 
 		    '<ul class="list-group list-group-flush">' ;
 	    for (var i=notifications.length-1; i!=0; i--) 
 	    {
 		 t = new Date(notifications[i].date) ;
 
-                 acc += '<li class="list-group-item list-group-item-' + notifications[i].type + '">' + 
+                 acc += '<li class="list-group-item list-group-item-' + notifications[i].type + ' rounded-lg mx-2 my-1 p-2">' + 
 			'<h5 class="m-0">' +
 			'<span class="badge">(' + 
                             t.getHours()    + ':' + t.getMinutes()   + ':' + t.getSeconds() + '.' + t.getMilliseconds() +
@@ -110,7 +114,7 @@
 
 	    // display notifications...
             wepsim_notify_close() ;
-            wepsim_notify_do_notify('notifications', acc, 'light', 0) ;
+            wepsim_notify_show_notify('notifications', acc, 'light', 0) ;
 
             // add if recording
             simcore_record_append_new('Open notification list',
