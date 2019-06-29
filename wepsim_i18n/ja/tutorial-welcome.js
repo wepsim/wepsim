@@ -19,20 +19,22 @@
  */
 
 
+    // Translated thanks to Google translate
+
     i18n.eltos.tutorial_welcome.ja = {
 
 		'title_0':		'WepSIMシミュレータへようこそ！',
-		'message_0':		'<center> <img alt = \'wepsim screenshot\' src = \'help / simulator / simulator012.jpg\' style = \'最大幅：100％; max-height：40vh; \'> </center> <p> <h5>この簡単なチュートリアルでは、以下の方法について説明します。<ol> <li> <a href =\'＃ \'onclick =\' sim_tutorial_goframe（ "welcome" 、0,1）; \'>例を読み込みます。</a> </li> <li> <a href=\'#\' onclick=\'sim_tutorial_goframe("welcome",0,2);\'>例を実行してください。 </a> </li> <li> <a href=\'#\' onclick=\'sim_tutorial_goframe("welcome",0,3);\'>シミュレーションを設定します。</a> </li> <li> < a href = \'＃\' onclick = \'sim_tutorial_goframe（ "welcome"、0,4）;\'>サポートを受けてください。</a> </li></ol> </h5>',
+		'message_0':		'<center> <img alt = \'wepsim screenshot\' src = \'images/simulator/simulator012.jpg\' style = \'max-width: 100％; max-height: 40vh; \'> </center> <p> <h5>この簡単なチュートリアルでは、以下の方法について説明します。<ol> <li> <a href =\'＃ \'onclick =\' sim_tutorial_goframe（ "welcome" 、0,1）; \'>例を読み込みます。</a> </li> <li> <a href=\'#\' onclick=\'sim_tutorial_goframe("welcome",0,2);\'>例を実行してください。 </a> </li> <li> <a href=\'#\' onclick=\'sim_tutorial_goframe("welcome",0,3);\'>シミュレーションを設定します。</a> </li> <li> <a href = \'＃\' onclick = \'sim_tutorial_goframe（ "welcome"、0,4）;\'>サポートを受けてください。</a> </li></ol> </h5>',
 		'title_1':		'例を読み込む方法',
-		'message_1':		'<center> <img alt = \'wepsim screenshot\' src = \'help / welcome / example_usage.gif\' style = \'最大幅：100％; max-height：60vh \'> </center> <p> <h5>「example」ボタンをクリックし、次に「title」名の例をクリックします。<br>次に、マイクロコードとアセンブリの例を読み込んでマイクロコンパイルし、コンパイル済み。<br> <br> </h5>',
+		'message_1':		'<center> <img alt = \'wepsim screenshot\' src = \'images/welcome/example_usage.gif\' style = \'max-width: 100％; max-height: 60vh \'> </center> <p> <h5>「example」ボタンをクリックし、次に「title」名の例をクリックします。<br>次に、マイクロコードとアセンブリの例を読み込んでマイクロコンパイルし、コンパイル済み。<br> <br> </h5>',
 		'title_2':		'例を実行する方法',
-		'message_2':		'<center> <img alt = \'wepsim screenshot\' src = \'help / welcome / simulation_xinstruction.gif\' style = \'最大幅：100％; max-height：60vh \'> </center> <p> <h5>次の命令/マイクロ命令をクリックすると、段階的に実行されます。 <br>実行ボタンをクリックして、最初のブレークポイントまたはアセンブリプログラムの最後まで実行します。<br> </h5>',
+		'message_2':		'<center> <img alt = \'wepsim screenshot\' src = \'images/welcome/simulation_xinstruction.gif\' style = \'max-width: 100％; max-height: 60vh \'> </center> <p> <h5>次の命令/マイクロ命令をクリックすると、段階的に実行されます。 <br>実行ボタンをクリックして、最初のブレークポイントまたはアセンブリプログラムの最後まで実行します。<br> </h5>',
 		'title_3':		'WepSIMの設定方法',
-		'message_3':		'<center> <img alt = \'wepsim screenshot\' src = \'help / welcome / config_usage.gif\' style = \'最大幅：100％; max-height：60vh \'> </center> <p> <h5>「設定」ボタンをクリックすると、ユーザーはWepSIMのさまざまな部分をカスタマイズできます。<br> </h5>',
+		'message_3':		'<center> <img alt = \'wepsim screenshot\' src = \'images/welcome/config_usage.gif\' style = \'max-width: 100％; max-height: 60vh \'> </center> <p> <h5>「設定」ボタンをクリックすると、ユーザーはWepSIMのさまざまな部分をカスタマイズできます。<br> </h5>',
 		'title_4':		'基本的な助けを得る方法。',
-		'message_4':		'<center> <img alt = \'wepsim screenshot\' src = \'help / welcome / help_usage.gif\' style = \'最大幅：100％; max-height：60vh \'> </center> <p> <h5>緑色の「ヘルプ」ボタンをクリックしてヘルプダイアログにアクセスしてください。<br>イディオム（スペイン語/英語）を切り替えることができます。ヘルプインデックスを作成するか、ヘルプダイアログを閉じます。<br> </h5>',
+		'message_4':		'<center> <img alt = \'wepsim screenshot\' src = \'images/welcome/help_usage.gif\' style = \'max-width: 100％; max-height: 60vh \'> </center> <p> <h5>緑色の「ヘルプ」ボタンをクリックしてヘルプダイアログにアクセスしてください。<br>イディオム（スペイン語/英語）を切り替えることができます。ヘルプインデックスを作成するか、ヘルプダイアログを閉じます。<br> </h5>',
 		'title_5':		'WepSIMへようこそ！',
-		'message_5':		'<center> <img alt = \'wepsim screenshot\' src = \'help / welcome / help_usage.gif\' style = \'最大幅：100％; max-height：60vh \'> </center> <p> <h5>詳細についてはヘルプセクションをご覧ください。 <br>このチュートリアルの終了ボタンをクリックすると、WepSIMが最初の例をロードします。お楽しみください。<br> </h5>',
+		'message_5':		'<center> <img alt = \'wepsim screenshot\' src = \'images/welcome/help_usage.gif\' style = \'max-width: 100％; max-height: 60vh \'> </center> <p> <h5>詳細についてはヘルプセクションをご覧ください。 <br>このチュートリアルの終了ボタンをクリックすると、WepSIMが最初の例をロードします。お楽しみください。<br> </h5>',
 		'_last_':		'_last_'
 
     };

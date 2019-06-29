@@ -220,46 +220,46 @@ Wobei der Operator "sel (Bitstart, Bitende-Feld)" es uns ermöglicht, eine Anzah
 <p>
                 Der Assembler-Code wird in einer Textdatei mit einem ersten Datenabschnitt (.data) und einem zweiten Abschnitt mit dem Code (.text) <br /> beschrieben
 <br />
-Im Datenbereich können die Variablen und Konstanten definiert werden, die im Datensegment des Hauptspeichers verbleiben. Der Abschnitt beginnt mit der Direktive <i> .data </​​i>. Die Direktiven, die die Datentypen angeben, die definiert werden können, sind:
+Im Datenbereich können die Variablen und Konstanten definiert werden, die im Datensegment des Hauptspeichers verbleiben. Der Abschnitt beginnt mit der Direktive <i> .data </i>. Die Direktiven, die die Datentypen angeben, die definiert werden können, sind:
 </p>
 <p>
-& middot; <b> .ascii: </b> Es folgt eine Zeichenfolge, die den Assembler anweist, einen Speicherbereich mit Daten zu erstellen und die angegebene Zeichenfolge darin zu speichern.
+&middot; <b> .ascii: </b> Es folgt eine Zeichenfolge, die den Assembler anweist, einen Speicherbereich mit Daten zu erstellen und die angegebene Zeichenfolge darin zu speichern.
 </p>
 <p>
-& middot; <b> .asciiz: </b> Es folgt eine Zeichenfolge, die den Assembler anweist, einen Speicherbereich mit Daten zu erstellen und die zugehörige Zeichenfolge als nullterminierte Zeichenfolge zu speichern.
+&middot; <b> .asciiz: </b> Es folgt eine Zeichenfolge, die den Assembler anweist, einen Speicherbereich mit Daten zu erstellen und die zugehörige Zeichenfolge als nullterminierte Zeichenfolge zu speichern.
 </p>
 <p>
-& middot; <b> .byte: </b> Es folgen ein oder mehrere Werte, die Teil des Werts der Variablen sind. Bei mehreren Werten werden diese Werte durch Komma getrennt. Folgende Werte können verwendet werden: <b> Zeichen, Oktal, Hexadezimal und Dezimal </b>.
+&middot; <b> .byte: </b> Es folgen ein oder mehrere Werte, die Teil des Werts der Variablen sind. Bei mehreren Werten werden diese Werte durch Komma getrennt. Folgende Werte können verwendet werden: <b> Zeichen, Oktal, Hexadezimal und Dezimal </b>.
 </p>
 <p>
-& middot; <b> .half: </b> Es folgen ein oder mehrere Werte, die Teil des Werts der Variablen sind. Bei mehreren Werten werden diese Werte durch Komma getrennt. Folgende Werte können verwendet werden: <b> Oktal, Hexadezimal und Dezimal </b>.
+&middot; <b> .half: </b> Es folgen ein oder mehrere Werte, die Teil des Werts der Variablen sind. Bei mehreren Werten werden diese Werte durch Komma getrennt. Folgende Werte können verwendet werden: <b> Oktal, Hexadezimal und Dezimal </b>.
 </p>
 <p>
-& middot; <b> .word: </b> Wird von einem oder mehreren Werten gefolgt, die Teil des Werts der Variablen sind. Bei mehreren Werten werden diese Werte durch Komma getrennt. Folgende Werte können verwendet werden: <b> Oktal, Hexadezimal und Dezimal </b>.
+&middot; <b> .word: </b> Wird von einem oder mehreren Werten gefolgt, die Teil des Werts der Variablen sind. Bei mehreren Werten werden diese Werte durch Komma getrennt. Folgende Werte können verwendet werden: <b> Oktal, Hexadezimal und Dezimal </b>.
 </p>
 <p>
-& middot; <b> .space: </b> Es folgt die Anzahl der Bytes im Dezimalformat, die der Benutzer zuordnen möchte.
+&middot; <b> .space: </b> Es folgt die Anzahl der Bytes im Dezimalformat, die der Benutzer zuordnen möchte.
 </p>
 <p>
                 Das Format eines Wertes der früheren Datentypen lautet:
 </p>
 <p>
-& middot; <b> String: </b> Zeichenfolge in doppelten Anführungszeichen. <br />
+&middot; <b> String: </b> Zeichenfolge in doppelten Anführungszeichen. <br />
 Zum Beispiel: "hola 123 \ n"
 </p>
 <p>
-& middot; <b> Zeichen: </b> Zeichen, umgeben von einfachen Anführungszeichen. <br />
+&middot; <b> Zeichen: </b> Zeichen, umgeben von einfachen Anführungszeichen. <br />
 Zum Beispiel: & apos; c & apos ;.</p>
 <p>
-& middot; <b> Oktal: </b> Eine Zahl, die mit Null beginnt und deren Ziffern kleiner als acht sind.
+&middot; <b> Oktal: </b> Eine Zahl, die mit Null beginnt und deren Ziffern kleiner als acht sind.
                Zum Beispiel: 012.
 </p>
 <p>
-& middot; <b> Hexadezimal: </b> Eine Zahl, die mit dem 0x-Präfix beginnt und deren Ziffern null bis neun sind sowie die Buchstaben a, b, c, d, e und f. <br />
+&middot; <b> Hexadezimal: </b> Eine Zahl, die mit dem 0x-Präfix beginnt und deren Ziffern null bis neun sind sowie die Buchstaben a, b, c, d, e und f. <br />
 Zum Beispiel: 0x12.
 </p>
 <p>
-& middot; <b> Dezimal: </b> Eine Zahl, die weder oktal noch hexadezimal ist und deren Ziffern zwischen null und neun (einschließlich) liegen. <br />
+&middot; <b> Dezimal: </b> Eine Zahl, die weder oktal noch hexadezimal ist und deren Ziffern zwischen null und neun (einschließlich) liegen. <br />
 Zum Beispiel: 12.
 </p>
 <p>
@@ -337,7 +337,7 @@ Um auf diesen Bildschirm zuzugreifen, müssen Sie die obere mittlere Mikrocode-S
 
 </p>
 <p>
-<img max-width = "90%" width = "90%" id = "Imagen 1" src = "help/simulator/firmware001.jpg" alt = "" name = "Imagen 1" />
+<img max-width = "90%" width = "90%" id = "Imagen 1" src = "images/simulator/firmware001.jpg" alt = "" name = "Imagen 1" />
 </p>
 <p class = "cleanuphtml-2">
 <a name="_Ref434190846"> </a> <a name="_Toc438322905"> </a> <a class="cleanuphtml-1" name="_Ref434190877"> Abbildung </a> <b> 16 </b> <b> Hauptbildschirm: Option zum Laden des Mikrocodes. </b>
@@ -347,7 +347,7 @@ Um auf diesen Bildschirm zuzugreifen, müssen Sie die obere mittlere Mikrocode-S
                 Anschließend wird ein Bildschirm mit einem Online-Texteditor angezeigt, auf dem der Schüler den Mikrocode beschreiben kann (die drei Abschnitte, die zuvor kommentiert wurden). Benutzer können einen vorhandenen Mikrocode über die Schaltfläche "Laden" in der oberen Symbolleiste laden, einen zuvor geladenen Mikrocode ändern oder den aktuellen Mikrocode mit der Schaltfläche "Speichern" in der oberen Symbolleiste speichern. Sobald der Mikrocode fertig ist, klicken Sie auf die Schaltfläche "Î¼compile", um ihn zu kompilieren und die resultierende Binärdatei in den Steuerspeicher zu laden, wie in <b class = "cleanuphtml-4"> Abbildung 17 </b> gezeigt.
 </p>
 <p>
-<img max-width = "90%" width = "90%" id = "Imagen 2" src = "help/simulator/firmware002.jpg" alt = "" name = "Imagen 2" />
+<img max-width = "90%" width = "90%" id = "Imagen 2" src = "images/simulator/firmware002.jpg" alt = "" name = "Imagen 2" />
 </p>
 <p class = "MsoNormal cleanuphtml-5"> </p>
 <table cellpadding = "0" cellspacing = "0" align = "left">
@@ -360,13 +360,13 @@ Um auf diesen Bildschirm zuzugreifen, müssen Sie die obere mittlere Mikrocode-S
                 Sobald der neue Mikrocode korrekt geladen wurde, können die Schüler mit der in <b class = "cleanuphtml-4"> Abbildung 18 </b> gezeigten Schaltfläche die in den Steuerspeicher geladene Binärdatei überprüfen.
 </p>
 <p>
-<img max-width = "90%" width = "90%" id = "Imagen4" src = "help/simulator/firmware004.jpg" alt = "Schaltfläche zum Öffnen des Steuerspeichermodals" />
+<img max-width = "90%" width = "90%" id = "Imagen4" src = "images/simulator/firmware004.jpg" alt = "Schaltfläche zum Öffnen des Steuerspeichermodals" />
 </p>
 <p class = "cleanuphtml-2">
 <a name="fig4"> </a> <a class="cleanuphtml-1" name="_Ref434191551"> Abbildung </a> <b> 18 </b> <b> Mikrocode-Bildschirm: Steuerspeicherinhalt anzeigen </b>
 </p>
 <p>
-<img max-width = "90%" width = "90%" id = "Imagen5" src = "help/simulator/firmware005.jpg" alt = "Modal mit dem Steuerspeicherinhalt in binär" />
+<img max-width = "90%" width = "90%" id = "Imagen5" src = "images/simulator/firmware005.jpg" alt = "Modal mit dem Steuerspeicherinhalt in binär" />
 </p>
 <p class = "cleanuphtml-2">
 <a name="fig5"> </a> <a class="cleanuphtml-1" name="_Ref434191551"> Abbildung </a> <b> 19 </b> <b> Mikrocode-Bildschirm: Binär im Steuerspeicher </b>
@@ -392,7 +392,7 @@ Weitere Informationen finden Sie im Abschnitt 'Simulator: Assembly' in der Hilfe
 <br />
 </p>
 <p>
-<img max-width = "90%" width = "90%" id = "Imagen 3" src = "help/simulator/assembly002a.jpg" alt = "" name = "Imagen 3" />
+<img max-width = "90%" width = "90%" id = "Imagen 3" src = "images/simulator/assembly002a.jpg" alt = "" name = "Imagen 3" />
 </p>
 <p class = "cleanuphtml-2">
 <a name="_Toc438322909"> </a> <a class="cleanuphtml-1" name="_Toc434155501"> Abbildung </a> <b> 20 </b> <b> Hauptbildschirm: Assembler-Code-Bildschirm. </b>
@@ -407,7 +407,7 @@ Sobald der Code fertig ist, müssen Sie auf die Schaltfläche "Kompilieren" klic
 
 </p>
 <p>
-<img max-width = "90%" width = "90%" id = "Imagen 28" src = "help/simulator/assembly003.jpg" alt = "" name = "Imagen 28" />
+<img max-width = "90%" width = "90%" id = "Imagen 28" src = "images/simulator/assembly003.jpg" alt = "" name = "Imagen 28" />
 </p>
 <p class = "cleanuphtml-2">
 <a name="_Toc438322910"> </a> <a class="cleanuphtml-1" name="_Ref434192102"> Abbildung </a> <b> 21 </b> <b> Assembly-Bildschirm: Texteditor für das Assembler-Code. </b> <b> <br />
@@ -420,13 +420,13 @@ Sobald der Code fertig ist, müssen Sie auf die Schaltfläche "Kompilieren" klic
 
 </p>
 <p>
-<img max-width = "90%" width = "90%" id = "Imagen 30" src = "help/simulator/assembly004.jpg" alt = "Baugruppenbildschirm, Schaltfläche zum Anzeigen der Baugruppe im Binärformat" />
+<img max-width = "90%" width = "90%" id = "Imagen 30" src = "images/simulator/assembly004.jpg" alt = "Baugruppenbildschirm, Schaltfläche zum Anzeigen der Baugruppe im Binärformat" />
 </p>
 <p class = "cleanuphtml-2">
 <a name="_Toc438322912"> </a> <a class="cleanuphtml-1" name="_Ref434192450"> Abbildung </a> <b> 22 </b> <b> Assembly-Bildschirm: Klicken Sie auf diese Schaltfläche, um das zu erkunden Hauptspeicherwerte. </b>
 </p>
 <p>
-<img max-width = "90%" width = "90%" id = "Imagen 30" src = "help/simulator/assembly005.jpg" alt = "Modal mit der Assembly im Binärformat" />
+<img max-width = "90%" width = "90%" id = "Imagen 30" src = "images/simulator/assembly005.jpg" alt = "Modal mit der Assembly im Binärformat" />
 </p>
 <p class = "cleanuphtml-2">
 <a name="_Toc438322912"> </a> <a class="cleanuphtml-1" name="_Ref434192450"> Abbildung </a> <b> 23 </b> <b> Assembly-Bildschirm: Binärwerte </b>
@@ -462,7 +462,7 @@ Der Steuerspeicherinhalt (siehe 24) mit jedem Zyklussteuersignal.
 </li>
 </ul>
 <p>
-<img max-width = "90%" width = "90%" id = "Imagen 1" src = "help/simulator/simulator009.jpg" alt = "" name = "Imagen 1" />
+<img max-width = "90%" width = "90%" id = "Imagen 1" src = "images/simulator/simulator009.jpg" alt = "" name = "Imagen 1" />
 </p>
 <p class = "cleanuphtml-3">
 <a name="_Toc438322913"> </a> <a class="cleanuphtml-2" name="_Ref434192973"> Abbildung </a> <b> 24 </b> <b> Hauptbildschirm: Visualisierung des Steuerelements Speicher. </B>
@@ -470,7 +470,7 @@ Der Steuerspeicherinhalt (siehe 24) mit jedem Zyklussteuersignal.
 <p>
 </p>
 <p>
-<img max-width = "90%" width = "90%" id = "Imagen 3" src = "help/simulator/simulator010.jpg" alt = "" name = "Imagen 3" />
+<img max-width = "90%" width = "90%" id = "Imagen 3" src = "images/simulator/simulator010.jpg" alt = "" name = "Imagen 3" />
 </p>
 <p class = "cleanuphtml-3">
 <a name="_Toc438322914"> </a> <a class="cleanuphtml-2" name="_Ref434193222"> Abbildung </a> <b> 25 </b> <b> Hauptbildschirm: Visualisierung des Hauptbildschirms Speichercode. </b>
@@ -488,7 +488,7 @@ Der Steuerspeicherinhalt (siehe 24) mit jedem Zyklussteuersignal.
 <p>
 </p>
 <p>
-<img max-width = "90%" width = "90%" id = "Imagen 4" src = "help/simulator/simulator011.jpg" alt = "" name = "Imagen 4" />
+<img max-width = "90%" width = "90%" id = "Imagen 4" src = "images/simulator/simulator011.jpg" alt = "" name = "Imagen 4" />
 </p>
 <p class = "cleanuphtml-3">
 <a name="_Toc438322915"> </a> <a class="cleanuphtml-2" name="_Ref434193775"> Abbildung </a> <b> 26 </b> <b> Hauptbildschirm: Ausführungsoptionen </b>
@@ -503,7 +503,7 @@ Mit der Schaltfläche "<i> Register </i>" in der oberen rechten Leiste des Haupt
 <p>
 </p>
 <p>
-<img max-width = "90%" width = "90%" id = "Imagen 8" src = "help/simulator/simulator012.jpg" alt = "" name = "Imagen 8" />
+<img max-width = "90%" width = "90%" id = "Imagen 8" src = "images/simulator/simulator012.jpg" alt = "" name = "Imagen 8" />
 </p>
 <p class = "cleanuphtml-3">
 <a name="_Toc438322916"> </a> <a class="cleanuphtml-2" name="_Ref434194139"> Abbildung </a> <b> 27 </b> <b> Hauptbildschirm: Visualisierung der Steuereinheit. </b>
@@ -573,7 +573,7 @@ Es werden nur die Werte angezeigt, die sich zwischen zwei Zuständen unterscheid
 <p>
 <ul>
               Die typischen Schritte zur Verwendung dieses Dialogfelds werden in dieser Animation gezeigt: <br>
-<img class = "w-75" src = "help/welcome/states_usage.gif">
+<img class = "w-75" src = "images/welcome/states_usage.gif">
 </ul>
 
       </div>

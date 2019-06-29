@@ -86,7 +86,7 @@
                                 "<ul>" +
                                 "<li>La vue assemblage et matériel. </li>" +
                                 "<li>La vue détaillée des registres, de la mémoire de contrôle, de la mémoire principale, etc. </li>" +
-                                "<li>La réinitialisation, étape par étape ou exécution jusqu'au point d'arrêt / actions de fin. </li>" +
+                                "<li>La réinitialisation, étape par étape ou exécution jusqu'au point d'arrêt/actions de fin. </li>" +
                                 "</ul>" +
                                 "Ce tutoriel a introduit l'utilisation typique de WepSIM pour les étudiants et les enseignants. Profitez de WepSIM!" +
                                 "</h5>"

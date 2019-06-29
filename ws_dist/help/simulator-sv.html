@@ -39,7 +39,7 @@
 3. Pseudo-instruktioner
 </p>
 <P>
-                Mikroprogramlistan börjar med koden <b> hämta </​​b>.
+                Mikroprogramlistan börjar med koden <b> hämta </b>.
                 Ett exempel på grundläggande hämta mikroprogram kan vara:
 </p>
 <Ul>
@@ -54,7 +54,7 @@ hämta: (T2, C0 = 1), <br>
 </p>
 </ul>
 <p class = "cleanuphtml-2">
-<a class="cleanuphtml-1" name="_Toc438322900"> Figur </a> <b> 11 </b> <b> Exempel på beskrivning för </b> <b> Hämta </​​b>
+<a class="cleanuphtml-1" name="_Toc438322900"> Figur </a> <b> 11 </b> <b> Exempel på beskrivning för </b> <b> Hämta </b>
 </p>
 <P>
 Kontrollsignaler som ligger mellan parenteserna (och) motsvarar signalerna för att aktiveras i en klockcykel. Således kräver hämtningen fyra klockcykler, den sista motsvarar avkodning (ingår i hämtningen).
@@ -220,46 +220,46 @@ När operatören "sel (bit-start, bit-end-fält)" tillåter oss att välja ett a
 <P>
                 Monteringsnumret beskrivs i en textfil med en första datasektion (.data) och en andra sektion med koden (.text) <br />
 <br />
-I datasektionen är det möjligt att definiera variablerna och konstanterna som kommer att ligga i datasegmentet i huvudminnet. Avsnittet börjar med <i> .data </​​i> -direktivet. De direktiv som anger vilka typer av data som kan definieras är:
+I datasektionen är det möjligt att definiera variablerna och konstanterna som kommer att ligga i datasegmentet i huvudminnet. Avsnittet börjar med <i> .data </i> -direktivet. De direktiv som anger vilka typer av data som kan definieras är:
 </p>
 <P>
-& middot; <b> .ascii: </b> Följs av en sträng som instruerar montören att skapa ett minnesområde med data och lagra den i den angivna strängen.
+&middot; <b> .ascii: </b> Följs av en sträng som instruerar montören att skapa ett minnesområde med data och lagra den i den angivna strängen.
 </p>
 <P>
-& middot; <b> .asciiz: </b> Följs av en sträng som instruerar montören att skapa ett minnesområde med data och lagra den associerade strängen som en nollställd sträng.
+&middot; <b> .asciiz: </b> Följs av en sträng som instruerar montören att skapa ett minnesområde med data och lagra den associerade strängen som en nollställd sträng.
 </p>
 <P>
-& middot; <b> .byte: </b> Det följs av ett eller flera värden som ingår i värdet av variabeln. Om flera värden separeras dessa värden med kommatecken. De värden som kan användas är: <b> tecken, oktal, hexadecimal och decimal </b>.
+&middot; <b> .byte: </b> Det följs av ett eller flera värden som ingår i värdet av variabeln. Om flera värden separeras dessa värden med kommatecken. De värden som kan användas är: <b> tecken, oktal, hexadecimal och decimal </b>.
 </p>
 <P>
-& middot; <b> .half: </b> Det följs av ett eller flera värden som ingår i värdet av variabeln. Om flera värden separeras dessa värden med kommatecken. De värden som kan användas är: <b> oktal, hexadecimal och decimal </b>.
+&middot; <b> .half: </b> Det följs av ett eller flera värden som ingår i värdet av variabeln. Om flera värden separeras dessa värden med kommatecken. De värden som kan användas är: <b> oktal, hexadecimal och decimal </b>.
 </p>
 <P>
-& middot; <b> .word: </b> Det följs av ett eller flera värden som ingår i värdet av variabeln. Om flera värden separeras dessa värden med kommatecken. De värden som kan användas är: <b> oktal, hexadecimal och decimal </b>.
+&middot; <b> .word: </b> Det följs av ett eller flera värden som ingår i värdet av variabeln. Om flera värden separeras dessa värden med kommatecken. De värden som kan användas är: <b> oktal, hexadecimal och decimal </b>.
 </p>
 <P>
-& middot; <b> .space: </b> Det följs av antalet byte i decimalformat som användaren vill tilldela.
+&middot; <b> .space: </b> Det följs av antalet byte i decimalformat som användaren vill tilldela.
 </p>
 <P>
                 Formatet av ett värde av de tidigare datatyperna är:
 </p>
 <P>
-& middot; <b> String: </b> teckensekvens bifogad i dubbla citat. <br />
+&middot; <b> String: </b> teckensekvens bifogad i dubbla citat. <br />
 Till exempel: "hej 123 \ n"
 </p>
 <P>
-& middot; <b> Karaktär: </b> tecken omgivet av enkla citat. <br />
+&middot; <b> Karaktär: </b> tecken omgivet av enkla citat. <br />
 Till exempel: '' '.</p>
 <P>
-& middot; <b> Octal: </b> ett tal som börjar med noll och siffrorna är lägre än åtta.
+&middot; <b> Octal: </b> ett tal som börjar med noll och siffrorna är lägre än åtta.
                Till exempel: 012.
 </p>
 <P>
-& middot; <B> Hexadecimal: </b> ett nummer som börjar med prefixet 0x och dess siffror är noll till nio och bokstäverna a, b, c, d, e och f <br />.
+&middot; <B> Hexadecimal: </b> ett nummer som börjar med prefixet 0x och dess siffror är noll till nio och bokstäverna a, b, c, d, e och f <br />.
 Till exempel: 0x12.
 </p>
 <P>
-& middot; <B> Decimal. </B> ett nummer i oktalt som inte är eller hexadecimala siffror och dess fall mellan noll och nio (inklusive) <br />
+&middot; <B> Decimal. </B> ett nummer i oktalt som inte är eller hexadecimala siffror och dess fall mellan noll och nio (inklusive) <br />
 Till exempel: 12.
 </p>
 <P>
@@ -391,7 +391,7 @@ Vänligen kontrollera avsnittet "Simulator: assembly" från hjälp för mer info
 <br />
 </p>
 <P>
-<img max-width = "90%" width = "90%" id = "Bild 3" src = "bilder/simulator/assembly002a.jpg" alt = "" name = "Bild 3" />
+<img max-width = "90%" width = "90%" id = "Bild 3" src = "images/simulator/assembly002a.jpg" alt = "" name = "Bild 3" />
 </p>
 <p class = "cleanuphtml-2">
 <a name="_Toc438322909"> </a> <a class="cleanuphtml-1" name="_Toc434155501"> Figur </a> <b> 20 </b> <b> huvudskärmen: Assembler-kod skärm. </b>
@@ -400,35 +400,35 @@ Vänligen kontrollera avsnittet "Simulator: assembly" från hjälp för mer info
                 Sedan visas en textredigerare där monteringskoden kan laddas och redigeras. Du kan ladda en befintlig kod med knappen "Ladda" på den övre fältet, ändra en kod som tidigare laddats eller spara koden som för närvarande laddas med "Spara" -knappen på översta fältet.
 </p>
 <P>
-När koden är klar, Du måste klicka på "Samla" för att kompilera Denna kod till binär och att ladda esta binär i huvudminnet, såsom visas i <b class = "cleanuphtml-3"> Figur 21 </b >.
+När koden är klar, Du måste klicka på "Samla" för att kompilera Denna kod till binär och att ladda esta binär i huvudminnet, såsom visas i <b class = "cleanuphtml-3"> Figur 21 </b>.
 </p>
 <P>
 
 </p>
 <P>
-<img max-width = "90%" width = "90%" id = "Bild 28" src = "bilder/simulator/assembly003.jpg" alt = "" name = "Bild 28" />
+<img max-width = "90%" width = "90%" id = "Bild 28" src = "images/simulator/assembly003.jpg" alt = "" name = "Bild 28" />
 </p>
 <p class = "cleanuphtml-2">
 <a name="_Toc438322910"> </a> <a class="cleanuphtml-1" name="_Ref434192102"> Figur </a> <b> 21 </b> <b> Monterings skärm: texteditor för den monteringskod. </b> <b> <br />
 <br /> </b>
 </p>
 <P>
-                En gång sammanställts, kommer den att passera till skärmen som visas i <b class = "cleanuphtml-3"> Figur 22 </b>, och användaren kan klicka på knappen show för att undersöka innehållet i huvudminnet i binärt (< b class = "cleanuphtml-3"> Figur 23 </b>).
+                En gång sammanställts, kommer den att passera till skärmen som visas i <b class = "cleanuphtml-3"> Figur 22 </b>, och användaren kan klicka på knappen show för att undersöka innehållet i huvudminnet i binärt (<b class = "cleanuphtml-3"> Figur 23 </b>).
 </p>
 <P>
 
 </p>
 <P>
-<img max-width = "90%" width = "90%" id = "Bild 30" src = "bilder/simulator/assembly004.jpg" alt = "Monteringsskärm, knapp för att visa montering i binär" />
+<img max-width = "90%" width = "90%" id = "Bild 30" src = "images/simulator/assembly004.jpg" alt = "Monteringsskärm, knapp för att visa montering i binär" />
 </p>
 <p class = "cleanuphtml-2">
 <a name="_Toc438322912"> </a> <a class="cleanuphtml-1" name="_Ref434192450"> Figur </a> <b> 22 </b> <b> Monterings skärm: tangenten för att utforska huvudminnevärden. </b>
 </p>
 <P>
-<img max-width = "90%" width = "90%" id = "Bild 30" src = "bilder/simulator/assembly005.jpg" alt = "Modal med enheten i binär" />
+<img max-width = "90%" width = "90%" id = "Bild 30" src = "images/simulator/assembly005.jpg" alt = "Modal med enheten i binär" />
 </p>
 <p class = "cleanuphtml-2">
-<a name="_Toc438322912"> </a> <a class="cleanuphtml-1" name="_Ref434192450"> Figur </a> <b> 23 </b> <b> Monterings skärmen: binära värden <./b>
+<a name="_Toc438322912"> </a> <a class="cleanuphtml-1" name="_Ref434192450"> Figur </a> <b> 23 </b> <b> Monterings skärmen: binära värden </b>.
 </p>
 <P>
 <br />
@@ -461,7 +461,7 @@ Kontrollminneinnehållet (se <b> Figur 24 </b>), med varje cykelstyrsignal.
 </li>
 </ul>
 <P>
-<img max-width = "90%" width = "90%" id = "Bild 1" src = "bilder/simulator/simulator009.jpg" alt = "" name = "Bild 1" />
+<img max-width = "90%" width = "90%" id = "Bild 1" src = "images/simulator/simulator009.jpg" alt = "" name = "Bild 1" />
 </p>
 <p class = "cleanuphtml-3">
 <a name="_Toc438322913"> </a> <a class="cleanuphtml-2" name="_Ref434192973"> Figur </a> <b> 24 </b> <b> huvudskärmen: visualisering av kontroll minne. </b>
@@ -487,10 +487,10 @@ Kontrollminneinnehållet (se <b> Figur 24 </b>), med varje cykelstyrsignal.
 <P>
 </p>
 <P>
-<img max-width = "90%" width = "90%" id = "Bild 4" src = "bilder/simulator/simulator011.jpg" alt = "" name = "Bild 4" />
+<img max-width = "90%" width = "90%" id = "Bild 4" src = "images/simulator/simulator011.jpg" alt = "" name = "Bild 4" />
 </p>
 <p class = "cleanuphtml-3">
-<a name="_Toc438322915"> </a> <a class="cleanuphtml-2" name="_Ref434193775"> Figur </a> <b> 26 </b> <b> huvudskärmen: exekverings alternativ <./b>
+<a name="_Toc438322915"> </a> <a class="cleanuphtml-2" name="_Ref434193775"> Figur </a> <b> 26 </b> <b> huvudskärmen: exekverings alternativ </b>.
 </p>
 <P>
 <br />
@@ -502,7 +502,7 @@ Med "<i> Register </i>" knappen på det övre högra fältet i huvudskärmen (se
 <P>
 </p>
 <P>
-<img max-width = "90%" width = "90%" id = "bild 8" src = "bilder/simulator/simulator012.jpg" alt = "" name = "bild 8" />
+<img max-width = "90%" width = "90%" id = "bild 8" src = "images/simulator/simulator012.jpg" alt = "" name = "bild 8" />
 </p>
 <p class = "cleanuphtml-3">
 <a name="_Toc438322916"> </a> <a class="cleanuphtml-2" name="_Ref434194139"> Figur </a> <b> 27 </b> <b> huvudskärmen: visualisering styrenheten. </b>
