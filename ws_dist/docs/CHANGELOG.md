@@ -1,5 +1,6 @@
 
 2.0.7 -> 2.0.8:
+* Improved UI
 * Added translation for the simulator help and about dialog
 
 2.0.6 -> 2.0.7:
