@@ -21,8 +21,6 @@
 
     i18n.eltos.dialogs.kr = {
 
-                        "Show Notifications":                           "알림 표시",
-                        "Show/Hide RecordBar":                          "RecordBar보기 / 가리기",
                         "Show/Hide ActionBar":                          "ActionBar 표시 / 숨기기",
                         "Show/Hide Slider":                             "슬라이더 표시 / 숨기기",
                         "WepSIM User Interface Skin": 		        "WepSIM 사용자 인터페이스 스킨",

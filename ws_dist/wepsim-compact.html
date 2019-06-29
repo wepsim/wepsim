@@ -175,7 +175,7 @@
 
 <body>
 	<span id="ws_loader" class="collapse show">
-		<table style="width:100%; height:100%; position:fixed; background-color: white;  z-index:100;">
+		<table style="width:100%; height:100%; position:fixed; background-color: white; z-index:100;">
 		<tr>
 		<td align="center">
 		    <div class="spinner-border spinner-border-xl text-success" role="status">
@@ -276,9 +276,9 @@
 	    <h6 class="pt-3">Simulator</h6>
             <div class="row py-1 px-1 collapse show multi-collapse-1" style="margin:1px">
 
-                    <div id="slider_cpucu" class="col-sm p-0 collapse show multi-collapse-2">
+                      <div id="slider_cpucu" class="col-sm p-0 collapse show multi-collapse-2">
 			    <form id="slider2f" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">
-				 <label class="my-0" for="slider2b" style="min-width:95%">processor:</label>
+				 <label class="my-0" for="slider2b" style="min-width:95%"><span data-langkey='processor'>processor</span>:</label>
 				 <input aria-label="Show CPU/CU" type="range" name="slider2b" id="slider2b"
 					min="0" max="12" value="7" step="1"
 				        data-show-value="false"
@@ -286,12 +286,12 @@
                                         oninput="wsweb_set_cpucu_size(this.value) ;
                                                  return false;">
 			    </form>
-                    </div>
+                      </div>
 
-		    <div class="w-100 d-md-block d-lg-none"></div>
+		      <div class="w-100 d-md-block d-lg-none"></div>
 
-                    <div class="col-sm-auto p-1">
-                    <div class="btn-toolbar btn-block" role="toolbar">
+                      <div class="col-sm-auto p-1">
+                      <div class="btn-toolbar btn-block" role="toolbar">
 		            <button class="btn btn-light shadow-sm my-1 mx-0 col-auto"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC; flex-grow:1;"
                                     id="btn_example1"
@@ -348,12 +348,12 @@
 					  return false;">Welcome...</a>
 			    </div>
 			</div>
-                    </div>
-		    </div>
+                      </div>
+		      </div>
 
-		    <div class="w-100 d-xs-block d-sm-none"></div>
+		      <div class="w-100 d-xs-block d-sm-none"></div>
 
-                    <div class="col-sm p-0 collapse show multi-collapse-2">
+                      <div class="col-sm p-0 collapse show multi-collapse-2">
 			    <form id="slider2e" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">
 				 <label class="my-0" for="slider2a" style="min-width:95%"><span data-langkey='details'>details</span>:</label>
 				 <input aria-label="Show Main/Info" type="range" name="slider2a" id="slider2a"
@@ -363,9 +363,35 @@
                                         oninput="wsweb_set_c1c2_size(this.value) ;
                                                  return false;">
 			    </form>
-                    </div>
+                      </div>
 
-		    <div class="w-100 d-block d-sm-none"></div>
+		      <div class="w-100 d-block d-sm-none"></div>
+
+                      <div class="col-sm-auto p-1">
+                      <div class="btn-toolbar btn-block" role="toolbar">
+		            <button class="btn btn-light shadow-sm my-1 mx-0"
+		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			            title="This button opens the 'Record' bar."
+                                    onclick="wsweb_recordbar_toggle();
+					     return false;"><strong><span data-langkey='RecordBar'>RecordBar</span></strong></button>
+		            <button class="btn btn-light shadow-sm my-1 mx-0"
+		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			            title="This button opens the 'Notifications' dialog."
+                                    onclick="wepsim_notify_notifications();
+                                             i18n_update_tags();
+					     return false;"><strong><span data-langkey='Notifications'>Notifications</span></strong></button>
+		            <button class="btn btn-light shadow-sm my-1 mx-0"
+		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+                                    id="btn_cfg1"
+			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			            title="This button opens the 'Configuration' dialog."
+                                    onclick="wsweb_dialogbox_open_config();
+				    	     return false;"
+                                    ><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
+		      </div>
+		      </div>
 
             </div>
 
@@ -477,16 +503,6 @@
 
                     <div class="row row pl-2 pr-3 pt-1">
                     <div class="btn-toolbar btn-block" role="toolbar">
-		            <button class="col btn btn-light shadow-sm"
-                                    id="btn_cfg1"
-			              data-toggle="tooltip" data-placement="bottom" data-html="true" 
-			              title="This button opens the 'Configuration' dialog."
-		    	            style="border-color: #CCCCCC; flex-grow:1;"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
-			            title="This button opens the 'Configuration' dialog."
-                                    onclick="wsweb_dialogbox_open_config();
-				             return false;"><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></button>
-
 		            <button class="col btn btn-light shadow-sm"
 		                    style="border-color: #CCCCCC; flex-grow:2;"
 			              data-toggle="tooltip" data-placement="bottom" data-html="true" 
@@ -1080,13 +1096,13 @@
 				 onclick="set_cfg('ws_idiom','es'); save_cfg();
                                           i18n_update_tags('gui',    'es');
                                           i18n_update_tags('states', 'es');
-                                          update_checker_loadhelp('#help3a', 'help_dumper');
+                                          update_checker_loadhelp('#help3a','help_dumper');
                                           return false;">ES<span class="d-none d-sm-inline-flex">&nbsp;(Spanish)</span></a>
                      <a href="#" class="dropdown-item"
 				 onclick="set_cfg('ws_idiom','en'); save_cfg();
                                           i18n_update_tags('gui',    'en');
                                           i18n_update_tags('states', 'en');
-                                          update_checker_loadhelp('#help3a', 'help_dumper');
+                                          update_checker_loadhelp('#help3a','help_dumper');
                                           return false;">EN<span class="d-none d-sm-inline-flex">&nbsp;(English)</span></a>
                   </div>
                </div>

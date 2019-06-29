@@ -21,8 +21,6 @@
 
     i18n.eltos.dialogs.zh_cn = {
 
-		'Show Notifications':		'显示通知',
-		'Show/Hide RecordBar':		'显示/隐藏RecordBar',
 		'Show/Hide ActionBar':		'显示/隐藏ActionBar',
 		'Show/Hide Slider':		'显示/隐藏滑块',
 		'WepSIM User Interface Skin':	'WepSIM用户界面皮肤',

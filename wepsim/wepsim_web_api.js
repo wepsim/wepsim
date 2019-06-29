@@ -30,6 +30,11 @@
 	    sim_change_workspace('#main1', 0) ;
 
 	    setTimeout(function(){
+			    $("#t3_firm").appendTo("#t3_firm_placeholder2") ;
+			     $("#t4_asm").appendTo("#t4_asm_placeholder2") ;
+			    inputfirm.refresh() ;
+			    inputasm.refresh() ;
+
 			    // stats about ui
 			    ga('send', 'event', 'ui', 'ui.workspace', 'ui.workspace.simulator');
 	               }, 50) ;
@@ -47,6 +52,7 @@
 	    sim_change_workspace('#main3', 1) ;
 
 	    setTimeout(function(){
+	                    $("#t3_firm").appendTo("#t3_firm_placeholder1") ;
 		            inputfirm.refresh() ;
 
 			    // stats about ui
@@ -66,6 +72,7 @@
 	    sim_change_workspace('#main4', 2) ;
 
 	    setTimeout(function(){
+	                    $("#t4_asm").appendTo("#t4_asm_placeholder1") ;
 		            inputasm.refresh() ;
 
 			    // stats about ui
@@ -448,8 +455,8 @@
 	    "IO_STATS":       function(){ wsweb_set_details_select(15); show_memories_values(); },
 	    "IO_CONFIG":      function(){ wsweb_set_details_select(19); show_memories_values(); },
 
-	    "FRM_EDITOR":     function(){ wsweb_set_details_select(20); inputfirm.refresh(); },
-	    "ASM_EDITOR":     function(){ wsweb_set_details_select(21); inputasm.refresh(); },
+	    "FRM_EDITOR":     function(){ wsweb_set_details_select(20); $("#t3_firm").appendTo("#t3_firm_placeholder2"); inputfirm.refresh(); },
+	    "ASM_EDITOR":     function(){ wsweb_set_details_select(21);  $("#t4_asm").appendTo("#t4_asm_placeholder2");   inputasm.refresh(); },
 	    "HARDWARE":       function(){ wsweb_set_details_select(22);
 					  $('[data-toggle=tooltip]').tooltip('hide');
 					  simcoreui_init_hw('#config_HW') ;

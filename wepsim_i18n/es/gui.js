@@ -30,6 +30,9 @@
 			"Save":  			        	"Guardar",
                         "Restore":                                      "Restaurar",
 			"Help": 			     		"Ayuda",
+                        "Notifications":                                "Notificaciones",
+                        "RecordBar":                                    "Grabaci&oacute;n",
+
 			"Help Index":  			                "&Iacute;ndice ayuda",
 			"Processor": 			     		"Procesador",
 			"Assembly Debugger": 		     		"Depurador de Ensamblador",

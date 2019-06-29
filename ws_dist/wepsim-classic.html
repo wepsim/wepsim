@@ -277,16 +277,8 @@
 	    <h6 class="pt-3">Simulator</h6>
             <div class="row py-1 px-1 collapse show multi-collapse-1" style="margin:1px">
 
-                    <div class="col-sm-auto p-1">
-                    <div class="btn-toolbar btn-block" role="toolbar">
-		        <button class="btn btn-light shadow-sm my-1 mx-0"
-                                id="btn_cfg1"
-			         data-toggle="tooltip" data-placement="bottom" data-html="true" 
-			         title="This button opens the 'Configuration' dialog."
-                                onclick="wsweb_dialogbox_open_config();
-					 return false;"
-		    	        style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                ><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
+                      <div class="col-sm-auto p-1">
+                      <div class="btn-toolbar btn-block" role="toolbar">
 		        <button class="btn btn-light shadow-sm my-1 mx-0"
                                 id="btn_micro1"
 			         data-toggle="tooltip" data-placement="bottom" data-html="true" 
@@ -305,12 +297,12 @@
 					 return false;"
 		                style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 				><strong><span class="d-none d-sm-inline-flex" data-langkey='Assembly'>Assembly</span><span class="d-sm-none" data-langkey='Assembly'>Assembly</span></strong></button>
-                    </div>
-                    </div>
+                      </div>
+                      </div>
 
-		    <div class="w-100 d-block d-sm-none"></div>
+		      <div class="w-100 d-block d-sm-none"></div>
 
-                    <div id="slider_cpucu" class="col-sm p-0 collapse show multi-collapse-2">
+                      <div id="slider_cpucu" class="col-sm p-0 collapse show multi-collapse-2">
 			    <form id="slider2f" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">
 				 <label class="my-0" for="slider2b" style="min-width:95%"><span data-langkey='processor'>processor</span>:</label>
 				 <input aria-label="Show CPU/CU" type="range" name="slider2b" id="slider2b"
@@ -320,12 +312,12 @@
                                         oninput="wsweb_set_cpucu_size(this.value) ;
                                                  return false;">
 			    </form>
-                    </div>
+                      </div>
 
-		    <div class="w-100 d-md-block d-lg-none"></div>
+		      <div class="w-100 d-md-block d-lg-none"></div>
 
-                    <div class="col-sm-auto p-1">
-                    <div class="btn-toolbar btn-block" role="toolbar">
+                      <div class="col-sm-auto p-1">
+                      <div class="btn-toolbar btn-block" role="toolbar">
 		            <button class="btn btn-light shadow-sm my-1 mx-0 col-auto"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC; flex-grow:1;"
                                     id="btn_example1"
@@ -383,12 +375,12 @@
 
 			    </div>
 			</div>
-                    </div>
-		    </div>
+                      </div>
+		      </div>
 
-		    <div class="w-100 d-xs-block d-sm-none"></div>
+		      <div class="w-100 d-xs-block d-sm-none"></div>
 
-                    <div class="col-sm p-0 collapse show multi-collapse-2">
+                      <div class="col-sm p-0 collapse show multi-collapse-2">
 			    <form id="slider2e" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">
 				 <label class="my-0" for="slider2a" style="min-width:95%"><span data-langkey='details'>details</span>:</label>
 				 <input aria-label="Show Main/Info" type="range" name="slider2a" id="slider2a"
@@ -398,8 +390,33 @@
                                         oninput="wsweb_set_c1c2_size(this.value) ;
                                                  return false;">
 			    </form>
-                    </div>
+                      </div>
 
+                      <div class="col-sm-auto p-1">
+                      <div class="btn-toolbar btn-block" role="toolbar">
+		            <button class="btn btn-light shadow-sm my-1 mx-0"
+		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			            title="This button opens the 'Record' bar."
+                                    onclick="wsweb_recordbar_toggle();
+					     return false;"><strong><span data-langkey='RecordBar'>RecordBar</span></strong></button>
+		            <button class="btn btn-light shadow-sm my-1 mx-0"
+		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			            title="This button opens the 'Notifications' dialog."
+                                    onclick="wepsim_notify_notifications();
+                                             i18n_update_tags();
+					     return false;"><strong><span data-langkey='Notifications'>Notifications</span></strong></button>
+		            <button class="btn btn-light shadow-sm my-1 mx-0"
+		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+                                    id="btn_cfg1"
+			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			            title="This button opens the 'Configuration' dialog."
+                                    onclick="wsweb_dialogbox_open_config();
+				    	     return false;"
+                                    ><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
+		      </div>
+		      </div>
             </div>
 
             <div class="row">
@@ -531,7 +548,7 @@
 				    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			      <span class="sr-only">Toggle Dropdown</span>
 			    </button>
-			    <div class="dropdown-menu border border-secondary">
+			    <div class="dropdown-menu border border-secondary" style="height:55vh; overflow-y:auto !important; z-index:10000;">
                               <a class="dropdown-item d-none" href="#" id="s5b_22" value="22"
                                  onclick="wsweb_set_details('HARDWARE');
                                           return false;"><em class="fas fa-microchip"></em> Hardware</a>
@@ -567,6 +584,19 @@
 			      <a class="dropdown-item" href="#" id="s5b_19" value="19"
 				 onclick="wsweb_set_details('IO_CONFIG');
                                           return false;"><span class="bg-dark text-white">Dev</span>&nbsp;<span data-langkey='I/O Configuration'>I/O Configuration</span></a>
+
+			      <div class="dropdown-divider m-1"></div>
+			      <h6 class="text-secondary mb-1">Simulation</h6>
+                              <a class="dropdown-item" href="#" id="s5b_22" value="22"
+                                 onclick="wsweb_set_details('HARDWARE');
+                                          return false;"><em class="fas fa-microchip"></em>&nbsp;Hardware</a>
+                              <a class="dropdown-item" href="#" id="s5b_20" value="20"
+				 onclick="wsweb_set_details('FRM_EDITOR');
+                                          return false;"><span class="bg-dark text-white">Sim</span>&nbsp;MicroCode</a>
+			      <a class="dropdown-item" href="#" id="s5b_21" value="21"
+				 onclick="wsweb_set_details('ASM_EDITOR');
+                                          return false;"><span class="bg-dark text-white">Sim</span>&nbsp;Assembly</a>
+
 			    </div>
 			  </div>
                     </div>
@@ -613,6 +643,14 @@
                           <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
                              data-toggle="tab" id="tab22" href="#ed_hw">Hardware</a>
                       </li>
+                      <li class="nav-item">
+                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+                             data-toggle="tab" id="tab20" href="#ed_mc">MicroCode</a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
+                             data-toggle="tab" id="tab21" href="#ed_mp">Assembly</a>
+                      </li>
                     </ul>
                     <div class="tab-content mt-3">
                          <div class="tab-pane mx-0 my-2 active" role="tabpanel" id="all">
@@ -657,6 +695,85 @@
                          <div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_hw">
 		              <div id="config_HW" style="height:58vh; width: inherit; overflow-y: scroll; -webkit-overflow-scrolling: touch;"></div>
                          </div>
+                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_mc">
+		              <div id="edit_MC" style="width: inherit; overflow-y: auto; overflow-x:hidden;">
+
+				    <div class="row p-0">
+					<div class="container col-12" role="none">
+					<div class="col-sm px-1" role="toolbar" aria-label="MicroCode Toolbar">
+
+					      <div class="btn-group m-1 d-flex flex-wrap" role="group"   aria-label="Toolbar load and save buttons">
+						    <button data-target="#lsload" data-toggle="modal"
+							    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file-upload"></em><br><strong><span data-langkey="Load">Load</span></strong></button>
+						    <button data-target="#lssave" data-toggle="modal"
+							    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file-download"></em><br><strong><span data-langkey="Save">Save</span></strong></button>
+
+						    <button style="background-color: #CCCCCC"
+		                                            id="mcc1"
+							    class="btn btn-light shadow-sm col-auto px-0 py-1 ml-1"
+							    data-transition="none" data-inline="true"
+							    onclick="wsweb_firmware_compile();
+								     return false;">
+							    <em class="fas fa-sign-out-alt"></em><br><strong><span class="d-none d-sm-inline-flex">&#181;<span data-langkey="compile">compile</span></span><span class="d-sm-none">&#181;c.</span></strong></button>
+						    <button style="background-color: #DDDDDD"
+		                                            id="mob1"
+							    class="btn btn-light shadow-sm col-auto px-0 py-1"
+							    onclick="wsweb_dialogbox_open_binary_firmware();
+								     return false;">
+								     <strong><em class="fas fa-memory"></em><br><span class="d-none d-sm-inline-flex"><span data-langkey="Show">Show</span>&nbsp;co2&#181;a. + C.M.</span><span class="d-sm-none">co2&#181;a+c.m.</span></strong>
+								     </button>
+					      </div>
+
+					</div>
+					</div>
+				    </div>
+
+	                            <div id="t3_firm_placeholder2" class="ui-body-d ui-content px-2 py-0" style="height:55vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
+				    </div>
+
+			      </div>
+                         </div>
+                         <div class="tab-pane mx-2 my-2" role="tabpanel" id="ed_mp">
+		              <div id="edit_MP" style="width: inherit; overflow-y: auto; overflow-x:hidden;">
+
+				    <div class="row py-0 px-1">
+					<div class="container col-12" role="none">
+					<div class="col-sm px-1" role="toolbar" aria-label="Assembly Toolbar">
+
+					      <div class="btn-group m-1 d-flex flex-wrap" role="group"   aria-label="Toolbar load and save buttons">
+						    <button data-target="#lsload2" data-toggle="modal"
+							    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file-upload"></em><br><strong><span data-langkey="Load">Load</span></strong></button>
+						    <button data-target="#lssave2" data-toggle="modal"
+							    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+							    class="btn btn-light shadow-sm col-auto px-0 py-1 m-0"><em class="fas fa-file-download"></em><br><strong><span data-langkey="Save">Save</span></strong></button>
+
+						    <button style="background-color: #CCCCCC"
+                                                            id="acc1"
+							    class="btn btn-light shadow-sm col-auto px-0 py-1 ml-1"
+							    data-transition="none" data-inline="true"
+							    onclick="wsweb_assembly_compile();
+								     return false;">
+								<em class="fas fa-sign-out-alt"></em><br><strong><span data-langkey="Compile">Compile</span></strong></button>
+						    <button style="background-color: #DDDDDD"
+                                                            id="aob1"
+							    class="btn btn-light shadow-sm col-auto px-0 py-1"
+							    onclick="wsweb_dialogbox_open_binary_assembly();
+								     return false;">
+							<em class="fas fa-memory"></em><br><strong><span class="d-none d-sm-inline-flex"><span data-langkey="Show Main Memory">Show Main Memory</span></span><span class="d-sm-none">Layout</span></strong></button>
+					      </div>
+
+					</div>
+					</div>
+				    </div>
+
+	                            <div id="t4_asm_placeholder2" class="ui-body-d ui-content px-2 py-0" style="height:55vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
+				    </div>
+
+			      </div>
+                         </div>
                     </div>
 
                 </div>
@@ -671,11 +788,7 @@
                 <div class="container col-12" role="none">
 		<div class="col-sm px-1"      role="toolbar" aria-label="MicroCode Toolbar">
 
-                      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
-		            <button class="btn btn-light shadow-sm col-auto m-0"
-		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                    onclick="wsweb_dialogbox_open_config();
-					     return false;"><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
+                      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar Assembly, and Simulator buttons">
 		            <button class="btn btn-light shadow-sm col-auto m-0"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
                                     onclick="wsweb_change_workspace_assembly();"
@@ -726,19 +839,37 @@
 				    ><em class="fas fa-info-circle"></em>&nbsp;<strong><span data-langkey="Help">Help</span></strong></button>
 		      </div>
 
+                      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar Record, Notifications, and Configuration buttons">
+		            <button class="btn btn-light shadow-sm col-auto m-0"
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+                                    onclick="wsweb_recordbar_toggle();
+					     return false;"><strong><span data-langkey='RecordBar'>RecordBar</span></strong></button>
+		            <button class="btn btn-light shadow-sm col-auto m-0"
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+                                    onclick="wepsim_notify_notifications();
+                                             i18n_update_tags();
+					     return false;"><strong><span data-langkey='Notifications'>Notifications</span></strong></button>
+		            <button class="btn btn-light shadow-sm col-auto m-0"
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+                                    onclick="wsweb_dialogbox_open_config();
+					     return false;"><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span>
+						            <span class="d-sm-none">Config.</span></strong></button>
+		      </div>
+
 		</div>
 		</div>
 
 	    </div>
 
-	    <div id="t3_firm" class="ui-body-d ui-content px-2 py-0"
-                 style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
+	    <div id="t3_firm_placeholder1" class="ui-body-d ui-content px-2 py-0" style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
+	    <div id="t3_firm" class="ui-body-d ui-content p-0">
 		     <label class="my-0" for="inputFirmware"><span data-langkey='microcode'>microcode</span>:</label>
 		     <textarea aria-label="microcode"
 		               style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
                                placeholder="Please select 'Example' or 'Load' first in order to have an initial Microcode."
                                id="inputFirmware" rows="20"></textarea>
 	    </div>
+            </div>
           </div>
 
 
@@ -749,11 +880,7 @@
                 <div class="container col-12" role="none">
 		<div class="col-sm px-1"      role="toolbar" aria-label="Assembly Toolbar">
 
-                      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar load and save buttons">
-		            <button class="btn btn-light shadow-sm col-auto m-0"
-		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                    onclick="wsweb_dialogbox_open_config();
-					     return false;"><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span><span class="d-sm-none">Cfg.</span></strong></button>
+                      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar Microcode, and assembly buttons">
 		            <button class="btn btn-light shadow-sm col-auto m-0"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
                                     onclick="wsweb_change_workspace_microcode();
@@ -802,18 +929,36 @@
 				    ><em class="fas fa-info-circle"></em>&nbsp;<strong><span data-langkey="Help">Help</span></strong></button>
 		      </div>
 
+                      <div class="btn-group mr-2 my-1" role="group"   aria-label="Toolbar Record, Notifications, and Configuration buttons">
+		            <button class="btn btn-light shadow-sm col-auto m-0"
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+                                    onclick="wsweb_recordbar_toggle();
+					     return false;"><strong><span data-langkey='RecordBar'>RecordBar</span></strong></button>
+		            <button class="btn btn-light shadow-sm col-auto m-0"
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+                                    onclick="wepsim_notify_notifications();
+                                             i18n_update_tags();
+					     return false;"><strong><span data-langkey='Notifications'>Notifications</span></strong></button>
+		            <button class="btn btn-light shadow-sm col-auto m-0"
+		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
+                                    onclick="wsweb_dialogbox_open_config();
+					     return false;"><strong><span class="d-none d-sm-inline-flex" data-langkey='Configuration'>Configuration</span>
+						            <span class="d-sm-none">Config.</span></strong></button>
+		      </div>
+
 		</div>
 		</div>
 
 	    </div>
 
-	    <div id="t4_asm" class="ui-body-d ui-content px-2 py-0"
-                 style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
+	    <div id="t4_asm_placeholder1" class="ui-body-d ui-content px-2 py-0" style="height:75vh; overflow-y:auto; -webkit-overflow-scrolling:touch;">
+	    <div id="t4_asm" class="ui-body-d ui-content p-0">
 		     <label class="my-0" for="inputAssembly"><span data-langkey='assembly'>assembly</span>:</label>
 		     <textarea aria-label="assembly"
                                style="min-width:90%; overflow-x:auto; -webkit-overflow-scrolling:touch;"
                                placeholder="Please select 'Load' first to have the assembly code to work with."
 			       id="inputAssembly" rows="20"></textarea>
+	    </div>
 	    </div>
           </div>
 
