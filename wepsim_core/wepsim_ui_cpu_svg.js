@@ -112,6 +112,8 @@
             /* 2) Draw data segments... */
 	    var cfg_color_data_active   = get_cfg('color_data_active') ;
 	    var cfg_color_data_inactive = get_cfg('color_data_inactive') ;
+	    var cfg_color_name_active   = get_cfg('color_name_active') ;
+	    var cfg_color_name_inactive = get_cfg('color_name_inactive') ;
 	    var cfg_size_active         = get_cfg('size_active') ;
 	    var cfg_size_inactive       = get_cfg('size_inactive') ;
 
@@ -161,8 +163,8 @@
 		    for (j=0; j<obj.draw_name[i].length; j++) {
 	                   wepsim_svg_obj_draw(obj.draw_name[i][j],
                                                (i===value) && draw_it,
-                                               cfg_color_data_active,
-                                               cfg_color_data_inactive,
+                                               cfg_color_name_active,
+                                               cfg_color_name_inactive,
                                                cfg_size_active,
                                                cfg_size_inactive) ;
 		    }
@@ -173,8 +175,8 @@
 		    for (j=0; j<obj.draw_name[0].length; j++) {
 	                   wepsim_svg_obj_draw(obj.draw_name[0][j],
                                                (0!=value) && draw_it,
-                                               cfg_color_data_active,
-                                               cfg_color_data_inactive,
+                                               cfg_color_name_active,
+                                               cfg_color_name_inactive,
                                                cfg_size_active,
                                                cfg_size_inactive) ;
 		    }
@@ -185,8 +187,8 @@
 		    for (j=0; j<obj.draw_name[0].length; j++) {
 	                   wepsim_svg_obj_draw(obj.draw_name[0][j],
                                                draw_it,
-                                               cfg_color_data_active,
-                                               cfg_color_data_inactive,
+                                               cfg_color_name_active,
+                                               cfg_color_name_inactive,
                                                cfg_size_active,
                                                cfg_size_inactive) ;
 		    }
