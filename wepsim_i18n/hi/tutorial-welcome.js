@@ -19,6 +19,8 @@
  */
 
 
+    // Translated thanks to Google translate
+
     i18n.eltos.tutorial_welcome.hi = {
 
 		'title_0':		'WepSIM सिम्युलेटर में आपका स्वागत है!',

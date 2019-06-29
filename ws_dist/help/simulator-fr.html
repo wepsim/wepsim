@@ -220,46 +220,46 @@ Où l'opérateur "sel (bit-start, bit-end field)" nous permet de sélectionner u
 <p>
                 Le code d'assemblage est décrit dans un fichier texte avec une première section de données (.data) et une seconde section avec le code (.text) <br />
 <br />
-Dans la section de données, il est possible de définir les variables et les constantes qui resteront dans le segment de données de la mémoire principale. La section commence par la directive <i> .data </​​i>. Les directives spécifiant les types de données pouvant être définis sont les suivantes:
+Dans la section de données, il est possible de définir les variables et les constantes qui resteront dans le segment de données de la mémoire principale. La section commence par la directive <i> .data </i>. Les directives spécifiant les types de données pouvant être définis sont les suivantes:
 </p>
 <p>
-& middot; <b> .ascii: </b> est suivi d'une chaîne indiquant à l'assembleur de créer une zone de mémoire contenant des données et d'y stocker la chaîne indiquée.
+&middot; <b> .ascii: </b> est suivi d'une chaîne indiquant à l'assembleur de créer une zone de mémoire contenant des données et d'y stocker la chaîne indiquée.
 </p>
 <p>
-& middot; <b> .asciiz: </b> est suivi d'une chaîne, indiquant à l'assembleur de créer une zone mémoire avec des données et de stocker la chaîne associée en tant que chaîne terminée par un caractère null.
+&middot; <b> .asciiz: </b> est suivi d'une chaîne, indiquant à l'assembleur de créer une zone mémoire avec des données et de stocker la chaîne associée en tant que chaîne terminée par un caractère null.
 </p>
 <p>
-& middot; <b> .byte: </b> est suivi d'une ou plusieurs valeurs faisant partie de la valeur de la variable. Si plusieurs valeurs, ces valeurs sont séparées par une virgule. Les valeurs pouvant être utilisées sont les suivantes: <b> caractère, octal, hexadécimal et décimal </b>.
+&middot; <b> .byte: </b> est suivi d'une ou plusieurs valeurs faisant partie de la valeur de la variable. Si plusieurs valeurs, ces valeurs sont séparées par une virgule. Les valeurs pouvant être utilisées sont les suivantes: <b> caractère, octal, hexadécimal et décimal </b>.
 </p>
 <p>
-& middot; <b> .half: </b> est suivi d'une ou plusieurs valeurs faisant partie de la valeur de la variable. Si plusieurs valeurs, ces valeurs sont séparées par une virgule. Les valeurs pouvant être utilisées sont: <b> octal, hexadécimal et décimal </b>.
+&middot; <b> .half: </b> est suivi d'une ou plusieurs valeurs faisant partie de la valeur de la variable. Si plusieurs valeurs, ces valeurs sont séparées par une virgule. Les valeurs pouvant être utilisées sont: <b> octal, hexadécimal et décimal </b>.
 </p>
 <p>
-& middot; <b> .word: </b> est suivi d'une ou plusieurs valeurs faisant partie de la valeur de la variable. Si plusieurs valeurs, ces valeurs sont séparées par une virgule. Les valeurs pouvant être utilisées sont: <b> octal, hexadécimal et décimal </b>.
+&middot; <b> .word: </b> est suivi d'une ou plusieurs valeurs faisant partie de la valeur de la variable. Si plusieurs valeurs, ces valeurs sont séparées par une virgule. Les valeurs pouvant être utilisées sont: <b> octal, hexadécimal et décimal </b>.
 </p>
 <p>
-& middot; <b> .space: </b> Il est suivi du nombre d'octets au format décimal que l'utilisateur souhaite attribuer.
+&middot; <b> .space: </b> Il est suivi du nombre d'octets au format décimal que l'utilisateur souhaite attribuer.
 </p>
 <p>
                 Le format d'une valeur des anciens types de données est le suivant:
 </p>
 <p>
-& middot; <b> Chaîne: </b> séquence de caractères entre guillemets. <br />
+&middot; <b> Chaîne: </b> séquence de caractères entre guillemets. <br />
 Par exemple: "hola 123 \ n"
 </p>
 <p>
-& middot; <b> Caractère: </b> caractère entouré de guillemets simples. <br />
+&middot; <b> Caractère: </b> caractère entouré de guillemets simples. <br />
 Par exemple: & apos; c & apos ;.</p>
 <p>
-& middot; <b> Octal: </b> nombre commençant par zéro et dont le nombre est inférieur à huit.
+&middot; <b> Octal: </b> nombre commençant par zéro et dont le nombre est inférieur à huit.
                Par exemple: 012.
 </p>
 <p>
-& middot; <b> Hexadécimal: </b> un nombre commençant par le préfixe 0x et dont les chiffres vont de zéro à neuf et dont les lettres a, b, c, d, e et f. <br />
+&middot; <b> Hexadécimal: </b> un nombre commençant par le préfixe 0x et dont les chiffres vont de zéro à neuf et dont les lettres a, b, c, d, e et f. <br />
 Par exemple: 0x12.
 </p>
 <p>
-& middot; <b> Décimal: </b> un nombre qui n'est pas octal ou hexadécimal et dont les chiffres sont compris entre zéro et neuf (inclus). <br />
+&middot; <b> Décimal: </b> un nombre qui n'est pas octal ou hexadécimal et dont les chiffres sont compris entre zéro et neuf (inclus). <br />
 Par exemple: 12.
 </p>
 <p>
@@ -337,7 +337,7 @@ Pour accéder à cet écran, vous devez utiliser le bouton Microcode en haut au 
 
 </p>
 <p>
-<img max-width = "90%" width = "90%" id = "Image 1" src = "aide/simulateur/firmware001.jpg" alt = "" name = "Image 1" />
+<img max-width = "90%" width = "90%" id = "Image 1" src = "images/simulator/firmware001.jpg" alt = "" name = "Image 1" />
 </p>
 <p class = "cleanuphtml-2">
 <a name="_Ref434190846"> </a> <a name="_Toc438322905"> </a> <a class="cleanuphtml-1" name="_Ref434190877"> Figure </a> <b> 16 </b> <b> Écran principal: option permettant de charger le microcode. </b>
@@ -347,7 +347,7 @@ Pour accéder à cet écran, vous devez utiliser le bouton Microcode en haut au 
                 Ensuite, un écran avec un éditeur de texte en ligne apparaît, permettant à l'étudiant de décrire le microcode (les trois sections commentées). Les utilisateurs peuvent charger un microcode existant à l’aide du bouton "Charger" de la barre d’outils supérieure, modifier un microcode précédemment chargé ou enregistrer le microcode actuel à l’aide du bouton "Enregistrer" de la barre d’outils supérieure. Une fois que le microcode est prêt, cliquez sur le bouton "Compiler" pour le compiler et chargez le binaire résultant dans la mémoire de contrôle, comme indiqué dans <b class = "cleanuphtml-4"> Figure 17 </b>.
 </p>
 <p>
-<img max-width = "90%" width = "90%" id = "Imagen 2" src = "aide/simulateur/firmware002.jpg" alt = "" name = "Imagen 2" />
+<img max-width = "90%" width = "90%" id = "Imagen 2" src = "images/simulator/firmware002.jpg" alt = "" name = "Imagen 2" />
 </p>
 <p class = "MsoNormal cleanuphtml-5"> </p>
 <table cellpadding = "0" cellspacing = "0" align = "left">
@@ -360,13 +360,13 @@ Pour accéder à cet écran, vous devez utiliser le bouton Microcode en haut au 
                 Une fois le nouveau microcode chargé correctement, le bouton indiqué dans <b class = "cleanuphtml-4"> Figure 18 </b> permet aux stagiaires de vérifier le binaire chargé dans la mémoire de contrôle.
 </p>
 <p>
-<img max-width = "90%" width = "90%" id = "Imagen4" src = "aide/simulateur/firmware004.jpg" alt = "Bouton pour ouvrir le modal de la mémoire de contrôle" />
+<img max-width = "90%" width = "90%" id = "Imagen4" src = "images/simulator/firmware004.jpg" alt = "Bouton pour ouvrir le modal de la mémoire de contrôle" />
 </p>
 <p class = "cleanuphtml-2">
 <a name="fig4"> </a> <a class="cleanuphtml-1" name="_Ref434191551"> Illustration </a> <b> 18 </b> <b> Écran de microcode: affiche le contenu de la mémoire de contrôle . </b>
 </p>
 <p>
-<img max-width = "90%" width = "90%" id = "Imagen5" src = "aide/simulateur/firmware005.jpg" alt = "Modal avec le contenu de la mémoire de contrôle en binaire" />
+<img max-width = "90%" width = "90%" id = "Imagen5" src = "images/simulator/firmware005.jpg" alt = "Modal avec le contenu de la mémoire de contrôle en binaire" />
 </p>
 <p class = "cleanuphtml-2">
 <a name="fig5"> </a> <a class="cleanuphtml-1" name="_Ref434191551"> Figure </a> <b> 19 </b> <b> Écran Microcode: mémoire binaire dans la mémoire de contrôle . </b>
@@ -392,7 +392,7 @@ Veuillez consulter la section 'Simulateur: assemblage' de l'aide pour plus d'inf
 <br />
 </p>
 <p>
-<img max-width = "90%" width = "90%" id = "Imagen 3" src = "aide/simulateur/assembly002a.jpg" alt = "" name = "Imagen 3" />
+<img max-width = "90%" width = "90%" id = "Imagen 3" src = "images/simulator/assembly002a.jpg" alt = "" name = "Imagen 3" />
 </p>
 <p class = "cleanuphtml-2">
 <a name="_Toc438322909"> </a> <a class="cleanuphtml-1" name="_Toc434155501"> Figure </a> <b> 20 </b> <b> Écran principal: écran de code d'assembleur. </b>
@@ -401,13 +401,13 @@ Veuillez consulter la section 'Simulateur: assemblage' de l'aide pour plus d'inf
                 Ensuite, un éditeur de texte apparaît où le code d'assemblage peut être chargé et modifié. Vous pouvez charger un code existant en utilisant le bouton "Charger" de la barre supérieure, modifier un code précédemment chargé ou enregistrer le code actuellement chargé avec le bouton "Enregistrer" de la barre supérieure.
 </p>
 <p>
-Une fois que le code est prêt, vous devez cliquer sur le bouton "Compiler" pour compiler ce code en binaire et pour charger ce binaire dans la mémoire principale, comme indiqué dans <b class = "cleanuphtml-3"> Figure 21 </b >.
+Une fois que le code est prêt, vous devez cliquer sur le bouton "Compiler" pour compiler ce code en binaire et pour charger ce binaire dans la mémoire principale, comme indiqué dans <b class = "cleanuphtml-3"> Figure 21 </b>.
 </p>
 <p>
 
 </p>
 <p>
-<img max-width = "90%" width = "90%" id = "Imagen 28" src = "aide/simulateur/assembly003.jpg" alt = "" name = "Imagen 28" />
+<img max-width = "90%" width = "90%" id = "Imagen 28" src = "images/simulator/assembly003.jpg" alt = "" name = "Imagen 28" />
 </p>
 <p class = "cleanuphtml-2">
 <a name="_Toc438322910"> </a> <a class="cleanuphtml-1" name="_Ref434192102"> Figure </a> <b> 21 </b> <b> Écran d'assemblage: éditeur de texte pour le code d'assemblage. </b> <b> <br />
@@ -420,13 +420,13 @@ Une fois que le code est prêt, vous devez cliquer sur le bouton "Compiler" pour
 
 </p>
 <p>
-<img max-width = "90%" width = "90%" id = "Imagen 30" src = "help/simulator/assembly004.jpg" alt = "Écran d'assemblage, bouton permettant d'afficher l'assemblage en binaire" />
+<img max-width = "90%" width = "90%" id = "Imagen 30" src = "images/simulator/assembly004.jpg" alt = "Écran d'assemblage, bouton permettant d'afficher l'assemblage en binaire" />
 </p>
 <p class = "cleanuphtml-2">
 <a name="_Toc438322912"> </a> <a class="cleanuphtml-1" name="_Ref434192450"> Figure </a> <b> 22 </b> <b> Écran Assemblage: bouton permettant d'explorer la valeurs de mémoire principales. </b>
 </p>
 <p>
-<img max-width = "90%" width = "90%" id = "Imagen 30" src = "help/simulator/assembly005.jpg" alt = "Modal avec l'assemblage en binaire" />
+<img max-width = "90%" width = "90%" id = "Imagen 30" src = "images/simulator/assembly005.jpg" alt = "Modal avec l'assemblage en binaire" />
 </p>
 <p class = "cleanuphtml-2">
 <a name="_Toc438322912"> </a> <a class="cleanuphtml-1" name="_Ref434192450"> Figure </a> <b> 23 </b> <b> Écran d'assemblage: valeurs binaires. </b>
@@ -462,7 +462,7 @@ Le contenu de la mémoire de contrôle (voir <b> Figure 24 </b>), avec chaque si
 </li>
 </ul>
 <p>
-<img max-width = "90%" width = "90%" id = "Imagen 1" src = "aide/simulateur/simulateur009.jpg" alt = "" name = "Imagen 1" />
+<img max-width = "90%" width = "90%" id = "Imagen 1" src = "images/simulator/simulator009.jpg" alt = "" name = "Imagen 1" />
 </p>
 <p class = "cleanuphtml-3">
 <a name="_Toc438322913"> </a> <a class="cleanuphtml-2" name="_Ref434192973"> Figure </a> <b> 24 </b> <b> Écran principal: visualisation du contrôle mémoire. </b>
@@ -470,7 +470,7 @@ Le contenu de la mémoire de contrôle (voir <b> Figure 24 </b>), avec chaque si
 <p>
 </p>
 <p>
-<img max-width = "90%" width = "90%" id = "Imagen 3" src = "aide/simulateur/simulateur010.jpg" alt = "" name = "Imagen 3" />
+<img max-width = "90%" width = "90%" id = "Imagen 3" src = "images/simulator/simulator010.jpg" alt = "" name = "Imagen 3" />
 </p>
 <p class = "cleanuphtml-3">
 <a name="_Toc438322914"> </a> <a class="cleanuphtml-2" name="_Ref434193222"> Figure </a> <b> 25 </b> <b> Écran principal: visualisation de l'écran principal code mémoire. </b>
@@ -488,7 +488,7 @@ Le contenu de la mémoire de contrôle (voir <b> Figure 24 </b>), avec chaque si
 <p>
 </p>
 <p>
-<img max-width = "90%" width = "90%" id = "Imagen 4" src = "aide/simulateur/simulateur011.jpg" alt = "" name = "Imagen 4" />
+<img max-width = "90%" width = "90%" id = "Imagen 4" src = "images/simulator/simulator011.jpg" alt = "" name = "Imagen 4" />
 </p>
 <p class = "cleanuphtml-3">
 <a name="_Toc438322915"> </a> <a class="cleanuphtml-2" name="_Ref434193775"> Figure </a> <b> 26 </b> <b> Écran principal: options d'exécution. </b>
@@ -503,7 +503,7 @@ Avec le bouton "<i> Registers </i>" dans la barre supérieure droite de l'écran
 <p>
 </p>
 <p>
-<img max-width = "90%" width = "90%" id = "Imagen 8" src = "aide/simulateur/simulateur012.jpg" alt = "" name = "Imagen 8" />
+<img max-width = "90%" width = "90%" id = "Imagen 8" src = "images/simulator/simulator012.jpg" alt = "" name = "Imagen 8" />
 </p>
 <p class = "cleanuphtml-3">
 <a name="_Toc438322916"> </a> <a class="cleanuphtml-2" name="_Ref434194139"> Figure </a> <b> 27 </b> <b> Écran principal: visualisation de l'unité de contrôle. </b>
@@ -573,7 +573,7 @@ Seules les valeurs différentes entre deux états sont affichées.
 <p>
 <ul>
               Les étapes typiques pour utiliser cette boîte de dialogue sont présentées dans cette animation: <br>
-<img class = "w-75" src = "help/welcome/states_usage.gif">
+<img class = "w-75" src = "images/welcome/states_usage.gif">
 </ul>
 
       </div>
