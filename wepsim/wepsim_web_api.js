@@ -419,7 +419,6 @@
             return true ;
     }
 
-
     //  Workspace simulator: Signal dialog
 
     var hash_signal2action = {

@@ -404,8 +404,7 @@
 		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
 			            title="This button opens the 'Notifications' dialog."
-                                    onclick="wepsim_notify_notifications();
-                                             i18n_update_tags();
+                                    onclick="wsweb_dialogbox_open_notifications();
 					     return false;"><strong><span data-langkey='Notifications'>Notifications</span></strong></button>
 		            <button class="btn btn-light shadow-sm my-1 mx-0"
 		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
@@ -548,10 +547,7 @@
 				    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			      <span class="sr-only">Toggle Dropdown</span>
 			    </button>
-			    <div class="dropdown-menu border border-secondary" style="height:55vh; overflow-y:auto !important; z-index:10000;">
-                              <a class="dropdown-item d-none" href="#" id="s5b_22" value="22"
-                                 onclick="wsweb_set_details('HARDWARE');
-                                          return false;"><em class="fas fa-microchip"></em> Hardware</a>
+			    <div class="dropdown-menu border border-secondary" style="height:55vh; overflow-y:auto !important; z-index:10000; -webkit-overflow-scrolling:touch;">
 
 			      <h6 class="text-secondary mb-1">CPU</h6>
                               <a class="dropdown-item" href="#" id="s5b_11" value="11"
