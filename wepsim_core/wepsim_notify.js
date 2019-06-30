@@ -90,8 +90,8 @@
 
 	    // setup content...
 	    acc  += '<br>' +
-		    '<div class="alert alert-light p-0 m-0" role="alert">+ <span data-langkey="Recent">Recent</span></div>' +
-		    '<div class="card" style="max-height:70vh; overflow:auto; -webkit-overflow-scrolling: touch;">' + 
+		    '<div id="notifications2" class="alert alert-light p-0 m-0" role="alert">+ <span data-langkey="Recent">Recent</span></div>' +
+		    '<div id="container-notifications2" class="card" style="max-height:70vh; overflow:auto; -webkit-overflow-scrolling: touch;">' + 
 		    '<ul class="list-group list-group-flush">' ;
 	    for (var i=notifications.length-1; i!=0; i--) 
 	    {
