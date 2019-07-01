@@ -195,7 +195,7 @@
     {
             wepsim_open_examples_index();
 	    $('[data-toggle=tooltip]').tooltip('hide');
-	    wepsim_refresh_beta() ;
+	    wepsim_refresh_skin() ;
 
             // add if recording
             simcore_record_append_new('Open examples',
@@ -240,6 +240,7 @@
     {
 	    wepsim_open_config_index() ;
 	    $('[data-toggle=tooltip]').tooltip('hide') ;
+	    wepsim_refresh_skin() ;
 
             // add if recording
             simcore_record_append_new('Open configuration',

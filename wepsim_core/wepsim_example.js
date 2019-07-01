@@ -282,7 +282,7 @@
                         '                                       });' +
                         '                         }' +
                         '                         return false;"' +
-		        '                class="dropdown-item text-white bg-info enabled_beta" href="#"><c><span data-langkey="Share">Share</span></c></a>' +
+		        '                class="dropdown-item text-white bg-info user_advanced" href="#"><c><span data-langkey="Share">Share</span></c></a>' +
 	                '           </div>' +
 		        '    </div>' +
                         '</div>' +

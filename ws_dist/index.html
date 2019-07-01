@@ -148,7 +148,7 @@
 
     <meta name="apple-mobile-web-app-capable"          content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-    <meta name="apple-mobile-web-app-title"            content="WepSIM 2.0.8" />
+    <meta name="apple-mobile-web-app-title"            content="WepSIM 2.0.9" />
     <meta name="msapplication-TileImage"               content="images/arcos.svg" />
     <meta name="msapplication-TileColor"               content="#2F3BA2" />
     <meta name="theme-color"                           content="#ffffff" />
@@ -353,13 +353,13 @@
                               <a class="dropdown-item" href="#" id="s4_ep" value="ep"
 				 onclick="wsweb_select_main('ep'); 
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP</a>
-                              <a class="dropdown-item enabled_beta" href="#" id="s4_poc" value="poc"
+                              <a class="dropdown-item user_advanced" href="#" id="s4_poc" value="poc"
 				 onclick="wsweb_select_main('poc'); 
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;POC</a>
 
-			      <div class="dropdown-divider enabled_beta"></div>
-			      <h6 class="text-secondary mb-1 enabled_beta">Assembly only</h6>
-                              <a class="dropdown-item enabled_beta" href="#" id="s4_wepmips" value="wepmips"
+			      <div class="dropdown-divider user_advanced"></div>
+			      <h6 class="text-secondary mb-1 user_advanced">Assembly only</h6>
+                              <a class="dropdown-item user_advanced" href="#" id="s4_wepmips" value="wepmips"
 				 onclick="wsweb_select_main('wepmips');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP+MIPS32</a>
 
@@ -931,8 +931,7 @@
 					     return false;"><strong><span data-langkey='RecordBar'>RecordBar</span></strong></button>
 		            <button class="btn btn-light shadow-sm col-auto m-0"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-                                    onclick="wepsim_notify_notifications();
-                                             i18n_update_tags();
+                                    onclick="wsweb_dialogbox_open_notifications();
 					     return false;"><strong><span data-langkey='Notifications'>Notifications</span></strong></button>
 		            <button class="btn btn-light shadow-sm col-auto m-0"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC;"
@@ -1733,7 +1732,7 @@
 	    simcore_init(true) ;
 
 	    // go to wepsim UI skin...
-	    var optValue = get_cfg('ws_skin') ;
+	    var optValue = get_cfg('ws_skin_ui') ;
 	    if (optValue != 'classic') {
 	        window.location='wepsim-' + optValue + '.html' ;
 	    }
