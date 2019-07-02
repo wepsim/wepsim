@@ -188,7 +188,6 @@
        var base_url = get_cfg('base_url') ;
 
        var fmt_toggle    = "" ;
-       var fmt_header    = "" ;
        var t_hwmcasm     = "" ;
        var e_title       = "" ;
        var e_type        = "" ;
@@ -199,17 +198,11 @@
        var e_description = "" ;
        var e_id          = "" ;
 
-       var o = "" ;
+       // first pass: build data
+       var u = "" ;
+       var examples_groupby_type = {} ;
        for (var m=0; m<examples.length; m++)
        {
-	       fmt_header = "" ;
-	       if (e_type != examples[m].type) {
-                   fmt_header = "<div class='col-sm-12 border-bottom border-secondary text-right text-capitalize font-weight-bold bg-white sticky-top'>" +
-			        ahw.toUpperCase() + ": " +
-			        examples[m].type +
-			        "</div>" ;
-               }
-
 	       e_modes = examples[m].modes ;
 	       if (! e_modes.split(",").includes(mode)) {
 		   continue ;
@@ -230,8 +223,7 @@
 	            fmt_toggle = "bg-light" ;
 	       else fmt_toggle = "" ;
 
-	       o = o + fmt_header +
-                        "<div class='row py-1 " + fmt_toggle + " user_" + e_level + "'>" +
+	            u = "<div class='row py-1 " + fmt_toggle + " user_" + e_level + "'>" +
                         '<div class="col-sm-auto">' +
                         '    <span class="badge badge-pill badge-light">' + (m+1) + '</span>' +
                         '</div>' +
@@ -289,6 +281,34 @@
 		        '    </div>' +
                         '</div>' +
 	                '</div>' ;
+
+	       if (typeof examples_groupby_type[e_type] === "undefined") {
+		   examples_groupby_type[e_type] = [] ;
+	       }
+	       examples_groupby_type[e_type].push({ 'row':   u, 
+		                                    'level': e_level }) ;
+       }
+
+       // second pass: build html
+       var o = "" ;
+       var u = "" ;
+       var l = "" ;
+       for (var m in examples_groupby_type)
+       {
+	        u = '' ;
+	        l = examples_groupby_type[m][0].level ;
+                for (var n=0; n<examples_groupby_type[m].length; n++)
+                {
+		     u = u + examples_groupby_type[m][n].row ;
+
+		     if (l !== examples_groupby_type[m][n].level) {
+			 l = '' ;
+                     }
+                }
+
+	        o = o + "<div class='col-sm-12 border-bottom border-secondary text-right text-capitalize font-weight-bold bg-white sticky-top user_" + l + "'>" +
+			ahw.toUpperCase() + ": " + m +
+			"</div>" + u ;
        }
 
        if (o.trim() === '') {

@@ -95,7 +95,7 @@
     ws_config.push({
                       id:          "radio1",
                       type:        "Execution",
-                      level:       "advanced",
+                      level:       "archived",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label1-instruction'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -238,7 +238,7 @@
     ws_config.push({
                       id:          "radio2",
                       type:        "Register file",
-                      level:       "advanced",
+                      level:       "archived",
                       code_cfg:    " <div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label2-unsigned_16_fill'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -270,7 +270,7 @@
     ws_config.push({
                       id:          "radio3",
                       type:        "Register file",
-                      level:       "advanced",
+                      level:       "archived",
                       code_cfg:    " <div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label3-numerical'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -294,7 +294,7 @@
     ws_config.push({
                       id:          "radio9",
                       type:        "Register file",
-                      level:       "advanced",
+                      level:       "archived",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label9-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
@@ -378,7 +378,7 @@
     ws_config.push({
                       id:          "radio5",
                       type:        "Circuitry simulation",
-                      level:       "advanced",
+                      level:       "archived",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label5-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -402,7 +402,7 @@
     ws_config.push({
                       id:          "radio6",
                       type:        "Circuitry simulation",
-                      level:       "advanced",
+                      level:       "archived",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label6-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -428,19 +428,19 @@
                       type:        "Accesibility",
                       level:       "actual",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
-				   "	    <label id='label14-advanced'" +
+				   "	    <label id='label14-archived'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
-				   "		   aria-label='user: advanced'" +
-				   "		   onclick=\"update_cfg('ws_skin_user', 'advanced');" +
+				   "		   aria-label='user: archived'" +
+				   "		   onclick=\"update_cfg('ws_skin_user', 'archived');" +
 				   "		             $('.user_archived').removeClass('d-none');\">" +
-				   "		<input type='radio' name='skin_user' id='radio14-advanced'  aria-label='ws_skin_user: advanced'  autocomplete='off' >Advanced" +
+				   "		<input type='radio' name='skin_user' id='radio14-archived'  aria-label='ws_skin_user: archived'  autocomplete='off' >Archived" +
 				   "	    </label>" +
 				   "	    <label id='label14-actual'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='user: actual'" +
 				   "		   onclick=\"update_cfg('ws_skin_user', 'actual');" +
 				   "		             $('.user_archived').addClass('d-none');\">" +
-				   "		<input type='radio' name='skin_user' id='radio14-actual' aria-label='ws_skin_user: actual' autocomplete='off' >Beginner" +
+				   "		<input type='radio' name='skin_user' id='radio14-actual' aria-label='ws_skin_user: actual' autocomplete='off' >Actual" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() { 
@@ -476,7 +476,7 @@
     ws_config.push({
                       id:          "radio11",
                       type:        "Accesibility",
-                      level:       "advanced",
+                      level:       "archived",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label11-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -500,7 +500,7 @@
     ws_config.push({
                       id:          "radio13",
                       type:        "Accesibility",
-                      level:       "advanced",
+                      level:       "archived",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label13-text'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
