@@ -291,9 +291,9 @@
 
        // second pass: build html
        var o = "" ;
-       var u = "" ;
+           u = "" ;
        var l = "" ;
-       for (var m in examples_groupby_type)
+       for (m in examples_groupby_type)
        {
 	        u = '' ;
 	        l = examples_groupby_type[m][0].level ;
