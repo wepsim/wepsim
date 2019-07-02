@@ -142,10 +142,8 @@
      * Breakpoints
      */
 
-    function wepsim_check_stopbybreakpoint_firm ( )
+    function wepsim_check_stopbybreakpoint_firm ( reg_maddr )
     {
-	var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
-	var reg_maddr  = get_value(simhw_sim_state(maddr_name)) ;
         var curr_addr = "0x" + reg_maddr.toString(16) ;
 
         if (typeof simhw_internalState_get('MC_dashboard', reg_maddr) === "undefined") {
@@ -155,10 +153,8 @@
         return (simhw_internalState_get('MC_dashboard', reg_maddr).breakpoint) ;
     }
 
-    function wepsim_check_stopbybreakpoint_asm ( )
+    function wepsim_check_stopbybreakpoint_asm ( reg_pc )
     {
-	var pc_name    = simhw_sim_ctrlStates_get().pc.state ;
-	var reg_pc     = get_value(simhw_sim_state(pc_name)) ;
 	var curr_addr  = "0x" + reg_pc.toString(16) ;
         var curr_firm  = simhw_internalState('FIRMWARE') ;
 
@@ -204,9 +200,15 @@
 	var ret = false ;
         var i = 0 ;
 
+	var pc_name    = simhw_sim_ctrlStates_get().pc.state ;
+	var ref_pc     = simhw_sim_state(pc_name) ;
+	var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
+	var ref_maddr  = simhw_sim_state(maddr_name) ;
+
 	var playlevel = get_cfg('DBG_level') ;
 	if (playlevel === "instruction")  
 	{
+	    var reg_pc  = 0 ;
 	    var options = {
 			     verbosity:    0,
 			     cycles_limit: get_cfg('DBG_limitick')
@@ -221,7 +223,9 @@
 			return false ;
 		    }
 
-		    ret = wepsim_check_stopbybreakpoint_asm() ;
+	            reg_pc = get_value(ref_pc) ;
+
+		    ret = wepsim_check_stopbybreakpoint_asm(reg_pc) ;
 		    if (true === ret) {
                         wepsim_show_stopbyevent("Breakpoint", "Instruction is going to be fetched.") ;
 			wepsim_execute_stop(btn1) ;
@@ -231,10 +235,10 @@
 	}
 	else
 	{
-	    var maddr_name = simhw_sim_ctrlStates_get().mpc.state ;
-	    var ref_maddr  = simhw_sim_state(maddr_name) ;
 	    var reg_maddr  = 0 ;
-            for (i=0; i<chunk; i++)
+
+	    var i = 0 ;
+            while (i < chunk)
             {
 		    wepsim_check_state_firm() ;
 
@@ -245,7 +249,9 @@
 			return false ;
 		    }
 
-                    ret = wepsim_check_stopbybreakpoint_firm() ;
+		    reg_maddr = get_value(ref_maddr) ;
+
+                    ret = wepsim_check_stopbybreakpoint_firm(reg_maddr) ;
 		    if (true === ret)
 		    {
 		        wepsim_show_stopbyevent("Breakpoint", "Microinstruction is going to be issue.") ;
@@ -253,15 +259,18 @@
 			return false ;
 		    }
 
-		    reg_maddr = get_value(ref_maddr) ;
                     if (0 === reg_maddr) 
                     {
-		        ret = wepsim_check_stopbybreakpoint_asm() ;
+	                reg_pc = get_value(ref_pc) ;
+
+		        ret = wepsim_check_stopbybreakpoint_asm(reg_pc) ;
 		        if (true === ret) {
                             wepsim_show_stopbyevent("Breakpoint", "Instruction is going to be fetched.") ;
 		    	    wepsim_execute_stop(btn1) ;
 			    return false ;
 		        }
+
+			i++ ;
 		    }
             }
 	}
