@@ -89,7 +89,7 @@
                WSCFG.ws_mode              = { value:'newbie',           type:"string"} ;
                WSCFG.use_voice            = { value:false,              type:"boolean"} ;
                WSCFG.ws_skin_ui           = { value:'classic',          type:"string"} ;
-               WSCFG.ws_skin_user         = { value:'actual',           type:"string"} ;
+               WSCFG.ws_skin_user         = { value:'archived',         type:"string"} ;
 
 	       /* micro/assembly screen: editor */
                WSCFG.editor_theme         = { value:'default',          type:"string"} ;
