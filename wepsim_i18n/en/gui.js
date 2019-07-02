@@ -31,6 +31,9 @@
 			"Save":  			        	"Save",
                         "Restore":                                      "Restore",
 			"Help":  			                "Help",
+                        "Notifications":                                "Notifications",
+                        "RecordBar":                                    "RecordBar",
+
 			"Help Index":  			                "Help Index",
 			"Processor":  			                "Processor",
 			"Assembly Debugger":  			        "Assembly Debugger",

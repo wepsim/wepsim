@@ -56,12 +56,11 @@
 		'Activation':		'アクティベーション',
 		'Interactive mode: signal value can be updated':		'インタラクティブモード：信号値を更新することができます',
 		'Quick interactive mode: quick update of signal value':		'クイックインタラクティブモード：シグナル値のクイックアップデート',
-		'WepSIM User Interface Skin':		'WepSIMユーザーインターフェーススキン',
 		'(example)':		'（例）',
 		'Accesibility':		'アクセシビリティ',
 		'Active voice: external voice control':		'アクティブボイス：外部ボイスコントロール',
 		'Verbalization: textual or mathematical':		'言語化：テキストまたは数学',
-		'Enable experimental features':		'試験運用機能を有効にする',
+		'Enable all features':		'すべての機能を有効にする',
 		'_last_':		'_last_'
 
     };

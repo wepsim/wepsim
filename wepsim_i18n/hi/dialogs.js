@@ -21,10 +21,9 @@
 
     i18n.eltos.dialogs.hi = {
 
-		'Show Notifications':		'सूचनाएं दिखाएं',
-		'Show/Hide RecordBar':		'रिकॉर्डबोर दिखाएँ / छिपाएँ',
 		'Show/Hide ActionBar':		'दिखाएँ / छिपाएँ ActionBar',
 		'Show/Hide Slider':		'स्लाइडर दिखाएँ / छिपाएँ',
+		'WepSIM User Interface Skin':	'WepSIM यूजर इंटरफेस स्किन',
 		'Initial intro':		'प्रारंभिक परिचय',
 		'About WepSIM':		'WepSIM के बारे में',
 		'Title':		'शीर्षक',

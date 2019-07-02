@@ -21,10 +21,9 @@
 
     i18n.eltos.dialogs.en = {
 
-                        "Show Notifications":                           "Show Notifications",
-                        "Show/Hide RecordBar":                          "Show/Hide RecordBar",
                         "Show/Hide ActionBar":                          "Show/Hide ActionBar",
                         "Show/Hide Slider":                             "Show/Hide Slider",
+                        "WepSIM User Interface Skin": 		        "WepSIM User Interface Skin",
                         "Initial intro":                                "Initial intro",
                         "About WepSIM":                                 "About WepSIM",
 

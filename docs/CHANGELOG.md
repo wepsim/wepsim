@@ -1,4 +1,11 @@
 
+2.0.8 -> 2.0.9:
+* Simplified UI
+
+2.0.7 -> 2.0.8:
+* Improved UI
+* Added translation for the simulator help and about dialog
+
 2.0.6 -> 2.0.7:
 * Core:
   * Revamped simcore_init_ui() API function: it now accepts callbacks functions to update UI.

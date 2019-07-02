@@ -21,10 +21,9 @@
 
     i18n.eltos.dialogs.ja = {
 
-		'Show Notifications':		'通知を表示',
-		'Show/Hide RecordBar':		'RecordBarを表示/隠す',
 		'Show/Hide ActionBar':		'アクションバーの表示/非表示',
 		'Show/Hide Slider':		'スライダーの表示/非表示',
+		'WepSIM User Interface Skin':	'WepSIMユーザーインターフェーススキン',
 		'Initial intro':		'初期イントロ',
 		'About WepSIM':		'WepSIMについて',
 		'Title':		'タイトル',

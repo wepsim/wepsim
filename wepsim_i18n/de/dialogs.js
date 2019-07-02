@@ -21,10 +21,9 @@
 
     i18n.eltos.dialogs.de = {
 
-		'Show Notifications':		'Zeige Benachrichtigungen',
-		'Show/Hide RecordBar':		'RecordBar ein- / ausblenden',
 		'Show/Hide ActionBar':		'Aktionsleiste ein- / ausblenden',
 		'Show/Hide Slider':		'Schieberegler ein- / ausblenden',
+		'WepSIM User Interface Skin':	'WepSIM-Benutzeroberflächen-Skin',
 		'Initial intro':		'Anfängliches Intro',
 		'About WepSIM':		'Über WepSIM',
 		'Title':		'Titel',

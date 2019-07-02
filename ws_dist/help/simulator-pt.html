@@ -1,0 +1,583 @@
+<! DOCTYPE html PUBLIC "- // W3C // DTD XHTML 1.0 Transicional // PT"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns = "http://www.w3.org/1999/xhtml">
+  <cabeça>
+    <title> </title>
+<meta charset = "UTF-8">
+<meta http-equiv = "Tipo de conteúdo" content = "text/html; charset = UTF-8">
+    <style type = "text/css">
+/ * <! [CDATA [* /
+    : link {color: # 0563C1}
+    : visitou {color: # 954F72}
+    p.cleanuphtml-5 {margin-bottom: 8.0pt; altura da linha: 80%}
+    b.cleanuphtml-4 {font-style: italic}
+    p.cleanuphtml-3 {font-weight: bold}
+    p.cleanuphtml-2 {text-align: center}
+    a.cleanuphtml-1 {font-weight: bold}
+    / *]]> * /
+    </style>
+
+  <! - Limpe o HTML gerado por http://www.cleanuphtml.com/ ->
+<meta name = "Gerador" content = "Limpar HTML"> </head>
+  <body>
+
+      <div id = "help_firmware_format">
+      <h1> Microcódigo no WepSIM </h1>
+
+<p>
+</p>
+<p>
+                O microcódigo é carregado através de um arquivo de texto que você tem três seções:
+</p>
+<p>
+1. Lista de microprogramas
+</p>
+<p>
+2. registrar nomeação
+</p>
+<p>
+3. Pseudo-instruções
+</p>
+<p>
+                A lista de microprogramas começa com o código de <b> fetch </b>.
+                Um exemplo de microprograma de busca básica poderia ser:
+</p>
+<ul>
+<p>
+começar <br>
+{<br>
+buscar: (T2, C0 = 1), <br>
+(Ta, Td, R, BW = 11, C1), <br>
+(M2, C2, T1, C3), <br>
+(A0, B = 0, C = 0000) <br>
+}
+</p>
+</ul>
+<p class = "cleanuphtml-2">
+<a class="cleanuphtml-1" name="_Toc438322900"> Figura </a> <b> 11 </b> <b> Exemplo de descrição para </b> <b> Buscar </b>
+</p>
+<p>
+Os sinais de controle localizados entre os parênteses (e) correspondem aos sinais para ativar em um ciclo de clock. Assim, a busca requer quatro ciclos de clock, o último corresponde à decodificação (incluída na busca).
+</p>
+<p>
+Então, o resto dos microprogramas associados a cada instrução segue. Cada microprograma tem este formato:
+</p>
+<ul>
+<p>
+inst1 field1 field2 field3 <br>
+{<br>
+co = 000000, <br>
+nwords = 1, <br>
+field1 = reg (25,21), <br>
+field2 = reg (20,16), <br>
+field3 = reg (15,11), <br>
+{<br>
+(Cop = 1001, SelP = 11, C7, T6, LC, SelA = 10100, SelB = 01111, SelC = 10111, <br>
+A0 = 1, B = 1, C = 0) <br>
+} <br>
+} <br>
+</p>
+</ul>
+<p class = "cleanuphtml-2">
+<a class="cleanuphtml-1" name="_Toc438322901"> Figura </a> <b> 12 </b> <b> Exemplo de formato de descrição para uma instrução </b>
+</p>
+<p>
+
+</p>
+<p>
+Onde a primeira linha descreve o nome do comando (inst1) e os parâmetros que possuem (registros, valores imediatos, etc.). Em seguida, um bloco é aberto com as teclas para descrever a instrução.
+</p>
+<p>
+O primeiro campo no exemplo mostrado (co) indica os 6 bits que identificam exclusivamente a instrução. Isso não é inteiramente verdade para instruções aritméticas e lógicas, já que é possível compartilhar o mesmo opcode e diferenciar o policial de valor de campo. Um exemplo deste caso seria:
+</p>
+<ul>
+<p>
+
+</p>
+<p>
+inst1 field1 field2 field3 <br>
+{<br>
+co = 000000, <br>
+<b> cop = 0000, </b> <br>
+nwords = 1, <br>
+field1 = reg (25,21), <br>
+field2 = reg (20,16), <br>
+field3 = reg (15,11), <br>
+{<br>
+(Cop = 1001, SelP = 11, C7, T6, LC, SelA = 10100, SelB = 01111, SelC = 10111, <br>
+A0 = 1, B = 1, C = 0)
+} <br>
+} <br>
+</p>
+</ul>
+<p class = "cleanuphtml-2">
+<a class="cleanuphtml-1" name="_Toc438322902"> Figura </a> <b> 13 </b> <b> Detalhe na descrição de uma instrução: cop de campo </b>
+</p>
+<p>
+<br />
+Os campos a seguir indicam para cada um dos parâmetros que tipo (registro, imediatamente ou endereço), bem como os bits inicial e final (de 0 a 31), onde está o valor desse parâmetro.
+</p>
+<p>
+O tipo de parâmetro é indicado por:
+</p>
+<ul>
+<li>
+parameter1 = reg (último bit, primeiro bit), <br> para um registrador.
+</li>
+<li>
+parâmetro1 = inm (último bit, primeiro bit), <br> para um valor imediato.
+</li>
+<li>
+parâmetro1 = addr (último bit, primeiro bit) rel, <br> para um endereço relativo (para registro de PC).
+</li>
+<li>
+parameter1 = addr (último bit, primeiro bit) abs, <br> para um endereço absoluto.
+</li>
+</ul>
+<p>
+Então, um novo bloco é aberto onde o microprograma paraa instrução é descrita. Os sinais de cada ciclo estão entre parênteses e esses ciclos são separados por vírgulas. Se houver apenas um ciclo, então não é necessário a vírgula. Dentro dos parênteses, os sinais e o valor correspondente são indicados. Um sinal de bit único pode ser expresso apenas pelo nome do sinal (significa que seu valor é um). O valor do sinal deve indicar em binário, usando tantos bits quanto o sinal tiver. Sinais e seus valores correspondentes são separados usando uma vírgula.
+</p>
+<p>
+A nomenclatura de registro requer que o rótulo seja usado para cada um dos 32 registros do arquivo de registro. Um exemplo desta seção é: <br />
+<br />
+</p>
+<ul>
+<p>
+registros
+</p>
+<p>
+{<br>
+0 = $ zero, <br>
+1 = $ at, <br>
+2 = $ v0, <br>
+3 = $ v1, <br>
+4 = $ a0, <br>
+5 = $ a1, <br>
+6 = $ a2, <br>
+7 = $ a3, <br>
+. <br>
+. <br>
+. <br>
+24 = $ t8, <br>
+25 = $ t9, <br>
+26 = $ k0, <br>
+27 = $ k1, <br>
+28 = $ gp, <br>
+29 = $ sp (stack_pointer), <br>
+30 = $ fp, <br>
+31 = $ ra <br>
+}
+</p>
+</ul>
+<p class = "cleanuphtml-2">
+<a class="cleanuphtml-1" name="_Toc438322903"> Figura </a> <b> 14 </b> <b> Exemplo de nomeação de registro </b>
+</p>
+<p>
+<br />
+No último exemplo, os nomes usados nos nomes da arquitetura MIPS32. Neste exemplo, o registrador 29 rotulado com $ sp tem o atributo "(stack_pointer)" para indicar que será usado como um ponteiro de pilha.
+</p>
+<p>
+
+</p>
+<p>
+Finalmente, você pode definir pseudo-instruções.
+Um exemplo seria pseudo-instrução:
+</p>
+<ul>
+<p>
+Pseudoinstruções <br />
+{<br />
+li reg num <br />
+{<br />
+lui reg sel (31,16, num); <br />
+ori reg reg sel (15,0, num) <br />
+} <br />
+}
+</p>
+<p>
+
+</p>
+</ul>
+<p class = "cleanuphtml-2">
+<a class="cleanuphtml-1" name="_Toc438322904"> Figura </a> <b> 15 </b> <b> Exemplo de pseudo-instrução (seção opcional) </b>
+</p>
+<p>
+<br />
+Onde o operador "sel (bit-start, bit-end field)" nos permite selecionar um número de bits de um dos campos da pseudo-instrução.
+</p>
+<p>
+
+</p>
+
+      </div>
+
+
+      <div id = "help_assembly_format">
+      <h1> Assembler no WepSIM </h1>
+
+<p>
+</p>
+<p>
+                O código assembly é descrito em um arquivo de texto com uma primeira seção de dados (.data) e uma segunda seção com o código (.text) <br />
+<br />
+Na seção de dados é possível definir as variáveis e constantes que permanecerão no segmento de dados da memória principal. A seção começa com a diretiva <i> .data </i>. As diretivas que especificam os tipos de dados que podem ser definidos são:
+</p>
+<p>
+&middot; <b> .ascii: </b> É seguido por uma string, instruindo o montador a criar uma área de memória com dados e armazenar nela a string indicada.
+</p>
+<p>
+&middot; <b> .asciiz: </b> É seguido por uma string, instruindo o montador a criar uma área de memória com dados e armazenar a string associada como uma string terminada em nulo.
+</p>
+<p>
+&middot; <b> .byte: </b> É seguido por um ou mais valores que fazem parte do valor da variável. Se vários valores, esses valores são separados por vírgula. Os valores que podem ser usados são: <b> caractere, octal, hexadecimal e decimal </b>.
+</p>
+<p>
+&middot; <b> .half: </b> É seguido por um ou mais valores que fazem parte do valor da variável. Se vários valores, esses valores são separados por vírgula. Os valores que podem ser usados são: <b> octal, hexadecimal e decimal </b>.
+</p>
+<p>
+&middot; <b> .word: </b> É seguido por um ou mais valores que fazem parte do valor da variável. Se vários valores, esses valores são separados por vírgula. Os valores que podem ser usados são: <b> octal, hexadecimal e decimal </b>.
+</p>
+<p>
+&middot; <b> .space: </b> É seguido pelo número de bytes no formato decimal que o usuário deseja alocar.
+</p>
+<p>
+                O formato de um valor dos tipos de dados anteriores é:
+</p>
+<p>
+&middot; <b> String: </b> seqüência de caracteres entre aspas duplas. <br />
+Por exemplo: "hola 123 \ n"
+</p>
+<p>
+&middot; <b> Personagem: </b> personagem cercado por citações simples. <br />
+Por exemplo: "apos".</p>
+<p>
+&middot; <b> Octal: </b> um número começando com zero e seus dígitos são menores que oito.
+               Por exemplo: 012.
+</p>
+<p>
+&middot; <b> Hexadecimal: </b> um número que começa com o prefixo 0x e seus dígitos são de zero a nove e as letras a, b, c, d, ee f. <br />
+Por exemplo: 0x12.
+</p>
+<p>
+&middot; <b> Decimal: </b> um número que não está em octal ou hexadecimal e seus dígitos estão entre zero e nove (inclusive). <br />
+Por exemplo: 12.
+</p>
+<p>
+Na seção de código, você pode definir sub-rotinas que ficam no segmento de código da memória principal. A seção começa com a diretiva <i> .text </i>.
+</p>
+<p>
+
+</p>
+<p>
+Você pode usar comentários de linha usando o caractere #. <br />
+Tudo o que segue esse caractere até o final da linha será ignorado pelo montador.
+</p>
+<p>
+Um programa de exemplo seria:
+</p>
+<ul>
+<p>
+.dados
+</p>
+<p>
+age1: .word 0x12345678, 20
+</p>
+<p>
+age2: .word 20, 10
+</p>
+<p>
+resultado: .word 0
+</p>
+<p>
+Palavra de 32 bits inicializada com decimal
+</p>
+<p>
+texto: .ascii "Hola \ t"
+</p>
+<p>
+texto2: .asciiz "Hola \ t"
+</p>
+<p>
+hueco: .space 16
+</p>
+<p>
+.texto
+</p>
+<p>
+.globl principal
+</p>
+<p>
+principal: li $ 3 2
+</p>
+<p>
+li $ 4 1
+</p>
+<p>
+li $ 5 0 <br />
+<br />
+</p>
+</ul>
+<p class = "cleanuphtml-2">
+<a class="cleanuphtml-1" name="_Toc438322908"> Figura </a> <b> 19 </b> <b> Exemplo de seções de dados e código para testar micro-montagens. </b> <b> <br />
+<br /> </b>
+</p>
+
+      </div>
+
+
+      <div id = "help_simulator_firmware">
+      <h1> Gerenciamento de microcódigo no WepSIM </h1>
+
+<p>
+                Um arquivo de texto com três seções (microcódigo, nomeação de registro e definição de pseudo-instruções) é carregado na tela Microcódigo.
+Por favor, consulte 'Microcode in WepSIM' para mais informações sobre o formato do microcódigo.
+Para acessar esta tela, você tem que usar o botão Microcode do centro superior (veja Figura <b class = "cleanuphtml-4"> Figura 16 </b>)
+</p>
+<p>
+
+</p>
+<p>
+<img max-width = "90%" largura = "90%" id = "Imagen 1" src = "ajuda/simulador/firmware001.jpg" alt = "" name = "Imagen 1" />
+</p>
+<p class = "cleanuphtml-2">
+<a name="_Ref434190846"> </a> <a name="_Toc438322905"> </a> <a class="cleanuphtml-1" name="_Ref434190877"> Figura </a> <b> 16 </b> <b> Tela principal: opção para carregar o microcódigo. </b>
+</p>
+<p>
+<br />
+                Em seguida, aparece uma tela com um editor de texto on-line, onde o aluno é capaz de descrever o microcódigo (as três seções antes comentadas). Os usuários podem carregar um microcódigo existente usando o botão "Carregar" na barra de ferramentas superior, modificar um microcódigo carregado anteriormente ou salvar o microcódigo atual com o botão "Salvar" na barra de ferramentas superior. Uma vez que o microcódigo esteja pronto, clique no botão "ompile" para microcompilar e carregar o binário resultante na memória de controle, como mostrado na <b class = "cleanuphtml-4"> Figura 17 </b>.
+</p>
+<p>
+<img max-width = "90%" largura = "90%" id = "Imagen 2" src = "ajuda/simulador/firmware002.jpg" alt = "" name = "Imagen 2" />
+</p>
+<p class = "MsoNormal cleanuphtml-5"> </p>
+<tabela cellpadding = "0" cellspacing = "0" align = "esquerda">
+</table> <br clear="all" />
+<p class = "cleanuphtml-2">
+<a name="_Toc438322906"> </a> <a class="cleanuphtml-1" name="_Ref434191423"> Figura </a> <b> 17 </b> <b> Tela de microcódigo: caixa de texto em ordem para carregar o firmware. </b>
+</p>
+<p>
+<br />
+                Quando o novo microcódigo é carregado corretamente, o botão mostrado em <b class = "cleanuphtml-4"> Figura 18 </b> permite que os alunos verifiquem o binário carregado na memória de controle.
+</p>
+<p>
+<img max-width = "90%" largura = "90%" id = "Imagen4" src = "ajuda/simulador/firmware004.jpg" alt = "Botão para abrir o controle de memória modal" />
+</p>
+<p class = "cleanuphtml-2">
+<a name="fig4"> </a> <a class="cleanuphtml-1" name="_Ref434191551"> Figura </a> <b> 18 </b> <b> Tela do microcódigo: mostre o conteúdo da memória de controle . </b>
+</p>
+<p>
+<img max-width = "90%" largura = "90%" id = "Imagen5" src = "ajuda/simulador/firmware005.jpg" alt = "Modal com o conteúdo da memória de controle em binário" />
+</p>
+<p class = "cleanuphtml-2">
+<a name="fig5"> </a> <a class="cleanuphtml-1" name="_Ref434191551"> Figura </a> <b> 19 </b> <b> Tela do microcódigo: binário na memória de controle . </b>
+</p>
+<p>
+<br />
+                Entãoext step é carregar o programa assembler para testar este microcódigo, e para isso você deve clicar no botão "Assembly" na barra de ferramentas superior.
+Por favor, verifique a seção 'Simulador: montagem' da ajuda para mais informações.
+</p>
+<p>
+
+</p>
+
+      </div>
+
+
+      <div id = "help_simulator_assembly">
+      <h1> Gerenciamento do Assembler no WepSIM </h1>
+
+<p>
+                Um arquivo de texto com dois tipos de seções (dados e código) é carregado na tela Assembler.
+                Para acessar a tela, o aluno selecionou o botão Assembly (veja <b class = "cleanuphtml-3"> Figura 16 </b>) na barra de ferramentas superior.
+<br />
+</p>
+<p>
+<img max-width = "90%" largura = "90%" id = "Imagen 3" src = "ajuda/simulador/assembly002a.jpg" alt = "" name = "Imagen 3" />
+</p>
+<p class = "cleanuphtml-2">
+<a name="_Toc438322909"> </a> <a class="cleanuphtml-1" name="_Toc434155501"> Figura </a> <b> 20 </b> <b> Tela principal: tela do código assembler. </b>
+</p>
+<p>
+                Em seguida, um editor de texto aparece onde o código de montagem pode ser carregado e editado. Você pode carregar um código existente usando o botão "Carregar" na barra superior, alterar um código carregado anteriormente ou salvar o código atualmente carregado com o botão "Salvar" na barra superior.
+</p>
+<p>
+Uma vez que o código está pronto, você tem que clicar no botão "Compile" para compilar este código em binário e carregar este binário na memória principal, como mostrado em <b class = "cleanuphtml-3"> Figura 21 </b>.
+</p>
+<p>
+
+</p>
+<p>
+<img max-width = "90%" largura = "90%" id = "Imagen 28" src = "ajuda/simulador/assembly003.jpg" alt = "" name = "Imagen 28"/& gt;
+</p>
+<p class = "cleanuphtml-2">
+<a name="_Toc438322910"> </a> <a class="cleanuphtml-1" name="_Ref434192102"> Figura </a> <b> 21 </b> <b> Tela de montagem: editor de texto para o código de montagem. </b> <b> <br />
+<br /> </b>
+</p>
+<p>
+                Uma vez compilada, ela passará para a tela mostrada em <b class = "cleanuphtml-3"> Figura 22 </b>, e o usuário poderá clicar no botão show para explorar o conteúdo da memória principal em binário (< b class = "cleanuphtml-3"> Figura 23 </b>).
+</p>
+<p>
+
+</p>
+<p>
+<img max-width = "90%" largura = "90%" id = "Imagen 30" src = "ajuda/simulador/assembly004.jpg" alt = "Tela de montagem, botão para mostrar montagem em binário" />
+</p>
+<p class = "cleanuphtml-2">
+<a name="_Toc438322912"> </a> <a class="cleanuphtml-1" name="_Ref434192450"> Figura </a> <b> 22 </b> <b> Tela Assembly: botão para explorar o valores da memória principal. </b>
+</p>
+<p>
+<img max-width = "90%" largura = "90%" id = "Imagen 30" src = "ajuda/simulador/assembly005.jpg" alt = "Modal com a montagem em binário" />
+</p>
+<p class = "cleanuphtml-2">
+<a name="_Toc438322912"> </a> <a class="cleanuphtml-1" name="_Ref434192450"> Figura </a> <b> 23 </b> <b> Tela de montagem: valores binários. </b>
+</p>
+<p>
+<br />
+                O próximo passo é voltar à tela principal para executar o microcódigo e a montagem carregados.
+                Para fazer isso, você tem que pressionar o botão "Simulator" na barra de ferramentas superior.
+</p>
+<p>
+</p>
+
+      </div>
+
+
+      <div id = "help_simulator_execution">
+      <h1> Simulação no WepSIM </h1>
+
+<p>
+Na tela principal é possível ver:
+</p>
+<ul>
+<li>
+O conteúdo da memória de controle (veja <b> Figura 24 </b>), com cada sinal de controle de ciclo.
+                Para fazer isso, o aluno precisa usar o botão "<i> Control Memory </i>" na barra de ferramentas superior da tela principal. <br />
+                Nesta aba, os sinais do ciclo atual são destacados com a cor azul (e uma fonte um pouco maior). <br />
+                Com a barra de rolagem do lado direito, é possível inspecionar todo o conteúdo da memória de controle.
+</li>
+<li>
+                O conteúdo da memória principal (veja <b class = "cleanuphtml-1"> Figura 25 </b>), com a instrução de montagem a ser executada.
+                É possível definir um ponto de interrupção clicando na coluna <i> pontos de interrupção </i>.
+                Quando um ponto de interrupção é definido, um ícone de "parada" aparecerá nesta coluna.
+</li>
+</ul>
+<p>
+<img max-width = "90%" largura = "90%" id = "Imagen 1" src = "ajuda/simulador/simulator009.jpg" alt = "" name = "Imagen 1" />
+</p>
+<p class = "cleanuphtml-3">
+<a name="_Toc438322913"> </a> <a class="cleanuphtml-2" name="_Ref434192973"> Figura </a> <b> 24 </b> <b> Tela principal: visualização do controle memória. </b>
+</p>
+<p>
+</p>
+<p>
+<img max-width = "90%" largura = "90%" id = "Imagen 3" src = "ajuda/simulador/simulator010.jpg" alt = "" name = "Imagen 3" />
+</p>
+<p class = "cleanuphtml-3">
+<a name="_Toc438322914"> </a> <a class="cleanuphtml-2" name="_Ref434193222"> Figura </a> <b> 25 </b> <b> Tela principal: visualização dos principais código de memória. </b>
+</p><p>
+</p>
+<p>
+                Na tela principal é possível executar:
+</p>
+<p>
+· Microinstrução por microinstrução, clicando no botão "µInstrucci & oacute; n" (veja <b class = "cleanuphtml-1"> Figura 26 </b>), para avançar para o próximo ciclo de clock e para enviar o controle associado sinais.
+</p>
+<p>
+Â · InstruÃ§Ã £ o por instruÃ§Ã £ o, clicando no botÃ £ o "Instrucci & oacute; n" (ver <b class = "cleanuphtml-1"> Figura 26 </b>) para gerar todos os ciclos de clock para o microcódigo da instruÃ§Ã £ o correspondente, parando no começo da busca.
+</p>
+<p>
+</p>
+<p>
+<img max-width = "90%" largura = "90%" id = "Imagen 4" src = "ajuda/simulador/simulator011.jpg" alt = "" name = "Imagen 4" />
+</p>
+<p class = "cleanuphtml-3">
+<a name="_Toc438322915"> </a> <a class="cleanuphtml-2" name="_Ref434193775"> Figura </a> <b> 26 </b> <b> Tela principal: opções de execução. </b>
+</p>
+<p>
+<br />
+Com o botão "<i> Registros </i>" na barra superior direita da tela principal (veja <b class = "cleanuphtml-1"> Figura 26 </b>) é possível ver os valores de o processador registra e como eles mudam durante a execução.
+</p>
+<p>
+                Também é possível ver a unidade de controle, conforme mostrado na <b class = "cleanuphtml-1"> Figura 27 </b>.
+</p>
+<p>
+</p>
+<p>
+<img max-width = "90%" largura = "90%" id = "Imagen 8" src = "ajuda/simulador/simulator012.jpg" alt = "" name = "Imagen 8" />
+</p>
+<p class = "cleanuphtml-3">
+<a name="_Toc438322916"> </a> <a class="cleanuphtml-2" name="_Ref434194139"> Figura </a> <b> 27 </b> <b> Tela principal: visualização da unidade de controle. </b>
+</p>
+<p>
+                E também é possível redefinir a execução clicando no botão "Reset" na barra superior.
+</p>
+<p>
+</p>
+<p>
+</p>
+
+      </div>
+
+
+      <div id = "help_checker">
+
+              É possível verificar se o estado atual atende aos nossos requisitos:
+<p>
+<ul>
+<li> Para verificar o estado atual, introduza requisitos e pressione "check". </li>
+<c>
+Por exemplo: <br>
+<textarea aria-label = "verifica para executar" rows = "2">
+registre 5> = 8; memória 1 = 0x10; tela 0 == first_line
+</textarea>
+</c>
+<li> Para limpar os requisitos, pressione "limpar". </li>
+</ul>
+<p>
+<b> DICA: os ponto-e-vírgulas são necessários. </b>
+<br>
+<b> DICA: por favor, tenha cuidado, porque as barras de rolagem costumam ser escondidas. </b>
+<br>
+Quando requisitos vazios são fornecidos, o estado inicial é levado em consideração.
+
+      </div>
+
+
+      <div id = "help_dumper">
+
+<ul>
+<li>
+              Por padrão, o painel 'Estado atual' mostra o estado da máquina simulada no momento presente.
+O estado da máquina é a lista de elementos no hardware e seus valores.
+Para simplificar, apenas os elementos de hardware de valores diferentes de zero são mostrados. <br>
+Por exemplo: <br>
+<textarea aria-label = "verifica para executar" rows = "2" class = "w-50">
+registre 5> = 8; memória 1 = 0x10; tela 0 == first_line
+</textarea>
+<br>
+              Por favor, lembre-se de dois detalhes importantes:
+<ul>
+<li> <em> Os ponto e vírgula são necessários. </em>
+                     O ';' caractere indica o final de qualquer par chave = valor. </li>
+<li> <em> As barras de rolagem costumam estar ocultas no estado atual e nas diferenças. </em> </li>
+</ul>
+
+Esse 'estado atual' pode ser modificado, copiado para a área de transferência ou armazenado no painel 'Histórico'.
+<li>
+              O painel 'Histórico' permite que os usuários acompanhem o estado em diferentes ciclos de clock da CPU.
+<li>
+              O painel 'Diferença' pode ser usado para mostrar as diferenças entre dois estados.
+Somente os valores que são diferentes entre dois estados são mostrados.
+</ul>
+
+<p>
+<ul>
+              As etapas típicas para usar essa caixa de diálogo são mostradas nesta animação: <br>
+<img class = "w-75" src = "ajuda/boas-vindas/states_usage.gif">
+</ul>
+
+      </div>
+
+  </body>
+</html>
+

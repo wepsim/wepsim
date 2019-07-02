@@ -20,7 +20,7 @@
 
 
         var WSCFG = {} ;
-        WSCFG.version = { value:"2.0.7", type:"string"} ;
+        WSCFG.version = { value:"2.0.9", type:"string"} ;
 
         function get_cfg ( field )
         {
@@ -66,7 +66,7 @@
 
 	       /* simulation screen: Execution */
                WSCFG.DBG_delay           = { value:5,                  type:"int"} ;
-               WSCFG.DBG_level           = { value:"instruction",      type:"string"} ;
+               WSCFG.DBG_level           = { value:"microinstruction", type:"string"} ;
 
                WSCFG.DBG_limitins        = { value:10000,              type:"int"} ;
                WSCFG.DBG_limitick        = { value:1000,               type:"int"} ;
@@ -88,15 +88,15 @@
                WSCFG.ws_idiom             = { value:'en',               type:"string"} ;
                WSCFG.ws_mode              = { value:'newbie',           type:"string"} ;
                WSCFG.use_voice            = { value:false,              type:"boolean"} ;
-               WSCFG.ws_skin              = { value:'classic',          type:"string"} ;
-               WSCFG.enable_beta          = { value:false,              type:"boolean"} ;
+               WSCFG.ws_skin_ui           = { value:'classic',          type:"string"} ;
+               WSCFG.ws_skin_user         = { value:'actual',           type:"string"} ;
 
 	       /* micro/assembly screen: editor */
                WSCFG.editor_theme         = { value:'default',          type:"string"} ;
                WSCFG.editor_mode          = { value:'default',          type:"string"} ;
 
 	       /* misc. */
-               WSCFG.verbal_verbose       = { value:'text',             type:"string"} ;
+               WSCFG.verbal_verbose       = { value:'math',             type:"string"} ;
                WSCFG.base_url             = { value:'https://wepsim.github.io/wepsim/ws_dist/wepsim-classic.html',   type:"string"} ;
 
 	       /*

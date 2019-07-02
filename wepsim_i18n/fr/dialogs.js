@@ -23,10 +23,9 @@
 
     i18n.eltos.dialogs.fr = {
 
-			"Show Notifications":                           "Afficher les notifications",
-			"Show/Hide RecordBar":                          "Afficher/masquer la barre d'enregistrement",
 			"Show/Hide ActionBar":                          "Afficher/masquer la barre d'action",
 			"Show/Hide Slider":                             "Afficher/masquer le curseur",
+			"WepSIM User Interface Skin":			"Apparence de l'interface utilisateur WepSIM",
 			"Initial intro":                                "Intro initiale",
 			"About WepSIM":                                 "À propos de WepSIM",
 

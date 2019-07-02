@@ -30,6 +30,11 @@
 	    sim_change_workspace('#main1', 0) ;
 
 	    setTimeout(function(){
+			    $("#t3_firm").appendTo("#t3_firm_placeholder2") ;
+			     $("#t4_asm").appendTo("#t4_asm_placeholder2") ;
+			    inputfirm.refresh() ;
+			    inputasm.refresh() ;
+
 			    // stats about ui
 			    ga('send', 'event', 'ui', 'ui.workspace', 'ui.workspace.simulator');
 	               }, 50) ;
@@ -47,6 +52,7 @@
 	    sim_change_workspace('#main3', 1) ;
 
 	    setTimeout(function(){
+	                    $("#t3_firm").appendTo("#t3_firm_placeholder1") ;
 		            inputfirm.refresh() ;
 
 			    // stats about ui
@@ -66,6 +72,7 @@
 	    sim_change_workspace('#main4', 2) ;
 
 	    setTimeout(function(){
+	                    $("#t4_asm").appendTo("#t4_asm_placeholder1") ;
 		            inputasm.refresh() ;
 
 			    // stats about ui
@@ -188,7 +195,7 @@
     {
             wepsim_open_examples_index();
 	    $('[data-toggle=tooltip]').tooltip('hide');
-	    wepsim_refresh_beta() ;
+	    wepsim_refresh_skin() ;
 
             // add if recording
             simcore_record_append_new('Open examples',
@@ -233,6 +240,7 @@
     {
 	    wepsim_open_config_index() ;
 	    $('[data-toggle=tooltip]').tooltip('hide') ;
+	    wepsim_refresh_skin() ;
 
             // add if recording
             simcore_record_append_new('Open configuration',
@@ -255,6 +263,7 @@
     {
             wepsim_dialog_current_state() ;
 	    $('[data-toggle=tooltip]').tooltip('hide') ;
+	    wepsim_refresh_skin() ;
 
             // add if recording
             simcore_record_append_new('Open state',
@@ -346,6 +355,53 @@
             return true ;
     }
 
+    function wsweb_dialogbox_open_notifications ( )
+    {
+            wepsim_notifications_open() ;
+	    $('[data-toggle=tooltip]').tooltip('hide') ;
+	    wepsim_refresh_skin() ;
+
+            // add if recording
+            simcore_record_append_new('Open notification summary',
+	       	                      'wsweb_dialogbox_open_notifications();\n') ;
+
+            // intercept events...
+	    $("#notifications2").one("hidden.bs.modal",
+		                     function () {
+				         simcore_record_append_new('Close notifications summary',
+					                           'wsweb_dialogbox_close_all();\n');
+			             });
+            wsweb_scroll_record('#container-notifications2') ;
+	    simcore_record_captureInit() ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_dialogbox_reset_notifications ( )
+    {
+	    simcore_notifications_reset() ;
+	    $('#notifications2').modal('hide') ;
+            wepsim_notifications_open() ;
+	    wepsim_refresh_skin() ;
+
+            // add if recording
+            simcore_record_append_new('Reset notifications',
+	       	                      'wsweb_dialogbox_reset_notifications();\n') ;
+
+            // intercept events...
+	    $("#notifications2").one("hidden.bs.modal",
+		                     function () {
+				         simcore_record_append_new('Close notifications summary',
+					                           'wsweb_dialogbox_close_all();\n');
+			             });
+            wsweb_scroll_record('#container-notifications2') ;
+	    simcore_record_captureInit() ;
+
+            // return ok
+            return true ;
+    }
+
     function wsweb_dialogbox_close_state ( )
     {
 	    $('#current_state1').modal('hide') ;
@@ -360,13 +416,14 @@
 
     function wsweb_dialogbox_close_all ( )
     {
-	    // Close all dialogbox before open this one
+	    // Close all dialogbox
 	          $('#example1').modal('hide') ;
 	             $('#help1').modal('hide') ;
 	           $('#config2').modal('hide') ;
 	    $('#current_state1').modal('hide');
 	    $('#current_state2').modal('hide');
 	              $('#bin2').modal('hide');
+            $('#notifications2').modal('hide') ;
 
             // add if recording
             simcore_record_append_new('Close all dialogboxes',
@@ -448,8 +505,8 @@
 	    "IO_STATS":       function(){ wsweb_set_details_select(15); show_memories_values(); },
 	    "IO_CONFIG":      function(){ wsweb_set_details_select(19); show_memories_values(); },
 
-	    "FRM_EDITOR":     function(){ wsweb_set_details_select(20); inputfirm.refresh(); },
-	    "ASM_EDITOR":     function(){ wsweb_set_details_select(21); inputasm.refresh(); },
+	    "FRM_EDITOR":     function(){ wsweb_set_details_select(20); $("#t3_firm").appendTo("#t3_firm_placeholder2"); inputfirm.refresh(); },
+	    "ASM_EDITOR":     function(){ wsweb_set_details_select(21);  $("#t4_asm").appendTo("#t4_asm_placeholder2");   inputasm.refresh(); },
 	    "HARDWARE":       function(){ wsweb_set_details_select(22);
 					  $('[data-toggle=tooltip]').tooltip('hide');
 					  simcoreui_init_hw('#config_HW') ;

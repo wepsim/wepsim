@@ -33,6 +33,9 @@
 			"Save":  			        	"구하다",
                         "Restore":                                      "복원",
 			"Help":  			                "도움",
+                        "Notifications":                           "알림",
+                        "RecordBar":                          "기록 막대",
+
 			"Help Index":  			                "도움말 색인",
 			"Processor":  			                "프로세서",
 			"Assembly Debugger":  			        "어셈블리 디버거",

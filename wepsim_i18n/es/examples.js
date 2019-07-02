@@ -40,6 +40,7 @@
              "System call":						"Llamada a systema",
              "Threads":							"Hilos",
              "Vector":							"Vector",
+	     "Compiler Explorer":					"Compiler Explorer",
 
              "example_04_01":				"Ejemplo avanzado con interrupciones, llamada al sistema y excepciones.",
              "example_05_01":				"Extensiones Espec&iacute;ficas de Aplicaci&oacute;n: addv + seqv.",
@@ -63,6 +64,7 @@
              "example_01_03":				"Ejemplo simple con fetch, salto y segmento b&aacute;sico de .text.",
              "example_01_02":				"Ejemplo simple con fetch, acceso a memoria, y segmento b&aacute;sico de .text/.data.",
              "example_06_01":				"Ejemplo de prueba.",
+	     "example_06_02":	                    	"Ejemplo simple con Compiler Explorer.",
 
              "Advanced":				"Avanzado",
              "Initial":					"Inicial",
