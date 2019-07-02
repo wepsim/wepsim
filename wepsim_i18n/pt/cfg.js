@@ -60,7 +60,7 @@
 		'Accesibility':		'Acessibilidade',
 		'Active voice: external voice control':		'Voz ativa: controle de voz externo',
 		'Verbalization: textual or mathematical':		'Verbalização: textual ou matemática',
-		'Enable experimental features':		'Ativar recursos experimentais',
+		'Enable all features':		'Ativar todos os recursos',
 		'_last_':		'_last_'
 
     };

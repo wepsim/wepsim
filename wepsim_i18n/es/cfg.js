@@ -59,6 +59,6 @@
 	             "Accesibility": "Accesibilidad",
                       "Active voice: external voice control": 	                     "Activar voz: control por voz (externo)",
                       "Verbalization: textual or mathematical":      		     "Tipo de verbalizar: texto o matem&aacutre;tica",
-                      "Enable experimental features":     		     	     "Habilitar caracter&iacute;sticas experimentales"
+                      "Enable all features":     		     	             "Habilitar todas las caracter&iacute;sticas"
                   } ;
 

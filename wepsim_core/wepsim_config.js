@@ -59,50 +59,73 @@
 
     function table_config_html ( config )
     {
-        var o = "" ;
-
-        var fmt_toggle    = "" ;
-        var fmt_header    = "" ;
 	var e_type        = "" ;
-	var e_code_cfg   = "" ;
+	var e_level       = "" ;
+	var e_code_cfg    = "" ;
 	var e_description = "" ;
 	var e_id          = "" ;
 
-        var utypes = [] ;
-        for (var m=0; m<config.length; m++)
+        var fmt_toggle    = "" ;
+        var fmt_header    = "" ;
+        var fmt_level     = "" ;
+
+        // first pass: build data
+        var row = "" ;
+        var config_groupby_type = {} ;
+        for (var n=0; n<config.length; n++)
         {
-	    if (false === array_includes(utypes, config[m].type)) {
-	        utypes.push(config[m].type) ;
-            }
-        }
+		e_type        = config[n].type ;
+		e_level       = config[n].level ;
+		e_code_cfg    = config[n].code_cfg ;
+		e_description = config[n].description ;
+		e_id          = config[n].id ;
 
-        o = o + '<div class="container grid-striped border border-light">' ;
-        for (m=0; m<config.length; m++)
-        {
-	        fmt_header = "" ;
-	        if (e_type != config[m].type) {
-		    fmt_header = "<div class='float-none text-right text-capitalize font-weight-bold col-12 border-bottom border-secondary bg-white sticky-top'>" + 
-			         "<span data-langkey='" + config[m].type + "'>" + config[m].type + "</span>" +
-			         "</div>" ;
-		}
-
-		e_type        = config[m].type ;
-		e_code_cfg    = config[m].code_cfg ;
-		e_description = config[m].description ;
-		e_id          = config[m].id ;
-
-	        if (fmt_toggle == "")
+		// related row
+	        if (fmt_toggle === "")
 	            fmt_toggle = "bg-light" ;
 	       else fmt_toggle = "" ;
 
-		o = o + fmt_header +
-		        "<div class='row py-1 " + fmt_toggle + "' id='" + e_type + "'>" +
+	        if (e_level !== "actual")
+	            fmt_level = "user_archived" ;
+	       else fmt_level = "" ;
+
+		  row = "<div class='row py-1 " + fmt_toggle + " " + fmt_level + "' id='" + e_type + "'>" +
 			'<div class="col-md-auto">' +
-			'    <span class="badge badge-pill badge-light">' + (m+1) + '</span>' +
+			'    <span class="badge badge-pill badge-light">' + (n+1) + '</span>' +
 			'</div>' +
 			'<div class="col-md-4">'  + e_code_cfg   + '</div>' +
 			'<div class="col-md collapse7 show"><c>' + e_description + '</c></div>' +
 			'</div>' ;
+
+		// indexing row
+		if (typeof config_groupby_type[e_type] === "undefined") {
+		    config_groupby_type[e_type] = [] ;
+		}
+
+		config_groupby_type[e_type].push({'row':   row, 
+			                          'level': e_level}) ;
+       }
+
+       // second pass: build html
+       var o = '<div class="container grid-striped border border-light">' ;
+       var u = '' ;
+       var l = '' ;
+       for (var m in config_groupby_type)
+       {
+	        u = '' ;
+	        l = config_groupby_type[m][0].level ;
+                for (var n=0; n<config_groupby_type[m].length; n++)
+                {
+		     u = u + config_groupby_type[m][n].row ;
+
+		     if (l !== config_groupby_type[m][n].level) {
+			 l = '' ;
+                     }
+                }
+
+		o = o + "<div class='float-none text-right text-capitalize font-weight-bold col-12 border-bottom border-secondary bg-white sticky-top user_" + l + "'>" + 
+			"<span data-langkey='" + m + "'>" + m + "</span>" +
+			"</div>" + u ;
        }
        o = o + '</div>' ;
 

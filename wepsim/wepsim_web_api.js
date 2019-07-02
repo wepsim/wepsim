@@ -195,7 +195,7 @@
     {
             wepsim_open_examples_index();
 	    $('[data-toggle=tooltip]').tooltip('hide');
-	    wepsim_refresh_beta() ;
+	    wepsim_refresh_skin() ;
 
             // add if recording
             simcore_record_append_new('Open examples',
@@ -240,6 +240,7 @@
     {
 	    wepsim_open_config_index() ;
 	    $('[data-toggle=tooltip]').tooltip('hide') ;
+	    wepsim_refresh_skin() ;
 
             // add if recording
             simcore_record_append_new('Open configuration',
@@ -262,6 +263,7 @@
     {
             wepsim_dialog_current_state() ;
 	    $('[data-toggle=tooltip]').tooltip('hide') ;
+	    wepsim_refresh_skin() ;
 
             // add if recording
             simcore_record_append_new('Open state',
@@ -353,6 +355,53 @@
             return true ;
     }
 
+    function wsweb_dialogbox_open_notifications ( )
+    {
+            wepsim_notifications_open() ;
+	    $('[data-toggle=tooltip]').tooltip('hide') ;
+	    wepsim_refresh_skin() ;
+
+            // add if recording
+            simcore_record_append_new('Open notification summary',
+	       	                      'wsweb_dialogbox_open_notifications();\n') ;
+
+            // intercept events...
+	    $("#notifications2").one("hidden.bs.modal",
+		                     function () {
+				         simcore_record_append_new('Close notifications summary',
+					                           'wsweb_dialogbox_close_all();\n');
+			             });
+            wsweb_scroll_record('#container-notifications2') ;
+	    simcore_record_captureInit() ;
+
+            // return ok
+            return true ;
+    }
+
+    function wsweb_dialogbox_reset_notifications ( )
+    {
+	    simcore_notifications_reset() ;
+	    $('#notifications2').modal('hide') ;
+            wepsim_notifications_open() ;
+	    wepsim_refresh_skin() ;
+
+            // add if recording
+            simcore_record_append_new('Reset notifications',
+	       	                      'wsweb_dialogbox_reset_notifications();\n') ;
+
+            // intercept events...
+	    $("#notifications2").one("hidden.bs.modal",
+		                     function () {
+				         simcore_record_append_new('Close notifications summary',
+					                           'wsweb_dialogbox_close_all();\n');
+			             });
+            wsweb_scroll_record('#container-notifications2') ;
+	    simcore_record_captureInit() ;
+
+            // return ok
+            return true ;
+    }
+
     function wsweb_dialogbox_close_state ( )
     {
 	    $('#current_state1').modal('hide') ;
@@ -367,13 +416,14 @@
 
     function wsweb_dialogbox_close_all ( )
     {
-	    // Close all dialogbox before open this one
+	    // Close all dialogbox
 	          $('#example1').modal('hide') ;
 	             $('#help1').modal('hide') ;
 	           $('#config2').modal('hide') ;
 	    $('#current_state1').modal('hide');
 	    $('#current_state2').modal('hide');
 	              $('#bin2').modal('hide');
+            $('#notifications2').modal('hide') ;
 
             // add if recording
             simcore_record_append_new('Close all dialogboxes',

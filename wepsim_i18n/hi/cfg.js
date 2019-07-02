@@ -60,7 +60,7 @@
 		'Accesibility':		'सरल उपयोग',
 		'Active voice: external voice control':		'सक्रिय आवाज: बाहरी आवाज नियंत्रण',
 		'Verbalization: textual or mathematical':		'शब्दश: पाठ या गणितीय',
-		'Enable experimental features':		'प्रयोगात्मक सुविधाओं को सक्षम करें',
+		'Enable all features':		'प्रयोगात्मक सुविधाओं को सक्षम करें',
 		'_last_':		'_last_'
 
     };

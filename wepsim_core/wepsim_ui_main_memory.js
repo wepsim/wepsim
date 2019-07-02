@@ -71,7 +71,7 @@
                  seglabels[parseInt(curr_segments[skey].begin)] = skey ;
             }
 
-            for (var key in memory)
+            for (key in memory)
             {
                 value = main_memory_getword(revlabels, valkeys, memory, key) ;
                 sname = seglabels[parseInt(key)] ;

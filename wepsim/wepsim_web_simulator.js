@@ -451,13 +451,13 @@
            $("#current_state1_lang").html(o) ;
     }
 
-    function wepsim_refresh_beta ( )
+    function wepsim_refresh_skin ( )
     {
-	   var val = get_cfg('enable_beta') ;
+	   var val = get_cfg('ws_skin_user') ;
 
-	   if (val === false)
-	        $('.enabled_beta').addClass('d-none');
-	   else $('.enabled_beta').removeClass('d-none');
+	   if (val === 'actual')
+	        $('.user_archived').addClass('d-none');
+	   else $('.user_archived').removeClass('d-none');
     }
 
 
@@ -513,8 +513,8 @@
 				   return content ; // DOMPurify.sanitize(content) ;
 				}
 	    }).on('shown.bs.popover', function () {
-                    $('#label4-' + get_cfg('ws_skin')).button('toggle') ;
-                    wepsim_refresh_beta() ;
+                    $('#label4-' + get_cfg('ws_skin_ui')).button('toggle') ;
+                    wepsim_refresh_skin() ;
             }) ;
 
 	    // tooltip: trigger by hover
@@ -607,6 +607,6 @@
             wepsim_init_helpDropdown() ;
 
 	    // enable/disable beta elements at the end
-            wepsim_refresh_beta() ;
+            wepsim_refresh_skin() ;
     }
 

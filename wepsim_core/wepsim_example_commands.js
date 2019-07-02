@@ -26,7 +26,8 @@
     ws_examples.push({
                        id: 'S1E1',
                        title: "<span data-langkey='Instructions'>Instructions</span>",
-                       level: "<span data-langkey='Initial'>Initial</span>",
+                       type: "<span data-langkey='Initial'>Initial</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_base",
@@ -37,7 +38,8 @@
     ws_examples.push({
                        id: 'S1E2',
                        title: "<span data-langkey='Memory access'>Memory access</span>",
-                       level: "<span data-langkey='Initial'>Initial</span>",
+                       type: "<span data-langkey='Initial'>Initial</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_base",
@@ -48,7 +50,8 @@
     ws_examples.push({
                        id: 'S1E3',
                        title: "<span data-langkey='Looping'>Looping</span>",
-                       level: "<span data-langkey='Initial'>Initial</span>",
+                       type: "<span data-langkey='Initial'>Initial</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_enhanced",
@@ -59,7 +62,8 @@
     ws_examples.push({
                        id: 'S1E4',
                        title: "<span data-langkey='Vector'>Vector</span>",
-                       level: "<span data-langkey='Initial'>Initial</span>",
+                       type: "<span data-langkey='Initial'>Initial</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_enhanced",
@@ -70,7 +74,8 @@
     ws_examples.push({
                        id: 'S2E1',
                        title: "<span data-langkey='I/O'>I/O</span>",
-                       level: "<span data-langkey='Intermediate'>Intermediate</span>",
+                       type: "<span data-langkey='Intermediate'>Intermediate</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_base",
@@ -81,7 +86,8 @@
     ws_examples.push({
                        id: 'S2E2',
                        title: "<span data-langkey='Subrutine'>Subrutine</span>",
-                       level: "<span data-langkey='Intermediate'>Intermediate</span>",
+                       type: "<span data-langkey='Intermediate'>Intermediate</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_enhanced",
@@ -92,7 +98,8 @@
     ws_examples.push({
                        id: 'S2E3',
                        title: "<span data-langkey='Masks & shift'>Masks & shift</span>",
-                       level: "<span data-langkey='Intermediate'>Intermediate</span>",
+                       type: "<span data-langkey='Intermediate'>Intermediate</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s2_e3",
@@ -103,7 +110,8 @@
     ws_examples.push({
                        id: 'S2E4',
                        title: "<span data-langkey='Matrix'>Matrix</span>",
-                       level: "<span data-langkey='Intermediate'>Intermediate</span>",
+                       type: "<span data-langkey='Intermediate'>Intermediate</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s2_e4",
@@ -114,7 +122,8 @@
     ws_examples.push({
                        id: 'S3E1',
                        title: "<span data-langkey='Interruptions'>Interruptions</span>",
-                       level: "<span data-langkey='Advanced'>Advanced</span>",
+                       type: "<span data-langkey='Advanced'>Advanced</span>",
+                       level: "archived",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s3_e1",
@@ -125,7 +134,8 @@
     ws_examples.push({
                        id: 'S3E2',
                        title: "<span data-langkey='System call'>System call</span>",
-                       level: "<span data-langkey='Advanced'>Advanced</span>",
+                       type: "<span data-langkey='Advanced'>Advanced</span>",
+                       level: "archived",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s3_e2",
@@ -136,7 +146,8 @@
     ws_examples.push({
                        id: 'S3E3',
                        title: "<span data-langkey='Exception'>Exception</span>",
-                       level: "<span data-langkey='Advanced'>Advanced</span>",
+                       type: "<span data-langkey='Advanced'>Advanced</span>",
+                       level: "archived",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s3_e3",
@@ -147,7 +158,8 @@
     ws_examples.push({
                        id: 'S4E1',
                        title: "<span data-langkey='Int. + syscall + except.'>Int. + syscall + except.</span>",
-                       level: "<span data-langkey='Operating Systems'>Operating Systems</span>",
+                       type: "<span data-langkey='Operating Systems'>Operating Systems</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s4_e1",
@@ -158,7 +170,8 @@
     ws_examples.push({
                        id: 'S4E2',
                        title: "<span data-langkey='SC 1, 4-5, 8, 11-12'>SC 1, 4-5, 8, 11-12</span>",
-                       level: "<span data-langkey='Operating Systems'>Operating Systems</span>",
+                       type: "<span data-langkey='Operating Systems'>Operating Systems</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_os",
@@ -169,7 +182,8 @@
     ws_examples.push({
                        id: 'S4E3',
                        title: "<span data-langkey='Threads'>Threads</span>",
-                       level: "<span data-langkey='Operating Systems'>Operating Systems</span>",
+                       type: "<span data-langkey='Operating Systems'>Operating Systems</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_os",
@@ -180,7 +194,8 @@
     ws_examples.push({
                        id: 'S4E4',
                        title: "<span data-langkey='Alloc.s'>Alloc.s</span>",
-                       level: "<span data-langkey='Operating Systems'>Operating Systems</span>",
+                       type: "<span data-langkey='Operating Systems'>Operating Systems</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_os",
@@ -191,7 +206,8 @@
     ws_examples.push({
                        id: 'S5E1',
                        title: "<span data-langkey='addv + seqv.'>addv + seqv.</span>",
-                       level: "<span data-langkey='Laboratory'>Laboratory</span>",
+                       type: "<span data-langkey='Laboratory'>Laboratory</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s5_e1",
@@ -202,7 +218,8 @@
     ws_examples.push({
                        id: 'S5E2',
                        title: "<span data-langkey='strlen_2 + skipasciicode_2'>strlen_2 + skipasciicode_2</span>",
-                       level: "<span data-langkey='Laboratory'>Laboratory</span>",
+                       type: "<span data-langkey='Laboratory'>Laboratory</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s5_e2",
@@ -213,7 +230,8 @@
     ws_examples.push({
                        id: 'S5E3',
                        title: "<span data-langkey='madd, mmul, mxch'>madd, mmul, mxch</span>",
-                       level: "<span data-langkey='Laboratory'>Laboratory</span>",
+                       type: "<span data-langkey='Laboratory'>Laboratory</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s5_e3",
@@ -224,7 +242,8 @@
     ws_examples.push({
                        id: 'S6E1',
                        title: "<span data-langkey='Dummy instruction'>Dummy instruction</span>",
-                       level: "<span data-langkey='Special'>Special</span>",
+                       type: "<span data-langkey='Special'>Special</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_bare",
@@ -235,7 +254,8 @@
     ws_examples.push({
                        id: 'S6E2',
                        title: "<span data-langkey='Compiler Explorer'>Compiler Explorer</span>",
-                       level: "<span data-langkey='Special'>Special</span>",
+                       type: "<span data-langkey='Special'>Special</span>",
+                       level: "archived",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_os",
@@ -249,7 +269,8 @@
     ws_examples.push({
                        id: 'S1E1',
                        title: "<span data-langkey='Instructions'>Instructions</span>",
-                       level: "<span data-langkey='Initial'>Initial</span>",
+                       type: "<span data-langkey='Initial'>Initial</span>",
+                       level: "actual",
                        modes:  "newbie,intro,wepmips,tutorial",
                        hardware:  "ep",
                        microcode: "ep_mips",
@@ -260,7 +281,8 @@
     ws_examples.push({
                        id: 'S1E2',
                        title: "<span data-langkey='Memory access'>Memory access</span>",
-                       level: "<span data-langkey='Initial'>Initial</span>",
+                       type: "<span data-langkey='Initial'>Initial</span>",
+                       level: "actual",
                        modes:  "newbie,intro,wepmips,tutorial",
                        hardware:  "ep",
                        microcode: "ep_mips",
@@ -271,7 +293,8 @@
     ws_examples.push({
                        id: 'S1E3',
                        title: "<span data-langkey='Looping'>Looping</span>",
-                       level: "<span data-langkey='Initial'>Initial</span>",
+                       type: "<span data-langkey='Initial'>Initial</span>",
+                       level: "actual",
                        modes:  "newbie,intro,wepmips,tutorial",
                        hardware:  "ep",
                        microcode: "ep_mips",
@@ -282,7 +305,8 @@
     ws_examples.push({
                        id: 'S1E4',
                        title: "<span data-langkey='Vector'>Vector</span>",
-                       level: "<span data-langkey='Initial'>Initial</span>",
+                       type: "<span data-langkey='Initial'>Initial</span>",
+                       level: "actual",
                        modes:  "newbie,intro,wepmips,tutorial",
                        hardware:  "ep",
                        microcode: "ep_mips",
@@ -293,7 +317,8 @@
     ws_examples.push({
                        id: 'S2E1',
                        title: "<span data-langkey='I/O'>I/O</span>",
-                       level: "<span data-langkey='Intermediate'>Intermediate</span>",
+                       type: "<span data-langkey='Intermediate'>Intermediate</span>",
+                       level: "actual",
                        modes:  "newbie,intro,wepmips,tutorial",
                        hardware:  "ep",
                        microcode: "ep_mips",
@@ -301,23 +326,23 @@
                        description: "<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>"
                      });
 
-/*
     ws_examples.push({
                        id: 'S2E2',
                        title: "<span data-langkey='Subrutine'>Subrutine</span>",
-                       level: "<span data-langkey='Intermediate'>Intermediate</span>",
+                       type: "<span data-langkey='Intermediate'>Intermediate</span>",
+                       level: "archived",
                        modes:  "newbie,intro,wepmips,tutorial",
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s2_e2",
                        description: "<span data-langkey='example_02_02'>Extended example with more instructions and I/O (keyboard, display).</span>"
                      });
-*/
 
     ws_examples.push({
                        id: 'S2E3',
                        title: "<span data-langkey='Masks & shift'>Masks & shift</span>",
-                       level: "<span data-langkey='Intermediate'>Intermediate</span>",
+                       type: "<span data-langkey='Intermediate'>Intermediate</span>",
+                       level: "actual",
                        modes:  "newbie,intro,wepmips,tutorial",
                        hardware:  "ep",
                        microcode: "ep_mips",
@@ -328,7 +353,8 @@
     ws_examples.push({
                        id: 'S2E4',
                        title: "<span data-langkey='Matrix'>Matrix</span>",
-                       level: "<span data-langkey='Intermediate'>Intermediate</span>",
+                       type: "<span data-langkey='Intermediate'>Intermediate</span>",
+                       level: "actual",
                        modes:  "newbie,intro,wepmips,tutorial",
                        hardware:  "ep",
                        microcode: "ep_mips",
@@ -339,7 +365,8 @@
     ws_examples.push({
                        id: 'S3E1',
                        title: "<span data-langkey='Interruptions'>Interruptions</span>",
-                       level: "<span data-langkey='Advanced'>Advanced</span>",
+                       type: "<span data-langkey='Advanced'>Advanced</span>",
+                       level: "actual",
                        modes:  "newbie,intro,wepmips,tutorial",
                        hardware:  "ep",
                        microcode: "ep_mips",
@@ -350,7 +377,8 @@
     ws_examples.push({
                        id: 'S3E2',
                        title: "<span data-langkey='System call'>System call</span>",
-                       level: "<span data-langkey='Advanced'>Advanced</span>",
+                       type: "<span data-langkey='Advanced'>Advanced</span>",
+                       level: "actual",
                        modes:  "newbie,intro,wepmips,tutorial",
                        hardware:  "ep",
                        microcode: "ep_mips",
@@ -361,7 +389,8 @@
     ws_examples.push({
                        id: 'S3E3',
                        title: "<span data-langkey='Exception'>Exception</span>",
-                       level: "<span data-langkey='Advanced'>Advanced</span>",
+                       type: "<span data-langkey='Advanced'>Advanced</span>",
+                       level: "actual",
                        modes:  "newbie,intro,wepmips,tutorial",
                        hardware:  "ep",
                        microcode: "ep_mips",
@@ -372,7 +401,8 @@
     ws_examples.push({
                        id: 'S4E1',
                        title: "<span data-langkey='Int. + syscall + except.'>Int. + syscall + except.</span>",
-                       level: "<span data-langkey='Operating Systems'>Operating Systems</span>",
+                       type: "<span data-langkey='Operating Systems'>Operating Systems</span>",
+                       level: "actual",
                        modes:  "newbie,intro,wepmips,tutorial",
                        hardware:  "ep",
                        microcode: "ep_mips",
@@ -383,7 +413,8 @@
     ws_examples.push({
                        id: 'S4E2',
                        title: "<span data-langkey='syscall 1, 4-5, 8, 11-12'>syscall 1, 4-5, 8, 11-12</span>",
-                       level: "<span data-langkey='Operating Systems'>Operating Systems</span>",
+                       type: "<span data-langkey='Operating Systems'>Operating Systems</span>",
+                       level: "actual",
                        modes:  "newbie,intro,wepmips,tutorial",
                        hardware:  "ep",
                        microcode: "ep_mips",
@@ -394,7 +425,8 @@
     ws_examples.push({
                        id: 'S5E1',
                        title: "<span data-langkey='strlen_2 + skipasciicode_2'>strlen_2 + skipasciicode_2</span>",
-                       level: "<span data-langkey='Laboratory'>Laboratory</span>",
+                       type: "<span data-langkey='Laboratory'>Laboratory</span>",
+                       level: "actual",
                        modes:  "newbie,intro,wepmips,tutorial",
                        hardware:  "ep",
                        microcode: "ep_mips",
@@ -407,7 +439,8 @@
     ws_examples.push({
                        id: 'S1E1',
                        title: "<span data-langkey='Instructions'>Instructions</span>",
-                       level: "<span data-langkey='Initial'>Initial</span>",
+                       type: "<span data-langkey='Initial'>Initial</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,poc",
                        hardware:  "poc",
                        microcode: "poc_base",
@@ -418,7 +451,8 @@
     ws_examples.push({
                        id: 'S1E2',
                        title: "<span data-langkey='Memory access'>Memory access</span>",
-                       level: "<span data-langkey='Initial'>Initial</span>",
+                       type: "<span data-langkey='Initial'>Initial</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,poc",
                        hardware:  "poc",
                        microcode: "poc_base",
@@ -429,7 +463,8 @@
     ws_examples.push({
                        id: 'S1E3',
                        title: "<span data-langkey='Looping'>Looping</span>",
-                       level: "<span data-langkey='Initial'>Initial</span>",
+                       type: "<span data-langkey='Initial'>Initial</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,poc",
                        hardware:  "poc",
                        microcode: "poc_base",
@@ -440,7 +475,8 @@
     ws_examples.push({
                        id: 'S1E4',
                        title: "<span data-langkey='Vector'>Vector</span>",
-                       level: "<span data-langkey='Initial'>Initial</span>",
+                       type: "<span data-langkey='Initial'>Initial</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,poc",
                        hardware:  "poc",
                        microcode: "poc_base",
@@ -451,7 +487,8 @@
     ws_examples.push({
                        id: 'S2E1',
                        title: "<span data-langkey='I/O'>I/O</span>",
-                       level: "<span data-langkey='Intermediate'>Intermediate</span>",
+                       type: "<span data-langkey='Intermediate'>Intermediate</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,poc",
                        hardware:  "poc",
                        microcode: "poc_base",
@@ -462,7 +499,8 @@
     ws_examples.push({
                        id: 'S2E2',
                        title: "<span data-langkey='Subrutine'>Subrutine</span>",
-                       level: "<span data-langkey='Intermediate'>Intermediate</span>",
+                       type: "<span data-langkey='Intermediate'>Intermediate</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,poc",
                        hardware:  "poc",
                        microcode: "poc_base",
@@ -473,7 +511,8 @@
     ws_examples.push({
                        id: 'S2E3',
                        title: "<span data-langkey='Masks & shift'>Masks & shift</span>",
-                       level: "<span data-langkey='Intermediate'>Intermediate</span>",
+                       type: "<span data-langkey='Intermediate'>Intermediate</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,poc",
                        hardware:  "poc",
                        microcode: "poc_base",
@@ -484,7 +523,8 @@
     ws_examples.push({
                        id: 'S2E4',
                        title: "<span data-langkey='Matrix'>Matrix</span>",
-                       level: "<span data-langkey='Intermediate'>Intermediate</span>",
+                       type: "<span data-langkey='Intermediate'>Intermediate</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,poc",
                        hardware:  "poc",
                        microcode: "poc_base",
@@ -495,7 +535,8 @@
     ws_examples.push({
                        id: 'S3E1',
                        title: "<span data-langkey='Interruptions'>Interruptions</span>",
-                       level: "<span data-langkey='Advanced'>Advanced</span>",
+                       type: "<span data-langkey='Advanced'>Advanced</span>",
+                       level: "archived",
                        modes:  "newbie,intro,tutorial,poc",
                        hardware:  "poc",
                        microcode: "poc_s3",
@@ -506,7 +547,8 @@
     ws_examples.push({
                        id: 'S3E2',
                        title: "<span data-langkey='System call'>System call</span>",
-                       level: "<span data-langkey='Advanced'>Advanced</span>",
+                       type: "<span data-langkey='Advanced'>Advanced</span>",
+                       level: "archived",
                        modes:  "newbie,intro,tutorial,poc",
                        hardware:  "poc",
                        microcode: "poc_s3",
@@ -517,7 +559,8 @@
     ws_examples.push({
                        id: 'S3E3',
                        title: "<span data-langkey='Exception'>Exception</span>",
-                       level: "<span data-langkey='Advanced'>Advanced</span>",
+                       type: "<span data-langkey='Advanced'>Advanced</span>",
+                       level: "archived",
                        modes:  "newbie,intro,tutorial,poc",
                        hardware:  "poc",
                        microcode: "poc_s3",
@@ -528,7 +571,8 @@
     ws_examples.push({
                        id: 'S4E1',
                        title: "<span data-langkey='Int. + syscall + except.'>Int. + syscall + except.</span>",
-                       level: "<span data-langkey='Operating Systems'>Operating Systems</span>",
+                       type: "<span data-langkey='Operating Systems'>Operating Systems</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,poc",
                        hardware:  "poc",
                        microcode: "poc_os",
@@ -539,7 +583,8 @@
     ws_examples.push({
                        id: 'S4E2',
                        title: "<span data-langkey='SC 1, 4-5, 8, 11-12'>SC 1, 4-5, 8, 11-12</span>",
-                       level: "<span data-langkey='Operating Systems'>Operating Systems</span>",
+                       type: "<span data-langkey='Operating Systems'>Operating Systems</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,poc",
                        hardware:  "poc",
                        microcode: "poc_os",
@@ -550,7 +595,8 @@
     ws_examples.push({
                        id: 'S4E3',
                        title: "<span data-langkey='Threads'>Threads</span>",
-                       level: "<span data-langkey='Operating Systems'>Operating Systems</span>",
+                       type: "<span data-langkey='Operating Systems'>Operating Systems</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,poc",
                        hardware:  "poc",
                        microcode: "poc_os",
@@ -561,7 +607,8 @@
     ws_examples.push({
                        id: 'S4E4',
                        title: "<span data-langkey='Alloc.s'>Alloc.s</span>",
-                       level: "<span data-langkey='Operating Systems'>Operating Systems</span>",
+                       type: "<span data-langkey='Operating Systems'>Operating Systems</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,poc",
                        hardware:  "poc",
                        microcode: "poc_os",
@@ -572,7 +619,8 @@
     ws_examples.push({
                        id: 'S5E1',
                        title: "<span data-langkey='Dummy instruction'>Dummy instruction</span>",
-                       level: "<span data-langkey='Special'>Special</span>",
+                       type: "<span data-langkey='Special'>Special</span>",
+                       level: "actual",
                        modes:  "newbie,intro,tutorial,poc",
                        hardware:  "poc",
                        microcode: "poc_bare",

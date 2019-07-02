@@ -60,7 +60,7 @@
 		'Accesibility':		'无障碍',
 		'Active voice: external voice control':		'主动语音：外部语音控制',
 		'Verbalization: textual or mathematical':		'语言化：文本或数学',
-		'Enable experimental features':		'启用实验功能',
+		'Enable all features':		'啟用所有功能',
 		'_last_':		'_last_'
 
     };

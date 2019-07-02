@@ -24,6 +24,7 @@
     ws_config.push({
                       id:          "select7",
                       type:        "General",
+                      level:       "actual",
                       code_cfg:    "<div class='form-group m-0'>" + i18n_get_select() + "</div>",
                       code_init:   function() { 
 			               $('#select7').val(get_cfg('ws_idiom')); 
@@ -32,33 +33,39 @@
                    });
 
     ws_config.push({
-                      id:          "radio14",
+                      id:          "slider3",
                       type:        "General",
+                      level:       "actual",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
-				   "	    <label id='label14-true'" +
+				   "	    <label id='label8-2000'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
-				   "		   aria-label='Beta: true'" +
-				   "		   onclick=\"update_cfg('enable_beta', true);" +
-				   "		             $('.enabled_beta').removeClass('d-none');\">" +
-				   "		<input type='radio' name='beta' id='radio14-true'  aria-label='enable_beta: true'  autocomplete='off' >On" +
+				   "		   aria-label='Notification delay: slow'" +
+				   "		   onclick=\"update_cfg('NOTIF_delay', 2000);\">" +
+				   "		<input type='radio' name='options' id='radio8-2000'   autocomplete='off' ><span data-langkey='Slow'>Slow</span>" +
 				   "	    </label>" +
-				   "	    <label id='label14-false'" +
+				   "	    <label id='label8-1000'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
-				   "		   aria-label='Beta: false'" +
-				   "		   onclick=\"update_cfg('enable_beta', false);" +
-				   "		             $('.enabled_beta').addClass('d-none');\">" +
-				   "		<input type='radio' name='beta' id='radio14-false' aria-label='enable_beta: false' autocomplete='off' >Off" +
+				   "		   aria-label='Notification delay: normal'" +
+				   "		   onclick=\"update_cfg('NOTIF_delay', 1000);\">" +
+				   "		<input type='radio' name='options' id='radio8-1000'  autocomplete='off' ><span data-langkey='Normal'>Normal</span>" +
+				   "	    </label>" +
+				   "	    <label id='label8-100'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   aria-label='Notification delay: fast'" +
+				   "		   onclick=\"update_cfg('NOTIF_delay', 100);\">" +
+				   "		<input type='radio' name='options' id='radio8-100'  autocomplete='off' ><span data-langkey='Fast'>Fast</span>" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() { 
-			               $('#label14-' + get_cfg('enable_beta')).button('toggle');
+			               $('#label8-' + get_cfg('NOTIF_delay')).button('toggle'); 
 		                   },
-                      description: "<span data-langkey='Enable experimental features'>Enable experimental features</span>"
+                      description: "<span data-langkey='Notification speed: time before disapear'>Notification speed: time before disapear</span>"
                    });
 
     ws_config.push({
                       id:          "radio12",
                       type:        "Execution",
+                      level:       "actual",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label12-50'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -88,6 +95,7 @@
     ws_config.push({
                       id:          "radio1",
                       type:        "Execution",
+                      level:       "archived",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label1-instruction'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -113,6 +121,7 @@
     ws_config.push({
                       id:          "select1",
                       type:        "Execution",
+                      level:       "actual",
                       code_cfg:    "<a href='#' id='breakpointicon1' title='Please select breakpoint icon' tabindex='0'" +
 			           "   data-toggle='popover' data-trigger='click'>" +
 		                   "   		<img alt='stop icon' id='img_select1' src='images/stop/stop_classic.gif' " +
@@ -128,6 +137,7 @@
     ws_config.push({
                       id:          "select6",
                       type:        "Execution",
+                      level:       "actual",
                       code_cfg:    " <div class='form-group m-0'>" +
 				   "	    <select name='select6' id='select6' class='form-control form-control-sm custom-select'" +
 				   "		    aria-label='max. ticks per instruction' " +
@@ -152,6 +162,7 @@
     ws_config.push({
                       id:          "select3",
                       type:        "Execution",
+                      level:       "actual",
                       code_cfg:    " <div class='form-group m-0'>" +
 				   "	    <select name='select3' id='select3' class='form-control form-control-sm custom-select'" +
 				   "		    aria-label='max. ticks per instruction' " +
@@ -176,6 +187,7 @@
     ws_config.push({
                       id:          "radio7",
                       type:        "Editor",
+                      level:       "actual",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label7-default'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;' " +
@@ -201,6 +213,7 @@
     ws_config.push({
                       id:          "select2",
                       type:        "Editor",
+                      level:       "actual",
                       code_cfg:    "<div class='form-group m-0'>" +
 			           "   <select name='select2' id='select2' class='form-control form-control-sm custom-select'" +
 			           "	    aria-label='Editor mode'    " +
@@ -225,6 +238,7 @@
     ws_config.push({
                       id:          "radio2",
                       type:        "Register file",
+                      level:       "archived",
                       code_cfg:    " <div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label2-unsigned_16_fill'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -256,6 +270,7 @@
     ws_config.push({
                       id:          "radio3",
                       type:        "Register file",
+                      level:       "archived",
                       code_cfg:    " <div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label3-numerical'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -279,6 +294,7 @@
     ws_config.push({
                       id:          "radio9",
                       type:        "Register file",
+                      level:       "archived",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label9-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
@@ -302,6 +318,7 @@
     ws_config.push({
                       id:          "colorpicker1",
                       type:        "Circuitry simulation",
+                      level:       "actual",
                       code_cfg:    "<fieldset data-role='controlgroup' data-type='horizontal' data-mini='true' style='margin:0 0 0 0'>" +
 				   "	 <input type='color'" +
 				   "		aria-label='Color for active data'" +
@@ -319,6 +336,7 @@
     ws_config.push({
                       id:          "colorpicker2",
                       type:        "Circuitry simulation",
+                      level:       "actual",
                       code_cfg:    "<fieldset data-role='controlgroup' data-type='horizontal' data-mini='true' style='margin:0 0 0 0'>" +
 				   "	 <input type='color'" +
 				   "		aria-label='Color for active signal name'" +
@@ -336,6 +354,7 @@
     ws_config.push({
                       id:          "radio10",
                       type:        "Circuitry simulation",
+                      level:       "actual",
                       code_cfg:    " <div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label10-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -359,6 +378,7 @@
     ws_config.push({
                       id:          "radio5",
                       type:        "Circuitry simulation",
+                      level:       "archived",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label5-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -382,6 +402,7 @@
     ws_config.push({
                       id:          "radio6",
                       type:        "Circuitry simulation",
+                      level:       "archived",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label6-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -403,8 +424,59 @@
                    });
 
     ws_config.push({
+                      id:          "radio14",
+                      type:        "Accesibility",
+                      level:       "actual",
+                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
+				   "	    <label id='label14-archived'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   aria-label='user: archived'" +
+				   "		   onclick=\"update_cfg('ws_skin_user', 'archived');" +
+				   "		             $('.user_archived').removeClass('d-none');\">" +
+				   "		<input type='radio' name='skin_user' id='radio14-archived'  aria-label='ws_skin_user: archived'  autocomplete='off' >All" +
+				   "	    </label>" +
+				   "	    <label id='label14-actual'" +
+				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
+				   "		   aria-label='user: actual'" +
+				   "		   onclick=\"update_cfg('ws_skin_user', 'actual');" +
+				   "		             $('.user_archived').addClass('d-none');\">" +
+				   "		<input type='radio' name='skin_user' id='radio14-actual' aria-label='ws_skin_user: actual' autocomplete='off' >Frequent" +
+				   "	    </label>" +
+				   "	</div>",
+		      code_init:   function() { 
+			               $('#label14-' + get_cfg('ws_skin_user')).button('toggle');
+		                   },
+                      description: "<span data-langkey='Enable all features'>Enable all features</span>"
+                   });
+
+    ws_config.push({
+                      id:          "select8",
+                      type:        "Accesibility",
+                      level:       "actual",
+                      code_cfg:    "<div class='form-group m-0'>" +
+                                   " <select name='select8' id='select8' class='form-control form-control-sm custom-select'" +
+                                   "         aria-label='User Interface for WepSIM' " +
+                                   "         onchange=\"var opt = $(this).find('option:selected');" +
+                                   "                    var optValue = opt.val();" +
+                                   "                    update_cfg('ws_skin_ui', optValue);" +
+                                   "                    window.removeEventListener('beforeunload', wepsim_confirm_exit);" +
+                                   "                    window.location='wepsim-' + optValue + '.html';" +
+                                   "                    return false;\"" +
+                                   "         data-native-menu='false'>" +
+                                   "    <option value='classic'>Classic</option>" +
+                                   "    <option value='compact'>Compact</option>" +
+                                   " </select>" +
+                                   "</div>",
+                      code_init:   function() {
+                                       $('#select8').val(get_cfg('ws_skin_ui'));
+                                   },
+                      description: "<span data-langkey='WepSIM User Interface Skin'>WepSIM User Interface Skin</span>"
+                   });
+
+    ws_config.push({
                       id:          "radio11",
                       type:        "Accesibility",
+                      level:       "archived",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label11-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -428,6 +500,7 @@
     ws_config.push({
                       id:          "radio13",
                       type:        "Accesibility",
+                      level:       "archived",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label13-text'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -446,34 +519,5 @@
 			               $('#label13-' + get_cfg('verbal_verbose')).button('toggle'); 
 		                   },
                       description: "<span data-langkey='Verbalization: textual or mathematical'>Verbalization: textual or mathematical</span>"
-                   });
-
-    ws_config.push({
-                      id:          "slider3",
-                      type:        "Accesibility",
-                      code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
-				   "	    <label id='label8-2000'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
-				   "		   aria-label='Notification delay: slow'" +
-				   "		   onclick=\"update_cfg('NOTIF_delay', 2000);\">" +
-				   "		<input type='radio' name='options' id='radio8-2000'   autocomplete='off' ><span data-langkey='Slow'>Slow</span>" +
-				   "	    </label>" +
-				   "	    <label id='label8-1000'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
-				   "		   aria-label='Notification delay: normal'" +
-				   "		   onclick=\"update_cfg('NOTIF_delay', 1000);\">" +
-				   "		<input type='radio' name='options' id='radio8-1000'  autocomplete='off' ><span data-langkey='Normal'>Normal</span>" +
-				   "	    </label>" +
-				   "	    <label id='label8-100'" +
-				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
-				   "		   aria-label='Notification delay: fast'" +
-				   "		   onclick=\"update_cfg('NOTIF_delay', 100);\">" +
-				   "		<input type='radio' name='options' id='radio8-100'  autocomplete='off' ><span data-langkey='Fast'>Fast</span>" +
-				   "	    </label>" +
-				   "	</div>",
-		      code_init:   function() { 
-			               $('#label8-' + get_cfg('NOTIF_delay')).button('toggle'); 
-		                   },
-                      description: "<span data-langkey='Notification speed: time before disapear'>Notification speed: time before disapear</span>"
                    });
 

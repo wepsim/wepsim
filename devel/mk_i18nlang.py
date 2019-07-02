@@ -76,7 +76,7 @@ i18n_eltos['cfg'] = {
 	             "Accesibility": "Accesibility",
                       "Active voice: external voice control": 	                     "Active voice: external voice control",
                       "Verbalization: textual or mathematical":      		     "Verbalization: textual or mathematical",
-                      "Enable experimental features":      	     		     "Enable experimental features"
+                      "Enable all features":      	     		             "Enable all features"
 
     } ;
 
@@ -451,7 +451,7 @@ i18n_eltos['tutorial_welcome'] = {
                  "message_2":     "<center><img alt='wepsim screenshot' src='images/welcome/simulation_xinstruction.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
-                                  "Click on next instruction/microinstruction to execute step by step. <br>" + 
+                                  "Click on next instruction/microinstruction to execute step by step. <br>" +
 		                  "Click on run button to execute until the first breakpoint or the end of the assembly program." +
                                   "<br>" +
                                   "</h5>",
@@ -477,8 +477,8 @@ i18n_eltos['tutorial_welcome'] = {
                  "message_5":     "<center><img alt='wepsim screenshot' src='images/welcome/help_usage.gif' style='max-width:100%; max-height:60vh'></center>" +
                                   "<p>" +
                                   "<h5>" +
-                                  "Please explorer the help sections for more information. <br>" + 
-                                  "If you click on the end button of this tutorial, WepSIM is going to load the first example for you. Enjoy!" + 
+                                  "Please explorer the help sections for more information. <br>" +
+                                  "If you click on the end button of this tutorial, WepSIM is going to load the first example for you. Enjoy!" +
                                   "<br>" +
                                   "</h5>"
 
@@ -566,7 +566,7 @@ if (len(sys.argv) < 2 or len(sys.argv) > 3):
 
 # + define elements
 L_D     = sys.argv[1] ;
-L_COMPO = [ "cfg", "dialogs", "examples", "gui", "help", "states", 
+L_COMPO = [ "cfg", "dialogs", "examples", "gui", "help", "states",
             "tour-intro",  "tutorial-simpleusage", "tutorial-welcome" ] ;
 
 # + directory
