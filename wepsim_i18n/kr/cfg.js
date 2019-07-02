@@ -60,7 +60,7 @@
 	             "Accesibility": "접근성",
                       "Active voice: external voice control": 	                     "활성 음성 : 외부 음성 제어",
                       "Verbalization: textual or mathematical":      		     "언어학 : 텍스트 또는 수학",
-                      "Enable experimental features":      	     		     "실험 사용"
+                      "Enable all features":      	     		             "모든 기능 사용"
 
                   } ;
 

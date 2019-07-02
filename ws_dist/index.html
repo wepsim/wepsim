@@ -120,7 +120,7 @@
     .ui-helper-hidden-accessible {
         display: none;
     }
-   
+  
     // bootbox for bootstrap 4 trick
     .bootbox .modal-header h5 {
 	 order: 0;
@@ -194,8 +194,8 @@
                <a class="ui-title pl-2 mx-2 text-primary" style="text-decoration: none"
 	          id="po1"
 		  data-container="body"
-                  onclick="if (typeof wsweb_quickmenu_toggle === 'function') 
-		               wsweb_quickmenu_toggle(); 
+                  onclick="if (typeof wsweb_quickmenu_toggle === 'function')
+		               wsweb_quickmenu_toggle();
 		           return false;"
 		  data-html="true"
 		  data-placement="bottom">WepSIM&nbsp;<span class="badge badge-pill badge-secondary"><div class="wsversion">loading ...</div></span>
@@ -230,25 +230,25 @@
 		  <span id="record_msg" class="text-left text-truncate"><em>0/0</em>&nbsp;&lt;empty recording&gt;</span>
              </div>
 	     <div class="btn-group col">
-		  <a class="btn btn-sm btn-outline-secondary bg-light shadow-sm rounded px-2 mr-2" href="#" 
+		  <a class="btn btn-sm btn-outline-secondary bg-light shadow-sm rounded px-2 mr-2" href="#"
 		     data-toggle="tooltip" data-placement="top" data-boundary="window"
                      title="Remove recorded session"
 		     onclick="wsweb_record_confirmReset(); return false;"><em class="fas fa-times text-danger"></em>
 		     <span class="d-none d-md-inline-flex pl-1" data-langkey='Reset'>Reset</span>
 		  </a>
-		  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm rounded px-2 mx-2" href="#" 
+		  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm rounded px-2 mx-2" href="#"
 		     data-toggle="tooltip" data-placement="top" data-boundary="window"
                      title="(While recording) add a new comment"
 		     onclick="wsweb_notifyuser_add(); return false;"><em class="fas fa-comment"></em>
 		     <span class="d-none d-md-inline-flex pl-1" data-langkey='Comment'>Comment</span>
 		  </a>
-		  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm rounded px-2 mx-2" href="#" 
+		  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm rounded px-2 mx-2" href="#"
 		     data-toggle="tooltip" data-placement="top" data-boundary="window"
                      title="Pause/Continue playback"
 		     onclick="wsweb_record_pause(); return false;"><em class="fas fa-pause"></em>
 		     <span class="d-none d-md-inline-flex pl-1" data-langkey='Pause'>Pause</span>
 		  </a>
-		  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm rounded px-2 mx-2" href="#" 
+		  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm rounded px-2 mx-2" href="#"
 		     data-toggle="tooltip" data-placement="top" data-boundary="window"
                      title="Play"
 		     onclick="wsweb_record_play(); return false;"><em class="fas fa-play"></em>
@@ -260,7 +260,7 @@
 		     onclick="wsweb_record_off(); return false;"><em class="fas fa-square"></em>
 		     <span class="d-none d-md-inline-flex pl-1" data-langkey='Stop'>Stop</span>
 		  </a>
-		  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm rounded px-2 ml-2" href="#" 
+		  <a class="btn btn-sm btn-outline-secondary btn-light shadow-sm rounded px-2 ml-2" href="#"
 		     data-toggle="tooltip" data-placement="top" data-boundary="window"
                      title="Start recording session"
 		     onclick="wsweb_record_on(); return false;"><em class="fas fa-circle"></em>
@@ -281,18 +281,18 @@
                       <div class="btn-toolbar btn-block" role="toolbar">
 		        <button class="btn btn-light shadow-sm my-1 mx-0"
                                 id="btn_micro1"
-			         data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			         data-toggle="tooltip" data-placement="bottom" data-html="true"
 			         title="This button switches into the 'Microcode' editor."
-                                onclick="wsweb_change_workspace_microcode(); 
+                                onclick="wsweb_change_workspace_microcode();
 				         $('[data-toggle=tooltip]').tooltip('hide');
 					 return false;"
 		                style="border-width:1 1 1 1px; border-color: #CCCCCC;"
 				><strong><span class="d-none d-sm-inline-flex" data-langkey='MicroCode'>MicroCode</span><span class="d-sm-none">&#181;code</span></strong></button>
 		        <button class="btn btn-light shadow-sm my-1 mx-0 mr-2"
                                 id="btn_asm1"
-			         data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			         data-toggle="tooltip" data-placement="bottom" data-html="true"
 			         title="This button switches into the 'Assembly' editor."
-                                onclick="wsweb_change_workspace_assembly(); 
+                                onclick="wsweb_change_workspace_assembly();
 				         $('[data-toggle=tooltip]').tooltip('hide');
 					 return false;"
 		                style="border-width:1 1 1 1px; border-color: #CCCCCC;"
@@ -321,7 +321,7 @@
 		            <button class="btn btn-light shadow-sm my-1 mx-0 col-auto"
 		                    style="border-width:1 1 1 1px; border-color: #CCCCCC; flex-grow:1;"
                                     id="btn_example1"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			            data-toggle="tooltip" data-placement="bottom" data-html="true"
 			            title="This button opens the 'Examples' dialog."
 				    onclick="wsweb_dialogbox_open_examples();
 					     return false;"><strong><span data-langkey='Examples'>Examples</span></strong></button>
@@ -329,20 +329,20 @@
 		            <button class="btn btn-light shadow-sm my-1 col-auto"
 		                    style="border-width:1 1 1 1px; border-color:#CCCCCC; background-color:#D4DB17; flex-grow:1;"
                                     id="btn_help1"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			            data-toggle="tooltip" data-placement="bottom" data-html="true"
 			            title="This button opens the 'Help' dialog."
 		                    onclick="wsweb_dialogbox_open_help();
 					     return false;"><strong><span data-langkey='Help'>Help</span></strong></button>
 
-			<div class="btn-group p-0 my-1 col-auto" style="flex-grow:6;">
+			<div class="btn-group p-0 my-1 col-auto user_archived" style="flex-grow:6;">
 			    <button type="button" class="col-12 btn btn-light shadow-sm"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			            data-toggle="tooltip" data-placement="bottom" data-html="true"
 				    title="This button shows the current execution mode, <br>the dropdown on the right changes the execution mode."
                                     style="border-color: #CCCCCC;"
 				    id="select4"
                                     onclick="wsweb_set_details('HARDWARE');
 					     return false;">HW</button>
-			    <button id="dd1" type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" 
+			    <button id="dd1" type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split"
                                     style="border-color: #CCCCCC;"
 				    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			      <span class="sr-only">Toggle Dropdown</span>
@@ -351,15 +351,15 @@
 
 			      <h6 class="text-secondary mb-1">WepSIM hardware</h6>
                               <a class="dropdown-item" href="#" id="s4_ep" value="ep"
-				 onclick="wsweb_select_main('ep'); 
+				 onclick="wsweb_select_main('ep');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP</a>
-                              <a class="dropdown-item user_archived" href="#" id="s4_poc" value="poc"
-				 onclick="wsweb_select_main('poc'); 
+                              <a class="dropdown-item" href="#" id="s4_poc" value="poc"
+				 onclick="wsweb_select_main('poc');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;POC</a>
 
-			      <div class="dropdown-divider user_archived"></div>
-			      <h6 class="text-secondary mb-1 user_archived">Assembly only</h6>
-                              <a class="dropdown-item user_archived" href="#" id="s4_wepmips" value="wepmips"
+			      <div class="dropdown-divider"></div>
+			      <h6 class="text-secondary mb-1">Assembly only</h6>
+                              <a class="dropdown-item" href="#" id="s4_wepmips" value="wepmips"
 				 onclick="wsweb_select_main('wepmips');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP+MIPS32</a>
 
@@ -380,7 +380,7 @@
 
 		      <div class="w-100 d-xs-block d-sm-none"></div>
 
-                      <div class="col-sm p-0 collapse show multi-collapse-2">
+                      <div class="col-sm p-0 ml-1 collapse show multi-collapse-2">
 			    <form id="slider2e" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">
 				 <label class="my-0" for="slider2a" style="min-width:95%"><span data-langkey='details'>details</span>:</label>
 				 <input aria-label="Show Main/Info" type="range" name="slider2a" id="slider2a"
@@ -396,20 +396,20 @@
                       <div class="btn-toolbar btn-block" role="toolbar">
 		            <button class="btn btn-light shadow-sm my-1 mx-0"
 		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			            data-toggle="tooltip" data-placement="bottom" data-html="true"
 			            title="This button opens the 'Record' bar."
                                     onclick="wsweb_recordbar_toggle();
 					     return false;"><strong><span data-langkey='RecordBar'>RecordBar</span></strong></button>
 		            <button class="btn btn-light shadow-sm my-1 mx-0"
 		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			            data-toggle="tooltip" data-placement="bottom" data-html="true"
 			            title="This button opens the 'Notifications' dialog."
                                     onclick="wsweb_dialogbox_open_notifications();
 					     return false;"><strong><span data-langkey='Notifications'>Notifications</span></strong></button>
 		            <button class="btn btn-light shadow-sm my-1 mx-0"
 		    	            style="border-width:1 1 1 1px; border-color: #CCCCCC;"
                                     id="btn_cfg1"
-			            data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			            data-toggle="tooltip" data-placement="bottom" data-html="true"
 			            title="This button opens the 'Configuration' dialog."
                                     onclick="wsweb_dialogbox_open_config();
 				    	     return false;"
@@ -432,7 +432,7 @@
                                           return false;"><em class="fas fa-microchip"></em>&nbsp;<span data-langkey='Processor'>Processor</span></a>
                           </li>
 		          <li class="nav-item">
-                              <a id="tab24" href="#eltos_dbg" 
+                              <a id="tab24" href="#eltos_dbg"
                                  class="nav-link" data-toggle="tab" role="tab"
                                  style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"
 				 aria-label="assembly debugger"
@@ -528,21 +528,21 @@
                     <div class="btn-toolbar btn-block" role="toolbar">
 		            <button class="btn btn-light shadow-sm col"
 		                    style="border-color: #CCCCCC; flex-grow:1;"
-			             data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			             data-toggle="tooltip" data-placement="bottom" data-html="true"
 			             title="This button opens the 'state management' dialog: it shows the current state, saves the current state, and shows the differences between two states."
 		                    onclick="wsweb_dialogbox_open_state();
                                              return false;"><em class="fas fa-camera"></em>&nbsp;<span data-langkey='States'>States</span></button>
 
 			  <div class="col btn-group p-0" style="flex-grow:2;">
 			    <button type="button" class="col-12 btn btn-light shadow-sm"
-			             data-toggle="tooltip" data-placement="bottom" data-html="true" 
+			             data-toggle="tooltip" data-placement="bottom" data-html="true"
 			             title="This button refresh the details (and might move the scrollbar), <br>the dropdown on the right changes the element to show its details."
                                     style="border-color: #CCCCCC;"
 				    id="select5b"
                                     onclick="wepsim_show_rf_values();
 				             show_memories_values();
 				  	     wepsim_reset_max_turbo();">Refresh</button>
-			    <button id="dd2" type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split" 
+			    <button id="dd2" type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split"
                                     style="border-color: #CCCCCC;"
 				    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			      <span class="sr-only">Toggle Dropdown</span>
@@ -829,7 +829,7 @@
 				    ><em class="fas fa-microchip"></em>&nbsp;<strong><span data-langkey="Hardware Summary">Hardware Summary</span></strong></button>
                             <button style="background-color: #D4DB17"
 		                    class="btn btn-light shadow-sm col-auto"
-				    onclick="wepsim_help_set_relative('simulator#help_firmware_format'); 
+				    onclick="wepsim_help_set_relative('simulator#help_firmware_format');
                                              wepsim_help_refresh();
                                              return false;"
 				    ><em class="fas fa-info-circle"></em>&nbsp;<strong><span data-langkey="Help">Help</span></strong></button>
@@ -918,7 +918,7 @@
                       <div class="btn-group mr-2" role="group"   aria-label="Toolbar load and save buttons">
                             <button style="background-color: #D4DB17"
 		                    class="btn btn-light shadow-sm col-auto"
-				    onclick="wepsim_help_set_relative('simulator#help_assembly_format'); 
+				    onclick="wepsim_help_set_relative('simulator#help_assembly_format');
                                              wepsim_help_refresh();
                                              return false;"
 				    ><em class="fas fa-info-circle"></em>&nbsp;<strong><span data-langkey="Help">Help</span></strong></button>
@@ -977,7 +977,7 @@
      <div class="modal-footer">
 	<button class="btn btn-sm btn-dark"
 		onclick="var fileToLoad = document.getElementById('fileToLoad').files[0];
-		         wepsim_load_from_file(fileToLoad, 
+		         wepsim_load_from_file(fileToLoad,
                                                function(txt){ inputfirm.setValue(txt); });
 			 $('#lsload').modal('hide');
                          return false;">
@@ -1038,7 +1038,7 @@
      <div class="modal-footer">
 	<button class="btn btn-sm btn-dark"
 		onclick="var fileToLoad = document.getElementById('fileToLoad2').files[0];
-		         wepsim_load_from_file(fileToLoad, 
+		         wepsim_load_from_file(fileToLoad,
                                                function(txt){ inputasm.setValue(txt); });
 			 $('#lsload2').modal('hide');
                          return false;">
@@ -1120,7 +1120,7 @@
 	   <div class="modal-footer">
 		 <button type="button" class="btn btn-outline-dark  btn-sm col-xs-4 col-sm-3 float-left mr-auto"
                          data-toggle="collapse" data-target=".collapse7">&plusmn; <span data-langkey="Description">Description</span></button>
-		 <button type="button" class="btn btn-danger        btn-sm col-xs-3 col-sm-2 float-right" 
+		 <button type="button" class="btn btn-danger        btn-sm col-xs-3 col-sm-2 float-right"
 			 data-dismiss="modal"><span data-langkey="Close">Close</span></button>
 	   </div><!-- /footer -->
 	</div>
@@ -1171,7 +1171,7 @@
 	   <div class="modal-header">
 		<div class="mx-auto">
 		   <button type="button" class="btn btn-success px-3 py-1"
-		   	   onclick="wepsim_open_help_index(); 
+		   	   onclick="wepsim_open_help_index();
                                     wepsim_help_refresh();
                                     return false;"><span data-langkey="Help Index">Help Index</span></button>
 		   <div class="btn-group">
@@ -1211,7 +1211,7 @@
 	   <div class="modal-footer">
 		 <button type="button" class="btn btn-outline-dark  btn-sm col-xs-4 col-sm-3 float-left mr-auto"
                          data-toggle="collapse" data-target=".collapse7">&plusmn; <span data-langkey="Description">Description</span></button>
-		 <button type="button" class="btn btn-danger        btn-sm col-xs-3 col-sm-2 float-right" 
+		 <button type="button" class="btn btn-danger        btn-sm col-xs-3 col-sm-2 float-right"
 			 data-dismiss="modal"><span data-langkey="Close">Close</span></button>
 	   </div><!-- /footer -->
 	</div>
@@ -1286,7 +1286,7 @@
                           class="btn btn-success dropdown-toggle dropdown-toggle-split"
                           data-toggle="dropdown"
                           aria-haspopup="true"
-                          aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>  
+                          aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button> 
 		  <div id="current_state1_lang" class="dropdown-menu" style="z-index:100000;">
                      <a href="#" class="dropdown-item"
 				 onclick="set_cfg('ws_idiom','es'); save_cfg();
@@ -1334,7 +1334,7 @@
 			      <div class="card-footer border-secondary text-white bg-secondary p-1">
 					<button class="btn btn-light mx-auto float-right py-0 col-xs-8 col-md-3"
 						onclick="var stateToSave   = $('input[name=stateToSave1]:checked').val();
-                                                         var checkpointObj = wepsim_checkpoint_get('tagToSave1'); 
+                                                         var checkpointObj = wepsim_checkpoint_get('tagToSave1');
 							 wepsim_checkpoint_save('FileNameToSaveAs1', 'tagToSave1', checkpointObj);
 							 wepsim_notify_success('<strong>INFO</strong>', 'Save requested!.');
 							 return false;"><span data-langkey="Save">Save</span></button>
@@ -1420,7 +1420,7 @@
 				     </div>
 				     </div>
 
-				     <div class="row"  
+				     <div class="row" 
 					  style="max-height:45vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
 				     <div class="col p-1">
 					<div id="collapse_X" class="mt-2 collapse show">
@@ -1706,8 +1706,42 @@
 
 	   <div class="modal-footer">
                  <div id="notifyuser1_footer" class="float-left mr-auto"></div>
-		 <button type="button" class="btn btn-danger btn-sm col-xs-3 col-sm-2 float-right" 
+		 <button type="button" class="btn btn-danger btn-sm col-xs-3 col-sm-2 float-right"
 			 onclick="wsweb_record_play(); return false;"
+			 data-dismiss="modal"><span data-langkey="Close">Close</span></button>
+	   </div><!-- /footer -->
+	</div>
+     </div>
+</div> <!-- /.modal -->
+
+
+<!-- notifications -->
+<div id="notifications2" class="modal">
+    <div class="modal-dialog modal-lg" style="height:80vh;">
+	<div class="modal-content">
+
+	   <div class="modal-header">
+		<div class="mx-auto">
+		   <div class="btn-group">
+		     <button type="button" class="btn btn-dark float-left mr-auto"
+			     onclick="wsweb_dialogbox_reset_notifications(); 
+			              return false;"><span data-langkey="Reset">Reset</span></button>
+		     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled>
+                             <span data-langkey='Notifications'>Notifications</span>
+		     </button>
+		   </div>
+                </div>
+		<button type="button" class="close ml-0" data-dismiss="modal">&times;</button>
+	   </div>
+
+	   <div class="modal-body">
+		<div id="container-notifications2" class="container-fluid"></div>
+	   </div>
+
+	   <div class="modal-footer">
+		 <button type="button" class="btn btn-outline-dark  btn-sm col-xs-4 col-sm-3 float-left mr-auto"
+                         data-toggle="collapse" data-target=".collapse7">&plusmn; <span data-langkey="Description">Description</span></button>
+		 <button type="button" class="btn btn-danger        btn-sm col-xs-3 col-sm-2 float-right"
 			 data-dismiss="modal"><span data-langkey="Close">Close</span></button>
 	   </div><!-- /footer -->
 	</div>
@@ -1764,7 +1798,7 @@
 			    wsweb_select_main(ws_mode) ;
 			    simcore_reset();
 
-			    // init: voice 
+			    // init: voice
 			    wepsim_voice_init() ;
 			    if (false == get_cfg('use_voice')) {
 				wepsim_voice_stop() ;

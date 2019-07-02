@@ -60,7 +60,7 @@
 		'Accesibility':		'доступность',
 		'Active voice: external voice control':		'Активный голос: внешнее голосовое управление',
 		'Verbalization: textual or mathematical':		'Вербализация: текстовая или математическая',
-		'Enable experimental features':		'Включить экспериментальные функции',
+		'Enable all features':		'Включить все функции',
 		'_last_':		'_last_'
 
     };

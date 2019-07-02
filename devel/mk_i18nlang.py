@@ -76,7 +76,7 @@ i18n_eltos['cfg'] = {
 	             "Accesibility": "Accesibility",
                       "Active voice: external voice control": 	                     "Active voice: external voice control",
                       "Verbalization: textual or mathematical":      		     "Verbalization: textual or mathematical",
-                      "Enable experimental features":      	     		     "Enable experimental features"
+                      "Enable all features":      	     		             "Enable all features"
 
     } ;
 

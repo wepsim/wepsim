@@ -123,7 +123,7 @@
                        id: 'S3E1',
                        title: "<span data-langkey='Interruptions'>Interruptions</span>",
                        type: "<span data-langkey='Advanced'>Advanced</span>",
-                       level: "user_archived",
+                       level: "archived",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s3_e1",
@@ -135,7 +135,7 @@
                        id: 'S3E2',
                        title: "<span data-langkey='System call'>System call</span>",
                        type: "<span data-langkey='Advanced'>Advanced</span>",
-                       level: "user_archived",
+                       level: "archived",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s3_e2",
@@ -147,7 +147,7 @@
                        id: 'S3E3',
                        title: "<span data-langkey='Exception'>Exception</span>",
                        type: "<span data-langkey='Advanced'>Advanced</span>",
-                       level: "user_archived",
+                       level: "archived",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_s3_e3",
@@ -255,7 +255,7 @@
                        id: 'S6E2',
                        title: "<span data-langkey='Compiler Explorer'>Compiler Explorer</span>",
                        type: "<span data-langkey='Special'>Special</span>",
-                       level: "user_archived",
+                       level: "archived",
                        modes:  "newbie,intro,tutorial,ep",
                        hardware:  "ep",
                        microcode: "ep_os",
@@ -326,19 +326,17 @@
                        description: "<span data-langkey='example_02_01'>Example with programmed I/O access, and basic .text/.data segment.</span>"
                      });
 
-/*
     ws_examples.push({
                        id: 'S2E2',
                        title: "<span data-langkey='Subrutine'>Subrutine</span>",
                        type: "<span data-langkey='Intermediate'>Intermediate</span>",
-                       level: "actual",
+                       level: "archived",
                        modes:  "newbie,intro,wepmips,tutorial",
                        hardware:  "ep",
                        microcode: "ep_mips",
                        assembly:  "ep_s2_e2",
                        description: "<span data-langkey='example_02_02'>Extended example with more instructions and I/O (keyboard, display).</span>"
                      });
-*/
 
     ws_examples.push({
                        id: 'S2E3',
@@ -538,7 +536,7 @@
                        id: 'S3E1',
                        title: "<span data-langkey='Interruptions'>Interruptions</span>",
                        type: "<span data-langkey='Advanced'>Advanced</span>",
-                       level: "user_archived",
+                       level: "archived",
                        modes:  "newbie,intro,tutorial,poc",
                        hardware:  "poc",
                        microcode: "poc_s3",
@@ -550,7 +548,7 @@
                        id: 'S3E2',
                        title: "<span data-langkey='System call'>System call</span>",
                        type: "<span data-langkey='Advanced'>Advanced</span>",
-                       level: "user_archived",
+                       level: "archived",
                        modes:  "newbie,intro,tutorial,poc",
                        hardware:  "poc",
                        microcode: "poc_s3",
@@ -562,7 +560,7 @@
                        id: 'S3E3',
                        title: "<span data-langkey='Exception'>Exception</span>",
                        type: "<span data-langkey='Advanced'>Advanced</span>",
-                       level: "user_archived",
+                       level: "archived",
                        modes:  "newbie,intro,tutorial,poc",
                        hardware:  "poc",
                        microcode: "poc_s3",

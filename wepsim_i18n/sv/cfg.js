@@ -61,7 +61,7 @@
 		'Accesibility':		'Tillgänglighet',
 		'Active voice: external voice control':		'Aktiv röst: extern röststyrning',
 		'Verbalization: textual or mathematical':		'Verbalisering: text- eller matematisk',
-		'Enable experimental features':		'Aktivera experimentella funktioner',
+		'Enable all features':		'Aktivera alla funktioner',
 		'_last_':		'_last_'
 
     };
