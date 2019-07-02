@@ -191,6 +191,7 @@
        var fmt_header    = "" ;
        var t_hwmcasm     = "" ;
        var e_title       = "" ;
+       var e_type        = "" ;
        var e_level       = "" ;
        var e_hw          = "" ;
        var e_mc          = "" ;
@@ -202,10 +203,10 @@
        for (var m=0; m<examples.length; m++)
        {
 	       fmt_header = "" ;
-	       if (e_level != examples[m].level) {
+	       if (e_type != examples[m].type) {
                    fmt_header = "<div class='col-sm-12 border-bottom border-secondary text-right text-capitalize font-weight-bold bg-white sticky-top'>" +
 			        ahw.toUpperCase() + ": " +
-			        examples[m].level +
+			        examples[m].type +
 			        "</div>" ;
                }
 
@@ -215,6 +216,7 @@
 	       }
 
 	       e_title       = examples[m].title ;
+	       e_type        = examples[m].type  ;
 	       e_level       = examples[m].level ;
 	       e_hw          = examples[m].hardware ;
 	       e_mc          = examples[m].microcode ;
@@ -229,7 +231,7 @@
 	       else fmt_toggle = "" ;
 
 	       o = o + fmt_header +
-                        "<div class='row py-1 " + fmt_toggle + "'>" +
+                        "<div class='row py-1 " + fmt_toggle + " user_" + e_level + "'>" +
                         '<div class="col-sm-auto">' +
                         '    <span class="badge badge-pill badge-light">' + (m+1) + '</span>' +
                         '</div>' +
@@ -282,7 +284,7 @@
                         '                                       });' +
                         '                         }' +
                         '                         return false;"' +
-		        '                class="dropdown-item text-white bg-info user_advanced" href="#"><c><span data-langkey="Share">Share</span></c></a>' +
+		        '                class="dropdown-item text-white bg-info user_archived" href="#"><c><span data-langkey="Share">Share</span></c></a>' +
 	                '           </div>' +
 		        '    </div>' +
                         '</div>' +

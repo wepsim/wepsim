@@ -455,9 +455,9 @@
     {
 	   var val = get_cfg('ws_skin_user') ;
 
-	   if (val === 'beginner')
-	        $('.user_advanced').addClass('d-none');
-	   else $('.user_advanced').removeClass('d-none');
+	   if (val === 'actual')
+	        $('.user_archived').addClass('d-none');
+	   else $('.user_archived').removeClass('d-none');
     }
 
 

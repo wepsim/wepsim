@@ -24,7 +24,7 @@
     ws_config.push({
                       id:          "select7",
                       type:        "General",
-                      level:       "beginner",
+                      level:       "actual",
                       code_cfg:    "<div class='form-group m-0'>" + i18n_get_select() + "</div>",
                       code_init:   function() { 
 			               $('#select7').val(get_cfg('ws_idiom')); 
@@ -35,7 +35,7 @@
     ws_config.push({
                       id:          "slider3",
                       type:        "General",
-                      level:       "beginner",
+                      level:       "actual",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label8-2000'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -65,7 +65,7 @@
     ws_config.push({
                       id:          "radio12",
                       type:        "Execution",
-                      level:       "beginner",
+                      level:       "actual",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label12-50'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -121,7 +121,7 @@
     ws_config.push({
                       id:          "select1",
                       type:        "Execution",
-                      level:       "beginner",
+                      level:       "actual",
                       code_cfg:    "<a href='#' id='breakpointicon1' title='Please select breakpoint icon' tabindex='0'" +
 			           "   data-toggle='popover' data-trigger='click'>" +
 		                   "   		<img alt='stop icon' id='img_select1' src='images/stop/stop_classic.gif' " +
@@ -137,7 +137,7 @@
     ws_config.push({
                       id:          "select6",
                       type:        "Execution",
-                      level:       "beginner",
+                      level:       "actual",
                       code_cfg:    " <div class='form-group m-0'>" +
 				   "	    <select name='select6' id='select6' class='form-control form-control-sm custom-select'" +
 				   "		    aria-label='max. ticks per instruction' " +
@@ -162,7 +162,7 @@
     ws_config.push({
                       id:          "select3",
                       type:        "Execution",
-                      level:       "beginner",
+                      level:       "actual",
                       code_cfg:    " <div class='form-group m-0'>" +
 				   "	    <select name='select3' id='select3' class='form-control form-control-sm custom-select'" +
 				   "		    aria-label='max. ticks per instruction' " +
@@ -187,7 +187,7 @@
     ws_config.push({
                       id:          "radio7",
                       type:        "Editor",
-                      level:       "beginner",
+                      level:       "actual",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label7-default'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;' " +
@@ -213,7 +213,7 @@
     ws_config.push({
                       id:          "select2",
                       type:        "Editor",
-                      level:       "beginner",
+                      level:       "actual",
                       code_cfg:    "<div class='form-group m-0'>" +
 			           "   <select name='select2' id='select2' class='form-control form-control-sm custom-select'" +
 			           "	    aria-label='Editor mode'    " +
@@ -318,7 +318,7 @@
     ws_config.push({
                       id:          "colorpicker1",
                       type:        "Circuitry simulation",
-                      level:       "beginner",
+                      level:       "actual",
                       code_cfg:    "<fieldset data-role='controlgroup' data-type='horizontal' data-mini='true' style='margin:0 0 0 0'>" +
 				   "	 <input type='color'" +
 				   "		aria-label='Color for active data'" +
@@ -336,7 +336,7 @@
     ws_config.push({
                       id:          "colorpicker2",
                       type:        "Circuitry simulation",
-                      level:       "beginner",
+                      level:       "actual",
                       code_cfg:    "<fieldset data-role='controlgroup' data-type='horizontal' data-mini='true' style='margin:0 0 0 0'>" +
 				   "	 <input type='color'" +
 				   "		aria-label='Color for active signal name'" +
@@ -354,7 +354,7 @@
     ws_config.push({
                       id:          "radio10",
                       type:        "Circuitry simulation",
-                      level:       "beginner",
+                      level:       "actual",
                       code_cfg:    " <div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label10-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -426,21 +426,21 @@
     ws_config.push({
                       id:          "radio14",
                       type:        "Accesibility",
-                      level:       "beginner",
+                      level:       "actual",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label14-advanced'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
 				   "		   aria-label='user: advanced'" +
 				   "		   onclick=\"update_cfg('ws_skin_user', 'advanced');" +
-				   "		             $('.user_advanced').removeClass('d-none');\">" +
+				   "		             $('.user_archived').removeClass('d-none');\">" +
 				   "		<input type='radio' name='skin_user' id='radio14-advanced'  aria-label='ws_skin_user: advanced'  autocomplete='off' >Advanced" +
 				   "	    </label>" +
-				   "	    <label id='label14-beginner'" +
+				   "	    <label id='label14-actual'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
-				   "		   aria-label='user: beginner'" +
-				   "		   onclick=\"update_cfg('ws_skin_user', 'beginner');" +
-				   "		             $('.user_advanced').addClass('d-none');\">" +
-				   "		<input type='radio' name='skin_user' id='radio14-beginner' aria-label='ws_skin_user: beginner' autocomplete='off' >Beginner" +
+				   "		   aria-label='user: actual'" +
+				   "		   onclick=\"update_cfg('ws_skin_user', 'actual');" +
+				   "		             $('.user_archived').addClass('d-none');\">" +
+				   "		<input type='radio' name='skin_user' id='radio14-actual' aria-label='ws_skin_user: actual' autocomplete='off' >Beginner" +
 				   "	    </label>" +
 				   "	</div>",
 		      code_init:   function() { 
@@ -452,7 +452,7 @@
     ws_config.push({
                       id:          "select8",
                       type:        "Accesibility",
-                      level:       "beginner",
+                      level:       "actual",
                       code_cfg:    "<div class='form-group m-0'>" +
                                    " <select name='select8' id='select8' class='form-control form-control-sm custom-select'" +
                                    "         aria-label='User Interface for WepSIM' " +

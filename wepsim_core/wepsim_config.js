@@ -85,8 +85,8 @@
 	            fmt_toggle = "bg-light" ;
 	       else fmt_toggle = "" ;
 
-	        if (e_level !== "beginner")
-	            fmt_level = "user_advanced" ;
+	        if (e_level !== "actual")
+	            fmt_level = "user_archived" ;
 	       else fmt_level = "" ;
 
 		  row = "<div class='row py-1 " + fmt_toggle + " " + fmt_level + "' id='" + e_type + "'>" +
