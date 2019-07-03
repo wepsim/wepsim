@@ -35,24 +35,65 @@
             }
     }
 
+    // UI views
 
-    // hardware
-
-    function wepsim_load_hw ( )
+    function wepsim_activeview ( view, is_set )
     {
-/*
-	    // load hardware...
-	    ep_def_json = $.getJSON({'url': "examples/hardware/ep/hw_def.json", 'async': false}) ;
-            simcore_hardware_import(ep_def_json.responseText) ;
+	    var cur_skin_user = get_cfg('ws_skin_user').split(":") ;
 
-	    poc_def_json = $.getJSON({'url': "examples/hardware/poc/hw_def.json", 'async': false}) ;
-            simcore_hardware_import(poc_def_json.responseText) ;
-*/
+	    if ('only_asm' === view)
+	    {
+	        if (is_set) {
+	             wepsim_view_onlyasm_on() ;
+	             cur_skin_user[0] = 'only_asm' ;
+	             cur_skin_user[1] = 'on' ;
+		}
+	        else {
+		     wepsim_view_onlyasm_off() ;
+		     cur_skin_user[0] = 'only_asm' ;
+	             cur_skin_user[1] = 'of' ;
+		}
+	    }
 
-	    return true ;
+	    if ('only_frequent' === view)
+	    {
+	        if (is_set) {
+                     wepsim_view_onlyfrequent_on() ;
+	             cur_skin_user[2] = 'only_frequent' ;
+	             cur_skin_user[3] = 'on' ;
+		}
+		else {
+		     wepsim_view_onlyfrequent_off() ;
+		     cur_skin_user[2] = 'only_frequent' ;
+	             cur_skin_user[3] = 'of' ;
+		}
+	    }
+
+	    var new_skin_user = cur_skin_user.join(":") ;
+	    update_cfg('ws_skin_user', new_skin_user) ;
+	    $('#select9').val(new_skin_user);
     }
 
-    function wepsim_show_wepmips ( )
+    function wepsim_restoreview ( view )
+    {
+	    var cur_skin_user = view.split(":") ;
+
+	    if ('only_asm' === cur_skin_user[0])
+	    {
+	        if ('on' === cur_skin_user[1])
+	             wepsim_view_onlyasm_on() ;
+		else wepsim_view_onlyasm_off() ;
+	    }
+
+	    if ('only_frequent' === cur_skin_user[2])
+	    {
+	        if ('on' === cur_skin_user[3])
+                     wepsim_view_onlyfrequent_on() ;
+		else wepsim_view_onlyfrequent_off() ;
+	    }
+    }
+
+    function wepsim_view_onlyasm_on ( )
     {
             $(".multi-collapse-2").collapse("show") ;
 	    $("#slider_cpucu").hide() ;
@@ -68,7 +109,7 @@
             return true ;
     }
 
-    function wepsim_hide_wepmips ( )
+    function wepsim_view_onlyasm_off ( )
     {
             $(".multi-collapse-2").collapse("show") ;
 	    $("#slider_cpucu").show() ;
@@ -81,6 +122,38 @@
 
             // return ok
             return true ;
+    }
+
+    function wepsim_view_onlyfrequent_on ( )
+    {
+            $('.user_archived').addClass('d-none') ;
+
+            // return ok
+            return true ;
+    }
+
+    function wepsim_view_onlyfrequent_off ( )
+    {
+	    $('.user_archived').removeClass('d-none') ;
+
+            // return ok
+            return true ;
+    }
+
+    // hardware
+
+    function wepsim_load_hw ( )
+    {
+/*
+	    // load hardware...
+	    ep_def_json = $.getJSON({'url': "examples/hardware/ep/hw_def.json", 'async': false}) ;
+            simcore_hardware_import(ep_def_json.responseText) ;
+
+	    poc_def_json = $.getJSON({'url': "examples/hardware/poc/hw_def.json", 'async': false}) ;
+            simcore_hardware_import(poc_def_json.responseText) ;
+*/
+
+	    return true ;
     }
 
     // wepsim_activehw: UI handlers
@@ -251,6 +324,8 @@
             return true ;
     }
 
+    // WepSIM mode -> activate_hw + UI view
+
     function wepsim_change_mode ( optValue )
     {
 	    // switch active hardware by name...
@@ -272,8 +347,8 @@
 
 	    // show/hide wepmips...
 	    if ('wepmips' == optValue)
-	         wepsim_show_wepmips() ;
-	    else wepsim_hide_wepmips() ;
+                 wepsim_activeview('only_asm', true) ;
+	    else wepsim_activeview('only_asm', false) ;
 
 	    // intro mode...
 	    if ('intro' == optValue)
@@ -312,20 +387,6 @@
 	     $(divb).addClass('col-' + b);
 	else $(divb).addClass('col-12 order-2');
     }
-
-    // dialogbox
-
-    function wepsim_dialogbox_close_all ( )
-    {
-	    // Close all dialogbox
-	          $('#example1').modal('hide') ;
-	             $('#help1').modal('hide') ;
-	           $('#config2').modal('hide') ;
-	    $('#current_state1').modal('hide');
-	              $('#bin2').modal('hide');
-    }
-
-
 
     //
     // Auxiliar function
@@ -451,15 +512,6 @@
            $("#current_state1_lang").html(o) ;
     }
 
-    function wepsim_refresh_skin ( )
-    {
-	   var val = get_cfg('ws_skin_user') ;
-
-	   if (val === 'actual')
-	        $('.user_archived').addClass('d-none');
-	   else $('.user_archived').removeClass('d-none');
-    }
-
 
     //
     // Initialize UI
@@ -512,10 +564,7 @@
 		    sanitizeFn: function (content) {
 				   return content ; // DOMPurify.sanitize(content) ;
 				}
-	    }).on('shown.bs.popover', function () {
-                    $('#label4-' + get_cfg('ws_skin_ui')).button('toggle') ;
-                    wepsim_refresh_skin() ;
-            }) ;
+	    }) ;
 
 	    // tooltip: trigger by hover
 	    $('[data-toggle="tooltip"]').tooltip({
@@ -606,7 +655,10 @@
 	    // init: help idiom selectors 
             wepsim_init_helpDropdown() ;
 
-	    // enable/disable beta elements at the end
-            wepsim_refresh_skin() ;
+	    // restore UI view
+	    setTimeout(function() {
+			  var view = get_cfg('ws_skin_user') ;
+			  wepsim_restoreview(view) ;
+		       }, 500) ;
     }
 

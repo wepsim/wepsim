@@ -54,7 +54,7 @@
 
             // hardware
 	    var hwid = simhw_getIdByName(simhw_name) ;
-	    if (hwid < 0) 
+	    if (hwid < 0)
 	    {
 	        ret.msg = "ERROR: unknown hardware: " + simhw_name + ".\n" ;
 	        ret.ok  = false ;
@@ -64,7 +64,7 @@
 
             // ui
 	    var ret1 = simcore_init_ui({}) ;
-	    if (false === ret1.ok) 
+	    if (false === ret1.ok)
 	    {
                 ret.msg = ret.msg ;
                 ret.ok  = false ;
@@ -99,7 +99,7 @@
 	              sim_components[elto].details_ui[index] = {} ;
 
 	              detail_id = sim_components[elto].details_name[index] ;
-	              if (typeof hash_detail2init[detail_id] !== "undefined") 
+	              if (typeof hash_detail2init[detail_id] !== "undefined")
 		      {
 	                  sim_components[elto].details_ui[index] = hash_detail2init[detail_id] ;
 	                  sim_components[elto].details_ui[index].init() ;
@@ -144,7 +144,7 @@
 
 	    // 1.- check parameters...
 	    context_obj = document.getElementById(context).contentDocument ;
-	    if (null == context_obj)  
+	    if (null == context_obj)
             {
 	        console.log('warning: unreferenced graphic element context named "' + r[0] + '".') ;
 	        return ;
@@ -154,7 +154,7 @@
             var sim_signals = simhw_sim_signals() ;
             for (var key in sim_signals)
             {
-		if (typeof hash_signal2action[key + "click"] === "undefined") 
+		if (typeof hash_signal2action[key + "click"] === "undefined")
 		{
 		    hash_signal2action[key + "click"] = function(key_value) {
 			                                   return function() { hash_signal2action["<all>"](key_value,    "click"); };
@@ -293,7 +293,7 @@
                 return ret ;
         }
 
-    
+
         /* 4) Execution */
 
         /**
@@ -304,7 +304,7 @@
     	    var ret = {} ;
     	        ret.msg = "" ;
     	        ret.ok  = true ;
-    
+
             // current elements
 	    var SIMWARE        = get_simware() ;
             var curr_firm      = simhw_internalState('FIRMWARE') ;
@@ -334,7 +334,7 @@
 	         set_value(pc_state, parseInt(SIMWARE.labels2.main));
 	         show_asmdbg_pc() ;
 	    }
-    
+
 	    if ( (typeof curr_segments['.stack'] !== "undefined") && (typeof sp_state !== "undefined") )
 	    {
 	         set_value(sp_state, parseInt(curr_segments['.stack'].begin));
@@ -395,7 +395,7 @@
 	        }
 
                 var mode = get_cfg('ws_mode');
-                if ('wepmips' == mode) 
+                if ('wepmips' == mode)
                 {
                     compute_general_behavior("CLOCK") ; // fetch...
                     compute_general_behavior("CLOCK") ; // ...instruction
@@ -409,7 +409,7 @@
                     limitless = true;
 		}
 
-                // 1.- do-while the microaddress register doesn't store the fetch address (0): 
+                // 1.- do-while the microaddress register doesn't store the fetch address (0):
                 //              execute micro-instructions
 		//
 	        var before_state = null ;
@@ -440,11 +440,11 @@
 
 		    // next clock cycle...
                     i_clks++;
-                    if (limitless) 
+                    if (limitless)
 		    {
                         options.cycles_limit = i_clks + 1;
 		    }
-                    if (i_clks >= options.cycles_limit) 
+                    if (i_clks >= options.cycles_limit)
 		    {
 		        ret.msg = 'Warning: clock cycles limit reached in a single instruction.' ;
 		        ret.ok  = false ;
@@ -484,7 +484,7 @@
     	    var ret = {} ;
     	        ret.ok  = true ;
     	        ret.msg = "" ;
-    
+
             // execute firmware-assembly
             var curr_segments = simhw_internalState('segments') ;
             var pc_name   = simhw_sim_ctrlStates_get().pc.state ;
@@ -492,21 +492,21 @@
 
     	    var reg_pc        = get_value(pc_state) ;
     	    var reg_pc_before = get_value(pc_state) - 4 ;
-    
+
     	    var code_begin  = 0 ;
     	    if ( (typeof curr_segments['.text'] != "undefined") && (typeof curr_segments['.text'].begin != "undefined") )
     	          code_begin = parseInt(curr_segments['.text'].begin) ;
     	    var code_end    = 0 ;
     	    if ( (typeof curr_segments['.text'] != "undefined") && (typeof curr_segments['.text'].end   != "undefined") )
     	          code_end = parseInt(curr_segments['.text'].end) ;
-    
+
     	    var kcode_begin = 0 ;
     	    if ( (typeof curr_segments['.ktext'] != "undefined") && (typeof curr_segments['.ktext'].begin != "undefined") )
     	          kcode_begin = parseInt(curr_segments['.ktext'].begin) ;
     	    var kcode_end   = 0 ;
     	    if ( (typeof curr_segments['.ktext'] != "undefined") && (typeof curr_segments['.ktext'].end   != "undefined") )
     	          kcode_end = parseInt(curr_segments['.ktext'].end) ;
-    
+
 	    var ret1         = null ;
 	    var before_state = null ;
 	    var  after_state = null ;
@@ -524,7 +524,7 @@
 		    options.after_instruction  = simcore_do_nothing_handler ;
 		}
 
-    	    var ins_executed = 0 ; 
+    	    var ins_executed = 0 ;
     	    while (
                          (reg_pc != reg_pc_before)  &&
                       ( ((reg_pc <  code_end) && (reg_pc >=  code_begin)) ||
@@ -539,23 +539,23 @@
                    if (false === ret1.ok) {
     		       return ret1 ;
     	           }
-    
+
 		   // verbosity after
 		   options.after_instruction(SIMWARE, reg_pc) ;
 
 		   // next instruction...
-    	           ins_executed++ ; 
-                   if (ins_executed > options.instruction_limit) 
+    	           ins_executed++ ;
+                   if (ins_executed > options.instruction_limit)
     	           {
     	               ret.ok  = false ;
     	               ret.msg = "more than " + options.instruction_limit + " instructions executed before application ends.";
     		       return ret ;
     	           }
-    
+
     	           reg_pc_before = reg_pc ;
     	           reg_pc = get_value(pc_state) ;
     	    }
-    
+
             return ret ;
         }
 
@@ -570,7 +570,7 @@
 
 
         /* 5) Compile */
-    
+
         /**
          * Compile Firmware.
          * @param {string} textToMCompile - The firmware to be compile and loaded into memory
@@ -580,7 +580,7 @@
     	    var ret = {} ;
     	        ret.msg = "" ;
     	        ret.ok  = true ;
-    
+
             // check empty
     	    if ("" == textToMCompile)
             {
@@ -596,7 +596,7 @@
     	        preSM = loadFirmware(textToMCompile) ;
     	        ret.simware = preSM ;
 	    }
-	    catch (e) 
+	    catch (e)
 	    {
 	        // https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError
 	        ret.msg = 'ERROR: at line: ' + e.lineNumber + ' and column: ' + e.columnNumber ;
@@ -611,13 +611,13 @@
                 ret.ok  = false ;
                 return ret ;
             }
-    
+
             // update with loaded microcode
             update_memories(preSM);
     	    simcore_reset() ;
             return ret ;
         }
-    
+
         /**
          * Compile Assembly.
          * @param {string} textToCompile - The assembly to be compile and loaded into memory
@@ -627,7 +627,7 @@
     	    var ret = {} ;
     	        ret.msg = "" ;
     	        ret.ok  = true ;
-    
+
             // get SIMWARE.firmware
             var SIMWARE = get_simware() ;
     	    if (SIMWARE.firmware.length === 0)
@@ -636,7 +636,7 @@
                 ret.ok  = false;
                 return ret;
     	    }
-    
+
             // compile Assembly and show message
             var SIMWAREaddon = simlang_compile(textToCompile, SIMWARE);
     	    ret.simware = SIMWAREaddon ;
@@ -646,18 +646,18 @@
                 ret.ok  = false;
                 return ret;
             }
-    
+
             // update memory and segments
             set_simware(SIMWAREaddon) ;
     	    update_memories(SIMWARE) ;
     	    simcore_reset() ;
-    
+
             return ret ;
         }
 
 
         /* 6) Hardware */
-    
+
         /**
          * Export Hardware to JSON string
          * @param {string} hw_name - The name of the Hardware (e.g. 'ep')
@@ -677,7 +677,7 @@
             // export to json
             // based on: https://stackoverflow.com/questions/36517173/how-to-store-a-javascript-function-in-json
 	    ret.ok  = true ;
-	    ret.msg = JSON.stringify(hw_obj, 
+	    ret.msg = JSON.stringify(hw_obj,
                                      function(key, value) {
 					  if (typeof value === "function") {
 					      return "/Function(" + value.toString() + ")/" ;
@@ -705,7 +705,7 @@
 				 function(key, value) {
 					  if (typeof value === "string" &&
 					      value.startsWith("/Function(") &&
-					      value.endsWith(")/")) 
+					      value.endsWith(")/"))
                                           {
 					     value = value.substring(10, value.length - 2) ;
 					     return eval("(" + value + ")") ;

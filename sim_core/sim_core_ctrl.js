@@ -68,7 +68,7 @@
 	        return arr.includes(val) ;
             }
 
-            for (var i=0; i<arr.length; i++) 
+            for (var i=0; i<arr.length; i++)
             {
                  if (arr[i] == val) {
                      return true ;
@@ -92,7 +92,7 @@
             }
 
             // TD + R
-            if (simhw_internalState_get('fire_visible','databus') == true) 
+            if (simhw_internalState_get('fire_visible','databus') == true)
             {
                 update_bus_visibility('databus_fire', 'hidden') ;
                 simhw_internalState_set('fire_visible', 'databus', false) ;
@@ -132,7 +132,7 @@
                 update_bus_visibility('internalbus_fire', 'hidden') ;
                 simhw_internalState_set('fire_visible', 'internalbus', false) ;
             }
-            if (tri_activated > 1) 
+            if (tri_activated > 1)
             {
                 update_bus_visibility('internalbus_fire', 'visible') ;
                 simhw_internalState_set('fire_visible', 'internalbus', true) ;
@@ -152,10 +152,10 @@
 	    }
 	}
 
-        function fn_updateE_future ( key ) 
+        function fn_updateE_future ( key )
         {
             if (jit_fire_ndep[key] < 1) // 1 -> 2
-	        fn_updateE_now(key); 
+	        fn_updateE_now(key);
 	    else
 	        return new Promise( function(resolve, reject) { fn_updateE_now(key); }) ;
 	}
@@ -168,10 +168,10 @@
 	    }
 	}
 
-        function fn_updateL_future ( key ) 
+        function fn_updateL_future ( key )
         {
             if (jit_fire_ndep[key] < 1) // 1 -> 2
-	        fn_updateL_now(key); 
+	        fn_updateL_now(key);
 	    else
 	        return new Promise( function(resolve, reject) { fn_updateL_now(key); });
 	}
@@ -318,9 +318,9 @@
                     }
 
 		    simhw_internalState_set('MC',           mci, SIMWARE['firmware'][i]["microcode"][j]) ;
-                    simhw_internalState_set('MC_dashboard', mci, { comment: comment, 
-                                                                   state: elto_state, 
-                                                                   breakpoint: elto_break, 
+                    simhw_internalState_set('MC_dashboard', mci, { comment: comment,
+                                                                   state: elto_state,
+                                                                   breakpoint: elto_break,
                                                                    notify: elto_notify }) ;
 		    mci++;
 	       }

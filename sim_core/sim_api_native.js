@@ -118,9 +118,9 @@
     {
         var SIMWARE = get_simware() ;
 
-        for (var key in SIMWARE.firmware) 
+        for (var key in SIMWARE.firmware)
         {
-             if (SIMWARE.firmware[key].signatureRaw === signature_raw) 
+             if (SIMWARE.firmware[key].signatureRaw === signature_raw)
              {
                  var maddr = SIMWARE.firmware[key]["mc-start"] ;
                  set_value(simhw_sim_state('MUXA_MICROADDR'), maddr) ;

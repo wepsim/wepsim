@@ -1,8 +1,8 @@
-/*      
+/*
  *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
- * 
+ *
  *  WepSIM is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -34,8 +34,9 @@
 
         function is_mobile ( )
         {
-             if (typeof navigator == "undefined")
+             if (typeof navigator === "undefined") {
                  return false ;
+	     }
 
              return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ;
         }
@@ -83,13 +84,13 @@
                WSCFG.SHOWCODE_ins         = { value:true,               type:"boolean"} ;
                WSCFG.SHOWCODE_pins        = { value:true,               type:"boolean"} ;
 
-               WSCFG.is_interactive       = { value:true,               type:"boolean"} ;
-               WSCFG.is_quick_interactive = { value:false,              type:"boolean"} ;
-               WSCFG.ws_idiom             = { value:'en',               type:"string"} ;
-               WSCFG.ws_mode              = { value:'newbie',           type:"string"} ;
-               WSCFG.use_voice            = { value:false,              type:"boolean"} ;
-               WSCFG.ws_skin_ui           = { value:'classic',          type:"string"} ;
-               WSCFG.ws_skin_user         = { value:'actual',           type:"string"} ;
+               WSCFG.is_interactive       = { value:true,                             type:"boolean"} ;
+               WSCFG.is_quick_interactive = { value:false,                            type:"boolean"} ;
+               WSCFG.ws_idiom             = { value:'en',                             type:"string"} ;
+               WSCFG.ws_mode              = { value:'newbie',                         type:"string"} ;
+               WSCFG.use_voice            = { value:false,                            type:"boolean"} ;
+               WSCFG.ws_skin_ui           = { value:'classic',                        type:"string"} ;
+               WSCFG.ws_skin_user         = { value:'only_asm:of:only_frequent:on',   type:"string"} ;
 
 	       /* micro/assembly screen: editor */
                WSCFG.editor_theme         = { value:'default',          type:"string"} ;
@@ -154,13 +155,13 @@
 
         function save_cfg ( )
         {
-	   try 
+	   try
 	   {
                 for (var item in WSCFG) {
                      localStorage.setItem('wepsim_' + item, get_cfg(item));
                 }
 	   }
-           catch(err) 
+           catch(err)
            {
                 console.log("WepSIM can not save the configuration in a persistent way on this web browser, found error: \n" + err.message);
 	   }
@@ -170,30 +171,31 @@
 
         function restore_cfg ( )
         {
+           var default_value ;
+
+           // set primary configuration with default values
            reset_cfg() ;
 
-           for (var item in WSCFG) 
+           // try to restore primary configuration values from local_storage
+           for (var item in WSCFG)
            {
-                if (item == 'version') {
+                if (item === 'version') {
                     continue;
                 }
 
-                try 
-                {
-                   set_cfg(item, localStorage.getItem('wepsim_' + item)) ;
-                   if (WSCFG[item].type != "string")
-                       set_cfg(item, JSON.parse(get_cfg(item)));
-                   if (get_cfg(item) === null)
-                       throw "null values discarted";
-                }
-                catch(err) 
-                {
-                   console.log("WepSIM can not restore the configuration on this web browser, found error: \n" + err.message);
-                   reset_cfg() ;
-                   return;
-                }
+                default_value = get_cfg(item) ;
+
+                set_cfg(item, localStorage.getItem('wepsim_' + item)) ;
+                if (WSCFG[item].type != "string") {
+                    set_cfg(item, JSON.parse(get_cfg(item)));
+		}
+
+                if (get_cfg(item) === null) {
+                    set_cfg(item, default_value) ;
+		}
            }
 
+           // set secondary configuration values
            set_secondary_cfg() ;
         }
 
@@ -210,8 +212,8 @@
              simcore_record_append_new('Set configuration option ' + field + ' to ' + value,
                                        'update_cfg("' + field + '",' + value + ');\n') ;
 
-             ga('send', 'event', 'config', 
-                'config.' + WSCFG.version.value, 
+             ga('send', 'event', 'config',
+                'config.' + WSCFG.version.value,
                 'config.' + WSCFG.version.value + '.' + field + '.' + value);
 
              save_cfg() ;

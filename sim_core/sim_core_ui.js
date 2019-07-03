@@ -1,4 +1,4 @@
-/*     
+/*
  *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
@@ -134,7 +134,7 @@
 	     var curr_maddr = get_value(simhw_sim_state(maddr_name)) ;
 
              var mins = simhw_internalState_get('MC', curr_maddr) ;
-	     for (var key in mins) 
+	     for (var key in mins)
 	     {
 		  if ("MADDR" === key) {
 	   	      active_verbal  = active_verbal  + "MADDR is " + mins[key] + ". " ;
@@ -178,7 +178,7 @@
 
         function ko_observable ( initial_value )
         {
-	    if (typeof ko != "undefined") 
+	    if (typeof ko != "undefined")
                  return ko.observable(initial_value).extend({rateLimit: cfg_show_rf_refresh_delay}) ;
 	    else return initial_value ;
         }
@@ -281,7 +281,7 @@
 
         function refresh()
         {
-	    for (var key in simhw_sim_signals()) 
+	    for (var key in simhw_sim_signals())
 	    {
 		 update_draw(simhw_sim_signals()[key], simhw_sim_signals()[key].value) ;
                  check_buses(key);
