@@ -25,8 +25,8 @@
 	var ret = false ;
 
 	// white-spaces...
-	checklist = checklist.replace(/;|==|!=|>=|<=|=|>|</gi, 
-                                      function (x){return ' ' + x + ' ';});  
+	checklist = checklist.replace(/;|==|!=|>=|<=|=|>|</gi,
+                                      function (x){return ' ' + x + ' ';});
         checklist = checklist.replace(/  /g,' ') ;
 
 	// lines...
@@ -41,11 +41,11 @@
 	     if (parts.length < 4)
 		 continue ;
 
-	     var check = { "type": parts[0], 
-                           "id": parts[1], 
-                           "condition": parts[2], 
+	     var check = { "type": parts[0],
+                           "id": parts[1],
+                           "condition": parts[2],
                            "value": decodeURI(parts[3]) } ;
-             for (var index in simhw_sim_components()) 
+             for (var index in simhw_sim_components())
              {
 	          ret = simhw_sim_component(index).read_state(o, check) ;
                   if (true === ret) break ;
@@ -56,7 +56,7 @@
         }
 
         return o ;
-    }   
+    }
 
     function simcore_simstate_current2state ( )
     {
@@ -71,7 +71,7 @@
     function simcore_simstate_state2checklist ( s_obj )
     {
 	var ret = "" ;
-        for (var component in s_obj) 
+        for (var component in s_obj)
 	{
 	     for (var eltos in s_obj[component]) {
 		  var elto = s_obj[component][eltos] ;
@@ -97,7 +97,7 @@
 	for (var compo in simhw_sim_components())
 	{
 	    // if there are different values -> diff
-            if (typeof expected_result[compo] != "undefined") 
+            if (typeof expected_result[compo] != "undefined")
 	    {
 		    for (elto in expected_result[compo])
 		    {
@@ -142,11 +142,11 @@
 	    // if there are new elements -> diff
 	    if ((newones_too) && (typeof obtained_result[compo] != "undefined"))
 	    {
-		    for (elto in obtained_result[compo]) 
+		    for (elto in obtained_result[compo])
 		    {
                          d.neltos_obtained++ ;
 
-			 if ( (typeof expected_result[compo]       != "undefined") && 
+			 if ( (typeof expected_result[compo]       != "undefined") &&
 			      (typeof expected_result[compo][elto] != "undefined") ) {
 			       continue ;
 		         }
@@ -201,10 +201,10 @@
         var o = "" ;
         var color = "green" ;
 
-        if (typeof only_errors === 'undefined') 
+        if (typeof only_errors === 'undefined')
             only_errors = false ;
 
-        o += "<table style='margin:0 0 0 0;' " + 
+        o += "<table style='margin:0 0 0 0;' " +
              "       class='table table-hover table-bordered table-sm'>" +
              "<thead>" +
              "<tr>" +
@@ -231,7 +231,7 @@
                   "<td>" + checklist[i].obtained  + "</td>" +
                   "</tr>" ;
         }
-        o += "</tbody>" + 
+        o += "</tbody>" +
              "</table>" ;
 
         return o ;
