@@ -84,13 +84,13 @@
                WSCFG.SHOWCODE_ins         = { value:true,               type:"boolean"} ;
                WSCFG.SHOWCODE_pins        = { value:true,               type:"boolean"} ;
 
-               WSCFG.is_interactive       = { value:true,               type:"boolean"} ;
-               WSCFG.is_quick_interactive = { value:false,              type:"boolean"} ;
-               WSCFG.ws_idiom             = { value:'en',               type:"string"} ;
-               WSCFG.ws_mode              = { value:'newbie',           type:"string"} ;
-               WSCFG.use_voice            = { value:false,              type:"boolean"} ;
-               WSCFG.ws_skin_ui           = { value:'classic',          type:"string"} ;
-               WSCFG.ws_skin_user         = { value:'archived',         type:"string"} ;
+               WSCFG.is_interactive       = { value:true,                            type:"boolean"} ;
+               WSCFG.is_quick_interactive = { value:false,                           type:"boolean"} ;
+               WSCFG.ws_idiom             = { value:'en',                            type:"string"} ;
+               WSCFG.ws_mode              = { value:'newbie',                        type:"string"} ;
+               WSCFG.use_voice            = { value:false,                           type:"boolean"} ;
+               WSCFG.ws_skin_ui           = { value:'classic',                       type:"string"} ;
+               WSCFG.ws_skin_user         = { value:'only_asm:of:only_frequent:of',  type:"string"} ;
 
 	       /* micro/assembly screen: editor */
                WSCFG.editor_theme         = { value:'default',          type:"string"} ;
