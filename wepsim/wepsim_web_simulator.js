@@ -45,11 +45,13 @@
 	    {
 	        if (is_set) {
 	             wepsim_view_onlyasm_on() ;
-	             cur_skin_user[0] = 'only_asm:on' ;
+	             cur_skin_user[0] = 'only_asm' ;
+	             cur_skin_user[1] = 'on' ;
 		}
 	        else {
 		     wepsim_view_onlyasm_off() ;
-		     cur_skin_user[0] = 'only_asm:of' ;
+		     cur_skin_user[0] = 'only_asm' ;
+	             cur_skin_user[1] = 'of' ;
 		}
 	    }
 
@@ -57,11 +59,13 @@
 	    {
 	        if (is_set) {
                      wepsim_view_onlyfrequent_on() ;
-	             cur_skin_user[1] = 'only_frequent:on' ;
+	             cur_skin_user[2] = 'only_frequent' ;
+	             cur_skin_user[3] = 'on' ;
 		}
 		else {
 		     wepsim_view_onlyfrequent_off() ;
-		     cur_skin_user[1] = 'only_frequent:of' ;
+		     cur_skin_user[2] = 'only_frequent' ;
+	             cur_skin_user[3] = 'of' ;
 		}
 	    }
 
@@ -508,15 +512,6 @@
            $("#current_state1_lang").html(o) ;
     }
 
-    function wepsim_refresh_skin ( )
-    {
-	   var val = get_cfg('ws_skin_user') ;
-
-	   if (val === 'actual')
-	        $('.user_archived').addClass('d-none');
-	   else $('.user_archived').removeClass('d-none');
-    }
-
 
     //
     // Initialize UI
@@ -569,10 +564,7 @@
 		    sanitizeFn: function (content) {
 				   return content ; // DOMPurify.sanitize(content) ;
 				}
-	    }).on('shown.bs.popover', function () {
-                    $('#label4-' + get_cfg('ws_skin_ui')).button('toggle') ;
-                    wepsim_refresh_skin() ;
-            }) ;
+	    }) ;
 
 	    // tooltip: trigger by hover
 	    $('[data-toggle="tooltip"]').tooltip({
@@ -663,7 +655,10 @@
 	    // init: help idiom selectors 
             wepsim_init_helpDropdown() ;
 
-	    // enable/disable beta elements at the end
-            wepsim_refresh_skin() ;
+	    // restore UI view
+	    setTimeout(function() {
+			  var view = get_cfg('ws_skin_user') ;
+			  wepsim_restoreview(view) ;
+		       }, 500) ;
     }
 
