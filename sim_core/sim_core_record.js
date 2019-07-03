@@ -60,7 +60,7 @@
 	    ws_record_msg_obj.html('<em>' + index + '/' + ws_records.length + '</em>&nbsp;' + msg) ;
 	}
 
-        if (ws_record_pb_obj !== null) 
+        if (ws_record_pb_obj !== null)
 	{
 	    var next_pbval = (100 * index) / ws_records.length ;
 	    ws_record_pb_obj.css('width', next_pbval +'%').attr('aria-valuenow', next_pbval) ;
@@ -223,11 +223,11 @@
 
     function simcore_record_play ( )
     {
-        if (ws_is_playing === true) 
+        if (ws_is_playing === true)
 	{
             clearTimeout(ws_last_timer) ;
 
-            if (ws_last_played < ws_records.length) 
+            if (ws_last_played < ws_records.length)
                  ws_last_played = ws_last_played + 1 ;
 	    else ws_last_played = 0 ;
 	}
@@ -244,11 +244,11 @@
 
     function simcore_record_playInterval ( from, to )
     {
-        if (ws_is_playing === true) 
+        if (ws_is_playing === true)
 	{
             clearTimeout(ws_last_timer) ;
 
-            if (ws_last_played < to) 
+            if (ws_last_played < to)
                  ws_last_played = ws_last_played + 1 ;
 	    else ws_last_played = from ;
 	}
@@ -347,7 +347,7 @@
 	{
 	    // find last pending
 	    var last_pending = ws_records.length ;
-	    while (last_pending > 0) 
+	    while (last_pending > 0)
             {
 		last_pending -- ;
 
@@ -357,7 +357,7 @@
 	    }
 
 	    // if there is not pending, insert together to the last one
-	    if (last_pending === 0) 
+	    if (last_pending === 0)
 	    {
                 simcore_record_setTimeBeforeNow(0) ;
                 simcore_record_append_new(description, elto) ;
