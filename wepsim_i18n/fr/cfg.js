@@ -62,7 +62,7 @@
 		"Accesibility":						"Accessibilité",
 		"Active voice: external voice control":			"Voix active: commande vocale externe",
 		"Verbalization: textual or mathematical":		"Verbalisation: textuelle ou mathématique",
-		"Enable all features":				        "Activer toutes les fonctionnalités"
+		"WepSIM User Interface views":				"Vues de l'interface utilisateur WepSIM"
 
     } ;
 

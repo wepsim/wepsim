@@ -23,7 +23,7 @@
 
                         "Show/Hide ActionBar":                          "Show/Hide ActionBar",
                         "Show/Hide Slider":                             "Show/Hide Slider",
-                        "WepSIM User Interface Skin": 		        "WepSIM User Interface Skin",
+                        "WepSIM User Interface skin": 		        "WepSIM User Interface skin",
                         "Initial intro":                                "Initial intro",
                         "About WepSIM":                                 "About WepSIM",
 

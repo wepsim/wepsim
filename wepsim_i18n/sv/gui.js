@@ -38,7 +38,7 @@
 		'Processor':		'processor',
 		'Assembly Debugger':		'Assembly Debugger',
 		'Reset':		'Återställa',
-		'microInstruction':		'μInstruction',
+		'microInstruction':		'μInstruktion',
 		'Instruction':		'Instruktion',
 		'Run':		'Springa',
 		'Hardware Summary':		'Hårdvara Sammanfattning',

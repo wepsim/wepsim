@@ -71,12 +71,12 @@ i18n_eltos['cfg'] = {
                       "Activation": 		                     		     "Activation",
                       "Interactive mode: signal value can be updated": 		     "Interactive mode: signal value can be updated",
                       "Quick interactive mode: quick update of signal value":	     "Quick interactive mode: quick update of signal value",
-                      "WepSIM User Interface Skin": 		                     "WepSIM User Interface Skin",
+                      "WepSIM User Interface skin": 		                     "WepSIM User Interface skin",
                       "(example)": 					             "(example)",
 	             "Accesibility": "Accesibility",
                       "Active voice: external voice control": 	                     "Active voice: external voice control",
                       "Verbalization: textual or mathematical":      		     "Verbalization: textual or mathematical",
-                      "Enable all features":      	     		             "Enable all features"
+                      "WepSIM User Interface views":      	     		     "WepSIM User Interface views"
 
     } ;
 

@@ -171,12 +171,16 @@
 
         function restore_cfg ( )
         {
-           var default_value ;
-
            // set primary configuration with default values
            reset_cfg() ;
 
+           if (localStorage === null) {
+	       return ;
+	   }
+
            // try to restore primary configuration values from local_storage
+           var default_value ;
+
            for (var item in WSCFG)
            {
                 if (item === 'version') {

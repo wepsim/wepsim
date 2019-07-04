@@ -23,7 +23,7 @@
 
 		'Show/Hide ActionBar':		'Mostrar / Ocultar ActionBar',
 		'Show/Hide Slider':		'Mostrar / Ocultar Slider',
-		'WepSIM User Interface Skin':	'Skin da Interface do Usuário WepSIM',
+		'WepSIM User Interface skin':	'Skin da Interface do Usuário WepSIM',
 		'Initial intro':		'Introdução inicial',
 		'About WepSIM':		'Sobre o WepSIM',
 		'Title':		'Título',

@@ -38,7 +38,7 @@
 		'Processor':		'процессор',
 		'Assembly Debugger':		'Сборочный отладчик',
 		'Reset':		'Сброс',
-		'microInstruction':		'μInstruction',
+		'microInstruction':		'μинструкция',
 		'Instruction':		'инструкция',
 		'Run':		'Бежать',
 		'Hardware Summary':		'Краткое описание оборудования',

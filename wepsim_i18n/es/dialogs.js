@@ -22,7 +22,7 @@
     i18n.eltos.dialogs.es = {
                         "Show/Hide ActionBar":                          "Mostrar/Ocultar barra",
                         "Show/Hide Slider":                             "Mostrar/Ocultar sliders",
-                        "WepSIM User Interface Skin": 		        "Variante de Interfaz de Usuario para WepSIM",
+                        "WepSIM User Interface skin": 		        "Variante de Interfaz de Usuario para WepSIM",
                         "Initial intro":                                "Intro inicial",
                         "About WepSIM":                                 "Sobre WepSIM",
 
