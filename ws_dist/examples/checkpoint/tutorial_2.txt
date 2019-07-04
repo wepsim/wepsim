@@ -67,8 +67,8 @@
     },
     {
       "timestamp": 0,
-      "description": "Click on UI element nm1",
-      "element": "simcore_record_glowing(\"#nm1\");\n"
+      "description": "Click on UI element btn_next_microinstruction1",
+      "element": "simcore_record_glowing(\"#btn_next_microinstruction1\");\n"
     },
     {
       "timestamp": 855,
@@ -77,8 +77,8 @@
     },
     {
       "timestamp": 0,
-      "description": "Click on UI element nm1",
-      "element": "simcore_record_glowing(\"#nm1\");\n"
+      "description": "Click on UI element btn_next_microinstruction1",
+      "element": "simcore_record_glowing(\"#btn_next_microinstruction1\");\n"
     },
     {
       "timestamp": 863,
@@ -87,8 +87,8 @@
     },
     {
       "timestamp": 0,
-      "description": "Click on UI element nm1",
-      "element": "simcore_record_glowing(\"#nm1\");\n"
+      "description": "Click on UI element btn_next_microinstruction1",
+      "element": "simcore_record_glowing(\"#btn_next_microinstruction1\");\n"
     },
     {
       "timestamp": 835,
@@ -97,8 +97,8 @@
     },
     {
       "timestamp": 0,
-      "description": "Click on UI element nm1",
-      "element": "simcore_record_glowing(\"#nm1\");\n"
+      "description": "Click on UI element btn_next_microinstruction1",
+      "element": "simcore_record_glowing(\"#btn_next_microinstruction1\");\n"
     },
     {
       "timestamp": 949,
@@ -107,8 +107,8 @@
     },
     {
       "timestamp": 0,
-      "description": "Click on UI element nm1",
-      "element": "simcore_record_glowing(\"#nm1\");\n"
+      "description": "Click on UI element btn_next_microinstruction1",
+      "element": "simcore_record_glowing(\"#btn_next_microinstruction1\");\n"
     },
     {
       "timestamp": 856,
@@ -117,8 +117,8 @@
     },
     {
       "timestamp": 0,
-      "description": "Click on UI element nm1",
-      "element": "simcore_record_glowing(\"#nm1\");\n"
+      "description": "Click on UI element btn_next_microinstruction1",
+      "element": "simcore_record_glowing(\"#btn_next_microinstruction1\");\n"
     },
     {
       "timestamp": 991,
@@ -127,8 +127,8 @@
     },
     {
       "timestamp": 0,
-      "description": "Click on UI element nm1",
-      "element": "simcore_record_glowing(\"#nm1\");\n"
+      "description": "Click on UI element btn_next_microinstruction1",
+      "element": "simcore_record_glowing(\"#btn_next_microinstruction1\");\n"
     },
     {
       "timestamp": 500,
@@ -157,8 +157,8 @@
     },
     {
       "timestamp": 0,
-      "description": "Click on UI element ni1",
-      "element": "simcore_record_glowing(\"#ni1\");\n"
+      "description": "Click on UI element btn_next_instruction1",
+      "element": "simcore_record_glowing(\"#btn_next_instruction1\");\n"
     },
     {
       "timestamp": 940,
@@ -167,8 +167,8 @@
     },
     {
       "timestamp": 0,
-      "description": "Click on UI element ni1",
-      "element": "simcore_record_glowing(\"#ni1\");\n"
+      "description": "Click on UI element btn_next_instruction1",
+      "element": "simcore_record_glowing(\"#btn_next_instruction1\");\n"
     },
     {
       "timestamp": 1018,
@@ -177,8 +177,8 @@
     },
     {
       "timestamp": 0,
-      "description": "Click on UI element ni1",
-      "element": "simcore_record_glowing(\"#ni1\");\n"
+      "description": "Click on UI element btn_next_instruction1",
+      "element": "simcore_record_glowing(\"#btn_next_instruction1\");\n"
     },
     {
       "timestamp": 500,
@@ -282,8 +282,8 @@
     },
     {
       "timestamp": 0,
-      "description": "Click on UI element qbp",
-      "element": "simcore_record_glowing(\"#qbp\");\n"
+      "description": "Click on UI element btn_run_stop",
+      "element": "simcore_record_glowing(\"#btn_run_stop\");\n"
     },
     {
       "timestamp": 2617,
@@ -297,8 +297,8 @@
     },
     {
       "timestamp": 0,
-      "description": "Click on UI element rs1",
-      "element": "simcore_record_glowing(\"#rs1\");\n"
+      "description": "Click on UI element btn_reset1",
+      "element": "simcore_record_glowing(\"#btn_reset1\");\n"
     },
     {
       "timestamp": 1170,
@@ -327,8 +327,8 @@
     },
     {
       "timestamp": 0,
-      "description": "Click on UI element qbp",
-      "element": "simcore_record_glowing(\"#qbp\");\n"
+      "description": "Click on UI element btn_run_stop",
+      "element": "simcore_record_glowing(\"#btn_run_stop\");\n"
     },
     {
       "timestamp": 15000,
@@ -367,8 +367,8 @@
     },
     {
       "timestamp": 0,
-      "description": "Click on UI element rs1",
-      "element": "simcore_record_glowing(\"#rs1\");\n"
+      "description": "Click on UI element btn_reset1",
+      "element": "simcore_record_glowing(\"#btn_reset1\");\n"
     }
   ],
   "tag": "Tutorial Example: execution in WepSIM",

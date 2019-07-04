@@ -23,7 +23,7 @@
 
                         "Show/Hide ActionBar":                          "ActionBar 표시 / 숨기기",
                         "Show/Hide Slider":                             "슬라이더 표시 / 숨기기",
-                        "WepSIM User Interface Skin": 		        "WepSIM 사용자 인터페이스 스킨",
+                        "WepSIM User Interface skin": 		        "WepSIM 사용자 인터페이스 스킨",
                         "Initial intro":                                "초기 소개",
                         "About WepSIM":                                 "WepSIM 소개",
 

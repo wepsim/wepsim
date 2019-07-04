@@ -38,7 +38,7 @@
 		'Processor':		'Processore',
 		'Assembly Debugger':		'Assembly Debugger',
 		'Reset':		'Reset',
-		'microInstruction':		'μInstruction',
+		'microInstruction':		'μIstruzione',
 		'Instruction':		'istruzione',
 		'Run':		'Correre',
 		'Hardware Summary':		'Riepilogo Hardware',

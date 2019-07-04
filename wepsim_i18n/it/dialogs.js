@@ -23,21 +23,21 @@
 
 		'Show/Hide ActionBar':		'Mostra / Nascondi ActionBar',
 		'Show/Hide Slider':		'Mostra / nascondi cursore',
-		'WepSIM User Interface Skin':	'Skin dell\'interfaccia utente WepSIM',
+		'WepSIM User Interface skin':	'Skin dell\'interfaccia utente WepSIM',
 		'Initial intro':		'Intro iniziale',
-		'About WepSIM':		'Informazioni su WepSIM',
-		'Title':		'Titolo',
-		'Message':		'Messaggio',
-		'Duration':		'Durata',
-		'Confirm remove record...':		'Vuoi rimuovere il record attuale?',
+		'About WepSIM':			'Informazioni su WepSIM',
+		'Title':			'Titolo',
+		'Message':			'Messaggio',
+		'Duration':			'Durata',
+		'Confirm remove record...':	'Vuoi rimuovere il record attuale?',
 		'Close or Reset...':		'Fare clic su Chiudi per mantenerlo, <br> o fare clic sul pulsante Ripristina per rimuoverlo.',
-		'Sure Control Memory...':		'Vuoi che salvi i contenuti correnti della Control Memory piuttosto che i contenuti dell\'editor ?.',
+		'Sure Control Memory...':	'Vuoi che salvi i contenuti correnti della Control Memory piuttosto che i contenuti dell\'editor ?.',
 		'Show/Hide labels':		'Mostra / nascondi etichette',
 		'Show/Hide content':		'Mostra / Nascondi contenuto',
 		'Show/Hide assembly':		'Mostra / nascondi assembly',
-		'Show/Hide pseudo-instructions':		'Mostra / nascondi pseudo-istruzioni',
-		'Close':		'Vicino',
-		'_last_':		'_last_'
+		'Show/Hide pseudo-instructions':	'Mostra / nascondi pseudo-istruzioni',
+		'Close':			'Vicino',
+		'_last_':			'_last_'
 
     };
 

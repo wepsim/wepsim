@@ -38,7 +38,7 @@
 		'Processor':		'处理器',
 		'Assembly Debugger':		'汇编调试器',
 		'Reset':		'重启',
-		'microInstruction':		'μInstruction',
+		'microInstruction':		'μ指令',
 		'Instruction':		'指令',
 		'Run':		'跑',
 		'Hardware Summary':		'硬件摘要',

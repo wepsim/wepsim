@@ -23,7 +23,7 @@
 
 		'Show/Hide ActionBar':		'アクションバーの表示/非表示',
 		'Show/Hide Slider':		'スライダーの表示/非表示',
-		'WepSIM User Interface Skin':	'WepSIMユーザーインターフェーススキン',
+		'WepSIM User Interface skin':	'WepSIMユーザーインターフェーススキン',
 		'Initial intro':		'初期イントロ',
 		'About WepSIM':		'WepSIMについて',
 		'Title':		'タイトル',
