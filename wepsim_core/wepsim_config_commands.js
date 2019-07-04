@@ -62,6 +62,57 @@
                       description: "<span data-langkey='Notification speed: time before disapear'>Notification speed: time before disapear</span>"
                    });
 
+/*
+    ws_config.push({
+                      id:          "select8",
+                      type:        "General",
+                      level:       "actual",
+                      code_cfg:    "<div class='form-group m-0'>" +
+                                   " <select name='select8' id='select8' class='form-control form-control-sm custom-select'" +
+                                   "         aria-label='User Interface for WepSIM' " +
+                                   "         onchange=\"var opt = $(this).find('option:selected');" +
+                                   "                    var optValue = opt.val();" +
+                                   "                    update_cfg('ws_skin_ui', optValue);" +
+                                   "                    window.removeEventListener('beforeunload', wepsim_confirm_exit);" +
+                                   "                    window.location='wepsim-' + optValue + '.html';" +
+                                   "                    return false;\"" +
+                                   "         data-native-menu='false'>" +
+                                   "    <option value='classic'>Classic</option>" +
+                                   "    <option value='compact'>Compact</option>" +
+                                   " </select>" +
+                                   "</div>",
+                      code_init:   function() {
+                                       $('#select8').val(get_cfg('ws_skin_ui'));
+                                   },
+                      description: "<span data-langkey='WepSIM User Interface skin'>WepSIM User Interface skin</span>"
+                   });
+*/
+
+    ws_config.push({
+                      id:          "select9",
+                      type:        "General",
+                      level:       "actual",
+                      code_cfg:    "<div class='form-group m-0'>" +
+                                   " <select name='select9' id='select9' class='form-control form-control-sm custom-select'" +
+                                   "         aria-label='User Interface set of features for WepSIM' " +
+                                   "         onchange=\"var opt = $(this).find('option:selected');" +
+                                   "                    var optValue = opt.val();" +
+                                   "                    update_cfg('ws_skin_user', optValue);" +
+                                   "                    wepsim_restoreview(optValue);" +
+                                   "                    return false;\"" +
+                                   "         data-native-menu='false'>" +
+                                   "    <option value='only_asm:of:only_frequent:on'>Student</option>" +
+                                   "    <option value='only_asm:on:only_frequent:on'>Student - assembly only</option>" +
+                                   "    <option value='only_asm:of:only_frequent:of'>Teacher</option>" +
+                                   "    <option value='only_asm:on:only_frequent:of'>Teacher - assembly only</option>" +
+                                   " </select>" +
+                                   "</div>",
+                      code_init:   function() {
+                                       $('#select9').val(get_cfg('ws_skin_user'));
+                                   },
+                      description: "<span data-langkey='WepSIM User Interface views'>WepSIM User Interface views</span>"
+                   });
+
     ws_config.push({
                       id:          "radio12",
                       type:        "Execution",
@@ -469,54 +520,5 @@
 			               $('#label13-' + get_cfg('verbal_verbose')).button('toggle'); 
 		                   },
                       description: "<span data-langkey='Verbalization: textual or mathematical'>Verbalization: textual or mathematical</span>"
-                   });
-
-    ws_config.push({
-                      id:          "select8",
-                      type:        "Accesibility",
-                      level:       "actual",
-                      code_cfg:    "<div class='form-group m-0'>" +
-                                   " <select name='select8' id='select8' class='form-control form-control-sm custom-select'" +
-                                   "         aria-label='User Interface for WepSIM' " +
-                                   "         onchange=\"var opt = $(this).find('option:selected');" +
-                                   "                    var optValue = opt.val();" +
-                                   "                    update_cfg('ws_skin_ui', optValue);" +
-                                   "                    window.removeEventListener('beforeunload', wepsim_confirm_exit);" +
-                                   "                    window.location='wepsim-' + optValue + '.html';" +
-                                   "                    return false;\"" +
-                                   "         data-native-menu='false'>" +
-                                   "    <option value='classic'>Classic</option>" +
-                                   "    <option value='compact'>Compact</option>" +
-                                   " </select>" +
-                                   "</div>",
-                      code_init:   function() {
-                                       $('#select8').val(get_cfg('ws_skin_ui'));
-                                   },
-                      description: "<span data-langkey='WepSIM User Interface Skin'>WepSIM User Interface Skin</span>"
-                   });
-
-    ws_config.push({
-                      id:          "select9",
-                      type:        "Accesibility",
-                      level:       "actual",
-                      code_cfg:    "<div class='form-group m-0'>" +
-                                   " <select name='select9' id='select9' class='form-control form-control-sm custom-select'" +
-                                   "         aria-label='User Interface set of features for WepSIM' " +
-                                   "         onchange=\"var opt = $(this).find('option:selected');" +
-                                   "                    var optValue = opt.val();" +
-                                   "                    update_cfg('ws_skin_user', optValue);" +
-                                   "                    wepsim_restoreview(optValue);" +
-                                   "                    return false;\"" +
-                                   "         data-native-menu='false'>" +
-                                   "    <option value='only_asm:on:only_frequent:of'>Assembly only</option>" +
-                                   "    <option value='only_asm:on:only_frequent:on'>Assembly & Frequent only</option>" +
-                                   "    <option value='only_asm:of:only_frequent:of'>All</option>" +
-                                   "    <option value='only_asm:of:only_frequent:on'>Frequent only</option>" +
-                                   " </select>" +
-                                   "</div>",
-                      code_init:   function() {
-                                       $('#select9').val(get_cfg('ws_skin_user'));
-                                   },
-                      description: "<span data-langkey='Enable all features'>Enable all features</span>"
                    });
 

@@ -23,21 +23,21 @@
 
 		'Show/Hide ActionBar':		'显示/隐藏ActionBar',
 		'Show/Hide Slider':		'显示/隐藏滑块',
-		'WepSIM User Interface Skin':	'WepSIM用户界面皮肤',
+		'WepSIM User Interface skin':	'WepSIM用户界面皮肤',
 		'Initial intro':		'最初的介绍',
-		'About WepSIM':		'关于WepSIM',
-		'Title':		'标题',
-		'Message':		'信息',
-		'Duration':		'持续时间',
-		'Confirm remove record...':		'你想删除实际记录吗？',
+		'About WepSIM':			'关于WepSIM',
+		'Title':			'标题',
+		'Message':			'信息',
+		'Duration':			'持续时间',
+		'Confirm remove record...':	'你想删除实际记录吗？',
 		'Close or Reset...':		'请单击“关闭”以保留它，或单击“重置”按钮将其删除。',
-		'Sure Control Memory...':		'你想让我保存当前的控制存储器内容而不是编辑器内容吗？',
+		'Sure Control Memory...':	'你想让我保存当前的控制存储器内容而不是编辑器内容吗？',
 		'Show/Hide labels':		'显示/隐藏标签',
 		'Show/Hide content':		'显示/隐藏内容',
 		'Show/Hide assembly':		'显示/隐藏程序集',
-		'Show/Hide pseudo-instructions':		'显示/隐藏伪指令',
-		'Close':		'关',
-		'_last_':		'_last_'
+		'Show/Hide pseudo-instructions':	'显示/隐藏伪指令',
+		'Close':			'关',
+		'_last_':			'_last_'
 
     };
 

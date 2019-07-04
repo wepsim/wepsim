@@ -37,7 +37,7 @@
 		'Processor':		'प्रोसेसर',
 		'Assembly Debugger':		'विधानसभा डिबगर',
 		'Reset':		'रीसेट',
-		'microInstruction':		'μInstruction',
+		'microInstruction':		'μअनुदेश',
 		'Instruction':		'अनुदेश',
 		'Run':		'रन',
 		'Hardware Summary':		'हार्डवेयर सारांश',

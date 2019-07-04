@@ -172,7 +172,7 @@
 				       'Tutorial mode on. Use the configuration to change it.') ;
 	    }
 
-	    wepsim_execute_toggle_play('#qbp', (mode == 'tutorial')) ;
+	    wepsim_execute_toggle_play('#btn_run_stop', (mode == 'tutorial')) ;
 
             // add if recording
             simcore_record_append_new('Run',

@@ -23,21 +23,21 @@
 
 		'Show/Hide ActionBar':		'Показать / Скрыть ActionBar',
 		'Show/Hide Slider':		'Показать / Скрыть слайдер',
-		'WepSIM User Interface Skin':	'Скин интерфейса пользователя WepSIM',
+		'WepSIM User Interface skin':	'Скин интерфейса пользователя WepSIM',
 		'Initial intro':		'Начальное вступление',
-		'About WepSIM':		'О компании WepSIM',
-		'Title':		'заглавие',
-		'Message':		'Сообщение',
-		'Duration':		'продолжительность',
-		'Confirm remove record...':		'Вы хотите удалить фактическую запись?',
+		'About WepSIM':			'О компании WepSIM',
+		'Title':			'заглавие',
+		'Message':			'Сообщение',
+		'Duration':			'продолжительность',
+		'Confirm remove record...':	'Вы хотите удалить фактическую запись?',
 		'Close or Reset...':		'Пожалуйста, нажмите Закрыть, чтобы сохранить его, <br> или нажмите кнопку Сброс, чтобы удалить его.',
-		'Sure Control Memory...':		'Вы хотите, чтобы я сохранил текущее содержимое управляющей памяти, а не содержимое редактора?',
+		'Sure Control Memory...':	'Вы хотите, чтобы я сохранил текущее содержимое управляющей памяти, а не содержимое редактора?',
 		'Show/Hide labels':		'Показать / Скрыть метки',
 		'Show/Hide content':		'Показать / Скрыть содержимое',
 		'Show/Hide assembly':		'Показать / Скрыть сборку',
-		'Show/Hide pseudo-instructions':		'Показать / Скрыть псевдоинструкции',
-		'Close':		'близко',
-		'_last_':		'_last_'
+		'Show/Hide pseudo-instructions':	'Показать / Скрыть псевдоинструкции',
+		'Close':			'близко',
+		'_last_':			'_last_'
 
     };
 
