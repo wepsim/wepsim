@@ -125,8 +125,9 @@
 			    notifications[i].message +
 			'</li>' ;
 	}
-	if (u.trim() === '')
-	    u = '<b>Empty</b>' ;
+	if (u.trim() === '') {
+	    u = '<p class="m-3 text-center"><b>&lt;Empty&gt;</b></p>' ;
+	}
 
 	// build html
 	var o = '<div id="notifications2" class="alert alert-light p-0 m-0" role="alert">+ <span data-langkey="Recent">Recent</span></div>' +
