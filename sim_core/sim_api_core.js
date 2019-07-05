@@ -337,7 +337,7 @@
 
 	    if ( (typeof curr_segments['.stack'] !== "undefined") && (typeof sp_state !== "undefined") )
 	    {
-	         set_value(sp_state, parseInt(curr_segments['.stack'].begin));
+	         set_value(sp_state, parseInt(curr_segments['.stack'].end));
 	    }
 
             // Set mode

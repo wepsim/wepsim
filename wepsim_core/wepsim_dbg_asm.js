@@ -241,7 +241,7 @@
 
 	function fullshow_asmdbg_pc ( )
 	{
-		if (typeof document == "undefined") {
+		if (typeof document === "undefined") {
 		    return ;
 		}
 
@@ -318,7 +318,7 @@
 
 	function fullshow_dbg_ir ( decins )
 	{
-	     if (typeof document == "undefined") {
+	     if (typeof document === "undefined") {
 	         return ;
              }
 
