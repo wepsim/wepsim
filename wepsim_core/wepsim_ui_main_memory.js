@@ -1,4 +1,4 @@
-/*    
+/*
  *  Copyright 2015-2019 Felix Garcia Carballeira, Alejandro Calderon Mateos, Javier Prieto Cepeda, Saul Alonso Monsalve
  *
  *  This file is part of WepSIM.
@@ -77,8 +77,8 @@
 
 		if ( (seglabels_i < seglabels.length) && (parseInt(key) >= seglabels[seglabels_i].begin) )
 		{
-                    o1 += '<div style="position:sticky;top:0px;z-index:1;width:50%;background:#FFFFFF;"><b><small>' + 
-			  seglabels[seglabels_i].name + 
+                    o1 += '<div style="position:sticky;top:0px;z-index:1;width:50%;background:#FFFFFF;"><b><small>' +
+			  seglabels[seglabels_i].name +
 			  '</small></b></div>' ;
 
 		    seglabels_i++ ;
@@ -100,7 +100,7 @@
                            "</div>" ;
             }
 
-	    if (typeof memory[index] == "undefined") 
+	    if (typeof memory[index] == "undefined")
 	    {
 		o1 += "<div class='row' id='addr" + index + "'" +
                       "     style='color:blue; font-size:small; font-weight:bold; border-bottom: 1px solid lightgray !important'>" +
@@ -116,7 +116,7 @@
 	    if ( (redraw) && (obj_byid.length > 0) )
             {
 	        var topPos = obj_byid[0].offsetTop ;
-	        var obj_byid = $('#memory_MP') ;
+	            obj_byid = $('#memory_MP') ;
 	        if (obj_byid.length > 0)
 	            obj_byid[0].scrollTop = topPos - 120;
             }
@@ -374,7 +374,7 @@
                 var o = "" ;
 
                 var a2l = new Object();
-                for (l in labels) 
+                for (l in labels)
 		{
                      if (typeof a2l[labels[l]] == "undefined") {
                          a2l[labels[l]] = new Array();
@@ -383,14 +383,14 @@
                 }
 
                 var a2s = new Object();
-                for (l in seg) 
+                for (l in seg)
 		{
                      laddr = "0x" + seg[l].begin.toString(16) ;
                      a2s[laddr] = l;
                 }
 
-                o += "<center>" + 
-                     "<table data-role='table' class='table table-sm'>" + 
+                o += "<center>" +
+                     "<table data-role='table' class='table table-sm'>" +
                      "<tbody>" ;
                 for (l in asm)
                 {
@@ -401,22 +401,41 @@
                      asm[l].bgcolor = bgc ;
 
                      // instruction
-                     s1_instr  = asm[l].source ;
-                     s2_instr  = asm[l].source_original ;
-                     s3_hex    = parseInt(asm[l].binary, 2).toString(16) ;
-                     s3_hex    = "0x" + "00000000".substring(0, 8 - s3_hex.length) + s3_hex ;
-                     s4_mcaddr = asm[l].mc_start ;
+                     s1_instr   = asm[l].source ;
+                     s2_instr   = asm[l].source_original ;
+                     s3_hex     = parseInt(asm[l].binary, 2).toString(16) ;
+                     s3_hex     = "0x" + "00000000".substring(0, 8 - s3_hex.length) + s3_hex ;
+
+		     s4_tooltip = asm[l].firm_tooltip ;
+		     if (typeof s4_tooltip === 'undefined')
+		     {
+			 // co
+		         s4_tooltip = 'Format:\n' +
+			              ' * ' + asm[l].firm_reference['name'] + ': ' + asm[l].firm_reference['co'] + '\n' ;
+			 // fields
+			 var fields = asm[l].firm_reference['fields'] ;
+			 for (var f=0; f<fields.length; f++) {
+			      s4_tooltip += ' * ' + fields[f].name + ': bits from ' + fields[f].stopbit + ' to ' + fields[f].startbit + '\n' ;
+			 }
+			 // maddr
+		         s4_tooltip += 'Microcode:\n' +
+		                       ' * starts: 0x'     + asm[l].firm_reference['mc-start'].toString(16) + '\n' +
+		                       ' * clock cycles: ' + asm[l].firm_reference['microcode'].length + '\n' ;
+
+		         asm[l].firm_tooltip = s4_tooltip ;
+		     }
 
                      // labels
                      s_label = "" ;
-                     if (typeof a2l[l] != "undefined") {
+                     if (typeof a2l[l] != "undefined")
+		     {
                          for (var i=0; i<a2l[l].length; i++) {
                               s_label = s_label + "<span class='badge badge-info'>" + a2l[l][i] + "</span>" ;
                          }
                      }
 
 		     // mark pseudo + n-words
-		     if (s1_instr == '') {
+		     if (s1_instr === '') {
 			 s2_instr = '<span class="text-secondary">' + s2_instr + '</span>' ;
 		     }
 		else if (s1_instr != s2_instr) {
@@ -424,17 +443,11 @@
 			 s2_instr = '<span class="text-primary">' + s2_instr + '</span>' ;
 		     }
 
-                     // mc-addr
-                     s1_instr = '<span href="#" ' + 
-				'      data-toggle="tooltip" ' + 
-				'      title="Microcode starts at Control Memory[0x' + asm[l].firm_reference['mc-start'].toString(16) + ']">' + 
-				s1_instr + 
-				'</span>' ;
-
                      // join the pieces...
-                     if (typeof a2s[l] != "undefined") {
+                     if (typeof a2s[l] !== "undefined")
+		     {
                          o += "<tr bgcolor='#FEFEFE'>" +
-                              "<td colspan='7' style='line-height:0.3;' align='left'><small><font color='gray'>" + a2s[l] + "</font></small></td>"
+                              "<td colspan='7' style='line-height:0.3;' align='left'><small><font color='gray'>" + a2s[l] + "</font></small></td>" +
                               "</tr>" ;
 		     }
 
@@ -450,13 +463,13 @@
                            "<td class='asm_hex    text-monospace col-auto collapse' " +
                            "    style='line-height:0.9;'>" + s3_hex + "</td>" +
                            "<td class='asm_ins    text-monospace col-auto collapse' " +
-                           "    style='line-height:0.9;' align=left>" + s1_instr + "</td>" +
+                           "    style='line-height:0.9;' align=left><span href='#' data-toggle='tooltip' title='" + s4_tooltip + "'>" + s1_instr + "</span></td>" +
                            "<td class='asm_pins   text-monospace col-auto collapse' " +
                            "    style='line-height:0.9;' align=left>" + s2_instr + "</td>" +
                            "</tr>" ;
                 }
-                o += "</tbody>" + 
-                     "</table>" + 
+                o += "</tbody>" +
+                     "</table>" +
                      "</center>" ;
 
                 return o ;
@@ -487,17 +500,17 @@
                   "       style='margin:0'>" +
                   "<tbody class='no-ui-mini'>" +
                   "<tr><td align=center'>Wait cycles (<b>0</b> - &infin;)</td>" +
-                  "    <td align=center'>" + 
-                  "<div id='mp_wc'>" + 
+                  "    <td align=center'>" +
+                  "<div id='mp_wc'>" +
                   "<input type=number data-bind='value: simhw_internalState(\"MP_wc\")' min='0' max='99999999'>" +
-                  "</div>" + 
+                  "</div>" +
                   "    </td></tr>" +
                   "</tbody>" +
                   "</table>" +
                   "</div>" +
                   "</div>" +
                   "</div>" ;
-         
+
             $(jqdiv).html(o1);
 
             // knockout binding
