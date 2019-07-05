@@ -70,7 +70,7 @@
                  seglabels.push({ 'begin': parseInt(curr_segments[skey].begin), 'name': skey }) ;
             }
 
-            var seglabels_i = 0
+            var seglabels_i = 0 ;
             for (key in memory)
             {
                 value = main_memory_getword(revlabels, valkeys, memory, key) ;
