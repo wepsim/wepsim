@@ -320,9 +320,8 @@
                  asmdbg_content = assembly2html(SIMWARE.mp, SIMWARE.labels2, SIMWARE.seg, SIMWARE.assembly) ;
 		 break ;
 	    }
-            $("#asm_debugger").html(asmdbg_content);
 
-            showhideAsmElements();
+	    asmdbg_loadContent(asmdbg_content) ;
 
             // return ok
             return true ;
