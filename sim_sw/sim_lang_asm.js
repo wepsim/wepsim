@@ -1,8 +1,8 @@
-/*      
+/*
  *  Copyright 2015-2019 Saul Alonso Monsalve, Javier Prieto Cepeda, Felix Garcia Carballeira, Alejandro Calderon Mateos
  *
  *  This file is part of WepSIM.
- * 
+ *
  *  WepSIM is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
@@ -27,7 +27,7 @@
 	WORD_LENGTH = WORD_BYTES * BYTE_LENGTH ;
 
 /*
- *   Directives 
+ *   Directives
  */
 
 	directives = {} ;
@@ -44,12 +44,24 @@
 	directives[".align"]   = { name:".align",  kindof:"datatype", size:0 };
 
 /*
+ *   Segments
+ */
+
+	sim_segments = {
+                          ".kdata": { name:".kdata",  begin:0x00000, end:0x000FF, color: "#FF99CC", kindof:"data"  },
+                          ".ktext": { name:".ktext",  begin:0x00100, end:0x00FFF, color: "#A9D0F5", kindof:"text"  },
+                          ".data":  { name:".data",   begin:0x01000, end:0x07FFF, color: "#FACC2E", kindof:"data"  },
+                          ".text":  { name:".text",   begin:0x08000, end:0x1FFFF, color: "#BEF781", kindof:"text"  },
+                          ".stack": { name:".stack",  begin:0x1FFFF, end:0xFFFFF, color: "#F1F2A3", kindof:"stack" }
+                       };
+
+/*
  *   Auxiliary functions
  */
 
 function get_datatype_size ( datatype )
 {
-	if (typeof directives[datatype] == "undefined") {
+	if (typeof directives[datatype] === "undefined") {
 		console.log("data type: " + datatype + " is not defined!!!\n") ;
 	    	return 0;
    	}
@@ -59,7 +71,7 @@ function get_datatype_size ( datatype )
 
 function isTokenKindOf ( text, kindof )
 {
-        if (typeof directives[text] == "undefined") {
+        if (typeof directives[text] === "undefined") {
                 //console.log("directive: " + text + " is not defined!!!\n")
                 return false;
         }
@@ -69,7 +81,7 @@ function isTokenKindOf ( text, kindof )
 
 function is_directive ( text )
 {
-	return (typeof directives[text] != "undefined");
+	return (typeof directives[text] !== "undefined");
 }
 
 function is_directive_segment ( text )
@@ -84,12 +96,12 @@ function is_directive_datatype ( text )
 
 function isDecimal ( n )
 {
-	if (n.length > 1 && n[0] == "0") 
+	if (n.length > 1 && n[0] == "0")
             return false;
-        
-	if ( !isNaN(parseFloat(n)) && isFinite(n) ){
+
+	if ( !isNaN(parseFloat(n)) && isFinite(n) ) {
 		var res = parseInt(n);
-		if (typeof n == "string" && n.includes(".")) 
+		if (typeof n === "string" && n.includes("."))
 			alert("Truncating conversion has occurred: " + n + " became " + res);
 		return res;
 	}
@@ -193,7 +205,7 @@ function get_candidate ( advance, instruction )
 			else if (min > candidates[i]) {
 				min = candidates[i];
 				candidate = i;
-			} 
+			}
 		}	
 	}
 
@@ -210,14 +222,14 @@ function assembly_replacement(machineCode, num_bits, startbit, stopbit, free_spa
 	var machineCodeAux = machineCode.substring(0, machineCode.length-startbit+free_space);
 	machineCode = machineCodeAux + num_bits + machineCode.substring(machineCode.length-stopbit);	
 
-	return machineCode; 
+	return machineCode;
 }
 
 function assembly_co_cop(machineCode, co, cop)
 {		
         var xr_info = simhw_sim_ctrlStates_get() ;
 
-	if (co !== false) 
+	if (co !== false)
 	    machineCode = assembly_replacement(machineCode, co, WORD_LENGTH, WORD_LENGTH-6, 0); 	
 	if (cop !== false)
 	    machineCode = assembly_replacement(machineCode, cop, xr_info.ir.default_eltos.cop.length, 0, 0);
@@ -227,7 +239,7 @@ function assembly_co_cop(machineCode, co, cop)
 
 function writememory_and_reset ( mp, gen, nwords )
 {
-	if (gen.byteWord >= WORD_BYTES) 
+	if (gen.byteWord >= WORD_BYTES)
         {
 	    mp["0x" + gen.seg_ptr.toString(16)] = gen.machineCode ;               			
 
@@ -302,23 +314,23 @@ function read_data ( context, datosCU, ret )
 	   gen.machineCode = reset_assembly(1);
            gen.seg_ptr = ret.seg[seg_name].begin ;
 
-	   // 
+	   //
 	   //  .data
 	   //  *.text*
-	   // 
+	   //
 
            nextToken(context) ;
 
 	   // Loop while token read is not a segment directive (.text/.data/...)
-	   while (!is_directive_segment(getToken(context)) && !is_end_of_file(context)) 
+	   while (!is_directive_segment(getToken(context)) && !is_end_of_file(context))
            {
-		   // 
-		   //  * etiq1: * 
+		   //
+		   //  * etiq1: *
 		   //  * etiq2: *  .word 2, 4
-		   // 
+		   //
 	
 		   var possible_tag = "" ;
-		   while (!is_directive_datatype(getToken(context)) && !is_end_of_file(context)) 
+		   while (!is_directive_datatype(getToken(context)) && !is_end_of_file(context))
 		   {
                       // tagX
 		      possible_tag = getToken(context) ;
@@ -326,8 +338,8 @@ function read_data ( context, datosCU, ret )
                       // check tag
 		      if ("TAG" != getTokenType(context))
 			  return langError(context, "Expected tag or directive but found '" + possible_tag + "' instead" ) ;
-		  
-		      var tag = possible_tag.substring(0, possible_tag.length-1); 
+		
+		      var tag = possible_tag.substring(0, possible_tag.length-1);
 
    		      if (!isValidTag(tag))
 			  return langError(context, "A tag must follow an alphanumeric format (starting with a letter or underscore) but found '" + tag + "' instead");
@@ -347,10 +359,10 @@ function read_data ( context, datosCU, ret )
 		   if(is_end_of_file(context))
 			break;
 
-		   // 
-		   //    etiq1:   
+		   //
+		   //    etiq1:
 		   //    etiq2: *.word* 2, 4
-		   // 
+		   //
 
 		   var possible_datatype = getToken(context) ;
 
@@ -417,12 +429,12 @@ function read_data ( context, datosCU, ret )
 				
 				// Label as number (later translation)
 				if (label_found)
-					ret.labels["0x" + gen.seg_ptr.toString(16)] = { name:possible_value, 
-											addr:gen.seg_ptr, 
-											startbit:31, 
-											stopbit:0, 
-											rel:undefined, 
-											nwords:1, 
+					ret.labels["0x" + gen.seg_ptr.toString(16)] = { name:possible_value,
+											addr:gen.seg_ptr,
+											startbit:31,
+											stopbit:0,
+											rel:undefined,
+											nwords:1,
 											labelContext:getLabelContext(context) };
 					
 				// Store number in machine code
@@ -445,7 +457,7 @@ function read_data ( context, datosCU, ret )
 		   //            .space *20*
 		   else if (".space" == possible_datatype)
                    {
-                        // <value> 
+                        // <value>
 		        nextToken(context) ;
                         var possible_value = getToken(context) ;
 
@@ -469,7 +481,7 @@ function read_data ( context, datosCU, ret )
 		   //            .align *2*
 		   else if (".align" == possible_datatype)
                    {
-                        // <value> 
+                        // <value>
 		        nextToken(context) ;
                         var possible_value = getToken(context) ;
 
@@ -482,7 +494,7 @@ function read_data ( context, datosCU, ret )
 
 			// Calculate offset
                         var align_offset = Math.pow(2,parseInt(possible_value)) ;
-                   
+
 			switch (align_offset) {
 				case 1:
 					break;
@@ -534,7 +546,7 @@ function read_data ( context, datosCU, ret )
 					// Word filled
                                         writememory_and_reset(ret.mp, gen, 1) ;
 
-					if (possible_value[i] == "\"") 
+					if (possible_value[i] == "\"")
                                             continue;			
 	
 					num_bits = possible_value.charCodeAt(i).toString(2);
@@ -580,7 +592,8 @@ function read_data ( context, datosCU, ret )
            }
 
 	   // Fill memory
-	   if (gen.byteWord > 0){
+	   if (gen.byteWord > 0)
+	   {
 		ret.mp["0x" + gen.seg_ptr.toString(16)] = gen.machineCode ;
                 gen.seg_ptr = gen.seg_ptr + WORD_BYTES ;
 	   }		
@@ -590,18 +603,18 @@ function read_data ( context, datosCU, ret )
 
 function read_text ( context, datosCU, ret )
 {
-	   // 
+	   //
 	   //  .text
-	   // 
+	   //
 
            var seg_name = getToken(context) ;
            var seg_ptr  = ret.seg[seg_name].begin ;
 
 	   // get firmware and pseudoinstructions
 	   var firmware = context.firmware;
-	   var pseudoInstructions = context.pseudoInstructions;  
+	   var pseudoInstructions = context.pseudoInstructions;
 	   var isPseudo = false;
-	   var counter = -1; 
+	   var counter = -1;
 
 	   // Fill register names
 	   var registers = {} ;
@@ -615,18 +628,18 @@ function read_text ( context, datosCU, ret )
            nextToken(context) ;
 		
 	   // Loop while token read is not a segment directive (.text/.data/...)
-	   while (!is_directive_segment(getToken(context)) && !is_end_of_file(context)) 
+	   while (!is_directive_segment(getToken(context)) && !is_end_of_file(context))
            {
 		// check tag or error
-		while (!isPseudo && typeof firmware[getToken(context)] == "undefined" && !is_end_of_file(context)) 
+		while (!isPseudo && typeof firmware[getToken(context)] === "undefined" && !is_end_of_file(context))
                 {
 			var possible_tag = getToken(context);
 	
 			// check tag		
-		        if ("TAG" != getTokenType(context)) 
-				return langError(context, "Expected tag or instruction but found '" + possible_tag + "' instead" ); 
+		        if ("TAG" != getTokenType(context))
+				return langError(context, "Expected tag or instruction but found '" + possible_tag + "' instead" );
 	
-		        var tag = possible_tag.substring(0, possible_tag.length-1); 
+		        var tag = possible_tag.substring(0, possible_tag.length-1);
    		        if (!isValidTag(tag))
 				return langError(context, "A tag must follow an alphanumeric format (starting with a letter or underscore) but found '" + tag + "' instead");
 			if (firmware[tag])
@@ -642,7 +655,7 @@ function read_text ( context, datosCU, ret )
 
 		// check if end of file has been reached
                 if(is_end_of_file(context))
-                	break; 
+                	break;
 
 		// get instruction
 		if(!isPseudo){
@@ -707,7 +720,7 @@ function read_text ( context, datosCU, ret )
 			// vertical search (different signatures)
 			for (j=0; j<advance.length; j++){
 
-				// check whether explore this alternative 
+				// check whether explore this alternative
 				if (advance[j] == 0)
 					continue;
 				if (i >= signature_fields[j].length){
@@ -805,7 +818,7 @@ function read_text ( context, datosCU, ret )
 								break;
 							}
 						}
-						if (typeof registers[value] == "undefined"){	
+						if (typeof registers[value] === "undefined"){	
 							var error = "Expected register ($1, ...) but found '" + value + "' instead";
 							advance[j] = 0;
 							break;
@@ -834,8 +847,10 @@ function read_text ( context, datosCU, ret )
 				}
 
 				// check if bits fit in the space
-				if (advance[j] == 1 && !label_found){
-					if (res[1] < 0){
+				if (advance[j] == 1 && !label_found)
+				{
+					if (res[1] < 0)
+					{
 						if (field.type == "address" && "rel" == field.address_type)
 							error = "Relative value (" + (converted - seg_ptr - WORD_BYTES) + " in decimal) needs " + res[0].length + " bits in binary but there is space for only " + size + " bits";
 						else var error = "'" + value + "' needs " + res[0].length + " bits in binary but there is space for only " + size + " bits";
@@ -844,38 +859,49 @@ function read_text ( context, datosCU, ret )
 				}	
 
 				// store field
-				if (advance[j] == 1 && (!(isPseudo && counter == -1))){
+				if (advance[j] == 1 && (!(isPseudo && counter == -1)))
+				{
 					binaryAux[j][i] = {
-                                                num_bits:(label_found ? false : res[0]), 
-                                                free_space:(label_found ? false : res[1]), 
-                                                startbit:field.startbit, 
-                                                stopbit:field.stopbit, 
-                                                rel:(label_found ? field.address_type : false), 
-                                                islabel:label_found, 
-						field_name: value 
-                                	};
+                                                             num_bits:    (label_found ? false : res[0]),
+                                                             free_space:  (label_found ? false : res[1]),
+                                                             startbit:    field.startbit,
+                                                             stopbit:     field.stopbit,
+                                                             rel:         (label_found ? field.address_type : false),
+                                                             islabel:     label_found,
+						             field_name:  value
+                                	                  };
 				}
 			}
 		
-			if (sum_array(advance) == 0) break;
+			if (sum_array(advance) == 0) {
+			    break;
+			}
 
-			if ("TAG" == getTokenType(context) || firmware[value]) break;	
+			if ("TAG" == getTokenType(context) || firmware[value]) {
+			    break;	
+			}
 		}
 
 		// get candidate
 		var candidate;
 		for (i=0; i<advance.length; i++)
-			if (advance[i] == 1) candidate = i;
+		{
+		     if (advance[i] == 1) {
+			 candidate = i ;
+			 break ;
+		     }
+		}
 
 		// instruction format
 		var format = "";
-		for (i=0; i<firmware[instruction].length; i++){
+		for (i=0; i<firmware[instruction].length; i++)
+		{
 			if (i>0 && i<firmware[instruction].length-1)
 				format += ", ";
 			if (i>0 && i==firmware[instruction].length-1)
 				format += " or ";
 			format += "'" + firmware[instruction][i].signatureUser + "'";
-		} 
+		}
 
 		// check solution
 		var sum_res = sum_array(advance);	
@@ -891,7 +917,7 @@ function read_text ( context, datosCU, ret )
 			if (candidate === false) return langError(context, "Instruction and fields match with more than one microprogram. Please check the microcode. Currently, the instruction format can be: " + format);
 		}
 
-		// store pseudo_fields[field]=value, and continue 
+		// store pseudo_fields[field]=value, and continue
 		if (isPseudo)
 		{
 			if (counter == -1)
@@ -912,7 +938,7 @@ function read_text ( context, datosCU, ret )
 
 			npseudoInstructions++ ;
 			if (npseudoInstructions > 1) {
-			    s_ori = "&nbsp;" ; // s_ori = "---"; 
+			    s_ori = "&nbsp;" ; // s_ori = "---";
 			}
 
 			if (finish[candidate][counter] == "\n") {
@@ -923,15 +949,16 @@ function read_text ( context, datosCU, ret )
 		var machineCode = reset_assembly(firmware[instruction][candidate].nwords);
 
 		// replace CO and COP in machine code
-		machineCode = assembly_co_cop(machineCode, 
-                                              firmware[instruction][candidate].co, 
+		machineCode = assembly_co_cop(machineCode,
+                                              firmware[instruction][candidate].co,
                                               firmware[instruction][candidate].cop);
 	
 		// store candidate fields in machine code
-		for (i=0; i<binaryAux[candidate].length; i++){
+		for (i=0; i<binaryAux[candidate].length; i++)
+		{
 			// tag
 			if (binaryAux[candidate][i].islabel)
-				ret.labels["0x" + seg_ptr.toString(16)] = { 	name:binaryAux[candidate][i].field_name, 
+				ret.labels["0x" + seg_ptr.toString(16)] = { 	name:binaryAux[candidate][i].field_name,
 										addr:seg_ptr,
 										startbit:binaryAux[candidate][i].startbit,
 										stopbit:binaryAux[candidate][i].stopbit,
@@ -942,7 +969,7 @@ function read_text ( context, datosCU, ret )
 			else
 				machineCode = assembly_replacement(	machineCode,
 									binaryAux[candidate][i].num_bits,
-									binaryAux[candidate][i].startbit-(-1), 
+									binaryAux[candidate][i].startbit-(-1),
 									binaryAux[candidate][i].stopbit,
 									binaryAux[candidate][i].free_space);	
 		}
@@ -951,7 +978,8 @@ function read_text ( context, datosCU, ret )
 		s_def = s[0];
 		for (i=0, j=1; i<signature_user_fields[candidate].length; i++, j++)
 		{
-			switch(signature_user_fields[candidate][i]){
+			switch(signature_user_fields[candidate][i])
+			{
 				case "address":
 				case "inm":
 				case "reg":
@@ -968,18 +996,26 @@ function read_text ( context, datosCU, ret )
 		     var s_ori = s_def ;
 		}
 
+		// ref has the associated information in firmware for this instruction
+		var ref = datosCU.cocop_hash[firmware[instruction][candidate].co] ;
+		if (ref.withcop)
+		     ref = ref[firmware[instruction][candidate].cop] ;
+		else ref = ref.i ;
+
 		// process machine code with several words...
 		for (i=firmware[instruction][candidate].nwords-1; i>=0; i--)
                 {
 			if (i<firmware[instruction][candidate].nwords-1) {
 			    s_def = "" ;
 			}
-			ret.assembly["0x" + seg_ptr.toString(16)] = { 
-				                                      breakpoint: false, 
-				                                      binary: machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH), 
-				                                      source: s_def, 
-				                                      source_original: s_ori 
-			                                            } ; 
+
+			ret.assembly["0x" + seg_ptr.toString(16)] = {
+				                                       breakpoint:      false,
+				                                       binary:          machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH),
+				                                       source:          s_def,
+				                                       source_original: s_ori,
+				                                       firm_reference:  ref
+			                                            } ;
 			ret.mp["0x" + seg_ptr.toString(16)] = machineCode.substring(i*WORD_LENGTH, (i+1)*WORD_LENGTH) ;
                 	seg_ptr = seg_ptr + WORD_BYTES ;
 		}
@@ -996,8 +1032,9 @@ function read_text ( context, datosCU, ret )
 			nextToken(context) ;
 		}
 
-		if (context.t >= context.text.length) 
+		if (context.t >= context.text.length) {
 		    break ;
+		}
            }
 
            ret.seg[seg_name].end = seg_ptr ;  // end of segment is just last pointer value...
@@ -1029,23 +1066,24 @@ function simlang_compile (text, datosCU)
 	   context.firmware             = {} ;
 	   context.pseudoInstructions   = {};
            context.comments             = [] ;
-	   
+	
 	   // fill firmware
 	   for (i=0; i<datosCU.firmware.length; i++)
            {
 		var aux = datosCU.firmware[i];
 
-	   	if (typeof context.firmware[aux.name] == "undefined")
+	   	if (typeof context.firmware[aux.name] === "undefined") {
 	   	    context.firmware[aux.name] = [];
+		}
 
-	   	context.firmware[aux.name].push({ name:aux.name,
-							  nwords:parseInt(aux.nwords), 
-							  co:(typeof aux.co != "undefined" ? aux.co : false),
-							  cop:(typeof aux.cop != "undefined" ? aux.cop : false),
-							  fields:(typeof aux.fields != "undefined" ? aux.fields : false),
-							  signature:aux.signature,
-							  signatureUser:(typeof aux.signatureUser != "undefined" ? aux.signatureUser : aux.name ),
-							  isPseudoinstruction:false  });
+	   	context.firmware[aux.name].push({ name:                aux.name,
+						  nwords:              parseInt(aux.nwords),
+						  co:                  (typeof aux.co !== "undefined" ? aux.co : false),
+						  cop:                 (typeof aux.cop !== "undefined" ? aux.cop : false),
+						  fields:              (typeof aux.fields !== "undefined" ? aux.fields : false),
+						  signature:           aux.signature,
+						  signatureUser:       (typeof aux.signatureUser !== "undefined" ? aux.signatureUser : aux.name ),
+						  isPseudoinstruction: false  });
 	   }
 	
 	   // fill pseudoinstructions
@@ -1054,51 +1092,45 @@ function simlang_compile (text, datosCU)
 		var initial = datosCU.pseudoInstructions[i].initial;
 		var finish = datosCU.pseudoInstructions[i].finish;	
 
-		if (typeof context.pseudoInstructions[initial.name] == "undefined"){
+		if (typeof context.pseudoInstructions[initial.name] === "undefined"){
 		    context.pseudoInstructions[initial.name] = 0;
 		    context.firmware[initial.name] = [];
 		}
 
 		context.pseudoInstructions[initial.name]++;
-                context.firmware[initial.name].push({ 	name:initial.name, 
-							fields:(typeof initial.fields != "undefined" ? initial.fields : false),
+                context.firmware[initial.name].push({ 	name:initial.name,
+							fields:(typeof initial.fields !== "undefined" ? initial.fields : false),
 							signature:initial.signature,
 							signatureUser:initial.signature.replace(/,/g," "),
 							finish:finish.signature,
 							isPseudoinstruction:true });
 	   }
 
-           var ret = {}; 
-           ret.seg = {
-                       ".kdata": { name:".kdata",  begin:0x0000, end:0x00FF, color: "#FF99CC", kindof:"data" },
-                       ".ktext": { name:".ktext",  begin:0x0100, end:0x0FFF, color: "#A9D0F5", kindof:"text" },
-                       ".data":  { name:".data",   begin:0x1000, end:0x7FFF, color: "#FACC2E", kindof:"data" },
-                       ".text":  { name:".text",   begin:0x8000, end:0xFF00, color: "#BEF781", kindof:"text" },
-                       ".stack": { name:".stack",  begin:0xFFFF, end:0xFFFF, color: "#F1F2A3", kindof:"stack" }
-                     };
-          ret.mp           = {} ;
-	  ret.labels	   = {} ; // [addr] = {name, addr, startbit, stopbit}
-          ret.labels2      = {} ;
-          ret.assembly     = {} ; // This is for the Assembly Debugger...
+          var ret = {};
+	  ret.seg      = sim_segments ;
+          ret.mp       = {} ;
+	  ret.labels   = {} ; // [addr] = {name, addr, startbit, stopbit}
+          ret.labels2  = {} ;
+          ret.assembly = {} ; // This is for the Assembly Debugger...
 
 	  data_found = false;
 	  text_found = false;
 
-          // 
+          //
           // .segment
           // ...
-          // 
+          //
           nextToken(context) ;
           while (!is_end_of_file(context))
           {
 	       var segname = getToken(context);
 
-	       if (typeof ret.seg[segname] == "undefined")
+	       if (typeof ret.seg[segname] === "undefined")
 			return langError(context, "Expected .data/.text/... segment but found '" + segname + "' as segment");
 
 	       if ("data" == ret.seg[segname].kindof){
 			read_data(context, datosCU, ret);
-			data_found = true;	       
+			data_found = true;	
 	       }
 
 	       if ("text" == ret.seg[segname].kindof){
@@ -1167,11 +1199,11 @@ function simlang_compile (text, datosCU)
 			ret.mp["0x" + auxAddr.toString(16)] = machineCode.substring(j*WORD_LENGTH, (j+1)*WORD_LENGTH) ;
                 	auxAddr += WORD_BYTES ;
 		}
-	 }	 
+	 }	
 
 	 // check if main or kmain in assembly code
 	 if(text_found){
-		 if ( (typeof ret.labels2["main"] == "undefined" ) && (typeof ret.labels2["kmain"] == "undefined" ) )
+		 if ( (typeof ret.labels2["main"] === "undefined" ) && (typeof ret.labels2["kmain"] === "undefined" ) )
 			return langError(context, "Tags 'main' or 'kmain' are not defined in the text segment(s). It is compulsory to define at least one of those tags in order to execute a program");
 	 }
 

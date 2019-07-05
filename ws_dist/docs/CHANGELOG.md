@@ -1,6 +1,20 @@
 
 2.0.8 -> 2.0.9:
-* Simplified UI
+* Interface:
+   + Notifications: 
+      * Added action to clear all notifications.
+      * Show/hide timestamps.
+   + Configuration: 
+      * Introduced the Student (simple) & Teacher (full) views.
+      * By default breakpoints works in both, microcode and assembly code.
+   + Details dropdown: Simulation section added:
+       * Microcode editor side-by-side with circuitery.
+       * Summary of the processor model associated to the simulation.
+* Core:
+   + Configuration tries to resolve missing elements one by one (with default values).
+   + Execution microinstruction by microinstruction a little bit more efficient.
+   + Stack segment is show in main memory details
+   + Added more Idioms thanks to Google Translate.
 
 2.0.7 -> 2.0.8:
 * Improved UI

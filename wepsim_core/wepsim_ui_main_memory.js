@@ -53,7 +53,6 @@
         {
 	    var o1 = "" ;
             var value = "" ;
-            var sname = "" ;
             var taddr = "" ;
 
             var valkeys = new Array();
@@ -65,22 +64,29 @@
             for (var key in SIMWARE.labels2)
                  revlabels[SIMWARE.labels2[key]] = key ;
 
-            var seglabels = new Object() ;
+            var seglabels = [] ;
             var curr_segments = simhw_internalState('segments') ;
 	    for (skey in curr_segments) {
-                 seglabels[parseInt(curr_segments[skey].begin)] = skey ;
+                 seglabels.push({ 'begin': parseInt(curr_segments[skey].begin), 'name': skey }) ;
             }
 
+            var seglabels_i = 0
             for (key in memory)
             {
                 value = main_memory_getword(revlabels, valkeys, memory, key) ;
-                sname = seglabels[parseInt(key)] ;
 
-                if (typeof sname != "undefined")
-                    o1 += '<div style="position:sticky;top:0px;z-index:1;width:50%;background:#FFFFFF;"><b><small>' + sname + '</small></b></div>' ;
+		if ( (seglabels_i < seglabels.length) && (parseInt(key) >= seglabels[seglabels_i].begin) )
+		{
+                    o1 += '<div style="position:sticky;top:0px;z-index:1;width:50%;background:#FFFFFF;"><b><small>' + 
+			  seglabels[seglabels_i].name + 
+			  '</small></b></div>' ;
+
+		    seglabels_i++ ;
+		}
 
                 taddr = '<small>0x</small>' + pack5(valkeys[3]) + '<span class="d-none d-sm-inline-flex"> </span>-' +
                         '<span class="d-none d-sm-inline-flex"><small> 0x</small></span>' + pack5(valkeys[0]) ;
+
 		if (key == index)
 		     o1 += "<div class='row' id='addr" + key + "'" +
                            "     style='color:blue; font-size:small; font-weight:bold;    border-bottom: 1px solid lightgray !important'>" +
@@ -94,12 +100,14 @@
                            "</div>" ;
             }
 
-	    if (typeof memory[index] == "undefined")
+	    if (typeof memory[index] == "undefined") 
+	    {
 		o1 += "<div class='row' id='addr" + index + "'" +
                       "     style='color:blue; font-size:small; font-weight:bold; border-bottom: 1px solid lightgray !important'>" +
 		      "<div class='col-6 pr-2' align='right'  style='padding:5'>" + "0x" + parseInt(index).toString(16) + "</div>" +
 		      "<div class='col-6'      align='left'   style='padding:5' id='mpval>" + index + "'>" + "00 00 00 00" + "</div>"+
                       "</div>";
+	    }
 
             $("#memory_MP").html("<div class='container-fluid'>" + o1 + "</div>");
 
@@ -366,14 +374,17 @@
                 var o = "" ;
 
                 var a2l = new Object();
-                for (l in labels) {
-                     if (typeof a2l[labels[l]] == "undefined")
+                for (l in labels) 
+		{
+                     if (typeof a2l[labels[l]] == "undefined") {
                          a2l[labels[l]] = new Array();
+		     }
                      a2l[labels[l]].push(l);
                 }
 
                 var a2s = new Object();
-                for (l in seg) {
+                for (l in seg) 
+		{
                      laddr = "0x" + seg[l].begin.toString(16) ;
                      a2s[laddr] = l;
                 }
@@ -383,17 +394,18 @@
                      "<tbody>" ;
                 for (l in asm)
                 {
-                     if  (bgc == "#F0F0F0")
+                     if  (bgc === "#F0F0F0")
                           bgc = "#F8F8F8" ;
                      else bgc = "#F0F0F0" ;
 
                      asm[l].bgcolor = bgc ;
 
                      // instruction
-                     s1_instr = asm[l].source ;
-                     s2_instr = asm[l].source_original ;
-                     s3_hex   = parseInt(asm[l].binary, 2).toString(16) ;
-                     s3_hex   = "0x" + "00000000".substring(0, 8 - s3_hex.length) + s3_hex ;
+                     s1_instr  = asm[l].source ;
+                     s2_instr  = asm[l].source_original ;
+                     s3_hex    = parseInt(asm[l].binary, 2).toString(16) ;
+                     s3_hex    = "0x" + "00000000".substring(0, 8 - s3_hex.length) + s3_hex ;
+                     s4_mcaddr = asm[l].mc_start ;
 
                      // labels
                      s_label = "" ;
@@ -411,6 +423,13 @@
 			 s1_instr = '<span class="text-primary">' + s1_instr + '</span>' ;
 			 s2_instr = '<span class="text-primary">' + s2_instr + '</span>' ;
 		     }
+
+                     // mc-addr
+                     s1_instr = '<span href="#" ' + 
+				'      data-toggle="tooltip" ' + 
+				'      title="Microcode starts at Control Memory[0x' + asm[l].firm_reference['mc-start'].toString(16) + ']">' + 
+				s1_instr + 
+				'</span>' ;
 
                      // join the pieces...
                      if (typeof a2s[l] != "undefined") {
