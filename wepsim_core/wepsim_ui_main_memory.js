@@ -364,6 +364,34 @@
 	   return o1 ;
         }
 
+	function instruction2tooltip ( firm_reference )
+	{
+	   // cop
+	   var o = '' ;
+	   if (typeof    firm_reference['cop'] !== 'undefined') {
+	       o = '+' + firm_reference['cop'] ;
+	   }
+
+	   // co
+	   o  = '<div style=\"text-align:left !important;\">\n' +
+	  	'Format:<br>\n' +
+		' * ' + firm_reference['name'] + ': ' + firm_reference['co'] + o + '<br>\n' ;
+
+	   // fields
+	   var fields = firm_reference['fields'] ;
+	   for (var f=0; f<fields.length; f++) {
+	        o += ' * ' + fields[f].name + ': bits from ' + fields[f].stopbit + ' to ' + fields[f].startbit + '<br>\n' ;
+	   }
+
+	   // maddr
+	   o += 'Microcode:<br>\n' +
+	  	' * starts: 0x'     + firm_reference['mc-start'].toString(16) + '<br>\n' +
+		' * clock cycles: ' + firm_reference['microcode'].length + '<br>\n' +
+		'</div>' ;
+
+	   return o ;
+        }
+
 	function assembly2html ( mp, labels, seg, asm )
 	{
                 var  s_label = "" ;
@@ -409,18 +437,7 @@
 		     s4_tooltip = asm[l].firm_tooltip ;
 		     if (typeof s4_tooltip === 'undefined')
 		     {
-			 // co
-		         s4_tooltip = 'Format:\n' +
-			              ' * ' + asm[l].firm_reference['name'] + ': ' + asm[l].firm_reference['co'] + '\n' ;
-			 // fields
-			 var fields = asm[l].firm_reference['fields'] ;
-			 for (var f=0; f<fields.length; f++) {
-			      s4_tooltip += ' * ' + fields[f].name + ': bits from ' + fields[f].stopbit + ' to ' + fields[f].startbit + '\n' ;
-			 }
-			 // maddr
-		         s4_tooltip += 'Microcode:\n' +
-		                       ' * starts: 0x'     + asm[l].firm_reference['mc-start'].toString(16) + '\n' +
-		                       ' * clock cycles: ' + asm[l].firm_reference['microcode'].length + '\n' ;
+	                 s4_tooltip = instruction2tooltip(asm[l].firm_reference) ;
 
 		         asm[l].firm_tooltip = s4_tooltip ;
 		     }
@@ -463,7 +480,7 @@
                            "<td class='asm_hex    text-monospace col-auto collapse' " +
                            "    style='line-height:0.9;'>" + s3_hex + "</td>" +
                            "<td class='asm_ins    text-monospace col-auto collapse' " +
-                           "    style='line-height:0.9;' align=left><span href='#' data-toggle='tooltip' title='" + s4_tooltip + "'>" + s1_instr + "</span></td>" +
+                           "    style='line-height:0.9;' align=left><span href='#' data-toggle='tooltip' data-html='true' title='" + s4_tooltip + "'>" + s1_instr + "</span></td>" +
                            "<td class='asm_pins   text-monospace col-auto collapse' " +
                            "    style='line-height:0.9;' align=left>" + s2_instr + "</td>" +
                            "</tr>" ;

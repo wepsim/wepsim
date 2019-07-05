@@ -184,9 +184,9 @@
 	update_memories(SIMWARE);
 
         // update UI
-        $("#asm_debugger").html(assembly2html(SIMWAREaddon.mp, SIMWAREaddon.labels2,
-                                              SIMWAREaddon.seg, SIMWAREaddon.assembly));
-        showhideAsmElements();
+        var asmdbg_content = assembly2html(SIMWAREaddon.mp,  SIMWAREaddon.labels2,
+                                           SIMWAREaddon.seg, SIMWAREaddon.assembly) ;
+	asmdbg_loadContent(asmdbg_content) ;
 
 	simcore_reset();
         return true;
