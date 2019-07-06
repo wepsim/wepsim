@@ -364,29 +364,42 @@
 	   return o1 ;
         }
 
-	function instruction2tooltip ( firm_reference )
+	function instruction2tooltip ( ins_text, ins_bin, ins_hex, firm_reference )
 	{
-	   // cop
-	   var o = '' ;
+	   // bin & hex
+	   var ins_bin_1 = ins_bin.slice(0, ins_bin.length/2) ;
+	   var ins_bin_2 = ins_bin.slice((ins_bin.length/2)+1, ins_bin.length) ;
+	   var o  = '<div style=\"text-align:left !important;\">\n' +
+	            '<li>Instruction:</li>\n' +
+	            '<ul>\n' +
+		    ' <li> ' + ins_text + '</li>\n' +
+		 // ' <li> hex: <b>' + ins_hex   + '</b></li>\n' +
+		    ' <li> bin: </li>\n' +
+		    '        <b>' + ins_bin_1 + '</b>\n' +
+		    '        <b>' + ins_bin_2 + '</b>\n' +
+	            '</ul>\n' ;
+
+	   // co, cop & fields
+	   var u = '' ;
 	   if (typeof    firm_reference['cop'] !== 'undefined') {
-	       o = '+' + firm_reference['cop'] ;
+	       u = '+' + firm_reference['cop'] ;
 	   }
 
-	   // co
-	   o  = '<div style=\"text-align:left !important;\">\n' +
-	  	'Format:<br>\n' +
-		' * ' + firm_reference['name'] + ': ' + firm_reference['co'] + o + '<br>\n' ;
-
-	   // fields
+	   o +=	'<li>Format:</li>\n' +
+	        '<ul>\n' +
+		' <li>' + firm_reference['name'] + ': <b>' + firm_reference['co'] + u + '</b></li>\n' ;
 	   var fields = firm_reference['fields'] ;
 	   for (var f=0; f<fields.length; f++) {
-	        o += ' * ' + fields[f].name + ': bits from ' + fields[f].stopbit + ' to ' + fields[f].startbit + '<br>\n' ;
+	        o += ' <li>' + fields[f].name + ': bits <b>' + fields[f].stopbit + '</b> to <b>' + fields[f].startbit + '</b></li>\n' ;
 	   }
+	   o += '</ul>\n' ;
 
-	   // maddr
-	   o += 'Microcode:<br>\n' +
-	  	' * starts: 0x'     + firm_reference['mc-start'].toString(16) + '<br>\n' +
-		' * clock cycles: ' + firm_reference['microcode'].length + '<br>\n' +
+	   // microcode
+	   o += '<li>Microcode:</li>\n' +
+	        '<ul>\n' +
+	  	' <li> starts: <b>0x'     + firm_reference['mc-start'].toString(16) + '</b></li>\n' +
+		' <li> clock cycles: <b>' + firm_reference['microcode'].length + '</b></li>\n' +
+	        '</ul>\n' +
 		'</div>' ;
 
 	   return o ;
@@ -431,15 +444,15 @@
                      // instruction
                      s1_instr   = asm[l].source ;
                      s2_instr   = asm[l].source_original ;
-                     s3_hex     = parseInt(asm[l].binary, 2).toString(16) ;
+		     s2_bin     = asm[l].binary ;
+                     s3_hex     = parseInt(s2_bin, 2).toString(16) ;
                      s3_hex     = "0x" + "00000000".substring(0, 8 - s3_hex.length) + s3_hex ;
 
-		     s4_tooltip = asm[l].firm_tooltip ;
+		     s4_tooltip = asm[l].tooltip_instruction ;
 		     if (typeof s4_tooltip === 'undefined')
 		     {
-	                 s4_tooltip = instruction2tooltip(asm[l].firm_reference) ;
-
-		         asm[l].firm_tooltip = s4_tooltip ;
+	                 s4_tooltip = instruction2tooltip(s1_instr, s2_bin, s3_hex, asm[l].firm_reference) ;
+		         asm[l].tooltip_instruction = s4_tooltip ;
 		     }
 
                      // labels
@@ -478,9 +491,9 @@
                            "<td class='asm_break  text-monospace col-auto show collapse py-0 px-0' " +
                            "    style='line-height:0.9;' id='bp" + l + "' width='1%'>" + "</td>" +
                            "<td class='asm_hex    text-monospace col-auto collapse' " +
-                           "    style='line-height:0.9;'>" + s3_hex + "</td>" +
+                           "    style='line-height:0.9;' align=left><span href='#' data-toggle='tooltip' data-placement='right' data-html='true' title='" + s4_tooltip + "'>" + s3_hex + "</span></td>" +
                            "<td class='asm_ins    text-monospace col-auto collapse' " +
-                           "    style='line-height:0.9;' align=left><span href='#' data-toggle='tooltip' data-html='true' title='" + s4_tooltip + "'>" + s1_instr + "</span></td>" +
+                           "    style='line-height:0.9;'>" + s1_instr + "</td>" +
                            "<td class='asm_pins   text-monospace col-auto collapse' " +
                            "    style='line-height:0.9;' align=left>" + s2_instr + "</td>" +
                            "</tr>" ;
