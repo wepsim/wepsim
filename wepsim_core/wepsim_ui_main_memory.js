@@ -366,18 +366,19 @@
 
 	function instruction2tooltip ( ins_text, ins_bin, ins_hex, firm_reference )
 	{
-	   // bin & hex
-	   var ins_bin_1 = ins_bin.slice(0, ins_bin.length/2) ;
-	   var ins_bin_2 = ins_bin.slice((ins_bin.length/2)+1, ins_bin.length) ;
+	   var ins_bin_1  = ins_bin.slice(0, ins_bin.length/2) ;
+	   var ins_bin_2  = ins_bin.slice((ins_bin.length/2)+1, ins_bin.length) ;
+	   var ins_quoted = ins_text.replace(/"/g, '\x22').replace(/'/g, '\x27') ;
+
+	   // instruction & bin
 	   var o  = '<div style=\"text-align:left !important;\">\n' +
 	            '<li>Instruction:</li>\n' +
 	            '<ul>\n' +
-		    ' <li> ' + ins_text + '</li>\n' +
-		 // ' <li> hex: <b>' + ins_hex   + '</b></li>\n' +
-		    ' <li> bin: </li>\n' +
-		    '        <b>' + ins_bin_1 + '</b>\n' +
-		    '        <b>' + ins_bin_2 + '</b>\n' +
-	            '</ul>\n' ;
+		    ' <li>' + ins_quoted + '</li>\n' +
+		    ' <li>bin: </li>\n' +
+	            '</ul>\n' +
+		    '&nbsp;<b>' + ins_bin_1 + '</b>\n' +
+		    '&nbsp;<b>' + ins_bin_2 + '</b>\n' ;
 
 	   // co, cop & fields
 	   var u = '' ;
@@ -410,6 +411,7 @@
                 var  s_label = "" ;
                 var s1_instr = "" ;
                 var s2_instr = "" ;
+                var s2_bin   = "" ;
                 var s3_hex   = "" ;
                 var bgc = "#F0F0F0" ;
                 var o = "" ;
