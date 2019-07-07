@@ -366,23 +366,27 @@
 
 	function instruction2tooltip ( ins_text, ins_bin, ins_hex, firm_reference )
 	{
+    	   var wsi = get_cfg('ws_idiom') ;
+
 	   var ins_bin_1  = ins_bin.slice(0, ins_bin.length/2) ;
 	   var ins_bin_2  = ins_bin.slice((ins_bin.length/2)+1, ins_bin.length) ;
 	   var ins_quoted = ins_text.replace(/"/g, '&quot;').replace(/'/g, '&apos;') ;
 
 	   // instruction & bin
-	   var o  = ins_quoted  + '<br>\n' +
+	   var o  = '<div class=\"text-center p-1 m-1 border border-secondary rounded\">\n' +
+		    ins_quoted  + '<br>\n' +
+		    '</div>' +
 		    '&nbsp;<b>' + ins_bin_1 + '</b>\n' +
-		    '&nbsp;<b>' + ins_bin_2 + '</b>\n' +
-	            '<div class=\"text-left px-3 py-1\">\n' ;
+		    '&nbsp;<b>' + ins_bin_2 + '</b>\n' ;
 
-	   // co, cop & fields
+	   // details: co, cop & fields
 	   var u = '' ;
 	   if (typeof    firm_reference['cop'] !== 'undefined') {
 	       u = '+' + firm_reference['cop'] ;
 	   }
 
-	   o +=	'<li>Format:</li>\n' +
+	   o +=	'<div class=\"text-left px-3 py-1\">\n' +
+	       	'<li>Format:</li>\n' +
 	        '<ul class=\"mb-0 pl-4\">\n' +
 		' <li>' + firm_reference['name'] + ': <b>' + firm_reference['co'] + u + '</b></li>\n' ;
 	   var fields = firm_reference['fields'] ;
@@ -391,13 +395,20 @@
 	   }
 	   o += '</ul>\n' ;
 
-	   // microcode
+	   // details: microcode
 	   o += '<li>Microcode:</li>\n' +
 	        '<ul class=\"mb-0 pl-4\">\n' +
 	  	' <li> starts: <b>0x'     + firm_reference['mc-start'].toString(16) + '</b></li>\n' +
 		' <li> clock cycles: <b>' + firm_reference['microcode'].length + '</b></li>\n' +
 	        '</ul>\n' +
 		'</div>' ;
+
+	   // close
+           o += '<button type=\"button\" id=\"close\" data-role=\"none\" ' +
+                '        class=\"btn btn-sm btn-danger w-100 p-0 mt-2\" ' +
+                '        onclick=$(\".tooltip\").tooltip("hide");>' + 
+    		         i18n_get('dialogs',wsi,'Close') +
+    		'</button>' ;
 
 	   return o ;
         }
