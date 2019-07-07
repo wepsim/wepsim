@@ -341,7 +341,7 @@
 
             setTimeout(function() {
                     $("span[data-toggle='tooltip']").tooltip({
-                            trigger:   'hover',
+                            trigger:   'click',
                             sanitizeFn: function (content) {
                                            return content ; // DOMPurify.sanitize(content) ;
                                         }
