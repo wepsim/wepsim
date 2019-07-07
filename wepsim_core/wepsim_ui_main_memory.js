@@ -371,14 +371,10 @@
 	   var ins_quoted = ins_text.replace(/"/g, '&quot;').replace(/'/g, '&apos;') ;
 
 	   // instruction & bin
-	   var o  = '<div style=\"text-align:left !important;\">\n' +
-	            '<li>Instruction:</li>\n' +
-	            '<ul class=\"mb-0 pb-0\">\n' +
-		    ' <li>' + ins_quoted + '</li>\n' +
-		    ' <li>bin: </li>\n' +
-	            '</ul>\n' +
+	   var o  = ins_quoted  + '<br>\n' +
 		    '&nbsp;<b>' + ins_bin_1 + '</b>\n' +
-		    '&nbsp;<b>' + ins_bin_2 + '</b>\n' ;
+		    '&nbsp;<b>' + ins_bin_2 + '</b>\n' +
+	            '<div class=\"text-left px-3 py-1\">\n' ;
 
 	   // co, cop & fields
 	   var u = '' ;
@@ -387,7 +383,7 @@
 	   }
 
 	   o +=	'<li>Format:</li>\n' +
-	        '<ul class=\"mb-0 pb-0\">\n' +
+	        '<ul class=\"mb-0 pl-4\">\n' +
 		' <li>' + firm_reference['name'] + ': <b>' + firm_reference['co'] + u + '</b></li>\n' ;
 	   var fields = firm_reference['fields'] ;
 	   for (var f=0; f<fields.length; f++) {
@@ -397,7 +393,7 @@
 
 	   // microcode
 	   o += '<li>Microcode:</li>\n' +
-	        '<ul class=\"mb-0 pb-0\">\n' +
+	        '<ul class=\"mb-0 pl-4\">\n' +
 	  	' <li> starts: <b>0x'     + firm_reference['mc-start'].toString(16) + '</b></li>\n' +
 		' <li> clock cycles: <b>' + firm_reference['microcode'].length + '</b></li>\n' +
 	        '</ul>\n' +
