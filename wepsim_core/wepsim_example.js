@@ -203,15 +203,21 @@
        var examples_groupby_type = {} ;
        for (var m=0; m<examples.length; m++)
        {
+	       // if (current_hw != example_hw) || (current_mode not in example_modes) -> continue
 	       e_modes = examples[m].modes ;
 	       if (! e_modes.split(",").includes(mode)) {
 		   continue ;
 	       }
 
+	       e_hw = examples[m].hardware ;
+	       if (e_hw !== ahw) {
+		   continue ;
+	       }
+
+	       // add example to the example summary
 	       e_title       = examples[m].title ;
 	       e_type        = examples[m].type  ;
 	       e_level       = examples[m].level ;
-	       e_hw          = examples[m].hardware ;
 	       e_mc          = examples[m].microcode ;
 	       e_asm         = examples[m].assembly ;
 	       e_description = examples[m].description ;
