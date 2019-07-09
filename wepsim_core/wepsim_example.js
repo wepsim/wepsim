@@ -173,6 +173,34 @@
 	   'example.firmware.' + sample_hw + "." + sample_mc);
     }
 
+    function share_example ( m, base_url )
+    {
+	 if (typeof navigator.canShare === 'undefined')
+	 {
+	     alert('navigator.canShare is not available: sorry, this is not the Android platform') ;
+	     return false ;
+	 }
+
+	 var e_description = examples[m].description ;
+	 var e_id          = examples[m].id ;
+	 var e_hw          = examples[m].hardware ;
+
+	 var data = {} ;
+
+	 data.title = 'WepSIM example ' + e_id + '...' ;
+	 data.text  = 'This is a link to the WepSIM example ' + e_id + ' (' + e_description.replace(/<[^>]+>/g,'') + '):\n' ;
+	 data.url   = 'https://wepsim.github.io/wepsim/ws_dist/wepsim-classic.html?mode=ep&example=8' ;
+	 data.url   = '' + base_url + '?mode=' + e_hw + '&example=' + m ;
+
+	 try {
+	   navigator.share(data) ;
+	 } catch(err) {
+	   alert('Sorry, unsuccessful share: ' + err.message) ;
+	 } ;
+
+	 return true ;
+    }
+
     function table_examples_html ( examples )
     {
        // harware
@@ -270,17 +298,7 @@
                         '                         return false;"' +
 		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Copy reference to clipboard">Copy reference to clipboard</span></c></a>' +
 	                '             <a onclick="$(\'#example1\').modal(\'hide\'); ' +
-                        '                         var data = {} ;' +
-                        '                         data.title = \'WepSIM example ' + e_id + '...\';' +
-                        '                         data.text  = \'This is a link to the WepSIM example ' + e_id + ' (' + e_description.replace(/<[^>]+>/g,'') + '):\\n\';' +
-                        '                         data.url   = \'' + base_url + '?mode=' + e_hw + '&example=' + m + '\';' +
-                        '                         if (typeof navigator.canShare !== \'undefined\') { ' +
-                        '                             navigator.share(data)' +
-                        '                                      .then(() => { })' +
-                        '                                      .catch((err) => {' +
-                        '                                          alert(\'Sorry, unsuccessful share: err.message\') ;' +
-                        '                                       });' +
-                        '                         }' +
+                        '                         share_example(\'' + m + '\', \'' + base_url + '\');' +
                         '                         return false;"' +
 		        '                class="dropdown-item text-white bg-info user_archived" href="#"><c><span data-langkey="Share">Share</span></c></a>' +
 	                '           </div>' +
@@ -291,7 +309,7 @@
 	       if (typeof examples_groupby_type[e_type] === "undefined") {
 		   examples_groupby_type[e_type] = [] ;
 	       }
-	       examples_groupby_type[e_type].push({ 'row':   u, 
+	       examples_groupby_type[e_type].push({ 'row':   u,
 		                                    'level': e_level }) ;
        }
 
