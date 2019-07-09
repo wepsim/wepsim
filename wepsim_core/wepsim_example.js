@@ -173,6 +173,39 @@
 	   'example.firmware.' + sample_hw + "." + sample_mc);
     }
 
+    function share_example ( m, base_url )
+    {
+	 if (typeof navigator.canShare === 'undefined')
+	 {
+	     alert('navigator.canShare object is not available for sharing, sorry!') ;
+	     return false ;
+	 }
+
+	 // build data
+	 var data = {} ;
+
+	 var e_description = ws_examples[m].description ;
+	     e_description = e_description.replace(/<[^>]+>/g,'') ;
+	 var e_id          = ws_examples[m].id ;
+	 var e_hw          = ws_examples[m].hardware ;
+
+	 data.title = 'WepSIM example ' + e_id + '...' ;
+	 data.text  = 'This is a link to the WepSIM example ' + e_id + ' (' + e_description + '):\n' ;
+	 data.url   = '' + base_url + '?mode=' + e_hw + '&example=' + m ;
+
+	 // try to share data
+	 try 
+	 {
+	     navigator.share(data) ;
+	 } 
+	 catch(err) 
+	 {
+	     alert('Sorry, unsuccessful share: ' + err.message) ;
+	 } ;
+
+	 return true ;
+    }
+
     function table_examples_html ( examples )
     {
        // harware
@@ -203,15 +236,21 @@
        var examples_groupby_type = {} ;
        for (var m=0; m<examples.length; m++)
        {
+	       // if (current_hw != example_hw) || (current_mode not in example_modes) -> continue
 	       e_modes = examples[m].modes ;
 	       if (! e_modes.split(",").includes(mode)) {
 		   continue ;
 	       }
 
+	       e_hw = examples[m].hardware ;
+	       if (e_hw !== ahw) {
+		   continue ;
+	       }
+
+	       // add example to the example summary
 	       e_title       = examples[m].title ;
 	       e_type        = examples[m].type  ;
 	       e_level       = examples[m].level ;
-	       e_hw          = examples[m].hardware ;
 	       e_mc          = examples[m].microcode ;
 	       e_asm         = examples[m].assembly ;
 	       e_description = examples[m].description ;
@@ -264,17 +303,7 @@
                         '                         return false;"' +
 		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Copy reference to clipboard">Copy reference to clipboard</span></c></a>' +
 	                '             <a onclick="$(\'#example1\').modal(\'hide\'); ' +
-                        '                         var data = {} ;' +
-                        '                         data.title = \'WepSIM example ' + e_id + '...\';' +
-                        '                         data.text  = \'This is a link to the WepSIM example ' + e_id + ' (' + e_description.replace(/<[^>]+>/g,'') + '):\\n\';' +
-                        '                         data.url   = \'' + base_url + '?mode=' + e_hw + '&example=' + m + '\';' +
-                        '                         if (typeof navigator.canShare !== \'undefined\') { ' +
-                        '                             navigator.share(data)' +
-                        '                                      .then(() => { })' +
-                        '                                      .catch((err) => {' +
-                        '                                          alert(\'Sorry, unsuccessful share: err.message\') ;' +
-                        '                                       });' +
-                        '                         }' +
+                        '                         share_example(\'' + m + '\', \'' + base_url + '\');' +
                         '                         return false;"' +
 		        '                class="dropdown-item text-white bg-info user_archived" href="#"><c><span data-langkey="Share">Share</span></c></a>' +
 	                '           </div>' +
@@ -285,7 +314,7 @@
 	       if (typeof examples_groupby_type[e_type] === "undefined") {
 		   examples_groupby_type[e_type] = [] ;
 	       }
-	       examples_groupby_type[e_type].push({ 'row':   u, 
+	       examples_groupby_type[e_type].push({ 'row':   u,
 		                                    'level': e_level }) ;
        }
 

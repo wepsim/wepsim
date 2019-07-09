@@ -333,3 +333,21 @@
 	     if (o != null) o.innerHTML = decins ;
 	}
 
+        // load assembly in the debugger
+
+	function asmdbg_loadContent ( asmdbg_content )
+	{
+            $("#asm_debugger").html(asmdbg_content);
+
+            setTimeout(function() {
+                    $("span[data-toggle='tooltip']").tooltip({
+                            trigger:   'click',
+                            sanitizeFn: function (content) {
+                                           return content ; // DOMPurify.sanitize(content) ;
+                                        }
+                    }) ;
+            }, 500) ;
+
+            showhideAsmElements();
+	}
+
