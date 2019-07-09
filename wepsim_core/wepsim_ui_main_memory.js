@@ -453,7 +453,7 @@
                      // instruction
                      s1_instr   = asm[l].source ;
                      s2_instr   = asm[l].source_original ;
-		     s2_bin     = asm[l].binary ;
+		     s2_bin     = mp[l] ;
                      s3_hex     = parseInt(s2_bin, 2).toString(16) ;
                      s3_hex     = "0x" + "00000000".substring(0, 8 - s3_hex.length) + s3_hex ;
 

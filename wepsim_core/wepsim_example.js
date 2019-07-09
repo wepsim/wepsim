@@ -177,25 +177,30 @@
     {
 	 if (typeof navigator.canShare === 'undefined')
 	 {
-	     alert('navigator.canShare is not available: sorry, this is not the Android platform') ;
+	     alert('navigator.canShare object is not available for sharing, sorry!') ;
 	     return false ;
 	 }
 
-	 var e_description = examples[m].description ;
-	 var e_id          = examples[m].id ;
-	 var e_hw          = examples[m].hardware ;
-
+	 // build data
 	 var data = {} ;
 
+	 var e_description = ws_examples[m].description ;
+	     e_description = e_description.replace(/<[^>]+>/g,'') ;
+	 var e_id          = ws_examples[m].id ;
+	 var e_hw          = ws_examples[m].hardware ;
+
 	 data.title = 'WepSIM example ' + e_id + '...' ;
-	 data.text  = 'This is a link to the WepSIM example ' + e_id + ' (' + e_description.replace(/<[^>]+>/g,'') + '):\n' ;
-	 data.url   = 'https://wepsim.github.io/wepsim/ws_dist/wepsim-classic.html?mode=ep&example=8' ;
+	 data.text  = 'This is a link to the WepSIM example ' + e_id + ' (' + e_description + '):\n' ;
 	 data.url   = '' + base_url + '?mode=' + e_hw + '&example=' + m ;
 
-	 try {
-	   navigator.share(data) ;
-	 } catch(err) {
-	   alert('Sorry, unsuccessful share: ' + err.message) ;
+	 // try to share data
+	 try 
+	 {
+	     navigator.share(data) ;
+	 } 
+	 catch(err) 
+	 {
+	     alert('Sorry, unsuccessful share: ' + err.message) ;
 	 } ;
 
 	 return true ;
