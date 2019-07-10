@@ -341,7 +341,7 @@
 
             setTimeout(function() {
                     $("span[data-toggle='tooltip']").tooltip({
-                            trigger:    'click',
+                            trigger:   'hover',
                             html:       true,
                             title:      function() {
 				           var l = this.getAttribute('data-l') ;
