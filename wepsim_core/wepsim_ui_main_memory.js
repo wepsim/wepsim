@@ -364,20 +364,33 @@
 	   return o1 ;
         }
 
-	function instruction2tooltip ( ins_text, ins_bin, ins_hex, firm_reference )
+	function instruction2tooltip ( mp, asm, l )
 	{
     	   var wsi = get_cfg('ws_idiom') ;
 
-	   var ins_bin_1  = ins_bin.slice(0, ins_bin.length/2) ;
-	   var ins_bin_2  = ins_bin.slice((ins_bin.length/2)+1, ins_bin.length) ;
-	   var ins_quoted = ins_text.replace(/"/g, '&quot;').replace(/'/g, '&apos;') ;
+           // prepare data: ins_quoted + firmware_reference
+	   var ins_quoted     = asm[l].source_original.replace(/"/g, '&quot;').replace(/'/g, '&apos;') ;
+	   var firm_reference = asm[l].firm_reference ;
+	   var nwords         = parseInt(asm[l].firm_reference.nwords) ;
+
+           // prepare data: ins_bin
+	   var next = 0 ;
+	   var ins_bin = mp[l] ;
+	   for (var iw=1; iw<nwords; iw++) 
+	   {
+		  next = "0x" + (parseInt(l, 16) + iw*4).toString(16) ; // 4 -> 32 bits
+		  if (typeof mp[next] !== "undefined") {
+		      ins_bin += mp[next] ;
+		  }
+	   }
 
 	   // instruction & bin
 	   var o  = '<div class=\"text-center p-1 m-1 border border-secondary rounded\">\n' +
 		    ins_quoted  + '<br>\n' +
 		    '</div>' +
-		    '&nbsp;<b>' + ins_bin_1 + '</b>\n' +
-		    '&nbsp;<b>' + ins_bin_2 + '</b>\n' ;
+	       	    '<div class=\"text-left p-1 m-1\">\n' +
+		    '<b>' + ins_bin + '</b>\n' +
+		    '</div>' ;
 
 	   // details: co, cop & fields
 	   var u = '' ;
@@ -385,9 +398,9 @@
 	       u = '+' + firm_reference['cop'] ;
 	   }
 
-	   o +=	'<div class=\"text-left px-3 py-1\">\n' +
-	       	'<li>Format:</li>\n' +
-	        '<ul class=\"mb-0 pl-4\">\n' +
+	   o +=	'<div class=\"text-left px-2 my-1\">\n' +
+	       	'<span class=\"square\">Format:</span>\n' +
+	        '<ul class=\"mb-0\">\n' +
 		' <li>' + firm_reference['name'] + ': <b>' + firm_reference['co'] + u + '</b></li>\n' ;
 	   var fields = firm_reference['fields'] ;
 	   for (var f=0; f<fields.length; f++) {
@@ -396,8 +409,8 @@
 	   o += '</ul>\n' ;
 
 	   // details: microcode
-	   o += '<li>Microcode:</li>\n' +
-	        '<ul class=\"mb-0 pl-4\">\n' +
+	   o += '<span class=\"square\">Microcode:</span>\n' +
+	        '<ul class=\"mb-0\">\n' +
 	  	' <li> starts: <b>0x'     + firm_reference['mc-start'].toString(16) + '</b></li>\n' +
 		' <li> clock cycles: <b>' + firm_reference['microcode'].length + '</b></li>\n' +
 	        '</ul>\n' +
@@ -418,8 +431,8 @@
                 var  s_label = "" ;
                 var s1_instr = "" ;
                 var s2_instr = "" ;
-                var s2_bin   = "" ;
-                var s3_hex   = "" ;
+                var s3_bin   = "" ;
+                var s4_hex   = "" ;
                 var bgc = "#F0F0F0" ;
                 var o = "" ;
 
@@ -451,18 +464,12 @@
                      asm[l].bgcolor = bgc ;
 
                      // instruction
-                     s1_instr   = asm[l].source ;
-                     s2_instr   = asm[l].source_original ;
-		     s2_bin     = mp[l] ;
-                     s3_hex     = parseInt(s2_bin, 2).toString(16) ;
-                     s3_hex     = "0x" + "00000000".substring(0, 8 - s3_hex.length) + s3_hex ;
-
-		     s4_tooltip = asm[l].tooltip_instruction ;
-		     if (typeof s4_tooltip === 'undefined')
-		     {
-	                 s4_tooltip = instruction2tooltip(s1_instr, s2_bin, s3_hex, asm[l].firm_reference) ;
-		         asm[l].tooltip_instruction = s4_tooltip ;
-		     }
+                     s1_instr = asm[l].source ;
+                     s2_instr = asm[l].source_original ;
+		     s3_bin   = mp[l] ;
+                     s4_hex   = parseInt(s3_bin, 2).toString(16) ;
+                     s4_hex   = "0x" + s4_hex.padStart(1*8, "0") ;
+                             // "0x" + "00000000".substring(0, 1*8 - s4_hex.length) + s4_hex ;
 
                      // labels
                      s_label = "" ;
@@ -500,7 +507,7 @@
                            "<td class='asm_break  text-monospace col-auto show collapse py-0 px-0' " +
                            "    style='line-height:0.9;' id='bp" + l + "' width='1%'>" + "</td>" +
                            "<td class='asm_hex    text-monospace col-auto collapse' " +
-                           "    style='line-height:0.9;' align=left><span href='#' data-toggle='tooltip' data-placement='right' data-html='true' title='" + s4_tooltip + "'>" + s3_hex + "</span></td>" +
+                           "    style='line-height:0.9;' align=left><span href='#' data-toggle='tooltip' data-placement='right' data-html='true' data-l='" + l + "'>" + s4_hex + "</span></td>" +
                            "<td class='asm_ins    text-monospace col-auto collapse' " +
                            "    style='line-height:0.9;'>" + s1_instr + "</td>" +
                            "<td class='asm_pins   text-monospace col-auto collapse' " +
