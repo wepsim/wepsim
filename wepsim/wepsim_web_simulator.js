@@ -95,7 +95,7 @@
 
     function wepsim_view_onlyasm_on ( )
     {
-            $(".multi-collapse-2").collapse("show") ;
+          //$(".multi-collapse-2").collapse("show") ;
 	    $("#slider_cpucu").addClass('d-none') ;
 
 	    $("#tab26").addClass('d-none') ;
@@ -113,7 +113,7 @@
 
     function wepsim_view_onlyasm_off ( )
     {
-            $(".multi-collapse-2").collapse("show") ;
+          //$(".multi-collapse-2").collapse("show") ;
 	    $("#slider_cpucu").removeClass('d-none') ;
 
 	    $("#tab26").removeClass('d-none') ;
