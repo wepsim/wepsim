@@ -341,7 +341,13 @@
 
             setTimeout(function() {
                     $("span[data-toggle='tooltip']").tooltip({
-                            trigger:   'click',
+                            trigger:    'click',
+                            html:       true,
+                            title:      function() {
+				           var l = this.getAttribute('data-l') ;
+				           var SIMWARE = get_simware() ;
+                                           return instruction2tooltip(SIMWARE.mp, SIMWARE.assembly, l) ;
+                                        },
                             sanitizeFn: function (content) {
                                            return content ; // DOMPurify.sanitize(content) ;
                                         }
