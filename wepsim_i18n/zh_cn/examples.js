@@ -64,20 +64,22 @@
 		'example_01_03':		'fetch，branch和basic .text段的简单示例。',
 		'example_01_02':		'获取，内存访问和基本.text/.data段的简单示例。',
 		'example_06_01':		'测试示例。',
-	        "example_06_02":	                    	"Simple Compiler Explorer示例.",
-		'Advanced':		'高级',
-		'Initial':		'初始',
-		'Intermediate':		'中间',
-		'Laboratory':		'实验室',
+	        "example_06_02":	        "Simple Compiler Explorer示例.",
+		'Advanced':			'高级',
+		'Initial':			'初始',
+		'Intermediate':			'中间',
+		'Laboratory':			'实验室',
 		'Operating Systems':		'操作系统',
-		'Special':		'特别',
+		'Special':			'特别',
+
+		'Load example':			'加載示例',
 		'Load Assembly only':		'仅装载装配',
 		'Load Firmware only':		'仅加载固件',
-		'Copy reference to clipboard':		'复制对剪贴板的引用',
-		'Share':		'分享（Android）',
-		'No examples available...':		'没有可用于所选硬件的示例',
+		'Copy reference to clipboard':	'复制对剪贴板的引用',
+		'Share':			'分享（Android）',
+		'No examples available...':	'没有可用于所选硬件的示例',
 		'Simple example':		'简单的例子。',
-		'_last_':		'_last_'
+		'_last_':			'_last_'
 
     };
 

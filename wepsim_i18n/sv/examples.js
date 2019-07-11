@@ -65,19 +65,21 @@
 		'example_01_02':		'Enkelt exempel med hämtning, minnesåtkomst och grundläggande .text / .data segment.',
 		'example_06_01':		'Test exempel.',
 		'example_06_02':		'Simple Compiler Explorer exempel.',
-		'Advanced':		'Avancerad',
-		'Initial':		'Första',
-		'Intermediate':		'Mellanliggande',
-		'Laboratory':		'Laboratorium',
+		'Advanced':			'Avancerad',
+		'Initial':			'Första',
+		'Intermediate':			'Mellanliggande',
+		'Laboratory':			'Laboratorium',
 		'Operating Systems':		'Operativsystem',
-		'Special':		'Särskild',
+		'Special':			'Särskild',
+
+		'Load example':			'Ladda exempel',
 		'Load Assembly only':		'Endast lastmontering',
 		'Load Firmware only':		'Ladda endast fast programvara',
-		'Copy reference to clipboard':		'Kopiera referens till Urklipp',
-		'Share':		'Dela (Android)',
-		'No examples available...':		'Inga exempel finns tillgängliga för den valda hårdvaran',
+		'Copy reference to clipboard':	'Kopiera referens till Urklipp',
+		'Share':			'Dela (Android)',
+		'No examples available...':	'Inga exempel finns tillgängliga för den valda hårdvaran',
 		'Simple example':		'Enkelt exempel.',
-		'_last_':		'_last_'
+		'_last_':			'_last_'
 
     };
 

@@ -73,6 +73,7 @@
              "Operating Systems":			"Sistemas Operativos",
              "Special":					"Especial",
 
+	     "Load example":				"Cargar ejemplo",
              "Load Assembly only": 			"Cargar Ensamblador solo",
              "Load Firmware only": 			"Cargar Firmware solo",
              "Copy reference to clipboard": 		"Copiar referencia al portapapeles",

@@ -96,16 +96,10 @@
     function wepsim_view_onlyasm_on ( )
     {
           //$(".multi-collapse-2").collapse("show") ;
-	    $("#slider_cpucu").addClass('d-none') ;
 
-	    $("#tab26").addClass('d-none') ;
-	    $("#tab21").addClass('d-none') ;
 	    $("#tab24").click() ;
-
             inputfirm.setOption('readOnly', true) ;
-            $("#btn_micro1").addClass('d-none') ;
-            $("#btn_next_microinstruction1").addClass('d-none') ;
-            $("#s5b_16").addClass('d-none') ;
+            $('.user_microcode').addClass('d-none') ;
 
             // return ok
             return true ;
@@ -114,15 +108,9 @@
     function wepsim_view_onlyasm_off ( )
     {
           //$(".multi-collapse-2").collapse("show") ;
-	    $("#slider_cpucu").removeClass('d-none') ;
-
-	    $("#tab26").removeClass('d-none') ;
-	    $("#tab21").removeClass('d-none') ;
 
             inputfirm.setOption('readOnly', false) ;
-            $("#btn_micro1").removeClass('d-none') ;
-            $("#btn_next_microinstruction1").removeClass('d-none') ;
-            $("#s5b_16").removeClass('d-none') ;
+            $('.user_microcode').removeClass('d-none') ;
 
             // return ok
             return true ;

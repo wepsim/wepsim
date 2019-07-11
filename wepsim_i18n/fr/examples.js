@@ -76,6 +76,7 @@
 		"Operating Systems":				"Systèmes d'exploitation",
 		"Special":					"Spécial",
 
+	        "Load example":					"Charger l'exemple",
 		"Load Assembly only":				"Charger uniquement l'assemblage",
 		"Load Firmware only":				"Charger uniquement le microprogramme",
 		"Copy reference to clipboard":			"Copier la référence dans le presse-papiers",

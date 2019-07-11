@@ -60,14 +60,13 @@
     function table_config_html ( config )
     {
 	var e_type        = "" ;
-	var e_level       = "" ;
+	var e_u_class     = "" ;
 	var e_code_cfg    = "" ;
 	var e_description = "" ;
 	var e_id          = "" ;
 
         var fmt_toggle    = "" ;
         var fmt_header    = "" ;
-        var fmt_level     = "" ;
 
         // first pass: build data
         var row = "" ;
@@ -75,7 +74,7 @@
         for (var n=0; n<config.length; n++)
         {
 		e_type        = config[n].type ;
-		e_level       = config[n].level ;
+		e_u_class     = config[n].u_class ;
 		e_code_cfg    = config[n].code_cfg ;
 		e_description = config[n].description ;
 		e_id          = config[n].id ;
@@ -85,45 +84,56 @@
 	            fmt_toggle = "bg-light" ;
 	       else fmt_toggle = "" ;
 
-	        if (e_level !== "actual")
-	            fmt_level = "user_archived" ;
-	       else fmt_level = "" ;
-
-		  row = "<div class='row py-1 " + fmt_toggle + " " + fmt_level + "' id='" + e_type + "'>" +
-			'<div class="col-md-auto">' +
-			'    <span class="badge badge-pill badge-light">' + (n+1) + '</span>' +
-			'</div>' +
-			'<div class="col-md-4">'  + e_code_cfg   + '</div>' +
-			'<div class="col-md collapse7 show"><c>' + e_description + '</c></div>' +
-			'</div>' ;
+		row = '<div class="row py-1 ' + fmt_toggle + ' ' + e_u_class + '" id="' + e_type + '">' +
+		      '<div class="col-md-auto">' +
+		      '    <span class="badge badge-pill badge-light">' + (n+1) + '</span>' +
+		      '</div>' +
+		      '<div class="col-md-4">'  + e_code_cfg   + '</div>' +
+		      '<div class="col-md collapse7 show"><c>' + e_description + '</c></div>' +
+		      '</div>' ;
 
 		// indexing row
 		if (typeof config_groupby_type[e_type] === "undefined") {
 		    config_groupby_type[e_type] = [] ;
 		}
 
-		config_groupby_type[e_type].push({'row':   row, 
-			                          'level': e_level}) ;
+		config_groupby_type[e_type].push({'row':     row, 
+			                          'u_class': e_u_class}) ;
        }
 
        // second pass: build html
-       var o = '<div class="container grid-striped border border-light">' ;
-       var u = '' ;
-       var l = '' ;
+       var o  = '<div class="container grid-striped border border-light">' ;
+       var u  = '' ;
+       var l  = '' ;
+       var l1 = [] ;
+       var l2 = {} ;
        for (var m in config_groupby_type)
        {
-	        u = '' ;
-	        l = config_groupby_type[m][0].level ;
+	        u  = '' ;
+	        l2 = {} ;
                 for (var n=0; n<config_groupby_type[m].length; n++)
                 {
 		     u = u + config_groupby_type[m][n].row ;
 
-		     if (l !== config_groupby_type[m][n].level) {
-			 l = '' ;
-                     }
+	             l1 = config_groupby_type[m][0].u_class.split(' ') ;
+		     for (var li=0; li<l1.length; li++) 
+	             {
+			  if (typeof l2[l1[li]] === 'undefined') {
+			      l2[l1[li]] = 0 ;
+			  }
+			  l2[l1[li]]++ ;
+		     }
                 }
 
-		o = o + "<div class='float-none text-right text-capitalize font-weight-bold col-12 border-bottom border-secondary bg-white sticky-top user_" + l + "'>" + 
+	        l = '' ;
+	        for (var lj in l2) 
+	        {
+		     if (l2[lj] === config_groupby_type[m].length) {
+			 l += lj + ' ' ;
+		     }
+		}
+
+		o = o + "<div class='float-none text-right text-capitalize font-weight-bold col-12 border-bottom border-secondary bg-white sticky-top " + l + "'>" + 
 			"<span data-langkey='" + m + "'>" + m + "</span>" +
 			"</div>" + u ;
        }

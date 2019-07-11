@@ -64,20 +64,22 @@
 		'example_01_03':		'Exemplo simples com busca, ramificação e segmento .text básico.',
 		'example_01_02':		'Exemplo simples com busca, acesso à memória e segmento básico .text/.data.',
 		'example_06_01':		'Exemplo de teste',
-	        "example_06_02":	                    	"Exemplo simples do Explorador de Compiladores.",
-		'Advanced':		'Advanced',
-		'Initial':		'Inicial',
-		'Intermediate':		'Intermediário',
-		'Laboratory':		'Laboratório',
+	        "example_06_02":	        'Exemplo simples do Explorador de Compiladores.',
+		'Advanced':			'Advanced',
+		'Initial':			'Inicial',
+		'Intermediate':			'Intermediário',
+		'Laboratory':			'Laboratório',
 		'Operating Systems':		'Sistemas operacionais',
-		'Special':		'Especial',
+		'Special':			'Especial',
+
+		'Load example':			'Carregar exemplo',
 		'Load Assembly only':		'Carregar apenas o conjunto',
 		'Load Firmware only':		'Carregar apenas firmware',
-		'Copy reference to clipboard':		'Copiar referência à área de transferência',
-		'Share':		'Compartilhar (Android)',
-		'No examples available...':		'Não há exemplos disponíveis para o hardware selecionado',
+		'Copy reference to clipboard':	'Copiar referência à área de transferência',
+		'Share':			'Compartilhar (Android)',
+		'No examples available...':	'Não há exemplos disponíveis para o hardware selecionado',
 		'Simple example':		'Exemplo simples.',
-		'_last_':		'_last_'
+		'_last_':			'_last_'
 
     };
 

@@ -71,6 +71,8 @@
 		'Laboratory':		'実験室',
 		'Operating Systems':		'オペレーティングシステム',
 		'Special':		'特殊',
+
+		'Load example':			'ロード例',
 		'Load Assembly only':		'荷重アセンブリのみ',
 		'Load Firmware only':		'ファームウェアのみをロード',
 		'Copy reference to clipboard':		'クリップボードへの参照のコピー',

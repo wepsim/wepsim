@@ -270,7 +270,7 @@
                         '     <span style="cursor:pointer;" ' +
 		        '           id="example_' + m + '" ' +
 		        '           onclick="simcore_record_append_pending(); ' +
-		        '                    load_from_example_firmware(\'' + t_hwmcasm + '\',true); ' +
+		        '                    load_from_example_firmware(\'' + t_hwmcasm + '\', true); ' +
 		        '                    $(\'#example1\').modal(\'hide\'); ' +
 		        '                    return false;" ' +
 		        '           class="btn-like rounded-0 bg-info text-white p-0 mr-2">' + e_title + '</span>' +
@@ -279,7 +279,8 @@
                         '    <c>' + e_description + '</c>' +
                         '</div>' +
                         '<div class="col-sm-auto">' +
-		        '    <span id="example_reference_' + e_id + '" class="d-none">' + base_url + '?mode=' + e_hw + '&example=' + m + '</span>' +
+		        '    <span id="example_reference_' + e_id + '" class="d-none">' + base_url + '?mode=' + mode + '&example=' + m + '</span>' +
+		    //  '    <span id="example_reference_' + e_id + '" class="d-none">' + base_url + '?mode=' + e_hw + '&example=' + m + '</span>' +
 		        '    <div class="btn-group btn-group-md float-right align-top">' +
                         '           <button type="button" ' +
 		        '                   class="btn btn-md btn-info dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
@@ -287,12 +288,17 @@
                         '           </button>' +
                         '           <div class="dropdown-menu bg-info" style="z-index:1024;">' +
 		        '             <a onclick="simcore_record_append_pending();' +
-		        '                         load_from_example_assembly(\'' + t_hwmcasm + '\',false);' +
+		        '                         load_from_example_firmware(\'' + t_hwmcasm + '\', true);' +
+		        '                         $(\'#example1\').modal(\'hide\'); ' +
+		        '                         return false;"' +
+		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Load example">Load example</span></c></a>' +
+		        '             <a onclick="simcore_record_append_pending();' +
+		        '                         load_from_example_assembly(\'' + t_hwmcasm + '\', false);' +
 		        '                         $(\'#example1\').modal(\'hide\'); ' +
 		        '                         return false;"' +
 		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Load Assembly only">Load Assembly only</span></c></a>' +
 		        '             <a onclick="simcore_record_append_pending();' +
-		        '                         load_from_example_firmware(\'' + t_hwmcasm + '\',false);' +
+		        '                         load_from_example_firmware(\'' + t_hwmcasm + '\', false);' +
 		        '                         $(\'#example1\').modal(\'hide\'); ' +
 		        '                         return false;"' +
 		        '                class="dropdown-item text-white bg-info" href="#"><c><span data-langkey="Load Firmware only">Load Firmware only</span></c></a>' +

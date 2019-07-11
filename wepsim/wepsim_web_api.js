@@ -219,6 +219,7 @@
 	    wepsim_open_help_index();
 	    wepsim_help_refresh();
 	    $('[data-toggle=tooltip]').tooltip('hide');
+            wepsim_restoreview(get_cfg('ws_skin_user')) ;
 
             // add if recording
             simcore_record_append_new('Open help',

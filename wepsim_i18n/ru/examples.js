@@ -71,6 +71,8 @@
 		'Laboratory':		'лаборатория',
 		'Operating Systems':		'Операционные системы',
 		'Special':		'Специальный',
+
+		'Load example':			'Пример загрузки',
 		'Load Assembly only':		'Только загрузка',
 		'Load Firmware only':		'Загрузить только прошивку',
 		'Copy reference to clipboard':		'Скопировать ссылку в буфер обмена',
