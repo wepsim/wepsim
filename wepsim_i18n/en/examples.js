@@ -74,6 +74,7 @@
              "Operating Systems":			"Operating Systems",
              "Special":					"Special",
 
+	     "Load example":				"Load example",
              "Load Assembly only": 			"Load Assembly only",
              "Load Firmware only": 			"Load Firmware only",
              "Copy reference to clipboard": 		"Copy reference to clipboard",

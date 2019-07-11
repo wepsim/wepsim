@@ -64,20 +64,22 @@
 		'example_01_03':		'Semplice esempio con fetch, ramo e segmento .text di base.',
 		'example_01_02':		'Semplice esempio con recupero, accesso alla memoria e segmento .text/.data di base.',
 		'example_06_01':		'Esempio di prova',
-	        "example_06_02":	                    	"Esempio di Simple Compiler Explorer.",
-		'Advanced':		'Avanzate',
-		'Initial':		'Iniziale',
-		'Intermediate':		'Intermedio',
-		'Laboratory':		'Laboratorio',
+	        "example_06_02":	        'Esempio di Simple Compiler Explorer.',
+		'Advanced':			'Avanzate',
+		'Initial':			'Iniziale',
+		'Intermediate':			'Intermedio',
+		'Laboratory':			'Laboratorio',
 		'Operating Systems':		'Sistemi operativi',
-		'Special':		'Speciale',
+		'Special':			'Speciale',
+
+		'Load example':			'Carica esempio',
 		'Load Assembly only':		'Carica solo il gruppo',
 		'Load Firmware only':		'Carica solo il firmware',
 		'Copy reference to clipboard':		'Copia il riferimento negli appunti',
-		'Share':		'Condividi (Android)',
+		'Share':			'Condividi (Android)',
 		'No examples available...':		'Non sono disponibili esempi per l\'hardware selezionato',
 		'Simple example':		'Semplice esempio',
-		'_last_':		'_last_'
+		'_last_':			'_last_'
 
     };
 

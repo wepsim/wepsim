@@ -24,7 +24,7 @@
     ws_config.push({
                       id:          "select7",
                       type:        "General",
-                      level:       "actual",
+                      u_class:     "user_archived",
                       code_cfg:    "<div class='form-group m-0'>" + i18n_get_select() + "</div>",
                       code_init:   function() { 
 			               $('#select7').val(get_cfg('ws_idiom')); 
@@ -35,7 +35,7 @@
     ws_config.push({
                       id:          "slider3",
                       type:        "General",
-                      level:       "actual",
+                      u_class:     "user_archived",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label8-2000'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -65,7 +65,7 @@
     ws_config.push({
                       id:          "radio12",
                       type:        "Execution",
-                      level:       "actual",
+                      u_class:     "user_archived",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label12-50'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -95,7 +95,7 @@
     ws_config.push({
                       id:          "radio1",
                       type:        "Execution",
-                      level:       "archived",
+                      u_class:     "",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label1-instruction'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -121,7 +121,7 @@
     ws_config.push({
                       id:          "select1",
                       type:        "Execution",
-                      level:       "actual",
+                      u_class:     "user_archived",
                       code_cfg:    "<a href='#' id='breakpointicon1' title='Please select breakpoint icon' tabindex='0'" +
 			           "   data-toggle='popover' data-trigger='click'>" +
 		                   "   		<img alt='stop icon' id='img_select1' src='images/stop/stop_classic.gif' " +
@@ -137,7 +137,7 @@
     ws_config.push({
                       id:          "select6",
                       type:        "Execution",
-                      level:       "actual",
+                      u_class:     "user_archived",
                       code_cfg:    " <div class='form-group m-0'>" +
 				   "	    <select name='select6' id='select6' class='form-control form-control-sm custom-select'" +
 				   "		    aria-label='max. ticks per instruction' " +
@@ -162,7 +162,7 @@
     ws_config.push({
                       id:          "select3",
                       type:        "Execution",
-                      level:       "actual",
+                      u_class:     "user_archived",
                       code_cfg:    " <div class='form-group m-0'>" +
 				   "	    <select name='select3' id='select3' class='form-control form-control-sm custom-select'" +
 				   "		    aria-label='max. ticks per instruction' " +
@@ -187,7 +187,7 @@
     ws_config.push({
                       id:          "radio7",
                       type:        "Editor",
-                      level:       "actual",
+                      u_class:     "user_archived",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label7-default'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;' " +
@@ -213,7 +213,7 @@
     ws_config.push({
                       id:          "select2",
                       type:        "Editor",
-                      level:       "actual",
+                      u_class:     "user_archived",
                       code_cfg:    "<div class='form-group m-0'>" +
 			           "   <select name='select2' id='select2' class='form-control form-control-sm custom-select'" +
 			           "	    aria-label='Editor mode'    " +
@@ -238,7 +238,7 @@
     ws_config.push({
                       id:          "radio2",
                       type:        "Register file",
-                      level:       "archived",
+                      u_class:     "",
                       code_cfg:    " <div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label2-unsigned_16_fill'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -270,7 +270,7 @@
     ws_config.push({
                       id:          "radio3",
                       type:        "Register file",
-                      level:       "archived",
+                      u_class:     "",
                       code_cfg:    " <div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label3-numerical'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -294,7 +294,7 @@
     ws_config.push({
                       id:          "radio9",
                       type:        "Register file",
-                      level:       "archived",
+                      u_class:     "",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label9-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary p-1' " +
@@ -318,7 +318,7 @@
     ws_config.push({
                       id:          "colorpicker1",
                       type:        "Circuitry simulation",
-                      level:       "actual",
+                      u_class:     "user_archived user_microcode",
                       code_cfg:    "<fieldset data-role='controlgroup' data-type='horizontal' data-mini='true' style='margin:0 0 0 0'>" +
 				   "	 <input type='color'" +
 				   "		aria-label='Color for active data'" +
@@ -336,7 +336,7 @@
     ws_config.push({
                       id:          "colorpicker2",
                       type:        "Circuitry simulation",
-                      level:       "actual",
+                      u_class:     "user_archived user_microcode",
                       code_cfg:    "<fieldset data-role='controlgroup' data-type='horizontal' data-mini='true' style='margin:0 0 0 0'>" +
 				   "	 <input type='color'" +
 				   "		aria-label='Color for active signal name'" +
@@ -354,7 +354,7 @@
     ws_config.push({
                       id:          "radio10",
                       type:        "Circuitry simulation",
-                      level:       "actual",
+                      u_class:     "user_archived user_microcode",
                       code_cfg:    " <div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label10-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -378,7 +378,7 @@
     ws_config.push({
                       id:          "radio5",
                       type:        "Circuitry simulation",
-                      level:       "archived",
+                      u_class:     "user_microcode",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label5-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -402,7 +402,7 @@
     ws_config.push({
                       id:          "radio6",
                       type:        "Circuitry simulation",
-                      level:       "archived",
+                      u_class:     "user_microcode",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label6-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -426,7 +426,7 @@
     ws_config.push({
                       id:          "radio11",
                       type:        "Accesibility",
-                      level:       "archived",
+                      u_class:     "",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label11-true'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -450,7 +450,7 @@
     ws_config.push({
                       id:          "radio13",
                       type:        "Accesibility",
-                      level:       "archived",
+                      u_class:     "",
                       code_cfg:    "<div class='btn-group btn-group-toggle d-flex' data-toggle='buttons' >" +
 				   "	    <label id='label13-text'" +
 				   "		   class='btn btn-sm btn-light w-50 btn-outline-secondary' style='padding:2 2 2 2;'" +
@@ -474,7 +474,7 @@
     ws_config.push({
                       id:          "select8",
                       type:        "Accesibility",
-                      level:       "actual",
+                      u_class:     "user_archived",
                       code_cfg:    "<div class='form-group m-0'>" +
                                    " <select name='select8' id='select8' class='form-control form-control-sm custom-select'" +
                                    "         aria-label='User Interface for WepSIM' " +
@@ -498,7 +498,7 @@
     ws_config.push({
                       id:          "select9",
                       type:        "Accesibility",
-                      level:       "actual",
+                      u_class:     "user_archived",
                       code_cfg:    "<div class='form-group m-0'>" +
                                    " <select name='select9' id='select9' class='form-control form-control-sm custom-select'" +
                                    "         aria-label='User Interface set of features for WepSIM' " +

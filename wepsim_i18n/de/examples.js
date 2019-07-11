@@ -65,19 +65,20 @@
 		'example_01_02':		'Einfaches Beispiel mit Abruf, Speicherzugriff und grundlegendem .text/.data-Segment.',
 		'example_06_01':		'Testbeispiel.',
 		'example_06_02':		'Einfaches Beispiel für den Compiler-Explorer.',
-		'Advanced':		'Fortgeschritten',
-		'Initial':		'Initiale',
-		'Intermediate':		'Mittlere',
-		'Laboratory':		'Labor',
+		'Advanced':			'Fortgeschritten',
+		'Initial':			'Initiale',
+		'Intermediate':			'Mittlere',
+		'Laboratory':			'Labor',
 		'Operating Systems':		'Betriebssysteme',
-		'Special':		'Besondere',
+		'Special':			'Besondere',
+		'Load example':			'Beispiel laden',
 		'Load Assembly only':		'Nur Baugruppe laden',
-		'Load Firmware only':		'Load Firmware only',
-		'Copy reference to clipboard':		'Kopieren Sie den Verweis in die Zwischenablage',
-		'Share':		'Share (Android)',
-		'No examples available...':		'Für die ausgewählte Hardware sind keine Beispiele verfügbar',
+		'Load Firmware only':		'Nur Firmware laden',
+		'Copy reference to clipboard':	'Kopieren Sie den Verweis in die Zwischenablage',
+		'Share':			'Share (Android)',
+		'No examples available...':	'Für die ausgewählte Hardware sind keine Beispiele verfügbar',
 		'Simple example':		'Einfaches Beispiel.',
-		'_last_':		'_last_'
+		'_last_':			'_last_'
 
     };
 

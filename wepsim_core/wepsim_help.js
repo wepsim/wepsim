@@ -48,14 +48,16 @@
        for (m=0; m<helps.length; m++)
        {
 	        fmt_header = "" ;
-	        if (e_utype != helps[m].u_type)
+	        if (e_utype != helps[m].u_type) {
 		    fmt_header = "<div class='float-none text-right text-capitalize font-weight-bold col-12 border-bottom border-secondary bg-white sticky-top'>" + 
 			         helps[m].u_type + 
 			         "</div>" ;
+		}
 
 		e_title       = helps[m].title ;
 		e_itype       = helps[m].i_type ;
 		e_utype       = helps[m].u_type ;
+		e_uclass      = helps[m].u_class ;
 		e_reference   = helps[m].reference ;
 		e_description = helps[m].description ;
 		e_id          = helps[m].id ;
@@ -75,7 +77,7 @@
 	       else fmt_toggle = "" ;
 
 		o = o + fmt_header +
-		        "<div class='row py-1 " + fmt_toggle + "' id='" + e_utype + "'>" +
+		        "<div class='row py-1 " + fmt_toggle + " " + e_uclass + "' id='" + e_utype + "'>" +
 			'<div class="col-md-auto">' +
 			'    <span class="badge badge-pill badge-light">' + (m+1) + '</span>' +
 			'</div>' +
