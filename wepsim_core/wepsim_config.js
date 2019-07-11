@@ -115,7 +115,7 @@
                 {
 		     u = u + config_groupby_type[m][n].row ;
 
-	             l1 = config_groupby_type[m][0].u_class.split(' ') ;
+	             l1 = config_groupby_type[m][n].u_class.split(' ') ;
 		     for (var li=0; li<l1.length; li++) 
 	             {
 			  if (typeof l2[l1[li]] === 'undefined') {
