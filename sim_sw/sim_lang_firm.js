@@ -1092,7 +1092,28 @@ function saveFirmware ( SIMWARE )
 		file += '\n}\n';
 	}
 
-        // TODO: save pseudo-instructions
+        // save pseudo-instructions
+	if (SIMWARE.pseudoInstructions.length !== 0)
+	{
+		file += '\n' + 
+			'pseudoinstructions\n' +
+			'{' ;
+		for (var ie=0; ie<SIMWARE.pseudoInstructions.length; ie++)
+		{
+		     file += '\n' +
+			     '\t' + SIMWARE.pseudoInstructions[ie].initial.signature.replace(',', ' ') + '\n' +
+			     '\t{\n' ;
+
+		     var ie_inst = SIMWARE.pseudoInstructions[ie].finish.signature.split('\n') ;
+		     for (var ie_i=0; ie_i<ie_inst.length; ie_i++) 
+		     {
+			  file += '\t\t' + ie_inst[ie_i].trim() + ' ;\n' ;
+		     }
+
+		     file += '\t}\n' ;
+		}
+		file += '}\n' ;
+	}
 
 	return file;
 }
