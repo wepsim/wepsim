@@ -75,6 +75,7 @@
              "Operating Systems":			"운영체제",
              "Special":					"특별한",
 
+	     "Load example":			        "로드 예제",
              "Load Assembly only": 			"로드 어셈블리 전용",
              "Load Firmware only": 			"펌웨어로드 전용",
              "Copy reference to clipboard": 		"클립 보드에 참조 복사",

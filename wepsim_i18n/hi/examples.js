@@ -71,6 +71,8 @@
 		'Laboratory':		'प्रयोगशाला',
 		'Operating Systems':		'ऑपरेटिंग सिस्टम',
 		'Special':		'विशेष',
+
+	        "Load example":					"लोड उदाहरण",
 		'Load Assembly only':		'केवल विधानसभा लोड करें',
 		'Load Firmware only':		'केवल फर्मवेयर लोड करें',
 		'Copy reference to clipboard':		'क्लिपबोर्ड पर कॉपी संदर्भ',
