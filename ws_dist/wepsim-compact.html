@@ -276,7 +276,7 @@
 	    <h6 class="pt-3">Simulator</h6>
             <div class="row py-1 px-1 collapse show multi-collapse-1" style="margin:1px">
 
-                      <div id="slider_cpucu" class="col-sm p-0 collapse multi-collapse-2">
+                      <div id="slider_cpucu" class="col-sm p-0 collapse multi-collapse-2 user_microcode">
 			    <form id="slider2f" class="full-width-slider row-auto mt-0 p-0 pt-0 pb-2">
 				 <label class="my-0" for="slider2b" style="min-width:95%"><span data-langkey='processor'>processor</span>:</label>
 				 <input aria-label="Show CPU/CU" type="range" name="slider2b" id="slider2b"
@@ -400,7 +400,7 @@
 
                       <!-- Nav tabs -->
 		      <ul class="nav nav-tabs nav-justified nav-tabs">
-		          <li class="nav-item">
+		          <li class="nav-item user_microcode">
                               <a id="tab26" href="#eltos_cpu"
                                  class="nav-link active" data-toggle="tab" role="tab"
                                  style="border-top-width:2px; border-right-width:2px; border-left-width:2px;"
@@ -487,7 +487,7 @@
 			            onclick="wsweb_execution_reset();
 	                                     return false;"><em class="fa fa-power-off"></em><strong><br/><span data-langkey='Reset'>Reset</span></strong></button>
 			    <button id="btn_next_microinstruction1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
-		                    class="btn btn-light col"
+		                    class="btn btn-light col user_microcode"
 			            onclick="wsweb_execution_microinstruction();
                                              return false;"><em class="fa fa-step-forward"></em><strong><br/><span class="d-none d-sm-inline-flex" data-langkey='microInstruction'>&#181;Instruction</span><span class="d-sm-none">&#181;Instr.</span></strong></button>
 			    <button id="btn_next_instruction1" style="background-color: #CCCCCC; border-color:white; border-width:1 1 1 1px;"
@@ -535,13 +535,13 @@
                               <a class="dropdown-item" href="#" id="s5b_11" value="11"
 				 onclick="wsweb_set_details('REGISTER_FILE');
 				          return false;"><span class="bg-dark text-white">CPU</span>&nbsp;<span data-langkey='Registers'>Registers</span></a>
-                              <a class="dropdown-item" href="#" id="s5b_16" value="16"
+                              <a class="dropdown-item user_microcode" href="#" id="s5b_16" value="16"
 				 onclick="wsweb_set_details('CONTROL_MEMORY');
 				          return false;"><span class="bg-dark text-white">CPU</span>&nbsp;<span data-langkey='Control Memory'>Control Memory</span></a>
                               <a class="dropdown-item" href="#" id="s5b_17" value="17"
 				 onclick="wsweb_set_details('CPU_STATS');
                                           return false;"><span class="bg-dark text-white">CPU</span>&nbsp;<span data-langkey='Stats'>Stats</span></a>
-                              <a class="dropdown-item" href="#" id="s5b_20" value="20"
+                              <a class="dropdown-item user_microcode" href="#" id="s5b_20" value="20"
 				 onclick="wsweb_set_details('FRM_EDITOR');
                                           return false;"><span class="bg-dark text-white">CPU</span> MicroCode</a>
 
@@ -612,7 +612,7 @@
                           <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
                              data-toggle="tab" id="tab20" href="#ed_mc">MicroCode</a>
                       </li>
-                      <li class="nav-item">
+                      <li class="nav-item user_microcode">
                           <a class="nav-link" role="tab" aria-controls="home" aria-selected="true"
                              data-toggle="tab" id="tab21" href="#ed_mp">Assembly</a>
                       </li>
@@ -977,6 +977,7 @@
 		   <button type="button" class="btn btn-success px-3 py-1"
 		   	   onclick="wepsim_open_help_index();
                                     wepsim_help_refresh();
+                                    wepsim_restoreview(get_cfg('ws_skin_user')) ;
                                     return false;"><span data-langkey="Help Index">Help Index</span></button>
 		   <div class="btn-group">
 		     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled><span data-langkey="Help">Help</span></button>
