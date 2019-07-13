@@ -409,11 +409,13 @@
 	   o += '</ul>\n' ;
 
 	   // details: microcode
-	   o += '<span class=\"square\">Microcode:</span>\n' +
+	   o += '<span class=\"user_microcode\">' + 
+                '<span class=\"square\">Microcode:</span>\n' +
 	        '<ul class=\"mb-0\">\n' +
 	  	' <li> starts: <b>0x'     + firm_reference['mc-start'].toString(16) + '</b></li>\n' +
 		' <li> clock cycles: <b>' + firm_reference['microcode'].length + '</b></li>\n' +
 	        '</ul>\n' +
+                '</span>' +
 		'</div>' ;
 
 	   // close
