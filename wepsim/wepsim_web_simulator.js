@@ -39,97 +39,55 @@
 
     function wepsim_activeview ( view, is_set )
     {
+            // update current skin
 	    var cur_skin_user = get_cfg('ws_skin_user').split(":") ;
 
 	    if ('only_asm' === view)
 	    {
-	        if (is_set) {
-	             wepsim_view_onlyasm_on() ;
-	             cur_skin_user[0] = 'only_asm' ;
-	             cur_skin_user[1] = 'on' ;
-		}
-	        else {
-		     wepsim_view_onlyasm_off() ;
-		     cur_skin_user[0] = 'only_asm' ;
-	             cur_skin_user[1] = 'of' ;
-		}
+	        cur_skin_user[0] = 'only_asm' ;
+	        cur_skin_user[1] = (is_set) ? 'on' : 'of' ;
 	    }
-
 	    if ('only_frequent' === view)
 	    {
-	        if (is_set) {
-                     wepsim_view_onlyfrequent_on() ;
-	             cur_skin_user[2] = 'only_frequent' ;
-	             cur_skin_user[3] = 'on' ;
-		}
-		else {
-		     wepsim_view_onlyfrequent_off() ;
-		     cur_skin_user[2] = 'only_frequent' ;
-	             cur_skin_user[3] = 'of' ;
-		}
+	        cur_skin_user[2] = 'only_frequent' ;
+	        cur_skin_user[3] = (is_set) ? 'on' : 'of' ;
 	    }
 
+            // update cfg
 	    var new_skin_user = cur_skin_user.join(":") ;
 	    update_cfg('ws_skin_user', new_skin_user) ;
 	    $('#select9').val(new_skin_user);
+
+            // update view
+            wepsim_restoreview(new_skin_user) ;
     }
 
     function wepsim_restoreview ( view )
     {
+            var new_classes = [] ;
 	    var cur_skin_user = view.split(":") ;
-
 	    if ('only_asm' === cur_skin_user[0])
 	    {
-	        if ('on' === cur_skin_user[1])
-	             wepsim_view_onlyasm_on() ;
-		else wepsim_view_onlyasm_off() ;
-	    }
+              //$(".multi-collapse-2").collapse("show") ;
+		inputfirm.setOption('readOnly', false) ;
 
+	        if ('on' === cur_skin_user[1]) 
+                {
+		     $("#tab24").click() ;
+		     inputfirm.setOption('readOnly', true) ;
+		     new_classes.push('.user_microcode') ;
+		} 
+	    }
 	    if ('only_frequent' === cur_skin_user[2])
 	    {
 	        if ('on' === cur_skin_user[3])
-                     wepsim_view_onlyfrequent_on() ;
-		else wepsim_view_onlyfrequent_off() ;
+		    new_classes.push('.user_archived') ;
 	    }
-    }
 
-    function wepsim_view_onlyasm_on ( )
-    {
-          //$(".multi-collapse-2").collapse("show") ;
-
-	    $("#tab24").click() ;
-            inputfirm.setOption('readOnly', true) ;
-            $('.user_microcode').addClass('d-none') ;
-
-            // return ok
-            return true ;
-    }
-
-    function wepsim_view_onlyasm_off ( )
-    {
-          //$(".multi-collapse-2").collapse("show") ;
-
-            inputfirm.setOption('readOnly', false) ;
-            $('.user_microcode').removeClass('d-none') ;
-
-            // return ok
-            return true ;
-    }
-
-    function wepsim_view_onlyfrequent_on ( )
-    {
-            $('.user_archived').addClass('d-none') ;
-
-            // return ok
-            return true ;
-    }
-
-    function wepsim_view_onlyfrequent_off ( )
-    {
-	    $('.user_archived').removeClass('d-none') ;
-
-            // return ok
-            return true ;
+	    var classes = '.user_archived, .user_microcode' ;
+	    $(classes).removeClass('d-none') ;
+            classes = new_classes.join(", ") ;
+            $(classes).addClass('d-none') ;
     }
 
     // hardware
@@ -337,9 +295,9 @@
             }
 
 	    // show/hide wepmips...
-	    if ('wepmips' == optValue)
+	    if ('wepmips' == optValue) {
                  wepsim_activeview('only_asm', true) ;
-	    else wepsim_activeview('only_asm', false) ;
+            }
 
 	    // intro mode...
 	    if ('intro' == optValue)
