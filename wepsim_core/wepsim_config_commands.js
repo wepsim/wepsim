@@ -495,6 +495,7 @@
                       description: "<span data-langkey='WepSIM User Interface skin'>WepSIM User Interface skin</span>"
                    });
 
+/*
     ws_config.push({
                       id:          "select9",
                       type:        "Accesibility",
@@ -519,4 +520,5 @@
                                    },
                       description: "<span data-langkey='WepSIM User Interface views'>WepSIM User Interface views</span>"
                    });
+*/
 

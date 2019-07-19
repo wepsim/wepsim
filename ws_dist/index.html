@@ -334,7 +334,7 @@
 		                    onclick="wsweb_dialogbox_open_help();
 					     return false;"><strong><span data-langkey='Help'>Help</span></strong></button>
 
-			<div class="btn-group p-0 my-1 col-auto user_archived" style="flex-grow:6;">
+			<div class="btn-group p-0 my-1 col-auto" style="flex-grow:6;">
 			    <button type="button" class="col-12 btn btn-light shadow-sm"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true"
 				    title="This button shows the current execution mode, <br>the dropdown on the right changes the execution mode."
@@ -358,16 +358,23 @@
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;POC</a>
 
 			      <div class="dropdown-divider"></div>
-			      <h6 class="text-secondary mb-1">Assembly only</h6>
-                              <a class="dropdown-item" href="#" id="s4_wepmips" value="wepmips"
-				 onclick="wsweb_select_main('wepmips');
-					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP+MIPS32</a>
+			      <h6 class="text-secondary mb-1">Software</h6>
+                              <a class="dropdown-item" href="#" id="s4_examples" value="examples"
+				 onclick="wsweb_dialogbox_open_examples();
+					  return false;"><span data-langkey="Examples">Examples</span></a>
+                              <a class="dropdown-item" href="#" id="s4_owncode"  value="owncode"
+				 onclick="wsweb_dialogbox_open_state();
+                                          $('#bot_check1').carousel(0);
+					  return false;"><span data-langkey="Load">Load</span>...</a>
 
 			      <div class="dropdown-divider"></div>
 			      <h6 class="text-secondary mb-1">Tutorial</h6>
                               <a class="dropdown-item" href="#" id="s4_tutorial" value="tutorial"
 				 onclick="wsweb_select_main('tutorial');
 					  return false;"><span style="background-color:#D4DB17">Instructive</span></a>
+                              <a class="dropdown-item" href="#" id="s4_help" value="help"
+				 onclick="wsweb_dialogbox_open_help();
+					  return false;"><span data-langkey="Help">Help</span></a>
                               <a class="dropdown-item" href="#" id="s4_intro" value="intro"
 				 onclick="wsweb_select_main('intro');
                                           setTimeout(wsweb_record_play, 1000);
