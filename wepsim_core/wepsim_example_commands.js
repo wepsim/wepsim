@@ -203,6 +203,7 @@
                        description: "<span data-langkey='example_04_04'>Example of malloc + free.</span>"
                      });
 
+/*
     ws_examples.push({
                        id: 'S5E1',
                        title: "<span data-langkey='addv + seqv.'>addv + seqv.</span>",
@@ -238,6 +239,7 @@
                        assembly:  "ep_s5_e3",
                        description: "<span data-langkey='example_05_03'>Application-specific extension: madd + mmul + mxch.</span>"
                      });
+*/
 
     ws_examples.push({
                        id: 'S6E1',
@@ -251,6 +253,7 @@
                        description: "<span data-langkey='example_06_01'>Test example.</span>"
                      });
 
+/*
     ws_examples.push({
                        id: 'S6E2',
                        title: "<span data-langkey='Compiler Explorer'>Compiler Explorer</span>",
@@ -261,6 +264,19 @@
                        microcode: "ep_os",
                        assembly:  "ep_s6_e2",
                        description: "<span data-langkey='example_06_02'>Simple Compiler Explorer example</span>"
+                     });
+*/
+
+    ws_examples.push({
+                       id: 'S6E3',
+                       title: "<span data-langkey='syscall 1, 4-5, 8, 11-12'>syscall 1, 4-5, 8, 11-12</span>",
+                       type: "<span data-langkey='Special'>Special</span>",
+                       level: "actual",
+                       modes:  "newbie,intro,ep",
+                       hardware:  "ep",
+                       microcode: "ep_mips",
+                       assembly:  "ep_s4_e2",
+                       description: "<span data-langkey='example_04_02'>Example of syscall for printing/reading integer and string.</span>"
                      });
 
 
