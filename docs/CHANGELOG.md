@@ -1,4 +1,7 @@
 
+2.0.9 -> 2.0.10:
+* Simplify UI for common tasks
+
 2.0.8 -> 2.0.9:
 * Interface:
    + Notifications: 
