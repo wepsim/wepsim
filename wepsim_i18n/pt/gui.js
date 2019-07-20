@@ -86,6 +86,11 @@
 		'Recent':		'Recente',
 		'Refresh':		'Atualizar',
 	        'Welcome':		'Bem vindo',
+                'WepSIM hardware':      'WepSIM hardware',
+                'Pick firm/soft from':  'Escolha firmware/software de',
+                'Information from':     'Informação de',
+                'Native code':          'C&oacute;digo nativo',
+
 		'_last_':		'_last_'
 
     };
