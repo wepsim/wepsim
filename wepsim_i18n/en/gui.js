@@ -67,9 +67,11 @@
 	                "instructions":                                 "instructions",
 
                         "simulator intro 1": 		                "First, you are going to load and microcompile the microcode that defines the instruction set to be used.<br>" +
-									"You can use an example, load it from a file or you can edit a new one.",
+									"You can use <span onclick='wsweb_dialogbox_open_examples();'>an example</span>, " + 
+                                                                        "<span onclick='wsweb_dialogbox_open_state(); $(\"#bot_check1\").carousel(0);'>load it from a file</span>, or you can edit a new one.",
                         "simulator intro 2": 		                "Next, you need to load and compile the assembly code to be executed.<br>" +
-									"You can use an example, load it from a file or you can edit a new one.",
+									"You can use <span onclick='wsweb_dialogbox_open_examples();'>an example</span>, " + 
+                                                                        "<span onclick='wsweb_dialogbox_open_state(); $(\"#bot_check1\").carousel(0);'>load it from a file</span>, or you can edit a new one.",
                         "simulator intro 3": 		                "Finally, in the simulator you are able to execute the microcode plus assembly loaded before. " +
 									"It can be executed step by step at microinstruction level or assembly instruction level.",
                         "Prev.": 		                	"Prev.",
