@@ -92,6 +92,10 @@
                         "Recent":                                       "Reciente",
 			"Refresh": 			     		"Refrescar",
 		        "Welcome":					"Bienvenido+a",
+                        "WepSIM hardware":      			"WepSIM hardware",
+                        "Pick firm/soft from":  			"Firm/soft desde",
+                        "Information from":     			"Informaci&oacute;n de",
+                        "Native code":          			"C&oacute;digo nativo",
 		        "_last_":					"_last_"
                   } ;
 

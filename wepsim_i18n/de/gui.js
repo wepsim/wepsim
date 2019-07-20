@@ -86,6 +86,10 @@
 		'Recent':		'Kürzlich',
 		'Refresh':		'Aktualisierung',
 		'Welcome':		'Herzlich willkommen',
+                'WepSIM hardware':      'WepSIM hardware',
+                'Pick firm/soft from':  'Wählen Sie Firm/Soft aus',
+                'Information from':     'Informationen von',
+                'Native code':          'Nativer Code',
 		'_last_':		'_last_'
 
     };

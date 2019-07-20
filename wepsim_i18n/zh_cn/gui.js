@@ -86,6 +86,10 @@
 		'Recent':		'最近',
 		'Refresh':		'刷新',
 	        'Welcome':		'欢迎',
+                'WepSIM hardware':      'WepSIM硬件',
+                'Pick firm/soft from':  '從中挑選固件/軟件',
+                'Information from':     '來自的信息',
+                'Native code':          '本機代碼',
 		'_last_':		'_last_'
 
     };

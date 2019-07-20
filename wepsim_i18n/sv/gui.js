@@ -86,6 +86,10 @@
 		'Recent':		'Nyligen',
 		'Refresh':		'Uppdatera',
 		'Welcome':		'Välkommen',
+                'WepSIM hardware':      'WepSIM-hårdvara',
+                'Pick firm/soft from':  'Välj fast programvara / programvara från',
+                'Information from':     'Information från',
+                'Native code':          'Native code',
 		'_last_':		'_last_'
 
     };

@@ -86,6 +86,10 @@
 		'Recent':		'最近',
 		'Refresh':		'更新する',
 	        'Welcome':		'ようこそ',
+                'WepSIM hardware':      'WepSIMハードウェア',
+                'Pick firm/soft from':  'からファームウェア/ソフトウェアを選択',
+                'Information from':     'からの情報',
+                'Native code':          'ネイティブコード',
 		'_last_':		'_last_'
 
     };
