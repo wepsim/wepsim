@@ -65,9 +65,11 @@
 	                "assembly":                                     "ensamblador",
 	                "instructions":                                 "instrucciones",
                         "simulator intro 1": 		                "Primero se ha de cargar y microcompilar el microc&oacute;digo que define el conjunto de instrucciones a usar.<br>" +
-									"Puede usar un ejemplo, cargar uno desde fichero o editar uno nuevo.",
+									"Puede usar <span onclick='wsweb_dialogbox_open_examples();'>un ejemplo</span>, " + 
+	                                                                "<span onclick='wsweb_dialogbox_open_state(); $(\"#bot_check1\").carousel(0);'>cargar uno desde fichero</span> o editar uno nuevo.",
                         "simulator intro 2": 		                "A continuaci&oacute;n ha de cargar y compilar el c&oacute;digo ensamblador a ser ejecutado.<br>" +
-									"Puede usar un ejemplo, cargar uno desde fichero o editar uno nuevo.",
+									"Puede usar <span onclick='wsweb_dialogbox_open_examples();'>un ejemplo</span>, " + 
+	                                                                "<span onclick='wsweb_dialogbox_open_state(); $(\"#bot_check1\").carousel(0);'>cargar uno desde fichero</span> o editar uno nuevo.",
                         "simulator intro 3": 		                "En la pantalla de simulaci&oacute;n, puede ejecutar el microcode+assembly cargardo anteriormente. " +
 									"Se puede ejecutar paso a paso a nivel de ensamblador o microinstrucci&oacute;n.",
                         "Prev.": 		                	"Anterior",

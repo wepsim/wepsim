@@ -120,7 +120,7 @@
     .ui-helper-hidden-accessible {
         display: none;
     }
-  
+
     // bootbox for bootstrap 4 trick
     .bootbox .modal-header h5 {
 	 order: 0;
@@ -311,7 +311,7 @@
 			<div class="btn-group p-0 my-1 col-auto" style="flex-grow:6;">
 			    <button type="button" class="col-12 btn btn-light shadow-sm"
 			            data-toggle="tooltip" data-placement="bottom" data-html="true"
-				    title="This button shows the current execution mode, <br>the dropdown on the right changes the execution mode."
+				    title="This button shows the current hardware used, <br>dropdown on the right let you access to common actions."
                                     style="border-color: #CCCCCC;"
 				    id="select4"
                                     onclick="wsweb_set_details('HARDWARE');
@@ -322,9 +322,9 @@
 				    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			      <span class="sr-only">Toggle Dropdown</span>
 			    </button>
-			    <div id="mode_menu" class="dropdown-menu border border-secondary">
+			    <div id="mode_menu" class="dropdown-menu border border-secondary p-2">
 
-			      <h6 class="text-secondary mb-1"><span data-langkey="WepSIM hardware">WepSIM hardware</span>:</h6>
+			      <h6 class="text-secondary mb-1 bg-light"><span data-langkey="WepSIM hardware">WepSIM hardware</span>:</h6>
                               <a class="dropdown-item" href="#" id="s4_ep" value="ep"
 				 onclick="wsweb_select_main('ep');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP</a>
@@ -333,7 +333,7 @@
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;POC</a>
 
 			      <div class="dropdown-divider"></div>
-			      <h6 class="text-secondary mb-1"><span data-langkey="Pick firm/soft from">Pick firm/soft from</span>:</h6>
+			      <h6 class="text-secondary mb-1 bg-light"><span data-langkey="Pick firm/soft from">Pick firm/soft from</span>:</h6>
                               <a class="dropdown-item" href="#" id="s4_examples" value="examples"
 				 onclick="wsweb_dialogbox_open_examples();
 					  return false;"><span data-langkey="Examples">Examples</span></a>
@@ -344,7 +344,7 @@
 
 
 			      <div class="dropdown-divider"></div>
-			      <h6 class="text-secondary mb-1"><span data-langkey="Information from">Information from</span>:</h6>
+			      <h6 class="text-secondary mb-1 bg-light"><span data-langkey="Information from">Information from</span>:</h6>
                               <a class="dropdown-item user_archived" href="#" id="s4_tutorial" value="tutorial"
 				 onclick="wsweb_select_main('tutorial');
 					  return false;"><span style="background-color:#D4DB17">Instructive</span></a>
@@ -531,13 +531,13 @@
 				             show_memories_values();
 				  	     wepsim_reset_max_turbo();
 					     $('[data-toggle=tooltip]').tooltip('hide');
-					     return false;">HW</button>
+					     return false;">Refresh</button>
 			    <button id="dd2" type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split"
                                     style="border-color: #CCCCCC;"
 				    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			      <span class="sr-only">Toggle Dropdown</span>
 			    </button>
-			    <div class="dropdown-menu border border-secondary" 
+			    <div class="dropdown-menu border border-secondary"
 				 style="height:55vh; overflow-y:auto !important; z-index:10000; -webkit-overflow-scrolling:touch;">
 
 			      <h6 class="text-secondary mb-1">CPU</h6>
@@ -1113,7 +1113,7 @@
                           class="btn btn-success dropdown-toggle dropdown-toggle-split"
                           data-toggle="dropdown"
                           aria-haspopup="true"
-                          aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button> 
+                          aria-expanded="false"><span class="caret"></span><span class="sr-only">Toggle Help Idiom</span></button>
 		  <div id="current_state1_lang" class="dropdown-menu" style="z-index:100000;">
                      <a href="#" class="dropdown-item"
 				 onclick="set_cfg('ws_idiom','es'); save_cfg();
@@ -1247,7 +1247,7 @@
 				     </div>
 				     </div>
 
-				     <div class="row" 
+				     <div class="row"
 					  style="max-height:45vh; width:inherit; overflow:auto; -webkit-overflow-scrolling:touch;">
 				     <div class="col p-1">
 					<div id="collapse_X" class="mt-2 collapse show">
@@ -1565,7 +1565,7 @@
 		<div class="mx-auto">
 		   <div class="btn-group">
 		     <button type="button" class="btn btn-dark float-left mr-auto"
-			     onclick="wsweb_dialogbox_reset_notifications(); 
+			     onclick="wsweb_dialogbox_reset_notifications();
 			              return false;"><span data-langkey="Reset">Reset</span></button>
 		     <button type="button" class="btn btn-outline-dark px-3 py-1" disabled>
                              <span data-langkey='Notifications'>Notifications</span>
