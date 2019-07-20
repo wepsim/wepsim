@@ -269,7 +269,7 @@
 
     ws_examples.push({
                        id: 'S6E3',
-                       title: "<span data-langkey='syscall 1, 4-5, 8, 11-12'>syscall 1, 4-5, 8, 11-12</span>",
+                       title: "<span data-langkey='Native code'>Native code</span>",
                        type: "<span data-langkey='Special'>Special</span>",
                        level: "actual",
                        modes:  "newbie,intro,ep",

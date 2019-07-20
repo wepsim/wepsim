@@ -324,28 +324,28 @@
 			    </button>
 			    <div id="mode_menu" class="dropdown-menu border border-secondary">
 
-			      <h6 class="text-secondary mb-1">WepSIM hardware</h6>
+			      <h6 class="text-secondary mb-1"><span data-langkey="WepSIM hardware">WepSIM hardware</span>:</h6>
                               <a class="dropdown-item" href="#" id="s4_ep" value="ep"
 				 onclick="wsweb_select_main('ep');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;EP</a>
-                              <a class="dropdown-item" href="#" id="s4_poc" value="poc"
+                              <a class="dropdown-item user_archived" href="#" id="s4_poc" value="poc"
 				 onclick="wsweb_select_main('poc');
 					  return false;"><em class="fas fa-microchip"></em>&nbsp;POC</a>
 
 			      <div class="dropdown-divider"></div>
-			      <h6 class="text-secondary mb-1">Software</h6>
+			      <h6 class="text-secondary mb-1"><span data-langkey="Pick firm/soft from">Pick firm/soft from</span>:</h6>
                               <a class="dropdown-item" href="#" id="s4_examples" value="examples"
 				 onclick="wsweb_dialogbox_open_examples();
 					  return false;"><span data-langkey="Examples">Examples</span></a>
                               <a class="dropdown-item" href="#" id="s4_owncode"  value="owncode"
 				 onclick="wsweb_dialogbox_open_state();
                                           $('#bot_check1').carousel(0);
-					  return false;"><span data-langkey="Load">Load</span>...</a>
+					  return false;"><span data-langkey="Checkpoint">Checkpoint</span></a>
 
 
 			      <div class="dropdown-divider"></div>
-			      <h6 class="text-secondary mb-1"><span data-langkey="Help">Help</span></h6>
-                              <a class="dropdown-item" href="#" id="s4_tutorial" value="tutorial"
+			      <h6 class="text-secondary mb-1"><span data-langkey="Information from">Information from</span>:</h6>
+                              <a class="dropdown-item user_archived" href="#" id="s4_tutorial" value="tutorial"
 				 onclick="wsweb_select_main('tutorial');
 					  return false;"><span style="background-color:#D4DB17">Instructive</span></a>
                               <a class="dropdown-item" href="#" id="s4_help" value="help"
@@ -354,7 +354,7 @@
                               <a class="dropdown-item" href="#" id="s4_intro" value="intro"
 				 onclick="wsweb_select_main('intro');
                                           setTimeout(wsweb_record_play, 1000);
-					  return false;">Welcome...</a>
+					  return false;">Welcome tutorial...</a>
 			    </div>
 			</div>
                       </div>
