@@ -85,6 +85,10 @@
 		'Recent':		'हाल का',
 		'Refresh':		'ताज़ा करना',
 		'Welcome':		'स्वागत हे',
+                'WepSIM hardware':      'WepSIM हार्डवेयर',
+                'Pick firm/soft from':  'फर्मवेयर / सॉफ्टवेयर से चुनें',
+                'Information from':     'से जानकारी',
+                'Native code':          'मूल कोड',
 		'_last_':		'_last_'
 
     };
