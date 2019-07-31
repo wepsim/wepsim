@@ -263,6 +263,12 @@
         return lines_code ;
    }
 
+   function simlang_native_adapt_getField ( j, rf_name, r_name )
+   {
+        return "\t\t"+ "var f_" + r_name + " = " + "simcore_native_get_field_from_ir(fields, " + j + ") ;\n" +
+	       "\t\t"+ "var   " + r_name + " = " + "simcore_native_get_value(rf_name, f_" + r_name + ") ;\n" ;
+   }
+
    // (2/3) instruction set -> microcode [description + compount (native creator code)]
    function simlang_native_adapt_instructionSet ( instruction_list )
    {
@@ -308,10 +314,7 @@
                      hfields[k] = "\t" + io.fields[j].name + "=" +
                                   "reg(" + io.fields[j].startbit + "," + io.fields[j].stopbit + "),\n" ;
 
-                     gfields[k] = "\t\t"+ "var f_" + io.fields[j].name + " = " +
-                                  "simcore_native_get_field_from_ir(fields, " + j + ") ;\n" +
-                                  "\t\t"+ "var   " + io.fields[j].name + " = " +
-                                  "simcore_native_get_value('BR', f_" + io.fields[j].name + ") ;\n" ;
+                     gfields[k] = simlang_native_adapt_getField(j, 'BR', io.fields[j].name) ;
 
                      sfields[k] = "\t\t"+ "simcore_native_set_value('BR', " +
                                   "f_" + io.fields[j].name + ", " +
@@ -323,10 +326,7 @@
                      hfields[k] = "\t" + io.fields[j].name + "=" +
                                   "reg(" + io.fields[j].startbit + "," + io.fields[j].stopbit + "),\n" ;
 
-                     gfields[k] = "\t\t"+ "var f_" + io.fields[j].name + " = " +
-                                  "simcore_native_get_field_from_ir(fields, " + j + ") ;\n" +
-                                  "\t\t"+ "var   " + io.fields[j].name + " = " +
-                                  "simcore_native_get_value('BR2', f_" + io.fields[j].name + ") ;\n" ;
+                     gfields[k] = simlang_native_adapt_getField(j, 'BR2', io.fields[j].name) ;
 
                      sfields[k] = "\t\t"+ "simcore_native_set_value('BR2', " +
                                   "f_" + io.fields[j].name + ", " +
