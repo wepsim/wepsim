@@ -55,6 +55,7 @@ cat sim_hw/sim_hw_index.js \
     sim_sw/sim_lang.js \
     sim_sw/sim_lang_firm.js \
     sim_sw/sim_lang_asm.js \
+    sim_sw/sim_lang_firm_is2native.js \
     \
     sim_core/sim_cfg.js \
     sim_core/sim_core_record.js \

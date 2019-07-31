@@ -10,7 +10,7 @@
    if (process.argv.length < 3)
    {
        console.log('') ;
-       console.log('WepSIM-cl v1.5') ;
+       console.log('WepSIM-cl v1.5.1') ;
        console.log('> WepSIM simulator interface for command line.') ;
        console.log('') ;
        console.log('For more details please use:') ;
@@ -315,6 +315,7 @@
    // data.action == help
    //
 
+   // wepsim_node.sh help ep cop
    if ("HELP" == data.action)
    {
        var ret = null ;
@@ -324,6 +325,22 @@
 
        console.log(ret.msg);
        return ret.ok ;
+   }
+
+
+   //
+   // data.action == import
+   //
+
+   // wepsim_node.sh import-creator checkpoint instructions.json > microcode.txt
+   if ("IMPORT-CREATOR" == data.action)
+   {
+       var ret = null ;
+
+       ret = ws.simlang_firm_is2native(obj_checkpoint) ;
+
+       console.log(ret);
+       return true ;
    }
 
 
