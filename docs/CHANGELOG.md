@@ -1,6 +1,7 @@
 
 2.0.9 -> 2.0.10:
 * Simplify UI for common tasks
+* Help on creator testing: instruction set to native microcode
 
 2.0.8 -> 2.0.9:
 * Interface:

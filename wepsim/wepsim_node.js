@@ -314,4 +314,5 @@
     module.exports.wepsim_nodejs_help_signal              = wepsim_nodejs_help_signal ;
     module.exports.wepsim_nodejs_do_nothing_handler       = simcore_do_nothing_handler ;
     module.exports.wepsim_nodejs_exportHW                 = simcore_hardware_export ;
+    module.exports.simlang_firm_is2native                 = simlang_firm_is2native ;
 
