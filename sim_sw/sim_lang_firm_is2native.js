@@ -33,15 +33,23 @@
         re = /assert\((.*)\)/ ;
         if (icode.search(re) != -1) 
         {
-            var match  = re.exec(icode) ;
-            var params = match[1].split(";") ;
-            var p1     = params[1].trim() ;
+		var match = re.exec(icode) ;
+		try
+		{
+		    var params = match[1].split(";") ;
+		    var p1     = params[1].trim() ;
 
-            rc = 'if (' + params[0] + ') {\n' +
-                 '    simlang_set_screen_content(' + p1 + ') ;\n' +
-                 '}\n' ;
-            re = /assert\((.*)\)/g ;
-            icode = icode.replace(re, rc) ;
+		    rc = 'if (' + params[0] + ') {\n' +
+		         '    simlang_set_screen_content(' + p1 + ') ;\n' +
+		         '}\n' ;
+		    re = /assert\((.*)\)/g ;
+		    icode = icode.replace(re, rc) ;
+		}
+		catch (e)
+		{
+		    console.log("Syntax error that cause a run-time error: " + e.toString()) ;
+		    console.log(match) ;
+		}
         }
 
         // return (transformed) pseudocode
@@ -58,20 +66,28 @@
         re = /check_stack_limit\((.*)\)/ ;
         if (icode.search(re) != -1) 
         {
-            var match  = re.exec(icode) ;
-            var params = match[1].split(";") ;
-            var p2     = params[2].trim() ;
+                var match  = re.exec(icode) ;
+		try
+		{
+                    var params = match[1].split(";") ;
+                    var p2     = params[2].trim() ;
 
-            rc = 'if (f_' + p2 + ' == simhw_sim_states().sp.name) {\n' +
-                 '    if (' + p2 + ' < sim_segments.data.begin) {\n' +
-                 '        simlang_set_screen_content("Stack Overflow") ;\n' +
-                 '    }\n' +
-                 '    if (' + p2 + ' > sim_segments.data.end) {\n' +
-                 '        simlang_set_screen_content("Stack Underflow") ;\n' +
-                 '    }\n' +
-                 '}\n' ;
-            re = /check_stack_limit\((.*)\)/g ;
-            icode = icode.replace(re, rc) ;
+                    rc = 'if (f_' + p2 + ' == simhw_sim_states().sp.name) {\n' +
+                         '    if (' + p2 + ' < sim_segments.data.begin) {\n' +
+                         '        simlang_set_screen_content("Stack Overflow") ;\n' +
+                         '    }\n' +
+                         '    if (' + p2 + ' > sim_segments.data.end) {\n' +
+                         '        simlang_set_screen_content("Stack Underflow") ;\n' +
+                         '    }\n' +
+                         '}\n' ;
+                    re = /check_stack_limit\((.*)\)/g ;
+                    icode = icode.replace(re, rc) ;
+		}
+		catch (e)
+		{
+		    console.log("Syntax error that cause a run-time error: " + e.toString()) ;
+		    console.log(match) ;
+		}
         }
 
         // return (transformed) pseudocode
@@ -185,17 +201,24 @@
    {
         // replace MP.*.(val+reg2)
         var re = new RegExp("MP."  + a_type + ".\\(([^\\)]*)\\)", "g") ;
-
         if (icode.search(re) != -1)
         {
-            var match = re.exec(icode) ;
-            var param = match[1] ;
+                var match = re.exec(icode) ;
+		try
+		{
+		    var param = match[1] ;
 
-            icode = icode.replace(re, 'value') ;
-            icode = 'value = simcore_native_get_value("MEMORY", ' + param + ') ;\n' +
-                    'value = value & ' + a_mask + ';\n' +
-                     icode +
-                    'simcore_native_set_value("MEMORY", ' + param + ', value) ;\n' ;
+		    icode = icode.replace(re, 'value') ;
+		    icode = 'value = simcore_native_get_value("MEMORY", ' + param + ') ;\n' +
+			    'value = value & ' + a_mask + ';\n' +
+			     icode +
+			    'simcore_native_set_value("MEMORY", ' + param + ', value) ;\n' ;
+		}
+		catch (e)
+		{
+		    console.log("Syntax error that cause a run-time error: " + e.toString()) ;
+		    console.log(match) ;
+		}
         }
 
         return icode ;
@@ -274,6 +297,11 @@
         return "\t\t"+ "simcore_native_set_value('" + rf + "', f_" + reg + ", " + reg + ");\n" ;
    }
 
+   function simlang_native_adapt_headerField ( fname, tname, start, stop )
+   {
+        return "\t" + fname + "=" + tname + "(" + start + "," + stop + "),\n" ;
+   }
+
    // (2/3) instruction set -> microcode [description + compount (native creator code)]
    function simlang_native_adapt_instructionSet ( instruction_list )
    {
@@ -313,20 +341,24 @@
 
                  k = signature_order[io.fields[j].name] ;
 
-                 if ( (io.fields[j].type.endsWith("INT-Reg")) ||
-                      (io.fields[j].type === "SFP-Reg") )
+                 if (io.fields[j].type === "INT-Reg") 
                  {
-                     // TODO: for SFP-Reg: BR -> BR2 (second register file)
-                     hfields[k] = "\t" + io.fields[j].name + "=" +
-                                  "reg(" + io.fields[j].startbit + "," + io.fields[j].stopbit + "),\n" ;
-
+                     hfields[k] = simlang_native_adapt_headerField(io.fields[j].name, "reg", 
+                                                                   io.fields[j].startbit, io.fields[j].stopbit) ;
                      gfields[k] = simlang_native_adapt_getField(k-1, 'BR', io.fields[j].name) ;
                      sfields[k] = simlang_native_adapt_setField(k-1, 'BR', io.fields[j].name) ;
                  }
+                 else if (io.fields[j].type === "SFP-Reg")
+                 {
+                     hfields[k] = simlang_native_adapt_headerField(io.fields[j].name, "reg", 
+                                                                   io.fields[j].startbit, io.fields[j].stopbit) ;
+                     gfields[k] = simlang_native_adapt_getField(k-1, 'BR2', io.fields[j].name) ;
+                     sfields[k] = simlang_native_adapt_setField(k-1, 'BR2', io.fields[j].name) ;
+                 }
                  else if (io.fields[j].type === "DFP-Reg")
                  {
-                     hfields[k] = "\t" + io.fields[j].name + "=" +
-                                  "reg(" + io.fields[j].startbit + "," + io.fields[j].stopbit + "),\n" ;
+                     hfields[k] = simlang_native_adapt_headerField(io.fields[j].name, "reg", 
+                                                                   io.fields[j].startbit, io.fields[j].stopbit) ;
 
                      gfields[k] = "\t\t"+ "var f_" + io.fields[j].name + " = " +
                                   "simcore_native_get_field_from_ir(fields, " + (k-1) + ") ;\n" +
@@ -346,8 +378,8 @@
                  }
                  else if (io.fields[j].type === "inm")
                  {
-                     hfields[k] = "\t" + io.fields[j].name + "=" +
-                                  "inm(" + io.fields[j].startbit + "," + io.fields[j].stopbit + "),\n" ;
+                     hfields[k] = simlang_native_adapt_headerField(io.fields[j].name, "inm", 
+                                                                   io.fields[j].startbit, io.fields[j].stopbit) ;
 
                      gfields[k] = "\t\t" + "var " + io.fields[j].name + " = " +
                                   "simcore_native_get_field_from_ir(fields, " + (k-1) + ") ;\n\t" ;
@@ -359,6 +391,9 @@
             if ( (io.cop !== null) && (io.cop.trim() !== "") ) {
                   co_cop += "\tcop=" + io.cop + ",\n" ;
             }
+            // TODO: comment this when WepSIM adds cop fragments (cop = sumatory of several cops)
+            co_cop = "\t" + "co=111111," + "\n" ;
+            // /TODO
 
             // adapt elements
             var lines_code = simlang_native_adapt_instructionDefinition(io.definition) ;
@@ -412,6 +447,25 @@
             'begin,\n' +
             'native\n' +
             '{\n' +
+            '                // (once) initialize BR2 as FP register file\n' +
+            '                if (typeof BR2 === "undefined")\n' +
+            '                {\n' +
+            '                    BR2 = [] ;\n' +
+            '                    for (var i=0; i<32; i++)\n' +
+            '                    {\n' +
+            '                         BR2[i] = {\n' +
+            '                                    name:"R"+i,\n' +
+            '                                    verbal:"Register "+i,\n' +
+            '                                    visible:true,\n' +
+            '                                    nbits:"32",\n' +
+            '                                    value:0,\n' +
+            '                                    default_value:0,\n' +
+            '                                    draw_data:[]\n' +
+            '                                  } ;\n' +
+            '                    }\n' +
+            '                }\n' +
+            '\n' +
+            '                // fetch\n' +
             '                var addr  = simcore_native_get_value("CPU", "REG_PC") ;\n' +
             '                var value = simcore_native_get_value("MEMORY", addr) ;\n' +
             '\n' +
