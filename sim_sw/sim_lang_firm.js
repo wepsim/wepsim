@@ -806,8 +806,9 @@ function loadFirmware (text)
 	       }
 
 	       // semantic check: valid pending value (cop.length if native.false)
-	       if ( (instruccionAux["native"] !== true) &&
-		    (getToken(context).length !== xr_info.ir.default_eltos.cop.length) )
+	       if ( (instruccionAux["native"]  === false) &&
+                    (typeof instruccionAux.cop !== 'undefined') &&
+		    (instruccionAux.cop.length !== xr_info.ir.default_eltos.cop.length) )
 	       {
 		    return langError(context,
 				     "Incorrect binary length for 'cop': " + getToken(context)) ;
