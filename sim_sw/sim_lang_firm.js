@@ -434,8 +434,10 @@ function loadFirmware (text)
 	       instruccionAux["mc-start"] = context.contadorMC ;
 
                // semantic check: valid instruction name
-               if (instruccionAux["name"].match("[a-zA-Z_0-9]*")[0] != instruccionAux["name"])
-	           return langError(context, "Instruction name '" + instruccionAux["name"] + "' is not valid for [a-zA-Z_0-9]*") ;
+               var re_name = "[a-zA-Z_0-9\.]*" ;
+               if (instruccionAux["name"].match(re_name)[0] != instruccionAux["name"])
+	           return langError(context, "Instruction name '" + instruccionAux["name"] + 
+                                             "' is not valid for " + re_name) ;
 
 	       var firma = "";
 	       var firmaGlobal= "";

@@ -263,10 +263,15 @@
         return lines_code ;
    }
 
-   function simlang_native_adapt_getField ( j, rf_name, r_name )
+   function simlang_native_adapt_getField ( j, rf, reg )
    {
-        return "\t\t"+ "var f_" + r_name + " = " + "simcore_native_get_field_from_ir(fields, " + j + ") ;\n" +
-	       "\t\t"+ "var   " + r_name + " = " + "simcore_native_get_value(rf_name, f_" + r_name + ") ;\n" ;
+        return "\t\t"+ "var f_" + reg + " = " + "simcore_native_get_field_from_ir(fields, " + j + ") ;\n" +
+	       "\t\t"+ "var   " + reg + " = " + "simcore_native_get_value('" + rf + "', f_" + reg + ") ;\n" ;
+   }
+
+   function simlang_native_adapt_setField ( j, rf, reg )
+   {
+        return "\t\t"+ "simcore_native_set_value('" + rf + "', f_" + reg + ", " + reg + ");\n" ;
    }
 
    // (2/3) instruction set -> microcode [description + compount (native creator code)]
@@ -274,9 +279,10 @@
    {
        var o = "" ;
 
-       var gfields  = [] ;
-       var sfields  = [] ;
-       var hfields  = [] ;
+       var gfields = [] ;
+       var sfields = [] ;
+       var hfields = [] ;
+       var skipped = 0 ;
 
        var line_signature  = "" ;
        var signature_names = "" ;
@@ -287,10 +293,7 @@
             io = instruction_list[i] ;
 
             // signature
-            line_signature  = io.signatureRaw
-                                .replace(/\$/g, "")
-                                .replace(/\./g, '_') ; // TODO: if WepSIM.firmware.parse accept abs.s...
-                                // /TODO
+            line_signature  = io.signatureRaw.replace(/\$/g, "") ;
             signature_names = line_signature.replace(/[\(\)]/g," ").split(" ") ;
             signature_order = [] ;
             for (var k=0; k<signature_names.length; k++) {
@@ -298,40 +301,28 @@
             }
 
             // fields
-            gfields  = [] ;
-            sfields  = [] ;
-            hfields  = [] ;
+            gfields = [] ;
+            sfields = [] ;
+            hfields = [] ;
+            skipped = 0 ;
             for (var j=0; j<io.fields.length; j++)
             {
                  if ( (io.fields[j].type === "co") || (io.fields[j].type === "cop") ) {
+                       skipped++ ;
                        continue ;
                  }
 
                  var k = signature_order[io.fields[j].name] ;
 
-                 if (io.fields[j].type.endsWith("INT-Reg"))
+                 if ( (io.fields[j].type.endsWith("INT-Reg")) ||
+                      (io.fields[j].type === "SFP-Reg") )
                  {
+                     // TODO: for SFP-Reg: BR -> BR2 (second register file)
                      hfields[k] = "\t" + io.fields[j].name + "=" +
                                   "reg(" + io.fields[j].startbit + "," + io.fields[j].stopbit + "),\n" ;
 
-                     gfields[k] = simlang_native_adapt_getField(j, 'BR', io.fields[j].name) ;
-
-                     sfields[k] = "\t\t"+ "simcore_native_set_value('BR', " +
-                                  "f_" + io.fields[j].name + ", " +
-                                         io.fields[j].name +
-                                  ");\n" ;
-                 }
-                 else if (io.fields[j].type === "SFP-Reg")
-                 {
-                     hfields[k] = "\t" + io.fields[j].name + "=" +
-                                  "reg(" + io.fields[j].startbit + "," + io.fields[j].stopbit + "),\n" ;
-
-                     gfields[k] = simlang_native_adapt_getField(j, 'BR2', io.fields[j].name) ;
-
-                     sfields[k] = "\t\t"+ "simcore_native_set_value('BR2', " +
-                                  "f_" + io.fields[j].name + ", " +
-                                         io.fields[j].name +
-                                  ");\n" ;
+                     gfields[k] = simlang_native_adapt_getField(j-skipped, 'BR', io.fields[j].name) ;
+                     sfields[k] = simlang_native_adapt_setField(j-skipped, 'BR', io.fields[j].name) ;
                  }
                  else if (io.fields[j].type === "DFP-Reg")
                  {
