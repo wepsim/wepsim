@@ -89,10 +89,10 @@ function read_microprg ( context )
                         nextToken(context) ;
 			// match mandatory VALUE
 			var labelsNotFoundAux={};
-			labelsNotFoundAux["nombre"] = getToken(context) ;
-			labelsNotFoundAux["cycle"]  = microprograma.length;
-			labelsNotFoundAux["index"]  = context.i;
-			labelsNotFoundAux["instruction"] = context.instrucciones.length;
+			labelsNotFoundAux.nombre = getToken(context) ;
+			labelsNotFoundAux.cycle  = microprograma.length;
+			labelsNotFoundAux.index  = context.i;
+			labelsNotFoundAux.instruction = context.instrucciones.length;
 
 			var etiquetaFounded = 0;
 			for (var k in context.etiquetas)
@@ -186,7 +186,7 @@ function read_native ( context )
 	   nextNative(context) ;
 
 	   var microInstruccionAux = {} ;
-	   microInstruccionAux["NATIVE"] = getToken(context) ;
+	   microInstruccionAux.NATIVE = getToken(context) ;
 
 	   microprograma.push(microInstruccionAux) ;
            microcomments.push('') ;
@@ -327,11 +327,11 @@ function loadFirmware (text)
 				}
 			 	nextToken(context);
 				pseudoInitial.signature = pseudoInitial.signature.substr(0, pseudoInitial.signature.length-1).replace(/num/g,"inm");
-				pseudoInstructionAux["initial"]=pseudoInitial;	
-				var contPseudoFinish=0;
+				pseudoInstructionAux.initial = pseudoInitial;	
+				var contPseudoFinish = 0;
 
 				var pseudoFinishAux = {};
-				pseudoFinishAux.signature="";
+				pseudoFinishAux.signature = "";
 				
 				var inStart = 0;
 				var cont = false;
@@ -357,8 +357,8 @@ function loadFirmware (text)
 					pseudoFinishAux.signature = pseudoFinishAux.signature + getToken(context) + " ";
 					nextToken(context);
 				}
-				pseudoInstructionAux["finish"]=pseudoFinishAux;
-				pseudoInstructionAux["finish"].signature=pseudoInstructionAux["finish"].signature.replace(';','\n');
+				pseudoInstructionAux.finish=pseudoFinishAux;
+				pseudoInstructionAux.finish.signature=pseudoInstructionAux.finish.signature.replace(';','\n');
 				context.pseudoInstructions.push(pseudoInstructionAux);
 				nextToken(context);
 			}
@@ -386,10 +386,10 @@ function loadFirmware (text)
 		       nextToken(context);
 
 	           // match optional native
-	           instruccionAux.native = false;
+	           instruccionAux["native"] = false;
 	           if (isToken(context, "native"))
 		   {
-	               instruccionAux.native = true;
+	               instruccionAux["native"] = true;
 		       nextToken(context);
 
 	               // match optional ,
@@ -400,7 +400,7 @@ function loadFirmware (text)
 		       context.etiquetas[context.contadorMC] = "fetch" ;
 	           }
 
-	           if (true == instruccionAux.native)
+	           if (true == instruccionAux["native"])
                         var ret = read_native(context) ;
 		   else var ret = read_microprg(context) ;
 
@@ -473,7 +473,7 @@ function loadFirmware (text)
 			   plus_found = true;
 		       }
 
-		       campoAux["name"] = auxValue ;
+		       campoAux.name = auxValue ;
 		       campos.push(campoAux);
 		       numeroCampos++;
 		       firma = firma + auxValue ;
@@ -503,7 +503,7 @@ function loadFirmware (text)
 			   if ( !isToken(context, ",") && !isToken(context, "(") && !isToken(context, ")") )
 			   {
 			       var campoAux = {};
-			       campoAux["name"] = getToken(context) ;
+			       campoAux.name = getToken(context) ;
 			       campos.push(campoAux);
 			       numeroCampos++;
 
@@ -572,8 +572,8 @@ function loadFirmware (text)
 	       instruccionAux.co = getToken(context) ;
 
 	       // semantic check: valid value
-	       if (    (getToken(context).match("[01]*")[0] != getToken(context))
-                    || (getToken(context).length !== xr_info.ir.default_eltos.co.length) )
+	       if ( (getToken(context).match("[01]*")[0] != getToken(context)) || 
+                    (getToken(context).length !== xr_info.ir.default_eltos.co.length) )
                {
 	           return langError(context, "Incorrect binary format on 'co': " + getToken(context)) ;
                }
@@ -695,7 +695,7 @@ function loadFirmware (text)
 	       {
 	           // match mandatory FIELD
 	           var tmp_name = getToken(context) ;
-	           if (campos[camposInsertados]["name"] != tmp_name)
+	           if (campos[camposInsertados].name != tmp_name)
 		       return langError(context, "Unexpected field found: '" + tmp_name + "'") ;
 
 	           nextToken(context);
@@ -708,11 +708,11 @@ function loadFirmware (text)
 	           if ( !isToken(context, "reg") && !isToken(context, "inm") && !isToken(context, "address") )
 		        return langError(context, "Incorrect type of field (reg, inm or address)") ;
 
-	           campos[camposInsertados]["type"] = getToken(context) ;
-	           firma = firma.replace("," + campos[camposInsertados]["name"], "," + campos[camposInsertados]["type"]);
-	           firma = firma.replace("(" + campos[camposInsertados]["name"], "(" + campos[camposInsertados]["type"]);
-	           firma = firma.replace(")" + campos[camposInsertados]["name"], ")" + campos[camposInsertados]["type"]);
-		   firmaUsuario = firmaUsuario.replace(campos[camposInsertados]["name"], campos[camposInsertados]["type"]);     
+	           campos[camposInsertados].type = getToken(context) ;
+	           firma = firma.replace("," + campos[camposInsertados].name, "," + campos[camposInsertados].type);
+	           firma = firma.replace("(" + campos[camposInsertados].name, "(" + campos[camposInsertados].type);
+	           firma = firma.replace(")" + campos[camposInsertados].name, ")" + campos[camposInsertados].type);
+		   firmaUsuario = firmaUsuario.replace(campos[camposInsertados].name, campos[camposInsertados].type);     
 
 	           instruccionAux.signature     = firma;
 		   instruccionAux.signatureUser = firmaUsuario;
@@ -727,10 +727,10 @@ function loadFirmware (text)
 
 	           nextToken(context);
 	           // match mandatory START_BIT
-	           campos[camposInsertados]["startbit"] = getToken(context) ;
+	           campos[camposInsertados].startbit = getToken(context) ;
 
                    // check startbit range
-                   var start = parseInt(campos[camposInsertados]["startbit"]);
+                   var start = parseInt(campos[camposInsertados].startbit);
                    if (start > 32*parseInt(instruccionAux.nwords)-1)
 		       return langError(context, "startbit out of range: " + getToken(context)) ;
 
@@ -741,10 +741,10 @@ function loadFirmware (text)
 
 	           nextToken(context);
 	           // match mandatory STOP_BIT
-	           campos[camposInsertados]["stopbit"] = getToken(context) ;
+	           campos[camposInsertados].stopbit = getToken(context) ;
 
                    // check stopbit range
-                   var stop  = parseInt(campos[camposInsertados]["stopbit"]);
+                   var stop  = parseInt(campos[camposInsertados].stopbit);
                    if (stop > 32*parseInt(instruccionAux.nwords))
 		       return langError(context, "stopbit out of range: " + getToken(context)) ;
 
@@ -752,7 +752,7 @@ function loadFirmware (text)
                    for (var i=stop; i<=start; i++)
                    {
                         if (typeof overlapping[i] != "undefined")
-		            return langError(context, "overlapping field: " + campos[camposInsertados]["name"]);
+		            return langError(context, "overlapping field: " + campos[camposInsertados].name);
                         overlapping[i] = 1;
                    }
 
@@ -762,14 +762,14 @@ function loadFirmware (text)
 		       return langError(context, "Expected ')' not found") ;
 
 	           nextToken(context);
-	           if (campos[camposInsertados]["type"] == "address")
+	           if (campos[camposInsertados].type == "address")
 	           {
 	               // match mandatory abs|rel
 		       if (getToken(context) !="abs" && getToken(context) !="rel")
 		    	   return langError(context, "Type of addressing incorrect (abs or rel)") ;
 
 	               // match mandatory ADDRESS_TYPE
-		       campos[camposInsertados]["address_type"] = getToken(context) ;
+		       campos[camposInsertados].address_type = getToken(context) ;
 		       nextToken(context);
 	           }
 
@@ -793,12 +793,12 @@ function loadFirmware (text)
 //             }
 // }
 
-	       instruccionAux.native = false;
+	       instruccionAux["native"] = false;
 
 	       // match optional 'native' + ','
 	       if (isToken(context, "native"))
 	       {
-	           instruccionAux.native = true;
+	           instruccionAux["native"] = true;
 		   nextToken(context);
 
 	           if (isToken(context,","))
@@ -806,7 +806,7 @@ function loadFirmware (text)
 	       }
 
 	       // semantic check: valid pending value (cop.length if native.false)
-	       if ( (instruccionAux.native !== true) &&
+	       if ( (instruccionAux["native"] !== true) &&
 		    (getToken(context).length !== xr_info.ir.default_eltos.cop.length) )
 	       {
 		    return langError(context,
@@ -823,7 +823,7 @@ function loadFirmware (text)
 //             }*
 // }
 
-	           if (true == instruccionAux.native)
+	           if (true == instruccionAux["native"])
                         var ret = read_native(context) ;
 		   else var ret = read_microprg(context) ;
 
@@ -942,14 +942,14 @@ function loadFirmware (text)
 		       continue ;
 		   }
 
-		   for (var j=0; j<ins["microcode"].length; j++)
+		   for (var j=0; j<ins.microcode.length; j++)
 		   {
-			if (typeof ins["microcode"][j].NATIVE != "undefined")
+			if (typeof ins.microcode[j].NATIVE != "undefined")
 			{
 			    mk_native += "context.instrucciones[" + i + "][\"microcode\"][" + j + "][\"NATIVE_JIT\"] = " +
 			                 " function() {\n" +
-					 "\t var fields = simcore_native_get_fields(\"" + ins["signatureRaw"] + "\");\n" +
-					     ins["microcode"][j].NATIVE +
+					 "\t var fields = simcore_native_get_fields(\"" + ins.signatureRaw + "\");\n" +
+					     ins.microcode[j].NATIVE +
 					 "\n};\n " ;
 			}
 		   }

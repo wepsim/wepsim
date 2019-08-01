@@ -291,12 +291,13 @@
        for (var i=0; i < instruction_list.length; i++)
        {
             io = instruction_list[i] ;
+            var k = 0 ;
 
             // signature
             line_signature  = io.signatureRaw.replace(/\$/g, "") ;
             signature_names = line_signature.replace(/[\(\)]/g," ").split(" ") ;
             signature_order = [] ;
-            for (var k=0; k<signature_names.length; k++) {
+            for (k=0; k<signature_names.length; k++) {
                  signature_order[signature_names[k]] = k ;
             }
 
@@ -304,13 +305,13 @@
             gfields = [] ;
             sfields = [] ;
             hfields = [] ;
-            for (var j=0; j<io.fields.length; j++)
+            for (j=0; j<io.fields.length; j++)
             {
                  if ( (io.fields[j].type === "co") || (io.fields[j].type === "cop") ) {
                        continue ;
                  }
 
-                 var k = signature_order[io.fields[j].name] ;
+                 k = signature_order[io.fields[j].name] ;
 
                  if ( (io.fields[j].type.endsWith("INT-Reg")) ||
                       (io.fields[j].type === "SFP-Reg") )
